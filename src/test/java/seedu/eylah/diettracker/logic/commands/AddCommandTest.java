@@ -194,7 +194,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public void printMetrics() { throw new AssertionError("This method should not be called"); }
+        public void printMetrics() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public Mode getMode() {

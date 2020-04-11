@@ -124,7 +124,9 @@ public class ModelStub implements DietModel {
     }
 
     @Override
-    public void printMetrics() { throw new AssertionError("This method should not be called."); }
+    public void printMetrics() {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public Mode getMode() {
