@@ -302,6 +302,9 @@ Example :
 
 === Undo: `undo`
 Allows user to undo previous action.
+
+CAUTION:  `quote`, `export` not supported.
+
 Format: `undo`
 
 Example :
@@ -310,6 +313,9 @@ Example :
 
 === Redo: `redo`
 Allows user to redo previous action.
+
+CAUTION:  `quote`, `export` not supported.
+
 Format: `redo`
 
 Example :

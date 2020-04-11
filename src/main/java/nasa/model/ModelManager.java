@@ -136,6 +136,9 @@ public class ModelManager implements Model {
             } else if (test.get(1).equals("module")) {
                 List<String> listTemp = test.subList(2, 3);
                 updateFilteredModuleList(new NameContainsKeywordsPredicate(listTemp));
+                if (test.size() == getFilteredDeadlineList(new ModuleCode(listTemp.get(0))).size()) {
+                    updateFilteredActivityList(x -> true);
+                }
                 if (test.size() > 2) {
                     List<String> help = test.subList(4, test.size());
                     updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(help));
