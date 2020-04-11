@@ -82,7 +82,6 @@ public class EditCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
         model.updateFilteredPersonListResult(personExistPredicate);

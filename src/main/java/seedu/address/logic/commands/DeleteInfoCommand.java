@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +83,6 @@ public class DeleteInfoCommand extends Command {
                 personToEdit.getOrganization(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
         model.updateFilteredPersonListResult(personExistPredicate);

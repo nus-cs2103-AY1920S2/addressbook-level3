@@ -79,7 +79,6 @@ public class AddInfoCommand extends Command {
                 personToEdit.getBirthday(), personToEdit.getOrganization(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
         model.updateFilteredPersonListResult(personExistPredicate);
