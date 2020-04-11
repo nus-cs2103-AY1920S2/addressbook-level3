@@ -17,6 +17,7 @@ public class BluetoothPingsStorage extends InMemoryStorage<BluetoothPings> {
      */
     private ArrayList<BluetoothPings> genFakeData() {
         ArrayList<BluetoothPings> fakePings = new ArrayList<BluetoothPings>();
+
         fakePings.add(new BluetoothPings(15000000L, Arrays.asList(11, 2)));
         fakePings.add(new BluetoothPings(15000100L, Arrays.asList(14, 9)));
         fakePings.add(new BluetoothPings(15000100L, Arrays.asList(3, 5)));
