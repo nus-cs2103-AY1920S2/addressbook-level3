@@ -61,7 +61,7 @@ the application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
 +
-image::GUI.png[width="790"]
+image::Ui.png[width="790"]
 This is how the GUI may look like when the TA-Tracker is opened.
 +
 .  Type a command in the command box, and press kbd:[Enter] to execute it. +
@@ -462,6 +462,11 @@ the same size*. +
 +
 This is to *prevent* the highlights from *overlapping* each other,
 allowing you to see them better.
+
+image::Tabs.png[width="790"]
+This shows what happens when you last made a change in the `student tab`
+and then clicked on the `claims tab`.
+
 ====
 
 === Student View
@@ -637,6 +642,9 @@ Showing the *parameter usage*
 * When there is an *invalid prefix* in your command.
 
 |=======================================================================
+
+image::Default.png[width="790"]
+This is an example of what a hint may look like.
 
 [[Commands]]
 == Commands
