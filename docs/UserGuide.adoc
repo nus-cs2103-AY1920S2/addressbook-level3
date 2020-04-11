@@ -220,7 +220,7 @@ Example: `report_person 1`
 to simulate actual deployment conditions where our App will receive a steady stream of data.
 
 *Q*: Will my personal data be protected well? +
-*A*: There will be strict authority sytem to prevent privacy leak, Only people with
-granted permission are allowed to get access to privacy data and all data published to public will be
+*A*: There will be strict authority sytem to prevent privacy leak, Only people who have been
+granted permission are able to get access to user privacy data and all data published to public will be
 anonymous.
 

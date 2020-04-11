@@ -2,12 +2,14 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.messages.AppMessage;
 import seedu.address.logic.messages.BluetoothPingsMessage;
+import seedu.address.logic.messages.CommandListMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.bluetooth.BluetoothPings;
+import seedu.address.model.bluetooth.CommandList;
 import seedu.address.storage.AppStorage;
 import seedu.address.storage.BluetoothPingStorageAccess;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HelpCommand implements AppCommand, BluetoothPingStorageAccess {
     public static final String COMMAND_WORD = "help";
@@ -20,33 +22,41 @@ public class HelpCommand implements AppCommand, BluetoothPingStorageAccess {
     public AppMessage execute(AppStorage dao)
     {
         ArrayList resp = dao.search();
-        BluetoothPingsMessage result = new BluetoothPingsMessage("Help Guideline with All Instances in Database: \n" +
-                " ------------------------------------------ \n" +
-                "Query over trace data: \n " +
-                " ------------------------------------------ \n"+
-                "from <ts: start> to <ts: end> \n " +
-                "id is <user: id> \n " +
-                "pairs <user1: id> and <user2: id> \n " +
-                "danger <threshold: counts> \n" +
-                " ------------------------------------------ \n" +
-                "Querying User Related Information \n" +
-                " ------------------------------------------ \n" +
-                "person \n " +
-                "person_by <person: id> \n " +
-                "person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age> \n " +
-                "person_delete /userid <person: id> \n" +
-                " ------------------------------------------ \n " +
-                "Gererating Reports \n " +
-                " ------------------------------------------ \n"+
-                "report all \n " +
-                "report time from <ts: start> to <ts:end> \n" +
-                " report danger <threshold: count>\n " +
-                "report pairs <user1: id> and <user2: id> \n " +
-                "report id is <user: id>\n " +
-                " ----------------------------------------- \n " +
-                "All interaction instances are listed below:"
-                , false);
-        result.setToDisplayList(resp);
+
+        CommandListMessage result = new CommandListMessage("Help Guideline for Users");
+        ArrayList<CommandList> allCommand = new ArrayList<CommandList>();
+
+
+        List<String> searchCommands = new ArrayList<String>();
+        String SearchType = "Query over trace data";
+        searchCommands.add("from <ts: start> to <ts: end>");
+        searchCommands.add("id is <user: id>");
+        searchCommands.add("pairs <user1: id> and <user2: id>");
+        searchCommands.add("danger <threshold: counts>");
+        CommandList SearchList = new CommandList(SearchType, searchCommands);
+
+        List<String> personCommands = new ArrayList<String>();
+        String PersonType = "Querying User Related Information";
+        personCommands.add("person");
+        personCommands.add("person_by <person: id>");
+        personCommands.add("person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age> \n");
+        personCommands.add("person_delete /userid <person: id>");
+        CommandList PersonList = new CommandList(PersonType, personCommands);
+
+
+        List<String> reportCommands = new ArrayList<String>();
+        String ReportType = "Querying User Related Information";
+        reportCommands.add("person");
+        reportCommands.add("person_by <person: id>");
+        reportCommands.add("person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age> \n");
+        reportCommands.add("person_delete /userid <person: id>");
+        CommandList ReportList = new CommandList(PersonType, reportCommands);
+
+        allCommand.add(SearchList);
+        allCommand.add(PersonList);
+        allCommand.add(ReportList);
+
+        result.setToDisplayList(allCommand);
         return result;
 
     }
