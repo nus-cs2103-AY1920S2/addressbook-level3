@@ -1,0 +1,79 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":GroupCommandParser" as GroupCommandParser LOGIC_COLOR
+participant ":AddGroupCommandParser" as AddGroupCommandParser LOGIC_COLOR
+participant "a:AddGroupCommand" as AddGroupCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("group add \nm/CS2103 g/G03 t/lab")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parseCommand("group add \nm/CS2103 g/G03 t/lab")
+activate TaTrackerParser
+
+create GroupCommandParser
+TaTrackerParser -> GroupCommandParser : GroupCommandParser()
+activate GroupCommandParser
+GroupCommandParser --> TaTrackerParser
+deactivate GroupCommandParser
+
+TaTrackerParser -> GroupCommandParser : parseCommand("add \nm/CS2103 g/G03 t/tutorial")
+activate GroupCommandParser
+
+create AddGroupCommandParser
+GroupCommandParser -> AddGroupCommandParser : AddGroupCommandParser()
+activate AddGroupCommandParser
+AddGroupCommandParser --> GroupCommandParser
+deactivate AddGroupCommandParser
+
+GroupCommandParser -> AddGroupCommandParser : parseCommand("m/CS2103 g/G03 t/lab")
+activate AddGroupCommandParser
+
+create AddGroupCommand
+AddGroupCommandParser -> AddGroupCommand : AddGroupCommand()
+activate AddGroupCommand
+AddGroupCommand --> AddGroupCommandParser
+deactivate AddGroupCommand
+
+AddGroupCommandParser --> GroupCommandParser : a
+deactivate AddGroupCommandParser
+AddGroupCommandParser -[hidden]-> GroupCommandParser
+destroy AddGroupCommandParser
+
+GroupCommandParser --> TaTrackerParser : a
+deactivate GroupCommandParser
+GroupCommandParser -[hidden]-> TaTrackerParser
+destroy GroupCommandParser
+
+TaTrackerParser --> LogicManager : a
+deactivate TaTrackerParser
+
+LogicManager -> AddGroupCommand : execute()
+activate AddGroupCommand
+
+AddGroupCommand -> Model : addGroup()
+activate Model
+Model --> AddGroupCommand
+deactivate Model
+
+create CommandResult
+AddGroupCommand -> CommandResult : CommandResult(SuccessMessage)
+activate CommandResult
+CommandResult --> AddGroupCommand
+deactivate CommandResult
+
+AddGroupCommand --> LogicManager : result
+deactivate AddGroupCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

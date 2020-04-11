@@ -1,0 +1,22 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+TaTracker *-right-> "1" UniqueTagList
+UniqueTagList -[hidden]down- UniqueStudentList
+UniqueTagList -[hidden]down- UniqueStudentList
+
+UniqueTagList *-right-> "*" Tag
+UniqueStudentList o-right-> Student
+
+Student o-up-> "*" Tag
+
+Student *--> Name
+Student *--> Phone
+Student *--> Email
+Student *--> Matric
+Student *--> Rating
+
+@enduml

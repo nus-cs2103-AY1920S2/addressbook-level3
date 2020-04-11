@@ -10,9 +10,11 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
+Class StatisticsWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class StudentTab
+Class ClaimsTab
+Class SessionTab
 Class StatusBarFooter
 Class CommandBox
 }
@@ -30,28 +32,36 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow ---> HelpWindow
+MainWindow ----> StatisticsWindow
+MainWindow *--down--> CommandBox
+MainWindow *--down--> ResultDisplay
+MainWindow *--down--> StudentTab
+MainWindow *--down--> SessionTab
+MainWindow *--down--> ClaimsTab
+MainWindow *--down--> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+CommandBox -up-> ResultDisplay
+
 
 MainWindow -left-|> UiPart
 
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+ResultDisplay ----|> UiPart
+CommandBox ----|> UiPart
+StudentTab ----|> UiPart
+SessionTab ----|> UiPart
+ClaimsTab ----|> UiPart
+StatusBarFooter ----|> UiPart
+HelpWindow --down--|> UiPart
+StatisticsWindow --down--|> UiPart
 
-PersonCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+StudentTab .down...> Model
+SessionTab .down..> Model
+ClaimsTab .down..> Model
+
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

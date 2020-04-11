@@ -1,0 +1,88 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":StudentCommandParser" as StudentCommandParser LOGIC_COLOR
+participant ":AddStudentCommandParser" as AddStudentCommandParser LOGIC_COLOR
+participant "a:AddStudentCommand" as AddStudentCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Student" as Student MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("Student add \nn/John Doe \nm/A0181234G")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parseCommand("Student add \nn/John Doe \nm/A0181234G")
+activate TaTrackerParser
+
+create StudentCommandParser
+TaTrackerParser -> StudentCommandParser : StudentCommandParser()
+activate StudentCommandParser
+StudentCommandParser --> TaTrackerParser
+deactivate StudentCommandParser
+
+TaTrackerParser -> StudentCommandParser : parseCommand("add \nn/John Doe \nm/A0181234G")
+activate StudentCommandParser
+
+create AddStudentCommandParser
+StudentCommandParser -> AddStudentCommandParser : AddStudentCommandParser()
+activate AddStudentCommandParser
+AddStudentCommandParser --> StudentCommandParser
+deactivate AddStudentCommandParser
+
+StudentCommandParser -> AddStudentCommandParser : parseCommand("\nn/John Doe \nm/A0181234G")
+activate AddStudentCommandParser
+
+create Student
+AddStudentCommandParser -> Student : Student(\n"John Doe", \n"A0181234G")
+activate Student
+Student --> AddStudentCommandParser
+deactivate Student
+
+create AddStudentCommand
+AddStudentCommandParser -> AddStudentCommand : AddStudentCommand(m)
+activate AddStudentCommand
+AddStudentCommand --> AddStudentCommandParser
+deactivate AddStudentCommand
+
+
+
+AddStudentCommandParser --> StudentCommandParser : a
+deactivate AddStudentCommandParser
+AddStudentCommandParser -[hidden]-> StudentCommandParser
+destroy AddStudentCommandParser
+
+StudentCommandParser --> TaTrackerParser : a
+deactivate StudentCommandParser
+StudentCommandParser -[hidden]-> TaTrackerParser
+destroy StudentCommandParser
+
+TaTrackerParser --> LogicManager : a
+deactivate TaTrackerParser
+
+LogicManager -> AddStudentCommand : execute()
+activate AddStudentCommand
+
+AddStudentCommand -> Model : addStudent(m)
+activate Model
+Model --> AddStudentCommand
+deactivate Model
+
+create CommandResult
+AddStudentCommand -> CommandResult : CommandResult(SuccessMessage)
+activate CommandResult
+CommandResult --> AddStudentCommand
+deactivate CommandResult
+
+AddStudentCommand --> LogicManager : result
+deactivate AddStudentCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

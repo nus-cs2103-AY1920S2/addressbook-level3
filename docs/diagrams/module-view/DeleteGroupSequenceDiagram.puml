@@ -1,0 +1,85 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":GroupCommandParser" as GroupCommandParser LOGIC_COLOR
+participant ":DeleteGroupCommandParser" as DeleteGroupCommandParser LOGIC_COLOR
+participant "d:DeleteGroupCommand" as DeleteGroupCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\n"group delete \nm/CS2103 g/G03")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parseCommand(\n"group delete \nm/CS2103 g/G03")
+activate TaTrackerParser
+
+create GroupCommandParser
+TaTrackerParser -> GroupCommandParser : GroupCommandParser()
+activate GroupCommandParser
+GroupCommandParser --> TaTrackerParser
+deactivate GroupCommandParser
+
+TaTrackerParser -> GroupCommandParser : parseCommand("delete \nm/CS2103 g/G03")
+activate GroupCommandParser
+
+create DeleteGroupCommandParser
+GroupCommandParser -> DeleteGroupCommandParser : DeleteGroupCommandParser()
+activate DeleteGroupCommandParser
+DeleteGroupCommandParser --> GroupCommandParser
+deactivate DeleteGroupCommandParser
+
+GroupCommandParser -> DeleteGroupCommandParser : parseCommand("m/CS2103 g/G03")
+activate DeleteGroupCommandParser
+
+create DeleteGroupCommand
+DeleteGroupCommandParser -> DeleteGroupCommand : DeleteGroupCommand(g, m)
+activate DeleteGroupCommand
+DeleteGroupCommand --> DeleteGroupCommandParser
+deactivate DeleteGroupCommand
+
+DeleteGroupCommandParser --> GroupCommandParser : d
+deactivate DeleteGroupCommandParser
+DeleteGroupCommandParser -[hidden]-> GroupCommandParser
+destroy DeleteGroupCommandParser
+
+GroupCommandParser --> TaTrackerParser : d
+deactivate GroupCommandParser
+GroupCommandParser -[hidden]-> TaTrackerParser
+destroy GroupCommandParser
+
+TaTrackerParser --> LogicManager : d
+deactivate TaTrackerParser
+
+LogicManager -> DeleteGroupCommand : execute()
+activate DeleteGroupCommand
+
+DeleteGroupCommand -> Model : hasModule("CS2103")
+activate Model
+Model --> DeleteGroupCommand : true
+
+DeleteGroupCommand -> Model : hasGroup("G03", "CS2103")
+Model --> DeleteGroupCommand : true
+
+DeleteGroupCommand -> Model : deleteGroup("G03", "CS2103")
+Model --> DeleteGroupCommand
+deactivate Model
+
+create CommandResult
+DeleteGroupCommand -> CommandResult : CommandResult()
+activate CommandResult
+CommandResult --> DeleteGroupCommand
+deactivate CommandResult
+
+DeleteGroupCommand --> LogicManager : result
+deactivate DeleteGroupCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

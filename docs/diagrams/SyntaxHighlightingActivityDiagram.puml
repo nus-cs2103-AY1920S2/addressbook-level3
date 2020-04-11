@@ -1,0 +1,104 @@
+@startuml
+start
+:Check new input in command box;
+
+if () then ([empty input])
+partition blank {
+    :Clear result display;
+}
+else if () then ([invalid command word])
+partition invalid {
+    :Highlight input in red;
+    :Show invalid command
+    in result display;
+}
+else ([valid command word])
+partition valid {
+    :Change highlighting rules
+    for command in input;
+
+    :Check input arguments;
+
+    if () then ([no arguments])
+    partition no_arguments {
+        :Highlight input in green;
+        :Show command usage message;
+    }
+    else ([has arguments])
+    partition has_arguments {
+        :Highlight arguments;
+    }
+    endif
+}
+endif
+stop
+@enduml
+
+@startuml
+start
+:Check arguments;
+
+if () then ([arguments have trailing whitespace])
+partition whitespaces {
+    :Clear highlighting;
+    :Count number of trailing whitespaces in arguments;
+    if () then ([1 whitespace])
+    else ([else])
+    partition many_whitespaces {
+        :Show command usage message;
+    }
+    endif
+    stop
+}
+else if () then ([command does not need preamble])
+    :Remove preamble;
+
+    :Check if removed preamble is blank;
+
+    if () then ([blank preamble])
+    else ([else])
+    partition preamble_error {
+        :Highlight input in red;
+        :Show command usage message;
+        stop
+    }
+    endif
+else ([else])
+endif
+partition preamble_end {
+:Highlight invalid arguments;
+}
+stop
+@enduml
+
+
+@startuml
+start
+
+:Check each prefix;
+
+while () is ([has next prefix])
+
+:Check next prefix;
+
+if () then ([wrong prefix])
+partition wrong {
+    :Highlight input in red;
+    :Show command usage message;
+    stop
+}
+else if () then ([invalid prefix value])
+partition invalid {
+    :Highlight input in red;
+    :Show prefix usage message;
+    stop
+}
+else ([valid prefix value])
+partition valid {
+    :Highlight input in green;
+    :Show prefix usage message;
+}
+endif
+endwhile([else])
+stop
+@enduml
