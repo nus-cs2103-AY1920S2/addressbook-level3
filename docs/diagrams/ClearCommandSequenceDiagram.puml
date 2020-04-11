@@ -3,7 +3,7 @@
 !include style.puml
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DelinoParser" as DelinoParser LOGIC_COLOR
 participant ":ClearCommandParser" as ClearCommandParser LOGIC_COLOR
 participant "clearCommand:ClearCommand" as ClearCommand LOGIC_COLOR
 end box
@@ -15,21 +15,21 @@ end box
 [-> LogicManager : execute("clear -f")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("clear -f")
-activate OrderBookParser
+LogicManager -> DelinoParser : parseCommand("clear -f")
+activate DelinoParser
 
 create ClearCommandParser
-OrderBookParser -> ClearCommandParser ++
+DelinoParser -> ClearCommandParser ++
 
-ClearCommandParser --> OrderBookParser --
+ClearCommandParser --> DelinoParser --
 
-OrderBookParser -> ClearCommandParser ++ : parse("-f")
+DelinoParser -> ClearCommandParser ++ : parse("-f")
 
 alt if invalid flag or both '-r' and '-o' flags  found in arguments
     ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
     ClearCommandParser --> ClearCommandParser -- : ParseException
-    ClearCommandParser --> OrderBookParser : ParseException
-    OrderBookParser --> LogicManager : ParseException
+    ClearCommandParser --> DelinoParser : ParseException
+    DelinoParser --> LogicManager : ParseException
     [<-- LogicManager : ParseException
 else flags are valid
     ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
@@ -41,12 +41,12 @@ else flags are valid
 
     ClearCommand --> ClearCommandParser -- : clearCommand
 
-    ClearCommandParser --> OrderBookParser -- : clearCommand
+    ClearCommandParser --> DelinoParser -- : clearCommand
     'Hidden arrow to position the destroy marker below the end of the activation bar.
-    ClearCommandParser -[hidden]-> OrderBookParser
+    ClearCommandParser -[hidden]-> DelinoParser
     destroy ClearCommandParser
 
-    OrderBookParser --> LogicManager -- : clearCommand
+    DelinoParser --> LogicManager -- : clearCommand
 
     ref over LogicManager,  Model : execute clear command
 

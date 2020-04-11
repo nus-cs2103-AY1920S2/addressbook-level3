@@ -17,7 +17,7 @@ import seedu.delino.model.parcel.order.Order;
  * An Immutable OrderBook that is serializable to JSON format.
  */
 @JsonRootName(value = "OrderBook")
-class JsonSerializableDeliveryOrderBook {
+class JsonSerializableOrderBook {
     public static final String MESSAGE_DUPLICATE_ORDER = "Delivery order list contains duplicate order(s).";
     private final List<JsonAdaptedOrder> orders = new ArrayList<>();
 
@@ -25,7 +25,7 @@ class JsonSerializableDeliveryOrderBook {
      * Constructs a {@code JsonSerializableOrderBook} with the given orders.
      */
     @JsonCreator
-    public JsonSerializableDeliveryOrderBook(@JsonProperty("orders") List<JsonAdaptedOrder> orders) {
+    public JsonSerializableOrderBook(@JsonProperty("orders") List<JsonAdaptedOrder> orders) {
         this.orders.addAll(orders);
     }
 
@@ -34,7 +34,7 @@ class JsonSerializableDeliveryOrderBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableOrderBook}.
      */
-    public JsonSerializableDeliveryOrderBook(ReadOnlyOrderBook source) {
+    public JsonSerializableOrderBook(ReadOnlyOrderBook source) {
         orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
     }
 

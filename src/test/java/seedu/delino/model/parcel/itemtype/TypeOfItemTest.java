@@ -6,6 +6,8 @@ import static seedu.delino.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.delino.model.parcel.optionalparcelattributes.TypeOfItem;
+
 public class TypeOfItemTest {
     @Test
     public void constructor_null_throwsNullPointerException() {

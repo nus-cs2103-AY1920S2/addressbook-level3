@@ -5,7 +5,7 @@
 mainframe sd Execution of Help Command
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DelinoParser" as DelinoParser LOGIC_COLOR
 participant ":HelpCommandParser" as HelpCommandParser LOGIC_COLOR
 participant "d:HelpCommand" as HelpCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
@@ -19,17 +19,17 @@ end box
 [-> LogicManager : execute("help...")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("help...")
-activate OrderBookParser
+LogicManager -> DelinoParser : parseCommand("help...")
+activate DelinoParser
 
 create HelpCommandParser
-OrderBookParser -> HelpCommandParser
+DelinoParser -> HelpCommandParser
 activate HelpCommandParser
-HelpCommandParser --> OrderBookParser
+HelpCommandParser --> DelinoParser
 deactivate HelpCommandParser
 
 alt non-whitespace characters absent after help command word
-OrderBookParser -> HelpCommandParser : parse("...")
+DelinoParser -> HelpCommandParser : parse("...")
 activate HelpCommandParser
 HelpCommandParser -> HelpCommandParser : doesInputHaveExtraParameters("...")
 activate HelpCommandParser
@@ -47,14 +47,14 @@ HelpCommand --> HelpCommandParser : result
 deactivate HelpCommand
 
 
-HelpCommandParser --> OrderBookParser : result
+HelpCommandParser --> DelinoParser : result
 deactivate HelpCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-HelpCommandParser -[hidden]-> OrderBookParser
+HelpCommandParser -[hidden]-> DelinoParser
 destroy HelpCommandParser
 
-OrderBookParser --> LogicManager : result
-deactivate OrderBookParser
+DelinoParser --> LogicManager : result
+deactivate DelinoParser
 [<--LogicManager : result
 
 deactivate LogicManager
@@ -68,11 +68,11 @@ HelpCommandParser -> ParseException
 activate ParseException
 ParseException --> HelpCommandParser : exception
 activate HelpCommandParser
-HelpCommandParser --> OrderBookParser : exception
+HelpCommandParser --> DelinoParser : exception
 deactivate HelpCommandParser
-activate OrderBookParser
-OrderBookParser --> LogicManager : exception
-deactivate OrderBookParser
+activate DelinoParser
+DelinoParser --> LogicManager : exception
+deactivate DelinoParser
 
 activate LogicManager
 [<--LogicManager : exception
