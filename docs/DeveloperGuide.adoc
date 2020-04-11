@@ -226,7 +226,7 @@ This section, will <<what-is-insert, introduce>> the `insert` feature.
 In addition, it will show the expected <<insert-sequence, path-execution>>,
 the <<insert-class, structure>> of the of the *InsertCommand* class,
 <<insertparser-class, structure>> of the *InsertCommandParser* class and
-it will also describe the <<insert-activity, interaction>> of objects between the *InsertCommand* object
+it will also describe the <<insert-sequence, interaction>> of objects between the *InsertCommand* object
 and other object classes.
 
 [[what-is-insert]]
