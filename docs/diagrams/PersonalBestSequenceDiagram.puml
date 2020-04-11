@@ -1,33 +1,38 @@
 @startuml
 !include style.puml
 
-Participant ":ViewCommand" as ui UI_COLOR
-Participant ":PersonalBestFinder" as logic LOGIC_COLOR
-Participant ":Client" as model MODEL_COLOR
-Participant ":PersonalBest" as storage STORAGE_COLOR
+box Logic LOGIC_COLOR_T1
+    Participant ":ViewCommand" as ViewCommand LOGIC_COLOR
+    Participant ":PersonalBestFinder" as PersonalBestFinder LOGIC_COLOR
+end box
 
--[USER_COLOR]> ui : execute(model)
-activate ui UI_COLOR
+box Model MODEL_COLOR_T1
+    Participant ":Client" as Client MODEL_COLOR
+    Participant ":PersonalBest" as PersonalBest MODEL_COLOR
+endbox
 
-ui -[UI_COLOR]> logic : generateAndSetPersonalBest(client)
-activate logic LOGIC_COLOR
+[-[LOGIC_COLOR]> ViewCommand : execute(model)
 
-logic -[LOGIC_COLOR]> model : getExerciseList()
-activate model MODEL_COLOR
+activate ViewCommand LOGIC_COLOR
+ViewCommand -[LOGIC_COLOR]> PersonalBestFinder : generateAndSetPersonalBest(client)
 
-model -[MODEL_COLOR]-> logic : exerciseList
-deactivate model
+activate PersonalBestFinder LOGIC_COLOR
+PersonalBestFinder -[LOGIC_COLOR]> Client : getExerciseList()
 
-logic -[LOGIC_COLOR]> storage : setPersonalBest(values)
-activate storage STORAGE_COLOR
+activate Client MODEL_COLOR
+PersonalBestFinder <[MODEL_COLOR]-- Client : exerciseList
+deactivate Client
 
-storage --[STORAGE_COLOR]> logic
-deactivate storage
+PersonalBestFinder -[LOGIC_COLOR]> PersonalBest : setPersonalBest(values)
+activate PersonalBest MODEL_COLOR
+PersonalBestFinder <[MODEL_COLOR]-- PersonalBest
+deactivate PersonalBest
 
-logic --[LOGIC_COLOR]> ui
-deactivate logic
+ViewCommand <[LOGIC_COLOR]-- PersonalBestFinder
+deactivate PersonalBestFinder
 
-[<[LOGIC_COLOR]-- ui : CommandResult
+<[LOGIC_COLOR]-- ViewCommand : CommandResult
 
-deactivate ui
+deactivate ViewCommand
+
 @enduml
