@@ -1,24 +1,13 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SALARY_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SALARY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStaff.StaffAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.modelStaff.StaffAddressBook;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Teacher} objects to be used in tests.
@@ -46,21 +35,41 @@ public class TypicalTeacher {
     public static final Staff GEORGE = new TeacherBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withSalary("1000").withAddress("4th street").build();
 
-    // Manually added
-    public static final Staff HOON = new TeacherBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withSalary("1000").withAddress("little india").build();
-    public static final Staff IDA = new TeacherBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withSalary("1000").withAddress("chicago ave").build();
+    // Manually added Twins same everything
+    public static final Staff DEFAULT_STAFF_1 = new TeacherBuilder().build();
+    public static final Staff DEFAULT_STAFF_2 = new TeacherBuilder().build();
+    public static final Staff TWINS_A1 = new TeacherBuilder().withName("Andy").withPhone("8482424")
+            .withEmail("andy@example.com").withSalary("2000").withAddress("chicago").build();
+    public static final Staff TWINS_A2 = new TeacherBuilder().withName("Andy").withPhone("8482424")
+            .withEmail("andy@example.com").withSalary("2000").withAddress("chicago").build();
+    // Manually added Twins same everything except gender
+    public static final Staff TWINS_B1 = new TeacherBuilder().withName("Ben").withID("16100").
+            withLevel("admin").withGender("f").withPhone("8482424").withEmail("ben@example.com").
+            withSalary("1000").withAddress("mexico").build();
+    public static final Staff TWINS_B2 = new TeacherBuilder().withName("Ben").withID("16100").
+            withLevel("admin").withGender("m").withPhone("8482424").withEmail("ben@example.com").
+            withSalary("1000").withAddress("mexico").build();
+    // Manually added Twins same everything except level
+    public static final Staff TWINS_C1 = new TeacherBuilder().withName("Christina").withID("16100").
+            withLevel("teacher").withGender("f").withPhone("8482424").withEmail("christina@example.com").
+            withSalary("1000").withAddress("mexico").build();
+    public static final Staff TWINS_C2 = new TeacherBuilder().withName("Christina").withID("16100").
+            withLevel("admin").withGender("f").withPhone("8482424").withEmail("christina@example.com").
+            withSalary("1000").withAddress("mexico").build();
+    // Manually added Twins same everything except id
+    public static final Staff TWINS_D1 = new TeacherBuilder().withName("Daniel").withID("16100").
+            withLevel("admin").withGender("m").withPhone("8482424").withEmail("daniel@example.com").
+            withSalary("1000").withAddress("mexico").build();
+    public static final Staff TWINS_D2 = new TeacherBuilder().withName("Daniel").withID("17100").
+            withLevel("admin").withGender("m").withPhone("8482424").withEmail("daniel@example.com").
+            withSalary("1000").withAddress("mexico").build();
 
-    // Manually added - Teacher's details found in {@code CommandTestUtil}
+    // Manually added - Staff's details found in {@code CommandTestUtil}
     public static final Staff AMY = new TeacherBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withSalary(VALID_SALARY_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Staff BOB = new TeacherBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withSalary(VALID_SALARY_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
-
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalTeacher() {} // prevents instantiation
 

@@ -1,13 +1,5 @@
 package seedu.address.model.modelStaff;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
@@ -240,7 +232,6 @@ public class Staff extends ModelObject {
       return !tags.isEmpty();
   }
 
-
   /**
    * Returns true if both staffs of the same name have at least one other identity field that is
    * the same. This defines a weaker notion of equality between two teachers.
@@ -277,7 +268,9 @@ public class Staff extends ModelObject {
     Staff otherStaff = (Staff) other;
     return otherStaff.getName().equals(getName())
         && otherStaff.getPhone().equals(getPhone())
+            && otherStaff.getLevel().equals(getLevel())
             && otherStaff.getId().equals(getId())
+            && otherStaff.getGender().equals(getGender())
         && otherStaff.getEmail().equals(getEmail())
         && otherStaff.getSalary().equals(getSalary())
         && otherStaff.getAddress().equals(getAddress())

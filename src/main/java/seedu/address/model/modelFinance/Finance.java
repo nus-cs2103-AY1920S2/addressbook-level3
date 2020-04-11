@@ -1,21 +1,17 @@
 package seedu.address.model.modelFinance;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.commons.core.UuidManager;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.modelGeneric.ModelObject;
+import seedu.address.model.person.*;
+import seedu.address.model.tag.Tag;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.core.UuidManager;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.FinanceType;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Finance in the address book. Guarantees: details are present and not null, field
@@ -40,7 +36,7 @@ public class Finance extends ModelObject {
    */
   public Finance(Name name, FinanceType financeType, Date date, Amount amount, Set<Tag> tags)
       throws ParseException {
-    requireAllNonNull(name, financeType, amount, tags);
+    requireAllNonNull(name, financeType, date, amount, tags);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
     this.financeType = financeType;
@@ -53,7 +49,7 @@ public class Finance extends ModelObject {
   }
 
   public Finance(Name name, ID id, FinanceType financeType, Date date, Amount amount, Set<Tag> tags) {
-    requireAllNonNull(name, financeType, amount, tags);
+    requireAllNonNull(name, financeType, date, amount, tags);
     this.name = name;
     this.id = id;
     this.financeType = financeType;
@@ -70,6 +66,7 @@ public class Finance extends ModelObject {
    */
   public Finance(Name name, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID staffid, Set<Tag> tags)
       throws ParseException {
+    requireAllNonNull(name, financeType, date, amount, tags);
     requireAllNonNull(courseid, studentid, staffid);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
