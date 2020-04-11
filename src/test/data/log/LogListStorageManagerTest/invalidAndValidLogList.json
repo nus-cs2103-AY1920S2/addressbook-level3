@@ -1,0 +1,899 @@
+{
+    "logs" : [ {
+        "workoutName" : "Legs Day",
+        "startTime" : "2020-04-01 16:09",
+        "endTime" : "2020-04-01 17:39",
+        "exercise" : [ {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-01 16:16",
+            "endTime" : "2020-04-01 16:24"
+        }, {
+            "exerciseName" : "Overhead Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-01 16:16",
+            "endTime" : "2020-04-01 16:24"
+        }, {
+            "exerciseName" : "Triceps Pushdown",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-01 16:16",
+            "endTime" : "2020-04-01 16:24"
+        }, {
+            "exerciseName" : "Push Up",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-01 16:16",
+            "endTime" : "2020-04-01 16:24"
+        }, {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-01 16:16",
+            "endTime" : "2020-04-01 16:24"
+        } ]
+    }, {
+        "workoutName" : "Arms day",
+        "startTime" : "2020-04-02 16:09",
+        "endTime" : "2020-04-02 17:39",
+        "exercise" : [ {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-02 16:16",
+            "endTime" : "2020-04-02 16:24"
+        }, {
+            "exerciseName" : "Overhead Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-02 16:16",
+            "endTime" : "2020-04-02 16:24"
+        }, {
+            "exerciseName" : "Triceps Pushdown",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-02 16:16",
+            "endTime" : "2020-04-02 16:24"
+        }, {
+            "exerciseName" : "Push Up",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-02 16:16",
+            "endTime" : "2020-04-02 16:24"
+        }, {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-02 16:16",
+            "endTime" : "2020-04-02 16:24"
+        } ]
+    }, {
+        "workoutName" : "Strength",
+        "startTime" : "2020-04-03 16:09",
+        "endTime" : "2020-04-03 17:39",
+        "exercise" : [ {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-03 16:16",
+            "endTime" : "2020-04-03 16:24"
+        }, {
+            "exerciseName" : "Overhead Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-03 16:16",
+            "endTime" : "2020-04-03 16:24"
+        }, {
+            "exerciseName" : "Triceps Pushdown",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-03 16:16",
+            "endTime" : "2020-04-03 16:24"
+        }, {
+            "exerciseName" : "Push Up",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-03 16:16",
+            "endTime" : "2020-04-03 16:24"
+        }, {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-03 16:16",
+            "endTime" : "2020-04-03 16:24"
+        } ]
+    }, {
+        "workoutName" : "Legs Day",
+        "startTime" : "2020-04-04 16:09",
+        "endTime" : "2020-04-04 17:39",
+        "exercise" : [ {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-04 16:16",
+            "endTime" : "2020-04-04 16:24"
+        }, {
+            "exerciseName" : "Overhead Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-04 16:16",
+            "endTime" : "2020-04-04 16:24"
+        }, {
+            "exerciseName" : "Triceps Pushdown",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-04 16:16",
+            "endTime" : "2020-04-04 16:24"
+        }, {
+            "exerciseName" : "Push Up",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-04 16:16",
+            "endTime" : "2020-04-04 16:24"
+        }, {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-04 16:16",
+            "endTime" : "2020-04-04 16:24"
+        } ]
+    }, {
+        "workoutName" : "Arms day",
+        "startTime" : "2020-04-05 16:09",
+        "endTime" : "2020-04-05 17:39",
+        "exercise" : [ {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-05 16:16",
+            "endTime" : "2020-04-05 16:24"
+        }, {
+            "exerciseName" : "Overhead Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-05 16:16",
+            "endTime" : "2020-04-05 16:24"
+        }, {
+            "exerciseName" : "Triceps Pushdown",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-05 16:16",
+            "endTime" : "2020-04-05 16:24"
+        }, {
+            "exerciseName" : "Push Up",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-05 16:16",
+            "endTime" : "2020-04-05 16:24"
+        }, {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-05 16:16",
+            "endTime" : "2020-04-05 16:24"
+        } ]
+    }, {
+        "workoutName" : "Strength",
+        "startTime" : "2020-04-06 16:09",
+        "endTime" : "2020-04-06 17:39",
+        "exercise" : [ {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-06 16:16",
+            "endTime" : "2020-04-06 16:24"
+        }, {
+            "exerciseName" : "Overhead Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-06 16:16",
+            "endTime" : "2020-04-06 16:24"
+        }, {
+            "exerciseName" : "Triceps Pushdown",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-06 16:16",
+            "endTime" : "2020-04-06 16:24"
+        }, {
+            "exerciseName" : "Push Up",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-06 16:16",
+            "endTime" : "2020-04-06 16:24"
+        }, {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-06 16:16",
+            "endTime" : "2020-04-06 16:24"
+        } ]
+    }, {
+        "workoutName" : "Legs Day",
+        "startTime" : "2020-04-07 16:09",
+        "endTime" : "2020-04-07 17:39",
+        "exercise" : [ {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-07 16:16",
+            "endTime" : "2020-04-07 16:24"
+        }, {
+            "exerciseName" : "Overhead Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-07 16:16",
+            "endTime" : "2020-04-07 16:24"
+        }, {
+            "exerciseName" : "Triceps Pushdown",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-07 16:16",
+            "endTime" : "2020-04-07 16:24"
+        }, {
+            "exerciseName" : "Push Up",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-07 16:16",
+            "endTime" : "2020-04-07 16:24"
+        }, {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-07 16:16",
+            "endTime" : "2020-04-07 16:24"
+        } ]
+    }, {
+        "workoutName" : "Arms day",
+        "startTime" : "2020-04-08 16:09",
+        "endTime" : "2020-04-08 17:39",
+        "exercise" : [ {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-08 16:16",
+            "endTime" : "2020-04-08 16:24"
+        }, {
+            "exerciseName" : "Overhead Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-08 16:16",
+            "endTime" : "2020-04-08 16:24"
+        }, {
+            "exerciseName" : "Triceps Pushdown",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-08 16:16",
+            "endTime" : "2020-04-08 16:24"
+        }, {
+            "exerciseName" : "Push Up",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-08 16:16",
+            "endTime" : "2020-04-08 16:24"
+        }, {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-08 16:16",
+            "endTime" : "2020-04-08 16:24"
+        } ]
+    }, {
+        "workoutName" : "Strength",
+        "startTime" : "2020-04-09 16:09",
+        "endTime" : "2020-04-09 17:39",
+        "exercise" : [ {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-09 16:16",
+            "endTime" : "2020-04-09 16:24"
+        }, {
+            "exerciseName" : "Overhead Press",
+            "exerciseSets" : [ {
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-09 16:16",
+            "endTime" : "2020-04-09 16:24"
+        }, {
+            "exerciseName" : "Triceps Pushdown",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-09 16:16",
+            "endTime" : "2020-04-09 16:24"
+        }, {
+            "exerciseName" : "Push Up",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-09 16:16",
+            "endTime" : "2020-04-09 16:24"
+        }, {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-09 16:16",
+            "endTime" : "2020-04-09 16:24"
+        } ]
+    }, {
+        "startTime" : "2020-04-10 16:09",
+        "endTime" : "2020-04-10 17:39",
+        "exercise" : [ {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-10 16:16",
+            "endTime" : "2020-04-10 16:24"
+        }, {
+            "exerciseName" : "Overhead Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-10 16:16",
+            "endTime" : "2020-04-10 16:24"
+        }, {
+            "exerciseName" : "Triceps Pushdown",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-10 16:16",
+            "endTime" : "2020-04-10 16:24"
+        }, {
+            "exerciseName" : "Push Up",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-10 16:16",
+            "endTime" : "2020-04-10 16:24"
+        }, {
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-10 16:16",
+            "endTime" : "2020-04-10 16:24"
+        } ]
+    } ]
+}

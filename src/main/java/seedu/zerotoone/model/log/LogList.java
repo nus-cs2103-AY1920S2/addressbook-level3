@@ -78,7 +78,6 @@ public class LogList implements ReadOnlyLogList {
     @Override
     public String toString() {
         return getLogList().size() + " Logs";
-        // TODO: refine later
     }
 
     @Override

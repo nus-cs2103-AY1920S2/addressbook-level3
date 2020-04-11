@@ -4,11 +4,11 @@ package seedu.zerotoone.logic.commands.util;
  * Container for all ZeroToOne commands.
  */
 public class Commands {
+    public static final String ABOUT = "about";
     public static final String START = "start WORKOUT_ID";
     public static final String STOP = "stop";
     public static final String DONE = "done";
     public static final String SKIP = "skip";
-    public static final String HELP = "help";
     public static final String EXIT = "exit";
 
     public static final String EXERCISE_LIST = "exercise list";

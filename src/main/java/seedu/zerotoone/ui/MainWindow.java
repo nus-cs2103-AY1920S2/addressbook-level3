@@ -3,12 +3,13 @@ package seedu.zerotoone.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.Logic;
 import seedu.zerotoone.logic.commands.CommandResult;
@@ -17,8 +18,8 @@ import seedu.zerotoone.logic.commands.util.AllCommands;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.ui.util.UiPart;
 import seedu.zerotoone.ui.util.ViewType;
+import seedu.zerotoone.ui.views.about.AboutDisplay;
 import seedu.zerotoone.ui.views.exercise.ExerciseListPanel;
-import seedu.zerotoone.ui.views.help.HelpDisplay;
 import seedu.zerotoone.ui.views.home.HomePanel;
 import seedu.zerotoone.ui.views.log.LogListPanel;
 import seedu.zerotoone.ui.views.schedule.ScheduledWorkoutListPanel;
@@ -43,14 +44,14 @@ public class MainWindow extends UiPart<Stage> {
     private LogListPanel logListPanel;
     private ResultDisplay resultDisplay;
     private StatisticsWindow statisticsWindow;
-    private HelpDisplay helpDisplay;
+    private AboutDisplay aboutDisplay;
 
     @FXML
     private VBox tabsVBox;
     @FXML
     private StackPane commandBoxPlaceholder;
     @FXML
-    private StackPane helpDisplayPlaceholder;
+    private StackPane aboutDisplayPlaceholder;
     @FXML
     private StackPane resultDisplayPlaceholder;
     @FXML
@@ -71,10 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
         statisticsWindow = new StatisticsWindow();
-
         tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
             tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 6 - 6);
             tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 6 - 6);
@@ -88,9 +86,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Initialises the MainWindow
      */
-    void start() {
-        primaryStage.show();
-
+    void init() {
         // Fills up all the placeholders of this window.
         homePanel = new HomePanel(logic.getOngoingSetList(), logic.getLastSet(), logic.getTimerList());
         homeContentPlaceholder.getChildren().add(homePanel.getRoot());
@@ -107,8 +103,8 @@ public class MainWindow extends UiPart<Stage> {
         logListPanel = new LogListPanel(logic.getFilteredLogList());
         logContentPlaceholder.getChildren().add(logListPanel.getRoot());
 
-        helpDisplay = new HelpDisplay(new AllCommands().getCommandList());
-        helpDisplayPlaceholder.getChildren().add(helpDisplay.getRoot());
+        aboutDisplay = new AboutDisplay(new AllCommands().getCommandList());
+        aboutDisplayPlaceholder.getChildren().add(aboutDisplay.getRoot());
 
         tabPanePlaceHolder.setMinWidth(530);
         tabPanePlaceHolder.setMinHeight(200);
@@ -126,15 +122,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the default size based on {@code guiSettings}.
+     * Starts the MainWindow
      */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
+    void start() {
+        // Scale Width and Height based on Screen Resolution
+        Rectangle2D screenBoundary = Screen.getPrimary().getVisualBounds();
+        primaryStage.setWidth(screenBoundary.getWidth() / 1.5);
+        primaryStage.setHeight(screenBoundary.getWidth() / 2);
+
+        // Center Window
+        primaryStage.setX((screenBoundary.getWidth() - primaryStage.getWidth()) / 2);
+        primaryStage.setY((screenBoundary.getHeight() - primaryStage.getHeight()) / 2);
+
+        primaryStage.show();
     }
 
     /**
@@ -166,9 +166,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
         logic.showdownTimer();
         statisticsWindow.hide();
         primaryStage.hide();

@@ -8,7 +8,7 @@ import seedu.zerotoone.commons.util.StringUtil;
 import seedu.zerotoone.model.session.CompletedWorkout;
 
 /**
- * Tests that a {@code Session}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code CompletedWorkout}'s {@code WorkoutName} matches any of the keywords given.
  */
 public class PredicateFilterLogWorkoutName implements Predicate<CompletedWorkout> {
     private final List<String> keywords;
@@ -20,7 +20,7 @@ public class PredicateFilterLogWorkoutName implements Predicate<CompletedWorkout
     @Override
     public boolean test(CompletedWorkout completedWorkout) {
         return keywords.stream().anyMatch(
-            keyword -> StringUtil.containsWordIgnoreCase(completedWorkout.getWorkoutName().fullName, keyword));
+            keyword -> StringUtil.containsSubstringIgnoreCase(completedWorkout.getWorkoutName().fullName, keyword));
     }
 
     @Override
@@ -29,5 +29,4 @@ public class PredicateFilterLogWorkoutName implements Predicate<CompletedWorkout
                 || (other instanceof PredicateFilterLogWorkoutName // instanceof handles nulls
                 && keywords.equals(((PredicateFilterLogWorkoutName) other).keywords)); // state check
     }
-
 }

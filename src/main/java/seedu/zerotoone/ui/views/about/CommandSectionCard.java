@@ -1,4 +1,4 @@
-package seedu.zerotoone.ui.views.help;
+package seedu.zerotoone.ui.views.about;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import seedu.zerotoone.ui.util.UiPart;
  * Card to display command sections.
  */
 public class CommandSectionCard extends UiPart<Region> {
-    private static final String FXML = "help/CommandSectionCard.fxml";
+    private static final String FXML = "about/CommandSectionCard.fxml";
 
     @FXML
-    private HBox helpSectionCard;
+    private HBox aboutSectionCard;
     @FXML
     private Label sectionName;
     @FXML

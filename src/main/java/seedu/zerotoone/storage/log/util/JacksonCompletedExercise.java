@@ -23,12 +23,10 @@ public class JacksonCompletedExercise {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Exercise's %s field is missing!";
     public static final String INVALID_TIME_FORMAT_MESSAGE = "Exercise's startTime or endTime field is invalid!";
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
     private final String exerciseName;
     private final List<JacksonCompletedSet> exerciseSets = new LinkedList<>();
     private final String startTime;
     private final String endTime;
-
 
     /**
      * Constructs a {@code JsonAdaptedCompletedExercise} with the given exercise details.
@@ -65,14 +63,18 @@ public class JacksonCompletedExercise {
      * @throws IllegalValueException if there were any data constraints violated in the adapted exercise.
      */
     public CompletedExercise toModelType() throws IllegalValueException {
-        if (exerciseName == null || !ExerciseName.isValidExerciseName(exerciseName)) {
+        if (exerciseName == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ExerciseName.class.getSimpleName()));
+        } else if (!ExerciseName.isValidExerciseName(exerciseName)) {
+            throw new IllegalValueException(ExerciseName.MESSAGE_CONSTRAINTS);
         }
+
         final ExerciseName modelExerciseName = new ExerciseName(exerciseName);
 
         final List<CompletedSet> modelCompletedSets = new ArrayList<>();
+
         for (JacksonCompletedSet exerciseSet : exerciseSets) {
             modelCompletedSets.add(exerciseSet.toModelType());
         }
@@ -84,6 +86,7 @@ public class JacksonCompletedExercise {
         if (endTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "EndTime"));
         }
+
         LocalDateTime start;
         LocalDateTime end;
 
@@ -93,7 +96,11 @@ public class JacksonCompletedExercise {
         } catch (DateTimeParseException exception) {
             throw new IllegalValueException(INVALID_TIME_FORMAT_MESSAGE);
         }
+
         return new CompletedExercise(modelExerciseName, modelCompletedSets, start, end);
     }
 
+    public static DateTimeFormatter getDateTimeFormatter() {
+        return dateTimeFormatter;
+    }
 }

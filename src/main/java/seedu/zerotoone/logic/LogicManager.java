@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
@@ -65,18 +64,6 @@ public class LogicManager implements Logic {
     @Override
     public ViewType getViewType(String commandText) throws ParseException {
         return parser.parseViewType(commandText);
-    }
-
-    // -----------------------------------------------------------------------------------------
-    // Common
-    @Override
-    public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
     }
 
     // -----------------------------------------------------------------------------------------
@@ -165,6 +152,4 @@ public class LogicManager implements Logic {
     public void showdownTimer() {
         model.shutdownTimer();
     }
-
-
 }

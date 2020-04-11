@@ -33,7 +33,6 @@ class JacksonCompletedSet {
         this.weight = weight;
         this.numReps = numReps;
         this.isFinished = isFinished;
-
     }
 
     /**

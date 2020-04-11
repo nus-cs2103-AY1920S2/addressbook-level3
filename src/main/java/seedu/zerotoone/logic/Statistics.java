@@ -23,14 +23,13 @@ public class Statistics {
     public static StatisticsData generate(List<CompletedWorkout> workouts, Optional<LocalDateTime> startDateRange,
                                           Optional<LocalDateTime> endDateRange) {
 
+        LocalDateTime startDateTime = startDateRange.orElseGet(() ->
+            Statistics.getEarliestWorkoutStartTime(workouts));
+        LocalDateTime endDateTime = endDateRange.orElseGet(() ->
+            Statistics.getLatestEndDate(workouts));
 
-        LocalDateTime start = startDateRange.orElseGet(() ->
-            Statistics.getEarliestWorkoutStartTime(workouts).minusSeconds(1));
-        LocalDateTime end = endDateRange.orElseGet(() ->
-            Statistics.getLatestEndDate(workouts).plusSeconds(1));
-
-        workouts.removeIf(workout -> workout.getStartTime().isBefore(start));
-        workouts.removeIf(workout -> workout.getEndTime().isAfter(end));
+        workouts.removeIf(workout -> workout.getStartTime().isBefore(startDateTime));
+        workouts.removeIf(workout -> workout.getEndTime().isAfter(endDateTime));
 
         Integer workoutCount = workouts.size();
 
@@ -42,11 +41,16 @@ public class Statistics {
             workout -> Duration.between(workout.getStartTime(), workout.getEndTime()))
             .reduce(Duration.ZERO, Duration::plus);
 
-        long numberOfDays = Duration.between(start, end).toDays() + 1;
+        long numberOfDays = Duration.between(startDateTime, endDateTime).toDays() + 1;
 
         Duration averageTimePerDay = totalWorkoutDuration.dividedBy(numberOfDays);
 
-        return new StatisticsData(start, end, workoutCount, totalWorkoutDuration, averageTimePerDay);
+        return new StatisticsData(workouts,
+            startDateTime,
+            endDateTime,
+            workoutCount,
+            totalWorkoutDuration,
+            averageTimePerDay);
     }
 
     /**
@@ -63,6 +67,7 @@ public class Statistics {
                 earliest = workout.getStartTime();
             }
         }
+
         return earliest;
     }
 
@@ -80,6 +85,7 @@ public class Statistics {
                 latest = workout.getEndTime();
             }
         }
+
         return latest;
     }
 }
