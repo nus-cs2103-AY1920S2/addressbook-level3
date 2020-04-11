@@ -4,6 +4,7 @@ import static cookbuddy.logic.commands.CommandTestUtil.assertCommandFailure;
 import static cookbuddy.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static cookbuddy.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static cookbuddy.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +31,7 @@ public class DoneCommandTest {
         String expectedMessage = String.format(DoneCommand.MESSAGE_DONE_RECIPE_SUCCESS, recipeToDo.getName());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
-        expectedModel.favRecipe(recipeToDo);
+        expectedModel.attemptRecipe(recipeToDo);
 
         assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
     }
@@ -41,5 +42,11 @@ public class DoneCommandTest {
         DoneCommand doneCommand = new DoneCommand(outOfBoundIndex);
 
         assertCommandFailure(doneCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+    }
+    
+    @Test
+    public void testEquality() {
+       DoneCommand doneCommand = new DoneCommand(INDEX_FIRST_RECIPE);
+       assertEquals(doneCommand, new DoneCommand(INDEX_FIRST_RECIPE));
     }
 }
