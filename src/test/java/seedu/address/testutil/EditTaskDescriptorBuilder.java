@@ -83,7 +83,8 @@ public class EditTaskDescriptorBuilder {
         return this;
     }
 
-    public EditTaskDescriptorBuilder withRecurring(String recurrString, LocalDateTime referenceDateTime) {
+    public EditTaskDescriptorBuilder withRecurring(
+            String recurrString, LocalDateTime referenceDateTime) {
         try {
             descriptor.setRecurring(new Recurring(recurrString, referenceDateTime));
         } catch (ParseException e) {
@@ -91,7 +92,6 @@ public class EditTaskDescriptorBuilder {
         }
         return this;
     }
-
 
     public EditTaskDescriptor build() {
         return descriptor;

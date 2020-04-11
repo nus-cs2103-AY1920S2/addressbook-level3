@@ -7,9 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
-
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.task.exceptions.InvalidReminderException;
 
 public class RecurringTest {
 
@@ -41,10 +39,8 @@ public class RecurringTest {
         LocalDateTime testDateTime = LocalDateTime.of(2020, 03, 18, 14, 17);
         assertTrue(testRecurring.shouldUpdateReminder(testDateTime));
 
-        //assert False
+        // assert False
         LocalDateTime testFalseDateTime = LocalDateTime.of(2021, 03, 18, 14, 16);
         assertFalse(testRecurring.shouldUpdateReminder(testFalseDateTime));
-
     }
-
 }

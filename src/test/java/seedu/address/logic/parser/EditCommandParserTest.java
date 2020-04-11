@@ -5,15 +5,15 @@ import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TASK
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TASK2;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_RECURRING;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_REMINDER;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_REMINDER_PAST;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_RECURRING;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TASK1;
 import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_TASK1;
 import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_TASK2;
-import static seedu.address.logic.commands.CommandTestUtil.REMINDER;
 import static seedu.address.logic.commands.CommandTestUtil.RECURRING;
+import static seedu.address.logic.commands.CommandTestUtil.REMINDER;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HELP;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MA1521;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK1;
@@ -21,8 +21,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAS
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TASK1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_REMINDER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RECURRING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REMINDER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HELP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -33,7 +33,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_TASK;
 
 import java.time.LocalDateTime;
-
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
@@ -41,8 +40,8 @@ import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
-import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Recurring;
+import seedu.address.model.task.Reminder;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 public class EditCommandParserTest {
@@ -154,7 +153,6 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
-
     }
 
     @Test
@@ -206,7 +204,10 @@ public class EditCommandParserTest {
 
         // recurring
         userInput = targetIndex.getOneBased() + RECURRING;
-        descriptor = new EditTaskDescriptorBuilder().withRecurring(VALID_RECURRING, LocalDateTime.now()).build();
+        descriptor =
+                new EditTaskDescriptorBuilder()
+                        .withRecurring(VALID_RECURRING, LocalDateTime.now())
+                        .build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Description;
@@ -102,10 +101,7 @@ public class TaskBuilder {
         return this;
     }
 
-    /**
-     * Sets reminder as optional.empty for task builder.
-     * @return
-     */
+    /** Sets reminder as optional.empty for task builder. */
     public TaskBuilder withReminder() {
         this.reminder = Optional.empty();
         return this;

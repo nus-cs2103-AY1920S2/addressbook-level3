@@ -258,13 +258,11 @@ public class AddCommandTest {
         @Override
         public void notifyObservers() throws CommandException {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
         public void addObserver(Observer observer) {
             throw new AssertionError("This method should not be called.");
-
         }
     }
 

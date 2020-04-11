@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -58,8 +58,7 @@ public class CommandTestUtil {
             " " + PREFIX_REMINDER + "15/03/20@@@16:07"; // invalid date
     public static final String INVALID_REMINDER_PAST =
             " " + PREFIX_REMINDER + "15/03/20@16:07"; // invalid date
-    public static final String INVALID_RECURRING =
-            " " + PREFIX_RECURRING + "m"; // invalid format
+    public static final String INVALID_RECURRING = " " + PREFIX_RECURRING + "m"; // invalid format
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
