@@ -122,7 +122,7 @@ public class Deadline extends Activity {
         Note noteCopy = new Note(getNote().toString());
         Date dateCreatedCopy = new Date(getDateCreated().toString());
         Priority priorityCopy = new Priority(getPriority().toString());
-        Deadline copy = new Deadline(nameCopy, dueDateCopy);
+        Deadline copy = new Deadline(nameCopy, dateCreatedCopy, noteCopy, priorityCopy, dueDateCopy);
         copy.setDateCreated(dateCreatedCopy);
         copy.setPriority(priorityCopy);
         copy.setNote(noteCopy);
