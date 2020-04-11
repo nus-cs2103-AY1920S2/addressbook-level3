@@ -1492,13 +1492,13 @@ When completed, the execute(model) will return a *CommandResult* object to the *
 In this case where the input is "show all", it will have a message that indicates that the command is showing all information.
 //end::show[]
 
-
+//@@author
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging. The *LogsCenter* class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* The *Logger* for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
@@ -2079,6 +2079,7 @@ Use case ends.
 crashing.
 //end::non_functional_requirements[]
 
+//@@author
 [appendix]
 == Glossary
 
