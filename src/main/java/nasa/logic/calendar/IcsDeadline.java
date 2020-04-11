@@ -31,11 +31,11 @@ public class IcsDeadline {
         this.deadline = deadline;
         this.moduleCode = moduleCode;
         if (deadline.isDone()) {
-            status = "Completed";
+            status = "COMPLETED";
         } else if (deadline.isOverdue()) {
-            status = "Overdue";
+            status = "NEEDS-ACTION";
         } else {
-            status = "Incomplete";
+            status = "IN-PROCESS";
         }
         icsSchedule = new IcsSchedule(deadline.getSchedule());
     }
