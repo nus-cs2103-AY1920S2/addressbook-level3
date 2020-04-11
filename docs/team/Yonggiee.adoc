@@ -69,13 +69,67 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+=== Exercise Feature (to be edited to show latest)
+
+The function of recording the clients' exercises is one of the main features of our application. This section provides its key implementation details.
+
+==== Implementation
+
+===== Exercise class
+
+We implemented the `Exercise` class to contain the details of the exercise. An example would be the use of `ExerciseWeight` class to represent the weight of the exercise. Below shows a UML class diagram which provides further understanding of `Exercise`.
+
+image::ExerciseClassDiagram.png[]
+
+===== Exercise Commands
+
+Currently, there are only 2 exercise commands. The `add-e` command adds an exercise to the client and the `delete-e` command deletes an exercise from a client. The commands follow a similar execution flow as other commands.
+
+For the `add-e` command, we had to pay particular attention to the index where new Exercise is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This would result in problems when using `delete-e` command as it deletes the exercise at the specified index.
+
+We will use an example of a `add-e` command to illustrate the program execution flow. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The `AddressBookParser` will create a `AddExerciseCommandParser`. By using `ParserUtil`, `AddExerciseCommandParser` will extract details like the reps of the exercise and pass the arguments to `AddExerciseCommand`. The sequence diagram below shows the execution flow when the AddExerciseCommand is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
+
+image::AddExerciseCommandSequenceDiagram.png[]
+
+`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of how the new exercise, `toAdd`, is added to the exercise list.
+
+image::AddExerciseCommandSequenceDiagramPart2.png[]
+
+The exercise list, `UniqueExerciseList`, will go through a loop and iterate through the exercises in the list. The date of each exercise will be compared with the date of the `toAdd` exercise. `toAdd` will then be added to the `UniqueExerciseList` at the index to keep the list sorted.
+
+==== Design Considerations
+
+This section explains the our design considerations and analysis for the storage of exercises.
+
+[options='header']
+|====================
+| Considerations | Pros and Cons
+| Store exercises with client and all clients in one JSON file |
+*Pros*: Much easier to link the exercises to the client during reading and storing
+
+*Cons*: Might have one large JSON file and potentially exceed the size limit of a JSON file
+| Store all exercises into a separate JSON file |
+*Pros*: Keep exercise data separate from client data
+
+*Cons*: Hard to link the exercises to the client during reading and storing
+
+| Store exercises with client but one JSON for each client |
+*Pros*: Low chances of exceeding the size limit of a JSON file
+
+*Cons*: Might have too many JSON files for each client +
+Tough to identify which JSON file is for which client
+|====================
+
+We decided to use the first approach of storing the exercises with the associated client and have all the clients data in one JSON file. By code wise, each `JsonAdaptedClient` will have a list of `JsonAdaptedExercise`.
+
+image::ClientExerciseStorageClassDiagram.png[]
+
+We want to keep the implementation reading and storing of data simple. The first approach is  the most simple. When reading the data, it removes the need to associate the exercises to the client. A client might potentially have a large amount of exercises, resulting in the reading process to be extremely slow.
+
+Moreover, storing the exercise data from client data does not provide any performance benefits. Due to time constraints, we decided that the application should store all the data everytime it closes. This is regardless if the particular exercise or client data has been changed. Having to keep track of which data is edited and only overwrite those data would greatly increase the complexity of the application. Therefore, keeping exercises data separate from client data would be unnecessary and provide little additional functionality/benefits to the user.
+
+Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients as he will have to cater time for each of them. Even though each client might have many exercises, the information of each exercise is relatively small. For now, collectively, the client and exercise data is unlikely to exceed the JSON size limit. We might consider to have multiple JSON files if the data size gets too big in future versions.
+
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
