@@ -35,20 +35,6 @@ public class Session implements Comparable<Session> {
     private boolean isDone;
 
     /**
-     * Default Constructor for Session.
-     * Creates a session object with default values.
-     */
-    public Session() {
-        this.startDateTime = LocalDateTime.now();
-        this.endDateTime = LocalDateTime.now();
-        this.recurring = 0;
-        this.moduleCode = "";
-        this.type = SessionType.OTHER;
-        this.description = "Default Session";
-        this.isDone = false;
-    }
-
-    /**
      * Constructs a Session object.
      * The session's end time should be strictly after the session's start time.
      */
@@ -91,24 +77,10 @@ public class Session implements Comparable<Session> {
     }
 
     /**
-     * Sets the start time of the session.
-     */
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
-    }
-
-    /**
      * Returns the end time of the session.
      */
     public LocalDateTime getEndDateTime() {
         return this.endDateTime;
-    }
-
-    /**
-     * Sets the end time of the session.
-     */
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
     }
 
     /**
@@ -133,24 +105,10 @@ public class Session implements Comparable<Session> {
     }
 
     /**
-     * Sets whether the session's recurring value.
-     */
-    public void setRecurring(int recurring) {
-        this.recurring = recurring;
-    }
-
-    /**
      * Returns the module code associated with this session.
      */
     public String getModuleCode() {
         return this.moduleCode;
-    }
-
-    /**
-     * Sets the module code associated with this session.
-     */
-    public void setModuleCode(String moduleCode) {
-        this.moduleCode = moduleCode;
     }
 
     /**
@@ -161,24 +119,10 @@ public class Session implements Comparable<Session> {
     }
 
     /**
-     * Sets the type of session.
-     */
-    public void setType(SessionType type) {
-        this.type = type;
-    }
-
-    /**
      * Returns the description of the session.
      */
     public String getDescription() {
         return this.description;
-    }
-
-    /**
-     * Sets the description of the session.
-     */
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**
