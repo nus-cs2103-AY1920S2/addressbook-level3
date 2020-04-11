@@ -31,11 +31,11 @@ public class Recurring {
         this.referenceDateTime = referenceDateTime;
     }
 
-    public LocalDateTime parseDateTime(String dateTimeString) {
+    public static LocalDateTime parseDateTime(String dateTimeString) {
         return stringFormatter.parse(dateTimeString, LocalDateTime::from);
     }
 
-    public RecurType parseRecurType(String recurringString) throws ParseException {
+    public static RecurType parseRecurType(String recurringString) throws ParseException {
         if (recurringString.equals("d")) {
             return RecurType.DAILY;
         } else if (recurringString.equals("w")) {
