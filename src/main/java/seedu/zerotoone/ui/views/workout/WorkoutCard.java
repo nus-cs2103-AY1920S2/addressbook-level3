@@ -35,7 +35,7 @@ public class WorkoutCard extends UiPart<Region> {
         for (int i = 0; i < workoutExercisesList.size(); i++) {
             Exercise workoutExercise = workoutExercisesList.get(i);
             WorkoutExerciseCard workoutExerciseCard =
-                    new WorkoutExerciseCard(i, workoutExercise.getExerciseName().fullName);
+                    new WorkoutExerciseCard(i, workoutExercise);
             this.workoutExercises.getChildren().add(workoutExerciseCard.getRoot());
         }
     }
