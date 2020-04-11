@@ -241,26 +241,7 @@ image::demo/Delete1.png[]
 .Demo for the `delete` command (after deletion)
 image::demo/Delete2.png[]
 
-=== Save the data
-
-Notes data are saved in the hard disk automatically after any command that changes the data. +
-There is no need for you to save manually.
-
-=== Auto suggestions
-
-As you type, Notably will provide you suggestions. You can then press kbd:[Tab] to select the first suggestion.
-
-.Demo for the suggestions feature
-image::demo/Suggestions.png[]
-
-=== Auto correct
-
-Even if you mistype, Notably tries its best to correct the typo automatically, as long as the mistyped input command is not too far away from Notably's available commands. This provides you with a more fluid typing experience.
-
-.Demo for the auto-correction feature
-image::demo/Correction.png[]
-
-=== (Coming in v2.0) Find a note based on certain keywords: `search`
+=== Find a note based on certain keywords: `search`
 
 If you need to look for a note that contain a specific keyword, use the `search` command and Notably when show you the result sorted by the number of matches in the note.  +
 *Format:* `search [-s] KEYWORD`
@@ -275,10 +256,33 @@ If you need to look for a note that contain a specific keyword, use the `search`
 ==== Example: Searching for the keyword "Computer science"
 . Let's look through all the notes that we have saved, for the keyword "Computer science" +
 
-    search -s Computer science
+search -s Computer science
 
 .Demo for the `search` command
 image::demo/Search.png[]
+
+=== Save the data
+
+Notes data are saved in the hard disk automatically after any command that changes the data. +
+There is no need for you to save manually.
+
+=== Auto suggestions
+
+As you type, Notably will provide you suggestions. You can then press kbd:[Enter] to select the first suggestion.
+
+.Demo for the suggestions feature
+image::demo/Suggestions.png[]
+
+==== (Coming in v2.0) Suggestion response text when opening or deleting a parent note
+Variations of path with `../` (e.g. `open ../`, `open Note/../Note`, etc.) will not generate a comprehensive response text.
+Currently, typing `open ../` will generate a response text of `Open a note titled "../"` instead of `Open a parent note`.
+
+=== Auto correct
+
+Even if you mistype, Notably tries its best to correct the typo automatically, as long as the mistyped input command is not too far away from Notably's available commands. This provides you with a more fluid typing experience.
+
+.Demo for the auto-correction feature
+image::demo/Correction.png[]
 
 == FAQ
 
