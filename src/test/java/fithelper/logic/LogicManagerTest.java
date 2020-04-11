@@ -18,7 +18,6 @@ import fithelper.model.Model;
 import fithelper.model.ModelManager;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.storage.JsonFitHelperStorage;
-import fithelper.storage.JsonUserPrefsStorage;
 import fithelper.storage.JsonUserProfileStorage;
 import fithelper.storage.JsonWeightRecordsStorage;
 
@@ -39,7 +38,7 @@ public class LogicManagerTest {
                 new JsonUserProfileStorage(temporaryFolder.resolve("userProfile.json"));
         JsonWeightRecordsStorage weightRecordsStorage =
                 new JsonWeightRecordsStorage(temporaryFolder.resolve("weightRecords.json"));
-         logic = new LogicManager(model, fitHelperStorage, userProfileStorage, weightRecordsStorage);
+        logic = new LogicManager(model, fitHelperStorage, userProfileStorage, weightRecordsStorage);
     }
 
     @Test
