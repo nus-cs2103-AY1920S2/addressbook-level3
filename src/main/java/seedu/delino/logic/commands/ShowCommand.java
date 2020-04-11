@@ -12,7 +12,7 @@ import seedu.delino.model.Model;
 import seedu.delino.model.parcel.order.Order;
 import seedu.delino.model.parcel.returnorder.ReturnOrder;
 
-//@author Amoscheong97
+//@@author Amoscheong97
 /**
  * Show the courier his/her delivery statistics
  * with the given date provided in the command

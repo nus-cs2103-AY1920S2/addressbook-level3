@@ -13,10 +13,10 @@ If () then ([Command has missing compulsory prefixes])
     :Throws CommandException;
 
     else ([Order is unique])
-        :Adds Order to OrderBook;
+        :Inserts new Order;
         :Returns Message to user indicating Success;
         :LogicManager prints result to user;
         endif
-        endif
+    endif
 stop
 @enduml

@@ -11,7 +11,7 @@ import seedu.delino.commons.core.LogsCenter;
 import seedu.delino.logic.commands.Command;
 import seedu.delino.logic.commands.CommandResult;
 import seedu.delino.logic.commands.exceptions.CommandException;
-import seedu.delino.logic.parser.OrderBookParser;
+import seedu.delino.logic.parser.DelinoParser;
 import seedu.delino.logic.parser.exceptions.ParseException;
 import seedu.delino.model.Model;
 import seedu.delino.model.ReadOnlyOrderBook;
@@ -29,12 +29,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final OrderBookParser orderBookParser;
+    private final DelinoParser delinoParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        orderBookParser = new OrderBookParser();
+        delinoParser = new DelinoParser();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = orderBookParser.parseCommand(commandText);
+        Command command = delinoParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
