@@ -9,26 +9,28 @@
 
 == Overview
 
-FitBiz is a desktop fitness business management application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+FitBiz is a desktop fitness business management application. The user interacts with it using a Command Line Interface, and it has a Graphical User Interface created with JavaFX. It is written in Java version 11.
 
 == Summary of contributions
 
-* *Major enhancement*: added *Exercise classes*
-** What it does: facilitates the implementation of exercise commands.
-** Justification: without the classes, users are unable to store the exercises done by their clients.
+* *Major enhancement*: added *`Exercise` classes and commands*
+** What it does: allows the user to record their client's exercises. The recorded exercises will then be shown in a table for the user to see.
+** Justification: This feature improves the product significantly because it is one of the main features of the application. Many other features like showing the client's personal bests and drawing their clients' progression graph rely on having the exercises recorded.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* *Major enhancement*: added *Exercise commands*
-** What it does: allows the user to 
-** Justification: This feature improves the product significantly because it is recording client's exercises is one of the main features of the application.
+* *Major enhancement*: hooked many features from Logic to Graphical User Interface
+** What it does: features are shown in GUI instead of being shown in text format.  
+** Justification: In order for the application to be appealing and user-friendly, the features have to be properly displayed in the GUI. The features include:
+. The exercise progession graph +
+ It is a graph of the specified exercise after `graph` command. This is one of the features that is proposed to really attract users. It is a step further from the user just recording his clients' exercises and having the user see the progression of his clients over a period of time.
+. The client's information displayed after `view-c` command +
+We have a separate window to show the detailed client's information. This helps to reduce the clients' information displayed in the `ClientCard` in `ClientListPanel`. The user can see the essential details of each client at a glance and only see the detailed information after a `view-c` command.
+. The exercise table done by the client +
+The user will be able to see the exercises done by their clients' listed in a table instead of being shown text in the `ResultDisplay`. This provides a better user experience.
+
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* *Major enhancement*: hook many features to be shown in `Graphical User Interface`
-** What it does: allows the user to 
-** Justification: This feature improves the product significantly because it is recording client's exercises is one of the main features of the application.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-
-* *Minor enhancement*: refactored the `Storage` component of AB3 to reflect fitbiz instead
+* *Minor enhancement*: refactored the `Storage` component from AB3 to Fitbiz
 
 * *Minor enhancement*: added `Gender` and `Remarks` attributes to `Client`
 
