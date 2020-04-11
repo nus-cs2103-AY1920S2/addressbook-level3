@@ -17,19 +17,19 @@ public class JsonSerializableSchoolworkTrackerTest {
     private static final Path TEST_DATA_FOLDER =
             Paths.get("src", "test", "data", "JsonSerializableSchoolworkTrackerTest");
     private static final Path TYPICAL_ASSIGNMENTS_FILE =
-            TEST_DATA_FOLDER.resolve("typicalAssignmentsScheduler.json");
+            TEST_DATA_FOLDER.resolve("typicalSchoolworkTracker.json");
     private static final Path INVALID_ASSIGNMENT_FILE =
-            TEST_DATA_FOLDER.resolve("invalidAssignmentScheduler.json");
+            TEST_DATA_FOLDER.resolve("invalidSchoolworkTracker.json");
     private static final Path DUPLICATE_ASSIGNMENT_FILE =
-            TEST_DATA_FOLDER.resolve("duplicateAssignmentScheduler.json");
+            TEST_DATA_FOLDER.resolve("duplicateSchoolworkTracker.json");
 
     @Test
     public void toModelType_typicalAssignmentsFile_success() throws Exception {
         JsonSerializableSchoolworkTracker dataFromFile =
                 JsonUtil.readJsonFile(TYPICAL_ASSIGNMENTS_FILE, JsonSerializableSchoolworkTracker.class).get();
-        SchoolworkTracker assignmentScheduleFromFile = dataFromFile.toModelType();
+        SchoolworkTracker schoolworkTrackerFromFile = dataFromFile.toModelType();
         SchoolworkTracker typicalAssignmentsList = TypicalAssignments.getTypicalSchoolworkTracker();
-        assertEquals(assignmentScheduleFromFile, typicalAssignmentsList);
+        assertEquals(schoolworkTrackerFromFile, typicalAssignmentsList);
     }
 
     @Test

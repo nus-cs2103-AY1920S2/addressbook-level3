@@ -9,7 +9,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentList;
 
 /**
- * Wraps all data at the assignment schedule level.
+ * Wraps all data at the schoolwork tracker level.
  * Duplicates are not allowed (by .isSameAssignment comparison).
  */
 public class SchoolworkTracker implements ReadOnlySchoolworkTracker {
@@ -53,7 +53,7 @@ public class SchoolworkTracker implements ReadOnlySchoolworkTracker {
     }
 
     /**
-     * Returns true if an identical assignment as {@code assignment} exists in the scheduler.
+     * Returns true if an identical assignment as {@code assignment} exists in the schoolwork tracker.
      */
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
@@ -61,7 +61,7 @@ public class SchoolworkTracker implements ReadOnlySchoolworkTracker {
     }
 
     /**
-     * Adds an assignment to the scheduler.
+     * Adds an assignment to the schoolwork tracker.
      * The assignment must not already exist.
      */
     public void addAssignment(Assignment assignment) {
@@ -69,7 +69,7 @@ public class SchoolworkTracker implements ReadOnlySchoolworkTracker {
     }
 
     /**
-     * Sort assignments in the scheduler by the filter.
+     * Sort assignments in the schoolwork tracker by the filter.
      */
     public void sortAssignment(Comparator<Assignment> comparator) {
         assignments.sort(comparator);
@@ -82,7 +82,7 @@ public class SchoolworkTracker implements ReadOnlySchoolworkTracker {
 
     /**
      * Removes {@code key} from this {@code SchoolworkTracker}.
-     * {@code key} must exist in the scheduler.
+     * {@code key} must exist in the schoolwork tracker.
      */
     public void removeAssignment(Assignment key) {
         assignments.remove(key);

@@ -33,13 +33,13 @@ public interface SchoolworkTrackerStorage {
 
     /**
      * Saves the given {@link ReadOnlySchoolworkTracker} to the storage.
-     * @param scheduler cannot be null.
+     * @param schoolworkTracker cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveSchoolworkTracker(ReadOnlySchoolworkTracker scheduler) throws IOException;
+    void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker) throws IOException;
 
     /**
      * @see #saveSchoolworkTracker(ReadOnlySchoolworkTracker) (ReadOnlySchoolworkTracker)
      */
-    void saveSchoolworkTracker(ReadOnlySchoolworkTracker scheduler, Path filePath) throws IOException;
+    void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker, Path filePath) throws IOException;
 }

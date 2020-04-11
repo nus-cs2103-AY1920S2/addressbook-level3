@@ -26,23 +26,23 @@ import seedu.address.testutil.AssignmentBuilder;
 
 public class SchoolworkTrackerTest {
 
-    private final SchoolworkTracker assignmentSchedule = new SchoolworkTracker();
+    private final SchoolworkTracker schoolworkTracker = new SchoolworkTracker();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), assignmentSchedule.getAssignmentsList());
+        assertEquals(Collections.emptyList(), schoolworkTracker.getAssignmentsList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> assignmentSchedule.resetData(null));
+        assertThrows(NullPointerException.class, () -> schoolworkTracker.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyScheduler_replacesData() {
+    public void resetData_withValidReadOnlySchoolworkTracker_replacesData() {
         SchoolworkTracker newData = getTypicalSchoolworkTracker();
-        assignmentSchedule.resetData(newData);
-        assertEquals(newData, assignmentSchedule);
+        schoolworkTracker.resetData(newData);
+        assertEquals(newData, schoolworkTracker);
     }
 
     @Test
@@ -53,36 +53,36 @@ public class SchoolworkTrackerTest {
         List<Assignment> newAssignments = Arrays.asList(CS2103_TP, editedCs2103Tp);
         SchoolworkTrackerStub newData = new SchoolworkTrackerStub(newAssignments);
 
-        assertThrows(DuplicateAssignmentException.class, () -> assignmentSchedule.resetData(newData));
+        assertThrows(DuplicateAssignmentException.class, () -> schoolworkTracker.resetData(newData));
     }
 
     @Test
     public void hasAssignment_nullAssignment_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> assignmentSchedule.hasAssignment(null));
+        assertThrows(NullPointerException.class, () -> schoolworkTracker.hasAssignment(null));
     }
 
     @Test
-    public void hasAssignment_assignmentNotInScheduler_returnsFalse() {
-        assertFalse(assignmentSchedule.hasAssignment(CS2103_TP));
+    public void hasAssignment_assignmentNotInSchoolworkTracker_returnsFalse() {
+        assertFalse(schoolworkTracker.hasAssignment(CS2103_TP));
     }
 
     @Test
-    public void hasAssignment_assignmentInScheduler_returnsTrue() {
-        assignmentSchedule.addAssignment(CS2103_TP);
-        assertTrue(assignmentSchedule.hasAssignment(CS2103_TP));
+    public void hasAssignment_assignmentInSchoolworkTracker_returnsTrue() {
+        schoolworkTracker.addAssignment(CS2103_TP);
+        assertTrue(schoolworkTracker.hasAssignment(CS2103_TP));
     }
 
     @Test
-    public void hasAssignment_assignmentWithSameTitleAndDeadlineInScheduler_returnsTrue() {
-        assignmentSchedule.addAssignment(CS2106_ASSIGNMENT);
+    public void hasAssignment_assignmentWithSameTitleAndDeadlineInSchoolworkTracker_returnsTrue() {
+        schoolworkTracker.addAssignment(CS2106_ASSIGNMENT);
         Assignment editedCs2106Assignment = new AssignmentBuilder(CS2106_ASSIGNMENT).withWorkload(VALID_WORKLOAD_CS2103)
                 .withStatus(VALID_STATUS_CS2103).build();
-        assertTrue(assignmentSchedule.hasAssignment(editedCs2106Assignment));
+        assertTrue(schoolworkTracker.hasAssignment(editedCs2106Assignment));
     }
 
     @Test
     public void getAssignmentsList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> assignmentSchedule.getAssignmentsList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> schoolworkTracker.getAssignmentsList().remove(0));
     }
 
     /**
