@@ -107,7 +107,12 @@ image::settings_tab.png[width=400]
 image::tasks.png[width=790]
 
 ==== Task Fields
-You may use `add` and `edit <<index, INDEX>>`  to begin the add and edit commands, next attach any combination of the following commands.
+Use `add` and `edit <<index, INDEX>>` attached with any combination of the following task field prefixes to perform them. These prefixes can be in any order. 
+
+[NOTE]
+====
+Constraints for fields are _italicized_ in the Format column.
+====
 
 .Task Fields
 [cols="1,2m,3m", frame="topbot",options="header"]
@@ -115,42 +120,47 @@ You may use `add` and `edit <<index, INDEX>>`  to begin the add and edit command
 |Field |Format |Notes
 
 |Name
-a|`n/NAME`+
+a|`n/NAME` +
 `n/Any name is possible`
+_alphanumeric characters and spaces_
 a|
 * Name provided has to be unique in the tasklist and is used as an identifying field.
 * It is the **only compulsory** field when creating a task.
 
 |Description
 a|`[des/DESCRIPTION]` +
-`des/Lab of weightage 20% about NP-Cmpleteness`
-a|* Optional description that accompanies a task
+`des/Lab of weightage 20% on NP-Completeness`
+a|* Description that accompanies a task
 
 |Priority
 |`[p/PRIORITY]` +
-`p/1`
+`p/1` +
+_1 or 2 or 3_
 a|
 * If not provided, task is created with the low priority.
 * `PRIORITY` can only be one of these numbers `1,2,3` ranging from low to high in that order.
 
 |Reminder
 |`[r/REMINDER]` +
-`r/10/06/20@12:30`
+`r/10/06/20@12:30` +
+_DD/MM/YY@HH:mm_
 a|
 * A datetime value in this format `DD/MM/YY@HH:mm`.
 
 |Recurring tag
 |`[rec/FREQUENCY]` +
-`rec/daily`
+`rec/d` +
+_d or w_
 a|
-* Can only be `DAILY` or `WEEKLY`.
+* Options are _`d`_ or _`w`_ which respectively are daily or weekly.
 
 |Tag
 a|`[t/TAG]...` +
-`t/errand t/home`
+`t/errand t/home` +
+_alphanumeric characters only_
 a|
 * There can be multiple tags or none at all.
-* Only alphanumeric characters are allowed, spaces and symbols are disallowed.
+* spaces and symbols are disallowed.
 
 |Done
 a|_No prefix available_
@@ -160,14 +170,15 @@ a|
 |===
 
 ==== Add Command
-`add n/This is a new task p/3 des/We have alot of work to do today! t/This t/Is t/Fun` +
-You only need the `n/` prefix when adding a new task as name fields are compulsory.
+===== Command: `add n/This is a new task p/3 des/We have alot of work to do today! t/This t/Is t/Fun`
+
+You only need the `n/` prefix when adding a new task as only the name field is compulsory.
 
 .Add success
 image::add_success.png[width=790]
 
 ==== Edit Command
-`edit n/Look edited the task des/BB Productive is the best app I've every used t/NewTag` +
+===== Command: `edit n/Look edited the task des/BB Productive is the best app I've every used t/NewTag`
 * You can edit all fields except the done field.
 * Please indicate an `<<index, INDEX>>` so that BB Productive knows which task to edit.
 
@@ -175,14 +186,14 @@ image::add_success.png[width=790]
 image::edit_success.png[width=790]
 
 ==== Done Command
-`done <<index, INDEX>> INDEX...` +
+===== Command: `done <<index, INDEX>> INDEX...`
 You can also mark multiple tasks as done by using space separated indexes.
 
 .Done success
 image::done_success.png[width=790]
 
 ==== Sort Command
-`sort FIELD FIELD...` +
+===== Command: `sort FIELD FIELD...`
 You can choose to change the current ordering of your task list to something more suitable by sorting it one or more of these task fields:
 
 _All fields with r- prepended refers to a reverse of the original._
@@ -200,21 +211,21 @@ _All fields with r- prepended refers to a reverse of the original._
 image::sort_success.png[width=790]
 
 ==== Find Command
-`find PHRASE` +
+===== Command: `find PHRASE`
 You can perform a search for tasks by name that are important. BB Productive will then search through the names of the tasks and bring tasks that match the `PHRASE`. It is also typo tolerant and will show tasks that differ from the `PHRASE` by a little.
 
 .Find success
 image::find_success.png[width=790]
 
 ==== Delete Command
-`delete <<index, INDEX>> INDEX...` +
+===== Command: `delete <<index, INDEX>> INDEX...`
 You can delete multiple tasks.
 
 .Delete success
 image::delete_success.png[width=790]
 
 ==== Clear Command
-`clear` +
+===== Command: `clear`
 You may delete all tasks from your list by issuing a clear command.
 
 .Clear success
@@ -362,11 +373,11 @@ _The following table summarizes all the commands that you can use. Input contain
 |Command |Format |Example
 
 |Add
-|add n/<item index> [des/<task description>] [p/<priority value>] [r/<reminder’s date and time>] [t/<tag1> t/<tag2>...]
-|add n/Finish Quiz des/Pages 3-5 p/1 r/20/03/20@19:30 t/cs2100 t/school
+|add n/<item index> [n/NAME] [des/DESCRIPTION] [p/PRIORITY] [r/REMINDER] [rec/FREQUENCY] [t/TAG t/TAG...]
+|add n/Finish Quiz des/Pages 3-5 p/1 r/20/03/20@19:30 rec/d t/cs2100 t/school
 
 |Edit
-|edit INDEX [n/NAME] [des/DESCRIPTION] [p/PRIORITY] [r/REMINDER] [t/TAG]
+|edit INDEX [n/NAME] [des/DESCRIPTION] [p/PRIORITY] [r/REMINDER] [rec/FREQUENCY] [t/TAG t/TAG...]
 |edit 2 r/10/03/21@13:00
 
 |Done
