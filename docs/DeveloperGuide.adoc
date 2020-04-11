@@ -351,8 +351,9 @@ image::Ivan-ProgressManagerAssignStudentToCourse.png[]
 ---
 The flow of adding Progress objects in a AssignStudentToCourse is as follows
 
-. If there are `Progress` objects that were previously in ProgressAddressBook but was removed due to an `unassign/delete` command,
-add those `Progress` objects back in. Refer to `Section 3.2.2` for more information.
+. If there are `Progress` objects that were previously in ProgressAddressBook but were removed due to an `Un-assign/Delete` command,
+add those `Progress` objects back in.
+.. This only occurs when undo-ing an `Un-assign/Delete` command. Refer to `Section 3.2.2` for more information.
 . Else, i.e. if this is an entirely new AssignStudentToCourse command,
 .. Obtain *C'*, a copy of the targeted `Course`
 .. From *C'*, obtain all assignmentIDs that are assigned to it.
@@ -360,12 +361,21 @@ add those `Progress` objects back in. Refer to `Section 3.2.2` for more informat
 .. Create a `Progress` object using each of the `CompositeID`
 .. Finally, add these `Progress` objects into the `ProgressAddressBook`.
 
-[NOTE]
+Notes:
 
-The flow is largely the same for AssignAssignmentToCourse! Instead, we want every `Student` that is currently studying in
+- The flow is largely the same for AssignAssignmentToCourse! Instead, we want every `Student` that is currently studying in
 course *C'* to complete the particular `Assignment`. Hence, rather than obtain all assignmentIDs, we will need to obtain all
 `studentIDs` that are studying *C'*, and create a `Progress` object so that we can track whether those students have completed
 the assignment.
+- The flow is also largely the same for UnassignCommands! Instead, we are looking to remove Progress objects rather than adding them back in.
+
+===== Summary of Entity Linking
+Overall, in order to ensure successful entity linking, all 3 managers involved must be involved.
+The table below shows the involvement of 3 managers with regards to each variant of the `Assign`/`Un-assign` commands.
+
+.Table Summary of Manager's involvement during Assign/Un-assign Commands
+image::Ivan-AssignSummaryTable.png[]
+
 
 === Undo/Redo
 
