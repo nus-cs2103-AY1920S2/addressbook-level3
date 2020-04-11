@@ -1,11 +1,13 @@
 package tatracker.logic.commands.session;
 
 //import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 //import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,13 @@ import org.junit.jupiter.api.Test;
 //import tatracker.model.ModelStub.ModelStubAcceptingSessionAdded;
 //import tatracker.model.ModelStub.ModelStubWithSession;
 
+import tatracker.commons.core.Messages;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.model.ModelStub;
+import tatracker.model.ModelStub.ModelStubAcceptingSessionAdded;
+import tatracker.model.ModelStub.ModelStubWithSession;
+import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 import tatracker.testutil.sessions.SessionBuilder;
@@ -32,6 +41,8 @@ public class AddSessionCommandTest {
     private static final String DEFAULT_TYPE = SessionType.TUTORIAL.toString();
     private static final String DEFAULT_DESCRIPTION = "finishes his tutorial";
     private static final int DEFAULT_RECURRING = 2;
+
+    private static final Module CS2103T = new Module(SessionBuilder.DEFAULT_MODULE, "Software Engineering");
 
     @Test
     public void constructor_nullSession_throwsNullPointerException() {
@@ -56,9 +67,10 @@ public class AddSessionCommandTest {
                 -> addSessionCommand.execute(modelStub));
     }*/
 
-    /*@Test
+    @Test
     public void execute_sessionAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingSessionAdded modelStub = new ModelStubAcceptingSessionAdded();
+        modelStub.addModule(CS2103T);
         Session validSession = new SessionBuilder().build();
 
         CommandResult commandResult = new AddSessionCommand(validSession).execute(modelStub);
@@ -66,18 +78,19 @@ public class AddSessionCommandTest {
         assertEquals(String.format(AddSessionCommand.MESSAGE_ADD_SESSION_SUCCESS,
                 validSession.getMinimalDescription()), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validSession), modelStub.sessionsAdded);
-    } */
+    }
 
     /*@Test
     public void execute_duplicateSession_throwsCommandException() {
         Session validSession = new SessionBuilder().build();
         AddSessionCommand addSessionCommand = new AddSessionCommand(validSession);
+
         ModelStub modelStub = new ModelStubWithSession(validSession);
 
         assertThrows(CommandException.class, Messages.MESSAGE_DUPLICATE_SESSION, ()
                 -> addSessionCommand.execute(modelStub));
-    } */
-
+    }
+*/
     @Test
     public void equals() {
         Session first = new SessionBuilder().withModule("CS3243").build();

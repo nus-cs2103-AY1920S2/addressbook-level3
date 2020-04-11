@@ -428,6 +428,19 @@ public class ModelStub implements Model {
      */
     public static class ModelStubAcceptingSessionAdded extends ModelStub {
         public final ArrayList<Session> sessionsAdded = new ArrayList<>();
+        public final ArrayList<String> moduleIds = new ArrayList<>();
+
+        @Override
+        public boolean hasModule(String moduleId) {
+            requireNonNull(moduleId);
+            return moduleIds.contains(moduleId);
+        }
+
+        @Override
+        public void addModule(Module module) {
+            requireNonNull(module);
+            moduleIds.add(module.getIdentifier());
+        }
 
         @Override
         public boolean hasSession(Session session) {

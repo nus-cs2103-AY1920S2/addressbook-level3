@@ -13,13 +13,13 @@ import tatracker.model.session.SessionType;
  */
 public class SessionBuilder {
 
-    private static final LocalDateTime DEFAULT_START = LocalDateTime.of(2020, 05, 20, 17, 30);
-    private static final LocalDateTime DEFAULT_END = LocalDateTime.of(2020, 05, 20, 19, 30);
-    private static final String DEFAULT_MODULE = "CS2103T";
-    private static final SessionType DEFAULT_TYPE = SessionType.TUTORIAL;
-    private static final String DEFAULT_DESCRIPTION = "finishes his tutorial";
-    private static final int DEFAULT_RECURRING = 2;
-    private static final boolean DEFAULT_DONE = false;
+    public static final LocalDateTime DEFAULT_START = LocalDateTime.of(2020, 05, 20, 17, 30);
+    public static final LocalDateTime DEFAULT_END = LocalDateTime.of(2020, 05, 20, 19, 30);
+    public static final String DEFAULT_MODULE = "CS2103T";
+    public static final SessionType DEFAULT_TYPE = SessionType.TUTORIAL;
+    public static final String DEFAULT_DESCRIPTION = "finishes his tutorial";
+    public static final int DEFAULT_RECURRING = 2;
+    public static final boolean DEFAULT_DONE = false;
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;
