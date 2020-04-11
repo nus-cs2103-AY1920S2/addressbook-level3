@@ -2,7 +2,7 @@ package seedu.address.model.assignment;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ESTHOURS_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORKLOAD_CS2103;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_CS2103;
 import static seedu.address.testutil.TypicalAssignments.CS2103_TP;
 
@@ -29,7 +29,7 @@ public class AssignmentTest {
         assertFalse(CS2103_TP.isSameAssignment(editedAssignment));
 
         // same title, same deadline, different status and workload -> returns true
-        editedAssignment = new AssignmentBuilder(CS2103_TP).withHours(VALID_ESTHOURS_CS2103)
+        editedAssignment = new AssignmentBuilder(CS2103_TP).withWorkload(VALID_WORKLOAD_CS2103)
                 .withStatus(VALID_STATUS_CS2103).build();
         assertTrue(CS2103_TP.isSameAssignment(editedAssignment));
     }

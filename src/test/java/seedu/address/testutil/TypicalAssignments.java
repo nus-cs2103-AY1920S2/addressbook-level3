@@ -12,30 +12,30 @@ import seedu.address.model.assignment.Assignment;
  */
 public class TypicalAssignments {
     public static final Assignment CS3243_TUT = new AssignmentBuilder().withTitle("CS3243 Tut")
-            .withDeadline("2020-04-25 13:00").withHours("4").build();
+            .withDeadline("2020-11-11 13:00").withWorkload("4").build();
     public static final Assignment CS2106_ASSIGNMENT = new AssignmentBuilder().withTitle("CS2106 Assignment")
-            .withDeadline("2020-04-26 14:00").withHours("10").build();
+            .withDeadline("2020-10-26 14:00").withWorkload("10").build();
     public static final Assignment CS3244_TUT = new AssignmentBuilder().withTitle("CS3244 Tut")
-            .withDeadline("2020-04-27 12:00").withHours("5").build();
+            .withDeadline("2020-08-27 12:00").withWorkload("5").build();
     public static final Assignment CS2103_TP = new AssignmentBuilder().withTitle("CS2103 tP")
-            .withDeadline("2020-04-27 14:00").withHours("11.5").build();
+            .withDeadline("2020-12-11 14:00").withWorkload("11.5").build();
     public static final Assignment CS3243_PROJ = new AssignmentBuilder().withTitle("CS3243 Project")
-            .withDeadline("2020-05-03 23:59").withHours("40").build();
+            .withDeadline("2020-09-03 23:59").withWorkload("40").build();
     public static final Assignment CS3244_PROJ = new AssignmentBuilder().withTitle("CS3244 Project")
-            .withDeadline("2020-05-11 23:59").withHours("40").withStatus("Completed").build();
+            .withDeadline("2020-10-11 23:59").withWorkload("40").withStatus("Completed").build();
 
     // Manually Added
     public static final Assignment IS1103_QUIZ = new AssignmentBuilder().withTitle("IS1103 Quiz")
-            .withDeadline("2020-05-11 23:59").withHours("40").withStatus("Uncompleted").build();
+            .withDeadline("2020-05-11 23:59").withWorkload("40").withStatus("Uncompleted").build();
     public static final Assignment CS2103_QUIZ = new AssignmentBuilder().withTitle("CS2103 Quiz")
-            .withDeadline("2020-05-18 23:59").withHours("1").withStatus("Uncompleted").build();
+            .withDeadline("2020-05-18 23:59").withWorkload("1").withStatus("Uncompleted").build();
 
     private TypicalAssignments() {}
 
     /**
      * Returns a scheduler with all the typical assignments in loaded.
      */
-    public static AssignmentSchedule getTypicalScheduler() {
+    public static AssignmentSchedule getTypicalAssignmentSchedule() {
         AssignmentSchedule assignmentSchedule = new AssignmentSchedule();
         for (Assignment assignment : getTypicalAssignments()) {
             assignmentSchedule.addAssignment(assignment);

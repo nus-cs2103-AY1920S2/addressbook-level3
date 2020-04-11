@@ -66,8 +66,7 @@ public class Assignment {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Assignment: ")
-                .append(getTitle())
+        builder.append(getTitle())
                 .append("\nDue Date: ")
                 .append(getDeadline())
                 .append("\nEstimated work hours: ")

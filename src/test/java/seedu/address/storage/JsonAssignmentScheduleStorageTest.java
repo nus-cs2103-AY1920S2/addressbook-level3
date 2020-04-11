@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAssignments.CS2103_QUIZ;
 import static seedu.address.testutil.TypicalAssignments.IS1103_QUIZ;
-import static seedu.address.testutil.TypicalAssignments.getTypicalScheduler;
+import static seedu.address.testutil.TypicalAssignments.getTypicalAssignmentSchedule;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -64,7 +64,7 @@ public class JsonAssignmentScheduleStorageTest {
     @Test
     public void readAndSaveScheduler_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempScheduler.json");
-        AssignmentSchedule original = getTypicalScheduler();
+        AssignmentSchedule original = getTypicalAssignmentSchedule();
         JsonAssignmentScheduleStorage jsonAssignmentScheduleStorage = new JsonAssignmentScheduleStorage(filePath);
 
         // Save in new file and read back

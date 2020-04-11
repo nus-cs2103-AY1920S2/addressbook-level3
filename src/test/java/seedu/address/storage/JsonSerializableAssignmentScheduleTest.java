@@ -28,7 +28,7 @@ public class JsonSerializableAssignmentScheduleTest {
         JsonSerializableAssignmentSchedule dataFromFile =
                 JsonUtil.readJsonFile(TYPICAL_ASSIGNMENTS_FILE, JsonSerializableAssignmentSchedule.class).get();
         AssignmentSchedule assignmentScheduleFromFile = dataFromFile.toModelType();
-        AssignmentSchedule typicalAssignmentsList = TypicalAssignments.getTypicalScheduler();
+        AssignmentSchedule typicalAssignmentsList = TypicalAssignments.getTypicalAssignmentSchedule();
         assertEquals(assignmentScheduleFromFile, typicalAssignmentsList);
     }
 

@@ -9,8 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.FIRST_INDEX;
+import static seedu.address.testutil.TypicalIndexes.SECOND_INDEX;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -43,9 +43,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personToDelete = model.getFilteredPersonList().get(FIRST_INDEX.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().build();
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, descriptor);
+        DeleteCommand deleteCommand = new DeleteCommand(FIRST_INDEX, descriptor);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
@@ -70,11 +70,11 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, FIRST_INDEX);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().build();
 
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, descriptor);
+        Person personToDelete = model.getFilteredPersonList().get(FIRST_INDEX.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(FIRST_INDEX, descriptor);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
@@ -91,10 +91,10 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, FIRST_INDEX);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().build();
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = SECOND_INDEX;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonsList().size());
 
@@ -131,24 +131,24 @@ public class DeleteCommandTest {
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON, DESC_AMY);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON, DESC_BOB);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(FIRST_INDEX, DESC_AMY);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(SECOND_INDEX, DESC_BOB);
 
         // same values -> returns true
         EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        DeleteCommand commandWithSameValues = new DeleteCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        DeleteCommand commandWithSameValues = new DeleteCommand(FIRST_INDEX, copyDescriptor);
         assertTrue(deleteFirstCommand.equals(commandWithSameValues));
 
         // same values -> returns true
         EditPersonDescriptor copySecondDescriptor = new EditPersonDescriptor(DESC_BOB);
-        DeleteCommand secondCommandWithSameValues = new DeleteCommand(INDEX_SECOND_PERSON, copySecondDescriptor);
+        DeleteCommand secondCommandWithSameValues = new DeleteCommand(SECOND_INDEX, copySecondDescriptor);
         assertTrue(deleteSecondCommand.equals(secondCommandWithSameValues));
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(FIRST_INDEX, DESC_AMY);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
