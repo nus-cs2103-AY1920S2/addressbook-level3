@@ -436,11 +436,11 @@
 }
 
 .isCompleted {
-    -fx-fill: green;
+    -fx-fill: #7DA473;
 }
 
 .isSkipped {
-    -fx-fill: red;
+    -fx-fill: #8E5858;
 }
 
 .calendar {

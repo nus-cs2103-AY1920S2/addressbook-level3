@@ -40,20 +40,20 @@ public class Statistics {
 
         long numberOfDays = Duration.between(startDateTime, endDateTime).toDays() + 1;
 
-        Duration averageTimePerDay = calculateAverageTimePerDay(totalWorkoutDuration, numberOfDays);
+        Duration averageTimePerSession = calculateAverageTimePerSession(totalWorkoutDuration, numberOfDays);
 
         return new StatisticsData(workouts, startDateTime, endDateTime, workoutCount, totalWorkoutDuration,
-            averageTimePerDay);
+            averageTimePerSession);
     }
 
     /**
-     * Calculate average time spent on workout per day rounded to the nearest second.
+     * Calculate average time spent on workout per session rounded to the nearest second.
      *
      * @param totalWorkoutDuration
      * @param numberOfDays
      * @return timeSpent
      */
-    private static Duration calculateAverageTimePerDay(Duration totalWorkoutDuration, long numberOfDays) {
+    private static Duration calculateAverageTimePerSession(Duration totalWorkoutDuration, long numberOfDays) {
         if (numberOfDays == 0) {
             return Duration.ZERO;
         }
