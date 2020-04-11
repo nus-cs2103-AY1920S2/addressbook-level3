@@ -20,12 +20,10 @@ import seedu.address.logic.Observer;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.StatisticsManager;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Task;
-import seedu.address.ui.MainWindow;
 
 /** Represents the in-memory model of the task list data. */
 public class ModelManager implements Model {
@@ -150,7 +148,8 @@ public class ModelManager implements Model {
                             if (Recurring.shouldUpdateTask(t)) {
                                 Task recurredTask = t.getRecurredTask();
                                 setTask(t, recurredTask);
-                                String recurredString = "Recurring task has been reset: " + recurredTask.toString();
+                                String recurredString =
+                                        "Recurring task has been reset: " + recurredTask.toString();
                                 notifyMainWindow(recurredString);
                             }
                         });
@@ -224,7 +223,7 @@ public class ModelManager implements Model {
 
     // =========== Subject Methods for Observer
     // ================================================================================
-    public void notifyMainWindow(String input){
+    public void notifyMainWindow(String input) {
         for (Observer observer : observers) {
             observer.update(input);
         }

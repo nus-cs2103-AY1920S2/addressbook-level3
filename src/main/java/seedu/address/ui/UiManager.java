@@ -10,7 +10,6 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-import seedu.address.logic.Observer;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.StatisticsManager;
@@ -100,5 +99,4 @@ public class UiManager implements Ui {
     public void update(String input) {
         mainWindow.displayRecurring(input);
     }
-
 }

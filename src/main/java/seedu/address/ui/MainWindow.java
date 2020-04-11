@@ -48,7 +48,6 @@ import seedu.address.model.settings.DailyTarget;
 import seedu.address.model.settings.PetName;
 import seedu.address.model.settings.PomDuration;
 import seedu.address.model.task.Reminder;
-import seedu.address.logic.Observer;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -512,6 +511,4 @@ public class MainWindow extends UiPart<Stage> {
         alert.setContentText(description);
         alert.show();
     }
-
-    
 }
