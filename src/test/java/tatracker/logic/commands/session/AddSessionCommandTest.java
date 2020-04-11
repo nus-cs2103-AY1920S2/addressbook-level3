@@ -23,6 +23,8 @@ import org.junit.jupiter.api.Test;
 import tatracker.commons.core.Messages;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.Parser;
+import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.ModelStub;
 import tatracker.model.ModelStub.ModelStubAcceptingSessionAdded;
 import tatracker.model.ModelStub.ModelStubWithSession;
@@ -38,7 +40,7 @@ public class AddSessionCommandTest {
     private static final LocalDateTime DEFAULT_END = LocalDateTime
             .of(2020, 05, 20, 19, 30);
     private static final String DEFAULT_MODULE = "CS2103T";
-    private static final String DEFAULT_TYPE = SessionType.TUTORIAL.toString();
+    private static final String DEFAULT_TYPE = "tutorial";
     private static final String DEFAULT_DESCRIPTION = "finishes his tutorial";
     private static final int DEFAULT_RECURRING = 2;
 
@@ -49,7 +51,7 @@ public class AddSessionCommandTest {
         assertThrows(NullPointerException.class, () -> new AddSessionCommand(null));
     }
 
-    /*@Test
+    @Test
     public void parse_invalidValue_failure() throws ParseException {
 
         //start end after end time
@@ -65,7 +67,7 @@ public class AddSessionCommandTest {
         ModelStub modelStub = new ModelStubWithSession(invalidSession);
         assertThrows(CommandException.class, Messages.MESSAGE_INVALID_SESSION_TIMES, ()
                 -> addSessionCommand.execute(modelStub));
-    }*/
+    }
 
     @Test
     public void execute_sessionAcceptedByModel_addSuccessful() throws Exception {

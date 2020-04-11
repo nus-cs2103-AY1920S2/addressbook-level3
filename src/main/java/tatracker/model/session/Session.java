@@ -50,9 +50,9 @@ public class Session implements Comparable<Session> {
     public Session(LocalDateTime start, LocalDateTime end, SessionType type, int recurring, String moduleCode,
                    String description) throws IllegalArgumentException {
 
-        if (start.compareTo(end) > 0) {
+        /*if (start.compareTo(end) > 0) {
             throw new IllegalArgumentException("The start time of a session cannot be after the end time!");
-        }
+        } */
 
         this.startDateTime = start;
         this.endDateTime = end;
