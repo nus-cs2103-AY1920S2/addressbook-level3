@@ -32,6 +32,7 @@ public class Messages {
             + "deadline to be edited.";
 
     public static final String MESSAGE_MODULE_NOT_ADDED = "Error: This module has not been added before.";
+    public static final String MESSAGE_MULTIPLE_MODULES_ADD_TASK = "Error: You cannot add a task to multiple modules";
     public static final String MESSAGE_ADD_FUTURE_GRADE_ERROR = "You cannot add a grade to future semesters!";
     public static final String MESSAGE_DEADLINE_DOES_NOT_EXIST = "Error: Deadline to be edited does not exist";
 
