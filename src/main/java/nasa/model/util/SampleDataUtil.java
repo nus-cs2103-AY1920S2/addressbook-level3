@@ -26,11 +26,11 @@ public class SampleDataUtil {
 
     public static Module[] getSampleModules() {
 
-        Deadline project = new Deadline(new Name("Weekly Quiz"), new Date("12-04-2020 00:00"));
+        Deadline project = new Deadline(new Name("Weekly Quiz"), new Date("20-06-2020 00:00"));
         project.setNote(new Note("To read readings"));
         project.setSchedule(1);
 
-        Deadline tutorial = new Deadline(new Name("Tutorial"), new Date("20-04-2020 00:00"));
+        Deadline tutorial = new Deadline(new Name("Tutorial"), new Date("20-06-2020 00:00"));
         tutorial.setSchedule(1); //repeat weekly.
 
         geh1001.addDeadline(project);

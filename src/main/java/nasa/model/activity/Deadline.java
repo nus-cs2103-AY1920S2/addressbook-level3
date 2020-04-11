@@ -1,5 +1,6 @@
 package nasa.model.activity;
 
+import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -24,7 +25,7 @@ public class Deadline extends Activity {
     public Deadline(Name name, Date dueDate) {
         super(name);
         requireAllNonNull(dueDate);
-        //checkArgument(isValidDeadline(dueDate), DATE_CONSTRAINTS);
+        checkArgument(isValidDeadline(dueDate), DATE_CONSTRAINTS);
         this.dueDate = dueDate;
         priority = new Priority();
         isDone = false;
