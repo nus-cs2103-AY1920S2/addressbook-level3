@@ -22,6 +22,9 @@ import seedu.eylah.diettracker.model.self.Weight;
  * Represents the in-memory model of the address book data.
  */
 public class DietModelManager extends ModelManager implements DietModel {
+    public static final long GAIN_CALORIES = 3000;
+    public static final long LOSE_CALORIES = 2000;
+    public static final long MAINTAIN_CALORIES = 2500;
     private static final Logger logger = LogsCenter.getLogger(DietModelManager.class);
 
     private final FoodBook foodBook;
@@ -94,6 +97,42 @@ public class DietModelManager extends ModelManager implements DietModel {
     @Override
     public void setMode(Mode mode) {
         myself.setMode(mode);
+    }
+
+    @Override
+    public void printMetrics() {
+        StringBuilder result = new StringBuilder("Your metrics are as follows:\n\n");
+
+        // checks for stored height, displays height if available.
+        if (myself.getHeight().toString().equals("0.0")) {
+            result.append("    Height: You have not stored your own height yet! Type 'height <<insert height here>>' "
+                    + "to store your height!\n");
+        } else {
+            result.append("    Height: " + myself.getHeight() + "\n");
+        }
+
+        // checks for stored weight, displays weight if available.
+        if (myself.getWeight().toString().equals("0.0")) {
+            result.append("    Weight: You have not stored your own weight yet! Type 'weight <<insert weight here>>' "
+                    + "to store your weight!\n");
+        } else {
+            result.append("    Weight: " + myself.getWeight() + "\n");
+        }
+
+        // checks for stored mode, displays mode if available.
+        if (myself.getMode() == null) {
+            result.append("    Dieting Mode: You have not chosen your dieting mode yet! Type 'mode <<-l/-m/-g>>' "
+                    + "to choose your dieting mode!\n");
+        } else {
+            result.append("    Dieting Mode: " + myself.getMode() + "\n");
+        }
+
+        System.out.println(result);
+    }
+
+    @Override
+    public Mode getMode() {
+        return myself.getMode();
     }
 
     //=========== FoodBook ================================================================================
@@ -177,6 +216,32 @@ public class DietModelManager extends ModelManager implements DietModel {
             count++;
         }
         result.append("\nTotal Calorie Intake : " + calorieCount + "\n");
+
+        if (mode == null || mode.equals("")) {
+            Calories caloriesLeft;
+            long calorieIntake;
+            if (this.mode == Mode.GAIN) {
+                calorieIntake = GAIN_CALORIES;
+            } else if (this.mode == Mode.LOSS) {
+                calorieIntake = LOSE_CALORIES;
+            } else { // MAINTAIN
+                calorieIntake = MAINTAIN_CALORIES;
+            }
+
+            caloriesLeft = new Calories(calorieIntake);
+            if (caloriesLeft.greaterThan(calorieCount)) {
+                caloriesLeft = caloriesLeft.difference(calorieCount);
+                result.append("\nYou have " + caloriesLeft + " calories left for the day!\n");
+            } else if (caloriesLeft.lessThan(calorieCount)) {
+                caloriesLeft = caloriesLeft.difference(calorieCount);
+                result.append("\nYou have exceeded your daily calorie limit (" + Long.valueOf(calorieIntake)
+                        + ") by " + caloriesLeft + " calories!\n");
+            } else {
+                result.append("\nYou have hit your calorie limit for the day!\n");
+            }
+
+
+        }
 
         System.out.println(result.toString());
     }

@@ -1,0 +1,96 @@
+@startuml
+/' @author @ailanthustng'/
+!include style.puml
+
+mainframe sd Execution of DeleteItem Command
+
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":DeleteItemCommand" as DeleteItemCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+participant ":Receipt" as Receipt MODEL_COLOR
+participant ":Entry" as Entry MODEL_COLOR
+participant ":Item" as Item MODEL_COLOR
+participant ":PersonAmountBook" as PersonAmountBook MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+participant ":Person" as Person MODEL_COLOR
+end box
+
+activate SplitterLogicManager
+SplitterLogicManager -> DeleteItemCommand : execute(model)
+activate DeleteItemCommand
+
+DeleteItemCommand -> Receipt : getEntry(Index index)
+activate Receipt
+
+Receipt -> DeleteItemCommand
+deactivate Receipt
+
+DeleteItemCommand -> Entry : getItem()
+activate Entry
+
+Entry -> DeleteItemCommand
+deactivate Entry
+
+DeleteItemCommand -> Item : getAmountPerPerson()
+activate Item
+
+Item -> DeleteItemCommand
+deactivate Item
+
+DeleteItemCommand -> Entry : getPersonsList()
+activate Entry
+
+Entry -> DeleteItemCommand
+deactivate Entry
+
+DeleteItemCommand -> SplitterModelManager : removeAmount(Person person, \n Amount amountPerPerson)
+activate SplitterModelManager
+
+SplitterModelManager -> PersonAmountBook : removeAmount(Person person, \n Amount amount)
+activate PersonAmountBook
+
+PersonAmountBook -> UniquePersonList : removeAmount(Person person, \n Amount amount)
+activate UniquePersonList
+
+UniquePersonList -> Person : removeAmount(Amount amount)
+activate Person
+
+Person --> UniquePersonList
+deactivate Person
+
+UniquePersonList --> PersonAmountBook
+deactivate UniquePersonList
+
+PersonAmountBook --> SplitterModelManager
+deactivate PersonAmountBook
+
+SplitterModelManager --> DeleteItemCommand
+deactivate SplitterModelManager
+
+DeleteItemCommand -> SplitterModelManager : deleteEntry(Index index)
+activate SplitterModelManager
+
+SplitterModelManager -> Receipt : deleteEntry(int index)
+activate Receipt
+
+Receipt -> SplitterModelManager
+deactivate Receipt
+
+SplitterModelManager -> DeleteItemCommand
+deactivate SplitterModelManager
+
+create CommandResult
+DeleteItemCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteItemCommand : result
+deactivate CommandResult
+
+DeleteItemCommand --> SplitterLogicManager : result
+deactivate DeleteItemCommand
+@enduml

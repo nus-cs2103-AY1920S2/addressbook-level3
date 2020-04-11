@@ -18,7 +18,7 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Welcome to Diet Tracker! The following commands are "
             + "available:\n"
             + DIVIDER
-            + "1. add - Use this to add a food item to your Tracker.\n"
+            + "1. add - Use this to add a food item to your Diet Tracker.\n"
             + "   USAGE: add -n NAME -c CALORIES\n"
             + "   EXAMPLE: add -n Mushroom Aglio -c 360\n"
             + DIVIDER
@@ -38,11 +38,11 @@ public class HelpCommand extends Command {
             + "   USAGE: mode [-g] [-l] [-m]\n"
             + "   EXAMPLE: mode -g\n"
             + DIVIDER
-            + "6. height - Use this to add your personal height to the Tracker.\n"
+            + "6. height - Use this to add your personal height to the Diet Tracker.\n"
             + "   USAGE: height HEIGHT\n"
             + "   EXAMPLE: height 170.2\n"
             + DIVIDER
-            + "7. weight - Use this to add your personal weight to the Tracker.\n"
+            + "7. weight - Use this to add your personal weight to the Diet Tracker.\n"
             + "   USAGE: weight WEIGHT\n"
             + "   EXAMPLE: weight 65.7\n"
             + DIVIDER
@@ -54,7 +54,7 @@ public class HelpCommand extends Command {
             + " and Expense Splitter.\n"
             + "   USAGE: back\n"
             + "   EXAMPLE: back\n"
-            + "We hope you enjoy your usage of Eylah Diet Tracker!";
+            + "We hope you enjoy your usage of EYLAH Diet Tracker!";
 
     @Override
     public CommandResult execute(DietModel model) {

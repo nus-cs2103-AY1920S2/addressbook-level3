@@ -1,0 +1,17 @@
+@startuml
+/' @author @ailanthustng'/
+title Activity: DeleteItem Command
+
+start
+:User enters the deleteitem command;
+
+if () then ([index is not specified or invalid])
+    :Display an error message;
+else ([else])
+    :Reduce Amount owed by each Person
+    in the PersonAmountBook;
+    :Deletes the Entry from the Receipt;
+    :Updates the Storage;
+endif
+stop
+@enduml
