@@ -24,6 +24,12 @@ public enum Priority {
      * Returns if a given string is a valid priority.
      */
     public static boolean isValidPriority(String test) {
+        try {
+            Integer.parseInt(test);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
         for (Priority p : values()) {
             if (p.levelOfSignificance == Integer.parseInt(test)) {
                 return true;
