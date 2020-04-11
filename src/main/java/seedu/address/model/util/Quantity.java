@@ -6,7 +6,7 @@ package seedu.address.model.util;
 public interface Quantity extends Comparable<Quantity> {
 
     String MESSAGE_CONSTRAINTS_FORMAT =
-            "Quantity should take non-negative integer values, and it should not be blank";
+            "Quantity should take non-negative integer values (up to 1000000), and it should not be blank";
 
     /**
      * There must be one or more digits entered.

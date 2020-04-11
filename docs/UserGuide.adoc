@@ -197,18 +197,22 @@ Edits the name of the 2nd customer to be Betsy Crower and clears all existing ta
 ==== Finding customers: `findc`
 
 Finds customers whose attributes match the given attributes. +
-Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
+Format: `findc [n/NAME [NAME]...] [p/PHONE] [e/EMAIL] [a/ADDRESS [ADDRESS]...]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
 * At least one of the optional fields must be provided.
 * Only full words will be matched for keywords e.g. Han will not match Hans
-* The order of the attributes does not matter. e.g. Hans Bo will match Bo Hans
-* Only customers matching all keywords will be returned (i.e. AND search)
+* The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, n/Bob a/31 will match a/31 n/Bob
+* Only customers matching all attributes will be returned (i.e. AND search) e.g. `findc n/Jane a/31` will return customers with 'jane' in their names and 31 in their addresses
+* Customers matching any keywords in an attribute (for name and address only) will be returned (i.e. OR search) e.g. `findc a/clementi ave` will return customers with 'clementi' or 'ave' in their addresses
 ****
 
 image::FindCustomerByAddress.png[width="790" align="center"]
 image::FindCustomerByAddress2.png[width="790" align="center"]
+
+[NOTE]
+Only name and address support multiple keywords
 
 Examples:
 
@@ -216,8 +220,8 @@ Examples:
 Returns john and John Doe from the customer list.
 * `findc n/Betsy Tim John` +
 Returns any customer having names Betsy, Tim, or John in the customer list.
-* `findc a/serangoon yishun` +
-Returns all customers with address in Serangoon and Yishun.
+* `findc a/serangoon n/Bob` +
+Returns all customers with addresses in Serangoon and have Bob in their names.
 // end::findc[]
 
 // tag::deletec[]
@@ -443,23 +447,28 @@ Edits the product id and customer id of the 1st transaction to be 101 and 123 re
 ==== Finding transactions : `findt`
 
 Finds transactions whose attributes match the given attributes. +
-Format: `findt [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]`
+Format: `findt [p/PRODUCT_NAME [PRODUCT_NAME]...] [c/CUSTOMER_NAME [CUSTOMER_NAME]...] [dt/DATE_TIME] [m/MONEY]`
 
 ****
 * The search is case insensitive. e.g blue will match Blue
 * At least one of the option fields must be provided.
-* Transactions matching all attributes will be returned (i.e. AND search).
+* The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, c/Bob m/31 will match m/31 c/Bob
+* Only transactions matching all attributes will be returned (i.e. AND search). e.g. `findt c/Jane p/bag` will return transactions with 'jane' in their customer names and bag in their product names
+* Transactions matching any keywords in an attribute (for product or customer name only) will be returned (i.e. OR search) e.g. `findt c/jane avery` will return transactions with 'jane' or 'avery' in their customer names
 ****
 
 image::FindTransactionByProduct.png[width="790" align="center"]
 image::FindTransactionByCustomer.png[width="790" align="center"]
 
+[NOTE]
+Only product name and customer name support multiple keywords
+
 Examples:
 
 * `findt p/iphone` +
 Returns all transactions that involve the product `iphone`.
-* `findt c/bob` +
-Returns all transactions that involve a customer named Bob.
+* `findt c/bob angie` +
+Returns all transactions that involve a customer named Bob or a customer named Angie.
 * `findt dt/2020-02-07 16:00` +
 Returns all transactions made on 7th February 2020 4pm.
 * `findt m/100` +
@@ -656,8 +665,7 @@ e.g. `findc n/Betsy` +
 * *Clearing all customers* : `clearc`
 * *Adding a product* : `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]` +
 e.g. `addp d/iphone x pr/1000 q/10`
-* *Listing all products* : `listp` +
-e.g. `listp`
+* *Listing all products* : `listp`
 * *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [cp/COSTPRICE] [q/QUANTITY] [s/SALES]` +
 e.g. `editp 1 pr/1150 q/80`
 * *Finding products* : `findp KEYWORD` +
@@ -668,21 +676,23 @@ e.g. `listp` +
 * *Clearing all products* : `clearp`
 * *Adding a transaction* : `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY q/QUANTITY [d/DESCRIPTION]` +
 e.g. `addt p/20 c/2 dt/2020-02-20 10:00 m/30 q/10 d/under discount`
-* *Listing all transactions* : `listt` +
-e.g. `listt`
+* *Listing all transactions* : `listt`
 * *Editing a transaction* : `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]` +
 e.g. `editt 1 p/101 c/123`
 * *Finding transactions* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]` +
-e.g. `findt c/bob dt/2020-02-07`
+e.g. `findt c/bob dt/2020-02-07 10:00`
 * *Undo a transaction* : `undot INDEX` +
-e.g. `findt 2020-01-03` +
+e.g. `findt dt/2020-01-03 10:00` +
 `undot 1`
 * *Clearing all transactions* : `cleart`
-* *Get the revenue made in a certain period* : `revenue sd/START_DATE ed/END_DATE`
-* *Get the profit made in a certain period* : `profit sd/START_DATE ed/END_DATE`
+* *Get the revenue made in a certain period* : `revenue sd/START_DATE ed/END_DATE` +
+e.g. `revenue sd/2020-01-01 10:00 ed/2020-12-12 10:01`
+* *Get the profit made in a certain period* : `profit sd/START_DATE ed/END_DATE` +
+e.g. `profit sd/2020-01-01 10:00 ed/2020-12-12 10:01`
 * *Setting the low-inventory threshold* : `lowlimit p/PRODUCT_ID t/THRESHOLD` +
 e.g. `lowlimit p/1 t/20`
 * *Predicting the sales for the next month* : `predict`
-* *Plotting sales* : `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
+* *Plotting sales* : `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]` +
+e.g. `plotsales 1 sd/2020-03-20 10:00 ed/2020-03-30 10:00`
 * *Exiting from the program* : `exit`
 * *Get help* : `help`
