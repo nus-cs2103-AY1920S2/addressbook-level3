@@ -1,22 +1,23 @@
 package seedu.address.model.modelGeneric;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.Iterator;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.NotFoundException;
 import seedu.address.model.person.ID;
 
+import java.util.Iterator;
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
- * A generic list that enforces uniqueness between its elements and does not allow nulls. A
- * course is considered unique by comparing using {@code Assignment#isSameCourse(Assignment)}. As such,
- * adding and updating of courses uses Assignment#isSameCourse(Assignment) for equality so as to ensure that
- * the course being added or updated is unique in terms of identity in the UniqueAssignmentList.
- * However, the removal of a course uses course#equals(Object) so as to ensure that the course with
+ * A generic list that enforces uniqueness between its elements and does not allow nulls. Am
+ * object is considered unique by comparing using {@code Object#isSameObject(Object)}. As such,
+ * adding and updating of objects uses Object#isSameObject(Object) for equality so as to ensure that
+ * the object being added or updated is unique in terms of identity in the UniqueObjectList.
+ * However, the removal of a object uses object#equals(Object) so as to ensure that the course with
  * exactly the same fields will be removed.
  * <p>
  * Supports a minimal set of list operations.
@@ -90,7 +91,7 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     }
 
     /**
-     * Removes the equivalent course from the list. The course must exist in the list.
+     * Removes the equivalent object from the list. The object must exist in the list.
      */
     public void remove(K toRemove) {
         requireNonNull(toRemove);
@@ -99,14 +100,17 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
         }
     }
 
+    /**
+     * Set the equivalent list to the internal list.
+     */
     public void setList(UniqueList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code courses}. {@code courses} must not contain
-     * duplicate courses.
+     * Replaces the contents of this list with {@code objects}. {@code objects} must not contain
+     * duplicate objects.
      */
     public void set(List<K> objects) {
         requireAllNonNull(objects);
@@ -138,7 +142,9 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
                 .get();
     }
 
-    // allow removal by IDs
+    /**
+     * Removes object by ID.
+     */
     public void remove(ID toRemove) {
         requireNonNull(toRemove);
         boolean containsID = contains(toRemove);
