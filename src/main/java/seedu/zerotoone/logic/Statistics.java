@@ -23,10 +23,8 @@ public class Statistics {
     public static StatisticsData generate(List<CompletedWorkout> workouts, Optional<LocalDateTime> startDateRange,
                                           Optional<LocalDateTime> endDateRange) {
 
-        LocalDateTime startDateTime = startDateRange.orElseGet(() ->
-            Statistics.getEarliestWorkoutStartTime(workouts));
-        LocalDateTime endDateTime = endDateRange.orElseGet(() ->
-            Statistics.getLatestEndDate(workouts));
+        LocalDateTime startDateTime = startDateRange.orElseGet(() -> Statistics.getEarliestWorkoutStartTime(workouts));
+        LocalDateTime endDateTime = endDateRange.orElseGet(() -> Statistics.getLatestEndDate(workouts));
 
         workouts.removeIf(workout -> workout.getStartTime().isBefore(startDateTime));
         workouts.removeIf(workout -> workout.getEndTime().isAfter(endDateTime));
@@ -43,11 +41,7 @@ public class Statistics {
 
         Duration averageTimePerDay = calculateAverageTimePerDay(totalWorkoutDuration, numberOfDays);
 
-        return new StatisticsData(workouts,
-            startDateTime,
-            endDateTime,
-            workoutCount,
-            totalWorkoutDuration,
+        return new StatisticsData(workouts, startDateTime, endDateTime, workoutCount, totalWorkoutDuration,
             averageTimePerDay);
     }
 
