@@ -16,11 +16,20 @@ endif::[]
 
 By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
+== Introduction
+
+Welcome to *MODdy's Developer Guide*! This document is to help you understand the implementation of MODdy and its features better.
+
+[TIP]
+Feel free to open an issue in our link:{repoURL}/issues[issue tracker] if you have any questions, features suggestion or bugs to report.
+
 == Setting up
+This is a guide on how to set up MODdy as a project on your computer.
 
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
+This section describes some noteworthy details on how different components in MODdy work together.
 
 [[Design-Architecture]]
 === Architecture
@@ -31,7 +40,7 @@ image::ArchitectureDiagram.png[]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/tree/master/docs/diagrams[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
@@ -58,15 +67,15 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+.Class Diagram of the Logic Component in MODdy
 image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The high-level _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete n/John`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete n/John` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -153,7 +162,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
@@ -188,50 +197,69 @@ The tags are:
 
 `NewCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `NewCommand` is parsed using `NewCommandParser` to split the user input into relevant fields.
 
-The following sequence diagram shows how the `new` operation works with the input: `new n/John c/Computer Science cs/4`
+The following sequence diagram shows how the `new` operation works with the input: `new n/John c/Computer Science y/2.2`
 
 image::NewCommandSequenceDiagram.png[]
 
-==== Design Considerations (pending)
+==== Design Considerations
 
-* *Alternative 1:*
-** Pros:
-** Cons:
+* *Alternative 1:* Have an additional tag `cs/currentYear.currentSemester` to identify the year and semester user is in
+** Pros: Easier to differentiate the year and semester user is in among all `y/year.semester` tags
+** Cons: More tags to parse, and also less intuitive for user (have to use both `cs/` and `y/`)
 
-* *Alternative 2:*
-** Pros:
-** Cons:
+* *Alternative 2 (current choice):* Use the `y/year.semester` tag like all other commands
+** Pros: More intuitive for user (only one tag related to year and semester)
+** Cons: Harder to convey the idea that it has to be *current* year and *current* semester to user
 
-=== Add Feature
+Eventually, we decided on alternative 2 to prioritize user-friendliness and cleaner code.
+
+=== Add Module / Task Feature
 
 The `add` feature allows the user to add a module and a task with a deadline for an existing module with the command `add`, appended with the tags.
 
 The tags are:
 
-* `m/module_code y/semester_index` for adding a module
-* `m/module_code y/semester_index t/task d/deadline` for adding a task to an existing module
+* `m/module_code y/year.semester` for adding a module
+* `m/module_code y/year.semester t/task d/deadline` for adding a task to an existing module
+
+[NOTE]
+You can add multiple modules at once but only to the same year and semester, e.g. `add m/CS1231 m/IS1103 m/MA1521 y/1.1`
 
 ==== Current Implementations
 
 `AddCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `AddCommand` is parsed using `AddCommandParser` to split the user input into relevant fields.
 
-The following sequence diagram shows how the `add` operation works with input: `add m/CS2105 y/4`
+The following sequence diagram shows how the `add` operation works with input: `add m/CS2105 y/2.2`
 
 image::AddSequenceDiagram.png[]
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice):* Both `date` and `time` is compulsory for a `deadline`
+Aspect 1: How modules are added
+
+* *Alternative 1:* Delete only one `Module` object with one `add` command
+** Pros: Easier to implement and consistent across all commands
+** Cons: More to type if user intends to delete multiple `Module` objects
+
+* *Alternative 2 (current choice):* Delete multiple `Module` objects with one `add` command
+** Pros: More convenient for the user
+** Cons: Inconsistent with adding a task, which can only take in one task at a time
+
+Eventually, we decided on alternative 2 for the convenience of the user since the number of modules taken per semester is not low.
+
+Aspect 2: How `deadline` feature is implemented
+
+* *Alternative 1:* Both `date` and `time` is compulsory for a `deadline`
 ** Pros: Easier to implement since both date and time will be parsed
 ** Cons: Some tasks do not have a timing that it must be completed by, making it user-unfriendly
 
-* *Alternative 2:* The `date` is compulsory while `time` is optional for a `deadline`
+* *Alternative 2 (current choice):* The `date` is compulsory while `time` is optional for a `deadline`
 ** Pros: Gives user the flexibility to input different types of tasks
 ** Cons: More bugs in `deadline` related method calls
 
-Eventually, we decided on alternative 1 due to the benefits of consistency in types of tasks allowed in MODdy as well as to reduce the bugs faced.
+Eventually, we decided on alternative 2 for the benefits of the user. To tackle the cons, we have set `time` to be "23:59" by default if user did not specify.
 
-// tag::show[]
+
 === Show Feature
 
 The `show` feature allows the user to display information about a `Module`, `Course`, `Focus Area` or `Semester` with the command `show`, appended with the tags. These information cannot be seen from the main UI and have to be displayed through the `show` command.
