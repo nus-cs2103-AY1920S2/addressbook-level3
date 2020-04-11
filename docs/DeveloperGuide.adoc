@@ -251,12 +251,15 @@ pointing it to the previous saved state `saved1`, and updates `currentState` wit
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial database state, then there are no previous database states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is pointing to the first state `saved0`, then there is no state to return to.
+In this case, it will return an error to the user rather than attempting to perform the undo.
 
-The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the database to that state.
+The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `currentStatePointer` one step forward,
+pointing to the previously undone state, and restores the `currentState` to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `databaseList.size() - 1`, pointing to the latest database state, then there are no undone database states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is pointing to the latest state, then there are no states to go to.
+Thus, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `list-s`. Commands that do not modify any database, such as `list-s`, will usually not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `databaseStateList` remains unchanged.
 
