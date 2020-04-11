@@ -10,6 +10,7 @@ import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.StatisticsManager;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 
@@ -119,4 +120,8 @@ public interface Model {
     void addObserver(Observer observer);
 
     void updateDataDatesStatistics();
+
+    void updatesDayDataStatistics(DayData dayData);
+
+    DayData getDayDataFromDateStatistics(Date date);
 }
