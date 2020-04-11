@@ -99,10 +99,54 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_withForwardMatchingAndWithinDistanceThreshold_correctionDone() {
+    public void correct_withForwardMatchingAndValidInputAndBelowForwardMatchingThreshold_forwardMatchingDone() {
         final int distanceThreshold = 2;
+        final int forwardMatchingThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(model,
-                new CorrectionEngineParameters().setForwardMatching(true).setDistanceThreshold(distanceThreshold));
+                new CorrectionEngineParameters()
+                    .setForwardMatching(true)
+                    .setDistanceThreshold(distanceThreshold)
+                    .setForwardMatchingThreshold(forwardMatchingThreshold));
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y");
+
+        final List<AbsolutePath> expectedCorrectedItems = List.of(TypicalBlockModel.PATH_TO_Y2S2);
+        final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
+        final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
+                expectedCorrectionStatus, expectedCorrectedItems);
+
+        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
+        assertEquals(expectedCorrectionResult, correctionResult);
+    }
+
+    @Test
+    public void correct_withForwardMatchingAndInvalidInputAndBelowForwardMatchingThreshold_noForwardMatching() {
+        final int distanceThreshold = 2;
+        final int forwardMatchingThreshold = 2;
+        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(model,
+                new CorrectionEngineParameters()
+                    .setForwardMatching(true)
+                    .setDistanceThreshold(distanceThreshold)
+                    .setForwardMatchingThreshold(forwardMatchingThreshold));
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Z");
+
+        final List<AbsolutePath> expectedCorrectedItems = List.of(TypicalBlockModel.PATH_TO_ROOT);
+        final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
+        final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
+                expectedCorrectionStatus, expectedCorrectedItems);
+
+        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
+        assertEquals(expectedCorrectionResult, correctionResult);
+    }
+
+    @Test
+    public void correct_withForwardMatchingAndWithinThresholds_forwardMatchingAndCorrectionDone() {
+        final int distanceThreshold = 2;
+        final int forwardMatchingThreshold = 2;
+        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(model,
+                new CorrectionEngineParameters()
+                    .setForwardMatching(true)
+                    .setDistanceThreshold(distanceThreshold)
+                    .setForwardMatchingThreshold(forwardMatchingThreshold));
         final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/cs2105");
 
         final List<AbsolutePath> expectedCorrectedItems = List.of(TypicalBlockModel.PATH_TO_CS2103T,

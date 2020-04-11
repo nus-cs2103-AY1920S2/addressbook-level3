@@ -87,10 +87,53 @@ public class StringCorrectionEngineTest {
     }
 
     @Test
-    public void correct_withForwardMatchingAndWithinDistanceThreshold_correctionDone() {
+    public void correct_withForwardMatchingAndValidInputAndBelowForwardMatchingThreshold_forwardMatchingDone() {
         final int distanceThreshold = 2;
+        final int forwardMatchingThreshold = 2;
         final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS,
-                new CorrectionEngineParameters().setForwardMatching(true).setDistanceThreshold(distanceThreshold));
+                new CorrectionEngineParameters()
+                    .setForwardMatching(true)
+                    .setDistanceThreshold(distanceThreshold)
+                    .setForwardMatchingThreshold(forwardMatchingThreshold));
+        final String uncorrectedInput = "D";
+
+        final List<String> expectedCorrectedItems = List.of("delete");
+        final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
+        final CorrectionResult<String> expectedCorrectionResult = new CorrectionResult<>(
+                expectedCorrectionStatus, expectedCorrectedItems);
+
+        CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput);
+        assertEquals(expectedCorrectionResult, correctionResult);
+    }
+
+    @Test
+    public void correct_withForwardMatchingAndInvalidInputAndBelowForwardMatchingThreshold_noForwardMatching() {
+        final int distanceThreshold = 2;
+        final int forwardMatchingThreshold = 2;
+        final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS,
+                new CorrectionEngineParameters()
+                    .setForwardMatching(true)
+                    .setDistanceThreshold(distanceThreshold)
+                    .setForwardMatchingThreshold(forwardMatchingThreshold));
+        final String uncorrectedInput = "F";
+
+        final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.FAILED;
+        final CorrectionResult<String> expectedCorrectionResult = new CorrectionResult<>(
+                expectedCorrectionStatus);
+
+        CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput);
+        assertEquals(expectedCorrectionResult, correctionResult);
+    }
+
+    @Test
+    public void correct_withForwardMatchingAndWithinThresholds_forwardMatchingAndCorrectionDone() {
+        final int distanceThreshold = 2;
+        final int forwardMatchingThreshold = 2;
+        final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS,
+                new CorrectionEngineParameters()
+                    .setForwardMatching(true)
+                    .setDistanceThreshold(distanceThreshold)
+                    .setForwardMatchingThreshold(forwardMatchingThreshold));
         final String uncorrectedInput = "DL";
 
         final List<String> expectedCorrectedItems = List.of("delete");
@@ -101,5 +144,6 @@ public class StringCorrectionEngineTest {
         CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput);
         assertEquals(expectedCorrectionResult, correctionResult);
     }
+
 }
 
