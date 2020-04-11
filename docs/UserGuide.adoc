@@ -1344,10 +1344,20 @@ Example:
 +
 All sessions in the *Session View* with module code `CS2103T` are displayed.
 
+* `session filter m/CS2030T t/tutorial`
++
+All sessions in the *Session View* with module code `CS2103T`,
+*or* session type `Tutorial` will be shown.
+
 * `session filter m/CS2030T t/tutorial d/2020-03-20`
 +
-All sessions in the *Session View* that take place on `2020-03-20`, with module code  `CS2103T`,
-session type  ‘Tutorial` will be shown.
+All sessions in the *Session View* that take place either on `2020-03-20`, *or* with module code `CS2103T`,
+*or* session type `Tutorial` will be shown.
+====
+
+[NOTE]
+====
+As long as a session contains one of the keyword given by the user, the session will be shown to the user.
 ====
 
 === Claims View
