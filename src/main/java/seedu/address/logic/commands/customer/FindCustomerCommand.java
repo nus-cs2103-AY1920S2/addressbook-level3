@@ -1,6 +1,10 @@
 package seedu.address.logic.commands.customer;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.function.Predicate;
 
@@ -21,8 +25,13 @@ public class FindCustomerCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose attributes (n/ for name, "
             + "a/ for address, p/ for phone number, e/ for email address) contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: [n/NAME [NAME]...] [p/PHONE [PHONE]...] [e/EMAIL [EMAIL]...] [a/ADDRESS [ADDRESS]...]\n"
-            + "Example: " + COMMAND_WORD + " n/alice bob charlie, " + COMMAND_WORD + " a/serangoon yishun";
+            + "Parameters: "
+            + "[" + PREFIX_NAME + "NAME [NAME]...] "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS [ADDRESS]...] "
+            + "[" + PREFIX_EMAIL + "EMAIL]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "alice bob charlie";
 
     private final Predicate<Customer> predicate;
 

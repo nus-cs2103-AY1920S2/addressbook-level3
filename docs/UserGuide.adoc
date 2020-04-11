@@ -197,7 +197,7 @@ Edits the name of the 2nd customer to be Betsy Crower and clears all existing ta
 ==== Finding customers: `findc`
 
 Finds customers whose attributes match the given attributes. +
-Format: `findc [n/NAME [NAME]...] [p/PHONE [PHONE]...] [e/EMAIL [EMAIL]...] [a/ADDRESS [ADDRESS]...]`
+Format: `findc [n/NAME [NAME]...] [p/PHONE] [e/EMAIL] [a/ADDRESS [ADDRESS]...]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
@@ -205,11 +205,14 @@ Format: `findc [n/NAME [NAME]...] [p/PHONE [PHONE]...] [e/EMAIL [EMAIL]...] [a/A
 * Only full words will be matched for keywords e.g. Han will not match Hans
 * The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, n/Bob a/31 will match a/31 n/Bob
 * Only customers matching all attributes will be returned (i.e. AND search) e.g. `findc n/Jane a/31` will return customers with 'jane' in their names and 31 in their addresses
-* Customers matching any keywords in an attribute will be returned (i.e. OR search) e.g. `findc a/clementi ave` will return customers with 'clementi' or 'ave' in their addresses
+* Customers matching any keywords in an attribute (for name and address only) will be returned (i.e. OR search) e.g. `findc a/clementi ave` will return customers with 'clementi' or 'ave' in their addresses
 ****
 
 image::FindCustomerByAddress.png[width="790" align="center"]
 image::FindCustomerByAddress2.png[width="790" align="center"]
+
+[NOTE]
+Only name and address support multiple keywords
 
 Examples:
 
@@ -444,23 +447,28 @@ Edits the product id and customer id of the 1st transaction to be 101 and 123 re
 ==== Finding transactions : `findt`
 
 Finds transactions whose attributes match the given attributes. +
-Format: `findt [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]`
+Format: `findt [p/PRODUCT_NAME [PRODUCT_NAME]...] [c/CUSTOMER_NAME [CUSTOMER_NAME]...] [dt/DATE_TIME] [m/MONEY]`
 
 ****
 * The search is case insensitive. e.g blue will match Blue
 * At least one of the option fields must be provided.
-* Transactions matching all attributes will be returned (i.e. AND search).
+* The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, c/Bob m/31 will match m/31 c/Bob
+* Only transactions matching all attributes will be returned (i.e. AND search). e.g. `findt c/Jane p/bag` will return transactions with 'jane' in their customer names and bag in their product names
+* Transactions matching any keywords in an attribute (for product or customer name only) will be returned (i.e. OR search) e.g. `findt c/jane avery` will return transactions with 'jane' or 'avery' in their customer names
 ****
 
 image::FindTransactionByProduct.png[width="790" align="center"]
 image::FindTransactionByCustomer.png[width="790" align="center"]
 
+[NOTE]
+Only product name and customer name support multiple keywords
+
 Examples:
 
 * `findt p/iphone` +
 Returns all transactions that involve the product `iphone`.
-* `findt c/bob` +
-Returns all transactions that involve a customer named Bob.
+* `findt c/bob angie` +
+Returns all transactions that involve a customer named Bob or a customer named Angie.
 * `findt dt/2020-02-07 16:00` +
 Returns all transactions made on 7th February 2020 4pm.
 * `findt m/100` +
