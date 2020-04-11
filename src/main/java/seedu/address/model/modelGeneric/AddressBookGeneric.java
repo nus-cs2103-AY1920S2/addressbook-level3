@@ -63,10 +63,6 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
     }
 
     /**
-     * Returns true if a course with the same identity as {@code course} exists in the address book.
-     */
-
-    /**
      * Returns the index of the first occurrence of the specified element in this list.
      * The element should already be unique in unique list.
      */
@@ -83,6 +79,9 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
         objects.add(object);
     }
 
+    /**
+     * Adds an object to the address book at exact position index.
+     */
     public void addAtIndex(K object, Integer idx) {
         objects.addAtIndex(object, idx);
     }
@@ -106,16 +105,26 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
     }
 
     //  ============== ID Operations ===========
+
+    /**
+     * Indicate if the address book has this objectID.
+     */
     public boolean has(ID objID) {
         requireNonNull(objID);
         return objects.contains(objID);
     }
 
+    /**
+     * Gets an object to the address book by IDs.
+     */
     public K get(ID objID) {
         requireNonNull(objID);
         return objects.get(objID);
     }
 
+    /**
+     * Removes an object from the address book by IDs.
+     */
     public void remove(ID id) {
         objects.remove(id);
     }
