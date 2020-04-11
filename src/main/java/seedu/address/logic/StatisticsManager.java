@@ -6,6 +6,7 @@ import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 import java.util.List;
 import seedu.address.model.Statistics;
 import seedu.address.model.dayData.DayData;
+import seedu.address.model.settings.DailyTarget;
 
 /** Manages logic of StatisticsDisplay */
 public class StatisticsManager {
@@ -32,9 +33,10 @@ public class StatisticsManager {
         assert (dayDatas.size() > 0);
 
         // get daily challenge target
-        String currTargetText = statistics.getDailyTarget();
-        int currTarget = Integer.valueOf(currTargetText);
-        this.dailyTargetText = currTargetText;
+        DailyTarget dailyTarget = statistics.getDailyTarget();
+        String dailyTargetString = dailyTarget.value;
+        this.dailyTargetText = dailyTargetString;
+        int currTarget = Integer.valueOf(dailyTargetString);
 
         // get current progress
         DayData latestDayData = dayDatas.get(CONSTANT_SIZE - 1);
@@ -52,7 +54,7 @@ public class StatisticsManager {
         }
 
         progressBarDailyFilepathString =
-                "/images/progress/ProgressBar" + String.valueOf(expBarPerc) + "%.png";
+                "/images/progress/ProgressBar" + expBarPerc + "%.png";
     }
 
     public void setDailyTargetText(String dailyTargetText) {
@@ -61,7 +63,7 @@ public class StatisticsManager {
     }
 
     public String getDailyTargetText() {
-        return statistics.getDailyTarget();
+        return statistics.getDailyTarget().value;
     }
 
     public String getProgressDailyText() {

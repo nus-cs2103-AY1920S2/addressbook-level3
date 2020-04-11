@@ -31,7 +31,7 @@ public class StatisticsManagerTest {
 
         Integer expectedPercentage = (expectedProgressDaily / 10) * 10;
         String expectedProgressBarDailyFilepathString =
-                "/images/progress/ProgressBar" + String.valueOf(expectedPercentage) + "%.png";
+                "/images/progress/ProgressBar" + expectedPercentage + "%.png";
 
         assertEquals(statisticsManager.getDailyTargetText(), expectedDailyTargetText);
         assertEquals(statisticsManager.getProgressDailyText(), expectedProgressDailyText);

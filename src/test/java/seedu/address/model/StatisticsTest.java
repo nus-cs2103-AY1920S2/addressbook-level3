@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalDayDatas.getTypicalStatistics;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import seedu.address.model.dayData.DayData;
+import seedu.address.model.settings.DailyTarget;
 import seedu.address.testutil.DayDataBuilder;
 
 public class StatisticsTest {
@@ -23,7 +24,9 @@ public class StatisticsTest {
     public void setDailyTarget_success() {
         Statistics expectedStatistics = getTypicalStatistics();
         expectedStatistics.setDailyTarget(VALID_DAILY_TARGET);
-        assertTrue(expectedStatistics.getDailyTarget().equals(VALID_DAILY_TARGET));
+
+        DailyTarget expectedDailyTarget = new DailyTarget(VALID_DAILY_TARGET);
+        assertTrue(expectedStatistics.getDailyTarget().equals(expectedDailyTarget));
     }
 
     @Test
