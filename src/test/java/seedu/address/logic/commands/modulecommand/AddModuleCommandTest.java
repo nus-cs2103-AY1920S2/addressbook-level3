@@ -63,7 +63,7 @@ public class AddModuleCommandTest {
         ModelStub modelStub = new ModelStubWithNusModule(validModule);
 
         assertThrows(CommandException.class, AddModuleCommand.MESSAGE_DUPLICATE_NUS_MODULE, (
-            ) -> addModuleCommand.execute(modelStub));
+        ) -> addModuleCommand.execute(modelStub));
     }
 
     @Test
@@ -332,9 +332,33 @@ public class AddModuleCommandTest {
         }
 
         @Override
-        public void addDeadline(Task deadline) {
+        public void addDeadlineTask(Task deadline) {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public void sortTaskList() {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public Task deleteTask(Task task) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Task doneDeadlineTask(Task deadline) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortTask(String param) {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
 
         @Override
         public boolean isEmptyDeadline(Task deadline) {
