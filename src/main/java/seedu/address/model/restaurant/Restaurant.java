@@ -151,10 +151,11 @@ public class Restaurant {
                 .append("\nVisited: ")
                 .append(getVisit())
                 .append("\nRecommended food: ")
-                .append(getGoodFood())
+                .append(getRecommendedFood())
                 .append("\nGood food: ")
-                .append(getBadFood())
-                .append("\nBad food: ");
+                .append(getGoodFood())
+                .append("\nBad food: ")
+                .append(getBadFood());
         getRemark().forEach(builder::append);
         return builder.toString();
     }
