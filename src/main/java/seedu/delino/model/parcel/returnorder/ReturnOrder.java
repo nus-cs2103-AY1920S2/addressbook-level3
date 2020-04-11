@@ -30,11 +30,11 @@ public class ReturnOrder extends Parcel {
 
     // Data fields
     private final Address address;
-    private final TimeStamp timestamp;
     private final Warehouse warehouse;
     private final Comment comment;
     private final TypeOfItem itemType;
     private boolean deliveryStatus;
+    private TimeStamp timestamp;
 
     /**
      * Every field must be present and not null.
@@ -113,6 +113,10 @@ public class ReturnOrder extends Parcel {
 
     public void setDeliveryStatus(boolean deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
+    }
+
+    public void setTimestamp(TimeStamp timeStamp) {
+        this.timestamp = timeStamp;
     }
 
     /**
