@@ -25,8 +25,7 @@ import javafx.stage.Window;
 public class SuggestionsWindowView extends ViewPart<Region> {
 
     private static final String FXML = "SuggestionsWindowView.fxml";
-    private static final int LIST_CELL_HEIGHT = 28;
-    private static final int LIST_HORIZONTAL_MARGIN = 2;
+    private static final int LIST_CELL_HEIGHT = 36;
 
     @FXML
     private VBox suggestionsBox;
@@ -142,7 +141,7 @@ public class SuggestionsWindowView extends ViewPart<Region> {
      * @return an int representing the height of the Suggestions List.
      */
     private int computePrefListHeight(int listSize) {
-        return listSize * LIST_CELL_HEIGHT + LIST_HORIZONTAL_MARGIN;
+        return listSize * LIST_CELL_HEIGHT;
     }
 
     /**
