@@ -7,6 +7,8 @@ import static cookbuddy.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static cookbuddy.testutil.TypicalRecipes.getTypicalRecipeBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 import cookbuddy.commons.core.Messages;
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.model.Model;
@@ -14,7 +16,7 @@ import cookbuddy.model.ModelManager;
 import cookbuddy.model.UserPrefs;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Time;
-import org.junit.jupiter.api.Test;
+
 
 
 /**
@@ -33,14 +35,15 @@ public class TimeCommandTest {
         assertEquals(timeCommand, new TimeCommand(targetIndex, targetTime));
 
     }
-    
+
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Recipe recipeToSet = model.getFilteredRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
         TimeCommand timeCommand = new TimeCommand(INDEX_SECOND_RECIPE, new Time(20, 20, 20));
         Time timeToSet = new Time(20, 20, 20);
 
-        String expectedMessage = String.format(TimeCommand.MESSAGE_TIME_RECIPE_SUCCESS, recipeToSet.getName(), timeToSet);
+        String expectedMessage = String.format(TimeCommand.MESSAGE_TIME_RECIPE_SUCCESS,
+                recipeToSet.getName(), timeToSet);
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
         expectedModel.setTime(recipeToSet, new Time(20, 20, 20));
