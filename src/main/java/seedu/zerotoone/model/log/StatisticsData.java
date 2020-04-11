@@ -113,14 +113,20 @@ public class StatisticsData {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         StatisticsData that = (StatisticsData) o;
-        return Objects.equals(totalWorkoutCount, that.totalWorkoutCount) &&
-            Objects.equals(totalTime, that.totalTime) &&
-            Objects.equals(averageTimePerDay, that.averageTimePerDay) &&
-            Objects.equals(startRange, that.startRange) &&
-            Objects.equals(endRange, that.endRange) &&
-            Objects.equals(workouts, that.workouts);
+        return Objects.equals(totalWorkoutCount, that.totalWorkoutCount)
+            && Objects.equals(totalTime, that.totalTime)
+            && Objects.equals(averageTimePerDay, that.averageTimePerDay)
+            && Objects.equals(startRange, that.startRange)
+            && Objects.equals(endRange, that.endRange)
+            && Objects.equals(workouts, that.workouts);
     }
 }

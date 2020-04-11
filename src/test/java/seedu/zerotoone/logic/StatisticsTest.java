@@ -45,6 +45,7 @@ class StatisticsTest {
             workouts,
             Optional.empty(),
             Optional.empty());
-        assertEquals(workouts.get(workouts.size()-1).getEndTime(), actualOutput.getEndRange());
+        assertEquals(workouts.get(workouts.size() - 1).getEndTime(),
+            actualOutput.getEndRange());
     }
 }

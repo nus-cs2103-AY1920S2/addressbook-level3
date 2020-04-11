@@ -1,0 +1,59 @@
+{
+   "logs": [
+        {
+            "workoutName" : "Arms Workout",
+            "startTime" : "1996-07-24 11:11",
+            "endTime" : "1996-07-25 01:11",
+            "exercise" : [ {
+                "exerciseName" : "Bench Press",
+                "startTime" : "1996-07-24 11:11",
+                "endTime" : "1996-07-24 11:21",
+                "exerciseSets" : [ {
+                    "weight" : "60",
+                    "numReps" : "10",
+                    "isFinished" : "true"
+                }]
+            },
+                {
+                    "exerciseName": "Deadlift",
+                    "startTime" : "1996-07-24 11:11",
+                    "endTime" : "1996-07-24 11:21",
+                    "exerciseSets": [{
+                        "weight": "65",
+                        "numReps": "5",
+                        "isFinished" : "true"
+                    }]
+                }]
+        },
+        {
+            "workoutName" : "Legs Workout",
+            "startTime" : "1996-07-24 11:11",
+            "endTime" : "1996-07-25 01:11",
+            "exercise" : [ {
+                "exerciseName" : "Lunges",
+                "startTime" : "1996-07-24 11:11",
+                "endTime" : "1996-07-24 11:21",
+                "exerciseSets" : [ {
+                    "weight" : "30",
+                    "numReps" : "4",
+                    "isFinished" : "true"
+                } ]
+            }]
+        },
+        {
+            "workoutName" : "Abs Workout",
+            "startTime" : "1996-07-24 11:11",
+            "endTime" : "1996-07-25 01:11",
+            "exercise" : [ {
+                "exerciseName" : "Dumbbell Crunch",
+                "startTime" : "1996-07-24 11:11",
+                "endTime" : "1996-07-24 11:21",
+                "exerciseSets" : [ {
+                    "weight" : "20",
+                    "numReps" : "4",
+                    "isFinished" : "true"
+                } ]
+            }]
+        }
+    ]
+}

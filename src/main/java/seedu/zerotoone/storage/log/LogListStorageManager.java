@@ -25,6 +25,7 @@ public class LogListStorageManager implements LogListStorage {
     private Path filePath;
 
     public LogListStorageManager(Path filePath) {
+        requireNonNull(filePath);
         this.filePath = filePath;
     }
 
@@ -45,9 +46,7 @@ public class LogListStorageManager implements LogListStorage {
      */
     public Optional<ReadOnlyLogList> readLogList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
-
-        Optional<JacksonLogList> jacksonSessionList = JsonUtil.readJsonFile(
-                filePath, JacksonLogList.class);
+        Optional<JacksonLogList> jacksonSessionList = JsonUtil.readJsonFile(filePath, JacksonLogList.class);
         if (jacksonSessionList.isEmpty()) {
             return Optional.empty();
         }

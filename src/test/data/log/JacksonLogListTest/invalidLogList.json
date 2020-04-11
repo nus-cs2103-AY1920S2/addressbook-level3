@@ -1,0 +1,25 @@
+{
+    "logs" : [ {
+        "workoutName" : "Legs Day@@@",
+        "startTime" : "2020-04-01 :09",
+        "endTime" : "2020-04-01 17:",
+        "exercise" : [{
+            "exerciseName" : "Bench Press",
+            "exerciseSets" : [ {
+                "weight" : "20",
+                "numReps" : "5",
+                "isFinished" : "true"
+            }, {
+                "weight" : "30",
+                "numReps" : "6",
+                "isFinished" : "false"
+            }, {
+                "weight" : "40",
+                "numReps" : "8",
+                "isFinished" : "true"
+            } ],
+            "startTime" : "2020-04-01 16:16",
+            "endTime" : "2020-04-01 16:24"
+        }]
+    }]
+}
