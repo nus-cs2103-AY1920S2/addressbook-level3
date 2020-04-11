@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103-T09-3/main/tree/master
 
+image:logos/ExpenseLa_Logo.png[]
+
 By: `Team Halim`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
@@ -139,8 +141,12 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the `ExpenseLa` data.
+* stores a `MonthlyData` object which contains budget, expense, and income information set by the user.
+* stores a `ToggleView` object that represents the nature of transaction information displayed to the user.
+* stores a `Filter` object which represents the filter on the transactions as set by the user
 * stores `TransactionList` which contains the list of all transactions
-* exposes an unmodifiable `ObservableList<Transaction>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Transaction>` that can be 'observed' e.g. the UI can be bound to this list
+so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 
@@ -315,18 +321,23 @@ image:filter/FilterSequenceDiagram.png[]
 
 The below scenario shows a typical usage of the filter feature:
 
-Step 1: User executes the command filter c/FOOD m/2020-02 to bring up transactions in the category "FOOD" for the month
-of February 2020.
+Step 1: Upon application launch, the filter for all categories and the current month is automatically applied.
+image:filter/Filter_SS_1.PNG[]
 
-Step 2: The `FilterCommandParser` will parse the arguments using the method `parse(String args)`.
+Step 2: User executes the command `filter c/food m/2020-02` to bring up transactions in the category "FOOD" for the month
+of February 2020. (Note: The command in the command line disappears upon hitting Enter, the command in the command line
+is purely for illustration purposes).
+image:filter/Filter_SS_2.PNG[]
 
-Step 3: Since user input is correct and the arguments are parsed, a new `FilterCommand` object is created by the
+Step 3: The `FilterCommandParser` will parse the arguments using the method `parse(String args)`.
+
+Step 4: Since user input is correct and the arguments are parsed, a new `FilterCommand` object is created by the
 `FilterCommandParser`.
 
-Step 4: The `FilterCommand` object will use a `Predicate` based on the specified category, month, or both, to filter
+Step 5: The `FilterCommand` object will use a `Predicate` based on the specified category, month, or both, to filter
 the list of transactions.
 
-Step 5: The list of filtered transactions is brought up. The filter category and month UI will also update accordingly
+Step 6: The list of filtered transactions is brought up. The filter category and month UI will also update accordingly
 to show the category and month that the transactions are filtered by.
 
 The below activity diagram gives an overview of the command execution:
@@ -420,6 +431,20 @@ The following activity diagram gives an overview of what ExpenseLa shows the use
 :figure-caption: Figure
 .Activity diagram for execution of toggleview command
 image::chart-analytics/ToggleViewActivityDiagram.png[]
+
+=== [Proposed] Data Encryption
+
+Given the sensitive nature of the information provided by users, we would like to safeguard the information provided by
+our users through encryption. Naturally, the information would be encrypted and decrypted in the back-end without the user
+requiring to do any of the encryption, decryption, or even any knowledge of how it works.
+
+==== Proposed Implementation
+
+=== [Proposed] ExpenseLa Monthly Statement
+
+Just as how banks issue a monthly statement of account, we believe that it would be helpful to provide
+our users with an overview of their expenses in the past month
+
 
 === Logging
 

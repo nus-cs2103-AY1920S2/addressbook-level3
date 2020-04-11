@@ -1,6 +1,5 @@
 package seedu.expensela.model;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
@@ -54,46 +53,6 @@ public class Filter {
             return "ALL";
         } else {
             return this.dateMonth.toString();
-        }
-    }
-
-    public String getDateMonthText() {
-        String dateMonthDigits;
-        if (this.dateMonth == null) {
-            return "ALL";
-        } else {
-            dateMonthDigits = this.dateMonth.toString();            // e.g. "2020-04"
-            String month = dateMonthDigits.split("-")[1];
-            String year = dateMonthDigits.split("-")[0];
-            switch (month) {
-                case ("01"):
-                    return "Jan " + year;
-                case ("02"):
-                    return "Feb " + year;
-                case ("03"):
-                    return "Mar " + year;
-                case ("04"):
-                    return "Apr " + year;
-                case ("05"):
-                    return "May " + year;
-                case ("06"):
-                    return "Jun " + year;
-                case ("07"):
-                    return "Jul " + year;
-                case ("08"):
-                    return "Aug " + year;
-                case ("09"):
-                    return "Sep " + year;
-                case ("10"):
-                    return "Oct " + year;
-                case ("11"):
-                    return "Nov " + year;
-                case ("12"):
-                    return "Dec " + year;
-                default:
-                    return "";
-
-            }
         }
     }
 
