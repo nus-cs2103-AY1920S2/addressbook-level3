@@ -60,3 +60,4 @@ public class NusModule {
                 && moduleCode.equals(((NusModule) other).moduleCode)); // state check
     }
 }
+

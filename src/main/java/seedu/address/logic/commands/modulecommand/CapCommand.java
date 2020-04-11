@@ -21,7 +21,7 @@ public class CapCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         double result = model.getCap();
-        String message = MESSAGE_SUCCESS + "\n Current CAP: " + result;
+        String message = MESSAGE_SUCCESS + "\nCurrent CAP: " + result;
         return new CommandResult(message);
     }
 }

@@ -31,6 +31,14 @@ public class ModuleBook {
         modulesTakenList = FXCollections.observableList(modules);
     }
 
+    /**
+     * Creates an ModuleBook using the Modules in the {@code toBeCopied}
+     */
+    public ModuleBook(ModuleBook toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
     public ModuleBook(List<NusModule> modules) {
         this.modules = modules;
         getModulesTakenList();
@@ -69,6 +77,24 @@ public class ModuleBook {
             }
         }
         return result;
+    }
+
+    /**
+     * Replaces the contents of the module list with {@code mdoules}.
+     */
+    public void setModules(List<NusModule> modules) {
+        this.modules = modules;
+    }
+
+    /**
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     */
+    public void resetData(ModuleBook newData) {
+        requireNonNull(newData);
+
+        setModules(newData.getModulesTakenList());
+
+
     }
 
     /**

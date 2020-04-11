@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES_TAKEN;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -46,7 +47,7 @@ public class GradeCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasModule(targetModuleCode)) {
-            throw new CommandException("module does not exist!");
+            throw new CommandException(Messages.MESSAGE_NO_SUCH_MODULE);
         }
 
         model.gradeModule(targetModuleCode, gradeToBeUpdated);

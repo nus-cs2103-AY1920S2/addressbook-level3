@@ -22,9 +22,9 @@ import seedu.address.model.nusmodule.ModuleTask;
 public class Task {
     private static ObservableList<Task> deadlineTaskList;
     private static HashMap<String, ArrayList<Task>> deadlineTaskHashMap = new HashMap<>();
-    private String description;
-    private boolean isDone;
 
+    protected boolean isDone;
+    private String description;
 
     /**
      * Constructor for task class

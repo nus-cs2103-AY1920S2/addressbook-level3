@@ -31,7 +31,7 @@ public class DeleteModuleTaskCommand extends DeleteTaskCommand {
         requireNonNull(model);
 
         if (!model.hasModule(targetModule)) {
-            throw new CommandException("Module specified does not exist!");
+            throw new CommandException(Messages.MESSAGE_NO_SUCH_MODULE);
         }
 
         if (targetIndex.getZeroBased() >= model.getSizeOfModuleTaskList(targetModule)) {

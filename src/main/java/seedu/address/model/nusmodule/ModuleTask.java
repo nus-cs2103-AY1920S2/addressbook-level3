@@ -32,12 +32,34 @@ public class ModuleTask extends Task {
         return priority;
     }
 
+    public int getDoneStatus() {
+        return isDone ? 1 : 0;
+    }
+
     @Override
     public String toString() {
         StringJoiner sj = new StringJoiner("   ");
         String desiredString = sj.add(this.getDescription()).add(moduleRelated.toString())
                 .add(timing.toString()).add(priority.toString()).toString();
         return desiredString;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ModuleTask)) {
+            return false;
+        }
+
+        ModuleTask otherTask = (ModuleTask) other;
+        return otherTask.getDescription().equals(getDescription())
+                && otherTask.getDate().equals(this.getDate())
+                && otherTask.getModuleRelated().equals(getModuleRelated())
+                && otherTask.getPriority().equals(getPriority());
+
     }
 
 }
