@@ -116,15 +116,6 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
     }
 
     /**
-     * Intentionally left empty.
-     * To be implemented later.
-     */
-    @Override
-    public void backToMainMenu() {
-
-    }
-
-    /**
      * Checks if the current receipt is marked as completed.
      */
     @Override

@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import seedu.eylah.commons.core.LogsCenter;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
-import seedu.eylah.expensesplitter.logic.commands.Command;
 import seedu.eylah.expensesplitter.logic.parser.ExpenseSplitterParser;
 import seedu.eylah.expensesplitter.model.SplitterModel;
 import seedu.eylah.expensesplitter.storage.SplitterStorage;
@@ -34,7 +34,7 @@ public class SplitterLogicManager implements SplitterLogic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = expenseSplitterParser.parseCommand(commandText);
+        Command<SplitterModel> command = expenseSplitterParser.parseCommand(commandText);
 
         commandResult = command.execute(splitterModel);
 

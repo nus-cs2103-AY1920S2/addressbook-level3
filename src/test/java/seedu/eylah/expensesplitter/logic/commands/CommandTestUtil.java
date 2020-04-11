@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.expensesplitter.model.PersonAmountBook;
@@ -57,8 +58,8 @@ public class CommandTestUtil {
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, SplitterModel actualSplitterModel,
-            CommandResult expectedCommandResult, SplitterModel expectedSplitterModel) {
+    public static void assertCommandSuccess(Command<SplitterModel> command, SplitterModel actualSplitterModel,
+                                            CommandResult expectedCommandResult, SplitterModel expectedSplitterModel) {
         try {
             CommandResult result = command.execute(actualSplitterModel);
             assertEquals(expectedCommandResult, result);
@@ -88,7 +89,7 @@ public class CommandTestUtil {
      * - the person amount book, filtered person list and selected person in {@code actualModel} remain unchanged
      */
 
-    public static void assertCommandFailure(Command command, SplitterModel actualSplitterModel,
+    public static void assertCommandFailure(Command<SplitterModel> command, SplitterModel actualSplitterModel,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.

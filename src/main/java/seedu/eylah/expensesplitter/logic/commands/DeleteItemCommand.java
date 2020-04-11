@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.expensesplitter.model.SplitterModel;
@@ -16,7 +17,7 @@ import seedu.eylah.expensesplitter.model.receipt.Entry;
 /**
  * Deletes an Item from the Receipt and the reduces the Amount of the Person(s) involved in splitting this Item.
  */
-public class DeleteItemCommand extends Command {
+public class DeleteItemCommand extends Command<SplitterModel> {
 
     public static final String COMMAND_WORD = "deleteitem";
 

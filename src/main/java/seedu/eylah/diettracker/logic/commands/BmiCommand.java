@@ -3,6 +3,7 @@ package seedu.eylah.diettracker.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.eylah.commons.core.Messages;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -17,7 +18,7 @@ import seedu.eylah.diettracker.model.self.Weight;
  * If not, it will calculate based on the internal height and weight
  * previously recorded.
  */
-public class BmiCommand extends Command {
+public class BmiCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "bmi";
 

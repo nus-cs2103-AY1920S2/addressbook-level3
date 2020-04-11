@@ -8,6 +8,7 @@ import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
 
 import java.util.ArrayList;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.expensesplitter.model.SplitterModel;
@@ -16,11 +17,10 @@ import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.receipt.Entry;
 
-
 /**
  * Used to add entries to the receipt.
  */
-public class AddItemCommand extends Command {
+public class AddItemCommand extends Command<SplitterModel> {
 
     public static final String COMMAND_WORD = "additem";
 

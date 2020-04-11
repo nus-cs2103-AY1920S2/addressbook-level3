@@ -8,11 +8,11 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.eylah.commons.core.LogsCenter;
+import seedu.eylah.commons.logic.parser.Parser;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.DietLogicManager;
 import seedu.eylah.diettracker.logic.commands.BmiCommand;
 import seedu.eylah.diettracker.model.self.Height;
-//import seedu.eylah.diettracker.model.self.Self;
 import seedu.eylah.diettracker.model.self.Weight;
 
 /**

@@ -5,6 +5,7 @@ import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.stream.Stream;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.parser.Parser;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.expensesplitter.logic.commands.PaidCommand;
 

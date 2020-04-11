@@ -61,14 +61,13 @@ import seedu.eylah.ui.UiManager;
  */
 public class Eylah {
 
-    public static final Version VERSION = new Version(0, 1, 0, true);
+    public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(Eylah.class);
 
     private Ui ui;
     private UserPrefs userPrefs;
     private UserPrefsStorage userPrefsStorage;
-    private Config config;
     private Storage storage;
     private Model model;
     private Logic logic;
@@ -89,9 +88,10 @@ public class Eylah {
      * Setup the required objects and show welcome message.
      */
     private void start() {
+        logger.info("Starting EYLAH " + Eylah.VERSION);
         isExit = false;
         ui = new UiManager();
-        config = initConfig(null);
+        Config config = initConfig();
         LogsCenter.init(config);
         userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
@@ -109,16 +109,20 @@ public class Eylah {
             isBack = false;
 
             switch(commandWord.toLowerCase()) {
+            case "diet": // Fallthrough
             case "1":
                 initSetup(Mode.DIET);
                 runCommandLoopUntilBackCommand(Mode.DIET);
                 break;
+            case "split": // Fallthrough
             case "2":
                 initSetup(Mode.SPLITTER);
                 runCommandLoopUntilBackCommand(Mode.SPLITTER);
                 break;
             case "exit":
                 isExit = true;
+                break;
+            case "help":
                 break;
             default:
                 ui.showError(MESSAGE_UNKNOWN_COMMAND);
@@ -133,17 +137,6 @@ public class Eylah {
         while (!isExit) {
             ui.showMode(mode);
             commandWord = ui.readCommand();
-
-            // temporary exit solution until the ExitCommand implement.
-            if (commandWord.equalsIgnoreCase("exit")) {
-                isExit = true;
-                break;
-            }
-            // temporary back solution until diet#BackCommand implement.
-            if (commandWord.equalsIgnoreCase("back")) {
-                isBack = true;
-                break;
-            }
 
             try {
                 CommandResult commandResult = logic.execute(commandWord);
@@ -281,14 +274,6 @@ public class Eylah {
                 } else {
                     initialReceiptData = receiptBookOptional.get();
                 }
-
-                /*
-                initialPersonData = personAmountBookOptional
-                        .orElseGet(SamplePersonAmountDataUtil::getSamplePersonAmountBook);
-                initialReceiptData = receiptBookOptional.orElseGet(SampleReceiptDataUtil::getSampleReceiptBook);
-
-                 */
-
             } catch (DataConversionException e) {
                 logger.warning("Data file not in the correct format. Will be starting with an empty "
                         + "PersonAmountBook and ReceiptBook");
@@ -329,16 +314,11 @@ public class Eylah {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    protected Config initConfig() {
         Config initializedConfig;
         Path configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-
-        if (configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = configFilePath;
-        }
 
         logger.info("Using config file : " + configFilePathUsed);
 

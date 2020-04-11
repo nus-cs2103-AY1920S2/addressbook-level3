@@ -4,39 +4,29 @@ import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.eylah.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import seedu.eylah.commons.logic.command.Command;
+import seedu.eylah.commons.logic.parser.CommonParser;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.expensesplitter.logic.commands.AddItemCommand;
 import seedu.eylah.expensesplitter.logic.commands.BackCommand;
 import seedu.eylah.expensesplitter.logic.commands.ClearReceiptCommand;
-import seedu.eylah.expensesplitter.logic.commands.Command;
 import seedu.eylah.expensesplitter.logic.commands.DeleteItemCommand;
 import seedu.eylah.expensesplitter.logic.commands.DoneReceiptCommand;
+import seedu.eylah.expensesplitter.logic.commands.ExitCommand;
 import seedu.eylah.expensesplitter.logic.commands.HelpCommand;
 import seedu.eylah.expensesplitter.logic.commands.ListAmountCommand;
 import seedu.eylah.expensesplitter.logic.commands.ListReceiptCommand;
-import seedu.eylah.expensesplitter.logic.commands.NewReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.PaidCommand;
+import seedu.eylah.expensesplitter.model.SplitterModel;
 
 /**
  * Parses user input for ExpenseSplitter.
  */
-public class ExpenseSplitterParser {
+public class ExpenseSplitterParser extends CommonParser<SplitterModel> {
 
-    /**
-     * Used for initial separation of command word and args.
-     */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    /**
-     * Parses user input into command for execution.
-     *
-     * @param userInput full user input string
-     * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public Command parseCommand(String userInput) throws ParseException {
+    @Override
+    public Command<SplitterModel> parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {
@@ -73,11 +63,11 @@ public class ExpenseSplitterParser {
         case ClearReceiptCommand.COMMAND_WORD:
             return new ClearReceiptCommand();
 
-        case NewReceiptCommand.COMMAND_WORD:
-            return new NewReceiptCommand();
-
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

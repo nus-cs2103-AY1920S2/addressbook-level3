@@ -105,6 +105,7 @@ public class DeleteItemCommandTest {
     /**
      * This model stub is meant for a receipt that is to be made done for testing purposes.
      */
+
     private class ModelStubReceiptDone extends ModelStub {
         final Receipt receipt = new Receipt();
 

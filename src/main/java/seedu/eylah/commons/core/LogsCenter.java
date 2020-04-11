@@ -2,7 +2,6 @@ package seedu.eylah.commons.core;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,7 +10,7 @@ import java.util.logging.SimpleFormatter;
 /**
  * Configures and manages loggers and handlers, including their logging level
  * Named {@link Logger}s can be obtained from this class<br>
- * These loggers have been configured to output messages to the console and a {@code .log} file by default,
+ * These loggers have been configured to output messages to a {@code .log} file by default,
  *   at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log
  *   file reaches 5MB big, up to a maximum of 5 files.<br>
  */
@@ -19,10 +18,9 @@ public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
     private static final String LOG_FILE = "eylah.log";
-    private static Level currentLogLevel = Level.SEVERE;
+    private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;
-    private static ConsoleHandler consoleHandler;
 
     /**
      * Initializes with a custom log level (specified in the {@code config} object)
@@ -43,7 +41,6 @@ public class LogsCenter {
         logger.setUseParentHandlers(false);
 
         removeHandlers(logger);
-        addConsoleHandler(logger);
         addFileHandler(logger);
 
         return Logger.getLogger(name);
@@ -57,17 +54,6 @@ public class LogsCenter {
             return Logger.getLogger("");
         }
         return getLogger(clazz.getSimpleName());
-    }
-
-    /**
-     * Adds the {@code consoleHandler} to the {@code logger}. <br>
-     * Creates the {@code consoleHandler} if it is null.
-     */
-    private static void addConsoleHandler(Logger logger) {
-        if (consoleHandler == null) {
-            consoleHandler = createConsoleHandler();
-        }
-        logger.addHandler(consoleHandler);
     }
 
     /**
@@ -102,11 +88,5 @@ public class LogsCenter {
         fileHandler.setFormatter(new SimpleFormatter());
         fileHandler.setLevel(currentLogLevel);
         return fileHandler;
-    }
-
-    private static ConsoleHandler createConsoleHandler() {
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setLevel(currentLogLevel);
-        return consoleHandler;
     }
 }

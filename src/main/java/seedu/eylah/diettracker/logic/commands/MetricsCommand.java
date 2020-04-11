@@ -2,6 +2,7 @@ package seedu.eylah.diettracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -9,7 +10,7 @@ import seedu.eylah.diettracker.model.DietModel;
 /**
  * Shows the user their various metrics like Height, Weight and Dieting Mode.
  */
-public class MetricsCommand extends Command {
+public class MetricsCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "metrics";
 
