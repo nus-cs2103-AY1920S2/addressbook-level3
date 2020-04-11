@@ -170,11 +170,14 @@ it will also describe the <<insert-activity, interaction>> of objects between th
 ==== What is the Insert feature
 The insert feature allows the user to insert an incoming delivery order into the list using the command line.
 
-The following syntax of the `InsertCommand` is : +
+The order consists of : Transaction ID, Name, Phone, Address, Email, Delivery Timestamp, Warehouse location,
+CashOnDelivery
 
-`insert` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>>
-<<command_prefix, `EMAIL`>> <<command_prefix, `DELIVERY_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>>
-<<command_prefix, `CASH_ON_DELIVERY`>> <<command_prefix, `[COMMENTS]`>> <<command_prefix, `[ITEM_TYPE]`>>
+The order also consists of two optional fields that can be added:
+
+. Type of Item
+
+. Comment for Courier
 
 [[insert-class]]
 ==== Structure of Insert feature
