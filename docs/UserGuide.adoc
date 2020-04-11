@@ -452,14 +452,17 @@ _under the recipes tab_, none of your selected recipes will be marked as cooked.
 [TIP]
 A history of all cooked meals, along with a pie chart based on your meals cooked, can be found under the goals tab.
 
-image::GoalsTab.png[width="790"]
+image::goalsTab.png[width="790"]
 
 [TIP]
 The pie chart represents the goals tally according to your cooked meal history and models the Healthy Eating Plate!
 
-=== Show graph of goals: `chart` [Coming in v2.0]
-Shows weekly progress of respective goal through statistical analysis. +
+=== Show progress of goals: `chart` [Coming in v2.0]
+Shows weekly progress of respective goal through graph. +
 Format: `chart [g/goal]`
+
+=== Analyse images added to generate goals [Coming in v2.0]
+Auto-generates goals through the use of Artificial Intelligence. +
 
 == Achievement
 
@@ -480,6 +483,15 @@ Format: `addImage [i/image]`
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
 data of your previous HYBB folder.
+
+*Q*: How does the auto-generation of goals work? +
+*A*: HYBB analyses the ingredients added or editted in a recipe and auto-generates goals for you. The recipe being tagged by a goal suggests that the minimum requirement per meal for the respective food group, as recommended by the National Institute of Health, has been met.
+
+*Q*: Why is there a removeGoal command and no addGoal command? +
+*A*: As this is the beta version of HYBB, the auto-generation of goals is designed to either accurately calculate quantity or err on the side of overestimation. This would allow you to remove any goal you deem inaccurate based on your own judgement. You can look forward to future releases which will integrate artificial intelligence into HYBB to auto-generate goals more accurately!
+
+*Q*: Why are there no safeguards for adding ingredients? +
+*A*: Currently, HYBB is designed to help you manage your customized recipe list. Hence, the addition of ingredients and under which tag(ip/ iv/ ig/ if/) they fall would be solely based on your judgement! For future releases, we will ensure more safeguards to prevent invalid inputs based on common knowledge.
 
 == Glossary
 |===
