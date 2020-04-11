@@ -178,7 +178,7 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedInventory`, `VersionedAddressBook` and `VersionedTransactionHistory`
+The undo/redo mechanism is facilitated by three versioned databases `VersionedInventory`, `VersionedAddressBook` and `VersionedTransactionHistory`
 for `Good`, `Supplier` and `Transaction` data respectively. These versioned classes extend their non-versioned
 counterparts. These classes also implement the `Versionable` interface, which has these methods:
 
@@ -277,7 +277,7 @@ image::UndoRedoState5.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire databases.
+* **Alternative 1 (current choice):** Saves the entire state of the database.
 ** Pros: Trivial implementation.
 ** Cons: May encounter performance issues due to memory load, especially with three different databases.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -291,7 +291,8 @@ image::UndoRedoState5.png[]
 ** Cons: Inefficient memory usage, especially when only one database is being modified in each action.
 * **Alternative 2:** Save a database only when that database is modified.
 ** Pros: Saves memory usage that could be used for performance.
-** Cons: Requires information on which databases are affected by a command, which breaks abstraction on both the VersionedDatabase and commands.
+** Cons: Requires information on which databases are affected by a command, which breaks abstraction on both the
+versioned databases and commands.
 
 ===== Aspect: How storage of states is implemented
 
@@ -300,7 +301,8 @@ image::UndoRedoState5.png[]
 ** Cons: Segmentation fault may occur for very long sessions and large databases.
 * **Alternative 2:** Store states in an external file
 ** Pros: Less memory usage, leading to better performance.
-** Cons: File I/O may incur comparable overhead for smaller databases, and abrupt termination of the application may result in temporary files being left behind and cluttering space.
+** Cons: File I/O may incur comparable overhead, and abrupt termination of the application may
+result in temporary files being left behind and cluttering space.
 // end::undoredo[]
 
 // tag::dataencryption[]
