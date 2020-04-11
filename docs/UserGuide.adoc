@@ -156,7 +156,7 @@ for use in this program.
 
 === Restore previously entered command text: kbd:[↑]
 Pressing the kbd:[↑] keyboard button while the focus is on the command box
-allows you to restore the text of the most recent executed comman
+allows you to restore the text of the most recent executed command.
 
 [[Features]]
 == Features
