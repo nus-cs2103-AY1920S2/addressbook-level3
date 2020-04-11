@@ -9,7 +9,6 @@ import com.notably.model.Model;
  */
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
-    public static final String COMMAND_SHORTHAND = "h";
 
     @Override
     public void execute(Model notablyModel) {

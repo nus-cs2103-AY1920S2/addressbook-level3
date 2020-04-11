@@ -12,6 +12,7 @@ import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
+import com.notably.logic.correction.CorrectionEngineParameters;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
@@ -23,8 +24,6 @@ import com.notably.model.viewstate.ViewStateModelImpl;
 import com.notably.testutil.TypicalBlockModel;
 
 class DeleteCommandParserTest {
-    private static final int CORRECTION_THRESHOLD = 2;
-    private static final boolean USE_FORWARD_MATCHING = false;
     private static Model model;
     private static DeleteCommandParser deleteCommandParser;
 
@@ -36,7 +35,7 @@ class DeleteCommandParserTest {
         ViewStateModel viewStateModel = new ViewStateModelImpl();
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
         CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
-                CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
+                new CorrectionEngineParameters().setForwardMatching(false).setDistanceThreshold(2));
         deleteCommandParser = new DeleteCommandParser(model, pathCorrectionEngine);
 
     }
