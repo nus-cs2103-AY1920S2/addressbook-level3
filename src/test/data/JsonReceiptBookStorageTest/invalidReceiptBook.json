@@ -1,0 +1,22 @@
+{
+  "receipts" : [ {
+    "entries" : [ {
+      "item" : {
+        "itemName" : "pasta",
+        "itemPrice" : 20,
+        "amountPerPerson" : 6.67
+      },
+      "persons" : [ {
+        "name" : "Person with invalid name field: Ha!ns Mu@ster",
+        "amount" : 6.67
+      }, {
+        "name" : "Person with invalid name field: W!lly",
+        "amount" : 6.67
+      }, {
+        "name" : "Person with invalid name field: @i!anthu$",
+        "amount" : 6.67
+      } ]
+    } ],
+    "isDone" : false
+  } ]
+}

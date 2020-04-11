@@ -152,11 +152,6 @@ public class DeleteItemCommandTest {
         }
 
         @Override
-        public void backToMainMenu() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean isReceiptDone() {
             throw new AssertionError("This method should not be called.");
         }
