@@ -1,5 +1,6 @@
 package hirelah.logic.commands;
 
+import static hirelah.logic.util.CommandUtil.saveInterviewees;
 import static hirelah.logic.util.CommandUtil.saveTranscript;
 
 import hirelah.commons.util.ModelUtil;
@@ -30,6 +31,7 @@ public class StartInterviewCommand extends Command {
             Interviewee interviewee = model.getIntervieweeList().getInterviewee(identifier);
             model.startInterview(interviewee);
             saveTranscript(model, storage);
+            saveInterviewees(model, storage);
             return new ToggleCommandResult(String.format(MESSAGE_SUCCESS, interviewee), ToggleView.TRANSCRIPT);
         } catch (IllegalActionException e) {
             throw new CommandException(e.getMessage());
