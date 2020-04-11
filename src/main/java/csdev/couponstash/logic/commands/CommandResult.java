@@ -3,6 +3,9 @@ package csdev.couponstash.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
+
+import csdev.couponstash.model.coupon.Coupon;
 
 /**
  * Represents the result of a command execution.
@@ -14,12 +17,19 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application has a coupon to expand. */
+    private final Optional<Coupon> couponToExpand;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean exit) {
+    public CommandResult(
+            String feedbackToUser,
+            Optional<Coupon> couponToExpand,
+            boolean exit
+    ) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.couponToExpand = couponToExpand;
         this.exit = exit;
     }
 
@@ -28,7 +38,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false);
+        this(feedbackToUser, Optional.empty(), false);
     }
 
     public String getFeedbackToUser() {
@@ -39,6 +49,9 @@ public class CommandResult {
         return exit;
     }
 
+    public Optional<Coupon> getCouponToExpand() {
+        return couponToExpand;
+    }
 
     @Override
     public boolean equals(Object other) {

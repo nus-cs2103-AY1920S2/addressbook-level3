@@ -1,6 +1,10 @@
 package csdev.couponstash.ui;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
@@ -8,8 +12,12 @@ import csdev.couponstash.logic.Logic;
 import csdev.couponstash.logic.commands.CommandResult;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
+import csdev.couponstash.model.coupon.Coupon;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -28,7 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private CalendarResultDisplayPane calendarResultPane;
     private TabsPanel tabPanel;
-
+    private CouponWindow expandedCouponWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -121,11 +129,35 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            // command involves expanding a coupon
+            if (commandResult.getCouponToExpand().isPresent()) {
+                handleExpand(commandResult.getCouponToExpand().get());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             calendarResultPane.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Exapnd a coupon in a new window. If another coupon was already expanded,
+     * close that old window and open a new one.
+     * @param couponToExpand coupon to open a new window for
+     */
+    public void handleExpand(Coupon couponToExpand) {
+        if (expandedCouponWindow == null) {
+            expandedCouponWindow = new CouponWindow(couponToExpand,
+                    logic.getStashSettings().getMoneySymbol().toString());
+            expandedCouponWindow.show();
+        } else {
+            expandedCouponWindow.close();
+            expandedCouponWindow = new CouponWindow(couponToExpand,
+                    logic.getStashSettings().getMoneySymbol().toString());
+            expandedCouponWindow.show();
         }
     }
 }
