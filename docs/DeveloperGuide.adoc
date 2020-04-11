@@ -201,10 +201,11 @@ of 9 Commands.
 * <<List-Command, `ListCommand`>> - Lists the Foods and its attributes (Name, Calories) for the timeframe specified by users
 based on their user input.
 * <<Edit-Command, `EditCommand`>> - Allows the user to edit an of the Food in Storage.
-* <<Bmi-Command, `BmiCommand`>> - Calculates the BMI.
 * <<Height-Command, `HeightCommand`>> - Allows users to log their Height in centimeters.
 * <<Weight-Command, `WeightCommand`>> - Allows users to log their Weight in kilograms.
+* <<Bmi-Command, `BmiCommand`>> - Calculates the BMI.
 * <<Mode-Command, `ModeCommand`>> - Allows users to toggle between different modes of the diet tracker.
+* <<Metrics-Command, `MetricsCommand`>> - Allows users to check their health metrics, like their Height, Weight and Dieting Mode.
 * <<Help-Command, `HelpCommand`>> - Provides a help guide for users based on what commands are available.
 
 Below are some diagrams to explain how our team implemented this portion.
@@ -453,6 +454,67 @@ success message. Otherwise, an error message showing the correct command syntax 
 The following is a sample sequence diagram of the ModeCommand.
 
 image::DietTrackerModeCommandSequenceDiagram.png[]
+
+[[Metrics-Command]]
+==== Metrics Command
+
+In this section, we will learn more about how the `metrics` command is implemented.
+
+*What is the Metrics Command*
+
+The `additem` command allows the user to add an Item into the Receipt, along with the ItemPrice of the Item and the Persons
+involved in splitting the cost of that Item.
+
+The `additem` command was implemented as `AddItemCommand` in the `expenseSplitterLogic` package.
+
+The `additem` command has the following input format:
+
+`additem` `-i ITEMNAME` `-p ITEMPRICE` `-n NAME` `[-n NAME]...`
+
+[NOTE]
+====
+* `-i ITEMNAME` and `-p ITEMPRICE` are *compulsory* fields.
+
+* There can be multiple `-n NAME`, however, a *minimum of 1* is required.
+
+* `ITEMPRICE` can be up to 2 decimal places, i.e 7.99. There is *no need* to add the dollar sign ($).
+====
+
+The following activity diagram illustrates what happens when a user executes the `additem` command:
+
+image::DietTrackerMetricsCommandActivityDiagram.png[]
+Figure : Add Item Command Activity Diagram
+
+*Implementation of Add Item Command*
+
+The following is a detailed explanation of the operations AddItemCommand performs. +
+
+1. The `AddItemCommand#execute(SplitterModel splitterModel)` method is executed and it checks if the specified Item
+and list of Persons to be added are valid. If valid, a new Entry would be created with the specified Item and list of
+Persons.
+
+2. The `SplitterModel#addEntry(Entry entry)` method would then be called to add the Entry into the Receipt.
+
+3. For each Person in the list of Persons, the Person is first checked through the `PersonAmountBook#persons` using the
+`SplitterModel#hasPerson(Person person)` method to check if the person already exists.
+
+4. If the person does not already exist, the method `SplitterModel#addPerson(Person person)` would be called to add the
+person, together with the amount, into the `PersonAmountBook#persons`.
+
+5. If the Person exists, thePerson would be retrieved from the `PersonAmountBook#persons` using the
+`SplitterModel#getPerson(Person person)` method, and then the amount would be added to that person using the
+`SplitterModel#addAmount(Person person, Amount amount)` method.
+
+*Sequence diagram for Add Item Command* +
+
+The following sequence diagram summarizes what happens during the execution of `additem` command.
+
+image::DietTrackerMetricsCommandSequenceDiagram.png[]
+Figure: Add Item Command Sequence Diagram
+
+image::ExpenseSplitterAddItemCommandSequenceDiagram2.png[]
+Figure: Execution of Add Item Command
+
 
 === Expense Splitter feature
 

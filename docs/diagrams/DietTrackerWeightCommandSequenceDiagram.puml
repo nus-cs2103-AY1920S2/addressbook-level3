@@ -2,12 +2,12 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":DietLogicManager" as LogicManager LOGIC_COLOR
 participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
 participant ":WeightCommandParser" as WeightCommandParser LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 participant "w:WeightCommand" as WeightCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -35,7 +35,7 @@ deactivate WeightCommandParser
 FoodBookParser -> WeightCommandParser : parse("65.7")
 activate WeightCommandParser
 
-create ParserUtil
+
 WeightCommandParser -> ParserUtil : parseWeight("65.7")
 activate ParserUtil
 
@@ -50,7 +50,7 @@ ParserUtil --> WeightCommandParser : weight
 deactivate ParserUtil
 
 create WeightCommand
-WeightCommandParser -> WeightCommand
+WeightCommandParser -> WeightCommand : weight
 activate WeightCommand
 
 WeightCommand --> WeightCommandParser : w
@@ -65,7 +65,7 @@ destroy WeightCommandParser
 FoodBookParser --> LogicManager : w
 deactivate FoodBookParser
 
-LogicManager -> WeightCommand : execute()
+LogicManager -> WeightCommand : execute(model)
 activate WeightCommand
 
 WeightCommand -> Model : setWeight(weight)
@@ -81,8 +81,12 @@ activate CommandResult
 CommandResult --> WeightCommand
 deactivate CommandResult
 
-WeightCommand --> LogicManager : commandResult
+WeightCommand --> LogicManager : result
 deactivate WeightCommand
+
+WeightCommand -[hidden]-> LogicManager
+destroy WeightCommand
+destroy WeightWeight
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
 activate FoodBookStorage

@@ -76,6 +76,10 @@ deactivate CommandResult
 ModeCommand --> LogicManager : commandResult
 deactivate ModeCommand
 
+HeightCommand -[hidden]-> LogicManager
+destroy ModeCommand
+destroy ModeMode
+
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
 activate FoodBookStorage
 
