@@ -5,15 +5,28 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if () then ([height and weight
-arguments present
+if () then ([at least one of height and weight
+arguments is present
 and valid])
-    :Create new Height
-    and Weight objects;
-    :Calculate BMI using
-    input Height and Weight;
+    if () then ([both arguments present and valid])
+        :Create new Height
+        and Weight objects;
+        :Calculate BMI using
+        input Height and Weight;
+    else ([only one argument is present and valid])
+        if () then ([height argument present and valid])
+            :Retrieve stored Weight;
+            :Create new Height object;
+            :Calculate BMI using input Height and stored Weight;
+        else ([weight argument present and valid])
+            :Retrieve stored Height;
+            :Create new Weight object;
+            :Calculate BMI using input Weight and stored Height;
+        endif
+    endif
+
 else ([else])
-    :retrieve stored Height and
+    :Retrieve stored Height and
     Weight values from Self;
     :Calculate BMI using stored
     Height and Weight;
