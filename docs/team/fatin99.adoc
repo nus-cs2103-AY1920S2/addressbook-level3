@@ -69,17 +69,11 @@ Here is the code that I have written for this product: [https://github.com/AY192
 * Add matric field as well as the relevant error checking needed to student (PR #96, #118)
 * Remove address field from student (PR #97)
 
-==== Project management:
+=== Project management:
 
-I commented on critical pull requests.
-I also extensively tested and reported bugs along with a comprehensive reproduction reports: https://github.com/CS2103-AY1819S1-W14-4/main/issues/170[#170] https://github.com/CS2103-AY1819S1-W14-4/main/issues/175[#175]
-
-==== Documentation:
-
-I wrote a tutorial to walk users through the on-boarding process with a sample project that demonstrates most of the key features of our application. This light-hearted tutorial also serves to show that our application is relevant and solves problems that the reader can relate to.
-
-I also contributed multiple new illustrations to the developer's guide to help future contributors visualise what each command does.
-The illustrations are included in my contributions below.
+I commented on critical pull requests. I also extensively tested and reported bugs along with a comprehensive
+reproduction reports: https://github.com/CS2103-AY1819S1-W14-4/main/issues/170[#170]
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/175[#175]
 
 == Contributions to the User Guide
 
