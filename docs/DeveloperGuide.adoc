@@ -397,8 +397,7 @@ The personal best feature is facilitated by the model `PersonalBest`, and the lo
 . If there is no `ExerciseWeight` recorded in the `Exercise`, then `ExerciseReps` will be used as comparison
 . If neither of `ExerciseWeight` and `ExerciseReps` are recorded into the `Exercise`, then this particular exercise will not be put into the Exercise Personal Best table
 .. However, if the another `Exercise` of the same name is added in the future with `ExerciseWeight` and/or `ExerciseReps` specified, then the personal best of this exercise will still be calculated and shown in the Exercise Personal Best table
-
-When the user inputs `view-c`, `add-e`, `edit-c` or `delete-c`, `PersonalBestFinder#generateAndSetPersonalBest` is called, taking the client currently in view as the parameter. `PersonalBestFinder#generateAndSetPersonalBest` then retrieves client's list of exercises using `Client#getExerciseList` and creates a new `HashMap`, where the `key` is `ExerciseName` and the `value` is `Exercise`. Then the personal bests of each exercise of the client in view are generated using the above considerations. Finally the list of personal bests is set using `PersonalBest#setPersonalBest`.
+. Note that `ExerciseSets`, although an attribute of the `Exercise` model, is not considered when checking for `PersonalBest` as the number of sets of an exercise does not contribute to a personal best record
 
 A simplified class diagram of the classes involved in this feature is given below:
 
@@ -407,6 +406,8 @@ image::PersonalBestClassDiagram.png[]
 In the following sequence diagram, we trace the execution for when the user decides to enter the command `view-c` into FitBiz:
 
 image::PersonalBestSequenceDiagram.png[]
+
+The explanation for the sequence diagram is as follows: when the user inputs `view-c`, `add-e`, `edit-c` or `delete-c`, `PersonalBestFinder#generateAndSetPersonalBest` is called, taking the client currently in view as the parameter. `PersonalBestFinder#generateAndSetPersonalBest` then retrieves client's list of exercises using `Client#getExerciseList` and creates a new `HashMap`, where the `key` is `ExerciseName` and the `value` is `Exercise`. Then the personal bests of each exercise of the client in view are generated using the above considerations. Finally the list of personal bests is set using `PersonalBest#setPersonalBest`.
 
 ==== Design Considerations
 
