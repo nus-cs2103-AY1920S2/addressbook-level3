@@ -89,25 +89,23 @@ I made thorough JUnit tests for the StudentCommand, StudentCommandParser, and St
 
 Here is the code that I have written for this product: [https://github.com/AY1920S2-CS2103T-W17-4/main/commits/master?author=fatin99[All commits]]
 
-=== Contributions to the User Guide
+== Contributions to the User Guide
 
-|====
-|_Given below are sections I contributed to the User Guide.
-They showcase my ability to write comprehensive but simple documentation that addresses the needs of users._
-|====
 
-include::../UserGuide.adoc[tag=getting_started1]
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
 
-The tutorial is truncated to account for the page limit.
+include::../UserGuide.adoc[tag=delete]
 
-==== User guide command documentation
----
-include::../UserGuide.adoc[tag=canvas]
+include::../UserGuide.adoc[tag=dataencryption]
 
-=== Contributions to the Developer Guide
+== Contributions to the Developer Guide
 
-|====
+|===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|====
+|===
 
-include::../DeveloperGuide.adoc[tag=layer]
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
