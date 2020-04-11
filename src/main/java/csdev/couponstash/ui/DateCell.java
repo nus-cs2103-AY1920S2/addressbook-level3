@@ -3,12 +3,10 @@ package csdev.couponstash.ui;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import csdev.couponstash.logic.Logic;
 import csdev.couponstash.model.coupon.Coupon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
@@ -22,7 +20,6 @@ public class DateCell extends UiPart<Region> {
 
     private LocalDate date;
     private ObservableList<Coupon> coupons;
-    private CouponsOnDateWindow couponsDisplayWindow;
     private Text displayText;
     private Circle displayCircle;
 
@@ -32,10 +29,9 @@ public class DateCell extends UiPart<Region> {
     /**
      * Constructs a calendar date cell.
      */
-    public DateCell(Logic logic) {
+    public DateCell() {
         super(FXML);
         coupons = FXCollections.observableList(new ArrayList<>());
-        couponsDisplayWindow = new CouponsOnDateWindow(coupons, logic.getStashSettings().getMoneySymbol());
     }
 
     /**
@@ -53,11 +49,6 @@ public class DateCell extends UiPart<Region> {
 
     public void setCircle(Circle formattedCircle) {
         displayCircle = formattedCircle;
-    }
-
-    public void setCursor() {
-        displayCircle.setCursor(Cursor.HAND);
-        displayText.setCursor(Cursor.HAND);
     }
 
     public void addChildren() {
@@ -88,7 +79,6 @@ public class DateCell extends UiPart<Region> {
      */
     public void setDate(LocalDate date) {
         this.date = date;
-        couponsDisplayWindow.setDate(date);
     }
 
     /**
@@ -116,25 +106,5 @@ public class DateCell extends UiPart<Region> {
      */
     public int getNumberOfCoupons() {
         return coupons.size();
-    }
-
-    /**
-     * Closes the displayed coupons list if it is opened.
-     */
-    public void closeDisplayedCoupons() {
-        couponsDisplayWindow.hide();
-    }
-
-    /**
-     * Displays the coupons for the day represented by this {@code DateCell}.
-     */
-    @FXML
-    public void displayCoupons() {
-        if (coupons.isEmpty()) {
-        } else if (!couponsDisplayWindow.isShowing()) {
-            couponsDisplayWindow.show();
-        } else {
-            couponsDisplayWindow.focus();
-        }
     }
 }
