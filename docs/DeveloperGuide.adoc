@@ -97,6 +97,7 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -107,18 +108,19 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ModdyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a profile).
+.  The command execution can affect the `Model` (e.g. adding a module).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete m/CS2101 t/work")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteDeadlineSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `delete m/CS2101 t/work` Command
+image::DeleteDeadlineLogicDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+// end::logic[]
 
 [[Design-Model]]
 === Model component
@@ -166,9 +168,20 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Dependency between Personals and Modules
-(Insert class diagrams showing dependencies)
+// tag::dependency[]
+=== Dependency between Module and Personal
+.Structure of the Module Component
+image::ModuleClassDiagram.png[]
+
+Each Module class consists of a Personal class, alongside other module attributes from NUSMODS. In each Personal class, there are 3 attributes that are for the user to store their date: +
+
+* `Grade` : the user's grade for te particular module
+* `Status` : the status of the module (`IN_PROGRESS`, `TAKING` or `TAKEN`)
+* `DeadlineList` : a list of deadline tasks added by the user
+
+These attributes were included in `Personal` as they are the attributes that are personal to the user, and which the user can edit at any time.
+
+// end::dependency[]
 
 === New Profile Feature
 The `new` feature allows the user to create a profile with the command `new`, appended with the tags.
@@ -282,6 +295,8 @@ NOTE: If more than accepted tag is given, such as `show c/Computer Science m/CS1
 
 Eventually, we decided on alternative 1 due to the benefits of avoiding repeated code. To tackle the cons from this, we implemented methods to gracefully reject other Objects that unintendedly called this method.
 
+// end::show[]
+// tag::edit[]
 
 === Edit Profile / Module Feature
 
@@ -296,22 +311,22 @@ Lastly, the edit deadline feature is a complementary feature to the add deadline
 ==== Current Implementations
 `EditCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `EditCommannd` is parsed using `EditCommandParser` to split the user input into relevant fields.
 
-To edit `profile`, the command `edit` should be appended with one or more of the tags:
+To edit the profile, the command `edit` should be appended with one or more of the tags:
 
-- `n/NAME` : New name
-- `c/COURSE` : New course
-- `y/CURRENT_SEMESTER` : New current semester
-- `f/FOCUS_AREA` : New focus area
+* `n/NAME` : New name
+* `c/COURSE` : New course
+* `y/CURRENT_SEMESTER` : New current semester
+* `f/FOCUS_AREA` : New focus area
 
-To edit `module`, the command `edit` should be appended with `m/MODULE`, followed by one or more of the tags:
+To edit a module, the command `edit` should be appended with `m/moduleCode`, followed by one or more of the tags:
 
-- `s/SEMESTER` : New semester where module is taken
-- `g/GRADE` : New grade for the module
-- `t/TASK` : Old task description
-- `nt/NEW_TASK` : New task description
-- `d/DEADLINE` : New date and time
+* `y/SEMESTER` : New semester where module is taken
+* `g/GRADE` : New grade for the module
+* `t/TASK` : Old task description
+** `nt/newTask` : New task description
+** `d/DEADLINE` : New date and time
 
-To edit a deadline, append `edit m/MODULE` with `t/TASK` that already exists and is to be edited, followed by either `nt/NEW_TASK` and/or `d/DEADLINE` which contain the new task or deadline that will replace the existing one.
+To edit a deadline, append `edit m/moduleCode` with `t/TASK` that already exists and is to be edited, followed by either `nt/NEW_TASK` and/or `d/DEADLINE` which contain the new task or deadline that will replace the existing one.
 
 The following sequence diagram shows how the `edit` command works: `edit n/John`:
 
@@ -320,9 +335,26 @@ image::EditSequenceDiagram.png[]
 
 ==== Design Considerations
 
-- By requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
+* *Alternative 1 (current choice):* Edit `Profile`, `Module` or `Deadline`  with one `EditCommand`.
+** Pros: Easier for the user as they will not have to remember different edit commands for different purposes.
+** Cons: More considerations to differentiate the intent of the user and there is more room for error.
 
+* *Alternative 2:* Have separate commands to edit `Profile`, `Module` and `Deadline`.
+** Pros: Makes it clearer what the user intent is and is easier to parse.
+** Cons: Harder for the user to remember the commands and the user will not be allowed to edit both module details and deadline tasks within the module at the same time.
+
+Eventually, we decided on alternative 1 due to the benefits of consistency. Additionally, by requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
+
+We also considered whether to allow users to edit the grade of a module that has yet to be taken. We eventually decided to allow that as many students may want to predict their CAP, which our CAP calculator will allow them to do.
+
+The following activity diagram shows how the `edit` command decides what to edit (profile, module details or deadline task):
+
+.Activity Diagram for an Edit Command input
+image::EditCommandActivityDiagram.png[]
+
+// end::edit[]
 // tag::delete[]
+
 === Delete Profile / Module / Deadline / Grade Feature
 
 The delete profile feature is a complementary feature to the new profile feature. It enables the removal of a profile from a `ProfileList`. This also deletes all modules and their deadlines under the `Profile`. This `delete` feature can be used by appending the command with the tag `n/name`

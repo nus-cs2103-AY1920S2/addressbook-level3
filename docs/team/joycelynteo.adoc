@@ -3,45 +3,46 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: MODdy
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+MODdy is a desktop application used by NUS Computing students to track their course progression, manage modules and manage deadlines. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to create a new profile*
+** What it does: Allows the user to create his/her profile, which includes his/her name, course, current semester and focus area.
+** Justification: This feature improves the product significantly because it is what makes the app personal, and all the data such as modules and tasks of the user will be stored in this profile created.
+** Highlights: There were many design considerations involved, such as restricting user input to valid courses and focus areas, as well as an effective way to store all the user's modules, grades and deadlines within the profile.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: added *the ability to add modules and tasks*
+** What it does: Allows the user to add NUS modules to a specific semester, whereby each module can store the user's grades as well as a list of deadlines which can be added at any time by the user.
+** Justification: This feature improves the product significantly because it allows the user to add the modules and information he/she wants to add, which is a major feature of this product.
+** Highlights: There were many design considerations involved, for example, which fields in the user input should be compulsory and how the information should be stored within the module. Additionally, since the user is allowed to add both a new module and a new deadline task to an existing module, there had to be considerations as to how to differentiate between them using the same command.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major enhancement*: added *the ability to edit profiles, modules and tasks*
+** What it does: Allows the user to edit his/her user profile, edit module details of a module that was added previously and edit the task description and deadline of a deadline task added to a module previously.
+** Justification: This feature improves the product seriously because the user can edit any element of his profile, module and tasks, without having to delete it and add it again. This gives the user much more flexibility in the usage of the product.
+** Highlights: There were many design considerations involved, such as which elements should be editable to make ths product user-friendly. Additionally, there were considerations as to how to specify which module/task is meant to be edited.
+
+* *Minor enhancement*: added the ability to check that the user's focus area is valid for  his/her course, and that
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=joycelynteo&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests for existing features to increase coverage from 44% to 56% (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/282[#282])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote the About Us and Contact Us documentation (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/19[#19])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1])
 
 == Contributions to the User Guide
 
@@ -50,9 +51,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=edit]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +59,8 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=logic]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=dependency]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=edit]
