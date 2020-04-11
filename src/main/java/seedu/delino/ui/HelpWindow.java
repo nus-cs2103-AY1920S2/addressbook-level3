@@ -30,7 +30,7 @@ public class HelpWindow extends UiPart<Stage> {
             + "      Format: insert TRANSACTION_ID NAME ADDRESS PHONE_NUMBER DELIVERY_TIMESTAMP \n"
             + "              EMAIL WAREHOUSE_ADDRESS CASH_ON_DELIVERY\n"
             + "      Eg. insert tid/9876543210 n/John Doe a/Blk 572 Hougang st 51 #10-33 S530572"
-            + " p/98766789 \n              dts/2020-02-20 1300 e/johndoe@example.com w/Yishun cod/$4 \n"
+            + " p/98766789 \n              dts/2020-05-20 1300 e/johndoe@example.com w/Yishun cod/$4 \n"
 
             + "\n 2. Clear all orders/returns while orders are listed \n"
             + "      Format: clear FLAG INDEX \n"
@@ -75,10 +75,10 @@ public class HelpWindow extends UiPart<Stage> {
             + "\n 11. Create a return order and adds it into the list of returns\n"
             + "       Format: return TRANSACTION_ID NAME ADDRESS PHONE_NUMBER RETURN_TIMESTAMP WAREHOUSE_LOCATION \n"
             + "                      [COMMENTS] [ITEM_TYPE] \n"
-            + "       OR      return TRANSACTION_ID \n"
-            + "       Eg. return tid/ac17s2a n/Bobby Tan a/123 Delta Road #03-333 Singapore 123456\n"
-            + "                  p/91230456 rts/12-12-2020 1300 w/Jurong Warehouse c/NIL type/glass \n"
-            + "       OR  return tid/ac123d"
+            + "       OR      return TRANSACTION_ID RETURN_TIME_STAMP \n"
+            + "       Eg. return tid/ac17s2a n/Bobby Tan a/123 Delta Road #03-333 Singapore S123456\n"
+            + "                  p/91230456 rts/2020-12-12 1300 w/Jurong Warehouse c/NIL type/glass \n"
+            + "       OR  return tid/ac123d rts/2020-12-12 1300 \n"
 
             + "\n 12. View orders at a specified Singapore postal sector "
             + "(i.e. the first two digits of the postal code)\n"
