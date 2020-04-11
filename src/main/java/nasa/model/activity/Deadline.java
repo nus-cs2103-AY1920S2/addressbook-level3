@@ -142,7 +142,6 @@ public class Deadline extends Activity {
     public void regenerate() {
         getSchedule().update();
         if (Date.now().isAfter(dueDate) && getSchedule().getType() != 0) {
-//            setDueDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDifferenceInDay()));
             setDueDate(getSchedule().getRepeatDate());
             setDateCreated(getSchedule().getRepeatDate());
         }
