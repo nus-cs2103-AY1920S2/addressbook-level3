@@ -52,7 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `-t TITLE [-b BODY]` can be used as `-t Notably -b Lorem ipsum` or as `-t Notably`.
 * Parameters can be in any order e.g. if the command specifies `-t TITLE -b BODY`, `-b BODY -t TITLE` is also acceptable.
 ====
-
+// tag::paths[]
 [#paths]
 ====
 *Paths*
@@ -87,8 +87,8 @@ Paths are used by the `open` and `delete` command
 
 [WARNING]
 We cannot open or delete the parent of the root note because it does not exist. e.g `Delete /../` will result in an error.
+// end::paths[]
 ====
-
 [[Markdown]]
 ====
 *Markdown*
