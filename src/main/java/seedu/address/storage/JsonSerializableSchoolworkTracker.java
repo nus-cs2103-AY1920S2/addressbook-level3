@@ -14,7 +14,7 @@ import seedu.address.model.SchoolworkTracker;
 import seedu.address.model.assignment.Assignment;
 
 /**
- * An unmodifiable assignment schedule that is serializable in JSON format.
+ * An unmodifiable schoolwork tracker that is serializable in JSON format.
  */
 @JsonRootName(value = "scheduler")
 public class JsonSerializableSchoolworkTracker {
@@ -41,21 +41,21 @@ public class JsonSerializableSchoolworkTracker {
     }
 
     /**
-     * Converts this scheduler into the model's {@code SchoolworkTracker} object.
+     * Converts this schoolwork tracker into the model's {@code SchoolworkTracker} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public SchoolworkTracker toModelType() throws IllegalValueException {
-        SchoolworkTracker assignmentSchedule = new SchoolworkTracker();
+        SchoolworkTracker schoolworkTracker = new SchoolworkTracker();
         for (JsonAdaptedAssignment jsonAdaptedAssignment : assignments) {
             Assignment assignment = jsonAdaptedAssignment.toModelType();
 
-            if (assignmentSchedule.hasAssignment(assignment)) {
+            if (schoolworkTracker.hasAssignment(assignment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ASSIGNMENT);
             }
 
-            assignmentSchedule.addAssignment(assignment);
+            schoolworkTracker.addAssignment(assignment);
         }
-        return assignmentSchedule;
+        return schoolworkTracker;
     }
 }

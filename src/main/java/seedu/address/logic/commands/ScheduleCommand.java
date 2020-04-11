@@ -35,7 +35,7 @@ public class ScheduleCommand extends Command {
         + "Assignments with insufficient time to be scheduled:";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
         + "Parameters: "
-        + PREFIX_NUM_DAYS + "NUM_DAYS "
+        + PREFIX_NUM_DAYS + "NUM_DAYS (Must be a positive integer)\n"
         + "Example: "
         + COMMAND_WORD + " " + PREFIX_NUM_DAYS + "5";
 

@@ -49,7 +49,7 @@ public interface Storage extends AddressBookStorage, RestaurantBookStorage, User
     Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker() throws DataConversionException, IOException;
 
     @Override
-    void saveSchoolworkTracker(ReadOnlySchoolworkTracker scheduler) throws IOException;
+    void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker) throws IOException;
 
     @Override
     Path getEventScheduleFilePath();

@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,6 +42,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setOrganization(person.getOrganization());
         descriptor.setTagsToBeAdded(null);
         descriptor.setTagsToBeDeleted(null);
+        descriptor.setTagsToEmpty(null);
     }
 
     /**
@@ -82,6 +84,24 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withTagsToAdd(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTagsToBeAdded(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withTagsToDelete(String... tags) {
+        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
+        descriptor.setTagsToBeDeleted(tagSet);
+        return this;
+    }
+
+    /**
+     * Sets an empty hash set to the {@code EditPersonDescriptor}.
+     */
+    public EditPersonDescriptorBuilder withSetTagsToEmpty() {
+        descriptor.setTagsToBeDeleted(new HashSet<Tag>());
         return this;
     }
 

@@ -279,7 +279,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveSchoolworkTracker(ReadOnlySchoolworkTracker assignmentSchedule, Path filePath)
+        public void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker, Path filePath)
             throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }

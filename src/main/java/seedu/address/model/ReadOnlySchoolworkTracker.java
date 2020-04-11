@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 
 /**
- * Unmodifiable view of the scheduler.
+ * Unmodifiable view of the schoolwork tracker.
  */
 public interface ReadOnlySchoolworkTracker {
     /**
