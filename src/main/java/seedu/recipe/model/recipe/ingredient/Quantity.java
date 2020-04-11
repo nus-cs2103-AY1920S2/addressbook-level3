@@ -14,15 +14,15 @@ public class Quantity {
         this.unit = unit;
     }
 
-    public Quantity() {
-    }
+    public Quantity() {}
 
     /**
      * According to Metric measurements and based on ingredient type (averages denser ingredients).
-     * from https://www.thecalculatorsite.com/cooking/cups-grams.php.
-     * @param ingredientType
+     * @param ingredientType from 4 main ingredients.
+     * @return new Quantity with unit in gram.
+     * @see <a href="https://www.thecalculatorsite.com/cooking/cups-grams.php">measurementConverter</a>
      */
-    public double convertToGram(MainIngredientType ingredientType) {
+    public Quantity convertToGram(MainIngredientType ingredientType) {
         double newMagnitude = this.magnitude;
         switch(this.unit) {
         case CUP:
@@ -55,7 +55,7 @@ public class Quantity {
         default:
             throw new IllegalStateException("Unexpected value: " + this.unit);
         }
-        return newMagnitude;
+        return new Quantity(newMagnitude, Unit.GRAM);
     }
 
     public Unit getUnit() {
@@ -64,6 +64,16 @@ public class Quantity {
 
     public double getMagnitude() {
         return magnitude;
+    }
+
+    /**
+     * Sums up the quantity in {@code toAdd} with the current quantity.
+     */
+    public Quantity addQuantityInGram(Quantity toAdd, MainIngredientType mainIngredientType) {
+        Quantity currentInGram = convertToGram(mainIngredientType);
+        Quantity toAddInGram = toAdd.convertToGram(mainIngredientType);
+        double sumMagnitude = currentInGram.magnitude + toAddInGram.magnitude;
+        return new Quantity(sumMagnitude, Unit.GRAM);
     }
 
     @Override

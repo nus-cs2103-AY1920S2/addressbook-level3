@@ -3,7 +3,6 @@ package seedu.recipe.testutil;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_FRUIT_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_FRUIT_TURKEY_SANDWICH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_GRAIN;
-import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GRAIN_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GRAIN_TURKEY_SANDWICH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_NAME_FISH;
@@ -23,8 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.RecipeBook;
 
 /**
  * A utility class containing a list of {@code Recipe} objects to be used in tests.
@@ -33,20 +32,21 @@ public class TypicalRecipes {
 
     public static final Recipe CAESAR_SALAD = new RecipeBuilder().withName("Caesar Salad")
             .withTime("10")
-            .withVegetables("100g, Lettuce")
+            .withVegetables("300g, Lettuce")
+            .withGrains("200g, Bread")
             .withSteps("Cut tomatoes", "Remove honeydew skin")
-            .withGoals("Herbivore").build();
+            .withGoals("Herbivore", "Wholesome Wholemeal").build();
 
     public static final Recipe GRILLED_SANDWICH = new RecipeBuilder().withName("Grilled Sandwich")
             .withTime("10")
-            .withGrains("50g, Bread")
+            .withGrains("150g, Bread")
             .withOthers("50g, Cheese")
             .withSteps("Spread butter on bread", "Heat pan to medium heat")
             .withGoals("Wholesome Wholemeal").build();
 
     public static final Recipe BOILED_CHICKEN = new RecipeBuilder().withName("Boiled Chicken")
             .withTime("10")
-            .withProteins("100g, Chicken")
+            .withProteins("300g, Chicken")
             .withSteps("Dice chicken")
             .withGoals("Bulk like the Hulk").build();
 
@@ -67,8 +67,8 @@ public class TypicalRecipes {
 
     public static final Recipe TUNA_BREAD = new RecipeBuilder().withName("Tuna Bread")
             .withTime("60")
-            .withGrains("100g, Bread")
-            .withProteins("100g, Tuna")
+            .withGrains("200g, Bread")
+            .withProteins("300g, Tuna")
             .withGoals("Bulk like the Hulk", "Wholesome Wholemeal")
             .withSteps("Slice tuna").build();
 
@@ -81,8 +81,8 @@ public class TypicalRecipes {
     public static final Recipe VEGETARIAN_PIZZA = new RecipeBuilder().withName("Vegetarian Pizza").withTime("45")
             .withGrains("300g, Dough")
             .withVegetables("100g, Capsicum")
-            .withOthers("100g, Tomato sauce")
-            .withGoals("Herbivore").withSteps("Roll dough until stretchy and thin").build();
+            .withOthers("200g, Tomato sauce")
+            .withGoals("Herbivore", "Wholesome Wholemeal").withSteps("Roll dough until stretchy and thin").build();
 
     // Manually added - Recipe's details found in {@code CommandTestUtil}
     public static final Recipe TURKEY_SANDWICH = new RecipeBuilder().withName(VALID_NAME_TURKEY_SANDWICH)
@@ -100,7 +100,7 @@ public class TypicalRecipes {
             .withProteins(VALID_PROTEIN_FISH)
             .withFruits(VALID_FRUIT_FISH)
             .withOthers(VALID_OTHER_FISH)
-            .withGoals(VALID_GOAL_PROTEIN).withSteps(VALID_STEP_FISH).build();
+            .withSteps(VALID_STEP_FISH).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

@@ -13,7 +13,7 @@ import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.commons.util.FileUtil;
 import seedu.recipe.commons.util.JsonUtil;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
-import seedu.recipe.storage.JsonRecipeBookStorage;
+import seedu.recipe.storage.recipe.JsonRecipeBookStorage;
 
 /**
  * A class to access RecipeBook data stored as a json file on the hard disk.

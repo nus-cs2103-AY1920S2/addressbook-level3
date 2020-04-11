@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
@@ -11,6 +12,7 @@ import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
@@ -54,7 +56,18 @@ public class CookedCommand extends Command {
             //add record to internal list and update goals tally for each record added
             model.addRecord(record);
             model.updateGoalsTally(record);
-            //TODO: remove recipe from planned list if exists once done
+
+            Optional<List<Plan>> optionalPlans = model.getPlans(recipeCooked);
+            if (optionalPlans.isPresent()) {
+                optionalPlans.get().stream()
+                        .filter(plan -> plan.isOnDate(Date.today()))
+                        .findFirst()
+                        .ifPresent(planToday -> {
+                            model.deletePlan(recipeCooked, planToday);
+                            sb.append("and removed the plan for ");
+                        });
+            }
+
             if (i == targetIndex.length - 1 && targetIndex.length != 1) {
                 sb.append(" and ");
             }
@@ -65,7 +78,7 @@ public class CookedCommand extends Command {
         }
         sb.append("!");
         model.commitBook(commandType);
-        return new CommandResult(sb.toString(), false, goalsTab, false);
+        return new CommandResult(sb.toString(), false, false, goalsTab, false);
     }
 
     @Override

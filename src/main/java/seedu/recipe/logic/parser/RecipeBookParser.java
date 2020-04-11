@@ -6,34 +6,36 @@ import static seedu.recipe.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.recipe.logic.commands.AddCommand;
-import seedu.recipe.logic.commands.AddIngredientCommand;
-import seedu.recipe.logic.commands.AddStepCommand;
-import seedu.recipe.logic.commands.ClearCommand;
 import seedu.recipe.logic.commands.Command;
 import seedu.recipe.logic.commands.CookedCommand;
-import seedu.recipe.logic.commands.DeleteCommand;
-import seedu.recipe.logic.commands.DeleteIngredientCommand;
-import seedu.recipe.logic.commands.DeleteStepCommand;
-import seedu.recipe.logic.commands.EditCommand;
-import seedu.recipe.logic.commands.EditIngredientCommand;
-import seedu.recipe.logic.commands.EditStepCommand;
-import seedu.recipe.logic.commands.ExitCommand;
-import seedu.recipe.logic.commands.FavouriteCommand;
 import seedu.recipe.logic.commands.FilterCommand;
-import seedu.recipe.logic.commands.FindCommand;
-import seedu.recipe.logic.commands.HelpCommand;
-import seedu.recipe.logic.commands.ListCommand;
 import seedu.recipe.logic.commands.ListGoalsCommand;
 import seedu.recipe.logic.commands.QuoteCommand;
 import seedu.recipe.logic.commands.RedoCommand;
 import seedu.recipe.logic.commands.StreakCommand;
-import seedu.recipe.logic.commands.SwitchCommand;
 import seedu.recipe.logic.commands.UndoCommand;
-import seedu.recipe.logic.commands.UnfavouriteCommand;
+import seedu.recipe.logic.commands.common.ExitCommand;
+import seedu.recipe.logic.commands.common.HelpCommand;
+import seedu.recipe.logic.commands.common.SwitchCommand;
 import seedu.recipe.logic.commands.plan.ClearPlanCommand;
 import seedu.recipe.logic.commands.plan.DeletePlanCommand;
+import seedu.recipe.logic.commands.plan.GroceryListCommand;
 import seedu.recipe.logic.commands.plan.PlanCommand;
+import seedu.recipe.logic.commands.recipe.AddCommand;
+import seedu.recipe.logic.commands.recipe.AddIngredientCommand;
+import seedu.recipe.logic.commands.recipe.AddStepCommand;
+import seedu.recipe.logic.commands.recipe.ClearCommand;
+import seedu.recipe.logic.commands.recipe.DeleteCommand;
+import seedu.recipe.logic.commands.recipe.DeleteGoalCommand;
+import seedu.recipe.logic.commands.recipe.DeleteIngredientCommand;
+import seedu.recipe.logic.commands.recipe.DeleteStepCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand;
+import seedu.recipe.logic.commands.recipe.EditIngredientCommand;
+import seedu.recipe.logic.commands.recipe.EditStepCommand;
+import seedu.recipe.logic.commands.recipe.FavouriteCommand;
+import seedu.recipe.logic.commands.recipe.FindCommand;
+import seedu.recipe.logic.commands.recipe.ListCommand;
+import seedu.recipe.logic.commands.recipe.UnfavouriteCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.logic.parser.plan.DeletePlanCommandParser;
 import seedu.recipe.logic.parser.plan.PlanCommandParser;
@@ -125,6 +127,9 @@ public class RecipeBookParser {
         case DeleteIngredientCommand.COMMAND_WORD:
             return new DeleteIngredientCommandParser().parse(arguments);
 
+        case DeleteGoalCommand.COMMAND_WORD:
+            return new DeleteGoalCommandParser().parse(arguments);
+
         case EditIngredientCommand.COMMAND_WORD:
             return new EditIngredientCommandParser().parse(arguments);
 
@@ -136,6 +141,9 @@ public class RecipeBookParser {
 
         case ClearPlanCommand.COMMAND_WORD:
             return new ClearPlanCommand();
+
+        case GroceryListCommand.COMMAND_WORD:
+            return new GroceryListCommand();
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);

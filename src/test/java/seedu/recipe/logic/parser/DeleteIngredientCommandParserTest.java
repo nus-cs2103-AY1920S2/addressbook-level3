@@ -8,9 +8,9 @@ import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.logic.commands.DeleteIngredientCommand;
-import seedu.recipe.logic.commands.EditCommand;
-import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.recipe.logic.commands.recipe.DeleteIngredientCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

@@ -16,7 +16,8 @@ import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.goal.GoalCount;
+import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.storage.Storage;
 
@@ -88,17 +89,22 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Integer> getFilteredGoalsTally() {
+    public ObservableList<GoalCount> getFilteredGoalsTally() {
         return model.getFilteredGoalsTally();
     };
 
     @Override
-    public ObservableList<PlannedDate> getFilteredPlannedList() {
+    public ObservableList<Plan> getFilteredPlannedList() {
         return model.getFilteredPlannedList();
     }
 
     @Override
+    public String getGroceryList() {
+        return model.getGroceryList();
+    }
+
     public ObservableList<Quote> getFilteredQuoteList() {
         return model.getFilteredQuoteList();
     }
+
 }

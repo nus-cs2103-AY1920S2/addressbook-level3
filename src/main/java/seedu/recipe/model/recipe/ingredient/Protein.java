@@ -16,4 +16,14 @@ public class Protein extends Ingredient {
         super(name);
     }
 
+    /**
+     * Method to indicate type of ingredient.
+     * Only exists for ingredients included in calculation for goals.
+     * @return Main Ingredient type of protein
+     */
+    @Override
+    public MainIngredientType getMainIngredientType() {
+        return MainIngredientType.PROTEIN;
+    }
+
 }

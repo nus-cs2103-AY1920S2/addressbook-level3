@@ -16,4 +16,14 @@ public class Fruit extends Ingredient {
         super(name);
     }
 
+    /**
+     * Method to indicate type of ingredient.
+     * Only exists for ingredients included in calculation for goals.
+     * @return Main Ingredient type of fruit
+     */
+    @Override
+    public MainIngredientType getMainIngredientType() {
+        return MainIngredientType.FRUIT;
+    }
+
 }

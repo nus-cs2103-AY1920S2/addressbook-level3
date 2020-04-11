@@ -17,7 +17,8 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.recipe.commons.exceptions.DataConversionException;
 import seedu.recipe.model.ReadOnlyRecipeBook;
-import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
+import seedu.recipe.storage.recipe.JsonRecipeBookStorage;
 
 public class JsonRecipeBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonRecipeBookStorageTest");

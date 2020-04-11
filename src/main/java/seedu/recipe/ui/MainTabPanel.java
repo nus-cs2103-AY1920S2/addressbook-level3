@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import seedu.recipe.commons.core.LogsCenter;
+import seedu.recipe.ui.plan.PlanningListPanel;
 
 /**
  * Panel containing the different tabs of the application.

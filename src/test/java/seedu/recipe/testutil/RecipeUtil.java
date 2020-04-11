@@ -13,8 +13,8 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_TIME;
 import java.util.List;
 import java.util.Set;
 
-import seedu.recipe.logic.commands.AddCommand;
-import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.recipe.logic.commands.recipe.AddCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.Step;
@@ -30,7 +30,7 @@ import seedu.recipe.model.recipe.ingredient.Vegetable;
 public class RecipeUtil {
 
     /**
-     * Returns an add command string for adding the {@code recipe}.
+     * Returns an addPlan command string for adding the {@code recipe}.
      */
     public static String getAddCommand(Recipe recipe) {
         return AddCommand.COMMAND_WORD + " " + getRecipeDetails(recipe);

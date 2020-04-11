@@ -6,12 +6,13 @@ import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.recipe.logic.commands.recipe.ClearCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
-import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.ui.tab.Tab;
 
 public class ClearCommandTest {
@@ -22,7 +23,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
 
         CommandResult expectedCommandResult =
-                new CommandResult(ClearCommand.MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+                new CommandResult(ClearCommand.MESSAGE_SUCCESS, false,
+                        false, Tab.RECIPES, false);
         assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 
@@ -36,7 +38,8 @@ public class ClearCommandTest {
         expectedModel.setRecipeBook(new RecipeBook());
 
         CommandResult expectedCommandResult =
-                new CommandResult(ClearCommand.MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+                new CommandResult(ClearCommand.MESSAGE_SUCCESS, false,
+                        false, Tab.RECIPES, false);
         assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 

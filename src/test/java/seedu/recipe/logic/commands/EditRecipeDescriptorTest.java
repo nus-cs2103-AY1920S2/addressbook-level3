@@ -12,7 +12,7 @@ import static seedu.recipe.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.testutil.EditRecipeDescriptorBuilder;
 
 public class EditRecipeDescriptorTest {
