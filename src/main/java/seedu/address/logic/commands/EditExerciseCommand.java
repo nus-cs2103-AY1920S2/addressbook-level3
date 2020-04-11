@@ -13,6 +13,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.statistics.PersonalBestFinder;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 import seedu.address.model.exercise.Exercise;
@@ -108,6 +109,7 @@ public class EditExerciseCommand extends Command {
         }
 
         model.editExercise(exerciseToEdit, editedExercise);
+        PersonalBestFinder.generateAndSetPersonalBest(clientInView);
         return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise.getForOutput()));
     }
 
