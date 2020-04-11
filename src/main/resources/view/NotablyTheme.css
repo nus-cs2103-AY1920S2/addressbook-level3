@@ -50,7 +50,6 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
     -fx-font-family: "Roboto Regular";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
