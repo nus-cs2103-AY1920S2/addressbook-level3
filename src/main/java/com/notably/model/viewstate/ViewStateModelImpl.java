@@ -51,6 +51,7 @@ public class ViewStateModelImpl implements ViewStateModel {
 
     @Override
     public void setInput(String input) {
+        requireNonNull(input);
         this.input.setValue(input);
     }
 

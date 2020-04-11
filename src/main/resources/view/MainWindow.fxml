@@ -3,14 +3,12 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Notably" minWidth="567" minHeight="412" onCloseRequest="#handleExit" >
   <icons>
@@ -25,15 +23,8 @@
 
       <VBox fx:id="mainWindow">
         <SplitPane VBox.vgrow="ALWAYS">
-          <VBox VBox.vgrow="ALWAYS" SplitPane.resizableWithParent="false" minWidth="180">
-            <MenuBar fx:id="menuBar" VBox.vgrow="NEVER" focusTraversable="true">
-              <Menu mnemonicParsing="false" text="File">
-                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-              </Menu>
-              <Menu mnemonicParsing="false" text="Help">
-                <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-              </Menu>
-            </MenuBar>
+          <VBox fx:id="sideBar" VBox.vgrow="ALWAYS" SplitPane.resizableWithParent="false" minWidth="180">
+            <Label fx:id="notablyLogo" VBox.vgrow="ALWAYS" text="NOTABLY" />
             <StackPane fx:id="sideBarPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
@@ -54,8 +45,6 @@
             </StackPane>
           </VBox>
         </SplitPane>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>
