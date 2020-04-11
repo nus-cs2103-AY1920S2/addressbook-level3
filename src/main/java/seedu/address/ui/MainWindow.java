@@ -347,8 +347,7 @@ public class MainWindow extends UiPart<Stage> {
                         .getSelectionModel()
                         .select(switchTabCommandResult.getTabToSwitchIndex());
                 if (switchTabCommandResult.getTabToSwitchIndex() == STATS_TAB_INDEX) {
-                    ObservableList<DayData> customQueue = logic.getCustomQueue();
-                    statisticsManager.updateStatisticsDisplayValues(customQueue);
+                    statisticsManager.updateStatisticsDisplayValues();
                     this.updateStatisticsDisplay();
                 }
             } catch (ClassCastException ce) {
@@ -432,7 +431,7 @@ public class MainWindow extends UiPart<Stage> {
         String progressDailyText = statisticsManager.getProgressDailyText();
         String progressBarDailyFilepathString =
                 statisticsManager.getProgressBarDailyFilepathString();
-        List<DayData> customQueue = logic.getCustomQueue();
+        List<DayData> customQueue = statisticsManager.getCustomQueue();
 
         statisticsDisplay.setProgressTargetText(dailyTargetText);
         statisticsDisplay.setProgressDailyText(progressDailyText);

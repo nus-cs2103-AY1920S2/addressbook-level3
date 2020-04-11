@@ -108,8 +108,6 @@ public interface Model {
 
     ReadOnlyStatistics getStatistics();
 
-    ObservableList<DayData> getCustomQueue();
-
     /**
      * Notifies observers when a change is made. Observer in this case is the logic manager.
      *

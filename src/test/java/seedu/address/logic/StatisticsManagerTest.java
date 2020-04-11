@@ -5,6 +5,7 @@ import static seedu.address.model.Statistics.DEFAULT_DAILY_TARGET;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalDayDatas.DAY6;
 import static seedu.address.testutil.TypicalDayDatas.getTypicalDayDatas;
+import static seedu.address.testutil.TypicalDayDatas.getTypicalStatistics;
 
 import org.junit.jupiter.api.Test;
 import seedu.address.model.Statistics;
@@ -20,8 +21,8 @@ public class StatisticsManagerTest {
 
     @Test
     public void updateStatisticsDisplayValues_typicalDayDatas_success() {
-        statisticsManager.setStatistics(new Statistics());
-        statisticsManager.updateStatisticsDisplayValues(getTypicalDayDatas());
+        statisticsManager.setStatistics(new Statistics(getTypicalStatistics()));
+        statisticsManager.updateStatisticsDisplayValues();
 
         String expectedDailyTargetText = DEFAULT_DAILY_TARGET;
 
@@ -44,14 +45,7 @@ public class StatisticsManagerTest {
     public void updateStatisticsDisplayValues_nullStatistics_throwsNullPointerException() {
         assertThrows(
                 NullPointerException.class,
-                () -> statisticsManager.updateStatisticsDisplayValues(getTypicalDayDatas()));
-    }
-
-    @Test
-    public void updateStatisticsDisplayValues_nullDayDatas_throwsNullPointerException() {
-        assertThrows(
-                NullPointerException.class,
-                () -> statisticsManager.updateStatisticsDisplayValues(null));
+                () -> statisticsManager.updateStatisticsDisplayValues());
     }
 
     @Test

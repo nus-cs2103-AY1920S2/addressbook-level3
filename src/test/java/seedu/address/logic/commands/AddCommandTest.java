@@ -220,11 +220,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<DayData> getCustomQueue() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void updateDataDatesStatistics() {
             throw new AssertionError("This method should not be called.");
         }

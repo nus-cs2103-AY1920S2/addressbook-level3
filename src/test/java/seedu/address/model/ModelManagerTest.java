@@ -100,12 +100,6 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getCustomQueue_modifyQueue_throwsUnsupportedOperationException() {
-        assertThrows(
-                UnsupportedOperationException.class, () -> modelManager.getCustomQueue().remove(0));
-    }
-
-    @Test
     public void equals() {
         TaskList taskList = new TaskListBuilder().withTask(HOMEWORK10).withTask(LAB_3).build();
         TaskList differentTaskList = new TaskList();

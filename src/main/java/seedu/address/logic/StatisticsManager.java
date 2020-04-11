@@ -3,7 +3,7 @@ package seedu.address.logic;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 
-import java.util.List;
+import javafx.collections.ObservableList;
 import seedu.address.model.Statistics;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.settings.DailyTarget;
@@ -11,7 +11,6 @@ import seedu.address.model.settings.DailyTarget;
 /** Manages logic of StatisticsDisplay */
 public class StatisticsManager {
     private Statistics statistics;
-    private String dailyTargetText;
     private String progressDailyText;
     private String progressBarDailyFilepathString;
 
@@ -24,10 +23,9 @@ public class StatisticsManager {
 
     /**
      * Update StatisticsDisplay fields for user output.
-     *
-     * @param dayDatas current dayDatas information.
      */
-    public void updateStatisticsDisplayValues(List<DayData> dayDatas) {
+    public void updateStatisticsDisplayValues() {
+        ObservableList<DayData> dayDatas = statistics.getCustomQueue();
         requireNonNull(statistics);
         requireNonNull(dayDatas);
         assert (dayDatas.size() > 0);
@@ -35,7 +33,6 @@ public class StatisticsManager {
         // get daily challenge target
         DailyTarget dailyTarget = statistics.getDailyTarget();
         String dailyTargetString = dailyTarget.value;
-        this.dailyTargetText = dailyTargetString;
         int currTarget = Integer.valueOf(dailyTargetString);
 
         // get current progress
@@ -64,6 +61,10 @@ public class StatisticsManager {
 
     public String getDailyTargetText() {
         return statistics.getDailyTarget().value;
+    }
+
+    public ObservableList<DayData> getCustomQueue() {
+        return statistics.getCustomQueue();
     }
 
     public String getProgressDailyText() {
