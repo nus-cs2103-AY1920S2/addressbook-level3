@@ -340,7 +340,7 @@ Displays statistics for all deadline activities.
 
 === Automating activity: `repeat`  [coming in v2.0]
 Allows user to repeat an activity from a module.
-Format: `repeat m/MODULE_CODE a/ACTIVITY_NAME r/INDEX`
+Format: `repeat 1 m/MODULE_CODE r/INDEX`
 
 ** `INDEX` can be in `1 for Weekly`, `2 twice Weekly`, `3 for Monthly`.
 **  By default `INDEX` will be `0` hence no automation will be done.
@@ -355,6 +355,7 @@ Examples:
 
 === Quote: `quote` [coming in v2.0]
 Allows user to generate a quote message. Aims to lighten the user day!
+The message will disappear within 5s.
 Format: `quote`
 
 Example :

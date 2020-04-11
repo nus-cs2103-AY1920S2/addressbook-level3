@@ -248,19 +248,19 @@ public class ModelManager implements Model {
     @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
-        updateHistory("add" + currentUiLocation());
+        updateHistory("add" + currentUiLocation() + " " + module.getModuleCode().toString());
     }
 
     @Override
     public void addDeadline(ModuleCode target, Deadline deadline) {
         nasaBook.addDeadline(target, deadline);
-        updateHistory("deadline" + currentUiLocation());
+        updateHistory("deadline" + currentUiLocation() + " " + deadline.getName().name);
     }
 
     @Override
     public void addEvent(ModuleCode target, Event event) {
         nasaBook.addEvent(target, event);
-        updateHistory("event" + currentUiLocation());
+        updateHistory("event" + currentUiLocation() + " " + event.getName().name);
     }
 
     @Override
