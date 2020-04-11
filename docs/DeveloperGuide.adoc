@@ -433,10 +433,16 @@ Certain properties of the application can be controlled (e.g user prefs file
 location, logging level) through the configuration file (default:
 `config.json`).
 
+// tag::archiving[]
 [[Implementation-Coupon-Archiving]]
 === Coupon Archiving
 
+When physical coupons are expired or exhausted, they would usually be thrown away,
+or kept in the archive. Coupon Stash simulates this archive, storing these coupons
+in the app so that the user can still keep track of it, and the savings it generated.
+
 ==== Current Implementation
+
 The archiving of coupons is facilitated by the `Archived` attribute of a
 coupon. The following methods in the `CouponStash`,
 `Coupon`, `Usage` class and the `Model` interface facilitates this feature:
@@ -508,6 +514,7 @@ this method, the current `FilteredList` will be updated to show active
 [#img-archiveexhausted]
 .Sequence diagram representation of archiving exhausted coupons
 image::ArchiveExhaustedSequenceDiagram.png[]
+// end::archiving[]
 
 
 ==== Design Considerations
@@ -657,31 +664,6 @@ the expiry date of the coupon.
 
 Images are provided below to help understand the above said connectivity and
 to identify which are valid input remind date.
-
-
-[cols="2"]
-|=========================================
-|Object Diagram | Comments
-a|
-image:R1OD.png[] | Valid
-a|
-image:R2OD.png[] | Valid; remind date can be d-m-yyyy
-a|
-image:R3OD.png[] | Invalid; remind date cannot be dd-mm-yy
-a|
-image:R4OD.png[] | Invalid; remind date cannot be before
-system date
-a|
-image:R5OD.png[] | Invalid; remind date cannot be after
-expiry date
-a|
-image:R6OD.png[] | Valid; remind date can be today's date
-a|
-image:R7OD.png[] | Valid; remind date will become null
-after the coupon is reminded
-a|
-
-|=========================================
 
 Given below are two ways of a coupon's remind date are be derived from.
 
