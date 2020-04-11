@@ -338,24 +338,35 @@ Examples:
 ** `statistics at/deadline` +
 Displays statistics for all deadline activities.
 
-=== Automating activity: `repeat`  [coming in v2.0]
-Allows user to repeat an activity from a module.
-Format: `repeat 1 m/MODULE_CODE r/INDEX`
+=== Automating a activity: `repeat-d` or `repeat-e` [coming in v2.0]
+Allows user to repeat-d an activity from a module.
+Format: `repeat-d ITEM_INDEX m/MODULE_CODE r/INDEX`
 
+**  The first `ITEM_INDEX` is the sequence of the activity in the list.
 ** `INDEX` can be in `1 for Weekly`, `2 twice Weekly`, `3 for Monthly`.
 **  By default `INDEX` will be `0` hence no automation will be done.
 **  The activity will be regenerated once user open the application.
 
+CAUTION:  Only use index r/0, r/1, r/2, r/3.
+
 Examples:
 
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/0` to cancel.
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/1` to regenerate weekly.
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/2` to regenerate twice weekly.
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/3` to regenerate monthly.
+** `repeat-d 1 m/CS3233 r/0` to cancel.
+** `repeat-d 1 m/CS3233 r/1` to regenerate weekly.
+** `repeat-d 1 m/CS3233 r/2` to regenerate twice weekly.
+** `repeat-d 1 m/CS3233 r/3` to regenerate monthly.
+** `repeat-e 1 m/CS3233 r/0` to cancel.
+** `repeat-e 1 m/CS3233 r/1` to regenerate weekly.
+** `repeat-e 1 m/CS3233 r/2` to regenerate twice weekly.
+** `repeat-e 1 m/CS3233 r/3` to regenerate monthly.
 
-=== Quote: `quote` [coming in v2.0]
+=== Quote: `quote`
 Allows user to generate a quote message. Aims to lighten the user day!
 The message will disappear within 5s.
+
+CAUTION:  Advise not to spam `quote` as the screen will be filled with quote messages waiting to disappear.
+Use it when you need it.
+
 Format: `quote`
 
 Example :
@@ -562,7 +573,8 @@ the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
 | *Sort* | `sort SORT METHOD`
 | *Statistics* | `statistics [at/TYPE_OF_ACTIVITY]`
 | *Redo* | `redo`
-| *Repeat* | `repeat m/MODULE_CODE a/ACTIVITY_NAME r/INDEX`
+| *Repeat Deadline* | `repeat-d INDEX m/MODULE_CODE r/INDEX`
+| *Repeat Event* | `repeat-d INDEX m/MODULE_CODE r/INDEX`
 | *Quote* | `quote`
 | *Undo* | `undo`
 |===

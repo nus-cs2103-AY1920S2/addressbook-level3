@@ -128,6 +128,11 @@ public class Event extends Activity {
     }
 
     @Override
+    public void setSchedule(int type) {
+        getSchedule().setType(type, startDate);
+    }
+
+    @Override
     public void regenerate() {
         getSchedule().update();
         if (Date.now().isAfter(endDate) && getSchedule().getType() != 0) {
@@ -142,10 +147,9 @@ public class Event extends Activity {
         Name nameCopy = new Name(getName().toString());
         Date startDateCopy = new Date(getStartDate().toString());
         Date endDateCopy = new Date(getEndDate().toString());
-        Event eventCopy = new Event(nameCopy, startDateCopy, endDateCopy);
         Note noteCopy = new Note(getNote().toString());
         Date dateCreatedCopy = new Date(getDateCreated().toString());
-        eventCopy.setNote(noteCopy);
+        Event eventCopy = new Event(nameCopy, startDateCopy, endDateCopy, noteCopy);
         eventCopy.setDateCreated(dateCreatedCopy);
         return eventCopy;
     }

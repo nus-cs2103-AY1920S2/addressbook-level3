@@ -113,6 +113,11 @@ public class Deadline extends Activity {
     }
 
     @Override
+    public void setSchedule(int type) {
+        getSchedule().setType(type, dueDate);
+    }
+
+    @Override
     public boolean occurInMonth(int month) {
         int dueDateMonth = this.dueDate.getDate().getMonth().getValue();
         return month == dueDateMonth;
@@ -123,12 +128,9 @@ public class Deadline extends Activity {
         Name nameCopy = new Name(getName().toString());
         Date dueDateCopy = new Date(getDueDate().toString());
         Note noteCopy = new Note(getNote().toString());
-        Date dateCreatedCopy = new Date(getDateCreated().toString());
+        Date dateCreatedCopy = Date.acceptPastDate(getDateCreated().toString());
         Priority priorityCopy = new Priority(getPriority().toString());
-        Deadline copy = new Deadline(nameCopy, dueDateCopy);
-        copy.setDateCreated(dateCreatedCopy);
-        copy.setPriority(priorityCopy);
-        copy.setNote(noteCopy);
+        Deadline copy = new Deadline(nameCopy, dateCreatedCopy, noteCopy, priorityCopy, dueDateCopy);
         if (isDone) {
             copy.markAsDone();
         }
@@ -140,7 +142,8 @@ public class Deadline extends Activity {
     public void regenerate() {
         getSchedule().update();
         if (Date.now().isAfter(dueDate) && getSchedule().getType() != 0) {
-            setDueDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDifferenceInDay()));
+//            setDueDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDifferenceInDay()));
+            setDueDate(getSchedule().getRepeatDate());
             setDateCreated(getSchedule().getRepeatDate());
         }
     }

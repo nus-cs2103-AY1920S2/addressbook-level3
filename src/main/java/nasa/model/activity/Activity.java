@@ -99,7 +99,7 @@ public abstract class Activity {
     }
 
     public void setSchedule(int type) {
-        schedule.setType(type);
+        schedule.setType(type, dateCreated);
     }
 
     public void setSchedule(Schedule schedule) {
