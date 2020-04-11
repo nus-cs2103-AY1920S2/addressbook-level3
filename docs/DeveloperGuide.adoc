@@ -346,7 +346,8 @@ image::CommandAutocompleteSequenceDiagramRef.png[]
 
 This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to enable <<command-history-behaviour-4, behaviour 4>> as defined above: by simply checking for the presence of white spaces from the trimmed user input. The following activity diagram is given to show the decisions made at each step of the execution:
 
-// TOOD: activity diagram for AutoComplete#execute
+.Activity Diagram for the AutoComplete Logic
+image::CommandAutocompleteActivityDiagram.png[]
 
 ==== Design Considerations
 
