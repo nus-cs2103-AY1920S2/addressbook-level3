@@ -178,6 +178,14 @@ public class RecipeBuilder {
         return this;
     }
 
+    /**
+     * Marks the recipe as a favourite if {@code isFavourite} is true. Else, marks the recipe as a non-favourite.
+     */
+    public RecipeBuilder withFavourite(boolean isFavourite) {
+        this.isFavourite = isFavourite;
+        return this;
+    }
+
     public Recipe build() {
         return new Recipe(name, time, grains, vegetables, proteins, fruits, others, steps, goals, isFavourite);
     }

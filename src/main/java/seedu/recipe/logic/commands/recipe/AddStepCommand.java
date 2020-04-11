@@ -27,12 +27,12 @@ public class AddStepCommand extends Command {
 
     public static final String COMMAND_WORD = "addstep";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds step(s) to an existing recipe in the "
-            + "recipe book.\n"
-            + "Parameters: [INDEX of recipe] "
-            + "[" + PREFIX_STEP + "STEP]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds more steps to an existing recipe.\n"
+            + "Parameters: [recipe index] "
+            + "[" + PREFIX_STEP + "step] <" + PREFIX_STEP + "next step>...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_STEP + "Insert new step here";
+            + PREFIX_STEP + "New step "
+            + PREFIX_STEP + "Another new step";
 
     public static final String MESSAGE_ADD_STEPS_SUCCESS = "Successfully added step(s) to %1$s!";
 
@@ -71,7 +71,7 @@ public class AddStepCommand extends Command {
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitBook(commandType);
+        model.commitBook(commandType, recipesTab);
 
         String finalMessage = String.format(MESSAGE_ADD_STEPS_SUCCESS, recipeToEdit.getName().toString());
         return new CommandResult(finalMessage, false, false, recipesTab, false);

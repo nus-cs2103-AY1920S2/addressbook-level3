@@ -46,15 +46,12 @@ public class AddCommandParserTest {
     public void parse_allFieldsPresent_success() {
         Recipe expectedRecipe = new RecipeBuilder(FISH).build();
 
-
         // whitespace only preamble
-
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_FISH + TIME_DESC_FISH + STEP_DESC_FISH
                 + GRAIN_DESC_FISH + VEGETABLE_DESC_FISH + PROTEIN_DESC_FISH + FRUIT_DESC_FISH + OTHER_DESC_FISH,
                 new AddCommand(expectedRecipe));
 
         // multiple names - last name accepted
-
         assertParseSuccess(parser, NAME_DESC_TURKEY_SANDWICH + NAME_DESC_FISH + TIME_DESC_FISH + STEP_DESC_FISH
                 + GRAIN_DESC_FISH + VEGETABLE_DESC_FISH + PROTEIN_DESC_FISH + FRUIT_DESC_FISH + OTHER_DESC_FISH,
                 new AddCommand(expectedRecipe));
@@ -66,7 +63,6 @@ public class AddCommandParserTest {
                 new AddCommand(expectedRecipe));
 
         // In different order
-
         Recipe expectedRecipeMultipleGoals = new RecipeBuilder(FISH).build();
         assertParseSuccess(parser, NAME_DESC_FISH + STEP_DESC_FISH + GRAIN_DESC_FISH
                 + VEGETABLE_DESC_FISH + FRUIT_DESC_FISH + PROTEIN_DESC_FISH + TIME_DESC_FISH
