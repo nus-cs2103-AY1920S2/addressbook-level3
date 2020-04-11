@@ -2018,6 +2018,15 @@ at index 1 of the module list.
 Expected: Deletes the student with matric number `A123456X` from the group `G06`
 of the module `m/CS1101S`.
 
+=== Filtering students
+
+. Filtering students based on keywords.
+
+.. Test Case: `student filter m/CS1101S` +
+Expected: Shows all students that are under the first group of *module* `CS1101S`.
+.. Test Case: `session filter m/CS1101S g/G06` +
+Expected: Shows all students that are under *group* `G06` of *module* `CS1101S`.
+
 === Deleting a group
 
 . Deleting a group from a module.
@@ -2065,11 +2074,14 @@ Expected: Edits the session at index `1` of the session list to be of type `lab`
 . Filtering sessions based on keywords.
 
 .. Test Case: `session filter m/CS1101S` +
-Expected: Shows all sessions associated with the module `CS1101S`.
+Expected: Shows all sessions associated with the *module* `CS1101S`.
 .. Test Case: `session filter t/tutorial` +
-Expected: Shows all sessions that are of type tutorial.
+Expected: Shows all sessions that are of *type* `tutorial`.
 .. Test Case: `session filter d/2020-03-20` +
-Expected: Shows all sessions on the date `2020-03-20`.
+Expected: Shows all sessions on the *date* `2020-03-20`.
+.. Test Case: `session filter d/2020-03-20 t/tutorial m/CS1101S` +
+Expected: Shows all sessions that contains *date* `2020-03-20`, *session type* `tutorial`
+and *module code* `CS1101S`.
 
 === Filtering Claims
 
