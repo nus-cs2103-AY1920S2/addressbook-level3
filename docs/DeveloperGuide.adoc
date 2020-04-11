@@ -296,7 +296,7 @@ to ensure correct and consistent assigning of objects.
 Below is a sequence diagram of how EdgeManager adds the IDs to the two objects involved.
 
 .Sequence Diagram of EdgeManager's AssignXtoCourse commands
-image::Ivan-SequenceDiagramForAssignCommand.png[]
+image::Ivan-SeqDiagEdgeManagerAssignCommand.png[]
 
 ---
 The flow of an assign command is as follows:
