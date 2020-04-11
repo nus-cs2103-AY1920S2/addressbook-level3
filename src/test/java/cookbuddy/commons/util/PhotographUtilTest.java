@@ -14,7 +14,6 @@ public class PhotographUtilTest {
 
         // invalid path
         assertFalse(PhotographUtil.isPlaceHolderImage("a\0"));
-        
     }
 
 }
