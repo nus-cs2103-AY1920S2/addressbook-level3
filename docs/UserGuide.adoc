@@ -112,33 +112,29 @@ A note describes certain features or behaviour that may
 not be so obvious!
 
 ====
-Boxes like this contain useful information, for
+Boxes like these contain useful information, for
 emphasis and easy reference!
 ====
 
-* Coupon Stash command words are enclosed in `code blocks`
+* Coupon Stash command words are formatted with `code blocks`.
 
 [[link]]
-* Blue, underlined words are <<UserGuide.adoc#link, links>>! Try clicking on
+* Blue, underlined words are <<link, links>>! Try clicking on
 the link on the left!
 
 
 == Quick Start
 
-.  Ensure you have Java (recommended: version 11 or above) installed in your
+.  Ensure you have Java (version 11 or above) installed in your
 Computer.
-.  Download the latest link:{repoURL}/archive/v1.2.zip[`CouponStash.jar`]
+.  Download the latest link:{repoURL}/releases[`CouponStash.jar`].
 .  Copy the file to the folder you want to use as the home folder for your
 Coupon Stash.
 .  Double-click the file to start the app. The GUI should appear in a few
 seconds. If nothing occurs, use the command
-`java -jar CouponStash.jar` in your computer's Command Line Interface (CLI) to
+`java -jar CouponStash.jar` on your computer's Command Line Interface (CLI) to
 open the file up.
-.  Type the command in the command box and press Enter to execute it. +
-e.g. typing *help* and pressing Enter will open a browser window showing
-this user guide..
-.. You can use the up and down arrow keys to navigate through the previously
-executed commands.
+.  Type the command in the command box and press Enter to execute it.
 .  Some example commands you can try:
 * *list* : lists all coupons
 * *add:* `add n/Domino's Pizza Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5
@@ -151,6 +147,16 @@ limit of 5 usages.
 .  Refer to the <<Features, Features>> section below for the details of each
 command.
 
+[[KeyboardShortcuts]]
+== Keyboard Shortcuts
+With Coupon Stash being optimized for efficient command line usage, how can we
+miss out the inclusion of some nifty keyboard shortcuts to further streamline
+your workflow! This section introduces some of the keyboard shortcuts available
+for use in this program.
+
+=== Restore previously entered command text: kbd:[↑]
+Pressing the kbd:[↑] keyboard button while the focus is on the command box
+allows you to restore the text of the most recent executed comman
 
 [[Features]]
 == Features
