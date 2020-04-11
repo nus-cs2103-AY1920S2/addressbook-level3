@@ -1,4 +1,4 @@
-package seedu.eylah.expensesplitter.logic.parser;
+package seedu.eylah.commons.logic.parser;
 
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
