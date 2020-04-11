@@ -470,10 +470,16 @@ and the creation of association classes which would unnecessarily complicate the
 That is why we decided to stick to our current implementation.
 
 ====
+
+The following class diagram shows how different classes are related in the functioning of a Student Object.
+
 .Structure of the Student Component
 image::StudentClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tatracker/model/student/Student.java[`Student.java`]
+
+The other models (`Module`, `Group` and `Session`) have been implemented in a similar manner. The main difference is that the other models do not
+have any `Tags`.
 
 [NOTE]
 As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can
@@ -796,7 +802,7 @@ functioning of the Claims view.
 image::TssModelClassDiagram.png[]
 
 The TaTracker model class contains a UniqueDoneSessionList which keeps track of
-all the sessions that have been marked as done. Each of the sessions are associated
+all the *sessions that have been marked as done*. Each of the sessions are associated
 with a Module in the UniqueModuleList.
 
 ==== Session Done Command
@@ -1039,26 +1045,6 @@ the command correctly. An alternative would be to remove this colour though, as 
 many flashing colours may be distracting to the user.
 // end::syntaxhighlighting[]
 
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
 [[Implementation-Goto]]
 === Goto Command
 
@@ -1189,6 +1175,25 @@ will be filtered.
 
 The command used to filter claims is implemented the same way as `SessionFilterCommand`.
 
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
