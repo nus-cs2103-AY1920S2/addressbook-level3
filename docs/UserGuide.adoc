@@ -129,38 +129,30 @@ image::demo/Exit.png[]
 
 If you want to add a new note to the current working directory (currently opened note), use the `new` command and specify the `TITLE` of the note. +
 
-*Format:* `new -t TITLE [-b BODY] [-o]`
+*Format:* `new -t TITLE [-o]`
 
 [IMPORTANT]
 ====
 * The `TITLE` for the note MUST be specified.
-* The `TITLE` for the note can only contain alphabets, numbers and whitespaces.
-====
-
-[NOTE]
-====
-* The `BODY` of the note is optional.
-* If the `BODY` is not specified, the note will have an empty `BODY`.
-* The `BODY` can contain alphabets, numbers, symbols, whitespaces and also line breaks (with `\n`)
+* The `TITLE` for the note can only contain alphabets, numbers, symbols (except ` and -) and whitespaces.
 ====
 
 [TIP]
 ====
-* The `BODY` can even contain MarkDown formatted content. For more information on Markdown in Notably, click <<Markdown, here>>.
 * Use the optional `-o` flag to immediately open the note after creating it.
 ====
 
 ==== Example: Creating new notes
-. Let's first create a note (with a `TITLE` and `BODY`), and open it immediately after. <<New1, (Step 1)>> Type this command: +
+. Let's first create a note (with a `TITLE`), and open it immediately after. <<New1, (Step 1)>> Type this command: +
 
-    new -t Notably -b The quick brown fox jumps over the lazy dog -o
+    new -t Notably -o
 
 
 . Now the currently open note is `Notably`. Let's add create a note to the currently opened note, <<New2, (Step 2)>> with a `TITLE` only as follows: +
 
     new -t CS2103T
 
-. The new note `CS2103T` has been created succeessfully! <<New3, (Step 3)>> +
+. The new note `CS2103T` has been created successfully! <<New3, (Step 3)>> +
 
 [NOTE]
 ====
