@@ -75,19 +75,50 @@ public class SideBarTreeView extends ViewPart<Region> {
     }
 
     /**
-     * Configures the SideBarTreeView to only display a 3-level nested hierarchy of Notes,
+     * Configures the SideBarTreeView to, when possible, display a 3-level nested hierarchy of Notes.
      * ie (Parent -> currently opened Note and its siblings -> direct children of currently opened Note).
      *
-     * If the currently open Note is the root, the hierarchy is modified to look like:
-     * (Root -> Root's children -> Root's grandchildren)
+     * However, if the currently open Note is the default root Note, the Root is hidden and the
+     * hierarchy is modified to look like: (Root's direct children -> Root's direct grandchildren).
      */
     private void useLevelDisplayStrategy() {
-        TreeItem<Block> treeParent = this.currentlyOpenedNote.getTreeItem().getParent();
-        if (treeParent != null) {
-            sideBarTreeView.setRoot(treeParent);
+        TreeItem<Block> treeItem = this.currentlyOpenedNote.getTreeItem();
+        TreeItem<Block> treeParent = treeItem.getParent();
+
+        Boolean isRootOpen = treeParent == null;
+
+        if (isRootOpen) {
+            useRootNoteOpenStrategy(treeItem);
         } else {
-            sideBarTreeView.setRoot(this.currentlyOpenedNote.getTreeItem());
+            useNormalNoteOpenStrategy(treeParent);
         }
+    }
+
+    /**
+     * Helper function that sets the display strategy for the case that the currently open Note
+     * is a root Note, as per {@link #useLevelDisplayStrategy()}.
+     *
+     * @param treeItem the currently open Note.
+     */
+    private void useRootNoteOpenStrategy(TreeItem<Block> treeItem) {
+        sideBarTreeView.setShowRoot(false);
+        sideBarTreeView.setRoot(treeItem);
+    }
+
+    /**
+     * Helper function that sets the display strategy for the case that the currently open Note
+     * is not a root Note, as per {@link #useLevelDisplayStrategy()}
+     *
+     * @param treeParent the parent of the currently open Note.
+     */
+    private void useNormalNoteOpenStrategy(TreeItem<Block> treeParent) {
+        Boolean isParentRoot = treeParent.getParent() == null;
+        if (!isParentRoot) {
+            sideBarTreeView.setShowRoot(true);
+        } else {
+            sideBarTreeView.setShowRoot(false);
+        }
+        sideBarTreeView.setRoot(treeParent);
     }
 
     /**
