@@ -6,6 +6,12 @@ package seedu.recipe.model.recipe.ingredient;
 public class Quantity {
 
     public static final String MESSAGE_CONSTRAINTS = "The available units of measurement are g, ml, tbsp, tsp and cup.";
+    public static final int CUP_TO_GRAM_GRAIN = 145;
+    public static final int CUP_TO_GRAM_PROTEIN = 225;
+    public static final int CUP_TO_GRAM_VEG = 200;
+    public static final int CUP_TO_GRAM_FRUIT = 160;
+    public static final int TBSP_TO_GRAM = 15;
+    public static final int TSP_TO_GRAM = 4;
     private double magnitude;
     private Unit unit;
 
@@ -28,26 +34,26 @@ public class Quantity {
         case CUP:
             if (ingredientType == MainIngredientType.GRAIN) {
                 //eg rice
-                newMagnitude = this.magnitude * 145;
+                newMagnitude = this.magnitude * CUP_TO_GRAM_GRAIN;
             } else if (ingredientType == MainIngredientType.PROTEIN) {
                 //eg minced beef
-                newMagnitude = this.magnitude * 225;
+                newMagnitude = this.magnitude * CUP_TO_GRAM_PROTEIN;
             } else if (ingredientType == MainIngredientType.VEGETABLE) {
                 //eg beans
-                newMagnitude = this.magnitude * 200;
+                newMagnitude = this.magnitude * CUP_TO_GRAM_VEG;
             } else if (ingredientType == MainIngredientType.FRUIT) {
                 //eg apple
-                newMagnitude = this.magnitude * 160;
+                newMagnitude = this.magnitude * CUP_TO_GRAM_FRUIT;
             }
             break;
         case MILLILITER:
             //same magnitude
             break;
         case TABLESPOON:
-            newMagnitude = this.magnitude * 15;
+            newMagnitude = this.magnitude * TBSP_TO_GRAM;
             break;
         case TEASPOON:
-            newMagnitude = this.magnitude * 4;
+            newMagnitude = this.magnitude * TSP_TO_GRAM;
             break;
         case GRAM:
             //same magnitude
