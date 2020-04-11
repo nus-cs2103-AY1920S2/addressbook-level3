@@ -3,7 +3,7 @@
 !include style.puml
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DelinoParser" as DelinoParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
 participant "epd:EditParcelDescriptor" as EditParcelDescriptor LOGIC_COLOR
 participant "e:EditCommand" as EditCommand LOGIC_COLOR
@@ -17,17 +17,17 @@ end box
 [-> LogicManager : execute("edit -o 1 n/Alice")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("edit -o 1 n/Alice")
-activate OrderBookParser
+LogicManager -> DelinoParser : parseCommand("edit -o 1 n/Alice")
+activate DelinoParser
 
 create EditCommandParser
-OrderBookParser -> EditCommandParser
+DelinoParser -> EditCommandParser
 activate EditCommandParser
 
-EditCommandParser --> OrderBookParser
+EditCommandParser --> DelinoParser
 deactivate EditCommandParser
 
-OrderBookParser -> EditCommandParser : parse("edit -o 1 n/Alice")
+DelinoParser -> EditCommandParser : parse("edit -o 1 n/Alice")
 activate EditCommandParser
 
 create EditParcelDescriptor
@@ -52,13 +52,13 @@ activate EditCommand
 EditCommand --> EditCommandParser : e
 deactivate EditCommand
 
-EditCommandParser --> OrderBookParser : e
+EditCommandParser --> DelinoParser : e
 deactivate EditCommandParser
-EditCommandParser -[hidden]-> OrderBookParser
+EditCommandParser -[hidden]-> DelinoParser
 destroy EditCommandParser
 
-OrderBookParser --> LogicManager : e
-deactivate OrderBookParser
+DelinoParser --> LogicManager : e
+deactivate DelinoParser
 
 LogicManager -> EditCommand : execute(model)
 activate EditCommand

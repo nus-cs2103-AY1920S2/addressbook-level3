@@ -3,7 +3,7 @@
 !include style.puml
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DelinoParser" as DelinoParser LOGIC_COLOR
 participant ":SearchCommandParser" as SearchCommandParser LOGIC_COLOR
 participant "orderPred:OrderContainsKeywordsPredicate" as OrderContainsKeywordsPredicate LOGIC_COLOR
 participant "returnPred:ReturnOrderContiansKeywordsPredicate" as ReturnOrderContiansKeywordsPredicate LOGIC_COLOR
@@ -18,17 +18,17 @@ end box
 [-> LogicManager : execute("search Alice")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("search Alice")
-activate OrderBookParser
+LogicManager -> DelinoParser : parseCommand("search Alice")
+activate DelinoParser
 
 create SearchCommandParser
-OrderBookParser -> SearchCommandParser
+DelinoParser -> SearchCommandParser
 activate SearchCommandParser
 
-SearchCommandParser --> OrderBookParser
+SearchCommandParser --> DelinoParser
 deactivate SearchCommandParser
 
-OrderBookParser -> SearchCommandParser : parse("Alice")
+DelinoParser -> SearchCommandParser : parse("Alice")
 activate SearchCommandParser
 
 create OrderContainsKeywordsPredicate
@@ -52,13 +52,13 @@ activate SearchCommand
 SearchCommand --> SearchCommandParser : s
 deactivate SearchCommand
 
-SearchCommandParser --> OrderBookParser : s
+SearchCommandParser --> DelinoParser : s
 deactivate SearchCommandParser
-SearchCommandParser -[hidden]-> OrderBookParser
+SearchCommandParser -[hidden]-> DelinoParser
 destroy SearchCommandParser
 
-OrderBookParser --> LogicManager : s
-deactivate OrderBookParser
+DelinoParser --> LogicManager : s
+deactivate DelinoParser
 
 LogicManager -> SearchCommand : execute(model)
 activate SearchCommand
