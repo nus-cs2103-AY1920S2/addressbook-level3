@@ -16,10 +16,10 @@ import seedu.zerotoone.model.session.CompletedSet;
 public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
     public static final String MESSAGE_USAGE = "Usage: done";
-    public static final String MESSAGE_DONE_SET = "Completed set: %1$s";
+    public static final String MESSAGE_SUCCESS = "Completed set: %1$s";
     public static final String MESSAGE_NONE_LEFT = "You have finished the last set, "
             + "your workout session is done and saved!";
-    private final FormatStyle formatStyle = FormatStyle.MEDIUM;
+    public static final FormatStyle FORMAT_STYLE = FormatStyle.MEDIUM;
 
     public DoneCommand() {
     }
@@ -35,14 +35,14 @@ public class DoneCommand extends Command {
 
         CompletedSet set = model.done();
 
-        String outputMessage = String.format(MESSAGE_DONE_SET, set.toString());
+        String outputMessage = String.format(MESSAGE_SUCCESS, set.toString());
 
         if (!model.hasExerciseLeft()) {
             model.stopSession(currentDateTime);
             outputMessage = outputMessage + "\n" + MESSAGE_NONE_LEFT;
         }
 
-        String formatted = currentDateTime.format(DateTimeFormatter.ofLocalizedDateTime(this.formatStyle));
+        String formatted = currentDateTime.format(DateTimeFormatter.ofLocalizedDateTime(this.FORMAT_STYLE));
 
         return new CommandResult(outputMessage);
     }

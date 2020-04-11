@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static seedu.zerotoone.logic.commands.StopCommand.FORMAT_STYLE;
 import static seedu.zerotoone.logic.commands.StopCommand.MESSAGE_SUCCESS;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
 import static seedu.zerotoone.testutil.workout.TypicalWorkouts.getTypicalWorkoutList;
 
 import java.time.LocalDateTime;
