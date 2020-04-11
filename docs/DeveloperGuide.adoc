@@ -1910,7 +1910,7 @@ Use case resumes at step 3.
 
 1. User requests to generate and display a statistic report.
 2. TA-Tracker retreives the list of sessions and students from all modules and processes the data.
-4. TA-Tracker opens a Statistic window and displays the processed data to the user.
+3. TA-Tracker opens a Statistic window and displays the processed data to the user.
 +
 Use case ends.
 
