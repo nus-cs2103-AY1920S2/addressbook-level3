@@ -1,8 +1,6 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import seedu.address.logic.commands.exceptions.CommandException;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD_NAME;
 
 import java.util.Collection;
@@ -26,7 +24,6 @@ public class DeleteGoodPricePairFromSupplierCommandParser implements Parser<Dele
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteGoodPricePairFromSupplierCommand parse(String args) throws ParseException {
-        requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_GOOD_NAME);
 
         Index index;
@@ -38,13 +35,13 @@ public class DeleteGoodPricePairFromSupplierCommandParser implements Parser<Dele
                     DeleteGoodPricePairFromSupplierCommand.MESSAGE_USAGE), pe);
         }
 
-        DeleteGoodPricePairFromSupplierCommand.DeleteSupplierGoodName deleteSupplierGoodName =
-                new DeleteGoodPricePairFromSupplierCommand.DeleteSupplierGoodName();
-
         //Throw exception if the user did not include any goodname.
-        if (deleteSupplierGoodName.getGoodNames().equals(Optional.empty())) {
+        if (argMultimap.getAllValues(PREFIX_GOOD_NAME).isEmpty()) {
             throw new ParseException(DeleteGoodPricePairFromSupplierCommand.MESSAGE_MUST_INCLUDE_GOODNAME);
         }
+
+        DeleteGoodPricePairFromSupplierCommand.DeleteSupplierGoodName deleteSupplierGoodName =
+                new DeleteGoodPricePairFromSupplierCommand.DeleteSupplierGoodName();
 
         parseGoodNamesForDelete(argMultimap.getAllValues(PREFIX_GOOD_NAME))
                 .ifPresent(deleteSupplierGoodName::setGoodNames);

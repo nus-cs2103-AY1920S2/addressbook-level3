@@ -31,17 +31,17 @@ public class DeleteGoodPricePairFromSupplierCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes an entry / entries of good price pair(s) in the supplier's good list given a good's or goods' "
-            + "name(s) which is / are identified by keyword(s) \n"
+            + "name(s) which is / are identified by keyword(s) (case-sensitive)\n"
             + "Parameters: INDEX (must be a positive integer),"
             + " a good's or goods' name(s) (g/good name)\n"
             + "Example: " + COMMAND_WORD + " 1" + " g/apple" + " g/orange (to delete two different goods)";
 
-    public static final String MESSAGE_DELETE_GOOD = "Successfuly deleted goods from supplier's list: ";
+    public static final String MESSAGE_SUCCESS_DELETE_GOOD = "Successfuly deleted goods from supplier's list: ";
     public static final String MESSAGE_COULD_NOT_FIND_GOOD = "COULD NOT FIND GOODS: ";
     public static final String MESSAGE_MUST_INCLUDE_GOODNAME = "MUST INCLUDE AT LEAST ONE GOOD NAME";
 
-    private static String errorMessage = null;
-    private static String successMessage = null;
+    private static String errorMessage = MESSAGE_COULD_NOT_FIND_GOOD;
+    private static String successMessage = MESSAGE_SUCCESS_DELETE_GOOD;
 
     private final Index index;
     private final DeleteSupplierGoodName deleteSupplierGoodName;
@@ -69,25 +69,32 @@ public class DeleteGoodPricePairFromSupplierCommand extends Command {
         }
 
         Supplier supplierWhoHasGoodToDelete = lastShownList.get(index.getZeroBased());
-        Supplier editedSupplier = createEditedSupplier(supplierWhoHasGoodToDelete,
-                deleteSupplierGoodName.goodNames.iterator().next());
-
-        //if (errorMessage != null) {
-           // return new CommandResult(String.format(errorMessage + "/n" + successMessage, supplierWhoHasGoodToDelete));
-        //}
+        Supplier editedSupplier = createEditedSupplier(supplierWhoHasGoodToDelete, deleteSupplierGoodName.goodNames);
 
         model.setSupplier(supplierWhoHasGoodToDelete, editedSupplier);
         model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
         model.commit();
 
-        return new CommandResult(String.format(successMessage, supplierWhoHasGoodToDelete));
+        String returnMessage;
+        if (errorMessage.equals(MESSAGE_COULD_NOT_FIND_GOOD)) {
+            returnMessage = successMessage;
+        } else {
+            returnMessage = successMessage.equals(MESSAGE_SUCCESS_DELETE_GOOD) ? errorMessage
+                    : successMessage.concat("\n").concat(errorMessage);
+        }
+
+        //reset message for next round of deletion
+        errorMessage = MESSAGE_COULD_NOT_FIND_GOOD;
+        successMessage = MESSAGE_SUCCESS_DELETE_GOOD;
+
+        return new CommandResult(String.format(returnMessage, supplierWhoHasGoodToDelete));
     }
 
     /**
      * Creates and returns a {@code Supplier} with the details of {@code supplierWhoHasGoodToDelete}
      * edited with {@code goodName}.
      */
-    private static Supplier createEditedSupplier(Supplier supplierWhoHasGoodToDelete, GoodName goodName) {
+    private static Supplier createEditedSupplier(Supplier supplierWhoHasGoodToDelete, Set<GoodName> goodNames) {
         assert supplierWhoHasGoodToDelete != null;
 
         Name updatedName = supplierWhoHasGoodToDelete.getName();
@@ -95,21 +102,18 @@ public class DeleteGoodPricePairFromSupplierCommand extends Command {
         Email updatedEmail = supplierWhoHasGoodToDelete.getEmail();
         Address updatedAddress = supplierWhoHasGoodToDelete.getAddress();
 
-        Set<Offer> supplierToEditOffer = new HashSet<>(supplierWhoHasGoodToDelete.getOffers());
+        Set<Offer> duplicate = new HashSet<>(supplierWhoHasGoodToDelete.getOffers());
 
-        /*for (Offer tempOffer : supplierToEditOffer) {
-            if (tempOffer.getGoodName().equals(goodName)) {
-                supplierToEditOffer.remove(tempOffer);
-                successMessage = MESSAGE_DELETE_GOOD + tempOffer.getGoodName();
+        goodNames.stream().forEach(goodName -> {
+            if (duplicate.removeIf(tempOffer -> tempOffer.getGoodName().equals(goodName))) {
+                successMessage = successMessage.concat(goodName.toString()).concat(", ");
+            } else {
+                errorMessage = errorMessage.concat(goodName.toString()).concat(", ");
             }
-        }
+                }
+        );
 
-        if (successMessage == null) {
-            errorMessage = MESSAGE_COULD_NOT_FIND_GOOD + goodName;
-        }*/
-        supplierToEditOffer.removeIf(tempOffer -> tempOffer.getGoodName().equals(goodName));
-
-        return new Supplier(updatedName, updatedPhone, updatedEmail, updatedAddress, supplierToEditOffer);
+        return new Supplier(updatedName, updatedPhone, updatedEmail, updatedAddress, duplicate);
     }
 
     @Override
