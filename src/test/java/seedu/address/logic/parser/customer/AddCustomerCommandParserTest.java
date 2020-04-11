@@ -45,28 +45,16 @@ public class AddCustomerCommandParserTest {
     private AddCustomerCommandParser parser = new AddCustomerCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
+    public void parse_allCompulsoryFieldsPresent_success() {
         Customer expectedCustomer = new CustomerBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCustomerCommand(expectedCustomer));
 
-        // multiple names - shows error message
-        assertParseFailure(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
-
-        // multiple phones - shows error message
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
-
-        // multiple emails - shows error message
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
-
-        // multiple addresses - shows error message
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
+        // all compulsory fields without tags
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
+                new AddCustomerCommand(expectedCustomer));
 
         // multiple tags - all accepted
         Customer expectedCustomerMultipleTags = new CustomerBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
@@ -106,6 +94,25 @@ public class AddCustomerCommandParserTest {
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB,
                 expectedMessage);
+    }
+
+    @Test
+    public void parse_multipleSameFieldValue_failure() {
+        // multiple names - shows error message
+        assertParseFailure(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
+
+        // multiple phones - shows error message
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
+
+        // multiple emails - shows error message
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
+
+        // multiple addresses - shows error message
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
     }
 
     @Test

@@ -217,11 +217,11 @@ Only name and address support multiple keywords
 Examples:
 
 * `findc n/John` +
-Returns john and John Doe from the customer list.
+Returns all customers with names John from the customer list.
 * `findc n/Betsy Tim John` +
-Returns any customer having names Betsy, Tim, or John in the customer list.
+Returns any customer having names Betsy, Tim, *OR* John in the customer list.
 * `findc a/serangoon n/Bob` +
-Returns all customers with addresses in Serangoon and have Bob in their names.
+Returns all customers with addresses in Serangoon *AND* Bob in their names.
 // end::findc[]
 
 // tag::deletec[]
@@ -468,7 +468,7 @@ Examples:
 * `findt p/iphone` +
 Returns all transactions that involve the product `iphone`.
 * `findt c/bob angie` +
-Returns all transactions that involve a customer named Bob or a customer named Angie.
+Returns all transactions that involve a customer named Bob *OR* a customer named Angie.
 * `findt dt/2020-02-07 16:00` +
 Returns all transactions made on 7th February 2020 4pm.
 * `findt m/100` +
