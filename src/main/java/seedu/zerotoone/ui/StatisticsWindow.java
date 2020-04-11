@@ -92,7 +92,7 @@ public class StatisticsWindow extends UiPart<Stage> {
         xAxis.setLabel("Session Number");
 
         NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Workout Time in minutes");
+        yAxis.setLabel("Workout Time in Minutes");
 
         LineChart lineChart = new LineChart(xAxis, yAxis);
 
