@@ -80,35 +80,40 @@ public class SampleDataUtil {
             new Coupon(new Name("Auntie Azah's Nasi Lemak"), new PromoCode("AZAH BAIK LA"),
                 new Savings(new MonetaryAmount(5, 50)), azahExpiry,
                     new StartDate("01-12-2020"), new Usage("0"), new Limit("1"),
-                    getTagSet("sedap"), azahSavings, new RemindDate(azahExpiry),
+                    getTagSet("sedap"), azahSavings, new RemindDate(azahExpiry.getDate().minusDays(3).toString()),
                     new Condition("Min spending of $15 on sambal sauce"), new Archived()),
+
             new Coupon(new Name("Boszini Clothing"), new PromoCode("NAKED SUMMER"),
                 new Savings(new PercentageAmount(25d)), bosziniExpiry, new StartDate("01-11-2020"),
                     new Usage("0"), new Limit("1"), getTagSet("trendy", "cheap"),
-                    bosziniSavings, new RemindDate(bosziniExpiry),
+                    bosziniSavings, new RemindDate(bosziniExpiry.getDate().minusDays(3).toString()),
                     new Condition("Only applicable to selected beachwear"), new Archived()),
+
             new Coupon(new Name("Capple oPhone"), new PromoCode("ILOVECAP_5.0"),
                 new Savings(new PercentageAmount(12.5d)), cappleExpiry, new StartDate("01-10-2020"),
                     new Usage("0"), new Limit("1"), getTagSet("silver"),
-                    cappleSavings, new RemindDate(cappleExpiry),
+                    cappleSavings, new RemindDate(cappleExpiry.getDate().minusDays(3).toString()),
                     new Condition("Need to trade in one apple phone"), new Archived()),
+
             new Coupon(new Name("Daidas Shoes"), new PromoCode("JUSTDOIT"),
                 new Savings(new PercentageAmount(10d),
                         Arrays.asList(new Saveable("Water Bottle"), new Saveable("Notebook"))),
                             daidasExpiry, new StartDate("01-08-2020"), new Usage("0"),
                     new Limit("1"), getTagSet("whilestockslast"),
-                    daidasSavings, new RemindDate(daidasExpiry),
+                    daidasSavings, new RemindDate(daidasExpiry.getDate().minusDays(3).toString()),
                     new Condition("While Stocks Last"), new Archived()),
+
             new Coupon(new Name("IKEEA"), new PromoCode("BRATTBY_IS_YOUR_FRIEND"),
                 new Savings(new MonetaryAmount(1, 0),
                         Arrays.asList(new Saveable("Brattby Bag"))), ikeeaExpiry,
                     new StartDate("01-09-2020"), new Usage("0"), new Limit("1"), getTagSet("limitededition"),
-                    ikeeaSavings, new RemindDate(ikeeaExpiry),
+                    ikeeaSavings, new RemindDate(ikeeaExpiry.getDate().minusDays(3).toString()),
                     new Condition("Meatball are made of horsemeat"), new Archived()),
+
             new Coupon(new Name("Rab's Kebabs"), new PromoCode("UPZ KEBABZ"),
                 new Savings(new PercentageAmount(100d)), rabsExpiry, new StartDate("01-8-2020"),
                     new Usage("0"), new Limit("1"), getTagSet("lunch"),
-                    rabsSavings, new RemindDate(rabsExpiry),
+                    rabsSavings, new RemindDate(rabsExpiry.getDate().minusDays(3).toString()),
                     new Condition("Muslim students get an additional begedil (Worth $50)"), new Archived())
         };
     }

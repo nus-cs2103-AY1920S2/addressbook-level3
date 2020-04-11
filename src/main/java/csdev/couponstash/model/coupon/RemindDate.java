@@ -10,19 +10,15 @@ import csdev.couponstash.commons.util.DateUtil;
 
 /**
  * Represents a Coupon's remind date in the CouponStash.
- * Guarantees: immutable; is valid as declared in {@link #isValidRemindDate(String, String)}
  */
 public class RemindDate {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Remind Dates should not be a date after the Expiry date "
                     + "(in the D-M-YYYY format).";
-    public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
 
-    private LocalDate date;
-    private boolean remindFlag;
-    private String value;
+    private final LocalDate date;
+    private final String value;
 
     /**
      * Constructs a {@code RemindDate}.
@@ -31,81 +27,49 @@ public class RemindDate {
      */
     public RemindDate(String remindDate) {
         requireNonNull(remindDate);
-
         // Check if date is valid
         checkArgument(DateUtil.isValidDate(remindDate), MESSAGE_CONSTRAINTS);
-
-        value = remindDate;
-        this.date = getDate();
-        remindFlag = true;
-    }
-
-    public RemindDate() {
-        value = "";
-        date = null;
-        remindFlag = false;
-    }
-
-    public RemindDate(ExpiryDate expiryDate) {
-        value = expiryDate.value;
-        date = getDate().minusDays(3);
-        setRemindDate(date);
+        value = DateUtil.parseStringToStandardDateString(remindDate);
+        date = DateUtil.parseStringToDate(remindDate);
     }
 
     /**
-     * Private constructor to facilitate copying of a new RemindDate
+     * Returns true if the {@RemindDate} is after the {@ExpiryDate}.
+     * @param ed The ExpiryDate
+     * @return True if remind date is after to the expiry date
      */
-    private RemindDate(LocalDate date, boolean remindFlag, String value) {
-        this.date = date;
-        this.remindFlag = remindFlag;
-        this.value = value;
+    public boolean isAfter(ExpiryDate ed) {
+        return date.isAfter(ed.date);
     }
 
     /**
-     * Returns true if a given string reminddate and string expirydate are a valid remind date.
-     */
-    public static boolean isValidRemindDate(String remindTest, String expiryTest) {
-        LocalDate remindDate = LocalDate.parse(remindTest, DATE_FORMATTER);
-        LocalDate expiryDate = LocalDate.parse(expiryTest, DATE_FORMATTER);
-
-        return remindTest.matches(VALIDATION_REGEX)
-                && !(remindDate.isAfter(expiryDate));
-    }
-
-    /**
-     * Set remindDate to a coupon
-     */
-    public void setRemindDate(LocalDate date) {
-        this.date = date;
-        remindFlag = true;
-        value = date.format(DATE_FORMATTER);
-    }
-
-    /**
-     * Returns remind date
+     * Returns the remind date as a LocalDate.
+     * @return Remind Date as a LocalDate
      */
     public LocalDate getDate() {
-        return LocalDate.parse(value, DATE_FORMATTER);
+        return this.date;
     }
 
-    /**
-     * Make a new copy of current RemindDate
-     * @return a copy of the current RemindDate
-     */
-    public RemindDate copy() {
-        return new RemindDate(date, remindFlag, value);
-    }
 
     @Override
     public String toString() {
         return value;
     }
 
+    /**
+     * Make a new copy of current RemindDate
+     *
+     * @return a copy of the current RemindDate
+     */
+    public RemindDate copy() {
+        return new RemindDate(value);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RemindDate// instanceof handles nulls
-                && value.equals(((RemindDate) other).value)); // state check
+                && date.equals(((RemindDate) other).date)); // state check
     }
 
     @Override
