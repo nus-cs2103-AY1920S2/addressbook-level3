@@ -61,7 +61,7 @@ public class SampleDataUtil {
             new Recipe(new Name("Barley Pilaf"), new Time("50"),
                     getGrainSet("0.5 cup, small pieces of broken spaghetti"),
                     getVegetableSet("50g, small onion (chopped)", "2 tbsp, chives (chopped)"),
-                    getProteinSet("2.5 cups, low-sodium chicken broth"),
+                    getProteinSet("2.5 cup, low-sodium chicken broth"),
                     getFruitSet(),
                     getOtherSet("1 tbsp, unsalted butter", "1 cup, hulled barley", "10g, Salt & Pepper"),
                     getStepsList("Melt butter in saucepan over medium heat. "
@@ -155,7 +155,7 @@ public class SampleDataUtil {
                     getGoalSet("Herbivore"), false),
             new Recipe(new Name("5 Ingredient Spelt Spaghetti"), new Time("25"),
                     getGrainSet("80g, Spelt Spaghetti"),
-                    getVegetableSet("2 cups, Arugula (Salad Rockets)",
+                    getVegetableSet("2 cup, Arugula (Salad Rockets)",
                             "300g, Tomatoes",
                             "300g, Zucchini",
                             "50g, Leek"),

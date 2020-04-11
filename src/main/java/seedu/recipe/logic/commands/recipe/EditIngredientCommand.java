@@ -86,6 +86,7 @@ public class EditIngredientCommand extends Command {
         updateProteinsList(recipeToEdit, editRecipeDescriptor);
         updateFruitsList(recipeToEdit, editRecipeDescriptor);
         updateOthersList(recipeToEdit, editRecipeDescriptor);
+        editRecipeDescriptor.setFavourite(recipeToEdit.isFavourite());
 
         Recipe editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
         editedRecipe.calculateGoals();
