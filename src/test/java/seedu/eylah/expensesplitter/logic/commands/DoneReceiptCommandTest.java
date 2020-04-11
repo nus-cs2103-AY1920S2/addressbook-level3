@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
@@ -18,7 +20,6 @@ import seedu.eylah.expensesplitter.model.receipt.Entry;
 import seedu.eylah.expensesplitter.model.receipt.Receipt;
 import seedu.eylah.expensesplitter.testutil.TypicalEntries;
 
-import java.util.function.Predicate;
 
 public class DoneReceiptCommandTest {
 
