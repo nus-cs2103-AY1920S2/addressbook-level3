@@ -6,7 +6,7 @@ start
 :User enters the list amount command;
 
 if () then ([no person owes money])
-    :Inform user that no ones owes money;
+    :Inform user that no one owes money;
 else ([else])
     :Displays to user all the person and the
     amount they owe;

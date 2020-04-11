@@ -468,7 +468,7 @@ The feature comprises of six commands namely.
 
 Below are some diagrams to explain how our team implemented this portion.
 
-*Activity Diagram* of Expense Splitter: +
+*Activity Diagram of Expense Splitter:* +
 
 image::ExpenseSplitterActivityDiagramV2.png[]
 Figure : Expense Splitter Activity Diagram
@@ -477,11 +477,11 @@ image::ExpenseSplitterActivityDiagram.png[]
 Figure : Add Item Activity Diagram
 
 [[Add-Item-Command]]
-==== AddItem Command
+==== Add Item Command
 
 In this section, we will learn more about how the `additem` command is implemented.
 
-*What is the AddItem Command*
+*What is the Add Item Command*
 
 The `additem` command allows the user to add an Item into the Receipt, along with the ItemPrice of the Item and the Persons
 involved in splitting the cost of that Item.
@@ -496,51 +496,52 @@ The `additem` command has the following input format:
 ====
 * `-i ITEMNAME` and `-p ITEMPRICE` are *compulsory* fields.
 
-* There can be multiple `-n NAME`, however, a minimum of 1 is required.
+* There can be multiple `-n NAME`, however, a *minimum of 1* is required.
 
-* `ITEMPRICE` can be up to 2 decimal places, i.e 7.99. There is no ened to add the dollar sign ($).
+* `ITEMPRICE` can be up to 2 decimal places, i.e 7.99. There is *no need* to add the dollar sign ($).
 ====
 
 The following activity diagram illustrates what happens when a user executes the `additem` command:
 
 image::ExpenseSplitterAddItemCommandActivityDiagram.png[]
-Figure : AddItem Command Activity Diagram
+Figure : Add Item Command Activity Diagram
 
-*Implementation of AddItem Command*
+*Implementation of Add Item Command*
 
 The following is a detailed explanation of the operations AddItemCommand performs. +
 
-1. The `AddItemCommand#execute(SplitterModel splitterModel)` method is executed and it checks if the specified `ITEM`
-and `PERSONS` to be added are valid. If valid, a new `Entry` would be created with the specified `ITEM` and `PERSONS`.
+1. The `AddItemCommand#execute(SplitterModel splitterModel)` method is executed and it checks if the specified Item
+and list of Persons to be added are valid. If valid, a new Entry would be created with the specified Item and list of
+Persons.
 
-2. The `SplitterModel#addEntry(Entry entry)` method would then be called to add the `Entry` into the Receipt.
+2. The `SplitterModel#addEntry(Entry entry)` method would then be called to add the Entry into the Receipt.
 
-3. For each person in `PERSONS`, the person is first checked through the `PersonAmountBook#persons` using the
+3. For each Person in the list of Persons, the Person is first checked through the `PersonAmountBook#persons` using the
 `SplitterModel#hasPerson(Person person)` method to check if the person already exists.
 
 4. If the person does not already exist, the method `SplitterModel#addPerson(Person person)` would be called to add the
 person, together with the amount, into the `PersonAmountBook#persons`.
 
-5. If the person exists, the person would be retrieved from the `PersonAmountBook#persons` using the
+5. If the Person exists, thePerson would be retrieved from the `PersonAmountBook#persons` using the
 `SplitterModel#getPerson(Person person)` method, and then the amount would be added to that person using the
 `SplitterModel#addAmount(Person person, Amount amount)` method.
 
-*Sequence diagram for AddItem Command* +
+*Sequence diagram for Add Item Command* +
 
 The following sequence diagram summarizes what happens during the execution of `additem` command.
 
 image::ExpenseSplitterAddItemCommandSequenceDiagram.png[]
-Figure: AddItem Command Sequence Diagram
+Figure: Add Item Command Sequence Diagram
 
 image::ExpenseSplitterAddItemCommandSequenceDiagram2.png[]
-Figure: Execution of AddItem Command
+Figure: Execution of Add Item Command
 
 [[Delete-Item-Command]]
-==== DeleteItem Command
+==== Delete Item Command
 
 In this section, we will learn more about how the `deleteitem` command is implemented.
 
-*What is the DeleteItem Command* +
+*What is the Delete Item Command* +
 
 The `deleteitem` command allows users to remove the Item from the Receipt via the Index.
 
@@ -560,31 +561,33 @@ The `deleteitem` command has the following input format:
 The following activity diagram illustrates what happens when a user executes the `deleteitem` command:
 
 image::ExpenseSplitterDeleteItemCommandActivityDiagram.png[]
-Figure: DeleteItem Command Activity Diagram
+Figure: Delete Item Command Activity Diagram
 
 *Implementation*
 
 The following is a detailed explanation of the operations DeleteItemCommand performs. +
 
-1. The `DeleteItemCommand#execute(SplitterModel splitterModel)` method is executed and it validates that the specified `INDEX` to delete
-is within range. If valid, the item to be deleted will be retrieved from Receipt using its `Index`.
+1. The `DeleteItemCommand#execute(SplitterModel splitterModel)` method is executed and it validates that the specified
+Index to delete is within range. If valid, the Entry to be deleted will be retrieved from Receipt using its Index.
 
 2. The method `SplitterModel#getEntry(Index index)` is called to retrieve the current Entry, which subsequently retrieves the
 current Item using the `Entry#getItem()` method and the amountPerPerson associated with it via the
-`Item#getAmountPerPerson()` method. The list of persons are also retrieved via the `Entry#getPersonsList()` method.
+`Item#getAmountPerPerson()` method. The list of Persons are also retrieved via the `Entry#getPersonsList()` method.
 
 3. For each Person in the list of Persons, the amount is subtracted from the current amount owed by the Person.
 
-4. The method `SplitterModel#deleteEntry(int index) will then be called to remove the Item from the Receipt.
+4. The method `SplitterModel#deleteEntry(int index)` will then be called to remove the Item from the Receipt.
 `Receipt#deleteEntry(int index)` is invoked which makes a call to its internal list to remove the specified Item.
+
+*Sequence Diagram for Delete Item Command*
 
 The following sequence diagram summarizes what happens during the execution of `deleteitem` command.
 
 image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
-Figure: DeleteItem Command Sequence Diagram
+Figure: Delete Item Command Sequence Diagram
 
 image::ExpenseSplitterDeleteItemCommandSequenceDiagram2.png[]
-Figure: Execution of DeleteItem Command
+Figure: Execution of Delete Item Command
 
 [[List-Receipt-Command]]
 ==== List Receipt Command
@@ -617,7 +620,7 @@ Figure : List Receipt Command Activity Diagram
 
 The following is a detailed explanation of the operations `ListReceiptCommand` performs. +
 
-1. The `ListReceiptCommand#execute(Model splitterModel)` method is executed.
+1. The `ListReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
 
 2. The method `splitterModel#listReceipt()` will then be called to return the list of entries currently in that Receipt.
 
@@ -662,7 +665,7 @@ Figure : List Amount Command Activity Diagram
 
 The following is a detailed explanation of the operations `ListAmountCommand` performs. +
 
-1. The `ListAmountCommand#execute(Model splitterModel)` method is executed.
+1. The `ListAmountCommand#execute(SplitterModel splitterModel)` method is executed.
 
 2. The method `splitterModel#listAmount()` will then be called to return the list of Person(s) with their amount.
 
@@ -715,7 +718,7 @@ Figure : Paid Command Activity Diagram
 
 The following is a detailed explanation of the operations PaidCommand performs. +
 
-1. The `PaidCommand#execute(Model splitterModel)` method is executed.
+1. The `PaidCommand#execute(SplitterModel splitterModel)` method is executed.
 
 2. The `splitterModel#paidPerson(Person person, String amountPaid)` will be called.
 String amountPaid will be converted into an Amount by instantiating a new instance of Amount.
@@ -736,6 +739,53 @@ Figure : Paid Command Sequence Diagram
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
 Figure : Execution of Paid Command
 
+[[Clear-Receipt-Command]]
+==== Clear Receipt Command
+
+In this section, we will learn more about how the `clearreceipt` command is implemented.
+
+*What is the Clear Receipt Command*
+
+The `clearreceipt` command essentially deletes all the Entries in the Receipt and allows the user to input new Entries
+into a clean receipt.
+
+The `clearreceipt` command was implemented as `ClearReceiptCommand` in the `expenseSplitterLogic` package.
+
+The `clearreceipt` command has the following input format:
+
+`clearreceipt`
+
+[NOTE]
+====
+* Use this command only when you are very sure that you want to delete all entries and start a clean receipt.
+
+* When you use the `clearreceipt` command, you are concurrently marking the new receipt as undone. As such, you would
+only be able to use the `additem` and `deleteitem` commands.
+====
+
+The following activity diagram illustrates what happens when a user executes the `clearreceipt` command:
+
+image::ExpenseSplitterClearReceiptCommandActivityDiagram.png[]
+Figure: Clear Receipt Command Activity Diagram
+
+*Implementation of Clear Receipt Command*
+
+The following is a detailed explanation of the operations ClearReceiptCommand performs. +
+
+1. The `ClearReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
+
+2. The `splitterModel#clearReceipt()` method will then be called.
+
+3. This will invoke the `Receipt#clearReceipt()` method which creates a new ArrayList and assigns it to the Receipt.
+
+4. At the same time, the boolean `Receipt#isDone` is assigned to `false`.
+
+*Sequence Diagram for Clear Receipt Command*
+
+The following sequence diagram summarizes what happens during the execution of the `clearreceipt` command.
+
+image::ExpenseSplitterClearReceiptCommandSequenceDiagram.png[]
+Figure: Clear Receipt Command Sequence Diagram
 
 [[Back-Command]]
 ==== Back Command
