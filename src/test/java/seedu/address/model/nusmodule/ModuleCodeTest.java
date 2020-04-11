@@ -10,7 +10,6 @@ class ModuleCodeTest {
 
     @Test
     void isValidModuleCode() {
-        assertTrue(ModuleCode.isValidModuleCode("cs2030"));
         assertTrue(ModuleCode.isValidModuleCode("cs2040"));
         assertTrue(ModuleCode.isValidModuleCode("cs1101s"));
         assertTrue(ModuleCode.isValidModuleCode("st3131"));
