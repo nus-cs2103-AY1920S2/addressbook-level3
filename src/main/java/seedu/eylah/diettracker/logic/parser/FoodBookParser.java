@@ -15,6 +15,7 @@ import seedu.eylah.diettracker.logic.commands.EditCommand;
 import seedu.eylah.diettracker.logic.commands.HeightCommand;
 import seedu.eylah.diettracker.logic.commands.HelpCommand;
 import seedu.eylah.diettracker.logic.commands.ListCommand;
+import seedu.eylah.diettracker.logic.commands.MetricsCommand;
 import seedu.eylah.diettracker.logic.commands.ModeCommand;
 import seedu.eylah.diettracker.logic.commands.WeightCommand;
 
@@ -62,17 +63,10 @@ public class FoodBookParser {
             return new ListCommandParser().parse(arguments);
         case ModeCommand.COMMAND_WORD:
             return new ModeCommandParser().parse(arguments);
+        case MetricsCommand.COMMAND_WORD:
+            return new MetricsCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-
-        //case ClearCommand.COMMAND_WORD:
-        //    return new ClearCommand();
-
-        //case FindCommand.COMMAND_WORD:
-        //    return new FindCommandParser().parse(arguments);
-
-        //case ExitCommand.COMMAND_WORD:
-        //    return new ExitCommand();
     }
 }
