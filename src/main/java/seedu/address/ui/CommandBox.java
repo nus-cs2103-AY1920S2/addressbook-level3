@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.autocomplete.AutoComplete;
+import seedu.address.logic.autocomplete.AutoCompleteResult;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.history.CommandHistory;
@@ -27,6 +28,7 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
     private final CommandHistory commandHistory;
     private final AutoComplete autoComplete;
+    private final ResultDisplay resultDisplay;
 
     @FXML
     private TextField commandTextField;
@@ -34,8 +36,9 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor, ResultDisplay resultDisplay) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.resultDisplay = resultDisplay;
         commandHistory = new CommandHistory();
-        autoComplete = new AutoComplete(commandTextField, resultDisplay);
+        autoComplete = new AutoComplete();
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
@@ -73,7 +76,20 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, ke -> {
             if (ke.getCode() == KeyCode.TAB) {
                 ke.consume();
-                autoComplete.execute();
+                AutoCompleteResult result = autoComplete.execute(commandTextField.getText(),
+                        commandTextField.getCaretPosition());
+                String textToSet = result.getTextToSet();
+                String textToFeedback = result.getTextToFeedback();
+                Integer caretPositionToSet = result.getCaretPositionToSet();
+                if (textToSet != null) {
+                    commandTextField.setText(textToSet);
+                }
+                if (textToFeedback != null) {
+                    resultDisplay.setFeedbackToUser(textToFeedback);
+                }
+                if (caretPositionToSet != null) {
+                    commandTextField.positionCaret(caretPositionToSet);
+                }
             }
         });
     }
