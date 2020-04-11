@@ -391,7 +391,7 @@ image::ExerciseCommandActivityDiagram.png[]
 
 When adding a new `Exercise` to `UniqueExerciseList`, it is important which index it is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This will result in problems when using exercise commands that specifies an index like `delete-e`.
 
-To address this problem, we implemented our add function, `addToSorted()`. Rather than calling the predefined `add()` from the `List` class, we will call `addToSorted()` to add our new instance of `Exercise`. 
+To address this problem, a custom insertion sort has been written in UniqueExerciseList, under the `addToSorted()` method. This method will do a single pass of the internal list to insert the element at the correct position. This assumes that the internal list is initially sorted (which it should be, since reading from storage will do an initial sort on it).
 
 We will use an example of a `add-e` command to illustrate the execution of `addToSorted()`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The sequence diagram below shows the execution flow when the `AddExerciseCommand` is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
 
@@ -425,7 +425,7 @@ if (dateComparision > 0) {
 }    
 ----
 
-`Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. Whereas, our implemented function , in the worse case, runs at `O(n)`. `UniqueExerciseList` has to check if it contains the same `Exercise` and that already takes `O(n)`. It is also very possible for the clients to have many exercises so we have to keep the time complexity low.
+`Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. This custom insertion sort will guarantee an `O(n)` time complexity to insert the new `Exercise` correctly. This is as efficient as it gets as any insertion will already incur an O(n) time complexity to first check if the internal list contains the same exercise. It is important to keep the time complexity low as clients will have many exercises.
 
 ==== Design Considerations
 
