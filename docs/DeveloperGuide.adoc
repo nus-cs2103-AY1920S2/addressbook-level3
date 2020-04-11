@@ -162,11 +162,11 @@ This section describes some noteworthy details on how certain features are imple
 
 .Sequence of executing a sort command
 image::SortSequenceDiagram.png[]
-The sort command takes in a list of fields and generates FieldComparators as seen in the diagram and then uses Comparator.thenComparing to aggregate the comparators. The first field provided will then be of the highest sort order. The Model will then set the same `Comparator` on the `TaskList` which internally sets it on a `SortedList` from JavaFx. This SortedList will then help us maintain a sorted order even when new or edited tasks are added.
+The sort command takes in a list of fields and generates FieldComparators as seen in the diagram and then uses Comparator.thenComparing to aggregate the comparators. The first field provided will be of the highest sort order. The Model will then set the same aggregated comparator on the `TaskList` which internally sets it on a `SortedList` from JavaFx. This SortedList will then help us maintain a sorted order even when new or edited tasks are added.
 
 .Class diagram of SortedList
 image::SortedListClassDiagram.png[]
-We had to use a new SortedList within TaskList because the FilteredList does not allow for sorting. As such we have to let the FilteredList reference the SortedList and the SortedList refernce the UniqueTaskList so that any changes to UniqueTaskList will go through both sorting and filtering.
+We use a new SortedList within TaskList because the FilteredList does not allow for sorting. As such we have the FilteredList reference the SortedList and the SortedList refernce the UniqueTaskList so that any changes to the UniqueTaskList will go through both sorting and filtering.
 
 .Sequence of initializing the Sorted List
 image::SortInitliazeDiagram.png[]
