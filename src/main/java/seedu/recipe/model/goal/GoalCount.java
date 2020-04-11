@@ -8,9 +8,9 @@ import java.util.Objects;
 public class GoalCount {
 
     private final Goal goal;
-    private Integer count;
+    private int count;
 
-    public GoalCount(Goal goal, Integer count) {
+    public GoalCount(Goal goal, int count) {
         this.goal = goal;
         this.count = count;
     }
@@ -19,7 +19,7 @@ public class GoalCount {
         return this.goal;
     }
 
-    public Integer getCount() {
+    public int getCount() {
         return this.count;
     }
 
@@ -37,6 +37,6 @@ public class GoalCount {
         return other == this // short circuit if same object
                 || (other instanceof GoalCount // instanceof handles nulls
                 && goal.goalName.equals(((GoalCount) other).goal.goalName)
-                && count.equals(((GoalCount) other).count)); // state check
+                && count == (((GoalCount) other).count)); // state check
     }
 }

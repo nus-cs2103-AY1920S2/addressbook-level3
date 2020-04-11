@@ -8,7 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
+import seedu.recipe.model.recipe.exceptions.DuplicateRecordException;
 import seedu.recipe.model.recipe.exceptions.RecipeNotFoundException;
 
 /**
@@ -44,7 +44,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     public void add(Recipe toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateRecipeException();
+            throw new DuplicateRecordException();
         }
         internalList.add(toAdd);
     }
@@ -63,7 +63,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
 
         if (!target.isSameRecipe(editedRecipe) && contains(editedRecipe)) {
-            throw new DuplicateRecipeException();
+            throw new DuplicateRecordException();
         }
 
         internalList.set(index, editedRecipe);
@@ -93,7 +93,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     public void setRecipes(List<Recipe> recipes) {
         requireAllNonNull(recipes);
         if (!recipesAreUnique(recipes)) {
-            throw new DuplicateRecipeException();
+            throw new DuplicateRecordException();
         }
         internalList.setAll(recipes);
     }

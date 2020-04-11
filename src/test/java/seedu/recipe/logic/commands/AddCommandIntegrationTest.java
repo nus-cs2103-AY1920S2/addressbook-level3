@@ -31,6 +31,7 @@ public class AddCommandIntegrationTest {
                 new QuoteBook());
     }
 
+
     @Test
     public void execute_newRecipe_success() {
         Recipe validRecipe = new RecipeBuilder().build();

@@ -142,5 +142,16 @@
     "others" : [ ],
     "steps" : [ ],
     "goals" : [ ]
+  }, {
+    "name" : "jiaqi's fav chicken",
+    "time" : "100",
+    "isFavourite" : true,
+    "grains" : [ ],
+    "vegetables" : [ "100.0g,  Lettuce" ],
+    "proteins" : [ "100.0g,  Chicken thigh" ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ "fry the chicken" ],
+    "goals" : [ "Bulk like the Hulk" ]
   } ]
 }
