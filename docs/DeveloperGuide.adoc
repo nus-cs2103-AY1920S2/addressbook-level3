@@ -744,6 +744,8 @@ Test case: `addc n/John p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #0
 Expected: No customer is added as duplicate customers are not allowed. Error details shown in the status message.
 .. Test case: `addc n/Jane p/98765432 e/jane@example.com a/31 michigan t/friends t/owesMoney t/iphone t/comingThurs t/regular t/giveDiscount` +
 Expected: No customer is added as number of tags should be at most five. Error details shown in the status message.
+.. Test case: `addc n/Bob n/Eddy p/98765432 e/bob@example.com a/323, Tampines Ave 3, #12-21 t/colleagues` +
+Expected: No customer is added as there are multiple name prefixes. Error details shown in the status message.
 .. Other incorrect add commands to try: `addc n/Jill`, `addc n/Jill p/0 e/jill@mail.com a/31 michigan` +
 Expected: Similar to previous.
 
@@ -768,6 +770,8 @@ Expected: Similar to previous.
 Expected: First customer is edited from the list. Details of the edited customer shown in the status message.
 .. Test case: `editc 1 e/0` +
 Expected: No customers is edited as email is invalid. Error details shown in the status message.
+.. Test case: `editc 1 n/Johnathan n/Alex` +
+Expected: No customers is edited as there are multiple name prefixes. Error details shown in the status message.
 .. Other incorrect edit commands to try: `editc 1`, `editc x` (where x is larger than the list size) +
 Expected: Similar to previous.
 
@@ -776,25 +780,29 @@ Expected: Similar to previous.
 . Clearing all customers
 
 .. Test case: `clearc` +
-Expected: All customers are cleared. Details of success is shown in the status bar.
+Expected: All customers are cleared. Details of success message is shown in the status bar.
 
 ==== Listing all customers
 
 . Listing all customers
 
 .. Test case: `listc` +
-Expected: All customers are listed. Details of success is shown in the status bar.
+Expected: All customers are listed. Details of success message is shown in the status bar.
 
 ==== Finding customers
 
 . Finding customers
 
 .. Test case: `findc n/alice` +
-Expected: All customers with full word 'alice' in name are listed. Details of success is shown in the status bar.
+Expected: All customers with full word 'alice' in name are listed. Details of success message is shown in the status bar.
+.. Test case: `findc n/alex alice` +
+Expected: All customers with full word `alex` **OR** `alice` in name are listed. Details of success message is shown in the status bar.
 .. Test case: `findc a/serangoon yishun` +
-Expected: All customers with full words matching 'serangoon' or 'yishun' in their addresses are listed. Details of success is shown in the status bar.
+Expected: All customers with full words matching 'serangoon' **OR** 'yishun' in their addresses are listed. Details of success message is shown in the status bar.
 .. Test case: `findc a/serangoon n/bob` +
-Expected: All customers with full words matching 'serangoon' in their addresses and 'bob' in their names are listed. Details of success is shown in the status bar.
+Expected: All customers with full words matching 'serangoon' in their addresses **AND** 'bob' in their names are listed. Details of success is shown in the status bar.
+.. Test case: `findc n/alex n/peter` +
+Expected: No customers found as there are multiple name prefixes. Error details shown in the status message.
 
 === Product
 
@@ -809,6 +817,8 @@ Expected: All customers with full words matching 'serangoon' in their addresses 
    Expected: No product is added as duplicate products are not allowed. Error details shown in the status message.
 .. Test case: `addp d/iphone cp/400.5 pr/1000 q/10` +
    Expected: No product is added as cost price should be an integer. Error details shown in the status message.
+.. Test case : `addp d/iphone d/ipad cp/400 pr/1000 q/10` +
+   Expected: No product is added as there are multiple description prefixes. Error details shown in the status message.
 .. Other incorrect add commands to try: `addp d/iphone cp/40 pr/1000 q/x` (where x is larger than 1000000), `addp d/iphone cp/40 q/100000` +
    Expected: Similar to previous.
 
@@ -833,6 +843,8 @@ Expected: Similar to previous.
 Expected: First product is edited from the list. Details of the edited product shown in the status message.
 .. Test case: `editp 1 pr/0` +
 Expected: No product is edited as price is invalid. Error details shown in the status message.
+.. Test case: `editp 1 pr/300 pr/500` +
+Expected: No product is edited as there are multiple price prefixes. Error details shown in the status message.
 .. Other incorrect edit commands to try: `editp 1`, `editp x` (where x is larger than the list size) +
 Expected: Similar to previous.
 
@@ -872,6 +884,8 @@ Test case: `addt c/1 p/1 q/1 dt/2020-04-11 10:44 m/30 d/under discount` +
 Expected: No transaction is added as duplicate transactions are not allowed. Error details shown in the status message.
 .. Test case: `addt c/1 p/1 q/0` +
 Expected: No transaction is added as quantity should be a positive integer. Error details shown in the status message.
+.. Test case: `addt c/1 c/1 p/1 q/10` +
+Expected: No transaction is added as there are multiple customer prefixes. Error details shown in the status message.
 .. Other incorrect add commands to try: `addt c/x p/1 q/2` (where x is larger than size of customer list), `addt c/1 p/1` +
 Expected: Similar to previous.
 
@@ -896,6 +910,8 @@ Expected: Similar to previous.
 Expected: First transaction is edited from the list. Details of the edited transaction shown in the status message.
 .. Test case: `editt 1 m/0` +
 Expected: No transaction is edited as amount is invalid. Error details shown in the status message.
+.. Test case: `editt 1 d/Discount d/offer` +
+Expected: No transaction is edited as there are multiple description prefixes. Error details shown in the status message.
 .. Other incorrect edit commands to try: `editt 1`, `editt x` (where x is larger than the list size) +
 Expected: Similar to previous.
 
@@ -920,9 +936,11 @@ Expected: All transactions are listed. Details of success is shown in the status
 .. Test case: `findt c/alice` +
 Expected: All transactions with full word 'alice' in their customer names are listed. Details of success is shown in the status bar.
 .. Test case: `findt p/bag watch` +
-Expected: All transactions with full words matching 'bag' or 'watch' in their product names are listed. Details of success is shown in the status bar.
+Expected: All transactions with full words matching 'bag' **OR** 'watch' in their product names are listed. Details of success is shown in the status bar.
 .. Test case: `findt c/alice m/10` +
-Expected: All transactions with full words matching 'alice' in their customer names and have transaction amounts of 10 are listed. Details of success is shown in the status bar.
+Expected: All transactions with full words matching 'alice' in their customer names **AND** have transaction amounts of 10 are listed. Details of success is shown in the status bar.
+.. Test case: `findt c/alice c/john` +
+Expected: No transaction found as there are multiple customer prefixes. Error details shown in the status message.
 
 === Statistics
 
