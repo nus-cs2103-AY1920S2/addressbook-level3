@@ -73,6 +73,9 @@ public class CommandTestUtil {
     public static final String COURSE_DESC_BOB = " " + PREFIX_COURSE_NAME + VALID_COURSE_BOB;
     public static final String FOCUS_AREA_DESC_BOB = " " + PREFIX_FOCUS_AREA + VALID_FOCUS_AREA_BOB;
 
+    public static final String INVALID_COURSE = "Random Course";
+    public static final String INVALID_FOCUS_AREA = "Random Focus Area";
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_MODCODE_DESC = " " + PREFIX_MODULE + "123ABC";
     public static final String INVALID_SEMESTER_DESC = " " + PREFIX_YEAR + "a";

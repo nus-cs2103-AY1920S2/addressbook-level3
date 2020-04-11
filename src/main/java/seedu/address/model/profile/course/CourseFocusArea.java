@@ -106,4 +106,11 @@ public class CourseFocusArea {
     public List<Module> getElec() {
         return this.electivesMod;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CourseFocusArea // instanceof handles nulls
+                && focusAreaName.equals(((CourseFocusArea) other).focusAreaName)); // state check
+    }
 }

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class CourseList {
                 return course;
             }
         }
-        throw new ParseException("Course does not exist");
+        throw new ParseException(MESSAGE_INVALID_COURSE);
     }
 
     public CourseFocusArea getCourseFocusArea(String focusAreaName) throws ParseException {
