@@ -21,11 +21,7 @@ import tatracker.ui.UiPart;
  */
 public class ClaimsListPanel extends UiPart<Region> {
     private static final String FXML = "ClaimsListPanel.fxml";
-    private static final String BACKGROUND_COLOUR = "#5f4d42";
-    private static final String BORDER_COLOUR = "#917b3e";
-    private static final String LABEL_BACKGROUND_COLOUR = "#424d5f";
-    private static final String LABEL_BORDER_COLOUR = "#3e7b91";
-    private static final String BORDER_WIDTH = "1";
+
     private final Logger logger = LogsCenter.getLogger(ClaimsListPanel.class);
 
     @FXML
@@ -44,9 +40,14 @@ public class ClaimsListPanel extends UiPart<Region> {
         claimsListView.setItems(claimsList);
         claimsListView.setCellFactory(listView -> new ClaimsListViewCell());
         totalEarnings.setText("Total Earnings: " + this.taTracker.getTotalEarnings());
-        totalEarnings.setStyle("-fx-background-color: " + LABEL_BACKGROUND_COLOUR + "; "
-                + "-fx-border-color: " + LABEL_BORDER_COLOUR + "; "
-                + "-fx-border-width: " + BORDER_WIDTH + ";");
+
+        claimsListView.focusedProperty().addListener((arg, oldVal, focused) -> {
+            if (focused) {
+                claimsListView.setStyle("-fx-border-color: #264780; -fx-border-width: 1;");
+            } else {
+                claimsListView.setStyle("");
+            }
+        });
     }
 
     /**
@@ -64,18 +65,19 @@ public class ClaimsListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Session claim, boolean empty) {
             super.updateItem(claim, empty);
+            getStyleClass().removeAll("filtered", "list-cell");
 
             if (empty || claim == null) {
                 setGraphic(null);
                 setText(null);
+                getStyleClass().add("list-cell");
                 setStyle("");
             } else {
                 setGraphic(new ClaimsCard(claim, getIndex() + 1).getRoot());
                 if ((getCurrentlyShownModuleClaim() != null)) {
-                    setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
-                            + "-fx-border-color: " + BORDER_COLOUR + "; "
-                            + "-fx-border-width: " + BORDER_WIDTH + ";");
+                    getStyleClass().add("filtered");
                 } else {
+                    getStyleClass().add("list-cell");
                     setStyle("");
                 }
             }
