@@ -39,8 +39,6 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private CheckBox isDone;
     @FXML
-    private Label index;
-    @FXML
     private Label name;
     @FXML
     private Label date;
@@ -60,8 +58,7 @@ public class DeadlineCard extends UiPart<Region> {
     public DeadlineCard(Deadline deadline, int displayedIndex) {
         super(FXML);
         this.deadline = deadline;
-        index.setText(String.valueOf(displayedIndex));
-        name.setText(deadline.getName().toString());
+        name.setText(displayedIndex + ". " + deadline.getName().toString());
         date.setText("Due by: " + deadline.getDueDate().toString());
         note.setText(deadline.getNote().toString());
         dateToRepeat.setText("-");

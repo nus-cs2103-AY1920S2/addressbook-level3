@@ -73,11 +73,11 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
             //Overriding default redo
             if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
-                event.consume();
+                //event.consume();
                 handleRedo();
                 //Overriding default undo
             } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
-                event.consume();
+                //event.consume();
                 handleUndo();
             } else if (event.getCode() == KeyCode.TAB) {
                 tabPanel.next();

@@ -42,7 +42,7 @@ public class ModuleCard extends UiPart<Region> {
         super(FXML);
         this.module = module;
         this.id = displayedIndex;
-        code.setText(module.getModuleCode().toString());
+        code.setText(module.getModuleCode().toString() + " " + module.getModuleName().toString());
         deadlineListPanel = new DeadlineListPanel(module.getFilteredDeadlineList());
         eventListPanel = new EventListPanel(module.getFilteredEventList());
         activityListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());

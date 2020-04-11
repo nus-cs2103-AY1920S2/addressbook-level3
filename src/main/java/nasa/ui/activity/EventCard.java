@@ -29,8 +29,6 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private HBox eventPane;
     @FXML
-    private Label index;
-    @FXML
     private Label name;
     @FXML
     private Label startDate;
@@ -44,8 +42,7 @@ public class EventCard extends UiPart<Region> {
     public EventCard(Event event, int displayedIndex) {
         super(FXML);
         this.event = event;
-        index.setText(String.valueOf(displayedIndex));
-        name.setText(event.getName().toString());
+        name.setText(displayedIndex + ". " + event.getName().toString());
         startDate.setText("From " + event.getStartDate().toString());
         endDate.setText("To " + event.getEndDate().toString());
         note.setText(event.getNote().toString());
