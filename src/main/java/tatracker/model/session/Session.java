@@ -153,6 +153,19 @@ public class Session implements Comparable<Session> {
                 getStartDateTimeDescription(), getEndDateTimeDescription());
     }
 
+    /**
+     * Returns true if this session's timing clashes with the other session.
+     */
+    public boolean hasTimingClash(Session other) {
+        boolean sameTiming = startDateTime.equals(other.startDateTime)
+                && endDateTime.equals(other.endDateTime);
+
+        boolean timeClash = startDateTime.isBefore(other.endDateTime)
+                && endDateTime.isAfter(other.startDateTime);
+
+        return sameTiming || timeClash;
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
