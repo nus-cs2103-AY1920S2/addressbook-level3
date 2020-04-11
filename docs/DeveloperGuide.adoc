@@ -401,7 +401,7 @@ image::AddExerciseCommandSequenceDiagram.png[]
 
 image::AddExerciseCommandSequenceDiagramPart2.png[]
 
-The exercise list, `UniqueExerciseList`, goes through a loop and iterates through the exercises in the list. `UniqueExerciseList` then calls `getExerciseDate()` and `getExerciseName` to get the `LocalDate` and exercise name in `String` type for comparision. The sequence diagram below illustrates the conditional checks during the comparision.
+`UniqueExerciseList` loops through the exercises in the list. and calls `getExerciseDate()` and `getExerciseName`. The `LocalDate` and exercise name in `String` type are then used for comparision. The sequence diagram below illustrates the conditional checks during the comparision.
 
 image::AddExerciseCommandSequenceDiagramPart3.png[]
 
@@ -425,7 +425,7 @@ if (dateComparision > 0) {
 }    
 ----
 
-It is possible to use `Arrays.sort()` to sort the exercises in the `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. Whereas, our implemented function , in the worse case, runs at `O(n)`. `UniqueExerciseList` has to check if it contains the same `Exercise` and that already takes `O(n)`. It is also very possible for the clients to have many exercises so we have to keep the time complexity low.
+`Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. Whereas, our implemented function , in the worse case, runs at `O(n)`. `UniqueExerciseList` has to check if it contains the same `Exercise` and that already takes `O(n)`. It is also very possible for the clients to have many exercises so we have to keep the time complexity low.
 
 ==== Design Considerations
 
