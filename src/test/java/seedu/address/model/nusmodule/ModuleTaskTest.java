@@ -41,11 +41,6 @@ class ModuleTaskTest {
     }
 
     @Test
-    void getDoneStatus() {
-        assertEquals(task_cs2030_0102.getDoneStatus(), 0);
-    }
-
-    @Test
     void testEquals() {
         ModuleTask moduleTask = new ModuleTask("assignment", new ModuleCode("CS2030"),
                 "01-02-2020", Priority.LOW);

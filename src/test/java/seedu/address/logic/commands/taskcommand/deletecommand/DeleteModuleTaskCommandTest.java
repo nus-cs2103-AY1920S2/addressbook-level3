@@ -44,10 +44,11 @@ class DeleteModuleTaskCommandTest {
         String expectedMessage = DeleteModuleTaskCommand.MESSAGE_SUCCESS + " " + validModuleCode + " task number "
                 + Index.fromZeroBased(0).getOneBased();
 
+        model.addDeadlineTask(TypicalNusModules.TYPICAL_MODULE_TASK_1);
+
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs(),
                 new ModuleBook(model.getModuleBook()), FXCollections.observableList(new ArrayList<Task>()));
-        expectedModel.deleteModuleTask(validModuleCode, Index.fromZeroBased(0));
-
+        expectedModel.addDeadlineTask(TypicalNusModules.TYPICAL_MODULE_TASK_1);
         assertCommandSuccess(deleteModuleTaskCommand, model, expectedMessage, expectedModel);
     }
 
