@@ -60,9 +60,9 @@ public class EditCommand extends Command {
             + "<" + PREFIX_STEP + "step>...]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "10 "
-            + PREFIX_INGREDIENT_VEGE + "Insert new vegetable here "
-            + PREFIX_INGREDIENT_PROTEIN + "Insert new protein-rich ingredient here "
-            + PREFIX_STEP + "Insert new step here ";
+            + PREFIX_INGREDIENT_VEGE + "40g, Kailan "
+            + PREFIX_INGREDIENT_PROTEIN + "20g, Chicken thigh "
+            + PREFIX_STEP + "Wash the vegetables";
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
