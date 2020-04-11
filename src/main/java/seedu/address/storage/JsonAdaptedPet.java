@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,6 +15,13 @@ import seedu.address.model.settings.PetName;
 @JsonRootName(value = "pet")
 class JsonAdaptedPet {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Pet's %s field is missing!";
+
+    public static final String INVALID_PETNAME_MESSAGE = "invalid Pet name input";
+    public static final String INVALID_EXP_MESSAGE = "Invalid experience input";
+    public static final String INVALID_LEVEL_MESSAGE = "Invalid level input";
+    public static final String INVALID_MOOD_MESSAGE = "Invalid mood input";
+    public static final String INVALID_LASTDONETASKTIME_MESSAGE = "Invalid lastdonetasktime input";
+    
 
     private final String name;
     private final String exp;
@@ -57,7 +65,7 @@ class JsonAdaptedPet {
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
         }
         if (!PetName.isValidPetName(name)) {
-            throw new IllegalValueException(PetName.MESSAGE_CONSTRAINTS);
+            throw new InvalidPetException(INVALID_PETNAME_MESSAGE);
         }
         final String modelName = name;
 
@@ -67,7 +75,7 @@ class JsonAdaptedPet {
         }
 
         if (! (level.equals("1") || level.equals("2") || level.equals("3"))) {
-            throw new InvalidPetException("Invalid level input");
+            throw new InvalidPetException( INVALID_LEVEL_MESSAGE);
         }
 
         final String modelLevel = level;
@@ -81,15 +89,15 @@ class JsonAdaptedPet {
         
         if (level.equals("1")) {
             if (!(expInt >= 0 && expInt < 100)) {
-                throw new InvalidPetException("Invalid experience input");
+                throw new InvalidPetException(INVALID_EXP_MESSAGE);
             }
         } else if (level.equals("2")) {
             if (!(expInt >= 100 && expInt < 200)) {
-                throw new InvalidPetException("Invalid experience input");
+                throw new InvalidPetException(INVALID_EXP_MESSAGE);
             }
         } else {
             if (!(expInt >= 200)) {
-                throw new InvalidPetException("Invalid experience input");
+                throw new InvalidPetException(INVALID_EXP_MESSAGE);
             }
         }
 
@@ -101,12 +109,16 @@ class JsonAdaptedPet {
         }
 
         if (!(mood.equals("HAPPY") || mood.equals("HANGRY"))) {
-            throw new InvalidPetException("Invalid mood input");
+            throw new InvalidPetException(INVALID_MOOD_MESSAGE);
         }
 
         final String modelMood = mood;
 
-        LocalDateTime.parse(lastDoneTaskTime);
+        try {
+            LocalDateTime.parse(lastDoneTaskTime);
+        } catch (DateTimeParseException e) {
+            throw new InvalidPetException(INVALID_LASTDONETASKTIME_MESSAGE);
+        }
 
         final String modelLastDoneTaskTime = lastDoneTaskTime;
 
