@@ -17,9 +17,6 @@ public class DeleteDeadlineCommand extends DeleteTaskCommand {
     public static final String MESSAGE_SUCCESS = "Deadline Deleted: ";
     public static final String MESSAGE_FAIL = "No such deadline exists";
 
-
-
-
     private final Task deadlineToDelete;
 
     public DeleteDeadlineCommand(Task deadlineToDelete) {
