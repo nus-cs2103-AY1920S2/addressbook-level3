@@ -110,8 +110,7 @@ public class DeleteGoodPricePairFromSupplierCommand extends Command {
             } else {
                 errorMessage = errorMessage.concat(goodName.toString()).concat(", ");
             }
-                }
-        );
+        });
 
         return new Supplier(updatedName, updatedPhone, updatedEmail, updatedAddress, duplicate);
     }

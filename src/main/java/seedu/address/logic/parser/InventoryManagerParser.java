@@ -11,8 +11,8 @@ import seedu.address.logic.commands.BuyCommand;
 import seedu.address.logic.commands.ClearSupplierCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteGoodCommand;
-import seedu.address.logic.commands.DeleteSupplierCommand;
 import seedu.address.logic.commands.DeleteGoodPricePairFromSupplierCommand;
+import seedu.address.logic.commands.DeleteSupplierCommand;
 import seedu.address.logic.commands.EditSupplierCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindGoodCommand;
@@ -67,7 +67,7 @@ public class InventoryManagerParser {
             return new DeleteGoodCommandParser().parse(arguments);
 
         case DeleteGoodPricePairFromSupplierCommand.COMMAND_WORD:
-                return new DeleteGoodPricePairFromSupplierCommandParser().parse(arguments);
+            return new DeleteGoodPricePairFromSupplierCommandParser().parse(arguments);
 
         case FindSupplierCommand.COMMAND_WORD:
             return new FindSupplierCommandParser().parse(arguments);
