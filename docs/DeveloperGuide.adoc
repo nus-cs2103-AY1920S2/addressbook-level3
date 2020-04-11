@@ -1678,6 +1678,7 @@ Use case ends.
 
 === Session View
 
+[discrete]
 ==== Use case: UC17 - Adding a session
 
 *MSS*
@@ -1698,6 +1699,7 @@ Use case ends.
 +
 Use case resumes at step 3.
 
+[discrete]
 ==== Use case: UC18 - Editing a session
 
 *MSS*
@@ -1724,6 +1726,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 ==== Use case: UC19 - Deleting a session
 
 *MSS*
@@ -1745,6 +1748,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 ==== Use case: UC20 - Marking a session as done
 
 *MSS*
@@ -1772,6 +1776,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 ==== Use case: UC21 - Filtering under Session View
 
 *MSS*
@@ -1818,6 +1823,7 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+[discrete]
 ==== Use case: UC23 - Filtering under Claims View
 
 *MSS*
