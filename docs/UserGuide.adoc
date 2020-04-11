@@ -532,10 +532,10 @@ you can easily enter it into the TSS claims form at the end of the semester.
 The *Claims View* has been
 divided into two columns.
 
-. The first column shows you a list of all the modules that you are a teaching
+. The first column shows you a *list of all the modules* that you are a teaching
 assistant for.
 
-. The second column shows you a list of all the sessions that you have marked as done.
+. The second column shows you a *list of all the sessions* that you have *marked as done*.
 
 image::ClaimsView.png[,1000]
 This is an example of what the Claims View might look like.
@@ -609,10 +609,10 @@ The *default* font colour.
 
 |=======================================================================
 
-image::ValidInput.png[width="790"]
+image::ValidInput.png[,1000]
 This is an example of a valid input.
 
-image::InvalidInput.png[width="790"]
+image::InvalidInput.png[,1000]
 This is an example on an invalid input.
 
 === Hints
@@ -643,7 +643,7 @@ Showing the *parameter usage*
 
 |=======================================================================
 
-image::Default.png[width="790"]
+image::Default.png[,1000]
 This is an example of what a hint may look like.
 
 [[Commands]]
@@ -750,7 +750,7 @@ Examples:
 * `module add m/CS2100 n/Computer Organisation`
 +
 
-image::ModuleAdd.png[width="790"]
+image::ModuleAdd.png[,1000]
 This will add a module with the module code `CS2100` and name `Computer Organisation`
 to the TA-Tracker.
 
@@ -781,7 +781,7 @@ Examples:
 
 * `module delete m/CS2103T`
 +
-image::ModuleDelete.png[width="790"]
+image::ModuleDelete.png[,1000]
 This will delete the module with the module code `CS2103T` from the TA-Tracker.
 ====
 
@@ -814,7 +814,7 @@ Examples:
 
 * `module edit m/CS3243 n/Intro to AI`
 +
-image::ModuleEdit.png[width="790"]
+image::ModuleEdit.png[,1000]
 This will change the name of the module with module code `CS3243` to `Intro to AI`.
 ====
 
@@ -851,7 +851,7 @@ Examples:
 
 * `group add g/G03 m/CS2100 t/tutorial`
 +
-image::GroupAdd.png[width="790"]
+image::GroupAdd.png[,1000]
 This will add a group with the group code `G03`, which is a `tutorial`, inside the module that
 has module code `CS2100`.
 ====
@@ -886,7 +886,7 @@ Examples:
 
 * `group delete g/G06 m/CS3243`
 +
-image::GroupDelete.png[width="790"]
+image::GroupDelete.png[,1000]
 This will delete the group with the group code `G06` from the module that
 has module code `CS3243`.
 ====
@@ -926,7 +926,7 @@ Examples:
 
 * `group edit g/G01 m/CS3243 nt/lab`
 +
-image::GroupEdit.png[width="790"]
+image::GroupEdit.png[,900]
 This will change the group type of the group with group code `G01`, inside the module with
 module code `CS3243`, to be a `lab`.
 ====
@@ -1006,7 +1006,7 @@ Examples:
 
 * `student delete m/CS3243 g/G01 id/A0187945J`
 +
-image::StudentDelete.png[width="790"]
+image::StudentDelete.png[,900]
 Deletes the student with the matriculation number `A0187945J` from group `G01` of
 the module `CS3243`.
 ====
@@ -1485,12 +1485,12 @@ Example:
 
 * `report`
 +
-image::Statistics.png[width="790"]
+image::Statistics.png[,1000]
 Generate and display a report of sessions and students from all modules.
 
 * `report CS2103T`
 +
-image::CS2103Statistics.png[width="790"]
+image::CS2103Statistics.png[,1000]
 Generate and display a report of sessions and students from the module CS3243.
 
 == Glossary
