@@ -1,33 +1,95 @@
 @startuml
 !include style.puml
 
-Actor User as user USER_COLOR
-Participant ":EYLAH" as ui UI_COLOR
-Participant ":LogicManager" as logic LOGIC_COLOR
-Participant ":ModelManager" as splitterModel MODEL_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":HeightCommandParser" as HeightCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "h:HeightCommand" as HeightCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
 
-user -[USER_COLOR]> ui : "height 170"
-activate ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant "height:Height" as HeightHeight MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
 
-ui -[UI_COLOR]> logic : execute("height 170")
-activate logic LOGIC_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
+end box
 
-create "h:Height" as height STORAGE_COLOR
-logic -[LOGIC_COLOR]> height : new Height(170)
-activate height STORAGE_COLOR
+[-> LogicManager : execute("height 170.2")
+activate LogicManager
 
-height -[STORAGE_COLOR]-> logic
-deactivate height
+LogicManager -> FoodBookParser : parseCommand("height 170.2")
+activate FoodBookParser
 
-logic -[LOGIC_COLOR]> splitterModel : setHeight(h)
-activate splitterModel MODEL_COLOR
+create HeightCommandParser
+FoodBookParser -> HeightCommandParser
+activate HeightCommandParser
 
-splitterModel -[MODEL_COLOR]-> logic
-deactivate splitterModel
+HeightCommandParser --> FoodBookParser
+deactivate HeightCommandParser
 
-logic --[LOGIC_COLOR]> ui : CommandResult
-deactivate logic
+FoodBookParser -> HeightCommandParser : parse("170.2")
+activate HeightCommandParser
 
-ui--[UI_COLOR]> user : CommandResult
-deactivate ui
+create ParserUtil
+HeightCommandParser -> ParserUtil : parseHeight("170.2")
+activate ParserUtil
+
+create HeightHeight
+ParserUtil -> HeightHeight
+activate HeightHeight
+
+HeightHeight --> ParserUtil : height
+deactivate HeightHeight
+
+ParserUtil --> HeightCommandParser : height
+deactivate ParserUtil
+
+create HeightCommand
+HeightCommandParser -> HeightCommand
+activate HeightCommand
+
+HeightCommand --> HeightCommandParser : h
+deactivate HeightCommand
+
+HeightCommandParser --> FoodBookParser : h
+deactivate HeightCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+HeightCommandParser -[hidden]-> FoodBookParser
+destroy HeightCommandParser
+
+FoodBookParser --> LogicManager : h
+deactivate FoodBookParser
+
+LogicManager -> HeightCommand : execute()
+activate HeightCommand
+
+HeightCommand -> Model : setHeight(height)
+activate Model
+
+Model --> HeightCommand
+deactivate Model
+
+create CommandResult
+HeightCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> HeightCommand
+deactivate CommandResult
+
+HeightCommand --> LogicManager : commandResult
+deactivate HeightCommand
+
+LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+[<--LogicManager
+deactivate LogicManager
 @enduml
