@@ -82,7 +82,7 @@ public interface Logic {
     //=========== Profile Module ==================================================================================
     ObservableList<NusModule> getModulesListTaken();
 
-    ObservableValue<String> getMajor();
+//    ObservableValue<String> getMajor();
 
     Profile getProfile();
 

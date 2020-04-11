@@ -111,10 +111,10 @@ public class LogicManager implements Logic {
         return model.getModulesListTaken();
     }
 
-    @Override
-    public ObservableValue<String> getMajor() {
-        return model.getMajor();
-    }
+//    @Override
+//    public ObservableValue<String> getMajor() {
+//        return model.getMajor();
+//    }
 
     @Override
     public Profile getProfile() {

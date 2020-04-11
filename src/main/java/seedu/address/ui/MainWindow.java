@@ -227,8 +227,7 @@ public class MainWindow extends UiPart<Stage> {
 
 
 
-        profileMainScreen = new ProfileMainScreen(new Profile("Zhou Xinwei",
-                new Major("Computer Science"), "4.2", "4.5"));
+        profileMainScreen = new ProfileMainScreen(logic.getProfile());
         profileMainScreenplaceholder.getChildren().add(profileMainScreen.getRoot());
         setAnchorPaneSize(profile, profile.getChildren().get(0));
 
