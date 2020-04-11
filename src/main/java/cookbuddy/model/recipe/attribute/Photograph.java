@@ -10,7 +10,7 @@ import java.net.URL;
 import java.nio.file.Path;
 
 import cookbuddy.commons.util.FileUtil;
-import cookbuddy.commons.util.ImageUtil;
+import cookbuddy.commons.util.PhotographUtil;
 import cookbuddy.model.recipe.Recipe;
 
 /**
@@ -19,7 +19,7 @@ import cookbuddy.model.recipe.Recipe;
  */
 public class Photograph {
 
-    public static final ImageUtil IMAGE_UTIL = ImageUtil.imageUtil();
+    public static final PhotographUtil IMAGE_UTIL = PhotographUtil.imageUtil();
     public static final String MESSAGE_CONSTRAINTS = IMAGE_UTIL.MESSAGE_CONSTRAINTS;
     public static final Photograph PLACEHOLDER_PHOTOGRAPH = new Photograph(IMAGE_UTIL.PLACEHOLDER_IMAGE);
 
@@ -97,7 +97,7 @@ public class Photograph {
 
     /**
      * Returns an {@link InputStream} from this {@link Photograph}'s image data, by
-     * calling {@link ImageUtil#getImageInputStream(BufferedImage)}.
+     * calling {@link PhotographUtil#getImageInputStream(BufferedImage)}.
      *
      * @return An {@link InputStream} of this {@link Photograph}, buffered and
      *         high-performance.

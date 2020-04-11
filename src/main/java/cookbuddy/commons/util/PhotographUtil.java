@@ -32,7 +32,7 @@ import javafx.collections.ObservableList;
  * originally a utility class. This pattern would originally fail several
  * CheckStyle checks, which have since been disabled.
  */
-public class ImageUtil {
+public class PhotographUtil {
     public static final String PLACEHOLDER_IMAGE_PATH_STRING = "/images/recipe_placeholder.jpg";
     public static final Path PLACEHOLDER_IMAGE_PATH = Paths.get(PLACEHOLDER_IMAGE_PATH_STRING);
     public final InputStream PLACEHOLDER_IMAGE_STREAM;
@@ -42,13 +42,13 @@ public class ImageUtil {
             + "Placeholder image used instead.";
     private final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    private ImageUtil() {
+    private PhotographUtil() {
         this.PLACEHOLDER_IMAGE_STREAM = getResourceAsInputStream(PLACEHOLDER_IMAGE_PATH_STRING);
         this.PLACEHOLDER_IMAGE = getImage(PLACEHOLDER_IMAGE_STREAM);
     }
 
-    public static ImageUtil imageUtil() {
-        return new ImageUtil();
+    public static PhotographUtil imageUtil() {
+        return new PhotographUtil();
     }
 
     /**

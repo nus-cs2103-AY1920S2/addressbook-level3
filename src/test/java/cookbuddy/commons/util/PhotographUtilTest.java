@@ -6,18 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class ImageUtilTest {
+public class PhotographUtilTest {
 
     @Test
     public void isValidPlaceHolderImagePath() {
         // valid path
-        assertTrue(ImageUtil.isPlaceHolderImage("/images/recipe_placeholder.jpg"));
+        assertTrue(PhotographUtil.isPlaceHolderImage("/images/recipe_placeholder.jpg"));
 
         // invalid path
-        assertFalse(ImageUtil.isPlaceHolderImage("a\0"));
+        assertFalse(PhotographUtil.isPlaceHolderImage("a\0"));
 
         // null path -> throws NullPointerException
-        assertThrows(NullPointerException.class, () -> ImageUtil.isPlaceHolderImage((String) null));
+        assertThrows(NullPointerException.class, () -> PhotographUtil.isPlaceHolderImage((String) null));
     }
 
 }

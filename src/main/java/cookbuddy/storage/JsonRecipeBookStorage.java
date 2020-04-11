@@ -11,7 +11,7 @@ import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.commons.exceptions.DataConversionException;
 import cookbuddy.commons.exceptions.IllegalValueException;
 import cookbuddy.commons.util.FileUtil;
-import cookbuddy.commons.util.ImageUtil;
+import cookbuddy.commons.util.PhotographUtil;
 import cookbuddy.commons.util.JsonUtil;
 import cookbuddy.model.ReadOnlyRecipeBook;
 
@@ -78,6 +78,6 @@ public class JsonRecipeBookStorage implements RecipeBookStorage {
 
         FileUtil.createIfMissing(dataFilePath);
         JsonUtil.saveJsonFile(new JsonSerializableRecipeBook(recipeBook), dataFilePath);
-        ImageUtil.imageUtil().saveAllImages(recipeBook.getRecipeList(), imagesPath);
+        PhotographUtil.imageUtil().saveAllImages(recipeBook.getRecipeList(), imagesPath);
     }
 }
