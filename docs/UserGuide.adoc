@@ -197,14 +197,15 @@ Edits the name of the 2nd customer to be Betsy Crower and clears all existing ta
 ==== Finding customers: `findc`
 
 Finds customers whose attributes match the given attributes. +
-Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
+Format: `findc [n/NAME [NAME]...] [p/PHONE [PHONE]...] [e/EMAIL [EMAIL]...] [a/ADDRESS [ADDRESS]...]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
 * At least one of the optional fields must be provided.
 * Only full words will be matched for keywords e.g. Han will not match Hans
-* The order of the attributes does not matter. e.g. Hans Bo will match Bo Hans
-* Only customers matching all keywords will be returned (i.e. AND search)
+* The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, n/Bob a/31 will match a/31 n/Bob
+* Only customers matching all attributes will be returned (i.e. AND search) e.g. `findc n/Jane a/31` will return customers with 'jane' in their names and 31 in their addresses
+* Customers matching any keywords in an attribute will be returned (i.e. OR search) e.g. `findc a/clementi ave` will return customers with 'clementi' or 'ave' in their addresses
 ****
 
 image::FindCustomerByAddress.png[width="790" align="center"]
@@ -216,8 +217,8 @@ Examples:
 Returns john and John Doe from the customer list.
 * `findc n/Betsy Tim John` +
 Returns any customer having names Betsy, Tim, or John in the customer list.
-* `findc a/serangoon yishun` +
-Returns all customers with address in Serangoon and Yishun.
+* `findc a/serangoon n/Bob` +
+Returns all customers with addresses in Serangoon and have Bob in their names.
 // end::findc[]
 
 // tag::deletec[]
