@@ -1,9 +1,9 @@
 package tatracker.testutil.sessions;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 
@@ -13,16 +13,18 @@ import tatracker.model.session.SessionType;
  */
 public class SessionBuilder {
 
-    public static final LocalDateTime DEFAULT_START = LocalDateTime.of(2020, 05, 20, 17, 30);
-    public static final LocalDateTime DEFAULT_END = LocalDateTime.of(2020, 05, 20, 19, 30);
+    public static final LocalDate DEFAULT_DATE = LocalDate.of(2020, 5, 20);
+    public static final LocalTime DEFAULT_START = LocalTime.of(17, 30);
+    public static final LocalTime DEFAULT_END = LocalTime.of(19, 30);
     public static final String DEFAULT_MODULE = "CS2103T";
     public static final SessionType DEFAULT_TYPE = SessionType.TUTORIAL;
     public static final String DEFAULT_DESCRIPTION = "finishes his tutorial";
     public static final int DEFAULT_RECURRING = 2;
     public static final boolean DEFAULT_DONE = false;
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private String moduleCode;
     private SessionType sessionType;
     private String description;
@@ -30,6 +32,7 @@ public class SessionBuilder {
     private boolean isDone;
 
     public SessionBuilder() {
+        date = DEFAULT_DATE;
         startTime = DEFAULT_START;
         endTime = DEFAULT_END;
         moduleCode = DEFAULT_MODULE;
@@ -43,8 +46,9 @@ public class SessionBuilder {
      * Initializes the SessionBuilder with the data of {@code sessionToCopy}.
      */
     public SessionBuilder(Session sessionToCopy) {
-        startTime = sessionToCopy.getStartDateTime();
-        endTime = sessionToCopy.getEndDateTime();
+        date = sessionToCopy.getDate();
+        startTime = sessionToCopy.getStartDateTime().toLocalTime();
+        endTime = sessionToCopy.getEndDateTime().toLocalTime();
         moduleCode = sessionToCopy.getModuleCode();
         sessionType = sessionToCopy.getSessionType();
         description = sessionToCopy.getDescription();
@@ -53,12 +57,17 @@ public class SessionBuilder {
     }
 
     /**
+     * Sets the {@code date} of the {@code Session} that we are building.
+     */
+    public SessionBuilder withDate(LocalDate date) {
+        this.date = date;
+        return this;
+    }
+
+    /**
      * Sets the {@code startTime} of the {@code Session} that we are building.
      */
-    public SessionBuilder withStartTime(LocalDateTime startTime) throws ParseException {
-        //LocalDate date = ParserUtil.parseDate(startTime);
-        //LocalTime time = ParserUtil.parseTime(startTime);
-        //this.startTime = LocalDateTime.of(date, time);
+    public SessionBuilder withStartTime(LocalTime startTime) {
         this.startTime = startTime;
         return this;
     }
@@ -66,10 +75,7 @@ public class SessionBuilder {
     /**
      * Sets the {@code endTime} of the {@code Session} that we are building.
      */
-    public SessionBuilder withEndTime(LocalDateTime endTime) throws ParseException {
-        //LocalDate date = ParserUtil.parseDate(endTime);
-        //LocalTime time = ParserUtil.parseTime(endTime);
-        //this.endTime = LocalDateTime.of(date, time);
+    public SessionBuilder withEndTime(LocalTime endTime) {
         this.endTime = endTime;
         return this;
     }
@@ -85,8 +91,8 @@ public class SessionBuilder {
     /**
      * Sets the {@code SessionType} of the {@code Session} that we are building.
      */
-    public SessionBuilder withSessionType(String type) throws ParseException {
-        this.sessionType = ParserUtil.parseSessionType(type);
+    public SessionBuilder withSessionType(String type) {
+        this.sessionType = SessionType.getSessionType(type);
         return this;
     }
 
@@ -118,8 +124,9 @@ public class SessionBuilder {
      * Builds the Session.
      */
     public Session build() {
-        return new Session(startTime, endTime, sessionType, recurringWeeks, moduleCode,
-                description);
-    }
+        LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
 
+        return new Session(startDateTime, endDateTime, sessionType, recurringWeeks, moduleCode, description);
+    }
 }
