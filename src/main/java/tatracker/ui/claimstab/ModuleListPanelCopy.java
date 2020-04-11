@@ -21,9 +21,6 @@ import tatracker.ui.studenttab.ModuleCard;
  */
 public class ModuleListPanelCopy extends UiPart<Region> implements Focusable {
     private static final String FXML = "ModuleListPanelCopy.fxml";
-    private static final String BACKGROUND_COLOUR = "#5f4d42";
-    private static final String BORDER_COLOUR = "#917b3e";
-    private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(ModuleListPanelCopy.class);
 
@@ -34,6 +31,13 @@ public class ModuleListPanelCopy extends UiPart<Region> implements Focusable {
         super(FXML);
         moduleListViewCopy.setItems(moduleListCopy);
         moduleListViewCopy.setCellFactory(listView -> new ModuleListViewCellCopy());
+        moduleListViewCopy.focusedProperty().addListener((arg, oldVal, focused) -> {
+            if (focused) {
+                moduleListViewCopy.setStyle("-fx-border-color: #264780; -fx-border-width: 1;");
+            } else {
+                moduleListViewCopy.setStyle("");
+            }
+        });
     }
 
     @Override
@@ -63,18 +67,19 @@ public class ModuleListPanelCopy extends UiPart<Region> implements Focusable {
         @Override
         protected void updateItem(Module module, boolean empty) {
             super.updateItem(module, empty);
+            getStyleClass().removeAll("filtered", "list-cell");
 
             if (empty || module == null) {
                 setGraphic(null);
                 setText(null);
+                getStyleClass().add("list-cell");
                 setStyle("");
             } else {
                 setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
                 if (module.equals(getCurrentlyShownModuleClaim())) {
-                    setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
-                            + "-fx-border-color: " + BORDER_COLOUR + "; "
-                            + "-fx-border-width: " + BORDER_WIDTH + ";");
+                    getStyleClass().add("filtered");
                 } else {
+                    getStyleClass().add("list-cell");
                     setStyle("");
                 }
             }

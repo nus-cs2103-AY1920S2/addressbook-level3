@@ -135,11 +135,6 @@
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
-    -fx-border-width: 1;
-}
-
 .list-cell .label {
     -fx-text-fill: white;
 }
@@ -227,6 +222,10 @@
     -fx-opacity: 0.9;
 }
 
+.menu-item:focused {
+    -fx-background-color: #0096C9;
+}
+
 .menu .left-container {
     -fx-background-color: black;
 }
@@ -310,7 +309,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #232c3d;
+    -fx-background-color: #2f3a4f;
     -fx-background-insets: 3;
 }
 
@@ -344,7 +343,7 @@
 #commandTextField {
     -fx-background-color: transparent #2f3a4f transparent #2f3a4f;
     -fx-background-insets: 0;
-    -fx-border-color: #2f3a4f #2f3a4f #ffffff #2f3a4f;
+    -fx-border-color: #2f3a4f #2f3a4f #555555 #2f3a4f;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
@@ -377,7 +376,7 @@
 
 .commandWord {
     -fx-text-fill: white;
-    -fx-background-color: #917b3e;
+    -fx-background-color: #264780;
     -fx-padding: 3 5 3 5;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
