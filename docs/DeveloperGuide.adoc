@@ -443,8 +443,12 @@ in it to the *LogicManager* at the end of the execution.
 //tag::delete[]
 [[delete]]
 === Delete Feature
-In this section, you will learn more about how the `delete` feature is implemented.
+In this section, the <<what-is-delete, functionality>> of the `delete` feature, the
+<<execution-paths-delete, expected execution path>>,
+the <<structure-delete, structure>> of the *DeleteCommand* class and the <<interactions-delete, interactions>>
+between objects with the *DeleteCommand* will be discussed.
 
+[[what-is-delete]]
 ==== What is the Delete Feature
 The `delete` feature allows the user to delete orders in either the order list or return order list. +
 
@@ -466,6 +470,7 @@ delete in the list. +
 The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
 ====
 
+[[execution-paths-delete]]
 ==== Execution paths of Delete command
 In this section, you will learn more about the execution paths for the `delete` command.
 
@@ -488,7 +493,7 @@ The specified return order will be deleted from the return order list. +
 4. User provides an invalid `delete` command input that has an invalid flag. +
 A Command Exception wil be generated.
 
-
+[[structure-delete]]
 ==== Structure of Delete command
 In this section, you will learn more about the relationships between objects
 related to the `delete` command.
@@ -510,6 +515,7 @@ Deleted Return Order: %1$s +
 3. `MESSAGE_INVALID_FLAG` +
 Invalid flag given! +
 
+[[interactions-delete]]
 ==== Interactions between Delete command and its associated objects
 In this section, you will learn more about the `delete` command and its inner workings.
 
@@ -618,7 +624,7 @@ its associated classes and interfaces. Some methods and fields are not included 
 not extensively utilised in *DeliveredCommand*; such as public static fields and getter/setter methods.
 
 [[sequence-delivered]]
-==== Sequence Diagram for delivering an order
+==== Interactions between Delivered command and its associated objects
 The sequence diagrams for the `delivered` command are shown below.
 
 .Delivered Command Sequence Diagram
