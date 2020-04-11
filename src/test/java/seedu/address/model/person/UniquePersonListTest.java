@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,12 +13,17 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.ModelStub;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.PersonBuilder;
@@ -188,5 +194,60 @@ public class UniquePersonListTest {
         // Birthday is five days later
         bDay = LocalDate.now(ZoneId.of("Singapore")).plusDays(5).format(format);
         assertFalse(uniquePersonList.withinRange(bDay, currDate, fiveDaysLater));
+    }
+
+    @Test
+    public void setBdayList() {
+        // Contact has no birthday
+        Person person = new PersonBuilder(ALICE).withBirthday("").build();
+        uniquePersonList.add(person);
+        uniquePersonList.setBdayList();
+        assertTrue(uniquePersonList.getBdayList().isEmpty());
+    }
+
+    @Test
+    public void integrationTest_setBdayList() {
+        // Contact does not have birthday in the next 5 days
+        Person person = new PersonBuilder(ALICE).withBirthday(LocalDate.now(ZoneId.of("Singapore")).plusDays(5)
+            .format(DateTimeFormatter.ofPattern("MM-dd"))).build();
+        uniquePersonList.add(person);
+        uniquePersonList.setBdayList();
+
+        assertTrue(uniquePersonList.getBdayList().isEmpty());
+
+        // Contact has birthday in the next 5 days
+        person = new PersonBuilder(BOB).withBirthday(LocalDate.now(ZoneId.of("Singapore"))
+            .format(DateTimeFormatter.ofPattern("MM-dd"))).build();
+        uniquePersonList.add(person);
+        uniquePersonList.setBdayList();
+
+        assertEquals(uniquePersonList.getBdayList(), Arrays.asList(person));
+    }
+
+
+    /**
+     * A Model stub that always takes a person to have a birthday in the next five days
+     */
+    private class ModelStubBirthdayPersons extends ModelStub {
+        final ArrayList<Person> bDayList = new ArrayList<>();
+
+
+
+        @Override
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return bDayList.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            requireNonNull(person);
+            bDayList.add(person);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
     }
 }
