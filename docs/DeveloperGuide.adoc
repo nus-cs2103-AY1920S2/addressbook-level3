@@ -859,13 +859,13 @@ that haven't been completed yet.
 
 ==== Model Framework
 
-The following _class diagram_ shows how different classes are related in the functioning
+The following _Class diagram_ shows how different classes are related in the functioning
 of the *Session View*.
 
-.Class Diagram of Session View
+._Class Diagram_ of Session View
 image::SessionModelClassDiagram.png[]
 
-The Ta-Tracker model class contains a `UniqueSessionList` which helps keep track of
+The TA-Tracker model class contains a `UniqueSessionList` which helps keep track of
 all the *sessions* in TA-Tracker
 that have *not* been marked as done.
 
@@ -876,15 +876,15 @@ the `Logic` and `Model` components of the TA-Tracker
 when the user enters the command
 `session done 1`.
 
-.Sequence Diagram for Done Session
+._Sequence Diagram_ for Done Session
 image::DoneSessionSequenceDiagram.png[]
 
 1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is a *sessions* type and passes the command
+2. The `TaTrackerParser` sees that the command is a `Session` command and passes the command
 to the `SessionCommandParser`.
 
-3. The `SessionCommandParser` sees that the command is a *done* type and passes the
+3. The `SessionCommandParser` sees that the command is a `DoneSessionCommand` and passes the
 arguments to the `DoneSessionCommandParser`.
 
 4. The `DoneSessionCommandParser` creates a `DoneSessionCommand` with the given index.
@@ -895,17 +895,11 @@ arguments to the `DoneSessionCommandParser`.
 checks whether the current session called by the user has a recurring period.
 
     a. If it does, a new session with the updated date will be added to `Model#UniqueSessionList()`.
-    b. If it does not has a recurring period, it will move on to *Step 6*.
+    b. If it does not have a recurring period, it will move on to *Step 6*.
 
 7. The current session will be removed from `Model#UniqueSessionList`.
 
 8. The updated session list will be displayed to the user.
-
-
-==== Implementation of Session Add, Edit and Delete
-
-The `session add`, `session edit` and `session delete` commands have been implemented in a similar manner
-to `DoneSessionCommand`.
 
 The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
 
@@ -917,6 +911,21 @@ image::TssActivityDiagram.png[]
 The above diagram assumes that a valid index has been input into the TA-Tracker
 during the done session command.
 ====
+
+==== Implementation of Session Add, Edit and Delete
+
+The `session edit` and `session delete` commands have been implemented in a similar manner
+to `DoneSessionCommand`.
+
+
+For `session add` command,
+these following steps are taken once the execute command of an `AddSessionCommand` object is called:
+
+The `AddSessionCommand` object checks whether the module is present in the model of the TA-Tracker .
+
+If it exists, the session is created.
+
+If it doesn’t exist, an exception is thrown explaining that the module doesn’t exist.
 
 //tag::claimsview[]
 
@@ -1188,7 +1197,7 @@ Different view has its own designated filter command.
 ==== Implementation
 This section describes the implementation of the `filter` command.
 
-The _activity diagram_ below summarises what happens when the user executes a `filter` command:
+The _Activity diagram_ below summarises what happens when the user executes a `filter` command:
 
 ._Activity Diagram_ of the Filter Command
 image::FilterCommandActivityDiagram.png[]
@@ -1208,11 +1217,11 @@ group code given by the user.
 
 Module code is a compulsory parameter for the user.
 
-The following _sequence diagram_ shows the sequence of commands that take place between
+The following _Sequence diagram_ shows the sequence of commands that take place between
 the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
 `student filter m\CS2103T g\G06`. This command will return students from module code `CS2103T`, under group `G06`.
 
-.Sequence Diagram for Filter Student Command
+._Sequence Diagram_ for Filter Student Command
 image::FilterStudentSequenceDiagram.png[]
 
 Given below is an example scenario where the user enters a command to filter students.
@@ -1251,7 +1260,7 @@ difference is that the `FilterSessionCommandParser` creates a `SessionPredicate`
 The `SessionPredicate` object updates the filtered session list by keywords in Model.
 The filtered list will then be displayed.
 
-When the user specifies a keyword, sessions that contain the keywords will be filtered and shown.
+When the user specifies a keyword, sessions that contain the keywords will be filtered and shown to the user.
 If none of the keywords supplied by the user appears in any sessions, a `CommandException`
 will be shown.
 
@@ -1669,9 +1678,9 @@ the list of existing students in the *Student View*.
 Use case ends.
 
 [none]
-. 3a. The module and/or group does not exist.
+* 3a. The module and/or group does not exist.
 [none]
-.. 3a1. TA-Tracker shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
 Use case ends.
 
@@ -1691,18 +1700,18 @@ Use case ends.
 *Extensions*
 
 [none]
-. 1a. The user requests to add a recurring session.
+* 1a. The user requests to add a recurring session.
 [none]
-.. 1a1. TA-Tracker creates a new session, and labels it as recurring.
+** 1a1. TA-Tracker creates a new session, and labels it as recurring.
 +
-Use case resumes at step 3.
+Use case resumes at step 2.
 
 [none]
-. 1a. The user adds a session with a module code that does not exists.
+* 1a. The user adds a session with a module code that does not exists.
 [none]
-.. 1a1. TA-Tracker shows an error message.
+** 1a1. TA-Tracker shows an error message.
 +
-Use case ends.
+Use case resumes at step 1.
 
 [discrete]
 ==== Use case: UC18 - Deleting a session
@@ -1714,23 +1723,17 @@ the list of existing sessions in the *Session View*.
 . TA-Tracker switches to the `Session Tab`.
 . User requests to delete a session.
 . TA-Tracker deletes the session.
-. TA-Tracker shows the filtered sessions.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-. 3a. The index is invalid
+* 3a. The index is invalid
 [none]
-.. 3a1. TA-Tracker shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
-Use case ends.
-
-[none]
-* 2a. The Session View is empty.
-+
-Use case ends.
+Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC19 - Editing a session
@@ -1748,16 +1751,11 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The Session View is empty.
-+
-Use case ends.
-
-[none]
 * 3a. The given session list index is invalid.
 [none]
 ** 3a1. TA-Tracker shows an error message.
 +
-Use case ends.
+Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC20 - Marking a session as done
@@ -1776,16 +1774,11 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The Session View is empty.
-+
-Use case ends.
-
-[none]
 * 3a. The given session list index is invalid.
 [none]
 ** 3a1. TA-Tracker shows an error message.
 +
-Use case ends.
+Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC21 - Filtering under Session View
@@ -1804,11 +1797,11 @@ Use case ends.
 *Extensions*
 
 [none]
-. 3a. The search did find any matches.
+* 3a. The search did find any matches.
 [none]
-.. 3a1. TA-Tracker shows an error.
+** 3a1. TA-Tracker shows an error.
 +
-Use case ends.
+Use case resumes at step 3.
 
 === Claims View
 
@@ -1851,11 +1844,11 @@ Use case ends.
 *Extensions*
 
 [none]
-. 3a. The search did find any matches.
+* 3a. The search did find any matches.
 [none]
-.. 3a1. TA-Tracker shows an error.
+** 3a1. TA-Tracker shows an error.
 +
-Use case ends.
+Use case resumes at step 3.
 
 :sectnums: // Enables section numbering again outside of the use cases
 
