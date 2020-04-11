@@ -45,6 +45,8 @@ public class BmiCommand extends Command {
      * Constructor for Command that includes input Height and Weight.
      */
     public BmiCommand(Height height, Weight weight) {
+        requireNonNull(height);
+        requireNonNull(weight);
         this.height = height;
         this.weight = weight;
     }
@@ -58,8 +60,8 @@ public class BmiCommand extends Command {
 
         if (height.isZero() && weight.isZero()) {
             if (storedHeight.isZero() && storedWeight.isZero()) {
-                throw new CommandException("Please provide height and weight after the -h and -w flags respectively " +
-                        "as you have not stored them yet!");
+                throw new CommandException("Please provide height and weight after the -h and -w flags respectively "
+                        + "as you have not stored them yet!");
             }
         }
 
@@ -67,8 +69,8 @@ public class BmiCommand extends Command {
             if (storedHeight.isNotZero()) {
                 height = storedHeight;
             } else {
-                throw new CommandException("Please provide height after the -h flag as you have not stored your " +
-                        "height yet");
+                throw new CommandException("Please provide height after the -h flag as you have not stored your "
+                        + "height yet");
             }
         }
 
@@ -76,8 +78,8 @@ public class BmiCommand extends Command {
             if (storedWeight.isNotZero()) {
                 weight = storedWeight;
             } else {
-                throw new CommandException("Please provide weight after the -w flag as you have not stored your " +
-                        "weight yet!");
+                throw new CommandException("Please provide weight after the -w flag as you have not stored your "
+                        + "weight yet!");
             }
         }
 
