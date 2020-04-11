@@ -10,6 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
@@ -40,8 +43,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         // Create module object
-        String moduleCodeString = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
-        ModuleCode moduleCode = ParserUtil.parseModuleCode(moduleCodeString);
+        Collection<String> strModuleCodes = argMultimap.getAllValues(PREFIX_MODULE)
+                .stream()
+                .map(x->x.trim().toUpperCase())
+                .collect(Collectors.toList());
+        Set<ModuleCode> moduleCodes = ParserUtil.parseModuleCodes(strModuleCodes);
 
         String grade = null;
         String task = null;
@@ -69,7 +75,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             task = argMultimap.getValue(PREFIX_TASK).get().toLowerCase();
         }
 
-        return new AddCommand(moduleCode, intSemester, grade, task, date, time);
+        return new AddCommand(moduleCodes, intSemester, grade, task, date, time);
     }
 
     /**

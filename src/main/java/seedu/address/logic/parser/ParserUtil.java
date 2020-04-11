@@ -14,6 +14,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -87,6 +90,18 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_MODULE);
         }
         return new ModuleCode(formattedModuleCode);
+    }
+
+    /**
+     * Parses {@code Collection<String> moduleCodes} into a {@code Set<ModuleCode>}.
+     */
+    public static Set<ModuleCode> parseModuleCodes(Collection<String> moduleCodes) throws ParseException {
+        requireNonNull(moduleCodes);
+        final Set<ModuleCode> moduleCodeSet = new HashSet<>();
+        for (String moduleCode : moduleCodes) {
+            moduleCodeSet.add(parseModuleCode(moduleCode));
+        }
+        return moduleCodeSet;
     }
 
     /**
