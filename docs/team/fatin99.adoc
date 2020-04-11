@@ -54,6 +54,7 @@ filter header (#322).
 
 *Goto Command* : Add GoTo Command (CLI command for tab switching) (PR #189)  Add support for tab switching in all the
 commands for a better user experience (PR #189, #210, #212)
+
 *SetRate Command* : The hourly pay rate for all of the displayed Earnings was initially set to $40, which was the rate at
 which the majority TAs are being paid. Based on feedback from the PE Dry-Run, I created a command to change this value
 due to the differences in rates among different faculties.
