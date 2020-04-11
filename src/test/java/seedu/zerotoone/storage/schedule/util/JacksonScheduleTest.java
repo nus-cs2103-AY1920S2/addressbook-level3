@@ -6,7 +6,6 @@ import static seedu.zerotoone.testutil.schedule.TypicalSchedules.SCHEDULE_AT_FIR
 import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
-import seedu.zerotoone.storage.workout.util.JacksonWorkout;
 
 class JacksonScheduleTest {
 
@@ -18,10 +17,10 @@ class JacksonScheduleTest {
 
     @Test
     public void toModelType_validWorkoutAndDatetime_returnsSchedule() throws IllegalValueException {
-        JacksonWorkout jacksonWorkout = new JacksonWorkout(SCHEDULE_AT_FIRST_JUNE.getWorkoutToSchedule());
+        String workoutNameToSchedule = SCHEDULE_AT_FIRST_JUNE.getWorkoutNameToSchedule().fullName;
         JacksonDateTime jacksonDateTime = new JacksonDateTime(SCHEDULE_AT_FIRST_JUNE.getDateTime());
 
-        JacksonSchedule schedule = new JacksonSchedule(jacksonWorkout, jacksonDateTime);
+        JacksonSchedule schedule = new JacksonSchedule(workoutNameToSchedule, jacksonDateTime);
         assertEquals(SCHEDULE_AT_FIRST_JUNE, schedule.toModelType());
     }
 }

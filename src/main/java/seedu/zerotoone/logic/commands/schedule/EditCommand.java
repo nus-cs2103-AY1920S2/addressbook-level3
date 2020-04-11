@@ -59,7 +59,7 @@ public class EditCommand extends ScheduleCommand {
         ScheduledWorkout selectedScheduledWorkout = lastShownList.get(scheduledWorkoutId.getZeroBased());
         Schedule scheduleToEdit = selectedScheduledWorkout.getSchedule();
         // STEPH_TODO: differentiate OneTimeSchedule from RecurringSchedule
-        Schedule editedSchedule = new OneTimeSchedule(scheduleToEdit.getWorkoutToSchedule(), dateTime);
+        Schedule editedSchedule = new OneTimeSchedule(scheduleToEdit.getWorkoutNameToSchedule(), dateTime);
 
         if (!scheduleToEdit.isSameSchedule(editedSchedule) && model.hasSchedule(editedSchedule)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);

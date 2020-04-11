@@ -7,7 +7,7 @@ import seedu.zerotoone.model.workout.WorkoutList;
  * A utility class to help with building WorkoutList objects.
  * Example usage: <br>
  *     {@code WorkoutList workoutList =
- *          new WorkoutListBuilder().withWorkout(new Workout(...)).build();}
+ *          new WorkoutListBuilder().withWorkoutName(new Workout(...)).build();}
  */
 public class WorkoutListBuilder {
 

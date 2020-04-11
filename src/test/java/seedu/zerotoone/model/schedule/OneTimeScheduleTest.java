@@ -35,7 +35,7 @@ class OneTimeScheduleTest {
 
         // different workout -> returns false
         edited = new OneTimeScheduleBuilder(SCHEDULE_AT_FIRST_JUNE)
-                .withWorkout(SCHEDULE_AT_FIRST_JULY.getWorkoutToSchedule())
+                .withWorkoutName(SCHEDULE_AT_FIRST_JULY.getWorkoutNameToSchedule())
                 .build();
         assertFalse(SCHEDULE_AT_FIRST_JUNE.isSameSchedule(edited));
     }

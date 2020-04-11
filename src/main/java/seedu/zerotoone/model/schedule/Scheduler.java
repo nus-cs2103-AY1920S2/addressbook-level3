@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import seedu.zerotoone.model.workout.Workout;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  * STEPH_TODO_JAVADOC
@@ -84,14 +84,14 @@ public class Scheduler {
 
     /**
      *
-     * @param workoutToDelete
+     * @param workoutNameToDelete
      */
-    public void deleteWorkoutFromSchedule(Workout workoutToDelete) {
-        requireNonNull(workoutToDelete);
+    public void deleteWorkoutNameFromSchedule(WorkoutName workoutNameToDelete) {
+        requireNonNull(workoutNameToDelete);
 
         ScheduleList scheduleListCopy = new ScheduleList(scheduleList); // to avoid concurrentModificationException
         for (Schedule schedule : scheduleListCopy.getScheduleList()) {
-            if (schedule.getWorkoutToSchedule().isSameWorkout(workoutToDelete)) {
+            if (schedule.getWorkoutNameToSchedule().equals(workoutNameToDelete)) {
                 scheduleList.removeSchedule(schedule);
             }
         }
@@ -101,16 +101,16 @@ public class Scheduler {
 
     /**
      *
-     * @param workoutToEdit
-     * @param editedWorkout
+     * @param workoutNameToEdit
+     * @param editedWorkoutName
      */
-    public void editWorkoutInSchedule(Workout workoutToEdit, Workout editedWorkout) {
-        requireAllNonNull(workoutToEdit, editedWorkout);
+    public void editWorkoutNameInSchedule(WorkoutName workoutNameToEdit, WorkoutName editedWorkoutName) {
+        requireAllNonNull(workoutNameToEdit, editedWorkoutName);
 
         ScheduleList scheduleListCopy = new ScheduleList(scheduleList); // to avoid concurrentModificationException
         for (Schedule scheduleToEdit : scheduleListCopy.getScheduleList()) {
-            if (scheduleToEdit.getWorkoutToSchedule().isSameWorkout(workoutToEdit)) {
-                Schedule editedSchedule = new OneTimeSchedule(editedWorkout, scheduleToEdit.getDateTime());
+            if (scheduleToEdit.getWorkoutNameToSchedule().equals(workoutNameToEdit)) {
+                Schedule editedSchedule = new OneTimeSchedule(editedWorkoutName, scheduleToEdit.getDateTime());
                 scheduleList.setSchedule(scheduleToEdit, editedSchedule);
             }
         }
