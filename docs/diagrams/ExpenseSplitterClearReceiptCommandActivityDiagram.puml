@@ -1,0 +1,13 @@
+@startuml
+/' @author @ailanthustng'/
+title Activity: Clear Receipt Command
+
+start
+:User enters the clearreceipt command;
+
+:All Entries are removed from the Receipt;
+
+:Receipt is made undone;
+
+stop
+@enduml
