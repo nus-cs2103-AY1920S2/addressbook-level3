@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DelinoParser" as DelinoParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
@@ -16,17 +16,17 @@ end box
 [-> LogicManager : execute("delete -o 1")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("delete -o 1")
-activate OrderBookParser
+LogicManager -> DelinoParser : parseCommand("delete -o 1")
+activate DelinoParser
 
 create DeleteCommandParser
-OrderBookParser -> DeleteCommandParser
+DelinoParser -> DeleteCommandParser
 activate DeleteCommandParser
 
-DeleteCommandParser --> OrderBookParser
+DeleteCommandParser --> DelinoParser
 deactivate DeleteCommandParser
 
-OrderBookParser -> DeleteCommandParser : parse(" -o 1")
+DelinoParser -> DeleteCommandParser : parse(" -o 1")
 activate DeleteCommandParser
 
 create DeleteCommand
@@ -36,14 +36,14 @@ activate DeleteCommand
 DeleteCommand --> DeleteCommandParser : d
 deactivate DeleteCommand
 
-DeleteCommandParser --> OrderBookParser : d
+DeleteCommandParser --> DelinoParser : d
 deactivate DeleteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> OrderBookParser
+DeleteCommandParser -[hidden]-> DelinoParser
 destroy DeleteCommandParser
 
-OrderBookParser --> LogicManager : d
-deactivate OrderBookParser
+DelinoParser --> LogicManager : d
+deactivate DelinoParser
 
 LogicManager -> DeleteCommand : execute(model)
 activate DeleteCommand
