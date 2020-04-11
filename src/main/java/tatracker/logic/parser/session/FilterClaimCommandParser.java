@@ -3,12 +3,12 @@ package tatracker.logic.parser.session;
 import static tatracker.logic.parser.Prefixes.MODULE;
 
 import tatracker.commons.core.Messages;
+import tatracker.logic.commands.session.DoneSessionPredicate;
 import tatracker.logic.commands.session.FilterClaimCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.session.DoneSessionPredicate;
 
 /**
  * Parses input arguments and creates a new FilterModuleCommand object

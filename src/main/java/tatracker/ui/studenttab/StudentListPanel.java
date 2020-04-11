@@ -18,9 +18,6 @@ import tatracker.ui.UiPart;
  */
 public class StudentListPanel extends UiPart<Region> implements Focusable {
     private static final String FXML = "StudentListPanel.fxml";
-    private static final String BACKGROUND_COLOUR = "#5f4d42";
-    private static final String BORDER_COLOUR = "#917b3e";
-    private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
 
@@ -33,6 +30,13 @@ public class StudentListPanel extends UiPart<Region> implements Focusable {
 
         studentListView.setItems(studentList);
         studentListView.setCellFactory(listView -> new StudentListViewCell());
+        studentListView.focusedProperty().addListener((arg, oldVal, focused) -> {
+            if (focused) {
+                studentListView.setStyle("-fx-border-color: #264780; -fx-border-width: 1;");
+            } else {
+                studentListView.setStyle("");
+            }
+        });
     }
 
     @Override
@@ -52,16 +56,16 @@ public class StudentListPanel extends UiPart<Region> implements Focusable {
         @Override
         protected void updateItem(Student student, boolean empty) {
             super.updateItem(student, empty);
+            getStyleClass().removeAll("filtered", "list-cell");
 
             if (empty || student == null) {
                 setGraphic(null);
                 setText(null);
+                getStyleClass().add("list-cell");
                 setStyle("");
             } else {
                 setGraphic(new StudentCard(student, getIndex() + 1).getRoot());
-                setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
-                        + "-fx-border-color: " + BORDER_COLOUR + "; "
-                        + "-fx-border-width: " + BORDER_WIDTH + ";");
+                getStyleClass().add("filtered");
             }
         }
     }

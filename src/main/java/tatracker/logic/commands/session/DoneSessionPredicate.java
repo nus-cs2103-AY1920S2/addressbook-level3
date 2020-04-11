@@ -1,8 +1,9 @@
-package tatracker.model.session;
+package tatracker.logic.commands.session;
 
 import java.util.function.Predicate;
 
 import tatracker.commons.util.StringUtil;
+import tatracker.model.session.Session;
 
 /**
  * Tests that a {@code ModuleCode} matches the keyword given.
