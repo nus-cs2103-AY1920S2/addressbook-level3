@@ -16,7 +16,7 @@ import cookbuddy.logic.commands.DeleteCommand;
  * therefore should be covered by the ParserUtilTest.
  */
 public class DeleteCommandParserTest {
-    
+
     private static final String invalidIndex = "Index must be a non-zero unsigned integer.\n";
     private static final String helpMessage_delete = "For a command summary, type \"help delete\"";
     private static final String invalidFormat = "Invalid command format! \n";
