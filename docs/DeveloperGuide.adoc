@@ -654,6 +654,7 @@ The `listamount` command has the following input format:
 * A person is deleted after they have completely paid the amount they owe you.
 ====
 
+
 The following activity diagram illustrates what happens when a user executes `listamount` command:
 
 image::ExpenseSplitterListAmountCommandActivityDiagram.png[]
