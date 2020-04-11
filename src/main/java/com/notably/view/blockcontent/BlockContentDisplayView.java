@@ -18,7 +18,6 @@ import javafx.scene.web.WebView;
 public class BlockContentDisplayView extends ViewPart<WebView> {
 
     private static final String FXML = "blockcontent/BlockContentDisplayView.fxml";
-    private static final String NEWLINE = "\n";
     private final Model model;
 
     @FXML
@@ -52,7 +51,7 @@ public class BlockContentDisplayView extends ViewPart<WebView> {
 
         String htmlTitle = getHtmlTitle(currentlyOpenBlock);
         String htmlBody = getHtmlBody(currentlyOpenBlock);
-        String htmlContent = htmlTitle + NEWLINE + htmlBody;
+        String htmlContent = htmlTitle + htmlBody;
 
         blockContentDisplay.getEngine().loadContent(htmlContent);
     }
