@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -40,21 +39,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         List<String> tags = getTagsFromMap(argMultimap);
         List<String> sports = getSportsFromMap(argMultimap);
 
-        return new FilterCommand(new TagAndSportContainsKeywordsPredicate(splitKeywords(tags), splitKeywords(sports)));
-    }
-
-    /**
-     * Splits the tags input by " "
-     * @param list List of tag input
-     * @return List of tags
-     */
-    public List<String> splitKeywords(List<String> list) {
-        List<String> keywords = new ArrayList<>();
-        if (!list.isEmpty()) {
-            String[] keywordArray = list.get(0).split(" ");
-            keywords.addAll(Arrays.asList(keywordArray));
-        }
-        return keywords;
+        return new FilterCommand(new TagAndSportContainsKeywordsPredicate(tags, sports));
     }
 
     /**
