@@ -139,7 +139,7 @@ public class ParserUtil {
         try {
             result = Integer.parseInt(trimmedDays);
         } catch (Exception e) {
-            throw new ParseException("Should only input positive integer values");
+            throw new ParseException("Input days is invalid.");
         }
         return result;
     }
