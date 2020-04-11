@@ -4,6 +4,7 @@ import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
+import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +23,7 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
+    public void parse_validSingleArg_returnsDeleteCommand() {
         assertParseSuccess(parser, "1", new DeleteCommand(new Index[] {INDEX_FIRST_RECIPE}));
     }
 
@@ -30,5 +31,11 @@ public class DeleteCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_multipleDescendingArgs_returnsDeleteCommand() {
+        assertParseSuccess(parser, "2 1",
+                new DeleteCommand(new Index[] {INDEX_FIRST_RECIPE, INDEX_SECOND_RECIPE}));
     }
 }

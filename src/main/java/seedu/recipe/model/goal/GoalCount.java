@@ -39,4 +39,9 @@ public class GoalCount {
                 && goal.goalName.equals(((GoalCount) other).goal.goalName)
                 && count == (((GoalCount) other).count)); // state check
     }
+
+    @Override
+    public String toString() {
+        return "Goal: " + goal + ", Count: " + count;
+    }
 }

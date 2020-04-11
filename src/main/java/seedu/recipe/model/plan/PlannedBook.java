@@ -1,6 +1,7 @@
 package seedu.recipe.model.plan;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +96,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      * Sets {@code target} to {@code editedRecipe} in the list and map.
      */
     public void setRecipe(Recipe target, Recipe editedRecipe) {
+        requireAllNonNull(target, editedRecipe);
         Optional<List<Plan>> optionalPlans = recipeMap.getPlans(target);
         if (optionalPlans.isPresent()) {
             List<Plan> oldPlans = optionalPlans.get();

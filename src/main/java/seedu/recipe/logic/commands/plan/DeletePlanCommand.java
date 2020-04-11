@@ -14,6 +14,7 @@ import seedu.recipe.logic.commands.Command;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.logic.commands.exceptions.CommandException;
+import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.recipe.Recipe;
@@ -26,11 +27,11 @@ public class DeletePlanCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteplan";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a planned recipe on a certain day. "
-            + "Parameters: " + "PLANNED_RECIPE_INDEX "
-            + PREFIX_DATE + "YYYY-MM-DD \n"
-            + "Example: " + COMMAND_WORD + " 3 "
-            + PREFIX_DATE + "2020-03-16 ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes planned recipe(s) on a certain date. \n"
+            + "Parameters: " + "[planned recipe index]...\n"
+            + "Example: " + COMMAND_WORD + " 1 2 3 "
+            + PREFIX_DATE + "2020-03-16 \n"
+            + "Deletes planned recipes at indexes 1, 2 and 3 ";
 
     public static final String MESSAGE_SUCCESS = "The plans at the following index(es) have been deleted:\n%1$s";
 
@@ -63,10 +64,10 @@ public class DeletePlanCommand extends Command {
             Plan plan = plansToDelete.get(i);
             Recipe recipe = plan.getRecipe();
             model.deletePlan(recipe, plan);
-            deletedPlansMessage.add(formatIndexToString(indexes[i], recipe));
+            deletedPlansMessage.add(formatIndexToString(indexes[i], recipe, plan.getDate()));
         }
 
-        model.commitBook(commandType);
+        model.commitBook(commandType, planTab);
         return new CommandResult(formatSuccessMessage(deletedPlansMessage), false,
                 false, planTab, false);
     }
@@ -92,10 +93,10 @@ public class DeletePlanCommand extends Command {
     }
 
     /**
-     * Formats the {@code index} and {@code recipe} into the format [Index (Recipe Name)] for printing.
+     * Formats the {@code index} and {@code recipe} into the format [index (recipe name on date)] for printing.
      */
-    private static String formatIndexToString(Index index, Recipe recipe) {
-        return index.getOneBased() + " (" + recipe.getName() + ")";
+    private static String formatIndexToString(Index index, Recipe recipe, Date date) {
+        return index.getOneBased() + " (" + recipe.getName() + " on " + date + ")";
     }
 
     /**
@@ -104,6 +105,13 @@ public class DeletePlanCommand extends Command {
     private static String formatSuccessMessage(List<String> deletedPlans) {
         String formattedRecipes = deletedPlans.stream().collect(Collectors.joining(", "));
         return String.format(MESSAGE_SUCCESS, formattedRecipes);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeletePlanCommand // instanceof handles nulls
+                && Arrays.equals(indexes, ((DeletePlanCommand) other).indexes)); // state check
     }
 
 }

@@ -28,12 +28,11 @@ public class EditStepCommand extends Command {
 
     public static final String COMMAND_WORD = "editstep";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a step in an existing recipe in the "
-            + "recipe book.\n"
-            + "Parameters: [INDEX of recipe] [Step number] "
-            + "[" + PREFIX_STEP + "STEP]\n"
-            + "Example: " + COMMAND_WORD + " 1 2"
-            + PREFIX_STEP + "Insert edited step here (edits step 2 of recipe 1)";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the specified step in an existing recipe.\n"
+            + "Parameters: [recipe index] [step index] "
+            + "[" + PREFIX_STEP + "new step]\n"
+            + "Example: " + COMMAND_WORD + " 3 4 "
+            + PREFIX_STEP + "Edited new step (replaces step 4 of recipe 3 with 'Edited new step')";
 
     public static final String MESSAGE_EDIT_STEPS_SUCCESS = "Successfully edited step %1$d in %2$s!";
     public static final String MESSAGE_INVALID_STEP_INDEX = "Attempting to edit a non-existent step";
@@ -79,7 +78,7 @@ public class EditStepCommand extends Command {
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitBook(commandType);
+        model.commitBook(commandType, recipesTab);
 
         String finalMessage = String.format(MESSAGE_EDIT_STEPS_SUCCESS, stepNumber + 1,
                 recipeToEdit.getName().toString());

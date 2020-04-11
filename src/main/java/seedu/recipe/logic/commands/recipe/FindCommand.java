@@ -17,10 +17,13 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all recipes whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " Thai beef bowl";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for existing recipes by their names using "
+            + "the keyword(s) that you have specified.\n"
+            + "Parameters: </strict> [keyword] <keyword>...\n"
+            + "Example 1: " + COMMAND_WORD + " /strict Avocado Chicken (finds recipes that contain the words 'Avocado' "
+            + "OR 'Chicken' in their names.\n"
+            + "Example 2: " + COMMAND_WORD + " Avocado Chicken (finds recipes that contain the single keyword 'Avocado "
+            + "Chicken'.";
 
     private final NameContainsKeywordsPredicate predicate;
     private final Tab recipesTab = Tab.RECIPES;
