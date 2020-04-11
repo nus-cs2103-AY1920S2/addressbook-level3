@@ -34,10 +34,13 @@ import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.StatisticsManager;
 import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CompletorDeletionResult;
 import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.DoneCommandResult;
+import seedu.address.logic.commands.FindCommandResult;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.SetCommandResult;
+import seedu.address.logic.commands.SortCommandResult;
 import seedu.address.logic.commands.SwitchTabCommand;
 import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -266,11 +269,13 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /** */
     private String suggestCommand(String commandText) throws CompletorException {
         try {
-            CompletorResult completorResult = commandCompletor.getSuggestedCommand(commandText);
+            CompletorResult completorResult = logic.suggestCommand(commandText);
             resultDisplay.setFeedbackToUser(completorResult.getFeedbackToUser());
+            if (completorResult instanceof CompletorDeletionResult) {
+                resultDisplay.setWarning();
+            }
             return completorResult.getSuggestion();
         } catch (CompletorException e) {
             resultDisplay.setFeedbackToUser(e.getMessage());
@@ -295,6 +300,15 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             tabPanePlaceholder.getSelectionModel().select(TASKS_TAB_INDEX);
+
+            if (commandResult instanceof SortCommandResult) {
+                SortCommandResult sortCommandResult = (SortCommandResult) commandResult;
+                taskListPanel.setSortOrder(sortCommandResult.getSortOrder());
+            }
+
+            if (commandResult instanceof FindCommandResult) {
+                taskListPanel.removeSortOrder();
+            }
 
             // Done Command related results
             try {
@@ -379,12 +393,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             updatePetDisplay();
-            // update because sorting returns a new list
-
-            // * Old implementation for sort
-            // taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
-            // taskListPanelPlaceholder.getChildren().clear();
-            // taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

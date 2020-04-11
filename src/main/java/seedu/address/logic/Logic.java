@@ -4,7 +4,9 @@ import java.nio.file.Path;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CompletorException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.model.ReadOnlyTaskList;
@@ -21,6 +23,15 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Attempts to complete user's input
+     *
+     * @param userInput Input from user
+     * @return the result of completion
+     * @throws CompletorException If no command is detected
+     */
+    CompletorResult suggestCommand(String userInput) throws CompletorException;
 
     /**
      * Returns the TaskList.

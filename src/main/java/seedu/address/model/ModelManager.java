@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,7 +23,7 @@ import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.StatisticsManager;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
-import seedu.address.model.task.NameContainsKeywordsPredicate;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Task;
 
@@ -35,8 +36,9 @@ public class ModelManager implements Model {
     private final Statistics statistics;
     private final Pet pet;
     private final UserPrefs userPrefs;
+    private final TagSet tagSet;
     private FilteredList<Task> filteredTasks;
-    private Comparator<Task>[] comparators = new Comparator[0];
+    private Comparator<Task> comparator;
 
     private PomodoroManager pomodoroManager;
     private PetManager petManager;
@@ -59,6 +61,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with Task List: " + taskList + " and user prefs " + userPrefs);
 
         this.taskList = new TaskList(taskList);
+        this.tagSet = new TagSet(taskList);
         this.setRecurringTimers();
         this.pet = new Pet(pet); // initialize a pet as a model
         this.pomodoro = new Pomodoro(pomodoro); // initialize a pomodoro as a model
@@ -175,8 +178,19 @@ public class ModelManager implements Model {
 
     @Override
     public void setTaskList(ReadOnlyTaskList taskList) {
+        this.tagSet.populateTag(taskList);
         this.taskList.resetData(taskList);
         this.setRecurringTimers();
+    }
+
+    @Override
+    public Set<Tag> getTagSet() {
+        return this.tagSet.getTags();
+    }
+
+    @Override
+    public boolean hasTag(Tag t) {
+        return this.tagSet.contains(t);
     }
 
     @Override
@@ -192,7 +206,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTask(Task target) {
-        this.cancelTimerTask(target);
+        this.tagSet.removeTask(target);
         taskList.removeTask(target);
     }
 
@@ -205,14 +219,18 @@ public class ModelManager implements Model {
     @Override
     public void addTask(Task task) {
         taskList.addTask(task);
+        this.tagSet.addTask(task);
         this.sortList();
         setTimer(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
+    /** sortList after task is edited so that edited task will follow the existing sort order */
     @Override
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
+        this.tagSet.addTask(editedTask);
+        this.tagSet.removeTask(target);
         taskList.setTask(target, editedTask);
         cancelTimerTask(target);
         setTimer(editedTask);
@@ -234,7 +252,7 @@ public class ModelManager implements Model {
         observers.add(observer);
     }
 
-    // =========== Filtered Task List Accessors
+    // =========== Filtered Task List Methods
     // =============================================================
 
     /**
@@ -248,40 +266,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Predicate<Task> predicate) {
-        requireNonNull(predicate);
-        filteredTasks.setPredicate(
-                predicate); // predicate should now be applied and evaluate to true for certain
-        // threshold
-        if (predicate instanceof NameContainsKeywordsPredicate) {
-            System.out.println("list called??");
-            NameContainsKeywordsPredicate namePredicate = (NameContainsKeywordsPredicate) predicate;
-            Comparator<Task> comparator =
-                    new Comparator<>() {
-                        @Override
-                        public int compare(Task task1, Task task2) {
-                            namePredicate.test(task1);
-                            int score1 = namePredicate.getScore();
-                            namePredicate.test(task2);
-                            int score2 = namePredicate.getScore();
-                            return score1 < score2 ? -1 : 1;
-                        }
-                    };
-            this.taskList.sort(comparator);
-        }
+    public void showAllTasks() {
+        filteredTasks.setPredicate(PREDICATE_SHOW_ALL_TASKS);
+        this.sortList();
     }
 
     @Override
-    public void setComparator(Comparator<Task>[] comparators) {
-        requireNonNull(comparators);
-        this.comparators = comparators;
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+    }
+
+    /** Used when a predicate is applied to show the more relevant serach results */
+    @Override
+    public void sortSearchByRelevance(Comparator<Task> comparator) {
+        requireAllNonNull(comparator);
+        Comparator<Task> searchThenNormalOrder = comparator;
+        if (this.comparator != null) {
+            searchThenNormalOrder = searchThenNormalOrder.thenComparing(this.comparator);
+        }
+        this.taskList.sort(searchThenNormalOrder);
+    }
+
+    // ================ Sort list methods
+
+    /** Used when for the sort command when sorting by multiple fields */
+    @Override
+    public void setComparator(Comparator<Task> comparator) {
+        requireNonNull(comparator);
+        this.comparator = comparator;
         this.sortList();
     }
 
     @Override
     public void sortList() {
-        for (int i = this.comparators.length - 1; i >= 0; i--) {
-            this.taskList.sort(comparators[i]);
+        if (comparator != null) {
+            this.taskList.sort(comparator);
         }
     }
 
@@ -326,6 +346,7 @@ public class ModelManager implements Model {
         this.petManager = petManager;
         this.petManager.setPet(this.pet);
     }
+
     // ============================ Pomodoro Manager
 
     public ReadOnlyPomodoro getPomodoro() {
