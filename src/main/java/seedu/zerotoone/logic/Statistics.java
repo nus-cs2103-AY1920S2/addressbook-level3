@@ -2,6 +2,7 @@ package seedu.zerotoone.logic;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class Statistics {
     }
 
     /**
-     * Calculate average time spent on workout per day.
+     * Calculate average time spent on workout per day rounded to the nearest second.
      *
      * @param totalWorkoutDuration
      * @param numberOfDays
@@ -56,7 +57,9 @@ public class Statistics {
         if (numberOfDays == 0) {
             return Duration.ZERO;
         }
-        return totalWorkoutDuration.dividedBy(numberOfDays);
+
+        // Round to nearest second
+        return totalWorkoutDuration.dividedBy(numberOfDays).truncatedTo(ChronoUnit.SECONDS);
     }
 
     /**
