@@ -30,11 +30,25 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void constructor_constructWithNegativeDistanceThreshold_exceptionThrown() {
+    public void constructor_nullModel_exceptionThrown() {
+        assertThrows(NullPointerException.class, () ->
+                new AbsolutePathCorrectionEngine(null, new CorrectionEngineParameters()));
+    }
+
+    @Test
+    public void constructor_negativeDistanceThreshold_exceptionThrown() {
         final int negativeDistanceThreshold = -1;
 
         assertThrows(IllegalArgumentException.class, () -> new AbsolutePathCorrectionEngine(model,
-                    new CorrectionEngineParameters().setDistanceThreshold(negativeDistanceThreshold)));
+                new CorrectionEngineParameters().setDistanceThreshold(negativeDistanceThreshold)));
+    }
+
+    @Test
+    public void constructor_negativeForwardMatchingThreshold_exceptionThrown() {
+        final int negativeForwardMatchingThreshold = -1;
+
+        assertThrows(IllegalArgumentException.class, () -> new AbsolutePathCorrectionEngine(model,
+                new CorrectionEngineParameters().setForwardMatchingThreshold(negativeForwardMatchingThreshold)));
     }
 
     @Test
@@ -85,7 +99,7 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_forwardMatchingAndWithinThreshold_correctionDone() {
+    public void correct_withForwardMatchingAndWithinDistanceThreshold_correctionDone() {
         final int distanceThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(model,
                 new CorrectionEngineParameters().setForwardMatching(true).setDistanceThreshold(distanceThreshold));
@@ -98,9 +112,6 @@ public class AbsolutePathCorrectionEngineTest {
                 expectedCorrectionStatus, expectedCorrectedItems);
 
         CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
-
-        System.out.println(correctionResult.getCorrectedItems());
-
         assertEquals(expectedCorrectionResult, correctionResult);
     }
 }
