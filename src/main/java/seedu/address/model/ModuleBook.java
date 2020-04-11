@@ -98,7 +98,8 @@ public class ModuleBook {
     }
 
     /**
-     * Updates the grade of the {@code NusModule} that has the same module code as given from this {@code ModuleBook}.
+     * Up
+     * ydates the grade of the {@code NusModule} that has the same module code as given from this {@code ModuleBook}.
      * such nus module must exist in the module book.
      */
     public void gradeModule(ModuleCode moduleCode, Grade grade) {
