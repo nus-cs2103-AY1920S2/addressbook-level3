@@ -58,7 +58,8 @@ public class JsonSchoolworkTrackerStorageTest {
 
     @Test
     public void readSchoolworkTracker_invalidAndValidSchoolworkTracker_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readSchoolworkTracker("invalidAndValidSchoolworkTracker.json"));
+        assertThrows(DataConversionException.class, () ->
+            readSchoolworkTracker("invalidAndValidSchoolworkTracker.json"));
     }
 
     @Test
@@ -69,7 +70,8 @@ public class JsonSchoolworkTrackerStorageTest {
 
         // Save in new file and read back
         jsonAssignmentScoolworkTrackerStorage.saveSchoolworkTracker(original, filePath);
-        ReadOnlySchoolworkTracker readBack = jsonAssignmentScoolworkTrackerStorage.readSchoolworkTracker(filePath).get();
+        ReadOnlySchoolworkTracker readBack =
+            jsonAssignmentScoolworkTrackerStorage.readSchoolworkTracker(filePath).get();
         assertEquals(original, new SchoolworkTracker(readBack));
 
         // Modify data, overwrite exiting file, and read back
