@@ -438,7 +438,7 @@ This feature allows users to see the progress graph of the current client in vie
 
 The graph mechanism is faciliated by the model class `Graph`, which contains the details of the graph. These include `ExerciseName`, `Axis`, `StartDate` and `EndDate`. The figure below is a UML class diagram to illustrate the `Graph` model.
 
-// image here
+image::GraphClassDiagram.png[]
 
 These attributes are bounded by these characteristics:
 . `ExerciseName` can only be alphanumeric characters

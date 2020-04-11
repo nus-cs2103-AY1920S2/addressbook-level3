@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ClassAttributeFontColor #FFFFFF
+
+Class Graph MODEL_COLOR
+Class Axis MODEL_COLOR
+Class StartDate MODEL_COLOR
+Class EndDate MODEL_COLOR
+Class Exercise MODEL_COLOR
+Class ExerciseName MODEL_COLOR
+Class GraphCommand LOGIC_COLOR
+
+show AxisType attributes
+
+enum AxisType <<enumeration>> {
+    REPS
+    WEIGHT
+    NA
+}
+
+GraphCommand "1" *-down-> "1" Graph
+
+Graph "1" *-down-> "1" Axis
+Graph "1" *-down-> "1" StartDate
+Graph "1" *-down-> "1" EndDate
+Graph "1" *-down-> "1" ExerciseName
+
+Exercise "1" *-down-> "1" ExerciseName
+
+Axis "1" *-down-> "1" AxisType
+
+@enduml
