@@ -3,8 +3,6 @@ package seedu.zerotoone.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
@@ -19,7 +17,6 @@ public class SkipCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Skipped set: %1$s";
     public static final String MESSAGE_SKIPPED_LAST = "You have skipped the last set, "
             + "your workout session is done and saved!";
-    private final FormatStyle formatStyle = FormatStyle.MEDIUM;
 
     public SkipCommand() {
     }
@@ -42,13 +39,12 @@ public class SkipCommand extends Command {
             outputMessage = outputMessage + "\n" + MESSAGE_SKIPPED_LAST;
         }
 
-        String formatted = currentDateTime.format(DateTimeFormatter.ofLocalizedDateTime(this.formatStyle));
-
         return new CommandResult(outputMessage);
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this; // short circuit if same object
+        return other == this // short circuit if same object
+                || (other instanceof SkipCommand); // instanceof handles nulls
     }
 }

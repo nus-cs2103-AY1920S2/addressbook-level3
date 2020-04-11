@@ -1,25 +1,18 @@
 package seedu.zerotoone.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.zerotoone.logic.commands.SkipCommand.MESSAGE_SKIPPED_LAST;
 import static seedu.zerotoone.logic.commands.SkipCommand.MESSAGE_SUCCESS;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
-import static seedu.zerotoone.testutil.workout.TypicalWorkouts.getTypicalWorkoutList;
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;
-import seedu.zerotoone.model.log.LogList;
-import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.session.CompletedSet;
-import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.testutil.ModelStub;
 
 class SkipCommandTest {
@@ -29,7 +22,7 @@ class SkipCommandTest {
         SkipCommand skipCommand = new SkipCommand();
         ModelStub modelStub = new ModelStubInSession();
         CompletedSet set = new CompletedSet(new Weight("10"), new NumReps("10"), true);
-        assertEquals(new CommandResult(String.format(MESSAGE_SUCCESS, set.toString())),
+        Assertions.assertEquals(new CommandResult(String.format(MESSAGE_SUCCESS, set.toString())),
                 skipCommand.execute(modelStub));
     }
 
@@ -38,7 +31,7 @@ class SkipCommandTest {
         SkipCommand skipCommand = new SkipCommand();
         ModelStub modelStub = new ModelStubInSessionNoneLeft();
         CompletedSet set = new CompletedSet(new Weight("10"), new NumReps("10"), true);
-        assertEquals(new CommandResult(String.format(MESSAGE_SUCCESS, set.toString())
+        Assertions.assertEquals(new CommandResult(String.format(MESSAGE_SUCCESS, set.toString())
                         + "\n" + MESSAGE_SKIPPED_LAST), skipCommand.execute(modelStub));
     }
 
@@ -55,17 +48,17 @@ class SkipCommandTest {
         SkipCommand skipCommand = new SkipCommand();
 
         // same object -> returns true
-        assertEquals(skipCommand, skipCommand);
+        Assertions.assertEquals(skipCommand, skipCommand);
 
         // same values -> returns true
         SkipCommand skipCommandCopy = new SkipCommand();
-        assertNotEquals(skipCommand, skipCommandCopy);
+        Assertions.assertEquals(skipCommand, skipCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(1, skipCommand);
+        Assertions.assertNotEquals(1, skipCommand);
 
         // null -> returns false
-        assertNotEquals(null, skipCommand);
+        Assertions.assertNotEquals(null, skipCommand);
     }
 
     /**

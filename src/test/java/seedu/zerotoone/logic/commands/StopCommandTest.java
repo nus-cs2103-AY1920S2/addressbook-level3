@@ -1,6 +1,7 @@
 package seedu.zerotoone.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.zerotoone.logic.commands.StopCommand.FORMAT_STYLE;
 import static seedu.zerotoone.logic.commands.StopCommand.MESSAGE_SUCCESS;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
@@ -51,7 +52,7 @@ class StopCommandTest {
 
         // same values -> returns true
         StopCommand stopCommandCopy = new StopCommand();
-        assertNotEquals(stopCommand, stopCommandCopy);
+        assertEquals(stopCommand, stopCommandCopy);
 
         // different types -> returns false
         assertNotEquals(1, stopCommand);

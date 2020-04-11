@@ -1,6 +1,7 @@
 package seedu.zerotoone.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.zerotoone.logic.commands.DoneCommand.MESSAGE_NONE_LEFT;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
 
@@ -51,7 +52,7 @@ class DoneCommandTest {
 
         // same values -> returns true
         DoneCommand doneCommandCopy = new DoneCommand();
-        assertNotEquals(doneCommand, doneCommandCopy);
+        assertEquals(doneCommand, doneCommandCopy);
 
         // different types -> returns false
         assertNotEquals(1, doneCommand);

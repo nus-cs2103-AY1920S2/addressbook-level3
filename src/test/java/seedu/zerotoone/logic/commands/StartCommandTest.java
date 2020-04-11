@@ -1,6 +1,5 @@
 package seedu.zerotoone.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.zerotoone.logic.commands.StartCommand.FORMAT_STYLE;
 import static seedu.zerotoone.logic.commands.StartCommand.MESSAGE_SUCCESS;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
@@ -12,9 +11,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
@@ -32,7 +31,7 @@ class StartCommandTest {
             new LogList());
 
     @Test
-    public void execute_isInSession_throwsCommandException() throws CommandException {
+    public void execute_isInSession_throwsCommandException() {
         StartCommand startCommand = new StartCommand(INDEX_FIRST_OBJECT);
         ModelStub modelStub = new ModelStubInSession();
         assertThrows(CommandException.class, Command.MESSAGE_SESSION_STARTED, () ->
@@ -51,7 +50,7 @@ class StartCommandTest {
         String outputMessage = String.format(MESSAGE_SUCCESS,
                 workoutToStart.getWorkoutName().toString()) + formatted;
 
-        assertEquals(new CommandResult(outputMessage),
+        Assertions.assertEquals(new CommandResult(outputMessage),
                 startCommand.executeHelper(model, currentDateTime));
     }
 
@@ -60,23 +59,23 @@ class StartCommandTest {
         StartCommand startCommand = new StartCommand(INDEX_FIRST_OBJECT);
 
         // same object -> returns true
-        assertEquals(startCommand, startCommand);
+        Assertions.assertEquals(startCommand, startCommand);
 
         // same values -> returns true
         StartCommand startCommandCopy = new StartCommand(INDEX_FIRST_OBJECT);
-        assertEquals(startCommand, startCommandCopy);
+        Assertions.assertEquals(startCommand, startCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(1, startCommand);
+        Assertions.assertNotEquals(1, startCommand);
 
         // null -> returns false
-        assertNotEquals(null, startCommand);
+        Assertions.assertNotEquals(null, startCommand);
     }
 
     @Test
     public void getWorkoutId() {
         StartCommand startCommand = new StartCommand(INDEX_FIRST_OBJECT);
-        assertEquals(startCommand.getWorkoutId(), INDEX_FIRST_OBJECT);
+        Assertions.assertEquals(startCommand.getWorkoutId(), INDEX_FIRST_OBJECT);
     }
 
     /**
