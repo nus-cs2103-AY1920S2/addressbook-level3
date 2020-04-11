@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_CS2103;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WORKLOAD_CS2103;
 import static seedu.address.testutil.TypicalAssignments.CS2103_TP;
+import static seedu.address.testutil.TypicalAssignments.CS3243_TUT;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,5 +33,21 @@ public class AssignmentTest {
         editedAssignment = new AssignmentBuilder(CS2103_TP).withWorkload(VALID_WORKLOAD_CS2103)
                 .withStatus(VALID_STATUS_CS2103).build();
         assertTrue(CS2103_TP.isSameAssignment(editedAssignment));
+    }
+
+    @Test
+    public void equals() {
+        // same values
+        Assignment cs2103Copy = new AssignmentBuilder(CS2103_TP).build();
+        assertTrue(CS2103_TP.equals(cs2103Copy));
+
+        // null -> Returns false
+        assertFalse(CS2103_TP.equals(null));
+
+        // different type -> Returns false
+        assertFalse(CS2103_TP.equals(5));
+
+        // different assignment -> Returns false
+        assertFalse(CS3243_TUT.equals(CS2103_TP));
     }
 }

@@ -107,12 +107,6 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
-        assertParseFailure(parser, "1 " + PREFIX_EMAIL, EditCommand.MESSAGE_NOT_EDITED);
-        assertParseFailure(parser, "1 " + PREFIX_ADDRESS, EditCommand.MESSAGE_NOT_EDITED);
-        assertParseFailure(parser, "1 " + PREFIX_BIRTHDAY, EditCommand.MESSAGE_NOT_EDITED);
-        assertParseFailure(parser, "1 " + PREFIX_ORGANIZATION, EditCommand.MESSAGE_NOT_EDITED);
-        assertParseFailure(parser, "1 " + PREFIX_ORGANIZATION, EditCommand.MESSAGE_NOT_EDITED);
-
         assertParseFailure(parser, "1 " + PREFIX_NAME, Name.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1 " + PREFIX_PHONE, Phone.MESSAGE_CONSTRAINTS);
 
