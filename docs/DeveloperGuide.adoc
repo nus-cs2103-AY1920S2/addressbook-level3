@@ -658,31 +658,6 @@ the expiry date of the coupon.
 Images are provided below to help understand the above said connectivity and
 to identify which are valid input remind date.
 
-
-[cols="2"]
-|=========================================
-|Object Diagram | Comments
-a|
-image:R1OD.png[] | Valid
-a|
-image:R2OD.png[] | Valid; remind date can be d-m-yyyy
-a|
-image:R3OD.png[] | Invalid; remind date cannot be dd-mm-yy
-a|
-image:R4OD.png[] | Invalid; remind date cannot be before
-system date
-a|
-image:R5OD.png[] | Invalid; remind date cannot be after
-expiry date
-a|
-image:R6OD.png[] | Valid; remind date can be today's date
-a|
-image:R7OD.png[] | Valid; remind date will become null
-after the coupon is reminded
-a|
-
-|=========================================
-
 Given below are two ways of a coupon's remind date are be derived from.
 
 **Default remind date**
