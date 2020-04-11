@@ -15,6 +15,7 @@ quality is consistently high. A comprehensive set of guides are also provided to
 for both users and contributors alike.
 
 == Summary of contributions
+
 As the main developer of the application’s User Interface (UI), I played a crucial role in integrating my teammates’
 features with the UI. During group discussions, I placed extra emphasis on guiding my teammates to create engineering
 solutions that allowed for easier assimilation into the UI, to ensure that their work becomes user-visible. As a
@@ -27,6 +28,7 @@ development of the project was especially crucial as I enabled my teammates to b
 that they have put into the development of their respective features to the users. My major contributions are as follows:
 
 === Updated the UI and implemented relevant commands to improve User Experience
+
 The UI is at the heart of TA-Tracker, displaying the output of TA-Tracker to the user visually. As the main contributor
 to the MainWindow of the UI I played an integral role in ensuring the content was being displayed to the user correctly,
 while keeping the interface simple and informative:
@@ -46,11 +48,26 @@ on esc key press
 
 === Improved upon overall code quality
 
+* Packaging all commands, parsers, models and ui components (#143, #212)
+* removing unused commands and field, (#351)
+* improving comparison methods (#351)
+* adding enum for UI handling in CommandResult (#189, #212))
+* creating SessionType and GroupType enum classes (#120, #182)
+* adding Codacy badge to repo (#350)
+
 === Adding extensive automated tests
+
+* Add StudentCommand, StudentCommandParser and Student tests (#340, #341, #347)
 
 Here is the code that I have written for this product: [https://github.com/AY1920S2-CS2103T-W17-4/main/commits/master?author=fatin99[All commits]]
 
 === Other contributions
+
+* Create a skeleton for the student delete command (PR #113)
+* Contribute to StudentAdd command by removing the requirement for compulsory phone and email fields (PR #146)
+* Refactor person to student, and contribute to refactoring of AddressBook to TaTracker (PR #93, #145)
+* Add matric field as well as the relevant error checking needed to student (PR #96, #118)
+* Remove address field from student (PR #97)
 
 ==== Project management:
 
