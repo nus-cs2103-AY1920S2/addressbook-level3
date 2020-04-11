@@ -960,7 +960,7 @@ Saveables. However, this might burden the user with
 calculating how much they would save in terms of
 dollars and cents, when many coupons and discounts
 come in the form of certain percentage reductions
-of the original price, as well as free gifts of
+of the original price, as well as free gifts or
 benefits that cannot be translatable to a concrete
 monetary amount.
 

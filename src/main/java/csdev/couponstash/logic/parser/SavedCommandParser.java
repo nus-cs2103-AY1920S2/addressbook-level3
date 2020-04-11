@@ -33,48 +33,81 @@ public class SavedCommandParser implements Parser<SavedCommand> {
     @Override
     public SavedCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
-        ArgumentMultimap argMultimap =
-                 ArgumentTokenizer.tokenize(
-                         userInput,
-                         CliSyntax.PREFIX_DATE,
-                         CliSyntax.PREFIX_START_DATE,
-                         CliSyntax.PREFIX_EXPIRY_DATE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(userInput,
+                CliSyntax.PREFIX_DATE,
+                CliSyntax.PREFIX_START_DATE,
+                CliSyntax.PREFIX_EXPIRY_DATE);
         Optional<String> specificDate = argMultimap.getValue(CliSyntax.PREFIX_DATE);
         Optional<String> startDate = argMultimap.getValue(CliSyntax.PREFIX_START_DATE);
         Optional<String> endDate = argMultimap.getValue(CliSyntax.PREFIX_EXPIRY_DATE);
         Supplier<ParseException> dateRangeException = () ->
-            new ParseException(SavedCommand.MESSAGE_ONLY_ONE_DATE_OF_RANGE);
-        if (specificDate.isPresent()) {
-            if (startDate.isPresent() || endDate.isPresent()) {
-                throw dateRangeException.get();
-            }
-            LocalDate specDate;
-            try {
-                specDate = DateUtil.parseStringToDate(specificDate.get());
-            } catch (DateTimeParseException e) {
-                throw new ParseException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
-            }
-            return new SavedCommand(specDate);
+                new ParseException(SavedCommand.MESSAGE_ONLY_ONE_DATE_OF_RANGE);
+
+        if (specificDate.isPresent() && (startDate.isPresent() || endDate.isPresent())) {
+            // parser does not know whether to use a range or a single date
+            throw dateRangeException.get();
+        } else if (specificDate.isPresent()) {
+            return getSavedCommandForSpecificDate(specificDate.get());
         } else if (startDate.isPresent() || endDate.isPresent()) {
             String strStart = startDate.orElseThrow(dateRangeException);
             String strEnd = endDate.orElseThrow(dateRangeException);
-            LocalDate sDate;
-            LocalDate eDate;
-            try {
-                sDate = DateUtil.parseStringToDate(strStart);
-                eDate = DateUtil.parseStringToDate(strEnd);
-            } catch (DateTimeParseException e) {
-                throw new ParseException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
-            }
-            if (sDate.isAfter(eDate) || sDate.equals(eDate)) {
-                throw new ParseException(SavedCommand.MESSAGE_INVALID_DATE_RANGE);
-            }
-            return new SavedCommand(sDate, eDate);
+            return getCommandForRangeOfDates(strStart, strEnd);
         } else if (userInput.isBlank()) {
             // no dates provided
             return new SavedCommand();
         } else {
             throw new ParseException(SavedCommand.MESSAGE_UNEXPECTED_EXTRA_WORDS);
         }
+    }
+
+    /**
+     * An utility method to attempt to parse only one String, if
+     * it was determined that the user wants to find out savings
+     * only on a single date. If parsing of this single date is
+     * successful, the appropriate SavedCommand is returned.
+     *
+     * @param specificDate The String containing user input
+     *                     of the specific date to see the
+     *                     total savings of.
+     * @return Returns SavedCommand if the date is parsed successfully.
+     * @throws ParseException If parsing of String to date fails.
+     */
+    private SavedCommand getSavedCommandForSpecificDate(String specificDate) throws ParseException {
+        LocalDate specDate;
+        try {
+            specDate = DateUtil.parseStringToDate(specificDate);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
+        }
+        return new SavedCommand(specDate);
+    }
+
+    /**
+     * An utility method to attempt to parse two Strings given
+     * for start date and end date. If parsing of these two
+     * Strings are successful, the SavedCommand is returned.
+     *
+     * @param strStart The String containing start date of the
+     *                 time period in which to check Savings.
+     * @param strEnd The String containing end date of the
+     *               time period in which to check Savings.
+     * @return Returns SavedCommand, if all goes well.
+     * @throws ParseException If the parsing of the Strings to
+     *                        dates fails, or if the start date
+     *                        is not before the end date.
+     */
+    private SavedCommand getCommandForRangeOfDates(String strStart, String strEnd) throws ParseException {
+        LocalDate sDate;
+        LocalDate eDate;
+        try {
+            sDate = DateUtil.parseStringToDate(strStart);
+            eDate = DateUtil.parseStringToDate(strEnd);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
+        }
+        if (sDate.isAfter(eDate) || sDate.equals(eDate)) {
+            throw new ParseException(SavedCommand.MESSAGE_INVALID_DATE_RANGE);
+        }
+        return new SavedCommand(sDate, eDate);
     }
 }
