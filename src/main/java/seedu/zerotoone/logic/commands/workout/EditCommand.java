@@ -19,9 +19,9 @@ import seedu.zerotoone.model.workout.WorkoutName;
  */
 public class EditCommand extends WorkoutCommand {
     public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_USAGE = "Usage: workout edit WORKOUT_ID e/<workout_name>";
-    public static final String MESSAGE_EDIT_WORKOUT_SUCCESS = "Edited workout: %1$s";
-    public static final String MESSAGE_DUPLICATE_WORKOUT = "This workout already exists.";
+    public static final String MESSAGE_USAGE = "Usage: workout edit WORKOUT_ID w/<workout_name>";
+    public static final String MESSAGE_EDIT_WORKOUT_SUCCESS = "Successfully edited workout: %1$s";
+    public static final String MESSAGE_DUPLICATE_WORKOUT = "Sorry, this workout already exists. Try again!";
 
     private final Index workoutId;
     private final WorkoutName workoutName;
