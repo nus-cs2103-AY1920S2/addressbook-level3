@@ -27,6 +27,22 @@ development of the project was especially crucial as I enabled my teammates to b
 that they have put into the development of their respective features to the users. My major contributions are as follows:
 
 === Updated the UI and implemented relevant commands to improve User Experience
+The UI is at the heart of TA-Tracker, displaying the output of TA-Tracker to the user visually. As the main contributor
+to the MainWindow of the UI I played an integral role in ensuring the content was being displayed to the user correctly,
+while keeping the interface simple and informative:
+
+* Adding tabs and icons (#227, #182, #120)
+* Creating lists and integrating them with the App (#182, #120)
+* Creating Cards (#330, #322, #204, #182)
+* Contribute to the filter and list commands and their highlighting features so that the command is better represented
+(#210, #227, #235, #238, #243, #314, #322)
+* filter bar in sessions view since nothing to highlight over there (#322)
+* Contribute to session done command by changing most of its execution to enable UI support (#330
+* Add GoTo Command (CLI command for tab switching) (PR #189)
+* Add support for tab switching in all the commands for a better user experience (PR #189, #210, #212)
+* Add total earnings label in claims tab for better user experience (#210, #212, #235, #243, #322)
+* Contribute to development of HelpWindow and StatisticsWindow (PR #227, #235, #236) fix sizing, add scrollpane, exit
+on esc key press
 
 === Improved upon overall code quality
 
