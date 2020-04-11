@@ -200,7 +200,7 @@ public class Finance extends ModelObject {
       return true;
     }
 
-    if (otherFinance instanceof Finance == false) {
+    if (!(otherFinance instanceof Finance)) {
       return false;
     }
     Finance otherFinanceCast = (Finance) otherFinance;
@@ -249,12 +249,6 @@ public class Finance extends ModelObject {
         .append(getDate())
         .append(" Amount: ")
         .append(getAmount())
-//        .append("CourseID: ")
-//        .append(getCourseID())
-//        .append("StudentID: ")
-//        .append(getStudentID())
-//        .append("StaffID: ")
-//        .append(getStaffID())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

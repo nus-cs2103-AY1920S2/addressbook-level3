@@ -1,11 +1,12 @@
 package seedu.address.model.modelCourse;
 
-import java.util.List;
-import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Course}'s {@code Name} matches any of the keywords given.
  */
 public class CourseNameContainsKeywordsPredicate implements Predicate<Course> {
 

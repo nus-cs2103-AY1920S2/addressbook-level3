@@ -188,11 +188,7 @@ public class Course extends ModelObject {
    * @return true if this course contains staff ID, false otherwise.
    */
   public boolean containsStaff(ID staffID) {
-    if (assignedStaffID != null && assignedStaffID.equals(staffID)) {
-      return true;
-    } else {
-      return false;
-    }
+    return assignedStaffID != null && assignedStaffID.equals(staffID);
   }
 
   // ================================== FOR UNASSIGN COMMANDS =================================
@@ -263,7 +259,6 @@ public class Course extends ModelObject {
     if (otherCourse == this) {
       return true;
     }
-
     if (!(otherCourse instanceof Course)) {
       return false;
     }
@@ -282,11 +277,9 @@ public class Course extends ModelObject {
     if (other == this) {
       return true;
     }
-
     if (!(other instanceof Course)) {
       return false;
     }
-
     Course otherCourse = (Course) other;
     return otherCourse.getId().equals(getId());
   }
@@ -309,9 +302,7 @@ public class Course extends ModelObject {
             .append(getAssignedStaffID())
             .append(" Assigned Students: ");
     getAssignedStudentsID().forEach(builder::append);
-
-    builder
-            .append(" Tags: ");
+    builder.append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();
   }

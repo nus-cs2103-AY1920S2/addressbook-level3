@@ -4,6 +4,9 @@ import seedu.address.commons.exceptions.DuplicateException;
 import seedu.address.commons.exceptions.NotFoundException;
 import seedu.address.model.person.ID;
 
+/**
+ * Data-centric class to be extended which encapsulate closely related items.
+ */
 public abstract class ModelObject implements Cloneable {
     private String ENTITY_NAME = "";
 
