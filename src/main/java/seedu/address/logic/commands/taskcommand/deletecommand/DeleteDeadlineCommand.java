@@ -3,10 +3,13 @@ package seedu.address.logic.commands.taskcommand.deletecommand;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASK;
 
+import java.util.List;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.calender.Task;
+
 
 /**
  * Adds a deadline.
@@ -32,10 +35,13 @@ public class DeleteDeadlineCommand extends DeleteTaskCommand {
             return new CommandResult(MESSAGE_FAIL);
         }
 
-        Task removed = model.deleteTask(deadlineToDelete);
+        List<Task> lastShownList = model.getDeadlineTaskList();
+        Task removed = lastShownList.get(deadlineToDelete.getIndex() - 1);
+        model.deleteTask(removed);
         model.sortTaskList();
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
-        return new CommandResult(MESSAGE_SUCCESS + removed);
+
+        return new CommandResult(MESSAGE_SUCCESS );
     }
 
 

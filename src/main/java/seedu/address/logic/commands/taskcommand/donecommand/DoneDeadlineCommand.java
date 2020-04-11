@@ -2,6 +2,8 @@ package seedu.address.logic.commands.taskcommand.donecommand;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -30,11 +32,14 @@ public class DoneDeadlineCommand extends DoneCommand {
             return new CommandResult(MESSAGE_FAIL);
         }
 
-        Task done = model.doneDeadlineTask(deadlineDone);
+        List<Task> lastShownList = model.getDeadlineTaskList();
+        Task completed = lastShownList.get(deadlineDone.getIndex() - 1);
+        completed.markAsDone();
+
         model.sortTaskList();
         model.updateDeadlineTaskList(Model.PREDICATE_SHOW_ALL_TASK);
 
-        return new CommandResult(MESSAGE_SUCCESS + done);
+        return new CommandResult(MESSAGE_SUCCESS + completed);
     }
 
 

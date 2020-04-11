@@ -24,6 +24,7 @@ public class FindTasksByModuleCodeCommand extends FindTasksCommand {
         requireNonNull(model);
 
         model.updateDeadlineTaskList(predicate);
+        System.out.println(model.getDeadlineTaskList());
 
         return new CommandResult(model.getDeadlineTaskList().size() + MESSAGE_SUCCESS);
     }
