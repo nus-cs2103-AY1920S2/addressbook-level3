@@ -70,17 +70,15 @@ activate Profile
 Profile --> EditCommand
 deactivate Profile
 
-
-
 create CommandResult
 EditCommand -> CommandResult
 activate CommandResult
 
 CommandResult --> EditCommand
-destroy CommandResult
+deactivate CommandResult
 
 EditCommand --> LogicManager : result
-destroy EditCommand
+deactivate EditCommand
 
 LogicManager --> MainWindow
 deactivate LogicManager
