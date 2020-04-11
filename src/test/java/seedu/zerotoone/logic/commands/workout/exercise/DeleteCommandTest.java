@@ -86,8 +86,10 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_OBJECT, INDEX_FIRST_OBJECT);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WORKOUT_EXERCISE_SUCCESS,
-                exerciseToDelete.getExerciseName());
+        String expectedMessage = String.format(
+                DeleteCommand.MESSAGE_DELETE_WORKOUT_EXERCISE_SUCCESS,
+                exerciseToDelete.getExerciseName(),
+                workoutToEdit.getWorkoutName());
 
         ModelManager expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),

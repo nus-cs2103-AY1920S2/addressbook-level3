@@ -28,14 +28,14 @@ public class WorkoutCard extends UiPart<Region> {
 
     public WorkoutCard(Workout workout, int displayedIndex) {
         super(FXML);
-        workoutId.setText(String.format("%d. ", displayedIndex));
+        workoutId.setText(String.format("Workout #%d: ", displayedIndex));
         workoutName.setText(workout.getWorkoutName().fullName);
 
         List<Exercise> workoutExercisesList = workout.getWorkoutExercises();
         for (int i = 0; i < workoutExercisesList.size(); i++) {
             Exercise workoutExercise = workoutExercisesList.get(i);
             WorkoutExerciseCard workoutExerciseCard =
-                    new WorkoutExerciseCard(i, workoutExercise.getExerciseName().fullName);
+                    new WorkoutExerciseCard(i, workoutExercise);
             this.workoutExercises.getChildren().add(workoutExerciseCard.getRoot());
         }
     }

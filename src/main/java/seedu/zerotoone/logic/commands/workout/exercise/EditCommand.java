@@ -21,7 +21,7 @@ import seedu.zerotoone.model.workout.Workout;
 public class EditCommand extends WorkoutExerciseCommand {
     public static final String COMMAND_WORD = "edit";
     public static final String MESSAGE_USAGE = "Usage: workout exercise edit WORKOUT_ID EXERCISE_ID NEW_EXERCISE_ID";
-    public static final String MESSAGE_EDIT_WORKOUT_SUCCESS = "Edited exercise in workout: %1$s";
+    public static final String MESSAGE_EDIT_WORKOUT_SUCCESS = "Edited %s in %s to become %s.";
 
     private Index workoutId;
     private Index exerciseId;
@@ -67,7 +67,7 @@ public class EditCommand extends WorkoutExerciseCommand {
         }
 
         Exercise updatedWorkoutExercise = lastShownExerciseList.get(newExerciseId.getZeroBased());
-        updatedWorkoutExercises.remove(this.exerciseId.getZeroBased());
+        Exercise originalWorkoutExercise = updatedWorkoutExercises.remove(this.exerciseId.getZeroBased());
         updatedWorkoutExercises.add(this.exerciseId.getZeroBased(), updatedWorkoutExercise);
 
         Workout editedWorkout = new Workout(workoutToEdit.getWorkoutName(), updatedWorkoutExercises);
@@ -76,7 +76,9 @@ public class EditCommand extends WorkoutExerciseCommand {
         model.updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
 
         String outputMessage = String.format(MESSAGE_EDIT_WORKOUT_SUCCESS,
-                editedWorkout.getWorkoutName().toString());
+                originalWorkoutExercise.getExerciseName().fullName,
+                editedWorkout.getWorkoutName().fullName,
+                updatedWorkoutExercise.getExerciseName().fullName);
         return new CommandResult(outputMessage);
     }
 

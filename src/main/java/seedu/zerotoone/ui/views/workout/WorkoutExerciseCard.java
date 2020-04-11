@@ -1,8 +1,13 @@
 package seedu.zerotoone.ui.views.workout;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ExerciseSet;
 import seedu.zerotoone.ui.util.UiPart;
 
 /**
@@ -14,17 +19,24 @@ public class WorkoutExerciseCard extends UiPart<Region> {
 
     @FXML
     private Label exerciseId;
+
     @FXML
     private Label exerciseName;
-    // @FXML
-    // private Label numReps;
-    // @FXML
-    // private Label weight;
 
-    public WorkoutExerciseCard(int exerciseId, String exerciseName) {
+    @FXML
+    private VBox exerciseSets;
+
+    public WorkoutExerciseCard(int exerciseId, Exercise exercise) {
         super(FXML);
-        this.exerciseId.setText(String.format("Exercise %d. ", exerciseId + 1));
-        this.exerciseName.setText(exerciseName);
+        this.exerciseId.setText(String.format("%d. ", exerciseId + 1));
+        this.exerciseName.setText(exercise.getExerciseName().fullName);
+
+        List<ExerciseSet> exerciseSets = exercise.getExerciseSets();
+        for (ExerciseSet exerciseSet : exerciseSets) {
+            WorkoutExerciseSetCard workoutExerciseSetCard =
+                    new WorkoutExerciseSetCard(exerciseSet.getNumReps(), exerciseSet.getWeight());
+            this.exerciseSets.getChildren().add(workoutExerciseSetCard.getRoot());
+        }
     }
 
     @Override

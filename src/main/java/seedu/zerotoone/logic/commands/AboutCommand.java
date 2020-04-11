@@ -9,8 +9,8 @@ public class AboutCommand extends Command {
 
     public static final String COMMAND_WORD = "about";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = "Try running the command: " + COMMAND_WORD
+            + "\nThis shows you the program usage instructions.";
 
     public static final String SHOWING_ABOUT_MESSAGE =
             "Here is some info about this app, and a list of all the commands!";
