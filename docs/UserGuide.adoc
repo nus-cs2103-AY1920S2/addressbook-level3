@@ -19,10 +19,10 @@ By: `Team HYBB`      Since: `Mar 2020`      Licence: `MIT`
 == Introduction
 
 *HealthyBaby* (HYBB) is a desktop application that provides you with a database of quick, easy, and healthy recipes.
-Are you a *university student* staying on campus and are tired of purchasing the same few unhealthy meals? Looking for 
+Are you a *university student* staying on campus and are tired of purchasing the same few unhealthy meals? Looking for
 healthier options but searching for and planning recipes are a hassle for you? HYBB is just the app for you!
-HYBB helps alleviate the challenges faced while maintaining healthy eating habits, easing the transition from eating 
-out everyday to cooking healthy meals regularly. 
+HYBB helps alleviate the challenges faced while maintaining healthy eating habits, easing the transition from eating
+out everyday to cooking healthy meals regularly.
 
 *Value proposition*: Focuses on healthy, simple recipes with short cooking time with ingredients filter to
 minimise food wastage.
@@ -43,11 +43,11 @@ HYBB enables filtering by specific components in the recipes such as goals, favo
 reduce the time needed to find recipes that suit your needs.
 
 === Planning
-Enabling students to plan their meals in advance while considering the available ingredients,
+This feature enables students to plan their meals in advance while considering the available ingredients,
 HYBB supports bulk planning of ingredients required for the following week.
 
 === Goals
-To enable students to monitor their healthy eating progress, HYBB provides a history of all cooked meals along with
+This feature enables students to monitor their healthy eating progress, HYBB provides a history of all cooked meals along with
 statistics based on 4 main goals: “Wholesome Wholemeals”, “Bulk like a Hulk”, “Herbivore” and "Fruity Fiesta".
 
 === Achievements
@@ -447,7 +447,7 @@ Format: `cooked [recipe index] <recipe index>...`
 You can mark multiple recipes as cooked at the same time (at least one recipe must be marked).
 
 [TIP]
-If you specify a recipe number that has already been cooked within the day or does not exist in the list of recipes 
+If you specify a recipe number that has already been cooked within the day or does not exist in the list of recipes
 _under the recipes tab_, none of your selected recipes will be marked as cooked.
 
 [TIP]
