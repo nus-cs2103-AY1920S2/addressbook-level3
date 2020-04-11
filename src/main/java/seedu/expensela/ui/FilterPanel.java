@@ -32,7 +32,7 @@ public class FilterPanel extends UiPart<Region> {
         super(FXML);
         this.filter = filter;
         filterCategory.getChildren().add(getColouredCategoryLabel("Category: " + filter.getFilterCategoryName()));
-        filterDateMonth.getChildren().add(getColouredDateLabel("Month: " + filter.getDateMonth()));
+        filterDateMonth.getChildren().add(getColouredDateLabel("Month: " + filter.getDateMonthText()));
     }
 }
 

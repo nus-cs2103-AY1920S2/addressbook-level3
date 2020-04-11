@@ -4,6 +4,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Class HiddenOutside
 Package Model <<Rectangle>>{
 Interface ReadOnlyExpenseLa <<Interface>>
 Interface Model <<Interface>>
@@ -14,6 +15,7 @@ Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+
 
 Package Transaction {
 Class Transaction
@@ -33,18 +35,12 @@ Class Income
 }
 
 Package Filter {
-Class Predicate
+
 }
 
 Package ToggleView {
 
 }
-
-'Package Tag {
-'Class Tag
-'}
-'}
-
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
@@ -64,11 +60,15 @@ Transaction *--> "1" Name
 Transaction *--> "1" Amount
 Transaction *--> "1" Category
 Transaction *--> "0..1" Remark
-'Transaction *--> "*" Tag
+
 ExpenseLa *--> "1" MonthlyData
 MonthlyData *--> "1" Budget
 MonthlyData *--> "1" Expense
 MonthlyData *--> "1" Income
+
+ExpenseLa *--> "1" ToggleView
+
+ExpenseLa *--> "1" Filter
 
 Name -[hidden]right-> Amount
 Amount -[hidden]right-> Remark
