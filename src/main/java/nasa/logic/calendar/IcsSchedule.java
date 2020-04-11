@@ -30,7 +30,7 @@ public class IcsSchedule {
      * @return String ics format for scheduling
      */
     public String getIcsRule() {
-        String frequency = "FREQ=";
+        String frequency = "RRULE:FREQ=";
         int type = schedule.getType();
         if (type == 1) {
             frequency += "WEEKLY";
