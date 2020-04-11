@@ -266,7 +266,10 @@ will not call `Model#commit()`. Thus, the history and `currentState` in `LinearH
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear-s`, which calls `Model#commit()`. Since there is a branching in history, all database states after the `currentStatePointer` will be purged. This prevents conflicts from redoing commands from a diverged history e.g. editing a supplier named Jane when Jane was deleted in the new history. Furthermore, there are many mainstream editing software that exhibits this behaviour.
+Step 6. The user executes `sell g/banana q/1 p/5` to sell 1 banana, which calls `Model#commit()`.
+Since there is a branching in history, all states after the state pointed by `statePointer` will be purged.
+Many mainstream editing software exhibit this behaviour, which would condition the user to expect this
+behavior.
 
 image::UndoRedoState5.png[]
 
