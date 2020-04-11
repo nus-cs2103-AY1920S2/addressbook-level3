@@ -685,23 +685,6 @@ A https://en.wikipedia.org/wiki/JAR_(file_format)[JAR] (Java ARchive) is a packa
 
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
