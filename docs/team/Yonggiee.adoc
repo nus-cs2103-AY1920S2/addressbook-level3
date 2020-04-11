@@ -13,7 +13,7 @@ FitBiz is a desktop fitness business management application. The user interacts 
 
 == Summary of contributions
 
-* *Major enhancement*: added *`Exercise` classes and commands*
+* *Major enhancement*: added *Exercise classes and commands*
 ** What it does: allows the user to record their client's exercises. The recorded exercises will then be shown in a table for the user to see.
 ** Justification: This feature improves the product significantly because it is one of the main features of the application. Many other features like showing the client's personal bests and drawing their clients' progression graph rely on having the exercises recorded.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
@@ -39,11 +39,11 @@ The user will be able to see the exercises done by their clients' listed in a ta
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Wrote test code for exercise classes and commands to improve test coverage. (#332, #336, #339)
+*** Wrote test code for exercise classes and commands to improve test coverage. (https://github.com/AY1920S2-CS2103T-F11-2/main/pull/83[83], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/121[121], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/135[135], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/210[210], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/214[214])
 ** Documentation:
 *** Added https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/UserGuide.adoc#command-summary[command summary]  in User Guide
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-F11-2/main/pull/137[137,] https://github.com/AY1920S2-CS2103T-F11-2/main/pull/225[225]
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S2-CS2103T-F09-2/main/issues/249[249], https://github.com/AY1920S2-CS2103T-F09-2/main/issues/250[250], https://github.com/AY1920S2-CS2103T-F09-2/main/issues/251[251])
 
 == Contributions to the User Guide
