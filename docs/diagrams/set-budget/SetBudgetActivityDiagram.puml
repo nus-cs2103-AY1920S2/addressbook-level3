@@ -1,0 +1,21 @@
+@startuml
+start
+
+:User executes set budget command;
+:BudgetCommandParser parses arguments;
+
+
+if () then ([Syntax error])
+    :Show Usage Message;
+else ([Correct input])
+    :Create new MonthlyData with now Budget value;
+    :Set MonthlyData to ModelManager;
+    if () then ([rc/ prefix is present])
+        :Create new GlobalData with new Budget value as recurringBudget;
+        :Set new GlobalData to ModelManager;
+    else ([rc/ prefix is absent])
+    endif
+endif
+
+stop
+@enduml

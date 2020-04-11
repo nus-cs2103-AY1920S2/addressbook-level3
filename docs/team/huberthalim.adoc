@@ -29,6 +29,9 @@ for the month
 ** Highlights: The enhancement is a huge quality of life update for users as it has a graphical interface
 that makes it easy for user to visualize how much budget they have left. It is also color coded as to serve as a warning
 if the user only has very little money left that they can spend
++
+image::BudgetGraphic.png[width="790"]
++
 ** *Recurring Budget*
 *** What it does: allows user to set a budget for every subsequent months.
 ** Justification: Usually budgets for every month are constant so it makes sense to be able to
@@ -39,9 +42,7 @@ set their budget once provided that it remains the same
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com/AY1920S2-CS2103-T09-3/main/commits/master?author=HubertHalim[Commits]]
-[https://github.com/AY1920S2-CS2103-T09-3/main/pulls?q=is%3Apr+author%3AHubertHalim+[Pull requests]]
-[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kensonoenqh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kensonoenqh&tabRepo=AY1920S1-CS2103T-W12-2%2Fmain%5Bmaster%5D[RepoSense Code Contribution Dashboard]]
+* *Code contributed*: [https://github.com/AY1920S2-CS2103-T09-3/main/commits/master?author=HubertHalim[Commits]][https://github.com/AY1920S2-CS2103-T09-3/main/pulls?q=is%3Apr+author%3AHubertHalim+[Pull requests]][https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=HubertHalim&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=HubertHalim&tabRepo=AY1920S2-CS2103-T09-3%2Fmain%5Bmaster%5D[RepoSense Code Contribution Dashboard]]
 
 * *Other contributions*:
 
