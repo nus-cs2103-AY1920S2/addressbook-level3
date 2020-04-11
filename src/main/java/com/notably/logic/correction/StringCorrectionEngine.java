@@ -13,28 +13,38 @@ import com.notably.logic.correction.distance.LevenshteinDistanceCalculator;
 public class StringCorrectionEngine implements CorrectionEngine<String> {
     private final EditDistanceCalculator editDistanceCalculator;
     private final List<String> options;
-    private final int distanceThreshold;
+    private final CorrectionEngineParameters parameters;
 
-    public StringCorrectionEngine(List<String> options, int distanceThreshold) {
-        this(new LevenshteinDistanceCalculator(false), options, distanceThreshold);
+    /**
+     * Creates a {@link StringCorrectionEngine}.
+     *
+     * @param options Correction options
+     * @param parameters Parameters for the correction engine
+     */
+    public StringCorrectionEngine(List<String> options, CorrectionEngineParameters parameters) {
+        this(new LevenshteinDistanceCalculator(false), options, parameters);
     }
 
-    public StringCorrectionEngine(EditDistanceCalculator editDistanceCalculator,
-            List<String> options, int distanceThreshold) {
+    /**
+     * Creates a {@link StringCorrectionEngine}.
+     *
+     * @param editDistanceCalculator Edit distance calculator instance
+     * @param options Correction options
+     * @param parameters Parameters for the correction engine
+     */
+    public StringCorrectionEngine(EditDistanceCalculator editDistanceCalculator, List<String> options,
+            CorrectionEngineParameters parameters) {
         Objects.requireNonNull(editDistanceCalculator);
         Objects.requireNonNull(options);
+        Objects.requireNonNull(parameters);
 
         if (options.isEmpty()) {
             throw new IllegalArgumentException("\"options\" must contain at least one element");
         }
 
-        if (distanceThreshold < 0) {
-            throw new IllegalArgumentException("\"distanceThreshold\" must be greater than 0");
-        }
-
         this.editDistanceCalculator = editDistanceCalculator;
         this.options = options;
-        this.distanceThreshold = distanceThreshold;
+        this.parameters = parameters;
     }
 
     /**
@@ -49,7 +59,7 @@ public class StringCorrectionEngine implements CorrectionEngine<String> {
 
         int closestDistance = Integer.MAX_VALUE;
         for (String option : options) {
-            int distance = editDistanceCalculator.calculateDistance(uncorrected, option);
+            int distance = calculateStringDistance(uncorrected, option);
             if (distance < closestDistance) {
                 closestDistance = distance;
             }
@@ -57,13 +67,13 @@ public class StringCorrectionEngine implements CorrectionEngine<String> {
 
         List<String> correctedItems = new ArrayList<>();
         for (String option : options) {
-            int distance = editDistanceCalculator.calculateDistance(uncorrected, option);
+            int distance = calculateStringDistance(uncorrected, option);
             if (distance == closestDistance) {
                 correctedItems.add(option);
             }
         }
 
-        if (closestDistance > distanceThreshold) {
+        if (closestDistance > parameters.getDistanceThreshold()) {
             return new CorrectionResult<>(CorrectionStatus.FAILED);
         }
 
@@ -72,6 +82,24 @@ public class StringCorrectionEngine implements CorrectionEngine<String> {
         }
 
         return new CorrectionResult<String>(CorrectionStatus.CORRECTED, correctedItems);
+    }
+
+    /**
+     * Calculates the edit distance between two {@link String}s.
+     *
+     * @param input Input string
+     * @param reference Reference string
+     * @return Edit distance between {@code input} and {@code reference}
+     */
+    private int calculateStringDistance(String input, String reference) {
+        Objects.requireNonNull(input);
+        Objects.requireNonNull(reference);
+
+        if (parameters.isForwardMatching() && input.length() <= reference.length()) {
+            return CorrectionEngineUtil.calculateForwardMatchingDistance(editDistanceCalculator,
+                    input, reference, parameters.getForwardMatchingThreshold());
+        }
+        return editDistanceCalculator.calculateDistance(input, reference);
     }
 }
 
