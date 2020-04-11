@@ -30,7 +30,7 @@ activate autoComplete LOGIC_COLOR
 
 ref over autoComplete, autoCompleteResult : get autocomplete result
 note right
-note that the acResult object is 
+note that the acResult object is
 actually created within this ref
 end note
 
