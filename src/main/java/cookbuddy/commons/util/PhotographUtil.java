@@ -35,16 +35,16 @@ import javafx.collections.ObservableList;
 public class PhotographUtil {
     public static final String PLACEHOLDER_IMAGE_PATH_STRING = "/images/recipe_placeholder.jpg";
     public static final Path PLACEHOLDER_IMAGE_PATH = Paths.get(PLACEHOLDER_IMAGE_PATH_STRING);
-    public final InputStream PLACEHOLDER_IMAGE_STREAM;
-    public final BufferedImage PLACEHOLDER_IMAGE;
-    public final Path DEFAULT_STORAGE_PATH = FileUtil.relativePathFrom("data", "images");
-    public final String MESSAGE_CONSTRAINTS = "Image not found, or invalid image path given. "
-            + "Placeholder image used instead.";
+    public final InputStream placeHolderImageStream;
+    public final BufferedImage placeholderImage;
+    public final Path defaultStoragePath = FileUtil.relativePathFrom("data", "images");
+    public final String messageConstraints = "Image not found, or invalid image path given. "
+        + "Placeholder image used instead.";
     private final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     private PhotographUtil() {
-        this.PLACEHOLDER_IMAGE_STREAM = getResourceAsInputStream(PLACEHOLDER_IMAGE_PATH_STRING);
-        this.PLACEHOLDER_IMAGE = getImage(PLACEHOLDER_IMAGE_STREAM);
+        this.placeHolderImageStream = getResourceAsInputStream(PLACEHOLDER_IMAGE_PATH_STRING);
+        this.placeholderImage = getImage(placeHolderImageStream);
     }
 
     public static PhotographUtil imageUtil() {
@@ -61,8 +61,8 @@ public class PhotographUtil {
         try {
             return ImageIO.read(path.toFile());
         } catch (IOException e) {
-            logger.warning(MESSAGE_CONSTRAINTS);
-            return this.PLACEHOLDER_IMAGE;
+            logger.warning(messageConstraints);
+            return this.placeholderImage;
         }
     }
 
@@ -85,7 +85,7 @@ public class PhotographUtil {
             ImageIO.write(image, "png", baos);
         } catch (IOException e) {
             logger.warning("An error has occurred. Using placeholder image instead.");
-            return PLACEHOLDER_IMAGE_STREAM;
+            return placeHolderImageStream;
         }
         return new BufferedInputStream(new ByteArrayInputStream(baos.toByteArray()));
     }
@@ -101,7 +101,7 @@ public class PhotographUtil {
             return ImageIO.read(imageInputStream);
         } catch (IOException e) {
             logger.warning("An error has occurred. Using placeholder image instead.");
-            return PLACEHOLDER_IMAGE;
+            return placeholderImage;
         }
     }
 
@@ -116,7 +116,7 @@ public class PhotographUtil {
             return ImageIO.read(url);
         } catch (IOException e) {
             logger.warning("An error has occurred. Using placeholder image instead.");
-            return PLACEHOLDER_IMAGE;
+            return placeholderImage;
         }
     }
 
@@ -127,7 +127,7 @@ public class PhotographUtil {
      * Expensive O(n^2) operation; use sparingly.
      *
      * @return {@code true} if {@code i1}'s pixels are all equal to those of
-     *         {@code i2}'s.
+     * {@code i2}'s.
      */
     public boolean isSameImage(BufferedImage i1, BufferedImage i2) {
         if (i1.getWidth() != i2.getWidth() || i1.getHeight() != i2.getHeight()) {
@@ -146,7 +146,6 @@ public class PhotographUtil {
 
     /**
      * See {@link #isPlaceHolderImage(Path)}.
-     *
      */
     public static boolean isPlaceHolderImage(String... imageFilePathStrings) {
         return isPlaceHolderImage(FileUtil.relativePathFrom(imageFilePathStrings));
@@ -154,12 +153,13 @@ public class PhotographUtil {
 
     /**
      * Checks if {@link imageFilePath} refers to the placeholder image.
+     *
      * @param imageFilePath A {@link Path} where an image is stored.
      * @return {@code true} if {@link imageFilePath} resolves to the placeholder.
      */
     public static boolean isPlaceHolderImage(Path imageFilePath) {
         return imageFilePath.compareTo(PLACEHOLDER_IMAGE_PATH) == 0
-                || imageFilePath.compareTo(FileUtil.relativePathFrom("data", "images", "placeholder")) == 0;
+            || imageFilePath.compareTo(FileUtil.relativePathFrom("data", "images", "placeholder")) == 0;
     }
 
     /**

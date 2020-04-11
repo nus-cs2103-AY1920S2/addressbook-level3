@@ -20,8 +20,8 @@ import cookbuddy.model.recipe.Recipe;
 public class Photograph {
 
     public static final PhotographUtil IMAGE_UTIL = PhotographUtil.imageUtil();
-    public static final String MESSAGE_CONSTRAINTS = IMAGE_UTIL.MESSAGE_CONSTRAINTS;
-    public static final Photograph PLACEHOLDER_PHOTOGRAPH = new Photograph(IMAGE_UTIL.PLACEHOLDER_IMAGE);
+    public static final String MESSAGE_CONSTRAINTS = IMAGE_UTIL.messageConstraints;
+    public static final Photograph PLACEHOLDER_PHOTOGRAPH = new Photograph(IMAGE_UTIL.placeholderImage);
 
     private final BufferedImage photoData;
 
@@ -87,7 +87,7 @@ public class Photograph {
      *         as.
      */
     public Path getImageFileName(Recipe recipe) {
-        if (IMAGE_UTIL.isSameImage(this.photoData, IMAGE_UTIL.PLACEHOLDER_IMAGE)) {
+        if (IMAGE_UTIL.isSameImage(this.photoData, IMAGE_UTIL.placeholderImage)) {
             return FileUtil.relativePathFrom("placeholder");
         } else {
             return FileUtil.relativePathFrom(

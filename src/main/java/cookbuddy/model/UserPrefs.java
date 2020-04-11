@@ -16,7 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path dataFilePath = Paths.get("data" , "recipebook.json");
-    private Path recipeImagePath = PhotographUtil.imageUtil().DEFAULT_STORAGE_PATH;
+    private Path recipeImagePath = PhotographUtil.imageUtil().defaultStoragePath;
 
     /**
      * Creates a {@code UserPrefs} with default values.
