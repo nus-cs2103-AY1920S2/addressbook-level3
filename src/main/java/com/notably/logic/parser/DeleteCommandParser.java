@@ -22,10 +22,10 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
     private static final String ERROR_EMPTY_PATH = "An empty path is detected please enter a valid Path. "
             + "To see list of Command format, type: help";
     private static final String ERROR_NO_MATCH_PATH = "The path \"%s\" does not exist in the Storage";
+    private final Logger logger = LogsCenter.getLogger(DeleteCommandParser.class);
 
     private Model notablyModel;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public DeleteCommandParser(Model notablyModel, CorrectionEngine<AbsolutePath> pathCorrectionEngine) {
         this.notablyModel = notablyModel;

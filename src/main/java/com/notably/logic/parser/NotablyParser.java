@@ -34,9 +34,9 @@ public class NotablyParser {
     private static final boolean USE_PATH_FORWARD_MATCHING = false;
     private static final String ERROR_MESSAGE = "\"%s\" is an invalid command format. "
             + "To see the list of available commands, type: help";
+    private final Logger logger = LogsCenter.getLogger(NotablyParser.class);
 
     private Model notablyModel;
-    private final Logger logger = LogsCenter.getLogger(getClass());
     private final CorrectionEngine<String> commandCorrectionEngine;
     private final CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 

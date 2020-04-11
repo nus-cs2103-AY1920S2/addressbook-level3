@@ -23,10 +23,9 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
             + "Please provide a valid Path";
     private static final String ERROR_EMPTY_PATH = "Empty path detected. "
             + "Please provide a valid Path";
-
+    private static final Logger logger = LogsCenter.getLogger(OpenCommandParser.class);
     private Model notablyModel;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public OpenCommandParser(Model notablyModel, CorrectionEngine<AbsolutePath> pathCorrectionEngine) {
         this.notablyModel = notablyModel;
@@ -47,12 +46,13 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             title = args.trim();
-            if (title.isEmpty()) {
-                logger.warning("Empty path detected");
-                throw new ParseException(ERROR_EMPTY_PATH);
-            }
         } else {
             title = argMultimap.getValue(PREFIX_TITLE).get();
+        }
+
+        if (title.isEmpty()) {
+            logger.warning("Empty path detected");
+            throw new ParseException(ERROR_EMPTY_PATH);
         }
 
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());

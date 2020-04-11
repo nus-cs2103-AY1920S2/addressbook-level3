@@ -25,9 +25,9 @@ import com.notably.model.block.Title;
 public class NewCommandParser implements CommandParser<Command> {
     private static final String ERROR_PREFIX_MISSING = "The Prefix \"%s\" is missing. "
             + "To see list of Command format, type: help";
+    private final Logger logger = LogsCenter.getLogger(NewCommandParser.class);
 
     private Model notablyModel;
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public NewCommandParser(Model notablyModel) {
         this.notablyModel = notablyModel;
@@ -61,6 +61,7 @@ public class NewCommandParser implements CommandParser<Command> {
 
         List<Command> commands = new ArrayList<>();
         commands.add(new NewCommand(block));
+        logger.info(String.format("NewCommand for the block titled '%s' created", title));
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_JUMP)) {
             return commands;
