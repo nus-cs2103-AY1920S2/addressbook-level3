@@ -177,49 +177,173 @@ You can store all your food intake everyday and calculate useful information.
 '''
 [[mode]]
 ==== Dieting Mode `mode`
-You can use this command to switch the dieting mode, based on the following modes: +
+
+In this section, you will learn more about the `mode` command, <<howtousemodecommand, how to use it>>
+and the <<modeexpectedoutcome, expected outcome>> after using the
+`mode` command.
+
+*Summary of Mode Command:* +
+`mode` to switch the dieting mode, based on the following modes: +
 
 * Lose Weight (-l)
 * Gain Weight (-g)
 * Maintain (-m)
 
+[[howtousemodecommand]]
+*How to use the List Receipt Command:*
+
+Format: +
+`mode [-l] [-g] [-m]` +
+
+Valid Example: +
+`mode -l`
+
 [WARNING]
 You must only input one mode per mode command.
-[NOTE]
-The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
 
-Format: `mode -l/-g/-m` +
-Example: `mode -m`
+[[modeexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerModeCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+* The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
+====
+
+[TIP]
+====
+* Switch the mode to help yourself reach your diet targets better!
+====
 
 '''
+In this section, you will learn more about the `mode` command, <<howtousemodecommand, how to use it>>
+and the <<modeexpectedoutcome, expected outcome>> after using the
+`mode` command.
+
+*Summary of Mode Command:* +
+`mode` to switch the dieting mode, based on the following modes: +
+
+* Lose Weight (-l)
+* Gain Weight (-g)
+* Maintain (-m)
+
+[[howtousemodecommand]]
+*How to use the Mode Command:*
+
+Format: +
+`mode [-l] [-g] [-m]` +
+
+Valid Example: +
+`mode -l`
+
+[WARNING]
+You must only input one mode per mode command.
+
+[[modeexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerModeCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+* The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
+====
+
+[TIP]
+====
+* Switch your Dieting Mode to help yourself reach your diet targets better!
+* Check your currently chosen Dieting Mode with `metrics`.
+====
 
 [[height]]
 ==== Storing Height `height`
-You can use this command to save your Height to the Diet Tracker.
 
-Format: `height HEIGHT` +
-Example: `height 172`
+In this section, you will learn more about the `height` command, <<howtouseheightcommand, how to use it>>
+and the <<heightexpectedoutcome, expected outcome>> after using the
+`height` command.
+
+*Summary of Height Command:* +
+`height` You can use this command to save your Height to the Diet Tracker.
+
+[[howtouseheightcommand]]
+*How to use the Height Command:*
+
+Format: +
+`height HEIGHT` +
+
+Valid Example: +
+`height 170.2`
+
+[[heightexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerHeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
 
 [NOTE]
-Height in centimetres (cm). Decimal places are accepted. I.e. `height 172.305` is accepted.
+====
+* Height in centimetres (cm). Decimal places are accepted. I.e. `height 172.305` is accepted.
+====
+
+[TIP]
+====
+* Check your stored height with `metrics`.
+====
 
 '''
 [[weight]]
 ==== Storing Weight `weight`
-You can use this command to save your Weight to the Diet Tracker.
 
-Format: `weight WEIGHT` +
-Example: `weight 65.7`
+In this section, you will learn more about the `weight` command, <<howtouseweightcommand, how to use it>>
+and the <<weightexpectedoutcome, expected outcome>> after using the
+`weight` command.
+
+*Summary of Weight Command:* +
+`weight` You can use this command to save your Weight to the Diet Tracker.
+
+[[howtouseweightcommand]]
+*How to use the Weight Command:*
+
+Format: +
+`weight WEIGHT` +
+
+Valid Example: +
+`weight 65.7`
+
+[[weightexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
 
 [NOTE]
-Weight in kilograms (kg). Decimal places are accepted. I.e. `weight 65.77` is accepted.
+====
+* Weight in kilograms (kg). Decimal places are accepted. I.e. `weight 65.77` is accepted.
+====
+
+[TIP]
+====
+* Check your stored weight with `metrics`.
+====
 
 '''
 
 [[metrics]]
 ==== Showing your Metrics `metrics`
 
-You can print out your individual metrics (Height, Weight and Mode) to check them.
+In this section, you will learn more about the `metrics` command, <<howtousemetricscommand, how to use it>>
+and the <<metricsexpectedoutcome, expected outcome>> after using the
+`metrics` command.
+
+*Summary of Metrics Command:* +
+`metrics` You can print out your individual metrics (Height, Weight and Mode) to check them.
 
 It will display the following data: +
 
@@ -227,34 +351,50 @@ It will display the following data: +
 * Your weight
 * Your chosen Dieting Mode
 
-Format: `metrics`
+[[howtousemetricscommand]]
+*How to use the Metrics Command:*
 
-****
-*
-****
+Format: +
+`metrics` +
+
+Valid Example: +
+`metrics`
+
+[[metricsexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerMetricsCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+* Diet Tracker will prompt you if you did not have any previously stored Height, Weight.
+====
 
 [TIP]
-Use this to check whether you have previously stored a Height, a Weight, or have chosen your Dieting Mode already.
-[NOTE]
-Diet Tracker will prompt you if you did not have any previously stored Height, Weight.
-
-Examples:
-
-* `metrics` +
-Checks your individual health metrics based on what was previously stored.
+====
+* Use this to check whether you have previously stored a Height, a Weight, or have chosen your Dieting Mode already.
+====
 
 '''
 
 [[calculatebmi]]
 ==== Calculating Body Mass Index (BMI) `bmi`
 
-You can calculate your BMI either through an input Height and Weight or your previously stored Height and Weight. +
+In this section, you will learn more about the `bmi` command, <<howtousebmicommand, how to use it>>
+and the <<bmiexpectedoutcome, expected outcome>> after using the
+`bmi` command.
+
+*Summary of Bmi Command:* +
+`bmi` You can calculate your BMI either through an input Height and Weight or your previously stored Height and Weight. +
 
 It will display the following data: +
 
 * BMI value
 
-Format: `bmi [-h HEIGHT] [-w WEIGHT]`
+[[howtousebmicommand]]
+*How to use the Bmi Command:*
 
 ****
 * There are 3 ways to use `bmi`.
@@ -266,10 +406,10 @@ to do the calculation instead.
 * The third is to calculate bmi with an input height and weight.
 ****
 
-[TIP]
-If you are unsure whether you have already input your height and weight, you may `metrics` to check.
+Format: +
+`bmi [-h HEIGHT] [-w WEIGHT]` +
 
-Examples:
+Valid Examples:
 
 * `height 172` +
 `weight 65` +
@@ -283,53 +423,116 @@ BMI is calculated based off the stored height and input weight in this instance.
 * `bmi -h 172 -w 65.5` +
 Calculate BMI based on the input height and weight values.
 
+[[bmiexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerBmiCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional tips* +
+
+[TIP]
+====
+* If you are unsure whether you have already input your height and weight, you may `metrics` to check.
+====
+
 '''
 
 [[addfood]]
 ==== Adding food `add`
-You can use this command to add a food to the list.
 
-****
-* Adds food item with the given name, calories and tags.
-* Name and Calories are compulsory.
-* Tags are optional.
-****
+In this section, you will learn more about the `add` command, <<howtouseaddcommand, how to use it>>
+and the <<addexpectedoutcome, expected outcome>> after using the
+`add` command.
+
+*Summary of Add Command:* +
+`add` You can use this command to add a food to the list.
+
+[[howtouseaddcommand]]
+*How to use the Add Command:*
+
+Format: +
+`add -n NAME -c CALORIES [-t TAG]...` +
+
+Valid Example: +
+`add -n Fishball Noodles -c 383 -t favourite -t noodles`
+
+[[addexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerAddCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes* +
 
 [NOTE]
-Any food that you add will be added based on the time that you keyed in the food data. As of Diet Tracker's current functionalities, you cannot add in foods that you have consumed the day before while also setting that food to appear for the previous day's data.
-
-Format: `add -n NAME -c CALORIES [-t TAG]...` +
-Example: `add -n Fishball Noodles -c 383 -t favourite -t noodles`
+====
+* Name and Calories are compulsory.
+* Tags are optional.
+* Any food that you add will be added based on the time that you keyed in the food data. As of Diet Tracker's current functionalities, you cannot add in foods that you have consumed the day before while also setting that food to appear for the previous day's data.
+====
 
 '''
+
 [[listfooditem]]
 ==== Listing items `list`
-You can use this function to list out the different foods that you have consumed and their total calories.
+
+In this section, you will learn more about the `list` command, <<howtouselistcommand, how to use it>>
+and the <<listexpectedoutcome, expected outcome>> after using the
+`list` command.
+
+*Summary of List Command:* +
+`list` You can use this function to list out the different foods that you have consumed and their total calories.
 Different listing modes allow you to watch your overall diet during the period, and gives you a tip on your level of consumption based on your Dieting Mode.
 
 Displays different data based on the below flags:
 
-****
 * Food consumed for the day (NO FLAG)
 * All food ever consumed (-a)
 * Food consumed for the past number of days (-d)
 * All food with the given tag (-t)
-****
 
-NOTE: Default value of list is food consumed for the day.
 
-NOTE: For the `-d` tag, the amount of days specified must be a positive Integer value.
+[[howtouselistcommand]]
+*How to use the List Command:*
 
-Format: `list [-a] [-d NUMDAYS] [-t TAGNAME]` +
-Example: `list`, `list -a`, `list -d 3`, `list -t healthy` ,
+Format: +
+`list [-a] [-d NUMDAYS] [-t TAGNAME]` +
+
+Valid Examples: +
+`list` +
+`list -a` +
+`list -d 3` +
+`list -t healthy`
+
+[[listexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerListCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes* +
+
+[NOTE]
+====
+* Default value of list is food consumed for the day.
+* For the `-d` tag, the amount of days specified must be a positive Integer value.
+====
 
 '''
 
 [[deletefooditem]]
 ==== Deleting a Food Item `delete`
-You can delete a food item based on the previous list of Foods that you have listed. +
 
-Format: `delete INDEX`
+In this section, you will learn more about the `delete` command, <<howtousedeletecommand, how to use it>>
+and the <<deleteexpectedoutcome, expected outcome>> after using the
+`delete` command.
+
+*Summary of Delete Command:* +
+`delete` You can delete a food item based on the previous list of Foods that you have listed. +
+
+[[howtousedeletecommand]]
+*How to use the Delete Command:*
+
+Format: +
+`delete INDEX` +
 
 ****
 * Deletes the food item at the specified `INDEX`.
@@ -337,22 +540,45 @@ Format: `delete INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-[TIP]
-Use list to view your item indices before deletion.
-
-Example:
-
-* `list` +
+Valid Example: +
+`list` +
 `delete 2` +
-Deletes the 2nd row of food data from the past 7 days of food.
+Deletes the 2nd row of food data from today's list of food.
+
+[[deleteexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerDeleteCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+* Index has to be a valid index in the list of Foods. You can use `list` to check this out.
+====
+
+[TIP]
+====
+* Use list to view your item indices before deletion.
+====
 
 '''
 
 [[editfooditem]]
 ==== Editing a Food Item `edit`
-You can edit either the Food name, or the calories of the food at the specified index.  +
 
-Format: `edit -i INDEX [-n NAME] [-c CALORIES]`
+In this section, you will learn more about the `edit` command, <<howtouseeditcommand, how to use it>>
+and the <<editexpectedoutcome, expected outcome>> after using the
+`edit` command.
+
+*Summary of Edit Command:* +
+`edit` You can edit either the Food name, or the calories of the food at the specified index.  +
+
+[[howtouseeditcommand]]
+*How to use the Edit Command:*
+
+Format: +
+`edit -i INDEX [-n NAME] [-c CALORIES]` +
 
 ****
 * Edits the Food Item at the specified `INDEX`.
@@ -362,28 +588,49 @@ The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 ****
 
-[TIP]
-Index has to be a valid index in the list of Foods. You can use `list` to check this out.
-
-Example:
-
-* `edit -i 2 -n Chicken Rice -c 585` +
+Valid Example: +
+`edit -i 2 -n Chicken Rice -c 585` +
 Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
 
-'''
 
+[[editexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerEditCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes* +
+
+[NOTE]
+====
+* Index has to be a valid index in the list of Foods. You can use `list` to check this out.
+====
+
+'''
 
 [[diettrackerhelp]]
 ==== Displaying available commands for Diet Tracker `help`
 
-You can use the `help` command, if you are uncertain, to see the list of available commands for Diet Tracker.
+In this section, you will learn more about the `help` command, <<howtouseDThelpcommand, how to use it>>
+and the <<DThelpexpectedoutcome, expected outcome>> after using the
+`help` command.
 
-Format: `help`
+*Summary of Help Command:* +
+`metrics` You can use the `help` command, if you are uncertain, to see the list of available commands for Diet Tracker.
 
+[[howtouseDTHelpcommand]]
+*How to use the Help Command:*
 
-Examples:
+Format: +
+`help` +
 
-* `help`
+Valid Example: +
+`help`
+
+[[DThelpexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerHelpCommandSuccessPhoto.png[width="890", height="200"]
+
 
 
 
