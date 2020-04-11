@@ -1,6 +1,5 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.commons.util.DateUtil.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE;
 import static csdev.couponstash.commons.util.DateUtil.MESSAGE_START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static java.util.Objects.requireNonNull;
 

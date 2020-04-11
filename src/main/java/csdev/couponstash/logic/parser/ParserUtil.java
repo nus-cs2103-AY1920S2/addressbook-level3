@@ -3,7 +3,6 @@ package csdev.couponstash.logic.parser;
 import static csdev.couponstash.commons.util.DateUtil.MONTH_YEAR_VALIDATION_REGEX;
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
