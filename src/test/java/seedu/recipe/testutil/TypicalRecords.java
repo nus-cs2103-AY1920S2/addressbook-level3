@@ -40,11 +40,11 @@ public class TypicalRecords {
      * Returns an {@code RecordBook} with all the typical Records.
      */
     public static CookedRecordBook getTypicalRecordBook() {
-        CookedRecordBook ab = new CookedRecordBook();
+        CookedRecordBook rb = new CookedRecordBook();
         for (Record record : getTypicalRecords()) {
-            ab.addRecord(record);
+            rb.addRecord(record);
         }
-        return ab;
+        return rb;
     }
 
     public static List<Record> getTypicalRecords() {
