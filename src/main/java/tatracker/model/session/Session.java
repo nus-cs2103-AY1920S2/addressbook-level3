@@ -15,6 +15,11 @@ public class Session implements Comparable<Session> {
 
     public static final String CONSTRAINTS_RECURRING_WEEKS = "Recurring weeks must be an unsigned number";
 
+    // Default constructor has been removed to reduce the number of test cases.
+    public static final int DEFAULT_RECURRING_WEEKS = 0;
+    public static final SessionType DEFAULT_SESSION_TYPE = SessionType.OTHER;
+    public static final String DEFAULT_DESCRIPTION = "Default Session";
+
     /** For converting date times to strings. Example: "2020-03-03 14:00" */
     private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mma");
 
