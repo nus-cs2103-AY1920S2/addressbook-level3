@@ -27,7 +27,9 @@ import javafx.scene.paint.Color;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
+import nasa.model.activity.Name;
 import nasa.model.module.Module;
+import nasa.model.module.ModuleCode;
 
 /**
  * UI component to represent the calendar view.
@@ -205,23 +207,27 @@ public class CalendarView extends UiPart<Region> {
             ObservableList<Deadline> deadlineObservableList =
                 module.getFilteredDeadlineList();
             for (Deadline deadline : deadlineObservableList) {
+                Deadline deadlineCopy = (Deadline) deadline.deepCopy();
+                Name name = new Name(String.format("[%s] %s", module.getModuleCode().toString(),
+                    deadline.getName().toString()));
+                deadlineCopy.setName(name);
                 if (deadline.occurInMonth(currentMonth)) {
                     if (deadline.getDueDate().getDate().getYear() != currentYear) {
                         continue;
                     }
                     int activityDate = getDayOfMonth(deadline);
                     if (activityHashMap.containsKey(activityDate)) {
-                        activityHashMap.get(activityDate).add(deadline);
+                        activityHashMap.get(activityDate).add(deadlineCopy);
                     } else {
                         ArrayList<Activity> activities = new ArrayList<>();
-                        activities.add(deadline);
+                        activities.add(deadlineCopy);
                         activityHashMap.put(activityDate, activities);
                     }
                 }
             }
             ObservableList<Event> eventObservableList =
                 module.getFilteredEventList();
-            addEvents(eventObservableList, activityHashMap);
+            addEvents(eventObservableList, activityHashMap, module.getModuleCode());
         }
 
         // now we populate those grids that has activities
@@ -371,10 +377,15 @@ public class CalendarView extends UiPart<Region> {
      * @param events list of events to be added
      * @param activityHashMap underlying data structure to show activities on the calendar
      */
-    public void addEvents(ObservableList<Event> events, HashMap<Integer, ArrayList<Activity>> activityHashMap) {
+    public void addEvents(ObservableList<Event> events, HashMap<Integer, ArrayList<Activity>> activityHashMap,
+                          ModuleCode moduleCode) {
         for (Event event : events) {
             int startYear = event.getStartDate().getDate().getYear();
             int endYear = event.getEndDate().getDate().getYear();
+            Event eventCopy = (Event) event.deepCopy();
+            Name name = new Name(String.format("[%s] %s", moduleCode.toString(),
+                event.getName().toString()));
+            eventCopy.setName(name);
             if (startYear > currentYear
                 || endYear < currentYear) {
                 continue; // event not happening this year at all
@@ -383,10 +394,10 @@ public class CalendarView extends UiPart<Region> {
                 int startMonth = event.getStartDate().getDate().getMonthValue();
                 int endMonth = event.getEndDate().getDate().getMonthValue();
                 if (startYear == currentYear && endYear == currentYear) {
-                    addEventHelper(startMonth, endMonth, event, activityHashMap);
+                    addEventHelper(startMonth, endMonth, eventCopy, activityHashMap);
                 } else if (startYear < currentYear && currentYear < endYear) {
                     // any month will be filled with events
-                    populateMonthWithEvents(event, activityHashMap);
+                    populateMonthWithEvents(eventCopy, activityHashMap);
                 } else {
                     if (startYear == currentYear) {
                         endMonth = 12;
@@ -396,15 +407,15 @@ public class CalendarView extends UiPart<Region> {
                     if (startMonth > currentMonth || endMonth < currentMonth) {
                         continue;
                     } else if (startMonth < currentMonth && currentMonth < endMonth) {
-                        populateMonthWithEvents(event, activityHashMap);
+                        populateMonthWithEvents(eventCopy, activityHashMap);
                     } else if (startYear == currentYear && startMonth == currentMonth) {
-                        populateMonthFromStartToEnd(event, activityHashMap,
+                        populateMonthFromStartToEnd(eventCopy, activityHashMap,
                             event.getStartDate().getDate().getDayOfMonth(), getMaxDaysInMonth());
                     } else if (endYear == currentYear && endMonth == currentMonth) {
-                        populateMonthFromStartToEnd(event, activityHashMap,
+                        populateMonthFromStartToEnd(eventCopy, activityHashMap,
                             1, event.getEndDate().getDate().getDayOfMonth());
                     } else {
-                        populateMonthWithEvents(event, activityHashMap);
+                        populateMonthWithEvents(eventCopy, activityHashMap);
                     }
                 }
             }

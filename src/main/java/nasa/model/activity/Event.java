@@ -139,11 +139,15 @@ public class Event extends Activity {
 
     @Override
     public Activity deepCopy() {
-        Event event = new Event(getName(), getStartDate(), getEndDate());
-        event.setNote(getNote());
-        event.setDateCreated(getDateCreated());
-        event.setSchedule(getSchedule().getDeepCopy());
-        return event;
+        Name nameCopy = new Name(getName().toString());
+        Date startDateCopy = new Date(getStartDate().toString());
+        Date endDateCopy = new Date(getEndDate().toString());
+        Event eventCopy = new Event(nameCopy, startDateCopy, endDateCopy);
+        Note noteCopy = new Note(getNote().toString());
+        Date dateCreatedCopy = new Date(getDateCreated().toString());
+        eventCopy.setNote(noteCopy);
+        eventCopy.setDateCreated(dateCreatedCopy);
+        return eventCopy;
     }
 
     public boolean isOver() {

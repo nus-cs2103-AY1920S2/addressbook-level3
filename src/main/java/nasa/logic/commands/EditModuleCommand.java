@@ -78,11 +78,13 @@ public class EditModuleCommand extends Command {
 
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
 
-        if (moduleToEdit.equals(editedModule)) { // case when edit made is exactly the same as original
+        // case when edit made is exactly the same as original
+        if (moduleToEdit.equals(editedModule)) {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_NEW_EDIT);
         }
 
-        if (model.hasModule(editedModule.getModuleCode())) { // case when edited module exists already exist in model
+        // case when edited module exists in model, and module is not target {@code moduleCodeToEdit}
+        if (!moduleCodeToEdit.equals(editedModule.getModuleCode()) && model.hasModule(editedModule.getModuleCode())) {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 

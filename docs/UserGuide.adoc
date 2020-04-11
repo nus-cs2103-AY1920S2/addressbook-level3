@@ -132,22 +132,28 @@ Format: `list [m/MODULE_CODE....]`
 * If no module code is specified, all the module's activity-list will be shown
 * It is possible to add multiple module_codes and display all their relevant activity-lists.
 
+// tag::edit[]
 === Editing a module: `edit`
 
 Edits an existing module in the NASA application. +
-Format: `edit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]`
+Format: `edit m/MODULE_CODE [m/MODULE_CODE] [n/MODULE_NAME]`
 
 ****
 * Edits an existing module in the application.
-* First `m/` is taken as the module code of the existing module to be edited.
-* To edit module code, EXACTLY two `m/` tag must be entered.
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+* First `MODULE_CODE` is the module code of the target module to be edited. Second `MODULE_CODE` is the new module code to edit to.
 ****
 
 Examples:
-* `edit m/CS2030 m/CS2030S n/Programming Methodology for CS` +
+
+`edit m/CS2030 m/CS2030S n/Programming Methodology for CS` +
 Edits the CS2030 module to CS2030S along with its new module name.
+
+[NOTE]
+====
+* If module code is edited, the new module code CANNOT have the same module code as any non-target module that already exist in NASA.
+* To edit module code, EXACTLY TWO module codes must be entered.
+====
 
 === Editing a deadline : `edit-d`
 
@@ -155,9 +161,8 @@ Edits an existing deadline in the module's deadline list. +
 Format: `edit-d INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [d/DUE DATE] [p/PRIORITY] [n/NOTES]`
 
 ****
-* Edits the deadline at the specified `INDEX` in the specified `MODULE_CODE` deadline-list. The index refers to the index number shown in the module deadline-list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the deadline at the specified `INDEX` in the specified `MODULE_CODE` deadline-list. The index refers to the index number shown in the module's corresponding deadline-list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 ****
 
 Examples:
@@ -175,7 +180,6 @@ Format: `edit-e INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [sd/START DATE] [ed/END DA
 ****
 * Edits the event at the specified `INDEX` in the specified `MODULE_CODE` event-list. The index refers to the index number shown in the module event-list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 ****
 
 Examples:
@@ -184,6 +188,7 @@ Examples:
 Edits the 2nd event in CS2103T event-list end date to be `12-12-2020 23:59`.
 * `edit-e 3 m/CS2030 n/Practical exam sd/20-05-2020` +
 Edits the notes and start date of the 3rd event in CS2030 event-list to `Practical exam` and `20-05-2020 23:59` respectively.
+// end::edit[]
 
 === Locating modules by name: `find`
 
@@ -232,6 +237,7 @@ Examples:
 
 ** `mdelete m/CS2030` +
 Deletes the respective CS2030 module.
+// end::delete[]
 
 === Creating shortcuts: `shortcut` `[coming in v2.0]`
 Creates a shortcut for specified activity. +
@@ -319,6 +325,7 @@ Examples:
 
 image::calendar.png[width="300", align="middle"]
 
+// tag::sort[]
 === Sort deadlines `sort`
 Sorts all deadlines in their respective modules by a specified criteria. +
 Format: `sort SORT METHOD`
@@ -330,16 +337,19 @@ The list of sort methods is given below: +
 |Due date |`sort date` | Earliest to latest
 |Priority |`sort priority`| Highest (5) to lowest (1)
 |===
+// end::sort[]
 
 === Clearing all entries : `clear`
 
 Clears all entries from the NASA application (including module activity-lists created). +
 Format: `clear`
 
+// tag::export[]
 === Export NasaBook as QR code : `export`
 
 Exports all deadlines and events in NasaBook as a QR-code text, compatible with QR code enabled scanners and smartphones. +
 Format: `export`
+// end::export[]
 
 === Exiting the program : `exit`
 
@@ -357,30 +367,21 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-
+// tag::faq[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous NASA folder.
 
-*Q*: Since every dateline is different how automation helps to keep track of my new dateline? +
-*A*: The new dateline will be base on the interval when you first initialise the deadline activity. For example,
-date of creating an activity is on 16-03-2020 00:00 and due date is on 20-03-2020 00:00. If you set repeat for a week,
-the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
-
 *Q*: What is the purpose of an event? +
 *A*: An event can be CCAs, bookings, etc.
 
-
-=== Edit checklist item of activity
-To edit checklist item, add the new checklist item with `chadd` before deleting the old checklist item with `chdel`.
-=======
 *Q*: How do I populate NASA with an activity (ie. Deadline, Event, Lesson) that occur regularly (eg. weekly)? +
 *A*: Use the automate command (see section ‘Automation’)
 
-*Q*: What are the differences between Deadline, Event and Lesson? +
-*A*: All three activities are labels to describe the type of activity in a module. There are no functional differences between the 3 activities.
+*Q*: What are the differences between Deadline and Event? +
+*A*: Both are describe the type of activity in a module. They are displayed in different parts of the NASA UI (ie. Deadline and Event panel, respectively)
 
 *Q*: How many modules can I add into NASA? +
 *A*: NASA is optimised to display up to 10 modules at once - More than enough modules that a university student will typically take in a semester. Should you exceed 10 modules, please delete existing modules before adding new modules.
@@ -388,8 +389,14 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 *Q*: How many activities can I add into each module? +
 *A*: There is no limit, so add away!
 
+*Q*: Since every deadline is different how automation helps to keep track of my new deadline? +
+*A*: The new deadline will be base on the interval when you first initialise the deadline activity. For example,
+date of creating an activity is on 16-03-2020 00:00 and due date is on 20-03-2020 00:00. If you set repeat for a week,
+the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
+
 *Q*: There is an unreported bug. What should I do? +
 *A*: Please contact us here! We will respond as soon as possible.
+// end::faq[]
 
 == Command Summary
 =======
