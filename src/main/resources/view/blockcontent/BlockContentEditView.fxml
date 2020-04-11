@@ -21,13 +21,7 @@
             </stylesheets>
             <VBox alignment="CENTER" styleClass="block-edit-modal">
                 <children>
-                    <TextArea fx:id="blockTitleTextArea" editable="true" wrapText="true" prefHeight="20"
-                              VBox.vgrow="NEVER">
-                        <VBox.margin>
-                            <Insets right="5.0" left="5.0"/>
-                        </VBox.margin>
-                    </TextArea>
-                    <TextArea fx:id="blockBodyTextArea" editable="true" wrapText="true" VBox.vgrow="ALWAYS">
+                    <TextArea fx:id="blockContentTextArea" editable="true" wrapText="true" VBox.vgrow="ALWAYS">
                         <VBox.margin>
                             <Insets right="5.0" left="5.0"/>
                         </VBox.margin>

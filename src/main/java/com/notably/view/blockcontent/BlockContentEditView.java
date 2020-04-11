@@ -40,10 +40,7 @@ public class BlockContentEditView extends ViewPart<Stage> {
     private final Model model;
 
     @FXML
-    private TextArea blockTitleTextArea;
-
-    @FXML
-    private TextArea blockBodyTextArea;
+    private TextArea blockContentTextArea;
 
     public BlockContentEditView(Logic logic, Model model) {
         this(new Stage(), logic, model);
@@ -172,11 +169,9 @@ public class BlockContentEditView extends ViewPart<Stage> {
         AbsolutePath currentlyOpenPath = model.getCurrentlyOpenPath();
         BlockTreeItem currentlyOpenBlock = model.getBlockTree().get(currentlyOpenPath);
 
-        String markdownTitle = currentlyOpenBlock.getTitle().getText();
         String markdownBody = currentlyOpenBlock.getBody().getText();
 
-        blockTitleTextArea.setText(markdownTitle);
-        blockBodyTextArea.setText(markdownBody);
+        blockContentTextArea.setText(markdownBody);
     }
 
     /**
@@ -276,8 +271,7 @@ public class BlockContentEditView extends ViewPart<Stage> {
      */
     private void saveData() {
         try {
-            // Todo: logic.editCurrentblockTitle method should be called.
-            logic.editCurrentBlockBody(blockBodyTextArea.getText());
+            logic.editCurrentBlockBody(blockContentTextArea.getText());
             logger.info("Writing new Note's contents to file...");
         } catch (EditBlockBodyException e) {
             logger.warning("Unable to write new contents to file.");
