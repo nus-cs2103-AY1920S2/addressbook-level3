@@ -21,7 +21,6 @@ import fithelper.storage.JsonFitHelperStorage;
 import fithelper.storage.JsonUserPrefsStorage;
 import fithelper.storage.JsonUserProfileStorage;
 import fithelper.storage.JsonWeightRecordsStorage;
-import fithelper.storage.StorageManager;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -36,7 +35,6 @@ public class LogicManagerTest {
     public void setUp() {
         JsonFitHelperStorage fitHelperStorage =
                 new JsonFitHelperStorage(temporaryFolder.resolve("fitHelper.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonUserProfileStorage userProfileStorage =
                 new JsonUserProfileStorage(temporaryFolder.resolve("userProfile.json"));
         JsonWeightRecordsStorage weightRecordsStorage =
