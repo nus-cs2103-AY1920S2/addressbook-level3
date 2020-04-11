@@ -317,6 +317,8 @@ image::EditSequenceDiagram.png[]
 
 Eventually, we decided on alternative 1 due to the benefits of consistency. Additionally, by requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
 
+We also considered whether to allow users to edit the grade of a module that has yet to be taken. We eventually decided to allow that as many students may want to predict their CAP, which our CAP calculator will allow them to do.
+
 The following activity diagram shows how the `edit` command decides what to edit (profile, module details or deadline task):
 
 .Activity Diagram for an Edit Command input

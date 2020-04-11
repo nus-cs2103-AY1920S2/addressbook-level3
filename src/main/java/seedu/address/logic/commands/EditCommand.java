@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_ADD_FUTURE_GRADE_ERROR;
 import static seedu.address.commons.core.Messages.MESSAGE_DEADLINE_DOES_NOT_EXIST;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_MODULE_DATA;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
@@ -146,9 +145,6 @@ public class EditCommand extends Command {
 
             if (grade != null) {
                 int currentUserSemester = profileToEdit.getOverallSemester();
-                if (oldSemester > currentUserSemester) {
-                    throw new CommandException(MESSAGE_ADD_FUTURE_GRADE_ERROR);
-                }
                 existingModule.getPersonal().setGrade(grade);
                 profileManager.setDisplayedView(profileToEdit);
                 profileToEdit.updateCap();

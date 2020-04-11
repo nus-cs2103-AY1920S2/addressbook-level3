@@ -203,7 +203,8 @@ Edits your profile name to "Brad", your course to "Computer Science", and your f
 Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
 
 ****
-* Fields in brackets [] are optional, but at least one of these fields should be present to be edited
+* Fields in brackets [] are optional, but at least one of these fields should be present to be edited.
+* You are allowed to add a grade to a module you are planning to take in future, if you wish to predict your CAP. You can delete grades anytime using the `delete` command.
 ****
 
 .Module detail of CS2103 edited
