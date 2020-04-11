@@ -20,9 +20,6 @@ import tatracker.ui.UiPart;
  */
 public class GroupListPanel extends UiPart<Region> implements Focusable {
     private static final String FXML = "GroupListPanel.fxml";
-    private static final String BACKGROUND_COLOUR = "#5f4d42";
-    private static final String BORDER_COLOUR = "#917b3e";
-    private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(GroupListPanel.class);
 
@@ -33,6 +30,13 @@ public class GroupListPanel extends UiPart<Region> implements Focusable {
         super(FXML);
         groupListView.setItems(groupList);
         groupListView.setCellFactory(listView -> new GroupListViewCell());
+        groupListView.focusedProperty().addListener((arg, oldVal, focused) -> {
+            if (focused) {
+                groupListView.setStyle("-fx-border-color: #264780; -fx-border-width: 1;");
+            } else {
+                groupListView.setStyle("");
+            }
+        });
     }
 
     @Override
@@ -62,18 +66,19 @@ public class GroupListPanel extends UiPart<Region> implements Focusable {
         @Override
         protected void updateItem(Group group, boolean empty) {
             super.updateItem(group, empty);
+            getStyleClass().removeAll("filtered", "list-cell");
 
             if (empty || group == null) {
                 setGraphic(null);
                 setText(null);
+                getStyleClass().add("list-cell");
                 setStyle("");
             } else {
                 setGraphic(new GroupCard(group, getIndex() + 1).getRoot());
                 if (group.equals(getCurrentlyShownGroup())) {
-                    setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
-                            + "-fx-border-color: " + BORDER_COLOUR + "; "
-                            + "-fx-border-width: " + BORDER_WIDTH + ";");
+                    getStyleClass().add("filtered");
                 } else {
+                    getStyleClass().add("list-cell");
                     setStyle("");
                 }
             }

@@ -90,3 +90,31 @@
 .chart-pie-label { /*this is what you need for labels*/
     -fx-fill: #aaa;
 }
+
+.filtered {
+    -fx-background-color: #5f4d42;
+    -fx-border-color: #917b3e transparent #917b3e transparent;
+    -fx-border-width: 1;
+}
+
+.filtered {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+}
+
+.filtered:filled:even {
+    -fx-background-color: #503f35;
+}
+
+.filtered:filled:odd {
+    -fx-background-color: #5f4d42;
+}
+
+.filtered:filled:selected {
+    -fx-background-color: #424d5f;
+}
+
+.filtered .label {
+    -fx-text-fill: white;
+}
