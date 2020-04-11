@@ -5,7 +5,7 @@ import java.util.Optional;
 /**
  * Represents the instance of the suggested item.
  */
-public interface SuggestionItem {
+public interface SuggestionItem extends Comparable<SuggestionItem> {
     /**
      * Gets the property value of the SuggestionItem based on the key.
      * @param key The key to a key-value mapping.

@@ -42,4 +42,20 @@ public class SuggestionItemImpl implements SuggestionItem {
     public Runnable getAction() {
         return action;
     }
+
+    @Override
+    public int compareTo(SuggestionItem item) {
+        Objects.requireNonNull(item);
+
+        if (getProperty("frequency").isPresent() && item.getProperty("frequency").isPresent()) {
+            int thisFrequency = Integer.parseInt(getProperty("frequency").get());
+            int otherFrequency = Integer.parseInt(item.getProperty("frequency").get());
+            if (thisFrequency != otherFrequency) {
+                return thisFrequency - otherFrequency;
+            }
+        }
+
+        return 0;
+    }
+
 }
