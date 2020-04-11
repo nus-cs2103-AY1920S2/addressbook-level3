@@ -39,7 +39,7 @@ Responsibilities: Testing
 
 === FATIN NABILAH BTE SUHAIMI
 image::fatin99.png[width="150", align="left]
-{empty}[https://github.com/fatin99[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/fatin99[github]] [<<fatin99#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation and Code Quality
