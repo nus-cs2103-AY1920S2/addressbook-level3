@@ -13,6 +13,7 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.schedule.DateTime;
 import seedu.zerotoone.model.schedule.OneTimeSchedule;
 import seedu.zerotoone.model.workout.Workout;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  * STEPH_TODO_JAVADOC
@@ -55,7 +56,8 @@ public class CreateCommand extends ScheduleCommand {
         }
 
         Workout workoutToSchedule = lastShownList.get(workoutId.getZeroBased());
-        OneTimeSchedule schedule = new OneTimeSchedule(workoutToSchedule, dateTime);
+        WorkoutName workoutName = workoutToSchedule.getWorkoutName();
+        OneTimeSchedule schedule = new OneTimeSchedule(workoutName, dateTime);
         if (model.hasSchedule(schedule)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         }

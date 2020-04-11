@@ -20,11 +20,11 @@ import seedu.zerotoone.model.schedule.ScheduleList;
 public class TypicalSchedules {
 
     public static final OneTimeSchedule SCHEDULE_AT_FIRST_JUNE = new OneTimeScheduleBuilder()
-            .withWorkout(ARMS_WORKOUT)
+            .withWorkoutName(ARMS_WORKOUT.getWorkoutName())
             .withDateTime(new DateTime(VALID_DATETIME_JUNE))
             .build();
     public static final OneTimeSchedule SCHEDULE_AT_FIRST_JULY = new OneTimeScheduleBuilder()
-            .withWorkout(LEGS_WORKOUT)
+            .withWorkoutName(LEGS_WORKOUT.getWorkoutName())
             .withDateTime(new DateTime(VALID_DATETIME_JULY))
             .build();
 
