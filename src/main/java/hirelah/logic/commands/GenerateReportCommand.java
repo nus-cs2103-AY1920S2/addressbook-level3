@@ -82,18 +82,6 @@ public class GenerateReportCommand extends Command {
 
 
             PDDocument document = new PDDocument();
-            /*PDFPage currentPage = newPage(document);
-
-            for (Remark currentRemark:remarks) {
-                currentPage.getPageContentStream().beginText();
-                printTime(currentRemark.getTimeString(), currentPage);
-                printRemark(currentRemark.getMessage(), currentPage);
-                if (currentPage.isEndOfPage(20)) {
-                    currentPage.getPageContentStream().endText();
-                    currentPage.getPageContentStream().close();
-                    currentPage = newPage(document);
-                }
-            }*/
             ArrayList<Remark> remarkList = new ArrayList<>();
             remarkList.addAll(remarks);
             while (remarkList.size() > 0) {
@@ -121,51 +109,35 @@ public class GenerateReportCommand extends Command {
         int currentYOffset = 0;
         while (!remarkList.isEmpty()) {
             Remark currentRemark = remarkList.get(0);
-            printTime(currentRemark.getTimeString(), pageContentStream);
             ArrayList<String> splitRemark = splitRemark(currentRemark.getMessage());
-            while (currentYOffset + (splitRemark.size() *10) < 780 && !remarkList.isEmpty()) {
+            if ((currentYOffset + (splitRemark.size() * 10) < 780)) {
+                System.out.println("UNTIL WHEN");
+                printTime(currentRemark.getTimeString(), pageContentStream);
                 printRemark(splitRemark, splitRemark.size(), pageContentStream);
                 remarkList.remove(0);
-                currentYOffset += (20 + splitRemark.size() *10);
-                continue;
+                currentYOffset += (20 + splitRemark.size() * 10);
             }
-            int numberOfLinesLeft = (780 - currentYOffset)/10;
-            printRemark(splitRemark, numberOfLinesLeft, pageContentStream);
-            remarkList.remove(0);
-            List<String> remainingRemarkList = splitRemark.subList(numberOfLinesLeft, splitRemark.size());
-            ArrayList<String> remainingRemarkArrayList = new ArrayList<>();
-            remainingRemarkArrayList.addAll(remainingRemarkList);
-            currentYOffset = 0;
-            PDPage currentAdditionalPage = new PDPage();
-            int remainingLines = 0;
-            while (remainingRemarkArrayList.size() > 0) {
-                remainingLines = remainingRemarkArrayList.size();
-                currentAdditionalPage = clearCurrentRemainingRemark(document, remainingRemarkArrayList);
-            }
-            pageContentStream = new PDPageContentStream(document, currentAdditionalPage);
-            currentYOffset += (10*remainingLines);
-            pageContentStream.newLineAtOffset(100, (800 - currentYOffset));
-            /*int numberOfLinesLeft = (780 - currentYOffset)/10;
-            if (numberOfLinesLeft > splitRemark.size()) {
-                System.out.println("if");
-                printRemark(splitRemark, splitRemark.size(), pageContentStream);
-                remarkList.remove(0);
-                currentYOffset += (20 + splitRemark.size() *10);
-                System.out.println(currentYOffset);
-            } else {
-                System.out.println("else");
+            else {
+                int numberOfLinesLeft = (780 - currentYOffset) / 10;
+
                 printRemark(splitRemark, numberOfLinesLeft, pageContentStream);
-                currentYOffset = 0;
                 remarkList.remove(0);
                 List<String> remainingRemarkList = splitRemark.subList(numberOfLinesLeft, splitRemark.size());
                 ArrayList<String> remainingRemarkArrayList = new ArrayList<>();
                 remainingRemarkArrayList.addAll(remainingRemarkList);
+                currentYOffset = 0;
+                PDPage currentAdditionalPage = new PDPage();
+                int remainingLines = 0;
                 while (remainingRemarkArrayList.size() > 0) {
-                    System.out.println(remainingRemarkArrayList.size());
-                    System.out.println("IM HERE");
-                    clearCurrentRemainingRemark(document, remainingRemarkArrayList);
+                    remainingLines = remainingRemarkArrayList.size();
+                    currentAdditionalPage = clearCurrentRemainingRemark(document, remainingRemarkArrayList);
                 }
-            }*/
+                pageContentStream = new PDPageContentStream(document, currentAdditionalPage);
+                currentYOffset += (10 * remainingLines);
+                pageContentStream.beginText();
+                pageContentStream.setFont(PDType1Font.HELVETICA, 12);
+                pageContentStream.newLineAtOffset(100, (800 - currentYOffset));
+            }
         }
         pageContentStream.endText();
         pageContentStream.close();
@@ -216,8 +188,17 @@ public class GenerateReportCommand extends Command {
     private static void printRemark(ArrayList<String> remarks, int size, PDPageContentStream pageContentStream) throws IOException {
         pageContentStream.newLineAtOffset(50, 0);
         for (int i = 0; i < size; i++) {
-            pageContentStream.showText(remarks.get(i));
-            pageContentStream.newLineAtOffset(0, -10);
+            try {
+                pageContentStream.showText(remarks.get(i));
+                pageContentStream.newLineAtOffset(0, -10);
+
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("THIS IS SUPER BEIR");
+                System.out.println(size);
+                for (String s : remarks) {
+                    System.out.println(s);
+                }
+            }
         }
     }
 
