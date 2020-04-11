@@ -38,7 +38,8 @@
 
             <StackPane VBox.vgrow="ALWAYS" styleClass="note-block-pane">
               <VBox fx:id="blockContentPlaceholder" VBox.vgrow="ALWAYS" />
-              <VBox fx:id="suggestionsWindow" StackPane.alignment="TOP_CENTER" VBox.vgrow="NEVER" />
+              <VBox fx:id="suggestionsWindow" StackPane.alignment="TOP_CENTER" VBox.vgrow="NEVER"
+                    mouseTransparent="true" />
               <padding>
                 <Insets top="1" right="20" bottom="5" left="20" />
               </padding>
