@@ -5,11 +5,12 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static fithelper.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static fithelper.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Test;
+
 import fithelper.logic.commands.FindCommand;
 import fithelper.model.entry.NameContainsKeywordsPredicate;
 import fithelper.model.entry.Type;

@@ -34,7 +34,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndexOutOfRangeInputThrowsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTIMENullThrowsNullPointerException() {
+    public void parseTimeNullThrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseTime((String) null));
     }
 

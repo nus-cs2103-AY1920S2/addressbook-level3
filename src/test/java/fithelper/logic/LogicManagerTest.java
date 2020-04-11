@@ -37,9 +37,12 @@ public class LogicManagerTest {
         JsonFitHelperStorage fitHelperStorage =
                 new JsonFitHelperStorage(temporaryFolder.resolve("fitHelper.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        JsonUserProfileStorage userProfileStorage = new JsonUserProfileStorage(temporaryFolder.resolve("userProfile.json"));
-        JsonWeightRecordsStorage weightRecordsStorage = new JsonWeightRecordsStorage(temporaryFolder.resolve("weightRecords.json"));
-        StorageManager storage = new StorageManager(fitHelperStorage, userPrefsStorage, userProfileStorage, weightRecordsStorage);
+        JsonUserProfileStorage userProfileStorage =
+                new JsonUserProfileStorage(temporaryFolder.resolve("userProfile.json"));
+        JsonWeightRecordsStorage weightRecordsStorage =
+                new JsonWeightRecordsStorage(temporaryFolder.resolve("weightRecords.json"));
+        StorageManager storage =
+                new StorageManager(fitHelperStorage, userPrefsStorage, userProfileStorage, weightRecordsStorage);
         logic = new LogicManager(model, fitHelperStorage, userProfileStorage, weightRecordsStorage);
     }
 
