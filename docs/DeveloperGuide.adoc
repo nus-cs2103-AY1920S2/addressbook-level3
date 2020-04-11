@@ -283,22 +283,22 @@ Lastly, the edit deadline feature is a complementary feature to the add deadline
 ==== Current Implementations
 `EditCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `EditCommannd` is parsed using `EditCommandParser` to split the user input into relevant fields.
 
-To edit `profile`, the command `edit` should be appended with one or more of the tags:
+To edit the profile, the command `edit` should be appended with one or more of the tags:
 
 * `n/NAME` : New name
 * `c/COURSE` : New course
 * `y/CURRENT_SEMESTER` : New current semester
 * `f/FOCUS_AREA` : New focus area
 
-To edit `module`, the command `edit` should be appended with `m/MODULE`, followed by one or more of the tags:
+To edit a module, the command `edit` should be appended with `m/moduleCode`, followed by one or more of the tags:
 
-* `s/SEMESTER` : New semester where module is taken
+* `y/SEMESTER` : New semester where module is taken
 * `g/GRADE` : New grade for the module
 * `t/TASK` : Old task description
-** `nt/NEW_TASK` : New task description
+** `nt/newTask` : New task description
 ** `d/DEADLINE` : New date and time
 
-To edit a deadline, append `edit m/MODULE` with `t/TASK` that already exists and is to be edited, followed by either `nt/NEW_TASK` and/or `d/DEADLINE` which contain the new task or deadline that will replace the existing one.
+To edit a deadline, append `edit m/moduleCode` with `t/TASK` that already exists and is to be edited, followed by either `nt/NEW_TASK` and/or `d/DEADLINE` which contain the new task or deadline that will replace the existing one.
 
 The following sequence diagram shows how the `edit` command works: `edit n/John`:
 
@@ -307,11 +307,11 @@ image::EditSequenceDiagram.png[]
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice):* Edit `Profile`, `Module` or `Deadline` object with one delete command.
+* *Alternative 1 (current choice):* Edit `Profile`, `Module` or `Deadline`  with one `EditCommand`.
 ** Pros: Easier for the user as they will not have to remember different edit commands for different purposes.
 ** Cons: More considerations to differentiate the intent of the user and there is more room for error.
 
-* *Alternative 2:* Have separate command to edit `Profile`, `Module` and `Deadline`.
+* *Alternative 2:* Have separate commands to edit `Profile`, `Module` and `Deadline`.
 ** Pros: Makes it clearer what the user intent is and is easier to parse.
 ** Cons: Harder for the user to remember the commands and the user will not be allowed to edit both module details and deadline tasks within the module at the same time.
 
