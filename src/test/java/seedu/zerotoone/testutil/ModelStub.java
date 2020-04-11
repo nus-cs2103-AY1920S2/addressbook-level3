@@ -110,7 +110,7 @@ public class ModelStub implements Model {
     public void setWorkoutList(ReadOnlyWorkoutList newData) {
         throw new AssertionError("This method should not be called.");
     }
-    
+
     @Override
     public void setExerciseInWorkouts(Exercise target, Exercise editedExercise) {
         throw new AssertionError("This method should not be called.");
