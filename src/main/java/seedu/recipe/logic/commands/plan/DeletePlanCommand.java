@@ -14,6 +14,8 @@ import seedu.recipe.logic.commands.Command;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.logic.commands.exceptions.CommandException;
+import seedu.recipe.logic.commands.recipe.DeleteCommand;
+import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.recipe.Recipe;
@@ -63,7 +65,7 @@ public class DeletePlanCommand extends Command {
             Plan plan = plansToDelete.get(i);
             Recipe recipe = plan.getRecipe();
             model.deletePlan(recipe, plan);
-            deletedPlansMessage.add(formatIndexToString(indexes[i], recipe));
+            deletedPlansMessage.add(formatIndexToString(indexes[i], recipe, plan.getDate()));
         }
 
         model.commitBook(commandType);
@@ -92,10 +94,10 @@ public class DeletePlanCommand extends Command {
     }
 
     /**
-     * Formats the {@code index} and {@code recipe} into the format [Index (Recipe Name)] for printing.
+     * Formats the {@code index} and {@code recipe} into the format [index (recipe name on date)] for printing.
      */
-    private static String formatIndexToString(Index index, Recipe recipe) {
-        return index.getOneBased() + " (" + recipe.getName() + ")";
+    private static String formatIndexToString(Index index, Recipe recipe, Date date) {
+        return index.getOneBased() + " (" + recipe.getName() + " on " + date + ")";
     }
 
     /**
@@ -104,6 +106,13 @@ public class DeletePlanCommand extends Command {
     private static String formatSuccessMessage(List<String> deletedPlans) {
         String formattedRecipes = deletedPlans.stream().collect(Collectors.joining(", "));
         return String.format(MESSAGE_SUCCESS, formattedRecipes);
+    }
+
+    @Override
+    public boolean equals(Object other) { // todo do we need a new method
+        return other == this // short circuit if same object
+                || (other instanceof DeletePlanCommand // instanceof handles nulls
+                && Arrays.equals(indexes, ((DeletePlanCommand) other).indexes)); // state check
     }
 
 }

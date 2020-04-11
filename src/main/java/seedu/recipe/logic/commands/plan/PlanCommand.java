@@ -101,7 +101,7 @@ public class PlanCommand extends Command {
     }
 
     /**
-     * Formats the {@code index} and {@code recipe} into the format [Index (Recipe Name)] for printing.
+     * Formats the {@code index} and {@code recipe} into the format [index (recipe name, date)] for printing.
      */
     private static String formatIndexToString(Index index, Recipe recipe) {
         return index.getOneBased() + " (" + recipe.getName() + ")";
