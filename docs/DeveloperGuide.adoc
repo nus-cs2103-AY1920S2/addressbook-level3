@@ -617,6 +617,7 @@ The above class diagram shows the structure of the *DeliveredCommand* and
 its associated classes and interfaces. Some methods and fields are not included because they are
 not extensively utilised in *DeliveredCommand*; such as public static fields and getter/setter methods.
 
+[[sequence-delivered]]
 ==== Sequence Diagram for delivering an order
 The sequence diagrams for the `delivered` command are shown below.
 
