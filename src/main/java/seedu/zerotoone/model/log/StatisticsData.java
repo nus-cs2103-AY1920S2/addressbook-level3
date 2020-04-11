@@ -3,6 +3,7 @@ package seedu.zerotoone.model.log;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import seedu.zerotoone.model.session.CompletedWorkout;
 
@@ -108,5 +109,24 @@ public class StatisticsData {
      */
     public Duration getAverageTimePerDay() {
         return averageTimePerDay;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        StatisticsData that = (StatisticsData) o;
+        return Objects.equals(totalWorkoutCount, that.totalWorkoutCount)
+            && Objects.equals(totalTime, that.totalTime)
+            && Objects.equals(averageTimePerDay, that.averageTimePerDay)
+            && Objects.equals(startRange, that.startRange)
+            && Objects.equals(endRange, that.endRange)
+            && Objects.equals(workouts, that.workouts);
     }
 }

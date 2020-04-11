@@ -43,5 +43,4 @@ public class JacksonWorkoutListTest {
         assertThrows(IllegalValueException.class, JacksonWorkoutList.MESSAGE_DUPLICATE_WORKOUT,
                 dataFromFile::toModelType);
     }
-
 }
