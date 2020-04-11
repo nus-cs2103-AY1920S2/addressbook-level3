@@ -48,6 +48,18 @@ public class Calories {
         return new Calories(this.getValue() + other.getValue());
     }
 
+    public Calories difference(Calories other) {
+        return new Calories(Math.abs(this.getValue() - other.getValue()));
+    }
+
+    public boolean greaterThan(Calories other) {
+        return this.value > other.getValue();
+    }
+
+    public boolean lessThan(Calories other) {
+        return this.value < other.getValue();
+    }
+
     @Override
     public String toString() {
         return String.valueOf(value);
