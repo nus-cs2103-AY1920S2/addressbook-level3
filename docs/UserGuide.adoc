@@ -175,6 +175,7 @@ Red: 0 - 5 days +
 Orange: 6 - 10 days +
 Green: ≥ 11 days
 
+// tag::edit[]
 
 [[Edit]]
 === Editing: `edit`
@@ -226,6 +227,7 @@ image::EditDeadline.png[width="790"]
 TIP: `edit m/CS2105 t/Assignment nt/Project` +
 Edits "Assignment" under CS2105 to "Project"
 
+// end::edit[]
 // tag::show[]
 
 [[Show]]

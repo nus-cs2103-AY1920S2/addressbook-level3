@@ -88,6 +88,7 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -98,18 +99,19 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ModdyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a profile).
+.  The command execution can affect the `Model` (e.g. adding a module).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete m/CS2101 t/work")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteDeadlineSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `delete m/CS2101 t/work` Command
+image::DeleteDeadlineLogicDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+// end::logic[]
 
 [[Design-Model]]
 === Model component
@@ -163,9 +165,11 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+// tag::dependency[]
 === Dependency between Personals and Modules
 (Insert class diagrams showing dependencies)
+
+// end::dependency[]
 
 === New Profile Feature
 The `new` feature allows the user to create a profile with the command `new`, appended with the tags.
@@ -261,6 +265,7 @@ NOTE: If more than accepted tag is given, such as `show c/Computer Science m/CS1
 Eventually, we decided on alternative 1 due to the benefits of avoiding repeated code. To tackle the cons from this, we implemented methods to gracefully reject other Objects that unintendedly called this method.
 
 // end::show[]
+// tag::edit[]
 
 === Edit Profile / Module Feature
 
@@ -301,7 +306,9 @@ image::EditSequenceDiagram.png[]
 
 - By requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
 
+// end::edit[]
 // tag::delete[]
+
 === Delete Profile / Module / Deadline / Grade Feature
 
 The delete profile feature is a complementary feature to the new profile feature. It enables the removal of a profile from a `ProfileList`. This also deletes all modules and their deadlines under the `Profile`. This `delete` feature can be used by appending the command with the tag `n/name`
