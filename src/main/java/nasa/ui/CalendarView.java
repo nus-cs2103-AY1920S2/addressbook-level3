@@ -240,7 +240,7 @@ public class CalendarView extends UiPart<Region> {
                 VBox dateContent = (VBox) node;
                 int counter = 1;
                 for (Activity activity : dateActivities) {
-                    if (counter <= 3) {
+                    if (counter <= 2) {
                         Label activityLabel = getActivityLabel(activity);
                         activityLabel.setMaxWidth(Double.MAX_VALUE);
                         dateContent.getChildren().add(activityLabel);
@@ -250,13 +250,14 @@ public class CalendarView extends UiPart<Region> {
                     }
                 }
                 // add the others... label
-                if (size > 3) {
-                    int left = size - 3;
+                if (size > 2) {
+                    int left = size - 2;
                     Label leftActivities = new Label();
                     leftActivities.setText(String.format("%d other activities", left));
                     leftActivities.setPadding(new Insets(0, 5, 0, 5));
                     leftActivities.setStyle("-fx-background-color:#f4c2c2; -fx-background-radius: 5 5 5 5");
                     leftActivities.setMaxWidth(Double.MAX_VALUE);
+                    leftActivities.setAlignment(Pos.CENTER);
                     dateContent.getChildren().add(leftActivities);
                 }
             }
