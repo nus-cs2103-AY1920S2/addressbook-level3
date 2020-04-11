@@ -26,7 +26,7 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates a generic AddressBook using the objects in the {@code toBeCopied}
      */
     public AddressBookGeneric(ReadOnlyAddressBookGeneric<K> toBeCopied) {
         this();
@@ -36,8 +36,8 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the course list with {@code courses}. {@code courses} must not contain
-     * duplicate courses.
+     * Replaces the contents of the object list with {@code objects}. {@code objects} must not contain
+     * duplicate objects.
      */
     public void set(List<K> objects) {
         this.objects.set(objects);
@@ -52,19 +52,13 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
         set(newData.getList());
     }
 
-    //// course-level operations
-
     /**
-     * Returns true if a course with the same identity as {@code course} exists in the address book.
+     * Returns true if an object with the same identity as {@code object} exists in the address book.
      */
     public boolean has(K object) {
         requireNonNull(object);
         return objects.contains(object);
     }
-
-    /**
-     * Returns true if a course with the same identity as {@code course} exists in the address book.
-     */
 
     /**
      * Returns the index of the first occurrence of the specified element in this list.
@@ -77,20 +71,23 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
 
 
     /**
-     * Adds a course to the address book. The course must not already exist in the address book.
+     * Adds an object to the address book. The object must not already exist in the address book.
      */
     public void add(K object) {
         objects.add(object);
     }
 
+    /**
+     * Adds an object to the address book at exact position index.
+     */
     public void addAtIndex(K object, Integer idx) {
         objects.addAtIndex(object, idx);
     }
 
     /**
-     * Replaces the given course {@code target} in the list with {@code editedCourse}. {@code target}
-     * must exist in the address book. The course identity of {@code editedCourse} must not be the
-     * same as another existing course in the address book.
+     * Replaces the given object {@code target} in the list with {@code edited}. {@code target}
+     * must exist in the address book. The course identity of {@code edited} must not be the
+     * same as another existing object in the address book.
      */
     public void set(K target, K edited) {
         requireNonNull(edited);
@@ -106,16 +103,26 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
     }
 
     //  ============== ID Operations ===========
+
+    /**
+     * Indicate if the address book has this objectID.
+     */
     public boolean has(ID objID) {
         requireNonNull(objID);
         return objects.contains(objID);
     }
 
+    /**
+     * Gets an object to the address book by IDs.
+     */
     public K get(ID objID) {
         requireNonNull(objID);
         return objects.get(objID);
     }
 
+    /**
+     * Removes an object from the address book by IDs.
+     */
     public void remove(ID id) {
         objects.remove(id);
     }

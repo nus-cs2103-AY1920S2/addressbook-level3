@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import java.nio.file.Path;
-import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
@@ -13,12 +11,15 @@ import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Person;
 import seedu.address.ui.MainWindow;
+
+import java.nio.file.Path;
+import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -448,27 +449,27 @@ public interface Model {
 
     // ========================== Getters for Predicates =========================
 
-    public Predicate<Student> getDataStudentPredicate();
+    Predicate<Student> getDataStudentPredicate();
 
-    public Predicate<Staff> getDataStaffPredicate();
+    Predicate<Staff> getDataStaffPredicate();
 
-    public Predicate<Finance> getDataFinancePredicate();
+    Predicate<Finance> getDataFinancePredicate();
 
-    public Predicate<Course> getDataCoursePredicate();
+    Predicate<Course> getDataCoursePredicate();
 
-    public Predicate<Assignment> getDataAssignmentPredicate();
+    Predicate<Assignment> getDataAssignmentPredicate();
 
-    public Predicate<Student> getExtraStudentPredicate();
+    Predicate<Student> getExtraStudentPredicate();
 
-    public Predicate<Staff> getExtraStaffPredicate();
+    Predicate<Staff> getExtraStaffPredicate();
 
-    public Predicate<Finance> getExtraFinancePredicate();
+    Predicate<Finance> getExtraFinancePredicate();
 
-    public Predicate<Course> getExtraStudentCoursePredicate();
+    Predicate<Course> getExtraStudentCoursePredicate();
 
-    public Predicate<Course> getExtraStaffCoursePredicate();
+    Predicate<Course> getExtraStaffCoursePredicate();
 
-    public Predicate<Assignment> getExtraAssignmentPredicate();
+    Predicate<Assignment> getExtraAssignmentPredicate();
 
     Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException;
 

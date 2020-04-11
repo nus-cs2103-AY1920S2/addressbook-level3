@@ -1,10 +1,5 @@
 package seedu.address.model.modelFinance;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-import javafx.collections.ObservableList;
-import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 
@@ -14,10 +9,16 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
  */
 public class FinanceAddressBook extends AddressBookGeneric<Finance> {
 
+  /**
+   * Creates a Finance AddressBook.
+   */
   public FinanceAddressBook() {
     super();
   }
 
+  /**
+   * Creates an Finance AddressBook using the objects in the {@code toBeCopied}
+   */
   public FinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> toBeCopied) {
     super(toBeCopied);
   }
