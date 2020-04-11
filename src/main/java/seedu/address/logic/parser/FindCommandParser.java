@@ -39,14 +39,20 @@ public class FindCommandParser implements Parser<FindCommand> {
         boolean hasName = false;
         boolean hasTags = false;
         for (int i = 0; i < keywords.length; i++) {
-            if (keywords[i].substring(0, 2).equals("o/")) {
-                hasOrganization = true;
+            if (keywords[i].contains("o/")) {
+                if (keywords[i].substring(0, 2).equals("o/")) {
+                    hasOrganization = true;
+                }
             }
-            if (keywords[i].substring(0, 2).equals("n/")) {
-                hasName = true;
+            if (keywords[i].contains("n/")) {
+                if (keywords[i].substring(0, 2).equals("n/")) {
+                    hasName = true;
+                }
             }
-            if (keywords[i].substring(0, 2).equals("t/")) {
-                hasTags = true;
+            if (keywords[i].contains("t/")) {
+                if (keywords[i].substring(0, 2).equals("t/")) {
+                    hasTags = true;
+                }
             }
         }
         if ((hasOrganization == false) && (hasName == false) && (hasTags == false)) {
