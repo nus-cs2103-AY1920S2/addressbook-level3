@@ -1,11 +1,11 @@
-= Fatin - Project Portfolio
+== Fatin - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Project: TA-Tracker
+=== Project: TA-Tracker
 
-== Overview
+=== Overview
 
 TA-Tracker is a productivity tool made for NUS School of Computing (SoC) Teaching Assistants (TAs) who want to be able
 to track and manage their students and teaching duties in in a single, convenient-to-use platform rather than using
@@ -14,7 +14,7 @@ Code (LoC). The codebase is well-maintained with a rigorous system of checks and
 quality is consistently high. A comprehensive set of guides are also provided to ensure a smooth on-boarding process
 for both users and contributors alike.
 
-== Summary of contributions
+=== Summary of contributions
 
 As the main developer of the application’s User Interface (UI), I played a crucial role in integrating my teammates’
 features with the UI. During group discussions, I placed extra emphasis on guiding my teammates to create engineering
@@ -27,7 +27,7 @@ highly involved in helping my teammates become more familiar with JavaFX and CSS
 development of the project was especially crucial as I enabled my teammates to be able to display all the hard work
 that they have put into the development of their respective features to the users. My major contributions are as follows:
 
-=== Updated the User Interface
+==== Updated the User Interface
 
 The UI is at the heart of TA-Tracker, displaying the output of TA-Tracker to the user visually. As the main contributor
 to the MainWindow of the UI I played an integral role in ensuring the content was being displayed to the user correctly,
@@ -38,7 +38,7 @@ I also took care to ensure that the information displayed in the Cards were inte
 made new contributions to the application such as adding new fields (#322) or commands (#330). In addition, I added
 a "Total Earnings" label in Claims tab to improve the user experience, as money makes the world go round (#243, #322).
 
-=== Enabled highlighting of applied filters
+==== Enabled highlighting of applied filters
 
 As TA-Tracker was initially based on the AB3 project, the UI looked rather dull and plain at the beginning of the project.
 However, rather than adding colours to TA-Tracker indiscriminately, I enabled relevant ListCells in the Student Tab and Claims Tab to be highlighted
@@ -50,7 +50,7 @@ was in itself a rather challenging command to implement (#243, #314, #322). In t
 was a less favourable option since there was only one ListPanel to display. I overcame this challenge by creating a
 filter header (#322).
 
-=== Implemented relevant commands to improve User Experience
+==== Implemented relevant commands to improve User Experience
 
 *Goto Command* : To achieve the goal of making TA-Tracker a keyboard-only application, I implemented the GoTo Command
 to allow users to switch between tabs via the command-line rather than clicking on the tab-headers (#189).
@@ -64,23 +64,24 @@ creating an enum for UI handling in CommandResult (#189, #212) and as a result, 
 which the majority TAs are being paid. Based on feedback from the PE Dry-Run, I created a command to change this value
 due to the differences in rates among different faculties. (#321)
 
-=== Other UI Improvements
+==== Other UI Improvements
 
 I also contributed to the development of the HelpWindow and StatisticsWindow (#227, #235) by fixing sizing
 issues and adding ScrollPanes. Moreover, I included the option to close both windows by pressing the ESC key to achieve
 the goal of making TA-Tracker a keyboard-only application (#236).
 
-=== Added extensive automated tests
+==== Added extensive automated tests
 
-I made thorough JUnit tests for the StudentCommand, StudentCommandParser, and Student as well as its relevant fields. (#340, #341, #347)
+I made thorough JUnit tests for the StudentCommand, StudentCommandParser, and Student as well as its relevant fields.
+(#340, #341, #347)
 
-=== Improved upon overall code quality
+==== Improved overall code quality
 
 * Packaged all commands, parsers, models and ui components (#143, #212)
 * General quality fixes to the entire code-base based on Codacy report (#350, #351)
 * Created enum classes for SessionType and GroupType (#120, #182)
 
-=== Other contributions
+==== Other contributions
 
 * Create a skeleton for the student delete command (#113)
 * Contribute to StudentAdd command by removing the requirement for compulsory phone and email fields (#146)
@@ -88,25 +89,25 @@ I made thorough JUnit tests for the StudentCommand, StudentCommandParser, and St
 
 Here is the code that I have written for this product: [https://github.com/AY1920S2-CS2103T-W17-4/main/commits/master?author=fatin99[All commits]]
 
-== Contributions to the User Guide
+=== Contributions to the User Guide
 
-|===
+|====
 |_Given below are sections I contributed to the User Guide.
 They showcase my ability to write comprehensive but simple documentation that addresses the needs of users._
-|===
+|====
 
 include::../UserGuide.adoc[tag=getting_started1]
 
 The tutorial is truncated to account for the page limit.
 
-=== User guide command documentation
+==== User guide command documentation
 ---
 include::../UserGuide.adoc[tag=canvas]
 
-== Contributions to the Developer Guide
+=== Contributions to the Developer Guide
 
-|===
+|====
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+|====
 
 include::../DeveloperGuide.adoc[tag=layer]
