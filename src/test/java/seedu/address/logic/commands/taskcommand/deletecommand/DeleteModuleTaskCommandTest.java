@@ -2,7 +2,7 @@ package seedu.address.logic.commands.taskcommand.deletecommand;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalNusModules.getTypicalModuleBook;
 
@@ -18,7 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-//import seedu.address.model.ModuleBook;
+import seedu.address.model.ModuleBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleCode;
@@ -37,19 +37,20 @@ class DeleteModuleTaskCommandTest {
             getTypicalModuleBook(), FXCollections.observableList(new ArrayList<Task>()));
 
 
-    //    @Test
-    //    public void execute_deleteModuleTask_successful() throws Exception {
-    //        DeleteModuleTaskCommand deleteModuleTaskCommand = new DeleteModuleTaskCommand(validModuleCode,
-    //                Index.fromZeroBased(0));
-    //        String expectedMessage = DeleteModuleTaskCommand.MESSAGE_SUCCESS + " " + validModuleCode + " task number "
-    //                + Index.fromZeroBased(0).getOneBased();
-    //
-    //        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs(),
-    //                new ModuleBook(model.getModuleBook()), FXCollections.observableList(new ArrayList<Task>()));
-    //        expectedModel.deleteModuleTask(validModuleCode, Index.fromZeroBased(0));
-    //
-    //        assertCommandSuccess(deleteModuleTaskCommand, model, expectedMessage, expectedModel);
-    //    }
+    @Test
+    public void execute_deleteModuleTask_successful() throws Exception {
+        DeleteModuleTaskCommand deleteModuleTaskCommand = new DeleteModuleTaskCommand(validModuleCode,
+                Index.fromZeroBased(0));
+        String expectedMessage = DeleteModuleTaskCommand.MESSAGE_SUCCESS + " " + validModuleCode + " task number "
+                + Index.fromZeroBased(0).getOneBased();
+
+        model.addDeadlineTask(TypicalNusModules.TYPICAL_MODULE_TASK_1);
+
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs(),
+                new ModuleBook(model.getModuleBook()), FXCollections.observableList(new ArrayList<Task>()));
+        expectedModel.addDeadlineTask(TypicalNusModules.TYPICAL_MODULE_TASK_1);
+        assertCommandSuccess(deleteModuleTaskCommand, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void execute_argumentWithInvalidModuleCode_throwsCommandException() {

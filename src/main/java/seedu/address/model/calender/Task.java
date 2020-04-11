@@ -114,6 +114,15 @@ public class Task {
         addTaskPerDate(task.getDate(), task);
     }
 
+    /**
+     * Removes task to the calendar.
+     * @param task
+     */
+    public static void remove(Task task) {
+        deadlineTaskList.remove(task);
+        removeTaskPerDate(task.getDate(), task);
+    }
+
     public static HashMap<String, ArrayList<Task>> getDeadlineTaskHashMap() {
 
         return deadlineTaskHashMap;

@@ -46,12 +46,11 @@ class ModuleBookTest {
     }
 
     @Test
-    void addModuleTask_deleteModuleTask_doneModuleTask() {
+    void addModuleTask_doneModuleTask() {
         ModuleBook moduleBook = new ModuleBook();
         moduleBook.addModule(cs2030);
         moduleBook.addModuleTask(task);
         moduleBook.doneModuleTask(cs2030.getModuleCode(), Index.fromZeroBased(0));
-        moduleBook.deleteModuleTask(cs2030.getModuleCode(), Index.fromZeroBased(0));
         assertDoesNotThrow(() -> {});
     }
 

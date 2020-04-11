@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.taskcommand.deletecommand;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASK;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class DeleteModuleTaskCommand extends DeleteTaskCommand {
         model.deleteTask(removed);
         model.deleteModuleTask(targetModule, targetIndex);
         model.sortTaskList();
+        model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
         return new CommandResult(MESSAGE_SUCCESS + " " + targetModule + " task number "
                 + targetIndex.getOneBased());
     }
