@@ -49,20 +49,20 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the recipe identified "
             + "by the index number used in the displayed recipe list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]... "
-            + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]... "
-            + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]... "
-            + "[" + PREFIX_INGREDIENT_FRUIT + "FRUIT]... "
-            + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]... "
-            + "[" + PREFIX_STEP + "STEP]... "
+            + "Parameters: [recipe index] (must be a positive integer) "
+            + "[<" + PREFIX_NAME + "name> "
+            + "<" + PREFIX_TIME + "time> "
+            + "<" + PREFIX_INGREDIENT_GRAIN + "grain>... "
+            + "<" + PREFIX_INGREDIENT_VEGE + "vegetable>... "
+            + "<" + PREFIX_INGREDIENT_PROTEIN + "protein>... "
+            + "<" + PREFIX_INGREDIENT_FRUIT + "fruit>... "
+            + "<" + PREFIX_INGREDIENT_OTHER + "other>... "
+            + "<" + PREFIX_STEP + "step>...]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "10 "
-            + PREFIX_INGREDIENT_VEGE + "Insert new vegetable here "
-            + PREFIX_INGREDIENT_PROTEIN + "Insert new protein-rich ingredient here "
-            + PREFIX_STEP + "Insert new step here ";
+            + PREFIX_INGREDIENT_VEGE + "40g, Kailan "
+            + PREFIX_INGREDIENT_PROTEIN + "20g, Chicken thigh "
+            + PREFIX_STEP + "Wash the vegetables";
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

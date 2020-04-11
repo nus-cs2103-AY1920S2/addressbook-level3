@@ -92,9 +92,7 @@ public class MultipleBookStateManager extends RecipeBook {
     }
 
     /**
-     * Adds the new state of the RecipeBook to the list when the RecipeBook undergoes a state change.
-     * If the current state is not the last item on the list, the new state will override all states
-     * after the current state.
+     * Commits only the recipe book as changes were only made to it.
      */
     void commitRecipeBook(ReadOnlyRecipeBook recipeBook, CommandType commandType, Tab tab) {
         commandsToUndo.push(commandType); // CommandType.MAIN_LONE
@@ -151,10 +149,15 @@ public class MultipleBookStateManager extends RecipeBook {
         }
         Tab toSwitch = null;
         while (undoCounter > 0) {
+            assert recipeBookStatePointer > 0 && recipeBookStatePointer <= recipeBookStateList.size() - 1;
+            assert plannedBookStatePointer > 0 && plannedBookStatePointer <= plannedBookStateList.size() - 1;
+
             CommandType commandType = commandsToUndo.pop();
-            toSwitch = tabsToUndo.pop();
             commandsToRedo.push(commandType);
+
+            toSwitch = tabsToUndo.pop();
             tabsToRedo.push(toSwitch);
+
             switch (commandType) {
             case MAIN_LONE:
                 recipeBookStatePointer--;
@@ -193,10 +196,15 @@ public class MultipleBookStateManager extends RecipeBook {
         }
         Tab toSwitch = null;
         while (redoCounter > 0) {
+            assert recipeBookStatePointer > 0 && recipeBookStatePointer <= recipeBookStateList.size() - 1;
+            assert plannedBookStatePointer > 0 && plannedBookStatePointer <= plannedBookStateList.size() - 1;
+
             CommandType commandType = commandsToRedo.pop();
-            toSwitch = tabsToRedo.pop();
             commandsToUndo.push(commandType);
+
+            toSwitch = tabsToRedo.pop();
             tabsToUndo.push(toSwitch);
+
             switch (commandType) {
             case MAIN_LONE:
                 recipeBookStatePointer++;

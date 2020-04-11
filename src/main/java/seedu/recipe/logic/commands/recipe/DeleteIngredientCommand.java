@@ -38,14 +38,14 @@ public class DeleteIngredientCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteingredient";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes ingredient(s) from an existing recipe in the "
-            + "recipe book.\n"
-            + "Parameters: [INDEX of recipe] "
-            + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]... "
-            + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]... "
-            + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]... "
-            + "[" + PREFIX_INGREDIENT_FRUIT + "FRUIT]... "
-            + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the specified ingredient(s) from an "
+            + "existing recipe.\n"
+            + "Parameters: [recipe index] "
+            + "[<" + PREFIX_INGREDIENT_GRAIN + "grain>... "
+            + "<" + PREFIX_INGREDIENT_VEGE + "vegetable>... "
+            + "<" + PREFIX_INGREDIENT_PROTEIN + "protein>... "
+            + "<" + PREFIX_INGREDIENT_FRUIT + "fruit>... "
+            + "<" + PREFIX_INGREDIENT_OTHER + "other>...]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INGREDIENT_VEGE + "Tomato "
             + PREFIX_INGREDIENT_VEGE + "Lettuce "
@@ -94,6 +94,7 @@ public class DeleteIngredientCommand extends Command {
         updateProteinsList(recipeToEdit, editRecipeDescriptor);
         updateFruitsList(recipeToEdit, editRecipeDescriptor);
         updateOthersList(recipeToEdit, editRecipeDescriptor);
+        editRecipeDescriptor.setFavourite(recipeToEdit.isFavourite());
 
         Recipe editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
         editedRecipe.calculateGoals();
