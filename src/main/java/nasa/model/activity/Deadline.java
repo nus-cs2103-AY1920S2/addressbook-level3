@@ -3,9 +3,6 @@ package nasa.model.activity;
 import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
-import javafx.collections.ListChangeListener;
-
-
 /**
  * Represents Deadlines method in NASA.
  * Guarantees: details are present and not null, field values are validated, immutable.
