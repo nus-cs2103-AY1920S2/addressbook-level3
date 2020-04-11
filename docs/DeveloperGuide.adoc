@@ -775,7 +775,7 @@ EditCommand#createEditedOrder/EditCommand#createEditedReturnOrder and EditComman
 The main function of these methods are to help *EditCommand* in updating the *ObservableList* in the
 *Model* class which is responsible for the updating of list displayed.
 
-The *ObeservableList* is a JavaFX class which listens and automatically changes the list once an update is performed.
+The *ObservableList* is a JavaFX class which listens and automatically changes the list once an update is performed.
 //end::edit[]
 
 //tag::return[]
