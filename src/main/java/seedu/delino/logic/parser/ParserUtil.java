@@ -12,6 +12,7 @@ import static seedu.delino.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.delino.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.delino.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.delino.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
+import static seedu.delino.model.parcel.parcelattributes.TimeStamp.REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -124,7 +125,7 @@ public class ParserUtil {
                 valueValidation = valueValidation.trim();
                 logger.fine("Checking whether it is valid timestamp");
 
-                int result = TimeStamp.checkTimestamp(valueValidation);
+                int result = TimeStamp.checkTimestamp(valueValidation, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW);
                 if (result == TimeStamp.PARSE_ERROR) {
                     logger.info("Invalid timestamp: " + valueValidation);
                     errorMessage = errorMessage + TimeStamp.MESSAGE_CONSTRAINTS + "\n";
@@ -270,7 +271,7 @@ public class ParserUtil {
         String trimmedTimeStamp = timeStamp.trim();
         logger.fine("Checking whether it is valid timestamp");
 
-        int result = TimeStamp.checkTimestamp(trimmedTimeStamp);
+        int result = TimeStamp.checkTimestamp(trimmedTimeStamp, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW);
         if (result == TimeStamp.PARSE_ERROR) {
             logger.info("Invalid timestamp: " + trimmedTimeStamp);
             throw new ParseException(TimeStamp.MESSAGE_CONSTRAINTS);
@@ -279,7 +280,7 @@ public class ParserUtil {
             throw new ParseException((TimeStamp.ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW));
         }
 
-        return new TimeStamp(trimmedTimeStamp);
+        return new TimeStamp(trimmedTimeStamp, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW);
     }
 
     /**

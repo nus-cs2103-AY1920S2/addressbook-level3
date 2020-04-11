@@ -1,5 +1,7 @@
 package seedu.delino.storage;
 
+import static seedu.delino.model.parcel.parcelattributes.TimeStamp.NO_CHECK_FOR_TIMESTAMP_BEFORE_NOW;
+
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -134,14 +136,14 @@ class JsonAdaptedReturnOrder {
                     TimeStamp.class.getSimpleName()));
         }
 
-        int result = TimeStamp.checkTimestamp(timeStamp);
+        int result = TimeStamp.checkTimestamp(timeStamp, NO_CHECK_FOR_TIMESTAMP_BEFORE_NOW);
         if (result == TimeStamp.PARSE_ERROR) {
             throw new IllegalValueException(TimeStamp.MESSAGE_CONSTRAINTS);
         } else if (result == TimeStamp.TIMESTAMP_BEFORE_NOW_ERROR) {
             throw new IllegalValueException(TimeStamp.ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW);
         }
 
-        final TimeStamp modelTimeStamp = new TimeStamp(timeStamp);
+        final TimeStamp modelTimeStamp = new TimeStamp(timeStamp, NO_CHECK_FOR_TIMESTAMP_BEFORE_NOW);
 
         if (warehouse == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

@@ -147,15 +147,6 @@ public class JsonAdaptedReturnOrderTest {
     }
 
     @Test
-    public void toModelType_invalidTimeStampBeforeNow_throwsIllegalValueException() {
-        JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, INVALID_TIMESTAMP_BEFORE_NOW, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
-        String expectedMessage = TimeStamp.ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW;
-        assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
-    }
-
-    @Test
     public void toModelType_nullTimeStamp_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
                 VALID_ADDRESS, null, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
