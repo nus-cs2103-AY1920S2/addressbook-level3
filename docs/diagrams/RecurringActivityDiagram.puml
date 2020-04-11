@@ -27,7 +27,9 @@ partition RecurringExecution {
     endif
 
     if (task has reminder) then
+        if (reminder has been triggered already) then
         : task's reminder is incremented by the stipulated time;
+        endif
     else (task does not have reminder)
     endif
 

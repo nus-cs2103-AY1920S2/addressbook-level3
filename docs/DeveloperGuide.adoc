@@ -311,9 +311,9 @@ image::ReminderSequenceDiagram.png[width=790]
 === Recurring
 The user's recurring tasks functionality is twofold. Resetting the task to be unfinished after the stipulated time interval and resetting the task's reminder date according to the stipulated time interval.
 
-After the recurring type is parsed to be either daily or weekly. Afterward, based on the time the recurring attribute is added, a reference LocalDateTime is noted. The first recurring behaviour will trigger in the given interval with respect to that referenceDateTime and following the interval afterwards.
+After the recurring type is parsed to be either daily or weekly. Afterward, based on the time the recurring attribute is added, a reference LocalDateTime is noted. The first recurring behaviour will trigger in the given interval with respect to that referenceDateTime and following the same interval afterwards.
 
-The recurring behaviour triggered will set the task as undone. If a reminder exists and has been triggered, it will increment the reminder to be the next day or week depending on the interval set.
+The recurring behaviour triggered will set the task as undone. If a reminder exists and has been triggered, it will increment the reminder to be the next day or week depending on the interval set. When the recurring behaviour is triggered, the result display will show a message that the recurring task has been reset.
 
 .Recurring Activity Diagram
 image::RecurringActivityDiagram.png[width=790]
