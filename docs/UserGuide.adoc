@@ -474,17 +474,17 @@ Under the `student tab`, the *Student View* is used to show you the students tha
 have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
 three columns.
 
-. The first column shows you a list of all the modules that you are a teaching
+. The first column shows you a *list of all the modules* that you are a teaching
 assistant for.
 
-. The second column shows you a list of all groups that you're a teaching assistant for
-in a module of your choice.
+. The second column shows you a *list of all groups* that you're a teaching assistant
+for *in a module of your choice*.
 If you haven't chosen anything, you will be shown the groups of the module
-in the first index in the list of modules by default.
+in the *first index* in the list of modules by default.
 
-. The third column shows you a list of all students in the group of your choice. If you
+. The third column shows you a *list of all students* in the *group of your choice*. If you
 haven't chosen anything, you will be shown the students of the group in the
-first index in the list of groups by default.
+*first index* in the list of groups by default.
 
 The purpose of the *Student View* is to help you keep track a of your students. It will
 show you information such as:
@@ -500,7 +500,7 @@ show you information such as:
 The `RATING` value must be a positive integer.
 ====
 
-image::StudentView.png[width="790"]
+image::StudentView.png[,1000]
 This is an example of what the Student View might look like.
 
 === Session View
@@ -519,7 +519,7 @@ duties. It will show you information such as:
 * `NOTES`: any additional information
 * `WEEK`: the recurring period of the session
 
-image::SessionView.png[width="790"]
+image::SessionView.png[,1000]
 This is an example of what the Session View might look like.
 
 === Claims View
@@ -537,7 +537,7 @@ assistant for.
 
 . The second column shows you a list of all the sessions that you have marked as done.
 
-image::ClaimsView.png[width="790"]
+image::ClaimsView.png[,1000]
 This is an example of what the Claims View might look like.
 
 [[Usage]]
