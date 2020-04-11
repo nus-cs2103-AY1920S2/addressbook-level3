@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.web.WebView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 
-<WebView fx:id="blockContentDisplay" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"/>
+<?import javafx.geometry.Insets?>
+<VBox fx:id="blockContentDisplay" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox fx:id="blockTitlePathContainer" VBox.vgrow="NEVER" focusTraversable="false">
+        <Label fx:id="blockTitleDisplay"></Label>
+        <Pane fx:id="separator"></Pane>
+        <Label fx:id="blockPathDisplay"></Label>
+        <padding>
+            <Insets top="12" right="6" bottom="12" left="6" />
+        </padding>
+    </HBox>
+    <WebView fx:id="blockBodyDisplay" />
+</VBox>

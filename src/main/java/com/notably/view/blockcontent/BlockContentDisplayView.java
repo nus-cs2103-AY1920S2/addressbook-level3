@@ -9,7 +9,14 @@ import com.notably.model.block.BlockTreeItem;
 import com.notably.view.ViewPart;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.web.WebView;
 
 /**
@@ -21,7 +28,22 @@ public class BlockContentDisplayView extends ViewPart<WebView> {
     private final Model model;
 
     @FXML
-    private WebView blockContentDisplay;
+    private VBox blockContentDisplay;
+
+    @FXML
+    private HBox blockTitlePathContainer;
+
+    @FXML
+    private Label blockTitleDisplay;
+
+    @FXML
+    private Pane separator;
+
+    @FXML
+    private Label blockPathDisplay;
+
+    @FXML
+    private WebView blockBodyDisplay;
 
     public BlockContentDisplayView(Model model) {
         super(FXML);
@@ -34,8 +56,20 @@ public class BlockContentDisplayView extends ViewPart<WebView> {
      * Sets up the view's initial data and wires up all required change listeners.
      */
     private void setup() {
-        setBlockContentDisplay(model);
+        setSettings();
+        updateBlockContentDisplay(model);
         setChangeListeners();
+    }
+
+    private void setSettings() {
+        blockPathDisplay.setTextAlignment(TextAlignment.RIGHT);
+        blockTitlePathContainer.setMinWidth(50);
+        blockTitlePathContainer.setMinWidth(0);
+        blockTitlePathContainer.setPrefWidth(1);
+        blockTitlePathContainer.setAlignment(Pos.CENTER_LEFT);
+        blockTitlePathContainer.setHgrow(blockPathDisplay, Priority.SOMETIMES);
+        blockTitlePathContainer.setHgrow(separator, Priority.SOMETIMES);
+        blockTitlePathContainer.setHgrow(blockTitleDisplay, Priority.ALWAYS);
     }
 
     /**
@@ -43,34 +77,53 @@ public class BlockContentDisplayView extends ViewPart<WebView> {
      *
      * @param model App's model.
      */
-    private void setBlockContentDisplay(Model model) {
+    private void updateBlockContentDisplay(Model model) {
         Objects.requireNonNull(model);
 
         AbsolutePath currentlyOpenPath = model.getCurrentlyOpenPath();
         BlockTreeItem currentlyOpenBlock = model.getBlockTree().get(currentlyOpenPath);
 
-        String htmlTitle = getHtmlTitle(currentlyOpenBlock);
-        String htmlBody = getHtmlBody(currentlyOpenBlock);
-        String htmlContent = htmlTitle + htmlBody;
-
-        blockContentDisplay.getEngine().loadContent(htmlContent);
-        blockContentDisplay.getEngine().setUserStyleSheetLocation(getClass()
-                .getResource("/view/blockcontent/BlockContentDisplay.css").toExternalForm());
+        updateBlockTitleDisplay(currentlyOpenBlock);
+        updateBlockPathDisplay(currentlyOpenPath);
+        updateBlockBodyDisplay(currentlyOpenBlock);
     }
 
     /**
-     * Helper function to retrieve the currently open block's {@link com.notably.model.block.Title}
-     * rendered as HTML.
+     * Sets the blockTitleDisplay's text to the currently open block's {@link com.notably.model.block.Title}.
      *
      * @param currentlyOpenBlock A {@link BlockTreeItem} representing the currently open note block.
-     * @return A String representing the note's body.
      */
-    private String getHtmlTitle(BlockTreeItem currentlyOpenBlock) {
+    private void updateBlockTitleDisplay(BlockTreeItem currentlyOpenBlock) {
         Objects.requireNonNull(currentlyOpenBlock);
 
-        String markdownTitle = "# " + currentlyOpenBlock.getTitle().getText();
-        String htmlTitle = Compiler.compile(markdownTitle);
-        return htmlTitle;
+        String titleString = currentlyOpenBlock.getTitle().getText();
+        blockTitleDisplay.setText(titleString);
+    }
+
+    /**
+     * Sets the blockPathDisplay's text to the currently open block's {@link AbsolutePath}.
+     *
+     * @param currentlyOpenPath A {@link BlockTreeItem} representing the currently open note block.
+     */
+    private void updateBlockPathDisplay(AbsolutePath currentlyOpenPath) {
+        Objects.requireNonNull(currentlyOpenPath);
+
+        String pathString = currentlyOpenPath.getStringRepresentation();
+        blockPathDisplay.setText(pathString);
+    }
+
+    /**
+     * Sets the blockBodyDisplay's text to the currently open block's {@link com.notably.model.block.Body}.
+     *
+     * @param currentlyOpenBlock A {@link BlockTreeItem} representing the currently open note block.
+     */
+    private void updateBlockBodyDisplay(BlockTreeItem currentlyOpenBlock) {
+        Objects.requireNonNull(currentlyOpenBlock);
+
+        String htmlBody = getHtmlBody(currentlyOpenBlock);
+        blockBodyDisplay.getEngine().loadContent(htmlBody);
+        blockBodyDisplay.getEngine().setUserStyleSheetLocation(getClass()
+                .getResource("/view/blockcontent/BlockContentDisplay.css").toExternalForm());
     }
 
     /**
@@ -92,9 +145,9 @@ public class BlockContentDisplayView extends ViewPart<WebView> {
      * Sets up listeners for View state management.
      */
     private void setChangeListeners() {
-        model.currentlyOpenPathProperty().addListener(observable -> setBlockContentDisplay(model));
+        model.currentlyOpenPathProperty().addListener(observable -> updateBlockContentDisplay(model));
         model.getBlockTree().getRootBlock().getTreeItem()
-                .addEventHandler(TreeItem.treeNotificationEvent(), event -> setBlockContentDisplay(model));
+                .addEventHandler(TreeItem.treeNotificationEvent(), event -> updateBlockContentDisplay(model));
     }
 }
 
