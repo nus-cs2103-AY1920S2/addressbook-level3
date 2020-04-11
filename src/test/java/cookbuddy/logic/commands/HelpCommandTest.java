@@ -24,6 +24,6 @@ public class HelpCommandTest {
     public void get_help_message() {
         String commandWord = "delete";
         HelpCommand helpMessage = new HelpCommand(commandWord);
-        assertEquals(commandWord,helpMessage.getCommandWord());
+        assertEquals(commandWord, helpMessage.getCommandWord());
     }
 }

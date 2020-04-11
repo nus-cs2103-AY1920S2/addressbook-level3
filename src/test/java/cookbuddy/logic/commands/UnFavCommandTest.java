@@ -34,7 +34,7 @@ public class UnFavCommandTest {
 
         assertCommandSuccess(unfavCommand, model, expectedMessage, expectedModel);
     }
-    
+
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
