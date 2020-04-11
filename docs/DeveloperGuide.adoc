@@ -398,7 +398,7 @@ The personal best feature is facilitated by the model `PersonalBest`, and the lo
 . If neither of `ExerciseWeight` and `ExerciseReps` are recorded into the `Exercise`, then this particular exercise will not be put into the Exercise Personal Best table
 .. However, if the another `Exercise` of the same name is added in the future with `ExerciseWeight` and/or `ExerciseReps` specified, then the personal best of this exercise will still be calculated and shown in the Exercise Personal Best table
 
-When the user inputs `view-c`, `add-e` or `delete-c`, `PersonalBestFinder#generateAndSetPersonalBest` is called, taking the client currently in view as the parameter. `PersonalBestFinder#generateAndSetPersonalBest` then retrieves client's list of exercises using `Client#getExerciseList` and creates a new `HashMap`, where the `key` is `ExerciseName` and the `value` is `Exercise`. Then the personal bests of each exercise of the client in view are generated using the above considerations. Finally the list of personal bests is set using `PersonalBest#setPersonalBest`.
+When the user inputs `view-c`, `add-e`, `edit-c` or `delete-c`, `PersonalBestFinder#generateAndSetPersonalBest` is called, taking the client currently in view as the parameter. `PersonalBestFinder#generateAndSetPersonalBest` then retrieves client's list of exercises using `Client#getExerciseList` and creates a new `HashMap`, where the `key` is `ExerciseName` and the `value` is `Exercise`. Then the personal bests of each exercise of the client in view are generated using the above considerations. Finally the list of personal bests is set using `PersonalBest#setPersonalBest`.
 
 A simplified class diagram of the classes involved in this feature is given below:
 
@@ -410,21 +410,24 @@ image::PersonalBestSequenceDiagram.png[]
 
 ==== Design Considerations
 
-In designing this features, we had to decide on the placement of the `PersonalBest` class in the model to comply with the OOP standards. Currently, the `PersonalBest` model has a whole-part relationship with `Client`, with `Client` being the whole and `PersonalBest` being a part of `Client`. The alternative is to consider `PersonalBest` as a part of `Exercise` instead.
+In designing this feature, we had to decide on the placement of the `PersonalBest` class in the model to comply with the OOP standards. Currently, the `PersonalBest` model has a whole-part relationship with `Client`, with `Client` being the whole and `PersonalBest` being a part of `Client`. The alternative is to consider `PersonalBest` as a part of `Exercise` instead.
 
 [options='header']
+.Table of Design Considerations
 |====================
 | |  Put `PersonalBest` as a part of `Client`(Chosen) | Put `PersonalBest` as a part of `Exercise` 
-| *Adhering to OOP standard* | Logically makes more sense, as each client has to have a list of exercises to themselves, and thus `PersonalBest` of each of these exercises |  Actually increases coupling as the logic was flawed 
-| *Ease of Implementation* | Might have significant conflicts as the `Client` model is changed to include one more attribute | Keep `Exercise` data and methods separate from `Client` data and methods
+| *Adhering to OOP standards (Coupling and Cohesion)* | Increases cohesion as it logically makes more sense, currently each client has a list of exercises to themselves, and thus each client should also have a list of `PersonalBest` of each of these exercises to themselves |  Increases coupling between the logic and model as every time the commands `view-c`, `add-e`, `edit-e` and `delete-e` are called, the personal best table has to be updated, a new `PersonalBest` object has to be created. Then the `Client` will have to be dependent on this `PersonalBest` object created in the logic component, which causes unnecessary dependencies and higher coupling
+| *Ease of Implementation* | Might have significant conflicts as the `Client` model is changed to include one more attribute | Easier to implemention as methods related to `PersonalBest` is kept under `Exercise` model and separate from `Client` data and methods, so no refactoring is needed
 
 |====================
 
 We decided to use the first approach of placing `PersonalBest` as a part of `Client` instead of `Exercise`. There are multiple reasons for our choice as mentioned below.
 
-We want to maintain the OOP structure of the program. Logically, the personal best should belong to the client as the list of exercises belongs to the client. As the list of exercises is unique to every client, the personal best should also be so.
+We want to maintain the OOP structure of the program. Logically, the personal best should belong to the client as the list of exercises belongs to the client. As the list of exercises is unique to every client, the personal best should also be so. We also do not want to increase coupling of the program as mentioned in the table above. 
 
 Moreover, even though personal best is generated using the list of exercises in the client, it can be instantiated even without an exercise list. Therefore it does not require the exercise class to exist and does not have a whole-part relationship with exercise. Coupling will also be increased as the client will be relying on the exercise class to generate the personal best. Therefore, the final choice was to place the personal best under client, with every client having their own personal best attribute.
+
+This personal best feature also leads into the `Graph` feature, which will be discussed in the next section, where we plot a graph of the client's progress of a specified exercise.
 
 == Documentation
 
