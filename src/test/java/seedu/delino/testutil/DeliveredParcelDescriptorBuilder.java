@@ -13,8 +13,9 @@ import seedu.delino.model.parcel.parcelattributes.TimeStamp;
 import seedu.delino.model.parcel.parcelattributes.TransactionId;
 import seedu.delino.model.parcel.parcelattributes.Warehouse;
 
+//@@author cherweijie
 /**
- * A utility class to help with building EditParcelDescriptor objects.
+ * A utility class to help with building DeliveredParcelDescriptor objects.
  */
 public class DeliveredParcelDescriptorBuilder {
 
