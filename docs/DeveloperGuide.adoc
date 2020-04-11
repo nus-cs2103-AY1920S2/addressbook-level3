@@ -330,70 +330,64 @@ Refer to the guide <<DevOps#, here>>.
 
 
 [appendix]
+
+// tag::UserStories[]
 == User Stories
 
-[width="100%",cols="1%,30%,60%",options="header",]
+Priorities: *High* (must have), *Medium* (nice to have), *Low* (unlikely to have)
+
+[width="100%",cols="10%, 30%, 30%, 30%", options="header",]
 |===
-|Rating|Priority|Difficulty
-|1|Basic functionality—*MUST HAVE*                      | *Easy*—Java basics + minor modifications to existing code
-|2|Secondary functionality—*VERY IMPORTANT*             | *Some effort needed*—Moderate Java concepts (`Collections`, `Streams`, etc); < 5 _new_ classes needed
-|3|Recommended functionality                            | *More effort needed*—Obscure Java classes (`java.nio`, `java.time`, etc); new _package_ of classes needed
-|4|Nice to have                                         | *Difficult*—Time-consuming, >500+ LoC _just_ for this feature
-|5|Quality of life features, and all unfeasible options | *Nearly impossible*—not only everything in (4), but algorithmically challenging too, and approaching 1K LOC
+| Priority | As a/an …                                           | I want to …                                                                        | So that…
+|   *High* | Regular user                                        | add a recipe                                                                       | I can keep track of the recipe
+|   *High* | Regular user                                        | delete a recipe                                                                    | I can stop keeping track of the recipe
+|   *High* | Regular user                                        | list out all the recipes I have                                                    | I can easily see what recipies I have
+|   *High* | Regular user                                        | view the recipe                                                                    | I can use the recipe
+|   *High* | More experienced user                               | duplicate a recipe                                                                 | I can modify a copy and keep the original
+|   *High* | User who is inexperienced with software             | use a helper command                                                               | I can see all the commands and how to use them
+|   *High* | Regular user                                        | add instructions for the recipe                                                    | I know how to cook the dish
+|   *High* | Regular user                                        | add ingredient to recipe                                                           | I know how much ingredients to use
+|   *High* | Health-focused user                                 | track the amount of calories a dish has                                            | I know how healthy a dish is
+|   *High* | Regular user                                        | add time it takes to prepare / cook recipe                                         | I know how long it takes to cook the recipe
+|   *High* | Organized user                                      | tag recipes based on meal time (breakfast/lunch/dinner)                            | I can easily refer to them
+|   *High* | User who likes experimenting                        | modify a recipe                                                                    | I can change the components of the recipe
+|   *High* | Regular user                                        | add a serving size of a dish                                                       | I know the serving size of the recipe
+|   *High* | Time-strapped user                                  | see the preparation and cooking time for each recipe                               | I can plan my schedule around the time needed
+|   *High* | Health-focused user                                 | search for a dish based on how many calories i want to consume                     | I can eat healthily
+|   *High* | User who is new to cooking                          | tag recipes based on difficulty (beginner/intermediate/master)                     | I can check if I am skilled enough to cook the dish
+|   *High* | User with many recipes                              | tag recipes based on their cuisine (western, chinese, indian etc)                  | I can find them easily
+| *Medium* | User who wants to be efficient                      | favourite recipes/dishes                                                           | I can easily refer back to them
+| *Medium* | User who wants to get rid of ingredients            | search for dishes based on ingredients                                             | I can use up the ingredients that I want to get rid of
+| *Medium* | User with many recipes                              | search for recipes based on a word in the dish name                                | I can find it easily
+| *Medium* | Organized user                                      | mark recipe as successfully done                                                   | I can keep track of the recipes I have successfully attempted
+| *Medium* | Inexperienced user                                  | view the recipe in a GUI                                                           | I have more visual feedback to work with
+| *Medium* | Inexperienced user                                  | view an image of the final dish                                                    | I know what dish I am cooking
+| *Medium* | Organized user                                      | have a counter of total recipes in the book                                        | I can know how many recipes I have
+| *Medium* | User who likes experimenting                        | give me a random recipe that i have added                                          | I can challenge myself to cook what has been given
+| *Medium* | Regular user                                        | give a rating for the dish                                                         | I can tag, search for and sort dishes based on my rating of the dish
+| *Medium* | User with a limited budget                          | find recipes within my budget                                                      | I do not overspend
+| *Medium* | User with allergies                                 | tag the dish as dangerous for allergies                                            | I can avoid cooking the dish
+| *Medium* | User who not experienced                            | highlight instructions in the recipe                                               | I can follow the recipe more easily
+| *Medium* | Organized user                                      | sort my recipes based on criteria (tags)                                           | I can choose what order to view them
+| *Medium* | Regular user                                        | add ingredient prices                                                              | I can tabulate the total cost of cooking dishes
+|    *Low* | User with a limited budget                          | view the price of a specific ingredient                                            | I know how much a ingredient costs
+|    *Low* | User with many friends                              | import and combine my friend's recipes from a file (.txt perhaps)                  | I can have access to their recipies
+|    *Low* | User who enjoys challenging themselves              | suggest dish to attempt based on my previous successful attempts                   | I can become more skillful
+|    *Low* | Regular user                                        | choose to only see the basic information for the recipe                            | I can easily skim through the instructions and ingredients
+|    *Low* | User on a budget                                    | check the total price of the dish                                                  | I can check if it is within my budget
+|    *Low* | User cooking for a group / occasion                 | scale up/down the recipe                                                           | I can prepare food for different group sizes
+|    *Low* | User cooking for a group / occasion                 | find out how much of each ingredient i need                                        | I can get the ingredients at one go
+|    *Low* | Health-focused user                                 | add nutrition facts                                                                | I can see how much sugar, salt, fat etc is in the dish prepared
+|    *Low* | User who is more familiar with the metric system    | Convert between metric and imperial sizes.                                         | I can use the tools I have without needing to convert elsewhere
+|    *Low* | User who usually prepares multiple dishes as sets   | group dishes into sets                                                             | I can be more organised when cooking
+|    *Low* | User who is experienced with the software           | use shorthand commands                                                             | I can navigate the software more efficiently
+|    *Low* | User who wants to challenge myself                  | have a timer/stopwatch                                                             | I can time myself when I cook dishes and have a "best time" feature
+|    *Low* | User who doesn't like screens and prefers paper     | print recipes as pdf/paper                                                         | I can refer to it more easily
+|    *Low* | User who likes sharing my cooking                   | post my recipes and dishes on social media                                         | I can share recipes and images for others to use
+|    *Low* | User who appreciates efficiency                     | add a recipe directly from online                                                  | I can be efficient
 |===
 
-[width="100%",cols="1%,1%,30%,30%,30%",options="header",]
-|===
-| Priority | Difficulty |                       As a…                       |                                      I can…                                      |                                So that…
-|        1 |          1 | Regular user                                      | add a recipe                                                                     | I can keep track of the recipe
-|        1 |          1 | Regular user                                      | delete a recipe                                                                  | stop keeping track of the recipe
-|        1 |          1 | Regular user                                      | list out all the recipies I have (names)                                         | easily see what recipies I have
-|        1 |          1 | Regular user                                      | view the recipe                                                                  | use the recipe
-|        1 |          1 | More experienced user                             | duplicate a recipe                                                               | modify a copy and keep the original
-|        1 |          1 | User who is inexperienced with software           | use a helper command                                                             | I can see all the commands and how to use them
-|        1 |          2 | Regular user                                      | add instructions for the recipe                                                  | I know how to cook the dish
-|        1 |          2 | Regular user                                      | add ingredient to recipe                                                         | I know how much ingredients to use
-|        1 |          2 | Health-focused user                               | track the amount of calories a dish has                                          | I know how healthy a dish is
-|        1 |          2 | Regular user                                      | add time it takes to prepare / cook recipe                                       | I know how long it takes to cook the recipe
-|        1 |          2 | Organized user                                    | tag recipes based on meal time (breakfast/lunch/dinner)                          | I can easily refer to them
-|        1 |          2 | User who likes experimenting                      | modify a recipe                                                                  | the recipe will be updated
-|        2 |          1 | User cooking for a group                          | find out how much of each ingredient i need                                      | I can get the ingredients at one go
-|        2 |          1 | Regular user                                      | add a serving size of a dish                                                     | I know the serving size of the recipe
-|        2 |          2 | Time-strapped user                                | see the preparation and cooking time for each recipe                             | plan my schedule around the time needed
-|        2 |          2 | Health-focused user                               | search for a dish based on how many calories i want to consume                   | eat healthily
-|        2 |          2 | User who is new to cooking                        | tag recipes based on difficulty (beginner/intermediate/master)                   | check if I am skilled enough to cook the dish
-|        2 |          2 | User with many recipes                            | tag and search for recipes based on their cuisine (western, chinese, indian etc) | find them easily
-|        2 |          2 | User who wants to be efficient                    | favourite recipes/dishes                                                         | I can easily refer back to them
-|        2 |          2 | User who wants to get rid of ingredients          | search for dishes based on ingredients                                           | I can use up the ingredients that I want to get rid of
-|        2 |          2 | Organized user                                    | tag and search dishes based on course (starter/main/dessert)                     | I can easily search for them
-|        2 |          2 | User with many recipes                            | search for recipes based on a word in the dish name                              | I can find it easily
-|        2 |          2 | Organized user                                    | mark recipe as successfully done                                                 | keep track of the recipes I have successfully attempted
-|        2 |          2 | User cooking for a group/ occassion               | scale up/down the recipe                                                         | I can prepare food for different group sizes
-|        2 |          2 | User on a budget                                  | check the total price of the dish                                                | check if it is within my budget
-|        2 |          2 | User with a limited budget                        | find recipes within my budget                                                    | I do not overspend
-|        2 |          2 | User with allergies                               | tag the dish as dangerous for allergies                                          | avoid cooking the dish
-|        2 |          3 | User who not experienced                          | highlight instructions in the recipe                                             | It is easier to follow the recipe
-|        2 |          3 | Organized user                                    | sort my recipies based on criteria (tags)                                        | I can choose what order to view them
-|        2 |          4 | Inexperienced user                                | view an image of the final dish                                                  | I know what dish I am cooking
-|        3 |          1 | Regular user                                      | add ingredient prices                                                            | I can tabulate the total cost of cooking dishes
-|        3 |          1 | Health-focused user                               | tag a dish e.g (Paleo/Keto/Vegan)                                                | I can check if the dish matches my dietary requirements
-|        3 |          1 | Organized user                                    | have a counter of total recipies in the book                                     | I can know how many recipes I have
-|        3 |          1 | User with a limited budget                        | view the price of a specific ingredient                                          | I know how much a ingredient costs
-|        3 |          2 | User with many friends                            | import and combine my friend's recipes from a file (.txt perhaps)                | I can have access to their recipies
-|        3 |          2 | User who enjoys challenging themselves            | suggest dish to attempt based on my previous successful attempts                 | I can become more skillful
-|        3 |          2 | Regular user                                      | give a rating for the dish                                              | tag, search for and sort dishes based on my rating of the dish
-|        3 |          2 | Regular user                                      | choose to only see the basic information for the recipe                          | easily skim through the instructions and ingredients
-|        3 |          2 | User who likes experimenting                      | give me a random recipe that i have added                                        | I can challenge myself to cook what has been given
-|        3 |          3 | Health-focused user                               | add nutrition facts                                                              | I can see how much sugar, salt, fat etc is in the dish prepared
-|        4 |          3 | User who is more familiar with the metric system  | Convert between metric and imperial sizes.                                       | I can use the tools I have without needing to convert elsewhere
-|        4 |          3 | User who usually prepares multiple dishes as sets | group dishes into sets                                                           | I can be more organised when cooking
-|        4 |          3 | User who is inexperienced with software           | view the recipe in a GUI                                                         | I have more visual feedback to work with
-|        4 |          4 | User who is experienced with the software         | use shorthand commands                                                           | I can navigate the software more efficiently
-|        5 |          4 | User who wants to challenge myself                | have a timer/stopwatch                                                           | time myself when I cook dishes and have a "best time" feature
-|        5 |          5 | User who doesn't like screens and prefers paper   | print recipes as pdf/paper                                                       | I can refer to it more easily
-|        5 |          5 | User who likes sharing my cooking                 | post my recipes and dishes on social media                                       | share recipes and images for others to use
-|        5 |          5 | User who appreciates efficiency                   | add a recipe directly from online                                                | I can be efficient
-|===
+// end::UserStories[]
 
 [appendix]
 == Use Cases
