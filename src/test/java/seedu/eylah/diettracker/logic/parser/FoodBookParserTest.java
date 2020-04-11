@@ -19,6 +19,7 @@ import seedu.eylah.diettracker.logic.commands.EditCommand.EditFoodDescriptor;
 import seedu.eylah.diettracker.logic.commands.HeightCommand;
 import seedu.eylah.diettracker.logic.commands.HelpCommand;
 import seedu.eylah.diettracker.logic.commands.ListCommand;
+import seedu.eylah.diettracker.logic.commands.MetricsCommand;
 import seedu.eylah.diettracker.logic.commands.ModeCommand;
 import seedu.eylah.diettracker.logic.commands.WeightCommand;
 import seedu.eylah.diettracker.model.DietModelManager;
@@ -99,6 +100,13 @@ public class FoodBookParserTest {
         WeightCommand command = (WeightCommand) parser.parseCommand(
                 WeightCommand.COMMAND_WORD + " 60.2");
         assertEquals(new WeightCommand(new Weight("60.2")), command);
+    }
+
+    @Test
+    public void parseCommand_metrics() throws Exception {
+        MetricsCommand command = (MetricsCommand) parser.parseCommand(
+                MetricsCommand.COMMAND_WORD);
+        assertEquals(new MetricsCommand(), command);
     }
 
     @Test

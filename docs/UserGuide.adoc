@@ -56,15 +56,15 @@ While reading the User Guide you may encounter some symbols.
 These symbols are used to highlight crucial information and in this portion we are explaining (or will be explaining)
 the symbols and their meaning.
 
-
 [NOTE]
 This block of text with a blue exclamation mark indicates *additional notes* and *information* that you should
 consider to prevent unexpected behaviour you are using EYLAH.
 
 [TIP]
-This block of text with a yellow lightbulb indicate *additional tips* that will help you when using EYLAH. +
+This block of text with a yellow light bulb indicates *additional tips* that will help you when using EYLAH.
 
-2+.^a - WARNING: This symbol indicates warnings.
+[WARNING]
+This symbol indicates warnings.
 //I dont know how this group manage to get this warning symbol out. I already
 //imported whatever they imported.. https://raw.githubusercontent.com/AY1920S2-CS2103T-W12-3/main/master/docs/UserGuide.adoc
 
@@ -76,7 +76,6 @@ kbd:[Enter] - This symbol indicates the enter button on the keyboard.
 (e.g. `edit INDEX [-n NAME] [-c CALORIES]` )
 
 Lastly, blue underline words like link:[this] will lead you to other portions of the User Guide or an external website.
-
 
 == Getting Started
 
@@ -94,8 +93,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will show you the commands you can
 .  Some example commands you can try:
 
 * `1` : enters the Diet Tracker component of EYLAH.
-* `help` : shows the list of commands you can execute at each page.
 * `2` : enters the Expense Splitter component of EYLAH.
+* `help` : shows the list of commands you can execute at each page.
 * `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -123,10 +122,10 @@ to to improve your user experience of EYLAH.
 | <<listamount, listamount>>
 
 | <<listfooditem, list>>
-| <<paid, paid>>
+| <<donereceipt, donereceipt>>
 
 | <<deletefooditem, delete>>
-| <<donereceipt, donereceipt>>
+| <<paid, paid>>
 
 | <<editfooditem, edit>>
 | <<clearreceipt, clearreceipt>>
@@ -138,6 +137,9 @@ to to improve your user experience of EYLAH.
 | <<back, back>>
 
 | <<back, back>>
+| <<exit, exit>>
+
+| <<exit, exit>>
 |
 
 |===
@@ -146,13 +148,13 @@ to to improve your user experience of EYLAH.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters supplied by the user,
-e.g: in `additem -i ITEM -p PRICE -n NAME`.
-`NAME`, `ITEM` and `PRICE` are parameters which can decided by the user ,
-e.g: `additem -i beer tower -p 19.90 -n charlotte`.
+e.g: in `additem -i ITEMNAME -p ITEMPRICE -n NAME`,
+`ITEMNAME`, `ITEMPRICE` and `NAME` are parameters which can decided by the user,
+e.g: `additem -i pizza -p 19.90 -n charlotte`.
 * Items in square brackets are optional, e.g: `paid INDEX [AMOUNT]` can be used as `paid 1` or as
 `paid 1 3.90`.
 * Parameters with `…`​ after them can be used multiple times including zero times, e.g: `[-n NAME]...` can be used as `{nbsp}`
-(i.e. 0 times), `-n Charlotte`, `-n John Doe -n Daniel` etc.
+(i.e. 0 times), `-n Charlotte`, `-n Alice -n Bob` etc.
 ====
 
 === Viewing help : `help`
@@ -356,16 +358,23 @@ Examples:
 
 
 === Expense Splitter : `split`
-Splitting a large receipt with friends has never been easier with EYLAH! All you have to do is add the item,
-its price and the names involved in splitting that item and EYLAH will
-calculate the rest for you!
+Getting a headache from splitting *that* ever-so-complicated bill?
+
+With EYLAH, splitting a large receipt with friends has never been easier! All you have to do is add the item,
+it's price and the names involved in splitting that item and EYLAH will calculate the rest for you!
 
 We have drawn some diagrams to help you visualize how Expense Splitter works, click <<AppendixA, here>> to find out more!
 
 [[additem]]
 ==== Adding an item: `additem`
+In this section, you will learn more about the `additem` command, <<howtouseadditemcommand,how to use it>>
+and the <<additemexpectedoutcome,expected outcome>> after using the `additem` command.
 
-Adds an Item and the Person(s) involved in the splitting for that item.
+*Summary of Add Item Command:* +
+`additem` allows you to add an item, it's price and the persons involved in sharing the cost of that item.
+
+[[howtouseadditemcommand]]
+*How to use the Add Item Command:*
 
 Format: +
 `additem -i ITEMNAME -p PRICE -n NAME` +
@@ -373,7 +382,12 @@ Format: +
 
 Example: +
 `additem -i pizza -p 30 -n bob` +
-`additem -i pasta -p 19.90 -n alice -n bob -n daniel`
+`additem -i pasta -p 19.90 -n alice -n bob -n charlie`
+
+[[additemexpectedoutcome]]
+*Expected outcome:*
+
+image::placeholder.png[]
 
 [NOTE]
 Price can be up to 2 decimal places, i.e. 7.99.
@@ -383,17 +397,28 @@ There is no need to add the dollar sign ($).
 
 [[deleteitem]]
 ==== Deleting an item: `deleteitem`
+In this section, you will learn more about the `deleteitem` command, <<howtousedeleteitemcommand,how to use it>>
+and the <<deleteitemexpectedoutcome,expected outcome>> after using the `deleteitem` command.
 
-Delete the item(s) in a receipt:
+*Summary of Delete Item Command:* +
+`deleteitem` allows you to delete an item from the receipt.
+
+[[howtousedeleteitemcommand]]
+*How to use the Delete Item Command:*
 
 Format: +
 `deleteitem INDEX` +
 
-[TIP]
-Use `listreceipt` to view your item indices before deletion.
-
 Example: +
 `deleteitem 3`
+
+[[deleteitemexpectedoutcome]]
+*Expected outcome:*
+
+image::placeholder.png[]
+
+[TIP]
+Use `listreceipt` to view your item indices before deletion.
 
 '''
 
@@ -404,7 +429,8 @@ In this section, you will learn more about the `listreceipt` command, <<howtouse
 and the <<listreceiptexpectedoutcome,expected outcome>> after using the
 `listreceipt` command.
 
-*Summary of List Receipt Command:* `listreceipt` *shows you all the entries in your current receipt*.
+*Summary of List Receipt Command:* +
+`listreceipt` shows you all the entries in your current receipt.
 
 [[howtouselistreceiptcommand]]
 *How to use the List Receipt Command:*
@@ -477,6 +503,27 @@ such as `paid`.
 
 '''
 
+[[donereceipt]]
+==== Mark receipt as done `donereceipt`
+
+Use this command to mark the receipt as done when you have completed entering all the items.
+
+Format: +
+`donereceipt`
+
+Example: +
+`donereceipt`
+
+[NOTE]
+====
+* Use this command only after all Items have been correctly added to the Receipt.
+* After you use this command, you will be unable to add any new items using the `additem` command
+or delete any items using the `deleteitem` command.
+* However, you are now able to use the `paid` command.
+====
+
+'''
+
 [[paid]]
 ==== Paying money: `paid`
 
@@ -531,35 +578,18 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 * Use `listamount` command to find the index of the person who paid you.
 ====
 
-
-
-
-'''
-[[donereceipt]]
-==== Mark receipt as done `donereceipt`
-
-Use this command to mark the receipt as done when you have completed entering all the items.
-
-Format: +
-`donereceipt`
-
-Example: +
-`donereceipt`
-
-[NOTE]
-====
-* Use this command only after all Items have been correctly added to the Receipt.
-* After you use this command, you will be unable to add any new items using the `additem` command
-or delete any items using the `deleteitem` command.
-* However, you are now able to use the `paid` command.
-====
-
 '''
 
 [[clearreceipt]]
 ==== Clears the receipt `clearreceipt`
+In this section, you will learn more about the `clearreceipt` command, <<howtouseclearreceiptcommand,how to use it>>
+and the <<clearreceipt,expected outcome>> after using the `clearreceipt` command.
 
-Use this command when you want to clear the receipt and start a new receipt.
+*Summary of Clear Receipt Command:* +
+`clearreceipt` allows you to remove all items from the receipt and start with a clean receipt.
+
+[[howtouseclearreceiptcommand]]
+*How to use the Clear Receipt Command:*
 
 Format: +
 `clearreceipt`
@@ -567,9 +597,14 @@ Format: +
 Example: +
 `clearreceipt`
 
+[[clearreceiptexpectedoutcome]]
+*Expected outcome:*
+
+image::placeholder.png[]
+
 [NOTE]
 ====
-* After you use this command, you will be able to add new items by using the `additem` command
+* After you use this command, you will be able to add new items using the `additem` command
 and delete items using the `deleteitem` command.
 * However, you will be unable to use the `paid` command.
 ====
@@ -654,13 +689,16 @@ e.g. `help`
 * *Going Back* `back` +
 e.g. `back`
 
+* *Exiting the Application* `exit` +
+e.g `exit`
+
 |===
 |Command |Format |Example
 
 |<<addfood, *Adding Food*>>
 |`add -n NAME -c CALORIES [-t TAGS]`
-|`insert -n salad -c 235` +
-`insert -n fries -c 195 -t fastfood`
+|`add -n salad -c 235` +
+`add -n fries -c 195 -t fastfood`
 
 |<<deletefooditem, *Deleting Food*>>
 |`delete INDEX`
@@ -700,69 +738,80 @@ e.g. `back`
 |`bmi` +
 `bmi -h 172 -w 65.5`
 
-
-|<<exit, *Exit*>>
-|`exit`
-|`exit`
-
-
-|<<help, *Help*>>
+|<<help, *Getting Help*>>
 |`help`
 |`help`
+
+|<<back, *Going Back*>>
+|`back`
+|`back`
+
+|<<exit, *Exiting the Application*>>
+|`exit`
+|`exit`
 
 |===
 
 === For Expense Splitter
 
-* *Add Item* `additem` +
+* *Adding Item* `additem` +
 e.g `additem -i pasta -p 19.20 -n charlotte -n bob`
 
-* *Delete Item* `deleteitem` +
+* *Deleting Item* `deleteitem` +
 e.g `deleteitem 3`
 
-* *List Amount* `listamount` +
+* *Listing Receipt* `listreceipt` +
+e.g. `listreceipt`
+
+* *Listing Amount* `listamount` +
 e.g `listamount`
 
-* *List Receipt* `listreceipt` +
-e.g. `removefood -f fries`
+* *Marking Receipt as Done* `donereceipt` +
+e.g `donereceipt`
 
-* *Paid* : `paid INDEX` +
+* *Getting Paid by Someone* `paid INDEX` +
 e.g. `paid 3`
 
-* *Back* `back` +
+* *Clear Receipt* `clearreceipt` +
+e.g `clearreceipt`
+
+* *Getting Help* `help` +
+e.g `help`
+
+* *Going Back* `back` +
 e.g. `back`
+
+* *Exiting the Application* `exit` +
+e.g `exit`
 
 |===
 |Command |Format |Example
 
-|<<additem, *Add Item*>>
-|`additem` `-i ITEMNAME` `-p ITEMPRICE` `-n PERSON` `[-n PERSON]...`
-|`insert` `-i pasta` `-p 32` `-n John` +
+|<<additem, *Adding Item*>>
+|`additem` `-i ITEMNAME` `-p ITEMPRICE` `-n NAME` `[-n NAME]...`
+|`additem` `-i pasta` `-p 5` `-n John` +
 or +
-`insert` `-i pasta` `-p 32` `-n John` `-n Carl` `-n Jasmine`
+`additem` `-i pasta` `-p 32` `-n John` `-n Carl` `-n Jasmine`
 
-|<<deleteitem, *Delete Item*>>
+|<<deleteitem, *Deleting Item*>>
 |`deleteitem` `INDEX`
 |`deleteitem` `1` +
+or +
 `deleteitem` `2`
 
-|<<listreceipt, *List Receipt*>>
+|<<listreceipt, *Listing Receipt*>>
 |`listreceipt`
 |`listreceipt`
 
-|<<listamount, *List Amount*>>
+|<<listamount, *Listing Amount*>>
 |`listamount`
 |`listamount`
 
-|<<donereceipt, *Done Receipt*>>
+|<<donereceipt, *Marking Receipt as Done*>>
 |`donereceipt`
 |`donereceipt`
 
-|<<clearreceipt, *Clear Receipt*>>
-|`clearreceipt`
-|`clearreceipt`
-
-|<<paid, *Paid*>>
+|<<paid, *Getting Paid by Someone*>>
 |`paid` `INDEX` `[AMOUNT]`
 |`paid` `3`  +
 or +
@@ -770,14 +819,21 @@ or +
 or +
 `paid` `2` `10.0`
 
-|<<exit, *Exit*>>
-|`exit`
-|`exit`
+|<<clearreceipt, *Clearing Receipt*>>
+|`clearreceipt`
+|`clearreceipt`
 
-
-|<<help, *Help*>>
+|<<expensesplitterhelp, *Getting Help*>>
 |`help`
 |`help`
+
+|<<back, *Going Back*>>
+|`back`
+|`back`
+
+|<<exit, *Exiting the Application*>>
+|`exit`
+|`exit`
 
 |===
 
@@ -786,11 +842,11 @@ or +
 |=======================================================================
 |Term | Explanation | Examples
 
-| Temasek Hall | This refers the one of the Halls of Residences at the National University of Singapore |
+| Temasek Hall | This refers the one of the Halls of Residences in the National University of Singapore |
 
 | Halls of Residences | This refers to student accommodation on campus |
 
-| NUS | This is the short form of National Univeristy of Singapore. |
+| NUS | This is the short form of National University of Singapore. |
 
 | SOC or SoC | This is the short form for School of Computing. |
 
@@ -800,14 +856,11 @@ TA-Tracker in the form of lines of text |
 | Index | This refers to the position of an item on a list. | Index of 1 refers to the first
 item in a list.
 
-
 |=======================================================================
-
 
 [[AppendixA]]
 == Appendix A: Simple activity diagram to aid user with using Expense Splitter
 image::ExpenseSplitterActivityDiagramV2.png[width="790"]
-
 
 *Add Item Activity Diagram*  +
 

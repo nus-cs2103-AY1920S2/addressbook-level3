@@ -6,8 +6,7 @@ box Logic LOGIC_COLOR_T1
 participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
 participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
 participant ":DeleteItemCommandParser" as DeleteItemCommandParser LOGIC_COLOR
-participant ":DeleteItemCommand" as DeleteItemCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "command:DeleteItemCommand" as DeleteItemCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -38,19 +37,21 @@ create DeleteItemCommand
 DeleteItemCommandParser -> DeleteItemCommand
 activate DeleteItemCommand
 
-DeleteItemCommand --> DeleteItemCommandParser : d
+DeleteItemCommand --> DeleteItemCommandParser : command
 deactivate DeleteItemCommand
 
-DeleteItemCommandParser --> ExpenseSplitterParser : d
+DeleteItemCommandParser --> ExpenseSplitterParser : command
 deactivate DeleteItemCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteItemCommandParser -[hidden]-> ExpenseSplitterParser
-destroy DeleteItemCommandParser
 
-ExpenseSplitterParser --> SplitterLogicManager : d
+ExpenseSplitterParser --> SplitterLogicManager : command
 deactivate ExpenseSplitterParser
 
 ref over SplitterLogicManager, SplitterModelManager: Execution of DeleteItemCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteItemCommandParser -[hidden]-> ExpenseSplitterParser
+destroy DeleteItemCommand
+destroy DeleteItemCommandParser
 
 SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
 activate SplitterStorageManager
@@ -61,6 +62,6 @@ SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
 SplitterStorageManager --> SplitterLogicManager
 deactivate SplitterStorageManager
 
-[<--SplitterLogicManager : result()
+[<--SplitterLogicManager : result
 deactivate SplitterStorageManager
 @enduml
