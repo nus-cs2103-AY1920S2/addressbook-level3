@@ -55,14 +55,18 @@ public class EditCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Workout workoutToEdit = model.getFilteredWorkoutList().get(INDEX_FIRST_OBJECT.getZeroBased());
+        Exercise oldExercise = workoutToEdit.getWorkoutExercises().get(INDEX_FIRST_OBJECT.getZeroBased());
         Exercise newExercise = model.getExerciseList().getExerciseList().get(INDEX_FIRST_OBJECT.getZeroBased());
         Workout editedWorkout =
                 new WorkoutBuilder(workoutToEdit).setWorkoutExercise(INDEX_FIRST_OBJECT, newExercise).build();
 
         EditCommand editCommand = new EditCommand(INDEX_FIRST_OBJECT, INDEX_FIRST_OBJECT, INDEX_FIRST_OBJECT);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_WORKOUT_SUCCESS,
-                editedWorkout.getWorkoutName());
+        String expectedMessage = String.format(
+                EditCommand.MESSAGE_EDIT_WORKOUT_SUCCESS,
+                oldExercise.getExerciseName(),
+                editedWorkout.getWorkoutName(),
+                newExercise.getExerciseName());
 
         ModelManager expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),

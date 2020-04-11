@@ -20,8 +20,8 @@ import seedu.zerotoone.model.workout.WorkoutName;
 public class CreateCommand extends WorkoutCommand {
     public static final String COMMAND_WORD = "create";
     public static final String MESSAGE_USAGE = "Usage: " + Commands.WORKOUT_CREATE;
-    public static final String MESSAGE_SUCCESS = "New workout added: %1$s";
-    public static final String MESSAGE_DUPLICATE_WORKOUT = "This workout already exists";
+    public static final String MESSAGE_SUCCESS = "New workout successfully added: %1$s";
+    public static final String MESSAGE_DUPLICATE_WORKOUT = "Sorry, this workout already exists. Try again!";
 
     private final WorkoutName workoutName;
     private final List<Exercise> workoutExercises;

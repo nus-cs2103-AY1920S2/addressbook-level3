@@ -22,7 +22,7 @@ import seedu.zerotoone.model.workout.Workout;
 public class AddCommand extends WorkoutExerciseCommand {
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = "Usage: " + Commands.WORKOUT_EXERCISE_ADD;
-    public static final String MESSAGE_ADD_WORKOUT_EXERCISE_SUCCESS = "Added exercise to workout: %1$s";
+    public static final String MESSAGE_ADD_WORKOUT_EXERCISE_SUCCESS = "Added the exercise %s to %s!";
 
     private final Index workoutId;
     private final Index exerciseId;
@@ -73,7 +73,8 @@ public class AddCommand extends WorkoutExerciseCommand {
         model.updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
 
         String outputMessage = String.format(MESSAGE_ADD_WORKOUT_EXERCISE_SUCCESS,
-                exerciseToAdd.getExerciseName().fullName);
+                exerciseToAdd.getExerciseName().fullName,
+                workoutToEdit.getWorkoutName().fullName);
         return new CommandResult(outputMessage);
     }
 

@@ -19,7 +19,7 @@ import seedu.zerotoone.model.workout.Workout;
 public class DeleteCommand extends WorkoutCommand {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = "Usage: " + Commands.WORKOUT_DELETE;
-    public static final String MESSAGE_DELETE_WORKOUT_SUCCESS = "Deleted Workout: %1$s";
+    public static final String MESSAGE_DELETE_WORKOUT_SUCCESS = "Successfully deleted workout: %1$s";
     private final Index workoutId;
 
     public DeleteCommand(Index targetIndex) {

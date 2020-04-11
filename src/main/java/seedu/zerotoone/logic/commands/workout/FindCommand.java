@@ -17,7 +17,7 @@ import seedu.zerotoone.model.workout.WorkoutName;
 public class FindCommand extends WorkoutCommand {
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_USAGE = "Usage: " + Commands.WORKOUT_FIND;
-    public static final String MESSAGE_WORKOUTS_LISTED_OVERVIEW = "%1$d workouts listed!";
+    public static final String MESSAGE_WORKOUTS_LISTED_OVERVIEW = "%1$d workout(s) listed!";
 
     private final WorkoutName workoutName;
     public FindCommand(WorkoutName workoutName) {

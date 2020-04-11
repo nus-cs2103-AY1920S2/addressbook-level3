@@ -9,9 +9,7 @@ import seedu.zerotoone.model.Model;
 public class AboutCommand extends Command {
 
     public static final String COMMAND_WORD = "about";
-
     public static final String MESSAGE_USAGE = "Usage: " + Commands.ABOUT;
-
     public static final String SHOWING_ABOUT_MESSAGE =
             "Here is some info about this app, and a list of all the commands!";
 
