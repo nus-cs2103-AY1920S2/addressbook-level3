@@ -4,15 +4,14 @@ start
 
 repeat
 :iterate forwards;
-if () then ([index is validIndex])
-    :append index;
-    :update input;
+if () then ([index is valid])
 else ([else])
-    :append index to \nremoved;
+    :remove index from input;
+    :append index to \n removed list;
 endif
 repeat while() is ([more words])
 -> [else];
-if () then ([removed index > 0])
+if () then ([removed list > 0])
     :throw exception;
     stop
 else ([else])

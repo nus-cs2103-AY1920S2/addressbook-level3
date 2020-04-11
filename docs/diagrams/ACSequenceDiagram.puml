@@ -22,7 +22,12 @@ activate MainWindow
 MainWindow -> LogicManager: suggestCommand\n("delete -10 10 5")
 activate LogicManager
 
-LogicManager -> CommandCompletor: suggestCommand\n("delete -10 10 5")
+LogicManager -> LogicManager: getTaskList().size()
+activate LogicManager
+LogicManager -> LogicManager
+deactivate LogicManager
+
+LogicManager -> CommandCompletor: suggestCommand\n("delete -10 10 5", listSize)
 activate CommandCompletor
 
 CommandCompletor --> LogicManager: CompletorResult
@@ -48,7 +53,7 @@ alt Completion success
     deactivate CommandTextField
     CommandBox -[hidden]->CommandBox
 else else
-    CommandBox -> CommandTextField: setSuccess()
+    CommandBox -> CommandTextField: setFailure()
     activate CommandTextField
     CommandTextField -> CommandBox
     deactivate CommandTextField

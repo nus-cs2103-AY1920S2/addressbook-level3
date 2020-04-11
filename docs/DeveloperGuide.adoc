@@ -189,7 +189,7 @@ Auto complete is triggered when users press tab while on the command line. It se
 image::ACActivityDiagram.png[width=790]
 [IMPORTANT]
 =====
-Auto completion of a word happens when:
+Auto completion of a word happens when either:
 
 . the input matches the start of a target word
 . the edit distance between the input and the target < 2.
@@ -198,11 +198,11 @@ Auto completion of a word happens when:
 
 The above diagram shows the decisions `CommandCompletor` goes through when deciding how to edit users input.
 
-. attempts to complete the command word
+. attempts to complete the command word against all possible commands based on the criteria in the callout above
 .. if command word is unrecognized, throws a `CompletorException`
-.. else it performs specific checks on the input based on the command word and auto completes as necessary
+.. else it performs argument checks and auto completes as necessary
 
-===== Check overview
+==== Argument checks overview
 
 . If the input is an add/edit/pom command then CommandCompletor will attempt to add prefixes.
 .. add/edit command -> add priority and reminder prefixes
@@ -210,58 +210,77 @@ The above diagram shows the decisions `CommandCompletor` goes through when decid
 . If input is a delete/done command
 .. remove any invalid indices that are greater than the length of the displayed task list or that are not a positive integer
 . If input is a sort command
-.. Auto complete fields based on the callout <<completion criteria, here>>
-.. If cannot complete, then it is removed
-
-==== Auto Completion
-image::PredicateActivityDiagram.png[]
-We iterate through all allowed sort fields and all fields in the input then perform all three checks:
-
-. If input matches start of sort field
-. If edit distance between input and sort field < 2
-
-If either the above conditions are hit, we complete the input with the sort field
+.. Auto completion of fields is performed based on the criteria mentioned in the callout <<completion criteria, here>>
+.. If it cannot be completed and is not recongized, then it is removed
 
 ==== Prefix Completion
-image::CompletePrefixActivityDiagram.png[]
+image::ACPrefixActivityDiagram.png[]
+
+Here we take a closer look at how prefix completion is implemented. We iterate through every word of the user's input and then check if the word is a valid task field. If it, we append the prefix and update the hasPrefix boolean to true so that we don't append duplicate prefixes. The input is updated and we iterate until we reach the end of the input.
 
 ==== Index Completion
-image::CompleteIndexActivityDiagram.png[]
+image::ACIndexActivityDiagram.png[]
 
+Similar to before, we iterate through the arguments and we remove indexes that are either out of the displayed TaskList's size or not a positive integer. We then append it to a removed list so that we can inform the user what input has been removed.
 
-==== Auto Complete output:
+==== Sort field Completion
+Is performed simply by iterating through all arguments and performing the checks mentioned above.
+
+// TODO maybe can insert diagram as well?
+==== Auto Complete output: 
 . If words are completed or prefixes are added or nothing has changed for the input, auto complete is labelled as successful
-. If any input is deleted (invalid index/sort field), auto complete will raise a warning by throwing CompletorDeletionException
-. If no command word is found, auto complete is labelled as an error and will throw a CompletorException
-
-[NOTE]
-=====
-An auto complete can be labelled as both a success and a warning if some fields and words are auto completed but some part of the input is removed.
-=====
+. If any input is deleted (invalid index or sort field), `CommandCompletor` will raise a warning by throwing a `CompletorDeletionException`
+. If no command word is found, auto complete is labelled as an error and `CommandCompletor` will raise a `CompletorException`
 
 ==== Auto Complete UI
+//TODO maybe shift this up?
 image::ACSequenceDiagram.png[]
-To handle the above case where an auto complete can be both a warning and a success, we update the command line text color to reflect success and warning while only updating the user feedback for warnings. This allows us to inform users when input has been removed so that they are aware.
+To handle the above case where an auto complete can be both a warning and a success, we update the color of the `CommandTextField` to reflect success and errors while only updating the color of the `ResultDisplay` if there are warnings.
+
+* These color changes disappear after one second
+* They are made in addition to changes to the text of both the `CommandTextField` and `ResultDisplay`
 
 
 ==== Auto Complete Success UI
 image::ACSuccess.png[width=600]
 
+* `CommandTextField` is set to green
+* `CommandTextField`'s text is replaced by the suggested command
+* Feedback is also provided on what changes have been made
+** If input has been removed, `ResultDisplay` is set to orange
 
 ==== Auto Complete Failure UI
 image::ACFailure.png[width=600]
 
+* `CommandTextField` is set to green
+* `CommandTextField`'s text is unchanged
+* Feedback is provided that command word is not recognized
+
 === Enhanced Find
 We've built upon the existing find function in AB-3 to filter tasks based on phrases instead of words.
 
+==== Implementation
+
 image::FindSequenceDiagram.png[]
 
-We perform the match by taking chunks of the task name whereby a chunk = number of words used in the search term and performing some calculation between the search terms and those chunks.
-
-image::
 * We chose to not use edit distance for keywords of less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
 * We also chose to display task names who's start matches the search term for ease of usage
-* We've enabled searching by phrase so that users are able to find more specific tasks
+* We've enabled searching by phrase so that users can be more specific when looking for tasks
+
+==== Scoring
+
+image::PredicateSequenceDiagram.png[]
+
+* We perform the match by taking chunks of the task name whereby the number of words in a chunk = number of words used in the search term
+* We iterate through all chunks of the task name and calculate a score for that task
+* The score is used to determine its relevance to the search term
+** smaller score is more relevant
+* The calculation is decided by:
+** If edit distance < 2, score is set to 1
+** If the search term matches the start of the chunk, score is set to 1
+** If the chunk = search term, score is set to 0
+* The minimum score of all chunks is set as the score of the Task
+
 
 [NOTE]
 =====
