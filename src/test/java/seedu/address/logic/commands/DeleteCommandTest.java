@@ -1,25 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODCODE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_AMY;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_DEADLINE_FAILURE;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_GRADE_FAILURE;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PROFILE_FAILURE;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_NOT_TAKING_MODULE;
+import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.DeleteCommand.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
@@ -88,30 +74,6 @@ public class DeleteCommandTest {
                         new ModuleManagerStub()));
     }
 
-    // Valid name, different capitalizations
-    @Test
-    public void execute_validNameOneProfile_success() {
-        Name name = new Name("john");
-        //Name name2 = new Name("John");
-        //Name name3 = new Name("JOHN");
-        DeleteCommand deleteCommandFirstLetterCap = new DeleteCommand(new Name("John"));
-        DeleteCommand deleteCommandAllCap = new DeleteCommand(new Name("JOHN"));
-        DeleteCommand deleteCommandNoCap = new DeleteCommand(new Name("john"));
-
-        try {
-            assertEquals(deleteCommandFirstLetterCap.execute(
-                    new ProfileManagerWithEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStub()).getFeedbackToUser(), String.format(MESSAGE_DELETE_PERSON_SUCCESS, name));
-            assertEquals(deleteCommandAllCap.execute(
-                    new ProfileManagerWithEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStub()).getFeedbackToUser(), String.format(MESSAGE_DELETE_PERSON_SUCCESS, name));
-            assertEquals(deleteCommandNoCap.execute(
-                    new ProfileManagerWithEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStub()).getFeedbackToUser(), String.format(MESSAGE_DELETE_PERSON_SUCCESS, name));
-        } catch (CommandException e) {
-            fail();
-        }
-    }
 
     // No module code added, user inputs "delete m/"
     // ParserException thrown in DeleteCommandParser
@@ -121,14 +83,18 @@ public class DeleteCommandTest {
     }
 
     // Invalid module code, user inputs "delete m/123abc"
-    @Test
-    public void execute_invalidModuleCode_throwsCommandException() {
-        ModuleCode moduleCode = new ModuleCode(INVALID_MODCODE_DESC);
-        DeleteCommand deleteCommandModule = new DeleteCommand(moduleCode);
-        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE, () ->
-                deleteCommandModule.execute(
-                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
-    }
+    // Check in the DeleteCommandParser
+
+    //@Test
+    //public void execute_invalidModuleCode_throwsCommandException() {
+    //    ModuleCode moduleCode = new ModuleCode("123abc");
+    //    DeleteCommand deleteCommandModule = new DeleteCommand(moduleCode);
+
+    //    assertThrows(CommandException.class, MESSAGE_INVALID_MODULE, () ->
+    //            deleteCommandModule.execute(
+    //                    new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+    //}
+
 
     // Module has not been added to profile before
     @Test
@@ -186,11 +152,14 @@ public class DeleteCommandTest {
         LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_AMY);
         Deadline task = new Deadline(moduleCode, VALID_TASK_AMY, date, time);
         DeleteCommand deleteCommandTask = new DeleteCommand(new ModuleCode(moduleCode), task);
+
         assertThrows(CommandException.class, String.format(MESSAGE_DELETE_DEADLINE_FAILURE, task.toString()),
                 () -> deleteCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                         new ModuleManagerStubCs()));
     }
 
+
+    // No grade to be deleted
     @Test
     public void execute_gradeNotAdded_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
@@ -243,6 +212,7 @@ public class DeleteCommandTest {
                     new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
                     new PrereqTreeNode());
             Deadline deadline = new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY);
+            String grade = VALID_GRADE_AMY;
             ObservableList<Profile> profileList = FXCollections.observableArrayList();
             Profile profile = new Profile(new Name("JOHN"), new CourseName(
                     AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
@@ -250,6 +220,7 @@ public class DeleteCommandTest {
             profile.addModule(1, module);
             Personal personal = new Personal();
             personal.addDeadline(deadline);
+            personal.setGrade(grade);
             profileList.add(profile);
             this.profileList = profileList;
             filteredProfiles = new FilteredList<>(this.profileList);
