@@ -335,12 +335,12 @@ Add task with reminder with the following command `add n/<name> r/DD/MM/YY@HH:MM
 
 For example: `add n/Buy Milk r/11/11/20@23:59` as shown below.
 
-.Input for adding task with reminder.
+.Input for adding a task with reminder.
 image::reminder_add.png[width=395]
 
 Results in a task with the reminder's date in the task card.
 
-.Success for adding task with reminder.
+.Success for adding a task with reminder.
 image::reminder_add_success.png[width=790]
 
 ===== Edit Task with reminder 
