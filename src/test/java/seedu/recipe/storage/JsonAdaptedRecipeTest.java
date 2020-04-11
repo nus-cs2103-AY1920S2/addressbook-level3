@@ -25,43 +25,53 @@ import seedu.recipe.storage.recipe.ingredient.JsonAdaptedProtein;
 import seedu.recipe.storage.recipe.ingredient.JsonAdaptedVegetable;
 
 public class JsonAdaptedRecipeTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_TIME = "+651234";
-    private static final String INVALID_STEP = "";
-    private static final String INVALID_GOAL = "#friend";
-    private static final String VALID_NAME = GRILLED_SANDWICH.getName().toString();
-    private static final String VALID_TIME = GRILLED_SANDWICH.getTime().toString();
+    public static final String INVALID_NAME = "R@chel";
+    public static final String INVALID_TIME = "+651234";
+    public static final String INVALID_STEP = "";
+    public static final String INVALID_GOAL = "#friend";
+    public static final String VALID_NAME = GRILLED_SANDWICH.getName().toString();
+    public static final String VALID_TIME = GRILLED_SANDWICH.getTime().toString();
 
-    private static final List<JsonAdaptedGrain> VALID_GRAINS = GRILLED_SANDWICH.getGrains().stream()
+    public static final List<JsonAdaptedGrain> VALID_GRAINS = GRILLED_SANDWICH.getGrains().stream()
             .map(JsonAdaptedGrain::new)
             .collect(Collectors.toList());
-    private static final List<JsonAdaptedVegetable> VALID_VEGETABLES = GRILLED_SANDWICH.getVegetables().stream()
+    public static final List<JsonAdaptedVegetable> VALID_VEGETABLES = GRILLED_SANDWICH.getVegetables().stream()
             .map(JsonAdaptedVegetable::new)
             .collect(Collectors.toList());
-    private static final List<JsonAdaptedProtein> VALID_PROTEINS = GRILLED_SANDWICH.getProteins().stream()
+    public static final List<JsonAdaptedProtein> VALID_PROTEINS = GRILLED_SANDWICH.getProteins().stream()
             .map(JsonAdaptedProtein::new)
             .collect(Collectors.toList());
-    private static final List<JsonAdaptedFruit> VALID_FRUITS = GRILLED_SANDWICH.getFruits().stream()
+    public static final List<JsonAdaptedFruit> VALID_FRUITS = GRILLED_SANDWICH.getFruits().stream()
             .map(JsonAdaptedFruit::new)
             .collect(Collectors.toList());
-    private static final List<JsonAdaptedOther> VALID_OTHERS = GRILLED_SANDWICH.getOthers().stream()
+    public static final List<JsonAdaptedOther> VALID_OTHERS = GRILLED_SANDWICH.getOthers().stream()
             .map(JsonAdaptedOther::new)
             .collect(Collectors.toList());
+    public static final String INVALID_VEGETABLE_UNIT = "30, vege";
+    public static final String INVALID_VEGETABLE_NAME = "30g, !";
 
-    private static final List<JsonAdaptedStep> VALID_STEP = GRILLED_SANDWICH.getSteps().stream()
+    public static final List<JsonAdaptedStep> VALID_STEP = GRILLED_SANDWICH.getSteps().stream()
             .map(JsonAdaptedStep::new).collect(Collectors.toList());
-    private static final List<JsonAdaptedGoal> VALID_GOALS = GRILLED_SANDWICH.getGoals().stream()
+    public static final List<JsonAdaptedGoal> VALID_GOALS = GRILLED_SANDWICH.getGoals().stream()
             .map(JsonAdaptedGoal::new)
             .collect(Collectors.toList());
-    private static final List<JsonAdaptedStep> INVALID_STEPS = new ArrayList<>(VALID_STEP);
-    private static final List<JsonAdaptedGoal> INVALID_GOALS = new ArrayList<>(VALID_GOALS);
-    private static final boolean IS_NOT_FAVOURITE = false;
-    private static final boolean IS_FAVOURITE = true;
+    public static final List<JsonAdaptedStep> INVALID_STEPS = new ArrayList<>(VALID_STEP);
+    public static final List<JsonAdaptedGoal> INVALID_GOALS = new ArrayList<>(VALID_GOALS);
+    public static final boolean IS_NOT_FAVOURITE = false;
 
     @Test
     public void toModelType_validRecipeDetails_returnsRecipe() throws Exception {
         JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(GRILLED_SANDWICH);
         assertEquals(GRILLED_SANDWICH, recipe.toModelType());
+    }
+
+    @Test
+    public void toModelType_someIngredientsPresent_assertEquals() throws Exception {
+        JsonAdaptedRecipe grilledSandwich =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, IS_NOT_FAVOURITE,
+                        VALID_GRAINS, null, null, null, VALID_OTHERS,
+                        VALID_STEP, VALID_GOALS);
+        assertEquals(GRILLED_SANDWICH, grilledSandwich.toModelType());
     }
 
     @Test
@@ -110,6 +120,36 @@ public class JsonAdaptedRecipeTest {
                         VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
                         INVALID_STEPS, VALID_GOALS);
         String expectedMessage = Step.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidIngredientUnit_throwsIllegalValueException() {
+        JsonAdaptedVegetable invalidVegetable = new JsonAdaptedVegetable(INVALID_VEGETABLE_NAME);
+
+        List<JsonAdaptedVegetable> invalidVegetables = new ArrayList<>();
+        invalidVegetables.add(invalidVegetable);
+
+        JsonAdaptedRecipe recipe =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, IS_NOT_FAVOURITE,
+                        VALID_GRAINS, invalidVegetables, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
+                        VALID_STEP, VALID_GOALS);
+        String expectedMessage = Ingredient.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidIngredientName_throwsIllegalValueException() {
+        JsonAdaptedVegetable invalidVegetable = new JsonAdaptedVegetable(INVALID_VEGETABLE_NAME);
+
+        List<JsonAdaptedVegetable> invalidVegetables = new ArrayList<>();
+        invalidVegetables.add(invalidVegetable);
+
+        JsonAdaptedRecipe recipe =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, IS_NOT_FAVOURITE,
+                        VALID_GRAINS, invalidVegetables, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
+                        VALID_STEP, VALID_GOALS);
+        String expectedMessage = Ingredient.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
