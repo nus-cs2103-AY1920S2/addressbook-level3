@@ -32,7 +32,7 @@ public class ModelManager implements Model {
 
     private AddressBook addressBook;
     private RestaurantBook restaurantBook;
-    private AssignmentSchedule assignmentSchedule;
+    private SchoolworkTracker assignmentSchedule;
     private EventSchedule eventSchedule;
     private Schedule schedule;
     private UserPrefs userPrefs;
@@ -46,7 +46,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
-                        ReadOnlyAssignmentSchedule scheduler, ReadOnlyEventSchedule eventSchedule,
+                        ReadOnlySchoolworkTracker scheduler, ReadOnlyEventSchedule eventSchedule,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, scheduler, eventSchedule, userPrefs);
@@ -75,7 +75,7 @@ public class ModelManager implements Model {
         createNewState("BIRTHDAY");
         setAddressBook(new AddressBook());
         setRestaurantBook(new RestaurantBook());
-        setAssignmentSchedule(new AssignmentSchedule());
+        setAssignmentSchedule(new SchoolworkTracker());
         setEventSchedule(new EventSchedule());
     }
 
@@ -155,7 +155,7 @@ public class ModelManager implements Model {
     //========== Schoolwork Tracker ==========================================================================
 
     @Override
-    public void setAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule) {
+    public void setAssignmentSchedule(ReadOnlySchoolworkTracker assignmentSchedule) {
         this.assignmentSchedule.resetData(assignmentSchedule);
     }
 
@@ -186,7 +186,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyAssignmentSchedule getAssignmentSchedule() {
+    public ReadOnlySchoolworkTracker getAssignmentSchedule() {
         return assignmentSchedule;
     }
 

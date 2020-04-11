@@ -25,7 +25,7 @@ import seedu.address.testutil.AssignmentBuilder;
 
 public class SchedulerTest {
 
-    private final AssignmentSchedule assignmentSchedule = new AssignmentSchedule();
+    private final SchoolworkTracker assignmentSchedule = new SchoolworkTracker();
 
     @Test
     public void constructor() {
@@ -39,7 +39,7 @@ public class SchedulerTest {
 
     @Test
     public void resetData_withValidReadOnlyScheduler_replacesData() {
-        AssignmentSchedule newData = getTypicalScheduler();
+        SchoolworkTracker newData = getTypicalScheduler();
         assignmentSchedule.resetData(newData);
         assertEquals(newData, assignmentSchedule);
     }
@@ -50,7 +50,7 @@ public class SchedulerTest {
         Assignment editedCs2103Tp = new AssignmentBuilder(CS2103_TP).withHours(VALID_ESTHOURS_CS2103)
                 .withStatus(VALID_STATUS_CS2103).build();
         List<Assignment> newAssignments = Arrays.asList(CS2103_TP, editedCs2103Tp);
-        AssignmentScheduleStub newData = new AssignmentScheduleStub(newAssignments);
+        SchoolworkTrackerStub newData = new SchoolworkTrackerStub(newAssignments);
 
         assertThrows(DuplicateAssignmentException.class, () -> assignmentSchedule.resetData(newData));
     }
@@ -85,12 +85,12 @@ public class SchedulerTest {
     }
 
     /**
-     * A stub ReadOnlyAssignmentSchedule whose assignment list can violate interface constraints.
+     * A stub ReadOnlySchoolworkTracker whose assignment list can violate interface constraints.
      */
-    private static class AssignmentScheduleStub implements ReadOnlyAssignmentSchedule {
+    private static class SchoolworkTrackerStub implements ReadOnlySchoolworkTracker {
         private final ObservableList<Assignment> assignments = FXCollections.observableArrayList();
 
-        AssignmentScheduleStub(Collection<Assignment> assignments) {
+        SchoolworkTrackerStub(Collection<Assignment> assignments) {
             this.assignments.setAll(assignments);
         }
 

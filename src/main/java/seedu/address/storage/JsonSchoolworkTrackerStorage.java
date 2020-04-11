@@ -12,17 +12,17 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyAssignmentSchedule;
+import seedu.address.model.ReadOnlySchoolworkTracker;
 
 /**
- * A class to access AssignmentSchedule data stored in a JSON file on the hard disk.
+ * A class to access SchoolworkTracker data stored in a JSON file on the hard disk.
  */
-public class JsonAssignmentScheduleStorage implements AssignmentScheduleStorage {
-    private static final Logger logger = LogsCenter.getLogger(JsonAssignmentScheduleStorage.class);
+public class JsonSchoolworkTrackerStorage implements SchoolworkTrackerStorage {
+    private static final Logger logger = LogsCenter.getLogger(JsonSchoolworkTrackerStorage.class);
 
     private Path filePath;
 
-    public JsonAssignmentScheduleStorage(Path filePath) {
+    public JsonSchoolworkTrackerStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -31,7 +31,7 @@ public class JsonAssignmentScheduleStorage implements AssignmentScheduleStorage 
     }
 
     @Override
-    public Optional<ReadOnlyAssignmentSchedule> readScheduler() throws DataConversionException {
+    public Optional<ReadOnlySchoolworkTracker> readScheduler() throws DataConversionException {
         return readScheduler(filePath);
     }
 
@@ -41,11 +41,11 @@ public class JsonAssignmentScheduleStorage implements AssignmentScheduleStorage 
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAssignmentSchedule> readScheduler(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlySchoolworkTracker> readScheduler(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAssignmentSchedule> jsonScheduler = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAssignmentSchedule.class);
+        Optional<JsonSerializableSchoolworkTracker> jsonScheduler = JsonUtil.readJsonFile(
+                filePath, JsonSerializableSchoolworkTracker.class);
         if (!jsonScheduler.isPresent()) {
             return Optional.empty();
         }
@@ -60,21 +60,21 @@ public class JsonAssignmentScheduleStorage implements AssignmentScheduleStorage 
     }
 
     @Override
-    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler) throws IOException {
+    public void saveScheduler(ReadOnlySchoolworkTracker scheduler) throws IOException {
         saveScheduler(scheduler, filePath);
     }
 
     /**
-     * Similar to {@link #saveScheduler(ReadOnlyAssignmentSchedule)}.
+     * Similar to {@link #saveScheduler(ReadOnlySchoolworkTracker)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException {
+    public void saveScheduler(ReadOnlySchoolworkTracker scheduler, Path filePath) throws IOException {
         requireNonNull(scheduler);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAssignmentSchedule(scheduler), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableSchoolworkTracker(scheduler), filePath);
     }
 
 }

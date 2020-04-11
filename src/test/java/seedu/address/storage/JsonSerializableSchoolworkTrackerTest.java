@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.AssignmentSchedule;
+import seedu.address.model.SchoolworkTracker;
 import seedu.address.testutil.TypicalAssignments;
 
-public class JsonSerializableAssignmentScheduleTest {
+public class JsonSerializableSchoolworkTrackerTest {
     private static final Path TEST_DATA_FOLDER =
-            Paths.get("src", "test", "data", "JsonSerializableAssignmentScheduleTest");
+            Paths.get("src", "test", "data", "JsonSerializableSchoolworkTrackerTest");
     private static final Path TYPICAL_ASSIGNMENTS_FILE =
             TEST_DATA_FOLDER.resolve("typicalAssignmentsScheduler.json");
     private static final Path INVALID_ASSIGNMENT_FILE =
@@ -25,25 +25,25 @@ public class JsonSerializableAssignmentScheduleTest {
 
     @Test
     public void toModelType_typicalAssignmentsFile_success() throws Exception {
-        JsonSerializableAssignmentSchedule dataFromFile =
-                JsonUtil.readJsonFile(TYPICAL_ASSIGNMENTS_FILE, JsonSerializableAssignmentSchedule.class).get();
-        AssignmentSchedule assignmentScheduleFromFile = dataFromFile.toModelType();
-        AssignmentSchedule typicalAssignmentsList = TypicalAssignments.getTypicalScheduler();
+        JsonSerializableSchoolworkTracker dataFromFile =
+                JsonUtil.readJsonFile(TYPICAL_ASSIGNMENTS_FILE, JsonSerializableSchoolworkTracker.class).get();
+        SchoolworkTracker assignmentScheduleFromFile = dataFromFile.toModelType();
+        SchoolworkTracker typicalAssignmentsList = TypicalAssignments.getTypicalScheduler();
         assertEquals(assignmentScheduleFromFile, typicalAssignmentsList);
     }
 
     @Test
     public void toModelType_invalidAssignmentFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableAssignmentSchedule dataFromFile =
-                JsonUtil.readJsonFile(INVALID_ASSIGNMENT_FILE, JsonSerializableAssignmentSchedule.class).get();
+        JsonSerializableSchoolworkTracker dataFromFile =
+                JsonUtil.readJsonFile(INVALID_ASSIGNMENT_FILE, JsonSerializableSchoolworkTracker.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicateAssignments_throwsIllegalValueException() throws Exception {
-        JsonSerializableAssignmentSchedule dataFromFile = JsonUtil.readJsonFile(DUPLICATE_ASSIGNMENT_FILE,
-                JsonSerializableAssignmentSchedule.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableAssignmentSchedule.MESSAGE_DUPLICATE_ASSIGNMENT,
+        JsonSerializableSchoolworkTracker dataFromFile = JsonUtil.readJsonFile(DUPLICATE_ASSIGNMENT_FILE,
+                JsonSerializableSchoolworkTracker.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableSchoolworkTracker.MESSAGE_DUPLICATE_ASSIGNMENT,
                 dataFromFile::toModelType);
     }
 }

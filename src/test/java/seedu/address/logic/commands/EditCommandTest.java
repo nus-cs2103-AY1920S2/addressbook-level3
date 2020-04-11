@@ -20,11 +20,11 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
-import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.SchoolworkTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonExistPredicate;
@@ -38,7 +38,7 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(),
             new RestaurantBook(),
-            new AssignmentSchedule(),
+            new SchoolworkTracker(),
             new EventSchedule(),
             new UserPrefs());
 
@@ -51,7 +51,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new AssignmentSchedule(), new UserPrefs());
+                new ModelManager(new AddressBook(model.getAddressBook()), new SchoolworkTracker(), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -77,7 +77,7 @@ public class EditCommandTest {
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
-                        new AssignmentSchedule(),
+                        new SchoolworkTracker(),
                         new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
@@ -100,7 +100,7 @@ public class EditCommandTest {
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
-                        new AssignmentSchedule(),
+                        new SchoolworkTracker(),
                         new EventSchedule(),
                         new UserPrefs());
 
@@ -128,7 +128,7 @@ public class EditCommandTest {
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
-                        new AssignmentSchedule(),
+                        new SchoolworkTracker(),
                         new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
