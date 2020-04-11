@@ -16,12 +16,17 @@ else ([Input is either 1 or 2 arguments])
             :Return success message to show
             today's orders statistics;
         else ([Input is show 'DATE'])
-            : Return success message to show
-            statistics for this 'DATE';
+            If() then (['DATE' is invalid])
+                :Throws DateTimeException;
+                :Return failure message;
+            else (['DATE' is valid])
+                : Return success message to show
+                statistics for this 'DATE';
+            endif
         endif
     else ([Input have two arguments])
         If () then ([The date(s) are invalid])
-            :Throws a ParseException;
+            :Throws a DateTimeException;
             :Returns a failure message
             (Invalid dates);
         else ([Dates are valid])
