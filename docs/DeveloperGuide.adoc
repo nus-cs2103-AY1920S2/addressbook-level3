@@ -310,10 +310,7 @@ display a success message to the user.
 
 [[clear-structure]]
 ==== Structure of Clear Command
-The following diagramS shows the overview of the `ClearCommand` Class Diagram: +
-
-.Clear Command Parser Class Diagram
-image::ClearCommandParserClassDiagram.svg[]
+The following diagrams shows the overview of the `ClearCommand` Class Diagram: +
 
 .Clear Command Class Diagram
 image::ClearCommandClassDiagram.svg[]
@@ -1200,14 +1197,10 @@ Sequence Diagram below: +
 image::ImportCommandSequenceDiagram.svg[]
 
 The arguments passed to the `import` Command will be parsed by the `ImportCommandParser` class. +
-If the given arguments are valid, a new `ImportCommand` object will be returned.
-In this class, invalid arguments will result in a `ParseException`. +
-
-Three types of checks will be done before returning the `ImportCommand`:
-
-1. Check whether the argument has the `.csv` file extension at the back.
-2. Check whether the file is exists in the data folder.
-3. Check whether the first prefix is `orderType` prefix.
+Then, the `ImportCommandParser` will called the `ParseUtil#parseCsvFile()` to get the filePath based
+on the input the user provides. Afterward, `CsvProcessor` will be called to retrieve the data from the csv file
+and return the processed `fileData` back to ParseUtil. The `fileData` will be further pass to `ImportCommandParser`
+and to the constructor of `ImportCommand`.
 
 [NOTE]
 ====
@@ -1215,18 +1208,18 @@ Three types of checks will be done before returning the `ImportCommand`:
 giving to `ImportCommand`.
 ====
 
-After the `ImportCommand` object is being returned to the `LogicManager`, the `LogicManager` will start
-to run the execute the `ImportCommand`, this will be shown at the diagram below.
+Afterward, the `ImportCommand` object is being returned to the `LogicManager` and the `LogicManager` will start
+to run the execute the `ImportCommand`, which will be shown at the diagram below.
 
 .Execution of Import Command Sequence Diagram
 image::ExecuteImportCommand.svg[]
 
-The `ImportCommand#execute(model)` will first check if the data given starts with
+The `ImportCommand#execute()` will first check if the data given starts with
 *order* or *return* and pass to the `InsertCommandParser` or `ReturnCommandParser` respectively. +
 
 Afterwards, `InsertCommandParser` or `ReturnCommandParser` will return a new `InsertCommand` or `ReturnCommand` respectively
-if it successfully parse the data. The `ImportCommand` will then call the `InsertCommand#execute(Model)`
-or `ReturnCommand#execute(Model)` depend whether it is delivery order or return order. This will cause a delivery order or return order being added into the `Model`.
+if it successfully parse the data. The `ImportCommand` will then call the `InsertCommand#execute()`
+or `ReturnCommand#execute()` depend whether it is delivery order or return order. This will cause a delivery order or return order being added into the `Model`.
 
 The `ImportCommand` will call its own `printResult()` function and return a String message to the `CommandResult` object
 which is then pass back to the `LogicManager`.

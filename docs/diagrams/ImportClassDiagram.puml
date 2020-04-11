@@ -53,6 +53,6 @@ ImportCommand ..> InsertCommandParser
 ImportCommand ..> ReturnCommandParser
 ImportCommandParser ..down> ParserUtil
 ParserUtil ..down> CsvProcessor
-ImportCommand ..right> CsvProcessor
+ImportCommand ..> CsvProcessor
 ImportCommand --up|> "{abstract}\nCommand"
 @enduml
