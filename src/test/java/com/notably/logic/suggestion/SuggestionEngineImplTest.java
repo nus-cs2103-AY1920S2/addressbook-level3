@@ -51,17 +51,6 @@ public class SuggestionEngineImplTest {
     }
 
     @Test
-    public void suggest_inputLengthTooShort_noResponseTextDisplayed() {
-        suggestionEngine.suggest("");
-        assertTrue(model.getSuggestions().isEmpty());
-        assertTrue(model.responseTextProperty().getValue().isEmpty());
-
-        suggestionEngine.suggest("o");
-        assertTrue(model.getSuggestions().isEmpty());
-        assertTrue(model.responseTextProperty().getValue().isEmpty());
-    }
-
-    @Test
     public void suggest_correctedDeleteCommand_generatesSuggestions() {
         String userInputWithoutPath = "dele ";
         String path = toCs2103t.getStringRepresentation();

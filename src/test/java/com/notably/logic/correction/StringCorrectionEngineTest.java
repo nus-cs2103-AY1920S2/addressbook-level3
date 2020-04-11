@@ -15,22 +15,23 @@ public class StringCorrectionEngineTest {
         final List<String> emptyOptions = List.of();
         final int distanceThreshold = 5;
 
-        assertThrows(IllegalArgumentException.class, () ->
-                new StringCorrectionEngine(emptyOptions, distanceThreshold));
+        assertThrows(IllegalArgumentException.class, () -> new StringCorrectionEngine(emptyOptions,
+                    new CorrectionEngineParameters().setDistanceThreshold(distanceThreshold)));
     }
 
     @Test
     public void correct_constructWithNegativeDistanceThreshold_exceptionThrown() {
         final int negativeDistanceThreshold = -1;
 
-        assertThrows(IllegalArgumentException.class, () ->
-                new StringCorrectionEngine(OPTIONS, negativeDistanceThreshold));
+        assertThrows(IllegalArgumentException.class, () -> new StringCorrectionEngine(OPTIONS,
+                    new CorrectionEngineParameters().setDistanceThreshold(negativeDistanceThreshold)));
     }
 
     @Test
     public void correct_withinDistanceThreshold_correctionDone() {
         final int distanceThreshold = 2;
-        final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS, distanceThreshold);
+        final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS,
+                new CorrectionEngineParameters().setDistanceThreshold(distanceThreshold));
         final String uncorrectedInput = "NRW";
 
         final List<String> expectedCorrectedItems = List.of("new");
@@ -45,7 +46,8 @@ public class StringCorrectionEngineTest {
     @Test
     public void correct_exceedDistanceThreshold_correctionFailed() {
         final int distanceThreshold = 1;
-        final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS, distanceThreshold);
+        final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS,
+                new CorrectionEngineParameters().setDistanceThreshold(distanceThreshold));
         final String uncorrectedInput = "OPne";
 
         final CorrectionStatus expectedCorrectedStatus = CorrectionStatus.FAILED;
@@ -58,7 +60,8 @@ public class StringCorrectionEngineTest {
     @Test
     public void correct_exactlyMatchOption_noCorrection() {
         final int distanceThreshold = 1;
-        final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS, distanceThreshold);
+        final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS,
+                new CorrectionEngineParameters().setDistanceThreshold(distanceThreshold));
         final String uncorrectedInput = "hELP";
 
         final List<String> expectedCorrectedItems = List.of("help");

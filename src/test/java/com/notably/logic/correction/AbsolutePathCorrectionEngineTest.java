@@ -33,15 +33,15 @@ public class AbsolutePathCorrectionEngineTest {
     public void constructor_constructWithNegativeDistanceThreshold_exceptionThrown() {
         final int negativeDistanceThreshold = -1;
 
-        assertThrows(IllegalArgumentException.class, () ->
-                new AbsolutePathCorrectionEngine(model, negativeDistanceThreshold, true));
+        assertThrows(IllegalArgumentException.class, () -> new AbsolutePathCorrectionEngine(model,
+                    new CorrectionEngineParameters().setDistanceThreshold(negativeDistanceThreshold)));
     }
 
     @Test
     public void correct_noForwardMatchingAndWithinDistanceThreshold_correctionDone() {
         final int distanceThreshold = 2;
-        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
-                model, distanceThreshold, false);
+        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(model,
+                new CorrectionEngineParameters().setForwardMatching(false).setDistanceThreshold(distanceThreshold));
         final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/y2s2/Cs2103t/Tutorials/tutorial");
 
         final List<AbsolutePath> expectedCorrectedItems = List.of(TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1,
@@ -57,8 +57,8 @@ public class AbsolutePathCorrectionEngineTest {
     @Test
     public void correct_noForwardMatchingAndExceedDistanceThreshold_correctionFailed() {
         final int distanceThreshold = 1;
-        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
-                model, distanceThreshold, false);
+        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(model,
+                new CorrectionEngineParameters().setForwardMatching(false).setDistanceThreshold(distanceThreshold));
         final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2s2/Cs");
 
         final CorrectionStatus expectedCorrectedStatus = CorrectionStatus.FAILED;
@@ -71,8 +71,8 @@ public class AbsolutePathCorrectionEngineTest {
     @Test
     public void correct_noForwardMatchingAndExactMatch_noCorrection() {
         final int distanceThreshold = 1;
-        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
-                model, distanceThreshold, false);
+        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(model,
+                new CorrectionEngineParameters().setForwardMatching(false).setDistanceThreshold(distanceThreshold));
         final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2s2/cs2106");
 
         final List<AbsolutePath> expectedCorrectedItems = List.of(TypicalBlockModel.PATH_TO_CS2106);
@@ -87,8 +87,8 @@ public class AbsolutePathCorrectionEngineTest {
     @Test
     public void correct_forwardMatchingAndWithinThreshold_correctionDone() {
         final int distanceThreshold = 2;
-        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
-                model, distanceThreshold, true);
+        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(model,
+                new CorrectionEngineParameters().setForwardMatching(true).setDistanceThreshold(distanceThreshold));
         final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/cs2105");
 
         final List<AbsolutePath> expectedCorrectedItems = List.of(TypicalBlockModel.PATH_TO_CS2103T,
