@@ -3,6 +3,7 @@ package seedu.zerotoone.logic.parser.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -119,23 +120,21 @@ public class ArgumentTokenizerTest {
 
     @Test
     public void tokenize_multipleArgumentsWithRepeats() throws ParseException {
-        // Two arguments repeated, some have empty values
+        // Two arguments repeated, throws error
         String argsString = "SomePreambleString -t dashT-Value ^Q ^Q -t another dashT value p/ pSlash value -t";
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
-        assertPreamblePresent(argMultimap, "SomePreambleString");
-        assertArgumentPresent(argMultimap, pSlash, "pSlash value");
-        assertArgumentPresent(argMultimap, dashT, "dashT-Value", "another dashT value", "");
-        assertArgumentPresent(argMultimap, hatQ, "", "");
+        Exception exceptionThrown = assertThrows(ParseException.class, () ->
+                ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ));
+        assertEquals(exceptionThrown.getMessage(), ArgumentTokenizer.MESSAGE_REPEATED_PREFIX);
     }
 
     @Test
     public void tokenize_multipleArgumentsJoined() throws ParseException {
-        String argsString = "SomePreambleStringp/ pSlash joined-tjoined -t not joined^Qjoined";
+        String argsString = "SomePreambleStringp/ pSlash joined-tjoined ^Qnot joined";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
         assertPreamblePresent(argMultimap, "SomePreambleStringp/ pSlash joined-tjoined");
         assertArgumentAbsent(argMultimap, pSlash);
-        assertArgumentPresent(argMultimap, dashT, "not joined^Qjoined");
-        assertArgumentAbsent(argMultimap, hatQ);
+        assertArgumentAbsent(argMultimap, dashT);
+        assertArgumentPresent(argMultimap, hatQ, "not joined");
     }
 
     @Test
