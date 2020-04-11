@@ -204,7 +204,7 @@ Format: `findc [n/NAME [NAME]...] [p/PHONE] [e/EMAIL] [a/ADDRESS [ADDRESS]...]`
 * At least one of the optional fields must be provided.
 * Only full words will be matched for keywords e.g. Han will not match Hans
 * The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, n/Bob a/31 will match a/31 n/Bob
-* Only customers matching all attributes will be returned (i.e. AND search) e.g. `findc n/Jane a/31` will return customers with 'jane' in their names and 31 in their addresses
+* Only customers matching all attributes will be returned (i.e. AND search) e.g. `findc n/Jane a/31` will return customers with 'jane' in their names and '31' in their addresses
 * Customers matching any keywords in an attribute (for name and address only) will be returned (i.e. OR search) e.g. `findc a/clementi ave` will return customers with 'clementi' or 'ave' in their addresses
 ****
 

@@ -767,7 +767,7 @@ Expected: All customers are listed. Details of success message is shown in the s
 .. Test case: `findc n/alice` +
 Expected: All customers with full word 'alice' in name are listed. Details of success message is shown in the status bar.
 .. Test case: `findc n/alex alice` +
-Expected: All customers with full word `alex` **OR** `alice` in name are listed. Details of success message is shown in the status bar.
+Expected: All customers with full word 'alex' **OR** 'alice' in name are listed. Details of success message is shown in the status bar.
 .. Test case: `findc a/serangoon yishun` +
 Expected: All customers with full words matching 'serangoon' **OR** 'yishun' in their addresses are listed. Details of success message is shown in the status bar.
 .. Test case: `findc a/serangoon n/bob` +
@@ -839,8 +839,8 @@ Expected: All products are listed. Details of success is shown in the status bar
 
 .. Test case: `findp bag` +
 Expected: All products with full word 'bag' in description are listed. Details of success is shown in the status bar.
-.. Test case: `findp bag hello` +
-Expected: All products with full words matching 'bag' or 'hello' in description are listed. Details of success is shown in the status bar.
+.. Test case: `findp bag yellow` +
+Expected: All products with full words matching 'bag' or 'yellow' in description are listed. Details of success is shown in the status bar.
 
 === Transaction
 
@@ -974,5 +974,23 @@ Expected: Similar to previous.
 [appendix]
 == Effort
 
-Explain the difficulty level, challenges faced, effort required, and achievements of the project.
-Use AB3 as a reference point e.g., you can explain that while AB3 deals with only one entity type, your project was harder because it deals with multiple entity types.
+Throughout this journey, we have overcame many challenges and gain much more experience in software engineering.
+Our project was ambitious as it consisted of multiple entities. In addition to the original address book with the persons entity, we also included products and transactions to the system.
+Since the structure was quite complex, we had to brainstorm about the best way to incorporate products and transactions into the app.
+
+The person class had to be refactored to fit our user profile of customers.
+The commands for products were similar to the original commands for person, however there were also some differences since the requirements for products and persons varied.
+For example, the attributes required for products are vastly different for customers, and new restrictions will need to be applied too.
+The commands for transactions were quite different from both customers and products, since transaction is an association class between customer and product.
+For example, the add transaction command affects the product quantity and sales, so it will have to update the product too, whereas for customer and product there is no need to modify other classes.
+We also needed to consider the proper way to keep track of customers and products to ensure that there were no duplicates. Initially we tried keeping track using only the attributes however there were bugs so we added customer and product ids.
+
+With multiple entities, a lot of thought process went into figuring out how to display all the data.
+Throughout the process, we revamped the ui such that all the information would be presented clearly. Ultimately, our design differed quite a lot from the original as we settled on a tab design.
+Initially, there were different windows showing different information too. In the end, we combined most of the information into a single window, and split the information shown according to categories which are listed as tabs.
+Besides the layout of the ui, the design also took time to finalise as we wanted to make our app look professional and modern.
+
+Lastly, the statistics were quite challenging to implement. This is especially so as we used various bars and graphs, which were new to us and we had to learn independently.
+The calculations were relatively easier as it was just simple math calculations of profit etc.
+
+In all, even though our project was complex, we managed to implement most of our features and even included extra features that we had not plan on intially. Given the moderate to high difficulty level of the project, we are glad that we achieved our project goals.

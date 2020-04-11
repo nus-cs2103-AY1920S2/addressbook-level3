@@ -33,6 +33,6 @@ image::YingxuH.png[width="150", align="left"]
 {empty}[http://github.com/YingxuH[github]][<<YingxuH#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Transaction feature
+Responsibilities: Transaction features
 
 '''
