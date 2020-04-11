@@ -32,13 +32,25 @@ public class ArgumentTokenizer {
     /**
      * Returns true if only the specified prefixes are present.
      */
-    public static boolean onlyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+    public static boolean isOnlyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         boolean allPrefixesPresent = arePrefixesPresent(argumentMultimap, prefixes);
         boolean otherPrefixesNotPresent = CliSyntax.getAllPrefixes().stream()
                 .filter(prefix -> !Arrays.asList(prefixes).contains(prefix))
                 .noneMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        CliSyntax.getAllPrefixes().stream()
+                .filter(prefix -> !Arrays.asList(prefixes).contains(prefix))
+                .forEach(System.out::println);
 
         return allPrefixesPresent && otherPrefixesNotPresent;
+    }
+
+    /**
+     * Tokenizes an arguments string based on all known prefixes.
+     * More info at {@code tokenize(argsString, prefixes...)}.
+     */
+    public static ArgumentMultimap tokenize(String argsString) throws ParseException {
+        List<Prefix> prefixes = CliSyntax.getAllPrefixes();
+        return tokenize(argsString, prefixes.toArray(new Prefix[prefixes.size()]));
     }
 
     /**
