@@ -37,9 +37,6 @@ public class ArgumentTokenizer {
         boolean otherPrefixesNotPresent = CliSyntax.getAllPrefixes().stream()
                 .filter(prefix -> !Arrays.asList(prefixes).contains(prefix))
                 .noneMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-        CliSyntax.getAllPrefixes().stream()
-                .filter(prefix -> !Arrays.asList(prefixes).contains(prefix))
-                .forEach(System.out::println);
 
         return allPrefixesPresent && otherPrefixesNotPresent;
     }
