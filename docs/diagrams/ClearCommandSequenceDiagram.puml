@@ -25,24 +25,32 @@ ClearCommandParser --> OrderBookParser --
 
 OrderBookParser -> ClearCommandParser ++ : parse("-f")
 
-ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
-ClearCommandParser --> ClearCommandParser -- : flags
+alt if invalid flag or both '-r' and '-o' flags  found in arguments
+    ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
+    ClearCommandParser --> ClearCommandParser -- : ParseException
+    ClearCommandParser --> OrderBookParser : ParseException
+    OrderBookParser --> LogicManager : ParseException
+    [<-- LogicManager : ParseException
+else flags are valid
+    ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
 
-create ClearCommand
-ClearCommandParser -> ClearCommand ++ : flags
+    ClearCommandParser --> ClearCommandParser -- : flags
 
-ClearCommand --> ClearCommandParser -- : clearCommand
+    create ClearCommand
+    ClearCommandParser -> ClearCommand ++ : flags
 
-ClearCommandParser --> OrderBookParser -- : clearCommand
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-ClearCommandParser -[hidden]-> OrderBookParser
-destroy ClearCommandParser
+    ClearCommand --> ClearCommandParser -- : clearCommand
 
-OrderBookParser --> LogicManager -- : clearCommand
+    ClearCommandParser --> OrderBookParser -- : clearCommand
+    'Hidden arrow to position the destroy marker below the end of the activation bar.
+    ClearCommandParser -[hidden]-> OrderBookParser
+    destroy ClearCommandParser
 
-ref over LogicManager,  Model : execute clear command
+    OrderBookParser --> LogicManager -- : clearCommand
 
+    ref over LogicManager,  Model : execute clear command
 
 [<--LogicManager : result
+end
 deactivate LogicManager
 @enduml
