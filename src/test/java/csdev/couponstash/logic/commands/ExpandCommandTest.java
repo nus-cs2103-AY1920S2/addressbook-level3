@@ -1,8 +1,11 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.logic.commands.CommandTestUtil.*;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandFailure;
-import static org.junit.jupiter.api.Assertions.*;
+import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
@@ -12,7 +15,6 @@ import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.testutil.TypicalCoupons;
 import csdev.couponstash.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 class ExpandCommandTest {
 

@@ -16,7 +16,7 @@ public class CommandResultTest {
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", Optional.empty(),false)));
+        assertTrue(commandResult.equals(new CommandResult("feedback", Optional.empty(), false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));

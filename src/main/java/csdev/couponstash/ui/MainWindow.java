@@ -1,10 +1,6 @@
 package csdev.couponstash.ui;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.logging.Logger;
-
-import javax.imageio.ImageIO;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
@@ -13,11 +9,8 @@ import csdev.couponstash.logic.commands.CommandResult;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Coupon;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
