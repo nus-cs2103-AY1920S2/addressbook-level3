@@ -1,6 +1,7 @@
 package seedu.zerotoone.testutil.log;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,14 @@ import seedu.zerotoone.model.session.CompletedSet;
  * A utility class to help with building CompletedExercise objects.
  */
 public class CompletedExerciseBuilder {
-    private static final Long DEFAULT_EXERCISE_TIME_IN_MINUTES = 10L;
+    private static final Long DEFAULT_WORKOUT_LENGTH_IN_MINUTES = 10L;
+
+    private static final LocalDateTime DEFAULT_START_TIME =
+        LocalDateTime.of(1996, Month.JULY, 24, 11, 11);
+
+    private static final LocalDateTime DEFAULT_END_TIME =
+        DEFAULT_START_TIME.plusMinutes(DEFAULT_WORKOUT_LENGTH_IN_MINUTES);
+
     /**
      * The constant DEFAULT_EXERCISE_NAME.
      */
@@ -72,8 +80,7 @@ public class CompletedExerciseBuilder {
      * @return the completed exercise
      */
     public CompletedExercise build() {
-        return new CompletedExercise(exerciseName, exerciseSets, LocalDateTime.now(),
-            LocalDateTime.now().plusMinutes(DEFAULT_EXERCISE_TIME_IN_MINUTES));
+        return new CompletedExercise(exerciseName, exerciseSets, DEFAULT_START_TIME, DEFAULT_END_TIME);
     }
 
 }

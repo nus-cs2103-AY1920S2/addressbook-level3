@@ -152,6 +152,4 @@ public class LogicManager implements Logic {
     public void showdownTimer() {
         model.shutdownTimer();
     }
-
-
 }

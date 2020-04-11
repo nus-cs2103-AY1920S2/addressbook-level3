@@ -1,6 +1,7 @@
 package seedu.zerotoone.testutil.log;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,12 @@ public class LogBuilder {
     /**
      * The constant DEFAULT_WORKOUT_LENGTH.
      */
-    public static final Long DEFAULT_WORKOUT_LENGTH = 2L;
+    private static final Long DEFAULT_WORKOUT_LENGTH_IN_HOURS = 2L;
+
+    private static final LocalDateTime DEFAULT_START_TIME =
+        LocalDateTime.of(1996, Month.JULY, 24, 11, 11);
+
+    private static final LocalDateTime DEFAULT_END_TIME = DEFAULT_START_TIME.plusHours(DEFAULT_WORKOUT_LENGTH_IN_HOURS);
 
     private WorkoutName workoutName;
     private List<CompletedExercise> workoutExercises;
@@ -120,7 +126,7 @@ public class LogBuilder {
      */
     public CompletedWorkout build() {
         return new CompletedWorkout(workoutName, workoutExercises,
-            LocalDateTime.now(), LocalDateTime.now().plusHours(DEFAULT_WORKOUT_LENGTH));
+            DEFAULT_START_TIME, DEFAULT_END_TIME);
     }
 
 }

@@ -6,6 +6,7 @@ import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import seedu.zerotoone.model.exercise.ExerciseName;
 
@@ -45,4 +46,34 @@ public class CompletedExercise {
     public LocalDateTime getEndTime() {
         return this.endTime;
     }
+
+    /**
+     * Returns true if both completed exercises have the same identity and data fields.
+     * This defines a stronger notion of equality between two exercises.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CompletedExercise)) {
+            return false;
+        }
+
+        CompletedExercise otherExercise = (CompletedExercise) other;
+        return otherExercise.getExerciseName().equals(getExerciseName())
+            && otherExercise.getSets().equals(getSets());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(exerciseName, sets);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s Completed Exercise set: %s", getExerciseName(), getSets().toString());
+    }
+
 }
