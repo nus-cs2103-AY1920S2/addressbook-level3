@@ -19,18 +19,17 @@ public class RandomCommandTest {
     private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
     private Model expectedModel;
 
-    
     @Test
     public void equalityCheck() {
-       RandomCommand randomCom = new RandomCommand();
-       RandomCommand sameVal = randomCom;
-       RandomCommand newRandom = new RandomCommand();
-       assertEquals(randomCom, sameVal);
-       if (randomCom.getTargetIndex().equals(newRandom.getTargetIndex())) {
-           assertEquals(randomCom, newRandom);
-       } else {
-           assertNotEquals(randomCom, newRandom);
-       }
+        RandomCommand randomCom = new RandomCommand();
+        RandomCommand sameVal = randomCom;
+        RandomCommand newRandom = new RandomCommand();
+        assertEquals(randomCom, sameVal);
+        if (randomCom.getTargetIndex().equals(newRandom.getTargetIndex())) {
+            assertEquals(randomCom, newRandom);
+        } else {
+            assertNotEquals(randomCom, newRandom);
+        }
     }
-    
+
 }
