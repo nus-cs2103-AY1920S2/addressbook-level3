@@ -20,6 +20,7 @@ By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 Refer to the guide <<SettingUp#, here>>.
 
+//@@author
 == Design
 
 [[Design-Architecture]]
@@ -34,7 +35,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/blob/master/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/blob/master/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/blob/master/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/blob/master/src/main/java/seedu/delino/Main.java[`Main`] and link:{repoURL}/blob/master/src/main/java/seedu/delino/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,11 +78,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.svg[]
 
-*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/delino/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,7 +97,7 @@ The `UI` component,
 image::LogicClassDiagram.svg[]
 
 *API* :
-link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/delino/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `OrderBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -111,13 +112,14 @@ image::DeleteSequenceDiagram.svg[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+//tag::design_model[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.svg[]
 
-*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -130,6 +132,7 @@ The `Model`,
 An Order class consists of nine different fields as shown in the image. Every order is part of a UniqueOrderList and
 every UniqueOrderList is part of an OrderBook.
 image:BetterModelClassDiagram.svg[]
+//end::design_model[]
 
 //tag::Design-Storage[]
 [[Design-Storage]]
@@ -138,7 +141,7 @@ image:BetterModelClassDiagram.svg[]
 .Structure of the Storage Component
 image::StorageClassDiagram.svg[]
 
-*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -149,7 +152,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.delino.commons` package.
 
 == Implementation
 
@@ -262,7 +265,7 @@ The second argument of the `list` command can be `done` or `undone` or an empty 
 ====
 
 The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
-the second argument into the `ListCommand` object. This object will then be ultimately returned to the `LogicManager`.
+into the `ListCommand` object. This object will then be ultimately returned to the `LogicManager`.
 Next, the `LogicManager` will call the execute(model) method using the `ListCommand` object. In this method, it wil use
 the `Model` object to call the methods : updateFilteredOrderList and updateFilteredReturnOrderList. Since in this case, the
 argument is empty, the predicate that is parsed to the two methods will always result to true, which means to list
@@ -271,7 +274,6 @@ to the `LogicManager`, indicating that the command execution is a success.
 //end::list[]
 
 //tag::clear[]
-
 === Clear feature
 In this section, the <<what-is-clear, functionality>> of the `clear` feature, the expected <<clear-execution-path, execution path>>,
 the <<clear-structure, structure>> of the `ClearCommand` class and the <<clear-interaction, interactions>>
@@ -289,20 +291,21 @@ The execution path of the `ClearCommand` is shown below: +
 .Clear Class Activity Diagram
 image::ClearActivityDiagram.svg[]
 
-After user enter the `clear` command, the `ClearCommandParser` will check if the arguments are empty: +
+After user enter the `clear` command, the `ClearCommandParser` will run the following two checks: +
 
-** if `Yes`, a new `ClearCommand` object will be created with no flag
-** If `No`, a new `ClearCommand` object will be created with the flags. +
+** Check if flag in the arguments do not belong to one of the three valid flags: `-f`, `-r` and `-o`
+** Check if both `-r` and `-o` flags found in the arguments +
 
+If either one of the conditions occurs, exception will be thrown and the error message will be display to the user.
 Afterward,  the new `ClearCommand` object will be executed.
 
 During the execution of the `ClearCommand`:
 
-** If `-f` flag is found in flags, the respective order book list will be cleared and
+** If `-f` flag is found in flags, the respective order book will be cleared and
 display a success message to the user.
 ** If there are no `-f` flag found in flags, a pop up will appeared with the confirmation message.
    User would be required to press either one of the following two buttons:
-*** `Yes` button - The respective order book list will be cleared and display successful clear message to the user.
+*** `Yes` button - The respective order book will be cleared and display successful clear message to the user.
 *** `No` button - Pop up closed and end of activity.
 
 [[clear-structure]]
@@ -349,12 +352,15 @@ Sequence Diagram below: +
 .Clear Command Sequence Diagram
 image::ClearCommandSequenceDiagram.svg[]
 
-The arguments passed to the Clear Command will be parsed by the `ClearCommandParser` class +
+The above sequence diagram illustrate how `Clear` Command being processed when the user input `clear -f` to force clear
+both order book and return order book.
+
+After the user input. the arguments passed to the `Clear` Command will be parsed by the `ClearCommandParser` class +
 If the given arguments are valid, a new `Clear` Command object will be returned.
 
 In the `ClearCommandParser`, there will be two validation checks: +
-1. `isValidFlag(flag)`: Check whether the flag is one of the three flags: `-f`, `-o` and `-r` +
-2. `isInvalidFlagFormat(flag, flags)`: Ensure the arguments do not have both `-o` and `-r` flags.
+1. Ensure the flag is one of the three flags: `-f`, `-o` and `-r` +
+2. Ensure the arguments do not have both `-o` and `-r` flags.
 
 After the two validation checks, the flag will be added into HashSet, *flags* which will then passed to
 the new `ClearCommand` object created by `ClearCommandParser` and it is being returned to the `LogicManager`.
@@ -362,14 +368,12 @@ The `LogicManager` will start to run the execute the `clear` Command, which will
 shown in details in below diagram:
 
 .Execution of Clear Command Sequence Diagram
-image::ClearCommandSequenceDiagram2.svg[]
+image::ExecuteClearCommand.svg[]
 
-After `LogicManager` call the `ClearCommand#execute(model)`, the `clear` Command will update the model by creating a
-new `OrderBook` object and pass it to `Model#setOrerBook(orderBook)`, whereby the `Model` will then update its own
-orderBook. In addition, the `clear` Command will pass back a new `CommandResult` object with the success message
-in it back to the `LogicManager`.
-
-After executing any of the sequences above, a new `CommandResult` object will be return back to `LogicManager`.
+After `LogicManager` call the `ClearCommand#execute(model)`, the `clear` Command will update the model by pass a new
+`OrderBook` object and a new `ReturnOrderBook` object to `Model`.  The `Model` will then update its own orderBook and
+returnOrderBook. In addition, the `clear` Command will pass back a new `CommandResult` object with the success message
+in it to the `LogicManager` at the end of the execution.
 
 //end::clear[]
 
@@ -501,9 +505,9 @@ The specified return order at `INDEX` 2 will be deleted using the `deleteReturnO
 in the `model`.
 
 A new `CommandResult` will be created and returned to the `LogicManager`.
-
 //end::delete[]
 
+//tag::delivered[]
 [[delivered]]
 === Delivered Feature
 In this section, the <<what-is-delivered, functionality>> of the `delivered` feature, the
@@ -549,7 +553,7 @@ not extensively utilised in `DeliveredCommand`; such as public static fields and
 ==== Sequence Diagram for delivering an order
 The sequence diagrams for the *Delivered Command* are shown below.
 
-.Search Command Sequence Diagram
+.Delivered Command Sequence Diagram
 image::DeliveredSequenceDiagram.png[]
 
 .Execution of Delivered Command
@@ -603,6 +607,7 @@ delivery status of the object to delivered. Then, the `updateFilteredOrderList()
 method to update the list in the `model`. +
 
 Based on the new updates, a new `CommandResult` object will be instantiated to print the message success to the user.
+//end::delivered[]
 
 //tag::edit[]
 [[edit]]
@@ -685,6 +690,175 @@ The main function of these methods are to help `EditCommand` in updating the `Ob
 The `ObeservableList` is a JavaFX function which listens and automatically changes the list once an update is performed.
 //end::edit[]
 
+//tag::return[]
+[[return]]
+=== Return Feature
+In this section, you will learn more about how the `return` feature is implemented.
+
+[[what-is-return]]
+==== What is the Return Feature
+The return feature allows the user to either: +
+1. Create a new return order from his/her input parcel attributes. +
+2. Convert an existing delivered order to a return order.
+
+The return feature was implemented as a `ReturnCommand` in the `Logic` package. +
+
+The `return` command has two possible formats: +
+
+1. `return` <<command_prefix, `TRANSACTION_ID`>>
+If the user provides only a valid <<command_prefix, `TRANSACTION_ID`>> in his input, the order with the given
+<<command_prefix, `TRANSACTION_ID`>> will be converted into a return order with the same attributes.
+The created return order will be added into the return order list.
+
+2. `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>>
+<<command_prefix, `EMAIL`>> <<command_prefix, `RETURN_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>> <<command_prefix, `[COMMENTS]`>>
+<<command_prefix, `[ITEM_TYPE]`>>
+If the user provides these compulsory parcel attributes, a return order with the given parcel attributes will be created and added to the return order list.
+
+[NOTE]
+====
+1. All return orders do not have the <<command_prefix, `CASH_ON_DELIVERY`>> parcel attribute.
+2. The <<command_prefix, `TRANSACTION_ID`>> is alphanumeric, which determines the <<command_prefix, `TRANSACTION_ID`>> of the resulting return order.
+3. The <<command_prefix, `NAME`>> consists of alphabets and determines the <<command_prefix, `NAME`>> of the resulting return order.
+4. The <<command_prefix, `ADDRESS`>> is alphanumeric and determines the <<command_prefix, `ADDRESS`>>  of the resulting return order.
+5. The <<command_prefix, `PHONE_NUMBER`>> consists of only numbers and determines the <<command_prefix, `PHONE_NUMBER`>> of the resulting return order.
+6. The <<command_prefix, `EMAIL`>> is alphanumeric and determines the <<command_prefix, `EMAIL`>> of the resulting return order.
+7. The <<command_prefix, `RETURN_TIMESTAMP`>> should include the date in YYYY-MM-DD format and time in 24-hour format with a whitespace in between
+the date and time.
+8. The <<command_prefix, `WAREHOUSE_LOCATION`>> is alphanumeric and it determines the <<command_prefix, `WAREHOUSE_LOCATION`>> of the resulting return order.
+9. The <<command_prefix, `[COMMENTS]`>> is an optional alphanumeric field and determines the <<command_prefix, `[COMMENTS]`>> of the resulting return order.
+10. The <<command_prefix, `[ITEM_TYPE]`>> is an optional alphanumeric field and determines the <<command_prefix, `[ITEM_TYPE]`>> of the resulting return order.
+====
+
+[[execution-paths-return]]
+==== Execution paths of Return command
+In this section, you will learn more about the execution paths for the `return` command.
+
+.Return Command Activity Diagram
+image::ReturnCommandActivityDiagram.png[]
+
+There are three possible execution paths for the `return` command
+
+1. User provides an invalid `return` command input +
+This will result in a parse exception and an error message will be displayed to the user.
+2. User provides a valid `return` command input with a valid <<command_prefix, `TRANSACTION_ID`>>, i.e. +
+`return` <<command_prefix, `TRANSACTION_ID`>> +
+If the order with the given <<command_prefix, `TRANSACTION_ID`>> is delivered,
+it will be converted to an existing order with the given <<command_prefix, `TRANSACTION_ID`>> into a return order. +
+This return order will then be added into the return order list.
+3. User provides a valid `return` command input with all compulsory parcel attributes, i.e. +
+`return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>>
+<<command_prefix, `EMAIL`>> <<command_prefix, `RETURN_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>> <<command_prefix, `[COMMENTS]`>>
+<<command_prefix, `[ITEM_TYPE]`>> +
+If the given <<command_prefix, `TRANSACTION_ID`>> does not exist as an order or return order,
+this will create a new return order based on the given parcel attributes and the resulting return order
+will be added to the return order list. +
+If the given `return` <<command_prefix, `TRANSACTION_ID`>> already exists as an order or return order, an error message
+will be displayed to the user that an order or return order already exists in the order list or return order list respectively.
+4. User provides a valid `return` command input with an invalid <<command_prefix, `TRANSACTION_ID`>> +
+This will result in a parse exception and an error message will be displayed to the user.
+5. User provides a valid `return` command but one or more of the compulsory parcel attributes is/are invalid.
+This will result in a parse exception and an error message will be displayed to the user.
+
+[[structure-return]]
+==== Structure of Return Command
+image::ReturnClassDiagram.png[]
+The above class diagram shows the structure of the `ReturnCommand`
+and its associated classes and interfaces. Some methods and fields are not included because they are
+not extensively utilised in `ReturnCommand`; such as public static fields and getter/setter methods.
+
+[[return-interactions]]
+==== Interactions between objects when Return Command is executed
+
+==== Sequence Diagram for converting an order into a return order
+The sequence diagrams for the *Return Command* are shown below.
+
+.Return Command Sequence Diagram
+image::ReturnSequenceDiagram1_a.png[]
+
+.Execution of Return Command to convert a delivered Order into a Return Order
+image::ReturnSequenceDiagram2_a.png[]
+The arguments typed into Delino by the user will first be done by the `execute`
+method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+the input which is determined by the command word via the parseCommand method. In this case, it is the
+`return` command word that will be parsed. +
+
+Then, a `ReturnCommandParser` object will be created to parse the arguments after removing
+the command word `return` from the user's input. Based on the command word `return`,
+a `ReturnCommand` object will be created. +
+
+Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+based on the validity of the user's input; which is determined by the `execute` method in
+`ReturnCommand`. +
+
+The `execute` method of `ReturnCommand` will first check if the return order in the constructor of
+ReturnCommand is present. In this case, since we are converting an order into a return order,
+the return order will not be present in the constructor of `ReturnCommand` and
+the isReturnOrderNotPresent() method will return true. +
+
+If the given <<command_prefix, `TRANSACTION_ID`>> exists in the order list, the
+getOrderByTransactionId(model) method will attempt to create a new Order object from
+the model's Order list based on the given transaction ID, i.e. orderToBeReturned. +
+
+The isDelivered() method checks if the newly created Order is delivered. If the order was not
+delivered, it will throw a command exception and display an error message to the user. +
+
+If the order was delivered, the deleteOrder(orderToBeReturned) method will be triggered
+to delete the order from the model's order list. Also, a new return order will be created based
+on the ReturnOrder's constructor that takes in an Order, i.e. ReturnOrder(orderToBeReturned). This
+creates a new Return Order object, toBeCreated. +
+
+Subsequently, this newly created ReturnOrder object toBeCreated, will be checked against the
+model's return order list using the hasParcel(toBeCreated) method. If it exists, a command exception will be thrown
+and an error message will be displayed to the user. +
+
+If the ReturnOrder does not exist in the model's return order list, the newly created ReturnOrder object,
+toBeCreated, will be added to the model's return order list using the addReturnOrder(toBeCreated) method. +
+
+Finally, a new CommandResult will be created to display the success message to the user for converting
+a delivered order to a return order.
+
+==== Sequence Diagram for creating a new return order
+The sequence diagrams for the *Return Command* are shown below.
+
+.Return Command Sequence Diagram
+image::ReturnSequenceDiagram1_b.png[]
+
+.Execution of Return Command to create a new Return Order
+image::ReturnSequenceDiagram2_b.png[]
+The arguments typed into Delino by the user will first be done by the `execute`
+method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+the input which is determined by the command word via the parseCommand method. In this case, it is the
+`return` command word that will be parsed. +
+
+Then, a `ReturnCommandParser` object will be created to parse the arguments after removing
+the command word `return` from the user's input. Based on the command word `return`,
+a `ReturnCommand` object will be created. +
+
+Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+based on the validity of the user's input; which is determined by the `execute` method in
+`ReturnCommand`. +
+
+The `execute` method of `ReturnCommand` will first check if the return order in the constructor of
+ReturnCommand is present. In this case, since we are creating a new return order from the given parcel attributes, a
+return order will be created and it will be used in the constructor of `ReturnCommand` and
+the isReturnOrderNotPresent() method will return false. +
+
+Also, a new return order will be created based on the ReturnOrder's constructor
+that takes in an Order, i.e. ReturnOrder(orderToBeReturned). This
+creates a new ReturnOrder object, toBeCreated. +
+
+Subsequently, this newly created ReturnOrder object toBeCreated, will be checked against the
+model's return order list using the hasParcel(toBeCreated) method.
+If it exists, a command exception will be thrown
+and an error message will be displayed to the user. +
+
+If the ReturnOrder does not exist in the model's return order list, the newly created ReturnOrder object,
+toBeCreated, will be added to the model's return order list using the addReturnOrder(toBeCreated) method. +
+
+Finally, a new CommandResult will be created to display the success message to the user for creating a
+new return order with the given parcel attributes.
+//end::return[]
 
 //tag::nearby[]
 [[nearby]]
@@ -870,6 +1044,81 @@ The exception will be thrown in the `NearbyCommandParser`.
 
 //end::nearby[]
 
+//tag::help[]
+[[help]]
+=== Help Feature
+In this section, the <<what-is-import, functionality>> of the `help` feature,
+the expected <<import-execution-path, execution path>>, the <<import-structure, structure>>
+of the `HelpCommand` class and the <<import-interaction, interactions>>
+between objects with the `HelpCommand` object will be discussed.
+
+[[what-is-help]]
+==== What is the Help Feature
+The `help` feature was implemented as the `HelpCommand` in the `logic` package. +
+The `help` feature allows users to save the trouble of adding the delivery orders and the return orders one by one
+when they have large amount of delivery orders or return orders to add into Delino.
+
+
+[[execution-paths-help]]
+==== Execution paths of the Help command
+The execution path of the `HelpCommand` is shown below: +
+
+.Help Command Activity Diagram
+image::HelpCommandActivityDiagram.png[]
+
+After the user enters the help command word, there will be a validation check to ensure that there are no
+non-whitespace characters following after the `help` command word so that the help command can
+be processed as a valid command.
+
+If there are non-whitespace characters following `help` command word, a ParseException object willl
+be created and thrown to the user by displaying an error message.
+
+If there are no non-whitespace characters following the `help` command word, a new HelpCommand object
+will be created and a CommandResult object will be created subsequently to display the success message
+to the user.
+
+[[structure-help]]
+==== Structure of Help Command
+The following diagram shows the overview structure of the `HelpCommand` Class Diagram: +
+
+.Help Command Class Diagram
+image::HelpCommandClassDiagram.png[]
+The above class diagram shows the structure of the `HelpCommand`
+and its associated classes and interfaces. Some methods and fields are not included because they are
+not extensively utilised in `HelpCommand`; such as public static fields and getter/setter methods.
+
+[[help-interactions]]
+==== Interactions between objects when Help Command is executed
+
+==== Sequence Diagram for executing the Help Command
+The sequence diagrams for the *Help Command* are shown below.
+
+.Help Command Sequence Diagram
+image::HelpCommandSequenceDiagram.png[]
+The arguments typed into Delino by the user will first be done by the `execute`
+method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+the input which is determined by the command word via the parseCommand method. In this case, it is the
+`return` command word that will be parsed. +
+
+Then, a `HelpCommandParser` object will be created to parse the arguments after removing
+the command word `help` from the user's input. Based on the command word `help`,
+a `HelpCommand` object will be created. The parse() method in `HelpCommand` will
+check the validity of the user's input to see if there are any non-whitespace characters following
+the `help` command word. +
+
+Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+based on the validity of the user's input. +
+
+If the user input is invalid, i.e. there are non-whitespace characters after the `help` command word,
+a ParseException object will be created in the `parse` method in `HelpCommandParser`
+and an error message will be displayed to the user. +
+
+If the user input is valid, i.e. there are no non-whitespace characters after the `help` command word,
+the `parse` method of `HelpCommandParser` will return a new HelpCommand. +
+
+Then, a new `CommandResult` will be created based on the user input. This will then display the
+success message to the user.
+//end::help[]
 
 //tag::import[]
 [[import]]
@@ -907,7 +1156,7 @@ After the user enter the `import` command, there are three validation check for 
 ** If `No`, display the error message to the user.
 
 Afterward, a new `ImportCommand` will be created and executed. For every data inside the list, either order or return order
-will be added into the order book list and return order book list respectively based on the `orderType` value.
+will be added into the order book and return order book respectively based on the `orderType` value.
 If the `orderType` is invalid, add the data into the result, which will be displayed to the user after processing.
 
 [[import-structure]]
@@ -970,12 +1219,12 @@ After the `ImportCommand` object is being returned to the `LogicManager`, the `L
 to run the execute the `ImportCommand`, this will be shown at the diagram below.
 
 .Execution of Import Command Sequence Diagram
-image::ImportCommandSequenceDiagram2.svg[]
+image::ExecuteImportCommand.svg[]
 
 The `ImportCommand#execute(model)` will first check if the data given starts with
 *order* or *return* and pass to the `InsertCommandParser` or `ReturnCommandParser` respectively. +
 
-Afterwards, `InsertCommandParser` or `ReturnCommandParser` will return the `InsertCommand` or `ReturnCommand` respectively
+Afterwards, `InsertCommandParser` or `ReturnCommandParser` will return a new `InsertCommand` or `ReturnCommand` respectively
 if it successfully parse the data. The `ImportCommand` will then call the `InsertCommand#execute(Model)`
 or `ReturnCommand#execute(Model)` depend whether it is delivery order or return order. This will cause a delivery order or return order being added into the `Model`.
 
@@ -1077,6 +1326,63 @@ However, if `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` is given and the preamb
 The order and return order list updates automatically as the JavaFX class `ObservableList` is used to listen to any changes.
 //end::search[]
 
+//tag::show[]
+[[show]]
+=== Show feature
+This section describes the <<show-functionality, functionality>> , the <<show-structure, structure>>,
+<<show-interactions, interactions>> between objects and <<show-path, path>> the path execution of the *Show Command*.
+
+[[show-functionality]]
+==== What is the Show feature
+Show feature allows the user to see the statistical information of all the orders for both Delivery Orders
+and Return Orders.
+
+There are a few ways in which the user can input to the command box to execute the *Show Command* :
+
+* `show` `START_DATE` `[END_DATE]`
+
+* `show` `all`
+
+* `show` `today`
+
+* `show` `DATE`
+
+[[show-structure]]
+==== Structure Show feature
+The structure of the List Feature is as shown below:
+
+.Show Command Class Diagram
+image:ShowCommandClassDiagram.svg[]
+
+[[show-path]]
+==== Path execution of the Show Command
+.Show Command Activity Diagram
+image::ShowCommandActivityDiagram.svg[]
+
+The above activity diagram shows the logic and the path execution when the *Show Command* is executed.
+
+[[show-interactions]]
+==== Interaction between objects during execution of Show Command
+The sequence diagram for the *Show Command* is shown below: +
+
+.Show Command Sequence Diagram
+image::ShowCommandSequenceDiagram.svg[]
+
+The user first calls the command "show all".
+[NOTE]
+====
+It can accept either one or two arguments.
+====
+
+The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
+into the `ShowCommand` object. Within the object, it will call the parseData method to make sense of the dates given.
+After that, it returns the object to the `LogicManager`.
+Next, the `LogicManager` will call the execute(model) method using the `ShowCommand` object.
+When completed, the execute(model) will return a `CommandResult` object to the `LogicManager`, indicating that the command execution is a success.
+In this case where the input is "show all", it will have a message that indicates that the command is showing all information.
+//end::show[]
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -1123,6 +1429,8 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: manage their deliveries faster than a typical mouse/GUI driven app
 
 [appendix]
+
+//@@author cherweijie
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1156,6 +1464,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |courier |know whether customer will pay cash on delivery |be prepared to collect any payment upon delivery
 
+//@@author JeremyLoh
 |`* *` |courier |know the nearest popstation/pick-up location for returned parcels |plan my route to pick up parcels to be returned
 
 |`* *` |advanced courier |use shorter versions of a command |type a command faster
@@ -1196,152 +1505,197 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `Delino` and the *Actor* is the `user`, unless specified otherwise)
 
+//@@author Amoscheong97
 //tag::use_case_insert[]
 [discrete]
 === Use case: UC01 - Insert an order
 
 *MSS*
 
-1.  User key in the order details.
-2.  Delino inserts the order details.
-3.  Delino displays order added.
+1.  User wants to add an order.
+2.  User key in the order details.
+3.  Delino inserts the order details.
+4.  Delino displays order added.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 2a1. Delino shows an error message.
 +
 Use case ends.
+* 2b. Delino detects the insertion of a duplicate order.
+[none]
+** 2b1. Delino shows duplicate order message.
 //end::use_case_insert[]
 
+//@@author Exeexe93
 //tag::use_case_clear[]
+
 [discrete]
 === Use case: UC02 - Clear all orders
 
 *MSS*
 
-1.  User requests to clear all orders.
-2.  Delino clear all existing orders.
-3.  Delino displays order cleared message.
+1.  User wants to clear all orders.
+2.  User requests to clear all orders.
+3.  Delino clear all existing orders.
+4.  Delino displays order cleared message.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 2a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 1b. Delino detects no flag `-f`.
+* 2b. Delino detects no flag `-f`.
 [none]
-** 1b1. Delino trigger pop-up message.
+** 2b1. Delino trigger pop-up message.
 [None]
-*** 1b2a. User select `yes` button.
+*** 2b2a. User select `yes` button.
 [None]
-**** 1b2a1. Return to step 2.
-*** 1b2b. User select `no` button.
+**** 2b2a1. Return to step 2.
+*** 2b2b. User select `no` button.
 [None]
-**** 1b2b1. Use case ends.
+**** 2b2b1. Use case ends.
 
 [none]
-* 1c. Delino detects no orders.
+* 2c. Delino detects no orders.
 [none]
-** 1c1. Delino shows no order to be cleared message.
+** 2c1. Delino shows no order to be cleared message.
 +
 Use case ends.
 //end::use_case_clear[]
 
+//@@author JeremyLoh
+//tag::use_case_delete[]
+
 [discrete]
 === Use case: UC03 - Delete an order
+Preconditions: There should be a valid order/return order that can be deleted.
 
 *MSS*
 
 1.  User requests to [.underline]#list orders (UC10).#
-2.  User requests to delete a specific order in the list.
-3.  Delino deletes the order.
-4.  Delino displays order deleted.
+2.  User wants to delete a specific order/return oder.
+3.  User requests to delete a specific order/return order in the list.
+4.  Delino deletes the order/return order.
+5.  Delino displays order/return order deleted.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. Delino detects invalid syntax.
+* 3a. Delino detects invalid syntax from user input.
 [none]
 ** 3a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 3b. Delino unable to detect any order with the transaction id.
+* 3b. The given index for deletion is not valid.
 [none]
-** 3b1. Delino shows no order found message.
+** 3b1. Delino shows an error message indicating an invalid deletion index has been provided.
 +
 Use case ends.
+//end::use_case_delete[]
+
+//@@author cherweijie
+//tag::use_case_delivered[]
 
 [discrete]
-=== Use case: UC04 - Mark order as done
+=== Use case: UC04 - Mark order or return order as delivered
 
 *MSS*
 
-1.  User request to mark order as done.
-2.  Delino changes order status to done.
-3.  Delino display marked order.
+1.  User wants to mark an order or return order as delivered.
+2.  User request to mark order or return order as delivered.
+3.  Delino changes the delivery status of the specified order or return order to delivered.
+4.  Delino will display an updated order list or return order list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 2a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 1b. Delino unable to detect any order with the transaction id.
+* 2b. Delino unable to detect any parcel with the <<command_prefix, `INDEX`>> provided.
 [none]
-** 1b1. Delino shows no order found message.
+** 2b1. Delino shows error message to the user.
 +
 Use case ends.
 
+[none]
+* 2c. Delino unable to detect valid <<command_prefix, `INDEX`>> provided.
+[none]
+** 2c1. Delino shows error message to the user.
++
+Use case ends.
+
+[none]
+* 2d. Delino unable to detect valid <<command_prefix, `FLAG`>> provided.
+[none]
+** 2d1. Delino shows error message to the user.
++
+Use case ends.
+//end::use_case_delivered[]
+
+//@@author khsc96
 //tag::use_case_edit[]
+
 [discrete]
 === Use case: UC05 - Editing order details
+Preconditions: There should be a valid order/return order that can be edited.
 
 *MSS*
 
-1.  User request to edit order details.
-2.  Delino edit the order details
-3.  Delino display changes made.
+1.  User requests to [.underline]#list orders (UC10).#
+2.  User wants to edit a specific order.
+3.  User request to edit order details.
+4.  Delino edit the order details.
+5.  Delino display changes made.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
+* 3a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 3a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 1b. Delino unable to detect any order with the transaction id.
+* 3b. Delino unable to detect any order specified by the user.
 [none]
-** 1b1. Delino shows no order found message.
+** 3b1. Delino shows no order found message.
+
+[none]
+* 3c. Delino detects duplicate a order.
+[none]
+** 3c1. Delino shows duplicate order message.
 +
 Use case ends.
 //end::use_case_edit[]
+
+//@@author
 
 [discrete]
 === Use case: UC06 - Exit the program
@@ -1350,20 +1704,55 @@ Use case ends.
 
 *MSS*
 
-1.  User request to exit the program.
-2.  Delino displays goodbye message.
-3.  Delino closes the application window.
+1.  User wantos to exit the program.
+2.  User request to exit the program.
+3.  Delino displays goodbye message.
+4.  Delino closes the application window.
 +
 Use case ends.
 
+//@@author khsc96
 //tag::use_case_search[]
 [discrete]
 === Use case: UC07 - Search an order
 
 *MSS*
 
-1.  User request to search specific order by transaction id
-2.  Delino display the requested order.
+1.  User wants to search a specifc order by a given keyword.
+2.  User request to search specific order by a given keyword.
+3.  Delino display the requested order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Delino detects invalid syntax from user input.
+[none]
+** 2a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2b. Delino unable to find order with the transaction id.
+[none]
+** 2b1. Delino display order not found message.
++
+Use case ends.
+//end::use_case_search[]
+
+
+//@@author cherweijie
+//tag::use_case_help[]
+
+[discrete]
+=== Use case: UC08 - Request for help
+
+*MSS*
+
+1.  User requests to list all commands in Delino
+2.  Delino opens a new window after execution of the help command.
+3.  Delino display the list of commands and a button to provide user a link to Delino's User Guide
 +
 Use case ends.
 
@@ -1371,29 +1760,23 @@ Use case ends.
 
 [none]
 * 1a. Delino detects invalid syntax.
++
 [none]
-** 1a1. Delino shows an error message.
+** 1a1. Delino shows an error message to tell user the right way to use the help command.
 +
 Use case ends.
 
 [none]
-* 1b. Delino unable to find order with the transaction id.
+* 1b. Delino detects additional non-whitespace characters after the command word, help.
++
 [none]
-** 1b1. Delino display order not found message.
+** 1b1. Delino shows an error message to tell user the right way to use the help command.
 +
 Use case ends.
-//end::use_case_search[]
+//end:use_case_help[]
 
-[discrete]
-=== Use case: UC08 - Request for help
 
-*MSS*
-
-1.  User request for help to navigate around application.
-2.  Delino shows help message.
-+
-Use case ends.
-
+//@@author Exeexe93
 //tag::use_case_import[]
 [discrete]
 
@@ -1401,153 +1784,161 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to import orders from an external file.
-2.  Delino checks for file existence.
-3.  Delino imports all orders from the external file.
-4.  Delino displays all orders imported.
+1.  User wants to import a specific orders from an external file.
+2.  User requests to import orders from an external file.
+3.  Delino checks for file existence.
+4.  Delino imports all orders from the external file.
+5.  Delino displays all orders imported.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
-+
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
-+
-Use case ends.
-
-[none]
-* 2a. Delino detects invalid file path.
-+
-[none]
-** 2a1. Delino shows the invalid file path error message
+** 2a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 3a. Delino is unable to open the file.
+* 3a. Delino detects invalid file path.
 +
 [none]
-** 3a1. Delino shows permission denied error message.
+** 3a1. Delino shows the invalid file path error message
++
+Use case ends.
+
+[none]
+* 4a. Delino is unable to open the file.
++
+[none]
+** 4a1. Delino shows permission denied error message.
 +
 Use case ends.
 //end::use_case_import[]
 
+//@@author Amoscheong97
 //tag::use_case_list[]
+
 [discrete]
 === Use case: UC10 - Listing all orders
 
 *MSS*
 
-1.  User requests to view the list of orders.
-2.  Delino display list of orders.
+1.  User wants to view all orders.
+2.  User requests to view the list of orders.
+3.  Delino display list of orders.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
-+
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 2a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 2a. Delino detects no orders.
+* 3a. Delino detects no orders.
 +
 [none]
-** 2a1. Delino shows empty order list message.
+** 3a1. Delino shows empty order list message.
 +
 Use case ends.
 //end::use_case_list[]
 
+//@@author cherweijie
+//tag::use_case_return[]
+
 [discrete]
-=== Use case: UC11 - Order returns
+=== Use case: UC11 - Returning an order
 
 *MSS*
 
-1.  User requests to add order return.
-2.  Delino add order return.
-3.  Delino display order return added.
+1.  User wants to return an order or create a new return order.
+2.  User requests to return an order or create a new return order.
+3.  Either an order will be converted to a return order or a new return order will be created
+4.  Delino displays the updated return order list with the new return order.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
-+
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 2a1. Delino shows an error message.
 +
 Use case ends.
 
+[none]
+* 2b. Delino detects invalid parcel attributes.
++
+[none]
+** 2b1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 2c. Delino detects invalid <<command_prefix, `TRANSACTION_ID`>>, i.e. order with
+the given <<command_prefix, `TRANSACTION_ID`>> does not exist.
++
+[none]
+** 2c1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 2d. Delino detects missing parcel attributes.
++
+[none]
+** 2d1. Delino shows an error message to the user.
++
+Use case ends.
+//end::use_case_return[]
+
+//@@author JeremyLoh
+//tag::use_case_nearby[]
 
 [discrete]
 === Use case: UC12 - Obtain orders in a postal sector
 
 *MSS*
 
-1.  User requests to obtain orders in a specified postal sector
-2.  Delino obtains all orders located in the postal sector
-3.  Delino display the list of orders
+1.  User wants to obtain all orders in a specified postal sector.
+2.  User requests to obtain orders in a specified postal sector
+3.  Delino obtains all orders located in the postal sector
+4.  Delino display the list of orders
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
-+
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 2a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 2a. Delino detects no orders.
+* 3a. Delino detects no orders.
 +
 [none]
-** 2a1. Delino shows empty order list message.
+** 3a1. Delino shows empty order list message.
 +
 Use case ends.
 
-[discrete]
-=== Use case: UC13 - Undo previous command
 
-*MSS*
+//end::use_case_nearby[]
 
-1.  User request to undo current command
-2.  Delino revert back to the previous state.
-3.  Delino displays undo message.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Delino detects invalid syntax.
-+
-[none]
-** 1a1. Delino shows an error message.
-+
-Use case ends.
-
-[none]
-* 2a. Delino detects nothing to be undo.
-+
-[none]
-** 2a1. Delino shows nothing to be undone message.
-+
-Use case ends.
-
+//@@author Amoscheong97
 //tag::use_case_show[]
 [discrete]
-=== Use case: UC14 - Show statistics
+=== Use case: UC13 - Show statistics
 
 *MSS*
 
@@ -1557,6 +1948,10 @@ Use case ends.
 Use case ends.
 //end::use_case_show[]
 
+
+//@@author cherweijie
+//tag::non_functional_requirements[]
+
 [appendix]
 == Non Functional Requirements
 
@@ -1564,9 +1959,15 @@ Use case ends.
 .  Should be able to hold up to 350 orders without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The system should be able to respond within three seconds.
-.  The system should be able to work without internet access.
+.  The system should work without internet access.
 .  A user should be able to get all the information he/she needs within four commands.
 .  A user should be able to familiarise himself/herself within an hour of usage.
+.  The data cannot be stored in a Database Management System (DBMS).
+.  The system should work once downloaded and should not depend on a remote server.
+.  The application should not be larger than 50Mb.
+.  The application should be crash during its execution. It should show warning messages instead of
+crashing.
+//end::non_functional_requirements[]
 
 [appendix]
 == Glossary
@@ -1694,6 +2095,7 @@ Cons:
 
 Given below are instructions to test the app manually.
 
+//@@author khsc96
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
@@ -1706,6 +2108,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Copy the jar file to the folder you would like to use as a home address for Delino application
    Expected: Shows the GUI of the Delino App. The window size may not be optimum
 
+//@@author Amoscheong97
 //tag::appendix-insert[]
 === Inserting an order
 
@@ -1724,6 +2127,33 @@ These instructions only provide a starting point for testers to work on; testers
 
 //end::appendix-insert[]
 
+//@@author cherweijie
+//tag::appendix-return[]
+=== Returning an order
+
+. Convert a delivered order into a return order or create a new return order
+
+.. Insert command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_TIMESTAMP` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+
+.. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `rts/2020-02-20 1300` `w/Yishun` +
+   Expected: Creates a new return order with the above details and adds it into the return order list. This will be displayed on the GUI
+.. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `rts/2020-03-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +
+   Expected: Creates a new return order with the above details, including type and comments and adds it into the return order list. This will be displayed on the GUI
+.. Test case: `return` `tid/1023456789` +
+   Expected: Checks if an order with the given <<command_prefix, `TRANSACTION_ID`>> exists. If it exists and
+it was delivered, it will be converted into a return order and added into the return order list.
+.. Test case: Invalid Syntax +
+   Expected: No return order is added. Error details shown in the response message. A help message displayed for user to use the return command accordingly.
+.. Test case: Return order with invalid Transaction ID in order list +
+   Expected: An error will occur and a message will be displayed, stating that order with the given <<command_prefix, `TRANSACTION_ID`>>
+cannot be found in the order list.
+.. Test case: Return order with missing parcel attributes +
+   Expected: An error will occur and a message will be displayed, indicating the right message usage of the return feature.
+.. Test case: Order to be converted was not delivered +
+   Expected: An error will occur and a message will be displayed, indicating that the order was not delivered and cannot be returned.
+//end::appendix-return[]
+
+//@@author JeremyLoh
 //tag::appendix-delete[]
 === Deleting an order
 
@@ -1744,6 +2174,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 //end::appendix-delete[]
 
+//@@author khsc96
+//tag::appendix-edit[]
 === Edit orders
 
 . Edit the details of the delivery order by specifying the `<<command_flag, FLAG>>` (order type), `INDEX` (parcel number displayed), `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` (the field user want to change) and `NEW_VALUE` (the new value that user want to replace the old ones with). For detailed implementation explanation click <<edit,here>>.
@@ -1765,6 +2197,9 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `edit` `-r` `1` `rts/02/02/1900` +
    Expected: The response box will display an error message as it is impossible to put a date that is already passed.
 
+//end::appendix-edit[]
+
+//@@author Exeexe93
 //tag::appendix-import[]
 === Import orders
 
@@ -1779,7 +2214,7 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 
 //end::appendix-import[]
 
-
+//@@author Amoscheong97
 //tag::appendix-list[]
 === List orders
 
@@ -1796,21 +2231,8 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 
 //end::appendix-list[]
 
-=== Returning an order
-
-. Returning an order with the specific order attributes
-
-.. Return command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
-
-.. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `ts/2020-02-20 1300` `w/Yishun` +
-   Expected: Creates and adds a return order with the above details to the return order book.
-.. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `ts/2020-03-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +
-   Expected: Creates and adds the return order to the return order book, including the item type and comment.
-.. Test case: Invalid Syntax +
-   Expected: No return order is added. Error details shown in the response message. A help message displayed for user to type the return command accordingly. Status bar remain unchanged
-.. Test case: Return order with existing Transaction ID in list +
-   Expected: An error will occur and a message will be displayed, stating that the return order with duplicate ID cannot be added into the list
-
+//@@author khsc96
+//tag::appendix-search[]
 === Search an order
 
 . Search an order based on the `KEYWORD` and `FLAG`(if any) given. For a more detailed explanation of the implementation click <<search, here>>.
@@ -1827,23 +2249,30 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 `search` `n/Jeremy` +
    Expected: Specifically search for both return order or order from both list that has one word of the name matching the key word `Jeremy`.
 .. Test case: `list` +
-   `search` +
+`search` +
    Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself.
 
-=== Mark order as Done
+//end::appendix-search[]
 
-. Mark order as done whenever an order transaction is completed
+//@@author cherweijie
+//tag::appendix-delivered[]
+=== Mark parcel as delivered
 
-.. Done command format: `done` `INDEX`
+. Mark a parcel's delivery status as delivered based on its <<command_prefix, `INDEX`>> and <<command_prefix, `FLAG`>>
+whenever the parcel has been delivered.
 
-.. Prerequisite: Ensure that your list has more than or equals to two orders
-.. Test case: `done` `1` +
-   Expected: The first order in the currently displayed list will be marked as done
-.. Test case: `done` `2` +
-   Expected: The second order in the currently displayed list will be marked as done
+.. Delivered command format: `delivered` <<command_prefix, `FLAG`>> <<command_prefix, `INDEX`>>
+
+.. Prerequisite: Ensure that your order list or return order list has at least one order.
+.. Test case: `delivered` `-o` `1` +
+   Expected: The first order in the currently displayed order list will be marked as delivered
+.. Test case: `delivered` `-r` `2` +
+   Expected: The second return order in the currently displayed return order list will be marked as delivered
 .. Test case: Invalid syntax +
-   Expected: No order is marked as done. The error message will be displayed on the error response box describing the error
+   Expected: No parcel is marked as delivered. The error message will be displayed on the error response box describing the error
+//end::appendix-delivered[]
 
+//@@author Exeexe93
 //tag::appendix-clear[]
 === Clear orders
 
@@ -1869,15 +2298,19 @@ Expected: Invalid command input, as space is required in between flags. +
    Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
 //end::appendix-clear[]
 
+//@@author cherweijie
+//tag::appendix-help[]
 === Help
 
 . Display a list of available commands to user
 
 .. Test case: `help` +
-   Expected: A list of commands will be displayed and the response box will indicate a successful command.
+   Expected: A list of commands will be displayed in a new pop-up window and the response box will indicate a successful command.
 .. Test case: Invalid syntax +
    Expected: An error will occur and the response box will show an error message
+//end::appendix-help[]
 
+//@@author Amoscheong97
 //tag::appendix-show[]
 === Show
 
@@ -1899,6 +2332,7 @@ as earnings made, orders delivered and orders returned (Including a PieChart).
 
 //end::appendix-show[]
 
+//@@author JeremyLoh
 //tag::appendix-nearby[]
 === Obtain all nearby orders based on area or postal sector
 
@@ -1945,19 +2379,13 @@ https://keylocation.sg/singapore/districts-map[this website] +
 
 //end::appendix-nearby[]
 
-=== Undo previous action
-
-. Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order
-
-.. Prerequisites : Execute any valid command that edits the list before calling the `undo` command
-.. Test case: `undo` +
-   Expected: The original list will be replaced with the current new list. The previous state will be restored
-.. Test case: `undo` `INVALID_SYNTAX` +
-   Expected: Error message displayed in the response box
-
+//@@author
+//tag::appendix-saving[]
 === Saving data
 
 . Manual Saving is not required as data is already saved in the hard disk after any commands that change the data
+
+//end::appendix-saving[]
 
 === Exit
 

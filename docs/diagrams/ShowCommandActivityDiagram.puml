@@ -1,0 +1,42 @@
+@startuml
+start
+:User inputs Show Command;
+
+If () then ([Input has less than 1 argument
+OR more than two arguments])
+    :Throws a ParseException;
+    :Returns failure message
+    (Invalid arguments);
+else ([Input is either 1 or 2 arguments])
+    If () then ([Input has 1 argument])
+        If () then ([Input is 'show all'])
+            :Return success message to show
+            all statistics;
+        else If() then ([Input is show `today`])
+            :Return success message to show
+            today's orders statistics;
+        else ([Input is show 'DATE'])
+            : Return success message to show
+            statistics for this 'DATE';
+        endif
+    else ([Input have two arguments])
+        If () then ([The date(s) are invalid])
+            :Throws a ParseException;
+            :Returns a failure message
+            (Invalid dates);
+        else ([Dates are valid])
+            If () then ([Start Date is after the End Date])
+                :Throws a ParseException;
+                :Returns a failure Message
+                (Start Date should be before End Date);
+            else (Start Date before End Date)
+                : Returns success message to show
+                from Start Date to End Date;
+            endif
+        endif
+    endif
+endif
+:LogicManager prints message to
+user and executes the command;
+stop
+@enduml

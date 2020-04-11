@@ -2,6 +2,7 @@ package seedu.delino.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -46,7 +47,9 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveOrderBook(model.getOrderBook());
+            //@@author Exeexe93
             storage.saveReturnOrderBook(model.getReturnOrderBook());
+            //@@author
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -59,30 +62,36 @@ public class LogicManager implements Logic {
         return model.getOrderBook();
     }
 
+    //@@author Exeexe93
     @Override
     public ReadOnlyReturnOrderBook getReturnOrderBook() {
         return model.getReturnOrderBook();
     }
+    //@@author
 
     @Override
     public ObservableList<Order> getFilteredOrderList() {
         return model.getFilteredOrderList();
     }
 
+    //@@author Exeexe93
     @Override
     public ObservableList<ReturnOrder> getFilteredReturnOrderList() {
         return model.getFilteredReturnOrderList();
     }
+    //@@author
 
     @Override
     public Path getOrderBookFilePath() {
         return model.getOrderBookFilePath();
     }
 
+    //@@author Exeexe93
     @Override
     public Path getReturnOrderBookFilePath() {
         return model.getReturnOrderBookFilePath();
     }
+    //@@author
 
     @Override
     public GuiSettings getGuiSettings() {
@@ -92,6 +101,11 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public List<String> getStartUpMessages() {
+        return model.getStartUpMessages();
     }
 
 }

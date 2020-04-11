@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.delino.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -26,6 +27,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<ReturnOrder> filteredReturnOrders;
+    private List<String> startUpMessages;
 
     /**
      * Initializes a ModelManager with the given orderBook and userPrefs.
@@ -42,6 +44,16 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
         filteredReturnOrders = new FilteredList<>(this.returnOrderBook.getReturnOrderList());
+    }
+
+    /**
+     * Initializes a ModelManager with the given orderBook, returnOrderBook and userPrefs.
+     */
+    public ModelManager(ReadOnlyOrderBook orderBook, ReadOnlyReturnOrderBook returnOrderBook,
+                        ReadOnlyUserPrefs userPrefs, List<String> startUpMessages) {
+        this(orderBook, returnOrderBook, userPrefs);
+        requireAllNonNull(startUpMessages);
+        this.startUpMessages = startUpMessages;
     }
 
     public ModelManager() {
@@ -196,6 +208,12 @@ public class ModelManager implements Model {
     public void updateFilteredReturnOrderList(Predicate<ReturnOrder> predicate) {
         requireNonNull(predicate);
         filteredReturnOrders.setPredicate(predicate);
+    }
+
+    //=============== StartUp Messages ==============================================================================
+    @Override
+    public List<String> getStartUpMessages() {
+        return startUpMessages;
     }
 
     @Override

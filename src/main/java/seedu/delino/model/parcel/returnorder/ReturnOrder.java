@@ -125,10 +125,7 @@ public class ReturnOrder extends Parcel {
         }
 
         return otherOrder != null
-                && otherOrder.getTid().equals(getTid())
-                && otherOrder.getName().equals(getName())
-                && otherOrder.getPhone().equals(getPhone())
-                && otherOrder.getEmail().equals(getEmail());
+                && otherOrder.getTid().equals(getTid());
     }
 
     /**

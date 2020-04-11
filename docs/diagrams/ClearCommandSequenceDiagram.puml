@@ -12,10 +12,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("clear -o -f")
+[-> LogicManager : execute("clear -f")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("clear -o -f")
+LogicManager -> OrderBookParser : parseCommand("clear -f")
 activate OrderBookParser
 
 create ClearCommandParser
@@ -23,20 +23,10 @@ OrderBookParser -> ClearCommandParser ++
 
 ClearCommandParser --> OrderBookParser --
 
-OrderBookParser -> ClearCommandParser ++ : parse("-o -f")
+OrderBookParser -> ClearCommandParser ++ : parse("-f")
 
 ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
-loop until no flag in args
-
-    opt invalid flag and invalid flag format occurs
-        ClearCommandParser --> OrderBookParser : ParseException
-        OrderBookParser --> LogicManager : ParseException
-
-    end
-
-    ClearCommandParser --> ClearCommandParser -- : flags
-    ClearCommandParser -[hidden]-> ClearCommandParser
-end
+ClearCommandParser --> ClearCommandParser -- : flags
 
 create ClearCommand
 ClearCommandParser -> ClearCommand ++ : flags
@@ -50,7 +40,7 @@ destroy ClearCommandParser
 
 OrderBookParser --> LogicManager -- : clearCommand
 
-ref over LogicManager,  Model : Execution of the Clear Command Sequence Diagram
+ref over LogicManager,  Model : execute clear command
 
 
 [<--LogicManager : result

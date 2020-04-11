@@ -1,0 +1,47 @@
+@startuml
+/' Sequence Diagram for insert '/
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant "command:ShowCommand" as ShowCommand LOGIC_COLOR
+participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+create LogicManager
+[-> LogicManager : execute("show all")
+activate LogicManager
+
+LogicManager -> OrderBookParser : parseCommand()
+activate OrderBookParser
+
+create ShowCommand
+
+OrderBookParser -> ShowCommand ++ : arguments
+
+ShowCommand -> ShowCommand ++ : parseData()
+ShowCommand -> ShowCommand -- :
+
+ShowCommand --> OrderBookParser -- : showCommand
+
+OrderBookParser --> LogicManager : showCommand
+
+deactivate OrderBookParser
+
+LogicManager -> ShowCommand ++ : execute(model)
+
+create CommandResult
+ShowCommand -> CommandResult ++ : MESSAGE_TODAY
+activate CommandResult
+CommandResult --> ShowCommand -- : commandResult
+deactivate CommandResult
+
+ShowCommand --> LogicManager -- : commandResult
+
+
+deactivate ShowCommand
+
+ref over LogicManager, CommandResult : Execution of the Show Command Sequence Diagram
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -24,4 +24,8 @@ public class Messages {
     public static final String MESSAGE_MISSING_INDEX = "Please provide an index!";
     public static final String MESSAGE_INVALID_PREAMBLE = "Please make sure there is no value between "
         + "the flag and the valid prefixes!";
+    public static final String WELCOME_MESSAGE = "Welcome to Delino!\n";
+    public static final String MESSAGE_ORDER_DATA_CHECK = "The data in %s are corrupted! "
+            + "Please check the %s data in %s!\n";
+    public static final String MESSAGE_JSON_UNABLE_TO_READ = "Unable to read: %s\n";
 }
