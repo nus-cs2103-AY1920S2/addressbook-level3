@@ -1050,7 +1050,8 @@ Example:
 All sessions in the *Claims View* with module code `CS2103T` are displayed.
 ====
 
-==== Changing the hourly rate : `set rate`
+[#setrate]
+==== Changing the hourly rate : `setrate`
 
 Sets the hourly rate for the total income and claim computation.
 
@@ -1058,7 +1059,7 @@ Format: `setrate RATE`
 
 [NOTE]
 ====
-* If you don't specify a rate, it is set at 40$ by default (the rate at which most SOC TAs are being paid per hour).
+* If you don't specify a rate, it is set at $40.00 by default (the rate at which most SOC TAs are being paid per hour).
 * `RATE` is the amount you want to change the hourly rate to, this value will be used to calulate the
 `Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
 * The `RATE` must be a positive integer.
@@ -1067,7 +1068,39 @@ Format: `setrate RATE`
 Examples:
 
 * `setrate 25` +
-Sets the current hourly rate to 25$.
+Sets the current hourly rate to $25.00.
+
+=== Statistics Window
+
+==== Generate Statistic Report : `report`
+
+You can use this command to generate a report to display information such as:
+
+* A breakdown and summary of completed sessions
+* The number of hours of each type of completed sessions
+* A breakdown of your student's ratings
+
+Optionally, you can specify a module code. If a module code is specified, the report generated will only include data from the specified module.
+
+Pressing the `esc` key on your keyboard will close the statistics window.
+
+Format: `report [MOD_CODE]`
+
+[NOTE]
+====
+* Similar to the *Claims View*, the report will only display sessions that have been marked as done.
+* `Total Claimable Hours` is computed using the current specified `rate`. See <<#setrate>>.
+====
+
+Example:
+
+* `report`
++
+Generate and display a report of sessions and students from all modules.
+
+* `report CS3243`
++
+Generate and display a report of sessions and students from the module CS3243.
 
 == GLOSSARY
 
@@ -1159,3 +1192,6 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 === Claims View
 * *Set Rate:* `setrate RATE`
 * *Filter:* `claims filter m/MOD_CODE`
+
+=== Statistics
+* *Generate Statistics Report:* `report [MOD_CODE]`
