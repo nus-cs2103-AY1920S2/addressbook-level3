@@ -18,8 +18,7 @@ import java.util.Locale;
 public class Date implements Comparable<Date> {
 
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Date should be written in the format YYYY-MM-DD";
+    public static final String MESSAGE_CONSTRAINTS = "Date should be written in the format YYYY-MM-DD";
 
     public static final String VALIDATION_REGEX = "^[0-9-]+";
     public static final DateTimeFormatter DAY_OF_WEEK = DateTimeFormatter.ofPattern("EEEE");

@@ -130,12 +130,25 @@ public class PlanCommand extends Command {
         return sb.toString();
     }
 
+    private boolean indexesAreEqual(Index[] other) {
+        if (indexes.length != other.length) {
+            return false;
+        }
+        List<Index> indexList = Arrays.asList(indexes);
+        List<Index> otherList = Arrays.asList(other);
+        return indexList.containsAll(otherList) && otherList.containsAll(indexList);
+    }
+
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof PlanCommand // instanceof handles nulls
-                && date.equals(((PlanCommand) other).date)
-                && indexes.equals(((PlanCommand) other).indexes));
+        if (other == this) { // short circuit if same object
+            return true;
+        } else if (other instanceof PlanCommand) { // instanceof handles nulls
+            PlanCommand otherPlanCommand = (PlanCommand) other;
+            return date.equals(otherPlanCommand.date) // state check
+                    && indexesAreEqual(otherPlanCommand.indexes);
+        }
+        return false;
     }
 
 }
