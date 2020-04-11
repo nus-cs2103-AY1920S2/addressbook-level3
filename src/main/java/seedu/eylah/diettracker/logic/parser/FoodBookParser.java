@@ -4,9 +4,9 @@ import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.eylah.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import seedu.eylah.commons.logic.command.Command;
+import seedu.eylah.commons.logic.parser.CommonParser;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.AddCommand;
 import seedu.eylah.diettracker.logic.commands.BackCommand;
@@ -24,20 +24,9 @@ import seedu.eylah.diettracker.model.DietModel;
 /**
  * Parses user input.
  */
-public class FoodBookParser {
+public class FoodBookParser extends CommonParser<DietModel> {
 
-    /**
-     * Used for initial separation of command word and args.
-     */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    /**
-     * Parses user input into command for execution.
-     *
-     * @param userInput full user input string
-     * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
-     */
+    @Override
     public Command<DietModel> parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -45,7 +34,7 @@ public class FoodBookParser {
         }
 
         final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final String arguments = matcher.group( "arguments");
         switch (commandWord) {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand(); // No Args so no need to Parse.

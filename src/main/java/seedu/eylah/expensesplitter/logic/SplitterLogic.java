@@ -6,7 +6,7 @@ import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 
 /**
- * API of the Logic component
+ * API of the SplitterLogic component
  */
 public interface SplitterLogic extends Logic {
 
