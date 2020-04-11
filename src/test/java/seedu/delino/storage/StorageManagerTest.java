@@ -17,6 +17,8 @@ import seedu.delino.model.ReadOnlyOrderBook;
 import seedu.delino.model.ReadOnlyReturnOrderBook;
 import seedu.delino.model.ReturnOrderBook;
 import seedu.delino.model.UserPrefs;
+import seedu.delino.storage.order.JsonOrderBookStorage;
+import seedu.delino.storage.returnorder.JsonReturnOrderBookStorage;
 
 public class StorageManagerTest {
 

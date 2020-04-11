@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.*?>
 
+<!-- @@author Exeexe93 -->
 <fx:root resizable="false" title="Warning" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/warning_icon.png" />

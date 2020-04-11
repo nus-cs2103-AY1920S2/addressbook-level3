@@ -12,10 +12,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("clear -o -f")
+[-> LogicManager : execute("clear -f")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("clear -o -f")
+LogicManager -> OrderBookParser : parseCommand("clear -f")
 activate OrderBookParser
 
 create ClearCommandParser
@@ -23,36 +23,34 @@ OrderBookParser -> ClearCommandParser ++
 
 ClearCommandParser --> OrderBookParser --
 
-OrderBookParser -> ClearCommandParser ++ : parse("-o -f")
+OrderBookParser -> ClearCommandParser ++ : parse("-f")
 
-ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
-loop until no flag in args
-
-    opt invalid flag and invalid flag format occurs
-        ClearCommandParser --> OrderBookParser : ParseException
-        OrderBookParser --> LogicManager : ParseException
-
-    end
+alt if invalid flag or both '-r' and '-o' flags  found in arguments
+    ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
+    ClearCommandParser --> ClearCommandParser -- : ParseException
+    ClearCommandParser --> OrderBookParser : ParseException
+    OrderBookParser --> LogicManager : ParseException
+    [<-- LogicManager : ParseException
+else flags are valid
+    ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
 
     ClearCommandParser --> ClearCommandParser -- : flags
-    ClearCommandParser -[hidden]-> ClearCommandParser
-end
 
-create ClearCommand
-ClearCommandParser -> ClearCommand ++ : flags
+    create ClearCommand
+    ClearCommandParser -> ClearCommand ++ : flags
 
-ClearCommand --> ClearCommandParser -- : clearCommand
+    ClearCommand --> ClearCommandParser -- : clearCommand
 
-ClearCommandParser --> OrderBookParser -- : clearCommand
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-ClearCommandParser -[hidden]-> OrderBookParser
-destroy ClearCommandParser
+    ClearCommandParser --> OrderBookParser -- : clearCommand
+    'Hidden arrow to position the destroy marker below the end of the activation bar.
+    ClearCommandParser -[hidden]-> OrderBookParser
+    destroy ClearCommandParser
 
-OrderBookParser --> LogicManager -- : clearCommand
+    OrderBookParser --> LogicManager -- : clearCommand
 
-ref over LogicManager,  Model : Execution of the Clear Command Sequence Diagram
-
+    ref over LogicManager,  Model : execute clear command
 
 [<--LogicManager : result
+end
 deactivate LogicManager
 @enduml

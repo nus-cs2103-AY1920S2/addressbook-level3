@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.delino.commons.util.AppUtil.checkArgument;
 
+//@@author Amoscheong97
 /**
  * Represents the type of item in the order book.
  * Guarantees: immutable; item is valid as declared in {@link #isValidItemType(String)}}
@@ -12,13 +13,13 @@ import static seedu.delino.commons.util.AppUtil.checkArgument;
 public class TypeOfItem {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Type Of Item should be alphanumeric";
+            "Type Of Item must consist of only alphabets";
 
     /**
      * The first character of the type of item must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String VALIDATION_REGEX = "\\p{Alpha}+";
 
     public final String itemType;
 

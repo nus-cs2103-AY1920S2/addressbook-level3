@@ -11,8 +11,9 @@ import java.util.logging.Logger;
 
 import seedu.delino.commons.core.LogsCenter;
 
+//@@author Exeexe93
 /**
- * Represents a Order's timeStamp in the order book.
+ * Represents a order or return order's timeStamp in the order book or return order book.
  * Guarantees: immutable; is valid as declared in the method checkTimestamp.
  */
 public class TimeStamp {

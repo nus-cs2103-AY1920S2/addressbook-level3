@@ -1,4 +1,6 @@
 @startuml
+/' @author @cherweijie'/
+
 skinparam backgroundColor #ffffff
 skinparam classAttributeIconSize 0
 hide circle
@@ -6,10 +8,10 @@ hide circle
 class DeliveredCommandParser implements Parser {
     /' Methods '/
     + parse(args : String) : DeliveredCommand
-    - onlyReturnFlagPresent(splitInputList : List<String>)
-    - onlyOrderFlagPresent(splitInputList : List<String>)
-    - indexOfReturnList(splitInputList : List<String>)
-    - indexOfOrderList(splitInputList : List<String>)
+    - onlyReturnFlagPresent(splitInputList : List<String>) : boolean
+    - onlyOrderFlagPresent(splitInputList : List<String>) : boolean
+    - indexOfReturnList(splitInputList : List<String>) : Index
+    - indexOfOrderList(splitInputList : List<String>) : Index
 }
 
 interface Parser<T extends Command> {
