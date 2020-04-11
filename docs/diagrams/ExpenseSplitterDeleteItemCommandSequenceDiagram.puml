@@ -1,43 +1,66 @@
 @startuml
+/' @author @ailanthustng'/
 !include style.puml
 
-Actor User as user USER_COLOR
-Participant ":EYLAH" as ui UI_COLOR
-Participant ":LogicManager" as logic LOGIC_COLOR
-Participant ":ModelManager" as splitterModel MODEL_COLOR
-Participant ":StorageManager" as splitterStorage STORAGE_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
+participant ":DeleteItemCommandParser" as DeleteItemCommandParser LOGIC_COLOR
+participant ":DeleteItemCommand" as DeleteItemCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
 
-user -[USER_COLOR]> ui : "deleteitem 1"
-activate ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+end box
 
-ui -[UI_COLOR]> logic : execute("deleteitem 1")
-activate logic LOGIC_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":SplitterStorage" as SplitterStorageManager STORAGE_COLOR
+end box
 
-logic -[LOGIC_COLOR]> splitterModel : removeAmount(person, amount)
-activate splitterModel MODEL_COLOR
+[-> SplitterLogicManager : execute("deleteitem 1")
+activate SplitterLogicManager
 
-splitterModel -[MODEL_COLOR]-> logic
-deactivate splitterModel
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand("deleteitem 1")
+activate ExpenseSplitterParser
 
-logic -[LOGIC_COLOR]> splitterModel : deleteEntry(i)
-activate splitterModel MODEL_COLOR
+create DeleteItemCommandParser
+ExpenseSplitterParser -> DeleteItemCommandParser
+activate DeleteItemCommandParser
 
-splitterModel -[MODEL_COLOR]-> logic
-deactivate splitterModel
+DeleteItemCommandParser --> ExpenseSplitterParser
+deactivate DeleteItemCommandParser
 
-logic -[LOGIC_COLOR]> splitterStorage : savePersonAmountBook(personAmount)
-activate splitterStorage STORAGE_COLOR
+ExpenseSplitterParser -> DeleteItemCommandParser : parse("deleteitem 1")
+activate DeleteItemCommandParser
 
-splitterStorage -[STORAGE_COLOR]> splitterStorage : Save to file
-activate splitterStorage STORAGE_COLOR_T1
-deactivate splitterStorage
+create DeleteItemCommand
+DeleteItemCommandParser -> DeleteItemCommand
+activate DeleteItemCommand
 
-splitterStorage --[STORAGE_COLOR]> logic
-deactivate splitterStorage
+DeleteItemCommand --> DeleteItemCommandParser : d
+deactivate DeleteItemCommand
 
-logic --[LOGIC_COLOR]> ui : CommandResult
-deactivate logic
+DeleteItemCommandParser --> ExpenseSplitterParser : d
+deactivate DeleteItemCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteItemCommandParser -[hidden]-> ExpenseSplitterParser
+destroy DeleteItemCommandParser
 
-ui--[UI_COLOR]> user : CommandResult
-deactivate ui
+ExpenseSplitterParser --> SplitterLogicManager : d
+deactivate ExpenseSplitterParser
+
+ref over SplitterLogicManager, SplitterModelManager: Execution of DeleteItemCommand
+
+SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
+activate SplitterStorageManager
+
+SplitterStorageManager --> SplitterLogicManager
+
+SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+[<--SplitterLogicManager : result()
+deactivate SplitterStorageManager
 @enduml

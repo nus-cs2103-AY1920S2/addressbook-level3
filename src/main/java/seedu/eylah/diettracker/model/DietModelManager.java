@@ -22,6 +22,9 @@ import seedu.eylah.diettracker.model.self.Weight;
  * Represents the in-memory model of the address book data.
  */
 public class DietModelManager extends ModelManager implements DietModel {
+    public static final long GAIN_CALORIES = 3000;
+    public static final long LOSE_CALORIES = 2000;
+    public static final long MAINTAIN_CALORIES = 2500;
     private static final Logger logger = LogsCenter.getLogger(DietModelManager.class);
 
     private final FoodBook foodBook;
@@ -127,6 +130,11 @@ public class DietModelManager extends ModelManager implements DietModel {
         System.out.println(result);
     }
 
+    @Override
+    public Mode getMode() {
+        return myself.getMode();
+    }
+
     //=========== FoodBook ================================================================================
 
     @Override
@@ -208,6 +216,32 @@ public class DietModelManager extends ModelManager implements DietModel {
             count++;
         }
         result.append("\nTotal Calorie Intake : " + calorieCount + "\n");
+
+        if (mode == null || mode.equals("")) {
+            Calories caloriesLeft;
+            long calorieIntake;
+            if (this.mode == Mode.GAIN) {
+                calorieIntake = GAIN_CALORIES;
+            } else if (this.mode == Mode.LOSS) {
+                calorieIntake = LOSE_CALORIES;
+            } else { // MAINTAIN
+                calorieIntake = MAINTAIN_CALORIES;
+            }
+
+            caloriesLeft = new Calories(calorieIntake);
+            if (caloriesLeft.greaterThan(calorieCount)) {
+                caloriesLeft = caloriesLeft.difference(calorieCount);
+                result.append("\nYou have " + caloriesLeft + " calories left for the day!\n");
+            } else if (caloriesLeft.lessThan(calorieCount)) {
+                caloriesLeft = caloriesLeft.difference(calorieCount);
+                result.append("\nYou have exceeded your daily calorie limit (" + Long.valueOf(calorieIntake)
+                        + ") by " + caloriesLeft + " calories!\n");
+            } else {
+                result.append("\nYou have hit your calorie limit for the day!\n");
+            }
+
+
+        }
 
         System.out.println(result.toString());
     }
