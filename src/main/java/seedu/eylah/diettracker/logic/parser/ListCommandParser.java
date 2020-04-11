@@ -1,9 +1,9 @@
 package seedu.eylah.diettracker.logic.parser;
 
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_ALL;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_DAYS;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_ALL;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_DAYS;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 

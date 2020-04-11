@@ -2,9 +2,9 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_ITEM;
-import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.eylah.expensesplitter.logic.parser.SplitterCliSyntax.PREFIX_ITEM;
+import static seedu.eylah.expensesplitter.logic.parser.SplitterCliSyntax.PREFIX_NAME;
+import static seedu.eylah.expensesplitter.logic.parser.SplitterCliSyntax.PREFIX_PRICE;
 import static seedu.eylah.expensesplitter.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;

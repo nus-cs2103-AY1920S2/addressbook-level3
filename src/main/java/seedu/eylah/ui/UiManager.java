@@ -2,6 +2,7 @@ package seedu.eylah.ui;
 
 import java.util.Scanner;
 
+import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.model.Mode;
 
 /**
@@ -74,8 +75,8 @@ public class UiManager implements Ui {
     }
 
     @Override
-    public void showResult(String result) {
-        showToUser(result);
+    public void showResult(CommandResult commandResult) {
+        showToUser(commandResult.getFeedbackToUser());
     }
 
     @Override

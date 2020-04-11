@@ -142,7 +142,7 @@ public class Eylah {
                 CommandResult commandResult = logic.execute(commandWord);
                 isBack = commandResult.isBack();
                 isExit = commandResult.isExit();
-                ui.showResult(commandResult.getFeedbackToUser());
+                ui.showResult(commandResult);
             } catch (CommandException | ParseException e) {
                 ui.showError(e.getMessage());
             }

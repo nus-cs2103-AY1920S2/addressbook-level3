@@ -2,9 +2,9 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_ITEM;
-import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.eylah.expensesplitter.logic.parser.SplitterCliSyntax.PREFIX_ITEM;
+import static seedu.eylah.expensesplitter.logic.parser.SplitterCliSyntax.PREFIX_NAME;
+import static seedu.eylah.expensesplitter.logic.parser.SplitterCliSyntax.PREFIX_PRICE;
 
 import java.util.ArrayList;
 
