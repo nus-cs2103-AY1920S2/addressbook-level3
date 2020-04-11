@@ -32,7 +32,7 @@ public class EndCommand extends Command {
         transcript.complete();
         CommandResult result = new ToggleCommandResult(
                 String.format(MESSAGE_SUCCESS, model.getCurrentInterviewee()),
-                ToggleView.INTERVIEWEE);
+                ToggleView.CLOSE_TRANSCRIPT);
         saveTranscript(model, storage);
         model.endInterview();
         return result;
