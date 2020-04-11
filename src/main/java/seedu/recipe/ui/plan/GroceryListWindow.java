@@ -95,6 +95,9 @@ public class GroceryListWindow extends UiPart<Stage> {
      * Focuses on the grocery list window.
      */
     public void focus() {
+        if (getRoot().isIconified()) {
+            getRoot().setIconified(false);
+        }
         getRoot().requestFocus();
     }
 

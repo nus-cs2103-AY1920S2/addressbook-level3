@@ -147,7 +147,7 @@ public class SampleDataUtil {
                                     + " Add 2 tbsp of oil and immediately add eggs. Scramble the eggs and remove from "
                                     + "wok immediately. Set aside.",
                             "Add the remaining tbsp of oil to the wok, turn up heat to high, add tomatoes"
-                                    + " and scallions. Stir-fry for 1min, then add sugar, ½ tsp salt, and water. "
+                                    + " and scallions. Stir-fry for 1min, then add sugar, 0.5 tsp salt, and water. "
                                     + "If water cooks off too quickly, add a little more water. Add the cooked eggs.",
                             "Mix everything together, cover the wok, cook for 1-2mins until the tomatoes are completely"
                                     + " softened.",

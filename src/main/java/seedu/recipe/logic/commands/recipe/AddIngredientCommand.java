@@ -89,7 +89,7 @@ public class AddIngredientCommand extends Command {
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitBook(commandType);
+        model.commitBook(commandType, recipesTab);
 
         String finalMessage = String.format(MESSAGE_ADD_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString());
         return new CommandResult(finalMessage, false, false, recipesTab, false);

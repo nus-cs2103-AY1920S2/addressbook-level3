@@ -2,9 +2,11 @@ package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
@@ -24,10 +26,12 @@ public class CookedCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Indicate that the recipe has been cooked at the current time\n"
-            + "Parameters: INDEX NUMBER(s) (must be positive integers)\n"
+            + "Parameters: [recipe index]... (must be positive integers)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DUPLICATE_RECORD = "This recipe has already been added!";
+    public static final String MESSAGE_SUCCESS_COOK = "Cooked %1$s!";
+    public static final String MESSAGE_SUCCESS_PLAN = "The plans for %1$s have been removed as well.";
 
     private final Index[] targetIndex;
     private final Tab goalsTab = Tab.GOALS;
@@ -42,7 +46,8 @@ public class CookedCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Recipe> mostRecentList = model.getFilteredRecipeList();
-        StringBuilder sb = new StringBuilder().append("Cooked ");
+        List<String> cookedMealsMessage = new ArrayList<>(); // lists to hold messages to user
+        List<String> removedPlansMessage = new ArrayList<>();
 
         for (int i = 0; i < targetIndex.length; i++) {
             if (targetIndex[i].getZeroBased() >= mostRecentList.size()) {
@@ -56,29 +61,50 @@ public class CookedCommand extends Command {
             //add record to internal list and update goals tally for each record added
             model.addRecord(record);
             model.updateGoalsTally(record);
-
-            Optional<List<Plan>> optionalPlans = model.getPlans(recipeCooked);
-            if (optionalPlans.isPresent()) {
-                optionalPlans.get().stream()
-                        .filter(plan -> plan.isOnDate(Date.today()))
-                        .findFirst()
-                        .ifPresent(planToday -> {
-                            model.deletePlan(recipeCooked, planToday);
-                            sb.append("and removed the plan for ");
-                        });
-            }
-
-            if (i == targetIndex.length - 1 && targetIndex.length != 1) {
-                sb.append(" and ");
-            }
-            sb.append(recipeCooked.getName().toString());
-            if (i < targetIndex.length - 2) {
-                sb.append(", ");
-            }
+            cookedMealsMessage.add(record.getName().toString());
+            removePlanIfPresent(recipeCooked, model, removedPlansMessage);
         }
-        sb.append("!");
-        model.commitBook(commandType);
-        return new CommandResult(sb.toString(), false, false, goalsTab, false);
+        model.commitBook(commandType, goalsTab);
+        return new CommandResult(formatSuccessMessage(cookedMealsMessage, removedPlansMessage),
+                false, false, goalsTab, false);
+    }
+
+    /**
+     * Removes the plan from {@code model} if a plan for {@code recipeCooked} is present today.
+     * If successful, adds the recipe name to {@code message}.
+     */
+    private static void removePlanIfPresent(Recipe recipeCooked, Model model, List<String> message) {
+        Optional<List<Plan>> optionalPlans = model.getPlans(recipeCooked);
+        if (optionalPlans.isPresent()) {
+            optionalPlans.get().stream()
+                    .filter(plan -> plan.isOnDate(Date.today()))
+                    .findFirst()
+                    .ifPresent(planToday -> {
+                        model.deletePlan(recipeCooked, planToday);
+                        message.add(recipeCooked.getName().toString());
+                    });
+        }
+    }
+
+    /**
+     * Concatenates a list of {@code strings} with ','.
+     */
+    private static String formatListToString(List<String> strings) {
+        return strings.stream().collect(Collectors.joining(", "));
+    }
+
+    /**
+     * Formats the success message of this command.
+     */
+    private static String formatSuccessMessage(List<String> cookedMeals, List<String> removedPlans) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format(MESSAGE_SUCCESS_COOK, formatListToString(cookedMeals)));
+
+        if (!removedPlans.isEmpty()) {
+            sb.append("\n");
+            sb.append(String.format(MESSAGE_SUCCESS_PLAN, formatListToString(removedPlans)));
+        }
+        return sb.toString();
     }
 
     @Override

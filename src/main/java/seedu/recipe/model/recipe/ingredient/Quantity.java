@@ -4,8 +4,10 @@ package seedu.recipe.model.recipe.ingredient;
  * Represents a Quantity in an Ingredient.
  */
 public class Quantity {
-
-    public static final String MESSAGE_CONSTRAINTS = "The available units of measurement are g, ml, tbsp, tsp and cup.";
+    public static final String MESSAGE_CONSTRAINTS_MAGNITUDE = "The quantity must be more than zero and less than "
+            + "ten thousand.";
+    public static final String MESSAGE_CONSTRAINTS_UNITS = "The available units of measurement are "
+            + "g, ml, tbsp, tsp and cup.";
     public static final int CUP_TO_GRAM_GRAIN = 145;
     public static final int CUP_TO_GRAM_PROTEIN = 225;
     public static final int CUP_TO_GRAM_VEG = 200;

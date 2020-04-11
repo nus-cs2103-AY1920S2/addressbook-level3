@@ -69,7 +69,7 @@ public class AddCommand extends Command {
 
         toAdd.calculateGoals();
         model.addRecipe(toAdd);
-        model.commitBook(commandType);
+        model.commitBook(commandType, recipesTab);
         String message = String.format(MESSAGE_SUCCESS, toAdd);
         return new CommandResult(message, false, false, recipesTab, false);
     }

@@ -27,7 +27,7 @@ public class PlanCommandParser implements Parser<PlanCommand> {
      */
     public PlanCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATE) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE));
         }
 

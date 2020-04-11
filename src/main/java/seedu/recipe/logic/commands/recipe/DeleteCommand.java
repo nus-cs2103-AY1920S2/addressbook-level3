@@ -56,7 +56,7 @@ public class DeleteCommand extends Command {
             deletedRecipesList.add(recipeToDelete.getName().toString());
         }
 
-        model.commitBook(commandType);
+        model.commitBook(commandType, recipesTab);
         String finalMessage = String.format(MESSAGE_SUCCESS, getListAsFormattedString(deletedRecipesList));
         return new CommandResult(finalMessage, false, false, recipesTab, false);
     }

@@ -109,7 +109,7 @@ public class EditCommand extends Command {
         editedRecipe.calculateGoals();
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
-        model.commitBook(commandType);
+        model.commitBook(commandType, recipesTab);
 
         String finalMessage = String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
         return new CommandResult(finalMessage, false, false, recipesTab, false);
