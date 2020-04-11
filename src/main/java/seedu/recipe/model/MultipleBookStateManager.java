@@ -151,13 +151,13 @@ public class MultipleBookStateManager extends RecipeBook {
         while (undoCounter > 0) {
             assert recipeBookStatePointer > 0 && recipeBookStatePointer <= recipeBookStateList.size() - 1;
             assert plannedBookStatePointer > 0 && plannedBookStatePointer <= plannedBookStateList.size() - 1;
-            
+
             CommandType commandType = commandsToUndo.pop();
             commandsToRedo.push(commandType);
 
             toSwitch = tabsToUndo.pop();
             tabsToRedo.push(toSwitch);
-            
+
             switch (commandType) {
             case MAIN_LONE:
                 recipeBookStatePointer--;
@@ -198,13 +198,13 @@ public class MultipleBookStateManager extends RecipeBook {
         while (redoCounter > 0) {
             assert recipeBookStatePointer > 0 && recipeBookStatePointer <= recipeBookStateList.size() - 1;
             assert plannedBookStatePointer > 0 && plannedBookStatePointer <= plannedBookStateList.size() - 1;
-            
+
             CommandType commandType = commandsToRedo.pop();
             commandsToUndo.push(commandType);
 
             toSwitch = tabsToRedo.pop();
             tabsToUndo.push(toSwitch);
-            
+
             switch (commandType) {
             case MAIN_LONE:
                 recipeBookStatePointer++;
