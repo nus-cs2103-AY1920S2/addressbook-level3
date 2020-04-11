@@ -10,7 +10,6 @@ import com.notably.model.Model;
  */
 public class HelpSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
     public static final String COMMAND_WORD = "help";
-    public static final String COMMAND_SHORTHAND = "h";
 
     private static final String RESPONSE_MESSAGE = "Display a list of available commands";
 
