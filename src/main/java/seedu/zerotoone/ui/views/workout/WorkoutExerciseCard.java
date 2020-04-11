@@ -23,7 +23,7 @@ public class WorkoutExerciseCard extends UiPart<Region> {
 
     public WorkoutExerciseCard(int exerciseId, String exerciseName) {
         super(FXML);
-        this.exerciseId.setText(String.format("Exercise %d. ", exerciseId + 1));
+        this.exerciseId.setText(String.format("%d. ", exerciseId + 1));
         this.exerciseName.setText(exerciseName);
     }
 

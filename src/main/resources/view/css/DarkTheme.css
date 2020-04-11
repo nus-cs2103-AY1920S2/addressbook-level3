@@ -372,7 +372,9 @@
     -fx-padding: 4px 0px 6px 0px;
 }
 
-#exerciseId, #exerciseTitle, #exerciseName, #workoutId, #workoutName, #scheduledWorkoutId, #scheduledWorkoutName, #sectionName {
+#exerciseId, #exerciseTitle, #exerciseName,
+#workoutId, #workoutName,
+#scheduledWorkoutId, #scheduledWorkoutName, #sectionName {
     -fx-font-family: "Open Sans SemiBold";
     -fx-font-size: 16px;
     -fx-text-fill: #FFA372;
@@ -385,6 +387,9 @@
 
 #workoutExerciseCard .label {
     -fx-text-fill: white;
+    -fx-font-family: "Open Sans Regular";
+    -fx-font-size: 15px;
+    -fx-padding: 6px 0px 0px 0px;
 }
 
 #dateTime {
