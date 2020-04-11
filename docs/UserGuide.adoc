@@ -125,15 +125,15 @@ Let's say that you want to find a client named "Bryan Low" in client list. You c
 
 1.Type `find-c bryan` into the command box, and press `Enter` to execute it.
 
-/photo
+image::findcExamplePart1.png[]
 
 2.The result box will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
 
-/photo
+image::findcExamplePart2.png[]
 
 3.You can now see the clients with "bryan" in their names. As you can see, the name you use to search does not need to be case-senstive. The client that we are looking for "Bryan Low" is in the search results.
 
-/photo
+image::findcExamplePart3.png[]
 
 ==== Common errors / problems
 You might face some errors or difficulties when you `find-c`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the result box when using `find-c`.
@@ -144,15 +144,15 @@ You might wonder why `find-c` do not show the clients even though the client is 
 Example:
 You want to find the client named "Bryan Low" in client list. Below shows that "Bryan Low" indeed exists in the client list.
 
-/photo
+image::findcIncompleteNamePart1.png[]
 
 Type `find-c bry" into the command box, and press `Enter` to execute it.
 
-/photo
+image::findcIncompleteNamePart2.png[]
 
 You will obtain "no clients listed!".
 
-/photo
+image::findcIncompleteNamePart3.png[]
 
 This is because the name that you have entered is incomplete and does not match any word in the name of any of the clients. To correct this, you have to enter `find-c bryan` as seen in the example.
 
@@ -165,11 +165,11 @@ You want to find the client named "Bryan Low" in client list.
 
 Type `find-c bryan low` in to the command box, and press `Enter` to execute it.
 
-/photo
+image::findcMultiplePart1.png[]
 
 You will obtain clients which have `bryan` in their name or `low` in the name. In the case below, there are 3 clients. `Bryan Low`, `Bryan Tan` and `Alice Low`.
 
-/photo
+image::findcMultiplePart2.png[]
 
 You can try to enter keywords for `NAME` that are more specific to the client you are looking for. This will help to keep your search more scoped.
 
