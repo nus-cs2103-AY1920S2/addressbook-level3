@@ -56,7 +56,7 @@ class DeleteModuleTaskCommandTest {
         DeleteModuleTaskCommand deleteModuleTaskCommand = new DeleteModuleTaskCommand(invalidModuleCode,
                 Index.fromZeroBased(0));
 
-        assertThrows(CommandException.class, DeleteModuleTaskCommand.MESSAGE_NO_SUCH_MODULE, (
+        assertThrows(CommandException.class, Messages.MESSAGE_NO_SUCH_MODULE, (
         ) -> deleteModuleTaskCommand.execute(model));
     }
 

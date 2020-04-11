@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -43,7 +44,7 @@ class GradeCommandTest {
     public void execute_invalidModuleCode_throwsCommandException() {
         GradeCommand gradeCommand = new GradeCommand(new ModuleCode("CS2040"), Grade.A);
 
-        assertThrows(CommandException.class, GradeCommand.MESSAGE_NO_SUCH_MODULE, (
+        assertThrows(CommandException.class, Messages.MESSAGE_NO_SUCH_MODULE, (
         ) -> gradeCommand.execute(model));
     }
 }

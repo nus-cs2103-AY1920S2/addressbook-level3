@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -33,7 +34,7 @@ class DeleteModuleCommandTest {
     public void execute_invalidModule_throwsCommandException() {
         DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand(new ModuleCode("CS2040"));
 
-        assertCommandFailure(deleteModuleCommand, model, DeleteModuleCommand.MESSAGE_NO_SUCH_MODULE);
+        assertCommandFailure(deleteModuleCommand, model, Messages.MESSAGE_NO_SUCH_MODULE);
     }
 
     @Test
