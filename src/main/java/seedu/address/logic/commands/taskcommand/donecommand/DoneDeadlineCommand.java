@@ -30,13 +30,8 @@ public class DoneDeadlineCommand extends DoneCommand {
             return new CommandResult(MESSAGE_FAIL);
         }
 
-        Task.getDeadlineTaskList().get(deadlineDone.getIndex() - 1).markAsDone();
-
-        Task done = Task.getDeadlineTaskList().get(deadlineDone.getIndex() - 1);
-        Task.getDeadlineTaskList().remove(deadlineDone.getIndex() - 1);
-        Task.getDeadlineTaskList().add(done);
-        Task.sortDeadlineTaskList("date");
-        Task.sortDeadlineTaskList("done");
+        Task done = model.doneDeadlineTask(deadlineDone);
+        model.sortTaskList();
         model.updateDeadlineTaskList(Model.PREDICATE_SHOW_ALL_TASK);
 
         return new CommandResult(MESSAGE_SUCCESS + done);

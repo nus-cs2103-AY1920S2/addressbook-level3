@@ -8,7 +8,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
-import seedu.address.model.calender.Task;
 
 /**
  * Sort tasks in calendar by date or priority.
@@ -38,7 +37,7 @@ public class SortTasksCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Task.sortDeadlineTaskList(sortingParam);
+        model.sortTask(sortingParam);
 
         return new CommandResult(MESSAGE_SUCCESS + sortingParam);
     }

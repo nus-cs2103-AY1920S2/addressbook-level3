@@ -42,7 +42,7 @@ public class ModuleBook {
      */
     public void addModule(NusModule module) {
 
-        this.modules.add(module);
+        this.modulesTakenList.add(module);
 
     }
 
@@ -57,7 +57,6 @@ public class ModuleBook {
                 index = i;
             }
         }
-        modules.remove(index);
         this.modulesTakenList.remove(index);
     }
 

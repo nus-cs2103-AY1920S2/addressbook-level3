@@ -11,7 +11,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleTask;
 
 /**
@@ -54,13 +53,11 @@ public class ModuleTaskCommand extends Command {
         if (!model.hasModule(toAdd.getModuleRelated())) {
             throw new CommandException(MESSAGE_NO_SUCH_MODULE);
         }
-        Task.getDeadlineTaskList().add(toAdd);
-        Task.addTaskPerDate(toAdd.getDate(), toAdd);
-        Task.sortDeadlineTaskList("date");
-        Task.sortDeadlineTaskList("done");
-        model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
+
         model.addModuleTask(toAdd);
-        System.out.println(Task.getDeadlineTaskHashMap());
+        model.addDeadlineTask(toAdd);
+        model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
+        model.sortTaskList();
         return new CommandResult(MESSAGE_SUCCESS + " " + toAdd);
     }
 

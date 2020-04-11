@@ -35,12 +35,8 @@ public class DeleteDeadlineCommand extends DeleteTaskCommand {
             return new CommandResult(MESSAGE_FAIL);
         }
 
-        Task removed = Task.getDeadlineTaskList().remove(deadlineToDelete.getIndex() - 1);
-        Task.removeTaskPerDate(removed.getDate(), removed);
-        Task.sortDeadlineTaskList("date");
-        Task.sortDeadlineTaskList("done");
-        System.out.println(Task.getDeadlineTaskHashMap());
-
+        Task removed = model.deleteTask(deadlineToDelete);
+        model.sortTaskList();
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
         return new CommandResult(MESSAGE_SUCCESS + removed);
     }

@@ -33,17 +33,14 @@ public class AddDeadlineCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Task.getDeadlineTaskList().add(deadlineToAdd);
-        Task.addTaskPerDate(deadlineToAdd.getDate(), deadlineToAdd);
-        Task.sortDeadlineTaskList("date");
-        Task.sortDeadlineTaskList("done");
-        model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
 
         if (model.isEmptyDeadline(deadlineToAdd)) {
             throw new CommandException("There is no task to be added!");
         }
 
-        model.addDeadline(deadlineToAdd);
+        model.addDeadlineTask(deadlineToAdd);
+        model.sortTaskList();
+        model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
         return new CommandResult(MESSAGE_SUCCESS + deadlineToAdd);
     }
 

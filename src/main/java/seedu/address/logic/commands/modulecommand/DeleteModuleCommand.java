@@ -40,6 +40,7 @@ public class DeleteModuleCommand extends Command {
         }
 
         model.deleteModule(targetModuleCode);
+        model.updateModulesListTaken(Model.PREDICATE_SHOW_ALL_MODULES_TAKEN);
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetModuleCode));
     }
 
