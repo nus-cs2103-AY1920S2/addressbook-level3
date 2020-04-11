@@ -225,7 +225,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updatesDayDataStatistics(DayData dayData)  {
+        public void updatesDayDataStatistics(DayData dayData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -264,7 +264,6 @@ public class AddCommandTest {
         @Override
         public void notifyMainWindow(String inputString) throws CommandException {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override

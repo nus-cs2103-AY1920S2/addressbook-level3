@@ -21,9 +21,7 @@ public class StatisticsManager {
         this.statistics = statistics;
     }
 
-    /**
-     * Update StatisticsDisplay fields for user output.
-     */
+    /** Update StatisticsDisplay fields for user output. */
     public void updateStatisticsDisplayValues() {
         ObservableList<DayData> dayDatas = statistics.getCustomQueue();
         requireNonNull(statistics);
@@ -50,8 +48,7 @@ public class StatisticsManager {
             expBarPerc = 100;
         }
 
-        progressBarDailyFilepathString =
-                "/images/progress/ProgressBar" + expBarPerc + "%.png";
+        progressBarDailyFilepathString = "/images/progress/ProgressBar" + expBarPerc + "%.png";
     }
 
     public void setDailyTargetText(String dailyTargetText) {

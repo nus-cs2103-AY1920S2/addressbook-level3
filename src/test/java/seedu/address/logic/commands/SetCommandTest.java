@@ -1,14 +1,8 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
-import seedu.address.model.Pet;
-import seedu.address.model.Pomodoro;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
@@ -20,17 +14,16 @@ import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.StatisticsManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.Pet;
+import seedu.address.model.Pomodoro;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Statistics;
-import seedu.address.model.TaskList;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.TaskBuilder;
-
 
 public class SetCommandTest {
 
@@ -48,8 +41,8 @@ public class SetCommandTest {
         ModelStubWithPomodoro modelStub = new ModelStubWithPomodoro(pomodoro);
         modelStub.setPomodoroDefaultTime(5);
         assertTrue(pomodoro.getDefaultTime().equals("5.0"));
-        
     }
+
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -190,7 +183,7 @@ public class SetCommandTest {
         public void updatesDayDataStatistics(DayData dayData) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public DayData getDayDataFromDateStatistics(Date date) {
             throw new AssertionError("This method should not be called.");
@@ -214,7 +207,6 @@ public class SetCommandTest {
         @Override
         public void setPomodoroTimeLeft(float timeLeft) {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
@@ -234,7 +226,7 @@ public class SetCommandTest {
     }
 
     private class ModelStubWithPomodoro extends ModelStub {
-        final private Pomodoro pomodoro;
+        private final Pomodoro pomodoro;
 
         ModelStubWithPomodoro(Pomodoro pomodoro) {
             this.pomodoro = pomodoro;
@@ -247,7 +239,7 @@ public class SetCommandTest {
     }
 
     private class ModelStubWithPet extends ModelStub {
-        final private Pet pet;
+        private final Pet pet;
 
         ModelStubWithPet(Pet pet) {
             this.pet = pet;

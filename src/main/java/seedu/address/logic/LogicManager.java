@@ -15,7 +15,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.TaskList;
-import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
