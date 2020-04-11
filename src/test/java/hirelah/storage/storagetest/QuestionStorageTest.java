@@ -1,4 +1,4 @@
-package hirelah.storage;
+package hirelah.storage.storagetest;
 
 import static hirelah.testutil.Assert.assertThrows;
 import static hirelah.testutil.TypicalQuestionList.getTypicalQns;
@@ -14,6 +14,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import hirelah.commons.exceptions.DataConversionException;
 import hirelah.model.hirelah.QuestionList;
+import hirelah.storage.QuestionStorage;
 
 public class QuestionStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",

@@ -1,4 +1,4 @@
-package hirelah.storage;
+package hirelah.storage.storagetest;
 
 import static hirelah.testutil.Assert.assertThrows;
 import static hirelah.testutil.TypicalAttributes.getTypicalAttributes;
@@ -11,13 +11,15 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import hirelah.model.hirelah.AttributeList;
-import hirelah.model.hirelah.QuestionList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import hirelah.commons.exceptions.DataConversionException;
+import hirelah.model.hirelah.AttributeList;
 import hirelah.model.hirelah.IntervieweeList;
+import hirelah.model.hirelah.QuestionList;
+import hirelah.storage.IntervieweeStorage;
+import hirelah.storage.TranscriptStorage;
 
 public class IntervieweeStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
@@ -67,7 +69,8 @@ public class IntervieweeStorageTest {
 
     @Test
     public void readInterviewee_invalidAndValidInterviewee_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readInterviewee("invalidAndValidInterviewee.json" , getTypicalQns(),
+        assertThrows(DataConversionException.class, () ->
+                readInterviewee("invalidAndValidInterviewee.json" , getTypicalQns(),
                 getTypicalAttributes(), model, transcriptStorage));
     }
     @Test

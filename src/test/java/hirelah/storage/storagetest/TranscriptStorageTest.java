@@ -1,4 +1,4 @@
-package hirelah.storage;
+package hirelah.storage.storagetest;
 
 import static hirelah.testutil.Assert.assertThrows;
 import static hirelah.testutil.TypicalAttributes.getTypicalAttributes;
@@ -13,11 +13,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 
-import hirelah.model.hirelah.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import hirelah.commons.exceptions.DataConversionException;
+import hirelah.model.hirelah.AttributeList;
+import hirelah.model.hirelah.Interviewee;
+import hirelah.model.hirelah.QuestionList;
+import hirelah.model.hirelah.Transcript;
+import hirelah.storage.TranscriptStorage;
 
 public class TranscriptStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
@@ -32,9 +36,11 @@ public class TranscriptStorageTest {
     }
 
     private java.util.Optional<Transcript> readTranscript(Path filePath, int id,
-                                                          QuestionList questionList, AttributeList attributeList) throws Exception {
-        TranscriptStorage transcriptStorage = new TranscriptStorage(addToTestDataPathIfNotNull(filePath.toString()));
-        return transcriptStorage.readTranscript(id, questionList,attributeList);
+                                                          QuestionList questionList,
+                                                          AttributeList attributeList) throws Exception {
+        TranscriptStorage transcriptStorage = new TranscriptStorage(
+                addToTestDataPathIfNotNull(filePath.toString()));
+        return transcriptStorage.readTranscript(id, questionList, attributeList);
     }
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
@@ -42,26 +48,26 @@ public class TranscriptStorageTest {
                 : null;
     }
     @Test
-    public void read_invalidIntervieweeIDFile_emptyResult() throws Exception {
-        assertFalse(readTranscript(TEST_DATA_FOLDER, 10, getTypicalQns()
-                , getTypicalAttributes() ).isPresent());
+    public void read_invalidIntervieweeFile_emptyResult() throws Exception {
+        assertFalse(readTranscript(TEST_DATA_FOLDER, 10, getTypicalQns(),
+                getTypicalAttributes()).isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readTranscript(TEST_DATA_FOLDER,1,
+        assertThrows(DataConversionException.class, () -> readTranscript(TEST_DATA_FOLDER, 1,
                 getTypicalQns(), getTypicalAttributes()));
     }
 
     @Test
     public void readTranscript_invalidTranscript_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readTranscript(TEST_DATA_FOLDER,2,
+        assertThrows(DataConversionException.class, () -> readTranscript(TEST_DATA_FOLDER, 2,
                 getTypicalQns(), getTypicalAttributes()));
     }
 
     @Test
     public void readTranscript_invalidAndValidTranscript_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readTranscript(TEST_DATA_FOLDER,3,
+        assertThrows(DataConversionException.class, () -> readTranscript(TEST_DATA_FOLDER, 3,
                 getTypicalQns(), getTypicalAttributes()));
     }
     @Test

@@ -8,7 +8,7 @@ import hirelah.commons.exceptions.IllegalValueException;
 import hirelah.model.hirelah.Interviewee;
 import hirelah.model.hirelah.IntervieweeList;
 
-/** A utility class containing a list of {@code Intervieweelist}  to be used in tests.*/
+/** A utility class to create Interviewee and InterviewList to be used in tests.*/
 public class TypicalInterviewee {
     public static final String NAME1 = "Tom";
     public static final String NAME2 = "JANE";
@@ -39,6 +39,7 @@ public class TypicalInterviewee {
         list = List.of(firstInterviewee, secondInterviewee);
         return IntervieweeList.fromList(3, list);
     }
+    /**Return an interviewee who is yet to be interviewed*/
     public static Interviewee getAnInterviewee() throws IllegalValueException {
         Interviewee firstInterviewee = new Interviewee(NAME1, ID1);
         firstInterviewee.setAlias(ALIAS1);

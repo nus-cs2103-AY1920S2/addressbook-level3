@@ -1,4 +1,4 @@
-package hirelah.storage;
+package hirelah.storage.storagetest;
 
 import static hirelah.testutil.Assert.assertThrows;
 import static hirelah.testutil.TypicalAttributes.getAttributePrefix;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import hirelah.commons.exceptions.DataConversionException;
 import hirelah.model.hirelah.MetricList;
+import hirelah.storage.MetricStorage;
 
 public class MetricStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
@@ -30,8 +31,8 @@ public class MetricStorageTest {
     }
 
     private java.util.Optional<MetricList> readMetric(String filePath) throws Exception {
-        MetricStorage MetricStorage = new MetricStorage(Paths.get(filePath));
-        return MetricStorage.readMetric(addToTestDataPathIfNotNull(filePath));
+        MetricStorage metricStorage = new MetricStorage(Paths.get(filePath));
+        return metricStorage.readMetric(addToTestDataPathIfNotNull(filePath));
 
     }
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -62,19 +63,19 @@ public class MetricStorageTest {
     public void readAndSaveMetrics_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempMetricList.json");
         MetricList original = getMetricList();
-        MetricStorage MetricStorage = new MetricStorage(filePath);
+        MetricStorage metricStorage = new MetricStorage(filePath);
 
         // Save in new file and read back
-        MetricStorage.saveMetrics(original);
-        MetricList readBack = MetricStorage.readMetric(filePath).get();
+        metricStorage.saveMetrics(original);
+        MetricList readBack = metricStorage.readMetric(filePath).get();
         assertEquals(original, readBack);
 
         // Modify data, overwrite exiting file, and read back, without specifying file path
         original.add("Initiative", getTypicalAttributes(),
-                getAttributePrefix(),getSamplemetricWeight());
+                getAttributePrefix(), getSamplemetricWeight());
         original.delete("Leader");
-        MetricStorage.saveMetrics(original);
-        readBack = MetricStorage.readMetric(filePath).get();
+        metricStorage.saveMetrics(original);
+        readBack = metricStorage.readMetric(filePath).get();
         assertEquals(original, readBack);
     }
     @Test
@@ -85,10 +86,10 @@ public class MetricStorageTest {
     /**
      * Saves {@code MetricList} at the specified {@code filePath}.
      */
-    private void saveMetric(MetricList MetricList, String filePath) {
+    private void saveMetric(MetricList metricList, String filePath) {
         try {
             new MetricStorage(Paths.get(filePath))
-                    .saveMetrics(MetricList);
+                    .saveMetrics(metricList);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

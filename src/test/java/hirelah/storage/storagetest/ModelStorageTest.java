@@ -1,4 +1,4 @@
-package hirelah.storage;
+package hirelah.storage.storagetest;
 
 import static hirelah.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import hirelah.commons.exceptions.DataConversionException;
+import hirelah.storage.ModelStorage;
 
 public class ModelStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
@@ -25,8 +26,8 @@ public class ModelStorageTest {
     }
 
     private java.util.Optional<Boolean> readModel(String filePath) throws Exception {
-        ModelStorage ModelStorage = new ModelStorage(Paths.get(filePath));
-        return ModelStorage.readModel(addToTestDataPathIfNotNull(filePath));
+        ModelStorage modelStorage = new ModelStorage(Paths.get(filePath));
+        return modelStorage.readModel(addToTestDataPathIfNotNull(filePath));
 
     }
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -53,17 +54,17 @@ public class ModelStorageTest {
     public void readAndSaveModels_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempModel.json");
         Boolean original = true;
-        ModelStorage ModelStorage = new ModelStorage(filePath);
+        ModelStorage modelStorage = new ModelStorage(filePath);
 
         // Save in new file and read back
-        ModelStorage.saveModel(original);
-        Boolean readBack = ModelStorage.readModel(filePath).get();
+        modelStorage.saveModel(original);
+        Boolean readBack = modelStorage.readModel(filePath).get();
         assertEquals(original, readBack);
 
         // Modify data, overwrite exiting file, and read back, without specifying file path
         original = false;
-        ModelStorage.saveModel(original);
-        readBack = ModelStorage.readModel(filePath).get();
+        modelStorage.saveModel(original);
+        readBack = modelStorage.readModel(filePath).get();
         assertEquals(original, readBack);
     }
     @Test
@@ -71,7 +72,7 @@ public class ModelStorageTest {
         assertThrows(NullPointerException.class, () -> saveModel(null, "SomeFile.json"));
     }
 
-
+    /** Method deployed to test for ModelStorage*/
     private void saveModel(Boolean model, String filePath) {
         try {
             new ModelStorage(Paths.get(filePath))
