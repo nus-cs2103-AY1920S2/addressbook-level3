@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import cookbuddy.model.recipe.attribute.Calorie;
-
 public class CalorieTest {
 
     @Test
