@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Statistics;
 import seedu.address.model.TaskList;
+import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
@@ -225,6 +226,16 @@ public class AddCommandTest {
 
         @Override
         public void updateDataDatesStatistics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatesDayDataStatistics(DayData dayData)  {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public DayData getDayDataFromDateStatistics(Date date) {
             throw new AssertionError("This method should not be called.");
         }
 
