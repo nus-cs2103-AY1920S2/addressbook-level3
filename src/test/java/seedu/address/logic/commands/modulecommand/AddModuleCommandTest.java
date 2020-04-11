@@ -63,7 +63,7 @@ public class AddModuleCommandTest {
         ModelStub modelStub = new ModelStubWithNusModule(validModule);
 
         assertThrows(CommandException.class, AddModuleCommand.MESSAGE_DUPLICATE_NUS_MODULE, (
-            ) -> addModuleCommand.execute(modelStub));
+        ) -> addModuleCommand.execute(modelStub));
     }
 
     @Test
