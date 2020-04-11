@@ -778,18 +778,21 @@ The main function of these methods are to help *EditCommand* in updating the *Ob
 The *ObservableList* is a JavaFX class which listens and automatically changes the list once an update is performed.
 //end::edit[]
 
+//@@author cherweijie
 //tag::return[]
 [[return]]
 === Return Feature
-In this section, you will learn more about how the `return` feature is implemented.
+In this section, the <<what-is-return,functionality>> of the `return` feature, the
+expected <<execution-paths-return, execution path>>, the <<structure-return, structure>> of the *ReturnCommand* class
+and the <<return-interactions, interactions>> between objects with the *ReturnCommand* object will be discussed.
 
 [[what-is-return]]
 ==== What is the Return Feature
-The return feature allows the user to either: +
+The `return` feature allows the user to either: +
 1. Create a new return order from his/her input parcel attributes. +
 2. Convert an existing delivered order to a return order.
 
-The return feature was implemented as a `ReturnCommand` in the `Logic` package. +
+The return feature was implemented as a *ReturnCommand* in the Logic package. +
 
 The `return` command has two possible formats: +
 
@@ -815,7 +818,7 @@ If the user provides these compulsory parcel attributes, a return order with the
 the date and time.
 8. The <<command_prefix, `WAREHOUSE_LOCATION`>> is alphanumeric and it determines the <<command_prefix, `WAREHOUSE_LOCATION`>> of the resulting return order.
 9. The <<command_prefix, `[COMMENTS]`>> is an optional alphanumeric field and determines the <<command_prefix, `[COMMENTS]`>> of the resulting return order.
-10. The <<command_prefix, `[ITEM_TYPE]`>> is an optional alphanumeric field and determines the <<command_prefix, `[ITEM_TYPE]`>> of the resulting return order.
+10. The <<command_prefix, `[ITEM_TYPE]`>> is an optional alphabetic field and determines the <<command_prefix, `[ITEM_TYPE]`>> of the resulting return order.
 ====
 
 [[execution-paths-return]]
@@ -851,15 +854,14 @@ This will result in a parse exception and an error message will be displayed to 
 [[structure-return]]
 ==== Structure of Return Command
 image::ReturnClassDiagram.png[]
-The above class diagram shows the structure of the `ReturnCommand`
+The above class diagram shows the structure of the *ReturnCommand*
 and its associated classes and interfaces. Some methods and fields are not included because they are
-not extensively utilised in `ReturnCommand`; such as public static fields and getter/setter methods.
+not extensively utilised in *ReturnCommand*; such as public static fields and getter/setter methods.
 
 [[return-interactions]]
 ==== Interactions between objects when Return Command is executed
 
-==== Sequence Diagram for converting an order into a return order
-The sequence diagrams for the *Return Command* are shown below.
+The sequence diagrams for the `return` command are shown below.
 
 .Return Command Sequence Diagram
 image::ReturnSequenceDiagram1_a.png[]
@@ -867,47 +869,47 @@ image::ReturnSequenceDiagram1_a.png[]
 .Execution of Return Command to convert a delivered Order into a Return Order
 image::ReturnSequenceDiagram2_a.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+method in *LogicManager*. After which, an *OrderBookParser* object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `return` command word that will be parsed. +
 
-Then, a `ReturnCommandParser` object will be created to parse the arguments after removing
+Then, a *ReturnCommandParser* object will be created to parse the arguments after removing
 the command word `return` from the user's input. Based on the command word `return`,
-a `ReturnCommand` object will be created. +
+a *ReturnCommand* object will be created. +
 
-Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+Subsequently, the parseCommand method in *LogicManager* will continue to create a *CommandResult*
 based on the validity of the user's input; which is determined by the `execute` method in
-`ReturnCommand`. +
+*ReturnCommand*. +
 
-The `execute` method of `ReturnCommand` will first check if the return order in the constructor of
-ReturnCommand is present. In this case, since we are converting an order into a return order,
-the return order will not be present in the constructor of `ReturnCommand` and
+The `execute` method of *ReturnCommand* will first check if the return order in the constructor of
+*ReturnCommand* is present. In this case, since we are converting an order into a return order,
+the return order will not be present in the constructor of *ReturnCommand* and
 the isReturnOrderNotPresent() method will return true. +
 
 If the given <<command_prefix, `TRANSACTION_ID`>> exists in the order list, the
-getOrderByTransactionId(model) method will attempt to create a new Order object from
+getOrderByTransactionId(model) method will attempt to create a new *Order* object from
 the model's Order list based on the given transaction ID, i.e. orderToBeReturned. +
 
-The isDelivered() method checks if the newly created Order is delivered. If the order was not
+The isDelivered() method checks if the newly created *Order* is delivered. If the order was not
 delivered, it will throw a command exception and display an error message to the user. +
 
 If the order was delivered, the deleteOrder(orderToBeReturned) method will be triggered
 to delete the order from the model's order list. Also, a new return order will be created based
-on the ReturnOrder's constructor that takes in an Order, i.e. ReturnOrder(orderToBeReturned). This
-creates a new Return Order object, toBeCreated. +
+on the *ReturnOrder*'s constructor that takes in an *Order*, i.e. ReturnOrder(orderToBeReturned). This
+creates a new *ReturnOrder* object, toBeCreated. +
 
-Subsequently, this newly created ReturnOrder object toBeCreated, will be checked against the
+Subsequently, this newly created *ReturnOrder* object toBeCreated, will be checked against the
 model's return order list using the hasParcel(toBeCreated) method. If it exists, a command exception will be thrown
 and an error message will be displayed to the user. +
 
-If the ReturnOrder does not exist in the model's return order list, the newly created ReturnOrder object,
+If the *ReturnOrder* does not exist in the model's return order list, the newly created *ReturnOrder* object,
 toBeCreated, will be added to the model's return order list using the addReturnOrder(toBeCreated) method. +
 
-Finally, a new CommandResult will be created to display the success message to the user for converting
+Finally, a new *CommandResult* will be created to display the success message to the user for converting
 a delivered order to a return order.
 
 ==== Sequence Diagram for creating a new return order
-The sequence diagrams for the *Return Command* are shown below.
+The sequence diagrams for the `return` command are shown below.
 
 .Return Command Sequence Diagram
 image::ReturnSequenceDiagram1_b.png[]
@@ -915,36 +917,36 @@ image::ReturnSequenceDiagram1_b.png[]
 .Execution of Return Command to create a new Return Order
 image::ReturnSequenceDiagram2_b.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+method in *LogicManager*. After which, an *OrderBookParser* object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `return` command word that will be parsed. +
 
-Then, a `ReturnCommandParser` object will be created to parse the arguments after removing
+Then, a *ReturnCommandParser* object will be created to parse the arguments after removing
 the command word `return` from the user's input. Based on the command word `return`,
-a `ReturnCommand` object will be created. +
+a *ReturnCommand* object will be created. +
 
-Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+Subsequently, the parseCommand method in *LogicManager* will continue to create a CommandResult
 based on the validity of the user's input; which is determined by the `execute` method in
-`ReturnCommand`. +
+*ReturnCommand*. +
 
-The `execute` method of `ReturnCommand` will first check if the return order in the constructor of
-ReturnCommand is present. In this case, since we are creating a new return order from the given parcel attributes, a
-return order will be created and it will be used in the constructor of `ReturnCommand` and
+The `execute` method of *ReturnCommand* will first check if the return order in the constructor of
+*ReturnCommand* is present. In this case, since we are creating a new return order from the given parcel attributes, a
+return order will be created and it will be used in the constructor of *ReturnCommand* and
 the isReturnOrderNotPresent() method will return false. +
 
-Also, a new return order will be created based on the ReturnOrder's constructor
-that takes in an Order, i.e. ReturnOrder(orderToBeReturned). This
-creates a new ReturnOrder object, toBeCreated. +
+Also, a new return order will be created based on the *ReturnOrder*'s constructor
+that takes in an *Order*, i.e. ReturnOrder(orderToBeReturned). This
+creates a new *ReturnOrder* object, toBeCreated. +
 
-Subsequently, this newly created ReturnOrder object toBeCreated, will be checked against the
+Subsequently, this newly created *ReturnOrder* object toBeCreated, will be checked against the
 model's return order list using the hasParcel(toBeCreated) method.
 If it exists, a command exception will be thrown
 and an error message will be displayed to the user. +
 
-If the ReturnOrder does not exist in the model's return order list, the newly created ReturnOrder object,
+If the *ReturnOrder* does not exist in the model's return order list, the newly created *ReturnOrder* object,
 toBeCreated, will be added to the model's return order list using the addReturnOrder(toBeCreated) method. +
 
-Finally, a new CommandResult will be created to display the success message to the user for creating a
+Finally, a new *CommandResult* will be created to display the success message to the user for creating a
 new return order with the given parcel attributes.
 //end::return[]
 
