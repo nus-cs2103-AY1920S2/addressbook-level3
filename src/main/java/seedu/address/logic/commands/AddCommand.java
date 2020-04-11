@@ -8,8 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -60,12 +59,9 @@ public class AddCommand extends Command {
     private final Set<ModuleCode> toAdd;
     private int addSemester;
     private String addGrade;
-    private String addTask;
-    private LocalDate addDate;
-    private LocalTime addTime;
+    private ArrayList<Deadline> addDeadlines;
 
-    public AddCommand(Set<ModuleCode> moduleCodes, int semester, String grade,
-                      String task, LocalDate date, LocalTime time) {
+    public AddCommand(Set<ModuleCode> moduleCodes, int semester, String grade, ArrayList<Deadline> deadlines) {
         requireNonNull(moduleCodes);
         requireNonNull(semester);
 
@@ -74,14 +70,8 @@ public class AddCommand extends Command {
         if (grade != null) {
             addGrade = grade;
         }
-        if (task != null) {
-            addTask = task;
-        }
-        if (date != null) {
-            addDate = date;
-        }
-        if (time != null) {
-            addTime = time;
+        if (deadlines != null) {
+            addDeadlines = deadlines;
         }
     }
 
@@ -103,7 +93,7 @@ public class AddCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_MODULE);
             }
             for (ModuleCode moduleCode: toAdd) {
-                AddCommand command = new AddCommand(Set.of(moduleCode), addSemester, null, null, null, null);
+                AddCommand command = new AddCommand(Set.of(moduleCode), addSemester, null, null);
                 command.execute(profileManager, courseManager, moduleManager);
             }
             return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd), true);
@@ -136,9 +126,9 @@ public class AddCommand extends Command {
         Personal personal;
         if (hasModule) { // Module already added to semester
             personal = moduleToAdd.getPersonal();
-            if (addGrade == null && addTask == null && addDate == null) {
+            if (addGrade == null && addDeadlines == null) {
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE,
-                        moduleToAdd.getPersonal().getStatus()));
+                        personal.getStatus()));
             }
         } else { // Module does not exist
             if (addSemester == 0) {
@@ -157,7 +147,7 @@ public class AddCommand extends Command {
             throw new CommandException("To add grade to an existing module, use: edit m/MODULE g/GRADE");
         }
 
-        if (addTask != null) {
+        if (addDeadlines != null) {
             // Check if the deadline is added to a module in the current semester
             if (hasModule && semesterOfModule != currentSemester) {
                 // This module has been added but it is not in current semester
@@ -176,21 +166,15 @@ public class AddCommand extends Command {
                 hasModule = true;
             }
 
-            Deadline deadline;
-            String moduleCode = moduleCodeToAdd.toString();
-            if (addDate != null) {
-                deadline = new Deadline(moduleCode, addTask, addDate, addTime);
-            } else {
-                deadline = new Deadline(moduleCode, addTask);
+
+            for (Deadline deadline : addDeadlines) {
+                if (personal.hasDeadline(deadline)) {
+                    throw new DuplicateDeadlineException();
+                }
+
+                personal.addDeadline(deadline);
+                profileManager.addDeadline(deadline);
             }
-
-            if (personal.hasDeadline(deadline)) {
-                throw new DuplicateDeadlineException();
-            }
-
-            personal.addDeadline(deadline);
-            profileManager.addDeadline(deadline);
-
         }
 
         // Set the status of the module
