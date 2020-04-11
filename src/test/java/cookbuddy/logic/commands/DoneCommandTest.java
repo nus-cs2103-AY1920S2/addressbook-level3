@@ -43,10 +43,10 @@ public class DoneCommandTest {
 
         assertCommandFailure(doneCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
-    
+
     @Test
     public void testEquality() {
-       DoneCommand doneCommand = new DoneCommand(INDEX_FIRST_RECIPE);
-       assertEquals(doneCommand, new DoneCommand(INDEX_FIRST_RECIPE));
+        DoneCommand doneCommand = new DoneCommand(INDEX_FIRST_RECIPE);
+        assertEquals(doneCommand, new DoneCommand(INDEX_FIRST_RECIPE));
     }
 }

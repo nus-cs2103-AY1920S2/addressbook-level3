@@ -43,10 +43,10 @@ public class UndoCommandTest {
 
         assertCommandFailure(doneCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
-    
+
     @Test
     public void testEquality() {
-       UndoCommand undoCommand = new UndoCommand(INDEX_FIRST_RECIPE);
-       assertEquals(undoCommand, new UndoCommand(INDEX_FIRST_RECIPE));
+        UndoCommand undoCommand = new UndoCommand(INDEX_FIRST_RECIPE);
+        assertEquals(undoCommand, new UndoCommand(INDEX_FIRST_RECIPE));
     }
 }
