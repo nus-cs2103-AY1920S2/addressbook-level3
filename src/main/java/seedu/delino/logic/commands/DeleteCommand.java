@@ -32,6 +32,7 @@ public class DeleteCommand extends Command {
             + NEWLINE + "Example: " + COMMAND_WORD + " -r" + " 1";
 
     public static final String MESSAGE_DELETE_ORDER_SUCCESS = "Deleted Order: %1$s";
+    public static final String MESSAGE_DELETE_RETURN_ORDER_SUCCESS = "Deleted Return Order: %1$s";
     public static final String MESSAGE_INVALID_FLAG = "Invalid flag given!";
 
     private static final Logger logger = LogsCenter.getLogger(DeleteCommand.class);
@@ -97,7 +98,7 @@ public class DeleteCommand extends Command {
 
         ReturnOrder orderToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteReturnOrder(orderToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, orderToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_RETURN_ORDER_SUCCESS, orderToDelete));
     }
 
     @Override
