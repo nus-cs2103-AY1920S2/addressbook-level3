@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -73,8 +74,16 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTagsToBeAdded);
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG))
-            .ifPresent(editPersonDescriptor::setTagsToBeDeleted);
+
+        if (!argMultimap.getAllValues(PREFIX_DELETE_TAG).isEmpty()) {
+            Optional <Set<Tag>> tags = parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG));
+            if (tags.isPresent()) {
+                editPersonDescriptor.setTagsToBeDeleted(tags.get());
+            } else {
+                editPersonDescriptor.setTagsToEmpty(ParserUtil.parseTags(Collections.emptyList()));
+            }
+        }
+
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
