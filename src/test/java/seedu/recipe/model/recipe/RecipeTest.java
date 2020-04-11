@@ -58,8 +58,8 @@ public class RecipeTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Recipe aliceCopy = new RecipeBuilder(CAESAR_SALAD).build();
-        assertTrue(CAESAR_SALAD.equals(aliceCopy));
+        Recipe caesarCopy = new RecipeBuilder(CAESAR_SALAD).build();
+        assertTrue(CAESAR_SALAD.equals(caesarCopy));
 
         // same object -> returns true
         assertTrue(CAESAR_SALAD.equals(CAESAR_SALAD));

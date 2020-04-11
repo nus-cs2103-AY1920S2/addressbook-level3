@@ -5,8 +5,6 @@ import static seedu.recipe.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 
-import seedu.recipe.model.recipe.Name;
-
 /**
  * Represents a Quantity in an Ingredient.
  */
