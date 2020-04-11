@@ -16,6 +16,8 @@ import seedu.zerotoone.model.Model;
 public class DisplayCommand extends LogCommand {
     public static final String COMMAND_WORD = "display";
     public static final String MESSAGE_SUCCESS = "Displaying statistics!";
+    public static final String MESSAGE_USAGE =
+        "Usage: log display [st/start_time] [et/end_time]";
 
     private final Optional<LocalDateTime> startRange;
     private final Optional<LocalDateTime> endRage;
@@ -36,5 +38,10 @@ public class DisplayCommand extends LogCommand {
 
         model.setStatisticsDateRange(startRange, endRage);
         return new CommandResult(MESSAGE_SUCCESS, false, true, false);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof DisplayCommand;
     }
 }

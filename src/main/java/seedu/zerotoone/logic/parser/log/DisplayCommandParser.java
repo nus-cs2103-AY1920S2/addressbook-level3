@@ -10,7 +10,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 import seedu.zerotoone.logic.commands.log.DisplayCommand;
-import seedu.zerotoone.logic.commands.log.FindCommand;
 import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
@@ -32,22 +31,23 @@ public class DisplayCommandParser implements Parser<DisplayCommand> {
         Optional<LocalDateTime> endTimeOptional = Optional.empty();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LOG_START, PREFIX_LOG_END);
 
-        if (argMultimap.getValue(PREFIX_LOG_START).isPresent()) {
-            try {
-                startTimeOptional =
-                    Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_LOG_START).get()));
-            } catch (DateTimeParseException e) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-            }
+        String errorUsageMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE);
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_LOG_END).isPresent()) {
-            try {
+        try {
+            if (argMultimap.getValue(PREFIX_LOG_START).isPresent()) {
+                startTimeOptional =
+                    Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_LOG_START).get()));
+            }
+            if (argMultimap.getValue(PREFIX_LOG_END).isPresent()) {
                 endTimeOptional =
                     Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_LOG_END).get()));
-            } catch (DateTimeParseException e) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
+        } catch (DateTimeParseException e) {
+            throw new ParseException(errorUsageMessage);
         }
 
         return new DisplayCommand(startTimeOptional, endTimeOptional);
