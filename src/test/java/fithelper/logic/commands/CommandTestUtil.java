@@ -29,15 +29,38 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_FOOD = "chicken rice";
     public static final String VALID_NAME_SPORTS = "running";
+    public static final String VALID_NAME_CAKE = "Cake";
+    public static final String VALID_NAME_BURGER = "Burger";
+
     public static final String VALID_CALORIE_FOOD = "300";
     public static final String VALID_CALORIE_SPORTS = "200";
+    public static final String VALID_CALORIE_CAKE = "500";
+    public static final String VALID_CALORIE_BURGER = "550";
+
     public static final String VALID_DURATION_SPORTS = "1.5";
+
     public static final String VALID_TIME_SPORTS = "2020-05-11-11:00";
     public static final String VALID_TIME_FOOD = "2020-05-10-12:00";
+    public static final String VALID_TIME_CAKE = "2020-03-31-06:15";
+    public static final String VALID_TIME_BURGER = "2019-04-05-06:50";
+
     public static final String VALID_LOCATION_SPORTS = "TRACK";
     public static final String VALID_LOCATION_FOOD = "Fine food, Utown";
+    public static final String VALID_LOCATION_CAKE = "home";
+    public static final String VALID_LOCATION_BURGER = "super snack";
+
     public static final String VALID_TYPE_SPORTS = "sports";
     public static final String VALID_TYPE_FOOD = "food";
+
+    public static final String NAME_DESC_CAKE = " " + PREFIX_NAME + VALID_NAME_CAKE;
+    public static final String NAME_DESC_BURGER = " " + PREFIX_NAME + VALID_NAME_BURGER;
+    public static final String TIME_DESC_CAKE = " " + PREFIX_TIME + VALID_TIME_CAKE;
+    public static final String TIME_DESC_BURGER = " " + PREFIX_TIME + VALID_TIME_BURGER;
+    public static final String LOCATION_DESC_CAKE = " " + PREFIX_LOCATION + VALID_LOCATION_CAKE;
+    public static final String LOCATION_DESC_BURGER = " " + PREFIX_LOCATION + VALID_LOCATION_BURGER;
+    public static final String CALORIE_DESC_CAKE = " " + PREFIX_CALORIE + VALID_CALORIE_CAKE;
+    public static final String CALORIE_DESC_BURGER = " " + PREFIX_CALORIE + VALID_CALORIE_BURGER;
+
 
     public static final String NAME_DESC_FOOD = " " + PREFIX_NAME + VALID_NAME_FOOD;
     public static final String NAME_DESC_SPORTS = " " + PREFIX_NAME + VALID_NAME_SPORTS;
