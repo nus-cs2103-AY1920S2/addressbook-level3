@@ -5,10 +5,10 @@ Participant ":CommandBox" as commandBox UI_COLOR
 Participant ":TextField" as textField UI_COLOR
 Participant ":ResultDisplay" as resultDisplay UI_COLOR
 Participant ":AutoComplete" as autoComplete LOGIC_COLOR
-Participant ":Trie" as trie LOGIC_COLOR
-Participant ":Node" as node LOGIC_COLOR
-Participant "similarWordsResult:SimilarWordsResult" as similarWordsResult LOGIC_COLOR
-Participant "autoCompleteResult:AutoCompleteResult" as autoCompleteResult LOGIC_COLOR
+' Participant ":Trie" as trie LOGIC_COLOR
+' Participant "node:Node" as node LOGIC_COLOR
+' Participant "similarWordsResult:SimilarWordsResult" as similarWordsResult LOGIC_COLOR
+Participant "acResult:AutoCompleteResult" as autoCompleteResult LOGIC_COLOR
 
 -[UI_COLOR]> commandBox : handleTabKey()
 activate commandBox UI_COLOR
@@ -28,63 +28,72 @@ deactivate textField
 commandBox -[UI_COLOR]> autoComplete : execute("gra", 3)
 activate autoComplete LOGIC_COLOR
 
-autoComplete -[LOGIC_COLOR]> trie : listAllSimilarWords("gra")
-activate trie LOGIC_COLOR
+ref over autoComplete, autoCompleteResult : get autocomplete result
+note right
+note that the acResult object is 
+actually created within this ref
+end note
 
-trie -[LOGIC_COLOR]> trie : getLongestPrefixNode("gra")
-activate trie LOGIC_COLOR_T1
-deactivate trie
+' autoComplete -[LOGIC_COLOR]> trie : listAllSimilarWords("gra")
+' activate trie LOGIC_COLOR
 
-trie -[LOGIC_COLOR]> node : constructWord()
-activate node LOGIC_COLOR
+' trie -[LOGIC_COLOR]> trie : getLongestPrefixNode("gra")
+' activate trie LOGIC_COLOR_T1
+' trie -[LOGIC_COLOR]-> trie : node
+' deactivate trie
 
-node -[LOGIC_COLOR]-> trie : "graph"
-deactivate node
+' trie -[LOGIC_COLOR]> node : constructWord()
+' activate node LOGIC_COLOR
 
-trie -[LOGIC_COLOR]> node : isWordEnd()
-activate node LOGIC_COLOR
+' node -[LOGIC_COLOR]-> trie : "graph"
+' deactivate node
 
-node -[LOGIC_COLOR]-> trie : true
-deactivate node
+' trie -[LOGIC_COLOR]> node : isWordEnd()
+' activate node LOGIC_COLOR
 
-create similarWordsResult
-trie -[LOGIC_COLOR]> similarWordsResult : new SimilarWordsResult("graph", ["graph"])
-activate similarWordsResult LOGIC_COLOR
+' node -[LOGIC_COLOR]-> trie : true
+' deactivate node
 
-similarWordsResult -[LOGIC_COLOR]-> trie : similarWordsResult
-deactivate similarWordsResult
+' create similarWordsResult
+' trie -[LOGIC_COLOR]> similarWordsResult : SimilarWordsResult("graph", ["graph"])
+' activate similarWordsResult LOGIC_COLOR
 
-trie -[LOGIC_COLOR]-> autoComplete : similarWordsResult
-deactivate trie LOGIC_COLOR
+' similarWordsResult -[LOGIC_COLOR]-> trie : similarWordsResult
+' deactivate similarWordsResult
 
-autoComplete -[LOGIC_COLOR]> similarWordsResult : hasOnlyOneWord()
-activate similarWordsResult LOGIC_COLOR
+' trie -[LOGIC_COLOR]-> autoComplete : similarWordsResult
+' deactivate trie LOGIC_COLOR
 
-similarWordsResult -[LOGIC_COLOR]-> autoComplete : true
-deactivate similarWordsResult
+' autoComplete -[LOGIC_COLOR]> similarWordsResult : hasOnlyOneWord()
+' activate similarWordsResult LOGIC_COLOR
 
-autoComplete -[LOGIC_COLOR]> similarWordsResult : getSingleWord()
-activate similarWordsResult LOGIC_COLOR
+' similarWordsResult -[LOGIC_COLOR]-> autoComplete : true
+' deactivate similarWordsResult
 
-similarWordsResult -[LOGIC_COLOR]-> autoComplete : "graph"
-deactivate similarWordsResult
+' autoComplete -[LOGIC_COLOR]> similarWordsResult : getSingleWord()
+' activate similarWordsResult LOGIC_COLOR
 
-autoComplete -[LOGIC_COLOR]> autoComplete : singleCommandHandler("graph")
-activate autoComplete LOGIC_COLOR_T1
+' similarWordsResult -[LOGIC_COLOR]-> autoComplete : "graph"
+' deactivate similarWordsResult
 
-autoComplete -[LOGIC_COLOR]> autoComplete : generatePrefixesString(GraphCommand.PREFIXES)
-activate autoComplete LOGIC_COLOR_T1
-deactivate autoComplete
+' autoComplete -[LOGIC_COLOR]> autoComplete : singleCommandHandler("graph")
+' activate autoComplete LOGIC_COLOR_T1
 
-create autoCompleteResult
-autoComplete -[LOGIC_COLOR]> autoCompleteResult : new AutoCompleteResult("graph n/ a/ sd/ ed/", GraphCommand.MESSAGE_USAGE, 8)
-activate autoCompleteResult LOGIC_COLOR
+' autoComplete -[LOGIC_COLOR]> autoComplete : generatePrefixesString(GraphCommand.PREFIXES)
+' activate autoComplete LOGIC_COLOR_T1
+' autoComplete -[LOGIC_COLOR]-> autoComplete : "graph n/ a/ sd/ ed/"
+' deactivate autoComplete
 
-autoCompleteResult -[LOGIC_COLOR]-> autoComplete : autoCompleteResult
-deactivate autoCompleteResult
-deactivate autoComplete
+' create autoCompleteResult
+' autoComplete -[LOGIC_COLOR]> autoCompleteResult : AutoCompleteResult("graph n/ a/ sd/ ed/", GraphCommand.MESSAGE_USAGE, 8)
+' activate autoCompleteResult LOGIC_COLOR
 
-autoComplete -[LOGIC_COLOR]-> commandBox : autoCompleteResult
+' autoCompleteResult -[LOGIC_COLOR]-> autoComplete : autoCompleteResult
+' deactivate autoCompleteResult
+' autoComplete -[LOGIC_COLOR]-> autoComplete : autoCompleteResult
+' deactivate autoComplete
+
+autoComplete -[LOGIC_COLOR]-> commandBox : acResult
 deactivate autoComplete
 
 commandBox -[UI_COLOR]> autoCompleteResult : getTextToSet()
