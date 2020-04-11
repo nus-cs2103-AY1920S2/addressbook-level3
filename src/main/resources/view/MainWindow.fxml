@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root maxHeight="600.0" minHeight="600.0" maxWidth = "1150.0" minWidth="1150.0" onCloseRequest="#handleExit" title="Naggy Joel" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="600.0" minHeight="600.0" maxWidth = "1050.0" minWidth="1050.0" onCloseRequest="#handleExit" title="Naggy Joel" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -45,7 +45,7 @@
                     </StackPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane maxHeight="694.0" minHeight="450.0" maxWidth="400.0" minWidth="400.0" prefHeight="694.0" prefWidth="400.0" SplitPane.resizableWithParent="false">
+                  <AnchorPane maxHeight="694.0" minHeight="450.0" maxWidth="350.0" minWidth="350.0" prefHeight="694.0" prefWidth="400.0" SplitPane.resizableWithParent="false">
                      <children>
                           <VBox fx:id="personList" layoutX="28.0" layoutY="-3.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="568.0" prefWidth="400.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                       <padding>
@@ -55,7 +55,7 @@
                    <StackPane fx:id="personListPanelPlaceholder" layoutX="24.0" minHeight="162.0" minWidth="400.0" prefHeight="568.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane maxHeight="599.0" minHeight="450.0" maxWidth="400.0" minWidth="400.0" prefHeight="568.0" prefWidth="300.0" SplitPane.resizableWithParent="false">
+                  <AnchorPane maxHeight="599.0" minHeight="450.0" maxWidth="350.0" minWidth="350.0" prefHeight="568.0" prefWidth="300.0" SplitPane.resizableWithParent="false">
                      <children>
                         <VBox fx:id="personCard" maxWidth="300.0" minHeight="400.0" minWidth="300.0" prefHeight="568.0" prefWidth="300.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <padding>
