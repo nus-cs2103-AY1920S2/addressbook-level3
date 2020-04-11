@@ -72,6 +72,7 @@ when a student is deleted, its link to course and progress and teacher, etc will
 
 Here is an example of how a command to delete student with ID 1 will invoke different parts along the flow.
 
+.Sequence Diagram for Events Flow
 image::EventsFlowDiagram.png[]
 
 * 1/ ViewController(i.e LogicManager) will invoke ModelManager.delete method (Note that ModelManager extends from BaseManager,
@@ -234,7 +235,7 @@ for easier management of entity links. Every non-directed association between 2 
 The only exception is `Progress` objects which are created via
 a composite ID of `studentID` and `assignmentID`.
 
-The group then uses 3 different managers in order to ensure that the links are successfully maintained during each
+There are 3 crucial managers involved in order to ensure that the links are successfully maintained during each
 any command which involves manipulation of entity links. The three managers are:
 
 .  `UUID Manager` - Ensures ID of all entities are unique, allowing each object to be uniquely identifiable
@@ -252,32 +253,85 @@ Consideration 1
 
 Consideration 2
 
-==== Execution of Assign/Unassign Command
+==== Execution of Assign/Un-assign Command
 For the actual execution of an assign/unassign command, 3 main steps are performed.
 
 . Pre-process the targeted entities to ensure consistent state - Via `PreprocessUndoCommand` method call
 . Add both object's ID into each other - Handled by `EdgeManager`
 . Create/remove Progress objects when assignments/students are involved - Handled by `Progress Manager`
 
-==== Preprocess Entities
-Firstly, a `pre-processing step` must be performed before executing an undo-able assign/unassign command
+
+===== Step 1: Preprocess Entities
+
+====== Rationale
+Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command
 to ensure that all entity links are in correct state before command execution.
 
-.Activity Diagram of Pre-processing for
+====== Current Implementation
+Below is an activity diagram showing the pre-processing
+performed for assign commands. The diagram can be generalized for un-assign commands by checking if the course contains X and vice versa in the
+second stage instead.
+
+.Activity Diagram of Pre-processing for Assign/Un-assign commands
 image::Ivan-PreprocessAssignActivityDiagram.png[]
 
-Notice that there are 2 main exit points in the activity diagram. The success case is straightforward and will lead to a
+---
+Notice that there are 2 main exit points in the activity diagram.
+
+. The success case is straightforward and will lead to a
 the program continuing to execute the actual assign/un-assign command.
+. For the failure case, should any of the conditions fail, this means that either that the
 
-However, for the failure case, should any of the conditions fail, this means that either the specified objects does `not exist`, or
-both entities are `already assigned` to each other or more importantly, that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
-
-===== EdgeManager
-Explain flow for assign/unassign
-Explain flow for capturing delete event (and unassign correspondingly)
+* specified objects does `not exist`,
+* both entities are `already assigned` to each other or,
+* most importantly, that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
 
 
-===== ProgressManager
+===== Step 2: Assign IDs via EdgeManager
+====== +++<u>Rationale</u>+++
+After the necessary checks have been performed, respective IDs need to be added to the targeted course and targeted object in order
+to ensure correct and consistent assigning of objects.
+
+====== +++<u>Current Implementation</u>+++
+Below is a sequence diagram of how EdgeManager adds the IDs to the two objects involved.
+
+.Sequence Diagram of EdgeManager's AssignXtoCourse commands
+image::Ivan-SequenceDiagramForAssignCommand.png[]
+
+---
+The flow of an assign command is as follows:
+
+. Obtain a copy of the requested `modelObjects` from `ModelManager`
+.. One of which must be a `Course` modelObject, the other being either a `Student`/`Staff`/`Assignment` modelObject
+. For object X', add the `courseID` into the assignedCourseIDs in X`
+.. For assignments, every assignment can only be assigned to at most *one course*. Hence, it'll hold just an assignedCourseID instead
+of a set of Course IDs.
+. For Course C', add `X's ID` into assignedXIDs in C'
+.. For courses, every course may only have at most *one teacher*. Hence, course will have an assignedTeacherID instead
+of a set of Teacher IDs.
+. Update the 2 affected models by executing `set(targetObj, editedObj)` in modelManager for both changed modelObjects
+. Update the storage by running postDataStorageChangeEvent() - ref to `Figure 2` to understand how storage save is triggered
+
+NOTE: This sequence diagram can be generalized for `un-assign command` as well. Instead of adding IDs, un-assign will remove
+each other's ID from the respective objects.
+
+====== +++<u>Design Considerations</u>+++
+. Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObject`.
+Pros::
+.. Simpler implementation since any changes to the model will change the actual object directly
+.. Faster execution since any changes is done to the actual modelObject
+Cons::
+.. Might allow for unintentional changes to the actual modelObject
+. (Current Implementation) Manipulate a `copy` modelObjects by having modelManager#get() return a copy of actual modelObject.
+Pros::
+.. Prevents unintentional modifications of the shared object
+Cons::
+..  Extra processing required. For example, a method is required to replace the old modelObject with the
+new model object
+.. More memory intensive and can hurt overall program performance.
+
+
+===== Step 3: Add Progress objects via ProgressManager
 
 === Undo/Redo
 

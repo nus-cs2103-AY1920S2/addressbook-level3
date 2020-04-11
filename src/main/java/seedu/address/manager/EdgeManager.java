@@ -53,7 +53,7 @@ public class EdgeManager extends BaseManager {
         Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
         Staff foundTeacher = (Staff) model.get(staffID, Constants.ENTITY_TYPE.STAFF);
 
-        foundCourse.assignStaff(staffID);
+        foundCourse.addStaff(staffID);
         foundTeacher.addCourse(courseID);
         model.set(foundCourse, foundCourse);
         model.set(foundTeacher, foundTeacher);
@@ -181,7 +181,6 @@ public class EdgeManager extends BaseManager {
             ID courseID = assignment.getAssignedCourseID();
             if (isDelete) {
                 unassignAssignmentFromCourse(assignment.getId(), courseID);
-                //ProgressManager.removeOneProgressFromAllStudents(courseID, assignment.getId());
             } else {
                 assignAssignmentToCourse(assignment.getId(), courseID);
             }
@@ -192,7 +191,6 @@ public class EdgeManager extends BaseManager {
 
     private static void processEdgeFromStudent(Student student, Boolean isDelete) {
         try {
-
             // Delete edges to student
             Set<ID> courseIDs = student.getAssignedCoursesID();
             for (ID courseID : courseIDs) {
