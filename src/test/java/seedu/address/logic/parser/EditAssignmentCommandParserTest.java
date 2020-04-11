@@ -1,6 +1,31 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_CS3243;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DEADLINE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATUS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TITLE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_WORKLOAD_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_CS3243;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_CS3243;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_CS3243;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORKLOAD_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.WORKLOAD_DESC_CS2103;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalIndexes.FIRST_INDEX;
+import static seedu.address.testutil.TypicalIndexes.SECOND_INDEX;
+import static seedu.address.testutil.TypicalIndexes.THIRD_INDEX;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditAssignmentDescriptor;
 import seedu.address.logic.commands.EditAssignmentCommand;
@@ -9,12 +34,6 @@ import seedu.address.model.assignment.Status;
 import seedu.address.model.assignment.Title;
 import seedu.address.model.assignment.Workload;
 import seedu.address.testutil.EditAssignmentDescriptorBuilder;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.*;
 
 public class EditAssignmentCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
@@ -25,7 +44,7 @@ public class EditAssignmentCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_TITLE_CS2103, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, TITLE_DESC_CS2103, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditAssignmentCommand.MESSAGE_NOT_EDITED);
@@ -51,13 +70,13 @@ public class EditAssignmentCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_TITLE_DESC, Title.MESSAGE_CONSTRAINTS); // invalid title
-        assertParseFailure(parser, "1" + INVALID_DEADLINE_DESC, Deadline.MESSAGE_CONSTRAINTS); // invalid deadline
-        assertParseFailure(parser, "1" + INVALID_WORKLOAD_DESC, Workload.MESSAGE_CONSTRAINTS); // invalid workload
-        assertParseFailure(parser, "1" + INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS); // invalid status
+        assertParseFailure(parser, "1" + INVALID_TITLE_DESC, Title.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_DEADLINE_DESC, Deadline.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_WORKLOAD_DESC, Workload.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS);
 
         // invalid title followed by valid deadline
-        assertParseFailure(parser, "1" + INVALID_TITLE_DESC + EMAIL_DESC_AMY, Title.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_TITLE_DESC + DEADLINE_DESC_CS2103, Title.MESSAGE_CONSTRAINTS);
 
         // valid title followed by invalid title. The test case for invalid title followed by valid title
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
@@ -75,7 +94,8 @@ public class EditAssignmentCommandParserTest {
             + DEADLINE_DESC_CS2103;
 
         EditAssignmentDescriptor descriptor = new EditAssignmentDescriptorBuilder().withTitle(VALID_TITLE_CS2103)
-            .withDeadline(VALID_DEADLINE_CS2103).withStatus(VALID_STATUS_CS2103).withWorkload(VALID_WORKLOAD_CS2103).build();
+            .withDeadline(VALID_DEADLINE_CS2103).withStatus(VALID_STATUS_CS2103)
+            .withWorkload(VALID_WORKLOAD_CS2103).build();
         EditAssignmentCommand expectedCommand = new EditAssignmentCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -98,7 +118,8 @@ public class EditAssignmentCommandParserTest {
         // title
         Index targetIndex = THIRD_INDEX;
         String userInput = targetIndex.getOneBased() + TITLE_DESC_CS2103;
-        EditAssignmentDescriptor descriptor = new EditAssignmentDescriptorBuilder().withTitle(VALID_TITLE_CS2103).build();
+        EditAssignmentDescriptor descriptor =
+            new EditAssignmentDescriptorBuilder().withTitle(VALID_TITLE_CS2103).build();
         EditAssignmentCommand expectedCommand = new EditAssignmentCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -139,15 +160,16 @@ public class EditAssignmentCommandParserTest {
         // no other valid values specified
         Index targetIndex = FIRST_INDEX;
         String userInput = targetIndex.getOneBased() + INVALID_DEADLINE_DESC + DEADLINE_DESC_CS3243;
-        EditAssignmentDescriptor descriptor = new EditAssignmentDescriptorBuilder().withDeadline(VALID_DEADLINE_CS3243).build();
+        EditAssignmentDescriptor descriptor =
+            new EditAssignmentDescriptorBuilder().withDeadline(VALID_DEADLINE_CS3243).build();
         EditAssignmentCommand expectedCommand = new EditAssignmentCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + DEADLINE_DESC_CS2103 + INVALID_TITLE_DESC + STATUS_DESC_CS2103
             + TITLE_DESC_CS2103;
-        descriptor = new EditAssignmentDescriptorBuilder().withDeadline(VALID_DEADLINE_CS2103).withStatus(VALID_STATUS_CS2103)
-            .withTitle(VALID_TITLE_CS2103).build();
+        descriptor = new EditAssignmentDescriptorBuilder().withDeadline(VALID_DEADLINE_CS2103)
+            .withStatus(VALID_STATUS_CS2103).withTitle(VALID_TITLE_CS2103).build();
         expectedCommand = new EditAssignmentCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

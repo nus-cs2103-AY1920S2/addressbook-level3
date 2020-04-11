@@ -2,8 +2,8 @@ package seedu.address.model.assignment;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WORKLOAD_CS2103;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORKLOAD_CS2103;
 import static seedu.address.testutil.TypicalAssignments.CS2103_TP;
 
 import org.junit.jupiter.api.Test;

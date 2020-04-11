@@ -28,7 +28,8 @@ public interface AssignmentScheduleStorage {
     /**
      * @see #getAssignmentScheduleFilePath()
      */
-    Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule(Path filePath) throws DataConversionException,
+        IOException;
 
     /**
      * Saves the given {@link ReadOnlyAssignmentSchedule} to the storage.

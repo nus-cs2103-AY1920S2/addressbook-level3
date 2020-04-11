@@ -29,8 +29,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddAssignmentCommand;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddRestaurantCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
@@ -136,7 +136,8 @@ public class LogicManagerTest {
 
         // Setup LogicManager with JsonAssignmentScheduleIoExceptionThrowingStub
         addressBookStorage = new JsonAddressBookStorage(temporaryFolder.resolve("ioExceptionAddressBook.json"));
-        assignmentScheduleStorage = new JsonAssignmentScheduleIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAssignments.json"));
+        assignmentScheduleStorage =
+            new JsonAssignmentScheduleIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAssignments.json"));
 
         storage = new StorageManager(addressBookStorage,
             restaurantBookStorage,
@@ -146,7 +147,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        addCommand = AddAssignmentCommand.COMMAND_WORD + TITLE_DESC_CS2103 + DEADLINE_DESC_CS2103 + WORKLOAD_DESC_CS2103;
+        addCommand = AddAssignmentCommand.COMMAND_WORD + TITLE_DESC_CS2103 + DEADLINE_DESC_CS2103
+            + WORKLOAD_DESC_CS2103;
         Assignment expectedAssignment = new AssignmentBuilder(CS2103_TP).build();
         expectedModel = new ModelManager();
         expectedModel.addAssignment(expectedAssignment);
@@ -154,8 +156,10 @@ public class LogicManagerTest {
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
 
         // Setup LogicManager with JsonRestaurantBookIoExceptionThrowingStub
-        assignmentScheduleStorage = new JsonAssignmentScheduleStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
-        restaurantBookStorage = new JsonRestaurantBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRestaurantBook.json"));
+        assignmentScheduleStorage =
+            new JsonAssignmentScheduleStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
+        restaurantBookStorage =
+            new JsonRestaurantBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRestaurantBook.json"));
 
         storage = new StorageManager(addressBookStorage,
             restaurantBookStorage,
@@ -273,7 +277,8 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule, Path filePath) throws IOException {
+        public void saveAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule, Path filePath)
+            throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

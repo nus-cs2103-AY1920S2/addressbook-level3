@@ -1,15 +1,15 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.EditAssignmentDescriptor;
-import seedu.address.logic.EditPersonDescriptor;
-import seedu.address.model.assignment.*;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.Deadline;
+import seedu.address.model.assignment.Status;
+import seedu.address.model.assignment.Title;
+import seedu.address.model.assignment.Workload;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+/**
+ * A utility class to help with building EditAssignmentDescriptor objects.
+ */
 public class EditAssignmentDescriptorBuilder {
     private EditAssignmentDescriptor descriptor;
 
