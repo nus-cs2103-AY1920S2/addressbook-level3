@@ -216,7 +216,7 @@ the user.
 
 [[insert-sequence]]
 ==== Interaction between objects when the *Insert Command* is executed
-Here is the sequence diagram for the `Insert Command` as shown below: +
+Here is the sequence diagram for the *Insert Command* as shown below: +
 
 .Insert
 image::InsertCommandSequenceDiagram.svg[]
