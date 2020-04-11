@@ -244,7 +244,9 @@ image::UndoRedoState2.png[]
 If a command fails its execution, it will not call `Model#commit()`, so the `currentState` will not be saved
 into the history.
 
-Step 4. The user now decides that adding the supplier was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous database state, and restores the database to that state.
+Step 4. The user now decides that buying the apples was a mistake, and decides to undo that action by executing the
+`undo` command. The `undo` command will call `Model#undo()`, which will shift the `statePointer` one step backward,
+pointing it to the previous saved state `saved1`, and updates `currentState` with `saved1`.
 
 image::UndoRedoState3.png[]
 
