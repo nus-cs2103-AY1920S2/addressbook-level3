@@ -16,7 +16,7 @@ import com.notably.commons.path.exceptions.InvalidPathException;
 import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
 
-public class SuggestionEngineImplTest {
+public class SuggestionEngineTest {
     private static AbsolutePath toCs2103t;
     private static List<AbsolutePath> paths;
     private static Model model;
@@ -40,7 +40,7 @@ public class SuggestionEngineImplTest {
         paths = new ArrayList<>();
         paths.add(toCs2103t);
 
-        suggestionEngine = new SuggestionEngineImpl(model);
+        suggestionEngine = new SuggestionEngine(model);
     }
 
     @AfterEach
