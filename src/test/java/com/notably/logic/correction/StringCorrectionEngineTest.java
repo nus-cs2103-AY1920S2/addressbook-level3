@@ -87,7 +87,7 @@ public class StringCorrectionEngineTest {
     }
 
     @Test
-    public void correct_withForwardMatchingAndValidInputAndBelowForwardMatchingThreshold_forwardMatchingDone() {
+    public void correct_withForwardMatchingAndValidPrefixAndBelowForwardMatchingThreshold_forwardMatchingDone() {
         final int distanceThreshold = 2;
         final int forwardMatchingThreshold = 2;
         final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS,
@@ -107,7 +107,7 @@ public class StringCorrectionEngineTest {
     }
 
     @Test
-    public void correct_withForwardMatchingAndInvalidInputAndBelowForwardMatchingThreshold_noForwardMatching() {
+    public void correct_withForwardMatchingAndInvalidPrefixAndBelowForwardMatchingThreshold_noForwardMatching() {
         final int distanceThreshold = 2;
         final int forwardMatchingThreshold = 2;
         final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS,

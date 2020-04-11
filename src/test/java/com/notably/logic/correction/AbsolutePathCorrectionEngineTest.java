@@ -99,7 +99,7 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_withForwardMatchingAndValidInputAndBelowForwardMatchingThreshold_forwardMatchingDone() {
+    public void correct_withForwardMatchingAndValidPrefixAndBelowForwardMatchingThreshold_forwardMatchingDone() {
         final int distanceThreshold = 2;
         final int forwardMatchingThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(model,
@@ -119,7 +119,7 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_withForwardMatchingAndInvalidInputAndBelowForwardMatchingThreshold_noForwardMatching() {
+    public void correct_withForwardMatchingAndInvalidPrefixAndBelowForwardMatchingThreshold_noForwardMatching() {
         final int distanceThreshold = 2;
         final int forwardMatchingThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(model,
