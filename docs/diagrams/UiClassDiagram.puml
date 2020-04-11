@@ -32,35 +32,35 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow --> StatisticsWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> StudentTab
-MainWindow *-down-> SessionTab
-MainWindow *-down-> ClaimsTab
-MainWindow *-down-> StatusBarFooter
+MainWindow ---> HelpWindow
+MainWindow ----> StatisticsWindow
+MainWindow *--down--> CommandBox
+MainWindow *--down--> ResultDisplay
+MainWindow *--down--> StudentTab
+MainWindow *--down--> SessionTab
+MainWindow *--down--> ClaimsTab
+MainWindow *--down--> StatusBarFooter
 
 CommandBox -up-> ResultDisplay
 
 
 MainWindow -left-|> UiPart
 
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-StudentTab --|> UiPart
-SessionTab --|> UiPart
-ClaimsTab --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
-StatisticsWindow -down-|> UiPart
+ResultDisplay ----|> UiPart
+CommandBox ----|> UiPart
+StudentTab ----|> UiPart
+SessionTab ----|> UiPart
+ClaimsTab ----|> UiPart
+StatusBarFooter ----|> UiPart
+HelpWindow --down--|> UiPart
+StatisticsWindow --down--|> UiPart
 
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-StudentTab .down..> Model
-SessionTab .down.> Model
-ClaimsTab .down.> Model
+StudentTab .down...> Model
+SessionTab .down..> Model
+ClaimsTab .down..> Model
 
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
