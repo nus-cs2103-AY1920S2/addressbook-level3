@@ -14,21 +14,33 @@ FitBiz is a desktop fitness business management application. The user interacts 
 == Summary of contributions
 
 * *Major enhancement*: added *Exercise classes and commands*
-** What it does: allows the user to record their client's exercises. The recorded exercises will then be shown in a table for the user to see.
-** Justification: This feature improves the product significantly because it is one of the main features of the application. Many other features like showing the client's personal bests and drawing their clients' progression graph rely on having the exercises recorded.
+** What it does: allows the user to record their client's exercises. The recorded exercises will then be shown in a table for the user to see. This includes:
+- `add-e` Command +
+Users will be able to add exercises to the exercise table.
+- `edit-e` Command +
+Users will be able to edit existing exercises.
+- `delete-e` Command +
+Users will be able to delete existing exercises.
+** Justification: This feature improves the product significantly because recording the exercises of clients is one of the main features of the application. Many other features like showing the client's personal bests and drawing their clients' progression graph rely on having the exercises recorded.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
 * *Major enhancement*: hooked many features from Logic to Graphical User Interface
 ** What it does: features are shown in GUI instead of being shown in text format.  
 ** Justification: In order for the application to be appealing and user-friendly, the features have to be properly displayed in the GUI. The features include:
-. The exercise progession graph +
+- The exercise progession graph +
  It is a graph of the specified exercise after `graph` command. This is one of the features that is proposed to really attract users. It is a step further from the user just recording his clients' exercises and having the user see the progression of his clients over a period of time.
-. The client's information displayed after `view-c` command +
+- The client's information displayed after `view-c` command +
 We have a separate window to show the detailed client's information. This helps to reduce the clients' information displayed in the `ClientCard` in `ClientListPanel`. The user can see the essential details of each client at a glance and only see the detailed information after a `view-c` command.
-. The exercise table done by the client +
+- The exercise table done by the client +
 The user will be able to see the exercises done by their clients' listed in a table instead of being shown text in the `ResultDisplay`. This provides a better user experience.
 
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Highlights: This enhancement requires a good understanding of Javafx. I have gotten a good grasp at using it to provide GUI for java application.
+- The exercise progession graph +
+I used `LineChart` in Javafx to display the graph. The X axis to be shown is date but JavaFx only provides `NumberAxis` and `CategoryAxis`. To display the axis as date, I used the `NumberAxis` but also had to use `setTickLabelFormatter()` to change the label from `epochDay` to date.
+- The client's information displayed after `view-c` command +
+There is a lot of information shown after `view-c` but only a limited space in the GUI. To solve this, I implemented `ScrollPane` so that the user can scroll to view the information.
+- The exercise table done by the client +
+We decided it is best for the exercises to be viewed in a table form. To do so, I used `TableView` from Javafx.
 
 * *Minor enhancement*: refactored the `Storage` component from AB3 to Fitbiz
 
@@ -42,6 +54,9 @@ The user will be able to see the exercises done by their clients' listed in a ta
 *** Wrote test code for exercise classes and commands to improve test coverage. (https://github.com/AY1920S2-CS2103T-F11-2/main/pull/83[83], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/121[121], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/135[135], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/210[210], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/214[214])
 ** Documentation:
 *** Added https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/UserGuide.adoc#command-summary[command summary]  in User Guide
+*** Wrote the implementation of exercise classes and commands in Developer Guide (.... pr)
+*** Wrote the command guide for `list-c`, `add-e` and `edit-e` in User Guide (.... pr)
+*** Changed `UI` and `Storage` diagrams of Developer Guide (.... pr)
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-F11-2/main/pull/137[137,] https://github.com/AY1920S2-CS2103T-F11-2/main/pull/225[225]
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S2-CS2103T-F09-2/main/issues/249[249], https://github.com/AY1920S2-CS2103T-F09-2/main/issues/250[250], https://github.com/AY1920S2-CS2103T-F09-2/main/issues/251[251])
@@ -51,6 +66,94 @@ The user will be able to see the exercises done by their clients' listed in a ta
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+=== Find clients by name: `find-c`
+`find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire list might be troublesome and difficult. `find-c` is the command for you.
+
+==== Parameters
+This section acts as a summary of the important things to note when using `find-c` including their parameters.
+
+Format: `find-c NAME`
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| NAME |
+* Substitute `NAME` with keywords you want to search with +
+
+* You can use multiple keywords for `NAME`. +
+e.g. You can enter `find-c bryan low`.
+
+* The `NAME` keywords are case insensitive. +
+e.g. Typing `find-c hans` will show clients even with the name `Hans`. +
+For a better understanding, you can refer to the example section .
+
+* The keywords used for `NAME` have to match at least one word in the name of the clients. +
+e.g. Typing `find-c Bry` will not show clients with the name `Bryan`. +
+For a detailed explanation, you can refer to the commons errors / problems section.
+
+* Clients matching at least one `NAME` keyword will be returned and does not require all the words in their name to match. +
+e.g. Typing `find-c Hans Bo` will show clients `Hans Gruber` and `Bo Yang` and not necessarily just client `Hans Bo`. +
+For a detailed explanation, you can refer to the commons errors / problems section.
+|====================
+
+==== Example
+Let's say that you want to find a client named "Bryan Low" in client list. You can simply use the `find-c` command as shown.
+
+1.Type `find-c bryan` into the command box, and press `Enter` to execute it.
+
+image::ug-findcExamplePart1.png[]
+
+2.The result box will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
+
+image::ug-findcExamplePart2.png[]
+
+3.You can now see the clients with "bryan" in their names. As you can see, the name you use to search does not need to be case-senstive. The client that we are looking for "Bryan Low" is in the search results.
+
+image::ug-findcExamplePart3.png[]
+
+==== Common errors / problems
+You might face some errors or difficulties when you `find-c`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the result box when using `find-c`.
+
+===== Using incomplete names
+You might wonder why `find-c` do not show the clients even though the client is in clearly in your client list. It might be possible that you have entered an incomplete name and does not match any word in the name of that client. The example below might help you understand better.
+
+Example:
+You want to find the client named "Bryan Low" in client list. Below shows that "Bryan Low" indeed exists in the client list.
+
+image::ug-findcIncompleteNamePart1.png[]
+
+Type `find-c bry" into the command box, and press `Enter` to execute it.
+
+image::ug-findcIncompleteNamePart2.png[]
+
+You will obtain "no clients listed!".
+
+image::ug-findcIncompleteNamePart3.png[]
+
+This is because the name that you have entered is incomplete and does not match any word in the name of any of the clients. To correct this, you have to enter `find-c bryan` as seen in the example.
+
+===== Using multiple keywords for `NAME`
+
+You might wonder why the application shows more clients than you intended. It might be possible that you have misunderstood how the `NAME` parameter gets the client you are finding. The application will show clients as long as one of the words of the client match a keyword you use for name. The example below might help you understand better.
+
+Example:
+You want to find the client named "Bryan Low" in client list.
+
+Type `find-c bryan low` in to the command box, and press `Enter` to execute it.
+
+image::ug-findcMultiplePart1.png[]
+
+You will obtain clients which have `bryan` in their name or `low` in the name. In the case below, there are 3 clients. `Bryan Low`, `Bryan Tan` and `Alice Low`.
+
+image::ug-findcMultiplePart2.png[]
+
+You can try to enter keywords for `NAME` that are more specific to the client you are looking for. This will help to keep your search more scoped.
+
+==== Other UG contributions
+- `add-e`
+- `edit-e`
 
 include::../UserGuide.adoc[tag=delete]
 
@@ -62,7 +165,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-=== Exercise Feature --- Yong Jie
+=== Exercise Feature
 
 This feature allows users to record the exercises done by a client. The exercises are displayed in a table form, after the `view-c` command is called.
 
