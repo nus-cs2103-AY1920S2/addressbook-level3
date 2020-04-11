@@ -36,7 +36,7 @@ public class SampleDataUtil {
         ExpiryDate cappleExpiry = new ExpiryDate("30-10-2020");
         ExpiryDate daidasExpiry = new ExpiryDate("30-09-2020");
         ExpiryDate ikeeaExpiry = new ExpiryDate("01-10-2020");
-        ExpiryDate rabsExpiry = new ExpiryDate("11-09-2020");
+        ExpiryDate shopeeExpiry = new ExpiryDate("11-09-2020");
 
         ArrayList<Saveable> azahSaveables = new ArrayList<Saveable>();
         azahSaveables.add(new Saveable("Sambal Sauce"));
@@ -64,7 +64,7 @@ public class SampleDataUtil {
         ikeeaSaveables.add(new Saveable("IKEEA Pencil"));
         DateSavingsSumMap ikeeaSavings = new DateSavingsSumMap();
 
-        DateSavingsSumMap rabsSavings = new DateSavingsSumMap();
+        DateSavingsSumMap shopeeSavings = new DateSavingsSumMap();
 
         return new Coupon[] {
             new Coupon(new Name("Auntie Azah's Nasi Lemak"), new PromoCode("AZAH BAIK LA"),
@@ -95,11 +95,11 @@ public class SampleDataUtil {
                     new StartDate("01-09-2019"), new Usage("0"), new Limit("1"), getTagSet("limitededition"),
                     ikeeaSavings, new RemindDate(ikeeaExpiry),
                     new Condition("Meatball are made of horsemeat"), new Archived()),
-            new Coupon(new Name("Rab's Kebabs"), new PromoCode("UPZ KEBABZ"),
-                new Savings(new PercentageAmount(100d)), rabsExpiry, new StartDate("01-8-2019"),
+            new Coupon(new Name("Shopee"), new PromoCode("NEWUSER"),
+                new Savings(new PercentageAmount(100d)), shopeeExpiry, new StartDate("01-8-2019"),
                     new Usage("0"), new Limit("1"), getTagSet("lunch"),
-                    rabsSavings, new RemindDate(rabsExpiry),
-                    new Condition("Muslim students get an additional begedil (Worth $50)"), new Archived())
+                    shopeeSavings, new RemindDate(shopeeExpiry),
+                    new Condition("Only for new users"), new Archived())
         };
     }
 

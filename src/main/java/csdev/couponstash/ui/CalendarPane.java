@@ -40,7 +40,6 @@ public class CalendarPane extends UiPart<Region> {
     private YearMonth currentYearMonth;
     private ObservableList<Coupon> coupons;
     private ObservableMonthView monthView;
-    private Logic logic;
 
     @FXML
     private Text calendarPaneHeader;
@@ -60,7 +59,6 @@ public class CalendarPane extends UiPart<Region> {
         dateCells = new ArrayList<>();
         this.coupons = logic.getFilteredCouponList();
         this.monthView = logic.getMonthView();
-        this.logic = logic;
         coupons.addListener((ListChangeListener<? super Coupon>) change -> fillUpCalendar());
         monthView.addListener((ChangeListener<? super MonthView>) (observable, oldValue, newValue) ->
                 updateCalendarWithYearMonth(newValue.getYearMonth()));
