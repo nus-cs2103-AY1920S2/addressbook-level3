@@ -308,16 +308,16 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-*  Saves the entire coupon stash.
-** Each coupon is copied into `HistoryManager`, thus eliminating any chance for
-bugs when mutating coupons.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* Use two lists to store the history of coupons stash states and command text
-history.
-** The lists are stored in a `HistoryManager` class, which includes a
-`currStateIndex`.
+* **Alternative 1 (current choice):** Saves the entire coupon stash.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage. Plus, have to
+perform deep copy of coupons when saving the coupon stash so as to prevent
+unwanted mutations.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the coupon being
+deleted).
+** Cons: We must ensure that the implementation of each individual command is
+correct.
 // end::undoredo[]
 
 // tag::calendar[]

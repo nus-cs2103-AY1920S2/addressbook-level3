@@ -12,10 +12,10 @@ participant ":Model" as Model MODEL_COLOR
 participant ":CouponStash" as CouponStash MODEL_COLOR
 participant ":HistoryManager" as HistoryManager MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
+[-> LogicManager : execute()
 activate LogicManager
 
-LogicManager -> CouponStashParser : parseCommand(undo)
+LogicManager -> CouponStashParser : parseCommand()
 activate CouponStashParser
 
 create UndoCommand
@@ -34,7 +34,7 @@ activate UndoCommand
 UndoCommand -> Model : undoCouponStash()
 activate Model
 
-Model -> CouponStash : resetData(ReadOnlyCouponStash)
+Model -> CouponStash : resetData()
 activate CouponStash
 CouponStash --> Model
 deactivate CouponStash
