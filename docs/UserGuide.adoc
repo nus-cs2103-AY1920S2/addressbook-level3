@@ -68,7 +68,7 @@ This is how the GUI may look like when the TA-Tracker is opened.
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 +
-image::CommandBox.png[width="790", size = "800"]
+image::CommandBox.png[width="1000", size = "1000"]
 This diagram explains what a `Result Display` and `Command Box` are.
 +
 
