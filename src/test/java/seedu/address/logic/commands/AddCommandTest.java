@@ -22,9 +22,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
+import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.Statistics;
 import seedu.address.model.TaskList;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
@@ -215,7 +215,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Statistics getStatistics() {
+        public ReadOnlyStatistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
 

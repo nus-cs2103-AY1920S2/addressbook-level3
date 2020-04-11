@@ -360,7 +360,7 @@ public class ModelManager implements Model {
         this.statisticsManager.setStatistics(this.statistics);
     }
 
-    public Statistics getStatistics() {
+    public ReadOnlyStatistics getStatistics() {
         return statistics;
     }
 

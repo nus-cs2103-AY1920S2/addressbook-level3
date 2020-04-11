@@ -106,7 +106,7 @@ public interface Model {
 
     PomodoroManager getPomodoroManager();
 
-    Statistics getStatistics();
+    ReadOnlyStatistics getStatistics();
 
     ObservableList<DayData> getCustomQueue();
 
