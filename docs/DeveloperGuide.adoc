@@ -160,8 +160,17 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::dependency[]
-=== Dependency between Personals and Modules
-(Insert class diagrams showing dependencies)
+=== Dependency between Module and Personal
+.Structure of the Module Component
+image::ModuleClassDiagram.png[]
+
+Each Module class consists of a Personal class, alongside other module attributes from NUSMODS. In each Personal class, there are 3 attributes that are for the user to store their date: +
+
+* `Grade` : the user's grade for te particular module
+* `Status` : the status of the module (`IN_PROGRESS`, `TAKING` or `TAKEN`)
+* `DeadlineList` : a list of deadline tasks added by the user
+
+These attributes were included in `Personal` as they are the attributes that are personal to the user, and which the user can edit at any time.
 
 // end::dependency[]
 
