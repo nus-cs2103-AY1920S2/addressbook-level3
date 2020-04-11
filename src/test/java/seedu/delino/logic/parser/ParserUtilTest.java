@@ -3,6 +3,7 @@ package seedu.delino.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.delino.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.delino.model.parcel.parcelattributes.TimeStamp.REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW;
 import static seedu.delino.testutil.Assert.assertThrows;
 import static seedu.delino.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 
@@ -142,14 +143,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseTimeStamp_validValueWithoutWhitespace_returnsTimeStamp() throws Exception {
-        TimeStamp expectedTimeStamp = new TimeStamp(VALID_DELIVERY_TIMESTAMP);
+        TimeStamp expectedTimeStamp = new TimeStamp(VALID_DELIVERY_TIMESTAMP, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW);
         assertEquals(expectedTimeStamp, ParserUtil.parseTimeStamp(VALID_DELIVERY_TIMESTAMP));
     }
 
     @Test
     public void parseTimeStamp_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String timeStampWithWhitespace = WHITESPACE + VALID_DELIVERY_TIMESTAMP + WHITESPACE;
-        TimeStamp expectedTimeStamp = new TimeStamp(VALID_DELIVERY_TIMESTAMP);
+        TimeStamp expectedTimeStamp = new TimeStamp(VALID_DELIVERY_TIMESTAMP, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW);
         assertEquals(expectedTimeStamp, ParserUtil.parseTimeStamp(timeStampWithWhitespace));
     }
 

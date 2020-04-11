@@ -1,5 +1,7 @@
 package seedu.delino.testutil;
 
+import static seedu.delino.model.parcel.parcelattributes.TimeStamp.REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW;
+
 import seedu.delino.logic.commands.EditCommand;
 import seedu.delino.logic.commands.EditCommand.EditParcelDescriptor;
 import seedu.delino.model.parcel.Parcel;
@@ -102,7 +104,7 @@ public class EditParcelDescriptorBuilder {
      * Sets the {@code TimeStamp} of the {@code EditParcelDescriptor} that we are building.
      */
     public EditParcelDescriptorBuilder withTimeStamp(String timeStamp) {
-        descriptor.setTimeStamp(new TimeStamp(timeStamp));
+        descriptor.setTimeStamp(new TimeStamp(timeStamp, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW));
         return this;
     }
 

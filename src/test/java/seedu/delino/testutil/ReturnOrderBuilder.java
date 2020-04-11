@@ -1,5 +1,7 @@
 package seedu.delino.testutil;
 
+import static seedu.delino.model.parcel.parcelattributes.TimeStamp.REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW;
+
 import seedu.delino.model.parcel.comment.Comment;
 import seedu.delino.model.parcel.itemtype.TypeOfItem;
 import seedu.delino.model.parcel.order.CashOnDelivery;
@@ -46,7 +48,7 @@ public class ReturnOrderBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        timeStamp = new TimeStamp(DEFAULT_TIMESTAMP);
+        timeStamp = new TimeStamp(DEFAULT_TIMESTAMP, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW);
         warehouse = new Warehouse(DEFAULT_WAREHOUSE);
         cod = new CashOnDelivery(DEFAULT_COD);
         comment = new Comment(DEFAULT_COMMENT);
@@ -106,7 +108,7 @@ public class ReturnOrderBuilder {
      * Sets the {@code TimeStamp} of the {@code Order} that we are building.
      */
     public ReturnOrderBuilder withTimeStamp(String timeStamp) {
-        this.timeStamp = new TimeStamp(timeStamp);
+        this.timeStamp = new TimeStamp(timeStamp, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW);
         return this;
     }
 

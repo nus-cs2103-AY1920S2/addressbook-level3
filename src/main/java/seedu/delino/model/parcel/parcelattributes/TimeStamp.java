@@ -13,8 +13,8 @@ import seedu.delino.commons.core.LogsCenter;
 
 //@@author Exeexe93
 /**
- * Represents a order or return order's timeStamp in the order book or return order book respectively.
- * Guarantees: immutable; is valid as declared in {@link #checkTimestamp(String)}
+ * Represents a order or return order's timeStamp in the order book or return order book.
+ * Guarantees: immutable; is valid as declared in the method checkTimestamp.
  */
 public class TimeStamp {
     public static final String MESSAGE_CONSTRAINTS =
@@ -25,6 +25,8 @@ public class TimeStamp {
     public static final int PARSE_ERROR = 1;
     public static final int TIMESTAMP_BEFORE_NOW_ERROR = 2;
     public static final DateTimeFormatter FORMAT_CHECKER = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm");
+    public static final boolean REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW = true;
+    public static final boolean NO_CHECK_FOR_TIMESTAMP_BEFORE_NOW = false;
     private static final Logger logger = LogsCenter.getLogger(TimeStamp.class);
     public final LocalDateTime timeStamp;
     public final String value;
@@ -34,9 +36,10 @@ public class TimeStamp {
      *
      * @param timeStamp A valid date and time.
      */
-    public TimeStamp(String timeStamp) {
+    public TimeStamp(String timeStamp, boolean isBeforeCheckRequired) {
         requireNonNull(timeStamp);
-        checkArgument(checkTimestamp(timeStamp), MESSAGE_CONSTRAINTS, ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW);
+        checkArgument(checkTimestamp(timeStamp, isBeforeCheckRequired), MESSAGE_CONSTRAINTS,
+                ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW);
         this.timeStamp = LocalDateTime.parse(timeStamp, FORMAT_CHECKER.withResolverStyle(ResolverStyle.STRICT));
         this.value = this.timeStamp.format(FORMAT_CHECKER);
     }
@@ -44,12 +47,11 @@ public class TimeStamp {
     /**
      * Returns true if a given string is a valid date and time.
      */
-    public static int checkTimestamp(String test) {
+    public static int checkTimestamp(String test, boolean isBeforeCheckRequired) {
         logger.fine("Check whether it is a valid timestamp");
         try {
             LocalDateTime userInput = LocalDateTime.parse(test, FORMAT_CHECKER.withResolverStyle(ResolverStyle.STRICT));
-            if (userInput.compareTo(LocalDateTime.now()) < 0) {
-                logger.info("Input timestamp cannot before current date and time: " + test);
+            if (checkTimestampBeforeNow(test, isBeforeCheckRequired, userInput)) {
                 return TIMESTAMP_BEFORE_NOW_ERROR;
             }
         } catch (DateTimeParseException e) {
@@ -57,6 +59,24 @@ public class TimeStamp {
             return PARSE_ERROR;
         }
         return VALID_TIMESTAMP;
+    }
+
+    /**
+     * Check if the timestamp is before current timestamp.
+     * @param data which the user input.
+     * @param isBeforeCheckRequired determines whether the check is required.
+     * @param userInput in LocalDateTime which used to be check.
+     * @return true if the timestamp is before now, otherwise, return false.
+     */
+    private static boolean checkTimestampBeforeNow(String data, boolean isBeforeCheckRequired,
+                                                   LocalDateTime userInput) {
+        if (isBeforeCheckRequired) {
+            if (userInput.compareTo(LocalDateTime.now()) < 0) {
+                logger.info("Input timestamp cannot before current date and time: " + data);
+                return true;
+            }
+        }
+        return false;
     }
 
     public LocalDateTime getOrderTimeStamp() {
