@@ -657,7 +657,8 @@ as well as switching between the different *Views*.
 
 ==== Viewing help : `help`
 
-You can open the `help window` with this command. You can close the `help window` by pressing the `ESC` key
+You can open the `help window` with this command. You can close the `help window`
+by pressing the kbd:[ESC] key
 on your keyboard.
 
 
@@ -700,7 +701,8 @@ Format: `exit`
 
 [TIP]
 ====
-* You can use this command to display all your sessions after using the *filter* command.
+* You can use this command to display all your sessions after using the `session filter`
+or `claims filter` command.
 ====
 
 === Student View
@@ -721,15 +723,15 @@ Format: `module add m/MOD_CODE n/NAME`
 
 [NOTE]
 ====
-* You can't have two modules with the same module code in the TA-Tracker.
+* You *can't* have two modules with the *same module code* in the TA-Tracker.
 
-* MOD_CODE and MOD_NAME can't be an empty string or a sequence of spaces.
+* `MOD_CODE` and `MOD_NAME` can't be an empty string or a sequence of spaces.
 
-* You can give a module your own custom MOD_CODE or NAME if you find it easier
-to remember. However,  we recommend you use the official
-module code and name for it.
+* You can give a module your own *custom* `MOD_CODE` or `NAME` if you find it easier
+to remember. However,  we recommend you use the *official
+module code and name* for it.
 
-* If the module name or module code are very long, you can increase the width of
+* If the module name or module code are very long, you can *increase the width* of
 the module name list by dragging the edge with your cursor. However, we suggest not
 giving the modules long codes or long names. The standard official names are usually
 of a good length.
