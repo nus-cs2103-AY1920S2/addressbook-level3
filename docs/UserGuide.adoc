@@ -188,34 +188,48 @@ Tag: Vegetarian
 
 * `add-c n/Amanda Low p/95436543 e/AmandaLow@dmail.com a/West Coast Grove 69 s/Swimmer t/Vegetarian`
 
-photo
+image::AddExampleCommand.png[]
 
 2. Press enter to execute.
 
 3. After Amanda has been successfully added to the clients list, the result will be displayed as shown.
 
-/photo
+image::AddExampleSuccess.png[]
 
 ==== Common errors/ problems:
 If you are facing errors or difficulty adding a client, you can refer to the common errors and problems listed below and resolve your error using the solution given.
 
-1. *Compulsory fields missing* +
+*Compulsory fields missing*
 
-If you are adding a client and miss out any of the compulsory parameters. You will not be able to add the client. For example. when you want to add a client but miss out the `a/ADDRESS` parameter
+If you are adding a client and miss out any of the compulsory parameters. You will not be able to add the client.
 
-/photo of missing out address
+For example, when you want to add a `Rachel Tan` into FitBiz but did not include the compulsory field `a/ADDRESS`
 
-the following error message will be shown.
+image::AddNoAddress.png[]
 
-/photo of error when address is not given
+Afterpressing enter, the following error message will be shown.
 
-To solve this error, ensure that all compulsory parameters are included when adding a client. The compulsory parameters include: `n/NAME`, `p/PHONE`, `e/EMAIl` and `a/ADDRESS`.
+image::AddNoAddressError.png[]
 
-2. *Adding clients with the same phone number or email*
+To solve this error, ensure that all compulsory parameters are included when adding a client. The compulsory parameters include: `n/NAME`, `p/PHONE`, `e/EMAIl` and `a/ADDRESS`. To continue with the same example, the command will now include Rachel's address.
 
-In FitBiz, you cannot add 2 clients with the either same phone number or email. The following error message will be shown when you add a client with a phone number or email that is the same as another client added previously.
+image::AddWithAddressCommand.png[]
 
-/photo to show error
+The result of successfully adding Rachel will show the following
+
+image::AddAddressSuccess.png[]
+
+*Adding clients with the same phone number or email*
+
+In FitBiz, you cannot add 2 clients with the either same phone number or email.
+
+For example, you have client with the email `RachelTan@dmail.com` and you want to add another client with the same email.
+
+image::AddSameEmailCommand.png[]
+
+The following error message will be shown.
+
+image::AddSameEmailError.png[]
 
 To solve this issue, ensure that any new client you add does not have the same phone number or email as existing client.
 
@@ -347,7 +361,7 @@ Example:
 * `export 6`
 ** Exports training records of the 6th client
 
-=== Filter clients based on attribute: `filter-c` --- Ker Wei
+=== Filter clients based on attribute: `filter-c` --- Toh Ker Wei
 
 When you have many clients and want to filter the list of clients to view a specific group, you can use the command `filter-c` to filter clients based on their tags or their sports.
 
@@ -382,27 +396,36 @@ e.g. `track and field` will match `field and track`
 
 Let's say you want to filter through your list of clients and only display those with the tag `healthy` and play the sport `badminton`.
 
-1. Type the command `filter-c t/healthy s/badminton` into the command box.
+1.Type the command `filter-c t/healthy s/badminton` into the command box.
 
-/ photo of command
+image::FilterExampleCommand.png[]
 
-2. Press enter to execute.
+2.Press enter to execute.
 
-3. The clients with the matching tag and sport will be displayed as shown.
+3.The clients with the matching tag and sport will be displayed as shown.
+
+image::FilterExampleSuccess.png[]
 
 / photo of listed clients
 
 ==== Common error/ problem
 *Tags with spaces*
 
-When you want to filter the clients list with multiple tags like `healthy` and `sporty`, you might encounter an error shown below.
+When you want to filter the clients list with multiple tags like `healthy` and `sporty`, you might enter the command shown below.
 
-/ tag error
+image::FilterTagCommand.png[]
 
-This is due to `TAG` only accepting letters and numbers but not spaces. To solve the problem, add an additional delimiter for each tag you want to specify. Note that sports does not require multiple delimiter.
+You will then encounter the error `Tags names should be alphanumeric`.
 
-/add delimiter
+image::FilterTagError.png[]
 
+This error occurs because `TAG` only accepts letters and numbers but not spaces. To solve the problem, add an additional delimiter for each tag you want to specify. Note that sports does not require multiple delimiter.
+
+image::FilterTagCorrectCommand.png[]
+
+The list of successfully filter clients will then be displayed.
+
+image::FilterTagSuccess.png[]
 
 === Display visualisations of training progress: `graph` [Coming in v1.4]
 
