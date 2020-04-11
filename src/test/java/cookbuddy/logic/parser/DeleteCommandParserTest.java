@@ -1,6 +1,5 @@
 package cookbuddy.logic.parser;
 
-import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cookbuddy.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static cookbuddy.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static cookbuddy.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
@@ -17,7 +16,10 @@ import cookbuddy.logic.commands.DeleteCommand;
  * therefore should be covered by the ParserUtilTest.
  */
 public class DeleteCommandParserTest {
-
+    
+    private static final String invalidIndex = "Index must be a non-zero unsigned integer.\n";
+    private static final String helpMessage_delete = "For a command summary, type \"help delete\"";
+    private static final String invalidFormat = "Invalid command format! \n";
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
@@ -27,6 +29,6 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", invalidFormat + invalidIndex + helpMessage_delete);
     }
 }
