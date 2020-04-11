@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import seedu.address.model.Model;
+import seedu.address.model.Pet;
+import seedu.address.model.Pomodoro;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -22,72 +22,34 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
-import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.Statistics;
 import seedu.address.model.TaskList;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
-public class AddCommandTest {
+
+public class SetCommandTest {
 
     @Test
-    public void constructor_nullTask_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void setPetName_successful() {
+        Pet pet = new Pet();
+        ModelStubWithPet modelStub = new ModelStubWithPet(pet);
+        modelStub.setPetName("Momu");
+        assertTrue(pet.getName().equals("Momu"));
     }
 
     @Test
-    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        Task validTask = new TaskBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validTask).execute(modelStub);
-
-        assertEquals(
-                String.format(AddCommand.MESSAGE_SUCCESS, validTask),
-                commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
+    public void setPomodoroDefaultTime_successful() {
+        Pomodoro pomodoro = new Pomodoro();
+        ModelStubWithPomodoro modelStub = new ModelStubWithPomodoro(pomodoro);
+        modelStub.setPomodoroDefaultTime(5);
+        assertTrue(pomodoro.getDefaultTime().equals("5.0"));
+        
     }
-
-    @Test
-    public void execute_duplicateTask_throwsCommandException() {
-        Task validTask = new TaskBuilder().build();
-        AddCommand addCommand = new AddCommand(validTask);
-        ModelStub modelStub = new ModelStubWithTask(validTask);
-
-        assertThrows(
-                CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_TASK,
-                () -> addCommand.execute(modelStub));
-    }
-
-    @Test
-    public void equals() {
-        Task alice = new TaskBuilder().withName("Alice").build();
-        Task bob = new TaskBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
-
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
-
-        // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
-
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
-
-        // different task -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
-    }
-
-    /** A default model stub that have all of the methods failing. */
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -215,7 +177,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyStatistics getStatistics() {
+        public Statistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -225,10 +187,10 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updatesDayDataStatistics(DayData dayData)  {
+        public void updatesDayDataStatistics(DayData dayData) {
             throw new AssertionError("This method should not be called.");
         }
-
+        
         @Override
         public DayData getDayDataFromDateStatistics(Date date) {
             throw new AssertionError("This method should not be called.");
@@ -251,20 +213,18 @@ public class AddCommandTest {
 
         @Override
         public void setPomodoroTimeLeft(float timeLeft) {
-            // TODO Auto-generated method stub
+            throw new AssertionError("This method should not be called.");
 
         }
 
         @Override
         public void setStatisticsManager(StatisticsManager statisticsManager) {
-            // TODO Auto-generated method stub
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void notifyMainWindow(String inputString) throws CommandException {
+        public void notifyMainWindow(String inpuString) throws CommandException {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
@@ -273,41 +233,29 @@ public class AddCommandTest {
         }
     }
 
-    /** A Model stub that contains a single task. */
-    private class ModelStubWithTask extends ModelStub {
-        private final Task task;
+    private class ModelStubWithPomodoro extends ModelStub {
+        final private Pomodoro pomodoro;
 
-        ModelStubWithTask(Task task) {
-            requireNonNull(task);
-            this.task = task;
+        ModelStubWithPomodoro(Pomodoro pomodoro) {
+            this.pomodoro = pomodoro;
         }
 
         @Override
-        public boolean hasTask(Task task) {
-            requireNonNull(task);
-            return this.task.isSameTask(task);
+        public void setPomodoroDefaultTime(float defaultTimeInMin) {
+            this.pomodoro.setDefaultTime(Float.toString(defaultTimeInMin));
         }
     }
 
-    /** A Model stub that always accept the task being added. */
-    private class ModelStubAcceptingTaskAdded extends ModelStub {
-        final ArrayList<Task> tasksAdded = new ArrayList<>();
+    private class ModelStubWithPet extends ModelStub {
+        final private Pet pet;
 
-        @Override
-        public boolean hasTask(Task task) {
-            requireNonNull(task);
-            return tasksAdded.stream().anyMatch(task::isSameTask);
+        ModelStubWithPet(Pet pet) {
+            this.pet = pet;
         }
 
         @Override
-        public void addTask(Task task) {
-            requireNonNull(task);
-            tasksAdded.add(task);
-        }
-
-        @Override
-        public ReadOnlyTaskList getTaskList() {
-            return new TaskList();
+        public void setPetName(String name) {
+            this.pet.setName(name);
         }
     }
 }

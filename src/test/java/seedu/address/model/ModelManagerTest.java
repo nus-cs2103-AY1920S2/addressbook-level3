@@ -25,6 +25,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new TaskList(), new TaskList(modelManager.getTaskList()));
+        assertEquals(new Statistics(), modelManager.getStatistics());
     }
 
     @Test
@@ -91,6 +92,11 @@ public class ModelManagerTest {
         assertThrows(
                 UnsupportedOperationException.class,
                 () -> modelManager.getFilteredTaskList().remove(0));
+    }
+
+    @Test
+    public void setStatisticsManager_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setStatisticsManager(null));
     }
 
     @Test
