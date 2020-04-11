@@ -2179,6 +2179,7 @@ Expected: Shows all sessions and claims that have previously been filtered.
 .. Test Case: `setrate 25` +
 Expected: Sets the rate of the claims to be 25$ per hour. Money computation is
 changed accordingly.
+
 === Viewing Statistics
 
 . Displays the statistics window.
