@@ -255,7 +255,7 @@ but `tid/TRANSACTION_IDn/CUSTOMER_NAME` will be an invalid command input.
 [WARNING]
 ====
 * `TRANSACTION_ID` must be alphanumeric (No numbers or special characters allowed).
-* `ADDRESS` must have a postal code.
+* `ADDRESS` should contain a valid Singapore address followed by a postal code.
 * `EMAIL` should be a valid email address.
 * `CASH_ON_DELIVERY` must start with a dollar sign followed by the value.
 * `CASH_ON_DELIVERY` value must be strictly less than $10,000. If there is a need
