@@ -39,9 +39,9 @@ import seedu.delino.testutil.OrderUtil;
 import seedu.delino.testutil.ReturnOrderBuilder;
 import seedu.delino.testutil.ReturnUtil;
 
-public class OrderBookParserTest {
+public class DelinoParserTest {
 
-    private final OrderBookParser parser = new OrderBookParser();
+    private final DelinoParser parser = new DelinoParser();
 
     @Test
     public void parseCommand_add() throws Exception {
