@@ -186,7 +186,7 @@ Auto complete is triggered when users press tab while on the command line and se
 ==== Implementation
 
 .Activity diagram of auto complete
-image::AutoCompleteActivityDiagram.png[width=790]
+image::ACActivityDiagram.png[width=790]
 
 [IMPORTANT]
 =====
@@ -239,11 +239,11 @@ To handle the above case where an auto complete can be both a warning and a succ
 
 
 ==== Auto Complete Success UI
-image::AC_success.png[width=600]
+image::ACSuccess.png[width=600]
 
 
 ==== Auto Complete Failure UI
-image::AC_failure.png[width=600]
+image::ACFailure.png[width=600]
 
 === Enhanced Find
 We've built upon the existing find function in AB-3 to filter tasks based on phrases instead of words.

@@ -4,6 +4,7 @@
 box AutoComplete LOGIC_COLOR_T1
 participant ":CommandBox" as CommandBox LOGIC_COLOR
 participant ":MainWindow" as MainWindow LOGIC_COLOR
+participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":CommandCompletor" as CommandCompletor LOGIC_COLOR
 end box
 
@@ -15,16 +16,22 @@ end box
 [-> CommandBox : "delete -10 10 5"
 activate CommandBox
 
-CommandBox -> MainWindow : suggestCommand("delete -10 10 5")
+CommandBox -> MainWindow : suggestCommand\n("delete -10 10 5")
 activate MainWindow
 
-MainWindow -> CommandCompletor: suggestCommand("delete -10 10 5")
+MainWindow -> LogicManager: suggestCommand\n("delete -10 10 5")
+activate LogicManager
+
+LogicManager -> CommandCompletor: suggestCommand\n("delete -10 10 5")
 activate CommandCompletor
 
-CommandCompletor --> MainWindow: CompletorResult
+CommandCompletor --> LogicManager: CompletorResult
 deactivate CommandCompletor
 
-opt CompletorDeletionException
+LogicManager -> MainWindow: CompletorResult
+deactivate LogicManager
+
+opt Invalid parts of input deleted
     MainWindow -> ResultDisplay: setWarning()
     activate ResultDisplay
     ResultDisplay -> MainWindow
@@ -32,13 +39,15 @@ opt CompletorDeletionException
     MainWindow -[hidden]->ResultDisplay
 end
 
-alt Completion success case
+deactivate MainWindow
+
+alt Completion success
     CommandBox -> CommandTextField: setSuccess()
     activate CommandTextField
     CommandTextField -> CommandBox
     deactivate CommandTextField
     CommandBox -[hidden]->CommandBox
-else Completion error case
+else else
     CommandBox -> CommandTextField: setSuccess()
     activate CommandTextField
     CommandTextField -> CommandBox
