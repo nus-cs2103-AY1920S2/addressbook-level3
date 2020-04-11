@@ -26,6 +26,8 @@ import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
 
+import java.util.Set;
+
 //@@author wanxuanong
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -53,13 +55,13 @@ public class DeleteCommandParserTest {
         String grade = VALID_GRADE_AMY;
 
         // Only Module field present
-        assertParseSuccess(parser, MODCODE_DESC_AMY, new DeleteCommand(moduleCode));
+        assertParseSuccess(parser, MODCODE_DESC_AMY, new DeleteCommand(Set.of(moduleCode)));
 
         // Module and Task field present
-        assertParseSuccess(parser, MODCODE_DESC_AMY + TASK_DESC_AMY, new DeleteCommand(moduleCode, task));
+        assertParseSuccess(parser, MODCODE_DESC_AMY + TASK_DESC_AMY, new DeleteCommand(Set.of(moduleCode), task));
 
         // Module and Grade field present
-        assertParseSuccess(parser, MODCODE_DESC_AMY + GRADE_DESC_AMY, new DeleteCommand(moduleCode, grade));
+        assertParseSuccess(parser, MODCODE_DESC_AMY + GRADE_DESC_AMY, new DeleteCommand(Set.of(moduleCode), grade));
 
     }
 
@@ -82,13 +84,13 @@ public class DeleteCommandParserTest {
         String gradeC = "C";
 
         assertParseSuccess(parser, MODCODE_DESC_AMY + " " + PREFIX_GRADE + gradeA,
-                new DeleteCommand(moduleCode, gradeA));
+                new DeleteCommand(Set.of(moduleCode), gradeA));
         assertParseSuccess(parser, MODCODE_DESC_AMY + " " + PREFIX_GRADE + gradeB,
-                new DeleteCommand(moduleCode, gradeB));
+                new DeleteCommand(Set.of(moduleCode), gradeB));
         assertParseSuccess(parser, MODCODE_DESC_AMY + " " + PREFIX_GRADE + gradeC,
-                new DeleteCommand(moduleCode, gradeC));
+                new DeleteCommand(Set.of(moduleCode), gradeC));
         assertParseSuccess(parser, MODCODE_DESC_AMY + " " + PREFIX_GRADE,
-                new DeleteCommand(moduleCode, ""));
+                new DeleteCommand(Set.of(moduleCode), ""));
 
     }
 
