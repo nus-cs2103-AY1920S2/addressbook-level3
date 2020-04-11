@@ -16,10 +16,9 @@ import seedu.zerotoone.model.session.CompletedSet;
 public class SkipCommand extends Command {
     public static final String COMMAND_WORD = "skip";
     public static final String MESSAGE_USAGE = "Usage: skip";
-    public static final String MESSAGE_SKIP_SET = "Skipped set: %1$s";
+    public static final String MESSAGE_SUCCESS = "Skipped set: %1$s";
     public static final String MESSAGE_SKIPPED_LAST = "You have skipped the last set, "
             + "your workout session is done and saved!";
-    public static final String MESSAGE_NOT_STARTED = "There is no session in progress!";
     private final FormatStyle formatStyle = FormatStyle.MEDIUM;
 
     public SkipCommand() {
@@ -29,14 +28,14 @@ public class SkipCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (!model.isInSession()) {
-            throw new CommandException((MESSAGE_NOT_STARTED));
+            throw new CommandException(MESSAGE_SESSION_NOT_STARTED);
         }
 
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         CompletedSet set = model.skip();
 
-        String outputMessage = String.format(MESSAGE_SKIP_SET, set.toString());
+        String outputMessage = String.format(MESSAGE_SUCCESS, set.toString());
 
         if (!model.hasExerciseLeft()) {
             model.stopSession(currentDateTime);

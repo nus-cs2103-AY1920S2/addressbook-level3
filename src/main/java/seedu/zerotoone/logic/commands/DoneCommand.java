@@ -19,7 +19,6 @@ public class DoneCommand extends Command {
     public static final String MESSAGE_DONE_SET = "Completed set: %1$s";
     public static final String MESSAGE_NONE_LEFT = "You have finished the last set, "
             + "your workout session is done and saved!";
-    public static final String MESSAGE_NOT_STARTED = "There is no session in progress!";
     private final FormatStyle formatStyle = FormatStyle.MEDIUM;
 
     public DoneCommand() {
@@ -29,7 +28,7 @@ public class DoneCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (!model.isInSession()) {
-            throw new CommandException(MESSAGE_NOT_STARTED);
+            throw new CommandException(MESSAGE_SESSION_NOT_STARTED);
         }
 
         LocalDateTime currentDateTime = LocalDateTime.now();
