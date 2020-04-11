@@ -1,4 +1,5 @@
 :imagesDir: ../../images/
+:stylesDir: ../../stylesheets
 == Eng Xuan En - UML Diagrams
 
 * *Import Feature UML Diagrams* +
