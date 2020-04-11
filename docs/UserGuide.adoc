@@ -89,39 +89,135 @@ Shows all clients currently entered in this program.
 
 Format: `list-c`
 
-=== Add a new client profile: `add-c`
+[#_add_a_new_client_profile_add_c___toh_ker_wei]
+=== Add a new client profile: `add-c` --- Toh Ker Wei
 
 After setting up the program, the first thing you might want to do is to add your client to FitBiz. You can do so by using the `add-c` command, followed by the details of your client.
 
-The format of the command is:
+==== Format
 
-`add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [g/GENDER] [b/BIRTHDAY] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]…`
+This section summarises the format and important information to note while using the `add-c` command.
 
-Here are some things to note:
+Format: `add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [g/GENDER] [b/BIRTHDAY] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]…`
 
-* `n/NAME` is case insensitive. e.g `ray` will match `Ray`
-* The order of the name matters. e.g `Hans Ong` will not match `Ong Hans`
-* `p/PHONE_NUMBER` should be longer than 2 digits and contain numbers only
-* `e/EMAIL` needs to be a valid email
-* `a/ADDRESS` can be any value
-* `g/GENDER` is case insensitive and can be `male` or `m` for male, `female` or `f` for female, `others` or `o` for others
-* `b/BIRTHDAY` should be in the format DD-MM-YYYY and must be before today's date
-* `h/HEIGHT` is in cm and must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places
-* `cw/CURRENT_WEIGHT` is in kg and must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places
-* `tw/TARGET_WEIGHT` is in kg and must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places
-* `r/REMARK` can be any value
-* `s/SPORT` should contain letters, numbers or spaces only
-* `t/TAG` should contain letters or numbers only
+[options='header']
+[cols= "15%,85%"]
+|===
+|Parameter | Important notes
+|n/NAME| `NAME` is the name of the client you want to add and is compulsory. +
 
-Examples:
+`NAME` is case insensitive. +
+e.g `ray` will match `Ray` +
 
-* `add-c n/Ming Liang p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-** Result: Ming Liang with the above information has been added
-* `add-c n/Low Tah Kiow, John t/powerlifter e/betsycrowe@example.com a/some street p/1234567 t/strongman`
-** Result: Low Tah Kiow, John with the above information has been added
+The order of the `NAME` matters. +
+e.g `Hanson Ong` is not the same as `Ong Hanson`
 
-Common Errors:
+|p/PHONE_NUMBER| `PHONE_NUMBER` is the phone number of the client you want to add and is compulsory. +
 
+`PHONE_NUMBER` must be longer than 2 digits and contain numbers only. +
+e.g. `94325321` or `933`
+
+|e/EMAIL| `EMAIL` is the email of the client you want to add and is compulsory. +
+
+`EMAIL` should be in the format local-part@domain. Local-part and domain can be any value. +
+e.g. `rachelt@kmail.com` or `123@123.com`
+
+|a/ADDRESS| `ADDRESS` is the address of the client you want to add and is compulsory. +
+
+`ADDRESS` can be any value. +
+e.g. `Maple Ave 123 - greenland sunshine's valley`
+
+|[g/GENDER]| `GENDER` is gender of the client you want to add and is optional. +
+
+`GENDER` is case insensitive and the following values are accepted: +
+`male` or `m` for male +
+`female` or `f` for female +
+`others` or `o` for others
+
+|[b/BIRTHDAY]| `BIRTHDAY` is the birthday of the client you want to add and is optional. +
+
+`BIRTHDAY` should be in the format DD-MM-YYYY and must be before today's date and after 11th April 1900. +
+e.g. `12-12-2019` or `04-04-1901`
+
+|[h/HEIGHT]| `HEIGHT` is the height of the client you want to add and is optional. +
+
+`HEIGHT` is in cm. +
+
+`HEIGHT` must be non-negative and can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places. +
+e.g. `164` or `180.12`
+
+|[cw/CURRENT_WEIGHT]| `CURRENT_WEIGHT` is the current weight of the client you want to add and is optional. +
+
+`CURRENT_WEIGHT` is in kg. +
+
+`CURRENT_WEIGHT` must be non-negative and can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places. +
+e.g. `75` or `60.50`
+
+|[tw/TARGET_WEIGHT]| `TARGET_WEIGHT` is the is the target weight of the client you want to add and is optioanl. +
+
+`TARGER_WEIGHT` is in kg. +
+
+`TARGET_WEIGHT` must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places. +
+e.g. `50` or `69.69`
+|[r/REMARK]|`REMARK` is the remarks of the client you want to add and is optional. +
+
+`REMARK` can be any value. +
+e.g. `Need to eat 2800kcal everyday` or `severely overweight`
+
+|[s/SPORT]| `SPORT` is the sports participated by the client you want to add and is optional. +
+
+`SPORT` should contain letters, numbers or spaces only. +
+e.g. `Ultimate frisbee` or `sumo wrestler`
+
+|[t/TAG]| `TAG` is the tag given to the client you want to add and is optional. +
+`TAG` should contain letters or numbers only.
+e.g. `healthy` or `doing well`
+|===
+
+==== Example
+Lets say you want to add a new client with the following details: +
+Name: Amanda Low +
+Phone number: 95436543 +
+Email: AmandaLow@dmail.com +
+Address: West Coast Grove 69 +
+Birthday: 5 April 1990 +
+Sport: Swimmer +
+Tag: Vegetarian
+
+1. Type the command below into the command box.
+
+* `add-c n/Amanda Low p/95436543 e/AmandaLow@dmail.com a/West Coast Grove 69 s/Swimmer t/Vegetarian`
+
+photo
+
+2. Press enter to execute.
+
+3. After Amanda has been successfully added to the clients list, the result will be displayed as shown.
+
+/photo
+
+==== Common errors/ problems:
+If you are facing errors or difficulty adding a client, you can refer to the common errors and problems listed below and resolve your error using the solution given.
+
+1. *Compulsory fields missing* +
+
+If you are adding a client and miss out any of the compulsory parameters. You will not be able to add the client. For example. when you want to add a client but miss out the `a/ADDRESS` parameter
+
+/photo of missing out address
+
+the following error message will be shown.
+
+/photo of error when address is not given
+
+To solve this error, ensure that all compulsory parameters are included when adding a client. The compulsory parameters include: `n/NAME`, `p/PHONE`, `e/EMAIl` and `a/ADDRESS`.
+
+2. *Adding clients with the same phone number or email*
+
+In FitBiz, you cannot add 2 clients with the either same phone number or email. The following error message will be shown when you add a client with a phone number or email that is the same as another client added previously.
+
+/photo to show error
+
+To solve this issue, ensure that any new client you add does not have the same phone number or email as existing client.
 
 === Edit a client’s profile: `edit-c`
 
@@ -253,23 +349,60 @@ Example:
 
 === Filter clients based on attribute: `filter-c` --- Ker Wei
 
-When the client list gets too long for you to find clients efficiently, you can use the command `filter-c` to filter clients based on their tags or their sports
+When you have many clients and want to filter the list of clients to view a specific group, you can use the command `filter-c` to filter clients based on their tags or their sports.
 
-Format: `filter-c t/TAG... s/SPORT...
+==== Format
+Format: `filter-c [t/TAG]... [s/SPORT]...
 
-Parameters:
-* `t/TAG` should contain letters or numbers only
-* `s/SPORT` should contain letters, numbers or spaces only
+[options='header']
+[cols= "15%,85%"]
+|===
+|Parameter | Important notes
+| `t/TAG` | `TAG` is the tag of the clients you want to match and list. +
 
-Notes:
+`TAG` is case-insensitive. +
+e.g. `healthy` will match `Healthy`
 
-* The search is case insensitive. e.g `push ups` will match `Push Ups`
-* The order of the keywords does not matter (e.g. `Push Pull` will match `Pull Push`)
+`TAG` should only contain letters or numbers. +
+e.g. `monday` or `obese200kg`
 
-Examples:
+|`s/SPORT` | `SPORT` is the sport of the clients you want to match and list. +
 
-* `filter-c `
-** Returns a client list of `Johnny Tim` and `johnny`
+`SPORT` is case-insensitive. +
+e.g.  `track and field` will match `Track And Field`
+
+`SPORT` should only contain letters, numbers or spaces.
+e.g. `sumo wrestling` or `100m sprint`
+
+Order of words in `SPORT` does not matter
+e.g. `track and field` will match `field and track`
+|===
+
+==== Example
+
+Let's say you want to filter through your list of clients and only display those with the tag `healthy` and play the sport `badminton`.
+
+1. Type the command `filter-c t/healthy s/badminton` into the command box.
+
+/ photo of command
+
+2. Press enter to execute.
+
+3. The clients with the matching tag and sport will be displayed as shown.
+
+/ photo of listed clients
+
+==== Common error/ problem
+*Tags with spaces*
+
+When you want to filter the clients list with multiple tags like `healthy` and `sporty`, you might encounter an error shown below.
+
+/ tag error
+
+This is due to `TAG` only accepting letters and numbers but not spaces. To solve the problem, add an additional delimiter for each tag you want to specify. Note that sports does not require multiple delimiter.
+
+/add delimiter
+
 
 === Display visualisations of training progress: `graph` [Coming in v1.4]
 
