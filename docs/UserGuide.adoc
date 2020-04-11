@@ -119,23 +119,26 @@ to to improve your user experience of EYLAH.
 | <<weight, weight>>
 | <<listreceipt, listreceipt>>
 
-| <<addfood, add>>
+| <<metrics, metrics>>
 | <<listamount, listamount>>
 
-| <<listfooditem, list>>
-| <<paid, paid>>
-
-| <<deletefooditem, delete>>
+| <<calculatebmi, bmi>>
 | <<donereceipt, donereceipt>>
 
-| <<editfooditem, edit>>
+| <<addfood, add>>
+| <<paid, paid>>
+
+| <<listfooditem, list>>
 | <<clearreceipt, clearreceipt>>
 
-| <<calculatebmi, bmi>>
+| <<deletefooditem, delete>>
 | <<expensesplitterhelp, help>>
 
-| <<diettrackerhelp, help>>
+| <<editfooditem, edit>>
 | <<back, back>>
+
+| <<diettrackerhelp, help>>
+|
 
 | <<back, back>>
 |
@@ -178,10 +181,12 @@ You can use this command to switch the dieting mode, based on the following mode
 * Gain Weight (-g)
 * Maintain (-m)
 
+[WARNING]
+You must only input one mode per mode command.
 [NOTE]
-You may only input one mode per mode command.
+The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
 
-Format: `mode [-m, -l, -g]` +
+Format: `mode -l/-g/-m` +
 Example: `mode -m`
 
 '''
@@ -206,6 +211,75 @@ Example: `weight 65.7`
 
 [NOTE]
 Weight in kilograms (kg). Decimal places are accepted. I.e. `weight 65.77` is accepted.
+
+'''
+
+[[metrics]]
+==== Showing your Metrics `metrics`
+
+You can print out your individual metrics (Height, Weight and Mode) to check them.
+
+It will display the following data: +
+
+* Your height
+* Your weight
+* Your chosen Dieting Mode
+
+Format: `metrics`
+
+****
+*
+****
+
+[TIP]
+Use this to check whether you have previously stored a Height, a Weight, or have chosen your Dieting Mode already.
+[NOTE]
+Diet Tracker will prompt you if you did not have any previously stored Height, Weight.
+
+Examples:
+
+* `metrics` +
+Checks your individual health metrics based on what was previously stored.
+
+'''
+
+[[calculatebmi]]
+==== Calculating Body Mass Index (BMI) `bmi`
+
+You can calculate your BMI either through an input Height and Weight or your previously stored Height and Weight. +
+
+It will display the following data: +
+
+* BMI value
+
+Format: `bmi [-h HEIGHT] [-w WEIGHT]`
+
+****
+* There are 3 ways to use `bmi`.
+* The first is if there is no input height and weight. This will use
+the height and weight that is stored in the Self object.
+* The second is if there is either no input height or input weight. This will use the
+stored Height (in the case of missing input height) or stored Weight (in the case of missing input weight)
+to do the calculation instead.
+* The third is to calculate bmi with an input height and weight.
+****
+
+[TIP]
+If you are unsure whether you have already input your height and weight, you may `metrics` to check.
+
+Examples:
+
+* `height 172` +
+`weight 65` +
+`bmi` +
+Change your height and your weight to your current measurements before calculating your BMI.
+BMI is calculated based off the stored height and weight in this instance.
+* `height 173.5` +
+`bmi -w 59.9`
+Change your height to your current measurements before calculating you BMI.
+BMI is calculated based off the stored height and input weight in this instance.
+* `bmi -h 172 -w 65.5` +
+Calculate BMI based on the input height and weight values.
 
 '''
 
@@ -296,45 +370,6 @@ Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories
 
 '''
 
-[[calculatebmi]]
-==== Calculating Body Mass Index (BMI) `bmi`
-
-You can calculate your BMI either through an input Height and Weight or your previously stored Height and Weight. +
-
-It will display the following data: +
-
-* BMI value
-
-Format: `bmi [-h HEIGHT] [-w WEIGHT]`
-
-****
-* There are 3 ways to use `bmi`.
-* The first is if there is no input height and weight. This will use
-the height and weight that is stored in the Self object.
-* The second is if there is either no input height or input weight. This will use the
-stored Height (in the case of missing input height) or stored Weight (in the case of missing input weight)
-to do the calculation instead.
-* The third is to calculate bmi with an input height and weight.
-****
-
-[TIP]
-If you are unsure whether you have already input your height and weight, you may `metrics` to check.
-
-Examples:
-
-* `height 172` +
-`weight 65` +
-`bmi` +
-Change your height and your weight to your current measurements before calculating your BMI.
-BMI is calculated based off the stored height and weight in this instance.
-* `height 173.5` +
-`bmi -w 59.9`
-Change your height to your current measurements before calculating you BMI.
-BMI is calculated based off the stored height and input weight in this instance.
-* `bmi -h 172 -w 65.5` +
-Calculate BMI based on the input height and weight values.
-
-'''
 
 [[diettrackerhelp]]
 ==== Displaying available commands for Diet Tracker `help`
