@@ -15,8 +15,8 @@ public class MultipleBookStateManager extends RecipeBook {
     private final ArrayList<ReadOnlyPlannedBook> plannedBookStateList = new ArrayList<>();
     private final ArrayList<ReadOnlyCookedRecordBook> cookedRecordBookStateList = new ArrayList<>();
 
-    private final Stack<CommandType> stackToUndo = new Stack<>();
-    private final Stack<CommandType> stackToRedo = new Stack<>();
+    private final Stack<CommandType> commandsToUndo = new Stack<>();
+    private final Stack<CommandType> commandsToRedo = new Stack<>();
 
     private int recipeBookStatePointer;
     private int plannedBookStatePointer;
@@ -39,9 +39,9 @@ public class MultipleBookStateManager extends RecipeBook {
     public boolean canUndo(int numberOfUndo) {
         assert numberOfUndo >= 0;
         if (numberOfUndo > 0) {
-            return numberOfUndo <= stackToUndo.size();
+            return numberOfUndo <= commandsToUndo.size();
         } else {
-            return !stackToUndo.empty();
+            return !commandsToUndo.empty();
         }
     }
 
@@ -52,20 +52,20 @@ public class MultipleBookStateManager extends RecipeBook {
     public boolean canRedo(int numberOfRedo) {
         assert numberOfRedo >= 0;
         if (numberOfRedo > 0) {
-            return numberOfRedo <= stackToRedo.size();
+            return numberOfRedo <= commandsToRedo.size();
         } else {
-            return !stackToRedo.empty();
+            return !commandsToRedo.empty();
         }
     }
 
     /**
-     * Removes redundant states after a user commits a book.
+     * Removes redundant states before a user commits a book.
      */
     private void removeRedundantStates() {
         while (recipeBookStateList.size() - 1 > recipeBookStatePointer
                 || plannedBookStateList.size() - 1 > plannedBookStatePointer) {
-            assert !stackToRedo.empty();
-            CommandType redoCommandType = stackToRedo.pop();
+            assert !commandsToRedo.empty();
+            CommandType redoCommandType = commandsToRedo.pop();
             switch (redoCommandType) {
             case MAIN_LONE:
                 recipeBookStateList.remove(recipeBookStateList.size() - 1);
@@ -89,7 +89,7 @@ public class MultipleBookStateManager extends RecipeBook {
      * after the current state.
      */
     public void commitRecipeBook(ReadOnlyRecipeBook recipeBook, CommandType commandType) {
-        stackToUndo.push(commandType); // CommandType.MAIN_LONE
+        commandsToUndo.push(commandType); // CommandType.MAIN_LONE
         if ((recipeBookStatePointer != recipeBookStateList.size() - 1)
                 || (plannedBookStatePointer != plannedBookStateList.size() - 1)) {
             removeRedundantStates();
@@ -103,7 +103,7 @@ public class MultipleBookStateManager extends RecipeBook {
      */
     public void commitRecipeAndPlannedBook(ReadOnlyRecipeBook recipeBook, ReadOnlyPlannedBook plannedBook,
                                            CommandType commandType) {
-        stackToUndo.push(commandType); // CommandType.MAIN
+        commandsToUndo.push(commandType); // CommandType.MAIN
         if ((recipeBookStatePointer != recipeBookStateList.size() - 1)
             || (plannedBookStatePointer != plannedBookStateList.size() - 1)) {
             removeRedundantStates();
@@ -118,7 +118,7 @@ public class MultipleBookStateManager extends RecipeBook {
      * Commits only the planned book as changes were only made to it.
      */
     public void commitPlannedBook(ReadOnlyPlannedBook plannedBook, CommandType commandType) {
-        stackToUndo.push(commandType); // CommandType.PLAN
+        commandsToUndo.push(commandType); // CommandType.PLAN
         if (plannedBookStatePointer != plannedBookStateList.size() - 1) {
             removeRedundantStates();
         }
@@ -133,11 +133,13 @@ public class MultipleBookStateManager extends RecipeBook {
         assert numberOfUndo >= 0;
         int undoCounter = numberOfUndo;
         if (numberOfUndo == 0) {
-            undoCounter = stackToUndo.size();
+            undoCounter = commandsToUndo.size();
         }
         while (undoCounter > 0) {
-            CommandType commandType = stackToUndo.pop();
-            stackToRedo.push(commandType);
+            assert recipeBookStatePointer > 0 && recipeBookStatePointer <= recipeBookStateList.size() - 1;
+            assert plannedBookStatePointer > 0 && plannedBookStatePointer <= plannedBookStateList.size() - 1;
+            CommandType commandType = commandsToUndo.pop();
+            commandsToRedo.push(commandType);
             switch (commandType) {
             case MAIN_LONE:
                 recipeBookStatePointer--;
@@ -168,11 +170,13 @@ public class MultipleBookStateManager extends RecipeBook {
         assert numberOfRedo >= 0;
         int redoCounter = numberOfRedo;
         if (numberOfRedo == 0) {
-            redoCounter = stackToRedo.size();
+            redoCounter = commandsToRedo.size();
         }
         while (redoCounter > 0) {
-            CommandType commandType = stackToRedo.pop();
-            stackToUndo.push(commandType);
+            assert recipeBookStatePointer > 0 && recipeBookStatePointer <= recipeBookStateList.size() - 1;
+            assert plannedBookStatePointer > 0 && plannedBookStatePointer <= plannedBookStateList.size() - 1;
+            CommandType commandType = commandsToRedo.pop();
+            commandsToUndo.push(commandType);
             switch (commandType) {
             case MAIN_LONE:
                 recipeBookStatePointer++;
