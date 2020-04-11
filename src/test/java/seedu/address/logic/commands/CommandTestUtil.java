@@ -29,6 +29,8 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.model.product.DescriptionContainsKeywordsPredicate;
 import seedu.address.model.product.Product;
+import seedu.address.model.transaction.CustomerContainsKeywordPredicate;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.QuantityThreshold;
 import seedu.address.testutil.customer.EditCustomerDescriptorBuilder;
 import seedu.address.testutil.product.EditProductDescriptorBuilder;
@@ -194,6 +196,18 @@ public class CommandTestUtil {
         model.updateFilteredProductList(new DescriptionContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredProductList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the transaction at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showTransactionAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTransactionList().size());
+
+        Transaction transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
+        final String[] splitName = transaction.getCustomer().getName().toString().split("\\s+");
+        model.updateFilteredTransactionList(new CustomerContainsKeywordPredicate(Arrays.asList(splitName[0])));
     }
 
 }
