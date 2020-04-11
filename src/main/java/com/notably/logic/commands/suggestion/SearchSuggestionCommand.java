@@ -56,15 +56,15 @@ public class SearchSuggestionCommand implements SuggestionCommand {
             List<BlockTreeItem> childrenBlocks = blockTree.get(currentPath).getBlockChildren();
             List<AbsolutePath> childrenPaths = childrenBlocks
                     .stream()
-                    .map(item -> getPossiblePath(item, currentPath, blockTree, model, suggestions))
+                    .map(item -> getPath(item, currentPath, blockTree, model, suggestions))
                     .collect(Collectors.toList());
             pathQueue.addAll(childrenPaths);
         }
         return suggestions;
     }
 
-    private AbsolutePath getPossiblePath(BlockTreeItem item, AbsolutePath currentPath, BlockTree blockTree,
-                                          Model model, List<SuggestionItem> suggestions) {
+    private AbsolutePath getPath(BlockTreeItem item, AbsolutePath currentPath, BlockTree blockTree, Model model,
+                                 List<SuggestionItem> suggestions) {
         List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
         combinedComponents.add(item.getTitle().getText());
         AbsolutePath absolutePath = AbsolutePath.fromComponents(combinedComponents);
