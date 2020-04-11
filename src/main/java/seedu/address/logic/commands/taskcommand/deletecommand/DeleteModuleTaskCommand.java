@@ -7,7 +7,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleCode;
 
 /**
@@ -39,9 +38,8 @@ public class DeleteModuleTaskCommand extends DeleteTaskCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_MODULE_TASK_INDEX);
         }
 
-        Task.sortDeadlineTaskList("date");
-        Task.sortDeadlineTaskList("done");
         model.deleteModuleTask(targetModule, targetIndex);
+        model.sortTaskList();
         return new CommandResult(MESSAGE_SUCCESS + " " + targetModule + " task number "
                 + targetIndex.getOneBased());
     }

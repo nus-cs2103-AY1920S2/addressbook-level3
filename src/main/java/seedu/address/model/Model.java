@@ -193,7 +193,15 @@ public interface Model {
     /**
      * Adds deadline.
      */
-    void addDeadline(Task deadline);
+    void addDeadlineTask(Task deadline);
+
+    void sortTaskList();
+
+    Task deleteTask(Task task);
+
+    Task doneDeadlineTask(Task deadline);
+
+    void sortTask(String param);
 
     /**
      * Checks if content of deadline is empty
