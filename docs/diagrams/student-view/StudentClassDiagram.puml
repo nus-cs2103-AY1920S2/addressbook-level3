@@ -5,8 +5,6 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Class TaTracker
-Class ModelManager
 
 Package Student {
 Class Student
@@ -25,9 +23,7 @@ Class Tag
 
 Class HiddenOutside #FFFFFF
 
-TaTracker *--> "1" UniqueStudentList
 UniqueStudentList o--> "*" Student
-ModelManager o--> "1" TaTracker
 Student *--> Name
 Student *--> Rating
 Student *--> Phone
@@ -39,5 +35,4 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Matric
 Matric -[hidden]right-> Email
 
-ModelManager -->"1" Student : filtered list
 @enduml

@@ -629,7 +629,9 @@ as well as switching between the different *Views*.
 
 ==== Viewing help : `help`
 
-You can open the help window with this command.
+You can open the `help window` with this command. You can close the `help window` by pressing the `ESC` key
+on your keyboard.
+
 
 Format: `help`
 
