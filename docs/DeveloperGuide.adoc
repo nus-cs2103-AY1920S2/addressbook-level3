@@ -32,11 +32,6 @@ The *_Architecture Diagram_* given above explains the high-level design of the
 App.
 Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the
-link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create
-and edit diagrams.
 
 `Main` has two classes called
 link:{repoURL}/src/main/java/csdev/couponstash/Main.java[`Main`] and
@@ -67,13 +62,6 @@ Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines
-it's API in the `Logic.java` interface and exposes its functionality using the
-`LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -457,16 +445,15 @@ coupon. The following methods in the `CouponStash`,
 `Coupon`, `Usage` class and the `Model` interface facilitates this feature:
 
 * `CouponStash#archiveExpiredCoupons()` -- Archives any coupon in the
-CouponStash that has expired, and returns a new updated CouponStash.
+`CouponStash` that has expired, and returns a new updated `CouponStash`.
 * `Coupon#increaseUsageByOne()` - Increases the usage of a coupon by one.
-* `Usage#isUsageAtLimit` - Returns true if the current usage is at its limit
+* `Usage#isAtLimit` - Returns true if the current usage is at its limit
 (abstracted by the `Limit` field).
-* `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS` - A Predicate function that filters
-out archived coupons from a given CouponStash.
+* `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS` - A `Predicate` function that filters
+out archived coupons from a given `CouponStash`.
 
 [#img-archiving]
-.Overview class diagram representation of the the coupon archiving
-implementation
+.Overview class diagram representation of the the coupon archiving implementation
 image::ArchivingClassDiagram.png[ArchivingClassDiagram]
 
 Given below is two example usage scenarios and how the archiving mechanism
@@ -484,9 +471,8 @@ initiation of `CouponStash` with any available saved data.
 
 Step 2. The method `CouponStash#archiveExpiredCoupons` will be called from the
 newly initiated `CouponStash`, and have its
-`UniqueCouponList` mapped to a function that archive coupons that have expired
-before the date of opening the application,
-and returns a new updated `CouponStash`.
+`UniqueCouponList` mapped to a function that archive coupons that has expired
+before the date of opening the application, and returns a new updated `CouponStash`.
 
 Step 3. The `ModelManager` will proceed to filter out the archived coupons from
 the newly updated `CouponStash`, and return
@@ -504,23 +490,22 @@ Coupons that have exhausted its usages will be automatically archived by the
 application. The following steps describe how
 this behaviour is implemented.
 
-Step 1. The user uses a coupon in the current observable `CouponStash` with the
+Step 1. The user uses a `Coupon` in the current observable `CouponStash` with the
 command `used 1`.
-The particular coupon will then have its usage increased by one.
+The particular `Coupon` will then have its `Usage` increased by one.
 
-Step 2. The coupon will then be checked if its usage has reached its limit. For
-the purpose of this
-explanation, we assume that the coupon being used has a usage limit of 1 and a
-previous usage value of 0,
+Step 2. The `Coupon` will then be checked if its `Usage` has reached its `Limit`, using
+the `Usage#isAtLimit()` method. For the purpose of this explanation, we assume that
+the coupon being used has a usage `Limit` of 1 and a previous `Usage` value of 0,
 with savings in `MonetaryAmount`.
 
-Step 3. The coupon will have a new `Archived` value, which will be set to
-`true` if the usage has indeed reached its limit.
+Step 3. The `Coupon` will have a new `Archived` value, which will be set to
+`true` if the `Usage` has indeed reached its `Limit`.
 
-Step 4. The `CouponStash` will be updated with this used coupon with the
+Step 4. The `CouponStash` will be updated with this used `Coupon` with the
 `ModelManager#setCoupon()` method. Under the hood of
-this method, the current filtered list will be be updated to show active
-coupons only, facilitated by the predicate
+this method, the current `FilteredList` will be updated to show active
+`Coupons` only, facilitated by the predicate
 `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS`.
 
 [#img-archiveexhausted]
@@ -537,9 +522,9 @@ image::ArchiveExhaustedSequenceDiagram.png[]
 ** Cons: Saved data may get get considerably huge after heavy usage of
 application.
 
-* **Alternative 2:** Archived coupons are stored in another separate data file.
-** Pros: Separates the logic between the two different `CouponStash`, e.g. you
-can limit the functions on archived coupons
+* **Alternative 2:** Archived `Coupon` s are stored in another separate data file.
+** Pros: Separates the logic between the two different `CouponStash`, e.g. ability
+to limit the functions on archived `Coupon` s
 ** Cons: Sharply increases the maintainability and coupling of the application
 with two data files.
 
@@ -639,7 +624,7 @@ for the storage of history that is retrived in chronological order of execution.
 
 === Coupon Reminder
 To ensure users are aware of expiring coupons and maximise their saving,
-Coupon Stash reminds the user through a pop-up box, upon launching the
+Coupon Stash reminds the user through a pop-up window, upon launching the
 application.
 
 To achieve this feature, the following methods in `RemindDate` class of a
@@ -876,10 +861,10 @@ as "used" with the `used` command.
 
 ==== Implementation of used command
 
-When the user enters a used command, the actions taken by Coupon
+When the user enters a `used` command, the actions taken by Coupon
 Stash change depending on whether the Coupon's Savings stores
-a MonetaryAmount of PercentageAmount. The following activity
-diagram shows what happens when the user runs a used command.
+a MonetaryAmount of PercentageAmount. The following activity diagram
+shows what happens when the user runs a used command.
 
 image::UsedCommandActivityDiagram.png[]
 
@@ -890,33 +875,37 @@ program components.
 
 More specifically, the used command executed is
 `used 1 $100`, and the state of the system is such that
-a Coupon with PercentageAmount in its Savings (no
-MonetaryAmount) and with Usage not at its Limit
+a `Coupon` with `PercentageAmount` in its `Savings` (no
+`MonetaryAmount`) and with `Usage` not at its `Limit`
 is located at index 1. Also, the money symbol
-set in the user preferences would be $, which
+set in the user preferences would be `$`, which
 makes this command a valid one that will execute
 successfully.
 
 image::UsedCommandSeqDiagram.png[]
 
 The money symbol set in the user preferences is
-retrieved by CouponStashParser, which passes it
-to UsedCommandParser that will use this symbol
-to parse the used command.
+retrieved by `CouponStashParser`, which passes it
+to `UsedCommandParser` that will use this symbol
+to parse the `used` command.
 
-Also, within UsedCommand, the execute() method
-will cause the creation of a new Coupon with the
+Also, within `UsedCommand`, the `UsedCommand#execute()` method
+will cause the creation of a new `Coupon` with the
 correct recorded number of uses and amount of
 savings earned. The next sequence diagram shows
-how the execute() method interacts with other
-components to produce the new total savings
-value for the new Coupon.
+how a successful `UsedCommand#execute()` method produces the new total savings
+value for the new `Coupon`.
 
 image::UsedExecutionSeqDiagram.png[]
 
-In the end, the total savings value of the Coupon
+In the end, the total savings value of the `Coupon`
 is updated. This total savings is represented by
 a <<DeveloperGuide.adoc#dssm, DateSavingsSumMap>>.
+
+One key implementation within the `UsedCommand` is the checks
+that is has to make to ensure the valid usage of a `Coupon`.
+Below is an activity diagram to show the flow of checks within
+the `UsedCommand#execute()` method.
 
 ==== Implementation of saved command
 
@@ -1100,36 +1089,37 @@ my coupons
 [appendix]
 == Use Cases
 
-This is a list of Use-Cases for STASH, a coupon stash application.
+This is a list of Use-Cases for Coupon Stash, a coupon stash application.
 Primary actor is the user.
 
-.Use Cases Overview for STASH
+.Use Cases Overview for Coupon Stash
 image::usecase.png[Use Case Diagram,1000,1000]
 
 === **Use Case: UC1 -  Add Coupon**
 **Actor**: `user` +
 **Precondition**: User has opened the application
 
-This use case describes how a user uses STASH to add a new coupon entry.
+This use case describes how a user uses Coupon Stash to add a new coupon entry.
 
 **MSS**
 
 . User keys in command to add coupon.
-. STASH adds coupon.
+. Coupon Stash adds coupon.
+. Coupon Stash informs to user that coupon is added.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details.
+** 1a1. Coupon Stash requests the user to re-enter the details.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
 ** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
+** 1a4. Coupon Stash clears command line.
 ** Use case ends.
 
 
@@ -1138,36 +1128,37 @@ Use case ends.
 **Actor**: `user` +
 **Precondition**: User has opened the application
 
-This use case describes how a user uses STASH to list out all the coupon
+This use case describes how a user uses Coupon Stash to list out all the coupon
 entries.
 
 **MSS**
 
 . User keys in command to list all the coupons.
-. STASH lists out all coupons.
+. Coupon Stash lists out all coupons.
+. Coupon Stash informs to user the number of coupons found in list.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details.
+** 1a1. Coupon Stash requests the user to re-enter the details.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
 ** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
+** 1a4. Coupon Stash clears command line.
 ** Use case ends.
 
 [none]
-* 1b. STASH detects that the coupon list is empty.
+* 1b. Coupon Stash detects that the coupon list is empty.
 [none]
-** 1b1. STASH informs the user that the list is empty.
+** 1b1. Coupon Stash informs the user that the list is empty.
 ** Use case ends
 
-=== **_Use Case: UC3 - Mark a coupon as used_**
+=== **Use Case: UC3 - Mark a coupon as used**
 **Actor**: `user` +
 **Pre-condition**: User has opened the application
 
@@ -1175,131 +1166,109 @@ Use case ends.
 
 . User keys in command to pass:[<u>list all coupons (UC2)</u>].
 . User marks coupon as used.
-. STASH marks the coupon as used.
+. Coupon Stash marks the coupon as used.
+. Coupon Stash informs the user the specific coupon that is succesdfully used.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details with the correct format.
+** 1a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
-** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 1b. STASH detects that the specified coupon does not exist.
+* 1b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 1b1. STASH requests the user to enter an index that corresponds with an
+** 1b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 1b2. User enters new index.
 ** Use case resumes from step 2.
-** 1b3. User enters wrong index twice.
-** 1b4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 1c. STASH detects that the specified coupon has been previously marked as
+* 1c. Coupon Stash detects that the specified coupon has been previously marked as
 done.
 [none]
-** 1c1. STASH informs user that coupon has been prevously marked as done.
+** 1c1. Coupon Stash informs user that coupon has been previously marked as done.
 ** Use case ends.
 
-=== **_Use Case: UC4 - Find coupon(s) by keyword(s)_**
+=== **Use Case: UC4 - Find coupon(s) by keyword(s)**
 **Actor**: `user` +
 **Pre-condition**: User has opened the application
 
-This use case describes how a user uses STASH to find the coupon(s) with
+This use case describes how a user uses Coupon Stash to find the coupon(s) with
 keyword(s).
 
 **MSS**
 
 . User keys in command to find a coupon based on keyword(s).
 . Matched coupons are displayed.
+. Coupon Stash informs user the number of coupons found.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details with the correct format.
+** 1a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
-** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 1b. STASH detects that the specified coupon does not exist.
+* 1b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 1b1. STASH requests the user to enter an index that corresponds with an
+** 1b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 1b2. User enters new index.
 ** Use case resumes from step 2.
-** 1b3. User enters wrong index twice.
-** 1b4. STASH clears command line.
-** Use case ends.
 
 
 === **Use Case: UC5 - Edit coupon's details**
 **Actor**: `user` +
 **Precondition:** User has opened the application +
 
-This use case describes how a user uses STASH to edit details of an existing
+This use case describes how a user uses Coupon Stash to edit details of an existing
 coupon.
 
 **MSS**
 
 . User keys in command to pass:[<u>list all coupons (UC2)</u>].
 . User edits an existing coupon.
-. User confirms its decision during confirmation.
-. STASH updates the coupon details.
+. Coupon Stash updates the coupon details.
+. Coupon Stash informs the user the which coupon has been edited.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 2a. STASH detects an invalid format in the entered data.
+* 2a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 2a1. STASH requests the user to re-enter the details with the correct format.
+** 2a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 2a2. User enters new data.
 ** Steps 2a1 - 2a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 3.
-** 2a3. User enters wrong data twice.
-** 2a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 2b. STASH detects that the specified coupon does not exist.
+* 2b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 2b1. STASH requests the user to enter an index that corresponds with an
+** 2b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 2b2. User enters new index.
 ** Use case resumes from step 3.
-** 2b3. User enters wrong index twice.
-** 2b4. STASH clears command line.
-** Use case ends.
-
-[none]
-* 3a. User cancels the confirmation pop up
-[none]
-** 3a1. STASH verifies that user has cancelled during confirmation
-** Use case ends.
 
 === **Use Case: UC6 - Set reminder**
 **Actor**: `user` +
 **Precondition:** User has opened the application +
 
-This use case describes how a user uses STASH to set reminders for an existing
+This use case describes how a user uses Coupon Stash to set reminders for an existing
 coupon.
 
 **MSS**
@@ -1311,144 +1280,111 @@ the coupon.
 +
 Use case ends.
 
-
 **Extensions**
 
 [none]
-* 2a. STASH detects an invalid format in the entered data.
+* 2a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 2a1. STASH requests the user to re-enter the details with the correct format.
+** 2a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 2a2. User enters new data.
 ** Steps 2a1 - 2a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 3.
-** 2a3. User enters wrong data twice.
-** 2a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 2b. STASH detects that the specified coupon does not exist.
+* 2b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 2b1. STASH requests the user to enter an index that corresponds with an
+** 2b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 2b2. User enters new index.
 ** Use case resumes from step 3.
-** 2b3. User enters wrong index twice.
-** 2b4. STASH clears command line.
-** Use case ends.
 
 === **Use Case: UC7 - List coupon(s) expiring before date**
 **Actor**: `user` +
 **Precondition:** User has opened the application +
 
-This use case describes how a user uses STASH to find the coupon(s) expiring
+This use case describes how a user uses Coupon Stash to find the coupon(s) expiring
 before the input expiry date.
 
 **MSS**
 
 . User keys in command to find a coupon based on expiry date.
 . Matched coupons are displayed.
-+
++ Coupon Stash informs the user the number of coupons expiring before the specified date.
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details with the correct format.
+** 1a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
-** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 1b. STASH detects that the specified coupon does not exist.
+* 1b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 1b1. STASH requests the user to enter an index that corresponds with an
+** 1b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 1b2. User enters new index.
 ** Use case resumes from step 2.
-** 1b3. User enters wrong index twice.
-** 1b4. STASH clears command line.
-** Use case ends.
 
 === **Use Case: UC8 - Delete coupon**
 **Actor**: `user`
 
-This use case describes how a user uses STASH to delete an existing coupon.
+This use case describes how a user uses Coupon Stash to delete an existing coupon.
 
 **MSS**
 
 . User pass:[<u>list all coupons (UC2)</u>].
 . User deletes an existing coupon.
 . User confirms its decision during confirmation.
-. STASH removes the coupon.
+. Coupon Stash removes the coupon.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 2a. STASH detects an invalid format in the entered data.
+* 2a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 2a1. STASH requests the user to re-enter the details with the correct format.
+** 2a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 2a2. User enters new data.
 ** Steps 2a1 - 2a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
-** 2a3. User enters wrong data twice.
-** 2a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 2b. STASH detects that the specified coupon does not exist.
+* 2b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 2b1. STASH requests the user to enter an index that corresponds with an
+** 2b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 2b2. User enters new index.
 ** Use case resumes from step 2.
-** 2b3. User enters wrong index twice.
-** 2b4. STASH clears command line.
-** Use case ends.
-
-[none]
-* 3a. User cancels the confirmation pop up
-[none]
-** 3a1. STASH verifies that user has cancelled during confirmation
-** Use case ends.
 
 === **Use Case: UC9 - Undo previous command**
 **Actor**: `user`
 
-This use case describes how a user undo the previous command in STASH.
+This use case describes how a user undo the previous command in Coupon Stash.
 
 **MSS**
 
 . User keys in command to undo a previous command.
 . User confirms its decision during confirmation.
-. STASH undo the previous command.
+. Coupon Stash undo the previous command.
+. Coupon Stash informs the user which command has been undone.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details with the correct format.
+** 1a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 1.
-** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
-** Use case ends.
-
-[none]
-* 2a. User cancels the confirmation pop up
-[none]
-** 2a1. STASH verifies that user has cancelled during confirmation
-** Use case ends.
 
 [appendix]
 == Non-Functional Requirements
@@ -1548,15 +1484,22 @@ testers are expected to do more _exploratory_ testing.
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may
-not be optimum.
+   Expected: Shows the GUI with a set of sample coupons.
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different
 location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-_{ more test cases ... }_
+
+=== Adding a coupon
+
+. Adding a coupon
+
+.. Test case: `add n/Popular Bookstore e/31-12-2020 s/10%` +
+Expected: Coupon Popular Bookstore is added to the list. `Start Date` is set to
+today's date, while the Remind Date is set to 3 days before the specified
+`Expiry Date`. In this case, it would be 28-12-2020.
 
 === Deleting a coupon
 
@@ -1575,13 +1518,3 @@ Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is
 larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected
-behavior}_
-_{ more test cases ... }_

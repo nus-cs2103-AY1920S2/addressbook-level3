@@ -2,48 +2,24 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":UsedCommandParser" as UsedCommandParser LOGIC_COLOR
 participant "u:UsedCommand" as UsedCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "ma:MonetaryAmount" as MonetaryAmount MODEL_COLOR
-participant ":Model" as Model MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
 participant "<<class>>\n:SavingsConversionUtil" as SavingsConversionUtil MODEL_COLOR
 participant "savingsForEachUse:Savings" as Savings MODEL_COLOR
+participant "ma:MonetaryAmount" as MonetaryAmount MODEL_COLOR
 end box
-
-[-> UsedCommandParser : parse("1 $100")
-activate UsedCommandParser
-
-create MonetaryAmount
-UsedCommandParser -> MonetaryAmount : new MonetaryAmount(100)
-activate MonetaryAmount
-
-MonetaryAmount --> UsedCommandParser : ma
-deactivate MonetaryAmount
-
-create UsedCommand
-UsedCommandParser -> UsedCommand : new UsedCommand(1, ma)
-activate UsedCommand
-
-UsedCommand --> UsedCommandParser : u
-deactivate UsedCommand
-
-[<-- UsedCommandParser: u
-deactivate UsedCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-[<[hidden]- UsedCommandParser
-destroy UsedCommandParser
 
 [-> UsedCommand : execute(model, "used 1 $100")
 activate UsedCommand
 
-UsedCommand -> Model : getFilteredCouponList()
-activate Model
+UsedCommand -> ModelManager : getFilteredCouponList()
+activate ModelManager
 
-Model --> UsedCommand : lastShownList
-deactivate Model
+ModelManager --> UsedCommand : lastShownList
+deactivate ModelManager
 
 UsedCommand -> SavingsConversionUtil : convertToPure(savingsForEachUse, ma)
 activate SavingsConversionUtil
@@ -65,9 +41,9 @@ destroy MonetaryAmount
 SavingsConversionUtil --> UsedCommand : newTotalSavings
 deactivate SavingsConversionUtil
 
-UsedCommand -> Model : setCoupon(couponToBeUsed, newCoupon)
-activate Model
-deactivate Model
+UsedCommand -> ModelManager : setCoupon(oldCoupon, newCoupon)
+activate ModelManager
+deactivate ModelManager
 
 [<-- UsedCommand : result
 deactivate UsedCommand
