@@ -20,6 +20,7 @@ import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
+import tatracker.model.session.SessionType;
 
 /*
  * === BUGS ===
@@ -49,48 +50,44 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
             throw new ParseException(Messages.getInvalidCommandMessage(AddSessionCommand.DETAILS.getUsage()));
         }
 
+        // Module code is compulsory
+        String moduleCode = argMultimap.getValue(MODULE).map(String::trim).map(String::toUpperCase).get();
+
         LocalDate date = LocalDate.now();
-        Session sessionToAdd = new Session();
-
-
-        if (argMultimap.getValue(MODULE).isPresent()) {
-            sessionToAdd.setModuleCode(argMultimap.getValue(MODULE).map(String::trim).map(String::toUpperCase).get());
-        }
-
         if (argMultimap.getValue(DATE).isPresent()) {
             date = ParserUtil.parseDate(argMultimap.getValue(DATE).get());
         }
 
+        LocalTime startTime = LocalTime.now().withSecond(0).withNano(0);
         if (argMultimap.getValue(START_TIME).isPresent()) {
-            LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(START_TIME).get());
-            sessionToAdd.setStartDateTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
-                    startTime.getHour(), startTime.getMinute(), startTime.getSecond()));
+            startTime = ParserUtil.parseTime(argMultimap.getValue(START_TIME).get());
         }
 
+        LocalTime endTime = startTime;
         if (argMultimap.getValue(END_TIME).isPresent()) {
-            LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(END_TIME).get());
-            sessionToAdd.setEndDateTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
-                    endTime.getHour(), endTime.getMinute(), endTime.getSecond()));
-        } else {
-            if (argMultimap.getValue(START_TIME).isPresent()) {
-                LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(START_TIME).get());
-                sessionToAdd.setEndDateTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
-                        startTime.getHour(), startTime.getMinute(), startTime.getSecond()));
-            }
+            endTime = ParserUtil.parseTime(argMultimap.getValue(END_TIME).get());
         }
 
+        // Adjusting the start and end time to be on the specified date (today if not specified)
+        LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
+
+        int recurringWeeks = Session.DEFAULT_RECURRING_WEEKS;
         if (argMultimap.getValue(RECUR).isPresent()) {
-            sessionToAdd.setRecurring(ParserUtil.parseNumWeeks(argMultimap.getValue(RECUR).get()));
+            recurringWeeks = ParserUtil.parseNumWeeks(argMultimap.getValue(RECUR).get());
         }
 
+        SessionType sessionType = Session.DEFAULT_SESSION_TYPE;
         if (argMultimap.getValue(SESSION_TYPE).isPresent()) {
-            sessionToAdd.setType(
-                    ParserUtil.parseSessionType(argMultimap.getValue(SESSION_TYPE).get()));
+            sessionType = ParserUtil.parseSessionType(argMultimap.getValue(SESSION_TYPE).get());
         }
 
+        String notes = Session.DEFAULT_DESCRIPTION;
         if (argMultimap.getValue(NOTES).isPresent()) {
-            sessionToAdd.setDescription(argMultimap.getValue(NOTES).map(String::trim).get());
+            notes = argMultimap.getValue(NOTES).map(String::trim).get();
         }
+
+        Session sessionToAdd = new Session(startDateTime, endDateTime, sessionType, recurringWeeks, moduleCode, notes);
 
         return new AddSessionCommand(sessionToAdd);
     }

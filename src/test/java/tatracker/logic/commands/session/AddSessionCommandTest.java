@@ -1,11 +1,13 @@
+//@@ chuayijing
+
 package tatracker.logic.commands.session;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static tatracker.testutil.Assert.assertThrows;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import tatracker.commons.core.Messages;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.ModelStub;
 import tatracker.model.ModelStub.ModelStubAcceptingSessionAdded;
 import tatracker.model.ModelStub.ModelStubWithSession;
@@ -23,10 +24,9 @@ import tatracker.testutil.sessions.SessionBuilder;
 
 public class AddSessionCommandTest {
 
-    private static final LocalDateTime DEFAULT_START = LocalDateTime
-            .of(2020, 05, 20, 17, 30);
-    private static final LocalDateTime DEFAULT_END = LocalDateTime
-            .of(2020, 05, 20, 19, 30);
+    private static final LocalDate DEFAULT_DATE = LocalDate.of(2020, 5, 20);
+    private static final LocalTime DEFAULT_START = LocalTime.of(17, 30);
+    private static final LocalTime DEFAULT_END = LocalTime.of(19, 30);
     private static final String DEFAULT_MODULE = "CS2103T";
     private static final String DEFAULT_TYPE = "tutorial";
     private static final String DEFAULT_DESCRIPTION = "finishes his tutorial";
@@ -40,11 +40,12 @@ public class AddSessionCommandTest {
     }
 
     @Test
-    public void parse_invalidValue_failure() throws ParseException {
+    public void parse_invalidValue_failure() {
 
         //start end after end time
         Session invalidSession = new SessionBuilder()
                 .withModule(DEFAULT_MODULE)
+                .withDate(DEFAULT_DATE)
                 .withStartTime(DEFAULT_END)
                 .withEndTime(DEFAULT_START)
                 .withRecurring(DEFAULT_RECURRING)
@@ -54,7 +55,7 @@ public class AddSessionCommandTest {
         AddSessionCommand addSessionCommand = new AddSessionCommand(invalidSession);
         ModelStub modelStub = new ModelStubWithSession(invalidSession);
         assertThrows(CommandException.class, Messages.MESSAGE_INVALID_SESSION_TIMES, ()
-                -> addSessionCommand.execute(modelStub));
+            -> addSessionCommand.execute(modelStub));
     }
 
     @Test
@@ -78,7 +79,7 @@ public class AddSessionCommandTest {
         ModelStub modelStub = new ModelStubWithSession(validSession);
 
         assertThrows(CommandException.class, Messages.MESSAGE_DUPLICATE_SESSION, ()
-                -> addSessionCommand.execute(modelStub));
+            -> addSessionCommand.execute(modelStub));
     }
 
     @Test
@@ -89,19 +90,19 @@ public class AddSessionCommandTest {
         AddSessionCommand addCS2103TCommand = new AddSessionCommand(second);
 
         // same object -> returns true
-        assertTrue(addCS2103TCommand.equals(addCS2103TCommand));
+        assertEquals(addCS2103TCommand, addCS2103TCommand);
 
         // same values -> returns true
         AddSessionCommand addCS2103TCommandCopy = new AddSessionCommand(second);
-        assertTrue(addCS2103TCommand.equals(addCS2103TCommandCopy));
+        assertEquals(addCS2103TCommand, addCS2103TCommandCopy);
 
         // different types -> returns false
-        assertFalse(addCS2103TCommand.equals(1));
+        assertNotEquals(1, addCS2103TCommand);
 
         // null -> returns false
-        assertFalse(addCS2103TCommand.equals(null));
+        assertNotEquals(null, addCS2103TCommand);
 
         // different food -> returns false
-        assertFalse(addCS2103TCommand.equals(addCS3243Command));
+        assertNotEquals(addCS2103TCommand, addCS3243Command);
     }
 }

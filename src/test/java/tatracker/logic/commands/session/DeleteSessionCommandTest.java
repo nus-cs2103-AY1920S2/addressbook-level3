@@ -1,9 +1,10 @@
 package tatracker.logic.commands.session;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
-import static tatracker.logic.commands.CommandTestUtil.assertDeleteSessionCommandSuccess;
+import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_SESSION;
 import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_SESSION;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithSessions;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
@@ -32,7 +34,7 @@ public class DeleteSessionCommandTest {
         ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
         expectedModel.deleteSession(sessionToDelete);
 
-        assertDeleteSessionCommandSuccess(deleteSessionCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteSessionCommand, model, expectedMessage, expectedModel, Action.GOTO_SESSION);
     }
 
     @Test
@@ -50,20 +52,20 @@ public class DeleteSessionCommandTest {
         DeleteSessionCommand deleteSecondCommand = new DeleteSessionCommand(INDEX_SECOND_SESSION);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertEquals(deleteFirstCommand, deleteFirstCommand);
 
         // same values -> returns true
         DeleteSessionCommand deleteFirstCommandCopy = new DeleteSessionCommand(INDEX_FIRST_SESSION);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        assertEquals(deleteFirstCommand, deleteFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertNotEquals(1, deleteFirstCommand);
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertNotEquals(null, deleteFirstCommand);
 
         // different sessions -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        assertNotEquals(deleteFirstCommand, deleteSecondCommand);
     }
 
     /**

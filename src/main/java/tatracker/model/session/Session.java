@@ -15,6 +15,11 @@ public class Session implements Comparable<Session> {
 
     public static final String CONSTRAINTS_RECURRING_WEEKS = "Recurring weeks must be an unsigned number";
 
+    // Default constructor has been removed to reduce the number of test cases.
+    public static final int DEFAULT_RECURRING_WEEKS = 0;
+    public static final SessionType DEFAULT_SESSION_TYPE = SessionType.OTHER;
+    public static final String DEFAULT_DESCRIPTION = "Default Session";
+
     /** For converting date times to strings. Example: "2020-03-03 14:00" */
     private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mma");
 
@@ -28,20 +33,6 @@ public class Session implements Comparable<Session> {
     private String description;
     private int recurring;
     private boolean isDone;
-
-    /**
-     * Default Constructor for Session.
-     * Creates a session object with default values.
-     */
-    public Session() {
-        this.startDateTime = LocalDateTime.now();
-        this.endDateTime = LocalDateTime.now();
-        this.recurring = 0;
-        this.moduleCode = "";
-        this.type = SessionType.OTHER;
-        this.description = "Default Session";
-        this.isDone = false;
-    }
 
     /**
      * Constructs a Session object.
@@ -86,24 +77,10 @@ public class Session implements Comparable<Session> {
     }
 
     /**
-     * Sets the start time of the session.
-     */
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
-    }
-
-    /**
      * Returns the end time of the session.
      */
     public LocalDateTime getEndDateTime() {
         return this.endDateTime;
-    }
-
-    /**
-     * Sets the end time of the session.
-     */
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
     }
 
     /**
@@ -128,24 +105,10 @@ public class Session implements Comparable<Session> {
     }
 
     /**
-     * Sets whether the session's recurring value.
-     */
-    public void setRecurring(int recurring) {
-        this.recurring = recurring;
-    }
-
-    /**
      * Returns the module code associated with this session.
      */
     public String getModuleCode() {
         return this.moduleCode;
-    }
-
-    /**
-     * Sets the module code associated with this session.
-     */
-    public void setModuleCode(String moduleCode) {
-        this.moduleCode = moduleCode;
     }
 
     /**
@@ -156,24 +119,10 @@ public class Session implements Comparable<Session> {
     }
 
     /**
-     * Sets the type of session.
-     */
-    public void setType(SessionType type) {
-        this.type = type;
-    }
-
-    /**
      * Returns the description of the session.
      */
     public String getDescription() {
         return this.description;
-    }
-
-    /**
-     * Sets the description of the session.
-     */
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**
@@ -202,6 +151,19 @@ public class Session implements Comparable<Session> {
     public String getMinimalDescription() {
         return String.format(FORMAT_MIN_DESCRIPTION, type, moduleCode,
                 getStartDateTimeDescription(), getEndDateTimeDescription());
+    }
+
+    /**
+     * Returns true if this session's timing clashes with the other session.
+     */
+    public boolean hasTimingClash(Session other) {
+        boolean sameTiming = startDateTime.equals(other.startDateTime)
+                && endDateTime.equals(other.endDateTime);
+
+        boolean timeClash = startDateTime.isBefore(other.endDateTime)
+                && endDateTime.isAfter(other.startDateTime);
+
+        return sameTiming || timeClash;
     }
 
     @Override

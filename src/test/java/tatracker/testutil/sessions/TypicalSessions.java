@@ -1,11 +1,11 @@
 package tatracker.testutil.sessions;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
 
 /**
@@ -13,81 +13,56 @@ import tatracker.model.session.Session;
  */
 public class TypicalSessions {
 
-    public static final Session S1;
+    public static final Session SESSION_1;
+    public static final Session SESSION_2;
+    public static final Session SESSION_3;
+    public static final Session SESSION_4;
 
     static {
-        SessionBuilder sessionBuilder = new SessionBuilder();
-        try {
-            sessionBuilder.withStartTime(LocalDateTime.of(2020, 05, 29, 13, 00));
-            sessionBuilder.withEndTime(LocalDateTime.of(2020, 05, 29, 13, 00));
-            sessionBuilder.withSessionType("lab");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        sessionBuilder.withModule("CS3243");
-        sessionBuilder.withDescription("prepare notes");
-        sessionBuilder.withRecurring(2);
-        S1 = sessionBuilder
-                    .build();
-    }
+        SESSION_1 = new SessionBuilder()
+                .withDate(LocalDate.of(2020, 5, 29))
+                .withStartTime(LocalTime.of(13, 0))
+                .withEndTime(LocalTime.of(13, 0))
+                .withSessionType("lab")
+                .withModule("CS3243")
+                .withDescription("prepare notes")
+                .withRecurring(2)
+                .build();
 
-    public static final Session S2;
+        SESSION_2 = new SessionBuilder()
+                .withDate(LocalDate.of(2020, 6, 10))
+                .withStartTime(LocalTime.of(10, 0))
+                .withEndTime(LocalTime.of(12, 0))
+                .withSessionType("consultation")
+                .withModule("CS2103T")
+                .withDescription("with Bob")
+                .withRecurring(0)
+                .build();
 
-    static {
-        SessionBuilder sessionBuilder = new SessionBuilder();
-        try {
-            sessionBuilder.withStartTime(LocalDateTime.of(2020, 06, 10, 10, 00));
-            sessionBuilder.withEndTime(LocalDateTime.of(2020, 06, 10, 12, 00));
-            sessionBuilder.withSessionType("consultation");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        sessionBuilder.withModule("CS2103T");
-        sessionBuilder.withDescription("with Bob");
-        sessionBuilder.withRecurring(0);
-        S2 = sessionBuilder
-                    .build();
-    }
+        SESSION_3 = new SessionBuilder()
+                .withDate(LocalDate.of(2020, 6, 1))
+                .withStartTime(LocalTime.of(10, 0))
+                .withEndTime(LocalTime.of(11, 0))
+                .withSessionType("preparation")
+                .withModule("CS2103T")
+                .withDescription("Before next lesson")
+                .withRecurring(1)
+                .build();
 
-    public static final Session S3;
-
-    static {
-        SessionBuilder sessionBuilder = new SessionBuilder();
-        try {
-            sessionBuilder.withStartTime(LocalDateTime.of(2020, 06, 01, 10, 00));
-            sessionBuilder.withEndTime(LocalDateTime.of(2020, 06, 01, 11, 00));
-            sessionBuilder.withSessionType("Preparation");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        sessionBuilder.withModule("CS2103T");
-        sessionBuilder.withDescription("Before next lesson");
-        sessionBuilder.withRecurring(1);
-        S3 = sessionBuilder
-                    .build();
-    }
-
-    public static final Session S4;
-
-    static {
-        SessionBuilder sessionBuilder = new SessionBuilder();
-        try {
-            sessionBuilder.withStartTime(LocalDateTime.of(2020, 06, 15, 12, 30));
-            sessionBuilder.withEndTime(LocalDateTime.of(2020, 06, 15, 14, 00));
-            sessionBuilder.withSessionType("gradings");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        sessionBuilder.withModule("CS3243");
-        sessionBuilder.withDescription("Finish everything");
-        sessionBuilder.withRecurring(0);
-        S4 = sessionBuilder
-                    .build();
+        SESSION_4 = new SessionBuilder()
+                .withDate(LocalDate.of(2020, 6, 15))
+                .withStartTime(LocalTime.of(12, 30))
+                .withEndTime(LocalTime.of(14, 0))
+                .withSessionType("grading")
+                .withModule("CS3243")
+                .withDescription("Finish everything")
+                .withRecurring(0)
+                .build();
     }
 
     private TypicalSessions() {} // prevents instantiation
 
     public static List<Session> getTypicalSessions() {
-        return new ArrayList<>(Arrays.asList(S1, S2, S3, S4));
+        return new ArrayList<>(Arrays.asList(SESSION_1, SESSION_2, SESSION_3, SESSION_4));
     }
 }

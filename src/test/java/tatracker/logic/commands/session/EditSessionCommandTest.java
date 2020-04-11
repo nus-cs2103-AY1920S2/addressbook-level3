@@ -1,45 +1,34 @@
 package tatracker.logic.commands.session;
 
-//import static org.junit.jupiter.api.Assertions.assertFalse;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_SESSION;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithSessions;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-//import org.junit.jupiter.api.Test;
-
-//import tatracker.logic.commands.commons.ClearCommand;
-//import tatracker.logic.commands.session.EditSessionCommand.EditSessionDescriptor;
-
-import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
 import tatracker.testutil.sessions.EditSessionDescriptorBuilder;
-
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
  * and unit tests for EditStudentCommand.
  */
 public class EditSessionCommandTest {
-    private static EditSessionCommand.EditSessionDescriptor session = null;
+    private static EditSessionCommand.EditSessionDescriptor session;
 
-    private static final LocalDateTime STARTTIME = LocalDateTime.of(2020, 05, 20, 17, 00);
-    private static final LocalDateTime ENDTIME = LocalDateTime.of(2020, 05, 20, 17, 00);
+    private static final LocalDate DATE = LocalDate.of(2020, 5, 20);
+    private static final LocalTime STARTTIME = LocalTime.of(17, 0);
+    private static final LocalTime ENDTIME = LocalTime.of(18, 0);
     static {
-        try {
-            session = new EditSessionDescriptorBuilder()
-                    .withStartTime(STARTTIME)
-                    .withEndTime(ENDTIME)
-                    .withModule("CS2103T")
-                    .withSessionType("Lab")
-                    .withDescription("prepare notes")
-                    .withRecurring(2).build();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        session = new EditSessionDescriptorBuilder()
+                .withDate(DATE)
+                .withStartTime(STARTTIME)
+                .withEndTime(ENDTIME)
+                .withModule("CS2103T")
+                .withSessionType("Lab")
+                .withDescription("prepare notes")
+                .withRecurring(2).build();
     }
 
     private Model model = new ModelManager(getTypicalTaTrackerWithSessions(), new UserPrefs());

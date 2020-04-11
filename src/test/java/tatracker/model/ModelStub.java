@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-
 import tatracker.commons.core.GuiSettings;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -362,6 +361,9 @@ public class ModelStub implements Model {
             this.session = session;
         }
 
+        /**
+         * Checks if the session contains the module specified.
+         */
         public boolean hasModule(String moduleCode) {
             requireNonNull(moduleCode);
             return this.session.getModuleCode().equals(session.getModuleCode());

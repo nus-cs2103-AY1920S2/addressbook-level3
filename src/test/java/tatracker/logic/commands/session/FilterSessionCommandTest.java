@@ -1,14 +1,16 @@
+//@@ chuayijing
 package tatracker.logic.commands.session;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static tatracker.logic.commands.CommandTestUtil.assertFilterSessionCommandSuccess;
 import static tatracker.logic.commands.session.FilterSessionCommand.MESSAGE_FILTERED_SESSIONS_SUCCESS;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import tatracker.model.Model;
@@ -22,20 +24,28 @@ import tatracker.model.util.SampleDataUtil;
  * Contains integration tests (interaction with the Model) for {@code FilterSessionCommand}.
  */
 public class FilterSessionCommandTest {
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     private Model model = new ModelManager(SampleDataUtil.getSampleTaTracker(), new UserPrefs());
     private Model expectedModel = new ModelManager(SampleDataUtil.getSampleTaTracker(), new UserPrefs());
-    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
+    //@@ PotatoCombat
+    @BeforeEach
+    public void setup() {
+        model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
+        expectedModel.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
+    }
+
+    //@@ chuayijing
     @Test
     public void equals() {
         SessionPredicate firstPredicate = new SessionPredicate();
-        firstPredicate.setDate(LocalDate.of(2020, 05, 20));
+        firstPredicate.setDate(LocalDate.of(2020, 5, 20));
         firstPredicate.setModuleCode("CS3243");
         firstPredicate.setSessionType(SessionType.LAB);
 
         SessionPredicate secondPredicate = new SessionPredicate();
-        secondPredicate.setDate(LocalDate.of(2020, 05, 30));
+        secondPredicate.setDate(LocalDate.of(2020, 5, 30));
         secondPredicate.setModuleCode("CS2103T");
         secondPredicate.setSessionType(SessionType.GRADING);
 
@@ -43,20 +53,20 @@ public class FilterSessionCommandTest {
         FilterSessionCommand filterSecondCommand = new FilterSessionCommand(secondPredicate);
 
         // same object -> returns true
-        assertTrue(filterFirstCommand.equals(filterFirstCommand));
+        assertEquals(filterFirstCommand, filterFirstCommand);
 
         // same values -> returns true
         FilterSessionCommand findFirstCommandCopy = new FilterSessionCommand(firstPredicate);
-        assertTrue(filterFirstCommand.equals(findFirstCommandCopy));
+        assertEquals(filterFirstCommand, findFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(filterFirstCommand.equals(1));
+        assertNotEquals(1, filterFirstCommand);
 
         // null -> returns false
-        assertFalse(filterFirstCommand.equals(null));
+        assertNotEquals(null, filterFirstCommand);
 
         // different params -> returns false
-        assertFalse(filterFirstCommand.equals(filterSecondCommand));
+        assertNotEquals(filterFirstCommand, filterSecondCommand);
     }
 
     @Test
@@ -65,7 +75,9 @@ public class FilterSessionCommandTest {
         FilterSessionCommand command = new FilterSessionCommand(predicate);
         expectedModel.updateFilteredSessionList(predicate);
         assertFilterSessionCommandSuccess(command, model, MESSAGE_FILTERED_SESSIONS_SUCCESS, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredSessionList());
     }
+
 
     @Test
     public void execute_singleKeywords_multipleSessionsFound() {

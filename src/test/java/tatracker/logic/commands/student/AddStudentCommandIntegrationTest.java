@@ -4,12 +4,13 @@ import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_STUDENT;
 import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
-import static tatracker.logic.commands.CommandTestUtil.assertStudentCommandSuccess;
+import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
@@ -66,7 +67,7 @@ public class AddStudentCommandIntegrationTest {
                 testModule.getIdentifier(),
                 testGroup.getIdentifier());
 
-        assertStudentCommandSuccess(command, model, expectedFeedback, expectedModel);
+        assertCommandSuccess(command, model, expectedFeedback, expectedModel, Action.GOTO_STUDENT);
     }
 
     @Test
