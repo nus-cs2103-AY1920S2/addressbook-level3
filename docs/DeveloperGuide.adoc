@@ -964,7 +964,7 @@ If the ReturnOrder does not exist in the model's return order list, the newly cr
 toBeCreated, will be added to the model's return order list using the addReturnOrder(toBeCreated) method. +
 
 Finally, a new CommandResult will be created to display the success message to the user for converting
-a delivered order to a return order.`
+a delivered order to a return order.
 
 ==== Sequence Diagram for creating a new return order
 The sequence diagrams for the *Return Command* are shown below.
