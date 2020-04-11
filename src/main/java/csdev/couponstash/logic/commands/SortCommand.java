@@ -64,6 +64,8 @@ public class SortCommand extends Command {
             model.sortCoupons(EXPIRY_COMPARATOR);
         } else if (prefixToSortBy.equals(PREFIX_REMIND)) {
             model.sortCoupons(REMINDER_COMPARATOR);
+        } else {
+            assert false : "Invalid prefixes should have been filtered out in SortCommandParser!";
         }
 
         // Put non-archived at the top.

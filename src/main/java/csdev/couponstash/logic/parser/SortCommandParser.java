@@ -40,6 +40,8 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @throws ParseException Thrown if argumentMultiMap contains 0 or more than one valid prefix
      */
     private static Prefix getPrefix(ArgumentMultimap argumentMultimap) throws ParseException {
+        assert argumentMultimap != null;
+
         if (hasOnlyOneValidPrefix(argumentMultimap)) {
             for (Prefix prefix : supportedPrefixes) {
                 if (argumentMultimap.getValue(prefix).isPresent()) {

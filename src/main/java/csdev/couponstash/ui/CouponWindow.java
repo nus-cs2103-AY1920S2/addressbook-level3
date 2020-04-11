@@ -188,6 +188,18 @@ public class CouponWindow extends UiPart<Stage> {
         });
     }
 
+    /**
+     * Shows the coupon window.
+     */
+    public void show() {
+        getRoot().show();
+        getRoot().centerOnScreen();
+    }
+
+    public void close() {
+        getRoot().close();
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

@@ -76,6 +76,8 @@ public class ShareCommand extends IndexedCommand {
         // Hacky way to ensure scene is freed from memory.
         scene = null;
 
+        assert scene == null : "scene has not been released from memory.";
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName(couponToShare.getName().toString() + "." + FORMAT);
         File file = fileChooser.showSaveDialog(null);

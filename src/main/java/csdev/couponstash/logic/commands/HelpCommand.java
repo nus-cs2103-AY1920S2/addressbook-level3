@@ -81,6 +81,8 @@ public class HelpCommand extends Command {
      * @throws CommandException
      */
     private static void openBrowser(URI path) throws CommandException {
+        assert path != null;
+
         String os = System.getProperty("os.name").toLowerCase();
 
         if (os.contains("linux") || os.contains(("unix"))) {
