@@ -33,6 +33,8 @@ public class TimeTest {
         assertFalse(Time.isValidTime("95699999954069")); //long numbers
         assertFalse(Time.isValidTime("-20")); //negative numbers
         assertFalse(Time.isValidTime("0")); //zero value
+        assertFalse(Time.isValidTime("0000")); //multiple zero value
+        assertFalse(Time.isValidTime("11.24")); //decimal
 
         // valid time numbers
         assertTrue(Time.isValidTime("1")); // exactly 1 number
