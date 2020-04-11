@@ -27,7 +27,12 @@ ExpenseLA is for money-conscious NUS students who wish to track their spending, 
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[[width="790"]]
+image::Ui.png[width="790"]
++
+.  The UI has 5 different components: Command Input box, Command Result box, Monthly Data panel
+Filter panel and Transaction List panel(Chart Analytics Panel)
++
+image::UI_annotated.png[width="790"]
 +
 .  Filters are only to filter transaction list, MonthlyData is data for the current month and not the month
 shown in the filter
