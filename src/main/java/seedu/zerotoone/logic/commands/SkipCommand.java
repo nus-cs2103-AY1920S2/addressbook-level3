@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
+import seedu.zerotoone.logic.commands.util.Commands;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.session.CompletedSet;
 
@@ -15,7 +16,7 @@ import seedu.zerotoone.model.session.CompletedSet;
  */
 public class SkipCommand extends Command {
     public static final String COMMAND_WORD = "skip";
-    public static final String MESSAGE_USAGE = "Usage: skip";
+    public static final String MESSAGE_USAGE = "Usage: " + Commands.DONE;
     public static final String MESSAGE_SKIP_SET = "Skipped set: %1$s";
     public static final String MESSAGE_SKIPPED_LAST = "You have skipped the last set, "
             + "your workout session is done and saved!";

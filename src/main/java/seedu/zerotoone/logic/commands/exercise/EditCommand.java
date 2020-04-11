@@ -11,6 +11,7 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
+import seedu.zerotoone.logic.commands.util.Commands;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseName;
@@ -20,7 +21,7 @@ import seedu.zerotoone.model.exercise.ExerciseName;
  */
 public class EditCommand extends ExerciseCommand {
     public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_USAGE = "Usage: exercise edit EXERCISE_ID e/<exercise_name>";
+    public static final String MESSAGE_USAGE = "Usage: " + Commands.EXERCISE_EDIT;
     public static final String MESSAGE_EDIT_EXERCISE_SUCCESS = "Edited exercise: %1$s";
     public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists.";
 
