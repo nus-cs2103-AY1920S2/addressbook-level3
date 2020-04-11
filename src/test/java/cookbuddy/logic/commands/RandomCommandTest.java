@@ -4,10 +4,12 @@ import static cookbuddy.testutil.TypicalRecipes.getTypicalRecipeBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import org.junit.jupiter.api.Test;
+
 import cookbuddy.model.Model;
 import cookbuddy.model.ModelManager;
 import cookbuddy.model.UserPrefs;
-import org.junit.jupiter.api.Test;
+
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
