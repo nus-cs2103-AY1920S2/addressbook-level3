@@ -604,6 +604,12 @@ The *default* font colour.
 
 |=======================================================================
 
+image::ValidInput.png[width="790"]
+This is an example of a valid input.
+
+image::InvalidInput.png[width="790"]
+This is an example on an invalid input.
+
 === Hints
 When you type out a command, you will also see `hints` about how to use the command.
 
@@ -649,6 +655,9 @@ on your keyboard.
 
 Format: `help`
 
+image::HelpWindow.png[width="790"]
+This is what the `help` window looks like.
+
 ==== Switching tabs : `goto`
 
 You can switch to different `tabs` with this command to show their associated *view*.
@@ -665,7 +674,8 @@ Example:
 
 `goto student`
 
-This command will take you to the `student tab`.
+image::GotoStudent.png[width="790"]
+This command takes you to the `student tab`.
 
 ====
 
@@ -729,8 +739,11 @@ Examples:
 
 * `module add m/CS2100 n/Computer Organisation`
 +
+
+image::ModuleAdd.png[width="790"]
 This will add a module with the module code `CS2100` and name `Computer Organisation`
 to the TA-Tracker.
+
 ====
 
 [[DeleteModule]]
@@ -758,6 +771,7 @@ Examples:
 
 * `module delete m/CS2103T`
 +
+image::ModuleDelete.png[width="790"]
 This will delete the module with the module code `CS2103T` from the TA-Tracker.
 ====
 
@@ -790,6 +804,7 @@ Examples:
 
 * `module edit m/CS3243 n/Intro to AI`
 +
+image::ModuleEdit.png[width="790"]
 This will change the name of the module with module code `CS3243` to `Intro to AI`.
 ====
 
@@ -826,6 +841,7 @@ Examples:
 
 * `group add g/G03 m/CS2100 t/tutorial`
 +
+image::GroupAdd.png[width="790"]
 This will add a group with the group code `G03`, which is a `tutorial`, inside the module that
 has module code `CS2100`.
 ====
@@ -860,6 +876,7 @@ Examples:
 
 * `group delete g/G06 m/CS3243`
 +
+image::GroupDelete.png[width="790"]
 This will delete the group with the group code `G06` from the module that
 has module code `CS3243`.
 ====
@@ -899,6 +916,7 @@ Examples:
 
 * `group edit g/G01 m/CS3243 nt/lab`
 +
+image::GroupEdit.png[width="790"]
 This will change the group type of the group with group code `G01`, inside the module with
 module code `CS3243`, to be a `lab`.
 ====
@@ -933,6 +951,7 @@ Examples:
 
 * `student add id/A0123456J n/Alice m/CS2100 g/G03`
 +
+image::StudentAdd.png[width="790"]
 This will add a student named Alice with the matriculation number `A0123456J`
 inside group `G03` of the module `CS2100`.
 ====
