@@ -111,17 +111,8 @@ public class Date implements Comparable<Date> {
         return date.isAfter(otherDate.date);
     }
 
-    public String getMonthName() {
-        return date.getMonth().getDisplayName(TextStyle.FULL, SINGAPORE_LOCALE);
-    }
-
     public String getDayOfWeek() {
         return "" + date.getDayOfWeek();
-    }
-
-    public String getWeekOfMonth() {
-        WeekFields weekFields = WeekFields.of(SINGAPORE_LOCALE.getDefault());
-        return "" + date.get(weekFields.weekOfMonth());
     }
 
     public String toStringForJson() {
@@ -156,6 +147,5 @@ public class Date implements Comparable<Date> {
     public int hashCode() {
         return date.hashCode();
     }
-
 }
 
