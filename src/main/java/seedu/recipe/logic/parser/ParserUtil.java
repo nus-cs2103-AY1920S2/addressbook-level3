@@ -197,9 +197,12 @@ public class ParserUtil {
         }
 
         double magnitude = Double.parseDouble(quantity.substring(0, indexOfUnit));
+        if (magnitude <= 0 || magnitude >= 10000) {
+            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS_MAGNITUDE);
+        }
         String unitString = quantity.substring(indexOfUnit);
         if (!QuantityUtil.getAvailUnitsAsList().contains(unitString)) {
-            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS_UNITS);
         }
 
         Unit unit = QuantityUtil.parseUnit(unitString);

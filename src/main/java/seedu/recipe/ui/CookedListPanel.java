@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -19,18 +20,24 @@ import seedu.recipe.model.goal.GoalCount;
 public class CookedListPanel extends UiPart<Region> {
     private static final String FXML = "CookedListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(CookedListPanel.class);
-
+    private final String styleHeader = "-fx-font-family: \"Segoe UI\";\n"
+            + "-fx-text-fill: #FFFFFF;\n"
+            + "-fx-font-weight: bold;\n"
+            + "-fx-font-size: 20pt;";
     @FXML
     private ListView<Record> cookedListView;
 
     @FXML
     private PieChart pieChart;
 
+    @FXML
+    private Label cooked;
+
     public CookedListPanel(ObservableList<Record> recordList, ObservableList<GoalCount> goalCountList) {
         super(FXML);
+        cooked.setStyle(styleHeader);
         cookedListView.setItems(recordList);
         cookedListView.setCellFactory(listView -> new RecordListViewCell());
-
         setChart(goalCountList);
     }
 

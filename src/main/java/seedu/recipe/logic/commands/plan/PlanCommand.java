@@ -29,12 +29,14 @@ public class PlanCommand extends Command {
 
     public static final String COMMAND_WORD = "plan";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plans a recipe to be cooked in the future. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plans recipe(s) to be cooked in the future. "
+            + "The date input must be a date in the future. \n"
             + "Parameters: "
-            + "RECIPE_INDEX "
-            + PREFIX_DATE + "YYYY-MM-DD\n"
-            + "Example: " + COMMAND_WORD + " 3 "
-            + PREFIX_DATE + "2020-03-16";
+            + "[recipe index]... "
+            + PREFIX_DATE + "yyyy-mm-dd\n"
+            + "Example: " + COMMAND_WORD + " 1 2 3 "
+            + PREFIX_DATE + "2020-08-16\n"
+            + "Plans recipes at indexes 1, 2 and 3 on 16 August 2020.";
 
     public static final String MESSAGE_INVALID_DATE = "The latest date you can input is today's date.";
     public static final String MESSAGE_DATE = "Date: %1$s\n";
@@ -63,7 +65,7 @@ public class PlanCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Recipe> lastShownList = model.getFilteredRecipeList();
-        List<String> newPlansMessage = new ArrayList<>(); // lists to hold messages to user
+        List<String> successfulPlansMessage = new ArrayList<>(); // lists to hold messages to user
         List<String> duplicatePlansMessage = new ArrayList<>();
 
         if (!allIndexesAreValid(indexes, lastShownList)) {
@@ -77,7 +79,7 @@ public class PlanCommand extends Command {
             Plan plan = new Plan(recipe, date);
             try {
                 model.addPlan(recipe, plan);
-                newPlansMessage.add(formatIndexToString(currentIndex, recipe));
+                successfulPlansMessage.add(formatIndexToString(currentIndex, recipe));
             } catch (DuplicatePlannedRecipeException duplicate) {
                 duplicatePlansMessage.add(formatIndexToString(currentIndex, recipe));
             }
@@ -85,7 +87,7 @@ public class PlanCommand extends Command {
 
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
-        return new CommandResult(formatSuccessMessage(newPlansMessage, duplicatePlansMessage, date),
+        return new CommandResult(formatSuccessMessage(successfulPlansMessage, duplicatePlansMessage, date),
                 false, false, planTab, false);
     }
 
@@ -100,7 +102,7 @@ public class PlanCommand extends Command {
     }
 
     /**
-     * Formats the {@code index} and {@code recipe} into the format [Index (Recipe Name)] for printing.
+     * Formats the {@code index} and {@code recipe} into the format [index (recipe name, date)] for printing.
      */
     private static String formatIndexToString(Index index, Recipe recipe) {
         return index.getOneBased() + " (" + recipe.getName() + ")";
@@ -127,6 +129,14 @@ public class PlanCommand extends Command {
             sb.append(String.format(MESSAGE_DUPLICATE_PLANNED_RECIPE, formatListToString(duplicatePlans)));
         }
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PlanCommand // instanceof handles nulls
+                && date.equals(((PlanCommand) other).date) // state check
+                && Arrays.equals(indexes, ((PlanCommand) other).indexes));
     }
 
 }

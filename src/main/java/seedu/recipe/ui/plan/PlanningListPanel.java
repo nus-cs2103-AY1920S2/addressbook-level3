@@ -23,10 +23,10 @@ public class PlanningListPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
-    private final String styleHeader = "-fx-font-family: \"Segoe UI\";\n"
+    private final String titleStyle = "-fx-font-family: \"Segoe UI\";\n"
             + "-fx-text-fill: #FFFFFF;\n"
-            + "-fx-font-weight: bold;";
-    private final String titleStyle = styleHeader + "-fx-font-size: 20pt;\n";
+            + "-fx-font-weight: bold;\n"
+            + "-fx-font-size: 20pt;";
 
     private final String viewType = "All plans";
 
