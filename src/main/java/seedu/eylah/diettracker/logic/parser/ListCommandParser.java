@@ -39,7 +39,15 @@ public class ListCommandParser implements Parser<ListCommand> {
         }
 
         if (mode.equals("-d")) {
-            int numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAYS).get());
+            int numDays;
+            try {
+                numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAYS).get());
+                if (numDays < 1) {
+                    throw new ParseException("Input days is invalid.");
+                }
+            } catch (ParseException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE_DAYS));
+            }
             return new ListCommand(mode, numDays);
         } else if (mode.equals("-t")) {
             Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
