@@ -2,6 +2,7 @@ package seedu.zerotoone.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
+import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_WORKOUTS;
 
 import java.util.List;
 
@@ -64,7 +65,9 @@ public class EditCommand extends ExerciseCommand {
         }
 
         model.setExercise(exerciseToEdit, editedExercise);
+        model.setExerciseInWorkouts(exerciseToEdit, editedExercise);
         model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
+        model.updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
 
         String outputMessage = String.format(MESSAGE_EDIT_EXERCISE_SUCCESS,
                 editedExercise.getExerciseName().toString());
