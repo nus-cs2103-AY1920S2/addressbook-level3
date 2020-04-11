@@ -405,7 +405,7 @@ image::AddExerciseCommandSequenceDiagramPart2.png[]
 
 image::AddExerciseCommandSequenceDiagramPart3.png[]
 
-The conditional checks are such that `UniqueExerciseList` maintain sorted by descending chronological order, followed by alphabetical order for `Exercise` with the same dates.
+The conditional checks are such that `UniqueExerciseList` maintain sorted by descending chronological order, followed by alphabetical order for exercises with the same dates.
 
 Below shows a code snippet of the conditional checks in `addToSorted()`.
 
