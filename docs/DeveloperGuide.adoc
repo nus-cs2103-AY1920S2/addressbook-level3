@@ -1323,7 +1323,7 @@ Use case resumes at step 1.
 
 *MSS*
 
-. User requests to [.underline]#go to the `Student Tab` (UC02)# to view
+. User requests to go to the `Student Tab` (UC02) to view
 the list of existing modules in the *Student View*.
 . TA-Tracker switches to the `Student Tab`.
 . User requests to edit an existing module.
@@ -1337,7 +1337,7 @@ Use case ends.
 
 *MSS*
 
-. User requests to [.underline]#go to the `Student Tab` (UC02)# to view
+. User requests to go to the `Student Tab` (UC02) to view
 the list of existing modules in the *Student View*.
 . TA-Tracker switches to the `Student Tab`.
 . User requests to delete an existing module.
@@ -1364,9 +1364,9 @@ Use case resumes at step 3.
 
 *MSS*
 
-. User requests to go to the Student Tab (UC02) to view
-the list of existing modules in the Student View.
-. TA-Tracker switches to the Student Tab.
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing modules in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
 . User requests to add a group to a module
 . TA-Tracker adds the new group
 
@@ -1394,28 +1394,23 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC08 - Editing a group
 
-. User requests to go to the Student Tab (UC02) to view
-the list of existing groups in the Student View.
-. TA-Tracker switches to the Student Tab.
+*MSS*
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing groups in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
 . User requests to edit a group
 . TA-Tracker edits the group
 
 [discrete]
 ==== Use case: UC09 - Deleting group
 
-. User requests to go to the Student Tab (UC02) to view
-the list of existing groups in the Student View.
-. TA-Tracker switches to the Student Tab.
-. User requests to delete a group
-. TA-Tracker deletes the group and all of the students in it
-
 *MSS*
 
-. User requests to show students page.
-. TA-Tracker shows a list of groups categorised by module.
-. User filters the list in order to get the group's group code.
-. User requests to delete a specific group in the list.
-. TA-Tracker deletes the group and all of the students in it.
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing groups in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to delete a group
+. TA-Tracker deletes the group and all of the students in it
 +
 Use case ends.
 
@@ -1436,17 +1431,13 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC10 - Adding a student
 
-. User requests to go to the Student Tab (UC02) to view
-the list of existing groups in the Student View.
-. TA-Tracker switches to the Student Tab.
-. User requests to add a new student to a group
-. TA-Tracker adds the new student
-
 *MSS*
 
-1.  User requests to add a student.
-2. TA-Tracker adds new student.
-3. TA-Tracker layout changes to show the student tab.
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing groups in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to add a new student to a group
+. TA-Tracker adds the new student
 
 +
 Use case ends.
@@ -1465,11 +1456,11 @@ Use case resumes at step 1.
 
 *MSS*
 
-. User requests to switch to the student tab.
-. TA-Tracker shows a list of students in the student tab.
-. User filters the list in order to get the student's matric number.
-. User requests to edit a specific student in the list.
-. TA-Tracker edits the student according to the specified parameters.
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing students in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to edit a student
+. TA-Tracker edits the student
 +
 Use case ends.
 
@@ -1499,11 +1490,11 @@ Use case resumes at step 3.
 
 *MSS*
 
-. User requests to show students tab.
-. TA-Tracker shows a list of students in the student tab.
-. User filters the list in order to get the student's index.
-. User requests to delete a specific student in the list.
-. TA-Tracker deletes the student.
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing students in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to delete a student
+. TA-Tracker deletes the student
 +
 Use case ends.
 
@@ -1535,10 +1526,11 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to view the Student View.
-2. Ta-Tracker switches to the Student View.
-3. User requests to filter students from a specific module and/or group.
-4. TA-Tracker shows the filtered students.
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing students in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to filter students from a specific module and/or group.
+. TA-Tracker shows the filtered students.
 +
 Use case ends.
 
@@ -1555,10 +1547,10 @@ Use case ends.
 
 *MSS*
 
-1. User requests to add a session.
-2. TA-Tracker creates the new session.
-3. TA-Tracker adds the new session into the session list.
-4. TA-Tracker switches to the Session Tab in order to display the new session.
+. User requests to add a session.
+. TA-Tracker adds the session.
+. TA-Tracker switches to the `Session Tab`.
+
 +
 Use case ends.
 
@@ -1575,11 +1567,11 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to view the Session View.
-2. TA-Tracker switches to the Session Tab.
-3. User requests to edit a specific session in the list.
-4. TA-Tracker edits the session.
-5. TA-Tracker replaces the session in the current view with the new version.
+. User requests to go to the `Session Tab` (UC02) to view
+the list of existing sessions in the *Session View*.
+. TA-Tracker switches to the `Session Tab`.
+. User requests to edit a session.
+. TA-Tracker edits the session.
 +
 Use case ends.
 
@@ -1601,11 +1593,11 @@ Use case ends.
 
 *MSS*
 
-1. User requests to view the Session View.
-2. TA-Tracker switches to the Schedule View.
-3. User requests to delete a specific session in the list.
-4. TA-Tracker deletes the session.
-5. TA-Tracker displays the new session list.
+. User requests to go to the `Session Tab` (UC02) to view
+the list of existing sessions in the *Session View*.
+. TA-Tracker switches to the `Session Tab`.
+. User requests to delete a session.
+. TA-Tracker deletes the session.
 +
 Use case ends.
 
@@ -1622,13 +1614,12 @@ Use case ends.
 
 *MSS*
 
-1. User requests to view the Session View.
-2. TA-Tracker switches to the Session Tab.
-3. User requests to mark a specific session in the view as done.
-4. TA-Tracker marks the session as done.
-5. TA-Tracker removes the session from the current view.
-6. TA-Tracker adds the session to the Claims View.
-6. TA-Tracker switches to the Claims Tab.
+. User requests to go to the `Session Tab` (UC02) to view
+the list of existing sessions in the *Session View*.
+. TA-Tracker switches to the `Session Tab`.
+. User requests to mark a session as done.
+. TA-Tracker marks the session as done and removes the session from the *Session View*.
+. TA-Tracker adds the session to the *Claims View* and switches to the `Claims Tab`.
 +
 Use case ends.
 
@@ -1650,11 +1641,12 @@ Use case ends.
 
 *MSS*
 
-1. User requests to view the Session View.
-2. Ta-Tracker switches to Session View.
-3. User requests to filter sessions specific to date/module code/session type.
-4. TA-Tracker retrieves a list of sessions containing the keyword in any of their fields.
-5. TA-Tracker shows the list of sessions.
+. User requests to go to the `Session Tab` (UC02) to view
+the list of existing sessions in the *Session View*.
+. TA-Tracker switches to the `Session Tab`.
+. User requests to filter sessions specific to date/module code/session type.
+. TA-Tracker retrieves a list of sessions containing the keyword in any of their fields.
+. TA-Tracker shows the list of sessions.
 +
 Use case ends.
 
@@ -1674,9 +1666,9 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to change the hourly pay rate to a specified amount.
-2. TA-Tracker changes the pay rate.
-3. TA-Tracker shows an edited TSS claims page with the total earnings adjusted to reflect the new pay rate.
+1. User requests to change the hourly pay rate to a specified amount.
+2. TA-Tracker changes the pay rate and adjusted the total earnings to reflect the new pay rate.
+3. TA-Tracker switches to the `Claims Tab`.
 
 +
 Use case ends.
@@ -1695,11 +1687,12 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. User requests to view the Claims View.
-2. Ta-Tracker switches to Claims View.
-3. User requests to filter sessions specific to module code.
-4. TA-Tracker retrieves a list of sessions containing the keyword.
-5. TA-Tracker shows the list of sessions.
+. User requests to go to the `Claims Tab` (UC02) to view
+the list of existing claims in the *Claims View*.
+. TA-Tracker switches to the `Claims Tab`.
+. User requests to filter claims specific to module code.
+. TA-Tracker retrieves a list of claims containing the keyword.
+. TA-Tracker shows the list of claims.
 +
 Use case ends.
 
