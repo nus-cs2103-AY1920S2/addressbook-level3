@@ -2,9 +2,7 @@ package csdev.couponstash.ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
-import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.logic.Logic;
 import csdev.couponstash.model.coupon.Coupon;
 import javafx.collections.FXCollections;
@@ -21,14 +19,12 @@ import javafx.scene.text.Text;
  */
 public class DateCell extends UiPart<Region> {
     private static final String FXML = "DateCell.fxml";
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     private LocalDate date;
     private ObservableList<Coupon> coupons;
     private CouponsOnDateWindow couponsDisplayWindow;
     private Text displayText;
     private Circle displayCircle;
-    private Logic logic;
 
     @FXML
     private StackPane dateStackPane;
@@ -38,7 +34,6 @@ public class DateCell extends UiPart<Region> {
      */
     public DateCell(Logic logic) {
         super(FXML);
-        this.logic = logic;
         coupons = FXCollections.observableList(new ArrayList<>());
         couponsDisplayWindow = new CouponsOnDateWindow(coupons, logic.getStashSettings().getMoneySymbol());
     }
