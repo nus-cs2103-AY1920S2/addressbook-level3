@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import seedu.delino.model.Model;
 import seedu.delino.model.ModelManager;
 
+//@@author cherweijie
 public class HelpCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();

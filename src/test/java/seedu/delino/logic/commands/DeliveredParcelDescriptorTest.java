@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.delino.logic.commands.DeliveredCommand.DeliveredParcelDescriptor;
 import seedu.delino.testutil.DeliveredParcelDescriptorBuilder;
 
+//@@author cherweijie
 public class DeliveredParcelDescriptorTest {
 
     @Test

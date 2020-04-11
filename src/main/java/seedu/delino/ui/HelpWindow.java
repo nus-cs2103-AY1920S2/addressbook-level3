@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.delino.commons.core.LogsCenter;
 
+//@@author cherweijie
 /**
  * Controller for Delino's help page
  */
