@@ -446,9 +446,9 @@ in it to the *LogicManager* at the end of the execution.
 In this section, you will learn more about how the `delete` feature is implemented.
 
 ==== What is the Delete Feature
-The delete feature allows the user to delete orders in either the order list or return order list. +
+The `delete` feature allows the user to delete orders in either the order list or return order list. +
 
-The delete feature was implemented as a `DeleteCommand` in the `Logic` package. +
+The `delete` feature was implemented as a *DeleteCommand* in the Logic package. +
 
 The `delete` command has the following format: +
 
@@ -496,7 +496,7 @@ related to the `delete` command.
 .Delete Command Class Diagram
 image::DeleteClassDiagram.svg[]
 
-In the `DeleteCommand` class, there are also static strings present that represent the
+In the *DeleteCommand* class, there are also static strings present that represent the
 various possible messages. +
 For some of the message strings, there are placeholder %s strings used for including dynamic input +
 These messages are the following:
@@ -521,26 +521,26 @@ list.
 .Delete Command Sequence Diagram for `delete` `-o` `1`
 image::DeleteSequenceDiagram.svg[]
 
-The arguments passed to the `delete` command will be parsed by the `DeleteCommandParser` class. +
-If the given arguments are valid, a new `DeleteCommand` object will be returned. +
-In this class, invalid arguments will result in a `ParseException`. +
+The arguments passed to the `delete` command will be parsed by the *DeleteCommandParser* class. +
+If the given arguments are valid, a new *DeleteCommand* object will be returned. +
+In this class, invalid arguments will result in a *ParseException*. +
 Two checks will be done for the arguments:
 
 1. Invalid `FLAG` argument
 
 2. Invalid `INDEX` argument
 
-When the `LogicManager` runs the `execute()` method of `DeleteCommand`,
-`DeleteCommand` will first check the list to delete from. +
+When the *LogicManager* runs the `execute()` method of *DeleteCommand*,
+*DeleteCommand* will first check the list to delete from. +
 
-The `deleteFromOrderList(model)` method of `DeleteCommand` will then
-be called and the filtered order list will be obtained from the `getFilteredOrderList()`
-method of the `model`. +
+The deleteFromOrderList(model) method of *DeleteCommand* will then
+be called and the filtered order list will be obtained from the getFilteredOrderList()
+method of the model. +
 
-The specified order at `INDEX` 1 will be deleted using the `deleteOrder(order)` method
-in the `model`.
+The specified order at `INDEX` 1 will be deleted using the deleteOrder(order) method
+in the model.
 
-A new `CommandResult` will be created and returned to the `LogicManager`.
+A new *CommandResult* will be created and returned to the *LogicManager*.
 
 
 The sequence diagram below shows the interactions for a `delete` command execution of
@@ -551,26 +551,26 @@ list.
 .Delete Command Sequence Diagram for `delete` `-r` `2`
 image::DeleteSequenceDiagram2.svg[]
 
-The arguments passed to the `delete` command will be parsed by the `DeleteCommandParser` class. +
-If the given arguments are valid, a new `DeleteCommand` object will be returned. +
-In this class, invalid arguments will result in a `ParseException`. +
+The arguments passed to the `delete` command will be parsed by the *DeleteCommandParser* class. +
+If the given arguments are valid, a new *DeleteCommand* object will be returned. +
+In this class, invalid arguments will result in a *ParseException*. +
 Two checks will be done for the arguments:
 
 1. Invalid `FLAG` argument
 
 2. Invalid `INDEX` argument
 
-When the `LogicManager` runs the `execute()` method of `DeleteCommand`,
-`DeleteCommand` will first check the list to delete from. +
+When the *LogicManager* runs the execute() method of *DeleteCommand*,
+*DeleteCommand* will first check the list to delete from. +
 
-The `deleteFromReturnList(model)` method of `DeleteCommand` will then
-be called and the filtered return order list will be obtained from the `getFilteredReturnOrderList()`
-method of the `model`. +
+The deleteFromReturnList(model) method of *DeleteCommand* will then
+be called and the filtered return order list will be obtained from the getFilteredReturnOrderList()
+method of the model. +
 
-The specified return order at `INDEX` 2 will be deleted using the `deleteReturnOrder(returnOrder)` method
-in the `model`.
+The specified return order at `INDEX` 2 will be deleted using the deleteReturnOrder(returnOrder) method
+in the model.
 
-A new `CommandResult` will be created and returned to the `LogicManager`.
+A new *CommandResult* will be created and returned to the *LogicManager*.
 //end::delete[]
 
 //tag::delivered[]
