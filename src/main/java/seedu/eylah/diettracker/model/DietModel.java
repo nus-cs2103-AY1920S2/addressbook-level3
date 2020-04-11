@@ -80,6 +80,12 @@ public interface DietModel extends Model {
     void setMode(Mode mode);
 
     /**
+     * Retrieves mode stored in the model
+     * @return mode
+     */
+    Mode getMode();
+
+    /**
      * Returns the user prefs' food book file path.
      */
     Path getFoodBookFilePath();
