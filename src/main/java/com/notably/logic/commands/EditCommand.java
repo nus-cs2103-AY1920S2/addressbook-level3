@@ -11,7 +11,6 @@ import com.notably.model.Model;
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
-    public static final String COMMAND_SHORTHAND = "e";
 
     private static final String ERROR_ROOT_MODIFICATION = "Editing the root block is forbidden.";
     private static final AbsolutePath ROOT = AbsolutePath.fromString("/");

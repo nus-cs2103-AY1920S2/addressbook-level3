@@ -1,6 +1,7 @@
 package com.notably.logic.parser;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +15,7 @@ import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
+import com.notably.logic.correction.CorrectionEngineParameters;
 import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.correction.StringCorrectionEngine;
@@ -25,9 +27,12 @@ import com.notably.model.Model;
  */
 public class NotablyParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete", "open", "help", "exit");
-    private static final int CORRECTION_THRESHOLD = 2;
-    private static final boolean USE_PATH_FORWARD_MATCHING = false;
+
+    private static final List<String> COMMAND_LIST = List.of(
+            NewCommand.COMMAND_WORD, EditCommand.COMMAND_WORD,
+            DeleteCommand.COMMAND_WORD, OpenCommand.COMMAND_WORD,
+            HelpCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD);
+
     private static final String ERROR_MESSAGE = "\"%s\" is an invalid command format. "
             + "To see the list of available commands, type: help";
 
@@ -36,10 +41,13 @@ public class NotablyParser {
     private final CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
     public NotablyParser(Model notablyModel) {
+        Objects.requireNonNull(notablyModel);
+
         this.notablyModel = notablyModel;
-        this.commandCorrectionEngine = new StringCorrectionEngine(COMMAND_LIST, CORRECTION_THRESHOLD);
-        this.pathCorrectionEngine = new AbsolutePathCorrectionEngine(notablyModel, CORRECTION_THRESHOLD,
-                USE_PATH_FORWARD_MATCHING);
+        this.commandCorrectionEngine = new StringCorrectionEngine(COMMAND_LIST,
+                new CorrectionEngineParameters().setForwardMatching(true));
+        this.pathCorrectionEngine = new AbsolutePathCorrectionEngine(notablyModel,
+                new CorrectionEngineParameters().setForwardMatching(false));
     }
     /**
      * Create list of different Commands base on user input.
@@ -54,35 +62,28 @@ public class NotablyParser {
         }
 
         String commandWord = matcher.group("commandWord");
-        if (commandWord.length() > 1) {
-            CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
-            if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-                throw new ParseException(String.format(ERROR_MESSAGE, commandWord));
-            }
-            commandWord = correctionResult.getCorrectedItems().get(0);
+        CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
+        if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
+            throw new ParseException(String.format(ERROR_MESSAGE, commandWord));
         }
+        commandWord = correctionResult.getCorrectedItems().get(0);
 
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
         case NewCommand.COMMAND_WORD:
-        case NewCommand.COMMAND_SHORTHAND :
             return new NewCommandParser(notablyModel).parse(arguments);
 
         case OpenCommand.COMMAND_WORD:
-        case OpenCommand.COMMAND_SHORTHAND :
             return new OpenCommandParser(notablyModel, pathCorrectionEngine).parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-        case DeleteCommand.COMMAND_SHORTHAND:
             return new DeleteCommandParser(notablyModel, pathCorrectionEngine).parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_SHORTHAND:
             return List.of(new EditCommand());
 
         case HelpCommand.COMMAND_WORD:
-        case HelpCommand.COMMAND_SHORTHAND:
             return List.of(new HelpCommand());
 
         case ExitCommand.COMMAND_WORD:
