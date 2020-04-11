@@ -326,11 +326,11 @@ As the nature of the schedule panel was to display a sorted collection of `Sched
 
 === Exercise Feature --- Yong Jie
 
-This feature allows users to record the exercises done by a client. The exercises are displayed in a table form, after the command `view-c INDEX` is called.
+This feature allows users to record the exercises done by a client. The exercises are displayed in a table form, after the `view-c` command is called.
 
 ==== Implementation
 
-===== Exercise class
+===== Implementation of Exercise class
 
 The `Exercise` class is facilitated by the `UniqueExerciseList`, which is a wrapper class for an `ObservableList` of `Exercise` objects. Each Client contains one `UniqueExerciseList` attribute to keep track of all `Exercises` the client has.
 
@@ -346,25 +346,29 @@ All instances of `Exercise` of a client will be contained in the client's `Uniqu
 
 image::ExerciseClassDiagram.png[]
 
-An important point to note about our implementation of `Exercise` is the method, `isSameExercise()`.
+An important point to note about our implementation of `Exercise` is the method, `isSameExercise()`. We consider two `Exercise` as the same if `isSameExercise()` returns true.
 
-1. Executes when adding a new `Exercise` to client's `UniqueExerciseList`. This includes `add-e` and `edit-e`.
-2. Checks if the new `Exercise` is considered a duplicate with an existing instance of `Exercise` in the client's `UniqueExerciseList`. 
+. Executes when adding a new `Exercise` to client's `UniqueExerciseList`. This includes `add-e` and `edit-e`.
+. Checks if the new `Exercise` is the same with an existing instance of `Exercise` in the client's `UniqueExerciseList`.
+. Two `Exercises` are the same does not mean that they are equal.
+Two `Exercise` are equal only if *all* attributes are equal.
 
 Below shows an object diagram of two `Exercises` that will return true for `isSameExercise()`.
 
 image::IsSameExerciseObjectDiagram.png[]
 
-The two `Exercise` only have different values in `ExerciseSets` but the same values in:
+The two `Exercise` only have different values in `ExerciseSets` but equal values in:
 
 . `ExerciseName`
 . `ExerciseDate`
 . `ExerciseReps`
 . `ExerciseWeight`
 
-This implementation is chosen as we felt that the user should increment the value in `ExerciseSets` in the existing `Exercise`. We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. However, we want to keep the exercises in the table compact and the user can easily view what exercises were done on that day.
+This implementation is chosen as we felt that the user should increment the value in `ExerciseSets` in the existing `Exercise`. We followed the same idea as in the real life context. Exercises with the same reps and weight can be grouped together as sets.
 
-===== Exercise Commands
+We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. In the future, when adding a `same Exercise`, we can implement it such that the sets value of the exising `Exercise` gets incremented automatically instead of showing an error. For now, this implementation keeps the exercise table neat and compact for the user.
+
+===== Execution flow of Exercise Commands
 
 The exercise commands edits the client's `UniqueExerciseList`. Currently, there are 3 exercise commands. 
 
@@ -376,59 +380,59 @@ The commands follow a similar execution flow as other commands.
 
 image::ExerciseCommandActivityDiagram.png[]
 
-The `FitBizParser` will create a `AddExerciseCommandParser`. By using `ParserUtil`, `AddExerciseCommandParser` will extract details like the reps of the exercise and pass the arguments to `AddExerciseCommand`.
+. The `FitBizParser` will create the associated exercise command parser. e.g. `AddExerciseCommandParser`
+. Using `ParserUtil`, the parser will extract attribute details from the input and create the `Command`. e.g. `AddExerciseCommand`
+. The exercise `Command` will be executed and modify the client's `UniqueExerciseList`.
+    .. Exceptions like no client being viewed and invalid input are thrown here.
+. The change will be reflected in the exercise table in GUI.
+. Result box will display success message for the `Command`.
 
-For the `add-e` command, it is important which index the new Exercise is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This will result in problems when using `delete-e` command as it deletes the exercise at the specified index.
+===== Adding an exercise to UniqueExerciseList
 
-To address this problem, we implemented our add function, `addToSorted()`. Rather than calling the predefined `add()` from the `List` class, we will call `addToSorted()` to add our new instance of `Exercise`. Below shows a code snippet of `addToSorted()`.
+When adding a new `Exercise` to `UniqueExerciseList`, it is important which index it is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This will result in problems when using exercise commands that specifies an index like `delete-e`.
 
-[.small]
-----
-public void addToSorted(Exercise toAdd) {
-        requireNonNull(toAdd);
+To address this problem, we implemented our add function, `addToSorted()`. Rather than calling the predefined `add()` from the `List` class, we will call `addToSorted()` to add our new instance of `Exercise`. 
 
-        if (contains(toAdd)) {
-            throw new DuplicateExerciseException();
-        }
-
-        int idx = 0;
-        LocalDate toAddDate = toAdd.getExerciseDate().getValue();
-        String toAddName = toAdd.getExerciseName().getValue().toLowerCase();
-        for (Exercise curr : internalList) {
-            LocalDate currDate = curr.getExerciseDate().getValue();
-            String currName = curr.getExerciseName().getValue().toLowerCase();
-            int dateComparision = toAddDate.compareTo(currDate);
-            if (dateComparision > 0) {
-                break;
-            } else if (dateComparision == 0) {
-                if (toAddName.compareTo(currName) <= 0) {
-                    break;
-                } else {
-                    idx++;
-                }
-            } else {
-                idx++;
-            }
-        }
-        internalList.add(idx, toAdd);
-    }
-----
-
-We will use an example of a `add-e` command to illustrate the execution of `addToSorted()`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The sequence diagram below shows the execution flow when the AddExerciseCommand is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
+We will use an example of a `add-e` command to illustrate the execution of `addToSorted()`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The sequence diagram below shows the execution flow when the `AddExerciseCommand` is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
 
 image::AddExerciseCommandSequenceDiagram.png[]
 
-`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of how the new exercise, `toAdd`, is added to the exercise list.
+`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of addToSorted() to obtain details of the `Exercise` being added and exising `Exercise` in `UniqueExerciseList`.
 
 image::AddExerciseCommandSequenceDiagramPart2.png[]
 
-The exercise list, `UniqueExerciseList`, will go through a loop and iterate through the exercises in the list. The date of each exercise will be compared with the date of the `toAdd` exercise. `toAdd` will then be added to the `UniqueExerciseList` at the index to keep the list sorted.
+The exercise list, `UniqueExerciseList`, goes through a loop and iterates through the exercises in the list. `UniqueExerciseList` then calls `getExerciseDate()` and `getExerciseName` to get the `LocalDate` and exercise name in `String` type for comparision. The sequence diagram below illustrates the conditional checks during the comparision.
+
+image::AddExerciseCommandSequenceDiagramPart3.png[]
+
+The conditional checks are such that `UniqueExerciseList` maintain sorted by descending chronological order, followed by alphabetical order for `Exercise` with the same dates.
+
+Below shows a code snippet of the conditional checks in `addToSorted()`.
+
+[.small]
+----
+int dateComparision = toAddDate.compareTo(currDate);
+if (dateComparision > 0) {
+    break;
+} else if (dateComparision == 0) {
+    if (toAddName.compareTo(currName) <= 0) {
+        break;
+    } else {
+        idx++;
+    }
+} else {
+    idx++;
+}    
+----
+
+It is possible to use `Arrays.sort()` to sort the exercises in the `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. Whereas, our implemented function , in the worse case, runs at `O(n)`. `UniqueExerciseList` has to check if it contains the same `Exercise` and that already takes `O(n)`. It is also very possible for the clients to have many exercises so we have to keep the time complexity low.
 
 ==== Design Considerations
 
 This section explains the our design considerations and analysis for the storage of exercises.
 
 [options='header']
+[cols="2,2,2,2"]
 |====================
 | | Store exercises with client and all clients in one JSON file (chosen) | Store all exercises into a separate JSON file | Store exercises with client but one JSON for each client
 
@@ -443,7 +447,7 @@ This section explains the our design considerations and analysis for the storage
 | Low chances of exceeding the size limit of a JSON file
 
 | Separation of concerns
-| Separate code for reading/storing exercises and clients data 
+| Non-separate code for reading/storing exercises and clients data 
 | Separate code for reading/storing exercises and clients data
 | Non-separate ode for reading/storing exercises and clients data
 

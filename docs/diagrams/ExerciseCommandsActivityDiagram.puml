@@ -18,7 +18,7 @@ if () then ([Is currently viewing a client])
         :Updates exercise table in GUI;
         :Show execution success feedback to user;
     else ([else])
-        :Shows wrong input error;
+        :Shows invalid input error;
     endif
 else ([else])
     :Shows not viewing client error;
