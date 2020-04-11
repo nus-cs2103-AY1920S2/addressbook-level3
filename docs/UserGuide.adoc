@@ -230,19 +230,19 @@ image::studentTab.png[width="1000"]
 ==== Add a student: `add-student`
 
 Add a new student to the list of student +
-Format: `add student n/NAME [t/TAG]…` +
+Format: `add student n/NAME g/GENDER [t/TAG]…` +
 Example:
-* `add student n/Jon Snow t/Hardworking`
+* `add student n/Jon Snow g/m t/Hardworking`
 
 ==== Remove a student: `delete-student`
 Remove a student from the list of students +
-Format: `delete-student INDEX` +
+Format: `delete-student ID` +
 Example:
 
-* `delete-student 1`
+* `delete-student 16100`
 ****
-* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
-* The index *must be a positive integer* 1, 2, 3, ...
+* Edits the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel list
+* The index *must be a positive integer* 16100, 25200, 55250, ...
 ****
 [TIP]
 ====
@@ -278,62 +278,55 @@ Format: `list-student`
 
 ==== Edit information about a student: `edit-student`
 Edits an existing student in the student list
-Format: `edit-student INDEX [n/NAME] [t/TAG]…` +
+Format: `edit-student ID [n/NAME] [t/TAG]…` +
 Example:
 
-* `edit-student 1 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
+* `edit-student 16100 n/Aegon Targaryen t/freshman`
 ****
-* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list
-* The index *must be a positive integer* 1, 2, 3, ...
+* Edits the student at the specified `ID`. The ID refers to the ID number shown in the displayed student panel list
+* The ID *must be a positive integer* 16100, 25200, 52500, ...
 * At least one of the optional fields must be provided
 * Existing values will be updated to the input values
 * When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
 * You can remove all the student's tags by typing `t/` without specifying any tags after it
 ****
 
-==== Clear all students: `clear-student`
-*CLEARS* the entire student address book +
-Format: `clear-student`
-[WARNING]
-====
-This will irrevocably clear the entire address book!! Be very careful with this command
-====
 // end::studentmanagement[]
 
 
 // tag::teachermanagement[]
 
-=== Teacher
-.Teacher label. The assigned courses display the course names with the course ID beside
+=== Staff
+.Staff label. For staffs that are teachers, the assigned courses display the course names with the course ID beside
 image::teacherTab.png[width="1000"]
-==== Add a teacher: `add-teacher`
+==== Add a staff: `add-staff`
 
-Add a new teacher to the list of teacher +
-Format: `add teacher n/NAME [t/TAG]…` +
+Add a new staff to the list of staff +
+Format: `add-staff n/NAME [t/TAG]…` +
 Example:
-* `add teacher n/Jon Snow t/Hardworking`
+* `add-staff n/Jon Snow lvl/teacher g/m t/Hardworking`
 
-==== Remove a teacher: `delete-teacher`
-Remove a teacher from the list of teachers +
-Format: `delete-teacher INDEX` +
+==== Remove a staff: `delete-staff`
+Remove a staff from the list of teachers +
+Format: `delete-staff ID` +
 Example:
 
-* `delete-teacher 1`
+* `delete-staff 16100`
 ****
-* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
-* The index *must be a positive integer* 1, 2, 3, ...
+* Edits the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel
+* The ID *must be a positive integer* 16100, 25200, 52500, ...
 ****
 [TIP]
 ====
-Be reminded that when you delete a teacher, the teacher will be deleted from every course as well. +
-For example, a course that was assigned techer *Bob* will change to *None* if teacher *Bob* is deleted. +
+Be reminded that when you delete a staff having Level is a teacher, the teacher will be deleted from every course as well. +
+For example, a course that was assigned teacher *Bob* will change to *None* if teacher *Bob* is deleted. +
 Similarly, all finances that involve this teacher will be deleted.
 ====
 
 ==== Locating items by name: `find-teacher`
 
 Finds teacher whose names contain any of the given keywords. +
-Format: `find-teacher KEYWORD [MORE_KEYWORDS]...`
+Format: `find-staff KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `bob` will match `Bob`
@@ -346,37 +339,30 @@ Format: `find-teacher KEYWORD [MORE_KEYWORDS]...`
 
 Examples:
 
-* `find-teacher Ned` +
+* `find-staff Ned` +
 Returns `ned` and `Ned Stark`
-* `find-teacher Lannister Targaryen Stark` +
+* `find-staff Lannister Targaryen Stark` +
 Returns any teacher having names `Lannister`, `Targaryen`, or `Stark`
 
-==== List all teachers: `list-teacher`
-Shows a list of all teachers
-Format: `list-teacher`
+==== List all teachers: `list-staff`
+Shows a list of all staffs
+Format: `list-staff`
 
-==== Edit information about a teacher: `edit-teacher`
-Edits an existing teacher in the teacher list
+==== Edit information about a staff: `edit-staff`
+Edits an existing staff in the staff list
 Format: `edit-teacher INDEX [n/NAME] [t/TAG]…` +
 Example:
 
-* `edit-teacher 1 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
+* `edit-staff 16100 n/Aegon Targaryen t/legend`
 ****
-* Edits the teacher at the specified `INDEX`. The index refers to the index number shown in the displayed teacher list
-* The index *must be a positive integer* 1, 2, 3, ...
+* Edits the staff at the specified `ID`. The ID refers to the ID number shown in the displayed staff panel
+* The ID *must be a positive integer* 16100, 25200, 52500, ...
 * At least one of the optional fields must be provided
 * Existing values will be updated to the input values
 * When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
-* You can remove all the teacher's tags by typing `t/` without specifying any tags after it
+* You can remove all the staff's tags by typing `t/` without specifying any tags after it
 ****
 
-==== Clear all teachers: `clear-teacher`
-*CLEARS* the entire teacher address book +
-Format: `clear-teacher`
-[WARNING]
-====
-This will irrevocably clear the entire address book!! Be very careful with this command
-====
 // end::teachermanagement[]
 
 
@@ -394,13 +380,13 @@ Example:
 
 ==== Remove a course: `delete-course`
 Remove a course from the list of courses +
-Format: `delete-course INDEX` +
+Format: `delete-course ID` +
 Example:
 
-* `delete-course 1`
+* `delete-course 16100`
 ****
-* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
-* The index *must be a positive integer* 1, 2, 3, ...
+* Edits the item at the specified `ID`. The index refers to the index number shown in the displayed item list
+* The ID *must be a positive integer* 16100, 25200, 55250, ...
 ****
 
 [TIP]
@@ -437,33 +423,21 @@ Format: `list-course`
 
 ==== Edit information about a course: `edit-course`
 Edits an existing course in the course list
-Format: `edit-course INDEX [n/NAME] [a/AMOUNT] [t/TAG]…` +
+Format: `edit-course ID [n/NAME] [a/AMOUNT] [t/TAG]…` +
 Example:
 
-* `edit-course 1 n/Java Programming a/2000`
+* `edit-course 16100 n/Java Programming a/2000`
 ****
-* Edits the course at the specified `INDEX`. The index refers to the index number shown in the displayed course list
-* The index *must be a positive integer* 1, 2, 3, ...
+* Edits the course at the specified `ID`. The ID refers to the ID number shown in the displayed course panel
+* The ID *must be a positive integer* 16100, 25200, 55250, ...
 * At least one of the optional fields must be provided
 * Existing values will be updated to the input values
 * When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
 * You can remove all the course's tags by typing `t/` without specifying any tags after it
 ****
 
-==== Clear all courses: `clear-course`
-*CLEARS* the entire course address book +
-Format: `clear-course`
-[WARNING]
-====
-This will irrevocably clear the entire address book!! Be very careful with this command
-====
-// end::coursemanagement[]
-
-
-// tag::financemanagement[]
-
 === Finance
-.Finance labels. Index 1 is Finance Type 1, Index 2 is Finance Type 2, and Index 3 is Finance Type 3
+.Finance labels. Type m is Finance Type 1, Type cs is Finance Type 2, and Type ct is Finance Type 3
 image::financeTab.png[width="1000"]
 ==== Add a finance: `add-finance`
 
@@ -480,7 +454,7 @@ Add a new finance to the list of finance
 ** Example: add-finance ft/ct d/2020-12-09 cid/829 tid/21 t/Early
 ****
 To summarise, all three types requires ft/FINANCETYPE and d/DATE to be specified. +
-Type 1 additionally requires n/NAME a/AMOUNT +
+Type 1 additionally requires n/FINANCE-NAME a/AMOUNT +
 Type 2 additionally requires cid/COURSEID sid/STUDENTID +
 Type 3 additionally requires cid/COURSEID tid/TEACHERID +
 
@@ -491,20 +465,40 @@ positive(without a "-" in front) For example, a/100 or a/-100
 
 For Type 2 student paying for a course, the amount will be positive automatically, as it is an earning
 
-For Type 3 teacher being paid for a course, the amount will be negative automatically, as it is an expense
+For Type 3 teacher being paid for teaching a course, the amount will be negative automatically, as it is an expense
 
-The positive and negative amount is important as it is used under "earnings" and "expenses" commands.
+To make Payment for a teacher, it is important to check the salary value of the teacher. This value is set to 0 by default
+when adding a new staff (teacher) without specifying salary. A result of payment with amount 0 will be added if the
+salary of the teacher is 0.
+
+The positive and negative amount is important (for miscellaneous type) as it is used under "earnings" and "expenses" commands.
 ====
 
 ==== Remove a finance: `delete-finance`
 Remove a finance from the list of finances +
-Format: `delete-finance INDEX` +
+Format: `delete-finance ID` +
 Example:
 
-* `delete-finance 1`
+* `delete-finance 16100`
 ****
-* Deletes the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel. Each finance
+has a unique ID number
+* The ID *must be a positive integer* 16100, 25270, ...
+****
+
+==== Edit a finance
+Edits an existing finance in the finance list
+Format: `edit-finance ID [n/NAME] [d/DATE] [a/AMOUNT] [t/TAG]…` +
+Example:
+
+* `edit-finance 16100 n/Buying new tables d/2020-04-13 a/3000`
+****
+* Edits the finance with the specified `ID`. The ID refers to the ID number shown in the displayed payment panel
+* The ID *must be a positive integer* 16100, 25200, 55250, ...
+* At least one of the optional fields must be provided
+* Existing values will be updated to the input values
+* When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
+* You can remove all the payment's tags by typing `t/` without specifying any tags after it
 ****
 
 ==== Locating items by name: `find-finance`
@@ -540,31 +534,6 @@ Format: `earnings`
 Shows all the expenses (finances with positive amount) as a number. +
 Format: `expenses`
 
-//==== Edit information about a finance: `edit-finance`
-//Edits an existing finance in the finance list
-//Format: `edit-finance INDEX [n/NAME] [t/TAG]…` +
-//Example:
-//
-//* `edit-finance 1 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
-//****
-//* Edits the finance at the specified `INDEX`. The index refers to the index number shown in the displayed finance list
-//* The index *must be a positive integer* 1, 2, 3, ...
-//* At least one of the optional fields must be provided
-//* Existing values will be updated to the input values
-//* When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
-//* You can remove all the finance's tags by typing `t/` without specifying any tags after it
-//****
-
-==== Clear all finances: `clear-finance`
-*CLEARS* the entire finance address book +
-Format: `clear-finance`
-[WARNING]
-====
-This will irrevocably clear the entire address book!! Be very careful with this command
-====
-// end::financemanagement[]
-
-// tag::assignmentmanagement[]
 === Assignment
 .Assignment labels.
 image::assignmentTab.png[width="1000"]
