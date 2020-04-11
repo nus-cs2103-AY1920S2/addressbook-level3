@@ -15,11 +15,11 @@ import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;
 
 class OngoingSessionTest {
-    ExerciseSet baseSet = new ExerciseSet(new Weight("5"), new NumReps("1"));
-    OngoingSet baseOngoingSet = new OngoingSet(baseSet, new ExerciseName("Test"), 1);
-    List<ExerciseSet> listSet = Collections.singletonList(baseSet);
-    Exercise base = new Exercise(new ExerciseName("Test"), listSet);
-    LocalDateTime testDateTime = LocalDateTime.of(2015,
+    private ExerciseSet baseSet = new ExerciseSet(new Weight("5"), new NumReps("1"));
+    private OngoingSet baseOngoingSet = new OngoingSet(baseSet, new ExerciseName("Test"), 1);
+    private List<ExerciseSet> listSet = Collections.singletonList(baseSet);
+    private Exercise base = new Exercise(new ExerciseName("Test"), listSet);
+    private LocalDateTime testDateTime = LocalDateTime.of(2015,
             Month.JULY, 29, 19, 30, 40);
 
     @Test

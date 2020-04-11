@@ -15,7 +15,7 @@ import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ExerciseSet;
 
 /**
- * Represents a single Session.
+ * Represents a single Ongoing Session.
  */
 public class OngoingSession {
 
@@ -45,7 +45,7 @@ public class OngoingSession {
 
     /**
      * Completes the top exercise that is left in the exerciseQueue and puts it into the done list.
-     * @return set: the done SessionSet
+     * @return set: the done CompletedSet
      */
     public CompletedSet done() {
         OngoingSet ongoingSet = exerciseQueue.poll();
@@ -56,7 +56,7 @@ public class OngoingSession {
 
     /**
      * Skips the top exercise that is left in the exerciseQueue and puts it into the done list.
-     * @return set: the skipped SessionSet
+     * @return set: the skipped CompletedSet
      */
     public CompletedSet skip() {
         OngoingSet ongoingSet = exerciseQueue.poll();
@@ -88,7 +88,7 @@ public class OngoingSession {
      * Ends a Session (prematurely if queue is still filled) with a endTime, and labelling
      * incomplete sets as unfinished.
      * @param endTime the time of completion
-     * @return returns a new immutable CompletedSession.
+     * @return returns a new immutable CompletedExercise.
      */
     public CompletedExercise finish(LocalDateTime endTime) {
         while (this.hasSetLeft()) {
