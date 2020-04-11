@@ -13,7 +13,7 @@ Class JsonUserPrefsStorage
 package Order {
 Interface OrderBookStorage <<Interface>>
 Class JsonOrderBookStorage
-Class JsonSerializableDeliveryOrderBook
+Class JsonSerializableOrderBook
 Class JsonAdaptedOrder
 }
 package ReturnOrder {
@@ -34,8 +34,8 @@ JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonOrderBookStorage .left.|> OrderBookStorage
 OrderBookStorage .left[hidden].> ReturnOrderBookStorage
 JsonReturnOrderBookStorage .right.|> ReturnOrderBookStorage
-JsonOrderBookStorage .down.> JsonSerializableDeliveryOrderBook
+JsonOrderBookStorage .down.> JsonSerializableOrderBook
 JsonReturnOrderBookStorage .down.> JsonSerializableReturnOrderBook
-JsonSerializableDeliveryOrderBook .down.> JsonAdaptedOrder
+JsonSerializableOrderBook .down.> JsonAdaptedOrder
 JsonSerializableReturnOrderBook .down.> JsonAdaptedReturnOrder
 @enduml
