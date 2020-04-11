@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,17 +12,12 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.ModelStub;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.PersonBuilder;
@@ -197,7 +191,7 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void setBdayList() {
+    public void setBdayList_contactHasNoBirthday_success() {
         // Contact has no birthday
         Person person = new PersonBuilder(ALICE).withBirthday("").build();
         uniquePersonList.add(person);
@@ -206,8 +200,8 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void integrationTest_setBdayList() {
-        // Contact does not have birthday in the next 5 days
+    public void setBdayList_contactHasBirthday_success() {
+        // Contact's birthday not in the next 5 days
         Person person = new PersonBuilder(ALICE).withBirthday(LocalDate.now(ZoneId.of("Singapore")).plusDays(5)
             .format(DateTimeFormatter.ofPattern("MM-dd"))).build();
         uniquePersonList.add(person);
@@ -215,7 +209,7 @@ public class UniquePersonListTest {
 
         assertTrue(uniquePersonList.getBdayList().isEmpty());
 
-        // Contact has birthday in the next 5 days
+        // Contact's birthday in the next 5 days
         person = new PersonBuilder(BOB).withBirthday(LocalDate.now(ZoneId.of("Singapore"))
             .format(DateTimeFormatter.ofPattern("MM-dd"))).build();
         uniquePersonList.add(person);
