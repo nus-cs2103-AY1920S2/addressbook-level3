@@ -441,7 +441,10 @@ These messages are the following:
 1. `MESSAGE_DELETE_ORDER_SUCCESS` +
 Deleted Order: %1$s +
 
-2. `MESSAGE_INVALID_FLAG` +
+2. `MESSAGE_DELETE_RETURN_ORDER_SUCCESS` +
+Deleted Return Order: %1$s +
+
+3. `MESSAGE_INVALID_FLAG` +
 Invalid flag given! +
 
 ==== Interactions between Delete command and its associated objects
