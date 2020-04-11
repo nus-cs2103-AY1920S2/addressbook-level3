@@ -1,5 +1,12 @@
 package seedu.recipe.model.recipe.ingredient;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.recipe.commons.util.AppUtil.checkArgument;
+
+import java.util.Objects;
+
+import seedu.recipe.model.recipe.Name;
+
 /**
  * Represents a Quantity in an Ingredient.
  */
@@ -18,11 +25,20 @@ public class Quantity {
     private Unit unit;
 
     public Quantity(double magnitude, Unit unit) {
+        requireNonNull(unit);
+        checkArgument(isValidQuantity(magnitude), MESSAGE_CONSTRAINTS_MAGNITUDE);
         this.magnitude = magnitude;
         this.unit = unit;
     }
 
     public Quantity() {}
+
+    /**
+     * Returns true if a given string is a valid quantity.
+     */
+    public static boolean isValidQuantity(double magnitude) {
+        return magnitude > 0 && magnitude < 10000;
+    }
 
     /**
      * According to Metric measurements and based on ingredient type (averages denser ingredients).
@@ -87,5 +103,18 @@ public class Quantity {
     @Override
     public String toString() {
         return String.format("%.01f", magnitude) + unit;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Quantity // instanceof handles nulls
+                && unit.equals(((Quantity) other).unit) // state check
+                && magnitude == ((Quantity) other).magnitude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(magnitude, unit);
     }
 }
