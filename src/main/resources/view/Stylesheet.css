@@ -126,13 +126,13 @@
 }
 
 #coupon-list .scroll-bar .increment-button, .scroll-bar .decrement-button {
-  -fx-background-color: -fx-primary-blue;
-  -fx-padding: 0;
-}
+   -fx-background-color: -fx-primary-blue;
+   -fx-padding: 0;
+ }
 
-#coupon-list .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
-  -fx-shape: " ";
-}
+ #coupon-list .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+   -fx-shape: " ";
+ }
 
 #coupon-list .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
   -fx-padding: 0;
@@ -258,6 +258,15 @@
 
 .feedback-display .scroll-bar .thumb{
   -fx-background-color: white;
+}
+
+.feedback-display .scroll-bar .increment-button,
+                  .scroll-bar .decrement-button,
+                  .scroll-bar:vertical .increment-arrow,
+                  .scroll-bar:vertical .decrement-arrow {
+  -fx-background-color: transparent;
+  -fx-padding: 0;
+  -fx-shape: " ";
 }
 
 .text-area .scroll-pane {
@@ -493,6 +502,21 @@
   -fx-font-family: arial;
   -fx-font-size: 11;
   -fx-font-style: italic;
+}
+
+/* For Help Tab */
+#help-tab .scroll-bar .track{
+  -fx-background-color: -fx-primary-blue;
+}
+
+#help-tab .scroll-bar .thumb{
+  -fx-background-color: white;
+}
+
+#help-tab .scroll-bar:vertical .increment-button ,
+#help-tab .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+	-fx-padding:0 10 0 0;
 }
 
 /* Remind Window */
