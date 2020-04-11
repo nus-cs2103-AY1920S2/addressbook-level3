@@ -49,8 +49,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Legend*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `open NAME`, `NAME` is a parameter which can be used as `open Notably`.
-* Items in square brackets are optional e.g `-t TITLE [-b BODY]` can be used as `-t Notably -b Lorem ipsum` or as `-t Notably`.
-* Parameters can be in any order e.g. if the command specifies `-t TITLE -b BODY`, `-b BODY -t TITLE` is also acceptable.
+* Items in square brackets are optional e.g both `open -t Notably` and `open Notably` will open the note titled "Notably".
+* Parameters can be in any order e.g. if the command specifies `new -t TITLE [-o]`, `new [-o] -t TITLE` is also acceptable.
 ====
 
 [#paths]
