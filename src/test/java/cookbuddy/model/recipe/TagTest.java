@@ -1,8 +1,10 @@
-package cookbuddy.model.recipe.attribute;
+package cookbuddy.model.recipe;
 
 import static cookbuddy.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+
+import cookbuddy.model.recipe.attribute.Tag;
 
 public class TagTest {
 
