@@ -46,7 +46,7 @@ a|
    . Using a coupon: used
    . Viewing savings: saved
    . Archiving a coupon: archive
-   . Unarchiving a coupon: unarchive
+   . Unarchive a coupon: unarchive
    . Locating coupons by name: find
    . Listing all expiring coupons: expiring
    . Sorting coupons: sort
@@ -332,8 +332,6 @@ symbol e.g. ($4.50, where the currency symbol is "$").
 
 ****
 * Uses the coupon at the specified INDEX.
-* The monetary symbol is the one preset by the user e.g. $, RM ...
-* The original amount *must be a positive double* e.g. 10.00, 23.11, 0.50 ...
 ****
 
 Examples:

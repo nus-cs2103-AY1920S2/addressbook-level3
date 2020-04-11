@@ -11,11 +11,13 @@
 
 Coupon Stash is a desktop coupons manager that allows users to keep track of
 their coupons. The user interacts with it using a CLI, and it has a beautiful
-GUI created with JavaFX. It is written in Java, and has about 25kLoC.
+GUI created with JavaFX. It is written in Java, and has about 15kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to use a coupon*
+* *Major enhancement*: added *the ability to use a coupon* (Pull request
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/80[#80],
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/98[#98])
 ** What it does: allows the user to keep track of his usage for each and every
 coupon.
 ** Justification: This feature is essential in keeping track of coupons and
@@ -24,43 +26,65 @@ also its generated savings.
 the valid usage of a coupon. From the start date of the coupon, to the type
 of savings generated, this feature is critical to the functioning of Coupon Stash.
 
-* *Minor enhancement*: added a shortcut to close windows opened by Coupon Stash and
-do not have a command line interface. This ensures that the overall application
-can be solely used by a keyboard that can be exploited by a fast typist, bar the
-scrolling of the coupon list.
+* *Major enhancement*: added *archiving mechanism* (Pull Request
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/137[#137])
+** What it does: automatically archive the coupon when it has expired or
+exhausted its usages.
+** Justification: This feature declutters the user's visible list of active
+coupons, while retaining the ability to access the archived coupons if needed.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=chester&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&zA=ChesterSim&zR=AY1920S2-CS2103T-F09-1%2Fmain%5Bmaster%5D&zACS=214.68421052631578&zS=2020-02-14&zU=2020-04-08&zMG=false&zFTF=commit&zFGS=groupByRepos&zSO=undefined&zSWO=undefined&zSD=false&zSWD=false&since=2020-02-14[Functional code]]
+** Highlights: Considerations were made on the design of the archiving system, where the
+initial phase focused on two separate data files for active and archived coupons. This was
+found to be highly coupled, and would increase complexity and maintainability of the
+application. This enhancement ties in with the Used and Expiring functionality of
+Coupons to ensure correct archiving of coupons.
+
+* *Minor enhancement*: Added shortcut (Ctrl + Q) to quit windows that do not have a CLI in
+Coupon Stash (e.g. Coupon, Remind Window), to maintain the ability to use Coupon Stash with
+only a keyboard (except scrolling of lists). (Pull Request
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/323[#323])
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=chester[Functional & Test Code]]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+** UI Lead:
+*** Drafted and designed the overall User Interface and Logo of Coupon Stash
+(https://www.figma.com/file/y2jlxT2hlLKC9THWPjUr3b/Coupon-Stash-Iterations?node-id=0%3A1[link])
+*** Created Coupon, Coupon Window, and Remind Window base FXML code
+(Pull Request https://github.com/AY1920S2-CS2103T-F09-1/main/pull/170[#170],
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/300[#300],
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/317[#317],
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/323[#328])
 
-_{you can add/remove categories in the list above}_
+** Project management:
+*** Lead the project in terms of direction of product, defining and assigning tasks.
+
+** Documentation:
+*** Added Use Cases in User Guide (Pull Request
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/28[#28])
+*** Edit various part of User Guide (Pull request
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/148[#148])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/110[#110],
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/115[#115],
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/154[#154]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=used]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=archive]
+
+include::../UserGuide.adoc[tag=unarchive]
 
 == Contributions to the Developer Guide
 
