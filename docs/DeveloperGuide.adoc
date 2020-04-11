@@ -459,7 +459,7 @@ When the user inputs `graph` with all relevant arguments input correctly, a new 
 
 The flow of the program is illustrated using the sequence diagram below:
 
-// image here
+image::GraphSequenceDiagram.png[]
 
 ==== Design Considerations
 
