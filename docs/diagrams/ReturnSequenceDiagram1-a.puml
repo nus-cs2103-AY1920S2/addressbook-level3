@@ -6,7 +6,7 @@ mainframe sd execution of return feature for converting an order to a return ord
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DelinoParser" as DelinoParser LOGIC_COLOR
 participant ":ReturnCommandParser" as ReturnCommandParser LOGIC_COLOR
 participant ":ReturnCommand" as ReturnCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
@@ -19,16 +19,16 @@ end box
 [-> LogicManager : execute("return tid/AC31255")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("return tid/AC31255")
-activate OrderBookParser
+LogicManager -> DelinoParser : parseCommand("return tid/AC31255")
+activate DelinoParser
 
 create ReturnCommandParser
-OrderBookParser -> ReturnCommandParser
+DelinoParser -> ReturnCommandParser
 activate ReturnCommandParser
-ReturnCommandParser --> OrderBookParser
+ReturnCommandParser --> DelinoParser
 deactivate ReturnCommandParser
 
-OrderBookParser -> ReturnCommandParser : parse("tid/AC31255")
+DelinoParser -> ReturnCommandParser : parse("tid/AC31255")
 activate ReturnCommandParser
 
 create ReturnCommand
@@ -38,14 +38,14 @@ activate ReturnCommand
 ReturnCommand --> ReturnCommandParser : d
 deactivate ReturnCommand
 
-ReturnCommandParser --> OrderBookParser : d
+ReturnCommandParser --> DelinoParser : d
 deactivate ReturnCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-ReturnCommandParser -[hidden]-> OrderBookParser
+ReturnCommandParser -[hidden]-> DelinoParser
 destroy ReturnCommandParser
 
-OrderBookParser --> LogicManager : d
-deactivate OrderBookParser
+DelinoParser --> LogicManager : d
+deactivate DelinoParser
 
 ref over LogicManager, Model : Conversion of an order into a return order
 

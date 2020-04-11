@@ -99,7 +99,7 @@ image::LogicClassDiagram.svg[]
 *API* :
 link:{repoURL}/blob/master/src/main/java/seedu/delino/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `OrderBookParser` class to parse the user command.
+.  `Logic` uses the `DelinoParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a new order).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -267,7 +267,7 @@ The user first calls the command "list".
 The second argument of the `list` command can be `done` or `undone` or an empty String.
 ====
 
-The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
+The LogicManager will call the parseCommand method of DelinoParser, which then passes the second argument
 into the `ListCommand` object. This object will then be ultimately returned to the `LogicManager`.
 Next, the `LogicManager` will call the execute(model) method using the `ListCommand` object. In this method, it wil use
 the `Model` object to call the methods : updateFilteredOrderList and updateFilteredReturnOrderList. Since in this case, the
@@ -562,7 +562,7 @@ image::DeliveredSequenceDiagram.png[]
 .Execution of Delivered Command
 image::DeliveredSequenceDiagram2.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+method in `LogicManager`. After which, an `DelinoParser` object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `delivered` command word that will be parsed. +
 
@@ -650,7 +650,7 @@ image::EditCommandActivityDiagram.svg[]
 
 The above figure illustrates the execution path of `edit` command when performed by the user. +
 
-Input when received, will be parsed by the `OrderBookParser`. `OrderBookParser` will check if command word matches any features command word. +
+Input when received, will be parsed by the `DelinoParser`. `DelinoParser` will check if command word matches any features command word. +
 In this feature, the command word is `edit`. If no command word is detected, a exception class should be generated for displaying of error message. `CommandException` is used in this feature to achieve that function. +
 
 Once validated, user input is once again parse and check for validity. At this step, if user have provided input not matching the valid `edit` <<what-is-edit, format>>, an exception class is thrown. +
@@ -683,7 +683,7 @@ image::EditCommandSequenceDiagram.svg[]
 
 The above figure illustrates the important interactions of `EditCommand` when the user successfully edit the first displayed order name to `Alice`. +
 
-The handling of breaking down the user input is done in the `EditcommandParser` class which is called upon by the `OrderBookParser` after an initial check for correctness of the command input. +
+The handling of breaking down the user input is done in the `EditcommandParser` class which is called upon by the `DelinoParser` after an initial check for correctness of the command input. +
 
 The `EditParcelDescriptor` class is a static class contained in the `EditCommand` class. It act as a helper class to allow the setting of all the `NEW_VALUE` to the corresponding `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` in the `EditCommandParser` class.
 The `EditParcelDescriptor` object is then passed back as a parameter to instantiate an `EditCommand`. In the diagram above, the `EditParcelDescriptor` object is named as `epd`.
@@ -782,7 +782,7 @@ image::ReturnSequenceDiagram1_a.png[]
 .Execution of Return Command to convert a delivered Order into a Return Order
 image::ReturnSequenceDiagram2_a.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+method in `LogicManager`. After which, an `DelinoParser` object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `return` command word that will be parsed. +
 
@@ -830,7 +830,7 @@ image::ReturnSequenceDiagram1_b.png[]
 .Execution of Return Command to create a new Return Order
 image::ReturnSequenceDiagram2_b.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+method in `LogicManager`. After which, an `DelinoParser` object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `return` command word that will be parsed. +
 
@@ -1099,7 +1099,7 @@ The sequence diagrams for the *Help Command* are shown below.
 .Help Command Sequence Diagram
 image::HelpCommandSequenceDiagram.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+method in `LogicManager`. After which, an `DelinoParser` object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `return` command word that will be parsed. +
 
@@ -1373,7 +1373,7 @@ The user first calls the command "show all".
 It can accept either one or two arguments.
 ====
 
-The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
+The LogicManager will call the parseCommand method of DelinoParser, which then passes the second argument
 into the `ShowCommand` object. Within the object, it will call the parseData method to make sense of the dates given.
 After that, it returns the object to the `LogicManager`.
 Next, the `LogicManager` will call the execute(model) method using the `ShowCommand` object.
