@@ -53,3 +53,5 @@ and remind the user to top up the good in the inventory.
 |_Given below are sections I contributed to the Developer Guide._
 |===
 
+include::../DeveloperGuide.adoc[tag=findtransaction]
+include::../DeveloperGuide.adoc[tag=findtransaction]

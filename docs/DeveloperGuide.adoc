@@ -308,7 +308,7 @@ The readable Json data is then stored in the Json file, which can be read by `Js
 
 // tag::findtransaction[]
 
-=== Find transaction (Fang Shao Hua)
+=== Find transaction
 
 Inventory Manager has a find transaction feature which allows the user to filter transactions, so that it
 saves time for the user to look for specific transactions among the transaction history.
@@ -352,9 +352,30 @@ image::FindTransactionSequenceDiagram.png[]
 ** Pros: Easier to implement, less complexity
 ** Cons: More code need to be written, and the code will have high degree of duplication. Less flexible search.
 
-
-
 // end::findtransaction[]
+
+// tag::setthreshold[]
+
+=== Set threshold for good
+
+Inventory Manager has a set threshold feature which allows the user to set the threshold quantity for `goods` in `Inventory`,
+so that it can alert the user when a particular good fall below its threshold quantity.
+
+The alert mechanism is to resort the goods in the inventory such that those fall below their their threshold will be display first,
+and their current quantity will be display with red background.
+
+Every command that changes the quantity of good or set new threshold for the good in the inventory will trigger a check and update the filtered list accordingly.
+
+NOTE: By default, any newly added good in the inventory will be set with threshold quantity of zero.
+
+Here is a sample activity diagram that shows the flow when user inputs: `warn 5 q/100`:
+
+image::SetThresholdSequenceDiagram.png[]
+
+image::SetThresholdSequenceDiagram2.png[]
+
+// end::setthreshold[]
+
 
 
 === Logging

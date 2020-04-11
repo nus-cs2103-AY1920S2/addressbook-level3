@@ -77,6 +77,8 @@ deactivate findTransactionCommandParser
 inventoryManagerParser -[MODEL_COLOR]-> logicManager : command
 deactivate inventoryManagerParser
 
+destroy findTransactionCommandParser
+
 logicManager -[MODEL_COLOR]> findTransactionCommand :execute()
 activate findTransactionCommand
 
@@ -105,4 +107,5 @@ deactivate findTransactionCommand
 [<--logicManager :commandResult
 deactivate logicManager
 
+destroy findTransactionCommand
 @endumlreso
