@@ -12,7 +12,6 @@ import com.notably.model.Model;
  */
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
-    public static final String COMMAND_SHORTHAND = "h";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

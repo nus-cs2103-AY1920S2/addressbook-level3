@@ -1,6 +1,7 @@
 package com.notably.logic.suggestion;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,6 +10,7 @@ import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
+import com.notably.logic.correction.CorrectionEngineParameters;
 import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.correction.StringCorrectionEngine;
@@ -35,9 +37,6 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             OpenSuggestionCommandParser.COMMAND_WORD, HelpSuggestionCommandParser.COMMAND_WORD,
             ExitSuggestionCommandParser.COMMAND_WORD, SearchSuggestionCommandParser.COMMAND_WORD);
 
-    private static final int CORRECTION_THRESHOLD = 2;
-    private static final boolean USE_PATH_FORWARD_MATCHING = true;
-
     private static final String ERROR_MESSAGE_INVALID_COMMAND = "\"%s\" is an invalid command format. "
             + "To see the list of available commands, type: help";
 
@@ -46,20 +45,23 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
     public SuggestionEngineImpl(Model model) {
+        Objects.requireNonNull(model);
+
         this.model = model;
-        commandCorrectionEngine = new StringCorrectionEngine(COMMAND_LIST, CORRECTION_THRESHOLD);
-        pathCorrectionEngine = new AbsolutePathCorrectionEngine(model, CORRECTION_THRESHOLD,
-                USE_PATH_FORWARD_MATCHING);
+        commandCorrectionEngine = new StringCorrectionEngine(COMMAND_LIST,
+                new CorrectionEngineParameters().setForwardMatching(true));
+        pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
+                new CorrectionEngineParameters().setForwardMatching(true));
 
         autoUpdateInput(model.inputProperty());
     }
 
     @Override
     public void suggest(String userInput) {
-        if (userInput.length() >= 2) {
-            Optional<? extends SuggestionCommand> suggestionCommand = parseCommand(userInput);
-            suggestionCommand.ifPresent(s -> s.execute(model));
-        }
+        Objects.requireNonNull(userInput);
+
+        Optional<? extends SuggestionCommand> suggestionCommand = parseCommand(userInput);
+        suggestionCommand.ifPresent(s -> s.execute(model));
     }
 
     /**
@@ -68,6 +70,14 @@ public class SuggestionEngineImpl implements SuggestionEngine {
      * @return The corresponding SuggestionCommand.
      */
     private Optional<? extends SuggestionCommand> parseCommand(String userInput) {
+        Objects.requireNonNull(userInput);
+
+        if (userInput.isBlank()) {
+            model.clearSuggestions();
+            model.clearResponseText();
+            return Optional.empty();
+        }
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             model.setResponseText(String.format(ERROR_MESSAGE_INVALID_COMMAND, userInput));
@@ -75,43 +85,32 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         }
 
         String commandWord = matcher.group("commandWord");
-
-        if (commandWord.length() > 1) {
-            CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
-
-            if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-                model.setResponseText(String.format(ERROR_MESSAGE_INVALID_COMMAND, userInput));
-                return Optional.empty();
-            }
-
-            commandWord = correctionResult.getCorrectedItems().get(0);
+        CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
+        if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
+            model.setResponseText(String.format(ERROR_MESSAGE_INVALID_COMMAND, userInput));
+            return Optional.empty();
         }
+        commandWord = correctionResult.getCorrectedItems().get(0);
 
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
         case OpenSuggestionCommandParser.COMMAND_WORD:
-        case OpenSuggestionCommandParser.COMMAND_SHORTHAND:
             return new OpenSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
 
         case DeleteSuggestionCommandParser.COMMAND_WORD:
-        case DeleteSuggestionCommandParser.COMMAND_SHORTHAND:
             return new DeleteSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
 
         case SearchSuggestionCommandParser.COMMAND_WORD:
-        case SearchSuggestionCommandParser.COMMAND_SHORTHAND:
             return new SearchSuggestionCommandParser(model).parse(arguments);
 
         case NewSuggestionCommandParser.COMMAND_WORD:
-        case NewSuggestionCommandParser.COMMAND_SHORTHAND:
             return new NewSuggestionCommandParser(model).parse(arguments);
 
         case EditSuggestionCommandParser.COMMAND_WORD:
-        case EditSuggestionCommandParser.COMMAND_SHORTHAND:
             return new EditSuggestionCommandParser(model).parse(arguments);
 
         case HelpSuggestionCommandParser.COMMAND_WORD:
-        case HelpSuggestionCommandParser.COMMAND_SHORTHAND:
             return new HelpSuggestionCommandParser(model).parse(arguments);
 
         case ExitSuggestionCommandParser.COMMAND_WORD:
@@ -127,6 +126,8 @@ public class SuggestionEngineImpl implements SuggestionEngine {
      * @param inputProperty The user's input.
      */
     private void autoUpdateInput(StringProperty inputProperty) {
+        Objects.requireNonNull(inputProperty);
+
         inputProperty.addListener((observable, oldValue, newValue) -> {
             model.clearSuggestions();
             model.clearResponseText();

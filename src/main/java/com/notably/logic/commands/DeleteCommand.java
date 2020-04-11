@@ -18,7 +18,6 @@ import com.notably.model.block.exceptions.NoSuchBlockException;
  */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
-    public static final String COMMAND_SHORTHAND = "d";
 
     private static final Logger logger = LogsCenter.getLogger(DeleteCommand.class);
 
