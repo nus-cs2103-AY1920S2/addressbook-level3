@@ -22,7 +22,8 @@ import seedu.address.model.assignment.Assignment;
  */
 public class EditAssignmentCommand extends Command {
     public static final String COMMAND_WORD = "(st)edit";
-    public static final String COMMAND_FUNCTION = "Edits the estimated workload of the assignment identified "
+    public static final String COMMAND_FUNCTION = "Edits the title, deadline, estimated workload, "
+        + "or the completion status of the assignment identified "
         + "by the index number used in the displayed assignment list. "
         + "Existing values will be overwritten by the input values.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"

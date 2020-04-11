@@ -148,7 +148,7 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-        createNewState("ADDRESS");
+        createNewState("GETDETAIL");
         addressBook.setPerson(target, editedPerson);
     }
 
@@ -197,6 +197,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteAssignment(Assignment target) {
+        createNewState("ASSIGNMENTS");
         assignmentSchedule.removeAssignment(target);
     }
 
@@ -209,6 +210,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addEvent(Event event) {
+        createNewState("EVENTS");
         eventSchedule.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
@@ -235,6 +237,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteEvent(Event target) {
+        createNewState("EVENTS");
         eventSchedule.removeEvent(target);
     }
 
@@ -332,6 +335,16 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredPersonListResult(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersonsResult.setPredicate(predicate);
+
+        ModelState temp = undoStates.pop();
+        undoStates.peek().getFilteredPersonsResult().setPredicate(predicate);
+        undoStates.push(temp);
+    }
+
+    @Override
+    public void updateFilteredPersonListResult(Predicate<Person> predicate, boolean isGet) {
         requireNonNull(predicate);
         filteredPersonsResult.setPredicate(predicate);
     }

@@ -20,6 +20,7 @@ import seedu.address.logic.EditPersonDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonExistPredicate;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -29,7 +30,8 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "(ab)edit";
     public static final String COMMAND_FUNCTION = "Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.";
+            + "Other than tags, existing values will be overwritten by the input values. "
+            + "If a tag not currently present is specified for deletion, it will be ignored.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -79,9 +81,15 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+        model.updateFilteredPersonListResult(personExistPredicate);
+
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson),
+                false, false, true, false, false, false, false, false);
     }
 
     @Override

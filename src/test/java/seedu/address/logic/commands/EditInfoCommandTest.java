@@ -24,6 +24,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonExistPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.testutil.PersonBuilder;
 
@@ -46,6 +47,8 @@ class EditInfoCommandTest {
                 1, new Remark(REMARK_STUB));
 
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, editedPerson);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false, false, false, false, false);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
@@ -55,7 +58,10 @@ class EditInfoCommandTest {
                         new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(editInfoCommand, model, expectedMessage, expectedModel);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
+
+        assertCommandSuccess(editInfoCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -69,6 +75,8 @@ class EditInfoCommandTest {
                 1, new Remark(REMARK_STUB));
 
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, editedPerson);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false, false, false, false, false);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
@@ -78,7 +86,10 @@ class EditInfoCommandTest {
                         new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(editInfoCommand, model, expectedMessage, expectedModel);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
+
+        assertCommandSuccess(editInfoCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

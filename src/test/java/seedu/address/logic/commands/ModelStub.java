@@ -109,6 +109,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateFilteredPersonListResult(Predicate<Person> predicate, boolean isGet) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook) {
         throw new AssertionError("This method should not be called.");
     }

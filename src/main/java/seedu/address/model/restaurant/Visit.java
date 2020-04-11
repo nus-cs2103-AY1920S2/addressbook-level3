@@ -10,9 +10,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Visit {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Visited field should only be Yes or No.";
+            "Visited field should only be Yes or No, and should not be empty.";
     public static final String RESTAURANT_VISITED = "Yes";
     public static final String RESTAURANT_NOT_VISITED = "No";
+
+    /*
+     * Allows only "Yes" or "No"
+     */
+    public static final String VALIDATION_REGEX = "Yes|No";
 
     public final String visit;
 
@@ -28,15 +33,11 @@ public class Visit {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid visited status.
      */
     public static boolean isValidVisit(String test) {
-        if (test.equals("Yes") || test.equals("No") || test.equals("")) {
-            return true;
-        }
-        return false;
+        return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {
