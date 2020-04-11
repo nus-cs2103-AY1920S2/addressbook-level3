@@ -18,7 +18,7 @@ import java.util.List;
 public class DateTime {
 
     public static final String MESSAGE_CONSTRAINTS = "DateTime should be in yyyy-mm-dd hh:mm format, "
-            + "and it should not be blank";
+            + "and it should not be in future";
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter
             .ofPattern("uuuu-MM-dd HH:mm")
             .withResolverStyle(ResolverStyle.STRICT);
@@ -61,7 +61,10 @@ public class DateTime {
             return false;
         }
         try {
-            LocalDateTime.parse(test, DATE_TIME_FORMAT);
+            LocalDateTime dateTime = LocalDateTime.parse(test, DATE_TIME_FORMAT);
+            if (dateTime.compareTo(DEFAULT_VALUE) > 0) {
+                return false;
+            }
         } catch (Exception e) {
             return false;
         }

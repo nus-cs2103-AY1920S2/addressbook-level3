@@ -1,5 +1,7 @@
 package seedu.address.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -40,6 +42,7 @@ public class TransactionFactory {
      * @return created transaction.
      */
     public Transaction createTransaction(Model model) throws CommandException {
+        requireNonNull(model);
         Money updatedMoney;
 
         List<Customer> customerList = model.getFilteredCustomerList();
