@@ -99,9 +99,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane returnOrderListPanelPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
-
-    @FXML
     private Label dateToday;
 
     @FXML
