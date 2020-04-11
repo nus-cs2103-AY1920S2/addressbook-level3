@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.plan.DeletePlanCommand;
 
-class DeletePlanCommandParserTest {
+public class DeletePlanCommandParserTest {
 
     private static final Index[] VALID_INDEXES = new Index[] {INDEX_FIRST_RECIPE};
     private static final Index[] VALID_MULTIPLE_INDEXES =

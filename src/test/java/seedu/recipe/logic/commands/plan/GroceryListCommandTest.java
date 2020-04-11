@@ -19,7 +19,7 @@ import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.ui.tab.Tab;
 
-class GroceryListCommandTest {
+public class GroceryListCommandTest {
 
     @Test
     public void execute_nonEmptyPlan_success() {

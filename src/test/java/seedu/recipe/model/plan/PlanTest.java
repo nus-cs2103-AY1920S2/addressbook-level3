@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
 
-class PlanTest {
+public class PlanTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {

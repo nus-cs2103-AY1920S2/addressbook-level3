@@ -16,7 +16,7 @@ import java.time.ZoneId;
 
 import org.junit.jupiter.api.Test;
 
-class DateTest {
+public class DateTest {
 
     @Test
     public void constructor_invalidDate_throwsIllegalArgumentException() {

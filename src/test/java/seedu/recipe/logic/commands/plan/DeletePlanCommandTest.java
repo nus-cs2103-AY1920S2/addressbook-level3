@@ -25,7 +25,7 @@ import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
-class DeletePlanCommandTest {
+public class DeletePlanCommandTest {
 
     private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
             getTypicalRecordBook(), getTypicalPlannedBook(), new QuoteBook());

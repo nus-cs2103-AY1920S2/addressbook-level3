@@ -21,7 +21,7 @@ import seedu.recipe.logic.commands.plan.PlanCommand;
 import seedu.recipe.logic.parser.ParserUtil;
 import seedu.recipe.model.Date;
 
-class PlanCommandParserTest {
+public class PlanCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE);

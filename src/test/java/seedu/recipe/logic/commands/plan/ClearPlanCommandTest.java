@@ -15,7 +15,7 @@ import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.ui.tab.Tab;
 
-class ClearPlanCommandTest {
+public class ClearPlanCommandTest {
 
     @Test
     public void execute_emptyPlannedBook_success() {
