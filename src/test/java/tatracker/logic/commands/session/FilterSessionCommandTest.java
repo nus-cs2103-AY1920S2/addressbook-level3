@@ -2,34 +2,30 @@ package tatracker.logic.commands.session;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tatracker.testutil.TypicalTaTracker.getTypicalTaTracker;
-import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithSessions;
+import static tatracker.logic.commands.CommandTestUtil.assertFilterSessionCommandSuccess;
+import static tatracker.logic.commands.session.FilterSessionCommand.MESSAGE_FILTERED_SESSIONS_SUCCESS;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.commons.core.Messages;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
-import tatracker.model.session.Session;
 import tatracker.model.session.SessionPredicate;
 import tatracker.model.session.SessionType;
+import tatracker.model.util.SampleDataUtil;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FilterSessionCommand}.
  */
 public class FilterSessionCommandTest {
-    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
-    private Model model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalTaTracker(), new UserPrefs());
+    private Model model = new ModelManager(SampleDataUtil.getSampleTaTracker(), new UserPrefs());
+    private Model expectedModel = new ModelManager(SampleDataUtil.getSampleTaTracker(), new UserPrefs());
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     @Test
     public void equals() {
@@ -63,135 +59,140 @@ public class FilterSessionCommandTest {
         assertFalse(filterFirstCommand.equals(filterSecondCommand));
     }
 
-    /*@Test
+    @Test
     public void execute_zeroKeywords_noSessionFound() {
-        String expectedMsg = Messages.getInvalidCommandMessage(FilterSessionCommand.DETAILS.getUsage());
         SessionPredicate predicate = new SessionPredicate();
         FilterSessionCommand command = new FilterSessionCommand(predicate);
         expectedModel.updateFilteredSessionList(predicate);
-        assertCommandSuccess(command, model, expectedMsg, expectedModel);
-        //assertEquals(Collections.emptyList(), model.getFilteredSessionList());
-    } */
+        assertFilterSessionCommandSuccess(command, model, MESSAGE_FILTERED_SESSIONS_SUCCESS, expectedModel);
+    }
 
-    /*@Test
+    @Test
     public void execute_singleKeywords_multipleSessionsFound() {
-        StringBuilder expectedMsg = new StringBuilder(FilterSessionCommand.MESSAGE_FILTERED_SESSIONS_SUCCESS);
 
         //module only
+        String moduleCode = "CS3243";
+
+        String expectedMsg = new StringBuilder(FilterSessionCommand.MESSAGE_FILTERED_SESSIONS_SUCCESS)
+                .append("\nModule: ")
+                .append(moduleCode)
+                .toString();
+
         SessionPredicate predicate = new SessionPredicate();
-        predicate.setModuleCode("CS3243");
+        predicate.setModuleCode(moduleCode);
+
         FilterSessionCommand command = new FilterSessionCommand(predicate);
-        String moduleFilter = predicate.getModuleCode().orElse("");
-        if (predicate.getModuleCode().isPresent()) {
-            expectedMsg.append("\nModule: ").append(moduleFilter);
-        }
         expectedModel.updateFilteredSessionList(predicate);
-        assertCommandSuccess(command, model, expectedMsg.toString(), expectedModel);
-        assertEquals(getTypicalTaTrackerWithSessions(), model.getFilteredSessionList());
+
+        assertFilterSessionCommandSuccess(command, model, expectedMsg, expectedModel);
+        assertEquals(expectedModel.getFilteredSessionList(), model.getFilteredSessionList());
 
         //date only
-        SessionPredicate predicate = new SessionPredicate();
-        predicate.setDate(LocalDate.of(2020, 05, 29));
-        FilterSessionCommand command = new FilterSessionCommand(predicate);
-        String dateFilter = predicate.getDate().map(dateFormat::format).orElse("");
-        if (predicate.getDate().isPresent()) {
-            expectedMsg.append("\nDate: ").append(dateFilter);
-        }
+        LocalDate date = LocalDate.of(2020, 05, 29);
+        String dateString = dateFormat.format(date);
+
+        expectedMsg = new StringBuilder(MESSAGE_FILTERED_SESSIONS_SUCCESS)
+                .append("\nDate: ")
+                .append(dateString)
+                .toString();
+
+        predicate = new SessionPredicate();
+        predicate.setDate(date);
+        command = new FilterSessionCommand(predicate);
         expectedModel.updateFilteredSessionList(predicate);
-        assertCommandSuccess(command, model, expectedMsg.toString(), expectedModel);
-        assertEquals(getTypicalTaTrackerWithSessions(), model.getFilteredSessionList());
+        assertFilterSessionCommandSuccess(command, model, expectedMsg, expectedModel);
+        assertEquals(expectedModel.getFilteredSessionList(), model.getFilteredSessionList());
 
         //session type only
-        SessionPredicate predicate = new SessionPredicate();
-        predicate.setSessionType(SessionType.CONSULTATION);
-        FilterSessionCommand command = new FilterSessionCommand(predicate);
-        String sessionTypeFilter = predicate.getSessionType().map(SessionType::toString).orElse("");
-        if (predicate.getSessionType().isPresent()) {
-            expectedMsg.append("\nType: ").append(sessionTypeFilter);
-        }
-        expectedModel.updateFilteredSessionList(predicate);
-        assertCommandSuccess(command, model, expectedMsg.toString(), expectedModel);
-        assertEquals(getTypicalTaTrackerWithSessions(), model.getFilteredSessionList());
-    } */
+        String type = SessionType.CONSULTATION.toString();
 
-    /*@Test
+        expectedMsg = new StringBuilder(MESSAGE_FILTERED_SESSIONS_SUCCESS)
+                .append("\nType: ")
+                .append(type)
+                .toString();
+
+        predicate = new SessionPredicate();
+        predicate.setSessionType(SessionType.CONSULTATION);
+        command = new FilterSessionCommand(predicate);
+        String sessionTypeFilter = predicate.getSessionType().map(SessionType::toString).orElse("");
+        expectedModel.updateFilteredSessionList(predicate);
+        assertFilterSessionCommandSuccess(command, model, expectedMsg, expectedModel);
+        assertEquals(expectedModel.getFilteredSessionList(), model.getFilteredSessionList());
+    }
+
+    @Test
     public void execute_multipleKeywords_multipleSessionsFound() {
-        StringBuilder expectedMsg = new StringBuilder(FilterSessionCommand.MESSAGE_FILTERED_SESSIONS_SUCCESS);
 
         //module, date and sessiontype -> sessions with either one of the keyword will be shown
+        String module = "CS3243";
+
+        LocalDate date = LocalDate.of(2020, 05, 29);
+        String dateString = dateFormat.format(date);
+
+        String type = SessionType.LAB.toString();
+
+        String expectedMsg = new StringBuilder(FilterSessionCommand.MESSAGE_FILTERED_SESSIONS_SUCCESS)
+                .append("\nDate: ").append(dateString)
+                .append("\nModule: ").append(module)
+                .append("\nType: ").append(type)
+                .toString();
+
         SessionPredicate predicate = new SessionPredicate();
         predicate.setModuleCode("CS3243");
-        predicate.setDate(LocalDate.of(2020, 05, 29));
+        predicate.setDate(date);
         predicate.setSessionType(SessionType.LAB);
         FilterSessionCommand command = new FilterSessionCommand(predicate);
-        String moduleFilter = predicate.getModuleCode().orElse("");
-        String dateFilter = predicate.getDate().map(dateFormat::format).orElse("");
-        if (predicate.getDate().isPresent()) {
-            expectedMsg.append("\nDate: ").append(dateFilter);
-        }
-        if (predicate.getModuleCode().isPresent()) {
-            expectedMsg.append("\nModule: ").append(moduleFilter);
-        }
-        String sessionTypeFilter = predicate.getSessionType().map(SessionType::toString).orElse("");
-        if (predicate.getSessionType().isPresent()) {
-            expectedMsg.append("\nType: ").append(sessionTypeFilter);
-        }
         expectedModel.updateFilteredSessionList(predicate);
-        assertCommandSuccess(command, model, expectedMsg.toString(), expectedModel);
-        assertEquals(getTypicalTaTrackerWithSessions(), model.getFilteredSessionList());
+        assertFilterSessionCommandSuccess(command, model, expectedMsg, expectedModel);
+        assertEquals(expectedModel.getFilteredSessionList(), model.getFilteredSessionList());
+
 
         //module and date
         predicate = new SessionPredicate();
         predicate.setModuleCode("CS3243");
-        predicate.setDate(LocalDate.of(2020, 05, 29));
-        predicate.setSessionType(SessionType.LAB);
+        predicate.setDate(date);
         command = new FilterSessionCommand(predicate);
-        moduleFilter = predicate.getModuleCode().orElse("");
-        dateFilter = predicate.getDate().map(dateFormat::format).orElse("");
-        if (predicate.getDate().isPresent()) {
-            expectedMsg.append("\nDate: ").append(dateFilter);
-        }
-        if (predicate.getModuleCode().isPresent()) {
-            expectedMsg.append("\nModule: ").append(moduleFilter);
-        }
+
+        expectedMsg = new StringBuilder(FilterSessionCommand.MESSAGE_FILTERED_SESSIONS_SUCCESS)
+                .append("\nDate: ").append(dateString)
+                .append("\nModule: ").append(module)
+                .toString();
+
         expectedModel.updateFilteredSessionList(predicate);
-        assertCommandSuccess(command, model, expectedMsg.toString(), expectedModel);
-        assertEquals(getTypicalTaTrackerWithSessions(), model.getFilteredSessionList());
+        assertFilterSessionCommandSuccess(command, model, expectedMsg, expectedModel);
+        assertEquals(expectedModel.getFilteredSessionList(), model.getFilteredSessionList());
+
 
         //module and type
         predicate = new SessionPredicate();
         predicate.setModuleCode("CS3243");
-        predicate.setDate(LocalDate.of(2020, 05, 29));
         predicate.setSessionType(SessionType.LAB);
         command = new FilterSessionCommand(predicate);
-        moduleFilter = predicate.getModuleCode().orElse("");
-        if (predicate.getModuleCode().isPresent()) {
-            expectedMsg.append("\nModule: ").append(moduleFilter);
-        }
-        sessionTypeFilter = predicate.getSessionType().map(SessionType::toString).orElse("");
-        if (predicate.getSessionType().isPresent()) {
-            expectedMsg.append("\nType: ").append(sessionTypeFilter);
-        }
+
+        expectedMsg = new StringBuilder(FilterSessionCommand.MESSAGE_FILTERED_SESSIONS_SUCCESS)
+                .append("\nModule: ").append(module)
+                .append("\nType: ").append(type)
+                .toString();
+
         expectedModel.updateFilteredSessionList(predicate);
-        assertCommandSuccess(command, model, expectedMsg.toString(), expectedModel);
-        assertEquals(getTypicalTaTrackerWithSessions(), model.getFilteredSessionList());
+        assertFilterSessionCommandSuccess(command, model, expectedMsg, expectedModel);
+        assertEquals(expectedModel.getFilteredSessionList(), model.getFilteredSessionList());
+
 
         //date and sessiontype
         predicate = new SessionPredicate();
-        predicate.setModuleCode("CS3243");
-        predicate.setDate(LocalDate.of(2020, 05, 29));
+        predicate.setDate(date);
         predicate.setSessionType(SessionType.LAB);
         command = new FilterSessionCommand(predicate);
-        dateFilter = predicate.getDate().map(dateFormat::format).orElse("");
-        if (predicate.getDate().isPresent()) {
-            expectedMsg.append("\nDate: ").append(dateFilter);
-        }
-        sessionTypeFilter = predicate.getSessionType().map(SessionType::toString).orElse("");
-        if (predicate.getSessionType().isPresent()) {
-            expectedMsg.append("\nType: ").append(sessionTypeFilter);
-        }
+
+        expectedMsg = new StringBuilder(FilterSessionCommand.MESSAGE_FILTERED_SESSIONS_SUCCESS)
+                .append("\nDate: ").append(dateString)
+                .append("\nType: ").append(type)
+                .toString();
+
         expectedModel.updateFilteredSessionList(predicate);
-        assertCommandSuccess(command, model, expectedMsg.toString(), expectedModel);
-        assertEquals(getTypicalTaTrackerWithSessions(), model.getFilteredSessionList());
-    } */
+        assertFilterSessionCommandSuccess(command, model, expectedMsg, expectedModel);
+        assertEquals(expectedModel.getFilteredSessionList(), model.getFilteredSessionList());
+
+    }
 }

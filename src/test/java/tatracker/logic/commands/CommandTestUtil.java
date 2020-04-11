@@ -176,4 +176,15 @@ public class CommandTestUtil {
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertFilterSessionCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                                         Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.FILTER_SESSION);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+
 }
