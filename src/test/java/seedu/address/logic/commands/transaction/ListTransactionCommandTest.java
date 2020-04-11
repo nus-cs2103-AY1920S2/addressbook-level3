@@ -1,9 +1,8 @@
 package seedu.address.logic.commands.transaction;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_ONE_BAG_MARCH_FIRST;
 import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_ONE_BAG_MARCH_SECOND;
 import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_TWO_BAG_MARCH_FIRST;
@@ -12,128 +11,42 @@ import static seedu.address.testutil.transaction.TypicalTransactions.BENSON_BUY_
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInventorySystem;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
-import seedu.address.model.transaction.CustomerContainsKeywordPredicate;
-import seedu.address.model.transaction.DateTime;
-import seedu.address.model.transaction.DateTimeEqualsPredicate;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.transaction.DateTimeBuilder;
 
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class FindTransactionCommandTest {
+public class ListTransactionCommandTest {
 
-    @Test
-    public void equals() {
-        CustomerContainsKeywordPredicate predicateAlice =
-                new CustomerContainsKeywordPredicate(Collections.singletonList("Alice"));
-        CustomerContainsKeywordPredicate predicateBob =
-                new CustomerContainsKeywordPredicate(Collections.singletonList("Bob"));
+    private Model model;
+    private Model expectedModel;
 
-        FindTransactionCommand findNamesHasAlice = new FindTransactionCommand(predicateAlice);
-        FindTransactionCommand findNameHasBob = new FindTransactionCommand(predicateBob);
-
-        // same object -> returns true
-        assertTrue(findNamesHasAlice.equals(findNamesHasAlice));
-
-        // same values -> returns true
-        FindTransactionCommand findNamesHasAliceCopy = new FindTransactionCommand(predicateAlice);
-        assertTrue(findNamesHasAlice.equals(findNamesHasAliceCopy));
-
-        // different types -> return false
-        assertFalse(findNamesHasAlice.equals(1));
-
-        // null -> returns false
-        assertFalse(findNamesHasAlice.equals(null));
-
-        // different product -> returns false
-        assertFalse(findNamesHasAlice.equals(findNameHasBob));
+    @BeforeEach
+    public void setUp() {
+        model = new ListTransactionCommandTest.ModelStubWithTransaction();
+        expectedModel = new ListTransactionCommandTest.ModelStubWithTransaction();
     }
 
     @Test
-    public void execute_zeroKeywords_noTransactionFound() {
-        CustomerContainsKeywordPredicate predicate =
-                new CustomerContainsKeywordPredicate(Collections.emptyList());
-        FindTransactionCommandTest.ModelStubWithTransaction modelStub =
-                new FindTransactionCommandTest.ModelStubWithTransaction();
-
-        FindTransactionCommand command = new FindTransactionCommand(predicate);
-
-        CommandResult commandResult = command.execute(modelStub);
-
-        assertEquals(String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 0),
-                commandResult.getFeedbackToUser());
-        assertEquals(Collections.emptyList(), modelStub.getFilteredTransactionList());
+    public void execute_listIsNotFiltered_showsSameList() {
+        assertCommandSuccess(new ListTransactionCommand(), model,
+                ListTransactionCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_oneCustomerNameKeyword_oneTransactionFound() {
-        CustomerContainsKeywordPredicate predicate =
-                new CustomerContainsKeywordPredicate(Arrays.asList("Benson"));
-        FindTransactionCommandTest.ModelStubWithTransaction modelStub =
-                new FindTransactionCommandTest.ModelStubWithTransaction();
-
-        FindTransactionCommand command = new FindTransactionCommand(predicate);
-
-        CommandResult commandResult = command.execute(modelStub);
-
-        assertEquals(String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 1),
-                commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(BENSON_BUY_ONE_BAG_MARCH_FIRST), modelStub.getFilteredTransactionList());
-    }
-
-    @Test
-    public void execute_oneCustomerNameKeyword_threeTransactionFound() {
-        CustomerContainsKeywordPredicate predicate =
-                new CustomerContainsKeywordPredicate(Arrays.asList("Alice"));
-        FindTransactionCommandTest.ModelStubWithTransaction modelStub =
-                new FindTransactionCommandTest.ModelStubWithTransaction();
-
-        FindTransactionCommand command = new FindTransactionCommand(predicate);
-
-        CommandResult commandResult = command.execute(modelStub);
-
-        assertEquals(String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 3),
-                commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(
-                ALICE_BUY_ONE_BAG_MARCH_FIRST,
-                ALICE_BUY_TWO_BAG_MARCH_FIRST,
-                ALICE_BUY_ONE_BAG_MARCH_SECOND
-        ), modelStub.getFilteredTransactionList());
-    }
-
-    @Test
-    public void execute_oneDateTime_oneTransactionFound() {
-        DateTime marchFirst = new DateTimeBuilder("2020-03-01 10:00").build();
-
-        DateTimeEqualsPredicate predicate =
-                new DateTimeEqualsPredicate(marchFirst);
-        FindTransactionCommandTest.ModelStubWithTransaction modelStub =
-                new FindTransactionCommandTest.ModelStubWithTransaction();
-
-        FindTransactionCommand command = new FindTransactionCommand(predicate);
-
-        CommandResult commandResult = command.execute(modelStub);
-
-        assertEquals(String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 3),
-                commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(
-                ALICE_BUY_ONE_BAG_MARCH_FIRST,
-                ALICE_BUY_TWO_BAG_MARCH_FIRST,
-                BENSON_BUY_ONE_BAG_MARCH_FIRST
-        ), modelStub.getFilteredTransactionList());
+    public void execute_listIsFiltered_showsEverything() {
+        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
+        assertCommandSuccess(new ListTransactionCommand(), model,
+                ListTransactionCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     /**
@@ -299,14 +212,14 @@ public class FindTransactionCommandTest {
     /**
      * A Model stub that contains a single transaction.
      */
-    private class ModelStubWithTransaction extends FindTransactionCommandTest.ModelStub {
+    private class ModelStubWithTransaction extends ListTransactionCommandTest.ModelStub {
         private final FilteredList<Transaction> filteredTransactionList =
                 new FilteredList<>(FXCollections.observableArrayList(
                         ALICE_BUY_ONE_BAG_MARCH_FIRST,
                         ALICE_BUY_TWO_BAG_MARCH_FIRST,
                         ALICE_BUY_ONE_BAG_MARCH_SECOND,
                         BENSON_BUY_ONE_BAG_MARCH_FIRST
-                        ));
+                ));
 
         @Override
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
@@ -316,6 +229,20 @@ public class FindTransactionCommandTest {
         @Override
         public ObservableList<Transaction> getFilteredTransactionList() {
             return filteredTransactionList;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+
+            if (!(obj instanceof ModelStubWithTransaction)) {
+                return false;
+            }
+
+            ModelStubWithTransaction other = (ModelStubWithTransaction) obj;
+            return filteredTransactionList.equals(other.filteredTransactionList);
         }
     }
 }
