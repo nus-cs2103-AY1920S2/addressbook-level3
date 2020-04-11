@@ -26,6 +26,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -96,15 +102,26 @@ public class EditCommandParserTest {
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
-        // parsing it together with a valid tag results in error
+        // parsing prefixes alone
         assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
+        assertParseFailure(parser, "1 " + PREFIX_EMAIL, EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1 " + PREFIX_ADDRESS, EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1 " + PREFIX_BIRTHDAY, EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1 " + PREFIX_ORGANIZATION, EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1 " + PREFIX_ORGANIZATION, EditCommand.MESSAGE_NOT_EDITED);
+
+        assertParseFailure(parser, "1 " + PREFIX_NAME, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1 " + PREFIX_PHONE, Phone.MESSAGE_CONSTRAINTS);
+
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
                 Name.MESSAGE_CONSTRAINTS);
+
+        // index and field with no new content
+
     }
 
     @Test
