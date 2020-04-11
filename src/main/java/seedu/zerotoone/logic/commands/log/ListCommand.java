@@ -26,4 +26,9 @@ public class ListCommand extends LogCommand {
         model.updateFilteredLogList(PREDICATE_SHOW_ALL_LOGS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ListCommand;
+    }
 }
