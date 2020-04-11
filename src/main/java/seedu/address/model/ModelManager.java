@@ -72,7 +72,7 @@ public class ModelManager implements Model {
         deadlineTaskList = new FilteredList<>(taskList);
         Task.setDeadlineTaskList(taskList);
         moduleListTaken = new FilteredList<>(moduleBook.getModulesTakenList());
-        studentProfile = new Profile();
+        studentProfile = new Profile(moduleBook);
     }
 
     public ModelManager() {
