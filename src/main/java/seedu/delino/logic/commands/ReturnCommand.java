@@ -54,7 +54,7 @@ public class ReturnCommand extends Command {
             + PREFIX_COMMENT + "NIL "
             + PREFIX_TYPE + "glass"
             + "\n"
-            + "Parameters for creating a new return order: "
+            + "Parameters for converting a delivered order into a return order: "
             + PREFIX_TID + "TRANSACTION_ID "
             + PREFIX_RETURN_TIMESTAMP + "RETURN_DATE_&_TIME "
             + "\n"
