@@ -34,6 +34,7 @@ public class UniquePersonList implements Iterable<Person> {
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
     private final ObservableList<Person> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private final ObservableList<Person> bDayList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -146,6 +147,14 @@ public class UniquePersonList implements Iterable<Person> {
      * Returns a list of contacts whose birthday is in the upcoming 5 days.
      */
     public ObservableList<Person> getBdayList() {
+        this.setBdayList();
+        return bDayList.sorted(new BirthdayComparator());
+    }
+
+    /**
+     * Sets the birthday list with contacts whose birthday is in the upcoming 5 days.
+     */
+    public void setBdayList() {
         ObservableList<Person> result = FXCollections.observableArrayList();
         LocalDate currDate = LocalDate.now(ZoneId.of("Singapore"));
 
@@ -158,7 +167,7 @@ public class UniquePersonList implements Iterable<Person> {
                 }
             }
         }
-        return result.sorted(new BirthdayComparator());
+        bDayList.setAll(result);
     }
 
     /**

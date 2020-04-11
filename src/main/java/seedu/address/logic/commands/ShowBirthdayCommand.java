@@ -19,4 +19,15 @@ public class ShowBirthdayCommand extends Command {
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, false, true, false, false);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ShowBirthdayCommand);
+    }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

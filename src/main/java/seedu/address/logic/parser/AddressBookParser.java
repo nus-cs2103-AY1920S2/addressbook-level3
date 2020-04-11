@@ -154,7 +154,7 @@ public class AddressBookParser {
             return new GetCommandParser().parse(arguments);
 
         case ShowBirthdayCommand.COMMAND_WORD:
-            return new ShowBirthdayCommand();
+            return new ShowBirthdayCommandParser().parse(arguments);
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);

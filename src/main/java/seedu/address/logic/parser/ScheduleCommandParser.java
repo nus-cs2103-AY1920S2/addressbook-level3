@@ -12,7 +12,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parsers input for the new schedule command.
  */
 public class ScheduleCommandParser implements Parser<ScheduleCommand> {
-    public static final String VALIDATION_REGEX = "^\\d*[1-9]\\d*$";
 
     /**
      * Parses the given {@code String} of arguments in the context of the ScheduleCommand
@@ -28,13 +27,9 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
         }
 
-        String numDays = argMultimap.getValue(PREFIX_NUM_DAYS).get();
+        int numDays = ParserUtil.parseNumDays(argMultimap.getValue(PREFIX_NUM_DAYS).get());
 
-        if (!numDays.matches(VALIDATION_REGEX)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
-        }
-
-        return new ScheduleCommand(Integer.valueOf(numDays));
+        return new ScheduleCommand(numDays);
     }
 
     /**

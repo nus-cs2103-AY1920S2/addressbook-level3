@@ -1,9 +1,5 @@
 package seedu.address.logic.commands;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.EditAssignmentDescriptor;
-import seedu.address.testutil.EditAssignmentDescriptorBuilder;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CS2103;
@@ -12,6 +8,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_CS3243
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_CS3243;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_CS3243;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WORKLOAD_CS3243;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.EditAssignmentDescriptor;
+import seedu.address.testutil.EditAssignmentDescriptorBuilder;
 
 public class EditAssignmentDescriptorTest {
     @Test

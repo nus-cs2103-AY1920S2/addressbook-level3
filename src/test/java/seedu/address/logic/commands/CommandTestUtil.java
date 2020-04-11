@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPERATING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -112,6 +113,12 @@ public class CommandTestUtil {
     public static final String DESC_PRICE_AMEENS = " " + PREFIX_PRICE + VALID_PRICE_AMEENS;
     public static final String DESC_CUISINE_AMEENS = " " + PREFIX_CUISINE + VALID_CUISINE_AMEENS;
     public static final String DESC_VISITED_AMEENS = " " + PREFIX_VISITED + VALID_VISITED_AMEENS;
+
+    public static final String VALID_NUM_DAYS = "5";
+    public static final String INVALID_NUM_DAYS = "0";
+
+    public static final String DESC_INVALID_NUM_DAYS = " " + PREFIX_NUM_DAYS + INVALID_NUM_DAYS;
+    public static final String DESC_VALID_NUM_DAYS = " " + PREFIX_NUM_DAYS + VALID_NUM_DAYS;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

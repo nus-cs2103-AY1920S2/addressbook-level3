@@ -13,6 +13,6 @@ public class AllocatedAssignment extends Assignment {
 
     @Override
     public String toString() {
-        return super.toString() + " (" + allocatedHours + ")";
+        return super.toString() + " (" + allocatedHours + " hours)";
     }
 }
