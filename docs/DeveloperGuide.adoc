@@ -261,7 +261,8 @@ pointing to the previously undone state, and restores the `currentState` to that
 If the `currentStatePointer` is pointing to the latest state, then there are no states to go to.
 Thus, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list-s`. Commands that do not modify any database, such as `list-s`, will usually not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `databaseStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list-g`. Commands that do not modify the data, such as `list-g`,
+will not call `Model#commit()`. Thus, the history and `currentState` in `LinearHistory<Inventory>` remains unchanged.
 
 image::UndoRedoState4.png[]
 
