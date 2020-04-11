@@ -57,19 +57,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Paths*
 
-* `Paths` are used to specify the directory you want to `Commands` to be executed.
+* `Paths` are used to specify the directory you want `Commands` to be executed.
 * There are 2 types of  `Path` namely:
-- AbsolutePath (Take reference from the root)
-- RelativePath (Take reference from the current directory)
+- AbsolutePath (which takes reference from the root)
+- RelativePath (which takes reference from the current directory)
 
-The Relative Path operate similar to the command line input that you may be familiar with.
+The Relative Path operates similarly to the command line input that you may be familiar with.
 Listed below are the notations used to define a relative path.
 
 * `..` (Move to parent note)
 * `exampleNote` (Move to child node titled "exampleNote")
 
 [NOTE]
-The title of a Note can take in alphanumeric variables and spaces.
+The title of a Note can take in alphanumeric variables, symbols (except ` and -) and spaces.
 
 **Example**
 
@@ -78,7 +78,7 @@ The picture below helps to illustrate the use of `RelativePath` and `AbsolutePat
 .DataStructure example to illustrate Path
 image::PathExample1.png[width="790"]
 
-The `AbsolutePath` `/CS2101` is equivalent to `RelativePath` `../2101`
+The `AbsolutePath` `/CS2101` is equivalent to `RelativePath` `../CS2101`
 
 Thus `open /CS2101` and `open ../CS2101` would yield the same result.
 
