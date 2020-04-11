@@ -4,9 +4,11 @@ import static cookbuddy.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static cookbuddy.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 import cookbuddy.model.Model;
 import cookbuddy.model.ModelManager;
-import org.junit.jupiter.api.Test;
+
 
 public class HelpCommandTest {
     private Model model = new ModelManager();
