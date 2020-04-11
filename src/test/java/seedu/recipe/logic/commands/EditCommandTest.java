@@ -43,9 +43,7 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
             getTypicalRecordBook(), new PlannedBook(), new QuoteBook());
-
-    /*
-    // todo: bug: test might fail sometimes if recipe at TypicalRecipes index 0 has ingredients
+    // todo: bug: test might fail sometimes if recipe at TypicalRecipes index 0 has ingredients!
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Recipe editedRecipe = new RecipeBuilder().build();
@@ -63,8 +61,7 @@ public class EditCommandTest {
                 new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
-    }*/
-
+    }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {

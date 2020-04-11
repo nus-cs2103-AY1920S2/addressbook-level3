@@ -1,7 +1,7 @@
 package seedu.recipe.logic.commands;
 
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandFailure;
-//import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
 import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
@@ -15,8 +15,8 @@ import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
-//import seedu.recipe.testutil.RecipeBuilder;
-//import seedu.recipe.ui.tab.Tab;
+import seedu.recipe.testutil.RecipeBuilder;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -31,7 +31,7 @@ public class AddCommandIntegrationTest {
                 new QuoteBook());
     }
 
-    /*
+
     @Test
     public void execute_newRecipe_success() {
         Recipe validRecipe = new RecipeBuilder().build();
@@ -46,7 +46,7 @@ public class AddCommandIntegrationTest {
                         false, Tab.RECIPES, false);
 
         assertCommandSuccess(new AddCommand(validRecipe), model, expectedCommandResult, expectedModel);
-    }*/
+    }
 
     @Test
     public void execute_duplicateRecipe_throwsCommandException() {

@@ -36,7 +36,7 @@ public class CommandTestUtil {
     public static final String VALID_GRAIN_FISH = "100g, Rice";
     public static final String VALID_PROTEIN_TURKEY_SANDWICH = "50g, Shredded Turkey";
     public static final String VALID_PROTEIN_FISH = "100g, Cod fish";
-    public static final String VALID_VEGE_TURKEY_SANDWICH = "150g, Lettuce";
+    public static final String VALID_VEGE_TURKEY_SANDWICH = "50g, Lettuce";
     public static final String VALID_VEGE_FISH = "100g, Tomato";
     public static final String VALID_OTHER_TURKEY_SANDWICH = "150g, Mayonnaise";
     public static final String VALID_OTHER_FISH = "300g, Sesame oil";
