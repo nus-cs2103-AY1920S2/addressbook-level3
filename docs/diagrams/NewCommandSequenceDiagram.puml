@@ -18,16 +18,16 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> CommandBox : "new n/John c/Computer Science\n cs/4"
+[-> CommandBox : "new n/John c/Computer Science\n y/2.2"
 activate CommandBox
 
-CommandBox -> MainWindow : executeCommand("new n/John \nc/Computer Science cs/4")
+CommandBox -> MainWindow : executeCommand("new n/John \nc/Computer Science y/2.2")
 activate MainWindow
 
-MainWindow -> LogicManager : execute("new n/John \nc/Computer Science cs/4")
+MainWindow -> LogicManager : execute("new n/John \nc/Computer Science y/2.2")
 activate LogicManager
 
-LogicManager -> ModdyParser : parseCommand("new n/John \nc/Computer Science cs/4")
+LogicManager -> ModdyParser : parseCommand("new n/John \nc/Computer Science y/2.2")
 activate ModdyParser
 
 create NewCommandParser
@@ -37,7 +37,7 @@ activate NewCommandParser
 NewCommandParser --> ModdyParser
 deactivate NewCommandParser
 
-ModdyParser -> NewCommandParser : parse("n/John \nc/Computer Science cs/4")
+ModdyParser -> NewCommandParser : parse("n/John \nc/Computer Science y/2.2")
 activate NewCommandParser
 
 create NewCommand
@@ -75,10 +75,10 @@ deactivate CommandResult
 NewCommand --> LogicManager : result
 deactivate NewCommand
 
-LogicManager -> MainWindow
+LogicManager --> MainWindow
 deactivate LogicManager
 
-MainWindow -> CommandBox
+MainWindow --> CommandBox
 deactivate MainWindow
 
 [<--CommandBox
