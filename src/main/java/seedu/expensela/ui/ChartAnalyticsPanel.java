@@ -75,7 +75,7 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
     private void graphByCategory(ObservableList<Transaction> transactionList) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         ArrayList<String> categories = new ArrayList<String>();
-        ArrayList<Integer> amounts = new ArrayList<Integer>();
+        ArrayList<Double> amounts = new ArrayList<Double>();
 
         for (Transaction transaction : transactionList) {
             String category = transaction.getCategory().toString();
@@ -84,25 +84,24 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
             }
             Amount amount = transaction.getAmount();
             double amountDouble = amount.transactionAmount;
-            int amountInteger = (int) amountDouble;
             if (categories.contains(category)) {
                 int index = categories.indexOf(category);
-                int newCategoryAmount = amountInteger + amounts.get(index);
-                amounts.add(index, newCategoryAmount);
+                double newCategoryAmount = amountDouble + amounts.get(index);
+                amounts.set(index, newCategoryAmount);
             } else {
                 categories.add(category);
                 int index = categories.size() - 1;
-                amounts.add(index, amountInteger);
+                amounts.add(index, amountDouble);
             }
         }
 
-        int totalAmount = 0;
+        double totalAmount = 0;
         for (int i = 0; i < categories.size(); i++) {
             pieChartData.add(new PieChart.Data(categories.get(i), amounts.get(i)));
             totalAmount += amounts.get(i);
         }
 
-        int finalTotalAmount = totalAmount;
+        double finalTotalAmount = totalAmount;
         pieChartData.forEach(data ->
                 data.nameProperty().bind(
                         Bindings.concat(data.getName(), ":\n",
@@ -128,11 +127,12 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
 
         for (Transaction transaction : transactionList) {
             Amount amount = transaction.getAmount();
+            String categoryString = transaction.getCategory().toString();
             LocalDate transactionLocalDate = transaction.getDate().transactionDate;
             int weekIndex = (transactionLocalDate.getDayOfMonth() - 1) / 7;
             DayOfWeek day = transactionLocalDate.getDayOfWeek();
 
-            if (amount.positive) {
+            if (amount.positive || categoryString.equals("INCOME")) {
                 continue;
             }
 
@@ -200,8 +200,9 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
 
         for (Transaction transaction : transactionList) {
             Amount amount = transaction.getAmount();
+            String categoryString = transaction.getCategory().toString();
             LocalDate transactionLocalDate = transaction.getDate().transactionDate;
-            if (amount.positive) {
+            if (amount.positive || categoryString.equals("INCOME")) {
                 continue;
             } else if (transactionLocalDate.getYear() < currYear - 1) {
                 break;
