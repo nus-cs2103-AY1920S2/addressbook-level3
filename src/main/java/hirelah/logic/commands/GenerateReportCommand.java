@@ -14,11 +14,12 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import static hirelah.logic.commands.OpenReportCommand.MESSAGE_NOT_INTERVIEWED;
 import static java.util.Objects.requireNonNull;
@@ -34,6 +35,8 @@ public class GenerateReportCommand extends Command {
             + MESSAGE_FUNCTION
             + "Example: " + COMMAND_WORD
             + " Jane Doe ";
+    private static final String ATTRIBUTE_SCORE_TITLE = "Attribute Score";
+    private static final String REMARKS_TITLE = "Remarks";
 
     private final String identifier;
 
@@ -108,7 +111,8 @@ public class GenerateReportCommand extends Command {
 
 
             PDDocument document = new PDDocument();
-            Pair<Integer, PDPage> positionAfterAttributeScorePrinting = printAttributeScoresPart(document, attributeToScoreData);
+            //printTitlePart(document, interviewee.getFullName());
+            Pair<Integer, PDPage> positionAfterAttributeScorePrinting = printNameAndAttributeScoresPart(document, interviewee.getFullName().toUpperCase(), attributeToScoreData);
             printRemarksPart(document, remarks, positionAfterAttributeScorePrinting);
             //currentPage.getPageContentStream().endText();
             //currentPage.getPageContentStream().close();
@@ -119,7 +123,29 @@ public class GenerateReportCommand extends Command {
         }
     }
 
-    private static Pair<Integer, PDPage> printAttributeScoresPart(PDDocument document, ObservableList<Pair<Attribute, Double>> attributeScores) throws IOException {
+
+    /*private static Pair<Integer, PDPage> printTitlePart(PDDocument document, String fullName) throws IOException {
+        PDPage page = new PDPage(PDRectangle.A4);
+        document.addPage(page);
+        PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
+        pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 14);
+        pageContentStream.beginText();
+        pageContentStream.newLineAtOffset(50, 800);
+        ArrayList<String> nameList = splitSentence(fullName, 85);
+        for (String currentString : nameList) {
+            pageContentStream.showText(currentString);
+            pageContentStream.newLineAtOffset(0, -15);
+        }
+        pageContentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+        pageContentStream.newLineAtOffset(500, 0);
+        pageContentStream.showText(REMARKS_TITLE);
+        pageContentStream.endText();
+        pageContentStream.close();
+        return new Pair<>((nameList.size() + 1) * 15, page);
+
+    }*/
+
+    private static Pair<Integer, PDPage> printNameAndAttributeScoresPart(PDDocument document, String fullName, ObservableList<Pair<Attribute, Double>> attributeScores) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         for (Pair<Attribute, Double> attributeScorePair : attributeScores) {
             stringBuilder.append(attributeScorePair.getKey());
@@ -130,29 +156,51 @@ public class GenerateReportCommand extends Command {
             }
             stringBuilder.append(", ");
         }
-        ArrayList<String> splitAttributeScoresSentence = splitSentence(stringBuilder.toString());
-        return new Pair(splitAttributeScoresSentence.size() * 13, generateAttributeScores(document, splitAttributeScoresSentence));
+        ArrayList<String> splitAttributeScoresSentence = splitSentence(stringBuilder.toString(), 85);
+        ArrayList<String> splitName = splitSentence(fullName, 85);
+        splitAttributeScoresSentence.add(0, ATTRIBUTE_SCORE_TITLE);
+        splitAttributeScoresSentence.addAll(0, splitName);
+        return  generateAttributeScores(document, splitName.size(), splitAttributeScoresSentence);
     }
 
-    private static PDPage generateAttributeScores(PDDocument document, ArrayList<String> splitAttributeScoresList) throws IOException {
-        while (splitAttributeScoresList.size() > 60) {
+    private static Pair<Integer, PDPage> generateAttributeScores(PDDocument document, int nameListSize, ArrayList<String> nameAndAttributeScoreList) throws IOException {
+        boolean onePageOnly = true;
+        while (nameAndAttributeScoreList.size() > 60) {
+            onePageOnly = false;
             ArrayList<String> firstSixtyAttributeScoresList = new ArrayList<>();
             for (int i = 0; i < 60; i++) {
-                firstSixtyAttributeScoresList.add(splitAttributeScoresList.get(i));
-                splitAttributeScoresList.remove(i);
+                firstSixtyAttributeScoresList.add(nameAndAttributeScoreList.get(i));
+                nameAndAttributeScoreList.remove(i);
             }
-            generateAttributeScoresPage(document, firstSixtyAttributeScoresList);
+            generateAttributeScoresPage(document, nameListSize, firstSixtyAttributeScoresList);
         }
-        return generateAttributeScoresPage(document, splitAttributeScoresList);
+        int verticalSpacing = onePageOnly? nameAndAttributeScoreList.size() *13 + 40 : nameAndAttributeScoreList.size() *13;
+        return new Pair<>(verticalSpacing, generateAttributeScoresPage(document, nameListSize, nameAndAttributeScoreList));
     }
 
-    private static PDPage generateAttributeScoresPage(PDDocument document, ArrayList<String> sentenceList) throws IOException {
+    private static PDPage generateAttributeScoresPage(PDDocument document, int nameListSize, ArrayList<String> sentenceList) throws IOException {
         PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
         PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
-        pageContentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-        pageContentStream.beginText();
-        pageContentStream.newLineAtOffset(50, 800);
+        float startX = 0;
+        for (int i = 0; i < nameListSize; i++) {
+            PDFont font = PDType1Font.HELVETICA_BOLD_OBLIQUE;
+            int fontSize = 15;
+            pageContentStream.setFont(font, fontSize);
+            pageContentStream.beginText();
+            startX = (page.getMediaBox().getWidth() - (font.getStringWidth(sentenceList.get(i)) / 1000 * fontSize)) / 2;
+            pageContentStream.newLineAtOffset(startX, 800);
+            pageContentStream.showText(sentenceList.get(i));
+            sentenceList.remove(i);
+            pageContentStream.newLineAtOffset(0, -15);
+        }
+        pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 13);
+        pageContentStream.newLineAtOffset(50 - startX, -15);
+        pageContentStream.showText(sentenceList.get(0));
+        sentenceList.remove(0);
+        pageContentStream.newLineAtOffset(0, -15);
+
+        pageContentStream.setFont(PDType1Font.HELVETICA, 12);
         for (String currentString : sentenceList) {
             pageContentStream.showText(currentString);
             pageContentStream.newLineAtOffset(0, -13);
@@ -167,21 +215,26 @@ public class GenerateReportCommand extends Command {
         ArrayList<Remark> remarkList = new ArrayList<>();
         remarkList.addAll(remarks);
         int currentYOffset = 800 - startingPosition.getKey();
+        System.out.println(currentYOffset);
         boolean firstPage = true;
         ArrayList<TableRowEntry> rowsInAPage = new ArrayList<>();
         for (Remark currentRemark : remarkList) {
-            ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage());
+            ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage(), 80);
             for (String currentLine : splitRemarks) {
                 TableRowEntry currentRow = new TableRowEntry(currentLine,
                         currentLine.equals(splitRemarks.get(0))? currentRemark.getTimeString() : "",
                         currentLine.equals(splitRemarks.get(0))? -20 : -13);
                 rowsInAPage.add(currentRow);
                 currentYOffset -= 13;
-                if (currentYOffset < 20) {
+                if (currentYOffset < 30) {
                     if (firstPage) {
-                        generatePartialRemarkPage(document, startingPosition.getValue(), rowsInAPage);
-                    } else {
+                        System.out.println(currentYOffset);
+                        System.out.println("els1e");
+                        generatePartialRemarkPage(document, startingPosition, rowsInAPage);
                         firstPage = false;
+                    } else {
+                        System.out.println(currentYOffset);
+                        System.out.println("else");
                         generateFullRemarkPage(document, rowsInAPage);
                         rowsInAPage = new ArrayList<>();
                         currentYOffset = 800;
@@ -189,10 +242,13 @@ public class GenerateReportCommand extends Command {
                 }
             }
             currentYOffset -= 20;
-            if (currentYOffset < 20) {
+            if (currentYOffset < 30) {
+
                 if (firstPage) {
-                    generatePartialRemarkPage(document, startingPosition.getValue(), rowsInAPage);
+                    generatePartialRemarkPage(document, startingPosition, rowsInAPage);
                 } else {
+                    System.out.println(currentYOffset);
+                    System.out.println("elsaaa");
                     firstPage = false;
                     generateFullRemarkPage(document, rowsInAPage);
                     rowsInAPage = new ArrayList<>();
@@ -200,20 +256,35 @@ public class GenerateReportCommand extends Command {
                 }
             }
         }
-        generateFullRemarkPage(document, rowsInAPage);
+        if (firstPage) {
+            generatePartialRemarkPage(document, startingPosition, rowsInAPage);
+        } else {
+            firstPage = false;
+            System.out.println(currentYOffset);
+            System.out.println("elsaaaaaaaaaa");
+            generateFullRemarkPage(document, rowsInAPage);
+            rowsInAPage = new ArrayList<>();
+            currentYOffset = 800;
+        }
     }
 
-    private static void generatePartialRemarkPage(PDDocument document, PDPage currentPage, ArrayList<TableRowEntry> rowList) throws IOException {
-        PDPageContentStream pageContentStream = new PDPageContentStream(document, currentPage);
-        pageContentStream.setFont( PDType1Font.HELVETICA , 12 );
+    private static void generatePartialRemarkPage(PDDocument document, Pair<Integer, PDPage> startingPosition, ArrayList<TableRowEntry> rowList) throws IOException {
+        System.out.println(startingPosition.getKey());
+        PDPageContentStream.AppendMode append = PDPageContentStream.AppendMode.APPEND;
+        PDPageContentStream pageContentStream = new PDPageContentStream(document, startingPosition.getValue(), append, false);
+        pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 13);
         pageContentStream.beginText();
-        pageContentStream.newLineAtOffset(0, 800);
-        for (TableRowEntry currentRow : rowList) {
-            pageContentStream.newLineAtOffset(50, currentRow.getValueYOffset());
-            pageContentStream.showText(currentRow.getDuration());
+        pageContentStream.newLineAtOffset(50, 800 - startingPosition.getKey());
+        pageContentStream.showText(REMARKS_TITLE);
+        pageContentStream.newLineAtOffset(-50, 0);
+        pageContentStream.setFont( PDType1Font.HELVETICA , 12 );
+        while(!rowList.isEmpty()) {
+            pageContentStream.newLineAtOffset(50, rowList.get(0).getValueYOffset());
+            pageContentStream.showText(rowList.get(0).getDuration());
             pageContentStream.newLineAtOffset(50, 0);
-            pageContentStream.showText(currentRow.getMessage());
+            pageContentStream.showText(rowList.get(0).getMessage());
             pageContentStream.newLineAtOffset(-100, 0);
+            rowList.remove(0);
         }
         pageContentStream.endText();
         pageContentStream.close();
@@ -342,11 +413,12 @@ public class GenerateReportCommand extends Command {
     }
 
     /**
-     * Splits the sentence to a maximum of 80 characters per line.
+     * Splits the sentence to a maximum of certain characters per line.
      *
      * @param sentence the sentence to be splitted.
+     * @param limit the maximum number of characters per line
      */
-    private static ArrayList<String> splitSentence(String sentence) {
+    private static ArrayList<String> splitSentence(String sentence, int limit) {
         int numberOfLines = (sentence.length()/80) + 1;
         ArrayList<String> splitRemarks = new ArrayList<>();
         String[] words = sentence.split(" ");
@@ -356,9 +428,9 @@ public class GenerateReportCommand extends Command {
             StringBuilder currentBuilder = new StringBuilder();
             while (i < words.length) {
                 String currentWord = words[i];
-                if (currentWord.length() > 80) {
-                    while (currentWord.length() > 80) {
-                        int remainingCapacity = Math.min(79, 79 - currentBuilder.length());
+                if (currentWord.length() > limit) {
+                    while (currentWord.length() > limit) {
+                        int remainingCapacity = Math.min(limit-1, limit - 1 - currentBuilder.length());
                         currentBuilder.append(currentWord.substring(0, remainingCapacity).toString() + "-");
                         splitRemarks.add(currentBuilder.toString());
                         currentWord = currentWord.substring(remainingCapacity);
@@ -368,7 +440,7 @@ public class GenerateReportCommand extends Command {
                     currentBuilder.append(currentWord + " ");
                     currentWord = words[++i];
                 }
-                if (currentBuilder.length() + currentWord.length() > 80) {
+                if (currentBuilder.length() + currentWord.length() > limit -1) {
                     break;
                 }
                 currentBuilder.append(currentWord + " ");
