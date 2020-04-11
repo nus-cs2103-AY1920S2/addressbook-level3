@@ -1,4 +1,4 @@
-package cookbuddy.model.recipe.attribute;
+package cookbuddy.model.recipe.testattribute;
 
 import static java.util.Objects.requireNonNull;
 

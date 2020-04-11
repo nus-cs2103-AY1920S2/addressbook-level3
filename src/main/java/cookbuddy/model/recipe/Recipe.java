@@ -7,18 +7,18 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import cookbuddy.model.recipe.attribute.Calorie;
-import cookbuddy.model.recipe.attribute.Difficulty;
-import cookbuddy.model.recipe.attribute.Done;
-import cookbuddy.model.recipe.attribute.Fav;
-import cookbuddy.model.recipe.attribute.IngredientList;
-import cookbuddy.model.recipe.attribute.InstructionList;
-import cookbuddy.model.recipe.attribute.Name;
-import cookbuddy.model.recipe.attribute.Photograph;
-import cookbuddy.model.recipe.attribute.Rating;
-import cookbuddy.model.recipe.attribute.Serving;
-import cookbuddy.model.recipe.attribute.Tag;
-import cookbuddy.model.recipe.attribute.Time;
+import cookbuddy.model.recipe.testattribute.Calorie;
+import cookbuddy.model.recipe.testattribute.Difficulty;
+import cookbuddy.model.recipe.testattribute.Done;
+import cookbuddy.model.recipe.testattribute.Fav;
+import cookbuddy.model.recipe.testattribute.IngredientList;
+import cookbuddy.model.recipe.testattribute.InstructionList;
+import cookbuddy.model.recipe.testattribute.Name;
+import cookbuddy.model.recipe.testattribute.Photograph;
+import cookbuddy.model.recipe.testattribute.Rating;
+import cookbuddy.model.recipe.testattribute.Serving;
+import cookbuddy.model.recipe.testattribute.Tag;
+import cookbuddy.model.recipe.testattribute.Time;
 
 /**
  * Represents a Recipe in the recipe book. Guarantees: details are present and

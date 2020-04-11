@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.model.recipe.attribute.Time;
+import cookbuddy.model.recipe.testattribute.Time;
 import javafx.collections.ObservableList;
 
 /**

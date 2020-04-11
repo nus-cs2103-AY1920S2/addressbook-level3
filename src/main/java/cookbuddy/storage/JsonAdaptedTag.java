@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import cookbuddy.commons.exceptions.IllegalValueException;
-import cookbuddy.model.recipe.attribute.Tag;
+import cookbuddy.model.recipe.testattribute.Tag;
 
 /**
  * Jackson-friendly version of {@link Tag}.

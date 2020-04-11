@@ -15,7 +15,7 @@ import java.util.Set;
 import cookbuddy.logic.commands.ModifyCommand.EditRecipeDescriptor;
 import cookbuddy.logic.commands.NewCommand;
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.model.recipe.attribute.Tag;
+import cookbuddy.model.recipe.testattribute.Tag;
 
 /**
  * A utility class for Recipe.

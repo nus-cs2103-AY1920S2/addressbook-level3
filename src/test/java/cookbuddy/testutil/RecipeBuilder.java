@@ -8,18 +8,18 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.model.recipe.attribute.Calorie;
-import cookbuddy.model.recipe.attribute.Difficulty;
-import cookbuddy.model.recipe.attribute.Ingredient;
-import cookbuddy.model.recipe.attribute.IngredientList;
-import cookbuddy.model.recipe.attribute.Instruction;
-import cookbuddy.model.recipe.attribute.InstructionList;
-import cookbuddy.model.recipe.attribute.Name;
-import cookbuddy.model.recipe.attribute.Photograph;
-import cookbuddy.model.recipe.attribute.Rating;
-import cookbuddy.model.recipe.attribute.Serving;
-import cookbuddy.model.recipe.attribute.Tag;
-import cookbuddy.model.recipe.attribute.Time;
+import cookbuddy.model.recipe.testattribute.Calorie;
+import cookbuddy.model.recipe.testattribute.Difficulty;
+import cookbuddy.model.recipe.testattribute.Ingredient;
+import cookbuddy.model.recipe.testattribute.IngredientList;
+import cookbuddy.model.recipe.testattribute.Instruction;
+import cookbuddy.model.recipe.testattribute.InstructionList;
+import cookbuddy.model.recipe.testattribute.Name;
+import cookbuddy.model.recipe.testattribute.Photograph;
+import cookbuddy.model.recipe.testattribute.Rating;
+import cookbuddy.model.recipe.testattribute.Serving;
+import cookbuddy.model.recipe.testattribute.Tag;
+import cookbuddy.model.recipe.testattribute.Time;
 import cookbuddy.model.util.SampleDataUtil;
 
 /**
