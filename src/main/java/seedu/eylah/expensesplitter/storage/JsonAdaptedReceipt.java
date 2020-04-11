@@ -23,7 +23,7 @@ public class JsonAdaptedReceipt {
      * Constructs a {@code JsonAdaptedReceipt} with the given entries details.
      */
     @JsonCreator
-    public JsonAdaptedReceipt(@JsonProperty("itemPersons") List<JsonAdaptedEntry> entries,
+    public JsonAdaptedReceipt(@JsonProperty("entries") List<JsonAdaptedEntry> entries,
             @JsonProperty("isDone") boolean isDone) {
         if (entries != null) {
             this.entries.addAll(entries);

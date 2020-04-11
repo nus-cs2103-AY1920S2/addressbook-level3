@@ -1,12 +1,13 @@
 package seedu.eylah.diettracker.logic.commands;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.diettracker.model.DietModel;
 
 /**
  * Format full help instructions for every command for display.
  */
-public class HelpCommand extends Command {
+public class HelpCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "help";
 

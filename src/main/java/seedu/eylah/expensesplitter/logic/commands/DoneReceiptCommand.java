@@ -2,6 +2,7 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.expensesplitter.model.SplitterModel;
 
@@ -10,7 +11,7 @@ import seedu.eylah.expensesplitter.model.SplitterModel;
  * For instance, after the Receipt is set as DONE, additem and deleteitem commands will not work until
  * a new receipt is created.
  */
-public class DoneReceiptCommand extends Command {
+public class DoneReceiptCommand extends Command<SplitterModel> {
 
     public static final String COMMAND_WORD = "donereceipt";
 

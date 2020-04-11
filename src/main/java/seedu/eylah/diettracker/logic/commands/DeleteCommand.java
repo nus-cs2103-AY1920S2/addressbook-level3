@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.eylah.commons.core.Messages;
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -14,7 +15,7 @@ import seedu.eylah.diettracker.model.food.Food;
 /**
  * Deletes a food identified using it's displayed index from the food book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "delete";
 

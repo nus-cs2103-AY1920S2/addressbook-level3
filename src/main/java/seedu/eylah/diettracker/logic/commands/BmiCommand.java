@@ -3,6 +3,7 @@ package seedu.eylah.diettracker.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.eylah.commons.core.Messages;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -17,7 +18,7 @@ import seedu.eylah.diettracker.model.self.Weight;
  * If not, it will calculate based on the internal height and weight
  * previously recorded.
  */
-public class BmiCommand extends Command {
+public class BmiCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "bmi";
 
@@ -29,31 +30,62 @@ public class BmiCommand extends Command {
     public static final String MESSAGE_CALCULATE_BMI_SUCCESS = "The BMI Calculated is: %1$s\n"
             + "Your BMI is in the %2$s category.";
 
-    private final Height height;
-    private final Weight weight;
-    private final Bmi bmi;
+    private Bmi bmi;
+    private Height height;
+    private Weight weight;
 
     /**
      * Constructor for Command that does not include Height and Weight.
      */
     public BmiCommand() {
-        height = new Height(175);
-        weight = new Weight(70);
-        bmi = new Bmi(height, weight);
+        height = new Height(0);
+        weight = new Weight(0);
     }
 
     /**
      * Constructor for Command that includes input Height and Weight.
      */
     public BmiCommand(Height height, Weight weight) {
+        requireNonNull(height);
+        requireNonNull(weight);
         this.height = height;
         this.weight = weight;
-        this.bmi = new Bmi(height, weight);
     }
 
     @Override
     public CommandResult execute(DietModel model) throws CommandException {
         requireNonNull(model);
+
+        Height storedHeight = model.getHeight();
+        Weight storedWeight = model.getWeight();
+
+        if (height.isZero() && weight.isZero()) {
+            if (storedHeight.isZero() && storedWeight.isZero()) {
+                throw new CommandException("Please provide height and weight after the -h and -w flags respectively "
+                        + "as you have not stored them yet!");
+            }
+        }
+
+        if (height.isZero()) {
+            if (storedHeight.isNotZero()) {
+                height = storedHeight;
+            } else {
+                throw new CommandException("Please provide height after the -h flag as you have not stored your "
+                        + "height yet");
+            }
+        }
+
+        if (weight.isZero()) {
+            if (storedWeight.isNotZero()) {
+                weight = storedWeight;
+            } else {
+                throw new CommandException("Please provide weight after the -w flag as you have not stored your "
+                        + "weight yet!");
+            }
+        }
+
+        bmi = new Bmi(height, weight);
+
 
         if (bmi.getBmi() < 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);

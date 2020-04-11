@@ -8,7 +8,7 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class "{abstract}\nCommonParser" as CommonParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -24,7 +24,10 @@ Class "{abstract}\nCommand" as Command
 }
 
 Interface Logic <<Interface>>
-Class LogicManager
+Interface SplitterLogic <<Interface>>
+Interface DietLogic <<Interface>>
+Class SplitterLogicManager
+Class DietLogicManager
 }
 
 package Model{
@@ -34,11 +37,21 @@ Class HiddenModel #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+SplitterLogic -left-|> Logic
+DietLogic -left-|> Logic
+DietLogic -[hidden]up-> SplitterLogic
 
-XYZCommandParser ..> XYZCommand : creates >
+SplitterLogicManager .up.|> SplitterLogic
+DietLogicManager .up.|> DietLogic
+SplitterLogicManager -down->"1" CommonParser
+DietLogicManager -down->"1" CommonParser
+SplitterLogicManager ..> CommandResult
+DietLogicManager ..> CommandResult
+SplitterLogicManager ..> Command : execute >
+DietLogicManager ..> Command : execute >
+
+CommonParser .left.> XYZCommandParser: creates >
+XYZCommandParser .right.> XYZCommand : creates >
 XYZCommandParser ..|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
@@ -49,14 +62,9 @@ XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
-
-LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
 Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
+
+
+
 @enduml

@@ -16,12 +16,12 @@ public class UiManager implements Ui {
             + "         |          |     |       |     |  |     |  \n"
             + "         |_____     |     |_____  |     |  |     |  ";
     private static final String SEPARATOR = "_____________________________________________________________";
-    private static final String USAGE = "Enter the INDEX to choose the mode.\n";
+    private static final String USAGE = "Enter command to choose the mode.\n";
     private static final String NAV_LIST = "Content Page: \n"
             + "----------------\n"
-            + "1. Diet Tracker\n"
-            + "2. Expense Splitter\n"
-            + "To exit the application: exit\n"
+            + "Enter Diet Tracker: 1/diet\n"
+            + "Enter Expense Splitter: 2/split\n"
+            + "Exit EYLAH: exit\n"
             + "----------------";
     private static final String READ_COMMAND = "Enter command: ";
     private static final String EXIT_MESSAGE = "Bye! See you next time :)";
@@ -49,17 +49,17 @@ public class UiManager implements Ui {
 
     @Override
     public void showWelcome() {
-        showToUser(USAGE, NAV_LIST);
+        showToUser(SEPARATOR, USAGE, NAV_LIST);
     }
 
     @Override
     public void showLogo() {
-        showToUser(WELCOME_MESSAGE, SEPARATOR, LOGO, SEPARATOR, LS);
+        showToUser(SEPARATOR, LOGO, SEPARATOR, WELCOME_MESSAGE);
     }
 
     @Override
     public void showMode(Mode mode) {
-        showToUser(String.format(MODE_MESSAGE, mode.toString()));
+        showToUser(SEPARATOR, String.format(MODE_MESSAGE, mode.toString()));
     }
 
     @Override

@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -116,7 +117,7 @@ public class CommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the food book, filtered food list and selected food in {@code actualModel} remain unchanged
      */
-    public static void assertCommandFailure(Command command, DietModel actualModel, String expectedMessage) {
+    public static void assertCommandFailure(Command<DietModel> command, DietModel actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         FoodBook expectedFoodBook = new FoodBook(actualModel.getFoodBook());

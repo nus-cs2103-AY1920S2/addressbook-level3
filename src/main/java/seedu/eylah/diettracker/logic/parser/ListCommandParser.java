@@ -7,6 +7,7 @@ import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
+import seedu.eylah.commons.logic.parser.Parser;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.ListCommand;
 import seedu.eylah.diettracker.model.tag.Tag;
@@ -39,7 +40,15 @@ public class ListCommandParser implements Parser<ListCommand> {
         }
 
         if (mode.equals("-d")) {
-            int numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAYS).get());
+            int numDays;
+            try {
+                numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAYS).get());
+                if (numDays < 1) {
+                    throw new ParseException("Input days is invalid.");
+                }
+            } catch (ParseException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE_DAYS));
+            }
             return new ListCommand(mode, numDays);
         } else if (mode.equals("-t")) {
             Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());

@@ -2,6 +2,7 @@ package seedu.eylah.diettracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -10,7 +11,7 @@ import seedu.eylah.diettracker.model.self.Weight;
 /**
  * Adds the weight of the user in kilograms.
  */
-public class WeightCommand extends Command {
+public class WeightCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "weight";
 

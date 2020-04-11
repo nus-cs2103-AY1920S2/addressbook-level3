@@ -89,8 +89,7 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
     }
 
     /**
-     * Intentionally left empty.
-     * To be implemented later.
+     * Command for listing the Receipt.
      */
     @Override
     public void listReceipt() {
@@ -113,15 +112,6 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
         requireAllNonNull(person, amountPaid);
         Amount amount = new Amount(new BigDecimal(amountPaid));
         personAmountBook.removeAmount(person, amount);
-
-    }
-
-    /**
-     * Intentionally left empty.
-     * To be implemented later.
-     */
-    @Override
-    public void backToMainMenu() {
 
     }
 

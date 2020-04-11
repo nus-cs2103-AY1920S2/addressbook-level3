@@ -10,7 +10,7 @@
 
 == Overview
 
-EYLAH is a desktop application specifically programmed for students staying in National University
+EYLAH is a desktop application specifically programmed for students staying in Temasek Hall at the National University
 of Singapore. It aims to ease their lives
 at halls by providing them with an application that split bills easily and help
 them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
@@ -35,15 +35,16 @@ Implementing the ItemPrice was a little tricky because Double should not be used
 as it will lead to rounding errors.
 Upon further research on Stack Overflow, I have decided that BigDecimal will be a better type to hold currency.
 
-
 *** *Credits:* +
 Online links where I researched on: "https://stackoverflow.com/questions/1359817/using-bigdecimal-to-work-with-currencies"
 
-. Added *the ability to deduct Amount owed by a Person when they have paid*
+
+. Added *the ability to deduct Amount owed by a Person when they have paid through `paid` command*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/issues/195[#195])
 
 *** *What it does:* +
 Allows the user to reduce the amount owed by a Person.
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/issues/195[#195])
+
 
 *** *Justification:* +
 This feature allows a Person to clear his/her debt. In EYLAH after a Person has cleared his/her debt, their
@@ -57,8 +58,15 @@ resolved it by not allowing users to use the `paid` command until after a receip
 *** *Credits:* +
 N.A
 
-. Added *the storage component that allowed the user to automatically save a Person and their amount owed after
+
+
+. Added *the expense splitter
+storage component that allowed the user to automatically save a Person and their amount owed after
 each command*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/issues/149[#149])
+
+*** *What it does:* +
+Allows EYLAH to save a Person and the amount they owe after each command.
 
 *** *Justification:* +
 This feature allows the user to automatically save the amount of money each person owes him after every command.
@@ -73,29 +81,37 @@ N.A
 
 
 * *Minor enhancement*:
-** *Drew Expense Spliter portion of UML Class diagram*
-+
-image::expense_splitter_uml_class_diagram.png[]
-(Excluding the Height Class)
-+
-** *Added tests for ItemTest, ItemName, ItemPrice*
 
-** *Assisted in downscaling of AddressBook3 by removing Email object*
+. Modified the `paid` command to allow a Person to pay his debt fully
 
-** *Drew Activity Diagram for Expense Spliter portion of EYLAH*
-+
-image::activityDiagram_for_expensesplitter.png[]
+*** *What it does:* +
+Expanded the `paid` command to accept empty amount field, which meant that the Person paid his debt fully. +
+Previously: `paid 1 3` meant that person at INDEX 1 paid $3. +
+Now: `paid 1` meant that person at INDEX 1 paid the full amount he owes.
+
+*** *Justification:* +
+This allows the user to conveniently clear a Person debt fully.
+
+. Performed defensive coding for `additem` command and `paid` command
+
+*** *What it does:* +
+`additem` and `paid` commands are commands in expense splitter
+which includes numerical digits and multiple parameters. As a result, these commands may be exploited
+when discovering bugs in EYLAH. Common issues includes passing a huge numerical number which causes Integer Overflow
+or passing a negative index which causes ArrayOutOfBounds Exceptions. Thus I handled these rouge commands by
+including try-catch statement to catch these exceptions.
+
+*** *Justification:* +
+This reduces the chances of EYLAH crashing.
 
 
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
+[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=willyseahh&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test Code]]
 
 * *Other contributions*:
 
-
 ** Project management:
-*** In charge of team facilitation and code integration.
-*** Participated in planning the project timeline for EYLAH.
+*** In charge of team progress and planning intermediate deadlines to achieve milestones.
 
 
 ** Enhancements to existing features:
@@ -106,7 +122,7 @@ image::activityDiagram_for_expensesplitter.png[]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com[3], https://github.com[4])
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com/nus-cs2103-AY1920S2/forum/issues/105[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 ** Tools:

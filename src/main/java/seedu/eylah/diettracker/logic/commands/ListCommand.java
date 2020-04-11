@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -17,13 +18,14 @@ import seedu.eylah.diettracker.model.tag.Tag;
 /**
  * Lists all food and their calories.
  */
-public class ListCommand extends Command {
+public class ListCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists all food in the book. Use tags to list "
             + "different things."
             + "Parameters: [-a] / [-d][numDays] / [-t [tag]]";
+    public static final String MESSAGE_USAGE_DAYS = "Parameter number of days after flag -d must be greater than zero!";
     public static final String MESSAGE_SUCCESS = "All foods over period based on input tag has been listed.\n";
 
     private String mode = "";

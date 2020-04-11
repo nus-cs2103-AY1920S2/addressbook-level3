@@ -67,6 +67,14 @@ public class Weight {
         return this.weightFloat;
     }
 
+    public boolean isZero() {
+        return weightFloat.equals(Float.valueOf(0));
+    }
+
+    public boolean isNotZero() {
+        return !weightFloat.equals(Float.valueOf(0));
+    }
+
     @Override
     public String toString() {
         return weightString;

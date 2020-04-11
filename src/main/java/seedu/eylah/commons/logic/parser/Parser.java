@@ -1,12 +1,12 @@
-package seedu.eylah.diettracker.logic.parser;
+package seedu.eylah.commons.logic.parser;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
-import seedu.eylah.diettracker.logic.commands.Command;
 
 /**
  * Represents a Parser that is able to parse user input into a {@code Command} of type {@code T}.
  */
-public interface Parser<T extends Command> {
+public interface Parser<T extends Command<?>> {
 
     /**
      * Parses {@code userInput} into a command and returns it.

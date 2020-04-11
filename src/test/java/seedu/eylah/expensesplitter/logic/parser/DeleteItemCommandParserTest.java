@@ -1,4 +1,4 @@
-package seedu.eylah.expensesplitter.logic.commands;
+package seedu.eylah.expensesplitter.logic.parser;
 
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.eylah.expensesplitter.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
-import seedu.eylah.expensesplitter.logic.parser.DeleteItemCommandParser;
-import seedu.eylah.expensesplitter.logic.parser.ParserUtil;
+import seedu.eylah.expensesplitter.logic.commands.DeleteItemCommand;
 
 public class DeleteItemCommandParserTest {
 

@@ -5,6 +5,7 @@ import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -13,7 +14,7 @@ import seedu.eylah.diettracker.model.food.Food;
 /**
  * Adds a food to the food book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "add";
 

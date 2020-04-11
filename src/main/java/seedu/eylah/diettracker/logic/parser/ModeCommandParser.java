@@ -7,6 +7,7 @@ import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_MAINTAIN;
 
 import java.util.stream.Stream;
 
+import seedu.eylah.commons.logic.parser.Parser;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.ModeCommand;
 import seedu.eylah.diettracker.model.Mode;

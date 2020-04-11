@@ -14,6 +14,7 @@ import java.util.Set;
 
 import seedu.eylah.commons.core.Messages;
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.commons.util.CollectionUtil;
@@ -27,7 +28,7 @@ import seedu.eylah.diettracker.model.tag.Tag;
 /**
  * Adds a food to the food book.
  */
-public class EditCommand extends Command {
+public class EditCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "edit";
 
