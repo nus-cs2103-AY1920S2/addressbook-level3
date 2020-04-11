@@ -30,14 +30,15 @@ public class ReturnCommand extends Command {
 
     public static final String COMMAND_WORD = "return";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns an order and adds it to the returns book. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": With the return command, you can either create a new"
+            + " order or convert an existing delivered order into a return order. "
+            + "Parameters for creating a new return order: "
             + PREFIX_TID + "TRANSACTION_ID "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_RETURN_TIMESTAMP + "Delivery_DATE_&_TIME "
+            + PREFIX_RETURN_TIMESTAMP + "RETURN_DATE_&_TIME "
             + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION "
             + "[" + PREFIX_COMMENT + "COMMENT] "
             + "[" + PREFIX_TYPE + "TYPE_OF_ITEM] "
@@ -51,7 +52,15 @@ public class ReturnCommand extends Command {
             + PREFIX_RETURN_TIMESTAMP + "2020-05-05 1500 "
             + PREFIX_WAREHOUSE + "5 Toh Guan Rd E #02-30 S608831 "
             + PREFIX_COMMENT + "NIL "
-            + PREFIX_TYPE + "glass";
+            + PREFIX_TYPE + "glass"
+            + "\n"
+            + "Parameters for converting a delivered order into a return order: "
+            + PREFIX_TID + "TRANSACTION_ID "
+            + PREFIX_RETURN_TIMESTAMP + "RETURN_DATE_&_TIME "
+            + "\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TID + "A999999 "
+            + PREFIX_RETURN_TIMESTAMP + "2020-05-05 1500 ";
 
     public static final String MESSAGE_SUCCESS = "This return order has been created: %1$s";
     public static final String MESSAGE_DUPLICATE_RETURN = "This return order already exists in the returns book";
@@ -87,7 +96,6 @@ public class ReturnCommand extends Command {
             toBeCreated.setTimestamp(timeStamp);
             model.deleteOrder(orderToBeReturned);
         }
-
         checkForDuplicateReturnOrder(model);
         model.addReturnOrder(toBeCreated);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeCreated));
