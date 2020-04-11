@@ -20,7 +20,7 @@ public class FindCommand extends Command {
             COMMAND_WORD
                     + ": Finds all tasks whose names contain any of "
                     + "the specified keywords (case-insensitive) or tags.\n"
-                    + "Parameters: PHRASE [TAG]...\n"
+                    + "Parameters: n/PHRASE t/[TAG]...\n"
                     + "Example: "
                     + COMMAND_WORD
                     + " n/alice bob charlie t/tag1 t/tag2";

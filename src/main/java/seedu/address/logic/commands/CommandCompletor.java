@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CompletorException;
@@ -18,7 +18,7 @@ import seedu.address.logic.parser.SortCommandParser;
  * users.
  */
 public class CommandCompletor {
-    private Set<String> commands = new HashSet<>();
+    private List<String> commands = new ArrayList<>();
 
     /** Add all available commands */
     public CommandCompletor() {
@@ -33,6 +33,8 @@ public class CommandCompletor {
         this.commands.add(HelpCommand.COMMAND_WORD);
         this.commands.add(ExitCommand.COMMAND_WORD);
         this.commands.add(SortCommand.COMMAND_WORD);
+        this.commands.add(TagCommand.COMMAND_WORD);
+        this.commands.add(SetCommand.COMMAND_WORD);
         this.commands.add(SwitchTabCommand.STATS_COMMAND_WORD);
         this.commands.add(SwitchTabCommand.TASKS_COMMAND_WORD);
         this.commands.add(SwitchTabCommand.SETTINGS_COMMAND_WORD);

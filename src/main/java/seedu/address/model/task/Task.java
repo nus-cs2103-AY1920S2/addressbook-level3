@@ -181,8 +181,7 @@ public class Task {
         }
 
         return otherTask != null
-                && otherTask.getName().equals(getName())
-                && (otherTask.getPriority().equals(getPriority()));
+                && otherTask.getName().equals(getName());
     }
 
     /**
@@ -203,19 +202,22 @@ public class Task {
         return otherTask.getName().equals(getName())
                 && otherTask.getPriority().equals(getPriority())
                 && otherTask.getDescription().equals(getDescription())
-                && otherTask.getTags().equals(getTags());
+                && otherTask.getTags().equals(getTags())
+                && otherTask.optionalReminder.equals(this.optionalReminder)
+                && otherTask.optionalRecurring.equals(this.optionalRecurring);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, priority, description, tags);
+        return Objects.hash(name, priority, description, tags, optionalReminder, optionalRecurring);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append("Name: ")
+                .append(getName())
                 .append(",\nPriority: ")
                 .append(getPriority())
                 .append(",\nDescription: ")

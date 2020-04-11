@@ -102,7 +102,7 @@ public class StringUtil {
     /** Returns complete command if given partial command */
     public static Optional<String> getCompletedWord(String word, String[] possibilities) {
         for (String matcher : possibilities) {
-            if (StringUtil.keywordMatchStartOfPhrase(word, matcher) || word.contains(matcher)) {
+            if (StringUtil.keywordMatchStartOfPhrase(word, matcher)) {
                 return Optional.of(matcher);
             }
             if (StringUtil.levenshteinDistanceCompare(word, matcher, 1) != -1) {

@@ -222,7 +222,7 @@ public class ModelManager implements Model {
         this.tagSet.addTask(task);
         this.sortList();
         setTimer(task);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        this.showAllTasks();
     }
 
     /** sortList after task is edited so that edited task will follow the existing sort order */
@@ -281,11 +281,12 @@ public class ModelManager implements Model {
     @Override
     public void sortSearchByRelevance(Comparator<Task> comparator) {
         requireAllNonNull(comparator);
-        Comparator<Task> searchThenNormalOrder = comparator;
-        if (this.comparator != null) {
-            searchThenNormalOrder = searchThenNormalOrder.thenComparing(this.comparator);
-        }
-        this.taskList.sort(searchThenNormalOrder);
+        // Comparator<Task> searchThenNormalOrder = comparator;
+        // if (this.comparator != null) {
+        //     searchThenNormalOrder = searchThenNormalOrder.thenComparing(this.comparator);
+        // }
+        // this.taskList.sort(searchThenNormalOrder);
+        this.setComparator(comparator);
     }
 
     // ================ Sort list methods
