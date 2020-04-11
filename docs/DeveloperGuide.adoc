@@ -1697,6 +1697,12 @@ Use case ends.
 .. 1a1. TA-Tracker creates a new session, and labels it as recurring.
 +
 Use case resumes at step 3.
+[none]
+. 1a. The user adds a session with a module code that does not exists.
+[none]
+.. 1a1. TA-Tracker shows an error message.
++
+Use case ends.
 
 [discrete]
 ==== Use case: UC18 - Deleting a session
@@ -1708,6 +1714,7 @@ the list of existing sessions in the *Session View*.
 . TA-Tracker switches to the `Session Tab`.
 . User requests to delete a session.
 . TA-Tracker deletes the session.
+. TA-Tracker shows the filtered sessions.
 +
 Use case ends.
 
@@ -1717,6 +1724,11 @@ Use case ends.
 . 2a. The index is invalid
 [none]
 .. 2a1. TA-Tracker shows an error message.
++
+Use case ends.
+
+[none]
+* 3a. The Session View is empty.
 +
 Use case ends.
 
@@ -1744,32 +1756,6 @@ Use case ends.
 * 3a. The given session list index is invalid.
 [none]
 ** 3a1. TA-Tracker shows an error message.
-+
-Use case ends.
-
-=== Use case: Delete session
-
-*MSS*
-
-1. User requests to view the Session View.
-2. TA-Tracker switches to the Session Tab.
-3. User requests to delete a specific session in the view.
-4. TA-Tracker deletes the session.
-5. TA-Tracker removes the session from the current view.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The Session View is empty.
-+
-Use case ends.
-
-[none]
-* 3a. The index is invalid.
-[none]
-.. 3a1. TA-Tracker shows an error message.
 +
 Use case ends.
 
