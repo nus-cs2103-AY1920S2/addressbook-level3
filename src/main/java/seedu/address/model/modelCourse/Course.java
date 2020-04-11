@@ -156,6 +156,10 @@ public class Course extends ModelObject {
     return this.assignedStaffID != null && !this.assignedStaffID.equals(new ID(""));
   }
 
+  public void addStaff(ID staffid) {
+    this.assignedStaffID = staffid;
+  }
+
   // ================================== FOR ASSIGN COMMANDS =================================
 
   /**

@@ -148,7 +148,7 @@ class JsonAdaptedCourse {
 
     Course courseReadFromFile = new Course(modelName, modelId, modelAmount, modelTags);
 
-    courseReadFromFile.assignStaff(modelAssignedStaff);
+    courseReadFromFile.addStaff(modelAssignedStaff);
     courseReadFromFile.addStudents(modelAssignedStudentsID);
     courseReadFromFile.addAssignments(modelAssignedAssignmentsID);
 
