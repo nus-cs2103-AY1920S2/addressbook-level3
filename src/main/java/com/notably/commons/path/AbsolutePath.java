@@ -123,7 +123,6 @@ public class AbsolutePath implements Path, Comparable<AbsolutePath> {
 
     @Override
     public boolean equals(Object object) {
-        requireNonNull(object);
         if (!(object instanceof AbsolutePath)) {
             return false;
         }

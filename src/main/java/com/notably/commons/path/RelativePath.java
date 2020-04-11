@@ -135,7 +135,6 @@ public class RelativePath implements Path, Comparable<RelativePath> {
 
     @Override
     public boolean equals(Object object) {
-        requireNonNull(object);
         if (!(object instanceof RelativePath)) {
             return false;
         }
