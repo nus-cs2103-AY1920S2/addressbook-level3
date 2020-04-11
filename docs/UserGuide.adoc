@@ -293,9 +293,9 @@ image::demo/Correction.png[]
 
 * *View help*: `help`
 * *Exit the program*: `exit`
-* *Create a new note*: `new -t TITLE [-b BODY] [-o]`
+* *Create a new note*: `new -t TITLE [-o]`
 * *Open an existing note*: `open [-t] [PATH/TO/]TITLE`
-* *Edit an existing note*: `edit -b BODY`
+* *Edit an existing note*: `edit`
 * *Delete a note*: `delete [-t] [PATH/TO/]TITLE`
-* *(Coming in v2.0) Find a note based on certain keywords*: `search [-s] KEYWORD`
+* *Find a note based on certain keywords*: `search [-s] KEYWORD`
 
