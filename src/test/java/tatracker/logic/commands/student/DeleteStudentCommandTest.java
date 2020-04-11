@@ -1,9 +1,10 @@
 package tatracker.logic.commands.student;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
-import static tatracker.logic.commands.CommandTestUtil.assertStudentCommandSuccess;
+import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 import static tatracker.testutil.TypicalIndexes.MATRIC_FIRST_STUDENT;
 import static tatracker.testutil.TypicalIndexes.MATRIC_NONEXISTENT;
@@ -15,12 +16,12 @@ import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudent
 import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.Messages;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
-import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 
 /**
@@ -48,20 +49,15 @@ public class DeleteStudentCommandTest {
         ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
         expectedModel.deleteStudent(studentToDelete);
 
-        assertStudentCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel, Action.GOTO_STUDENT);
     }
 
     @Test
     public void execute_invalidMatricUnfilteredList_throwsCommandException() {
-        Matric nonexistentMatric = MATRIC_NONEXISTENT;
-        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(nonexistentMatric,
+        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(MATRIC_NONEXISTENT,
                 typicalGroupCode, typicalModuleCode);
 
-        assertCommandFailure(deleteStudentCommand, model, String.format(
-                Messages.MESSAGE_INVALID_STUDENT,
-                nonexistentMatric,
-                typicalGroupCode,
-                typicalModuleCode));
+        assertCommandFailure(deleteStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT);
     }
 
     @Test
@@ -76,26 +72,26 @@ public class DeleteStudentCommandTest {
                 typicalGroupCode, new Module("CS3242").getIdentifier());
 
         // same object -> returns true
-        assertTrue(deleteCommand.equals(deleteCommand));
+        assertEquals(deleteCommand, deleteCommand);
 
         // same values -> returns true
         DeleteStudentCommand deleteFirstCommandCopy = new DeleteStudentCommand(MATRIC_FIRST_STUDENT,
                 typicalGroupCode, typicalModuleCode);
-        assertTrue(deleteCommand.equals(deleteFirstCommandCopy));
+        assertEquals(deleteCommand, deleteFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(deleteCommand.equals(1));
+        assertNotEquals(1, deleteCommand);
 
         // null -> returns false
-        assertFalse(deleteCommand == null);
+        assertNotNull(deleteCommand);
 
         // different matric -> returns false
-        assertFalse(deleteCommand.equals(deleteCommandDifferentMatric));
+        assertNotEquals(deleteCommand, deleteCommandDifferentMatric);
 
         // different group -> returns false
-        assertFalse(deleteCommand.equals(deleteCommandDifferentGroup));
+        assertNotEquals(deleteCommand, deleteCommandDifferentGroup);
 
         // different module -> returns false
-        assertFalse(deleteCommand.equals(deleteCommandDifferentModule));
+        assertNotEquals(deleteCommand, deleteCommandDifferentModule);
     }
 }
