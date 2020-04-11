@@ -344,6 +344,14 @@ image::FindTransactionSequenceDiagram.png[]
 
 ==== Design Considerations
 
+===== Aspect: Multiple filters
+* **Alternative 1 (current choice):** Enables multiple filters to filter the transaction list
+** Pros: Enable easier and flexible search.
+** Cons: More complex to implement, need to take care of multiple cases.
+* **Alternative 2:** Decompose search function into multiple functions, each consist of single filter
+** Pros: Easier to implement, less complexity
+** Cons: More code need to be written, and the code will have high degree of duplication. Less flexible search.
+
 
 
 // end::findtransaction[]
