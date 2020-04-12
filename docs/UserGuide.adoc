@@ -37,7 +37,7 @@ This user guide aims to provide you with essential information on how to use MOD
 . Creating new user profile
 . Adding module & task
 . Editing profile, module & task
-. Showing profile, semester, course, focus area & module
+. Showing profile, module, semester, course or focus area
 . Deleting profile, module, task & grade
 . Returning to homepage
 . Reseting *MODdy*
@@ -93,7 +93,7 @@ This section provides you with the features that you can perform in *MODdy*. It 
 [[Help]]
 === Viewing help : `help`
 
-If you are unsure about the commands and wants to seek help, this command opens up a help window. There are basic command format as well as the respective parameter.
+If you are unsure about the commands and want to seek help, this command opens up a help window where there are examples for basic command format.
 For more detailed help, you can visit the link provided, as shown in the figure below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
 
 Format: `help`
@@ -173,6 +173,7 @@ Red: 0 - 5 days +
 Orange: 6 - 10 days +
 Green: ≥ 11 days
 
+// tag::edit[]
 
 [[Edit]]
 === Editing: `edit`
@@ -200,7 +201,8 @@ Edits your profile name to "Brad", your course to "Computer Science", and your f
 Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
 
 ****
-* Fields in brackets [] are optional, but at least one of these fields should be present to be edited
+* Fields in brackets [] are optional, but at least one of these fields should be present to be edited.
+* You are allowed to add a grade to a module you are planning to take in future, if you wish to predict your CAP. You can delete grades anytime using the `delete` command.
 ****
 
 .Module detail of CS2103 edited
@@ -224,16 +226,17 @@ image::EditDeadline.png[width="790"]
 TIP: `edit m/CS2105 t/Assignment nt/Project` +
 Edits "Assignment" under CS2105 to "Project"
 
+// end::edit[]
 // tag::show[]
 
 [[Show]]
-=== Showing: `show`
+=== Showing profile, module, semester, course or focus area: `show`
 
-To see the information you have added previously, use the `show` command to do so. +
+Not all information can be seen all at once. To see this information you have added previously, use the `show` command to switch your current *MODdy* display. +
 
 There are *five* ways you can use the `show` command:
 
-==== Show your profile +
+==== Showing your profile +
 Format: `show n/NAME`
 
 .Entire profile is shown in the Main Panel
@@ -241,43 +244,10 @@ image::ShowProfile.png[width="790"]
 
 NOTE: All the modules under every semester, grades of completed modules, as well as your current Cumulative Average Point (CAP) will be displayed.
 
+==== Showing details of a module +
+Format: `show m/moduleCode`
 
-==== Show modules in the specified semester +
-Format: `show y/YEAR_SEMESTER`
-
-Example: `show y/2.2`
-
-.Modules added to Year 2 Semester 2 shown in Main Panel
-image::ShowSemester.png[width="790"]
-
-TIP: `show y/2.2` +
-Use this function to quickly display the modules in a particular semester without scrolling for it.
-
-[[showCourse]]
-==== Show the course's requirements +
-Format: `show c/COURSE_NAME`
-
-Example: `show c/Information Systems`
-
-.Course requirement and focus areas of Information Systems shown in the Main Panel
-image::ShowCourse.png[width="790"]
-
-NOTE: All required modules as well as modules under focus areas of the course will be displayed.
-
-==== Show modules under the specified focus area +
-Format: `show f/FOCUS_AREA`
-
-Example: `show f/Electronic Commerce`
-
-.Modules under Electronic Commerce, which is a focus area of Information Systems, shown in the Main Panel
-image::ShowFocusArea.png[width="790"]
-
-TIP: You can retrieve the list of focus areas under a course using the <<showCourse, `show c/COURSE`>> command. This list can also be found in the <<Appendix, Appendix>>
-
-==== Show details of a module +
-Format: `show m/MODULE_CODE`
-
-Example: `show CS3230`
+Example: `show m/CS3230`
 
 .Details of the module CS3230 shown in the Main Panel
 image::ShowModule.png[width="790"]
@@ -286,6 +256,37 @@ NOTE: The module name, prerequisites, modular credits, description and semesters
 
 NOTE: If you request for MODdy to show multiple information at one time, such as course information on Computer Science and module information on CS1101S, using the command `show c/Computer Science m/1101s`, no objects will be displayed. +
 MODdy will remind you that you can only display one object at a time.
+
+==== Showing modules in the specified semester +
+Format: `show y/year.semester`
+
+Example: `show y/2.2`
+
+.Modules added to Year 2 Semester 2 shown in Main Panel
+image::ShowSemester.png[width="790"]
+
+[[showCourse]]
+==== Showing the course's requirements +
+Format: `show c/course`
+
+Example: `show c/Information Systems`
+
+.Course requirement and focus areas of Information Systems shown in the Main Panel
+image::ShowCourse.png[width="790"]
+
+NOTE: You need to enter the course name in full!
+
+==== Showing modules under the specified focus area +
+Format: `show f/focusArea`
+
+Example: `show f/Electronic Commerce`
+
+.Modules under Electronic Commerce, which is a focus area of Information Systems, shown in the Main Panel
+image::ShowFocusArea.png[width="790"]
+
+TIP: You can retrieve the list of focus areas under a course using the <<showCourse, `show c/course`>> command. This list can also be found in the <<Appendix, Appendix>> of this guide.
+
+
 // end::show[]
 
 //****
@@ -299,22 +300,39 @@ MODdy will remind you that you can only display one object at a time.
 
 // tag::delete[]
 [[Delete]]
-=== Deleting a grade / task / module / profile: `delete`
-To remove a grade, task, module or profile from *MODdy*, use the `delete` command.
+=== Deleting a profile / module / task / grade: `delete`
+To remove a profile, module, task or grade from *MODdy*, use the `delete` command.
 
 There are *four* ways you can use the `delete` command:
 
-==== Deleting a grade +
-If you have been using MODdy to simulate your grades or you have entered a grade for the wrong module, you can delete the grade using the command below. The effect of using this command is shown in the figure below.
+==== Deleting your profile +
+If you wish to remove your profile, you can do so with the command below. The effect of using this command is shown in the figure below.
 
-Format: `delete m/MODULE_CODE g/`
+Format: `delete n/name`
 
-(to include screenshot of MODdy on Mac and the caption)
+.Entire profile deleted from *MODdy*
+image::DeleteProfile.png[width="790"]
+
+NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from *MODdy*
+
+==== Deleting a module +
+If you have decided not to take a module you were planning to take or to drop a module which you are currently taking, you can delete it with the command below. The effect of using this command is shown in the figure below.
+
+Format: `delete m/moduleCode`
+
+You can delete multiple modules at the same time. To delete multiple modules, just append the `m/moduleCode` tags one after another, e.g. `delete m/CS1231 m/IS1130 m/MA1521`.
+
+.CS2107 and its tasks deleted from *MODdy*
+image::DeleteModule.png[width="790"]
+
+NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from *MODdy*
 
 ==== Deleting a task +
 Once you have completed a task, you can delete it using the command below. The effect of using this command is shown in the figure below.
 
-Format: `delete m/MODULE_CODE t/TASK`
+Format: `delete m/moduleCode t/task`
+
+You can delete multiple tasks at the same time but only from the *same* module. To delete multiple tasks, just append the `t/task` tags one after another, e.g. `delete m/CS1231 t/quiz t/exam`.
 
 ."Project Submission" for CS2103 deleted from the Deadline Panel
 image::DeleteTask.png[width="790"]
@@ -324,26 +342,12 @@ NOTE: The specified task and its deadline will be deleted from the specified mod
 TIP: `delete m/CS2103 t/Project Submission` +
 Deletes the task "Assignment" from the module CS2103 in your profile
 
-==== Deleting a module +
-If you have decided not to take a module you were planning to take or to drop a module which you are currently taking, you can delete it with the command below. The effect of using this command is shown in the figure below.
+==== Deleting a grade +
+If you have been using *MODdy* to simulate your grades or you have entered a grade for the wrong module, you can delete the grade using the command below. The effect of using this command is shown in the figure below.
 
-Format: `delete m/MODULE_CODE`
+Format: `delete m/moduleCode g/`
 
-.CS2107 and its tasks deleted from *MODdy*
-image::DeleteModule.png[width="790"]
-
-NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from *MODdy*
-
-
-==== Deleting your profile +
-If you wish to remove your profile, you can do so with the command below. The effect of using this command is shown in the figure below.
-
-Format: `delete n/NAME`
-
-.Entire profile deleted from *MODdy*
-image::DeleteProfile.png[width="790"]
-
-NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from *MODdy*
+(to include screenshot of MODdy on Mac and the caption)
 // end::delete[]
 
 
@@ -361,7 +365,7 @@ image::Home.png[width="790"]
 [[Clear]]
 === Resetting *MODdy*: `clear`
 
-This command clears all entries from *MODdy* including your profile and its data, as shown in the figure below.
+If you want to clear your profile and data from *MODdy*, use this command. It clears all entries from *MODdy*, as shown in the figure below.
 
 Format: `clear`
 

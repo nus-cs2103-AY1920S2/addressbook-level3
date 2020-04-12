@@ -37,7 +37,6 @@ public class ProfileManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Profile> filteredProfiles;
     private SortedList<Deadline> sortedDeadlines;
-    private ObservableList<Deadline> newSortedDeadlines;
 
     private Optional<Object> displayedView = Optional.empty();
 

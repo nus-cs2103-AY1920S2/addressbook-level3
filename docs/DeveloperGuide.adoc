@@ -86,17 +86,30 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ProfileListPanel`, `DeadlineListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts namely `CommandBox`, `ResultDisplay`, `ProfileListPanel`, `DeadlineListPanel`,
+ `CoursePanel`, `FocusAreaPanel`, `IndividualModulePanel`, `OverviewPanel`, `ModuleListPanel`, `WelcomeView`, `HelpWindow` and `StatusBarFooter`.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The following panels are made up of one or more parts. For example,
+
+* `ProfileListPanel` consists of `ProfileCard`,
+* `DeadlinePanel` consists of `DeadlineCard`,
+* `OverviewPanel` consists of `ProfileCard` and `OverviewModuleCard`,
+* `ModuleListPanel` consists of `ModuleCard`,
+* `FocusAreaPanel` consists of `ModuleCard`,
+* `CoursePanel` consists of `CourseFocusAreaCard` and `CourseRequirementCard`.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -107,18 +120,19 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ModdyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a profile).
+.  The command execution can affect the `Model` (e.g. adding a module).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete m/CS2101 t/work")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteDeadlineSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `delete m/CS2101 t/work` Command
+image::DeleteDeadlineLogicDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+// end::logic[]
 
 [[Design-Model]]
 === Model component
@@ -130,7 +144,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the profile data.
-* stores the semester-module data in a HashMap.
+* stores a `ModuleList` of modules taken in each semester in a `HashMap`
 * exposes an unmodifiable `ObservableList<Deadline>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
 
@@ -167,8 +181,18 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 
-=== Dependency between Personals and Modules
-(Insert class diagrams showing dependencies)
+=== Dependency between Module and Personal
+.Structure of the Module Component
+image::ModuleClassDiagram.png[]
+
+Each Module class consists of a Personal class, alongside other module attributes from NUSMODS. In each Personal class, there are 3 attributes that are for the user to store their date: +
+
+* `Grade` : the user's grade for te particular module
+* `Status` : the status of the module (`IN_PROGRESS`, `TAKING` or `TAKEN`)
+* `DeadlineList` : a list of deadline tasks added by the user
+
+These attributes were included in `Personal` as they are the attributes that are personal to the user, and which the user can edit at any time.
+
 
 === Structure of Command Features
 
@@ -269,39 +293,41 @@ Eventually, we decided on alternative 1 for the benefits of the user. To tackle 
 
 === Show Feature
 
-The `show` feature allows the user to display information about a `Module`, `Course`, `Focus Area` or `Semester` with the command `show`, appended with the tags. These information cannot be seen from the main UI and have to be displayed through the `show` command.
+The `show` feature allows the user to display information about a `Module`, `Course`, `FocusArea` or `Semester` with the command `show`, appended with the tags below. These information cannot be seen from the main UI and have to be displayed through the `show` command.
 
 The tags are:
 
-* `m/module_code` for `Module`
-* `c/course_name` for `Course`
-* `f/focus_area` for `Focus Area`
-* `y/semester_index` for `Semester`
+* `m/moduleCode` for `Module`
+* `c/course` for `Course`
+* `f/focusArea` for `FocusArea`
+* `y/year.semester` for `Semester`
 
 ==== Current Implementations
 
 `ShowCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `ShowCommand` is parsed using `ShowCommandParser` to split the user input into relevant fields.
 
-The following sequence diagram shows how the `show` operation works with input: `show c/Computer Science`
+The following activity diagram shows how the `show` operation works with input: `show c/Computer Science`
 
 .Activity Diagram for a Show Command input
 image::ShowCommandActivityDiagram.png[]
 
-NOTE: If more than accepted tag is given, such as `show c/Computer Science m/CS1101s`, MODdy will not display anything and will show the user a message that only one tag should be provided.
+NOTE: If more than one accepted tag is given, such as `show c/Computer Science m/CS1101s`, MODdy will not display anything and will instead give the user a message that only one tag should be provided.
 
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice):* Have one ShowCommand for all objects
+* *Alternative 1 (current choice):* Have one `ShowCommand` for all objects to be displayed
 ** Pros: Repeated code is avoided
-** Cons: Takes in an Object in its constructor, any Object can call this method and cause the application to fail
+** Cons: Takes in an Object in its constructor, any Object can call this method and cause unintended usages
 
-* *Alternative 2:* Have a separate ShowCommand (e.g. ShowModuleCommand, ShowCourseCommand) for each object shown
+* *Alternative 2:* Have a separate `ShowCommand` (e.g. `ShowModuleCommand`, `ShowCourseCommand`) for each object shown
 ** Pros: Applies Single Level of Abstraction Principle (SLAP)
 ** Cons: Too many classes having repeated code
 
-Eventually, we decided on alternative 1 due to the benefits of avoiding repeated code. To tackle the cons from this, we implemented methods to gracefully reject other Objects that unintendedly called this method.
+Eventually, we decided on alternative 1 due to the benefits of avoiding repeated code. To tackle the cons from this, we implemented guard conditions to gracefully reject other Objects that may unintentionally call this method.
 
+// end::show[]
+// tag::edit[]
 
 === Edit Profile / Module Feature
 
@@ -316,22 +342,22 @@ Lastly, the edit deadline feature is a complementary feature to the add deadline
 ==== Current Implementations
 `EditCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `EditCommannd` is parsed using `EditCommandParser` to split the user input into relevant fields.
 
-To edit `profile`, the command `edit` should be appended with one or more of the tags:
+To edit the profile, the command `edit` should be appended with one or more of the tags:
 
-- `n/NAME` : New name
-- `c/COURSE` : New course
-- `y/CURRENT_SEMESTER` : New current semester
-- `f/FOCUS_AREA` : New focus area
+* `n/NAME` : New name
+* `c/COURSE` : New course
+* `y/CURRENT_SEMESTER` : New current semester
+* `f/FOCUS_AREA` : New focus area
 
-To edit `module`, the command `edit` should be appended with `m/MODULE`, followed by one or more of the tags:
+To edit a module, the command `edit` should be appended with `m/moduleCode`, followed by one or more of the tags:
 
-- `s/SEMESTER` : New semester where module is taken
-- `g/GRADE` : New grade for the module
-- `t/TASK` : Old task description
-- `nt/NEW_TASK` : New task description
-- `d/DEADLINE` : New date and time
+* `y/SEMESTER` : New semester where module is taken
+* `g/GRADE` : New grade for the module
+* `t/TASK` : Old task description
+** `nt/newTask` : New task description
+** `d/DEADLINE` : New date and time
 
-To edit a deadline, append `edit m/MODULE` with `t/TASK` that already exists and is to be edited, followed by either `nt/NEW_TASK` and/or `d/DEADLINE` which contain the new task or deadline that will replace the existing one.
+To edit a deadline, append `edit m/moduleCode` with `t/TASK` that already exists and is to be edited, followed by either `nt/NEW_TASK` and/or `d/DEADLINE` which contain the new task or deadline that will replace the existing one.
 
 The following sequence diagram shows how the `edit` command works: `edit n/John`:
 
@@ -340,40 +366,71 @@ image::EditSequenceDiagram.png[]
 
 ==== Design Considerations
 
-- By requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
+* *Alternative 1 (current choice):* Edit `Profile`, `Module` or `Deadline`  with one `EditCommand`.
+** Pros: Easier for the user as they will not have to remember different edit commands for different purposes.
+** Cons: More considerations to differentiate the intent of the user and there is more room for error.
 
+* *Alternative 2:* Have separate commands to edit `Profile`, `Module` and `Deadline`.
+** Pros: Makes it clearer what the user intent is and is easier to parse.
+** Cons: Harder for the user to remember the commands and the user will not be allowed to edit both module details and deadline tasks within the module at the same time.
+
+Eventually, we decided on alternative 1 due to the benefits of consistency. Additionally, by requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
+
+We also considered whether to allow users to edit the grade of a module that has yet to be taken. We eventually decided to allow that as many students may want to predict their CAP, which our CAP calculator will allow them to do.
+
+The following activity diagram shows how the `edit` command decides what to edit (profile, module details or deadline task):
+
+.Activity Diagram for an Edit Command input
+image::EditCommandActivityDiagram.png[]
+
+// end::edit[]
 // tag::delete[]
+
 === Delete Profile / Module / Deadline / Grade Feature
 
-The delete profile feature is a complementary feature to the new profile feature. It enables the removal of a profile from a `ProfileList`. This also deletes all modules and their deadlines under the `Profile`. This `delete` feature can be used by appending the command with the tag `n/name`
+The `delete` feature allows the user to delete a `Profile`, `Module`, `Deadline` or `Grade` with the command `delete`, appended with the tags.
 
-In addition, the delete module feature is a complementary feature to the add module feature. It enables the removal of a `Module` from the list of modules the user is taking in his `Profile`. As a consequence, all deadlines stored under the module will be deleted. This `delete` feature can be used by appending the command with the tag `m/module_code`.
+The tags are:
 
-Next, the delete deadline feature is a complementary feature to the add deadline feature. It enables the removal of a `Deadline` of a particular `Module`. This `delete` feature can be used by appending the command with the tags `m/module_code` and `t/deadline`.
+* `n/name` for deleting a `Profile`
+* `m/moduleCode` for deleting a `Module`
+* `m/moduleCode t/task` for deleting a `Deadline`
+* `m/moduleCode g/` for deleting a `Grade`
 
-Lastly, the delete grade feature enables the removal of a `Grade` from a particular `Module`. This `delete` feature can be used by appending the command with the tags `m/module_code` and `g/` without any grade.
+[NOTE]
+You can delete multiple modules at once, e.g. `delete m/CS1231 m/IS1103 m/MA1521`. +
+You can also delete multiple deadlines at once but only from the same module, e.g. `delete m/CS1231 t/task t/exam`. +
+You can also delete multiple grades at once, e.g. `delete m/CS1231 m/IS1103 m/MA1521 g/`.
 
 ==== Current Implementations
 
 `DeleteCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `DeleteCommand` is parsed using `DeleteCommandParser` to split the user input into relevant fields.
 
-The following sequence diagram shows the interactions between `Ui`, `Logic` and `Model` components when a task is deleted.
+The following sequence diagram shows how the `delete` operation works with input: `delete m/CS2101 t/work`
 
-.Interactions between `Ui`, `Logic` and `Model` components for the `delete m/CS2101 t/work` command.
+.Interactions between UI, Logic and Model components for the `delete m/CS2101 t/work` command.
 image::DeleteDeadlineSequenceDiagram.png[]
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice):* Delete only one `Module` or `Deadline` object with one delete command
-** Pros: Easier to implement and consistent across all inputs
-** Cons: More to type if user intends to delete multiple `Module` objects or `Deadline` objects
+* *Alternative 1 (current choice):* Delete only one `Module` or `Deadline` object with one `DeleteCommand`.
+** Pros: Easier to implement and consistent across all inputs.
+** Cons: More to type if user intends to delete multiple `Module` objects or `Deadline` objects.
 
-* *Alternative 2:* Delete multiple `Module` or `Deadline` objects with one delete command
-** Pros: More convenient for the user
-** Cons: Inconsistent with deleting a profile, which can only take in at most one profile
+* *Alternative 2:* Delete multiple `Module` or `Deadline` objects with one `DeleteCommand`.
+** Pros: More convenient for the user.
+** Cons: Inconsistent with deleting a `Profile`, which can only take in at most one `Profile`.
 
 Eventually, we decided on alternative 1 due to the benefits of consistency in the number of items to be deleted, as well as to reduce the number of bugs faced.
 // end::delete[]
+
+=== Help Feature
+The `help` feature allows the user to view the pop-up help window with the command `help`. This feature allows the user to have a
+quick view of sample inputs if they run into trouble while using the application.
+
+==== Current Implementations
+
+`HelpCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation.
 
 === Logging
 
@@ -430,7 +487,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |Computing student |plan for specialisations |complete the requirements for my focusArea
+|`* * *` |Student |plan for specialisations |complete the requirements for my focus area
 
 |`* * *` |Student |see the overview of my degree progression |
 
@@ -462,33 +519,26 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User requests to add a module for a particular semester
-2.  User provides the module code for that module
-3.  MODdy adds the module to that semester
+1.  User requests to add a module for a particular semester.
+2.  User provides the module code for that module.
+3.  MODdy adds the module to that semester.
 +
 Use case ends.
 
 *Extensions*
 
-* 2a. The module code does not exist
+* 2a. The module code provided is typed wrongly.
 +
 [none]
-** 2a1. MODdy shows an error message
+** 2a1. MODdy prompts the user to provide a valid module code.
 +
 Use case ends.
 
-* 3a. The user has not started his first semester in NUS
+* 3a. The user has not fulfilled the prerequisites of the module before the specified semester.
 +
 [none]
-** 3a1. MODdy adds the module to that semester, noting that it is under planning
-+
-Use case ends.
-
-* 3b. The user has not fulfilled the prerequisites of the module before the specified semester
-+
-[none]
-** 3b1. MODdy shows a warning that the module prerequisites have not been fulfilled prior to that semester
-** 3b2. MODdy adds the module to that semester
+** 3a1. MODdy shows a warning that the module prerequisites have not been fulfilled prior to that semester.
+** 3a2. MODdy adds the module to that semester.
 +
 Use case ends.
 
@@ -497,18 +547,18 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to view a module
-2.  User provides the module code for that module
-3.  MODdy shows all information related to the module
+1.  User requests to view a module.
+2.  User provides the module code for that module.
+3.  MODdy shows all information related to the module.
 +
 Use case ends.
 
 *Extensions*
 
-* 2a. The module code does not exist
+* 2a. The module code provided is typed wrongly.
 +
 [none]
-** 2a1. MODdy shows an error message
+** 2a1. MODdy prompts the user to provide a valid module code.
 +
 Use case ends.
 
@@ -517,18 +567,18 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to update his results at the end of a semester
-2.  User provides the alphabet grade for a module that was taken
-3.  MODdy adds the alphabet grade to the module and updates overall CAP
+1.  User requests to update his results at the end of a semester.
+2.  User provides the alphabet grade for a module that was taken.
+3.  MODdy adds the alphabet grade to the module and updates overall CAP.
 +
 Use case ends.
 
 *Extensions*
 
-* 2a. The grade entered is invalid
+* 2a. The grade entered is invalid.
 +
 [none]
-** 2a1. MODdy shows an error message
+** 2a1. MODdy shows an error message.
 +
 Use case ends.
 
@@ -537,17 +587,17 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to view his academic overview
-2.  MODdy shows a list of the modules he has taken, his grades and overall CAP
+1.  User requests to view his academic overview.
+2.  MODdy shows a list of the modules he has taken, his grades and overall CAP.
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. The user has not created a user profile
+* 1a. The user has not created a user profile.
 +
 [none]
-** 1a1. MODdy shows an error message
+** 1a1. MODdy shows an error message.
 +
 Use case ends.
 
@@ -556,51 +606,51 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to add a task with a deadline to a particular module
-2.  User provides the task description and deadline
-3.  MODdy displays the newly added task in the deadline pane
+1.  User requests to add a task with a deadline to a particular module.
+2.  User provides the task description and deadline.
+3.  MODdy displays the newly added task in the deadline pane.
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. The user is not taking the specified module in the current semester
+* 1a. The user is not taking the specified module in the current semester.
 +
 [none]
-** 1a1. MODdy shows an error message
+** 1a1. MODdy shows an error message.
 +
 Use case ends.
 
-* 2a. The format of the deadline provided is wrong
+* 2a. The format of the deadline provided is wrong.
 +
 [none]
-** 2a1. MODdy shows an error message
+** 2a1. MODdy shows an error message.
 +
 Use case ends.
 
 [discrete]
-=== Use case: UC05 - Edit task
+=== Use case: UC06 - Edit task
 
 *MSS*
 
-1.  User requests to edit the task description (shown in deadline pane) of a particular module
-2.  User provides the new task description
-3.  MODdy displays the updated task in the deadline pane
+1.  User requests to edit the task description (shown in deadline pane) of a particular module.
+2.  User provides the new task description.
+3.  MODdy displays the updated task in the deadline pane.
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. The user is not taking the specified module
+* 1a. The user is not taking the specified module.
 +
 [none]
-** 1a1. MODdy shows an error message
+** 1a1. MODdy shows an error message.
 +
 Use case ends.
-* 2a. The task description provided does not exist
+* 2a. The task description provided does not exist.
 +
 [none]
-** 2a1. MODdy shows an error message
+** 2a1. MODdy shows an error message.
 +
 Use case ends.
 
@@ -639,8 +689,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder with both read and write permissions granted
-.. Double-click the jar file +
+.. Download the jar file and copy into an empty folder with both read and write permissions granted.
+.. Double-click the jar file. +
    Expected: Shows the GUI with a Quick Start page. The window size may not be optimum.
 
 . Saving window preferences
@@ -699,7 +749,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `delete m/CS1231` +
    Expected: No module is deleted. Error details shown in the status message. All panels remain the same.
 .. Other incorrect delete commands to try: `delete m/CS1111`, `delete m/CS101`, `delete m/` +
-   Expected: Similar to previous
+   Expected: Similar to previous.
 
 === Adding a deadline
 
@@ -751,7 +801,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Editing the name of a profile
 
-. Editing the name of an existing profile.
+. Editing the name of an existing profile
 
 .. Prerequisites: Profile with name `john` has been created.
 .. Test case: `edit n/tom` +
@@ -761,7 +811,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Editing the course of a profile
 
-. Editing the course of an existing profile.
+. Editing the course of an existing profile
 
 .. Prerequisites: Profile with name `john` has been created with course `computer science`.
 .. Test case: `edit n/john c/business analytics` +
@@ -771,7 +821,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Editing the focus area of a profile
 
-. Editing the focus area of an existing profile.
+. Editing the focus area of an existing profile
 
 .. Prerequisites: Profile with name `john` has been created with focus area `computer security`.
 .. Test case: `edit n/john f/artificial intelligence` +
@@ -781,7 +831,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Editing the semester of a module
 
-. Editing the semester of an existing module.
+. Editing the semester of an existing module
 
 .. Prerequisites: Profile with name `john` has been created. The module `CS1010` has been added to year 1 semester 1 but the module `CS1231` has NOT been added to any semester. View all modules using the `show n/john` command.
 .. Test case: `edit m/CS1010 y/1.2` +
@@ -791,7 +841,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Editing a task of a module
 
-. Editing the name of a task of a module.
+. Editing the name of a task of a module
 
 .. Prerequisites: Profile has been created. The module `CS1010` has been added with one deadline named `work`.
 .. Test case: `edit m/CS1010 t/work nt/exam` +
@@ -811,7 +861,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Viewing semester overview
 
-. Viewing the module overview for a particular semester.
+. Viewing the module overview for a particular semester
 
 .. Prerequisites: Profile has been created. The module `CS1010` has been added to year 1 semester 1. No modules have been added to year 1 semester 2.
 .. Test case: `view y/1.1` +
@@ -850,8 +900,17 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Returning to the home screen
 
+.. Prerequisites: The Quick Start page is not shown in the overview panel.
 .. Test case: `home` +
    Expected: The Quick Start page is shown in the overview panel.
+
+=== Resetting MODdy
+
+. Clears all user information inside MODdy, including user profile, modules taken and deadlines.
+
+.. Prerequisites: Profile has been created.
+.. Test case: `clear` +
+   Expected: The Quick Start page is shown in the overview panel. Profile panel and deadline panel becomes empty.
 
 === Saving data
 

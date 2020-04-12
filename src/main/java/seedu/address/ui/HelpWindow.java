@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -46,55 +45,21 @@ public class HelpWindow extends UiPart<Stage> {
                 + "-fx-font-size: 35px;\n"
                 + "-fx-fill: #f78086;");
 
-        Text title2 = new Text("COMMANDS FORMAT: \n"
+        Text title2 = new Text("EXAMPLE OF COMMANDS FORMAT: \n"
                 + "1. New user profile: \n"
-                + "       - new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION] \n"
+                + "       - new n/John c/Computer Science y/2.2 [f/Software Engineering] \n\n"
                 + "2. Add a current/completed module to MODdy: \n"
-                + "       - add m/MODULE y/SEMESTER_INDEX [g/GRADE]\n"
+                + "       - add m/CS2103T y/2.2 [g/A+]\n\n"
                 + "3. Add a task with a deadline to an existing module in MODdy:\n"
-                + "       - add m/MODULE t/TASK [d/DEADLINE]\n"
+                + "       - add m/CS2103T t/Project [d/2020-04-12 23:59]\n\n"
                 + "4. Edit your profile:\n"
-                + "       - edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]\n"
+                + "       - edit [n/Amy] [c/Business Analytics] [y/3.1] [s/Finance Analysis]\n\n"
                 + "5. Edit a module’s details in MODdy:\n"
-                + "       - edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]\n"
+                + "       - edit m/CS2103T [y/3.1] [g/A]\n\n"
                 + "6. Edit a task’s description or deadline:\n"
-                + "       - edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]\n");
-        Text title3 = new Text("PARAMETERS ACCEPTED: ");
-        Text newCommands = new Text("1. `new` command \n"
-                + "       - n/USER_NAME\n"
-                + "       - c/COURSE_NAME\n"
-                + "       - y/CURRENTYEAR_CURRENTSEMESTER\n"
-                + "       - [s/SPECIALISATION]\n");
+                + "       - edit m/CS2103T t/Project [nt/Quiz] [d/2020-04-20 12:00]\n\n");
 
-        Text addCommands = new Text("2. `add` command \n"
-                + "       - m/MODULE_CODE\n"
-                + "       - y/SEMESTER\n"
-                + "       - [g/GRADE]\n"
-                + "       - [t/TASK]\n"
-                + "       - [d/DEADLINE]\n");
-
-        Text editCommands = new Text("3. `edit` command \n"
-                +
-                "       - [n/NEW_NAME]\n"
-                + "       - [c/NEW_COURSE]\n"
-                + "       - [cs/CURRENT_SEMESTER]\n"
-                + "       - [s/SPECIALISATION]\n"
-                + "       - [d/DEADLINE]\n");
-
-        Text showCommands = new Text("4. `show` command \n"
-                + "       - n/USER_NAME\n"
-                + "       - y/SEMESTER_INDEX\n"
-                + "       - c/COURSE_NAME\n"
-                + "       - f/FOCUS_AREA\n"
-                + "       - m/MODULE_CODE\n");
-
-        Text deleteCommands = new Text("5. `delete` command \n"
-                + "       - n/USER_NAME\n"
-                + "       - t/TASK\n"
-                + "       - m/MODULE_CODE\n");
-        HBox hbox = new HBox();
-        hbox.getChildren().addAll(newCommands, addCommands, editCommands, showCommands, deleteCommands);
-        helpCommand.getChildren().addAll(title, title2, title3, hbox);
+        helpCommand.getChildren().addAll(title, title2);
     }
 
     /**
