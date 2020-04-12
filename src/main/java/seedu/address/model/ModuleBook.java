@@ -170,6 +170,20 @@ public class ModuleBook {
         return getModule(moduleCode).getTasks();
     }
 
+    /**
+     * Return a String contains the information of the tasks related to the specified module.
+     */
+    public String getModuleTaskInfo(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        String infoOfTasks = "";
+        List<ModuleTask> tasks = getModuleTaskList(moduleCode);
+        for (int i = 0; i < tasks.size(); i++) {
+            String task = (i + 1) + ". " + tasks.get(i) + "\n";
+            infoOfTasks += task;
+        }
+        return infoOfTasks;
+    }
+
     public void setMajor(Major major) {
         requireNonNull(major);
         this.majorTaken = major;

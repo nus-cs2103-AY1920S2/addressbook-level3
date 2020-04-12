@@ -295,6 +295,11 @@ public class ModelManager implements Model {
         moduleBook.addModuleTask(moduleTask);
     }
 
+    @Override
+    public String getModuleTaskInfo(ModuleCode moduleCode) {
+        return moduleBook.getModuleTaskInfo(moduleCode);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

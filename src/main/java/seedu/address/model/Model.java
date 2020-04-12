@@ -178,6 +178,8 @@ public interface Model {
 
     void doneModuleTask(ModuleCode moduleCode, Index index);
 
+    String getModuleTaskInfo(ModuleCode moduleCode);
+
     List<ModuleTask> getModuleTaskList(ModuleCode moduleCode);
 
     List<Task> findTasksByDate(String date);
