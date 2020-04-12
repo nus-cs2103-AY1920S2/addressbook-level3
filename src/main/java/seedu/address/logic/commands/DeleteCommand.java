@@ -158,10 +158,18 @@ public class DeleteCommand extends Command {
             // Deleting a deadline/task
             if (deleteDeadlines != null) {
                 try {
+                    // Check if all deadlines exist first
+                    for (Deadline deadline : deleteDeadlines) {
+                        if (!profile.getModule(deleteModuleCode).hasDeadline(deadline)) {
+                            throw new DeadlineNotFoundException();
+                        }
+                    }
+
                     for (Deadline deadline : deleteDeadlines) {
                         profile.getModule(deleteModuleCode).deleteDeadline(deadline);
                         profileManager.deleteDeadline(deadline); //delete from observablelist
                     }
+
                 } catch (ParseException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 } catch (DeadlineNotFoundException e) {
