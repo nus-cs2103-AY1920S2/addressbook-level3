@@ -99,14 +99,6 @@ image::eylah_overall_class_diagram.png[]
 
 This shows a brief class diagram for EYLAH. [More details to be added in v1.3]
 
-==== EYLAH Activity Diagram for Expense Splitter
-
-image::activityDiagram_for_expensesplitter.png[]
-
-This shows a brief activity diagram for Expense Splitter. [More details to be added in v1.3]
-
-
-The sections below give more details of each component. +
 
 [[Design-Ui]]
 === UI component
@@ -874,7 +866,7 @@ In this section, we will learn more about how the `listreceipt` command is imple
 
 The `listreceipt` command allows user to find out the current entries in the receipt.
 
-The `listreceipt` command was implemented as a `ListReceiptCommand` in the `expenseSplitterLogic` package.
+The `listreceipt` command was implemented as a `ListReceiptCommand` in the `expensesplitter/logic` package.
 
 The `listreceipt` has the following input format:
 
@@ -882,32 +874,34 @@ The `listreceipt` has the following input format:
 
 [NOTE]
 ====
-* Each entry in the receipt has the item’s name, price and person(s) who is splitting that item with you
-thus you do not have to remember who you split this item with!
+* Each entry in the receipt has the item’s name, price and person(s) involved in splitting that item.
+
 * When you enter `clearrreceipt` it deletes the old receipt’s data. Use it with caution!
 ====
 
 The following activity diagram illustrates what happens when a user executes `listreceipt` command:
 
+.List Receipt Activity Diagram
 image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
-Figure : List Receipt Command Activity Diagram
+
 
 *Implementation of List Receipt Command*
 
-The following is a detailed explanation of the operations `ListReceiptCommand` performs. +
+The following is a detailed explanation of the operations ListReceiptCommand performs. +
 
 1. The `ListReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
 
 2. The method `splitterModel#listReceipt()` will then be called to return the list of entries currently in that Receipt.
 
-3. The method `receipt.toString()` will use StringBuilder to print the Items(s) currently in
-Receipt by calling `entry.toString()`.
+3. The method `receipt#toString()` will use StringBuilder to build the string of the Items(s) currently in
+Receipt by calling `entry.toString()` for entry. After all entries are done, `receipt#toString()` would have
+finish building the string and will return to SplitterModelManager.
+
 
 *Sequence Diagram for List Receipt Command*
 
+.List Receipt Command Sequence Diagram
 image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
-
-Figure : List Receipt Sequence Diagram
 //end::expensesplitterlistreceiptcommand[]
 
 //tag::expensesplitterlistamountcommand[]
