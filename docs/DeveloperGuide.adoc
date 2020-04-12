@@ -1888,6 +1888,23 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC15 - Sorting all modules
 
+*MSS*
+
+. User requests to sort all students in all groups of a module.
+. TA-Tracker sorts the students in the group.
+. TA-Tracker switches to the `Student Tab`.
+
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The given sort type is invalid.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
++
+
 [discrete]
 ==== Use case: UC16 - Filtering the Student View
 
