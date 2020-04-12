@@ -17,6 +17,6 @@ ModelManager o-> FilteredTaskList
 FilteredTaskList ..> SortedList
 TaskList o-> UniqueTaskList
 TaskList o-> SortedList
-SortedList ..> UniqueTaskList 
+SortedList ..> UniqueTaskList
 
 @enduml

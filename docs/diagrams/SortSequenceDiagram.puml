@@ -17,7 +17,7 @@ end box
 activate LogicManager
 
 ref over LogicManager, TaskListParser
-Parse input to keep unique keywords 
+Parse input to keep unique keywords
 end ref
 
 create SortCommand
