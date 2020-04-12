@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_ADD_FUTURE_GRADE_ERROR;
 import static seedu.address.commons.core.Messages.MESSAGE_DEADLINE_DOES_NOT_EXIST;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_MODULE_DATA;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
@@ -118,6 +117,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
         }
 
+        boolean showCommand = false;
 
         if (editModule) {
 
@@ -146,13 +146,10 @@ public class EditCommand extends Command {
 
             if (grade != null) {
                 int currentUserSemester = profileToEdit.getOverallSemester();
-                if (oldSemester > currentUserSemester) {
-                    throw new CommandException(MESSAGE_ADD_FUTURE_GRADE_ERROR);
-                }
                 existingModule.getPersonal().setGrade(grade);
                 profileManager.setDisplayedView(profileToEdit);
                 profileToEdit.updateCap();
-                return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCode), true);
+                showCommand = true;
 
             }
 
@@ -166,7 +163,7 @@ public class EditCommand extends Command {
                 profileToEdit.addModule(editSemester, existingModule);
                 updateStatus(profileToEdit);
                 profileManager.setDisplayedView(profileToEdit);
-                return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCode), true);
+                showCommand = true;
             }
 
             Deadline oldDeadline = null;
@@ -177,6 +174,7 @@ public class EditCommand extends Command {
                     oldDeadline = newDeadline;
                     newDeadline.setDescription(newTask);
                     profileManager.replaceDeadline(oldDeadline, newDeadline);
+                    oldTask = newTask;
                 } catch (Exception e) {
                     throw new CommandException(MESSAGE_DEADLINE_DOES_NOT_EXIST);
                 }
@@ -195,7 +193,7 @@ public class EditCommand extends Command {
                 }
             }
 
-            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCode), false);
+            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCode), showCommand);
 
         } else if (toEditProfile) {
 

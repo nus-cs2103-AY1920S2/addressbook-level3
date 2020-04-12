@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import static seedu.address.commons.core.Messages.MESSAGE_ADD_FUTURE_GRADE_ERROR;
 import static seedu.address.commons.core.Messages.MESSAGE_DEADLINE_DOES_NOT_EXIST;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_MODULE_DATA;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
@@ -98,18 +97,6 @@ public class EditCommandTest {
                 null);
 
         assertThrows(CommandException.class, MESSAGE_MODULE_NOT_ADDED, () ->
-                editCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                        new ModuleManagerStubCs()));
-    }
-
-    // Editing grade of future semesters
-    @Test
-    public void execute_addGradeToFutureSemester_throwsCommandException() {
-        ModuleCode moduleCodeAmy = new ModuleCode(VALID_MODCODE_AMY);
-        EditCommand editCommand = new EditCommand(moduleCodeAmy, 0, VALID_GRADE_AMY, null,
-                null, null);
-
-        assertThrows(CommandException.class, MESSAGE_ADD_FUTURE_GRADE_ERROR, () ->
                 editCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                         new ModuleManagerStubCs()));
     }
@@ -231,6 +218,24 @@ public class EditCommandTest {
         } catch (CommandException e) {
             fail();
         }
+    }
+
+    // Editing grade of future semesters
+    @Test
+    public void execute_addGradeToFutureSemester_success() {
+        ModuleCode moduleCodeAmy = new ModuleCode(VALID_MODCODE_AMY);
+        EditCommand editCommand = new EditCommand(moduleCodeAmy, 0, VALID_GRADE_AMY, null,
+                null, null);
+
+        try {
+            assertEquals(editCommand.execute(
+                    new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs())
+                    .getFeedbackToUser(), String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCodeAmy));
+        } catch (CommandException e) {
+            fail();
+        }
+
+
     }
 
     private class ProfileManagerStub extends ProfileManager {
