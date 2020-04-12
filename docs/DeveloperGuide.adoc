@@ -16,7 +16,7 @@ endif::[]
 
 image:logos/ExpenseLa_Logo.png[]
 
-By: `ExpenseLa Team`      Since: `Feb 2020`      Licence: `MIT`
+By: `Team AY1920S2-CS2103-T09-3`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -475,7 +475,7 @@ command is not stored.
 // end::commandHistoryNavigation[]
 
 
-=== Filtering Transactions
+=== Filtering Transactions (Pang Kim Jin)
 
 The `Filter` command allows the user to bring up a list of `Transaction`, and filter it by either category, month,
 or both at the same time. This is implemented by using a predicate for category and another predicate for month,
@@ -537,7 +537,7 @@ expenses.
 The design consideration mentioned earlier hence facilitates this proposed extension, reducing the difficulty of such a
 future implementation.
 
-=== Chart Analytics (Choi Min Suk)
+=== Chart Analytics (Choi Min Suk + Pang Kim Jin)
 
 The *toggleview* command allows the user to switch between viewing the list of 'Transactions' and viewing an analysis of
 his expenditure.
