@@ -1171,7 +1171,7 @@ Edits student with the matriculation number `A0186153P` to have:
 
 (Contributed by Aakanksha)
 
-You can use this command to sort your students in a specific group.
+You can use this command to *sort your students in a specific group*.
 The students will be sorted according to the `SORT_TYPE` you specify.
 
 The *Student View* will show you the students inside the group that you have sorted.
@@ -1213,12 +1213,12 @@ Sorts the student inside `G06` of module `CS2100` by rating in ascending order.
 
 (Contributed by Aakanksha)
 
-You can use this command to chose how you want to sort your students in a specific module.
-The students will be sorted according to your specified `SORT_TYPE`.
+You can use this command to *sort your students in a specific module*.
+The students will be sorted according to the `SORT_TYPE` you specify.
 
 The *Student View* will show you the students inside the first group of the module
 that you have sorted. If you want to see the other groups, you can use the `student filter`
-command (details given below in 5.2.13.)
+command (details are given later in this guide).
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort module m/MOD_CODE t/SORT_TYPE`
@@ -1233,11 +1233,11 @@ Format: `sort module m/MOD_CODE t/SORT_TYPE`
 ** `alphabetical`
 ** `alpha`
 
-* To sort by matriculation number, sort type must be `matric`.
+* To sort by matriculation number, `SORT_TYPE` must be `matric`.
 
-* To sort by rating in ascending order, sort type must be `rating asc`.
+* To sort by rating in ascending order, `SORT_TYPE` must be `rating asc`.
 
-* To sort by rating in descending order, sort type must be `rating desc`.
+* To sort by rating in descending order, `SORT_TYPE` must be `rating desc`.
 ====
 
 ====
@@ -1245,7 +1245,9 @@ Examples:
 
 * `sort module m/CS2103T t/alpha`
 +
-Sorts all students inside all groups inside the module `CS2103` `alphabetically`.
+
+image::SortModule.png[width="790"]
+Sorts all students inside all groups inside the module `CS2103T` `alphabetically`.
 ====
 //end::sortmodule[]
 //tag::sortall[]
@@ -1254,12 +1256,12 @@ Sorts all students inside all groups inside the module `CS2103` `alphabetically`
 
 (Contributed by Aakanksha)
 
-You can use this command to chose how you want to sort all of your students.
-The students will be sorted according to your specified `SORT_TYPE`.
+You can use this command to *sort all your students*.
+The students will be sorted according to the `SORT_TYPE` you specify.
 
 The *Student View* will show you the students inside the first group of the  first module
 in the TA-Tracker. If you want to see the other groups or modules, you can use the `student filter`
-command (details given below in 5.2.13.)
+command (details are given later in this guide).
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort all t/SORT_TYPE`
@@ -1284,7 +1286,8 @@ Examples:
 
 * `sort all t/rating desc`
 +
-Sorts all students in all groups inside all modules `alphabetically`.
+image::SortAll.png[width="790"]
+Sorts all students in all groups inside all modules by rating, in descending order.
 ====
 //end::sortall[]
 //tag::filterstudent[]
