@@ -79,7 +79,11 @@ public class PetManager {
                             : "/images/pet/level2hangry.png");
             petImage = str;
         } else {
-            petImage = "/images/pet/level3.png";
+            String str =
+                    (mood.equals(HAPPY_MOOD_STRING)
+                            ? "/images/pet/level3.png"
+                            : "/images/pet/level3hangry.png");
+            petImage = str;
         }
 
         int expBarPerc = expBarInt / 10;
