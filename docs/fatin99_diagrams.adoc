@@ -8,11 +8,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
 
-.Structure of the UI Component. The _Class Diagram_ shows how the `UI` components interact with each other.
-image::UiClassDiagram.png[]
-
 .Structure of the Student Tab Component. The _Class Diagram_ shows how the components in the `Student Tab` interact with each other.
-image::StudentTabClassDiagram.png[][,500]
+image::StudentTabClassDiagram.png[][]
 
 .Structure of the Model Component. The _Class Diagram_ shows how the different `Model` components interact with each other.
 image::ModelClassDiagram.png[]
@@ -21,29 +18,10 @@ image::ModelClassDiagram.png[]
 image::ModelComponentsClassDiagram.png[][,500]
 
 .Model Components - Object Diagram. The _Object Diagram_ shows an example of the relationship between the different `Model` objects. This example is based on the state of TA-Tracker when it is first run (without any user data).
-image::ModelObjectDiagram.png[][,500]
+image::ModelObjectDiagram.png[][,700]
 
 .Sequence Diagram for Goto Claims Command. The _Sequence Diagram_ shows the interactions between the `Logic` and `UI` components of the TA-Tracker when the user enters the command `goto claims`.
 image::GotoSequenceDiagram.png[]
 
-[width="%",cols="<40%a,<60%a,options="header"]
-|=======================================================================
-| Description | Diagram
-
-|Structure of the Student Component. The _Class Diagram_ shows how different classes are related in the functioning of a `Student` Object.
-
-|image::StudentClassDiagram.png[][]
-
-|As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can reference. This is an example of what such a model may look like.
-
-|image::BetterModelClassDiagram.png[][]
-
-|Session Done- Activity Diagram. The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
-
-|
-image::TssActivityDiagram.png[][,200]
-
-|Claims View - Class Diagram. The following _Class Diagram_ shows how different classes are related in the functioning of the *Claims View*.
-
-|
-image::TssModelClassDiagram.png[][,300]
+.Session Done- Activity Diagram. The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
+image::DoneSessionActivityDiagram.png[][,300]

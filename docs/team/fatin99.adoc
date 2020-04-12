@@ -129,6 +129,8 @@ I made thorough *JUnit* tests for the `StudentCommand`, `StudentCommandParser`, 
 )
 * Managed the project by commenting on critical pull requests (various)
 
+* Handled release of `Ver 1.2`
+
 Here is the code that I have written for this product: [https://github.com/AY1920S2-CS2103T-W17-4/main/commits/master?author=fatin99[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=fatin99[RepoSense]]
 
 == Contributions to the User Guide

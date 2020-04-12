@@ -1699,6 +1699,8 @@ much money I have earned and stay motivated
 
 |`*` |TA |enter my students' assignment grades  |keep track of my students' progress (coming in V2.0)
 
+|`*` |TA |add my students' to consultation sessions|keep track of how frequently each student has consulted me (coming in V2.0)
+
 |=======================================================================
 //end::userstories[]
 //tag::usecases[]
@@ -2784,18 +2786,39 @@ Expected: Exits the program.
 
 (Contributed by Fatin)
 
-Creating this application was fairly difficult and required much blood, toil, tears and sweat. Cumulatively, the project amasses a great 20,000 lines of code combined. This meant that it required a great deal of communication and discussion amongst all parties, which was especially difficult due to the quarantine measures that resulted from the on-going COVID-19 situation. However, the 5 of us persevered and remedied the situation by holding regular video conferences to replace our weekly group meetings.
+Creating this application was fairly difficult and required much blood, toil, tears and sweat. Cumulatively, the
+project amasses a great *20,000 lines of code* combined. This meant that it required a great deal of *communication and
+discussion amongst all parties*, which was _especially difficult_ due to the quarantine measures that resulted from the
+on-going COVID-19 situation. However, the 5 of us persevered and remedied the situation by holding regular video
+conferences to replace our weekly group meetings.
 
-While AB3 deals with only one entity, this application deals with multiple entities.
-•  AB3 contains only persons. While we were able to refactor some aspects of Person into Student, we had to create Session, Group and Module from scratch.
-•  The UI of AB3 only contains one ListPanel. On the other hand, TA-Tracker has 5 list panels spread out in 3 views - the Student View, Session View and Claims View. This is a big change from AB3’s UI.
-•  In addition to that, we also have a statistics window in addition to our help window, which is significantly more appealing than the AB3 help window.
+While AB3 deals with only one entity, this application deals with *multiple entities*.
 
-Furthermore, TA-Tracker’s additional features such as automated tab switching, filtering, sorting and syntax highlighting meant that our app varies greatly from what AB3 has to offer in terms of user experience. These carefully thought out features were designed primarily with the user’s needs in mind, to provide the user with a platform that would greatly improve the efficiency of tracking duties as a TA.
+* *AB3* contains only `Person`. While we were able to refactor some aspects of `Person` into `Student`, we had to create
+`Session`, `Group` and `Module` from scratch.
+* The `UI` of *AB3* only contains one `ListPanel`. On the other hand, TA-Tracker has *5 `ListPanels`* spread out in 3 views -
+the *StudentView*, *SessionView* and *ClaimsView*. This is a big change from *AB3’s* `UI`.
+*  We also have a `StatisticsWindow in addition to our `HelpWindow`, which is significantly more appealing than the
+*AB3* `HelpWindow`.
 
-Due to our inexperience with UI work, we had initially planned Student View to look very different. Therefore, the way it was initially implemented differed significantly from the current one. Once we became more familiar with JavaFX, we realised that our initial plan was no longer feasible within our given timeframe. As a result, we had to change the implementation of Student View. Furthermore, add a lot of supporting methods were required to allow the UI to work the way it does.
+Furthermore, *TA-Tracker’s* additional features such as `automated tab switching`, `filtering`, `sorting` and `syntax
+highlighting` meant that our app varies greatly from what *AB3* has to offer in terms of user experience. These carefully
+thought out features were _designed primarily with the user’s needs in mind_, to provide the user with a platform that
+would greatly improve the efficiency of tracking duties as a TA.
 
-Another challenge we faced was that we were unaware of restrictions regarding temporal-based features. Two of our features relied heavily on timing, and as a result, they had to be scrapped from the project. This also resulted in our group having to do a lot of last-minute brainstorming to come up with ideas for new features as replacements. Fortunately, we managed to pull through by designing a highly useful StatisticsWindow to improve upon our current application.
+Due to our inexperience with `UI` work, we had initially planned the *StudentView* to look very different. Therefore, the way
+it was initially implemented differed significantly from the current one. Once we became more familiar with *JavaFX*, we
+realised that our initial plan was no longer feasible within our given timeframe. As a result, we had to change the
+implementation of *StudentView*. Furthermore, a lot of supporting methods were required to allow the `UI` to work the
+way it does.
 
-During this whole process, we took great pains to ensure that the code quality of our code-base is upheld by ensuring we had thorough peer reviews for every pull request that we make. Nonetheless, our actions paid off as we managed to maintain a Codacy rating of A throughout the project.
+Another challenge we faced was that we were unaware of restrictions regarding *temporal-based features*. Two of our
+features _relied heavily on timing_, and as a result, they had to be scrapped from the project. This also resulted in our
+group having to do a lot of last-minute brainstorming to come up with ideas for new features as replacements.
+Fortunately, we managed to pull through by designing a highly useful `StatisticsWindow` to improve upon our current
+application.
+
+During this whole process, we took great pains to ensure that the *code quality* of our code-base was upheld by verifying
+every pull request that we make with thorough peer reviews from at least one other party. Nonetheless, our actions
+paid off as we managed to maintain a *Codacy rating of A* throughout the project.
 //end::effort[]
