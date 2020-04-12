@@ -15,6 +15,101 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 == Summary of contributions
 
+* *Major enhancement*:
+
+. Adding of *Height, Weight, Mode, Bmi and Self classes, and their storage components
+for the Diet Tracker* portion of EYLAH
+(Height, Weight, Self - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/109[#109])
+(Bmi - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/132[#132])
+(Mode - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/157[#157])
+(Related Storge - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/312[#312])
+
+*** *What it does:* +
+Height and Weight are used when the User wants to store their personal health metrics into EYLAH
+for the ease of Diet Tracking. Self is the object that represents the User in EYLAH.
+Bmi is used to do calculations using the Height and Weight of the User.
+
+*** *Justification:* +
+These classes are crucial for Diet Tracker to work because the User
+is likely to need a Health Metrics Tracker to aid him along his journey of Dieting.
+
+*** *Highlights:* +
+Implementing Self was rather tricky at first, since I had used static reference to the Height, Weight and Mode,
+thinking that it would be stored without the need of a Storage. Unfortunately, my team mates realised this mistake of mine
+during an internal testing round, and together with my Diet Tracker team mate, Akhil, we managed to resolve this Storage and static
+reference issue for Height, Weight and Mode in Self.
+
+*** *Credits:* +
+My groupmate Akhil, who helped with the correction for some of the bugs in the implementation of the classes.
+(Akhil's resolution and refactors - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/318[#318])
+
+. Heavily involved with *setting up of the Commands and Parsers folders and classes for the Diet Tracker* portion of EYLAH.
+(Commands - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/157[#157])
+(Parsers - https://github.com/AY1920S2-CS2103T-W13-1/main/pull/107[#107])
+
+*** *What it does:* +
+Sets up the base template on how a Command Execution would function through the Parser and the actual Commands.
+
+
+*** *Justification:* +
+This is the foundation by which the Diet Tracker and its commands would be work.
+
+
+*** *Highlights:* +
+By having a template and some basic implementations from the start, our Diet Tracker Team would be better
+prepared to handle the addition of new Commands and their relative executions via the different Model Managers.
+*** *Credits:* +
+Seedu Addressbook Level 3, for providing a basis by which we could adapt their structure.
+(https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic)
+
+
+
+. Suggested *for the renaming of same sounding class components across both DietTracker and ExpenseSplitter for EYLAH*
+(https://github.com/AY1920S2-CS2103T-W13-1/main/pull/135#discussion_r393328371[#Github Discussion])
+
+*** *What it does:* +
+Allows the integration of the both Diet Tracker and Expense Splitter seamlessly in the unified EYLAH class.
+
+*** *Justification:* +
+Otherwise, the name usages in the code would be lengthy and hard to read also. Class names in the unified EYLAH files would include the entire path name of the Class file.
+
+*** *Highlights:* +
+I noticed this in my review of my team mate, Shee Xiong's, initial reorganisation of the code to allow for unification of both components. Upon further research as to why he may have left the class names as they were, I realised that it was because Java does not support **class name aliasing**, so we could not import the same named classes from DietTracker and ExpenseSplitter without first renaming them.
+
+*** *Credits:* +
+Understanding more about Java from "https://stackoverflow.com/questions/2204157/class-or-method-alias-in-java"
+Shee Xiong, the our Team's Integrations IC, went ahead and implemented it eventually in this following PR:
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/232[#232])
+
+
+* *Minor enhancement*:
+
+. Modified the `paid` command to allow a Person to pay his debt fully +
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/209[#209])
+
+*** *What it does:* +
+Expanded the `paid` command to accept empty amount field, which meant that the Person paid his debt fully. +
+Previously: `paid 1 3` meant that person at INDEX 1 paid $3. +
+Now: `paid 1` meant that person at INDEX 1 paid the full amount he owes.
+
+*** *Justification:* +
+This allows the user to conveniently clear a Person debt fully.
+
+. Performed defensive coding for `additem` command and `paid` command +
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/352[#352])
+
+*** *What it does:* +
+`additem` and `paid` commands are commands in expense splitter
+which includes numerical digits and multiple parameters. As a result, these commands may be exploited
+when discovering bugs in EYLAH. Common issues includes passing a huge numerical number which causes Integer Overflow
+or passing a negative index which causes ArrayOutOfBounds Exceptions. Thus I handled these rouge commands by
+including try-catch statement to catch these exceptions.
+
+*** *Justification:* +
+This reduces the chances of EYLAH crashing.
+
+
+
 * *Major enhancement*: [In Process]
 ** What it does:
 ** Justification:
@@ -22,7 +117,7 @@ them track their diet. The user interacts with it using a CLI and it is programm
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 ** *Adding of Height, Weight, Mode, Bmi and Self classes for the Diet Tracker portion of EYLAH*
-*** What it does: Height and Weight are used when the User wants to store their personal health metrics into Eylah for the ease of Diet Tracking. Self is the object that represents the User in Eylah. Bmi is used to do calculations using the Height and Weight of the User.
+*** What it does:
 *** Justification:
 *** Highlights:
 *** Credits:
@@ -41,11 +136,10 @@ In order to fix this, I set a cap on the value which could be input into the hei
 *** Credits: AddressBook Level 3 "https://github.com/se-edu/addressbook-level3"
 
 ** *Suggested for the renaming of same sounding class components across both DietTracker and ExpenseSplitter for EYLAH*
-*** What it does: Allows the integration of the both Diet Tracker and Expense Splitter seamlessly in the unified Eylah class.
-*** Justification: Otherwise, the name usages in the code would be lengthy and hard to read also. Class names in the unified Eylah files would include the entire path name of the Class file.
-*** Highlights: I noticed this in my review of my team mate, Shee Xiong's, initial reorganisation of the code to allow for unification of both components. Upon further research as to why he may have left the class names as they were, I realised that it was because Java does not support **class name aliasing**, so we could not import the same named classes from DietTracker and ExpenseSplitter without first renaming them.
-*** Credits: Understanding more about Java from "https://stackoverflow.com/questions/2204157/class-or-method-alias-in-java"
-
+*** What it does:
+*** Justification:
+*** Highlights:
+*** Credits:
 
 * *Minor enhancement*: [In Process]
 ** *Fixed the Calories bug that occurs when Calories are not in the desired range.*

@@ -493,7 +493,7 @@ success message. Otherwise, an error message showing the correct command syntax 
 
 *Sequence diagram for Bmi Command* +
 
-Given below are 2 example usages of BmiCommand based on different user input.
+Given below are 2 example usages of `BmiCommand` based on different user input.
 
 *Usage 1: No Height and Weight input*
 
@@ -764,6 +764,8 @@ image::ExpenseSplitterActivityDiagram.png[]
 Figure : Add Item Activity Diagram
 //end::expensesplitteractivitydiagram[]
 
+
+//tag::expensesplitteradditem[]
 [[Add-Item-Command]]
 ==== Add Item Command
 
@@ -791,8 +793,8 @@ The `additem` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes the `additem` command:
 
+.Add Item Command Activity Diagram
 image::ExpenseSplitterAddItemCommandActivityDiagram.png[]
-Figure : Add Item Command Activity Diagram
 
 *Implementation of Add Item Command*
 
@@ -818,12 +820,14 @@ person, together with the amount, into the `PersonAmountBook#persons`.
 
 The following sequence diagram summarizes what happens during the execution of `additem` command.
 
+.Add Item Command Sequence Diagram
 image::ExpenseSplitterAddItemCommandSequenceDiagram.png[]
-Figure: Add Item Command Sequence Diagram
 
+.Execution of Add Item Command
 image::ExpenseSplitterAddItemCommandSequenceDiagram2.png[]
-Figure: Execution of Add Item Command
+//end::expensesplitteradditem[]
 
+//tag::expensesplitterdeleteitem[]
 [[Delete-Item-Command]]
 ==== Delete Item Command
 
@@ -848,8 +852,8 @@ The `deleteitem` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes the `deleteitem` command:
 
+.Delete Item Command Activity Diagram
 image::ExpenseSplitterDeleteItemCommandActivityDiagram.png[]
-Figure: Delete Item Command Activity Diagram
 
 *Implementation*
 
@@ -871,11 +875,12 @@ current Item using the `Entry#getItem()` method and the amountPerPerson associat
 
 The following sequence diagram summarizes what happens during the execution of `deleteitem` command.
 
+.Delete Item Command Sequence Diagram
 image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
-Figure: Delete Item Command Sequence Diagram
 
+.Execution of Delete Item Command
 image::ExpenseSplitterDeleteItemCommandSequenceDiagram2.png[]
-Figure: Execution of Delete Item Command
+//end::expensesplitterdeleteitem[]
 
 //tag::expensesplitterlistreceiptcommand[]
 [[List-Receipt-Command]]
@@ -1082,9 +1087,9 @@ image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
 
 .Execution of Paid Command Sequence Diagram
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
-
 //end::expensesplitterpaidcommand[]
 
+//tag::expensesplitterclearreceipt[]
 [[Clear-Receipt-Command]]
 ==== Clear Receipt Command
 
@@ -1111,8 +1116,8 @@ only be able to use the `additem` and `deleteitem` commands.
 
 The following activity diagram illustrates what happens when a user executes the `clearreceipt` command:
 
+.Clear Receipt Command Activity Diagram
 image::ExpenseSplitterClearReceiptCommandActivityDiagram.png[]
-Figure: Clear Receipt Command Activity Diagram
 
 *Implementation of Clear Receipt Command*
 
@@ -1130,8 +1135,9 @@ The following is a detailed explanation of the operations `ClearReceiptCommand` 
 
 The following sequence diagram summarizes what happens during the execution of the `clearreceipt` command.
 
+.Clear Receipt Command Sequence Diagram
 image::ExpenseSplitterClearReceiptCommandSequenceDiagram.png[]
-Figure: Clear Receipt Command Sequence Diagram
+//end::expensesplitterclearreceipt[]
 
 [[Back-Command]]
 ==== Back Command
@@ -1433,28 +1439,34 @@ Use case ends.
 ** 1a1. EYLAH suggests to user the correct format to use
 ** 1a2. User will key in the correct format
 
-// tag::usecase[]
+//tag::expensesplitterusecase[]
 [discrete]
 === Expense Splitter Use Cases
 
+//tag::ailanaddanddeleteitemusecase[]
 [discrete]
-==== Use case: UC08 - Add item
+==== Use case: UC08 - Adding an Item
+*Actor:* User +
+*Preconditions:* User is logged in. +
+*Guarantees:* +
+Item will be added into the Receipt.
 
 *MSS*
 
-1.  User keys in Item name, its price and Person(s) involved in the splitting of that item.
-2.  EYLAH adds the Item object.
-3.  EYLAH displays the Item and the Person(s) involved with splitting of that item.
+1.  User keys in the ItemName, it's ItemPrice and Person(s) involved in the splitting of the Item.
+2.  EYLAH adds the Item and Persons into a Entry.
+3.  EYLAH adds the Entry into a Receipt.
+4.  EYLAH displays the Item and Person(s) involved in the splitting of the item, as well as the Amount owed per Person.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. EYLAH detects empty Item name, Item price or Person(s)
+* 1a. EYLAH detects empty ItemName, ItemPrice or Person(s)
 +
 [none]
-** 1a1. EYLAH shows an error message and displays an example of a correct `additem` function.
+** 1a1. EYLAH displays an error message and displays an example of a correct `additem` function.
 +
 Use case ends.
 
@@ -1463,34 +1475,36 @@ Use case ends.
 
 +
 [none]
-** 1b1. EYLAH shows an error message and displays an example of a correct `additem` function.
+** 1b1. EYLAH displays an error message and displays an example of a correct `additem` function.
 +
 Use case ends.
 
 [discrete]
-==== Use case: UC09 - Delete item
+==== Use case: UC09 - Deleting an Item
 *Actor:* User +
-*Preconditions:* User is logged in. +
+*Preconditions:* User is logged in and Item user wants to delete is present in the Receipt. +
 *Guarantees:* +
-Item will be deleted from Receipt only if the Item is currently present in Receipt.
+Item will be deleted from Receipt.
 
 *MSS*
 
-1.  User keys in request to delete an Item in the current Receipt.
-2.  EYLAH deletes that Item and deducts the appropriate amount associated with each Person(s) involved in splitting that Item.
-3.  EYLAH display a MESSAGE_SUCCESS informing user that Item have been successfully deleted.
+1.  User keys in request to delete an Item in the current Receipt via it's Index.
+2.  EYLAH deletes that Item and deducts the appropriate amount associated with each Person(s) involved in splitting that
+    Item.
+3.  EYLAH displays a MESSAGE_SUCCESS informing the user that Item has been successfully deleted.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. User did not input Item index. (Inserting `deleteitem` instead of  `deleteitem 1`)
+* 1a. User did not input the Index of the Item. (Inserting `deleteitem` instead of  `deleteitem 1`)
 +
 [none]
-** 1a1. EYLAH shows an error message and displays an example of a correct `deletitem` function.
+** 1a1. EYLAH displays an error message and displays an example of a correct `deleteitem` function.
 +
 Use case ends.
+//end::ailanaddanddeleteitemusecase[]
 
 // tag::willyusecase[]
 [discrete]
@@ -1586,8 +1600,26 @@ Use case ends.
 Use case ends.
 //end::willyusecase[]
 
+//tag::ailanclearreceiptusecase[]
 [discrete]
-=== Use case: UC13 - Back to Main Menu
+=== Use case: UC13 - Clearing the Receipt
+*Actor:* User +
+*Preconditions:* User is logged in. +
+*Guarantees:* +
+Deletes all the Entries in the Receipt. It also marks the Receipt as undone.
+
+*MSS*
+
+1.  User requests to clear the receipt after he/she decides to start a clean Receipt.
+2.  EYLAH removes all the Entries from the Receipt.
+3.  EYLAH marks the Receipt as undone.
+4.  EYLAH display a MESSAGE_SUCCESS informing the user that the Receipt has been successfully cleared.
++
+Use case ends.
+//end::ailanclearreceiptusecase[]
+
+[discrete]
+=== Use case: UC14 - Back to Main Menu
 
 *MSS*
 
@@ -1597,6 +1629,7 @@ Use case ends.
 Use case ends.
 
 *Extensions*
+//end::expensesplitterusecase[]
 
 [appendix]
 == Non Functional Requirements
@@ -1735,7 +1768,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Adding an Item into the current Receipt.
 
-.. Add item command format: `additem -i ITEMNAME -p ITEMPRICE -n PERSON [-n PERSON]`
+.. Add Item Command format: `additem -i ITEMNAME -p ITEMPRICE -n PERSON [-n PERSON]`
 
 .. Test case: `additem -i pasta -p 33.50 -n John -n Bob` +
 Expected: Adds an item with the above details to current receipt and increase the person amount equal to dividing the price
@@ -1767,33 +1800,58 @@ in splitting that item.
 == Effort
 
 *Overview* +
-After studying a survey conducted by a resident in Temasek Hall, our team wanted
-to make an application that could help students with problems they face while staying in Temasek Hall.
-We decided to build EYLAH, a super app that has both diet tracker and expense splitter functionality.
-EYLAH is significantly different from Address Book 3 (AB3).
-In addition to the existing basic features of AB3,
-we needed to add additional features to satisfy the needs of our target audience, residents staying in Temasek Hall.
+As residents of Temasek Hall, members of our group frequents the supper area rather often and we have come to realise
+two problems that we face: +
+1. Splitting bills with multiple people can be a headache, especially if some of the food items are shared amongst
+different groups of residents. +
+2. There was no way of tracking our diet with the numerous suppers that we had.
+
+In order to dive deeper into this problem, our group asked around to see if similar problems were faced by other
+residents. What we found was that many residents faced the same problems. One of the residents even conducted a survey
+before. As such, after studying the survey, our team wanted realised that we could make an application to help residents
+with problems we all face while staying in Temasek Hall.
+
+Hence, we decided to build EYLAH, a super application that has both a diet tracker and a expense splitter functionality.
+EYLAH is significantly different from Address Book 3 (AB3) in many aspects.
+We needed to add audience-specific features to satisfy the needs of our target audience:residents staying in Temasek
+Hall.
 
 
 *Challenges* +
-The team encountered a few issues during the development process of Sharkie. The more notable ones are:
+The team encountered a few issues during the development process of EYLAH. The more notable ones are:
 
-- *Initial brainstorming and filtering of ideas* +
-At the start of the project, ideation and brainstorming came up with a bunch of features that we wanted to implement in Sharkie. We came up with many different ideas and ways to implement our commands and features, however, it was messy as we were unsure and unclear of how each of us wanted to implement our features. We sat down for a few meetings to discuss our implementation and our thought processes, ensuring that everyone was on the same page before starting the development process.
+- *Project Ideation* +
+At the very beginning of our project, we came up with many different ideas that could potentially solve the various
+problems Temasek Hall residents face. After many discussions, we finally boiled it down to 2 ideas.
+Moving on, we realised that each of us had our own idea of how to implement each feature and we even had some arguments
+regarding this. However, we sat down and sorted out the uncertainties and clarified with each other what the best
+approach would be to tackle the implementation of these ideas. At the end of the day, we not only came up with the
+solution but also the roadmap to our project.
 
-- *Wallet model* +
-Since we wanted an expense tracker for Sharkie, we required some proper way of storing our data. We decided to adapt from AB3's address book system, following their saving of data and storing of user details, implementing it in our `Wallet` model.
+- *Representation of Currency* +
+When we first started building our application. We were met with our first roadblock. How should we represent our
+currency? We knew that using `double` was out of the question as there were issues with it overflowing. Not only that,
+floating point values cannot be stored exactly in memory. There was also the issue of loss of significance. (Explained
+here: htts://dzone.com/articles/never-use-float-and-double-for-monetary-calculatio) As such, Willy
+did a bit of research and discovered that using Java's `BigDecimal` was the way to go. `BigDecimal` does not allow
+negative values and allows for precision formatting.
 
-- *Commands* +
-We also adapted AB3's command system using their `XYZParser` and `XYZCommand` implementations, making our application easier to develop since we were using the same implementation as their `Logic`.
+- *Deleting an Item after Paid* +
+Whenever a user adds an Item, the Amount owed by someone is stored in a PersonAmountBook. When a Item
+is deleted, the Amount is also removed from the PersonAmountBook. The problem we faced here is when the user decides to
+use the `paid` command to reduce the Amount owed by someone before using the `deleteitem` command. This meant that the
+Amount owed by someone might potentially go to negative, which is not allowed by nature of `BigDecimal`. As such, our
+group decided to include a boolean flag in the Receipt to ensure that the `paid` command can only be used after the
+Receipt has been marked as completed. Similarly, the `additem` and `deleteitem` commands can only be used if the Receipt
+is marked as incomplete.
 
-- *Reminder feature* +
-One of the more prominent features that we added that was completely not part of AB3 was our reminder feature. This feature had nothing similar to it in AB3, and had to be implemented from scratch in order to make it work with our program.
-
-- *User interface* +
-We decided early on that we wanted to redo the user interface from AB3, as it would not only be more asthetically pleasing, but also tie in well to the features that we wanted to be implemented. Daniel did the main UI implementation using JavaFX and CSS, and along the way the entire team chipped in to fix the many different bugs that arose due to the UI. Threading errors, wrong values being displayed etc. were all fixed after careful testing and fixing by the team.
+- *Integer Overflow* +
+In many of our intra-group bug testing sessions, we would often encounter problems with regards to integer overflow,
+whereby we would enter an incredibly large number as the price of an Item or the Calories of a Food. This would cause
+Exceptions to be thrown, causing our application to crash. To fix such problems, we made a cap on the values that can
+be inputted by the user.
 
 *Conclusion* +
-In conclusion, our team had a great time working with each another and we hope our application,
-EYLAH, will ease the lives of residents at Temasek Hall.
-Overall, we believe that EYLAH is a good testament to our hard work and time spent on perfecting it.
+In conclusion, our team had a terrific time working with each another and we hope our application, EYLAH, will indeed
+help to ease the lives of the residents at Temasek Hall.
+Overall, we believe that EYLAH is a good testament to our hard work and the time spent on perfecting it.
