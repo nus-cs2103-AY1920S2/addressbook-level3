@@ -127,7 +127,6 @@ The `Model`,
 1. stores `FitBiz`
 1. stores `Client`, `Sports`, `Tag`, `Schedule` and `Exercise` packages, where `Client` utilises the latter packages as attributes
 1. exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-1. 
 
 [NOTE]
 As a more OOP model, we can choose to store a `Tag` list in `FitBiz`, which `Client` can reference. This would allow `FitBiz` to only require one `Tag` object per unique `Tag`, instead of each `Client` needing their own `Tag` object. An example of how such a model may look like is given below. For simplicity, we have omitted the rest of the attributes that `Client` has. Refer back to the diagram above for more details. +
