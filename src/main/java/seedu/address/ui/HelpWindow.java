@@ -53,7 +53,7 @@ public class HelpWindow extends UiPart<Stage> {
                 + "3. Add a task with a deadline to an existing module in MODdy:\n"
                 + "       - add m/CS2103T t/Project [d/2020-04-12 23:59]\n\n"
                 + "4. Edit your profile:\n"
-                + "       - edit [n/Amy] [c/Business Analytics] [y/3.1] [s/Finance Analysis]\n\n"
+                + "       - edit [n/Amy] [c/Business Analytics] [y/3.1] [s/Finance Analytics]\n\n"
                 + "5. Edit a module’s details in MODdy:\n"
                 + "       - edit m/CS2103T [y/3.1] [g/A]\n\n"
                 + "6. Edit a task’s description or deadline:\n"

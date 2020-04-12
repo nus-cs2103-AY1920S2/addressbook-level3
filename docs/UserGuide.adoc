@@ -163,7 +163,7 @@ Format: `add m/MODULE t/TASK [d/DEADLINE]` +
 ****
 
 .Task added is displayed in the Deadline Panel
-image::AddTask.png[width="790"]
+image::DeadlinePanel.png[width="790"]
 
 TIP: `add m/CS2105 t/Assignment d/2020-03-31 23:59` +
 Adds a task named "Assignment" with the deadline "31 March 2020 23:59" to the already-existing module CS2105
