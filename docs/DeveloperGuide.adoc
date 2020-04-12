@@ -4,19 +4,19 @@
 :toc-title:
 :toc-placement: preamble
 :toclevels: 3
-
 :sectnums:
 :sectnumlevels: 4
+:sectlinks:
+:sectanchors:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
-ifdef::env-github[]
+:icons: font
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :caution-caption: :fire:
-endif::[]
-:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/
 :fbl: pass:[ +]
 
 By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
