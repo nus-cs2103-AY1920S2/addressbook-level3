@@ -13,6 +13,7 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
     private Version<AddressBook> version;
 
     public VersionedAddressBook() {
+        super();
         version = new LinearHistory<>(new AddressBook());
     }
 
@@ -20,6 +21,7 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
      * Creates a VersionedAddressBook with an initial state containing the {@code Supplier}s in the {@code toBeCopied}.
      */
     public VersionedAddressBook(ReadOnlyList<Supplier> toBeCopied) {
+        super();
         version = new LinearHistory<>(new AddressBook(toBeCopied));
         updateDisplayedSuppliers();
     }

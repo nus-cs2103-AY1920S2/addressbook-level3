@@ -14,6 +14,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
     private Version<TransactionHistory> version;
 
     public VersionedTransactionHistory() {
+        super();
         version = new LinearHistory<>(new TransactionHistory());
     }
 
@@ -22,6 +23,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
      * in the {@code toBeCopied}.
      */
     public VersionedTransactionHistory(ReadOnlyList<Transaction> toBeCopied) {
+        super();
         version = new LinearHistory<>(new TransactionHistory(toBeCopied));
         updateDisplayedTransactions();
     }

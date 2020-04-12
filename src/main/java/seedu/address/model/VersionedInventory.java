@@ -13,6 +13,7 @@ public class VersionedInventory extends Inventory implements Versionable {
     private Version<Inventory> version;
 
     public VersionedInventory() {
+        super();
         version = new LinearHistory<>(new Inventory());
     }
 
@@ -20,6 +21,7 @@ public class VersionedInventory extends Inventory implements Versionable {
      * Creates a VersionedInventory with an initial state containing the {@code Good}s in the {@code toBeCopied}.
      */
     public VersionedInventory(ReadOnlyList<Good> toBeCopied) {
+        super();
         version = new LinearHistory<>(new Inventory(toBeCopied));
         updateDisplayedGoods();
     }
