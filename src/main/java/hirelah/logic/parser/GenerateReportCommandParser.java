@@ -8,7 +8,7 @@ import hirelah.logic.parser.exceptions.ParseException;
 /**
  * Parses the GenerateReportCommand with the identifier.
  */
-public class GenerateReportCommandParser {
+public class GenerateReportCommandParser implements Parser<GenerateReportCommand> {
 
     /**
      * Parses the given {@code String} of identifier in the context of the GenerateReportCommand
