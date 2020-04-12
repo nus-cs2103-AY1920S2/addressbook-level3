@@ -197,8 +197,7 @@ public class SummaryPane extends UiPart<Region> {
             int count = 0;
 
             for (LocalDate ld = latestWeek;
-                 (ld.isAfter(earliestWeek) || ld.isEqual(earliestWeek))
-                         && count < SummaryPane.BAR_CHART_WEEKS_LIMIT;
+                 !ld.isBefore(earliestWeek) && count < SummaryPane.BAR_CHART_WEEKS_LIMIT;
                  ld = ld.minusWeeks(1)) {
                 // initialise all weeks with 0 savings
                 mapByWeek.add(ld, new PureMonetarySavings());
