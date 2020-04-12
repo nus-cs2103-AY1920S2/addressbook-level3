@@ -1,0 +1,101 @@
+= Johanna - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Notably
+
+---
+
+== Overview
+
+Notably is a note-taking desktop app, optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI). It aims to help the users, especially the fast-typists,
+to get their notes taken down faster than using traditional GUI apps.
+
+== Summary of contributions
+
+* *Major enhancement*: *Suggestion Engine*
+** What it does: `SuggestionEngine` actively give users an updated list of suggestions of notes as the users type their input.
+Furthermore, it gives a response text to enable users to understand the meaning behind their inputted command.
+** Justification: `SuggestionEngine` played a pivotal role in providing a seamless user experience of managing his notes.
+This feature is curated for our target users (NUS tech-savvy students) who often have a large number of notes and thus
+may find difficulty traversing all of their notes to get to a particular note. Therefore, `SuggestionEngine` improves
+the user experience significantly by giving this convenience.
+** Highlights: It gives response text and suggestions (if any) for all available valid commands in Notably. The implementation was
+quite challenging as different commands require different implementation.
+
+* *Major enhancement*: *Search feature*
+** What it does: The Search feature searches the occurrences of a keyword in all of the notes, not just the currently
+opened one. It can also search for partial or incomplete words of the note's content and count the number of times
+the keywords appear in the note. It then displays the list of suggestions of notes to the users with the most relevant
+search result being on top of the list.
+** Justification: Students often remember a certain keyword from their note but can't precisely remember where it is located.
+The Search feature thus gives the convenience to the most relevant note —> suggestions sorted based on the highest number of occurrences.
+If the number of occurrences is the same, the suggestions listing will based on their respective positions in the hierarchical notes arrangement.
+** Highlights: The feature is complete as it traverses through all of the notes and can even search for incomplete words,
+hence giving the relevant suggestions to the user even before the user has finished typing.
+
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=johannagwan&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Wrote most parts of the README: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/51[#51]
+*** Maintained the https://github.com/AY1920S2-CS2103T-W17-2/main/issues[issue tracker]
+
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage significantly (Pull requests
+https://github.com/AY1920S2-CS2103T-W17-2/main/pull/428[#428],
+https://github.com/AY1920S2-CS2103T-W17-2/main/pull/470[#470])
+
+** Documentation:
+*** Updated the Search and Auto-Suggestions feature in UG: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/461[#461]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/AY1920S2-CS2103T-W17-2/main/pull/106[#106],
+https://github.com/AY1920S2-CS2103T-W17-2/main/pull/127[#127],
+https://github.com/AY1920S2-CS2103T-W17-2/main/pull/279[#279],
+https://github.com/AY1920S2-CS2103T-W17-2/main/pull/291[#291],
+https://github.com/AY1920S2-CS2103T-W17-2/main/pull/432[#432]
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/johannagwan/ped/issues/1[#1],
+https://github.com/johannagwan/ped/issues/2[#2],
+https://github.com/johannagwan/ped/issues/3[#3],
+https://github.com/johannagwan/ped/issues/4[#4],
+https://github.com/johannagwan/ped/issues/5[#5],
+https://github.com/johannagwan/ped/issues/6[#6],
+https://github.com/johannagwan/ped/issues/7[#7],
+https://github.com/johannagwan/ped/issues/8[#8],
+https://github.com/johannagwan/ped/issues/9[#9],
+https://github.com/johannagwan/ped/issues/10[#10],
+https://github.com/johannagwan/ped/issues/11[#11],
+https://github.com/johannagwan/ped/issues/12[#12],
+https://github.com/johannagwan/ped/issues/13[#13],
+https://github.com/johannagwan/ped/issues/14[#14],
+https://github.com/johannagwan/ped/issues/15[#15],
+https://github.com/johannagwan/ped/issues/16[#16]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=search]
+
+include::../UserGuide.adoc[tag=suggestions]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=suggestionengine]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
