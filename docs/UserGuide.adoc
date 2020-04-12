@@ -183,14 +183,18 @@ and the <<modeexpectedoutcome, expected outcome>> after using the
 `mode` command.
 
 *Summary of Mode Command:* +
+With the `mode` command you can set your desired dieting goal with the different modes that set a limit on your daily
+calorie intake. The calorie limits are calculated based on that of an average human. Your daily calories intake status
+can be monitored with the `list` command.
+
 `mode` to switch the dieting mode, based on the following modes: +
 
-* Lose Weight (-l)
-* Gain Weight (-g)
-* Maintain (-m)
+* Lose Weight (-l) (2000 calorie limit)
+* Gain Weight (-g) (3000 calorie limit)
+* Maintain (-m) (2500 calorie limit)
 
 [[howtousemodecommand]]
-*How to use the List Receipt Command:*
+*How to use the Mode Command:*
 
 Format: +
 `mode [-l] [-g] [-m]` +
@@ -210,48 +214,7 @@ image::dietTrackerModeCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
-The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
-====
-
-[TIP]
-====
-Switch the mode to help yourself reach your diet targets better!
-====
-
-'''
-In this section, you will learn more about the `mode` command, <<howtousemodecommand, how to use it>>
-and the <<modeexpectedoutcome, expected outcome>> after using the
-`mode` command.
-
-*Summary of Mode Command:* +
-`mode` to switch the dieting mode, based on the following modes: +
-
-* Lose Weight (-l)
-* Gain Weight (-g)
-* Maintain (-m)
-
-[[howtousemodecommand]]
-*How to use the Mode Command:*
-
-Format: +
-`mode [-l] [-g] [-m]` +
-
-Valid Example: +
-`mode -l`
-
-[WARNING]
-You must only input one mode per mode command.
-
-[[modeexpectedoutcome]]
-*Expected outcome:*
-
-image::dietTrackerModeCommandSuccessPhoto.png[width="890", height="200"]
-
-*Additional notes and tips* +
-
-[NOTE]
-====
-The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
+The default mode is MAINTAIN if you have not set your mode.
 ====
 
 [TIP]
@@ -259,6 +222,9 @@ The default mode for any individual who has chosen his/her Dieting Mode will be 
 * Switch your Dieting Mode to help yourself reach your diet targets better!
 * Check your currently chosen Dieting Mode with `metrics`.
 ====
+
+
+
 
 [[height]]
 ==== Storing Height `height`
