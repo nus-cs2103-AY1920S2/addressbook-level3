@@ -222,7 +222,7 @@ calling `delete ... i/1` will successfully delete entry X.
 
 Examples:
 
-* `delete x/sports index/2`
+* `delete x/sports i/2`
 Deletes the 2nd sports entry in the sports list from dashboard.
 
 .Delete Command
@@ -417,7 +417,9 @@ This `undo` commands adds the diary log back to FitHelper.
 === Calendar View: `calendar`
 Calendar view will display all the food and sports entries for each day of the referenced week/month. The referenced date is default set to be the current date, but can be changed to a user given date. Calendar can be switched between two modes, list mode or timetable mode, with default set to be in timetable mode. +
 
-*For list mode*:
+Format for entering calendar view: `calendar`
+
+==== Calendar list mode: `calendar m/ls [d/DATE]`
 
 * *Monthly View* +
 The lists of entries for food and sports are display by their given dates in the referenced month. Completed entries will be strikethrough. Calorie value is also shown for each date.
@@ -425,14 +427,15 @@ The lists of entries for food and sports are display by their given dates in the
 * *Calendar of the month* +
 On the top right corner, the dates of the referenced month displayed, with red-colored date if the given date has more calorie intake than calorie burnt (considering the entries with status done of that particular date), else if calorie burnt is greater than calorie intake, the font color is green. Default color is blue. For each date, upon clicking, a popup window will show all entries of the date. The ones with strikethrough in text means the status of the entry is done. For this functionality, the corresponding command is `calendar sh/DATE`.
 
-* *Daily tasks completion status* +
-On the bottom right corner, completion status for existing entries will be displayed by their dates, showing the calorie intake from food, calorie burnt from sports as well as total calorie. The calculation only considers entries which are completed.
+* *Daily calorie status* +
+On the bottom right corner, calorie status for existing entries will be displayed by their dates, showing the calorie intake from food, calorie burnt from sports as well as total calorie. The calculation only considers entries which are completed.
+
+Format for switching to list mode: `calendar m/ls [d/DATE]`
 
 .Calendar list mode
 image::calendarls.png[]
 
-*For timetable mode:* +
-
+==== Calendar timetable mode: `calendar m/tb [d/DATE]`
 
 * *Weekly View* +
 The entries of food and sports of the given time period are displayed. Food entries will be in pink, sports entries will be in blue, and entries completed will be in grey regardless of their type. No entries can have time clashes. Entries with long names or locations will not be displayed fully. Only when mouse is over the entry, the details will be shown. Entries upon clicking will have console errors, caused by disabling certain functionality from third party libraries.
@@ -441,22 +444,22 @@ The entries of food and sports of the given time period are displayed. Food entr
 Same as above.
 
 * *Upcoming list* +
-It displays all entries after the current date and time and within the referenced month. Only entries with status "undone" will be shown. So if the referenced month is in the past, no entries will be shown. +
+It displays all entries after the current date and time and within the referenced month. Only entries with status `Undone` will be shown. So if the referenced month is in the past, no entries will be shown. +
+Format for switching to timetable mode: `calendar m/tb [d/DATE]`
 
 .Calendar timetable mode
 image::calendartb.png[]
 
-Format for entering calendar view: `calendar` +
-Format for switching to timetable mode: `calendar m/tb` +
-Format for switching to list mode: `calendar m/ls` +
-Format for changing the referenced date: `calendar d/DATE` +
+==== Calendar display entries from a day: `calendar sh/DATE`
+A pop up window will display all entries from the chosen date.
+
 Format for showing entries of a particular date: `calendar sh/DATE`
 
 Examples:
 
+* `calendar d/2020-04-15`
 * `calendar m/ls d/2020-04-20`
 * `calendar sh/2020-05-01`
-
 
 === Daily Summary
 
