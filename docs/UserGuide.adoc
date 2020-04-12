@@ -20,35 +20,30 @@ By: `Team CS2103-AY1920S2-CS2103-W14`      Since: `Jan 2020`      Licenc
 
 // tag::intro[]
 == Welcome to CodeCampX
-
 Code Camp X (CCX) is for those who *prefer to use a desktop app to manage the administrative tasks of running a coding camp*.
 More importantly, CCX is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, CCX can allow you to manage your camp's administrative tasks faster than traditional GUI apps.
-Interested?
-Jump to the <<Quick Start>> to get started.
-Enjoy!
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 === Legend
-
-The following *3* callouts will be used throughout the documentation which you may wish to pay attention to as it may contain important details:
+The following *3* callouts will be used throughout the documentation which you may wish to pay attention to as it may
+contain important details:
 
 [NOTE]
-Just for your info, do not be alarmed.
-Be sure to read these notes as it might contain some important information.
+Just for your info, do not be alarmed. Be sure to read these notes as it might contain some important information.
 
 [TIP]
-Perhaps something can be done using another approach, but it is up to you to decide.
-Tips are often not important and can be safely ignored.
+Perhaps something can be done using another approach, but it is up to you to decide. Tips are often not important and
+can be safely ignored.
 
 [WARNING]
-Some things might go wrong if you are not careful, or did not follow the instructions correctly.
-You are strongly advised to read whatever is in this block.
+Some things might go wrong if you are not careful, or did not follow the instructions correctly. You are strongly
+advised to read whatever is in this block.
 
 [[user-interface]]
 === A Quick Look at CodeCampX
 
-*CodeCampX*’s user interface is split into a few sections.
-These sections are highlighted in the image below.
+*CodeCampX*’s user interface is split into a few sections. These sections are highlighted in the image below.
 
 .Quick Overview of CodeCampX.
 image::Ui.png[width="1000"]
@@ -57,10 +52,9 @@ Let's get started!
 // end::intro[]
 
 == Quick Start
-
 Follow this installation guide to get *CodeCampX* up and running on your computer.
 
-. Ensure you have Java version `9` or later installed in your Computer.
+.  Ensure you have Java version `9` or later installed in your Computer.
 
 [NOTE]
 ====
@@ -68,95 +62,77 @@ Follow this installation guide to get *CodeCampX* up and running on your compute
 * You may install the current version of Java link:https://www.oracle.com/technetwork/java/javase/downloads/index.html[here].
 ====
 
-. Download the latest version link:https://github.com/AY1920S2-CS2103-W14-1/main/releases[here].
-. Copy the file to the folder you want to use as the home folder.
-. Double-click the file to start the app.
-The GUI should appear in a few seconds.
+.  Download the latest version link:https://github.com/AY1920S2-CS2103-W14-1/main/releases[here].
+.  Copy the file to the folder you want to use as the home folder.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 
 +
-. Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-. Some example commands you can try:
+.  Some example commands you can try:
 * **`help`** : Opens up the help page
 * *`exit`* : Exits the application
 
-. Refer to <<Commands>> for details of each command.
+.  Refer to <<Commands>> for details of each command.
 
 [[Components]]
 == Components
-
 *CodeCampX* consists of five core components: Students, Teachers, Courses, Finances, Assignments
 
 === Students
-
 You can manage the students by assigning them to courses, and ensuring that they have paid for their courses.
 
 === Teachers
-
 You can manage the teachers by providing information such as the phone number and email address.
-This is critical as teachers are the main point of contact during an emergency.
-You can keep track of which teachers you have paid for teaching a course.
+This is critical as teachers are the main point of contact during an emergency. You can keep track
+of which teachers you have paid for teaching a course.
 
 === Courses
-
-You can keep track of the ongoing courses in your Coding Camp.
-Each course will have an assigned teacher, as well as a list of assigned students.
-The course fee should also be specified.
+You can keep track of the ongoing courses in your Coding Camp. Each course will have an assigned teacher,
+as well as a list of assigned students. The course fee should also be specified.
 
 === Finances
-
-The built-in Sales Management component in CodeCampX provides you with the tools you will need to keep track of financial records efficiently.
-Several analytical features are also incorporated to assist you in financial decision-making and devising marketing strategies.
+The built-in Sales Management component in CodeCampX provides you with the tools you will need to keep track of financial
+records efficiently. Several analytical features are also incorporated to assist you in financial decision-making
+and devising marketing strategies.
 
 === Assignments
-<<<<<<< HEAD
 You can keep track of the available assignments of the various students or courses through this functionality. Additionally,
 the progress of the assignments can be viewed for the course of the student (In Student Tab)
 or the student of a course (In Course Tab).
-=======
-
-You can keep track of the available assignments of the various students or courses through this functionality.
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 
 [[Features]]
 == Key Features
-
 === Convenience
-
-*CodeCampX* is an integrated application that will provide you with the utmost convenience and tools you will need to manage your Coding Camps.
-It allows you to:
+*CodeCampX* is an integrated application that will provide you with the utmost convenience and tools you will need to
+manage your Coding Camps. It allows you to:
 
 * Export data to `.json` (default) or Excel file `[coming in v2.0]`.
 
 === Security
-
-We understand that digital security is your biggest concern.
-*CodeCampX* is capable of securing your restaurants' data by:
+We understand that digital security is your biggest concern. *CodeCampX* is capable of securing your restaurants' data by:
 
 * Encrypting all data using state of the art encryption scheme `[coming in v2.0]`.
 * Providing accountability through logging of system events.
 
 === Efficiency
-
-Time is money.
-*CodeCampX* ensures that the application will:
+Time is money. *CodeCampX* ensures that the application will:
 
 * Load within 5 seconds.
 * Execute commands within split of a second and update the GUI almost instantaneously.
 
 [[Commands]]
 == Commands
-
-*CodeCampX* is jam-packed with features and it may be daunting for new users.
-The subsequent sections of the user guide provides a step by step walk-through of all the commands *CodeCampX* has to offer.
+*CodeCampX* is jam-packed with features and it may be daunting for new users. The subsequent sections of the user guide
+provides a step by step walk-through of all the commands *CodeCampX* has to offer.
 
 Do read our short explanation about Command Format below so that the subsequent portions of this section will make sense to you.
-
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add-student n/STUDENT_NAME`, `STUDENT_NAME` is a parameter which can be used as `add-student n/Bob`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add-student n/STUDENT_NAME`, `STUDENT_NAME` is a
+parameter which can be used as `add-student n/Bob`.
 * Items in square brackets are optional e.g `n/STUDENT_NAME [t/TAG]` can be used as `n/Bob t/loyal` or as `n/Bob`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as
 `{nbsp}` (i.e. 0 times), `t/loyal`, `t/10years t/new` etc.
@@ -165,13 +141,10 @@ is also acceptable.
 ====
 
 === General
-
 The commands in this section does not tie to any of the 5 components.
 
 ==== Viewing help : `help`
-
-Opens up the help window.
-Very useful if you are a new user. +
+Opens up the help window. Very useful if you are a new user. +
 Format: `help`
 
 ==== Exiting the program : `exit`
@@ -184,9 +157,7 @@ Format: `exit`
 Format: `undo` or `redo`
 
 ==== Assigning/Unassigning -TYPE- to a Course : `assign` or `unassign` respectively
-
 ===== A Student to a Course : `assign` or `unassign` respectively
-
 Adds the Student ID to the Course ID specified. +
 Format: `assign cid/COURSEID sid/STUDENTID` +
 Example: `assign cid/829 sid/33`
@@ -232,21 +203,17 @@ specific assignment (Done) or not (Not Done)
 ====
 
 ==== Select a Student/Staff/Course : `select` or simply click the bar
-
 Selecting means to view the specified item in detail.
-As mentioned in the previous section, a course may be assigned student/s, a teacher, or assignment/s.
-When you select a course for example, you can view the list of students assigned in the list on the right.
+As mentioned in the previous section, a course may be assigned
+student/s, a teacher, or assignment/s. When you select a course
+for example, you can view the list of students assigned in
+the list on the right.
 
 If the specified ID does not exist, the selected panel will become empty.
 
 
 ===== Select a Student:
-<<<<<<< HEAD
 Views details of a student and list of courses of a student +
-=======
-
-Views the list of courses of a student +
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 Format: `select sid/STUDENTID` +
 Example: `select sid/11`
 or click the desired Student bar
@@ -258,28 +225,17 @@ Example: `select sid/11 cid/1`
 or click the desired Course bar under the Student
 
 ===== Select a Staff:
-<<<<<<< HEAD
 Views the details of a staff and list of courses of a staff +
-=======
-
-Views the list of courses of a staff +
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 Format: `select tid/STAFFID` +
 Example: `select tid/31`
 or click the desired Staff bar
 
 ===== Select a Course:
-<<<<<<< HEAD
 Views the details of a course and list of students of a course +
-=======
-
-Views the list of students of a course +
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 Format: `select cid/COURSEID` +
 Example: `select cid/1`
 or click the desired Course bar
 
-<<<<<<< HEAD
 ===== Select Assignment belonging to the Student of a Course:
 Views list of Assignment belong to Student of a Course +
 Format: `select cid/COURSEID sid/STUDENTID` +
@@ -302,9 +258,6 @@ or click the desired Assignment bar
 - The tab orders are: Summary, Staff, Course, Finance, Assignment
 - Switch quickly to previous Tab (with wrap around) : Click command box + `[CTRL]` + `[UP ARROW]`
 - Switch quickly to next Tab (with wrap around):  Click command box + `[CTRL]` + `[DOWN ARROW]`
-=======
-==== Switch between tabs : `m`, `s`, `t`, `c`, `f`, `a`
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 
 - Switch quickly to Summary Tab : `m` or `summary`
 - Switch quickly to Student Tab : `s` or `student`
@@ -323,36 +276,23 @@ to navigate through your command history
 
 ==== Saving the data
 
-Coding Camp book data are saved in the hard disk automatically after any command that changes the data.
-No manual saving is required.
+Coding Camp book data are saved in the hard disk automatically after any command that changes the data. No manual
+saving is required.
 
 ==== Clearing all the data
 
-<<<<<<< HEAD
 Coding Camp book data can be cleared by `clear-all` command. This action will *CLEAR* all the entire address book and
 this action can not undone.
-=======
-Coding Camp book data can be cleared by `clear-all` command.
-This action will *CLEAR* all the entire address book and this action can not undo.
-
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 [WARNING]
 ====
-This will irrevocably clear the entire address book and you cannot undo it!
-Be very careful with this command.
+This will irrevocably clear the entire address book and you cannot undo it! Be very careful with this command.
 ====
 
 // tag::studentmanagement[]
 
 === Student
-<<<<<<< HEAD
 .List of Students. Shows details and list of courses of selected student. The list of Assignments is also shown for the selected course
-=======
-
-.Student label. The assigned courses display the course names with the course ID beside
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 image::studentTab.png[width="1000"]
-
 ==== Add a student: `add-student`
 
 Add a new student to the list of student +
@@ -369,27 +309,16 @@ Try it!
 
 
 ==== Remove a student: `delete-student`
-
 Remove a student from the list of students +
 Format: `delete-student ID` +
 Example:
 
 * `delete-student 16100`
-
 ****
-<<<<<<< HEAD
 * Deletes the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel list
 * The ID *must be a positive integer* 16100, 25200, 55250, ...
 ****
 [NOTE]
-=======
-* Edits the item at the specified `ID`.
-The ID refers to the ID number shown in the displayed item panel list
-* The ID *must be a positive integer* 16100, 25200, 55250, ...
-****
-
-[TIP]
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 ====
 Be reminded that when you delete a student, the student will be deleted from every course as well +
 For example, a course that was only assigned to this student *Bob* will change to *None* if student *Bob* is deleted. +
@@ -417,24 +346,17 @@ Returns `ned` and `Ned Stark`
 Returns any student having names `Lannister`, `Targaryen`, or `Stark`
 
 ==== List all students: `list-student`
-
-Shows a list of all students Format: `list-student`
+Shows a list of all students
+Format: `list-student`
 
 ==== Edit information about a student: `edit-student`
-<<<<<<< HEAD
 Edits an existing student in the student list
 Format: `edit-student ID [n/NAME] [g/GENDER] [t/TAG]…` +
-=======
-
-Edits an existing student in the student list Format: `edit-student ID [n/NAME] [t/TAG]…` +
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 Example:
 
 * `edit-student 16100 n/Aegon Targaryen t/freshman`
-
 ****
-* Edits the student at the specified `ID`.
-The ID refers to the ID number shown in the displayed student panel list
+* Edits the student at the specified `ID`. The ID refers to the ID number shown in the displayed student panel list
 * The ID *must be a positive integer* 16100, 25200, 52500, ...
 * At least one of the optional fields must be provided
 * Existing values will be updated to the input values
@@ -448,14 +370,8 @@ The ID refers to the ID number shown in the displayed student panel list
 // tag::teachermanagement[]
 
 === Staff
-<<<<<<< HEAD
 .List of Staffs. Shows details and list of courses of selected staff
-=======
-
-.Staff label. For staffs that are teachers, the assigned courses display the course names with the course ID beside
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 image::teacherTab.png[width="1000"]
-
 ==== Add a staff: `add-staff`
 
 Add a new staff to the list of staff +
@@ -480,27 +396,16 @@ Try it!
 ====
 
 ==== Remove a staff: `delete-staff`
-
 Remove a staff from the list of teachers +
 Format: `delete-staff ID` +
 Example:
 
 * `delete-staff 16100`
-
 ****
-<<<<<<< HEAD
 * Deletes the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel
 * The ID *must be a positive integer* 16100, 25200, 52500, ...
 ****
 [NOTE]
-=======
-* Edits the item at the specified `ID`.
-The ID refers to the ID number shown in the displayed item panel
-* The ID *must be a positive integer* 16100, 25200, 52500, ...
-****
-
-[TIP]
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 ====
 Be reminded that when you delete a staff that is of staff type: Teacher, the teacher will be deleted from every course as well. +
 For example, a course that was assigned teacher *Bob* will change to *None* if teacher *Bob* is deleted. +
@@ -528,24 +433,17 @@ Returns `ned` and `Ned Stark`
 Returns any teacher having names `Lannister`, `Targaryen`, or `Stark`
 
 ==== List all teachers: `list-staff`
-
-Shows a list of all staffs Format: `list-staff`
+Shows a list of all staffs
+Format: `list-staff`
 
 ==== Edit information about a staff: `edit-staff`
-<<<<<<< HEAD
 Edits an existing staff in the staff list
 Format: `edit-staff ID [n/NAME] [g/GENDER] [p/PHONE] [e/EMAIL] [s/SALARY] [a/ADDRESS] [t/TAG]...` +
-=======
-
-Edits an existing staff in the staff list Format: `edit-teacher ID [n/NAME] [t/TAG]…` +
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 Example:
 
 * `edit-staff 16100 n/Aegon Targaryen t/legend`
-
 ****
-* Edits the staff at the specified `ID`.
-The ID refers to the ID number shown in the displayed staff panel
+* Edits the staff at the specified `ID`. The ID refers to the ID number shown in the displayed staff panel
 * The ID *must be a positive integer* 16100, 25200, 52500, ...
 * At least one of the optional fields must be provided
 * Existing values will be updated to the input values
@@ -559,14 +457,8 @@ The ID refers to the ID number shown in the displayed staff panel
 // tag::coursemanagement[]
 
 === Course
-<<<<<<< HEAD
 .List of Courses. Shows details and list of students of selected Course. The list of Assignments is also shown for the selected Student
-=======
-
-.Course label. The assigned teachers/students display the teacher/student names with the teacher/student ID beside
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 image::courseTab.png[width="1000"]
-
 ==== Add a course: `add-course`
 
 Add a new course to the list of course +
@@ -575,7 +467,6 @@ Example:
 * `add course n/Cozmo Programming a/2000 t/Fun t/Robot`
 
 ==== Remove a course: `delete-course`
-
 Remove a course from the list of courses +
 Format: `delete-course ID` +
 Example:
@@ -587,7 +478,6 @@ Example:
 Be reminded that when you delete a course, the course will be deleted from every student and teacher as well. +
 For example, a teacher that was only assigned to this course *Java* will change to *None* if course *Java* is deleted. +
 ====
-<<<<<<< HEAD
 ==== Edit information about a course: `edit-course`
 Edits an existing course in the course list
 Format: `edit-course ID [n/NAME] [a/AMOUNT] [t/TAG]...` +
@@ -601,15 +491,6 @@ Example:
 * Existing values will be updated to the input values
 * When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
 * You can remove all the course's tags by typing `t/` without specifying any tags after it
-=======
-
-==== Edit a course: `edit-course`
-
-****
-* Edits the item at the specified `ID`.
-The ID refers to the ID number shown in the displayed item list
-* The ID *must be a positive integer* 16100, 25200, 55250, ...
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 ****
 
 ==== Locating items by name: `find-course`
@@ -634,19 +515,17 @@ Returns `cozmo` and `Cozmo Programming`
 Returns any course having names `Java`, `Python`, or `C`
 
 ==== List all courses: `list-course`
-
-Shows a list of all courses Format: `list-course`
+Shows a list of all courses
+Format: `list-course`
 
 ==== Edit information about a course: `edit-course`
-
-Edits an existing course in the course list Format: `edit-course ID [n/NAME] [a/AMOUNT] [t/TAG]…` +
+Edits an existing course in the course list
+Format: `edit-course ID [n/NAME] [a/AMOUNT] [t/TAG]…` +
 Example:
 
 * `edit-course 16100 n/Java Programming a/2000`
-
 ****
-* Edits the course at the specified `ID`.
-The ID refers to the ID number shown in the displayed course panel
+* Edits the course at the specified `ID`. The ID refers to the ID number shown in the displayed course panel
 * The ID *must be a positive integer* 16100, 25200, 55250, ...
 * At least one of the optional fields must be provided
 * Existing values will be updated to the input values
@@ -659,76 +538,63 @@ The ID refers to the ID number shown in the displayed course panel
 // tag::financemanagement[]
 
 === Finance
-<<<<<<< HEAD
 .List of Finances. Shows details of selected Finance. Type m is Finance Type 1, Type cs is Finance Type 2, and Type ct is Finance Type 3
-=======
-
-.Finance labels. Type m is Finance Type 1, Type cs is Finance Type 2, and Type ct is Finance Type 3
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 image::financeTab.png[width="1000"]
-
 ==== Add a finance: `add-finance`
 
 Add a new finance to the list of finance
-
 ****
 * Type 1: Adding miscellaneous transactions(Specify ft/ as m)
 ** Parameters: ft/FINANCETYPE d/DATE n/NAME a/AMOUNT [t/TAG]...
 ** Example: add-finance ft/m d/2020-12-09 n/Paid NTU a/1200 t/Partnership t/Monthly
-* Type 2: A student paying for a course(Specify ft/ as cs)
+*  Type 2: A student paying for a course(Specify ft/ as cs)
 ** Parameters: ft/FINANCETYPE d/DATE cid/COURSEID sid/STUDENTID [t/TAG]...
 ** Example: add-finance ft/cs d/2020-12-09 cid/829 sid/33 t/Late
 * Type 3: A teacher is paid for teaching a course(Specify ft/ as ct)
 ** Parameters: ft/FINANCETYPE d/DATE cid/COURSEID tid/TEACHERID [t/TAG]...
 ** Example: add-finance ft/ct d/2020-12-09 cid/829 tid/21 t/Early
 ****
-
 To summarise, all three types requires ft/FINANCETYPE and d/DATE to be specified. +
 Type 1 additionally requires n/FINANCE-NAME a/AMOUNT +
 Type 2 additionally requires cid/COURSEID sid/STUDENTID +
 Type 3 additionally requires cid/COURSEID tid/TEACHERID +
 
-
 [TIP]
 ====
-For Type 1 miscellaneous transactions, you can specify the amount as negative(with a "-" in front) or positive(without a "-" in front) For example, a/100 or a/-100
+For Type 1 miscellaneous transactions, you can specify the amount as negative(with a "-" in front) or
+positive(without a "-" in front) For example, a/100 or a/-100
 
 For Type 2 student paying for a course, the amount will be positive automatically, as it is an earning
 
 For Type 3 teacher being paid for teaching a course, the amount will be negative automatically, as it is an expense
 
-To make Payment for a teacher, it is important to check the salary value of the teacher.
-This value is set to 0 by default when adding a new staff (teacher) without specifying salary.
-A result of payment with amount 0 will be added if the salary of the teacher is 0.
+To make Payment for a teacher, it is important to check the salary value of the teacher. This value is set to 0 by default
+when adding a new staff (teacher) without specifying salary. A result of payment with amount 0 will be added if the
+salary of the teacher is 0.
 
 The positive and negative amount is important (for miscellaneous type) as it is used under "earnings" and "expenses" commands.
 ====
 
 ==== Remove a finance: `delete-finance`
-
 Remove a finance from the list of finances +
 Format: `delete-finance ID` +
 Example:
 
 * `delete-finance 16100`
-
 ****
-* Deletes the item at the specified `ID`.
-The ID refers to the ID number shown in the displayed item panel.
-Each finance has a unique ID number
+* Deletes the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel. Each finance
+has a unique ID number
 * The ID *must be a positive integer* 16100, 25270, ...
 ****
 
 ==== Edit a finance
-
-Edits an existing finance in the finance list Format: `edit-finance ID [n/NAME] [d/DATE] [a/AMOUNT] [t/TAG]…` +
+Edits an existing finance in the finance list
+Format: `edit-finance ID [n/NAME] [d/DATE] [a/AMOUNT] [t/TAG]…` +
 Example:
 
 * `edit-finance 16100 n/Buying new tables d/2020-04-13 a/3000`
-
 ****
-* Edits the finance with the specified `ID`.
-The ID refers to the ID number shown in the displayed payment panel
+* Edits the finance with the specified `ID`. The ID refers to the ID number shown in the displayed payment panel
 * The ID *must be a positive integer* 16100, 25200, 55250, ...
 * At least one of the optional fields must be provided
 * Existing values will be updated to the input values
@@ -758,16 +624,14 @@ Returns `payment` and `Received Payment`
 Returns any finance having names `Course`, `Student`, or `Teacher`
 
 ==== List all finances: `list-finance`
-
-Shows a list of all finances Format: `list-finance`
+Shows a list of all finances
+Format: `list-finance`
 
 ==== Get total earnings: `earnings`
-
 Shows all the earnings (finances with positive amount) as a number. +
 Format: `earnings`
 
 ==== Get total expenses: `expenses`
-
 Shows all the expenses (finances with positive amount) as a number. +
 Format: `expenses`
 
@@ -776,16 +640,10 @@ Format: `expenses`
 // tag::assignmentmanagement[]
 
 === Assignment
-<<<<<<< HEAD
 .List of Assignments. Shows details of selected Assignment.
-=======
-
-.Assignment labels.
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 image::assignmentTab.png[width="1000"]
 
 ==== Add an assignment: `add-assignment`
-
 Add a new assignment to the list of all assignments +
 Format: `n/NAME dl/DEADLINE [t/TAG]...` +
 Example:
@@ -797,15 +655,12 @@ Example:
 ====
 
 ==== Delete an assignment: `delete-assignment`
-
 Format: `delete-assignment ID` +
 Example:
 
 * `delete-assignment 16100`
-
 ****
-* Deletes the item at the specified `ID`.
-The ID refers to the ID number shown in the displayed item list
+* Deletes the item at the specified `ID`. The ID refers to the ID number shown in the displayed item list
 * The ID *must be a positive integer* 16100, 25200, 52500, ...
 ****
 [NOTE]
@@ -818,19 +673,12 @@ will have no assignment left after this assignment is deleted.
 ====
 
 ==== Edit an assignment: `edit-assignment`
-<<<<<<< HEAD
 Format: `edit-assignment ID [n/NAME] dl/DEADLINE t/TAGS]` +
-=======
-
-Format: `edit-assignment ID [n/NAME dl/DEADLINE t/TAGS]` +
->>>>>>> e15537ad3a98bdc1efbe4270085ff44a8e4d67ec
 Example:
 
 * `edit-assignment 16100 n/Edit Python Assignment 1`
-
 ****
-* Edits the assignment at the specified `ID`.
-The ID refers to the ID number shown in the displayed course list panel
+* Edits the assignment at the specified `ID`. The ID refers to the ID number shown in the displayed course list panel
 * The ID *must be a positive integer* 16100, 2520, 52500, ...
 * At least one of the optional fields must be provided
 * Existing values will be updated to the input values
@@ -861,10 +709,8 @@ Returns `java` and `Java Assignment`
 
 // tag::v2.0[]
 === Upcoming Features
-
 [[Register-Improvement]]
 ==== Add registration `[coming in v2.0]`
-
 Add a `register` command by including role (i.e. privilege system).
 
 Format: `register id/USERNAME pw/PASSWORD n/FULL_NAME r/ROLE_ID`
@@ -875,9 +721,7 @@ Examples:
 
 [[User-Role]]
 ==== Creating user role `[coming in v2.0]`
-
-Creates a user role.
-User assigned with higher ranking role can execute more commands. +
+Creates a user role. User assigned with higher ranking role can execute more commands. +
 
 Format: `create-role r/RANK n/ROLE_NAME`
 
@@ -888,7 +732,6 @@ Examples:
 * `create-role r/1 n/Employee`
 
 ==== Editing user role `[coming in v2.0]`
-
 Edits an existing user role. +
 Format: `edit-role r/RANK [nr/NEW_RANK] [n/ROLE_NAME]`
 
@@ -898,7 +741,6 @@ Examples:
 * `edit-role r/2 nr/3 n/Manager`
 
 ==== Deleting user role `[coming in v2.0]`
-
 Deletes an existing user role. +
 Format: `delete-role r/RANK`
 
@@ -911,7 +753,8 @@ Examples:
 == Frequently Asked Questions (FAQ)
 
 *Q: How do I transfer my data to another Computer?* +
-*A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous *CodeCampX* folder.
+*A*: Install the application in the other computer and overwrite the empty data file it creates with the file that
+contains the data of your previous *CodeCampX* folder.
 
 *Q: Where do I find the latest release of the application?* +
 *A*: You can find all releases link:https://github.com/AY1920S2-CS2103-W14-1/main/releases[here].
