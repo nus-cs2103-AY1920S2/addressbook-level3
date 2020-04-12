@@ -41,12 +41,12 @@ public class Deadline extends Activity {
      * @param priority Priority
      * @param dueDate Date
      */
-    public Deadline(Name name, Date date, Note note, Priority priority, Date dueDate) {
+    public Deadline(Name name, Date date, Note note, Priority priority, Date dueDate, boolean isDone) {
         super(name, date, note);
         requireAllNonNull(priority, dueDate);
         this.priority = priority;
         this.dueDate = dueDate;
-        isDone = false;
+        this.isDone = isDone;
         isOverdue = isOverdue();
     }
 
@@ -96,7 +96,6 @@ public class Deadline extends Activity {
     }
 
     /**
-     * Set overdue.
      * Unmark deadline as done, and set {@code isOverdue} if overdue.
      */
     public void unmarkAsDone() {
@@ -130,7 +129,7 @@ public class Deadline extends Activity {
         Note noteCopy = new Note(getNote().toString());
         Date dateCreatedCopy = Date.acceptPastDate(getDateCreated().toString());
         Priority priorityCopy = new Priority(getPriority().toString());
-        Deadline copy = new Deadline(nameCopy, dateCreatedCopy, noteCopy, priorityCopy, dueDateCopy);
+        Deadline copy = new Deadline(nameCopy, dateCreatedCopy, noteCopy, priorityCopy, dueDateCopy, isDone);
         if (isDone) {
             copy.markAsDone();
         }

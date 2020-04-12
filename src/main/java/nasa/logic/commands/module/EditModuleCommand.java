@@ -1,4 +1,4 @@
-package nasa.logic.commands;
+package nasa.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
@@ -10,6 +10,8 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 
 import nasa.commons.util.CollectionUtil;
+import nasa.logic.commands.Command;
+import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Deadline;
@@ -38,7 +40,7 @@ public class EditModuleCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS2030 "
             + PREFIX_MODULE + "CS2020 "
-            + PREFIX_MODULE_NAME + "Data Structures and Algorithms II";
+            + PREFIX_MODULE_NAME + "Data Structures and Algorithms";
 
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

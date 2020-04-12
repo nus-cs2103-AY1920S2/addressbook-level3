@@ -24,6 +24,7 @@ class JsonAdaptedDeadline {
     private final String priority;
     private final String dueDate;
     private final String schedule;
+    private final String isDone;
 
     /**
      * Constructs a {@code JsonAdaptedDeadline} with the given activity details.
@@ -33,13 +34,15 @@ class JsonAdaptedDeadline {
                                @JsonProperty("date") String date, @JsonProperty("note") String note,
                                @JsonProperty("priority") String priority,
                                @JsonProperty("dueDate") String dueDate,
-                               @JsonProperty("schedule") String schedule) {
+                               @JsonProperty("schedule") String schedule,
+                               @JsonProperty("isDone") String isDone) {
         this.name = name;
         this.date = date;
         this.note = note;
         this.priority = priority;
         this.dueDate = dueDate;
         this.schedule = schedule;
+        this.isDone = isDone;
     }
 
     /**
@@ -52,6 +55,7 @@ class JsonAdaptedDeadline {
         priority = source.getPriority().toString();
         dueDate = source.getDueDate().toString();
         schedule = source.getSchedule().toString();
+        isDone = Boolean.toString(source.isDone());
     }
 
     /**
@@ -106,7 +110,8 @@ class JsonAdaptedDeadline {
 
         final Schedule modelSchedule = new Schedule(schedule);
 
-        Deadline deadline = new Deadline(modelName, modelDate, modelNote, modelPriority, modelDueDate);
+        Deadline deadline = new Deadline(modelName, modelDate, modelNote, modelPriority, modelDueDate,
+                Boolean.parseBoolean(isDone));
         deadline.setSchedule(modelSchedule);
 
         return deadline;

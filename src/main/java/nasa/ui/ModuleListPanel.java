@@ -43,9 +43,8 @@ public class ModuleListPanel extends UiPart<Region> {
         protected void updateItem(Module module, boolean empty) {
             super.updateItem(module, empty);
             noModules.setManaged(false);
+            setMinWidth(300);
 
-            prefWidthProperty().bind(moduleListView.widthProperty()
-                    .divide(moduleListView.getItems().size()).subtract(5));
             //TODO Fit modules to screen
             if (empty || module == null) {
                 setGraphic(null);

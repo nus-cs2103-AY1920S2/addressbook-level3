@@ -11,14 +11,15 @@ import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS1231;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS2030;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS2030;
-import static nasa.logic.commands.EditModuleCommand.EXCESS_MODULE_CODE;
+import static nasa.logic.commands.module.EditModuleCommand.EXCESS_MODULE_CODE;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import nasa.logic.commands.EditModuleCommand;
-import nasa.logic.commands.EditModuleCommand.EditModuleDescriptor;
+import nasa.logic.commands.module.EditModuleCommand;
+import nasa.logic.commands.module.EditModuleCommand.EditModuleDescriptor;
+import nasa.logic.parser.module.EditModuleCommandParser;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 import nasa.testutil.EditModuleDescriptorBuilder;

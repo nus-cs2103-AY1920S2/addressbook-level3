@@ -13,11 +13,11 @@ public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all activities according to the the method "
-            + "specified.\nParameters: " + "SORT METHOD \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all deadlines according to the the method "
+            + "specified.\nParameters: SORT METHOD \n"
             + "Example: " + COMMAND_WORD + " " + "priority";;
 
-    public static final String MESSAGE_SUCCESS = "Sorted all activities";
+    public static final String MESSAGE_SUCCESS = "Sorted all deadlines";
 
     private final SortMethod sortMethod;
 
@@ -38,5 +38,4 @@ public class SortCommand extends Command {
                 || (other instanceof SortCommand // instanceof handles nulls
                 && sortMethod.equals(((SortCommand) other).sortMethod)); // state check
     }
-
 }

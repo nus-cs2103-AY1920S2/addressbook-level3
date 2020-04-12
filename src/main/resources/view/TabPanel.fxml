@@ -19,9 +19,6 @@
                       prefHeight="1000"
                       AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                       AnchorPane.bottomAnchor="0.0" alignment="CENTER">
-                    <padding>
-                        <Insets top="10" right="10" bottom="10" left="10"/>
-                    </padding>
                     <StackPane fx:id="moduleListPanelPlaceholder" HBox.hgrow="ALWAYS"/>
                 </HBox>
             </AnchorPane>
@@ -29,7 +26,7 @@
         <Tab text="Calendar">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="pane-with-border">
                 <StackPane fx:id="calendarPlaceholder" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="25.0"
-                           AnchorPane.rightAnchor="25.0" alignment="CENTER"/>
+                           AnchorPane.rightAnchor="25.0"/>
             </AnchorPane>
         </Tab>
         <Tab text="Statistics">
