@@ -126,7 +126,7 @@ Examples:
 * `add i/ a/ 200.00 n/ pocket money c/INCOME rc/`
 
 
-=== Filter transactions : `filter` (Pang Kim Jin)
+=== Filter transactions : `filter`
 
 Filters transactions for user to view specific transactions according to the filter type. Upon application
 launch the preset filter is for all transactions in the current month as depicted below:

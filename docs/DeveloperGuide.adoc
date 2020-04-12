@@ -662,6 +662,10 @@ user's preferred category and transaction month
 * Then `StatementCommand#execute()` will retrieve the `FilteredList` of transactions
 and generate a Portable Document Format (PDF) file with Java's PDFWrite API.
 
+Below is a truncated example of the PDF ExpenseLa statement:
+
+image::statement/Statement.png[]
+
 ==== Design Considerations
 
 *Aspect: Time and Nature of Transactions to Export*
