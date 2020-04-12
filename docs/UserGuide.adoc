@@ -108,25 +108,27 @@ For ZeroToOne commands, every user-fillable parameter is identified by a flag pr
 * `f/` - frequency of schedule
 * `p/` - file path
 
-=== Getting Help
+=== Viewing App Information
 Can’t remember the commands off the top of your head? Fret not. ZeroToOne provides you with a convenient way to view a list of all available commands that you can try. Simply enter the following command into the command box:
 
 ```
-help
+about
 ```
 
-.Help Window
-image::UgHelp.png[]
+.About Window
+image::UgAbout.png[]
 
-A pop-up window will appear, showing you a list of all available commands that you can try.
+The app view will switch tabs to show the About tab.
 
 
-=== Closing ZeroToOne (In Progress)
+=== Closing ZeroToOne
 After you have finished using the application, you can exit the application by simply entering the following command into the command box:
 
-`exit`
+```
+exit
+```
 
-The application will close gracefully, and all data in the current usage completedExercise will be saved in the data directory. If the command is executed successfully, you should see the following message before the application closes:
+The application will close gracefully, and all data in the current usage will be saved in the data directory. If the command is executed successfully, you should see the following message before the application closes:
 
 ```
 Thank you for using ZeroToOne! Your data has been saved successfully. Hope to see you soon for your next workout!
