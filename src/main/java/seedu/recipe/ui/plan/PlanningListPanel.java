@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 
 import seedu.recipe.commons.core.LogsCenter;
@@ -33,9 +32,6 @@ public class PlanningListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Plan> planningListView;
-
-    @FXML
-    private BorderPane borderPane;
 
     @FXML
     private Label title;

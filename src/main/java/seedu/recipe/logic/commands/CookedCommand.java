@@ -87,14 +87,7 @@ public class CookedCommand extends Command {
     }
 
     /**
-     * Concatenates a list of {@code strings} with ','.
-     */
-    private static String formatListToString(List<String> strings) {
-        return strings.stream().collect(Collectors.joining(", "));
-    }
-
-    /**
-     * Formats the success message of this command.
+     * Formats the success message of the cooked command.
      */
     private static String formatSuccessMessage(List<String> cookedMeals, List<String> removedPlans) {
         StringBuilder sb = new StringBuilder();
@@ -106,6 +99,14 @@ public class CookedCommand extends Command {
         }
         return sb.toString();
     }
+
+    /**
+     * Concatenates a list of {@code strings} with ','.
+     */
+    private static String formatListToString(List<String> strings) {
+        return strings.stream().collect(Collectors.joining(", "));
+    }
+
 
     @Override
     public boolean equals(Object other) {

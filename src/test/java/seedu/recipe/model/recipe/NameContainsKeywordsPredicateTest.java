@@ -48,35 +48,35 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywordsStrict_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(true, "Alice");
-        assertTrue(predicate.test(new RecipeBuilder().withName("Alice Bob").build()));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(true, "Chicken");
+        assertTrue(predicate.test(new RecipeBuilder().withName("Chicken rice").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(true, "Alice Bob");
-        assertTrue(predicate.test(new RecipeBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(true, "Chicken rice");
+        assertTrue(predicate.test(new RecipeBuilder().withName("Chicken rice").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(true, "Bob Carol");
-        assertTrue(predicate.test(new RecipeBuilder().withName("Alice Carol").build()));
+        predicate = new NameContainsKeywordsPredicate(true, "Chicken supreme");
+        assertTrue(predicate.test(new RecipeBuilder().withName("Chicken rice").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(true, "aLIce bOB");
-        assertTrue(predicate.test(new RecipeBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(true, "cHiCken rICE");
+        assertTrue(predicate.test(new RecipeBuilder().withName("Chicken rice").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywordsStrict_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(true, " ");
-        assertFalse(predicate.test(new RecipeBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new RecipeBuilder().withName("Chicken rice").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(true, "Carol");
-        assertFalse(predicate.test(new RecipeBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(true, "Supreme");
+        assertFalse(predicate.test(new RecipeBuilder().withName("Chicken rice").build()));
 
         // Keywords match time and step, but does not match name
-        predicate = new NameContainsKeywordsPredicate(true, "12345 alice@email.com Main Street");
-        assertFalse(predicate.test(new RecipeBuilder().withName("Alice").withTime("145")
+        predicate = new NameContainsKeywordsPredicate(true, "145 Sample step");
+        assertFalse(predicate.test(new RecipeBuilder().withName("Chicken rice").withTime("145")
                 .withSteps("Sample step").build()));
     }
 }

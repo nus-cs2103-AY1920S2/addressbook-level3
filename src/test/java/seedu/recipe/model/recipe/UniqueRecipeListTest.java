@@ -41,9 +41,9 @@ public class UniqueRecipeListTest {
     @Test
     public void contains_recipeWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRecipeList.add(CAESAR_SALAD);
-        Recipe editedAlice = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN)
+        Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN)
                 .build();
-        assertTrue(uniqueRecipeList.contains(editedAlice));
+        assertTrue(uniqueRecipeList.contains(editedCaesar));
     }
 
     @Test
@@ -84,10 +84,10 @@ public class UniqueRecipeListTest {
     @Test
     public void setRecipe_editedRecipeHasSameIdentity_success() {
         uniqueRecipeList.add(CAESAR_SALAD);
-        Recipe editedAlice = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN).build();
-        uniqueRecipeList.setRecipe(CAESAR_SALAD, editedAlice);
+        Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN).build();
+        uniqueRecipeList.setRecipe(CAESAR_SALAD, editedCaesar);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
-        expectedUniqueRecipeList.add(editedAlice);
+        expectedUniqueRecipeList.add(editedCaesar);
         assertEquals(expectedUniqueRecipeList, uniqueRecipeList);
     }
 

@@ -5,10 +5,8 @@ import static seedu.recipe.logic.commands.CommandTestUtil.DESC_DATE_FUTURE;
 import static seedu.recipe.logic.commands.CommandTestUtil.DESC_DATE_PAST;
 import static seedu.recipe.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_DATE_FUTURE;
-
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_THIRD_RECIPE;
@@ -23,7 +21,7 @@ import seedu.recipe.logic.commands.plan.PlanCommand;
 import seedu.recipe.logic.parser.ParserUtil;
 import seedu.recipe.model.Date;
 
-class PlanCommandParserTest {
+public class PlanCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE);
@@ -59,6 +57,9 @@ class PlanCommandParserTest {
         // zero index
         assertParseFailure(parser, "0" + DESC_DATE_FUTURE, ParserUtil.MESSAGE_INVALID_INDEX);
 
+        // invalid values
+        assertParseFailure(parser, "?" + DESC_DATE_FUTURE, ParserUtil.MESSAGE_INVALID_INDEX);
+
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string" + DESC_DATE_FUTURE, ParserUtil.MESSAGE_INVALID_INDEX);
 
@@ -74,6 +75,7 @@ class PlanCommandParserTest {
         // invalid format
         assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS);
     }
+
 
     @Test
     public void parse_validValues_success() {
