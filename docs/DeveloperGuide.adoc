@@ -294,6 +294,36 @@ image::addRestNote.png[]
 * Pros: Easier to implement.
 * Cons: Not user-friendly since different notes cannot be edited in a single command.
 
+=== Finding Contacts
+==== Implementation
+
+The finding of a Person is facilitated by the `Address Book`. This feature allows for users to find a specific contact in their `Address Book`.
+
+Given below is an example usage scenario and how the finding contact mechanism behaves at each step.
+
+Step 1: The user launches the application for the first time. The `Address Book` will be initialized with the initial state, which is an empty list.
+
+Step 2: The user executes the `(ab)add n/Joel ...` command multiple times with different details of different people to add multiple people as contacts into the `Address Book`.
+
+Step 3: The user executes the `(ab)find ...` command to find their desired contacts in the AddressBook list. For instance, the user may do:
+* `(ab)find o/NUS` searches by organization.
+* `(ab)find n/Joel Lim` searches by name.
+* `(ab)find t/friends` searches by tags.
+
+The following sequence diagram shows how the find operation works within the `Logic` component.
+
+image::findPerson.png[] // ADD THIS IN
+
+==== Design Considerations
+
+===== Aspect: How to execute the command for finding a contact using Java Predicates, given that a Person has multiple tags.
+* **Alternative 1 (chosen):** Have one command that allows user to choose any note to edit.
+** Pros: Easy for user to use, without switching between different commands.
+** Cons: As line number of the relevant note needs to be indicated, many levels of checking of the user input is required, and is thus more prone to errors.
+* **Alternative 2:** Have 3 separate edit commands, one for each restaurant's note.
+* Pros: Easier to implement.
+* Cons: Not user-friendly since different notes cannot be edited in a single command.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
