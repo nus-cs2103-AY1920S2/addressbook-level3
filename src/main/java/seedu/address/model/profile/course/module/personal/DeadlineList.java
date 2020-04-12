@@ -64,7 +64,7 @@ public class DeadlineList {
     public Deadline getTask(String description) {
         Deadline deadline = null;
         for (Deadline d: list) {
-            if (d.getDescription().equals(description)) {
+            if (d.getDescription().equalsIgnoreCase(description)) {
                 deadline = d;
             }
         }
