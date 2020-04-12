@@ -35,7 +35,7 @@ import cookbuddy.model.recipe.attribute.Time;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index must be a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_FILEPATH = Photograph.IMAGE_UTIL.MESSAGE_CONSTRAINTS;
+    public static final String MESSAGE_INVALID_FILEPATH = Photograph.IMAGE_UTIL.messageConstraints;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
