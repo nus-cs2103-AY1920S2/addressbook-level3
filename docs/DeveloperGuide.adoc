@@ -2185,61 +2185,63 @@ Use case resumes at step 1.
 [appendix]
 == Glossary
 
-[width="%",cols="<20%,<40,<40,options="header",]
+[width="%",cols="<20%,<40,options="header",]
 |=======================================================================
-|Term | Explanation | Examples
+|Term | Explanation
+
+| TSS | This is the short form for `Teaching Support Student`.
 
 | TSS Claims Form | This refers the claims form that Teaching Assistants
 at NUS School of Computing have to fill up at the end of each semester to claim money
-for the tasks they have completed. |
+for the tasks they have completed.
 
-| TA | This is the short form for `Teaching Assistant. |
+| TA | This is the short form for `Teaching Assistant.
 
-| SOC or SoC | This is the short form for School of Computing. |
+| SOC or SoC | This is the short form for School of Computing.
 
-| Index | This refers to the position of an item on a list. | Index of 1 refers to the first
-item in a list.
+| Index | This refers to the position of an item on a list. For example:
+Index of 1 refers to the first item in a list.
 
-| Matric Number | This refers to a student's matriculation number. | A0123456X
+| Matric Number | This refers to a student's matriculation number. For example: A0123456X
 
-| Group | The is the general term given to a group of students a TA teaches. |
+| Group | The is the general term given to a group of students a TA teaches. For example:
 lab, tutorial, recitation
 
-| TAT | This is the short form of TA-Tracker. |
+| TAT | This is the short form of TA-Tracker.
 
-| NUS | This is the short form of National University of Singapore. |
+| NUS | This is the short form of National University of Singapore.
 
-| Module | Refers to one of the academic courses in NUS. |
+| Module | Refers to one of the academic courses in NUS.
 
 | Tutorial | A tutorial is a regular meeting between a tutor and one or several
-students, for discussion of a subject that is being studied.  |
+students, for discussion of a subject that is being studied.
 
 | API | Stands for "Application Programming Interface" which simplifies programming
 by abstracting the underlying implementation and only exposing objects or actions
-the developer needs. |
+the developer needs.
 
 | Locale | Stands for a setting on the user's computer that defines the user's
-language and region. |
+language and region.
 
 | PlantUML | Stands for a software tool that we use to render the diagrams used
-in this document. |
+in this document.
 
-| NFR | Stands for "Non-functional Requirement" |
+| NFR | Stands for "Non-functional Requirement"
 
-| Mainstream OS | Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X. |
+| Mainstream OS | Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X.
 
 | Regular English Text |
 Stands for text with ordinary English grammar structures and vocabulary generally used by the public.
 It excludes syntax related to programming and <<system-administration, system administration>>.
-|
+
 
 | System Administration |
 Stands for the field of work in which someone manages one or more systems, be they software, hardware, servers or workstations
 with the goal of ensuring the systems are running efficiently and effectively.
-|
+
 
 | MSS |
-Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong. |
+Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong.
 
 
 |=======================================================================
