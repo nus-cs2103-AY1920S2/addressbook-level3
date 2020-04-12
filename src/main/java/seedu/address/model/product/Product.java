@@ -149,10 +149,10 @@ public class Product {
     }
 
     /**
-     * Returns true if the product's quantity is below its threshold.
+     * Returns true if the product's quantity is below or equal its threshold.
      */
-    public boolean isBelowThreshold() {
-        return this.quantity.getValue() < this.threshold.value;
+    public boolean reachesThreshold() {
+        return this.quantity.getValue() <= this.threshold.value;
     }
 
     /**
