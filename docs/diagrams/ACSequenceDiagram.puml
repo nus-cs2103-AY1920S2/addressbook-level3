@@ -36,17 +36,17 @@ deactivate CommandCompletor
 LogicManager -> MainWindow: CompletorResult
 deactivate LogicManager
 
-opt Invalid parts of input deleted
+opt CompletorDeletionResult
     MainWindow -> ResultDisplay: setWarning()
     activate ResultDisplay
     ResultDisplay -> MainWindow
     deactivate ResultDisplay
     MainWindow -[hidden]->ResultDisplay
 end
-
+MainWindow -> CommandBox: CompletorResult
 deactivate MainWindow
 
-alt Completion success
+alt No completion error thrown
     CommandBox -> CommandTextField: setSuccess()
     activate CommandTextField
     CommandTextField -> CommandBox

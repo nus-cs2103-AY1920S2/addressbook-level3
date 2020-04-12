@@ -184,13 +184,22 @@ SortCommandResult extends CommandResult and contains an additional String attrib
 Auto complete is triggered when users press tab while focussed on the command line.
 
 ==== Implementation
-//TODO maybe shift this up?
+//TODO maybe add class diagram of CompletorResult and CompletorDeletionResult? kinda useless tho
 .AutoComplete Sequence Diagram
 image::ACSequenceDiagram.png[]
 
-When a user presses tab on the command line, a key event handler in the CommandBox calls the suggestCommand function of MainWindow with the user input. The MainWindow then passes the user input through the LogicManager to CommandCompletor. We pass the input through LogicManager so that it can pass TaskList details to the CommandCompletor (such as taskList length). The CommandCompletor then parses the input and returns one of three thigns:
+When a user presses tab on the command line, a key event handler in the CommandBox calls the suggestCommand function of MainWindow with the user input. The MainWindow then passes the user input through the LogicManager to the CommandCompletor. +
+
+The input is pass through the LogicManager so that we can get TaskList details from the LogicManager and transfer it to the CommandCompletor (e.g. taskList length). The CommandCompletor then parses the input and returns one of three things which lead to different changes to the UI:
+
 . CompletorResult
-. CompletorDeletionException
+.. Will cause CommandBox to setSuccess on CommandTextField
+. CompletorDeletionResult
+.. Inherits from CompletorResult
+.. Contains deleted input which will be shown as feedback
+.. Will cause MainWindow to call setWarning on ResultDisplay
+. CompletorException
+.. Will cause CommandBox to setFailure on CommandTextField
 
 ==== Auto Complete Overview
 
