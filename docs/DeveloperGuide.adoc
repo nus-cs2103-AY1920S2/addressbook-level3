@@ -169,7 +169,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 
 
 [[Design-Model]]
-=== Model component [NEED TO UPDATE]
+=== Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -179,14 +179,34 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores the 6 AddressBookGeneric<K extends ModelObject>, each of which holds a different type of ModelObject. The 6 types are namely
+. Student
+. Course
+. Staff
+. Assignment
+. Progress
+. Finance
+* exposes an unmodifiable `ObservableList<K extends ModelObject>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other components.
+
+
+Below is an example of the different types of RelevantFields that can be tied to an Assignment.
+
+image:AssignmentClassDiagram.png[]
+.Class Diagram of Assignment
+
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+The AddressBookGeneric in the diagram above is actually an AddressBookGeneric<Assignment>. The AddressBookGeneric has been made to
+accept any class that extends ModelObject. This cannot be shown due to limitations in PUML.
+
+Notable Implementations::
+. All ModelObjects implement Cloneable so as to allow for Defensive Programming more easily.
+Please refer to <<Design-Assign-Copy, `Step 2 of Section 2.2.2`>> for the team's rationale behind having ModelObject implementing Cloneable.
+. By making use of Generics,
+.. reduce implementation
+.. make it more extensible
+.. sdf
 
 [[Design-Storage]]
 === Storage component [NEED TO UPDATE]
@@ -314,6 +334,7 @@ of a set of Teacher IDs.
 NOTE: This sequence diagram can be generalized for `un-assign command` as well. Instead of adding IDs, un-assign will remove
 each other's ID from the respective objects.
 
+[[Design-Assign-Copy]]
 ====== +++<u>Design Considerations</u>+++
 . Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObjectTags`.
 Pros::
@@ -321,13 +342,17 @@ Pros::
 .. Faster execution since any changes is done to the actual modelObject
 Cons::
 .. Might allow for unintentional changes to the actual modelObject
-. (Current Implementation) Manipulate a `copy` modelObjects by having modelManager#get() return a copy of actual modelObject.
+. (Current Implementation) Manipulate a `cloned` modelObject by having modelManager#get() return a copy of actual modelObject.
 Pros::
 .. Prevents unintentional modifications of the shared object
 Cons::
 ..  Extra processing required. For example, a method is required to replace the old modelObject with the
-new model object
+new model object. Also, requires all ModelObject classes to implement a clone() method.
 .. More memory intensive and can hurt overall program performance.
+
+Overall, the second option was chosen since the program is very dependent on maintaining a `consistent state`, where either
+2 modelObjects have each other's ID or they do not. Some performance can
+be sacrificed in order to ensure that the links between objects cannot be modified by mistake.
 
 ===== Step 3: Add Progress objects via ProgressManager
 ====== +++<u>Rationale</u>+++
