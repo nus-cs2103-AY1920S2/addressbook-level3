@@ -1683,7 +1683,7 @@ _Table 2. Expense Splitter Command Prefix_ +
 [appendix]
 == Product Survey
 
-*My Fitness Pal*
+https://www.myfitnesspal.com/[My Fitness Pal]
 
 Pros:
 
@@ -1695,7 +1695,7 @@ Cons:
 * Application was hacked and data was leaked.
 * Unable to use it offline.
 
-*Splitwise*
+https://www.splitwise.com/[Splitwise]
 
 Pros:
 
