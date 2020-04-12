@@ -14,15 +14,14 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 == Summary of contributions
 
-* *Major enhancement*:
-** *Monthly Data Tracking*
-*** What it does: allows user to keep track of monthly expense, income and budget.
+* *Major enhancement 1* : added Monthly Data Tracking
+** What it does: allows user to keep track of monthly expense, income and budget.
 ** Justification: This feature allows the user to keep track of how much money they have spend for the month
 and how much money they have earned
 ** Highlights: This enhancement is vital to the functionality of the expense tracker as one of the major reasons users use
 an expense tracker is to keep track of this monthly information
-** *Budget Tracking and Insights*
-*** What it does: allows user to keep track of how much budget they have left with a
+* *Major enhancement 2* : Budget Tracking and Insights
+** What it does: allows user to keep track of how much budget they have left with a
 graphical interface that shows ratio of expense and budget for the month.
 ** Justification: This feature makes it easy for user to visualize how much money they have left that they can spend
 for the month
@@ -32,8 +31,8 @@ if the user only has very little money left that they can spend
 +
 image::BudgetGraphic.png[width="790"]
 +
-** *Recurring Budget*
-*** What it does: allows user to set a budget for every subsequent months.
+* *Major enhancement 3* : Recurring Budget
+** What it does: allows user to set a budget for every subsequent months.
 ** Justification: Usually budgets for every month are constant so it makes sense to be able to
 set budget for every subsequent months
 ** Highlights: This enhancement made it easier for users to use the app as they only need to
@@ -49,18 +48,10 @@ set their budget once provided that it remains the same
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103-T09-3/main/pull/66/files[#66],
+https://github.com/AY1920S2-CS2103-T09-3/main/pull/70/files[#70])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Added graphics and screenshots to user guide: https://github.com/AY1920S2-CS2103-T09-3/main/pull/155/files[#155]
 
 _{you can add/remove categories in the list above}_
 
@@ -71,9 +62,102 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+== Product Overview
 
-include::../UserGuide.adoc[tag=dataencryption]
+ExpenseLA is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. ExpenseLA maintains a record of your daily incoming and outgoing transactions to constantly keep track of your finances! ExpenseLA is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI). If you want a simple, no-frills expense tracker, look no further than ExpenseLA!
+
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `expensela.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
++
+.  The UI has 5 different components: Command Input box, Command Result box, Monthly Data panel
+Filter panel and Transaction List panel(Chart Analytics Panel)
++
+image::UI_annotated.png[width="790"]
++
+.  Filters are only to filter transaction list, MonthlyData is data for the current month and not the month
+shown in the filter
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  You can navigate through your command history by pressing the kbd:[Up] or kbd:[Down] arrow key.
+Only successful commands are stored in the command history. There can be at most 50 commands stored.
+This feature is just like the command navigation feature in your favourite command line or shell.
+.  Some example commands you can try:
+
+* *`clear`* : clear the expenseLa app to start at a clean slate
+* *`budget b/1000 rc/`* : set a recurring budget of $1000 for the current month and subsequent months
+* *`add i/ c/Income n/salary a/2500 d/2020-04-02 rc/` : adds a recurring income with amount `$2500.00`
+* **`add a/100`**`n/Wagyu Steak c/FOOD` : adds an expense named `Wagyu Steak` with amount `$100.00` spent on the day it is added in category `FOOD` to the expense tracker
+* **`add a/10`**`n/Laksa c/FOOD` : adds an expense named `Laksa` with amount `$10.00` spent on the day it is added in category `FOOD` to the expense tracker
+* **`add a/5.5`**`n/Chicken Rice c/FOOD` : adds an expense named `Chicken Rice` with amount `$5.50` spent on the day it is added in category `FOOD` to the expense tracker
+* **`add a/50`**`n/shirt c/SHOPPING d/2020-04-08` : adds an expense named `shirt` with amount `50.00` spent on `2020-04-08` in category `SHOPPING` to the expense tracker
+* **`filter`**`m/ 2020-04` : filters to only show transactions made on `2020-02`
+* **`delete`**`1` : deletes the expense with id `1` in the current list
+* *`exit`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
+=== Set a monthly budget : `budget`
+
+Sets a spendable budget for the current month
+
+Format: `budget b/AMOUNT` (to set a budget for the given month only)
+`budget b/AMOUNT rc/` (to set repeating budget of $AMOUNT for the coming months)
+
+Examples:
+
+* `budget b/1000 rc/`
+* `budget b/1500`
+
+
+=== Reset total balance `resetbalance`
+
+Reset Balance value to the total from the amount of all transactions in stored in the application so far.
+This command is used in case user messes up with json file or there is an unhandled bug in the app that
+causes difference in the value of total balance and the net balance of all the transactions added together.
+This command will rectify that issue.
+
+
+=== Analysis of transactions : `toggleview`
+
+Toggle between viewing list of transactions and analytics with bar graph and pie chart to show expense trend
+
+Expected Outcome: changed view to charts if previously was list view and to list view if previously was chart view
+
+image::ListView.png[width="790"]
+image::ChartView.png[width="790"]
+
+
+=== Export transaction data to csv : `export`
+
+Export the filtered transaction list to a csv file
+
+Expected Outcome: A csv file will be created at the root directory and all transactions currently visible in the app
+will be exported to the csv file.
+
+image::Csv.png[width="790"]
+
+
+=== Import transaction data from csv : `import`
+
+Import transactions from csv and add it to transaction list, duplicate transactions are ignored.
+
+Expected Outcome: All transactions in the csv that is in the correct format and does not exist in the current transaction lsit
+will be added to transaction list
+
+
+=== Clear all data : `clear`
+
+Clear all data in expenseLa including monthly data and global data
+
+Expected Outcome: All transactions are deleted, balance is set to 0 and monthly data is also set to 0.
+All recurring data such as budget and transactions are also cleared
+
 
 == Contributions to the Developer Guide
 
@@ -81,9 +165,155 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+[[Design-Logic]]
+
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+
+Logic is an interface which `LogicManager` implements, allowing access to the API. The following items are examples on how the LogicManager class can be interacted with:
+
+.  `Logic` uses the `ExpenseLaParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a `Transaction`).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+.Interactions Inside the Logic Component for the `clear` Command
+image::ClearSequenceDiagram.png[]
+
+// tag::setbudget[]
+=== Setting budgets
+We allow the user to maintain a `**Budget**` for the current month and subsequent months. This section details how `**ExpenseLa**` handles
+requests made by the user who is trying to set a budget both for a one time and recurring budget. `**Budget**` is contained inside
+`**MonthlyData**` object along with `**Expense**` and `**Income**` and application only has 1 `**MonthlyData**` object for the current month.
+object looks like:
+
+image::set-budget/BudgetClassDiagram.png[]
+
+If user decides to create a recurring budget, there'll be additional step of updating the `**recurringBudget**` variable in
+`**GlobalData**`. `**BudgetCommand**` in addition to modifying `**Budget**` in `**MonthlyData**`, it will also modify `**recurringBudget**`
+in `**GlobalData**`.
+
+image::set-budget/GlobalDataClassDiagram.png[]
+
+
+==== Implementation
+Whenever the user attempts to set a new `**Budget**`, `**ExpenseLa**` will create a new MonthlyData object with the given amount.
+The application will then call `ModelManager#setMonthlyData(MonthlyData toSet)`. During the creation of the new MonthlyData, the
+Budget class will internally check if the budget amount is valid.
+
+We will demonstrate what happens at the back-end whenever the user sets a budget:
+
+Case 1. The user wishes to set their budget to $1500, non-recurring. They execute the command: **budget b/1500**.
+The user's entry is checked by `BudgetCommandParser#parse()` and an attempt to parse each parameter occurs:
+
+* `**Budget**` is parsed by `ParseUtil#parseBudget(ArgumentMultimap)`
+* `rc/` prefix does not exist, so it is not recurring
+
+NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
+
+Since the user input is valid, the `**Budget**` is successfully created and inserted into a newly created `**MonthlyData**`.
+
+Case 2. The user made a typo when setting their budget. They execute the command **budget b/150o**.
+The user's entry is checked by `BudgetCommandParser#parse()` and an attempt to parse each parameter occurs:
+
+* `**Budget**` is parsed by `ParseUtil#parseBudget(ArgumentMultimap)`
+
+`**Budget**` class then is attempted to be created with the parsed budget amount in the constructor. Internally
+Budget will do a validity check using Regex and throw a `**ParseExection**` since amount is not valid.
+
+Case 3. The user wishes to set their budget to $1500, recurring. They execute the command: **budget b/1500 rc/**.
+The user's entry is checked by `BudgetCommandParser#Parse()` and an attempt to parse each parameter occurs:
+
+* `**Budget**` is parsed by `ParseUtil#parseBudget(ArgumentMultimap)`
+* `rc/` prefix exists, so it is recurring
+
+Since the user input is valid, the `**Budget**` is successfully created and inserted into a newly created `**MonthlyData**`.
+BudgetCommand will then modify `**GlobalData**` in `**Model**` by calling `**Logic#setGlobalData**`. `**RecurringBudget**`
+value in `**GlobalData**` is now set to the new `**Budget**`
+
+The sequence diagram below depicts what was just elaborated:
+
+.Sequence diagram showing how a `**Budget**` is set
+image::set-budget/SetBudgetSequenceDiagram.png[]
+
+.Activity diagram showing how a `**Budget**` is set
+image::set-budget/SetBudgetActivityDiagram.png[]
+
+==== Design considerations
+We have considered various ways as to how `**Budget**` should be stored in `**ExpensLa**`. In this section, we will explain the
+rationale on our course of actions.
+
+===== Aspect: Make `**Budget**` a part of a bigger class called `**MonthlyData**`
+* **Alternative 1 (current choice):** `**Budget**` is a part of `**MonthlyData**` and any `**Budget**` operations is through `**MonthlyData**`
+** Pros: Easier to handle `**Budget**` together with other `**MonthlyData**` objects and all data inside is synchronised as it is
+handled by a single object.
+** Cons: Overhead when modifying `**Budget**` as to maintain immutability, a new `**MonthlyData**` object has to be created.
+* Alternative 2: `**Budget**` should be an independent class with a direct reference in `**ExpenseLa**`.
+** Pros: More freedom and efficiency in doing modifications on `**Budget**`
+** Cons: Need to maintain more references for all different objects.
+
+Again, we went with alternative 1 because it is easier to view `**Budget**` along with the other `**MonthlyData**` components
+as a collective. And easier to just handle 1 reference in ExpenseLa.
+// end::setbudget[]
+
+
+// tag::commandHistoryNavigation[]
+=== Command History navigation
+Users can navigate to previous commands by pressing the up or down button on the keyboard.
+Only successful commands are stored in the CommandHistory list and only a maximum of 50 commands can
+be stored at a time.
+
+==== Implementation
+Every time the user key in a command and press kbd:[Enter], `CommandBox#handleCommandEntered` method will be called.
+The method will attempt to execute the command by calling `CommandExecutor#execute` method. That method throws an error
+if command is invalid. So if the command is valid, the `CommandBox#handleCommandEntered` method will call
+`Logic#deleteCommandFromHistory` to delete the command if it exists in the current command history.
+It will then call `Logic#addToCommandhistory` to add the command to the command history as its latest entry.
+Both commands for add and delete takes in an integer variable called `offset`. This variable is maintained by `CommandBox`
+and determines which command the user is currently at in the command history.
+Offset starts from -1 indicating `CommandBox` is empty and resets to -1 every time a successful command is entered
+
+`Command History` is an array list that resides in `ModelManager` object. It can be accessed through `Logic` by calling
+
+The diagrams below depicts what was just elaborated:
+
+.Sequence diagram showing what happens when user enters a Command
+image::command-history/CommandHistorySequenceDiagram.png[]
+
+.Activity diagram showing what happens when user enters a Command
+image::command-history/CommandHistoryActivityDiagram.png[]
+
+.Sequence diagram showing what happens when presses Up/Down button
+image::command-history/CommandHistoryNavigateSequenceDiagram.png[]
+
+.Activity diagram showing what happens when presses Up/Down button
+image::command-history/CommandHistoryNavigateActivityDiagram.png[]
+
+
+==== Design considerations
+We have considered various ways as to how to implement `**CommandHistory**` to support navigation to previous commands
+Since we need to capture keyboard events when user press the keyboard, we decided to implement the event listener and handler
+in `**CommandBox**` component as it is more convenient because when a keyboard event is captured, the app can straight away
+modify the `**TextField**` in `**CommandBox**`. Since the event when user enter a command is also handled in `**CommandBox**`
+and we only store successful commands in `**CommandHistory**`, we wait for execution of the Command by `**CommandExecutor**`,
+if it is successful, the String for the command is added to, otherwise due to the error thrown and caught somewhere else, the
+command is not stored.
+// end::commandHistoryNavigation[]
 
 
 == PROJECT: PowerPointLabs

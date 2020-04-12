@@ -1,0 +1,47 @@
+@startuml
+!include ../style.puml
+
+box Ui UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":CommandExecutor" as CommandExecutor UI_COLOR
+participant ":TextField" as TextField UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[->CommandBox : handleCommandEntered()
+activate CommandBox
+
+CommandBox -> CommandExecutor: execute("xxx")
+note right: xxx represents any command by user
+activate CommandExecutor
+CommandExecutor --> CommandBox
+deactivate CommandExecutor
+CommandBox -[hidden]-> CommandExecutor
+destroy CommandExecutor
+
+CommandBox -> LogicManager: deleteCommandFromHistory("xxx")
+activate LogicManager
+LogicManager -> ModelManager: deleteCommandFromHistory("xxx")
+activate ModelManager
+ModelManager --> LogicManager
+LogicManager --> CommandBox
+CommandBox -> LogicManager: addToCommandHistory("xxx")
+LogicManager -> ModelManager: addToCommandHistory("xxx")
+ModelManager --> LogicManager
+deactivate ModelManager
+LogicManager --> CommandBox
+deactivate LogicManager
+
+CommandBox -> TextField: setText("")
+activate TextField
+TextField --> CommandBox
+deactivate TextField
+
+@enduml
