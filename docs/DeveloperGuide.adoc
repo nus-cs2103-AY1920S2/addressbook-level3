@@ -17,7 +17,7 @@ endif::[]
 end
 By: `Team HYBB`      Since: `Mar 2020`      Licence: `MIT`
 
-== Setting upu
+== Setting up
 
 Refer to the guide <<SettingUp#, here>>.
 
