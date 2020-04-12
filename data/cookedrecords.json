@@ -51,6 +51,9 @@
     "name" : "Summer Asian Slaw",
     "date" : "2020-04-12",
     "goals" : [ "Herbivore" ]
+  }, {
+    "name" : "All Veggie Sandwich",
+    "date" : "2020-04-12",
+    "goals" : [ "Wholesome Wholemeal", "Herbivore" ]
   } ]
 }
-
