@@ -1,16 +1,17 @@
 package seedu.address.logic.commands.commandAdd;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.modelFinance.Finance;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Adds a ASSIGNMENT to the address book.
@@ -22,7 +23,6 @@ public class AddAssignmentCommand extends AddCommand {
   public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an assignment to the address book. "
       + "Parameters: "
       + PREFIX_NAME + "NAME "
-      + PREFIX_ASSIGNMENTID + "ASSIGNMENTID "
       + PREFIX_DEADLINE + "DEADLINE "
       + "[" + PREFIX_TAG + "TAG]...\n"
       + "Example: " + COMMAND_WORD + " "

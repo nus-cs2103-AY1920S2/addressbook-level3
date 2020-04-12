@@ -375,9 +375,10 @@ image::teacherTab.png[width="1000"]
 ==== Add a staff: `add-staff`
 
 Add a new staff to the list of staff +
-Format: `add-staff n/NAME [t/TAG]…` +
+Format: `add-staff  n/NAME lvl/LEVEL g/GENDER p/PHONE e/EMAIL s/SALARY a/ADDRESS [t/TAG]...` +
+
 Example:
-* `add-staff n/Jon Snow lvl/teacher g/m t/Hardworking`
+* `add-staff n/Bob Ross lvl/teacher g/m p/98765432 e/bob.ross@gmail.com s/1000 a/311, Clementi Ave 2, #02-25 t/LovesArt t/Friendly`
 [WARNING]
 ====
 The lvl of the staff refers to the Staff Type. It can only be
@@ -644,9 +645,9 @@ image::assignmentTab.png[width="1000"]
 
 ==== Add an assignment: `add-assignment`
 Add a new assignment to the list of all assignments +
-Format: `add assignment n/NAME dl/DEADLINE [t/TAG]…` +
+Format: `n/NAME dl/DEADLINE [t/TAG]...` +
 Example:
-* `add course n/Cozmo Programming a/2000 t/Fun t/Robot`
+* `add-assignment n/Adversarial Search Assignment 2 dl/2020-12-30 t/AI t/Difficult`
 
 [NOTE]
 ====
