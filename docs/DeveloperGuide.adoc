@@ -105,7 +105,7 @@ modified data.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::Structure-Of-Logic.png[]
+image::LogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/csdev/couponstash/logic/Logic.java[`Logic.java`]
@@ -311,12 +311,13 @@ correct.
 
 ==== Current Implementation
 The Calendar component provides a visual representation of the stored coupons
-that are expiring over a month. It is
-facilitated by the `CalendarPane` and `DateCell`.
+that are expiring over a month. It is facilitated by `CalendarPane`, `MonthView` and `DateCell`.
 
 The `CalendarPane` is controller of the `Calendar`. Users can change the month
 on display` to show the coupons that expire on a date by clicking on a highlighted
 `DateCell`.
+
+
 
 Each `DateCell` represents each date of the month that is currently on display.
 
