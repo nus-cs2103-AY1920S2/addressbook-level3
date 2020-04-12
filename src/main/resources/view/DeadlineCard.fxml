@@ -32,7 +32,7 @@
     <Label fx:id="date" styleClass="activity_small_label" text="\$code" wrapText="true"
            GridPane.columnIndex="0" GridPane.rowIndex="1"/>
     <Label fx:id="note" styleClass="activity_small_label" text="\$code" wrapText="true"
-           GridPane.rowIndex="2"/>
+           GridPane.rowIndex="2" GridPane.columnSpan="2"/>
     <Label fx:id="dateToRepeat" styleClass="activity_small_label" text="\$code" wrapText="true"
            GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 </GridPane>

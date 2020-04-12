@@ -46,7 +46,7 @@ public class EditDeadlineCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + "1 "
             + PREFIX_MODULE + "CS2030 "
-            + PREFIX_DATE + "2020-03-20 "
+            + PREFIX_DATE + "20-05-2020 23:59 "
             + PREFIX_ACTIVITY_NAME + "Assignment 2.3";
 
     public static final String MESSAGE_EDIT_DEADLINE_SUCCESS = "Edited Deadline successfully.";

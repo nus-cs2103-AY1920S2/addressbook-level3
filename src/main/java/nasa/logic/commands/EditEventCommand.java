@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
+import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
@@ -39,14 +41,16 @@ public class EditEventCommand extends Command {
             + "Parameters: "
             + "INDEX (must be a positive integer) "
             + PREFIX_MODULE + "MODULE CODE "
-            + "[" + PREFIX_DATE + "DUE DATE] "
+            + "[" + PREFIX_START_DATE + "START DATE] "
+            + "[" + PREFIX_END_DATE + "END DATE] "
             + "[" + PREFIX_ACTIVITY_NAME + "ACTIVITY NAME] "
             + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + "[" + PREFIX_NOTE + "NOTE]\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
             + PREFIX_MODULE + "CS2030 "
-            + PREFIX_DATE + "2020-03-20 "
+            + PREFIX_START_DATE + "20-05-2020 23:59 "
+            + PREFIX_END_DATE + "20-05-2020 23:59 "
             + PREFIX_ACTIVITY_NAME + "Assignment 2.3";
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event successfully.";

@@ -40,7 +40,7 @@ public class EditModuleCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS2030 "
             + PREFIX_MODULE + "CS2020 "
-            + PREFIX_MODULE_NAME + "Data Structures and Algorithms II";
+            + PREFIX_MODULE_NAME + "Data Structures and Algorithms";
 
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

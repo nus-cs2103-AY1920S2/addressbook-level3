@@ -19,7 +19,7 @@ public class ContinueCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Sets index of deadline in module's deadline's list to being undone or incomplete.\n"
         + "Parameters: INDEX " + PREFIX_MODULE + " MODULE CODE\n"
-        + "Example" + COMMAND_WORD + " 2 " + PREFIX_MODULE + "CS2030";
+        + "Example: " + COMMAND_WORD + " 2 " + PREFIX_MODULE + "CS2030";
 
     public static final String MESSAGE_SUCCESS = "Deadline set to undone!";
 
