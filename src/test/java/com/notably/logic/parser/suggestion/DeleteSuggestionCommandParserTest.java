@@ -15,6 +15,7 @@ import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
+import com.notably.logic.correction.CorrectionEngineParameters;
 import com.notably.logic.suggestion.SuggestionTestUtil;
 import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
@@ -28,8 +29,6 @@ public class DeleteSuggestionCommandParserTest {
     private static final String RESPONSE_MESSAGE = "Delete a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Delete a note titled \"%s\"";
     private static final String ERROR_MESSAGE_CANNOT_DELETE_NOTE = "Cannot delete \"%s\" as it is an invalid path";
-    private static final int CORRECTION_THRESHOLD = 2;
-    private static final boolean USE_FORWARD_MATCHING = true;
 
     @BeforeAll
     public static void setUp() {
@@ -38,7 +37,7 @@ public class DeleteSuggestionCommandParserTest {
         stringRelativePathToCs2103t = SuggestionTestUtil.getStringRelativePathToCs2103t();
 
         CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
-                CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
+                new CorrectionEngineParameters().setForwardMatching(true));
         deleteSuggestionCommandParser = new DeleteSuggestionCommandParser(model, pathCorrectionEngine);
     }
 
@@ -163,7 +162,7 @@ public class DeleteSuggestionCommandParserTest {
     @Test
     public void parse_correctedCmdcorrectedAbsolutePathWithPrefix_returnsDeleteSuggestionCommand() {
         String userInputWithoutPath = "dele " + PREFIX_TITLE + " ";
-        String path = "/Y2S2/CS2104";
+        String path = "/Y2S2/CS2104T";
         String userInput = userInputWithoutPath + path;
         String arg = " " + PREFIX_TITLE + " " + path;
 
@@ -187,7 +186,7 @@ public class DeleteSuggestionCommandParserTest {
     @Test
     public void parse_correctCmdcorrectedAbsolutePathWithoutPrefix_returnsDeleteSuggestionCommand() {
         String userInputWithoutPath = DeleteSuggestionCommandParser.COMMAND_WORD + " ";
-        String path = "/Y2S2/CS2104";
+        String path = "/Y2S2/CS2104T";
         String userInput = userInputWithoutPath + path;
         String arg = " " + path;
 
@@ -211,7 +210,7 @@ public class DeleteSuggestionCommandParserTest {
     @Test
     public void parse_correctedCmdcorrectedRelativePathWithPrefix_returnsDeleteSuggestionCommand() {
         String userInputWithoutPath = "dele " + PREFIX_TITLE + " ";
-        String path = "CS2104";
+        String path = "CS2104T";
         String userInput = userInputWithoutPath + path;
         String arg = " " + PREFIX_TITLE + " " + path;
 
@@ -235,7 +234,7 @@ public class DeleteSuggestionCommandParserTest {
     @Test
     public void parse_correctCmdcorrectedRelativePathWithoutPrefix_returnsDeleteSuggestionCommand() {
         String userInputWithoutPath = DeleteSuggestionCommandParser.COMMAND_WORD + " ";
-        String path = "CS2104";
+        String path = "CS2104T";
         String userInput = userInputWithoutPath + path;
         String arg = " " + path;
 
