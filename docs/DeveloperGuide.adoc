@@ -390,10 +390,10 @@ image::WorkoutSequenceDiagram.png[]
 . When the user runs the command `workout find w/Arms Workout`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
 . The `ParserManager` then has to `parse("workout find w/Arms Workout"`.
 . Next, the `WorkoutCommandParser` has to `parse("find w/Arms Workout")` for the command.
-. Once the command has been parsed as a `FindCommand`, it will be passed on to the `FindCommandParser`, which will then create a new `WorkoutName`.
-. The `FindCommandParser` can then create a `FindCommand`, which in turn creates a `PredicateFilterWorkoutName`.
+. Once the command has been parsed as a `FindCommand`, it will be passed on to the `FindCommandParser`.
+. The `FindCommandParser` can then create a `FindCommand`. This is constructed with the `WorkoutName` for "Arms Workout" (a low-level detail that has been abstracted from the diagram).
 . The `FindCommand` can be returned to the `LogicManager`, where it will `execute()` the `FindCommand`.
-. `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` is used to update the view of the workout list to show the requested Workout(s).
+. `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` is used to update the view of the workout list to show the requested Workout(s), using the `PredicateFilterWorkoutName` that is returned by the `FindCommand` (a low-level detail that has been abstracted from the diagram).
 . Finally, the resulting output message will be returned as the `CommandResult`.
 
 
