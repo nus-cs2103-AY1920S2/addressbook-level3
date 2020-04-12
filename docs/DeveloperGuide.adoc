@@ -55,9 +55,7 @@ This block of text with a yellow light bulb indicates *additional tips* that wil
 [WARNING]
 This symbol indicates warnings.
 
-kbd:[Enter] - This symbol indicates the enter button on the keyboard.
-
-`markup` - A grey highlight (known as a mark-up) indicates that this is a command you can type into EYLAH.
+`markup` - A grey highlight (known as a mark-up) indicates keywords, including commands you can type into EYLAH.
 
 == Setting up
 
