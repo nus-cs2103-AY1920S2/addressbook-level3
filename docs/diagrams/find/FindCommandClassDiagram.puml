@@ -2,11 +2,12 @@
 !include ../style.puml
 show interface members
 skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR_T4
 
-abstract class Command
+Class "{abstract}\nCommand" as Command
 
-Interface Parser <<Interface>>
+abstract Parser <<Interface>>
 
 class FilterClaimCommand
 
@@ -14,11 +15,11 @@ class DoneSessionPredicate
 
 class FilterClaimCommandParser
 
-Command <|.. FilterClaimCommand
+Command <|-- FilterClaimCommand
 
-Parser <|-- FilterClaimCommandParser
+Parser <|.. FilterClaimCommandParser
 
-DoneSessionPredicate <.. FilterClaimCommand
+DoneSessionPredicate "1" <-- FilterClaimCommand
 DoneSessionPredicate <.. FilterClaimCommandParser
 
 

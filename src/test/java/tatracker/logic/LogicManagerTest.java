@@ -1,7 +1,6 @@
 package tatracker.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
@@ -21,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.commons.ListCommand;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -73,8 +73,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
+        String expectedMsg = Messages.getInvalidCommandMessage(Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
         String sessionDeleteCommand = "session delete 9";
-        assertCommandException(sessionDeleteCommand, MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
+        assertCommandException(sessionDeleteCommand, expectedMsg);
     }
 
     @Test

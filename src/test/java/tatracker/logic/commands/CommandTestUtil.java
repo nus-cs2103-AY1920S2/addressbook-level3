@@ -91,6 +91,7 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
@@ -120,21 +121,11 @@ public class CommandTestUtil {
 
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
+     * that takes a string {@code expectedMessage}, and an {@code expectedAction}.
      */
-    public static void assertStudentCommandSuccess(Command command, Model actualModel, String expectedMessage,
-                                            Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_STUDENT);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
-    }
-
-    /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
-     */
-    public static void assertListCommandSuccess(Command command, Model actualModel, String expectedMessage,
-                                            Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.LIST);
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                                   Model expectedModel, Action expectedAction) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, expectedAction);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -154,4 +145,26 @@ public class CommandTestUtil {
         assertEquals(expectedTaTracker, actualModel.getTaTracker());
         assertEquals(expectedFilteredList, actualModel.getFilteredStudentList());
     }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertDeleteSessionCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                                         Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_SESSION);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertFilterSessionCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                                         Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.FILTER_SESSION);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+
 }
