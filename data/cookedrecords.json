@@ -47,5 +47,9 @@
     "name" : "test one with same vege",
     "date" : "2020-04-12",
     "goals" : [ ]
+  }, {
+    "name" : "Summer Asian Slaw",
+    "date" : "2020-04-12",
+    "goals" : [ "Herbivore" ]
   } ]
 }

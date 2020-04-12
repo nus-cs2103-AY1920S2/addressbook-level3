@@ -57,13 +57,14 @@ public class SampleDataUtil {
                                     + " consistency accordingly. If too thick add more stock or coconut milk.",
                             "Just before serving garnish soup with fresh herbs, crushed peanuts and juice of lemon.",
                             "Serve Thai Green Curry Soup warm."),
-                    getGoalSet("Herbivore"), false),
+                    getGoalSet("Herbivore", "Wholesome Wholemeal"), false),
             new Recipe(new Name("Barley Pilaf"), new Time("50"),
-                    getGrainSet("0.5 cup, small pieces of broken spaghetti"),
+                    getGrainSet("0.8 cup, small pieces of broken spaghetti"),
                     getVegetableSet("50g, small onion (chopped)", "2 tbsp, chives (chopped)"),
-                    getProteinSet("2.5 cup, low-sodium chicken broth"),
+                    getProteinSet(),
                     getFruitSet(),
-                    getOtherSet("1 tbsp, unsalted butter", "1 cup, hulled barley", "10g, Salt & Pepper"),
+                    getOtherSet("1 tbsp, unsalted butter", "1 cup, hulled barley", "10g, Salt & Pepper",
+                            "2.5 cup, low-sodium broth"),
                     getStepsList("Melt butter in saucepan over medium heat. "
                                     + "Add onion and cook until soft and light golden brown.",
                             "Add barley and stir until grains are coated in butter.",
@@ -95,10 +96,10 @@ public class SampleDataUtil {
                             "10g, knob ginger", "1 cup, carrots (diced)",
                             "1 cup, chinese cabbage (diced)",
                             "1 cup, bell peppers", "1 cup, onions (diced)"),
-                    getProteinSet("300g, chicken"),
+                    getProteinSet("300g, chicken", "50g, egg"),
                     getFruitSet("1 cup, pineapple (diced)", "1 tbsp, tomato juice"),
                     getOtherSet("1.5 tsp, corn flour",
-                            "50g, egg", "1 tsp, light soya sauce",
+                            "1 tsp, light soya sauce",
                             "1 tbsp, vegetable oil", "10g, Coriander (optional)"),
                     getStepsList("Pound garlic and ginger into a paste. Marinade chicken in the paste, "
                                     + "along with corn flour, soy sauce, and salt.",
@@ -106,14 +107,14 @@ public class SampleDataUtil {
                                     + "Add tomato juice and bring to a slight boil.",
                             "Fry the chicken and add to the wok along with some stock and set to simmer.",
                             "Garnish with coriander and serve with rice."),
-                    getGoalSet("Bulk like the Hulk"),
+                    getGoalSet("Bulk like the Hulk", "Herbivore", "Fruity Fiesta"),
                     false),
             new Recipe(new Name("Quick Carrot Daikon Stir-fry"), new Time("25"),
                     getGrainSet(),
                     getVegetableSet("30g, ginger (julienned)",
                             "30g, garlic (smashed and chopped)",
-                            "50g, carrot (julienned)",
-                            "20g, Daikon radish (peeled and julienned)", "20g, scallions"),
+                            "120g, carrot (julienned)",
+                            "50g, Daikon radish (peeled and julienned)", "30g, scallions"),
                     getProteinSet("50g, Egg"),
                     getFruitSet(),
                     getOtherSet("3 tbsp, vegetable oil",
@@ -152,7 +153,7 @@ public class SampleDataUtil {
                             "Mix everything together, cover the wok, cook for 1-2mins until the tomatoes are completely"
                                     + " softened.",
                             "Uncover, continue to stir-fry over high heat until sauce thickens to your liking. Serve!"),
-                    getGoalSet("Herbivore"), false),
+                    getGoalSet(), false),
             new Recipe(new Name("5 Ingredient Spelt Spaghetti"), new Time("25"),
                     getGrainSet("80g, Spelt Spaghetti"),
                     getVegetableSet("2 cup, Arugula (Salad Rockets)",
@@ -176,7 +177,7 @@ public class SampleDataUtil {
                             "Then, add Ketchup, Basil, Italian Herbs and Salt, Pepper as desired.",
                             "Finally, stir in Arugula and cooked Noodles and serve on a Plate with Poached Egg,"
                                     + " Parmesan and more fresh Basil."),
-                    getGoalSet("Wholesome Wholemeal"), false),
+                    getGoalSet("Wholesome Wholemeal", "Herbivore"), false),
             new Recipe(new Name("Bacon, Spinach Caramelized Onion Pasta"), new Time("25"),
                     getGrainSet("170g, whole wheat penne pasta"),
                     getVegetableSet("10g, large yellow onion diced", "1 cup, spinach"),
@@ -196,9 +197,9 @@ public class SampleDataUtil {
                                     + "the skillet with the bacon, and onion mixture.",
                             "Mix in the spinach and stir until tender",
                             "Sprinkle with Parmesan before serving."),
-                    getGoalSet("Wholesome Wholemeal"), false),
+                    getGoalSet("Wholesome Wholemeal", "Bulk like the Hulk", "Herbivore"), false),
             new Recipe(new Name("Healthy Chicken Salad Sandwich"), new Time("10"),
-                    getGrainSet("50 g, whole wheat pita (toasted)"),
+                    getGrainSet("80 g, whole wheat pita (toasted)"),
                     getVegetableSet("120 g, celery (chopped small)", "55 g, butter lettuce (chopped)"),
                     getProteinSet("200 g, chicken breasts (large, cooked)", "350 g, greek yogurt (non-fat)",
                             "30 g, mixed nuts (chopped)"),
@@ -218,7 +219,7 @@ public class SampleDataUtil {
                                     + "1/4 c quartered red grapes, and 1 T chopped mixed nuts. Stir together.",
                             "Fill pita with chicken salad mixture and lettuce. Enjoy. "
                                     + "Store chicken salad in airtight container for up to 5 days"),
-                    getGoalSet("Wholesome Wholemeal"), false),
+                    getGoalSet("Wholesome Wholemeal", "Bulk like the Hulk"), false),
             new Recipe(new Name("All Veggie Sandwich"), new Time("10"),
                     getGrainSet("300 g, whole-wheat bread"),
                     getVegetableSet("1 cup, baby spinach leaves", "40 g, thinly sliced cucumber",
@@ -235,7 +236,7 @@ public class SampleDataUtil {
                             "Layer on spinach leaves, cucumber slices, red pepper, pea shoots, and cilantro leaves. "
                                     + "Generously season with salt and pepper. "
                                     + "Top with other slice of bread and enjoy."),
-                    getGoalSet("Wholesome Wholemeal", "Herbivore"), false),
+                    getGoalSet("Herbivore", "Wholesome Wholemeal"), false),
             new Recipe(new Name("Summer Asian Slaw"), new Time("25"),
                     getGrainSet(),
                     getVegetableSet("200g, shredded red and/or green cabbage",
@@ -264,7 +265,7 @@ public class SampleDataUtil {
             new Recipe(new Name("Avocado Couscous Grapefruit salad with honey lime dressing"), new Time("35"),
                     getGrainSet("0.75 cup, uncooked whole wheat couscous", "100g, white beans"),
                     getVegetableSet(),
-                    getProteinSet("0.75 cup, low sodium chicken stock"),
+                    getProteinSet(),
                     getFruitSet("300g, large avocados",
                             "200g, large ruby red grapefruit",
                             "3 tbsp, freshly squeezed lime juice (for dressing)"),
@@ -273,7 +274,8 @@ public class SampleDataUtil {
                             "3 tbsp, finely chopped fresh cilantro",
                             "2 tbsp, honey",
                             "2 tbsp, extra virgin olive oil",
-                            "0.25 tbsp, kosher salt"),
+                            "0.25 tbsp, kosher salt",
+                            "0.75 cup, low sodium stock"),
                     getStepsList("In a small saucepan, bring the stock to a boil. Remove from the heat, "
                                     + "stir in the couscous, then cover at let sit 5 minutes. "
                                     + "Fluff with fork and set aside.",
@@ -283,7 +285,7 @@ public class SampleDataUtil {
                             "In a large bowl, combine beans and couscous. Pour dressing over top and stir to combine. "
                                     + "Add the avocados, grapefruit, feta, mint, and cilantro. Toss gently."
                                     + " Serve chilled or at room temperature."),
-                    getGoalSet("Wholesome Wholemeal"), false),
+                    getGoalSet("Fruity Fiesta", "Wholesome Wholemeal"), false),
             new Recipe(new Name("Teriyaki chicken noodle bowl"), new Time("35"),
                     getGrainSet(),
                     getVegetableSet("50 g, cloves garlic(minced)", "0.25 tbsp, freshly grated ginger",
@@ -321,7 +323,7 @@ public class SampleDataUtil {
                                     + "Cover and let cook for 8 to 9 hours.",
                             "Stir and remove to serving bowls. "
                                     + "This method works best if started before you go to bed."),
-                    getGoalSet("Wholesome Wholemeal"), false),
+                    getGoalSet("Fruity Fiesta", "Wholesome Wholemeal"), false),
         };
     }
 
