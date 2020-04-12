@@ -1,9 +1,9 @@
-= John Doe - Project Portfolio
+= Choi Min Suk - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: ExpenseLa
 
 ---
 
@@ -12,6 +12,13 @@
 AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
+
+This section provides a summary of the various contributions I have made to ExpenseLa.
+
+=== Code contributed
+You can follow these links to view a sample of my code: +
+[https://github.com/AY1920S1-CS2103T-W12-2/main/commits/master?author=krusagiz[Commits]] [https://github.com/AY1920S1-CS2103T-W12-2/main/pulls?utf8=%E2%9C%93&q=is%3Amerged+is%3Apr+author%3Akrusagiz+[Pull requests]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=krusagiz&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense Dashboard]]
+
 
 * *Major enhancement*: added *the ability to undo/redo previous commands*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
