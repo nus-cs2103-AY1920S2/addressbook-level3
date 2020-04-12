@@ -113,7 +113,6 @@ public class AddRestaurantNoteCommand extends Command {
                 updatedGoodFood, updatedBadFood);
 
         model.setRestaurant(restaurantToEdit, editedRestaurant);
-        model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
 
         return new CommandResult(String.format(MESSAGE_ADD_NOTE_SUCCESS, editedRestaurant),
                 false, false, false, false, false, false, true, false);
