@@ -16,7 +16,6 @@ import com.notably.logic.correction.StringCorrectionEngine;
 import com.notably.logic.suggestion.generator.SuggestionGenerator;
 import com.notably.logic.suggestion.handler.DeleteSuggestionArgHandler;
 import com.notably.logic.suggestion.handler.EditSuggestionHandler;
-import com.notably.logic.suggestion.handler.ErrorSuggestionArgHandler;
 import com.notably.logic.suggestion.handler.ExitSuggestionHandler;
 import com.notably.logic.suggestion.handler.HelpSuggestionHandler;
 import com.notably.logic.suggestion.handler.NewSuggestionArgHandler;
@@ -122,7 +121,7 @@ public class SuggestionEngine {
             return new ExitSuggestionHandler(model).handle();
 
         default:
-            return new ErrorSuggestionArgHandler(model).handleArg(arguments);
+            throw new AssertionError("Default path will never get executed.");
         }
     }
 
