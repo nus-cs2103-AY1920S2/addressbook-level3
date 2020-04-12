@@ -312,7 +312,9 @@ Step 3: The user executes the `(ab)find ...` command to find their desired conta
 
 The following sequence diagram shows how the find operation works within the `Logic` component.
 
-image::findPerson.png[] // ADD THIS IN
+image::findPersonMain.png[]
+
+image::findPersonRef.png[]
 
 ==== Design Considerations
 
