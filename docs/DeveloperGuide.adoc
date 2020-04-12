@@ -111,6 +111,16 @@ Here, the `DaoRouter` infers the type of data access needed by looking at class 
 Routing is done based on whether the `AppCommand` class inherits from `BluetoothPingStorageAccess`
 or `UserStorageAccess`.
 
+== The activities in using this app
+image::ActivityDiagram.png[]
+
+ActivityDiagram illustrate the precession handling the input command. For all kinds of commands from
+the command box, firstly, we deal with the invalid command and exit command. All invalid commands
+will get a "Unknown command" error
+and the App will be closed with an `exit` command. Then all other valid commands are
+be parsed and three different types of operator are used to solve the commands according to
+the command type. The command execution result will be shown in the UIWindow.
+
 == Models
 
 All our models are stored and loaded at runtime in memory.
