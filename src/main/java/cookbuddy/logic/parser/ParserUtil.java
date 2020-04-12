@@ -204,7 +204,12 @@ public class ParserUtil {
      */
     public static Difficulty parseDifficulty(String difficultyString) throws ParseException {
         requireNonNull(difficultyString);
-        int difficulty = Integer.parseInt(difficultyString.trim());
+        int difficulty;
+        try {
+            difficulty = Integer.parseInt(difficultyString.trim());
+        } catch (NumberFormatException e) {
+            throw new ParseException("Input provided for difficulty is not a valid integer!");
+        }
         if (!Difficulty.isValidDifficulty(difficulty)) {
             throw new ParseException(Difficulty.MESSAGE_CONSTRAINTS);
         }
@@ -241,12 +246,18 @@ public class ParserUtil {
         requireNonNull(timeString);
         String trimmedTime = timeString.trim();
         String[] timeArray = trimmedTime.split(":");
-        hour = Integer.parseInt(timeArray[0]);
-        if (timeArray.length > 1) {
-            min = Integer.parseInt(timeArray[1]);
-            if (timeArray.length > 2) {
-                sec = Integer.parseInt(timeArray[2]);
+        try {
+            hour = Integer.parseInt(timeArray[0]);
+            if (timeArray.length > 1) {
+                min = Integer.parseInt(timeArray[1]);
+                if (timeArray.length > 2) {
+                    sec = Integer.parseInt(timeArray[2]);
+                }
             }
+        } catch (NumberFormatException e) {
+            throw new ParseException("Input provided for time does not match the required pattern.\n"
+            + "Please enter the time in the following format: hh:MM:ss (minutes and seconds are optional, and will be"
+            + " set to 0 if no input is provided for them.");
         }
         if (!Time.isValidHour(hour)) {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS_HOUR);
