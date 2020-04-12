@@ -59,7 +59,7 @@ public class OpenSuggestionArgHandler implements SuggestionArgHandler<OpenSugges
         }
 
         if (title.isEmpty()) {
-            logger.warning("title is empty");
+            logger.info("title is empty");
             model.setResponseText(RESPONSE_MESSAGE);
             return Optional.empty();
         }

@@ -49,7 +49,7 @@ public class NewSuggestionArgHandler implements SuggestionArgHandler<SuggestionG
                 ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE, PREFIX_JUMP);
 
         if (userInput.isBlank()) {
-            logger.warning("user input is blank");
+            logger.info("user input is blank");
             model.setResponseText(RESPONSE_MESSAGE);
             return Optional.empty();
         }
@@ -67,7 +67,7 @@ public class NewSuggestionArgHandler implements SuggestionArgHandler<SuggestionG
             logger.warning(String.format(ERROR_MESSAGE_INVALID_TITLE, title));
             model.setResponseText(String.format(ERROR_MESSAGE_INVALID_TITLE, title));
         } else if (title.isBlank()) {
-            logger.warning("title is blank");
+            logger.info("title is blank");
             model.setResponseText(RESPONSE_MESSAGE);
         } else if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_JUMP)) { // If user does NOT type "-o"
             logger.info(String.format(RESPONSE_MESSAGE_WITH_TITLE, title));

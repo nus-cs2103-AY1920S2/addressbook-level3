@@ -59,7 +59,7 @@ public class DeleteSuggestionArgHandler implements SuggestionArgHandler<DeleteSu
 
         if (title.isEmpty()) {
             model.setResponseText(RESPONSE_MESSAGE);
-            logger.warning("title is empty");
+            logger.info("title is empty");
             return Optional.empty();
         }
 

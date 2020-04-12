@@ -51,7 +51,7 @@ public class SearchSuggestionArgHandler implements SuggestionArgHandler<SearchSu
         }
 
         if (keyword.isEmpty()) {
-            logger.warning("keyword is empty");
+            logger.info("keyword is empty");
             model.setResponseText(RESPONSE_MESSAGE);
             return Optional.empty();
         }
