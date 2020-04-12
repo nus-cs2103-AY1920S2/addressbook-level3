@@ -559,7 +559,6 @@ Use case ends.
 .  CookBuddy should be able to function without internet access.
 .  A user should be able to familiarise herself with less than 30 minutes of usage.
 
-_{More to be added}_
 
 [appendix]
 == Glossary [Done by Zain Alam]
