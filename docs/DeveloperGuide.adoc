@@ -182,6 +182,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features
 are implemented and pitfalls to avoid when making modifications.
 
+//tag::buyandsellcommand[]
+
 === Buy and Sell Commands
 
 The `buy` and `sell` commands are the main ways a user is expected to
@@ -364,8 +366,10 @@ first parameter.
 especially since Good names tended to be long and a mix of upper- and lower-
 case alphabets, reducing user-friendliness.
 
+//end::buyandsellcommand[]
 
 // tag::undoredo[]
+
 === Undo/Redo feature
 ==== Implementation
 
@@ -541,6 +545,8 @@ The readable Json data is then stored in the Json file, which can be read by `Js
 
 // end::dataencryption[]
 
+//tag::autoexpiry[]
+
 === [Proposed] Automatic Batch Expiry and Warning
 
 The primary aim of inventory management is to ensure that there is always
@@ -559,6 +565,7 @@ stipulated threshold. The command to source for suppliers who sell that good can
 also be triggered to facilitate restocking of that good.
 
 ==== Proposed Implementation
+
 ===== Proposed Changes to `Good` class
 Inventory Manager v1.4 currently stores the name, current quantity, and
 threshold quantity of every good in the inventory. An `expiryDates` field
@@ -627,6 +634,8 @@ the first non-expired item is found. Everything traversed has expired.
 ** Cons:
 *** Extremely memory inefficient, especially since each `Good` can contain
 up to `999,999` quantity, and there will be 1 `Date` for each good stored.
+
+//end::autoexpiry[]
 
 === Logging
 

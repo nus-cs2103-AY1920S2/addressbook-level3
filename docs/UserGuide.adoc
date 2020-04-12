@@ -155,6 +155,7 @@ Deletes the good price pair of good 'banana' in the good list of the first suppl
 Clears all supplier entries from the address book. +
 Format: `clear-s`
 
+//tag::buycommand[]
 === Buying goods from supplier: `buy`
 
 Buys a batch of goods from a supplier in the contact list who stocks that product. The inventory manager cannot buy products in the following cases:
@@ -174,7 +175,9 @@ If the good does not exist in the inventory, a new entry for that good will be c
 
 [CAUTION]
 The maximum quantity of any good in the inventory is 999,999. Users are not allowed to buy quantities of goods that would cause that limit to be exceeded.
+//end::buycommand[]
 
+//tag::sellcommand[]
 === Selling goods: `sell`
 
 Sells a particular goods from the inventory.
@@ -197,7 +200,9 @@ The selling price can be specified to the nearest cent, or 2 decimal places maxi
 [TIP]
 When the quantity in inventory reaches 0, the name of the good is not deleted for future reference or restocking.
 This entry can be deleted using the `delete-g` command.
+//end::sellcommand[]
 
+//tag::deletegood[]
 
 === Delete good entry in inventory: `delete-g`
 Deletes an entry for a good in the inventory.
@@ -210,6 +215,7 @@ Example:
 
 * `delete-g 3`
 The good entry at displayed index 3 will be removed, provided there is an entry at index 3.
+//end::deletegood[]
 
 
 === Sourcing suppliers for a particular goods: `source` [to be implemented in v1.4]
