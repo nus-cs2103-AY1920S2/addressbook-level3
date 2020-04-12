@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -67,7 +68,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         Set<Sport> sportSet = ParserUtil.parseSports(argMultimap.getAllValues(PREFIX_SPORT));
         List<String> sports = new ArrayList<String>();
         for (Sport sport : sportSet) {
-            sports.add(sport.sportName);
+            String[] sportString = sport.sportName.split(" ", 0);
+            sports.addAll(Arrays.asList(sportString));
         }
         return sports;
     }
