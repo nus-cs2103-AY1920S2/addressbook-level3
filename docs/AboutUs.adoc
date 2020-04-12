@@ -21,7 +21,7 @@ Responsibilities: Scheduling and tracking
 
 === AAKANKSHA RAI
 image::aakanksha-rai.png[width="150", align="left"]
-{empty}[https://github.com/aakanksha-rai[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/aakanksha-rai[github]] [<<aakanksha-rai#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of Student View, PlantUML Expert, Deliverables and deadlines
@@ -39,7 +39,7 @@ Responsibilities: Testing
 
 === FATIN NABILAH BTE SUHAIMI
 image::fatin99.png[width="150", align="left]
-{empty}[https://github.com/fatin99[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/fatin99[github]] [<<fatin99#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation and Code Quality

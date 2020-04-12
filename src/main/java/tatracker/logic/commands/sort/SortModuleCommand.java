@@ -1,3 +1,5 @@
+//@@author aakanksha-rai
+
 package tatracker.logic.commands.sort;
 
 import static java.util.Objects.requireNonNull;
@@ -21,6 +23,7 @@ import tatracker.model.module.Module;
 public class SortModuleCommand extends SortGroupCommand {
 
 
+    //@@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
             CommandWords.SORT_MODULE,
@@ -30,6 +33,7 @@ public class SortModuleCommand extends SortGroupCommand {
             MODULE, SORT_TYPE
     );
 
+    //@@author aakanksha-rai
     public static final String MESSAGE_SORT_MODULE_SUCCESS = "All students in %s have been sorted";
     public static final int FIRST_GROUP_INDEX = 0;
 
