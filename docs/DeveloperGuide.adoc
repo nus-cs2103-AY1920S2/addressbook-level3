@@ -293,6 +293,8 @@ to the user.
 
 ==== Design considerations
 
+*Aspect: Design with respect to the whole architecture*
+
 1. `SuggestionEngine` is segregated from `Parser` in order to differentiate the logic when the user has finished typing
 and pressed kbd:[Enter] (which will be handled by `Parser`) in contrast to when the user presses `tab` to take in the
 suggestion item.
@@ -302,7 +304,7 @@ the user the meaning of his command) and the list of `SuggestionItem` into the `
 3. `SuggestionArgHandler`, `SuggestionGenerator`, `SuggestionItem`, and `SuggestionModel` are
 implemented as interfaces, in an attempt to make the design of the `SuggestionEngine` component resilient to change.
 
-On top of these, the design of `SuggestionEngine` underwent 2 alternative considerations:
+*Aspect: Implementation of suggestions generation*
 
 * *Alternative 1:* Have a `SuggestionCommandParser` interface and `SuggestionCommand` interface to parse each of the
 command, update `responseText` in the `Model`, and give suggestions.
