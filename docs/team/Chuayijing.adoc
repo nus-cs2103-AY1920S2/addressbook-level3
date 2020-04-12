@@ -5,6 +5,8 @@
 
 === PROJECT: TA-Tracker
 
+--
+
 === OverView
 
 This portfolio seeks to document my contributions to our team's project, TA-Tracker.
