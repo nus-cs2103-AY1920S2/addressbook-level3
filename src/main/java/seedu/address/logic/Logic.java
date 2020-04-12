@@ -4,7 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.autocomplete.AutoComplete;
+import seedu.address.logic.autocomplete.Autocomplete;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.history.CommandHistory;
@@ -90,8 +90,8 @@ public interface Logic {
     CommandHistory getCommandHistory();
 
     /**
-     * Returns the {@code AutoComplete} object.
+     * Returns the {@code Autocomplete} object.
      */
-    AutoComplete getAutoComplete();
+    Autocomplete getAutocomplete();
 
 }
