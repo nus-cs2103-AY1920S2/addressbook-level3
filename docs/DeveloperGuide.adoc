@@ -411,7 +411,7 @@ his expenditure.
 `MainWindow` decides whether to show a list of transactions or chart analysis based on `ToggleView#isViewList`, by accessing
 `Logic#getToggleView()`.
 
-Here is a Class Diagram for the implementatino of `ToggleView`:
+Here is a Class Diagram for the implementation of `ToggleView`:
 image:chart-analytics/ToggleViewClassDiagram.png[]
 
 The *ToggleView* mechanism utilizes `Logic` operations with the `ToggleViewCommand` class in place of `Command`. The following
@@ -480,7 +480,7 @@ if (logic.getToggleView().getIsViewList()) {
     transactionListAndChartAnalyticsPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 } else {
     // Creates ui for chart analysis
-    // Calls logic.getIsFilterMonth() to check if the filter is set to a specific month or no filter
+    // Calls logic.getIsFilterMonth() to check if the filter is set to a specific month or not, to decide which bar graph to build
     chartAnalyticsPanel = new ChartAnalyticsPanel(logic.getFilteredTransactionList(), logic.getIsFilterMonth());
     transactionListAndChartAnalyticsPanelPlaceholder.getChildren().add(chartAnalyticsPanel.getRoot());
 }
@@ -520,10 +520,19 @@ the data for his own analysis.
 `ExportCommand` is instantiated by `ExpenseLaParser#parseCommand(String userInput)`, which attempts to split the userInput
 into the command word and its parameters. Since `ExportCommand` does not require any arguments, it is instantiated directly.
 
+
+`ExportCommand` obtains the filtered list of transaction to export using `Model#getFilteredTransactionList()`, which then
+attempts to create a csv file in the current directory using the attributes of each transaction.
+
 The sequence diagram below shows how the execution of *export* is like:
 
 .Sequence diagram of how *export* command is applied at the back-end.
 image::export/ExportSequenceDiagram.png[]
+
+The image below shows how the csv file looks when user executes *export* command:
+
+.List of transactions in a csv file opened in Microsoft Excel
+image::export/ExportCsv.PNG[,650]
 
 ==== Proposed extension
 In the near future, we plan to enhance the export feature. We want to improve the export command to take in view as a
@@ -532,9 +541,12 @@ user can use the chart analysis generated for visual presentations, especially i
 
 The image below shows how a possible future implementation of this feature could look like:
 
-.Expected result of filtering by both Nov 2019 and Transport.
-image::list/TagFilter.png[,550]
+.Expected command to export chart analysis
+image::export/ExportChartCommand.PNG[]
 
+image::export/ExportBarGraph.PNG[,550]
+.Expected images to be exported when *export chartanalysis*
+image::export/ExportPieChart.PNG[,550]
 
 === Logging
 
