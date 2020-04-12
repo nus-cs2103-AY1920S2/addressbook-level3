@@ -15,7 +15,7 @@ import seedu.address.model.nusmodule.ModuleCode;
  */
 public class DeleteModuleTaskCommand extends DeleteTaskCommand {
 
-    public static final String MESSAGE_SUCCESS = "Task Deleted: ";
+    public static final String MESSAGE_SUCCESS = "Delete task as required successfully\nList of tasks for %s\n%s";
 
     private final Index targetIndex;
     private final ModuleCode targetModule;
@@ -42,8 +42,10 @@ public class DeleteModuleTaskCommand extends DeleteTaskCommand {
         model.deleteModuleTask(targetModule, targetIndex);
         model.sortTaskList();
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
-        return new CommandResult(MESSAGE_SUCCESS + " " + targetModule + " task number "
-                + targetIndex.getOneBased());
+
+        String tasksInfo = model.getModuleTaskInfo(targetModule);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetModule, tasksInfo));
     }
 
     @Override

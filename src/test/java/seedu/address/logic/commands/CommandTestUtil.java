@@ -103,6 +103,18 @@ public class CommandTestUtil {
     }
 
     /**
+     * Check success of command execution based on model only.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, Model expectedModel) {
+        try {
+            command.execute(actualModel);
+            assertEquals(expectedModel, actualModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>

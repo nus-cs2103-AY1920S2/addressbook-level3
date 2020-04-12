@@ -40,14 +40,12 @@ class DoneModuleTaskCommandTest {
     public void execute_markModuleTaskAsDone_successful() throws Exception {
         DoneModuleTaskCommand doneModuleTaskCommand = new DoneModuleTaskCommand(validModuleCode,
                 Index.fromZeroBased(0));
-        String expectedMessage = DoneModuleTaskCommand.MESSAGE_SUCCESS + " " + validModuleCode + " task number "
-                + Index.fromZeroBased(0).getOneBased();
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs(),
                 new ModuleBook(model.getModuleBook()), FXCollections.observableList(new ArrayList<Task>()));
         expectedModel.doneModuleTask(validModuleCode, Index.fromZeroBased(0));
 
-        assertCommandSuccess(doneModuleTaskCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(doneModuleTaskCommand, model, expectedModel);
     }
 
     @Test

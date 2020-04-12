@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.taskcommand.addcommand;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalNusModules.getTypicalModuleBook;
 
@@ -31,12 +31,13 @@ class ModuleTaskCommandTest {
 
     @Test
     public void execute_addInNewModuleTask_successful() throws Exception {
+        ModuleTaskCommand moduleTaskCommand = new ModuleTaskCommand(taskValid);
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs(),
                 new ModuleBook(model.getModuleBook()), FXCollections.observableList(new ArrayList<Task>()));
         expectedModel.addModuleTask(taskValid);
 
-        assertEquals(model, expectedModel);
+        assertCommandSuccess(moduleTaskCommand, model, expectedModel);
     }
 
     @Test
