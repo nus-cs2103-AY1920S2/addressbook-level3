@@ -483,9 +483,9 @@ Examples:
 |`add-c n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]…`| Adds a new client into FitBiz.
 |`delete-c INDEX`| Deletes a client and its associated exercises.
 |`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​`| Edits an existing client.
-|`filter-c KEYWORD [MORE_KEYWORDS]`| Filters a client based on specified keywords.
-|`list-c`| Shows the list of clients in FitBiz.
-|`view-c INDEX`| Shows detailed information of a client.
+|`filter-c [t/TAG]... [s/Sport]...`| Filters the list of clients based on specified tags or sports.
+|`list-c`| Displays the list of clients in FitBiz.
+|`view-c INDEX`| Displays detailed information of a client.
 |`schedule INDEX [day/DAY] [st/STARTTIME] [et/ENDTIME]`| Assigns a schedule to a client.
 |=======================================================================
 
