@@ -14,7 +14,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
-:warning-caption: :warning:
+:caution-caption: :fire:
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
 
@@ -45,8 +45,7 @@ is a *Command Line Interface (CLI)* application packaged
 with a *Graphical User Interface (GUI)*. This means that users are expected to interact
 with the TA-Tracker
 mainly through the command line, and each command executed will
-evoke a visual response in the TA-Tracker
-.
+evoke a visual response in the TA-Tracker.
 
 Any help on the development of the TA-Tracker
 would be greatly appreciated, and there
@@ -74,8 +73,7 @@ TA-Tracker
 has been designed with `Object-Oriented Programming`
 principles in mind. We also attempted to use `Defensive Programming` wherever
 possible. This section serves to give a description of the
-major components in the architecture of TA-Tracker
-. Subsequent sections
+major components in the architecture of TA-Tracker. Subsequent sections
 provide more information on the inner workings of individual components.
 
 [[Design-Architecture]]
@@ -84,9 +82,8 @@ provide more information on the inner workings of individual components.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the TA-Tracker
-.
-Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the TA-Tracker. Given below is a quick
+overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
@@ -95,18 +92,17 @@ Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and
 `Main` has two classes called link:{repoURL}/src/main/java/tatracker/Main.java[`Main`] and link:{repoURL}/src/main/java/tatracker/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializing the components in the correct sequence, and connects them up with each other.
-* At shut down: Shutting down the components and invoking cleanup methods where necessary.
+* At shut down: Shutting down the components and invoking clean-up methods where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by the other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the TA-Tracker
+* `LogsCenter`: Used by many classes to write log messages to the TA-Tracker
 's log file.
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the TA-Tracker
-.
+* <<Design-Ui,*`UI`*>>: The UI of the TA-Tracker.
 * <<Design-Logic,*`Logic`*>>: Handles execution of TA-Tracker
 commands.
 * <<Design-Model,*`Model`*>>: Organises the data of the TA-Tracker
@@ -116,7 +112,7 @@ into different sections.
 Each of the four components
 
 * Defines its *API* in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Exposes its functionality using a `{Component Name} Manager` class.
 
 For example, the `Logic` component (see the _Class Diagram_ given below) defines its API in the `Logic` interface
 and exposes its functionality using the `LogicManager` class.
@@ -143,15 +139,15 @@ The _Class Diagram_ below shows how the `UI` components interact with each other
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/tatracker/ui/Ui.java[`Ui.java`]
+*API*: link:{repoURL}/src/main/java/tatracker/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
+The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`,
 `StudentTab`, `StatusBarFooter` etc. The UI also contains 2 more windows, namely:
 
 . the `HelpWindow` and
 . the `StatisticsWindow`
 
-The `UI` component uses *JavaFx* UI framework. The layout of these UI parts are defined in
+The `UI` component uses *JavaFx* UI framework. The layout of these UI parts is defined in
 matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the
 layout of the link:{repoURL}/src/main/java/tatracker/ui/MainWindow.java[`MainWindow`] is
 specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -181,7 +177,7 @@ The UI contains 3 `tabs`:
 . The `Claims Tab`
 
 Each of these tabs consist of one or more List Panels (e.g. `StudentListPanel`) and its
-respective Card (e.g. `StudentCard`). In each List Panel, the the `Graphics` component of
+respective Card (e.g. `StudentCard`). In each List Panel, the `Graphics` component of
 each of the List Cells is defined by the respective Card.
 
 The other 2 `Tabs` follow the same structure as the _Class Diagram_ above.
@@ -203,7 +199,7 @@ The following _Class Diagram_ shows a simplified view of the structure of the `L
 .Structure of the Logic Component
 image::LogicClassDiagram1.png[]
 
-*API* :
+*API*:
 link:{repoURL}/src/main/java/tatracker/logic/Logic.java[`Logic.java`]
 
 In the figure above, you can see that:
@@ -261,7 +257,7 @@ This feedback includes:
 In most cases, there are *two levels* of parsing before a command is created +
 (i.e. `XCommandParser` passes the parsing to `XYCommandParser`).
 
-However there are some cases where only *one level* of parsing is needed +
+However, there are some cases where only *one level* of parsing is needed +
 (e.g. for the `help`, `report`, and `exit` commands).
 
 .Skipping the second layer of parsers
@@ -280,15 +276,15 @@ image::CommandsPackageDiagram1.png[]
 
 These packages depend on the `Command` class since they contain commands that inherit from the `Command` class (not shown above).
 
-In addition, the following `Class Diagram` shows the information that a `command` should have.
+In addition, the following _Class Diagram_ shows the information that a `command` should have.
 
 .Internal structure of all commands
 image::CommandsPackageDiagram2.png[,500]
 
 . In each package, all commands should have their own `CommandDetails`.
 . `CommandDetails` store all the information that each command should have, +
-(e.g. their `commandWord` and `usage` message).
-. For their `commandWord` and `sub word`, commands may use constants in `CommandWords` to avoid repetition +
+(e.g. their `CommandWord` and `usage` message).
+. For their `CommandWord` and `SubWord`, commands may use constants in `CommandWords` to avoid repetition +
 (e.g. "add", "delete", "edit").
 . The `CommandDictionary`, stores a list of `CommandDetails` for all the commands.
 . The `CommandDictionary` is used for:
@@ -305,7 +301,7 @@ image::ParserPackageDiagram1.png[]
 These packages depend on the `Parser` interface since they contain command parsers that inherit from the `Parser` interface
 (not shown above).
 
-In addition, the following `Class Diagram` shows the information that a `command parser` should have.
+In addition, the following _Class Diagram_ shows the information that a `command parser` should have.
 
 .Internal structure of all command parsers
 image::ParserPackageDiagram2.png[,300]
@@ -365,7 +361,7 @@ Therefore, it can be detached from the command parsers without changing the `Pre
 In future versions, `Prefixes` could be stored in the *Commands* package,
 since each command will need to know all the `Prefix` that they are using.
 
-The following `Class Diagrams` shows how the command parsers can obtain all the required `Prefix` from the respective `command.`
+The following _Class Diagrams_ shows how the command parsers can obtain all the required `Prefix` from the respective `command.`
 
 .Improving the Logic component
 image::LogicClassDiagram4.png[,500]
@@ -383,7 +379,7 @@ The following _Class Diagram_ shows how the different `Model` components interac
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/tatracker/model/Model.java[`Model.java`]
+*API*: link:{repoURL}/src/main/java/tatracker/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -391,15 +387,15 @@ The `Model`,
 * Stores the TA-Tracker
 data
 * Exposes 5 unmodifiable `ObservableList<>` objects:
-. `filteredStudentList`, an that contains all the `Students` in the TA-Tracker
+. `filteredStudentList`, which contains all the `Students` in the TA-Tracker
 
-. `filteredSessionList`, an that contains all the `Sessions` in the TA-Tracker
+. `filteredSessionList`, which contains all the `Sessions` in the TA-Tracker
 that have *not* been marked as done
-. `filteredDoneSessionList`, an that contains all the `Sessions` in the TA-Tracker
+. `filteredDoneSessionList`, which contains all the `Sessions` in the TA-Tracker
 that *have been marked as done*
-. `filteredModuleList`, an that contains all the `Modules` in the TA-Tracker
+. `filteredModuleList`, which contains all the `Modules` in the TA-Tracker
 
-. `filteredGroupList`, an that contains all the `Groups` in the TA-Tracker
+. `filteredGroupList`, which contains all the `Groups` in the TA-Tracker
 
 * These lists can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change
 * Does not depend on any of the other three components
@@ -421,12 +417,12 @@ image::ModelObjectDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
-The following `Class Diagram` is a simplified view of the `Storage` component.
+The following _Class Diagram_ is a simplified view of the `Storage` component.
 
 .Simplified structure of the Storage Component
 image::StorageClassDiagram1.png[]
 
-*API* : link:{repoURL}/src/main/java/tatracker/storage/Storage.java[`Storage.java`]
+*API*: link:{repoURL}/src/main/java/tatracker/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -435,7 +431,7 @@ The `Storage` component,
 data in json format and read it back.
 
 ==== Saved Data
-The following `Class Diagram` is a breakdown of the data managed by the `Storage` component.
+The following _Class Diagram_ is a breakdown of the data managed by the `Storage` component.
 
 .Structure of the data stored by TA-Tracker
 
@@ -476,7 +472,7 @@ This section describes some noteworthy details on how certain features are imple
 The `goto` command has been implemented to allow users to programmatically switch through the `tabs` using
 the command line, rather than clicking on the tab headers.
 
-The command can be utilised by inputing `goto TAB_NAME`.
+The command can be utilised by entering `goto TAB_NAME`.
 `TAB_NAME` is a compulsory parameter for the user.
 
 ==== Implementation
@@ -503,15 +499,19 @@ with the relevant keywords.
 . `LogicManager` calls `GotoCommand` 's execute method.
 
 . The `GotoCommand` object checks whether any of the keywords given by the user
-matches the existing tab headers. If it does, the `GotoCommand` returns a `CommandResult`
-with a success message.
+matches the existing tab headers.
 
-. `MainWindow` selects the `ClaimsTab` in the `TabPane` to switch to the `Claims Tab`
+.. If it does, the `GotoCommand` returns a `CommandResult` with a success message and an enum specifying
+how MainWindow should handle the next action.
+
+.. If it doesn't, an exception is thrown.
+
+. `MainWindow` calls the handleGoto() method to select the `ClaimsTab` in the `TabPane`, completing the tab-switching
+process.
 
 [[StudentView]]
 === Student View
-*Student View* is used to display all modules, groups and students in the TA-Tracker
-.
+*Student View* is used to display all modules, groups and students in the TA-Tracker.
 
 Students are a part of *groups* and groups are a part of *modules*.
 
@@ -562,7 +562,7 @@ The following _Class Diagram_ shows how different classes are related in the fun
 .Structure of the Student Component
 image::StudentClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/tatracker/model/student/Student.java[`Student.java`]
+*API*: link:{repoURL}/src/main/java/tatracker/model/student/Student.java[`Student.java`]
 
 The other models (`Module`, `Group` and `Session`) have been implemented in a similar manner. The main difference is that the other models do not
 have any `Tags`.
@@ -588,8 +588,8 @@ image::AddModuleSequenceDiagram.png[]
 [NOTE]
 ====
 * This diagram assumes that a module with the module code `CS2103`
-exists in the TA-Tracker
-.
+exists in the TA-Tracker.
+
 * The lifeline for `ModuleCommandParser` and `AddModuleCommandParser` should end at the
 destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 ====
@@ -625,27 +625,26 @@ code already exists in the *TA-Tracker
 
 The command used to delete a module has been implemented in a similar way. The main
 difference is that the `DeleteModuleCommand` checks whether an object with the given
-module code exists in the TA-Tracker
+module code exists in the TA-Tracker.
+
 . If no such module exists, a command exception
-is thrown saying that a module with the given module code doesn't exist. If it does
-exist, *first all the sessions linked to that module are removed* , then the module
-is removed from the TA-Tracker
-.
+is thrown saying that a module with the given module code doesn't exist.
+. If it does exist, *first all the sessions linked to that module are removed*, then the module
+is removed from the TA-Tracker.
 
 The `module edit` command has been implemented in a similar manner.
 
 ==== Implementation of the Group Add, Delete and Edit Commands
 
 A *group* is added to the TA-Tracker
-in a similar manner to to how a *module* is added to
-the TA-Tracker
-.
+in a similar manner to  how a *module* is added to
+the TA-Tracker.
 
 The following steps are taken once the _execute_ command of an `AddGroupCommand` object
 is called:
 
-. The `AddGroupCommand` object checks whether the *module* is present in the model of the TA-Tracker
-.
+. The `AddGroupCommand` object checks whether the *module* is present in the model of the TA-Tracker.
+
 .. If it exists, the module is retrieved.
 .. If it doesn't exist, an exception is thrown explaining that the module doesn't
 exist.
@@ -668,8 +667,7 @@ image::DeleteGroupSequenceDiagram.png[]
 [NOTE]
 ====
 * This diagram is under the case where a group with the group code G03 does exist
-in the module with module code CS2103 inside the TA-Tracker
-.
+in the module with module code CS2103 inside the TA-Tracker.
 
 * The lifeline for `GroupCommandParser` and `DeleteGroupCommandParser` should end at the
 destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
@@ -691,11 +689,9 @@ arguments to the `DeleteGroupCommandParser`.
 it the module code, group code and group type. The parser then returns the `DeleteGroupCommand` object.
 
 5. `LogicManager` calls `DeleteGroupCommand` 's execute method. The `DeleteGroupCommand` object
-checks whether a *module* with the given module code already exists in TA-Tracker
-.
+checks whether a *module* with the given module code already exists in TA-Tracker.
 If it doesn't, a command exception is thrown saying that a module with the given module
-code doesn't exist in the TA-Tracker
-.
+code doesn't exist in the TA-Tracker.
 
 6. If the module exists, the `DeleteGroupCommand` then checks whether a group with the
 given group code exists within that module.
@@ -745,7 +741,7 @@ it the created student. The parser then returns the `DeleteStudentCommand`
 7. The `DeleteStudentCommand` object
 checks whether a student with the given matric number already exists in TA-Tracker
 
-.. If it student doesn't exist, a command exception is thrown saying that a student with the given matric number
+.. If the student doesn't exist, a command exception is thrown saying that a student with the given matric number
 doesn't exist in the TA-Tracker
 .. If the student exists, the `DeleteStudentCommand` object retrieves the student from the
 model and removes the student.
@@ -754,8 +750,7 @@ The `student edit` command has been implemented in a similar manner.
 
 The `student add` command has been implemented in a similar way as well. The main
 difference is that the `AddStudentCommand` checks whether an object with the given
-matric number exists in the TA-Tracker
-. If such student exists, a command exception
+matric number exists in the TA-Tracker. If such student exists, a command exception
 is thrown saying that a student with the given matric number already exists.
 
 ==== Implementation of the Sort Group, Module and All Command
@@ -768,13 +763,13 @@ The sort command allows the user to sort the students in the *Student View*. Her
 
 The sort command can be used in three ways:
 
-1. `sort group g/GROUP_CODE m/MODULE_CODE t/TYPE` : This sorts all the students of the given
+1. `sort group g/GROUP_CODE m/MODULE_CODE t/TYPE`: This sorts all the students of the given
 group in the given module by type `TYPE`.
 
-2. `sort module g/MODULE_CODE t/TYPE` : This sorts all the students of all the groups in the
+2. `sort module g/MODULE_CODE t/TYPE`: This sorts all the students of all the groups in the
 given module by type `TYPE`.
 
-3. `sort all t/TYPE` : This sorts all students of all groups of all the modules in the
+3. `sort all t/TYPE`: This sorts all students of all groups of all the modules in the
 TA-Tracker
 by the type `TYPE`
 
@@ -840,13 +835,13 @@ creates all the different Sort commands within itself.
 command to the `SortCommandParser`.
 
 3. The `SortCommandParser` performs the steps shown in the previous activity diagram
-and determines that since the sort command word is `all` , it must create and return a
+and determines that since the sort command word is `all`, it must create and return a
 `SortCommand`.
 
 4. `LogicManager` calls `SortCommand` 's execute method.
 
 5. `SortCommand` checks the type of sorting that is indicated. Since the sort type
-is `matric` , it calls `Model` 's `sortModulesByMatricNumber()` command.
+is `matric`, it calls `Model` 's `sortModulesByMatricNumber()` command.
 
 6. The `SortCommand` returns a `CommandResult` with a success message.
 
@@ -996,7 +991,7 @@ The `CommandBox`:
 * Uses a `CommandBoxUtil` to scan for valid user inputs.
 * Returns feedback to the `ResultDisplay`.
 
-The `ResultDisplay` displays the given feedback tas a message in the program.
+The `ResultDisplay` displays the given feedback as a message in the program.
 
 ==== Implementation
 The following diagrams show the steps for the different types of syntax highlighting.
@@ -1171,7 +1166,7 @@ The following colours are used:
 * `White` - the default font colour for the `CommandBox` input
 
 These colours have been chosen because they are standard signalling colours used in
-everyday life. Therefore the user will be familiar with these colour signals without
+everyday life. Therefore, the user will be familiar with these colour signals without
 a need for an explanation.
 
 Valid inputs have been highlighted in order to signal to the user that they have used
@@ -1318,10 +1313,10 @@ this command object is returned all the way back to the `LogicManager`.
 . `LogicManager` executes the `ShowStatisticCommand`, which creates and return a `StatiscCommandResult`. This command
 result is returned by `LogicManager` to `MainWindow`
 
-. `MainWindow` detects that the the command result is of type `StatisticCommandResult`, and prepares the `StatisticWindow`
-by creating a `Statistic` object that retreives data necessary for generating the report, from `ReadOnlyTaTracker`.
+. `MainWindow` detects that the command result is of type `StatisticCommandResult`, and prepares the `StatisticWindow`
+by creating a `Statistic` object that retrieves data necessary for generating the report, from `ReadOnlyTaTracker`.
 
-. These data is then processed further by `Statistic`. This includes computing the total number of sessions per session type and sorting the students by rating.
+. The data is then processed further by `Statistic`. This includes computing the total number of sessions per session type and sorting the students by rating.
 
 . A `StatisticWindow` object is now created by `MainWindow`. The `Statistic` object is passed into the constructor of `StatisticWindow`.
 
@@ -1337,15 +1332,15 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE`: Critical problem detected which may possibly cause the termination of the application
+* `WARNING`: Can continue, but with caution
+* `INFO`: Information showing the noteworthy actions by the App
+* `FINE`: Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.. user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -1393,7 +1388,7 @@ I forget about them
 |`* * *` |TA |store contact details of my students |I can contact them with ease whenever
 necessary
 
-|`* * *` |TA |see an overview upcoming tasks I have | plan my schedule accordingly
+|`* * *` |TA |see an overview of the upcoming tasks I have | plan my schedule accordingly
 
 |`* * *` |TA |see all my claimable hours in one place |type my claims easily at the end of the semester
 
@@ -1431,7 +1426,7 @@ much money I have earned and stay motivated
 
 |`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
 
-|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule (coming in V2.0)
+|`*` |TA |receive a warning message when a new task clashes with an old one |prevent clashes in my schedule (coming in V2.0)
 
 |`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
 
@@ -1587,6 +1582,7 @@ Use case resumes at step 1.
 ==== Use case: UC08 - Editing a group
 
 *MSS*
+
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing groups in the *Student View*.
 . TA-Tracker switches to the `Student Tab`.
@@ -1636,7 +1632,7 @@ Use case ends.
 
 *Extensions*
 
-* 1a. The input required (eg. Matric Number) to add a student is invalid.
+* 1a. The input required (e.g. Matric Number) to add a student is invalid.
 +
 [none]
 ** 1a1. TA-Tracker shows an error message.
@@ -1711,7 +1707,7 @@ Use case resumes at step 3.
 ==== Use case: UC14 - Sorting a module
 
 [discrete]
-==== Use case: UC15 - Sorting a all
+==== Use case: UC15 - Sorting all
 
 [discrete]
 ==== Use case: UC16 - Filtering the Student View
@@ -1904,12 +1900,12 @@ Use case resumes at step 3.
 === Statistic Report Window
 
 [discrete]
-==== Use case: UC23 - Displaying a statistic report
+==== Use case: UC24 - Displaying a statistic report
 
 *MSS*
 
 1. User requests to generate and display a statistic report.
-2. TA-Tracker retreives the list of sessions and students from all modules and processes the data.
+2. TA-Tracker retrieves the list of sessions and students from all modules and processes the data.
 3. TA-Tracker opens a Statistic window and displays the processed data to the user.
 +
 Use case ends.
@@ -1919,7 +1915,7 @@ Use case ends.
 [none]
 * 1a. The user specifies a valid module code.
 [none]
-** 1a1. TA-Tracker retreives the list of sessions and students from the specified module and processes the data.
+** 1a1. TA-Tracker retrieves the list of sessions and students from the specified module and processes the data.
 ** Use case resumes at step 3.
 [none]
 * 1b. The user specifies a module code that does not exist.
@@ -1932,7 +1928,7 @@ Use case resumes at step 1.
 :sectnums: // Enables section numbering again outside of the use cases
 
 [appendix]
-== Non Functional Requirements
+== Non-Functional Requirements
 
 . `**TAT**` should be able to run on any <<mainstream-os, mainstream OS>> as long as it has `Java 11` installed.
 . A user with above average typing speed for <<regular-english-text, regular English text>> (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
@@ -1966,11 +1962,11 @@ item in a list.
 | Matric Number | This refers to a student's matriculation number. | A0123456X
 
 | Group | The is the general term given to a group of students a TA teaches. |
-lab , tutorial , recitation
+lab, tutorial, recitation
 
 | TAT | This is the short form of TA-Tracker. |
 
-| NUS | This is the short form of National Univeristy of Singapore. |
+| NUS | This is the short form of National University of Singapore. |
 
 | Module | Refers to one of the academic courses in NUS. |
 
@@ -1992,7 +1988,7 @@ in this document. |
 | Mainstream OS | Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X. |
 
 | Regular English Text |
-Stands for text with ordinary english grammar structures and vocabulary generally used by the public.
+Stands for text with ordinary English grammar structures and vocabulary generally used by the public.
 It excludes syntax related to programming and <<system-administration, system administration>>.
 |
 
@@ -2086,7 +2082,7 @@ Expected: You will see an error message that this group already exists in the mo
 added a group with group code G06 to the module CS1101S)
 .. Test Case: `group add g/G06 m/CS3243 t/lab` +
 Expected: Assuming a module with module code `CS3243` exists in the TA-Tracker and
-doesn't contain a group with group code `G06` ,
+doesn't contain a group with group code `G06`,
 A group with group code `G06` of type `lab` will be added to the module
 `CS3243`.
 
@@ -2152,15 +2148,15 @@ of the group `G06`.
 . Sorting students in a group.
 
 .. Test Case: `sort group g/G06 m/CS1101S t/alpha` +
-Expected: Sorts all the students in the group `G06` of module `CS1101S` alphabetically.
+Expected: Sorts all the students in the group `G06` of the module `CS1101S` alphabetically.
 
 === Sorting a module
 
 . Sorting students in a module.
 
 .. Test Case: `sort module g/G06 m/CS1101S t/alpha` +
-Expected: Sorts all the students in all the groups of module `CS1101S` alphabetically.
-You will see the students in the group at index 1 of the group list of module `CS1101S`.
+Expected: Sorts all the students in all the groups of the module `CS1101S` alphabetically.
+You will see the students in the group at index 1 of the group list of  the module `CS1101S`.
 
 === Sorting all modules
 
@@ -2287,6 +2283,7 @@ this would show you an error message.
 .. Test Case: `exit` +
 Expected: Exits the program.
 
+[appendix]
 == Effort
 
 Creating this application was fairly difficult and required a lot of effort from us.
