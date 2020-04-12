@@ -18,7 +18,7 @@ image::UiClassDiagram.png[]
 The _Class Diagram_ below shows how the components in the `Student Tab` interact with each other.
 
 .Structure of the Student Tab Component
-image::StudentTabClassDiagram.png[]
+image::StudentTabClassDiagram.png[][,500]
 
 The following _Class Diagram_ shows how the different `Model` components interact with each other.
 
@@ -29,7 +29,7 @@ The following _Class Diagram_ shows the relationship between the different class
 in the `Model` component.
 
 .Model Components - Class Diagram
-image::ModelComponentsClassDiagram.png[]
+image::ModelComponentsClassDiagram.png[][,500]
 
 The following _Object Diagram_ shows an example of the relationship between the different `Model` objects.
 This example is based on the state of TA-Tracker when it is first run (without any user data).
@@ -49,25 +49,17 @@ The following _Class Diagram_ shows how different classes are related in the fun
 image::StudentClassDiagram.png[]
 
 As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can
-reference. This would allow `TaTracker` to only require one `Tag` object per unique
-`Tag`, instead of each `Student` needing their own `Tag` object. An example of what
-such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+reference. An example of what such a model may look like is given below.
 
-The following _Class Diagram_ shows how different classes are related in the functioning
-of the *Session View*.
-
-._Class Diagram_ of Session View
-image::SessionModelClassDiagram.png[]
+image::BetterModelClassDiagram.png[][,500]
 
 The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
 
 .Session Done- Activity Diagram
-image::TssActivityDiagram.png[]
+image::TssActivityDiagram.png[][,300]
 
 The following _Class Diagram_ shows how different classes are related in the
 functioning of the *Claims View*.
 
 .Claims View - Class Diagram
-image::TssModelClassDiagram.png[]
+image::TssModelClassDiagram.png[][,400]
