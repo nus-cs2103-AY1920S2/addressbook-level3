@@ -672,8 +672,14 @@ Valid Example: +
 image::placeholder.png[]
 
 [NOTE]
-Price can be up to 2 decimal places, i.e. 7.99.
+====
+* Price can be up to 2 decimal places, i.e. 7.99.
 There is no need to add the dollar sign ($).
+
+* The maximum price of an item is 10,000.
+
+* All names inputted will automatically be converted to lowercase. (e.g: Bob -> bob)
+====
 
 '''
 
