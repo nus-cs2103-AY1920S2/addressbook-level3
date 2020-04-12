@@ -1,0 +1,27 @@
+@startuml ExerciseCommandActivityDiagram
+start
+
+
+:User enters an exercise command;
+:FitBizParser creates the associated
+exercise command's parser;
+:The parser parses arguments and
+creates the exercise command;
+:Execute the exercise command;
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Is currently viewing a client])
+    if () then ([Input arguments is valid])
+        :Edit client's exercise list;
+        :Update exercise table in GUI;
+        :Show execution success feedback to user;
+    else ([else])
+        :Show invalid input error;
+    endif
+else ([else])
+    :Show not viewing client error;
+endif
+
+stop
+@enduml

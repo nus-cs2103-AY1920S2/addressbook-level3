@@ -28,7 +28,7 @@ import seedu.address.logic.parser.Prefix;
  * This class contains the logic behind the autocomplete feature. It makes use
  * of {@code Trie} as the underlying data structure.
  */
-public class AutoComplete {
+public class Autocomplete {
 
     public static final String FEEDBACK_EMPTY_STRING = "";
     public static final String FEEDBACK_MULTIPLE_COMMANDS = "Commands found:\n";
@@ -45,7 +45,7 @@ public class AutoComplete {
      * Default constructor for this class. Note that both {@code commandTextField}
      * and {@code resultDisplay} must not be {@code null}.
      */
-    public AutoComplete() {
+    public Autocomplete() {
         trie = new Trie();
         addAllCommands();
     }
@@ -83,8 +83,8 @@ public class AutoComplete {
         return toReturn;
     }
 
-    private AutoCompleteResult noCommandHandler() {
-        return new AutoCompleteResult(null, FEEDBACK_NO_COMMANDS, null);
+    private AutocompleteResult noCommandHandler() {
+        return new AutocompleteResult(null, FEEDBACK_NO_COMMANDS, null);
     }
 
     /**
@@ -98,7 +98,7 @@ public class AutoComplete {
      * the usage of the current completed command.
      * </p>
      */
-    private AutoCompleteResult singleCommandHandler(String command) {
+    private AutocompleteResult singleCommandHandler(String command) {
         String textToSet = command;
         String textToFeedback = FEEDBACK_EMPTY_STRING;
         int caretPositionToSet = CARET_POSITION_INDEX;
@@ -172,18 +172,18 @@ public class AutoComplete {
             break;
         }
 
-        return new AutoCompleteResult(textToSet, textToFeedback, caretPositionToSet);
+        return new AutocompleteResult(textToSet, textToFeedback, caretPositionToSet);
     }
 
     /**
      * Handles the instance when the autocomplete cannot uniquely identify a single
      * command.
      */
-    private AutoCompleteResult multipleCommandsHandler(SimilarWordsResult result) {
+    private AutocompleteResult multipleCommandsHandler(SimilarWordsResult result) {
         String textToSet = result.getLongestPrefix();
         String textToFeedback = FEEDBACK_MULTIPLE_COMMANDS + result.getSimilarWords().toString();
         int caretPositionToSet = CARET_POSITION_INDEX;
-        return new AutoCompleteResult(textToSet, textToFeedback, caretPositionToSet);
+        return new AutocompleteResult(textToSet, textToFeedback, caretPositionToSet);
     }
 
     /**
@@ -197,9 +197,9 @@ public class AutoComplete {
      * stop.
      * </p>
      */
-    private AutoCompleteResult completedCommandHandler(String currentCommand, int currentCaretPosition) {
+    private AutocompleteResult completedCommandHandler(String currentCommand, int currentCaretPosition) {
         if (!currentCommand.contains(PREFIX_DELIMITTER)) {
-            return new AutoCompleteResult(null, null, null);
+            return new AutocompleteResult(null, null, null);
         }
 
         int nextPrefixPosition = currentCommand.indexOf(PREFIX_DELIMITTER, currentCaretPosition);
@@ -210,14 +210,14 @@ public class AutoComplete {
             nextPrefixPosition++;
         }
 
-        return new AutoCompleteResult(null, null, nextPrefixPosition);
+        return new AutocompleteResult(null, null, nextPrefixPosition);
     }
 
     /**
      * Executes the main logic behind the autocomplete, and should be called when
      * the user presses "tab".
      */
-    public AutoCompleteResult execute(String currentCommand, int currentCaretPosition) {
+    public AutocompleteResult execute(String currentCommand, int currentCaretPosition) {
         String trimmedCommand = currentCommand.trim();
 
         // command word has already been completed

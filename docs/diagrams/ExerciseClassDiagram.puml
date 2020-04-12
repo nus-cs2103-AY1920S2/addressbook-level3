@@ -5,7 +5,7 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Client "1" *--> "1" UniqueExerciseList
-UniqueExerciseList "1" *--> "*" Exercise
+UniqueExerciseList  --> "*" Exercise
 
 Exercise "1" *--> "1" ExerciseName
 Exercise "1" *--> "1" ExerciseReps

@@ -1,0 +1,84 @@
+@startuml
+!include style.puml
+skinparam ParticipantPadding 36
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FitBizParser" as FitBizParser LOGIC_COLOR
+participant ":FilterCommandParser" as FilterCommandParser LOGIC_COLOR
+participant "fc:FilterCommand" as FilterCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "p:TagAndNameContainsKeyWordsPredicate" as TagAndNameContainsKeyWordsPredicate MODEL_COLOR
+participant ":Client" as Client MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+--> LogicManager : execute("filter-c t/obese s/swim")
+activate LogicManager
+
+LogicManager -> FitBizParser : parseCommand\n("filter-c t/obese s/swim")
+activate FitBizParser
+
+create FilterCommandParser
+FitBizParser -> FilterCommandParser
+activate FilterCommandParser
+
+FilterCommandParser --> FitBizParser
+deactivate FilterCommandParser
+
+FitBizParser --> FilterCommandParser : parse("t/obese s/swim")
+activate FilterCommandParser
+
+create FilterCommand
+FilterCommandParser --> FilterCommand
+activate FilterCommand
+
+
+FilterCommand --> FilterCommandParser : fc
+deactivate FilterCommand
+
+FilterCommandParser --> FitBizParser : fc
+deactivate FilterCommandParser
+
+FitBizParser --> LogicManager : fc
+deactivate FitBizParser
+
+LogicManager -> FilterCommand : execute()
+activate FilterCommand
+
+create TagAndNameContainsKeyWordsPredicate
+FilterCommand --> TagAndNameContainsKeyWordsPredicate : TagAndNameContainsKeyWordsPredicate()
+activate TagAndNameContainsKeyWordsPredicate
+
+create Client
+TagAndNameContainsKeyWordsPredicate --> Client : test()
+activate Client
+
+Client --> TagAndNameContainsKeyWordsPredicate : boolean
+deactivate Client
+
+TagAndNameContainsKeyWordsPredicate --> FilterCommand : p
+deactivate TagAndNameContainsKeyWordsPredicate
+
+FilterCommand -> Model: updateFilteredClientList(p)
+activate Model
+
+Model --> FilterCommand
+deactivate Model
+
+create CommandResult
+FilterCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FilterCommand
+deactivate CommandResult
+
+FilterCommand --> LogicManager : result
+deactivate FilterCommand
+
+<-- LogicManager : result
+deactivate LogicManager
+@enduml

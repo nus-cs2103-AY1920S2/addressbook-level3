@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.autocomplete.AutoComplete;
+import seedu.address.logic.autocomplete.Autocomplete;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -34,14 +34,14 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final FitBizParser fitBizParser;
     private final CommandHistory commandHistory;
-    private final AutoComplete autoComplete;
+    private final Autocomplete autoComplete;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         fitBizParser = new FitBizParser();
         commandHistory = new CommandHistory();
-        autoComplete = new AutoComplete();
+        autoComplete = new Autocomplete();
     }
 
     @Override
@@ -137,7 +137,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public AutoComplete getAutoComplete() {
+    public Autocomplete getAutocomplete() {
         return autoComplete;
     }
 }
