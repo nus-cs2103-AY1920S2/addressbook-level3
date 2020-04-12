@@ -371,20 +371,20 @@ Once the command line is entered, our application will react in the following st
 
 image::sequenceDiagramAutomation.png[]
 
-However, above is only the creation. What happen if the activity has expired when NasaBook is not in use? Not to worry, because when
+However, above is only the creation.
+What happen if the activity has expired when NasaBook is not in use? Not to worry, because when
 the user initialise the program again, the system will automatically reset the expired date.
 
 This is how it goes :
 
 . MainApp will execute initialisation which will fetch data through NasaBookStorage.
 
-. NasaBookStorage will access json file in JsonAdaptedModule to retrieve the old schedule.
-
-. NasaBook will load every module in the module list and update each activity in the module through the Schedule class.
-.. If scheduler sees `0` nothing will be done and the activity will get deleted.
+. NasaBook will load every module in the module list and update each activity in the module.
+. If dateline of the activity has passed, it will check if it has a schedule
+.. If scheduler sees `0` nothing will be done.
 .. If scheduler sees `1`,`2` or `3` it will update to the new date.
 
-image::activityDiagramAutomation2.png[]
+image::activityDiagramAutomationV2.png[]
 
 // tag::sort[]
 === Sort Deadline Feature
