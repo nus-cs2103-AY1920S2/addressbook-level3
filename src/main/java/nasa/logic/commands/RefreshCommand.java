@@ -3,11 +3,15 @@ package nasa.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
+
 import nasa.model.Model;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
 import nasa.model.module.Module;
 
+/**
+ * Command to refresh the page.
+ */
 public class RefreshCommand extends Command {
 
     public static final String COMMAND_WORD = "refresh";
@@ -32,7 +36,8 @@ public class RefreshCommand extends Command {
                 ObservableList<Event> events = module.getFilteredEventList();
                 for (Deadline deadline : deadlines) {
                     if (deadline.isOverdue()) {
-                        model.setDeadline(module.getModuleCode(), deadline, new Deadline(deadline.getName(),
+                        model.setDeadline(module.getModuleCode(), deadline,
+                            new Deadline(deadline.getName(),
                             deadline.getDateCreated(), deadline.getNote(), deadline.getPriority(), deadline.getDueDate(),
                             false)); // auto set it to overdue
                     }
