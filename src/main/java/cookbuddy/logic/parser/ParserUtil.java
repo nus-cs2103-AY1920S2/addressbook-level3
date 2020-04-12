@@ -164,7 +164,12 @@ public class ParserUtil {
      */
     public static Serving parseServing(String servingString) throws ParseException {
         requireNonNull(servingString);
-        int serving = Integer.parseInt(servingString.trim());
+        int serving;
+        try {
+            serving = Integer.parseInt(servingString.trim());
+        } catch (NumberFormatException e) {
+            throw new ParseException("Input provided for serving is not a valid integer!");
+        }
         if (!Serving.isValidServing(serving)) {
             throw new ParseException(Serving.MESSAGE_CONSTRAINTS);
         }
@@ -183,7 +188,7 @@ public class ParserUtil {
         try {
             rating = Integer.parseInt(ratingString.trim());
         } catch (NumberFormatException e) {
-            throw new ParseException("Input provided is not a valid integer!");
+            throw new ParseException("Input provided for rating is not a valid integer!");
         }
         if (!Rating.isValidRating(rating)) {
             throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
