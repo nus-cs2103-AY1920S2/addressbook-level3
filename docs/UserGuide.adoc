@@ -124,19 +124,48 @@ Examples:
 * `edit-c 1 n/Ming Liang a/60 a/male`
 ** Edits the name of the 1st client to Ming Liang, age to 60, and gender to male.
 
-=== Delete a client: `delete-c`
+=== Delete a client: `delete-c` --- Li Zi Ying
 
-Deletes the client at the specified index from the program.
+You find that your client list contains a client who is no longer working with you and you would like to remove his details from your client list. `delete-c` allows you to delete the client at the specified index from your list of clients. 
+
+==== Parameters
+This section acts as a summary of the important things to note when using `delete-c` including their parameters.
 
 Format: `delete-c INDEX`
 
-* `INDEX` refers to the index number shown in the displayed client list
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| INDEX |
+* `INDEX` refers to the index number shown in the displayed client list +
 * `INDEX` must be a positive integer (ie. 1, 2, 3, ...)
 
-Examples:
+|====================
 
-* `delete-c 4`
-** Deletes the 4th client from the program
+==== Examples
+Let’s say that you want to delete the client named "Alex Yeoh" in client list. You can simply use the `delete-c` command as shown.
+
+1. Type `delete-c 1` into the Command Box and press `Enter` to execute it.
+image::ug-delete-1.png[]
+
+2. Result Box will display the message of the details of the deleted client. You can now see that the Client List no longer contains the deleted client. 
+image::ug-delete-2.png[]
+
+==== Common errors/problems
+You might face some errors or difficulties when you use `delete-c`. In this section, you will be able to understand these errors and resolve them. 
+
+==== No index specified
+If you type in `delete-c` without specifying the `INDEX`, no client will be deleted and an error message will be shown.
+
+image::ug-delete-3.png[]
+
+This is because there is no `INDEX` specified, to correct this, you have to enter a valid `INDEX` after `delete-c`.
+
+==== Index out of range
+If you type in an `INDEX` that is out of range, that is if there are only 4 clients in the list but you type `delete-c 5`, no client will be deleted and an error message will be shown. 
+
+image::ug-delete-4.png[]
 
 === View a client profile: `view-c`
 
