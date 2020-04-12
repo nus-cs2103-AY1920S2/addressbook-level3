@@ -31,6 +31,7 @@ This User Guide explains how to use FitBiz, as well as provides an understanding
 In this guide, we cover:
 
 * How to navigate the Graphical User Interface (GUI)
+* How to use the Command Line Interface (CLI)
 * Syntax of the commands available in FitBiz
 * Common use cases for each command
 * Common problems encountered by users
@@ -139,17 +140,7 @@ This section introduces the syntax and the usages of the commands available in F
 
 === View help: `help`
 
-Opens a window with the link to the User Guide. `Currently in v1.3`
-Lists all available commands and a short description of what they do. Specify the command for more detailed explanation. `Coming in v1.4`
-
-Format: `help [c/COMMAND]`
-
-Examples:
-
-* `help`
-** Lists all commands
-* `help add-c`
-** Shows a detailed explanation of the `add-c` command
+Entering `help` into FitBiz will bring you right here! 😬
 
 === List all clients: `list-c`
 
@@ -628,7 +619,7 @@ image::ug-editeDuplicatePart3.png[]
 
 To solve this, we suggest you delete the exercise you want to edit and increment the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact.
 
-=== Delete a client's exercise: `delete-e`
+=== Delete a client's exercise: `delete-e` --- Aaron Choo
 
 `delete-e` allows you to delete a previously recorded exercise of the client currently in view.
 
@@ -689,7 +680,7 @@ Format: `schedule INDEX day/DAY st/STARTTIME et/ENDTIME`
 ** SUN
 * `DAY` is not case-sensitive
 
-=== Export as CSV: `export`
+=== Export as CSV: `export` --- Aaron Choo
 
 `export` allows you to export your client's recorded exercises into a spreadsheet format which you can then easily save or share with your clients. Note that this will create a CSV file, which you can then view and open in other programmes like Microsoft Excel, or Google Sheets (as shown in the example later).
 
