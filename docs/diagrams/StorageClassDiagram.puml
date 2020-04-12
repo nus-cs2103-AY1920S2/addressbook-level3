@@ -20,9 +20,9 @@ StorageManager o--> FitBizStorage
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 FitBizStorage <|.right. JsonFitBizStorage
 JsonFitBizStorage .down.> JsonSerializableFitBizStorage
-JsonSerializableFitBizStorage .right.> JsonSerializableClient
-JsonSerializableClient -right-> "*" JsonAdaptedTag
-JsonSerializableClient -right-> "*" JsonAdaptedSport
-JsonSerializableClient -up-> "*" JsonAdaptedExercise
-JsonSerializableClient -down-> "*" JsonAdaptedSchedule
-@enduml 
+JsonSerializableFitBizStorage .right.> JsonAdaptedClient
+JsonAdaptedClient -right-> "*" JsonAdaptedTag
+JsonAdaptedClient -right-> "*" JsonAdaptedSport
+JsonAdaptedClient -up-> "*" JsonAdaptedExercise
+JsonAdaptedClient -down-> "*" JsonAdaptedSchedule
+@enduml
