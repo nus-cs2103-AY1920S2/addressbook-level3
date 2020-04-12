@@ -20,7 +20,7 @@ them track their diet. The user interacts with it using a CLI and it is programm
 * *Major enhancement*:
 
 . Adding of *Item, ItemPrice, ItemName for the Expense Splitter* portion of EYLAH
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/issues/121[#121])
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/127[#127])
 
 *** *What it does:* +
 Allows the user to perform the `additem` command successfully hence adding an Entry which consists
@@ -40,7 +40,7 @@ Online links where I researched on: "https://stackoverflow.com/questions/1359817
 
 
 . Added *the ability to deduct Amount owed by a Person when they have paid through `paid` command*
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/issues/195[#195])
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/176[#176])
 
 *** *What it does:* +
 Allows the user to reduce the amount owed by a Person.
@@ -63,7 +63,7 @@ N.A
 . Added *the expense splitter
 storage component that allowed the user to automatically save a Person and their amount owed after
 each command*
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/issues/149[#149])
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/148[#148])
 
 *** *What it does:* +
 Allows EYLAH to save a Person and the amount they owe after each command.
@@ -82,7 +82,8 @@ N.A
 
 * *Minor enhancement*:
 
-. Modified the `paid` command to allow a Person to pay his debt fully
+. Modified the `paid` command to allow a Person to pay his debt fully +
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/209[#209])
 
 *** *What it does:* +
 Expanded the `paid` command to accept empty amount field, which meant that the Person paid his debt fully. +
@@ -92,7 +93,8 @@ Now: `paid 1` meant that person at INDEX 1 paid the full amount he owes.
 *** *Justification:* +
 This allows the user to conveniently clear a Person debt fully.
 
-. Performed defensive coding for `additem` command and `paid` command
+. Performed defensive coding for `additem` command and `paid` command +
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/352[#352])
 
 *** *What it does:* +
 `additem` and `paid` commands are commands in expense splitter
@@ -105,31 +107,30 @@ including try-catch statement to catch these exceptions.
 This reduces the chances of EYLAH crashing.
 
 
-* *Code contributed*:
-[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=willyseahh&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test Code]]
+* *Code contributed*:[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=willyseahh&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test Code]]
 
 * *Other contributions*:
 
 ** Project management:
 *** In charge of team progress and planning intermediate deadlines to achieve milestones.
+*** Ensure that project deliverables are completed on time.
 
 
 ** Enhancements to existing features:
-*** Adapted the given Address Book UI into EYLAH's first draft UI. https://github.com/
+*** Adapted the given Address Book UI into EYLAH's first draft UI.
 
 ** Documentation:
-*** To be added
+*** Updated Developer Guide to include Paid Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/352[#352])
+*** Updated Developer Guide to include List Amount Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/355[#355])
+*** Updated Developer Guide to include List Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/355[#355])
+*** Updated Developer Guide to include Expense Splitter main activity diagram (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/252[#252])
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com/nus-cs2103-AY1920S2/forum/issues/105[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** PRs reviewed (with non-trivial review comments): (Pull requests: https://github.com/AY1920S2-CS2103T-W13-1/main/pull/132[#132], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/134[#134])
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com/nus-cs2103-AY1920S2/forum/issues/105[3])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/willyseahh/ped/issues)
 
 ** Tools:
-
-==== Code contributed
-Please click the following link to see my code contributions dashboard.
-https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=willyseahh&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Report]
 
 == Contributions to the User Guide
 
@@ -138,9 +139,16 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=willyseahh&sort=group
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=listamount]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=paid]
+
+include::../UserGuide.adoc[tag=introtoexpensesplitter]
+
+include::../UserGuide.adoc[tag=commandsummaryforexpensesplitter]
+
+include::../UserGuide.adoc[tag=intro]
+
 
 == Contributions to the Developer Guide
 
@@ -148,14 +156,21 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=expensesplitteractivitydiagram]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=expensesplitterintro]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterlistamountcommand]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterlistreceiptcommand]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterpaidcommand]
+
+include::../DeveloperGuide.adoc[tag=willyusecase]
+
+include::../DeveloperGuide.adoc[tag=userstory]
 
 
-== PROJECT: PowerPointLabs
 
----
 
-_{Optionally, you may include other projects in your portfolio.}_
 
