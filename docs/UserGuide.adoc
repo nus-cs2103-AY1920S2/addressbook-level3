@@ -198,6 +198,9 @@ you have added to the application.
 The coupon card displays information about each coupon, and
 it is styled to look like a coupon itself!
 
+[NOTE]
+Coupon card duplicates cannot exist!
+
 === Summary tab
 
 In the summary tab,
@@ -206,13 +209,21 @@ In the summary tab,
 
 === Help tab
 
-The help tab
+The help tab shows you a short description of how
+to use all the commands in Coupon Stash.
+
+[WARNING]
+As compared to the User Guide, the description in the
+help tab is less detailed!
 
 === Calendar
 
+The calendar shows you all the dates this month.
 
 === Command result box
 
+The command result box shows you messages depending on
+whether your command was successful or not.
 
 [[Features]]
 == Features
