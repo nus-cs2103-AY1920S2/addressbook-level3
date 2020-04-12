@@ -268,6 +268,21 @@ Examples:
 * `(rt)add n/rubbish l/bedok o/0900:2300 p/$$ v/No` +
 Adds a new restaurant called rubbish at bedok with 2 dollar signs price point and opens from 9am to 11pm, and has yet to be visited.
 
+==== Edits a restaurant: `(rt)edit`
+
+Edits a restaurant from the list +
+Format: `(rt)edit INDEX [n/RESTAURANT] [l/LOCATION] [v/VISITED] [o/OPERATING_HOURS] [p/PRICE] [c/CUISINE]`
+
+****
+* INDEX must be a positive integer. It corresponds to the INDEX of the restaurant as shown when you list all restaurants in the Restaurant Book using the list function.
+* At least one optional field needs to be specified.
+****
+
+Example:
+
+* `(rt)edit 1 o/0700:2200` +
+Edits the 1st restaurant's operating hours to "0700:2200" in the restaurant book.
+
 ==== Deletes a restaurant: `(rt)delete`
 
 Deletes a restaurant from the list +
@@ -332,16 +347,6 @@ Examples:
 Delete notes to the restaurant at index 1, at line number 2 of recommended food notes, at line number 1 of good food notes, at line number 3 of bad food notes.
 * `(rt)editnote 2 gl/1 gl/2` +
 Edits a note to the restaurant at index 2, at line numbers 1 and 2 of good food notes.
-
-==== Change visited status of restaurant : `(rt)visited`
-
-Updates visited status of restaurant to visited +
-Format: `(rt)visited INDEX`
-
-Examples:
-
-* `(rt)visited 3` +
-Updated visited status of restaurant at index 3 to visited.
 
 ==== List all restaurants : `(rt)list`
 

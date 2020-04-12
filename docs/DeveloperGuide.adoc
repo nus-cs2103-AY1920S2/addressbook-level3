@@ -724,6 +724,14 @@ Expected: No detailed view of contact is displayed. Error details shown in the s
 . `(rt)list` +
 Expected: All restaurants added should be displayed.
 
+=== Editing a restaurant
+
+. Edits a restaurant while all restaurants are listed
+
+.. Prerequisites: List all restaurants using the `(rt)list` command. Multiple restaurants in the list.
+.. Test case: `(rt)edit 1 v/Yes o/0900:2200` +
+   Expected: Edits the first restaurant visited status to "Yes" and operating hours to "0900:2200".
+
 === Deleting a restaurant
 
 . Deletes a restaurant while all restaurants are listed
@@ -761,18 +769,6 @@ Expected: All restaurants added should be displayed.
    Expected: Delete notes to the restaurant at index 1, at line number 1 of recommended food notes, at line number 1 of good food notes, at line number 2 of bad food notes.
 .. Test case `(rt)deletenote 1 rl/1 gl/x bl/aaa` (where x is larger than the size of good food notes, and non-integer line number for bad food notes) +
    Expected: No restaurant's bad notes is edited. Error details shown in the status message.
-
-=== Mark a restaurant as visited
-
-. A restaurant has yet to be visited
-
-.. Test case: `(rt)visited 1` +
-   Expected: Changes the visited status of the restaurant at index 1. Details of the edited restaurant shown in the status message.
-
-. A restaurant has been visited
-
-.. Test case: `(rt)visited 1` +
-   Expected: The restaurant visited status will not change. Error details shown in the status message.
 
 === Search for restaurants based on a number of criteria
 
