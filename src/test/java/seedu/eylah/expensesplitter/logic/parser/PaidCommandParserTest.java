@@ -33,5 +33,13 @@ public class PaidCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT , PaidCommand.MESSAGE_USAGE));
     }
 
+    @Test
+    public void parse_compulsoryMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PaidCommand.MESSAGE_USAGE);
+
+        assertParseFailure(parser, null + "1",
+            expectedMessage);
+    }
+
 
 }
