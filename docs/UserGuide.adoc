@@ -16,6 +16,7 @@ endif::[]
 
 By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 Welcome to *MODdy*!
@@ -29,7 +30,9 @@ This user guide aims to give you a clearer understanding on how to use *MODdy* a
 Currently, *MODdy* targets student from *School of Computing (SoC)* in the National University of Singapore (NUS).
 If you are from SoC and is looking for an application to manage all your modules and tasks throughout your degree progression, what are you waiting for?
 Jump to <<Quick Start, Quick Start>> to get started. Hope you enjoy the company of *MODdy* on your SoC journey!
+// end::introduction[]
 
+// tag::about[]
 == About the User Guide
 This user guide aims to provide you with essential information on how to use MODdy.
 
@@ -56,7 +59,9 @@ kbd:[Enter] : This grey highlight with white outline indicates a keyboard's key.
 NOTE: This symbol indicates information that you may wish to note.
 
 TIP: This symbol indicates tips provided by us.
+// end::about[]
 
+// tag::quickstart[]
 == Quick Start
 
 This section provides you with steps on how you can install *MODdy* on your computer and how to get started with *MODdy*.
@@ -79,6 +84,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : Closes the GUI and exits MODdy.
 
 .  Refer to <<Features>> for details of each command.
+// end::quickstart[]
 
 [[Features]]
 == Features
@@ -106,7 +112,7 @@ Format: `help`
 image::Help.png[width="790"]
 
 
-
+// tag::new[]
 [[New]]
 === Creating new user profile : `new`
 
@@ -128,10 +134,10 @@ image::New.png[width="790"]
 
 TIP: `new n/John c/Computer Science y/2.2 f/Software Engineering` +
 If you know your focus area, using this command will add focus area "Software Engineering" to your new profile alongside other details.
+// end::new[]
 
 
-
-
+// tag::add[]
 [[Add]]
 === Adding module or task: `add`
 
@@ -196,9 +202,9 @@ NOTE: Dates are highlighted and sorted according to the number of days remaining
 Red: 0 - 5 days +
 Orange: 6 - 10 days +
 Green: ≥ 11 days
+// end::add[]
 
 // tag::edit[]
-
 [[Edit]]
 === Editing: `edit`
 
@@ -256,11 +262,9 @@ image::EditDeadline.png[width="790"]
 
 TIP: `edit m/CS2105 t/Assignment d/2020-12-12 12:00` +
 You can use this command to edit the deadline of Assignment, under module CS2105, to 12 December 2020 12:00.
-
-
 // end::edit[]
-// tag::show[]
 
+// tag::show[]
 [[Show]]
 === Showing profile, module, semester, course or focus area: `show`
 
@@ -269,7 +273,7 @@ Not all information can be seen all at once. To see this information you have ad
 There are *five* ways you can use the `show` command:
 
 ==== Showing your profile +
-Format: `show n/NAME`
+Format: `show n/name`
 
 Example: `shown n/Brad` shows the profile overview of user "Brad", as shown in Figure 10 below.
 
@@ -321,7 +325,7 @@ as shown in Figure 14 below.
 image::ShowFocusArea.png[width="790"]
 
 TIP: You can retrieve the list of focus areas under a course using the <<showCourse, `show c/course`>> command. This list can also be found in the <<Appendix, Appendix>> of this guide.
-
+// end::show[]
 
 // tag::delete[]
 [[Delete]]
@@ -380,7 +384,9 @@ Example: `delete m/CS2103T g/` deletes the grade of module CS2103T, as shown in 
 
 .Grade of CS2103T is deleted
 image::DeleteGrade.png[width="790"]
-// end::delete[] [[Home]]
+// end::delete[]
+
+[[Home]]
 === Returning to Homepage : `home`
 
 If you want to return to *MODdy*'s Homepage, use this command, as shown in the figure below.
@@ -408,13 +414,14 @@ Done with managing your modules and tasks for the day? If you want to close the 
 
 Format: `exit`
 
-
+// tag::save[]
 === Saving your data
 
 If your *MODdy* application closes unexpectedly or if your computer suddenly shuts down by itself, do not worry! +
 Your *MODdy*'s data is saved in the hard disk automatically after any command that changes the data. There is no need for you to save manually and worry that you will lose any unsaved data.
+// end::sav[]
 
-
+// tag::faq[]
 == FAQ
 This section provides you with some commonly asked questions you might have when using *MODdy*. +
 Here are our answers to those questions!
@@ -427,7 +434,9 @@ Here are our answers to those questions!
 
 *Q3*: How do I prevent others from seeing my grades when using my computer?
 *A4*: We are currently working on an improved version of *MODdy* where there will be log in features to encrypt your data. Do keep a look out for future updates!
+// end::faq[]
 
+// tag:summary[]
 == Command Summary
 
 This section provides you with a summary of the basic commands you can perform in *MODdy*.
@@ -466,6 +475,7 @@ e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`, `delete m/CS2105
 * <<Clear, *Clear*>> : `clear`
 
 * <<Exit, *Exit*>> : `exit`
+// end::summary[]
 
 // tag::appendix[]
 == Appendix

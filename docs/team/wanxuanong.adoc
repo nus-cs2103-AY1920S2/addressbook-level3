@@ -14,60 +14,64 @@ It is an application developed by a team of 5 NUS Computing students, adapted fr
 
 == Summary of contributions
 
-* *Major enhancement*: implemented the ShowCommand feature
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Added the ability to *show profile, module, semester and focus area*
+** What it does: Allows the user to display an overview of his profile, display details of a module, display all modules taken in the specified semester, and display all modules available under the specified focus area.
+** Justification: This feature improves the product significantly because it allows a user to see all his modules and grades at one glance, and this convenience is a main feature of this app. It also allows user to see the modules he has taken, information on each module and requirements of each focus area so they can plan for modules to take better.
+** Highlights: This enhancement required an in-depth analysis of design alternatives as there were many different objects (e.g. `Name`, `ModuleCode`, `Year`, `FocusArea)` to be parsed separately. The implementation too was challenging as it was decided to have a single `ShowCommand` class instead of extracting each `show` feature to inherit a `ShowCommand` class.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: Added the ability to *store modules under each course requirements, as well as modules under each focus areas in JSON format*
+** What it does: Allows the app to parse the course data into relevant Java objects, and to be used for the implementations of the app's main features.
+** Justification: This feature improves the product significantly because it allows the app to provide users with all of SoC courses' information from different websites in a single app, which is a main feature of this app.
+** Highlights: This enhancement required the process of going through each of the course's website under NUS School of Computing, as well as manually extracting and converting information provided by NUS SoC into the JSON file.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: Added the ability to *manage tasks with deadlines* by implementing deadlines related classes.
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=wanxuanong[Functional and test code]
+
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed all 5 milestones `v1.0` - `v1.4` on GitHub systematically, linking relevant issues and pull requests for each of them
+(Milestone https://github.com/AY1920S2-CS2103T-W13-3/main/milestone/1[v1.0], https://github.com/AY1920S2-CS2103T-W13-3/main/milestone/2[v1.1], https://github.com/AY1920S2-CS2103T-W13-3/main/milestone/3[v1.2], https://github.com/AY1920S2-CS2103T-W13-3/main/milestone/4[v1.3], https://github.com/AY1920S2-CS2103T-W13-3/main/milestone/5[v1.4]).
+*** Maintained the entire issue tracker by opening issues for each milestone, tagging with the appropriate labels, assigning issues to members and milestones, authoring up to *79* https://github.com/AY1920S2-CS2103T-W13-3/main/issues/created_by/wanxuanong[issues].
 
-_{you can add/remove categories in the list above}_
+** Team-based tasks:
+*** Updated User Guide sections that are not specific to features implemented by each member, e.g.
+https://ay1920s2-cs2103t-w13-3.github.io/main/UserGuide.html#introduction[Introduction], https://ay1920s2-cs2103t-w13-3.github.io/main/UserGuide.html#about-the-user-guide[About the user guide], https://ay1920s2-cs2103t-w13-3.github.io/main/UserGuide.html#quick-start[Quick Start], https://ay1920s2-cs2103t-w13-3.github.io/main/UserGuide.html#faq[FAQ], https://ay1920s2-cs2103t-w13-3.github.io/main/UserGuide.html#command-summary[Command Summary].
+*** Updated Developer Guide sections that are not specific to features implemented by each member, e.g.
+https://ay1920s2-cs2103t-w13-3.github.io/main/DeveloperGuide.html#introduction[Introduction], https://ay1920s2-cs2103t-w13-3.github.io/main/DeveloperGuide.html#setting-up[Setting up], https://ay1920s2-cs2103t-w13-3.github.io/main/DeveloperGuide.html#Design-Architecture[Design: Architecture].
+*** Did major cosmetic tweaks to revamp the User Guide, redesigning the way information is presented in the User Guide (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/150[#150], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/156[#156], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/160[#160]).
+
+** Enhancements to existing features:
+*** Wrote additional tests for existing features (`add` and `delete`) to increase coverage across a few pull requests (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/266/commits/3c5900b5df7d592eb4283b44a2ac99db0345c012[#266], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/287[#287], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/314[#314]).
+
+** Community:
+*** PRs reviewed: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/72[#72], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/74[#74], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/75[#75], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/82[#82], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/94[#94]
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/wanxuanong/ped/issues[ZeroToOne], https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/36[CookBuddy Recipe Manager]).
+
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide for features implemented. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=new]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=add]
+
+
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide for features implemented. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=command]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=new]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=add]

@@ -193,7 +193,7 @@ Each Module class consists of a Personal class, alongside other module attribute
 
 These attributes were included in `Personal` as they are the attributes that are personal to the user, and which the user can edit at any time.
 
-
+// tag::command[]
 === Structure of Command Features
 
 The `Command` features in MODdy all extends from a single abstract class `Command`. A specific `Command` object created is executed by the `LogicManger` using the respective `Parser`, which then returns a `CommandResult` object and provides the result of that `Command` feature. +
@@ -204,7 +204,9 @@ The following class diagram shows the implementation of MODdy's `Command` featur
 image::CommandClassDiagram.png[]
 
 The sections below gives more details on each `Command` feature.
+// end::command[]
 
+// tag::new[]
 === New Profile Feature
 The `new` feature allows the user to create a `Profile` with the command `new`, appended with the tags.
 
@@ -235,7 +237,9 @@ image::NewCommandSequenceDiagram.png[]
 ** Cons: More tags to parse, and also less intuitive for user (have to use both `cs/` and `y/`).
 
 Eventually, we decided on alternative 1 to prioritize user-friendliness and cleaner code.
+// end::new[]
 
+// tag::add[]
 === Add Module / Task Feature
 
 The `add` feature allows the user to add a `Module` and a `Task` with a `Deadline` for an existing module with the command `add`, appended with the tags.
@@ -290,8 +294,9 @@ Eventually, we decided on alternative 1 for the convenience of the user since th
 
 
 Eventually, we decided on alternative 1 for the benefits of the user. To tackle the cons, we have set `time` to be "23:59" by default if user did not specify.
+// end::add[]
 
-
+// tag::show[]
 === Show Feature
 
 The `show` feature allows the user to display information about a `Module`, `Course`, `FocusArea` or `Semester` with the command `show`, appended with the tags below. These information cannot be seen from the main UI and have to be displayed through the `show` command.
