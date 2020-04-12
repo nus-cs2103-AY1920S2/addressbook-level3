@@ -59,6 +59,8 @@ public class BlockContentDisplayView extends ViewPart<WebView> {
         String markdownBody = currentlyOpenBlock.getBody().getText();
 
         String htmlBody = Compiler.compile(markdownBody);
+        blockContentDisplay.getEngine().setUserStyleSheetLocation(getClass()
+                .getResource("/view/blockcontent/BlockContentDisplay.css").toExternalForm());
         blockContentDisplay.getEngine().loadContent(htmlBody);
     }
 }
