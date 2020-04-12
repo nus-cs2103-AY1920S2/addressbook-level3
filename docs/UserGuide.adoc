@@ -781,7 +781,8 @@ coupons in the coupon stash) +
 ====
 
 [NOTE]
-Changes to user preferences cannot be undone.
+Changes to user preferences, such as the
+<<setcurrency, setting of the currency symbol>>, cannot be undone.
 
 [WARNING]
 You can only undo commands which you have input since
@@ -849,6 +850,7 @@ Open the coupon at index 1 in a new window.
 image::expand_example.png[]
 
 // tag::setcurrency[]
+[[setcurrency]]
 === Setting currency symbol: `setcurrency`
 Sets the currency symbol used in Coupon Stash.
 This will force Coupon Stash to reload all coupons
