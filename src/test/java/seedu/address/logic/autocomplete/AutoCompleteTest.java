@@ -51,7 +51,7 @@ public class AutoCompleteTest {
     // Unambiguous command: "graph"
     private static final String GRAPH_COMMAND = "gra";
     private static final int GRAPH_CURRENT_CARET_POSITION = 3;
-    private static final int GRAPH_CARET_POSITION_TO_SET = 8; // index right after the "/" in "t/"
+    private static final int GRAPH_CARET_POSITION_TO_SET = 8; // index right after the "/" in "n/"
     private static final String GRAPH_FEEDBACK_TO_SET = GraphCommand.MESSAGE_USAGE;
     private static final String GRAPH_COMMAND_TO_SET = "graph n/ a/ sd/ ed/";
 
@@ -65,7 +65,7 @@ public class AutoCompleteTest {
     // Unambiguous command: "schedule"
     private static final String SCHEDULE_COMMAND = "sch";
     private static final int SCHEDULE_CURRENT_CARET_POSITION = 3;
-    private static final int SCHEDULE_CARET_POSITION_TO_SET = 9; // index at the preamble (located at INDEX)
+    private static final int SCHEDULE_CARET_POSITION_TO_SET = 9; // index just after first white space
     private static final String SCHEDULE_FEEDBACK_TO_SET = ScheduleCommand.MESSAGE_USAGE;
     private static final String SCHEDULE_COMMAND_TO_SET = "schedule  sch/";
 
