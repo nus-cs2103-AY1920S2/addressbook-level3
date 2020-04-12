@@ -25,8 +25,8 @@ for the Diet Tracker* portion of EYLAH
 (Related Storge - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/312[#312])
 
 *** *What it does:* +
-Height and Weight are used when the User wants to store their personal health metrics into Eylah
-for the ease of Diet Tracking. Self is the object that represents the User in Eylah.
+Height and Weight are used when the User wants to store their personal health metrics into EYLAH
+for the ease of Diet Tracking. Self is the object that represents the User in EYLAH.
 Bmi is used to do calculations using the Height and Weight of the User.
 
 *** *Justification:* +
@@ -68,10 +68,10 @@ Seedu Addressbook Level 3, for providing a basis by which we could adapt their s
 (https://github.com/AY1920S2-CS2103T-W13-1/main/pull/135#discussion_r393328371[#Github Discussion])
 
 *** *What it does:* +
-Allows the integration of the both Diet Tracker and Expense Splitter seamlessly in the unified Eylah class.
+Allows the integration of the both Diet Tracker and Expense Splitter seamlessly in the unified EYLAH class.
 
 *** *Justification:* +
-Otherwise, the name usages in the code would be lengthy and hard to read also. Class names in the unified Eylah files would include the entire path name of the Class file.
+Otherwise, the name usages in the code would be lengthy and hard to read also. Class names in the unified EYLAH files would include the entire path name of the Class file.
 
 *** *Highlights:* +
 I noticed this in my review of my team mate, Shee Xiong's, initial reorganisation of the code to allow for unification of both components. Upon further research as to why he may have left the class names as they were, I realised that it was because Java does not support **class name aliasing**, so we could not import the same named classes from DietTracker and ExpenseSplitter without first renaming them.
