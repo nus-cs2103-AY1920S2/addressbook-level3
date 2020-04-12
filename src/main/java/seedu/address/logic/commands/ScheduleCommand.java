@@ -49,10 +49,10 @@ public class ScheduleCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         ObservableList<Assignment> assignmentList = model.getAssignmentList();
-        ArrayList<String> unscheduledAssignments = new ArrayList<>();
+        ArrayList<String> recordOfUnscheduledAssignments = new ArrayList<>();
 
         model.createSchedule(numDays);
-        ArrayList<Day> allocationResult = generateSchedule(numDays, assignmentList, unscheduledAssignments);
+        ArrayList<Day> allocationResult = generateSchedule(numDays, assignmentList, recordOfUnscheduledAssignments);
 
         for (int i = 0; i < numDays; i++) {
             model.setDay(i, allocationResult.get(i));
@@ -60,8 +60,8 @@ public class ScheduleCommand extends Command {
 
         String successMessage = MESSAGE_SUCCESS;
 
-        for (int i = 0; i < unscheduledAssignments.size(); i++) {
-            successMessage = successMessage + "\n" + (i + 1) + ". " + unscheduledAssignments.get(i);
+        for (int i = 0; i < recordOfUnscheduledAssignments.size(); i++) {
+            successMessage = successMessage + "\n" + (i + 1) + ". " + recordOfUnscheduledAssignments.get(i);
         }
 
         logger.info("Scheduling was done successfully.");
@@ -78,7 +78,7 @@ public class ScheduleCommand extends Command {
      * Aim is to have the workload as evenly spread out across days (from current date to deadline) as possible.
      */
     public ArrayList<Day> generateSchedule(int numDays, ObservableList<Assignment> assignmentList,
-                                           ArrayList<String> unscheduledAssignments) {
+                                           ArrayList<String> recordOfUnscheduledAssignments) {
 
         // Keeps track of the total number of hours allocated to each day for all assignments (Calculation purposes)
         ArrayList<BigDecimal> distributedHoursAllAssignments = new ArrayList<>();
@@ -113,7 +113,7 @@ public class ScheduleCommand extends Command {
                     totalHoursToBeAllocated, deadline, currDateTime, noOfDaysBetween);
 
                 recordResultsForAssignment(allocationResult, newSchedule, distributedHoursResult,
-                    unscheduledAssignments, numDays, noOfDaysBetween, assignmentTitle, totalHoursToBeAllocated);
+                    recordOfUnscheduledAssignments, numDays, noOfDaysBetween, assignmentTitle, totalHoursToBeAllocated);
             }
         }
 
@@ -133,14 +133,16 @@ public class ScheduleCommand extends Command {
      */
     private void recordResultsForAssignment(ArrayList<BigDecimal> allocationResult, ArrayList<Day> newSchedule,
                                             ArrayList<BigDecimal> distributedHoursResult,
-                                            ArrayList<String> unscheduledAssignments, int numDays, int noOfDaysBetween,
-                                            String assignmentTitle, BigDecimal totalHoursToBeAllocated) {
+                                            ArrayList<String> recordOfUnscheduledAssignments, int numDays,
+                                            int noOfDaysBetween, String assignmentTitle,
+                                            BigDecimal totalHoursToBeAllocated) {
 
         int daysAllocated = Math.min(allocationResult.size(), numDays);
         daysAllocated = Math.min(daysAllocated, noOfDaysBetween + 1);
 
         BigDecimal actualTotalHoursAllocated = BigDecimal.ZERO;
 
+        // Record amount of time allocated to each day for this assignment
         for (int i = 0; i < daysAllocated; i++) {
             if (allocationResult.get(i).compareTo(new BigDecimal(Float.toString((float) 0.25))) > 0) {
                 float hoursAllocatedEachDay = (float) (Math.round(allocationResult.get(i).floatValue() * 2) / 2.0);
@@ -152,15 +154,17 @@ public class ScheduleCommand extends Command {
             }
         }
 
+        // Record assignment if deadline falls within queried duration
         if (noOfDaysBetween < numDays) {
             newSchedule.get(noOfDaysBetween).addDueAssignment(assignmentTitle);
         }
 
+        // Record unscheduled time for this assignment (if any)
         if (allocationResult.size() > (noOfDaysBetween + 1)) {
             BigDecimal unassignedHours = totalHoursToBeAllocated.subtract(actualTotalHoursAllocated);
             float unassignedHoursFloat =
                 (float) (Math.round(unassignedHours.floatValue() * 2) / 2.0);
-            unscheduledAssignments.add(assignmentTitle + " (" + unassignedHoursFloat + " hours)");
+            recordOfUnscheduledAssignments.add(assignmentTitle + " (" + unassignedHoursFloat + " hours)");
         }
     }
 
