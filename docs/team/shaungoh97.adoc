@@ -43,6 +43,9 @@ features, which is why FoodieBoe is a must-have for anyone who dines in NUS.
 *** Improve UI by including user-friendly messages to give user more direction when using FoodieBot (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/132[#132])
 ** Documentation:
 *** Maintained quality of language in User Guide and Developer Guide (Pull Request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/110[#100])
+** Community:
+*** Contributed to the main module forum (Issues https://github.com/nus-cs2103-AY1920S2/forum/issues/30[#30] https://github.com/nus-cs2103-AY1920S2/forum/issues/57[#57])
+*** Reported bugs for the team (Issues https://github.com/AY1920S2-CS2103T-F11-3/main/issues/103[#103])
 ** Collecting of Sample Data:
 *** Went to The Deck and Nus Flavors to take pictures and collect pictures of the canteens, stalls and food to fill
     FoodieBot with sample data.(Pull Request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/91[#91]
