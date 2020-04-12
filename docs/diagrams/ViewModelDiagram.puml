@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+
+Class MainWindow
+Class ViewModel
+Class observableStudentDetailsMap
+Class observableStaffDetailsMap
+Class observableCourseDetailsMap
+Class observableFinanceDetailsMap
+Class observableAssignmentDetailsMap
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+Class ModelManager
+Class EdgeManager
+Class ProgressManager
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+ViewModel .right.|> Logic
+ViewModel *-down-> observableStudentDetailsMap
+ViewModel *-down-> observableCourseDetailsMap
+ViewModel *-down-> observableStaffDetailsMap
+ViewModel *-down-> observableAssignmentDetailsMap
+ViewModel *-down-> observableFinanceDetailsMap
+MainWindow .right.|> Logic
+
+ViewModel .down.|> Model
+
+@enduml
