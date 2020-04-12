@@ -60,6 +60,7 @@ a|
    . Viewing help: help
    . Clearing all entries: clear
    . Exiting the program: exit
+   . Reminding of coupon expiry
    . Saving the data
  |4
 
@@ -184,10 +185,10 @@ times)
 ** can be used as `t/pizza`, `t/friend t/value` or not used at all etc.
 * Parameters can be in any order
 ** e.g. specifying `n/NAME s/SAVINGS` is the same as `s/SAVINGS n/NAME`
-* Dates are all in the D-M-YYYY format (Coupon Stash date format)
+* [[coupon-stash-date-format]]Dates are all in the D-M-YYYY format (Coupon Stash date format)
 ** D and M can be one or two digits, but YYYY has to be four digits
 ** e.g. `1-1-2020` and `01-01-2020` are valid dates
-* MonthYear are all in the M-YYYY format (Coupon Stash MonthYear format)
+* [[coupon-stash-monthyear-format]]MonthYear are all in the M-YYYY format (Coupon Stash MonthYear format)
 ** M can be one or two digits, but YYYY has to be four digits
 ** e.g. `1-2020` and `01-2020` are valid MonthYears
 ****
@@ -199,21 +200,24 @@ Adds a coupon. Some fields like `name`, `expiry date` and `savings` are
 required.
 Optional fields like `promo code` and `tags` may be provided as well.
 
-Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS_OR_FREE_ITEM [sd/START_DATE] [r/REMIND_DATE] [p/PROMO_CODE] [c/CONDITIONS][u/USAGE] [l/USAGE_LIMIT] [s/EXTRA_FREE_ITEMS]... [t/TAG]...`
+Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS_OR_FREE_ITEM [sd/START_DATE] [r/REMIND_DATE] [p/PROMO_CODE] [c/CONDITIONS] [u/USAGE] [l/USAGE_LIMIT] [s/EXTRA_FREE_ITEMS]... [t/TAG]...`
 
 [TIP]
 A coupon can have any number of tags (including 0)
 
-[TIP]
-If unspecified, the default `REMIND_DATE` of a coupon will be set to
-`EXPIRY_DATE` - 3 days.
+[NOTE]
+If unspecified, the default remind date of a coupon will be set to
+3 days before the expiry date. Go to <<Reminding of coupon expiry>>  to
+learn more about remind dates.
 
 ****
 * Coupons must have at least one "savings" value, whether it is
 a flat monetary amount (e.g. $1.00), a percentage (e.g. 10%) or
-an item (e.g. Free Water Bottle).
+an item. (e.g. Free Water Bottle)
 * Savings can be represented by multiple free items, but not multiple
 monetary amounts or percentage amounts.
+* Free item names cannot contain any numbers. (e.g. iPhone 11 is an invalid
+free item name as it contains the number 11)
 * Coupons cannot have both a monetary amount and a percentage amount.
 * To add more free items, use the same prefix as before!
 ****
@@ -232,32 +236,35 @@ Adds a new Coupon: +
 image:ug_grabfood.png[]
 
 [TIP]
-If your coupon has unlimited use, set the limit of the coupon to a number less
-than 1! E.g. `l/0`
+If your coupon allows for unlimited usage, set the limit of the coupon to a
+number less than 1! E.g. `l/0`
 
 === Editing a coupon: `edit`
 
 Edits an existing coupon in the coupon book.
 
-Format: `edit INDEX [n/NAME] [s/SAVINGS]... [sd/START_DATE] [e/EXPIRY_DATE]
-[p/PROMO_CODE] [c/CONDITIONS] [l/USAGE_LIMIT] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [e/EXPIRY_DATE] [sd/START_DATE] [r/REMIND_DATE] [p/PROMO_CODE] [c/CONDITION] [l/USAGE_LIMIT] [s/SAVINGS_OR_FREE_ITEMS]... [t/TAG]...`
 
 ****
 * Edits the coupon at the specified `INDEX`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the coupon will be removed i.e
-adding of tags is not cumulative.
-* You can remove all the coupon’s tags by typing t/ without specifying any
+* When editing tags, the existing tags of the coupon will be removed. (i.e
+adding of tags is not cumulative)
+* You can remove all of a  coupon’s tags by typing `t/` without specifying any
 tags after it.
-* When editing savings, existing savings of the coupon will also
+* When editing savings, just like tags, existing savings of the coupon will also
 be removed.
-* Usage is disallowed from editing.
+* Usage cannot be edited.
 ****
 
-[WARNING]
+[NOTE]
 Savings cannot be cleared in the same way as clearing tags,
-as a coupon must have at least 1 saving!
+as a coupon must have at least 1 saving.
+
+[NOTE]
+Remind date cannot be removed or cleared. Go to <<Reminding of coupon expiry>>
+to learn more about remind dates.
 
 Examples:
 
@@ -313,8 +320,8 @@ that are used before.
 ****
 
 [NOTE]
-`PREFIX` can be left blank to list all active coupons (coupons that are not
-expired/ not fully used/ not archived).
+`PREFIX` can be left blank to list all active coupons. (coupons that are not
+expired/ not fully used/ not archived)
 
 Examples:
 
@@ -374,18 +381,18 @@ Format: `saved`
 - If a specific date is given, Coupon Stash will show you savings
 earned only on that day.
 +
-Format: `saved d/(date to show)`
+Format: `saved d/DATE_TO_SHOW`
 
 - If a start date and end date are given, Coupon Stash will show you
 the total savings accumulated over all the dates between that start date
 and end date, inclusive of those dates as well.
 +
 
-Format: `saved sd/(start date) e/(end date)`
+Format: `saved sd/START_DATE e/END_DATE`
 
 ****
-* Dates are given in Coupon Stash date format, namely D-M-YYYY where D and M
-can be single or double digits.
+* Dates are given in <<coupon-stash-date-format, Coupon Stash date format>>,
+namely D-M-YYYY where D and M can be single or double digits.
 * Shows you a numeric value (e.g. 12.00 to represent twelve
 dollars/euros/pounds/pesos) that represents how much money
 you saved since a certain date, as well as certain items that you might have
@@ -437,13 +444,12 @@ Examples:
 Archives the first coupon in the coupon stash.
 
 [TIP]
-Coupon Stash will automatically archive your coupons once their usage limit has
-been reached,
-or when they have expired, to keep your stash more organized!
+To keep your coupons more organized, Coupon Stash will automatically archive
+your coupons once their usage limit has been reached, or when they have expired.
 // end::archive[]
 
 === Unarchiving a coupon: `unarchive`
-Unarchive a coupon, thus brining it back to your active coupons list.
+Unarchive a coupon, thus bringing it back to your active coupons list.
 
 [NOTE]
 To unarchive a coupon, you have to make sure that the archived coupon is
@@ -469,12 +475,12 @@ Find coupon(s) whose names contain any of the given keywords.
 Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
-* The search is case insensitive. e.g mALa will match Mala
+* The search is case insensitive. e.g mALa will match Mala.
 * The order of the keywords does not matter. e.g. Rice Chicken will match
-Chicken Rice
-* Only full words will be matched e.g. Chicken will not match Chickens
+Chicken Rice.
+* Only full words will be matched e.g. Chicken will not match Chickens.
 * Coupons matching at least one keyword will be returned (i.e. OR search).
-e.g. Chicken Rice will return Duck Rice, Chicken Chop
+e.g. Chicken Rice will return Duck Rice, Chicken Chop.
 ****
 
 [TIP]
@@ -484,7 +490,8 @@ name in your coupon name!
 Examples:
 
 * `find ken` +
-Returns Ken sKitchen, KEN RIDGE Optical, Chic ken Rice
+For example, coupons with these names would be returned:
+**Ken** Kitchen, **KEN** RIDGE Optical, **ken** you build a snowman.
 
 [NOTE]
 The <<Locating coupons by name: `find`, `find`>> command searches the
@@ -501,9 +508,12 @@ Shows a list of all your coupons expiring on a date or during a MonthYear.
 Format: `expiring e/EXPIRY_DATE` or `expiring my/MONTH_YEAR`
 
 ****
-* Lists all coupons that are expiring on the specified EXPIRY_DATE or during
-the specified MONTH_YEAR
-* The date or MonthYear must be in Coupon Stash date format
+* Lists all coupons that are expiring on the specified expiry date or during
+the specified month year.
+* The date or MonthYear must follow the
+<<coupon-stash-date-format, Coupon Stash date format>>
+or the <<coupon-stash-monthyear-format, Coupon Stash MonthYear format>>
+respectively.
 ****
 
 Examples:
@@ -515,21 +525,21 @@ Shows you all the coupons that will expire on 11 September 2020.
 Shows you all the coupons that will expire during September 2020.
 
 [NOTE]
-The `expiring` command will include archived coupons in its results
-too. Coupons that are expiring in the archives are
+The `expiring` command will include <<_archiving_a_coupon_archive, archived>>
+coupons in its results too. Coupons that are expiring in the archives are
 displayed **below** the non-archived matches.
 // Insert GIF/image
 
 === Sorting coupons: `sort`
 
-Sorts the coupons in CouponStash in ascending order. It is possible to sort by
-coupon name or expiry date.
+Sorts the coupons in CouponStash in **ascending** order. It is possible to sort
+by coupon name or expiry date.
 
 [NOTE]
 The sorting order will persist throughout the runtime of the program.
 The command will sort any coupons currently on screen, including
-archived coupons , if they are present on screen. Archived coupons will always appear
-**below** active coupons.
+<<_archiving_a_coupon_archive, archived>> coupons , if they are present on
+screen. Archived coupons will always appear **below** active coupons.
 // Put GIF here
 
 Format: `sort PREFIX`
@@ -594,10 +604,20 @@ Instagram!
 Format: `share INDEX`
 
 [NOTE]
-Image generated looks exactly like how a coupon shows up in the user interface.
+Image generated will have an index of 1 regardless of its true index.
 Below is a sample of how a shared coupon image looks like:
 
 image::example_shared_coupon.png[]
+
+Examples:
+
+* `list` +
+`share 2` +
+Shares the 2nd coupon in the coupon stash and save it as a `.png` file.
+* `find chicken` +
+`share 1` +
+Shares the 1st coupon in the results of the find command and save it as a `.png`
+file.
 
 
 === Undoing the previous command: `undo`
@@ -615,20 +635,22 @@ coupons in the coupon stash) +
 * <<Archiving a coupon: `archive`, `archive`>>
 * <<Unarchiving a coupon: `unarchive`, `unarchive`>>
 * <<Clearing all entries: `clear`, `clear`>>
-
-Note that changes to user preferences cannot be undone.
 ====
+
+[NOTE]
+Changes to user preferences cannot be undone.
 
 Examples:
 
-* `remind 1 r/ 25-12-2020` +
+* `edit 1 r/ 25-12-2020` +
   `undo` +
-Undo the `remind` command. Reminder is removed.
+Undo the `edit` command. Remind date of 1st coupon reverts back to its original
+value.
 
 
-* `edit 1 n/ Duck Rice` +
+* `delete 1` +
   `undo` +
-Revert the edit that was performed.
+Revert the `delete` that was performed. Deleted coupon is restored.
 
 === Redoing the undone command: `redo`
 Redo the previously undone operation. This is akin to undoing an
@@ -638,16 +660,17 @@ Format: `redo`
 
 Examples:
 
-* `remind 1 r/ 25-12-2020` +
+* `edit 1 r/ 25-12-2020` +
   `undo` +
   `redo` +
-Un-undo the `remind` command.
+Un-undo the `edit` command. Remind date of 1st coupon is edited.
+value.
 
 
-* `edit 1 n/ Duck Rice` +
+* `delete 1` +
   `undo` +
   `redo` +
-Un-undo the `edit` command.
+Un-undo the `delete` command. 1st coupon is deleted.
 
 === Displaying a Month-Year on the calendar: `goto`
 Goes to the specified Month-Year on the calendar. +
@@ -667,12 +690,15 @@ Format: `expand INDEX`
 * Expands the coupon at the specified INDEX.
 ****
 
-image:expand_example.png[]
-
-Example:
+Examples:
 
 * `expand 1` +
 Open the coupon at index 1 in a new window.
+
+
+.Example of an expanded coupon window.
+[caption=""]
+image::expand_example.png[]
 
 // tag::setcurrency[]
 === Setting currency symbol: `setcurrency`
@@ -696,7 +722,9 @@ be visible immediately.
 // end::setcurrency[]
 
 === Viewing help: `help`
-Open a browser window that accesses an offline copy of this user guide.
+Open a browser window that accesses an offline copy of this user guide. First
+run of this command may take quite some time as the program needs to extract
+an offline copy of this document.
 
 Format: `help`
 
@@ -709,6 +737,52 @@ Format: `clear`
 
 Exits the program. +
 Format: `exit`
+
+=== Reminding of coupon expiry
+
+By default, all added coupons have a remind date that is 3 days before its
+stated expiry date. This default value can be changed during the process of
+<<_adding_a_coupon_add, adding>> a new coupon or by
+<<_editing_a_coupon_edit, editing>> an existing coupon. The remind dates for all
+coupons are checked on program launch. All coupons that have a remind date which
+falls on the date of program launch will be listed in a popup window on launch.
+The popup window can be closed by pressing kbd:[Ctrl] + kbd:[q].
+
+.Popup window showing all coupons that have their remind dates set on the date of program launch.
+[caption=""]
+image::ug_reminder_window.PNG[]
+
+[WARNING]
+Remind dates are **only** checked during program launch. Thus, if a day passes
+while the program is open, even if there are coupons expiring on the new day,
+no new reminder window will open.
+
+As of now, there is no
+functionality for the disabling of reminders for coupons. This feature will be
+made available in version 2.0.
+
+====
+* The format of dates entered via the `r/` field is
+in the D-M-YYYY format. (<<coupon-stash-date-format, Coupon Stash date format>>)
+====
+
+Examples:
+
+* `add n/McDonald's McGriddles p/ILOVEMCGRIDDLES e/31-12-2020 s/$2
+   sd/1-4-2020 l/2 t/value t/savoury`
++
+Add a new Coupon without specifying a remind date. Note that the default
+remind date is 3 days before the state expiry date: +
+image:ug_mcdonalds_mcgriddles.png[]
+
+* `add n/Grabfood s/40% e/30-4-2020 p/GRAB40 t/delivery r/10-4-2020`
++
+Add a new Coupon while specifying a remind date of `10-4-2020`: +
+image:ug_Grabfood_reminder.png[]
+
+* `edit 1 r/10-4-2020`
++
+Edit the coupon at index 1 and change its remind date to `10-4-2020`.
 
 === Saving the data
 
@@ -734,10 +808,12 @@ Demonstration:
 
 image::gifs/Up down arrow.gif[]
 
-=== Close expanded coupon window: kbd:[Ctrl]+kbd:[q]
+=== Close expanded coupon or reminder windows: kbd:[Ctrl]+kbd:[q]
 After <<_displaying_a_coupon_expand, `expanding`>> a coupon, you can close
 the expanded coupon window by keeping the focus on the coupon window and
-pressing the keyboard buttons kbd:[Ctrl] and kbd:[q] simultaneously.
+pressing the keyboard buttons kbd:[Ctrl] and kbd:[q] simultaneously. This
+shortcut also works for closing <<_reminding_of_coupon_expiry, reminder>>
+windows.
 
 Demonstration:
 
@@ -817,9 +893,6 @@ e.g. `sort n/`
 |*Expiring*
 |`expiring e/EXPIRY_DATE` or `expiring my/MONTH_YEAR` +
 e.g. `expiring e/11-9-2020` or `expiring my/9-2020`
-|*Remind*
-|`remind INDEX e/PERIOD_BEFORE_EXPIRY_DATE` or `remind INDEX d/REMIND_DATE` +
-e.g. `remind 1 e/ 5 days` or `remind 5 d/ 1-5-2020`
 |*Used*
 |`used INDEX` or `used INDEX MONETARY_SYMBOL + ORIGINAL_AMOUNT` +
 e.g. `used 1` or `used 1 $10`
