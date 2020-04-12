@@ -54,6 +54,7 @@ public class DeadlineCard extends UiPart<Region> {
             dateToRepeat.setText("Repeat: " + deadline.getSchedule().typeInString());
         }
         isDone.setSelected(deadline.isDone());
+        isDone.setMouseTransparent(true);
         isDone.setOnAction(e -> {
             deadline.setDone(!deadline.isDone());
             //mainWindow.handleDeadlineClick(displayedIndex);
