@@ -20,6 +20,7 @@ endif::[]
 
 By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 TA-Tracker
@@ -63,6 +64,7 @@ you up to speed with how TA-Tracker
 's codebase and inner workings function. It also
 hopes to serve as a useful reference to current contributors in times of confusion or
 when faced with difficulties.
+// end::introduction[]
 
 == Setting up
 
@@ -515,6 +517,7 @@ with a success message.
 
 Students are a part of *groups* and groups are a part of *modules*.
 
+// tag::studentviewmodel[]
 ==== Implementation of the Model Framework
 The following _Class Diagram_ shows how different classes are related in the
 functioning of the *Student View*.
@@ -566,7 +569,9 @@ and the *creation of many association classes* which would unnecessarily
 That is why we decided to stick to our current implementation.
 
 ====
+// end::studentviewmodel[]
 
+// tag::studentmodel[]
 The following _Class Diagram_ shows how different classes are related in the functioning of a `Student` Object.
 
 .Structure of the Student Component
@@ -585,7 +590,9 @@ reference. This would allow `TaTracker` to only require one `Tag` object per uni
 such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+//end::studentmodel[]
 
+// tag::moduleaddeditdelete[]
 ==== Implementation of the Module Add, Delete and Edit Commands
 
 The following _Sequence Diagram_ shows the interactions
@@ -644,7 +651,9 @@ is removed from the TA-Tracker
 
 
 The `module edit` command has been implemented in a similar manner.
+// end::moduleaddeditdelete[]
 
+// tag::groupaddeditdelete[]
 ==== Implementation of the Group Add, Delete and Edit Commands
 
 A *group* is added to the TA-Tracker
@@ -713,7 +722,9 @@ given group code exists within that module.
 7. The `DeleteGroupCommand` returns a `CommandResult`.
 
 The `group edit` command has been implemented in a similar manner.
+// end::groupaddeditdelete[]
 
+// tag::studentaddeditdelete[]
 ==== Implementation of the Student Add, Delete and Edit Commands
 
 The following _Sequence Diagram_ shows the interactions that take place
@@ -766,6 +777,9 @@ matric number exists in the TA-Tracker
 . If such student exists, a command exception
 is thrown saying that a student with the given matric number already exists.
 
+// end::studentaddeditdelete[]
+
+// tag::sortgroupmoduleall[]
 ==== Implementation of the Sort Group, Module and All Command
 
 The sort command allows the user to sort the students in the *Student View*.
@@ -857,6 +871,7 @@ and determines that since the sub-command word is `all` , it must create and ret
 is `matric` , it calls `Model` 's `sortModulesByMatricNumber()` command.
 
 6. The `SortCommand` returns a `CommandResult` with a success message.
+// end::sortgroupmoduleall[]
 
 //tag::tssview[]
 [[SessionView]]
