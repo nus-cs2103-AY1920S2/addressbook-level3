@@ -54,6 +54,9 @@ This block displays additional *notes* that contains extra information that you 
 [TIP]
 This block displays *tips* that you may find useful.
 
+[CAUTION]
+This block displays *cautions* that you should exercise.
+
 == Quick Start
 
 The following steps will walk you through installing *CookBuddy* on your computer.
@@ -123,6 +126,8 @@ The following sub-sections describes the features you can use in *CookBuddy*.
 * Words in square brackets indicate that they are optional. `[t/TAG]` means the `t/` parameter is optional.
 ****
 
+[CAUTION]
+Please follow the format specified *strictly* and carefully.
 
 ===  Help — `help`
 You can list all the commands recognised by *CookBuddy* by typing `help` into the command box and pressing kbd:[Enter].
@@ -156,21 +161,23 @@ You can add a new recipe to *CookBuddy* using the `new` command.
 [NOTE]
 Parameters in *bold* indicate they are mandatory.
 
-Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] [cal/CALORIES] [s/SERVING_SIZE]
+Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] [p/PATH] [cal/CALORIES] [s/SERVING_SIZE]
 [r/RATING] [t/TAG [, ...]]`
 
+[CAUTION]
+Remember to follow the format specified *strictly* and carefully.
 
 *CookBuddy* accepts the following parameters:
 
-    * `n/` - *name*
-    * `ing/` - *ingredients*
-    * `ins/` - *instructions*
-    * `p/` - absolute image path
-    * `cal/` - calories (in kcal)
-    * `s/` - serving size (any integer greater than 0)
-    * `r/` - rating (any integer between 0-5, inclusive)
-    * `d/` - difficulty (any integer between 0-5, inclusive)
-    * `t/` - tags (separated by commas)
+    * `n/` - *name of the recipe*
+    * `ing/` - *ingredients of the recipe*
+    * `ins/` - *instructions of the recipe*
+    * `p/` - path of the recipe's photo
+    * `cal/` - calories in the recipe (in kcal)
+    * `s/` - serving size of the recipe (any integer greater than 0)
+    * `r/` - personal rating of the recipe (any integer between 0-5 inclusive)
+    * `d/` - difficulty of following the recipe (any integer between 0-5 inclusive)
+    * `t/` - tags of the recipe (separated by commas)
 
 Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram ins/Fry the rice; add salt` into *CookBuddy*, and a new recipe with the following attributes will be added:
 
@@ -200,7 +207,7 @@ Format: `view INDEX`
 
 [NOTE]
 ====
-* `INDEX` must be a positive integer value, within the range of the number of recipes in your CookBuddy.
+`INDEX` must be a positive integer value, within the range of the number of recipes in your CookBuddy.
 ====
 
 Example: You can type `view 2` and *CookBuddy* will display you the recipe at index 2 on the main page.
@@ -255,9 +262,11 @@ Format: `modify INDEX [ing/INGREDIENT, QUANTITY [; ...]] [ins/INSTRUCTION [; ...
 
 [NOTE]
 ====
-* `INDEX` must be a positive integer value, within range of the number of recipes in *CookBuddy*.
+`INDEX` must be a positive integer value, within range of the number of recipes in *CookBuddy*.
 ====
 
+[CAUTION]
+Remember to follow the format specified *strictly* and carefully.
 
 ==== Modifying a recipe's ingredients
 You can modify a recipe's ingredients by appending `ing/INGREDIENT, QUANTITY [; ...]` to a `modify` command.
@@ -385,7 +394,7 @@ Format: `done INDEX`
 
 [NOTE]
 ====
-* `INDEX` must be a positive integer value, within the range of the number of recipes in your CookBuddy.
+`INDEX` must be a positive integer value, within the range of the number of recipes in your CookBuddy.
 ====
 
 Example: You can type `done 1` and *CookBuddy* will mark the recipe at index 1 as being done, indicating that it has
@@ -455,7 +464,7 @@ Format: `find [n/NAME [...]] [ing/INGREDIENT [...]]`
 
 [NOTE]
 ====
-* *CookBuddy* can find recipes from one parameter at a time.
+*CookBuddy* can find recipes from one parameter at a time.
 ====
 
 ==== Finding a recipe by name
@@ -561,6 +570,9 @@ The following section answers some questions you might have regarding *CookBuddy
 *Q: How do I transfer my data to another Computer?* +
 *A*: Download the jar in the other computer and copy the entire data folder over to the same directory. Run CookBuddy and update the preferences.json if necessary.
 
+*Q: Can I edit my data folder of CookBuddy which contains the information regarding my recipes?* +
+*A*: No. Please do not modify the data folder of your CookBuddy. All modifications of the recipes should be done through the `modify`command only.
+
 *Q: How do I retrieve back all the recipes in CookBuddy if I accidentally reset CookBuddy?* +
 *A*: Right now CookBuddy does not support a backup feature. Thus, it would be best if you do not accidentally use the `reset`
 command. The backup feature will be released soon in the near future.
@@ -587,7 +599,7 @@ The following section gives a quick summary of all the commands you can use in C
 | `list` | Lists all the recipes.
 | `modify INDEX [ing/INGREDIENT, QUANTITY [; ...]] [ins/INSTRUCTION [; ...]] [cal/CALORIES] [s/SERVING_SIZE]
 [r/RATING] [t/TAG [, ...]]` | Modifies the given parameter(s) of the recipe.
-| `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] [cal/CALORIES] [s/SERVING_SIZE]
+| `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] [p/PATH] [cal/CALORIES] [s/SERVING_SIZE]
 [r/RATING] [t/TAG [, ...]]` | Adds a new recipe.
 | `reset` | Removes all the recipes from CookBuddy.
 | `undo *INDEX*` | Undoes the recipe at the given `INDEX`.
