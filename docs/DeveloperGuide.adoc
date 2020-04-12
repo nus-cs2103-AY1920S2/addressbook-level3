@@ -442,13 +442,40 @@ Pros: Reduce a lot of memory issue.
 
 Cons: Harder to implement
 
-
 ==== Opposite Command for edit
+Edit command extends from abstract class UndoableCommand. Thus, user can undo/ redo this command.
+
+In EditCommand class, method `preprocessUndoableCommand` to get the toEdit Object and edited Object.
+
+Method `executeUndoableCommand` will set the toEdit Object in the ObjectAddressBook to the edited Object.
+
+Method `generateOppositeCommand()` will generate another `EditCommand` (which
+is opposite to this EditCommand) with editing information of the original toEdit Object and push it to undoStack.
+
+When `undo` and `redo` commands are executed, the process is carried out as described above.
 
 ==== Opposite command for assign/ unassign
 
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities)
+
+`AddCommand` and `DeleteCommand` extends from abstract class UndoableCommand. Thus, user can undo/ redo this command.
+
+In `AddCommand` class, method `preprocessUndoableCommand` get the toAdd Object and an index (if available).
+
+Method `executeUndoableCommand` will add the toAdd Object to the ObjectAddressBook.
+
+Method `generateOppositeCommand()` will generate a `DeleteCommand` (which
+is opposite to this AddCommand) with toDelete Object is a clone of toAdd Object and push it to undoStack.
+
+In `DeleteCommand` class, method `preprocessUndoableCommand` get the toDelete Object and its index.
+
+Method `executeUndoableCommand` will delete this toDelete Object from the ObjectAddressBook.
+
+Method `generateOppositeCommand()` will generate an `AddCommand` (which
+is opposite to this DeleteCommand) with toAdd Object is a clone of toDelete Object and push it to undoStack.
+
+When `undo` and `redo` commands are executed, the process is carried out as described above.
 
 === View Switching
 Explain select command
@@ -520,32 +547,38 @@ public class Staff extends ModelObject {
 One of the features is to display all the `courses` that a `teacher` is teaching.
 
 Another feature is to keep track of salary payment for `teacher`. A `teacher` is paid by teaching a course and the amount
-is taken from the salary of the teacher.
+is taken from the salary of the teacher. The payment will automatically have records of respective course and teacher ID.
 
-To pay for `admin`, user has to do it manually using miscellaneous `FinanceType`. To pay for `teacher` b
+To pay for `admin`, user has to do it manually using miscellaneous `FinanceType`.
 
-Certain approaches have some certain pros and cons. It depends on how the user want to pay to `teacher` and `admin`.
+Certain approaches have some certain pros and cons. It depends on how the user want to keep track of payment and method to pay to `teacher` and `admin`.
 
-=== [Proposed] Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings
-==== Proposed Implementation
+=== Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings
+==== Implementation
 
 Miscellaneous transactions can either be payments or earnings, such as purchases of stationary or advertisement revenue. Teacher payments are tracked by courses, where the teacher is paid for each course taught. Student earnings are also tracked by courses, where the student pays for each course taken.
-
-This feature is implemented with two main classes - `CourseStudent` and `CourseTeacher`, both of which is controlled by a
-`CourseStudentAddressBook` and `CourseTeacherAddressBook` respectively. Please see the following class diagram
-which proposes the associations between the four classes.
 
 .Class diagram of CourseStudent and CourseTeacher
 image::FinanceDiagram.png[]
 
-`CourseStudent` will be created and stored in `CourseStudentAddressBook` whenever a course is assigned to a student, ensuring that `Course` exists in `CourseAddressBook` and `Student` exists in `StudentAddressBook`.
+Finance type `CourseStudent` or `cs` add command will access `CourseAddressBook` and `StudentAddressBook` to ensure `Course` and
+`Student` exist and make sure this student is taking this course. The `Amount` is set to the amount of the `Course`
+(student fee).
 
-Similarly, `CourseTeacher` will be created and added to `CourseTeacherAddressBook` whenever a course is assigned to a teacher, ensuring that `Course` exists in `CourseAddressBook` and `Teacher` exists in `TeacherAddressBook`.
+Finance type `CourseTeacher` or `ct` add command will access `CourseAddressBook` and `TeacherAddressBook` to ensure `Course` and
+`Teacher` exist and make sure this teacher is teaching this course. The `Amount` is set to the salary of the `Teacher`
+(teacher salary).
 
-`PayCourseStudent` Command will access `CourseStudentAddressBook` to ensure that isPaid is false, before creating the corresponding `Finance` object to be stored in `FinanceAddressBook`. The is similar for `PayCourseTeacher` Command.
+Finance type `Miscellaneous` or `m` add command will create a corresponding `Finance` object to be stored in `FinanceAddressBook`.
+To pay for `Admin staff` and record other transactions, user has to manually add a miscellaneous `Finance`, specifying
+name (description), amount, and date. Miscellaneous transactions can either be payments or earnings, such as purchases of
+stationary or advertisement revenue.
 
-`PayMiscellaneous` Command will create a corresponding `Finance` object to be stored in `FinanceAddressBook`.
 
+Payments are not deleted when `teacher`, `student` and `admin` deleted. This is because the the Finance needs to record
+history transactions/ payments. A `student`, teacher` or `admin` can be deleted from the system because they no longer
+work or study here. But for all payments in the history need to be kept for tracking purposes (`expenses` and `earnings`).
+If the user input a Finance by mistake, he has to delete it manually.
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
