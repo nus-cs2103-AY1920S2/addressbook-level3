@@ -35,8 +35,8 @@ interface SplitterModel <<Interface>> {
     + deleteEntry(index : int) : void
     + getEntry(entry : Entry) : Entry
     + paidPerson(person : Person, amountPaid : String) : void
-    + listAmount() : void
-    + listReceipt() : void
+    + listAmount() : String
+    + listReceipt() : String
     + getReceipt() : Receipt
     + clearReceipt() : void
     + hasPerson(person : Person) : boolean

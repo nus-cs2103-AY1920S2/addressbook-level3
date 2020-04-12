@@ -788,12 +788,14 @@ image::ExpenseSplitterActivityDiagramV2.png[]
 .SimplifiedAddItemActivityDiagram
 image::ExpenseSplitterActivityDiagram.png[]
 
+
+
 [NOTE]
 
 SimplifiedAddItemActivityDiagram is not the actual AddItem Activity Diagram. It has been
 simplified to provide just enough information
-for the user to know about the rough workflow of expense splitter. A more detailed
-diagram can be found in <<Add-Item-Command, AddItemCommand>>.
+for the user to know about the rough workflow of Expense Splitter. A more detailed
+diagram of Add Item can be found in <<Add-Item-Command, AddItemCommand>>.
 
 
 //end::expensesplitteractivitydiagram[]
