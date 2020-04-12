@@ -888,12 +888,15 @@ immediately after you cleared your Coupons.
 
 === Exiting the program: `exit`
 
-This command immediately exits the program when entered. +
+This command immediately exits the program when entered.
+When you exit the program, all coupon data is saved to
+your computer. +
 Format: `exit`
 
 [NOTE]
 There are many ways of exiting the program! One other way
-is to click the cross at the top of the application.
+is to click the cross at the top of the application (position
+of this cross button differs depending on operating system).
 
 === Reminding of coupon expiry
 
