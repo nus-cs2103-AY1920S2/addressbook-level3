@@ -30,21 +30,25 @@ deactivate LogicManager
 LogicManager -> CommandCompletor: suggestCommand\n("delete -10 10 5", listSize)
 activate CommandCompletor
 
-CommandCompletor --> LogicManager: CompletorResult
+alt Input removed
+    CommandCompletor --> LogicManager: res:CompletorDeletionResult
+else else
+    CommandCompletor --> LogicManager: res:CompletorResult
+end
 deactivate CommandCompletor
 
-LogicManager -> MainWindow: CompletorResult
+LogicManager -> MainWindow: res
 deactivate LogicManager
 
-opt CompletorResult  is CompletorDeletionResult
+opt res is CompletorDeletionResult
     MainWindow -> ResultDisplay: setWarning()
     activate ResultDisplay
     ResultDisplay -> MainWindow
     deactivate ResultDisplay
     MainWindow -[hidden]->ResultDisplay
 end
-MainWindow -> CommandBox: CompletorResult
-deactivate MainWindowcse
+MainWindow -> CommandBox: res
+deactivate MainWindow
 
 alt CompletorException thrown
     CommandBox -> CommandTextField: setFailure()

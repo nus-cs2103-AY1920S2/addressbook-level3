@@ -232,6 +232,8 @@ The above diagram provides a big picture overview of decisions `CommandCompletor
 
 // TODO maybe can insert diagram as well?
 ==== Auto Complete output: 
+As seen from the activity diagram above:
+
 . Known Command UI displayed when:
 .. Any kind of completion has happened or nothing has changed for the input
 ... `CompletorResult` is returned
