@@ -5,16 +5,14 @@
 
 == PROJECT: TA-Tracker
 
-== Overview
+=== Overview
 
 TA-Tracker is a productivity tool made for *NUS Computing Teaching Assistants (TAs)*
 who want to be able to track and manage all of their claimable hours and the students
 they are teaching in one place. The application is written in *Java* and spans *20k
 Lines of Code*.
 
-== Summary of contributions
-
-=== Student View
+=== Summary of contributions
 
 As the main developer in charge of the *Student View*, my main contributions were in
 the *Student View*. They include *creating models, writing commands, creating tests
@@ -26,15 +24,11 @@ I created the `Module`, `UniqueModuleList`, `Group` and `UniqueGroupList` models
 that were used in *Student View* from scratch.
 
 A TA would need to keep track of their students, grouped according
-to which group and module they are a part of. These models were required to ensure the
+to which group and module they are a part of. These models are required to ensure the
 proper functioning of the commands in the student view that would meet the user's purposes.
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/88[#88])
 
-When the models were first created, our idea for the UI design was
-to show the Student View as a *list of modules* where each module contained a *list of groups*
-and each group had a *list of students* inside it. (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/88[#88])
-
-However, once we realised that it wasn't user friendly, we had to re-do the UI. I created
-a lot of supporting methods to support the new UI, especially the highlighting feature.
+I created a lot of supporting methods to support the UI, especially the highlighting feature.
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/202[#202])
 
 I also added the required support for the filter feature in the models
@@ -55,7 +49,7 @@ strong or weak students.
 Furthermore, it had initially been implemented in a different way
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/195[#195],
 https://github.com/AY1920S2-CS2103T-W17-4/main/pull/200[#200])
-but had to be changed in order for it to be compatible with the *interactive parser*
+but later had to be changed in order for it to be compatible with the *interactive parser*
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/205[#205]).
 
 ==== Other Commands
@@ -68,8 +62,8 @@ The other commands I implemented are:
 . `group delete` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/122[#122])
 . `group edit` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/196[#196])
 
-* *Justification:* These commands are needed to manipulate data in the *Student View*.
-* *Highlights:* Overall, these commands required a fair amount of work, especially due
+* These commands are needed to manipulate data in the *Student View*.
+* Overall, these commands required a fair amount of work, especially due
 to the possible edge cases they have such as the user editing the group code to that
 of a pre-existing group.
 
@@ -81,7 +75,6 @@ for all my enhancements and have an average coverage of over 85% for my sections
 codebase. (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/232[#232],
 https://github.com/AY1920S2-CS2103T-W17-4/main/pull/345[#345],)
 
-==== Code contributed
 The code I contributed can be found
 https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=aakanksha-rai[here].
 

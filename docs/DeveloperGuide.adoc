@@ -558,7 +558,7 @@ The following _Class Diagram_ shows how different classes are related in the
 functioning of the *Student View*.
 
 .Student View - Class Diagram
-image::ModuleModelClassDiagram.png[]
+image::ModuleModelClassDiagram.png[,670]
 
 In the diagram above, you can see that:
 
@@ -615,7 +615,7 @@ That is why we decided to stick to our current implementation.
 The following _Class Diagram_ shows how different classes are related in the functioning of a `Student` Object.
 
 .Structure of the Student Component
-image::StudentClassDiagram.png[]
+image::StudentClassDiagram.png[,670]
 
 *API*: link:{repoURL}/src/main/java/tatracker/model/student/Student.java[`Student.java`]
 
@@ -629,7 +629,7 @@ reference. This would allow `TaTracker` to only require one `Tag` object per uni
 `Tag`, instead of each `Student` needing their own `Tag` object. An example of what
 such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagram.png[,670]
 //end::studentmodel[]
 //tag::moduleaddeditdelete[]
 
@@ -770,8 +770,6 @@ The `group edit` command has been implemented in a similar manner.
 
 ==== Implementation of the Student Add, Delete and Edit Commands
 
-(Contributed by Aakanksha)
-
 A *student* can be added to the TA-Tracker after a *module* and *group* is added.
 
 The commands for *students* are similar to the commands for *modules* and *groups*.
@@ -870,7 +868,7 @@ the structure shown in the following
 _Class Diagram_ is used.
 
 .Sort Commands - Class Diagram
-image::SortCommandsClassDiagram.png[]
+image::SortCommandsClassDiagram.png[,400]
 
 [NOTE]
 ====
@@ -2411,6 +2409,8 @@ Use case resumes at step 1.
 [appendix]
 == Glossary
 
+(Contributed by Aakanksha)
+
 [width="%",cols="<20%,<40,<40,options="header",]
 |=======================================================================
 |Term | Explanation | Examples
@@ -2474,6 +2474,8 @@ Stands for Main Success Scenario that describes the interaction for a given use 
 
 [appendix]
 == Instructions for Manual Testing
+
+(Contributed by Aakanksha)
 
 Given below are instructions to test the app manually. These instructions will help you
 navigate through the app and get an idea of what to test. We suggest you use this in
