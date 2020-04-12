@@ -508,9 +508,9 @@ matches the existing tab headers.
 .. If it does, the `GotoCommand` returns a `CommandResult` with a success message and an enum specifying
 how MainWindow should handle the next action.
 
-..If it doesn't, an exceptions is thrown.
+.. If it doesn't, an exceptions is thrown.
 
-. `MainWindow` called the handleGoto() method to select the `ClaimsTab` in the `TabPane`, completing the tab-switching
+. `MainWindow` calls the handleGoto() method to select the `ClaimsTab` in the `TabPane`, completing the tab-switching
 process.
 
 [[StudentView]]
