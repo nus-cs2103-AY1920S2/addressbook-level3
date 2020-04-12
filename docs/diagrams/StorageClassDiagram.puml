@@ -24,6 +24,6 @@ JsonExpenseLaStorage .down.> JsonSerializableExpenseLa
 JsonSerializableExpenseLa .down.> JsonAdaptedTransaction
 JsonGlobalDataStorage .left.|> GlobalDataStorage
 JsonGlobalDataStorage .down.> JsonSerializableGlobalData
-JsonSerializableGlobalData .down.>JsonAdaptedMonthlyData
+JsonSerializableExpenseLa .down.>JsonAdaptedMonthlyData
 
 @enduml

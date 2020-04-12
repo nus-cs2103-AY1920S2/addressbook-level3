@@ -37,7 +37,7 @@ Pleas refer to the guide <<SettingUp#, here>>.
 == Design
 
 [[Design-Architecture]]
-=== Architecture
+=== Architecture (Pang Kim Jin)
 
 In this section, we will be introducing the individual components that form ExpenseLa using various diagrams.
 
@@ -50,7 +50,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/expensela/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/expensela/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -93,7 +93,7 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/expensela/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TransactionListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -114,7 +114,7 @@ The `UI` component does the following actions:
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/expensela/logic/Logic.java[`Logic.java`]
 
 Logic is an interface which `LogicManager` implements, allowing access to the API. The following items are examples on how the LogicManager class can be interacted with:
 
@@ -140,12 +140,14 @@ image::ClearSequenceDiagram.png[]
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/expensela/model/Model.java[`Model.java`]
 
 The `Model`,
 
+* stores an ArrayList which contains the user's command history.
 * stores a `UserPref` object that represents the user's preferences.
 * stores the `ExpenseLa` data.
+* stores the `GlobalData` which contains the recurring budget, transactions, total balance, and last updated date.
 * stores a `MonthlyData` object which contains budget, expense, and income information set by the user.
 * stores a `ToggleView` object that represents the nature of transaction information displayed to the user.
 * stores a `Filter` object which represents the filter on the transactions as set by the user
@@ -162,13 +164,13 @@ so that the UI automatically updates when the data in the list change.
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/expensela/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the ExpenseLa data in json format and read it back.
-* can save GlobalData data in json format and read it back.
+* can save the `ExpenseLa` data in json format and read it back.
+* can save `GlobalData` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -188,8 +190,10 @@ We allow users to add Expense/Income transactions into ExpenseLa which denotes a
 We store every single `Transaction` added by the user into an `ObservableList<Transaction>`, which is a list object in `TransactionList`. We used an `ObservableList` to easily reflect changes to the list by any other component of ExpenseLa using the list.
 
 These are the ways of implementing either a positive or negative Transaction:
+
 * Adding an expense (negative transaction): add
 * Adding an income (positive transaction): add i/
+
 These two commands will indicate whether the transaction is positive or negative.
 
 Indicating whether it is a recurring transaction or not will depend if rc/ is present in the input
@@ -219,7 +223,7 @@ Figure 9. Sequence diagram of how adding a new `Transaction` is processed depend
 * Multiple occurence of parameters which only expects single entry
 
 [NOTE]
-Incorrect user input will display ParseError message.
+Incorrect user input will display `ParseException` message.
 
 We will demonstrate how a `Transaction` is added into `ExpenseLa`:
 
@@ -250,11 +254,11 @@ image::add-command/AddTransactionActivityDiagram.png[,650]
 
 ==== Design considerations
 
-There are many different ways to implement how a transaction is added into `**Expensela**`. In this section, we will justify why we chose to implement it the way we did.
+There are many different ways to implement how a transaction is added into `**ExpenseLa**`. In this section, we will justify why we chose to implement it the way we did.
 
 ===== Aspect: Differentiating between **positive** and **negative** transactions.
 * **Alternative 1: (current choice):** Adding a simple "i/" syntax in the input to differentiate between positive and negative transactions
-** Pros: Increases the speed and simplicity of adding a positive or negative transaction. Updating balance in MonthlyData information only requires an iteration through
+** Pros: Increases the speed and simplicity of adding a positive or negative transaction. Updating balance in `MonthlyData` information only requires an iteration through
 all the transaction amounts in transaction list for calculation.
 ** Cons: Transactions may not be easily distinguishable as positive or negative transactions on first sight, and may only be distinguished when the transaction amount is inspected.
 This may cause slower processing times when extracting all only positive or only negative transactions.
@@ -310,28 +314,28 @@ Step 1. The user starts up the application with an initial list loaded from a sa
 .Initial transaction list
 image::edit-command/editCommand1.png[,650]
 
-Step 2. The user inputs **edit 1 n/Laksa Noodle a/6.00** to update the transaction (with index 1) name to "Laksa Noodle" and value
+Step 2. The user inputs **edit 1 n/Laksa Noodle a/6.00** to edit the transaction (with index 1) name to "Laksa Noodle" and value
 to "6". Input is parsed by `EditCommandParser#parse()` which creates an `**EditCommand**`.
 
 Step 3. `EditCommand#execute()` creates a new transaction that reflects the changes and gets the index of current
-transaction to be updated.
+transaction to be edited.
 
 .New edited transaction in transaction list
 image::edit-command/editCommand2.png[,650]
 
-Step 4. `UpdateCommand#execute()` replaces original transaction in the list with the updated transaction.
+Step 4. `EditCommand#execute()` replaces original transaction in the list with the eddited transaction.
 
 The following activity diagram gives an overview of what ExpenseLa shows the user when executing **edit** command:
 
 :figure-caption: Figure
-.Activity diagram for execution of update command
+.Activity diagram for execution of edit command
 image::edit-command/EditActivityDiagram.png[,650]
 
 ==== Design considerations
 This subsection explores some alternative designs considered for certain aspects of the feature's implementation.
 
 ===== Aspect: Modifying details of a transaction
-* **Alternative 1 (current choice)**: Replace the values of the original transaction with new updated values.
+* **Alternative 1 (current choice)**: Replace the values of the original transaction with new editd values.
 - Pros: Can easily check for inputs that result in no changes.
 - Cons: May incur overhead when creating new instance of `**Transaction**`.
 
@@ -344,14 +348,14 @@ accessing modified transaction fields.
 Overhead of creating new `**Transaction**` is insignificant due to relatively small object size.
 
 ===== Aspect: Edit transaction by getting it's index or by unique transaction ID
-* **Alternative 1 (current choice)**: Get the index of original transaction in the transactions list and update its values in the list.
+* **Alternative 1 (current choice)**: Get the index of original transaction in the transactions list and edit its values in the list.
 - Pros: High certainty of obtaining the correct transaction, editing its values and replacing the same index in the transaction list.
 - Cons: If there are too many transactions in the list, it might be tedious to obtain the transaction index by scrolling.
 
-* **Alternative 2**: Iterate through the transactions list and update the transaction with the correct transaction ID.
+* **Alternative 2**: Iterate through the transactions list and edit the transaction with the correct transaction ID.
 - Pros: Virtually impossible to not be able to distinguish between similar transactions of different IDs.
 - Cons: Transactions ID would cause significant overhead when looking into each transaction for it's ID.
-// end::update[]
+// end::edit[]
 
 
 // tag::setbudget[]
@@ -588,7 +592,7 @@ image::chart-analytics/ToggleViewStep2.png[]
 
 Step 3. `ToggleViewCommand#execute()` switches `isViewList` of `ToggleView` from true to false.
 
-.`isViewList` of `ToggleView` switched from `ToggleViewCommand#execute()`
+.isViewList of ToggleView switched from ToggleViewCommand#execute()
 image::chart-analytics/ToggleViewStep3.PNG[]
 
 Step 4. `MainWindow#executeCommand()` checks the boolean value of isViewList in ToggleView, which is false,
