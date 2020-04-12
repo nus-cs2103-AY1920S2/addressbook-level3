@@ -1,35 +1,28 @@
 @startuml
 start
-:Check new input in command box;
+:Check new input in CommandBox;
 
 if () then ([empty input])
-partition blank {
-    :Clear result display;
-}
+    :Clear ResultDisplay;
+
 else if () then ([invalid command word])
-partition invalid {
     :Highlight input in red;
-    :Show invalid command
-    in result display;
-}
+    :Show invalid
+    command message;
+
 else ([valid command word])
-partition valid {
     :Change highlighting rules
     for command in input;
 
     :Check input arguments;
 
     if () then ([no arguments])
-    partition no_arguments {
         :Highlight input in green;
-        :Show command usage message;
-    }
+        :Show command
+        usage message;
     else ([has arguments])
-    partition has_arguments {
-        :Highlight arguments;
-    }
+        :<b>Highlight arguments</b>;
     endif
-}
 endif
 stop
 @enduml
@@ -38,36 +31,37 @@ stop
 start
 :Check arguments;
 
-if () then ([arguments have trailing whitespace])
-partition whitespaces {
+if () then ([trailing whitespace])
     :Clear highlighting;
-    :Count number of trailing whitespaces in arguments;
-    if () then ([1 whitespace])
-    else ([else])
-    partition many_whitespaces {
-        :Show command usage message;
-    }
+    :Count number of
+    trailing whitespaces
+    in arguments;
+    if () then ([one whitespace])
+    else ([many whitespaces])
+        :Show command
+        usage message;
     endif
-    stop
-}
-else if () then ([command does not need preamble])
+'    stop
+
+else if () then ([no need preamble])
     :Remove preamble;
 
-    :Check if removed preamble is blank;
+    :Check if removed
+    preamble is blank;
 
     if () then ([blank preamble])
-    else ([else])
-    partition preamble_error {
+        :<b>Highlight invalid</b>
+        <b>arguments</b>;
+    else ([invalid preamble])
         :Highlight input in red;
-        :Show command usage message;
-        stop
-    }
+        :Show command
+        usage message;
+'        stop
     endif
-else ([else])
+else ([needs preamble])
+    :<b>Highlight invalid</b>
+    <b>arguments</b>;
 endif
-partition preamble_end {
-:Highlight invalid arguments;
-}
 stop
 @enduml
 
@@ -82,23 +76,20 @@ while () is ([has next prefix])
 :Check next prefix;
 
 if () then ([wrong prefix])
-partition wrong {
     :Highlight input in red;
-    :Show command usage message;
+    :Show command
+    usage message;
     stop
-}
 else if () then ([invalid prefix value])
-partition invalid {
     :Highlight input in red;
-    :Show prefix usage message;
+    :Show prefix
+    usage message;
     stop
-}
 else ([valid prefix value])
-partition valid {
     :Highlight input in green;
-    :Show prefix usage message;
-}
+    :Show prefix
+    usage message;
 endif
-endwhile([else])
+endwhile([no more prefixes])
 stop
 @enduml
