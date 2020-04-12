@@ -16,7 +16,7 @@ endif::[]
 
 image:logos/ExpenseLa_Logo.png[]
 
-By: `Team Halim`      Since: `Jan 2020`      Licence: `MIT`
+By: `ExpenseLa Team`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -292,7 +292,7 @@ NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters ta
 
 Since the user input is valid, the `**Budget**` is successfully created and inserted into a newly created `**MonthlyData**`.
 
-Case 2. The user made a typo when setting their budget. They execute the command **budget b/150o**.
+Case 2. The user made a typo when setting their budget. They execute the command **budget b/1500**.
 The user's entry is checked by `BudgetCommandParser#parse()` and an attempt to parse each parameter occurs:
 
 * `**Budget**` is parsed by `ParseUtil#parseBudget(ArgumentMultimap)`
