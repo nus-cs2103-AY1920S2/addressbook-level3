@@ -123,11 +123,11 @@ For a detailed explanation, you can refer to the commons errors / problems secti
 ==== Example
 Let's say that you want to find a client named "Bryan Low" in client list. You can simply use the `find-c` command as shown.
 
-1.Type `find-c bryan` into the command box, and press `Enter` to execute it.
+1.Type `find-c bryan` into *Command Box*, and press `Enter` to execute it.
 
 image::ug-findcExamplePart1.png[]
 
-2.The result box will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
+2.*Result Box* will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
 
 image::ug-findcExamplePart2.png[]
 
@@ -146,11 +146,11 @@ You want to find the client named "Bryan Low" in client list. Below shows that "
 
 image::ug-findcIncompleteNamePart1.png[]
 
-Type `find-c bry" into the command box, and press `Enter` to execute it.
+Type `find-c bry" into *Command Box*, and press `Enter` to execute it.
 
 image::ug-findcIncompleteNamePart2.png[]
 
-You will obtain "no clients listed!".
+You will obtain "0 clients listed!" in *Result Box*.
 
 image::ug-findcIncompleteNamePart3.png[]
 
@@ -163,7 +163,7 @@ You might wonder why the application shows more clients than you intended. It mi
 Example:
 You want to find the client named "Bryan Low" in client list.
 
-Type `find-c bryan low` in to the command box, and press `Enter` to execute it.
+Type `find-c bryan low` in to *Command Box*, and press `Enter` to execute it.
 
 image::ug-findcMultiplePart1.png[]
 
@@ -239,7 +239,7 @@ Examples:
 ** Shows all information about the 45th client
 
 === Add a client's exercise: `add-e`  --- YongJie
-`add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in a table.
+`add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in the *Exercise Table*.
 
 ==== Parameters
 This section acts as a summary of the important things to note when using `add-e` including their parameters. The square bracket shows that it is optional and your command will still execute even if you do not enter them.
@@ -305,7 +305,7 @@ You can use the `add-e` command to add the exercise as shown.
 
 image::ug-addeExamplePart1.png[]
 
-2.Now type the information of the exercise, matching each detail of the exercise to the parameter. In this case, you will have to type `add-e n/Bench press d/12-02-2020 reps/4 ew/100 sets/4` into the command box. To recap,
+2.Now type the information of the exercise, matching each detail of the exercise to the parameter. In this case, you will have to type `add-e n/Bench press d/12-02-2020 reps/4 ew/100 sets/4` into *Command Box*. To recap,
 
 [width="50%"]
 |============
@@ -320,7 +320,7 @@ Press enter to execute it.
 
 image::ug-addeExamplePart2.png[]
 
-3.After it has been successfully entered, the result box will display the recorded exercise. You will also be able to see the recorded exercise in the table.
+3.After it has been successfully entered, *Result Box* will display the recorded exercise. You will also be able to see the recorded exercise in the *Exercise Table*.
 
 image::ug-addeExamplePart3.png[]
 
@@ -330,22 +330,22 @@ You might face some errors or difficulties when you use `add-e`. In this section
 ===== Duplicate exercises
 You might wonder why the application shows you a duplicate exercise error when the details of the exercises you entered are different. It is likely that only the sets differ between the two exercises. The example below might help you understand better.
 
-You might have the following exercise in your table.
+You might have the following exercise in *Exercise Table*.
 
 image::ug-addeDuplicatePart1.png[]
 
-If you were to enter `add-e n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets.
+If you were to enter `add-e n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into *Command Box*, the only information that is different is the number of sets.
 
 image::ug-addeDuplicatePart2.png[]
 
-The result box will show that you have a duplicate exercise.
+*Result Box* will show that you have a duplicate exercise.
 
 image::ug-addeDuplicatePart3.png[]
 
 To solve this, we suggest incrementing the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact. For information on using `edit-e`, you may want to refer to the next section `Edit a client's exercise: edit-e`.
 
 === Edit a client's exercise: `edit-e` --- YongJie
-`edits-e` allows edit an existing exercise done by the client that you are currently viewing. You will be able to see the updated exercise in the client's exercise table.
+`edits-e` allows edit an existing exercise done by the client that you are currently viewing. You will be able to see the updated exercise in *Exercise Table*.
 
 ==== Parameters
 This section acts as a summary of the important things to note when using `edit-e` including their parameters. The square bracket shows that it is optional and your command will still execute even if you do not enter them. However, at least one of them have to be specified.
@@ -406,7 +406,7 @@ image::ug-editeExamplePart1.png[]
 
 The exercise, "Bench Press", currently is 4 reps and weight of 100. However, they might be entered wrongly and you want to change the values. You can use the `edit-e` command to edit the exercise as shown.
 
-1.Identify the index of the exercise in the exercise table. From the photo above, the index is 2. Type `edit-e 2 reps/8 ew/50` into the command box. To recap,
+1.Identify the index of the exercise in *Exercise Table*. From the photo above, the index is 2. Type `edit-e 2 reps/8 ew/50` into *Command Box*. To recap,
 
 [width="50%"]
 |============
@@ -418,7 +418,7 @@ Press enter to execute it.
 
 image::ug-editeExamplePart2.png[]
 
-2.After it has been successfully entered, the result box will display a success message that the exercise has been edited. You will also be able to see the edited exercise in the table.
+2.After it has been successfully entered, *Result Box* will display a success message that the exercise has been edited. You will also be able to see the edited exercise in *Exercise Table*.
 
 image::ug-editeExamplePart3.png[]
 
@@ -428,15 +428,15 @@ You might face some errors or difficulties when you use `edit-e`. In this sectio
 ===== Duplicate exercises
 You might wonder why the application shows you a duplicate exercise error when you do not have a duplicate of the edited exercise. It is likely that only the sets differ between the two exercises. The example below might help you understand better.
 
-You might have the following exercise in your table.
+You might have the following exercise in *Exercise Table*.
 
 image::ug-editeDuplicatePart1.png[]
 
-If you were to enter `edit-e 2 n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets.
+If you were to enter `edit-e 2 n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into *Command Box*, the only information that is different is the number of sets.
 
 image::ug-editeDuplicatePart2.png[]
 
-The result box will show that you have a duplicate exercise.
+*Result Box* will show that you have a duplicate exercise.
 
 image::ug-editeDuplicatePart3.png[]
 
