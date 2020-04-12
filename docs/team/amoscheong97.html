@@ -1,0 +1,1578 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Amos Cheong - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://github.com/AY1920S2-CS2103T-W12-1/main"><img src="../images/delino_icon.png" alt="Delino"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="../index.html">Delino</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">Delino</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S2-CS2103T-W12-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Amos Cheong - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-delino"><a class="link" href="#project-delino">PROJECT: Delino</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Delino is a desktop application for couriers to manage delivery tasks. The user
+interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Added <code>insert</code> command (Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/189">#189</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Allows the user to insert new delivery order into the Order List. The user can add an order
+that contains the following attributes :<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Transaction ID</p>
+</li>
+<li>
+<p>Name</p>
+</li>
+<li>
+<p>Phone</p>
+</li>
+<li>
+<p>Address</p>
+</li>
+<li>
+<p>Email</p>
+</li>
+<li>
+<p>Delivery Timestamp</p>
+</li>
+<li>
+<p>Warehouse location</p>
+</li>
+<li>
+<p>Cash on Delivery</p>
+</li>
+<li>
+<p>Comment (Optional)</p>
+</li>
+<li>
+<p>Type Of Item (Optional)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Justification: This is an important feature and it is a must-have. It allows user to insert multiple orders into
+the list.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Refactor the <code>list</code> command (Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/239">#239</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Instead of simply displaying all the orders, the user can choose to list :<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Delivered orders</p>
+</li>
+<li>
+<p>Undelivered orders</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Justification: The feature helps the user, as a courier, to know how many orders have to be completed and how many orders
+are already completed.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added the <code>show</code> command (Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/199">#199</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: It gives a more detailed information about the orders and return orders in their lists, in the form
+of numbers and PieChart. The information shown is :<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total Earnings</p>
+</li>
+<li>
+<p>Orders Completed</p>
+</li>
+<li>
+<p>Orders Returned</p>
+</li>
+<li>
+<p>A PieChart to show to the user on how many orders are completed and not completed, returned and not returned.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Highlights</strong>:<br>
+Ability to let user to see information based on the date(s) provided. For example, the user can enter :
+<code>show</code> <code>2020-02-02</code> <code>2020-09-01</code> to see all the information about the orders that are from the date <code>2020-02-02</code>
+up to the date <code>2020-09-01</code>. In addition, user can show statistics about everything in all the lists or just
+simply showing the statistics for today.</p>
+</li>
+<li>
+<p>Credits: UI Design ideas for <code>show</code> Command from <a href="https://www.youtube.com/watch?v=UDi051XyQ-U&amp;t=339s" class="bare">https://www.youtube.com/watch?v=UDi051XyQ-U&amp;t=339s</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Fix bugs for the Application (Pull requests <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/309">#309</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/233">#233</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Restricts user from entering any invalid values</p>
+</li>
+<li>
+<p>Justification: This is an essential update, as the invalid values will affect the rest of the features.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=Amoscheong97&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2020-02-14&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=Amoscheong97&amp;tabRepo=AY1920S2-CS2103T-W12-1%2Fmain%5Bmaster%5D">Functional code and Test code</a>]</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Responsible for ensuring that the team&#8217;s code is compliant with the coding standards and in charge of defining, assigning and tracking all project tasks.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enhancements to existing GUI:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Make major changes to the UI to change from Window to TabView (Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/318">#318</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add Manual Testing Instructions for Developer Guide. (Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/81">#81</a>)</p>
+</li>
+<li>
+<p>Update Developer Developer Guide. (Pull requests <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/171">#171</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/252">#252</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PRs reviewed (with non-trivial review comments): (Pull requests <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/299">#299</a>,
+<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/227">#227</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/218">#218</a>,
+<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/193">#193</a>, &#8230;&#8203;)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrated a third party library (Netlify) to the project (<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/commit/1708e0b7f72eb3eb5edaa471eda37c836fcfdbc9">#1708e0b</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="features"><a class="link" href="#features">Features</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-insert-feature-strong"><a class="link" href="#strong-insert-feature-strong"><strong>Insert feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section of the Insert feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#insert">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<div class="sect2">
+<h3 id="insert"><a class="link" href="#insert">Inserting an order: <code>insert</code> [Done by Amos Cheong Jit Hon]</a></h3>
+<div class="paragraph">
+<p>This section shows you how to use the <code>insert</code> Command and the relevant examples.</p>
+</div>
+<div class="paragraph">
+<p>Whenever you have a new delivery order to make, you have to add it into your list of orders.
+The <code>insert</code> Command is in charge of this functionality.</p>
+</div>
+<div class="sect3">
+<h4 id="insert-works"><a class="link" href="#insert-works">How to use the Insert Command</a></h4>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Orders inserted are sorted by their delivery date and time.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Here are the steps on using the <code>insert</code> Command:<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1</strong> : Type in the keyword <code>insert</code><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2</strong> : Add in the prefixes <code><a href="#command_prefix">TRANSACTION_ID</a></code> <code><a href="#command_prefix">CUSTOMER_NAME</a></code>
+<code><a href="#command_prefix">ADDRESS</a></code> <code><a href="#command_prefix">PHONE_NUMBER</a></code> <code><a href="#command_prefix">EMAIL</a></code>
+<code><a href="#command_prefix">ORDER_TIMESTAMP</a></code> <code><a href="#command_prefix">WAREHOUSE_LOCATION</a></code> <code><a href="#command_prefix">CASH_ON_DELIVERY</a></code>
+of the delivery orders<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3 (Optional)</strong> : Add in the Customer comment and type of item using the prefixes <code>[<a href="#command_prefix">COMMENT_BY_CUSTOMER</a>]</code>
+<code>[<a href="#command_prefix">TYPE_OF_ITEM</a>]</code><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 4</strong> : Press <code>Enter</code> on your keyboard to see the magic!</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="insert-examples"><a class="link" href="#insert-examples">What constitutes a valid Insert command</a></h4>
+<div class="paragraph">
+<p>Here is the syntax of the <code>insert</code> Command :<br>
+<code>insert</code> <code>tid/TRANSACTION_ID</code> <code>n/CUSTOMER_NAME</code> <code>a/ADDRESS</code> <code>p/PHONE_NUMBER</code> <code>e/EMAIL</code> <code>dts/DELIVERY_DATE_&amp;_TIME</code> <code>w/WAREHOUSE_LOCATION</code> <code>cod/CASH_ON_DELIVERY</code> <code>[c/COMMENTS_BY_CUSTOMER]</code> <code>[type/TYPE_OF_ITEM]</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>TRANSACTION_ID</code> refers to the transaction id of the order.</p>
+</li>
+<li>
+<p>The <code>CUSTOMER_NAME</code> refers to the name of the recipient of the order.</p>
+</li>
+<li>
+<p>The <code>ADDRESS</code> refers to the address of the recipient.</p>
+</li>
+<li>
+<p>The <code>PHONE_NUMBER</code> refers to the phone number of the recipient.</p>
+</li>
+<li>
+<p>The <code>EMAIL</code> refers to the email address of the recipient.</p>
+</li>
+<li>
+<p>The <code>DELIVERY_DATE_&amp;_TIME</code> refers to the delivery date and time of the order.</p>
+</li>
+<li>
+<p>The <code>WAREHOUSE_LOCATION</code> refers to the warehouse that the courier should collect the order from.</p>
+</li>
+<li>
+<p>The <code>CASH_ON_DELIVERY</code> refers to the money earned from delivering the particular order.</p>
+</li>
+<li>
+<p>The <code>[COMMENTS_BY_CUSTOMER]</code> refers to the comment made by the recipient to the courier.</p>
+</li>
+<li>
+<p>The <code>[TYPE_OF_ITEM]</code> refers to the type of item that the courier is delivering.</p>
+</li>
+<li>
+<p>The prefixes <code>tid/TRANSACTION_ID</code> <code>n/CUSTOMER_NAME</code> <code>a/ADDRESS</code> <code>p/PHONE_NUMBER</code> <code>e/EMAIL</code> <code>dts/DELIVERY_DATE_&amp;_TIME</code> <code>w/WAREHOUSE_LOCATION</code> <code>cod/CASH_ON_DELIVERY</code> are compulsory.</p>
+</li>
+<li>
+<p>The prefixes <code>c/COMMENTS_BY_CUSTOMER</code> <code>type/TYPE_OF_ITEM</code> are optional.</p>
+</li>
+<li>
+<p>Any compulsory prefixes that is absent will result in the App displaying an error message.</p>
+</li>
+<li>
+<p>There should be a spacing in between every prefixes. For example, <code>tid/TRANSACTION_ID</code> <code>n/CUSTOMER_NAME</code> is allowed
+but <code>tid/TRANSACTION_IDn/CUSTOMER_NAME</code> will be an invalid command input.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>TRANSACTION_ID</code> must be alphanumeric (No numbers or special characters allowed).</p>
+</li>
+<li>
+<p><code>ADDRESS</code> should contain a valid Singapore address followed by a postal code.</p>
+</li>
+<li>
+<p><code>EMAIL</code> should be a valid email address.</p>
+</li>
+<li>
+<p><code>CASH_ON_DELIVERY</code> must start with a dollar sign followed by the value.</p>
+</li>
+<li>
+<p><code>CASH_ON_DELIVERY</code> value must be strictly less than $10,000. If there is a need
+to add decimal places, you can only add two.</p>
+</li>
+<li>
+<p><strong>Do not add any commas in the value of <code>CASH_ON_DELIVERY</code></strong></p>
+</li>
+<li>
+<p>To add the Delivery Date and Time, first type in the date in this format : YYYY-MM-DD. Followed by adding the time
+in 24 hour format.</p>
+</li>
+<li>
+<p>The value for <code>DELIVERY_DATE_&amp;_TIME</code> must be a time in the future. For example, if the date and time now is 2020-04-03 1200,
+you are not allowed to add 2020-04-03 1159 as the <code>DELIVERY_DATE_&amp;_TIME</code>.</p>
+</li>
+<li>
+<p><code>TYPE_OF_ITEM</code> must consist of only alphabets (No numbers or special characters allowed).</p>
+</li>
+<li>
+<p><code>CUSTOMER_NAME</code> must consist of only alphabets (No numbers or special characters allowed).</p>
+</li>
+<li>
+<p><code>PHONE_NUMBER</code> should not have a spacing in between. <code>n/90011009</code> is allowed,<br>
+but <code>n/9001 1009</code> is not allowed.</p>
+</li>
+<li>
+<p>Only numbers are allowed in <code>PHONE_NUMBER</code>.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>These are the possible combinations of the <code>insert</code> command:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. Possible combinations of Insert Command</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scenario</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Insert the order without a comment and no item type.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insert</code> <code>tid/A094844</code> <code>n/John Doe</code> <code>a/Blk 505 Tampines #10-33 S520505</code> <code>p/98761111</code> <code>e/johndoe@example.com</code> <code>dts/2020-05-20 1300</code> <code>w/Yishun</code> <code>cod/$4</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You should be able to see that the order with transaction id <code>A094844</code> will be inserted into the list of delivery orders.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Insert the order with all the order attributes including the non-compulsory ones.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insert</code> <code>tid/C1023456789</code> <code>n/Amos Cheong</code> <code>a/Blk 571 Hougang st 51 #02-02 S530571</code> <code>e/amoscheong@example.com</code> <code>p/90010019</code> <code>dts/2020-05-10 1650</code> <code>w/Marsiling</code> <code>cod/$5</code> <code>c/Leave it at the riser</code> <code>type/glass</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You should see that the order with transaction id <code>C1023456789</code> is inserted into the list of delivery orders.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>List of order attribute prefixes can be found <a href="#command_prefix">here</a>.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-list-feature-strong"><a class="link" href="#strong-list-feature-strong"><strong>List feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section of the List feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#list">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<div class="sect2">
+<h3 id="list"><a class="link" href="#list">Listing orders : <code>list</code>  [Done by Amos Cheong Jit Hon]</a></h3>
+<div class="paragraph">
+<p>In this section, you will learn more about the <code>list</code> command and how to use it.</p>
+</div>
+<div class="paragraph">
+<p>As a courier, you would want to take a look at all the orders that you have in your list of orders regardless of the
+type of orders or the order status.
+The <code>list</code> Command will enable you to view all these orders.</p>
+</div>
+<div class="sect3">
+<h4 id="list-works"><a class="link" href="#list-works">How does the List Command works</a></h4>
+<div class="paragraph">
+<p>Here are the steps to execute the <code>list</code> command:</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1</strong> : Type in the keyword <code>list</code>.<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2</strong> : If you want to simply see all your delivery and return orders.
+Otherwise, please proceed to Step 3. Else, skip to Step 4<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3</strong> : Provide the following <code>[KEYWORD]</code> : <code>done</code> (Show all your completed orders) or <code>undone</code> (Show all your
+uncompleted orders)<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 4</strong> : Press <code>Enter</code> on your keyboard and see the magic!</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-examples"><a class="link" href="#list-examples">What constitutes a valid List command</a></h4>
+<div class="paragraph">
+<p>The syntax of a valid <code>list</code> command is as shown:
+<code>list</code> <code>[KEYWORD]</code></p>
+</div>
+<div class="paragraph">
+<p>These are the possible combinations of the <code>list</code> command:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. Possible combinations of List Command</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scenario</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Display all orders.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Show two lists of all orders. One list for delivery orders, the other for return orders</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Display all completed orders.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code> <code>done</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Show two lists of all completed orders. One list for delivery orders, the other for return orders</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Display all uncompleted orders.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code> <code>undone</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Show two lists of all uncompleted orders. One list for delivery orders, the other for return orders</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>KEYWORD</code> can only be either <code>done</code> or <code>undone</code>.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-show-feature-strong"><a class="link" href="#strong-show-feature-strong"><strong>Show feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section of the Show feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#show">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<div class="sect2">
+<h3 id="show"><a class="link" href="#show">Showing statistics : <code>show</code> [Done by Amos Cheong Jit Hon]</a></h3>
+<div class="paragraph">
+<p>This section will explain more about the <code>show</code> command and how to use it.</p>
+</div>
+<div class="paragraph">
+<p>At some point of time, you would want to know how many orders have you delivered or what is your earnings for today. Therefore,
+you have to use the <code>show</code> command to view those information.</p>
+</div>
+<div class="sect3">
+<h4 id="show-works"><a class="link" href="#show-works">How to use the Show command</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn how to use the <code>show</code> Command.</p>
+</div>
+<div class="paragraph">
+<p>Here is how you can show the statistics of your orders:<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1</strong> : Type <code>show</code><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2</strong> : If you want to see your statistics for all the orders, simply type <code>all</code> and skip to Step 5<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3</strong> : Type <code>today</code> to show the statistics for today or simply type in a date
+in a date format of <code>yyyy-mm-dd</code><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 4 (Optional)</strong> : Type another date in <code>yyyy-mm-dd</code> format to see the statistics within the date range.
+This date must be after or equal to the date provided previously<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 5</strong> : Press <code>Enter</code> on your keyboard to see the magic!</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>show</code> command opens up a new window that displays the following information :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Earnings</p>
+</li>
+<li>
+<p>Orders Delivered</p>
+</li>
+<li>
+<p>Orders Returned</p>
+</li>
+<li>
+<p>PieChart that display numbers for orders delivered, not delivered, returned and not returned</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="show-examples"><a class="link" href="#show-examples">What constitutes a valid Show Command</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn about the correct syntax for a valid <code>show</code> command and all the
+different combinations of the command.<br></p>
+</div>
+<div class="paragraph">
+<p>All the syntax for a valid <code>show</code> command is shown below:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>show</code> <code>START_DATE</code> <code>[END_DATE]</code></p>
+</li>
+<li>
+<p><code>show</code> <code>all</code></p>
+</li>
+<li>
+<p><code>show</code> <code>today</code></p>
+</li>
+<li>
+<p><code>show</code> <code>DATE</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Only one or two arguments is allowed for the <code>show</code> command.</p>
+</li>
+<li>
+<p>The value of <code>START_DATE</code> can be just the word <code>today</code> (Showing statistics just for today)</p>
+</li>
+<li>
+<p><code>END_DATE</code> is an optional field. If included, the command will show statistics based on the given range (inclusive)
+of dates</p>
+</li>
+<li>
+<p><code>START_DATE</code> cannot be a date after <code>END_DATE</code></p>
+</li>
+<li>
+<p><code>show</code> <code>all</code> command is the only command that accepts only one argument. It shows all the statistics in the list
+regardless of the dates</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>These are the possible combinations of the <code>show</code> command:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. Possible combinations of Show Command</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scenario</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Showing all the orders statistics regardless of date.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>all</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You will be brought to the Statistics tab and the statistics of all orders will be displayed to you.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Showing the statistics for today.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>today</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You will be brought to the Statistics tab and the statistics for today&#8217;s orders will be displayed to you.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Showing the statistics for the date between today and the end date provided.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>today</code> <code>2020-12-03</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You will be brought to the Statistics tab and the statistics between today&#8217;s date and
+<code>2020-12-03</code> will be displayed to you.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Showing the statistics for just the given date.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>2020-12-03</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You will be brought to the Statistics tab and the statistics in <code>2020-12-03</code> will be displayed to you.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Showing the statistics within two given dates.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>2020-12-03</code> <code>2021-01-01</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You will be brought to the Statistics tab and the statistics for the date between <code>2020-12-03</code> and <code>2021-01-01</code>
+will be displayed to you.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="features-2"><a class="link" href="#features-2">Features</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-insert-feature-strong-2"><a class="link" href="#strong-insert-feature-strong-2"><strong>Insert feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section of the Insert feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#insert">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<div class="sect2">
+<h3 id="insert"><a class="link" href="#insert">Insert Feature</a></h3>
+<div class="paragraph">
+<p>This section, will <a href="#what-is-insert">introduce</a> the <code>insert</code> feature.
+In addition, it will show the expected <a href="#insert-sequence">path-execution</a>,
+the <a href="#insert-class">structure</a> of the of the <strong>InsertCommand</strong> class,
+<a href="#insertparser-class">structure</a> of the <strong>InsertCommandParser</strong> class and
+it will also describe the <a href="#insert-sequence">interaction</a> of objects between the <strong>InsertCommand</strong> object
+and other object classes.</p>
+</div>
+<div class="sect3">
+<h4 id="what-is-insert"><a class="link" href="#what-is-insert">What is the Insert feature</a></h4>
+<div class="paragraph">
+<p>The <code>insert</code> feature allows the user to insert an incoming delivery order into the list using the command line.<br></p>
+</div>
+<div class="paragraph">
+<p>The order consists of : Transaction ID, Name, Phone, Address, Email, Delivery Timestamp, Warehouse location,
+CashOnDelivery</p>
+</div>
+<div class="paragraph">
+<p>The order also consists of two optional fields that can be added:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Type of Item</p>
+</li>
+<li>
+<p>Comment for Courier</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="insert-class"><a class="link" href="#insert-class">Structure of Insert feature</a></h4>
+<div class="paragraph">
+<p>The following diagrams shows the overview of the <strong>InsertCommand</strong> Class Diagram:<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/InsertClassDiagram.svg" alt="InsertClassDiagram">
+</div>
+<div class="title">Figure 1. Insert Class Diagram</div>
+</div>
+<div class="paragraph">
+<p>The above class diagram shows the structure of the <strong>InsertCommand</strong>
+and its associated classes and interfaces. Some methods and fields are not included because they are
+not extensively utilised in <strong>InsertCommand</strong>; such as public static fields and getter/setter methods.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="insertparser-class"><a class="link" href="#insertparser-class">Structure of InsertCommandParser</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="../images/InsertParserClassDiagram.svg" alt="InsertParserClassDiagram">
+</div>
+<div class="title">Figure 2. InsertCommandParser Class Diagram</div>
+</div>
+<div class="paragraph">
+<p>The above class diagram shows the structure of the <strong>InsertCommandParser</strong>
+and its associated classes and interfaces. It describes all the class dependencies of the <strong>InsertCommandParser</strong>
+class. Some methods and fields are not included because they are
+not extensively utilised in <strong>InsertCommand</strong>; such as public static fields and getter/setter methods.
+As shown in the diagram above, the <strong>InsertCommandParser</strong> make use of methods from classes such as using the
+getValue method from the <strong>ArgumentMultimap</strong> class.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="insert-activity"><a class="link" href="#insert-activity">Path Execution of Insert Command</a></h4>
+<div class="paragraph">
+<p>The overview of the <strong>InsertCommand</strong> Activity Diagram is shown below:<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/InsertActivityDiagram.svg" alt="InsertActivityDiagram">
+</div>
+<div class="title">Figure 3. Insert Activity Diagram</div>
+</div>
+<div class="paragraph">
+<p>After the user calls the <code>insert</code> command, the code will check if the command has all the compulsory prefixes present.
+The code will throw a <strong>ParseException</strong> when there are missing prefixes. After that is checked, it will check if the
+new order added is a duplicate (The Order is already inserted into the application). It will throw a <strong>CommandException</strong>
+when the user tries to insert a duplicate order. Otherwise, it will insert the order and prints a success message to
+the user.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="insert-sequence"><a class="link" href="#insert-sequence">Interaction between objects when the <strong>Insert Command</strong> is executed</a></h4>
+<div class="paragraph">
+<p>Here is the sequence diagram for the <strong>Insert Command</strong> as shown below:<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/InsertCommandSequenceDiagram.svg" alt="InsertCommandSequenceDiagram">
+</div>
+<div class="title">Figure 4. Insert</div>
+</div>
+<div class="paragraph">
+<p>The arguments of the <code>insert</code> command will be parsed using the parse method of the <strong>InsertCommandParser</strong> class.<br>
+The <strong>InsertCommandParser</strong> will tokenize the arguments parsed in using the tokenize method of
+<strong>ArgumentTokenizer</strong> class which returns the tokenized arguments.
+Using the tokenized arguments, the Parser will check if the arguments parsed in matches with the
+tokenized arguments using the arePrefixesPresent method.</p>
+</div>
+<div class="paragraph">
+<p>There are two scenarios :<br></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Some compulsory prefixes are not present :<br>
+<strong>InsertCommandParser</strong> will throw a new <strong>ParseException</strong> object to the <strong>LogicManager</strong>.</p>
+</li>
+<li>
+<p>All compulsory prefixes are present in the arguments :<br>
+It will the  proceed to use the getValue method of the <strong>ArgumentMultimap</strong> class to get the value of the prefix.
+For example, if the argument parsed in is tid/A12345, the getValue method will get the
+value 'A12345'. Subsequently, it will use the <strong>ParseUtil</strong> methods to get the corresponding object
+values and put it into the parameters of the new <strong>Order</strong> object.
+The order object will be put into the parameter of the <strong>InsertCommand</strong> object and this will be returned
+to the <strong>LogicManager</strong> class for execution.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>LogicManager</strong> will call the execute() method of this <strong>InsertCommand</strong> object.
+In the execute() method, it will use the <strong>Model</strong> class to call hasOrder method to check
+for duplicates, if it is a duplicate, the order will throw a <strong>CommandException</strong> which
+indicates that there is a duplicate order in the <strong>OrderBook</strong> already.
+Else, it will successfully inserts the new order
+using addOrder method. Finally, it return a new <strong>CommandResult</strong> object,
+containing a String that indicates a successful insertion.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-list-feature-strong-2"><a class="link" href="#strong-list-feature-strong-2"><strong>List feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section of the List feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#list">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<div class="sect2">
+<h3 id="list"><a class="link" href="#list">List feature</a></h3>
+<div class="paragraph">
+<p>This section describes the <a href="#list-functionality">functionality</a> , the <a href="#list-structure">structure</a>,
+<a href="#list-interactions">interactions</a> between objects and <a href="#list-path">path</a> the path execution
+of the <code>list</code> command.</p>
+</div>
+<div class="sect3">
+<h4 id="list-functionality"><a class="link" href="#list-functionality">What is the List feature</a></h4>
+<div class="paragraph">
+<p>List feature allows the user to see all the orders from both Delivery Orders and Return Orders.</p>
+</div>
+<div class="paragraph">
+<p>The user can enter <code>list</code> to display all the orders. Besides that, the user can also input <code>done</code> to display
+all delivered orders and <code>undone</code> to display all orders that are not delivered.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-structure"><a class="link" href="#list-structure">Structure List feature</a></h4>
+<div class="paragraph">
+<p>The structure of the List Feature is as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ListClassDiagram.svg" alt="ListClassDiagram">
+</div>
+<div class="title">Figure 5. List Class Diagram</div>
+</div>
+<div class="paragraph">
+<p>The above class diagram shows the structure of the <strong>ListCommand</strong> and all its associated classes and interfaces.
+The <strong>ListCommand</strong> has dependencies on the <strong>Model</strong> class as it uses the two methods from it :<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>updateFilteredOrderList</p>
+</li>
+<li>
+<p>updateReturnFilteredOrderList</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There are other variables and strings not shown in this Class Diagrams as they are either static methods or variables.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-path"><a class="link" href="#list-path">Path execution of the List Command</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ListActivityDiagram.svg" alt="ListActivityDiagram">
+</div>
+<div class="title">Figure 6. List Activity Diagram</div>
+</div>
+<div class="paragraph">
+<p>The above activity diagram shows the logic and the path execution when the <code>list</code> command is executed.
+There are only three correct syntax available for <code>ListCommand</code>:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code></p>
+</li>
+<li>
+<p><code>list</code> <code>done</code></p>
+</li>
+<li>
+<p><code>list</code> <code>undone</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The code will check if the input is one of the three mentioned above. If the input is not one of the three, it will
+cause the code the throw an error message to the user.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-interactions"><a class="link" href="#list-interactions">Interaction between objects during execution of List Command</a></h4>
+<div class="paragraph">
+<p>The sequence diagram for the <code>list</code> command is shown below:<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ListCommandSequenceDiagram.svg" alt="ListCommandSequenceDiagram">
+</div>
+<div class="title">Figure 7. List Command Sequence Diagram</div>
+</div>
+<div class="paragraph">
+<p>The user first calls the command <code>list</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The second argument of the <code>list</code> command can be <code>done</code> or <code>undone</code> or an empty String.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The LogicManager will call the parseCommand method of <strong>DelinoParser</strong>, which then passes the second argument
+into the <strong>ListCommand</strong> object. This object will then be ultimately returned to the <strong>LogicManager</strong>.
+Next, the <strong>LogicManager</strong> will call the execute(model) method using the <strong>ListCommand</strong> object.
+In this method, it wil use the <strong>Model</strong> object to call the methods :
+updateFilteredOrderList and updateFilteredReturnOrderList.
+Since in this case, the argument is empty, the predicate that is parsed to the two methods
+will always result to true, which means to list
+everything from the order book and return book.
+When completed, the execute(model) will return a <strong>CommandResult</strong> object
+to the <strong>LogicManager</strong>, indicating that the command execution is a success.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-show-feature-strong-2"><a class="link" href="#strong-show-feature-strong-2"><strong>Show feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section of the Show feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#show">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<div class="sect2">
+<h3 id="show"><a class="link" href="#show">Show feature</a></h3>
+<div class="paragraph">
+<p>This section describes the <a href="#show-functionality">functionality</a> , the <a href="#show-structure">structure</a>,
+<a href="#show-interactions">interactions</a> between objects and <a href="#show-path">path</a> the path execution of the <code>show</code> command.</p>
+</div>
+<div class="sect3">
+<h4 id="show-functionality"><a class="link" href="#show-functionality">What is the Show feature</a></h4>
+<div class="paragraph">
+<p>The <code>show</code> feature allows the user to see the statistical information of all the orders for both Delivery Orders
+and Return Orders.</p>
+</div>
+<div class="paragraph">
+<p>There are a few ways in which the user can input to the command box to execute the <code>show</code> command:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>show</code> <code>START_DATE</code> <code>[END_DATE]</code></p>
+</li>
+<li>
+<p><code>show</code> <code>all</code></p>
+</li>
+<li>
+<p><code>show</code> <code>today</code></p>
+</li>
+<li>
+<p><code>show</code> <code>DATE</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="show-structure"><a class="link" href="#show-structure">Structure Show feature</a></h4>
+<div class="paragraph">
+<p>The structure of the <code>show</code> feature is as shown below:</p>
+</div>
+<div class="paragraph">
+<div class="title">Show Command Class Diagram</div>
+<p><span class="image"><img src="../images/ShowCommandClassDiagram.svg" alt="ShowCommandClassDiagram"></span></p>
+</div>
+<div class="paragraph">
+<p>The above diagram shows all the methods and variables that the <strong>ShowCommand</strong> class is using when the command is
+executed. All the static methods and variables are not mentioned in this diagram. Furthermore, there are
+some methods and variables omitted from this diagram as it is irrelevant to the <strong>ShowCommand</strong> class.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="show-path"><a class="link" href="#show-path">Path execution of the Show Command</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ShowCommandActivityDiagram.svg" alt="ShowCommandActivityDiagram">
+</div>
+<div class="title">Figure 8. Show Command Activity Diagram</div>
+</div>
+<div class="paragraph">
+<p>The above activity diagram shows the logic and the path execution when the <code>show</code> command is executed.</p>
+</div>
+<div class="paragraph">
+<p>The main logic of the <strong>ShowCommand</strong> is to check if the number of arguments in the input besides <code>show</code> is one or two.
+If it is neither, the code will throw an exception. If there is only one argument, the code will check if the word
+provided is either <code>all</code> or <code>today</code> or simply just a <code>DATE</code> the value of <code>DATE</code> will be validated to check
+if it is a valid date.
+It throws an error if it is invalid. When its correct, the code will execute the input accordingly.
+If the number is two arguments, it will check if the dates provided are valid or invalid date.
+It throws an error for the latter. The code will then ensure that the <code>START_DATE</code> is before the <code>END_DATE</code>.
+Once the input passes all the validations in the <strong>ShowCommand</strong> code,
+the command will then be executed and it prints a success message to the user.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="show-interactions"><a class="link" href="#show-interactions">Interaction between objects during execution of Show Command</a></h4>
+<div class="paragraph">
+<p>The sequence diagram for the <code>show</code> command is shown below:<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ShowCommandSequenceDiagram.svg" alt="ShowCommandSequenceDiagram">
+</div>
+<div class="title">Figure 9. Show Command Sequence Diagram</div>
+</div>
+<div class="paragraph">
+<p>The user first calls the command "show all".</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It can accept either one or two arguments.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <strong>LogicManager</strong> will call the parseCommand method of <strong>DelinoParser</strong>, which then passes the second argument
+into the <strong>ShowCommand</strong> object. Within the object, it will call the parseData method to make sense of the dates given.
+After that, it returns the object to the <code>LogicManager</code>.
+Next, the <strong>LogicManager</strong> will call the execute(model) method using the <strong>ShowCommand</strong> object.
+When completed, the execute(model) will return a <strong>CommandResult</strong> object to the <strong>LogicManager</strong>, indicating that the command execution is a success.
+In this case where the input is "show all", it will have a message that indicates that the command is showing all information.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-cases"><a class="link" href="#use-cases">Use Cases</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-use-case-for-insert-feature-strong"><a class="link" href="#strong-use-case-for-insert-feature-strong"><strong>Use case for insert feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Use case for insert feature can be found at <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<h3 id="use-case-uc01-insert-an-order" class="discrete">Use case: UC01 - Insert an order</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User wants to add an order.</p>
+</li>
+<li>
+<p>User key in the order details.</p>
+</li>
+<li>
+<p>Delino inserts the order details.</p>
+</li>
+<li>
+<p>Delino displays order added.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. Delino detects invalid syntax from user input.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. Delino shows an error message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>2b. Delino detects the insertion of a duplicate order.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2b1. Delino shows duplicate order message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-use-case-for-show-feature-strong"><a class="link" href="#strong-use-case-for-show-feature-strong"><strong>Use case for show feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Use case for show feature can be found at <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<h3 id="use-case-uc13-show-statistics" class="discrete">Use case: UC13 - Show statistics</h3>
+<div class="paragraph">
+<p>Preconditions: There should be a delivered order/return order in the list.</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User wants to know about their delivery statistics.</p>
+</li>
+<li>
+<p>User requests to see the statistics of orders or return orders.</p>
+</li>
+<li>
+<p>Delino displays the statistics.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. Delino detects invalid syntax from user input.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. Delino shows an error message.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>2b. Delino detecs an invalid date from user input.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2b1. Delino shows an error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-use-case-for-list-feature-strong"><a class="link" href="#strong-use-case-for-list-feature-strong"><strong>Use case for list feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Use case for list feature can be found at <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<h3 id="use-case-uc10-listing-all-orders" class="discrete">Use case: UC10 - Listing all orders</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User wants to view all orders.</p>
+</li>
+<li>
+<p>User requests to view the list of orders.</p>
+</li>
+<li>
+<p>Delino display list of orders.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. Delino detects invalid syntax from user input.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. Delino shows an error message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a. Delino detects no orders.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. Delino shows empty order list message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="glossary"><a class="link" href="#glossary">Glossary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Glossary can be found at <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#glossary">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<div class="sect2">
+<h3 id="command_prefix"><a class="link" href="#command_prefix">Command Prefix</a></h3>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 4. Command Prefix</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Prefix</th>
+<th class="tableblock halign-left valign-top">Order Attributes</th>
+<th class="tableblock halign-left valign-top">Used in the following Command(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ot/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Order Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tid/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transaction ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Customer Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">p/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Phone Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">e/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Email</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#insert">Insert</a>, <a href="#edit">Edit</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dts/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delivery Date And Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rts/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return Date and Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">w/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Warehouse Location</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cod/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cash On Delivery</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">c/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comments by Customer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of Item</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appendix-g-instructions-for-manual-testing"><a class="link" href="#appendix-g-instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-manual-testing-for-insert-strong"><a class="link" href="#strong-manual-testing-for-insert-strong"><strong>Manual Testing for insert</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on manual testing for insert feature can be found at <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#inserting-an-order">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<div class="sect2">
+<h3 id="inserting-an-order"><a class="link" href="#inserting-an-order">Inserting an order</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Insert a minimum of 2 orders</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Insert command format: <code>insert</code> <code>tid/TRANSACTION_ID</code> <code>n/CUSTOMER_NAME</code> <code>a/ADDRESS</code> <code>p/PHONE_NUMBER</code> <code>e/EMAIL</code> <code>ts/DELIVERY_DATE_&amp;_TIME</code> <code>w/WAREHOUSE_LOCATION</code> <code>cod/CASH_ON_DELIVERY</code> <code>[c/COMMENTS_BY_CUSTOMER]</code> <code>[type/TYPE_OF_ITEM]</code></p>
+</li>
+<li>
+<p>Test case: <code>insert</code> <code>tid/9876543210</code> <code>n/John Doe</code> <code>a/Blk 572 Hougang st 51 #10-33 S530572</code> <code>p/98766789</code> <code>e/johndoe@example.com</code> <code>ts/2020-02-20 1300</code> <code>w/Yishun</code> <code>cod/$4</code><br>
+Expected: Inserts an order with the above details to the list and displayed on the GUI</p>
+</li>
+<li>
+<p>Test case: <code>insert</code> <code>tid/1023456789</code> <code>n/Amos Cheong</code> <code>a/Blk 572 Hougang st 51 #11-37 S530572</code> <code>p/9001 0019</code> <code>e/amoscheong@example.com</code> <code>ts/2020-03-10 1650</code> <code>w/Marsiling</code> <code>cod/$5</code> <code>c/Leave it at the riser</code> <code>type/glass</code><br>
+Expected: Inserts the order to the list, including the item type and the order comment</p>
+</li>
+<li>
+<p>Test case: Invalid Syntax<br>
+Expected: No order is added. Error details shown in the response message. A help message displayed for user to insert accordingly. Status bar remain unchanged</p>
+</li>
+<li>
+<p>Test case: Insert order with existing Transaction ID in list<br>
+Expected: An error will occur and a message will be displayed, stating that order with duplicate ID cannot be inserted into the list</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-manual-testing-for-list-strong"><a class="link" href="#strong-manual-testing-for-list-strong"><strong>Manual Testing for list</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on manual testing for list feature can be found at <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#list-orders">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<div class="sect2">
+<h3 id="list-orders"><a class="link" href="#list-orders">List orders</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>List all the delivery orders for the user. The type of orders to be listed is dependent on the command input from the user</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>list</code><br>
+Expected: List all the delivery orders, showing all completed and uncompleted orders.</p>
+</li>
+<li>
+<p>Test case: <code>list</code> <code>done</code><br>
+Expected: List all completed delivery orders.</p>
+</li>
+<li>
+<p>Test case: <code>list</code> <code>undone</code><br>
+Expected: List all uncompleted delivery orders.</p>
+</li>
+<li>
+<p>Test case: <code>list</code> <code>ANY_WORD_OTHER_THAN_UNDONE_AND_DONE</code><br>
+Expected: An error will occur, a message will appear in the response box, indicating an invalid list command</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-manual-testing-for-show-strong"><a class="link" href="#strong-manual-testing-for-show-strong"><strong>Manual Testing for show</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on manual testing for show feature can be found at <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#show-2">here</a>.
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member</p>
+</div>
+<div class="sect2">
+<h3 id="show-2"><a class="link" href="#show-2">Show</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Opens a window which shows the statistics of the current lists of orders. It displays information such
+as earnings made, orders delivered and orders returned (Including a PieChart).</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>show</code> <code>all</code><br>
+Expected: All statistical information of all the orders shown in the statistics tab.</p>
+</li>
+<li>
+<p>Test case: <code>show</code> <code>today</code><br>
+Expected: All statistical information today shown in the statistics tab.</p>
+</li>
+<li>
+<p>Test case: <code>show</code> <code>today</code> <code>2020-12-03</code><br>
+Expected: All statistical information between the dates shown in the statistics tab.</p>
+</li>
+<li>
+<p>Test case: <code>show</code> <code>2020-12-03</code><br>
+Expected: All statistical information for the given date shown in the statistics tab.</p>
+</li>
+<li>
+<p>Test case: <code>show</code> <code>2020-12-03</code> <code>2021-01-01</code><br>
+Expected: All statistical information within the dates shown in the statistics tab.</p>
+</li>
+<li>
+<p>Test case: Invalid syntax<br>
+Expected: An error will occur and the response box will show an error message.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 00:46:12 SGT</div></div></div></body></html>
