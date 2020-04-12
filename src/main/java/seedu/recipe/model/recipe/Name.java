@@ -5,7 +5,7 @@ import static seedu.recipe.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Recipe's name in the recipe book.
- * Guarantees: immutable; is valid as declared in {@link #isValidQuantity(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
@@ -24,14 +24,14 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidQuantity(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         this.fullName = removeExtraWhitespace(name);
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidQuantity(String test) {
+    public static boolean isValidName(String test) {
         return (!test.isBlank()) && test.matches(VALIDATION_REGEX);
     }
 
@@ -61,3 +61,4 @@ public class Name {
     }
 
 }
+
