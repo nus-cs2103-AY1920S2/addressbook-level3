@@ -24,8 +24,8 @@ public class ListAmountCommand extends Command<SplitterModel> {
     public CommandResult execute(SplitterModel splitterModel) {
         requireNonNull(splitterModel);
         if (!splitterModel.getPersonAmountBook().getPersonList().isEmpty()) {
-            splitterModel.listAmount();
-            return new CommandResult(MESSAGE_SUCCESS);
+            String output = splitterModel.listAmount();
+            return new CommandResult(output.concat(MESSAGE_SUCCESS));
         } else {
             return new CommandResult(MESSAGE_EMPTY);
         }

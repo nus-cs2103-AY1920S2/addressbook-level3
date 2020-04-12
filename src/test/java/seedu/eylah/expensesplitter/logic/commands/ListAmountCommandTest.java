@@ -6,6 +6,7 @@ import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.assertC
 import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.eylah.expensesplitter.testutil.TypicalEntries.getTypicalReceiptBook;
 import static seedu.eylah.expensesplitter.testutil.TypicalPersons.getTypicalPersonAmountBook;
+import static seedu.eylah.expensesplitter.testutil.TypicalPersons.getTypicalPersonAmountBookToString;
 import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,16 +35,19 @@ public class ListAmountCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListAmountCommand(), splitterModel, ListAmountCommand.MESSAGE_SUCCESS,
-                expectedSplitterModel);
+        assertCommandSuccess(new ListAmountCommand(), splitterModel, getTypicalPersonAmountBookToString()
+            + ListAmountCommand.MESSAGE_SUCCESS, expectedSplitterModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(splitterModel, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListAmountCommand(), splitterModel, ListAmountCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ListAmountCommand(), splitterModel, getTypicalPersonAmountBookToString()
+            + ListAmountCommand.MESSAGE_SUCCESS,
                 expectedSplitterModel);
     }
+
+
 
     @Test
     public void equals() {

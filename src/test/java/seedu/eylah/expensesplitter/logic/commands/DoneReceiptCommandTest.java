@@ -70,8 +70,8 @@ public class DoneReceiptCommandTest {
         }
 
         @Override
-        public void listReceipt() {
-            System.out.println(receipt.toString());
+        public String listReceipt() {
+            return receipt.toString();
         }
     }
 }
