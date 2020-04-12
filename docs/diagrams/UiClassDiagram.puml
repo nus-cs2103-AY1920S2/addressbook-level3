@@ -60,16 +60,23 @@ ClientView ---|> UiPart
 ExerciseListTable ---|> UiPart
 PersonalBestTable ---|> UiPart
 SchedulePanel ---|> UiPart
-GraphWindow ---|> UiPart
+GraphWindow ----|> UiPart
 
-ClientCard ..> Model
+ClientCard ....> Model
+ExerciseListTable ....> Model
+ClientViewDisplay ....> Model
+ClientView ....> Model
+PersonalBestTable ....> Model
+SchedulePanel ......> Model
+GraphWindow ....> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
 CommandBox -[hidden]left- ResultDisplay
 CommandBox -[hidden]right- SchedulePanel
 ResultDisplay -[hidden]left- StatusBarFooter
-GraphWindow -[hidden]right- StatusBarFooter
+ClientListPanel -[hidden]right- GraphWindow
+ClientViewDisplay -[hidden]right- GraphWindow
 
 MainWindow -[hidden]-|> UiPart
 @enduml
