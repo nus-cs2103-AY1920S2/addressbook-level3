@@ -20,12 +20,12 @@ public class PhotographUtilTest {
     }
 
     @Test
-    public void getImage_exitingImage() {
+    public void getImageExitingImage() {
         assertNotNull(PhotographUtil.getPhoto("/images/recipe_book_32.png"));
     }
 
     @Test
-    public void getImage_nullGiven_throwsNullPointerException() {
+    public void getImageNullGivenThrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> PhotographUtil.getPhoto(null));
     }
 
