@@ -301,18 +301,15 @@ public class MainWindow extends UiPart<Stage> {
             taskListPanel.setSortOrder(logic.getTaskList().getSortOrder());
 
             // Done Command related results
-            try {
-                DoneCommandResult doneCommandResult = (DoneCommandResult) commandResult;
-                //// increment Pet EXP after completing a task
+            if (commandResult instanceof DoneCommandResult) {
+                // increment Pet EXP after completing a task
                 petManager.incrementExp();
                 updateMoodWhenDoneTask();
                 updatePetDisplay();
-            } catch (ClassCastException ce) {
-
             }
 
             // set Command related results
-            try {
+            if (commandResult instanceof SetCommandResult) {
                 SetCommandResult setCommandResult = (SetCommandResult) commandResult;
 
                 PetName petName = setCommandResult.getPetName();
@@ -337,13 +334,10 @@ public class MainWindow extends UiPart<Stage> {
 
                 settingsDisplay.update();
                 tabPanePlaceholder.getSelectionModel().select(SETTINGS_TAB_INDEX);
-
-            } catch (ClassCastException ce) {
-
             }
 
             // Switch tabs related results
-            try {
+            if (commandResult instanceof SwitchTabCommandResult) {
                 SwitchTabCommandResult switchTabCommandResult =
                         (SwitchTabCommandResult) commandResult;
                 tabPanePlaceholder
@@ -353,11 +347,10 @@ public class MainWindow extends UiPart<Stage> {
                     statisticsManager.updateStatisticsDisplayValues();
                     this.updateStatisticsDisplay();
                 }
-            } catch (ClassCastException ce) {
             }
 
             // Pomodoro related results
-            try {
+            if (commandResult instanceof PomCommandResult) {
                 PomCommandResult pomCommandResult = (PomCommandResult) commandResult;
 
                 if (pomCommandResult.getIsNormal()) {
@@ -368,8 +361,6 @@ public class MainWindow extends UiPart<Stage> {
                             pomCommandResult.getOriginList(),
                             pomCommandResult.getTaskIndex());
                 }
-            } catch (ClassCastException ce) {
-
             }
 
             if (commandResult.isShowHelp()) {
