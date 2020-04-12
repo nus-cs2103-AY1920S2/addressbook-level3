@@ -10,6 +10,7 @@
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
+:warning-caption: :warning:
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-T10-1/main
@@ -43,8 +44,7 @@ HYBB enables filtering by specific components in the recipes such as goals, favo
 reduce the time needed to find recipes that suit your needs.
 
 === Planning
-This feature enables students to plan their meals in advance while considering the available ingredients,
-HYBB supports bulk planning of ingredients required for the following week.
+This feature enables students to plan their meals in advance and provides an easy grocery list for your shopping needs.
 
 === Goals
 This feature enables students to monitor their healthy eating progress, HYBB provides a history of all cooked meals along with
@@ -52,14 +52,14 @@ statistics based on 4 main goals: “Wholesome Wholemeals”, “Bulk like a Hul
 
 === Achievements
 This feature aims to encourage students to continue their healthy eating by showing visual evidence of their progress
-through streaks daily motivational quotes.
+through streaks and daily motivational quotes.
 
 == Quick Start
 
 .  Ensure you have `Java 11` or above installed in your Computer.
 .  Download the latest `healthybaby.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your HealthyBaby application.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The Graphical User Interface should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -77,9 +77,9 @@ e.g. Entering *`help`* will open the help window.
 
 == The Anatomy of a Recipe
 You can store the following information in a recipe: +
-*Name* - The name of the recipe +
-*Time* - The time taken for the recipe to be cooked, measured in minutes +
-*Ingredients* - Ingredients used in the recipe +
+*Name* - Name of the recipe +
+*Time* - Time taken for the recipe to be cooked, measured in minutes +
+*Ingredients* - Ingredients used in the recipe, broken down into five categories (Grains, Vegetables, Proteins, Fruits, Others) +
 *Steps* - Steps taken to cook the meal +
 *Goals* - Goal that the recipe falls under +
 
@@ -107,9 +107,23 @@ You can use the following units to measure how much of each ingredient is needed
 |cup |Cups
 |===
 
+== HealthyBaby's User Interface
+Upon opening *HYBB*, you will see our Graphical User Interface.
+
+.HealthyBaby's User Interface
+image::AnnotatedUserInterface.png[]
+
+The *Command Box* is where you can enter commands to tell HYBB what to do. +
+The *Result Box* is where you can see whether the command you have given was successful or unsuccessful. +
+The *Tab Panel* can be clicked to switch between tabs. +
+Alternatively, if you wish to switch between tabs by typing instead of clicking, you can type `switch [tab name]`
+into the Command Box instead. +
+For more information, please refer to <<Switch the current tab: `switch`>>. +
+The *Display Panel* displays the information for the current tab you are on.
+
 == Notations Used
 === List of Tags
-HYBB uses the following tags to make sense of user input:
+You can use the following tags to converse with HYBB.
 
 |===
 |Tag |Description
@@ -135,8 +149,10 @@ From sections 6 to 11, the following notations may be used.
 |[ ] |Necessary field
 |< > |Optional field. e.g. `n/name <s/step>` can be used as `n/Spicy Chicken s/Step 1` or just `n/Spicy Chicken`
 |[ < > ] |At least one of the optional fields is necessary
-|… | One or more of this same field can be added. e.g. if the command specifies `<ip/protein>...`, you may either leave
-the field empty, or you may specify one or more protein ingredients.
+|… | One or more of this same field can be added. +
+e.g. if the command specifies `<ip/protein>...`, you may either leave
+the field empty, or you may specify one or more protein ingredients. +
+e.g. if the command specifies `[recipe index]...`, you may specify one or more recipe indexes.
 |💡 | Tips for usage and things to take note of
 |===
 
@@ -193,11 +209,14 @@ Adds a recipe to the recipe book +
 Format: `add [n/name] [t/time] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>...]
 <s/step>...`
 
-Example: `add n/Chicken Rice t/30 ip/300g, Chicken Thigh ig/300g, Rice s/Boil chicken s/While chicken is cooking,
-          add sesame oil and crushed ginger into rice and cook it s/When chicken is done, dip it into iced water
+Example: `add n/Chicken Rice t/30 ip/300g, Chicken Thigh ig/300g, Rice s/Boil chicken
+          s/While chicken is cooking, add sesame oil and crushed ginger into rice and cook it
+          s/When chicken is done, dip it into iced water
           s/Serve while rice is hot` +
-Adds a new recipe entry that contains the following description:
-image::AddExample.png
+Adds a new recipe entry that contains the following description: +
+
+.Expected output
+image::AddExample.png[]
 
 [TIP]
 Multiple steps and multiple ingredients for a recipe can be added in this one command. +
@@ -246,7 +265,7 @@ Deletes recipe 1, 3, and 4 from the recipe book.
 [TIP]
 You can *delete, favourite, or unfavourite* multiple recipes at the same time (at least one recipe must be selected).
 
-[TIP]
+[tip]
 If you specify a recipe number that does not exist in the list of recipes _that you are currently viewing_, none of your
 selected recipes will be deleted, favourited, or unfavourited.
 
@@ -268,6 +287,12 @@ Unfavourites recipes 1, 3, and 4.
 Clears the recipe book. After entering this command, the recipe book will be empty and all planned recipes
 will be removed. +
 Format: `clear`
+
+[WARNING]
+All recipes and plans, including default ones, will be removed.
+
+[TIP]
+You can `undo` this command if it was performed by accident.
 
 === Exit the program : `exit`
 Saves HYBB and exits the program. +
@@ -384,24 +409,50 @@ Finds recipes that have 15 minutes or less of preparation time.
 Example 2: `filter t/20-30` +
 Finds recipes that have 20 to 30 minutes (inclusive) of preparation time.
 
-== Planning Command
+== Planning Command (Beatrice)
+Most of the planning commands take place in the planning tab. +
+Switch to the planning tab by typing `switch planning` or by clicking on Planning from the *Tab Panel*. +
+
+You should get the following interface:
+
+.Planning Tab
+image::PlanTab.png[]
+The *Display Panel* for the planing tab lists all the plans that you have made. +
+
+You can the see the details of each plan from the list of plans.
+
+.Details of each plan
+image::PlanTab_Plan.png[]
+
+
 === Plan a recipe: `plan`
-Plans a recipe that you would like to cook on a certain day. +
+Plans a recipe that you would like to cook on a certain day in the future. +
 Format: `plan [recipe index] [d/yyyy-mm-dd]`
 
-Example: `plan 1 d/2020-03-27` +
-Plans the recipe at index 1 in the recipe book to 27 March 2020.
+Example 1: `plan 1 d/2020-05-27` +
+Plans the recipe at index 1 in the recipe book to 27 May 2020. +
+1. Type `plan 1 d/2020-05-27` into the *Command Box*.
+
+
+Example 2: `plan 1 2 3 d/2020-05-27` +
+Plans the recipe at index 1 in the recipe book to 27 May 2020.
 
 [TIP]
-Multiple indexes can be given in one go. `plan 1 2 3 d/2020-03-27` will plan all three recipes at indexes 1 2 and 3
-on 27 March 2020.
+The latest date that you can input is today's date.
 
-=== Delete a planned recipe: `deletePlan`
-Deletes a planned recipe at a certain day. +
-Format: `deletePlan [planned recipe index]`
+[TIP]
+Multiple indexes can be given in one go. `plan 1 2 3 d/2020-05-27` will plan all three recipes at indexes 1 2 and 3
+on 27 May 2020.
 
-Format: `deletePlan 3` +
-Deletes the 3rd recipe planned.
+=== Delete a plan: `deletePlan`
+Deletes a plan. +
+Format: `deletePlan [planned recipe index]...`
+
+Example 1: `deletePlan 3` +
+Deletes the 3rd plan.
+
+Example 2: `deletePlan 3 5 8` +
+Deletes the 3rd, 5th and 8th plan.
 
 [TIP]
 Multiple indexes can be given in one go. `deletePlan 1 2 3` will delete all three plans at indexes 1 2 and 3.
@@ -410,9 +461,14 @@ Multiple indexes can be given in one go. `deletePlan 1 2 3` will delete all thre
 Using the `cooked` command in Section 10.4 will automatically delete today's plan for that recipe.
 
 === Clear all planned recipes: `clearPlan`
-Clears all the recipes you have planned. +
+Clears all the plans you have made. +
 Format: `clearPlan`
 
+[WARNING]
+All plans will be removed.
+
+[TIP]
+You can `undo` this command if it was performed by accident.
 
 === Obtain ingredients for planned recipes: `groceryList`
 Lists all ingredients needed for the recipes that have been planned. +
@@ -453,6 +509,7 @@ _under the recipes tab_, none of your selected recipes will be marked as cooked.
 [TIP]
 A history of all cooked meals, along with a pie chart based on your meals cooked, can be found under the goals tab.
 
+.Goal tab
 image::goalsTab.png[width="790"]
 
 [TIP]
@@ -525,9 +582,10 @@ data of your previous HYBB folder.
 |editStep |Edit a step in a recipe
 |deleteStep |Delete steps in a recipe
 |filter |Search for recipes by (multiple) criteria
-|plan |Plan a recipe
-|deletePlan |Deletes a planned recipe
-|clearPlan |Clears all planned recipes
+|plan |Plan recipes
+|deletePlan |Delete plans
+|clearPlan |Clear all plans
+|groceryList |List all ingredients used in the planned recipes
 |deleteGoal |Deletes specified goal from a recipe
 |listGoals |Lists all available goals
 |cooked |Records a recipe as cooked

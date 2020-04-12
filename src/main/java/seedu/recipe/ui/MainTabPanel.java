@@ -33,7 +33,6 @@ public class MainTabPanel extends UiPart<Region> {
     @FXML
     private TabPane mainTabPanel;
 
-    //TODO: change last argument's RecipeListPanel to AchievementsListPanel once class is created
     public MainTabPanel(RecipeListPanel recipeListPanel, PlanningListPanel planningListPanel,
                         CookedListPanel cookedListPanel, AchievementCard achievementsListPanel) {
         super(FXML);

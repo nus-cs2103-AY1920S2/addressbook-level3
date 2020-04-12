@@ -163,7 +163,7 @@ public class AddCommandTest {
 
         @Override
         public void commitBook(CommandType commandType, Tab tab) {
-            // throw new AssertionError("This method should not be called."); todo
+            // throw new AssertionError("This method should not be called.");
         }
 
         @Override
