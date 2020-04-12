@@ -28,7 +28,7 @@
                         <Menu mnemonicParsing="false" text="Help">
                             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                         </Menu>
-                        <Menu fx:id="timeHolder"></Menu>
+                        <Menu fx:id="timeHolder" />
                     </MenuBar>
                 <HBox VBox.vgrow="ALWAYS">
                     <VBox id="userActivityBox" HBox.hgrow="ALWAYS">
@@ -58,7 +58,7 @@
                                         <padding>
                                             <Insets bottom="10" left="10" right="10" top="10" />
                                         </padding>
-                                        <Label fx:id="returnOrderLabel" alignment="CENTER" prefWidth="Infinity" text="Return List" VBox.vgrow="ALWAYS" />
+                                        <Label fx:id="returnOrderLabel" alignment="CENTER" prefWidth="Infinity" text="Return Order List" VBox.vgrow="ALWAYS" />
                                         <StackPane fx:id="returnOrderListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                                     </VBox>
                                 </HBox>
