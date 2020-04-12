@@ -2,8 +2,6 @@ package seedu.address.model.profile.course.module.personal;
 
 import java.util.List;
 
-import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
-
 //@@author chanckben
 /**
  * A wrapper class to contain attributes of a Module specific to a particular student.
@@ -45,6 +43,10 @@ public class Personal {
         return this.deadlineList.hasDeadline(deadline);
     }
 
+    public void deleteDeadline(Deadline deadline) {
+        this.deadlineList.deleteDeadline(deadline);
+    }
+
     public String getStatus() {
         return this.status.getStatus();
     }
@@ -63,9 +65,5 @@ public class Personal {
 
     public List<Deadline> getDeadlines() {
         return this.deadlineList.getList();
-    }
-
-    public void deleteDeadline(Deadline deadline) throws DeadlineNotFoundException {
-        this.deadlineList.deleteDeadline(deadline);
     }
 }
