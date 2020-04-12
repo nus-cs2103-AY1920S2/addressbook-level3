@@ -85,6 +85,20 @@ public class CommandTestUtil {
     public static final EditCommand.EditEntryDescriptor DESC_FOOD;
     public static final EditCommand.EditEntryDescriptor DESC_SPORTS;
 
+    public static final String WHITE_SPACE = " ";
+    public static final String TIME = "time";
+    public static final String CALORIE = "cal";
+    public static final String NAME = "name";
+    public static final String TIME_ACRONYM = "t";
+    public static final String CAL_ACRONYM = "c";
+    public static final String NAME_ACRONYM = "n";
+    public static final String SPORTS = "sports";
+    public static final String SPORTS_ACRONYM = "s";
+    public static final String FOOD = "food";
+    public static final String FOOD_ACRONYM = "f";
+    public static final String DESCENDING = "d";
+    public static final String ASCENDING = "a";
+    public static final String APPLE = "apple";
 
     static {
         DESC_FOOD = new EditEntryDescriptorBuilder().withName(VALID_NAME_FOOD)

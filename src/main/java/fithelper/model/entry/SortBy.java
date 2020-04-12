@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
 public class SortBy {
-    public static final String MESSAGE_CONSTRAINTS = "Order can only be cal/c or time/t.";
+    public static final String MESSAGE_CONSTRAINTS = "Sort by category can only be cal/c or time/t or name/n.";
     private final String value;
 
     /**

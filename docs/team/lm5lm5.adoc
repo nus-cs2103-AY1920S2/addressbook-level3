@@ -29,7 +29,7 @@ It also helps the user to view entry that he/she may deem more important first
 ** What it does: allows the user to search for calorie intake/consumption of food/sports by keywords.
 ** Justification: This feature makes it easier for the user to estimate how much calorie he/she will gain/burn
 by eating/exercising, so that he/she can create food/sports entry without the need to search online for relevant information.
-** Highlights:
+** Highlights: The search will
 ** Credits: The calorie data are collected from the following websites: https://www.calories.info/ and https://www.nutristrategy.com/caloriesburned.htm
 
 * *Minor enhancement*: added and updated the Help Page, which shows the list of valid user commands and their usage, and the link to the user guide.

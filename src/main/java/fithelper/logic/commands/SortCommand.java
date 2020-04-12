@@ -30,6 +30,7 @@ public class SortCommand extends Command {
             + PREFIX_SORT_BY + "cal "
             + PREFIX_SORT_ORDER + "d";
 
+    private static final String MESSAGE_COMMIT = "Sort the entry list and reminder list.";
     private final Type sortType;
     private final SortBy sortBy;
     private final boolean isAscendingSort;
@@ -57,6 +58,7 @@ public class SortCommand extends Command {
             }
         }
         feedback = editFeedbackBasedOnSortOrder(feedback);
+        model.commit(MESSAGE_COMMIT);
         return new CommandResult(feedback, HOME, false);
     }
 
@@ -69,10 +71,29 @@ public class SortCommand extends Command {
     private String editFeedbackBasedOnSortOrder(String feedback) {
         String copy = feedback;
         if (isAscendingSort) {
-            copy += " in ascending order (i.e. earlier entry OR entry with lower calorie value first)";
+            copy += " in ascending order\n";
         } else {
-            copy += " in descending order (i.e. later entry OR entry with higher calorie value first)";
+            copy += " in descending order\n";
         }
         return copy;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof SortCommand) {
+            SortCommand other = (SortCommand) obj;
+            boolean isSameCheckType;
+            if (this.sortType == null) {
+                isSameCheckType = (other.sortType == null);
+            } else {
+                isSameCheckType = this.sortType.equals(other.sortType);
+            }
+            return isSameCheckType && other.sortBy.equals(this.sortBy)
+                    && other.isAscendingSort == this.isAscendingSort;
+        } else {
+            return false;
+        }
     }
 }
