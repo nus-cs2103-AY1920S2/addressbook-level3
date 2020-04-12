@@ -42,8 +42,7 @@ public class RepeatEventCommandParser implements Parser<RepeatEventCommand> {
 
         if (!(arePrefixesPresent)
                 || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RepeatDeadlineCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
         // compulsory fields

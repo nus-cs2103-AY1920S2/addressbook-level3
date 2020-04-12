@@ -40,11 +40,9 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             moduleCode = ParserUtil.parseModuleCode(argMultimap.getFirstValue(PREFIX_MODULE).get());
 
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditEventCommand.MESSAGE_USAGE),
-                    pe);
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
         } catch (NoSuchElementException ne) { // case when no module code is provided
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditEventCommand.MESSAGE_USAGE),
-                    ne);
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
         EditEventCommand.EditEventDescriptor editEventDescriptor =
