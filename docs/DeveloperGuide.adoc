@@ -1909,12 +1909,12 @@ Use case resumes at step 3.
 === Statistic Report Window
 
 [discrete]
-==== Use case: UC23 - Displaying a statistic report
+==== Use case: UC24 - Displaying a statistic report
 
 *MSS*
 
 1. User requests to generate and display a statistic report.
-2. TA-Tracker retreives the list of sessions and students from all modules and processes the data.
+2. TA-Tracker retrieves the list of sessions and students from all modules and processes the data.
 3. TA-Tracker opens a Statistic window and displays the processed data to the user.
 +
 Use case ends.
@@ -1924,7 +1924,7 @@ Use case ends.
 [none]
 * 1a. The user specifies a valid module code.
 [none]
-** 1a1. TA-Tracker retreives the list of sessions and students from the specified module and processes the data.
+** 1a1. TA-Tracker retrieves the list of sessions and students from the specified module and processes the data.
 ** Use case resumes at step 3.
 [none]
 * 1b. The user specifies a module code that does not exist.
