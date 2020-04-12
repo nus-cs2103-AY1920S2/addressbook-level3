@@ -551,21 +551,21 @@ in the form of a PDF.
 *Command*
 
 ....
-report <interviewee>
+export <interviewee>
 ....
 
 *Example*
 
 ....
-> report Jane Doe
+> export Jane Doe
 ....
 
-_Action_: Generates the report of Jane Doe in the form of a PDF.
+_Action_: Exports the interview report of a particular interviewee in PDF.
 
 _Output_:
 
 ....
-Report of Jane Doe generated.
+Report of Anna exported in /Users/jane/main with file name "2.pdf".
 ....
 
 image::Screenshots/Report.png[]
@@ -882,7 +882,7 @@ e.g. `:set Agility 10`
 
 * Open an interviewee report: `open <interviewee>` +
 e.g. `open Jane Doe`
-* Generate report of an interviewee: `report <interviewee>`
+* Export interview report of an interviewee: `export <interviewee>`
 * Navigate to answer of interviewee: `q<question number>` +
 e.g. `goto q4`
 * Navigate to a time of interviewee: `at <time>` +
