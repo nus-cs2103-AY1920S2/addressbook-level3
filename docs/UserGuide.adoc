@@ -159,6 +159,12 @@ image::AddModule.png[width="790"]
 TIP: `add m/CS2105 y/2.1 g/A+` +
 Adds CS2105 to the list of modules under year 2 semester 1 with the resulting grade, A+
 
+* Checking of Prerequisites +
+If you have not met the prerequisites of a module, you will receive a warning message as shown in the figure below. You can ignore the message if you have already taken the preclusion of that prerequisite module.
+
+.Warning message shown when adding CS2030 to year 1 semester 1
+image::Prereq.png[width="790"]
+
 
 ==== Adding a task with a deadline to a module in *MODdy* +
 Format: `add m/moduleCode t/task [d/deadline]` +
