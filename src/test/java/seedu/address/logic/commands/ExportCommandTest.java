@@ -1,12 +1,10 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.ExportCommand.MESSAGE_SUCCESS;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.client.Client;
@@ -24,13 +22,18 @@ public class ExportCommandTest {
 
     @Test
     public void execute_noClientInView_throwsCommandException() {
-        assertThrows(CommandException.class, () -> new ExportCommand().execute(model));
+        ExportCommand exportCommand = new ExportCommand();
+
+        assertCommandFailure(exportCommand, model, ExportCommand.MESSAGE_CLIENT_NOT_IN_VIEW);
     }
 
     @Test
-    public void execute_clientHasNoExercises_throwsCommandException() {
+    public void execute_clientWithoutExercises_throwsCommandException() {
         model.setClientInView(clientWithoutExercises);
-        assertThrows(CommandException.class, () -> new ExportCommand().execute(model));
+
+        ExportCommand exportCommand = new ExportCommand();
+
+        assertCommandFailure(exportCommand, model, ExportCommand.MESSAGE_NO_EXERCISES);
     }
 
     @Test
@@ -39,7 +42,7 @@ public class ExportCommandTest {
         expectedModel.setClientInView(clientWithExercises);
 
         CommandResult expectedCommandResult = new CommandResult(
-                String.format(MESSAGE_SUCCESS, clientWithExercisesCsvFileName));
+                String.format(ExportCommand.MESSAGE_SUCCESS, clientWithExercisesCsvFileName));
 
         assertCommandSuccess(new ExportCommand(), model, expectedCommandResult, expectedModel);
     }
