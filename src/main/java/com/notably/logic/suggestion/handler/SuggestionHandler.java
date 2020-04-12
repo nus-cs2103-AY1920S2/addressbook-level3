@@ -11,7 +11,7 @@ import com.notably.logic.suggestion.generator.SuggestionGenerator;
  */
 public interface SuggestionHandler<T extends SuggestionGenerator> {
     /**
-     * Handles user input.
+     * Handles suggestions.
      *
      * @return The optional suggestion generator.
      */
