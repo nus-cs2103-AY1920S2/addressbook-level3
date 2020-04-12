@@ -35,7 +35,12 @@ public class HelpCommand implements AppCommand, BluetoothPingStorageAccess {
         allCommand.add(new CommandList("Delete present user ID", "person_delete /userid <person: id>"));
 
         // Report generation
-        allCommand.add(new CommandList("??", "??"));
+        allCommand.add(new CommandList("Report all Users with userID", "report all"));
+        allCommand.add(new CommandList("Report danger users", "report danger <threshold: counts>"));
+        allCommand.add(new CommandList("Report cases in time range", "report time from <ts: start> to <ts: end>"));
+        allCommand.add(new CommandList("Report users with a given userID", "report id is <user: id>"));
+        allCommand.add(new CommandList("Report all user information details", "report_person"));
+        allCommand.add(new CommandList("Report person information with given ID", "report_person <person: id>"));
 
         result.setToDisplayList(allCommand);
         return result;
