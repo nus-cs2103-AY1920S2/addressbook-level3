@@ -22,6 +22,7 @@ public class ExitCommand extends Command {
                 MESSAGE_EXIT_ACKNOWLEDGEMENT,
                 Optional.empty(),
                 Optional.empty(),
+                false,
                 true
         );
     }

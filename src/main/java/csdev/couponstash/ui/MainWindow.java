@@ -1,7 +1,14 @@
 package csdev.couponstash.ui;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
@@ -9,6 +16,7 @@ import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.logic.Logic;
 import csdev.couponstash.logic.commands.CommandResult;
+import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ShareCommand;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
@@ -148,6 +156,12 @@ public class MainWindow extends UiPart<Stage> {
                 );
             }
 
+            // Command involves opening help page
+            if (commandResult.isHelp()) {
+                handleHelp();
+                calendarResultPane.setFeedbackToUser(HelpCommand.BROWSER_OPEN_SUCCESS);
+            }
+
             return commandResult;
         } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);
@@ -165,8 +179,10 @@ public class MainWindow extends UiPart<Stage> {
         if (expandedCouponWindow != null) {
             expandedCouponWindow.close();
         }
-        expandedCouponWindow = new CouponWindow(couponToExpand,
-                logic.getStashSettings().getMoneySymbol().toString());
+        expandedCouponWindow = new CouponWindow(
+                couponToExpand,
+                logic.getStashSettings().getMoneySymbol().toString()
+        );
         expandedCouponWindow.show();
     }
 
@@ -207,5 +223,83 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         return file.getAbsolutePath();
+    }
+
+    /**
+     * Handle the opening of the help page in the system browser.
+     * @throws IOException When a writing error occurs or if OS does not support this functionality
+     */
+    public void handleHelp() throws IOException {
+        openBrowser(getHelpHtmlPath());
+    }
+
+    /**
+     * Get URI of help.html. If help.html is not extracted from jar file yet,
+     * extract it.
+     * @return URI of help.html
+     * @throws CommandException
+     */
+    private static URI getHelpHtmlPath() throws IOException {
+        try {
+            File file = new File(HelpCommand.HTML_NAME);
+            if (file.exists()) {
+                return file.toURI();
+            }
+
+            // If help.html is not extracted yet, extract HTML from jar file
+            URI jarPath = MainWindow.class.getProtectionDomain().getCodeSource().getLocation().toURI();
+            JarFile jar = new JarFile(jarPath.getPath());
+
+            InputStream inputStream = jar.getInputStream(new JarEntry(HelpCommand.HTML_NAME));
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+
+            // Buffered writing for better performance
+            byte[] buffer = new byte[4096];
+            for (int bytesRead = 0; bytesRead != -1; bytesRead = inputStream.read(buffer)) {
+                fileOutputStream.write(buffer, 0, bytesRead);
+            }
+            fileOutputStream.close();
+            inputStream.close();
+
+            return file.toURI();
+        } catch (URISyntaxException e) {
+            throw new IOException(HelpCommand.UNSUPPORTED_OS);
+        } catch (IOException e) {
+            throw new IOException(HelpCommand.ERROR);
+        }
+    }
+
+    /**
+     * Open path in system browser.
+     *
+     * @param path File path to open in browser
+     * @throws IOException
+     */
+    private static void openBrowser(URI path) throws IOException {
+        assert path != null;
+
+        String os = System.getProperty("os.name").toLowerCase();
+
+        if (os.contains("linux") || os.contains(("unix"))) {
+            Runtime runtime = Runtime.getRuntime();
+
+            try {
+                if (runtime.exec("which xdg-open").getInputStream().read() != -1) {
+                    runtime.exec("xdg-open " + path.toString());
+                } else {
+                    throw new IOException(HelpCommand.UNSUPPORTED_OS);
+                }
+            } catch (IOException e) {
+                throw new IOException(HelpCommand.ERROR);
+            }
+        } else if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            try {
+                Desktop.getDesktop().browse(path);
+            } catch (IOException e) {
+                throw new IOException(HelpCommand.ERROR);
+            }
+        } else {
+            throw new IOException(HelpCommand.UNSUPPORTED_OS);
+        }
     }
 }
