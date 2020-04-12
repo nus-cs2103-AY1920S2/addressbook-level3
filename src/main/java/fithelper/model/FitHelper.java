@@ -17,6 +17,7 @@ import fithelper.model.diary.UniqueDiaryList;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.SortBy;
 import fithelper.model.entry.UniqueEntryList;
+import fithelper.model.entry.VeventList;
 import fithelper.model.today.Today;
 import javafx.collections.ObservableList;
 
@@ -34,6 +35,7 @@ public class FitHelper implements ReadOnlyFitHelper {
     private final UniqueEntryList todaySportsEntries = new UniqueEntryList();
     private final FoodCalorieTable foodCalorieTable = new FoodCalorieTable();
     private final SportsCalorieTable sportsCalorieTable = new SportsCalorieTable();
+    private final VeventList veventList = new VeventList();
 
     public FitHelper() {
     }
@@ -162,6 +164,11 @@ public class FitHelper implements ReadOnlyFitHelper {
         requireNonNull(newData);
         setDiaries(newData.getDiaryList());
         setEntries(newData.getFoodList(), newData.getSportsList(), newData.getReminderList());
+        setVevents(newData.getFoodList(), newData.getSportsList());
+    }
+
+    public void setVevents(ObservableList<Entry> foodList, ObservableList<Entry> sportsList) {
+        veventList.refreshedList(foodList, sportsList);
     }
 
     /**
@@ -333,6 +340,15 @@ public class FitHelper implements ReadOnlyFitHelper {
     @Override
     public ObservableList<Entry> getFoodList() {
         return foodEntries.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the vevents list.
+     * This list will not contain any duplicate entries.
+     */
+    @Override
+    public VeventList getVeventList() {
+        return veventList;
     }
 
     /**

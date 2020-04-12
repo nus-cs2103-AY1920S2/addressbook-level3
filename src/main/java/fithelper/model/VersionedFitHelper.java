@@ -55,7 +55,6 @@ public class VersionedFitHelper extends FitHelper {
         }
         currentStatePointer--;
         resetData(fitHelperStateList.get(currentStatePointer).fitHelper);
-
         return fitHelperStateList.get(currentStatePointer + 1).commitMessage;
     }
 

@@ -16,9 +16,12 @@ Class FoodCalorieTable
 
 Class SportsCalorieTable
 
+Class VeventList
+
 FitHelper *-left-> "1" UniqueDiaryList
 FitHelper *-right-> "5" UniqueEntryList
 FitHelper *-down-> "1" FoodCalorieTable
 FitHelper *-down-> "1" SportsCalorieTable
+FitHelper *-down-> "1" VeventList
 
 @enduml

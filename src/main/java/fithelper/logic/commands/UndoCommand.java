@@ -17,7 +17,6 @@ public class UndoCommand extends Command {
         if (!model.canUndo()) {
             throw new CommandException(MESSAGE_UNDO_STACK_EMPTY);
         }
-
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, model.undo()));
     }
 }

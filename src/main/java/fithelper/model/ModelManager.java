@@ -67,7 +67,7 @@ public class ModelManager implements Model {
         filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
         filteredTodayFoodEntries = new FilteredList<>(this.fitHelper.getTodayFoodList());
         filteredTodaySportsEntries = new FilteredList<>(this.fitHelper.getTodaySportsList());
-        vEventList = new VeventList(filteredFoodEntries, filteredSportsEntries);
+        vEventList = this.fitHelper.getVeventList();
 
         logger.fine("Initializing with UserProfile: " + userProfile);
         this.userProfile = new UserProfile(userProfile);
@@ -424,6 +424,13 @@ public class ModelManager implements Model {
     @Override
     public void deleteVevent(Entry entry) {
         vEventList.deleteVEvent(entry);
+    }
+
+    @Override
+    public void updateVevents() {
+        System.out.println(filteredFoodEntries);
+        vEventList.refreshedList(filteredFoodEntries, filteredSportsEntries);
+
     }
 
     @Override
