@@ -218,6 +218,8 @@ application.
 The coupon card displays information about each coupon, and
 it is styled to look like a coupon itself!
 
+image::ShopeeCoupon.png[]
+
 [NOTE]
 Coupon card duplicates cannot exist!
 
