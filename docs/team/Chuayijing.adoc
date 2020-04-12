@@ -1,11 +1,13 @@
-== Chua Yi Jing - Project Portfolio
+= Chua Yi Jing - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-=== PROJECT: TA-Tracker
+== PROJECT: TA-Tracker
 
-=== OverView
+---
+
+== OverView
 
 This portfolio seeks to document my contributions to our team's project, TA-Tracker.
 Ta-Tracker is a productivity tool designed for NUS School of Computing
@@ -13,17 +15,17 @@ Teaching Assistants (TAs).
 TAs cam track and manage all their claimable hours and the students
 they are teaching under one place.
 
-=== About this portfolio
+== About this portfolio
 This project portfolio details my individual contributions to the TA-Tracker project.
 It includes a summary of the enhancements and other contributions I made throughout
 the duration of the project. Additionally, portions of my contribution to the User Guide
 and Developer Guide have also been included.
 
-=== Summary of contributions
+== Summary of contributions
 
 The contributions I have made towards the team project are detailed in this section.
 
-==== Major Enhancement: I added the ability to filter under each view.
+=== Major Enhancement: I added the ability to filter under each view.
 
 * *What it does*: The `filter` command allows the user to search for relevant information
 under the different views.
@@ -42,7 +44,7 @@ challenging as it required a lot of changes to the existing find command in AB3.
 Furthermore, there is a need to ensure that certain restrictions are met
 before doing the filtering. This is so that our codebase is consistent.
 
-===== Major Enhancement: Recurring Sessions.
+==== Major Enhancement: Recurring Sessions.
 
 * *What it does*: TAs are allowed to state that a session is recurring.
 When the TA mark a session as done, a new session with the updated date
@@ -58,7 +60,7 @@ assumed that recurring lessons would be on a weekly basis. However, we realised 
 should not make that assumption. Significant changes were made in order for TAs to indicate
 the number of recurring weeks that they want.
 
-===== Other Minor Enhancements : Session related commands.
+==== Other Minor Enhancements : Session related commands.
 
 * *Justifications*: `AddSessionCommand`, `DeleteSessionCommand` and `list` commands
 are essential for TAs to manipulate data in Session View.
@@ -68,11 +70,11 @@ to be thorough. This is because there are many small details to take note of.
 One example is the sorting of sessions when TA adds a session.
 Sessions shown to TA have to be sorted based on date, start and end timing of sessions.
 
-=== Code Contributed
+== Code Contributed
 
 https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chuayijing&tabRepo=AY1920S2-CS2103T-W17-4%2Fmain%5Bmaster%5D[[via RepoSense]]
 
-=== Other Contributions:
+== Other Contributions:
 
 * Enhancements to existing features:
 
@@ -85,7 +87,7 @@ coverage from % to %
 https://github.com/AY1920S2-CS2103T-W17-4/main/pull/325[#325],
 https://github.com/AY1920S2-CS2103T-W17-4/main/pull/328[#328],)
 
-=== Contributions to the User Guide
+== Contributions to the User Guide
 We wrote a User Guide targeted at the users of TA-Tracker.
 The User Guide contains instructions on how to use the various commands
 of the application. The following is an excerpt from our TA-Tracker User Guide,
@@ -101,7 +103,7 @@ include::../UserGuide.adoc[tag=filterclaims]
 include::../UserGuide.adoc[tag=summary]
 
 
-=== Contributions to the Developer Guide
+== Contributions to the Developer Guide
 
 In addition to a User Guide, we wrote a Developer Guide
 targeted at developers who are interested in contributing to the project.
