@@ -20,8 +20,8 @@ By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`
 
 == Introduction
 //tag::intro[]
-This user guide provides in-depth documentation on the EYLAH desktop application. It comprises of 6 main portions,
-including the introduction, getting started, features, FAQ, command summary, and glossary.
+This user guide provides in-depth documentation on the EYLAH desktop application. It comprises of 7 main portions,
+the introduction, getting started, features, FAQ, command summary, glossary and appendix.
 
 Hello there! welcome to EYLAH's User Guide.
 Are you someone who *lives in Temasek hall* in the National University of Singapore and
@@ -772,17 +772,14 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 *Additional notes and tips* +
 
 [NOTE]
-====
-* Each entry in the receipt has the item's name, price and person(s) who is splitting that item with you thus you do
+Each entry in the receipt has the item's name, price and person(s) who is splitting that item with you thus you do
 not have to remember who you split this item with!
-* When you enter `clearrreceipt` it deletes the old receipt's data. Use it with caution!
-====
+
 
 [TIP]
-====
 Use `listreceipt` command to find the index of the item in the receipt. The index is useful for commands
 such as `deleteitem` where you have to pass in the index of item to be deleted.
-====
+
 //end::listreceipt[]
 
 '''
@@ -819,10 +816,8 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 ====
 
 [TIP]
-====
 Use `listamount` command to find the index of the person who paid you. The index is useful for commands
 such as `paid`.
-====
 //end::listamount[]
 '''
 
@@ -909,9 +904,7 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 ====
 
 [TIP]
-====
 Use `listamount` command to find the index of the person who paid you.
-====
 //end::paid[]
 '''
 
@@ -1135,16 +1128,27 @@ TA-Tracker in the form of lines of text |
 | Index | This refers to the position of an item on a list. | Index of 1 refers to the first
 item in a list.
 
+| Activity Diagram | This refers to the workflow of a software. | <<AppendixA,Appendix>>
+
 |=======================================================================
 
 [[AppendixA]]
-== Appendix A: Simple activity diagram to aid user with using Expense Splitter
-image::ExpenseSplitterActivityDiagramV2.png[width="790"]
+== Appendix: Simple activity diagram to aid you with using Expense Splitter +
 
-*Add Item Activity Diagram*  +
-
-image::ExpenseSplitterActivityDiagram.png[width="790"]
+This diagram will help you understand the flow of Expense Splitter thus improving your user experience.
 
 The fully blackened circle at the top represents the start point while the circle
 at the bottom represents the end point.
+
+.Expense Splitter Activity Diagram
+image::ExpenseSplitterActivityDiagramV2.png[width="790"]
+
+*Simplified Add Item Activity Diagram*  +
+
+This diagram below is used in conjunction with the diagram directly above this.
+
+.SimplifiedAddItemActivityDiagram
+image::ExpenseSplitterActivityDiagram.png[width="790"]
+
+
 
