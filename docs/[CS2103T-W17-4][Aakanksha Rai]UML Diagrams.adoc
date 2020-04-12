@@ -1,23 +1,88 @@
-=== Aakanksha Rai - UML Diagrams
 :imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
+
+=== Aakanksha Rai - UML Diagrams
+
+Some sections from the explanations have been removed from this document in order
+to fit the page requirement. Read the Developer Guide for more details
+
+---
 
 The following _Class Diagram_ shows how different classes are related in the
 functioning of the *Student View*.
 
 .Student View - Class Diagram
-image::ModuleModelClassDiagram.png[,670]
+image::ModuleModelClassDiagram.png[,450]
 
 In the diagram above, you can see that:
 
 * The `TaTracker` class contains a `UniqueModuleList` which helps it keep track
 of the different *modules* the user is teaching.
 
-* Each `Module` contains a `UniqueGroupList`.
-
-* Each `UniqueGroupList` contains a list of all the *groups of a module* that the user
+* Each `Module` contains a `UniqueGroupList`. Each `UniqueGroupList` contains a list
+of all the *groups of a module* that the user
 is teaching.
 
 * Each `Group` contains a `UniqueStudentsList` that contains the *students in that group*.
+
+---
+
+
+Since the `Sort` commands function differently but use a single parser,
+the structure shown in the following
+_Class Diagram_ is used.
+
+.Sort Commands - Class Diagram
+image::SortCommandsClassDiagram.png[,300]
+
+Since the different commands use the same parser,
+the `SortCommandParser` needs to check the sub-command word and return
+the appropriate sort command.
+
+The following _Activity Diagram_ shows the steps the `SortCommandParser` takes once
+its _parse_ method is called (assuming that no exception is thrown).
+
+.SortCommandParser - Activity Diagram
+image::SortParserActivityDiagram.png[,700]
+
+The following _Sequence Diagram_ illustrates the interactions between the `Logic` and
+`Model` components when the user enters the command `sort all t/matric`.
+
+.Sort - Sequence Diagram
+image::SortAllSequenceDiagram.png[,800]
+
+[NOTE]
+====
+* The `SortCommandParser`, which creates `Sort` commands, is different from the other
+command parsers. While the other commands have another level of parsing (such as the
+`ModuleCommandParser` for `Module` commands), the `SortCommandParser`
+creates all the different Sort commands within itself.
+====
+
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
+
+2. The `TaTrackerParser` sees that the command is a *sort command* and passes the
+command to the `SortCommandParser`.
+
+3. The `SortCommandParser` performs the steps shown in the previous activity diagram
+and determines that since the sub-command word is `all` , it must create and return a
+`SortCommand`.
+
+4. `LogicManager` calls `SortCommand#execute()`.
+
+5. `SortCommand` checks the type of sorting that is indicated. Since the sort type
+is `matric` , it calls `Model#sortModulesByMatricNumber()` command.
+
+6. The `SortCommand` returns a `CommandResult` with a success message.
+
+---
 
 The following _Sequence Diagram_ shows the interactions
 between the `Logic` and `Model` components of the TA-Tracker
@@ -25,16 +90,7 @@ when the user enters the
 command `module add m/CS2103 n/Software Engineering`.
 
 .Module Add - Sequence Diagram
-image::AddModuleSequenceDiagram.png[]
-
-[NOTE]
-====
-* This diagram assumes that a module with the module code `CS2103`
-doesn't exist in the TA-Tracker.
-
-* The lifeline for `ModuleCommandParser` and `AddModuleCommandParser` should end at the
-destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
-====
+image::AddModuleSequenceDiagram.png[,1000]
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
@@ -62,70 +118,11 @@ code already exists in the *TA-Tracker*.
 
 8. The `AddModuleCommand` returns a `CommandResult`.
 
-Since the `Sort` commands function differently but use a single parser,
-the structure shown in the following
-_Class Diagram_ is used.
-
-.Sort Commands - Class Diagram
-image::SortCommandsClassDiagram.png[,400]
+---
 
 [NOTE]
 ====
-* `SortGroupCommand` sorts the students in a particular group of a
-particular module.
-* `SortModuleCommand` sorts the students in all groups of all modules.
-* `SortCommand` sorts the students in all groups of all modules.
+* The lifeline of a class in a Sequence Diagram should end at the destroy marker(X).
+However, due to a limitation of *PlantUML*, the lifeline reaches the end of the diagram.
 ====
-Since the different commands use the same parser,
-the `SortCommandParser` needs to check the sub-command word and return
-the appropriate sort command.
-
-The following _Activity Diagram_ shows the steps the `SortCommandParser` takes once
-its _parse_ method is called (assuming that no exception is thrown).
-
-.SortCommandParser - Activity Diagram
-image::SortParserActivityDiagram.png[]
-
-[NOTE]
-====
-* The sub-command word here refers to `all`, `module` or `group`. If none of the above
-command words are used, a *command exception* will be thrown, explaining that it is an
-invalid comnmand.
-
-* If the user enters the `sort` command with a command word but *doesn't include the
-appropriate parameters with the correct prefixes, a command exception is thrown*.
-====
-
-The following _Sequence Diagram_ illustrates the interactions between the `Logic` and
-`Model` components when the user enters the command `sort all t/matric`.
-
-.Sort - Sequence Diagram
-image::SortAllSequenceDiagram.png[]
-
-[NOTE]
-====
-* The lifeline for `SortCommandParser` should end at the
-destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
-
-* The `SortCommandParser`, which creates `Sort` commands, is different from the other
-command parsers. While the other commands have another level of parsing (such as the
-`ModuleCommandParser` for `Module` commands), the `SortCommandParser`
-creates all the different Sort commands within itself.
-====
-
-1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
-
-2. The `TaTrackerParser` sees that the command is a *sort command* and passes the
-command to the `SortCommandParser`.
-
-3. The `SortCommandParser` performs the steps shown in the previous activity diagram
-and determines that since the sub-command word is `all` , it must create and return a
-`SortCommand`.
-
-4. `LogicManager` calls `SortCommand#execute()`.
-
-5. `SortCommand` checks the type of sorting that is indicated. Since the sort type
-is `matric` , it calls `Model#sortModulesByMatricNumber()` command.
-
-6. The `SortCommand` returns a `CommandResult` with a success message.
 

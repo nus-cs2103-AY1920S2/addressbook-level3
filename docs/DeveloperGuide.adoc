@@ -888,8 +888,8 @@ image::SortParserActivityDiagram.png[]
 [NOTE]
 ====
 * The sub-command word here refers to `all`, `module` or `group`. If none of the above
-command words are used, a *command exception* will be thrown, explaining that it is an
-invalid comnmand.
+sub-command words is used, a *command exception* will be thrown, explaining that it is an
+invalid command.
 
 * If the user enters the `sort` command with a command word but *doesn't include the
 appropriate parameters with the correct prefixes, a command exception is thrown*.
