@@ -490,8 +490,8 @@ both of which inheriting from `Predicate<Transaction>` to filter the `Transactio
 `FilterCommand` is instantiated by `FilterCommandParser#parse(String args)` method, which parses the arguments supplied in the user
 command to return a `FilterCommand` object.
 
-The below sequence diagram depicts the execution of the filter feature to display all transactions with Category "FOOD":
-image:filter/FilterSequenceDiagram.png[]
+The below sequence diagram depicts the interactions within the `Logic` component for the execute("filter c/FOOD m/2020-04") call:
+image:FilterSequenceDiagram.png[]
 
 The below scenario shows a typical usage of the filter feature:
 
