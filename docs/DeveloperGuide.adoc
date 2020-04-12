@@ -667,6 +667,29 @@ called with the relevant comparator as its argument. The
 leads to a change of the comparator of the `SortedList` stored in
 `ModelManager` , thus triggering a sort of the `SortedList`.
 
+==== Design Considerations
+
+===== Aspect: Persistent or non - persistent sort?
+
+* *Alternative 1 (current choice):* Make sorting non - persistent.
+** Pros: Sorting is faster as no write to disk is needed to make the new
+order persistent. Addtionally, with the coupons being sorted by the time they
+are added to the coupon stash by default, there is no way to restore this order
+without storing the time a coupon was added to the stash. Thus, the non -
+persistent approach shines here as restoring the original order of the coupon
+stash is as trivial as reopening the program.
+** Cons: If a user prefers a particular default sorting order for their
+coupons, they have to retype the `sort` command each time the program is
+launched.
+
+* *Alternative 2:* Make sorting persistent,
+the command text history.
+** Pros: Gives users more freedom over the default order of their coupons.
+** Cons: Can be unnecessarily complicated to implement a hidden field stating
+a coupon's addtion time just so users can revert to the default order.
+Additionally, it can be confusing to users when there are so many different
+ways to sort.
+
 === Coupon Reminder
 To ensure users are aware of expiring coupons and maximise their saving,
 Coupon Stash reminds the user through a pop-up window, upon launching the
