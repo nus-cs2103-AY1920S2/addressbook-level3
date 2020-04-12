@@ -2,13 +2,17 @@ package com.notably.view;
 
 import java.util.logging.Logger;
 
+import com.notably.commons.Help;
 import com.notably.commons.LogsCenter;
+
+import com.notably.commons.compiler.Compiler;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 /**
@@ -21,6 +25,11 @@ public class HelpWindow extends ViewPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
+
+    private static Stage stage;
+
+    @FXML
+    private WebView commandSummary;
 
     @FXML
     private Button copyButton;
@@ -35,7 +44,9 @@ public class HelpWindow extends ViewPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
+        this.stage = root;
         helpMessage.setText(HELP_MESSAGE);
+        setCommandSummary();
     }
 
     /**
@@ -43,6 +54,17 @@ public class HelpWindow extends ViewPart<Stage> {
      */
     public HelpWindow() {
         this(new Stage());
+    }
+
+    /**
+     * Loads the Command Summary text into the CommandSummary webview component.
+     */
+    private void setCommandSummary() {
+        String markdownContent = Help.getCommandSummaryMarkdown();
+        String htmlContent = Compiler.compile(markdownContent);
+        commandSummary.getEngine().loadContent(htmlContent);
+        commandSummary.getEngine().setUserStyleSheetLocation(getClass()
+                .getResource("/view/blockcontent/BlockContentDisplay.css").toExternalForm());
     }
 
     /**
@@ -99,5 +121,6 @@ public class HelpWindow extends ViewPart<Stage> {
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
+        logger.fine("Copied User Guide Url");
     }
 }
