@@ -16,7 +16,7 @@ import fithelper.model.entry.Type;
 /**
  * Parses input arguments and creates a new SortCommand object
  */
-public class SortCommandParser {
+public class SortCommandParser implements Parser<SortCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand
