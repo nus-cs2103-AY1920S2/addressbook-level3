@@ -134,7 +134,9 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component (Contributed by Fatin)
+=== UI component
+
+(Contributed by Fatin)
 
 The _Class Diagram_ below shows how the `UI` components interact with each other.
 
@@ -374,7 +376,9 @@ In the diagram above:
 * `Prefixes` will be moved into the *commands* package.
 
 [[Design-Model]]
-=== Model component (Contributed by Fatin)
+=== Model component
+
+(Contributed by Fatin)
 
 The following _Class Diagram_ shows how the different `Model` components interact with each other.
 
@@ -467,7 +471,9 @@ Classes used by multiple components are in the `tatracker.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 [[Implementation-Goto]]
-=== Goto Command (Contributed by Fatin)
+=== Goto Command
+
+(Contributed by Fatin)
 
 ==== Description
 
@@ -880,7 +886,9 @@ is `matric` , it calls `Model#sortModulesByMatricNumber()` command.
 *Session View* is the term used to refer to the view that contains a list of all sessions
 that haven't been completed yet.
 
-==== Model Framework (Contributed by Fatin)
+==== Model Framework
+
+(Contributed by Fatin)
 
 The following _Class Diagram_ shows how different classes are related in the functioning
 of the *Session View*.
@@ -952,7 +960,10 @@ The `session add` command has been implemented in a similar way. The main differ
 
 //tag::claimsview[]
 
-=== Claims View (Contributed by Fatin)
+=== Claims View
+
+(Contributed by Fatin)
+
 *Claims View* refers to the view that contains a list of all the sessions that have
 been done.
 
