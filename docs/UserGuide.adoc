@@ -44,7 +44,7 @@ When you first launch FitBiz, you will be greeted by the GUI. In this section, w
 image::Ui-annotated.png[]
 
 * **Command Box**: this is where you enter your commands
-** Note that the border will glow green if your command is successfully executed, and red otherwise 
+** Note that the border will glow green if your command is successfully executed, and red otherwise
 * **Feedback Box**: this displays feedback and other useful information about your commands that you have just entered
 * **Client List**: this displays all your clients currently recorded in FitBiz
 * **Schedule Panel**: this displays all your schedules of your clients
