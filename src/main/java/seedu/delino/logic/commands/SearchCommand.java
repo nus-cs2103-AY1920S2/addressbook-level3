@@ -49,26 +49,28 @@ public class SearchCommand extends Command {
     }
 
     public SearchCommand(OrderContainsKeywordsPredicate orderPredicate) {
-        this.orderPredicate = orderPredicate;
-        this.returnPredicate = null;
+        this(orderPredicate, null);
     }
 
     public SearchCommand(ReturnOrderContainsKeywordsPredicate returnPredicate) {
-        this.returnPredicate = returnPredicate;
-        this.orderPredicate = null;
+        this(null, returnPredicate);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        if (orderPredicate != null) {
-            model.updateFilteredOrderList(orderPredicate);
-        }
-        if (returnPredicate != null) {
+        if (orderPredicate == null) {
+            model.updateFilteredOrderList(showNoOrders -> false);
             model.updateFilteredReturnOrderList(returnPredicate);
+        }
+        if (returnPredicate == null) {
+            model.updateFilteredReturnOrderList(showNoReturnOrders -> false);
+            model.updateFilteredOrderList(orderPredicate);
         }
 
         if (returnPredicate != null && orderPredicate != null) {
+            model.updateFilteredReturnOrderList(returnPredicate);
+            model.updateFilteredOrderList(orderPredicate);
             LOGGER.fine("Search perform on both order list and return list");
             return new CommandResult(
                 String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW
