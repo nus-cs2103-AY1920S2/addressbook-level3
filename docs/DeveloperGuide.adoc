@@ -25,6 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 
 .Architecture Diagram
 image::ArchitectureNewDiagram.png[]
+---
 
 The *_Architecture Diagram_* given above explains the high-level design of the App.
 Given below is a quick overview of each component.
@@ -70,6 +71,7 @@ Here is an example of how a command to delete student with ID 1 will invoke diff
 
 .Sequence Diagram for Events Flow
 image::EventsFlowDiagram.png[]
+---
 
 . ViewController(i.e LogicManager) will invoke ModelManager.delete method (Note that ModelManager extends from BaseManager, and has the Publisher capacity)
 . ModelManager will invoke publishing of events to EventsCenterSingleton (which holds an EventBus), in this case postDataStorageChangeEvent and postDeleteEntitySyncEvent will be invoked.
@@ -103,6 +105,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
+---
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -111,6 +114,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
+---
 
 The sections below give more details of each component.
 
@@ -119,6 +123,8 @@ The sections below give more details of each component.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
+---
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -160,6 +166,8 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-ViewController]]
 === ViewModel component [Hieu]
 image::ViewModelDiagram.png[]
+---
+
 *API*: link:{repoURL}/src/main/java/seedu/address/viewmodel/ViewModel.java[`ViewModel.java`]
 
 The `ViewModel`,
@@ -223,6 +231,7 @@ Benefits::
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
+---
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -252,6 +261,7 @@ In order to allow the tracking of the students/assignments/teachers that are ass
 
 .Relationship between Entities
 image::Ivan-OODMForEntityRS.png[]
+---
 
 The group came up with the structure above where we centralize most links around the `Course` object so as for easier management of entity links.
 
@@ -413,6 +423,7 @@ The table below shows the involvement of 3 managers with regards to each variant
 
 .Table Summary of Manager's involvement during Assign/Un-assign Commands
 image::Ivan-AssignSummaryTable.png[]
+---
 
 === Undo/Redo [Hieu]
 
@@ -459,6 +470,7 @@ Then the oppositeCommand of it will be excecuted (in this case AddStudentCommand
 Then the originalCommand will be executed (again) (in this case it will be DeleteStudentCommand again).
 
 image::UndoRedoStack.png[]
+---
 
 * Design Considerations:
 1/ How Undo and Redo works:
@@ -495,6 +507,7 @@ the `Assign` Command will add those `Progress` objects back. Please see the acti
 Undo Progress will be added back in.
 
 image::Ivan-ActivityDiagramUndoAssign.png[]
+---
 
 This results in the *correct* `Progress` objects, which may or may not be `Done`, to be added back in instead of completely new `Progress` objects that are all `Undone`.
 
@@ -509,6 +522,7 @@ To see sub-view details of each section we can issue a select command.
 Let's see an example of how selecting sub-view data of a student 1 works.
 
 image::ViewSwitchFlowDiagram.png[]
+---
 
 . `select sid/ 1` command is issued to `ViewController`
 . `ViewController`  will call `ViewModel` method `updateStudentDetailsMap`
@@ -1345,6 +1359,7 @@ The diagram below shows a simplified flow
 
 .Structure of Commands and Parser
 image::AssignCommandImplementation.png[]
+---
 
 === Design considerations:
 
