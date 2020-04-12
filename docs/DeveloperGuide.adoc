@@ -195,7 +195,16 @@ These two commands will indicate whether the transaction is positive or negative
 
 Indicating whether it is a recurring transaction or not will depend if rc/ is present in the input
 
-When inserting a new Expense/Income, the `AddCommandParser` will determine which object to initialise depending on whether the i/ syntax is present.
+When inserting a new Expense/Income, the `AddCommandParser` will determine which object to initialise depending on whether the "i/" CLI syntax is present. Afterwhich, the AddCommandParser will parse the values of the transaction depending on whether the respective CLI Syntaxes are present.
+
+* `**Name**` is parsed by `AddCommandParser#parseName(ArgumentMultimap)`, CLI Syntax is n/.
+* `**Amount**` is parsed by `AddCommandParser#parseAmount(ArgumentMultimap)`, CLI Syntax is a/.
+* `**Date**` is parsed by `AddCommandParser#parseDate(ArgumentMultimap)`, CLI Syntax is d/.
+* `**Category**` is parsed by `AddCommandParser#parseCategory(ArgumentMultimap)`, CLI Syntax is c/.
+* `**Remark**` is parsed by `AddCommandParser#parseRemark(ArgumentMultimap)`, CLI Syntax is r/.
+* CLI Syntax "rc/" will set the transaction to be a monthly recurring transaction.
+
+NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
 
 The following sequence diagram shows how the add transaction operation works:
 
@@ -211,30 +220,23 @@ Figure 9. Sequence diagram of how adding a new `Transaction` is processed depend
 * Multiple occurence of parameters which only expects single entry
 
 [NOTE]
-Incorrect user input will display error message
+Incorrect user input will display ParseError message.
 
 We will demonstrate how a `Transaction` is added into `ExpenseLa`:
 
-Step 1. The user executes the command add *n/Pizza a/20.5 d/2020-02-02* to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
+Step 1. The user executes the command **add n/Pizza a/20.5 d/2020-02-02** to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
 
-* `**Name**` is parsed by `AddCommandParser#parseName(ArgumentMultimap)`
-* `**Value**` is parsed by `AddCommandParser#parseAmount(ArgumentMultimap)`
-* `**Date**` is parsed by `AddCommandParser#parseDate(ArgumentMultimap)`
-* `**Category**` is set to default category `MISC`
-
-NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
+NOTE: `**Category**` is set to default category `MISC`
 
 Since the user input is valid, the `Transaction` is successfully created and inserted into the transaction list. The transaction list now contains 1 `Transaction` object.
 
 image::add-command/AddTransactionToList1.png[]
 
 Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income rc/ ** to indicate his monthly pay, to insert a positive `**Transaction**`.
-The input is now checked in a similar fashion as in Step 1 except that:
-
-* `**Remark**` is parsed by `AddCommandParser#parseRemark(ArgumentMultimap)`
-* `**Category**` is parsed by `AddCommandParser#parseCategory(ArgumentMultimap)`
 
 NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GROCERIES, HEALTH, RECREATION, MISC, UTILITIES, INCOME.
+
+NOTE: "rc/" CLI Syntax will set the transaction to be a recurring transaction.
 
 Again, since the input is valid, the positive `Transaction` is successfully added into the transaction list. The transaction list
 now contains 2 `**Transaction**` objects.
