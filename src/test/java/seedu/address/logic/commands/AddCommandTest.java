@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Set;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
@@ -22,11 +23,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
+import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.Statistics;
 import seedu.address.model.TaskList;
+import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
@@ -119,6 +122,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public Set<Tag> getTagSet() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTag(Tag t) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setTaskSaver(TaskSaver taskSaver) {
             throw new AssertionError("This method should not be called.");
         }
@@ -164,6 +177,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void showAllTasks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -184,7 +202,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setComparator(Comparator<Task>[] compare) {
+        public void setComparator(Comparator<Task> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortSearchByRelevance(Comparator<Task> compare) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -214,17 +237,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public Statistics getStatistics() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<DayData> getCustomQueue() {
+        public ReadOnlyStatistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateDataDatesStatistics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatesDayDataStatistics(DayData dayData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public DayData getDayDataFromDateStatistics(Date date) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -256,15 +284,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void notifyObservers() throws CommandException {
-            // TODO Auto-generated method stub
-
+        public void notifyMainWindow(String inputString) throws CommandException {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addObserver(Observer observer) {
-            // TODO Auto-generated method stub
-
+            throw new AssertionError("This method should not be called.");
         }
     }
 

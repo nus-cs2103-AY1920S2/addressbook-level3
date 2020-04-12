@@ -1,6 +1,8 @@
 package seedu.address.model.dayData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.storage.JsonAdaptedDayDataTest.VALID_POM_DURATION_DATA;
 import static seedu.address.storage.JsonAdaptedDayDataTest.VALID_TASKS_DONE_DATA;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -39,18 +41,17 @@ public class CustomQueueTest {
     }
 
     @Test
-    public void updatesDayDataCustom_nullLocalDatethrowsNullPointerException()
+    public void updateDayDataCustom_nullLocalDatethrowsNullPointerException()
             throws InvalidTableException {
         customQueue.init(VALID_LOCAL_DATE);
-        assertThrows(NullPointerException.class, () -> customQueue.updatesDayDataCustom(null));
+        assertThrows(NullPointerException.class, () -> customQueue.updateDayDataCustom(null));
     }
 
     @Test
-    public void updatesDayDataCustom_nonexistentDayDatathrowsDayDataNotFoundException()
+    public void updateDayDataCustom_nonexistentDayDatathrowsDayDataNotFoundException()
             throws InvalidTableException {
         customQueue.init(VALID_LOCAL_DATE);
-        assertThrows(
-                DayDataNotFoundException.class, () -> customQueue.updatesDayDataCustom(DAYNEW));
+        assertThrows(DayDataNotFoundException.class, () -> customQueue.updateDayDataCustom(DAYNEW));
     }
 
     @Test
@@ -185,5 +186,23 @@ public class CustomQueueTest {
         assertThrows(
                 UnsupportedOperationException.class,
                 () -> customQueue.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void tableConstraintsAreEnforced_validTable_returnsTrue() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        assertTrue(
+                customQueue.tableConstraintsAreEnforced(
+                        customQueue.asUnmodifiableObservableList()));
+    }
+
+    @Test
+    public void tableConstraintsAreEnforced_invalidTable_returnsFalse()
+            throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        customQueue.add(DAY0);
+        assertFalse(
+                customQueue.tableConstraintsAreEnforced(
+                        customQueue.asUnmodifiableObservableList()));
     }
 }

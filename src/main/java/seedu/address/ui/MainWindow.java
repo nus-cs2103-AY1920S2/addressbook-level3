@@ -7,12 +7,12 @@ import static seedu.address.logic.commands.SwitchTabCommand.TASKS_TAB_INDEX;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,10 +34,13 @@ import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.StatisticsManager;
 import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CompletorDeletionResult;
 import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.DoneCommandResult;
+import seedu.address.logic.commands.FindCommandResult;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.SetCommandResult;
+import seedu.address.logic.commands.SortCommandResult;
 import seedu.address.logic.commands.SwitchTabCommand;
 import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -266,11 +269,13 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /** */
     private String suggestCommand(String commandText) throws CompletorException {
         try {
-            CompletorResult completorResult = commandCompletor.getSuggestedCommand(commandText);
+            CompletorResult completorResult = logic.suggestCommand(commandText);
             resultDisplay.setFeedbackToUser(completorResult.getFeedbackToUser());
+            if (completorResult instanceof CompletorDeletionResult) {
+                resultDisplay.setWarning();
+            }
             return completorResult.getSuggestion();
         } catch (CompletorException e) {
             resultDisplay.setFeedbackToUser(e.getMessage());
@@ -294,7 +299,30 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            tabPanePlaceholder.getSelectionModel().select(TASKS_TAB_INDEX);
+
+            // Handle tabs
+            int tabIndexToSwitch = getTabIndexFromCommand(commandResult);
+            tabPanePlaceholder.getSelectionModel().select(tabIndexToSwitch);
+            tabPanePlaceholder
+                    .getSelectionModel()
+                    .select(tabIndexToSwitch);
+
+            // Update StatisticsDisplay when stats tab is selected
+            if (tabIndexToSwitch == STATS_TAB_INDEX) {
+                statisticsManager.updateStatisticsDisplayValues();
+                this.updateStatisticsDisplay();
+            }
+
+            // Sort Command related results
+            if (commandResult instanceof SortCommandResult) {
+                SortCommandResult sortCommandResult = (SortCommandResult) commandResult;
+                taskListPanel.setSortOrder(sortCommandResult.getSortOrder());
+            }
+
+            // Find Command related results
+            if (commandResult instanceof FindCommandResult) {
+                taskListPanel.removeSortOrder();
+            }
 
             // Done Command related results
             try {
@@ -307,7 +335,7 @@ public class MainWindow extends UiPart<Stage> {
 
             }
 
-            // set Command related results
+            // Set Command related results
             try {
                 SetCommandResult setCommandResult = (SetCommandResult) commandResult;
 
@@ -332,25 +360,9 @@ public class MainWindow extends UiPart<Stage> {
                 }
 
                 settingsDisplay.update();
-                tabPanePlaceholder.getSelectionModel().select(SETTINGS_TAB_INDEX);
 
             } catch (ClassCastException ce) {
 
-            }
-
-            // Switch tabs related results
-            try {
-                SwitchTabCommandResult switchTabCommandResult =
-                        (SwitchTabCommandResult) commandResult;
-                tabPanePlaceholder
-                        .getSelectionModel()
-                        .select(switchTabCommandResult.getTabToSwitchIndex());
-                if (switchTabCommandResult.getTabToSwitchIndex() == STATS_TAB_INDEX) {
-                    ObservableList<DayData> customQueue = logic.getCustomQueue();
-                    statisticsManager.updateStatisticsDisplayValues(customQueue);
-                    this.updateStatisticsDisplay();
-                }
-            } catch (ClassCastException ce) {
             }
 
             // Pomodoro related results
@@ -380,12 +392,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             updatePetDisplay();
-            // update because sorting returns a new list
-
-            // * Old implementation for sort
-            // taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
-            // taskListPanelPlaceholder.getChildren().clear();
-            // taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -395,9 +401,17 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    public void displayRecurring(String recurringFeedback) {
+        resultDisplay.setFeedbackToUser(recurringFeedback);
+    }
+
     public void setPomCommandExecutor() {
-        commandBox = new CommandBox(this::pomExecuteCommand, this::suggestCommand);
+        commandBox = new CommandBox(this::pomExecuteCommand, this::pomSuggestCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private String pomSuggestCommand(String commandText) {
+        return commandText;
     }
 
     public void setDefaultCommandExecutor() {
@@ -431,7 +445,7 @@ public class MainWindow extends UiPart<Stage> {
         String progressDailyText = statisticsManager.getProgressDailyText();
         String progressBarDailyFilepathString =
                 statisticsManager.getProgressBarDailyFilepathString();
-        ObservableList<DayData> customQueue = statisticsManager.getCustomQueue();
+        List<DayData> customQueue = statisticsManager.getCustomQueue();
 
         statisticsDisplay.setProgressTargetText(dailyTargetText);
         statisticsDisplay.setProgressDailyText(progressDailyText);
@@ -479,6 +493,27 @@ public class MainWindow extends UiPart<Stage> {
                 Date.from(petManager.getTimeForHangry().atZone(ZoneId.systemDefault()).toInstant());
         timer.schedule(timerTask, timeForMoodChange);
         petManager.updateDisplayElements();
+    }
+
+    /**
+     * Returns an appropriate tab index to switch to based on commands.
+     *
+     * @param commandResult the command called.
+     * @return index of tab to switch to.
+     */
+    private int getTabIndexFromCommand(CommandResult commandResult) {
+        int result = TASKS_TAB_INDEX; // default: switch to tasks tab for tasks related commands
+        if (commandResult instanceof SwitchTabCommandResult) {
+            try {
+                SwitchTabCommandResult switchTabCommandResult =
+                        (SwitchTabCommandResult) commandResult;
+                result = switchTabCommandResult.getTabToSwitchIndex(); // switch to tab in SwitchTabCommandResult
+            } catch (ClassCastException ce) {
+            }
+        } else if (commandResult instanceof SetCommandResult) {
+            result = SETTINGS_TAB_INDEX; // switch to settings tab for settings related commands.
+        }
+        return result;
     }
 
     @FXML
