@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.eylah.commons.core.LogsCenter;
-import seedu.eylah.commons.model.ModelManager;
 import seedu.eylah.commons.model.ReadOnlyUserPrefs;
 import seedu.eylah.commons.model.UserPrefs;
 import seedu.eylah.diettracker.model.food.Calories;
@@ -21,12 +20,13 @@ import seedu.eylah.diettracker.model.self.Weight;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class DietModelManager extends ModelManager implements DietModel {
+public class DietModelManager implements DietModel {
     public static final long GAIN_CALORIES = 3000;
     public static final long LOSE_CALORIES = 2000;
     public static final long MAINTAIN_CALORIES = 2500;
     private static final Logger logger = LogsCenter.getLogger(DietModelManager.class);
 
+    private final UserPrefs userPrefs;
     private final FoodBook foodBook;
     private final Myself myself;
     private final FilteredList<Food> filteredFoods;
@@ -36,12 +36,12 @@ public class DietModelManager extends ModelManager implements DietModel {
      * Initializes a ModelManager with the given addressBook, userPrefs and myself (user metrics).
      */
     public DietModelManager(ReadOnlyFoodBook foodBook, ReadOnlyUserPrefs userPrefs, ReadOnlyMyself myself) {
-        super(userPrefs);
         requireAllNonNull(foodBook, userPrefs, myself);
 
         logger.fine("Initializing with food book: " + foodBook + " and user prefs " + userPrefs
                 + "and Myself (user) " + myself);
 
+        this.userPrefs = new UserPrefs(userPrefs);
         this.foodBook = new FoodBook(foodBook);
         filteredFoods = new FilteredList<>(this.foodBook.getFoodList());
         this.myself = new Myself(myself);
@@ -54,14 +54,25 @@ public class DietModelManager extends ModelManager implements DietModel {
     //=========== Myself ==================================================================================
 
     @Override
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
+    }
+
+    @Override
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
+    }
+
+    @Override
     public Path getMyselfFilePath() {
-        return super.getUserPrefs().getMyselfFilePath();
+        return userPrefs.getMyselfFilePath();
     }
 
     @Override
     public void setMyselfFilePath(Path myselfFilePath) {
         requireNonNull(myselfFilePath);
-        super.getUserPrefs().setMyselfFilePath(myselfFilePath);
+        userPrefs.setMyselfFilePath(myselfFilePath);
     }
 
     @Override
@@ -139,13 +150,13 @@ public class DietModelManager extends ModelManager implements DietModel {
 
     @Override
     public Path getFoodBookFilePath() {
-        return super.getUserPrefs().getFoodBookFilePath();
+        return userPrefs.getFoodBookFilePath();
     }
 
     @Override
     public void setFoodBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        super.getUserPrefs().setFoodBookFilePath(addressBookFilePath);
+        userPrefs.setFoodBookFilePath(addressBookFilePath);
     }
 
     @Override

@@ -52,7 +52,7 @@ MODEParserUtil .[hidden]left.> MODECliSyntax
 Logic ..> CommandResult
 MODELogic ..> CommandResult
 MODELogicManager ..> CommandResult
-MODELogicManager ..> Command: execute>
+MODELogicManager ..> Command: execute >
 MODELogicManager --> Model
 
 XYZCommand -up-|> Command

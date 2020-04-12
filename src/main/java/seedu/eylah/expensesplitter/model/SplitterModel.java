@@ -64,8 +64,6 @@ public interface SplitterModel extends Model {
 
     void clearReceipt();
 
-    void newReceipt();
-
     /**
      * Returns true if a person with the same identity as
      * {@code person} exists in the person amount book.
