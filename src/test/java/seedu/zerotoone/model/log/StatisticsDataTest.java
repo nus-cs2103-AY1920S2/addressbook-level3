@@ -3,11 +3,12 @@ package seedu.zerotoone.model.log;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.zerotoone.testutil.log.TypicalLogs.getTypicalLogList;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.zerotoone.logic.statistics.StatisticsData;
 
 class StatisticsDataTest {
 
@@ -18,9 +19,7 @@ class StatisticsDataTest {
         getTypicalLogList().getLogList(),
         mockDateTime,
         mockDateTime,
-        workoutCount,
-        Duration.ZERO,
-        Duration.ZERO);
+        new ArrayList<>());
 
     @Test
     void testEquals() {
@@ -51,18 +50,4 @@ class StatisticsDataTest {
         assertEquals(mockDateTime, mockData.getEndRange());
     }
 
-    @Test
-    void getTotalWorkoutCount() {
-        assertEquals(workoutCount, mockData.getTotalWorkoutCount());
-    }
-
-    @Test
-    void getTotalTime() {
-        assertEquals(Duration.ZERO, mockData.getTotalTime());
-    }
-
-    @Test
-    void getAverageTimePerSession() {
-        assertEquals(Duration.ZERO, mockData.getAverageTimePerSession());
-    }
 }
