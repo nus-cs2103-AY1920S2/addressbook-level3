@@ -52,11 +52,7 @@ public class DeadlineListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                if (!deadline.isOverdue()) {
-                    setStyle("-fx-background-color: #C7CEEA;");
-                } else {
-                    setStyle("-fx-background-color: #FFB2AE;");
-                }
+                setStyle("-fx-background-color: #47D0E0;");
                 setGraphic(new DeadlineCard(deadline, getIndex() + 1).getRoot());
             }
         }

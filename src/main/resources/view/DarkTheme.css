@@ -11,7 +11,6 @@
 }
 
 
-
 .date-pane {
     -fx-background-color: #C7CEEA;
     -fx-border-width: 3px;
@@ -549,12 +548,4 @@
     -fx-font-family: fantasy;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
-}
-
-.hint_label {
-    -fx-background-color: white;
-    -fx-text-fill: black;
-    -fx-font-size: 15;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
 }

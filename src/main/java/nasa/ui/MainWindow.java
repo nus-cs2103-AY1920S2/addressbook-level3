@@ -35,7 +35,6 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private final HintWindow hintWindow;
     private QuotePanel quotePanel;
     private TabPanel tabPanel;
     private ExportQrWindow exportQrWindow;
@@ -60,9 +59,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Set dependencies
         this.primaryStage = primaryStage;
-
         this.logic = logic;
-
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -70,7 +67,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        hintWindow = new HintWindow();
         exportQrWindow = new ExportQrWindow();
 
         quotePanel = new QuotePanel();
@@ -141,7 +137,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getNasaBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, this);
+        CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -155,15 +151,6 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
-    }
-
-
-    public void hideHint() {
-        hintWindow.hide();
-    }
-
-    public boolean isHintShowing() {
-        return hintWindow.isShowing();
     }
 
 
@@ -183,7 +170,6 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
-
 
     /**
      * Handles undo.
@@ -207,11 +193,6 @@ public class MainWindow extends UiPart<Stage> {
         } catch (ParseException | CommandException e) {
             logger.info("Invalid command.");
         }
-    }
-
-    public void getHint(String input) {
-        hintWindow.getInput(input);
-        hintWindow.show(getPrimaryStage());
     }
 
     /**
@@ -255,7 +236,6 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

@@ -7,6 +7,7 @@ import static nasa.logic.parser.CliSyntax.PREFIX_REPEAT;
 import java.util.stream.Stream;
 
 import nasa.commons.core.index.Index;
+import nasa.logic.commands.RepeatDeadlineCommand;
 import nasa.logic.commands.RepeatEventCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
@@ -41,7 +42,8 @@ public class RepeatEventCommandParser implements Parser<RepeatEventCommand> {
 
         if (!(arePrefixesPresent)
                 || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RepeatDeadlineCommand.MESSAGE_USAGE));
         }
 
         // compulsory fields

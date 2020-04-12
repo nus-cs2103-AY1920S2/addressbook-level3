@@ -31,7 +31,8 @@ public class ContinueCommandParser implements Parser<ContinueCommand> {
             moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
             return new ContinueCommand(index, moduleCode);
         } catch (Exception e) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ContinueCommand.MESSAGE_USAGE));
         }
     }
 }

@@ -28,15 +28,19 @@ public class DoneCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         //no module stated in the user input
-        assertParseFailure(parser, "1", MESSAGE_INVALID_COMMAND_FORMAT);
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            DoneCommand.MESSAGE_USAGE));
 
         // no index stated at all
-        assertParseFailure(parser, MODULE_CODE_DESC_CS1231, MESSAGE_INVALID_COMMAND_FORMAT);
+        assertParseFailure(parser, MODULE_CODE_DESC_CS1231, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            DoneCommand.MESSAGE_USAGE));
 
         // invalid module code
-        assertParseFailure(parser, "1" + INVALID_MODULE_DESC, MESSAGE_INVALID_COMMAND_FORMAT);
+        assertParseFailure(parser, "1" + INVALID_MODULE_DESC,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
 
         // invalid index
-        assertParseFailure(parser, "-4" + MODULE_NAME_DESC_CS1231, MESSAGE_INVALID_COMMAND_FORMAT);
+        assertParseFailure(parser, "-4" + MODULE_NAME_DESC_CS1231,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
     }
 }

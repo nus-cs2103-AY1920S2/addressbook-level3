@@ -48,7 +48,8 @@ public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteEventCommand.MESSAGE_USAGE));
         } catch (ParseException pe) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteEventCommand.MESSAGE_USAGE), pe);
         }
     }
 }

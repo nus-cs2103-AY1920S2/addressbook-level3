@@ -23,7 +23,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         SortMethod sortMethod;
 
         if (argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
         sortMethod = ParserUtil.parseSortMethod(argMultimap.getPreamble());
