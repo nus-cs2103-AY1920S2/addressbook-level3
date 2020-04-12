@@ -22,58 +22,35 @@ public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error-text-field";
     public static final String SUCCESS_STYLE_CLASS = "success-text-field";
     private static final String FXML = "CommandBox.fxml";
-    // A generous estimate for the length of the user input string
-    private static final int CARET_POSITION_INDEX = Integer.MAX_VALUE;
 
     private final CommandExecutor commandExecutor;
     private final CommandHistory commandHistory;
     private final AutoComplete autoComplete;
     private final ResultDisplay resultDisplay;
 
-    @FXML
-    private TextField commandTextField;
-
-    public CommandBox(CommandExecutor commandExecutor, ResultDisplay resultDisplay) {
-        super(FXML);
-        this.commandExecutor = commandExecutor;
-        this.resultDisplay = resultDisplay;
-        commandHistory = new CommandHistory();
-        autoComplete = new AutoComplete();
-
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-
-        // handles the up and down arrow keys for command history
-        handleUpDownArrowKeys();
-
-        // handles the tab key for auto complete
-        handleTabKey();
-    }
-
     /**
-     * Handles the "up" and "down" arrow key for the command history.
+     * Event handler for the "up" and "down" arrow key. Used for the command history
+     * feature.
      */
-    private void handleUpDownArrowKeys() {
-        commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent ke) {
-                if (ke.getCode() == KeyCode.UP) {
-                    String prevCommand = commandHistory.getPreviousCommand();
-                    commandTextField.setText(prevCommand);
-                    commandTextField.positionCaret(CARET_POSITION_INDEX);
-                } else if (ke.getCode() == KeyCode.DOWN) {
-                    String nextCommand = commandHistory.getNextCommand();
-                    commandTextField.setText(nextCommand);
-                    commandTextField.positionCaret(CARET_POSITION_INDEX);
-                }
+    private final EventHandler<KeyEvent> eventHandlerUpDownKeys = new EventHandler<>() {
+        public void handle(KeyEvent ke) {
+            if (ke.getCode() == KeyCode.UP) {
+                String prevCommand = commandHistory.getPreviousCommand();
+                commandTextField.setText(prevCommand);
+                commandTextField.positionCaret(prevCommand.length());
+            } else if (ke.getCode() == KeyCode.DOWN) {
+                String nextCommand = commandHistory.getNextCommand();
+                commandTextField.setText(nextCommand);
+                commandTextField.positionCaret(nextCommand.length());
             }
-        });
-    }
+        }
+    };
 
     /**
-     * Handles the "tab" key for the command autocompletion.
+     * Event handler the "tab" key. Used for the command autocomplete feature.
      */
-    private void handleTabKey() {
-        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, ke -> {
+    private final EventHandler<KeyEvent> eventHandlerTabKey = new EventHandler<>() {
+        public void handle(KeyEvent ke) {
             if (ke.getCode() == KeyCode.TAB) {
                 ke.consume();
                 AutoCompleteResult result = autoComplete.execute(commandTextField.getText(),
@@ -91,7 +68,28 @@ public class CommandBox extends UiPart<Region> {
                     commandTextField.positionCaret(caretPositionToSet);
                 }
             }
-        });
+        }
+    };
+
+    @FXML
+    private TextField commandTextField;
+
+    public CommandBox(CommandExecutor commandExecutor, ResultDisplay resultDisplay, CommandHistory commandHistory,
+            AutoComplete autoComplete) {
+        super(FXML);
+        this.commandExecutor = commandExecutor;
+        this.resultDisplay = resultDisplay;
+        this.commandHistory = commandHistory;
+        this.autoComplete = autoComplete;
+
+        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+
+        // handles the up and down arrow keys for command history
+        commandTextField.setOnKeyPressed(eventHandlerUpDownKeys);
+
+        // handles the tab key for command autocomplete
+        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, eventHandlerTabKey);
     }
 
     /**
