@@ -15,7 +15,13 @@ public class TitleComparator implements Comparator<Assignment> {
             && a1.getStatus().status.equals(Status.ASSIGNMENT_OUTSTANDING)) {
             return -1;
         } else {
-            return a1.getTitle().title.compareTo(a2.getTitle().title);
+            if (a1.getTitle().title.toLowerCase().compareTo(a2.getTitle().title.toLowerCase()) < 0) {
+                return -1;
+            } else if(a1.getTitle().title.toLowerCase().compareTo(a2.getTitle().title.toLowerCase()) > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }
 }
