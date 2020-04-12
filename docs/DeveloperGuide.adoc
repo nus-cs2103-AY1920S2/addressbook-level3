@@ -140,10 +140,17 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/recipe/storage/Storage.java[`Storage.java`]
 
+In the figure above, we can see that we are maintaining 5 different storages. These storages aim to keep the memory of:
+* `UserPrefs`
+* `RecipeBook`
+* `PlannedBook`
+* `CookedRecords`
+* `QuoteBook`
+
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Recipe Book data in json format and read it back.
+* can save the HYBB data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
