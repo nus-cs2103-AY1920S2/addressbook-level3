@@ -86,9 +86,21 @@ This feature requires a thorough understanding of the existing code of AB3 such 
 |_Given below are sections that I have contributed to Delino's User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+== *Edit feature*
+This whole section on Edit feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#edit[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
+
 include::../UserGuide.adoc[tag=edit]
 
+== *Search feature*
+This whole section on Search feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#search[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
+
 include::../UserGuide.adoc[tag=search]
+
+== *Command summary*
+This whole section on Command summary can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command-summary[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 
 include::../UserGuide.adoc[tag=command_summary]
 
@@ -98,14 +110,38 @@ include::../UserGuide.adoc[tag=command_summary]
 |_Given below are sections that I have contributed to Delino's Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+== *Edit feature*
+This whole section on Edit feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#edit[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
+
 include::../DeveloperGuide.adoc[tag=edit]
+
+== *Search feature*
+This whole section on Search feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#search[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 
 include::../DeveloperGuide.adoc[tag=search]
 
+== *Use case for Edit*
+This whole section on Use case for edit feature can be found at UC05 of https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
+
 include::../DeveloperGuide.adoc[tag=use_case_edit]
+
+== *Use case for search*
+This whole section on Use case for search feature can be found at UC07 of https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 
 include::../DeveloperGuide.adoc[tag=use_case_search]
 
+== *Manual Testing - Appendix Edit*
+This whole section on Manual testing of Edit feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#edit-orders[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
+
 include::../DeveloperGuide.adoc[tag=appendix-edit]
+
+== *Manual Testing - Appendix Search*
+This whole section on Manual testing of Search feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#search-an-order[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 
 include::../DeveloperGuide.adoc[tag=appendix-search]
