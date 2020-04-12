@@ -488,11 +488,66 @@ requiring to do any of the encryption, decryption, or even any knowledge of how 
 
 ==== Proposed Implementation
 
+We thus propose a `Keystore` module to contain authorisation certificates or public key certificates
+interacting with the `Logic` and `Storage` modules. With this addition, the following architecture diagram
+gives an overview of how it would fit in:
+
+image::DataEncryptionClassDiagram.png[]
+
+The `Keystore` module would have a `KeystoreManager` which implements the following methods:
+
+* `KeystoreManager#setCipher(Cipher cipher)` - sets the `Cipher` for encryption usage.
+* `KeystoreManager#encryptExpenseLa(ExpenseLa expenseLa)` - encrypts the given `ExpenseLa` object with the encryption cipher set with every
+call to `LogicManager#execute()` method.
+* `KeystoreManager#decryptExpenseLa(ExpenseLa expenseLa)` - Decrypts the encrypted json file upon application launch.
+
+NOTE: `KeystoreManager#encryptExpenseLa(ExpenseLa expenseLa)` and `KeystoreManager#decryptExpenseLa(ExpenseLa expenseLa)`
+will be using the Advanced Encryption Standard (AES 256) encryption algorithm.
+
+==== Design Considerations
+*Aspect: Encryption Algorithm*
+
+* Alternative 1: Data Encryption Standard
+** Pros: Simpler to implement encryption and decryption
+** Cons: Weaker security, easy to brute force
+* Alternative 2 (current choice) : Advanced Encryption Standard
+** Pros: 256 bit key is exponentially more secure than DES' 56 bit key
+** Cons: Harder to implement
+
+
 === [Proposed] ExpenseLa Monthly Statement
 
-Just as how banks issue a monthly statement of account, we believe that it would be helpful to provide
-our users with an overview of their expenses in the past month
+Similar to how banks issue a statement of account, we believe that it would be helpful to provide
+our users with an overview of their expenses. This statement would include the user's balance,
+budget, expense, income, and transactions in a user specified time frame.The user can choose to include/exclude certain
+transactions based on their categories or dates.
 
+==== Proposed Implementation
+
+To generate the statement, we propose a `StatementCommand` that extends `Command` and works with `ModelManager` just like
+all other commands, as depicted in the following diagram:
+
+image::StatementCommandClassDiagram.png[]
+
+* The user uses the `FilterCommand` to  filter the list of transactions to show only the transactions with the
+user's preferred category and transaction month
+* Then `StatementCommand#execute()` will retrieve the `FilteredList` of transactions
+and generate a Portable Document Format (PDF) file with Java's PDFWrite API.
+
+==== Design Considerations
+
+*Aspect: Time and Nature of Transactions to Export*
+
+* Alternative 1 (current choice): Users get to choose when to generate their statement and which month and categories of
+transactions to include.
+** Pros: Users get a statement tailored according to their needs.
+** Cons: Users may forget to include certain types of transactions.
+* Alternative 2: At the end of every month, a statement of all transactions and user information is exported
+** Pros: Users get a comprehensive view of their expenses
+** Cons: Users may be overloaded with information
+
+Ultimately we chose Alternative 1 as we prioritise our user's freedom of choice and we understand that not all transactions
+may be relevant for the purposes of exporting the statement.
 
 === Logging
 
