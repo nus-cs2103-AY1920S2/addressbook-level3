@@ -1,14 +1,9 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
-import seedu.address.logic.commands.commandEdit.EditCommand;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.tag.Tag;
-
-import java.util.Set;
 
 import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 public class AssignmentUtil {
     /**

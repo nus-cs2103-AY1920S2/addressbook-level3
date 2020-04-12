@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+
+import static java.util.Objects.requireNonNull;
 
 public abstract class UndoableCommand extends Command {
     protected Command oppositeCommand;
@@ -13,7 +13,8 @@ public abstract class UndoableCommand extends Command {
     /**
      * If require this preprocessing step should override this method.
      */
-    protected void preprocessUndoableCommand(Model model) throws CommandException {}
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
+    }
 
     protected final CommandResult undo(Model model) {
         requireNonNull(model);

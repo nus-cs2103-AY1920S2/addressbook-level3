@@ -1,14 +1,10 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.commandAssign.AssignCommandBase;
-import seedu.address.logic.commands.commandAssign.AssignCommandFactory;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.commandUnassign.UnassignCommandBase;
 import seedu.address.logic.commands.commandUnassign.UnassignCommandFactory;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
@@ -20,19 +16,19 @@ import static seedu.address.logic.parser.CliSyntax.*;
 public class UnassignCommandParser implements Parser<UnassignCommandBase> {
 
     public static final String MESSAGE_USAGE =
-        "unassign command must have 2 parameters only, 1 of which must be the CourseID!"
-        + "\n1. Unassigning a student from a course"
-        + "\n2. Unassigning a teacher from a course"
-        + "\n3. Unassigning an assignment from a course"
-        + "\nParameters: "
-        + "\n" + PREFIX_COURSEID + "COURSEID"
-        + "\n AND"
-        + "\n" + PREFIX_STUDENTID + "STUDENTID"
-        + " OR " + PREFIX_TEACHERID + "TEACHERID"
-        + " OR " + PREFIX_ASSIGNMENTID + "ASSIGNMENTID"
-        + "\n" + "Example: "  + "unassign "
-        + PREFIX_COURSEID + "829 "
-        + PREFIX_STUDENTID + "33 ";
+            "unassign command must have 2 parameters only, 1 of which must be the CourseID!"
+                    + "\n1. Unassigning a student from a course"
+                    + "\n2. Unassigning a teacher from a course"
+                    + "\n3. Unassigning an assignment from a course"
+                    + "\nParameters: "
+                    + "\n" + PREFIX_COURSEID + "COURSEID"
+                    + "\n AND"
+                    + "\n" + PREFIX_STUDENTID + "STUDENTID"
+                    + " OR " + PREFIX_TEACHERID + "TEACHERID"
+                    + " OR " + PREFIX_ASSIGNMENTID + "ASSIGNMENTID"
+                    + "\n" + "Example: " + "unassign "
+                    + PREFIX_COURSEID + "829 "
+                    + PREFIX_STUDENTID + "33 ";
 
     /**
      * Parses the given arguments into context of AssignCommand (actually a class that inherits

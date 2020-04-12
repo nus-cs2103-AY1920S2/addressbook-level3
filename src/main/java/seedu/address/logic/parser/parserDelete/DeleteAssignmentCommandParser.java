@@ -12,20 +12,20 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
  */
 public class DeleteAssignmentCommandParser extends DeleteCommandParser {
 
-  /**
-   * Parses the given {@code String} of arguments in the context of the DeleteCommand and returns a
-   * DeleteCommand object for execution.
-   *
-   * @throws ParseException if the user input does not conform the expected format
-   */
-  public DeleteAssignmentCommand parse(String args) throws ParseException {
-    try {
-      ID id = ParserUtil.parseID(args);
-      return new DeleteAssignmentCommand(id);
-    } catch (ParseException pe) {
-      throw new ParseException(
-          String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAssignmentCommand.MESSAGE_USAGE), pe);
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeleteCommand and returns a
+     * DeleteCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public DeleteAssignmentCommand parse(String args) throws ParseException {
+        try {
+            ID id = ParserUtil.parseID(args);
+            return new DeleteAssignmentCommand(id);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAssignmentCommand.MESSAGE_USAGE), pe);
+        }
     }
-  }
 
 }

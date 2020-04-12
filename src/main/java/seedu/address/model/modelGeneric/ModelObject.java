@@ -16,11 +16,15 @@ public abstract class ModelObject implements Cloneable {
 
     public RuntimeException getNotFoundException() {
         return new NotFoundException(ENTITY_NAME);
-    };
+    }
+
+    ;
 
     public RuntimeException getDuplicateException() {
         return new DuplicateException(ENTITY_NAME);
-    };
+    }
+
+    ;
 
     public abstract ModelObject clone();
 }

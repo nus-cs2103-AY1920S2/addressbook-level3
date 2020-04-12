@@ -1,8 +1,9 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.modelObjectTags.CompositeID;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelProgress.Progress;
-import seedu.address.model.modelObjectTags.*;
 
 /**
  * A utility class to help with building Progress objects.

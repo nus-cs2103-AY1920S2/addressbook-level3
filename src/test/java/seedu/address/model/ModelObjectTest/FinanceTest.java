@@ -19,6 +19,7 @@ public class FinanceTest {
     public static Date validDate = new Date("2020-04-13");
     public static Amount validAmount = new Amount("2000");
     public static Set<Tag> validTags = new HashSet<Tag>();
+
     @Test
     public void isValidFinance() {
         // null Finance

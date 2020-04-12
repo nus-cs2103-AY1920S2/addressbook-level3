@@ -6,7 +6,7 @@ package seedu.address.model.modelObjectTags.exceptions;
  */
 public class DuplicateFinanceException extends RuntimeException {
 
-  public DuplicateFinanceException() {
-    super("Operation would result in duplicate finances");
-  }
+    public DuplicateFinanceException() {
+        super("Operation would result in duplicate finances");
+    }
 }

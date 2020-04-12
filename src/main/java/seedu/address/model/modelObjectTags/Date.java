@@ -1,9 +1,9 @@
 package seedu.address.model.modelObjectTags;
 
+import seedu.address.model.modelObjectTags.personTagValidations.DateValidator;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-
-import seedu.address.model.modelObjectTags.personTagValidations.DateValidator;
 
 /**
  * Represents an Assignment's date in the address book. Guarantees: immutable; is valid as declared in

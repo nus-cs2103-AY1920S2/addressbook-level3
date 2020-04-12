@@ -9,23 +9,23 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
  */
 public class CourseAddressBook extends AddressBookGeneric<Course> {
 
-  /**
-   * Creates an Course AddressBook.
-   */
-  public CourseAddressBook() {
-    super();
-  }
+    /**
+     * Creates an Course AddressBook.
+     */
+    public CourseAddressBook() {
+        super();
+    }
 
-  /**
-   * Creates an Course AddressBook using the objects in the {@code toBeCopied}
-   */
-  public CourseAddressBook(ReadOnlyAddressBookGeneric<Course> toBeCopied) {
-    super(toBeCopied);
-  }
+    /**
+     * Creates an Course AddressBook using the objects in the {@code toBeCopied}
+     */
+    public CourseAddressBook(ReadOnlyAddressBookGeneric<Course> toBeCopied) {
+        super(toBeCopied);
+    }
 
-  @Override
-  public String toString() {
-    return objects.asUnmodifiableObservableList().size() + " courses";
-  }
+    @Override
+    public String toString() {
+        return objects.asUnmodifiableObservableList().size() + " courses";
+    }
 
 }

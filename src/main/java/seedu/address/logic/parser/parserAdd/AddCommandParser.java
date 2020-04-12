@@ -8,5 +8,5 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * An abstract class for all addcommand parsers
  */
 public abstract class AddCommandParser implements Parser<AddCommand> {
-  public abstract AddCommand parse(String args) throws ParseException;
+    public abstract AddCommand parse(String args) throws ParseException;
 }

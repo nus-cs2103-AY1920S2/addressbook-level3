@@ -7,14 +7,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelObjectTags.CompositeID;
 import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelProgress.Progress;
 
 import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
-import java.util.Set;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -85,8 +85,8 @@ public class ProgressManager extends BaseManager {
         }
 
         postDataStorageChangeEvent(
-            model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
-            Constants.ENTITY_TYPE.PROGRESS
+                model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
+                Constants.ENTITY_TYPE.PROGRESS
         );
     }
 
@@ -153,7 +153,7 @@ public class ProgressManager extends BaseManager {
         int doneCount = 0;
 
         for (Progress progress : allProgresses) {
-            if(progress.getIsDone()) {
+            if (progress.getIsDone()) {
                 doneCount++;
             }
         }

@@ -12,31 +12,31 @@ import static java.util.Objects.requireNonNull;
  */
 public class CalculateEarningsFinanceCommand extends Command {
 
-  public static final String COMMAND_WORD = "earnings";
+    public static final String COMMAND_WORD = "earnings";
 
-  @Override
-  public CommandResult execute(Model model) {
-    requireNonNull(model);
-    ObservableList<Finance> filteredFinances = model.getFilteredFinanceList();
-    float totalAmount = 0;
+    @Override
+    public CommandResult execute(Model model) {
+        requireNonNull(model);
+        ObservableList<Finance> filteredFinances = model.getFilteredFinanceList();
+        float totalAmount = 0;
 
-    for (Finance finance : filteredFinances){
-      String amount = finance.getAmount().toString();
-      if (!amount.substring(0, 1).equals("-")){
-        //Add earnings
-        amount = amount.trim();
-        totalAmount += Float.parseFloat(amount);
-      }
+        for (Finance finance : filteredFinances) {
+            String amount = finance.getAmount().toString();
+            if (!amount.substring(0, 1).equals("-")) {
+                //Add earnings
+                amount = amount.trim();
+                totalAmount += Float.parseFloat(amount);
+            }
 
-      //Ignore expenses
+            //Ignore expenses
+        }
+
+        return new CommandResult("Total earnings: $ " + String.format("%.02f", totalAmount));
     }
 
-    return new CommandResult("Total earnings: $ " + String.format("%.02f", totalAmount));
-  }
-
-  @Override
-  public boolean equals(Object other) {
-    return other == this // short circuit if same object
-        || (other instanceof CalculateEarningsFinanceCommand); // instanceof handles nulls
-  }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CalculateEarningsFinanceCommand); // instanceof handles nulls
+    }
 }

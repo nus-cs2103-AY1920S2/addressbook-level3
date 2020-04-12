@@ -20,67 +20,67 @@ import static java.util.Objects.requireNonNull;
  */
 public class JsonAssignmentAddressBookStorage implements AssignmentAddressBookStorage {
 
-  private static final Logger logger = LogsCenter.getLogger(
-      JsonAssignmentAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(
+            JsonAssignmentAddressBookStorage.class);
 
-  private Path filePath;
+    private Path filePath;
 
-  public JsonAssignmentAddressBookStorage(Path filePath) {
-    this.filePath = filePath;
-  }
-
-  public Path getAssignmentAddressBookFilePath() {
-    return filePath;
-  }
-
-  @Override
-  public Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook()
-      throws DataConversionException {
-    return readAssignmentAddressBook(filePath);
-  }
-
-  /**
-   * Similar to {@link #readAssignmentAddressBook()}.
-   *
-   * @param filePath location of the data. Cannot be null.
-   * @throws DataConversionException if the file is not in the correct format.
-   */
-  public Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook(Path filePath)
-      throws DataConversionException {
-    requireNonNull(filePath);
-
-    Optional<JsonAssignmentSerializableAddressBook> jsonAssignmentAddressBook = JsonUtil.readJsonFile(
-        filePath, JsonAssignmentSerializableAddressBook.class);
-    if (!jsonAssignmentAddressBook.isPresent()) {
-      return Optional.empty();
+    public JsonAssignmentAddressBookStorage(Path filePath) {
+        this.filePath = filePath;
     }
 
-    try {
-      return Optional.of(jsonAssignmentAddressBook.get().toModelType());
-    } catch (IllegalValueException ive) {
-      logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-      throw new DataConversionException(ive);
+    public Path getAssignmentAddressBookFilePath() {
+        return filePath;
     }
-  }
 
-  @Override
-  public void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentsAddressBook)
-      throws IOException {
-    saveAssignmentAddressBook(assignmentsAddressBook, filePath);
-  }
+    @Override
+    public Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook()
+            throws DataConversionException {
+        return readAssignmentAddressBook(filePath);
+    }
 
-  /**
-   * Similar to {@link #saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment>)}.
-   *
-   * @param filePath location of the data. Cannot be null.
-   */
-  public void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentsAddressBook, Path filePath)
-      throws IOException {
-    requireNonNull(assignmentsAddressBook);
-    requireNonNull(filePath);
+    /**
+     * Similar to {@link #readAssignmentAddressBook()}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     * @throws DataConversionException if the file is not in the correct format.
+     */
+    public Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook(Path filePath)
+            throws DataConversionException {
+        requireNonNull(filePath);
 
-    FileUtil.createIfMissing(filePath);
-    JsonUtil.saveJsonFile(new JsonAssignmentSerializableAddressBook(assignmentsAddressBook), filePath);
-  }
+        Optional<JsonAssignmentSerializableAddressBook> jsonAssignmentAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonAssignmentSerializableAddressBook.class);
+        if (!jsonAssignmentAddressBook.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonAssignmentAddressBook.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
+    public void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentsAddressBook)
+            throws IOException {
+        saveAssignmentAddressBook(assignmentsAddressBook, filePath);
+    }
+
+    /**
+     * Similar to {@link #saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment>)}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     */
+    public void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentsAddressBook, Path filePath)
+            throws IOException {
+        requireNonNull(assignmentsAddressBook);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        JsonUtil.saveJsonFile(new JsonAssignmentSerializableAddressBook(assignmentsAddressBook), filePath);
+    }
 
 }

@@ -32,8 +32,10 @@ public class CompositeID extends ID {
         addStudentID(studentID);
     }
     // no error thrown since we require for assignmentID and studentID to be non null during instantiation
+
     /**
      * Get Student ID of this CompositeID.
+     *
      * @return student ID.
      */
     public ID getStudentID() {
@@ -42,6 +44,7 @@ public class CompositeID extends ID {
 
     /**
      * Get Assignment ID of this CompositeID.
+     *
      * @return assignment ID.
      */
     public ID getAssignmentID() {
@@ -50,6 +53,7 @@ public class CompositeID extends ID {
 
     /**
      * Add a student ID to this CompositeID.
+     *
      * @param studentID student ID to be added.
      */
     private void addStudentID(ID studentID) {
@@ -58,15 +62,16 @@ public class CompositeID extends ID {
 
     /**
      * Add a assignment ID to this CompositeID.
+     *
      * @param assignmentID assignment ID to be added.
      */
-    private void addAssignmentID(ID assignmentID)  {
+    private void addAssignmentID(ID assignmentID) {
         ids.put(PREFIX_ASSIGNMENTID, assignmentID);
     }
 
     @Override
     public String toString() {
-        return ids.toString() ;
+        return ids.toString();
     }
 
     @Override

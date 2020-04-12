@@ -1,131 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
-
-<HBox id="cardPaneCourse" fx:id="cardPane" onMousePressed="#selectCourse" prefHeight="324.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <HBox alignment="CENTER_LEFT" spacing="5">
-        <ImageView fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
-          <image>
-            <Image url="@ourImages/course.png" />
-          </image>
-        </ImageView>
-        <Label fx:id="id" styleClass="cell_big_label" text="\$id">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-        <padding>
-          <Insets left="15.0" />
-        </padding>
-        <opaqueInsets>
-          <Insets top="5.0" />
-        </opaqueInsets>
-      </HBox>
-      <Line endX="999.0" startX="-100.0" stroke="#ffffff41">
-        <VBox.margin>
-          <Insets bottom="5.0" top="5.0" />
-        </VBox.margin>
-      </Line>
-      <FlowPane fx:id="tags">
-        <VBox.margin>
-          <Insets left="15.0" />
-        </VBox.margin>
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-      </FlowPane>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Course ID: " />
-        <Label fx:id="courseID" styleClass="cell_small_label" text="\$courseID" />
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
+<HBox id="cardPaneCourse" fx:id="cardPane" onMousePressed="#selectCourse" prefHeight="324.0" prefWidth="295.0"
+      xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+            <HBox alignment="CENTER_LEFT" spacing="5">
+                <ImageView fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@ourImages/course.png"/>
+                    </image>
+                </ImageView>
+                <Label fx:id="id" styleClass="cell_big_label" text="\$id">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE"/>
+                    </minWidth>
+                </Label>
+                <Label fx:id="name" styleClass="cell_big_label" text="\$first"/>
+                <padding>
+                    <Insets left="15.0"/>
+                </padding>
+                <opaqueInsets>
+                    <Insets top="5.0"/>
+                </opaqueInsets>
+            </HBox>
+            <Line endX="999.0" startX="-100.0" stroke="#ffffff41">
+                <VBox.margin>
+                    <Insets bottom="5.0" top="5.0"/>
+                </VBox.margin>
+            </Line>
+            <FlowPane fx:id="tags">
+                <VBox.margin>
+                    <Insets left="15.0"/>
+                </VBox.margin>
+                <opaqueInsets>
+                    <Insets/>
+                </opaqueInsets>
+            </FlowPane>
+            <HBox>
+                <Label styleClass="cell_small_label" text="Course ID: "/>
+                <Label fx:id="courseID" styleClass="cell_small_label" text="\$courseID"/>
+                <opaqueInsets>
+                    <Insets/>
+                </opaqueInsets>
+                <padding>
+                    <Insets left="15.0"/>
+                </padding>
+            </HBox>
+            <HBox>
+                <Label styleClass="cell_small_label" text="Course Fee: "/>
+                <Label fx:id="amount" styleClass="cell_small_label" text="\$amount"/>
+                <opaqueInsets>
+                    <Insets/>
+                </opaqueInsets>
+                <padding>
+                    <Insets left="15.0"/>
+                </padding>
+            </HBox>
+            <HBox>
+                <Label styleClass="cell_small_label" text="Assigned Staff: "/>
+                <Label fx:id="assignedStaff" styleClass="cell_small_label" text="\$assignedStaff"/>
+                <opaqueInsets>
+                    <Insets/>
+                </opaqueInsets>
+                <padding>
+                    <Insets left="15.0"/>
+                </padding>
+            </HBox>
+            <HBox>
+                <Label styleClass="cell_small_label" text="Assigned Students: "/>
+                <Label fx:id="assignedStudents" styleClass="cell_small_label" text="\$assignedStudents"/>
+                <opaqueInsets>
+                    <Insets/>
+                </opaqueInsets>
+                <padding>
+                    <Insets left="15.0"/>
+                </padding>
+            </HBox>
+            <HBox>
+                <Label styleClass="cell_small_label" text="Assigned Assignments: "/>
+                <Label fx:id="assignedAssignments" styleClass="cell_small_label" text="\$assignedAssignments"/>
+                <opaqueInsets>
+                    <Insets/>
+                </opaqueInsets>
+                <padding>
+                    <Insets left="15.0"/>
+                </padding>
+            </HBox>
+            <HBox>
+                <Label styleClass="cell_small_label" text="Number of Done Progress: "/>
+                <Label fx:id="noOfDoneProgress" styleClass="cell_small_label" text="\$noOfDoneProgress"/>
+                <opaqueInsets>
+                    <Insets/>
+                </opaqueInsets>
+                <padding>
+                    <Insets left="15.0"/>
+                </padding>
+            </HBox>
+            <ListView id="detailedPanel" fx:id="progressListView" VBox.vgrow="ALWAYS"/>
             <padding>
-               <Insets left="15.0" />
+                <Insets bottom="5.0" top="5.0"/>
             </padding>
-      </HBox>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Course Fee: " />
-        <Label fx:id="amount" styleClass="cell_small_label" text="\$amount" />
             <opaqueInsets>
-               <Insets />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </opaqueInsets>
-            <padding>
-               <Insets left="15.0" />
-            </padding>
-      </HBox>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Assigned Staff: " />
-        <Label fx:id="assignedStaff" styleClass="cell_small_label" text="\$assignedStaff" />
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-            <padding>
-               <Insets left="15.0" />
-            </padding>
-      </HBox>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Assigned Students: " />
-        <Label fx:id="assignedStudents" styleClass="cell_small_label" text="\$assignedStudents" />
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-            <padding>
-               <Insets left="15.0" />
-            </padding>
-      </HBox>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Assigned Assignments: " />
-        <Label fx:id="assignedAssignments" styleClass="cell_small_label" text="\$assignedAssignments" />
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-            <padding>
-               <Insets left="15.0" />
-            </padding>
-      </HBox>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Number of Done Progress: " />
-        <Label fx:id="noOfDoneProgress" styleClass="cell_small_label" text="\$noOfDoneProgress" />
-        <opaqueInsets>
-          <Insets />
-        </opaqueInsets>
-        <padding>
-          <Insets left="15.0" />
-        </padding>
-      </HBox>
-      <ListView id="detailedPanel" fx:id="progressListView" VBox.vgrow="ALWAYS" />
-      <padding>
-        <Insets bottom="5.0" top="5.0" />
-      </padding>
-      <opaqueInsets>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </opaqueInsets>
-    </VBox>
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-    <rowConstraints>
-      <RowConstraints />
-    </rowConstraints>
-  </GridPane>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
+        </VBox>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+    </GridPane>
+    <opaqueInsets>
+        <Insets/>
+    </opaqueInsets>
 </HBox>

@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.commandUnassign;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.UndoableCommand;
 
 public abstract class UnassignCommandBase extends UndoableCommand {

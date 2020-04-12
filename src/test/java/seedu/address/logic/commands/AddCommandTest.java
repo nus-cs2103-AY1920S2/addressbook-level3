@@ -468,9 +468,11 @@ public class AddCommandTest {
     }
     */
 
-    /**
-     * A Model stub that contains a single person.
-     */
+/**
+ * A Model stub that contains a single person.
+ * <p>
+ * A Model stub that always accept the person being added.
+ */
     /*
     private class ModelStubWithPerson extends ModelStub {
         private final Person person;
@@ -487,9 +489,9 @@ public class AddCommandTest {
         }
     }
     */
-    /**
-     * A Model stub that always accept the person being added.
-     */
+/**
+ * A Model stub that always accept the person being added.
+ */
     /*
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();

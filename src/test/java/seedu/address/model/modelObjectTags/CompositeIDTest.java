@@ -3,7 +3,8 @@ package seedu.address.model.modelObjectTags;
 import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.TypicalProgress.*;
 
 public class CompositeIDTest {

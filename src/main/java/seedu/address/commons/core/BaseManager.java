@@ -25,7 +25,7 @@ public class BaseManager {
     }
 
     public static void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook,
-                                            Constants.ENTITY_TYPE entityType) {
+                                                  Constants.ENTITY_TYPE entityType) {
         raiseEvent(new DataStorageChangeEvent(addressBook, entityType));
     }
 

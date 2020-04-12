@@ -71,7 +71,8 @@ public class TypicalTeacher {
             .withEmail(VALID_EMAIL_BOB).withSalary(VALID_SALARY_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    private TypicalTeacher() {} // prevents instantiation
+    private TypicalTeacher() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical teachers.

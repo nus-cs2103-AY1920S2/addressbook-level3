@@ -5,8 +5,8 @@ package seedu.address.commons.exceptions;
  */
 public class DataConversionException extends Exception {
 
-  public DataConversionException(Exception cause) {
-    super(cause);
-  }
+    public DataConversionException(Exception cause) {
+        super(cause);
+    }
 
 }

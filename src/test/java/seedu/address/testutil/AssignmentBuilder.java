@@ -60,7 +60,7 @@ public class AssignmentBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Assignment} that we are building.
      */
-    public AssignmentBuilder withTags(String ... tags) {
+    public AssignmentBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }

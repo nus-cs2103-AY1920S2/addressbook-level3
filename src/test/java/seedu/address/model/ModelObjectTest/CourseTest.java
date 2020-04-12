@@ -15,6 +15,7 @@ public class CourseTest {
     public static Name validName = new Name("Test Name");
     public static Amount validAmount = new Amount("2000");
     public static Set<Tag> validTags = new HashSet<Tag>();
+
     @Test
     public void isValidCourse() {
         // null staff

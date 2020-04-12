@@ -6,7 +6,7 @@ package seedu.address.model.modelObjectTags.exceptions;
  */
 public class DuplicateTeacherException extends RuntimeException {
 
-  public DuplicateTeacherException() {
-    super("Operation would result in duplicate teachers");
-  }
+    public DuplicateTeacherException() {
+        super("Operation would result in duplicate teachers");
+    }
 }

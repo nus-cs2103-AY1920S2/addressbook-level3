@@ -8,20 +8,20 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
  * comparison)
  */
 public class StudentAddressBook extends AddressBookGeneric<Student> {
-  public StudentAddressBook() {
-    super();
-  }
+    public StudentAddressBook() {
+        super();
+    }
 
-  /**
-   * Creates an AddressBook using the Students in the {@code toBeCopied}
-   */
-  public StudentAddressBook(ReadOnlyAddressBookGeneric<Student> toBeCopied) {
-    super(toBeCopied);
-  }
+    /**
+     * Creates an AddressBook using the Students in the {@code toBeCopied}
+     */
+    public StudentAddressBook(ReadOnlyAddressBookGeneric<Student> toBeCopied) {
+        super(toBeCopied);
+    }
 
-  @Override
-  public String toString() {
-    return objects.asUnmodifiableObservableList().size() + " students";
-    // TODO: refine later
-  }
+    @Override
+    public String toString() {
+        return objects.asUnmodifiableObservableList().size() + " students";
+        // TODO: refine later
+    }
 }

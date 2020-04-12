@@ -3,8 +3,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.StackPane?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" styleClass="stack-pane"
-  xmlns="http://javafx.com/javafx/8">
-  <TextField onAction="#handleCommandEntered" promptText="Enter command here..."
-    fx:id="commandTextField"/>
+           xmlns="http://javafx.com/javafx/8">
+    <TextField onAction="#handleCommandEntered" promptText="Enter command here..."
+               fx:id="commandTextField"/>
 </StackPane>
 

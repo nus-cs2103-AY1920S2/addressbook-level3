@@ -1,7 +1,5 @@
 package seedu.address.logic.commands.commandDelete;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.logic.commands.UndoableCommand;
 
 /**
@@ -9,6 +7,6 @@ import seedu.address.logic.commands.UndoableCommand;
  */
 
 public abstract class DeleteCommand extends UndoableCommand {
-  // TODO: Consider deleting by ID instead of Index
-  public static final String COMMAND_WORD = "delete";
+    // TODO: Consider deleting by ID instead of Index
+    public static final String COMMAND_WORD = "delete";
 }

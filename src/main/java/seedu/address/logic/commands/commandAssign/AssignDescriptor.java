@@ -12,9 +12,10 @@ public class AssignDescriptor {
     // TODO: Change to generic type so assign is not only for " from ID to ID "
     private HashMap<Prefix, ID> IDMapping = new HashMap<Prefix, ID>();
 
-    public AssignDescriptor() {}
+    public AssignDescriptor() {
+    }
 
-    public ID getAssignID (Prefix assignEntity) throws CommandException {
+    public ID getAssignID(Prefix assignEntity) throws CommandException {
         if (IDMapping.containsKey(assignEntity)) {
             return IDMapping.get(assignEntity);
         } else {
@@ -28,7 +29,7 @@ public class AssignDescriptor {
         IDMapping.put(assignEntity, assignID);
     }
 
-    public HashMap<Prefix, ID> getIDMapping () {
+    public HashMap<Prefix, ID> getIDMapping() {
         return this.IDMapping;
     }
 

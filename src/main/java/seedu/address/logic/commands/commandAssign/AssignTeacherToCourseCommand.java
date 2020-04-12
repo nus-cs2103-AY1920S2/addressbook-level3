@@ -1,11 +1,5 @@
 package seedu.address.logic.commands.commandAssign;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
-
-import java.util.Set;
-
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandUnassign.UnassignTeacherFromCourseCommand;
@@ -14,10 +8,18 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelStaff.Staff;
 
-/** This class will be in charge of assigning stuff (e.g students, staff, etc) to a course. */
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
+
+/**
+ * This class will be in charge of assigning staff to a course.
+ */
 public class AssignTeacherToCourseCommand extends AssignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
@@ -42,6 +44,14 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
         return allAssignEntities.contains(PREFIX_COURSEID) && allAssignEntities.contains(PREFIX_TEACHERID);
     }
 
+
+    /**
+     * Executes the Assigning of Teacher to Course by calling EdgeManager and Progress Manager
+     *
+     * @param model
+     * @return CommandResult of successful command execution
+     * @throws CommandException
+     */
     @Override
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
@@ -58,7 +68,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
     }
 
     /**
-     * If require this preprocessing step should override this method.
+     * Ensures that Teacher & Course exists and that they don't already contain each other.
      *
      * @param model
      */
@@ -87,7 +97,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
                 boolean assignedTeacherContainsCourse = foundStaff.containsCourse(courseID);
                 if (assignedCourseContainsTeacher) {
                     throw new CommandException(MESSAGE_COURSE_ALREADY_CONTAINS_TEACHER);
-                } else if(assignedTeacherContainsCourse){
+                } else if (assignedTeacherContainsCourse) {
                     throw new CommandException(MESSAGE_TEACHER_ALREADY_TEACHES_COURSE);
                 }
             }

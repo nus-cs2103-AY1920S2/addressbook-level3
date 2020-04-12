@@ -6,7 +6,7 @@ package seedu.address.model.modelObjectTags.exceptions;
  */
 public class DuplicateCourseException extends RuntimeException {
 
-  public DuplicateCourseException() {
-    super("Operation would result in duplicate courses");
-  }
+    public DuplicateCourseException() {
+        super("Operation would result in duplicate courses");
+    }
 }
