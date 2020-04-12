@@ -21,9 +21,9 @@ StorageManager o--> GlobalDataStorage
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonExpenseLaStorage .left.|> ExpenseLaStorage
 JsonExpenseLaStorage .down.> JsonSerializableExpenseLa
-
 JsonSerializableExpenseLa .down.> JsonAdaptedTransaction
 JsonGlobalDataStorage .left.|> GlobalDataStorage
 JsonGlobalDataStorage .down.> JsonSerializableGlobalData
 JsonSerializableGlobalData .down.>JsonAdaptedMonthlyData
+
 @enduml
