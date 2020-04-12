@@ -2,13 +2,9 @@ package seedu.address.logic.commands.commandAssign;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.modelObjectTags.ID;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class AssignDescriptor {
@@ -16,9 +12,10 @@ public class AssignDescriptor {
     // TODO: Change to generic type so assign is not only for " from ID to ID "
     private HashMap<Prefix, ID> IDMapping = new HashMap<Prefix, ID>();
 
-    public AssignDescriptor() {}
+    public AssignDescriptor() {
+    }
 
-    public ID getAssignID (Prefix assignEntity) throws CommandException {
+    public ID getAssignID(Prefix assignEntity) throws CommandException {
         if (IDMapping.containsKey(assignEntity)) {
             return IDMapping.get(assignEntity);
         } else {
@@ -32,7 +29,7 @@ public class AssignDescriptor {
         IDMapping.put(assignEntity, assignID);
     }
 
-    public HashMap<Prefix, ID> getIDMapping () {
+    public HashMap<Prefix, ID> getIDMapping() {
         return this.IDMapping;
     }
 

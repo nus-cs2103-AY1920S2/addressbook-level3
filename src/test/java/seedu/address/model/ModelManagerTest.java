@@ -1,40 +1,37 @@
 package seedu.address.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalTeacher.TEACHER_ALICE;
-import static seedu.address.testutil.TypicalTeacher.TEACHER_BENSON;
-import static seedu.address.testutil.TypicalStudent.STUDENT_ALICE;
-import static seedu.address.testutil.TypicalStudent.STUDENT_BENSON;
-import static seedu.address.testutil.TypicalFinance.FINANCE_ALICE;
-import static seedu.address.testutil.TypicalFinance.FINANCE_BENSON;
-import static seedu.address.testutil.TypicalCourse.COURSE_ALICE;
-import static seedu.address.testutil.TypicalCourse.COURSE_BENSON;
-import static seedu.address.testutil.TypicalAssignment.ASSIGNMENT_EASY;
-import static seedu.address.testutil.TypicalAssignment.ASSIGNMENT_HARD;
-import static seedu.address.testutil.TypicalProgress.Progress_S1_A1;
-import static seedu.address.testutil.TypicalProgress.Progress_S1_A2;
+import org.junit.jupiter.api.Test;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.modelAssignment.AssignmentAddressBook;
+import seedu.address.model.modelCourse.CourseAddressBook;
+import seedu.address.model.modelFinance.FinanceAddressBook;
+import seedu.address.model.modelObjectTags.NameContainsKeywordsPredicate;
+import seedu.address.model.modelProgress.ProgressAddressBook;
+import seedu.address.model.modelStaff.StaffAddressBook;
+import seedu.address.model.modelStudent.StudentAddressBook;
+import seedu.address.testutil.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import org.junit.jupiter.api.Test;
-
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.modelAssignment.AssignmentAddressBook;
-import seedu.address.model.modelCourse.CourseAddressBook;
-import seedu.address.model.modelFinance.FinanceAddressBook;
-import seedu.address.model.modelProgress.ProgressAddressBook;
-import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelStaff.StaffAddressBook;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAssignment.ASSIGNMENT_EASY;
+import static seedu.address.testutil.TypicalAssignment.ASSIGNMENT_HARD;
+import static seedu.address.testutil.TypicalCourse.COURSE_ALICE;
+import static seedu.address.testutil.TypicalCourse.COURSE_BENSON;
+import static seedu.address.testutil.TypicalFinance.FINANCE_ALICE;
+import static seedu.address.testutil.TypicalFinance.FINANCE_BENSON;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalProgress.Progress_S1_A1;
+import static seedu.address.testutil.TypicalProgress.Progress_S1_A2;
+import static seedu.address.testutil.TypicalStudent.STUDENT_ALICE;
+import static seedu.address.testutil.TypicalStudent.STUDENT_BENSON;
+import static seedu.address.testutil.TypicalTeacher.TEACHER_ALICE;
+import static seedu.address.testutil.TypicalTeacher.TEACHER_BENSON;
 
 public class ModelManagerTest {
 
@@ -132,13 +129,13 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, differentStaffAddressBook, differentStudentAddressBook,
-            differentFinanceAddressBook, differentCourseAddressBook, differentAssignmentAddressBook, differentProgressAddressBook, userPrefs)));
+                differentFinanceAddressBook, differentCourseAddressBook, differentAssignmentAddressBook, differentProgressAddressBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, differentStaffAddressBook, differentStudentAddressBook,
-            differentFinanceAddressBook, differentCourseAddressBook, differentAssignmentAddressBook, differentProgressAddressBook, userPrefs)));
+                differentFinanceAddressBook, differentCourseAddressBook, differentAssignmentAddressBook, differentProgressAddressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

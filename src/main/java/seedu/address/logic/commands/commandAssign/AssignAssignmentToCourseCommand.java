@@ -9,18 +9,21 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.manager.EdgeManager;
 import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
-import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelProgress.Progress;
-import seedu.address.model.person.ID;
 
 import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
 import java.util.logging.Logger;
 
-/** This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course. */
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+
+/**
+ * This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course.
+ */
 public class AssignAssignmentToCourseCommand extends AssignCommandBase {
     private static final Logger logger = LogsCenter.getLogger(AssignAssignmentToCourseCommand.class);
 
@@ -49,6 +52,13 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
         return allAssignEntities.contains(PREFIX_COURSEID) && allAssignEntities.contains(PREFIX_ASSIGNMENTID);
     }
 
+    /**
+     * Executes the Assigning of Assignment to Course by calling EdgeManager and Progress Manager
+     *
+     * @param model
+     * @return CommandResult of successful command execution
+     * @throws CommandException
+     */
     @Override
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
         // Check whether both IDs even exists
@@ -60,7 +70,7 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
 
         // Only called after you undo an unassignAssignmentToCourse
         // Ensures that previously completed assignments can be retrieved
-        if(this.undoProgresses != null) {
+        if (this.undoProgresses != null) {
             ProgressManager.addUndoProgress(this.undoProgresses);
         } else {
             ProgressManager.addOneProgressToAllStudents(courseID, assignmentID);
@@ -100,7 +110,8 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
 
             if (assigningAssignmentContainsCourse) {
                 throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_ALREADY_ASSIGNED);
-            } if (assignedCourseContainsAssignment) {
+            }
+            if (assignedCourseContainsAssignment) {
                 throw new CommandException(MESSAGE_INVALID_COURSE_HAS_ASSIGNMENT);
             }
         }

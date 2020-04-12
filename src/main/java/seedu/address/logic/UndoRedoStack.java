@@ -1,11 +1,11 @@
 package seedu.address.logic;
 
-import java.util.Stack;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UndoableCommand;
+
+import java.util.Stack;
 
 public class UndoRedoStack {
     private Stack<UndoableCommand> undoStack;

@@ -5,23 +5,28 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyAddressBookGeneric <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class AddressBookGeneric
+Class ReadOnlyAddressBookGeneric
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class BaseManager
+Class DiffTypesOfManagers
+Class ModelObject
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package ModelObject {
+Abstract Class ModelObject <<Abstract>>
+Interface Cloneable <<Interface>>
+Class UniqueList
+Class extendedModelObject
+Class RelevantFieldNum1
+Class RelevantFieldNum2
+Class RelevantField
+Class RelevantField
 }
 
 Package Tag {
@@ -32,25 +37,28 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+AddressBookGeneric .up.|> ReadOnlyAddressBookGeneric
 
+BaseManager <|-- DiffTypesOfManagers
+BaseManager <|-- ModelManager
+DiffTypesOfManagers -left> "1" ModelManager
 ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+Model .left.> ObservableList
+ModelManager o--> "6" AddressBookGeneric
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+AddressBookGeneric *--> "1" UniqueList
+UniqueList *--> "*" ModelObject
+ModelObject .up.|> Cloneable
+extendedModelObject -up-|> ModelObject
+extendedModelObject *--> RelevantFieldNum1
+extendedModelObject *--> RelevantFieldNum2
+extendedModelObject *--> RelevantField
+extendedModelObject *--> "*" Tag
 
-ModelManager -->"1" Person : filtered list
+RelevantFieldNum1 -[hidden]right-> RelevantFieldNum2
+
+ModelManager -->"1" ModelObject : filtered list
 @enduml

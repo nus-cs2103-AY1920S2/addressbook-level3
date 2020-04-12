@@ -20,12 +20,12 @@ import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelObjectTags.Amount;
+import seedu.address.model.modelObjectTags.FinanceType;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Name;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.FinanceType;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
 
 /**
  * Adds a finance to the address book.
@@ -140,13 +140,13 @@ public class AddFinanceCommand extends AddCommand {
       }
 
       Name name = new Name(String.format("Student %s %s has paid for Course %s %s",
-              student.getName().toString(), studentID.toString(),
-              course.getName().toString(), courseID.toString()));
+          student.getName().toString(), studentID.toString(),
+          course.getName().toString(), courseID.toString()));
       Amount amount = course.getAmount();
 
       try {
         toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
-                toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
+            toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
       } catch (ParseException e) {
         e.printStackTrace();
       }
@@ -171,11 +171,11 @@ public class AddFinanceCommand extends AddCommand {
       String staffName = teacher.getName().toString();
 
       Name name = new Name(String.format("Paid Staff %s %s for teaching Course %s %s", staffName, staffID.toString()
-              , courseName, courseID.toString()));
+          , courseName, courseID.toString()));
 
       try {
         this.toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
-                toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
+            toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
       } catch (ParseException e) {
         e.printStackTrace();
       }

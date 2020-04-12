@@ -1,8 +1,5 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
@@ -18,13 +15,18 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelObjectTags.Person;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.SummaryPanel;
 import seedu.address.viewmodel.ViewModel;
+
+import java.nio.file.Path;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
 /**
  * The main LogicManager of the app.
  */
@@ -68,13 +70,14 @@ public class LogicManager implements Logic {
     return commandResult;
   }
 
-  public void setMainWindow(MainWindow mainWindow){
+  public void setMainWindow(MainWindow mainWindow) {
     model.setMainWindow(mainWindow);
   }
 
-  public void setSummaryPanel(SummaryPanel summaryPanel){
+  public void setSummaryPanel(SummaryPanel summaryPanel) {
     this.summaryPanel = summaryPanel;
   }
+
   ///
   @Override
   public ReadOnlyAddressBook getAddressBook() {
@@ -154,6 +157,7 @@ public class LogicManager implements Logic {
   public Path getFinanceAddressBookFilePath() {
     return model.getFinanceAddressBookFilePath();
   }
+
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook() {

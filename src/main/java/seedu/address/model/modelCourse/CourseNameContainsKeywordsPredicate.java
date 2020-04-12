@@ -10,23 +10,23 @@ import java.util.function.Predicate;
  */
 public class CourseNameContainsKeywordsPredicate implements Predicate<Course> {
 
-  private final List<String> keywords;
+    private final List<String> keywords;
 
-  public CourseNameContainsKeywordsPredicate(List<String> keywords) {
-    this.keywords = keywords;
-  }
+    public CourseNameContainsKeywordsPredicate(List<String> keywords) {
+        this.keywords = keywords;
+    }
 
-  @Override
-  public boolean test(Course course) {
-    return keywords.stream()
-        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(course.getName().fullName, keyword));
-  }
+    @Override
+    public boolean test(Course course) {
+        return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(course.getName().fullName, keyword));
+    }
 
-  @Override
-  public boolean equals(Object other) {
-    return other == this // short circuit if same object
-        || (other instanceof CourseNameContainsKeywordsPredicate // instanceof handles nulls
-        && keywords.equals(((CourseNameContainsKeywordsPredicate) other).keywords)); // state check
-  }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CourseNameContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((CourseNameContainsKeywordsPredicate) other).keywords)); // state check
+    }
 
 }

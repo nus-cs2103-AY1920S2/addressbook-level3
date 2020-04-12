@@ -16,14 +16,16 @@ endif::[]
 
 
 *Code Camp X*
+
 ****
 Code Camp X is the best management tool for you to use if you have issues managing your coding bootcamp!
-This will help you save countless of hours by making it simple for you to track the profitability of each of your courses,
-track the progress of your students and even effectively manage the teachers that you've hired! Why wait? Try our
-application now!
+This will help you save countless of hours by making it simple for you to track the profitability of each of your courses, track the progress of your students and even effectively manage the teachers that you've hired!
+Why wait?
+Try our application now!
 ****
 
 *Who is it for?*
+
 ****
 - Those who find it difficult to managing a coding bootcamp
 - Those who have issues tracking manpower efficiently
@@ -33,6 +35,7 @@ application now!
 ****
 
 *Features*
+
 ****
 - Student Progress Tracker
 - Student Fee Payment Tracker
@@ -49,8 +52,7 @@ application now!
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 * Original Source of Code used (AddressBook Level 3): https://se-education.org
 

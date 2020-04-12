@@ -1,10 +1,5 @@
 package seedu.address.logic.commands.commandUnassign;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
-
-import java.util.Set;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
@@ -15,11 +10,19 @@ import seedu.address.manager.EdgeManager;
 import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
 
-/** This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course. */
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+
+/**
+ * This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course.
+ */
 public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";

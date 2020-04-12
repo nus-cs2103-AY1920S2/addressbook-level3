@@ -19,7 +19,7 @@ public class UndoneCommandFactory {
 
         UndoneCommandBase outputCommand = null;
 
-        if ( UndoneOneAssignmentOneStudent.isValidDescriptor(assignDescriptor)) {
+        if (UndoneOneAssignmentOneStudent.isValidDescriptor(assignDescriptor)) {
             outputCommand = new UndoneOneAssignmentOneStudent(assignDescriptor);
         } else {
             throw new ParseException(DONE_FAILURE_MESSAGE);

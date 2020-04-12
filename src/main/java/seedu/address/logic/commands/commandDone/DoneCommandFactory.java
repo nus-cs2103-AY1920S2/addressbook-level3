@@ -1,11 +1,10 @@
 package seedu.address.logic.commands.commandDone;
 
-import seedu.address.logic.commands.commandAssign.AssignCommandBase;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
-import seedu.address.logic.commands.commandAssign.AssignTeacherToCourseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 
 public class DoneCommandFactory {
     public static DoneCommandBase getCommand(AssignDescriptor assignDescriptor) throws ParseException {
@@ -20,7 +19,7 @@ public class DoneCommandFactory {
 
         DoneCommandBase outputCommand = null;
 
-        if ( DoneOneAssignmentOneStudent.isValidDescriptor(assignDescriptor)) {
+        if (DoneOneAssignmentOneStudent.isValidDescriptor(assignDescriptor)) {
             outputCommand = new DoneOneAssignmentOneStudent(assignDescriptor);
         } else {
             throw new ParseException(DONE_FAILURE_MESSAGE);
