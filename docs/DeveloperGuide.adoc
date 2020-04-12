@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -518,42 +519,95 @@ A (possibly custom) text marker that users can use to organise their recipes; ex
 //* ...
 //
 [appendix]
+// tag::ManualTesting[]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+These instructions only provide a starting point for testers to work on; testers are advised to do more _exploratory_ testing.
 
 === Launch and Shutdown
 
-. Initial launch
+. Launching *CookBuddy*
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Ensure you are using *Java 11* by opening a Command Prompt / terminal and run `java -version`.
+.. Download the latest *CookBuddy* jar file https://github.com/AY1920S2-CS2103T-W12-4/main/releases[here] and copy it into an empty folder
+.. Launch Command Prompt / a terminal, navigate to the folder *CookBuddy* is in and enter `java -jar CookBuddy.jar`. Do not double-click CookBuddy.jar +
+   Expected: Shows *CookBuddy's* GUI with a set of sample recipes. The window size may not be optimum.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Resize *CookBuddy's* window to an optimum size. Move the window to a different location on the screen. Close the window.
+.. Re-launch *CookBuddy* by entering `java -jar CookBuddy.jar` in a Command Prompt / terminal. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+. Exiting *CookBuddy*
+
+.. On Windows, click the _Close Window_ button btn:[X] on the top-right corner of *CookBuddy's* GUI
+.. On Mac, click the _Close Window_ button btn:[X] on the top-left corner of *CookBuddy's* GUI
+.. Type `exit` in *CookBuddy's* command box and press kbd:[Enter]
++
+Expected: *CookBuddy* will shut down.
+
+=== Adding a recipe
+
+. Add a recipe with all mandatory fields present. Name (n/), Ingredients (ing/) and Instructions (ins/) are mandatory fields.
+
+.. Prerequisites: The recipe to be added is not present in the recipe book.
+.. Test case: `new n/Eggs on Toast ing/bread, 2 slices; egg, 1 ins/toast the 2 slices of bread; scramble the eggs;
+               put eggs on toasted bread; serve` +
+   Expected: The _Eggs on Toast_ recipe is added to the recipe list. Details of the newly added recipe is shown in the result pane.
+
+. Add a recipe with one mandatory field missing.
+
+.. Test case: `new n/Eggs on Toast ing/bread, 2 slices; egg, 1` +
+   Expected: No recipe is added. An _"Invalid command format"_ error message is shown in the result pane.
+
+=== Modifying a recipe
+
+. Modifying a recipe's name
+
+.. Prerequisites:
+
+. Modifying a recipe's ingredients
+
+// missing ingredient name or quantity
+
+. Modifying a recipe's instructions
+
+. Modifying a recipe's calorie amount
+
+// entering non-integer value
+
+. Modifying a recipe's rating
+
+// enter rating < 0 or > 5
+
+=== Finding a recipe
+
+// finding a recipe by name
+
+// finding a recipe by ingredient
+
+// finding a recipe by instruction
 
 === Deleting a recipe
 
 . Deleting a recipe while all recipes are listed
 
-.. Prerequisites: List all recipes using the `list` command. Multiple recipes in the list.
+.. Prerequisites: List all recipes using the `list` command. Have at least one recipe in the list.
 .. Test case: `delete 1` +
-   Expected: First recipe is deleted from the list. Details of the deleted recipe shown in the status message. Timestamp in the status bar is updated.
+   Expected: The first recipe is deleted from the list. Details of the deleted recipe is shown in the result pane.
 .. Test case: `delete 0` +
-   Expected: No recipe is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No recipe is deleted. Error message _"The recipe index provided is invalid"_ is shown in the result pane.
+.. Test case: `delete n` (where n is larger than the list size) +
    Expected: Similar to previous.
+.. Test case: `delete` +
+   Expected: No recipe is deleted. An error message prompting the user to provide an index is shown in the result pane.
+.. Test case: `delete y` (where y is not an integer) +
+   Expected: No recipe is deleted. An error message prompting the user to provide a valid integer is shown in the result pane.
 
-_{ more test cases ... }_
 
 === Saving data
 
@@ -562,3 +616,5 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+// end::ManualTesting[]
