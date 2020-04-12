@@ -7,8 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
-import seedu.address.logic.autocomplete.AutoComplete;
-import seedu.address.logic.autocomplete.AutoCompleteResult;
+import seedu.address.logic.autocomplete.Autocomplete;
+import seedu.address.logic.autocomplete.AutocompleteResult;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.history.CommandHistory;
@@ -25,7 +25,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
     private final CommandHistory commandHistory;
-    private final AutoComplete autoComplete;
+    private final Autocomplete autoComplete;
     private final ResultDisplay resultDisplay;
 
     /**
@@ -53,7 +53,7 @@ public class CommandBox extends UiPart<Region> {
         public void handle(KeyEvent ke) {
             if (ke.getCode() == KeyCode.TAB) {
                 ke.consume();
-                AutoCompleteResult result = autoComplete.execute(commandTextField.getText(),
+                AutocompleteResult result = autoComplete.execute(commandTextField.getText(),
                         commandTextField.getCaretPosition());
                 String textToSet = result.getTextToSet();
                 String textToFeedback = result.getTextToFeedback();
@@ -75,7 +75,7 @@ public class CommandBox extends UiPart<Region> {
     private TextField commandTextField;
 
     public CommandBox(CommandExecutor commandExecutor, ResultDisplay resultDisplay, CommandHistory commandHistory,
-            AutoComplete autoComplete) {
+            Autocomplete autoComplete) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.resultDisplay = resultDisplay;

@@ -11,20 +11,20 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.GraphCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 
-public class AutoCompleteTest {
+public class AutocompleteTest {
 
     // Ambiguous commands
     private static final String AC_COMMAND = "a";
     private static final int AC_CURRENT_CARET_POSITION = 1;
     private static final int AC_CARET_POSITION_TO_SET = Integer.MAX_VALUE;
-    private static final String AC_FEEDBACK_TO_SET = AutoComplete.FEEDBACK_MULTIPLE_COMMANDS + "[add-e, add-c]";
+    private static final String AC_FEEDBACK_TO_SET = Autocomplete.FEEDBACK_MULTIPLE_COMMANDS + "[add-e, add-c]";
     private static final String AC_COMMAND_TO_SET = "add-";
 
     // Invalid commands
     private static final String IC_COMMAND = "FitBiz!!";
     private static final int IC_CURRENT_CARET_POSITION = 8;
     private static final Integer IC_CARET_POSITION_TO_SET = null;
-    private static final String IC_FEEDBACK_TO_SET = AutoComplete.FEEDBACK_NO_COMMANDS;
+    private static final String IC_FEEDBACK_TO_SET = Autocomplete.FEEDBACK_NO_COMMANDS;
     private static final String IC_COMMAND_TO_SET = null;
 
     // Unambiguous command: "add-c"
@@ -79,11 +79,11 @@ public class AutoCompleteTest {
     private static final String EXPORT_COMMAND_WITHOUT_PREFIX = "export random things";
     private static final int EXPORT_COMMAND_WITHOUT_PREFIX_INDEX = 12;
 
-    private AutoComplete autoComplete = new AutoComplete();
+    private Autocomplete autoComplete = new Autocomplete();
 
     @Test
     public void execute_ambiguousCommand_returnsCorrectAutoCompleteResult() {
-        AutoCompleteResult result = autoComplete.execute(AC_COMMAND, AC_CURRENT_CARET_POSITION);
+        AutocompleteResult result = autoComplete.execute(AC_COMMAND, AC_CURRENT_CARET_POSITION);
 
         assertEquals(result.getTextToSet(), AC_COMMAND_TO_SET);
         assertEquals(result.getCaretPositionToSet(), AC_CARET_POSITION_TO_SET);
@@ -92,7 +92,7 @@ public class AutoCompleteTest {
 
     @Test
     public void execute_invalidCommand_returnsCorrectAutoCompleteResult() {
-        AutoCompleteResult result = autoComplete.execute(IC_COMMAND, IC_CURRENT_CARET_POSITION);
+        AutocompleteResult result = autoComplete.execute(IC_COMMAND, IC_CURRENT_CARET_POSITION);
 
         assertEquals(result.getTextToSet(), IC_COMMAND_TO_SET);
         assertEquals(result.getCaretPositionToSet(), IC_CARET_POSITION_TO_SET);
@@ -101,7 +101,7 @@ public class AutoCompleteTest {
 
     @Test
     public void execute_addCommand_returnsCorrectAutoCompleteResult() {
-        AutoCompleteResult result = autoComplete.execute(ADD_COMMAND, ADD_CURRENT_CARET_POSITION);
+        AutocompleteResult result = autoComplete.execute(ADD_COMMAND, ADD_CURRENT_CARET_POSITION);
 
         assertEquals(result.getTextToSet(), ADD_COMMAND_TO_SET);
         assertEquals(result.getCaretPositionToSet(), ADD_CARET_POSITION_TO_SET);
@@ -110,7 +110,7 @@ public class AutoCompleteTest {
 
     @Test
     public void execute_addExerciseCommand_returnsCorrectAutoCompleteResult() {
-        AutoCompleteResult result = autoComplete.execute(ADD_EXERCISE_COMMAND, ADD_EXERCISE_CURRENT_CARET_POSITION);
+        AutocompleteResult result = autoComplete.execute(ADD_EXERCISE_COMMAND, ADD_EXERCISE_CURRENT_CARET_POSITION);
 
         assertEquals(result.getTextToSet(), ADD_EXERCISE_COMMAND_TO_SET);
         assertEquals(result.getCaretPositionToSet(), ADD_EXERCISE_CARET_POSITION_TO_SET);
@@ -119,7 +119,7 @@ public class AutoCompleteTest {
 
     @Test
     public void execute_filterCommand_returnsCorrectAutoCompleteResult() {
-        AutoCompleteResult result = autoComplete.execute(FILTER_COMMAND, FILTER_CURRENT_CARET_POSITION);
+        AutocompleteResult result = autoComplete.execute(FILTER_COMMAND, FILTER_CURRENT_CARET_POSITION);
 
         assertEquals(result.getTextToSet(), FILTER_COMMAND_TO_SET);
         assertEquals(result.getCaretPositionToSet(), FILTER_CARET_POSITION_TO_SET);
@@ -128,7 +128,7 @@ public class AutoCompleteTest {
 
     @Test
     public void execute_exportCommand_returnsCorrectAutoCompleteResult() {
-        AutoCompleteResult result = autoComplete.execute(EXPORT_COMMAND, EXPORT_CURRENT_CARET_POSITION);
+        AutocompleteResult result = autoComplete.execute(EXPORT_COMMAND, EXPORT_CURRENT_CARET_POSITION);
 
         assertEquals(result.getTextToSet(), EXPORT_COMMAND_TO_SET);
         assertEquals(result.getCaretPositionToSet(), EXPORT_CARET_POSITION_TO_SET);
@@ -137,7 +137,7 @@ public class AutoCompleteTest {
 
     @Test
     public void execute_graphCommand_returnsCorrectAutoCompleteResult() {
-        AutoCompleteResult result = autoComplete.execute(GRAPH_COMMAND, GRAPH_CURRENT_CARET_POSITION);
+        AutocompleteResult result = autoComplete.execute(GRAPH_COMMAND, GRAPH_CURRENT_CARET_POSITION);
 
         assertEquals(result.getTextToSet(), GRAPH_COMMAND_TO_SET);
         assertEquals(result.getCaretPositionToSet(), GRAPH_CARET_POSITION_TO_SET);
@@ -146,7 +146,7 @@ public class AutoCompleteTest {
 
     @Test
     public void execute_scheduleCommand_returnsCorrectAutoCompleteResult() {
-        AutoCompleteResult result = autoComplete.execute(SCHEDULE_COMMAND, SCHEDULE_CURRENT_CARET_POSITION);
+        AutocompleteResult result = autoComplete.execute(SCHEDULE_COMMAND, SCHEDULE_CURRENT_CARET_POSITION);
 
         assertEquals(result.getTextToSet(), SCHEDULE_COMMAND_TO_SET);
         assertEquals(result.getCaretPositionToSet(), SCHEDULE_CARET_POSITION_TO_SET);
@@ -155,28 +155,28 @@ public class AutoCompleteTest {
 
     @Test
     public void execute_graphCommandAlreadyCompleted_returnsCorrectCaretPositions() {
-        AutoCompleteResult firstResult = autoComplete.execute(GRAPH_COMMAND, GRAPH_CURRENT_CARET_POSITION);
+        AutocompleteResult firstResult = autoComplete.execute(GRAPH_COMMAND, GRAPH_CURRENT_CARET_POSITION);
         assertEquals(firstResult.getCaretPositionToSet(), GRAPH_FIRST_PREFIX_INDEX);
 
-        AutoCompleteResult secondResult = autoComplete.execute(GRAPH_COMMAND_TO_SET, GRAPH_FIRST_PREFIX_INDEX);
+        AutocompleteResult secondResult = autoComplete.execute(GRAPH_COMMAND_TO_SET, GRAPH_FIRST_PREFIX_INDEX);
         assertEquals(secondResult.getCaretPositionToSet(), GRAPH_SECOND_PREFIX_INDEX);
 
-        AutoCompleteResult thirdResult = autoComplete.execute(GRAPH_COMMAND_TO_SET, GRAPH_SECOND_PREFIX_INDEX);
+        AutocompleteResult thirdResult = autoComplete.execute(GRAPH_COMMAND_TO_SET, GRAPH_SECOND_PREFIX_INDEX);
         assertEquals(thirdResult.getCaretPositionToSet(), GRAPH_THIRD_PREFIX_INDEX);
 
-        AutoCompleteResult lastResult = autoComplete.execute(GRAPH_COMMAND_TO_SET, GRAPH_THIRD_PREFIX_INDEX);
+        AutocompleteResult lastResult = autoComplete.execute(GRAPH_COMMAND_TO_SET, GRAPH_THIRD_PREFIX_INDEX);
         assertEquals(lastResult.getCaretPositionToSet(), GRAPH_LAST_PREFIX_INDEX);
 
-        AutoCompleteResult wrapAroundResult = autoComplete.execute(GRAPH_COMMAND_TO_SET, GRAPH_LAST_PREFIX_INDEX);
+        AutocompleteResult wrapAroundResult = autoComplete.execute(GRAPH_COMMAND_TO_SET, GRAPH_LAST_PREFIX_INDEX);
         assertEquals(wrapAroundResult.getCaretPositionToSet(), GRAPH_FIRST_PREFIX_INDEX);
     }
 
     @Test
     public void execute_exportCommandAlreadyCompleted_returnsCorrectCaretPositions() {
-        AutoCompleteResult firstResult = autoComplete.execute(EXPORT_COMMAND, EXPORT_CURRENT_CARET_POSITION);
+        AutocompleteResult firstResult = autoComplete.execute(EXPORT_COMMAND, EXPORT_CURRENT_CARET_POSITION);
         assertEquals(firstResult.getCaretPositionToSet(), EXPORT_CARET_POSITION_TO_SET);
 
-        AutoCompleteResult secondResult = autoComplete.execute(EXPORT_COMMAND_WITHOUT_PREFIX,
+        AutocompleteResult secondResult = autoComplete.execute(EXPORT_COMMAND_WITHOUT_PREFIX,
                 EXPORT_COMMAND_WITHOUT_PREFIX_INDEX);
         assertEquals(secondResult.getCaretPositionToSet(), null);
     }
