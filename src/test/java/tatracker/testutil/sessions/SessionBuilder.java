@@ -1,4 +1,4 @@
-//@@ chuayijing
+//@@author chuayijing
 package tatracker.testutil.sessions;
 
 import java.time.LocalDate;
@@ -121,7 +121,7 @@ public class SessionBuilder {
         return this;
     }
 
-    //@@ PotatoCombat
+    //@@author PotatoCombat
     /**
      * Builds the Session.
      */

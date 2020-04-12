@@ -204,6 +204,7 @@ public class Session implements Comparable<Session> {
         return Objects.hash(startDateTime, endDateTime, moduleCode, type);
     }
 
+
     /**
      * Compare Sessions based on the session that will occur first.
      */

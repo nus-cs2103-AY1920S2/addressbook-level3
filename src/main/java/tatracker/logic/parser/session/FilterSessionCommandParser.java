@@ -1,4 +1,4 @@
-//@@ chuayijing
+//@@author Chuayijing
 package tatracker.logic.parser.session;
 
 import static tatracker.logic.parser.Prefixes.DATE;

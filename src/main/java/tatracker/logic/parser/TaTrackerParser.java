@@ -75,10 +75,12 @@ public class TaTrackerParser {
         case CommandWords.LIST:
             return new ListCommand();
 
+        //@@author Chuayijing
         /* TSS View */
         case CommandWords.CLAIM:
             return new ClaimCommandParser().parseCommand(arguments);
 
+        //@@author PotatoCombat
         /* Storage Operations */
         case CommandWords.CLEAR:
             return new ClearCommand();

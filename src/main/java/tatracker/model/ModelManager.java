@@ -124,6 +124,8 @@ public class ModelManager implements Model {
     }
 
     // ======== Filter Methods ==============================================
+
+    //@@author Chuayijing
     @Override
     public void setCurrClaimFilter(String module) {
         requireAllNonNull(module);
@@ -131,11 +133,13 @@ public class ModelManager implements Model {
         taTracker.setCurrClaimFilter(module);
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrClaimFilter() {
         return taTracker.getCurrClaimFilter();
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionFilter(String params) {
         requireAllNonNull(params);
@@ -143,6 +147,7 @@ public class ModelManager implements Model {
         taTracker.setCurrSessionFilter(params);
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionDateFilter(String params) {
         requireAllNonNull(params);
@@ -150,6 +155,7 @@ public class ModelManager implements Model {
         taTracker.setCurrSessionDateFilter(params);
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionModuleFilter(String params) {
         requireAllNonNull(params);
@@ -157,38 +163,45 @@ public class ModelManager implements Model {
         taTracker.setCurrSessionModuleFilter(params);
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionTypeFilter(String params) {
         requireAllNonNull(params);
         taTracker.setCurrSessionTypeFilter(params);
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionFilter() {
         return taTracker.getCurrSessionFilter();
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionDateFilter() {
         return taTracker.getCurrSessionDateFilter();
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionModuleFilter() {
         return taTracker.getCurrSessionModuleFilter();
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionTypeFilter() {
         return taTracker.getCurrSessionTypeFilter();
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrStudentFilter(String params) {
         requireAllNonNull(params);
         taTracker.setCurrStudentFilter(params);
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrStudentFilter() {
         return taTracker.getCurrStudentFilter();
@@ -196,12 +209,14 @@ public class ModelManager implements Model {
 
     // ======== Session Methods ================================================
 
+    //@@author Chuayijing
     @Override
     public boolean hasSession(Session session) {
         requireNonNull(session);
         return taTracker.hasSession(session);
     }
 
+    //@@author Chuayijing
     @Override
     public void addSession(Session session) {
         taTracker.addSession(session);
@@ -209,12 +224,14 @@ public class ModelManager implements Model {
         updateFilteredSessionList(PREDICATE_SHOW_ALL_SESSIONS);
     }
 
+    //@@author Chuayijing
     @Override
     public void deleteSession(Session target) {
         logger.info(String.format("Session deleted is %s", target));
         taTracker.removeSession(target);
     }
 
+    //@@author Chuayijing
     @Override
     public void setSession(Session target, Session editedSession) {
         requireAllNonNull(target, editedSession);
@@ -222,11 +239,13 @@ public class ModelManager implements Model {
         taTracker.setSession(target, editedSession);
     }
 
+    //@@author Chuayijing
     @Override
     public ObservableList<Session> getFilteredSessionList() {
         return filteredSessions;
     }
 
+    //@@author Chuayijing
     @Override
     public void updateFilteredSessionList(Predicate<Session> predicate) {
         requireNonNull(predicate);
@@ -235,6 +254,7 @@ public class ModelManager implements Model {
 
     // ======== Done Session Methods =================================================
 
+    //@@author
     @Override
     public void addDoneSession(Session session) {
         logger.info(String.format("Session marked as done is %s", session));
