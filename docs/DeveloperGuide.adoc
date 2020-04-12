@@ -1105,7 +1105,7 @@ Expected: Module CS2030 will be changed to the name Java OOP Class.
    Expected: CS2030 module will be deleted from the list. Details of the modules will be disappeared from the screen.
 .. Test case: `del ` +
    Expected: No module is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `del m/` (key in module code), `del m/cs2030` (where cs is not in capital letters) _{give more}_ +
+.. Other incorrect delete commands to try: `del m/` (key in module code), `delete m/cs2030` (del instead of delete) _{give more}_ +
    Expected: Similar to previous.
 
 === Editing an Activity
@@ -1181,6 +1181,24 @@ Expected: event and deadline will be displayed.
 
 .. Test case: `undo`, `undo`, `undo`
 Expected: an empty Nasa with no modules.
+
+=== Sort
+. Allows user to sort base on priority.
+. Initialise the following data. +
+`add m/CS2030 n/Programming Methodology` +
+`deadline m/CS2030 a/A d/20-05-2020 00:00 p/2` +
+`deadline m/CS2030 a/B d/20-04-2020 00:00 p/3` +
+`deadline m/CS2030 a/C d/20-03-2020 00:00 p/1` +
+`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
+
+.. Test case: `sort priority`
+Expected: B,A,C will be displayed in this sequence.
+
+.. Test case: `sort date`
+Expected: C,B,A will be displayed in this sequence.
+
+.. Test case: `sort name`
+Expected: A,B,C will be displayed in this sequence.
 
 === Saving data
 
