@@ -24,8 +24,8 @@ public class Schedule {
      */
     public Schedule() {
         type = 0;
-        dateToRepeat = null;
-        defaultDate = null;
+        dateToRepeat = Date.now();
+        defaultDate = Date.now();
     }
 
     /**
@@ -36,7 +36,7 @@ public class Schedule {
         String[] in = input.split(",");
         type = Integer.parseInt(in[0]);
         dateToRepeat = new Date(in[1]);
-        defaultDate = new Date(in[2]);
+        defaultDate = Date.acceptPastDate(in[2]);
     }
 
     /**
@@ -79,10 +79,10 @@ public class Schedule {
      * Set scheduling.
      * @param type int
      */
-    public void setType(int type) {
+    public void setType(int type, Date dueDate) {
         checkArgument(isValidSchedule(String.valueOf(type)), MESSAGE_CONSTRAINTS);
         this.type = type;
-        dateToRepeat = defaultDate;
+        dateToRepeat = dueDate;
         init();
     }
 
@@ -95,7 +95,7 @@ public class Schedule {
     }
 
     /**
-     * Initializes schedule.
+     * Initialize schedules.
      */
     public void init() {
         switch (type) {
@@ -139,6 +139,23 @@ public class Schedule {
     }
 
     /**
+     * Get type
+     */
+    public String typeInString() {
+        if (type == 0) {
+            return "-";
+        } else if (type == 1) {
+            return "WEEKLY";
+        } else if (type == 2) {
+            return "TWICE WEEKLY";
+        } else if (type == 3) {
+            return "MONTHLY";
+        } else {
+            return "-";
+        }
+    }
+
+    /**
      * Get next running date.
      * @return Date
      */
@@ -169,7 +186,7 @@ public class Schedule {
 
     public Schedule getDeepCopy() {
         Schedule temp = new Schedule();
-        temp.setType(type);
+        temp.setType(type, dateToRepeat);
         temp.setDefaultDate(defaultDate);
         temp.setRepeatDate(dateToRepeat);
         return temp;

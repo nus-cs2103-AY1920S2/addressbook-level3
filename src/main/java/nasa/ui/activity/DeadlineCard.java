@@ -53,7 +53,7 @@ public class DeadlineCard extends UiPart<Region> {
         note.setText(deadline.getNote().toString());
         dateToRepeat.setText("-");
         if (deadline.getSchedule().getType() != 0) {
-            dateToRepeat.setText("Repeat: " + deadline.getScheduleDate().toString());
+            dateToRepeat.setText("Repeat: " + deadline.getSchedule().typeInString());
         }
         isDone.setSelected(deadline.isDone());
         isDone.setOnAction(e -> {

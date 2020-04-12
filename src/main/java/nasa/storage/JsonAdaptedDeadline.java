@@ -108,7 +108,7 @@ class JsonAdaptedDeadline {
         }
         final Date modelDueDate = new Date(dueDate);
 
-        Schedule modelSchedule = new Schedule(schedule);
+        final Schedule modelSchedule = new Schedule(schedule);
 
         Deadline deadline = new Deadline(modelName, modelDate, modelNote, modelPriority, modelDueDate,
                 Boolean.parseBoolean(isDone));

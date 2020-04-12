@@ -19,7 +19,8 @@ import nasa.model.module.ModuleCode;
 
 public class DoneCommandTest {
 
-    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+            new UserPrefs());
 
     @Test
     public void execute_validCommandUnfilteredList_success() {
@@ -29,7 +30,8 @@ public class DoneCommandTest {
 
         String expectedMessage = String.format(DoneCommand.MESSAGE_SUCCESS);
 
-        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
         setActivityToDone(expectedModel, moduleCode, INDEX_FIRST_ACTIVITY);
 
         assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
@@ -50,7 +52,8 @@ public class DoneCommandTest {
 
         // a module that is already done
         doneCommand = new DoneCommand(INDEX_FIRST_ACTIVITY, moduleCode);
-        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
         setActivityToDone(expectedModel, moduleCode, INDEX_FIRST_ACTIVITY);
         assertCommandFailure(doneCommand, expectedModel, doneCommand.MESSAGE_ACTIVITY_ALREADY_DONE);
     }

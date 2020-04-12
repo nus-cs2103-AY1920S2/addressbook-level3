@@ -22,7 +22,7 @@ By: `CS2103T-T10-4`      Since: `Feb 2020`      Licence: `NUS`
 Nice & Amazing Student Assistant (NASA) is an application for *busy university students to manage their module
 assignments, lessons, exams and other miscellaneous activities.*
 
-*While NASA has a user-centric Graphical User Interface, it is optimized for users who prefer to work with the
+*NASA has a user-centric Graphical User Interface optimized for users who prefer to work with the
 Command Line Interface (CLI).* If you can type fast, NASA can keep track of all your module activities faster than
 traditional GUI applications.
 
@@ -42,10 +42,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all activities of each module
-* **`add`**`m/CS2103T n/Software Engineering`: adds a module CS2103T `Software Engineering` to the list. Allows activities to be added to that module.
-* **`deadline m/CS2103T d/20-02-2020 23:59 t/IP Project p/2 n/Must get an executable JAR file` : adds an activity called IP Project with the following details into CS2103T module activity-list.
-* **`delete`**`1 m/CS2103T` : deletes the 1st activity shown in the module activity-list.
+* *`list`* : lists all deadlines of each module
+* **`add m/CS2103T n/Software Engineering`**: adds a module CS2103T `Software Engineering` to the list. Allows activities to be added to that module.
+* **`deadline m/CS2103T d/20-02-2020 23:59 a/IP Project p/2 n/Must get an executable JAR file`** : adds an activity called IP Project with the following details into CS2103T module activity-list.
+* **`del-d`**`1 m/CS2103T` : deletes the 1st deadline shown in the module deadline-list.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -84,10 +84,11 @@ Navigate around NASA using the following keyboard shortcuts.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `Madd m/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `Madd m/CS1231`.
-* Items in square brackets are optional e.g `[n/Notes]`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add m/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `add m/CS1231`.
+* Items in square brackets are optional fields e.g `[n/Notes]`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MODULE_CODE]...` means m/CS2103T CS2101 .....
 * Parameters can be in any order.
+* For items without `...`, should multiple values for the same field be provided e.g `m/CS2101 m/CS2103T`, only the last value will be used, unless stated otherwise.
 * Commands are **non case-sensitive**, unless stated otherwise.
 ====
 
@@ -180,7 +181,7 @@ Format: `list [m/MODULE_CODE]`
 
 // tag::edit[]
 === Editing a module: `edit`
-
+`Contributed by: don-tay` +
 Edits an existing module in the NASA application. +
 Format: `edit m/MODULE_CODE [m/MODULE_CODE] [n/MODULE_NAME]`
 
@@ -203,7 +204,7 @@ Edits the CS2030 module to CS2030S along with its new module name.
 ====
 
 === Editing a deadline : `edit-d`
-
+`Contributed by: don-tay` +
 Edits an existing deadline in the module's deadline list. +
 Format: `edit-d INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [d/DUE DATE] [p/PRIORITY] [n/NOTES]`
 
@@ -220,7 +221,7 @@ Edits the 2nd deadline in CS2013T deadline-list date to be `12-12-2020 23:59`.
 Edits the notes and priority of the 3rd deadline in CS2030 deadline-list to `Finish LAB level 3 with Generics` and `2` respectively.
 
 === Editing an event : `edit-e`
-
+`Contributed by: don-tay` +
 Edits an existing event in the module's event list. +
 Format: `edit-e INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [sd/START DATE] [ed/END DATE] [n/NOTES]`
 
@@ -338,23 +339,42 @@ Examples:
 ** `statistics at/deadline` +
 Displays statistics for all deadline activities.
 
-=== Automating activity: `repeat`  [coming in v2.0]
-Allows user to repeat an activity from a module.
-Format: `repeat m/MODULE_CODE a/ACTIVITY_NAME r/INDEX`
+=== Automating a activity: `repeat-d` or `repeat-e` [coming in v2.0]
 
+`Contributed by: EdmondOng`
+
+Allows user to repeat-d an activity from a module.
+Format: `repeat-d ITEM_INDEX m/MODULE_CODE r/INDEX`
+
+**  The first `ITEM_INDEX` is the sequence of the activity in the list.
 ** `INDEX` can be in `1 for Weekly`, `2 twice Weekly`, `3 for Monthly`.
 **  By default `INDEX` will be `0` hence no automation will be done.
 **  The activity will be regenerated once user open the application.
 
+CAUTION:  Only use index r/0, r/1, r/2, r/3.
+
 Examples:
 
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/0` to cancel.
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/1` to regenerate weekly.
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/2` to regenerate twice weekly.
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/3` to regenerate monthly.
+** `repeat-d 1 m/CS3233 r/0` to cancel.
+** `repeat-d 1 m/CS3233 r/1` to regenerate weekly.
+** `repeat-d 1 m/CS3233 r/2` to regenerate twice weekly.
+** `repeat-d 1 m/CS3233 r/3` to regenerate monthly.
+** `repeat-e 1 m/CS3233 r/0` to cancel.
+** `repeat-e 1 m/CS3233 r/1` to regenerate weekly.
+** `repeat-e 1 m/CS3233 r/2` to regenerate twice weekly.
+** `repeat-e 1 m/CS3233 r/3` to regenerate monthly.
 
-=== Quote: `quote` [coming in v2.0]
+
+=== Quote: `quote`
+
+`Contributed by: EdmondOng`
+
 Allows user to generate a quote message. Aims to lighten the user day!
+The message will disappear within 5s.
+
+CAUTION:  Advise not to spam `quote` as the screen will be filled with quote messages waiting to disappear.
+Use it when you need it.
+
 Format: `quote`
 
 Example :
@@ -362,7 +382,13 @@ Example :
 ** `quote` : “Limitations live only in our minds. But if we use our imaginations, our possibilities become limitless.” – Jamie Paolinetti
 
 === Undo: `undo`
+
+`Contributed by: EdmondOng`
+
 Allows user to undo previous action.
+
+CAUTION:  `quote`, `export` not supported.
+
 Format: `undo`
 
 Example :
@@ -370,7 +396,13 @@ Example :
 ** `undo` : "undo last action"
 
 === Redo: `redo`
+
+`Contributed by: EdmondOng`
+
 Allows user to redo previous action.
+
+CAUTION:  `quote`, `export` not supported.
+
 Format: `redo`
 
 Example :
@@ -419,8 +451,9 @@ exports the current calendar into nasa.ics file that is located at `./nasa` dire
 
 // tag::sort[]
 === Sort deadlines `sort`
+`Contributed by: don-tay` +
 Sorts all deadlines in their respective modules by a specified criteria. +
-Format: `sort SORT METHOD`
+Format: `sort SORT_METHOD`
 
 The list of sort methods is given below: +
 
@@ -439,7 +472,7 @@ Format: `clear`
 
 // tag::export[]
 === Export NasaBook as QR code : `export`
-
+`Contributed by: don-tay` +
 Exports all deadlines and events in NasaBook as a QR-code text, compatible with QR code enabled scanners and smartphones. +
 Format: `export`
 // end::export[]
@@ -552,10 +585,11 @@ the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
 | *List* | `list [m/MODULE_CODE...]`
 | *Shortcut* | `shortcut s/SHORTCUT c/COMMAND`
 | *Export Calendar*| `calendar [p/FILE_PATH]`
-| *Sort* | `sort SORT METHOD`
+| *Sort* | `sort SORT_METHOD`
 | *Statistics* | `statistics [at/TYPE_OF_ACTIVITY]`
 | *Redo* | `redo`
-| *Repeat* | `repeat m/MODULE_CODE a/ACTIVITY_NAME r/INDEX`
+| *Repeat Deadline* | `repeat-d INDEX m/MODULE_CODE r/INDEX`
+| *Repeat Event* | `repeat-d INDEX m/MODULE_CODE r/INDEX`
 | *Quote* | `quote`
 | *Undo* | `undo`
 |===

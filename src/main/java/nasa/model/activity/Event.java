@@ -30,6 +30,21 @@ public class Event extends Activity {
     }
 
     /**
+     * This constructor is use for testing.
+     * @param name Name of event
+     * @param startDate Start date of event
+     * @param endDate End date of event
+     * @param note Notes
+     */
+    public Event(Name name, Date startDate, Date endDate, Note note) {
+        super(name);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isOver = endDate.isBefore(Date.now());
+        super.setNote(note);
+    }
+
+    /**
      * Initialise Event with a particular unique {@code name}.
      * Every field must be present and not null.
      * @param name Name
@@ -113,14 +128,18 @@ public class Event extends Activity {
     }
 
     @Override
-    public Event regenerate() {
+    public void setSchedule(int type) {
+        getSchedule().setType(type, startDate);
+    }
+
+    @Override
+    public void regenerate() {
         getSchedule().update();
         if (Date.now().isAfter(endDate) && getSchedule().getType() != 0) {
             setEndDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDuration()));
             setStartDate(getSchedule().getRepeatDate());
             setDateCreated(getSchedule().getRepeatDate());
         }
-        return this;
     }
 
     @Override
@@ -128,11 +147,9 @@ public class Event extends Activity {
         Name nameCopy = new Name(getName().toString());
         Date startDateCopy = new Date(getStartDate().toString());
         Date endDateCopy = new Date(getEndDate().toString());
-        Event eventCopy = new Event(nameCopy, startDateCopy, endDateCopy);
         Note noteCopy = new Note(getNote().toString());
         Date dateCreatedCopy = new Date(getDateCreated().toString());
-        eventCopy.setNote(noteCopy);
-        eventCopy.setDateCreated(dateCreatedCopy);
+        Event eventCopy = new Event(nameCopy, dateCreatedCopy, noteCopy, startDateCopy, endDateCopy);
         return eventCopy;
     }
 

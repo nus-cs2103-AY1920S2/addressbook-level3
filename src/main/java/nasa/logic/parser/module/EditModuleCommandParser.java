@@ -26,7 +26,6 @@ import nasa.model.module.ModuleCode;
  */
 public class EditModuleCommandParser implements Parser<EditModuleCommand> {
 
-    // Number of module code args to trigger an edit of module code
     private static final int NUM_ARGS_TO_EDIT_MODULE_CODE = 2;
 
     /**

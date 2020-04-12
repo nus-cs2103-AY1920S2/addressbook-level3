@@ -99,7 +99,7 @@ class NasaBookTest {
     @Test
     void addEvent() {
         nasaBook.addModule(CS2103T);
-        nasaBook.addEvent(CS2103T.getModuleCode(), (Event) CORRECT_EVENT);
+        nasaBook.addEvent(CS2103T.getModuleCode(), CORRECT_EVENT);
         assertTrue(nasaBook.hasActivity(CS2103T.getModuleCode(), CORRECT_EVENT));
     }
 

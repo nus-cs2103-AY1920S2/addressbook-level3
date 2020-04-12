@@ -11,7 +11,7 @@ import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
 /**
- * Command to delete event.
+ * Command to delete event command.
  */
 public class DeleteEventCommand extends Command {
 

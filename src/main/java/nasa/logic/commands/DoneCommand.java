@@ -55,6 +55,7 @@ public class DoneCommand extends Command {
 
             // check if activity already done
             Deadline deadline = module.getFilteredDeadlineList().get(index.getZeroBased());
+            model.updateHistory("done" + model.currentUiLocation());
             if (deadline.isDone()) {
                 throw new CommandException(MESSAGE_ACTIVITY_ALREADY_DONE);
             } else {

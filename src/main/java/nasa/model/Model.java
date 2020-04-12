@@ -1,11 +1,13 @@
 package nasa.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
 import nasa.commons.core.GuiSettings;
+import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
@@ -76,6 +78,11 @@ public interface Model {
      */
     ReadOnlyHistory getHistoryBook();
 
+    /** Returns the UiHistoryBook
+     * @return ReadOnlyHistory
+     */
+    ReadOnlyHistory getUiHistoryBook();
+
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
      * @param moduleCode ModuleCode
@@ -139,11 +146,21 @@ public interface Model {
 
     String quote();
 
-    void updateHistory();
+    String currentUiLocation();
+
+    void updateHistory(String type);
+
+    void updateHistory(List<String> input, String type);
 
     void undoHistory();
 
     boolean redoHistory();
 
     public HistoryManager<UniqueModuleList> getHistoryManager();
+
+    boolean setDeadlineSchedule(ModuleCode module, Index index, Index schedule);
+
+    boolean setEventSchedule(ModuleCode module, Index index, Index schedule);
+
+    boolean hasActivity(ModuleCode module, Activity activity);
 }

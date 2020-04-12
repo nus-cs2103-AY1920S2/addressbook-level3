@@ -9,7 +9,8 @@ import nasa.model.UserPrefs;
 
 public class DeleteActivityCommandTest {
 
-    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+            new UserPrefs());
 
     /*
     @Test

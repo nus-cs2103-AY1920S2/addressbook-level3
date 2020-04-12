@@ -17,7 +17,9 @@ public class Date {
     public static final String MESSAGE_CONSTRAINTS =
             "Dates should only be in the format DD-MM-YYYY HH:MM, and it should not be blank";
 
-    public final LocalDateTime date;
+    private LocalDateTime date;
+
+    public Date() {}
 
     /**
      * Constructs a {@code Date}.
@@ -27,6 +29,21 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        this.date = constructDateTime(date);
+    }
+
+    /**
+     * Converts a past date.
+     * @param date A past date
+     * @return date
+     */
+    public static Date acceptPastDate(String date) {
+        Date temp = new Date();
+        temp.setDate(date);
+        return temp;
+    }
+
+    private void setDate(String date) {
         this.date = constructDateTime(date);
     }
 
