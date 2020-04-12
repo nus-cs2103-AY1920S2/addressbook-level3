@@ -1,6 +1,7 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_SESSION;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.END_TIME;
@@ -13,6 +14,7 @@ import static tatracker.logic.parser.Prefixes.START_TIME;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,18 +48,18 @@ public class EditSessionCommand extends Command {
     public static final String MESSAGE_EDITED_SESSION_SUCCESS = "Edited session: %s";
 
     private final Index index;
-    private final EditSessionCommand.EditSessionDescriptor editSessionDescriptor;
+    private final EditSessionDescriptor editSessionDescriptor;
 
     /**
      * @param index                 of the session in the filtered session list to edit
      * @param editSessionDescriptor details to edit the session with
      */
-    public EditSessionCommand(Index index, EditSessionCommand.EditSessionDescriptor editSessionDescriptor) {
+    public EditSessionCommand(Index index, EditSessionDescriptor editSessionDescriptor) {
         requireNonNull(index);
         requireNonNull(editSessionDescriptor);
 
         this.index = index;
-        this.editSessionDescriptor = new EditSessionCommand.EditSessionDescriptor(editSessionDescriptor);
+        this.editSessionDescriptor = new EditSessionDescriptor(editSessionDescriptor);
     }
 
     @Override
@@ -73,14 +75,9 @@ public class EditSessionCommand extends Command {
         Session sessionToEdit = lastShownList.get(index.getZeroBased());
         Session editedSession = createEditedSession(sessionToEdit, editSessionDescriptor);
 
-        // Session does not have an unique identifier like students/modules, and as such checking if
-        // the two objects are the same should not be done based on their field values.
-        // In this case, it is probably best to ignore no-edits.
-        /*
-        if (!sessionToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+        if (sessionToEdit.isSameSession(editedSession)) {
+            throw new CommandException(MESSAGE_DUPLICATE_SESSION);
         }
-        */
 
         model.setSession(sessionToEdit, editedSession);
         model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
@@ -94,28 +91,27 @@ public class EditSessionCommand extends Command {
      * edited with {@code editSessionDescriptor}.
      */
     private static Session createEditedSession(Session sessionToEdit,
-                                               EditSessionCommand.EditSessionDescriptor editSessionDescriptor) {
+                                               EditSessionDescriptor editSessionDescriptor) {
         assert sessionToEdit != null;
 
-        LocalDateTime startTime = editSessionDescriptor.getStartTime().orElse(sessionToEdit.getStartDateTime());
-        LocalDateTime endTime = editSessionDescriptor.getEndTime().orElse(sessionToEdit.getEndDateTime());
+        LocalDate parsedDate = editSessionDescriptor.getDate().orElse(sessionToEdit.getDate());
+
+        LocalTime parsedStartTime = editSessionDescriptor.getStartTime().orElse(
+                sessionToEdit.getStartDateTime().toLocalTime());
+
+        LocalTime parsedEndTime = editSessionDescriptor.getStartTime().orElse(
+                sessionToEdit.getEndDateTime().toLocalTime());
+
+        // If the date is not specified, the time arguments change the timing for the current day.
+        LocalDateTime startDateTime = LocalDateTime.of(parsedDate, parsedStartTime);
+        LocalDateTime endDateTime = LocalDateTime.of(parsedDate, parsedEndTime);
+
         int isRecurring = editSessionDescriptor.getRecurring().orElse(sessionToEdit.getRecurring());
         String moduleCode = editSessionDescriptor.getModuleCode().orElse(sessionToEdit.getModuleCode());
         SessionType type = editSessionDescriptor.getSessionType().orElse(sessionToEdit.getSessionType());
         String description = editSessionDescriptor.getDescription().orElse(sessionToEdit.getDescription());
 
-        // If date is not updated, reset the date to the original date.
-        // We need to do this because EditSessionCommandParser is not able to know that is the original date
-        // to use as default value, so an arbitrary default date is used.
-        if (!editSessionDescriptor.getIsDateChanged()) {
-            LocalDate originalDate = sessionToEdit.getDate();
-            startTime = LocalDateTime.of(originalDate.getYear(), originalDate.getMonth(), originalDate.getDayOfMonth(),
-                    startTime.getHour(), startTime.getMinute(), startTime.getSecond());
-            endTime = LocalDateTime.of(originalDate.getYear(), originalDate.getMonth(), originalDate.getDayOfMonth(),
-                    endTime.getHour(), endTime.getMinute(), endTime.getSecond());
-        }
-
-        return new Session(startTime, endTime, type, isRecurring, moduleCode, description);
+        return new Session(startDateTime, endDateTime, type, isRecurring, moduleCode, description);
     }
 
     @Override
@@ -144,55 +140,65 @@ public class EditSessionCommand extends Command {
 
         private static final int NO_RECURRING_VALUE = -1;
 
-        private LocalDateTime newStartTime;
-        private LocalDateTime newEndTime;
-        private boolean isDateChanged;
+        private LocalDate newDate;
+        private LocalTime newStartTime;
+        private LocalTime newEndTime;
         private int newRecurring = NO_RECURRING_VALUE;
         private String newModuleCode;
         private SessionType newSessionType;
         private String newDescription;
 
-        public EditSessionDescriptor() {
-        }
+        public EditSessionDescriptor() { }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
         public EditSessionDescriptor(EditSessionDescriptor toCopy) {
+            setDate(toCopy.newDate);
             setStartTime(toCopy.newStartTime);
             setEndTime(toCopy.newEndTime);
             setRecurring(toCopy.newRecurring);
             setModuleCode(toCopy.newModuleCode);
             setSessionType(toCopy.newSessionType);
             setDescription(toCopy.newDescription);
-            this.isDateChanged = toCopy.isDateChanged;
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            boolean dateChanged = isDateChanged;
-            boolean recurringChanged = newRecurring >= 0;
-            boolean otherVariables = CollectionUtil.isAnyNonNull(newStartTime, newEndTime,
-                    newModuleCode, newDescription, newSessionType);
-            return dateChanged || otherVariables || recurringChanged;
+            boolean otherVariables = CollectionUtil.isAnyNonNull(
+                    newDate,
+                    newStartTime,
+                    newEndTime,
+                    newModuleCode,
+                    newDescription,
+                    newSessionType);
+            return hasRecurring() || otherVariables;
         }
 
-        public void setStartTime(LocalDateTime startTime) {
+        public void setDate(LocalDate date) {
+            this.newDate = date;
+        }
+
+        public Optional<LocalDate> getDate() {
+            return Optional.ofNullable(newDate);
+        }
+
+        public void setStartTime(LocalTime startTime) {
             this.newStartTime = startTime;
         }
 
-        public Optional<LocalDateTime> getStartTime() {
+        public Optional<LocalTime> getStartTime() {
             return Optional.ofNullable(newStartTime);
         }
 
-        public void setEndTime(LocalDateTime endTime) {
+        public void setEndTime(LocalTime endTime) {
             this.newEndTime = endTime;
         }
 
-        public Optional<LocalDateTime> getEndTime() {
+        public Optional<LocalTime> getEndTime() {
             return Optional.ofNullable(newEndTime);
         }
 
@@ -201,19 +207,11 @@ public class EditSessionCommand extends Command {
         }
 
         public Optional<Integer> getRecurring() {
-            if (newRecurring < 0) {
+            if (hasRecurring()) {
                 return Optional.empty();
             } else {
                 return Optional.of(newRecurring);
             }
-        }
-
-        public void setIsDateChanged(boolean isChanged) {
-            this.isDateChanged = isChanged;
-        }
-
-        public boolean getIsDateChanged() {
-            return this.isDateChanged;
         }
 
         public void setModuleCode(String moduleCode) {
@@ -240,6 +238,10 @@ public class EditSessionCommand extends Command {
             return Optional.ofNullable(newDescription);
         }
 
+        private boolean hasRecurring() {
+            return newRecurring >= 0;
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -248,15 +250,17 @@ public class EditSessionCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditSessionCommand.EditSessionDescriptor)) {
+            if (!(other instanceof EditSessionDescriptor)) {
                 return false;
             }
 
             // state check
-            EditSessionCommand.EditSessionDescriptor e = (EditSessionCommand.EditSessionDescriptor) other;
+            EditSessionDescriptor e = (EditSessionDescriptor) other;
 
-            return getStartTime().equals(e.getStartTime())
+            return getDate().equals(e.getDate())
+                    && getStartTime().equals(e.getStartTime())
                     && getEndTime().equals(e.getEndTime())
+                    && getModuleCode().equals(e.getModuleCode())
                     && getSessionType().equals(e.getSessionType())
                     && getRecurring() == e.getRecurring()
                     && getDescription().equals(e.getDescription());

@@ -1,6 +1,7 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.logic.parser.Prefixes.INDEX;
 
@@ -45,7 +46,8 @@ public class DeleteSessionCommand extends Command {
         List<Session> lastShownList = model.getFilteredSessionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
+            throw new CommandException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_SESSION_DISPLAYED_INDEX));
         }
 
         Session sessionToDelete = lastShownList.get(index.getZeroBased());

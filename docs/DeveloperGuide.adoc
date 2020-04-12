@@ -584,9 +584,9 @@ all modules, a `List` to store all groups and a `List` to store all students.
 * We would then have to *filter by module code and/or group code* to show the appropriate
 groups and students.
 
-* This would require *students to keep track of which group and which module they're
+* This would require *students togt keep track of which group and which module they're
 a part of*. Similarly, *groups would have to keep a track of the students it contains*.
-This would create a **cyclic dependenc**y (which could be solved using an association class).
+This would create a **cyclic dependency** (which could be solved using an association class).
 
 * The `List` of groups could contain multiple groups with the same group code as group code
 is only unique within a module. Group codes can be shared across modules.
@@ -921,6 +921,7 @@ is `matric` , it calls `Model#sortModulesByMatricNumber()` command.
 
 [[SessionView]]
 === Session View
+(Contributed by Chua Yi Jing)
 
 *Session View* is the term used to refer to the view that contains a list of all sessions
 that haven't been completed yet.
@@ -942,6 +943,8 @@ that have *not* been marked as done.
 //tag::sessiondone[]
 
 ==== Implementation of the Session Done Command
+
+(Contributed by Chua Yi Jing)
 
 The following _Sequence Diagram_ shows the sequence of commands that take place between
 the `Logic` and `Model` components of the TA-Tracker
@@ -979,8 +982,8 @@ The following _Activity Diagram_ describes how TaTracker is updated when a `Sess
 //end::sessiondone[]
 //tag::sessiondoneactivity[]
 
-.Session Done- Activity Diagram
-image::TssActivityDiagram.png[]
+.Session Done _Activity Diagram_
+image::DoneSessionActivityDiagram.png[]
 
 [NOTE]
 ====
@@ -991,6 +994,8 @@ during the done session command.
 //tag::sessioncommands[]
 
 ==== Implementation of Session Add, Edit and Delete
+
+(Contributed by Chua Yi Jing)
 
 The `session edit` and `session delete` commands have been implemented in a similar manner
 to `DoneSessionCommand`.
@@ -1425,6 +1430,7 @@ before the each of the three steps explained in the <<Impl-Syntax, Implementatio
 
 [[Implementation-Filter]]
 === Filter Command
+(Contributed by Chua Yi Jing)
 
 ==== Description
 
@@ -2155,7 +2161,7 @@ Use case ends.
 [discrete]
 ==== Use case: UC16 - Filtering the Student View
 
-*MSS*
+*MSS* (Contributed by Chua Yi Jing)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing students in the *Student View*.
@@ -2179,7 +2185,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC17 - Adding a session
 
-*MSS* (Contributed by Fatin)
+*MSS* (Contributed by Fatin, Chua Yi Jing)
 
 . User requests to add a session.
 . TA-Tracker adds the session.
@@ -2206,7 +2212,7 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC18 - Deleting a session
 
-*MSS* (Contributed by Fatin)
+*MSS* (Contributed by Fatin, Chua Yi Jing)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2228,7 +2234,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC19 - Editing a session
 
-*MSS* (Contributed by Fatin)
+*MSS* (Contributed by Fatin, Chua Yi Jing)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2250,7 +2256,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC20 - Marking a session as done
 
-*MSS* (Contributed by Fatin)
+*MSS* (Contributed by Fatin, Chua Yi Jing)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2273,7 +2279,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC21 - Filtering under Session View
 
-*MSS*
+*MSS* (Contributed by Chua Yi Jing)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2320,7 +2326,7 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC23 - Filtering under Claims View
 
-*MSS*
+*MSS* (Contributed by Chua Yi Jing)
 
 . User requests to go to the `Claims Tab` (UC02) to view
 the list of existing claims in the *Claims View*.
@@ -2388,61 +2394,63 @@ Use case resumes at step 1.
 [appendix]
 == Glossary
 
-[width="%",cols="<20%,<40,<40,options="header",]
+[width="%",cols="<20%,<40,options="header",]
 |=======================================================================
-|Term | Explanation | Examples
+|Term | Explanation
+
+| TSS | This is the short form for `Teaching Support Student`.
 
 | TSS Claims Form | This refers the claims form that Teaching Assistants
 at NUS School of Computing have to fill up at the end of each semester to claim money
-for the tasks they have completed. |
+for the tasks they have completed.
 
-| TA | This is the short form for `Teaching Assistant. |
+| TA | This is the short form for `Teaching Assistant.
 
-| SOC or SoC | This is the short form for School of Computing. |
+| SOC or SoC | This is the short form for School of Computing.
 
-| Index | This refers to the position of an item on a list. | Index of 1 refers to the first
-item in a list.
+| Index | This refers to the position of an item on a list. For example:
+Index of 1 refers to the first item in a list.
 
-| Matric Number | This refers to a student's matriculation number. | A0123456X
+| Matric Number | This refers to a student's matriculation number. For example: A0123456X
 
-| Group | The is the general term given to a group of students a TA teaches. |
+| Group | The is the general term given to a group of students a TA teaches. For example:
 lab, tutorial, recitation
 
-| TAT | This is the short form of TA-Tracker. |
+| TAT | This is the short form of TA-Tracker.
 
-| NUS | This is the short form of National University of Singapore. |
+| NUS | This is the short form of National University of Singapore.
 
-| Module | Refers to one of the academic courses in NUS. |
+| Module | Refers to one of the academic courses in NUS.
 
 | Tutorial | A tutorial is a regular meeting between a tutor and one or several
-students, for discussion of a subject that is being studied.  |
+students, for discussion of a subject that is being studied.
 
 | API | Stands for "Application Programming Interface" which simplifies programming
 by abstracting the underlying implementation and only exposing objects or actions
-the developer needs. |
+the developer needs.
 
 | Locale | Stands for a setting on the user's computer that defines the user's
-language and region. |
+language and region.
 
 | PlantUML | Stands for a software tool that we use to render the diagrams used
-in this document. |
+in this document.
 
-| NFR | Stands for "Non-functional Requirement" |
+| NFR | Stands for "Non-functional Requirement"
 
-| Mainstream OS | Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X. |
+| Mainstream OS | Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X.
 
 | Regular English Text |
 Stands for text with ordinary English grammar structures and vocabulary generally used by the public.
 It excludes syntax related to programming and <<system-administration, system administration>>.
-|
+
 
 | System Administration |
 Stands for the field of work in which someone manages one or more systems, be they software, hardware, servers or workstations
 with the goal of ensuring the systems are running efficiently and effectively.
-|
+
 
 | MSS |
-Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong. |
+Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong.
 
 
 |=======================================================================
@@ -2649,6 +2657,8 @@ tab, you are automatically switched to *Student View*.
 [discrete]
 === Adding a session
 
+(Contributed by Chua Yi Jing)
+
 . Adding a session to the session list.
 
 .. Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
@@ -2660,6 +2670,8 @@ with the module `CS1101S` and be a `consultation` with Alice and Bob.
 [discrete]
 === Marking a session as done
 
+(Contributed by Chua Yi Jing)
+
 . Marking a session as done.
 
 .. Test Case: `session done 1` +
@@ -2670,6 +2682,8 @@ period. The session marked as done will be added to the claims list.
 [discrete]
 === Deleting a session
 
+(Contributed by Chua Yi Jing)
+
 . Deleting a session.
 
 .. Test Case: `session delete 1` +
@@ -2678,6 +2692,8 @@ Expected: Deletes the session at index `1` of the session list.
 [discrete]
 === Editing a session
 
+(Contributed by Chua Yi Jing)
+
 . Editing a session
 
 .. Test Case: `session edit 1 t/lab` +
@@ -2685,6 +2701,8 @@ Expected: Edits the session at index `1` of the session list to be of type `lab`
 
 [discrete]
 === Filtering sessions
+
+(Contributed by Chua Yi Jing)
 
 . Filtering sessions based on keywords.
 
@@ -2701,6 +2719,8 @@ and *module code* `CS1101S`.
 [discrete]
 === Filtering Claims
 
+(Contributed by Chua Yi Jing)
+
 . Filtering claims by module code.
 
 .. Test Case: `claims filter m/CS1101S` +
@@ -2709,6 +2729,8 @@ Expected: Shows all sessions that have been marked as done
 
 [discrete]
 === Listing sessions and claims
+
+(Contributed by Chua Yi Jing)
 
 . Lists all sessions and claims again (removes all filters that have been previously applied).
 
@@ -2760,25 +2782,20 @@ Expected: Exits the program.
 [appendix]
 == Effort
 
-Creating this application was fairly difficult and required a lot of effort from us.
+(Contributed by Fatin)
+
+Creating this application was fairly difficult and required much blood, toil, tears and sweat. Cumulatively, the project amasses a great 20,000 lines of code combined. This meant that it required a great deal of communication and discussion amongst all parties, which was especially difficult due to the quarantine measures that resulted from the on-going COVID-19 situation. However, the 5 of us persevered and remedied the situation by holding regular video conferences to replace our weekly group meetings.
 
 While AB3 deals with only one entity, this application deals with multiple entities.
-AB3 contains only `persons`. This application has 3 views to begin with - the *Student View*,
-*Session View* and *Claims View*. This is a big change from AB3's UI.
+•  AB3 contains only persons. While we were able to refactor some aspects of Person into Student, we had to create Session, Group and Module from scratch.
+•  The UI of AB3 only contains one ListPanel. On the other hand, TA-Tracker has 5 list panels spread out in 3 views - the Student View, Session View and Claims View. This is a big change from AB3’s UI.
+•  In addition to that, we also have a statistics window in addition to our help window, which is significantly more appealing than the AB3 help window.
 
-While we were able to refactor `person` into `student`,
-we had to create `session`, `group` and `module` from scratch. In addition to that,
-we also have a `statistics` window and our `help` window is significantly more appealing
-than the AB3 `help` window.
+Furthermore, TA-Tracker’s additional features such as automated tab switching, filtering, sorting and syntax highlighting meant that our app varies greatly from what AB3 has to offer in terms of user experience. These carefully thought out features were designed primarily with the user’s needs in mind, to provide the user with a platform that would greatly improve the efficiency of tracking duties as a TA.
 
-Due to our inexperience with UI work, we had initially planned *Student View* to look
-very different. Therefore, the way it was implemented was a little different.
-Once we got more familiar with JavaFX, we realised that our initial plan was no longer
-feasible and had to change the way *Student View* was implemented and had to add a lot
-of supporting methods to allow the UI to work the way it does.
+Due to our inexperience with UI work, we had initially planned Student View to look very different. Therefore, the way it was initially implemented differed significantly from the current one. Once we became more familiar with JavaFX, we realised that our initial plan was no longer feasible within our given timeframe. As a result, we had to change the implementation of Student View. Furthermore, add a lot of supporting methods were required to allow the UI to work the way it does.
 
-Another challenge we faced was that we were unaware of restrictions regarding timing
-in features for the module CS2103 for which this application has been created. Two of
-our features that relied on timing that were almost ready had to be scrapped and we
-had to look for new features to replace them.
+Another challenge we faced was that we were unaware of restrictions regarding temporal-based features. Two of our features relied heavily on timing, and as a result, they had to be scrapped from the project. This also resulted in our group having to do a lot of last-minute brainstorming to come up with ideas for new features as replacements. Fortunately, we managed to pull through by designing a highly useful StatisticsWindow to improve upon our current application.
+
+During this whole process, we took great pains to ensure that the code quality of our code-base is upheld by ensuring we had thorough peer reviews for every pull request that we make. Nonetheless, our actions paid off as we managed to maintain a Codacy rating of A throughout the project.
 //end::effort[]

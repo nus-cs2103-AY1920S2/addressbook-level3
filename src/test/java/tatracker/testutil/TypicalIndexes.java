@@ -19,4 +19,8 @@ public class TypicalIndexes {
     public static final Matric MATRIC_SECOND_STUDENT = MATRIC_BENSON;
     public static final Matric MATRIC_THIRD_STUDENT = MATRIC_CARL;
     public static final Matric MATRIC_NONEXISTENT = new Matric("A9999999J");
+
+    public static final Index INDEX_FIRST_SESSION = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_SESSION = Index.fromOneBased(2);
+    public static final Index INDEX_THIRD_SESSION = Index.fromOneBased(3);
 }

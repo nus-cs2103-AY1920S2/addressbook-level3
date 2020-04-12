@@ -1,7 +1,8 @@
 package tatracker.logic.commands.student;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.commands.CommandTestUtil.DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.DESC_BOB;
@@ -9,7 +10,7 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
-import static tatracker.logic.commands.CommandTestUtil.assertStudentCommandSuccess;
+import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 import static tatracker.testutil.TypicalIndexes.MATRIC_FIRST_STUDENT;
 import static tatracker.testutil.TypicalIndexes.MATRIC_NONEXISTENT;
@@ -22,6 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.commons.ClearCommand;
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.model.Model;
@@ -29,7 +31,6 @@ import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
-import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 import tatracker.testutil.student.EditStudentDescriptorBuilder;
 import tatracker.testutil.student.StudentBuilder;
@@ -61,7 +62,7 @@ public class EditStudentCommandTest {
         expectedModel.setStudent(model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased()),
                 editedStudent, typicalGroupCode, typicalModuleCode);
 
-        assertStudentCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel, Action.GOTO_STUDENT);
     }
 
     @Test
@@ -87,7 +88,7 @@ public class EditStudentCommandTest {
         ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
         expectedModel.setStudent(lastStudent, editedStudent);
 
-        assertStudentCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel, Action.GOTO_STUDENT);
     }
 
     @Test
@@ -95,23 +96,16 @@ public class EditStudentCommandTest {
         EditStudentCommand editStudentCommand = new EditStudentCommand(MATRIC_FIRST_STUDENT,
                 typicalModuleCode, typicalGroupCode, new EditStudentDescriptor());
 
-        String expectedMessage = String.format(MESSAGE_NOT_EDITED);
-
-        assertCommandFailure(editStudentCommand, model, expectedMessage);
+        assertCommandFailure(editStudentCommand, model, MESSAGE_NOT_EDITED);
     }
 
     @Test
     public void execute_invalidMatricUnfilteredList_failure() {
-        Matric nonexistentMatric = MATRIC_NONEXISTENT;
         EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditStudentCommand editStudentCommand = new EditStudentCommand(nonexistentMatric,
+        EditStudentCommand editStudentCommand = new EditStudentCommand(MATRIC_NONEXISTENT,
                 typicalModuleCode, typicalGroupCode, descriptor);
 
-        assertCommandFailure(editStudentCommand, model, String.format(
-                Messages.MESSAGE_INVALID_STUDENT,
-                nonexistentMatric,
-                typicalGroupCode,
-                typicalModuleCode));
+        assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT);
     }
 
     @Test
@@ -123,32 +117,32 @@ public class EditStudentCommandTest {
         EditStudentDescriptor copyDescriptor = new EditStudentDescriptor(DESC_AMY);
         EditStudentCommand commandWithSameValues = new EditStudentCommand(MATRIC_FIRST_STUDENT,
                 typicalModuleCode, typicalGroupCode, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand == null);
+        assertNotNull(standardCommand);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertNotEquals(standardCommand, new ClearCommand());
 
         // different matric -> returns false
-        assertFalse(standardCommand.equals(new EditStudentCommand(MATRIC_SECOND_STUDENT,
-                typicalModuleCode, typicalGroupCode, DESC_AMY)));
+        assertNotEquals(standardCommand, new EditStudentCommand(MATRIC_SECOND_STUDENT,
+                typicalModuleCode, typicalGroupCode, DESC_AMY));
 
         // different group -> returns false
-        assertFalse(standardCommand.equals(new EditStudentCommand(MATRIC_FIRST_STUDENT,
-                typicalModuleCode, new Group("G05").getIdentifier(), DESC_AMY)));
+        assertNotEquals(standardCommand, new EditStudentCommand(MATRIC_FIRST_STUDENT,
+                typicalModuleCode, new Group("G05").getIdentifier(), DESC_AMY));
 
         // different module -> returns false
-        assertFalse(standardCommand.equals(new EditStudentCommand(MATRIC_FIRST_STUDENT,
-                new Module("CS3242").getIdentifier(), typicalGroupCode, DESC_AMY)));
+        assertNotEquals(standardCommand, new EditStudentCommand(MATRIC_FIRST_STUDENT,
+                new Module("CS3242").getIdentifier(), typicalGroupCode, DESC_AMY));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditStudentCommand(MATRIC_FIRST_STUDENT,
-                typicalModuleCode, typicalGroupCode, DESC_BOB)));
+        assertNotEquals(standardCommand, new EditStudentCommand(MATRIC_FIRST_STUDENT,
+                typicalModuleCode, typicalGroupCode, DESC_BOB));
     }
 
 }

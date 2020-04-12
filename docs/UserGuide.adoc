@@ -370,9 +370,11 @@ The `local-part` can only contain:
 !#$%&'*+/=?`{\|}~^.-
 
 The `domain` can only contain:
+
 * Alphanumeric characters
-* * The following special characters in between: +
-.-
+* The following special characters in between: +
+** dash (-)
+** period (.)
 
 The domain name must also:
 
@@ -744,6 +746,7 @@ Format: `exit`
 //tag::list[]
 
 ==== Listing all sessions : `list`
+(Contributed by Chua Yi Jing)
 
 `list` command shows you all the sessions under Session View and Claims View.
 
@@ -1252,6 +1255,7 @@ Sorts all students in all groups inside all modules `alphabetically`.
 
 [[FilterStudent]]
 ==== Filter : `student filter`
+(Contributed by Chua Yi Jing)
 
 You can use this command to see the students in a particular group
 and module.
@@ -1315,6 +1319,7 @@ This shows you the students in the first group of the module `CS3243`
 //end::filterstudent[]
 
 === Session View
+(Contributed by Chua Yi Jing)
 
 This section explains the different commands that can be used in the *Session View*.
 
@@ -1427,7 +1432,7 @@ Edits the session at index 1 to have:
 
 ==== Marking a Session as Done : `session done`
 
-(Contributed by Fatin)
+(Contributed by Fatin, Chua Yi Jing)
 
 You can use this command to mark a session as done.
 
@@ -1453,6 +1458,8 @@ This will mark the 2nd session in the *Session View* as done.
 //tag::filtersession[]
 
 ==== Filter : `session filter`
+
+(Contributed by Chua Yi Jing)
 
 You can use this command to filter the sessions in the *Session View*.
 
@@ -1505,6 +1512,8 @@ As long as a session contains one of the keyword given by the user, the session 
 
 //tag::filterclaims[]
 ==== Filter : `claims filter`
+
+(Contributed by Chua Yi Jing)
 
 You can use this command to filters sessions in the *Claims View* by the module code.
 
@@ -1589,40 +1598,42 @@ Generate and display a report of sessions and students from the module CS3243.
 
 == Glossary
 
-[width="%",cols="<20%,<40,<40,options="header",]
+[width="%",cols="<20%,<40,options="header",]
 |=======================================================================
-|Term | Explanation | Examples
+|Term | Explanation
+
+| TSS | This is the short form for `Teaching Support Student`.
 
 | TSS Claims Form | This refers the claims form that Teaching Assistants
 at NUS School of Computing have to fill up at the end of each semester to claim money
-for the tasks they have completed. |
+for the tasks they have completed.
 
-| TA | This is the short form for `Teaching Assistant. |
+| TA | This is the short form for `Teaching Assistant`.
 
-| SOC or SoC | This is the short form for School of Computing. |
+| SOC or SoC | This is the short form for School of Computing.
 
 | CLI | This is the short form for Command Line Interface. It processes commands to
-TA-Tracker in the form of lines of text |
+TA-Tracker in the form of lines of text
 
 | GUI | This is the short form for Graphical User Interface. It is a form of user interface
-that allows users to interact with electronic devices through graphical icons |
+that allows users to interact with electronic devices through graphical icons
 
-| Index | This refers to the position of an item on a list. | Index of 1 refers to the first
-item in a list.
+| Index | This refers to the position of an item on a list. For example:
+Index of 1 refers to the first item in a list.
 
-| Matric Number | This refers to a student's matriculation number. | A0123456X
+| Matric Number | This refers to a student's matriculation number. For example: A0123456X
 
-| Group | The is the general term given to a group of students a TA teaches. |
+| Group | The is the general term given to a group of students a TA teaches. For example:
 lab , tutorial , recitation
 
-| TAT | This is the short form of TA-Tracker. |
+| TAT | This is the short form of TA-Tracker.
 
-| NUS | This is the short form of National Univeristy of Singapore. |
+| NUS | This is the short form of National Univeristy of Singapore.
 
-| Module | Refers to one of the academic courses in NUS. |
+| Module | Refers to one of the academic courses in NUS.
 
 | Tutorial | A tutorial is a regular meeting between a tutor and one or several
-students, for discussion of a subject that is being studied.  |
+students, for discussion of a subject that is being studied.
 
 |=======================================================================
 //end::glossary[]
@@ -1668,6 +1679,8 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 
 === Session View
 
+(Contributed by Chua Yi Jing)
+
 ==== Session commands
 * *Add Session:* `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEK] [t/SESSION_TYPE] [n/NOTES]`
 * *Delete Session:* `session delete INDEX`
@@ -1675,6 +1688,9 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 * *Done Session:* `session done INDEX`
 
 ==== Others
+
+(Contributed by Chua Yi Jing)
+
 * *Filter Sessions:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
 
 === Claims View
