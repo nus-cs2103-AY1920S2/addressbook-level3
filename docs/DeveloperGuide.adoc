@@ -45,8 +45,7 @@ is a *Command Line Interface (CLI)* application packaged
 with a *Graphical User Interface (GUI)*. This means that users are expected to interact
 with the TA-Tracker
 mainly through the command line, and each command executed will
-evoke a visual response in the TA-Tracker
-.
+evoke a visual response in the TA-Tracker.
 
 Any help on the development of the TA-Tracker
 would be greatly appreciated, and there
@@ -74,8 +73,7 @@ TA-Tracker
 has been designed with `Object-Oriented Programming`
 principles in mind. We also attempted to use `Defensive Programming` wherever
 possible. This section serves to give a description of the
-major components in the architecture of TA-Tracker
-. Subsequent sections
+major components in the architecture of TA-Tracker. Subsequent sections
 provide more information on the inner workings of individual components.
 
 [[Design-Architecture]]
@@ -280,7 +278,7 @@ image::CommandsPackageDiagram1.png[]
 
 These packages depend on the `Command` class since they contain commands that inherit from the `Command` class (not shown above).
 
-In addition, the following `Class Diagram` shows the information that a `command` should have.
+In addition, the following _Class Diagram_ shows the information that a `command` should have.
 
 .Internal structure of all commands
 image::CommandsPackageDiagram2.png[,500]
@@ -305,7 +303,7 @@ image::ParserPackageDiagram1.png[]
 These packages depend on the `Parser` interface since they contain command parsers that inherit from the `Parser` interface
 (not shown above).
 
-In addition, the following `Class Diagram` shows the information that a `command parser` should have.
+In addition, the following _Class Diagram_ shows the information that a `command parser` should have.
 
 .Internal structure of all command parsers
 image::ParserPackageDiagram2.png[,300]
@@ -365,7 +363,7 @@ Therefore, it can be detached from the command parsers without changing the `Pre
 In future versions, `Prefixes` could be stored in the *Commands* package,
 since each command will need to know all the `Prefix` that they are using.
 
-The following `Class Diagrams` shows how the command parsers can obtain all the required `Prefix` from the respective `command.`
+The following _Class Diagrams_ shows how the command parsers can obtain all the required `Prefix` from the respective `command.`
 
 .Improving the Logic component
 image::LogicClassDiagram4.png[,500]
@@ -421,7 +419,7 @@ image::ModelObjectDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
-The following `Class Diagram` is a simplified view of the `Storage` component.
+The following _Class Diagram_ is a simplified view of the `Storage` component.
 
 .Simplified structure of the Storage Component
 image::StorageClassDiagram1.png[]
@@ -435,7 +433,7 @@ The `Storage` component,
 data in json format and read it back.
 
 ==== Saved Data
-The following `Class Diagram` is a breakdown of the data managed by the `Storage` component.
+The following _Class Diagram_ is a breakdown of the data managed by the `Storage` component.
 
 .Structure of the data stored by TA-Tracker
 
