@@ -410,6 +410,21 @@ Example 2: `filter t/20-30` +
 Finds recipes that have 20 to 30 minutes (inclusive) of preparation time.
 
 == Planning Command
+Most of the planning commands take place in the planning tab. +
+Switch to the planning tab by typing `switch planning` or by clicking on Planning from the *Tab Panel*. +
+
+You should get the following interface:
+
+.Planning Tab
+image::PlanTab.png[]
+The *Display Panel* for the planing tab lists all the plans that you have made. +
+
+You can the see the details of each plan from the list of plans.
+
+.Details of each plan
+image::PlanTab_Plan.png[]
+
+
 === Plan a recipe: `plan`
 Plans a recipe that you would like to cook on a certain day in the future. +
 Format: `plan [recipe index] [d/yyyy-mm-dd]`
@@ -494,6 +509,7 @@ _under the recipes tab_, none of your selected recipes will be marked as cooked.
 [TIP]
 A history of all cooked meals, along with a pie chart based on your meals cooked, can be found under the goals tab.
 
+.Goal tab
 image::goalsTab.png[width="790"]
 
 [TIP]
