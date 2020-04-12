@@ -287,11 +287,14 @@ case alphabets, reducing user-friendliness.
 * **Alternative 1 (current choice):** Supplier has to exist in supplier list
 before purchase.
 
-** Pros: Supports future data analytics commands. We can save all relevant
+** Pros:
+*** Supports future data analytics commands. We can save all relevant
 transaction information with every particular supplier at the point of
 transaction because the supplier will have to exist in the supplier list.
 The feasible future features include: cost analysis and
 ranking of suppliers by certain parameters.
+*** Users do not have to enter an additional parameter: purchase price,
+since this can be extracted from the Supplier's offers under the hood.
 
 ** Cons: If user has making a new purchase, he or she has to first do data entry
 for the supplier and all it's relevant information before the `buy` command
