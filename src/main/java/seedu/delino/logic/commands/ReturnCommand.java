@@ -13,6 +13,7 @@ import static seedu.delino.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import seedu.delino.logic.commands.exceptions.CommandException;
@@ -70,6 +71,8 @@ public class ReturnCommand extends Command {
     public static final String MESSAGE_ORDER_TIMESTAMP_INVALID = "The input time stamp should be after the delivery "
             + "time stamp.";
 
+    private static final Logger logger = Logger.getLogger(ReturnCommand.class.getName());
+
     private ReturnOrder toBeCreated;
     private final TimeStamp timeStamp;
     private final TransactionId tid;
@@ -89,6 +92,7 @@ public class ReturnCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (isReturnOrderNotPresent()) {
+            logger.fine("Return Order not present, return Command is being executed.");
             Order orderToBeReturned = getOrderByTransactionId(model);
             checkIfOrderWasDelivered(model);
             checkIfNewTimeStampIsValid(model);
@@ -96,6 +100,7 @@ public class ReturnCommand extends Command {
             toBeCreated.setTimestamp(timeStamp);
             model.deleteOrder(orderToBeReturned);
         }
+        logger.fine("Execute return command.");
         checkForDuplicateReturnOrder(model);
         model.addReturnOrder(toBeCreated);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeCreated));
@@ -122,7 +127,9 @@ public class ReturnCommand extends Command {
      * @throws CommandException if the same return order exists in the return order list.
      */
     private void checkForDuplicateReturnOrder(Model model) throws CommandException {
+        logger.fine("Check if it causes duplicate return orders in the return order list.");
         if (model.hasParcel(toBeCreated)) {
+            logger.info("Exception thrown due to duplicate return orders.");
             throw new CommandException(MESSAGE_DUPLICATE_RETURN);
         }
     }
@@ -133,8 +140,10 @@ public class ReturnCommand extends Command {
      * @throws CommandException if order was not delivered.
      */
     private void checkIfOrderWasDelivered(Model model) throws CommandException {
+        logger.fine("Check if order was delivered.");
         Order orderToBeReturned = getOrderByTransactionId(model);
         if (!orderToBeReturned.isDelivered()) {
+            logger.info("Exception thrown as order was not delivered. Unable to return.");
             throw new CommandException(MESSAGE_ORDER_NOT_DELIVERED);
         }
     }
@@ -144,6 +153,7 @@ public class ReturnCommand extends Command {
      * @return
      */
     private boolean isReturnOrderNotPresent() {
+        logger.fine("Check if return order is not present in the return order list.");
         return toBeCreated == null;
     }
 
@@ -154,14 +164,17 @@ public class ReturnCommand extends Command {
      * @throws CommandException
      */
     private Order getOrderByTransactionId(Model model) throws CommandException {
+        logger.fine("Get the order from the model based on its transaction id input by user.");
         List<Order> ordersToBeReturned = model.getOrderBook()
                 .getOrderList()
                 .stream()
                 .filter(order -> order.getTid().equals(tid))
                 .collect(Collectors.toList());
         if (ordersToBeReturned.isEmpty()) {
+            logger.info("If order list is empty, throw error.");
             throw new CommandException(MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID);
         }
+        logger.info("List of orders > 1");
         assert(ordersToBeReturned.size() <= 1);
         Order orderToBeReturned = ordersToBeReturned.get(0);
         return orderToBeReturned;

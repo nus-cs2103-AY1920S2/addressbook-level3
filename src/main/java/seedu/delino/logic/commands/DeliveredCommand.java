@@ -6,6 +6,7 @@ import static seedu.delino.model.Model.PREDICATE_SHOW_ALL_RETURNS;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import seedu.delino.commons.core.Messages;
 import seedu.delino.commons.core.index.Index;
@@ -31,6 +32,7 @@ import seedu.delino.model.parcel.returnorder.ReturnOrder;
  */
 public class DeliveredCommand extends Command {
 
+
     public static final String COMMAND_WORD = "delivered";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -42,6 +44,7 @@ public class DeliveredCommand extends Command {
     public static final String MESSAGE_DELIVERED_SUCCESS = "The order has been delivered: %1$s";
     public static final String MESSAGE_ORDER_ALREADY_DELIVERED = "This order was already delivered";
 
+    private static final Logger logger = Logger.getLogger(DeliveredCommand.class.getName());
     private final Index targetIndex;
     private final DeliveredParcelDescriptor deliveredParcelDescriptor;
     private final Flag flag;
@@ -65,30 +68,47 @@ public class DeliveredCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (isFlagForOrderList()) {
+            logger.fine("Input is for order list.");
             return processDeliveryOfOrder(model);
         } else if (isFlagForReturnList()) {
+            logger.fine("Input is for return order list.");
             return processDeliveryOfReturnOrder(model);
         } else {
+            logger.fine("Input flag is not valid.");
             throw new CommandException(String.format(MESSAGE_USAGE));
         }
     }
 
     private boolean isFlagForOrderList() {
+        logger.fine("Check if flag is for order list.");
         return flag.toString().trim().equals("-o");
     }
 
+    /**
+     * Checks if the index is valid and if it is for order list.
+     * @param model Model with the current state.
+     * @return true if index is valid and it is for order list.
+     */
     private boolean isIndexValidForOrderList(Model model) {
         requireNonNull(model);
+        logger.fine("Check if index is valid for order list.");
         List<Order> orderList = model.getFilteredOrderList();
         return targetIndex.getZeroBased() >= orderList.size();
     }
 
     private boolean isFlagForReturnList() {
+        logger.fine("Check if flag is for return order list.");
         return flag.toString().trim().equals("-r");
     }
 
+    /**
+     * Checks if the index is valid and if it is for return order list.
+     * @param model Model with the current state.
+     * @return true if index is valid and it is for return order list.
+     */
     private boolean isIndexValidForReturnList(Model model) {
         requireNonNull(model);
+        logger.fine("Check if index is valid for return order list.");
         List<ReturnOrder> returnOrderList = model.getFilteredReturnOrderList();
         return targetIndex.getZeroBased() >= returnOrderList.size();
     }
@@ -101,13 +121,16 @@ public class DeliveredCommand extends Command {
      */
     private CommandResult processDeliveryOfOrder(Model model) throws CommandException {
         if (isIndexValidForOrderList(model)) {
+            logger.info("Input index is invalid for order list.");
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX));
         }
         Order orderToBeDelivered = model.getFilteredOrderList().get(targetIndex.getZeroBased());
         if (!orderToBeDelivered.isDelivered()) {
+            logger.fine("Order is not delivered, valid to be delivered.");
             deliverAndUpdateOrderList(model);
             return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
         } else {
+            logger.fine("Order was already delivered. Unable to be delivered again.");
             updateOrderList(model);
             return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
         }
@@ -121,13 +144,16 @@ public class DeliveredCommand extends Command {
      */
     private CommandResult processDeliveryOfReturnOrder(Model model) throws CommandException {
         if (isIndexValidForReturnList(model)) {
+            logger.info("Input index is invalid for return order list.");
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
         }
         ReturnOrder returnOrderToBeDelivered = model.getFilteredReturnOrderList().get(targetIndex.getZeroBased());
         if (!returnOrderToBeDelivered.isDelivered()) {
+            logger.fine("Return order is not delivered, valid to be delivered.");
             deliverAndUpdateReturnList(model);
             return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, returnOrderToBeDelivered));
         } else {
+            logger.fine("Return order was already delivered. Unable to be delivered again.");
             updateReturnList(model);
             return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, returnOrderToBeDelivered));
         }
@@ -138,6 +164,7 @@ public class DeliveredCommand extends Command {
      * @param model The current Model
      */
     private void deliverAndUpdateOrderList(Model model) {
+        logger.fine("Deliver and update the order list after delivery.");
         List<Order> orderList = model.getFilteredOrderList();
         Order orderToBeDelivered = orderList.get(targetIndex.getZeroBased());
         Order editedOrder = createDeliveredOrder(orderToBeDelivered, deliveredParcelDescriptor);
@@ -146,6 +173,7 @@ public class DeliveredCommand extends Command {
     }
 
     private void updateOrderList(Model model) {
+        logger.fine("Update order list.");
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
     }
 
@@ -154,6 +182,7 @@ public class DeliveredCommand extends Command {
      * @param model The current Model
      */
     private void deliverAndUpdateReturnList(Model model) {
+        logger.fine("Deliver and update the return order list after delivery.");
         List<ReturnOrder> returnOrderList = model.getFilteredReturnOrderList();
         ReturnOrder returnOrderToBeDelivered = returnOrderList.get(targetIndex.getZeroBased());
         ReturnOrder editedReturnOrder = createDeliveredReturnOrder(returnOrderToBeDelivered,
@@ -163,6 +192,7 @@ public class DeliveredCommand extends Command {
     }
 
     private void updateReturnList(Model model) {
+        logger.fine("Update return order list.");
         model.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
     }
 
@@ -173,7 +203,7 @@ public class DeliveredCommand extends Command {
     private static Order createDeliveredOrder(Order orderToDeliver,
                                               DeliveredParcelDescriptor deliveredParcelDescriptor) {
         assert orderToDeliver != null;
-
+        logger.fine("Create a delivered order.");
         TransactionId updatedTid = deliveredParcelDescriptor.getTid().orElse(orderToDeliver.getTid());
         Name updatedName = deliveredParcelDescriptor.getName().orElse(orderToDeliver.getName());
         Phone updatedPhone = deliveredParcelDescriptor.getPhone().orElse(orderToDeliver.getPhone());
@@ -198,7 +228,7 @@ public class DeliveredCommand extends Command {
     private static ReturnOrder createDeliveredReturnOrder(ReturnOrder returnOrderToDeliver,
                                                     DeliveredParcelDescriptor deliveredParcelDescriptor) {
         assert returnOrderToDeliver != null;
-
+        logger.fine("Create a delivered return order");
         TransactionId updatedTid = deliveredParcelDescriptor.getTid().orElse(returnOrderToDeliver.getTid());
         Name updatedName = deliveredParcelDescriptor.getName().orElse(returnOrderToDeliver.getName());
         Phone updatedPhone = deliveredParcelDescriptor.getPhone().orElse(returnOrderToDeliver.getPhone());
