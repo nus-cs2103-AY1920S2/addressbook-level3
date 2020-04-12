@@ -61,7 +61,10 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command<SplitterModel> command, SplitterModel actualSplitterModel,
                                             CommandResult expectedCommandResult, SplitterModel expectedSplitterModel) {
         try {
+
             CommandResult result = command.execute(actualSplitterModel);
+            System.out.println(result.getFeedbackToUser());
+            System.out.println(expectedCommandResult.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedSplitterModel, actualSplitterModel);
         } catch (CommandException ce) {
