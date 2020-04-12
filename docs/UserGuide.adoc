@@ -816,10 +816,8 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 ====
 
 [TIP]
-====
 Use `listamount` command to find the index of the person who paid you. The index is useful for commands
 such as `paid`.
-====
 //end::listamount[]
 '''
 
@@ -906,9 +904,7 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 ====
 
 [TIP]
-====
 Use `listamount` command to find the index of the person who paid you.
-====
 //end::paid[]
 '''
 
@@ -1135,13 +1131,21 @@ item in a list.
 |=======================================================================
 
 [[AppendixA]]
-== Appendix A: Simple activity diagram to aid user with using Expense Splitter
-image::ExpenseSplitterActivityDiagramV2.png[width="790"]
+== Appendix: Simple activity to aid you with using Expense Splitter +
 
-*Add Item Activity Diagram*  +
-
-image::ExpenseSplitterActivityDiagram.png[width="790"]
-
+This diagram will help you understand the flow of Expense Splitter.
 The fully blackened circle at the top represents the start point while the circle
 at the bottom represents the end point.
+
+.Expense Splitter Activity Diagram
+image::ExpenseSplitterActivityDiagramV2.png[width="790"]
+
+*Simplified Add Item Activity Diagram*  +
+
+This diagram below is used in conjunction with the diagram directly above this.
+
+.SimplifiedAddItemActivityDiagram
+image::ExpenseSplitterActivityDiagram.png[width="790"]
+
+
 
