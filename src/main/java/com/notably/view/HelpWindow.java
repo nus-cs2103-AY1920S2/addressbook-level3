@@ -1,5 +1,7 @@
 package com.notably.view;
 
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.logging.Logger;
 
 import com.notably.commons.Help;
@@ -44,7 +46,10 @@ public class HelpWindow extends ViewPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
+
+        requireAllNonNull(root);
         this.stage = root;
+
         helpMessage.setText(HELP_MESSAGE);
         setCommandSummary();
     }
@@ -86,7 +91,7 @@ public class HelpWindow extends ViewPart<Stage> {
      * </ul>
      */
     public void show() {
-        logger.fine("Showing help page about the application.");
+        logger.info("Showing help page about the application.");
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -121,6 +126,6 @@ public class HelpWindow extends ViewPart<Stage> {
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
-        logger.fine("Copied User Guide Url");
+        logger.info("Copied User Guide Url");
     }
 }

@@ -1,5 +1,7 @@
 package com.notably.view;
 
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.logging.Logger;
 
 import com.notably.MainApp;
@@ -30,20 +32,24 @@ public class ViewManager implements View {
 
     public ViewManager(Logic logic, Model model) {
         super();
+
+        requireAllNonNull(logic, model);
+
         this.logic = logic;
         this.model = model;
     }
 
     @Override
     public void start(Stage primaryStage) {
+        requireAllNonNull(primaryStage);
+
         logger.info("Starting VIEW...");
 
-        //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
             mainWindow = new MainWindow(primaryStage, logic, model);
-            mainWindow.show(); //This should be called before creating other VIEW parts
+            mainWindow.show();
             mainWindow.fillInnerParts();
 
         } catch (Throwable e) {
@@ -53,10 +59,14 @@ public class ViewManager implements View {
     }
 
     private Image getImage(String imagePath) {
+        requireAllNonNull(imagePath);
+
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+        requireAllNonNull(type, title, headerText, contentText);
+
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
@@ -66,6 +76,8 @@ public class ViewManager implements View {
      */
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
+        requireAllNonNull(owner, type, title, headerText, contentText);
+
         final Alert alert = new Alert(type);
         alert.getDialogPane().getStylesheets().add("view/NotablyTheme.css");
         alert.initOwner(owner);

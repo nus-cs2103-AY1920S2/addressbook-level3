@@ -1,5 +1,7 @@
 package com.notably.view.sidebar;
 
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+
 import com.notably.commons.path.AbsolutePath;
 import com.notably.model.block.Block;
 import com.notably.model.block.BlockTree;
@@ -26,6 +28,8 @@ public class SideBarTreeView extends ViewPart<Region> {
 
     public SideBarTreeView(BlockTree blockTree, Property<AbsolutePath> currentlyOpenPathProperty) {
         super(FXML);
+        requireAllNonNull(blockTree, currentlyOpenPathProperty);
+
         this.currentlyOpenedNote = blockTree.get(currentlyOpenPathProperty.getValue());
         autoUpdateTree(blockTree, currentlyOpenPathProperty);
         initializeTree();

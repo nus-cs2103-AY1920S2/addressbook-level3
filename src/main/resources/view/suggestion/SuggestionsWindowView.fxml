@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="suggestionsBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      styleClass="suggestions-Window" >
-    <Label fx:id="responseText" VBox.vgrow="NEVER" prefWidth="Infinity" managed="false"/>
-    <ListView fx:id="suggestionsListPanel" VBox.vgrow="NEVER" managed="false"/>
+      styleClass="suggestions-Window">
+    <Label fx:id="responseText" VBox.vgrow="NEVER" prefWidth="Infinity" managed="false" />
+    <ListView fx:id="suggestionsListPanel" VBox.vgrow="NEVER" managed="false" />
 </VBox>

@@ -1,5 +1,7 @@
 package com.notably.view;
 
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.logging.Logger;
 
 import com.notably.commons.GuiSettings;
@@ -33,7 +35,6 @@ public class MainWindow extends ViewPart<Stage> {
     private Logic logic;
     private Model model;
 
-    // Independent View parts residing in this View container
     private HelpWindow helpWindow;
     private SideBarTreeView sidebarTreeView;
     private BlockContent blockContent;
@@ -62,6 +63,8 @@ public class MainWindow extends ViewPart<Stage> {
 
     public MainWindow(Stage primaryStage, Logic logic, Model model) {
         super(FXML, primaryStage);
+
+        requireAllNonNull(primaryStage, logic, model);
 
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -105,7 +108,6 @@ public class MainWindow extends ViewPart<Stage> {
         }
 
         sideBar.setPrefWidth(guiSettings.getWindowWidth() * 0.25);
-
     }
 
     /**

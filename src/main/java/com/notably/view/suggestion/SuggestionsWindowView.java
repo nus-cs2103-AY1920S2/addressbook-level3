@@ -1,5 +1,7 @@
 package com.notably.view.suggestion;
 
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Optional;
 
 import com.notably.model.suggestion.SuggestionItem;
@@ -40,6 +42,8 @@ public class SuggestionsWindowView extends ViewPart<Region> {
     public SuggestionsWindowView(ObservableList<SuggestionItem> suggestionsList,
                                  Property<Optional<String>> responseText) {
         super(FXML);
+        requireAllNonNull(suggestionsList, responseText);
+
         autoUpdateSuggestionsDisplay(suggestionsList, responseText);
         initializeSuggestionsList(suggestionsList);
     }

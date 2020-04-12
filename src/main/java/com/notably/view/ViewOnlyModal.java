@@ -2,6 +2,8 @@ package com.notably.view;
 
 import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import com.notably.commons.LogsCenter;
@@ -45,6 +47,7 @@ public abstract class ViewOnlyModal extends ViewPart<Stage> {
         this.logger = getLoggingClass();
         this.stage = root;
         this.parentStage = Stage.getWindows().stream().filter(Window::isShowing).findFirst().get();
+
         setStageStyle();
         setChangeListeners();
         setInitialData();
@@ -56,7 +59,7 @@ public abstract class ViewOnlyModal extends ViewPart<Stage> {
     protected abstract void setInitialData();
 
     /**
-     * Helper method that sets the value of the modal's modelProperty
+     * Helper method that sets the value of the modal's modelProperty.
      * @param bool true if the property is to be set as true, false otherwise.
      */
     protected abstract void setModelProperty(Boolean bool);
@@ -65,7 +68,7 @@ public abstract class ViewOnlyModal extends ViewPart<Stage> {
         return LogsCenter.getLogger(this.getClass());
     }
     /**
-     * Customizes the appearance and attributes of the modal
+     * Customizes the appearance and attributes of the modal.
      */
     protected void setStageStyle() {
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -170,7 +173,9 @@ public abstract class ViewOnlyModal extends ViewPart<Stage> {
      * @param isModalShowing A boolean that is true if the modal is to be shown, false otherwise.
      */
     protected void updateMainWindowStyle(Boolean isModalShowing) {
+        requireNonNull(isModalShowing);
         Node mainWindow = parentStage.getScene().lookup("#mainWindow");
+
         ChangeListener<Boolean> focusedListener = (observable, unused, isFocused) -> {
             if (!isFocused && stage.isShowing()) {
                 ColorAdjust colorAdjust = new ColorAdjust();

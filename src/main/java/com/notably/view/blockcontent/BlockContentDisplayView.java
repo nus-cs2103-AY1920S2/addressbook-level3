@@ -45,6 +45,7 @@ public class BlockContentDisplayView extends ViewPart<WebView> {
     public BlockContentDisplayView(Model model) {
         super(FXML);
         Objects.requireNonNull(model);
+
         this.model = model;
         setup();
     }

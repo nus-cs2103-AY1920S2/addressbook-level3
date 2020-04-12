@@ -1,5 +1,7 @@
 package com.notably.view;
 
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.view.suggestion.SuggestionsWindowView;
@@ -31,7 +33,10 @@ public class CommandBox extends ViewPart<Region> {
 
     public CommandBox(CommandExecutor commandExecutor, StringProperty stringProperty) {
         super(FXML);
+
+        requireAllNonNull(commandExecutor, stringProperty);
         this.commandExecutor = commandExecutor;
+
         Platform.runLater(() -> commandTextField.requestFocus());
         initializeListeners(stringProperty);
     }
