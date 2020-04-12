@@ -6,8 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import com.notably.commons.LogsCenter;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.model.Model;
 import com.notably.model.block.BlockTree;
@@ -19,6 +21,8 @@ import com.notably.model.suggestion.SuggestionItemImpl;
  * Represents a suggestion generator object to open a note.
  */
 public class OpenSuggestionGenerator implements SuggestionGenerator {
+    private static final Logger logger = LogsCenter.getLogger(OpenSuggestionGenerator.class);
+
     private List<AbsolutePath> paths;
     private String oldTitle;
 
@@ -27,7 +31,8 @@ public class OpenSuggestionGenerator implements SuggestionGenerator {
         Objects.requireNonNull(oldTitle);
 
         if (oldTitle.isBlank()) {
-            throw new IllegalArgumentException("The old title must contain at least one element");
+            logger.warning("\"oldTitle\" must not be blank");
+            throw new IllegalArgumentException("The \"oldTitle\" must contain at least one element");
         }
 
         this.paths = paths;
@@ -37,12 +42,14 @@ public class OpenSuggestionGenerator implements SuggestionGenerator {
     @Override
     public void execute(Model model) {
         Objects.requireNonNull(model);
+        logger.info("Executing OpenSuggestionGenerator");
 
         List<AbsolutePath> possiblePaths = getPossiblePaths(paths, model);
         Collections.sort(possiblePaths);
         List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
         model.setSuggestions(suggestions);
+        logger.info("Open suggestions are saved to model");
     }
 
     /**
