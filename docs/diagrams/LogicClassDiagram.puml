@@ -5,25 +5,30 @@ skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
 package Logic {
+    package Parser {
+        Interface Parser <<Interface>>
+        Class ParserManager
+        Class XYZCommandParser
+        Class CliSyntax
+        Class ParserUtil
+        Class ArgumentMultimap
+        Class ArgumentTokenizer
+        Class Prefix
+    }
 
-package Parser {
-    Interface Parser <<Interface>>
-    Class ParserManager
-    Class XYZCommandParser
-    Class CliSyntax
-    Class ParserUtil
-    Class ArgumentMultimap
-    Class ArgumentTokenizer
-    Class Prefix
-}
+    package Command {
+        Class XYZCommand
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+    }
 
-package Command {
-    Class XYZCommand
-    Class CommandResult
-    Class "{abstract}\nCommand" as Command
-}
+    Interface Logic <<Interface>>
+    Interface SessionLogic <<Interface>>
+    Interface ExerciseLogic <<Interface>>
+    Interface ScheduleLogic <<Interface>>
+    Interface WorkoutLogic <<Interface>>
+    Interface StatisticsLogic <<Interface>>
 
-Interface Logic <<Interface>>
     Class LogicManager
 }
 
@@ -32,8 +37,15 @@ package Model{
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
+HiddenOutside .left.> Logic
+
 ' Logic
+Logic -up-|> SessionLogic
+Logic -up-|> ExerciseLogic
+Logic -up-|> ScheduleLogic
+Logic -up-|> WorkoutLogic
+Logic -up-|> StatisticsLogic
+
 Logic ..> CommandResult
 LogicManager .up.|> Logic
 LogicManager -->"1" ParserManager

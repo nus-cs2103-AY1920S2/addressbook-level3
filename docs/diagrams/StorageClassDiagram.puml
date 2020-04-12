@@ -6,6 +6,11 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Package Storage {
     Interface Storage <<Interface>>
+    Interface UserPrefsStorage <<Interface>>
+    Interface ExerciseListStorage <<Interface>>
+    Interface WorkoutListStorage <<Interface>>
+    Interface ScheduleListStorage <<Interface>>
+    Interface LogListStorage <<Interface>>
 
     Class StorageManager
     Class UserPrefsStorageManager
@@ -36,7 +41,13 @@ Package Storage {
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Storage
+HiddenOutside .right.> Storage
+
+Storage -up-|> UserPrefsStorage
+Storage -up-|> ExerciseListStorage
+Storage -up-|> WorkoutListStorage
+Storage -up-|> ScheduleListStorage
+Storage -up-|> LogListStorage
 
 StorageManager .up.|> Storage
 StorageManager o----> UserPrefsStorageManager
