@@ -14,9 +14,9 @@ public interface SuggestionItem {
     Optional<String> getProperty(String key);
 
     /**
-     * Executes the action taken after the suggestion item is chosen.
-     * The action will be different depending on the type of SuggestionCommand.
-     * @return The action taken after the suggestion item is chosen.
+     * Executes the action taken after the generator item is chosen.
+     * The action will be different depending on the type of SuggestionGenerator.
+     * @return The action taken after the generator item is chosen.
      */
     Runnable getAction();
 }
