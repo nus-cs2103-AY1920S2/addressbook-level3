@@ -11,7 +11,8 @@
             <VBox spacing = "5">
                 <Label fx:id="dayHeader" styleClass="cell_big_label"/>
                 <Label fx:id="scoreTitle" />
-                <Label fx:id="score" />
+                <Label fx:id="currScore" />
+                <Label fx:id="highScore" />
                 <Label fx:id="contentTitle" />
                 <Label fx:id="content" />
             </VBox>

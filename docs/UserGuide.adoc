@@ -516,7 +516,7 @@ Format: `viewWeek`
 View all the plans for the month. +
 Format: `viewMonth`
 
-== Goal Feature
+== Goals Command (Harshita)
 
 === Remove goal: `deleteGoal`
 Deletes a goal that has been auto-generated through the addition or editing of a recipe from a specific recipe. +
@@ -536,7 +536,7 @@ Format: `cooked [recipe index] <recipe index>...`
 [TIP]
 You can mark multiple recipes as cooked at the same time (at least one recipe must be marked).
 
-[TIP]
+[WARNING]
 If you specify a recipe number that has already been cooked within the day or does not exist in the list of recipes
 _under the recipes tab_, none of your selected recipes will be marked as cooked.
 
@@ -553,10 +553,10 @@ The pie chart represents the goals tally according to your cooked meal history a
 Shows weekly progress of respective goal through graph. +
 Format: `chart [g/goal]`
 
-=== Analyse images added to generate goals [Coming in v2.0]
-Auto-generates goals through the use of Artificial Intelligence. +
+=== Analyse images added: `analyse` [Coming in v2.0]
+Auto-generates goals and statistics through the use of Artificial Intelligence. +
 
-== Achievement
+== Achievement (Yue Tong)
 
 === Display streak: `streak` [Coming in v1.4]
 Displays number of consecutive days user has cooked a meal from the app +
@@ -598,29 +598,29 @@ data of your previous HYBB folder.
 |===
 |Command |Action
 
-|help |View help
-|switch |Switch to the desired tab
-|list |List all recipes
-|find |Find recipes by name
-|add |Add a recipe
-|edit |Edit a recipe
-|delete |Delete recipes
-|favourite |Favourite recipes
-|unfavourite |Unfavourite recipes
-|clear |Clear the recipe book
-|exit |Exit the programme
-|addIngredient |Add ingredients to a recipe
-|editIngredient |Edit ingredients’ quantities in a recipe
-|deleteIngredient |Delete ingredients in a recipe
-|addStep |Add steps to a recipe
-|editStep |Edit a step in a recipe
-|deleteStep |Delete steps in a recipe
-|filter |Search for recipes by (multiple) criteria
-|plan |Plan recipes
-|deletePlan |Delete plans
-|clearPlan |Clear all plans
-|groceryList |List all ingredients used in the planned recipes
-|deleteGoal |Deletes specified goal from a recipe
-|listGoals |Lists all available goals
-|cooked |Records a recipe as cooked
+|`help` |View help
+|`switch` |Switch to the desired tab
+|`list` |List all recipes
+|`find` |Find recipes by name
+|`add` |Add a recipe
+|`edit` |Edit a recipe
+|`delete` |Delete recipes
+|`favourite` |Favourite recipes
+|`unfavourite` |Unfavourite recipes
+|`clear` |Clear the recipe book
+|`exit` |Exit the programme
+|`addIngredient` |Add ingredients to a recipe
+|`editIngredient` |Edit ingredients’ quantities in a recipe
+|`deleteIngredient` |Delete ingredients in a recipe
+|`addStep` |Add steps to a recipe
+|`editStep` |Edit a step in a recipe
+|`deleteStep` |Delete steps in a recipe
+|`filter` |Search for recipes by (multiple) criteria
+|`plan` |Plan recipes
+|`deletePlan` |Delete plans
+|`clearPlan` |Clear all plans
+|`groceryList` |List all ingredients used in the planned recipes
+|`deleteGoal` |Deletes specified goal from a recipe
+|`listGoals` |Lists all available goals
+|`cooked` |Records a recipe as cooked
 |===
