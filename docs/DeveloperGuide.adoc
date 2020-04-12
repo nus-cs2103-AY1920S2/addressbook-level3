@@ -113,6 +113,7 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
+// tag::model[]
 === Model component
 The `Model`,
 
@@ -139,6 +140,7 @@ image::UserProfileClassDiagram.png[]
 image::VersionedFitHelperClassDiagram.png[]
 .Class Diagram for WeightRecords
 image::WeightRecordsClassDiagram.png[]
+//end::model[]
 [[Design-Storage]]
 === Storage component
 
@@ -161,6 +163,7 @@ Classes used by multiple components are in the `fithelper.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::entry[]
 === Entry Feature
 The Entry consists of the following:
 
@@ -247,7 +250,7 @@ Consequently, we chose Option 1 as it standardized the format of date and time a
 ** Cons: The duration does not reflect the true value when user chooses not to enter
 
 We chose Option 2 for better display of entries on the calendar
-
+//end::entry[]
 
 // tag::today[]
 === Today Feature
@@ -426,16 +429,22 @@ image::CommitActivityDiagram.png[]
 === Calendar
 
 ==== Implementation
-. The user enters a view command in the `calendar d/tmr`.
+. The user enters a view command in the `calendar d/2020-04-13`.
 
 . `LogicManager` parses the user input, constructs and executes the `CalendarCommand`.
 
-. The `CalendarCommand` reaches `setCalendarDate` in the `Model` and returns the `CommandResult` to the `LogicManager`.
+. The `CalendarCommand` reaches `setCalendarDate`, `setCalendarMode`, `setCalendarShow` in the `Model` and returns the `CommandResult` to the `LogicManager`.
+
+
+* `Model#setCalendarDate()` -- Set the referenced date for calendar, default set to current date.
+* `Model#setCalendarMode()` -- Set the calendar display mode, can be either `list` or `calendar` mode.
+* `Model#setCalendarShow()` -- Set the display of entries of a particular date, default set to `null`.
+
 
 . The `LogicManager` returns the `CommandResult` to the `Ui`.
 
-. The `Ui` gets the `date` from `LogicManager` and updates the Ui to display the module.
-The following sequence diagram shows how the update operation works to change calendar page in model:
+. The `Ui` gets the `CommandResult` from `LogicManager` and updates the Ui to display the module.
+The following sequence diagram shows how the update operation works to change calendar page:
 
 .CalendarCommand Sequence Diagram
 image::CalendarSequenceDiagram.png[]

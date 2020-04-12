@@ -17,6 +17,7 @@ import fithelper.model.diary.Diary;
 import fithelper.model.diary.UniqueDiaryList;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.UniqueEntryList;
+import fithelper.model.entry.VeventList;
 
 import javafx.collections.ObservableList;
 
@@ -70,6 +71,7 @@ public class FitHelperTest {
         private final UniqueEntryList sportsEntries = new UniqueEntryList();
         private final UniqueEntryList reminderEntries = new UniqueEntryList();
         private final UniqueDiaryList diaries = new UniqueDiaryList();
+        private final VeventList veventlist = new VeventList();
 
         FitHelperStub(List<Entry> entries) {
             this.setEntries(entries);
@@ -93,6 +95,11 @@ public class FitHelperTest {
         @Override
         public ObservableList<Diary> getDiaryList() {
             return diaries.asUnmodifiableObservableList();
+        }
+
+        @Override
+        public VeventList getVeventList() {
+            return veventlist;
         }
 
         /**
