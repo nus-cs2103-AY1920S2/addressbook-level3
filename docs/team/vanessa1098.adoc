@@ -66,22 +66,21 @@ It is an application that allows users to manage all aspects of their social lif
 *** Reviewed PRs, provided suggestions for my teammates and comments to improve/clarify (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/150[#150], https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152], https://github.com/AY1920S2-CS2103-W14-3/main/pull/153[#153], https://github.com/AY1920S2-CS2103-W14-3/main/pull/155[#155], https://github.com/AY1920S2-CS2103-W14-3/main/pull/158[#158], https://github.com/AY1920S2-CS2103-W14-3/main/pull/160[#160])
 
 == Contributions to the User Guide
-
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._ +
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
 include::../UserGuide.adoc[tag=notetaker]
-|===
 
 == Contributions to the Developer Guide
-
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._ +
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
 include::../DeveloperGuide.adoc[tag=get]
-include::../DeveloperGuide.adoc[tag=sortAssgn]
-include::../DeveloperGuide.adoc[tag=editRestNote]
-|===
 
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=sortAssgn]
+
+include::../DeveloperGuide.adoc[tag=editRestNote]
 
 ---

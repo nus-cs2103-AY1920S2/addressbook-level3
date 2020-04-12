@@ -261,6 +261,7 @@ image::listAssgnCommand.png[]
 ==== Design Considerations
 
 ===== Aspect: How to sort assignment by estimated completion time
+
 * **Alternative 1 (Current choice):** Descending order
 ** Pros: User can prioritise by doing the assignment which takes the longer first.
 ** Cons: User may spend too much time on assignments that take much longer.
