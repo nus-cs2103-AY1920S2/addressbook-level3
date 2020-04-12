@@ -149,7 +149,7 @@ NOTE: However, you cannot add grades when adding multiple modules.
 ****
 * `y/year.semester` must be entered as an integer. You should enter the year and semester that you *took the module* in. If you took the module in year 2 semester 1, enter `y/2.1`.
 * As you have already specified the current semester you are currently in when creating your profile, *MODdy* will indicate modules added to prior semesters, current semester and future semesters as *"COMPLETED"*, *"IN_PROGRESS"* and *"PLANNING"* respectively.
-* `g/GRADE` is optional. If you have yet to obtain a grade for the module, don't worry, you can always add it to the module later using the <<Edit, edit>> feature mentioned in <<Edit, Section 4.4>>.
+* `g/grade` is optional. If you have yet to obtain a grade for the module, don't worry, you can always add it to the module later using the <<Edit, edit>> feature mentioned in <<Edit, Section 4.4>>.
 ****
 
 .CS2105 is added as a module under year 2 semester 1
@@ -180,7 +180,7 @@ For the tasks with no deadlines, the tag can just be `d/`, e.g. `add m/IS1103 t/
 * You can only add a task to the module if the module has been added to a semester in *MODdy* previously.
 * `d/deadline` must be entered in the format `d/YYYY-MM-DD HH:mm`, e.g. `d/2020-03-31 23:59`.
 * `d/deadline` is optional if you are only adding one task and your task has no deadline. If your task has a `Date` due but no `Time` due, just enter `d/YYYY-MM-DD` and we will set the `Time` to default (23:59).
-* You can delete a completed task using the <<Delete, `delete`>> feature mentioned in <<Delete, Section 4.6>>.
+* You can delete a completed task using the <<Delete, delete>> feature mentioned in <<Delete, Section 4.6>>.
 ****
 
 .Task added is displayed in the Deadline Panel
