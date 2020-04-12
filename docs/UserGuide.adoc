@@ -12,11 +12,10 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
-ifdef::env-github[]
+:icons: font
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :caution-caption: :fire:
-endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/
 
 By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
@@ -85,6 +84,7 @@ This User Guide introduces you to TA-Tracker's features and shows you how you ca
 the TA-Tracker to make your life as a Teaching Assistant easier.
 //end::quickstart[]
 //tag::commonsymbols[]
+
 === Common Symbols
 This section shows you the symbols commonly used in this guide.
 
