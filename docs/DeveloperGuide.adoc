@@ -39,6 +39,26 @@ architectures before exploring implementation details of each feature.
 We encourage you to traverse the full path from the high level design to the
 implementation details of the feature you are interested for the most complete understanding.
 
+=== Tips on reading the Developer Guide
+
+While reading the Developer Guide you may encounter some symbols.
+These symbols are used to highlight crucial information and in this portion we are explaining (or will be explaining)
+the symbols and their meaning.
+
+[NOTE]
+This block of text with a blue exclamation mark indicates *additional notes* and *information* that the user should
+consider to prevent unexpected behaviour.
+
+[TIP]
+This block of text with a yellow light bulb indicates *additional tips* that will help the user when using EYLAH.
+
+[WARNING]
+This symbol indicates warnings.
+
+kbd:[Enter] - This symbol indicates the enter button on the keyboard.
+
+`markup` - A grey highlight (known as a mark-up) indicates that this is a command you can type into EYLAH.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
