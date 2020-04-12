@@ -139,6 +139,8 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+(Contributed by Fatin)
+
 The _Class Diagram_ below shows how the `UI` components interact with each other.
 
 .Structure of the UI Component
@@ -383,6 +385,8 @@ In the diagram above:
 [[Design-Model]]
 === Model component
 
+(Contributed by Fatin)
+
 The following _Class Diagram_ shows how the different `Model` components interact with each other.
 
 .Structure of the Model Component
@@ -479,6 +483,8 @@ This section describes some noteworthy details on how certain features are imple
 //tag::goto[]
 [[Implementation-Goto]]
 === Goto Command
+
+(Contributed by Fatin)
 
 ==== Description
 
@@ -581,8 +587,12 @@ and the *creation of many association classes* which would unnecessarily
 That is why we decided to stick to our current implementation.
 
 ====
-//end::studentviewmodel[]
-//tag::studentmodel[]
+
+// end::studentviewmodel[]
+
+(Contributed by Fatin)
+
+// tag::studentmodel[]
 
 The following _Class Diagram_ shows how different classes are related in the functioning of a `Student` Object.
 
@@ -891,6 +901,8 @@ that haven't been completed yet.
 
 ==== Model Framework
 
+(Contributed by Fatin)
+
 The following _Class Diagram_ shows how different classes are related in the functioning
 of the *Session View*.
 
@@ -935,6 +947,8 @@ checks whether the current session called by the user has a recurring period.
 
 8. The updated session list will be displayed to the user.
 
+(Contributed by Fatin)
+
 The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
 //end::sessiondone[]
 //tag::sessiondoneactivity[]
@@ -966,6 +980,9 @@ The `session add` command has been implemented in a similar way. The main differ
 //tag::claimsview[]
 
 === Claims View
+
+(Contributed by Fatin)
+
 *Claims View* refers to the view that contains a list of all the sessions that have
 been done.
 
@@ -1505,7 +1522,7 @@ much money I have earned and stay motivated
 [discrete]
 ==== Use case: UC01 - Viewing the help menu
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 1.  User requests to view the `help window.`
 2. TA-Tracker opens a new window showing the list of commands.
@@ -1515,7 +1532,7 @@ Use case ends.
 [discrete]
 ==== Use case: UC02 - Going to a different tab
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 1.  User requests to go to a different `tab`.
 2. TA-Tracker switches to the requested `tab`.
@@ -1535,7 +1552,7 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC03 - Exiting the app
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 1. User requests to exit the app.
 2. TA-Tracker closes the App window.
@@ -1547,7 +1564,7 @@ Use case ends.
 [discrete]
 ==== Use case: UC04 - Adding a module
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 1.  User requests to add a new module.
 2. TA-Tracker adds a new module.
@@ -1582,7 +1599,7 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC05 - Editing a module
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing modules in the *Student View*.
@@ -1612,7 +1629,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC06 - Deleting module
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing modules in the *Student View*.
@@ -1639,7 +1656,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC07 - Adding a group
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing modules in the *Student View*.
@@ -1683,7 +1700,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC08 - Editing a group
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing groups in the *Student View*.
@@ -1724,7 +1741,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC09 - Deleting group
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing groups in the *Student View*.
@@ -1758,7 +1775,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC10 - Adding a student
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing groups in the *Student View*.
@@ -1795,7 +1812,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC11 - Editing a Student
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing students in the *Student View*.
@@ -1829,7 +1846,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC12 - Deleting a student
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing students in the *Student View*.
@@ -1974,7 +1991,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC17 - Adding a session
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to add a session.
 . TA-Tracker adds the session.
@@ -2001,7 +2018,7 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC18 - Deleting a session
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2023,7 +2040,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC19 - Editing a session
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2045,7 +2062,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC20 - Marking a session as done
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2093,7 +2110,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC22 - Changing the hourly pay rate
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 1. User requests to change the hourly pay rate to a specified amount.
 2. TA-Tracker changes the pay rate and adjusted the total earnings to reflect the new pay rate.
