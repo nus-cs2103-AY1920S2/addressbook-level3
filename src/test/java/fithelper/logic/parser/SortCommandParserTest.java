@@ -91,6 +91,7 @@ public class SortCommandParserTest {
     @Test
     public void parseDuplicateFieldsPresentSuccess() {
         // for all cases where there are duplicate inputs for the same field, only the last input is read and parsed
+
         // duplicate sort by category
         assertParseSuccess(parser, WHITE_SPACE + PREFIX_SORT_BY + CAL_ACRONYM
                         + WHITE_SPACE + PREFIX_SORT_BY + TIME + WHITE_SPACE + PREFIX_SORT_BY + NAME_ACRONYM
