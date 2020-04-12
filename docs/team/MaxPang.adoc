@@ -23,6 +23,8 @@ The application is intended to help NUS students solve their productivity issues
 ** Highlights: The module object returned is used in many other parts of the project, such as calender and cap calculator.
 ** Credits: NUSmods API, for all module related information.
 
+* *Minor contributions*: Wireframed the entire UI Design   
+
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=mpang45456&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[All my Code]]
 
 * *Other Contributions*:
