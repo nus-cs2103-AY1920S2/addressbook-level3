@@ -4,11 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalClients.ALICE_DELETED_EXERCISE;
+import static seedu.address.testutil.TypicalClients.getTypicalFitBiz;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -22,10 +24,19 @@ import seedu.address.model.exercise.Exercise;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteExerciseCommand}.
+ *
+ * @author @yonggiee
  */
 public class DeleteExerciseCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ClientInView());
+    private Model model;
+    private Client clientInView;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalFitBiz(), new UserPrefs(), new ClientInView());
+        clientInView = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+    }
 
     @Test
     public void execute_noClientInView_throwsCommandException() {
@@ -36,25 +47,26 @@ public class DeleteExerciseCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Client clientInView = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
         model.setClientInView(clientInView);
-        System.out.println(clientInView.getExerciseList());
+
         Exercise exerciseToDelete = clientInView.getExerciseList().getExercise(INDEX_FIRST_EXERCISE);
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(INDEX_FIRST_EXERCISE);
 
-        String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_SUCCESS, exerciseToDelete);
+        String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_SUCCESS,
+            exerciseToDelete.getForOutput());
 
-        ModelManager expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ClientInView());
-        Client expectedClientInView = expectedModel.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
-        expectedModel.setClientInView(expectedClientInView);
-        // ALICE is static so deleting in model will also stimulate delete in expectedModel
+        ModelManager expectedModel = new ModelManager(getTypicalFitBiz(), new UserPrefs(), new ClientInView());
+        Client alice = expectedModel.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+        expectedModel.setClient(alice, ALICE_DELETED_EXERCISE);
+
+        expectedModel.setClientInView(ALICE_DELETED_EXERCISE);
+        // ALICE_DELETED_EXERCISE have UniqueExerciseList with the exercise deleted
 
         assertCommandSuccess(deleteExerciseCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Client clientInView = model.getFilteredClientList().get(INDEX_FIRST_EXERCISE.getZeroBased());
         model.setClientInView(clientInView);
 
         Index outOfBoundIndex = Index.fromOneBased(clientInView.getExerciseList().size() + 1);

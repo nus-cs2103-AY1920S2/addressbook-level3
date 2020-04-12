@@ -28,7 +28,13 @@ public class TypicalClients {
             .withPhone("94351253")
             .withTags("friends")
             .withExercisesInExerciseList(new ExerciseBuilder().build())
-            .withExercisesInExerciseList(new ExerciseBuilder().withExerciseName("ANOTHER").build())
+            .withExercisesInExerciseList(new ExerciseBuilder().withExerciseName("ZANOTHER").build())
+            .build();
+    public static final Client ALICE_DELETED_EXERCISE = new ClientBuilder().withName("Alice Pauline")
+            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withPhone("94351253")
+            .withTags("friends")
+            .withExercisesInExerciseList(new ExerciseBuilder().withExerciseName("ZANOTHER").build())
             .build();
     public static final Client BENSON = new ClientBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
@@ -44,9 +50,10 @@ public class TypicalClients {
     public static final Client ELLE = new ClientBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave").build();
     public static final Client FIONA = new ClientBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").build();
+            .withEmail("lydia@example.com").withAddress("little tokyo").withTags("normal").build();
     public static final Client GEORGE = new ClientBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").build();
+            .withEmail("anna@example.com").withAddress("4th street").withTags("normal")
+            .withSports("dance").build();
 
     // Manually added
     public static final Client HOON = new ClientBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -61,6 +68,14 @@ public class TypicalClients {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
+    //Manually added for filter
+    public static final Client JESSICA = new ClientBuilder().withName("Jessica Ang").withPhone("84851234")
+            .withEmail("jess@example.com").withAddress("little indianic ocean").withTags("handsome")
+            .withSports("hockey").build();
+    public static final Client RACHEL = new ClientBuilder().withName("Rachel Tan").withPhone("8445631")
+            .withEmail("tanr@example.com").withAddress("chicagonean ave coast").withTags("normal")
+            .withSports("sumo").build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalClients() {} // prevents instantiation
@@ -68,7 +83,7 @@ public class TypicalClients {
     /**
      * Returns an {@code FitBiz} with all the typical clients.
      */
-    public static FitBiz getTypicalAddressBook() {
+    public static FitBiz getTypicalFitBiz() {
         FitBiz ab = new FitBiz();
         for (Client client : getTypicalClients()) {
             ab.addClient(client);
@@ -79,4 +94,5 @@ public class TypicalClients {
     public static List<Client> getTypicalClients() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
 }

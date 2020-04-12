@@ -8,8 +8,8 @@ Package {
     Class CommandHistoryState MODEL_COLOR
 }
 
-CommandBox "1" *--> CommandHistory
-CommandHistory "1" *--> CommandHistoryStorage
-CommandHistory "1" *--> CommandHistoryState
+CommandBox "1" *--> "1" CommandHistory
+CommandHistory "1" *--> "1" CommandHistoryStorage
+CommandHistory "1" *--> "1" CommandHistoryState
 
 @enduml

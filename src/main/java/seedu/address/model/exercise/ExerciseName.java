@@ -10,8 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ExerciseName {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Exercise names should only contain alphanumeric characters and spaces, and it should not be blank";
-    public static final String VALIDATION_REGEX = "^[\\p{Alnum}][\\p{Alnum} ]*";
+        "Exercise names should only contain alphanumeric characters and spaces, and it should not be blank. "
+        + "There can only be maximum of 30 characters. ";
+    public static final String VALIDATION_REGEX = "^[\\p{Alnum}][\\p{Alnum} ]{0,29}$";
     public final String value;
 
     /**
@@ -30,6 +31,10 @@ public class ExerciseName {
      */
     public static boolean isValidExerciseName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public String getValue() {
+        return value;
     }
 
     @Override

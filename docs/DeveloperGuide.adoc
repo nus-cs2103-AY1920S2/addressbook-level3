@@ -154,6 +154,26 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
 === Command History --- Aaron Choo
 
 This feature allows users to save their previously entered commands and to retrieve them using the kbd:[Up] and kbd:[Down] arrow keys, similar to what most modern CLIs offer.
@@ -202,63 +222,6 @@ Moreover, the implementation of `CommandHistoryStorage#saveCommandHistory` will 
 
 As such, the choice of 100 as the maximum size of the command history is thus chosen. This number must be small enough to not cause the app to lag when the whole history is being written to storage, as well as be big enough to satisfy the user. Ultimately, we felt that 100 is a very generous estimate given that a user really only needs the past few commands at any point of time.
 
-=== Scheduling for a Client --- Ng Ming Liang
-This feature allows for a user to assign a weekly schedule to a client. Timings are represented in the 24-hour format `HHmm`. Each client can have none or multiple schedules that do not have overlapping timings. Multiple clients are allowed to have overlapping timings with each other.
-
-==== Implementation
-This scheduling mechanism is facilitated by `ScheduleList`, which is a wrapper class for an `ArrayList` of `Schedule` objects. Each `Client` contains one `ScheduleList` attribute to keep track of all `Schedule` assigned to it. If there are no assigned `Schedule` for the `Client`, then the `ScheduleList` contains an empty `ArrayList` of `Schedule`.
-
-`Schedule` comprises three attributes:
-
-* `Day`
-
-* `StartTime`
-
-* `EndTime`
-
-`Day` wraps the enum `DayEnum.Weekday` and represents the day of the week the schedule takes place on.
-`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively. The relations between these classes are shown in the class diagram below.
-
-image::ScheduleClassDiagram.png[]
-
-These attributes are bounded by these characteristics:
-
-* Each `Client` can only contain unique `Schedule`, that is, there are no overlaps in timings between any two `Schedule` in the `ScheduleList`. This is ensured by `ScheduleCommandParser#checkIfOverlaps()`
-
-* Overlapping timings between the `Schedule` of different `Client` is allowed
-
-* The maximum timeframe between `StartTime` and `EndTime` is from `0000` to `2359`
-
-* `StartTime` cannot be later than `EndTime`
-
-* `Day` can only take up the 7 values of the week (MON/TUE/WED/THU/FRI/SAT/SUN)
-
-In the following sequence diagram, we trace the execution for when the user decides to enter the command `schedule 1 day/mon st/1100 et/1200` into FitBiz:
-
-image::ScheduleSequenceDiagram.png[]
-
-
-
-==== Design Considerations
-In designing this feature, we had to consider the alternative ways in which we can choose to store the information of a schedule. One option of storing the relevant information (day, start, end times) for a schedule was simply to concatenate these values into a single String, for example, `"monday-1100-1200"`. However, we found that this did not exploit the desirable principles of Object-Oriented Programming. As respective sanity checks had to be done for the day
-and timing, wrapping each of these properties into their wrapper classes allowed for better modularity and organisation of these attributes. For example, `Day#isValidDay` handles the validation of the input for day and `Time#isValidTimingFormat` handles the validation of time.
-
-Considerations also then had to be made for how to contain multiple `Schedule`. The current implementation uses the `ArrayList` data structure to hold multiple `Schedule`. Other considered alternative for `ScheduleList` was `HashSet`.
-[options='header']
-|====================
-| Data Structure | Pros and Cons
-| ArrayList |
-*Pros*: Elements can be sorted and retrieved in ascending order
-
-*Cons*: Does not ensure that its elements are unique
-| HashSet |
-*Pros*: Does not allow duplicate values
-
-*Cons*: Does not return elements in order
-|====================
-
-As the nature of the schedule panel was to display a sorted collection of `Schedule`, we chose `ArrayList` as the underlying data structure. In addition, we also harnessed the capability of the `HashSet` to ensure no overlaps between `Schedule` within each `Client`, which is implemented by `ScheduleCommandParser#checkIfOverlaps`.
-
 === Command Autocompletion --- Aaron Choo
 
 Similar to the previously mentioned "Command History" feature, this feature improves the user experience by allowing users to press the kbd:[Tab] key to autocomplete their partially entered commands.
@@ -306,20 +269,60 @@ As such, the choice of implementing our own Trie data structure is obvious. Exch
 
 Also, since we have implemented our own Trie data structure, it would also allow more custom logic to be added later, and allow more creative freedom with respect to the features that future developers would want to add.
 
-=== Logging
+=== Scheduling for a Client --- Ng Ming Liang
+This feature allows for a user to assign a weekly schedule to a client. Timings are represented in the 24-hour format `HHmm`. Each client can have none or multiple schedules that do not have overlapping timings. Multiple clients are allowed to have overlapping timings with each other.
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+==== Implementation
+This scheduling mechanism is facilitated by `ScheduleList`, which is a wrapper class for an `ArrayList` of `Schedule` objects. Each `Client` contains one `ScheduleList` attribute to keep track of all `Schedule` assigned to it. If there are no assigned `Schedule` for the `Client`, then the `ScheduleList` contains an empty `ArrayList` of `Schedule`.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+`Schedule` comprises three attributes:
 
-*Logging Levels*
+* `Day`
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `StartTime`
+
+* `EndTime`
+
+`Day` wraps the enum `DayEnum.Weekday` and represents the day of the week the schedule takes place on.
+`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively. The relations between these classes are shown in the class diagram below.
+
+image::ScheduleClassDiagram.png[]
+
+These attributes are bounded by these characteristics:
+
+* Each `Client` can only contain unique `Schedule`, that is, there are no overlaps in timings between any two `Schedule` in the `ScheduleList`. This is ensured by `ScheduleCommandParser#checkIfOverlaps()`
+
+* Overlapping timings between the `Schedule` of different `Client` is allowed
+
+* The maximum timeframe between `StartTime` and `EndTime` is from `0000` to `2359`
+
+* `StartTime` cannot be later than `EndTime`
+
+* `Day` can only take up the 7 values of the week (MON/TUE/WED/THU/FRI/SAT/SUN)
+
+In the following sequence diagram, we trace the execution for when the user decides to enter the command `schedule 1 day/mon st/1100 et/1200` into FitBiz:
+
+image::ScheduleSequenceDiagram.png[]
+
+==== Design Considerations
+In designing this feature, we had to consider the alternative ways in which we can choose to store the information of a schedule. One option of storing the relevant information (day, start, end times) for a schedule was simply to concatenate these values into a single String, for example, `"monday-1100-1200"`. However, we found that this did not exploit the desirable principles of Object-Oriented Programming. As respective sanity checks had to be done for the day
+and timing, wrapping each of these properties into their wrapper classes allowed for better modularity and organisation of these attributes. For example, `Day#isValidDay` handles the validation of the input for day and `Time#isValidTimingFormat` handles the validation of time.
+
+Considerations also then had to be made for how to contain multiple `Schedule`. The current implementation uses the `ArrayList` data structure to hold multiple `Schedule`. Other considered alternative for `ScheduleList` was `HashSet`.
+[options='header']
+|====================
+| Data Structure | Pros and Cons
+| ArrayList |
+*Pros*: Elements can be sorted and retrieved in ascending order
+
+*Cons*: Does not ensure that its elements are unique
+| HashSet |
+*Pros*: Does not allow duplicate values
+
+*Cons*: Does not return elements in order
+|====================
+
+As the nature of the schedule panel was to display a sorted collection of `Schedule`, we chose `ArrayList` as the underlying data structure. In addition, we also harnessed the capability of the `HashSet` to ensure no overlaps between `Schedule` within each `Client`, which is implemented by `ScheduleCommandParser#checkIfOverlaps`.
 
 === Exercise Feature --- Yong Jie
 
@@ -381,11 +384,6 @@ We want to keep the implementation reading and storing of data simple. The first
 Moreover, storing the exercise data from client data does not provide any performance benefits. Due to time constraints, we decided that the application should store all the data everytime it closes. This is regardless if the particular exercise or client data has been changed. Having to keep track of which data is edited and only overwrite those data would greatly increase the complexity of the application. Therefore, keeping exercises data separate from client data would be unnecessary and provide little additional functionality/benefits to the user.
 
 Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients as he will have to cater time for each of them. Even though each client might have many exercises, the information of each exercise is relatively small. For now, collectively, the client and exercise data is unlikely to exceed the JSON size limit. We might consider to have multiple JSON files if the data size gets too big in future versions.
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 === Personal Best --- Li Zi Ying
 

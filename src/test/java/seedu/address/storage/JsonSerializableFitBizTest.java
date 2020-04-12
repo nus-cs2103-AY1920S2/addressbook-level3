@@ -25,7 +25,7 @@ public class JsonSerializableFitBizTest {
         JsonSerializableFitBiz dataFromFile = JsonUtil.readJsonFile(TYPICAL_CLIENTS_FILE,
                 JsonSerializableFitBiz.class).get();
         FitBiz fitBizFromFile = dataFromFile.toModelType();
-        FitBiz typicalClientsFitBiz = TypicalClients.getTypicalAddressBook();
+        FitBiz typicalClientsFitBiz = TypicalClients.getTypicalFitBiz();
         assertEquals(fitBizFromFile, typicalClientsFitBiz);
     }
 

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.FitBiz;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFitBiz;
 
 /**
  * Represents a storage for {@link FitBiz}.
@@ -19,28 +19,28 @@ public interface FitBizStorage {
     Path getFitBizFilePath();
 
     /**
-     * Returns FitBiz data as a {@link ReadOnlyAddressBook}.
+     * Returns FitBiz data as a {@link ReadOnlyFitBiz}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readFitBiz() throws DataConversionException, IOException;
+    Optional<ReadOnlyFitBiz> readFitBiz() throws DataConversionException, IOException;
 
     /**
      * @see #getFitBizFilePath()
      */
-    Optional<ReadOnlyAddressBook> readFitBiz(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyFitBiz> readFitBiz(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyAddressBook} to the storage.
+     * Saves the given {@link ReadOnlyFitBiz} to the storage.
      * @param fitBiz cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveFitBiz(ReadOnlyAddressBook fitBiz) throws IOException;
+    void saveFitBiz(ReadOnlyFitBiz fitBiz) throws IOException;
 
     /**
-     * @see #saveFitBiz(ReadOnlyAddressBook)
+     * @see #saveFitBiz(ReadOnlyFitBiz)
      */
-    void saveFitBiz(ReadOnlyAddressBook fitBiz, Path filePath) throws IOException;
+    void saveFitBiz(ReadOnlyFitBiz fitBiz, Path filePath) throws IOException;
 
 }

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalClients.getTypicalFitBiz;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CLIENT;
 
@@ -21,7 +21,7 @@ import seedu.address.model.client.Client;
 import seedu.address.model.schedule.Schedule;
 
 class ScheduleCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ClientInView());
+    private Model model = new ModelManager(getTypicalFitBiz(), new UserPrefs(), new ClientInView());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -31,7 +31,7 @@ class ScheduleCommandTest {
 
         String expectedMessage = String.format(ScheduleCommand.MESSAGE_CLEARED, clientToSchedule.getName().fullName);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ClientInView());
+        ModelManager expectedModel = new ModelManager(model.getFitBiz(), new UserPrefs(), new ClientInView());
         expectedModel.setClient(model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased()), clientToSchedule);
 
         assertCommandSuccess(scheduleCommand, model, expectedMessage, expectedModel);
@@ -45,7 +45,7 @@ class ScheduleCommandTest {
 
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ClientInView());
+        ModelManager expectedModel = new ModelManager(model.getFitBiz(), new UserPrefs(), new ClientInView());
         expectedModel.setClient(model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased()), clientToSchedule);
         showNoClient(expectedModel);
 

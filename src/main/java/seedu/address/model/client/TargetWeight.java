@@ -11,10 +11,12 @@ import java.math.BigDecimal;
  */
 public class TargetWeight {
 
-    public static final String MESSAGE_CONSTRAINTS = "Input weight must either be whole or decimal number"
-            + " (eg. 65 or 86.22)";
-    public static final String VALIDATION_REGEX = "[0-9]{1,3}(\\.[0-9]{0,3})?";
+    public static final String MESSAGE_CONSTRAINTS = "Input weight must either be a whole or decimal number"
+            + " (eg. 65 or 86.22). Make sure that you only have a maximum of 3 digits before and"
+            + " 2 digits after the decimal place.";
+    public static final String VALIDATION_REGEX = "[0-9]{1,3}(\\.[0-9]{0,2})?";
     private static final String EMPTY_STRING = "";
+    private static final String FORMAT_TWO_DECIMAL_PLACES = "%1$.2f";
 
     public final String value;
 
@@ -35,7 +37,8 @@ public class TargetWeight {
     }
 
     /**
-     * Formats the weight using {@code BigDecimal}.
+     * Formats the given {@code weight} using {@code BigDecimal} to two decimal
+     * places.
      *
      * @param weight weight to format
      * @return formatted weight to 2 decimal places
@@ -44,8 +47,8 @@ public class TargetWeight {
         if (isEmptyString(weight)) {
             return EMPTY_STRING;
         }
-        BigDecimal bd = new BigDecimal(weight);
-        return String.format("%1$.2f", bd);
+        BigDecimal bigDecimal = new BigDecimal(weight);
+        return String.format(FORMAT_TWO_DECIMAL_PLACES, bigDecimal);
     }
 
     /**

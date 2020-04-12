@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.exercise.ExerciseDate;
 import seedu.address.model.exercise.ExerciseName;
@@ -9,6 +12,8 @@ import seedu.address.model.exercise.ExerciseWeight;
 
 /**
  * A utility class to help with building Exercise objects.
+ *
+ * @author @yonggiee
  */
 public class ExerciseBuilder {
 
@@ -16,7 +21,9 @@ public class ExerciseBuilder {
     public static final String DEFAULT_EXERCISE_REPS = "12";
     public static final String DEFAULT_EXERCISE_SETS = "4";
     public static final String DEFAULT_EXERCISE_WEIGHT = "100";
-    public static final String DEFAULT_EXERCISE_DATE = "01-05-2020";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static final String DEFAULT_EXERCISE_DATE =
+        LocalDate.now().minusDays(1).format(DATE_TIME_FORMATTER);
 
     private ExerciseName exerciseName;
     private ExerciseReps exerciseReps;

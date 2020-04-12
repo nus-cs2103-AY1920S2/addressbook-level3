@@ -29,12 +29,13 @@ public class ExerciseNameTest {
         assertFalse(ExerciseName.isValidExerciseName(" ")); // spaces only
         assertFalse(ExerciseName.isValidExerciseName("^")); // only non-alphanumeric characters
         assertFalse(ExerciseName.isValidExerciseName("pushups*")); // contains non-alphanumeric characters
+        assertFalse(ExerciseName.isValidExerciseName("pushuppushuppushuppushuppushup1")); // 31 characters
 
         // valid name
         assertTrue(ExerciseName.isValidExerciseName("bench press")); // alphabets only
         assertTrue(ExerciseName.isValidExerciseName("12345")); // numbers only
         assertTrue(ExerciseName.isValidExerciseName("bench press 2nd")); // alphanumeric characters
         assertTrue(ExerciseName.isValidExerciseName("Bench Press")); // with capital letters
-        assertTrue(ExerciseName.isValidExerciseName("touch and go bench press")); // long names
+        assertTrue(ExerciseName.isValidExerciseName("pushuppushuppushuppushuppushup")); // 30 chars
     }
 }

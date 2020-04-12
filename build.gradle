@@ -21,7 +21,7 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 application {
-    applicationDefaultJvmArgs = ['-Dglass.gtk.uiScale=1.35']
+    applicationDefaultJvmArgs = ['-Dglass.gtk.uiScale=1.5']
 }
 
 repositories {

@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFitBiz;
 
 /**
  * A class to access FitBiz data stored as a json file on the hard disk.
@@ -32,7 +32,7 @@ public class JsonFitBizStorage implements FitBizStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readFitBiz() throws DataConversionException {
+    public Optional<ReadOnlyFitBiz> readFitBiz() throws DataConversionException {
         return readFitBiz(filePath);
     }
 
@@ -42,17 +42,17 @@ public class JsonFitBizStorage implements FitBizStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readFitBiz(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyFitBiz> readFitBiz(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableFitBiz> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableFitBiz> jsonFitBiz = JsonUtil.readJsonFile(
                 filePath, JsonSerializableFitBiz.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonFitBiz.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonFitBiz.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,16 +60,16 @@ public class JsonFitBizStorage implements FitBizStorage {
     }
 
     @Override
-    public void saveFitBiz(ReadOnlyAddressBook fitBiz) throws IOException {
+    public void saveFitBiz(ReadOnlyFitBiz fitBiz) throws IOException {
         saveFitBiz(fitBiz, filePath);
     }
 
     /**
-     * Similar to {@link #saveFitBiz(ReadOnlyAddressBook)}.
+     * Similar to {@link #saveFitBiz(ReadOnlyFitBiz)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveFitBiz(ReadOnlyAddressBook fitBiz, Path filePath) throws IOException {
+    public void saveFitBiz(ReadOnlyFitBiz fitBiz, Path filePath) throws IOException {
         requireNonNull(fitBiz);
         requireNonNull(filePath);
 

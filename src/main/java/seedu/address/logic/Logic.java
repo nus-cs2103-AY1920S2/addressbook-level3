@@ -4,10 +4,12 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.autocomplete.Autocomplete;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.history.CommandHistory;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFitBiz;
 import seedu.address.model.client.Client;
 import seedu.address.model.schedule.ScheduleDay;
 
@@ -28,9 +30,9 @@ public interface Logic {
     /**
      * Returns the FitBiz.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getFitBiz()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyFitBiz getFitBiz();
 
     /**
      * Returns an unmodifiable view of the filtered list of clients
@@ -61,9 +63,9 @@ public interface Logic {
     Boolean hasClientInView();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' FitBiz file path.
      */
-    Path getAddressBookFilePath();
+    Path getFitBizFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -81,4 +83,15 @@ public interface Logic {
      * @param url website url to open
      */
     public void openUrlInDefaultWebBrowser(String url);
+
+    /**
+     * Returns the {@code CommandHistory} object.
+     */
+    CommandHistory getCommandHistory();
+
+    /**
+     * Returns the {@code Autocomplete} object.
+     */
+    Autocomplete getAutocomplete();
+
 }

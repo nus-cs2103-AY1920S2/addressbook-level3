@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFitBiz;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -24,9 +24,9 @@ public interface Storage extends FitBizStorage, UserPrefsStorage {
     Path getFitBizFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readFitBiz() throws DataConversionException, IOException;
+    Optional<ReadOnlyFitBiz> readFitBiz() throws DataConversionException, IOException;
 
     @Override
-    void saveFitBiz(ReadOnlyAddressBook fitBiz) throws IOException;
+    void saveFitBiz(ReadOnlyFitBiz fitBiz) throws IOException;
 
 }

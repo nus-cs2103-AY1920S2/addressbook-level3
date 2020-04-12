@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +28,9 @@ import seedu.address.model.exercise.ExerciseName;
 import seedu.address.model.exercise.ExerciseReps;
 import seedu.address.model.exercise.ExerciseSets;
 import seedu.address.model.exercise.ExerciseWeight;
+import seedu.address.model.graph.Axis;
+import seedu.address.model.graph.EndDate;
+import seedu.address.model.graph.StartDate;
 import seedu.address.model.schedule.Day;
 import seedu.address.model.schedule.EndTime;
 import seedu.address.model.schedule.Schedule;
@@ -38,7 +42,12 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
+    public static final String EMPTY_ATTRIBUTE = "";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    private static final int DAY_INDEX = 0;
+    private static final int START_INDEX = 1;
+    private static final int END_INDEX = 2;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -149,7 +158,7 @@ public class ParserUtil {
         case "o":
             return new Gender("Others");
         default:
-            throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
+            return new Gender(EMPTY_ATTRIBUTE);
         }
     }
 
@@ -175,12 +184,16 @@ public class ParserUtil {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
+            if (tagName.equals(EMPTY_ATTRIBUTE)) {
+                continue;
+            }
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
     }
 
-    /** Parses a {@code String birthday} into a {@code Birthday}.
+    /**
+     * Parses a {@code String birthday} into a {@code Birthday}.
      * Only birth dates earlier than the current date are allowed.
      *
      * @throws ParseException
@@ -259,6 +272,9 @@ public class ParserUtil {
         requireNonNull(sports);
         final Set<Sport> sportSet = new HashSet<>();
         for (String sportName : sports) {
+            if (sportName.equals(EMPTY_ATTRIBUTE)) {
+                continue;
+            }
             sportSet.add(parseSport(sportName));
         }
         return sportSet;
@@ -338,7 +354,9 @@ public class ParserUtil {
         }
         return new ExerciseDate(date);
     }
-    /** Parses a {@code List<String> days} into a {@code ArrayList<Day> dayList}.
+
+    /**
+     * Parses a {@code List<String> days} into a {@code ArrayList<Day> dayList}.
      * Only correct day of the week is allowed
      *
      * @throws ParseException
@@ -356,7 +374,8 @@ public class ParserUtil {
         return dayList;
     }
 
-    /** Parses a {@code List<String> time} into a {@code ArrayList<StartTime> startTimeList}.
+    /**
+     * Parses a {@code List<String> time} into a {@code ArrayList<StartTime> startTimeList}.
      * Only time in 24 hour format is allowed.
      *
      * @throws ParseException
@@ -374,7 +393,8 @@ public class ParserUtil {
         return startTimeList;
     }
 
-    /** Parses a {@code List<String> time} into a {@code ArrayList<EndTime> endTimeList}.
+    /**
+     * Parses a {@code List<String> time} into a {@code ArrayList<EndTime> endTimeList}.
      * Only time in 24 hour format is allowed.
      *
      * @throws ParseException
@@ -397,31 +417,74 @@ public class ParserUtil {
      * takes in the raw input string entered into the CLI from the user and processes it into an ArrayList
      * of String arrays for further parsing by the day, start and end time parsers respectively.
      */
-    public static ArrayList<String>[] parseRawScheduleInput(List<String> input) throws ParseException {
+    public static ArrayList<HashMap<String, String>> parseRawScheduleInput(List<String> input) throws ParseException {
         requireNonNull(input);
-        String[] tripleData = new String[3];
-        ArrayList[] returnArray = new ArrayList[3];
-
-        for (int i = 0; i < 3; i++) {
-            returnArray[i] = new ArrayList<String>();
-        }
+        ArrayList<HashMap<String, String>> returnList = new ArrayList<>();
 
         // short-circuit if empty input
         if (input.get(0).length() == 0) {
-            return returnArray;
+            return returnList;
         }
 
         try {
             for (String s : input) {
-                tripleData = s.split("-");
-                returnArray[0].add(tripleData[0]);
-                returnArray[1].add(tripleData[1]);
-                returnArray[2].add(tripleData[2]);
+                HashMap<String, String> inputHash = new HashMap<>();
+                String[] tripleData = s.split("-");
+                inputHash.put("day", tripleData[DAY_INDEX]);
+                inputHash.put("start", tripleData[START_INDEX]);
+                inputHash.put("end", tripleData[END_INDEX]);
+
+                returnList.add(inputHash);
             }
-            return returnArray;
+            return returnList;
         } catch (Exception e) {
             throw new ParseException(Schedule.MESSAGE_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Parses a {@code String axis} into an {@code Axis}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code axis} is invalid.
+     */
+    public static Axis parseAxis(String axis) throws ParseException {
+        requireNonNull(axis);
+        String trimmedAxis = axis.trim();
+        if (!Axis.isValidAxis(trimmedAxis)) {
+            throw new ParseException(Axis.MESSAGE_CONSTRAINTS);
+        }
+        return new Axis(trimmedAxis);
+    }
+
+    /**
+     * Parses a {@code String startDate} into an {@code StartDate}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startDate} is invalid.
+     */
+    public static StartDate parseStartDate(String startDate) throws ParseException {
+        requireNonNull(startDate);
+        String trimmedStartDate = startDate.trim();
+        if (!StartDate.isValidStartDate(trimmedStartDate)) {
+            throw new ParseException(StartDate.MESSAGE_CONSTRAINTS);
+        }
+        return new StartDate(trimmedStartDate);
+    }
+
+    /**
+     * Parses a {@code String endDate} into an {@code EndDate}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code endDate} is invalid.
+     */
+    public static EndDate parseEndDate(String endDate) throws ParseException {
+        requireNonNull(endDate);
+        String trimmedEndDate = endDate.trim();
+        if (!EndDate.isValidEndDate(trimmedEndDate)) {
+            throw new ParseException(EndDate.MESSAGE_CONSTRAINTS);
+        }
+        return new EndDate(trimmedEndDate);
     }
 
 }

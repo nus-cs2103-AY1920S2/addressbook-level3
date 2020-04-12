@@ -9,14 +9,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a Client's birthday in the address book.
+ * Represents a Client's birthday in FitBiz.
  * Guarantees: immutable; is valid as declared in {@link #isValidBirthday(String)}
  */
 public class Birthday {
 
-
+    public static final String EARLIEST_BIRTHDAY = LocalDate.now().minusYears(120)
+            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     public static final String MESSAGE_CONSTRAINTS =
-            "Birthday input should be in the format DD-MM-YYYY, and not be more current than the current date";
+            "Birthdays should be in the format DD-MM-YYYY (eg. 02-03-1999), and cannot exceed the current date."
+            + " Birthday should also not be earlier than " + EARLIEST_BIRTHDAY + ".";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public final LocalDate value;
     public final String displayValue;
@@ -43,7 +45,14 @@ public class Birthday {
         }
         try {
             testBirthday = LocalDate.parse(test, DATE_TIME_FORMATTER);
-            return (LocalDate.now().compareTo(testBirthday) > 0);
+            LocalDate dateNow = LocalDate.now();
+            LocalDate dateNowMinusHundredTwentyYear = dateNow.minusYears(120);
+            if (dateNow.compareTo(testBirthday) <= 0) {
+                return false;
+            } else if (dateNowMinusHundredTwentyYear.isAfter(testBirthday)) {
+                return false;
+            }
+            return true;
         } catch (DateTimeParseException e) {
             return false;
         }
@@ -69,11 +78,15 @@ public class Birthday {
         return value.hashCode();
     }
 
+    public boolean isEmpty() {
+        return value == null;
+    }
+
     public String getAge() {
         if (this.value == null) {
             return "-";
         }
-        long age = DAYS.between(LocalDate.now(), this.value) / 365;
+        long age = DAYS.between(this.value, LocalDate.now()) / 365;
         return Long.toString(age);
     }
 
