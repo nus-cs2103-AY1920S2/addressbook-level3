@@ -53,17 +53,19 @@ XYZSuggestionArgHandler .up.> XYZSuggestionGenerator : creates >
 XYZSuggestionArgHandler .down.|> SuggestionArgHandler
 
 XYZSuggestionGenerator .up.|> SuggestionGenerator
-LogicManager .right.> SuggestionGenerator : executes >
+SuggestionEngine .right.> SuggestionGenerator : executes >
 XYZSuggestionGenerator .right.> SuggestionItemImpl : creates >
 
 LogicManager --> Model
-SuggestionGenerator ..> Model
-ABCSuggestionHandler .up.> Model
-note bottom of XYZSuggestionGenerator: XYZSuggestionGenerator = \nOpenSuggestionGenerator, \nDeleteSuggestionGenerator, \nand SearchSuggestionGenerator
+SuggestionGenerator --> Model
+ABCSuggestionHandler -up- Model
+XYZSuggestionArgHandler -up- Model
+note right of XYZSuggestionGenerator: XYZSuggestionGenerator = \nOpenSuggestionGenerator, \nDeleteSuggestionGenerator, \nand SearchSuggestionGenerator
 
-note right of ABCSuggestionHandler: ABCSuggestionHandler = \nEditSuggestionHandler, \nExitSuggestionHandler, \nand HelpSuggestionHandler
+note bottom of ABCSuggestionHandler: ABCSuggestionHandler = \nEditSuggestionHandler, \nExitSuggestionHandler, \nand HelpSuggestionHandler
 
 note bottom of XYZSuggestionArgHandler: XYZSuggestionArgHandler = \nOpenSuggestionArgHandler, \nDeleteSuggestionArgHandler, \nSearchSuggestionArgHandler, \n NewSuggestionArgHandler
 
 SuggestionItemImpl .up.|> SuggestionItem
+SuggestionItem ...> Model
 @enduml
