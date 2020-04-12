@@ -570,7 +570,8 @@ The following section answers some questions you might have regarding *CookBuddy
 *A*: Download the jar in the other computer and copy the entire data folder over to the same directory. Run CookBuddy and update the preferences.json if necessary.
 
 *Q: Can I edit my data folder of CookBuddy which contains the information regarding my recipes?* +
-*A*: No. Please do not modify the data folder of your CookBuddy. All modifications of the recipes should be done through the `modify`command only.
+*A*: No. Please do not modify the data folder of your CookBuddy. All modifications of the recipes should be done through the `modify`
+command only.
 
 *Q: How do I retrieve back all the recipes in CookBuddy if I accidentally reset CookBuddy?* +
 *A*: Right now CookBuddy does not support a backup feature. Thus, it would be best if you do not accidentally use the `reset`
