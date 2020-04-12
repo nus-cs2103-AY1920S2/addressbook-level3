@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -20,12 +21,15 @@ public class DeadlineListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(DeadlineListPanel.class);
 
     @FXML
+    private Label label;
+    @FXML
     private ListView<Deadline> deadlineListView;
 
     public DeadlineListPanel(ObservableList<Deadline> deadlineList) {
         super(FXML);
         deadlineListView.setItems(deadlineList);
         deadlineListView.setCellFactory(listView -> new DeadlineListViewCell());
+        deadlineListView.setMaxHeight(deadlineList.size() * 50 + 1);
     }
 
     public void setWidth(double width) {
@@ -41,6 +45,7 @@ public class DeadlineListPanel extends UiPart<Region> {
             super.updateItem(deadline, empty);
 
             prefWidthProperty().bind(deadlineListView.widthProperty().subtract(10));
+            deadlineListView.setMaxHeight((deadlineListView.getItems().size() + 1) * 100);
 
             if (empty || deadline == null) {
                 setStyle("");

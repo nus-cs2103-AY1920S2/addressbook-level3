@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import nasa.model.module.Module;
 import nasa.ui.activity.DeadlineListPanel;
@@ -35,13 +35,17 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label code;
     @FXML
-    private StackPane activityListPanelPlaceholder;
+    private Label events;
+    @FXML
+    private Label deadlines;
+    @FXML
+    private VBox activityListPanelPlaceholder;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
         this.id = displayedIndex;
-        code.setText(module.getModuleCode().toString());
+        code.setText(module.getModuleCode().toString() + " " + module.getModuleName().toString());
         deadlineListPanel = new DeadlineListPanel(module.getFilteredDeadlineList());
         eventListPanel = new EventListPanel(module.getFilteredEventList());
         activityListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());

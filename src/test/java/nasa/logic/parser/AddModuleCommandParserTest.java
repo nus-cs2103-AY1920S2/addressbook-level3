@@ -16,7 +16,8 @@ import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import nasa.logic.commands.AddModuleCommand;
+import nasa.logic.commands.module.AddModuleCommand;
+import nasa.logic.parser.module.AddModuleCommandParser;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;

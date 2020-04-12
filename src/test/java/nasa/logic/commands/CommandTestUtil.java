@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.logic.commands.module.EditModuleCommand;
 import nasa.model.Model;
 import nasa.model.NasaBook;
 import nasa.model.module.Module;

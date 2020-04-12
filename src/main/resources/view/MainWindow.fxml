@@ -12,7 +12,7 @@
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Nice And Amazing Student Assistant" minWidth="100" minHeight="100" onCloseRequest="#handleExit">
+         title="Nice And Amazing Student Assistant" minWidth="800" minHeight="800" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/nasa.png" />
   </icons>

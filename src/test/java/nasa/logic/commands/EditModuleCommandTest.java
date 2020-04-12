@@ -9,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import nasa.logic.commands.EditModuleCommand.EditModuleDescriptor;
+import nasa.logic.commands.module.EditModuleCommand;
+import nasa.logic.commands.module.EditModuleCommand.EditModuleDescriptor;
 import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;

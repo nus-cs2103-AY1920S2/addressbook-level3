@@ -19,10 +19,10 @@ public class DeleteDeadlineCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the activities identified by the index numbers used in the displayed deadline list.\n"
-        + "Parameters: " + "INDEX (must be a positive integer)\n" + PREFIX_MODULE + "MODULE CODE"
+        + "Parameters: " + "INDEX (must be a positive integer) " + PREFIX_MODULE + "MODULE CODE\n"
         + "Example: " + COMMAND_WORD + " 1 " + PREFIX_MODULE + "CS3233";
 
-    public static final String MESSAGE_DELETE_DEADLINE_SUCCESS = " are deleted successfully!";
+    public static final String MESSAGE_DELETE_DEADLINE_SUCCESS = "%d. %s is successfully deleted!";
 
     public static final String MESSAGE_FAILURE = "Deadline indicated does not exist!";
 
@@ -48,11 +48,13 @@ public class DeleteDeadlineCommand extends Command {
             Module module = model.getModule(moduleCode);
             Deadline deadline = module.getFilteredDeadlineList().get(index.getZeroBased());
             model.removeDeadline(moduleCode, deadline);
+            return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS,
+                    index.getOneBased(), deadline.getName().toString()));
         } catch (Exception e) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        return new CommandResult(index.toString() + " " + MESSAGE_DELETE_DEADLINE_SUCCESS);
+
     }
 
     /**

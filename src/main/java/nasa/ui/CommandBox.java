@@ -7,7 +7,6 @@ import java.util.ListIterator;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
@@ -37,19 +36,6 @@ public class CommandBox extends UiPart<Region> {
         commandHistoryIterator = commandHistory.listIterator();
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        commandTextField.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
-            //Overriding default redo
-            if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
-                event.consume();
-                commandTextField.setText("redo");
-                handleCommandEntered();
-            //Overriding default undo
-            } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
-                event.consume();
-                commandTextField.setText("undo");
-                handleCommandEntered();
-            }
-        });
         //Controls to view command history
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
             switch (key.getCode()) {

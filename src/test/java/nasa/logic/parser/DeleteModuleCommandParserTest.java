@@ -9,7 +9,8 @@ import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import nasa.logic.commands.DeleteModuleCommand;
+import nasa.logic.commands.module.DeleteModuleCommand;
+import nasa.logic.parser.module.DeleteModuleCommandParser;
 import nasa.model.module.ModuleCode;
 
 /**

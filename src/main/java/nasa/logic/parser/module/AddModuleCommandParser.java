@@ -1,4 +1,4 @@
-package nasa.logic.parser;
+package nasa.logic.parser.module;
 
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
@@ -6,7 +6,12 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 
 import java.util.stream.Stream;
 
-import nasa.logic.commands.AddModuleCommand;
+import nasa.logic.commands.module.AddModuleCommand;
+import nasa.logic.parser.ArgumentMultimap;
+import nasa.logic.parser.ArgumentTokenizer;
+import nasa.logic.parser.Parser;
+import nasa.logic.parser.ParserUtil;
+import nasa.logic.parser.Prefix;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;

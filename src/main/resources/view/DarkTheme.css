@@ -158,7 +158,6 @@
     -fx-background-radius: 15;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 10px;
 }
 
 .list-cell:filled {
@@ -173,14 +172,10 @@
     -fx-background-color: transparent;
 }
 
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
-
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
-    -fx-padding: 10px;
+    -fx-padding: 0px;
 }
 
 
@@ -192,10 +187,36 @@
     -fx-font-weight: bold;
 }
 
+
+.activity_priority_label {
+    -fx-font-family: "Impact";
+    -fx-font-size: 15px;
+    -fx-color-label-visible: black;
+    -fx-font-weight: bold;
+    -fx-text-alignment: right;
+}
+
+
 .activity_small_label {
     -fx-text-fill: #303030;
     -fx-font-family: "Verdana";
     -fx-font-size: 10px;
+}
+
+.activity-label {
+    -fx-text-fill: white;
+    -fx-font-family: "Verdana";
+    -fx-font-size: 15px;
+}
+
+.check-box .box {
+    -fx-border-radius: 100px;
+    -fx-background-radius: 100px;
+    -fx-border-color: white;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: black;
 }
 
 .cell_big_label {
@@ -437,9 +458,16 @@
     -fx-background-color: white;
 }
 
-.chart-bar {
-    -fx-bar-fill: #32174d;
+#eventListView .list-cell {
+    -fx-padding: 10px;
 }
+
+
+.default-color0.chart-bar { -fx-pie-color: #FF9AA2; }
+.default-color2.chart-bar { -fx-pie-color: #FFDAC1; }
+.default-color3.chart-bar { -fx-pie-color: #E2F0CB; }
+.default-color4.chart-bar { -fx-pie-color: #B5EAD7; }
+.default-color5.chart-bar { -fx-pie-color: #C7CEEA; }
 
 .default-color0.chart-pie { -fx-pie-color: #FF9AA2; }
 .default-color2.chart-pie { -fx-pie-color: #FFDAC1; }
@@ -450,6 +478,7 @@
 #modulePane {
      -fx-border-width: 0;
     -fx-padding: 0;
+    -fx-min-width: 200;
  }
 
 #commandTypeLabel {

@@ -2,8 +2,8 @@
 package nasa.logic.commands;
 
 import javafx.collections.ObservableList;
-import nasa.commons.util.StringUtil;
 
+import nasa.commons.util.StringUtil;
 import nasa.model.Model;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;

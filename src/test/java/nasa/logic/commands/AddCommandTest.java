@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import nasa.logic.commands.module.AddModuleCommand;
 import nasa.model.module.Module;
 import nasa.testutil.ModuleBuilder;
 
