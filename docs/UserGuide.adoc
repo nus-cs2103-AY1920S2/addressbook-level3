@@ -203,9 +203,59 @@ Coupon card duplicates cannot exist!
 
 === Summary tab
 
-In the summary tab,
+The summary tab provides an overview of how much
+you have saved from using coupons in Coupon Stash.
+
+This tab provides an estimate of all the savings
+you have accumulated, provided the coupon that resulted
+in those savings is still present in Coupon Stash (this
+includes <<archive, archived>> coupons). This estimate
+is displayed in the form of a monetary amount at the
+top of the page, with saved items that may not be easily
+quantified displayed in a lime-green box at the side,
+preceded by the text "And these saveables too!".
+
+image::ug_summary_tab.png[]
+
+Also, a graph that shows the monetary amount saved
+every week is also displayed in the summary tab.
+The next section will tell you more about how to
+interpret this graph.
 
 ==== Savings graph
+
+The savings graph provides a bar chart which holds
+statistics on the amount of money saved per week.
+The taller the bar, the more savings earned that week.
+The exact amount is also shown in white text at the
+top of each bar.
+
+In the graph, Monday is taken to be the first day
+of a week, and Sunday the last. The date displayed
+on the bottom axis corresponds to the first day of that
+week (Monday). Earlier weeks are displayed towards
+the left, while later weeks are displayed towards
+the right (direction of time axis is from left to right).
+
+The graph is drawn based on the latest week in which
+coupon usage was recorded by Coupon Stash, and shows
+a maximum of 10 bars or 10 weeks of savings before that
+latest date.
+
+[TIP]
+Any savings that were recorded by Coupon Stash before
+the time period of 10 weeks will not be shown in the graph.
+However, they can still be calculated using the
+<<saved, saved command>>.
+
+image::ug_savings_graph.png[]
+
+[NOTE]
+Although the total monetary amount and saveables list
+in the summary tab is obtained by adding up all the
+savings from every coupon regardless of the date,
+the savings graph may not display every weeks' savings
+as it only displays up to a maximum of 10 weeks.
 
 === Help tab
 
@@ -213,8 +263,8 @@ The help tab shows you a short description of how
 to use all the commands in Coupon Stash.
 
 [WARNING]
-As compared to the User Guide, the description in the
-help tab is less detailed!
+As compared to the User Guide's descriptions, the
+descriptions provided in the help tab are less detailed!
 
 === Calendar
 
@@ -438,6 +488,7 @@ If there is an intention to use the coupon, you can
 
 
 // tag::saved[]
+[[saved]]
 === Viewing savings: `saved`
 
 Shows you how much you have saved by using coupons in Coupon Stash.
@@ -485,6 +536,7 @@ between 1 May 2019 and 20 March 2020.
 // end::saved[]
 
 // tag::archive[]
+[[archive]]
 === Archiving a coupon: `archive`
 Archives a coupon when you want to keep a record of it, without cluttering your
 current stash of coupons.
