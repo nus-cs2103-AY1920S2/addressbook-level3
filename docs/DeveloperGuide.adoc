@@ -1041,6 +1041,16 @@ The following activity diagram illustrates what happens when a user executes `do
 .Done Receipt Command Activity Diagram
 image::ExpenseSplitterDoneReceiptCommandActivityDiagram.png[]
 
+*Structure of Done Receipt Command* +
+
+In this section, you will learn more about the relationships between objects related to the `donereceipt` command.
+
+.Done Receipt Command Class Diagram
+image::ExpenseSplitterDoneReceiptCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `DoneReceiptCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `DoneReceiptCommand`.
+
 *Implementation of Done Receipt Command*
 
 The following is a detailed explanation of the operations `DoneReceiptCommand` performs.

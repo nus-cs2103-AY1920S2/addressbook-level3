@@ -1,0 +1,48 @@
+@startuml
+/' @author @sheexiong'/
+/' Got inspiration and adapted
+from https://github.com/AY1920S2-CS2103T-W12-1/main/blob/master/docs/images/DeliveredClassDiagram.png '/
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
+}
+
+class DoneReceiptCommand extends Command {
+    /' Methods '/
+    + execute(splitterModel : SplitterModel) : CommandResult
+}
+
+interface SplitterModel <<Interface>> {
+    + listReceipt() : void
+    + getReceipt() : Receipt
+}
+
+class SplitterModelManager implements SplitterModel {
+    /' Fields '/
+    - Receipt : receipt
+
+    /' Methods '/
+    + listReceipt() : void
+    + getReceipt() : Receipt
+}
+
+class Receipt {
+    /' Fields '/
+    - boolean : isDone
+
+    /' Methods '/
+    + markDone() : void
+}
+
+
+DoneReceiptCommand .left.> SplitterModel
+SplitterModelManager *-right->"1" Receipt
+SplitterModel ..> Receipt
+
+
+@enduml
