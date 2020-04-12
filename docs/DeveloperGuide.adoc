@@ -698,7 +698,7 @@ In this section, we will learn more about how the `metrics` command is implement
 
 The `metrics` command allows the user to check their health metrics. These include their Height, Weight and Dieting Mode.
 
-The `metrics` command was implemented as `MetricsCOmmand` in the `diettracker/logic` package.
+The `metrics` command was implemented as `MetricsCommand` in the `diettracker/logic` package.
 
 The `metrics` command has the following input format:
 
