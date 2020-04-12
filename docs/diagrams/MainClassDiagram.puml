@@ -9,7 +9,7 @@ package Main <<Rectangle>>{
     Class MainApp
     Class SplashScreen
     Class Preloader
-    Class Application   
+    Class Application
 }
 
 package Ui <<Rectangle>> {

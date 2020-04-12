@@ -12,7 +12,7 @@ package UI <<Rectangle>>{
     Class "{abstract}\nUiPart" as UiPart
     Class CommandBox
     Class ResultDisplay
-    
+
     Class HomePanel
     Class ExerciseListPanel
     Class WorkoutListPanel

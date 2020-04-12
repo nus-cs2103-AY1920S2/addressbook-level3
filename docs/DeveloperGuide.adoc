@@ -75,7 +75,7 @@ image::MainClassDiagram.png[]
 
 *API* : link:{codeURL}/src/main/java/seedu/zerotoone/Main.java[`Main.java`]
 
-The `Main` class consists of the `SplashScreen` and the `MainApp`. 
+The `Main` class consists of the `SplashScreen` and the `MainApp`.
 
 When the app starts up, `Main#main` is called. This sets the `Preloader` of the `Application` to be `SplashScreen`. Thereafter, it launches `MainApp`.
 
@@ -93,7 +93,7 @@ The UI consists of a `MainWindow` that is made up of a `CommandBox`, `ResultDisp
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{codeURL}/src/main/java/seedu/zerotoone/ui/MainWindow.java[`MainWindow`] is specified in link:{codeURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component executes user commands using the `Logic` component. 
+The `UI` component executes user commands using the `Logic` component.
 
 For more information about each component, check out the 'Implementation' section.
 
@@ -258,8 +258,10 @@ workout session.
 
 // tag::exercise[]
 === Exercise
-==== Implementation
+==== Overview
 The exercise feature forms the basic building block for the application. It allows users to CRUD exercises, which will then be used for the creation of workouts. The command is prefixed by the keyword `exercise`. Available commands are `create`, `edit`, `list`, `delete` and many more.
+
+==== Implementation
 
 .Exercise's CreateCommand Sequence Diagram
 image::exercise/CreateCommandSequenceDiagram.png[]
