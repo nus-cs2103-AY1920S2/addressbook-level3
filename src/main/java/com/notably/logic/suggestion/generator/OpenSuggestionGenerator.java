@@ -31,7 +31,7 @@ public class OpenSuggestionGenerator implements SuggestionGenerator {
         Objects.requireNonNull(oldTitle);
 
         if (oldTitle.isBlank()) {
-            logger.warning("\"oldTitle\" must contain at least one element");
+            logger.warning("\"oldTitle\" must not be blank");
             throw new IllegalArgumentException("The \"oldTitle\" must contain at least one element");
         }
 
@@ -49,7 +49,7 @@ public class OpenSuggestionGenerator implements SuggestionGenerator {
         List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
         model.setSuggestions(suggestions);
-        logger.info("Suggestions are saved to model");
+        logger.info("Open suggestions are saved to model");
     }
 
     /**

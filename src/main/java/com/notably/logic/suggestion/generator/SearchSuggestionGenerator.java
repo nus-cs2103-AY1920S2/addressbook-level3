@@ -40,7 +40,7 @@ public class SearchSuggestionGenerator implements SuggestionGenerator {
         List<SuggestionItem> suggestions = getSuggestions(model);
         sortSuggestions(suggestions);
         model.setSuggestions(suggestions);
-        logger.info("Suggestions are saved to model");
+        logger.info("Search suggestions are saved to model");
     }
 
     /**
@@ -111,7 +111,7 @@ public class SearchSuggestionGenerator implements SuggestionGenerator {
             } catch (CommandException ex) {
                 /* notes suggested will definitely be able to be opened,
                 as the block actually exists. AssertionError would never be thrown */
-                logger.warning("AssertionError inside the runnable action should never be thrown.");
+                logger.severe("AssertionError inside the runnable action should never be thrown.");
                 throw new AssertionError(ex.getMessage());
             }
         };
@@ -129,14 +129,14 @@ public class SearchSuggestionGenerator implements SuggestionGenerator {
         Collections.sort(suggestions, (suggestion1, suggestion2) -> {
             if (!suggestion1.getProperty("frequency").isPresent()
                     || !suggestion2.getProperty("frequency").isPresent()) {
-                logger.warning("All search suggestion item must contain the \"frequency\" property");
+                logger.severe("All search suggestion item must contain the \"frequency\" property");
                 throw new AssertionError("All search suggestion item must contain the \"frequency\" "
                         + "property");
             }
 
             if (!suggestion1.getProperty("displayText").isPresent()
                     || !suggestion2.getProperty("displayText").isPresent()) {
-                logger.warning("All search suggestion item must contain the \"displayText\" property");
+                logger.severe("All search suggestion item must contain the \"displayText\" property");
                 throw new AssertionError("All search suggestion item must contain the \"displayText\" "
                         + "property");
             }
