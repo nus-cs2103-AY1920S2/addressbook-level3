@@ -1,0 +1,17 @@
+@startuml
+start
+:User executes delete command;
+:MODdy parses command for tags;
+if () then ([contains valid tag])
+  :Check object name given as parameter;
+  if () then ([valid object])
+
+  :Delete object and reflect changes on respective UI;
+  else ([else])
+  :Display invalid object message;
+  endif
+else ([else])
+  :Display usage error message;
+endif
+stop
+@enduml
