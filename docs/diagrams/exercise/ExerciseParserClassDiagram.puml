@@ -1,0 +1,49 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+Class "{abstract}\nCommand" as Command
+
+Package "Exercise Parsers" <<Rectangle>> {
+    Class ExerciseCommandParser
+    Class CreateCommandParser
+    Class DeleteCommandParser
+    Class EditCommandParser
+    Class FindCommandParser
+    Class ExerciseParserUtil
+
+    Package "Exercise Set Parsers" <<Rectangle>> {
+        Class SetCommandParser
+        Class AddCommandParser
+        Class "DeleteCommandParser" as SetDeleteCommandParser
+        Class "EditCommandParser" as SetEditCommandParser
+        Class SetParserUtil
+    }
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> ExerciseCommandParser
+
+ExerciseCommandParser .up.> Command : creates >
+
+ExerciseCommandParser .down.> CreateCommandParser : creates >
+ExerciseCommandParser .down.> DeleteCommandParser : creates >
+ExerciseCommandParser .down.> EditCommandParser : creates >
+ExerciseCommandParser .down.> FindCommandParser : creates >
+ExerciseCommandParser .down.> SetCommandParser : creates >
+
+CreateCommandParser .down.> ExerciseParserUtil
+DeleteCommandParser .down.> ExerciseParserUtil
+EditCommandParser .down.> ExerciseParserUtil
+FindCommandParser .down.> ExerciseParserUtil
+
+SetCommandParser .down.> AddCommandParser : creates >
+SetCommandParser .down.> SetDeleteCommandParser : creates >
+SetCommandParser .down.> SetEditCommandParser : creates >
+AddCommandParser .down.> SetParserUtil
+SetDeleteCommandParser .down.> SetParserUtil
+SetEditCommandParser .down.> SetParserUtil
+
+@enduml
