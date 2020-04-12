@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.modelObjectTags.CompositeID;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelProgress.ProgressAddressBook;
-import seedu.address.model.person.CompositeID;
-import seedu.address.model.person.ID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,7 +59,10 @@ public class TypicalProgress {
         }
     }
 
-    private TypicalProgress() {};
+    private TypicalProgress() {
+    }
+
+    ;
 
     /**
      * Returns an {@code AddressBook} with all the typical Progress.

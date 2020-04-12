@@ -9,14 +9,14 @@ import java.nio.file.Path;
  */
 public interface ReadOnlyUserPrefs {
 
-  /**
-   * Get GUI Settings.
-   */
-  GuiSettings getGuiSettings();
+    /**
+     * Get GUI Settings.
+     */
+    GuiSettings getGuiSettings();
 
-  /**
-   * Get address book File Path.
-   */
-  Path getAddressBookFilePath();
+    /**
+     * Get address book File Path.
+     */
+    Path getAddressBookFilePath();
 
 }

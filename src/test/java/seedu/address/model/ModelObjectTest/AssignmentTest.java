@@ -2,8 +2,8 @@ package seedu.address.model.ModelObjectTest;
 
 import org.junit.jupiter.api.Test;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Name;
+import seedu.address.model.modelObjectTags.Date;
+import seedu.address.model.modelObjectTags.Name;
 import seedu.address.model.tag.Tag;
 
 import java.util.HashSet;
@@ -15,6 +15,7 @@ public class AssignmentTest {
     public static Name validName = new Name("Test Name");
     public static Date validDate = new Date("2020-04-13");
     public static Set<Tag> validTags = new HashSet<Tag>();
+
     @Test
     public void isValidAssignment() {
         // null assignment

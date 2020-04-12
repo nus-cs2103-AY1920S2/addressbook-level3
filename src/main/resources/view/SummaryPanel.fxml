@@ -1,96 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<VBox id="summary-panel" prefHeight="500.0" prefWidth="466.0" xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="totalStudents1" prefHeight="59.0" prefWidth="445.0" text="Welcome to Code Camp X!">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+    <Label fx:id="totalStudents11" prefHeight="60.0" prefWidth="445.0" text="Here are the statistics for your camp:">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </Label>
+    <HBox prefHeight="80.0" prefWidth="200.0">
+        <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@ourImages/student.png"/>
+                </image>
+            </ImageView>
+            <Label fx:id="totalStudents" prefHeight="115.0" prefWidth="347.0" text="Total Students: ">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox prefHeight="80.0" prefWidth="200.0">
+        <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@ourImages/staff.png"/>
+                </image>
+            </ImageView>
+            <Label fx:id="totalStaffs" prefHeight="116.0" prefWidth="342.0" text="Total Staffs: ">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox prefHeight="80.0" prefWidth="200.0">
+        <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@ourImages/course.png"/>
+                </image>
+            </ImageView>
+            <Label fx:id="totalCourses" prefHeight="115.0" prefWidth="340.0" text="Total Courses: ">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox prefHeight="80.0" prefWidth="200.0">
+        <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@ourImages/finance.png"/>
+                </image>
+            </ImageView>
+            <Label fx:id="totalFinances" prefHeight="115.0" prefWidth="332.0" text="Total Finances: ">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox prefHeight="80.0" prefWidth="200.0">
+        <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@ourImages/assignment.png"/>
+                </image>
+            </ImageView>
+            <Label fx:id="totalAssignments" prefHeight="80.0" prefWidth="340.0" text="Total Assigments: ">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Label>
+        </children>
+    </HBox>
 
-<VBox id="summary-panel" prefHeight="500.0" prefWidth="466.0"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <Label fx:id="totalStudents1" prefHeight="59.0" prefWidth="445.0" text="Welcome to Code Camp X!">
-      <font>
-         <Font size="24.0" />
-      </font>
-   </Label>
-   <Label fx:id="totalStudents11" prefHeight="60.0" prefWidth="445.0" text="Here are the statistics for your camp:">
-      <font>
-         <Font size="18.0" />
-      </font>
-   </Label>
-   <HBox prefHeight="80.0" prefWidth="200.0">
-      <children>
-         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@ourImages/student.png" />
-            </image>
-         </ImageView>
-         <Label fx:id="totalStudents" prefHeight="115.0" prefWidth="347.0" text="Total Students: ">
-            <font>
-               <Font size="24.0" />
-            </font>
-         </Label>
-      </children>
-   </HBox>
-   <HBox prefHeight="80.0" prefWidth="200.0">
-      <children>
-         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@ourImages/staff.png" />
-            </image>
-         </ImageView>
-         <Label fx:id="totalStaffs" prefHeight="116.0" prefWidth="342.0" text="Total Staffs: ">
-            <font>
-               <Font size="24.0" />
-            </font>
-         </Label>
-      </children>
-   </HBox>
-   <HBox prefHeight="80.0" prefWidth="200.0">
-      <children>
-         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@ourImages/course.png" />
-            </image>
-         </ImageView>
-         <Label fx:id="totalCourses" prefHeight="115.0" prefWidth="340.0" text="Total Courses: ">
-            <font>
-               <Font size="24.0" />
-            </font>
-         </Label>
-      </children>
-   </HBox>
-   <HBox prefHeight="80.0" prefWidth="200.0">
-      <children>
-         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@ourImages/finance.png" />
-            </image>
-         </ImageView>
-         <Label fx:id="totalFinances" prefHeight="115.0" prefWidth="332.0" text="Total Finances: ">
-            <font>
-               <Font size="24.0" />
-            </font>
-         </Label>
-      </children>
-   </HBox>
-   <HBox prefHeight="80.0" prefWidth="200.0">
-      <children>
-         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@ourImages/assignment.png" />
-            </image>
-         </ImageView>
-         <Label fx:id="totalAssignments" prefHeight="80.0" prefWidth="340.0" text="Total Assigments: ">
-            <font>
-               <Font size="24.0" />
-            </font>
-         </Label>
-      </children>
-   </HBox>
-
-   <padding>
-      <Insets left="10" />
-   </padding>
+    <padding>
+        <Insets left="10"/>
+    </padding>
 </VBox>

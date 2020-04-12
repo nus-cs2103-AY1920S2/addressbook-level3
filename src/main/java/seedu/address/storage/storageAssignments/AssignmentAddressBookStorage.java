@@ -13,39 +13,39 @@ import java.util.Optional;
  */
 public interface AssignmentAddressBookStorage {
 
-  /**
-   * Returns the file path of the data file.
-   */
-  Path getAssignmentAddressBookFilePath();
+    /**
+     * Returns the file path of the data file.
+     */
+    Path getAssignmentAddressBookFilePath();
 
-  /**
-   * Returns AssignmentAddressBook data as a {@link ReadOnlyAddressBookGeneric<Assignment>}. Returns {@code
-   * Optional.empty()} if storage file is not found.
-   *
-   * @throws DataConversionException if the data in storage is not in the expected format.
-   * @throws IOException             if there was any problem when reading from the storage.
-   */
-  Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook()
-      throws DataConversionException, IOException;
+    /**
+     * Returns AssignmentAddressBook data as a {@link ReadOnlyAddressBookGeneric<Assignment>}. Returns {@code
+     * Optional.empty()} if storage file is not found.
+     *
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException             if there was any problem when reading from the storage.
+     */
+    Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook()
+            throws DataConversionException, IOException;
 
-  /**
-   * @see #getAssignmentAddressBookFilePath()
-   */
-  Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook(Path filePath)
-      throws DataConversionException, IOException;
+    /**
+     * @see #getAssignmentAddressBookFilePath()
+     */
+    Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook(Path filePath)
+            throws DataConversionException, IOException;
 
-  /**
-   * Saves the given {@link ReadOnlyAddressBookGeneric<Assignment>} to the storage.
-   *
-   * @param assignmentAddressBook cannot be null.
-   * @throws IOException if there was any problem writing to the file.
-   */
-  void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) throws IOException;
+    /**
+     * Saves the given {@link ReadOnlyAddressBookGeneric<Assignment>} to the storage.
+     *
+     * @param assignmentAddressBook cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) throws IOException;
 
-  /**
-   * @see #saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment>)
-   */
-  void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook, Path filePath)
-      throws IOException;
+    /**
+     * @see #saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment>)
+     */
+    void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook, Path filePath)
+            throws IOException;
 
 }

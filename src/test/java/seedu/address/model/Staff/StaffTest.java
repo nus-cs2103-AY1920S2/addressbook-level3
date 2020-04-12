@@ -1,8 +1,8 @@
 package seedu.address.model.Staff;
 
 import org.junit.jupiter.api.Test;
+import seedu.address.model.modelObjectTags.*;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 import java.util.HashSet;
@@ -12,6 +12,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 public class StaffTest {
     public static Set<Tag> tags = new HashSet<Tag>();
+
     @Test
     public void isValidStaff() {
         // null staff

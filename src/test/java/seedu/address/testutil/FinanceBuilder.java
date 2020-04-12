@@ -1,15 +1,12 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
 import seedu.address.model.modelFinance.Finance;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.FinanceType;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
+import seedu.address.model.modelObjectTags.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A utility class to help with building Finance objects.
@@ -72,7 +69,7 @@ public class FinanceBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Finance} that we are building.
      */
-    public FinanceBuilder withTags(String ... tags) {
+    public FinanceBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }

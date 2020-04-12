@@ -4,36 +4,34 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
-import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
 import seedu.address.logic.commands.commandUndone.UndoneOneAssignmentOneStudent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
 
 import java.util.Set;
 import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 
 public class DoneOneAssignmentOneStudent extends DoneCommandBase {
     private static final Logger logger = LogsCenter.getLogger(DoneOneAssignmentOneStudent.class);
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Marks an assignment as done for a student. "
-            + "Parameters: "
-            + PREFIX_ASSIGNMENTID + "ASSIGNMENTID "
-            + PREFIX_STUDENTID + "STUDENTID"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ASSIGNMENTID + "100"
-            + PREFIX_STUDENTID + "329";
+                    + "Parameters: "
+                    + PREFIX_ASSIGNMENTID + "ASSIGNMENTID "
+                    + PREFIX_STUDENTID + "STUDENTID"
+                    + "Example: " + COMMAND_WORD + " "
+                    + PREFIX_ASSIGNMENTID + "100"
+                    + PREFIX_STUDENTID + "329";
 
     public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such Student that with ID";
     public static final String MESSAGE_INVALID_ASSIGNMENT_ID = "There is no such Assignment that with ID";
@@ -97,7 +95,7 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
         } else {
             Progress progress = model.getProgress(assignmentID, studentID);
 
-            if(progress.getIsDone()) {
+            if (progress.getIsDone()) {
                 throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_DONE);
             }
 

@@ -55,11 +55,7 @@
     -fx-size: 35;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
-    -fx-border-color:
-        transparent
-        transparent
-        derive(-fx-base, 80%)
-        transparent;
+    -fx-border-color: transparent transparent derive(-fx-base, 80%) transparent;
     -fx-border-insets: 0 10 1 0;
 }
 
@@ -94,9 +90,10 @@
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
+    -fx-graphic-text-gap: 0;
     -fx-padding: 0 0 0 0;
 }
+
 .list-cell:filled:even #cardPaneProgress {
     -fx-background-color: linear-gradient(from 80% 80% to 100% 100%, #31493C, #B3EFB2);
 
@@ -150,23 +147,23 @@
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #75AA68, #73CE91);
 }
 
-.list-cell:filled:selected #cardPaneCourse{
+.list-cell:filled:selected #cardPaneCourse {
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPaneStudent{
+.list-cell:filled:selected #cardPaneStudent {
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPaneStaff{
+.list-cell:filled:selected #cardPaneStaff {
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPaneAssignment{
+.list-cell:filled:selected #cardPaneAssignment {
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPaneFinance{
+.list-cell:filled:selected #cardPaneFinance {
     -fx-background-color: #424d5f;
 }
 
@@ -188,36 +185,36 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(grey, 20%);
+    -fx-background-color: derive(grey, 20%);
 }
 
 .pane-with-border {
-     -fx-background-color: derive(black, 20%);
-     -fx-border-color: derive(#1d4e89, 10%);
-     -fx-border-top-width: 1px;
+    -fx-background-color: derive(black, 20%);
+    -fx-border-color: derive(#1d4e89, 10%);
+    -fx-border-top-width: 1px;
 }
 
 .summary-pane {
-     -fx-background-color: derive(#ffffff, 20%);
-     -fx-border-color: derive(#000000, 70%);
-     -fx-border-top-width: 1px;
+    -fx-background-color: derive(#ffffff, 20%);
+    -fx-border-color: derive(#000000, 70%);
+    -fx-border-top-width: 1px;
 }
 
 .white-pane {
-     -fx-background-color: derive(#ffffff, 20%);
-     -fx-border-color: derive(#000000, 70%);
-     -fx-border-top-width: 1px;
+    -fx-background-color: derive(#ffffff, 20%);
+    -fx-border-color: derive(#000000, 70%);
+    -fx-border-top-width: 1px;
 }
 
 
 .right-pane {
-     -fx-background-color: derive(grey, 20%);
-     -fx-border-color: derive(grey, 70%);
-     -fx-border-top-width: 5px;
+    -fx-background-color: derive(grey, 20%);
+    -fx-border-color: derive(grey, 70%);
+    -fx-border-top-width: 5px;
 }
 
 .card-pane {
-     -fx-background-color: grey;
+    -fx-background-color: grey;
 }
 
 .status-bar {
@@ -273,7 +270,7 @@
 .menu-bar {
     -fx-background-color: derive(white, 20%);
     -fx-border-color: derive(black, 30%);
-        -fx-border-width: 1px;
+    -fx-border-width: 1px;
 }
 
 .menu-bar .label {
@@ -304,14 +301,15 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-text-fill: #1d1d1d;
-  -fx-background-color: #FF0728;
+    -fx-text-fill: #1d1d1d;
+    -fx-background-color: #FF0728;
 }
 
 .button:focused {
     -fx-text-fill: white;
     -fx-background-color: #9886FF;
 }
+
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
     -fx-background-color: #1d4e89;
@@ -416,7 +414,7 @@
 }
 
 #buttonBar {
-     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #3916FC, #A17CFF);
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #3916FC, #A17CFF);
 }
 
 #mainPane {
@@ -433,10 +431,10 @@
 }
 
 #summary-panel {
-     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1d4e89, #1D6987);
-     -fx-border-color: derive(#000000, 70%);
-     -fx-border-top-width: 1px;
-     -fx-text-fill: white;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1d4e89, #1D6987);
+    -fx-border-color: derive(#000000, 70%);
+    -fx-border-top-width: 1px;
+    -fx-text-fill: white;
 }
 
 #detailedPanel {

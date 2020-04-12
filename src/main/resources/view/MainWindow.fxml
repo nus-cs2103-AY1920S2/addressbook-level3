@@ -1,131 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import java.net.URL?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root minHeight="910" minWidth="1000" onCloseRequest="#handleExit" title="Code Camp X" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <icons>
-    <Image url="@/images/CCXLogo.png" />
-  </icons>
-  <scene>
-    <Scene>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-         <top>
-           <MenuBar id="menuBar" fx:id="menuBar" VBox.vgrow="ALWAYS">
-             <Menu mnemonicParsing="false" text="File">
-               <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-             </Menu>
-             <Menu mnemonicParsing="false" text="Help">
-               <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-             </Menu>
-             <padding>
-               <Insets bottom="5" left="10" right="10" top="5" />
-             </padding>
-           </MenuBar>
-         </top>
-         <left>
-           <VBox fx:id="buttonBar" minWidth="150.0" prefHeight="400.0" prefWidth="152.0" spacing="5" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-             <children>
-            <Button onMousePressed="#handleSwitchToSummary">
-              <graphic>
-               <ImageView fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                      <Image url="@../images/CCXLogo.png" />
-                   </image>
-                </ImageView>
-              </graphic>
-            </Button>
-               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStudent" prefHeight="150.0" prefWidth="145.0" text="Students      ">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                 <image>
-                   <Image url="@ourImages/student.png" />
-                 </image>
-               </ImageView>
-               </graphic></Button>
-               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStaff" prefHeight="150.0" prefWidth="145.0" text="Staffs      ">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@ourImages/staff.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToCourse" prefHeight="150.0" prefWidth="145.0" text="Courses       ">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@ourImages/course.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToFinance" prefHeight="150.0" prefWidth="145.0" text="Finances      ">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@ourImages/finance.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToAssignment" prefHeight="150.0" prefWidth="145.0" text="Assignments">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@ourImages/assignment.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-             </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-           </VBox>
-         </left>
-   <bottom>
-            <VBox prefHeight="111.0" prefWidth="604.0" BorderPane.alignment="CENTER">
-               <children>
-                  <StackPane fx:id="statusbarPlaceholder" prefHeight="150.0" prefWidth="200.0" />
-                  <StackPane fx:id="resultDisplayPlaceholder" minHeight="140" prefHeight="140.0" prefWidth="200.0" />
-                  <StackPane fx:id="commandBoxPlaceholder" prefHeight="150.0" prefWidth="200.0" />
-               </children>
-            </VBox>
-   </bottom>
-   <center>
-      <HBox id="mainPane" prefHeight="1000.0" prefWidth="1000.0" spacing="25" BorderPane.alignment="CENTER">
-        <padding>
-          <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-        </padding>
-         <children>
-                  <StackPane fx:id="dataListPanelPlaceholder" prefHeight="1554.0" prefWidth="2032.0">
-               <effect>
-                  <DropShadow color="#222222" height="29.9" radius="16.6725" spread="0.13" width="38.79" />
-               </effect>
-            </StackPane>
-            <StackPane fx:id="extraListPanelPlaceholder" prefHeight="254.0" prefWidth="2014.0">
-               <effect>
-                  <DropShadow color="#222222" height="29.9" radius="16.6725" spread="0.13" width="38.79" />
-               </effect>
-            </StackPane>
-         </children>
-      </HBox>
-   </center>
-      </BorderPane>
-<stylesheets>
-<URL value="@DarkTheme.css" />
-<URL value="@Extensions.css" />
-</stylesheets>
-  </Scene>
-  </scene>
-  </fx:root>
+<?import java.net.URL?>
+<fx:root minHeight="910" minWidth="1000" onCloseRequest="#handleExit" title="Code Camp X" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/CCXLogo.png"/>
+    </icons>
+    <scene>
+        <Scene>
+            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                        prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+                        xmlns:fx="http://javafx.com/fxml/1">
+                <top>
+                    <MenuBar id="menuBar" fx:id="menuBar" VBox.vgrow="ALWAYS">
+                        <Menu mnemonicParsing="false" text="File">
+                            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+                        </Menu>
+                        <padding>
+                            <Insets bottom="5" left="10" right="10" top="5"/>
+                        </padding>
+                    </MenuBar>
+                </top>
+                <left>
+                    <VBox fx:id="buttonBar" minWidth="150.0" prefHeight="400.0" prefWidth="152.0" spacing="5"
+                          xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+                        <children>
+                            <Button onMousePressed="#handleSwitchToSummary">
+                                <graphic>
+                                    <ImageView fitHeight="130.0" fitWidth="130.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <image>
+                                            <Image url="@../images/CCXLogo.png"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                            <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStudent" prefHeight="150.0"
+                                    prefWidth="145.0" text="Students      ">
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <image>
+                                            <Image url="@ourImages/student.png"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                            <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStaff" prefHeight="150.0"
+                                    prefWidth="145.0" text="Staffs      ">
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <image>
+                                            <Image url="@ourImages/staff.png"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                            <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToCourse" prefHeight="150.0"
+                                    prefWidth="145.0" text="Courses       ">
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <image>
+                                            <Image url="@ourImages/course.png"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                            <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToFinance" prefHeight="150.0"
+                                    prefWidth="145.0" text="Finances      ">
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <image>
+                                            <Image url="@ourImages/finance.png"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                            <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToAssignment"
+                                    prefHeight="150.0" prefWidth="145.0" text="Assignments">
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <image>
+                                            <Image url="@ourImages/assignment.png"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                        </children>
+                        <padding>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        </padding>
+                    </VBox>
+                </left>
+                <bottom>
+                    <VBox prefHeight="111.0" prefWidth="604.0" BorderPane.alignment="CENTER">
+                        <children>
+                            <StackPane fx:id="statusbarPlaceholder" prefHeight="150.0" prefWidth="200.0"/>
+                            <StackPane fx:id="resultDisplayPlaceholder" minHeight="140" prefHeight="140.0"
+                                       prefWidth="200.0"/>
+                            <StackPane fx:id="commandBoxPlaceholder" prefHeight="150.0" prefWidth="200.0"/>
+                        </children>
+                    </VBox>
+                </bottom>
+                <center>
+                    <HBox id="mainPane" prefHeight="1000.0" prefWidth="1000.0" spacing="25"
+                          BorderPane.alignment="CENTER">
+                        <padding>
+                            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                        </padding>
+                        <children>
+                            <StackPane fx:id="dataListPanelPlaceholder" prefHeight="1554.0" prefWidth="2032.0">
+                                <effect>
+                                    <DropShadow color="#222222" height="29.9" radius="16.6725" spread="0.13"
+                                                width="38.79"/>
+                                </effect>
+                            </StackPane>
+                            <StackPane fx:id="extraListPanelPlaceholder" prefHeight="254.0" prefWidth="2014.0">
+                                <effect>
+                                    <DropShadow color="#222222" height="29.9" radius="16.6725" spread="0.13"
+                                                width="38.79"/>
+                                </effect>
+                            </StackPane>
+                        </children>
+                    </HBox>
+                </center>
+            </BorderPane>
+            <stylesheets>
+                <URL value="@DarkTheme.css"/>
+                <URL value="@Extensions.css"/>
+            </stylesheets>
+        </Scene>
+    </scene>
+</fx:root>

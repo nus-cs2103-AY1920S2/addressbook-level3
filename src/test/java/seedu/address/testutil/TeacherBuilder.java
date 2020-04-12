@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
+import seedu.address.model.modelObjectTags.*;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -105,7 +105,7 @@ public class TeacherBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Teacher} that we are building.
      */
-    public TeacherBuilder withTags(String ... tags) {
+    public TeacherBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }

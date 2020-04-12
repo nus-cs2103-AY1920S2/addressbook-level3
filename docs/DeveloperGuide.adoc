@@ -26,36 +26,32 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureNewDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+Given below is a quick overview of each component.
 
 ==== Design Pattern and Control Flow
+
 Two main design patterns were used in the design of our software.
 
-* A/ Model - View - ViewModel Control Flow
+Model - View - ViewModel (MVVM) Control Flow::
 
 Design Consideration between Model-View-Controller(MVC) and Model-View-ViewModel(MVVM) design:
 
-- The original design was a standard MVC, where Controller is our LogicManager,
-and the Model is our ModelManager. Then components in the view will bind to
-the model objects, whenever there is an update to the model object the UI view will be updated automatically.
+- The original design was a standard MVC, where Controller is our LogicManager, and the Model is our ModelManager.
+Then components in the view will bind to the model objects, whenever there is an update to the model object the UI view will be updated automatically.
 
-- However, the more UI custom views logic we decide, we might need to push more and more custom
-UI-specific logic to our Model and ViewController class, which is not very desirable. Or as the infamous quote, MVC becomes
-"Massive View Controller".
+- However, the more UI custom views logic we decide, we might need to push more and more custom UI-specific logic to our Model and ViewController class, which is not very desirable.
+Or as the infamous quote, MVC becomes "Massive View Controller".
 
-- Instead, we will adapt to MVVM design, where ViewModel will hold a list of observableMap
-of data. Each custom view in our UI will have a one-to-one mapping with an observableMap,
-and to calculate those observableMap the ViewModel will make use of the Managers we define.
+- Instead, we will adapt to MVVM design, where ViewModel will hold a list of observableMap of data.
+Each custom view in our UI will have a one-to-one mapping with an observableMap, and to calculate those observableMap the ViewModel will make use of the Managers we define.
 
-* B/ Event-Driven Design
+Event-Driven Design::
 
+We adopt event-driven design, where different components will try to communicate with each other through publishing events and subscribing to events, de-couple between components, and facilitate communication between components a lot.
 
-We adopt event-driven design, where different components will try to communicate with each other
-through publishing events and subscribing to events, de-couple between components, and facilitate communication between components a lot.
-
-** To separate responsibilities well between components, we divide them into multiple managers,
-all extending from the BaseManager class. The BaseManager will always hold refer to the EventsCenter
-(which is designed to be a singleton class in our case)
+** To separate responsibilities well between components, we divide them into multiple managers, all extending from the BaseManager class.
+The BaseManager will always hold refer to the EventsCenter (which is designed to be a singleton class in our case)
 
 *** One is publishing managers (those in Model section, i.e EdgeManager, ProgressManager, etc).
 They can post events to the EventsCenterSingleton.
@@ -63,35 +59,32 @@ They can post events to the EventsCenterSingleton.
 *** The other one is subscribing managers, one is the ViewModel (which is DetailManager) and StorageManager.
 Subscribing managers will have handler method that listen to the events and decide what to do.
 
-** Different events types will extend from the BaseEvent. In our app we have
+** Different events types will extend from the BaseEvent.
+In our app we have
 
 - DataStorageChangeEvent: signals when model object changes
 
-- DeleteEntitySyncEvent: signals when the entity linking relationship is broken (e.g
-when a student is deleted, its link to course and progress and teacher, etc will be broken)
+- DeleteEntitySyncEvent: signals when the entity linking relationship is broken (e.g when a student is deleted, its link to course and progress and teacher, etc will be broken)
 
 Here is an example of how a command to delete student with ID 1 will invoke different parts along the flow.
 
 .Sequence Diagram for Events Flow
 image::EventsFlowDiagram.png[]
 
-* 1/ ViewController(i.e LogicManager) will invoke ModelManager.delete method (Note that ModelManager extends from BaseManager,
-and has the Publisher capacity)
-* 2/ ModelManager will invoke publishing of events to EventsCenterSingleton (which holds
-an EventBus), in this case postDataStorageChangeEvent
-and postDeleteEntitySyncEvent will be invoked.
-* 3/ Other BaseManagers will also hold this EventsCenterSingleton and listen to new publish events
-in the event bus. If the manager class has the handler function for that types of events,
-the method will be invoked.
-* In this case, StorageManager will have handler for both DataStorageChangeEvent and
-DeleteEntitySyncEvent, while ViewModel will have handler for DataStorageChangeEvent.
-
+. ViewController(i.e LogicManager) will invoke ModelManager.delete method (Note that ModelManager extends from BaseManager, and has the Publisher capacity)
+. ModelManager will invoke publishing of events to EventsCenterSingleton (which holds an EventBus), in this case postDataStorageChangeEvent and postDeleteEntitySyncEvent will be invoked.
+. Other BaseManagers will also hold this EventsCenterSingleton and listen to new publish events in the event bus.
+If the manager class has the handler function for that types of events, the method will be invoked.
+. In this case, StorageManager will have handler for both DataStorageChangeEvent and DeleteEntitySyncEvent, while ViewModel will have handler for DataStorageChangeEvent.
 
 ==== Architecture-Level Components
+
 Overall, the App consists of five main components.
 
-* <<Design-Ui,*`View`*>>: The UI of the App. Represented by `UI` in our implementation.
-* <<Design-Logic,*`ViewController`*>>: The command executor. Represented by `Logic` in our implementation.
+* <<Design-Ui,*`View`*>>: The UI of the App.
+Represented by `UI` in our implementation.
+* <<Design-Logic,*`ViewController`*>>: The command executor.
+Represented by `Logic` in our implementation.
 * <<Design-Storage,*`ViewModel`*>>: Updates the model for UI to display.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
@@ -100,7 +93,6 @@ In addition, <<Design-Commons,*`Commons`*>> represents a collection of classes u
 The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
 
 Each of the five components
 
@@ -130,9 +122,12 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -149,11 +144,11 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+. `Logic` uses the `AddressBookParser` class to parse the user command.
+. This results in a `Command` object which is executed by the `LogicManager`.
+. The command execution can affect the `Model` (e.g. adding a person).
+. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -163,31 +158,60 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-ViewController]]
-=== ViewModel component [NEED TO UPDATE]
-* mainly talk about detail manager
-* blah blah blah
-* blah blah blah
+=== ViewModel component (HIEU)
+image::ViewModelDiagram.png[]
+*API*: link:{repoURL}/src/main/java/seedu/address/viewmodel/ViewModel.java[`ViewModel.java`]
 
+The `ViewModel`,
+
+* stores a list of `observableMap`, each map will corresponds to one `DetailPanel` in ui folder.
+* Each `DetailPanel` (in MainWindow) will listen to the `ViewModel` through the Logic layer.
+* the `ViewModel` will then query the managers from `Model` layer to update its
+observableMap, which in turn will automatically update the corresponding `DetailPanel` view.
 
 [[Design-Model]]
-=== Model component [NEED TO UPDATE]
+=== Model component [Ivan Tee Jun Jie]
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::Ivan-ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores the 6 AddressBookGeneric<K extends ModelObject>, each of which holds a different type of ModelObject.
+The 6 types are namely
+. Student
+. Course
+. Staff
+. Assignment
+. Progress
+. Finance
+* exposes an unmodifiable `ObservableList<K extends ModelObject>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other components.
+
+Below is an example of the different types of RelevantFields that can be tied to an Assignment.
+
+.Class Diagram of Assignment
+image::Ivan-AssignmentClassDiagram.png[]
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+The AddressBookGeneric in the diagram above is actually an AddressBookGeneric<Assignment>.
+The AddressBookGeneric has been made to accept any class that extends ModelObject.
+This cannot be shown due to limitations in PUML.
+
+==== Notable Implementations in Model
+
+. By making use of `Generics` and `Polymorphism`, the group has made it such that `AddressBookGeneric<K extends ModelObject>` can hold any class that extends from ModelObject
+Benefits::
+.. Allows for code optimization by having reusable code.
+There is significant decrease in workload when code can be reused for each others' benefit instead of having duplicated code.
+.. Allows for extension easily for future features.
+Future features that involve creating new AddressBooks can be developed very quickly and allow for faster development of future features.
+
+. All `ModelObjects` implement `Cloneable` so as to allow for Defensive Programming more easily.
+.. Please refer to <<Design-Assign-Copy, `Step 2 of Section 2.2.2`>> for the team's rationale behind having ModelObject implement Cloneable.
 
 [[Design-Storage]]
 === Storage component [NEED TO UPDATE]
@@ -212,38 +236,34 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 === Command Handling by Managers
+
 ==== CRUD Commands Handled by ModelManager
+
     Explain the flow of a CRUD command from LogicManager -> ModelManager -> publish events -> StorageManager captures the events
 
-==== Non-CRUD Commands Handled by Respective Managers
-    Such as Assign, Unassign, Done, etc, in this way we can hide the implmentation behind these managers
+=== Entity Linking - Assigning/Un-Assigning an Entity to/from a Course [Tee Jun Jie Ivan]
 
-    Progress + ProgressManager goes here
-
-=== Entity Linking - Assigning/Un-Assigning an Entity to/from a Course
-In order to allow the tracking of the students/assignments/teachers that are assigned
-to a course and vice versa, this required us to implement a structure which allowed us to obtain information
-from the aforementioned objects, without causing any circular referencing errors.
+In order to allow the tracking of the students/assignments/teachers that are assigned to a course and vice versa, this required us to implement a structure which allowed us to obtain information from the aforementioned objects, without causing any circular referencing errors.
 
 .Relationship between Entities
 image::Ivan-OODMForEntityRS.png[]
 
 
-The group came up with the structure above where we centralize most links around the `Course` object so as
-for easier management of entity links. Every non-directed association between 2 objects ensures that both objects have each other's ID.
+The group came up with the structure above where we centralize most links around the `Course` object so as for easier management of entity links.
+Every non-directed association between 2 objects ensures that both objects have each other's ID.
+
 [NOTE]
-The only exception is `Progress` objects which are created via
-a composite ID of `studentID` and `assignmentID`.
+The only exception is `Progress` objects which are created via a composite ID of `studentID` and `assignmentID`.
 
-There are 3 crucial managers involved in order to ensure that the links are successfully maintained during each
-any command which involves manipulation of entity links. The three managers are:
+There are 3 crucial managers involved in order to ensure that the links are successfully maintained during each any command which involves manipulation of entity links.
+The three managers are:
 
-.  `UUID Manager` - Ensures ID of all entities are unique, allowing each object to be uniquely identifiable
-.  `Edge Manager` -  Ensures that links are maintained/removed properly during assign, un-assign, delete commands
-.  `Progress Manager` - Ensures that Progress objects are successfully created/deleted during assign, un-assign, delete commands
+. `UUID Manager` - Ensures ID of all entities are unique, allowing each object to be uniquely identifiable
+. `Edge Manager` - Ensures that links are maintained/removed properly during assign, un-assign, delete commands
+. `Progress Manager` - Ensures that Progress objects are successfully created/deleted during assign, un-assign, delete commands
 
+==== UUID Manager [Sim Sheng Xue]
 
-==== UUID Manager
 1. All ModelObjects have their own ID which is generated by UUID manager
 2. For Progress objects, the ID is a composite ID of assignmentID and studentID
 
@@ -253,24 +273,24 @@ Consideration 1
 
 Consideration 2
 
-==== Execution of Assign/Un-assign Command
-For the actual execution of an assign/unassign command, 3 main steps are performed.
+==== Execution of Assign/Un-assign Command [Tee Jun Jie Ivan]
+
+For the actual execution of an assign/un-assign command, 3 main steps are performed.
 
 . Pre-process the targeted entities to ensure consistent state - Via `PreprocessUndoCommand` method call
 . Add both object's ID into each other - Handled by `EdgeManager`
 . Create/remove Progress objects when assignments/students are involved - Handled by `Progress Manager`
 
-
 ===== Step 1: Preprocess Entities
 
 ====== Rationale
-Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command
-to ensure that all entity links are in correct state before command execution.
+
+Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command to ensure that all entity links are in correct state before command execution.
 
 ====== Current Implementation
-Below is an activity diagram showing the pre-processing
-performed for assign commands. The diagram can be generalized for un-assign commands by checking if the course contains X and vice versa in the
-second stage instead.
+
+Below is an activity diagram showing the pre-processing performed for assign commands.
+The diagram can be generalized for un-assign commands by checking if the course contains X and vice versa in the second stage instead.
 
 .Activity Diagram of Pre-processing for Assign/Un-assign commands
 image::Ivan-PreprocessAssignActivityDiagram.png[]
@@ -278,21 +298,21 @@ image::Ivan-PreprocessAssignActivityDiagram.png[]
 ---
 Notice that there are 2 main exit points in the activity diagram.
 
-. The success case is straightforward and will lead to a
-the program continuing to execute the actual assign/un-assign command.
+. The success case is straightforward and will lead to a the program continuing to execute the actual assign/un-assign command.
 . For the failure case, should any of the conditions fail, this means that either that the
 
 * specified objects does `not exist`,
 * both entities are `already assigned` to each other or,
 * most importantly, that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
 
-
 ===== Step 2: Assign IDs via EdgeManager
+
 ====== +++<u>Rationale</u>+++
-After the necessary checks have been performed, respective IDs need to be added to the targeted course and targeted object in order
-to ensure correct and consistent assigning of objects.
+
+After the necessary checks have been performed, respective IDs need to be added to the targeted course and targeted object in order to ensure correct and consistent assigning of objects.
 
 ====== +++<u>Current Implementation</u>+++
+
 Below is a sequence diagram of how EdgeManager adds the IDs to the two objects involved.
 
 .Sequence Diagram of EdgeManager's AssignXtoCourse commands
@@ -304,46 +324,53 @@ The flow of an assign command is as follows:
 . Obtain a copy of the requested `modelObjects` from `ModelManager`
 .. One of which must be a `Course` modelObject, the other being either a `Student`/`Staff`/`Assignment` modelObject
 . For object X', add the `courseID` into the assignedCourseIDs in X`
-.. For assignments, every assignment can only be assigned to at most *one course*. Hence, it'll hold just an assignedCourseID instead
-of a set of Course IDs.
+.. For assignments, every assignment can only be assigned to at most *one course*.
+Hence, it'll hold just an assignedCourseID instead of a set of Course IDs.
 . For Course C', add `X's ID` into assignedXIDs in C'
-.. For courses, every course may only have at most *one teacher*. Hence, course will have an assignedTeacherID instead
-of a set of Teacher IDs.
+.. For courses, every course may only have at most *one teacher*.
+Hence, course will have an assignedTeacherID instead of a set of Teacher IDs.
 . Update the 2 affected models by executing `set(targetObj, editedObj)` in modelManager for both changed modelObjects
 . Update the storage by running postDataStorageChangeEvent() - ref to `Figure 2` to understand how storage save is triggered
 
-NOTE: This sequence diagram can be generalized for `un-assign command` as well. Instead of adding IDs, un-assign will remove
-each other's ID from the respective objects.
+NOTE: This sequence diagram can be generalized for `un-assign command` as well.
+Instead of adding IDs, un-assign will remove each other's ID from the respective objects.
 
+[[Design-Assign-Copy]]
 ====== +++<u>Design Considerations</u>+++
-. Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObject`.
+
+. Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObjectTags`.
 Pros::
 .. Simpler implementation since any changes to the model will change the actual object directly
 .. Faster execution since any changes is done to the actual modelObject
 Cons::
 .. Might allow for unintentional changes to the actual modelObject
-. (Current Implementation) Manipulate a `copy` modelObjects by having modelManager#get() return a copy of actual modelObject.
+. (Current Implementation) Manipulate a `cloned` modelObject by having modelManager#get() return a copy of actual modelObject.
 Pros::
 .. Prevents unintentional modifications of the shared object
 Cons::
-..  Extra processing required. For example, a method is required to replace the old modelObject with the
-new model object
+.. Extra processing required.
+For example, a method is required to replace the old modelObject with the new model object.
+Also, requires all ModelObject classes to implement a clone() method.
 .. More memory intensive and can hurt overall program performance.
 
+Overall, the second option was chosen since the program is very dependent on maintaining a `consistent state`, where either 2 modelObjects have each other's ID or they do not.
+Some performance can be sacrificed in order to ensure that the links between objects cannot be modified by mistake.
+
 ===== Step 3: Add Progress objects via ProgressManager
+
 ====== +++<u>Rationale</u>+++
+
 New `Progress` objects must be created in 2 main scenarios.
 
-. If a `Student` has been added to a `Course`, the `Student` will need to complete all `Assignments` that have already been assigned
-to the `Course`.
+. If a `Student` has been added to a `Course`, the `Student` will need to complete all `Assignments` that have already been assigned to the `Course`.
 . If an `Assignment` has been added to a `Course`, all `Students` currently taking the `Course` must now complete that `Assignment`.
 
 The rationale is similar when un-assigning either `Student` or `Assignment` from a `Course`.
 `Progress` objects need to be removed instead.
 
 ====== +++<u>Current Implementation</u>+++
-Below is a sequence diagram illustrating how the ProgressManager adds Progress objects into the ProgressAddressBook
-when a `AssignStudentToCourse` command is run.
+
+Below is a sequence diagram illustrating how the ProgressManager adds Progress objects into the ProgressAddressBook when a `AssignStudentToCourse` command is run.
 
 .Activity Diagram for creating Progress objects when assigning a Student to a Course
 image::Ivan-ProgressManagerAssignStudentToCourse.png[]
@@ -351,9 +378,9 @@ image::Ivan-ProgressManagerAssignStudentToCourse.png[]
 ---
 The flow of adding Progress objects in a AssignStudentToCourse is as follows
 
-. If there are `Progress` objects that were previously in ProgressAddressBook but were removed due to an `Un-assign/Delete` command,
-add those `Progress` objects back in.
-.. This only occurs when undo-ing an `Un-assign/Delete` command. Refer to `Section 3.2.2` for more information.
+. If there are `Progress` objects that were previously in ProgressAddressBook but were removed due to an `Un-assign/Delete` command, add those `Progress` objects back in.
+.. This only occurs when undo-ing an `Un-assign/Delete` command.
+Refer to `Section 3.2.2` for more information.
 . Else, i.e. if this is an entirely new AssignStudentToCourse command,
 .. Obtain *C'*, a copy of the targeted `Course`
 .. From *C'*, obtain all assignmentIDs that are assigned to it.
@@ -363,34 +390,33 @@ add those `Progress` objects back in.
 
 Notes:
 
-- The flow is largely the same for AssignAssignmentToCourse! Instead, we want every `Student` that is currently studying in
-course *C'* to complete the particular `Assignment`. Hence, rather than obtain all assignmentIDs, we will need to obtain all
-`studentIDs` that are studying *C'*, and create a `Progress` object so that we can track whether those students have completed
-the assignment.
-- The flow is also largely the same for UnassignCommands! Instead, we are looking to remove Progress objects rather than adding them back in.
+- The flow is largely the same for AssignAssignmentToCourse!
+Instead, we want every `Student` that is currently studying in course *C'* to complete the particular `Assignment`.
+Hence, rather than obtain all assignmentIDs, we will need to obtain all
+`studentIDs` that are studying *C'*, and create a `Progress` object so that we can track whether those students have completed the assignment.
+- The flow is also largely the same for UnassignCommands!
+Instead, we are looking to remove Progress objects rather than adding them back in.
 
 ===== Summary of Entity Linking
+
 Overall, in order to ensure successful entity linking, all 3 managers involved must be involved.
 The table below shows the involvement of 3 managers with regards to each variant of the `Assign`/`Un-assign` commands.
 
 .Table Summary of Manager's involvement during Assign/Un-assign Commands
 image::Ivan-AssignSummaryTable.png[]
 
+=== Undo/Redo [Hieu]
 
-=== Undo/Redo
+Currently we only support undo/redo for commands that modify the storage (or state of the app).
+I.e add / delete, assign / un-assign, edit commands.
 
-Currently we only support undo/redo for commands that modify the storage (or state of
-the app). I.e add / delete, assign / unassign, edit commands.
-
-View Controller (LogicManager) will hold UndoRedoStack class, which stores the undoStack
-and redoStack which will be explained below.
+View Controller (LogicManager) will hold UndoRedoStack class, which stores the undoStack and redoStack which will be explained below.
 
 Those commands listed above will inherit from UndoableCommand abstract class.
 UndoableCommand will extends from Command class.
 
-UndoableCommand will contain the general algorithm flow for doing undo/ redo, while there
-will be some details delegated to the actual command class. This technique is also known as
-template pattern.
+UndoableCommand will contain the general algorithm flow for doing undo/ redo, while there will be some details delegated to the actual command class.
+This technique is also known as template pattern.
 
 [source,java]
 ----
@@ -409,25 +435,19 @@ public abstract class UndoableCommand extends Command {
 }
 ----
 
-Note that for each UndoableCommand, before execution, it needs to save some information
-(through the preprocessUndoableCommand) then generate (and store) the opposite corresponding command
-(through generateOppositeUndoableCommand)
+Note that for each UndoableCommand, before execution, it needs to save some information (through the preprocessUndoableCommand) then generate (and store) the opposite corresponding command (through generateOppositeUndoableCommand)
 
 Let's go through the example in diagram below.
-- The user first executes a new UndoableCommand delete-student. Before this delete command is executed,
-we preprocessUndoableCommand to get the to-be-deleted student object, as well as the current index
-of this student object in list.
+- The user first executes a new UndoableCommand delete-student.
+Before this delete command is executed, we preprocessUndoableCommand to get the to-be-deleted student object, as well as the current index of this student object in list.
 
-- Then we will generate a AddStudentCommand (which is
-opposite of this DeleteStudentCommand) with this studentObject and index and push it to undoStack
+- Then we will generate a AddStudentCommand (which is opposite of this DeleteStudentCommand) with this studentObject and index and push it to undoStack
 
-- When undo command is executed, the top of undoStack is popped out, then pushed to
-redoStack. Then the oppositeCommand of it will be excecuted (in this case
-AddStudentCommand will be invoked)
+- When undo command is executed, the top of undoStack is popped out, then pushed to redoStack.
+Then the oppositeCommand of it will be excecuted (in this case AddStudentCommand will be invoked)
 
-- When redo command is executed, the top of redoStack is popped out, then pushed to
-undoStack. Then the originalCommand will be executed (again) (in this case it
-will be DeleteStudentCommand again).
+- When redo command is executed, the top of redoStack is popped out, then pushed to undoStack.
+Then the originalCommand will be executed (again) (in this case it will be DeleteStudentCommand again).
 
 image::UndoRedoStack.png[]
 
@@ -442,7 +462,7 @@ Pros: Reduce a lot of memory issue.
 
 Cons: Harder to implement
 
-==== Opposite Command for edit
+==== Opposite Command for edit [Dat]
 Edit command extends from abstract class UndoableCommand. Thus, user can undo/ redo this command.
 
 In EditCommand class, method `preprocessUndoableCommand` to get the toEdit Object and edited Object.
@@ -582,113 +602,42 @@ Finance type `CourseStudent` or `cs` add command will access `CourseAddressBook`
 `Student` exist and make sure this student is taking this course. The `Amount` is set to the amount of the `Course`
 (student fee).
 
-Finance type `CourseTeacher` or `ct` add command will access `CourseAddressBook` and `TeacherAddressBook` to ensure `Course` and
-`Teacher` exist and make sure this teacher is teaching this course. The `Amount` is set to the salary of the `Teacher`
-(teacher salary).
+==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
 
-Finance type `Miscellaneous` or `m` add command will create a corresponding `Finance` object to be stored in `FinanceAddressBook`.
-To pay for `Admin staff` and record other transactions, user has to manually add a miscellaneous `Finance`, specifying
-name (description), amount, and date. Miscellaneous transactions can either be payments or earnings, such as purchases of
-stationary or advertisement revenue.
+=== View Switching [HIEU]
+To see sub-view details of each section we can issue a select command.
 
+Let's see an example of how selecting sub-view data of a student 1 works.
 
-Payments are not deleted when `teacher`, `student` and `admin` deleted. This is because the the Finance needs to record
-history transactions/ payments. A `student`, teacher` or `admin` can be deleted from the system because they no longer
-work or study here. But for all payments in the history need to be kept for tracking purposes (`expenses` and `earnings`).
-If the user input a Finance by mistake, he has to delete it manually.
+image::ViewSwitchFlowDiagram.png[]
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+. `select sid/ 1` command is issued to `ViewController`
+. `ViewController`  will call `ViewModel` method `updateStudentDetailsMap`
+. In turn, that method will invoke managers from `Model` layer, for example `ModelManager`,
+to update `observableStudentDetailMap` inside `ViewModel`
+. Because `StudentDetailsMap` implements an `onChange` function that
+listen to update in `observableStudentDetailMap`, the UI part will be updated correspondingly
+with data of this student 1.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+Design considerations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+. Automatically updating the UI sub-view when the app state changes. Let's say the current sub-view
+shown in the UI is of the details of student 1, then some information of the course of that
+student is changed, or the student is removed from the course, the UI should update immediately
+without the need to issue the click command again. To support that, our `ViewModel` will listen to `EventsCenter` , then whenever
+an event of `DataStorageChangeEvent` or `DeleteEntitySyncEvent` happens, it will check
+which `observableMap` (which corresponds to different `DetailedView`) is active then
+do the query again.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+. 2/ Lazy loading: For example, when seeing details of the students, we only want to show the courses
+that the students have without the progresses of this course that the student currently have.
+To query that, after executing `select sid/ student_id`, the user needs to run
+`select sid/ student_id cid/ course-id` as well
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging.
+The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
@@ -810,36 +759,42 @@ _{More to be added}_
 
 *MSS*
 
-1.  User inputs an 'add assignment' command with name and deadline
-2.  CCX adds the assignment into the system
-+ Use case ends.
+1. User inputs an 'add assignment' command with name and deadline
+2. CCX adds the assignment into the system + Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. No name/deadline is provided.
+* 1a.
+No name/deadline is provided.
+
 [none]
 ** 1a1. CCX shows an error message.
 +
 Use case ends.
 
-* 1b. The Date deadline is wrongly formatted.
+* 1b.
+The Date deadline is wrongly formatted.
+
 [none]
 ** 1b1. CCX shows an error message.
 
 [discrete]
+
 === Use Case 2: Listing all assignment
 
 *MSS*
 
-1.  User requests to see all assignment
-2.  CCX outputs all assignment in its database
+1. User requests to see all assignment
+2. CCX outputs all assignment in its database
 +
 Use case ends.
 
 *Extensions*
+
 [none]
-* 1a. List is empty.
+* 1a.
+List is empty.
 +
 Use case ends.
 
@@ -848,11 +803,11 @@ Use case ends.
 
 *MSS*
 
-1.  User sees all assignment using UC2
-2.  User requests to delete assignment using its respective assignmentID
-3.  CCX finds the assignment using UC4
-4.  CCX removes the assignment from the system
-5.  CCX outputs a success message with the details for the assignment
+1. User sees all assignment using UC2
+2. User requests to delete assignment using its respective assignmentID
+3. CCX finds the assignment using UC4
+4. CCX removes the assignment from the system
+5. CCX outputs a success message with the details for the assignment
 +
 Use case ends.
 
@@ -869,10 +824,10 @@ Use case ends.
 
 *MSS*
 
-1.  User sees all assignment using UC2
-2.  User requests to view a assignment using its respective assignmentID
-3.  CCX searches the the system for the relevant assignment
-4.  CCX outputs a success message with the details for the assignment
+1. User sees all assignment using UC2
+2. User requests to view a assignment using its respective assignmentID
+3. CCX searches the the system for the relevant assignment
+4. CCX outputs a success message with the details for the assignment
 +
 Use case ends.
 
@@ -889,12 +844,12 @@ Use case ends.
 
 *MSS*
 
-1.  User sees all assignment using UC2
-2.  CCX outputs the whole list of assignment
-3.  User requests to edit a assignment using its respective assignmentID
-4.  CCX finds for the specific assignment using UC4
-5.  CCX changes the details of the assignment
-6.  CCX outputs a success message with the updated details for the assignment
+1. User sees all assignment using UC2
+2. CCX outputs the whole list of assignment
+3. User requests to edit a assignment using its respective assignmentID
+4. CCX finds for the specific assignment using UC4
+5. CCX changes the details of the assignment
+6. CCX outputs a success message with the updated details for the assignment
 +
 Use case ends.
 
@@ -902,34 +857,40 @@ Use case ends.
 
 [none]
 * 3a. assignmentID does not exist.
+
 [none]
 ** 3a1. CCX shows an error message.
 +
 Use case ends.
 
-* 3b. New deadline provided is not properly formatted.
+* 3b.
+New deadline provided is not properly formatted.
+
 [none]
 ** 3b1. CCX shows an error message.
 +
 Use case ends.
 
-* 3c. No new details are provided.
+* 3c.
+No new details are provided.
+
 [none]
 ** 3c1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
+
 === Use Case 6: Assign a assignment to a course
 
 *MSS*
 
-1.  User requests to see assignment using UC2
-2.  CCX outputs the whole list of assignment
-3.  User requests to see all courses using *UC??*
-4.  User requests to assign a assignment to a course using their respective IDs
-5.  CCX adds the assignmentID into the course's list of assignment
-6.  CCX outputs a success message with the successful addition of assignment
+1. User requests to see assignment using UC2
+2. CCX outputs the whole list of assignment
+3. User requests to see all courses using *UC??*
+4. User requests to assign a assignment to a course using their respective IDs
+5. CCX adds the assignmentID into the course's list of assignment
+6. CCX outputs a success message with the successful addition of assignment
 +
 Use case ends.
 
@@ -937,59 +898,66 @@ Use case ends.
 
 [none]
 * 4a. assignmentID does not exist.
+
 [none]
 ** 4a1. CCX shows an error message.
 +
 Use case ends.
 
 * 4b. courseID does not exist.
+
 [none]
 ** 4b1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
+
 === Use Case 7: Assign several assignment to a course
 
 *MSS*
 
-1.  User requests to see assignment using UC2
-2.  CCX outputs the whole list of assignment
-3.  User requests to see all courses using *UC??*
-4.  User requests to assign a list of assignment to a course using their respective IDs
-5.  CCX adds the list of assignmentID into the course's list of assignment
-6.  CCX outputs a success message with the successful addition of assignment
+1. User requests to see assignment using UC2
+2. CCX outputs the whole list of assignment
+3. User requests to see all courses using *UC??*
+4. User requests to assign a list of assignment to a course using their respective IDs
+5. CCX adds the list of assignmentID into the course's list of assignment
+6. CCX outputs a success message with the successful addition of assignment
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 4a. Any one of the assignmentID does not exist.
+* 4a.
+Any one of the assignmentID does not exist.
+
 [none]
 ** 4a1. CCX shows an error message.
 +
 Use case ends.
 
 * 4b. courseID does not exist.
+
 [none]
 ** 4b1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
+
 === Use Case 8: Signup a student to a course
 
 *MSS*
 
-1.  User requests to see all students using *UC??*
-2.  CCX outputs the whole list of students
-3.  User requests to see all courses using *UC??*
-4.  User requests to signup a student to a course using their respective IDs
-5.  CCX finds all assignment assigned to the course
-6.  CCX creates a Progress object for each assignment and ties it to the student ID
-7.  CCX adds the Progress object into the system
-8.  CCX outputs a success message
+1. User requests to see all students using *UC??*
+2. CCX outputs the whole list of students
+3. User requests to see all courses using *UC??*
+4. User requests to signup a student to a course using their respective IDs
+5. CCX finds all assignment assigned to the course
+6. CCX creates a Progress object for each assignment and ties it to the student ID
+7. CCX adds the Progress object into the system
+8. CCX outputs a success message
 +
 Use case ends.
 
@@ -997,28 +965,31 @@ Use case ends.
 
 [none]
 * 4a. studentID does not exist.
+
 [none]
 ** 4a1. CCX shows an error message.
 +
 Use case ends.
 
 * 4b. courseID does not exist.
+
 [none]
 ** 4b1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
+
 === Use Case 9: View progress for a particular student, for a certain course
 
 *MSS*
 
-1.  User requests to see all students using *UC??*
-2.  CCX outputs the whole list of students
-3.  User requests to see all courses using *UC??*
-4.  User requests to view the progress for a student, for a course using their respective IDs
-5.  CCX finds all Progress objects using the courseID and studentID
-6.  CCX outputs all the respective Progress objects
+1. User requests to see all students using *UC??*
+2. CCX outputs the whole list of students
+3. User requests to see all courses using *UC??*
+4. User requests to view the progress for a student, for a course using their respective IDs
+5. CCX finds all Progress objects using the courseID and studentID
+6. CCX outputs all the respective Progress objects
 +
 Use case ends.
 
@@ -1026,32 +997,37 @@ Use case ends.
 
 [none]
 * 4a. studentID does not exist.
+
 [none]
 ** 4a1. CCX shows an error message.
 +
 Use case ends.
 
 * 4b. courseID does not exist.
+
 [none]
 ** 4b1. CCX shows an error message.
 +
 Use case ends.
 
-* 4c. Student is not assigned to the course.
+* 4c.
+Student is not assigned to the course.
+
 [none]
 ** 4c1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
+
 === Use Case 10: View progress for all students, for a certain course
 
 *MSS*
 
-1.  User requests to see all courses using *UC??*
-2.  User requests to view the progress for all students for a course using their respective IDs using UC9
-3.  CCX finds all Progress objects using the courseID and studentID
-4.  CCX outputs all the respective Progress objects
+1. User requests to see all courses using *UC??*
+2. User requests to view the progress for all students for a course using their respective IDs using UC9
+3. CCX finds all Progress objects using the courseID and studentID
+4. CCX outputs all the respective Progress objects
 +
 Use case ends.
 
@@ -1059,19 +1035,21 @@ Use case ends.
 
 [none]
 * 2a. courseID does not exist.
+
 [none]
 ** 2a1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
+
 === Use Case 11: Mark a student's Progress object as done
 
 *MSS*
 
-1.  User requests to see a student's Progress for a certain course using UC9
-2.  User requests to view the mark a particular Progress as 'Done' using the progressID
-3.  CCX outputs a success message with the updated Progress object
+1. User requests to see a student's Progress for a certain course using UC9
+2. User requests to view the mark a particular Progress as 'Done' using the progressID
+3. CCX outputs a success message with the updated Progress object
 +
 Use case ends.
 
@@ -1079,46 +1057,54 @@ Use case ends.
 
 [none]
 * 2a. progressID does not exist.
+
 [none]
 ** 2a1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
+
 === Use Case 12: Adding a finance
 
 *MSS*
 
-1.  User inputs an 'add finance' command with name and amount
-2.  CCX adds the finance into the system
-+ Use case ends.
+1. User inputs an 'add finance' command with name and amount
+2. CCX adds the finance into the system + Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. No name/amount is provided.
+* 1a.
+No name/amount is provided.
+
 [none]
 ** 1a1. CCX shows an error message.
 +
 Use case ends.
 
-* 1b. The amount is wrongly formatted (such as containing a non-number character).
+* 1b.
+The amount is wrongly formatted (such as containing a non-number character).
+
 [none]
 ** 1b1. CCX shows an error message.
 
 [discrete]
+
 === Use Case 13: Listing all finance
 
 *MSS*
 
-1.  User requests to see all finance
-2.  CCX outputs all finance in its database
+1. User requests to see all finance
+2. CCX outputs all finance in its database
 +
 Use case ends.
 
 *Extensions*
+
 [none]
-* 1a. List is empty.
+* 1a.
+List is empty.
 +
 Use case ends.
 
@@ -1127,11 +1113,11 @@ Use case ends.
 
 *MSS*
 
-1.  User sees all finance using UC13
-2.  User requests to delete finance using its respective financeID
-3.  CCX finds the finance using UC15
-4.  CCX removes the finance from the system
-5.  CCX outputs a success message with the details for the finance
+1. User sees all finance using UC13
+2. User requests to delete finance using its respective financeID
+3. CCX finds the finance using UC15
+4. CCX removes the finance from the system
+5. CCX outputs a success message with the details for the finance
 +
 Use case ends.
 
@@ -1148,10 +1134,10 @@ Use case ends.
 
 *MSS*
 
-1.  User sees all finance using UC13
-2.  User requests to view a finance using its respective financeID
-3.  CCX searches the the system for the relevant finance
-4.  CCX outputs a success message with the details for the finance
+1. User sees all finance using UC13
+2. User requests to view a finance using its respective financeID
+3. CCX searches the the system for the relevant finance
+4. CCX outputs a success message with the details for the finance
 +
 Use case ends.
 
@@ -1168,12 +1154,12 @@ Use case ends.
 
 *MSS*
 
-1.  User sees all finance using UC13
-2.  CCX outputs the whole list of finance
-3.  User requests to edit a finance using its respective financeID
-4.  CCX finds for the specific finance using UC15
-5.  CCX changes the details of the finance
-6.  CCX outputs a success message with the updated details for the finance
+1. User sees all finance using UC13
+2. CCX outputs the whole list of finance
+3. User requests to edit a finance using its respective financeID
+4. CCX finds for the specific finance using UC15
+5. CCX changes the details of the finance
+6. CCX outputs a success message with the updated details for the finance
 +
 Use case ends.
 
@@ -1181,24 +1167,30 @@ Use case ends.
 
 [none]
 * 3a. financeID does not exist.
+
 [none]
 ** 3a1. CCX shows an error message.
 +
 Use case ends.
 
-* 3b. New finance provided is not properly formatted (such as containing a non-number character).
+* 3b.
+New finance provided is not properly formatted (such as containing a non-number character).
+
 [none]
 ** 3b1. CCX shows an error message.
 +
 Use case ends.
 
-* 3c. No new details are provided.
+* 3c.
+No new details are provided.
+
 [none]
 ** 3c1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
+
 === Use Case 17: View details for a particular student
 
 *MSS*
@@ -1207,12 +1199,15 @@ Use case ends.
 2. CCX outputs a success message with student's detail with name, description and payment list
 
 *Extensions*
+
 [none]
 * 1a. studentID does not exist
+
 [none]
 ** 1a1. CCX shows an error message
 
 [discrete]
+
 === Use Case 18: Mark a student's course payment object as paid
 
 *MSS*
@@ -1223,14 +1218,17 @@ Use case ends.
 Use case end
 
 *Extensions*
+
 [none]
 * 1a. studentID does not exist
+
 [none]
 ** 1a1. CCX shows an error message
 * 2a. no payments exists
 ** 2a1. CCX shows a message saying no payment list found
 
 [discrete]
+
 === Use Case 19: Edit a student info using studentID
 
 *MSS*
@@ -1241,12 +1239,15 @@ Use case end
 Use case ends
 
 *Extensions*
+
 [none]
 * 1a. studentID does not exist
+
 [none]
 ** 1a1. CCX shows an error message
 
 [discrete]
+
 === Use Case 20: View all on going courses
 
 *MSS*
@@ -1256,12 +1257,16 @@ Use case ends
 Use case ends
 
 *Extensions*
+
 [none]
-* 1a. No on going courses available
+* 1a.
+No on going courses available
+
 [none]
 ** 1a1. CCX shows an empty list of courses
 
 [discrete]
+
 === Use Case 21: View all students
 
 *MSS*
@@ -1271,8 +1276,10 @@ Use case ends
 Use case ends
 
 *Extensions*
+
 [none]
-* 1a. No student in the database
+* 1a.
+No student in the database
 ** 1a1. CCX shows an empty list of students
 
 [discrete]
@@ -1320,16 +1327,16 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  The `CCX` program should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  The `CCX` program should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  The `CCX` program supports one-shot command - command that are executed using only one single line of user input.
-.  User must ensure to have a free disk space of at least 100 Megabytes (MBs) in the drive to store the program.
-.  The `CCX` program should be able to run with or without internet connection.
-.  The `CCX` program should work for a single user only.
-.  The `CCX` program should not require user to make any software installments.
-.  The `CCX` program should support English language only.
-.  The `CCX` program Graphic User Interface (GUI) should support screen resolution of 1920 x 1080 or higher.
+. The `CCX` program should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+. The `CCX` program should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. The `CCX` program supports one-shot command - command that are executed using only one single line of user input.
+. User must ensure to have a free disk space of at least 100 Megabytes (MBs) in the drive to store the program.
+. The `CCX` program should be able to run with or without internet connection.
+. The `CCX` program should work for a single user only.
+. The `CCX` program should not require user to make any software installments.
+. The `CCX` program should support English language only.
+. The `CCX` program Graphic User Interface (GUI) should support screen resolution of 1920 x 1080 or higher.
 _{More to be added}_
 
 [appendix]
@@ -1394,13 +1401,11 @@ These instructions only provide a starting point for testers to work on; testers
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
 _{ more test cases ... }_
 
 === Deleting a person
@@ -1409,9 +1414,13 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First contact is deleted from the list.
+Details of the deleted contact shown in the status message.
+Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No person is deleted.
+Error details shown in the status message.
+Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
@@ -1422,7 +1431,6 @@ _{ more test cases ... }_
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
 _{ more test cases ... }_
 
 [appendix]
@@ -1430,6 +1438,7 @@ _{ more test cases ... }_
 
 [discrete]
 === Assigning/ linking 2 entities
+
 All assign command variants (i.e `AssignTeacherToCourseCommand`, `AssignStudentToCourseCommand` extends from `AssignCommandBase`
 instead of the abstract `Command` class.
 
@@ -1439,7 +1448,8 @@ The diagram below shows a simplified flow
 image::AssignCommandImplementation.png[]
 
 === Design considerations:
-- Since all assign commands are just linking between two entities, where each of them is distinguised based on
-its ID and its entity name (e.g course, student, teacher, etc). So we have AssignDescriptor which stores this information.
+
+- Since all assign commands are just linking between two entities, where each of them is distinguised based on its ID and its entity name (e.g course, student, teacher, etc).
+So we have AssignDescriptor which stores this information.
 
 - A factory design pattern to select which assign command based on the AssignDescriptor content.

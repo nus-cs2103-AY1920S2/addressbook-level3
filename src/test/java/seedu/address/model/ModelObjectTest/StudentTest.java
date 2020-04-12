@@ -1,8 +1,9 @@
 package seedu.address.model.ModelObjectTest;
 
 import org.junit.jupiter.api.Test;
+import seedu.address.model.modelObjectTags.Gender;
+import seedu.address.model.modelObjectTags.Name;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 import java.util.HashSet;
@@ -14,6 +15,7 @@ public class StudentTest {
     public static Name validName = new Name("Test Name");
     public static Gender validGender = new Gender("m");
     public static Set<Tag> validTags = new HashSet<Tag>();
+
     @Test
     public void isValidStudent() {
         // null staff

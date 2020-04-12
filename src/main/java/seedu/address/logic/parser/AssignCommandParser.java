@@ -1,19 +1,16 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import seedu.address.logic.commands.commandAssign.AssignCommandBase;
+import seedu.address.logic.commands.commandAssign.AssignCommandFactory;
+import seedu.address.logic.commands.commandAssign.AssignDescriptor;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.commandAssign.AssignCommandFactory;
-import seedu.address.logic.commands.commandAssign.AssignDescriptor;
-import seedu.address.logic.commands.commandAssign.AssignCommandBase;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Parses input arguments and creates a new AssignCommand object
@@ -21,19 +18,19 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class AssignCommandParser implements Parser<AssignCommandBase> {
 
     public static final String MESSAGE_USAGE =
-        "assign command must have 2 parameters only, 1 of which must be the CourseID!"
-        + "\n1. Assigning a student to a course"
-        + "\n2. Assigning a teacher to a course"
-        + "\n3. Assigning an assignment to a course"
-        + "\nParameters: "
-        + "\n" + PREFIX_COURSEID + "COURSEID"
-        + "\n AND"
-        + "\n" + PREFIX_STUDENTID + "STUDENTID"
-        + " OR " + PREFIX_TEACHERID + "TEACHERID"
-        + " OR " + PREFIX_ASSIGNMENTID + "ASSIGNMENTID"
-        + "\n" + "Example: "  + "assign "
-        + PREFIX_COURSEID + "829 "
-        + PREFIX_STUDENTID + "33 ";
+            "assign command must have 2 parameters only, 1 of which must be the CourseID!"
+                    + "\n1. Assigning a student to a course"
+                    + "\n2. Assigning a teacher to a course"
+                    + "\n3. Assigning an assignment to a course"
+                    + "\nParameters: "
+                    + "\n" + PREFIX_COURSEID + "COURSEID"
+                    + "\n AND"
+                    + "\n" + PREFIX_STUDENTID + "STUDENTID"
+                    + " OR " + PREFIX_TEACHERID + "TEACHERID"
+                    + " OR " + PREFIX_ASSIGNMENTID + "ASSIGNMENTID"
+                    + "\n" + "Example: " + "assign "
+                    + PREFIX_COURSEID + "829 "
+                    + PREFIX_STUDENTID + "33 ";
 
     /**
      * Parses the given arguments into context of AssignCommand (actually a class that inherits

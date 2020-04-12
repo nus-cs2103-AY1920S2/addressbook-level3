@@ -1,15 +1,5 @@
 package seedu.address.logic.commands.commandEdit;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.Constants;
@@ -17,10 +7,19 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
+import seedu.address.model.modelObjectTags.Date;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Name;
 import seedu.address.model.tag.Tag;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
 
 /**
  * Edits the details of an existing Assignment in the address book.
@@ -50,7 +49,7 @@ public class EditAssignmentCommand extends EditCommand {
     private Assignment editedAssignment;
 
     /**
-     * @param id                 of the Assignment in the filtered Assignment list to edit
+     * @param id                       of the Assignment in the filtered Assignment list to edit
      * @param editAssignmentDescriptor details to edit the Assignment with
      */
     public EditAssignmentCommand(ID id, EditAssignmentDescriptor editAssignmentDescriptor) {
@@ -66,7 +65,7 @@ public class EditAssignmentCommand extends EditCommand {
      * {@code editAssignmentDescriptor}.
      */
     private static Assignment createEditedAssignment(Assignment AssignmentToEdit,
-                                               EditAssignmentDescriptor editAssignmentDescriptor) {
+                                                     EditAssignmentDescriptor editAssignmentDescriptor) {
         assert AssignmentToEdit != null;
 
         Name updatedName = editAssignmentDescriptor.getName().orElse(AssignmentToEdit.getName());
@@ -192,7 +191,6 @@ public class EditAssignmentCommand extends EditCommand {
         public void setDeadline(Date deadline) {
             this.deadline = deadline;
         }
-
 
 
         /**
