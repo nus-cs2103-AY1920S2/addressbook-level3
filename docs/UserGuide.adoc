@@ -384,10 +384,10 @@ A person can have any number of tags (including 0)
 
 === Profile / Module Book (Part 1: Manage your modules)
 
+- This feature allows individuals to see their own profile, their current cap and the all modules that the individual have taken and all the grades gotten.
+
 .Main Screen for profile tab
 image::ProfileMainScreen.png[width="790"]
-
-This feature allows individuals to see their own profile, their current cap and the all modules that the individual have taken and all the grades gotten.
 
 ==== Adding a module : `moduleAdd`
 
@@ -409,6 +409,10 @@ also can update or add in your grade later.
 The program checks whether a module code provided is valid or not by using the search function in module planning feature, which fetch information about
 modules online. If the search function fails to fetch any information, the module code will be treated as invalid.
 
+- Example:
+* `moduleAdd m/CS2103`
+* `moduleAdd m/cs1101s g/A`
+
 .Adding a module
 image::AddModule.png[width="790"]
 
@@ -423,6 +427,10 @@ image::AddModule.png[width="790"]
 * You can only delete the module which you have added into the program before.
 * Module code inputted is not case sensitive ('moduleDel cs2103' is the same as 'moduleDel CS2103')
 ****
+
+- Example:
+* `moduleDel CS2103` +
+Delete CS2103 from module book if you have added it before.
 
 .Deleting a module
 image::DeleteModule.png[width="790"]
@@ -443,6 +451,10 @@ image::DeleteModule.png[width="790"]
 
 [TIP]
 List of all valid grade: A+, A, A-, B+, B, B-, C+, C, D+, D, F, S and U.
+
+- Example:
+* `grade m/CS1101S g/S`
+* `grade m/CS2103 g/A`
 
 .Updating the grade of a module
 image::Grade.png[width="790"]
@@ -500,6 +512,9 @@ The date inputted should be in the format: DD-MM-YYYY.
 * Stores the task added in the module book and automatically adds and shows on the Calender.
 * You will get an updated list of tasks related to that specific module after adding. (shown in command line)
 ****
+- Example:
+* `moduleTask desc/essay m/CS2101 date/02-04-2020 pri/3` +
+Add a module task as specified in module book and also shows on calendar.
 
 .Adding a module task for certain module
 image::ModuleTaskProfile.png[width="790"]
@@ -520,6 +535,10 @@ You can also view module tasks in calendar using `findModule m/MODULE_CODE`
 * Lists all module tasks related to that module in *CLI*.
 * Module code inputted must be valid module code you have added in before.
 ****
+
+- Example:
+* `listModuleTasks CS2103` +
+Lists all module tasks of CS2103.
 
 .Showing all module tasks related to specified module
 image::ListModuleTask.png[width="790"]
@@ -542,6 +561,11 @@ This command is similar to the `taskDelete` command in Calendar feature but you 
 [WARNING]
 Only refer to the index of tasks shown in command line when performing this command. (not the one in calendar)
 
+- Example:
+* `taskDelete m/CS2103 index/1` +
+Deletes the first module task for CS2103 in module book and Calendar. +
+*(First task in module book and may not be the first in Calendar even after performing `findTask m/cs2103`)*
+
 .Deleting a module task
 image::TaskDeleteWirhModuleCode.png[width="790"]
 
@@ -562,6 +586,10 @@ This command is similar to the `done` command in Calendar feature but you need t
 
 [WARNING]
 Only refer to the index of tasks shown in command line when performing this command. (not the one in calendar)
+
+- Example:
+* `done m/cs2103 index/1` +
+Marks the first module task for module cs2103 as done.
 
 .Marking a module task as done
 image::DoneWithModuleCode.png[width="790"]
