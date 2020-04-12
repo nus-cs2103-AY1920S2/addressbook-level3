@@ -152,6 +152,8 @@ include::../UserGuide.adoc[tag=introtoexpensesplitter]
 
 include::../UserGuide.adoc[tag=commandsummaryforexpensesplitter]
 
+include::../UserGuide.adoc[tag=intro]
+
 
 == Contributions to the Developer Guide
 
