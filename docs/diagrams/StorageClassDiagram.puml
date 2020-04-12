@@ -6,19 +6,38 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface RecipeBookStorage <<Interface>>
+Interface PlannedBookStorage <<Interface>>
+Interface CookedRecordBookStorage <<Interface>>
+Interface QuoteBookStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonRecipeBookStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> RecipeBookStorage
+StorageManager o--> PlannedBookStorage
+StorageManager o--> CookedRecordBookStorage
+StorageManager o--> QuoteBookStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializableRecipe
-JsonSerializableRecipe .right.> JsonAdaptedTag
+JsonRecipeBookStorage .up.|> RecipeBookStorage
+JsonRecipeBookStorage .down.> JsonSerializableRecipeBookStorage
+JsonSerializableRecipeBookStorage .down.> JsonSerializableRecipe
+
+JsonPlannedBookStorage .up.|> PlannedBookStorage
+JsonPlannedBookStorage .down.> JsonSerializablePlannedBookStorage
+JsonSerializablePlannedBookStorage .down.> JsonSerializablePlan
+
+JsonCookedRecordBookStorage .up.|> CookedRecordBookStorage
+JsonCookedRecordBookStorage .down.> JsonSerializableCookedRecordBookStorage
+JsonSerializableCookedRecordBookStorage .down.> JsonSerializableRecord
+
+JsonQuoteBookStorage .up.|> QuoteBookStorage
+JsonQuoteBookStorage .down.> JsonSerializableQuoteBookStorage
+JsonSerializableQuoteBookStorage .down.> JsonSerializableQuote
+JsonSerializableQuote .down.> JsonAdaptedQuote
+
 @enduml
