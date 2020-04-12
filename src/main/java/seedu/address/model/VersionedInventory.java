@@ -11,7 +11,7 @@ import seedu.address.model.version.Versionable;
  */
 public class VersionedInventory extends Inventory implements Versionable {
     private Version<Inventory> version;
-    
+
     public VersionedInventory() {
         super();
         version = new LinearHistory<>(new Inventory());
