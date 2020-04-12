@@ -99,6 +99,8 @@ public class CommandTestUtil {
     public static final String DESCENDING = "d";
     public static final String ASCENDING = "a";
     public static final String APPLE = "apple";
+    public static final String BANANA = "banana";
+    public static final String SWIM = "swimming";
 
     static {
         DESC_FOOD = new EditEntryDescriptorBuilder().withName(VALID_NAME_FOOD)
