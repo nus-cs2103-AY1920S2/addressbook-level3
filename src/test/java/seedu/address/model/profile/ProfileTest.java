@@ -1,54 +1,140 @@
 package seedu.address.model.profile;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FOCUS_AREA_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FOCUS_AREA_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_BOB;
+
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
+import seedu.address.model.profile.course.module.Description;
+import seedu.address.model.profile.course.module.ModularCredits;
+import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.Preclusions;
+import seedu.address.model.profile.course.module.PrereqTreeNode;
+import seedu.address.model.profile.course.module.Prereqs;
+import seedu.address.model.profile.course.module.SemesterData;
+import seedu.address.model.profile.course.module.Title;
+
+//@@author joycelynteo
 
 public class ProfileTest {
+
+    private Name name = new Name(VALID_NAME_AMY);
+    private CourseName courseName = new CourseName(VALID_COURSE_AMY);
+    private int semester = new Year(VALID_SEMESTER_AMY).getSemester();
+    private FocusArea focusArea = new FocusArea(VALID_FOCUS_AREA_AMY);
+    private Profile amy = new Profile(name, courseName, semester, focusArea);
+
+    @Test
+    public void constructor_nullCompulsoryInputs_throwsNullPointerException() {
+        // null name
+        assertThrows(NullPointerException.class, () -> new Profile(null, courseName, semester, focusArea));
+
+        // null course
+        assertThrows(NullPointerException.class, () -> new Profile(name, null, semester, focusArea));
+    }
+
+    @Test
+    public void getModules_noModulesPresent_throwsParseException() {
+        assertThrows(ParseException.class, () -> amy.getModules(1));
+    }
+
+    @Test
+    public void getModuleSemester_moduleNotPresent_throwsNoSuchElementException() {
+        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        assertThrows(NoSuchElementException.class, () -> amy.getModuleSemester(moduleCode));
+    }
+
+    @Test
+    public void getModule_moduleNotPresent_throwsParseException() {
+        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        assertThrows(ParseException.class, () -> amy.getModule(moduleCode));
+    }
+
+    @Test
+    public void hasModule() {
+        ModuleCode moduleCodeAmy = new ModuleCode(VALID_MODCODE_AMY);
+        Module moduleAmy = new Module(moduleCodeAmy, new Title(""), new Prereqs(""),
+                new Preclusions(""), new ModularCredits("4"), new Description(""),
+                new SemesterData(new ArrayList<>()), new PrereqTreeNode());
+        amy.addModule(2, moduleAmy);
+
+        // has module -> return true
+        assertTrue(amy.hasModule(moduleCodeAmy));
+
+        // does not have module -> return false
+        ModuleCode moduleCodeBob = new ModuleCode(VALID_MODCODE_BOB);
+        assertFalse(amy.hasModule(moduleCodeBob));
+    }
+
+    @Test
+    public void deleteModule_moduleNotPresent_throwsParseException() {
+        ModuleCode moduleCodeAmy = new ModuleCode(VALID_MODCODE_AMY);
+        assertThrows(ParseException.class, () -> amy.deleteModule(moduleCodeAmy));
+    }
 
     @Test
     public void isSameProfile() {
         // same object -> returns true
-        assertTrue(ALICE.isSameProfile(ALICE));
+        assertTrue(amy.isSameProfile(amy));
 
         // null -> returns false
-        assertFalse(ALICE.isSameProfile(null));
+        assertFalse(amy.isSameProfile(null));
 
         // different name -> returns false
-        Profile editedAlice = new PersonBuilder().withName(VALID_NAME_BOB).build();
-        //        assertFalse(ALICE.isSameProfile(editedAlice));
+        Profile amyDifferentName = new Profile(new Name(VALID_NAME_BOB), courseName, semester, focusArea);
+        assertFalse(amy.isSameProfile(amyDifferentName));
 
         // same name -> returns true
-        editedAlice = new PersonBuilder(ALICE).withCourseName("Computer Science").withCurrentSemester("1").build();
-        assertTrue(ALICE.isSameProfile(editedAlice));
+        Profile otherAmy = new Profile(name, new CourseName(VALID_COURSE_BOB),
+                new Year(VALID_SEMESTER_BOB).getSemester(), null);
+        assertTrue(amy.isSameProfile(otherAmy));
     }
 
     @Test
     public void equals() {
-        // same values -> returns true
-        Profile aliceCopy = new PersonBuilder(ALICE).withCourseName("Computer Science")
-                .withCurrentSemester("1").build();
-        assertTrue(ALICE.equals(aliceCopy));
+
+        // same name and course -> true
+        Profile amyCopy = new Profile(name, courseName, 4, null);
+        assertTrue(amy.equals(amyCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(amy.equals(amy));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(amy.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(amy.equals(5));
 
         // different profile -> returns false
-        // assertFalse(ALICE.equals(BOB));
+        Profile bob = new Profile(new Name(VALID_NAME_BOB), new CourseName(VALID_COURSE_BOB),
+                new Year(VALID_SEMESTER_BOB).getSemester(), new FocusArea(VALID_FOCUS_AREA_BOB));
+        assertFalse(amy.equals(bob));
 
         // different name -> returns false
-        // Profile editedAlice = new PersonBuilder().withName(VALID_NAME_BOB).build();
-        // assertFalse(ALICE.equals(editedAlice));
+        Profile amyDifferentName = new Profile(new Name(VALID_NAME_BOB), courseName, semester, focusArea);
+        assertFalse(amy.equals(amyDifferentName));
+
+        // different course -> returns false
+        Profile amyDifferentCourse = new Profile(name, new CourseName(VALID_COURSE_BOB), semester, focusArea);
+        assertFalse(amy.equals(amyDifferentCourse));
     }
 }

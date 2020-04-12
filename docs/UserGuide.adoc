@@ -205,7 +205,7 @@ Green: ≥ 11 days
 [[Edit]]
 === Editing: `edit`
 
-This command edits your profile or a module in *MODdy*. +
+If you want to edit any of the attributes you have previously added to *MODdy*, you can do so by using the `edit` command to edit your profile, module details or deadline task. You don't have to worry about adding any wrong information as you can edit them at any time! +
 
 There are *three* ways you can use the `edit` command: +
 
@@ -213,8 +213,9 @@ There are *three* ways you can use the `edit` command: +
 Format: `edit [n/name] [c/course] [y/year.semester] [f/focusArea]` +
 
 ****
-* Fields in brackets [] are optional, but at least one of these fields should be present to be edited
-* If you did not specify your focus area when you created your profile, `edit f/focusArea` adds the focusArea to your profile
+* Fields in brackets [] are optional, but at least one of these fields should be present to be edited.
+* If you did not specify your focus area when you created your profile, `edit f/focusArea` adds the focus area to your profile.
+* If you've moved on to a new semester, `edit y/year.semester` changes your current semester in your MODdy profile for you.
 ****
 
 Example: `edit n/Brad c/Information Systems` edits your profile name to "Brad" and your course to "Information Systems", as shown in Figure 8 below.
@@ -227,7 +228,7 @@ TIP: `edit n/Brad c/Information Systems f/Electronic Commerce` +
 Alongside your name and course, you can edit your focus area to match your current course using this command.
 
 ==== Edit a module's details in *MODdy* +
-Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
+Format: `edit m/moduleCode [y/year.semester] [g/grade]`
 
 ****
 * Fields in brackets [] are optional, but at least one of these fields should be present to be edited.
@@ -243,12 +244,13 @@ TIP: `edit m/CS2103T y/2.1 g/A+` +
 You can edit the grade of module CS2103T to A+ and change the semester module is taken in to Year 2 Semester 1 concurrently.
 
 ==== Edit a task's description or deadline +
-Format: `edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]`
+Format: `edit m/moduleCode t/task [nt/newTask] [d/deadline]`
 
 ****
-* Fields in brackets [] are optional, but at least one of these fields should be present to be edited
-* `nt/NEW_TASK` represents the new description of the existing task
-* `d/DEADLINE` represents to new deadline of the existing task
+* Fields in brackets [] are optional, but at least one of these fields should be present to be edited.
+* `t/task` represents the description of the existing task you want to edit.
+* `nt/newTask` represents the new description of the existing task.
+* `d/deadline` represents to new deadline of the existing task.
 ****
 
 Example: `edit m/CS2103T t/tP Submission nt/UG and DG Submission` +
