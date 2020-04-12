@@ -216,11 +216,11 @@ Figure 9. Sequence diagram of how adding a new `Transaction` is processed depend
 * Multiple occurence of parameters which only expects single entry
 
 [NOTE]
-Incorrect user input will display error message
+Incorrect user input will display ParseError message.
 
 We will demonstrate how a `Transaction` is added into `ExpenseLa`:
 
-Step 1. The user executes the command add *n/Pizza a/20.5 d/2020-02-02* to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
+Step 1. The user executes the command **add n/Pizza a/20.5 d/2020-02-02** to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
 
 NOTE: `**Category**` is set to default category `MISC`
 
@@ -231,6 +231,7 @@ image::add-command/AddTransactionToList1.png[]
 Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income rc/ ** to indicate his monthly pay, to insert a positive `**Transaction**`.
 
 NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GROCERIES, HEALTH, RECREATION, MISC, UTILITIES, INCOME.
+NOTE: "rc/" CLI Syntax will set the transaction to be a recurring transaction.
 
 Again, since the input is valid, the positive `Transaction` is successfully added into the transaction list. The transaction list
 now contains 2 `**Transaction**` objects.
