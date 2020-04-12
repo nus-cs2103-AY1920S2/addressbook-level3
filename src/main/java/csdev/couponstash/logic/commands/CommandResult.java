@@ -20,16 +20,21 @@ public class CommandResult {
     /** The application has a coupon to expand. */
     private final Optional<Coupon> couponToExpand;
 
+    /** The application has a coupon to share. */
+    private final Optional<Coupon> couponToShare;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(
             String feedbackToUser,
             Optional<Coupon> couponToExpand,
+            Optional<Coupon> couponToShare,
             boolean exit
     ) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.couponToExpand = couponToExpand;
+        this.couponToShare = couponToShare;
         this.exit = exit;
     }
 
@@ -38,7 +43,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, Optional.empty(), false);
+        this(feedbackToUser, Optional.empty(), Optional.empty(), false);
     }
 
     public String getFeedbackToUser() {
@@ -51,6 +56,10 @@ public class CommandResult {
 
     public Optional<Coupon> getCouponToExpand() {
         return couponToExpand;
+    }
+
+    public Optional<Coupon> getCouponToShare() {
+        return couponToShare;
     }
 
     @Override

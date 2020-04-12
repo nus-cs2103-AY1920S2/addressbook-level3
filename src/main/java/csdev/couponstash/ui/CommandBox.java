@@ -1,5 +1,6 @@
 package csdev.couponstash.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
@@ -79,7 +80,7 @@ public class CommandBox extends UiPart<Region> {
 
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IOException e) {
             setStyleToIndicateCommandFailure();
         }
     }
@@ -114,7 +115,7 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
     }
 
 }

@@ -1,17 +1,30 @@
 package csdev.couponstash.ui;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.logic.Logic;
 import csdev.couponstash.logic.commands.CommandResult;
+import csdev.couponstash.logic.commands.ShareCommand;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Coupon;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import javax.imageio.ImageIO;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -107,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see Logic#execute(String, CsTab)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
 
         try {
             CsTab currentSelectedTab = tabPanel.selectedTab();
@@ -130,8 +143,16 @@ public class MainWindow extends UiPart<Stage> {
                 handleExpand(commandResult.getCouponToExpand().get());
             }
 
+            // command involves sharing a coupon
+            if (commandResult.getCouponToShare().isPresent()) {
+                String filePath =  handleShare(commandResult.getCouponToShare().get());
+                calendarResultPane.setFeedbackToUser(
+                        String.format(ShareCommand.MESSAGE_SHARE_COUPON_SUCCESS, filePath)
+                );
+            }
+
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);
             calendarResultPane.setFeedbackToUser(e.getMessage());
             throw e;
@@ -139,20 +160,49 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Exapnd a coupon in a new window. If another coupon was already expanded,
+     * Expand a coupon in a new window. If another coupon was already expanded,
      * close that old window and open a new one.
      * @param couponToExpand coupon to open a new window for
      */
     public void handleExpand(Coupon couponToExpand) {
-        if (expandedCouponWindow == null) {
-            expandedCouponWindow = new CouponWindow(couponToExpand,
-                    logic.getStashSettings().getMoneySymbol().toString());
-            expandedCouponWindow.show();
-        } else {
+        if (expandedCouponWindow != null) {
             expandedCouponWindow.close();
-            expandedCouponWindow = new CouponWindow(couponToExpand,
-                    logic.getStashSettings().getMoneySymbol().toString());
-            expandedCouponWindow.show();
         }
+        expandedCouponWindow = new CouponWindow(couponToExpand,
+                logic.getStashSettings().getMoneySymbol().toString());
+        expandedCouponWindow.show();
+    }
+
+    public String handleShare(Coupon couponToShare) throws IOException {
+        // Create new CouponCard and get the Region
+        Region couponRegion = new CouponCard(
+                couponToShare,
+                1,
+                logic.getStashSettings().getMoneySymbol().toString()
+        ).getRoot();
+
+        // Need to create a scene for the Region so CSS would work.
+        Scene scene = new Scene(couponRegion);
+        // Create a snapshot of the CouponRegion.
+        WritableImage image = couponRegion.snapshot(new SnapshotParameters(), null);
+        // Hacky way to ensure scene is freed from memory.
+        scene = null;
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialFileName(couponToShare.getName().toString() + "." + ShareCommand.FORMAT);
+        File file = fileChooser.showSaveDialog(primaryStage);
+
+        // If save dialog is closed without choosing a directory.
+        if (file == null) {
+            throw new IOException(ShareCommand.MESSAGE_DIALOG_CLOSED);
+        }
+
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), ShareCommand.FORMAT, file);
+        } catch (IOException e) {
+            throw new IOException(ShareCommand.MESSAGE_WRITE_TO_IMAGE_ERROR);
+        }
+
+        return file.getAbsolutePath();
     }
 }
