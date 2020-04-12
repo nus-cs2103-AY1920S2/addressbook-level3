@@ -794,7 +794,7 @@ Format: `module add m/MOD_CODE n/NAME`
 ====
 * You *can't* have two modules with the *same module code* in the TA-Tracker.
 
-* `MOD_CODE` and `MOD_NAME` can't be an empty or a sequence of spaces.
+* `MOD_CODE` and `MOD_NAME` can't be a *empty or a sequence of spaces*.
 
 * You can give a module your own *custom* `MOD_CODE` or `NAME` if you find it easier
 to remember. However,  we recommend you use the *official
@@ -847,7 +847,7 @@ Format: `module delete m/MOD_CODE`
 
 [NOTE]
 ====
-* You can't delete a module that doesn't exist.
+* You *can't* delete a module that doesn't exist.
 ====
 
 ====
@@ -876,15 +876,15 @@ Format: `module edit m/MOD_CODE n/NEW NAME`
 
 [NOTE]
 ====
-* You can only use this command to change the name of the module. The module
-code can't be changed.
+* You can only use this command to change the *name* of the module. The module
+code *can't* be changed.
 
-* Editing a module doesn't affect the students and
-groups inside the module.
+* Editing a module *doesn't affect the students and
+groups* inside the module.
 
-* MOD_NAME can't be an empty string or a sequence of spaces.
+* MOD_NAME can't be a *empty or a sequence of spaces*.
 
-* You cannot edit a module that doesn't exist.
+* You *can't* edit a module that doesn't exist.
 ====
 
 ====
@@ -903,10 +903,14 @@ This will change the name of the module with module code `CS3243` to `Intro to A
 
 (Contributed by Aakanksha)
 
-You can use this command to add a group to the TA-Tracker.
+You can use this command to *add a group* to a module in the TA-Tracker.
 
 When a new group is created, the *Student View* will show the groups of the module
 this new group belongs to and students of the new group.
+
+You may notice that the list of students is empty. This is because you haven't added any
+students to the group yet.
+
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
@@ -917,11 +921,11 @@ Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 * `MOD_CODE` here refers to the module code of the module you want to add the group to.
 
-* You cannot add a group to a module that doesn't exist.
+* You *can't* add a group to a module that doesn't exist.
 
-* The GROUP_CODE can't be an empty string or a sequences of spaces.
+* The `GROUP_CODE` can't be a *empty or a sequences of spaces*.
 
-* You cannot add multiple groups with the same group code into the same module.
+* You *can't* add multiple groups with the same group code into the same module.
 
 * You can give a group your own custom GROUP_CODE (ex: 10AMGROUP) if you find it easier
 to remember. However,  we recommend you use the official
@@ -945,9 +949,9 @@ has module code `CS2100`.
 
 (Contributed by Aakanksha)
 
-You can use this command to delete a group from the TA-Tracker.
+You can use this command to *delete a group* from the TA-Tracker.
 
-When a group is deleted from the TA-Tracker, all students in the group are also deleted.
+When a group is deleted from the TA-Tracker, *all students in the group are also deleted*.
 
 When a group is deleted, the *Student View* will show the details of the first group
 of the module the group was deleted from.
@@ -962,9 +966,9 @@ Format: `group delete g/GROUP_CODE m/MOD_CODE`
 * `MOD_CODE` here refers to the module code of the module that contains the group that
 you want to delete.
 
-* You can't delete a group from a module that doesn't exist.
+* You *can't* delete a group from a module that doesn't exist.
 
-* A group with the given group code must exist inside the module before you can delete it.
+* A group with the given group code *must* exist inside the module before you delete it.
 ====
 
 ====
@@ -984,9 +988,9 @@ has module code `CS3243`.
 
 (Contributed by Aakanksha)
 
-You can use this command to edit a group in the TA-Tracker.
+You can use this command to *edit a group* in the TA-Tracker.
 
-This command can be used to change the group code and the group type of the group.
+This command can be used to change the *group code and the group type* of the group.
 The students inside the group will remain intact.
 
 When a group is edited, the *Student View* will show the groups in the module that
@@ -1001,9 +1005,9 @@ Format: `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TY
 * `MOD_CODE` here refers to the module code of the module that contains the group that
 you want to edit.
 
-* You can't edit a group inside a module that doesn't exist.
+* You *can't* edit a group inside a module that doesn't exist.
 
-* You can't edit a group that doesn't exist.
+* You *can't* edit a group that doesn't exist.
 
 * If you are changing the group code, the module shouldn't contain a group that has the
 same group code as the new group code.
@@ -1167,8 +1171,8 @@ Edits student with the matriculation number `A0186153P` to have:
 
 (Contributed by Aakanksha)
 
-You can use this command to chose how you want to sort your students in a specific group.
-The students will be sorted according to your specified `SORT_TYPE`.
+You can use this command to sort your students in a specific group.
+The students will be sorted according to the `SORT_TYPE` you specify.
 
 The *Student View* will show you the students inside the group that you have sorted.
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
@@ -1178,30 +1182,29 @@ Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
 [NOTE]
 ====
 [horizontal]
-* You cannot sort a group inside a module that doesn't exist.
+* You *can't* sort a group inside a module that doesn't exist.
 
-* You cannot sort a group that doesn't exist.
+* You *can't* sort a group that doesn't exist.
 
 * To sort alphabetically you can use the following to indicate sort type:
 ** `alphabetically`
 ** `alphabetical`
 ** `alpha`
 
-* To sort by matriculation number, sort type must be `matric`.
+* To sort by matriculation number, `SORT_TYPE` must be `matric`.
 
-* To sort by rating in ascending order, sort type must be `rating asc`.
+* To sort by rating in ascending order, `SORT_TYPE` must be `rating asc`.
 
-* To sort by rating in descending order, sort type must be `rating desc`.
+* To sort by rating in descending order, `SORT_TYPE` must be `rating desc`.
 ====
 
 ====
 Examples:
 
-* `sort group g/G01 m/CS3243 t/rating asc`
+* `sort group m/CS2100 g/G06 t/rating asc`
 +
 image::SortGroup.png[width="790"]
-Sorts the student inside `G01` of module `CS3242` by `rating asc` (that is, rating in
-ascending order).
+Sorts the student inside `G06` of module `CS2100` by rating in ascending order.
 ====
 //end::sortgroup[]
 //tag::sortmodule[]
@@ -1240,7 +1243,7 @@ Format: `sort module m/MOD_CODE t/SORT_TYPE`
 ====
 Examples:
 
-* `sort module m/CS2103 t/alpha`
+* `sort module m/CS2103T t/alpha`
 +
 Sorts all students inside all groups inside the module `CS2103` `alphabetically`.
 ====
@@ -1279,7 +1282,7 @@ Format: `sort all t/SORT_TYPE`
 ====
 Examples:
 
-* `sort all t/alpha`
+* `sort all t/rating desc`
 +
 Sorts all students in all groups inside all modules `alphabetically`.
 ====
