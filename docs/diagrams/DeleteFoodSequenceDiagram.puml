@@ -1,4 +1,6 @@
 @startuml
+/' @author @akhilvupturi'/
+
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
@@ -67,6 +69,9 @@ deactivate CommandResult
 
 DeleteCommand --> LogicManager : result
 deactivate DeleteCommand
+
+DeleteCommand -[hidden]-> FoodBookStorage
+destroy DeleteCommand
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
 activate FoodBookStorage
