@@ -29,9 +29,8 @@ public class MetricsCommand extends Command<DietModel> {
     @Override
     public CommandResult execute(DietModel model) throws CommandException {
         requireNonNull(model);
-
-        model.printMetrics();
-        return new CommandResult(MESSAGE_SUCCESS);
+        String output = model.printMetrics();
+        return new CommandResult(output.concat(MESSAGE_SUCCESS));
     }
 
     @Override
