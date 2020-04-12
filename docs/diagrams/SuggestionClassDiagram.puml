@@ -11,7 +11,9 @@ Class SuggestionEngine
 }
 
 package Handler {
+Interface SuggestionHandler <<Interface>>
 Interface SuggestionArgHandler <<Interface>>
+Class ABCSuggestionHandler
 Class XYZSuggestionArgHandler
 }
 
@@ -40,7 +42,12 @@ HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
 LogicManager -down->"1" SuggestionEngine
-SuggestionEngine .right.> XYZSuggestionArgHandler: creates >
+SuggestionEngine ..> XYZSuggestionArgHandler: creates >
+SuggestionEngine ..> ABCSuggestionHandler: creates >
+
+ABCSuggestionHandler -right[hidden]- XYZSuggestionArgHandler
+
+ABCSuggestionHandler .down.|> SuggestionHandler
 
 XYZSuggestionArgHandler .up.> XYZSuggestionGenerator : creates >
 XYZSuggestionArgHandler .down.|> SuggestionArgHandler
@@ -51,7 +58,12 @@ XYZSuggestionGenerator .right.> SuggestionItemImpl : creates >
 
 LogicManager --> Model
 SuggestionGenerator ..> Model
-note bottom of XYZSuggestionGenerator: XYZSuggestionGenerator = OpenSuggestionGenerator, \nNewSuggestionGenerator, etc
+ABCSuggestionHandler .up.> Model
+note bottom of XYZSuggestionGenerator: XYZSuggestionGenerator = \nOpenSuggestionGenerator, \nDeleteSuggestionGenerator, \nand SearchSuggestionGenerator
+
+note right of ABCSuggestionHandler: ABCSuggestionHandler = \nEditSuggestionHandler, \nExitSuggestionHandler, \nand HelpSuggestionHandler
+
+note bottom of XYZSuggestionArgHandler: XYZSuggestionArgHandler = \nOpenSuggestionArgHandler, \nDeleteSuggestionArgHandler, \nSearchSuggestionArgHandler, \n NewSuggestionArgHandler
 
 SuggestionItemImpl .up.|> SuggestionItem
 @enduml
