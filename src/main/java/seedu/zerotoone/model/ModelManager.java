@@ -203,7 +203,6 @@ public class ModelManager implements Model {
 
     // -----------------------------------------------------------------------------------------
     // Log List
-
     @Override
     public Path getLogListFilePath() {
         return userPrefs.getLogListFilePath();
@@ -235,10 +234,8 @@ public class ModelManager implements Model {
 
     @Override
     public void setStatisticsDateRange(Optional<LocalDateTime> startRange, Optional<LocalDateTime> endRange) {
-
         this.statisticsStartRange = startRange;
         this.statisticsEndStartRange = endRange;
-
     }
 
     @Override
@@ -263,7 +260,6 @@ public class ModelManager implements Model {
 
     // -----------------------------------------------------------------------------------------
     // Session List
-
     @Override
     public boolean isInSession() {
         return this.currentWorkout.isPresent();
@@ -371,6 +367,7 @@ public class ModelManager implements Model {
         this.timer.cancel();
         this.timer.purge();
     }
+
     // -----------------------------------------------------------------------------------------
     // Schedule
     @Override

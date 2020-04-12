@@ -5,24 +5,25 @@ skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
-Interface Ui <<Interface>>
-Class "{abstract}\nUiPart" as UiPart
-Class UiManager
-Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class ExerciseListPanel
-Class ExerciseCard
-Class StatusBarFooter
-Class CommandBox
-}
+    Interface Ui <<Interface>>
+    Class UiManager
+    Class MainWindow
 
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
+    Class "{abstract}\nUiPart" as UiPart
+    Class CommandBox
+    Class ResultDisplay
+
+    Class HomePanel
+    Class ExerciseListPanel
+    Class WorkoutListPanel
+    Class ScheduledWorkoutListPanel
+    Class LogListPanel
+    Class AboutDisplay
+    Class StatisticsWindow
 }
 
 package Logic <<Rectangle>> {
-Class HiddenLogic #FFFFFF
+    Class HiddenLogic #FFFFFF
 }
 
 Class HiddenOutside #FFFFFF
@@ -30,31 +31,36 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
+UiManager -up-> Logic
+MainWindow -up-> Logic
+
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
+MainWindow *-down-> HomePanel
 MainWindow *-down-> ExerciseListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> WorkoutListPanel
+MainWindow *-down-> ScheduledWorkoutListPanel
+MainWindow *-down-> LogListPanel
+MainWindow *-down-> AboutDisplay
+MainWindow *-down-> StatisticsWindow
 
-ExerciseListPanel -down-> ExerciseCard
-
-MainWindow -left-|> UiPart
-
-ResultDisplay --|> UiPart
+MainWindow --|> UiPart
 CommandBox --|> UiPart
+ResultDisplay --|> UiPart
+HomePanel --|> UiPart
 ExerciseListPanel --|> UiPart
-ExerciseCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+WorkoutListPanel --|> UiPart
+ScheduledWorkoutListPanel --|> UiPart
+LogListPanel --|> UiPart
+AboutDisplay --|> UiPart
+StatisticsWindow --|> UiPart
 
-ExerciseCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
-
-ExerciseListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
-
-MainWindow -[hidden]-|> UiPart
+CommandBox -right[hidden]- ResultDisplay
+ResultDisplay -right[hidden]- HomePanel
+HomePanel -right[hidden]- ExerciseListPanel
+ExerciseListPanel -right[hidden]- WorkoutListPanel
+WorkoutListPanel -right[hidden]- ScheduledWorkoutListPanel
+ScheduledWorkoutListPanel -right[hidden]- LogListPanel
+LogListPanel -right[hidden]- AboutDisplay
+AboutDisplay -right[hidden]- StatisticsWindow
 @enduml

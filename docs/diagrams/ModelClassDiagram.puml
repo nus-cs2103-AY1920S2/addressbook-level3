@@ -4,90 +4,62 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model <<Rectangle>>{
-Interface ReadOnlyExerciseList <<Interface>>
-Interface Model <<Interface>>
-Interface ExerciseModel <<Interface>>
-Interface WorkoutModel <<Interface>>
-Interface SessionModel <<Interface>>
-Interface LogModel <<Interface>>
-Interface ObservableList <<Interface>>
-Class ExerciseManager
-Class ReadOnlyExerciseList
-Class WorkoutManager
-Class SessionManager
-Class LogManager
-Class Model
-Class ModelManager
-Class UserPrefs
-Class ReadOnlyUserPrefs
+Package Model <<Rectangle>> {
+    Interface Model <<Interface>>
+    Interface UserPrefsModel <<Interface>>
+    Interface SessionModel <<Interface>>
+    Interface ExerciseModel <<Interface>>
+    Interface WorkoutModel <<Interface>>
+    Interface SchedulerModel <<Interface>>
+    Interface LogModel <<Interface>>
+    Interface ObservableList <<Interface>>
 
-Package Exercise {
-Class Exercise
-Class ExerciseName
-Class UniqueExerciseList
+    Class ExerciseList
+    Class WorkoutList
+    Class ScheduleList
+    Class LogList
+
+    Class Model
+    Class ModelManager
+    Class UserPrefs
+
+    Package Exercise {
+        Class HiddenExerciseModel #FFFFFF
+    }
+
+    Package Workout {
+        Class HiddenWorkoutModel #FFFFFF
+    }
+
+    Package Schedule {
+        Class HiddenSchedulerModel #FFFFFF
+    }
+
+    Package Log {
+        Class HiddenLogModel #FFFFFF
+    }
 }
 
-Package ExerciseSet {
-Class ExerciseSet
-Class Weight
-Class NumReps
-}
+Class HiddenOutside #FFFFFF
+HiddenOutside .right.> Model
 
-Package Workout {
-Class Workout
-Class WorkoutName
-Class UniqueWorkoutList
-}
-
-Package Session {
-Class Session
-Class Workout
-Class UniqueSessionList
-}
-
-Package Log {
-Class Log
-Class Session
-Class UniqueLogList
-}
-}
-
-ExerciseManager .up.|> ReadOnlyExerciseList
-
+Model -up-|> UserPrefsModel
+Model -up-|> SessionModel
 Model -up-|> ExerciseModel
 Model -up-|> WorkoutModel
-Model -up-|> SessionModel
+Model -up-|> SchedulerModel
 Model -up-|> LogModel
+Model .right.> ObservableList
 
 ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o-down-> "1" ExerciseManager
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .left.|> ReadOnlyUserPrefs
+ModelManager o--> "1" UserPrefs
+ModelManager o--> "1" ExerciseList
+ModelManager o--> "1" WorkoutList
+ModelManager o--> "1" ScheduleList
+ModelManager o--> "1" LogList
 
-ExerciseManager *--> "1" UniqueExerciseList
-UniqueExerciseList o--> "*" Exercise
-Exercise *--> ExerciseName
-Exercise *--> "*" ExerciseSet
-
-ExerciseSet *--> Weight
-ExerciseSet *--> NumReps
-
-ModelManager o--> "1" WorkoutManager
-WorkoutManager *--> "1" UniqueWorkoutList
-UniqueWorkoutList o--> "*" Workout
-Workout *--> WorkoutName
-Workout *--> "*" Exercise
-
-ModelManager o--> "1" SessionManager
-SessionManager *--> "1" UniqueSessionList
-UniqueSessionList o--> "*" Session
-Session *--> "*" Workout
-
-ModelManager o----> "1" LogManager
-LogManager *--> "1" UniqueLogList
-UniqueLogList o--> "*" Log
-Log *--> "*" Session
-
+ExerciseList ...down.> Exercise
+WorkoutList ...down.> Workout
+ScheduleList .down.> Schedule
+LogList .down.> Log
 @enduml

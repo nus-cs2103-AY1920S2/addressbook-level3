@@ -7,17 +7,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.zerotoone.logic.commands.AboutCommand;
-import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.schedule.CreateCommand;
 import seedu.zerotoone.logic.commands.schedule.DeleteCommand;
 import seedu.zerotoone.logic.commands.schedule.EditCommand;
 import seedu.zerotoone.logic.commands.schedule.ListCommand;
+import seedu.zerotoone.logic.commands.schedule.ScheduleCommand;
+import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 
 /**
  * STEPH_TODO_JAVADOC
  */
-public class ScheduleCommandParser {
+public class ScheduleCommandParser implements Parser<ScheduleCommand> {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
@@ -28,7 +29,7 @@ public class ScheduleCommandParser {
      * @return STEPH_TODO_JAVADOC
      * @throws ParseException STEPH_TODO_JAVADOC
      */
-    public Command parse(String input) throws ParseException {
+    public ScheduleCommand parse(String input) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AboutCommand.MESSAGE_USAGE));
