@@ -2292,6 +2292,7 @@ this would show you an error message.
 .. Test Case: `exit` +
 Expected: Exits the program.
 
+[appendix]
 == Effort
 
 Creating this application was fairly difficult and required a lot of effort from us.
