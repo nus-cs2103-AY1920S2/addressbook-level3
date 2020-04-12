@@ -19,7 +19,6 @@ import seedu.expensela.model.Filter;
 public class FilterPanel extends UiPart<Region> {
     private static final String FXML = "FilterPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(FilterPanel.class);
-
     private final Filter filter;
 
     @FXML
