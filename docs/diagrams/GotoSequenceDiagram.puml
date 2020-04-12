@@ -1,0 +1,71 @@
+
+
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":GotoCommandParser" as GotoCommandParser LOGIC_COLOR
+participant "g:GotoCommand" as GotoCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> MainWindow : User enters the \ncommand 'goto claims'
+activate LogicManager
+
+activate MainWindow
+MainWindow -> LogicManager : execute("goto claims")
+
+LogicManager -> TaTrackerParser : parseCommand("goto claims")
+activate TaTrackerParser
+
+create GotoCommandParser
+TaTrackerParser -> GotoCommandParser
+activate GotoCommandParser
+
+GotoCommandParser --> TaTrackerParser
+deactivate GotoCommandParser
+
+TaTrackerParser -> GotoCommandParser : parse("claims")
+activate GotoCommandParser
+
+create GotoCommand
+GotoCommandParser -> GotoCommand
+activate GotoCommand
+
+GotoCommand --> GotoCommandParser : g
+deactivate GotoCommand
+
+GotoCommandParser --> TaTrackerParser : g
+deactivate GotoCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+GotoCommandParser -[hidden]-> TaTrackerParser
+destroy GotoCommandParser
+
+TaTrackerParser --> LogicManager : g
+deactivate TaTrackerParser
+
+LogicManager -> GotoCommand : execute()
+activate GotoCommand
+
+create CommandResult
+GotoCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> GotoCommand
+deactivate CommandResult
+
+GotoCommand --> LogicManager : CommandResult("success", Action.GOTO_CLAIMS)
+deactivate GotoCommand
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow -> MainWindow : handleGoto(claimsListTab)
+
+@enduml

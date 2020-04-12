@@ -1,3 +1,5 @@
+//@@author aakanksha-rai
+
 package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
@@ -20,6 +22,7 @@ import tatracker.model.module.Module;
  */
 public class DeleteModuleCommand extends Command {
 
+    //@@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.DELETE_MODEL,
@@ -29,6 +32,7 @@ public class DeleteModuleCommand extends Command {
             MODULE
     );
 
+    //@@author aakanksha-rai
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted module: %s";
 
     private final String module;

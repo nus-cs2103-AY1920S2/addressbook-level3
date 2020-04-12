@@ -278,7 +278,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
 
         // Compare with reference. If the same command word is logged, it means that
         //  a new CommandDetail with same internal fields was created.
-        if (oldDetails.equals(commandDetails)) {
+        if (oldDetails == commandDetails) {
             logger.info(String.format("======== [ %s ]", commandDetails.getFullCommandWord()));
         }
     }

@@ -1,3 +1,5 @@
+//@@author aakanksha-rai
+
 package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
@@ -21,6 +23,7 @@ import tatracker.model.module.Module;
  */
 public class AddModuleCommand extends Command {
 
+    //@@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.ADD_MODEL,
@@ -30,6 +33,7 @@ public class AddModuleCommand extends Command {
             MODULE, MODULE_NAME
     );
 
+    //@@author aakanksha-rai
     public static final String MESSAGE_ADD_MODULE_SUCCESS = "New module added: %s";
 
     private final Module toAdd;
