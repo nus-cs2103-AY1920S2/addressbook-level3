@@ -1398,6 +1398,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |new user | be able to use a help command |refer to instructions on what commands are available when
 I forget about them
 
+|`* * *` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
+
 |`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
 
 |`* * *` |TA |store contact details of my students |I can contact them with ease whenever
@@ -1443,7 +1445,9 @@ much money I have earned and stay motivated
 
 |`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule (coming in V2.0)
 
-|`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
+|`*` |TA |be able to mark student's attendance | keep track of my students' attendance (coming in V2.0)
+
+|`*` |TA |enter my students' assignment grades  |keep track of my students' progress (coming in V2.0)
 
 |=======================================================================
 
