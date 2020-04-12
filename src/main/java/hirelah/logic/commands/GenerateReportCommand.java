@@ -27,7 +27,6 @@ import hirelah.storage.Storage;
 
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 
 /**
  * Generates the report of the given interviewee in the form of a PDF.
