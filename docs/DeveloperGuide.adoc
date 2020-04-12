@@ -55,7 +55,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[LogicClassDiagram,1000,1000]
+image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -63,7 +63,7 @@ image::LogicClassDiagram.png[LogicClassDiagram,1000,1000]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deletep 1`.
 
 .Component interactions for `deletep 1` command
-image::ArchitectureSequenceDiagram.png[ArchitectureSequenceDiagram,500,500]
+image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
@@ -71,7 +71,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[UiClassDiagram,1000,1000]
+image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -89,7 +89,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[LogicClassDiagram,1000,1000]
+image::LogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -103,7 +103,7 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.j
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deletec 1")` API call.
 
 .Interactions Inside the Logic Component for the `deletec 1` Command
-image::DeleteSequenceDiagram.png[DeleteSequenceDiagram,1000,1000]
+image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -111,7 +111,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[ModelClassDiagram,1000,1000]
+image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -127,13 +127,13 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Inventory System`, which `Customer` can reference. This would allow `Inventory System` to only require one `Tag` object per unique `Tag`, instead of each `Customer` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[BetterModelClassDiagram,500,500]
+image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[StorageClassDiagram,700,700]
+image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -178,19 +178,19 @@ The commands all inherit from superclass `Command`. Only add, delete, edit and f
 
 The following sequence diagram shows how the add operation works:
 
-image::AddItemSequenceDiagram.png[AddItemSequenceDiagram,1200,1000]
+image::AddItemSequenceDiagram.png[]
 
 The following sequence diagram shows how the list operation works:
 
-image::ListItemSequenceDiagram.png[ListItemSequenceDiagram,1200,1000]
+image::ListItemSequenceDiagram.png[]
 
 The following sequence diagram shows how the edit operation works:
 
-image::EditItemSequenceDiagram.png[EditItemSequenceDiagram,1200,1000]
+image::EditItemSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a command that changes the customer/product list in the model:
 
-image::CommandActivityDiagram.png[CommandActivityDiagram,500,500]
+image::CommandActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -289,7 +289,7 @@ The commands all inherit from superclass `Command` and require command parsers t
 
 The following sequence diagram shows how the profit operation works:
 
-image::ProfitSequenceDiagram.png[ProfitSequenceDiagram,1000,1000]
+image::ProfitSequenceDiagram.png[]
 The revenue operation works in the same way as the profit operation.
 
 ==== Design Considerations
