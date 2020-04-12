@@ -39,6 +39,7 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredTaskList(predicate);
+
         Comparator<Task> comparator =
                 new Comparator<>() {
                     @Override
@@ -52,7 +53,12 @@ public class FindCommand extends Command {
                     }
                 };
 
-        model.sortSearchByRelevance(comparator);
+        // for (Task t: model.getTaskList().getTaskList()) {
+        //     int score = predicate.getEditDistance(t) - predicate.countTag(t);
+        //     System.out.println(String.format("%s %d", t, score));
+        // }
+
+        model.setSearchResultOrder(comparator);
 
         return new FindCommandResult(
                 String.format(

@@ -36,16 +36,13 @@ public class FindCommandParser implements Parser<FindCommand> {
                     PREFIX_NAME,
                     PREFIX_TAG);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME) && !ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TAG)) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
         String name = "";
         Optional<String> maybeName = argMultimap.getValue(PREFIX_NAME);
         
         if (maybeName.isPresent()) {
             name = maybeName.get();
+        } else {
+            name = argMultimap.getPreamble();
         }
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

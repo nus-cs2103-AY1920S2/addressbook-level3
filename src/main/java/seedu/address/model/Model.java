@@ -84,11 +84,11 @@ public interface Model {
 
     void showAllTasks();
 
-    void setComparator(Comparator<Task> comparator);
+    void setComparator(Comparator<Task> comparator, String sortOrder);
 
-    void sortList();
+    void setSearchResultOrder(Comparator<Task> comaprator);
 
-    void sortSearchByRelevance(Comparator<Task> comparator);
+    // void sortSearchByRelevance(Comparator<Task> comparator);
 
     ReadOnlyPet getPet();
 

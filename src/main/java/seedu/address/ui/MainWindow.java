@@ -300,15 +300,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             tabPanePlaceholder.getSelectionModel().select(TASKS_TAB_INDEX);
-
-            if (commandResult instanceof SortCommandResult) {
-                SortCommandResult sortCommandResult = (SortCommandResult) commandResult;
-                taskListPanel.setSortOrder(sortCommandResult.getSortOrder());
-            }
-
-            if (commandResult instanceof FindCommandResult) {
-                taskListPanel.removeSortOrder();
-            }
+            taskListPanel.setSortOrder(logic.getTaskList().getSortOrder());
 
             // Done Command related results
             try {

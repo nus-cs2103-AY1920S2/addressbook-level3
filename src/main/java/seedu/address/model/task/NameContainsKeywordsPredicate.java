@@ -25,7 +25,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
     }
 
     /**
-     * score is -1 if keywords is empty else if edit distance calculated is larger than threshold,
+     * score is -1 if keywords is e mpty else if edit distance calculated is larger than threshold,
      * score will be Integer.MAX_VALUE
      */
     @Override
@@ -38,7 +38,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
                 break;
             }
         }
-        return (score != -1 && score != Integer.MAX_VALUE) || hasTag;
+        return score <= threshold || hasTag;
     }
 
     public int countTag(Task task) {
@@ -69,10 +69,10 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
      */
     public int getEditDistance(Task task) {
         if (keywords.size() == 0) {
-            return -1; // TODO maybe throw error
+            return threshold + 1;
         }
 
-        int score = Integer.MAX_VALUE;
+        int score = threshold + 1;
         String joinnedKeywords = String.join(" ", keywords).toLowerCase();
         String taskName = task.getName().fullName.toLowerCase();
         String[] splitTaskName = taskName.split("\\s+");
