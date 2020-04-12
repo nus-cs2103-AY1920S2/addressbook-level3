@@ -68,9 +68,15 @@ https://github.com/PangJiaDa/ped/issues[PE-D Issues Reported]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+User Guide: Buy Command section
+
 include::../UserGuide.adoc[tag=buycommand]
 
+User Guide: Sell Command section
+
 include::../UserGuide.adoc[tag=sellcommand]
+
+User Guide: Delete Good Command section
 
 include::../UserGuide.adoc[tag=deletegood]
 
@@ -80,7 +86,11 @@ include::../UserGuide.adoc[tag=deletegood]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+Developer Guide: Buy and Sell Command
+
 include::../DeveloperGuide.adoc[tag=buyandsellcommand]
+
+Developer Guide: Proposed Automatic Expiry Feature
 
 include::../DeveloperGuide.adoc[tag=autoexpiry]
 
