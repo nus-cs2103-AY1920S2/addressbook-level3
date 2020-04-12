@@ -228,24 +228,18 @@ image::GetBestActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: How to display the best interviewees
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Clears the current content of best interviewees, then add the
+best interviewees one by one.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Have a slightly lower execution time.
+* **Alternative 2:** Creates a new ObservableList for the best interviewee list, then change the Model's
+best interviewees list to point to this list, and the MainWindow's BestIntervieweeListPanel.
+** Pros: Have a slightly faster theoretical execution time.
+** Cons: The implementation is slightly trickier compared to alternative 1 since it involves multiple components of the app.
 
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+// end::findbestfeature[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
