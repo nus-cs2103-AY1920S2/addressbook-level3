@@ -1,4 +1,4 @@
-package seedu.eylah.expensesplitter.logic.parser;
+package seedu.eylah.commons.logic.parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;

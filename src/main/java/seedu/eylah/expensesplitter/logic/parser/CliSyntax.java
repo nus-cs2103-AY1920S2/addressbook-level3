@@ -1,5 +1,7 @@
 package seedu.eylah.expensesplitter.logic.parser;
 
+import seedu.eylah.commons.logic.parser.Prefix;
+
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */

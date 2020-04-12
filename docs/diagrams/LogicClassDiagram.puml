@@ -37,9 +37,8 @@ Class HiddenModel #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
-SplitterLogic -left-|> Logic
-DietLogic -left-|> Logic
-DietLogic -[hidden]up-> SplitterLogic
+SplitterLogic -right-|> Logic
+DietLogic -right-|> Logic
 
 SplitterLogicManager .up.|> SplitterLogic
 DietLogicManager .up.|> DietLogic
