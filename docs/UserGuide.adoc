@@ -222,6 +222,15 @@ or click the desired Course bar
 Coding Camp book data are saved in the hard disk automatically after any command that changes the data. No manual
 saving is required.
 
+==== Clearing all the data
+
+Coding Camp book data can be cleared by `clear-all` command. This action will *CLEAR* all the entire address book and
+this action can not undo.
+[WARNING]
+====
+This will irrevocably clear the entire address book and you cannot undo it! Be very careful with this command.
+====
+
 // tag::studentmanagement[]
 
 === Student
@@ -242,7 +251,7 @@ Example:
 * `delete-student 16100`
 ****
 * Edits the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel list
-* The index *must be a positive integer* 16100, 25200, 55250, ...
+* The ID *must be a positive integer* 16100, 25200, 55250, ...
 ****
 [TIP]
 ====
@@ -350,7 +359,7 @@ Format: `list-staff`
 
 ==== Edit information about a staff: `edit-staff`
 Edits an existing staff in the staff list
-Format: `edit-teacher INDEX [n/NAME] [t/TAG]…` +
+Format: `edit-teacher ID [n/NAME] [t/TAG]…` +
 Example:
 
 * `edit-staff 16100 n/Aegon Targaryen t/legend`
@@ -384,10 +393,6 @@ Format: `delete-course ID` +
 Example:
 
 * `delete-course 16100`
-****
-* Edits the item at the specified `ID`. The index refers to the index number shown in the displayed item list
-* The ID *must be a positive integer* 16100, 25200, 55250, ...
-****
 
 [TIP]
 ====
@@ -395,6 +400,11 @@ Be reminded that when you delete a course, the course will be deleted from every
 For example, a teacher that was only assigned to this course *Java* will change to *None* if course *Java* is deleted. +
 Similarly, all finances that involve this course will be deleted.
 ====
+==== Edit a course: `edit-course`
+****
+* Edits the item at the specified `ID`. The ID refers to the ID number shown in the displayed item list
+* The ID *must be a positive integer* 16100, 25200, 55250, ...
+****
 
 ==== Locating items by name: `find-course`
 
@@ -558,23 +568,23 @@ Example:
 ====
 
 ==== Delete an assignment: `delete-assignment`
-Format: `delete-assignment INDEX` +
+Format: `delete-assignment ID` +
 Example:
 
-* `delete-assignment 1`
+* `delete-assignment 16100`
 ****
-* Deletes the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the item at the specified `ID`. The ID refers to the ID number shown in the displayed item list
+* The ID *must be a positive integer* 16100, 25200, 52500, ...
 ****
 
 ==== Edit an assignment: `edit-assignment`
-Format: `edit-assignment INDEX [n/NAME dl/DEADLINE t/TAGS]` +
+Format: `edit-assignment ID [n/NAME dl/DEADLINE t/TAGS]` +
 Example:
 
-* `edit-assignment 1 n/Edit Python Assignment 1`
+* `edit-assignment 16100 n/Edit Python Assignment 1`
 ****
-* Edits the assignment at the specified `INDEX`. The index refers to the index number shown in the displayed course list
-* The index *must be a positive integer* 1, 2, 3, ...
+* Edits the assignment at the specified `ID`. The ID refers to the ID number shown in the displayed course list panel
+* The ID *must be a positive integer* 16100, 2520, 52500, ...
 * At least one of the optional fields must be provided
 * Existing values will be updated to the input values
 * When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
@@ -600,8 +610,10 @@ Examples:
 * `find-assignment java` +
 Returns `java` and `Java Assignment`
 
-
 // end::assignmentmanagement[]
+
+=== Clear all database
+
 // tag::v2.0[]
 === Upcoming Features
 [[Register-Improvement]]
@@ -706,7 +718,7 @@ contains the data of your previous *CodeCampX* folder.
 |*Add Finance Type 1 (ft/m)* |`add-finance ft/FINANCETYPE d/DATE n/NAME a/AMOUNT [t/TAG]...` |`add-finance ft/m d/2020-12-09 n/Paid NTU a/1200 t/Partnership t/Monthly`
 |*Add Finance Type 2 (ft/cs)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID sid/STUDENTID [t/TAG]...` |`add-finance ft/cs d/2020-12-09 cid/829 sid/33 t/Late`
 |*Add Finance Type 3 (ft/ct)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID tid/TEACHERID [t/TAG]...` |`add-finance ft/ct d/2020-12-09 cid/829 tid/21 t/Early`
-|*Delete Finance* | `delete-finance INDEX` | `delete-finance 1`
+|*Delete Finance* | `delete-finance ID` | `delete-finance 16100`
 |*Find Finance* | `find-finance KEYWORD [MORE_KEYWORDS]...` | `find-finance Lannister Targaryen Stark`
 |*List Finance* | `list-finance` | `list-finance`
 |*Calculate Earnings* | `earnings` | `earnings`
