@@ -158,17 +158,15 @@ This section describes some noteworthy details on how certain features are imple
 
 image::SearchCommandUMLDiagram.png[width="790"]
 
-Our module search function consists of 2 main implementation
+*API* :
+link:{repoURL}/src/main/java/seedu/address/searcher/Search.java[`Search.java`]
 
-  1.Retrieving information from NUSmods
-  2.Retrieving information from cached data
+Module Search function returns `module` object that contains useful information for each module for the rest of the application to use.
+The function first checks if the information is available in local cache, and if it isnt, pulls it from NUSmods API.
+The JSON object pulled from the web is then parsed into a `module` object.
+This implementation means that a local cache of the added modules will be available even if the user is offline.
 
-  The implementation allows user to retrieve details about a module from NUSmods if the user have not query about the module before.
-  The search function will create a API call and retrieve the object as a JSON object, which will be decoded and parsed into different relevant attribute of the Module Class.
 
-  The moduleSearch function would first search its storage in data/addressbook.json whether the module information is queried before.
-  If queried, the information would be retrieved from the storage instead of querying from the internet.
-  This allows user to plan for module if they have queried the module before without the need for Internet access.
 
 === Module Planning
 
