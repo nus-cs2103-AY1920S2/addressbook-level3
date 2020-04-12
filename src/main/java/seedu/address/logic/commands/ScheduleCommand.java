@@ -301,7 +301,7 @@ public class ScheduleCommand extends Command {
                 + totalHoursToBeAllocated);
             logger.info("Hours left to each day: " + String.valueOf(hoursLeftEachDay));
 
-            if (totalHoursToBeAllocated.compareTo(new BigDecimal(Float.toString( (float) 0.25))) > 0) {
+            if (totalHoursToBeAllocated.compareTo(new BigDecimal(Float.toString((float) 0.25))) > 0) {
                 allocationResultThisAssignment.add(totalHoursToBeAllocated);
             }
         }
