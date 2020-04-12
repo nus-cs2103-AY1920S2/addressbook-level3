@@ -49,6 +49,26 @@ public class EditCommandParser implements Parser<EditCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
 
+            // Make sure there is only one of each field
+            if (argMultimap.getAllValues(PREFIX_MODULE).size() > 1) {
+                throw new ParseException("Error: you can only edit one module at a time!");
+            }
+            if (argMultimap.getAllValues(PREFIX_YEAR).size() > 1) {
+                throw new ParseException("Error: you can only specify one semester!");
+            }
+            if (argMultimap.getAllValues(PREFIX_GRADE).size() > 1) {
+                throw new ParseException("Error: you can only specify one grade for each module!");
+            }
+            if (argMultimap.getAllValues(PREFIX_TASK).size() > 1) {
+                throw new ParseException("Error: you can only edit one task at a time!");
+            }
+            if (argMultimap.getAllValues(PREFIX_NEW_TASK).size() > 1) {
+                throw new ParseException("Error: you can only specify one description for each task!");
+            }
+            if (argMultimap.getAllValues(PREFIX_DEADLINE).size() > 1) {
+                throw new ParseException("Error: you can only specify one deadline for each task!");
+            }
+
             String moduleCodeString = argMultimap.getValue(PREFIX_MODULE).get();
             moduleCodeString = moduleCodeString.trim();
             moduleCodeString = moduleCodeString.toUpperCase();
@@ -101,6 +121,20 @@ public class EditCommandParser implements Parser<EditCommand> {
                     && !arePrefixesPresent(argMultimap, PREFIX_YEAR)
                     && !arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
+
+            // Make sure there is only one of each field
+            if (argMultimap.getAllValues(PREFIX_NAME).size() > 1) {
+                throw new ParseException("Error: you can only specify one name!");
+            }
+            if (argMultimap.getAllValues(PREFIX_COURSE_NAME).size() > 1) {
+                throw new ParseException("Error: you can only specify one course!");
+            }
+            if (argMultimap.getAllValues(PREFIX_YEAR).size() > 1) {
+                throw new ParseException("Error: you can only specify one semester!");
+            }
+            if (argMultimap.getAllValues(PREFIX_FOCUS_AREA).size() > 1) {
+                throw new ParseException("Error: you can only specify one focus area!");
             }
 
             Name name = null;

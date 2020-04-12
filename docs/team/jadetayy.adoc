@@ -14,35 +14,53 @@ MODdy is a desktop application used by NUS Computing students to track their cou
 == Summary of contributions
 
 * *Major enhancement*: developed the whole *User Interface and User Experience (UI/UX)* for MODdy
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added `home` command and redesigned pop-up `HelpWindow` of `help` command.
+. Developed the deadline management UI
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** What it does: allows the user's input tasks to be permanently display in the main window. The tasks are sorted by date then time and each deadline card has an accompanying colour strip to indicate the module. Different module will
+have different coloured strip.
+** Justification: This feature improves the product significantly as it creates a neat deadline management interface that allows the user to stay organised.
+** Highlights: This enhancement affects existing commands dealing with deadlines. It required an in-depth understanding of the interaction between FilteredList and the UI. The implementation too was challenging as it required accurate sorting of the deadlines, taking
+into consideration that some tasks do not have a deadline. Furthermore, additional tagging to the module was required to achieve the differentiated coloured strip.
+
+. Developed the profile overview UI
+
+** What it does: allows the user to view a neat and concise overview of their academic data in MODdy. It shows their profile information, current CAP and also all the modules taken organised
+by Year and Semester.
+** Justification: This feature improves the product significantly as the user can now conveniently keep track of their academic progression .
+** Highlights: This enhancement involves working with many different JavaFX layout. It required an in-depth understanding of each layout and the interaction between them and the commands that changes the object the layout store.
+The implementation too was challenging as it required careful design and implementation consideration of each layout to ensure high functionality and usability.
+
+* *Minor enhancement*:
+. Developed the semester information course information, focus area information and module information UI.
+
+. Implemented the `home` and `home` command.
+
+. Redesigned pop-up help window.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=jadetayy[Functional code and test code]]
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Redesigned the UI (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/74[#74], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/97[#97], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/125[#125], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/136[#136] )
+*** KIVVVVVV Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+
 ** Documentation:
 *** Updated the README.adoc such that it correspond to our project: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#16]
-*** Contributed to `home` and `help` command documentation in our User Guide: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#16]
-*** Did cosmetic tweaks and added detailed images to existing contents of the User Guide: https://github.com[#14]
+*** Contributed to `home` and `help` command documentation in our User Guide: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/146[#146], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#169], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/283[#283]
+*** Contributed to the UI component documentation in our Developer Guide: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/146[#146], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#169], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/283[#283]
+*** Did cosmetic tweaks and added detailed images to existing contents of the User Guide: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/331[#331]
+
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W13-3/main/issues/274[#274])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S2-CS2103T-W12-4/main/issues/244[1], https://github.com/AY1920S2-CS2103T-W12-4/main/issues/245[2], https://github.com/AY1920S2-CS2103T-W12-4/main/issues/240[3], https://github.com/AY1920S2-CS2103T-W12-4/main/issues/243[4])
+
 ** Tools:
 *** Integrated three new Github plugin (AppVeyor, Coveralls and Netlify) to the team repo and added the respective badges to link to the repo (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#16], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/18[#18])
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -51,7 +69,10 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=help]
+
+include::../UserGuide.adoc[tag=home]
+
 
 include::../UserGuide.adoc[tag=dataencryption]
 
@@ -61,13 +82,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=ui]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=help]
 
+include::../DeveloperGuide.adoc[tag=home]
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

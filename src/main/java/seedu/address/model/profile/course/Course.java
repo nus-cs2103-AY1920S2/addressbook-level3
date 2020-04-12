@@ -20,7 +20,7 @@ public class Course {
 
     public Course(String courseName, List<CourseRequirement> requirements,
                   List<CourseFocusArea> focusAreas) {
-        this.courseName = courseName;
+        this.courseName = courseName.toUpperCase();
         this.requirements = requirements;
         this.focusAreas = focusAreas;
     }
@@ -70,5 +70,12 @@ public class Course {
         }
 
         throw new ParseException(MESSAGE_INVALID_COURSE_FOCUS_AREA);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Course // instanceof handles nulls
+                && courseName.equals(((Course) other).courseName)); // state check
     }
 }
