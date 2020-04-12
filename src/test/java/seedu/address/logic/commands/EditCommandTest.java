@@ -131,7 +131,8 @@ public class EditCommandTest {
                         new SchoolworkTracker(),
                         new EventSchedule(),
                         new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        showPersonAtIndex(expectedModel, FIRST_INDEX);
+        expectedModel.setPerson(personInFilteredList, editedPerson);
 
         PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
         expectedModel.updateFilteredPersonListResult(personExistPredicate);

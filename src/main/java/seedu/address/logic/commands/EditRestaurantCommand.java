@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OPERATING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITED;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
 import java.util.List;
 
@@ -75,7 +74,6 @@ public class EditRestaurantCommand extends Command {
 
 
         model.setRestaurant(restaurantToEdit, editedRestaurant);
-        model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
 
         return new CommandResult(String.format(MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant),
                 false, false, false, false, false, false, true, false);

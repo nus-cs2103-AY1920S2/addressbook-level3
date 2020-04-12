@@ -294,6 +294,49 @@ image::addRestNote.png[]
 * Pros: Easier to implement.
 * Cons: Not user-friendly since different notes cannot be edited in a single command.
 
+=== Finding Contacts
+==== Implementation
+
+The finding of a Person is facilitated by the `Address Book`. This feature allows for users to find a specific contact in their `Address Book`.
+
+Given below is an example usage scenario and how the finding contact mechanism behaves at each step.
+
+Step 1: The user launches the application for the first time. The `Address Book` will be initialized with the initial state, which is an empty list.
+
+Step 2: The user executes the `(ab)add n/Joel ...` command multiple times with different details of different people to add multiple people as contacts into the `Address Book`.
+
+Step 3: The user executes the `(ab)find ...` command to find their desired contacts in the AddressBook list. For instance, the user may do:
+* `(ab)find o/NUS` searches by organization.
+* `(ab)find n/Joel Lim` searches by name.
+* `(ab)find t/friends` searches by tags.
+
+The following sequence diagram shows how the find operation works within the `Logic` component.
+
+image::findPersonMain.png[]
+
+image::findPersonRef.png[]
+
+==== Design Considerations
+
+===== Aspect: How to execute the command for finding a contact using Java Predicates, given that a Person has multiple tags.
+Current implementation of Predicates uses the `stream` and `anyMatch` commands to check each keyword against one single word, but since a person may have multiple tags, the implementation needs to be able to check each keyword against multiple tags instead of a single tag.
+
+* **Alternative 1 (chosen):** Concatenate all the tags of a person together into a String, and check the provided tag keywords against that one String.
+** Pros: Easier to implement.
+** Cons: -
+* **Alternative 2:** For each person's unique tags, create one Tag Predicate per tag.
+* Pros: Conceptually easier to understand, as well as to draw the UML diagram.
+* Cons: Many Tag Predicate objects would have to be created. This could be messy and cause debugging to be difficult.
+
+===== Aspect: How to sort the provided keywords into different Predicates given that there are multiple fields we can search against (eg. Organization, Name, etc)
+
+* **Alternative 1 (chosen):** Have a loop to parse the keywords and sort them into different Predicate keyword lists depending on where the prefixes are located. For instance, if the user types `(ab)find t/friends colleagues o/NUS`, then the keywords `friends` and `colleagues` would to go to the Tag Predicate while the keyword `NUS` would be allocated to the Organization Predicate.
+* Pros: Easier for the user because they just have to demarcate which keywords are used for which using a single prefix.
+* Cons: More difficult to implement.
+* **Alternative 2:** Have the user include the prefix before every different keyword they want to search. For instance, if they want to search using 2 different tag keywords like "friends" and "colleagues", they would have to type `(ab)find t/friends t/colleagues`. Then we can use the Argument Multimap to tokenize the arguments.
+* Pros: Easier to implement.
+* Cons: More troublesome for the user because if they want to search for multiple tags, they would have to keep typing the `/t` prefix for each keyword.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER_BAD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER_GOOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER_RECOMMENDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECOMMENDED;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +140,6 @@ public class EditRestaurantNoteCommand extends Command {
                 updatedGoodFood, updatedBadFood);
 
         model.setRestaurant(restaurantToEdit, editedRestaurant);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedRestaurant),
                 false, false, false, false, false, false, true, false);

@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindRestaurantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.LocationContainsKeywordsPredicate;
@@ -27,18 +28,40 @@ public class FindRestaurantCommandParser implements Parser<FindRestaurantCommand
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindRestaurantCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        String[] keywords = trimmedArgs.split("\\s+");
 
         ArrayList<String> rNameKeywords = new ArrayList<>();
         ArrayList<String> locationKeywords = new ArrayList<>();
 
-        for (int i = 0; i < nameKeywords.length; i++) {
-            if (nameKeywords[i].contains("n/")) {
-                nameKeywords[i] = nameKeywords[i].substring(2);
-                while (!nameKeywords[i].contains("l/") && i != nameKeywords.length) {
-                    rNameKeywords.add(nameKeywords[i]);
+        // run checks to make sure there is no invalid command!
+        boolean hasRName = false;
+        boolean hasLocation = false;
+        for (int i = 0; i < keywords.length; i++) {
+            if (keywords[i].contains("r/")) {
+                if (keywords[i].substring(0, 2).equals("r/")) {
+                    hasRName = true;
+                }
+            }
+            if (keywords[i].contains("l/")) {
+                if (keywords[i].substring(0, 2).equals("l/")) {
+                    hasLocation = true;
+                }
+            }
+        }
+        if ((hasRName == false) && (hasLocation == false)) {
+            // then they did not provide any keywords to search for!
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
+
+        for (int i = 0; i < keywords.length; i++) {
+            if (keywords[i].contains("n/")) {
+                keywords[i] = keywords[i].substring(2);
+                while (!keywords[i].contains("l/") && i != keywords.length) {
+                    rNameKeywords.add(keywords[i]);
                     i++;
-                    if (i == nameKeywords.length) {
+                    if (i == keywords.length) {
                         break;
                     }
                 }
@@ -46,13 +69,13 @@ public class FindRestaurantCommandParser implements Parser<FindRestaurantCommand
             }
         }
 
-        for (int i = 0; i < nameKeywords.length; i++) {
-            if (nameKeywords[i].contains("l/")) {
-                nameKeywords[i] = nameKeywords[i].substring(2);
-                while (!nameKeywords[i].contains("n/") && i != nameKeywords.length) {
-                    locationKeywords.add(nameKeywords[i]);
+        for (int i = 0; i < keywords.length; i++) {
+            if (keywords[i].contains("l/")) {
+                keywords[i] = keywords[i].substring(2);
+                while (!keywords[i].contains("n/") && i != keywords.length) {
+                    locationKeywords.add(keywords[i]);
                     i++;
-                    if (i == nameKeywords.length) {
+                    if (i == keywords.length) {
                         break;
                     }
                 }

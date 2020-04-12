@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BAD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECOMMENDED;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +112,6 @@ public class AddRestaurantNoteCommand extends Command {
                 updatedGoodFood, updatedBadFood);
 
         model.setRestaurant(restaurantToEdit, editedRestaurant);
-        model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
 
         return new CommandResult(String.format(MESSAGE_ADD_NOTE_SUCCESS, editedRestaurant),
                 false, false, false, false, false, false, true, false);
