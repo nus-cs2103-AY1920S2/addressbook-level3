@@ -26,7 +26,7 @@ public class Event extends Activity {
         checkArgument(isValidFutureEvent(endDate), PAST_CONSTRAINTS);
         this.startDate = startDate;
         this.endDate = endDate;
-        this.isOver = endDate.isBefore(Date.now());
+        this.isOver = isOver();
     }
 
     /**
@@ -40,7 +40,7 @@ public class Event extends Activity {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
-        this.isOver = endDate.isBefore(Date.now());
+        this.isOver = isOver();
         super.setNote(note);
     }
 
@@ -57,6 +57,7 @@ public class Event extends Activity {
         super(name, date, note);
         this.startDate = startDate;
         this.endDate = endDate;
+        this.isOver = isOver();
     }
 
     public Date getStartDate() {
@@ -119,6 +120,10 @@ public class Event extends Activity {
         return (!end.isBefore(Date.now()));
     }
 
+    public boolean isOver() {
+        return endDate.isBefore(Date.now());
+    }
+
     /**
      * Return the difference in due date and date of creation.
      * @return int
@@ -151,10 +156,6 @@ public class Event extends Activity {
         Date dateCreatedCopy = new Date(getDateCreated().toString());
         Event eventCopy = new Event(nameCopy, dateCreatedCopy, noteCopy, startDateCopy, endDateCopy);
         return eventCopy;
-    }
-
-    public boolean isOver() {
-        return isOver;
     }
 
     /**
