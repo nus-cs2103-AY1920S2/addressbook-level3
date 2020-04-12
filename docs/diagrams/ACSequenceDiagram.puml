@@ -36,7 +36,7 @@ deactivate CommandCompletor
 LogicManager -> MainWindow: CompletorResult
 deactivate LogicManager
 
-opt CompletorDeletionResult
+opt CompletorResult  is CompletorDeletionResult
     MainWindow -> ResultDisplay: setWarning()
     activate ResultDisplay
     ResultDisplay -> MainWindow
@@ -44,16 +44,16 @@ opt CompletorDeletionResult
     MainWindow -[hidden]->ResultDisplay
 end
 MainWindow -> CommandBox: CompletorResult
-deactivate MainWindow
+deactivate MainWindowcse
 
-alt No completion error thrown
-    CommandBox -> CommandTextField: setSuccess()
+alt CompletorException thrown
+    CommandBox -> CommandTextField: setFailure()
     activate CommandTextField
     CommandTextField -> CommandBox
     deactivate CommandTextField
     CommandBox -[hidden]->CommandBox
 else else
-    CommandBox -> CommandTextField: setFailure()
+    CommandBox -> CommandTextField: setSuccess()
     activate CommandTextField
     CommandTextField -> CommandBox
     deactivate CommandTextField

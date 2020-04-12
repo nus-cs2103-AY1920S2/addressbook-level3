@@ -184,7 +184,6 @@ SortCommandResult extends CommandResult and contains an additional String attrib
 Auto complete is triggered when users press tab while focussed on the command line.
 
 ==== Implementation
-//TODO maybe add class diagram of CompletorResult and CompletorDeletionResult? kinda useless tho
 .AutoComplete Sequence Diagram
 image::ACSequenceDiagram.png[]
 
@@ -194,8 +193,7 @@ The input is pass through the LogicManager so that we can get TaskList details f
 
 . CompletorResult
 .. Will cause CommandBox to setSuccess on CommandTextField
-. CompletorDeletionResult
-.. Inherits from CompletorResult
+. CompletorDeletionResult [inherits from CompletorResult]
 .. Contains deleted input which will be shown as feedback
 .. Will cause MainWindow to call setWarning on ResultDisplay
 . CompletorException
@@ -291,9 +289,7 @@ image::FindSequenceDiagram.png[]
 ==== Predicate's test
 
 .Scoring decision
-image::PredicateSequenceDiagram.png[] 
-//TODO add functionc calls to stringUtil
-// TODO update tag scoring
+image::PredicateSequenceDiagram.png[]
 
 ===== Name scoring
 * We perform the filtering by taking chunks of the task name 
