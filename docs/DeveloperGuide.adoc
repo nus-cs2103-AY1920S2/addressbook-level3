@@ -540,12 +540,13 @@ is teaching.
 ====
 *Design Considerations*
 
-The initial idea for the *Student View* UI was to simply *list* all the students of
-all groups and modules, *sorted by group code and module code*. Therefore the model
-framework has been implemented in this manner.
+The initial idea for the *Student View* UI was to show the Student View as a *list of modules*
+where each module contained a *list of groups* and each group contained a *list of students*.
+Keeping this in mind, we created the current model framework.
 
-The idea was scrapped as once it was implemented, it looked too messy and wasn't
-user-friendly. We changed the UI but kept the current model framework.
+The idea for the UI was scrapped as once it was implemented as it looked messy and wasn't
+user-friendly. We changed the UI to what it is now,but decided to keep the model framework
+the way it is.
 
 *Alternative Implementation*
 

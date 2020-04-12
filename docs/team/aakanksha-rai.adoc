@@ -11,32 +11,38 @@
 
 TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
 who want to be able to track and manage all of their claimable hours and the students
-they are teaching in one place..
+they are teaching in one place. The application is written in *Java* and spans *20k
+Lines of Code*.
 
 == Summary of contributions
 
 === Student View
 
-I was in charge of the *Student View* and created the models used in *Student View*.
-I also wrote most of the commands that come under *Student View*.
+As the main developer in charge of the *Student View*, my main contributions were in
+the *Student View*. They include *creating models, writing commands, creating tests
+and adding documentation for the Student View*.
 
 ==== Create the Models
 
 I created the `Module`, `UniqueModuleList`, `Group` and `UniqueGroupList` models
 that were used in *Student View* from scratch.
 
-* *Justification:* A TA would need to keep track of their students, grouped according
-to which group and module they are a part of. These models were required in all the features
-of our product.
+A TA would need to keep track of their students, grouped according
+to which group and module they are a part of. These models were required to ensure the
+proper functioning of the commands in the student view that would meet the user's purposes.
 
-* *Highlights:* The models were created the way they were as initially the UI plans for
-*Student View* were different. Once we realised that our previous plan wasn't feasible,
-we switched to our current implementation and I had to add many functions to support
-the new UI.
+When the models were first created, our idea for the UI design was
+to show the Student View as a *list of modules* where each module contained a *list of groups*
+and each group had a *list of students* inside it. (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/88[#88])
+However, once we realised that it wasn't user friendly, we had to re-do the UI. I created
+a lot of supporting methods to support the new UI, especially the highlighting feature.
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/202[#202])
+I also added the required support for the filter feature in the models
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/191[#191]).
 
 ==== Sort Commands
 
-This was one of my main features.
+While this was only one of the commands I worked on, it was the one I spent most time on.
 
 * *What it does:* Allows the user to sort the students by rating (in ascending or
 descending order), by matriculation number or alphabetically. There are three variations
@@ -50,24 +56,29 @@ by *matriculation number* when grading assessments or by *rating* when keeping t
 strong or weak students.
 
 * *Highlights:* This feature was difficult to implement as it had several sub-parts.
-Furthermore, it had initially been implemented in a different way but had to be changed
-significantly in order for it to be compatible with the *interactive parser*.
+Furthermore, it had initially been implemented in a different way
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/195[#195],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/200[#200])
+but had to be changed in order for it to be compatible with the *interactive parser*
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/205[#205]).
 
-==== Other Minor Enhancements
-My other minor enhancements include the implementation of the following commands:
+==== Other Commands
+The other commands I implemented are:
 
-. `module add`
-. `module delete`
-. `module edit`
-. `group add`
-. `group delete`
-. `group edit`
+. `module add` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/102[#102])
+. `module delete` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/107[#107])
+. `module edit` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/206[#206])
+. `group add` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/121[#121])
+. `group delete` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/122[#122])
+. `group edit` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/196[#196])
 
 * *Justification:* These commands are needed to manipulate data in the *Student View*.
 
-* *Highlights:* While they come under Minor Enhancements, overall these commands were
-quite a lot of work as they had many edge cases such as editing the group code of to
-make it a duplicate group.
+* *Highlights:* Overall, these commands required a fair amount of work, especially due
+to the possible edge cases they may have such as the user editing the group code to that
+of a pre-existing group.
+
+==== Testing
 
 === Code contributed
 The code I contributed can be found here:
