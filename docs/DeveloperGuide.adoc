@@ -781,7 +781,7 @@ In this section, we will learn more about how the `additem` command is implement
 The `additem` command allows the user to add an Item into the Receipt, along with the ItemPrice of the Item and the Persons
 involved in splitting the cost of that Item.
 
-The `additem` command was implemented as `AddItemCommand` in the `expenseSplitterLogic` package.
+The `additem` command was implemented as AddItemCommand in the expensesplitter/logic/commands package.
 
 The `additem` command has the following input format:
 
@@ -840,7 +840,7 @@ In this section, we will learn more about how the `deleteitem` command is implem
 
 The `deleteitem` command allows users to remove the Item from the Receipt via the Index.
 
-The `deleteitem` command was implemented as `DeleteItemCommand` in the `expenseSplitterLogic` package.
+The `deleteitem` command was implemented as DeleteItemCommand in the expensesplitter/logic/commands package.
 
 The `deleteitem` command has the following input format:
 
@@ -1089,7 +1089,7 @@ In this section, we will learn more about how the `clearreceipt` command is impl
 The `clearreceipt` command essentially deletes all the Entries in the Receipt and allows the user to input new Entries
 into a clean receipt.
 
-The `clearreceipt` command was implemented as `ClearReceiptCommand` in the `expenseSplitterLogic` package.
+The `clearreceipt` command was implemented as ClearReceiptCommand in the expensesplitter/logic/commands package.
 
 The `clearreceipt` command has the following input format:
 
