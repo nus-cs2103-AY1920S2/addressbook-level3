@@ -14,9 +14,10 @@ public class FindGoodCommand extends Command {
 
     public static final String COMMAND_WORD = "source";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all suppliers who sell a specific good "
-            + "identified with a good's name as keywords (case-insensitive) and displays them as a list with index "
-            + "numbers.\n" + "Example: " + COMMAND_WORD + " banana";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all suppliers who sell specific good(s) "
+            + "identified with a good's or goods' name(s) which is/are identified with keyword(s) (case-insensitive)\n"
+            + "Parameters: g/GOOD_NAME [g/MORE_GOOD_NAME]...\n"
+            + "Example: " + COMMAND_WORD + " banana apple";
 
     private final GoodSupplierPairContainsKeywordsPredicate predicate;
 
