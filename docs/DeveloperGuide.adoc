@@ -183,7 +183,7 @@ image::SwitchActivityDiagram.png[]
 Description: TODO
 
 ===== Implementation
-This section explains how the favourite and unfavourite commands are implemented. For brevity,
+For brevity, we will only be talking about the `favourite` command and its implementation. The `unfavourite
 
 1. User enters the indexes of recipes that he wishes to favourite or unfavourite. The user input will be received by
 `FavouriteCommandParser#parse(String args)` and `UnfavouriteCommandParser#parse(String args)` respectively.
@@ -242,8 +242,8 @@ and/or 2) if the magnitude of a single commit is large (ie. the database is huge
 
 // tag::recipecustomisation[]
 === Recipe customisation commands (Brian)
-The following commands were implemented to overcome the limitations of the `edit` command. These recipe customisation
-commands allow the user to make targeted changes to the ingredient or step fields instead of having to rewrite the
+The following commands: `addingredient`, `editingredient`, `deleteingredient`, `addstep`, `editstep`, and `deletestep`
+were implemented to overcome the limitations of the `edit` command. These recipe customisation commands allow the user to make targeted changes to the ingredient or step fields instead of having to rewrite the
 entire field using `edit`.
 
 ==== Add ingredient command
@@ -263,46 +263,6 @@ every recipe in the database against the predicate, p, and updates the filtered 
 user specified criteria.
 
 5. Once complete, this filtered recipe list is displayed to the user.
-
-====== Design Considerations
-====== Aspect:
-
-
-==== Edit ingredient command
-===== Implementation
-
-
-====== Design Considerations
-====== Aspect:
-
-
-==== Delete ingredient command
-===== Implementation
-
-
-====== Design Considerations
-====== Aspect:
-
-
-==== Add step command
-===== Implementation
-
-
-====== Design Considerations
-====== Aspect:
-
-
-==== Edit step command
-===== Implementation
-
-
-====== Design Considerations
-====== Aspect:
-
-
-==== Delete step command
-===== Implementation
-
 
 ====== Design Considerations
 ====== Aspect:
