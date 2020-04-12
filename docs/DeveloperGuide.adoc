@@ -135,7 +135,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 image::ClearSequenceDiagram.png[]
 
 [[Design-Model]]
-=== Model component
+=== Model component (Pang Kim Jin)
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -699,7 +699,7 @@ image::export/ExportBarGraph.PNG[,550]
 .Expected images to be exported when *export chartanalysis*
 image::export/ExportPieChart.PNG[,550]
 
-=== [Proposed] Data Encryption
+=== [Proposed] Data Encryption (Pang Kim Jin)
 
 Given the sensitive nature of the information provided by users, we would like to safeguard the information provided by
 our users through encryption. Naturally, the information would be encrypted and decrypted in the back-end without the user
@@ -720,6 +720,10 @@ The `Keystore` module would have a `KeystoreManager` which implements the follow
 call to `LogicManager#execute()` method.
 * `KeystoreManager#decryptExpenseLa(ExpenseLa expenseLa)` - Decrypts the encrypted json file upon application launch.
 
+The following class diagram provides a depiction of the above:
+
+image::DataEncryptionClassDiagram2.png[]
+
 NOTE: `KeystoreManager#encryptExpenseLa(ExpenseLa expenseLa)` and `KeystoreManager#decryptExpenseLa(ExpenseLa expenseLa)`
 will be using the Advanced Encryption Standard (AES 256) encryption algorithm.
 
@@ -734,7 +738,7 @@ will be using the Advanced Encryption Standard (AES 256) encryption algorithm.
 ** Cons: Harder to implement
 
 
-=== [Proposed] ExpenseLa Monthly Statement
+=== [Proposed] ExpenseLa Monthly Statement (Pang Kim Jin)
 
 Similar to how banks issue a statement of account, we believe that it would be helpful to provide
 our users with an overview of their expenses. This statement would include the user's balance,
