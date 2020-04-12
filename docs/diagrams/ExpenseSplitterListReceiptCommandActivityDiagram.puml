@@ -5,12 +5,11 @@ title Activity: List Receipt Command
 start
 :User enters the list receipt command;
 
-if () then ([no entries in receipt])
+if () then ([noExistingEntry])
     :Inform user that receipt is empty;
 else ([else])
-    :Displays to user all the entries which
-    includes item name, item price and
-    persons involved in splitting that item;
+    :Displays all the entries in
+    the receipt;
 
 endif
 stop

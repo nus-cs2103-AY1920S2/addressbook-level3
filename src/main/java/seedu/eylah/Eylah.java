@@ -123,6 +123,7 @@ public class Eylah {
                 isExit = true;
                 break;
             case "help":
+                ui.showMainHelp();
                 break;
             default:
                 ui.showError(MESSAGE_UNKNOWN_COMMAND);

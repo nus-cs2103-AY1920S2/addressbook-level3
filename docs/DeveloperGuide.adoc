@@ -57,7 +57,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+link:{repoURL}/blob/master/src/main/java/seedu/eylah/Eylah.java[`EYLAH`] contains the main class for the APP. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -79,7 +79,7 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and `MODELogic.java` interface and exposes its functionality using the `MODELogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -87,11 +87,10 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deleteitem 1`.
 
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[] +
-
+.Component interactions for `deleteitem 1` command
+image::ArchitectureSequenceDiagram.png[]
 
 ==== EYLAH comprehensive class diagram for both Diet Tracker and Expense Spliter
 
@@ -99,14 +98,6 @@ image::eylah_overall_class_diagram.png[]
 
 This shows a brief class diagram for EYLAH. [More details to be added in v1.3]
 
-==== EYLAH Activity Diagram for Expense Splitter
-
-image::activityDiagram_for_expensesplitter.png[]
-
-This shows a brief activity diagram for Expense Splitter. [More details to be added in v1.3]
-
-
-The sections below give more details of each component. +
 
 [[Design-Ui]]
 === UI component
@@ -114,16 +105,15 @@ The sections below give more details of each component. +
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/eylah/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+Th `UI Component` mainly deals with interactions with the user. It also plays a part in the initialisation of the program
+printing the logo, welcome message and main menu page to user. This component only has 2 classes, `Ui.java` and `UiManager.java`.
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Reading the user input.
+* Displaying the result messages to the user.
 
 [[Design-Logic]]
 === Logic component
@@ -133,20 +123,34 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/eylah/commons/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/eylah/diettracker/logic/DietLogic.java[`DietLogic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/eylah/expensesplitter/logic/SplitterLogic.java[`SplitterLogic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+The `Logic Component` deals with the logic flows of the App. In each feature mode, the components to deal with the logic
+flow are different. In `Diet Tracker` mode, `DietLogic.java` and `DietLogicManager.java` are used to handle the logic operation of the APP.
+In `Expense Splitter` mode, `SplitterLogic.java` and `SplitterLogicManager.java` are used to handle the logic operation.
+
+[NOTE]
+====
+* `MODE` used in the given subsection refers to `Diet` when in `Diet Tracker` mode, `Splitter` when in
+`Expense Splitter` mode. For example, `MODELogic` given below refers to `SplitterLogic` when in `Expense Splitter` mode.
+
+* `MODEParser` is an exception, when in `Expense Splitter` mode refers to `ExpenseSplitterParser` while in `Diet Tracker` mode refers to `FoodBookParser`.
+====
+
+.  `MODELogic` uses the `MODEParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `MODELogicManager`.
+.  The command execution can affect the `Model` (e.g. deleting a entry).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In addition, the `CommandResult` object can also instruct the `Eylah.java` to perform certain actions, such as go back to main menu or exit the App.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic Component` for the `execute("deleteitem 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `deleteitem 1` Command in Expense Splitter mode
+image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteItemCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -154,19 +158,24 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/splitterModel/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/eylah/commons/model/Model.java[`Model.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/eylah/expensesplitter/model/SplitterModel.java[`SplitterModel.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/eylah/diettracker/model/DietModel.java[`DietModel.java`]
 
-The `Model`,
-
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+The `Model Component` deals with the modeling of the object.
 
 [NOTE]
-As a more OOP splitterModel, we can store a `Tag` list in `Address Book`, which `person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `person` needing their own `Tag` object. An example of how such a splitterModel may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+====
+`MODE` used in the given subsection refers to `Diet` when in `Diet Tracker` mode, `Splitter` when in
+`Expense Splitter` mode. For example, `MODEModel` given below refers to `SplitterModel` when in `Expense Splitter` mode.
+====
+
+The `MODEModel`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Person Amount Book and Receipt Book data in `Expense Splitter` mode.
+* stores the Food Book and Myself data in `Diet Tracker` mode.
+* does not depend on any of the other three components.
 
 [[Design-Storage]]
 === Storage component
@@ -174,17 +183,28 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/splitterStorage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/eylah/commons/storage/Storage.java[`Storage.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/eylah/expensesplitter/storage/SplitterStorage.java[`SplitterStorage.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/eylah/diettracker/storage/DietStorage.java[`DietStorage.java`]
 
-The `Storage` component,
+The `Storage Component` deals with the operations to write and read from the local files.
+
+[NOTE]
+====
+`MODE` used in the given subsection refers to `Diet` when in `Diet Tracker` mode, `Splitter` when in
+`Expense Splitter` mode. For example, `MODEStorage` given below refers to `SplitterStorage` when in `Expense Splitter` mode.
+====
+
+The `MODEStorage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Person Amount Book and Receipt Book data in json format and read it back in `Expense Splitter` mode.
+* can save the Food Book and MySelf data in json format and read it back in `Diet Tracker` mode.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.eylah.commons` package.
 
 == Implementation
 
@@ -727,7 +747,7 @@ The following sequence diagram summarizes what happens during the execution of `
 image::DietTrackerMetricsCommandSequenceDiagram.png[]
 
 === Expense Splitter feature
-
+//tag::expensesplitterintro[]
 The Expense Splitter feature is designed to aid our users with the splitting of large bills that involves meany people.
 The feature comprises of six commands namely.
 
@@ -739,7 +759,9 @@ The feature comprises of six commands namely.
 * <<Back-Command, `BackCommand`>> - Exits Expense Splitter portion to return to EYLAH's Main Menu.
 
 Below are some diagrams to explain how our team implemented this portion.
+//end::expensesplitterintro[]
 
+//tag::expensesplitteractivitydiagram[]
 *Activity Diagram of Expense Splitter:* +
 
 image::ExpenseSplitterActivityDiagramV2.png[]
@@ -747,6 +769,7 @@ Figure : Expense Splitter Activity Diagram
 
 image::ExpenseSplitterActivityDiagram.png[]
 Figure : Add Item Activity Diagram
+//end::expensesplitteractivitydiagram[]
 
 [[Add-Item-Command]]
 ==== Add Item Command
@@ -758,7 +781,7 @@ In this section, we will learn more about how the `additem` command is implement
 The `additem` command allows the user to add an Item into the Receipt, along with the ItemPrice of the Item and the Persons
 involved in splitting the cost of that Item.
 
-The `additem` command was implemented as `AddItemCommand` in the `expenseSplitterLogic` package.
+The `additem` command was implemented as `AddItemCommand` in the `expensesplitter/logic/commands` package.
 
 The `additem` command has the following input format:
 
@@ -780,7 +803,7 @@ Figure : Add Item Command Activity Diagram
 
 *Implementation of Add Item Command*
 
-The following is a detailed explanation of the operations AddItemCommand performs. +
+The following is a detailed explanation of the operations `AddItemCommand` performs. +
 
 1. The `AddItemCommand#execute(SplitterModel splitterModel)` method is executed and it checks if the specified Item
 and list of Persons to be added are valid. If valid, a new Entry would be created with the specified Item and list of
@@ -817,7 +840,7 @@ In this section, we will learn more about how the `deleteitem` command is implem
 
 The `deleteitem` command allows users to remove the Item from the Receipt via the Index.
 
-The `deleteitem` command was implemented as `DeleteItemCommand` in the `expenseSplitterLogic` package.
+The `deleteitem` command was implemented as `DeleteItemCommand` in the `expensesplitter/logic/commands` package.
 
 The `deleteitem` command has the following input format:
 
@@ -837,7 +860,7 @@ Figure: Delete Item Command Activity Diagram
 
 *Implementation*
 
-The following is a detailed explanation of the operations DeleteItemCommand performs. +
+The following is a detailed explanation of the operations `DeleteItemCommand` performs. +
 
 1. The `DeleteItemCommand#execute(SplitterModel splitterModel)` method is executed and it validates that the specified
 Index to delete is within range. If valid, the Entry to be deleted will be retrieved from Receipt using its Index.
@@ -861,6 +884,7 @@ Figure: Delete Item Command Sequence Diagram
 image::ExpenseSplitterDeleteItemCommandSequenceDiagram2.png[]
 Figure: Execution of Delete Item Command
 
+//tag::expensesplitterlistreceiptcommand[]
 [[List-Receipt-Command]]
 ==== List Receipt Command
 
@@ -870,7 +894,7 @@ In this section, we will learn more about how the `listreceipt` command is imple
 
 The `listreceipt` command allows user to find out the current entries in the receipt.
 
-The `listreceipt` command was implemented as a `ListReceiptCommand` in the `expenseSplitterLogic` package.
+The `listreceipt` command was implemented as a `ListReceiptCommand` in the `expensesplitter/logic` package.
 
 The `listreceipt` has the following input format:
 
@@ -878,33 +902,39 @@ The `listreceipt` has the following input format:
 
 [NOTE]
 ====
-* Each entry in the receipt has the item’s name, price and person(s) who is splitting that item with you
-thus you do not have to remember who you split this item with!
+* Each entry in the receipt has the item’s name, price and person(s) involved in splitting that item.
+
 * When you enter `clearrreceipt` it deletes the old receipt’s data. Use it with caution!
 ====
 
 The following activity diagram illustrates what happens when a user executes `listreceipt` command:
 
+.List Receipt Activity Diagram
 image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
-Figure : List Receipt Command Activity Diagram
+
 
 *Implementation of List Receipt Command*
 
-The following is a detailed explanation of the operations `ListReceiptCommand` performs. +
+The following is a detailed explanation of the operations ListReceiptCommand performs. +
 
 1. The `ListReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
 
 2. The method `splitterModel#listReceipt()` will then be called to return the list of entries currently in that Receipt.
 
-3. The method `receipt.toString()` will use StringBuilder to print the Items(s) currently in
-Receipt by calling `entry.toString()`.
+3. The method `receipt#toString()` will use StringBuilder to build the string of the Items(s) currently in
+Receipt by calling `entry.toString()` for entry. After all entries are done, `receipt#toString()` would have
+finish building the string and will return to SplitterModelManager where it will be printed out.
+
 
 *Sequence Diagram for List Receipt Command*
 
+The following sequence diagram summarizes what happens during the execution of `listreceipt` command.
+
+.List Receipt Command Sequence Diagram
 image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
+//end::expensesplitterlistreceiptcommand[]
 
-Figure : List Receipt Sequence Diagram
-
+//tag::expensesplitterlistamountcommand[]
 [[List-Amount-Command]]
 ==== List Amount Command
 
@@ -914,7 +944,7 @@ In this section, we will learn more about how the `listamount` command is implem
 
 The `listamount` command allows users to find out how much each Person owes them. +
 
-The `listamount` command was implemented as a `ListAmountCommand` in the `expenseSplitterLogic` package.
+The `listamount` command was implemented as a `ListAmountCommand` in the `expensesplitter/logic` package.
 
 The `listamount` command has the following input format:
 
@@ -923,36 +953,70 @@ The `listamount` command has the following input format:
 [NOTE]
 ====
 * The Person and amount owed will be automatically saved after each command.
-* A person is deleted after they have completely paid the amount they owe you.
+* A person is deleted after they have completely paid the amount they owe.
 ====
-
 
 The following activity diagram illustrates what happens when a user executes `listamount` command:
 
+.List Amount Activity Diagram +
 image::ExpenseSplitterListAmountCommandActivityDiagram.png[]
-Figure : List Amount Command Activity Diagram
-
 
 
 *Implementation of List Amount Command*
 
-The following is a detailed explanation of the operations `ListAmountCommand` performs. +
+The following is a detailed explanation of the operations ListAmountCommand performs. +
 
 1. The `ListAmountCommand#execute(SplitterModel splitterModel)` method is executed.
 
 2. The method `splitterModel#listAmount()` will then be called to return the list of Person(s) with their amount.
 
-3. `PersonAmountBook#toString()` will convert list of person in the list to the expected format.
+3. `PersonAmountBook#toString()` will convert list of person in the list to the expected format and return it to
+SplitterModelManager where it will be printed out.
 
 *Sequence Diagram for List Amount Command*
 
 The following sequence diagram summarizes what happens during the execution of `listamount` command.
 
+.List Amount Command Sequence Diagram
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+//end::expensesplitterlistamountcommand[]
 
-Figure : List Amount Sequence Diagram
+==== Done Receipt Command
+
+In this section, we will learn more about how the `donereceipt` command is implemented.
+
+*What is the Done Receipt Command*
+
+The `donereceipt` command allows user to finalize the entries in the receipt. After this command is executed, the
+entries in the receipt are immutable.
+
+The `donereceipt` command was implemented as a `DoneReceiptCommand` in the `expensespliter/logic` package.
+
+The `donereceipt` has the following input format:
+
+`donereceipt`
+
+[NOTE]
+====
+The receipt will not be editable after this command is executed thus ensuring all entries are inputted correctly.
+The User can use `listreceipt` to check current entries in the receipt, `deleteitem` and `additem` to delete and add
+the correct item back.
+====
+
+The following activity diagram illustrates what happens when a user executes `donereceipt` command:
+
+*Implementation of Done Receipt Command*
+
+The following is a detailed explanation of the operations DoneReceiptCommand performs.
+
+*Sequence Diagram for Done Receipt Command*
+
+The following sequence diagram summarizes what happens during the execution of `donereceipt` command.
 
 
+
+
+//tag::expensesplitterpaidcommand[]
 [[Paid-Command]]
 ==== Paid Command
 
@@ -963,7 +1027,7 @@ In this section, we will learn more about how the `paid` command is implemented.
 The `paid` command allows user to reduce the amount of money owed by a Person after they
 have paid.
 
-The `paid` command was implemented as a `PaidCommand` in the `expenseSplitterLogic` package.
+The `paid` command was implemented as a `PaidCommand` in the `expensesplitter/logic` package.
 
 The `paid` command has the following input format:
 
@@ -976,15 +1040,16 @@ can type their index. To find out his/her index, use the command
  `listamount`.
 
 * `AMOUNT` is an *optional* field. It refers to the amount paid by that Person. Leaving this field
-empty is equivalent to the Person paying you the full amount he/she owes the user.
+empty is equivalent to the Person paying the user the full amount he/she owes the user.
 
 * `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
 ====
 
 The following activity diagram illustrates what happens when a user executes `paid` command:
 
+
+.Paid Command Activity Diagram
 image::ExpenseSplitterPaidCommandActivityDiagram.png[]
-Figure : Paid Command Activity Diagram
 
 
 *Implementation of Paid Command*
@@ -998,19 +1063,21 @@ String amountPaid will be converted into an Amount by instantiating a new instan
 
 3. The `personAmountBook#removeAmount(Person person, Amount amount)` is then called to remove Amount from Person.
 
-4. Thus calling `UniquePersonList#removeAmount(Person person, Amount amount)`.
+4. This in turns calls `UniquePersonList#removeAmount(Person person, Amount amount)`.
 
-5. Lastly, `Person#removeAmount(Amount amount)` is called to subtract the amount.
+5. Lastly, `Person#removeAmount(Amount amount)` is called to subtract the amount from the person.
 
 *Sequence Diagram for Paid Command* +
 
 The following sequence diagram summarizes what happens during the execution of `paid` command.
 
+.Paid Command Sequence Diagram
 image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
-Figure : Paid Command Sequence Diagram
 
+.Execution of Paid Command Sequence Diagram
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
-Figure : Execution of Paid Command
+
+//end::expensesplitterpaidcommand[]
 
 [[Clear-Receipt-Command]]
 ==== Clear Receipt Command
@@ -1022,7 +1089,7 @@ In this section, we will learn more about how the `clearreceipt` command is impl
 The `clearreceipt` command essentially deletes all the Entries in the Receipt and allows the user to input new Entries
 into a clean receipt.
 
-The `clearreceipt` command was implemented as `ClearReceiptCommand` in the `expenseSplitterLogic` package.
+The `clearreceipt` command was implemented as `ClearReceiptCommand` in the `expensesplitter/logic/commands` package.
 
 The `clearreceipt` command has the following input format:
 
@@ -1043,7 +1110,7 @@ Figure: Clear Receipt Command Activity Diagram
 
 *Implementation of Clear Receipt Command*
 
-The following is a detailed explanation of the operations ClearReceiptCommand performs. +
+The following is a detailed explanation of the operations `ClearReceiptCommand` performs. +
 
 1. The `ClearReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
 
@@ -1126,7 +1193,7 @@ Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == User Stories
-
+// tag::userstory[]
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
@@ -1189,7 +1256,7 @@ keep a list of all residents and their particulars |contact their next of kin in
 emergency
 
 |=======================================================================
-
+// end::userstory[]
 
 [appendix]
 == Use Cases
@@ -1360,6 +1427,7 @@ Use case ends.
 ** 1a1. EYLAH suggests to user the correct format to use
 ** 1a2. User will key in the correct format
 
+// tag::usecase[]
 [discrete]
 === Expense Splitter Use Cases
 
@@ -1418,6 +1486,7 @@ Use case ends.
 +
 Use case ends.
 
+// tag::willyusecase[]
 [discrete]
 === Use case: UC10 - Listing Receipt
 *Actor:* User +
@@ -1468,6 +1537,7 @@ Use case ends.
 +
 Use case ends.
 
+
 [discrete]
 === Use case: UC12 - Amount paid
 *Actor:* User +
@@ -1508,6 +1578,7 @@ Use case ends.
 ** 1c1. EYLAH displays an error message, informing the user to key in the correct index of the Person. The user may use `listamount` to show the Person's index.
 +
 Use case ends.
+//end::willyusecase[]
 
 [discrete]
 === Use case: UC13 - Back to Main Menu
@@ -1532,7 +1603,6 @@ Use case ends.
 .  A user should be able to use EYLAH easily and intuitively.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  An Item should not have a Item Price more than $10,000.
-.  The amount owed by a Person should not exceed $10,000.
 _{More to be added}_
 
 [appendix]
@@ -1685,4 +1755,39 @@ in splitting that item.
 
 . Manual saving is not required as data is already saved in the hard disk after any commands that changes the data.
 
-_{ more test cases ... }_
+
+
+[appendix]
+== Effort
+
+*Overview* +
+After studying a survey conducted by a resident in Temasek Hall, our team wanted
+to make an application that could help students with problems they face while staying in Temasek Hall.
+We decided to build EYLAH, a super app that has both diet tracker and expense splitter functionality.
+EYLAH is significantly different from Address Book 3 (AB3).
+In addition to the existing basic features of AB3,
+we needed to add additional features to satisfy the needs of our target audience, residents staying in Temasek Hall.
+
+
+*Challenges* +
+The team encountered a few issues during the development process of Sharkie. The more notable ones are:
+
+- *Initial brainstorming and filtering of ideas* +
+At the start of the project, ideation and brainstorming came up with a bunch of features that we wanted to implement in Sharkie. We came up with many different ideas and ways to implement our commands and features, however, it was messy as we were unsure and unclear of how each of us wanted to implement our features. We sat down for a few meetings to discuss our implementation and our thought processes, ensuring that everyone was on the same page before starting the development process.
+
+- *Wallet model* +
+Since we wanted an expense tracker for Sharkie, we required some proper way of storing our data. We decided to adapt from AB3's address book system, following their saving of data and storing of user details, implementing it in our `Wallet` model.
+
+- *Commands* +
+We also adapted AB3's command system using their `XYZParser` and `XYZCommand` implementations, making our application easier to develop since we were using the same implementation as their `Logic`.
+
+- *Reminder feature* +
+One of the more prominent features that we added that was completely not part of AB3 was our reminder feature. This feature had nothing similar to it in AB3, and had to be implemented from scratch in order to make it work with our program.
+
+- *User interface* +
+We decided early on that we wanted to redo the user interface from AB3, as it would not only be more asthetically pleasing, but also tie in well to the features that we wanted to be implemented. Daniel did the main UI implementation using JavaFX and CSS, and along the way the entire team chipped in to fix the many different bugs that arose due to the UI. Threading errors, wrong values being displayed etc. were all fixed after careful testing and fixing by the team.
+
+*Conclusion* +
+In conclusion, our team had a great time working with each another and we hope our application,
+EYLAH, will ease the lives of residents at Temasek Hall.
+Overall, we believe that EYLAH is a good testament to our hard work and time spent on perfecting it.

@@ -17,6 +17,7 @@ public class JsonSerializablePersonAmountBookTest {
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAmountBook.json");
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAmountBook.json");
     private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAmountBook.json");
+
     /*
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
