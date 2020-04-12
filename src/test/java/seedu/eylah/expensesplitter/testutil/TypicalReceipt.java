@@ -10,6 +10,9 @@ import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.receipt.Entry;
 import seedu.eylah.expensesplitter.model.receipt.Receipt;
 
+/**
+ * A utility class containing a list of {@code Receipt} objects to be used in tests.
+ */
 public class TypicalReceipt {
 
     // default receipt
