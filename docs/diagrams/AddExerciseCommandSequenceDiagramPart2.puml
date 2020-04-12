@@ -2,7 +2,7 @@
 !include style.puml
 
 box Model MODEL_COLOR_T1
-    Participant ":UniqueExerciseList" as exerciseList MODEL_COLOR
+    Participant "clientToEditExerciseList:UniqueExerciseList" as exerciseList MODEL_COLOR
     Participant "toAdd:Exercise" as toAddExercise MODEL_COLOR
     Participant "exerciseDate:ExerciseDate" as toAddExerciseDate MODEL_COLOR
     Participant "exerciseName:ExerciseName" as toAddExerciseName MODEL_COLOR
