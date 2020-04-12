@@ -46,8 +46,12 @@ public class DuplicateCommand extends Command {
         ModifyCommand.EditRecipeDescriptor editRecipeDescriptor = new ModifyCommand.EditRecipeDescriptor();
         editRecipeDescriptor.setName(nameOfDuplicate);
         Recipe duplicatedRecipe = ModifyCommand.createEditedRecipe(recipeToDuplicate, editRecipeDescriptor);
-        model.addRecipe(duplicatedRecipe);
-        return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDuplicate));
+        if (model.hasRecipe(duplicatedRecipe)) {
+            throw new CommandException("The recipe has already been duplicated!");
+        } else {
+            model.addRecipe(duplicatedRecipe);
+            return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDuplicate));
+        }
     }
 
     @Override
