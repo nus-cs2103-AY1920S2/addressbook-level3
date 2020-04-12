@@ -34,13 +34,16 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
                 new DeliveredCommand.DeliveredParcelDescriptor();
         try {
             if (onlyReturnFlagPresent(splitInputList)) {
+                logger.fine("Only return flag present in user input.");
                 Index index = indexOfReturnList(splitInputList);
                 return new DeliveredCommand(index, FLAG_RETURN_BOOK, deliveredParcelDescriptor);
             } else if (onlyOrderFlagPresent(splitInputList)) {
+                logger.fine("Only order flag present in user input.");
                 Index index = indexOfOrderList(splitInputList);
                 return new DeliveredCommand(index, FLAG_ORDER_BOOK, deliveredParcelDescriptor);
             }
         } catch (ParseException pe) {
+            logger.info("Invalid input for delivered command.");
             throw new ParseException(String.format("%s" + NEWLINE + "%s", pe.getMessage(),
                     DeliveredCommand.MESSAGE_USAGE));
         }
@@ -54,6 +57,7 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
      * @return A boolean to indicate if only the return flag is present.
      */
     private boolean onlyReturnFlagPresent(List<String> splitInputList) {
+        logger.fine("Only return flag present in user input");
         return splitInputList.contains("-r") && !splitInputList.contains("-o");
     }
 
@@ -63,6 +67,7 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
      * @return The targeted index of the return order list based on user input.
      */
     private Index indexOfReturnList(List<String> splitInputList) throws ParseException {
+        logger.fine("Getting index of return order list from user input");
         splitInputList.remove("-r");
         Index index = ParserUtil.parseIndex(splitInputList.get(0));
         return index;
@@ -74,6 +79,7 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
      * @return A boolean to indicate if only the order flag is present.
      */
     private boolean onlyOrderFlagPresent(List<String> splitInputList) {
+        logger.fine("Check if only order flag is present in user input");
         return splitInputList.contains("-o") && !splitInputList.contains("-r");
     }
 
@@ -83,6 +89,7 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
      * @return The targeted index of the order list based on user input.
      */
     private Index indexOfOrderList(List<String> splitInputList) throws ParseException {
+        logger.fine("Getting index of order list from user input");
         splitInputList.remove("-o");
         Index index = ParserUtil.parseIndex(splitInputList.get(0));
         return index;

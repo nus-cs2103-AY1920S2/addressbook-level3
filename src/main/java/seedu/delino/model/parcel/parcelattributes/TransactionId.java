@@ -46,7 +46,7 @@ public class TransactionId {
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
                 || (obj instanceof TransactionId // instanceof handles nulls
-                && tid.equals(((TransactionId) obj).tid)); // state check
+                && tid.equalsIgnoreCase(((TransactionId) obj).tid)); // state check
     }
 
     @Override

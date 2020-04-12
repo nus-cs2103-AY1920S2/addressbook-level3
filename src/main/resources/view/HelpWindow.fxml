@@ -9,7 +9,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
 
-<fx:root maxHeight="600.0" maxWidth="700" maximized="true" minHeight="250.0" minWidth="350.0" resizable="true" title="Help Window for Delino" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="600.0" maxWidth="700" maximized="true" minHeight="250.0" minWidth="350.0" resizable="false" title="Help Window for Delino" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>

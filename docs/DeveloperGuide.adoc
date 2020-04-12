@@ -1417,7 +1417,7 @@ If the user does not provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a
 performed on orders, return orders, or both depending on the `<<command_flags, FLAG>>`. +
 
 The `<<command_flags, [FLAG]>>` `-o` when given, searches only for parcels in the order list. +
-The `<<command_flags, [FLAG]>>` `-r` when given, searches only for the parcels in the return list.
+The `<<command_flags, [FLAG]>>` `-r` when given, searches only for the parcels in the return order list.
 
 * *General search* will search for all fields in an order/return orders/both that have any matching fields. +
 

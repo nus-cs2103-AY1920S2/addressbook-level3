@@ -315,7 +315,7 @@ Here is how you can convert an order into a return order or create a new return 
 *Step 1* : Type in the keyword `return`. +
 *Step 2a* : If you would like to convert an existing order into a return order,
 provide the `<<command_prefix, TRANSACTION_ID>>` corresponding to the order to be converted. +
-*Step 2b*: If you would like to create a new return order in the return list, provide the
+*Step 2b*: If you would like to create a new return order in the return order list, provide the
 `<<command_prefix, TRANSACTION_ID>>` `<<command_prefix, CUSTOMER_NAME>>` `<<command_prefix, ADDRESS>>`
 `<<command_prefix, PHONE_NUMBER>>` `<<command_prefix, RETURN_TIMESTAMP>>` `<<command_prefix, WAREHOUSE_LOCATION>>`
 `<<command_prefix, CUSTOMER_EMAIL>>` `[<<command_prefix, COMMENTS_BY_CUSTOMER>>]` `[<<command_prefix, TYPE OF ITEM>>]` of the parcel. +
@@ -725,11 +725,11 @@ Why will you want to use the `search` command? If you wish to search for a parce
 Here is how you can search for any parcel containing the keywords given by the following steps below: +
 
 *Step 1* : Type in the keyword `search` +
-*Step 2 (optional)* : Provide `-o` flag if you want to only search for parcels in the order list. A `-r` flag also can be used to only search for parcels in the return list.
+*Step 2 (optional)* : Provide `-o` flag if you want to only search for parcels in the order list. A `-r` flag also can be used to only search for parcels in the return order list.
 
 [NOTE]
 ====
-If no flag is given in this step, `search` command will be performed on both the order and return list.
+If no flag is given in this step, `search` command will be performed on both the order and return order list.
 ====
 *Step 3 (optional)* : If you wish to only specifically search for keywords in a field, you should provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the keyword you want to search for. +
 *Step 4* : Provide any number of alphanumeric words you wish to search for in the parcel. +
