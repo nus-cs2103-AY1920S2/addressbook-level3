@@ -1637,15 +1637,13 @@ Generate and display a report of sessions and students from the module CS3243.
 
 == Glossary
 
-(Contributed by Aakanksha)
-
 [width="%",cols="<20%,<40,options="header",]
 |=======================================================================
 |Term | Explanation
 
 | TSS | This is the short form for `Teaching Support Student`.
 
-| TSS Claims Form | This refers the claims form that Teaching Assistants
+| TSS Claims Form | This refers to the claims form that Teaching Assistants
 at NUS School of Computing have to fill up at the end of each semester to claim money
 for the tasks they have completed.
 
@@ -1685,6 +1683,12 @@ students, for discussion of a subject that is being studied.
 *Q*: How can I transfer my data to another Computer? +
 *A*: You can do so by first installing the app in another computer. You can then replace
 the empty data file it creates with the data file of your previous TA-Tracker folder.
+
+*Q*: Can I mark my students' attendance and give them grades? +
+*A*: You can use the `rating` feature to give your students participation marks.
+We are currently working on a way for you to give mark your students' attendance and
+mark their assignments. You will see this feature in our next release.
+
 //end::faq[]
 //tag::summary[]
 
@@ -1720,8 +1724,6 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 
 === Session View
 
-(Contributed by Chua Yi Jing)
-
 ==== Session commands
 * *Add Session:* `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEK] [t/SESSION_TYPE] [n/NOTES]`
 * *Delete Session:* `session delete INDEX`
@@ -1729,8 +1731,6 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 * *Done Session:* `session done INDEX`
 
 ==== Others
-
-(Contributed by Chua Yi Jing)
 
 * *Filter Sessions:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
 
