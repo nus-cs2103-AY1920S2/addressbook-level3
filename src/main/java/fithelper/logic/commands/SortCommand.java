@@ -30,15 +30,24 @@ public class SortCommand extends Command {
             + PREFIX_SORT_BY + "cal "
             + PREFIX_SORT_ORDER + "d";
 
-    private static final String MESSAGE_COMMIT = "Sort the entry list and reminder list.";
+    public static final String BY = " by ";
+    public static final String ASCENDING_ORDER = " in ascending order\n";
+    public static final String DESCENDING_ORDER = " in descending order\n";
+    public static final String MESSAGE_COMMIT = "Sort the entry list and reminder list.";
+
     private final Type sortType;
     private final SortBy sortBy;
     private final boolean isAscendingSort;
 
     public SortCommand(Type type, SortBy order, boolean isAscending) {
+        requireNonNull(order);
         sortType = type;
         sortBy = order;
         isAscendingSort = isAscending;
+    }
+
+    public String getSortBy() {
+        return sortBy.getValue();
     }
 
     @Override
@@ -47,14 +56,14 @@ public class SortCommand extends Command {
         String feedback = "";
         if (this.sortType == null) {
             model.sortFilteredEntryList(sortBy, isAscendingSort);
-            feedback = Messages.MESSAGE_BOTH_ENTRY_LIST_SORTED + " by " + sortBy.getValue();
+            feedback = Messages.MESSAGE_BOTH_ENTRY_LIST_SORTED + BY + sortBy.getValue();
         } else {
             if ("food".equalsIgnoreCase(sortType.getValue())) {
                 model.sortFilteredFoodEntryList(sortBy, isAscendingSort);
-                feedback = Messages.MESSAGE_FOOD_ENTRY_LIST_SORTED + " by " + sortBy.getValue();
+                feedback = Messages.MESSAGE_FOOD_ENTRY_LIST_SORTED + BY + sortBy.getValue();
             } else {
                 model.sortFilteredSportsEntryList(sortBy, isAscendingSort);
-                feedback = Messages.MESSAGE_SPORTS_ENTRY_LIST_SORTED + " by " + sortBy.getValue();
+                feedback = Messages.MESSAGE_SPORTS_ENTRY_LIST_SORTED + BY + sortBy.getValue();
             }
         }
         feedback = editFeedbackBasedOnSortOrder(feedback);
@@ -71,9 +80,9 @@ public class SortCommand extends Command {
     private String editFeedbackBasedOnSortOrder(String feedback) {
         String copy = feedback;
         if (isAscendingSort) {
-            copy += " in ascending order\n";
+            copy += ASCENDING_ORDER;
         } else {
-            copy += " in descending order\n";
+            copy += DESCENDING_ORDER;
         }
         return copy;
     }

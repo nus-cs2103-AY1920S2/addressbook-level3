@@ -1,13 +1,13 @@
 package fithelper.model.calorietable;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
  * The table storing pre-defined data about calorie intake of a food
  */
 public class FoodCalorieTable implements CalorieTable {
-    private Set<FoodCalorieDatum> table = new HashSet<>();
+    private Set<FoodCalorieDatum> table = new LinkedHashSet<>();
 
     public FoodCalorieTable() {
         String data = FoodCalorieDataUtil.DATA;
