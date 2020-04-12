@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
+<?import javafx.scene.layout.BorderPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Nice And Amazing Student Assistant" minWidth="800" minHeight="800" onCloseRequest="#handleExit">
   <icons>
@@ -40,8 +41,8 @@
           </MenuBar>
 
           <StackPane fx:id="tabPanelPlaceholder" AnchorPane.topAnchor="25.0" AnchorPane.leftAnchor="0.0"
-                     AnchorPane.rightAnchor="0.0"
-                         AnchorPane.bottomAnchor="165" />
+                      AnchorPane.rightAnchor="0.0"
+                      AnchorPane.bottomAnchor="165" />
 
           <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                      AnchorPane.bottomAnchor="130.0">

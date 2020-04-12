@@ -1,17 +1,10 @@
 package nasa.ui;
 
-import java.util.Collection;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -24,7 +17,7 @@ public class QuotePanel extends UiPart<Region> {
     private static final String FXML = "QuotePanel.fxml";
     private int time = 5000;
 
-    Popup popup;
+    private Popup popup;
 
     @FXML
     private Label label;
@@ -54,10 +47,6 @@ public class QuotePanel extends UiPart<Region> {
             popup.setOnCloseRequest(x ->
                     new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play());
         } else {
-
-//            stage.widthProperty().addListener((observable, oldValue, newValue) -> {
-//                popup.setX(stage.getX() + stage.getWidth() - label.getPrefWidth()/2);
-//            });
             popup.centerOnScreen();
             popup.show(stage);
             new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play();
