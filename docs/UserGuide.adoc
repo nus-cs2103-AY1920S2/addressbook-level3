@@ -87,6 +87,9 @@ the TA-Tracker to make your life as a Teaching Assistant easier.
 //tag::commonsymbols[]
 
 === Common Symbols
+
+(Contributed by Fatin)
+
 This section shows you the symbols commonly used in this guide.
 
 [NOTE]
@@ -107,6 +110,8 @@ This symbol indicates that there is something you should be careful to avoid.
 //tag::commandformat[]
 
 === Command Format
+
+(Contributed by Fatin and Gabriel)
 
 This section shows you how all the commands in this guide have been formatted.
 
@@ -444,6 +449,9 @@ For example, if a command needs an `INDEX`, it must be the *first parameter*:
 
 [[Layout]]
 == Layout
+
+(Contributed by Fatin)
+
 This section gives you a brief overview of the layout of the *TA-Tracker*.
 
 *TA-Tracker* is divided into three `tabs` representing the different *Views*:
@@ -505,6 +513,7 @@ haven't chosen anything, you will be shown the students of the group in the
 The purpose of the *Student View* is to help you keep track a of your students. It will
 show you information such as:
 
+
 * `NAME`: student name
 * `MATRIC_NUMBER`: matriculation number
 * `RATING`: ratings you have given the student, represented by stars (on a scale from 1 - 5)
@@ -543,6 +552,9 @@ This is an example of what the Session View might look like.
 //tag::claimsview[]
 
 === Claims View
+
+(Contributed by Fatin)
+
 Under the `claims tab`, the *Claims View* contains a list of all the claimable teaching
 duties you have completed so far.
 
@@ -684,6 +696,8 @@ as well as switching between the different *Views*.
 
 ==== Viewing help : `help`
 
+(Contributed by Fatin)
+
 You can open the `help window` with this command. You can close the `help window`
 by pressing the kbd:[ESC] key
 on your keyboard.
@@ -697,6 +711,8 @@ This is what the `help` window looks like.
 //tag::goto[]
 
 ==== Switching tabs : `goto`
+
+(Contributed by Fatin)
 
 You can switch to different `tabs` with this command to show their associated *view*.
 
@@ -1235,7 +1251,7 @@ Sorts all students in all groups inside all modules `alphabetically`.
 //tag::filterstudent[]
 
 [[FilterStudent]]
-==== Filter : `filter`
+==== Filter : `student filter`
 
 You can use this command to see the students in a particular group
 and module.
@@ -1411,6 +1427,8 @@ Edits the session at index 1 to have:
 
 ==== Marking a Session as Done : `session done`
 
+(Contributed by Fatin)
+
 You can use this command to mark a session as done.
 
 The session marked as done will be removed from the *Session View* and
@@ -1434,7 +1452,7 @@ This will mark the 2nd session in the *Session View* as done.
 //end::donesession[]
 //tag::filtersession[]
 
-==== Filter : `filter`
+==== Filter : `session filter`
 
 You can use this command to filter the sessions in the *Session View*.
 
@@ -1486,7 +1504,7 @@ As long as a session contains one of the keyword given by the user, the session 
 === Claims View
 
 //tag::filterclaims[]
-==== Filter : `filter`
+==== Filter : `claims filter`
 
 You can use this command to filters sessions in the *Claims View* by the module code.
 
@@ -1509,6 +1527,8 @@ All sessions in the *Claims View* with module code `CS3243` are displayed.
 
 [#setrate]
 ==== Changing the hourly rate : `setrate`
+
+(Contributed by Fatin)
 
 Sets the hourly rate for the total income and claim computation.
 
