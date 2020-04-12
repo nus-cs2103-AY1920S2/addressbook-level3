@@ -68,6 +68,4 @@ package Model{
 Class HiddenModel #FFFFFF
 }
 
-
-
 @enduml
