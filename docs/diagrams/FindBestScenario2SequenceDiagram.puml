@@ -10,13 +10,6 @@ participant "d:BestCommand" as BestCommand LOGIC_COLOR
 participant ":ToggleCommandResult" as ToggleCommandResult LOGIC_COLOR
 end box
 
-box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
-end box
-
-box Ui UI_COLOR_T1
-participant ":MainWindow" as MainWindow UI_COLOR
-
 [-> LogicManager : execute("interviewee -best 5 -a leadership")
 activate LogicManager
 
@@ -59,29 +52,10 @@ activate BestCommand
 BestCommand -> BestCommand : getBest()
 activate BestCommand
 
-BestCommand -> Model
-activate Model
+BestCommand --> LogicManager : throw CommandException("There is no interviewee that has been interviewed")
 
-Model --> BestCommand
-deactivate Model
-
-BestCommand --> BestCommand
 deactivate BestCommand
 
-create ToggleCommandResult
-BestCommand -> ToggleCommandResult
-activate ToggleCommandResult
-
-ToggleCommandResult -> MainWindow : displayResult()
-activate MainWindow
-
-MainWindow --> ToggleCommandResult
-deactivate MainWindow
-
-ToggleCommandResult --> BestCommand
-deactivate ToggleCommandResult
-
-BestCommand --> LogicManager : result
 deactivate BestCommand
 
 [<--LogicManager

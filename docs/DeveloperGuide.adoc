@@ -160,33 +160,45 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::findbestfeature[]
+=== Find Best Interviewees Feature
+==== Description
+When an interviewer wants to take a decision on hiring interviewees, it will be cumbersome for the interviewer to take
+a look of the interviewees' score, to take a decision, especially when it comes to a large scale hiring pool. Therefore,
+HireLah! provides a Find Best Interviewees feature to show the top interviewees, depending on how many employees the
+company need, and what kind of employees does the company desire.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+==== Implementation
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The Find Best Interviewee feature is facilitated by the `BestCommand`. It has the following fields:
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+* `numberOfInterviewees`: The number of interviewees that the interviewer wants to hire
+* `paramPrefix`: The prefix of the parameter that wants to be used as a comparator between interviewees.
+* `paramType`: The type of parameter that wants to be used by the interviewer. The possible values are the following:
+`OVERALL`, `METRIC`, and `ATTRIBUTE`.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below are several examples of usage scenarios when the user prompts for Best Interviewees:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Scenario 1. When the user provides a command with incomplete compulsory fields (e.g. number of interviewees), the
+`BestCommandParser` will throw `ParseException`, informing that the size provided is not an integer because the parser
+takes the preamble of the command to get the value for `numberOfInterviewees`.
 
-image::UndoRedoState0.png[]
+image::FindBestScenario1SequenceDiagram.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Scenario 2. When the user provides a command with valid fields, yet there are no interviewees that has been interviewed,
+a `CommandException` is thrown instead, informing that there is no interviewee that has been interviewed, thus no result
+can be shown.
 
-image::UndoRedoState1.png[]
+image::FindBestScenario2SequenceDiagram.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Scenario 3. When the user provides a command with multiple parameters that want to be used for a comparator, a `ParseException`
+is thrown instead, informing that the user has provided more than 1 parameter.
 
-image::UndoRedoState2.png[]
+image::FindBestScenario3SequenceDiagram.png[]
+
+Here is the Full Sequence Diagram for `FindBestCommand` for ideal case:
+
+image::FindBestSequenceDiagram.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
