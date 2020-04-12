@@ -500,7 +500,7 @@ to the `GotoCommandParser`.
 . The `GotoCommandParser` creates a `GotoCommand` object
 with the relevant keywords.
 
-. `LogicManager` calls `GotoCommand` 's execute method.
+. `LogicManager` calls `GotoCommand#execute()`.
 
 . The `GotoCommand` object checks whether any of the keywords given by the user
 matches the existing tab headers. If it does, the `GotoCommand` returns a `CommandResult`
@@ -619,7 +619,7 @@ name.
 5. The `AddModuleCommandParser` then creates an `AddModuleCommand` object with a newly
 created module. The parser then returns the `AddModuleCommand` object.
 
-6. `LogicManager` calls `AddModuleCommand` 's execute method.
+6. `LogicManager` calls `AddModuleCommand#execute()`.
 
 7. The `AddModuleCommand` object
 checks whether a module with the given module code already exists in *TA-Tracker*
@@ -700,7 +700,7 @@ arguments to the `DeleteGroupCommandParser`.
 4. The `DeleteGroupCommandParser` then creates a `DeleteGroupCommand` object and passes
 it the module code, group code and group type. The parser then returns the `DeleteGroupCommand` object.
 
-5. `LogicManager` calls `DeleteGroupCommand` 's execute method. The `DeleteGroupCommand` object
+5. `LogicManager` calls `DeleteGroupCommand#execute()`. The `DeleteGroupCommand` object
 checks whether a *module* with the given module code already exists in TA-Tracker
 If it doesn't, a *command exception is thrown* saying that a module with the given module
 code doesn't exist in the TA-Tracker
@@ -736,10 +736,10 @@ destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches t
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is of type *student* and passes the
+2. The `TaTrackerParser` sees that the command is a *student command* and passes the
 command to the `StudentCommandParser`.
 
-3. The `StudentCommandParser` sees that the command is of type *delete* and passes the
+3. The `StudentCommandParser` sees that the command is a *delete command* and passes the
 arguments to the `DeleteStudentCommandParser`.
 
 4. The `DeleteStudentCommandParser` creates a *Student* with the given matric number,
@@ -748,7 +748,7 @@ arguments to the `DeleteStudentCommandParser`.
 5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object and passes
 it the created student. The parser then returns the `DeleteStudentCommand`
 
-6. `LogicManager` calls `DeleteStudentCommand's` execute method.
+6. `LogicManager` calls `DeleteStudentCommand#execute()`.
 
 7. The `DeleteStudentCommand` object
 checks whether a student with the given matric number already exists in TA-Tracker
@@ -851,7 +851,7 @@ command to the `SortCommandParser`.
 and determines that since the sub-command word is `all` , it must create and return a
 `SortCommand`.
 
-4. `LogicManager` calls `SortCommand` 's execute method.
+4. `LogicManager` calls `SortCommand#execute()`.
 
 5. `SortCommand` checks the type of sorting that is indicated. Since the sort type
 is `matric` , it calls `Model` 's `sortModulesByMatricNumber()` command.
