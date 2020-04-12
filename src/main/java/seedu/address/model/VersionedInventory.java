@@ -4,11 +4,12 @@ import seedu.address.model.good.Good;
 import seedu.address.model.version.LinearHistory;
 import seedu.address.model.version.StateNotFoundException;
 import seedu.address.model.version.Version;
+import seedu.address.model.version.Versionable;
 
 /**
  * An {@code Inventory} that keeps track of its history. Snapshots of its state are done based on external commands.
  */
-public class VersionedInventory extends Inventory implements Version<Inventory> {
+public class VersionedInventory extends Inventory implements Versionable {
     private Version<Inventory> version;
 
     public VersionedInventory() {
@@ -93,8 +94,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
         updateDisplayedGoods();
     }
 
-    @Override
-    public Inventory getCurrentState() {
+    private Inventory getCurrentState() {
         return version.getCurrentState();
     }
 

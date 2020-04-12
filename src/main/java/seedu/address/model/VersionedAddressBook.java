@@ -4,11 +4,12 @@ import seedu.address.model.supplier.Supplier;
 import seedu.address.model.version.LinearHistory;
 import seedu.address.model.version.StateNotFoundException;
 import seedu.address.model.version.Version;
+import seedu.address.model.version.Versionable;
 
 /**
  * An {@code AddressBook} that keeps track of its history. Snapshots of its state are done based on external commands.
  */
-public class VersionedAddressBook extends AddressBook implements Version<AddressBook> {
+public class VersionedAddressBook extends AddressBook implements Versionable {
     private Version<AddressBook> version;
 
     public VersionedAddressBook() {
@@ -90,8 +91,7 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
         updateDisplayedSuppliers();
     }
 
-    @Override
-    public AddressBook getCurrentState() {
+    private AddressBook getCurrentState() {
         return version.getCurrentState();
     }
 

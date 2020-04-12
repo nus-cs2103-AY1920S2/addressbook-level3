@@ -4,12 +4,13 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.version.LinearHistory;
 import seedu.address.model.version.StateNotFoundException;
 import seedu.address.model.version.Version;
+import seedu.address.model.version.Versionable;
 
 /**
  * A {@code TransactionHistory} that keeps track of its history. Snapshots of its state are done based on external
  * commands.
  */
-public class VersionedTransactionHistory extends TransactionHistory implements Version<TransactionHistory> {
+public class VersionedTransactionHistory extends TransactionHistory implements Versionable {
     private Version<TransactionHistory> version;
 
     public VersionedTransactionHistory() {
@@ -82,8 +83,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
         updateDisplayedTransactions();
     }
 
-    @Override
-    public TransactionHistory getCurrentState() {
+    private TransactionHistory getCurrentState() {
         return version.getCurrentState();
     }
 
