@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
