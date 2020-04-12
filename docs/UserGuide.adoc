@@ -134,6 +134,10 @@ emphasis and easy reference!
 * Blue, underlined words are <<link, links>>! Try clicking on
 the link on the left!
 
+* Keyboard buttons are represented in a box, and used to
+represent certain shortcuts in Coupon Stash. For example,
+the kbd:[Ctrl] key, which is used for most shortcuts.
+
 
 == Quick Start
 
