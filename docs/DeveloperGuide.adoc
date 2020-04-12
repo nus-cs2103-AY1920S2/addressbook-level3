@@ -533,19 +533,24 @@ to limit the functions on archived `Coupon` s
 with two data files.
 
 // tag::updownarrowcommandhistory[]
-=== Up/down arrow command history
+=== Up/down arrow retrieve command history
 
 ==== Current Implementation
 The retrieving of command history via the up and down arrow keys is facilitated
 by the `CommandTextHistory` class. The command history is stored internally as
 a `LinkedList` used as a stack with a `currIndex`
 tracking the next command in the history to return.
-The following methods in the `CommandTextHistory`
+The following methods and attributes in the `CommandTextHistory`
 class facilitates this feature:
 
 * `CommandTextHistory#add(String commandText)`
 * `CommandTextHistory#getDown()`
 * `CommandTextHistory#getUp()`
+* `CommandTextHistory#commandTextHistory`
+* `CommandTextHistory#currIndex`
+
+.Class diagram representation of the command history retrieving function.
+image::UpDownClassDiagram.png[]
 
 Given below is an example usage scenario and how the up/down button presses
 behaves at each step.
@@ -614,6 +619,19 @@ down key. Thus,
 the down button will simple return the command text currently being pointed to
 by the `currIndex`.
 No changes to the stack and `currIndex` will be effected.
+
+Below is a sequence diagram describing the events that happen when a user
+presses a key.
+
+.Sequence diagram representing retrieval of command text history with the up and down arrow keys.
+image::UpDownSequenceDiagram.png[]
+
+Below is a sequence diagram describing the events that happen when a executes
+a command text, thus triggering the saving of a command text into
+`CommandTextHistory`.
+
+.Sequence diagram representing the saving of a command text.
+image::UpDownSequenceDiagramAdd.png[]
 
 ==== Design Considerations
 
