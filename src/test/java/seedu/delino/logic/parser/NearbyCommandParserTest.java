@@ -67,6 +67,7 @@ class NearbyCommandParserTest {
     @MethodSource("invalidArgs")
     void parse_invalidArgs_throwsParseException(String arg) {
         assertParseFailure(parser, arg,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, NearbyCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        NearbyCommand.MESSAGE_USAGE));
     }
 }
