@@ -72,7 +72,7 @@ public class UpcomingList extends UiPart<StackPane> {
      */
     public void addFilteredEntries(ObservableList<Entry> list) {
         for (Entry entry : list) {
-            if (time.isBefore(entry.getDateTime()) && time.getMonth().equals(entry.getDateTime().getMonth())
+            if (LocalDateTime.now().isBefore(entry.getDateTime()) && time.getMonth().equals(entry.getDateTime().getMonth())
                     && !entry.isDone()) {
                 combined.add(entry);
             }

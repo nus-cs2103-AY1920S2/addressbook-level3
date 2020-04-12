@@ -111,6 +111,12 @@ Examples:
 
 * `add x/s n/running t/2020-04-10-18:00 l/utown gym c/500 r/relly fun`
 * `add x/f n/chicken rice t/2020-04-10-11:00 l/Super Snacks c/200 r/cheap and yummy`
+
+.Add Command
+image::add.png[]
+.Add Command Result
+image::add2.png[]
+
 //end::add[]
 
 // tag::list[]
@@ -155,6 +161,11 @@ Examples:
 Edits the time and email location of the 1st entry to be `Friday 4pm` and `PGP gym` respectively.
 * `edit x/f i/2 n/Fries r/` +
 Edits the name of the 2nd entry from food entry list to be `Fries` and clears all existing remarks.
+
+.Edit Command
+image::edit.png[]
+.Edit Command Result
+image::edit2.png[]
 
 ==== Mark an entry as done
 
@@ -210,6 +221,12 @@ Examples:
 
 * `delete x/sports index/2`
 Deletes the 2nd sports entry in the sports list from dashboard.
+
+.Delete Command
+image::delete.png[]
+.Delete Command Result
+image::delete2.png[]
+
 //end::delete[]
 
 // tag::diary[]
@@ -461,6 +478,8 @@ On the top right corner, the dates of the referenced month displayed, with red-c
 * *Daily tasks completion status* +
 On the bottom right corner, completion status for existing entries will be displayed by their dates, showing the calorie intake from food, calorie burnt from sports as well as total calorie. The calculation only considers entries which are completed.
 
+.Calendar list mode
+image::calendarls.png[]
 
 *For timetable mode:* +
 
@@ -473,6 +492,9 @@ Same as above.
 
 * *Upcoming list* +
 It displays all entries after the current date and time and within the referenced month. Only entries with status "undone" will be shown. So if the referenced month is in the past, no entries will be shown. +
+
+.Calendar timetable mode
+image::calendartb.png[]
 
 Format for entering calendar view: `calendar` +
 Format for switching to timetable mode: `calendar m/tb` +
