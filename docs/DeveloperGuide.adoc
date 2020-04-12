@@ -28,7 +28,7 @@ Refer to the guide <<SettingUp#, here>>.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
-
+##
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
@@ -102,7 +102,7 @@ link:{repoURL}/src/main/java/seedu/recipe/logic/Logic.java[`Logic.java`]
 .  `Logic` uses the `RecipeBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a recipe).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed git back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -123,14 +123,33 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Recipe Book data.
-* exposes an unmodifiable `ObservableList<Recipe>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `RecipeBook` object that stores all recipes.
+* stores a `PlannedBook` object that stores all plans.
+* stores a `CookedRecordBook` object that stores the records of all the cooked recipes.
+* stores a `QuoteBook` object that stores all quotes.
+* exposes four unmodifiable lists that can be 'observed' +
+1. `ObservableList<Recipe>`
+2. `ObservableList<Plan>`
+3. `ObservableList<Record>`
+4. `ObservableList<Quote>` +
+e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Recipe Book`, which `Recipe` can reference. This would allow `Recipe Book` to only require one `Tag` object per unique `Tag`, instead of each `Recipe` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+==== Recipe Model
+.Structure of the Recipe Model
+image::ModelRecipeClassDiagram.png[]
+
+==== Plan Model
+.Structure of the Plan Model
+image::ModelPlanClassDiagram.png[]
+
+==== Record Model
+.Structure of the Record Model
+image::ModelRecordClassDiagram.png[]
+
+==== Quote Model
+.Structure of the Quote Model
+image::ModelQuoteClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component

@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class PlannedBook
+
+Package Plan {
+    class UniquePlannedList
+    class Plan
+    class PlannedRecipeMap
+}
+class Date
+class Recipe
+
+PlannedBook *-down->"1" UniquePlannedList
+PlannedBook *-down->"1" PlannedRecipeMap
+UniquePlannedList o--> "*" Plan
+Plan o--> "1" Recipe
+Plan o--> "1" Date
+
+@enduml

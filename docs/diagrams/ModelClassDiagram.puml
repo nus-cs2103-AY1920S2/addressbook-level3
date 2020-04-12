@@ -1,56 +1,54 @@
 @startuml
 !include style.puml
+
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Class HiddenOutside #FFFFFF
+
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Interface ReadOnlyRecipeBook <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
+Interface ReadOnlyPlannedBook <<Interface>>
+Interface ReadOnlyCookedRecordBook <<Interface>>
+Interface ReadOnlyQuoteBook <<Interface>>
+
+Class RecipeBook
+Class ReadOnlyRecipeBook
+Class PlannedBook
+Class ReadOnlyPlannedBook
+Class CookedRecordBook
+Class ReadOnlyCookedRecordBook
+Class QuoteBook
+Class ReadOnlyQuoteBook
 Class Model
 Class ModelManager
+Class MultipleBookStateManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Recipe {
-Class Recipe
-Class Address
-Class Step
-Class Name
-Class Phone
-Class UniqueRecipeList
-}
+HiddenOutside ...> Model
 
-Package Tag {
-Class Tag
-}
-}
-
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
-
-AddressBook .up.|> ReadOnlyAddressBook
+RecipeBook .up.|> ReadOnlyRecipeBook
+PlannedBook .up.|> ReadOnlyPlannedBook
+CookedRecordBook .up.|> ReadOnlyCookedRecordBook
+QuoteBook .up.|> ReadOnlyQuoteBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
+ModelManager o--> "1" UserPrefs
+ModelManager o--> "1" CookedRecordBook
+ModelManager o--> "1" RecipeBook
+ModelManager o--> "1" QuoteBook
+ModelManager o--> "1" PlannedBook
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniqueRecipeList
-UniqueRecipeList o--> "*" Recipe
-Recipe *--> Name
-Recipe *--> Phone
-Recipe *--> Step
-Recipe *--> Address
-Recipe *--> "*" Tag
+CookedRecordBook -[hidden]right-> RecipeBook
+RecipeBook -[hidden]right-> QuoteBook
+QuoteBook -[hidden]right-> PlannedBook
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Step
-
-ModelManager -->"1" Recipe : filtered list
 @enduml

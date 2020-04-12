@@ -45,12 +45,6 @@ public class UniqueRecordList implements Iterable<Record> {
     private final ObservableList<GoalCount> internalUnmodifiableGoalsList =
             FXCollections.unmodifiableObservableList(internalGoalsList);
 
-
-    public void setRecords(UniqueRecordList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
     /**
      * Replaces the contents of this list with {@code records}.
      * {@code records} must not contain duplicate records.

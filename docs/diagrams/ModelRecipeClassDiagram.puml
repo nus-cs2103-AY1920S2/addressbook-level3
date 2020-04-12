@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Recipe {
+Class Recipe
+Class Name
+Class Time
+Class Step
+Class UniqueRecipeList
+
+Package Ingredient {
+Class "{abstract}\nIngredient" as Ingredient
+Class Grain
+Class Vegetable
+Class Protein
+Class Fruit
+Class Other
+Class Quantity
+Enum Unit <<enumeration>>
+}
+}
+
+RecipeBook *--> "1" UniqueRecipeList
+UniqueRecipeList o--> "*" Recipe
+Recipe *--> "1" Name
+Recipe *--> "1" Time
+Recipe *--> "*" Step
+Recipe *--> "1..*" Ingredient
+
+Ingredient <|--- Grain
+Ingredient <|-- Vegetable
+Ingredient <|-- Protein
+Ingredient <|-- Fruit
+Ingredient <|-- Other
+
+Ingredient *--> "1" Quantity
+Quantity -up-> "1" Unit
+Name -[hidden]right-> Time
+Time -[hidden]right-> Step
+
+@enduml
