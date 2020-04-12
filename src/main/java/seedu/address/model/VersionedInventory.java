@@ -30,7 +30,7 @@ public class VersionedInventory extends Inventory implements Versionable {
      * Resets the existing data in the current state with {@code newData}.
      */
     public void resetData(ReadOnlyList<Good> newData) {
-        getCurrentState().resetData(newData);
+        version.getCurrentState().resetData(newData);
         updateDisplayedGoods();
     }
 
@@ -40,11 +40,11 @@ public class VersionedInventory extends Inventory implements Versionable {
      * Returns true if a good with the same identity as {@code good} exists in the address book.
      */
     public boolean hasGood(Good good) {
-        return getCurrentState().hasGood(good);
+        return version.getCurrentState().hasGood(good);
     }
 
     public int index(Good toFind) {
-        return getCurrentState().index(toFind);
+        return version.getCurrentState().index(toFind);
     }
 
     /**
@@ -52,7 +52,7 @@ public class VersionedInventory extends Inventory implements Versionable {
      * The good must not already exist in the current state.
      */
     public void addGood(Good p) {
-        getCurrentState().addGood(p);
+        version.getCurrentState().addGood(p);
         updateDisplayedGoods();
     }
 
@@ -62,7 +62,7 @@ public class VersionedInventory extends Inventory implements Versionable {
      * The good identity of {@code editedGood} must not be the same as another existing good in the current state.
      */
     public void setGood(Good target, Good editedGood) {
-        getCurrentState().setGood(target, editedGood);
+        version.getCurrentState().setGood(target, editedGood);
         updateDisplayedGoods();
     }
 
@@ -71,7 +71,7 @@ public class VersionedInventory extends Inventory implements Versionable {
      * {@code key} must exist in the current state.
      */
     public void removeGood(Good key) {
-        getCurrentState().removeGood(key);
+        version.getCurrentState().removeGood(key);
         updateDisplayedGoods();
     }
 
@@ -94,16 +94,12 @@ public class VersionedInventory extends Inventory implements Versionable {
         updateDisplayedGoods();
     }
 
-    private Inventory getCurrentState() {
-        return version.getCurrentState();
-    }
-
     //=========== Util Methods =========================================================================
 
     /**
      * Updates the list of suppliers to be shown in the UI.
      */
     private void updateDisplayedGoods() {
-        super.resetData(getCurrentState());
+        super.resetData(version.getCurrentState());
     }
 }

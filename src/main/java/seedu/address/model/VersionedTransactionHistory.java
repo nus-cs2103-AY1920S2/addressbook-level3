@@ -33,7 +33,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
      * Resets the history to an empty state as well.
      */
     public void resetData(ReadOnlyList<Transaction> newData) {
-        getCurrentState().resetData(newData);
+        version.getCurrentState().resetData(newData);
         updateDisplayedTransactions();
     }
 
@@ -43,7 +43,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
      * Returns true if a transaction with the same identity as {@code transaction} exists in the current state.
      */
     public boolean hasTransaction(Transaction transaction) {
-        return getCurrentState().hasTransaction(transaction);
+        return version.getCurrentState().hasTransaction(transaction);
     }
 
     /**
@@ -51,7 +51,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
      * The transaction must not already exist in the current state.
      */
     public void addTransaction(Transaction p) {
-        getCurrentState().addTransaction(p);
+        version.getCurrentState().addTransaction(p);
         updateDisplayedTransactions();
     }
 
@@ -60,7 +60,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
      * {@code key} must exist in the current state.
      */
     public void removeTransaction(Transaction key) {
-        getCurrentState().removeTransaction(key);
+        version.getCurrentState().removeTransaction(key);
         updateDisplayedTransactions();
     }
 
@@ -83,16 +83,12 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
         updateDisplayedTransactions();
     }
 
-    private TransactionHistory getCurrentState() {
-        return version.getCurrentState();
-    }
-
     //=========== Util Methods =========================================================================
 
     /**
      * Updates the list of suppliers to be shown in the UI.
      */
     private void updateDisplayedTransactions() {
-        super.resetData(getCurrentState());
+        super.resetData(version.getCurrentState());
     }
 }

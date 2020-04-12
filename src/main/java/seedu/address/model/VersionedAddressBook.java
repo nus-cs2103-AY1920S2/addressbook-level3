@@ -30,7 +30,7 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
      * Resets the existing data of the current state with {@code newData}.
      */
     public void resetData(ReadOnlyList<Supplier> newData) {
-        getCurrentState().resetData(newData);
+        version.getCurrentState().resetData(newData);
         updateDisplayedSuppliers();
     }
 
@@ -40,7 +40,7 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
      * Returns true if a supplier with the same identity as {@code supplier} exists in the current state.
      */
     public boolean hasSupplier(Supplier supplier) {
-        return getCurrentState().hasSupplier(supplier);
+        return version.getCurrentState().hasSupplier(supplier);
     }
 
     /**
@@ -48,7 +48,7 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
      * The supplier must not already exist in the current state.
      */
     public void addSupplier(Supplier p) {
-        getCurrentState().addSupplier(p);
+        version.getCurrentState().addSupplier(p);
         updateDisplayedSuppliers();
     }
 
@@ -59,7 +59,7 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
      * current state.
      */
     public void setSupplier(Supplier target, Supplier editedSupplier) {
-        getCurrentState().setSupplier(target, editedSupplier);
+        version.getCurrentState().setSupplier(target, editedSupplier);
         updateDisplayedSuppliers();
     }
 
@@ -68,7 +68,7 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
      * {@code key} must exist in the current state.
      */
     public void removeSupplier(Supplier key) {
-        getCurrentState().removeSupplier(key);
+        version.getCurrentState().removeSupplier(key);
         updateDisplayedSuppliers();
     }
 
@@ -91,16 +91,12 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
         updateDisplayedSuppliers();
     }
 
-    private AddressBook getCurrentState() {
-        return version.getCurrentState();
-    }
-
     //=========== Util Methods =========================================================================
 
     /**
      * Updates the list of suppliers to be shown in the UI.
      */
     private void updateDisplayedSuppliers() {
-        super.resetData(getCurrentState());
+        super.resetData(version.getCurrentState());
     }
 }
