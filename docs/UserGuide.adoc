@@ -20,14 +20,19 @@ By: `Team AY1920S2-CS2103-T09-3`      Since: `Feb 2020`      Licence: `MIT`
 
 ExpenseLA is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. ExpenseLA maintains a record of your daily incoming and outgoing transactions to constantly keep track of your finances! ExpenseLA is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI). If you want a simple, no-frills expense tracker, look no further than ExpenseLA!
 
-== Quick Start
+== Quick Start (Hubert Halim)
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `expensela.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[[width="790"]]
+image::Ui.png[width="790"]
++
+.  The UI has 5 different components: Command Input box, Command Result box, Monthly Data panel
+Filter panel and Transaction List panel(Chart Analytics Panel)
++
+image::UI_annotated.png[width="790"]
 +
 .  Filters are only to filter transaction list, MonthlyData is data for the current month and not the month
 shown in the filter
@@ -75,7 +80,7 @@ Format: `help`
 
 image::Help.png[width="790"]
 
-=== Set a monthly budget : `budget`
+=== Set a monthly budget : `budget` (Hubert Halim)
 
 Sets a spendable budget for the current month
 
@@ -88,9 +93,12 @@ Examples:
 * `budget b/1500`
 
 
-=== Reset total balance `resetbalance`
+=== Reset total balance `resetbalance` (Hubert Halim)
 
-Reset Balance value to the total from the amount of all transactions in stored in the application so far
+Reset Balance value to the total from the amount of all transactions in stored in the application so far.
+This command is used in case user messes up with json file or there is an unhandled bug in the app that
+causes difference in the value of total balance and the net balance of all the transactions added together.
+This command will rectify that issue.
 
 
 === Key in transaction : `add`
@@ -171,7 +179,7 @@ Examples:
 * `edit 3 a/ 200.00 n/ pocket money`
 
 
-=== Analysis of transactions : `toggleview`
+=== Analysis of transactions : `toggleview` (Hubert Halim)
 
 Toggle between viewing list of transactions and analytics with bar graph and pie chart to show expense trend
 
@@ -206,7 +214,7 @@ Clear all recurring transactions stored
 Expected Outcome: All recurring transactions in the json file GlobalData.json will be cleared
 
 
-=== Export transaction data to csv : `export`
+=== Export transaction data to csv : `export` (Hubert Halim)
 
 Export the filtered transaction list to a csv file
 
@@ -216,7 +224,7 @@ will be exported to the csv file.
 image::Csv.png[width="790"]
 
 
-=== Import transaction data from csv : `import`
+=== Import transaction data from csv : `import` (Hubert Halim)
 
 Import transactions from csv and add it to transaction list, duplicate transactions are ignored.
 
@@ -224,7 +232,7 @@ Expected Outcome: All transactions in the csv that is in the correct format and 
 will be added to transaction list
 
 
-=== Clear all data : `clear`
+=== Clear all data : `clear` (Hubert Halim)
 
 Clear all data in expenseLa including monthly data and global data
 

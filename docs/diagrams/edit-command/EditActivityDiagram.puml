@@ -1,0 +1,14 @@
+@startuml
+start
+:User executes Edit transaction command;
+
+
+if () then ([Valid Input])
+    :Update respective component values of the transaction in Model;
+    :Model displays the new edited Transaction;
+    :Display CommandResult message;
+else([Invalid Input])
+    :Throw ParseException;
+endif
+stop
+@enduml

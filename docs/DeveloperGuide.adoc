@@ -14,7 +14,9 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103-T09-3/main/tree/master
 
-By: `Team Halim`      Since: `Jan 2020`      Licence: `MIT`
+image:logos/ExpenseLa_Logo.png[]
+
+By: `ExpenseLa Team`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -86,7 +88,7 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI component (Choi Min Suk)
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
@@ -102,11 +104,10 @@ The `UI` component does the following actions:
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
-Hubert
 
 [[Design-Logic]]
 
-=== Logic component
+=== Logic component (Hubert Halim)
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -145,17 +146,18 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the `ExpenseLa` data.
+* stores a `MonthlyData` object which contains budget, expense, and income information set by the user.
+* stores a `ToggleView` object that represents the nature of transaction information displayed to the user.
+* stores a `Filter` object which represents the filter on the transactions as set by the user
 * stores `TransactionList` which contains the list of all transactions
-* exposes an unmodifiable `ObservableList<Transaction>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Transaction>` that can be 'observed' e.g. the UI can be bound to this list
+so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+
 
 [[Design-Storage]]
-=== Storage component
+=== Storage component (BenjaminFheng)
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -166,6 +168,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the ExpenseLa data in json format and read it back.
+* can save GlobalData data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -177,23 +180,34 @@ Classes used by multiple components are in the `seedu.ExpenseLa.commons` package
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::addtransactions[]
-=== Adding transactions
+=== Adding transactions (BenjaminFheng)
 We allow users to add Expense/Income transactions into ExpenseLa which denotes a positive or negative inflow of money. This section shows how we handle these requests from the user.
 
 ==== Implementation
 
 We store every single `Transaction` added by the user into an `ObservableList<Transaction>`, which is a list object in `TransactionList`. We used an `ObservableList` to easily reflect changes to the list by any other component of ExpenseLa using the list.
 
-There are two ways of implementing a Transaction:
+These are the ways of implementing either a positive or negative Transaction:
 * Adding an expense (negative transaction): add
 * Adding an income (positive transaction): add i/
 These two commands will indicate whether the transaction is positive or negative.
 
-When inserting a new Expense/Income, the `AddTransactionCommandParser` will detemine which object to initialise depending on whether the i/ syntax is present.
+Indicating whether it is a recurring transaction or not will depend if rc/ is present in the input
+
+When inserting a new Expense/Income, the `AddCommandParser` will determine which object to initialise depending on whether the "i/" CLI syntax is present. Afterwhich, the AddCommandParser will parse the values of the transaction depending on whether the respective CLI Syntaxes are present.
+
+* `**Name**` is parsed by `AddCommandParser#parseName(ArgumentMultimap)`, CLI Syntax is n/.
+* `**Amount**` is parsed by `AddCommandParser#parseAmount(ArgumentMultimap)`, CLI Syntax is a/.
+* `**Date**` is parsed by `AddCommandParser#parseDate(ArgumentMultimap)`, CLI Syntax is d/.
+* `**Category**` is parsed by `AddCommandParser#parseCategory(ArgumentMultimap)`, CLI Syntax is c/.
+* `**Remark**` is parsed by `AddCommandParser#parseRemark(ArgumentMultimap)`, CLI Syntax is r/.
+* CLI Syntax "rc/" will set the transaction to be a monthly recurring transaction.
+
+NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
 
 The following sequence diagram shows how the add transaction operation works:
 
-image::UndoSequenceDiagram.png[]
+image::add-command/AddCommandSequenceDiagram.png[]
 
 Figure 9. Sequence diagram of how adding a new `Transaction` is processed depending on syntax.
 
@@ -202,62 +216,146 @@ Figure 9. Sequence diagram of how adding a new `Transaction` is processed depend
 * Missing parameters
 * Incorrect syntax (i.e. missing prefix if required)
 * Illegal values in parameters (i.e. special character and symbols entered for an integer only field)
-* Multiple occurences of parameters which only expects single entry
+* Multiple occurence of parameters which only expects single entry
 
 [NOTE]
-Incorrect user input will display error message
+Incorrect user input will display ParseError message.
 
 We will demonstrate how a `Transaction` is added into `ExpenseLa`:
 
-Step 1. The user executres the command add *n/Pizza a/20.5 d/2020-02-02* to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
+Step 1. The user executes the command **add n/Pizza a/20.5 d/2020-02-02** to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
 
-* `**Name**` is parsed by `AddCommandParser#parseName(ArgumentMultimap)`
-* `**Value**` is parsed by `AddCommandParser#parseAmount(ArgumentMultimap)`
-* `**Date**` is parse by `AddCommandParser#parseDate(ArgumentMultimap)`
-
-NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
+NOTE: `**Category**` is set to default category `MISC`
 
 Since the user input is valid, the `Transaction` is successfully created and inserted into the transaction list. The transaction list now contains 1 `Transaction` object.
 
-image::UndoRedoState4.png[]
+image::add-command/AddTransactionToList1.png[]
 
-Step 2. The user executes **add i/ n/Salary a/3000 r/Monthly Salary to indicate his monthly pay** to insert a positive `**Transaction**`.
-The input is now checked in a similar fashion as in Step 1 except that:
+Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income rc/ ** to indicate his monthly pay, to insert a positive `**Transaction**`.
 
-* `**Remark**` is parsed by `AddCommandParser#parseRemark(ArgumentMultimap)`
+NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GROCERIES, HEALTH, RECREATION, MISC, UTILITIES, INCOME.
+
+NOTE: "rc/" CLI Syntax will set the transaction to be a recurring transaction.
 
 Again, since the input is valid, the positive `Transaction` is successfully added into the transaction list. The transaction list
 now contains 2 `**Transaction**` objects.
 
+image::add-command/AddTransactionToList2.png[]
+
 The following activity diagram summarizes what happens when the user executes a command to add a new `Transaction`:
 
-image::UndoRedoState5.png[]
+:figure-caption: Figure 10
+.Activity diagram of adding a `Transaction` into the transaction list.
+image::add-command/AddTransactionActivityDiagram.png[,650]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+==== Design considerations
 
-image::CommitActivityDiagram.png[]
+There are many different ways to implement how a transaction is added into `**Expensela**`. In this section, we will justify why we chose to implement it the way we did.
 
-Figure 10. Activity diagram of adding a `Transaction` into the transaction list.
+===== Aspect: Differentiating between **positive** and **negative** transactions.
+* **Alternative 1: (current choice):** Adding a simple "i/" syntax in the input to differentiate between positive and negative transactions
+** Pros: Increases the speed and simplicity of adding a positive or negative transaction. Updating balance in MonthlyData information only requires an iteration through
+all the transaction amounts in transaction list for calculation.
+** Cons: Transactions may not be easily distinguishable as positive or negative transactions on first sight, and may only be distinguished when the transaction amount is inspected.
+This may cause slower processing times when extracting all only positive or only negative transactions.
 
-==== Design Considerations
-
-There are many different ways to implement how a transaction is added into `ExpenseLa`. In this section, we will be justifying why we chose to implement it the way we did.
-
-===== Aspect: Differentiating between positive and negative `Transactions`
-
-* **Alternative 1: (current choice):** Introduce a CliSyntax to differentiate between positive and negative `Transaction`
-** Pros: All transactions are differentiated easily with the positive or negative sign.
-** Cons: Reduces the readability of the program as polymorphism can be confusing.
-
-* **Alternative 2:** Keep `**Expense**` and `**Income**` classes separate, with each having their own specialized methods.
-** Pros: Maintains an intuitive design: `**Expense**` deducts money and `**Income**` increases money.
-** Cons: Incurs significant overhead and duplicated codes since it is likely that both `**Expense**` and `**Income**` will
+* **Alternative 2: Having separate classes for **positive** and **negative** transactions.
+** Pros: Maintains an intuitive design: `**NegativeTransaction**` deducts money and `**PositiveTransaction**` increases money.
+** Cons: May incur significant overhead since it is likely that both `**NegativeTransaction**` and `**PositiveTransaction**` will
 have very similar methods.
 
-Hubert Halim
+Alternative 1 was chosen because we want the application to be as simple and quick as possible to indicate positive and negative transactions. We focused on separating
+the data between months so that the analytics function could calculate data faster.
+
+===== Aspect: Managing how `**RecurringTransactions**` are handled.
+* **Alternative 1: (current choice):** Adding a simple "rc/" syntax in the input to differentiate between recurring and non-recurring transactions. "rc/" is quickly parsed by the
+AddCommandParser and the transaction is labelled as recurring, which is added to RecurringTransactionsList before the command is added to the TransactionsList in Model.
+** Pros: "rc/" is quick and intuitive to indicate during input. Almost no hassle to add the information to RecurringTransactionsList.
+** Cons: Inability for existing transactions to set as recurring transactions.
+
+* **Alternative 2:** Create a separate command to indicate which transactions are recurring and the range of when it recurs.
+** Pros: Transactions are more customizable for users. Users are able to set recurring transactions to repeat over required months.
+** Cons: Users may easily lose track of the transactions that are recurring which will affect their monthly budgeting.
+
+Alternative 1 was chosen because we want to again keep the recurring transactions intuitive and simple. Users can clear their recurring transaction lists whenever
+they become invalid, and input the new recurring transactions whenever there are changes
+
+//end::addtransaction[]
+
+// tag::editTransactions[]
+=== Editing transactions (BenjaminFheng)
+The **edit **functionality modifies details of a specified `**Transaction**` in the existing list and saves
+modifications to the external storage file.
+
+==== Implementation
+**Edit** mechanism utilizes `**Logic**` operations with the `**EditCommand**` class in place of
+`**Command**`, and a unique `**EditCommandParser**` class. The following methods are the implementation for
+**edit** operations:
+
+* `EditCommandParser#parse()` - Parses the user's input via the index of the transaction and creates an `**EditCommand**` to execute the command.
+* `EditCommand#execute()` - Modifies the `**Transaction**` in `**Model**` with new details and returns a
+`**CommandResult**`.
+* `TransactionList#setTransaction(Transaction target, Transaction editedTransaction)` - Sets the modified `**Transaction**` to its correct position in the
+existing `**TransactionList**`.
+
+Command example: **edit 1 n/[NAME] a/[AMOUNT] r/[REMARK]** will edit the name, amount and remark of transaction of index 1 with
+the respective inputs.
+
+Below is an example usage scenario for editing a transaction and explanation of how the **edit** mechanism
+behaves at each step:
+
+Step 1. The user starts up the application with an initial list loaded from a sample transaction list.
+
+:figure-caption!:
+.Initial transaction list
+image::edit-command/editCommand1.png[,650]
+
+Step 2. The user inputs **edit 1 n/Laksa Noodle a/6.00** to update the transaction (with index 1) name to "Laksa Noodle" and value
+to "6". Input is parsed by `EditCommandParser#parse()` which creates an `**EditCommand**`.
+
+Step 3. `EditCommand#execute()` creates a new transaction that reflects the changes and gets the index of current
+transaction to be updated.
+
+.New edited transaction in transaction list
+image::edit-command/editCommand2.png[,650]
+
+Step 4. `UpdateCommand#execute()` replaces original transaction in the list with the updated transaction.
+
+The following activity diagram gives an overview of what ExpenseLa shows the user when executing **edit** command:
+
+:figure-caption: Figure
+.Activity diagram for execution of update command
+image::edit-command/EditActivityDiagram.png[,650]
+
+==== Design considerations
+This subsection explores some alternative designs considered for certain aspects of the feature's implementation.
+
+===== Aspect: Modifying details of a transaction
+* **Alternative 1 (current choice)**: Replace the values of the original transaction with new updated values.
+- Pros: Can easily check for inputs that result in no changes.
+- Cons: May incur overhead when creating new instance of `**Transaction**`.
+
+* **Alternative 2**: Modify the transaction directly using setter methods.
+- Pros: Easy to implement and efficient.
+- Cons: Modifying transactions violates the immutability principle, possibly resulting in bugs for UI or
+accessing modified transaction fields.
+
+**Alternative 1 chosen** to maintain better coding practices and maintain immutability of transactions for the entire project.
+Overhead of creating new `**Transaction**` is insignificant due to relatively small object size.
+
+===== Aspect: Edit transaction by getting it's index or by unique transaction ID
+* **Alternative 1 (current choice)**: Get the index of original transaction in the transactions list and update its values in the list.
+- Pros: High certainty of obtaining the correct transaction, editing its values and replacing the same index in the transaction list.
+- Cons: If there are too many transactions in the list, it might be tedious to obtain the transaction index by scrolling.
+
+* **Alternative 2**: Iterate through the transactions list and update the transaction with the correct transaction ID.
+- Pros: Virtually impossible to not be able to distinguish between similar transactions of different IDs.
+- Cons: Transactions ID would cause significant overhead when looking into each transaction for it's ID.
+// end::update[]
+
 
 // tag::setbudget[]
-=== Setting budgets
+=== Setting budgets (Hubert Halim)
 We allow the user to maintain a `**Budget**` for the current month and subsequent months. This section details how `**ExpenseLa**` handles
 requests made by the user who is trying to set a budget both for a one time and recurring budget. `**Budget**` is contained inside
 `**MonthlyData**` object along with `**Expense**` and `**Income**` and application only has 1 `**MonthlyData**` object for the current month.
@@ -289,7 +387,7 @@ NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters ta
 
 Since the user input is valid, the `**Budget**` is successfully created and inserted into a newly created `**MonthlyData**`.
 
-Case 2. The user made a typo when setting their budget. They execute the command **budget b/150o**.
+Case 2. The user made a typo when setting their budget. They execute the command **budget b/1500**.
 The user's entry is checked by `BudgetCommandParser#parse()` and an attempt to parse each parameter occurs:
 
 * `**Budget**` is parsed by `ParseUtil#parseBudget(ArgumentMultimap)`
@@ -316,7 +414,7 @@ image::set-budget/SetBudgetSequenceDiagram.png[]
 image::set-budget/SetBudgetActivityDiagram.png[]
 
 ==== Design considerations
-We have considered various ways as to how `**Budget**` should be stored in `**ExpensLa**`. In this section, we will explain the
+We have considered various ways as to how `**Budget**` should be stored in `**ExpenseLa**`. In this section, we will explain the
 rationale on our course of actions.
 
 ===== Aspect: Make `**Budget**` a part of a bigger class called `**MonthlyData**`
@@ -334,7 +432,7 @@ as a collective. And easier to just handle 1 reference in ExpenseLa.
 
 
 // tag::commandHistoryNavigation[]
-=== Command History navigation
+=== Command History navigation (Hubert Halim)
 Users can navigate to previous commands by pressing the up or down button on the keyboard.
 Only successful commands are stored in the CommandHistory list and only a maximum of 50 commands can
 be stored at a time.
@@ -345,8 +443,35 @@ The method will attempt to execute the command by calling `CommandExecutor#execu
 if command is invalid. So if the command is valid, the `CommandBox#handleCommandEntered` method will call
 `Logic#deleteCommandFromHistory` to delete the command if it exists in the current command history.
 It will then call `Logic#addToCommandhistory` to add the command to the command history as its latest entry.
+Both commands for add and delete takes in an integer variable called `offset`. This variable is maintained by `CommandBox`
+and determines which command the user is currently at in the command history.
+Offset starts from -1 indicating `CommandBox` is empty and resets to -1 every time a successful command is entered
 
 `Command History` is an array list that resides in `ModelManager` object. It can be accessed through `Logic` by calling
+
+The diagrams below depicts what was just elaborated:
+
+.Sequence diagram showing what happens when user enters a Command
+image::command-history/CommandHistorySequenceDiagram.png[]
+
+.Activity diagram showing what happens when user enters a Command
+image::command-history/CommandHistoryActivityDiagram.png[]
+
+.Sequence diagram showing what happens when presses Up/Down button
+image::command-history/CommandHistoryNavigateSequenceDiagram.png[]
+
+.Activity diagram showing what happens when presses Up/Down button
+image::command-history/CommandHistoryNavigateActivityDiagram.png[]
+
+
+==== Design considerations
+We have considered various ways as to how to implement `**CommandHistory**` to support navigation to previous commands
+Since we need to capture keyboard events when user press the keyboard, we decided to implement the event listener and handler
+in `**CommandBox**` component as it is more convenient because when a keyboard event is captured, the app can straight away
+modify the `**TextField**` in `**CommandBox**`. Since the event when user enter a command is also handled in `**CommandBox**`
+and we only store successful commands in `**CommandHistory**`, we wait for execution of the Command by `**CommandExecutor**`,
+if it is successful, the String for the command is added to, otherwise due to the error thrown and caught somewhere else, the
+command is not stored.
 // end::commandHistoryNavigation[]
 
 
@@ -361,23 +486,28 @@ both of which inheriting from `Predicate<Transaction>` to filter the `Transactio
 `FilterCommand` is instantiated by `FilterCommandParser` 's `parse(String args)` method, which parses the arguments supplied in the user
 command to return a `FilterCommand` object.
 
-The below sequence diagram depicts the execution of the filter feature:
+The below sequence diagram depicts the execution of the filter feature to display all transactions with Category "FOOD":
 image:filter/FilterSequenceDiagram.png[]
 
 The below scenario shows a typical usage of the filter feature:
 
-Step 1: User executes the command filter c/FOOD m/2020-02 to bring up transactions in the category "FOOD" for the month
-of February 2020.
+Step 1: Upon application launch, the filter for all categories and the current month is automatically applied.
+image:filter/Filter_SS_1.PNG[]
 
-Step 2: The `FilterCommandParser` will parse the arguments using the method `parse(String args)`.
+Step 2: User executes the command `filter c/food m/2020-02` to bring up transactions in the category "FOOD" for the month
+of February 2020. (Note: The command in the command line disappears upon hitting Enter, the command in the command line
+is purely for illustration purposes).
+image:filter/Filter_SS_2.PNG[]
 
-Step 3: Since user input is correct and the arguments are parsed, a new `FilterCommand` object is created by the
+Step 3: The `FilterCommandParser` will parse the arguments using the method `parse(String args)`.
+
+Step 4: Since user input is correct and the arguments are parsed, a new `FilterCommand` object is created by the
 `FilterCommandParser`.
 
-Step 4: The `FilterCommand` object will use a `Predicate` based on the specified category, month, or both, to filter
+Step 5: The `FilterCommand` object will use a `Predicate` based on the specified category, month, or both, to filter
 the list of transactions.
 
-Step 5: The list of filtered transactions is brought up. The filter category and month UI will also update accordingly
+Step 6: The list of filtered transactions is brought up. The filter category and month UI will also update accordingly
 to show the category and month that the transactions are filtered by.
 
 The below activity diagram gives an overview of the command execution:
@@ -401,10 +531,14 @@ expenses.
 The design consideration mentioned earlier hence facilitates this proposed extension, reducing the difficulty of such a
 future implementation.
 
-=== Chart Analytics
+=== Chart Analytics (Choi Min Suk)
 
 The *toggleview* command allows the user to switch between viewing the list of 'Transactions' and viewing an analysis of
 his expenditure.
+
+In the expenditure analysis view we have a bar chart to show expenditure breakdown by date as well as a pie chart to
+show expenditure breakdown by category.
+
 
 ==== Implementation
 
@@ -511,7 +645,7 @@ showing list of transactions or chart analysis.
 Alternative 1 was chosen because it is easily extendable, in case we want to improve or develop on the feature in the
 future. It also follows better OOP principles, making the code much neater and understandable.
 
-=== Export
+=== Export (Choi Min Suk)
 
 The *export* command allows user to export currently filtered transactions to a csv file, in case he would like to use
 the data for his own analysis.
@@ -530,7 +664,13 @@ The sequence diagram below shows how the execution of *export* is like:
 .Sequence diagram of how *export* command is applied at the back-end.
 image::export/ExportSequenceDiagram.png[]
 
-The image below shows how the csv file looks when user executes *export* command:
+The following conditions will cause a `**CommandException**` to be thrown by the command:
+
+. Empty filtered transaction list
+. Failure in creating the file
+. Failure in writing to the file (Possibly due to the directory changing while the command is being executed)
+
+The image below shows how the csv file looks when user executes *export* command successfully:
 
 .List of transactions in a csv file opened in Microsoft Excel
 image::export/ExportCsv.PNG[,650]
@@ -542,12 +682,25 @@ user can use the chart analysis generated for visual presentations, especially i
 
 The image below shows how a possible future implementation of this feature could look like:
 
-.Expected command to export chart analysis
+.Expected command to export chart analytics
 image::export/ExportChartCommand.PNG[]
 
 image::export/ExportBarGraph.PNG[,550]
 .Expected images to be exported when *export chartanalysis*
 image::export/ExportPieChart.PNG[,550]
+
+=== [Proposed] Data Encryption
+
+Given the sensitive nature of the information provided by users, we would like to safeguard the information provided by
+our users through encryption. Naturally, the information would be encrypted and decrypted in the back-end without the user
+requiring to do any of the encryption, decryption, or even any knowledge of how it works.
+
+==== Proposed Implementation
+
+=== [Proposed] ExpenseLa Monthly Statement
+
+Just as how banks issue a monthly statement of account, we believe that it would be helpful to provide
+our users with an overview of their expenses in the past month
 
 === Logging
 

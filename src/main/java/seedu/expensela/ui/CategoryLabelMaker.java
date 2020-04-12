@@ -72,5 +72,20 @@ public class CategoryLabelMaker {
         // All
         mapCategoryColour.put("all", BACKGROUND_COLOR_PURPLE);
 
+        mapCategoryColour.put("category: shopping", BACKGROUND_COLOR_RED);
+        mapCategoryColour.put("category: health", BACKGROUND_COLOR_PINK);
+        mapCategoryColour.put("category: food", BACKGROUND_COLOR_GREEN);
+        mapCategoryColour.put("category: transport", BACKGROUND_COLOR_BLUE);
+        mapCategoryColour.put("category: groceries", BACKGROUND_COLOR_LIGHT_GREEN);
+        mapCategoryColour.put("category: recreation", BACKGROUND_COLOR_YELLOW);
+        mapCategoryColour.put("category: utilities", BACKGROUND_COLOR_GREY);
+        mapCategoryColour.put("category: income", BACKGROUND_COLOR_NAVY_BLUE);
+
+        // Miscellaneous
+        mapCategoryColour.put("category: misc", BACKGROUND_COLOR_ORANGE);
+
+        // All
+        mapCategoryColour.put("category: all", BACKGROUND_COLOR_PURPLE);
+
     }
 }
