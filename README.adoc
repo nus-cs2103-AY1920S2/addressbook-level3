@@ -10,6 +10,8 @@ image:https://api.codacy.com/project/badge/Grade/a87445f769c04ad3863dad750abbb32
 
 image::Ui.png[]
 
+image::docs/images/Ui.png[width="600"]
+
 * This is a desktop personal income and task management application for NUS Computing Teaching Assistants (TAs).
 * It is intended for TAs who want to be able to track and manage all of their claimable hours of teaching in NUS.
 

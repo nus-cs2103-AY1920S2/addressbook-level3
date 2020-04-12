@@ -20,7 +20,7 @@ endif::[]
 
 By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
-// tag::introduction[]
+//tag::introduction[]
 == Introduction
 
 TA-Tracker
@@ -63,7 +63,7 @@ you up to speed with how TA-Tracker
 's codebase and inner workings function. It also
 hopes to serve as a useful reference to current contributors in times of confusion or
 when faced with difficulties.
-// end::introduction[]
+//end::introduction[]
 
 == Setting up
 
@@ -78,6 +78,7 @@ possible. This section serves to give a description of the
 major components in the architecture of TA-Tracker. Subsequent sections
 provide more information on the inner workings of individual components.
 
+//tag::architecture[]
 [[Design-Architecture]]
 === Architecture
 
@@ -132,6 +133,8 @@ for the scenario where the user enters the command `session delete 1`.
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
+//end::architecture[]
+//tag::ui[]
 
 [[Design-Ui]]
 === UI component
@@ -185,6 +188,8 @@ respective Card (e.g. `StudentCard`). In each List Panel, the `Graphics` compone
 each of the List Cells is defined by the respective Card.
 
 The other 2 `Tabs` follow the same structure as the _Class Diagram_ above.
+//end::ui[]
+//tag::logic[]
 
 [[Design-Logic]]
 === Logic component
@@ -374,6 +379,8 @@ In the diagram above:
 
 * The *red arrow* will be removed to show that the command parsers no longer need information in `Prefixes`.
 * `Prefixes` will be moved into the *commands* package.
+//end::logic[]
+//tag::model[]
 
 [[Design-Model]]
 === Model component
@@ -420,6 +427,8 @@ when it is first run (without any user data).
 
 .Model Components - Object Diagram
 image::ModelObjectDiagram.png[]
+//end::model[]
+//tag::storage[]
 
 [[Design-Storage]]
 === Storage component
@@ -460,6 +469,7 @@ Within each group, there is:
 the respective groups.
 
 * a separate list of `Session` objects representing the sessions that the user has scheduled in the future.
+//end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -470,6 +480,7 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::goto[]
 [[Implementation-Goto]]
 === Goto Command
 
@@ -516,6 +527,7 @@ how MainWindow should handle the next action.
 
 . `MainWindow` calls the handleGoto() method to select the `ClaimsTab` in the `TabPane`, completing the tab-switching
 process.
+//end::goto[]
 
 [[StudentView]]
 === Student View
@@ -523,7 +535,7 @@ process.
 
 Students are a part of *groups* and groups are a part of *modules*.
 
-// tag::studentviewmodel[]
+//tag::studentviewmodel[]
 ==== Implementation of the Model Framework
 The following _Class Diagram_ shows how different classes are related in the
 functioning of the *Student View*.
@@ -575,11 +587,13 @@ and the *creation of many association classes* which would unnecessarily
 That is why we decided to stick to our current implementation.
 
 ====
+
 // end::studentviewmodel[]
 
 (Contributed by Fatin)
 
 // tag::studentmodel[]
+
 The following _Class Diagram_ shows how different classes are related in the functioning of a `Student` Object.
 
 .Structure of the Student Component
@@ -599,8 +613,8 @@ such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 //end::studentmodel[]
+//tag::moduleaddeditdelete[]
 
-// tag::moduleaddeditdelete[]
 ==== Implementation of the Module Add, Delete and Edit Commands
 
 The following _Sequence Diagram_ shows the interactions
@@ -659,9 +673,9 @@ is removed from the TA-Tracker
 
 
 The `module edit` command has been implemented in a similar manner.
-// end::moduleaddeditdelete[]
+//end::moduleaddeditdelete[]
+//tag::groupaddeditdelete[]
 
-// tag::groupaddeditdelete[]
 ==== Implementation of the Group Add, Delete and Edit Commands
 
 A *group* is added to the TA-Tracker
@@ -729,9 +743,9 @@ given group code exists within that module.
 7. The `DeleteGroupCommand` returns a `CommandResult`.
 
 The `group edit` command has been implemented in a similar manner.
-// end::groupaddeditdelete[]
+//end::groupaddeditdelete[]
+//tag::studentaddeditdelete[]
 
-// tag::studentaddeditdelete[]
 ==== Implementation of the Student Add, Delete and Edit Commands
 
 The following _Sequence Diagram_ shows the interactions that take place
@@ -782,10 +796,9 @@ The `student add` command has been implemented in a similar way as well. The mai
 difference is that the `AddStudentCommand` checks whether an object with the given
 matric number exists in the TA-Tracker. If such student exists, a command exception
 is thrown saying that a student with the given matric number already exists.
+//end::studentaddeditdelete[]
+//tag::sortgroupmoduleall[]
 
-// end::studentaddeditdelete[]
-
-// tag::sortgroupmoduleall[]
 ==== Implementation of the Sort Group, Module and All Command
 
 The sort command allows the user to sort the students in the *Student View*.
@@ -877,9 +890,9 @@ and determines that since the sub-command word is `all` , it must create and ret
 is `matric` , it calls `Model#sortModulesByMatricNumber()` command.
 
 6. The `SortCommand` returns a `CommandResult` with a success message.
-// end::sortgroupmoduleall[]
+//end::sortgroupmoduleall[]
+//tag::sessionmodel[]
 
-//tag::tssview[]
 [[SessionView]]
 === Session View
 
@@ -899,6 +912,8 @@ image::SessionModelClassDiagram.png[]
 The TA-Tracker model class contains a `UniqueSessionList` which helps keep track of
 all the *sessions* in TA-Tracker
 that have *not* been marked as done.
+//end::sessionmodel[]
+//tag::sessiondone[]
 
 ==== Implementation of the Session Done Command
 
@@ -935,6 +950,8 @@ checks whether the current session called by the user has a recurring period.
 (Contributed by Fatin)
 
 The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
+//end::sessiondone[]
+//tag::sessiondoneactivity[]
 
 .Session Done- Activity Diagram
 image::TssActivityDiagram.png[]
@@ -944,6 +961,8 @@ image::TssActivityDiagram.png[]
 The above diagram assumes that a valid index has been input into the TA-Tracker
 during the done session command.
 ====
+//end::sessiondoneactivity[]
+//tag::sessioncommands[]
 
 ==== Implementation of Session Add, Edit and Delete
 
@@ -957,7 +976,7 @@ The `session add` command has been implemented in a similar way. The main differ
 * If no such module code exists, the session is created successfully.
 
 * If it doesn’t exist, an exception is thrown saying that the given module code doesn’t exist.
-
+//end::sessioncommands[]
 //tag::claimsview[]
 
 === Claims View
@@ -995,9 +1014,9 @@ by the user is a valid integer. If it is, the `SetRateCommandParser` creates a
 . `LogicManager` calls `SetRateCommand` 's execute method.
 
 . `MainWindow` updates the `TotalEarnings` label in the `ClaimsTab` and the `StatisticsWindow`
+//end::claimsview[]
+//tag::syntaxhighlighting[]
 
-
-// tag::syntaxhighlighting[]
 === Syntax Highlighting
 When a user types a command into the `CommandBox`, their inputs will be highlighted in different colours
 as a form of input validation.
@@ -1213,7 +1232,8 @@ a need for an explanation.
 Valid inputs have been highlighted in order to signal to the user that they have used
 the command correctly. An alternative would be to remove this colour though, as having too
 many flashing colours may be distracting to the user.
-// end::syntaxhighlighting[]
+//end::syntaxhighlighting[]
+//tag::filter[]
 
 [[Implementation-Filter]]
 === Filter Command
@@ -1311,6 +1331,8 @@ When the user enters the command `claims filter m/MODULE_CODE`, claims that cont
 will be filtered.
 
 The command used to filter claims is implemented the same way as `SessionFilterCommand`.
+//end::filter[]
+//tag::statistic[]
 
 === Statistic Report Generation
 
@@ -1362,6 +1384,8 @@ by creating a `Statistic` object that retrieves data necessary for generating th
 . A `StatisticWindow` object is now created by `MainWindow`. The `Statistic` object is passed into the constructor of `StatisticWindow`.
 
 . Finally, `StatisticWindow` updates its FXML elements and is shown to the user.
+//end::statistic[]
+//tag::logging[]
 
 === Logging
 
@@ -1377,6 +1401,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING`: Can continue, but with caution
 * `INFO`: Information showing the noteworthy actions by the App
 * `FINE`: Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+//end::logging[]
 
 [[Implementation-Configuration]]
 === Configuration
@@ -1395,6 +1420,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+//tag::productscope[]
 [appendix]
 == Product Scope
 
@@ -1413,6 +1439,8 @@ Refer to the guide <<DevOps#, here>>.
 * congregates all information regarding claimable hours of teaching and student information
 in a single location
 * provides desired (TSS) format back to users for convenient viewing
+//end::productscope[]
+//tag::userstories[]
 
 [appendix]
 == User Stories
@@ -1478,6 +1506,8 @@ much money I have earned and stay motivated
 |`*` |TA |enter my students' assignment grades  |keep track of my students' progress (coming in V2.0)
 
 |=======================================================================
+//end::userstories[]
+//tag::usecases[]
 
 [appendix]
 == Use Cases
@@ -2148,10 +2178,11 @@ Use case ends.
 ** 1b1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
-
+//end::usecases[]
 
 :sectnums: // Enables section numbering again outside of the use cases
 
+//tag::nfr[]
 [appendix]
 == Non-Functional Requirements
 
@@ -2163,6 +2194,8 @@ Use case resumes at step 1.
 . `**TAT**` should not require user to install.
 . Features implemented should be testable using manual testing and automated testing.
 . `**TAT**` should support screen resolution of 1920 x 1080 or higher.
+//end::nfr[]
+//tag::glossary[]
 
 [appendix]
 == Glossary
@@ -2225,6 +2258,8 @@ Stands for Main Success Scenario that describes the interaction for a given use 
 
 
 |=======================================================================
+//end::glossary[]
+//tag::testing[]
 
 [appendix]
 == Instructions for Manual Testing
@@ -2531,6 +2566,8 @@ this would show you an error message.
 
 .. Test Case: `exit` +
 Expected: Exits the program.
+//end::testing[]
+//tag::effort[]
 
 [appendix]
 == Effort
@@ -2556,4 +2593,4 @@ Another challenge we faced was that we were unaware of restrictions regarding ti
 in features for the module CS2103 for which this application has been created. Two of
 our features that relied on timing that were almost ready had to be scrapped and we
 had to look for new features to replace them.
-
+//end::effort[]
