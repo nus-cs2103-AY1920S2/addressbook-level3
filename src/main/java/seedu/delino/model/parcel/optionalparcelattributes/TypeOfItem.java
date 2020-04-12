@@ -13,7 +13,7 @@ import static seedu.delino.commons.util.AppUtil.checkArgument;
 public class TypeOfItem {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Type Of Item must consist of only alphabets";
+            "Type Of Item must consist of only alphabets without spacing";
 
     /**
      * The first character of the type of item must not be a whitespace,
