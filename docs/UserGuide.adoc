@@ -88,10 +88,10 @@ HYBB supports the following goals that model the Healthy Eating Plate. Goals are
 |===
 |Goal |Food Group represented by Goal
 
-|Wholesome Wholemeals | Whole Grains
-|Bulk like the Hulk | Healthy Proteins
 |Herbivore | Vegetables
 |Fruity Fiesta | Fruits
+|Bulk like the Hulk | Healthy Proteins
+|Wholesome Wholemeals | Whole Grains
 |===
 
 === Ingredients
@@ -428,12 +428,12 @@ Format: `viewMonth`
 
 == Goal Feature
 
-=== Remove goal: `removeGoal`
-Removes a goal that has been auto-generated through the addition or editting of a recipe. +
-Format: `removeGoal [recipe index] [goal]`
+=== Remove goal: `deleteGoal`
+Deletes a goal that has been auto-generated through the addition or editing of a recipe from a specific recipe. +
+Format: `deleteGoal [recipe index] [goal]`
 
 [TIP]
-Ensure that the capitalisation of the goal is the same!
+Ensure that the capitalisation of the goal is the same! Check out `listGoals` if unsure.
 
 === List goals being tracked: `listGoals`
 Lists all goals tracked by HYBB. +
@@ -486,13 +486,13 @@ Format: `addImage [i/image]`
 data of your previous HYBB folder.
 
 *Q*: How does the auto-generation of goals work? +
-*A*: HYBB analyses the ingredients added or editted in a recipe and auto-generates goals for you. The recipe being tagged by a goal suggests that the minimum requirement per meal for the respective food group, as recommended by the National Institute of Health, has been met.
+*A*: HYBB analyses the ingredients added or edited in a recipe and auto-generates goals for you. The recipe being tagged by a goal suggests that the minimum requirement per meal for the respective food group, as recommended by the National Institute of Health, has been met.
 
-*Q*: Why is there a removeGoal command and no addGoal command? +
+*Q*: Why is there a deleteGoal command and no addGoal command? +
 *A*: As this is the beta version of HYBB, the auto-generation of goals is designed to either accurately calculate quantity or err on the side of overestimation. This would allow you to remove any goal you deem inaccurate based on your own judgement. You can look forward to future releases which will integrate artificial intelligence into HYBB to auto-generate goals more accurately!
 
 *Q*: Why are there no safeguards for adding ingredients? +
-*A*: Currently, HYBB is designed to help you manage your customized recipe list. Hence, the addition of ingredients and under which tag(ip/ iv/ ig/ if/) they fall would be solely based on your judgement! For future releases, we will ensure more safeguards to prevent invalid inputs based on common knowledge.
+*A*: Currently, HYBB is designed to help you manage your customized recipe list. Hence, the addition of ingredients and under which tag(ip/ iv/ ig/ if/ io/) they fall would be solely based on your judgement! For future releases, we will ensure more safeguards to prevent invalid inputs based on common knowledge.
 
 == Glossary
 |===
@@ -528,7 +528,7 @@ data of your previous HYBB folder.
 |plan |Plan a recipe
 |deletePlan |Deletes a planned recipe
 |clearPlan |Clears all planned recipes
-|removeGoal |Removes specified goal from a recipe
+|deleteGoal |Deletes specified goal from a recipe
 |listGoals |Lists all available goals
 |cooked |Records a recipe as cooked
 |===
