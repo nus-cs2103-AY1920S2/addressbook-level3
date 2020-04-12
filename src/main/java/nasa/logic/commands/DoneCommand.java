@@ -58,9 +58,13 @@ public class DoneCommand extends Command {
             if (deadline.isDone()) {
                 throw new CommandException(MESSAGE_ACTIVITY_ALREADY_DONE);
             } else {
-                deadline.setDone(true);
+
+                model.setDeadline(moduleCode, deadline, new Deadline(deadline.getName(), deadline.getDateCreated(),
+                        deadline.getNote(), deadline.getPriority(),  deadline.getDueDate(), true));
                 return new CommandResult(String.format(MESSAGE_SUCCESS, deadline));
             }
+
+
         }
     }
 

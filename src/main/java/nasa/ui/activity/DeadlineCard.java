@@ -51,8 +51,6 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private Label labelForCircle;
     @FXML
-    private Circle circle;
-    @FXML
     private Label dateToRepeat;
 
     public DeadlineCard(Deadline deadline, int displayedIndex) {
