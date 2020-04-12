@@ -44,16 +44,21 @@ public class BmiCommandParser implements Parser<BmiCommand> {
             height = new Height(0);
         } else {
             height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get());
+            if (height.getHeightFloat() > 1000 || height.getHeightFloat() <= 0) {
+                throw new ParseException("Invalid height or weight value, height and weight may only range from >0 up"
+                        + " to 1000.");
+            }
         }
 
         if (argMultimap.getValue(PREFIX_WEIGHT).isEmpty()) {
             weight = new Weight(0);
         } else {
             weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
+            if (weight.getWeightFloat() > 1000 || weight.getWeightFloat() <= 0) {
+                throw new ParseException("Invalid height or weight value, height and weight may only range from >0 up"
+                        + " to 1000.");
+            }
         }
-
-        //}
-
 
         return new BmiCommand(height, weight);
     }
