@@ -47,7 +47,8 @@ public class DeleteDeadlineCommandParser implements Parser<DeleteDeadlineCommand
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteDeadlineCommand.MESSAGE_USAGE));
         } catch (ParseException pe) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteDeadlineCommand.MESSAGE_USAGE), pe);
         }
     }
 }

@@ -20,6 +20,7 @@ import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
 
+import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.model.activity.Date;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Name;
@@ -44,7 +45,7 @@ public class AddDeadlineCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldsMissing_failure() {
-        String expectedMessage = MESSAGE_INVALID_COMMAND_FORMAT;
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDeadlineCommand.MESSAGE_USAGE);
 
         // missing moduleCode
         assertParseFailure(parser, ACTIVITY_NAME_DESC_HWK + DATE_DESC_TEST + NOTES_DESC_TEST

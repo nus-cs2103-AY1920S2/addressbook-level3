@@ -47,12 +47,8 @@ public class EventListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                if (!event.isOver()) {
-                    setStyle("-fx-background-color: #aee4ff;");
-                } else {
-                    setStyle("-fx-background-color: #FFB2AE;");
-                }
                 setGraphic(new EventCard(event, getIndex() + 1).getRoot());
+                setStyle("-fx-background-color: #aee4ff;");
             }
         }
     }

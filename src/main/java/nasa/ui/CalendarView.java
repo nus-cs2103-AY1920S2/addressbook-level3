@@ -275,10 +275,10 @@ public class CalendarView extends UiPart<Region> {
                     + " 5 5 5");
         } else if (activity instanceof Event) {
             // color it yellow
-            activityLabel.setStyle("-fx-background-color: darkblue");
+            activityLabel.setStyle("-fx-background-color: darkblue; -fx-background-radius: 5 5 5 5");
         } else {
             // color it green
-            activityLabel.setStyle("-fx-background-color:green");
+            activityLabel.setStyle("-fx-background-color:green; -fx-background-radius: 5 5 5 5");
         }
         activityLabel.setTextFill(Color.BLACK);
         activityLabel.setAlignment(Pos.CENTER);

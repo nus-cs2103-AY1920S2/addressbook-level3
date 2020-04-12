@@ -41,7 +41,8 @@ public class RepeatDeadlineCommandParser implements Parser<RepeatDeadlineCommand
 
         if (!(arePrefixesPresent)
                 || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RepeatDeadlineCommand.MESSAGE_USAGE));
         }
 
         // compulsory fields

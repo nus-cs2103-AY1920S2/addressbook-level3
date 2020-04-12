@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <VBox id="modulePane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-        <Label fx:id="code" maxWidth="275" styleClass="cell_big_label" text="\$code" wrapText="true">
+        <Label fx:id="code" styleClass="cell_big_label" text="\$code" wrapText="true">
         </Label>
     <VBox fx:id="activityListPanelPlaceholder" VBox.vgrow="ALWAYS"
                HBox.hgrow="ALWAYS"/>
