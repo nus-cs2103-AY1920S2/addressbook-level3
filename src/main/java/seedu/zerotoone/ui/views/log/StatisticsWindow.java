@@ -15,7 +15,6 @@ import seedu.zerotoone.logic.statistics.StatisticsData;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.ui.util.DateViewUtil;
 import seedu.zerotoone.ui.util.UiPart;
-import seedu.zerotoone.ui.views.log.DataPointView;
 
 /**
  * Controller for a help page
