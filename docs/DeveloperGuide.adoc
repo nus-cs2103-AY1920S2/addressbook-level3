@@ -236,35 +236,40 @@ image::CommitActivityDiagram.png[]
 // end::undoredo[]
 
 // tag::completedExercise[]
-=== Session
+=== Session (Home)
 ==== Implementation
 The Session feature resides on the Home page and is comprised of `Start`, `Stop`, `Done`, and `Skip` commands.
-`OngoingSession`, `Session`, `SessionList` and `SessionSet` are models that are vital components of the feature.
+`OngoingWorkout`, `OngoingSession`, `OngoingSet`, and `OngoingSetList` are models that are vital components of the feature.
 
 The activity diagram below demonstrates the actions of a user with this feature.
 
 .Session Feature Activity Diagram
 image::StartStopActivityDiagram.png[]
 
-Start depicts the start of a valid Session (non-zero sets remaining).
-Upon depletion of all remaining sets, the completedExercise automatically stops and is saved.
-The only inputs the user is required to give throughout the activity are `done` (corresponding to the yes of the conditional branch)
-and `skip` (no of the conditional branch).
+Start depicts the start of a valid (non-zero sets remaining) Workout Session.
+Upon depletion of all remaining sets, the `OngoingWorkout` automatically stops and produces a `CompletedWorkout` which is saved.
+The only inputs the user is required to give throughout the session are `done` (corresponding to the yes of the conditional branch)
+and `skip` (no of the conditional branch). `Stop` is optional.
+
 This is a conscious design choice as elaborated in the next section.
 
 ---
 
 The operations handling these actions are found in OngoingSession:
 
-* `OngoingSession#skip()/OngoingSession#done()` -- returns previous set and updates queue of remaining sets.
-* `OngoingSession#finish()` -- creates and returns an immutable `Session` object for saving and logging.
+* `OngoingWorkout#skip()/OngoingWorkout#done()` -- removes and returns the next set and updates queue of remaining sets.
+* `OngoingWorkout#finish()` -- creates and returns an immutable `CompletedWorkout` object for saving and logging.
 
 Further operations are exposed in the `Model` interface as `Model#startSession()` and `Model#stopSession()`.
 
 ---
 
 The inner workings of the feature are briefly expounded below through example usage.
-`Arms Day` is a `Workout` with ID = `2` and consists of 2 sets of one exercise called `Benchpress`.
+`Arms Day` is a `Workout` with ID = `2` and consists of 2 sets of one exercise called `Bench Press`.
+
+
+.Example Workout Session
+image::sessionExample.png[]
 
 Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a completedExercise with `start 2`.
 
