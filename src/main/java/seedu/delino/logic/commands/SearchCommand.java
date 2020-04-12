@@ -59,13 +59,11 @@ public class SearchCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        if (orderPredicate == null) {
-            model.updateFilteredOrderList(showNoOrders -> false);
-            model.updateFilteredReturnOrderList(returnPredicate);
-        }
-        if (returnPredicate == null) {
-            model.updateFilteredReturnOrderList(showNoReturnOrders -> false);
+        if (orderPredicate != null) {
             model.updateFilteredOrderList(orderPredicate);
+        }
+        if (returnPredicate != null) {
+            model.updateFilteredReturnOrderList(returnPredicate);
         }
 
         if (returnPredicate != null && orderPredicate != null) {
