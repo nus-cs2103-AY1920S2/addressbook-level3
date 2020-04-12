@@ -34,7 +34,7 @@ class SearchCommandParserTest {
 
     @Test
     void parse_nonEmptySuggestionList_throwsParseExceptionEmptySuggestion() {
-        Runnable action = () -> { };
+        Runnable action = () -> {};
         model.setSuggestions(List.of(new SuggestionItemImpl("search /CS2103T", action)));
 
         final String expectedErrorMessage = "Please select one of the suggestions below, then press enter!";
