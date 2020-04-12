@@ -149,7 +149,6 @@ public class MainWindow extends UiPart<Stage> {
         goalsCountList = logic.getFilteredGoalsTally();
         cookedListPanel = new CookedListPanel(cookedList, goalsCountList);
 
-        //using recipe list as stub for achievements, to be edited later todo
         //TODO set storage parameter instead of hardcode
         ObservableList<Quote> quoteList = logic.getFilteredQuoteList();
         achievementsListPanel = new AchievementCard(quoteList, cookedList);
