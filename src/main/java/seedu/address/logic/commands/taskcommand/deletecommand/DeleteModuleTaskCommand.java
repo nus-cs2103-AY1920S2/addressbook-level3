@@ -3,12 +3,17 @@ package seedu.address.logic.commands.taskcommand.deletecommand;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASK;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleCode;
+
+
 
 /**
  * Deletes a task of certain module identified using it's displayed index from the module book.
@@ -39,6 +44,9 @@ public class DeleteModuleTaskCommand extends DeleteTaskCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_MODULE_TASK_INDEX);
         }
 
+        List<Task> lastShownList = model.getDeadlineTaskList();
+        Task removed = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteTask(removed);
         model.deleteModuleTask(targetModule, targetIndex);
         model.sortTaskList();
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);

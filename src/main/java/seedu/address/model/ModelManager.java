@@ -420,9 +420,9 @@ public class ModelManager implements Model {
 
     @Override
     public Task deleteTask(Task task) {
-        Task removed = Task.getDeadlineTaskList().remove(task.getIndex() - 1);
-        Task.removeTaskPerDate(removed.getDate(), removed);
-        return removed;
+        Task.getDeadlineTaskList().remove(task);
+        Task.removeTaskPerDate(task.getDate(), task);
+        return task;
     }
 
     @Override
