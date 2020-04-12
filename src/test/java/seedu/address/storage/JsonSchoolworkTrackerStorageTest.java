@@ -26,11 +26,11 @@ public class JsonSchoolworkTrackerStorageTest {
     public Path testFolder;
 
     @Test
-    public void readScheduler_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readScheduler(null));
+    public void readSchoolworkTracker_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readSchoolworkTracker(null));
     }
 
-    private java.util.Optional<ReadOnlySchoolworkTracker> readScheduler(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker(String filePath) throws Exception {
         return new JsonSchoolworkTrackerStorage(Paths.get(filePath))
             .readSchoolworkTracker(addToTestDataPathIfNotNull(filePath));
     }
@@ -43,67 +43,69 @@ public class JsonSchoolworkTrackerStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readScheduler("NonExistentFile.json").isPresent());
+        assertFalse(readSchoolworkTracker("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readScheduler("notJsonFormatScheduler.json"));
+        assertThrows(DataConversionException.class, () -> readSchoolworkTracker("notJsonFormatSchoolworkTracker.json"));
     }
 
     @Test
-    public void readScheduler_invalidAssignmentScheduler_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readScheduler("invalidAssignmentScheduler.json"));
+    public void readSchoolworkTracker_invalidAssignmentScheduler_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSchoolworkTracker("invalidSchoolworkTracker.json"));
     }
 
     @Test
-    public void readScheduler_invalidAndValidAssignmentScheduler_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readScheduler("invalidAndValidAssignmentScheduler.json"));
+    public void readSchoolworkTracker_invalidAndValidSchoolworkTracker_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () ->
+            readSchoolworkTracker("invalidAndValidSchoolworkTracker.json"));
     }
 
     @Test
-    public void readAndSaveScheduler_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempScheduler.json");
+    public void readAndSaveSchoolworkTracker_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempSchoolworkTracker.json");
         SchoolworkTracker original = getTypicalSchoolworkTracker();
-        JsonSchoolworkTrackerStorage jsonAssignmentScheduleStorage = new JsonSchoolworkTrackerStorage(filePath);
+        JsonSchoolworkTrackerStorage jsonAssignmentScoolworkTrackerStorage = new JsonSchoolworkTrackerStorage(filePath);
 
         // Save in new file and read back
-        jsonAssignmentScheduleStorage.saveSchoolworkTracker(original, filePath);
-        ReadOnlySchoolworkTracker readBack = jsonAssignmentScheduleStorage.readSchoolworkTracker(filePath).get();
+        jsonAssignmentScoolworkTrackerStorage.saveSchoolworkTracker(original, filePath);
+        ReadOnlySchoolworkTracker readBack =
+            jsonAssignmentScoolworkTrackerStorage.readSchoolworkTracker(filePath).get();
         assertEquals(original, new SchoolworkTracker(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addAssignment(IS1103_QUIZ);
-        jsonAssignmentScheduleStorage.saveSchoolworkTracker(original, filePath);
-        readBack = jsonAssignmentScheduleStorage.readSchoolworkTracker(filePath).get();
+        jsonAssignmentScoolworkTrackerStorage.saveSchoolworkTracker(original, filePath);
+        readBack = jsonAssignmentScoolworkTrackerStorage.readSchoolworkTracker(filePath).get();
         assertEquals(original, new SchoolworkTracker(readBack));
 
         // Save and read without specifying file path
         original.addAssignment(CS2103_QUIZ);
-        jsonAssignmentScheduleStorage.saveSchoolworkTracker(original); // file path not specified
-        readBack = jsonAssignmentScheduleStorage.readSchoolworkTracker().get(); // file path not specified
+        jsonAssignmentScoolworkTrackerStorage.saveSchoolworkTracker(original); // file path not specified
+        readBack = jsonAssignmentScoolworkTrackerStorage.readSchoolworkTracker().get(); // file path not specified
         assertEquals(original, new SchoolworkTracker(readBack));
     }
 
     @Test
-    public void saveScheduler_nullScheduler_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveScheduler(null, "SomeFile.json"));
+    public void saveSchoolworkTracker_nullSchoolworkTracker_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveSchoolworkTracker(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code scheduler} at the specified {@code filePath}.
+     * Saves {@code schoolwork Tracker} at the specified {@code filePath}.
      */
-    private void saveScheduler(ReadOnlySchoolworkTracker scheduler, String filePath) {
+    private void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker, String filePath) {
         try {
             new JsonSchoolworkTrackerStorage(Paths.get(filePath))
-                    .saveSchoolworkTracker(scheduler, addToTestDataPathIfNotNull(filePath));
+                    .saveSchoolworkTracker(schoolworkTracker, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveScheduler_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveScheduler(new SchoolworkTracker(), null));
+    public void saveSchoolworkTracker_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveSchoolworkTracker(new SchoolworkTracker(), null));
     }
 }

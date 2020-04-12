@@ -160,8 +160,8 @@ public class EditPersonDescriptor {
     }
 
     /**
-     * Sets {@code tags} to this object's {@code tags}.
-     * A defensive copy of {@code tags} is used internally.
+     * Sets {@code tags} to this object's {@code emptyTags}.
+     * A defensive copy of {@code emptyTags} is used internally.
      */
     public void setTagsToEmpty(Set<Tag> tags) {
         this.emptyTags = (tags != null) ? new HashSet<>(tags) : null;
@@ -170,7 +170,7 @@ public class EditPersonDescriptor {
     /**
      * Returns an unmodifiable empty tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
-     * Returns {@code Optional#empty()} if {@code tags} is null.
+     * Returns {@code Optional#empty()} if {@code emptyTags} is null.
      */
     public Optional<Set<Tag>> getEmptyTagSet() {
         return (emptyTags != null) ? Optional.of(Collections.unmodifiableSet(emptyTags)) : null;
