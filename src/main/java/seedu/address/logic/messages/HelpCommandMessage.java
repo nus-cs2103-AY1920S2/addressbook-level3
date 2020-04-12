@@ -1,5 +1,4 @@
 package seedu.address.logic.messages;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.bluetooth.CommandList;
@@ -9,22 +8,22 @@ import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
-public class CommandListMessage extends  AppMessage {
+public class HelpCommandMessage extends  AppMessage {
     private  final String feedbackToUser;
     private ArrayList<CommandList> toDisplayList;
     private Boolean RENDER_FLAG;
-    public final String IDENTIFIER = "CommandList";
+    public final String IDENTIFIER = "HelpList";
 
     private final boolean exit;
 
-    public CommandListMessage (String feedbackToUser, boolean exit)
+    public HelpCommandMessage(String feedbackToUser, boolean exit)
     {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.exit = exit;
         this.RENDER_FLAG = false;
     }
 
-    public CommandListMessage(String feedbackToUser)
+    public HelpCommandMessage(String feedbackToUser)
     {
         this(feedbackToUser, false);
     }
@@ -66,12 +65,12 @@ public class CommandListMessage extends  AppMessage {
         {
             return true;
         }
-        if (!(other instanceof  CommandListMessage))
+        if (!(other instanceof HelpCommandMessage))
         {
             return false;
         }
 
-        CommandListMessage otherCommandResult = (CommandListMessage) other;
+        HelpCommandMessage otherCommandResult = (HelpCommandMessage) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && exit == otherCommandResult.exit;
     }

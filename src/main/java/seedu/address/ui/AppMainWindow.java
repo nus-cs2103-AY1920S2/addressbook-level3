@@ -26,6 +26,7 @@ public class AppMainWindow extends UiPart<Stage> {
     private BluetoothPingPanel bluetoothPingPanel;
     private BluetoothPingSummaryPanel bluetoothPingSummaryPanel;
     private PersonSummaryPanel personSummaryPanel;
+    private HelpPanel helpPanel;
     private ResultDisplay resultDisplay;
 
     @FXML
@@ -68,6 +69,10 @@ public class AppMainWindow extends UiPart<Stage> {
             else if (commandResult.getIdentifier().equals("UserSummary")) {
                 this.personSummaryPanel = new PersonSummaryPanel(commandResult.getDisplayAsObservable());
                 this.bluetoothPingPanelPlaceholder.getChildren().add(this.personSummaryPanel.getRoot());
+            }
+            else if (commandResult.getIdentifier().equals("HelpList")) {
+                this.helpPanel = new HelpPanel(commandResult.getDisplayAsObservable());
+                this.bluetoothPingPanelPlaceholder.getChildren().add(this.helpPanel.getRoot());
             }
         }
     }

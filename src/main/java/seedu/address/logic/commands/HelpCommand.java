@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.messages.AppMessage;
-import seedu.address.logic.messages.BluetoothPingsMessage;
-import seedu.address.logic.messages.CommandListMessage;
+import seedu.address.logic.messages.HelpCommandMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bluetooth.CommandList;
 import seedu.address.storage.AppStorage;
@@ -19,45 +17,27 @@ public class HelpCommand implements AppCommand, BluetoothPingStorageAccess {
         return this;
     }
 
-    public AppMessage execute(AppStorage dao)
+    public HelpCommandMessage execute(final AppStorage dao)
     {
-        ArrayList resp = dao.search();
-
-        CommandListMessage result = new CommandListMessage("Help Guideline for Users");
+        HelpCommandMessage result = new HelpCommandMessage("Help Guideline for Users");
         ArrayList<CommandList> allCommand = new ArrayList<CommandList>();
 
+        // Query over bluetooth ping records
+        allCommand.add(new CommandList("Timestamp filtering", "from <ts: start> to <ts: end>"));
+        allCommand.add(new CommandList("UserID filtering", "id is <user: id>"));
+        allCommand.add(new CommandList("User pair filtering", "pairs <user1: id> and <user2: id>"));
+        allCommand.add(new CommandList("Identifying dangerous users", "danger <threshold: counts>"));
 
-        List<String> searchCommands = new ArrayList<String>();
-        String SearchType = "Query over trace data";
-        searchCommands.add("from <ts: start> to <ts: end>");
-        searchCommands.add("id is <user: id>");
-        searchCommands.add("pairs <user1: id> and <user2: id>");
-        searchCommands.add("danger <threshold: counts>");
-        CommandList SearchList = new CommandList(SearchType, searchCommands);
+        // Query over user user information
+        allCommand.add(new CommandList("Show all user details", "person"));
+        allCommand.add(new CommandList("Filter user by ID", "person_by <person: id>"));
+        allCommand.add(new CommandList("New user entry", "person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age>"));
+        allCommand.add(new CommandList("Delete present user ID", "person_delete /userid <person: id>"));
 
-        List<String> personCommands = new ArrayList<String>();
-        String PersonType = "Querying User Related Information";
-        personCommands.add("person");
-        personCommands.add("person_by <person: id>");
-        personCommands.add("person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age> \n");
-        personCommands.add("person_delete /userid <person: id>");
-        CommandList PersonList = new CommandList(PersonType, personCommands);
-
-
-        List<String> reportCommands = new ArrayList<String>();
-        String ReportType = "Querying User Related Information";
-        reportCommands.add("person");
-        reportCommands.add("person_by <person: id>");
-        reportCommands.add("person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age> \n");
-        reportCommands.add("person_delete /userid <person: id>");
-        CommandList ReportList = new CommandList(PersonType, reportCommands);
-
-        allCommand.add(SearchList);
-        allCommand.add(PersonList);
-        allCommand.add(ReportList);
+        // Report generation
+        allCommand.add(new CommandList("??", "??"));
 
         result.setToDisplayList(allCommand);
         return result;
-
     }
 }
