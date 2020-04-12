@@ -989,7 +989,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample modules such as CS2101, CS2105 and GEH1001. The window size may not be optimum.
+.. If you wish to start a new NasaBook, type `clear`
 
 . Saving window preferences
 
@@ -1001,20 +1002,20 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Adding a new module
 
-.. Test case: `Madd m/CS2030 n/Programming Methodology II` +
+.. Test case: `add m/CS2030 n/Programming Methodology II` +
 Expected: The module `CS2030` will be created and displayed on the screen.
 
 . Adding a module that already exists
 
-.. Test case: `Madd m/CS2030 n/Programming Methodology II` +
+.. Test case: `add m/CS2030 n/Programming Methodology II` +
 Expected: Assuming the mod is added from the previous test case, a duplicate module error will be shown.
 
 . Providing wrong format for module parameters
 
-.. Test case: `Madd m/@c2231 n/Computer Science is fun` +
+.. Test case: `add m/@c2231 n/Computer Science is fun` +
 Expected: Format error is displayed along with an example of a correct format.
 
-.. Test case: `Madd m/cs2030 n/" +
+.. Test case: `add m/cs2030 n/" +
 Expected: Format error is displayed along with an example of a correct format.
 
 === Deleting a module
@@ -1064,10 +1065,10 @@ Expected: The first activity in the CS2030 activity list will be deleted.
 . Deleting an activity that does not exist
 
 .. Test case: `del-d 10 m/CS2030` +
-Expected: An error message will be displayed.
+Expected: An error message saying deadline indicated does not exist will be displayed.
 
 .. Test case: `del-d 200 m/CS2101` +
-Expected: An error message will be displayed.
+Expected: An error message saying deadline indicated does not exist will be displayed.
 
 . Deleting an activity from a module that does not exist
 
@@ -1100,36 +1101,86 @@ Expected: Module CS2030 will be changed to the name Java OOP Class.
 
 . Deleting a module while all modules are listed
 .. Prerequisites: List all modules using the `list` command. Multiple modules in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `del m/CS2030` +
+   Expected: CS2030 module will be deleted from the list. Details of the modules will be disappeared from the screen.
+.. Test case: `del ` +
    Expected: No module is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `del m/` (key in module code), `del m/cs2030` (where cs is not in capital letters) _{give more}_ +
    Expected: Similar to previous.
 
 === Editing an Activity
 
 . Editing an activity
+. Initialise the following data. +
+`add m/CS2030 n/Programming Methodology` +
+`deadline m/CS2030 a/Lab d/20-08-2020 00:00` +
+`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
 
-.. Test case: `edit 1 m/CS2030 n/Remember to do checkstyle testing` +
+. `edit-d` is to edit a deadline activity while `edit-e` is to edit an event activity.
+.. Test case: `edit-d 1 m/CS2030 n/Remember to do checkstyle testing` +
 Expected: The first activity notes will be updated to the following.
 
-.. Test case: Try different variations of the command.
+.. Test case: `edit-e 1 m/CS2030 n/Computing event`
 
 . Editing an activity that does not exist
 
-.. Test case: `edit 100 m/CS2030 n/Remember to do checkstyle testing` +
+.. Test case: `edit-d 100 m/CS2030 n/Remember to do checkstyle testing` +
 Expected: An error showing activity cannot be found will be displayed.
 
 . Editing an activity from a module that does not exist
 
-.. Test case: `edit 1 m/AX1107 .....` +
+.. Test case: `edit-d 1 m/AX1107 .....` +
 Expected: Module not found error will be displayed.
 
 . Editing an activity with the exact same descriptions
 
-.. Test case: `edit 1 m/CS2030 [SAME PARAMETERS]` +
+.. Test case: `edit-d 1 m/CS2030 [SAME PARAMETERS]` +
 Expected: Activity being edited already contains the following descriptions error will be shown.
+
+=== Repeat an activity
+. Repeat an activity by weekly `r/1`, twice weekly `r/2` or monthly `r/3`. To cancel `r/0`.
+. Initialise the following data. +
+`add m/CS2030 n/Programming Methodology` +
+`deadline m/CS2030 a/Lab d/20-05-2020 00:00` +
+`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
+
+.. Test case: `repeat-d 1 m/CS2030 r/1`
+Expected: Activity will display a "Repeat Weekly" in the module card.
+
+.. Test case: `repeat-d 1 m/CS2030 r/0`
+Expected: Activity will cancel the repeat function and text "Repeat" will disappear.
+
+.. Test case: `repeat-e 1 m/CS2030 r/3`
+Expected: Activity will display a "Repeat Monthly" in the module card.
+
+.. Test case: `repeat-f 1 m/CS2030 r/3`
+Expected: No such command, take note that `repeat-d` and `repeat-e`
+
+.. Test case: `repeat-e 1 m/CS2030 r/4`
+Expected: Index out of bounds, take note that only r/0, r/1, r/2, r/3
+
+=== Undo/Redo
+
+CAUTION: Follow the steps closely, to get the expected result.
+
+. Allows user to undo when an error is made or redo when undo is inappropriate.
+. Initialise the following data. +
+`clear`
+`add m/CS2030 n/Programming Methodology` +
+`deadline m/CS2030 a/Lab d/20-05-2020 00:00` +
+`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
+
+.. Test case: `undo`
+Expected: event will be deleted from the list.
+
+.. Test case: `undo`
+Expected: deadline will be deleted from the list.
+
+.. Test case: `redo`, `redo`
+Expected: event and deadline will be displayed.
+
+.. Test case: `undo`, `undo`, `undo`
+Expected: an empty Nasa with no modules.
 
 === Saving data
 
