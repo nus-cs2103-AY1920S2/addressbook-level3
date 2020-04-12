@@ -1,5 +1,6 @@
 package com.notably.model.block;
 
+import java.util.List;
 import java.util.Objects;
 
 import com.notably.commons.path.AbsolutePath;
@@ -71,14 +72,36 @@ public class BlockModelImpl implements BlockModel {
     }
 
     @Override
-    public void removeBlock(AbsolutePath p) {
-        BlockTreeItem parent = blockTree.get(p).getBlockParent();
-        blockTree.remove(p);
-
-        // If the path no longer exists, find the nearest predecessor i.e case of deleting some unrelated block
-        if (!hasPath(getCurrentlyOpenPath())) {
+    public void removeBlock(AbsolutePath path) {
+        if (isCurrentlyOpenAffectedByDelete(path)) {
+            BlockTreeItem parent = blockTree.get(path).getBlockParent();
             setCurrentlyOpenBlock(parent.getAbsolutePath());
         }
+        blockTree.remove(path);
+    }
+
+    /**
+     * Checks if the incoming delete command removes the currently open block as well,
+     * i.e {@code currentlyOpenPath} is a descendent of {@code path}.
+     *
+     * @param path {@code AbsolutePath} of block to be deleted
+     * @return Whether the currently open path is affected
+     */
+    private boolean isCurrentlyOpenAffectedByDelete(AbsolutePath path) {
+        boolean match = true;
+        List<String> currentOpenPathList = getCurrentlyOpenPath().getComponents();
+        List<String> matchPathList = path.getComponents();
+        if (matchPathList.size() > currentOpenPathList.size()) {
+            return false;
+        }
+
+        for (int index = 0; index < matchPathList.size(); index++) {
+            if (!Objects.equals(currentOpenPathList.get(index), matchPathList.get(index))) {
+                match = false;
+                break;
+            }
+        }
+        return match;
     }
 
     @Override
