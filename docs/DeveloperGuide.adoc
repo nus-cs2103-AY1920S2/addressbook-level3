@@ -290,7 +290,7 @@ Eventually, we decided on alternative 1 for the convenience of the user since th
 
 Eventually, we decided on alternative 1 for the benefits of the user. To tackle the cons, we have set `time` to be "23:59" by default if user did not specify.
 
-
+// tag::show[]
 === Show Feature
 
 The `show` feature allows the user to display information about a `Module`, `Course`, `FocusArea` or `Semester` with the command `show`, appended with the tags below. These information cannot be seen from the main UI and have to be displayed through the `show` command.
@@ -412,6 +412,9 @@ The following sequence diagram shows how the `delete` operation works with input
 .Interactions between UI, Logic and Model components for the `delete m/CS2101 t/work` command.
 image::DeleteDeadlineSequenceDiagram.png[]
 
+.Activity Diagram for a Delete Command input
+image::DeleteCommandActivityDiagram.png[]
+
 ==== Design Considerations
 
 * *Alternative 1 (current choice):* Delete only one `Module` or `Deadline` object with one `DeleteCommand`.
@@ -426,12 +429,31 @@ Eventually, we decided on alternative 1 due to the benefits of consistency in th
 // end::delete[]
 
 === Help Feature
-The `help` feature allows the user to view the pop-up help window with the command `help`. This feature allows the user to have a
+The `help` feature allows the user to view the pop-up `HelpWindow` with the command `help`. This feature allows the user to have a
 quick view of sample inputs if they run into trouble while using the application.
 
 ==== Current Implementations
 
 `HelpCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation.
+
+==== Design Considerations
+
+* *Alternative 1 (current choice):* `HelpWindow` exists as a pop-up window.
+** Pros: Easier for user to refer to while typing different commands in the `CommandBox` in `MainWindow`.
+** Cons: As it exists as a separate window, it might cause hindrance for user when use MODdy.
+
+* *Alternative 2:* `HelpWindow` appears in `MainWindow`
+** Pros: Integral with the whole `MainWindow`.
+** Cons: The `HelpWindow` might be replaced by user input command, and user would have to enter `help` command again to view the `HelpWindow`.
+
+Eventually, we decided on alternative 1 due to the benefits of allowing user to cross-reference the commands.
+
+=== Home Feature
+The `home` feature allows the user to return to the homepage.
+
+==== Current Implementations
+
+`HomeCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation.
 
 === Logging
 

@@ -13,6 +13,7 @@ import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
 
+//@@author jadetayy
 
 public class CourseListTest extends CourseList {
 

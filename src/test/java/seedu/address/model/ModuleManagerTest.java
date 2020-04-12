@@ -28,6 +28,7 @@ import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
+//@@author jadetayy
 
 public class ModuleManagerTest {
 

@@ -11,10 +11,10 @@
 <?import javafx.scene.control.ListView?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
-    <SplitPane minHeight="100" dividerPositions="0.5" maxHeight="135">
-        <ListView fx:id="profile" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
+    <SplitPane minHeight="150" maxHeight="150" dividerPositions="0.5">
+        <ListView fx:id="profile" VBox.vgrow="ALWAYS" styleClass="pane-with-border" minHeight="120" maxHeight="120">
             <padding>
-                <Insets top="3" bottom="3" left="5" right="0"/>
+                <Insets top="5" bottom="3" left="5" right="0"/>
             </padding>
         </ListView>
 

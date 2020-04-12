@@ -19,7 +19,7 @@ MODdy is a desktop application used by NUS Computing students to track their cou
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added `home` command and redesigned pop-up `HelpWindow` of `help` command.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -33,7 +33,7 @@ MODdy is a desktop application used by NUS Computing students to track their cou
 ** Documentation:
 *** Updated the README.adoc such that it correspond to our project: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#16]
 *** Contributed to `home` and `help` command documentation in our User Guide: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#16]
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks and added detailed images to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])

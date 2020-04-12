@@ -55,7 +55,7 @@
 
             <!--Profile-->
             <VBox fx:id="profilePanel" styleClass="pane-with-border"
-                  minWidth="260" prefWidth="260" maxWidth="260" VBox.vgrow="ALWAYS" >
+                  minWidth="280" prefWidth="280" maxWidth="280" VBox.vgrow="ALWAYS" >
               <Label text="Profile" styleClass="title" alignment="TOP_LEFT"></Label>
 
               <StackPane fx:id="profileListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
@@ -64,8 +64,6 @@
               </padding>
             </VBox>
           </SplitPane>
-
-
 
 
     <!--Arrange main panel and deadline panel side-by-side-->
@@ -80,7 +78,7 @@
             </StackPane>
     <!--Deadline display-->
             <VBox fx:id="deadlineDisplayPlaceholder" styleClass="pane-with-border"
-                       minWidth="260" prefWidth="260" maxWidth="260" VBox.vgrow="ALWAYS">
+                       minWidth="280" prefWidth="280" maxWidth="280" VBox.vgrow="ALWAYS">
               <Label text="Deadline" styleClass="title" alignment="TOP_LEFT"></Label>
 
               <padding>
