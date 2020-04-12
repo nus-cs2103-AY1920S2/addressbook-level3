@@ -722,7 +722,9 @@ be visible immediately.
 // end::setcurrency[]
 
 === Viewing help: `help`
-Open a browser window that accesses an offline copy of this user guide.
+Open a browser window that accesses an offline copy of this user guide. First
+run of this command may take quite some time as the program needs to extract
+an offline copy of this document.
 
 Format: `help`
 
@@ -753,7 +755,7 @@ image::ug_reminder_window.PNG[]
 [WARNING]
 Remind dates are **only** checked during program launch. Thus, if a day passes
 while the program is open, even if there are coupons expiring on the new day,
-no new reminder window will open
+no new reminder window will open.
 
 As of now, there is no
 functionality for the disabling of reminders for coupons. This feature will be
