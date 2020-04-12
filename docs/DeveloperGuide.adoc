@@ -158,17 +158,22 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-ViewController]]
-=== ViewModel component [NEED TO UPDATE]
+=== ViewModel component (HIEU)
+image::ViewModelDiagram.png[]
+*API*: link:{repoURL}/src/main/java/seedu/address/viewmodel/ViewModel.java[`ViewModel.java`]
 
-* mainly talk about detail manager
-* blah blah blah
-* blah blah blah
+The `ViewModel`,
+
+* stores a list of `observableMap`, each map will corresponds to one `DetailPanel` in ui folder.
+* Each `DetailPanel` (in MainWindow) will listen to the `ViewModel` through the Logic layer.
+* the `ViewModel` will then query the managers from `Model` layer to update its
+observableMap, which in turn will automatically update the corresponding `DetailPanel` view.
 
 [[Design-Model]]
 === Model component [Ivan Tee Jun Jie]
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::Ivan-ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -189,7 +194,7 @@ The 6 types are namely
 Below is an example of the different types of RelevantFields that can be tied to an Assignment.
 
 .Class Diagram of Assignment
-image::AssignmentClassDiagram.png[]
+image::Ivan-AssignmentClassDiagram.png[]
 
 [NOTE]
 The AddressBookGeneric in the diagram above is actually an AddressBookGeneric<Assignment>.
@@ -418,7 +423,7 @@ This technique is also known as template pattern.
 public abstract class UndoableCommand extends Command {
     public abstract void preprocessUndoableCommand() {}
 
-    public abstract void generateOppositeUndoableCommand()
+    public abstract void generateOppositeUndoableCommand();
 
     public CommandResult executeUndoableCommand();
     @Override
@@ -463,203 +468,35 @@ Cons: Harder to implement
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities) [Dat]
 
-=== View Switching
-
-Explain select command
-
-
-
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-
-All assign command variants (i.e `AssignTeacherToCourseCommand`, `AssignStudentToCourseCommand` extends from `AssignCommandBase`
-instead of the abstract `Command` class.
-
-The diagram below shows a simplified flow
-
-.Structure of Commands and Parser
-image::AssignCommandImplementation.png[]
-
-==== Design considerations:
-
-- Since all assign commands are just linking between two entities, where each of them is distinguised based on its ID and its entity name (e.g course, student, teacher, etc).
-So we have AssignDescriptor which stores this information.
-
-- A factory design pattern to select which assign command based on the AssignDescriptor content.
-
-=== [Proposed] Tracking Student Progress Feature
-
-==== Proposed Implementation
-
-This feature is implemented with two main classes - `Progress` and `Assignment`, both of which is controlled by a 'ProgressAddressBook' and 'AssignmentAddressBook' respectively.
-Please see the following class diagram which proposes the associations between the four classes.
-
-.Class diagram of Assignment and Progress
-image::AssignmentAndProgressClassDiagram.png[]
-
-Besides the basic CRUD operations for `Progress` and `Assignment`, one of they key features will be making sure that `Progress` and `Assignments` work seamlessly with each other.
-
-For example, when a student is added to a `Course`,  `Progress` objects must be created automatically for each
-`Assignment` that needs to be completed for the `Course`.
-For this, this will be facilitated by a `Progress Factory` class which the model will utilize to produce numerous `Progress` objects for each `Assignment` for the `Student` that was assigned.
-Please see the sequence diagram for a better understanding.
-
-.Sequence diagram of how Progress objects are created automatically
-image::AssignStudentToCourseDiagram.png[]
-
-Future Functionality Include
-
-* Marking a `Progress` object as done
-* For a `Course`, mark all `Progress` objects with the same assignment ID as done
-* Allow for seamless removal of `Student` from course
-* Allow for seamless deletion of `Assignment` from the addressbook
-
-=== [Proposed] Managing Teacher and Staff Feature
-
-==== Proposed implementation
-
-This feature is implemented with two main classes - `Teacher` and `Staff`.
-
-One of the features is to take note of all the `classes` that a `teacher` has taught.
-When a course is marked as done, the class is automatically added into `teacher` list of taught course.
-
-Another feature is to keep track of salary payment for `Teacher` and `Staff`.
-Both `teacher` and `staff` are paid by monthly or by their amount of work.
-If paying based on amount of work, a `teacher` is paid through the `course` he teaches and a `staff` is paid by miscellaneous payments.
-
-Certain approaches have some certain pros and cons.
-It depends on how the user want to pay to `teacher` and `staff`.
-
-=== [Proposed] Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings
-
-==== Proposed Implementation
-
-Miscellaneous transactions can either be payments or earnings, such as purchases of stationary or advertisement revenue.
-Teacher payments are tracked by courses, where the teacher is paid for each course taught.
-Student earnings are also tracked by courses, where the student pays for each course taken.
-
-This feature is implemented with two main classes - `CourseStudent` and `CourseTeacher`, both of which is controlled by a
-`CourseStudentAddressBook` and `CourseTeacherAddressBook` respectively.
-Please see the following class diagram which proposes the associations between the four classes.
-
-.Class diagram of CourseStudent and CourseTeacher
-image::FinanceDiagram.png[]
-
-`CourseStudent` will be created and stored in `CourseStudentAddressBook` whenever a course is assigned to a student, ensuring that `Course` exists in `CourseAddressBook` and `Student` exists in `StudentAddressBook`.
-
-Similarly, `CourseTeacher` will be created and added to `CourseTeacherAddressBook` whenever a course is assigned to a teacher, ensuring that `Course` exists in `CourseAddressBook` and `Teacher` exists in `TeacherAddressBook`.
-
-`PayCourseStudent` Command will access `CourseStudentAddressBook` to ensure that isPaid is false, before creating the corresponding `Finance` object to be stored in `FinanceAddressBook`.
-The is similar for `PayCourseTeacher` Command.
-
-`PayMiscellaneous` Command will create a corresponding `Finance` object to be stored in `FinanceAddressBook`.
-
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time.
-The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book.
-The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person.
-The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command.
-The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore.
-The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case.
-If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore.
-The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case.
-If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`.
-Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`.
-Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`.
-Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged.
-We designed it this way because it no longer makes sense to redo the `add n/David ...` command.
-This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice.
-For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
-Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+=== View Switching [HIEU]
+To see sub-view details of each section we can issue a select command.
+
+Let's see an example of how selecting sub-view data of a student 1 works.
+
+image::ViewSwitchFlowDiagram.png[]
+
+. `select sid/ 1` command is issued to `ViewController`
+. `ViewController`  will call `ViewModel` method `updateStudentDetailsMap`
+. In turn, that method will invoke managers from `Model` layer, for example `ModelManager`,
+to update `observableStudentDetailMap` inside `ViewModel`
+. Because `StudentDetailsMap` implements an `onChange` function that
+listen to update in `observableStudentDetailMap`, the UI part will be updated correspondingly
+with data of this student 1.
+
+Design considerations:
+
+. Automatically updating the UI sub-view when the app state changes. Let's say the current sub-view
+shown in the UI is of the details of student 1, then some information of the course of that
+student is changed, or the student is removed from the course, the UI should update immediately
+without the need to issue the click command again. To support that, our `ViewModel` will listen to `EventsCenter` , then whenever
+an event of `DataStorageChangeEvent` or `DeleteEntitySyncEvent` happens, it will check
+which `observableMap` (which corresponds to different `DetailedView`) is active then
+do the query again.
+
+. 2/ Lazy loading: For example, when seeing details of the students, we only want to show the courses
+that the students have without the progresses of this course that the student currently have.
+To query that, after executing `select sid/ student_id`, the user needs to run
+`select sid/ student_id cid/ course-id` as well
 
 === Logging
 
