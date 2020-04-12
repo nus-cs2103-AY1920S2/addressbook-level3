@@ -37,7 +37,7 @@ public class ExpenseSplitterParser implements CommonParser<SplitterModel> {
         final String arguments = matcher.group("arguments");
 
 
-        // New Command need to add to here!!!
+
         switch(commandWord) {
         case ListReceiptCommand.COMMAND_WORD:
             return new ListReceiptCommand(); // No Args so no need to Parse.

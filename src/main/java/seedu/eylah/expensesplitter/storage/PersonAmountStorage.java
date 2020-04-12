@@ -18,7 +18,7 @@ public interface PersonAmountStorage {
     Path getPersonAmountBookFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyPersonAmountBook}.
+     * Returns PersonAmountBook data as a {@link ReadOnlyPersonAmountBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -32,13 +32,13 @@ public interface PersonAmountStorage {
 
     /**
      * Saves the given {@link ReadOnlyPersonAmountBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param personAmountBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void savePersonAmountBook(ReadOnlyPersonAmountBook addressBook) throws IOException;
+    void savePersonAmountBook(ReadOnlyPersonAmountBook personAmountBook) throws IOException;
 
     /**
-     * @see @savePersonAmountBook(ReadOnlyAddressBook)
+     * @see @savePersonAmountBook(ReadOnlyPersonAmountBook)
      */
     void savePersonAmountBook(ReadOnlyPersonAmountBook personAmountBook, Path filePath) throws IOException;
 

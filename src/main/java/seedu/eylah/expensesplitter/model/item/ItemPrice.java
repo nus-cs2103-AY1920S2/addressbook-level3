@@ -35,7 +35,6 @@ public class ItemPrice {
     public static final String MESSAGE_CONSTRAINTS =
             "Price should be greater than $0";
     public static final String VALIDATION_REGEX = "(?=.*?\\d)^\\$?(([1-9]\\d{0,2}(,\\d{3})*)|\\d+)?(\\.\\d{1,2})?$";
-    //Price can either be 9 or 9.0 or 9.00 It can only accept a max of 2 decimal place.
 
 
     public final BigDecimal itemPrice;

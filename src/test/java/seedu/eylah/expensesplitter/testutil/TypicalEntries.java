@@ -66,4 +66,15 @@ public class TypicalEntries {
     public static ArrayList<Entry> getTypicalEntries() {
         return new ArrayList<>(Arrays.asList(ENTRY_ONE, ENTRY_TWO, ENTRY_THREE, ENTRY_FOUR));
     }
+
+    public static String getTypicalReceiptBookToString() {
+        ReceiptBook receiptBook = new ReceiptBook();
+        Receipt receipt = new Receipt();
+        for (Entry entry : getTypicalEntries()) {
+            receipt.addEntry(entry);
+        }
+        receiptBook.addReceipt(receipt);
+        return receiptBook.getReceiptList().get(0).toString();
+
+    }
 }

@@ -57,12 +57,12 @@ public class ModelStub implements SplitterModel {
     }
 
     @Override
-    public void listAmount() {
+    public String listAmount() {
         throw new AssertionError("This method should not be called");
     }
 
     @Override
-    public void listReceipt() {
+    public String listReceipt() {
         throw new AssertionError("This method should not be called");
     }
 

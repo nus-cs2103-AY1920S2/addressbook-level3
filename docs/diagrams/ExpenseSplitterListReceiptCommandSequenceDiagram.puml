@@ -58,7 +58,7 @@ deactivate Receipt
 
 
 
-SplitterModelManager --> ListReceiptCommand
+SplitterModelManager --> ListReceiptCommand : String
 deactivate SplitterModelManager
 
 create CommandResult
