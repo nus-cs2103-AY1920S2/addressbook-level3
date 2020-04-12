@@ -301,7 +301,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 
 * Substitute `SPORT` with the sports of the client.
 
-* `SPORT` should only contain alphanumeric characters and spaces. 
+* `SPORT` should only contain alphanumeric characters and spaces.
 
 * Sports given in this command will overwrite all of the client's existing sports.
 
@@ -335,7 +335,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 
 ==== Example
 
-Let's say you want to edit the address and assign 3 sports (Tennis, Hockey, Badminton) to client `Irfan Ibrahim`. From the `Client List`, you can see that his client `INDEX` is 3. 
+Let's say you want to edit the address and assign 3 sports (Tennis, Hockey, Badminton) to client `Irfan Ibrahim`. From the `Client List`, you can see that his client `INDEX` is 3.
 
 image::UGEditCDiagram1.png[]
 
@@ -706,7 +706,7 @@ You might encounter the message that "One or more of your input schedules have o
 image::UGScheduleDiagram7.png[]
 
 [NOTE]
-Overlapping schedules are not allowed between schedules within the same client. However, *different clients* can have overlapping schedules with each other as it is a possible scenario that you as a gym coach can coach multiple clients at once, and that additional clients can join/leave the session as other sessions are ongoing. 
+Overlapping schedules are not allowed between schedules within the same client. However, *different clients* can have overlapping schedules with each other as it is a possible scenario that you as a gym coach can coach multiple clients at once, and that additional clients can join/leave the session as other sessions are ongoing.
 
 *Invalid command format*
 
