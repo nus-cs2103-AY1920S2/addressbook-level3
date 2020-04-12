@@ -41,18 +41,18 @@ JsonUserPrefsStorage .right.|> UserPrefsStorage
 JsonProfileListStorage .up.|> ProfileListStorage
 JsonProfileListStorage .down.> JsonSerializableProfileList
 JsonSerializableProfileList .down.> JsonProfile
-JsonProfile o-left-> JsonSemesterRecord
-JsonSemesterRecord o-up-> JsonPersonalModule
-JsonPersonalModule o-up-> JsonDeadline
+JsonProfile *-down-> JsonSemesterRecord
+JsonSemesterRecord *-down-> JsonPersonalModule
+JsonPersonalModule *-down-> JsonDeadline
 JsonPersonalModule -left-|> JsonModule
 
 JsonModuleListStorage .down.> JsonSerializableModuleList
 JsonSerializableModuleList .down.> JsonModule
-JsonModule o-left-> JsonSemesterData
-JsonModule o-down-> JsonPrereqTreeNode
+JsonModule *-down-> JsonSemesterData
+JsonModule *-down-> JsonPrereqTreeNode
 
 JsonCourseListStorage .down.> JsonSerializableCourseList
 JsonSerializableCourseList .down.> JsonCourse
-JsonCourse o-down-> JsonCourseRequirement
-JsonCourse o-right-> JsonCourseFocusArea
+JsonCourse *-down-> JsonCourseRequirement
+JsonCourse *-down-> JsonCourseFocusArea
 @enduml

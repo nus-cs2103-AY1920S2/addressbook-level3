@@ -368,6 +368,7 @@ The tags are:
 
 [NOTE]
 You can delete multiple modules at once, e.g. `delete m/CS1231 m/IS1103 m/MA1521`. +
+You can also delete multiple deadlines at once but only from the same module, e.g. `delete m/CS1231 t/task t/exam`. +
 You can also delete multiple grades at once, e.g. `delete m/CS1231 m/IS1103 m/MA1521 g/`.
 
 ==== Current Implementations
@@ -860,11 +861,11 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Returning to the home screen
 
-.. Prerequisites: The Quick Start page is not shown in the overview panel. 
+.. Prerequisites: The Quick Start page is not shown in the overview panel.
 .. Test case: `home` +
    Expected: The Quick Start page is shown in the overview panel.
 
-=== Reset MODdy
+=== Resetting MODdy
 
 . Clears all user information inside MODdy, including user profile, modules taken and deadlines.
 
