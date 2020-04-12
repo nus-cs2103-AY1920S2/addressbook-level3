@@ -3,17 +3,17 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: MODdy
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+MODdy is a desktop application used by NUS Computing students to track their course progression, manage modules and manage deadlines. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
+* *Major enhancement*: developed the whole *User Interface and User Experience (UI/UX)* for MODdy
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
@@ -26,11 +26,13 @@ AddressBook - Level 3 is a desktop address book application used for teaching So
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
+*** Updated the README.adoc such that it correspond to our project: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#16]
+*** Contributed to `home` and `help` command documentation in our User Guide: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#16]
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
@@ -38,8 +40,7 @@ AddressBook - Level 3 is a desktop address book application used for teaching So
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated three new Github plugin (AppVeyor, Coveralls and Netlify) to the team repo and added the respective badges to link to the repo (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#16], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/18[#18])
 
 _{you can add/remove categories in the list above}_
 
