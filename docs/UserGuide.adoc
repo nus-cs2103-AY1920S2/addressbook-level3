@@ -162,24 +162,18 @@ Buys a batch of goods from a supplier in the contact list who stocks that produc
 . The supplier has not been entered in the supplier list
 . The supplier has not been registered to the good, as indicated by the "offers" section of each supplier
 
-Format: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY`
+Format: `buy SUPPLIER_DISPLAY_INDEX g/GOOD_NAME q/QUANTITY`
 
 Example:
 
-* `buy n/Cold Storage g/Apple q/4` +
-Buys 4 apples from Supplier named Cold Storage.
+* `buy 1 g/Apple q/4` +
+Buys 4 apples from supplier at displayed index 1 in the supplier list.
 
 [TIP]
 If the good does not exist in the inventory, a new entry for that good will be created.
 
 [CAUTION]
-Name of supplier and good name is case sensitive.
-
-[CAUTION]
 The maximum quantity of any good in the inventory is 999,999. Users are not allowed to buy quantities of goods that would cause that limit to be exceeded.
-
-[NOTE]
-As of v1.3, the buy command does not yet interact with the transaction history.
 
 === Selling goods: `sell`
 
@@ -190,12 +184,12 @@ The inventory manager cannot sell products in the following cases:
 . The good being sold does not exist in the inventory
 . The quantity being sold is larger than the amount existing in the inventory
 
-Format: `sell g/GOOD_NAME q/QUANTITY p/PRICE`
+Format: `sell GOOD_DISPLAYED_INDEX q/QUANTITY p/PRICE`
 
 Example:
 
-* `sell g/Apple q/4 p/3.5` +
-Sells 4 apples at $3.50 each.
+* `sell 1 q/4 p/3.5` +
+Sells 4 units of good at displayed index 1 in the inventory at $3.50 each.
 
 [TIP]
 The selling price can be specified to the nearest cent, or 2 decimal places maximum.
@@ -204,12 +198,6 @@ The selling price can be specified to the nearest cent, or 2 decimal places maxi
 When the quantity in inventory reaches 0, the name of the good is not deleted for future reference or restocking.
 This entry can be deleted using the `delete-g` command.
 
-[CAUTION]
-Name of supplier and good name is case sensitive.
-
-[NOTE]
-As of v1.3, the sell command does not yet interact with the transaction history.
-The selling price will be used to perform profit calculations in v1.4.
 
 === Delete good entry in inventory: `delete-g`
 Deletes an entry for a good in the inventory.
