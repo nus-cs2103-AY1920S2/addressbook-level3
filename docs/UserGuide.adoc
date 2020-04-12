@@ -511,57 +511,7 @@ image::Screenshots/EndInterview.png[]
 
 === Decision Phase
 
-[[Metrics]]
-// tag::metrics[]
-==== Add, Edit and Delete Metrics
-
-After the interview process, the interviewer may want to compare the interviewed interviewees by
-creating a custom metric to determine the relative importance of several attributes. Each metric
-assigns a weight to one or more Attributes, and interviewees can be ranked based on their score calculated by
-this metric via the `best` command (see <<Find Best Candidates>>.
-
-[TIP]
-A metric's name can only contain alphabets and spaces, and it should not be blank!
-
-*Command*
-
-....
-add metric <name> -a <attribute> -w <score> [-a <attribute> -w <score>]...
-edit metric <name> [-n <metric name>] [-a <attribute> -w <score>]...
-delete metric <name>
-....
-
-*Example*
-
-....
-> add metric extremeLeader -a leadership -w 0.7 -a tenacity -w 0.6
-> edit metric extremeLeader -n extremeDictatorship -a leadership -w 3
-> delete metric extremeDictatorship
-> add metric extremeLeader -a leadership -w 0.7 -a tenacity -w 0.3
-....
-
-_Action:_ Adds a metric named extremeLeader with the scoring scheme
-_Score = 0.7*leadership + 0.6*tenacity_. Then, the extremeLeader metric
-name will be changed to extremeDictatorship with the weightage of leadership increased to 3.
-Next it deletes extremeDictatorship, then adds the metric extremeLeader (again) with
-a different scoring scheme _Score = 0.7*leadership + 0.3*tenacity_.
-
-_Output:_
-
-....
-New metric added: extremeLeader
-
-Edited metric: extremeLeader
-
-Deleted metric: extremeDictatorship
-
-New metric added: extremeLeader
-....
-
-image::Screenshots/Metric.png[]
-// end::metrics[]
-
-// tag::report[]
+// tag::open[]
 ==== Viewing Interviewee Reports
 
 After interviewing a candidate, you can view the interview transcript any
@@ -587,6 +537,35 @@ _Output_:
 
 ....
 Successfully opened Interviewee report: Jane Doe
+....
+
+image::Screenshots/Report.png[]
+// end::open[]
+
+// tag::report[]
+==== Exporting Interviewee Reports to PDF
+
+After interviewing a candidate, you can also export the report of the interviewee
+in the form of a PDF.
+
+*Command*
+
+....
+report <interviewee>
+....
+
+*Example*
+
+....
+> report Jane Doe
+....
+
+_Action_: Generates the report of Jane Doe in the form of a PDF.
+
+_Output_:
+
+....
+Report of Jane Doe generated.
 ....
 
 image::Screenshots/Report.png[]
@@ -650,6 +629,56 @@ Here is the remark at time 1.00!
 
 image::Screenshots/NavigationTime.png[]
 // end::navigation[]
+
+[[Metrics]]
+// tag::metrics[]
+==== Add, Edit and Delete Metrics
+
+After the interview process, the interviewer may want to compare the interviewed interviewees by
+creating a custom metric to determine the relative importance of several attributes. Each metric
+assigns a weight to one or more Attributes, and interviewees can be ranked based on their score calculated by
+this metric via the `best` command (see <<Find Best Candidates>>.
+
+[TIP]
+A metric's name can only contain alphabets and spaces, and it should not be blank!
+
+*Command*
+
+....
+add metric <name> -a <attribute> -w <score> [-a <attribute> -w <score>]...
+edit metric <name> [-n <metric name>] [-a <attribute> -w <score>]...
+delete metric <name>
+....
+
+*Example*
+
+....
+> add metric extremeLeader -a leadership -w 0.7 -a tenacity -w 0.6
+> edit metric extremeLeader -n extremeDictatorship -a leadership -w 3
+> delete metric extremeDictatorship
+> add metric extremeLeader -a leadership -w 0.7 -a tenacity -w 0.3
+....
+
+_Action:_ Adds a metric named extremeLeader with the scoring scheme
+_Score = 0.7*leadership + 0.6*tenacity_. Then, the extremeLeader metric
+name will be changed to extremeDictatorship with the weightage of leadership increased to 3.
+Next it deletes extremeDictatorship, then adds the metric extremeLeader (again) with
+a different scoring scheme _Score = 0.7*leadership + 0.3*tenacity_.
+
+_Output:_
+
+....
+New metric added: extremeLeader
+
+Edited metric: extremeLeader
+
+Deleted metric: extremeDictatorship
+
+New metric added: extremeLeader
+....
+
+image::Screenshots/Metric.png[]
+// end::metrics[]
 
 // tag::best[]
 ==== Find Best Candidates
@@ -853,6 +882,7 @@ e.g. `:set Agility 10`
 
 * Open an interviewee report: `open <interviewee>` +
 e.g. `open Jane Doe`
+* Generate report of an interviewee: `report <interviewee>`
 * Navigate to answer of interviewee: `q<question number>` +
 e.g. `goto q4`
 * Navigate to a time of interviewee: `at <time>` +
