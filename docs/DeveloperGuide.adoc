@@ -200,7 +200,7 @@ The input is pass through the LogicManager so that we can get TaskList details f
 .. Will cause CommandBox to setFailure on CommandTextField
 
 ==== Auto Complete Overview
-
+// TODO maybe reduce the size of these activity diagrams
 .Activity diagram of auto complete
 image::ACActivityDiagram.png[width=790]
 [IMPORTANT]
@@ -230,7 +230,6 @@ The above diagram provides a big picture overview of decisions `CommandCompletor
 .. Auto completion of fields is performed based on the <<completion criteria>>
 .. If the field is not recongized, then it is removed
 
-// TODO maybe can insert diagram as well?
 ==== Auto Complete output: 
 As seen from the activity diagram above:
 
@@ -283,23 +282,25 @@ We've built upon the existing find function in AB-3 to filter tasks based on phr
 .Find Command Sequence diagram
 image::FindSequenceDiagram.png[]
 
-* After setting the predicate on the model, the FilteredList will apply the Test method of the predicate and only display tasks with a score < 2. Scoring will be discussed in the next section.
-* Model will also generate a searchComparator based on the score of applying the Predicate on a Task
-** This comparator is then used to display more relevant search results to the user
-* Any existing comparator set is removed in the `sortSearchByRelevance` call
+* After setting the predicate on the model and FilteredList, the FilteredList will apply the Test method of the predicate.
+** Scoring will be discussed in the next section.
+* A comparator is then retrived from the Predicate and is then used to display more relevant search results to the user
+* Any existing comparator set is removed when `setSearchResultOrder` is called on Model
 
-==== Predicate's test
+==== Predicate
 
 .Scoring decision
+All tasks will initially have a score of 2 and based on the below criteria, the score will be adjusted. Only tasks with scores < 2 will be displayed.
+
 image::PredicateSequenceDiagram.png[]
 
 ===== Name scoring
-* We perform the filtering by taking chunks of the task name 
+* The name score of a task is the minimum score of all chunks of the name
 ** A chunk is a String subsequence of the task name that has the same number of words as the search term
 * We iterate through all chunks of the task name and calculate a score for each chunk
-** The minimum of these scores is as the task's overall relevance score
+** The minimum of these scores is set as the task's overall name score
 ** a smaller score means a more relevant task
-* The calculation of a chunk is given by:
+* The calculation of a chunk is decided by:
 ** edit distance between one of the chunks and the search term < 2, score is set to 1
 ** search term matches the start of one of the chunks, score is set to 1
 ** one of the chunks is the same as the search term, score is set to 0
