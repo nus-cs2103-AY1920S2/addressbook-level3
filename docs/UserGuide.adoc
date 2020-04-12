@@ -52,7 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g both `open -t Notably` and `open Notably` will open the note titled "Notably".
 * Parameters can be in any order e.g. if the command specifies `new -t TITLE [-o]`, `new [-o] -t TITLE` is also acceptable.
 ====
-
+// tag::paths[]
 [#paths]
 ====
 *Paths*
@@ -87,8 +87,8 @@ Paths are used by the `open` and `delete` command
 
 [WARNING]
 We cannot open or delete the parent of the root note because it does not exist. e.g `Delete /../` will result in an error.
+// end::paths[]
 ====
-
 [[Markdown]]
 ====
 *Markdown*
