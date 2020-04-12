@@ -13,6 +13,9 @@ import seedu.address.model.version.Versionable;
 public class VersionedTransactionHistory extends TransactionHistory implements Versionable {
     private Version<TransactionHistory> version;
 
+    /**
+     * Creates a VersionedTransactionHistory with an empty initial state.
+     */
     public VersionedTransactionHistory() {
         super();
         version = new LinearHistory<>(new TransactionHistory());

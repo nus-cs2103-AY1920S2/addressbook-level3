@@ -12,6 +12,9 @@ import seedu.address.model.version.Versionable;
 public class VersionedAddressBook extends AddressBook implements Versionable {
     private Version<AddressBook> version;
 
+    /**
+     * Creates a VersionedAddressBook with an empty initial state.
+     */
     public VersionedAddressBook() {
         super();
         version = new LinearHistory<>(new AddressBook());
