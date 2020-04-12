@@ -88,10 +88,10 @@ HYBB supports the following goals that model the Healthy Eating Plate. Goals are
 |===
 |Goal |Food Group represented by Goal
 
-|Wholesome Wholemeals | Whole Grains
-|Bulk like the Hulk | Healthy Proteins
 |Herbivore | Vegetables
 |Fruity Fiesta | Fruits
+|Bulk like the Hulk | Healthy Proteins
+|Wholesome Wholemeals | Whole Grains
 |===
 
 === Ingredients
@@ -492,7 +492,7 @@ data of your previous HYBB folder.
 *A*: As this is the beta version of HYBB, the auto-generation of goals is designed to either accurately calculate quantity or err on the side of overestimation. This would allow you to remove any goal you deem inaccurate based on your own judgement. You can look forward to future releases which will integrate artificial intelligence into HYBB to auto-generate goals more accurately!
 
 *Q*: Why are there no safeguards for adding ingredients? +
-*A*: Currently, HYBB is designed to help you manage your customized recipe list. Hence, the addition of ingredients and under which tag(ip/ iv/ ig/ if/) they fall would be solely based on your judgement! For future releases, we will ensure more safeguards to prevent invalid inputs based on common knowledge.
+*A*: Currently, HYBB is designed to help you manage your customized recipe list. Hence, the addition of ingredients and under which tag(ip/ iv/ ig/ if/ io/) they fall would be solely based on your judgement! For future releases, we will ensure more safeguards to prevent invalid inputs based on common knowledge.
 
 == Glossary
 |===
