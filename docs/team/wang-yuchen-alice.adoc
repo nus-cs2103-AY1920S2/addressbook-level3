@@ -64,7 +64,9 @@ FitHelper is a desktop address book application used for teaching Software Engin
 |===
 
 //include::../UserGuide.adoc[tag=add]
-include::../UserGuide.adoc[tag=edit_find]
+include::../UserGuide.adoc[tag=edit]
+
+include::../UserGuide.adoc[tag=find]
 
 //include::../UserGuide.adoc[tag=delete]
 //include::../UserGuide.adoc[tag=clear]
