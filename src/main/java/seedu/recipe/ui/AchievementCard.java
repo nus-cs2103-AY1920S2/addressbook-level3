@@ -81,14 +81,14 @@ public class AchievementCard extends UiPart<Region> {
         records.addListener((ListChangeListener<Record>) record -> {
             while (record.next()) {
                 this.streak.updateStreak();
-                highScore.setText(Integer.toString(this.streak.getHighStreak()));
-                currScore.setText(Integer.toString(this.streak.getCurrStreak()));
+                highScore.setText("Highest Streak: " + this.streak.getHighStreak());
+                currScore.setText("Current Streak: " + this.streak.getCurrStreak());
             }
         });
         currScore.setText("Current Streak: " + this.streak.getCurrStreak());
         currScore.setStyle(styleHeader);
         currScore.setWrapText(true);
-        highScore.setText("High Streak: " + this.streak.getHighStreak());
+        highScore.setText("Highest Streak: " + this.streak.getHighStreak());
         highScore.setStyle(styleHeader);
         highScore.setWrapText(true);
 
