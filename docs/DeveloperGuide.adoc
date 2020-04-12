@@ -480,7 +480,7 @@ success message. Otherwise, an error message showing the correct command syntax 
 
 *Sequence diagram for Bmi Command* +
 
-Given below are 2 example usages of BmiCommand based on different user input.
+Given below are 2 example usages of `BmiCommand` based on different user input.
 
 *Usage 1: No Height and Weight input*
 
