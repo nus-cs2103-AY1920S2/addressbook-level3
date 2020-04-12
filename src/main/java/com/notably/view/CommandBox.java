@@ -43,6 +43,7 @@ public class CommandBox extends ViewPart<Region> {
 
     /**
      * Sets up weak and strong listeners for view-state management.
+     *
      * @param stringProperty A property that, upon method execution, reflects the data that
      * the user types in the model, and also reflects changes in the model to the text field.
      */

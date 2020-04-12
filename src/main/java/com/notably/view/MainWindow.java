@@ -113,7 +113,8 @@ public class MainWindow extends ViewPart<Stage> {
     /**
      * Creates and returns the HelpWindow component. In the process, sets a listener to ensure
      * that the Help Window is opened when activated.
-     * @param model
+     *
+     * @param model app's model.
      */
     private void initializeHelpWindow(Model model) {
         helpWindow = new HelpWindow();
@@ -156,7 +157,6 @@ public class MainWindow extends ViewPart<Stage> {
 
     /**
      * Executes the command and returns the result.
-     *
      * @see com.notably.logic.Logic#execute(String)
      */
     private void executeCommand(String commandText) throws CommandException, ParseException {

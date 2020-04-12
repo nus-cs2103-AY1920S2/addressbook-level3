@@ -60,6 +60,7 @@ public abstract class ViewOnlyModal extends ViewPart<Stage> {
 
     /**
      * Helper method that sets the value of the modal's modelProperty.
+     *
      * @param bool true if the property is to be set as true, false otherwise.
      */
     protected abstract void setModelProperty(Boolean bool);

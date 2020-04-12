@@ -38,6 +38,7 @@ public class SideBarTreeView extends ViewPart<Region> {
     /**
      * Listens to changes in the structure of the tree in the Model, and accordingly updates the
      * currently opened Note in the SidebarTreeView.
+     *
      * @param blockTree A custom object that represents the tree-like hierarchy of Notes.
      * @param currentlyOpenPathProperty The path to the currently opened Note.
      */

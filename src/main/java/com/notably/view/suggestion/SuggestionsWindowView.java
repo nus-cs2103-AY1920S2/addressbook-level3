@@ -122,6 +122,7 @@ public class SuggestionsWindowView extends ViewPart<Region> {
 
     /**
      * Toggles the visibility of the Suggestions List.
+     *
      * @param bool true if the Suggestions List should be visible, false otherwise.
      */
     private void setSuggestionsListRenderingStatus(boolean bool) {
@@ -131,6 +132,7 @@ public class SuggestionsWindowView extends ViewPart<Region> {
 
     /**
      * Toggles the visibility of the responseText component.
+     *
      * @param bool true if the responseText should be visible, false otherwise.
      */
     private void setResponseTextRenderingStatus(boolean bool) {
