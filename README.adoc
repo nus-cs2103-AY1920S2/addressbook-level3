@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= Contact Tracing App
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/AY1920S2-CS2103T-W15-1/main.svg?branch=master[Build Status]]

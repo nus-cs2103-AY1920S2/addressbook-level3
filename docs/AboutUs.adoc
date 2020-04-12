@@ -20,8 +20,8 @@ Responsibilities: UI + Backend
 '''
 
 === Fu Yujian
-image::??.jpg[width="150", align="left"]
-{empty}[??[github]]
+image::yujian.jpeg[width="150", align="left"]
+{empty}[https://github.com/Yujian-Fu[github]]
 
 Role: Minion
 Responsibilities: UI + Backend

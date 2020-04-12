@@ -1,0 +1,91 @@
+= YujianFU - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Contact Tracing
+
+== Link to RepoSense
+Code contributions can be found in https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Yujian-Fu&tabRepo=AY1920S2-CS2103-W15-1%2Fmain%5Bmaster%5D[RepoSense]
+
+---
+== Overview
+
+The contact tracing app is an extension of the Trace Together app recently developed by GovTech.
+It aims to simplify the way analysts query over data to understand cluster hotspots and individual behaviour.
+This app is built over https://github.com/nus-cs2103-AY1920S2/addressbook-level3[AddressBook - Level 3]
+
+== Summary of contributions
+=== Feature requests
+* *Major enhancement*: Implement the report generation function of this app. Create PDF file for data visualization.
+
+* *Major enhancement*: add feature "Generate "Generate report of saved data points*
+* *What*: Save all data points stored in database with a brief sommary for visulization.
+
+* *Major enhancement*: add feature *Generate report with given userID*
+** *What*: Pick all interactions which hold the given ID and save them in a PDF report with summary.
+** *Justification*:
+*** This is useful for tracing a particular user and find all contact people of him/her.
+
+* *Major enhancement*: add feature *Generate report with given time range*
+** *What*: Pick all interactions which happens in a given time range and save them in report with summary.
+** *Justification*: This is helpful for analysts to understand the virus transmission trends in different time stages.
+
+* *Major enhancement*: add feature *Generate report with a given pair of userID*
+** *What*: Pick all interactions between users with a given pair of userIDs.
+** *Justification*: The is helpful for analysts to understand the behavior pattern between two users.
+
+* *Major enhancement*: add feature *Generate report with a given danger threshold*
+** *What*: Pick all pairs which appear more than n times, the given threshold.
+** *Justification*: This is useful for indentifying users who contact frequently with each other, breaking the social
+distance rules.
+
+* *Major enhancement*: add feature *Generate report for user information*
+** *What*: Save information of all users into a report. Only
+** *Justification*: This is helpful for visualizing user information from database.
+
+* *Major enhancement*: add feature *Generate report with a given person ID*
+** *What*: Save the basic information of person with a give ID into a PDF report.
+** *Justification*: This is helpful for identifying a person with person ID.
+
+* *Major enhancement*: add fature *Show help list for easy use*
+** *What*: Show list with all valid commands and its format for guidance.
+** *Justification*: This is helpful for all users to use the commands easily.
+
+* *Major enhancement*: manually add random data points into database to simulate real records
+** *What*: Add data points to the database simulating real records for further implementation.
+** *Justification*: Build record dataset for test and demonstration of all functions in this app.
+
+
+=== Project management
+** Help review code and project documents for project. https://github.com/AY1920S2-CS2103-W15-1/main/pulls[PRs].
+** Filed several https://github.com/AY1920S2-CS2103-W15-1/main/issues[issues] for feature request based on User Stories.
+
+
+=== User Guide contributions
+Refer to https://github.com/AY1920S2-CS2103-W15-1/main/blob/master/docs/UserGuide.adoc[User Guide]
+
+Parts contributed:
+
+. Introduction
+. Target audiences
+. User personas
+. Quick start
+. Features
+
+=== Developer Guide contributions
+Refer to https://github.com/AY1920S2-CS2103-W15-1/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
+
+Parts contributed:
+
+. Setting up
+. Design-Architecture
+. Class diagram illustration
+. Models
+
+=== Credits
+Would like to thank the following for being a great source of help in this project
+
+** https://itextpdf.com/en/resources/books/itext-7-jump-start-tutorial-java/intro[iText tutorial]
+** Team member https://github.com/JKOK005[JohanKOK]
+

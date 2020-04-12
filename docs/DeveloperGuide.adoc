@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= ContactTracing - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -33,12 +33,13 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [width="65%",cols="25%,",options="header",]
 |=======================================================================
 |Class | Definition
-| LandingPage   | First display page for user
+| LandingPage     | First display page for user
 | Command controller | Parses and executes user command
-| Search        | Class that handles individual user search query
-| Model         | Class that handles modelling & report generation
-| Storage       | Class that handles all data access
-| ??            | Placeholder for whatever we don't know needs to be there.
+| Search          | Class that handles individual user search query
+| Generate Report | Class that generate PDF reports
+| Model           | Class that handles modelling & message format
+| Storage         | Class that handles all data access
+| ??              | Placeholder for whatever we don't know needs to be there.
 |=======================================================================
 
 == Class diagram illustration
@@ -74,13 +75,18 @@ with project requirements for no internet connectivity.
 `CommandRouter` routes user requests to relevant `Command` class types, which form the core
 execution logic of the system.
 
-Each `Command` class uses `Conditions` / `Aggregators` classes to drive the implementation of certain logics.
-For example, we can have a `FilterDangerCommand` first using the `GroupByIDPairsAggregators` to merge and count
-all collect `BluetoothPings` based on their User ID pairs, then pass it through the `DangerConditions` class
-to infer which User ID Pairs have had too much contact time.
+Each `Command` class uses `Conditions` / `Aggregators` classes to drive the implementation of certain logics
+and generate PDF report with `ReportGenerator`. For example, we can have a `FilterDangerCommand` first using
+the `GroupByIDPairsAggregators` to merge and count all collect `BluetoothPings` based on their User ID pairs,
+then pass it through the `DangerConditions` class to infer which User ID Pairs have had too much contact time.
+Later, the search result will be passed to  `DangerReportGenerator` to generate report with a table showing
+all danger ID pairs with summary message. To generate a report, `RecordReader` will be used to illustrate the
+given search result and pass data points to `PDFWriter` to generate a PDF file with summary on records.
 
 The return of a successfully executed command is an `AppMessage` class which signals to `AppUiManager`
-how the results should be rendered to the user.
+how the results should be rendered to the user. The return result of the execution command displayed to
+the user includes two parts: the execution message and the corresponding instances extracted from the
+storage.
 
 == How the architecture components interact with each other
 
@@ -149,7 +155,7 @@ All our models are stored and loaded at runtime in memory.
 ** Cons: Added complexity may cause confusing to new users
 
 * Alternative 2: Define fixed use cases and build code on those features
-** Pros: Developers done need to be confused with additional concepts
+** Pros: Developers don't need to be confused with additional concepts
 ** Cons: Lack of flexibility and extensibility for new featuress
 
 === Logging
@@ -171,6 +177,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
 
 == Documentation
 
