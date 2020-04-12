@@ -9,29 +9,29 @@
 
 == Overview
 
-Notably is a note-taking desktop app, optimized for those who prefer to work with a Command Line Interface (CLI)
-while still having the benefits of a Graphical User Interface (GUI). It aims to help the users, especially the fast-typists,
-to get their notes taken down faster than using traditional GUI apps.
+Notably is a *note-taking desktop app*, optimized for those who *prefer to work with a Command Line Interface (CLI)*
+while still having the benefits of a Graphical User Interface (GUI). It aims to help NUS tech-savvy students
+to get their notes taken down *faster than using traditional GUI apps*.
 
 == Summary of contributions
 
 * *Major enhancement*: *Suggestion Engine*
-** What it does: `SuggestionEngine` actively give users an updated list of suggestions of notes as the users type their input.
-Furthermore, it gives a response text to enable users to understand the meaning behind their inputted command.
-** Justification: `SuggestionEngine` played a pivotal role in providing a seamless user experience of managing his notes.
+** What it does: `SuggestionEngine` actively gives users an updated list of suggestions of notes as the users key in their input.
+Furthermore, it displays a response text to enable users to understand the meaning behind their inputted command.
+** Justification: `SuggestionEngine` plays a pivotal role in providing a seamless user experience of managing the user's notes.
 This feature is curated for our target users (NUS tech-savvy students) who often have a large number of notes and thus
-may find difficulty traversing all of their notes to get to a particular note. Therefore, `SuggestionEngine` improves
-the user experience significantly by giving this convenience.
-** Highlights: It gives response text and suggestions (if any) for all available valid commands in Notably. The implementation was
+may find difficulty traversing all of their notes to get to a particular note. This is where `SuggestionEngine` comes in
+by giving a list of suggestions of the notes that the users want to open/ delete, just by typing the first few characters of their input.
+** Highlights: It displays response text and suggestions (if any) for all available valid commands in Notably. The implementation was
 quite challenging as different commands require different implementation.
 
 * *Major enhancement*: *Search feature*
-** What it does: The Search feature searches the occurrences of a keyword in all of the notes, not just the currently
-opened one. It can also search for partial or incomplete words of the note's content and count the number of times
-the keywords appear in the note. It then displays the list of suggestions of notes to the users with the most relevant
-search result being on top of the list.
+** What it does: The Search feature searches the occurrences of a keyword in all of the notes, and not just the currently
+opened one. It can also search for partial or incomplete word of the note's content and count the number of times
+the keyword appears in the note. It then displays the list of suggestions of notes to the users with the most relevant
+search result at the top of the list.
 ** Justification: Students often remember a certain keyword from their note but can't precisely remember where it is located.
-The Search feature thus gives the convenience to the most relevant note —> suggestions sorted based on the highest number of occurrences.
+The Search feature thus gives the users convenience to find the relevant note, as suggestions are sorted based on the keyword's highest number of occurrences.
 If the number of occurrences is the same, the suggestions listing will based on their respective positions in the hierarchical notes arrangement.
 ** Highlights: The feature is complete as it traverses through all of the notes and can even search for incomplete words,
 hence giving the relevant suggestions to the user even before the user has finished typing.
@@ -46,9 +46,9 @@ hence giving the relevant suggestions to the user even before the user has finis
 *** Maintained the https://github.com/AY1920S2-CS2103T-W17-2/main/issues[issue tracker]
 
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage significantly (Pull requests
+*** Wrote additional tests for existing features to increase coverage significantly:
 https://github.com/AY1920S2-CS2103T-W17-2/main/pull/428[#428],
-https://github.com/AY1920S2-CS2103T-W17-2/main/pull/470[#470])
+https://github.com/AY1920S2-CS2103T-W17-2/main/pull/470[#470]
 
 ** Documentation:
 *** Updated the Search and Auto-Suggestions feature in UG: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/461[#461]
