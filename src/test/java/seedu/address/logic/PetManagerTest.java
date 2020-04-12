@@ -27,21 +27,6 @@ public class PetManagerTest {
     }
 
     @Test
-    public void updateLastDoneTime_success() {
-        Pet pet =
-                new Pet(
-                        "BB",
-                        "50",
-                        "1",
-                        "HAPPY",
-                        LocalDateTime.now().minus(Duration.ofMinutes(5)).toString());
-        petManager.setPet(pet);
-        petManager.updateLastDoneTaskWhenDone();
-        assertTrue(LocalDateTime.now().toString().equals(pet.getLastDoneTaskTime()));
-        assertTrue(petManager.getTimeForHangry().equals(LocalDateTime.now().plusMinutes(1)));
-    }
-
-    @Test
     public void changeToHangry_success() {
         Pet pet = new Pet("BB", "50", "1", "HAPPY", LocalDateTime.now().toString());
         petManager.setPet(pet);
