@@ -41,6 +41,7 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private VBox activityListPanelPlaceholder;
 
+
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
