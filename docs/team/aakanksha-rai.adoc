@@ -16,7 +16,7 @@ Lines of Code*.
 
 As the main developer in charge of the *Student View*, my main contributions were in
 the *Student View*. They include *creating models, writing commands, creating tests
-and adding documentation for the Student View*.
+and adding documentation for the Student View*. In total, I wrote about *7kLoc*.
 
 ==== Create the Models
 
@@ -28,7 +28,7 @@ to which group and module they are a part of. These models are required to ensur
 proper functioning of the commands in the student view that would meet the user's purposes.
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/88[#88])
 
-I created a lot of supporting methods to support the UI, especially the highlighting feature.
+I created a lot of supporting methods for the UI, especially the highlighting feature.
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/202[#202])
 
 I also added the required support for the filter feature in the models
@@ -64,7 +64,7 @@ The other commands I implemented are:
 
 * These commands are needed to manipulate data in the *Student View*.
 * Overall, these commands required a fair amount of work, especially due
-to the possible edge cases they have such as the user editing the group code to that
+to the possible edge cases they have such as the user changing the group code to that
 of a pre-existing group.
 
 ==== Testing
@@ -75,8 +75,8 @@ for all my enhancements and have an average coverage of over 85% for my sections
 codebase. (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/232[#232],
 https://github.com/AY1920S2-CS2103T-W17-4/main/pull/345[#345],)
 
-The code I contributed can be found
-https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=aakanksha-rai[here].
+**The code I contributed can be found
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=aakanksha-rai[here].**
 
 ==== Other contributions:
 
