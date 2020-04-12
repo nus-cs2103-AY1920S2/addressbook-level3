@@ -74,7 +74,7 @@ Class PrefixDictionary
 Class Prefix
 
 Interface Parser <<Interface>>
-Package X {
+Package ParserPackageX {
     Class XCommandParser
 }
 

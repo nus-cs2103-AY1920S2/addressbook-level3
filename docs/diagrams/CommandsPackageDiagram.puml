@@ -55,7 +55,7 @@ Class CommandDetails {
 show CommandDetails members
 hide CommandDetails methods
 
-Package X {
+Package CommandPackageX {
     Class XCommand
 }
 
@@ -67,7 +67,10 @@ XCommand -up-> "1" CommandDetails
 
 Class "{abstract}\nCommand" as Command
 XCommand -left-|> Command
-XCommand .right.> CommandWords
+XCommand .up.> CommandWords
+
+CommandDictionary -down[hidden]-> CommandWords
+Command -up[hidden]-> CommandWords
 @enduml
 
 @startuml

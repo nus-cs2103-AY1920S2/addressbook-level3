@@ -404,6 +404,79 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+[[Logic]]
+=== Logic
+The *Logic* of TA-Tracker ensures that all the user's commands are parsed and executed correctly.
+In order to ensure that all the commands contain the correct information,
+two utility classes have been created:
+
+* A `CommandDetails` class to encapsulate details, such as the usage message,
+inside each `Command` in TA-Tracker.
++
+This is used to:
+
+** Fetch messages for `CommandResult` objects
+** List commands in the `HelpWindow`
+** Simplify the number of imports used in test cases
+
+* A `PrefixDetails` class to encapsulate details, such as the usage message,
+of each `Prefix` used in TA-Tracker.
+
+Both utility classes support the <<Syntax, Syntax Highlighting feature>>.
+
+The `CommandDetails` of every `Command` are stored in a `CommandDictionary`,
+The `PrefixDetails` of every `Prefix` are stored in a `PrefixDictionary`.
+
+The following sections will describe the implementation of these two dictionaries.
+
+==== Implementation of the `CommandDictionary`
+
+The following _Class Diagram_ shows how a `CommandDictionary` stores all the
+details of every `Command` in TA-Tracker.
+
+.Structure of the CommandDictionary
+image::CommandsPackageDiagram2.png[,400]
+
+. The `CommandDictionary`, stores a list of `CommandDetails` for all the commands in TA-Tracker.
+. All commands should have their own `CommandDetails`.
+. A `CommandDetails` object stores all the information that a command should have +
+(e.g. their `commandWord` and `usage` message).
+. For their `commandWord` and `sub word`, commands may use constants in `CommandWords` to avoid repetition +
+(e.g. "add", "delete", "edit").
+
+==== Implementation of the `PrefixDictionary`
+
+The following _Class Diagram_ shows how a `PrefixDictionary` stores all the
+details of every `Prefix` in TA-Tracker.
+
+.Structure of the PrefixDictionary
+image::ParserPackageDiagram2.png[,400]
+
+. A `PrefixDictionary` stores two lists of `Prefix` objects:
+** `parameters` - a list of compulsory parameters for a command
+** `optionals` - a list of optional parameters for a command
+
+. A `PrefixDictionary` contains a list of `PrefixDetails`.
+These `PrefixDetails` are the details of all the `Prefix` objects stored in `parameters` and `optionals`
+
+. A `PrefixDetails` object adds more information to a `Prefix` +
+(e.g. their `constraint` message and a list of `examples`).
+. A `PrefixDetail` has a `Predicate` to validate the user input arguments.
+
+. All parsers use some `Prefix` constants defined in `Prefixes`.
+These constants are kept in `PrefixDictionary` in a lookup table.
+
+====
+The difference between the *commands* and *parsers* is that the *commands* store their own `CommandDetails`,
+while the *parsers* do not store any `PrefixDetails`.
+
+This is because the *parsers* do not need the extra information stored in `PrefixDetails`.
+They only need to use different `Prefix` objects in order to parse user inputs.
+
+`PrefixDetails` adds more information to a `Prefix` object instead of extending it.
+Therefore, it can be detached from the *parsers* without changing the `Prefix` constants in `Prefixes`.
+====
+
 [[Implementation-Goto]]
 === Goto Command
 
@@ -898,17 +971,16 @@ by the user is a valid integer. If it is, the `SetRateCommandParser` creates a
 
 
 // tag::syntaxhighlighting[]
+[[Syntax]]
 === Syntax Highlighting
 When a user types a command into the `CommandBox`, their inputs will be highlighted in different colours
 as a form of input validation.
 
 In addition, the `ResultDisplay` will display different messages based on the result of the syntax highlighting.
 
-The following shows how the `CommandBox` and `ResultDisplay` appear in the `MainWindow` of `TA-Tracker
-`
+The following shows how the `CommandBox` and `ResultDisplay` appear in the `MainWindow` of TA-Tracker.
 
-.The `CommandBox` and the `ResultDisplay` in `TA-Tracker
-`
+.The `CommandBox` and the `ResultDisplay` in TA-Tracker
 image::syntax-highlighting/SH-CommandBox.png[]
 
 In the figure above:

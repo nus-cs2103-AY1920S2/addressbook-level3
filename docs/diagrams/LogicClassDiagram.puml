@@ -57,19 +57,6 @@ skinparam noteBorderColor LOGIC_COLOR_1
 package Logic {
     package Parser as ParserPkg {
 
-'        note as ParserNote
-'        <b>ParserPackageX</b> =
-'        Student, Session, etc.
-'
-'        <b>XCommandParser</b> =
-'        StudentCommandParser,
-'        SessionCommandParser, etc.
-'
-'        <b>XYCommandParser</b> =
-'        AddStudentCommandParser,
-'        EditSessionCommandParser, etc.
-'        end note
-
         Class TaTrackerParser
         Interface Parser <<Interface>>
 
@@ -83,7 +70,7 @@ package Logic {
 
             Class XYCommandParser
             note right of XYCommandParser
-            <b>XYCommand</b> =
+            <b>XYCommandParser</b> =
             AddStudentCommandParser,
             EditSessionCommandParser, etc.
             end note
@@ -121,16 +108,6 @@ package Logic {
     }
 
     package Commands as CommandsPkg {
-'        note as CommandNote
-'        <b>CommandPackageX</b> =
-'        Student, Session, etc.
-'
-'        <b>XYCommand</b> =
-'        AddStudentCommand,
-'        EditSessionCommand, etc.
-'        end note
-
-
 
         package CommandPackageX {
             note left of XYCommand
@@ -197,23 +174,37 @@ package Logic {
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
+skinparam noteBackgroundColor LOGIC_COLOR_T1
+skinparam noteBorderColor LOGIC_COLOR_1
 
 package Logic {
     package Parser as ParserPkg {
 
-        Class TaTrackerParser
+'        Class TaTrackerParser
         Interface Parser <<Interface>>
 
 
-        package X as ModelParser {
-            Class XCommandParser
-            Class XYCommandParser
+        package ParserPackageX as ModelParser {
+'            Class XCommandParser
+'            note right of XCommandParser
+'            <b>XCommandParser</b> =
+'            StudentCommandParser,
+'            SessionCommandParser, etc.
+'            end note
 
-            TaTrackerParser .down.> XCommandParser
-            XCommandParser .down.> XYCommandParser
+            Class XYCommandParser
+            note right of XYCommandParser
+            <b>XYCommandParser</b> =
+            AddStudentCommandParser,
+            EditSessionCommandParser, etc.
+            end note
+
+'            TaTrackerParser .down.> XCommandParser
+'            XCommandParser .down.> XYCommandParser
         }
 
-        XYCommandParser .right.|> Parser
+        XYCommandParser .up.|> Parser
+'        Parser .right[hidden].> TaTrackerParser
 
         Class Prefix
 
@@ -235,26 +226,30 @@ package Logic {
     }
 
     package Commands as ModelCommand {
-        package X {
+        package CommandPackageX {
+            note left of XYCommand
+            <b>XYCommand</b> =
+            AddStudentCommand,
+            EditSessionCommand, etc.
+            end note
             Class XYCommand
         }
 
-        Class Prefixes #RED
+        Class Prefixes
 
-        Class CommandResult
+'        Class CommandResult
         Class "{abstract}\nCommand" as Command
 
-        Command .up.> CommandResult
+'        Command .up.> CommandResult
         XYCommand -up-|> Command
 
-        XYCommand .down[LOGIC_COLOR_T4].> Prefixes
+        XYCommand .down.> Prefixes
     }
-
-    XYCommandParser .down[#RED].> Prefixes
 
     Prefixes -right[hidden]- ParserUtil
     Prefixes -down-> "*" Prefix
 
     XYCommandParser .right.> XYCommand
+'    XYCommandParser .down.> Prefixes
 }
 @enduml
