@@ -31,7 +31,7 @@ If you are from SoC and is looking for an application to manage all your modules
 Jump to <<Quick Start, Quick Start>> to get started. Hope you enjoy the company of *MODdy* on your SoC journey!
 
 == About the User Guide
-This user guide presents to you the following features of *MODdy*:
+This user guide aims to provide you with essential information on how to use MODdy. With the the following features of *MODdy*,
 
 . Viewing help
 . Creating new user profile
@@ -67,7 +67,7 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-. Create your own profile by entering your details in the command box using these parameters: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [f/FOCUS_AREA]`
+. Create your own profile by entering your details in the command box using these parameters: `new n/NAME c/COURSE y/YEAR.SEMESTER [f/FOCUS_AREA]`
 .  Some other example commands you can try:
 
 * **`add`**`m/CS2103T y/1` : adds CS2103T into your list of modules under Year 1 Semester 1
@@ -86,7 +86,7 @@ This section provides you with the features that you can perform in *MODdy*. It 
 * Words in `UPPER_CASE` are the parameters supplied by you e.g. in `add m/MODULE`, `MODULE` is a parameter which can be used as `add m/CS2103`
 * Parameters can be entered in any format and are case-insensitive, unless stated otherwise
 * Items in square brackets are optional e.g `m/MODULE [g/GRADE]` can be used as `m/CS2103 g/A+` or as `m/CS2103`
-* Parameters must follow this order: `m/MODULE`, `y/SEMESTER_INDEX`, `g/GRADE`, `t/TASK`, `d/DEADLINE`
+* Parameters must follow this order: `m/MODULE`, `y/YEAR.SEMESTER`, `g/GRADE`, `t/TASK`, `d/DEADLINE`
 ====
 
 
@@ -113,7 +113,7 @@ Format: `new n/NAME c/COURSE y/YEAR.SEMESTER [f/FOCUS_AREA]`
 ****
 * `c/COURSE` and `f/FOCUS_AREA` is case-insensitive but has to be its *full name*. If you are unsure of what is allowed, you can refer to the <<Appendix, Appendix>> for the list of courses and focus areas supported by MODdy.
 * If you have yet to decided on a focus area, you can choose to add it to your profile later using the <<Edit, edit>> feature mentioned in <<Edit, Section 4.4>>. Other profile fields can be changed using the <<Edit, edit>> feature as well.
-* `y/YEAR.SEMESTER` must be entered as an integer. You should only enter the year and semester that you are currently in. If you are now a Year 2 Semester 1 student, enter `y/2.1`.
+* `y/YEAR.SEMESTER` must be entered as an integer. You should only enter the year and semester that you are *currently* in. If you are now a Year 2 Semester 1 student, enter `y/2.1`.
 * You can only have one profile! If you wish to create a new profile, you can remove it with the <<Delete,`delete`>> feature mentioned in <<Delete, Section 4.6>>.
 
 ****
@@ -140,7 +140,7 @@ Format: `add m/MODULE y/YEAR.SEMESTER [g/GRADE]` +
 ****
 * You can add multiple modules at the same time but only to the *same* year and semester. To add multiple modules, just append the `m/MODULE` tags right after another, e.g. `add m/CS1231 m/IS1130 m/MA1521 y/1.1`.
 * `y/YEAR.SEMESTER` must be entered as an integer. You should enter the year and semester that you took the module in. If you took the module in year 2 semester 1, enter `y/2.1`.
-* As you have already specified the current semester you are currently in when creating your profile, *MODdy* will indicate modules added to prior semesters, current semester and future semesters as *"completed"*, *"currently taking"* and *"planning to take"* respectively.
+* As you have already specified the current semester you are currently in when creating your profile, *MODdy* will indicate modules added to prior semesters, current semester and future semesters as *"COMPLETED"*, *"IN_PROGRESS"* and *"PLANNING"* respectively.
 * `g/GRADE` is optional. If you have yet to obtain a grade for the module, don't worry, you can always add it to the module later using the <<Edit, edit>> feature mentioned in <<Edit, Section 4.4>>.
 ****
 
@@ -159,7 +159,7 @@ Format: `add m/MODULE t/TASK [d/DEADLINE]` +
 * You can only add a task to the module if the module has been added to *MODdy* previously.
 * `d/DEADLINE` must be entered in the format `d/YYYY-MM-DD HH:mm`, e.g. `d/2020-03-31 23:59`.
 * `d/DEADLINE` is kept optional for your tasks with no deadlines. If your task has a `Date` due but no `Time` due, just enter `d/YYYY-MM-DD` and we will set the `Time` to default (23:59).
-* You can delete completed `t/TASK` using the <<Delete, `delete`>> feature mentioned in <<Delete, Section 4.6>>.
+* You can delete a completed task using the <<Delete, `delete`>> feature mentioned in <<Delete, Section 4.6>>.
 ****
 
 .Task added is displayed in the Deadline Panel
