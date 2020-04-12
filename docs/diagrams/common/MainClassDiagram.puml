@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MAIN_COLOR_T1
 skinparam classBackgroundColor MAIN_COLOR
