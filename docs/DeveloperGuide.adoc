@@ -460,13 +460,18 @@ out archived coupons from a given `CouponStash`.
 image::ArchivingClassDiagram.png[ArchivingClassDiagram]
 
 Given below is two example usage scenarios and how the archiving mechanism
-behaves at each step of each scenario.
+behaves at each step of each scenario. An activity diagram is provided first to
+describe the general events that will lead to an automatic archiving of coupons
+by Coupon Stash.
+
+[#img-automaticarchiving]
+.Activity diagram representation of the general flow of archiving of coupons in Coupon Stash
+image::ArchivingActivityDiagram.png[]
 
 **Archiving of Expired Coupons**
 
 Expired coupons are automatically archived by Coupon Stash upon start up of the
-application. The following steps describe
-how this behaviour is implemented.
+application. The following steps describe how this behaviour is implemented.
 
 Step 1. The user launches the application for the first time. The initiation of
 `ModelManager` will also trigger the
