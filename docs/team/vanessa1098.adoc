@@ -11,7 +11,7 @@
 
 Naggy Joel is a desktop application used by University students to manage social life. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
 
-It is an application that allows users to manage all aspects of their social life, ranging from your different social circles and contacts, to events, as well as, places to hang out and potential practical gifts that will be very much appreciated by the recipients, all without compromising on academic life.
+It is an application that allows users to manage all aspects of their social life, ranging from your different social circles and contacts, to events, all without compromising on academic life.
 
 == Summary of contributions
 

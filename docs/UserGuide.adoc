@@ -428,26 +428,26 @@ Example:
 * `(st)edit 1 t/CS2103 Quiz e/1` +
 Changes the title of the first assignment to 'CS2103 Quiz' and estimated completion time to 1 hour.
 
-===== Marking an assignment as done : `(st)edit s/Completed`
-===== Marking an assignment as uncompleted : `(st)edit s/Uncompleted`
+===== Marking an assignment as done : `(st)edit INDEX s/Completed`
+===== Marking an assignment as uncompleted : `(st)edit INDEX s/Uncompleted`
 
 ==== List current assignments : `(st)list`
 
 Sorts the user’s list of assignments and displays them. This helps the user choose which assignment to do first. +
-Format: `(st)list [-d/] [-e/]`
+Format: `(st)list [-d] [-e]`
 
 ****
 * At most 1 optional field can be specified at each time
 * If no optional field is specified, assignments will be sorted in alphabetical order.
 * Completed assignments will always be shown at the bottom of the list.
-* [-d/] : Assignments will be sorted in ascending order by deadline.
-* [-e/] : Assignments will be sorted in ascending order based on the estimated completion time.
+* [-d] : Assignments will be sorted in ascending order by deadline.
+* [-e] : Assignments will be sorted in ascending order based on the estimated completion time.
 ****
 
 Example:
 
-* `(st)list -d/` +
-Assignments will be shown in ascending order by deadline with all completed assignments at the bottom of the list.
+* `(st)list -d` +
+Assignments will be shown in chronological order, with respect to the deadline, with all completed assignments at the bottom of the list.
 
 ==== Visualise the intensity of your upcoming schedule : `(st)schedule`
 
@@ -472,9 +472,14 @@ Format: `(ev)add et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
 * `EVENT DATE` must be in a YYYY-MM-dd HH:mm format
 ****
 
+Examples:
+
+* `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
+Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and location at "Facebook APAC HQ".
+
 ==== Listing all events : `(ev)list`
 
-Lists all social events in your Event Book. +
+Lists all social events in your Event Schedule. +
 Format: `(ev)list`
 
 ==== Edit a social event : `(ev)edit`
