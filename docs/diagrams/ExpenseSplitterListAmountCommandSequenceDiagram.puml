@@ -63,6 +63,9 @@ CommandResult -[hidden]-> ListAmountCommand
 ListAmountCommand --> SplitterLogicManager: result
 deactivate ListAmountCommand
 
+ListAmountCommand -[hidden]-> ExpenseSplitterParser
+destroy ListAmountCommand
+
 SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
 activate SplitterStorageManager
 

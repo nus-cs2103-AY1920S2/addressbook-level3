@@ -39,6 +39,24 @@ architectures before exploring implementation details of each feature.
 We encourage you to traverse the full path from the high level design to the
 implementation details of the feature you are interested for the most complete understanding.
 
+=== Tips on reading the Developer Guide
+
+While reading the Developer Guide you may encounter some symbols.
+These symbols are used to highlight crucial information and in this portion we are explaining (or will be explaining)
+the symbols and their meaning.
+
+[NOTE]
+This block of text with a blue exclamation mark indicates *additional notes* and *information* that the user should
+consider to prevent unexpected behaviour.
+
+[TIP]
+This block of text with a yellow light bulb indicates *additional tips* that will help the user when using EYLAH.
+
+[WARNING]
+This symbol indicates warnings.
+
+`markup` - A grey highlight (known as a mark-up) indicates keywords, including commands you can type into EYLAH.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -744,11 +762,17 @@ image::DietTrackerMetricsCommandSequenceDiagram.png[]
 The Expense Splitter feature is designed to aid our users with the splitting of large bills that involves meany people.
 The feature comprises of six commands namely.
 
-* <<Add-Item-Command, `AddItemCommand`>> - Creates an Item with its ItemPrice, Person(s) involved in splitting that Item and adds it to Receipt.
-* <<Delete-Item-Command, `DeleteItemCommand`>> - Deletes an Item from the current Receipt and reduces the Person's amount accordingly.
-* <<List-Receipt-Command, `ListReceiptCommand`>> - Lists the Item(s) in the current Receipt, its ItemPrice and Person(s) involved in splitting that Item.
+* <<Add-Item-Command, `AddItemCommand`>> - Creates an Item with its ItemPrice, Person(s) involved in splitting that
+Item and adds it to Receipt.
+* <<Delete-Item-Command, `DeleteItemCommand`>> - Deletes an Item from the current Receipt and reduces the
+Person's amount accordingly.
+* <<List-Receipt-Command, `ListReceiptCommand`>> - Lists the Item(s) in the current Receipt,
+its ItemPrice and Person(s) involved in splitting that Item.
 * <<List-Amount-Command, `ListAmountCommand`>> - Lists the Person(s) Name and Amount they owe the user.
+* <<Done-Receipt-Command, `DoneReceiptCommand`>> - Finalize the receipt, after which the Receipt
+will be immutable.
 * <<Paid-Command, `PaidCommand`>> - Reduces the Amount a Person owes.
+* <<Clear-Receipt-Command, `ClearReceipt`>> - Clear the current Receipt to start a new Receipt.
 * <<Back-Command, `BackCommand`>> - Exits Expense Splitter portion to return to EYLAH's Main Menu.
 
 Below are some diagrams to explain how our team implemented this portion.
@@ -890,9 +914,9 @@ In this section, we will learn more about how the `listreceipt` command is imple
 
 *What is the List Receipt Command*
 
-The `listreceipt` command allows user to find out the current entries in the receipt.
+The `listreceipt` command allows user to find out the current Items in the receipt.
 
-The `listreceipt` command was implemented as a `ListReceiptCommand` in the `expensesplitter/logic` package.
+The `listreceipt` command was implemented as a `ListReceiptCommand` in the `expensesplitter/logic/commands` package.
 
 The `listreceipt` has the following input format:
 
@@ -913,14 +937,14 @@ image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
 
 *Implementation of List Receipt Command*
 
-The following is a detailed explanation of the operations ListReceiptCommand performs. +
+The following is a detailed explanation of the operations `ListReceiptCommand` performs. +
 
 1. The `ListReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
 
-2. The method `splitterModel#listReceipt()` will then be called to return the list of entries currently in that Receipt.
+2. The method `SplitterModel#listReceipt()` will then be called to return the list of entries currently in that Receipt.
 
-3. The method `receipt#toString()` will use StringBuilder to build the string of the Items(s) currently in
-Receipt by calling `entry.toString()` for entry. After all entries are done, `receipt#toString()` would have
+3. The method `Receipt#toString()` will use StringBuilder to build the string of the Items(s) currently in
+Receipt by calling `Entry.toString()` for entry. After all entries are done, `Receipt#toString()` would have
 finish building the string and will return to SplitterModelManager where it will be printed out.
 
 
@@ -942,7 +966,7 @@ In this section, we will learn more about how the `listamount` command is implem
 
 The `listamount` command allows users to find out how much each Person owes them. +
 
-The `listamount` command was implemented as a `ListAmountCommand` in the `expensesplitter/logic` package.
+The `listamount` command was implemented as a `ListAmountCommand` in the `expensesplitter/logic/commands` package.
 
 The `listamount` command has the following input format:
 
@@ -959,6 +983,16 @@ The following activity diagram illustrates what happens when a user executes `li
 .List Amount Activity Diagram +
 image::ExpenseSplitterListAmountCommandActivityDiagram.png[]
 
+*Structure of List Amount Command* +
+
+In this section, you will learn more about the relationships between objects related to the `listamount` command.
+
+.List Amount Command Class Diagram
+image::ExpenseSplitterListAmountCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `ListAmountCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `ListAmountCommand`
+
 
 *Implementation of List Amount Command*
 
@@ -966,7 +1000,7 @@ The following is a detailed explanation of the operations ListAmountCommand perf
 
 1. The `ListAmountCommand#execute(SplitterModel splitterModel)` method is executed.
 
-2. The method `splitterModel#listAmount()` will then be called to return the list of Person(s) with their amount.
+2. The method `SplitterModel#listAmount()` will then be called to return the list of Person(s) with their amount.
 
 3. `PersonAmountBook#toString()` will convert list of person in the list to the expected format and return it to
 SplitterModelManager where it will be printed out.
@@ -979,6 +1013,7 @@ The following sequence diagram summarizes what happens during the execution of `
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 //end::expensesplitterlistamountcommand[]
 
+[[Done-Receipt-Command]]
 ==== Done Receipt Command
 
 In this section, we will learn more about how the `donereceipt` command is implemented.
@@ -1062,6 +1097,15 @@ The following activity diagram illustrates what happens when a user executes `pa
 .Paid Command Activity Diagram
 image::ExpenseSplitterPaidCommandActivityDiagram.png[]
 
+*Structure of Paid Command* +
+
+In this section, you will learn more about the relationships between objects related to the `paid` command.
+
+.Paid Command Class Diagram
+image::ExpenseSplitterPaidCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `PaidCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `PaidCommand`
 
 *Implementation of Paid Command*
 
@@ -1069,10 +1113,10 @@ The following is a detailed explanation of the operations PaidCommand performs. 
 
 1. The `PaidCommand#execute(SplitterModel splitterModel)` method is executed.
 
-2. The `splitterModel#paidPerson(Person person, String amountPaid)` will be called.
+2. The `SplitterModel#paidPerson(Person person, String amountPaid)` will be called.
 String amountPaid will be converted into an Amount by instantiating a new instance of Amount.
 
-3. The `personAmountBook#removeAmount(Person person, Amount amount)` is then called to remove Amount from Person.
+3. The `PersonAmountBook#removeAmount(Person person, Amount amount)` is then called to remove Amount from Person.
 
 4. This in turns calls `UniquePersonList#removeAmount(Person person, Amount amount)`.
 
@@ -1510,14 +1554,12 @@ Use case ends.
 [discrete]
 === Use case: UC10 - Listing Receipt
 *Actor:* User +
-*Preconditions:* User is logged in. +
-*Guarantees:* +
-All Items in the current Receipt will be listed out.
+*Guarantees:* All Items in the current Receipt will be listed out.
 
 *MSS*
 
 1.  User requests to list receipt containing Item(s) in the current Receipt.
-2.  EYLAH displays the list of Item(s) in the current Receipt, its ItemPrice and Person(s) involved in spliting that Item.
+2.  EYLAH displays the list of Item(s) in the current Receipt, its ItemPrice and Person(s) involved in splitting that Item.
 
 +
 Use case ends.
@@ -1536,14 +1578,12 @@ Use case ends.
 [discrete]
 === Use case: UC11 - Listing Person(s) and the Amount they owe
 *Actor:* User +
-*Preconditions:* User is logged in. +
-*Guarantees:* +
-All Person(s) and the amount they owe will be listed.
+*Guarantees:* All Person(s) and the amount they owe will be listed.
 
 *MSS*
 
-1.  User requests to list the Person(s) and the Amount they owe the user.
-2.  EYLAH displays the list of Person and its associated Amount.
+1.  User requests to list all the Person(s) and the Amount they owe the user.
+2.  EYLAH displays the list of Person(s) and the associated Amount they owe they user.
 +
 Use case ends.
 
@@ -1559,46 +1599,61 @@ Use case ends.
 
 
 [discrete]
-=== Use case: UC12 - Amount paid
+=== Use case: UC12 - Paying money
 *Actor:* User +
-*Preconditions:* User is logged in. +
-*Guarantees:* +
-Reduces the Amount a Person owes and if they owe $0 the Person is automatically deleted.
+*Guarantees:* Reduces the Amount a Person owes and if they owe $0 the Person
+is automatically deleted.
 
 *MSS*
 
 1.  User requests to reduce the Person's Amount when he/she has paid the user.
-2.  EYLAH searches for the Person and reduces the Amount they owe the user, if Amount = $0 the Person is removed from the list.
-3.  EYLAH then displays the new Amount owed by the Person
+2.  EYLAH searches for the Person and reduces the Amount they owe the user, if
+after paying the Person does not owe anything, they are deleted.
+3.  EYLAH then displays the new Amount owed by the Person.
 +
 Use case ends.
 
 *Extensions*
 
+
 [none]
-* 1a. EYLAH detects an empty PersonList.
+* 1a. EYLAH detects that the Person has paid more than what he owes.
 +
 [none]
-** 1a1. EYLAH displays an error message, saying that there is no Person in the list.
+** 1a1. EYLAH displays an error message, informing the user to key in an Amount lesser or equal to
+the amount the Person owes.
 +
 Use case ends.
 
 [none]
-* 1b. EYLAH detects invalid <<syntax,syntax>>.
+* 2a. EYLAH detects an empty PersonList.
 +
 [none]
-** 1b1. EYLAH displays an error message and informs User to key in the correct syntax.
+** 2a1. EYLAH displays an error message, saying that there is no Person in the list.
 +
 Use case ends.
 
 [none]
-* 1c. EYLAH detects that the Person does not exist in the list.
+* 2b. EYLAH detects invalid IndexOfPersonPaid.
 +
 [none]
-** 1c1. EYLAH displays an error message, informing the user to key in the correct index of the Person. The user may use `listamount` to show the Person's index.
+** 2b1. EYLAH displays an error message and informs User to key in the correct Index of the
+person who paid. EYLAH will prompt the user to use `listamount` to find the Index of Person who
+paid.
++
+Use case ends.
+
+[none]
+* 2c. EYLAH detects that the Person does not exist in the list.
++
+[none]
+** 2c1. EYLAH displays an error message, informing the user to key in the correct index of the Person.
+EYLAH will prompt the user to use `listamount` to find the Index of Person who
+paid.
 +
 Use case ends.
 //end::willyusecase[]
+
 
 //tag::ailanclearreceiptusecase[]
 [discrete]
@@ -1689,27 +1744,38 @@ _Table 2. Expense Splitter Command Prefix_ +
 [width="59%",cols="22%,<23%,<25%,options="header",]
 |=======================================================================
 | Prefix | Description | Used in Following Commands
-| -i | Item Name | <<Add-Item-Command,*Add*>>
-| -p | Item Price | <<Add-Item-Command,*Add*>>
-| -n | Name of Person | <<Add-Item-Command,*Add*>>
+| -i | Item Name | <<Add-Item-Command,*Add Item*>>
+| -p | Item Price | <<Add-Item-Command,*Add Item*>>
+| -n | Name of Person | <<Add-Item-Command,*Add Item*>>
 |=======================================================================
 
 [appendix]
 == Product Survey
 
-*Product Name*
-
-Author: ...
+https://www.myfitnesspal.com/[My Fitness Pal]
 
 Pros:
 
-* ...
-* ...
+* Customizable according to the User's demands.
+* Able to monitor the User's exercise and movement.
 
 Cons:
 
-* ...
-* ...
+* Application was hacked and data was leaked.
+* Unable to use it offline.
+
+https://www.splitwise.com/[Splitwise]
+
+Pros:
+
+* Very user friendly.
+* Easy track of expenses.
+
+Cons:
+
+* Has a tendency of complicating splitting bills.
+* Unable to use it offline.
+
 
 [appendix]
 == Instructions for Manual Testing
@@ -1724,7 +1790,7 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+.. Navigate to that folder using Terminal and type `java -jar EYLAH.jar` +
    Expected: Shows the CLI interface with welcome message. The window size may not be optimum.
 
 === Adding a Food in Diet Tracker
@@ -1768,7 +1834,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Adding an Item into the current Receipt.
 
-.. Add Item Command format: `additem -i ITEMNAME -p ITEMPRICE -n PERSON [-n PERSON]`
+.. Add Item Command format: `additem -i ITEMNAME -p ITEMPRICE -n PERSON [-n PERSON]...`
 
 .. Test case: `additem -i pasta -p 33.50 -n John -n Bob` +
 Expected: Adds an item with the above details to current receipt and increase the person amount equal to dividing the price
@@ -1785,9 +1851,34 @@ by the user.
 
 .. List Receipt command format: `listreceipt`
 
-.. Test case: `listamount` +
+.. Test case: `listreceipt` +
 Expected: List all items in the current receipt, its price and amount associated with each person involved
 in splitting that item.
+
+=== List Amount In Expense Splitter
+
+. List all the Person(s) and the amount they owe.
+
+.. List Receipt command format: `listamount`
+
+.. Test case: `listamount` +
+Expected: List all Person that currently owe the User money. Those who do not owe any money will be
+deleted from the PersonList.
+
+=== Paid Command In Expense Splitter
+
+. Reduces the amount of money a Person owes.
+
+.. Paid command format: `paid` `INDEX` `[AMOUNT]`
+
+.. Test case: `paid 1 1.10` +
+Expected: Reduces the amount of money the Person at Index 1 owes by $1.10.
+
+.. Test case: `paid 1` +
+Expected: Reduces the entire amount of money the Person at Index 1 owes.
+
+.. Test case: `paid -1` +
+Expected: EYLAH will inform the user that INDEX is incorrect.
 
 
 === Saving data
@@ -1813,7 +1904,7 @@ with problems we all face while staying in Temasek Hall.
 
 Hence, we decided to build EYLAH, a super application that has both a diet tracker and a expense splitter functionality.
 EYLAH is significantly different from Address Book 3 (AB3) in many aspects.
-We needed to add audience-specific features to satisfy the needs of our target audience:residents staying in Temasek
+We needed to add audience:specific features to satisfy the needs of our target audience:residents staying in Temasek
 Hall.
 
 

@@ -1,0 +1,28 @@
+:imagesDir: images
+:stylesDir: stylesheets
+
+== Willy Seah Wee Hung UML Diagrams
+
+
+* *Paid Command UML Diagrams*
+
+image::ExpenseSplitterPaidCommandActivityDiagram.png[]
+
+image::ExpenseSplitterPaidCommandClassDiagram.png[]
+
+image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
+
+image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
+
+* *Expense Splitter Overall Activity Diagram*
+
+image::ExpenseSplitterActivityDiagramV2.png[]
+
+image::ExpenseSplitterActivityDiagram.png[]
+
+* *List Amount Command UML Diagrams*
+
+image::ExpenseSplitterListAmountCommandClassDiagram.png[]
+
+image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+

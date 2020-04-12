@@ -6,7 +6,7 @@ start
 if () then ([receiptNotDone])
 
     if () then ([itemToAdd])
-    : @Rake: Visit AddItemActivityDiagram;
+    : @Rake: Visit SimplifiedAddItemActivityDiagram;
     : DoneReceipt;
 
     else ([receiptDone])

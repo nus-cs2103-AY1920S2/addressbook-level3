@@ -7,27 +7,17 @@ skinparam backgroundColor #ffffff
 skinparam classAttributeIconSize 0
 hide circle
 
-class PaidCommandParser implements Parser {
-    /' Methods '/
-    + parse(args : String) : PaidCommand
-}
-
-interface Parser<T extends Command> {
-    parse(userInput : String) : PaidCommand
-}
 
 abstract class Command {
     {abstract} execute(splitterModel:SplitterModel) : CommandResult
 }
 
-class PaidCommand extends Command {
+class ListAmountCommand extends Command {
     /' Fields '/
-    - Index : indexOfPersonPaid
-    - String : amountPaid
 
     /' Methods '/
     + execute(splitterModel : SplitterModel) : CommandResult
-    + equals() : boolean
+
 }
 
 interface SplitterModel <<Interface>> {
@@ -50,15 +40,10 @@ interface SplitterModel <<Interface>> {
 
 }
 
-class Index {
-    + getZeroBased()
-    + getOneBased()
-}
 
 
-PaidCommandParser ..> PaidCommand
-PaidCommand ..> SplitterModel
-PaidCommandParser ..> Index
-PaidCommand --> Index
+
+ListAmountCommand ..> SplitterModel
+
 
 @enduml

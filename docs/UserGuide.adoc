@@ -66,8 +66,6 @@ This block of text with a yellow light bulb indicates *additional tips* that wil
 
 [WARNING]
 This symbol indicates warnings.
-//I dont know how this group manage to get this warning symbol out. I already
-//imported whatever they imported.. https://raw.githubusercontent.com/AY1920S2-CS2103T-W12-3/main/master/docs/UserGuide.adoc
 
 kbd:[Enter] - This symbol indicates the enter button on the keyboard.
 
@@ -746,7 +744,7 @@ image::placeholder.png[]
 Use `listreceipt` to view your item indices before deletion.
 
 '''
-
+//tag::listreceipt[]
 [[listreceipt]]
 ==== Listing the current receipt: `listreceipt`
 
@@ -785,7 +783,7 @@ not have to remember who you split this item with!
 Use `listreceipt` command to find the index of the item in the receipt. The index is useful for commands
 such as `deleteitem` where you have to pass in the index of item to be deleted.
 ====
-
+//end::listreceipt[]
 
 '''
 //tag::listamount[]
