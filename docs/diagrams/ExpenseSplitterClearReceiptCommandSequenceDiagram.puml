@@ -58,9 +58,6 @@ activate CommandResult
 
 CommandResult --> ClearReceiptCommand : result
 deactivate CommandResult
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-CommandResult -[hidden]-> ClearReceiptCommand
-destroy CommandResult
 
 ClearReceiptCommand --> SplitterLogicManager : result
 deactivate ClearReceiptCommand
