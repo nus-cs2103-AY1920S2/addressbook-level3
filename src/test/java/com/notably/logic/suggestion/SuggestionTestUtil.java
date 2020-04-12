@@ -1,6 +1,7 @@
 package com.notably.logic.suggestion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import com.notably.model.viewstate.ViewStateModelImpl;
 import com.notably.testutil.TypicalBlockModel;
 
 /**
- * Contains helper methods for testing suggestion feature.
+ * Contains helper methods for testing generator feature.
  */
 public class SuggestionTestUtil {
     public static Model getModel() {
@@ -70,20 +71,14 @@ public class SuggestionTestUtil {
     }
 
     public static List<SuggestionItem> getExpectedSearchSugForKeywordFalse() {
-        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
-
         SuggestionItem cs2103tTut1 = new SuggestionItemImpl(
                 TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1.getStringRepresentation(), 1, () -> {});
-        SuggestionItem cs2103tTut2 = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), 2, () -> {});
         SuggestionItem cs2106Tut1 = new SuggestionItemImpl(
                 TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1.getStringRepresentation(), 1, () -> {});
+        SuggestionItem cs2103tTut2 = new SuggestionItemImpl(
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), 2, () -> {});
 
-        expectedSuggestions.add(cs2103tTut1);
-        expectedSuggestions.add(cs2103tTut2);
-        expectedSuggestions.add(cs2106Tut1);
-
-        return expectedSuggestions;
+        return List.of(cs2103tTut1, cs2106Tut1, cs2103tTut2);
     }
 
     /**
@@ -103,17 +98,34 @@ public class SuggestionTestUtil {
      * @param expectedSuggestions The expected suggestions list.
      * @param suggestions The actual list of suggestions.
      */
-    public static void testSearchSuggestions(List<SuggestionItem> expectedSuggestions,
-                                             List<SuggestionItem> suggestions) {
+    public static void assertSearchSuggestions(List<SuggestionItem> expectedSuggestions,
+                                             List<SuggestionItem> suggestions, Model model) {
         assertEquals(expectedSuggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()),
                 suggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()));
 
         assertEquals(expectedSuggestions.stream().map(s -> s.getProperty("frequency")).collect(Collectors.toList()),
                 suggestions.stream().map(s -> s.getProperty("frequency")).collect(Collectors.toList()));
+
+        assertInputsForSearch(suggestions, model);
     }
 
     /**
-     * Checks the correctness of the input stored in CommandInputModel for each suggestion.
+     * Checks if the input is cleared after the suggestion is chosen.
+     *
+     * @param suggestions The actual list of suggestions.
+     * @param model The app's model.
+     */
+    public static void assertInputsForSearch(List<SuggestionItem> suggestions, Model model) {
+        for (int i = 0; i < suggestions.size(); i++) {
+            SuggestionItem suggestionItem = suggestions.get(i);
+            suggestionItem.getAction().run();
+            String input = model.getInput();
+            assertTrue(input.isEmpty());
+        }
+    }
+
+    /**
+     * Checks the correctness of the input stored in CommandInputModel for each generator.
      *
      * @param expectedInputs The expected list of inputs.
      * @param suggestions The actual list of suggestions.

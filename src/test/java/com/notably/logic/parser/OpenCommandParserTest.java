@@ -11,6 +11,7 @@ import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
+import com.notably.logic.correction.CorrectionEngineParameters;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
@@ -22,14 +23,8 @@ import com.notably.model.viewstate.ViewStateModelImpl;
 import com.notably.testutil.TypicalBlockModel;
 
 class OpenCommandParserTest {
-    private static final int CORRECTION_THRESHOLD = 2;
-    private static final boolean USE_FORWARD_MATCHING = false;
-    private static AbsolutePath toBlock;
-    private static AbsolutePath toAnother;
-    private static AbsolutePath toAnotherBlock;
     private static Model model;
     private static OpenCommandParser openCommandParser;
-    private static NotablyParser parser;
 
     @BeforeEach
     public void setUp() {
@@ -39,10 +34,8 @@ class OpenCommandParserTest {
         ViewStateModel viewStateModel = new ViewStateModelImpl();
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
         CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
-                CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
+                new CorrectionEngineParameters().setForwardMatching(false).setDistanceThreshold(2));
         openCommandParser = new OpenCommandParser(model, pathCorrectionEngine);
-
-        parser = new NotablyParser(model);
     }
 
     @Test
@@ -53,6 +46,11 @@ class OpenCommandParserTest {
     @Test
     void parse_emptyTitleArgument_throwParseException() throws ParseException {
         assertThrows(ParseException.class, () -> openCommandParser.parse("-t"));
+    }
+
+    @Test
+    void parse_rootTitleArgument_throwParseException() throws ParseException {
+        assertThrows(ParseException.class, () -> openCommandParser.parse("-t /"));
     }
 
     @Test

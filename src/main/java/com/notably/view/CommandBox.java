@@ -2,13 +2,19 @@ package com.notably.view;
 
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
+import com.notably.view.suggestion.SuggestionsWindowView;
 
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  * The VIEW component that is responsible for receiving user command inputs.
@@ -36,9 +42,30 @@ public class CommandBox extends ViewPart<Region> {
      * the user types in the model, and also reflects changes in the model to the text field.
      */
     private void initializeListeners(StringProperty stringProperty) {
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         commandTextField.textProperty().bindBidirectional(stringProperty);
+        commandTextField.focusedProperty().addListener((observable, unused, isNowFocused) -> {
+            if (isNowFocused) {
+                Platform.runLater(() -> commandTextField.selectEnd());
+            }
+        });
+        setNavigationHandler();
+    }
+
+    /**
+     * Listens for keystrokes that signify the event where the user navigates out of the CommandBox.
+     * Gives control to the {@link SuggestionsWindowView}.
+     */
+    private void setNavigationHandler() {
+        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (KeyCode.DOWN == event.getCode()) {
+                Window mainStage = Stage.getWindows().stream().filter(Window::isShowing).findFirst().get();
+                Node suggestionsList = mainStage.getScene().lookup("#suggestionsListPanel");
+                if (suggestionsList.isVisible()) {
+                    suggestionsList.requestFocus();
+                }
+            }
+        });
     }
 
     /**

@@ -5,8 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import com.notably.commons.LogsCenter;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.correction.distance.EditDistanceCalculator;
 import com.notably.logic.correction.distance.LevenshteinDistanceCalculator;
@@ -18,22 +20,20 @@ import com.notably.model.block.BlockTreeItem;
  * Represents a correction engine that works on {@link AbsolutePath}s
  */
 public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePath> {
+    private static final Logger logger = LogsCenter.getLogger(AbsolutePathCorrectionEngine.class);
+
     private final EditDistanceCalculator editDistanceCalculator;
     private final Model model;
-    private final int distanceThreshold;
-    private final boolean forwardMatch;
+    private final CorrectionEngineParameters parameters;
 
     /**
      * Creates an {@link AbsolutePathCorrectionEngine}.
      *
      * @param model App's model
-     * @param distanceThreshold Edit distance threshold between paths
-     * @param forwardMatch Whether or not to do forward matching. Forward matching refers to the idea
-     * that two paths will be regarded similar if one is an incomplete representation of another.
-     * For example, "/path/to/no" will forward match with "/path/to/note".
+     * @param parameters Parameters for the correction engine
      */
-    public AbsolutePathCorrectionEngine(Model model, int distanceThreshold, boolean forwardMatch) {
-        this(new LevenshteinDistanceCalculator(false), model, distanceThreshold, forwardMatch);
+    public AbsolutePathCorrectionEngine(Model model, CorrectionEngineParameters parameters) {
+        this(new LevenshteinDistanceCalculator(false), model, parameters);
     }
 
     /**
@@ -41,24 +41,17 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
      *
      * @param editDistanceCalculator Edit distance calculator instance
      * @param model App's model
-     * @param distanceThreshold Edit distance threshold between paths
-     * @param forwardMatch Whether or not to do forward matching. Forward matching refers to the idea
-     * that two paths will be regarded similar if one is an incomplete representation of another.
-     * For example, "/path/to/no" will forward match with "/path/to/note".
+     * @param parameters Parameters for the correction engine
      */
-    public AbsolutePathCorrectionEngine(EditDistanceCalculator editDistanceCalculator,
-            Model model, int distanceThreshold, boolean forwardMatch) {
+    public AbsolutePathCorrectionEngine(EditDistanceCalculator editDistanceCalculator, Model model,
+            CorrectionEngineParameters parameters) {
         Objects.requireNonNull(editDistanceCalculator);
         Objects.requireNonNull(model);
-
-        if (distanceThreshold < 0) {
-            throw new IllegalArgumentException("\"distanceThreshold\" must be greater than 0");
-        }
+        Objects.requireNonNull(parameters);
 
         this.editDistanceCalculator = editDistanceCalculator;
         this.model = model;
-        this.distanceThreshold = distanceThreshold;
-        this.forwardMatch = forwardMatch;
+        this.parameters = parameters;
     }
 
     /**
@@ -89,14 +82,17 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
             }
         }
 
-        if (closestDistance > distanceThreshold) {
+        if (closestDistance > parameters.getDistanceThreshold()) {
+            logger.info(String.format("Failed to correct \"%s\".", uncorrected));
             return new CorrectionResult<>(CorrectionStatus.FAILED);
         }
 
         if (correctedItems.size() == 1 && correctedItems.get(0).equals(uncorrected)) {
+            logger.info(String.format("\"%s\" is already valid, left unchanged.", uncorrected));
             return new CorrectionResult<>(CorrectionStatus.UNCHANGED, correctedItems);
         }
 
+        logger.info(String.format("Corrected \"%s\" to %s.", uncorrected, correctedItems));
         return new CorrectionResult<>(CorrectionStatus.CORRECTED, correctedItems);
     }
 
@@ -152,9 +148,11 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
             String inputComponent = inputComponents.get(i);
             String referenceComponent = referenceComponents.get(i);
 
-            if (forwardMatch && i == inputComponents.size() - 1
-                    && inputComponent.length() < referenceComponent.length()) {
-                distance += calculateForwardMatchingDistance(inputComponent, referenceComponent);
+            if (parameters.isForwardMatching()
+                    && i == inputComponents.size() - 1
+                    && inputComponent.length() <= referenceComponent.length()) {
+                distance += CorrectionEngineUtil.calculateForwardMatchingDistance(editDistanceCalculator,
+                        inputComponent, referenceComponent, parameters.getForwardMatchingThreshold());
             } else {
                 distance += editDistanceCalculator.calculateDistance(inputComponent, referenceComponent);
             }
@@ -174,29 +172,6 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
         }
 
         return distance;
-    }
-
-    /**
-     * Calculates the forward matching distance between to path components.
-     *
-     * @param inputComponent Input path component
-     * @param referenceComponent Reference path component
-     * @return Forward matching distance between the two components
-     */
-    private int calculateForwardMatchingDistance(String inputComponent, String referenceComponent) {
-        Objects.requireNonNull(inputComponent);
-        Objects.requireNonNull(referenceComponent);
-
-        int forwardMatchDistance = Integer.MAX_VALUE;
-        for (int stopIndex = 0; stopIndex <= referenceComponent.length(); stopIndex++) {
-            int currentForwardMatchDistance = editDistanceCalculator.calculateDistance(inputComponent,
-                    referenceComponent.substring(0, stopIndex));
-            if (currentForwardMatchDistance < forwardMatchDistance) {
-                forwardMatchDistance = currentForwardMatchDistance;
-            }
-        }
-
-        return forwardMatchDistance;
     }
 }
 
