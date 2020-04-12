@@ -44,6 +44,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+// tag::prefix[]
 == Common Fields and Keywords
 * *x/* entry type
 * *n/* entry name
@@ -63,6 +64,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *o/* sorting order
 * *k/* keywords for searching/checking
 * *-f* force change flag
+// end::prefix[]
 
 [[Features]]
 == Features
@@ -537,6 +539,7 @@ Examples:
 * `weekreport 2020-02-14`
 //end::today[]
 
+//tag::profile[]
 === Keep User Profile
 
 ==== Profile Page: `profile`
@@ -565,7 +568,9 @@ Examples:
 
 * `update attr/height v/160`
 * `update -f attr/name v/Alice Wang`
+//end::profile[]
 
+//tag::weight_records[]
 === Keep Weight Records
 
 ==== Weight Page: `weight`
@@ -656,16 +661,17 @@ Weight Page's graphs will be empty, and
 Profile Page's Current Weight and Current BMI fields will be `Not Available Now` after clear all weight records.
 
 Format: `clearWeight`
+//end::weight_records[]
 
 //tag::exit[]
-=== Exit the program : `exit`
+=== Exit the program : `exit`/`bye`/`quit`
 
 Exits the program. +
 
 Format: `exit` or `bye` or `quit`
 //end::exit[]
 
-
+//tag::save_data[]
 === Save the data
 
 fitness log book data are saved in the hard disk automatically after any command that changes the data. +
@@ -678,16 +684,19 @@ Three local database in Json format will exist after running FitHelper:
 * *weightrecords.json* : data related to weight records.
 ****
 
-// remark::dataencryption[]
+//end::save_data[]
+
+//tag::dataencryption[]
 === Encrypte data files `[coming in v2.0]`
 
-// end::dataencryption[]
+//end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous fitness log book folder.
 
+//tag::command_summary[]
 == Command Summary
 
 * *Help - switch to Help Page* : `help`
@@ -747,4 +756,6 @@ Three local database in Json format will exist after running FitHelper:
 //.
 
 * *Exit the Program*: `exit` or `bye` or `quit`
+
+//end::command_summary[]
 

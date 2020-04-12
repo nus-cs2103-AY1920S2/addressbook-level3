@@ -89,7 +89,7 @@ Modify Storage and Storage Manager to establish a separate new database for weig
 https://github.com/AY1920S2-CS2103-T09-4/main/pull/242[#242])
 ** *Logic Part*:  Enable Weight Page switch
 and enable user to manipulate weight database by corresponding commands and command parsers,
-including `addWeight`, `editWeight`, `deleteWeight` and `clearWeight`.
+including `weight`, `addWeight`, `editWeight`, `deleteWeight` and `clearWeight`.
 (https://github.com/AY1920S2-CS2103-T09-4/main/pull/240[#240],
 https://github.com/AY1920S2-CS2103-T09-4/main/pull/311[#311])
 
@@ -123,7 +123,7 @@ can significantly help the user to lose weight and keep fit.
 *** PRs reviewed (with non-trivial review comments) (https://github.com/AY1920S2-CS2103-T09-4/main/pull/242[#242])
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/IYVVVVV/ped/issues/1[#1], https://github.com/IYVVVVV/ped/issues/4[#4], https://github.com/IYVVVVV/ped/issues/7[#7] )
 
-
+:sectnums!:
 == Contributions to the User Guide
 
 
@@ -131,9 +131,17 @@ can significantly help the user to lose weight and keep fit.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=prefix]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=profile]
+
+include::../UserGuide.adoc[tag=weight_records]
+
+include::../UserGuide.adoc[tag=exit]
+
+include::../UserGuide.adoc[tag=save_data]
+
+include::../UserGuide.adoc[tag=command_summary]
 
 == Contributions to the Developer Guide
 
@@ -141,7 +149,17 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=storage]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=profile]
+
+include::../DeveloperGuide.adoc[tag=weight]
+
+include::../DeveloperGuide.adoc[tag=product_scope]
+
+include::../DeveloperGuide.adoc[tag=NFR]
+
+include::../DeveloperGuide.adoc[tag=glossary]
+
+include::../DeveloperGuide.adoc[tag=manual_test]
 

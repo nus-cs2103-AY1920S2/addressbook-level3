@@ -141,6 +141,8 @@ image::VersionedFitHelperClassDiagram.png[]
 .Class Diagram for WeightRecords
 image::WeightRecordsClassDiagram.png[]
 //end::model[]
+
+//tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -162,6 +164,7 @@ Classes used by multiple components are in the `fithelper.commons` package.
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+//end::storage[]
 
 // tag::entry[]
 === Entry Feature
@@ -484,6 +487,11 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 
 [[Implementation-Configuration]]
+
+//tag::profile[]
+//end::profile[]
+
+//tag::weight[]
 === Add Weight Records
 
 FitHelper allows the user to track with their weight change easily by allowing user to add their current weight and previous weight.
@@ -563,6 +571,7 @@ The Sequence Diagram below shows how the components interact with each other for
 
 .Sequence Diagram for Add Weight Feature
 image:AddWeightSequenceDiagram.png[]
+//end::weight[]
 
 === Check calorie intake/consumption of some common food/sports
 
@@ -620,6 +629,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+//tag::product_scope[]
 [appendix]
 == Product Scope
 
@@ -632,6 +642,7 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: achieve fitness control faster than a typical mouse/GUI driven app
+//end::product_scope[]
 
 [appendix]
 == User Stories
@@ -785,6 +796,7 @@ Use case ends.
 [discrete]
 _{More to be added}_
 
+//tag::NFR[]
 [appendix]
 == Non Functional Requirements
 
@@ -796,7 +808,9 @@ _{More to be added}_
 .  A user can be familiar with the system commands and interface within half an hour usage.
 
 _{More to be added}_
+//end::NFR[]
 
+//tag::glossary[]
 [appendix]
 == Glossary
 
@@ -891,6 +905,8 @@ Windows, Linux, Unix, OS-X
 
 |===
 
+//end::glossary[]
+
 [appendix]
 == Product Survey
 
@@ -908,6 +924,7 @@ Cons:
 * ...
 * ...
 
+//tag::manual_test[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -970,3 +987,4 @@ These instructions only provide a starting point for testers to work on; testers
 .. Delete `userprofile.json`, and launch FitHelper again. All user manipulation on user profile will be clear. `Profile` page will restart with sample user data.
 .. Delete `weightrecords.json`, and launch FitHelper again. All user manipulation on weight records will be clear. `Profile` page will show Current Weight and Current BMI as "Not Available Now", and `Weight` Page will have no data point on the trend line graph.
 
+//end::manual_test[]
