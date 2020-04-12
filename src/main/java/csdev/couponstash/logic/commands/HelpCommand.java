@@ -33,7 +33,7 @@ public class HelpCommand extends Command {
 
     public static final String ERROR = "An error has occurred. Please try the help command again.";
 
-    private static final String HTML_NAME = "help.html";
+    public static final String HTML_NAME = "help.html";
 
     @Override
     public CommandResult execute(Model model, String commandText) throws CommandException {
