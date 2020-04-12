@@ -454,29 +454,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_about_this_document">2. About this Document</a>
 <ul class="sectlevel2">
 <li><a href="#_symbols_and_notations_used">2.1. Symbols and Notations Used</a></li>
-<li><a href="#_definition_of_common_words_use">2.2. Definition of Common Words Use</a></li>
+<li><a href="#_definition_of_common_words_used">2.2. Definition of Common Words Used</a></li>
 <li><a href="#_how_to_use_this_document">2.3. How to Use this Document</a></li>
 </ul>
 </li>
 <li><a href="#_quick_start">3. Quick Start</a></li>
 <li><a href="#Features">4. Features</a>
 <ul class="sectlevel2">
-<li><a href="#_list_all_canteens_list">4.1. List All Canteens: <code><strong>list</strong></code></a></li>
-<li><a href="#_go_to_canteen_goto">4.2. Go to Canteen: <code><strong>goto</strong></code></a></li>
-<li><a href="#_view_all_stalls_in_canteen_enter">4.3. View All Stalls in Canteen: <code><strong>enter</strong></code></a></li>
-<li><a href="#_view_all_food_items_in_a_stall_enter">4.4. View All Food Items in a Stall: <code><strong>enter</strong></code></a></li>
-<li><a href="#_select_the_food_select">4.5. Select the Food : <code><strong>select</strong></code></a></li>
-<li><a href="#_randomize_food_selection_randomize">4.6. Randomize Food Selection : <code><strong>randomize</strong></code></a></li>
-<li><a href="#_set_a_budget_budget_set">4.7. Set a Budget : <code><strong>budget set</strong></code></a></li>
-<li><a href="#_view_budget_budget_view">4.8. View Budget: <code><strong>budget view</strong></code></a></li>
-<li><a href="#_view_expense_report_report">4.9. View Expense Report: <code><strong>report</strong></code></a></li>
-<li><a href="#_view_past_transactions_transactions">4.10. View Past Transactions: <code><strong>transactions</strong></code></a></li>
-<li><a href="#_review_food_items_review">4.11. Review Food Items: <code><strong>review</strong></code></a></li>
-<li><a href="#_rate_food_items_rate">4.12. Rate Food Items: <code><strong>rate</strong></code></a></li>
-<li><a href="#_set_food_items_as_favorites_favorites_set">4.13. Set Food Items as Favorites: <code><strong>favorites set</strong></code></a></li>
-<li><a href="#_view_favorited_food_items_favorites_view">4.14. View Favorited Food Items: <code><strong>favorites view</strong></code></a></li>
-<li><a href="#_remove_favorited_food_items_favorites_remove">4.15. Remove Favorited Food Items: <code><strong>favorites remove</strong></code></a></li>
-<li><a href="#_filter_canteens_or_stalls_filter">4.16. Filter Canteens or Stalls: <code><strong>filter</strong></code></a></li>
+<li><a href="#_back_command_back">4.1. Back Command: <code><strong>back</strong></code></a></li>
+<li><a href="#_exit_command_exit">4.2. Exit Command: <code><strong>exit</strong></code></a></li>
+<li><a href="#_list_all_canteens_list">4.3. List all Canteens: <code><strong>list</strong></code></a></li>
+<li><a href="#_go_to_a_canteen_goto">4.4. Go to a Canteen: <code><strong>goto</strong></code></a></li>
+<li><a href="#_view_stalls_or_menu_enter">4.5. View Stalls or Menu: <code><strong>enter</strong></code></a></li>
+<li><a href="#_select_the_food_select">4.6. Select the Food : <code><strong>select</strong></code></a></li>
+<li><a href="#_randomize_food_selection_randomize">4.7. Randomize Food Selection : <code><strong>randomize</strong></code></a></li>
+<li><a href="#_set_a_budget_budget_set">4.8. Set a Budget : <code><strong>budget set</strong></code></a></li>
+<li><a href="#_view_budget_budget_view">4.9. View Budget: <code><strong>budget view</strong></code></a></li>
+<li><a href="#_view_expense_report_report">4.10. View Expense Report: <code><strong>report</strong></code></a></li>
+<li><a href="#_view_past_transactions_transactions">4.11. View Past Transactions: <code><strong>transactions</strong></code></a></li>
+<li><a href="#_delete_a_transaction_delete">4.12. Delete A Transaction: <code><strong>delete</strong></code></a></li>
+<li><a href="#_review_food_items_review">4.13. Review Food Items: <code><strong>review</strong></code></a></li>
+<li><a href="#_rate_food_items_rate">4.14. Rate Food Items: <code><strong>rate</strong></code></a></li>
+<li><a href="#_set_food_items_as_favorites_favorites_set">4.15. Set Food Items as Favorites: <code><strong>favorites set</strong></code></a></li>
+<li><a href="#_view_favorited_food_items_favorites_view">4.16. View Favorited Food Items: <code><strong>favorites view</strong></code></a></li>
+<li><a href="#_remove_favorite_food_items_favorites_remove">4.17. Remove Favorite Food Items: <code><strong>favorites remove</strong></code></a></li>
+<li><a href="#_filter_canteens_stalls_or_food_filter">4.18. Filter Canteens, Stalls or Food: <code><strong>filter</strong></code></a></li>
 </ul>
 </li>
 <li><a href="#_faq">5. FAQ</a></li>
@@ -488,19 +490,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-21">
-<p>FoodieBot is an all-in-one application created for students, staff and visitors, to help  with everyday&#8217;s campus dining needs. Whether you need a random suggestion of what to eat, directions to get to the canteen, help in planning your budget for the week, or just want to see what each canteen has to offer, FoodieBot is here to provide for your needs.</p>
+<p>FoodieBot is an all-in-one application created for NUS students, staff and visitors.
+Designed primarily to help with your everyday campus dining needs, FoodieBot has something to offer
+to everyone. Whether you need a random suggestion of what to eat, directions to get to the canteen, help in planning your budget for the week, or just want to see what each canteen has to offer, FoodieBot is here to provide for your needs.</p>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/main/docs/UserGuide.adoc-25">
+<div class="sect1 has-source-line data-line-D:/main/docs/UserGuide.adoc-27">
 <h2 id="_about_this_document">2. About this Document</h2>
 <div class="sectionbody">
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-26">
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-28">
 <h3 id="_symbols_and_notations_used">2.1. Symbols and Notations Used</h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-27">
-<p>The following are symbols and formatting used in this document:</p>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-29">
+<p>The following are the symbols and formatting used in this document:</p>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-30">
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-32">
 <table>
 <tr>
 <td class="icon">
@@ -512,7 +516,7 @@ This symbol indicates important information.
 </tr>
 </table>
 </div>
-<div class="admonitionblock tip has-source-line data-line-D:/main/docs/UserGuide.adoc-33">
+<div class="admonitionblock tip has-source-line data-line-D:/main/docs/UserGuide.adoc-35">
 <table>
 <tr>
 <td class="icon">
@@ -524,122 +528,191 @@ This symbol indicates tips for the particular feature.
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-35">
-<p><code>list</code> - A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.</p>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-37">
+<p><code>list</code> - A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command box and executed by the application.
+The command box location can be seen in the diagram below.</p>
+</div>
+<div class="imageblock has-source-line data-line-D:/main/docs/UserGuide.adoc-40">
+<div class="content">
+<img src="images/Ui_screenshot_windows.PNG" alt="Ui screenshot windows" width="850">
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-37">
-<h3 id="_definition_of_common_words_use">2.2. Definition of Common Words Use</h3>
-<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-39">
+</div>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-42">
+<h3 id="_definition_of_common_words_used">2.2. Definition of Common Words Used</h3>
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-44">
 <dl>
+<dt class="hdlist1">Context</dt>
+<dd>
+<p>There are some commands that are only permissible at certain states of the application.
+For instance, the <code>review</code> and <code>rate</code> commands are only allowed after navigating to the transactions screen.
+We refer to this state as a <strong>context</strong>. Commands which specify a context which they are used in generally cannot work outside of that context.
+However, some commands are less particular about the context which they run in
+such as in the case of the <code>enter</code> command which can run in both the Main, Canteen and Stall contexts.</p>
+</dd>
 <dt class="hdlist1">GUI</dt>
 <dd>
-<p>Graphic User Interface is a type of interface that allows users to interact with.</p>
+<p>Graphic User Interface is a type of visual interface that allows users to interact with.</p>
+</dd>
+<dt class="hdlist1">Index</dt>
+<dd>
+<p>It is a number that is linked to the item of the list
+An index is limited to the maximum number of items shown in the list, the item does not exist if an invalid index is specified in commands that use an index.</p>
 </dd>
 </dl>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-44">
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-59">
 <h3 id="_how_to_use_this_document">2.3. How to Use this Document</h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-45">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-60">
 <p>Section 4. Features will introduce you to the commands for the application.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/main/docs/UserGuide.adoc-47">
+<div class="sect1 has-source-line data-line-D:/main/docs/UserGuide.adoc-62">
 <h2 id="_quick_start">3. Quick Start</h2>
 <div class="sectionbody">
-<div class="olist arabic has-source-line data-line-D:/main/docs/UserGuide.adoc-50">
+<div class="olist arabic has-source-line data-line-D:/main/docs/UserGuide.adoc-64">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-50">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-64">
 <p>Ensure that you have <strong>Java 11</strong> or above installed in your Computer.</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-51">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-65">
 <p>Download the latest <strong>foodiebot.jar</strong> <a href="https://github.com/AY1920S2-CS2103T-F11-3/main/releases">here</a>.</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-52">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-66">
 <p>Copy the file to the folder you want to use as the home folder for your FoodieBot.</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-53">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-67">
 <p>Double-click the file to start the app. The Graphical User Interface(GUI) similar to the image shown below should appear in a few seconds.</p>
-<div class="imageblock has-source-line data-line-D:/main/docs/UserGuide.adoc-56">
+<div class="imageblock has-source-line data-line-D:/main/docs/UserGuide.adoc-70">
 <div class="content">
-<img src="images/Ui_labeled.png" alt="Ui labeled" width="850">
+<img src="images/Ui_screenshot_windows.PNG" alt="Ui screenshot windows" width="850">
 </div>
 </div>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-58">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-72">
 <p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
 e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-60">
-<p>Some example commands you can try:</p>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-62">
-<ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-62">
-<p><code><strong>list</strong></code> : Lists all canteens.</p>
-</li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-63">
-<p><code><strong>enter</strong> The Deck</code> : Display all the stalls location within The Deck.</p>
-</li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-64">
-<p><code><strong>goto</strong> The Deck f/ COM1</code> : Display direction to go to deck from COM1.</p>
-</li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-65">
-<p><code><strong>exit</strong></code> : Go back to the previous view, if the application is at the main screen, the exit command will close the application</p>
-</li>
-</ul>
-</div>
-</li>
 </ol>
 </div>
+<div class="admonitionblock tip has-source-line data-line-D:/main/docs/UserGuide.adoc-75">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Some example commands you can try are listed below:
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-77">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-77">
+<p><code><strong>list</strong></code> : Lists all canteens or return to the main page.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-78">
+<p><code><strong>enter</strong> The Deck</code> : Display all the stalls location within The Deck.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-79">
+<p><code><strong>goto</strong> The Deck f/ COM1</code> : Display direction to go to deck from COM1.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-80">
+<p><code><strong>back</strong></code> : Go back to the previous view</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-81">
+<p><code><strong>exit</strong></code> : the exit command will close FoodieBot</p>
+</li>
+</ul>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/main/docs/UserGuide.adoc-70">
+</div>
+<div class="sect1 has-source-line data-line-D:/main/docs/UserGuide.adoc-85">
 <h2 id="Features">4. Features</h2>
 <div class="sectionbody">
-<div class="exampleblock has-source-line data-line-D:/main/docs/UserGuide.adoc-72">
+<div class="exampleblock has-source-line data-line-D:/main/docs/UserGuide.adoc-87">
 <div class="content">
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-73">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-88">
 <p><strong class="red">Command Format</strong></p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-76">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-90">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-76">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-90">
 <p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>budget set w/ AMOUNT</code>, <code>AMOUNT</code> is a parameter which can be used as <code>budget set w/ 9.50</code></p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-77">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-91">
 <p>Items in square brackets are optional entries e.g <code>report [w/DATE]</code> can be entered as <code>report [w/ 12-02-2020]</code> or as <code>report</code>.</p>
 </li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-80">
-<h3 id="_list_all_canteens_list">4.1. List All Canteens: <code><strong>list</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-82">
-<p>Displays a list of available canteens on campus.</p>
-</div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-84">
-<p>Format: <code>list</code></p>
-</div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-86">
-<p>Parameters:</p>
-</div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-88">
-<ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-88">
-<p><code>[f/BLOCK_NAME]</code> - Displays canteens ordered by increasing distance from current location.</p>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-92">
+<p><em>Canteen names</em>, <em>stall names</em> and <em>commands</em> are <strong>case sensitive</strong>.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-90">
+</div>
+</div>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-95">
+<h3 id="_back_command_back">4.1. Back Command: <code><strong>back</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-97">
+<p>If you want to return to your previous screen, just key in <code><strong>back</strong></code> and it&#8217;ll bring you back
+(at least if a previous screen exists).</p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-100">
+<p>Format: <code>back</code></p>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-102">
+<h3 id="_exit_command_exit">4.2. Exit Command: <code><strong>exit</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-104">
+<p>When you&#8217;re done using the application, type <code><strong>exit</strong></code> into the command box to close the application.</p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-106">
+<p>Format: <code>exit</code></p>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-108">
+<h3 id="_list_all_canteens_list">4.3. List all Canteens: <code><strong>list</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-110">
+<p>Curious to discover the range of dining options on campus? Simply enter <code><strong>list</strong></code> into the command box
+and FoodieBot will show you all the fabulous canteens on campus for you to browse at your leisure.</p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-113">
+<p>Format: <code>list</code></p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-115">
+<p>Parameters:</p>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-117">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-117">
+<p><code>[f/BLOCK_NAME]</code> - If you want to view the canteens by their distance from the place specified by
+<code>BLOCK_NAME</code>, this is the tag for you. This will list the canteens in order of increasing distance from
+<code>BLOCK_NAME</code>.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip has-source-line data-line-D:/main/docs/UserGuide.adoc-121">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can also type <code>list</code> into the command box to return to the main page. This is a handy shortcut if
+you ever forget which <strong>Context</strong> you&#8217;re in.
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-124">
+<div class="content">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-125">
 <p>Examples:</p>
 </div>
-<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-92">
-<div class="content">
-<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-93">
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-127">
 <dl>
 <dt class="hdlist1"><code><strong>list</strong></code></dt>
 <dd>
@@ -653,22 +726,75 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 </div>
 </div>
-<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-99">
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-133">
 <div class="content">
-<img src="images/app/list.png" alt="list" width="700">
+<img src="images/app/list1.PNG" alt="list1" width="700">
 </div>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-102">
-<h3 id="_go_to_canteen_goto">4.2. Go to Canteen: <code><strong>goto</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-104">
-<p>Displays a map with the route between the starting location and the destination.
-Includes instructions on how to travel there as well as bus services that go to the canteen.</p>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-136">
+<h3 id="_go_to_a_canteen_goto">4.4. Go to a Canteen: <code><strong>goto</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-138">
+<p>If you&#8217;re ever lost in NUS, worry no more! The <code>goto</code> function can conveniently tell you the directions to the canteen you wish to
+go to from your current location which you have indicated. It even includes a map image to aid you with understanding
+the directions even easier.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-107">
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-142">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This function will only work on the main page.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-144">
 <p>Format: <code>goto CANTEEN_NAME f/ CURRENT_LOCATION</code></p>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-111">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-146">
+<p>Parameters:</p>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-148">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-148">
+<p><code>CANTEEN_NAME</code>: The canteen name</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-149">
+<p><code>CURRENT_LOCATION</code>: The nearest block from your current location</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-151">
+<p>These <code>CURRENT LOCATION</code>(s) are available for directions:</p>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-153">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-153">
+<p>com1</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-155">
+<p>These <code>CURRENT LOCATION</code>(s) will be added in future releases
+(but are recognised as valid locations):</p>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-158">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-158">
+<p>pgpr</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-159">
+<p>uhc</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-160">
+<p>utown</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-162">
 <table>
 <tr>
 <td class="icon">
@@ -680,205 +806,345 @@ Includes instructions on how to travel there as well as bus services that go to 
 </tr>
 </table>
 </div>
-<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-113">
+<div class="exampleblock has-source-line data-line-D:/main/docs/UserGuide.adoc-164">
 <div class="content">
-<img src="images/wireframe/goto.png" alt="goto" width="700">
-</div>
-</div>
-</div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-115">
-<h3 id="_view_all_stalls_in_canteen_enter">4.3. View All Stalls in Canteen: <code><strong>enter</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-117">
-<p>Displays the stalls available at the specified canteen.</p>
-</div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-119">
-<p>Format: <code>enter</code></p>
-</div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-121">
-<p>Parameters:</p>
-</div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-124">
-<ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-124">
-<p><code>INDEX</code>: Enter the canteen with the entered index.</p>
-</li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-126">
-<p><code>CANTEEN_NAME</code>: Enter the canteen with the entered name.</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-128">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Information about the cuisine sold at the stall, the rating of the stall and various other things will be implemented in v2.0.<br>
-The stall&#8217;s rating is determined from the user&#8217;s past experiences of the food items which were selected.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-131">
-<h3 id="_view_all_food_items_in_a_stall_enter">4.4. View All Food Items in a Stall: <code><strong>enter</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-133">
-<p>Displays the food items available at the specified stall.</p>
-</div>
-<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-135">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-This method works after entering a canteen.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-137">
-<p>Format: <code>enter</code></p>
-</div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-139">
-<p>Parameters:</p>
-</div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-141">
-<ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-141">
-<p><code>INDEX</code>: Enter the stall with the entered index.</p>
-</li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-143">
-<p><code>STALL_NAME</code>: Enter the stall with the entered name.</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-145">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Information about the cuisine sold at the stall, the rating of the food item and various other things will be implemented in v2.0.<br>
-The stall&#8217;s rating is determined from the user&#8217;s past experiences of the food items which were selected.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-149">
-<h3 id="_select_the_food_select">4.5. Select the Food : <code><strong>select</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-151">
-<p>Saves the selected food into transactions to help the user track his history of food consumption.</p>
-</div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-153">
-<p>Format: <code>select</code></p>
-</div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-155">
-<p>Parameters:</p>
-</div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-158">
-<ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-158">
-<p><code>INDEX</code>: Select the food with the given index from the list displayed on the GUI</p>
-</li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-159">
-<p><code>FOOD_NAME</code>: Select the food with the given name from the list displayed on the GUI</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-161">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-If a budget has been set up, the budget will be automatically
-reduced by the price of the selected food.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-164">
-<p>Examples:</p>
-</div>
-<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-166">
-<div class="content">
-<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-167">
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-165">
 <dl>
-<dt class="hdlist1"><code><strong>select 1</strong></code></dt>
+<dt class="hdlist1">Example</dt>
 <dd>
-<p>Selects the food item listed at index 1.</p>
-</dd>
-<dt class="hdlist1"><code><strong>select Combo Set</strong></code></dt>
-<dd>
-<p>Selects the food item Combo Set.</p>
+<p>Let say you wish to go to The Deck from your current location at com1.</p>
 </dd>
 </dl>
 </div>
 </div>
 </div>
+<div class="olist arabic has-source-line data-line-D:/main/docs/UserGuide.adoc-167">
+<ol class="arabic">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-167">
+<p>Enter the canteen which you want to go to and your current location in this format on the main page <code>goto The Deck f/ com1</code>.</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-169">
+<div class="content">
+<img src="images/wireframe/gotoStep1.PNG" alt="gotoStep1" width="700">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-171">
+<p>Then press <kbd>Enter</kbd>. This will give you a clear image and instruction on how to get to canteen from the nearest bus stop.</p>
+</li>
+</ol>
+</div>
 <div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-173">
+<div class="content">
+<img src="images/wireframe/gotoStep2.PNG" alt="gotoStep2" width="700">
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-176">
+<h3 id="_view_stalls_or_menu_enter">4.5. View Stalls or Menu: <code><strong>enter</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-178">
+<p>Curious about the details of a particular canteen or stall? The <code>enter</code> command allows you to find out
+all the information you want about the canteen or stall you are interested in.</p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-181">
+<p>Format: <code>enter STALL_NAME/ CANTEEN_NAME/ INDEX</code></p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-183">
+<p>Parameters:</p>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-185">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-185">
+<p><code>INDEX</code>: An index that corresponds to a particular canteen. This index is located beside the canteen name.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-186">
+<p><code>CANTEEN_NAME</code>: The canteen name has to be from one of the canteens displayed. Partial names are not allowed.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-187">
+<p><code>STALL_NAME</code>:  The stall name has to be from one of the stalls displayed. Partial names are not allowed.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-189">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Information about the types of food sold at the stall, the rating of the stall and various other things will be implemented in v2.0.<br>
+The stall&#8217;s rating is determined from the user&#8217;s past experiences of the food items which were selected (find out
+more in Section 4.13: Rate Food Items).
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock has-source-line data-line-D:/main/docs/UserGuide.adoc-193">
+<div class="content">
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-194">
+<dl>
+<dt class="hdlist1">Example</dt>
+<dd>
+<p>You wish to see the stalls available in Nus Flavors.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-D:/main/docs/UserGuide.adoc-196">
+<ol class="arabic">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-196">
+<p>On the main screen, type <code>enter Nus Flavors</code> or <code>enter 1</code> into the command box.</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-198">
+<div class="content">
+<img src="images/wireframe/enterStep1.PNG" alt="enterStep1" width="700">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-200">
+<p>This will display the list of stalls that Nus Flavors has.
+At the bottom of the screen, there will be a display box which displays the current canteen which you
+have entered.</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-204">
+<div class="content">
+<img src="images/wireframe/enterStep2.PNG" alt="enterStep2" width="700">
+</div>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-206">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-206">
+<p>If you wish to view stalls in another canteen you can enter <code>back</code> into the command box. This will bring you back to the main page.</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-208">
+<p>If you wish to see the menu of a stall, you can key in <code>enter</code> again.
+Let us see what the Western stall has on their menu. You can key in <code>enter Western</code> or <code>enter 9</code>.
+Don&#8217;t forget to hit the <kbd>enter</kbd> after you are done typing.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-212">
+<p>This will show you the menu of the Western stall.
+For each food item, the name, the cost and the description of the food item will be given.
+At the bottom of the screen, there will also be a display box showing the current stall which you have entered.</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-216">
+<div class="content">
+<img src="images/wireframe/enterStall.PNG" alt="enterStall" width="700">
+</div>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-218">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-218">
+<p>Similarly, you can also enter <code>back</code> to return to the Nus Flavor canteen screen or enter <code>list</code> if you wish to return to the main screen.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-221">
+<h3 id="_select_the_food_select">4.6. Select the Food : <code><strong>select</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-223">
+<p>Finally decided on a food item after browsing the countless food options at NUS, ordered it and want to record
+down your dining experience? The <code><strong>select</strong></code> function is here allowing you to save your selected food
+into your past transactions to help you track your history of food consumption.</p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-227">
+<p>Format: <code>select</code></p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-229">
+<p>Parameters:</p>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-231">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-231">
+<p><code>INDEX</code>: Select the food with the given index from the list displayed on the GUI</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-232">
+<p><code>FOOD_NAME</code>: Select the food with the given name from the list displayed on the GUI</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-234">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If a budget has been set up, the price of the selected food will be automatically deducted from your
+budget. This helps you keep track of how much money you have spent and how much more you can spend. Nifty, isn&#8217;t it?
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-237">
+<dl>
+<dt class="hdlist1">Example</dt>
+<dd>
+<p>You have decided what you want to eat and you want to save that item to update your transaction history.</p>
+<div class="olist arabic has-source-line data-line-D:/main/docs/UserGuide.adoc-239">
+<ol class="arabic">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-239">
+<p>Ensure that you are on the menu screen of the stall. If you do not know how to get to the menu you can refer to the section above or <a href="#View Stalls or Menu">here</a>.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-241">
+<p>Continuing on from the example from the <code><strong>enter</strong></code> command above, we are currently in the Western stall.</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-243">
+<div class="content">
+<img src="images/wireframe/enterStall.PNG" alt="enterStall" width="700">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-245">
+<p>Enter <code>select Combo Set</code> or <code>select 1</code> into the command box.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-247">
+<p>This will display the cost of the item, the remaining amount that you have and the amount you are left with to spend for the day.</p>
+</li>
+</ol>
+</div>
+</dd>
+</dl>
+</div>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-249">
 <div class="content">
 <img src="images/wireframe/select.png" alt="select" width="700">
 </div>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-175">
-<h3 id="_randomize_food_selection_randomize">4.6. Randomize Food Selection : <code><strong>randomize</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-177">
-<p>Displays a list of randomized suggestions of food.</p>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-252">
+<h3 id="_randomize_food_selection_randomize">4.7. Randomize Food Selection : <code><strong>randomize</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-254">
+<p>Bamboozled by the countless dining options at NUS or simply bored of going to the same boring old canteens to
+eat everyday? <code>randomize</code> is here to help you to generate a random option when you cannot decide on what to eat or
+if you just want to spice up your culinary experience in NUS.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-179">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-258">
 <p>Format: <code>randomize</code></p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-181">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-260">
 <p>Parameters:</p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-183">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-262">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-183">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-262">
 <p><code>[c/ CANTEEN_NAME]</code> - Produce a randomized list of foods from foods available at the particular canteen .</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-184">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-263">
 <p><code>[t/ TAG]</code> - Randomize based on foods which are tagged with the tag provided.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-186">
-<p>Examples:</p>
-</div>
-<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-188">
+<div class="exampleblock has-source-line data-line-D:/main/docs/UserGuide.adoc-265">
 <div class="content">
-<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-189">
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-266">
 <dl>
-<dt class="hdlist1"><code><strong>randomize c/ The Deck</strong></code></dt>
+<dt class="hdlist1">Example</dt>
 <dd>
-<p>Display five stall that are located in The Deck.</p>
-</dd>
-<dt class="hdlist1"><code><strong>randomize t/ rice</strong></code></dt>
-<dd>
-<p>Display five stall that contain the tag <code>rice</code>.</p>
+<p>On a day where you cannot decide on what to eat but you don&#8217;t mind travelling anywhere on campus, you suddenly
+remember that FoodieBot has a convenient <code>randomize</code> function.</p>
 </dd>
 </dl>
 </div>
 </div>
 </div>
-<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-195">
+<div class="olist arabic has-source-line data-line-D:/main/docs/UserGuide.adoc-269">
+<ol class="arabic">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-269">
+<p>Just enter <code>randomize</code> into the command box on the main screen.</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-271">
+<div class="content">
+<img src="images/wireframe/randomizeStep1.PNG" alt="randomizeStep1" width="700">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-273">
+<p>This will generate 1 option for you with the details of the <em>canteen name</em> that this stall belongs to, the <em>stall name</em>, the <em>stall number</em>,
+the <em>price rating</em> and the tag if there are any.</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-276">
 <div class="content">
 <img src="images/wireframe/randomize.png" alt="randomize" width="700">
 </div>
 </div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-278">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-278">
+<p>If you like the option that you see, you can key in <code>enter Japanese</code> or <code>enter 1</code> to be redirected to the stall to see the menu.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-280">
+<p>If you do not like the option, you can enter <code>randomize</code> again to be given another option.</p>
+</li>
+</ul>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-197">
-<h3 id="_set_a_budget_budget_set">4.7. Set a Budget : <code><strong>budget set</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-199">
-<p>Sets a daily, weekly or monthly budget. The budget can be changed.</p>
+</li>
+</ol>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-201">
+<div class="exampleblock has-source-line data-line-D:/main/docs/UserGuide.adoc-282">
+<div class="content">
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-283">
+<dl>
+<dt class="hdlist1">Example</dt>
+<dd>
+<p>What if you want to get a random option only from a particular canteen (eg. The Deck) that you are at or an option based on what you crave (eg. spicy food)?</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-286">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-286">
+<p>If you want to get a random option based on the canteen (eg. The Deck), you can enter <code>randomize c/ The Deck</code> on the main screen.
+This will display an option that is based on the canteen you want (in this case The Deck).</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-288">
+<p>If you want to get a random option based on your craving (eg. spicy), you can enter <code>randomize t/ spicy</code> on the main screen.
+This will display a food which has the spicy tag.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-291">
+<p>OR similarly, you can also enter the canteen first before getting a random option.</p>
+<div class="olist arabic has-source-line data-line-D:/main/docs/UserGuide.adoc-292">
+<ol class="arabic">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-292">
+<p>In the command box key in <code>enter The deck</code> or <code>enter 2</code> to get the list of stalls available in The Deck.</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-294">
+<div class="content">
+<img src="images/wireframe/enterDeck.PNG" alt="enterDeck" width="700">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-295">
+<p>After that enter <code>randomize</code> or <code>randomize t/ TAG</code> to get an option.<br>
+Let&#8217;s try getting a food option that has rice from The deck</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-298">
+<div class="content">
+<img src="images/wireframe/randomizeTag.PNG" alt="randomizeTag" width="700">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-300">
+<p>This will display an option if there is a stall option that has that tag. Otherwise it will display a message in the feedback box.</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-302">
+<div class="content">
+<img src="images/wireframe/randomizeTagOutput.PNG" alt="randomizeTagOutput" width="700">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-305">
+<h3 id="_set_a_budget_budget_set">4.8. Set a Budget : <code><strong>budget set</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-307">
+<p>Have problems keeping track of your spending? The <code>budget set</code> command allows you to set up
+a daily, weekly or monthly budget to help you track how much money you have left to spend. This budget
+can be changed anytime you want but please note the consequences in the box below!</p>
+</div>
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-311">
 <table>
 <tr>
 <td class="icon">
@@ -887,38 +1153,38 @@ reduced by the price of the selected food.
 <td class="content">
 Changing the budget will reset the budget overview for the current budget cycle.<br>
 For example, if you have $5 remaining from a weekly budget of $20, setting a new monthly budget of $150
-will update your current budget settings to the new one, but at the same time resets both the start date
-of the cycle as well as the amount remaining.<br>
-(But not to worry, your transactions are still saved!)
+will update your current budget settings to the new one, but at the same time resets the start date
+of the cycle, your remaining budget, as well as an overview of your spendings in your budget.<br>
+(But not to worry, all of your transactions are still saved!)
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-207">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-317">
 <p>Format: <code>budget set PERIOD AMOUNT</code></p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-209">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-319">
 <p>Parameters:</p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-211">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-321">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-211">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-321">
 <p><code>AMOUNT</code>: The maximum amount available to spend for the given time period.</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-212">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-322">
 <p><code>PERIOD</code>: The length of the cycle that a budget is effective for and when it will refresh.</p>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-214">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-324">
 <p>List of values for <code>PERIOD</code> are:</p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-216">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-326">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-216">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-326">
 <p><code>d/</code> - Daily</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-217">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-327">
 <p><code>w/</code> - Weekly</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-218">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-328">
 <p><code>m/</code> - Monthly</p>
 </li>
 </ul>
@@ -926,7 +1192,7 @@ of the cycle as well as the amount remaining.<br>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-220">
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-330">
 <table>
 <tr>
 <td class="icon">
@@ -940,94 +1206,145 @@ Otherwise an error message will be displayed requesting a correct type to be pro
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-225">
+<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-334">
+<div class="content">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-335">
 <p>Examples:</p>
 </div>
-<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-227">
-<div class="content">
-<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-228">
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-337">
 <dl>
-<dt class="hdlist1"><code><strong>budget set w/ 9.50</strong></code></dt>
+<dt class="hdlist1"><code><strong>budget set d/ 10</strong></code></dt>
 <dd>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-229">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-338">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-229">
-<p>Sets weekly budget to $9.50.</p>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-338">
+<p>Set daily budget to $10.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><code><strong>budget set w/ 30.50</strong></code></dt>
+<dd>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-340">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-340">
+<p>Set weekly budget to $30.50.</p>
 </li>
 </ul>
 </div>
 </dd>
 <dt class="hdlist1"><code><strong>budget set m/ 100</strong></code></dt>
 <dd>
-<p>Sets monthly budget to $100.</p>
+<p>Set monthly budget to $100.</p>
 </dd>
 </dl>
 </div>
 </div>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-234">
-<h3 id="_view_budget_budget_view">4.8. View Budget: <code><strong>budget view</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-236">
-<p>Views the current budget, spendings made during the current budget cycle,
-as well as the remaining budget available to spend.</p>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-345">
+<h3 id="_view_budget_budget_view">4.9. View Budget: <code><strong>budget view</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-347">
+<p>Curious about your budget this cycle, how much you have spent and how much you have left? <code>budget view</code> allows
+you to see all your spending as well as the amount of money you have left to spend.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-239">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-350">
 <p>Format: <code>budget view</code></p>
 </div>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-352">
+<div class="content">
+<img src="images/wireframe/budgetView.PNG" alt="budgetView" width="700">
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-241">
-<h3 id="_view_expense_report_report">4.9. View Expense Report: <code><strong>report</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-243">
-<p>Generates a report of the spending and food purchases for the period specified.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-245">
-<p>Format: <code>report</code></p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-247">
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-354">
+<h3 id="_view_expense_report_report">4.10. View Expense Report: <code><strong>report</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-355">
+<p>If you want to see how much you have spent over a period of time, view a beautifully designed report of your
+past expenses with the <code>report</code> command.</p>
+</div>
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-358">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This command has several variations to choose from! Also, the date can be delimited with '-', '.' or '/',
+as long as your date format follows a generic DD/M/YY or D-M-YYYY format (e.g. 11/4/20, 3-6-2019)!<br>
+D - day<br>
+M - month<br>
+Y - year<br>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-364">
+<p>Format:</p>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-366">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-366">
+<p><code>report</code></p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-367">
+<p><code>report [f/FROM_DATE] [t/TO_DATE]</code></p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-368">
+<p><code>report [w/DATE]</code></p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-369">
+<p><code>report [m/MONTH]</code></p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-370">
+<p><code>report [y/YEAR]</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-372">
 <p>Parameters:</p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-249">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-374">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-249">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-374">
 <p><code>[f/FROM_DATE] [t/TO_DATE]</code> - Generates report from <code>FROM_DATE</code> until <code>TO_DATE</code>.</p>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-250">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-375">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-250">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-375">
 <p>Example: <code>report f/ 12-02-2020 t/ 30-04-2020</code></p>
 </li>
 </ul>
 </div>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-251">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-376">
 <p><code>[w/DATE]</code> - Generates report for the week (Monday-Sunday) of the input date.</p>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-252">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-377">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-252">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-377">
 <p>Example: <code>report w/ 12-02-2020</code></p>
 </li>
 </ul>
 </div>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-253">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-378">
 <p><code>[m/MONTH]</code> - Generates report of the input month.</p>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-254">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-379">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-254">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-379">
 <p>Example: <code>report m/ jan</code> - Generates a report for the month of January for the current year.</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-255">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-380">
 <p>Example: <code>report m/ jul y/ 2019</code> - Generates a report for the month of July of the specified year
 of 2019.</p>
 </li>
 </ul>
 </div>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-257">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-382">
 <p><code>[y/YEAR]</code> - Generates report of the input year.</p>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-258">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-383">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-258">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-383">
 <p>Example: <code>report y/ 2020</code></p>
 </li>
 </ul>
@@ -1035,7 +1352,7 @@ of 2019.</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-260">
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-385">
 <table>
 <tr>
 <td class="icon">
@@ -1048,58 +1365,99 @@ of 2019.</p>
 </tr>
 </table>
 </div>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-388">
+<div class="content">
+<img src="images/wireframe/report.png" alt="report" width="700">
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-265">
-<h3 id="_view_past_transactions_transactions">4.10. View Past Transactions: <code><strong>transactions</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-267">
-<p>Displays the past transactions of food purchases for any period specified.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-269">
-<p>Format: <code>transactions</code></p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-271">
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-390">
+<h3 id="_view_past_transactions_transactions">4.11. View Past Transactions: <code><strong>transactions</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-392">
+<p>In a similar way to <code>report</code>, <code>transactions</code> also allow you to see all the food you have purchased in
+a particular period.</p>
+</div>
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-395">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This command has several variations to choose from! Also, the date can be delimited with '-', '.' or '/',
+as long as your date format follows a generic DD/M/YY or D-M-YYYY format (e.g. 11/4/20, 3-6-2019)!<br>
+D - day<br>
+M - month<br>
+Y - year<br>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-401">
+<p>Format:</p>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-403">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-403">
+<p><code>transactions</code></p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-404">
+<p><code>transactions [f/FROM_DATE] [t/TO_DATE]</code></p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-405">
+<p><code>transactions [w/DATE]</code></p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-406">
+<p><code>transactions [m/MONTH]</code></p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-407">
+<p><code>transactions [y/YEAR]</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-409">
 <p>Parameters:</p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-273">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-411">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-273">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-411">
 <p><code>[f/FROM_DATE] [t/TO_DATE]</code> - Displays transactions from and till the given dates.</p>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-274">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-412">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-274">
-<p>Example: <code>report f/ 12-02-2020 t/ 30-04-2020</code></p>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-412">
+<p>Example: transactions <code>f/ 12-02-2020 t/ 30-04-2020</code></p>
 </li>
 </ul>
 </div>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-275">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-413">
 <p><code>[w/DATE]</code> - Displays transactions for the week (Monday-Sunday) of the input date.</p>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-276">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-414">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-276">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-414">
 <p>Example: transactions <code>w/ 12-02-2020</code></p>
 </li>
 </ul>
 </div>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-277">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-415">
 <p><code>[m/MONTH]</code> - Displays transactions of the input month.</p>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-278">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-416">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-278">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-416">
 <p>Example: transactions <code>m/ jan</code> - Displays all transactions in the month of the current year.</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-279">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-417">
 <p>Example: transactions <code>m/ jul y/ 2019</code> - Displays all transactions in the month of the specified year.</p>
 </li>
 </ul>
 </div>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-280">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-418">
 <p><code>[y/YEAR]</code> - Displays transactions of the input year.</p>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-281">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-419">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-281">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-419">
 <p>Example: transactions <code>y/ 2020</code></p>
 </li>
 </ul>
@@ -1107,7 +1465,7 @@ of 2019.</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-283">
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-421">
 <table>
 <tr>
 <td class="icon">
@@ -1120,49 +1478,135 @@ of 2019.</p>
 </tr>
 </table>
 </div>
-<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-286">
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-424">
 <div class="content">
 <img src="images/wireframe/transaction.png" alt="transaction" width="700">
 </div>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-288">
-<h3 id="_review_food_items_review">4.11. Review Food Items: <code><strong>review</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-290">
-<p>Reviews food items from the transactions user interface.</p>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-426">
+<h3 id="_delete_a_transaction_delete">4.12. Delete A Transaction: <code><strong>delete</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-428">
+<p>Accidentally added a wrong food to your purchases? The <code>delete</code> command allows you to do just that, by
+giving the index of the food to delete.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-292">
-<p>Format: <code>review INDEX REVIEW</code></p>
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-431">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The index to delete has to be within the range of the list of transactions.
+</td>
+</tr>
+</table>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-294">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-434">
+<p>Format: <code>delete</code> INDEX</p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-436">
 <p>Parameters:</p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-296">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-438">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-296">
-<p><code>INDEX</code> - This must be the first parameter and an index from the list has to be specified.</p>
-</li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-297">
-<p><code>REVIEW</code>- This must be the second parameter and the review message cannot be blank.</p>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-438">
+<p><code>INDEX</code> - The index of the item in the list of transactions.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-299">
-<p>Examples:</p>
-</div>
-<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-301">
+<div class="exampleblock has-source-line data-line-D:/main/docs/UserGuide.adoc-440">
 <div class="content">
-<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-302">
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-441">
 <dl>
-<dt class="hdlist1"><code><strong>rate 5 This was yummy!</strong></code></dt>
+<dt class="hdlist1">Example</dt>
 <dd>
-<p>Adds review "This was yummy!" to the 5th item in the transactions list.</p>
+<p>You had accidentally selected the same food twice in a row too quickly, and want to delete one of them.</p>
 </dd>
 </dl>
 </div>
 </div>
 </div>
-<div class="admonitionblock tip has-source-line data-line-D:/main/docs/UserGuide.adoc-306">
+<div class="olist arabic has-source-line data-line-D:/main/docs/UserGuide.adoc-443">
+<ol class="arabic">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-443">
+<p>Type in <code>transactions</code> from the main screen to enter the transactions page.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-444">
+<p>Locate the index number of the food you wish to delete.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-445">
+<p>Type in <code>delete</code> followed by the index number of the purchase, then hit <kbd>enter</kbd>.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-446">
+<p>The additional purchase is now removed!</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip has-source-line data-line-D:/main/docs/UserGuide.adoc-448">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Removing a food purchased only during a current budget cycle will add the amount back to your remaining budget!
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-451">
+<h3 id="_review_food_items_review">4.13. Review Food Items: <code><strong>review</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-453">
+<p>From the <strong>transactions</strong> screen, leave a food review for a food item you have consumed to help you jog
+your memory and recall your experiences, be it pleasant or unpleasant, of the previous time you had the food.</p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-456">
+<p>Format: <code>review INDEX REVIEW</code></p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-458">
+<p>Parameters:</p>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-460">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-460">
+<p><code>INDEX</code> - This must be the first parameter and an index from the list has to be specified.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-461">
+<p><code>REVIEW</code> - This must be the second parameter and the review message cannot be blank.</p>
+</li>
+</ul>
+</div>
+<div class="exampleblock has-source-line data-line-D:/main/docs/UserGuide.adoc-463">
+<div class="content">
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-464">
+<dl>
+<dt class="hdlist1">Example</dt>
+<dd>
+<p>You want to review a food item that you have eaten for future reference.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-D:/main/docs/UserGuide.adoc-466">
+<ol class="arabic">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-466">
+<p>Ensure that you are on the transaction screen. You can key in <code>transactions</code> on the main screen to get there.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-467">
+<p>Pick a food you wish to review. Now perhaps you think that the Combo Set was delicious and that you absolutely adored the bbq sauce.<br>
+Key in <code>review 1 The food is delicious! Love the bbq sauce</code> into the command box, and hit <kbd>enter</kbd>.</p>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-470">
+<div class="content">
+<img src="images/wireframe/review.png" alt="review" width="700">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip has-source-line data-line-D:/main/docs/UserGuide.adoc-472">
 <table>
 <tr>
 <td class="icon">
@@ -1175,34 +1619,34 @@ You can update existing reviews by using the same command.
 </table>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-310">
-<h3 id="_rate_food_items_rate">4.12. Rate Food Items: <code><strong>rate</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-312">
-<p>Rates food items from the transactions screen.
-This rating is on a scale from 0 to 10.</p>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-474">
+<h3 id="_rate_food_items_rate">4.14. Rate Food Items: <code><strong>rate</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-476">
+<p>Lazy to write a full food review? Well from the <code><strong>transactions</strong></code> screen, you can simply leave a food rating
+to show how well you thought of the food you had.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-315">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-479">
 <p>Format: <code>rate INDEX RATING</code></p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-317">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-481">
 <p>Parameters:</p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-319">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-483">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-319">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-483">
 <p><code>INDEX</code> - This must be the first parameter and an index from the list has to be specified.</p>
 </li>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-320">
-<p><code>RATING</code>- This must be the second parameter and requires a rating for the food item.</p>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-484">
+<p><code>RATING</code> - This must be the second parameter and requires a rating for the food item.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-322">
-<p>Examples:</p>
-</div>
-<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-324">
+<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-486">
 <div class="content">
-<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-325">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-487">
+<p>Example:</p>
+</div>
+<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-489">
 <dl>
 <dt class="hdlist1"><code><strong>rate 3 8</strong></code></dt>
 <dd>
@@ -1212,7 +1656,7 @@ This rating is on a scale from 0 to 10.</p>
 </div>
 </div>
 </div>
-<div class="admonitionblock tip has-source-line data-line-D:/main/docs/UserGuide.adoc-329">
+<div class="admonitionblock tip has-source-line data-line-D:/main/docs/UserGuide.adoc-493">
 <table>
 <tr>
 <td class="icon">
@@ -1225,106 +1669,139 @@ You can also update existing ratings by using the rate on the same food item.
 </table>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-331">
-<h3 id="_set_food_items_as_favorites_favorites_set">4.13. Set Food Items as Favorites: <code><strong>favorites set</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-333">
-<p>Set food items from the stalls as favorites for easier access.</p>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-495">
+<h3 id="_set_food_items_as_favorites_favorites_set">4.15. Set Food Items as Favorites: <code><strong>favorites set</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-497">
+<p>Just had this absolutely delicious meal and want to save it for the next time so you can remember to have it
+again or recommend it to others? From the <strong>menu screen</strong> of a stall, you can easily set your favourite food items
+for easier access in the future.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-335">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-501">
 <p>Format: <code>favorites set INDEX</code></p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-337">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-503">
 <p>Parameters:</p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-339">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-505">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-339">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-505">
 <p><code>INDEX</code> - This must be the first parameter and an index from the list has to be specified.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-342">
-<h3 id="_view_favorited_food_items_favorites_view">4.14. View Favorited Food Items: <code><strong>favorites view</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-344">
-<p>View the food items that have been set as favorites.</p>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-508">
+<h3 id="_view_favorited_food_items_favorites_view">4.16. View Favorited Food Items: <code><strong>favorites view</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-510">
+<p>Once you have saved your favorite food items, you can easily access them with this command.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-346">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-512">
 <p>Format: <code>favorites view</code></p>
 </div>
+<div class="imageblock text-left has-source-line data-line-D:/main/docs/UserGuide.adoc-514">
+<div class="content">
+<img src="images/wireframe/favoritesView.PNG" alt="favoritesView" width="700">
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-348">
-<h3 id="_remove_favorited_food_items_favorites_remove">4.15. Remove Favorited Food Items: <code><strong>favorites remove</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-350">
-<p>View the food items that have been set as favorites.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-352">
+</div>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-516">
+<h3 id="_remove_favorite_food_items_favorites_remove">4.17. Remove Favorite Food Items: <code><strong>favorites remove</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-518">
+<p>Had a change of heart and a particular food has lost your fancy? Don&#8217;t worry because FoodieBot makes it
+painless to sever your ties, by allowing quick removal of that food.</p>
+</div>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-521">
 <p>Format: <code>favorites remove INDEX</code></p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-354">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-523">
 <p>Parameters:</p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-356">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-525">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-356">
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-525">
 <p><code>INDEX</code> - This must be the first parameter and an index from the list has to be specified.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-358">
-<h3 id="_filter_canteens_or_stalls_filter">4.16. Filter Canteens or Stalls: <code><strong>filter</strong></code></h3>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-360">
-<p>Filter canteens or stalls based on the tag entered.</p>
+<div class="sect2 has-source-line data-line-D:/main/docs/UserGuide.adoc-527">
+<h3 id="_filter_canteens_stalls_or_food_filter">4.18. Filter Canteens, Stalls or Food: <code><strong>filter</strong></code></h3>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-529">
+<p>If you only want a canteen, stall or food with a particular tag, filter allows you to as its name suggests
+filter to show only the things you want. Filter also enables you to filter based on the maximum price you
+are willing to pay</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-362">
-<p>Format: <code>filter TAG</code></p>
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-533">
+<p>Format: <code>filter TAG/ PRICE</code></p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-364">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-535">
 <p>Parameters:</p>
 </div>
-<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-366">
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-537">
 <ul>
-<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-366">
-<p><code>TAG</code> - a label tag assiociated with the food item.</p>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-537">
+<p><code>TAG</code> - Label tag associated with the canteen or stall depending on which context you are in.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-538">
+<p><code>PRICE</code> - a number which indicates the maximum price of food you are willing to pay for.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-368">
+<div class="admonitionblock note has-source-line data-line-D:/main/docs/UserGuide.adoc-541">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+You can only filter by <em>price</em> from the <strong>menu page</strong> of a stall.<br>
+When filtering by <em>tag</em>, tags vary based on the <strong>current context</strong>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-544">
+<div class="content">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-545">
 <p>Examples:</p>
 </div>
-<div class="sidebarblock has-source-line data-line-D:/main/docs/UserGuide.adoc-370">
-<div class="content">
-<div class="dlist has-source-line data-line-D:/main/docs/UserGuide.adoc-371">
-<dl>
-<dt class="hdlist1"><code><strong>filter asian</strong></code></dt>
-<dd>
-<p>Only displays canteens with the asian tag.</p>
-</dd>
-</dl>
+</div>
+</div>
+<div class="ulist has-source-line data-line-D:/main/docs/UserGuide.adoc-547">
+<ul>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-547">
+<p>If you wish to filter tags based on what the canteen has, you can enter
+<code><strong>filter asian</strong></code> on the main screen. This will display canteens with the asian tag.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-550">
+<p>After entering a canteen, you can also filter the stalls based on tags as well.</p>
+</li>
+<li class="has-source-line data-line-D:/main/docs/UserGuide.adoc-552">
+<p>If you have decided on the stall you wish to eat from, but then have a limit on how much you can spend ($4).
+You can <code>filter 4</code> on the menu page. This will display all the options available that are within your budget.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1 has-source-line data-line-D:/main/docs/UserGuide.adoc-375">
+<div class="sect1 has-source-line data-line-D:/main/docs/UserGuide.adoc-556">
 <h2 id="_faq">5. FAQ</h2>
 <div class="sectionbody">
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-377">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-557">
 <p><strong>Q</strong>: How can I update the list of canteens if there are changes to the canteens on campus?<br>
 <strong>A</strong>: You can manually download foodiebot.json file which we have published <a href="https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/foodiebot.json">here</a>.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-380">
+<div class="paragraph has-source-line data-line-D:/main/docs/UserGuide.adoc-560">
 <p><strong>Q</strong>: Can I write my personal review in other languages? <br>
 <strong>A</strong>: Yes, FoodieBot accepts input for different types of language, however it does not support in-app localization.</p>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/main/docs/UserGuide.adoc-384">
+<div class="sect1 has-source-line data-line-D:/main/docs/UserGuide.adoc-563">
 <h2 id="_command_summary">6. Command Summary</h2>
 <div class="sectionbody">
-<table class="tableblock frame-all grid-all has-source-line data-line-D:/main/docs/UserGuide.adoc-386" style="width: 80%;">
+<table class="tableblock frame-all grid-all has-source-line data-line-D:/main/docs/UserGuide.adoc-565" style="width: 80%;">
 <colgroup>
 <col style="width: 21.5686%;">
 <col style="width: 39.2156%;">
@@ -1339,23 +1816,43 @@ You can also update existing ratings by using the rate on the same food item.
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">back</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return to the screen before</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">back</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">budget set PERIOD AMOUNT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Sets a budget for the allocated period</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set a budget for the allocated period</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">budget set w/ 9.50</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">budget view</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Views the current budget</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">budget view</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">enter CANTEEN_NAME</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Displays the menu for the selected canteen</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">enter The Deck</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delete INDEX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removes a transaction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delete 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enter CANTEEN_NAME/ STALL_NAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays the stalls for the selected canteen or the menu of the selected stall</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enter The Deck/ enter Japanese</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">exit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Close the application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">exit</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">favorites remove</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove the food item from favorites</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">favorites remove 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">favorites set</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the food item in the stall as a favorite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the food item in the stall as a favorite</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">favorites set 1</p></td>
 </tr>
 <tr>
@@ -1369,11 +1866,6 @@ You can also update existing ratings by using the rate on the same food item.
 <td class="tableblock halign-left valign-top"><p class="tableblock">filter asian</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">find nearest BLOCK_NAME</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Finds the nearest canteen from location</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">find nearest COM1</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">goto CANTEEN_NAME f/ CURRENT_LOCATION</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gets direction to canteen from the current location</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">goto The Deck f/ COM1</p></td>
@@ -1381,12 +1873,12 @@ You can also update existing ratings by using the rate on the same food item.
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">list</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Displays the list of canteen</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">rate INDEX</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gives a rating to the stall</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rate 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">randomize</p></td>
@@ -1401,12 +1893,12 @@ You can also update existing ratings by using the rate on the same food item.
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">review INDEX</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Creates a review for the stall</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">review 3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">select INDEX</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Saves the food in transactions</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">select 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">transactions</p></td>
@@ -1420,7 +1912,7 @@ You can also update existing ratings by using the rate on the same food item.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-30 00:25:14 +0800
+Last updated 2020-04-09 14:22:28 +0800
 </div>
 </div>
 </body>

@@ -435,7 +435,7 @@ One has to scroll down the list to find the correct list item to show the direct
 
 The `randomize` command is implemented  by the `RandomizeCommand` class.
 
-This command is accessed by the `LogicManager#execute()` to generate five random options based on the user input.
+This command is accessed by the `LogicManager#execute()` to generate a random stall option based on the user input.
 
 The following _activity diagram_ illustrates the different scenario for the randomize command:
 
@@ -447,7 +447,7 @@ image::RandomizeActivityDiagram.png[width="500", align="left"]
 . `RandomizeCommandParser` then parses the randomize command to separate the prefix if any and return a command object.
 In this case a `RandomizeCommand` object is created and returned to the `LogicManager`.
 . The `LogicManager` then access `RandomizeCommand#execute()`.
-. From `RandomizeCommand#execute()`, `randomize` objects are called to generate a random option based on the user input.
+. From `RandomizeCommand#execute()`, `randomize` objects are called to generate a random stall option based on the user input.
 . The `RandomizeCommand#execute()` returns a  `CommandResult` object to the `LogicManger`.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `randomize` command:
