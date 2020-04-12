@@ -84,6 +84,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 //end::command_format[]
 
+//tag::help[]
 === Viewing help : `help`
 
 Asks the application to go to Help page, which displays a condensed list of available
@@ -94,7 +95,7 @@ Note that once the user types `help` or click the **Help** button,
 the url of the User Guide is copied to the clipboard, so the user
 can directly access the Guide by pasting the url into the browser.
 Format: `help`
-
+//end::help[]
 
 === Keep Food and Sports Entries
 
@@ -117,12 +118,12 @@ Examples:
 
 * `add x/s n/running t/2020-04-10-18:00 l/utown gym c/500`
 * `add x/f n/chicken rice t/2020-04-10-11:00 l/Super Snacks c/200`
+//end::add[]
 
 .Add Command
 image::add.png[]
 .Add Command Result
 image::add2.png[]
-//end::add[]
 
 //tag::list[]
 ====  Listing all entries : `list`
@@ -168,7 +169,6 @@ Format: `edit x/TYPE i/INDEX s/Done`
 
 Similar to the previous command, marking an entry as undone edits the `s/` field and modify it as `Undone`.
 Format: `edit x/TYPE i/INDEX s/Undone`
-
 //end::edit[]
 
 .Edit Command
