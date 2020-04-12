@@ -24,7 +24,7 @@ public class CheckCommandParserTest {
     private CheckCommandParser parser = new CheckCommandParser();
 
     @Test
-    public void parseFieldMissingFailure() {
+    public void parseFieldsMissingFailure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE);
 
         // type missing
@@ -35,6 +35,13 @@ public class CheckCommandParserTest {
 
         // both missing
         assertParseFailure(parser, WHITE_SPACE, expectedMessage);
+    }
+
+    @Test
+    public void parseInvalidFieldValuesFailure() {
+        // invalid type
+        assertParseFailure(parser, WHITE_SPACE + PREFIX_TYPE + "exercise" + WHITE_SPACE + PREFIX_KEYWORD
+                + APPLE, Type.MESSAGE_CONSTRAINTS);
     }
 
     @Test
