@@ -254,10 +254,14 @@ In order to allow the tracking of the students/assignments/teachers that are ass
 image::Ivan-OODMForEntityRS.png[]
 
 The group came up with the structure above where we centralize most links around the `Course` object so as for easier management of entity links.
-Every non-directed association between 2 objects ensures that both objects have each other's ID.
 
-[NOTE]
+[IMPORTANT]
+Notice that `Student` does *not* hold a `Course`, but a set of `CourseIDs`. Hence, there should be an association between `Student` and `ID` instead of `Student` and `Course`.
+However, the group found it more *intuitive* and *obvious* to think of the associations in this way.
+Every non-directed association between 2 objects ensures that both objects have each other's ID.
 The only exception is `Progress` objects which are created via a composite ID of `studentID` and `assignmentID`.
+
+
 
 There are 3 crucial managers involved in order to ensure that the links are successfully maintained during each any command which involves manipulation of entity links.
 The three managers are:
@@ -492,7 +496,8 @@ Undo Progress will be added back in.
 
 image::Ivan-ActivityDiagramUndoAssign.png[]
 
-This results in the *correct* `Progress` objects added back in instead of completely new `Progress` objects that are all `Undone`.
+This results in the *correct* `Progress` objects, which may or may not be `Done`, to be added back in instead of completely new `Progress` objects that are all `Undone`.
+
 You can also notice that this is a faster implementation since we do not need to re-create a `CompositeID` and the actual
 `Progress` object itself when we are just adding back the UndoProgresses.
 
