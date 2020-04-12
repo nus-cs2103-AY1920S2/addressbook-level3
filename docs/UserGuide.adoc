@@ -197,29 +197,103 @@ Examples:
 +
 ** Deletes the 4th exercise from the exercise list of the 1st client
 
-=== Schedule trainings for a client: `schedule`
+=== Schedule trainings for a client: `schedule` ---Ng Ming Liang
 
-Assigns weekly schedule timings to a client. The schedule will be displayed on the right panel of FitBiz, with the timings as well as the client's name. This command can assign multiple schedules to a client at once, by adding more arguments following the command.
+`Schedule` allows you to assign weekly schedule timings to a client. The schedule will be displayed on the right panel of FitBiz, with the timings as well as the client's name. You can assign multiple schedules to a client at once, by adding more arguments following the command.
 
-Format: `schedule INDEX day/DAY st/STARTTIME et/ENDTIME`
+[NOTE]
+The `schedule` command overwrites the client's existing schedule with the new schedules given in the command.
 
-* `INDEX` refers to the index number shown on the displayed client list
-* `INDEX` must be a positive integer(ie. 1, 2, 3, ...)
-* `INDEX` must be for an existing client index number
-* `DAY` must be any one of the following values:
-** MON
-** TUE
-** WED
-** THU
-** FRI
-** SAT
-** SUN
-* `DAY` is not case-sensitive
+==== Parameters
 
-Examples:
+This section acts as a summary of the important things to note when using `schedule`. The square bracket shows that it is optional and your command will still execute even if you do not enter them.
 
-* `schedule 1 day/mon st/1100 et/1200`
-** Adds to the 1st client a schedule for training from 11:00am to 12:00pm on Monday
+Format: `schedule INDEX sch/DAY-STARTTIME-ENDTIME`
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| INDEX |
+* Substitute `INDEX` with the index of the desired client to add the schedule to. +
+
+* `INDEX` is compulsory and you have to specify it. +
+
+* `INDEX` must be a positive number, and must be a valid index number for a client as displayed from the list of clients. +
+
+| DAY |
+* Substitute `DAY` with the first three letters of the day. +
+eg. MON / TUE / WED / THU / FRI / SAT / SUN
+
+* `DAY` is compulsory and you have to specify it. +
+
+* `DAY` can only be one of the above seven values. +
+
+* `DAY` is not case sensitive.
+
+| STARTTIME |
+* Substitute `STARTTIME` with the starting time of the schedule slot. +
+
+* `STARTTIME` is compulsory.
+
+* Range for `STARTTIME` is 0000-2359. +
+
+* `STARTTIME` must always be earlier than or equal to `ENDTIME`.
+
+| ENDTIME |
+* Substitute `ENDTIME` with the ending time of the schedule slot. +
+
+* `ENDTIME` is compulsory.
+
+* Range for `ENDTIME` is 0000-2359. +
+
+* `ENDTIME` must always be equal to or later than `STARTTIME`.
+|====================
+
+==== Example
+
+Let's say you want to schedule a weekly Monday 11:00am to 12:00pm slot for your client Alex Yeoh. Alex Yeoh is the first client on your *Client List*.
+
+image::UGScheduleDiagram1.png[]
+
+You can see that Alex Yeoh's client index is `1`. Therefore, you can proceed to type the `schedule` command in the *Command Box* to assign a schedule slot to him.
+
+image::UGScheduleDiagram2.png[]
+
+After you enter the command, you can see that the *Feedback Box* has notified you of the new overwritten schedule, and that Alex Yeoh's schedule slot has appeared on the *Schedule Panel* on Monday.
+
+image::UGScheduleDiagram3.png[]
+
+Now let's say you want to add multiple schedules to Bernice Yu: Monday 8:00am to 10:00pm and Tuesday 4:00pm to 6:00pm. You can do that by adding both of these timings into the `schedule` command following the same format as above.
+
+image::UGScheduleDiagram4.png[]
+
+Now enter the command, and you'll see that Bernice's schedules also show up on the *Schedule Panel*.
+
+image::UGScheduleDiagram5.png[]
+
+Finally, let's say Alex no longer has any schedule slots, and you want to clear it. Simply type in `schedule 1 sch/` in the *Command Box* to clear his schedule, and you should see this.
+
+image::UGScheduleDiagram6.png[]
+
+==== Common Errors/Problems
+
+You might face some errors or difficulties when you use `schedule`. In this section, you will be able to understand these errors and resolve them.
+
+*Overlapping schedules*
+
+You might encounter the message that "One or more of your input schedules have overlapping time periods. Please check again." This means that there is a overlapping time period between at least two of your input schedules. In this case as shown below, the first schedule `sch/MON-1100-1200` conflicts with the second schedule `sch/MON-1200-1300` because the end time of the first schedule overlaps with the start time of the second schedule.
+
+image::UGScheduleDiagram7.png[]
+
+[NOTE]
+Overlapping schedules are not allowed between schedules within the same client. However, *different clients* can have overlapping schedules with each other as it is a possible scenario that you as a gym coach can coach multiple clients at once, and that additional clients can join/leave the session as other sessions are ongoing. 
+
+*Invalid command format*
+
+You might encounter the error message from the *Feedback Box* specifying the format that you should be using for the `schedule` command. This means that there are one or more errors in the format of your input for the `schedule` command. In the example input shown below, `schedule 2 sch/TUESDAY-800-1:00`, there are multiple errors. First, the `DAY` should be three letters. Next, the `STARTTIME` and `ENDTIME` should follow the HHmm format. The correct input for this should be `schedule 2 sch/TUE-0800-1300`.
+
+image::UGScheduleDiagram8.png[]
 
 === Export as CSV: `export` [Coming in v1.4]
 
