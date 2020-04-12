@@ -37,7 +37,7 @@ a|
 |3
 
 a|
-*Tabs*
+*User Interface*
 |4
 
 a|
@@ -165,16 +165,21 @@ limit of 5 usages.
 .  Refer to the <<Features, Features>> section below for the details of each
 command.
 
-[[Tabs]]
-== Tabs
 
-In this section, we look at one of the key features of Coupon Stash's
-Graphical User Interface. The interface can be broadly split into
-3 different parts based on the different tabs present in the
-program, namely Coupons, Summary and Help. Also, the calendar and
-command result box are two features visible on every tab.
+== User Interface
+
+In this section, we look at the key features of Coupon Stash's
+graphical user interface. The interface can be broadly split
+into 3 different parts: the different tabs present in the
+program (Coupons, Summary and Help), as well as the
+calendar and command result box.
 
 image::ug_tabs.png[]
+
+=== Tabs
+
+Tab selection determines the content shown in the main
+window of Coupon Stash.
 
 The tabs can be switched by pressing kbd:[Ctrl] + kbd:[Tab] or
 by clicking on the tabs bar on the left side of the application
@@ -189,11 +194,18 @@ The tabs bar is visible on every single tab! It serves
 as a good visual reference to tell you which
 tab is currently being displayed.
 
-=== Coupons tab
-The coupons tab contains a visual overview of the coupons which
-you have added to the application.
 
-==== Coupon card
+The following sections explain the different features of
+each tab of Coupon Stash, as well as how to use them.
+
+==== Coupons tab
+
+WHen you first start Coupon Stash, the default selected tab
+is the coupons tabs. The coupons tab contains a visual
+overview of the coupons which you have added to the
+application.
+
+===== Coupon card
 
 The coupon card displays information about each coupon, and
 it is styled to look like a coupon itself!
@@ -201,7 +213,7 @@ it is styled to look like a coupon itself!
 [NOTE]
 Coupon card duplicates cannot exist!
 
-=== Summary tab
+==== Summary tab
 
 The summary tab provides an overview of how much
 you have saved from using coupons in Coupon Stash.
@@ -222,7 +234,7 @@ every week is also displayed in the summary tab.
 The next section will tell you more about how to
 interpret this graph.
 
-==== Savings graph
+===== Savings graph
 
 The savings graph provides a bar chart which holds
 statistics on the amount of money saved per week.
@@ -257,7 +269,7 @@ savings from every coupon regardless of the date,
 the savings graph may not display every weeks' savings
 as it only displays up to a maximum of 10 weeks.
 
-=== Help tab
+==== Help tab
 
 The help tab shows you a short description of how
 to use all the commands in Coupon Stash.
