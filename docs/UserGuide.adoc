@@ -241,7 +241,7 @@ Example:
 * `(ab)get 1` +
 Displays all information about the 1st person.
 
-==== List contacts with birthdays with upcoming birthdays : `(ab)birthday`
+==== List contacts with upcoming birthdays : `(ab)birthday`
 
 Lists all contacts with birthdays in the next 5 days (current day included) +
 Format: `(ab)birthday`
@@ -292,9 +292,9 @@ Examples:
 
 * `(rt)addnote 5 r/chicken chop g/truffle fries b/risotto` +
 Add notes to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
-* `(rt)addnote 2 g/Cheese baked rice`
+* `(rt)addnote 2 g/Cheese baked rice` +
 Adds a note to the restaurant at index 2 with good food Cheese baked rice.
-* `(rt)addnote 1 b/Fried rice b/Latte`
+* `(rt)addnote 1 b/Fried rice b/Latte` +
 Add notes to the restaurant at index 1 with bad food Fried rice and Latte.
 
 ==== Edit notes to a restaurant : `(rt)editnote`

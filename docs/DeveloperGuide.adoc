@@ -625,8 +625,8 @@ _{ more test cases ... }_
 . Editing a person while all persons listed
 
 .. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
-.. Test case: `(ab)edit 3 t/BFF -t/Friends` +
-   Expected: Third contact in the list is edited, with tag "Friends" deleted, and tag "BFF" added. Details  of the edited contact shown in the status message.
+.. Test case: `(ab)edit 2 t/BFF -t/Friends` +
+   Expected: Second contact in the list is edited, with tag "Friends" deleted, and tag "BFF" added. Details  of the edited contact shown in the status message.
 
 . Editing a person while finding contacts that meet certain criteria
 
@@ -639,8 +639,8 @@ _{ more test cases ... }_
 . Adds note(s) to a person while all persons listed
 
 .. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
-.. Test case: `(ab)addnote 2 i/Likes red i/Lives in Jurong` +
-   Expected: Second contact in the list has 2 new notes, "Likes red" and "Lives in Jurong", added. Details of the edited contact shown in the status message.
+.. Test case: `(ab)addnote 2 i/Likes red i/Lives in Jurong i/Cycles` +
+   Expected: Second contact in the list has 2 new notes, "Likes red", "Lives in Jurong" and "Cycles", added. Details of the edited contact shown in the status message.
 
 . Editing a person while finding contacts that meet certain criteria
 
@@ -708,6 +708,14 @@ _{ more test cases ... }_
 .. Test case: `(ab)get x ` (where x exists in the full contact list but not in the filtered list) +
 Expected: No detailed view of contact is displayed. Error details shown in the status message.
 
+=== List contacts with upcoming birthdays
+
+. All persons are listed
+
+.. Prerequisite: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. `(ab)birthday` +
+   Expected: All contacts with birthdays in the next 5 days (current day included) should be listed.
+
 === Adding a restaurant
 
 . Test case: `(rt)add n/Ameens l/Clementi v/No o/0900:2300 p/$ c/Indian` +
@@ -719,6 +727,49 @@ Expected: No detailed view of contact is displayed. Error details shown in the s
   Expected: Deletes the second restaurant in the restaurant list. Details of the deleted restaurant shown in the status message.
 . Test case: `(rt)delete x` (where x is larger than the size of the restaurant list) +
   Expected: No restaurant is deleted. Error details shown in the status message.
+
+=== Adding food note(s) to a restaurant
+
+. Test case: `(rt)addnote 1 r/Chicken Chop g/Truffle Fries b/Risotto b/Lobster Pasta` +
+  Expected: Add notes to the restaurant at index 1 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto and Lobster Pasta. Details of the edited restaurant shown in the status message.
+
+=== Editing food note(s) of a restaurant
+
+. Test case: `(rt)editnote 1 rl/1 r/Fish and Chip gl/1 g/Mushroom soup bl/2 b/Salad` +
+  Expected: Edit notes to the restaurant at index 3 with recommend food Fish and Chip at line number 1, good food Mushroom soup at line number 1, and bad food Salad at line number 2. Details of the edited restaurant shown in the status message.
+. Test case: `(rt)editnote 2 rl/aaa r/Fried Rice gl/1 g/Tomato soup` (Non-integer line number for recommended food notes) +
+  Expected: No restaurant's food notes is edited. Error details shown in the status message.
+
+=== Deleting food note(s) of a restaurant
+
+. Test case: `(rt)deletenote 1 rl/1 gl/1 bl/2` +
+  Expected: Delete notes to the restaurant at index 1, at line number 1 of recommended food notes, at line number 1 of good food notes, at line number 2 of bad food notes.
+. Test case `(rt)deletenote 1 rl/1 gl/x bl/aaa` (where x is larger than the size of good food notes, and non-integer line number for bad food notes) +
+  Expected: No restaurant's bad notes is edited. Error details shown in the status message.
+
+=== Mark a restaurant as visited
+
+. A restaurant has yet to be visited
+
+.. Test case: `(rt)visited 1` +
+   Expected: Changes the visited status of the restaurant at index 1. Details of the edited restaurant shown in the status message.
+
+. A restaurant has been visited
+
+.. Test case: `(rt)visited 1` +
+   Expected: The restaurant visited status will not change. Error details shown in the status message.
+
+=== List all restaurants saved
+
+. `(rt)list` +
+   Expected: All restaurants added should be displayed.
+
+=== Search for restaurants based on a number of criteria
+
+. `(rt)find l/Clementi` +
+  Expected: Searches and display restaurants in the Clementi area. Number of restaurants displayed shown in the status message.
+
+
 
 _{ more test cases ... }_
 
