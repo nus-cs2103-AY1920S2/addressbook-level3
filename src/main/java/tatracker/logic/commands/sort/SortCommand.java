@@ -7,7 +7,6 @@ import static tatracker.logic.parser.Prefixes.SORT_TYPE;
 
 import java.util.List;
 
-import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
