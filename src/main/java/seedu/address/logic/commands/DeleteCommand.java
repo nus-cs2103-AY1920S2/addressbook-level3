@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -57,7 +58,7 @@ public class DeleteCommand extends Command {
 
     private final Name deleteName;
     private final List<ModuleCode> deleteModuleCodes;
-    private final Deadline deleteDeadline;
+    private final ArrayList<Deadline> deleteDeadlines;
     private final String deleteGrade;
 
     /**
@@ -67,7 +68,7 @@ public class DeleteCommand extends Command {
         requireNonNull(name);
         this.deleteName = name;
         this.deleteModuleCodes = null;
-        this.deleteDeadline = null;
+        this.deleteDeadlines = null;
         this.deleteGrade = null;
     }
 
@@ -78,7 +79,7 @@ public class DeleteCommand extends Command {
         requireNonNull(moduleCodes);
         this.deleteModuleCodes = moduleCodes;
         this.deleteName = null;
-        this.deleteDeadline = null;
+        this.deleteDeadlines = null;
         this.deleteGrade = null;
     }
 
@@ -86,11 +87,12 @@ public class DeleteCommand extends Command {
      * Creates a delete command to delete the deadline with description {@code deadline}
      * of the module with module code {@code moduleCode} of the current profile.
      */
-    public DeleteCommand(List<ModuleCode> moduleCodes, Deadline deadline) {
+
+    public DeleteCommand(List<ModuleCode> moduleCodes, ArrayList<Deadline> deadlines) {
         requireNonNull(moduleCodes);
-        requireNonNull(deadline);
+        requireNonNull(deadlines);
         this.deleteModuleCodes = moduleCodes;
-        this.deleteDeadline = deadline;
+        this.deleteDeadlines = deadlines;
         this.deleteName = null;
         this.deleteGrade = null;
     }
@@ -105,7 +107,7 @@ public class DeleteCommand extends Command {
         this.deleteModuleCodes = moduleCodes;
         this.deleteGrade = grade;
         this.deleteName = null;
-        this.deleteDeadline = null;
+        this.deleteDeadlines = null;
     }
 
     @Override
@@ -156,16 +158,26 @@ public class DeleteCommand extends Command {
             }
 
             // Deleting a deadline/task
-            if (deleteDeadline != null) {
+            if (deleteDeadlines != null) {
                 try {
-                    profile.getModule(deleteModuleCode).deleteDeadline(deleteDeadline);
-                    profileManager.deleteDeadline(deleteDeadline); //delete from observablelist
+                    // Check if all deadlines exist first
+                    for (Deadline deadline : deleteDeadlines) {
+                        if (!profile.getModule(deleteModuleCode).hasDeadline(deadline)) {
+                            throw new DeadlineNotFoundException();
+                        }
+                    }
+
+                    for (Deadline deadline : deleteDeadlines) {
+                        profile.getModule(deleteModuleCode).deleteDeadline(deadline);
+                        profileManager.deleteDeadline(deadline); //delete from observablelist
+                    }
+
                 } catch (ParseException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 } catch (DeadlineNotFoundException e) {
-                    throw new CommandException(String.format(MESSAGE_DELETE_DEADLINE_FAILURE, deleteDeadline));
+                    throw new CommandException(String.format(MESSAGE_DELETE_DEADLINE_FAILURE, deleteDeadlines));
                 }
-                return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadline), false);
+                return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadlines), false);
             }
 
             // Delete grade
@@ -208,8 +220,8 @@ public class DeleteCommand extends Command {
                 || ((deleteName != null) && this.deleteName.equals(command.deleteName));
         boolean sameModuleCode = (deleteModuleCodes == null && command.deleteModuleCodes == null)
                 || ((deleteModuleCodes != null) && this.deleteModuleCodes.equals(command.deleteModuleCodes));
-        boolean sameDeadline = (deleteDeadline == null && command.deleteDeadline == null)
-                || ((deleteDeadline != null) && this.deleteDeadline.equals(command.deleteDeadline));
+        boolean sameDeadline = (deleteDeadlines == null && command.deleteDeadlines == null)
+                || ((deleteDeadlines != null) && this.deleteDeadlines.equals(command.deleteDeadlines));
         boolean sameGrade = (deleteGrade == null && command.deleteGrade == null)
                 || ((deleteGrade != null) && this.deleteGrade.equals(command.deleteGrade));
         return sameName && sameModuleCode && sameDeadline && sameGrade;

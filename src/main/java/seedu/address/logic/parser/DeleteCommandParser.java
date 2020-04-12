@@ -1,12 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_MODULES_ADD_TASK;
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_MODULES_DELETE_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,12 +57,20 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
                 // Deleting task will only occur for one module
                 if (moduleCodes.size() > 1) {
-                    throw new ParseException(MESSAGE_MULTIPLE_MODULES_ADD_TASK);
+                    throw new ParseException(MESSAGE_MULTIPLE_MODULES_DELETE_TASK);
                 }
                 String strModuleCode = strModuleCodes.iterator().next();
-                String strDeadline = argMultimap.getValue(PREFIX_TASK).get();
-                task = new Deadline(strModuleCode, strDeadline);
-                return new DeleteCommand(moduleCodes, task);
+
+                List<String> strTaskDescriptions = argMultimap.getAllValues(PREFIX_TASK)
+                        .stream()
+                        .map(x->x.trim())
+                        .collect(Collectors.toList());
+
+                ArrayList<Deadline> deadlines = new ArrayList<>();
+                for (String taskDescription : strTaskDescriptions) {
+                    deadlines.add(new Deadline(strModuleCode, taskDescription));
+                }
+                return new DeleteCommand(moduleCodes, deadlines);
             }
 
             // Delete grade

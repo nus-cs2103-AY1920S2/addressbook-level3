@@ -53,7 +53,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DEADLINE_INVALID_SEMESTER = "Error: You can only add tasks to modules that "
             + "are already added in the current semester";
     public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module already exists as %1$s, "
-            + "please specify specify name and deadline if you would like to add a task";
+            + "please specify specify task name and deadline if you would like to add a task";
     public static final String MESSAGE_UNFULFILLED_PREREQS = "NOTE: You may not have fulfilled the prerequisites of "
             + "%1$s before semester %2$s";
     public static final String PREREQ_STRING = "\nPrerequisites of %1$s: %2$s";

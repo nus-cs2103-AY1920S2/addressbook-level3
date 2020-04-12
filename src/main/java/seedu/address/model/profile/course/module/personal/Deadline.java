@@ -127,7 +127,8 @@ public class Deadline {
         }
         if (other instanceof Deadline) {
             Deadline otherDeadline = (Deadline) other;
-            return this.description.toUpperCase().equals(otherDeadline.getDescription().toUpperCase());
+            return this.moduleCode.equals(otherDeadline.getModuleCode())
+                    && this.description.toUpperCase().equals(otherDeadline.getDescription().toUpperCase());
         }
         return false;
     }
