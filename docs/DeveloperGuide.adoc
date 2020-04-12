@@ -104,11 +104,10 @@ The `UI` component does the following actions:
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
-Hubert Halim
 
 [[Design-Logic]]
 
-=== Logic component
+=== Logic component (Hubert Halim)
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -257,10 +256,9 @@ There are many different ways to implement how a transaction is added into `Expe
 ** Cons: Incurs significant overhead and duplicated codes since it is likely that both `**Expense**` and `**Income**` will
 have very similar methods.
 
-Hubert Halim
 
 // tag::setbudget[]
-=== Setting budgets
+=== Setting budgets (Hubert Halim)
 We allow the user to maintain a `**Budget**` for the current month and subsequent months. This section details how `**ExpenseLa**` handles
 requests made by the user who is trying to set a budget both for a one time and recurring budget. `**Budget**` is contained inside
 `**MonthlyData**` object along with `**Expense**` and `**Income**` and application only has 1 `**MonthlyData**` object for the current month.
@@ -337,7 +335,7 @@ as a collective. And easier to just handle 1 reference in ExpenseLa.
 
 
 // tag::commandHistoryNavigation[]
-=== Command History navigation
+=== Command History navigation (Hubert Halim)
 Users can navigate to previous commands by pressing the up or down button on the keyboard.
 Only successful commands are stored in the CommandHistory list and only a maximum of 50 commands can
 be stored at a time.
