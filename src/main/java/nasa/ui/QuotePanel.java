@@ -49,14 +49,14 @@ public class QuotePanel extends UiPart<Region> {
      * Show quote message.
      * @param stage Stage
      */
-    public void show(Stage stage, double width) {
+    public void show(Stage stage) {
         if (popup.isShowing()) {
             popup.setOnCloseRequest(x ->
                     new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play());
         } else {
 
             stage.widthProperty().addListener((observable, oldValue, newValue) -> {
-                popup.setX(stage.getX() + width - label.getPrefWidth()/2);
+                popup.setX(stage.getX() + stage.getWidth() - label.getPrefWidth()/2);
             });
 
             popup.show(stage);

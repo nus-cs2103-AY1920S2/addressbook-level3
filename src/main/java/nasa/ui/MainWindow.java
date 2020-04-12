@@ -156,7 +156,7 @@ public class MainWindow extends UiPart<Stage> {
 
     public void getQuote(String input) {
         quotePanel.setText(input);
-        quotePanel.show(getPrimaryStage(), tabPanelPlaceholder.getWidth());
+        quotePanel.show(getPrimaryStage());
     }
 
     /**
