@@ -63,8 +63,6 @@ public class CommandTestUtil {
         try {
 
             CommandResult result = command.execute(actualSplitterModel);
-            System.out.println(result.getFeedbackToUser());
-            System.out.println(expectedCommandResult.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedSplitterModel, actualSplitterModel);
         } catch (CommandException ce) {
