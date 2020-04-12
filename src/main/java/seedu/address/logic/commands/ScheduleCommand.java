@@ -52,6 +52,9 @@ public class ScheduleCommand extends Command {
         this.toAdd = scheduleList;
     }
 
+    /**
+     * @author @Dban1
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -73,6 +76,7 @@ public class ScheduleCommand extends Command {
 
         // if toAdd is empty, meaning the schedule has been cleared
         if (toAdd.isEmpty()) {
+            assert(toAdd.size() == 0);
             return new CommandResult(String.format(MESSAGE_CLEARED, editedClient.getName().fullName));
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedClient.getName().fullName,
