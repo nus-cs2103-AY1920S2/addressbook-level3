@@ -24,8 +24,10 @@ It is an application that allows users to manage all aspects of their social lif
 
 * *Added the ability to add/edit/delete note commands for each restaurant*
 ** What it does: allows the user to add multiple notes, edit the added notes, or delete the added notes.
-** Justification: This feature improves the product significantly because a user can add in additional information to a restaurant in order to keep track of the dishes' reviews.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Justification: This feature improves the product significantly because a user can add additional information to a restaurant in order to keep track of the dishes' reviews.
+** Highlights:
+*** This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+*** Each restaurant has 3 food notes that can be added, edited, or deleted. Multiple addition/deletion of notes require a detailed checking of inputs that are dependent on other inputs.
 ** Credits: _{referenced from RemarkCommand}_
 
 === Minor enhancement:
