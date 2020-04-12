@@ -172,7 +172,119 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain features
+are implemented, and pitfalls to avoid when making modifications.
+
+=== Buy and Sell Commands
+
+The `buy` and `sell` commands are the main ways a user is expected to
+interact with the Inventory Manager, and encompasses the bulk of the commands a
+user is going to enter into Inventory Manager.
+
+==== Commonalities in Implementation of `buy` and `sell`
+
+
+Both `buy` and `sell` commands are required to accomplish 3 things:
+
+. Update the quantity in the inventory, subject to their respective validity
+checks.
+. Create a transaction record of itself to be added to the transaction history.
+. Commit the mutated model to facilitate proper functioning of `undo` and `redo`
+commands
+
+The API that `Model` exposes has been structured to mirror the requirements
+of the commands. The above 3 requirements can be satisfied by calls to:
+
+. `Model#setGood()`
+. `Model#addTransaction()`
+. `Model#commit()`.
+
+==== Specifics of `buy` Command
+The two ways `buy` executes successfully depends on whether the good
+already exists in the inventory or not.
+
+* If the good does not already exist, then a new Good
+entry has to be created with the quantity bought.
+
+* If it does exist, then the
+existing good entry has to be retrieved, and the quantity updated.
+
+[CAUTION]
+Developers modifying existing `Good` related information must be aware that
+Goods are immutable. In updating only the `quantity` field, all other fields
+must be correctly duplicated to the updated `Good` entry created. Common mistakes
+are to omit those fields, resulting in loss of persistent Good related
+information. To make explicit this requirement to future Developers, multiple
+constructors have been created with their respective purposes documented:
+`Good()`, `Good.newGoodEntry()`, `Good.goodWithName()`.
+
+
+===== Buy Command Input Constraints
+The following constraints have been put on `buy` command inputs. Their reasons
+are discussed in the following section. Users will not be allowed to:
+
+. Purchase from a supplier that is not in the supplier list
+. Purchase a good that the supplier does not offer.
+. Purchase a quantity of good that would cause the total quantity of any
+individual good in the inventory to exceed the `Good` limit.
+
+[NOTE]
+The `Good` limit is 999,999.
+
+Developers seeking to modify the `buy` command must respect
+the above 3 input validations as they form the basis of future features.
+
+[NOTE]
+The `buy` command format is: `buy SUPPLIER_DISPLAYED_INDEX g/GOODNAME q/QUANTITY`
+
+The current implementation of `buy` performs validation as follows:
+
+. The `SUPPLIER_DISPLAYED_INDEX` must be within the length of list of suppliers
+returned by `Model#getFilteredSupplierList()`.
+. Get the offers of the supplier through `Supplier#getOffers()`.
+Iterate through the `set<Offer>` of the selected supplier to find
+existence of an `Offer` with `GOODNAME`.
+. Reuse the inbuilt quantity validation in the `Good` constructor to test
+if the resulting inventory quantity is valid. A `Good` with the new quantity
+is constructed. If the quantity is invalid, an error is thrown and the
+relevant feedback to the user returned.
+
+==== Design Considerations
+
+===== Aspect: Format of `buy` command
+
+* **Alternative 1 (current choice):** `buy SUPPLIER_DISPLAYED_INDEX g/GOODNAME
+                                       q/QUANTITY`.
+** Pros:
+*** Users would not have to type out the entire Supplier's name in full and
+case sensitive. This increases command input speed and further optimizes usage
+for fast typists. Wasted time from typos in minimized.
+*** Verification that a supplier exists in the supplier list is trivial. The
+supplier at the given index only needs to be retrieved.
+
+** Cons:
+*** We lose the flexibility of having input parameters being unordered.
+All inputs with a prefix flag, e.g. `g/`, can be input in any order, but now
+the ``SUPPLIER_DISPLAYED_INDEX`` has to be the first parameter.
+*** Additional cognitive burden on users to remember the `buy` command format's
+first parameter.
+
+
+* **Alternative 2:** `buy n/SUPPLIER_NAME g/GOODNAME q/QUANTITY`.
+** Pros: Flexibility of having unordered input is maintained.
+** Cons: Testing revealed that command entry was tedious and error prone,
+especially since Supplier names tended to be long and a mix of upper- and lower-
+case alphabets, reducing user-friendliness.
+
+===== Aspect: Input constraints
+
+==== Specifics of `sell` Command
+===== Sell Command Input Constraints
+
+
+
+==== design considerations of the needed checks
+
 
 // tag::undoredo[]
 === Undo/Redo feature
