@@ -55,10 +55,10 @@ public class QuotePanel extends UiPart<Region> {
                     new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play());
         } else {
 
-            stage.widthProperty().addListener((observable, oldValue, newValue) -> {
-                popup.setX(stage.getX() + stage.getWidth() - label.getPrefWidth()/2);
-            });
-
+//            stage.widthProperty().addListener((observable, oldValue, newValue) -> {
+//                popup.setX(stage.getX() + stage.getWidth() - label.getPrefWidth()/2);
+//            });
+            popup.centerOnScreen();
             popup.show(stage);
             new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play();
         }
