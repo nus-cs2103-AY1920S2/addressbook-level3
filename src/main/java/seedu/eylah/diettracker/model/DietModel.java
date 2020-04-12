@@ -82,7 +82,7 @@ public interface DietModel extends Model {
     /**
      * Prints out the user's metrics, like Height, Weight and their Dieting Mode.
      */
-    void printMetrics();
+    String printMetrics();
 
     /**
      * Retrieves mode stored in the model
@@ -145,7 +145,7 @@ public interface DietModel extends Model {
     /**
      * Returns the String format of the foods based on the mode input.
      */
-    void listFoods(String mode);
+    String listFoods(String mode);
 
 
     /**

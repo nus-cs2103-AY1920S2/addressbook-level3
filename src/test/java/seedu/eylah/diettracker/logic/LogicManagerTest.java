@@ -65,7 +65,13 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, "All foods over period based on input tag has been listed.\n", model);
+        assertCommandSuccess(listCommand,
+                "List is empty for today! Add a -a flag to access your entire diet history.\n"
+                + "\n"
+                + "Total Calorie Intake : 0\n"
+                + "\n"
+                + "You have 2500 calories left for the day!\n"
+                + "All foods over period based on input tag has been listed.\n", model);
     }
 
     @Test

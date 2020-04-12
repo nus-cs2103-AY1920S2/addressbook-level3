@@ -70,25 +70,23 @@ public class ListCommand extends Command<DietModel> {
             LocalDate today = LocalDate.now();
             Predicate<Food> todayPredicate = food -> food.getDate().getLocalDateValue().equals(today);
             model.updateFilteredFoodList(todayPredicate);
-            model.listFoods(mode);
-            return new CommandResult(MESSAGE_SUCCESS);
+            listString = model.listFoods(mode);
         } else if (mode.equals("-d")) {
             // date till which to obtain food logged
             Date limit = new Date(LocalDateTime.now().minusDays(numDays));
             Predicate<Food> datePredicate = food -> food.getDate().isAfter(limit);
             model.updateFilteredFoodList(datePredicate);
-            model.listFoods(mode);
-            return new CommandResult(MESSAGE_SUCCESS);
+            listString = model.listFoods(mode);
         } else if (mode.equals("-t")) {
             Predicate<Food> tagPredicate = food -> food.getTags().contains(this.tag);
             model.updateFilteredFoodList(tagPredicate);
-            model.listFoods(mode);
-            return new CommandResult(MESSAGE_SUCCESS);
+            listString = model.listFoods(mode);
         } else {
             model.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOODS);
-            model.listFoods(mode);
-            return new CommandResult(MESSAGE_SUCCESS);
+            listString = model.listFoods(mode);
         }
+
+        return new CommandResult(listString.concat(MESSAGE_SUCCESS));
     }
 
     @Override
