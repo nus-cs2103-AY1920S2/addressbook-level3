@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+//import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
-import seedu.address.testutil.ProfileListBuilder;
+//import seedu.address.testutil.ProfileListBuilder;
 //import seedu.address.model.person.NameContainsKeywordsPredicate;
 //import seedu.address.testutil.AddressBookBuilder;
 
@@ -177,40 +177,5 @@ public class ProfileManagerTest {
         assertTrue(profileManager.getSortedDeadlineList().size() == 0);
     }
 
-    @Test
-    public void equals() {
-        ProfileList profileList = new ProfileListBuilder().withProfile(ALICE).withProfile(BENSON).build();
-        ProfileList differentProfileList = new ProfileList();
-        UserPrefs userPrefs = new UserPrefs();
 
-        // same values -> returns true
-        profileManager = new ProfileManager(profileList, userPrefs);
-        ProfileManager profileManagerCopy = new ProfileManager(profileList, userPrefs);
-        assertTrue(profileManager.equals(profileManagerCopy));
-
-        // same object -> returns true
-        assertTrue(profileManager.equals(profileManager));
-
-        // null -> returns false
-        assertFalse(profileManager.equals(null));
-
-        // different types -> returns false
-        assertFalse(profileManager.equals(5));
-
-        // different addressBook -> returns false
-        assertFalse(profileManager.equals(new ProfileManager(differentProfileList, userPrefs)));
-
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        //profileManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        //assertFalse(profileManager.equals(new ProfileManager(addressBook, userPrefs)));
-
-        // resets profileManager to initial state for upcoming tests
-        profileManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-        // different userPrefs -> returns false
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(profileManager.equals(new ProfileManager(profileList, differentUserPrefs)));
-    }
 }

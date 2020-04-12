@@ -120,7 +120,8 @@ public class DeleteCommand extends Command {
                 profileManager.deleteProfile(profileToDelete);
                 profileManager.setProfileList(new ProfileList());
                 profileManager.clearDeadlineList();
-                return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, profileToDelete), false);
+                profileManager.setDisplayedView((Profile) null);
+                return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, profileToDelete), true);
             } else {
                 throw new CommandException(String.format(MESSAGE_DELETE_PROFILE_FAILURE, deleteName));
             }

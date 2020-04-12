@@ -86,11 +86,23 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ProfileListPanel`, `DeadlineListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts namely `CommandBox`, `ResultDisplay`, `ProfileListPanel`, `DeadlineListPanel`,
+ `CoursePanel`, `FocusAreaPanel`, `IndividualModulePanel`, `OverviewPanel`, `ModuleListPanel`, `WelcomeView`, `HelpWindow` and `StatusBarFooter`.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The following panels are made up of one or more parts. For example,
+
+* `ProfileListPanel` consists of `ProfileCard`,
+* `DeadlinePanel` consists of `DeadlineCard`,
+* `OverviewPanel` consists of `ProfileCard` and `OverviewModuleCard`,
+* `ModuleListPanel` consists of `ModuleCard`,
+* `FocusAreaPanel` consists of `ModuleCard`,
+* `CoursePanel` consists of `CourseFocusAreaCard` and `CourseRequirementCard`.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -354,6 +366,14 @@ image::DeleteDeadlineSequenceDiagram.png[]
 
 Eventually, we decided on alternative 1 due to the benefits of consistency in the number of items to be deleted, as well as to reduce the number of bugs faced.
 // end::delete[]
+
+=== Help Feature
+The `help` feature allows the user to view the pop-up help window with the command `help`. This feature allows the user to have a
+quick view of sample inputs if they run into trouble while using the application.
+
+==== Current Implementations
+
+`HelpCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation.
 
 === Logging
 

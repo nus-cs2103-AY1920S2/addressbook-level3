@@ -93,7 +93,7 @@ This section provides you with the features that you can perform in *MODdy*. It 
 [[Help]]
 === Viewing help : `help`
 
-If you are unsure about the commands and wants to seek help, this command opens up a help window. There are basic command format as well as the respective parameter.
+If you are unsure about the commands and want to seek help, this command opens up a help window where there are examples for basic command format.
 For more detailed help, you can visit the link provided, as shown in the figure below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
 
 Format: `help`
@@ -361,7 +361,7 @@ image::Home.png[width="790"]
 [[Clear]]
 === Resetting *MODdy*: `clear`
 
-This command clears all entries from *MODdy* including your profile and its data, as shown in the figure below.
+If you want to clear your profile and data from *MODdy*, use this command. It clears all entries from *MODdy*, as shown in the figure below.
 
 Format: `clear`
 
