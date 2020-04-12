@@ -166,19 +166,19 @@ public class AddCommandTest {
 
     //Invalid date time, user inputs "add m/CS1101S y/1.1 t/assignment d/2020-30-30 23:60"
     //Tested in AddCommandParser
-    //@Test
-    //public void execute_invalidDateTime_throwsCommandException() {
-    //    ModuleCode moduleCode = new ModuleCode("CS1101S");
-    //    int semester = new Year(VALID_SEMESTER_BOB).getSemester();
-    //    String task = VALID_TASK_BOB;
-    //    LocalDate date = LocalDate.parse("2020-30-30");
-    //    LocalTime time = LocalTime.parse("23:60");
-    //    AddCommand addCommandDateTime = new AddCommand(
-    //            moduleCode, semester, null, task, date, time);
-    //    assertThrows(CommandException.class, Deadline.MESSAGE_CONSTRAINTS, () ->
-    //           addCommandDateTime.execute(
-    //                    new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
-    //}
+    /*@Test
+    public void execute_invalidDateTime_throwsCommandException() {
+        ModuleCode moduleCode = new ModuleCode("CS1101S");
+        int semester = new Year(VALID_SEMESTER_BOB).getSemester();
+        String task = VALID_TASK_BOB;
+        LocalDate date = LocalDate.parse("2020-30-30");
+        LocalTime time = LocalTime.parse("23:60");
+        AddCommand addCommandDateTime = new AddCommand(
+                moduleCode, semester, null, task, date, time);
+        assertThrows(CommandException.class, Deadline.MESSAGE_CONSTRAINTS, () ->
+               addCommandDateTime.execute(
+                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+    }*/
 
     @Test
     public void execute_addTaskToNonCurrentSemester_throwsCommandException() {
