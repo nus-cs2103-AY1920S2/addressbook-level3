@@ -793,16 +793,21 @@ by the type `TYPE`
 
 Since these `Sort` commands function differently but use a single parser,
 the structure shown in the following
-_Class Diagram_ is used to allow the `SortCommandParser` to return any of
-the `SortCommand` objects.
+_Class Diagram_ is used.
 
 .Sort Commands - Class Diagram
 image::SortCommandsClassDiagram.png[]
 
-Since the different commands use the same parser, the `SortCommandParser` needs to:
-
-. check which prefixes have been passed and
-. return the appropriate command accordingly.
+[NOTE]
+====
+* `SortGroupCommand` sorts the students in a particular group of a
+particular module.
+* `SortModuleCommand` sorts the students in all groups of all modules.
+* `SortCommand` sorts the students in all groups of all modules.
+====
+Since the different commands use the same parser,
+the `SortCommandParser` needs to check the sub-command word and return
+the appropriate sort command.
 
 The following _Activity Diagram_ shows the steps the `SortCommandParser` takes once
 its _parse_ method is called (assuming that no exception is thrown).
@@ -812,15 +817,12 @@ image::SortParserActivityDiagram.png[]
 
 [NOTE]
 ====
-* The final else clause would throw an error explaining that the command format is
-invalid. But due to a limitation in *PlantUML's* beta version of showing activity diagrams,
-we were unable to indicate exceptions thrown in the proper way and decided to mention
-it here instead.
+* The sub-command word here refers to `all`, `module` or `group`. If none of the above
+command words are used, a *command exception* will be thrown, explaining that it is an
+invalid comnmand.
 
-* Command word here refers to `all`, `module` or `group`.
-
-* If the user enters the `sort` command with a command word but doesn't include the
-appropriate parameters with the correct prefixes, a command exception is thrown.
+* If the user enters the `sort` command with a command word but *doesn't include the
+appropriate parameters with the correct prefixes, a command exception is thrown*.
 ====
 
 The following _Sequence Diagram_ illustrates the interactions between the `Logic` and
@@ -842,11 +844,11 @@ creates all the different Sort commands within itself.
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is of type `sort` and passes the
+2. The `TaTrackerParser` sees that the command is a *sort command* and passes the
 command to the `SortCommandParser`.
 
 3. The `SortCommandParser` performs the steps shown in the previous activity diagram
-and determines that since the sort command word is `all` , it must create and return a
+and determines that since the sub-command word is `all` , it must create and return a
 `SortCommand`.
 
 4. `LogicManager` calls `SortCommand` 's execute method.
