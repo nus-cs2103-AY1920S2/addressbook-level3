@@ -8,7 +8,11 @@ import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.eylah.commons.core.index.Index;
