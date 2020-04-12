@@ -23,6 +23,7 @@ import tatracker.model.module.Module;
  */
 public class EditModuleCommand extends Command {
 
+    //@@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.EDIT_MODEL,
@@ -32,6 +33,7 @@ public class EditModuleCommand extends Command {
             MODULE, MODULE_NEW_NAME
     );
 
+    //@@author aakanksha-rai
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited module: %s";
     private static final int FIRST_GROUP_INDEX = 0;
 

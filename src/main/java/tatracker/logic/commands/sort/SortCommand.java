@@ -20,6 +20,7 @@ import tatracker.model.Model;
  */
 public class SortCommand extends Command {
 
+    //@@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
             CommandWords.SORT_ALL,
@@ -29,6 +30,7 @@ public class SortCommand extends Command {
             SORT_TYPE
     );
 
+    //@@author aakanksha-rai
     public static final String MESSAGE_SORT_ALL_SUCCESS = "All students in each module have been sorted";
 
     protected final SortType type;

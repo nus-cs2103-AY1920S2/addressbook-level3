@@ -25,6 +25,7 @@ import tatracker.model.module.Module;
  */
 public class SortGroupCommand extends SortCommand {
 
+    //@@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
             CommandWords.SORT_GROUP,
@@ -34,6 +35,7 @@ public class SortGroupCommand extends SortCommand {
             GROUP, MODULE, SORT_TYPE
     );
 
+    //@@author aakanksha-rai
     public static final String MESSAGE_SORT_GROUP_SUCCESS = "All students in %s [%s] have been sorted";
 
     private final String groupCode;

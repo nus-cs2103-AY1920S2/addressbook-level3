@@ -26,6 +26,7 @@ import tatracker.model.module.Module;
  */
 public class AddGroupCommand extends Command {
 
+    //@@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GROUP,
             CommandWords.ADD_MODEL,
@@ -35,6 +36,7 @@ public class AddGroupCommand extends Command {
             GROUP, MODULE, TYPE
     );
 
+    //@@author aakanksha-rai
     public static final String MESSAGE_ADD_GROUP_SUCCESS = "New group added: %s [%s]";
 
     private final Group toAdd;
