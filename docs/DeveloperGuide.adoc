@@ -983,7 +983,7 @@ In addition, different messages will be displayed based on the result of the syn
 The following _screenshot_ shows how the `CommandBox` and `ResultDisplay` appear in the TA-Tracker.
 
 .The CommandBox and the ResultDisplay in TA-Tracker
-image::syntax-highlighting/SH-CommandBox.png[]
+image::syntax-highlighting/ui.png[,600]
 
 In the _screenshot_ above:
 
@@ -1011,7 +1011,12 @@ The `ResultDisplay` displays the given feedback as a message in the TA-Tracker.
 
 ==== Identifying the parts of a User Input
 
-A user input can be divided into the following parts:
+Here is an example of a user input in the `CommandBox`:
+
+.An example of a user input in the `CommandBox`
+image::syntax-highlighting/commandbox.png[,500]
+
+User inputs can be divided into the following parts:
 
 [width="%",cols="<20%a,<20%a,<60%a",options="header"]
 |====
@@ -1027,7 +1032,9 @@ Example
 |
 The part of the user input that *identifies a command*.
 |
-image::SyntaxHighlightingClassDiagram.png[]
+.A `full command word` (coloured in blue in this screenshot)
+image::syntax-highlighting/full-command-word.png[]
+{fbl}
 
 |
 `argument`
@@ -1036,21 +1043,33 @@ The part of the user input that *identifies a command parameter*.
 
 It contains a `prefix` and a `value`.
 |
-image::SyntaxHighlightingClassDiagram.png[]
+image::syntax-highlighting/argument-1.png[]
+image::syntax-highlighting/argument-2.png[]
+.The `arguments` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/argument-3.png[]
+{fbl}
 
 |
 `prefix`
 |
-The part of an `argument` up to and including the `/` foward slash delimiter.
+The part of an `argument` up to and including the `/` forward slash delimiter.
 |
-image::SyntaxHighlightingClassDiagram.png[]
+image::syntax-highlighting/prefix-1.png[]
+image::syntax-highlighting/prefix-2.png[]
+.The `prefixes` of each `argument` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/prefix-3.png[]
+{fbl}
 
 |
 `value`
 |
 Everything after the `prefix` of an `argument`.
 |
-image::SyntaxHighlightingClassDiagram.png[]
+image::syntax-highlighting/value-1.png[]
+image::syntax-highlighting/value-2.png[]
+.The `values` of each `argument` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/value-3.png[]
+{fbl}
 
 |
 `preamble`
@@ -1058,7 +1077,9 @@ image::SyntaxHighlightingClassDiagram.png[]
 The part of the user input (including whitespaces) between the end of the
 `full command word`, and the beginning of the first `argument`.
 |
-image::SyntaxHighlightingClassDiagram.png[]
+.The `preamble` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/preamble.png[]
+{fbl}
 
 |====
 
@@ -1114,8 +1135,8 @@ Example
 When there is no input,
 the `ResultDisplay` will not show anything.
 |
-.Blank `ResultDisplay`
-image::syntax-highlighting/SH-1-Blank.png[,300]
+.An empty `ResultDisplay`
+image::syntax-highlighting/empty-input.png[]
 {fbl}
 
 |
@@ -1125,17 +1146,17 @@ When there is no matching `full command word`,
 the `ResultDisplay` will indicate that a wrong command is entered.
 |
 .Invalid `full command word`
-image::syntax-highlighting/SH-1-Invalid.png[,300]
+image::syntax-highlighting/invalid-command-word.png[]
 {fbl}
 
 |
 `[no arguments]`
 |
-When `full command word` has just been entered,
-the `ResultDisplay` will indicate that a correct command has been entered.
+When a `full command word` has just been entered,
+the `ResultDisplay` will show that a correct command has been entered.
 |
 .`CommandBox` has no `arguments`
-image::syntax-highlighting/SH-1-NoArgs.png[,300]
+image::syntax-highlighting/no-arguments.png[]
 {fbl}
 
 |
@@ -1144,7 +1165,7 @@ image::syntax-highlighting/SH-1-NoArgs.png[,300]
 After processing the `full command word`, proceed to <<SH-2, Step 2>>.
 |
 .`CommandBox` has `arguments`
-image::syntax-highlighting/SH-1-HasArgs.png[,250]
+image::syntax-highlighting/has-arguments.png[]
 {fbl}
 
 |====
@@ -1175,12 +1196,12 @@ Example
 * `whitespaces` +
 
 |
-`[trailing whitespaces]`
+`[trailing whitespace]`
 |
 When there are trailing whitespaces, the syntax highlighting is removed.
 |
-.A trailing whitespace (coloured in blue for this diagram)
-image::syntax-highlighting/SH-2-Space.png[,250]
+.A trailing whitespace (coloured in blue in this screenshot)
+image::syntax-highlighting/trailing-whitespace.png[]
 {fbl}
 
 |
@@ -1189,8 +1210,8 @@ image::syntax-highlighting/SH-2-Space.png[,250]
 When there are two or more trailing whitespaces,
 the `ResultDisplay` will show how to use the command.
 |
-.Many trailing whitespaces (coloured in blue for this diagram)
-image::syntax-highlighting/SH-2-ManySpace.png[,400]
+.Many trailing whitespaces (coloured in blue in this screenshot)
+image::syntax-highlighting/many-whitespaces.png[]
 {fbl}
 
 |
@@ -1199,8 +1220,8 @@ image::syntax-highlighting/SH-2-ManySpace.png[,400]
 When the input has a `preamble` that the command does not need,
 the `ResultDisplay` will indicate that a wrong command is entered.
 |
-.Invalid `preamble` in input
-image::syntax-highlighting/SH-2-WrongPreamble.png[,350]
+.An invalid `preamble`
+image::syntax-highlighting/invalid-preamble.png[]
 {fbl}
 
 |
@@ -1209,9 +1230,12 @@ image::syntax-highlighting/SH-2-WrongPreamble.png[,350]
 |
 After processing the `preamble`, proceed to <<SH-3, Step 3>>.
 |
-.`CommandBox` has `arguments`
-.Valid `preamble` in input
-image::syntax-highlighting/SH-2-RightPreamble.png[,350]
+
+.A command that requires a blank `preamble`
+image::syntax-highlighting/blank-preamble.png[]
+
+.A command that needs a valid `preamble`
+image::syntax-highlighting/needs-preamble.png[]
 {fbl}
 
 |====
@@ -1246,7 +1270,7 @@ When the command does not recognise the given `argument`,
 the `ResultDisplay` will show how to use the command.
 |
 .Wrong `argument` in input
-image::syntax-highlighting/SH-3-Wrong.png[,500]
+image::syntax-highlighting/wrong.png[]
 {fbl}
 
 |
@@ -1256,7 +1280,7 @@ When the `argument` cannot have the given `value`,
 the `ResultDisplay` will show how to use the `argument`.
 |
 .Invalid `argument` in input
-image::syntax-highlighting/SH-3-Invalid.png[,500]
+image::syntax-highlighting/invalid.png[]
 {fbl}
 
 |
@@ -1266,7 +1290,7 @@ After processing the current `argument`,
 the `ResultDisplay` will still show how to use it in case the `argument` can have spaces.
 |
 .Valid `argument` in input
-image::syntax-highlighting/SH-3-Valid.png[,500]
+image::syntax-highlighting/valid.png[]
 {fbl}
 
 |====
@@ -1274,7 +1298,7 @@ image::syntax-highlighting/SH-3-Valid.png[,500]
 ==== Design Considerations
 
 [[Syntax-Aspect1]]
-===== Aspect #1: Showing the command usage after every two white spaces
+===== Showing the command usage after every two white spaces
 
 When a user enters two white spaces, the usage for the current command wil reappear in
 the `ResultDisplay`. The purpose of this is to provide the user with a *quick example*
@@ -1306,10 +1330,10 @@ is an option in future versions of TA-Tracker.
 ====
 
 [[Syntax-Aspect2]]
-===== Aspect #2: Always showing the syntax highlighting
+===== Always showing the syntax highlighting
 
-Similar to <<Syntax-Aspect1, Aspect #1>>, the syntax highlighting could be toggled
-using a keyboard shortcut.
+Similar to <<Syntax-Aspect1, the previous design consideration>>, the syntax highlighting
+could instead be toggled _on_ and _off_ using a keyboard shortcut.
 
 ====
 *Alternative Implementation*

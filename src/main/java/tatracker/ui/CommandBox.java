@@ -33,7 +33,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
     static {
-        logger.setLevel(Level.WARNING);
+        logger.setLevel(Level.INFO);
     }
 
     private CommandDetails commandDetails = null;
@@ -215,6 +215,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     private void handleNoInput() {
         resetCommandDetails();
         setStyleToDefault();
+        resultDisplay.setFeedbackToUser("");
     }
 
     private void handleInvalidInput() {
