@@ -172,11 +172,20 @@ public class Module {
     /* @@author don-tay */
     /**
      * Sorts module's deadline list by the specified {@code sortMethod}.
-     * @param sortMethod Method of sorting the activities in the module deadline list.
+     * @param sortMethod Method of sorting in the module deadline list.
      */
     public void sortDeadlineList(SortMethod sortMethod) {
-        Comparator<Deadline> comparator = sortMethod.getComparator();
-        this.deadlineList.getActivityList().sort(comparator);
+        Comparator<Deadline> comparator = sortMethod.getDeadlineComparator();
+        getModifiableDeadlineList().sort(comparator);
+    }
+
+    /**
+     * Sorts module's event list by the specified {@code sortMethod}.
+     * @param sortMethod Method of sorting in the module event list.
+     */
+    public void sortEventList(SortMethod sortMethod) {
+        Comparator<Event> comparator = sortMethod.getEventComparator();
+        getModifiableEventList().sort(comparator);
     }
     /* @@author */
 

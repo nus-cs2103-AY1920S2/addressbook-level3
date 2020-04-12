@@ -440,10 +440,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortDeadlineList(SortMethod sortMethod) {
+    public void sortActivityList(SortMethod sortMethod) {
         requireNonNull(sortMethod);
         for (Module module : filteredModules) {
             module.sortDeadlineList(sortMethod);
+            module.sortEventList(sortMethod);
         }
         updateHistory("sort" + currentUiLocation());
     }
