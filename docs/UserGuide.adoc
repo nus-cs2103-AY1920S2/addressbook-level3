@@ -859,6 +859,8 @@ to use the new symbol instead.
 ****
 * The currency symbol may affect the visual look of the
 program, as well as modify commands entered!
+* For example, adding a coupon with savings of a certain
+monetary amount will require you to use the new symbol instead.
 ****
 
 Format: `setcurrency ms/NEW_MONEY_SYMBOL`
