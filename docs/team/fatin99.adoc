@@ -155,4 +155,3 @@ include::../DeveloperGuide.adoc[tag=goto]
 include::../DeveloperGuide.adoc[tag=studentmodel]
 include::../DeveloperGuide.adoc[tag=sessiondoneactivity]
 include::../DeveloperGuide.adoc[tag=claimsview]
-
