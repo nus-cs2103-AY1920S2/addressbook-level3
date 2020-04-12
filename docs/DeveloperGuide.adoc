@@ -130,7 +130,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 image::SuggestionClassDiagram.png[]
 
 *API* :
-link:{repoURL}blob/master/src/main/java/com/notably/logic/suggestion/SuggestionEngine.java[`SuggestionEngine.java`]
+link:{repoURL}/blob/master/src/main/java/com/notably/logic/suggestion/SuggestionEngine.java[`SuggestionEngine.java`]
 
 `SuggestionEngine` gives users the meaning of the command they input and a list of notes suggestions that they want to
 open, delete, or search.
