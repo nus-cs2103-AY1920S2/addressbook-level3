@@ -260,7 +260,6 @@ public class Staff extends ModelObject {
       return !tags.isEmpty();
   }
 
-
   /**
    * Compare if both staffs have the same name and at lest one other identity field
    * that is the same.
@@ -301,7 +300,9 @@ public class Staff extends ModelObject {
     Staff otherStaff = (Staff) other;
     return otherStaff.getName().equals(getName())
         && otherStaff.getPhone().equals(getPhone())
+            && otherStaff.getLevel().equals(getLevel())
             && otherStaff.getId().equals(getId())
+            && otherStaff.getGender().equals(getGender())
         && otherStaff.getEmail().equals(getEmail())
         && otherStaff.getSalary().equals(getSalary())
         && otherStaff.getAddress().equals(getAddress())

@@ -1,17 +1,12 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Salary;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A utility class to help with building Teacher objects.
@@ -79,9 +74,18 @@ public class TeacherBuilder {
     }
 
     /**
+     * Sets the {@code ID} of the {@code Teacher} that we are building.
+     */
+    public TeacherBuilder withID(String id) {
+        this.id = new ID(id);
+        return this;
+    }
+
+    /**
      * Sets the {@code Level} of the {@code Staff} that we are building.
      */
     public TeacherBuilder withLevel(String level) {
+        level = level.trim().toUpperCase();
         if (level.equals("TEACHER")) {
             this.level = Staff.Level.TEACHER;
         } else if (level.equals("ADMIN")) {

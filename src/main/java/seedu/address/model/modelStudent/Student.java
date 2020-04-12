@@ -29,7 +29,7 @@ public class Student extends ModelObject {
    * Every field must be present and not null.
    */
   public Student(Name name, Gender gender,  Set<Tag> tags) throws ParseException {
-    requireAllNonNull(name, tags);
+    requireAllNonNull(name, gender, tags);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
     this.gender = gender;

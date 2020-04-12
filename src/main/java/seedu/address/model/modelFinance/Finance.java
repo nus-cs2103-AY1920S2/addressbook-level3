@@ -36,7 +36,7 @@ public class Finance extends ModelObject {
    */
   public Finance(Name name, FinanceType financeType, Date date, Amount amount, Set<Tag> tags)
       throws ParseException {
-    requireAllNonNull(name, financeType, amount, tags);
+    requireAllNonNull(name, financeType, date, amount, tags);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
     this.financeType = financeType;
@@ -52,7 +52,7 @@ public class Finance extends ModelObject {
    * Overloaded constructor for edited object, loaded from storage, or sample data.
    */
   public Finance(Name name, ID id, FinanceType financeType, Date date, Amount amount, Set<Tag> tags) {
-    requireAllNonNull(name, financeType, amount, tags);
+    requireAllNonNull(name, financeType, date, amount, tags);
     this.name = name;
     this.id = id;
     this.financeType = financeType;
@@ -69,6 +69,7 @@ public class Finance extends ModelObject {
    */
   public Finance(Name name, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID staffid, Set<Tag> tags)
       throws ParseException {
+    requireAllNonNull(name, financeType, date, amount, tags);
     requireAllNonNull(courseid, studentid, staffid);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
