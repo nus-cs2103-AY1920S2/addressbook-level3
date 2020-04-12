@@ -19,7 +19,7 @@ endif::[]
 By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`
 
 == Introduction
-
+//tag::intro[]
 This user guide provides in-depth documentation on the EYLAH desktop application. It comprises of 6 main portions,
 including the introduction, getting started, features, FAQ, command summary, and glossary.
 
@@ -43,6 +43,7 @@ Interested? Jump to <<Getting Started>> to get started. Let's go!
 
 image::Ui.png[width="790"]
 Figure 1. Photo of EYLAH
+//end::intro[]
 
 === Purpose
 * This documentation serves as an introduction to the features and proper usage of EYLAH, and is made for you
@@ -160,8 +161,88 @@ e.g: `additem -i pizza -p 19.90 -n charlotte`.
 (i.e. 0 times), `-n Charlotte`, `-n Alice -n Bob` etc.
 ====
 
-=== Viewing help : `help`
-To provide help for users +
+=== Viewing Help : `help`
+
+In this section, you will learn more about `help` command, <<howtousehelpcommand, how to use it>>
+and the <<helpexpectedoutcome, expected outcome>> after using the `help` command.
+
+*Summary of Help Command:* +
+`help` You can use this command to view help everywhere in the application.
+
+[[howtousehelpcommand]]
+*How to use the Help Command:*
+
+Format: +
+`help` +
+
+Valid Example: +
+`help`
+
+[[helpexpectedoutcome]]
+*Expected outcome:*
+
+*Main Menu:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Diet Tracker Mode:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Expense Splitter Mode:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+Help in main menu and different mode will give different help information.
+====
+
+Format: `help`
+
+'''
+
+=== Exiting Application : `exit`
+
+In this section, you will learn more about `exit` command, <<howtouseexitcommand, how to use it>>
+and the <<exitexpectedoutcome, expected outcome>> after using the `help` command.
+
+*Summary of Exit Command:* +
+`exit` You can use this command to exit the application from anywhere in the application.
+
+[[howtouseexitcommand]]
+*How to use the exit Command:*
+
+Format: +
+`exit` +
+
+Valid Example: +
+`exit`
+
+[[helpexpectedoutcome]]
+*Expected outcome:*
+
+*Main Menu:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Diet Tracker Mode:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Expense Splitter Mode:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+Help in main menu and different mode will give different help information.
+====
+
 Format: `help`
 
 '''
@@ -606,7 +687,7 @@ image::dietTrackerHelpCommandSuccessPhoto.png[width="890", height="200"]
 
 
 
-
+//tag::introtoexpensesplitter[]
 === Expense Splitter : `split`
 Getting a headache from splitting *that* ever-so-complicated bill?
 
@@ -615,6 +696,19 @@ it's price and the names involved in splitting that item and EYLAH will calculat
 
 We have drawn some diagrams to help you visualize how Expense Splitter works, click <<AppendixA, here>> to find out more!
 
+
+Here are some of the prefixes used:
+|===
+|*Prefix* | *Representation*
+| -i | Item Name
+| -p | Item Price
+| -n | Name of Person
+|===
+
+
+
+'''
+//end::introtoexpensesplitter[]
 [[additem]]
 ==== Adding an item: `additem`
 In this section, you will learn more about the `additem` command, <<howtouseadditemcommand,how to use it>>
@@ -719,7 +813,7 @@ such as `deleteitem` where you have to pass in the index of item to be deleted.
 
 
 '''
-
+//tag::listamount[]
 [[listamount]]
 ==== Listing amounts owed by each person: `listamount`
 
@@ -756,19 +850,31 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 Use `listamount` command to find the index of the person who paid you. The index is useful for commands
 such as `paid`.
 ====
-
+//end::listamount[]
 '''
 
 [[donereceipt]]
 ==== Mark receipt as done `donereceipt`
 
-Use this command to mark the receipt as done when you have completed entering all the items.
+In this section, you will learn more about the `donereceipt` command, <<howtousedonereceiptcommand,how to use it>>
+and the <<donereceiptexpectedoutcome,expected outcome>> after using the `donereceipt` command.
+
+*Summary of Done Receipt Command:* `donereceipt` *marks the receipt as done when you have completed entering
+all the items*.
+
+[[howtousedonereceiptcommand]]
+*How to use the Done Receipt Command:*
 
 Format: +
 `donereceipt`
 
 Example: +
 `donereceipt`
+
+[[donereceiptexpectedoutcome]]
+*Expected outcome:*
+
+image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
@@ -779,7 +885,7 @@ or delete any items using the `deleteitem` command.
 ====
 
 '''
-
+//tag::paid[]
 [[paid]]
 ==== Paying money: `paid`
 
@@ -833,7 +939,7 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 ====
 Use `listamount` command to find the index of the person who paid you.
 ====
-
+//end::paid[]
 '''
 
 [[clearreceipt]]
@@ -911,46 +1017,6 @@ In this section, you can find out more about the commands supported by EYLAH (th
 If you would like to know more about a specific command, you can view more information by clicking the provided link in the table below.
 
 === For Diet Tracker
-
-* *Changing Mode* `mode` +
-e.g `mode -l`
-
-* *Adding Food* `add` +
-e.g `add -n salad -c 235 -t healthy`
-
-* *Deleting Food* `delete` +
-e.g `delete 3`
-
-* *Editing Food* `edit` +
-e.g `edit -i 2 -n chips -c 230`
-
-* *Listing Food* `list [-a] [-d numDays] [-t tagName]` +
-e.g `list`
-
-* *Setting Mode* `mode MODE` +
-e.g. `mode -m`
-
-* *Setting Height* : `height HEIGHT` +
-e.g. `height 169`
-
-* *Setting Weight* `weight WEIGHT` +
-e.g. `weight 56`
-
-* *Showing Your Metrics* `metrics` +
-e.g. `metrics`
-
-* *Calculating BMI* `bmi` +
-e.g. `bmi -h 172 -w 65.5`
-
-* *Getting Help* `help` +
-e.g. `help`
-
-* *Going Back* `back` +
-e.g. `back`
-
-* *Exiting the Application* `exit` +
-e.g `exit`
-
 |===
 |Command |Format |Example
 
@@ -1026,38 +1092,8 @@ or
 
 |===
 
+//tag::commandsummaryforexpensesplitter[]
 === For Expense Splitter
-
-* *Adding Item* `additem` +
-e.g `additem -i pasta -p 19.20 -n charlotte -n bob`
-
-* *Deleting Item* `deleteitem` +
-e.g `deleteitem 3`
-
-* *Listing Receipt* `listreceipt` +
-e.g. `listreceipt`
-
-* *Listing Amount* `listamount` +
-e.g `listamount`
-
-* *Marking Receipt as Done* `donereceipt` +
-e.g `donereceipt`
-
-* *Getting Paid by Someone* `paid INDEX` +
-e.g. `paid 3`
-
-* *Clear Receipt* `clearreceipt` +
-e.g `clearreceipt`
-
-* *Getting Help* `help` +
-e.g `help`
-
-* *Going Back* `back` +
-e.g. `back`
-
-* *Exiting the Application* `exit` +
-e.g `exit`
-
 |===
 |Command |Format |Example
 
@@ -1110,7 +1146,7 @@ or +
 |`exit`
 
 |===
-
+//end::commandsummaryforexpensesplitter[]
 == Glossary
 [width="%",cols="<20%,<40,<40,options="header",]
 |=======================================================================

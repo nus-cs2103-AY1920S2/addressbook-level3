@@ -12,7 +12,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
-participant ":Amount" as Amount MODEL_COLOR
+participant "amount:Amount" as Amount MODEL_COLOR
 participant ":PersonAmountBook" as PersonAmountBook MODEL_COLOR
 participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
 participant ":Person" as Person MODEL_COLOR
@@ -25,10 +25,11 @@ activate PaidCommand
 PaidCommand -> SplitterModelManager : paidPerson(Person person,\n String amountPaid)
 activate SplitterModelManager
 
+create Amount
 SplitterModelManager -> Amount
 activate Amount
 
-Amount --> SplitterModelManager
+Amount --> SplitterModelManager : amount
 deactivate Amount
 
 SplitterModelManager -> PersonAmountBook : removeAmount(Person person,\n Amount amount)
@@ -61,7 +62,7 @@ deactivate CommandResult
 
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 CommandResult -[hidden]-> PaidCommand
-destroy CommandResult
+
 
 PaidCommand --> SplitterLogicManager: result
 deactivate PaidCommand

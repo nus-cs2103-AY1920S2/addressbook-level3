@@ -41,8 +41,13 @@ public interface Ui {
     void showExit();
 
     /**
-     * Show the error message to user.
+     * Shows the error message to user.
      */
     void showError(String error);
+
+    /**
+     * Shows the main menu help message to user.
+     */
+    void showMainHelp();
 
 }
