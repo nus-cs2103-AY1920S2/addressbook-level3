@@ -17,29 +17,25 @@ public class QuotePanel extends UiPart<Region> {
     private static final String FXML = "QuotePanel.fxml";
     private int time = 5000;
 
+    private Popup popup;
+
     @FXML
     private Label label;
 
     /**
-     * Create a quote message.
-     * @param input String
+     * Create a quote panel.
      */
-    public QuotePanel(String input) {
+    public QuotePanel() {
         super(FXML);
-        label.setText(input);
-        label.setMaxWidth(500);
+        popup = new Popup();
+        label.setPrefWidth(400);
         label.setWrapText(true);
+        popup.setAutoFix(true);
+        popup.getContent().add(label);
     }
 
-    /**
-     * Creates a Popup to store quote messages in a label.
-     * @return Popup
-     */
-    private Popup createNotification() {
-        final Popup popUp = new Popup();
-        popUp.setAutoFix(true);
-        popUp.getContent().add(label);
-        return popUp;
+    public void setText(String input) {
+        label.setText(input);
     }
 
     /**
@@ -47,9 +43,13 @@ public class QuotePanel extends UiPart<Region> {
      * @param stage Stage
      */
     public void show(Stage stage) {
-        final Popup popup = createNotification();
-        popup.setOnShown(execute -> popup.centerOnScreen());
-        popup.show(stage);
-        new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play();
+        if (popup.isShowing()) {
+            popup.setOnCloseRequest(x ->
+                    new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play());
+        } else {
+            popup.centerOnScreen();
+            popup.show(stage);
+            new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play();
+        }
     }
 }

@@ -69,6 +69,8 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         exportQrWindow = new ExportQrWindow();
 
+        quotePanel = new QuotePanel();
+
         primaryStage.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
             //Overriding default redo
             if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
@@ -153,7 +155,7 @@ public class MainWindow extends UiPart<Stage> {
 
 
     public void getQuote(String input) {
-        quotePanel = new QuotePanel(input);
+        quotePanel.setText(input);
         quotePanel.show(getPrimaryStage());
     }
 
