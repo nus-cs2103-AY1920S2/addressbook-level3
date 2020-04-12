@@ -8,14 +8,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Axis {
     public static final String MESSAGE_CONSTRAINTS =
-        "The y-axis can only be \"reps\" or \"weight\" and it should not be blank. ";
+        "The y-axis can only be \"reps\" or \"weight\" (case insensitive) and it should not be blank. ";
 
     public final AxisType value;
 
     public Axis(String axis) {
         requireNonNull(axis);
         checkArgument(isValidAxis(axis), MESSAGE_CONSTRAINTS);
-        value = AxisType.getAxisType(axis);
+        value = AxisType.getAxisType(axis.toLowerCase());
     }
 
     public AxisType getAxisType() {
