@@ -32,7 +32,7 @@ public class SearchSuggestionCommand implements SuggestionCommand {
     public void execute(Model model) {
         Objects.requireNonNull(model);
 
-        List<SuggestionItem> suggestions = traverseTree(model);
+        List<SuggestionItem> suggestions = getSuggestions(model);
         sortSuggestions(suggestions);
         model.setSuggestions(suggestions);
     }
@@ -43,7 +43,7 @@ public class SearchSuggestionCommand implements SuggestionCommand {
      * @param model The app's model.
      * @return List of SuggestionItem with a display text of the block's path and action of opening the block.
      */
-    private List<SuggestionItem> traverseTree(Model model) {
+    private List<SuggestionItem> getSuggestions(Model model) {
         Queue<AbsolutePath> pathQueue = new LinkedList<>();
         pathQueue.offer(AbsolutePath.fromString("/"));
 
