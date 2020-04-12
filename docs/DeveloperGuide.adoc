@@ -895,10 +895,12 @@ The following is a detailed explanation of the operations ListReceiptCommand per
 
 3. The method `receipt#toString()` will use StringBuilder to build the string of the Items(s) currently in
 Receipt by calling `entry.toString()` for entry. After all entries are done, `receipt#toString()` would have
-finish building the string and will return to SplitterModelManager.
+finish building the string and will return to SplitterModelManager where it will be printed out.
 
 
 *Sequence Diagram for List Receipt Command*
+
+The following sequence diagram summarizes what happens during the execution of `listreceipt` command.
 
 .List Receipt Command Sequence Diagram
 image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
@@ -914,7 +916,7 @@ In this section, we will learn more about how the `listamount` command is implem
 
 The `listamount` command allows users to find out how much each Person owes them. +
 
-The `listamount` command was implemented as a `ListAmountCommand` in the `expenseSplitterLogic` package.
+The `listamount` command was implemented as a `ListAmountCommand` in the `expensesplitter/logic` package.
 
 The `listamount` command has the following input format:
 
@@ -923,35 +925,33 @@ The `listamount` command has the following input format:
 [NOTE]
 ====
 * The Person and amount owed will be automatically saved after each command.
-* A person is deleted after they have completely paid the amount they owe you.
+* A person is deleted after they have completely paid the amount they owe.
 ====
-
 
 The following activity diagram illustrates what happens when a user executes `listamount` command:
 
+.List Amount Activity Diagram
 image::ExpenseSplitterListAmountCommandActivityDiagram.png[]
-Figure : List Amount Command Activity Diagram
-
-
 
 *Implementation of List Amount Command*
 
-The following is a detailed explanation of the operations `ListAmountCommand` performs. +
+The following is a detailed explanation of the operations ListAmountCommand performs. +
 
 1. The `ListAmountCommand#execute(SplitterModel splitterModel)` method is executed.
 
 2. The method `splitterModel#listAmount()` will then be called to return the list of Person(s) with their amount.
 
-3. `PersonAmountBook#toString()` will convert list of person in the list to the expected format.
+3. `PersonAmountBook#toString()` will convert list of person in the list to the expected format and return it to
+SplitterModelManager where it will be printed out.
 
 *Sequence Diagram for List Amount Command*
 
 The following sequence diagram summarizes what happens during the execution of `listamount` command.
 
+.List Amount Command Sequence Diagram
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
-
-Figure : List Amount Sequence Diagram
 //end::expensesplitterlistamountcommand[]
+
 
 //tag::expensesplitterpaidcommand[]
 [[Paid-Command]]
