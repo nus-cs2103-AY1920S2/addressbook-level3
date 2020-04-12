@@ -5,11 +5,9 @@
 
 == PROJECT: TA-Tracker
 
----
-
 == Overview
 
-TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
+TA-Tracker is a productivity tool made for *NUS Computing Teaching Assistants (TAs)*
 who want to be able to track and manage all of their claimable hours and the students
 they are teaching in one place. The application is written in *Java* and spans *20k
 Lines of Code*.
@@ -80,39 +78,47 @@ of a pre-existing group.
 
 ==== Testing
 
-=== Code contributed
-The code I contributed can be found here:
+I created all the classes required to test the *Student View* such as `GroupBuilder`,
+`ModuleBuilder`, `TypicalGroups`, `TypicalModules`, etc. I also wrote the tests
+for all my enhancements and have an average coverage of over 85% for my sections in the
+codebase. (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/232[#232],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/345[#345],)
 
-[https://github.com[Functional code]] _{give links to collated code files}_
+==== Code contributed
+The code I contributed can be found
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=aakanksha-rai[here].
 
-[https://github.com[Test code]] _{give links to collated code files}_
-
-* *Other contributions*:
+==== Other contributions:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed release `v1.4` on GitHub
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33],
-https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88%
-to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Refactored the codebase to make it match TA-Tracker
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/142[#142])
+
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide:
-https://github.com[#14]
+*** Created a User Guide skeleton for everyone to follow and made a few cosmetic
+tweaks to existing contents (such as adding a table for the common parameters)
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/215[#215])
+*** Updated the User Guide and Developer Guide with details for the Student View
+and the commands used in the Student View.
+*** Added screenshots of the UI to the User Guide for all the commands
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/371[#371])
+
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12],
-https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** I reviewed PRs to help maintain code and documentation quality:
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/187[#187],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/208[#208],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/179[#179],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/364[#364],
+
 *** Contributed to forum discussions (examples:  https://github.com[1],
 https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples :
 https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other
 class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
