@@ -73,7 +73,7 @@ public class ModuleList implements Iterable<Module> {
     public void removeModuleWithModuleCode(ModuleCode moduleCode) throws ParseException {
         requireNonNull(moduleCode);
         if (!hasModuleWithModuleCode(moduleCode)) {
-            throw new ParseException(MESSAGE_INVALID_MODULE);
+            throw new ParseException(String.format(MESSAGE_INVALID_MODULE, moduleCode));
         }
         Module modToRemove = getModuleWithModuleCode(moduleCode);
         moduleList.remove(modToRemove);

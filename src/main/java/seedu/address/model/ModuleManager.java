@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.profile.course.module.Module;
@@ -30,7 +30,7 @@ public class ModuleManager {
         return moduleList.hasModuleWithModuleCode(moduleCode);
     }
 
-    public boolean hasModules(Set<ModuleCode> moduleCodes) {
+    public boolean hasModules(List<ModuleCode> moduleCodes) {
         return moduleCodes.stream().allMatch(this::hasModule);
     }
 
@@ -38,8 +38,8 @@ public class ModuleManager {
         return moduleList.getModuleWithModuleCode(moduleCode);
     }
 
-    public Set<Module> getModules(Set<ModuleCode> moduleCodes) {
-        return moduleCodes.stream().map(this::getModule).collect(Collectors.toSet());
+    public List<Module> getModules(List<ModuleCode> moduleCodes) {
+        return moduleCodes.stream().map(this::getModule).collect(Collectors.toList());
     }
 
     public ModuleList getModuleList() {

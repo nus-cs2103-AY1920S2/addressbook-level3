@@ -21,8 +21,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -90,7 +90,8 @@ public class DeleteCommandTest {
     // ParserException thrown in DeleteCommandParser
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DeleteCommand(Set.of(new ModuleCode(null))));
+        assertThrows(NullPointerException.class, () ->
+                new DeleteCommand(Collections.singletonList(new ModuleCode(null))));
     }
 
     // Invalid module code, user inputs "delete m/123abc"
@@ -111,7 +112,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_moduleNotAdded_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
-        DeleteCommand deleteCommand = new DeleteCommand(Set.of(moduleCode));
+        DeleteCommand deleteCommand = new DeleteCommand(Collections.singletonList(moduleCode));
 
         assertThrows(CommandException.class, String.format(MESSAGE_NOT_TAKING_MODULE, moduleCode), () ->
                 deleteCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
@@ -122,9 +123,9 @@ public class DeleteCommandTest {
     @Test
     public void execute_validModuleCode_success() {
         ModuleCode moduleCode = new ModuleCode("CS1231");
-        DeleteCommand deleteCommandAllCap = new DeleteCommand(Set.of(moduleCode));
-        DeleteCommand deleteCommandVariety = new DeleteCommand(Set.of(new ModuleCode("Cs1231")));
-        DeleteCommand deleteCommandNoCap = new DeleteCommand(Set.of(new ModuleCode("cs1231")));
+        DeleteCommand deleteCommandAllCap = new DeleteCommand(Collections.singletonList(moduleCode));
+        DeleteCommand deleteCommandVariety = new DeleteCommand(Collections.singletonList(new ModuleCode("Cs1231")));
+        DeleteCommand deleteCommandNoCap = new DeleteCommand(Collections.singletonList(new ModuleCode("cs1231")));
 
         try {
             assertTrue(deleteCommandAllCap.execute(
@@ -162,7 +163,8 @@ public class DeleteCommandTest {
         LocalDate date = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
         LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_AMY);
         Deadline task = new Deadline(moduleCode, VALID_TASK_AMY, date, time);
-        DeleteCommand deleteCommandTask = new DeleteCommand(Set.of(new ModuleCode(moduleCode)), task);
+        DeleteCommand deleteCommandTask =
+                new DeleteCommand(Collections.singletonList(new ModuleCode(moduleCode)), task);
 
         assertThrows(CommandException.class, String.format(MESSAGE_DELETE_DEADLINE_FAILURE, task.toString()), () ->
                 deleteCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
@@ -175,7 +177,7 @@ public class DeleteCommandTest {
     public void execute_gradeNotAdded_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
         String grade = VALID_GRADE_AMY;
-        DeleteCommand deleteCommandGrade = new DeleteCommand(Set.of(moduleCode), grade);
+        DeleteCommand deleteCommandGrade = new DeleteCommand(Collections.singletonList(moduleCode), grade);
 
         assertThrows(CommandException.class, String.format(MESSAGE_DELETE_GRADE_FAILURE, moduleCode), () ->
                 deleteCommandGrade.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
