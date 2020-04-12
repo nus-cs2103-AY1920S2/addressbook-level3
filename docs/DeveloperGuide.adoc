@@ -126,7 +126,6 @@ The `Model`,
 1. stores a `ClientInView` to represent the current selected `Client` selected by the `view-c` command
 1. stores `FitBiz`
 1. stores `Client`, `Sports`, `Tag`, `Schedule` and `Exercise` packages, where `Client` utilises the latter packages as attributes
-1. 
 1. exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 1. 
 
