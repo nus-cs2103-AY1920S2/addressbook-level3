@@ -72,4 +72,11 @@ public class ReceiptBook implements ReadOnlyReceiptBook {
     public boolean isContainSingleReceipt() {
         return receipts.isContainSingleReceipt();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReceiptBook // instanceof handles nulls
+                && receipts.equals(((ReceiptBook) other).receipts));
+    }
 }

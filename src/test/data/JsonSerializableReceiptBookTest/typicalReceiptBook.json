@@ -1,0 +1,51 @@
+{
+  "receipts" : [ {
+    "entries" : [ {
+      "item" : {
+        "itemName" : "pasta",
+        "itemPrice" : 15,
+        "amountPerPerson" : 5.00
+      },
+      "persons" : [ {
+        "name" : "xiong",
+        "amount" : 5.00
+      }, {
+        "name" : "willy",
+        "amount" : 5.00
+      }, {
+        "name" : "ailan",
+        "amount" : 5.00
+      } ]
+    }, {
+      "item" : {
+        "itemName" : "laziji",
+        "itemPrice" : 20,
+        "amountPerPerson" : 10.00
+      },
+      "persons" : [ {
+        "name" : "xiong",
+        "amount" : 10.00
+      }, {
+        "name" : "ailan",
+        "amount" : 10.00
+      } ]
+    }, {
+      "item" : {
+        "itemName" : "soup",
+        "itemPrice" : 14,
+        "amountPerPerson" : 4.67
+      },
+      "persons" : [ {
+        "name" : "xiong",
+        "amount" : 4.67
+      }, {
+        "name" : "ailan",
+        "amount" : 4.67
+      }, {
+        "name" : "willy",
+        "amount" : 4.67
+      } ]
+    } ],
+    "isDone" : false
+  } ]
+}
