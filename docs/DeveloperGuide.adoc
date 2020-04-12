@@ -594,25 +594,131 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Adding a person
+
+. Adding a person while all persons are listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)add n/John p/12345 o/NUS n/05-20`
+   Expected: A new contact with the name John, phone number 12345, and birthday 20 May is added to the list. Details of the added contact shown in the status message.
+
 === Deleting a person
 
 . Deleting a person while all persons are listed
 
 .. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
 .. Test case: `(ab)delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 .. Test case: `(ab)delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No person is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `(ab)delete`, `(ab)delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 . Deleting a person while finding contacts that meet certain criteria
 
 .. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
-.. Test case: `(ab)delete 1` +
-   Expected: First contact in the filtered list is deleted. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `(ab)delete x` (where x exists in the full contact list but not in the filtered list) +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No person is deleted. Error details shown in the status message.
+
+=== Editing a person
+
+. Editing a person while all persons listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)edit 3 t/BFF -t/Friends` +
+   Expected: Third contact in the list is edited, with tag "Friends" deleted, and tag "BFF" added. Details  of the edited contact shown in the status message.
+
+. Editing a person while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)edit x b/06-22` (where x exists in the full contact list but not in the filtered list) +
+   Expected: No person is edited. Error details shown in the status message.
+
+=== Adding additional information to a person
+
+. Adds note(s) to a person while all persons listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)addnote 2 i/Likes red i/Lives in Jurong` +
+   Expected: Second contact in the list has 2 new notes, "Likes red" and "Lives in Jurong", added. Details of the edited contact shown in the status message.
+
+. Editing a person while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)addnote x i/Can't take spicy` (where x exists in the full contact list but not in the filtered list) +
+   Expected: No new note is added to a person. Error details shown in the status message.
+
+=== Editing additional information for a person
+
+. Edits an existing note of person while all persons listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)editnote 2 l/2 i/Likes matcha` +
+   Expected: Edits the second note of the second contact in the list to "Likes matcha". Details of the edited contact shown in the status message.
+.. Test case: `(ab)editnote x i/Likes red` (where x is larger than the number of existing notes of a person) +
+   Expected: No note is edited for the person. Error details shown in the status message.
+.. Other incorrect commands to try: `(ab)editnote 2 l/aaa i/Likes cats (where line number is not an integer)
+   Expected: Similar to previous
+
+. Editing an existing note of a person while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)editnote x l/3 i/Can't take spicy` (where x exists in the full contact list but not in the filtered list) +
+   Expected: No note is edited for a person. Error details shown in the status message.
+
+=== Deleting additional information of a person
+
+. Delete note(s) of a person while all persons listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)deletenote 2 l/1 l/3` +
+   Expected: Deletes the first and third note of the second contact in the list. Details of the edited contact shown in the status message.
+.. Test case: `(ab)deletenote 2 l/x` (where x is larger than the number of existing notes of a person) +
+   Expected: No note is deleted for the person. Error details shown in the status message.
+.. Other incorrect commands to try: `(ab)deletenote 2 l/2 l/aaa (where line number is not an integer)
+   Expected: Similar to previous
+
+. Editing a person while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)deletenote x l/2` (where x exists in the full contact list but not in the filtered list) +
+   Expected: No note is deleted for a person. Error details shown in the status message.
+
+=== Finding a specific contact/specific set of contacts
+
+. Finding person(s) by organization, name or tag.
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)find o/NUS n/Lim` +
+   Expected: If person(s) with the organization "NUS" and have the word "Lim" in the name, person(s) will be listed. The number of person listed shown in the status message.
+
+=== Retrieves a specific contact and view in full details
+
+. Retrieves a person contact while all persons listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)get 2` +
+   Expected: Display the second person in the full contact list. The number of person listed shown in the status message.
+.. Test case: `(ab)get x` (where x is larger than the number of contacts in the list) +
+   Expected: No detailed view of contact is displayed. Error details shown in the status message.
+
+. Retrieves a person contact while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)get x ` (where x exists in the full contact list but not in the filtered list) +
+Expected: No detailed view of contact is displayed. Error details shown in the status message.
+
+=== Adding a restaurant
+
+. Test case: `(rt)add n/Ameens l/Clementi v/No o/0900:2300 p/$ c/Indian` +
+  Expected: Adds a new restaurant called Ameens at Clementi with 1 dollar sign price point, opens from 9am to 11pm, with cuisine Indian and has yet to be visited.
+
+=== Deleting a restaurant
+
+. Test case: `(rt)delete 2` +
+  Expected: Deletes the second restaurant in the restaurant list. Details of the deleted restaurant shown in the status message.
+. Test case: `(rt)delete x` (where x is larger than the size of the restaurant list) +
+  Expected: No restaurant is deleted. Error details shown in the status message.
 
 _{ more test cases ... }_
 

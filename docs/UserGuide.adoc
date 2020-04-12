@@ -115,32 +115,16 @@ Adds a contact named Aisyle Nat with email address aisyle@gmail.com, phone numbe
 ==== Deleting a person : `(ab)delete`
 
 Deletes the contact at index INDEX +
-Format: `(ab)delete INDEX [t/] [e/] [a/] [o/] [b/]`
+Format: `(ab)delete INDEX`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as shown in the displayed person list.
-* Fields inside square brackets are optional.
-* Specifying any of the optional fields will delete the existing values.
-* If none of the optional fields are specified, the entire contact will be deleted.
 ****
 
 Examples:
 
 * `(ab)delete 2` +
 Deletes the 2nd person in the address book. +
-Format: `(ab)delete INDEX [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [o/ORGANIZATION] [t/TAG]...`
-* `(ab)delete 3 a/` +
-Deletes the third person's address.
-* `(ab)delete 20 e/ b/ i/
-Deletes the 20th person's email, birthday, and all remarks.
-
-****
-* Deletes the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided and cannot be left empty.
-* Name and phone of the contact cannot be deleted.
-* Existing values will be deleted if the field is specified.
-* All tags and remarks will be deleted if indicated.
-****
 
 ==== Editing a person : `(ab)edit`
 
@@ -149,7 +133,8 @@ Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTH
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided and parameter cannot be left empty.
+* At least one of the optional fields must be provided.
+* If a field is specified but the parameter is left empty, the entire field will be deleted.
 * Existing values will be updated to the input values except tags.
 * Remarks cannot be edited using this command.
 ****
@@ -281,7 +266,7 @@ Format: `(rt)add n/NAME l/LOCATION v/VISITED [o/OPERATING_HOURS] [p/PRICE_POINT]
 Examples:
 
 * `(rt)add n/rubbish l/bedok o/0900:2300 p/$$ v/No` +
-Adds a new restaurant called rubbish at bedok with 2 dollar signs price point and opens from 9am to 11pm.
+Adds a new restaurant called rubbish at bedok with 2 dollar signs price point and opens from 9am to 11pm, and has yet to be visited.
 
 ==== Deletes a restaurant: `(rt)delete`
 

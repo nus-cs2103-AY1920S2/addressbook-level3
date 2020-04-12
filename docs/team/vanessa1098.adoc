@@ -43,11 +43,6 @@ It is an application that allows users to manage all aspects of their social lif
 ** What it does: This allows the user to indicate if they have visited a restaurant.
 ** Justification: As there might be a handful of restaurants stored in the Restaurant Book, this feature allows the user to keep track of which restaurants they have visited.
 
-* *Edited the existing delete command for Address Book*
-** What it does: This allows the user to delete particular fields of the contact.
-** Justification: There might be some fields in a contact that a user no longer needs, thus this helps to tidy up the contact information.
-** Highlights: Users can still delete the entire contact, or they may choose to delete particular fields of the contact.
-
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=vanessa1098[Summary of code contributions]]
 
 * *Other contributions*:
@@ -55,7 +50,7 @@ It is an application that allows users to manage all aspects of their social lif
 ** Project management:
 ** Enhancements to existing features:
 *** Edited the help command to display all commands on the user interface.
-*** Edited the GUI of the application (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/53[#53], https://github.com/AY1920S2-CS2103-W14-3/main/pull/142[#142])
+*** Edited the GUI of the application (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/53[#53], https://github.com/AY1920S2-CS2103-W14-3/main/pull/142[#142], https://github.com/AY1920S2-CS2103-W14-3/main/pull/175[#175])
 *** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/46[#46])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/140[#140], https://github.com/AY1920S2-CS2103-W14-3/main/pull/146[#146], https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152], https://github.com/AY1920S2-CS2103-W14-3/main/pull/158[#158], https://github.com/AY1920S2-CS2103-W14-3/main/pull/161[#161])
@@ -63,7 +58,7 @@ It is an application that allows users to manage all aspects of their social lif
 ** Community:
 *** Reported bugs and suggestions for other teams in the module
 ** Team-based Contributions:
-*** Reviewed PRs, provided suggestions for my teammates and comments to improve/clarify (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/150[#150], https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152], https://github.com/AY1920S2-CS2103-W14-3/main/pull/153[#153], https://github.com/AY1920S2-CS2103-W14-3/main/pull/155[#155], https://github.com/AY1920S2-CS2103-W14-3/main/pull/158[#158], https://github.com/AY1920S2-CS2103-W14-3/main/pull/160[#160])
+*** Reviewed PRs, provided suggestions for my teammates and comments to improve/clarify (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/150[#150], https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152], https://github.com/AY1920S2-CS2103-W14-3/main/pull/153[#153], https://github.com/AY1920S2-CS2103-W14-3/main/pull/155[#155], https://github.com/AY1920S2-CS2103-W14-3/main/pull/158[#158], https://github.com/AY1920S2-CS2103-W14-3/main/pull/160[#160], https://github.com/AY1920S2-CS2103-W14-3/main/pull/187[#187], https://github.com/AY1920S2-CS2103-W14-3/main/pull/188[#188])
 
 == Contributions to the User Guide
 |===
