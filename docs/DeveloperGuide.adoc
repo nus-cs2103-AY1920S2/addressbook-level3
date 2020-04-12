@@ -158,7 +158,7 @@ so that the UI automatically updates when the data in the list change.
 
 
 [[Design-Storage]]
-=== Storage component
+=== Storage component (BenjaminFheng)
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -181,7 +181,7 @@ Classes used by multiple components are in the `seedu.ExpenseLa.commons` package
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::addtransactions[]
-=== Adding transactions
+=== Adding transactions (BenjaminFheng)
 We allow users to add Expense/Income transactions into ExpenseLa which denotes a positive or negative inflow of money. This section shows how we handle these requests from the user.
 
 ==== Implementation
@@ -282,7 +282,7 @@ they become invalid, and input the new recurring transactions whenever there are
 //end::addtransaction[]
 
 // tag::editTransactions[]
-=== Editing transactions
+=== Editing transactions (BenjaminFheng)
 The **edit **functionality modifies details of a specified `**Transaction**` in the existing list and saves
 modifications to the external storage file.
 
