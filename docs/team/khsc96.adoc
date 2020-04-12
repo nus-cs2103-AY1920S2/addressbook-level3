@@ -17,7 +17,7 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 * *Major enhancement*:
 
 . *Added `search` feature* (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/187[#187]) +
-Functionality of feature can be found <<../UserGuide.adoc#search, here>> and implementation of it can be found <<../DeveloperGuide.adoc#search, here>>.
+Functionality of feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#search[here] and implementation of it can be found https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#search[here].
 
 *** *What it does*: +
 Allows the user to specifically search for keywords that matches any fields of the parcel. The user are also able to narrow down their search range by providing different flags and prefixes.
@@ -32,7 +32,7 @@ the thorough understanding of the existing class in AB3 such as the `ArgumentMul
 Moreover, as this features allows user to search in many different possible way, testing the different scenarios are hard. ParametizedTest of JUnit testing was used to make my test code much cleaner.
 
 . *Updated `edit` feature* (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/234[#234]) +
-Functionality of feature can be found <<../UserGuide.adoc#edit, here>> and implementation of it can be found <<../DeveloperGuide.adoc#edit,here>>.
+Functionality of feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#edit[here] and implementation of it can be found https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#edit[here].
 
 *** *What it does*: +
 Allows the user to edit specific fields of a parcel, Order or Return Order.
@@ -67,8 +67,8 @@ This feature requires a thorough understanding of the existing code of AB3 such 
 . Improve edit feature functionality to cover Return Order and improve error message for edit feature https://github.com/AY1920S2-CS2103T-W12-1/main/pull/234[#234], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/305[#305].
 
 ** Documentation:
-. Update Edit feature, Search feature, Quick start, Glossary and minor documentation bugs of <<../UserGuide.adoc, *User Guide*>> (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/91[#91], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/92[#92], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/128[#128], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/135[#135], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/177[#177], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/195[#195], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/227[#227], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/316[#316]).
-. Update Use cases 1-6, Product Scope, Image rendering bug, Search feature and Edit feature of <<../DeveloperGuide.adoc, *Developer Guide*>> (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/76[#76], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/114[#114], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/178[#178], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/204[#204], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/208[#208], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/231[#231], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/249[#249], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/259[#259], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/316[#316]).
+. Update Edit feature, Search feature, Quick start, Glossary and minor documentation bugs of https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html[*User Guide*] (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/91[#91], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/92[#92], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/128[#128], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/135[#135], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/177[#177], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/195[#195], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/227[#227], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/316[#316]).
+. Update Use cases 1-6, Product Scope, Image rendering bug, Search feature and Edit feature of https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html[*Developer Guide*] (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/76[#76], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/114[#114], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/178[#178], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/204[#204], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/208[#208], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/231[#231], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/249[#249], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/259[#259], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/316[#316]).
 . Added own email in ContactUs, changed title of all documents to match Delino name and Update of own PPP (Pull requests : https://github.com/AY1920S2-CS2103T-W12-1/main/pull/80[#80], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/92[#92], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/321[#321]).
 
 ** Community:
