@@ -1,19 +1,10 @@
 package seedu.address.model.modelStaff;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
-
 import java.util.*;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -21,7 +12,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 /**
  * Represents a Staff in the address book. Guarantees: details are present and not null, field
  * values are validated, immutable.
- * A Staff can be a teacher or an admin. This can be check by isTeacher() method.
+ * A Staff can be a teacher or an admin. This is declared by permission Level.
+ * A staff Level can be check by isTeacher() and isAdmin() method.
  */
 public class Staff extends ModelObject {
   // Permission level
@@ -48,7 +40,6 @@ public class Staff extends ModelObject {
   /**
    * Every field must be present and not null.
    */
-
   public Staff(Name name, Gender gender, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags)
       throws ParseException {
     requireAllNonNull(name,level, phone, email, address, tags);
@@ -63,6 +54,9 @@ public class Staff extends ModelObject {
     this.tags.addAll(tags);
   }
 
+  /**
+   * Override Staff constructor.
+   */
   public Staff(Name name, ID id, Gender gender, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
     requireAllNonNull(name,level, phone, email, address, tags);
     this.name = name;
@@ -76,6 +70,9 @@ public class Staff extends ModelObject {
     this.tags.addAll(tags);
   }
 
+  /**
+   * Override Staff constructor.
+   */
   public Staff(Name name, ID id, Gender gender, Level level, Phone phone, Email email, Salary salary, Address address, Set<ID> assignedCoursesID, Set<Tag> tags) {
     requireAllNonNull(name,level, phone, email, address, tags);
     this.name = name;
@@ -90,13 +87,19 @@ public class Staff extends ModelObject {
     this.tags.addAll(tags);
   }
 
+
+  /**
+   * Creates and returns a copy of this staff.
+   * @return a clone of this instance.
+   */
   public Staff clone() {
-    Staff cloned = new Staff(name, id, gender, level, phone, email, salary, address, assignedCoursesID, tags);
-    return cloned;
+    return new Staff(name, id, gender, level, phone, email,
+            salary, address, assignedCoursesID, tags);
   }
 
   /**
    * Get Name of a staff.
+   * @return name of this staff.
    */
   public Name getName() {
     return name;
@@ -104,47 +107,59 @@ public class Staff extends ModelObject {
 
   /**
    * Get ID of a staff.
+   * @return ID of this staff.
    */
   public ID getId() {
     return id;
   }
 
   /**
-   * Get Gender of a staff
+   * Get Gender of a staff.
+   * @return Gender of this staff.
    */
   public Gender getGender() {
     return gender;
   }
 
+  /**
+   * Indicate whether this staff is assigned to a course having this ID.
+   * @return true if this staff is assigned to a course having this ID,
+   * false otherwise.
+   */
   public boolean containsCourse(ID courseID) {
-    if (assignedCoursesID.contains(courseID)) {
-      return true;
-    } else {
-      return false;
-    }
+    return assignedCoursesID.contains(courseID);
   }
 
-  public void removeCourse(ID courseid) {
-    this.assignedCoursesID.remove(courseid);
+  /**
+   * Remove this course ID that was assigned to this staff.
+   */
+  public void removeCourse(ID courseID) {
+    this.assignedCoursesID.remove(courseID);
   }
 
-
+  /**
+   * Indicate whether a string is valid for Staff Permission Level.
+   * @param test the string to be checked for valid Staff Permission Level.
+   * @return true if this string matches "admin" or "teacher", false otherwise.
+   */
   public static boolean isValidLevel(String test) {
     String testTrimmed = test.toUpperCase().trim();
-    return testTrimmed.equals(String.valueOf(Level.ADMIN)) || testTrimmed.equals(String.valueOf(Level.TEACHER));
+    return testTrimmed.equals(String.valueOf(Level.ADMIN))
+            || testTrimmed.equals(String.valueOf(Level.TEACHER));
   }
 
   /**
    * Returns an immutable ID set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.
+   * @return the set of assigned courses of this staff.
    */
   public Set<ID> getAssignedCoursesID() {
     return Collections.unmodifiableSet(assignedCoursesID);
   }
 
   /**
-   * Get List of String of the ID
-   * @return Array of String
+   * Get a List of String representing the ID for assigned courses of this staff.
+   * @return List of String representing assigned courses ID for this staff.
    */
   public List<String> getAssignedCoursesIDString() {
     List<String> IDList = new ArrayList<>();
@@ -164,8 +179,8 @@ public class Staff extends ModelObject {
   }
 
   /**
-   * Assign a course ID to a staff (the staff must be a teacher)
-   * @param courseID the courses ID that are assigned for staff (teacher) teaches
+   * Assign set of courses IDs to a staff (the staff must be a teacher)
+   * @param courseID the set of courses ID that are assigned for staff (teacher) teaches
    */
   public void addCourses(Set<ID> courseID) {
     if (isTeacher())
@@ -198,6 +213,7 @@ public class Staff extends ModelObject {
 
   /**
    * Get phone of a staff.
+   * @return Phone of this staff.
    */
   public Phone getPhone() {
     return phone;
@@ -205,6 +221,7 @@ public class Staff extends ModelObject {
 
   /**
    * Get Email of a staff.
+   * @return Email of this staff.
    */
   public Email getEmail() {
     return email;
@@ -212,6 +229,7 @@ public class Staff extends ModelObject {
 
   /**
    * Get salary of a staff.
+   * @return salary of this staff.
    */
   public Salary getSalary() {
     return salary;
@@ -219,6 +237,7 @@ public class Staff extends ModelObject {
 
   /**
    * Get address of a staff.
+   * @return address of this staff.
    */
   public Address getAddress() {
     return address;
@@ -227,8 +246,9 @@ public class Staff extends ModelObject {
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.
+   * @return a set of unmodifiable tags.
    */
-  public Set<Tag> getTags() {
+  public Set<Tag> getTags() throws UnsupportedOperationException {
     return Collections.unmodifiableSet(tags);
   }
 
@@ -240,10 +260,12 @@ public class Staff extends ModelObject {
       return !tags.isEmpty();
   }
 
-
   /**
-   * Returns true if both staffs of the same name have at least one other identity field that is
-   * the same. This defines a weaker notion of equality between two teachers.
+   * Compare if both staffs have the same name and at lest one other identity field
+   * that is the same.
+   * This defines a weaker notion of equality between two teachers.
+   * @return true if both staffs of the same name have at least another similar identity field
+   * that is the same, false otherwise.
    */
   @Override
   public boolean weakEquals(ModelObject otherStaff) {
@@ -261,8 +283,9 @@ public class Staff extends ModelObject {
   }
 
   /**
-   * Returns true if both staffs have the same identity and data fields. This defines a stronger
-   * notion of equality between two staffs.
+   * Compare whether two staffs have the same identify and data fields.
+   * This defines a stronger notation of equality between two staffs.
+   * @return true if both staffs have the same identity and data fields, false otherwise.
    */
   @Override
   public boolean equals(Object other) {
@@ -277,7 +300,9 @@ public class Staff extends ModelObject {
     Staff otherStaff = (Staff) other;
     return otherStaff.getName().equals(getName())
         && otherStaff.getPhone().equals(getPhone())
+            && otherStaff.getLevel().equals(getLevel())
             && otherStaff.getId().equals(getId())
+            && otherStaff.getGender().equals(getGender())
         && otherStaff.getEmail().equals(getEmail())
         && otherStaff.getSalary().equals(getSalary())
         && otherStaff.getAddress().equals(getAddress())

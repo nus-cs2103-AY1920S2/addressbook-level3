@@ -1,12 +1,7 @@
 package seedu.address.model.modelAssignment;
 
-import javafx.collections.ObservableList;
 import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the address-book level Duplicates are not allowed (by .isSamePerson
@@ -14,10 +9,16 @@ import static java.util.Objects.requireNonNull;
  */
 public class AssignmentAddressBook extends AddressBookGeneric<Assignment> {
 
+  /**
+   * Creates an Assignment AddressBook.
+   */
   public AssignmentAddressBook() {
     super();
   }
 
+  /**
+   * Creates an Assignment AddressBook using the objects in the {@code toBeCopied}
+   */
   public AssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> toBeCopied) {
     super(toBeCopied);
   }

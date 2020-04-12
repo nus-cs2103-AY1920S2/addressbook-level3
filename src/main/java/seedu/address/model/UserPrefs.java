@@ -1,11 +1,12 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.commons.core.GuiSettings;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-import seedu.address.commons.core.GuiSettings;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents User's preferences.
@@ -45,79 +46,135 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
   }
 
+  /**
+   * Get the existing GUI setting of this {@code UserPrefs} with {@code guiSettings}.
+   */
   public GuiSettings getGuiSettings() {
     return guiSettings;
   }
 
+  /**
+   * Set the existing GUI setting of this {@code UserPrefs} with new {@code guiSettings}.
+   */
   public void setGuiSettings(GuiSettings guiSettings) {
     requireNonNull(guiSettings);
     this.guiSettings = guiSettings;
   }
 
+  /**
+   * Get the address book file path of this {@code UserPrefs}.
+   */
   public Path getAddressBookFilePath() {
     return addressBookFilePath;
   }
 
+  /**
+   * Set the address book file path of this {@code UserPrefs} with {@code addressBookFilePath}.
+   */
   public void setAddressBookFilePath(Path addressBookFilePath) {
     requireNonNull(addressBookFilePath);
     this.addressBookFilePath = addressBookFilePath;
   }
 
+  /**
+   * Get the Staff address book file path of this {@code UserPrefs}.
+   * @return {@code staffAddressBookFilePath}.
+   */
   public Path getStaffAddressBookFilePath() {
     return staffAddressBookFilePath;
   }
 
+  /**
+   * Set the Staff address book file path of this {@code UserPrefs} with new {@code staffAddressBookFilePath}.
+   */
   public void setStaffAddressBookFilePath(Path staffAddressBookFilePath) {
     requireNonNull(staffAddressBookFilePath);
     this.staffAddressBookFilePath = staffAddressBookFilePath;
   }
 
+  /**
+   * Get the Student address book file path of this {@code UserPrefs}.
+   * @return {@code studentAddressBookFilePath}.
+   */
   public Path getStudentAddressBookFilePath() {
     return studentAddressBookFilePath;
   }
 
+  /**
+   * Set the Student address book file path of this {@code UserPrefs} with new {@code studentAddressBookFilePath}.
+   */
   public void setStudentAddressBookFilePath(Path studentAddressBookFilePath) {
     requireNonNull(studentAddressBookFilePath);
     this.studentAddressBookFilePath = studentAddressBookFilePath;
   }
 
+  /**
+   * Get the Course address book file path of this {@code UserPrefs}.
+   * @return {@code courseAddressBookFilePath}.
+   */
   public Path getCourseAddressBookFilePath() {
     return courseAddressBookFilePath;
   }
 
+  /**
+   * Set the course address book file path of this {@code UserPrefs} with new {@code courseAddressBookFilePath}.
+   */
   public void setCourseAddressBookFilePath(Path courseAddressBookFilePath) {
     requireNonNull(courseAddressBookFilePath);
     this.courseAddressBookFilePath = courseAddressBookFilePath;
   }
 
+  /**
+   * Get the Finance address book file path of this {@code UserPrefs} .
+   * @return {@code financeAddressBookFilePath}.
+   */
   public Path getFinanceAddressBookFilePath() {
     return financeAddressBookFilePath;
   }
 
+  /**
+   * Set the Finance address book file path of this {@code UserPrefs} with {@code financeAddressBookFilePath}.
+   */
   public void setFinanceAddressBookFilePath(Path financeAddressBookFilePath) {
     requireNonNull(financeAddressBookFilePath);
     this.financeAddressBookFilePath = financeAddressBookFilePath;
   }
 
+  /**
+   * Get the Assignment address book file path of this {@code UserPrefs}.
+   * @return {@code assignmentAddressBookFilePath}.
+   */
   public Path getAssignmentAddressBookFilePath() {
     return assignmentAddressBookFilePath;
   }
 
+  /**
+   * Set the Assignment address book file path of this {@code UserPrefs} with {@code assignmentAddressBookFilePath}.
+   */
   public void setAssignmentAddressBookFilePath(Path assignmentAddressBookFilePath) {
     requireNonNull(assignmentAddressBookFilePath);
     this.assignmentAddressBookFilePath = assignmentAddressBookFilePath;
   }
 
+  /**
+   * Get the Progress address book file path of this {@code UserPrefs}.
+   * @return {@code progressAddressBookFilePath}.
+   */
   public Path getProgressAddressBookFilePath() {
     return progressAddressBookFilePath;
   }
 
+  /**
+   * Set the Progress address book file path of this {@code UserPrefs} with {@code progressAddressBookFilePath}.
+   */
   public void setProgressAddressBookFilePath(Path progressAddressBookFilePath) {
     requireNonNull(progressAddressBookFilePath);
     this.progressAddressBookFilePath = progressAddressBookFilePath;
   }
 
-
+  /**
+   * Override equal method to compare this {@code UserPrefs} with another.
+   */
   @Override
   public boolean equals(Object other) {
     if (other == this) {

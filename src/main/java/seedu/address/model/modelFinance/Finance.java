@@ -1,21 +1,17 @@
 package seedu.address.model.modelFinance;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.commons.core.UuidManager;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.modelGeneric.ModelObject;
+import seedu.address.model.person.*;
+import seedu.address.model.tag.Tag;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.core.UuidManager;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.FinanceType;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Finance in the address book. Guarantees: details are present and not null, field
@@ -40,7 +36,7 @@ public class Finance extends ModelObject {
    */
   public Finance(Name name, FinanceType financeType, Date date, Amount amount, Set<Tag> tags)
       throws ParseException {
-    requireAllNonNull(name, financeType, amount, tags);
+    requireAllNonNull(name, financeType, date, amount, tags);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
     this.financeType = financeType;
@@ -52,8 +48,11 @@ public class Finance extends ModelObject {
     this.staffid = new ID();
   }
 
+  /**
+   * Overloaded constructor for edited object, loaded from storage, or sample data.
+   */
   public Finance(Name name, ID id, FinanceType financeType, Date date, Amount amount, Set<Tag> tags) {
-    requireAllNonNull(name, financeType, amount, tags);
+    requireAllNonNull(name, financeType, date, amount, tags);
     this.name = name;
     this.id = id;
     this.financeType = financeType;
@@ -66,10 +65,11 @@ public class Finance extends ModelObject {
   }
 
   /**
-   * Every field must be present and not null.
+   * Overloaded constructor for edited object, loaded from storage, or sample data.
    */
   public Finance(Name name, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID staffid, Set<Tag> tags)
       throws ParseException {
+    requireAllNonNull(name, financeType, date, amount, tags);
     requireAllNonNull(courseid, studentid, staffid);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
@@ -83,7 +83,7 @@ public class Finance extends ModelObject {
   }
 
   /**
-   * Every field must be present and not null.
+   * Overloaded constructor for edited object, loaded from storage, or sample data.
    */
   public Finance(Name name, ID id, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID staffid, Set<Tag> tags)
        {
@@ -99,44 +99,91 @@ public class Finance extends ModelObject {
     this.staffid = staffid;
   }
 
+  /**
+   * Creates and returns a copy of this finance.
+   *
+   * @return a clone of this instance.
+   */
   public Finance clone() {
     return new Finance(name, id, financeType, date, amount, courseid, studentid, staffid, tags);
   }
 
+  /**
+   * Get Name of a finance.
+   *
+   * @return name of this finance.
+   */
   public Name getName() {
     return name;
   }
 
+  /**
+   * Get ID of a finance.
+   *
+   * @return ID of this finance.
+   */
   public ID getId() {
     return id;
   }
 
+  /**
+   * Get type of this finance.
+   *
+   * @return type of this finance.
+   */
   public FinanceType getFinanceType() {
     return financeType;
   }
 
+  /**
+   * Get date of this finance.
+   *
+   * @return date of this finance.
+   */
   public Date getDate() {
     return date;
   }
 
+  /**
+   * Get amount of this finance.
+   *
+   * @return amount of this finance.
+   */
   public Amount getAmount() {
     return amount;
   }
 
+  /**
+   * Get course ID associated with this finance.
+   *
+   * @return course ID associated with this finance.
+   */
   public ID getCourseID() {
     return courseid;
   }
 
+  /**
+   * Get student ID associated with this finance.
+   *
+   * @return student ID associated with this finance.
+   */
   public ID getStudentID() {
     return studentid;
   }
 
+  /**
+   * Get staff ID associated with this finance.
+   *
+   * @return staff ID associated with this finance.
+   */
   public ID getStaffID() {
     return staffid;
   }
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.
+   *
+   * @return set of tags of this finance.
    */
   public Set<Tag> getTags() {
     return Collections.unmodifiableSet(tags);
@@ -145,13 +192,16 @@ public class Finance extends ModelObject {
   /**
    * Returns true if both finances of the same name have at least one other identity field that is
    * the same. This defines a weaker notion of equality between two finances.
+   * @param otherFinance other Finance
+   * @return true if both finances same name have at least one other same identity field,
+   * false otherwise.
    */
   public boolean weakEquals(ModelObject otherFinance) {
     if (otherFinance == this) {
       return true;
     }
 
-    if (otherFinance instanceof Finance == false) {
+    if (!(otherFinance instanceof Finance)) {
       return false;
     }
     Finance otherFinanceCast = (Finance) otherFinance;
@@ -163,6 +213,8 @@ public class Finance extends ModelObject {
   /**
    * Returns true if both finances have the same identity and data fields. This defines a stronger
    * notion of equality between two finances.
+   * @param other other finance
+   * @return true if both finances have the same identity and data fields, false otherwise.
    */
   @Override
   public boolean equals(Object other) {
@@ -198,12 +250,6 @@ public class Finance extends ModelObject {
         .append(getDate())
         .append(" Amount: ")
         .append(getAmount())
-//        .append("CourseID: ")
-//        .append(getCourseID())
-//        .append("StudentID: ")
-//        .append(getStudentID())
-//        .append("StaffID: ")
-//        .append(getStaffID())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

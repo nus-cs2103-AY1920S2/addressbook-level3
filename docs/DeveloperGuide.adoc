@@ -72,6 +72,7 @@ when a student is deleted, its link to course and progress and teacher, etc will
 
 Here is an example of how a command to delete student with ID 1 will invoke different parts along the flow.
 
+.Sequence Diagram for Events Flow
 image::EventsFlowDiagram.png[]
 
 * 1/ ViewController(i.e LogicManager) will invoke ModelManager.delete method (Note that ModelManager extends from BaseManager,
@@ -239,7 +240,7 @@ for easier management of entity links. Every non-directed association between 2 
 The only exception is `Progress` objects which are created via
 a composite ID of `studentID` and `assignmentID`.
 
-The group then uses 3 different managers in order to ensure that the links are successfully maintained during each
+There are 3 crucial managers involved in order to ensure that the links are successfully maintained during each
 any command which involves manipulation of entity links. The three managers are:
 
 .  `UUID Manager` - Ensures ID of all entities are unique, allowing each object to be uniquely identifiable
@@ -257,32 +258,129 @@ Consideration 1
 
 Consideration 2
 
-==== Execution of Assign/Unassign Command
+==== Execution of Assign/Un-assign Command
 For the actual execution of an assign/unassign command, 3 main steps are performed.
 
 . Pre-process the targeted entities to ensure consistent state - Via `PreprocessUndoCommand` method call
 . Add both object's ID into each other - Handled by `EdgeManager`
 . Create/remove Progress objects when assignments/students are involved - Handled by `Progress Manager`
 
-==== Preprocess Entities
-Firstly, a `pre-processing step` must be performed before executing an undo-able assign/unassign command
+
+===== Step 1: Preprocess Entities
+
+====== Rationale
+Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command
 to ensure that all entity links are in correct state before command execution.
 
-.Activity Diagram of Pre-processing for
+====== Current Implementation
+Below is an activity diagram showing the pre-processing
+performed for assign commands. The diagram can be generalized for un-assign commands by checking if the course contains X and vice versa in the
+second stage instead.
+
+.Activity Diagram of Pre-processing for Assign/Un-assign commands
 image::Ivan-PreprocessAssignActivityDiagram.png[]
 
-Notice that there are 2 main exit points in the activity diagram. The success case is straightforward and will lead to a
+---
+Notice that there are 2 main exit points in the activity diagram.
+
+. The success case is straightforward and will lead to a
 the program continuing to execute the actual assign/un-assign command.
+. For the failure case, should any of the conditions fail, this means that either that the
 
-However, for the failure case, should any of the conditions fail, this means that either the specified objects does `not exist`, or
-both entities are `already assigned` to each other or more importantly, that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
-
-===== EdgeManager
-Explain flow for assign/unassign
-Explain flow for capturing delete event (and unassign correspondingly)
+* specified objects does `not exist`,
+* both entities are `already assigned` to each other or,
+* most importantly, that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
 
 
-===== ProgressManager
+===== Step 2: Assign IDs via EdgeManager
+====== +++<u>Rationale</u>+++
+After the necessary checks have been performed, respective IDs need to be added to the targeted course and targeted object in order
+to ensure correct and consistent assigning of objects.
+
+====== +++<u>Current Implementation</u>+++
+Below is a sequence diagram of how EdgeManager adds the IDs to the two objects involved.
+
+.Sequence Diagram of EdgeManager's AssignXtoCourse commands
+image::Ivan-SeqDiagEdgeManagerAssignCommand.png[]
+
+---
+The flow of an assign command is as follows:
+
+. Obtain a copy of the requested `modelObjects` from `ModelManager`
+.. One of which must be a `Course` modelObject, the other being either a `Student`/`Staff`/`Assignment` modelObject
+. For object X', add the `courseID` into the assignedCourseIDs in X`
+.. For assignments, every assignment can only be assigned to at most *one course*. Hence, it'll hold just an assignedCourseID instead
+of a set of Course IDs.
+. For Course C', add `X's ID` into assignedXIDs in C'
+.. For courses, every course may only have at most *one teacher*. Hence, course will have an assignedTeacherID instead
+of a set of Teacher IDs.
+. Update the 2 affected models by executing `set(targetObj, editedObj)` in modelManager for both changed modelObjects
+. Update the storage by running postDataStorageChangeEvent() - ref to `Figure 2` to understand how storage save is triggered
+
+NOTE: This sequence diagram can be generalized for `un-assign command` as well. Instead of adding IDs, un-assign will remove
+each other's ID from the respective objects.
+
+====== +++<u>Design Considerations</u>+++
+. Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObject`.
+Pros::
+.. Simpler implementation since any changes to the model will change the actual object directly
+.. Faster execution since any changes is done to the actual modelObject
+Cons::
+.. Might allow for unintentional changes to the actual modelObject
+. (Current Implementation) Manipulate a `copy` modelObjects by having modelManager#get() return a copy of actual modelObject.
+Pros::
+.. Prevents unintentional modifications of the shared object
+Cons::
+..  Extra processing required. For example, a method is required to replace the old modelObject with the
+new model object
+.. More memory intensive and can hurt overall program performance.
+
+===== Step 3: Add Progress objects via ProgressManager
+====== +++<u>Rationale</u>+++
+New `Progress` objects must be created in 2 main scenarios.
+
+. If a `Student` has been added to a `Course`, the `Student` will need to complete all `Assignments` that have already been assigned
+to the `Course`.
+. If an `Assignment` has been added to a `Course`, all `Students` currently taking the `Course` must now complete that `Assignment`.
+
+The rationale is similar when un-assigning either `Student` or `Assignment` from a `Course`.
+`Progress` objects need to be removed instead.
+
+====== +++<u>Current Implementation</u>+++
+Below is a sequence diagram illustrating how the ProgressManager adds Progress objects into the ProgressAddressBook
+when a `AssignStudentToCourse` command is run.
+
+.Activity Diagram for creating Progress objects when assigning a Student to a Course
+image::Ivan-ProgressManagerAssignStudentToCourse.png[]
+
+---
+The flow of adding Progress objects in a AssignStudentToCourse is as follows
+
+. If there are `Progress` objects that were previously in ProgressAddressBook but were removed due to an `Un-assign/Delete` command,
+add those `Progress` objects back in.
+.. This only occurs when undo-ing an `Un-assign/Delete` command. Refer to `Section 3.2.2` for more information.
+. Else, i.e. if this is an entirely new AssignStudentToCourse command,
+.. Obtain *C'*, a copy of the targeted `Course`
+.. From *C'*, obtain all assignmentIDs that are assigned to it.
+.. For each of the obtained assignmentIDs, create a new CompositeID of assignmentID and studentID
+.. Create a `Progress` object using each of the `CompositeID`
+.. Finally, add these `Progress` objects into the `ProgressAddressBook`.
+
+Notes:
+
+- The flow is largely the same for AssignAssignmentToCourse! Instead, we want every `Student` that is currently studying in
+course *C'* to complete the particular `Assignment`. Hence, rather than obtain all assignmentIDs, we will need to obtain all
+`studentIDs` that are studying *C'*, and create a `Progress` object so that we can track whether those students have completed
+the assignment.
+- The flow is also largely the same for UnassignCommands! Instead, we are looking to remove Progress objects rather than adding them back in.
+
+===== Summary of Entity Linking
+Overall, in order to ensure successful entity linking, all 3 managers involved must be involved.
+The table below shows the involvement of 3 managers with regards to each variant of the `Assign`/`Un-assign` commands.
+
+.Table Summary of Manager's involvement during Assign/Un-assign Commands
+image::Ivan-AssignSummaryTable.png[]
+
 
 === Undo/Redo (HIEU)
 
@@ -304,7 +402,7 @@ template pattern.
 public abstract class UndoableCommand extends Command {
     public abstract void preprocessUndoableCommand() {}
 
-    public abstract void generateOppositeUndoableCommand()
+    public abstract void generateOppositeUndoableCommand();
 
     public CommandResult executeUndoableCommand();
     @Override
@@ -349,14 +447,44 @@ Pros: Reduce a lot of memory issue.
 
 Cons: Harder to implement
 
-
 ==== Opposite Command for edit
+Edit command extends from abstract class UndoableCommand. Thus, user can undo/ redo this command.
+
+In EditCommand class, method `preprocessUndoableCommand` to get the toEdit Object and edited Object.
+
+Method `executeUndoableCommand` will set the toEdit Object in the ObjectAddressBook to the edited Object.
+
+Method `generateOppositeCommand()` will generate another `EditCommand` (which
+is opposite to this EditCommand) with editing information of the original toEdit Object and push it to undoStack.
+
+When `undo` and `redo` commands are executed, the process is carried out as described above.
 
 ==== Opposite command for assign/ unassign
 
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities)
 
+`AddCommand` and `DeleteCommand` extends from abstract class UndoableCommand. Thus, user can undo/ redo this command.
+
+In `AddCommand` class, method `preprocessUndoableCommand` get the toAdd Object and an index (if available).
+
+Method `executeUndoableCommand` will add the toAdd Object to the ObjectAddressBook.
+
+Method `generateOppositeCommand()` will generate a `DeleteCommand` (which
+is opposite to this AddCommand) with toDelete Object is a clone of toAdd Object and push it to undoStack.
+
+In `DeleteCommand` class, method `preprocessUndoableCommand` get the toDelete Object and its index.
+
+Method `executeUndoableCommand` will delete this toDelete Object from the ObjectAddressBook.
+
+Method `generateOppositeCommand()` will generate an `AddCommand` (which
+is opposite to this DeleteCommand) with toAdd Object is a clone of toDelete Object and push it to undoStack.
+
+When `undo` and `redo` commands are executed, the process is carried out as described above.
+
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 === View Switching (HIEU)
 To see sub-view details of each section we can issue a select command.
 
@@ -415,38 +543,55 @@ Future Functionality Include
 * Allow for seamless removal of `Student` from course
 * Allow for seamless deletion of `Assignment` from the addressbook
 
-=== [Proposed] Managing Teacher and Staff Feature
+=== Managing Staff Feature
 
-==== Proposed implementation
-This feature is implemented with two main classes - `Teacher` and `Staff`.
+==== Implementation
+This feature is implemented with the main classes - `Staff`, with a permission level specifying `Teacher` and `Admin`.
+[source,java]
+----
+public class Staff extends ModelObject {
+    public enum Level {
+        TEACHER,
+        ADMIN
+    }
+    //...
+}
+----
+One of the features is to display all the `courses` that a `teacher` is teaching.
 
-One of the features is to take note of all the `classes` that a `teacher` has taught. When a course is marked as done, the class is automatically added into `teacher` list of taught course.
+Another feature is to keep track of salary payment for `teacher`. A `teacher` is paid by teaching a course and the amount
+is taken from the salary of the teacher. The payment will automatically have records of respective course and teacher ID.
 
-Another feature is to keep track of salary payment for `Teacher` and `Staff`. Both `teacher` and `staff` are paid by monthly or by their amount of work. If paying based on amount of work, a `teacher` is paid
-through the `course` he teaches and a `staff` is paid by miscellaneous payments.
+To pay for `admin`, user has to do it manually using miscellaneous `FinanceType`.
 
-Certain approaches have some certain pros and cons. It depends on how the user want to pay to `teacher` and `staff`.
+Certain approaches have some certain pros and cons. It depends on how the user want to keep track of payment and method to pay to `teacher` and `admin`.
 
-=== [Proposed] Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings
-==== Proposed Implementation
+=== Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings
+==== Implementation
 
 Miscellaneous transactions can either be payments or earnings, such as purchases of stationary or advertisement revenue. Teacher payments are tracked by courses, where the teacher is paid for each course taught. Student earnings are also tracked by courses, where the student pays for each course taken.
-
-This feature is implemented with two main classes - `CourseStudent` and `CourseTeacher`, both of which is controlled by a
-`CourseStudentAddressBook` and `CourseTeacherAddressBook` respectively. Please see the following class diagram
-which proposes the associations between the four classes.
 
 .Class diagram of CourseStudent and CourseTeacher
 image::FinanceDiagram.png[]
 
-`CourseStudent` will be created and stored in `CourseStudentAddressBook` whenever a course is assigned to a student, ensuring that `Course` exists in `CourseAddressBook` and `Student` exists in `StudentAddressBook`.
+Finance type `CourseStudent` or `cs` add command will access `CourseAddressBook` and `StudentAddressBook` to ensure `Course` and
+`Student` exist and make sure this student is taking this course. The `Amount` is set to the amount of the `Course`
+(student fee).
 
-Similarly, `CourseTeacher` will be created and added to `CourseTeacherAddressBook` whenever a course is assigned to a teacher, ensuring that `Course` exists in `CourseAddressBook` and `Teacher` exists in `TeacherAddressBook`.
+Finance type `CourseTeacher` or `ct` add command will access `CourseAddressBook` and `TeacherAddressBook` to ensure `Course` and
+`Teacher` exist and make sure this teacher is teaching this course. The `Amount` is set to the salary of the `Teacher`
+(teacher salary).
 
-`PayCourseStudent` Command will access `CourseStudentAddressBook` to ensure that isPaid is false, before creating the corresponding `Finance` object to be stored in `FinanceAddressBook`. The is similar for `PayCourseTeacher` Command.
+Finance type `Miscellaneous` or `m` add command will create a corresponding `Finance` object to be stored in `FinanceAddressBook`.
+To pay for `Admin staff` and record other transactions, user has to manually add a miscellaneous `Finance`, specifying
+name (description), amount, and date. Miscellaneous transactions can either be payments or earnings, such as purchases of
+stationary or advertisement revenue.
 
-`PayMiscellaneous` Command will create a corresponding `Finance` object to be stored in `FinanceAddressBook`.
 
+Payments are not deleted when `teacher`, `student` and `admin` deleted. This is because the the Finance needs to record
+history transactions/ payments. A `student`, teacher` or `admin` can be deleted from the system because they no longer
+work or study here. But for all payments in the history need to be kept for tracking purposes (`expenses` and `earnings`).
+If the user input a Finance by mistake, he has to delete it manually.
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
