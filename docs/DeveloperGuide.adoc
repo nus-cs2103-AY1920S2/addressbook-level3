@@ -450,39 +450,66 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Notably` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Traverse notes
-
+=== Use case: Search notes using the Auto-suggestion feature
 *MSS*
 
-1.  User types in the title of note/subnotes to traverse to
-2.  Notably opens the target note
+1.  User types in a keyword of a note's content that he wants to open.
+2.  Notably lists out the relevant search results, with the most relevant being on top of the list (based on the keyword's
+number of occurrences in the note).
+3.  User chooses one of the suggested notes.
+4.  Notably opens the chosen note.
 +
 Use case ends.
 
-[discrete]
-=== Use case: Search notes
+*Extensions*
+[none]
+* 2a. No suggestion is being generated.
++
+[none]
+** 2a1. Notably displays a response text, indicating that the user is trying to search through all of the notes using that
+particular keyword.
+** 2a2. Since the empty suggestion conveys that the keyword cannot be found, the user enters a new data.
 
+Steps 1a1-1a2 are repeated until the data entered is correct. Use case resumes from Step 3.
+
+[discrete]
+=== Use case: Open/ Delete notes using the Auto-suggestion feature
 *MSS*
 
-1.  User types in the approximate title or content of note intended to be opened
-2.  Notably lists out the relevant search results
-3.  User chooses one of the suggested notes
-4.  Notably opens the chosen note
+1. User types in an incomplete path or title of a note.
+2. Notably lists out suggestions of notes.
+3. User chooses one of the suggested notes.
+4. Notably opens/ deletes the chosen note.
 +
 Use case ends.
 
-[discrete]
-=== Use case: Note alias
-
-*MSS*
-
-1.  User types in a command to open a note by an alias name
-2.  Notably opens the aliased note
+*Extensions*
+[none]
+* 1a. Path or title contains invalid character(s) ( symbols `-` or ```)
 +
-Use case ends.
+[none]
+** 1a1. Notably displays a response text, indicating that the path or title is invalid.
+** 1a2. User enters a new data.
+
+Steps 1a1-1a2 are repeated until the data entered is correct. Use case resumes from Step 2.
+
+[none]
+* 1b. Path or title does not exist
++
+[none]
+** 1b1. Notably displays a response text, indicating that the user is trying to open/ delete the note
+with that particular path or title.
+** 1b2. Notably does not generate any suggestions, which means the note cannot be found.
+** 1b3. User enters a new data.
+
+Steps 1b1-1b3 are repeated until the data entered is correct. Use case resumes from Step 2.
+
+
+
+===
 
 _{More to be added}_
 
