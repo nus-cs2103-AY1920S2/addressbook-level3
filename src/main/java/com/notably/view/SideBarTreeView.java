@@ -6,10 +6,14 @@ import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeItem;
 
 import javafx.beans.property.Property;
+import javafx.event.Event;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 
 /**
@@ -47,8 +51,8 @@ public class SideBarTreeView extends ViewPart<Region> {
      * Calls helper functions that set the tree settings and populate the SideBarTreeView with data.
      */
     private void initializeTree() {
-        setTreeSettings();
         setTreeStructure();
+        setTreeSettings();
     }
 
     /**
@@ -56,6 +60,9 @@ public class SideBarTreeView extends ViewPart<Region> {
      */
     private void setTreeSettings() {
         sideBarTreeView.setEditable(false);
+
+        EventDispatcher sideBarEventDispatcher = sideBarTreeView.getEventDispatcher();
+        sideBarTreeView.setEventDispatcher(new TreeCellEventDispatcher(sideBarEventDispatcher));
     }
 
     /**
@@ -68,19 +75,50 @@ public class SideBarTreeView extends ViewPart<Region> {
     }
 
     /**
-     * Configures the SideBarTreeView to only display a 3-level nested hierarchy of Notes,
+     * Configures the SideBarTreeView to, when possible, display a 3-level nested hierarchy of Notes.
      * ie (Parent -> currently opened Note and its siblings -> direct children of currently opened Note).
      *
-     * If the currently open Note is the root, the hierarchy is modified to look like:
-     * (Root -> Root's children -> Root's grandchildren)
+     * However, if the currently open Note is the default root Note, the Root is hidden and the
+     * hierarchy is modified to look like: (Root's direct children -> Root's direct grandchildren).
      */
     private void useLevelDisplayStrategy() {
-        TreeItem<Block> treeParent = this.currentlyOpenedNote.getTreeItem().getParent();
-        if (treeParent != null) {
-            sideBarTreeView.setRoot(treeParent);
+        TreeItem<Block> treeItem = this.currentlyOpenedNote.getTreeItem();
+        TreeItem<Block> treeParent = treeItem.getParent();
+
+        Boolean isRootOpen = treeParent == null;
+
+        if (isRootOpen) {
+            useRootNoteOpenStrategy(treeItem);
         } else {
-            sideBarTreeView.setRoot(this.currentlyOpenedNote.getTreeItem());
+            useNormalNoteOpenStrategy(treeParent);
         }
+    }
+
+    /**
+     * Helper function that sets the display strategy for the case that the currently open Note
+     * is a root Note, as per {@link #useLevelDisplayStrategy()}.
+     *
+     * @param treeItem the currently open Note.
+     */
+    private void useRootNoteOpenStrategy(TreeItem<Block> treeItem) {
+        sideBarTreeView.setShowRoot(false);
+        sideBarTreeView.setRoot(treeItem);
+    }
+
+    /**
+     * Helper function that sets the display strategy for the case that the currently open Note
+     * is not a root Note, as per {@link #useLevelDisplayStrategy()}
+     *
+     * @param treeParent the parent of the currently open Note.
+     */
+    private void useNormalNoteOpenStrategy(TreeItem<Block> treeParent) {
+        Boolean isParentRoot = treeParent.getParent() == null;
+        if (!isParentRoot) {
+            sideBarTreeView.setShowRoot(true);
+        } else {
+            sideBarTreeView.setShowRoot(false);
+        }
+        sideBarTreeView.setRoot(treeParent);
     }
 
     /**
@@ -125,6 +163,28 @@ public class SideBarTreeView extends ViewPart<Region> {
             } else {
                 updateSelected(false);
             }
+        }
+    }
+
+    /**
+     * Custom {@code EventDispatcher} to allow for finer control over mouse click events.
+     * A {@link SideBarTreeViewCell} should not respond to any mouse click events.
+     *
+     */
+    class TreeCellEventDispatcher implements EventDispatcher {
+        private final EventDispatcher original;
+
+        public TreeCellEventDispatcher(EventDispatcher original) {
+            this.original = original;
+        }
+
+        @Override
+        public Event dispatchEvent(Event event, EventDispatchChain tail) {
+
+            if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+                event.consume();
+            }
+            return original.dispatchEvent(event, tail);
         }
     }
 }
