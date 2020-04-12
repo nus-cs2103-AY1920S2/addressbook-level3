@@ -418,11 +418,11 @@ Afterward,  the new *ClearCommand* object will be executed.
 
 During the execution of the `clear` command:
 
-** If `-f` flag is found in flags, the respective order book will be cleared and
+** If `-f` flag is found in flags, the respective orders will be cleared and
 display a success message to the user.
 ** If there are no `-f` flag found in flags, a pop up will appeared with the confirmation message.
    User would be required to press either one of the following two buttons:
-*** `Yes` button - The respective order book will be cleared and display successful clear message to the user.
+*** `Yes` button - The respective orders will be cleared and display successful clear message to the user.
 *** `No` button - Pop up closed and end of activity.
 
 [[clear-structure]]
@@ -436,27 +436,27 @@ In the *ClearCommand* class, there are also some static messages for the differe
 the user has key in:
 
 1. `MESSAGE_USAGE` +
-clear: Clear either both order book list and return order book list or one of them. +
+clear: Clear either both order list and return order list or one of them. +
 Parameters: -o/-r/-f +
 Example: clear -o -f +
 
-2. `MESSAGE_SUCCESS_ORDER_BOOK` +
-Inform the user that order book list has been cleared successfully.
+2. `MESSAGE_SUCCESS_ORDER_LIST` +
+Inform the user that order list has been cleared successfully.
 
-3. `MESSAGE_SUCCESS_RETURN_BOOK` +
-Inform the user that return order book list has been cleared successfully.
+3. `MESSAGE_SUCCESS_RETURN_LIST` +
+Inform the user that return order list has been cleared successfully.
 
-4. `MESSAGE_SUCCESS_BOTH_BOOK` +
-Inform the user that both order book lists have been cleared successfully.
+4. `MESSAGE_SUCCESS_BOTH_LIST` +
+Inform the user that both order lists have been cleared successfully.
 
-5. `MESSAGE_ENQUIRY_ORDER_BOOK` +
-Confirmation message to the user if the user want to clear order book list.
+5. `MESSAGE_ENQUIRY_ORDER_LIST` +
+Confirmation message to the user if the user want to clear order list.
 
-6. `MESSAGE_ENQUIRY_RETURN_BOOK` +
-Confirmation message to the user if the user want to clear return order book list.
+6. `MESSAGE_ENQUIRY_RETURN_LIST` +
+Confirmation message to the user if the user want to clear return order list.
 
-7. `MESSAGE_ENQUIRY_BOTH_BOOK` +
-Confirmation message to the user if the user want to clear both order book lists.
+7. `MESSAGE_ENQUIRY_BOTH_LIST` +
+Confirmation message to the user if the user want to clear both order lists.
 
 [[clear-interaction]]
 ==== Interactions between objects when Clear Command is executed
@@ -467,7 +467,7 @@ Sequence Diagram below: +
 image::ClearCommandSequenceDiagram.svg[]
 
 The above sequence diagram illustrate how the `clear` Command is being processed when the user inputs
-`clear -f` to force clear both the order book and return order book.
+`clear -f` to force clear all of the orders and return orders without any prompt.
 
 After the user input. the arguments passed to the `clear` command will be parsed by the *ClearCommandParser* class +
 If the given arguments are valid, a new *ClearCommand* object will be returned.
@@ -2421,6 +2421,7 @@ cannot be found in the order list.
 
 //@@author Exeexe93
 //tag::appendix-import[]
+
 === Import orders
 
 . Import a new list of orders from a .csv file given by the company
