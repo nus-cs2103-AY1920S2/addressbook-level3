@@ -12,6 +12,7 @@ import seedu.eylah.commons.logic.parser.ArgumentTokenizer;
 import seedu.eylah.commons.logic.parser.Parser;
 import seedu.eylah.commons.logic.parser.Prefix;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
+import seedu.eylah.diettracker.logic.commands.ListCommand;
 import seedu.eylah.diettracker.logic.commands.ModeCommand;
 import seedu.eylah.diettracker.model.Mode;
 
@@ -33,7 +34,7 @@ public class ModeCommandParser implements Parser<ModeCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModeCommand.MESSAGE_USAGE));
         }
 
-        Mode mode = Mode.MAINTAIN;
+        Mode mode;
         if (arePrefixesPresent(argMultimap, PREFIX_LOSS)) {
             mode = Mode.LOSS;
         } else if (arePrefixesPresent(argMultimap, PREFIX_GAIN)) {
@@ -41,7 +42,7 @@ public class ModeCommandParser implements Parser<ModeCommand> {
         } else if (arePrefixesPresent(argMultimap, PREFIX_MAINTAIN)) {
             mode = Mode.MAINTAIN;
         } else {
-
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModeCommand.MESSAGE_FLAG_NOT_PROVIDED));
         }
 
         return new ModeCommand(mode);
