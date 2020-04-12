@@ -781,7 +781,7 @@ In this section, we will learn more about how the `additem` command is implement
 The `additem` command allows the user to add an Item into the Receipt, along with the ItemPrice of the Item and the Persons
 involved in splitting the cost of that Item.
 
-The `additem` command was implemented as AddItemCommand in the expensesplitter/logic/commands package.
+The `additem` command was implemented as `AddItemCommand` in the `expensesplitter/logic/commands` package.
 
 The `additem` command has the following input format:
 
@@ -803,7 +803,7 @@ Figure : Add Item Command Activity Diagram
 
 *Implementation of Add Item Command*
 
-The following is a detailed explanation of the operations AddItemCommand performs. +
+The following is a detailed explanation of the operations `AddItemCommand` performs. +
 
 1. The `AddItemCommand#execute(SplitterModel splitterModel)` method is executed and it checks if the specified Item
 and list of Persons to be added are valid. If valid, a new Entry would be created with the specified Item and list of
@@ -840,7 +840,7 @@ In this section, we will learn more about how the `deleteitem` command is implem
 
 The `deleteitem` command allows users to remove the Item from the Receipt via the Index.
 
-The `deleteitem` command was implemented as DeleteItemCommand in the expensesplitter/logic/commands package.
+The `deleteitem` command was implemented as `DeleteItemCommand` in the `expensesplitter/logic/commands` package.
 
 The `deleteitem` command has the following input format:
 
@@ -860,7 +860,7 @@ Figure: Delete Item Command Activity Diagram
 
 *Implementation*
 
-The following is a detailed explanation of the operations DeleteItemCommand performs. +
+The following is a detailed explanation of the operations `DeleteItemCommand` performs. +
 
 1. The `DeleteItemCommand#execute(SplitterModel splitterModel)` method is executed and it validates that the specified
 Index to delete is within range. If valid, the Entry to be deleted will be retrieved from Receipt using its Index.
@@ -1089,7 +1089,7 @@ In this section, we will learn more about how the `clearreceipt` command is impl
 The `clearreceipt` command essentially deletes all the Entries in the Receipt and allows the user to input new Entries
 into a clean receipt.
 
-The `clearreceipt` command was implemented as ClearReceiptCommand in the expensesplitter/logic/commands package.
+The `clearreceipt` command was implemented as `ClearReceiptCommand` in the `expensesplitter/logic/commands` package.
 
 The `clearreceipt` command has the following input format:
 
@@ -1110,7 +1110,7 @@ Figure: Clear Receipt Command Activity Diagram
 
 *Implementation of Clear Receipt Command*
 
-The following is a detailed explanation of the operations ClearReceiptCommand performs. +
+The following is a detailed explanation of the operations `ClearReceiptCommand` performs. +
 
 1. The `ClearReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
 
