@@ -3,7 +3,9 @@ package com.notably.logic.suggestion.handler;
 import static com.notably.commons.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import com.notably.commons.LogsCenter;
 import com.notably.commons.parser.ArgumentMultimap;
 import com.notably.commons.parser.ArgumentTokenizer;
 import com.notably.commons.parser.ParserUtil;
@@ -13,6 +15,7 @@ import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.logic.suggestion.generator.OpenSuggestionGenerator;
+import com.notably.logic.suggestion.generator.SearchSuggestionGenerator;
 import com.notably.model.Model;
 
 /**
@@ -24,6 +27,8 @@ public class OpenSuggestionArgHandler implements SuggestionArgHandler<OpenSugges
     private static final String RESPONSE_MESSAGE = "Open a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
     private static final String ERROR_MESSAGE_CANNOT_OPEN_NOTE = "Cannot open \"%s\" as it is an invalid path";
+
+    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionGenerator.class);
 
     private Model model;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
@@ -41,6 +46,8 @@ public class OpenSuggestionArgHandler implements SuggestionArgHandler<OpenSugges
      */
     @Override
     public Optional<OpenSuggestionGenerator> handleArg(String userInput) {
+        logger.info("Starting handleArg method inside OpenSuggestionArgHandler");
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE);
 
@@ -53,6 +60,7 @@ public class OpenSuggestionArgHandler implements SuggestionArgHandler<OpenSugges
         }
 
         if (title.isEmpty()) {
+            logger.warning("title is empty");
             model.setResponseText(RESPONSE_MESSAGE);
             return Optional.empty();
         }
@@ -61,6 +69,7 @@ public class OpenSuggestionArgHandler implements SuggestionArgHandler<OpenSugges
         try {
             uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
         } catch (ParseException pe) {
+            logger.warning(String.format(ERROR_MESSAGE_CANNOT_OPEN_NOTE, title));
             model.setResponseText(String.format(ERROR_MESSAGE_CANNOT_OPEN_NOTE, title));
             return Optional.empty();
         }
@@ -69,6 +78,7 @@ public class OpenSuggestionArgHandler implements SuggestionArgHandler<OpenSugges
 
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
+            logger.warning(String.format("Failed to correct \"%s\".", title));
             return Optional.empty();
         }
 

@@ -1,7 +1,10 @@
 package com.notably.logic.suggestion.handler;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import com.notably.commons.LogsCenter;
+import com.notably.logic.suggestion.generator.SearchSuggestionGenerator;
 import com.notably.logic.suggestion.generator.SuggestionGenerator;
 import com.notably.model.Model;
 
@@ -13,6 +16,8 @@ public class EditSuggestionHandler implements SuggestionHandler<SuggestionGenera
 
     private static final String RESPONSE_MESSAGE = "Edit this note";
 
+    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionGenerator.class);
+
     private Model model;
 
     public EditSuggestionHandler(Model model) {
@@ -21,6 +26,7 @@ public class EditSuggestionHandler implements SuggestionHandler<SuggestionGenera
 
     @Override
     public Optional<SuggestionGenerator> handle() {
+        logger.info("Starting handle method inside EditSuggestionHandler");
         model.setResponseText(RESPONSE_MESSAGE);
         return Optional.empty();
     }
