@@ -52,7 +52,7 @@ public class SortCommandIntegrationTest {
 
         CommandResult commandResult = new SortCommand(SortType.ALPHABETIC).execute(model);
 
-        assertEquals(String.format(SortModuleCommand.MESSAGE_SORT_ALL_SUCCESS),
+        assertEquals(String.format(SortCommand.MESSAGE_SORT_ALL_SUCCESS),
                 commandResult.getFeedbackToUser());
 
 
@@ -95,7 +95,7 @@ public class SortCommandIntegrationTest {
 
         CommandResult commandResult = new SortCommand(SortType.RATING_ASC).execute(model);
 
-        assertEquals(String.format(SortModuleCommand.MESSAGE_SORT_ALL_SUCCESS),
+        assertEquals(String.format(SortCommand.MESSAGE_SORT_ALL_SUCCESS),
                 commandResult.getFeedbackToUser());
 
 
@@ -138,7 +138,7 @@ public class SortCommandIntegrationTest {
 
         CommandResult commandResult = new SortCommand(SortType.RATING_DESC).execute(model);
 
-        assertEquals(String.format(SortModuleCommand.MESSAGE_SORT_ALL_SUCCESS),
+        assertEquals(String.format(SortCommand.MESSAGE_SORT_ALL_SUCCESS),
                 commandResult.getFeedbackToUser());
 
 

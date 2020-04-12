@@ -768,21 +768,17 @@ is thrown saying that a student with the given matric number already exists.
 
 ==== Implementation of the Sort Group, Module and All Command
 
-The sort command allows the user to sort the students in the *Student View*. Here are the ways you can use the sort command:
-
-. alphabetically
-. rating (in ascending or descending order)
-. matriculation number
+The sort command allows the user to sort the students in the *Student View*.
 
 The sort command can be used in three ways:
 
-1. `sort group g/GROUP_CODE m/MODULE_CODE t/TYPE` : This sorts all the students of the given
-group in the given module by type `TYPE`.
+1. `sort group g/GROUP_CODE m/MODULE_CODE t/TYPE` : This sorts all the students of the *given
+group in the given module* by type `TYPE`.
 
-2. `sort module g/MODULE_CODE t/TYPE` : This sorts all the students of all the groups in the
-given module by type `TYPE`.
+2. `sort module g/MODULE_CODE t/TYPE` : This sorts all the students of *all the groups in the
+given module* by type `TYPE`.
 
-3. `sort all t/TYPE` : This sorts all students of all groups of all the modules in the
+3. `sort all t/TYPE` : This sorts all students of *all groups of all the modules* in the
 TA-Tracker
 by the type `TYPE`
 
@@ -795,8 +791,10 @@ by the type `TYPE`
 ** `matric` to sort by matriculation number.
 ====
 
-Since these `Sort` commands function differently but use the same parser, the structure shown in the following
-_Class Diagram_ is used.
+Since these `Sort` commands function differently but use a single parser,
+the structure shown in the following
+_Class Diagram_ is used to allow the `SortCommandParser` to return any of
+the `SortCommand` objects.
 
 .Sort Commands - Class Diagram
 image::SortCommandsClassDiagram.png[]

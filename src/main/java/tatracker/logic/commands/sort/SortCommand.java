@@ -16,7 +16,7 @@ import tatracker.model.Model;
 /**
  * Command to sort all students in all groups of all modules.
  */
-public class SortCommand extends Command {
+public class SortCommand extends SortGroupCommand {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
@@ -29,10 +29,8 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_SORT_ALL_SUCCESS = "All students in each module have been sorted";
 
-    protected final SortType type;
-
     public SortCommand(SortType type) {
-        this.type = type;
+        super(type);
     }
 
     @Override

@@ -23,7 +23,7 @@ import tatracker.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new SortCommand object
  */
-public class SortCommandParser implements Parser<SortCommand> {
+public class SortCommandParser implements Parser<SortGroupCommand> {
     /**
      * Used for initial separation of command word and args.
      */
@@ -35,7 +35,7 @@ public class SortCommandParser implements Parser<SortCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SortCommand parse(String userInput) throws ParseException {
+    public SortGroupCommand parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(Messages.getInvalidCommandMessage(HelpCommand.DETAILS.getUsage()));
