@@ -781,6 +781,11 @@ coupons in the coupon stash) +
 [NOTE]
 Changes to user preferences cannot be undone.
 
+[WARNING]
+You can only undo commands which you have input since
+you opened Coupon Stash. This means that after you close
+the application, your undo history will be lost!
+
 Examples:
 
 * `edit 1 r/ 25-12-2020` +
@@ -871,13 +876,24 @@ Format: `help`
 
 === Clearing all entries: `clear`
 
-Clears all entries from the coupon stash. +
+Deletes every single coupon in Coupon Stash. This
+includes archived and non-archived coupons! +
 Format: `clear`
+
+[TIP]
+If you clear your Coupon Stash on accident, you can
+use <<Undoing the previous command: `undo`, `undo`>> to restore
+your Coupons! Just make sure you don't close the application
+immediately after you cleared your Coupons.
 
 === Exiting the program: `exit`
 
-Exits the program. +
+This command immediately exits the program when entered. +
 Format: `exit`
+
+[NOTE]
+There are many ways of exiting the program! One other way
+is to click the cross at the top of the application.
 
 === Reminding of coupon expiry
 
