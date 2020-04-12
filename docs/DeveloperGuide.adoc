@@ -150,7 +150,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.recipe.commons` package.
 
-== Implementation
+== Implementation____
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -179,10 +179,10 @@ image::SwitchActivityDiagram.png[]
 ==== Delete command
 
 
-==== Favourite and Unfavourite commands
+==== Favourite and Unfavourite commands (Brian)
+Description: TODO
 
-
-==== Undo and Redo commands
+==== Undo and Redo commands (Brian)
 Description: TODO
 
 ===== Implementation
@@ -219,7 +219,7 @@ and/or 2) if the magnitude of a single commit is large (ie. the database is huge
 // end::basic[]
 
 // tag::recipecustomisation[]
-=== Recipe customisation commands
+=== Recipe customisation commands (Brian)
 ==== Add ingredient command
 
 
@@ -239,9 +239,8 @@ and/or 2) if the magnitude of a single commit is large (ie. the database is huge
 
 // end::recipecustomisation[]
 
-
 // tag::advancedfilter[]
-=== Filter command
+=== Filter command (Brian)
 The advanced filter feature uses the `filter` command to search for recipes according to the set of keywords provided
 by the user. Think of it as a greatly enhanced and more robust version of the `find` command, which only allows the
 user to find recipes by their name.
