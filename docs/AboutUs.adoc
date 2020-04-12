@@ -30,7 +30,7 @@ Responsibilities: In charge of Student View, PlantUML Expert, Deliverables and d
 
 === CHUA YI JING
 image::chuayijing.png[width="150", align="left"]
-{empty}[https://github.com/chuayijing[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/chuayijing[github]] [<<Chuayijing#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing
