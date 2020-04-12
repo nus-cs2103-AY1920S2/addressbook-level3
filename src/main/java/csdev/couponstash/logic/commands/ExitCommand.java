@@ -21,6 +21,7 @@ public class ExitCommand extends Command {
         return new CommandResult(
                 MESSAGE_EXIT_ACKNOWLEDGEMENT,
                 Optional.empty(),
+                Optional.empty(),
                 true
         );
     }

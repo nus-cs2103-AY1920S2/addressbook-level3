@@ -21,7 +21,8 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Shows program user guide in a browser window!\n\n"
+            + ": Shows program user guide in a browser window. "
+            + "Will take some time if it is the first time running this command!\n\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened program user guide in a browser window.";
@@ -33,7 +34,7 @@ public class HelpCommand extends Command {
 
     public static final String ERROR = "An error has occurred. Please try the help command again.";
 
-    private static final String HTML_NAME = "help.html";
+    public static final String HTML_NAME = "help.html";
 
     @Override
     public CommandResult execute(Model model, String commandText) throws CommandException {

@@ -2,24 +2,14 @@ package csdev.couponstash.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-
-import javax.imageio.ImageIO;
+import java.util.Optional;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.ui.CouponCard;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Region;
-import javafx.stage.FileChooser;
 
 /**
  * Share a Coupon in the CouponStash.
@@ -35,6 +25,8 @@ public class ShareCommand extends IndexedCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SHARE_COUPON_SUCCESS = "Coupon successfully saved to: %s";
+
+    public static final String MESSAGE_SHARE = "Attempting to share coupon: %s";
 
     public static final String MESSAGE_WRITE_TO_IMAGE_ERROR =
             "Problem encountered while saving to image. Please try sharing again!";
@@ -62,38 +54,12 @@ public class ShareCommand extends IndexedCommand {
 
         Coupon couponToShare = lastShownList.get(targetIndex.getZeroBased());
 
-        // Create new CouponCard and get the Region
-        Region couponRegion = new CouponCard(
-                couponToShare,
-                targetIndex.getOneBased(),
-                model.getStashSettings().getMoneySymbol().toString()
-        ).getRoot();
-
-        // Need to create a scene for the Region so CSS would work.
-        Scene scene = new Scene(couponRegion);
-        // Create a snapshot of the CouponRegion.
-        WritableImage image = couponRegion.snapshot(new SnapshotParameters(), null);
-        // Hacky way to ensure scene is freed from memory.
-        scene = null;
-
-        assert scene == null : "scene has not been released from memory.";
-
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialFileName(couponToShare.getName().toString() + "." + FORMAT);
-        File file = fileChooser.showSaveDialog(null);
-
-        // If save dialog is closed without choosing a directory.
-        if (file == null) {
-            throw new CommandException(MESSAGE_DIALOG_CLOSED);
-        }
-
-        try {
-            ImageIO.write(SwingFXUtils.fromFXImage(image, null), FORMAT, file);
-        } catch (IOException e) {
-            throw new CommandException(MESSAGE_WRITE_TO_IMAGE_ERROR);
-        }
-
-        return new CommandResult(String.format(MESSAGE_SHARE_COUPON_SUCCESS, file.getAbsolutePath()));
+        return new CommandResult(
+                String.format(MESSAGE_SHARE, couponToShare.getName()),
+                Optional.empty(),
+                Optional.of(couponToShare),
+                false
+        );
     }
 
     @Override
