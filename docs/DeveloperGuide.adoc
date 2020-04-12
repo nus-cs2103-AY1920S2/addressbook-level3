@@ -145,7 +145,7 @@ creation of `XYZSuggestionGenerator` object (except for `new` command) which imp
 `XYZSuggestionGenerator` is then executed by the `SuggestionEngine`.
 4. If `SuggestionHandler` object is created: the `responseText` in the `Model` will be updated.
 5. The `Model` could be affected in 2 ways:
-* Update `responseText` of the `Model` (by the `SuggestionHandler`): for instance, `open` command will set the `responseText` in the model as
+* Update `responseText` of the `Model` (by the `SuggestionHandler`): for instance, the input `open /` will set the `responseText` in the `Model` as
 "Open a note".
 * Store a list of `SuggestionItem` in the `Model` (by the `SuggestionGenerator`).
 6. The UI will then be able to retrieve the `responseText` and list of `SuggestionItem` from the `Model` to be displayed
@@ -271,7 +271,7 @@ Two concrete implementations of the `CorrectionEngine` interface are, namely:
 
 `SuggestionEngine` allows the users to traverse their notes conveniently, without having
 to remember the hierarchical structure of their notes. `SuggestionEngine` gives users the meaning of the command they input and a list of notes suggestions that they want to
-open/ delete/ search/ edit.
+open, delete, or search.
 
 ==== Current implementation
 
@@ -285,7 +285,7 @@ creation of `XYZSuggestionGenerator` object (except for `new` command) which imp
 `XYZSuggestionGenerator` is then executed by the `SuggestionEngine`.
 4. If `SuggestionHandler` object is created: the `responseText` in the `Model` will be updated.
 5. The `Model` could be affected in 2 ways:
-* Update `responseText` of the `Model` (by the `SuggestionHandler`): for instance, `open` command will set the `responseText` in the model as
+* Update `responseText` of the `Model` (by the `SuggestionHandler`): for instance, the input `open /` will set the `responseText` in the `Model` as
 "Open a note".
 * Store a list of `SuggestionItem` in the `Model` (by the `SuggestionGenerator`).
 6. The UI will then be able to retrieve the `responseText` and list of `SuggestionItem` from the `Model` to be displayed
@@ -293,31 +293,32 @@ to the user.
 
 ==== Design considerations
 
-*Aspect: Design with respect to the whole architecture*
+*Aspect 1: Design with respect to the whole architecture*
 
 1. `SuggestionEngine` is segregated from `Parser` in order to differentiate the logic when the user has finished typing
-and pressed kbd:[Enter] (which will be handled by `Parser`) in contrast to when the user presses `tab` to take in the
+and pressed kbd:[Enter] (which will be handled by `Parser`) in contrast to when the user presses the keyboard kbd:[down] button and kbd:[Enter] to take in the
 suggestion item.
 2. In order to keep the App's data flow unidirectional, `SuggestionEngine` will update the `responseText` (which tells
 the user the meaning of his command) and the list of `SuggestionItem` into the `Model`. Thus, by not showing the
 `responseText` and suggestions immediately to the UI, `SuggestionEngine` will not interfere with the `View` functionality.
-3. `SuggestionArgHandler`, `SuggestionGenerator`, `SuggestionItem`, and `SuggestionModel` are
+3. `SuggestionArgHandler`, `SuggestionHandler`, `SuggestionGenerator`, `SuggestionItem`, and `SuggestionModel` are
 implemented as interfaces, in an attempt to make the design of the `SuggestionEngine` component resilient to change.
 
-*Aspect: Implementation of suggestions generation*
+*Aspect 2: Implementation of suggestions generation*
 
 * *Alternative 1:* Have a `SuggestionCommandParser` interface and `SuggestionCommand` interface to parse each of the
 command, update `responseText` in the `Model`, and give suggestions.
 ** Pros: This provides a consistency for all the commands, where each command has a `XYZSuggestionCommandParser` and `XYZSuggestionCommand` class.
 ** Cons: The `SuggestionCommandParsers` of the commands that do not require parsing of user input (`edit`, `exit`, `help`) end up passing a `userInput`
 argument that is not being used anywhere, which makes this design unintuitive. Moreover, since the updating of the `responseText`
-in the `Model` can be done in each `SuggestionCommandParser`, the `SuggestionCommand` of `edit`, `exit`, and `help` ends up to be redundant.
+in the `Model` can be done in each `SuggestionCommandParser`, the `SuggestionCommand`s of `edit`, `exit`, and `help` end up to be redundant.
 
 * *Alternative 2 (current choice):* Create 2 separate interface to handle commands with input parsing and those without, and name it as a
 `SuggestionArgHandler` and `SuggestionHandler` respectively.
 ** Pros: This solves the cons discussed in Alternative 1, as this design gives a separate implementation for the commands with input
 parsing and those without. It does not force the `Handler` to parse the user input when there is no need to. The naming `Handler` also
-does not restrict the functionality of the interface and classes to just parse an input.
+does not restrict the functionality of the interface and classes to just parse an input, but allows for a flexibility in executing other functionality
+such as updating the `responseText` in the `Model`.
 
 // tag::paths[]
 [[Implementation-Path]]
@@ -459,7 +460,7 @@ _{More to be added}_
 *MSS*
 
 1.  User types in a keyword of a note's content that he wants to open.
-2.  Notably lists out the relevant search results, with the most relevant being on top of the list (based on the keyword's
+2.  Notably lists out the relevant search results, with the most relevant at the top of the list (based on the keyword's
 number of occurrences in the note).
 3.  User chooses one of the suggested notes.
 4.  Notably opens the chosen note.
@@ -475,7 +476,7 @@ Use case ends.
 particular keyword.
 ** 2a2. Since the empty suggestion conveys that the keyword cannot be found, the user enters a new data.
 
-Steps 1a1-1a2 are repeated until the data entered is correct. Use case resumes from Step 3.
+Steps 2a1-2a2 are repeated until the data entered is correct. Use case resumes from Step 3.
 
 [discrete]
 === Use case: Open/ Delete notes using the Auto-suggestion feature
@@ -503,7 +504,7 @@ Steps 1a1-1a2 are repeated until the data entered is correct. Use case resumes f
 +
 [none]
 ** 1b1. Notably displays a response text, indicating that the user is trying to open/ delete the note
-with that particular path or title.
+with the particular path or title that the user inputs.
 ** 1b2. Notably does not generate any suggestions, which means the note cannot be found.
 ** 1b3. User enters a new data.
 
