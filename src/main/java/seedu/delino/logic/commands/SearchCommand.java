@@ -67,8 +67,6 @@ public class SearchCommand extends Command {
         }
 
         if (returnPredicate != null && orderPredicate != null) {
-            model.updateFilteredReturnOrderList(returnPredicate);
-            model.updateFilteredOrderList(orderPredicate);
             LOGGER.fine("Search perform on both order list and return list");
             return new CommandResult(
                 String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW
