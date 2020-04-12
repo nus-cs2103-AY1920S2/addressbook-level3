@@ -4,11 +4,11 @@
 Participant ":CommandBox" as commandBox UI_COLOR
 Participant ":TextField" as textField UI_COLOR
 Participant ":ResultDisplay" as resultDisplay UI_COLOR
-Participant ":AutoComplete" as autoComplete LOGIC_COLOR
+Participant ":Autocomplete" as autoComplete LOGIC_COLOR
 ' Participant ":Trie" as trie LOGIC_COLOR
 ' Participant "node:Node" as node LOGIC_COLOR
 ' Participant "similarWordsResult:SimilarWordsResult" as similarWordsResult LOGIC_COLOR
-Participant "acResult:AutoCompleteResult" as autoCompleteResult LOGIC_COLOR
+Participant "acResult:AutocompleteResult" as autoCompleteResult LOGIC_COLOR
 
 -[UI_COLOR]> commandBox : handleTabKey()
 activate commandBox UI_COLOR
@@ -85,7 +85,7 @@ end note
 ' deactivate autoComplete
 
 ' create autoCompleteResult
-' autoComplete -[LOGIC_COLOR]> autoCompleteResult : AutoCompleteResult("graph n/ a/ sd/ ed/", GraphCommand.MESSAGE_USAGE, 8)
+' autoComplete -[LOGIC_COLOR]> autoCompleteResult : AutocompleteResult("graph n/ a/ sd/ ed/", GraphCommand.MESSAGE_USAGE, 8)
 ' activate autoCompleteResult LOGIC_COLOR
 
 ' autoCompleteResult -[LOGIC_COLOR]-> autoComplete : autoCompleteResult

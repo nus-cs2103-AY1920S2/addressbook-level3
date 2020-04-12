@@ -209,13 +209,13 @@ image::CommandHistorySequenceDiagram.png[]
 
 ===== How the Command History is persisted on storage
 
-Each command that the user types is essentially just a line of text. We simply use the utility class `StorageReaderWriter` to write these lines of text (where each command is a new line of text) to a text-based file `command.txt`.
+Each command that the user enters is essentially just a line of text. We simply use the utility class `FileUtil` to write these lines of text (where each command represents a new line of text) to a text-based file `command.txt`.
 
 Whenever FitBiz first launches, we will then try to open and read from this same `command.txt` file. If no such file exists, an empty new file will be created for use in the future.
 
 ==== Design Considerations
 
-In designing the model `CommandHistoryState`, we had to decide on the underlying data structure to store the user's command history. We currently use an `ArrayList<String>`, where each line of command is stored as an individual entry. Another alternative that we have considered is to store the commands in a `LinkedList<String>`:
+In designing the model `CommandHistoryState`, we had to decide on the underlying data structure to store the user's command history. We currently use the Java native `ArrayList<String>`, where each line of command is stored as an individual entry. Another alternative that we have considered is to store the commands in a `LinkedList<String>`:
 
 [options='header', cols="20%h,40%,40%"]
 |====================
@@ -255,7 +255,7 @@ Similar to the previously mentioned <<Command History --- Aaron Choo, Command Hi
 [[command-history-implementation]]
 ==== Implementation
 
-This feature is facilitated by the logic found in the `AutoComplete` class. Before we dive into the implementation, let us first define what _unambiguous_ and _ambiguous_ commands are:
+This feature is facilitated by the logic found in the `Autocomplete` class. Before we dive into the implementation, let us first define what _unambiguous_ and _ambiguous_ commands are:
 
 [options='header']
 |===
@@ -305,6 +305,9 @@ Now, let us discuss about how we implemented `Trie` to support the <<command-his
 . If the argument `word` is unambiguous: the `Node` whose constructed word (using `Node#constructWord`) is the longest word contained in `Trie` that can be formed from `word`
 . If the argument `word` is ambiguous: the `Node` whose constructed word is the longest common prefix of all words similar to `word` contained in `Trie`
 
+[TIP]
+Refer to <<autocomplete-activity-diagram>> given in the next section for the complete sequences of decision.
+
 Let us move on to `Trie#listAllSimilarWords` which contains the main driver logic, and which makes use of the `Node` found by `Trie#getLongestPrefixNode`. Cases 1 and 2 discussed above are relatively trivial and we shall not discuss about how they are handled in `Trie#listAllSimilarWords`. For case 3, in order for us to find all the similar words, we have chosen to use a Depth-First Search (DFS) approach, starting the search from the `Node` returned by `Trie#getLongestPrefixNode`, as shown here:
 
 ```java
@@ -330,23 +333,23 @@ The choice of a DFS approach as opposed to a Breadth-First Search (BFS) approach
 
 ===== How this feature works
 
-Similar to <<Command History --- Aaron Choo, Command History>> , this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `AutoComplete` directly. A simplified class diagram of the classes involved is shown here:
+Similar to <<Command History --- Aaron Choo, Command History>> , this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `Autocomplete` directly. A simplified class diagram of the classes involved is shown here:
 
 .Simplified Class Diagram for Autocomplete
 image::CommandAutocompleteClassDiagram.png[]
-
 
 In the following sequence diagram, we follow the execution for when the user tries to autocomplete his partially entered command `gra` (which, in the current application, is an unambiguous command, and will result in the full completion of the `graph` command as well as the prefixes):
 
 .Simplified Sequence Diagram for Command Autocomplete
 image::CommandAutocompleteSequenceDiagram.png[]
 
-.Sequence Diagram for the AutoComplete Logic
+.Sequence Diagram for the Autocomplete Logic
 image::CommandAutocompleteSequenceDiagramRef.png[]
 
 This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to enable <<command-history-behaviour-4, behaviour 4>> as defined above: by simply checking for the presence of white spaces from the trimmed user input. The following activity diagram is given to show the decisions made at each step of the execution:
 
-.Activity Diagram for the AutoComplete Logic
+[[autocomplete-activity-diagram]]
+.Activity Diagram for the Autocomplete Logic
 image::CommandAutocompleteActivityDiagram.png[]
 
 ==== Design Considerations

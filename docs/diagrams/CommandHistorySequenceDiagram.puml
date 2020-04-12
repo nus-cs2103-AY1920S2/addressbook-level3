@@ -5,7 +5,7 @@ Participant ":CommandBox" as commandBox UI_COLOR
 Participant ":TextField" as textField UI_COLOR
 Participant ":CommandHistory" as commandHistory LOGIC_COLOR
 Participant ":CommandHistoryState" as commandHistoryState MODEL_COLOR
-Participant ":StorageReaderWriter" as storageReaderWriter STORAGE_COLOR
+Participant "<<static>>\n:FileUtil" as fileUtil STORAGE_COLOR
 
 -[UI_COLOR]> commandBox : handleCommandEntered()
 activate commandBox UI_COLOR
@@ -28,18 +28,23 @@ deactivate commandHistoryState
 commandHistory -[LOGIC_COLOR]> commandHistoryState : getCurrentState()
 activate commandHistoryState MODEL_COLOR
 
-commandHistoryState -[MODEL_COLOR]-> commandHistory : ArrayList<String> history
+commandHistoryState -[MODEL_COLOR]-> commandHistory : List<String> history
 deactivate commandHistoryState
 
-commandHistory -[LOGIC_COLOR]> storageReaderWriter : writeToStorage(history)
-activate storageReaderWriter STORAGE_COLOR
+commandHistory -[LOGIC_COLOR]> commandHistory : stateListToStorageString(history)
+activate commandHistory LOGIC_COLOR_T1
+commandHistory -[LOGIC_COLOR]-> commandHistory : lines
+deactivate commandHistory
 
-storageReaderWriter -[STORAGE_COLOR]> storageReaderWriter : Save to file
-activate storageReaderWriter STORAGE_COLOR_T1
-deactivate storageReaderWriter
+commandHistory -[LOGIC_COLOR]> fileUtil : writeToFile(filePath, lines)
+activate fileUtil STORAGE_COLOR
 
-storageReaderWriter -[STORAGE_COLOR]-> commandHistory
-deactivate storageReaderWriter
+fileUtil -[STORAGE_COLOR]> fileUtil : Overwrites existing file
+activate fileUtil STORAGE_COLOR_T1
+deactivate fileUtil
+
+fileUtil -[STORAGE_COLOR]-> commandHistory
+deactivate fileUtil
 
 commandHistory -[LOGIC_COLOR]-> commandBox
 deactivate commandHistory

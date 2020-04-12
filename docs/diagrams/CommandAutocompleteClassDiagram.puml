@@ -4,18 +4,18 @@
 Class CommandBox UI_COLOR
 Class TextField UI_COLOR
 Class ResultDisplay UI_COLOR
-Class AutoComplete LOGIC_COLOR
+Class Autocomplete LOGIC_COLOR
 Class Trie LOGIC_COLOR
 Class Node LOGIC_COLOR
 Class SimilarWordsResult LOGIC_COLOR
-Class AutoCompleteResult LOGIC_COLOR
+Class AutocompleteResult LOGIC_COLOR
 
 CommandBox "1" *-down-> "1" TextField
-CommandBox "1" *-up-> "1" ResultDisplay
-CommandBox "1" *-left-> "1" AutoComplete
-(CommandBox, AutoComplete) .. AutoCompleteResult
-AutoComplete "1" *-right-> "1" Trie
-(AutoComplete, Trie) .. SimilarWordsResult
+CommandBox -up-> "1" ResultDisplay
+CommandBox -right-> "1" Autocomplete
+(CommandBox, Autocomplete) .. AutocompleteResult
+Autocomplete "1" *-right-> "1" Trie
+(Autocomplete, Trie) .. SimilarWordsResult
 Trie "1" *-up-> "1" Node
 Node "0..1" *-- "*" Node
 
