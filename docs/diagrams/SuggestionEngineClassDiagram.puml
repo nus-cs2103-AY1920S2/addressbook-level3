@@ -10,14 +10,14 @@ package SuggestionEngine {
 Class SuggestionEngine
 }
 
-package SuggestionCommandParser {
-Interface SuggestionCommandParser <<Interface>>
-Class XYZSuggestionCommandParser
+package Handler {
+Interface SuggestionArgHandler <<Interface>>
+Class XYZSuggestionArgHandler
 }
 
-package SuggestionCommand {
-Interface SuggestionCommand <<Interface>>
-Class XYZSuggestionCommand
+package SuggestionGenerator {
+Interface SuggestionGenerator <<Interface>>
+Class XYZSuggestionGenerator
 }
 
 package SuggestionItem {
@@ -40,18 +40,18 @@ HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
 LogicManager -down->"1" SuggestionEngine
-SuggestionEngine .right.> XYZSuggestionCommandParser: creates >
+SuggestionEngine .right.> XYZSuggestionArgHandler: creates >
 
-XYZSuggestionCommandParser .up.> XYZSuggestionCommand : creates >
-XYZSuggestionCommandParser .down.|> SuggestionCommandParser
+XYZSuggestionArgHandler .up.> XYZSuggestionGenerator : creates >
+XYZSuggestionArgHandler .down.|> SuggestionArgHandler
 
-XYZSuggestionCommand .up.|> SuggestionCommand
-LogicManager .right.> SuggestionCommand : executes >
-XYZSuggestionCommand .right.> SuggestionItemImpl : creates >
+XYZSuggestionGenerator .up.|> SuggestionGenerator
+LogicManager .right.> SuggestionGenerator : executes >
+XYZSuggestionGenerator .right.> SuggestionItemImpl : creates >
 
 LogicManager --> Model
-SuggestionCommand ..> Model
-note bottom of XYZSuggestionCommand: XYZSuggestionCommand = OpenSuggestionCommand, \nNewSuggestionCommand, etc
+SuggestionGenerator ..> Model
+note bottom of XYZSuggestionGenerator: XYZSuggestionGenerator = OpenSuggestionGenerator, \nNewSuggestionGenerator, etc
 
 SuggestionItemImpl .up.|> SuggestionItem
 @enduml
