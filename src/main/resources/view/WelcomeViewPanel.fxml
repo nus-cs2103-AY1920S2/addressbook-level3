@@ -25,7 +25,7 @@
             <Label text=" 2. Add modules using " styleClass="quickStart" ></Label>
             <Label text="`add`" styleClass="command"></Label>
         </TextFlow>
-        <Label text="format: add m/CS2103T y/2.2" styleClass="command"></Label>
+        <Label text="format: add m/CS2103T y/2.2 [g/A+]" styleClass="command"></Label>
         <Label text="    " styleClass="quickStart"></Label>
         <TextFlow>
             <Label text=" 3. Add deadlines using " styleClass="quickStart" ></Label>
