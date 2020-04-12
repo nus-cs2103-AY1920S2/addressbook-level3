@@ -131,7 +131,7 @@ public class BlockModelImpl implements BlockModel {
         logger.fine(String.format("Trying to update body of '%s'", getCurrentlyOpenPath().getStringRepresentation()));
         Block newBlock = new BlockImpl(blockTree.get(getCurrentlyOpenPath()).getTitle(), newBody);
         blockTree.set(getCurrentlyOpenPath(), newBlock);
-        logger.fine(String.format("Body of '%s' changed to '%s' successfully", getCurrentlyOpenPath().getStringRepresentation(),
-            newBody.getText()));
+        logger.fine(String.format("Body of '%s' changed to '%s' successfully",
+            getCurrentlyOpenPath().getStringRepresentation(), newBody.getText()));
     }
 }
