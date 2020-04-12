@@ -3,7 +3,7 @@ package nasa.testutil;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 
-import nasa.logic.commands.AddModuleCommand;
+import nasa.logic.commands.module.AddModuleCommand;
 import nasa.model.module.Module;
 
 /**

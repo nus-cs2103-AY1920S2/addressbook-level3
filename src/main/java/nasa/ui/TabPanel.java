@@ -37,19 +37,22 @@ public class TabPanel extends UiPart<Region> {
 
     public TabPanel(Logic logic) {
         super(FXML);
+
         calendarView = new CalendarView(logic.getFilteredModuleList());
         calendarPlaceholder.getChildren().add(calendarView.getRoot());
         calendarPlaceholder.getStyleClass().add("background");
+
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+
         statisticsPanel = new StatisticsPanel(logic.getFilteredModuleList());
         statisticsPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
+
         tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
             tabPane.setTabMinWidth(tabPane.getWidth() / 4);
             tabPane.setTabMaxWidth(tabPane.getWidth() / 4);
         });
     }
-
     public void getStatistics() {
         tabPane.getSelectionModel().select(2);
     }

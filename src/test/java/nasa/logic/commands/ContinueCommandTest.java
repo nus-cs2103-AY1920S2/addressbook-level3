@@ -13,14 +13,15 @@ import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
-import nasa.model.activity.Activity;
-import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.UniqueDeadlineList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
 public class ContinueCommandTest {
 
-    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+            new UserPrefs());
 
     @Test
     public void execute_validCommandUnfilteredList_success() throws CommandException {
@@ -31,7 +32,8 @@ public class ContinueCommandTest {
 
         String expectedMessage = String.format(ContinueCommand.MESSAGE_SUCCESS);
 
-        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
         doneCommand.execute(expectedModel);
         doneCommand.execute(model); // set the activity to done for it to be undone
 
@@ -54,21 +56,22 @@ public class ContinueCommandTest {
 
         // a module that is already undone
         continueCommand = new ContinueCommand(INDEX_FIRST_ACTIVITY, moduleCode);
-        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
         assertCommandFailure(continueCommand, expectedModel, ContinueCommand.MESSAGE_ACTIVITY_ALREADY_UNDONE);
     }
 
     private void setActivityUndone(ModelManager modelManager, ModuleCode moduleCode, Index index) {
         Module module = modelManager.getModule(moduleCode);
-        UniqueActivityList activityList = module.getActivities();
-        Activity activity = activityList.getActivityByIndex(index);
-        activity.setUndone();
+        UniqueDeadlineList deadlineList = module.getDeadlineList();
+        Deadline deadline = deadlineList.getActivityByIndex(index);
+        deadline.setDone(false);
     }
 
     private void setActivityToDone(ModelManager modelManager, ModuleCode moduleCode, Index index) {
         Module module = modelManager.getModule(moduleCode);
-        UniqueActivityList activityList = module.getActivities();
-        Activity activity = activityList.getActivityByIndex(index);
-        activity.setDone();
+        UniqueDeadlineList deadlineList = module.getDeadlineList();
+        Deadline deadline = deadlineList.getActivityByIndex(index);
+        deadline.setDone(true);
     }
 }

@@ -2,7 +2,6 @@ package nasa.model.activity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,31 +13,32 @@ class ScheduleTest {
 
     @Test
     void initialisation() {
-        assertEquals(date, schedule.getDate());
+        assertEquals(date, schedule.getRepeatDate());
         assertEquals(0, schedule.getType());
     }
 
     @Test
     void checkChangeType() {
-        schedule.setType(1);
-        //System.out.println(schedule.getDate());
-        assertTrue(Date.now().isBefore(schedule.getDate()));
+        Date dateExpected = new Date(date.toString()).addDaysToCurrDate(7);
+        schedule.setType(1, date);
+        assertEquals(dateExpected, schedule.getRepeatDate());
 
-        schedule.setType(2);
-        //System.out.println(schedule.getDate());
-        assertTrue(Date.now().isBefore(schedule.getDate()));
+        dateExpected = new Date(date.toString()).addDaysToCurrDate(14);
+        schedule.setType(2, date);
+        assertEquals(dateExpected, schedule.getRepeatDate());
 
-        schedule.setType(3);
-        assertTrue(Date.now().isBefore(schedule.getDate()));
+        dateExpected = new Date(date.toString()).addMonthsToCurrDate(1);
+        schedule.setType(3, date);
+        assertEquals(dateExpected, schedule.getRepeatDate());
 
         schedule.cancel();
-        assertEquals(temp, schedule.getDate());
+        assertEquals(temp, schedule.getRepeatDate());
     }
 
     @Test
     void checkWrongSchedule() {
-        assertThrows(IllegalArgumentException.class, () -> schedule.setType(-1));
-        assertThrows(IllegalArgumentException.class, () -> schedule.setType(4));
+        assertThrows(IllegalArgumentException.class, () -> schedule.setType(-1, date));
+        assertThrows(IllegalArgumentException.class, () -> schedule.setType(4, date));
     }
 
 }

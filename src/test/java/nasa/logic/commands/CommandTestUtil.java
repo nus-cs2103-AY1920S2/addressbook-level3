@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.logic.commands.module.EditModuleCommand;
 import nasa.model.Model;
 import nasa.model.NasaBook;
 import nasa.model.module.Module;
-import nasa.testutil.EditActivityDescriptorBuilder;
 import nasa.testutil.EditModuleDescriptorBuilder;
 
 /**
@@ -78,18 +78,10 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditActivityCommand.EditActivityDescriptor DESC_EXAM;
-    public static final EditActivityCommand.EditActivityDescriptor DESC_HWK;
     public static final EditModuleCommand.EditModuleDescriptor DESC_CS2030;
     public static final EditModuleCommand.EditModuleDescriptor DESC_CS1231;
 
     static {
-        DESC_EXAM = new EditActivityDescriptorBuilder().withName(VALID_ACTIVITY_NAME_EXAM)
-                .withDate(VALID_DATE_TEST).withNote(VALID_NOTES_TEST).withPriority(VALID_PRIORITY_HIGH)
-                .build();
-        DESC_HWK = new EditActivityDescriptorBuilder().withName(VALID_ACTIVITY_NAME_HWK)
-                .withDate(VALID_DATE_TEST_2).withNote(VALID_NOTES_TEST_2).withPriority(VALID_PRIORITY_LOW)
-                .build();
         DESC_CS2030 = new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULE_CODE_CS2030)
                 .withModuleName(VALID_MODULE_NAME_CS2030).build();
         DESC_CS1231 = new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULE_CODE_CS1231)

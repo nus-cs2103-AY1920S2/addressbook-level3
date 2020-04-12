@@ -5,42 +5,52 @@
 
 == PROJECT: Nice and Amazing Student Assistant (NASA)
 
----
-
 == Overview
 
 Nice & Amazing Student Assistant (NASA) is an application for busy university students to manage their module
 assignments, lessons, exams and consultations etc.
 
+== Code Contribution
+
+Click on the following link to see the code contributed to the project on RepoSENSE. +
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=kester-ng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Contribution]
+
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major Enhancement*: Added Calendar view for activities.
+** What it does: Allows users to see their activities displayed onto a calendar.
+** Justification: This feature allows users to be able to see upcoming activities for upcoming week etc which allows them to better plan their schedule.
+** Highlights: The calendar Ui and view was created from scratch. There are many challenges involved in this enhancement:
+*** Populating the calendar grids with the correct dates were difficult as there were many conditions to take note of, examples include what day does the month start, is it leap year this year etc.
+*** Populating the grids with the deadlines was not very difficult. But events was very difficult. As events can span from start date to end date, making sure the events are populated on the calendar during this time interval was very tedious as there are many conditions to take note of.
+*** Syncing with the user input was also not very easy, given our model structure. Adding event-listeners had to be done in a proper way to ensure the calendar syncs with the current state of the application.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: added the ability for users to export the calendar onto a .ics file for portability
+** What it does: Allows users to export the current calendar in the application onto a .ics file for use in other calendar applications.
+** Justification: While the calendar view is useful, there are certain dedicated calendar applications with more features. And hence being able to export the calendar view to their favourite calendar app will make user experience better. In addition, it is more convenient as it allows the calendar to be viewed on multiple devices and platforms or shared among others.
+** Highlights: The following enhancement was also very challenging. Understanding the format and how to write .ics file was not easy. Secondly, writing the logic on how deadline and events are to be displayed took a bit of thinking. Lastly, being able to have auto-rescheduling of events/deadlines also required quite a bit of effort as well.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: Updated list command to be able to filter based on modules.
+
+* *Minor enhancement*: Added all the CRUD functionality for the application.
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.3` on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Fixed GUI display of calendar not syncing properly with the tab/command box. (Pull Requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/272[#272])
+*** Fixed bugs related to model, commands and UI. (Pull Requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/262[#262], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/256[#256], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/163[#163], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/146[#146], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/132[#132])
+*** Added logic for commands, parsers and JUNIT tests for them. (Pull Requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/246[#246], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/178[#178], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/100[#100], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/94[#94])
+*** Refactored the whole code base. (Pull Requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/246[#246], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/90[#90])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated basic command usage, test cases for DG and updated images for UG and DG. (Pull Requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/22[#22], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/65/files[#65], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/168[#168])
+*** Updated DG with proper UML diagrams. (Pull Request https://github.com/AY1920S2-CS2103T-T10-4/main/pull/151[#151])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial comments): https://github.com/AY1920S2-CS2103T-T10-4/main/pull/263[#263], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/89[#89], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/77[#77], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/142[#142]
+*** Reported bugs for teammates (Example: https://github.com/AY1920S2-CS2103T-T10-4/main/issues/249[#249])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated travis, appveyor, coverage/coveralls, codeacy into project.
 
 _{you can add/remove categories in the list above}_
 
@@ -64,10 +74,3 @@ include::../UserGuide.adoc[tag=dataencryption]
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

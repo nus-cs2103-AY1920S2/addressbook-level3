@@ -37,7 +37,7 @@ public class AddDeadlineCommandParser extends AddCommandParser {
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE,
             PREFIX_DATE, PREFIX_ACTIVITY_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDeadlineCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
         // compulsory fields
@@ -62,11 +62,9 @@ public class AddDeadlineCommandParser extends AddCommandParser {
                 priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
             }
             deadline.setPriority(priority);
-
             return new AddDeadlineCommand(deadline, moduleCode);
         } catch (IllegalArgumentException e) {
-            // if user provides a due date that is already past
-            throw new ParseException(Deadline.DUE_DATE_CONSTRAINTS);
+            throw new ParseException(Deadline.DATE_CONSTRAINTS);
         }
     }
 }

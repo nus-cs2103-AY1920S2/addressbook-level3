@@ -3,9 +3,17 @@ package nasa.commons.util;
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 /**
  * Helper functions for handling strings.
@@ -63,6 +71,25 @@ public class StringUtil {
             return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
             return false;
+        }
+    }
+
+    /**
+     * Returns the byte array representation of the QR-encoding of {@code text}.
+     * @param text String to be encoded.
+     * @param length Size of the QR code.
+     * @return Byte array of the QR-encoding of text.
+     */
+    public static byte[] toQr(String text, int length) {
+        try {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, length, length);
+            ByteArrayOutputStream pngOutStream = new ByteArrayOutputStream();
+            MatrixToImageWriter.writeToStream(bitMatrix, "png", pngOutStream);
+            return pngOutStream.toByteArray();
+
+        } catch (WriterException | IOException e) {
+            return new byte[0];
         }
     }
 }

@@ -10,5 +10,5 @@ public interface HistoryModel<T> {
 
     boolean redo();
 
-    void add(T list);
+    void add(T list, String uiList);
 }

@@ -17,7 +17,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
-import nasa.model.activity.Activity;
+import nasa.model.activity.Deadline;
 import nasa.model.module.Module;
 
 /**
@@ -37,18 +37,16 @@ public class StatisticsPanel extends UiPart<Region> {
     private NumberAxis yAxis;
 
 
-
     public StatisticsPanel(ObservableList<Module> moduleObservableList) {
         super(FXML);
-
+        pieChart.setMinWidth(500);
+        stackedBarChart.setMinWidth(500);
         loadStatistics(moduleObservableList);
-
         moduleObservableList.addListener(new ListChangeListener<Module>() {
             @Override
             public void onChanged(Change<? extends Module> c) {
                 resetStatistics();
                 loadStatistics(moduleObservableList);
-                updateStatistics(moduleObservableList);
             }
         });
         updateStatistics(moduleObservableList);
@@ -61,10 +59,10 @@ public class StatisticsPanel extends UiPart<Region> {
      */
     private void updateStatistics(ObservableList<Module> moduleObservableList) {
         for (Module module : moduleObservableList) {
-            ObservableList<Activity> activityObservableList = module.getFilteredActivityList();
-            activityObservableList.addListener(new ListChangeListener<Activity>() {
+            ObservableList<Deadline> deadlineObservableList = module.getFilteredDeadlineList();
+            deadlineObservableList.addListener(new ListChangeListener<Deadline>() {
                 @Override
-                public void onChanged(Change<? extends Activity> c) {
+                public void onChanged(Change<? extends Deadline> c) {
                     resetStatistics();
                     loadStatistics(moduleObservableList);
                 }
@@ -82,18 +80,19 @@ public class StatisticsPanel extends UiPart<Region> {
         List<PieChart.Data> pieData = new ArrayList<>();
         for (Module module : moduleList) {
             pieData.add(new PieChart.Data(module.getModuleCode().toString(),
-                    module.getFilteredActivityList().size()));
+                    module.getFilteredDeadlineList().size()));
         }
 
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList(pieData);
+
         pieChart.setData(chartData);
         chartData.forEach(data ->
                 data.nameProperty().bind(data.pieValueProperty().getValue() > 1
                         ? Bindings.concat(
-                                data.getName(), " - ", data.pieValueProperty().intValue(), " activities"
+                                data.getName(), " - ", data.pieValueProperty().intValue(), " deadlines"
                         )
                         : Bindings.concat(
-                                data.getName(), " - ", data.pieValueProperty().intValue(), " activity"
+                                data.getName(), " - ", data.pieValueProperty().intValue(), " deadline"
                         )
                 )
         );
@@ -102,7 +101,7 @@ public class StatisticsPanel extends UiPart<Region> {
         XYChart.Series<String, Integer> tasksCompleted = new XYChart.Series();
         for (Module module : moduleList) {
             tasksCompleted.getData().add(new XYChart.Data(module.getModuleCode().toString(),
-                    module.getFilteredActivityList()
+                    module.getFilteredDeadlineList()
                             .stream()
                             .filter(activity -> activity.isDone())
                             .count()));
@@ -112,7 +111,7 @@ public class StatisticsPanel extends UiPart<Region> {
         XYChart.Series<String, Integer> tasksNotCompleted = new XYChart.Series();
         for (Module module : moduleList) {
             tasksNotCompleted.getData().add(new XYChart.Data(module.getModuleCode().toString(),
-                    module.getFilteredActivityList()
+                    module.getFilteredDeadlineList()
                             .stream()
                             .filter(activity -> !activity.isDone())
                             .count()));

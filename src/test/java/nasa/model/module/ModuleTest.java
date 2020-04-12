@@ -93,7 +93,7 @@ public class ModuleTest {
 
         // different name -> returns false
         editedcs2103t = new ModuleBuilder().withName("Object Oriented Programming").build();
-        assertTrue(CS2103T.equals(editedcs2103t));
+        assertFalse(CS2103T.equals(editedcs2103t));
 
         /*
         // different tags -> returns false

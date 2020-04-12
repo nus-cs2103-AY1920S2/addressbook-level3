@@ -9,7 +9,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 /**
  * Represents Date of an Activity.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}.
@@ -18,7 +17,9 @@ public class Date {
     public static final String MESSAGE_CONSTRAINTS =
             "Dates should only be in the format DD-MM-YYYY HH:MM, and it should not be blank";
 
-    public final LocalDateTime date;
+    private LocalDateTime date;
+
+    public Date() {}
 
     /**
      * Constructs a {@code Date}.
@@ -28,6 +29,21 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        this.date = constructDateTime(date);
+    }
+
+    /**
+     * Converts a past date.
+     * @param date A past date
+     * @return date
+     */
+    public static Date acceptPastDate(String date) {
+        Date temp = new Date();
+        temp.setDate(date);
+        return temp;
+    }
+
+    private void setDate(String date) {
         this.date = constructDateTime(date);
     }
 
@@ -51,12 +67,17 @@ public class Date {
      * @return true if the string matches date format.
      */
     public static boolean isValidDate(String test) {
+        requireNonNull(test);
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             formatter.setLenient(false);
             formatter.parse(test);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            dateTimeFormatter.parse(test);
             return true;
         } catch (ParseException e) {
+            return false;
+        } catch (Exception e) {
             return false;
         }
     }

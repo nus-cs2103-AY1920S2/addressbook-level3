@@ -5,7 +5,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
-import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import nasa.logic.commands.addcommands.AddEventCommand;
@@ -17,7 +16,6 @@ import nasa.model.activity.Date;
 import nasa.model.activity.Event;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
-import nasa.model.activity.Priority;
 import nasa.model.module.ModuleCode;
 
 /**
@@ -33,7 +31,7 @@ public class AddEventCommandParser extends AddCommandParser {
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_ACTIVITY_NAME, PREFIX_START_DATE,
-                        PREFIX_END_DATE, PREFIX_PRIORITY, PREFIX_NOTE);
+                        PREFIX_END_DATE, PREFIX_NOTE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_ACTIVITY_NAME,
                 PREFIX_START_DATE, PREFIX_END_DATE)
@@ -47,7 +45,6 @@ public class AddEventCommandParser extends AddCommandParser {
         Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
         try {
             Event event = new Event(activityName, startDate, endDate);
-
             // optional fields - must see if it exist, else create null
             Note note;
             if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
@@ -57,15 +54,10 @@ public class AddEventCommandParser extends AddCommandParser {
                 note = null;
             }
 
-            Priority priority = new Priority();
-            if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
-                priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-            }
-            event.setPriority(priority);
             return new AddEventCommand(event, moduleCode);
         } catch (IllegalArgumentException e) {
             // if the start date is > end date or end date is already in the past
-            throw new ParseException(Event.INVALID_EVENT);
+            throw new ParseException(e.getMessage());
         }
     }
 }

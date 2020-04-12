@@ -21,18 +21,19 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
-        expectedModel = new ModelManager(model.getNasaBook(), new HistoryBook<>(), new UserPrefs());
+        model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(), new UserPrefs());
+        expectedModel = new ModelManager(model.getNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(null), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         //showModuleAtIndex(model, INDEX_FIRST_MODULE);
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(null), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

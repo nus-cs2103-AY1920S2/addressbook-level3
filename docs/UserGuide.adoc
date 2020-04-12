@@ -22,7 +22,7 @@ By: `CS2103T-T10-4`      Since: `Feb 2020`      Licence: `NUS`
 Nice & Amazing Student Assistant (NASA) is an application for *busy university students to manage their module
 assignments, lessons, exams and other miscellaneous activities.*
 
-*While NASA has a user-centric Graphical User Interface, it is optimized for users who prefer to work with the
+*NASA has a user-centric Graphical User Interface optimized for users who prefer to work with the
 Command Line Interface (CLI).* If you can type fast, NASA can keep track of all your module activities faster than
 traditional GUI applications.
 
@@ -31,6 +31,7 @@ Interested? Ready to blast off on an exciting student journey? Jump to the <<Qui
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
+// suppress inspection "AsciiDocLinkResolve"
 .  Download the latest `NASA.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -41,10 +42,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all activities of each module
-* **`add`**`m/CS2103T n/Software Engineering`: adds a module CS2103T `Software Engineering` to the list. Allows activities to be added to that module.
-* **`deadline m/CS2103T d/20-02-2020 23:59 t/IP Project p/2 n/Must get an executable JAR file` : adds an activity called IP Project with the following details into CS2103T module activity-list.
-* **`delete`**`1 m/CS2103T` : deletes the 1st activity shown in the module activity-list.
+* *`list`* : lists all deadlines of each module
+* **`add m/CS2103T n/Software Engineering`**: adds a module CS2103T `Software Engineering` to the list. Allows activities to be added to that module.
+* **`deadline m/CS2103T d/20-02-2020 23:59 a/IP Project p/2 n/Must get an executable JAR file`** : adds an activity called IP Project with the following details into CS2103T module activity-list.
+* **`del-d`**`1 m/CS2103T` : deletes the 1st deadline shown in the module deadline-list.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -80,14 +81,16 @@ Navigate around NASA using the following keyboard shortcuts.
 
 
 
+====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `Madd m/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `Madd m/CS1231`.
-* Items in square brackets are optional e.g `[n/Notes]`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add m/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `add m/CS1231`.
+* Items in square brackets are optional fields e.g `[n/Notes]`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MODULE_CODE]...` means m/CS2103T CS2101 .....
 * Parameters can be in any order.
+* For items without `...`, should multiple values for the same field be provided e.g `m/CS2101 m/CS2103T`, only the last value will be used, unless stated otherwise.
 * Commands are **non case-sensitive**, unless stated otherwise.
-
+====
 
 === Viewing help : `help`
 
@@ -103,115 +106,238 @@ Examples:
 * `add m/CS2030 n/Programming Methodology II`
 * `add m/CS1231 n/Discrete Structures in Mathematics`
 
-=== Adding a activity into a module activity-list: `TYPE_OF_ACTIVITY`
-Adds an activity into the specified module activity-list +
-Types of activities available and how to add them are shown in the table below.
+[NOTE]
+====
+** Module name must not be empty and should only contain alphanumeric characters.
+** Module code must not have any spaces eg: `CS 2030` will not be accepted.
+====
+
+=== Adding a type of  activity into a module respective activity-list:
+`Contributed by: kester-ng` +
+Types of activities available and their description are displayed in the table below. Each type of activity has its own dedicated list in the module. How to add individual types of activities are listed in subsections below.
 
 |===
-| Type of activity | Description | Format | Example
-| Deadline | Deadline are activities that need to be completed before a specific deadline | `deadline m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES] | deadline m/CS1020 d/20-05-2020 23:59 a/Assignment 1 p/1 n/Watch lecture 3 and 4 before doing`
-| Lessons  | Lessons are essentially tutorials and lectures that has a duration and are fixed in schedule | `lesson m/MODULE_CODE sd/START_DATE ed/END_DATE [p/PRIORITY] [n/NOTES] | `lesson m/CS1020 a/Tutorial sd/20-05-2020 23:00 ed/20-05-2020 23:59`
-| Events | Events are other activities that has a duration (eg: remedial, examinations, consultations) | `event m/MODULE_CODE sd/START_DATE ed/END_DATE [p/PRIORITY] [n/NOTES]` | `event m/CS2030 sd/20-05-2020 23:00 ed/20-05-2020 23:59 p/1`
+| Type of Activity | Description
+| Deadline | Deadlines are activities that needs to be completed by a certain date. An example is assignments or labs.
+| Event | Events are activities that begin from a start time to an end time. Examples include Competitive Programming Competition and recitation lessons.
+
 |===
+
+==== Adding a deadline into a module's deadline-list: `deadline`:
+`Contributed by: kester-ng` +
+Adds a deadline into the respective module's activity list +
+Format: `deadline m/MODULE_CODE a/ACTIVITY_NAME d/DATE_DUE [n/NOTES] [p/PRIORITY]`
+
+====
+** Adds a deadline with the specified description into module's deadline list.
+====
 
 [NOTE]
 ====
-** It is not allowed to add deadlines past their due dates.
-** Similar to deadlines, it is not allowed to add events and lessons that already passed.
-** Priority has values from 1 to 5, where 1 indicates highest priority and 5 indicates lowest priority.
-** If priority is not specified, the default priority of the activity is set to 1 (highest priority).
+** Module and its code must exist.
+** DUE_DATE must be in this format `DD-MM-YYYY HH:MM`.
+** Priority ranges from 1 to 5. 5 indicates highest priority while 1 indicates lowest priority.
+** If the priority is not defined, default is 1.
+** A deadline that has already passed cannot be added (ie DUE_DATE has passed).
+** By default, a deadline is set to not done or not completed.
+====
+
+Examples:
+
+* `deadline m/CS2030 a/Lab 2 n/Must study infinite streams d/12-12-2020 23:59 p/5` +
+adds a deadline activity named `Lab 2` to the module `CS2030` with the following notes, priority and due date.
+
+* `deadline m/CS2030 a/Tutorial 1 d/12-12-2020 23:59` +
+adds a deadline activity named `Tutorial` to the module `CS2030` with no note and default priority 1.
+
+==== Adding an event into a module's activity-list: `event`:
+`Contributed by: kester-ng` +
+Adds an event into the respective module's activity list +
+Format: `event m/MODULE_CODE a/ACTIVITY_NAME sd/START_DATE ed/END_DATE [n/NOTES]`
+
+====
+** Adds an event with the specified description into the respective module's event-list.
+====
+
+[NOTE]
+====
+** Module and its code must exist.
+** Likewise, START_DATE and END_DATE must be in this format `DD-MM-YYYY HH:MM`.
+** An event that has already passed cannot be added (ie END_DATE has passed).
+** However, an event that is ongoing (ie START_DATE has passed but not END_DATE) can be added.
+** There is no priority for events!
+** Unlike deadlines, events have pre-set statuses: `ONGOING`, `UPCOMING` and `PASSED`.
 ====
 
 === Listing all activities : `list`
-
+`Contributed by: kester-ng` +
 Shows a list of activities +
-Format: `list [m/MODULE_CODE....]`
+Format: `list [m/MODULE_CODE]`
 
-* If no module code is specified, all the module's activity-list will be shown
-* It is possible to add multiple module_codes and display all their relevant activity-lists.
+====
+** List the activities based on module code.
+** If no module code is specified, everything will be shown.
+====
 
-=== Editing a activity : `edit`
+// tag::edit[]
+=== Editing a module: `edit`
+`Contributed by: don-tay` +
+Edits an existing module in the NASA application. +
+Format: `edit m/MODULE_CODE [m/MODULE_CODE] [n/MODULE_NAME]`
 
-Edits an existing activity in the module's activity-list. +
-Format: `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [a/ACTIVITY_NAME]`
-
-****
-* Edits the activity at the specified `INDEX` in the specified `MODULE_CODE` activity-list. The index refers to the index number shown in the module activity-list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-****
-
-Examples:
-
-* `edit 2 m/CS2103T d/12-12-2020 23:59` +
-Edits the 2nd activity in CS2013T activity-list date to be `12-12-2020 23:59`.
-* `edit 3 m/CS2030 n/Finish LAB level 3 with Generics p/2` +
-Edits the notes and priority of the 3rd activity in CS2030 activity-list to `Finish LAB level 3 with Generics` and `2` respectively.
-
-=== Editing a module: `medit`
-
-Edits and existing module in the NASA application. +
-Format: `medit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]`
-
-****
-* Edits an existing module in the application.
-* First `m/` is taken as the module code of the existing module to be edited.
-* To edit module code, EXACTLY two `m/` tag must be entered.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-****
+[NOTE]
+====
+** Edits an existing module in the application.
+** At least one of the optional fields must be provided.
+** First `MODULE_CODE` is the module code of the target module to be edited. Second `MODULE_CODE` is the new module code to edit to.
+====
 
 Examples:
-* `medit m/CS2030 m/CS2030S n/Programming Methodology for CS` +
+
+`edit m/CS2030 m/CS2030S n/Programming Methodology for CS` +
 Edits the CS2030 module to CS2030S along with its new module name.
 
-=== Locating modules by name: `find`
+[NOTE]
+====
+* If module code is edited, the new module code CANNOT have the same module code as any non-target module that already exist in NASA.
+* To edit module code, EXACTLY TWO module codes must be entered.
+====
 
+=== Editing a deadline : `edit-d`
+`Contributed by: don-tay` +
+Edits an existing deadline in the module's deadline list. +
+Format: `edit-d INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [d/DUE DATE] [p/PRIORITY] [n/NOTES]`
+
+****
+* Edits the deadline at the specified `INDEX` in the specified `MODULE_CODE` deadline-list. The index refers to the index number shown in the module's corresponding deadline-list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+****
+
+Examples:
+
+* `edit-d 2 m/CS2103T d/12-12-2020 23:59` +
+Edits the 2nd deadline in CS2013T deadline-list date to be `12-12-2020 23:59`.
+* `edit-d 3 m/CS2030 n/Finish LAB level 3 with Generics p/2` +
+Edits the notes and priority of the 3rd deadline in CS2030 deadline-list to `Finish LAB level 3 with Generics` and `2` respectively.
+
+=== Editing an event : `edit-e`
+`Contributed by: don-tay` +
+Edits an existing event in the module's event list. +
+Format: `edit-e INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [sd/START DATE] [ed/END DATE] [n/NOTES]`
+
+****
+* Edits the event at the specified `INDEX` in the specified `MODULE_CODE` event-list. The index refers to the index number shown in the module event-list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+****
+
+Examples:
+
+* `edit-e 2 m/CS2103T ed/12-12-2020 23:59` +
+Edits the 2nd event in CS2103T event-list end date to be `12-12-2020 23:59`.
+* `edit-e 3 m/CS2030 n/Practical exam sd/20-05-2020` +
+Edits the notes and start date of the 3rd event in CS2030 event-list to `Practical exam` and `20-05-2020 23:59` respectively.
+// end::edit[]
+
+=== Setting a deadline to done: `done`
+`Contributed by kester-ng` +
+Sets a deadline to be done (or completed) +
+Format: `done INDEX m/MODULE_CODE`
+
+====
+** Sets the deadline associated with the index in the module's deadline-list to done or completed.
+** If the deadline is already set to done, error message is thrown
+====
+
+[NOTE]
+====
+** Only deadlines can be set to done. Events are not able to do as events are activities that occurs from start to end.
+** Users are not able to edit the status (done or ongoing) of the deadline via the edit command.
+** INDEX must appear first in the command. `done m/MODULE_CODE INDEX` is not allowed.
+====
+
+Examples:
+* `done 1 m/CS2030` +
+Sets the 1st deadline in CS2030 deadline-list to done.
+
+=== Setting a deadline to ongoing: `continue`:
+`Contributed by kester-ng`
+Sets a deadline to ongoing +
+Format `continue INDEX m/MODULE_CODE`
+
+====
+** Sets the deadline associated with the index in the module's deadline-list to ongoing.
+** If the deadline's status is ongoing, error message is thrown.
+====
+
+[NOTE]
+====
+** Only deadlines can be set to ongoing. See explanation above.
+** Users are not able to edit the status (done or ongoing) of the deadline via the edit command.
+** INDEX must appear first in the command. `continue m/MODULE_CODE INDEX` is not allowed.
+====
+
+=== Locating activities by name: `find`
+`Contributed by: kester-ng` +
 Finds activities whose names contain any of the given keywords. +
-Format: `find a/KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `tutorial` will match `TUTORIAL`
 * The order of the keywords does not matter. e.g. `Lab 3` will match `3 Lab`
-* Only the taskname is searched.
+* Only the activity name is searched.
 * Only full words will be matched e.g. `tutorial` will not match `tutorials`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `tutorial lab` will return `tutorial 2`, `lab 3`
+* Activities matching at least one keyword will be returned (i.e. `OR` search). e.g. `tutorial lab` will return `tutorial 2`, `lab 3`
 ****
 
 Examples:
 
-* `find a/tutorial` +
+* `find tutorial` +
 Returns `tutorial 1` and `tutorial 2` and any other activities with name tutorial.
 
-// tag::delete[]
-=== Deleting a activity : `delete`
-
-Deletes the specified activity from module activity-list. +
-Format: `delete INDEX m/MODULE_CODE`
-
-****
-* Deletes the activity at the specified `INDEX` in the specified `MODULE_CODE`.
-* `INDEX` must be specified first before the `MODULE_CODE`
-* The index refers to the index number shown in the activity-list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-*`delete 2 m/CS2030` +
-Deletes the 2nd activity in the CS2030 module activity-list.
-
-=== Deleting a module: `mdelete`
+=== Deleting a module: `del`
 Deletes a module along with its activity-list. +
-Format: `mdelete m/MODULE_CODE`
+Format: `del m/MODULE_CODE`
 
+====
 ** Deletes the module with MODULE_CODE and also its activity-list
 ** MODULE_CODE must be an existing module
+====
 
 Examples:
 
-** `mdelete m/CS2030` +
+** `del m/CS2030` +
 Deletes the respective CS2030 module.
+// end::delete[]
+
+=== Deleting a deadline: `del-d`
+`Contributed by: kester-ng` +
+Deletes a deadline from a module's respective deadline-list +
+Format: `del-d INDEX m/MODULE_CODE`
+
+====
+** Deletes the deadline associated with the index in the respective module's deadline-list
+** If index is invalid, an error message will be thrown.
+====
+
+[NOTE]
+====
+** INDEX must be specified first in this command! Eg: `del-d m/MODULE_CODE INDEX` is not allowed.
+====
+
+=== Deleting an event: `del-e`
+`Contributed by: kester-ng` +
+Deletes an event from a module's respective event-list +
+Format: `del-e INDEX m/MODULE_CODE`
+
+====
+** Deletes the event associated with the index in the respective module's deadline-list
+** If index is invalid, an error message will be thrown.
+====
+
+[NOTE]
+====
+** INDEX must be specified first in this command! Eg: `del-e m/MODULE_CODE INDEX` is not allowed.
+====
 
 === Creating shortcuts: `shortcut` `[coming in v2.0]`
 Creates a shortcut for specified activity. +
@@ -251,23 +377,42 @@ Examples:
 ** `statistics at/deadline` +
 Displays statistics for all deadline activities.
 
-=== Automating activity: `repeat`  [coming in v2.0]
-Allows user to repeat an activity from a module.
-Format: `repeat m/MODULE_CODE a/ACTIVITY_NAME r/INDEX`
+=== Automating a activity: `repeat-d` or `repeat-e`
 
+`Contributed by: EdmondOng`
+
+Allows user to repeat-d an activity from a module.
+Format: `repeat-d ITEM_INDEX m/MODULE_CODE r/INDEX`
+
+**  The first `ITEM_INDEX` is the sequence of the activity in the list.
 ** `INDEX` can be in `1 for Weekly`, `2 twice Weekly`, `3 for Monthly`.
 **  By default `INDEX` will be `0` hence no automation will be done.
 **  The activity will be regenerated once user open the application.
 
+CAUTION:  Only use index r/0, r/1, r/2, r/3.
+
 Examples:
 
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/0` to cancel.
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/1` to regenerate weekly.
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/2` to regenerate twice weekly.
-** `repeat m/CS3233 a/SEA Group Programming Assignment r/3` to regenerate monthly.
+** `repeat-d 1 m/CS3233 r/0` to cancel.
+** `repeat-d 1 m/CS3233 r/1` to regenerate weekly.
+** `repeat-d 1 m/CS3233 r/2` to regenerate twice weekly.
+** `repeat-d 1 m/CS3233 r/3` to regenerate monthly.
+** `repeat-e 1 m/CS3233 r/0` to cancel.
+** `repeat-e 1 m/CS3233 r/1` to regenerate weekly.
+** `repeat-e 1 m/CS3233 r/2` to regenerate twice weekly.
+** `repeat-e 1 m/CS3233 r/3` to regenerate monthly.
 
-=== Quote: `quote` [coming in v2.0]
+
+=== Quote: `quote`
+
+`Contributed by: EdmondOng`
+
 Allows user to generate a quote message. Aims to lighten the user day!
+The message will disappear within 5s.
+
+CAUTION:  Advise not to spam `quote` as the screen will be filled with quote messages waiting to disappear.
+Use it when you need it.
+
 Format: `quote`
 
 Example :
@@ -275,7 +420,13 @@ Example :
 ** `quote` : “Limitations live only in our minds. But if we use our imaginations, our possibilities become limitless.” – Jamie Paolinetti
 
 === Undo: `undo`
+
+`Contributed by: EdmondOng`
+
 Allows user to undo previous action.
+
+CAUTION:  `quote`, `export` not supported.
+
 Format: `undo`
 
 Example :
@@ -283,47 +434,124 @@ Example :
 ** `undo` : "undo last action"
 
 === Redo: `redo`
+
+`Contributed by: EdmondOng`
+
 Allows user to redo previous action.
+
+CAUTION:  `quote`, `export` not supported.
+
 Format: `redo`
 
 Example :
 
 ** `redo` : "redo last action" else "no last action to redo"
 
-=== Calendar View
+=== Calendar View:
+`Contributed by: kester-ng` +
 Allows the user to see the activities onto a calendar.
 
 * Switch to calendar tab using TAB key.
+* Switch to calendar tab by clicking on the tab.
 
 Examples:
 
 image::calendar.png[width="300", align="middle"]
 
-=== Sort activities `sort`
-Sorts all activities in their respective modules by a specified criteria. +
-Format: `sort sm/SORT_CRITERIA`
+[TIP]
+====
+** Provides users with a great way to see what upcoming deadlines and events over the days, weeks or months.
+** The calendar updates along with the activities being displayed. This means that if a user enters a `find` command and the activities that matches the keyword are only displayed on the module's tab. Then the calendar tab will also display the same few activities!
+** This allows users to easily find their tasks and note down when is it going to happen or when is it due. Making it a more pleasant user experience!
+====
 
-The list of sort criteria is given below: +
+=== Export Calendar: `calendar`
+`Contributed by: kester-ng` +
+Allows users to export the current calendar into an .ics format for other calendar applications +
+Format: `calendar [p/FILE_PATH]`
 
-** Lexicographical order (non-case-sensitive): `name` +
-** Date added: `date` +
-** Priority: `priority`
+====
+** Exports the calendar into a .ics file named `nasa.ics` onto specified file path.
+** If file path is not specified, the resulting .ics file can be found in the /data directory.
+====
 
-The sort order is fixed from top to bottom, as follows:
+Examples:
 
-** Lexicographical order (non-case sensitive): A to Z +
-** Date added: Most recent to least recent +
-** Priority: 5 to 1
+** `calendar p/./nasa` +
+exports the current calendar into nasa.ics file that is located at `./nasa` directory.
 
-Example:
+[NOTE]
+====
+** The export command will export all activities regardless of whether is it currently shown or not.
+** Typing this command will cause all activities to be displayed!
+** Deadlines are represented as a `VTODO` entry in the .ics file. And there are some calendars that do not support this (eg: Google calendar). Currently, deadlines will not be able to be displayed on such calendars. Will expand to support these types of calendars `[Coming in V2.0]`.
+====
 
-** `sort sm/name` +
-Sorts by non-case-sensitive, lexicographical order of the activity's name.
+// tag::sort[]
+=== Sort deadlines `sort`
+`Contributed by: don-tay` +
+Sorts all deadlines in their respective modules by a specified criteria. +
+Format: `sort SORT_METHOD`
+
+The list of sort methods is given below: +
+
+|===
+|*Sort Method* |*Format* |*Sort order (top to bottom)*
+|Lexicographical order (case-insensitive) |`sort name` | A to Z
+|Due date |`sort date` | Earliest to latest
+|Priority |`sort priority`| Highest (5) to lowest (1)
+|===
+// end::sort[]
 
 === Clearing all entries : `clear`
 
 Clears all entries from the NASA application (including module activity-lists created). +
 Format: `clear`
+
+// tag::export[]
+=== Export NasaBook as QR code : `export`
+`Contributed by: don-tay` +
+Exports all deadlines and events in NasaBook as a QR-code text, compatible with QR code enabled scanners and smartphones. +
+Format: `export`
+// end::export[]
+
+=== Adding Reminders: `Coming in v2.0`
+`Contributed by: kester-ng` +
+Adds a reminder to a deadline or event +
+Format: `remind-d INDEX m/MODULE_CODE d/REMIND_DATE` for deadlines
+Format: `remind-e INDEX m/MODULE_CODE d/REMIND_DATE` for events
+
+====
+** Adds a reminder to the deadline or event associated with the index in the module's event-list/deadline-list
+** When reminder due date is reached, the application will sound off with a short tune together with a pop-up.
+====
+
+[NOTE]
+====
+** It is not allowed to add reminders to activities that already passed.
+** REMIND_DATE cannot be in the past. And the format is the same as other DATE formats: `DD-MM-YYYY HH:MM`
+====
+
+Examples:
+
+** `remind-d 1 m/CS1231 d/10-10-2020 23:59` +
+Sets a reminder for the deadline with index 1 in CS1231 deadline list to the specified date.
+
+=== Snoozing a Reminder: `Coming in v2.0`
+`Contributed by: kester-ng` +
+Snoozes a reminder of an event or deadline +
+Format: `snooze-d INDEX m/MODULE_CODE [d/REMIND_DATE]` for deadlines
+Format: `snooze-e INDEX m/MODULE_CODE [d/REMIND_DATE]` for events
+
+====
+** Snoozes the deadline or event reminder till the REMIND_DATE
+** If no REMIND_DATE is specified, the REMIND_DATE will be set as 5 minutes later
+====
+
+[NOTE]
+====
+** REMIND_DATE cannot be in the past. And the format is the same as other DATE formats: `DD-MM-YYYY HH:MM`
+====
 
 === Exiting the program : `exit`
 
@@ -341,30 +569,21 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-
+// tag::faq[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous NASA folder.
 
-*Q*: Since every dateline is different how automation helps to keep track of my new dateline? +
-*A*: The new dateline will be base on the interval when you first initialise the deadline activity. For example,
-date of creating an activity is on 16-03-2020 00:00 and due date is on 20-03-2020 00:00. If you set repeat for a week,
-the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
-
 *Q*: What is the purpose of an event? +
 *A*: An event can be CCAs, bookings, etc.
 
-
-=== Edit checklist item of activity
-To edit checklist item, add the new checklist item with `chadd` before deleting the old checklist item with `chdel`.
-=======
 *Q*: How do I populate NASA with an activity (ie. Deadline, Event, Lesson) that occur regularly (eg. weekly)? +
 *A*: Use the automate command (see section ‘Automation’)
 
-*Q*: What are the differences between Deadline, Event and Lesson? +
-*A*: All three activities are labels to describe the type of activity in a module. There are no functional differences between the 3 activities.
+*Q*: What are the differences between Deadline and Event? +
+*A*: Both are describe the type of activity in a module. They are displayed in different parts of the NASA UI (ie. Deadline and Event panel, respectively)
 
 *Q*: How many modules can I add into NASA? +
 *A*: NASA is optimised to display up to 10 modules at once - More than enough modules that a university student will typically take in a semester. Should you exceed 10 modules, please delete existing modules before adding new modules.
@@ -372,8 +591,14 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 *Q*: How many activities can I add into each module? +
 *A*: There is no limit, so add away!
 
+*Q*: Since every deadline is different how automation helps to keep track of my new deadline? +
+*A*: The new deadline will be base on the interval when you first initialise the deadline activity. For example,
+date of creating an activity is on 16-03-2020 00:00 and due date is on 20-03-2020 00:00. If you set repeat for a week,
+the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
+
 *Q*: There is an unreported bug. What should I do? +
 *A*: Please contact us here! We will respond as soon as possible.
+// end::faq[]
 
 == Command Summary
 =======
@@ -383,20 +608,26 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 |Command|Syntax
 
 | *Add* |`add m/MODULE_CODE n/MODULE_NAME`
-| *Deadline/Event/Lesson* |`TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES]`
+| *Deadline* |`deadline m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES]`
+| *Event* | `event m/MODULE_CODE a/ACTIVITY_NAME sd/START_DATE ed/END_DATE [n/NOTES]`
 | *Clear* | `clear`
-| *Delete* | `delete m/MODULE_CODE INDEX`
-| *Edit* | `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITY_NAME]`
-| *Find* | `find KEYWORD [MORE_KEYWORDS]`
-| *List* | `list [m/MODULE_CODE...]`
-| *Help* | `help`
+| *Delete Deadline* | `del-d INDEX m/MODULE_CODE`
+| *Delete Event* | `del-e INDEX m/MODULE_CODE INDEX`
+| *Delete* | `del m/MODULE_CODE`
+| *Edit module* | `edit m/MODULE_CODE [m/MODULE_CODE] [n/MODULE_NAME]`
+| *Edit deadline* | `edit-d INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [d/DUE DATE] [p/PRIORITY] [n/NOTES]`
+| *Edit event* | `edit-e INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [sd/START DATE] [ed/END DATE] [n/NOTES]`
 | *Export* | `export`
-| *Medit* | `medit m/MODULE_CODE [m/MODULE_CODE] [n/MODULE_NAME]`
-| *Delete* | `mdelete m/MODULE_CODE`
+| *Find* | `find KEYWORD [MORE_KEYWORDS]`
+| *Help* | `help`
+| *List* | `list [m/MODULE_CODE...]`
 | *Shortcut* | `shortcut s/SHORTCUT c/COMMAND`
+| *Export Calendar*| `calendar [p/FILE_PATH]`
+| *Sort* | `sort SORT_METHOD`
 | *Statistics* | `statistics [at/TYPE_OF_ACTIVITY]`
-| *Repeat* | `repeat m/MODULE_CODE a/ACTIVITYNAME r/INDEX`
+| *Redo* | `redo`
+| *Repeat Deadline* | `repeat-d INDEX m/MODULE_CODE r/INDEX`
+| *Repeat Event* | `repeat-d INDEX m/MODULE_CODE r/INDEX`
 | *Quote* | `quote`
 | *Undo* | `undo`
-| *Redo* | `redo`
 |===

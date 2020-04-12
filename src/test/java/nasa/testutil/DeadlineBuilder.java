@@ -10,12 +10,10 @@ import nasa.model.activity.Note;
  */
 public class DeadlineBuilder {
     public static final String DEFAULT_NAME = "Homework";
-    public static final String DEFAULT_DATE = "19-10-2020 03:00";
     public static final String DEFAULT_NOTE = "Take note of qns2";
     public static final String DEFAULT_DUE_DATE = "13-11-2020 03:00";
 
     private Name name;
-    private Date date;
     private Note note;
     private Date dueDate;
 
@@ -24,7 +22,6 @@ public class DeadlineBuilder {
      */
     public DeadlineBuilder() {
         name = new Name(DEFAULT_NAME);
-        date = new Date(DEFAULT_DATE);
         note = new Note(DEFAULT_NOTE);
         dueDate = new Date(DEFAULT_DUE_DATE);
     }
@@ -35,7 +32,6 @@ public class DeadlineBuilder {
     public DeadlineBuilder(Object activityToCopy) {
         Deadline activity = (Deadline) activityToCopy;
         name = activity.getName();
-        date = activity.getDate();
         note = activity.getNote();
         dueDate = activity.getDueDate();
     }
@@ -45,14 +41,6 @@ public class DeadlineBuilder {
      */
     public DeadlineBuilder withName(String name) {
         this.name = new Name(name);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Date} of the {@code Activity} that we are building.
-     */
-    public DeadlineBuilder withDate(String date) {
-        this.date = new Date(date);
         return this;
     }
 
@@ -76,7 +64,9 @@ public class DeadlineBuilder {
      * Build an activity accordingly.
      */
     public Deadline build() {
-        return new Deadline(name, dueDate, note);
+        Deadline deadline = new Deadline(name, dueDate);
+        deadline.setNote(note);
+        return deadline;
     }
 
 }

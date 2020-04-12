@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" >
+    <Label fx:id="label" text="Events" styleClass="activity-label">
+        <padding>
+            <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+        </padding>
+    </Label>
+    <ListView  fx:id="eventListView" />
+</VBox>

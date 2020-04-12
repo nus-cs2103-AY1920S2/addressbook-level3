@@ -19,8 +19,8 @@ public class EventBuilder {
     public static final String DEFAULT_NAME = VALID_ACTIVITY_NAME_EXAM;
     public static final String DEFAULT_DATE = "19-10-2020 03:00";
     public static final String DEFAULT_NOTE = VALID_NOTES_TEST;
-    public static final String DEFAULT_TO_DATE = VALID_DATE_TEST;
-    public static final String DEFAULT_FROM_DATE = VALID_DATE_TEST_2;
+    public static final String DEFAULT_FROM_DATE = VALID_DATE_TEST;
+    public static final String DEFAULT_TO_DATE = VALID_DATE_TEST_2;
 
     private Name name;
     private Date date;
@@ -45,7 +45,7 @@ public class EventBuilder {
     public EventBuilder(Object activityToCopy) {
         Activity activity = (Activity) activityToCopy;
         name = activity.getName();
-        date = activity.getDate();
+        date = activity.getDateCreated();
         note = activity.getNote();
         toDate = new Date(DEFAULT_TO_DATE);
         fromDate = new Date(DEFAULT_FROM_DATE);
@@ -95,6 +95,6 @@ public class EventBuilder {
      * Build an activity accordingly.
      */
     public Event build() {
-        return new Event(name, note, fromDate, toDate);
+        return new Event(name, fromDate, toDate, note);
     }
 }

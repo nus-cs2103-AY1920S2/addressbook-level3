@@ -46,6 +46,9 @@ public class ModuleCode {
         return moduleCode;
     }
 
+    /**
+     * Equality check for ModuleCode, which is case-insensitive.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

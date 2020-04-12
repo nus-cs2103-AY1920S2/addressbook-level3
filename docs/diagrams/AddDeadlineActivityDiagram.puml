@@ -7,16 +7,17 @@ if () then ([invalid format])
 
 else ([valid format])
     if () then ([module does not exist])
-        :Shows module cannot be found;
+        :Shows "Module cannot be found:;
     else ([module does exist])
-        :creates deadline;
-        if () then ([deadline already exist in module])
-            :Shows deadline already exist;
-        else ([deadline is unique])
+        if () then ([deadline date has passed])
+            :Shows "Deadline has already passed";
+        else ([else])
+            :creates deadline;
             :Add deadline into module's activity list;
+            :Shows "Deadline has been added";
 endif
 endif
 endif
-:Return Command Result to UI;
+:Return Command Result based on the message shown to UI;
 stop
 @enduml

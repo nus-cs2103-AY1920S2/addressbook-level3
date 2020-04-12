@@ -4,10 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import nasa.model.module.Module;
-import nasa.ui.activity.ActivityListPanel;
+import nasa.ui.activity.DeadlineListPanel;
+import nasa.ui.activity.EventListPanel;
 
 /**
  * An UI component that displays information of a {@code Module}.
@@ -26,22 +27,30 @@ public class ModuleCard extends UiPart<Region> {
 
     public final Module module;
     public final int id;
-    private ActivityListPanel activityListPanel;
+    private DeadlineListPanel deadlineListPanel;
+    private EventListPanel eventListPanel;
 
     @FXML
     private Pane cardPane;
     @FXML
     private Label code;
     @FXML
-    private StackPane activityListPanelPlaceholder;
+    private Label events;
+    @FXML
+    private Label deadlines;
+    @FXML
+    private VBox activityListPanelPlaceholder;
+
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
         this.id = displayedIndex;
-        code.setText(module.getModuleCode().toString());
-        activityListPanel = new ActivityListPanel(module.getFilteredActivityList());
-        activityListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
+        code.setText(module.getModuleCode().toString() + " " + module.getModuleName().toString());
+        deadlineListPanel = new DeadlineListPanel(module.getFilteredDeadlineList());
+        eventListPanel = new EventListPanel(module.getFilteredEventList());
+        activityListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+        activityListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
     }
 
     @Override

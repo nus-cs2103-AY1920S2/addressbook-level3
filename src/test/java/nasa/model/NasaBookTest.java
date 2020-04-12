@@ -2,6 +2,7 @@ package nasa.model;
 
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS2030;
 import static nasa.testutil.Assert.assertThrows;
+import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
 import static nasa.testutil.TypicalActivities.DEADLINE;
 import static nasa.testutil.TypicalModules.CS2103T;
 import static nasa.testutil.TypicalModules.CS2106;
@@ -20,11 +21,13 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import nasa.commons.core.index.Index;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
 import nasa.model.module.Module;
 import nasa.model.module.UniqueModuleList;
 import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.testutil.ModuleBuilder;
+
 
 class NasaBookTest {
     private final NasaBook nasaBook = new NasaBook();
@@ -60,18 +63,18 @@ class NasaBookTest {
 
     @Test
     public void hasModule_nullModule_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> nasaBook.hasModule((nasa.model.module.Module) null));
+        assertThrows(NullPointerException.class, () -> nasaBook.hasModule(null));
     }
 
     @Test
     public void hasModule_moduleNotInNasaBook_returnsFalse() {
-        assertFalse(nasaBook.hasModule(CS2103T));
+        assertFalse(nasaBook.hasModule(CS2103T.getModuleCode()));
     }
 
     @Test
     public void hasModule_moduleInNasaBook_returnsTrue() {
         nasaBook.addModule(CS2103T);
-        assertTrue(nasaBook.hasModule(CS2103T));
+        assertTrue(nasaBook.hasModule(CS2103T.getModuleCode()));
     }
 
     @Test
@@ -79,7 +82,7 @@ class NasaBookTest {
         nasaBook.addModule(CS2103T);
         Module editedcs2103t = new ModuleBuilder(CS2103T).withName(VALID_MODULE_NAME_CS2030)
                 .build();
-        assertTrue(nasaBook.hasModule(editedcs2103t));
+        assertTrue(nasaBook.hasModule(editedcs2103t.getModuleCode()));
     }
 
     @Test
@@ -90,31 +93,38 @@ class NasaBookTest {
     @Test
     void addModule() {
         nasaBook.addModule(CS2103T);
-        assertTrue(nasaBook.hasModule(CS2103T));
+        assertTrue(nasaBook.hasModule(CS2103T.getModuleCode()));
     }
 
     @Test
-    void addActivity() {
+    void addEvent() {
         nasaBook.addModule(CS2103T);
-        nasaBook.addActivity(CS2103T, DEADLINE);
-        assertTrue(nasaBook.hasActivity(CS2103T, DEADLINE));
+        nasaBook.addEvent(CS2103T.getModuleCode(), CORRECT_EVENT);
+        assertTrue(nasaBook.hasActivity(CS2103T.getModuleCode(), CORRECT_EVENT));
     }
 
     @Test
-    void removeActivity() {
+    void addDeadline() {
         nasaBook.addModule(CS2103T);
-        nasaBook.addActivity(CS2103T, DEADLINE);
-        nasaBook.removeActivity(CS2103T, DEADLINE);
-        assertFalse(nasaBook.hasActivity(CS2103T, DEADLINE));
+        nasaBook.addDeadline(CS2103T.getModuleCode(), (Deadline) DEADLINE);
+        assertTrue(nasaBook.hasActivity(CS2103T.getModuleCode(), DEADLINE));
     }
 
     @Test
-    void removeModuleByIndex() {
+    void removeDeadline() {
         nasaBook.addModule(CS2103T);
-        nasaBook.addModule(CS2106);
-        nasaBook.removeModuleByIndex(Index.fromZeroBased(1));
-        assertTrue(nasaBook.hasModule(CS2103T));
-        assertFalse(nasaBook.hasModule(CS2106));
+        nasaBook.addDeadline(CS2103T.getModuleCode(), (Deadline) DEADLINE);
+        nasaBook.removeDeadline(CS2103T.getModuleCode(), (Deadline) DEADLINE);
+        assertFalse(nasaBook.hasActivity(CS2103T.getModuleCode(), DEADLINE));
+    }
+
+    @Test
+    void removeEvent() {
+        NasaBook book = new NasaBook();
+        book.addModule(CS2106);
+        book.addEvent(CS2106.getModuleCode(), (Event) CORRECT_EVENT);
+        book.removeEvent(CS2106.getModuleCode(), (Event) CORRECT_EVENT);
+        assertFalse(book.hasActivity(CS2106.getModuleCode(), CORRECT_EVENT));
     }
 
     /**
@@ -142,4 +152,5 @@ class NasaBookTest {
             return modules;
         }
     }
+
 }

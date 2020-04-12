@@ -15,4 +15,7 @@ public interface ReadOnlyUserPrefs {
 
     Path getHistoryBookFilePath();
 
+    Path getUiHistoryBookFilePath();
+
+    Path getCalendarExportPath();
 }

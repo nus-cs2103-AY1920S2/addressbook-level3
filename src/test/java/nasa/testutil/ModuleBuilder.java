@@ -1,7 +1,9 @@
 package nasa.testutil;
 
-import nasa.model.activity.Activity;
-import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
+import nasa.model.activity.UniqueDeadlineList;
+import nasa.model.activity.UniqueEventList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
@@ -13,59 +15,76 @@ public class ModuleBuilder {
 
     public static final String DEFAULT_MODULE_NAME = "SOFTWARE ENGINEERING";
     public static final String DEFAULT_MODULE_CODE = "CS2103T";
-    public static final Activity TASK_1 = new DeadlineBuilder()
+    public static final Deadline DEADLINE_1 = new DeadlineBuilder()
             .withName("Homework")
-            .withDate("01-04-2021 01:00")
-            .withDueDate("06-04-2021 01:00")
+            .withDueDate("06-06-2021 01:00")
             .withNote("Do models for project")
             .build();
-    public static final Activity TASK_2 = new DeadlineBuilder()
-            .withName("Test")
-            .withDate("22-07-2021 01:00")
+    public static final Deadline DEADLINE_2 = new DeadlineBuilder()
+            .withName("Assignment")
             .withDueDate("02-08-2021 01:00")
             .withNote("Do tutorials")
             .build();
-    public static final Activity TASK_3 = new DeadlineBuilder()
+    public static final Deadline DEADLINE_3 = new DeadlineBuilder()
             .withName("Prepare group meeting")
-            .withDate("04-04-2021 01:00")
-            .withDueDate("22-04-2021 01:00")
+            .withDueDate("22-06-2021 01:00")
             .withNote("Prepare for group meetings")
             .build();
-    public static final Activity TASK_4 = new DeadlineBuilder()
-            .withName("Exam")
-            .withDate("01-05-2021 01:00")
-            .withDueDate("13-05-2021 01:00")
+    public static final Deadline DEADLINE_4 = new DeadlineBuilder()
+            .withName("Lab")
+            .withDueDate("13-06-2021 01:00")
             .withNote("Chapter 1")
             .build();
-    public static final Activity TASK_5 = new EventBuilder()
-            .withName("MPSH")
-            .withFromDate("01-04-2021 01:00")
-            .withToDate("04-04-2021 01:00")
+    public static final Event EVENT_1 = new EventBuilder()
+            .withName("Competition")
+            .withFromDate("06-06-2021 01:00")
+            .withToDate("08-06-2021 01:00")
             .withNote("Booked MPSH")
             .build();
-
+    public static final Event EVENT_2 = new EventBuilder()
+            .withName("Presentation")
+            .withFromDate("06-05-2020 01:00")
+            .withToDate("07-05-2020 02:00")
+            .withNote("Revise on notes")
+            .build();
+    public static final Event EVENT_3 = new EventBuilder()
+            .withName("Recitation")
+            .withFromDate("08-08-2020 11:00")
+            .withToDate("12-08-2020 12:00")
+            .withNote("Study tutorial")
+            .build();
 
     private ModuleName name;
     private ModuleCode code;
-    private UniqueActivityList activityList;
+    private UniqueDeadlineList uniqueDeadlineList;
+    private UniqueEventList uniqueEventList;
+    private Module module;
 
     public ModuleBuilder() {
         name = new ModuleName(DEFAULT_MODULE_NAME);
         code = new ModuleCode(DEFAULT_MODULE_CODE);
-        activityList = new UniqueActivityList();
-        activityList.add(TASK_1);
-        activityList.add(TASK_2);
-        activityList.add(TASK_3);
-        activityList.add(TASK_4);
-        activityList.add(TASK_5);
+        UniqueDeadlineList deadlines = new UniqueDeadlineList();
+        deadlines.add(DEADLINE_1);
+        deadlines.add(DEADLINE_2);
+        deadlines.add(DEADLINE_3);
+        deadlines.add(DEADLINE_4);
+        UniqueEventList events = new UniqueEventList();
+        events.add(EVENT_1);
+        events.add(EVENT_2);
+        events.add(EVENT_3);
+        this.uniqueEventList = events;
+        this.uniqueDeadlineList = deadlines;
+        module = new Module(code, name);
+        module.setDeadlines(deadlines);
+        module.setEvents(events);
     }
 
     public ModuleBuilder(Module moduleToCopy) {
-        name = moduleToCopy.getModuleName();
-        code = moduleToCopy.getModuleCode();
-        UniqueActivityList newActivityList = new UniqueActivityList();
-        newActivityList.setActivities(moduleToCopy.getDeepCopyList());
-        activityList = newActivityList;
+        module = moduleToCopy.getDeepCopyModule();
+        name = module.getModuleName();
+        code = module.getModuleCode();
+        uniqueDeadlineList = module.getDeadlineList();
+        uniqueEventList = module.getEventList();
     }
 
     /**
@@ -85,12 +104,22 @@ public class ModuleBuilder {
     }
 
     /**
-     * Build module with activity.
-     * @param activity activity to be added
-     * @return ModuleBuilder
+     * Adds deadline to the module.
+     * @param deadline Deadline to be added
+     * @return module update with this deadline in it
      */
-    public ModuleBuilder withAddActivity(Activity activity) {
-        this.activityList.add(activity);
+    public ModuleBuilder addDeadline(Deadline deadline) {
+        this.uniqueDeadlineList.add(deadline);
+        return this;
+    }
+
+    /**
+     * Adds event to the module.
+     * @param event Event to be added
+     * @return module updated with this event in it
+     */
+    public ModuleBuilder addEvent(Event event) {
+        this.uniqueEventList.add(event);
         return this;
     }
 
@@ -99,7 +128,8 @@ public class ModuleBuilder {
      * @return ModuleBuilder
      */
     public ModuleBuilder withRemoveAll() {
-        this.activityList.removeAll();
+        this.uniqueDeadlineList.removeAll();
+        this.uniqueEventList.removeAll();
         return this;
     }
 
@@ -109,8 +139,8 @@ public class ModuleBuilder {
      */
     public Module build() {
         Module module = new Module(code, name);
-        module.setActivities(activityList.getDeepCopyList());
+        module.setDeadlines(uniqueDeadlineList);
+        module.setEvents(uniqueEventList);
         return module;
     }
-
 }

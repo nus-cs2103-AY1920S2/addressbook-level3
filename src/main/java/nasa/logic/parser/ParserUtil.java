@@ -2,6 +2,9 @@ package nasa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import nasa.commons.core.index.Index;
 import nasa.commons.util.StringUtil;
 import nasa.logic.parser.exceptions.ParseException;
@@ -162,9 +165,27 @@ public class ParserUtil {
     public static SortMethod parseSortMethod(String sortMethod) throws ParseException {
         requireNonNull(sortMethod);
         String sortMethodTrimmed = sortMethod.trim();
+
         if (!SortMethod.isValidSortMethod(sortMethodTrimmed)) {
             throw new ParseException(SortMethod.MESSAGE_CONSTRAINTS);
         }
         return new SortMethod(sortMethodTrimmed);
+    }
+
+    /**
+     * Parses {@code String filepath} into a {@code Path}
+     * Checks if string of filepath is correct.
+     * @param filepath
+     * @return
+     * @throws ParseException
+     */
+    public static Path parseFilePath(String filepath) throws ParseException {
+        try {
+            requireNonNull(filepath);
+            String filepathTrimmed = filepath.trim();
+            return Paths.get(filepathTrimmed);
+        } catch (Exception e) {
+            throw new ParseException("File path is of a incorrect format");
+        }
     }
 }

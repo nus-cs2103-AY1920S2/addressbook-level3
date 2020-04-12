@@ -1,5 +1,6 @@
 package nasa.ui;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -7,10 +8,10 @@ import java.util.ListIterator;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
+import nasa.logic.commands.CommandHint;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
@@ -22,35 +23,30 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
+    private static final HashMap<String, String> commandList = CommandHint.getCommandList();
+
+    @FXML
+    protected TextField commandTextField;
 
     private final CommandExecutor commandExecutor;
     private final List<String> commandHistory;
     private ListIterator<String> commandHistoryIterator;
 
-    @FXML
-    private TextField commandTextField;
+    private boolean preferenceShowHint = true;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    private String matchedCommand = "";
+    private MainWindow main;
+
+    public CommandBox(CommandExecutor commandExecutor, MainWindow main) {
         super(FXML);
+
+        this.main = main;
+
         this.commandExecutor = commandExecutor;
         commandHistory = new LinkedList<>();
         commandHistoryIterator = commandHistory.listIterator();
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        commandTextField.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
-            //Overriding default redo
-            if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
-                event.consume();
-                commandTextField.setText("redo");
-                handleCommandEntered();
-            //Overriding default undo
-            } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
-                event.consume();
-                commandTextField.setText("undo");
-                handleCommandEntered();
-            }
-        });
-        //Controls to view command history
+
+
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
             switch (key.getCode()) {
             case UP:
@@ -70,10 +66,34 @@ public class CommandBox extends UiPart<Region> {
                 }
                 break;
             default:
+                if (isValidCommand()) {
+                    main.getHint(commandList.get(matchedCommand));
+                    commandTextField.requestFocus();
+                } else if (main.isHintShowing()) {
+                    main.hideHint();
+                }
                 break;
             }
         });
     }
+
+    /**
+     * Verifies if text in command field is a valid command.
+     * @return
+     */
+    public boolean isValidCommand() {
+
+        boolean isCommand = false;
+        // We match the longest command
+        for (String command : commandList.keySet()) {
+            if (commandTextField.getText().trim().toLowerCase().startsWith(command)) {
+                isCommand = true;
+                matchedCommand = command;
+            }
+        }
+        return isCommand;
+    }
+
 
     /**
      * Handles the Enter button pressed event.
@@ -123,5 +143,4 @@ public class CommandBox extends UiPart<Region> {
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
-
 }

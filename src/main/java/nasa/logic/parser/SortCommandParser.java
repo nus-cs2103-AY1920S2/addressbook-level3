@@ -1,9 +1,6 @@
 package nasa.logic.parser;
 
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static nasa.logic.parser.CliSyntax.PREFIX_SORT_METHOD;
-
-import java.util.NoSuchElementException;
 
 import nasa.logic.commands.SortCommand;
 import nasa.logic.parser.exceptions.ParseException;
@@ -21,16 +18,16 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SORT_METHOD);
+                ArgumentTokenizer.tokenize(args);
 
         SortMethod sortMethod;
 
-        try {
-            sortMethod = ParserUtil.parseSortMethod(argMultimap.getValue(PREFIX_SORT_METHOD).get());
-        } catch (NoSuchElementException ne) { // case when no sort method is provided
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE),
-                    ne);
+        if (argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
+
+        sortMethod = ParserUtil.parseSortMethod(argMultimap.getPreamble());
+
         return new SortCommand(sortMethod);
     }
 }

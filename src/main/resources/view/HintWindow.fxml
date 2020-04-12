@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<Label xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="label"
+       styleClass="hint_label" text="Label">
+        <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+        </padding>
+</Label>
+

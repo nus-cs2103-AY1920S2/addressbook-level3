@@ -15,10 +15,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import nasa.logic.commands.AddModuleCommand;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.ListCommand;
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.logic.commands.module.AddModuleCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.HistoryBook;
 import nasa.model.Model;
@@ -46,7 +46,7 @@ public class LogicManagerTest {
     public void setUp() throws IOException {
         JsonNasaBookStorage nasaBookStorage =
                 new JsonNasaBookStorage(temporaryFolder.resolve("nasaBook.json"),
-                        temporaryFolder.resolve("historyBook.json"));
+                        temporaryFolder.resolve("historyBook.json"), temporaryFolder.resolve("uiHistory.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(nasaBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -77,6 +77,7 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonNasaBookIoExceptionThrowingStub
         JsonNasaBookStorage nasaBookStorage =
                 new JsonNasaBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionNasaBook.json"),
+                        temporaryFolder.resolve("ioExceptionHistoryBook.json"),
                         temporaryFolder.resolve("ioExceptionHistoryBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
@@ -136,7 +137,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getNasaBook(), new HistoryBook<>(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -157,13 +159,14 @@ public class LogicManagerTest {
      * A stub class to throw an {@code IOException} when the save method is called.
      */
     private static class JsonNasaBookIoExceptionThrowingStub extends JsonNasaBookStorage {
-        private JsonNasaBookIoExceptionThrowingStub(Path filePath, Path filePathTwo) {
-            super(filePath, filePathTwo);
+        private JsonNasaBookIoExceptionThrowingStub(Path filePath, Path filePathTwo, Path filePathThree) {
+            super(filePath, filePathTwo, filePathThree);
         }
 
         @Override
         public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
-                                 Path filePathOne, Path filePathTwo) throws IOException {
+                                 ReadOnlyHistory<String> uiHistoryBook,
+                                 Path filePathOne, Path filePathTwo, Path filePathThree) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
 

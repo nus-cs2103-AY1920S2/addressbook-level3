@@ -1,22 +1,11 @@
 package nasa.model.activity;
 
-import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
-import static nasa.testutil.TypicalActivities.DEADLINE;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
-
-import javafx.collections.ObservableList;
-
 /**
  * To test the UniqueActivity class.
  */
 class UniqueActivityListTest {
 
+    /*
     private final UniqueActivityList uniqueActivityList = new UniqueActivityList();
     private final UniqueActivityList newUniqueActivityList = new UniqueActivityList();
 
@@ -81,5 +70,5 @@ class UniqueActivityListTest {
         Activity activity = uniqueActivityList.getActivityByName(new Name("Homework for tut"));
         assertEquals(DEADLINE, activity);
     }
-
+*/
 }

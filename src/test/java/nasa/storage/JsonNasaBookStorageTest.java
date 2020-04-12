@@ -2,7 +2,6 @@ package nasa.storage;
 
 import static nasa.testutil.Assert.assertThrows;
 import static nasa.testutil.TypicalModules.CS2103T;
-import static nasa.testutil.TypicalModules.GEH1001;
 import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -32,7 +31,7 @@ public class JsonNasaBookStorageTest {
 
     private java.util.Optional<ReadOnlyNasaBook> readNasaBook(String filePath) throws Exception {
         return new JsonNasaBookStorage(Paths.get(filePath),
-                Paths.get(filePath)).readNasaBook(addToTestDataPathIfNotNull(filePath));
+                Paths.get(filePath), Paths.get(filePath)).readNasaBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -65,8 +64,9 @@ public class JsonNasaBookStorageTest {
     public void readAndSaveNasaBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempNasaBook.json");
         Path filePathTwo = testFolder.resolve("TempHistoryBook.json");
+        Path filePathThree = testFolder.resolve("TempUiHistoryBook.json");
         NasaBook original = getTypicalNasaBook();
-        JsonNasaBookStorage jsonNasaBookStorage = new JsonNasaBookStorage(filePath, filePathTwo);
+        JsonNasaBookStorage jsonNasaBookStorage = new JsonNasaBookStorage(filePath, filePathTwo, filePathThree);
 
         // Save in new file and read back
         jsonNasaBookStorage.saveNasaBook(original, filePath);
@@ -74,8 +74,7 @@ public class JsonNasaBookStorageTest {
         assertEquals(original, new NasaBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addModule(GEH1001);
-        original.removeModule(CS2103T);
+        original.removeModule(CS2103T.getModuleCode());
         jsonNasaBookStorage.saveNasaBook(original, filePath);
         readBack = jsonNasaBookStorage.readNasaBook(filePath).get();
         assertEquals(original, new NasaBook(readBack));
@@ -98,7 +97,7 @@ public class JsonNasaBookStorageTest {
      */
     private void saveNasaBook(ReadOnlyNasaBook nasaBook, String filePath) {
         try {
-            new JsonNasaBookStorage(Paths.get(filePath), Paths.get(filePath))
+            new JsonNasaBookStorage(Paths.get(filePath), Paths.get(filePath), Paths.get(filePath))
                     .saveNasaBook(nasaBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
