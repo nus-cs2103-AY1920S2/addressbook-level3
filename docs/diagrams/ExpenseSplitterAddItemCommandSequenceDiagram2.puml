@@ -71,10 +71,6 @@ activate CommandResult
 CommandResult --> AddItemCommand : result
 deactivate CommandResult
 
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-CommandResult -[hidden]-> AddItemCommand
-destroy CommandResult
-
 AddItemCommand --> SplitterLogicManager : result
 
 @enduml

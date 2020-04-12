@@ -664,7 +664,7 @@ Format: +
 `additem -i ITEMNAME -p PRICE -n NAME` +
 `additem -i ITEMNAME -p PRICE -n NAME [-n NAME]...` +
 
-Example: +
+Valid Example: +
 `additem -i pizza -p 30 -n bob` +
 `additem -i pasta -p 19.90 -n alice -n bob -n charlie`
 
@@ -674,8 +674,14 @@ Example: +
 image::placeholder.png[]
 
 [NOTE]
-Price can be up to 2 decimal places, i.e. 7.99.
+====
+* Price can be up to 2 decimal places, i.e. 7.99.
 There is no need to add the dollar sign ($).
+
+* The maximum price of an item is 10,000.
+
+* All names inputted will automatically be converted to lowercase. (e.g: Bob -> bob)
+====
 
 '''
 
@@ -693,7 +699,7 @@ and the <<deleteitemexpectedoutcome,expected outcome>> after using the `deleteit
 Format: +
 `deleteitem INDEX` +
 
-Example: +
+Valid Example: +
 `deleteitem 3`
 
 [[deleteitemexpectedoutcome]]
@@ -878,7 +884,7 @@ and the <<clearreceipt,expected outcome>> after using the `clearreceipt` command
 Format: +
 `clearreceipt`
 
-Example: +
+Valid Example: +
 `clearreceipt`
 
 [[clearreceiptexpectedoutcome]]
