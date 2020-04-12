@@ -174,7 +174,7 @@ Graphical User Interface. The interface can be broadly split into
 program, namely Coupons, Summary and Help. Also, the calendar and
 command result box are two features visible on every tab.
 
-[<insert image of tabs>]
+image::ug_tabs.png[]
 
 The tabs can be switched by pressing kbd:[Ctrl] + kbd:[Tab] or
 by clicking on the tabs bar on the left side of the application
@@ -182,7 +182,7 @@ with the name of the tab you want to switch to. The current
 selected tab will be highlighted with a bolder text, and a
 darker blue.
 
-[image of selected]
+image::ug_currently_selected_tab.png[]
 
 [NOTE]
 The tabs bar is visible on every single tab! It serves
