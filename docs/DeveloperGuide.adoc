@@ -249,7 +249,7 @@ The tags are:
 `g/grade` is optional. +
 [NOTE]
 Multiple modules can be added at once but only to the *same year and semester*, e.g. `add m/CS1231 m/IS1103 m/MA1521 y/1.1`. +
-Multiple tasks can be added at once but only to the *same module*, e.g. `add m/CS1231 t/tutorial d/2020-04-20 18:00 t/assignment d/2020-04-25 23:59` +
+Multiple tasks can be added at once but only to the *same module*, e.g. `add m/CS1231 t/tutorial d/2020-04-20 18:00 t/assignment d/2020-04-25 23:59`. +
 [NOTE]
 `d/deadline` is optional. +
 However, for multiple tasks, as long as one `Task` has a `Deadline`, all `t/task` tags have to be appended with `d/deadline` tags. For the tasks with no deadlines, the tag can just be `d/`.
