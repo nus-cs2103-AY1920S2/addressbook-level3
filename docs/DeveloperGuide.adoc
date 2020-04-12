@@ -372,7 +372,7 @@ depicts flow of the program when the command `workout find w/Arms Workout` is ru
 image::WorkoutSequenceDiagram.png[]
 
 . When the user runs the command `workout find w/Arms Workout`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
-. The `ParserManager` then has to `parse("workout find w/Arms Workout"`.
+. The `ParserManager` then has to `parse("workout find w/Arms Workout")`.
 . Next, the `WorkoutCommandParser` has to `parse("find w/Arms Workout")` for the command.
 . Once the command has been parsed as a `FindCommand`, it will be passed on to the `FindCommandParser`, which will then create a new `WorkoutName`.
 . The `FindCommandParser` can then create a `FindCommand`, which in turn creates a `PredicateFilterWorkoutName`.
@@ -397,30 +397,111 @@ is redundant and unnecessary, when there is no functional difference between an 
 other than the context that they are referenced in. In addition, this would make the deletion of any instance of a particular Exercise from a Workout easier, when an Exercise is deleted from the ExerciseList. Hence, to simplify matters, using the existing Exercise class to construct workouts was better.
 // end::workout[]
 
+
+
 // tag::schedule[]
 === Schedule
-==== Implementation
-The following sequence diagram shows how the `schedule create` operation works:
 
+
+==== Overview
+The schedule feature in ZeroToOne allows users to plan their workouts! Users will be able to create a schedule on a specific date and time in the future, edit the date and time, as well as delete the schedule.
+
+
+==== Components
+The following class diagram shows the overview of the `Scheduler`:
+
+.Scheduler Class Diagram
+image::schedule/ModelScheduleClassDiagram.png[]
+
+As seen in the diagram above, The `Scheduler` consists two lists, `ScheduleList` and `ScheduledWorkoutList`.
+
+The `ScheduleList` contains a number of `Schedule` that the user has created, while the `ScheduledWorkoutList` is essentially a chronologically sorted list of `ScheduledWorkout` that allows JavaFX listeners to track changes when they occur.
+
+NOTE: The decision to have both `ScheduleList` and `ScheduledWorkoutList` may seem bizarre at first glance, but it is implemented this way after careful consideration, to better support operations on 'RecurringSchedule'(Proposed). Refer to <<Model Design Considerations>> for more information.
+
+
+==== Schedule Model
+ZeroToOne’s `Model` extends the `SchedulerModel`. Here are all the functions to carry out schedule-related activities:
+
+* `Model#hasSchedule(Schedule schedule)` - Returns true if a schedule exists in the schedule list
+
+* `Model#addSchedule(Schedule schedule)` - Adds a new schedule to the schedule list
+
+* `Model#setSchedule(Schedule scheduleToEdit, Schedule editedSchedule)` - Replaces a particular schedule with an edited schedule
+
+* `Model#populateSortedScheduledWorkoutList()` - Clear and populate `SortedScheduledWorkoutList` by querying every `Schedule` in `SchedueList` through method `Schedule#getScheduledWorkout()`
+
+* `Model#getSortedScheduledWorkoutList()` - Returns an unmodifiable view of `ObservableList<ScheduledWorkout>`
+
+* `Model#deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete)` - Deletes the `Schedule` that generated the specified `ScheduledWorkout` from the schedule list, then re-populates `SortedScheduledWorkoutList`
+
+* `Model#deleteWorkoutNameFromSchedule(WorkoutName workoutNameToDelete)` - Deletes all instances of schedules that are associated with the specified workout name
+
+* `Model#editWorkoutNameInSchedule(WorkoutName workoutNameToEdit, WorkoutName editedWorkoutName)` - Updates all instances of schedules that are associated with the specified workout name to the new workout name
+
+* `Model#getScheduleList()` - Returns an unmodifiable `ReadOnlyScheduleList`
+
+
+==== Command Execution
+
+===== Creating a Schedule
+To illustrate an example of a command from the `Scheduler`, the following sequence diagram depicts flow of the program when the command `schedule create 1 d/2020-04-01 14:00` is run.
+
+.Sequence Diagram for Creating a Schedule
 image::schedule/ScheduleCreateSequenceDiagram.png[]
 
+. When the user runs the command `schedule create 1 d/2020-04-01 14:00`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
+. The `ParserManager` then has to `parse("schedule create 1 d/2020-04-01 14:00")`.
+. Next, the `ScheduleCommandParser` has to `parse("create 1 d/2020-04-01 14:00")` for the command.
+. Once the command has been parsed as a `CreateCommand`, it will be passed on to the `CreateCommandParser`, which will then parse the index using `ParserUtil`, and parse the date and time using `ScheduleParserUtil`.
+. The `CreateCommandParser` can then create a `CreateCommand`, which is then passed back to `LogicManager` to execute.
+. When `LogicManager` executes the `CreateCommand`, it creates a new `Schedule`, and checks whether the model already contains this `Schedule`.
+. If the model does not contain this `Schedule`, the `LogicalManager` will then add it to the model by calling `Model#addSchedule(schedule)`.
+. Finally, the resulting output message will be returned as the `CommandResult`.
 
-The following sequence diagram shows how the `scheduledWorkout` are populated to user view:
+NOTE: Date and time must not be outdated and follow the format {yyyy}-{mm}-{dd} {HH:mm}
 
+===== Populating the SortedScheduledWorkoutList
+
+And the following sequence diagram shows how the `ScheduledWorkoutList` is populated after the method `Model#addSchedule(schedule)` is called:
+
+.Sequence Diagram for Populating `SortedScheduledWorkoutList`
 image::schedule/PopulateSortedScheduledWorkoutList.png[]
 
-==== Design Considerations
+. After the `LogicManager` calls the method `Model#addSchedule(schedule)`, `ModelManager` calls `Scheduler#addSchedule(schedule)`, which in turns calls `ScheduleList#addSchedule(schedule)` and adds the `Schedule` in the `ScheduleList`.
+. The `Scheduler` will then populate the `ScheduledWorkoutList` by calling the method `populateSortedScheduledWorkoutList()`.
+. First, `Scheduler` gets the current date and time by calling `DateTime#now()`.
+. Then, `Scheduler` iterates through every `Schedule` in `ScheduleList`, and requests to get `ScheduledWorkout` by calling `Schedule#getScheduledWorkout(now)` on each of them.
+. Finally, `Scheduler` resets the `SortedScheduledWorkoutList` with the latest `ScheduledWorkout` by calling `ScheduledWorkoutList#setScheduledWorkouts(scheduledWorkouts)`, and user's view of `ScheduledWorkout` is refreshed.
+. And in the end, the resulting output message will be passed back to `LogicManager` and display to user.
+
+NOTE: `Scheduler#populateSortedScheduledWorkoutList()` is called whenever the schedules in `ScheduleList` have been changed.
+
+
+==== Model Design Considerations
 
 ===== Aspect: How to handle editing and deletion of recurring schedules
 
-* **Alternative 1:** Saves `scheduledWorkout` objects.
-** Pros: Easy to implement.
-** Cons: Hard to maintain when it comes to `edit` or `delete` of recurring scheduled workouts.
-* **Alternative 2 (current choice):** Saves `schedule` objects that can be used to produce `scheduledWorkout` when
-requested.
-** Pros: Changes to recurring schedules can populated to `scheduledWorkout` more easily.
-** Cons: Much more complicated model.
+* **Option 1:** `Model` stores only `ScheduledWorkout` objects.
+** Pros: Easier to implement.
+** Cons: Harder to maintain when it comes to `edit` or `delete` of recurring scheduled workouts. 
+* **Option 2 (current choice):** Saves `Schedule` objects that can be used to produce `ScheduledWorkout` when requested.
+** Pros: Changes can be made to recurring schedules instead, and in turn reflect in all related `ScheduledWorkout`.
+** Cons: Makes model much more complicated.
+
+In the end, I decided to go with option 2 as it is easier to maintain, more extensible and less computationally expensive.
+
+When the system has a number of recurring schedules that do not have an end date, it introduces a few problems:
+
+* How many scheduled workouts to create/store for each recurring schedule
+* How to efficiently retrieve and update all related scheduled workouts when a recurring schedule is edited or deleted
+
+Implementing option 1 would mean that we will have to impose an additional constraint onto the system, which is either how many scheduled workouts to display for each recurring schedule or what is the longest time frame of scheduled workouts to display to user, as we simply can't generate indefinite number of scheduled workouts for technically everlasting recurring schedules. Additionally, when the number of high frequency recurring schedules in the system increases, it will be extremly computationally expensive to edit or delete recurring schedules, as the system will have to iterate through every ScheduledWorkout objects and update accordingly.
+
+On the other hand, implementing option 2 makes it easier to handle these problems by storing changes to the Schedule objects instead, which can be used to generate ScheduleWorkout objects when requested. Moreover, it is more extensible because if we are going to introduce a calendar view in the future, where user can view a specific time frame of scheduled workouts, the system only needs to generate for that time frame only, which can be done much more efficiently!
 // end::schedule[]
+
+
 
 // tag::log[]
 === Log

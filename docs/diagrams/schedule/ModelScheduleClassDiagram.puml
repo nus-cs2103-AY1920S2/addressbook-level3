@@ -1,0 +1,55 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Scheduler {
+    Class ModelManager
+    Class Scheduler
+    Class ScheduleList
+    Class ScheduledWorkoutList
+    Class SortedScheduledWorkoutList
+  
+
+    Package Schedule {
+        Interface Schedule <<interface>>
+        Class OneTimeSchedule
+        Class Proposed_RecurringSchedule
+        Class ScheduledWorkout
+        Class Proposed_Frequency
+        Class DateTime
+    }
+}
+
+ModelManager *-down-> "1" Scheduler
+
+' Scheduler
+Scheduler *-down-> "1" ScheduledWorkoutList
+SortedScheduledWorkoutList o--> "1" ScheduledWorkoutList
+Scheduler *-down-> "1" ScheduleList
+
+' ScheduleList
+ScheduleList -down-> "*" Schedule
+OneTimeSchedule .up.|> Schedule
+Proposed_RecurringSchedule .up.|> Schedule
+
+' OneTimeSchedule and Proposed_RecurringSchedule
+OneTimeSchedule *--> "1" DateTime
+OneTimeSchedule *--> "1" WorkoutName
+Proposed_RecurringSchedule *--> "1" DateTime
+Proposed_RecurringSchedule *--> "1" WorkoutName
+Proposed_RecurringSchedule *--> "1" Proposed_Frequency
+
+' ScheduledWorkoutList
+ScheduledWorkoutList *--> "*" ScheduledWorkout
+
+' Creating ScheduledWorkout
+OneTimeSchedule ..> ScheduledWorkout : creates >
+Proposed_RecurringSchedule ..> ScheduledWorkout : creates >
+
+' ScheduledWorkout
+ScheduledWorkout *--> "1" WorkoutName
+ScheduledWorkout *--> "1" DateTime
+
+@enduml
