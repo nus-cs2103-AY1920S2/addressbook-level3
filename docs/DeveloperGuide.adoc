@@ -192,20 +192,20 @@ The `Model`,
 
 Below is an example of the different types of RelevantFields that can be tied to an Assignment.
 
-image:AssignmentClassDiagram.png[]
 .Class Diagram of Assignment
+image::AssignmentClassDiagram.png[]
 
 
 [NOTE]
 The AddressBookGeneric in the diagram above is actually an AddressBookGeneric<Assignment>. The AddressBookGeneric has been made to
 accept any class that extends ModelObject. This cannot be shown due to limitations in PUML.
 
-Notable Implementations::
-. All ModelObjects implement Cloneable so as to allow for Defensive Programming more easily.
-Please refer to <<Design-Assign-Copy, `Step 2 of Section 2.2.2`>> for the team's rationale behind having ModelObject implementing Cloneable.
-. By making use of Generics,
-.. reduce implementation
-.. make it more extensible
+==== Notable Implementations in Model
+. All `ModelObjects` implement `Cloneable` so as to allow for Defensive Programming more easily.
+.. Please refer to <<Design-Assign-Copy, `Step 2 of Section 2.2.2`>> for the team's rationale behind having ModelObject implement Cloneable.
+. By making use of Generics, the group has made it such that `AddressBookGeneric<K extends ModelObject>`can hold any class that extends from ModelObject
+.. reduce duplicated code
+.. make it more extensible in the future
 .. sdf
 
 [[Design-Storage]]
@@ -233,11 +233,6 @@ This section describes some noteworthy details on how certain features are imple
 === Command Handling by Managers
 ==== CRUD Commands Handled by ModelManager
     Explain the flow of a CRUD command from LogicManager -> ModelManager -> publish events -> StorageManager captures the events
-
-==== Non-CRUD Commands Handled by Respective Managers
-    Such as Assign, Unassign, Done, etc, in this way we can hide the implmentation behind these managers
-
-    Progress + ProgressManager goes here
 
 === Entity Linking - Assigning/Un-Assigning an Entity to/from a Course
 In order to allow the tracking of the students/assignments/teachers that are assigned
