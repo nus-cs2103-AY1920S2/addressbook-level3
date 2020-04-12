@@ -18,12 +18,12 @@
          <children>
             <VBox prefHeight="279.0" prefWidth="167.0" translateY="100.0">
                <children>
-                  <Label prefHeight="47.0" prefWidth="168.0" style="-fx-font-family: noteworthy; -fx-font-size: 28;" text="Current Cap" translateY="100.0" />
+                  <Label prefHeight="47.0" prefWidth="168.0" style="-fx-font-family: noteworthy; -fx-font-size: 28; -fx-text-fill: white;" text="Current Cap" translateY="100.0" />
                </children>
             </VBox>
             <VBox prefHeight="474.0" prefWidth="441.0" translateY="100.0">
                <children>
-                  <Label fx:id="currentCap" prefHeight="47.0" prefWidth="526.0" style="-fx-font-family: noteworthy; -fx-font-size: 28;" translateY="100.0" />
+                  <Label fx:id="currentCap" prefHeight="47.0" prefWidth="526.0" style="-fx-font-family: noteworthy; -fx-font-size: 28; -fx-text-fill: white;" translateY="100.0" />
                </children>
             </VBox>
          </children>
