@@ -1,3 +1,5 @@
+//@@author aakanksha-rai
+
 package tatracker.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
@@ -21,6 +23,7 @@ import tatracker.model.Model;
  */
 public class DeleteGroupCommand extends Command {
 
+    //@@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GROUP,
             CommandWords.DELETE_MODEL,
@@ -30,6 +33,7 @@ public class DeleteGroupCommand extends Command {
             MODULE, GROUP
     );
 
+    //@@author aakanksha-rai
     public static final String MESSAGE_DELETE_GROUP_SUCCESS = "Deleted group: %s [%s]";
     private static final int FIRST_GROUP_INDEX = 0;
 
