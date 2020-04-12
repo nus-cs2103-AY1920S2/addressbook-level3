@@ -300,22 +300,39 @@ TIP: You can retrieve the list of focus areas under a course using the <<showCou
 
 // tag::delete[]
 [[Delete]]
-=== Deleting a grade / task / module / profile: `delete`
-To remove a grade, task, module or profile from *MODdy*, use the `delete` command.
+=== Deleting a profile / module / task / grade: `delete`
+To remove a profile, module, task or grade from *MODdy*, use the `delete` command.
 
 There are *four* ways you can use the `delete` command:
 
-==== Deleting a grade +
-If you have been using MODdy to simulate your grades or you have entered a grade for the wrong module, you can delete the grade using the command below. The effect of using this command is shown in the figure below.
+==== Deleting your profile +
+If you wish to remove your profile, you can do so with the command below. The effect of using this command is shown in the figure below.
 
-Format: `delete m/MODULE_CODE g/`
+Format: `delete n/name`
 
-(to include screenshot of MODdy on Mac and the caption)
+.Entire profile deleted from *MODdy*
+image::DeleteProfile.png[width="790"]
+
+NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from *MODdy*
+
+==== Deleting a module +
+If you have decided not to take a module you were planning to take or to drop a module which you are currently taking, you can delete it with the command below. The effect of using this command is shown in the figure below.
+
+Format: `delete m/moduleCode`
+
+You can delete multiple modules at the same time. To delete multiple modules, just append the `m/moduleCode` tags one after another, e.g. `delete m/CS1231 m/IS1130 m/MA1521`.
+
+.CS2107 and its tasks deleted from *MODdy*
+image::DeleteModule.png[width="790"]
+
+NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from *MODdy*
 
 ==== Deleting a task +
 Once you have completed a task, you can delete it using the command below. The effect of using this command is shown in the figure below.
 
-Format: `delete m/MODULE_CODE t/TASK`
+Format: `delete m/moduleCode t/task`
+
+You can delete multiple tasks at the same time but only from the *same* module. To delete multiple tasks, just append the `t/task` tags one after another, e.g. `delete m/CS1231 t/quiz t/exam`.
 
 ."Project Submission" for CS2103 deleted from the Deadline Panel
 image::DeleteTask.png[width="790"]
@@ -325,26 +342,12 @@ NOTE: The specified task and its deadline will be deleted from the specified mod
 TIP: `delete m/CS2103 t/Project Submission` +
 Deletes the task "Assignment" from the module CS2103 in your profile
 
-==== Deleting a module +
-If you have decided not to take a module you were planning to take or to drop a module which you are currently taking, you can delete it with the command below. The effect of using this command is shown in the figure below.
+==== Deleting a grade +
+If you have been using *MODdy* to simulate your grades or you have entered a grade for the wrong module, you can delete the grade using the command below. The effect of using this command is shown in the figure below.
 
-Format: `delete m/MODULE_CODE`
+Format: `delete m/moduleCode g/`
 
-.CS2107 and its tasks deleted from *MODdy*
-image::DeleteModule.png[width="790"]
-
-NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from *MODdy*
-
-
-==== Deleting your profile +
-If you wish to remove your profile, you can do so with the command below. The effect of using this command is shown in the figure below.
-
-Format: `delete n/NAME`
-
-.Entire profile deleted from *MODdy*
-image::DeleteProfile.png[width="790"]
-
-NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from *MODdy*
+(to include screenshot of MODdy on Mac and the caption)
 // end::delete[]
 
 
