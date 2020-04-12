@@ -26,7 +26,7 @@ public class Streak {
 
 
     /**
-     * Updates Streak every time App is openend
+     * Updates Streak every time App is opened
      */
     public void updateStreak() {
         if (records.size() == 0) {

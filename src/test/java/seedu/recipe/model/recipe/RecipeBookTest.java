@@ -1,4 +1,4 @@
-package seedu.recipe.model;
+package seedu.recipe.model.recipe;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,9 +17,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.model.recipe.RecipeBook;
-import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
+import seedu.recipe.model.ReadOnlyRecipeBook;
+import seedu.recipe.model.recipe.exceptions.DuplicateRecordException;
 import seedu.recipe.testutil.RecipeBuilder;
 
 public class RecipeBookTest {
@@ -46,12 +45,12 @@ public class RecipeBookTest {
     @Test
     public void resetData_withDuplicateRecipes_throwsDuplicateRecipeException() {
         // Two recipes with the same identity fields
-        Recipe editedAlice = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN)
+        Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN)
                 .build();
-        List<Recipe> newRecipes = Arrays.asList(CAESAR_SALAD, editedAlice);
+        List<Recipe> newRecipes = Arrays.asList(CAESAR_SALAD, editedCaesar);
         RecipeBookStub newData = new RecipeBookStub(newRecipes);
 
-        assertThrows(DuplicateRecipeException.class, () -> recipeBook.resetData(newData));
+        assertThrows(DuplicateRecordException.class, () -> recipeBook.resetData(newData));
     }
 
     @Test
@@ -73,9 +72,9 @@ public class RecipeBookTest {
     @Test
     public void hasRecipe_recipeWithSameIdentityFieldsInRecipeBook_returnsTrue() {
         recipeBook.addRecipe(CAESAR_SALAD);
-        Recipe editedAlice = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN)
+        Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN)
                 .build();
-        assertTrue(recipeBook.hasRecipe(editedAlice));
+        assertTrue(recipeBook.hasRecipe(editedCaesar));
     }
 
     @Test

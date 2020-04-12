@@ -1,17 +1,59 @@
 {
   "plannedRecipes" : [ {
     "recipe" : {
-      "name" : "Quick Carrot Daikon Stir-fry 2",
-      "time" : "25",
+      "name" : "Avocado Couscous Grapefruit salad with honey lime dressing",
+      "time" : "35",
       "isFavourite" : false,
-      "grains" : [ "50.0g,  Brown rice", "30.0g,  Grain" ],
-      "vegetables" : [ "50.0g,  This is a looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong ingredient" ],
-      "proteins" : [ ],
-      "fruits" : [ ],
-      "others" : [ "50.0g,  Other", "50.0g,  Others", "1.5tbsp,  Oyster sauce", "0.5tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tbsp,  Shaoxing wine", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
-      "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When dailon is translucent and tender, the dish is done." ],
-      "goals" : [ ]
+      "grains" : [ "0.8cup,  Uncooked whole wheat couscous", "100.0g,  White beans" ],
+      "vegetables" : [ ],
+      "proteins" : [ "0.8cup,  Low sodium chicken stock" ],
+      "fruits" : [ "3.0tbsp,  Freshly squeezed lime juice (for dressing)", "300.0g,  Large avocado", "200.0g,  Large ruby red grapefruits" ],
+      "others" : [ "3.0tbsp,  Chopped fresh mint", "0.5cup,  Crumbled feta cheese", "2.0tbsp,  Extra virgin olive oil", "3.0tbsp,  Finely chopped fresh cilantro", "2.0tbsp,  Honey", "0.3tbsp,  Kosher salt" ],
+      "steps" : [ "In a small saucepan, bring the stock to a boil. Remove from the heat, stir in the couscous, then cover at let sit 5 minutes. Fluff with fork and set aside.", "In a small bowl or large measuring cup, whisk together the dressing ingredients: lime juice, honey, olive oil, and salt, or shake all of the ingredients together in a mason jar with a tight-fitting lid.", "In a large bowl, combine beans and couscous. Pour dressing over top and stir to combine. Add the avocados, grapefruit, feta, mint, and cilantro. Toss gently. Serve chilled or at room temperature." ],
+      "goals" : [ "Wholesome Wholemeal" ]
     },
-    "date" : "2020-04-11"
+    "date" : "2020-04-12"
+  }, {
+    "recipe" : {
+      "name" : "Teriyaki chicken noodle bowl",
+      "time" : "35",
+      "isFavourite" : false,
+      "grains" : [ ],
+      "vegetables" : [ "50.0g,  Cloves garlic(minced)", "0.3tbsp,  Freshly grated ginger", "20.0g,  Green onion (thinly sliced)" ],
+      "proteins" : [ "100.0g,  Boneless and skinless chicken thighs(cut into 1-inch chunks)" ],
+      "fruits" : [ ],
+      "others" : [ "3.0tsp,  Brown sugar(packed)", "4.0tbsp,  Cornstarch", "0.5tbsp,  Honey", "0.3tbsp,  Olive oil", "4.0tsp,  Reduced sodium soy sauce", "150.0g,  Refrigerated yaki-soba, seasoning sauce packets discarded", "0.3tbsp,  Sesame seeds" ],
+      "steps" : [ "In a large pot of boiling water, add Yaki-Soba until loosened, about 1-2 minutes; drain well.", "In a small bowl, whisk together cornstarch and 1/4 cup water; set aside.", "In a small saucepan over medium heat, add soy sauce, brown sugar, garlic, ginger, honey and 1 cup water; bring to a simmer. Stir in cornstarch mixture until thickened enough to coat the back of a spoon, about 2 minutes; let cool to room temperature. Reserve 1/4 cup and set aside.", "In a gallon size Ziploc bag or large bowl, combine soy sauce mixture and chicken; marinate for at least 30 minutes to overnight, turning the bag occasionally. Drain the chicken from the marinade.", "Heat olive oil in a large skillet over medium heat. Add chicken and cook until golden brown and cooked through, about 3-4 minutes; set aside.", "Stir in Yaki-Soba and 1/4 cup reserved soy sauce mixture until well combined, about 2 minutes.", "Serve immediately, garnished with sesame seeds and green onion, if desired." ],
+      "goals" : [ "Bulk like the Hulk" ]
+    },
+    "date" : "2020-04-12"
+  }, {
+    "recipe" : {
+      "name" : "Overnight Oatmeal",
+      "time" : "10",
+      "isFavourite" : false,
+      "grains" : [ "1.0cup,  Steel cut oats" ],
+      "vegetables" : [ ],
+      "proteins" : [ ],
+      "fruits" : [ "1.0cup,  Dried cranberries", "1.0cup,  Dried figs" ],
+      "others" : [ "0.5cup,  Milk", "4.0cup,  Water" ],
+      "steps" : [ "In a slow cooker, combine all ingredients and set to low heat. Cover and let cook for 8 to 9 hours.", "Stir and remove to serving bowls. This method works best if started before you go to bed." ],
+      "goals" : [ "Wholesome Wholemeal" ]
+    },
+    "date" : "2020-04-12"
+  }, {
+    "recipe" : {
+      "name" : "chicken rice",
+      "time" : "30",
+      "isFavourite" : false,
+      "grains" : [ "300.0g,  Rice" ],
+      "vegetables" : [ ],
+      "proteins" : [ "300.0g,  Chicken thigh" ],
+      "fruits" : [ ],
+      "others" : [ ],
+      "steps" : [ "Boil chicken", "While chicken is cooking, add sesame oil and crushed ginger into rice and cook it", "When chicken is done, dip it into iced water", "Serve while rice is hot" ],
+      "goals" : [ "Bulk like the Hulk" ]
+    },
+    "date" : "2020-04-12"
   } ]
 }

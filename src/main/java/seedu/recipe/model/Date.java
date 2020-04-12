@@ -7,9 +7,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.WeekFields;
 import java.util.Locale;
 
 /**
@@ -19,8 +17,7 @@ import java.util.Locale;
 public class Date implements Comparable<Date> {
 
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Date should be written in the format YYYY-MM-DD";
+    public static final String MESSAGE_CONSTRAINTS = "Date should be written in the format YYYY-MM-DD";
 
     public static final String VALIDATION_REGEX = "^[0-9-]+";
     public static final DateTimeFormatter DAY_OF_WEEK = DateTimeFormatter.ofPattern("EEEE");
@@ -112,17 +109,8 @@ public class Date implements Comparable<Date> {
         return date.isAfter(otherDate.date);
     }
 
-    public String getMonthName() {
-        return date.getMonth().getDisplayName(TextStyle.FULL, SINGAPORE_LOCALE);
-    }
-
     public String getDayOfWeek() {
         return "" + date.getDayOfWeek();
-    }
-
-    public String getWeekOfMonth() {
-        WeekFields weekFields = WeekFields.of(SINGAPORE_LOCALE.getDefault());
-        return "" + date.get(weekFields.weekOfMonth());
     }
 
     public String toStringForJson() {
@@ -157,6 +145,5 @@ public class Date implements Comparable<Date> {
     public int hashCode() {
         return date.hashCode();
     }
-
 }
 

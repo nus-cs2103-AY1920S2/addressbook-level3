@@ -27,8 +27,8 @@ public class FavouriteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Favourites the recipe identified by the index number(s) used in the displayed recipe list.\n"
-            + "Parameters: INDEX NUMBER(s) (must be positive integers)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: [recipe index] <recipe index>... (must be positive integers)\n"
+            + "Example: " + COMMAND_WORD + " 1 3 4 (favourites recipes 1, 3, and 4)";
 
     public static final String MESSAGE_SUCCESS = "Added %1$s to favourites!";
     public static final String MESSAGE_ALREADY_FAVOURITE = "%1$s already in favourites!";
@@ -76,7 +76,7 @@ public class FavouriteCommand extends Command {
         }
 
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitBook(commandType);
+        model.commitBook(commandType, recipesTab);
         return new CommandResult(sb.toString(), false, false, recipesTab, false);
     }
 

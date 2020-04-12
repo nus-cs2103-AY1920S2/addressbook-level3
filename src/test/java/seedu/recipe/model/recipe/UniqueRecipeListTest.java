@@ -14,7 +14,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
+import seedu.recipe.model.recipe.exceptions.DuplicateRecordException;
 import seedu.recipe.model.recipe.exceptions.RecipeNotFoundException;
 import seedu.recipe.testutil.RecipeBuilder;
 
@@ -41,9 +41,9 @@ public class UniqueRecipeListTest {
     @Test
     public void contains_recipeWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRecipeList.add(CAESAR_SALAD);
-        Recipe editedAlice = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN)
+        Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN)
                 .build();
-        assertTrue(uniqueRecipeList.contains(editedAlice));
+        assertTrue(uniqueRecipeList.contains(editedCaesar));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class UniqueRecipeListTest {
     @Test
     public void add_duplicateRecipe_throwsDuplicateRecipeException() {
         uniqueRecipeList.add(CAESAR_SALAD);
-        assertThrows(DuplicateRecipeException.class, () -> uniqueRecipeList.add(CAESAR_SALAD));
+        assertThrows(DuplicateRecordException.class, () -> uniqueRecipeList.add(CAESAR_SALAD));
     }
 
     @Test
@@ -84,10 +84,10 @@ public class UniqueRecipeListTest {
     @Test
     public void setRecipe_editedRecipeHasSameIdentity_success() {
         uniqueRecipeList.add(CAESAR_SALAD);
-        Recipe editedAlice = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN).build();
-        uniqueRecipeList.setRecipe(CAESAR_SALAD, editedAlice);
+        Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN).build();
+        uniqueRecipeList.setRecipe(CAESAR_SALAD, editedCaesar);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
-        expectedUniqueRecipeList.add(editedAlice);
+        expectedUniqueRecipeList.add(editedCaesar);
         assertEquals(expectedUniqueRecipeList, uniqueRecipeList);
     }
 
@@ -104,7 +104,7 @@ public class UniqueRecipeListTest {
     public void setRecipe_editedRecipeHasNonUniqueIdentity_throwsDuplicateRecipeException() {
         uniqueRecipeList.add(CAESAR_SALAD);
         uniqueRecipeList.add(FISH);
-        assertThrows(DuplicateRecipeException.class, () -> uniqueRecipeList.setRecipe(CAESAR_SALAD, FISH));
+        assertThrows(DuplicateRecordException.class, () -> uniqueRecipeList.setRecipe(CAESAR_SALAD, FISH));
     }
 
     @Test
@@ -157,7 +157,7 @@ public class UniqueRecipeListTest {
     @Test
     public void setRecipes_listWithDuplicateRecipes_throwsDuplicateRecipeException() {
         List<Recipe> listWithDuplicateRecipes = Arrays.asList(CAESAR_SALAD, CAESAR_SALAD);
-        assertThrows(DuplicateRecipeException.class, () -> uniqueRecipeList.setRecipes(listWithDuplicateRecipes));
+        assertThrows(DuplicateRecordException.class, () -> uniqueRecipeList.setRecipes(listWithDuplicateRecipes));
     }
 
     @Test

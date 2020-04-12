@@ -31,7 +31,7 @@ public class RecipeBuilder {
     public static final String DEFAULT_TIME = "10";
     public static final boolean DEFAULT_FAVOURITE = false;
     public static final Step DEFAULT_STEP = new Step("Cut tomatoes into crescent shaped slices");
-    public static final Quantity DEFAULT_QUANTITY = new Quantity(100, Unit.GRAM);
+    public static final Quantity DEFAULT_QUANTITY = new Quantity(50, Unit.GRAM);
     public static final Grain DEFAULT_GRAIN = new Grain("Bread", DEFAULT_QUANTITY);
     public static final Vegetable DEFAULT_VEGETABLE = new Vegetable("Celery", DEFAULT_QUANTITY);
     public static final Protein DEFAULT_PROTEIN = new Protein("Minced Meat", DEFAULT_QUANTITY);
@@ -175,6 +175,14 @@ public class RecipeBuilder {
             isDefaultGrainPresent = false;
         }
         this.others = SampleDataUtil.getOtherSet(others);
+        return this;
+    }
+
+    /**
+     * Marks the recipe as a favourite if {@code isFavourite} is true. Else, marks the recipe as a non-favourite.
+     */
+    public RecipeBuilder withFavourite(boolean isFavourite) {
+        this.isFavourite = isFavourite;
         return this;
     }
 

@@ -3,13 +3,13 @@
     "name" : "Quick Carrot Daikon Stir-fry 2",
     "time" : "25",
     "isFavourite" : false,
-    "grains" : [ "50.0g,  Brown rice", "30.0g,  Grain" ],
+    "grains" : [ "1.0g,  Air", "100.0g,  Nothing" ],
     "vegetables" : [ "50.0g,  This is a looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong ingredient" ],
     "proteins" : [ ],
     "fruits" : [ ],
     "others" : [ "50.0g,  Other", "50.0g,  Others", "1.5tbsp,  Oyster sauce", "0.5tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tbsp,  Shaoxing wine", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
     "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When dailon is translucent and tender, the dish is done." ],
-    "goals" : [ ]
+    "goals" : [ "Wholesome Wholemeal" ]
   }, {
     "name" : "5 Ingredient Spelt Spaghetti",
     "time" : "25",
@@ -143,37 +143,27 @@
     "steps" : [ ],
     "goals" : [ ]
   }, {
-    "name" : "HEY",
-    "time" : "34",
-    "isFavourite" : false,
-    "grains" : [ "50.0g,  Hey i/s hey hey" ],
-    "vegetables" : [ ],
-    "proteins" : [ ],
-    "fruits" : [ ],
-    "others" : [ ],
-    "steps" : [ ],
-    "goals" : [ ]
-  }, {
-    "name" : "hey",
-    "time" : "45",
-    "isFavourite" : false,
+    "name" : "jiaqi's fav chicken",
+    "time" : "100",
+    "isFavourite" : true,
     "grains" : [ ],
-    "vegetables" : [ "10.0cup,  Grapes is/hyehye" ],
-    "proteins" : [ ],
+    "vegetables" : [ "100.0g,  Lettuce" ],
+    "proteins" : [ "100.0g,  Chicken thigh" ],
     "fruits" : [ ],
     "others" : [ ],
-    "steps" : [ ],
-    "goals" : [ "Herbivore" ]
+    "steps" : [ "fry the chicken" ],
+    "goals" : [ "Bulk like the Hulk" ]
   }, {
-    "name" : "name",
+    "name" : "fruit salad",
     "time" : "10",
     "isFavourite" : false,
-    "grains" : [ "10.0g,  Grains" ],
+    "grains" : [ ],
     "vegetables" : [ ],
     "proteins" : [ ],
-    "fruits" : [ ],
+    "fruits" : [ "30.0g,  Apple", "40.0g,  Grapes,", "5.0cup,  Orange slices", "30.0g,  Pear", "30.0g,  Pineapple" ],
     "others" : [ ],
-    "steps" : [ "make it" ],
-    "goals" : [ ]
+    "steps" : [ ],
+    "goals" : [ "Fruity Fiesta" ]
   } ]
 }
+

@@ -25,7 +25,7 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         model.setRecipeBook(new RecipeBook());
         model.setPlannedBook(new PlannedBook());
-        model.commitBook(commandType);
+        model.commitBook(commandType, recipesTab);
         return new CommandResult(MESSAGE_SUCCESS, false, false, recipesTab, false);
     }
 }

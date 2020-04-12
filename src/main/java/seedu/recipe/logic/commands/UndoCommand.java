@@ -5,6 +5,7 @@ import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Reverses the action of an earlier action.
@@ -32,12 +33,13 @@ public class UndoCommand extends Command {
         if (!model.canUndo(numberOfUndo)) {
             throw new CommandException(MESSAGE_CANNOT_UNDO);
         }
-        model.undoBook(numberOfUndo, model);
+        Tab toSwitch = model.undoBook(numberOfUndo, model);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         if (numberOfUndo > 0) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfUndo));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfUndo),
+                    false, false, toSwitch, false);
         } else {
-            return new CommandResult(MESSAGE_ALL_SUCCESS);
+            return new CommandResult(MESSAGE_ALL_SUCCESS, false, false, toSwitch, false);
         }
     }
 }

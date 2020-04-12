@@ -1,12 +1,22 @@
 package seedu.recipe.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.recipe.logic.commands.CommandTestUtil.VALID_DATE_FUTURE;
+import static seedu.recipe.logic.commands.CommandTestUtil.VALID_DATE_PAST;
+import static seedu.recipe.model.Date.today;
 import static seedu.recipe.testutil.Assert.assertThrows;
+import static seedu.recipe.testutil.TypicalDates.DATE_IN_FUTURE;
+import static seedu.recipe.testutil.TypicalDates.DATE_IN_PAST;
+import static seedu.recipe.testutil.TypicalDates.DATE_TODAY;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import org.junit.jupiter.api.Test;
 
-class DateTest {
+public class DateTest {
 
     @Test
     public void constructor_invalidDate_throwsIllegalArgumentException() {
@@ -46,7 +56,7 @@ class DateTest {
     }
 
     @Test
-    public void isDateInFuture() {
+    public void execute_isDateInFuture() {
         Date olderDate = new Date("1000-01-01"); // date about 1000 years in the past
         assertFalse(olderDate.isDateInFuture());
 
@@ -55,7 +65,7 @@ class DateTest {
     }
 
     @Test
-    public void isWithinRange() {
+    public void execute_isWithinRange() {
         Date pastDate = new Date("1000-01-01"); // date about 1000 years in the past
         Date recentDate = new Date("2000-01-01"); // date in this millennium
         Date futureDate = new Date("5000-01-01"); // date about 3000 years in the future
@@ -70,4 +80,54 @@ class DateTest {
         assertFalse(recentDate.isWithinRange(pastDate, pastDate));
         assertFalse(recentDate.isWithinRange(futureDate, futureDate));
     }
+
+    @Test
+    public void execute_today_isCorrect() {
+        ZoneId defaultId = ZoneId.of("Asia/Singapore");
+        Date expectedDate = new Date(LocalDate.now(defaultId));
+        Date dateToday = today();
+        assertEquals(dateToday, today());
+    }
+
+    @Test
+    public void execute_isOnDate() {
+        Date future = new Date(VALID_DATE_FUTURE);
+
+        // same object -> returns true
+        assertTrue(future.isOnDate(future));
+
+        // same values -> returns true
+        Date futureCopy = new Date(VALID_DATE_FUTURE);
+        assertTrue(future.isOnDate(futureCopy));
+
+        // different values -> returns false
+        Date past = new Date(VALID_DATE_PAST);
+        assertFalse(future.isOnDate(past));
+    }
+
+    @Test
+    public void execute_isAfter() {
+        assertTrue(DATE_TODAY.isAfter(DATE_IN_PAST));
+        assertTrue(DATE_IN_FUTURE.isAfter(DATE_TODAY));
+
+        assertFalse(DATE_TODAY.isAfter(DATE_IN_FUTURE));
+        assertFalse(DATE_IN_PAST.isAfter(DATE_TODAY));
+    }
+
+    @Test
+    public void equals() {
+        Date future = new Date(VALID_DATE_FUTURE);
+
+        // same object -> returns true
+        assertTrue(future.isOnDate(future));
+
+        // same values -> returns true
+        Date futureCopy = new Date(VALID_DATE_FUTURE);
+        assertTrue(future.isOnDate(futureCopy));
+
+        // different values -> returns false
+        Date past = new Date(VALID_DATE_PAST);
+        assertFalse(future.isOnDate(past));
+    }
+
 }
