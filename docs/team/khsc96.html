@@ -1,0 +1,1270 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Kenny Ho - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://github.com/AY1920S2-CS2103T-W12-1/main"><img src="../images/delino_icon.png" alt="Delino"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="../index.html">Delino</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">Delino</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S2-CS2103T-W12-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Kenny Ho - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-delino"><a class="link" href="#project-delino">PROJECT: Delino</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Delino is a desktop application for couriers to manage delivery tasks. The user
+interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Added <code>search</code> feature</strong> (Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/187">#187</a>)<br>
+Functionality of feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#search">here</a> and implementation of it can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#search">here</a>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it does</strong>:<br>
+Allows the user to specifically search for keywords that matches any fields of the parcel. The user are also able to narrow down their search range by providing different flags and prefixes.</p>
+</li>
+<li>
+<p><strong>Justification</strong>:<br>
+This is one of the key feature of Delino as it allows the user to sieve out parcels of their interest from the large parcels list.</p>
+</li>
+<li>
+<p><strong>Highlights</strong>:<br>
+This enhancement is affected by the existing <code>insert</code> and <code>return</code> command as it depends heavily on the fields added in parcel.
+It also affects the future command to be added in if the future command requires to change the properties of a parcel. Implementing this feature requires
+the thorough understanding of the existing class in AB3 such as the <code>ArgumentMultimap</code> and the <code>NameContainsKeywordsPredicate</code>. Furthermore, JavaFX class <code>Predicate</code> was used to achieve functionality of this feature.<br>
+Moreover, as this features allows user to search in many different possible way, testing the different scenarios are hard. ParametizedTest of JUnit testing was used to make my test code much cleaner.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Updated <code>edit</code> feature</strong> (Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/234">#234</a>)<br>
+Functionality of feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#edit">here</a> and implementation of it can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#edit">here</a>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it does</strong>:<br>
+Allows the user to edit specific fields of a parcel, Order or Return Order.</p>
+</li>
+<li>
+<p><strong>Justification</strong>:<br>
+This is one of the key feature of Delino as it allows the user to edit any field in Orders or Return Orders. It is especially important as the user might need to reschedule the delivery date due to unforeseen circumstances.</p>
+</li>
+<li>
+<p><strong>Highlights</strong>:<br>
+This enhancement is affected by the design of parcel class. It affects the future implementation of any future features that will alter the parcel design.
+This feature requires a thorough understanding of the existing code of AB3 such as the <code>ArgumentMultimap</code> class.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>:<br></p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Changes to all asiicdoc files title to match our app Delino (Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/92">#92</a>).</p>
+</li>
+<li>
+<p>Improve UI of Delino (Pull requests: <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/209">#209</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/221">#221</a>).</p>
+</li>
+<li>
+<p>Allow user to easily see the time in Delino by adding a real-time clock (Pull requests: <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/336">#336</a>).</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=khsc96&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2020-02-14&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false">Functional code &amp; Test code</a>]</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In charge of both code integration and testing.</p>
+</li>
+<li>
+<p>Finalised the pre-releases of Delino <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/releases/tag/v1.2">v1.2</a> and <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/releases/tag/v1.3">v1.3</a> on github.</p>
+</li>
+<li>
+<p>Together with Jeremy, we set-up the Travis bot in our team repo.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>UI changes Pull requests : <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/209">#209</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/221">#221</a></p>
+</li>
+<li>
+<p>Improve search feature functionality to cover Return Order as well as coverage of test case <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/187">#187</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/248">#248</a>.</p>
+</li>
+<li>
+<p>Improve edit feature functionality to cover Return Order and improve error message for edit feature <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/234">#234</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/305">#305</a>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Update Edit feature, Search feature, Quick start, Glossary and minor documentation bugs of <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html"><strong>User Guide</strong></a> (Pull requests: <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/91">#91</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/92">#92</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/128">#128</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/135">#135</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/177">#177</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/195">#195</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/227">#227</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/316">#316</a>).</p>
+</li>
+<li>
+<p>Update Use cases 1-6, Product Scope, Image rendering bug, Search feature and Edit feature of <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html"><strong>Developer Guide</strong></a> (Pull requests: <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/76">#76</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/114">#114</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/178">#178</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/204">#204</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/208">#208</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/231">#231</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/249">#249</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/259">#259</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/316">#316</a>).</p>
+</li>
+<li>
+<p>Added own email in ContactUs, changed title of all documents to match Delino name and Update of own PPP (Pull requests : <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/80">#80</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/92">#92</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/321">#321</a>).</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/81">#81</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/116">#116</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/121">#121</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/171">#171</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/181">#181</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/194">#194</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/309">#309</a>, <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/318">#318</a></p>
+</li>
+<li>
+<p>Contributed to forum discussions by asking a few help questions <a href="https://github.com/nus-cs2103-AY1920S2/forum/issues/32">#32</a>, <a href="https://github.com/nus-cs2103-AY1920S2/forum/issues/35">#35</a>, <a href="https://github.com/nus-cs2103-AY1920S2/forum/issues/89">#89</a>.</p>
+</li>
+<li>
+<p>Reported bugs and suggestions for other teams in the class <a href="https://github.com/khsc96/ped/issues/1">#1</a>, <a href="https://github.com/khsc96/ped/issues/2">#2</a>, <a href="https://github.com/khsc96/ped/issues/3">#3</a>, <a href="https://github.com/khsc96/ped/issues/4">#4</a>, <a href="https://github.com/khsc96/ped/issues/5">#5</a>, <a href="https://github.com/khsc96/ped/issues/6">#6</a>, <a href="https://github.com/khsc96/ped/issues/7">#7</a>, <a href="https://github.com/khsc96/ped/issues/8">#8</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrated a third party library (Travis) to the project (<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/commit/8f78de044b27b80a9ca893234a11ca184e114f50">#8f78de0</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections that I have contributed to Delino&#8217;s User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-edit-feature-strong"><a class="link" href="#strong-edit-feature-strong"><strong>Edit feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Edit feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#edit">here</a>. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="sect2">
+<h3 id="edit"><a class="link" href="#edit">Editing an order : <code>edit</code> [Done by - Kenny Ho Si Chong]</a></h3>
+<div class="paragraph">
+<p>In this section, you will be able to find out how to properly <a href="#edit-works">use</a> the <code>edit</code> command and the relevant <a href="#edit-examples">examples</a>.<br>
+Why will you want to use the <code>edit</code> command? If you wish to edit any field of a parcel, the <code>edit</code> command will provide you the means to do so.</p>
+</div>
+<div class="sect3">
+<h4 id="edit-works"><a class="link" href="#edit-works">How to use the Edit command</a></h4>
+<div class="paragraph">
+<p>Here is how you can edit the details of any parcel by following the steps below:<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1</strong> : Type in the keyword <code>edit</code><br>
+<strong>Step 2</strong> : Provide the <code><a href="#command_flags">FLAG</a></code> corresponding to the parcel order type you want to edit<br>
+<strong>Step 3</strong> : Provide the <code>INDEX</code> of the parcel displayed on the screen that you wish to edit<br>
+<strong>Step 4</strong> : Provide the <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code> coupled with a front slash <code>/</code> and the new value you want to change to.<br>
+<strong>Step 5</strong> : Press <code>Enter</code> on your keyboard to see the magic!</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>In between each step please put a whitespace!</p>
+</li>
+<li>
+<p>If you can&#8217;t see any orders or returns use the <code><a href="#list">list</a></code> command to view existing parcel! If nothing is showing up means you got to add some <code><a href="#insert">order</a></code> or <code><a href="#return">return</a></code> parcel and start doing work!</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edit-examples"><a class="link" href="#edit-examples">What constitutes a valid Edit command</a></h4>
+<div class="paragraph">
+<p>The syntax for a valid <code>edit</code> command can be seen below:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>edit</code> <code>FLAG</code> <code>INDEX</code> <code>ORDER_ATTRIBUTE_PREFIX/NEW_VALUE</code> <code>[ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]&#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>edit</code> is the command word for this feature.</p>
+</li>
+<li>
+<p><code>FLAG</code> is to differentiate the different kind of parcel (orders or returns).</p>
+</li>
+<li>
+<p>The <code>INDEX</code> given is the parcel you will be editing on.</p>
+</li>
+<li>
+<p><code>ORDER_ATTRIBUTE_PREFIX</code> is the field of the parcel you want to change</p>
+</li>
+<li>
+<p><code>NEW_VALUE</code> is the new value you want to replace the old value with.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>These are the possible combinations of the <code>edit</code> command:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. Possible Combinations of Edit command</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scenario</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to edit the name of the first return order displayed on returns list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>-r</code> <code>1</code> <code>n/Xuan En</code><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The index <code>1</code> customer&#8217;s name of the return order list will be changed to <code>Xuan En</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to edit the phone number of the second order displayed on the orders list.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>-o</code> <code>2</code> <code>p/9999 4444</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The index <code>2</code> customer&#8217;s phone number of the order list will be changed changed to <code>9999 4444</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to edit the address of the first order displayed on the orders list.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>-o</code> <code>1</code> <code>a/Blk 123 Pasir Ris Street 51 #12-21 S510123</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The index <code>1</code> customer&#8217;s address of the order list will be changed to <code>Blk 123 Pasir Ris Street 51 #12-21 S510123</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to edit the name, phone number and address of the third return order displayed on the returns list.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>-r</code> <code>3</code> <code>n/Mr Tan</code> <code>p/0123 4567</code> <code>a/Blk 141 Yishun st 71 #09-09 S760141</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The index <code>3</code> customer&#8217;s name, phone and address of the return order list will be changed accordingly to the prefix.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>INDEX</code> <strong>must be a positive integer</strong>, e.g: 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The <code>INDEX</code> <strong>must be in range</strong> of the number of displayed orders</p>
+</li>
+<li>
+<p>Only can be used when there is at least an order displayed.</p>
+</li>
+<li>
+<p>The <code>FLAG</code> can only be either <code>-o</code> or <code>-r</code>, please refer to <a href="#command_flags">here</a> for more information.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-search-feature-strong"><a class="link" href="#strong-search-feature-strong"><strong>Search feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Search feature can be found at <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#search">here</a>. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="sect2">
+<h3 id="search"><a class="link" href="#search">Searching for parcels using their attributes: <code>search</code> [Done by Kenny Ho Si Chong]</a></h3>
+<div class="paragraph">
+<p>In this section, you will be able to find out how to properly <a href="#search-works">use</a> the <code>search</code> command and the relevant <a href="#search-examples">examples</a>.<br>
+Why will you want to use the <code>search</code> command? If you wish to search for a parcel with specific keywords, the <code>search</code> command will provide you the means to do so.</p>
+</div>
+<div class="sect3">
+<h4 id="search-works"><a class="link" href="#search-works">How to use the Search command?</a></h4>
+<div class="paragraph">
+<p>Here is how you can search for any parcel containing the keywords given by the following steps below:<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1</strong> : Type in the keyword <code>search</code><br>
+<strong>Step 2 (optional)</strong> : Provide <code>-o</code> flag if you want to only search for parcels in the order list. A <code>-r</code> flag also can be used to only search for parcels in the return order list.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If no flag is given in this step, <code>search</code> command will be performed on both the order and return order list.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Step 3 (optional)</strong> : If you wish to only specifically search for keywords in a field, you should provide the <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code> coupled with a front slash <code>/</code> and the keyword you want to search for.<br>
+<strong>Step 4</strong> : Provide any number of alphanumeric words you wish to search for in the parcel.<br>
+<strong>Step 5</strong> : Press <code>Enter</code> on your keyboard to see the magic!</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>In between each step please put a whitespace!</p>
+</li>
+<li>
+<p>If nothing is displaying means you have no parcel containing the keyword you have given!</p>
+</li>
+<li>
+<p>Keyword searches are case-insensitive, e.g: <code>Jeremy</code> matches <code>jErEmY</code> or <code>jeremy</code> or any alphabet casing permutations.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="search-examples"><a class="link" href="#search-examples">What constitutes a valid Search command?</a></h4>
+<div class="paragraph">
+<p>The syntax for a valid <code>search</code> command can be seen below:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>search</code> <code>[<a href="#command_flags">FLAG</a>]</code> <code>KEYWORD</code> <code>[MORE_KEYWORDS]&#8230;&#8203;</code> OR</p>
+</li>
+<li>
+<p><code>search</code> <code>[<a href="#command_flags">FLAG</a>]</code> <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a>/KEYWORD</code> <code>[MORE_KEYWORDS]&#8230;&#8203;</code> <code>[<a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a>/KEYWORD MORE_KEYWORDS]&#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>search</code> is the command word for this feature.</p>
+</li>
+<li>
+<p><code>FLAG</code> is to differentiate the different kind of parcel (orders or returns).</p>
+</li>
+<li>
+<p>The <code>KEYWORD</code> is the word you want to search for in any of the parcel and it is case-insensitive.</p>
+</li>
+<li>
+<p><code>ORDER_ATTRIBUTE_PREFIX</code> is the field of the parcel you want to search for</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>These are the possible combinations of the <code>search</code> command:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. Possible Combinations of Search command</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scenario</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to search for any return parcel containing the keyword <code>Jeremy</code> or <code>Loh</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>-r</code> <code>Jeremy Loh</code><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return all return order(s) containing keyword of <code>jeremy</code>, <code>Jeremy Loh</code> or <code>loh</code> or any of the above as long as it appears in any of the parcel field.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to search for any order parcel that contain the transaction id of <code>asj2od3943</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>-o</code> <code>tid/asj2od3943</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return all order(s) with transaction ID of <code>asj2od3943</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to search for any return parcel that contain the phone number of <code>92039999</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>-r</code> <code>p/92039999</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return all return order(s) with phone number of <code>92039999</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to only search for any order parcel that contains either the phone number <code>92039999</code>, transaction id of <code>asj2od3943</code> or the name <code>jeremy</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>-o</code> <code>p/92039999</code> <code>tid/asj2od3943</code> <code>n/jeremy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return all order(s) with either phone number of <code>92039999</code> or transaction ID of <code>asj2od3943</code> or name of <code>jeremy</code> or any of the above combinations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to search for <strong>any</strong> parcel containing the name <code>Jeremy</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>n/Jeremy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return all parcel(s) with the name of <code>Jeremy</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>hans</code> will match <code>Hans</code></p>
+</li>
+<li>
+<p>The sequence of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
+</li>
+<li>
+<p>Orders matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-command-summary-strong"><a class="link" href="#strong-command-summary-strong"><strong>Command summary</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Command summary can be found at <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command-summary">here</a>. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="paragraph">
+<p>In this section, you can find out more about the commands supported by Delino
+(their respective format and example).</p>
+</div>
+<div class="paragraph">
+<p>If you would like to know more about a specific command, you can view more information by clicking
+the provided link in the table below.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. Command Summary</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Format</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#insert"><strong>Insert</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insert</code> <code>tid/TRANSACTION_ID</code> <code>n/CUSTOMER_NAME</code> <code>a/ADDRESS</code> <code>p/PHONE_NUMBER</code> <code>e/EMAIL</code> <code>dts/DELIVERY_DATE_&amp;_TIME</code> <code>w/WAREHOUSE_LOCATION</code> <code>cod/CASH_ON_DELIVERY</code> <code>[c/COMMENTS_BY_CUSTOMER]</code> <code>[type/TYPE_OF_ITEM]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insert</code> <code>tid/0123456789</code> <code>n/Eng Xuan En</code> <code>a/Tampines St 84 Blk 877 S520877 #01-123</code> <code>p/87654321</code> <code>e/xuanen@example.com</code> <code>dts/2020-02-20 1300</code> <code>w/Yishun industry</code> <code>cod/$4.50</code> <code>c/please knock the door three times :D</code> <code>type/heavy</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#clear"><strong>Clear</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code> <code>[FLAG]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code><br>
+<code>clear</code> <code>-f</code><br>
+<code>clear</code> <code>-r</code><br>
+<code>clear</code> <code>-f</code> <code>-r</code><br>
+<code>clear</code> <code>-o</code><br>
+<code>clear</code> <code>-o</code> <code>-f</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#delete"><strong>Delete</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>delete</code> <code>FLAG</code> <code>INDEX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>delete</code> <code>-o</code> <code>2</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#delivered"><strong>Delivered</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>delivered</code> <code>FLAG</code> <code>INDEX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>delivered</code> <code>-r</code> <code>2</code><br>
+<code>delivered</code> <code>-o</code> <code>1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit"><strong>Edit</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>FLAG</code> <code>INDEX</code> <code>ORDER_ATTRIBUTE_PREFIX/VALUE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>-r</code> <code>2</code> <code>n/Xuan En</code><br>
+<code>edit</code> <code>-o</code> <code>2</code> <code>p/9999 4444</code><br>
+<code>edit</code> <code>-o</code> <code>1</code> <code>a/Blk 123 Pasir Ris Street 51 #12-21 S510123</code><br>
+<code>edit</code> <code>-r</code> <code>3</code> <code>n/Mr Tan</code> <code>p/0123 4567</code> <code>a/Blk 141 Yishun st 71 #09-09 S760141</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#exit"><strong>Exit</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exit</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#search"><strong>Search</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>[<a href="#command_flags">FLAG</a>]</code> <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a>/KEYWORD</code> <code>[MORE_KEYWORDS]&#8230;&#8203;</code> <code>[<a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a>/KEYWORD MORE_KEYWORDS]&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>-r</code> <code>tid/ac1e345x7s</code><br>
+<code>search</code> <code>-r</code> <code>Jeremy Loh</code><br>
+<code>search</code> <code>-o</code> <code>tid/asj2od3943</code><br>
+<code>search</code> <code>-r</code> <code>p/92039999</code><br>
+<code>search</code> <code>-o</code> <code>p/92039999</code> <code>tid/asj2od3943</code> <code>n/jeremy</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#help"><strong>Help</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#show"><strong>Show</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#import"><strong>Import</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>import</code> <code>FILE_NAME</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>import</code> <code>orders.csv</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#list"><strong>List</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code> <code>[DONE_STATUS]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code><br>
+<code>list</code> <code>done</code><br>
+<code>list</code> <code>undone</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#return"><strong>Return</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>return</code> <code>tid/TRANSACTION_ID</code> <code>n/CUSTOMER_NAME</code> <code>a/ADDRESS</code> <code>p/PHONE_NUMBER</code> <code>e/EMAIL</code> <code>rts/RETURN_DATE_&amp;_TIME</code> <code>w/WAREHOUSE_LOCATION</code> <code>c/COMMENTS_BY_CUSTOMER</code> <code>type/TYPE_OF_ITEM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>return</code> <code>tid/ac17s2a</code> <code>n/BOBBY TAN</code> <code>a/123 Delta Road #03-333, Singapore 123456</code> <code>p/91230456</code> <code>rts/12-12-2020 1301</code> <code>w/Jurong Warehouse</code> <code>c/NIL</code> <code>type/glass</code><br>
+<code>return</code> <code>tid/ac17s2a</code><br>
+<code>return</code> <code>tid/b1230512</code> <code>n/Aaron Teo</code> <code>a/256 Alpha Road #03-222, Singapore 123567</code> <code>p/91230456</code> <code>e/aaron@example.com</code> <code>rts/12-12-2020 1400</code> <code>w/Jurong Warehouse</code> <code>c/Leave it at the lobby</code> <code>type/metal</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#nearby"><strong>Nearby</strong></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nearby</code> <code>[FLAG]</code> <code>POSTAL_SECTOR</code><br>
+OR<br>
+<code>nearby</code> <code>[FLAG]</code> <code>AREA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nearby</code> <code>east</code><br>
+<code>nearby</code> <code>-o</code> <code>14</code><br>
+<code>nearby</code> <code>-r</code> <code>north</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections that I have contributed to Delino&#8217;s Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-edit-feature-strong-2"><a class="link" href="#strong-edit-feature-strong-2"><strong>Edit feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Edit feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#edit">here</a>. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="sect2">
+<h3 id="edit"><a class="link" href="#edit">Edit Feature</a></h3>
+<div class="paragraph">
+<p>In this section, the <a href="#what-is-edit">functionality</a> of the <code>edit</code> feature, the
+expected <a href="#edit-path-execution">execution path</a>, the <a href="#edit-structure">structure</a> of the <strong>EditCommand</strong> class
+and the <a href="#edit-interactions">interactions</a> between objects with the <strong>EditCommand</strong> object will be discussed.</p>
+</div>
+<div class="sect3">
+<h4 id="what-is-edit"><a class="link" href="#what-is-edit">What is Edit Command</a></h4>
+<div class="paragraph">
+<p>The <code>edit</code> feature was implemented as <strong>EditCommand</strong> in the Logic package.<br></p>
+</div>
+<div class="paragraph">
+<p><code>edit</code> feature format : <code>edit</code> <code>INDEX</code> <code><a href="#command_flags">FLAG</a></code> <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code>/<code>NEW_VALUE</code> <code>[<a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code>/<code>NEW_VALUE]</code></p>
+</div>
+<div class="paragraph">
+<p>The <code>edit</code> feature allows the user to edit any field except delivery status of the order or the return order. However, user must provide a <code><a href="#command_flags">FLAG</a></code> and <code>INDEX</code>.<br>
+<code><a href="#command_flags">FLAG</a></code> to indicate which parcel type to edit; <code>-o</code> and  <code>-r</code> <code><a href="#command_flags">FLAG</a></code> to represent Order or Return Order respectively.<br>
+<code>INDEX</code> to indicate which parcel the user wants to edit.<br>
+The list of the different parcel fields are listed in Appendix E: <a href="#command_prefix">Glossary</a>.<br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This feature allows user to edit more than one field within a command.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Limitation </strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Editing the delivery/return time is that the updated delivery date or return date must not be in the past.</p>
+</li>
+<li>
+<p>There must be an order first for <code>edit</code> command to work.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edit-path-execution"><a class="link" href="#edit-path-execution">Execution paths of Edit Command</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="../images/EditCommandActivityDiagram.svg" alt="EditCommandActivityDiagram">
+</div>
+<div class="title">Figure 1. EditCommand Activity Diagram</div>
+</div>
+<div class="paragraph">
+<p>The above figure illustrates the execution path of <code>edit</code> command when performed by the user.<br></p>
+</div>
+<div class="paragraph">
+<p>Input when received, will be parsed by the <strong>DelinoParser</strong>.
+<strong>DelinoParser</strong> will check if command word matches any features command word.<br>
+In this feature, the command word is <code>edit</code>. If no command word is detected, a exception class should be
+generated for displaying of error message. <strong>CommandException</strong> is used in this feature to achieve that function.<br></p>
+</div>
+<div class="paragraph">
+<p>Once validated, user input is once again parse and check for validity. At this step, if user have provided input not matching the valid <code>edit</code> <a href="#what-is-edit">format</a>, an exception class is thrown.<br>
+Furthermore, if <code>NEW_VALUE</code> is invalid an exception should be thrown as well.<br>
+<strong>ParseException</strong> class is used in this scenario.</p>
+</div>
+<div class="paragraph">
+<p>Some invalid <code>NEW_VALUE</code>:<br>
+1) Editing delivery date or return date to the past.<br>
+2) Change the transaction id of one parcel to match another parcel.<br>
+3) Violation of any field(s) restriction.<br></p>
+</div>
+<div class="paragraph">
+<p>A correct input will prompts Delino to carry out the rest of the steps according.<br>
+1) Checking of the <code><a href="#command_flags">FLAG</a></code><br>
+2) Edits the the parcel.
+3) Display edit success message.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edit-structure"><a class="link" href="#edit-structure">Structure of Edit Command</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="../images/EditCommandClassDiagram.png" alt="EditCommandClassDiagram">
+</div>
+<div class="title">Figure 2. Edit Command Class Diagram</div>
+</div>
+<div class="paragraph">
+<p>The class diagram above depicts the structure of <strong>EditCommand</strong>. As per any <strong>Command</strong> class,
+<strong>EditCommand</strong> needs to extend the abstract class <strong>Command</strong>.<br>
+Information that are left out in this class diagram are the common messages used in <strong>EditCommand</strong>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edit-interactions"><a class="link" href="#edit-interactions">Interactions between Edit Command and it&#8217;s associated objects</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="../images/EditCommandSequenceDiagram.svg" alt="EditCommandSequenceDiagram">
+</div>
+<div class="title">Figure 3. Edit Command Sequence Diagram</div>
+</div>
+<div class="paragraph">
+<p>The above figure illustrates the important interactions of <strong>EditCommand</strong> when the user successfully edit the first displayed order name to <code>Alice</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>The handling of breaking down the user input is done in the <strong>EditCommandParser</strong> class which is called upon by the
+<strong>DelinoParser</strong> after an initial check for correctness of the command input.<br></p>
+</div>
+<div class="paragraph">
+<p>The <strong>EditParcelDescriptor</strong> class is a static class contained in the <strong>EditCommand</strong> class.
+It act as a helper class to allow the setting of all the <code>NEW_VALUE</code> to the corresponding
+<code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code> in the <strong>EditCommandParser</strong> class.
+The <strong>EditParcelDescriptor</strong> object is then passed back as a parameter to instantiate an <strong>EditCommand</strong>.
+In the diagram above, the <strong>EditParcelDescriptor</strong> object is named as epd.
+The <strong>EditCommand</strong> object is then passed back as e to the <strong>LogicManager</strong>
+which will then call EditCommand#execute.
+This execute method mainly calls the 3 helper method, not shown,
+EditCommand#createEditedOrder/EditCommand#createEditedReturnOrder and EditCommand#generalSetParcel.
+The main function of these methods are to help <strong>EditCommand</strong> in updating the <strong>ObservableList</strong> in the
+<strong>Model</strong> class which is responsible for the updating of list displayed.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>ObservableList</strong> is a JavaFX class which listens and automatically changes the list once an update is performed.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-search-feature-strong-2"><a class="link" href="#strong-search-feature-strong-2"><strong>Search feature</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Search feature can be found at <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#search">here</a>. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="sect2">
+<h3 id="search"><a class="link" href="#search">Search Feature</a></h3>
+<div class="paragraph">
+<p>In this section, the <a href="#what-is-search">functionality</a> of the <code>search</code> feature, the expected
+<a href="#search-path-execution">execution path</a>, the <a href="#search-structure">structure</a> of the <strong>SearchCommand</strong> class
+and the <a href="#search-interactions">interactions</a> between objects with the <strong>SearchCommand</strong> object will be discussed.</p>
+</div>
+<div class="sect3">
+<h4 id="what-is-search"><a class="link" href="#what-is-search">What is the Search feature</a></h4>
+<div class="paragraph">
+<p>The <code>search</code> feature was implemented as the <strong>SearchCommand</strong> in the logic package.</p>
+</div>
+<div class="paragraph">
+<p>The <code>search</code> feature allow users to search for any orders according to the provided input.<br></p>
+</div>
+<div class="paragraph">
+<p><code>search</code> feature format: <code>search</code> <code><a href="#command_flags">[FLAG]</a></code> <code><a href="#command_prefix">[ORDER_ATTRIBUTE_PREFIX]</a></code>/<code>[KEYWORD]</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+A space is needed in between each word.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Keyword search is case-insensitive. E.g: Given <code>Jeremy</code> it matches <code>JeReMy</code>, <code>jeremy</code> or any permutations of alphabet casing.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>There are two mode of searching, <strong>general search</strong> or <strong>specific search</strong>.<br>
+If the user does not provide any <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code>, a <strong>general search</strong> mode will be
+performed on orders, return orders, or both depending on the <code><a href="#command_flags">FLAG</a></code>.<br></p>
+</div>
+<div class="paragraph">
+<p>The <code><a href="#command_flags">[FLAG]</a></code> <code>-o</code> when given, searches only for parcels in the order list.<br>
+The <code><a href="#command_flags">[FLAG]</a></code> <code>-r</code> when given, searches only for the parcels in the return order list.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>General search</strong> will search for all fields in an order/return orders/both that have any matching fields.<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the user provide any <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code>, a <strong>specific search</strong> will be performed.<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Specific search</strong> will search orders/return orders/both based on the given <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="search-path-execution"><a class="link" href="#search-path-execution">Execution paths of Search Command</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="../images/SearchCommandActivityDiagram.svg" alt="SearchCommandActivityDiagram">
+</div>
+<div class="title">Figure 4. Search Command Activity Diagram</div>
+</div>
+<div class="paragraph">
+<p>The above activity diagram illustrates the different execution paths of <code>search</code> command.<br>
+Whenever a user keys in an input with the <code>search</code> keyword, the <strong>SearchCommandParser</strong> class will handle the parsing of input.<br>
+User input will be validated in the <strong>SearchCommandParser</strong> class.</p>
+</div>
+<div class="paragraph">
+<p>Input is deemed as invalid and <strong>ParseException</strong> is thrown under these scenarios:<br>
+1) <code><a href="#command_flags">FLAG</a></code> given is not <code>-o</code> or <code>-r</code>.<br>
+2) Multiple <code><a href="#command_flags">FLAG</a></code> detected.<br>
+3) No <code>KEYWORD</code> is given after <code>search</code>.</p>
+</div>
+<div class="paragraph">
+<p>View the list of allowed prefixes in this <code>search</code> command <a href="#command_prefix">here</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="search-structure"><a class="link" href="#search-structure">Structure of Search Command</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="../images/SearchCommandClassDiagram.png" alt="SearchCommandClassDiagram">
+</div>
+<div class="title">Figure 5. Search Command Class Diagram</div>
+</div>
+<div class="paragraph">
+<p>The above class diagram depicts the structure of the class <strong>SearchCommand</strong>. As per any <strong>Command</strong> class,
+<strong>SearchCommand</strong> needs to extend the abstract class <strong>Command</strong>.<br>
+Information that are left out in this class diagram are the common messages used in <strong>SearchCommand</strong>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="search-interactions"><a class="link" href="#search-interactions">Interactions between objects when Search Command is executed</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="../images/SearchCommandSequenceDiagram.svg" alt="SearchCommandSequenceDiagram">
+</div>
+<div class="title">Figure 6. Search Command Sequence Diagram</div>
+</div>
+<div class="paragraph">
+<p>The sequence diagram above illustrates the interactions between objects when <code>search</code> command is performed by the user.<br>
+Particularly, the interactions shown is a success <code>search</code> command executed by the user and only an abstract view is shown.</p>
+</div>
+<div class="paragraph">
+<p><strong>LogicManager</strong> first calls parseCommand with arguments representing the user input, <code>Alice</code>.
+The <strong>SearchCommandParser</strong> will then check for any invalid arguments passed by the user.<br></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If the given arguments are valid, <strong>SearchCommandParser</strong> will return  a new <strong>SearchCommand</strong> object.<br></p>
+</li>
+<li>
+<p>If the given arguments are invalid or empty, a <strong>ParseException</strong> object will be thrown (not shown in the diagram).</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <strong>SearchCommandParser</strong> will then checks for the presence of any <code><a href="#command_flags">FLAG</a></code>.
+The presence of one will result in different <strong>SearchCommand</strong> constructor being called.<br>
+The <strong>SearchCommandParser</strong> will call the both the <strong>OrderContainsKeywordsPredicate</strong> constructor and
+the <strong>ReturnOrderContainsKeywordsPredicate</strong> if no <code><a href="#command_flags">FLAG</a></code> is given.<br>
+However, if a <code><a href="#command_flags">FLAG</a></code> is given, the corresponding predicate will be instantiated and passed
+as an parameter for the <strong>SearchCommand</strong> constructor with the other left as null value.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>What is not shown is that optionally, either <strong>OrderContainsKeywordsPredicate</strong> or
+<strong>ReturnOrderContainsKeywordsPredicate</strong> can be null if a <code><a href="#command_flags">FLAG</a></code> is given.
+However, under no circumstances should both be null.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The parsing of user input utilises <strong>ArgumentTokenzier</strong> (not shown in sequence diagram) to process and split
+each <code>KEYWORD</code> to it&#8217;s corresponding <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code>, if given any.<br></p>
+</div>
+<div class="paragraph">
+<p>If the preamble to any <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code> is not empty, a <strong>general search</strong> will be performed in which <code>KEYWORD</code> will be searched through all fields of parcel.<br>
+However, if <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code> is given and the preamble is empty, the <strong>specific search</strong> will be performed. Only parcel fields that correspond to the given <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code> will be searched and matched with the <code>KEYWORD</code>.</p>
+</div>
+<div class="paragraph">
+<p>The order and return order list updates automatically as the JavaFX class <strong>ObservableList</strong> is used to listen to any changes.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-use-case-for-edit-strong"><a class="link" href="#strong-use-case-for-edit-strong"><strong>Use case for Edit</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Use case for edit feature can be found at UC05 of <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases">here</a>. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<h3 id="use-case-uc05-editing-order-details" class="discrete">Use case: UC05 - Editing order details</h3>
+<div class="paragraph">
+<p>Preconditions: There should be a valid order/return order that can be edited.</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to <span class="underline">list orders (UC10).</span></p>
+</li>
+<li>
+<p>User wants to edit a specific order.</p>
+</li>
+<li>
+<p>User request to edit order details.</p>
+</li>
+<li>
+<p>Delino edit the order details.</p>
+</li>
+<li>
+<p>Delino display changes made.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a. Delino detects invalid syntax from user input.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. Delino shows an error message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3b. Delino unable to detect any parcel specified by the user.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3b1. Delino shows no parcel found message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3c. Delino detects duplicate parcel.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3c1. Delino shows duplicate parcel message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-use-case-for-search-strong"><a class="link" href="#strong-use-case-for-search-strong"><strong>Use case for search</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Use case for search feature can be found at UC07 of <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases">here</a>. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<h3 id="use-case-uc07-search-an-order" class="discrete">Use case: UC07 - Search an order</h3>
+<div class="paragraph">
+<p>Preconditions: There should be a valid order/return order in Delino.</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User wants to search a specifc order or return order by a given keyword.</p>
+</li>
+<li>
+<p>User request to search specific order or return order by a given keyword.</p>
+</li>
+<li>
+<p>Delino display the requested order.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. Delino detects invalid syntax from user input.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. Delino shows an error message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2b. Delino unable to find any parcel field that matches the given keyword.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2b1. Delino display parcel not found message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-manual-testing-appendix-edit-strong"><a class="link" href="#strong-manual-testing-appendix-edit-strong"><strong>Manual Testing - Appendix Edit</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Manual testing of Edit feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#edit-orders">here</a>. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="sect2">
+<h3 id="edit-orders"><a class="link" href="#edit-orders">Edit orders</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Edit the details of the delivery order by specifying the <code><a href="#command_flag">FLAG</a></code> (order type), <code>INDEX</code> (parcel number displayed), <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code> (the field user want to change) and <code>NEW_VALUE</code> (the new value that user want to replace the old ones with). For detailed implementation explanation click <a href="#edit">here</a>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisite: Call the <code><a href="#list">list</a></code> command to show something or <code><a href="#insert">insert</a></code>/<code><a href="#return">return</a></code> command to add something before you can <code><a href="#edit">edit</a></code>.</p>
+</li>
+<li>
+<p>Edit command format: <code>edit</code> <code><a href="#command_flag">FLAG</a></code> <code>INDEX</code> <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a>/NEW_VALUE</code></p>
+</li>
+<li>
+<p>Test case: <code>edit</code> <code>-r</code> <code>1</code> <code>n/Xuan En</code><br>
+Expected: The first index customer&#8217;s name is changed to Xuan En.</p>
+</li>
+<li>
+<p>Test case: <code>edit</code> <code>-o</code> <code>2</code> <code>p/99521654</code><br>
+Expected: The second index phone number is changed to 99521654.</p>
+</li>
+<li>
+<p>Test case: <code>edit</code> <code>-o</code> <code>1</code> <code>a/Blk 123 Pasir Ris street 51 #12-23 S510123</code><br>
+Expected: The first index is edited where the address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123.</p>
+</li>
+<li>
+<p>Test case: <code>edit</code> <code>-r</code> <code>2</code> <code>n/Mr Tan</code> <code>p/98776655</code> <code>a/Blk 841 Yishun st 81 #01-02 S760841</code><br>
+Expected: The second index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 841 Yishun st 81 #01-02 S760841.</p>
+</li>
+<li>
+<p>Test case: <code>edit</code> <code>-o</code> <code>1</code> <code>dts/09/08/2020</code><br>
+Expected: The delivery date of the first index of the customer will be rescheduled to 09/08/2020.</p>
+</li>
+<li>
+<p>Test case: <code>edit</code> <code>-r</code> <code>1</code> <code>rts/02/02/1900</code><br>
+Expected: The response box will display an error message as it is impossible to put a date that is already passed.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strong-manual-testing-appendix-search-strong"><a class="link" href="#strong-manual-testing-appendix-search-strong"><strong>Manual Testing - Appendix Search</strong></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on Manual testing of Search feature can be found <a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#search-an-order">here</a>. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="sect2">
+<h3 id="search-an-order"><a class="link" href="#search-an-order">Search an order</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Search an order based on the <code>KEYWORD</code> and <code>FLAG</code>(if any) given. For a more detailed explanation of the implementation click <a href="#search">here</a>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Search command format: <code>search</code> <code><a href="#command_flag">FLAG</a></code> <code>KEYWORD</code></p>
+</li>
+<li>
+<p>Test case: <code>list</code> <code>done</code><br>
+<code>search</code> <code>-r</code> <code>Jeremy Loh</code><br>
+Expected: Specifically search for any return order from the return order list that has any field matching the keyword of either <code>Jeremy</code>, <code>Loh</code> or both and print it to the user.</p>
+</li>
+<li>
+<p>Test case: <code>list</code> <code>undone</code><br>
+<code>search</code> <code>-o</code> <code>tid/asj2od3943</code><br>
+Expected: Specifically search for any order from the order list that has a Transaction id of <code>asj2od3943</code> and print it out to the user.</p>
+</li>
+<li>
+<p>Test case: <code>list</code><br>
+<code>search</code> <code>n/Jeremy</code><br>
+   Expected: Specifically search for both return order or order from both list that has one word of the name matching the key word <code>Jeremy</code>.</p>
+</li>
+<li>
+<p>Test case: <code>list</code><br>
+<code>search</code><br>
+   Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 00:30:20 SGT</div></div></div></body></html>
