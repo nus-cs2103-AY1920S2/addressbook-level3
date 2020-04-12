@@ -18,25 +18,35 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 *Major Enhancements*
 
-** *Added Entry and Receipt for Expense Splitter portion of EYLAH*
-*** What it does: Receipt is used to store multiple Entries, and these Entries are meant to store the information about a particular Item and the Persons involved in splitting the cost of that item.
-*** Justification: These classes are required to keep track of items and the persons involved for each of that item.
-*** Highlights:
+. *Added Entry and Receipt for Expense Splitter portion of EYLAH*
+*** *What it does:* +
+Receipt is used to store multiple Entries, and these Entries are meant to store the information about a particular Item and the Persons involved in splitting the cost of that item.
+*** *Justification:* +
+These classes are required to keep track of items and the persons involved for each of that item.
+*** *Highlights:*
 
-** *Added AddItemCommand and DeleteItemCommand for the Expense Splitter portion of EYLAH*
-*** What it does: It simply adds a new Entry into the Receipt or deletes an existing Entry from the Receipt.
-*** Justification: The DeleteItemCommand feature allows the user to delete any items that he/she made a mistake on.
-*** Highlights: These commands are only allowed to be used when the Receipt has not been marked as completed as this was accomplished using a boolean flag in the Receipt class. This is because DeleteItemCommand actually removes the Amount owed by the person from the PersonAmountBook. So does the PaidCommand. As such, if a user uses the DeleteItemCommand after using the PaidCommand, and if the Amount owed goes to negative, an exception would be thrown due to the nature of BigDecimal. Hence, a flag was included to prevent this from happening.
+. *Added AddItemCommand and DeleteItemCommand for the Expense Splitter portion of EYLAH*
+*** *What it does:* +
+It simply adds a new Entry into the Receipt or deletes an existing Entry from the Receipt.
+*** *Justification:* +
+The DeleteItemCommand feature allows the user to delete any items that he/she made a mistake on.
+*** *Highlights:* +
+These commands are only allowed to be used when the Receipt has not been marked as completed as this was accomplished using a boolean flag in the Receipt class. This is because DeleteItemCommand actually removes the Amount owed by the person from the PersonAmountBook. So does the PaidCommand. As such, if a user uses the DeleteItemCommand after using the PaidCommand, and if the Amount owed goes to negative, an exception would be thrown due to the nature of BigDecimal. Hence, a flag was included to prevent this from happening.
 
-** *Added DoneReceiptCommand and ClearReceiptCommand for the Expense Splitter portion of EYLAH*
-*** What it does: DoneReceiptCommand marks the Receipt as done and ClearReceiptCommand removes all existing Entries from the Receipt.
-*** Justification: DoneReceiptCommand is required to toggle the boolean flag of Receipt to be done. ClearReceiptCommand does the opposite by toggling the Receipt back as undone.
-*** Highlights: These commands are required to prevent an exception being thrown with regards to negative BigDecimal values, as explained in the text above.
+. *Added DoneReceiptCommand and ClearReceiptCommand for the Expense Splitter portion of EYLAH*
+*** *What it does:* +
+DoneReceiptCommand marks the Receipt as done and ClearReceiptCommand removes all existing Entries from the Receipt.
+*** *Justification:* +
+DoneReceiptCommand is required to toggle the boolean flag of Receipt to be done. ClearReceiptCommand does the opposite by toggling the Receipt back as undone.
+*** *Highlights:* +
+These commands are required to prevent an exception being thrown with regards to negative BigDecimal values, as explained in the text above.
 
-** *Added CalculateUtil and ParserUtil for the Expense Splitter portion of EYLAH*
-*** What it does: CalculateUtil does all the handling of calculations required in EYLAH. ParserUtil parses all the inputted texts and outputs them as the required Objects.
-*** Justification: Abstraction, to make things easier and more streamlined in our application.
-*** Highlights:
+. *Added CalculateUtil and ParserUtil for the Expense Splitter portion of EYLAH*
+*** *What it does:* +
+CalculateUtil does all the handling of calculations required in EYLAH. ParserUtil parses all the inputted texts and outputs them as the required Objects.
+*** *Justification:* +
+Abstraction, to make things easier and more streamlined in our application.
+*** *Highlights:*
 
 *Minor Enhancements*
 
