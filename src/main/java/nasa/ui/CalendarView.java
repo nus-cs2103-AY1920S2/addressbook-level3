@@ -94,7 +94,7 @@ public class CalendarView extends UiPart<Region> {
     }
 
     /**
-     * Method to update the calendar as activities are editied/removed/added.
+     * Method to update the calendar as activities are edited/removed/added.
      * @param moduleObservableList List of modules
      */
     private void updateCalendar(ObservableList<Module> moduleObservableList) {
