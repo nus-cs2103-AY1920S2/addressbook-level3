@@ -566,9 +566,10 @@ data of your previous HYBB folder.
 |editStep |Edit a step in a recipe
 |deleteStep |Delete steps in a recipe
 |filter |Search for recipes by (multiple) criteria
-|plan |Plan a recipe
-|deletePlan |Deletes a planned recipe
-|clearPlan |Clears all planned recipes
+|plan |Plan recipes
+|deletePlan |Delete plans
+|clearPlan |Clear all plans
+|groceryList |List all ingredients used in the planned recipes
 |deleteGoal |Deletes specified goal from a recipe
 |listGoals |Lists all available goals
 |cooked |Records a recipe as cooked
