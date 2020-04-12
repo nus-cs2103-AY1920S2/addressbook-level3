@@ -303,7 +303,6 @@ public class GenerateReportCommand extends Command {
                     currentYOffset = 800;
                 }
             }
-            currentYOffset -= 20;
             if (currentYOffset < 50) {
                 if (firstPage) {
                     generatePartialRemarkPage(document, startingPosition, rowsInAPage);
