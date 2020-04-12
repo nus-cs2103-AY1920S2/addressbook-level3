@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +42,21 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
         return score <= threshold || hasTag;
     }
 
-    public int countTag(Task task) {
+    public Comparator<Task> getSearchOrderComparator() {
+        return new Comparator<>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                int score1 = getEditDistance(task1) - countTag(task1);
+                int score2 = getEditDistance(task2) - countTag(task2);
+                if (score1 == score2) {
+                    return 0;
+                }
+                return score1 < score2 ? -1 : 1;
+            }
+        };
+    }
+
+    private int countTag(Task task) {
         int count = 0;
         for (Tag t: tags) {
             if (task.hasTag(t)) {
@@ -67,7 +82,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
      * <p>Order of Task search results will be based on the score. Tasks will be displayed in
      * ascending order of score.
      */
-    public int getEditDistance(Task task) {
+    private int getEditDistance(Task task) {
         if (keywords.size() == 0) {
             return threshold + 1;
         }
