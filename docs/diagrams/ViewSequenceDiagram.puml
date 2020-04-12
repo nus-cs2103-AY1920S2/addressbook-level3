@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FitBizParser" as FitBizParser LOGIC_COLOR
+participant ":ViewCommandParser" as ViewCommandParser LOGIC_COLOR
+participant "v :ViewCommand" as ViewCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+--> LogicManager : excute("view-c 3)
+activate LogicManager
+
+LogicManager --> FitBizParser : parseCommand("view-c 3")
+activate FitBizParser
+
+FitBizParser --> ViewCommandParser
+activate ViewCommandParser
+
+ViewCommandParser --> FitBizParser
+deactivate ViewCommandParser
+
+FitBizParser --> ViewCommandParser : parse("3")
+activate ViewCommandParser
+
+ViewCommandParser --> ViewCommand
+activate ViewCommand
+
+ViewCommand --> ViewCommandParser : v
+deactivate ViewCommand
+
+ViewCommandParser --> FitBizParser : v
+deactivate ViewCommandParser
+
+FitBizParser --> LogicManager : v
+deactivate FitBizParser
+
+LogicManager --> ViewCommand : execute()
+activate ViewCommand
+
+ViewCommand --> Model : setClientInView()
+activate Model
+
+Model --> ViewCommand
+deactivate Model
+
+ViewCommand --> CommandResult
+activate CommandResult
+
+CommandResult --> ViewCommand : result
+deactivate CommandResult
+
+ViewCommand --> LogicManager : result
+deactivate ViewCommand
+
+<-- LogicManager : result
+deactivate LogicManager
+
+@enduml

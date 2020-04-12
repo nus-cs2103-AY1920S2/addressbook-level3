@@ -65,9 +65,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete-c 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete-c 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -81,6 +81,8 @@ image::UiClassDiagram.png[]
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ClientListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+`GraphWindow` is a separate `Stage` from `MainWindow`. `MainWindow` creates a `GraphWindow` through a `graph` command.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -99,18 +101,16 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `FitBizParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a client).
+.  The command execution can affect the `Model` (e.g. adding or deleting a client).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying the list of clients or exercise graphs.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the sequence diagram for interactions within the `Logic` component for the `execute("delete-c 1")` API call mentioned previously.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete-c 1` Command
 image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component --Ng Ming Liang
@@ -144,7 +144,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `Client`, `Exercise` and `Schedule` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -377,64 +377,151 @@ In addition, we also harnessed the capability of the `HashSet` to ensure no over
 
 === Exercise Feature --- Yong Jie
 
-The function of recording the clients' exercises is one of the main features of our application. This section provides its key implementation details.
+This feature allows users to record the exercises done by a client. The exercises are displayed in a table form, after the `view-c` command is called.
 
 ==== Implementation
 
-===== Exercise class
+===== Implementation of Exercise class
 
-We implemented the `Exercise` class to contain the details of the exercise. An example would be the use of `ExerciseWeight` class to represent the weight of the exercise. Below shows a UML class diagram which provides further understanding of `Exercise`.
+The `Exercise` class is facilitated by the `UniqueExerciseList`, which is a wrapper class for an `ObservableList` of `Exercise` objects. Each Client contains one `UniqueExerciseList` attribute to keep track of all `Exercises` the client has.
+
+`Exercise` comprises five attributes:
+
+. `ExerciseName`
+. `ExerciseDate`
+. `ExerciseReps`
+. `ExerciseWeight`
+. `ExerciseSets`
+
+All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`. There is an additional class `PersonalBest` which is also associated to `Exercise`. It is omitted and will discuss in (...) section due to its high significance. Below shows a UML class diagram which shows `Exercise` class interactions.
 
 image::ExerciseClassDiagram.png[]
 
-===== Exercise Commands
+An important point to note about our implementation of `Exercise` is the method, `isSameExercise()`. We will consider two `Exercise` as the same if `isSameExercise()` returns true.
 
-Currently, there are only 2 exercise commands. The `add-e` command adds an exercise to the client and the `delete-e` command deletes an exercise from a client. The commands follow a similar execution flow as other commands.
+. Executes when adding a new `Exercise` to client's `UniqueExerciseList`. This includes `add-e` and `edit-e`.
+. Checks if the new `Exercise` is the same with an existing instance of `Exercise` in the client's `UniqueExerciseList`.
+. Two `Exercises` are the same does not mean that they are equal.
+Two `Exercise` are equal only if *all* attributes are equal.
 
-For the `add-e` command, we had to pay particular attention to the index where new Exercise is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This would result in problems when using `delete-e` command as it deletes the exercise at the specified index.
+Below shows an object diagram of two `Exercises` that will return true for `isSameExercise()`.
 
-We will use an example of a `add-e` command to illustrate the program execution flow. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The `AddressBookParser` will create a `AddExerciseCommandParser`. By using `ParserUtil`, `AddExerciseCommandParser` will extract details like the reps of the exercise and pass the arguments to `AddExerciseCommand`. The sequence diagram below shows the execution flow when the AddExerciseCommand is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
+image::IsSameExerciseObjectDiagram.png[]
+
+The two `Exercise` only have different values in `ExerciseSets` but equal values in:
+
+. `ExerciseName`
+. `ExerciseDate`
+. `ExerciseReps`
+. `ExerciseWeight`
+
+This implementation is chosen as we felt that the user should increment the value in `ExerciseSets` in the existing `Exercise`. We followed the same idea as in the real life context. Exercises with the same reps and weight can be grouped together as sets.
+
+We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. In the future, when adding a same `Exercise`, we can implement it such that the sets value of the exising `Exercise` gets incremented automatically instead of showing an error. For now, this implementation keeps the exercise table neat and compact for the user.
+
+===== Execution flow of Exercise Commands
+
+The exercise commands edits the client's `UniqueExerciseList`. Currently, there are 3 exercise commands.
+
+. `add-e` : Adds an exercise to a client
+. `edit-e` : Edits a client's exercise
+. `delete-e` : Deletes a client's exercise
+
+The commands follow a similar execution flow as other commands.
+
+image::ExerciseCommandActivityDiagram.png[]
+
+. The `FitBizParser` will create the associated exercise command parser. e.g. `AddExerciseCommandParser`
+. Using `ParserUtil`, the parser will extract attribute details from the input and create the `Command`. e.g. `AddExerciseCommand`
+. The exercise `Command` will be executed and modify the client's `UniqueExerciseList`.
+    .. Exceptions like no client being viewed and invalid input are thrown here.
+. The change will be reflected in the exercise table in GUI.
+. Result box will display success message for the `Command`.
+
+===== Adding an exercise to UniqueExerciseList
+
+When adding a new `Exercise` to `UniqueExerciseList`, it is important which index it is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This will result in problems when using exercise commands that specifies an index like `delete-e`.
+
+To address this problem, a custom insertion sort has been written in UniqueExerciseList, under the `addToSorted(Exercise)` method. This method will do a single pass of the internal list to insert the element at the correct position. This assumes that the internal list is initially sorted (which it should be, since reading from storage will do an initial sort on it).
+
+We will use an example of a `add-e` command to illustrate the execution of `addToSorted(Exercise)`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The sequence diagram below shows the execution flow when the `AddExerciseCommand` is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
 
 image::AddExerciseCommandSequenceDiagram.png[]
 
-`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of how the new exercise, `toAdd`, is added to the exercise list.
+`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of `addToSorted(Exercise)` to obtain details of the `Exercise` being added and exising `Exercise` in `UniqueExerciseList`.
 
 image::AddExerciseCommandSequenceDiagramPart2.png[]
 
-The exercise list, `UniqueExerciseList`, will go through a loop and iterate through the exercises in the list. The date of each exercise will be compared with the date of the `toAdd` exercise. `toAdd` will then be added to the `UniqueExerciseList` at the index to keep the list sorted.
+`UniqueExerciseList` loops through the exercises in the list. and calls `getExerciseDate()` and `getExerciseName()`. The `LocalDate` and exercise name in `String` type are then used for comparision. The sequence diagram below illustrates the conditional checks during the comparision.
+
+image::AddExerciseCommandSequenceDiagramPart3.png[]
+
+The conditional checks are such that `UniqueExerciseList` maintain sorted by descending chronological order, followed by alphabetical order for exercises with the same dates.
+
+Below shows a code snippet of the conditional checks in `addToSorted(Exercise)`.
+
+[.small]
+----
+int dateComparision = toAddDate.compareTo(currDate);
+if (dateComparision > 0) {
+    break;
+} else if (dateComparision == 0) {
+    if (toAddName.compareTo(currName) <= 0) {
+        break;
+    } else {
+        idx++;
+    }
+} else {
+    idx++;
+}
+----
+
+`Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. This custom insertion sort will guarantee an `O(n)` time complexity to insert the new `Exercise` correctly. This is as efficient as it gets as any insertion will already incur an O(n) time complexity to first check if the internal list contains the same exercise. It is important to keep the time complexity low as clients can have many exercises.
 
 ==== Design Considerations
 
 This section explains the our design considerations and analysis for the storage of exercises.
 
 [options='header']
+[cols="3,2,2,2"]
 |====================
-| Considerations | Pros and Cons
-| Store exercises with client and all clients in one JSON file |
-*Pros*: Much easier to link the exercises to the client during reading and storing
+| | Store exercises with client and all clients in one JSON file (chosen) | Store all exercises into a separate JSON file | Store exercises with client but one JSON for each client
 
-*Cons*: Might have one large JSON file and potentially exceed the size limit of a JSON file
-| Store all exercises into a separate JSON file |
-*Pros*: Keep exercise data separate from client data
+| Ease of retrieving / storing
+| Easy to link the exercises to the client
+| Hard to link the exercises to the client
+| Hard to identify which JSON file is for which client
 
-*Cons*: Hard to link the exercises to the client during reading and storing
+| Separation of data
+| Does not keep client and exercise data separate
+| Keep client data separate from exercise data
+| Does not keep client and exercise data separate +
 
-| Store exercises with client but one JSON for each client |
-*Pros*: Low chances of exceeding the size limit of a JSON file
+Might have too many JSON files, one for each client
 
-*Cons*: Might have too many JSON files for each client +
-Tough to identify which JSON file is for which client
+| Size limit of JSON files
+| High chances of having one large JSON file and potentially exceed the size limit of a JSON file
+| Low chances of exceeding the size limit of a JSON file
+| Low chances of exceeding the size limit of a JSON file
+
+| Separation of concerns
+| Non-separate code for reading/storing exercises and clients data
+| Separate code for reading/storing exercises and clients data
+| Non-separate ode for reading/storing exercises and clients data
+
 |====================
 
 We decided to use the first approach of storing the exercises with the associated client and have all the clients data in one JSON file. By code wise, each `JsonAdaptedClient` will have a list of `JsonAdaptedExercise`.
 
 image::ClientExerciseStorageClassDiagram.png[]
 
-We want to keep the implementation reading and storing of data simple. The first approach is  the most simple. When reading the data, it removes the need to associate the exercises to the client. A client might potentially have a large amount of exercises, resulting in the reading process to be extremely slow.
+We want to keep the implementation of reading and storing of data simple. The first approach is the most simple. When reading the data, it removes the need to associate the exercises to the client. A client might potentially have a large amount of exercises, resulting in the reading process to be extremely slow. Therefore, a bad user experience.
 
 Moreover, storing the exercise data from client data does not provide any performance benefits. Due to time constraints, we decided that the application should store all the data everytime it closes. This is regardless if the particular exercise or client data has been changed. Having to keep track of which data is edited and only overwrite those data would greatly increase the complexity of the application. Therefore, keeping exercises data separate from client data would be unnecessary and provide little additional functionality/benefits to the user.
 
-Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients as he will have to cater time for each of them. Even though each client might have many exercises, the information of each exercise is relatively small. For now, collectively, the client and exercise data is unlikely to exceed the JSON size limit. We might consider to have multiple JSON files if the data size gets too big in future versions.
+Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients. The application is meant to be used by a single user and not an organisation. Even though each client might have many exercises, the information of each exercise is relatively small. For now, collectively, the client and exercise data is unlikely to exceed the JSON size limit. We might consider to have multiple JSON files if the data size gets too big in future versions.
+
+Indeed, `JsonAdaptedClient` having a list of `JsonAdaptedExercise` would violate separation of concerns. `JsonAdaptedClient` is now in charge of the client's information and the exercises. However, we felt that the benefits outweighted the costs and proceeded with the first choice.
 
 === Personal Best --- Li Zi Ying
 
@@ -444,12 +531,11 @@ This feature allows the users (ie. gym managers) to view the personal bests of e
 
 The personal best feature is facilitated by the model `PersonalBest`, and the logic behind it is in `PersonalBestFinder`. The behaviour of this feature determines the personal best of each exercise done by the client based on these considerations:
 
-* If the `ExerciseWeight` attribute is recorded in the `Exercise`, then the `ExerciseWeight` is used as comparison
-* If there is no `ExerciseWeight` recorded in the `Exercise`, then `ExerciseReps` will be used as comparison
-* If neither of `ExerciseWeight` and `ExerciseReps` are recorded into the `Exercise`, then this particular exercise will not be put into the Exercise Personal Best table
-** However, if the another `Exercise` of the same name is added in the future with `ExerciseWeight` and/or `ExerciseReps` specified, then the personal best of this exercise will still be calculated and shown in the Exercise Personal Best table
-
-When the user inputs `view-c`, `add-e` or `delete-c`, `PersonalBestFinder#generateAndSetPersonalBest` is called, taking the client currently in view as the parameter. `PersonalBestFinder#generateAndSetPersonalBest` then retrieves client's list of exercises using `Client#getExerciseList` and creates a new `HashMap`, where the `key` is `ExerciseName` and the `value` is `Exercise`. Then the personal bests of each exercise of the client in view are generated using the above considerations. Finally the list of personal bests is set using `PersonalBest#setPersonalBest`.
+. If the `ExerciseWeight` attribute is recorded in the `Exercise`, then the `ExerciseWeight` is used as comparison
+. If there is no `ExerciseWeight` recorded in the `Exercise`, then `ExerciseReps` will be used as comparison
+. If neither of `ExerciseWeight` and `ExerciseReps` are recorded into the `Exercise`, then this particular exercise will not be put into the Exercise Personal Best table
+.. However, if the another `Exercise` of the same name is added in the future with `ExerciseWeight` and/or `ExerciseReps` specified, then the personal best of this exercise will still be calculated and shown in the Exercise Personal Best table
+. Note that `ExerciseSets`, although an attribute of the `Exercise` model, is not considered when checking for `PersonalBest` as the number of sets of an exercise does not contribute to a personal best record
 
 A simplified class diagram of the classes involved in this feature is given below:
 
@@ -459,30 +545,175 @@ In the following sequence diagram, we trace the execution for when the user deci
 
 image::PersonalBestSequenceDiagram.png[]
 
+The explanation for the sequence diagram is as follows: when the user inputs `view-c`, `add-e`, `edit-c` or `delete-c`, `PersonalBestFinder#generateAndSetPersonalBest` is called, taking the client currently in view as the parameter. `PersonalBestFinder#generateAndSetPersonalBest` then retrieves client's list of exercises using `Client#getExerciseList` and creates a new `HashMap`, where the `key` is `ExerciseName` and the `value` is `Exercise`. Then the personal bests of each exercise of the client in view are generated using the above considerations. Finally the list of personal bests is set using `PersonalBest#setPersonalBest`.
+
 ==== Design Considerations
 
-In designing this features, we had to decide on the placement of the `PersonalBest` class in the model to comply with the OOP standards. Currently, the `PersonalBest` model has a whole-part relationship with `Client`, with `Client` being the whole and `PersonalBest` being a part of `Client`. The alternative is to consider `PersonalBest` as a part of `Exercise` instead.
+In designing this feature, we had to decide on the placement of the `PersonalBest` class in the model to comply with the OOP standards. Currently, the `PersonalBest` model has a whole-part relationship with `Client`, with `Client` being the whole and `PersonalBest` being a part of `Client`. The alternative is to consider `PersonalBest` as a part of `Exercise` instead.
 
 [options='header']
+.Table of Design Considerations
 |====================
-| Considerations | Pros and Cons
-| Put `PersonalBest` as a part of `Client` |
-*Pros*: Logically makes more sense, as each client has to have a list of exercises to themselves, and thus `PersonalBest` of each of these exercises
-
-*Cons*: Might have significant conflicts as the `Client` model is changed to include one more attribute
-
-| Put `PersonalBest` as a part of `Exercise` |
-*Pros*: Keep `Exercise` data and methods separate from `Client` data and methods
-
-*Cons*: Actually increases coupling as the logic was flawed
+| |  Put `PersonalBest` as a part of `Client`(Chosen) | Put `PersonalBest` as a part of `Exercise`
+| *Adhering to OOP standards (Coupling and Cohesion)* | Increases cohesion as it logically makes more sense, currently each client has a list of exercises to themselves, and thus each client should also have a list of `PersonalBest` of each of these exercises to themselves |  Increases coupling between the logic and model as every time the commands `view-c`, `add-e`, `edit-e` and `delete-e` are called, the personal best table has to be updated, a new `PersonalBest` object has to be created. Then the `Client` will have to be dependent on this `PersonalBest` object created in the logic component, which causes unnecessary dependencies and higher coupling
+| *Ease of Implementation* | Might have significant conflicts as the `Client` model is changed to include one more attribute | Easier to implemention as methods related to `PersonalBest` is kept under `Exercise` model and separate from `Client` data and methods, so no refactoring is needed
 
 |====================
 
 We decided to use the first approach of placing `PersonalBest` as a part of `Client` instead of `Exercise`. There are multiple reasons for our choice as mentioned below.
 
-We want to maintain the OOP structure of the program. Logically, the personal best should belong to the client as the list of exercises belongs to the client. As the list of exercises is unique to every client, the personal best should also be so.
+We want to maintain the OOP structure of the program. Logically, the personal best should belong to the client as the list of exercises belongs to the client. As the list of exercises is unique to every client, the personal best should also be so. We also do not want to increase coupling of the program as mentioned in the table above.
 
 Moreover, even though personal best is generated using the list of exercises in the client, it can be instantiated even without an exercise list. Therefore it does not require the exercise class to exist and does not have a whole-part relationship with exercise. Coupling will also be increased as the client will be relying on the exercise class to generate the personal best. Therefore, the final choice was to place the personal best under client, with every client having their own personal best attribute.
+
+This personal best feature also leads into the `Graph` feature, which will be discussed in the next section, where we plot a graph of the client's progress of a specified exercise.
+
+=== Graph --- Li Zi Ying
+
+This feature allows users to see the progress graph of the current client in view. The user has to specify the exercise name, the y-axis (either weights or reps), the start date and the end date. There has to be existing exercises in the client's exercise list for the specified axis and time period for the graph to be plotted, if no graph can be plotted, an error will be thrown.
+
+==== Implementation
+
+The graph mechanism is faciliated by the model class `Graph`, which contains the details of the graph. These include `ExerciseName`, `Axis`, `StartDate` and `EndDate`. The figure below is a UML class diagram to illustrate the `Graph` model.
+
+image::GraphClassDiagram.png[]
+
+These attributes are bounded by these characteristics:
+. `ExerciseName` can only be alphanumeric characters
+. `Axis` can either be `reps` or `weight` only, case insensitive (`sets` are not considered due to the same reasoning in the above section)
+. Earliest `StartDate` possible can only be one year before the current date and cannot be after `EndDate`. `StartDate` also cannot be a future date
+. Earliest `EndDate` possible can only be one year before the current date and cannot be before `StartDate`. `EndDate` also cannot be a future date
+
+Here is an activity diagram displaying the steps taken when FitBiz receives a user input for the `graph` command:
+
+image::GraphCommandActivityDiagram.png[]
+
+The behaviour of this feature determines the graph plotted of the exercise specified based on these considerations:
+
+. If there is no such exercise with the matching `ExerciseName` in the client's exercise list from the specified `StartDate` to `EndDate`, then the graph cannot be plotted
+. If the `Axis` input is `reps` and the exercise specified does not have any reps input withint the `StartDate` to `EndDate`, then the graph cannot be plot
+. If the `Axis` input is `weight` and the exercise specified does not have any weight input within the `StartDate` to `EndDate`, then the graph cannot be plot
+. If all of the above are fulfilled (ie. there is at least one valid exercise with the matching `ExerciseName` and has weight/reps input depending on the `Axis` specified), then the graph will be plotted, with each exercise in chronological order
+
+The flow of the program is illustrated using the sequence diagram below:
+
+image::GraphSequenceDiagram.png[]
+
+The explanation is as follows: when the user inputs `graph` with all relevant arguments input correctly, a new `GraphCommand()` is created, taking the newly created `Graph` object as parameter.
+
+`GraphCommand#execute()` then retrieves the exercise list from the client currently in view and checks if there is at least one exercise with a matching exercise name. If there is no exercise to plot, then an error `GraphCommand.MESSAGE_EXERCISE_NOT_IN_LIST` will be thrown. Next, the list of exercises to be plot will be generated using `Graph#generateGraphList()`. Once again, there will be a sanity check to see if the list size is zero, which means that no graph cannot be plotted.
+
+==== Design Considerations
+
+In designing this feature, we had to decide on the implementation of certain classes like `Axis` to comply with the OOP standards of Abstraction.
+
+[options='header']
+.Table of Design Considerations
+|====================
+| |  Create enum class `Axis Type`(Chosen) | Check for `Axis` value using raw types
+| *Adhering to OOP standards (Abstraction)* | Increases level of abstraction as there are only two different types of axis that can be chosen |  Less abstraction and increases complexity as we will have to check for the equality of the axis type using the equality check for the `String` raw type
+| *Ease of Implementation* | Requires some refactoring to include `AxisType` class and the relevant getter methods | Easier to implemention as no extra classes or methods are needed, so no refactoring is needed
+
+|====================
+
+We decided to use the approach of abstracting the axis types away into `AxisType` enum class. As the graph implementation will require a substantial amount of equality checks, especially for the attributes of `Graph` to make sure that we are drawing the correct graph for the user. As such equality checks are made, it makes it difficult to keep checking `String` equality as regular data types like `String` would allow invalid values to be assigned to a variable.
+
+As our axis values can only be `REPS`, `WEIGHT` or `NA`, we can check for each case using the switch case method instead of checking for equality using raw types. This is also much more efficient than using multiple if-else statements. For example, in the code snippet below, the method `fillSeries()` uses switch case statements to add data values depending on the `AxisType`.
+
+[source, java]
+----
+    private void fillSeries() {
+        switch (axisType) {
+        case REPS:
+            fillRepsSeries();
+            yAxis.setLabel("Reps");
+            break;
+        case WEIGHT:
+            fillWeightSeries();
+            yAxis.setLabel("Weight");
+            break;
+        default:
+        }
+    }
+----
+
+Moreover, to keep in line with the OOP standards, we decided that it will be better to abstract away data types like `AxisType` into its separate class instead of storing it as a raw type in `Axis`. This ensures the code quality of our program and reduces complexity (especially in terms of equality checking as mentioned above) by abstracting away the more complex details into classes of a lower level. The consideration of abstracting details away is also used for creating `StartDate` and `EndDate` classes as attributes of `Graph`, instead of using the Java in-built `LocalDate`.
+
+By considering the above two factors, despite having to put in the extra effort to create a new `AxisType` class and thus requiring extra methods like getters and setters, we decided to move with the approach of creating the `AxisType` enum class and refactor to accomodate for the additional data type.
+
+=== Filtering the list of clients --- Toh Ker Wei
+This feature allows users to filter the list of clients by specifying the `Tag` or `Sport` of the clients they want to view.
+
+==== Implementation
+This filtering mechanism is facilitated by `TagAndSportContainsKeywordsPredicate`, that implements `Predicate<Client>` which is a wrapper class for a boolean. `TagAndSportContainsKeywordsPredicate` contains 2 booleans:
+
+1. `hasTag`: evaluates if the client has all the `Tag` specified
+2. `hasSport`: evaluates if the client has all the `Sport` specified
+
+If there is no keyword specified for either `Tag` or `Sport`, the corresponding boolean will return `true`. There must be at least 1 keyword specified, regardless of whether it is a `Tag` or `Sport`. `TagAndSportContainsKeywordsPredicate` will then evaluate and return the logical addition of `hasTag` and `hasSport`.
+
+In the following sequence diagram, we will be tracing the execution of the command `filter t/obese s/swim` entered by the user.
+
+image::FilterSequenceDiagram.png[]
+
+==== Design Considerations
+[options='header']
+|====================
+| Considerations | Pros and Cons
+|Check if a client contains `Tag` and `Sport` keywords seperately before combining the results|
+*Pros*: Code will be neater for debugging and adding more parameters to filter will be easier
+
+*Cons*: Parts of the code will be duplicated
+
+|Combine all keywords and check if all keywords exist in the combined list of `Tag` and `Sport` |
+*Pros*: Lesser duplicated codes and simpler logic
+
+*Cons*: Harder to fix errors or add new attributes to filter
+
+|====================
+
+We decided to use the first approach of checking if the client contains `Tag` specified and `Sport` specified separately.
+
+Firstly, by separating the checks for each attributes, a correct implementation of checking `Tag` against the keywords will allow us to easily duplicate the check to be done for `Sport`. This makes the code easier to debug as we can simply check the hasAttribute boolean to see if it gives the correct value.
+
+Secondly, separating the checks for each attributes will allow us to add attributes of different types stored in different data structure easier. We could simply add another check on the attribute against the keyword specified then do a logical addition of the result against the others.
+
+Therefore, as we foresee us adding more attributes to be filtered increasing the need to ensure logical correctness, the first approach is the most ideal.
+
+=== Viewing the information of a client --- Toh Ker Wei
+This feature allows users to view the information of a specific client using his `INDEX` in the clients list. Information displayed includes additional information of the client, exercises done and his personal best of exercises done.
+
+==== Implementation
+The view client's information feature is primarily facilitated by the model `Client`. The details for list of exercises done and personal best will be discussed in section 3.7 and not be covered here. The client's `INDEX` in the clients list will be used to identify and retrieve his information. Additionally, only when a client's information is being viewed, graph of his exercises can be plotted.
+
+In the following sequence diagram, we will be tracing the execution when the user enters the command `view-c 3`
+
+image::ViewSequenceDiagram.png[]
+
+==== Design Considerations
+
+[options='header']
+|====================
+| Considerations | Pros and Cons
+|View client using client's `INDEX`|
+*Pros*: Every client has a specific `INDEX`
+
+*Cons*: User has to look through the list for client's `INDEX` to view his information
+
+|View client using client's name|
+*Pros*: User can view information by knowing the name
+
+*Cons*: Clients could have same names and thus user will have to use their `INDEX` or other information to specify whcih client to view
+
+|====================
+
+We decided to use the first approach of using the client's `INDEX` to view his information.
+
+Firstly, as the client's `INDEX` is unique, there will not be conflicts as to which client's information should be displayed, making `view-c` less complex and only responsible for retrieving and displaying the client's information.
+
+Secondly, in cases where users manage many clients and some with same names, there are functions like find and filter which allow users to scope the clients list and easily find the desired client's `INDEX`.
+
+Therefore, viewing a client by his `INDEX` minimises the responsibility of the command and will not need to resolve conflicting clients and is the most ideal.
 
 == Documentation
 
@@ -564,8 +795,8 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to add a client
-2.  FitBiz requests for details(eg. name)
-3.  User enters the details
+2.  FitBiz requests for details (eg. name, phone number, address, email)
+3.  User enters the requested details
 4.  FitBiz adds client to database
 +
 Use case ends.
@@ -573,11 +804,11 @@ Use case ends.
 *Extensions*
 
 [none]
-* 3a.  The input format is invalid.
+* 3a.  The input format is invalid
 +
 [none]
 ** 3a1.  FitBiz shows an error message
-** 3a2.  User enters the new details.
+** 3a2.  User enters the new details
 +
 Steps 3a1 to 3a2 are repeated until the data entered is correct.
 Use case resumes from step 4
@@ -597,23 +828,28 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a.  The list is empty.
+* 2a.  The list is empty
++
+[none]
+** 2a1. FitBiz displays an empty client list
 +
 Use case ends.
 
-* 3a.  The given name is invalid.
+* 3a.  The given index is invalid or out of range
 +
 [none]
-** 3a1. FitBiz shows an error message.
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new index
 +
-Use case resumes at step 2.
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
 
 [discrete]
 === Use case 3: Edit client
 
 *MSS*
 
-1.  User requests to edit a client's cliental details
+1.  User requests to edit a client's details
 2.  FitBiz shows a list of clients
 3.  User requests to edit a specific client in the list and inputs the attributes and values
 4.  FitBiz edits client's details
@@ -623,16 +859,21 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a.  The list is empty.
+* 2a.  The list is empty
++
+[none]
+** 2a1. FitBiz displays an empty client list
 +
 Use case ends.
 
-* 3a.  The input format is invalid.
+* 3a.  The given input is invalid
 +
 [none]
-** 3a1. FitBiz shows an error message.
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new details
 +
-Use case resumes at step 2.
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
 
 [discrete]
 === Use case 4: Delete client
@@ -649,16 +890,21 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a.  The list is empty
++
+[none]
+** 2a1. FitBiz displays an empty client list
 +
 Use case ends.
 
-* 3a. The given format is invalid.
+* 3a.  The given index is invalid or out of range
 +
 [none]
-** 3a1. FitBiz shows an error message.
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new index
 +
-Use case resumes at step 2.
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
 
 [discrete]
 === Use case 5: List clients
@@ -673,12 +919,15 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a.  The input format is invalid.
+* 1a.  The input format is invalid
 +
 [none]
-** 2a1.  FitBiz shows an error message.
+** 1a1.  FitBiz shows an error message
+** 1a2.  User provides new input
 +
-Use case resumes at step 1.
+Steps 1a1 to 1a2 are repeated until the input entered is correct.
++
+Use case resumes at step 2.
 
 [discrete]
 === Use case 6: Add exercise
@@ -688,163 +937,125 @@ Use case resumes at step 1.
 1.  User requests to add an exercise to a client
 2.  FitBiz shows a list of clients
 3.  User requests to add exercise to a specific client in the list
-4.  FitBiz add exercise to the client
+4.  FitBiz adds exercise to the client
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a.  The list is empty.
+* 2a.  The list is empty
++
+[none]
+** 2a1. FitBiz displays an empty client list
 +
 Use case ends.
 
-* 3a.  The given name is invalid.
+* 3a.  The input format is invalid
 +
 [none]
-** 3a1. FitBiz shows an error message.
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new details
++
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
+
+
+[discrete]
+=== Use case 7: Filter clients
+
+*MSS*
+
+1.  User requests to filter clients based on a keyword in a client's tag and/or sports
+2.  FitBiz filters and displays clients based on specified keywords
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.  The input format is invalid
++
+[none]
+** 1a1.  FitBiz shows an error message
+** 1a2.  User provides new input
++
+Steps 1a1 to 1a2 are repeated until the input entered is correct.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case 7: Start timer
+=== Use case 8: Add schedule
 
 *MSS*
 
-1.  User requests to start a timer
-2.  FitBiz starts a timer for the specified duration
+1.  User requests to add schedule for a client
+2.  FitBiz displays a list of clients
+3.  Client inputs the schedule for the day or the time specified for a particular client
+4.  FitBiz adds and displays the schedule
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a.  The input format is invalid.
+* 2a.  The list is empty
 +
 [none]
-** 2a1.  FitBiz shows an error message.
+** 2a1. FitBiz displays an empty client list
 +
-Use case resumes at step 1.
+Use case ends.
+
+* 3a.  The given input format is incorrect
++
+[none]
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new input
++
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
 
 [discrete]
-=== Use case 8: Filter clients
-
-*MSS*
-
-1.  User requests to filter clients based on an attribute
-2.  FitBiz filters clients based on specified attribute
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.  The input format is invalid.
-+
-[none]
-** 2a1.  FitBiz shows an error message.
-+
-Use case resumes at step 1.
-
-[discrete]
-=== Use case 9: View cliental best
-
-*MSS*
-
-1.  User requests to view a client's cliental best
-2.  FitBiz lists all clients
-3.  User requests to view the cliental best of a specific client on the list
-3.  FitBiz displays the cliental best
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.  The list is empty.
-+
-Use case ends.
-
-* 3a.  The input format is invalid.
-+
-[none]
-** 3a1. FitBiz shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case 10: View schedule
-
-*MSS*
-
-1.  User requests to view schedule for the day or the time specified
-2.  FitBiz shows the schedule
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.  The input format is invalid.
-+
-[none]
-** 2a1.  FitBiz shows an error message.
-+
-Use case resumes at step 1.
-
-[discrete]
-=== Use case 11: Export data
-
-*MSS*
-
-1.  User requests to export a client's training record to a CSV file
-2.  FitBiz shows a list of clients
-3.  User requests to export a specific client's training record in the list
-4.  FitBiz exports the client's training records
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.  The list is empty.
-+
-Use case ends.
-
-* 3a.  The given name is invalid.
-+
-[none]
-** 3a1. FitBiz shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case 12: View visualisations
+=== Use case 9: View graph visualisations
 
 *MSS*
 
 1.  User requests to view graph visualisations of a client's progress
 2.  FitBiz shows a list of clients
-3.  User requests to view the training graph of a specific client in the list
-4.  Fitbiz shows the training graph of the client
+3.  User requests to view the specified client in the list by index
+4.  Fitbiz shows all available information of the client
+5.  User requests to view the graph of the specified exercise in the client's exercise list
+6.  FitBiz displays the graph of the specified exercise
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a.  The list is empty.
+* 2a.  The list is empty
++
+[none]
+** 2a1. FitBiz displays an empty client list
 +
 Use case ends.
 
-* 3a.  The given name is invalid.
+* 3a.  The given index is invalid or out of range
 +
 [none]
-** 3a1. FitBiz shows an error message.
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new index
 +
-Use case resumes at step 2.
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
 
-_{More to be added}_
+* 5a. The given input format is incorrect
++
+[none]
+** 5a1. FitBiz shows an error message
+** 5a2. User enters the new input
++
+Steps 5a1 to 5a2 are repeated until the data entered is correct.
+Use case resumes at step 6.
 
 [appendix]
 == Non Functional Requirements
