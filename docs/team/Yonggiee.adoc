@@ -185,7 +185,7 @@ All instances of `Exercise` of a client will be contained in the client's `Uniqu
 
 image::ExerciseClassDiagram.png[]
 
-An important point to note about our implementation of `Exercise` is the method, `isSameExercise()`. We consider two `Exercise` as the same if `isSameExercise()` returns true.
+An important point to note about our implementation of `Exercise` is the method, `isSameExercise()`. We will consider two `Exercise` as the same if `isSameExercise()` returns true.
 
 . Executes when adding a new `Exercise` to client's `UniqueExerciseList`. This includes `add-e` and `edit-e`.
 . Checks if the new `Exercise` is the same with an existing instance of `Exercise` in the client's `UniqueExerciseList`.
@@ -205,7 +205,7 @@ The two `Exercise` only have different values in `ExerciseSets` but equal values
 
 This implementation is chosen as we felt that the user should increment the value in `ExerciseSets` in the existing `Exercise`. We followed the same idea as in the real life context. Exercises with the same reps and weight can be grouped together as sets.
 
-We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. In the future, when adding a `same Exercise`, we can implement it such that the sets value of the exising `Exercise` gets incremented automatically instead of showing an error. For now, this implementation keeps the exercise table neat and compact for the user.
+We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. In the future, when adding a same `Exercise`, we can implement it such that the sets value of the exising `Exercise` gets incremented automatically instead of showing an error. For now, this implementation keeps the exercise table neat and compact for the user.
 
 ===== Execution flow of Exercise Commands
 
@@ -230,23 +230,23 @@ image::ExerciseCommandActivityDiagram.png[]
 
 When adding a new `Exercise` to `UniqueExerciseList`, it is important which index it is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This will result in problems when using exercise commands that specifies an index like `delete-e`.
 
-To address this problem, a custom insertion sort has been written in UniqueExerciseList, under the `addToSorted()` method. This method will do a single pass of the internal list to insert the element at the correct position. This assumes that the internal list is initially sorted (which it should be, since reading from storage will do an initial sort on it).
+To address this problem, a custom insertion sort has been written in UniqueExerciseList, under the `addToSorted(Exercise)` method. This method will do a single pass of the internal list to insert the element at the correct position. This assumes that the internal list is initially sorted (which it should be, since reading from storage will do an initial sort on it).
 
-We will use an example of a `add-e` command to illustrate the execution of `addToSorted()`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The sequence diagram below shows the execution flow when the `AddExerciseCommand` is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
+We will use an example of a `add-e` command to illustrate the execution of `addToSorted(Exercise)`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The sequence diagram below shows the execution flow when the `AddExerciseCommand` is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
 
 image::AddExerciseCommandSequenceDiagram.png[]
 
-`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of addToSorted() to obtain details of the `Exercise` being added and exising `Exercise` in `UniqueExerciseList`.
+`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of `addToSorted(Exercise)` to obtain details of the `Exercise` being added and exising `Exercise` in `UniqueExerciseList`.
 
 image::AddExerciseCommandSequenceDiagramPart2.png[]
 
-`UniqueExerciseList` loops through the exercises in the list. and calls `getExerciseDate()` and `getExerciseName`. The `LocalDate` and exercise name in `String` type are then used for comparision. The sequence diagram below illustrates the conditional checks during the comparision.
+`UniqueExerciseList` loops through the exercises in the list. and calls `getExerciseDate()` and `getExerciseName()`. The `LocalDate` and exercise name in `String` type are then used for comparision. The sequence diagram below illustrates the conditional checks during the comparision.
 
 image::AddExerciseCommandSequenceDiagramPart3.png[]
 
 The conditional checks are such that `UniqueExerciseList` maintain sorted by descending chronological order, followed by alphabetical order for exercises with the same dates.
 
-Below shows a code snippet of the conditional checks in `addToSorted()`.
+Below shows a code snippet of the conditional checks in `addToSorted(Exercise)`.
 
 [.small]
 ----
@@ -264,7 +264,7 @@ if (dateComparision > 0) {
 }
 ----
 
-`Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. This custom insertion sort will guarantee an `O(n)` time complexity to insert the new `Exercise` correctly. This is as efficient as it gets as any insertion will already incur an O(n) time complexity to first check if the internal list contains the same exercise. It is important to keep the time complexity low as clients will have many exercises.
+`Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. This custom insertion sort will guarantee an `O(n)` time complexity to insert the new `Exercise` correctly. This is as efficient as it gets as any insertion will already incur an O(n) time complexity to first check if the internal list contains the same exercise. It is important to keep the time complexity low as clients can have many exercises.
 
 ==== Design Considerations
 
@@ -303,13 +303,13 @@ We decided to use the first approach of storing the exercises with the associate
 
 image::ClientExerciseStorageClassDiagram.png[]
 
-We want to keep the implementation reading and storing of data simple. The first approach is the most simple. When reading the data, it removes the need to associate the exercises to the client. A client might potentially have a large amount of exercises, resulting in the reading process to be extremely slow. Therefore, a bad user experience.
+We want to keep the implementation of reading and storing of data simple. The first approach is the most simple. When reading the data, it removes the need to associate the exercises to the client. A client might potentially have a large amount of exercises, resulting in the reading process to be extremely slow. Therefore, a bad user experience.
 
 Moreover, storing the exercise data from client data does not provide any performance benefits. Due to time constraints, we decided that the application should store all the data everytime it closes. This is regardless if the particular exercise or client data has been changed. Having to keep track of which data is edited and only overwrite those data would greatly increase the complexity of the application. Therefore, keeping exercises data separate from client data would be unnecessary and provide little additional functionality/benefits to the user.
 
-Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients as he will have to cater time for each of them. Even though each client might have many exercises, the information of each exercise is relatively small. For now, collectively, the client and exercise data is unlikely to exceed the JSON size limit. We might consider to have multiple JSON files if the data size gets too big in future versions.
+Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients. The application is meant to be used by a single user and not an organisation. Even though each client might have many exercises, the information of each exercise is relatively small. For now, collectively, the client and exercise data is unlikely to exceed the JSON size limit. We might consider to have multiple JSON files if the data size gets too big in future versions.
 
-Indeed, `JsonAdaptedClient` having a list of `JsonAdaptedExercise` would violate separation of concerns. `JsonAdaptedClient` is now in-charge of the client's information and the exercises he did. However, we felt that the benefits outweighted the costs and proceeded with the first choice.
+Indeed, `JsonAdaptedClient` having a list of `JsonAdaptedExercise` would violate separation of concerns. `JsonAdaptedClient` is now in charge of the client's information and the exercises. However, we felt that the benefits outweighted the costs and proceeded with the first choice.
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
