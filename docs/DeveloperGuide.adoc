@@ -1699,6 +1699,8 @@ much money I have earned and stay motivated
 
 |`*` |TA |enter my students' assignment grades  |keep track of my students' progress (coming in V2.0)
 
+|`*` |TA |add my students' to consultation sessions|keep track of how frequently each student has consulted me (coming in V2.0)
+
 |=======================================================================
 //end::userstories[]
 //tag::usecases[]
