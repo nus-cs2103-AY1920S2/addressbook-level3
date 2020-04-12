@@ -7,48 +7,49 @@
 
 === Overview
 
-TA-Tracker is a productivity tool made for NUS School of Computing (SoC) Teaching Assistants (TAs) who want to be able
-to track and manage their students and teaching duties in in a single, convenient-to-use platform rather than using
-several excel spreadsheets or notes. The application is mainly written in Java and spans a considerable 20k Lines of
-Code (LoC). The codebase is well-maintained with a rigorous system of checks and tests in place to ensure that code
-quality is consistently high. A comprehensive set of guides are also provided to ensure a smooth on-boarding process
-for both users and contributors alike.
+TA-Tracker is a productivity tool made for NUS School of Computing (SoC) Teaching Assistants (TAs). Rather than using
+several excel spreadsheets or notes, TA-Tracker enables TAs to manage their students and track teaching duties in a
+single, convenient-to-use platform . The application is mainly written in Java and spans a considerable 20,000 Lines of
+Code (LoC). With a rigorous system of checks and tests put in place, users can be assured that the codebase is
+well-maintained, and that the code quality is consistently high. A comprehensive set of guides are also provided to
+ensure a smooth on-boarding process for both users and contributors alike.
 
 === Summary of contributions
 
-As the main developer of the application’s User Interface (UI), I played a crucial role in integrating my teammates’
-features with the UI. During group discussions, I placed extra emphasis on guiding my teammates to create engineering
-solutions that allowed for easier assimilation into the UI, to ensure that their work becomes user-visible. As a
+As the main developer of the application’s User Interface (UI), I play a crucial role in integrating the features my
+teammates create with the UI. During group discussions, I placed extra emphasis on guiding my teammates to engineer
+solutions that could be more easily assimilated into the UI, to ensure that their work becomes user-visible. As a
 result, my team was able to morph the given codebase from a trivial application into a polished product.
 
-I put my considerable experience with designing the application to use by being available at all times to help out with
-various tasks, like design considerations and debugging. As the most experienced UI developer in the team, I was
-highly involved in helping my teammates become more familiar with JavaFX and CSS. My role in the development of the
-project was especially crucial as I enabled my teammates to be able to display all the hard work that they have put into
-the development of their respective features to the users. My major contributions are as follows:
+With the substantial amount of experience I gained while designing the application, I was available and prepared to help
+out with various tasks, like design considerations and debugging. As the most experienced UI developer in the team, I
+was highly involved in helping my teammates become more familiar with JavaFX and CSS. My role in the development of the
+project was especially crucial, as I enabled my teammates to be able to display all the hard work that they have put
+into the development of their respective features to the users. My major contributions are as follows:
 
 ==== Updated the User Interface
 
 The UI is at the heart of TA-Tracker, displaying the output of TA-Tracker to the user visually. As the main contributor
-to the MainWindow of the UI I played an integral role in ensuring the content was being displayed to the user correctly,
-while keeping the interface simple and informative. Ive changed the overall layout of TA-Tracker by adding tabs and
-icons (#120, #182, #227), and by creating all the ListPanels (and their respective ListCards) (#120, #182, #204).
+to the MainWindow of the UI, I play an integral role in ensuring that the content is being displayed to the user
+correctly, while keeping the interface simple and informative. The overall layout of TA-Tracker was changed by adding
+tabs and icons (#120, #182, #227), and by creating all the ListPanels and their respective ListCards (#120, #182, #204).
 
-I also took care to ensure that the information displayed in the Cards were integrated with the backend whenever my teammates
-made new contributions to the application such as adding new fields (#322) or commands (#330). In addition, I added
-a "Total Earnings" label in Claims tab to improve the user experience, as money makes the world go round (#243, #322).
+I also took care to ensure that the information displayed in the Cards was integrated with the backend whenever my
+teammates made new contributions to the application, such as adding new fields (#322) or commands (#330). A "Total
+Earnings" label in Claims tab was also added to improve user experience, as money makes the world go round (#243, #322).
 
 ==== Enabled highlighting of applied filters
 
-As TA-Tracker was initially based on AB3, the UI looked rather dull and plain at the beginning of the project.
-However, rather than adding colours to TA-Tracker indiscriminately, I enabled relevant ListCells in the Student Tab and
-Claims Tab to be highlighted whenever filter commands were entered (#210, #227, #235, #238).This addition made a huge
-leap in the visual differences between TA-Tracker and AB3, and enabled users to better focus on the information displayed.
+As the TA-Tracker was initially based on AB3, the UI at the beginning of the project looked plain. Instead of
+indiscriminately adding colours to TA-Tracker, I favoured a different approach, and enabled the relevant ListCells in
+the Student Tab and Claims Tab to be highlighted whenever filter commands were entered (#210, #227, #235, #238). This
+not only made a huge improvement in the visual differences between TA-Tracker and AB3, but also enabled users to better
+focus on the information displayed.
 
 This contribution also required extensive debugging and contributions to the inner workings of the filter command, which
-was in itself a rather challenging command to implement (#243, #314, #322). In the Session Tab, highlighting of ListCells
-was a less favourable option since there was only one ListPanel to display. I overcame this challenge by creating a
-filter header (#322).
+was a rather challenging command to implement (#243, #314, #322). In the Session Tab, highlighting the ListCells was a
+less favourable option, since there was only one ListPanel to display. I overcame this challenge by creating a filter
+header (#322).
 
 ==== Implemented relevant commands to improve User Experience
 
@@ -77,7 +78,7 @@ I made thorough JUnit tests for the StudentCommand, StudentCommandParser, and St
 
 ==== Improved overall code quality
 
-* Packaged all commands, parsers, models and ui components (#143, #212)
+* Packaged all commands, parsers, models and UI components (#143, #212)
 * General quality fixes to the entire code-base based on Codacy report (#350, #351)
 * Created enum classes for SessionType and GroupType (#120, #182)
 
