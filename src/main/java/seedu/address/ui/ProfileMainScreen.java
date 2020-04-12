@@ -30,22 +30,14 @@ public class ProfileMainScreen extends UiPart<Region> {
     private Label major;
     @FXML
     private Label currentCap;
-    @FXML
-    private Label targetCap;
+
 
 
     public ProfileMainScreen(Profile student) {
         super(FXML);
 
-        name.setText(student.getName());
-        try {
-            major.setText(student.getMajor().getValue());
-        } catch (NullPointerException ex) {
-            major.setText("Dummy");
-        }
-        currentCap.setText("4.67");
-        targetCap.setText(student.getTargetCap());
 
+        currentCap.setText(student.getCap().get());
 
     }
 

@@ -23,9 +23,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.nusmodule.Major;
-import seedu.address.model.studentprofile.Profile;
-
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -227,8 +224,7 @@ public class MainWindow extends UiPart<Stage> {
 
 
 
-        profileMainScreen = new ProfileMainScreen(new Profile("Zhou Xinwei",
-                new Major("Computer Science"), "4.2", "4.5"));
+        profileMainScreen = new ProfileMainScreen(logic.getProfile());
         profileMainScreenplaceholder.getChildren().add(profileMainScreen.getRoot());
         setAnchorPaneSize(profile, profile.getChildren().get(0));
 
@@ -242,12 +238,6 @@ public class MainWindow extends UiPart<Stage> {
         modulesTaken.getChildren().add(modulesTakenListPanel2.getRoot());
         setAnchorPaneSize(modulesTaken, modulesTaken.getChildren().get(0));
         setAnchorPaneSize(modulesTakenBefore, modulesTakenBefore.getChildren().get(0));
-
-
-
-        modulesYetTaken = new ModulesYetTaken("asd");
-
-        modulesYetTakenplaceholder.getChildren().add(modulesYetTaken.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
