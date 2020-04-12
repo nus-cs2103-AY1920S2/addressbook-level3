@@ -930,8 +930,9 @@ The `listamount` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes `listamount` command:
 
-.List Amount Activity Diagram
+.List Amount Activity Diagram +
 image::ExpenseSplitterListAmountCommandActivityDiagram.png[]
+
 
 *Implementation of List Amount Command*
 
@@ -951,6 +952,40 @@ The following sequence diagram summarizes what happens during the execution of `
 .List Amount Command Sequence Diagram
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 //end::expensesplitterlistamountcommand[]
+
+==== Done Receipt Command
+
+In this section, we will learn more about how the `donereceipt` command is implemented.
+
+*What is the Done Receipt Command*
+
+The `donereceipt` command allows user to finalize the entries in the receipt. After this command is executed, the
+entries in the receipt are immutable.
+
+The `donereceipt` command was implemented as a `DoneReceiptCommand` in the `expensespliter/logic` package.
+
+The `donereceipt` has the following input format:
+
+`donereceipt`
+
+[NOTE]
+====
+The receipt will not be editable after this command is executed thus ensuring all entries are inputted correctly.
+The User can use `listreceipt` to check current entries in the receipt, `deleteitem` and `additem` to delete and add
+the correct item back.
+====
+
+The following activity diagram illustrates what happens when a user executes `donereceipt` command:
+
+*Implementation of Done Receipt Command*
+
+The following is a detailed explanation of the operations DoneReceiptCommand performs.
+
+*Sequence Diagram for Done Receipt Command*
+
+The following sequence diagram summarizes what happens during the execution of `donereceipt` command.
+
+
 
 
 //tag::expensesplitterpaidcommand[]
@@ -1540,7 +1575,6 @@ Use case ends.
 .  A user should be able to use EYLAH easily and intuitively.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  An Item should not have a Item Price more than $10,000.
-.  The amount owed by a Person should not exceed $10,000.
 _{More to be added}_
 
 [appendix]
