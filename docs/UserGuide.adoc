@@ -37,6 +37,10 @@ a|
 |3
 
 a|
+*Tabs*
+|4
+
+a|
 *Features*
 
    . Adding a coupon: add
@@ -62,7 +66,7 @@ a|
    . Exiting the program: exit
    . Reminding of coupon expiry
    . Saving the data
- |4
+ |5
 
 a|
 *Keyboard Shortcuts*
@@ -70,16 +74,16 @@ a|
    . Restore previously entered command texts: kbd:[↑] and kbd:[↓]
    . Close expanded coupon window: kbd:[Ctrl]+kbd:[q]
    . Cycle through tabs: kbd:[Ctrl]+kbd:[Tab]
-|5
+|6
 
 a|
-*FAQ*|6
+*FAQ*|7
 
 a|
-*Command Summary* |7
+*Command Summary* |8
 
 a|
-*Appendix*|8
+*Appendix*|9
 |=========================================
 
 Welcome to the Coupon Stash User Guide! Thank you so much for choosing
@@ -154,6 +158,23 @@ limit of 5 usages.
 * *exit* : exits the app (your data will be saved automatically)
 .  Refer to the <<Features, Features>> section below for the details of each
 command.
+
+[[Tabs]]
+== Tabs
+
+In this section, we look at one of the key features of Coupon Stash's
+Graphical User Interface. The interface can be broadly split into
+3 different parts based on the different tabs present in the
+program, namely Coupons, Summary and Help.
+
+[<insert image of tabs>]
+
+=== Coupons tab
+
+=== Summary tab
+
+=== Help tab
+
 
 [[Features]]
 == Features
