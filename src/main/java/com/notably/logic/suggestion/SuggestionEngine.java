@@ -61,7 +61,7 @@ public class SuggestionEngine {
      *
      * @param userInput The user's input.
      */
-    public void suggest(String userInput) {
+    private void suggest(String userInput) {
         Objects.requireNonNull(userInput);
 
         Optional<? extends SuggestionCommand> suggestionCommand = parseCommand(userInput);

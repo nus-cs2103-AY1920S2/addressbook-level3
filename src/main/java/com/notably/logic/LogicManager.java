@@ -25,7 +25,7 @@ import com.notably.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+    private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
@@ -41,8 +41,7 @@ public class LogicManager implements Logic {
 
     @Override
     public void execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-
+        logger.info(String.format("User inputted '%s'", commandText));
         try {
             List<? extends Command> commands = notablyParser.parseCommand(commandText);
             for (Command command : commands) {
