@@ -51,7 +51,7 @@ kbd:[Enter] : This grey highlight with white outline indicates a keyboard's key
 
 NOTE: This symbol indicates information that you may wish to note
 
-TIP: This symbol indicates examples or tips provided by us
+TIP: This symbol indicates tips provided by us
 
 == Quick Start
 
@@ -63,9 +63,9 @@ This section provides you with a few short steps on how to get started with *MOD
 .  Double-click the file to start the app. The GUI, as shown in the figure below, should appear in a few seconds.
 +
 .Homepage of *MODdy*
-image::Ui.png[width="790"]
+image::QuickStart.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Type the command in the command box as shown in Figure 1 and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Create your own profile by entering your details in the command box using these parameters: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [f/FOCUS_AREA]`
 .  Some other example commands you can try:
@@ -93,8 +93,8 @@ This section provides you with the features that you can perform in *MODdy*. It 
 [[Help]]
 === Viewing help : `help`
 
-If you are unsure about the commands and want to seek help, this command opens up a help window where there are examples for basic command format.
-For more detailed help, you can visit the link provided, as shown in the figure below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
+If you are unsure about the commands and want to seek help, this command opens up a pop-up help window where there are examples for basic command format.
+For more detailed help, you can visit the link provided, as shown in Figure 2 below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
 
 Format: `help`
 
@@ -115,14 +115,15 @@ Format: `new n/NAME c/COURSE y/YEAR.SEMESTER [f/FOCUS_AREA]`
 * If you have yet to decided on a focus area, you can choose to add it to your profile later using the <<Edit, edit>> feature mentioned in <<Edit, Section 4.4>>. Other profile fields can be changed using the <<Edit, edit>> feature as well.
 * `y/YEAR.SEMESTER` must be entered as an integer. You should only enter the year and semester that you are currently in. If you are now a Year 2 Semester 1 student, enter `y/2.1`.
 * You can only have one profile! If you wish to create a new profile, you can remove it with the <<Delete,`delete`>> feature mentioned in <<Delete, Section 4.6>>.
-
 ****
+
+Example: `new n/John c/Computer Science y/2.2` creates a new profile with the name "John", currently majoring in "Computer Science" and is a Year 2 Semester 2 student, as shown in Figure 3 below.
 
 .New profile created is displayed in the Profile Panel
 image::New.png[width="790"]
 
-TIP: `new n/John c/Computer Science y/2.2` +
-Creates a new profile with the name "John", currently majoring in "Computer Science" and is a year 2 semester 2 student.
+TIP: `new n/John c/Computer Science y/2.2 f/Software Engineering` +
+If you know your focus area, using this command will add focus area "Software Engineering" to your new profile alongside other details.
 
 
 
@@ -144,12 +145,14 @@ Format: `add m/MODULE y/YEAR.SEMESTER [g/GRADE]` +
 * `g/GRADE` is optional. If you have yet to obtain a grade for the module, don't worry, you can always add it to the module later using the <<Edit, edit>> feature mentioned in <<Edit, Section 4.4>>.
 ****
 
-.CS2105 is added as a module under the Year 2 Semester 1
+Example: `add m/CS2103T y/2.2` adds CS2103T to Year 2 Semester 2, as shown in Figure 4 below.
+
+.CS2103T is added as a module under the Year 2 Semester 2
 image::AddModule.png[width="790"]
 
 
-TIP: `add m/CS2105 y/3 g/A+` +
-Adds CS2105 to the list of modules under Year 2 Semester 1 with the resulting grade, A+
+TIP: `add m/CS2103T y/2.2 g/A+` +
+Adds CS2103T to the list of modules under Year 2 Semester 2 with the resulting grade, A+.
 
 
 ==== Adding a task with a deadline to an existing module in *MODdy* +
@@ -162,13 +165,16 @@ Format: `add m/MODULE t/TASK [d/DEADLINE]` +
 * You can delete completed `t/TASK` using the <<Delete, `delete`>> feature mentioned in <<Delete, Section 4.6>>.
 ****
 
-.Task added is displayed in the Deadline Panel
+Example: `add m/CS2101 t/Presentation d/2020-04-25 17:00` adds a task named "Presentation"
+with the deadline "25 April 2020 17:00" to the already-existing module CS2101, as shown in Figure 5 below.
+
+.CS2101 task is added into and displayed on the sorted Deadline Panel
 image::DeadlinePanel.png[width="790"]
 
-TIP: `add m/CS2105 t/Assignment d/2020-03-31 23:59` +
-Adds a task named "Assignment" with the deadline "31 March 2020 23:59" to the already-existing module CS2105
+TIP: `add m/CS2105 t/Assignment d/2020-04-20 23:59` +
+TO BE EDITED
 
-NOTE: Dates are highlighted according to the number of days remaining (shown in Figure 5). +
+NOTE: Dates are highlighted and sorted according to the number of days remaining (shown in Figure 5). +
 Red: 0 - 5 days +
 Orange: 6 - 10 days +
 Green: ≥ 11 days
@@ -190,12 +196,14 @@ Format: `edit [n/NAME] [c/COURSE] [y/CURRENT_SEMESTER] [f/FOCUS_AREA]` +
 * If you did not specify your focus area when you created your profile, `edit f/FOCUS_AREA` adds the focusArea to your profile
 ****
 
+Example: `edit n/Brad c/Information Systems` edits your profile name to "Brad" and your course to "Information Systems", as shown in Figure 6 below.
+
 .Profile Panel is updated with new details
 image::EditProfile.png[width="790"]
 
 
-TIP: `edit n/Brad c/Computer Science s/Software Engineering` +
-Edits your profile name to "Brad", your course to "Computer Science", and your focusArea to "Software Engineering" from what they were previously
+TIP: `edit n/Brad c/Information Systems f/Electronic Commerce` +
+Alongside name and course, you can edit your focus area to match your current course.
 
 ==== Edit a module's details in *MODdy* +
 Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
@@ -205,11 +213,13 @@ Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
 * You are allowed to add a grade to a module you are planning to take in future, if you wish to predict your CAP. You can delete grades anytime using the `delete` command.
 ****
 
-.Module detail of CS2103 edited
+Example: `edit m/CS2103T g/A+` edits your grade of the module CS2103T to A+, as shown in Figure 7 below.
+
+.Module detail of CS2103T edited
 image::EditModule.png[width="790"]
 
-TIP: `edit m/CS2103 g/A+` +
-Edits your grade of the module CS2103 to A+
+TIP: `edit m/CS2103T g/A+` +
+Edits your grade of the module CS2103T to A+
 
 ==== Edit a task's description or deadline +
 Format: `edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]`
@@ -220,11 +230,11 @@ Format: `edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]`
 * `d/DEADLINE` represents to new deadline of the existing task
 ****
 
-.Deadline is edited
+.Deadline for CS2103T is edited from "tP Submission" to "UG and DG Submission"
 image::EditDeadline.png[width="790"]
 
-TIP: `edit m/CS2105 t/Assignment nt/Project` +
-Edits "Assignment" under CS2105 to "Project"
+TIP: `edit m/CS2103T t/tP Submission nt/UG and DG Submission` +
+Edits "tP Submission" under CS2103T to "UG and DG Submission"
 
 // end::edit[]
 // tag::show[]
@@ -247,9 +257,9 @@ NOTE: All the modules under every semester, grades of completed modules, as well
 ==== Showing details of a module +
 Format: `show m/moduleCode`
 
-Example: `show m/CS3230`
+Example: `show m/CS2103T`
 
-.Details of the module CS3230 shown in the Main Panel
+.Details of the module CS2103T shown in the Main Panel
 image::ShowModule.png[width="790"]
 
 NOTE: The module name, prerequisites, modular credits, description and semesters the module is offered in will be displayed.
@@ -262,16 +272,16 @@ Format: `show y/year.semester`
 
 Example: `show y/2.2`
 
-.Modules added to Year 2 Semester 2 shown in Main Panel
+.Modules added to Year 1 Semester 1 are shown in Main Panel
 image::ShowSemester.png[width="790"]
 
 [[showCourse]]
 ==== Showing the course's requirements +
 Format: `show c/course`
 
-Example: `show c/Information Systems`
+Example: `show c/Computer Science`
 
-.Course requirement and focus areas of Information Systems shown in the Main Panel
+.Course requirement and focus areas of Computer Science is shown in the Main Panel
 image::ShowCourse.png[width="790"]
 
 NOTE: You need to enter the course name in full!
