@@ -57,6 +57,11 @@ public class DeadlineCard extends UiPart<Region> {
         isDone.setOnAction(e -> {
             deadline.setDone(!deadline.isDone());
             //mainWindow.handleDeadlineClick(displayedIndex);
+            if (!deadline.isOverdue()) {
+                deadlinePane.getParent().setStyle("-fx-background-color: #C7CEEA;");
+            } else {
+                deadlinePane.getParent().setStyle("-fx-background-color: darkred;");
+            }
             isDone.setSelected(deadline.isDone());
         });
         setPriority();

@@ -55,7 +55,8 @@ public class ContinueCommand extends Command {
             if (!deadline.isDone()) {
                 throw new CommandException(MESSAGE_ACTIVITY_ALREADY_UNDONE);
             } else {
-                deadline.setDone(false);
+                model.setDeadline(moduleCode, deadline, new Deadline(deadline.getName(), deadline.getDateCreated(),
+                    deadline.getNote(), deadline.getPriority(), deadline.getDueDate(), false));
                 return new CommandResult(String.format(MESSAGE_SUCCESS, deadline));
             }
         }

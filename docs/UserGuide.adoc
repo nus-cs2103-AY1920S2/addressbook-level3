@@ -238,6 +238,44 @@ Edits the 2nd event in CS2103T event-list end date to be `12-12-2020 23:59`.
 Edits the notes and start date of the 3rd event in CS2030 event-list to `Practical exam` and `20-05-2020 23:59` respectively.
 // end::edit[]
 
+=== Setting a deadline to done: `done`
+`Contributed by kester-ng` +
+Sets a deadline to be done (or completed) +
+Format: `done INDEX m/MODULE_CODE`
+
+====
+** Sets the deadline associated with the index in the module's deadline-list to done or completed.
+** If the deadline is already set to done, error message is thrown
+====
+
+[NOTE]
+====
+** Only deadlines can be set to done. Events are not able to do as events are activities that occurs from start to end.
+** Users are not able to edit the status (done or ongoing) of the deadline via the edit command.
+** INDEX must appear first in the command. `done m/MODULE_CODE INDEX` is not allowed.
+====
+
+Examples:
+* `done 1 m/CS2030` +
+Sets the 1st deadline in CS2030 deadline-list to done.
+
+=== Setting a deadline to ongoing: `continue`:
+`Contributed by kester-ng`
+Sets a deadline to ongoing +
+Format `continue INDEX m/MODULE_CODE`
+
+====
+** Sets the deadline associated with the index in the module's deadline-list to ongoing.
+** If the deadline's status is ongoing, error message is thrown.
+====
+
+[NOTE]
+====
+** Only deadlines can be set to ongoing. See explanation above.
+** Users are not able to edit the status (done or ongoing) of the deadline via the edit command.
+** INDEX must appear first in the command. `continue m/MODULE_CODE INDEX` is not allowed.
+====
+
 === Locating activities by name: `find`
 `Contributed by: kester-ng` +
 Finds activities whose names contain any of the given keywords. +

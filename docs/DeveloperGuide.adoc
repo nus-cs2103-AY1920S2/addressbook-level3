@@ -192,9 +192,10 @@ image::undoSequenceDiagramV2.png[]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== Add Deadlines, Lessons and Events Feature
+=== Add Deadlines and Events Feature
 
 Deadlines, lessons and events are to be added with their own commands. Refer to the user guide for the specific commands. Adding of activities is facilitated by ModelManager#addActivity.
+In general, while they have their own commands, the internal workings are very similar.
 
 ==== Implementation
 For any adding of activities, the command used will be the name of the activity. For instance, to add deadline, the command will be `deadline [paramters...]`.
@@ -217,9 +218,11 @@ Below is an example of a user adding a deadline and how the underlying system wo
 
 . If the module's activity list is modified, the model will be updated and the view will be changed according to the new model.
 
-The figure below shows the sequence diagram on what happens with the simple execution of the aforementioned command.
+The figure below shows the sequence diagram on what happens with the simple execution of the aforementioned command. First image shows the logic component while the second image shows the logic and model component (mainly model).
 
 image::AddDeadlineLogicSequenceDiagram.png[]
+
+image::AddDeadlineModelSequenceDiagram.png[]
 
 ==== Design Considerations
 
@@ -418,6 +421,33 @@ current status for each module over the past week.
 
 . The view is switched to the statistics tab to display the overalls statistics for the week.
 
+=== Calendar Export Feature
+This feature allows the current calendar view to be exported as a ics file for other calendars to import.
+Users can choose to either export it to the default ./data filepath or specify their own filepath for the file to be exported to.
+
+==== Internal Workings for the Calendar Export Feature
+
+Below is an example of a user requesting an export calendar command.
+
+. The user enters the command `calendar f/User/documents/calendar`
+
+. The LogicManager will create NasaBookParser to parse the user input.
+
+. NasaBookParser will create ExportCalendarCommandParser which parses the input and creates a ExportCalendarCommand.
+
+. ExportCalendarCommand will then execute. In the first step, all the deadlines and events are retrieved from the model.
+
+. Next, each deadline or event are being used to create new IcsDeadline or IcsEvent respectively. These new objects are the representation of their respective activities in ics format (using getIcsFormat() method).
+
+. Deadlines are represented by `VTODO` objects in ics file and events are represented by `VEVENT` objects.
+
+. While creating IcsDeadline or IcsEvent, IcsSchedules are created if the deadline or event has a auto-generation indicator (ie generate every week). The IcsSchedule object is appended to the IcsDeadline/IcsEvent object to allow it to auto-generate in calendars.
+
+. Once all IcsDeadlines and IcsEvents are created, the command will then write all the ics Formatted activities to the file called `nasa.ics` at the filepath.
+
+The image below indicates the activity diagram giving a brief flow of events occurring.
+
+image::ExportCalendarActivityDiagram.png[]
 
 === Chat bot Feature (To be implemented)
 

@@ -38,7 +38,6 @@ public class ModuleListPanel extends UiPart<Region> {
         }
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
-
     }
 
     /**
