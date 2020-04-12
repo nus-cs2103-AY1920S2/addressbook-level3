@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.eylah.commons.core.LogsCenter;
-import seedu.eylah.commons.model.ModelManager;
 import seedu.eylah.commons.model.ReadOnlyUserPrefs;
 import seedu.eylah.commons.model.UserPrefs;
 import seedu.eylah.expensesplitter.model.person.Amount;
@@ -23,9 +22,10 @@ import seedu.eylah.expensesplitter.model.receipt.Receipt;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class SplitterModelManager extends ModelManager implements SplitterModel {
+public class SplitterModelManager implements SplitterModel {
     private static final Logger logger = LogsCenter.getLogger(SplitterModelManager.class);
 
+    private final UserPrefs userPrefs;
     private final Receipt receipt;
     private final PersonAmountBook personAmountBook;
     private final ReceiptBook receiptBook;
@@ -36,10 +36,10 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
      */
     public SplitterModelManager(ReadOnlyReceiptBook receiptBook, ReadOnlyPersonAmountBook personAmountBook,
                                 ReadOnlyUserPrefs userPrefs) {
-        super(userPrefs);
 
         logger.fine("Initializing receipt and data from existing storage");
 
+        this.userPrefs = new UserPrefs(userPrefs);
         this.personAmountBook = new PersonAmountBook(personAmountBook);
         this.receiptBook = new ReceiptBook(receiptBook);
         filteredPersons = new FilteredList<>(this.personAmountBook.getPersonList());
@@ -61,6 +61,17 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
     @Override
     public ReadOnlyReceiptBook getReceiptBook() {
         return receiptBook;
+    }
+
+    @Override
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
+    }
+
+    @Override
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     /**
@@ -137,22 +148,17 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
         receipt.clearReceipt();
     }
 
-    @Override
-    public void newReceipt() {
-        receipt.newReceipt();
-    }
-
     //=========== PersonAmountBook ===============================================================================
 
     @Override
     public void setPersonAmountBookFilePath(Path addressBookFilePath) {
         requireAllNonNull(addressBookFilePath);
-        super.getUserPrefs().setPersonAmountBookFilePath(addressBookFilePath);
+        userPrefs.setPersonAmountBookFilePath(addressBookFilePath);
     }
 
     @Override
     public Path getPersonAmountBookFilePath() {
-        return super.getUserPrefs().getPersonAmountBookFilePath();
+        return userPrefs.getPersonAmountBookFilePath();
     }
 
     @Override

@@ -213,7 +213,7 @@ Below are some diagrams to explain how our team implemented this portion.
 
 *Activity Diagram* of Diet Tracker: +
 
-image::activityDiagram_for_expensesplitter.png[]
+image::DietTrackerActivityDiagram.png[]
 
 [[Add-Command]]
 ==== Add Command
@@ -241,8 +241,8 @@ The `add` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes the `add` command:
 
+.Add Command Activity Diagram
 image::DietTrackerAddCommandActivityDiagram.png[]
-Figure : Add Command Activity Diagram
 
 *Implementation of Add Command*
 
@@ -265,11 +265,8 @@ Amount into JSON format after serializing it using `JsonAdaptedFood`.
 
 The following sequence diagram summarizes what happens during the execution of `add` command.
 
+.Add Item Command Sequence Diagram
 image::DietTrackerAddCommandSequenceDiagram.png[]
-Figure: Add Item Command Sequence Diagram
-
-image::DietTrackerAddCommandSequenceDiagram2.png[]
-Figure: Execution of Add Item Command
 
 [[Delete-Command]]
 ==== Delete Command
@@ -296,8 +293,8 @@ The `delete` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes the `delete` command:
 
+.Delete Command Activity Diagram
 image::DietTrackerDeleteCommandActivityDiagram.png[]
-Figure: Delete Command Activity Diagram
 
 *Implementation*
 
@@ -324,11 +321,8 @@ into JSON format after serializing it using `JsonAdaptedFood`.
 
 The following sequence diagram summarizes what happens during the execution of `delete` command.
 
+.Delete Item Command Sequence Diagram
 image::DietTrackerDeleteCommandSequenceDiagram.png[]
-Figure: Delete Item Command Sequence Diagram
-
-image::DietTrackerDeleteCommandSequenceDiagram2.png[]
-Figure: Execution of Delete Item Command
 
 [[List-Command]]
 ==== List Command
@@ -353,8 +347,8 @@ Users must only enter *at most ONE* flag when using the list command.
 
 The following activity diagram illustrates what happens when a user executes `list` command:
 
+.List Command Activity Diagram
 image::DietTrackerListCommandActivityDiagram.png[]
-Figure : List Command Activity Diagram
 
 *Implementation of List Command*
 
@@ -379,14 +373,12 @@ success message. Otherwise, an error message showing the correct command syntax 
 
 *Sequence Diagram for List Receipt Command*
 
+.List Sequence Diagram for `-a` or No-Flag Input
 image::DietTrackerListCommandAllSequenceDiagram.png[]
-Figure : List Sequence Diagram for `-a` or No-Flag Input
-
+.List Sequence Diagram for `-d`
 image::DietTrackerListCommandDaySequenceDiagram.png[]
-Figure : List Sequence Diagram for `-d`
-
+.List Sequence Diagram for `-t`
 image::DietTrackerListCommandTagSequenceDiagram.png[]
-Figure : List Sequence Diagram for `-t`
 
 [[Edit-Command]]
 ==== Edit Command
@@ -414,8 +406,8 @@ The `edit` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes the `edit` command:
 
+.Edit Command Activity Diagram
 image::DietTrackerEditCommandActivityDiagram.png[]
-Figure: Edit Command Activity Diagram
 
 *Implementation*
 
@@ -441,8 +433,8 @@ into JSON format after serializing it using `JsonAdaptedFood`.
 
 The following sequence diagram summarizes what happens during the execution of `edit` command.
 
+.Edit Command Sequence Diagram
 image::DietTrackerEditCommandSequenceDiagram.png[]
-Figure: Edit Command Sequence Diagram
 
 [[Bmi-Command]]
 ==== Bmi Command
@@ -471,8 +463,8 @@ The `bmi` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes the `bmi` command:
 
+.Bmi Command Activity Diagram
 image::DietTrackerBmiCommandActivityDiagram.png[]
-Figure : Bmi Command Activity Diagram
 
 *Implementation of Add Item Command*
 
@@ -505,7 +497,11 @@ Step 5. `BmiCommand()` will then proceed to calculate the BMI based on the curre
 
 The following is a sample sequence diagram of the BmiCommand with no additional user input.
 
-image::BmiNILSequenceDiagram.png[]
+.Sequence Diagram Bmi Command Sequence Diagram without Input Arguments
+image::DietTrackerBmiCommandNILSequenceDiagram.png[]
+.Sequence Diagram: Retrieval of stored Height and Weight from Model
+image::DietTrackerBmiCommandNILSequenceDiagram2.png[]
+
 [NOTE]
 There is a need to ensure that there are stored values in `Height` and `Weight` attributes in the `Self` class.
 
@@ -524,7 +520,10 @@ Step 5. `BmiCommand()` will then proceed to calculate the BMI based on the curre
 
 The following is a sample sequence diagram of the BmiCommand with additional user input.
 
-image::BmiSequenceDiagram.png[]
+.Bmi Command Sequence Diagram with Input Arguments
+image::DietTrackerBmiCommandSequenceDiagram.png[]
+.Creation of Height and Weight Objects for usage in Bmi Command
+image::DietTrackerBmiCommandSequenceDiagram2.png[]
 
 *Design Considerations*
 
@@ -573,8 +572,8 @@ The `height` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes the `height` command:
 
+.Height Command Activity Diagram
 image::DietTrackerHeightCommandActivityDiagram.png[]
-Figure : Height Command Activity Diagram
 
 *Implementation of Height Command*
 
@@ -593,8 +592,8 @@ success message. Otherwise, an error message showing the correct command syntax 
 
 The following sequence diagram summarizes what happens during the execution of `height` command.
 
+.Height Command Sequence Diagram
 image::DietTrackerHeightCommandSequenceDiagram.png[]
-Figure: Height Command Sequence Diagram
 
 
 [[Weight-Command]]
@@ -621,8 +620,8 @@ The `weight` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes the `weight` command:
 
+.Weight Command Activity Diagram
 image::DietTrackerWeightCommandActivityDiagram.png[]
-Figure : Weight Command Activity Diagram
 
 *Implementation of weight Command*
 
@@ -641,8 +640,8 @@ success message. Otherwise, an error message showing the correct command syntax 
 
 The following sequence diagram summarizes what happens during the execution of `weight` command.
 
+.Weight Command Sequence Diagram
 image::DietTrackerWeightCommandSequenceDiagram.png[]
-Figure: Weight Command Sequence Diagram
 
 [[Mode-Command]]
 ==== Mode Command
@@ -666,8 +665,8 @@ Users must only enter *EXACTLY ONE* of the given flags for the mode.
 
 The following activity diagram illustrates what happens when a user executes the `mode` command:
 
+.Mode Command Activity Diagram
 image::DietTrackerModeCommandActivityDiagram.png[]
-Figure : Mode Command Activity Diagram
 
 *Implementation of Mode Command*
 
@@ -686,8 +685,8 @@ success message. Otherwise, an error message showing the correct command syntax 
 
 The following sequence diagram summarizes what happens during the execution of `mode` command.
 
+.Mode Command Sequence Diagram
 image::DietTrackerModeCommandSequenceDiagram.png[]
-Figure: Weight Command Sequence Diagram
 
 [[Metrics-Command]]
 ==== Metrics Command
@@ -706,8 +705,8 @@ The `metrics` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes the `metrics` command:
 
+.Metrics Command Activity Diagram
 image::DietTrackerMetricsCommandActivityDiagram.png[]
-Figure : Metrics Command Activity Diagram
 
 *Implementation of Metrics Command*
 
@@ -724,8 +723,8 @@ success message. Otherwise, an error message showing the correct command syntax 
 
 The following sequence diagram summarizes what happens during the execution of `metrics` command.
 
+.Metrics Command Sequence Diagram
 image::DietTrackerMetricsCommandSequenceDiagram.png[]
-Figure: Metrics Command Sequence Diagram
 
 === Expense Splitter feature
 //tag::expensesplitterintro[]

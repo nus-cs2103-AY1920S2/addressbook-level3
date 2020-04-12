@@ -2,9 +2,9 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_ITEM;
-import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.eylah.expensesplitter.logic.parser.SplitterCliSyntax.PREFIX_ITEM;
+import static seedu.eylah.expensesplitter.logic.parser.SplitterCliSyntax.PREFIX_NAME;
+import static seedu.eylah.expensesplitter.logic.parser.SplitterCliSyntax.PREFIX_PRICE;
 
 import java.util.ArrayList;
 
@@ -36,7 +36,8 @@ public class AddItemCommand extends Command<SplitterModel> {
     // if receipt is done, can only do paid, back, listamount and listreceipt. CANNOT: add/deleteitem.
     // if receipt is undone, can only additem, back, deleteitem, listreceipt, listamount. CANNOT: paid.
     public static final String MESSAGE_RECEIPT_DONE = "The current receipt is marked as completed. You may not use "
-            + "the additem command.";
+            + "the additem command.\n"
+            + "To start a clean receipt, please use the clearreceipt command.";
 
     private Entry toBeAdded;
     private ArrayList<Person> persons;

@@ -23,7 +23,7 @@ import seedu.eylah.expensesplitter.model.SplitterModel;
 /**
  * Parses user input for ExpenseSplitter.
  */
-public class ExpenseSplitterParser extends CommonParser<SplitterModel> {
+public class ExpenseSplitterParser implements CommonParser<SplitterModel> {
 
     @Override
     public Command<SplitterModel> parseCommand(String userInput) throws ParseException {
