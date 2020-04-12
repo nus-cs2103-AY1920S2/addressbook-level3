@@ -88,14 +88,30 @@ https://github.com/AY1920S2-CS2103T-W12-1/main/pull/139[#139], https://github.co
 |===
 
 == Features
+
+=== Clear feature
+This whole section on Clear feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#clear[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../UserGuide.adoc[tag=clear]
+
+=== Import feature
+This whole section on Import feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#import[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../UserGuide.adoc[tag=import]
 
 == Command Summary
+This whole section on command summary can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command-summary[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../UserGuide.adoc[tag=command_summary]
 
-== Glossary
+== Command Prefix
+This whole section on command prefix can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command_prefix[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../UserGuide.adoc[tag=command_prefix]
+
+== Command Flags
+This whole section on command flags can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command_flags[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../UserGuide.adoc[tag=command_flags]
 
 == Contributions to the Developer Guide
@@ -104,21 +120,48 @@ include::../UserGuide.adoc[tag=command_flags]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-== Design
+== Storage Design
+This whole section on storage design can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#Design-Storage[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../DeveloperGuide.adoc[tag=Design-Storage]
 
-== Features
+== Clear feature
+This whole section on Clear feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#clear-feature[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
+
 include::../DeveloperGuide.adoc[tag=clear]
+
+== Import feature
+This whole section on Import feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#import[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../DeveloperGuide.adoc[tag=import]
 
-== Use Cases
+== Use Case for Clear feature
+This whole section on Use Case for Clear feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../DeveloperGuide.adoc[tag=use_case_clear]
+
+== Use Case for Import feature
+This whole section on Use Case for Import feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../DeveloperGuide.adoc[tag=use_case_import]
 
-== Glossary
+== Command Prefix
+This whole section on command prefix can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../DeveloperGuide.adoc[tag=command_prefix]
+
+== Command Flags
+This whole section on command flags can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../DeveloperGuide.adoc[tag=command_flags]
 
-== Appendix G: Instructions for Manual Testing
+== Clear feature
+This whole section on Manual Testing for Clear feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#clear-orders[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../DeveloperGuide.adoc[tag=appendix-clear]
+
+== Import feature
+This whole section on Manual Testing for Import feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#import-orders[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
 include::../DeveloperGuide.adoc[tag=appendix-import]
