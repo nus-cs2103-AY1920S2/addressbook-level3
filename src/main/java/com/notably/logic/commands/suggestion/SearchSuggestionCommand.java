@@ -1,6 +1,7 @@
 package com.notably.logic.commands.suggestion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +33,7 @@ public class SearchSuggestionCommand implements SuggestionCommand {
         Objects.requireNonNull(model);
 
         List<SuggestionItem> suggestions = traverseTree(model);
+        sortSuggestions(suggestions);
         model.setSuggestions(suggestions);
     }
 
@@ -90,5 +92,37 @@ public class SearchSuggestionCommand implements SuggestionCommand {
             pathQueue.addAll(childrenPaths);
         }
         return suggestions;
+    }
+
+    /**
+     * Sorts the suggestions based on frequency.
+     *
+     * @param suggestions The list of SuggestionItem.
+     */
+    private void sortSuggestions(List<SuggestionItem> suggestions) {
+        Collections.sort(suggestions, (suggestion1, suggestion2) -> {
+            if (!suggestion1.getProperty("frequency").isPresent()
+                    || !suggestion2.getProperty("frequency").isPresent()) {
+                throw new AssertionError("All search suggestion item must contain the \"frequency\" "
+                        + "property");
+            }
+
+            if (!suggestion1.getProperty("displayText").isPresent()
+                    || !suggestion2.getProperty("displayText").isPresent()) {
+                throw new AssertionError("All search suggestion item must contain the \"displayText\" "
+                        + "property");
+            }
+
+            int frequency1 = Integer.parseInt(suggestion1.getProperty("frequency").get());
+            int frequency2 = Integer.parseInt(suggestion2.getProperty("frequency").get());
+
+            if (frequency1 == frequency2) {
+                String displayText1 = suggestion1.getProperty("displayText").get();
+                String displayText2 = suggestion2.getProperty("displayText").get();
+                return displayText1.compareToIgnoreCase(displayText2);
+            }
+
+            return frequency1 - frequency2;
+        });
     }
 }

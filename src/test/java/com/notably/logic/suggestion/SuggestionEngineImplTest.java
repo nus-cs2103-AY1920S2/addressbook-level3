@@ -108,7 +108,7 @@ public class SuggestionEngineImplTest {
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSearchSugForKeywordFalse();
 
         // Test suggestions
-        SuggestionTestUtil.testSearchSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSearchSuggestions(expectedSuggestions, suggestions);
 
         // Test response text
         assertEquals(Optional.of(String.format(SEARCH_RESPONSE_MESSAGE_WITH_KEYWORD, keyword)),
