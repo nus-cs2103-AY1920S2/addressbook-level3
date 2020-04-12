@@ -17,6 +17,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should open help. */
+    private final boolean help;
+
     /** The application has a coupon to expand. */
     private final Optional<Coupon> couponToExpand;
 
@@ -30,11 +33,13 @@ public class CommandResult {
             String feedbackToUser,
             Optional<Coupon> couponToExpand,
             Optional<Coupon> couponToShare,
+            boolean help,
             boolean exit
     ) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.couponToExpand = couponToExpand;
         this.couponToShare = couponToShare;
+        this.help = help;
         this.exit = exit;
     }
 
@@ -43,7 +48,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, Optional.empty(), Optional.empty(), false);
+        this(feedbackToUser, Optional.empty(), Optional.empty(), false, false);
     }
 
     public String getFeedbackToUser() {
@@ -52,6 +57,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isHelp() {
+        return help;
     }
 
     public Optional<Coupon> getCouponToExpand() {
@@ -76,12 +85,15 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
 
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && exit == otherCommandResult.exit;
+                && couponToShare.equals(otherCommandResult.couponToShare)
+                && couponToExpand.equals(otherCommandResult.couponToExpand)
+                && exit == otherCommandResult.exit
+                && help == otherCommandResult.help;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, exit);
+        return Objects.hash(feedbackToUser, couponToExpand, couponToShare, help, exit);
     }
 
 }

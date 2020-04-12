@@ -9,7 +9,16 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import csdev.couponstash.model.Model;
+import csdev.couponstash.model.ModelManager;
+import csdev.couponstash.model.UserPrefs;
+import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.testutil.TypicalCoupons;
+import csdev.couponstash.testutil.TypicalIndexes;
+
 public class CommandResultTest {
+    private Model model = new ModelManager(TypicalCoupons.getTypicalCouponStash(), new UserPrefs());
+
     @Test
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
@@ -17,7 +26,7 @@ public class CommandResultTest {
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult(
-                "feedback", Optional.empty(), Optional.empty(), false))
+                "feedback", Optional.empty(), Optional.empty(), false, false))
         );
 
         // same object -> returns true
@@ -34,7 +43,38 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult(
-                "feedback", Optional.empty(), Optional.empty(), true))
+                "feedback", Optional.empty(), Optional.empty(), false, true))
+        );
+
+        // different help value -> returns false
+        assertFalse(commandResult.equals(new CommandResult(
+                "feedback", Optional.empty(), Optional.empty(), true, false))
+        );
+
+        // different coupon to share value -> returns false
+        Coupon couponToShare = model.getFilteredCouponList()
+                .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+
+        assertFalse(commandResult.equals(new CommandResult(
+                    "feedback",
+                    Optional.empty(),
+                    Optional.of(couponToShare),
+                        false,
+                        true
+                ))
+        );
+
+        // different coupon to expand value -> returns false
+        Coupon couponToExpand = model.getFilteredCouponList()
+                .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+
+        assertFalse(commandResult.equals(new CommandResult(
+                        "feedback",
+                        Optional.of(couponToExpand),
+                        Optional.empty(),
+                        false,
+                        true
+                ))
         );
     }
 
@@ -53,6 +93,7 @@ public class CommandResultTest {
                 "feedback",
                 Optional.empty(),
                 Optional.empty(),
+                false,
                 true
         ).hashCode());
     }
