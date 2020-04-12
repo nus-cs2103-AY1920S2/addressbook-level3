@@ -2,6 +2,7 @@ package com.notably.logic.suggestion.generator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class SearchSuggestionGeneratorTest {
             suggestion.getAction().run();
 
             assertEquals(expectedCurrentlyOpenPaths.get(i), model.getCurrentlyOpenPath());
+            assertTrue(model.getInput().isEmpty());
         }
     }
 }
