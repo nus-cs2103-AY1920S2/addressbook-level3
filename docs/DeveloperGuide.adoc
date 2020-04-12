@@ -783,7 +783,7 @@ Below is the activity diagram of the entire Expense Splitter.
 
 .ExpenseSplitterActivityDiagram
 image::ExpenseSplitterActivityDiagramV2.png[]
-Figure : Expense Splitter Activity Diagram
+
 
 .SimplifiedAddItemActivityDiagram
 image::ExpenseSplitterActivityDiagram.png[]
