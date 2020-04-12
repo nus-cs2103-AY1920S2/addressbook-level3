@@ -58,6 +58,7 @@ public class CommandTestUtil {
     public static final String VALID_RETURN_TIMESTAMP = "2020-05-30 1800";
     public static final String VALID_TYPE_GLASS = "glass";
     public static final String VALID_TYPE_PLASTIC = "plastic";
+    public static final String VALID_TYPE_METAL = "metal";
 
     public static final String TID_DESC_AMY = " " + PREFIX_TID + VALID_TID_AMY;
     public static final String RETURN_TID_DESC_AMY = " " + PREFIX_TID + VALID_RETURN_TID_AMY;
@@ -83,6 +84,7 @@ public class CommandTestUtil {
     public static final String COMMENT_DESC_INSTRUCTION = " " + PREFIX_COMMENT + VALID_COMMENT_INSTRUCTION;
     public static final String TYPE_DESC_GLASS = " " + PREFIX_TYPE + VALID_TYPE_GLASS;
     public static final String TYPE_DESC_PLASTIC = " " + PREFIX_TYPE + VALID_TYPE_PLASTIC;
+    public static final String TYPE_DESC_METAL = " " + PREFIX_TYPE + VALID_TYPE_METAL;
 
     public static final String INVALID_TID_DESC = " " + PREFIX_TID + ""; // empty strings not allowed
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names

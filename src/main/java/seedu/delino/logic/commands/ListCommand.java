@@ -8,6 +8,8 @@ import static seedu.delino.model.Model.PREDICATE_SHOW_DONE_RETURNS;
 import static seedu.delino.model.Model.PREDICATE_SHOW_UNDONE_ORDERS;
 import static seedu.delino.model.Model.PREDICATE_SHOW_UNDONE_RETURNS;
 
+import java.util.logging.Logger;
+
 import seedu.delino.model.Model;
 
 //@@author Amoscheong97
@@ -33,13 +35,15 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_FAILURE = "Invalid use of List Command.";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List the orders from order book based on arguments. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List the orders from order list based on arguments. "
             + "Argument: "
             + DONE + "/"
             + UNDONE + "\n"
             + "Example"
             + COMMAND_WORD
             + DONE;
+
+    private static final Logger logger = Logger.getLogger(ListCommand.class.getName());
 
     private String listArg;
 
@@ -54,21 +58,25 @@ public class ListCommand extends Command {
 
         switch (listArg) {
         case DONE:
+            logger.fine("Filter both lists to show delivered orders");
             model.updateFilteredOrderList(PREDICATE_SHOW_DONE_ORDERS);
             model.updateFilteredReturnOrderList(PREDICATE_SHOW_DONE_RETURNS);
             return new CommandResult(MESSAGE_SUCCESS_DONE);
 
         case UNDONE:
+            logger.fine("Filter both lists to show undelivered orders");
             model.updateFilteredOrderList(PREDICATE_SHOW_UNDONE_ORDERS);
             model.updateFilteredReturnOrderList(PREDICATE_SHOW_UNDONE_RETURNS);
             return new CommandResult(MESSAGE_SUCCESS_UNDONE);
 
         case EMPTY_ARGUMENT:
+            logger.fine("Show everything in both lists");
             model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
             model.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
             return new CommandResult(MESSAGE_SUCCESS);
 
         default:
+            logger.fine("Invalid syntax for List Command");
             return new CommandResult(MESSAGE_FAILURE);
         }
     }

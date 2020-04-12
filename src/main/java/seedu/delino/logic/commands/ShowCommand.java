@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.logging.Logger;
 
 import seedu.delino.logic.parser.exceptions.ParseException;
 import seedu.delino.model.Model;
@@ -59,6 +60,8 @@ public class ShowCommand extends Command {
 
     public static final String ALL_DATES = "All Dates";
 
+    private static final Logger logger = Logger.getLogger(ShowCommand.class.getName());
+
     private static LocalDate dateNow = LocalDate.now();
 
     private static LocalDate endDate;
@@ -82,6 +85,7 @@ public class ShowCommand extends Command {
         argument = argumentTrimmed;
         requireNonNull(argumentTrimmed);
 
+        logger.fine("Parse data for validating arguments");
         parseData(argumentTrimmed);
     }
 
@@ -141,10 +145,12 @@ public class ShowCommand extends Command {
      */
     public void parseData(String argText) {
         if (isToday(argText)) {
+            logger.fine("Argument is today");
             setSuccessMessage(MESSAGE_TODAY);
             startDate = dateNow;
             endDate = dateNow;
         } else if (isAll(argText)) {
+            logger.fine("Argument is all");
             setSuccessMessage(MESSAGE_ALL);
         } else {
             try {
@@ -156,6 +162,7 @@ public class ShowCommand extends Command {
                 validateDates();
                 initializeMessage();
             } catch (DateTimeParseException ex) {
+                logger.info("Invalid date is in the input");
                 setFailureMessage(PARSE_DATE_ERROR_MESSAGE);
             } catch (ParseException pex) {
                 setFailureMessage(pex.getMessage());
@@ -169,6 +176,7 @@ public class ShowCommand extends Command {
      * @throws ParseException
      */
     public void checkValidInput(String[] arrOfDate) throws ParseException {
+        logger.fine("Check if the input is valid or not");
         illegalArguments(arrOfDate);
         checkNumberOfToday(arrOfDate);
     }
@@ -183,6 +191,7 @@ public class ShowCommand extends Command {
      * @return boolean
      */
     public static boolean filterListByDates(Order order) {
+        logger.fine("Filter list by the dates given");
         return showAll ? listAll() : isDateInclusive(order);
     }
 
@@ -196,6 +205,7 @@ public class ShowCommand extends Command {
      * @return boolean
      */
     public static boolean filterListByDates(ReturnOrder order) {
+        logger.fine("Filter list by the dates given");
         return showAll ? listAll() : isDateInclusive(order);
     }
     /**
@@ -206,6 +216,7 @@ public class ShowCommand extends Command {
      *
      */
     public static boolean isDateInclusive(Order order) {
+        logger.fine("Check if the order timestamp is within the dates given");
         LocalDate date = order.getTimestamp().getOrderTimeStamp().toLocalDate();
         return date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0;
     }
@@ -218,6 +229,7 @@ public class ShowCommand extends Command {
      *
      */
     public static boolean isDateInclusive(ReturnOrder order) {
+        logger.fine("Check if the Return order timestamp is within the dates given");
         LocalDate date = order.getTimestamp().getOrderTimeStamp().toLocalDate();
         return date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0;
     }
@@ -240,6 +252,7 @@ public class ShowCommand extends Command {
     public static void illegalArguments(String[] dates) throws ParseException {
         // Only accept one or two arguments
         if (dates[0].equals("") || dates.length > 2) {
+            logger.info("There are either no arguments or more than 2 arguments");
             throw new ParseException(ILLEGAL_ARGUMENT);
         }
     }
@@ -254,6 +267,7 @@ public class ShowCommand extends Command {
         if (dates.length == 2) {
             // `show today today` command is not allowed
             if (dates[0].equals(dates[1]) && dates[0].equals(TODAY)) {
+                logger.info("User attempts to input more than 1 'today' ");
                 throw new ParseException(ONE_TODAY_IS_ENOUGH);
             }
         }
@@ -268,7 +282,7 @@ public class ShowCommand extends Command {
     public void initStartDate(String start) {
         // Null value is not allowed for start date
         assert start != null;
-
+        logger.fine("Initialize Start Date");
         // check if it is today's date
         startDate = isToday(start) ? dateNow
                 : LocalDate.parse(start, FORMAT_CHECKER);
@@ -285,7 +299,7 @@ public class ShowCommand extends Command {
     public void initEndDate(String[] arrOfDate) {
         // Null value is not allowed for end date
         assert arrOfDate != null;
-
+        logger.fine("Initialize End Date");
         // Checking the number of dates provided
         endDate = (arrOfDate.length == 1)
                 ? startDate
@@ -301,6 +315,7 @@ public class ShowCommand extends Command {
     public static void validateDates() throws ParseException {
         // Check if the startDate is after the endDate
         if (startDate.compareTo(endDate) > 0) {
+            logger.info("The Start Date is found to be after the End Date");
             throw new ParseException(WRONG_DATE_ORDER);
         }
     }
@@ -310,6 +325,7 @@ public class ShowCommand extends Command {
      * @param successMessage
      */
     public void setSuccessMessage(String successMessage) {
+        logger.fine("Set Success Message");
         intendedMessage = SHOW_MESSAGE + successMessage;
         isCommandSuccessful = true;
     }
@@ -319,6 +335,7 @@ public class ShowCommand extends Command {
      * @param failureMessage
      */
     public void setFailureMessage(String failureMessage) {
+        logger.fine("Set Failure Message");
         intendedMessage = failureMessage + MESSAGE_USAGE;
         isCommandSuccessful = false;
     }
@@ -332,6 +349,7 @@ public class ShowCommand extends Command {
      *
      */
     public void initializeMessage() {
+        logger.fine("Begin to initialize the message for user");
         if (startDate.compareTo(endDate) == 0) {
             if (startDate.compareTo(dateNow) == 0) {
                 setSuccessMessage(MESSAGE_TODAY);

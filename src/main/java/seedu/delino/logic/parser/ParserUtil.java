@@ -79,6 +79,7 @@ public class ParserUtil {
                 requireNonNull(valueValidation);
                 valueValidation = valueValidation.trim();
                 if (!TransactionId.isValidTid(valueValidation)) {
+                    logger.info("Invalid TID encountered" + valueValidation);
                     errorMessage = errorMessage + TransactionId.MESSAGE_CONSTRAINTS + "\n";
                 }
                 break;
@@ -88,6 +89,7 @@ public class ParserUtil {
                 requireNonNull(valueValidation);
                 valueValidation = valueValidation.trim();
                 if (!Name.isValidName(valueValidation)) {
+                    logger.info("Invalid Name encountered" + valueValidation);
                     errorMessage = errorMessage + Name.MESSAGE_CONSTRAINTS + "\n";
                 }
                 break;
@@ -97,6 +99,7 @@ public class ParserUtil {
                 requireNonNull(valueValidation);
                 valueValidation = valueValidation.trim();
                 if (!Phone.isValidPhone(valueValidation)) {
+                    logger.info("Invalid Phone encountered" + valueValidation);
                     errorMessage = errorMessage + Phone.MESSAGE_CONSTRAINTS + "\n";
                 }
                 break;
@@ -106,6 +109,7 @@ public class ParserUtil {
                 requireNonNull(valueValidation);
                 valueValidation = valueValidation.trim();
                 if (!Address.isValidAddress(valueValidation)) {
+                    logger.info("Invalid Address encountered" + valueValidation);
                     errorMessage = errorMessage + Address.MESSAGE_CONSTRAINTS + "\n";
                 }
                 break;
@@ -115,6 +119,7 @@ public class ParserUtil {
                 requireNonNull(valueValidation);
                 valueValidation = valueValidation.trim();
                 if (!Email.isValidEmail(valueValidation)) {
+                    logger.info("Invalid Email encountered" + valueValidation);
                     errorMessage = errorMessage + Email.MESSAGE_CONSTRAINTS + "\n";
                 }
                 break;
@@ -123,8 +128,6 @@ public class ParserUtil {
                 valueValidation = argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).get();
                 requireNonNull(valueValidation);
                 valueValidation = valueValidation.trim();
-                logger.fine("Checking whether it is valid timestamp");
-
                 int result = TimeStamp.checkTimestamp(valueValidation, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW);
                 if (result == TimeStamp.PARSE_ERROR) {
                     logger.info("Invalid timestamp: " + valueValidation);
@@ -140,6 +143,7 @@ public class ParserUtil {
                 requireNonNull(valueValidation);
                 valueValidation = valueValidation.trim();
                 if (!Warehouse.isValidAddress(valueValidation)) {
+                    logger.info("Invalid Warehouse encountered" + valueValidation);
                     errorMessage = errorMessage + Warehouse.MESSAGE_CONSTRAINTS + "\n";
                 }
                 break;
@@ -149,6 +153,7 @@ public class ParserUtil {
                 requireNonNull(valueValidation);
                 valueValidation = valueValidation.trim();
                 if (!CashOnDelivery.isValidCashValue(valueValidation)) {
+                    logger.info("Invalid CashOnDelivery encountered" + valueValidation);
                     errorMessage = errorMessage + CashOnDelivery.MESSAGE_CONSTRAINTS + "\n";
                 }
                 break;
@@ -160,7 +165,6 @@ public class ParserUtil {
 
                 requireNonNull(valueValidation);
                 valueValidation = valueValidation.trim();
-                logger.fine("Check if it is a valid comment" + valueValidation);
                 if (!Comment.isValidComment(valueValidation)) {
                     logger.info("Invalid Comment encountered: " + valueValidation);
                     errorMessage = errorMessage + Comment.MESSAGE_CONSTRAINTS + "\n";
@@ -175,6 +179,7 @@ public class ParserUtil {
                 requireNonNull(valueValidation);
                 valueValidation = valueValidation.trim();
                 if (!TypeOfItem.isValidItemType(valueValidation)) {
+                    logger.info("Invalid ItemType encountered" + valueValidation);
                     errorMessage = errorMessage + TypeOfItem.MESSAGE_CONSTRAINTS + "\n";
                 }
                 break;
@@ -271,7 +276,6 @@ public class ParserUtil {
         requireNonNull(timeStamp);
         String trimmedTimeStamp = timeStamp.trim();
         logger.fine("Checking whether it is valid timestamp");
-
         int result = TimeStamp.checkTimestamp(trimmedTimeStamp, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW);
         if (result == TimeStamp.PARSE_ERROR) {
             logger.info("Invalid timestamp: " + trimmedTimeStamp);
