@@ -1,10 +1,10 @@
 @startuml
-/' @author @akhilvuputuri'/
+/' @author @jarrod-bob'/
 
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":DietLogicManager" as LogicManager LOGIC_COLOR
 participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
 participant ":ListCommandParser" as ListCommandParser LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
