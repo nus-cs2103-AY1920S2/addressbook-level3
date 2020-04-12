@@ -1,6 +1,7 @@
 package fithelper.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -20,7 +21,7 @@ import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
 
 /**
- * A default model stub that have all of the methods failing.
+ * A default model stub that have all of the methods either failing or returning simple results.
  */
 public class ModelStub implements Model {
     @Override
@@ -187,16 +188,16 @@ public class ModelStub implements Model {
     }
 
     public Set<CalorieDatum> searchFoodCalorieTable(String keywords) {
-        throw new AssertionError("This method should not be called.");
+        return new HashSet<>();
     }
 
     public Set<CalorieDatum> searchSportsCalorieTable(String keywords) {
-        throw new AssertionError("This method should not be called.");
+        return new HashSet<>();
     }
 
     @Override
     public boolean equals(Object obj) {
-        throw new AssertionError("This method should not be called.");
+        return obj == this;
     }
 
     @Override
