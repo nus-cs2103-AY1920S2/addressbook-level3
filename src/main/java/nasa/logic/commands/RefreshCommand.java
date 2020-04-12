@@ -36,9 +36,9 @@ public class RefreshCommand extends Command {
                 ObservableList<Event> events = module.getFilteredEventList();
                 for (Deadline deadline : deadlines) {
                     if (deadline.isOverdue()) {
-                        model.setDeadline(module.getModuleCode(), deadline,
-                            new Deadline(deadline.getName(),
-                            deadline.getDateCreated(), deadline.getNote(), deadline.getPriority(), deadline.getDueDate(),
+                        model.setDeadline(module.getModuleCode(), deadline, new Deadline(deadline.getName(),
+                            deadline.getDateCreated(), deadline.getNote(),
+                                deadline.getPriority(), deadline.getDueDate(),
                             false)); // auto set it to overdue
                     }
                 }

@@ -1,14 +1,11 @@
 package nasa.ui;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import nasa.model.activity.Event;
 import nasa.model.module.Module;
 import nasa.ui.activity.DeadlineListPanel;
 import nasa.ui.activity.EventListPanel;
