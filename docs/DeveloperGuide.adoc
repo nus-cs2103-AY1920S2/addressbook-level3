@@ -740,6 +740,7 @@ The feature comprises of six commands namely.
 * <<Back-Command, `BackCommand`>> - Exits Expense Splitter portion to return to EYLAH's Main Menu.
 
 Below are some diagrams to explain how our team implemented this portion.
+//end::expensesplitterintro[]
 
 //tag::expensesplitteractivitydiagram[]
 *Activity Diagram of Expense Splitter:* +
@@ -749,6 +750,7 @@ Figure : Expense Splitter Activity Diagram
 
 image::ExpenseSplitterActivityDiagram.png[]
 Figure : Add Item Activity Diagram
+//end::expensesplitteractivitydiagram[]
 
 [[Add-Item-Command]]
 ==== Add Item Command
@@ -907,6 +909,7 @@ Receipt by calling `entry.toString()`.
 image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
 
 Figure : List Receipt Sequence Diagram
+//end::expensesplitterlistreceiptcommand[]
 
 //tag::expensesplitterlistamountcommand[]
 [[List-Amount-Command]]
@@ -955,6 +958,7 @@ The following sequence diagram summarizes what happens during the execution of `
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
 Figure : List Amount Sequence Diagram
+//end::expensesplitterlistamountcommand[]
 
 //tag::expensesplitterpaidcommand[]
 [[Paid-Command]]
@@ -1015,6 +1019,7 @@ Figure : Paid Command Sequence Diagram
 
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
 Figure : Execution of Paid Command
+//end::expensesplitterpaidcommand[]
 
 [[Clear-Receipt-Command]]
 ==== Clear Receipt Command
@@ -1193,11 +1198,11 @@ keep a list of all residents and their particulars |contact their next of kin in
 emergency
 
 |=======================================================================
-
+// end::userstory[]
 
 [appendix]
 == Use Cases
-// tag::usecase[]
+
 (For all use cases below, the *System* is the `EYLAH` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
@@ -1364,6 +1369,7 @@ Use case ends.
 ** 1a1. EYLAH suggests to user the correct format to use
 ** 1a2. User will key in the correct format
 
+// tag::usecase[]
 [discrete]
 === Expense Splitter Use Cases
 
@@ -1422,6 +1428,7 @@ Use case ends.
 +
 Use case ends.
 
+// tag::willyusecase[]
 [discrete]
 === Use case: UC10 - Listing Receipt
 *Actor:* User +
@@ -1472,6 +1479,7 @@ Use case ends.
 +
 Use case ends.
 
+
 [discrete]
 === Use case: UC12 - Amount paid
 *Actor:* User +
@@ -1512,6 +1520,7 @@ Use case ends.
 ** 1c1. EYLAH displays an error message, informing the user to key in the correct index of the Person. The user may use `listamount` to show the Person's index.
 +
 Use case ends.
+//end::willyusecase[]
 
 [discrete]
 === Use case: UC13 - Back to Main Menu

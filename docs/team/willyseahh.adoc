@@ -171,7 +171,7 @@ include::../DeveloperGuide.adoc[tag=expensesplitterlistreceiptcommand]
 
 include::../DeveloperGuide.adoc[tag=expensesplitterpaidcommand]
 
-include::../DeveloperGuide.adoc[tag=usecase]
+include::../DeveloperGuide.adoc[tag=willyusecase]
 
 include::../DeveloperGuide.adoc[tag=userstory]
 

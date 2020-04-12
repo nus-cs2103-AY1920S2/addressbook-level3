@@ -43,6 +43,7 @@ Interested? Jump to <<Getting Started>> to get started. Let's go!
 
 image::Ui.png[width="790"]
 Figure 1. Photo of EYLAH
+//end::intro[]
 
 === Purpose
 * This documentation serves as an introduction to the features and proper usage of EYLAH, and is made for you
@@ -648,7 +649,7 @@ With EYLAH, splitting a large receipt with friends has never been easier! All yo
 it's price and the names involved in splitting that item and EYLAH will calculate the rest for you!
 
 We have drawn some diagrams to help you visualize how Expense Splitter works, click <<AppendixA, here>> to find out more!
-
+//end::introtoexpensesplitter[]
 [[additem]]
 ==== Adding an item: `additem`
 In this section, you will learn more about the `additem` command, <<howtouseadditemcommand,how to use it>>
@@ -784,7 +785,7 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 Use `listamount` command to find the index of the person who paid you. The index is useful for commands
 such as `paid`.
 ====
-
+//end::listamount[]
 '''
 
 [[donereceipt]]
@@ -861,7 +862,7 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 ====
 Use `listamount` command to find the index of the person who paid you.
 ====
-
+//end::paid[]
 '''
 
 [[clearreceipt]]
@@ -1139,7 +1140,7 @@ or +
 |`exit`
 
 |===
-
+//end::commandsummaryforexpensesplitter[]
 == Glossary
 [width="%",cols="<20%,<40,<40,options="header",]
 |=======================================================================
