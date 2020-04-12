@@ -70,7 +70,7 @@ public class AddCommand extends Command {
         if (grade != null) {
             addGrade = grade;
         }
-        if (deadlines != null) {
+        if (deadlines.size() != 0) {
             addDeadlines = deadlines;
         }
     }

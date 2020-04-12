@@ -92,6 +92,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
 
             if (strDeadlines != null) {
+                // Every task has a deadline
                 for (int i = 0; i < strDeadlines.size(); i++) {
                     String taskDescription = strTaskDescriptions.get(i);
                     String dateTimeString = strDeadlines.get(i);
@@ -108,6 +109,11 @@ public class AddCommandParser implements Parser<AddCommand> {
                     } else {
                         deadlineList.add(new Deadline(moduleCode, taskDescription));
                     }
+                }
+            } else {
+                // Every task does not have a deadline
+                for (String taskDescription : strTaskDescriptions) {
+                    deadlineList.add(new Deadline(moduleCode, taskDescription));
                 }
             }
         }
