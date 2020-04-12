@@ -29,7 +29,16 @@ public class MetricsCommandTest {
 
     @Test
     public void execute_metricsShown() {
-        assertCommandSuccess(new MetricsCommand(), model, MetricsCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new MetricsCommand(), model,
+                "Your metrics are as follows:\n"
+                + "\n"
+                + "    Height: You have not stored your own height yet! Type 'height <<insert height here>>'"
+                + " to store your height!\n"
+                + "    Weight: You have not stored your own weight yet! Type 'weight <<insert weight here>>'"
+                + " to store your weight!\n"
+                + "    Dieting Mode: MAINTAIN\n"
+                + "Your metrics are shown.\n",
+                expectedModel);
     }
 
     @Test

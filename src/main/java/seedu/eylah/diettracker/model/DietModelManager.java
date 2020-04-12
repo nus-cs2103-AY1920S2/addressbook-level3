@@ -110,7 +110,7 @@ public class DietModelManager implements DietModel {
     }
 
     @Override
-    public void printMetrics() {
+    public String printMetrics() {
         StringBuilder result = new StringBuilder("Your metrics are as follows:\n\n");
 
         // checks for stored height, displays height if available.
@@ -137,7 +137,7 @@ public class DietModelManager implements DietModel {
             result.append("    Dieting Mode: " + myself.getMode() + "\n");
         }
 
-        System.out.println(result);
+        return result.toString();
     }
 
     @Override
@@ -193,7 +193,7 @@ public class DietModelManager implements DietModel {
     }
 
     @Override
-    public void listFoods(String mode) {
+    public String listFoods(String mode) {
         Calories calorieCount = new Calories(0);
         StringBuilder result = new StringBuilder();
 
@@ -253,7 +253,7 @@ public class DietModelManager implements DietModel {
 
         }
 
-        System.out.println(result.toString());
+        return result.toString();
     }
 
     //=========== Filtered Food Book Accessors =============================================================
