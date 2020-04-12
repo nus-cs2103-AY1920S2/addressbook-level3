@@ -10,10 +10,6 @@ hide circle
 class PaidCommandParser implements Parser {
     /' Methods '/
     + parse(args : String) : PaidCommand
-    - onlyReturnFlagPresent(splitInputList : List<String>) : boolean
-    - onlyOrderFlagPresent(splitInputList : List<String>) : boolean
-    - indexOfReturnList(splitInputList : List<String>) : Index
-    - indexOfOrderList(splitInputList : List<String>) : Index
 }
 
 interface Parser<T extends Command> {
@@ -21,7 +17,7 @@ interface Parser<T extends Command> {
 }
 
 abstract class Command {
-    {abstract} execute(SplitterModel splitterModel) : CommandResult
+    {abstract} execute(splitterModel:SplitterModel) : CommandResult
 }
 
 class PaidCommand extends Command {
@@ -34,15 +30,23 @@ class PaidCommand extends Command {
     + equals() : boolean
 }
 
-interface Model <<Interface>> {
-    + getFilteredOrderList() : void
-    + setOrder(order : Order, deliveredOrder : Order) : void
-    + deliverOrder(deliveredOrder : Order) : void
-    + getFilteredReturnOrderList() : void
-    + setReturnOrder(returnOrder : ReturnOrder, deliveredReturnOrder : ReturnOrder) : void
-    + deliverReturnOrder(deliveredReturnOrder : ReturnOrder) : void
-    + updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS :Predicate<Order>) : void
-    + updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_Returns :Predicate<ReturnOrder>) : void
+interface SplitterModel <<Interface>> {
+    + addEntry(entry : Entry) : void
+    + deleteEntry(index : int) : void
+    + getEntry(entry : Entry) : Entry
+    + paidPerson(person : Person, amountPaid : String) : void
+    + listAmount() : void
+    + listReceipt() : void
+    + getReceipt() : Receipt
+    + clearReceipt() : void
+    + hasPerson(person : Person) : boolean
+    + addPerson(person : Person) : void
+    + getPerson(person : Person) : Person
+    + addAmount(person : Person, amount : Amount) : void
+    + removeAmount(person : Person, amount : Amount) : void
+    + updateFilteredPersonList(predicate : Predicate<Person>) : void
+    + getFilteredPersonList() : ObservableList<Person>
+
 
 }
 
@@ -51,25 +55,10 @@ class Index {
     + getOneBased()
 }
 
-class DeliveredParcelDescriptor {
-    /' Fields '/
-    - tid : TransactionId
-    - name : Name
-    - phone : Phone
-    - email : Email
-    - address : Address
-    - timeStamp : TimeStamp
-    - warehouse : Warehouse
-    - cod : CashOnDelivery
-    - comment : Comment
-    - itemType : TypeOfItem
-    - deliveryStatus : boolean
-}
 
-PaidCommand --* "1" DeliveredParcelDescriptor
 PaidCommandParser ..> PaidCommand
-PaidCommandParser ..> DeliveredParcelDescriptor
-PaidCommand ..> Model
+PaidCommand ..> SplitterModel
 PaidCommandParser ..> Index
 PaidCommand --> Index
+
 @enduml

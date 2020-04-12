@@ -1079,7 +1079,11 @@ image::ExpenseSplitterPaidCommandActivityDiagram.png[]
 *Structure of Paid Command*
 In this section, you will learn more about the relationships between objects related to the `paid` command.
 
+.Paid Command Class Diagram
+image::ExpenseSplitterPaidCommandClassDiagram.png[]
 
+The above class diagram shows the structure of the `PaidCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `PaidCommand`
 
 *Implementation of Paid Command*
 
