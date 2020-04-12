@@ -1,0 +1,17 @@
+@startuml
+start
+:User enters export calendar command;
+:Parses input and creates ExportCalendarCommand;
+if () then ([file path not specified])
+    :filepath set to default ./data;
+else ([else])
+    :filepath set to specified one;
+endif
+:write ics file to filepath;
+if () then ([success])
+    :Show Success Message;
+else ([else])
+    :Show Failure Message;
+endif
+stop
+@enduml
