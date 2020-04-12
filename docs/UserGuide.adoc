@@ -170,11 +170,11 @@ command.
 
 In this section, we look at the key features of Coupon Stash's
 graphical user interface. The interface can be broadly split
-into 3 different parts: the different tabs present in the
-program (Coupons, Summary and Help), as well as the
-calendar and command result box.
+into 4 different parts: the different tabs present in the
+program (Coupons, Summary and Help), the calendar,
+the command input box and the command result box.
 
-image::ug_tabs.png[]
+image::ug_user_interface.png[]
 
 === Tabs
 
@@ -281,6 +281,11 @@ descriptions provided in the help tab are less detailed!
 === Calendar
 
 The calendar shows you all the dates this month.
+
+=== Command input box
+
+The command input box is the main way you will interact
+with Coupon Stash.
 
 === Command result box
 
