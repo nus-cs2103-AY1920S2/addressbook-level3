@@ -202,15 +202,14 @@ public class Task {
         return otherTask.getName().equals(getName())
                 && otherTask.getPriority().equals(getPriority())
                 && otherTask.getDescription().equals(getDescription())
-                && otherTask.getTags().equals(getTags())
-                && otherTask.optionalReminder.equals(this.optionalReminder)
-                && otherTask.optionalRecurring.equals(this.optionalRecurring);
+                && otherTask.getTags().equals(getTags());
+
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, priority, description, tags, optionalReminder, optionalRecurring);
+        return Objects.hash(name, priority, description, tags);
     }
 
     @Override

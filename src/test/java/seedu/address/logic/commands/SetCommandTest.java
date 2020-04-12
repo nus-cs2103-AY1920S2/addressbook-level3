@@ -87,11 +87,6 @@ public class SetCommandTest {
         }
 
         @Override
-        public void sortList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setTaskList(ReadOnlyTaskList newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -157,12 +152,12 @@ public class SetCommandTest {
         }
 
         @Override
-        public void setComparator(Comparator<Task> compare) {
+        public void setComparator(Comparator<Task> comparator, String sortOrder) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
-        public void sortSearchByRelevance(Comparator<Task> comparator) {
+        public void setSearchResultOrder(Comparator<Task> compare) {
             throw new AssertionError("This method should not be called.");
         }
 
