@@ -1829,7 +1829,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Adding an Item into the current Receipt.
 
-.. Add Item Command format: `additem -i ITEMNAME -p ITEMPRICE -n PERSON [-n PERSON]`
+.. Add Item Command format: `additem -i ITEMNAME -p ITEMPRICE -n PERSON [-n PERSON]...`
 
 .. Test case: `additem -i pasta -p 33.50 -n John -n Bob` +
 Expected: Adds an item with the above details to current receipt and increase the person amount equal to dividing the price
@@ -1874,7 +1874,7 @@ with problems we all face while staying in Temasek Hall.
 
 Hence, we decided to build EYLAH, a super application that has both a diet tracker and a expense splitter functionality.
 EYLAH is significantly different from Address Book 3 (AB3) in many aspects.
-We needed to add audience-specific features to satisfy the needs of our target audience:residents staying in Temasek
+We needed to add audience:specific features to satisfy the needs of our target audience:residents staying in Temasek
 Hall.
 
 
