@@ -32,7 +32,7 @@ public class OpenSuggestionGenerator implements SuggestionGenerator {
 
         if (oldTitle.isBlank()) {
             logger.warning("\"oldTitle\" must contain at least one element");
-            throw new IllegalArgumentException("The old title must contain at least one element");
+            throw new IllegalArgumentException("The \"oldTitle\" must contain at least one element");
         }
 
         this.paths = paths;

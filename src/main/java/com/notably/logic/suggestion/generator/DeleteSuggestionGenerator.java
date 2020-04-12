@@ -31,7 +31,7 @@ public class DeleteSuggestionGenerator implements SuggestionGenerator {
         Objects.requireNonNull(oldTitle);
 
         if (oldTitle.isBlank()) {
-            logger.warning("oldTitle must contain at least one element");
+            logger.warning("\"oldTitle\" must contain at least one element");
             throw new IllegalArgumentException("The \"oldTitle\" must contain at least one element");
         }
 
