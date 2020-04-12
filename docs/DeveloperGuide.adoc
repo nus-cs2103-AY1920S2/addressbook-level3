@@ -192,9 +192,10 @@ image::undoSequenceDiagramV2.png[]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== Add Deadlines, Lessons and Events Feature
+=== Add Deadlines and Events Feature
 
 Deadlines, lessons and events are to be added with their own commands. Refer to the user guide for the specific commands. Adding of activities is facilitated by ModelManager#addActivity.
+In general, while they have their own commands, the internal workings are very similar.
 
 ==== Implementation
 For any adding of activities, the command used will be the name of the activity. For instance, to add deadline, the command will be `deadline [paramters...]`.
@@ -217,9 +218,11 @@ Below is an example of a user adding a deadline and how the underlying system wo
 
 . If the module's activity list is modified, the model will be updated and the view will be changed according to the new model.
 
-The figure below shows the sequence diagram on what happens with the simple execution of the aforementioned command.
+The figure below shows the sequence diagram on what happens with the simple execution of the aforementioned command. First image shows the logic component while the second image shows the logic and model component (mainly model).
 
 image::AddDeadlineLogicSequenceDiagram.png[]
+
+image::AddDeadlineModelSequenceDiagram.png[]
 
 ==== Design Considerations
 
