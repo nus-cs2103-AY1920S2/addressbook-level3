@@ -682,8 +682,7 @@ stash is as trivial as reopening the program.
 coupons, they have to retype the `sort` command each time the program is
 launched.
 
-* *Alternative 2:* Make sorting persistent,
-the command text history.
+* *Alternative 2:* Make sorting persistent.
 ** Pros: Gives users more freedom over the default order of their coupons.
 ** Cons: Can be unnecessarily complicated to implement a hidden field stating
 a coupon's addtion time just so users can revert to the default order.
