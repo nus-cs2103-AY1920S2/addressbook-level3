@@ -596,7 +596,6 @@ _{ more test cases ... }_
 
 === Adding a person
 
-. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
 . Test case: `(ab)add n/John p/12345 o/NUS n/05-20`
   Expected: A new contact with the name John, phone number 12345, and birthday 20 May is added to the list. Details of the added contact shown in the status message.
 
@@ -638,7 +637,7 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
 .. Test case: `(ab)addnote 2 i/Likes red i/Lives in Jurong i/Cycles` +
-   Expected: Second contact in the list has 2 new notes, "Likes red", "Lives in Jurong" and "Cycles", added. Details of the edited contact shown in the status message.
+   Expected: Second contact in the list has 3 new notes, "Likes red", "Lives in Jurong" and "Cycles", added. Details of the edited contact shown in the status message.
 
 . Editing a person while finding contacts that meet certain criteria
 
@@ -655,7 +654,7 @@ _{ more test cases ... }_
    Expected: Edits the second note of the second contact in the list to "Likes matcha". Details of the edited contact shown in the status message.
 .. Test case: `(ab)editnote x i/Likes red` (where x is larger than the number of existing notes of a person) +
    Expected: No note is edited for the person. Error details shown in the status message.
-.. Other incorrect commands to try: `(ab)editnote 2 l/aaa i/Likes cats (where line number is not an integer)
+.. Other incorrect commands to try: `(ab)editnote 2 l/aaa i/Likes cats` (where line number is not an integer) +
    Expected: Similar to previous
 
 . Editing an existing note of a person while finding contacts that meet certain criteria
@@ -673,7 +672,7 @@ _{ more test cases ... }_
    Expected: Deletes the first and third note of the second contact in the list. Details of the edited contact shown in the status message.
 .. Test case: `(ab)deletenote 2 l/x` (where x is larger than the number of existing notes of a person) +
    Expected: No note is deleted for the person. Error details shown in the status message.
-.. Other incorrect commands to try: `(ab)deletenote 2 l/2 l/aaa (where line number is not an integer)
+.. Other incorrect commands to try: `(ab)deletenote 2 l/2 l/aaa` (where line number is not an integer) +
    Expected: Similar to previous
 
 . Editing a person while finding contacts that meet certain criteria
@@ -703,7 +702,7 @@ _{ more test cases ... }_
 . Retrieves a person contact while finding contacts that meet certain criteria
 
 .. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
-.. Test case: `(ab)get x ` (where x exists in the full contact list but not in the filtered list) +
+.. Test case: `(ab)get x` (where x exists in the full contact list but not in the filtered list) +
 Expected: No detailed view of contact is displayed. Error details shown in the status message.
 
 === List contacts with upcoming birthdays
@@ -779,6 +778,8 @@ Expected: All restaurants added should be displayed.
 
 . Test case: `(st)add t/CS2103 post lecture quiz d/2020-11-11 23:59 e/2` +
   Expected: Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-11-2020 23:59 PM and which takes an estimated two hours to complete. Details of the added assignment shown in the status message.
+.. Test case: `(st)add t/CS2105 lab d/DATETIME e/5` (where DATETIME is after the current date and time) +
+   Expected: No assignment is added. Error details shown in the status message.
 
 === List current assignments
 
@@ -796,6 +797,8 @@ Expected: All restaurants added should be displayed.
 .. Prerequisites: List all assignments using the `(st)list` command. Multiple assignments in the list.
 .. Test case: `(st)delete 1` +
    Expected: Deletes the first assignment in the Schoolwork Tracker. Details of the deleted assignment shown in the status message.
+.. Test case: `(st)delete x` (where x is larger than the size of Schoolwork Tracker) +
+   Expected: No assignment is deleted. Error details shown in the status message.
 
 === Editing an assignment
 
@@ -808,11 +811,17 @@ Expected: All restaurants added should be displayed.
    Expected: Marks the first assignment in the Schoolwork Tracker as completed. Details of the edited assignment shown in the status message.
 .. Test case: `(st)edit 1 s/Uncompleted` +
    Expected: Marks the first assignment in the Schoolwork Tracker as uncompleted. Details of the edited assignment shown in the status message.
+.. Test case: `(st)edit d/y` (where y is after the current date and time) +
+   Expected: No assignment is edited. Error details shown in the status message.
+.. Other incorrect commands to try: `(st)edit x` (where x is larger than the size of Schoolwork Tracker) +
+   Expected: Same as above
 
 === Adding a social event
 
 . Test case: `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
 Expected: Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and location at "Facebook APAC HQ".
+.. Test case: `(ev)add t/Birthday party dt/DATETIME d/3 p/Clementi` (where DATETIME is after the current date and time) +
+   Expected: No social event is added. Error details shown in the status message.
 
 === Listing all events
 
@@ -826,6 +835,8 @@ Expected: List all added social events in the Event Schedule.
 .. Prerequisites: List all social events using the `(ev)list` command. Multiple social events in the list.
 .. Test case: `(ev)edit 1 edt/2020-04-09 11:00 ed/2` +
    Expected: Edits the first event in the Event Schedule by changing the timing to 11AM on the 9th of April and the estimated duration to be 2 hours.
+.. Test case: `(ev)edit dt/DATETIME` (where DATETIME is after the current date and time) +
+   Expected: No social event is edited. Error details shown in the status message.
 
 === Deleting a social event
 
@@ -834,6 +845,8 @@ Expected: List all added social events in the Event Schedule.
 .. Prerequisites: List all social events using the `(ev)list` command. Multiple social events in the list.
 .. Test case: `(ev)delete 1` +
    Expected: Deletes the first social event in the Event Schedule.
+.. Test case: `(ev)delete x` (where x is larger than the size of Event Schedule) +
+   Expected: No social event is deleted. Error details shown in the status message.
 
 === Saving data
 
