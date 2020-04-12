@@ -1,5 +1,6 @@
 package seedu.eylah.ui;
 
+import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.model.Mode;
 
 /**
@@ -22,7 +23,7 @@ public interface Ui {
     /**
      * Shows the result of the command to user.
      */
-    void showResult(String result);
+    void showResult(CommandResult commandResult);
 
     /**
      * Shows the logo of EYLAH to user.

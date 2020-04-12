@@ -1,9 +1,9 @@
 package seedu.eylah.diettracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_CALORIES;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_NAME;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_TAG;
 
 import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;

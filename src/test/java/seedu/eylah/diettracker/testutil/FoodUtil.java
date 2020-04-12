@@ -1,8 +1,8 @@
 package seedu.eylah.diettracker.testutil;
 
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_CALORIES;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_NAME;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 

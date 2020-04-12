@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.exceptions.DataConversionException;
-import seedu.eylah.commons.storage.StorageManager;
+import seedu.eylah.commons.model.ReadOnlyUserPrefs;
+import seedu.eylah.commons.model.UserPrefs;
 import seedu.eylah.commons.storage.UserPrefsStorage;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyReceiptBook;
@@ -16,15 +17,16 @@ import seedu.eylah.expensesplitter.model.ReadOnlyReceiptBook;
 /**
  * Manages storage of PersonAmountBook and Receipt data in local storage.
  */
-public class SplitterStorageManager extends StorageManager implements SplitterStorage {
+public class SplitterStorageManager implements SplitterStorage {
 
     private static final Logger logger = LogsCenter.getLogger(SplitterStorageManager.class);
+    private UserPrefsStorage userPrefsStorage;
     private PersonAmountStorage personAmountStorage;
     private ReceiptStorage receiptStorage;
 
     public SplitterStorageManager(PersonAmountStorage personAmountStorage, ReceiptStorage receiptStorage,
             UserPrefsStorage userPrefsStorage) {
-        super(userPrefsStorage);
+        this.userPrefsStorage = userPrefsStorage;
         this.personAmountStorage = personAmountStorage;
         this.receiptStorage = receiptStorage;
     }
@@ -92,4 +94,18 @@ public class SplitterStorageManager extends StorageManager implements SplitterSt
     }
 
 
+    @Override
+    public Path getUserPrefsFilePath() {
+        return userPrefsStorage.getUserPrefsFilePath();
+    }
+
+    @Override
+    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+        return userPrefsStorage.readUserPrefs();
+    }
+
+    @Override
+    public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
+        userPrefsStorage.saveUserPrefs(userPrefs);
+    }
 }
