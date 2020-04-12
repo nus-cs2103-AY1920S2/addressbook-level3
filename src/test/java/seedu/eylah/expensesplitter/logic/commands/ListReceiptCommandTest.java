@@ -1,5 +1,7 @@
 package seedu.eylah.expensesplitter.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.eylah.expensesplitter.testutil.TypicalEntries.getTypicalReceiptBook;
@@ -40,5 +42,19 @@ public class ListReceiptCommandTest {
         showPersonAtIndex(splitterModel, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListReceiptCommand(), splitterModel, ListReceiptCommand.MESSAGE_SUCCESS,
             expectedSplitterModel);
+    }
+
+    @Test
+    public void equals() {
+        ListReceiptCommand listReceiptCommand = new ListReceiptCommand();
+
+        // same object -> returns true
+        assertTrue(listReceiptCommand.equals(listReceiptCommand));
+
+        // different types -> returns false
+        assertFalse(listReceiptCommand.equals(1));
+
+        //null -> returns false
+        assertFalse(listReceiptCommand.equals(null));
     }
 }

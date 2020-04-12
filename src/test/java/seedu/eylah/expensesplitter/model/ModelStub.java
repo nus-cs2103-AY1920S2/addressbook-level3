@@ -1,5 +1,6 @@
 package seedu.eylah.expensesplitter.model;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -15,6 +16,15 @@ import seedu.eylah.expensesplitter.model.receipt.Receipt;
  */
 public class ModelStub implements SplitterModel {
 
+    @Override
+    public void setPersonAmountBookFilePath(Path addressBookFilePath) {
+        throw new AssertionError("This method should not be called");
+    }
+
+    @Override
+    public Path getPersonAmountBookFilePath() {
+        throw new AssertionError("This method should not be called");
+    }
 
     @Override
     public void addEntry (Entry entry) {

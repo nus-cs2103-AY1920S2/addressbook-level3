@@ -15,6 +15,8 @@ public interface ReadOnlyUserPrefs {
 
     void setFoodBookFilePath(Path foodBookFilePath);
 
+    void setPersonAmountBookFilePath(Path personAmountBookFilePath);
+
     Path getPersonAmountBookFilePath();
 
     Path getReceiptBookFilePath();
