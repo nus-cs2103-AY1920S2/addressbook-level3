@@ -564,29 +564,29 @@ data of your previous HYBB folder.
 |===
 |Command |Action
 
-|help |View help
-|switch |Switch to the desired tab
-|list |List all recipes
-|find |Find recipes by name
-|add |Add a recipe
-|edit |Edit a recipe
-|delete |Delete recipes
-|favourite |Favourite recipes
-|unfavourite |Unfavourite recipes
-|clear |Clear the recipe book
-|exit |Exit the programme
-|addIngredient |Add ingredients to a recipe
-|editIngredient |Edit ingredients’ quantities in a recipe
-|deleteIngredient |Delete ingredients in a recipe
-|addStep |Add steps to a recipe
-|editStep |Edit a step in a recipe
-|deleteStep |Delete steps in a recipe
-|filter |Search for recipes by (multiple) criteria
-|plan |Plan recipes
-|deletePlan |Delete plans
-|clearPlan |Clear all plans
-|groceryList |List all ingredients used in the planned recipes
-|deleteGoal |Deletes specified goal from a recipe
-|listGoals |Lists all available goals
-|cooked |Records a recipe as cooked
+|`help` |View help
+|`switch` |Switch to the desired tab
+|`list` |List all recipes
+|`find` |Find recipes by name
+|`add` |Add a recipe
+|`edit` |Edit a recipe
+|`delete` |Delete recipes
+|`favourite` |Favourite recipes
+|`unfavourite` |Unfavourite recipes
+|`clear` |Clear the recipe book
+|`exit` |Exit the programme
+|`addIngredient` |Add ingredients to a recipe
+|`editIngredient` |Edit ingredients’ quantities in a recipe
+|`deleteIngredient` |Delete ingredients in a recipe
+|`addStep` |Add steps to a recipe
+|`editStep` |Edit a step in a recipe
+|`deleteStep` |Delete steps in a recipe
+|`filter` |Search for recipes by (multiple) criteria
+|`plan` |Plan recipes
+|`deletePlan` |Delete plans
+|`clearPlan` |Clear all plans
+|`groceryList` |List all ingredients used in the planned recipes
+|`deleteGoal` |Deletes specified goal from a recipe
+|`listGoals` |Lists all available goals
+|`cooked` |Records a recipe as cooked
 |===
