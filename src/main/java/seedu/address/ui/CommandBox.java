@@ -22,8 +22,6 @@ public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error-text-field";
     public static final String SUCCESS_STYLE_CLASS = "success-text-field";
     private static final String FXML = "CommandBox.fxml";
-    // A generous estimate for the length of the user input string
-    private static final int CARET_POSITION_INDEX = Integer.MAX_VALUE;
 
     private final CommandExecutor commandExecutor;
     private final CommandHistory commandHistory;
@@ -60,11 +58,11 @@ public class CommandBox extends UiPart<Region> {
                 if (ke.getCode() == KeyCode.UP) {
                     String prevCommand = commandHistory.getPreviousCommand();
                     commandTextField.setText(prevCommand);
-                    commandTextField.positionCaret(CARET_POSITION_INDEX);
+                    commandTextField.positionCaret(prevCommand.length());
                 } else if (ke.getCode() == KeyCode.DOWN) {
                     String nextCommand = commandHistory.getNextCommand();
                     commandTextField.setText(nextCommand);
-                    commandTextField.positionCaret(CARET_POSITION_INDEX);
+                    commandTextField.positionCaret(nextCommand.length());
                 }
             }
         });
