@@ -80,6 +80,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
@@ -108,6 +109,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+// end::ui[]
 
 // tag::logic[]
 [[Design-Logic]]
@@ -427,6 +429,7 @@ image::DeleteCommandActivityDiagram.png[]
 Eventually, we decided on alternative 1 due to the benefits of consistency in the number of items to be deleted, as well as to reduce the number of bugs faced.
 // end::delete[]
 
+// tag::help[]
 === Help Feature
 The `help` feature allows the user to view the pop-up `HelpWindow` with the command `help`. This feature allows the user to have a
 quick view of sample inputs if they run into trouble while using the application.
@@ -446,13 +449,17 @@ quick view of sample inputs if they run into trouble while using the application
 ** Cons: The `HelpWindow` might be replaced by user input command, and user would have to enter `help` command again to view the `HelpWindow`.
 
 Eventually, we decided on alternative 1 due to the benefits of allowing user to cross-reference the commands.
+// end::help[]
 
+// tag::home[]
 === Home Feature
 The `home` feature allows the user to return to the homepage.
 
 ==== Current Implementations
 
 `HomeCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation.
+
+// end::home[]
 
 === Logging
 
