@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -51,7 +53,6 @@ public class ProfileManager implements Model {
         filteredProfiles = new FilteredList<>(profileList.getProfileList());
         deadlineList = FXCollections.observableArrayList();
         sortedDeadlines = deadlineList.sorted(new DateTimeComparator());
-
     }
 
     public ProfileManager() {
@@ -297,8 +298,12 @@ class DateTimeComparator implements Comparator<Deadline> {
             } else {
                 return d1.getDate().compareTo(d2.getDate());
             }
+        } else if (d1.getDate() == null && d2.getDate() != null) {
+            return 1;
+        } else if (d1.getDate() != null && d2.getDate() == null) {
+            return -1;
         } else {
-            return -2; //if no date/time, put it at the last
+            return d1.getModuleCode().compareTo(d2.getModuleCode());
         }
     }
 }
