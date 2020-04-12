@@ -1515,14 +1515,12 @@ Use case ends.
 [discrete]
 === Use case: UC10 - Listing Receipt
 *Actor:* User +
-*Preconditions:* User is logged in. +
-*Guarantees:* +
-All Items in the current Receipt will be listed out.
+*Guarantees:* All Items in the current Receipt will be listed out.
 
 *MSS*
 
 1.  User requests to list receipt containing Item(s) in the current Receipt.
-2.  EYLAH displays the list of Item(s) in the current Receipt, its ItemPrice and Person(s) involved in spliting that Item.
+2.  EYLAH displays the list of Item(s) in the current Receipt, its ItemPrice and Person(s) involved in splitting that Item.
 
 +
 Use case ends.
@@ -1541,14 +1539,12 @@ Use case ends.
 [discrete]
 === Use case: UC11 - Listing Person(s) and the Amount they owe
 *Actor:* User +
-*Preconditions:* User is logged in. +
-*Guarantees:* +
-All Person(s) and the amount they owe will be listed.
+*Guarantees:* All Person(s) and the amount they owe will be listed.
 
 *MSS*
 
-1.  User requests to list the Person(s) and the Amount they owe the user.
-2.  EYLAH displays the list of Person and its associated Amount.
+1.  User requests to list all the Person(s) and the Amount they owe the user.
+2.  EYLAH displays the list of Person(s) and the associated Amount they owe they user.
 +
 Use case ends.
 
@@ -1564,45 +1560,61 @@ Use case ends.
 
 
 [discrete]
-=== Use case: UC12 - Amount paid
+=== Use case: UC12 - Paying money
 *Actor:* User +
-*Preconditions:* User is logged in. +
-*Guarantees:* +
-Reduces the Amount a Person owes and if they owe $0 the Person is automatically deleted.
+*Guarantees:* Reduces the Amount a Person owes and if they owe $0 the Person
+is automatically deleted.
 
 *MSS*
 
 1.  User requests to reduce the Person's Amount when he/she has paid the user.
-2.  EYLAH searches for the Person and reduces the Amount they owe the user, if Amount = $0 the Person is removed from the list.
-3.  EYLAH then displays the new Amount owed by the Person
+2.  EYLAH searches for the Person and reduces the Amount they owe the user, if
+after paying the Person does not owe anything, they are deleted.
+3.  EYLAH then displays the new Amount owed by the Person.
 +
 Use case ends.
 
 *Extensions*
 
+
 [none]
-* 1a. EYLAH detects an empty PersonList.
+* 1a. EYLAH detects that the Person has paid more than what he owes.
 +
 [none]
-** 1a1. EYLAH displays an error message, saying that there is no Person in the list.
+** 1a1. EYLAH displays an error message, informing the user to key in an Amount lesser or equal to
+the amount the Person owes.
 +
 Use case ends.
 
 [none]
-* 1b. EYLAH detects invalid <<syntax,syntax>>.
+* 2a. EYLAH detects an empty PersonList.
 +
 [none]
-** 1b1. EYLAH displays an error message and informs User to key in the correct syntax.
+** 2a1. EYLAH displays an error message, saying that there is no Person in the list.
 +
 Use case ends.
 
 [none]
-* 1c. EYLAH detects that the Person does not exist in the list.
+* 2b. EYLAH detects invalid IndexOfPersonPaid.
 +
 [none]
-** 1c1. EYLAH displays an error message, informing the user to key in the correct index of the Person. The user may use `listamount` to show the Person's index.
+** 2b1. EYLAH displays an error message and informs User to key in the correct Index of the
+person who paid. EYLAH will prompt the user to use `listamount` to find the Index of Person who
+paid.
 +
 Use case ends.
+
+[none]
+* 2c. EYLAH detects that the Person does not exist in the list.
++
+[none]
+** 2c1. EYLAH displays an error message, informing the user to key in the correct index of the Person.
+EYLAH will prompt the user to use `listamount` to find the Index of Person who
+paid.
++
+Use case ends.
+
+
 //end::willyusecase[]
 
 [discrete]
