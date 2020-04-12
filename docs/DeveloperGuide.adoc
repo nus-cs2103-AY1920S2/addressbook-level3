@@ -345,8 +345,35 @@ The method will attempt to execute the command by calling `CommandExecutor#execu
 if command is invalid. So if the command is valid, the `CommandBox#handleCommandEntered` method will call
 `Logic#deleteCommandFromHistory` to delete the command if it exists in the current command history.
 It will then call `Logic#addToCommandhistory` to add the command to the command history as its latest entry.
+Both commands for add and delete takes in an integer variable called `offset`. This variable is maintained by `CommandBox`
+and determines which command the user is currently at in the command history.
+Offset starts from -1 indicating `CommandBox` is empty and resets to -1 every time a successful command is entered
 
 `Command History` is an array list that resides in `ModelManager` object. It can be accessed through `Logic` by calling
+
+The diagrams below depicts what was just elaborated:
+
+.Sequence diagram showing what happens when user enters a Command
+image::command-history/CommandHistorySequenceDiagram.png[]
+
+.Activity diagram showing what happens when user enters a Command
+image::command-history/CommandHistoryActivityDiagram.png[]
+
+.Sequence diagram showing what happens when presses Up/Down button
+image::command-history/CommandHistoryNavigateSequenceDiagram.png[]
+
+.Activity diagram showing what happens when presses Up/Down button
+image::command-history/CommandHistoryNavigateActivityDiagram.png[]
+
+
+==== Design considerations
+We have considered various ways as to how to implement `**CommandHistory**` to support navigation to previous commands
+Since we need to capture keyboard events when user press the keyboard, we decided to implement the event listener and handler
+in `**CommandBox**` component as it is more convenient because when a keyboard event is captured, the app can straight away
+modify the `**TextField**` in `**CommandBox**`. Since the event when user enter a command is also handled in `**CommandBox**`
+and we only store successful commands in `**CommandHistory**`, we wait for execution of the Command by `**CommandExecutor**`,
+if it is successful, the String for the command is added to, otherwise due to the error thrown and caught somewhere else, the
+command is not stored.
 // end::commandHistoryNavigation[]
 
 
