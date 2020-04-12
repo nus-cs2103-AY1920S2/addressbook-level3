@@ -1,7 +1,7 @@
 package seedu.delino.ui;
 
-import static seedu.delino.logic.commands.ClearCommand.MESSAGE_ENQUIRY_ORDER_BOOK;
-import static seedu.delino.logic.commands.ClearCommand.MESSAGE_ENQUIRY_RETURN_BOOK;
+import static seedu.delino.logic.commands.ClearCommand.MESSAGE_ENQUIRY_ORDER_LIST;
+import static seedu.delino.logic.commands.ClearCommand.MESSAGE_ENQUIRY_RETURN_LIST;
 
 import java.util.logging.Logger;
 
@@ -20,7 +20,6 @@ import seedu.delino.logic.parser.exceptions.ParseException;
  * Controller for a clear warning page
  */
 public class ClearWindow extends UiPart<Stage> {
-    public static final String WARNING_MESSAGE = "Are you sure you want to clear the order book list ?";
 
     private static final Logger logger = LogsCenter.getLogger(ClearWindow.class);
     private static final String FXML = "ClearWindow.fxml";
@@ -93,7 +92,7 @@ public class ClearWindow extends UiPart<Stage> {
     }
 
     /**
-     * User press Yes for clearing the order book list. Clear the whole order book list
+     * User press Yes for clearing the respective order list or both of the lists
      * and display success message to user.
      */
     @FXML
@@ -115,9 +114,9 @@ public class ClearWindow extends UiPart<Stage> {
      */
     private String setCommandText() {
         switch (warningMessage.getText()) {
-        case MESSAGE_ENQUIRY_RETURN_BOOK:
+        case MESSAGE_ENQUIRY_RETURN_LIST:
             return "clear -r -f";
-        case MESSAGE_ENQUIRY_ORDER_BOOK:
+        case MESSAGE_ENQUIRY_ORDER_LIST:
             return "clear -o -f";
         default:
             return "clear -f";
@@ -125,7 +124,7 @@ public class ClearWindow extends UiPart<Stage> {
     }
 
     /**
-     * User press No for clearing the order book list.
+     * User press No for clearing the order list.
      */
     @FXML
     private void disagreeToClearOrderBookList() {

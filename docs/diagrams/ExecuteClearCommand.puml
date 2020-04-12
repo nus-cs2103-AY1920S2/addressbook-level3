@@ -36,7 +36,7 @@ ClearCommand -> Model ++ : setReturnOrderBook(returnOrderBook)
 Model --> ClearCommand --
 
 create CommandResult
-ClearCommand -> CommandResult ++ : MESSAGE_SUCCESS_ORDER_BOOK
+ClearCommand -> CommandResult ++ : MESSAGE_SUCCESS_BOTH_LIST
 
 CommandResult --> ClearCommand -- : result
 

@@ -15,7 +15,10 @@ import seedu.delino.model.ReturnOrderBook;
 
 //@@author Exeexe93
 /**
- * Clears the order book.
+ * Clears the order book and return order book.
+ *
+ * Order book and return order book is for storage, while order list and return order list is for the list
+ * displaying to the user.
  */
 public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
@@ -23,13 +26,13 @@ public class ClearCommand extends Command {
             + ": Clear either both order list and return order list or one of them.\n"
             + "Parameters: -o/-r/-f\n"
             + "Example: " + COMMAND_WORD + " -o -f";
-    public static final String MESSAGE_SUCCESS_ORDER_BOOK = "Order book has been cleared!";
-    public static final String MESSAGE_SUCCESS_RETURN_BOOK = "Return order book has been cleared!";
-    public static final String MESSAGE_SUCCESS_BOTH_BOOK = "Both order books have been cleared!";
-    public static final String MESSAGE_ENQUIRY_BOTH_BOOK = "Are you sure you want to clear both order book and "
-            + "return order book?";
-    public static final String MESSAGE_ENQUIRY_ORDER_BOOK = "Are you sure you want to clear order book?";
-    public static final String MESSAGE_ENQUIRY_RETURN_BOOK = "Are you sure you want to clear return order book?";
+    public static final String MESSAGE_SUCCESS_ORDER_LIST = "Order list has been cleared!";
+    public static final String MESSAGE_SUCCESS_RETURN_LIST = "Return order list has been cleared!";
+    public static final String MESSAGE_SUCCESS_BOTH_LIST = "Both order lists have been cleared!";
+    public static final String MESSAGE_ENQUIRY_BOTH_LIST = "Are you sure you want to clear both order list and "
+            + "return order list?";
+    public static final String MESSAGE_ENQUIRY_ORDER_LIST = "Are you sure you want to clear order list?";
+    public static final String MESSAGE_ENQUIRY_RETURN_LIST = "Are you sure you want to clear return list?";
     private static final Logger logger = LogsCenter.getLogger(ClearCommand.class);
     private final HashSet<String> flags;
 
@@ -49,7 +52,7 @@ public class ClearCommand extends Command {
         if (flags == null) {
             logger.fine("No flag encountered");
             logger.fine("Send confirmation message to user to clear both order book and return order book");
-            return new CommandResult(MESSAGE_ENQUIRY_BOTH_BOOK, false, false, true, false);
+            return new CommandResult(MESSAGE_ENQUIRY_BOTH_LIST, false, false, true, false);
         }
 
         if (flags.contains(FLAG_FORCE_CLEAR.toString())) {
@@ -59,11 +62,11 @@ public class ClearCommand extends Command {
         if (flags.contains(FLAG_ORDER_BOOK.toString())) {
             logger.fine("Only '-o' flag encountered");
             logger.fine("Send confirmation message to user to clear order book");
-            return new CommandResult(MESSAGE_ENQUIRY_ORDER_BOOK, false, false, true, false);
+            return new CommandResult(MESSAGE_ENQUIRY_ORDER_LIST, false, false, true, false);
         }
         logger.fine("Only '-r' flag encountered");
         logger.fine("Send confirmation message to user to clear return order book");
-        return new CommandResult(MESSAGE_ENQUIRY_RETURN_BOOK, false, false, true, false);
+        return new CommandResult(MESSAGE_ENQUIRY_RETURN_LIST, false, false, true, false);
     }
 
     /**
@@ -77,21 +80,21 @@ public class ClearCommand extends Command {
             logger.fine("Clearing order book...");
 
             model.setOrderBook(new OrderBook());
-            return new CommandResult(MESSAGE_SUCCESS_ORDER_BOOK);
+            return new CommandResult(MESSAGE_SUCCESS_ORDER_LIST);
         }
         if (flags.contains(FLAG_RETURN_BOOK.toString())) {
             logger.fine("'-r' and '-f' flags encountered");
             logger.fine("Clearing return order book...");
 
             model.setReturnOrderBook(new ReturnOrderBook());
-            return new CommandResult(MESSAGE_SUCCESS_RETURN_BOOK);
+            return new CommandResult(MESSAGE_SUCCESS_RETURN_LIST);
         }
         logger.fine("Only '-f' flag encountered");
         logger.fine("Clearing both order book and return order book...");
 
         model.setOrderBook(new OrderBook());
         model.setReturnOrderBook(new ReturnOrderBook());
-        return new CommandResult(MESSAGE_SUCCESS_BOTH_BOOK);
+        return new CommandResult(MESSAGE_SUCCESS_BOTH_LIST);
     }
 
     @Override
