@@ -755,39 +755,53 @@ Use case resumes at step 4.
 *MSS*
 
 1.  User requests to filter clients based on a keyword in a client's tag and/or sports
-2.  FitBiz filters and displays clients based on specified keyword
+2.  FitBiz filters and displays clients based on specified keywords
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a.  The input format is invalid.
+* 1a.  The input format is invalid
 +
 [none]
-** 2a1.  FitBiz shows an error message.
+** 1a1.  FitBiz shows an error message
+** 1a2.  User provides new input
 +
-Use case resumes at step 1.
+Steps 1a1 to 1a2 are repeated until the input entered is correct.
++
+Use case resumes at step 2.
 
 [discrete]
-=== Use case 8: View schedule
+=== Use case 8: Add schedule
 
 *MSS*
 
-1.  User requests to view schedule for the day or the time specified
-2.  FitBiz shows the schedule
+1.  User requests to add schedule for a client
+2.  FitBiz displays a list of clients
+3.  Client inputs the schedule for the day or the time specified for a particular client
+4.  FitBiz adds and displays the schedule
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a.  The input format is invalid.
+* 2a.  The list is empty
 +
 [none]
-** 2a1.  FitBiz shows an error message.
+** 2a1. FitBiz displays an empty client list
 +
-Use case resumes at step 1.
+Use case ends.
+
+* 3a.  The given input format is incorrect
++
+[none]
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new input
++
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
 
 [discrete]
 === Use case 9: View graph visualisations
@@ -796,26 +810,40 @@ Use case resumes at step 1.
 
 1.  User requests to view graph visualisations of a client's progress
 2.  FitBiz shows a list of clients
-3.  User requests to view the training graph of a specific client in the list
-4.  Fitbiz shows the training graph of the client
+3.  User requests to view the specified client in the list by index
+4.  Fitbiz shows all available information of the client
+5.  User requests to view the graph of the specified exercise in the client's exercise list
+6.  FitBiz displays the graph of the specified exercise
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a.  The list is empty.
+* 2a.  The list is empty
++
+[none]
+** 2a1. FitBiz displays an empty client list
 +
 Use case ends.
 
-* 3a.  The given name is invalid.
+* 3a.  The given index is invalid or out of range
 +
 [none]
-** 3a1. FitBiz shows an error message.
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new index
 +
-Use case resumes at step 2.
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
 
-_{More to be added}_
+* 5a. The given input format is incorrect
++
+[none]
+** 5a1. FitBiz shows an error message
+** 5a2. User enters the new input
++
+Steps 5a1 to 5a2 are repeated until the data entered is correct.
+Use case resumes at step 6.
 
 [appendix]
 == Non Functional Requirements
