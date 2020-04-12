@@ -728,7 +728,7 @@ image::DietTrackerMetricsCommandSequenceDiagram.png[]
 Figure: Metrics Command Sequence Diagram
 
 === Expense Splitter feature
-
+//tag::expensesplitterintro[]
 The Expense Splitter feature is designed to aid our users with the splitting of large bills that involves meany people.
 The feature comprises of six commands namely.
 
@@ -741,6 +741,7 @@ The feature comprises of six commands namely.
 
 Below are some diagrams to explain how our team implemented this portion.
 
+//tag::expensesplitteractivitydiagram[]
 *Activity Diagram of Expense Splitter:* +
 
 image::ExpenseSplitterActivityDiagramV2.png[]
@@ -862,6 +863,7 @@ Figure: Delete Item Command Sequence Diagram
 image::ExpenseSplitterDeleteItemCommandSequenceDiagram2.png[]
 Figure: Execution of Delete Item Command
 
+//tag::expensesplitterlistreceiptcommand[]
 [[List-Receipt-Command]]
 ==== List Receipt Command
 
@@ -906,6 +908,7 @@ image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
 
 Figure : List Receipt Sequence Diagram
 
+//tag::expensesplitterlistamountcommand[]
 [[List-Amount-Command]]
 ==== List Amount Command
 
@@ -953,7 +956,7 @@ image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
 Figure : List Amount Sequence Diagram
 
-
+//tag::expensesplitterpaidcommand[]
 [[Paid-Command]]
 ==== Paid Command
 
@@ -1127,7 +1130,7 @@ Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == User Stories
-
+// tag::userstory[]
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
@@ -1194,7 +1197,7 @@ emergency
 
 [appendix]
 == Use Cases
-
+// tag::usecase[]
 (For all use cases below, the *System* is the `EYLAH` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]

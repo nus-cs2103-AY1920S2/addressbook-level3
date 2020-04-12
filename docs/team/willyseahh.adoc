@@ -159,14 +159,21 @@ include::../UserGuide.adoc[tag=commandsummaryforexpensesplitter]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=expensesplitteractivitydiagram]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=expensesplitterintro]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterlistamountcommand]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterlistreceiptcommand]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterpaidcommand]
+
+include::../DeveloperGuide.adoc[tag=usecase]
+
+include::../DeveloperGuide.adoc[tag=userstory]
 
 
-== PROJECT: PowerPointLabs
 
----
 
-_{Optionally, you may include other projects in your portfolio.}_
 
