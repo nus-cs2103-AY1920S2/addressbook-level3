@@ -339,6 +339,7 @@ One of the consideration while designing was that the commands in exercise are e
 // end::exercise[]
 
 // tag::workout[]
+
 === Workout Manager
 ==== Overview
 The workout feature in ZeroToOne allows users to manage their workouts! Users will be able to create a workout, add exercises to it,
