@@ -46,6 +46,11 @@ and remind the user to top up the good in the inventory.
 |_Given below are sections I contributed to the User Guide._
 |===
 
+include::../UserGuide.adoc[tag=setthreshold]
+
+include::../UserGuide.adoc[tag=findtransaction]
+
+include::../UserGuide.adoc[tag=listtransaction]
 
 == Contributions to the Developer Guide
 
@@ -54,4 +59,5 @@ and remind the user to top up the good in the inventory.
 |===
 
 include::../DeveloperGuide.adoc[tag=findtransaction]
-include::../DeveloperGuide.adoc[tag=findtransaction]
+
+include::../DeveloperGuide.adoc[tag=setthreshold]
