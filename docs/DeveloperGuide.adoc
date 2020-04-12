@@ -354,6 +354,9 @@ The following sequence diagram shows the interactions between `Ui`, `Logic` and 
 .Interactions between `Ui`, `Logic` and `Model` components for the `delete m/CS2101 t/work` command.
 image::DeleteDeadlineSequenceDiagram.png[]
 
+.Activity Diagram for a Delete Command input
+image::DeleteCommandActivityDiagram.png[]
+
 ==== Design Considerations
 
 * *Alternative 1 (current choice):* Delete only one `Module` or `Deadline` object with one delete command
