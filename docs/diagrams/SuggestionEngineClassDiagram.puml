@@ -7,8 +7,7 @@ skinparam classBackgroundColor LOGIC_COLOR
 package Logic {
 
 package SuggestionEngine {
-Interface SuggestionEngine <<Interface>>
-Class SuggestionEngineImpl
+Class SuggestionEngine
 }
 
 package SuggestionCommandParser {
@@ -40,9 +39,8 @@ HiddenOutside ..> Logic
 
 
 LogicManager .up.|> Logic
-LogicManager -down->"1" SuggestionEngineImpl
-SuggestionEngineImpl .right.> XYZSuggestionCommandParser: creates >
-SuggestionEngineImpl .down.|> SuggestionEngine
+LogicManager -down->"1" SuggestionEngine
+SuggestionEngine .right.> XYZSuggestionCommandParser: creates >
 
 XYZSuggestionCommandParser .up.> XYZSuggestionCommand : creates >
 XYZSuggestionCommandParser .down.|> SuggestionCommandParser
