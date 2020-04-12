@@ -21,6 +21,15 @@ image:Stash.png[image,width=322,height=322]
 
 By: Team F09-1
 
+Welcome to the Coupon Stash User Guide! Thank you so much for choosing
+Coupon Stash, the world's most popular command-line coupon management desktop
+application*!
+
+This guide will help you get started quickly, providing useful tips and hints
+along the way.
+
+*as of April 2020
+
 [cols=",",options="header",]
 |=========================================
 |*Contents* |*Section Number*
@@ -35,6 +44,10 @@ a|
 a|
 *Quick Start*
 |3
+
+a|
+*User Interface*
+|4
 
 a|
 *Features*
@@ -62,7 +75,7 @@ a|
    . Exiting the program: exit
    . Reminding of coupon expiry
    . Saving the data
- |4
+ |5
 
 a|
 *Keyboard Shortcuts*
@@ -70,26 +83,22 @@ a|
    . Restore previously entered command texts: kbd:[↑] and kbd:[↓]
    . Close expanded coupon window: kbd:[Ctrl]+kbd:[q]
    . Cycle through tabs: kbd:[Ctrl]+kbd:[Tab]
-|5
+|6
 
 a|
-*FAQ*|6
+*FAQ*|7
 
 a|
-*Command Summary* |7
+*Command Summary* |8
 
 a|
-*Appendix*|8
+*Appendix*|9
 |=========================================
 
-Welcome to the Coupon Stash User Guide! Thank you so much for choosing
-Coupon Stash, the world's most popular command-line coupon management desktop
-application*!
-
-This guide will help you get started quickly, providing useful tips and hints
-along the way.
-
-*as of April 2020
+image::ug_stasher.png[]
+Hi! I'm Stasher, the mascot of Coupon Stash. Together,
+we are going to save so much money! Let me guide you
+to use this wonderful application.
 
 == Introduction
 
@@ -130,30 +139,166 @@ emphasis and easy reference!
 * Blue, underlined words are <<link, links>>! Try clicking on
 the link on the left!
 
+* Keyboard buttons are represented in a box, and used to
+represent certain shortcuts in Coupon Stash. For example,
+the kbd:[Ctrl] key, which is used for most shortcuts.
+
 
 == Quick Start
 
 .  Ensure you have Java (version 11 or above) installed in your
-Computer.
+Computer. Java is an application development platform
+and version 11 can be downloaded
+link:https://www.oracle.com/java/technologies/javase-jdk11-downloads.html[here].
 .  Download the latest link:{repoURL}/releases[`CouponStash.jar`].
 .  Copy the file to the folder you want to use as the home folder for your
 Coupon Stash.
-.  Double-click the file to start the app. The GUI should appear in a few
+.  Double-click the file to start the app. The Graphical User
+Interface (GUI) should appear in a few
 seconds. If nothing occurs, use the command
 `java -jar CouponStash.jar` on your computer's Command Line Interface (CLI) to
 open the file up.
 .  Type the command in the command box and press Enter to execute it.
 .  Some example commands you can try:
-* *list* : lists all coupons
 * *add:* `add n/Domino's Pizza Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5
           t/pizza t/delivery`
 *** adds a coupon named Domino's Pizza Extra Large to the Coupon Stash, with an
 expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a
 limit of 5 usages.
-* *delete*: `delete 3` : deletes the 3rd coupon shown in the current list
+* *used*: `used 3` : marks the 3rd coupon shown in the current list
+as used, and automatically archives it if the limit is reached
+* *saved*: `saved` : displays how much you have saved from all coupons
 * *exit* : exits the app (your data will be saved automatically)
 .  Refer to the <<Features, Features>> section below for the details of each
 command.
+
+
+== User Interface
+
+In this section, we look at the key features of Coupon Stash's
+graphical user interface. The interface can be broadly split
+into 4 different parts: the different tabs present in the
+program (Coupons, Summary and Help), the calendar,
+the command input box and the command result box.
+
+image::ug_user_interface.png[]
+
+=== Tabs
+
+Tab selection determines the content shown in the main
+window of Coupon Stash.
+
+The tabs can be switched by pressing kbd:[Ctrl] + kbd:[Tab] or
+by clicking on the tabs bar on the left side of the application
+with the name of the tab you want to switch to. The current
+selected tab will be highlighted with a bolder text, and a
+darker blue.
+
+image::ug_currently_selected_tab.png[]
+
+[NOTE]
+The tabs bar is visible on every single tab! It serves
+as a good visual reference to tell you which
+tab is currently being displayed.
+
+
+The following sections explain the different features of
+each tab of Coupon Stash, as well as how to use them.
+
+==== Coupons tab
+
+WHen you first start Coupon Stash, the default selected tab
+is the coupons tabs. The coupons tab contains a visual
+overview of the coupons which you have added to the
+application.
+
+[[couponcard]]
+===== Coupon card
+
+The coupon card displays information about each coupon, and
+it is styled to look like a coupon itself!
+
+[NOTE]
+Coupon card duplicates cannot exist!
+
+==== Summary tab
+
+The summary tab provides an overview of how much
+you have saved from using coupons in Coupon Stash.
+
+This tab provides an estimate of all the savings
+you have accumulated, provided the coupon that resulted
+in those savings is still present in Coupon Stash (this
+includes <<archive, archived>> coupons). This estimate
+is displayed in the form of a monetary amount at the
+top of the page, with saved items that may not be easily
+quantified displayed in a lime-green box at the side,
+preceded by the text "And these saveables too!".
+
+image::ug_summary_tab.png[]
+
+Also, a graph that shows the monetary amount saved
+every week is also displayed in the summary tab.
+The next section will tell you more about how to
+interpret this graph.
+
+===== Savings graph
+
+The savings graph provides a bar chart which holds
+statistics on the amount of money saved per week.
+The taller the bar, the more savings earned that week.
+The exact amount is also shown in white text at the
+top of each bar.
+
+In the graph, Monday is taken to be the first day
+of a week, and Sunday the last. The date displayed
+on the bottom axis corresponds to the first day of that
+week (Monday). Earlier weeks are displayed towards
+the left, while later weeks are displayed towards
+the right (direction of time axis is from left to right).
+
+The graph is drawn based on the latest week in which
+coupon usage was recorded by Coupon Stash, and shows
+a maximum of 10 bars or 10 weeks of savings before that
+latest date.
+
+[TIP]
+Any savings that were recorded by Coupon Stash before
+the time period of 10 weeks will not be shown in the graph.
+However, they can still be calculated using the
+<<saved, saved command>>.
+
+image::ug_savings_graph.png[]
+
+[NOTE]
+Although the total monetary amount and saveables list
+in the summary tab is obtained by adding up all the
+savings from every coupon regardless of the date,
+the savings graph may not display every weeks' savings
+as it only displays up to a maximum of 10 weeks.
+
+==== Help tab
+
+The help tab shows you a short description of how
+to use all the commands in Coupon Stash.
+
+[WARNING]
+As compared to the User Guide's descriptions, the
+descriptions provided in the help tab are less detailed!
+
+=== Calendar
+
+The calendar shows you all the dates this month.
+
+=== Command input box
+
+The command input box is the main way you will interact
+with Coupon Stash.
+
+=== Command result box
+
+The command result box shows you messages depending on
+whether your command was successful or not.
 
 [[Features]]
 == Features
@@ -368,6 +513,7 @@ If there is an intention to use the coupon, you can
 
 
 // tag::saved[]
+[[saved]]
 === Viewing savings: `saved`
 
 Shows you how much you have saved by using coupons in Coupon Stash.
@@ -415,6 +561,7 @@ between 1 May 2019 and 20 March 2020.
 // end::saved[]
 
 // tag::archive[]
+[[archive]]
 === Archiving a coupon: `archive`
 Archives a coupon when you want to keep a record of it, without cluttering your
 current stash of coupons.
@@ -635,10 +782,17 @@ coupons in the coupon stash) +
 * <<Archiving a coupon: `archive`, `archive`>>
 * <<Unarchiving a coupon: `unarchive`, `unarchive`>>
 * <<Clearing all entries: `clear`, `clear`>>
+* <<Using a coupon: `used`, `used`>>
 ====
 
 [NOTE]
-Changes to user preferences cannot be undone.
+Changes to user preferences, such as the
+<<setcurrency, setting of the currency symbol>>, cannot be undone.
+
+[WARNING]
+You can only undo commands which you have input since
+you opened Coupon Stash. This means that after you close
+the application, your undo history will be lost!
 
 Examples:
 
@@ -672,8 +826,8 @@ value.
   `redo` +
 Un-undo the `delete` command. 1st coupon is deleted.
 
-=== Displaying a Month-Year on the calendar: `goto`
-Goes to the specified Month-Year on the calendar. +
+=== Displaying a month-year on the calendar: `goto`
+Goes to the specified month and year on the calendar. +
 Format: `goto my/MONTH_YEAR`  +
 
 Example:
@@ -681,7 +835,7 @@ Example:
 * `goto my/12-2020` +
 Goes to December 2020 on the Calendar
 
-=== Displaying a Coupon: `expand`
+=== Displaying a coupon: `expand`
 Displays a coupon in its own window, giving you a complete view of it.
 
 Format: `expand INDEX`
@@ -701,6 +855,7 @@ Open the coupon at index 1 in a new window.
 image::expand_example.png[]
 
 // tag::setcurrency[]
+[[setcurrency]]
 === Setting currency symbol: `setcurrency`
 Sets the currency symbol used in Coupon Stash.
 This will force Coupon Stash to reload all coupons
@@ -709,6 +864,8 @@ to use the new symbol instead.
 ****
 * The currency symbol may affect the visual look of the
 program, as well as modify commands entered!
+* For example, adding a coupon with savings of a certain
+monetary amount will require you to use the new symbol instead.
 ****
 
 Format: `setcurrency ms/NEW_MONEY_SYMBOL`
@@ -730,13 +887,27 @@ Format: `help`
 
 === Clearing all entries: `clear`
 
-Clears all entries from the coupon stash. +
+Deletes every single coupon in Coupon Stash. This
+includes archived and non-archived coupons! +
 Format: `clear`
+
+[TIP]
+If you clear your Coupon Stash on accident, you can
+use <<Undoing the previous command: `undo`, `undo`>> to restore
+your Coupons! Just make sure you don't close the application
+immediately after you cleared your Coupons.
 
 === Exiting the program: `exit`
 
-Exits the program. +
+This command immediately exits the program when entered.
+When you exit the program, all coupon data is saved to
+your computer. +
 Format: `exit`
+
+[NOTE]
+There are many ways of exiting the program! One other way
+is to click the cross at the top of the application (position
+of this cross button differs depending on operating system).
 
 === Reminding of coupon expiry
 
@@ -845,23 +1016,34 @@ file with your intended data file. +
 *Q* : Why do I need to tag my coupons?
 
 *A* : Tagging is not compulsory. However, it allows you to group similar
-coupons together for easier execution. For example, you can easily
-delete all the coupons that are tagged, cheap. Do refer to section 4
-for more detail. +
+coupons together for easier identification. For example, you can easily
+identify all the coupons that are tagged "cheap", as these tags are
+displayed in bright orange at the top of each coupon.
+Do refer to <<couponcard, section 4.1.1>> for more details about the coupon card. +
 {empty} +
 
-*Q* : How do I store coupons with no ending date?
+*Q* : How do I store coupons with no expiry date?
 
-*A* : Sorry, at the moment, coupon entries with no ending date cannot be
+*A* : Sorry, at the moment, coupon entries with no expiry date cannot be
 stored. You would need to enter a much further date like 1-1-2030. To
 be added in version 2.0.0 +
 {empty} +
 
 *Q* : How do you calculate the savings value?
 
-*A* :  Whenever a coupon is marked as done, Stash will automatically
-calculate the values saved based on the details of the coupon.
+*A* :  Whenever a coupon is marked as used, Coupon Stash will automatically
+calculate the values saved based on the details of the coupon. You
+can used the <<saved, saved command>> to view amount saved.
 {empty} +
+
+*Q* : What animal is Stasher?
+
+*A* :  Stasher is a beetle that loves discounts and hot deals!
+Beetles are resourceful insects that know how to scavenge for
+the best coupons, as well as remember these coupons safely
+inside their tough exoskeleton and elytra.
+{empty} +
+
 
 
 == Command Summary
@@ -938,6 +1120,10 @@ e.g. setcurrency ms/€
 
 
 == Appendix
+
+This section talks about features that have not been
+implemented in Coupon Stash yet, but features that
+the developers are keen to add in upcoming versions.
 
 === *Query expressions (coming in v2.0)*
 
