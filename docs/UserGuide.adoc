@@ -693,8 +693,8 @@ value.
   `redo` +
 Un-undo the `delete` command. 1st coupon is deleted.
 
-=== Displaying a Month-Year on the calendar: `goto`
-Goes to the specified Month-Year on the calendar. +
+=== Displaying a month-year on the calendar: `goto`
+Goes to the specified month and year on the calendar. +
 Format: `goto my/MONTH_YEAR`  +
 
 Example:
@@ -702,7 +702,7 @@ Example:
 * `goto my/12-2020` +
 Goes to December 2020 on the Calendar
 
-=== Displaying a Coupon: `expand`
+=== Displaying a coupon: `expand`
 Displays a coupon in its own window, giving you a complete view of it.
 
 Format: `expand INDEX`
