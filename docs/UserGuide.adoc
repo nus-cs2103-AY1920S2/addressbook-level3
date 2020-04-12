@@ -142,7 +142,7 @@ You might face some errors or difficulties when you `find-c`. In this section, y
 You might wonder why `find-c` do not show the clients even though the client is clearly in your client list records. It might be possible that you have entered an incomplete name and does not match any word in the name of that client. The example below might help you understand better.
 
 Example:
-You want to find the client named "Bryan Low" in *Client List*. Below shows that "Bryan Low" indeed exists and recorded.
+You want to find the client named "Bryan Low" in *Client List*. Below shows that "Bryan Low" indeed exists and is recorded.
 
 image::ug-findcIncompleteNamePart1.png[]
 
