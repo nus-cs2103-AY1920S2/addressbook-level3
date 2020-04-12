@@ -36,8 +36,5 @@ endif
 
 : List Command;
 
-
-
-
 stop
 @enduml

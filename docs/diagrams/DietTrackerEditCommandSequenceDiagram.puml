@@ -44,7 +44,7 @@ EditFoodDescriptor --> EditCommandParser : efd
 deactivate EditFoodDescriptor
 
 create EditCommand
-EditCommandParser -> EditCommand
+EditCommandParser -> EditCommand : index, efd
 activate EditCommand
 
 EditCommand --> EditCommandParser : e
@@ -91,6 +91,11 @@ deactivate CommandResult
 
 EditCommand --> LogicManager : commandResult
 deactivate EditCommand
+
+EditCommand -[hidden]-> LogicManager
+destroy EditCommand
+destroy FoodToEdit
+destroy EditedFood
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
 activate FoodBookStorage
