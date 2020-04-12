@@ -231,7 +231,7 @@ public class ShowCommandTest {
     @Test
     public void execute_invalidModuleCode_throwsCommandException() {
         ShowCommand invalidCommand = new ShowCommand(new ModuleCode("CS1111"));
-        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE, () ->
+        assertThrows(CommandException.class, String.format(MESSAGE_INVALID_MODULE, "CS1111"), () ->
                 invalidCommand.execute(new ProfileManagerStub(), new CourseManagerStub(), new ModuleManagerStubCs()));
     }
 

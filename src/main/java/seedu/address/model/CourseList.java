@@ -51,4 +51,8 @@ public class CourseList {
 
         throw new ParseException(MESSAGE_INVALID_COURSE_FOCUS_AREA);
     }
+
+    public ArrayList<Course> getCourseList() {
+        return courseList;
+    }
 }

@@ -8,11 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.DuplicateDeadlineException;
@@ -53,19 +53,17 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DEADLINE_INVALID_SEMESTER = "Error: You can only add tasks to modules that "
             + "are already added in the current semester";
     public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module already exists as %1$s, "
-            + "please specify specify name and deadline if you would like to add a task";
+            + "please specify specify task name and deadline if you would like to add a task";
     public static final String MESSAGE_UNFULFILLED_PREREQS = "NOTE: You may not have fulfilled the prerequisites of "
-            + "%1$s before semester %2$s\nPrerequisites: %3$s";
+            + "%1$s before semester %2$s";
+    public static final String PREREQ_STRING = "\nPrerequisites of %1$s: %2$s";
 
-    private final Set<ModuleCode> toAdd;
+    private final List<ModuleCode> toAdd;
     private int addSemester;
     private String addGrade;
-    private String addTask;
-    private LocalDate addDate;
-    private LocalTime addTime;
+    private ArrayList<Deadline> addDeadlines;
 
-    public AddCommand(Set<ModuleCode> moduleCodes, int semester, String grade,
-                      String task, LocalDate date, LocalTime time) {
+    public AddCommand(List<ModuleCode> moduleCodes, int semester, String grade, ArrayList<Deadline> deadlines) {
         requireNonNull(moduleCodes);
         requireNonNull(semester);
 
@@ -74,14 +72,8 @@ public class AddCommand extends Command {
         if (grade != null) {
             addGrade = grade;
         }
-        if (task != null) {
-            addTask = task;
-        }
-        if (date != null) {
-            addDate = date;
-        }
-        if (time != null) {
-            addTime = time;
+        if (deadlines.size() != 0) {
+            addDeadlines = deadlines;
         }
     }
 
@@ -98,27 +90,45 @@ public class AddCommand extends Command {
         }
         Profile profile = profileManager.getFirstProfile();
 
+        // If some module codes are invalid, raise error
+        List<ModuleCode> invalidMods = new ArrayList<>();
+        for (ModuleCode moduleCode: toAdd) {
+            if (!moduleManager.hasModule(moduleCode)) {
+                invalidMods.add(moduleCode);
+            }
+        }
+        if (invalidMods.size() > 0) {
+            throw new CommandException(String.format(MESSAGE_INVALID_MODULE, invalidMods));
+        }
+
+        // Case of multiple module codes: Execute AddCommand multiple times
         if (toAdd.size() > 1) {
-            if (!moduleManager.hasModules(toAdd)) {
-                throw new CommandException(MESSAGE_INVALID_MODULE);
-            }
+            List<ModuleCode> modsUnfulfilledPrereqs = new ArrayList<>();
+            StringBuilder prereqMsg = new StringBuilder();
             for (ModuleCode moduleCode: toAdd) {
-                AddCommand command = new AddCommand(Set.of(moduleCode), addSemester, null, null, null, null);
-                command.execute(profileManager, courseManager, moduleManager);
+                AddCommand command = new AddCommand(Collections.singletonList(moduleCode), addSemester, null,
+                        new ArrayList<>());
+                CommandResult result = command.execute(profileManager, courseManager, moduleManager);
+                // Store unfulfilled prerequisites in a list and provide user with more information
+                if (result.getFeedbackToUser().contains("prerequisites")) {
+                    modsUnfulfilledPrereqs.add(moduleCode);
+                    prereqMsg.append(String.format(PREREQ_STRING, moduleCode,
+                            moduleManager.getModule(moduleCode).getPrereqs()));
+                }
             }
+            // Modules with unfulfilled prerequisites are being added
+            if (modsUnfulfilledPrereqs.size() > 0) {
+                return new CommandResult(
+                        String.format(MESSAGE_UNFULFILLED_PREREQS, modsUnfulfilledPrereqs, addSemester) + prereqMsg,
+                        true);
+            }
+            // All prerequisites of modules are fulfilled
             return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd), true);
         }
 
         ModuleCode moduleCodeToAdd = toAdd.iterator().next();
+        Module moduleToAdd = moduleManager.getModule(moduleCodeToAdd);
         boolean hasModule = false;
-        Module moduleToAdd = null;
-
-        // throws error if module code does not exist! DO NOT REMOVE!
-        if (moduleManager.hasModule(moduleCodeToAdd)) {
-            moduleToAdd = moduleManager.getModule(moduleCodeToAdd);
-        } else {
-            throw new CommandException(MESSAGE_INVALID_MODULE);
-        }
         int semesterOfModule = 0;
 
         // Check whether this module has been added to Profile semester HashMap
@@ -136,9 +146,9 @@ public class AddCommand extends Command {
         Personal personal;
         if (hasModule) { // Module already added to semester
             personal = moduleToAdd.getPersonal();
-            if (addGrade == null && addTask == null && addDate == null) {
+            if (addGrade == null && addDeadlines == null) {
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE,
-                        moduleToAdd.getPersonal().getStatus()));
+                        personal.getStatus()));
             }
         } else { // Module does not exist
             if (addSemester == 0) {
@@ -157,7 +167,7 @@ public class AddCommand extends Command {
             throw new CommandException("To add grade to an existing module, use: edit m/MODULE g/GRADE");
         }
 
-        if (addTask != null) {
+        if (addDeadlines != null) {
             // Check if the deadline is added to a module in the current semester
             if (hasModule && semesterOfModule != currentSemester) {
                 // This module has been added but it is not in current semester
@@ -176,21 +186,15 @@ public class AddCommand extends Command {
                 hasModule = true;
             }
 
-            Deadline deadline;
-            String moduleCode = moduleCodeToAdd.toString();
-            if (addDate != null) {
-                deadline = new Deadline(moduleCode, addTask, addDate, addTime);
-            } else {
-                deadline = new Deadline(moduleCode, addTask);
+
+            for (Deadline deadline : addDeadlines) {
+                if (personal.hasDeadline(deadline)) {
+                    throw new DuplicateDeadlineException();
+                }
+
+                personal.addDeadline(deadline);
+                profileManager.addDeadline(deadline);
             }
-
-            if (personal.hasDeadline(deadline)) {
-                throw new DuplicateDeadlineException();
-            }
-
-            personal.addDeadline(deadline);
-            profileManager.addDeadline(deadline);
-
         }
 
         // Set the status of the module
@@ -210,8 +214,8 @@ public class AddCommand extends Command {
             // Check if prerequisites of the module have been fulfilled
             if (moduleToAdd.getPrereqTreeNode() != null && !moduleToAdd.getPrereqTreeNode()
                     .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
-                messageShown = String.format(MESSAGE_UNFULFILLED_PREREQS, moduleCodeToAdd, addSemester,
-                        moduleToAdd.getPrereqs());
+                messageShown = String.format(MESSAGE_UNFULFILLED_PREREQS, moduleCodeToAdd, addSemester)
+                        + String.format(PREREQ_STRING, moduleCodeToAdd, moduleToAdd.getPrereqs());
             } else {
                 messageShown = MESSAGE_ADD_SUCCESS;
             }

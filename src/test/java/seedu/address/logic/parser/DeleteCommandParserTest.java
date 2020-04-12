@@ -18,7 +18,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -51,17 +52,20 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_allModuleFieldsPresent_success() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
-        Deadline task = new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY);
+        ArrayList<Deadline> tasks = new ArrayList<>();
+        tasks.add(new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY));
         String grade = VALID_GRADE_AMY;
 
         // Only Module field present
-        assertParseSuccess(parser, MODCODE_DESC_AMY, new DeleteCommand(Set.of(moduleCode)));
+        assertParseSuccess(parser, MODCODE_DESC_AMY, new DeleteCommand(Collections.singletonList(moduleCode)));
 
         // Module and Task field present
-        assertParseSuccess(parser, MODCODE_DESC_AMY + TASK_DESC_AMY, new DeleteCommand(Set.of(moduleCode), task));
+        assertParseSuccess(parser, MODCODE_DESC_AMY + TASK_DESC_AMY,
+                new DeleteCommand(Collections.singletonList(moduleCode), tasks));
 
         // Module and Grade field present
-        assertParseSuccess(parser, MODCODE_DESC_AMY + GRADE_DESC_AMY, new DeleteCommand(Set.of(moduleCode), grade));
+        assertParseSuccess(parser, MODCODE_DESC_AMY + GRADE_DESC_AMY,
+                new DeleteCommand(Collections.singletonList(moduleCode), grade));
 
     }
 
@@ -84,13 +88,13 @@ public class DeleteCommandParserTest {
         String gradeC = "C";
 
         assertParseSuccess(parser, MODCODE_DESC_AMY + " " + PREFIX_GRADE + gradeA,
-                new DeleteCommand(Set.of(moduleCode), gradeA));
+                new DeleteCommand(Collections.singletonList(moduleCode), gradeA));
         assertParseSuccess(parser, MODCODE_DESC_AMY + " " + PREFIX_GRADE + gradeB,
-                new DeleteCommand(Set.of(moduleCode), gradeB));
+                new DeleteCommand(Collections.singletonList(moduleCode), gradeB));
         assertParseSuccess(parser, MODCODE_DESC_AMY + " " + PREFIX_GRADE + gradeC,
-                new DeleteCommand(Set.of(moduleCode), gradeC));
+                new DeleteCommand(Collections.singletonList(moduleCode), gradeC));
         assertParseSuccess(parser, MODCODE_DESC_AMY + " " + PREFIX_GRADE,
-                new DeleteCommand(Set.of(moduleCode), ""));
+                new DeleteCommand(Collections.singletonList(moduleCode), ""));
 
     }
 
