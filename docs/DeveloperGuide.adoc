@@ -564,26 +564,31 @@ to limit the functions on archived `Coupon` s
 with two data files.
 
 // tag::updownarrowcommandhistory[]
-=== Up/down arrow command history
+=== Up/down arrow retrieve command history
 
 ==== Current Implementation
 The retrieving of command history via the up and down arrow keys is facilitated
 by the `CommandTextHistory` class. The command history is stored internally as
 a `LinkedList` used as a stack with a `currIndex`
 tracking the next command in the history to return.
-The following methods in the `CommandTextHistory`
+The following methods and attributes in the `CommandTextHistory`
 class facilitates this feature:
 
 * `CommandTextHistory#add(String commandText)`
 * `CommandTextHistory#getDown()`
 * `CommandTextHistory#getUp()`
+* `CommandTextHistory#commandTextHistory`
+* `CommandTextHistory#currIndex`
+
+.Class diagram representation of the command history retrieving function.
+image::UpDownClassDiagram.png[]
 
 Given below is an example usage scenario and how the up/down button presses
 behaves at each step.
 
 Step 1. The user launches the application for the first time. The
 `CommandTextHistory` is initialized
-with a `LinkedList` containing only an empty string (`""`), and the `currIndex`
+with a stack containing only an empty string (`""`), and the `currIndex`
 is set to `0`.
 
 image::UpDownHistory0.png[]
@@ -646,6 +651,19 @@ the down button will simple return the command text currently being pointed to
 by the `currIndex`.
 No changes to the stack and `currIndex` will be effected.
 
+Below is a sequence diagram describing the events that happen when a user
+presses a key.
+
+.Sequence diagram representing retrieval of command text history with the up and down arrow keys.
+image::UpDownSequenceDiagram.png[]
+
+Below is a sequence diagram describing the events that happen when a executes
+a command text, thus triggering the saving of a command text into
+`CommandTextHistory`.
+
+.Sequence diagram representing the saving of a command text.
+image::UpDownSequenceDiagramAdd.png[]
+
 ==== Design Considerations
 
 ===== Aspect: Data structure to support the key actions
@@ -655,13 +673,70 @@ the command text history.
 ** Pros: `LinkedList` is a better data structure that allows for more efficient
 operations supported by stacks.
 
-* *Alternative 2:* *Use `ArrayList` as a stack to store
+* *Alternative 2:* Use `ArrayList` as a stack to store
 the command text history.
 ** Pros: `ArrayList` is more recognizable to people who are relatively new to
 Java, thus reducing confusion.
 ** Cons: Stack operations are less effifcient on `ArrayList` s.
 // end::updownarrowcommandhistory[]
 
+// tag::couponsorting[]
+=== Coupon Sorting
+==== Current implementation
+The sorting of coupons in the coupon stash is facilitated by the following
+static variables in the `SortCommand` class and this methods in the `Model`
+interface and `SortedList` class.
+
+* `SortCommand#NAME_COMPARATOR` - Comparator that sorts coupons by name in
+ascending order.
+* `SortCommand#EXPIRY_COMPARATOR` - Comparator that sorts coupons by expiry
+date in ascending order.
+* `SortCommand#REMINDER_COMPARATOR` - Comparator that sorts coupons by
+remind date in ascending order.
+* `Model#sortCoupons(Comparator<Coupon> comparator)` - Sorts the
+`ObservableList` of coupons that are stored in `Model` according to the
+order decided by the passed in `comparator`.
+* `SortedList#setComparator(Comparator<Coupon> comparator)` - Sets the
+comparator that determines the order of the coupons inside the sorted list.
+
+.Overview of the class diagram representation of the coupon sorting implementation
+image::SortingClassDiagram.png[]
+
+When a `sort` command is executed, the field to sort by is indicated by the
+inputted prefix. The sequence diagram below describes what happens when a
+`sort` command is run.
+
+.Sequence diagram describing the process of sorting coupons
+image::SortCommandSeqDiagram.png[]
+
+Depending on the prefix to sort by, `ModelManager#sortCoupons()` will be
+called with the relevant comparator as its argument. The
+`ModelManager#sortCoupons()` method subsequently calls the
+`SortedList#setComparator()` method (not shown in the above diagram), which
+leads to a change of the comparator of the `SortedList` stored in
+`ModelManager` , thus triggering a sort of the `SortedList`.
+
+==== Design Considerations
+
+===== Aspect: Persistent or non - persistent sort?
+
+* *Alternative 1 (current choice):* Make sorting non - persistent.
+** Pros: Sorting is faster as no write to disk is needed to make the new
+order persistent. Addtionally, with the coupons being sorted by the time they
+are added to the coupon stash by default, there is no way to restore this order
+without storing the time a coupon was added to the stash. Thus, the non -
+persistent approach shines here as restoring the original order of the coupon
+stash is as trivial as reopening the program.
+** Cons: If a user prefers a particular default sorting order for their
+coupons, they have to retype the `sort` command each time the program is
+launched.
+
+* *Alternative 2:* Make sorting persistent.
+** Pros: Gives users more freedom over the default order of their coupons.
+** Cons: Can be unnecessarily complicated to implement a hidden field stating
+a coupon's addtion time just so users can revert to the default order.
+Additionally, it can be confusing to users when there are so many different
+ways to sort.
 
 === Coupon Reminder
 To ensure users are aware of expiring coupons and maximise their saving,

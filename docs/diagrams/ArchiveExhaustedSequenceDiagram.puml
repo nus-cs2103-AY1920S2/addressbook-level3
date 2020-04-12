@@ -3,7 +3,7 @@
 
 'skinparam SequenceBoxPadding 100
 
-box "<color:black>Logic</color>" LOGIC_COLOR_T1
+box "Ui" UI_COLOR
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":UsedCommand" as UsedCommand LOGIC_COLOR
 end box
