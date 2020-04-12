@@ -84,10 +84,12 @@ class AddInfoCommandTest {
                         new SchoolworkTracker(),
                         new EventSchedule(),
                         new UserPrefs());
+        showPersonAtIndex(expectedModel, FIRST_INDEX);
         expectedModel.setPerson(firstPerson, editedPerson);
 
         PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
         expectedModel.updateFilteredPersonListResult(personExistPredicate);
+        //expectedModel.updateFilteredPersonList(personExistPredicate);
 
         assertCommandSuccess(addInfoCommand, model, expectedCommandResult, expectedModel);
     }
