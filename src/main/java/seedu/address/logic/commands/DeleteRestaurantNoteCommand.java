@@ -4,7 +4,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER_BAD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER_GOOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER_RECOMMENDED;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
 import java.util.ArrayList;
 import java.util.List;

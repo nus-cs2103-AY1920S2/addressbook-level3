@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OPERATING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITED;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
 import java.util.List;
 
