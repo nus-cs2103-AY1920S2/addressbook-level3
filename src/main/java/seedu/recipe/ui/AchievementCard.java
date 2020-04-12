@@ -3,9 +3,11 @@ package seedu.recipe.ui;
 import java.io.IOException;
 import java.util.Random;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.recipe.model.Date;
@@ -33,13 +35,21 @@ public class AchievementCard extends UiPart<Region> {
             + "-fx-text-fill: #FFFFFF;\n"
             + "-fx-font-weight: bold;";
     private final String weekStyleHeader = styleHeader + "-fx-font-size: 15pt;\n";
+    private final String styleScoreHeader = "-fx-font-family: \"Arial\";\n"
+            + "-fx-text-fill: #7FFF00;\n"
+            + "-fx-font-weight: bold;"
+            + "-fx-font-size: 14pt;\n";
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label dayHeader;
     @FXML
+    private Label scoreTitle;
+    @FXML
     private Label score;
+    @FXML
+    private Label contentTitle;
     @FXML
     private Label content;
 
@@ -53,13 +63,28 @@ public class AchievementCard extends UiPart<Region> {
         this.quote = quotes.get(randomInt);
         Streak streak = new Streak(records, today);
         this.streak = streak;
-        streak.updateStreak();
+        this.streak.updateStreak();
+        records.addListener((ListChangeListener<Record>) record -> {
+            while (record.next()) {
+                this.streak.updateStreak();
+            }
+        });
         dayHeader.setText(today.getDayOfWeek() + ": " + today.toString());
         dayHeader.setStyle(weekStyleHeader);
+        System.out.println(records.size());
 
-        score.setText("Streak: " + streak.getCurrStreak());
+        BorderPane border = new BorderPane();
+        scoreTitle.setText("Streak:");
+        scoreTitle.setStyle(styleScoreHeader);
         score.setWrapText(true);
-        content.setText("Quote of the Day: " + quote.getContent());
+        score.setText(Integer.toString(streak.getCurrStreak()));
+        score.setStyle(styleHeader);
+        score.setWrapText(true);
+
+        contentTitle.setText("Quote of the Day:");
+        contentTitle.setStyle(styleScoreHeader);
+        content.setText(quote.getContent());
+        content.setStyle(styleHeader);
         content.setWrapText(true);
 
     }

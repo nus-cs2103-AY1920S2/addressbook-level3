@@ -10,6 +10,7 @@ package UI <<Rectangle>>{
  Class UiManager
  Class MainWindow
  Class HelpWindow
+ Class GroceryListWindow
  Class ResultDisplay
  Class StatusBarFooter
  Class CommandBox
@@ -19,8 +20,9 @@ package UI <<Rectangle>>{
  Class RecipeCard
  Class PlanningListPanel
  Class PlanningCard
- Class GoalsListPanel
- Class GoalsCard
+ Class CookedListPanel
+ Class CookedCard
+ Class AchievementCard
  }
  }
 
@@ -38,6 +40,7 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
+MainWindow --> GroceryListWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> StatusBarFooter
@@ -47,22 +50,27 @@ MainTabPanel *-down-> RecipeListPanel
 RecipeListPanel -down-> RecipeCard
 MainTabPanel *-down-> PlanningListPanel
 PlanningListPanel -down-> PlanningCard
-MainTabPanel *-down-> GoalsListPanel
-GoalsListPanel -down-> GoalsCard
+MainTabPanel *-down-> CookedListPanel
+CookedListPanel -down-> CookedCard
+MainTabPanel *-down-> AchievementCard
+
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
+GroceryListWindow --|> UiPart
 RecipeListPanel --|> UiPart
 PlanningListPanel --|> UiPart
-GoalsListPanel  --|> UiPart
+CookedListPanel  --|> UiPart
+AchievementCard  --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
 RecipeCard .down.> Model
 PlanningCard .down.> Model
-GoalsCard .down.> Model
+CookedCard .down.> Model
+AchievementCard .down.> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
