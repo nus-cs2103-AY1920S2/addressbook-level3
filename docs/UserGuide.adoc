@@ -288,7 +288,7 @@ descriptions provided in the help tab are less detailed!
 
 === Calendar
 
-The calendar shows you all the dates this month.
+The calendar shows you all the expiry dates this month.
 
 === Command input box
 

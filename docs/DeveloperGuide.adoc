@@ -83,8 +83,18 @@ image::UiClassDiagram.png[]
 *API* : link:{repoURL}/src/main/java/csdev/couponstash/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of three main parts -
-`CommandBox`, `CalendarResultDisplayPanel` and  `CouponListPanel`.
+`CommandBox`, `CalendarResultDisplayPanel` and  a `TabsPanel`.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The TabsPanel can be further divided into three tabs - `HelpPane`, `SummaryPane`
+and the `CouponListPanel`. The `CouponListPanel` contains the `CouponCard` that
+represents the `Coupon` s themselves.
+
+The `CalendarResultsDisplayPanel` is split into two UI components - the
+`CalendarPane` and the `ResultDisplay`. As the name suggests, the `CalendarPane`
+holds the calendar that allows easy visualization of expiry dates. The
+`ResultDisplay` provides feedback from Coupon Stash to the user after he runs a
+command.
 
 The `UI` component uses JavaFx UI framework.
 The layout of these UI parts are defined in matching `.fxml` files that are in
@@ -439,19 +449,21 @@ location, logging level) through the configuration file (default:
 
 When physical coupons are expired or exhausted, they would usually be thrown away,
 or kept in the archive. Coupon Stash simulates this archive, storing these coupons
-in the app so that the user can still keep track of it, and the savings it generated.
+in the app so that the user can still keep track of it, and the savings they
+generated.
 
 ==== Current Implementation
 
 The archiving of coupons is facilitated by the `Archived` attribute of a
 coupon. The following methods in the `CouponStash`,
-`Coupon`, `Usage` class and the `Model` interface facilitates this feature:
+`Coupon`, `Usage`, `UsedCommand` class and the `Model` interface facilitates this feature:
 
 * `CouponStash#archiveExpiredCoupons()` -- Archives any coupon in the
 `CouponStash` that has expired, and returns a new updated `CouponStash`.
 * `Coupon#increaseUsageByOne()` - Increases the usage of a coupon by one.
 * `Usage#isAtLimit` - Returns true if the current usage is at its limit
 (abstracted by the `Limit` field).
+* `UsedCommand#execute()` - Executes the `used` command input by the user.
 * `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS` - A `Predicate` function that filters
 out archived coupons from a given `CouponStash`.
 
@@ -481,6 +493,7 @@ Step 2. The method `CouponStash#archiveExpiredCoupons` will be called from the
 newly initiated `CouponStash`, and have its
 `UniqueCouponList` mapped to a function that archive coupons that has expired
 before the date of opening the application, and returns a new updated `CouponStash`.
+This mapping function is facilitated by `Coupon#hasExpired()` and `Coupon#archive()`.
 
 Step 3. The `ModelManager` will proceed to filter out the archived coupons from
 the newly updated `CouponStash`, and return
@@ -500,7 +513,8 @@ this behaviour is implemented.
 
 Step 1. The user uses a `Coupon` in the current observable `CouponStash` with the
 command `used 1`.
-The particular `Coupon` will then have its `Usage` increased by one.
+`UsedCommand` is created with the parsed arguments, and executed. The particular `Coupon`
+will then have its `Usage` increased by one by calling `Coupon#increaseUsageByOne()`.
 
 Step 2. The `Coupon` will then be checked if its `Usage` has reached its `Limit`, using
 the `Usage#isAtLimit()` method. For the purpose of this explanation, we assume that
@@ -508,7 +522,7 @@ the coupon being used has a usage `Limit` of 1 and a previous `Usage` value of 0
 with savings in `MonetaryAmount`.
 
 Step 3. The `Coupon` will have a new `Archived` value, which will be set to
-`true` if the `Usage` has indeed reached its `Limit`.
+`true` if the `Usage` has indeed reached its `Limit`. This is facilitated by `Coupon#archive()`.
 
 Step 4. The `CouponStash` will be updated with this used `Coupon` with the
 `ModelManager#setCoupon()` method. Under the hood of

@@ -10,13 +10,13 @@ end box
 
 box "<color:black>Model</color>" MODEL_COLOR_T1
 participant ":Coupon" as Coupon MODEL_COLOR
-participant "<<class>>\n::Usage" as Usage MODEL_COLOR
+participant "<<class>>\n:Usage" as Usage MODEL_COLOR
 participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
 activate LogicManager
 
-LogicManager -> UsedCommand
+LogicManager -> UsedCommand : execute()
 activate UsedCommand
 
 UsedCommand -> UsedCommand : createUsedCouponMonetaryValue()
