@@ -256,7 +256,7 @@ public class CalendarView extends UiPart<Region> {
                     Label leftActivities = new Label();
                     leftActivities.setText(String.format("%d other activities", left));
                     leftActivities.setPadding(new Insets(0, 5, 0, 5));
-                    leftActivities.setStyle("-fx-background-color:#f4c2c2; -fx-background-radius: 5 5 5 5");
+                    leftActivities.setStyle("-fx-background-color:#f4c2c2");
                     leftActivities.setMaxWidth(Double.MAX_VALUE);
                     leftActivities.setAlignment(Pos.CENTER);
                     dateContent.getChildren().add(leftActivities);
@@ -280,10 +280,10 @@ public class CalendarView extends UiPart<Region> {
                     + " 5 5 5");
         } else if (activity instanceof Event) {
             // color it yellow
-            activityLabel.setStyle("-fx-background-color: darkblue; -fx-background-radius: 5 5 5 5");
+            activityLabel.setStyle("-fx-background-color: darkblue");
         } else {
             // color it green
-            activityLabel.setStyle("-fx-background-color:green; -fx-background-radius: 5 5 5 5");
+            activityLabel.setStyle("-fx-background-color:green");
         }
         activityLabel.setTextFill(Color.BLACK);
         activityLabel.setAlignment(Pos.CENTER);

@@ -11,6 +11,7 @@
 }
 
 
+
 .date-pane {
     -fx-background-color: #C7CEEA;
     -fx-border-width: 3px;
@@ -545,6 +546,14 @@
     -fx-background-color: white;
     -fx-text-fill: black;
     -fx-font-size: 30;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.hint_label {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 15;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
 }

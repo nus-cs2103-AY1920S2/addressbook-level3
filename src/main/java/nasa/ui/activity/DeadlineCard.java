@@ -41,8 +41,6 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private Group type;
     @FXML
-    private Label labelForCircle;
-    @FXML
     private Label dateToRepeat;
 
     public DeadlineCard(Deadline deadline, int displayedIndex) {
@@ -51,7 +49,7 @@ public class DeadlineCard extends UiPart<Region> {
         name.setText(displayedIndex + ". " + deadline.getName().toString());
         date.setText("Due by: " + deadline.getDueDate().toString());
         note.setText(deadline.getNote().toString());
-        dateToRepeat.setText("-");
+        dateToRepeat.setText("");
         if (deadline.getSchedule().getType() != 0) {
             dateToRepeat.setText("Repeat: " + deadline.getSchedule().typeInString());
         }
