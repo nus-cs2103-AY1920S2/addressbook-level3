@@ -39,6 +39,7 @@ public class AddItemCommandTest {
         assertThrows(NullPointerException.class, () -> new AddItemCommand(null, null, null));
     }
 
+
     @Test
     public void constructor_nullItem_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddItemCommand(null, persons, amount));
@@ -68,6 +69,7 @@ public class AddItemCommandTest {
     public void constructor_nullPersonsNullAmount_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddItemCommand(item, null, null));
     }
+
 
     @Test
     public void execute_receiptIsDone_addUnsuccessful() throws Exception {
