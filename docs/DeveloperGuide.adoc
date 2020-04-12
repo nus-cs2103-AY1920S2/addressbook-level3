@@ -1784,7 +1784,7 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+.. Navigate to that folder using Terminal and type `java -jar EYLAH.jar` +
    Expected: Shows the CLI interface with welcome message. The window size may not be optimum.
 
 === Adding a Food in Diet Tracker
@@ -1845,9 +1845,34 @@ by the user.
 
 .. List Receipt command format: `listreceipt`
 
-.. Test case: `listamount` +
+.. Test case: `listreceipt` +
 Expected: List all items in the current receipt, its price and amount associated with each person involved
 in splitting that item.
+
+=== List Amount In Expense Splitter
+
+. List all the Person(s) and the amount they owe.
+
+.. List Receipt command format: `listamount`
+
+.. Test case: `listamount` +
+Expected: List all Person that currently owe the User money. Those who do not owe any money will be
+deleted from the PersonList.
+
+=== Paid Command In Expense Splitter
+
+. Reduces the amount of money a Person owes.
+
+.. Paid command format: `paid` `INDEX` `[AMOUNT]`
+
+.. Test case: `paid 1 1.10` +
+Expected: Reduces the amount of money the Person at Index 1 owes by $1.10.
+
+.. Test case: `paid 1` +
+Expected: Reduces the entire amount of money the Person at Index 1 owes.
+
+.. Test case: `paid -1` +
+Expected: EYLAH will inform the user that INDEX is incorrect.
 
 
 === Saving data
