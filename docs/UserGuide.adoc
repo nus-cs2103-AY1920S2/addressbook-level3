@@ -238,26 +238,38 @@ Examples:
 [NOTE]
 This command can only be used when you have a client in view; make sure you know how to view a client first. Refer to <<view-c-command>> for more information.
 
+[WARNING]
+Deleting an exercise from FitBiz is permanent and *cannot be undone*.
+
 ==== Parameters
 
 [options='header']
 [cols="15%,85%"]
 |===
 | Parameters | Important points to note
-| `INDEX` |
+| `INDEX` | Substitute `INDEX` with the actual index of the exercise shown on the *Exercise Table*
+
+Must be a positive integer (eg. 1, 2, 3, ...)
 |===
 
-* `delete-e` can only be used when a client is in view (ie. `view-c` is called first)
-* `INDEX` refers to the index number shown in the displayed exercise list of the client currently being viewed
-* `INDEX` must be a positive integer (ie. 1, 2, 3, ...)
+==== Example
 
-Examples:
+. First, ensure that you are currently viewing a client by using the `view-c` command:
++
+image::delete-e-1.png[]
+. Say for example that you want to delete the fifth exercise found on the **Exercise Table** (the one named "Bench Press" done on "07-04-2020"), simply enter `delete-e 5`:
++
+image::delete-e-2.png[]
+. After the command has been successfully executed, the specified exercise should have been deleted. Notice also, in the *Personal Best Table* that the personal best for "Bench Press" has also been automatically updated to reflect this change:
++
+image::delete-e-3.png[]
 
-* `view-c 1`
-+
-`delete-e 4`
-+
-** Deletes the 4th exercise from the exercise list of the 1st client
+==== Common errors/problems
+
+If you find that you are unable to execute this command successfully, there are a few things you can check:
+
+. Ensure that you are currently viewing a client using the `view-c` command. If you are indeed viewing a client, the *Client View* should not be empty.
+. Ensure that you actually have exercises to delete and that the `INDEX` specified is correct. If the client does indeed have recorded exercises, the *Exercise List* should not be empty.
 
 === Schedule trainings for a client: `schedule`
 
