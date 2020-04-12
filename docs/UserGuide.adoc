@@ -18,7 +18,7 @@ By: `AY1920S2-CS2103T-W12-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-=== Product Information
+=== Product Information [Done by Zain Alam]
 
 Greetings, and welcome to CookBuddy!
 
@@ -27,8 +27,7 @@ Looking for an all-in-one solution to manage your recipe? Look no further!
 *CookBuddy* is an integrated platform fully customized for users with the aim of helping you manage your recipes effectively. The application allows you to keep track of your recipes.
 It looks like you will never have to worry about finding your recipe anymore!
 
-All your recipe information is comfortably compartmentalized on our simple and clean Graphical User Interface (GUI) and we are optimized for users who are very comfortable
-working on the Command Line Interface (CLI).
+All your recipe information is stored on our simple and clean Graphical User Interface (GUI) and we are optimized for users who are very comfortable with working on the Command Line Interface (CLI).
 
 If you are looking for a way to easily manage your recipes and have quick fingers, then CookBuddy is definitely for you!
 
@@ -90,7 +89,7 @@ image::Ui.png[width="790"]
 
 . Refer to <<Features>> for details of each command.
 
-== Understanding CookBuddy’s GUI
+== Understanding CookBuddy’s GUI [Done by Zain Alam]
 
 This section teaches you on how to utilise *CookBuddy’s* GUI.
 
@@ -548,7 +547,7 @@ Format: `exit`
 Example: You can type `exit` and *CookBuddy* will terminate.
 
 
-== FAQ
+== FAQ [Done by Zain Alam]
 
 The following section answers some questions you might have regarding *CookBuddy*.
 
@@ -580,7 +579,7 @@ command. The backup feature will be released soon in the near future.
 *Q: CookBuddy is not working on my computer. How do I fix it?* +
 *A*:Ensure that your computer is running on Java 11 and not other versions. CookBuddy does not support other versions of Java.
 
-== Command Summary
+== Command Summary [Done by Zain Alam]
 
 The following section gives a quick summary of all the commands you can use in CookBuddy arranged in an alphabetical order.
 
@@ -608,7 +607,7 @@ The following section gives a quick summary of all the commands you can use in C
 
 |==============
 
-== Glossary
+== Glossary [Done by Zain Alam]
 This section will cover and explain certain technical/CookBuddy specific terms used in this user guide.
 
 .Explanation of various terms used in this user guide.
