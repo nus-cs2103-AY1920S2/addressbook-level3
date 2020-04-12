@@ -13,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -50,7 +49,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 .stream()
                 .map(x->x.trim().toUpperCase())
                 .collect(Collectors.toList());
-        Set<ModuleCode> moduleCodes = ParserUtil.parseModuleCodes(strModuleCodes);
+        List<ModuleCode> moduleCodes = ParserUtil.parseModuleCodes(strModuleCodes);
 
         if (moduleCodes.size() > 1 && arePrefixesPresent(argMultimap, PREFIX_TASK)) {
             throw new ParseException("You can only add a task to one module at once!");

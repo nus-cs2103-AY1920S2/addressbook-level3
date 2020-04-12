@@ -28,8 +28,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -71,7 +72,7 @@ public class AddCommandTest {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
         int semester = new Year(VALID_SEMESTER_AMY).getSemester();
         ArrayList<Deadline> deadlines = new ArrayList<>();
-        AddCommand addCommand = new AddCommand(Set.of(moduleCode), semester, null, deadlines);
+        AddCommand addCommand = new AddCommand(Collections.singletonList(moduleCode), semester, null, deadlines);
         assertThrows(CommandException.class, MESSAGE_EMPTY_PROFILE_LIST, () ->
                 addCommand.execute(new ProfileManagerStub(), new CourseManagerStub(), new ModuleManagerStub()));
     }
@@ -80,7 +81,7 @@ public class AddCommandTest {
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(
-                Set.of(new ModuleCode(null)), 0, null, null));
+                Collections.singletonList(new ModuleCode(null)), 0, null, null));
     }
 
     //No semester added, user inputs "add m/CS1231 y/"
@@ -88,7 +89,7 @@ public class AddCommandTest {
     public void constructor_nullSemester_throwsNullPointerException() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
         assertThrows(NullPointerException.class, () -> new AddCommand(
-                Set.of(moduleCode), new Year(null).getSemester(), null, null));
+                Collections.singletonList(moduleCode), new Year(null).getSemester(), null, null));
     }
 
     //Invalid module, valid semester, user inputs "add m/123ABC y/2.1"
@@ -98,8 +99,8 @@ public class AddCommandTest {
         int semester = new Year(VALID_SEMESTER_AMY).getSemester();
         ArrayList<Deadline> deadlines = new ArrayList<>();
         AddCommand addCommandModule = new AddCommand(
-                Set.of(moduleCode), semester, null, deadlines);
-        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE, () ->
+                Collections.singletonList(moduleCode), semester, null, deadlines);
+        assertThrows(CommandException.class, String.format(MESSAGE_INVALID_MODULE, Arrays.asList(moduleCode)), () ->
                 addCommandModule.execute(
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
     }
@@ -112,7 +113,7 @@ public class AddCommandTest {
         int semester = new Year("1.2").getSemester();
         ArrayList<Deadline> deadlines = new ArrayList<>();
         AddCommand addCommandModule = new AddCommand(
-                Set.of(moduleCode), semester, null, deadlines);
+                Collections.singletonList(moduleCode), semester, null, deadlines);
         assertThrows(CommandException.class, MESSAGE_DUPLICATE_MODULE, () ->
                 addCommandModule.execute(
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
@@ -125,11 +126,11 @@ public class AddCommandTest {
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
         ArrayList<Deadline> deadlines = new ArrayList<>();
         AddCommand addCommandAllCap = new AddCommand(
-                Set.of(moduleCode), semester, null, deadlines);
+                Collections.singletonList(moduleCode), semester, null, deadlines);
         AddCommand addCommandVariety = new AddCommand(
-                Set.of(new ModuleCode("Cs1231")), semester, null, deadlines);
+                Collections.singletonList(new ModuleCode("Cs1231")), semester, null, deadlines);
         AddCommand addCommandNoCap = new AddCommand(
-                Set.of(new ModuleCode("cs1231")), semester, null, deadlines);
+                Collections.singletonList(new ModuleCode("cs1231")), semester, null, deadlines);
 
         try {
             assertEquals(addCommandAllCap.execute(
@@ -154,7 +155,7 @@ public class AddCommandTest {
         String grade = VALID_GRADE_BOB;
         ArrayList<Deadline> deadlines = new ArrayList<>();
         AddCommand addCommandGrade = new AddCommand(
-                Set.of(moduleCode), semester, grade, deadlines);
+                Collections.singletonList(moduleCode), semester, grade, deadlines);
         try {
             assertEquals(addCommandGrade.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                     new ModuleManagerStubCs()).getFeedbackToUser(), String.format(MESSAGE_ADD_SUCCESS, moduleCode));
@@ -191,7 +192,7 @@ public class AddCommandTest {
         deadlines.add(new Deadline(VALID_MODCODE_AMY, task, date, time));
 
         AddCommand addCommandTask = new AddCommand(
-                Set.of(moduleCode), semester, null, deadlines);
+                Collections.singletonList(moduleCode), semester, null, deadlines);
         assertThrows(CommandException.class, MESSAGE_DEADLINE_INVALID_SEMESTER, () ->
                 addCommandTask.execute(
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
@@ -206,21 +207,21 @@ public class AddCommandTest {
         deadlines.add(new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY, modelDate, modelTime));
         deadlines.add(new Deadline(VALID_MODCODE_BOB, VALID_TASK_BOB, modelDate, modelTime));
 
-        AddCommand addAmyCommand = new AddCommand(Set.of(new ModuleCode(VALID_MODCODE_AMY)),
+        AddCommand addAmyCommand = new AddCommand(Collections.singletonList(new ModuleCode(VALID_MODCODE_AMY)),
                 new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, deadlines);
-        AddCommand addBobCommand = new AddCommand(Set.of(new ModuleCode(VALID_MODCODE_BOB)),
+        AddCommand addBobCommand = new AddCommand(Collections.singletonList(new ModuleCode(VALID_MODCODE_BOB)),
                 new Year(VALID_SEMESTER_BOB).getSemester(), VALID_GRADE_BOB, deadlines);
 
         // same object -> returns true
         assertTrue(addAmyCommand.equals(addAmyCommand));
 
         // same values -> returns true
-        AddCommand addAmyCommandCopy = new AddCommand(Set.of(new ModuleCode(VALID_MODCODE_AMY)),
+        AddCommand addAmyCommandCopy = new AddCommand(Collections.singletonList(new ModuleCode(VALID_MODCODE_AMY)),
                 new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, deadlines);
         assertTrue(addAmyCommand.equals(addAmyCommandCopy));
 
         // same module code but remainder fields differ -> returns true
-        AddCommand addBobCommandDiff = new AddCommand(Set.of(new ModuleCode(VALID_MODCODE_BOB)),
+        AddCommand addBobCommandDiff = new AddCommand(Collections.singletonList(new ModuleCode(VALID_MODCODE_BOB)),
                 new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, deadlines);
         assertTrue(addBobCommand.equals(addBobCommandDiff));
 

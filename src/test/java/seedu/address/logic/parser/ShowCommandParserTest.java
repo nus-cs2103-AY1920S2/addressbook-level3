@@ -74,7 +74,7 @@ public class ShowCommandParserTest {
 
         // Invalid module
         ModuleCode moduleCode = new ModuleCode("1101");
-        assertParseFailure(parser, " " + PREFIX_MODULE + moduleCode, MESSAGE_INVALID_MODULE);
+        assertParseFailure(parser, " " + PREFIX_MODULE + moduleCode, String.format(MESSAGE_INVALID_MODULE, "1101"));
         assertParseFailure(parser, " " + PREFIX_MODULE, MESSAGE_MISSING_MODULE);
 
         // Invalid focus area

@@ -122,7 +122,7 @@ public class ShowCommand extends Command {
                 ModuleCode moduleCode = (ModuleCode) toParse;
 
                 if (!moduleManager.hasModule(moduleCode)) {
-                    throw new CommandException(MESSAGE_INVALID_MODULE);
+                    throw new CommandException(String.format(MESSAGE_INVALID_MODULE, moduleCode));
                 }
 
                 toShow = moduleManager.getModule(moduleCode);
