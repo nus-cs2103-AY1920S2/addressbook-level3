@@ -10,7 +10,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_COURSE = "Error: This course is invalid or unavailable";
     public static final String MESSAGE_INVALID_COURSE_FOCUS_AREA = "Error: This focus area is not available";
-    public static final String MESSAGE_INVALID_MODULE = "Error: This module does not exist";
+    public static final String MESSAGE_INVALID_MODULE = "Error: Invalid module code(s): %1$s";
     public static final String MESSAGE_INVALID_SEMESTER = "Error: No modules have been added to this semester";
 
     public static final String MESSAGE_EMPTY_PROFILE_LIST = "Error: No profile has been created.";

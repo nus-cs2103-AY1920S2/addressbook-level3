@@ -81,7 +81,8 @@ public class ParserUtilTest {
     public void parseModuleCode_invalidValue_throwsParseException() {
         String[] invalidModuleCodes = {"1101", "A1101", "1101X", "A1101X", "ABCDE1010", "ABC101"};
         for (String moduleCode: invalidModuleCodes) {
-            assertThrows(ParseException.class, MESSAGE_INVALID_MODULE, () -> ParserUtil.parseModuleCode(moduleCode));
+            assertThrows(ParseException.class, String.format(MESSAGE_INVALID_MODULE, moduleCode), () ->
+                    ParserUtil.parseModuleCode(moduleCode));
         }
     }
 

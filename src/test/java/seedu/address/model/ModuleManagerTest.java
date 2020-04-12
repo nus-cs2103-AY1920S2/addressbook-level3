@@ -8,8 +8,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -69,7 +69,7 @@ public class ModuleManagerTest {
     public void hasModules_moduleCodesInModuleList_returnsTrue() {
         ModuleCode moduleCode1 = new ModuleCode("CS1231");
         ModuleCode moduleCode2 = new ModuleCode("CS1010");
-        Set<ModuleCode> moduleCodes = Set.of(moduleCode1, moduleCode2);
+        List<ModuleCode> moduleCodes = Arrays.asList(moduleCode1, moduleCode2);
 
         Module module1 = new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""), new Preclusions(""),
                 new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
@@ -87,7 +87,7 @@ public class ModuleManagerTest {
     public void hasModules_moduleCodesNotInModuleList_returnsFalse() {
         ModuleCode moduleCode1 = new ModuleCode("CS2030");
         ModuleCode moduleCode2 = new ModuleCode("CS2040");
-        Set<ModuleCode> moduleCodes = Set.of(moduleCode1, moduleCode2);
+        List<ModuleCode> moduleCodes = Arrays.asList(moduleCode1, moduleCode2);
 
         Module module1 = new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""), new Preclusions(""),
                 new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
