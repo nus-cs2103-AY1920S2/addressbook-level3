@@ -18,4 +18,6 @@ SplashScreen -up-|> Preloader
 
 Main -up-> SplashScreen
 Main -up-> MainApp
+
+SplashScreen -right[hidden]- MainApp
 @enduml
