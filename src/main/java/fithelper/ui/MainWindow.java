@@ -165,6 +165,7 @@ public class MainWindow extends UiPart<Stage> {
             showDashBoard();
             break;
         case TODAY:
+            updateTodayPage();
             showTodayPage();
             break;
         case DIARY:
@@ -235,6 +236,14 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(todayPage.getRoot());
         currentPage.setText("Today");
+    }
+
+    /**
+     * Update content of today page with latest values.
+     */
+    private void updateTodayPage() {
+        todayPage = new TodayPage(logic.getFilteredTodayFoodEntryList(),
+                logic.getFilteredTodaySportsEntryList());
     }
 
     private void showDiaryPage() {
