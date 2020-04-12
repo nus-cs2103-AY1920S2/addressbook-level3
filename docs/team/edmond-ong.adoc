@@ -21,12 +21,13 @@ assignments, lessons, exams and consultations etc.
 of (weekly, twice weekly and monthly).
 
 * *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** What it does: allow user to restore the previous state of Nasa and previous appearance of UI.
+** Justification: This feature allows user to rectify the error made.
+** Highlights: Current implementation fits the following functionality of Nasa, however when more functions is added in v2.0, update will be needed on the code for tracking the UI looks.
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Minor enhancement*: added a quote command that aims to motivate the user before he/she starts to get into work.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -57,9 +58,11 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=automation]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=quote]
 
 == Contributions to the Developer Guide
 
@@ -69,7 +72,10 @@ include::../UserGuide.adoc[tag=dataencryption]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=automation]
+
+include::../DeveloperGuide.adoc[tag=quote]
+
 
 
 == PROJECT: PowerPointLabs
