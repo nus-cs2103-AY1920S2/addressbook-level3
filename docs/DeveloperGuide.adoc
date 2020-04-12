@@ -195,7 +195,7 @@ When inserting a new Expense/Income, the `AddCommandParser` will determine which
 
 The following sequence diagram shows how the add transaction operation works:
 
-image::AddCommandSequenceDiagram.png[]
+image::add-command/AddCommandSequenceDiagram.png[]
 
 Figure 9. Sequence diagram of how adding a new `Transaction` is processed depending on syntax.
 
@@ -222,7 +222,7 @@ NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters ta
 
 Since the user input is valid, the `Transaction` is successfully created and inserted into the transaction list. The transaction list now contains 1 `Transaction` object.
 
-image::AddTransactionToList1.png[]
+image::add-command/AddTransactionToList1.png[]
 
 Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income ** to indicate his monthly pay, to insert a positive `**Transaction**`.
 The input is now checked in a similar fashion as in Step 1 except that:
@@ -235,15 +235,15 @@ NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GR
 Again, since the input is valid, the positive `Transaction` is successfully added into the transaction list. The transaction list
 now contains 2 `**Transaction**` objects.
 
-image::AddTransactionToList2.png[]
+image::add-command/AddTransactionToList2.png[]
 
 The following activity diagram summarizes what happens when the user executes a command to add a new `Transaction`:
 
-image::AddTransactionActivityDiagram.png[]
+image::add-command/AddTransactionActivityDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+image::add-command/AddTransactionActivityDiagram.png[]
 
 Figure 10. Activity diagram of adding a `Transaction` into the transaction list.
 
