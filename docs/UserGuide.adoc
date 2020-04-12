@@ -197,6 +197,7 @@ This means that it can be:
 //tag::commonparameters[]
 
 === Common Parameters
+(Contributed by Aakanksha)
 
 This section lists and explains what the parameters commonly used in the commands mean.
 
@@ -494,6 +495,8 @@ and then clicked on the `claims tab`.
 //tag::studentview[]
 
 === Student View
+(Contributed by Aakanksha)
+
 Under the `student tab`, the *Student View* is used to show you the students that you're teaching. The students
 have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
 three columns.
@@ -762,6 +765,8 @@ This section explains all the commands you can use in the *Student View*.
 [[AddModule]]
 ==== Adding a Module : `module add`
 
+(Contributed by Aakanksha)
+
 You can use this command to add a new module to the TA-Tracker.
 
 When a new module is created, the *Student View* will show the groups
@@ -811,6 +816,8 @@ to the TA-Tracker.
 [[DeleteModule]]
 ==== Deleting a Module : `module delete`
 
+(Contributed by Aakanksha)
+
 You can use this command to delete a module from the TA-Tracker.
 
 When you delete a module, all groups, students and sessions associated with
@@ -841,6 +848,8 @@ This will delete the module with the module code `CS2103T` from the TA-Tracker.
 
 [[EditModule]]
 ==== Editing a Module : `module edit`
+
+(Contributed by Aakanksha)
 
 You can use this command to edit a module's name in the TA-Tracker.
 
@@ -876,6 +885,8 @@ This will change the name of the module with module code `CS3243` to `Intro to A
 
 [[AddGroup]]
 ==== Adding a Group : `group add`
+
+(Contributed by Aakanksha)
 
 You can use this command to add a group to the TA-Tracker.
 
@@ -917,6 +928,8 @@ has module code `CS2100`.
 [[DeleteGroup]]
 ==== Deleting a Group : `group delete`
 
+(Contributed by Aakanksha)
+
 You can use this command to delete a group from the TA-Tracker.
 
 When a group is deleted from the TA-Tracker, all students in the group are also deleted.
@@ -953,6 +966,8 @@ has module code `CS3243`.
 
 [[EditGroup]]
 ==== Editing a Group : `group edit`
+
+(Contributed by Aakanksha)
 
 You can use this command to edit a group in the TA-Tracker.
 
@@ -1135,6 +1150,8 @@ Edits student with the matriculation number `A0186153P` to have:
 [[Sort]]
 ==== Sorting a Group : `sort group`
 
+(Contributed by Aakanksha)
+
 You can use this command to chose how you want to sort your students in a specific group.
 The students will be sorted according to your specified `SORT_TYPE`.
 
@@ -1176,6 +1193,8 @@ ascending order).
 
 ==== Sorting a Module : `sort module`
 
+(Contributed by Aakanksha)
+
 You can use this command to chose how you want to sort your students in a specific module.
 The students will be sorted according to your specified `SORT_TYPE`.
 
@@ -1214,6 +1233,8 @@ Sorts all students inside all groups inside the module `CS2103` `alphabetically`
 //tag::sortall[]
 
 ==== Sorting Everything : `sort all`
+
+(Contributed by Aakanksha)
 
 You can use this command to chose how you want to sort all of your students.
 The students will be sorted according to your specified `SORT_TYPE`.
@@ -1588,6 +1609,8 @@ Generate and display a report of sessions and students from the module CS3243.
 //tag::glossary[]
 
 == Glossary
+
+(Contributed by Aakanksha)
 
 [width="%",cols="<20%,<40,<40,options="header",]
 |=======================================================================

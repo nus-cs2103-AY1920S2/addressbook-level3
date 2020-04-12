@@ -126,9 +126,9 @@ https://github.com/nus-cs2103-AY1920S2/forum/issues/111[3])
 ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=addmodule]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=deletemodule]
 
 == Contributions to the Developer Guide
 
