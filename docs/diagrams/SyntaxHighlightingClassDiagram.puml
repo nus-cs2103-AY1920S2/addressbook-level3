@@ -34,6 +34,9 @@ CommandBox .down.> CommandDictionary
 CommandBox .down.> PrefixDetails
 CommandBox -down-> "1" PrefixDictionary
 
-CommandMatch .down.> CommandBoxUtil
-ArgumentMatch .down.> CommandBoxUtil
+CommandBoxUtil .up.> CommandMatch
+CommandBoxUtil .up.> ArgumentMatch
+
+'CommandMatch .down.> CommandBoxUtil
+'ArgumentMatch .down.> CommandBoxUtil
 @enduml

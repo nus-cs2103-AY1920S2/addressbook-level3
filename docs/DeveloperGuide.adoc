@@ -10,12 +10,14 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
+:fbl: pass:[ +]
 
 By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
@@ -728,8 +730,7 @@ image::DeleteStudentSequenceDiagram.png[]
 [NOTE]
 ====
 
-* This diagram assumes that there is a student with the matric number `A0181234G`
-already exists in the TA-Tracker
+* This diagram assumes that there is a student with the matric number `A0181234G` in the TA-Tracker
 
 * The lifeline for `StudentCommandParser` and `DeleteStudentCommandParser` should end at the
 destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
@@ -737,17 +738,18 @@ destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches t
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is of type *student* and passes the
+2. The `TaTrackerParser` sees that the command is a *student* command and passes the
 command to the `StudentCommandParser`.
 
-3. The `StudentCommandParser` sees that the command is of type *delete* and passes the
+3. The `StudentCommandParser` sees that the command is a *delete* command and passes the
 arguments to the `DeleteStudentCommandParser`.
 
-4. The `DeleteStudentCommandParser` creates a *Student* with the given matric number,
-`A0181234G`.
+4. The `DeleteStudentCommandParser` creates a `Student` object with the given matric number,
+`A0181234G`. It also extracts the *module code* and *group code* from the arguments.
 
-5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object and passes
-it the created student. The parser then returns the `DeleteStudentCommand`
+5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object
+using the created `Student` object, *module code* and *group code*.
+The parser then returns the `DeleteStudentCommand`.
 
 6. `LogicManager` calls `DeleteStudentCommand's` execute method.
 
@@ -973,22 +975,22 @@ by the user is a valid integer. If it is, the `SetRateCommandParser` creates a
 // tag::syntaxhighlighting[]
 [[Syntax]]
 === Syntax Highlighting
-When a user types a command into the `CommandBox`, their inputs will be highlighted in different colours
+When a user types a command, their inputs will be highlighted in different colours
 as a form of input validation.
 
-In addition, the `ResultDisplay` will display different messages based on the result of the syntax highlighting.
+In addition, different messages will be displayed based on the result of the syntax highlighting.
 
-The following shows how the `CommandBox` and `ResultDisplay` appear in the `MainWindow` of TA-Tracker.
+The following _screenshot_ shows how the `CommandBox` and `ResultDisplay` appear in the TA-Tracker.
 
-.The `CommandBox` and the `ResultDisplay` in TA-Tracker
+.The CommandBox and the ResultDisplay in TA-Tracker
 image::syntax-highlighting/SH-CommandBox.png[]
 
-In the figure above:
+In the _screenshot_ above:
 
 * There is a user input highlighted in `green` in the `CommandBox`
 * There is a message in `white` showing in the `ResultDisplay`
 * The command being entered is `session edit`
-* There are three arguments: `date`, `start time`, and `end time`.
+* The user has entered three arguments: `date`, `start time`, and `end time`.
 
 ==== Overview
 The following _Class Diagram_ shows how the `Logic` and `UI` components interact with each other to produce the highlighting.
@@ -998,193 +1000,332 @@ image::SyntaxHighlightingClassDiagram.png[]
 
 The `CommandBox`:
 
-* Uses a `CommandDictionary` to search for valid commands.
-* Stores a `CommandDetail` for processing the current command in the user input.
-* Stores a `PrefixDictionary` containing the required argument details (`PrefixDetails`) for the current command.
-* Uses a `CommandBoxUtil` to scan for valid user inputs.
-* Returns feedback to the `ResultDisplay`.
+* Uses a `CommandDictionary` to search for valid commands
+* Stores a `CommandDetail` for processing the current command in the user input
+* Stores a `PrefixDictionary` containing the `PrefixDetails` for the current command.
+* Uses `PrefixDetails` to process each argument in the current command
+* Uses a `CommandBoxUtil` to validate user inputs
+* Returns feedback to the `ResultDisplay`
 
-The `ResultDisplay` displays the given feedback tas a message in the program.
+The `ResultDisplay` displays the given feedback as a message in the TA-Tracker.
 
-==== Implementation
-The following diagrams show the steps for the different types of syntax highlighting.
+==== Identifying the parts of a User Input
 
-Here are some keywords that will be used to explain the implementation:
+A user input can be divided into the following parts:
 
-* A `full command word` is a text that identifies a command.
+[width="%",cols="<20%a,<20%a,<60%a",options="header"]
+|====
+|
+Keyword
+|
+Meaning
+|
+Example
 
-* An `argument` is a text that contains a `prefix` and a `value`.
+|
+`full command word`
+|
+The part of the user input that *identifies a command*.
+|
+image::SyntaxHighlightingClassDiagram.png[]
 
-** The `prefix` is the text value of a `Prefix` in the Logic component.
-** The `value` is all the text following the `prefix`.
+|
+`argument`
+|
+The part of the user input that *identifies a command parameter*.
 
-* The `preamble` is the text (including whitespaces) between the end of the
+It contains a `prefix` and a `value`.
+|
+image::SyntaxHighlightingClassDiagram.png[]
+
+|
+`prefix`
+|
+The part of an `argument` up to and including the `/` foward slash delimiter.
+|
+image::SyntaxHighlightingClassDiagram.png[]
+
+|
+`value`
+|
+Everything after the `prefix` of an `argument`.
+|
+image::SyntaxHighlightingClassDiagram.png[]
+
+|
+`preamble`
+|
+The part of the user input (including whitespaces) between the end of the
 `full command word`, and the beginning of the first `argument`.
+|
+image::SyntaxHighlightingClassDiagram.png[]
+
+|====
+
+[[Impl-Syntax]]
+==== Implementation of the Syntax Highlighting
+The following diagrams show the steps that take place when applying syntax highlighting
+to the user's input.
 
 [NOTE]
 ====
-Due to the limitations of *PlantUML*, some of the diagrams may not appear as expected.
+Due to the limitations of *PlantUML*, the following _Activity Diagrams_
+may not follow UML notation.
 
-In particular, there are issues with representing alternate paths in *PlantUML* BETA Activity Diagrams
+In particular, there are issues with representing alternate branches.
 
-For example:
+For example, alternate branches:
 
-. They split into multiple diamonds, instead of all originating from the same diamond.
-. They do not converge at a single diamond, and instead skips it altogether.
-. They cannot join other branches.
+* *Split into multiple branch nodes*, instead of all originating from the same node
+* *Do not converge* at a single merge node before the end node
 
-In particular, the biggest limitation was the third issue.
-To overcome this, you will see multiple end nodes in some of the diagrams.
-Please assume that they all converge into a single diamond before reaching the end node.
+
+There is a way for the diagrams to be arranged vertically.
+However, this dilates the diagrams, making them difficult to fit in this guide.
 
 ====
 
-===== Step 1. Highlighting a new input
-When a new user input is entered in the `CommandBox`,
-the syntax highlighting will be reapplied.
+[[SH-1]]
+===== Step 1 - Highlighting a new input
+Syntax highlighting is applied when the user changes their input in the `CommandBox`.
 
-The following _Activity Diagram_ explains how the `full command word` is highlighted,
+The following _Activity Diagram_ shows how the `full command word` is highlighted,
 up until the beginning of the `preamble`.
 
 .Step 1 - Highlighting a new input
-image::SyntaxHighlightingActivityDiagram1.png[]
+image::SyntaxHighlightingActivityDiagram1.png[,950]
 
-Here is the purpose of each partition in the above diagram:
+NOTE: There should be a _rake symbol_ next to the *bolded* activity - *Highlight arguments*.
 
-* `blank` +
+Here is the purpose of each alternate path in the above diagram:
+
+[width="%",cols="<28%a,<32%a,<40%a",options="header"]
+|====
+|
+Path
+|
+Action
+|
+Example
+
+|
+`[empty input]`
+|
 When there is no input,
-the `ResultDisplay` should not show anything.
-
+the `ResultDisplay` will not show anything.
+|
 .Blank `ResultDisplay`
 image::syntax-highlighting/SH-1-Blank.png[,300]
+{fbl}
 
-* `invalid` +
+|
+`[invalid command word]`
+|
 When there is no matching `full command word`,
-the `ResultDisplay` should indicate that a wrong command is entered.
-
+the `ResultDisplay` will indicate that a wrong command is entered.
+|
 .Invalid `full command word`
 image::syntax-highlighting/SH-1-Invalid.png[,300]
+{fbl}
 
-* `valid` +
-When there is a matching `full command word`,
-change the highlighting rules for the new command.
-
-* `no_arguments` +
+|
+`[no arguments]`
+|
 When `full command word` has just been entered,
-the `ResultDisplay` should indicate that a correct command has been entered.
-
+the `ResultDisplay` will indicate that a correct command has been entered.
+|
 .`CommandBox` has no `arguments`
 image::syntax-highlighting/SH-1-NoArgs.png[,300]
+{fbl}
 
-* `has_arguments` +
-After processing the `full command word`,
-proceed to step 2. +
-+
-NOTE: There should be a rake symbol next to the only activity in this partition.
-
+|
+`[has arguments]`
+|
+After processing the `full command word`, proceed to <<SH-2, Step 2>>.
+|
 .`CommandBox` has `arguments`
 image::syntax-highlighting/SH-1-HasArgs.png[,250]
+{fbl}
 
-===== Step 2. Highlighting the preamble
-After verifying that the new input has a `full command word`,
-the highlighting will also need to be reapplied to the `preamble` and `arguments`.
+|====
 
-The following _Activity Diagram_ explains how the `preamble` is highlighted,
+[[SH-2]]
+===== Step 2 - Highlighting the preamble
+If the new input has a `full command word`,
+the next step is to apply syntax highlighting on the `preamble` and `arguments`.
+
+The following _Activity Diagram_ shows how the `preamble` is highlighted,
 up until the beginning of the first `argument`.
 
 .Step 2 - Highlighting the preamble
-image::SyntaxHighlightingActivityDiagram2.png[]
+image::SyntaxHighlightingActivityDiagram2.png[,820]
 
-Here is the purpose of each partition in the above diagram:
+NOTE: There should be a _rake symbol_ next to the *bolded* activities - *Highlight invalid arguments*.
 
+Here is the purpose of each alternate path in the above diagram:
+
+[width="%",cols="<28%a,<32%a,<40%a",options="header"]
+|====
+|
+Path
+|
+Action
+|
+Example
 * `whitespaces` +
-Inputs that have trailing whitespaces will be handled separately.
 
-.Trailing whitespace, coloured in blue for this diagram
+|
+`[trailing whitespaces]`
+|
+When there are trailing whitespaces, the syntax highlighting is removed.
+|
+.A trailing whitespace (coloured in blue for this diagram)
 image::syntax-highlighting/SH-2-Space.png[,250]
+{fbl}
 
-* `many_whitespaces` +
-When there are more than two trailing whitespaces,
-the `ResultDisplay` should reshow how to use the command.
-
-.Many trailing whitespaces, coloured in blue for this diagram
+|
+`[many whitespaces]`
+|
+When there are two or more trailing whitespaces,
+the `ResultDisplay` will show how to use the command.
+|
+.Many trailing whitespaces (coloured in blue for this diagram)
 image::syntax-highlighting/SH-2-ManySpace.png[,400]
+{fbl}
 
-* `preamble_error` +
+|
+`[invalid preamble]`
+|
 When the input has a `preamble` that the command does not need,
-the `ResultDisplay` should indicate that a wrong command is entered.
-
+the `ResultDisplay` will indicate that a wrong command is entered.
+|
 .Invalid `preamble` in input
 image::syntax-highlighting/SH-2-WrongPreamble.png[,350]
+{fbl}
 
-* `preamble_end` +
-After processing the `preamble`,
-proceed to step 3. +
-+
-NOTE: There should be a rake symbol next to the only activity in this partition.
-
+|
+`[blank preamble]`, and +
+`[needs preamble]`
+|
+After processing the `preamble`, proceed to <<SH-3, Step 3>>.
+|
+.`CommandBox` has `arguments`
 .Valid `preamble` in input
 image::syntax-highlighting/SH-2-RightPreamble.png[,350]
+{fbl}
 
-===== Step 3. Highlighting the remaining arguments
-After verifying that the `preamble` is valid for the given `full command word`,
-the highlighting will need to be reapplied to each `argument` in the remaining user input.
+|====
+
+[[SH-3]]
+===== Step 3 - Highlighting the remaining arguments
+After the `preamble` has been verified,
+the syntax highlighting is applied on each `argument` in the remaining user input.
+An _invalid_ or _wrong_ `argument` will *stop* the highlighting.
 
 The following _Activity Diagram_ explains how each `argument` is highlighted,
 up until end of the user input.
 
 .Step 3 - Highlighting the remaining arguments
-image::SyntaxHighlightingActivityDiagram3.png[]
+image::SyntaxHighlightingActivityDiagram3.png[,800]
 
-Here is the purpose of each partition in the above diagram:
+Here is the purpose of each alternate path in the above diagram:
 
-* `wrong` +
-When the command does not need the given `argument`,
-the `ResultDisplay` should reshow how to use the command.
+[width="%",cols="<28%a,<32%a,<40%a",options="header"]
+|====
+|
+Path
+|
+Action
+|
+Example
 
+|
+`[wrong]`
+|
+When the command does not recognise the given `argument`,
+the `ResultDisplay` will show how to use the command.
+|
 .Wrong `argument` in input
 image::syntax-highlighting/SH-3-Wrong.png[,500]
+{fbl}
 
-* `invalid` +
+|
+`[invalid]`
+|
 When the `argument` cannot have the given `value`,
-the `ResultDisplay` should show how to use the `argument`.
-
+the `ResultDisplay` will show how to use the `argument`.
+|
 .Invalid `argument` in input
 image::syntax-highlighting/SH-3-Invalid.png[,500]
+{fbl}
 
-* `valid` +
+|
+`[valid]`
+|
 After processing the current `argument`,
-the `ResultDisplay` will still show how to use the argument in case the `argument`
-can have spaces.
-
+the `ResultDisplay` will still show how to use it in case the `argument` can have spaces.
+|
 .Valid `argument` in input
 image::syntax-highlighting/SH-3-Valid.png[,500]
+{fbl}
+
+|====
 
 ==== Design Considerations
 
-===== Aspect #1: Executing the syntax highlighting in real-time
-The current implementation reapplies the highlighting whenever the user input changes.
-When no input is changed, the program will idle.
+[[Syntax-Aspect1]]
+===== Aspect #1: Showing the command usage after every two white spaces
 
-In contrast, having an infinite loop can achieve the same highlighting,
-but the program cannot idle and will consume memory when in use.
+When a user enters two white spaces, the usage for the current command wil reappear in
+the `ResultDisplay`. The purpose of this is to provide the user with a *quick example*
+of how to use the command, since a command may have *a lot of parameters*.
 
-===== Aspect #2: Range of syntax highlighting
-The current implementation uses three colours for the syntax highlighting.
+The following are reasons why the usage appears after every two spaces:
 
-The following colours are used:
+* The user will have to enter whitespaces frequently.
+This should allow our *target users* (whom are fast typers) to *quickly verify* how to use the different commands.
+* A user input will usually have words separated with a single white space
+* It gives a use for user inputs to have `arguments` separated with more than one whitespace
 
-* `Red` - invalid input
-* `Green` - valid input
-* `White` - the default font colour for the `CommandBox` input
+====
+*Alternative Implementation*
 
-These colours have been chosen because they are standard signalling colours used in
-everyday life. Therefore the user will be familiar with these colour signals without
-a need for an explanation.
+An alternative would be to *assign a keyboard shortcut*, such as the kbd:[Tab] key,
+to give the user the option to display the command usage only when they need it.
 
-Valid inputs have been highlighted in order to signal to the user that they have used
-the command correctly. An alternative would be to remove this colour though, as having too
-many flashing colours may be distracting to the user.
+Currently, the `ResultDisplay` shows the command usage
+whenever the user inputs something new. This could be annoying for the user
+when they are familiar with the commands.
+
+However, the user may have assigned actions to these keyboard shortcuts on their computer,
+Therefore, TA-Tracker would need to allow the user to *assign their own keyboard settings*.
+
+As TA-Tracker is meant to be used primarily on the *CLI*, assigning keyboard shortcuts
+does not seem like a suitable feature for our *target users*. However, implementing this
+is an option in future versions of TA-Tracker.
+====
+
+[[Syntax-Aspect2]]
+===== Aspect #2: Always showing the syntax highlighting
+
+Similar to <<Syntax-Aspect1, Aspect #1>>, the syntax highlighting could be toggled
+using a keyboard shortcut.
+
+====
+*Alternative Implementation*
+
+Alternatively, there could be a command to toggle the syntax highlighting _on_ and _off_.
+
+Here is an example of how the command could be made:
+
+* `syntax on` - enables the syntax highlighting
+* `syntax off` - disables the syntax highlighting
+* `syntax cmd` - enables the syntax highlighting for `full command words` only
+* `syntax args` - enables the syntax highlighting for `arguments` only
+
+Then, the `CommandBox` will have _boolean flags_ to toggle the syntax highlighting
+before the each of the three steps explained in the <<Impl-Syntax, Implementation of the Syntax Highlighting>>.
+====
 // end::syntaxhighlighting[]
 
 [[Implementation-Filter]]
