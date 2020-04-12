@@ -241,10 +241,6 @@ The following activity diagram summarizes what happens when the user executes a 
 
 image::add-command/AddTransactionActivityDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::add-command/AddTransactionActivityDiagram.png[]
-
 Figure 10. Activity diagram of adding a `Transaction` into the transaction list.
 
 Hubert Halim
