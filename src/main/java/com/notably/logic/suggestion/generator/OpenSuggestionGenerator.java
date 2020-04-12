@@ -16,7 +16,7 @@ import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionItemImpl;
 
 /**
- * Represents a generator command object to open a note.
+ * Represents a suggestion generator object to open a note.
  */
 public class OpenSuggestionGenerator implements SuggestionGenerator {
     private List<AbsolutePath> paths;
@@ -48,7 +48,7 @@ public class OpenSuggestionGenerator implements SuggestionGenerator {
     /**
      * Generates all possible paths from the app's {@link BlockTree}
      *
-     * @return List of all possible paths
+     * @return List of all possible paths.
      */
     private List<AbsolutePath> getPossiblePaths(List<AbsolutePath> paths, Model model) {
         List<AbsolutePath> possiblePaths = new ArrayList<>();

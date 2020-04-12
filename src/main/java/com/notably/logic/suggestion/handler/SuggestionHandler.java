@@ -13,7 +13,7 @@ public interface SuggestionHandler<T extends SuggestionGenerator> {
     /**
      * Handles user input.
      *
-     * @return The optional generator command.
+     * @return The optional suggestion generator.
      */
     Optional<T> handle();
 }

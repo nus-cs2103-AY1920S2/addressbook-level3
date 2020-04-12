@@ -8,6 +8,7 @@ import com.notably.model.Model;
 public interface SuggestionGenerator {
     /**
      * Adds a list of generated suggestions to the app's model.
+     *
      * @param model The app's model.
      */
     void execute(Model model);

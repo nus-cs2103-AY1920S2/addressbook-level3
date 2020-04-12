@@ -41,7 +41,7 @@ public class SearchSuggestionGenerator implements SuggestionGenerator {
      * Gets the list of suggestions which contain the keyword.
      *
      * @param model The app's model.
-     * @return List of SuggestionItem with a display text of the block's path and action of opening the block.
+     * @return List of suggestions.
      */
     private List<SuggestionItem> getSuggestions(Model model) {
         Queue<AbsolutePath> pathQueue = new LinkedList<>();
