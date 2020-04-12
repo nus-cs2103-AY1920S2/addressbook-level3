@@ -19,6 +19,7 @@ public class CommandTestUtility {
     public static final String VALID_COMMAND_HELP = "help";
     public static final String VALID_COMMAND_RESUME = "resume";
     public static final String VALID_COMMAND_BEST = "best";
+    public static final String VALID_COMMAND_INTERVIEWEE = "interviewee";
 
     public static final String VALID_INTERVIEW_COMMAND_END = ":end";
     public static final String VALID_INTERVIEW_COMMAND_START = ":start";
@@ -56,6 +57,11 @@ public class CommandTestUtility {
     public static final String VALID_ATTRIBUTE_SCORE_1 = "5.35";
     public static final String VALID_ATTRIBUTE_SCORE_2 = "10";
 
+    public static final int VALID_INTEGER = 5;
+    public static final int VALID_ZERO = 0;
+    public static final int VALID_NEGATIVE = -1;
+    public static final double VALID_DOUBLE = 3.14;
+
     public static final String INVALID_QUESTION_NUMBER_1 = "q14a";
     public static final String INVALID_QUESTION_NUMBER_2 = "qabc";
     public static final String INVALID_QUESTION_BLANK = "q";
@@ -68,4 +74,5 @@ public class CommandTestUtility {
     public static final String INVALID_SCORE_CONTAINS_ALPHABETS = "12s4";
 
     public static final String WHITESPACE = " ";
+    public static final String RANDOM_STRING = "This is a very random string";
 }

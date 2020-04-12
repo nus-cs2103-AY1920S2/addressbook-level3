@@ -2,7 +2,6 @@ package hirelah.logic.parser;
 
 import static hirelah.logic.commands.CommandTestUtility.INVALID_DUMMY_VALUE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_COMMAND_ADD;
-import static hirelah.logic.commands.CommandTestUtility.VALID_COMMAND_BEST;
 import static hirelah.logic.commands.CommandTestUtility.VALID_COMMAND_DELETE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_COMMAND_EDIT;
 import static hirelah.logic.commands.CommandTestUtility.VALID_COMMAND_EXIT;
@@ -14,7 +13,6 @@ import static hirelah.logic.commands.CommandTestUtility.VALID_COMMAND_OPEN;
 import static hirelah.logic.commands.CommandTestUtility.VALID_COMMAND_RESUME;
 import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANICE;
-import static hirelah.logic.commands.CommandTestUtility.VALID_NUMBER_1;
 import static hirelah.logic.commands.CommandTestUtility.VALID_PLURAL_ATTRIBUTE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_PLURAL_INTERVIEWEE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_PLURAL_METRIC;
@@ -29,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import hirelah.logic.commands.AddIntervieweeCommand;
-import hirelah.logic.commands.BestCommand;
 import hirelah.logic.commands.Command;
 import hirelah.logic.commands.DeleteIntervieweeCommand;
 import hirelah.logic.commands.EditIntervieweeCommand;
@@ -45,7 +42,6 @@ import hirelah.logic.commands.OpenReportCommand;
 import hirelah.logic.commands.OpenResumeCommand;
 import hirelah.logic.commands.StartInterviewCommand;
 import hirelah.logic.parser.exceptions.ParseException;
-import hirelah.model.hirelah.BestParameter;
 
 class NormalParserTest {
 
@@ -139,12 +135,6 @@ class NormalParserTest {
     void parse_validOpenResumeCommand_success() throws ParseException {
         Command result = parser.parseCommand(VALID_COMMAND_RESUME + WHITESPACE + VALID_INTERVIEWEE_JANE);
         assertEquals(result, new OpenResumeCommand("Jane Doe"));
-    }
-
-    @Test
-    void parse_validBestCommand_success() throws ParseException {
-        Command result = parser.parseCommand(VALID_COMMAND_BEST + WHITESPACE + VALID_NUMBER_1);
-        assertEquals(result, new BestCommand("1", BestParameter.OVERALL));
     }
 
     @Test
