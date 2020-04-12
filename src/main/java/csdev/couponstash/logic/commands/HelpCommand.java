@@ -21,7 +21,8 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Shows program user guide in a browser window!\n\n"
+            + ": Shows program user guide in a browser window. "
+            + "Will take some time if it is the first time running this command!\n\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened program user guide in a browser window.";

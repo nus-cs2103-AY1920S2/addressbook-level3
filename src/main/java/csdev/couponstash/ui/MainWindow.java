@@ -2,9 +2,8 @@ package csdev.couponstash.ui;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
@@ -23,8 +22,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -145,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
 
             // command involves sharing a coupon
             if (commandResult.getCouponToShare().isPresent()) {
-                String filePath =  handleShare(commandResult.getCouponToShare().get());
+                String filePath = handleShare(commandResult.getCouponToShare().get());
                 calendarResultPane.setFeedbackToUser(
                         String.format(ShareCommand.MESSAGE_SHARE_COUPON_SUCCESS, filePath)
                 );
@@ -173,6 +170,12 @@ public class MainWindow extends UiPart<Stage> {
         expandedCouponWindow.show();
     }
 
+    /**
+     * Save coupon as an image.
+     * @param couponToShare Coupon to be saved as an image
+     * @return The path where the image was saved
+     * @throws IOException When user closes save dialog or an error occurred when writing the image
+     */
     public String handleShare(Coupon couponToShare) throws IOException {
         // Create new CouponCard and get the Region
         Region couponRegion = new CouponCard(
