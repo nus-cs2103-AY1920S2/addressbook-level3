@@ -43,7 +43,8 @@
                      AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="125" />
 
           <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                     AnchorPane.bottomAnchor="80.0">
+                     AnchorPane.bottomAnchor="80.0"
+                     minHeight="50" prefHeight="50" maxHeight="50">
             <padding>
               <Insets top="5" right="10" bottom="5" left="10" />
             </padding>
@@ -58,7 +59,8 @@
             </padding>
           </StackPane>
           <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                     AnchorPane.bottomAnchor="0.0"/>
+                     AnchorPane.bottomAnchor="0.0"
+                     minHeight="30" prefHeight="30" maxHeight="30"/>
       </AnchorPane>
     </Scene>
   </scene>
