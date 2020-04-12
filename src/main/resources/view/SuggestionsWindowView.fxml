@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="suggestionsBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      styleClass="suggestions-Window" >
+    <Label fx:id="responseText" VBox.vgrow="NEVER" prefWidth="Infinity" managed="false">
+        <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+        </padding>
+    </Label>
+    <ListView fx:id="suggestionsListPanel" VBox.vgrow="NEVER" managed="false"/>
+</VBox>
