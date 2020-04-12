@@ -25,7 +25,7 @@ import javafx.stage.Window;
  */
 public class SuggestionsWindowView extends ViewPart<Region> {
 
-    private static final String FXML = "SuggestionsWindowView.fxml";
+    private static final String FXML = "suggestion/SuggestionsWindowView.fxml";
     private static final int LIST_CELL_HEIGHT = 36;
 
     @FXML

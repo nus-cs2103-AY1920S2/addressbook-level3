@@ -402,3 +402,7 @@
     -fx-font-size: 14;
     -fx-text-fill: #616e7c;
 }
+
+#searchFrequencyLabel {
+    -fx-font-family: "Roboto Medium";
+}
