@@ -46,7 +46,7 @@ activate PersonAmountBook
 PersonAmountBook --> SplitterModelManager: String
 deactivate PersonAmountBook
 
-SplitterModelManager --> ListAmountCommand
+SplitterModelManager --> ListAmountCommand : String
 deactivate SplitterModelManager
 
 create CommandResult

@@ -945,8 +945,10 @@ The following is a detailed explanation of the operations `ListReceiptCommand` p
 
 3. The method `Receipt#toString()` will use StringBuilder to build the string of the Items(s) currently in
 Receipt by calling `Entry.toString()` for entry. After all entries are done, `Receipt#toString()` would have
-finish building the string and will return to SplitterModelManager where it will be printed out.
+finish building the string and will return to SplitterModelManager.
 
+4. 4. SplitterModelManager will then pass the String into CommandResult where it will be printed under the UI
+component.
 
 *Sequence Diagram for List Receipt Command*
 
@@ -1003,7 +1005,10 @@ The following is a detailed explanation of the operations ListAmountCommand perf
 2. The method `SplitterModel#listAmount()` will then be called to return the list of Person(s) with their amount.
 
 3. `PersonAmountBook#toString()` will convert list of person in the list to the expected format and return it to
-SplitterModelManager where it will be printed out.
+SplitterModelManager.
+
+4. SplitterModelManager will then pass the String into CommandResult where it will be printed under the UI
+component.
 
 *Sequence Diagram for List Amount Command*
 
