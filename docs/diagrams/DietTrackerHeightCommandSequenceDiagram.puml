@@ -2,12 +2,12 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":DietLogicManager" as LogicManager LOGIC_COLOR
 participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
 participant ":HeightCommandParser" as HeightCommandParser LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 participant "h:HeightCommand" as HeightCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -35,7 +35,7 @@ deactivate HeightCommandParser
 FoodBookParser -> HeightCommandParser : parse("170.2")
 activate HeightCommandParser
 
-create ParserUtil
+
 HeightCommandParser -> ParserUtil : parseHeight("170.2")
 activate ParserUtil
 
@@ -50,7 +50,7 @@ ParserUtil --> HeightCommandParser : height
 deactivate ParserUtil
 
 create HeightCommand
-HeightCommandParser -> HeightCommand
+HeightCommandParser -> HeightCommand : height
 activate HeightCommand
 
 HeightCommand --> HeightCommandParser : h
@@ -65,7 +65,7 @@ destroy HeightCommandParser
 FoodBookParser --> LogicManager : h
 deactivate FoodBookParser
 
-LogicManager -> HeightCommand : execute()
+LogicManager -> HeightCommand : execute(model)
 activate HeightCommand
 
 HeightCommand -> Model : setHeight(height)
@@ -81,8 +81,12 @@ activate CommandResult
 CommandResult --> HeightCommand
 deactivate CommandResult
 
-HeightCommand --> LogicManager : commandResult
+HeightCommand --> LogicManager : result
 deactivate HeightCommand
+
+HeightCommand -[hidden]-> LogicManager
+destroy HeightCommand
+destroy HeightHeight
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
 activate FoodBookStorage

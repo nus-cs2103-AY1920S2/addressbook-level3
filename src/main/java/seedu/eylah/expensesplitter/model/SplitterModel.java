@@ -1,5 +1,6 @@
 package seedu.eylah.expensesplitter.model;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -20,6 +21,16 @@ public interface SplitterModel extends Model {
 
     @Override
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     * Returns the user prefs' food book file path.
+     */
+    Path getPersonAmountBookFilePath();
+
+    /**
+     * Sets the user prefs' person amount bookfile path.
+     */
+    void setPersonAmountBookFilePath(Path personAmountBookFilePath);
 
     /**
      * Adds an entry to the receipt.
@@ -63,7 +74,7 @@ public interface SplitterModel extends Model {
     Receipt getReceipt();
 
     void clearReceipt();
-
+    
     /**
      * Returns true if a person with the same identity as
      * {@code person} exists in the person amount book.

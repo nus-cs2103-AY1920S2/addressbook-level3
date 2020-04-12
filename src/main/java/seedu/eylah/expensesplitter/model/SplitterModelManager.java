@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
+import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -149,6 +150,16 @@ public class SplitterModelManager implements SplitterModel {
 
     //=========== PersonAmountBook ===============================================================================
 
+    @Override
+    public void setPersonAmountBookFilePath(Path addressBookFilePath) {
+        requireAllNonNull(addressBookFilePath);
+        super.getUserPrefs().setPersonAmountBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public Path getPersonAmountBookFilePath() {
+        return super.getUserPrefs().getPersonAmountBookFilePath();
+    }
 
     @Override
     public ReadOnlyPersonAmountBook getPersonAmountBook() {

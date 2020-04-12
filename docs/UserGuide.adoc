@@ -387,7 +387,7 @@ and the <<bmiexpectedoutcome, expected outcome>> after using the
 `bmi` command.
 
 *Summary of Bmi Command:* +
-`bmi` You can calculate your BMI either through an input Height and Weight or your previously stored Height and Weight. +
+`bmi` You can calculate your BMI either through an input height and weight or your previously stored Height and Weight. +
 
 It will display the following data: +
 
