@@ -104,16 +104,17 @@ public class SplitterModelManager implements SplitterModel {
      * Command for listing the Receipt.
      */
     @Override
-    public void listReceipt() {
-        System.out.println(receipt.toString());
+    public String listReceipt() {
+
+        return receipt.toString();
     }
 
     /**
      * Command for listing all person with their amount.
      */
     @Override
-    public void listAmount() {
-        System.out.println(personAmountBook);
+    public String listAmount() {
+        return personAmountBook.toString();
     }
 
     /**

@@ -62,12 +62,12 @@ public interface SplitterModel extends Model {
     /**
      * Command for listing all person with their amount.
      */
-    void listAmount();
+    String listAmount();
 
     /**
      * Command for listing all items in that receipt.
      */
-    void listReceipt();
+    String listReceipt();
 
     boolean isReceiptDone();
 

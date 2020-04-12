@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.eylah.expensesplitter.testutil.TypicalEntries.getTypicalReceiptBook;
+import static seedu.eylah.expensesplitter.testutil.TypicalEntries.getTypicalReceiptBookToString;
 import static seedu.eylah.expensesplitter.testutil.TypicalPersons.getTypicalPersonAmountBook;
 import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -31,18 +32,24 @@ public class ListReceiptCommandTest {
             splitterModel.getPersonAmountBook(), new UserPrefs());
     }
 
+
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListReceiptCommand(), splitterModel, ListReceiptCommand.MESSAGE_SUCCESS,
+
+        assertCommandSuccess(new ListReceiptCommand(), splitterModel,
+            getTypicalReceiptBookToString() + ListReceiptCommand.MESSAGE_SUCCESS,
             expectedSplitterModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(splitterModel, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListReceiptCommand(), splitterModel, ListReceiptCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ListReceiptCommand(), splitterModel, getTypicalReceiptBookToString()
+                + ListReceiptCommand.MESSAGE_SUCCESS,
             expectedSplitterModel);
     }
+
+
 
     @Test
     public void equals() {
