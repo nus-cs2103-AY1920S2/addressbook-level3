@@ -1,0 +1,43 @@
+@startuml AddExerciseCommandSequenceDiagramPart3
+!include style.puml
+
+box Model MODEL_COLOR_T1
+    Participant "clientToEditExerciseList:UniqueExerciseList" as exerciseList MODEL_COLOR
+    Participant "toAddDate:LocalDate" as toAddDate MODEL_COLOR
+end box
+
+group conditional checks
+    activate exerciseList MODEL_COLOR
+
+    exerciseList -[MODEL_COLOR]> toAddDate  : compareTo(currDate)
+    activate toAddDate MODEL_COLOR
+
+    toAddDate --[MODEL_COLOR]> exerciseList  : dateComparision
+    deactivate toAddDate
+
+    alt dateComparision > 0
+    note over exerciseList
+    break from loop
+    end note
+
+    else dateComparision == 0
+
+        alt toAddName.compareTo(currName) >= 0
+        note over exerciseList
+        break from loop
+        end note
+        else
+        note over exerciseList
+        increase index
+        end note
+        end
+    else else
+        note over exerciseList
+        increase index
+        end note
+
+    end
+
+end
+
+@enduml
