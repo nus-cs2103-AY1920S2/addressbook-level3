@@ -12,14 +12,15 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
-ifdef::env-github[]
+:icons: font
 :tip-caption: :bulb:
 :note-caption: :information_source:
-endif::[]
+:caution-caption: :fire:
 :repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/
 
 By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
+//tag::introduction[]
 == Introduction
 
 Are you a *Teaching Assistant* in *NUS School of Computing (NUS SOC)* who is tired of having to
@@ -49,6 +50,8 @@ can type fast and prefer to use a keyboard, and
 you can easily view all your *teaching duties*.
 
 If you are interested, jump to <<Quick Start>> to discover how easy it is to fill out forms using *TA-Tracker*.
+//end::introduction[]
+//tag::quickstart[]
 
 == Quick Start
 
@@ -67,6 +70,11 @@ This is how the GUI may look like when the TA-Tracker is opened.
 .  Type a command in the command box, and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
++
+image::CommandBox.png[,2000]
+This diagram explains what a `Result Display` and `Command Box` are.
++
+
 .  Refer to <<Usage>> for details of each command.
 
 NOTE: TA-Tracker data is saved periodically so you don't have to worry about saving
@@ -75,6 +83,8 @@ your data manually.
 == About the User Guide
 This User Guide introduces you to TA-Tracker's features and shows you how you can use
 the TA-Tracker to make your life as a Teaching Assistant easier.
+//end::quickstart[]
+//tag::commonsymbols[]
 
 === Common Symbols
 This section shows you the symbols commonly used in this guide.
@@ -93,6 +103,8 @@ This symbol indicates that a tip is being mentioned.
 ====
 This symbol indicates that there is something you should be careful to avoid.
 ====
+//end::commonsymbols[]
+//tag::commandformat[]
 
 === Command Format
 
@@ -176,6 +188,8 @@ This means that it can be:
 `t/friend t/family`
 
 |=======================================================================
+//end::commandformat[]
+//tag::commonparameters[]
 
 === Common Parameters
 
@@ -363,6 +377,8 @@ The domain name must also:
 *johnDoe97@example123.com*
 
 |=======================================================================
+//end::commonparameters[]
+//tag::duplicateparameters[]
 
 ==== Duplicate Parameters
 
@@ -404,6 +420,8 @@ If you execute this command, you will create a *module* with the name `Software 
 The name `SE` will be ignored.
 
 |=======================================================================
+//end::duplicateparameters[]
+//tag::rearrangingparameters[]
 
 ==== Rearranging Parameters
 
@@ -421,6 +439,8 @@ For example, if a command needs an `INDEX`, it must be the *first parameter*:
 
 * `INDEX n/NAME` is valid, but
 * `n/NAME INDEX` is invalid
+//end::rearrangingparameters[]
+//tag::layout[]
 
 [[Layout]]
 == Layout
@@ -457,24 +477,30 @@ the same size*. +
 +
 This is to *prevent* the highlights from *overlapping* each other,
 allowing you to see them better.
+
+image::Tabs.png[width="790"]
+This shows what happens when you last made a change in the `student tab`
+and then clicked on the `claims tab`.
 ====
+//end::layout[]
+//tag::studentview[]
 
 === Student View
 Under the `student tab`, the *Student View* is used to show you the students that you're teaching. The students
 have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
 three columns.
 
-. The first column shows you a list of all the modules that you are a teaching
+. The first column shows you a *list of all the modules* that you are a teaching
 assistant for.
 
-. The second column shows you a list of all groups that you're a teaching assistant for
-in a module of your choice.
+. The second column shows you a *list of all groups* that you're a teaching assistant
+for *in a module of your choice*.
 If you haven't chosen anything, you will be shown the groups of the module
-in the first index in the list of modules by default.
+in the *first index* in the list of modules by default.
 
-. The third column shows you a list of all students in the group of your choice. If you
+. The third column shows you a *list of all students* in the *group of your choice*. If you
 haven't chosen anything, you will be shown the students of the group in the
-first index in the list of groups by default.
+*first index* in the list of groups by default.
 
 The purpose of the *Student View* is to help you keep track a of your students. It will
 show you information such as:
@@ -489,6 +515,11 @@ show you information such as:
 ====
 The `RATING` value must be a positive integer.
 ====
+
+image::StudentView.png[,1000]
+This is an example of what the Student View might look like.
+//end::studentview[]
+//tag::sessionview[]
 
 === Session View
 Under the `session tab`, the *Session View* contains a list of the upcoming sessions
@@ -506,6 +537,11 @@ duties. It will show you information such as:
 * `NOTES`: any additional information
 * `WEEK`: the recurring period of the session
 
+image::SessionView.png[,1000]
+This is an example of what the Session View might look like.
+//end::sessionview[]
+//tag::claimsview[]
+
 === Claims View
 Under the `claims tab`, the *Claims View* contains a list of all the claimable teaching
 duties you have completed so far.
@@ -516,15 +552,20 @@ you can easily enter it into the TSS claims form at the end of the semester.
 The *Claims View* has been
 divided into two columns.
 
-. The first column shows you a list of all the modules that you are a teaching
+. The first column shows you a *list of all the modules* that you are a teaching
 assistant for.
 
-. The second column shows you a list of all the sessions that you have marked as done.
+. The second column shows you a *list of all the sessions* that you have *marked as done*.
+
+image::ClaimsView.png[,1000]
+This is an example of what the Claims View might look like.
+//end::claimsview[]
 
 [[Usage]]
 == Usage
 This section describes how you can interact with *TA-Tracker*.
 
+//tag::keyboard[]
 === Keyboard Shortcuts
 You can navigate everything in *TA-Tracker* with just a *keyboard*!
 
@@ -561,6 +602,8 @@ arrow keys
 (you must toggle out of the `command box` in order to use this shortcut)
 
 |=======================================================================
+//end::keyboard[]
+//tag::syntax[]
 
 === Syntax Highlighting
 When you type a command into the `command box`, your input will be *highlighted*.
@@ -590,6 +633,12 @@ The *default* font colour.
 
 |=======================================================================
 
+image::ValidInput.png[,1000]
+This is an example of a valid input.
+
+image::InvalidInput.png[,1000]
+This is an example on an invalid input.
+
 === Hints
 When you type out a command, you will also see `hints` about how to use the command.
 
@@ -618,6 +667,10 @@ Showing the *parameter usage*
 
 |=======================================================================
 
+image::Default.png[,1000]
+This is an example of what a hint may look like.
+//end::syntax[]
+
 [[Commands]]
 == Commands
 This section explains how to use all the `CLI` commands in *TA-Tracker*.
@@ -626,14 +679,22 @@ This section explains how to use all the `CLI` commands in *TA-Tracker*.
 
 These commands are used to control the different *windows* in *TA-Tracker*,
 as well as switching between the different *Views*.
+//end::syntax[]
+//tag::help[]
 
 ==== Viewing help : `help`
 
-You can open the `help window` with this command. You can close the `help window` by pressing the `ESC` key
+You can open the `help window` with this command. You can close the `help window`
+by pressing the kbd:[ESC] key
 on your keyboard.
 
 
 Format: `help`
+
+image::HelpWindow.png[width="790"]
+This is what the `help` window looks like.
+//end::help[]
+//tag::goto[]
 
 ==== Switching tabs : `goto`
 
@@ -651,16 +712,20 @@ Example:
 
 `goto student`
 
-This command will take you to the `student tab`.
+image::GotoStudent.png[width="790"]
+This command takes you to the `student tab`.
 
 ====
-
+//end::goto[]
+//tag::exit[]
 
 ==== Exiting the program : `exit`
 
 You can exit the program with this command.
 
 Format: `exit`
+//end::exit[]
+//tag::list[]
 
 ==== Listing all sessions : `list`
 
@@ -668,13 +733,16 @@ Format: `exit`
 
 [TIP]
 ====
-* You can use this command to display all your sessions after using the *filter* command.
+* You can use this command to display all your sessions after using the `session filter`
+or `claims filter` command.
 ====
+//end::list[]
 
 === Student View
 
 This section explains all the commands you can use in the *Student View*.
 
+//tag::addmodule[]
 [[AddModule]]
 ==== Adding a Module : `module add`
 
@@ -689,15 +757,15 @@ Format: `module add m/MOD_CODE n/NAME`
 
 [NOTE]
 ====
-* You can't have two modules with the same module code in the TA-Tracker.
+* You *can't* have two modules with the *same module code* in the TA-Tracker.
 
-* MOD_CODE and MOD_NAME can't be an empty string or a sequence of spaces.
+* `MOD_CODE` and `MOD_NAME` can't be an empty string or a sequence of spaces.
 
-* You can give a module your own custom MOD_CODE or NAME if you find it easier
-to remember. However,  we recommend you use the official
-module code and name for it.
+* You can give a module your own *custom* `MOD_CODE` or `NAME` if you find it easier
+to remember. However,  we recommend you use the *official
+module code and name* for it.
 
-* If the module name or module code are very long, you can increase the width of
+* If the module name or module code are very long, you can *increase the width* of
 the module name list by dragging the edge with your cursor. However, we suggest not
 giving the modules long codes or long names. The standard official names are usually
 of a good length.
@@ -713,11 +781,16 @@ care to ensure that the code is correct.
 ====
 Examples:
 
-* `module add m/CS2103 n/Software Engineering`
+* `module add m/CS2100 n/Computer Organisation`
 +
-This will add a module with the module code `CS2103` and name `Software Engineering`
+
+image::ModuleAdd.png[,1000]
+This will add a module with the module code `CS2100` and name `Computer Organisation`
 to the TA-Tracker.
+
 ====
+//end::addmodule[]
+//tag::deletemodule[]
 
 [[DeleteModule]]
 ==== Deleting a Module : `module delete`
@@ -742,10 +815,13 @@ Format: `module delete m/MOD_CODE`
 ====
 Examples:
 
-* `module delete m/CS2103`
+* `module delete m/CS2103T`
 +
-This will delete the module with the module code `CS2103` from the TA-Tracker.
+image::ModuleDelete.png[,1000]
+This will delete the module with the module code `CS2103T` from the TA-Tracker.
 ====
+//end::deletemodule[]
+//tag::editmodule[]
 
 [[EditModule]]
 ==== Editing a Module : `module edit`
@@ -774,10 +850,13 @@ groups inside the module.
 ====
 Examples:
 
-* `module edit m/CS2103 n/Software Engineering`
+* `module edit m/CS3243 n/Intro to AI`
 +
-This will change the name of the module with module code `CS2103` to `Software Engineering`.
+image::ModuleEdit.png[,1000]
+This will change the name of the module with module code `CS3243` to `Intro to AI`.
 ====
+//end::editmodule[]
+//tag::addgroup[]
 
 [[AddGroup]]
 ==== Adding a Group : `group add`
@@ -810,11 +889,14 @@ group code for it.
 ====
 Examples:
 
-* `group add g/G03 m/CS2103 t/tutorial`
+* `group add g/G03 m/CS2100 t/tutorial`
 +
+image::GroupAdd.png[,1000]
 This will add a group with the group code `G03`, which is a `tutorial`, inside the module that
-has module code `CS2103`.
+has module code `CS2100`.
 ====
+//end::addgroup[]
+//tag::deletegroup[]
 
 [[DeleteGroup]]
 ==== Deleting a Group : `group delete`
@@ -844,11 +926,14 @@ you want to delete.
 ====
 Examples:
 
-* `group delete g/G03 m/CS2103`
+* `group delete g/G06 m/CS3243`
 +
-This will delete the group with the group code `G03` from the module that
-has module code `CS2103`.
+image::GroupDelete.png[,1000]
+This will delete the group with the group code `G06` from the module that
+has module code `CS3243`.
 ====
+//end::deletegroup[]
+//tag::editgroup[]
 
 [[EditGroup]]
 ==== Editing a Group : `group edit`
@@ -883,11 +968,14 @@ same group code as the new group code.
 ====
 Examples:
 
-* `group edit g/G03 m/CS2103 nt/tutorial`
+* `group edit g/G01 m/CS3243 nt/lab`
 +
-This will change the group type of the group with group code `G03`, inside the module with
-module code `CS2103`, to be a `tutorial`.
+image::GroupEdit.png[,900]
+This will change the group type of the group with group code `G01`, inside the module with
+module code `CS3243`, to be a `lab`.
 ====
+//edit::editgroup[]
+//tag::addstudent[]
 
 [[AddStudent]]
 ==== Adding a Student : `student add`
@@ -917,10 +1005,11 @@ space after the hyphen, the second half of the name will not be capitalised.
 ====
 Examples:
 
-* `student add id/A0123456J n/Alice m/CS2103 g/G03`
+* `student add id/A0123456J n/Alice m/CS2100 g/G03`
 +
+image::StudentAdd.png[width="790"]
 This will add a student named Alice with the matriculation number `A0123456J`
-inside group `G03` of the module `CS2103`.
+inside group `G03` of the module `CS2100`.
 ====
 
 [TIP]
@@ -935,7 +1024,8 @@ command or,
 * you can edit their rating later by using the `student edit` command (details given below
 in 5.2.9.)
 ====
-
+//tag::endstudent[]
+//tag::deletestudent[]
 
 [[DeleteStudent]]
 ==== Deleting a Student : `student delete`
@@ -961,11 +1051,14 @@ Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 ====
 Examples:
 
-* `student delete id/A0123456J g/G03 m/CS2103`
+* `student delete m/CS3243 g/G01 id/A0187945J`
 +
-Deletes the student with the matriculation number `A0123456J` from group `G03` of
-the module `CS2103`.
+image::StudentDelete.png[,900]
+Deletes the student with the matriculation number `A0187945J` from group `G01` of
+the module `CS3243`.
 ====
+//end::deletestudent[]
+//tag::editstudent[]
 
 [[EditStudent]]
 ==== Editing a Student : `student edit`
@@ -1003,20 +1096,25 @@ Format: `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE
 ====
 Examples:
 
-* `student edit id/A0123456J g/G03 m/CS2103 p/91234567 e/johndoe@example.com`
+* `student edit id/A0181137L g/G01 m/CS3243 p/91234567 e/bernie@example.com r/4`
 +
-Edits the student with the matriculation number `A0123456J` to have:
+image::StudentEdit.png[width="790"]
+Edits the student with the matriculation number `A0181137L` from group `G01`
+of module `CS3243` to have:
 
+** The new rating of `4`
 ** The new phone number `91234567`
-** The new email address `johndoe@example.com`
+** The new email address `bernie@example.com`
 
-* `student edit A9876543K n/Betsy Crower t/`
+* `student edit m/CS3243 g/G01 id/A0186153P t/`
 +
-Edits student with the matriculation number `A9876543K` to have:
+image::StudentEditTag.png[width="790"]
+Edits student with the matriculation number `A0186153P` to have:
 
-** The new name `Betsy Crower`
 ** All existing tags removed
 ====
+//end::editstudent[]
+//tag::sortgroup[]
 
 [[Sort]]
 ==== Sorting a Group : `sort group`
@@ -1051,11 +1149,14 @@ Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
 ====
 Examples:
 
-* `sort group g/G03 m/CS2103 t/alpha`
+* `sort group g/G01 m/CS3243 t/rating asc`
 +
-Sorts the student inside `G03` of module `CS2103` `alphabetically`.
+image::SortGroup.png[width="790"]
+Sorts the student inside `G01` of module `CS3242` by `rating asc` (that is, rating in
+ascending order).
 ====
-
+//end::sortgroup[]
+//tag::sortmodule[]
 
 ==== Sorting a Module : `sort module`
 
@@ -1093,6 +1194,8 @@ Examples:
 +
 Sorts all students inside all groups inside the module `CS2103` `alphabetically`.
 ====
+//end::sortmodule[]
+//tag::sortall[]
 
 ==== Sorting Everything : `sort all`
 
@@ -1128,6 +1231,8 @@ Examples:
 +
 Sorts all students in all groups inside all modules `alphabetically`.
 ====
+//end::sortall[]
+//tag::filterstudent[]
 
 [[FilterStudent]]
 ==== Filter : `filter`
@@ -1160,9 +1265,10 @@ by the module code.
 ====
 Examples:
 
-* `student filter m/cs2103t g/g06`
+* `student filter m/cs2100 g/g03`
 +
-This will show you all students in module `CS2103T`, under group `G06`.
+image::FilterStudent.png[width="790"]
+This will show you all students in module `CS2100`, under group `G03`.
 ====
 
 If you use just the module code, you will see:
@@ -1179,9 +1285,10 @@ Format: `student filter m/MOD_CODE`
 ====
 Examples:
 
-* `student filter m/cs2103t`
+* `student filter m/cs3243`
 +
-This shows you the students in the first group of the module `CS2103`
+image::FilterModule.png[width="790"]
+This shows you the students in the first group of the module `CS3243`
 ====
 
 [NOTE]
@@ -1189,12 +1296,13 @@ This shows you the students in the first group of the module `CS2103`
 [horizontal]
 *Keywords are case-insensitive. e.g. `cs2103t` is the same as `CS2103T`*
 ====
-
+//end::filterstudent[]
 
 === Session View
 
 This section explains the different commands that can be used in the *Session View*.
 
+//tag::addsession[]
 [[AddSession]]
 ==== Adding a Session : `session add`
 
@@ -1227,8 +1335,9 @@ such as your weekly lab sessions or fortnightly assignment grading.
 ====
 Examples:
 
-* `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2 t/consultation n/with Alice and Bob`
+* `session add m/CS3243 s/14:00 e/16:00 d/2020-06-20 w/2 t/consultation n/with Alice and Bob`
 +
+image::SessionAdd.png[width="790"]
 Adds a new session with:
 
 ** `START_TIME` at 14:00 in `24hr` format
@@ -1236,11 +1345,14 @@ Adds a new session with:
 ** `DATE` on 2020-06-20 in `yyyy-MM-dd` format
 ** `WEEK` recurring period of 2 weeks: Once this session has been marked as done, a new session will
 be created with `DATE d/2020-07-04` (2 weeks later from the date of the original session)
-** `MOD_CODE` of CS2103T
+** `MOD_CODE` of CS3243
 ** `TYPE` consultation
 ** `NOTE` "with Alice and Bob"
 
 ====
+//end::addsession[]
+//tag::deletesession[]
+
 ==== Deleting a Session : `session delete`
 
 You can use this command to delete a session at a specific `index`.
@@ -1258,10 +1370,13 @@ Do not confuse the `session delete` and `session done` commands.
 ====
 Examples:
 
-* `session delete 3`
+image::SessionDelete.png[width="790"]
+* `session delete 1`
 +
-This command deletes the third session in the *Session View*.
+This command deletes the first session in the *Session View*.
 ====
+//end::deletesession[]
+//tag::editsession[]
 
 ==== Editing a Session : `session edit`
 You can use this command to edit a session in the TA-Tracker.
@@ -1280,17 +1395,19 @@ Format: `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR]
 ====
 Examples:
 
-* `edit 1 s/14:00 e/16:00 d/2020-02-19 m/CS3243 t/grading n/Location: PLAB 04`
+* `session edit 1 s/14:00 e/16:00 d/2020-02-19 t/grading n/Location: PLAB 04`
 +
+image::SessionEdit.png[width="790"]
 Edits the session at index 1 to have:
 
 ** The new `START_TIME` at 14:00
 ** The new `END_TIME` at 16:00
 ** The new `DATE` on 2020-02-19 in `yyyy-MM-dd` format
-** The new `MOD_CODE` CS3243
 ** The new `TYPE` grading
 ** The new `NOTE` "Location: PLAB04"
 ====
+//end::editsession[]
+//tag::donesession[]
 
 ==== Marking a Session as Done : `session done`
 
@@ -1310,9 +1427,12 @@ Marks the session with the given unique index as done.
 ====
 Examples:
 
-* `session done 25` +
-This will mark the 25th session in the *Session View* as done.
+image::SessionDone.png[width="790"]
+* `session done 2` +
+This will mark the 2nd session in the *Session View* as done.
 ====
+//end::donesession[]
+//tag::filtersession[]
 
 ==== Filter : `filter`
 
@@ -1340,28 +1460,32 @@ Format: `session filter [m/MOD_CODE] [t/SESSION_TYPE] [d/DATE]`
 ====
 Example:
 
-* `session filter m/CS2103T`
+* `session filter m/CS3243`
 +
-All sessions in the *Session View* with module code `CS2103T` are displayed.
+image::SessionFilter.png[width="790"]
+All sessions in the *Session View* with module code `CS3243` are displayed.
 
-* `session filter m/CS2030T t/tutorial`
+* `session filter m/CS3243 t/tutorial`
 +
 All sessions in the *Session View* with module code `CS2103T`,
 *or* session type `Tutorial` will be shown.
 
-* `session filter m/CS2030T t/tutorial d/2020-03-20`
+* `session filter m/CS3243`
 +
-All sessions in the *Session View* that take place either on `2020-03-20`, *or* with module code `CS2103T`,
-*or* session type `Tutorial` will be shown.
+image::SessionFilterMultiple.png[width="790"]
+All sessions in the *Session View* with module code  `CS2103T`
+will be shown.
 ====
 
 [NOTE]
 ====
 As long as a session contains one of the keyword given by the user, the session will be shown to the user.
 ====
+//end::filtersession[]
 
 === Claims View
 
+//tag::filterclaims[]
 ==== Filter : `filter`
 
 You can use this command to filters sessions in the *Claims View* by the module code.
@@ -1375,10 +1499,13 @@ Format: `claims filter m/MOD_CODE`
 ====
 Example:
 
-* `claims filter m/CS2103T`
+* `claims filter m/CS3243`
 +
-All sessions in the *Claims View* with module code `CS2103T` are displayed.
+image::ClaimsFilter.png[width="790"]
+All sessions in the *Claims View* with module code `CS3243` are displayed.
 ====
+//end::filterclaims[]
+//tag::setrate[]
 
 [#setrate]
 ==== Changing the hourly rate : `setrate`
@@ -1389,7 +1516,7 @@ Format: `setrate RATE`
 
 [NOTE]
 ====
-* If you don't specify a rate, it is set at $40.00 by default (the rate at which most SOC TAs are being paid per hour).
+* If you don't specify a rate, it is set at $40 by default (the rate at which most SOC TAs are being paid per hour).
 * `RATE` is the amount you want to change the hourly rate to, this value will be used to calulate the
 `Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
 * The `RATE` must be a positive integer.
@@ -1397,8 +1524,12 @@ Format: `setrate RATE`
 
 Examples:
 
-* `setrate 25` +
-Sets the current hourly rate to $25.00.
+* `setrate 25`
++
+image::SetRate.png[width="790"]
+Sets the current hourly rate to $25.
+//end::setrate[]
+//tag::statistics[]
 
 === Statistics Window
 
@@ -1426,11 +1557,15 @@ Example:
 
 * `report`
 +
+image::Statistics.png[,1000]
 Generate and display a report of sessions and students from all modules.
 
-* `report CS3243`
+* `report CS2103T`
 +
+image::CS2103Statistics.png[,1000]
 Generate and display a report of sessions and students from the module CS3243.
+//end::statistics[]
+//tag::glossary[]
 
 == Glossary
 
@@ -1470,13 +1605,16 @@ lab , tutorial , recitation
 students, for discussion of a subject that is being studied.  |
 
 |=======================================================================
-
+//end::glossary[]
+//tag::faq[]
 
 == FAQ
 
 *Q*: How can I transfer my data to another Computer? +
 *A*: You can do so by first installing the app in another computer. You can then replace
 the empty data file it creates with the data file of your previous TA-Tracker folder.
+//end::faq[]
+//tag::summary[]
 
 == Command Summary
 
@@ -1525,3 +1663,4 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 
 === Statistics
 * *Generate Statistics Report:* `report [MOD_CODE]`
+//end::summary[]
