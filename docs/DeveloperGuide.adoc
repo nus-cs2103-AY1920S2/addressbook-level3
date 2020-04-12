@@ -1108,6 +1108,43 @@ Expected: Module CS2030 will be changed to the name Java OOP Class.
 .. Other incorrect delete commands to try: `del m/` (key in module code), `delete m/cs2030` (del instead of delete) _{give more}_ +
    Expected: Similar to previous.
 
+=== Done
+. Once an activity is done, it will be displayed differently.
+. Initialise this data
+`add m/CS2030 n/Programming Methodology`
+`deadline m/CS2030 a/Homework d/20-06-2020 00:00`
+
+.. Test case: `done 1 m/CS2030`
+Expected: Activity "Homework" will have a tick icon displayed in the checkbox.
+
+=== Continue
+. Undone an activity, when you think that you have not finished the activity.
+. Initialise this data
+`add m/CS2030 n/Programming Methodology`
+`deadline m/CS2030 a/Homework d/20-06-2020 00:00`
+`done 1 m/CS2030`
+
+.. Test case: `continue 1 m/CS2030`
+Expected: The checkbox will be un-tick.
+
+=== Find
+. Find an activity using `find activity name`
+. Initialise this data
+`add m/CS2030 n/Programming Methodology`
+`deadline m/CS2030 a/Homework d/20-06-2020 00:00`
+`deadline m/CS2030 a/Lab d/20-06-2020 00:00`
+`deadline m/CS2030 a/Project d/20-06-2020 00:00`
+`deadline m/CS2030 a/Tutorial d/20-06-2020 00:00`
+
+.. Test case: `find Homework`
+Expected: All except Homework will be hide from the screen.
+
+.. Test case: `find `
+Expected: Expected an input, an error message invalid command format will be displayed.
+
+.. Test case: `find No Such Activity`
+Expected: All activity will be hide, as there is no such activity with the name.
+
 === Editing an Activity
 
 . Editing an activity
