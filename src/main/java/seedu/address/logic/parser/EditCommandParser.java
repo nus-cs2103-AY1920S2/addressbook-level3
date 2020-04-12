@@ -87,7 +87,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                     throw new ParseException(MESSAGE_MISSING_NEW_TASK_OR_DEADLINE);
                 }
                 if (arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
-                    newTask = argMultimap.getValue(PREFIX_NEW_TASK).get().trim().toLowerCase();
+                    newTask = argMultimap.getValue(PREFIX_NEW_TASK).get().trim();
                 }
                 if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
                     String[] datetime = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
