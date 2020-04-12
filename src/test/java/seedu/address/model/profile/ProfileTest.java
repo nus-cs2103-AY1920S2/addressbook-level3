@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.FocusArea;
@@ -35,11 +36,11 @@ import seedu.address.model.profile.course.module.Title;
 
 public class ProfileTest {
 
-    Name name = new Name(VALID_NAME_AMY);
-    CourseName courseName = new CourseName(VALID_COURSE_AMY);
-    int semester = new Year(VALID_SEMESTER_AMY).getSemester();
-    FocusArea focusArea = new FocusArea(VALID_FOCUS_AREA_AMY);
-    Profile amy = new Profile(name, courseName, semester, focusArea);
+    private Name name = new Name(VALID_NAME_AMY);
+    private CourseName courseName = new CourseName(VALID_COURSE_AMY);
+    private int semester = new Year(VALID_SEMESTER_AMY).getSemester();
+    private FocusArea focusArea = new FocusArea(VALID_FOCUS_AREA_AMY);
+    private Profile amy = new Profile(name, courseName, semester, focusArea);
 
     @Test
     public void constructor_nullCompulsoryInputs_throwsNullPointerException() {

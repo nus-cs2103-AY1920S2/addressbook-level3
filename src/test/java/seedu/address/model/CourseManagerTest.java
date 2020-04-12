@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.AcceptedCourses;
 import seedu.address.model.profile.course.Course;
@@ -52,7 +53,8 @@ public class CourseManagerTest {
         String focusAreaLowerCase = "software engineering";
         String focusAreaUpperCase = "SOFTWARE ENGINEERING";
         String focusAreaMixedCase = "sOfTwArE eNgInEeRiNg";
-        CourseFocusArea courseFocusArea = new CourseFocusArea("Software Engineering", new ArrayList<>(), new ArrayList<>());
+        CourseFocusArea courseFocusArea = new CourseFocusArea("Software Engineering", new ArrayList<>(),
+                new ArrayList<>());
         try {
             assertEquals(courseManager.getCourseFocusArea(focusAreaLowerCase), courseFocusArea);
             assertEquals(courseManager.getCourseFocusArea(focusAreaUpperCase), courseFocusArea);
@@ -65,7 +67,8 @@ public class CourseManagerTest {
     @Test
     public void getCourseFocusArea_invalidFocusArea_throwsParseException() {
         String focusArea = INVALID_FOCUS_AREA;
-        assertThrows(ParseException.class, () -> courseManager.getCourseFocusArea(focusArea), MESSAGE_INVALID_COURSE_FOCUS_AREA);
+        assertThrows(ParseException.class, () -> courseManager.getCourseFocusArea(focusArea),
+                MESSAGE_INVALID_COURSE_FOCUS_AREA);
     }
 
     private class CourseListStub extends CourseList {
@@ -75,7 +78,8 @@ public class CourseManagerTest {
             List<CourseFocusArea> courseFocusAreaList = new ArrayList<>();
             courseFocusAreaList.add(
                     new CourseFocusArea("Software Engineering", new ArrayList<>(), new ArrayList<>()));
-            courseList.add(new Course(AcceptedCourses.COMPUTER_SCIENCE.getName(), new ArrayList<>(), courseFocusAreaList));
+            courseList.add(new Course(AcceptedCourses.COMPUTER_SCIENCE.getName(), new ArrayList<>(),
+                    courseFocusAreaList));
         }
 
         @Override
