@@ -212,8 +212,8 @@ Format: `report_person <personID: count>`
 
 Example: `report_person 1`
 
-
-
+=== Help
+Key in `help` to see all possible commands
 
 == FAQ
 
