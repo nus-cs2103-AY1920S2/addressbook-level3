@@ -6,9 +6,11 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Event;
@@ -22,13 +24,15 @@ public class EventListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
     @FXML
+    private Label label;
+    @FXML
     private ListView<Event> eventListView;
 
     public EventListPanel(ObservableList<Event> eventList) {
         super(FXML);
         eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new EventListViewCell());
-        eventListView.setMaxHeight(eventList.size() * 24);
+        eventListView.setMaxHeight(1);
     }
 
     /**
@@ -39,7 +43,7 @@ public class EventListPanel extends UiPart<Region> {
         protected void updateItem(Event event, boolean empty) {
             super.updateItem(event, empty);
             prefWidthProperty().bind(eventListView.widthProperty().subtract(10));
-            eventListView.setMaxHeight(eventListView.getItems().size() * 100 );
+            eventListView.setMaxHeight((eventListView.getItems().size() + 1)  * 75);
 
             if (empty || event == null) {
                 setStyle("");
