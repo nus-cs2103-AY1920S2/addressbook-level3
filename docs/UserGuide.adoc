@@ -788,13 +788,25 @@ such as `paid`.
 [[donereceipt]]
 ==== Mark receipt as done `donereceipt`
 
-Use this command to mark the receipt as done when you have completed entering all the items.
+In this section, you will learn more about the `donereceipt` command, <<howtousedonereceiptcommand,how to use it>>
+and the <<donereceiptexpectedoutcome,expected outcome>> after using the `donereceipt` command.
+
+*Summary of Done Receipt Command:* `donereceipt` *marks the receipt as done when you have completed entering
+all the items*.
+
+[[howtousedonereceiptcommand]]
+*How to use the Done Receipt Command:*
 
 Format: +
 `donereceipt`
 
 Example: +
 `donereceipt`
+
+[[donereceiptexpectedoutcome]]
+*Expected outcome:*
+
+image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
