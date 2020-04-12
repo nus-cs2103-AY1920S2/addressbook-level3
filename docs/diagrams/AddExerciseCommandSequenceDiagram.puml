@@ -56,6 +56,9 @@ ref over model, UniqueExerciseList
     addToSorted
 end ref
 
+model -[MODEL_COLOR]-> AddExerciseCommand : editedClient
+deactivate model
+
 AddExerciseCommand -[LOGIC_COLOR]> client2 ** : Client(...)
 note left
 The parameters used
