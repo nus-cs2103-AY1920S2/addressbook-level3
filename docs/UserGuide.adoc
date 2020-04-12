@@ -199,7 +199,7 @@ Valid Example: +
 `mode -l`
 
 [WARNING]
-You must only input one mode per mode command.
+You must only input *EXACTLY ONE* mode per mode command.
 
 [[modeexpectedoutcome]]
 *Expected outcome:*
@@ -210,12 +210,12 @@ image::dietTrackerModeCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
-* The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
+The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
 ====
 
 [TIP]
 ====
-* Switch the mode to help yourself reach your diet targets better!
+Switch the mode to help yourself reach your diet targets better!
 ====
 
 '''
@@ -251,7 +251,7 @@ image::dietTrackerModeCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
-* The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
+The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
 ====
 
 [TIP]
@@ -288,12 +288,12 @@ image::dietTrackerHeightCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
-* Height in centimetres (cm). Decimal places are accepted. I.e. `height 172.305` is accepted.
+Height in centimetres (cm). Decimal places are accepted. I.e. `height 172.305` is accepted.
 ====
 
 [TIP]
 ====
-* Check your stored height with `metrics`.
+Check your stored height with `metrics`.
 ====
 
 '''
@@ -325,12 +325,12 @@ image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
-* Weight in kilograms (kg). Decimal places are accepted. I.e. `weight 65.77` is accepted.
+Weight in kilograms (kg). Decimal places are accepted. I.e. `weight 65.77` is accepted.
 ====
 
 [TIP]
 ====
-* Check your stored weight with `metrics`.
+Check your stored weight with `metrics`.
 ====
 
 '''
@@ -369,12 +369,12 @@ image::dietTrackerMetricsCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
-* Diet Tracker will prompt you if you did not have any previously stored Height, Weight.
+Diet Tracker will prompt you if you did not have any previously stored Height, Weight.
 ====
 
 [TIP]
 ====
-* Use this to check whether you have previously stored a Height, a Weight, or have chosen your Dieting Mode already.
+Use this to check whether you have previously stored a Height, a Weight, or have chosen your Dieting Mode already.
 ====
 
 '''
@@ -432,7 +432,7 @@ image::dietTrackerBmiCommandSuccessPhoto.png[width="890", height="200"]
 
 [TIP]
 ====
-* If you are unsure whether you have already input your height and weight, you may `metrics` to check.
+If you are unsure whether you have already input your height and weight, you may `metrics` to check.
 ====
 
 '''
@@ -554,12 +554,12 @@ image::dietTrackerDeleteCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
-* Index has to be a valid index in the list of Foods. You can use `list` to check this out.
+Index has to be a valid index in the list of Foods. You can use `list` to check this out.
 ====
 
 [TIP]
 ====
-* Use list to view your item indices before deletion.
+Use list to view your item indices before deletion.
 ====
 
 '''
@@ -592,6 +592,8 @@ Valid Example: +
 `edit -i 2 -n Chicken Rice -c 585` +
 Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
 
+[WARNING]
+You *MUST* use `list` to check the lists of items to identify a target to edit. Failure to do so might cause unintended consequences to the Diet Tracker's Food List.
 
 [[editexpectedoutcome]]
 *Expected outcome:*
@@ -602,7 +604,7 @@ image::dietTrackerEditCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
-* Index has to be a valid index in the list of Foods. You can use `list` to check this out.
+Index has to be a valid index in the list of Foods. You can use `list` to check this out.
 ====
 
 '''
@@ -745,7 +747,7 @@ not have to remember who you split this item with!
 
 [TIP]
 ====
-* Use `listreceipt` command to find the index of the item in the receipt. The index is useful for commands
+Use `listreceipt` command to find the index of the item in the receipt. The index is useful for commands
 such as `deleteitem` where you have to pass in the index of item to be deleted.
 ====
 
@@ -785,7 +787,7 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 
 [TIP]
 ====
-* Use `listamount` command to find the index of the person who paid you. The index is useful for commands
+Use `listamount` command to find the index of the person who paid you. The index is useful for commands
 such as `paid`.
 ====
 
@@ -863,7 +865,7 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 
 [TIP]
 ====
-* Use `listamount` command to find the index of the person who paid you.
+Use `listamount` command to find the index of the person who paid you.
 ====
 
 '''
