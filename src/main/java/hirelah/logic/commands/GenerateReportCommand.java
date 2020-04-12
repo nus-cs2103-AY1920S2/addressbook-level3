@@ -111,7 +111,11 @@ public class GenerateReportCommand extends Command {
 
             PDDocument document = new PDDocument();
             Pair<Integer, PDPage> positionAfterNameAndAttributePrinting = printNameAndAttributePart(document, interviewee.getFullName().toUpperCase(), attributeToScoreData);
-            printRemarksPart(document, remarks, positionAfterNameAndAttributePrinting);
+            Pair<Integer, PDPage> startingPositionOfRemarksPart = positionAfterNameAndAttributePrinting;
+            if (positionAfterNameAndAttributePrinting.getKey() > 780) {
+                startingPositionOfRemarksPart = new Pair<>(0, new PDPage(PDRectangle.A4));
+            }
+            printRemarksPart(document, remarks, startingPositionOfRemarksPart);
             document.save("data/Jo.pdf");
             document.close();
         } catch (IOException e) {
@@ -153,22 +157,7 @@ public class GenerateReportCommand extends Command {
     }
 
     private static PDPage generateNameAndAttributeOnePage(PDDocument document, int nameListSize, ArrayList<String> sentenceList) throws IOException {
-        PDPage page = new PDPage(PDRectangle.A4);
-        document.addPage(page);
-        PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
-        PDFont font = PDType1Font.HELVETICA_BOLD_OBLIQUE;
-        int fontSize = 15;
-        pageContentStream.setFont(font, fontSize);
-        pageContentStream.beginText();
-        float startX = 0;
-        pageContentStream.newLineAtOffset(0, 800);
-        for (int i = 0; i < nameListSize; i++) {
-            startX = (page.getMediaBox().getWidth() - (font.getStringWidth(sentenceList.get(0)) / 1000 * fontSize)) / 2;
-            pageContentStream.newLineAtOffset(startX, 0);
-            pageContentStream.showText(sentenceList.get(0));
-            sentenceList.remove(0);
-            pageContentStream.newLineAtOffset(-startX, -15);
-        }
+        printNamePart(page, nameListSize, sentenceList)
         if (sentenceList.get(0).equals(ATTRIBUTE_SCORE_TITLE)) {
             pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 13);
             pageContentStream.newLineAtOffset(50, -15);
@@ -192,6 +181,25 @@ public class GenerateReportCommand extends Command {
         return page;
     }
 
+    private static void printNamePart(PDDocument document, int nameListSize, ArrayList<String> sentenceList) throws IOException {
+        PDPage page = new PDPage(PDRectangle.A4);
+        document.addPage(page);
+        PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
+        PDFont font = PDType1Font.HELVETICA_BOLD_OBLIQUE;
+        int fontSize = 15;
+        pageContentStream.setFont(font, fontSize);
+        pageContentStream.beginText();
+        float startX = 0;
+        pageContentStream.newLineAtOffset(0, 800);
+        for (int i = 0; i < nameListSize; i++) {
+            startX = (page.getMediaBox().getWidth() - (font.getStringWidth(sentenceList.get(0)) / 1000 * fontSize)) / 2;
+            pageContentStream.newLineAtOffset(startX, 0);
+            pageContentStream.showText(sentenceList.get(0));
+            sentenceList.remove(0);
+            pageContentStream.newLineAtOffset(-startX, -15);
+        }
+    }
+
 
     private static void printRemarksPart(PDDocument document, ObservableList<Remark> remarks, Pair<Integer, PDPage> startingPosition) throws IOException {
         ArrayList<Remark> remarkList = new ArrayList<>();
@@ -200,13 +208,12 @@ public class GenerateReportCommand extends Command {
         boolean firstPage = true;
         ArrayList<TableRowEntry> rowsInAPage = new ArrayList<>();
         for (Remark currentRemark : remarkList) {
-            ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage(), 78);
+            ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage(), 75);
             boolean firstSentence = true;
             for (String currentLine : splitRemarks) {
                 TableRowEntry currentRow = new TableRowEntry(currentLine,
                         firstSentence ? currentRemark.getTimeString() : "",
                         firstSentence ? -20 : -13);
-                System.out.println(currentRow.getValueYOffset());
                 rowsInAPage.add(currentRow);
                 currentYOffset -= (firstSentence ? 20 : 13);
                 firstSentence = false;
@@ -223,7 +230,6 @@ public class GenerateReportCommand extends Command {
             }
             currentYOffset -= 20;
             if (currentYOffset < 50) {
-
                 if (firstPage) {
                     generatePartialRemarkPage(document, startingPosition, rowsInAPage);
                     firstPage = false;
@@ -248,7 +254,6 @@ public class GenerateReportCommand extends Command {
         pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 13);
         pageContentStream.beginText();
         pageContentStream.newLineAtOffset(50, 800 - startingPosition.getKey());
-        System.out.println(800 - startingPosition.getKey());
         pageContentStream.showText(REMARKS_TITLE);
         pageContentStream.newLineAtOffset(-50, 0);
         pageContentStream.setFont( PDType1Font.HELVETICA , 12 );
@@ -256,8 +261,22 @@ public class GenerateReportCommand extends Command {
             pageContentStream.newLineAtOffset(50, -20);
             pageContentStream.showText("-");
         }
+        printRemarkPerLine(pageContentStream, rowList);
+
+    }
+
+    private static void generateFullRemarkPage(PDDocument document, ArrayList<TableRowEntry> rowList) throws IOException {
+        PDPage page = new PDPage(PDRectangle.A4);
+        document.addPage(page);
+        PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
+        pageContentStream.setFont( PDType1Font.HELVETICA , 12 );
+        pageContentStream.beginText();
+        pageContentStream.newLineAtOffset(0, 800);
+        printRemarkPerLine(pageContentStream, rowList);
+    }
+
+    private static void printRemarkPerLine(PDPageContentStream pageContentStream, ArrayList<TableRowEntry> rowList) throws IOException {
         for (TableRowEntry currentRow : rowList) {
-            System.out.println(currentRow.getValueYOffset());
             pageContentStream.newLineAtOffset(50, currentRow.getValueYOffset());
             pageContentStream.showText(currentRow.getDuration());
             pageContentStream.newLineAtOffset(50, 0);
@@ -268,23 +287,6 @@ public class GenerateReportCommand extends Command {
         pageContentStream.close();
     }
 
-    private static void generateFullRemarkPage(PDDocument document, ArrayList<TableRowEntry> rowList) throws IOException {
-        PDPage page = new PDPage(PDRectangle.A4);
-        document.addPage(page);
-        PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
-        pageContentStream.setFont( PDType1Font.HELVETICA , 12 );
-        pageContentStream.beginText();
-        pageContentStream.newLineAtOffset(0, 800);
-        for (TableRowEntry currentRow : rowList) {
-            pageContentStream.newLineAtOffset(50, currentRow.getValueYOffset());
-            pageContentStream.showText(currentRow.getDuration());
-            pageContentStream.newLineAtOffset(50, 0);
-            pageContentStream.showText(currentRow.getMessage());
-            pageContentStream.newLineAtOffset(-100, 0);
-        }
-        pageContentStream.endText();
-        pageContentStream.close();
-    }
 
     /**
      * Splits the sentence to a maximum of certain characters per line.
