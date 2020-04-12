@@ -154,7 +154,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void listFoods(String mode) {
+        public String listFoods(String mode) {
             throw new AssertionError("This method should not be called");
         }
 
@@ -194,7 +194,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void printMetrics() {
+        public String printMetrics() {
             throw new AssertionError("This method should not be called.");
         }
 

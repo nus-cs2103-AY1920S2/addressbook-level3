@@ -91,7 +91,6 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, DietModel actualModel, CommandResult expectedCommandResult,
                                             DietModel expectedModel) {
-        System.out.println(expectedCommandResult);
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);

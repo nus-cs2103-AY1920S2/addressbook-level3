@@ -89,7 +89,7 @@ public class ModelStub implements DietModel {
     }
 
     @Override
-    public void listFoods(String mode) {
+    public String listFoods(String mode) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -124,7 +124,7 @@ public class ModelStub implements DietModel {
     }
 
     @Override
-    public void printMetrics() {
+    public String printMetrics() {
         throw new AssertionError("This method should not be called.");
     }
 
