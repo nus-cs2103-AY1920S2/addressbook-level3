@@ -535,24 +535,34 @@ is teaching.
 * Each `Group` contains a `UniqueStudentsList` that contains the *students in that group*.
 
 ====
+*Design Considerations*
+
+The initial idea for the *Student View* UI was to simply *list* all the students of
+all groups and modules, *sorted by group code and module code*. Therefore the model
+framework has been implemented in this manner.
+
+The idea was scrapped as once it was implemented, it looked too messy and wasn't
+user-friendly. We changed the UI but kept the current model framework.
+
 *Alternative Implementation*
 
 * An alternative implementation would be to have a single `UniqueModuleList` to store
 all modules, a `List` to store all groups and a `List` to store all students.
 
-* We would then have to filter by module code and/or group code to show the appropriate
+* We would then have to *filter by module code and/or group code* to show the appropriate
 groups and students.
 
-* This would require students to keep track of which group and which module they're
-a part of. Similarly, groups would have to keep a track of the students it contains.
-This would create a cyclic dependency (which could be solved using an association class).
+* This would require *students to keep track of which group and which module they're
+a part of*. Similarly, *groups would have to keep a track of the students it contains*.
+This would create a **cyclic dependenc**y (which could be solved using an association class).
 
 * The `List` of groups could contain multiple groups with the same group code as group code
 is only unique within a module. Group codes can be shared across modules.
 
 * While this implementation would make it easier to generate a report at the end of
-the semester (explained towards the end of the guide), it would require more commands
-and the creation of association classes which would unnecessarily complicate the model.
+the semester (explained later in the guide), it would require more commands
+and the *creation of many association classes* which would unnecessarily
+*complicate the model*.
 That is why we decided to stick to our current implementation.
 
 ====
@@ -564,7 +574,8 @@ image::StudentClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tatracker/model/student/Student.java[`Student.java`]
 
-The other models (`Module`, `Group` and `Session`) have been implemented in a similar manner. The main difference is that the other models do not
+The other models (`Module`, `Group` and `Session`) have been implemented in a similar manner.
+The main difference is that the other models do not
 have any `Tags`.
 
 [NOTE]
@@ -588,7 +599,7 @@ image::AddModuleSequenceDiagram.png[]
 [NOTE]
 ====
 * This diagram assumes that a module with the module code `CS2103`
-exists in the TA-Tracker
+doesn't exist in the TA-Tracker
 .
 * The lifeline for `ModuleCommandParser` and `AddModuleCommandParser` should end at the
 destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
@@ -596,10 +607,10 @@ destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches t
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that this command is a *module* command and passes the
+2. The `TaTrackerParser` sees that this command is a *module command* and passes the
 command to the `ModuleCommandParser`.
 
-3. The `ModuleCommandParser` sees that this command is an *add* command and passes the
+3. The `ModuleCommandParser` sees that this command is an *add command* and passes the
 arguments to the `AddModuleCommandParser`.
 
 4. The `AddModuleCommandParser` creates a `Module` with the given module code and
@@ -611,26 +622,26 @@ created module. The parser then returns the `AddModuleCommand` object.
 6. `LogicManager` calls `AddModuleCommand` 's execute method.
 
 7. The `AddModuleCommand` object
-checks whether a module with the given module code already exists in *TA-Tracker
-*
+checks whether a module with the given module code already exists in *TA-Tracker*
 
-.. If it does, a command exception is thrown saying that a module with the given module
-code already exists in the *TA-Tracker
-*.
+.. If it does, a *command exception is thrown* saying that a module with the given module
+code already exists in the *TA-Tracker*.
 
-.. If no such module exists, the module is added to the *TA-Tracker
-*.
+.. If no such module exists, the *module is added to the TA-Tracker*.
 
-8. The `AddModuleCommand` returns a `CommandResult` with a success message.
+8. The `AddModuleCommand` returns a `CommandResult`.
 
 The command used to delete a module has been implemented in a similar way. The main
-difference is that the `DeleteModuleCommand` checks whether an object with the given
+difference is that when the `DeleteModuleCommand` checks whether an object with the given
 module code exists in the TA-Tracker
-. If no such module exists, a command exception
-is thrown saying that a module with the given module code doesn't exist. If it does
+
+.. If no such module exists, a *command exception
+is thrown* saying that a module with the given module code doesn't exist.
+
+.. If it does
 exist, *first all the sessions linked to that module are removed* , then the module
 is removed from the TA-Tracker
-.
+
 
 The `module edit` command has been implemented in a similar manner.
 
@@ -641,25 +652,25 @@ in a similar manner to to how a *module* is added to
 the TA-Tracker
 .
 
-The following steps are taken once the _execute_ command of an `AddGroupCommand` object
+The following steps are taken once the _execute_ method of an `AddGroupCommand` object
 is called:
 
 . The `AddGroupCommand` object checks whether the *module* is present in the model of the TA-Tracker
 .
-.. If it exists, the module is retrieved.
-.. If it doesn't exist, an exception is thrown explaining that the module doesn't
+.. If it exists, the *module is retrieved*.
+.. If it doesn't exist, an *exception is thrown* explaining that the module doesn't
 exist.
 . The `AddGroupCommand` object checks whether a *group* with the same group code as
 the new group exists in the module retrieved beforehand.
-.. If it doesn't exist, the group is added to the module and a `CommandResult` object
+.. If it doesn't exist, the *group is added to the module* and a `CommandResult` object
 with the success message is returned.
-.. If it does exist, an exception is thrown explaining that you can't have two groups
+.. If it does exist, an *exception is thrown* explaining that you can't have two groups
 with the same group code in a module.
 
 The interactions between the `Logic` and `Model` components when adding a group are similar
 to the interactions when deleting a group as shown below.
 
-The following _Sequence Diagram_ shows the interactions between the `logic` and `model`
+The following _Sequence Diagram_ shows the interactions between the `Logic` and `Model`
 components when the user inputs the command `group delete m/CS2103 g/G03`.
 
 .Group Delete - Sequence Diagram
@@ -668,8 +679,7 @@ image::DeleteGroupSequenceDiagram.png[]
 [NOTE]
 ====
 * This diagram is under the case where a group with the group code G03 does exist
-in the module with module code CS2103 inside the TA-Tracker
-.
+in the module with module code CS2103 inside the TA-Tracker.
 
 * The lifeline for `GroupCommandParser` and `DeleteGroupCommandParser` should end at the
 destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
@@ -681,10 +691,10 @@ exists inside the module with the given module code.
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is of type *group* and passes the
+2. The `TaTrackerParser` sees that the command is a *group command* and passes the
 command to the `GroupCommandParser`.
 
-3. The `GroupCommandParser` sees that the command is of type *delete* and passes the
+3. The `GroupCommandParser` sees that the command is a *delete command* and passes the
 arguments to the `DeleteGroupCommandParser`.
 
 4. The `DeleteGroupCommandParser` then creates a `DeleteGroupCommand` object and passes
@@ -692,17 +702,15 @@ it the module code, group code and group type. The parser then returns the `Dele
 
 5. `LogicManager` calls `DeleteGroupCommand` 's execute method. The `DeleteGroupCommand` object
 checks whether a *module* with the given module code already exists in TA-Tracker
-.
-If it doesn't, a command exception is thrown saying that a module with the given module
+If it doesn't, a *command exception is thrown* saying that a module with the given module
 code doesn't exist in the TA-Tracker
-.
 
 6. If the module exists, the `DeleteGroupCommand` then checks whether a group with the
 given group code exists within that module.
-.. If the group doesn't exist, a command exception is thrown saying that no such group exists.
-.. If the group does exist, it is removed from the module.
+.. If the group doesn't exist, a *command exception is thrown* saying that no such group exists.
+.. If the group does exist, it is *removed from the module*.
 
-7. The `DeleteGroupCommand` returns a `CommandResult` with a success message.
+7. The `DeleteGroupCommand` returns a `CommandResult`.
 
 The `group edit` command has been implemented in a similar manner.
 
