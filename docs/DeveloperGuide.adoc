@@ -898,9 +898,9 @@ In this section, we will learn more about how the `listreceipt` command is imple
 
 *What is the List Receipt Command*
 
-The `listreceipt` command allows user to find out the current entries in the receipt.
+The `listreceipt` command allows user to find out the current Items in the receipt.
 
-The `listreceipt` command was implemented as a `ListReceiptCommand` in the `expensesplitter/logic` package.
+The `listreceipt` command was implemented as a `ListReceiptCommand` in the `expensesplitter/logic/commands` package.
 
 The `listreceipt` has the following input format:
 
@@ -921,14 +921,14 @@ image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
 
 *Implementation of List Receipt Command*
 
-The following is a detailed explanation of the operations ListReceiptCommand performs. +
+The following is a detailed explanation of the operations `ListReceiptCommand` performs. +
 
 1. The `ListReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
 
-2. The method `splitterModel#listReceipt()` will then be called to return the list of entries currently in that Receipt.
+2. The method `SplitterModel#listReceipt()` will then be called to return the list of entries currently in that Receipt.
 
-3. The method `receipt#toString()` will use StringBuilder to build the string of the Items(s) currently in
-Receipt by calling `entry.toString()` for entry. After all entries are done, `receipt#toString()` would have
+3. The method `Receipt#toString()` will use StringBuilder to build the string of the Items(s) currently in
+Receipt by calling `Entry.toString()` for entry. After all entries are done, `Receipt#toString()` would have
 finish building the string and will return to SplitterModelManager where it will be printed out.
 
 
@@ -950,7 +950,7 @@ In this section, we will learn more about how the `listamount` command is implem
 
 The `listamount` command allows users to find out how much each Person owes them. +
 
-The `listamount` command was implemented as a `ListAmountCommand` in the `expensesplitter/logic` package.
+The `listamount` command was implemented as a `ListAmountCommand` in the `expensesplitter/logic/commands` package.
 
 The `listamount` command has the following input format:
 
@@ -974,7 +974,7 @@ The following is a detailed explanation of the operations ListAmountCommand perf
 
 1. The `ListAmountCommand#execute(SplitterModel splitterModel)` method is executed.
 
-2. The method `splitterModel#listAmount()` will then be called to return the list of Person(s) with their amount.
+2. The method `SplitterModel#listAmount()` will then be called to return the list of Person(s) with their amount.
 
 3. `PersonAmountBook#toString()` will convert list of person in the list to the expected format and return it to
 SplitterModelManager where it will be printed out.
@@ -1065,10 +1065,10 @@ The following is a detailed explanation of the operations PaidCommand performs. 
 
 1. The `PaidCommand#execute(SplitterModel splitterModel)` method is executed.
 
-2. The `splitterModel#paidPerson(Person person, String amountPaid)` will be called.
+2. The `SplitterModel#paidPerson(Person person, String amountPaid)` will be called.
 String amountPaid will be converted into an Amount by instantiating a new instance of Amount.
 
-3. The `personAmountBook#removeAmount(Person person, Amount amount)` is then called to remove Amount from Person.
+3. The `PersonAmountBook#removeAmount(Person person, Amount amount)` is then called to remove Amount from Person.
 
 4. This in turns calls `UniquePersonList#removeAmount(Person person, Amount amount)`.
 
