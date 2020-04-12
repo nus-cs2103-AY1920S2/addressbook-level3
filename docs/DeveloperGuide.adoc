@@ -126,23 +126,29 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-SuggestionEngine]]
 ==== SuggestionEngine component
 
-.Class Diagram of the Suggestion Engine Component (still WIP)
+.Class Diagram of the Suggestion Engine Component
 image::SuggestionClassDiagram.png[]
 
 *API* :
 link:{repoURL}blob/master/src/main/java/com/notably/logic/suggestion/SuggestionEngine.java[`SuggestionEngine.java`]
 
 `SuggestionEngine` gives users the meaning of the command they input and a list of notes suggestions that they want to
-open/ delete/ search/ edit.
+open, delete, or search.
 
-1. `Logic` uses the `SuggestionEngineImpl` class, which implements `SuggestionEngine` interface, to parse the user command.
-2. According to the command the user inputs, `SuggestionEngineImpl` will create a `XYZSuggestionCommandParser` object
-which implements `SuggestionCommandParser` interface.
-3. This results in the creation of `XYZSuggestionCommand` object which implements `SuggestionCommand` interface.
-`XYZSuggestionCommand` is then executed by the `LogicManager`.
-4. The command execution can affect the `Model` (e.g. `open` command will set the response text in the model as
-"Open a note" and store a list of `SuggestionItem` in the model).
-5. The UI will then be able to retrieve the response text and list of `SuggestionItem` from the model to be displayed
+1. `Logic` uses the `SuggestionEngine` class, to handle the user input.
+2. According to the command the user inputs, `SuggestionEngine` will create a `XYZSuggestionArgHandler` or `ABCSuggestionHandler` object
+which implements `SuggestionArgHandler` and `SuggestionHandler` interface respectively. `XYZSuggestionArgHandler` are for commands that
+require argument parsing, i.e. `open`, `delete`, `search`, `new`, whereas `ABCSuggestionHandler` are for commands that do not require argument
+parsing, i.e. `edit`, `exit`, `help`.
+3. If `SuggestionArgHandler` object is created: the `responseText` in the `Model` will be updated. This case will also result in the
+creation of `XYZSuggestionGenerator` object (except for `new` command) which implements `SuggestionGenerator` interface.
+`XYZSuggestionGenerator` is then executed by the `SuggestionEngine`.
+4. If `SuggestionHandler` object is created: the `responseText` in the `Model` will be updated.
+5. The `Model` could be affected in 2 ways:
+* Update `responseText` of the `Model` (by the `SuggestionHandler`): for instance, `open` command will set the `responseText` in the model as
+"Open a note".
+* Store a list of `SuggestionItem` in the `Model` (by the `SuggestionGenerator`).
+6. The UI will then be able to retrieve the `responseText` and list of `SuggestionItem` from the `Model` to be displayed
 to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` and `Suggestion` component for the `execute("open /")` API call.
@@ -150,7 +156,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` and `Sug
 .Interactions Inside the Logic and Suggestion Component for the `open /` Command
 image::SuggestionSequenceDiagram.png[]
 
-NOTE: The lifeline for `OpenSuggestionCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `OpenSuggestionArgHandler` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 
 [[Design-CorrectionEngine]]
@@ -269,26 +275,47 @@ open/ delete/ search/ edit.
 
 ==== Current implementation
 
-1. `Logic` uses the `SuggestionEngineImpl` class, which implements `SuggestionEngine` interface, to parse the user command.
-2. According to the command the user inputs, `SuggestionEngineImpl` will create a `XYZSuggestionCommandParser` object
-which implements `SuggestionCommandParser` interface.
-3. This results in the creation of `XYZSuggestionCommand` object which implements `SuggestionCommand` interface.
-`XYZSuggestionCommand` is then executed by the `LogicManager`.
-4. The command execution can affect the `Model` (e.g. `open` command will set the response text in the model as
-"Open a note" and store a list of `SuggestionItem` in the model).
-5. The UI will then be able to retrieve the response text and list of `SuggestionItem` from the model to be displayed
+1. `Logic` uses the `SuggestionEngine` class, to handle the user input.
+2. According to the command the user inputs, `SuggestionEngine` will create a `XYZSuggestionArgHandler` or `ABCSuggestionHandler` object
+which implements `SuggestionArgHandler` and `SuggestionHandler` interface respectively. `XYZSuggestionArgHandler` are for commands that
+require argument parsing, i.e. `open`, `delete`, `search`, `new`, whereas `ABCSuggestionHandler` are for commands that do not require argument
+parsing, i.e. `edit`, `exit`, `help`.
+3. If `SuggestionArgHandler` object is created: the `responseText` in the `Model` will be updated. This case will also result in the
+creation of `XYZSuggestionGenerator` object (except for `new` command) which implements `SuggestionGenerator` interface.
+`XYZSuggestionGenerator` is then executed by the `SuggestionEngine`.
+4. If `SuggestionHandler` object is created: the `responseText` in the `Model` will be updated.
+5. The `Model` could be affected in 2 ways:
+* Update `responseText` of the `Model` (by the `SuggestionHandler`): for instance, `open` command will set the `responseText` in the model as
+"Open a note".
+* Store a list of `SuggestionItem` in the `Model` (by the `SuggestionGenerator`).
+6. The UI will then be able to retrieve the `responseText` and list of `SuggestionItem` from the `Model` to be displayed
 to the user.
 
 ==== Design considerations
 
 1. `SuggestionEngine` is segregated from `Parser` in order to differentiate the logic when the user has finished typing
-and pressed `enter` (which will be handled by `Parser`) in contrast to when the user presses `tab` to take in the
+and pressed kbd:[Enter] (which will be handled by `Parser`) in contrast to when the user presses `tab` to take in the
 suggestion item.
-2. In order to keep the App's data flow unidirectional, `SuggestionEngine` will update the response text (which tells
+2. In order to keep the App's data flow unidirectional, `SuggestionEngine` will update the `responseText` (which tells
 the user the meaning of his command) and the list of `SuggestionItem` into the `Model`. Thus, by not showing the
-response text and suggestions immediately to the UI, `SuggestionEngine` will not interfere with the `View` functionality.
-3. `SuggestionEngine`, `SuggestionCommandParser`, `SuggestionCommand`, `SuggestionItem`, and `SuggestionModel` are
+`responseText` and suggestions immediately to the UI, `SuggestionEngine` will not interfere with the `View` functionality.
+3. `SuggestionArgHandler`, `SuggestionGenerator`, `SuggestionItem`, and `SuggestionModel` are
 implemented as interfaces, in an attempt to make the design of the `SuggestionEngine` component resilient to change.
+
+On top of these, the design of `SuggestionEngine` underwent 2 alternative considerations:
+
+* *Alternative 1:* Have a `SuggestionCommandParser` interface and `SuggestionCommand` interface to parse each of the
+command, update `responseText` in the `Model`, and give suggestions.
+** Pros: This provides a consistency for all the commands, where each command has a `XYZSuggestionCommandParser` and `XYZSuggestionCommand` class.
+** Cons: The `SuggestionCommandParsers` of the commands that do not require parsing of user input (`edit`, `exit`, `help`) end up passing a `userInput`
+argument that is not being used anywhere, which makes this design unintuitive. Moreover, since the updating of the `responseText`
+in the `Model` can be done in each `SuggestionCommandParser`, the `SuggestionCommand` of `edit`, `exit`, and `help` ends up to be redundant.
+
+* *Alternative 2 (current choice):* Create 2 separate interface to handle commands with input parsing and those without, and name it as a
+`SuggestionArgHandler` and `SuggestionHandler` respectively.
+** Pros: This solves the cons discussed in Alternative 1, as this design gives a separate implementation for the commands with input
+parsing and those without. It does not force the `Handler` to parse the user input when there is no need to. The naming `Handler` also
+does not restrict the functionality of the interface and classes to just parse an input.
 
 // tag::paths[]
 [[Implementation-Path]]
