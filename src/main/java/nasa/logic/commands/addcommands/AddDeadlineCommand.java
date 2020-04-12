@@ -20,6 +20,8 @@ public class AddDeadlineCommand extends AddCommand {
 
     public static final String COMMAND_WORD = "deadline";
 
+    public static final String MESSAGE_SUCCESS = "New deadline added!";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deadline to the module's activity list.\n"
             + "Parameters: "
             + PREFIX_MODULE + "MODULE CODE "
@@ -52,6 +54,6 @@ public class AddDeadlineCommand extends AddCommand {
         }
 
         model.addDeadline(moduleCode, (Deadline) toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, "deadline"));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

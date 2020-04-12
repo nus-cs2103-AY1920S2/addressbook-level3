@@ -19,6 +19,8 @@ import nasa.model.module.ModuleCode;
 public class AddEventCommand extends AddCommand {
     public static final String COMMAND_WORD = "event";
 
+    public static final String MESSAGE_SUCCESS = "New event added!";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the module's activity list.\n"
             + "Parameters: "
             + PREFIX_MODULE + "MODULE CODE "
@@ -51,6 +53,6 @@ public class AddEventCommand extends AddCommand {
         }
 
         model.addEvent(moduleCode, (Event) toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, "event"));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }
