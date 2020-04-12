@@ -122,7 +122,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `ModdyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a module).
+.  The command execution can affect the `Model` (e.g. adding a `Module`).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -187,7 +187,7 @@ image::ModuleClassDiagram.png[]
 
 Each Module class consists of a Personal class, alongside other module attributes from NUSMODS. In each Personal class, there are 3 attributes that are for the user to store their date: +
 
-* `Grade` : the user's grade for te particular module
+* `Grade` : the user's grade for the particular module
 * `Status` : the status of the module (IN_PROGRESS, PLANNING or COMPLETED)
 * `DeadlineList` : a list of `Deadline` tasks added by the user
 
@@ -362,7 +362,7 @@ To edit a deadline that has previously been added, append `edit m/moduleCode` wi
 
 The following sequence diagram shows how the `edit` command works: `edit n/John`:
 
-.Interactions Inside the Logic Component for the `edit n/John` Command
+.Interactions between UI, Logic and Model components for the `edit n/John` Command
 image::EditSequenceDiagram.png[]
 
 ==== Design Considerations
