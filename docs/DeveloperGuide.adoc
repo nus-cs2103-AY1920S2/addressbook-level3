@@ -102,7 +102,7 @@ The `UI` component does the following actions:
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
-Hubert
+Hubert Halim
 
 [[Design-Logic]]
 

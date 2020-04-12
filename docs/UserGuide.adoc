@@ -95,7 +95,10 @@ Examples:
 
 === Reset total balance `resetbalance`
 
-Reset Balance value to the total from the amount of all transactions in stored in the application so far
+Reset Balance value to the total from the amount of all transactions in stored in the application so far.
+This command is used in case user messes up with json file or there is an unhandled bug in the app that
+causes difference in the value of total balance and the net balance of all the transactions added together.
+This command will rectify that issue.
 
 
 === Key in transaction : `add`
