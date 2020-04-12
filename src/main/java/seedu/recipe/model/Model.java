@@ -220,4 +220,9 @@ public interface Model {
      */
     boolean hasQuote(Quote quote);
 
+    /**
+     *  Adds a quote in the quoteBook list
+     */
+    void addQuote(Quote quote);
+
 }
