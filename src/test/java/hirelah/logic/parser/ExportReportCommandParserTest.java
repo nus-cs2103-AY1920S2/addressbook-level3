@@ -6,8 +6,9 @@ import static hirelah.logic.commands.CommandTestUtility.WHITESPACE;
 import static hirelah.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static hirelah.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import hirelah.logic.commands.ExportReportCommand;
 import org.junit.jupiter.api.Test;
+
+import hirelah.logic.commands.ExportReportCommand;
 
 class ExportReportCommandParserTest {
 
