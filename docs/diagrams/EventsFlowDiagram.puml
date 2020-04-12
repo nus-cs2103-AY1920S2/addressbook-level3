@@ -3,11 +3,14 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":ViewController" as ViewController LOGIC_COLOR
+end box
+
+box Model LOGIC_COLOR_T1
 participant ":BaseManager(publish)" as BaseManagerPublish LOGIC_COLOR
 participant ":BaseManager(subscribe)" as BaseManagerSubscribe LOGIC_COLOR
 end box
 
-box Model MODEL_COLOR_T1
+box Common MODEL_COLOR_T1
 participant ":EventsCenterSingleton" as EventsCenterSingleton MODEL_COLOR
 participant ":EventBus" as EventBus MODEL_COLOR
 end box
