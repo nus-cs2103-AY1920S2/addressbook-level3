@@ -1,6 +1,6 @@
 package com.notably.logic.suggestion;
 
-import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
+import static com.notably.commons.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;

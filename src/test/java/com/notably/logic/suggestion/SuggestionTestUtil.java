@@ -19,7 +19,7 @@ import com.notably.model.viewstate.ViewStateModelImpl;
 import com.notably.testutil.TypicalBlockModel;
 
 /**
- * Contains helper methods for testing suggestion feature.
+ * Contains helper methods for testing generator feature.
  */
 public class SuggestionTestUtil {
     public static Model getModel() {
@@ -107,7 +107,7 @@ public class SuggestionTestUtil {
     }
 
     /**
-     * Checks the correctness of the input stored in CommandInputModel for each suggestion.
+     * Checks the correctness of the input stored in CommandInputModel for each generator.
      *
      * @param expectedInputs The expected list of inputs.
      * @param suggestions The actual list of suggestions.
