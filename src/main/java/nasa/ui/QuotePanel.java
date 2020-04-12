@@ -47,7 +47,18 @@ public class QuotePanel extends UiPart<Region> {
             popup.setOnCloseRequest(x ->
                     new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play());
         } else {
-            popup.centerOnScreen();
+
+            System.out.println(stage.getX());
+
+            double calculation = stage.getX() + stage.getMinWidth()/2 - popup.getWidth()/2;
+            if (calculation < 0 || calculation > 800) {
+                popup.setX(stage.getX() + stage.getMinWidth()/2);
+            } else {
+                popup.setX(stage.getX() + (stage.getMinWidth() / 2) - popup.getWidth() / 2);
+            }
+
+            popup.setY(stage.getY() + stage.getHeight() / 2 - popup.getHeight() / 2);
+
             popup.show(stage);
             new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play();
         }
