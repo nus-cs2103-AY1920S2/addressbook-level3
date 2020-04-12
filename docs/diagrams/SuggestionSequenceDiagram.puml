@@ -51,6 +51,12 @@ deactivate OpenSuggestionArgHandler
 SuggestionEngine -> OpenSuggestionArgHandler : handleArg("open /")
 activate OpenSuggestionArgHandler
 
+OpenSuggestionArgHandler -> Model : setResponseText("Open a note")
+activate Model
+
+Model --> OpenSuggestionArgHandler
+deactivate Model
+
 create OpenSuggestionGenerator
 OpenSuggestionArgHandler -> OpenSuggestionGenerator
 activate OpenSuggestionGenerator
@@ -58,19 +64,25 @@ activate OpenSuggestionGenerator
 OpenSuggestionGenerator --> OpenSuggestionArgHandler : o
 deactivate OpenSuggestionGenerator
 
-OpenSuggestionArgHandler -> Model : setResponseText("Open a note")
-activate Model
-
-Model --> OpenSuggestionArgHandler
-deactivate Model
-
 OpenSuggestionArgHandler --> SuggestionEngine : o
 deactivate OpenSuggestionArgHandler
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 OpenSuggestionArgHandler -[hidden]-> SuggestionEngine
 destroy OpenSuggestionArgHandler
 
+SuggestionEngine --> SuggestionEngine
+deactivate SuggestionEngine
+
 SuggestionEngine -> OpenSuggestionGenerator : execute(model)
+activate OpenSuggestionGenerator
+
+OpenSuggestionGenerator -> OpenSuggestionGenerator : getPossiblePaths\n(paths, model)
+activate OpenSuggestionGenerator
+
+OpenSuggestionGenerator --> OpenSuggestionGenerator
+deactivate OpenSuggestionGenerator
+
+OpenSuggestionGenerator -> OpenSuggestionGenerator : getSuggestions\n(possiblePaths, model)
 activate OpenSuggestionGenerator
 
 create SuggestionItemImpl
@@ -80,6 +92,9 @@ activate SuggestionItemImpl
 SuggestionItemImpl --> OpenSuggestionGenerator : item
 deactivate SuggestionItemImpl
 
+OpenSuggestionGenerator --> OpenSuggestionGenerator
+deactivate OpenSuggestionGenerator
+
 OpenSuggestionGenerator -> Model : setSuggestions(item)
 activate Model
 
@@ -88,9 +103,6 @@ deactivate Model
 
 OpenSuggestionGenerator --> SuggestionEngine
 deactivate OpenSuggestionGenerator
-
-SuggestionEngine --> SuggestionEngine
-deactivate SuggestionEngine
 
 SuggestionEngine --> SuggestionEngine
 deactivate SuggestionEngine
