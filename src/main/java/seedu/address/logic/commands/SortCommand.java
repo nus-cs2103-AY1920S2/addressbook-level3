@@ -75,7 +75,7 @@ public class SortCommand extends Command {
 
         String commandFeedback = String.format(MESSAGE_SUCCESS, String.join(" ", fields));
 
-        return new SortCommandResult(commandFeedback, fields[0]);
+        return new CommandResult(commandFeedback);
     }
 
     private Comparator<Task> getPriorityComparator() {

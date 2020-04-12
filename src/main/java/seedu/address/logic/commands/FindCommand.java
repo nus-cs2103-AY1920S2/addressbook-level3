@@ -60,7 +60,7 @@ public class FindCommand extends Command {
 
         model.setSearchResultOrder(comparator);
 
-        return new FindCommandResult(
+        return new CommandResult(
                 String.format(
                         Messages.MESSAGE_TASKS_LISTED_OVERVIEW,
                         model.getFilteredTaskList().size()));

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Predicate;
@@ -299,6 +300,7 @@ public class ModelManager implements Model {
     public void setSearchResultOrder(Comparator<Task> comaprator) {
         this.taskList.setComparator(comparator);
         this.taskList.setComparator(null);
+        this.taskList.setSortOrder("");
     }
 
     @Override
