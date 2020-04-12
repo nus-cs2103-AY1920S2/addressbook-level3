@@ -775,17 +775,27 @@ will be immutable.
 * <<Clear-Receipt-Command, `ClearReceipt`>> - Clear the current Receipt to start a new Receipt.
 * <<Back-Command, `BackCommand`>> - Exits Expense Splitter portion to return to EYLAH's Main Menu.
 
-Below are some diagrams to explain how our team implemented this portion.
+Below is the activity diagram of the entire Expense Splitter.
 //end::expensesplitterintro[]
 
 //tag::expensesplitteractivitydiagram[]
 *Activity Diagram of Expense Splitter:* +
 
+.ExpenseSplitterActivityDiagram
 image::ExpenseSplitterActivityDiagramV2.png[]
 Figure : Expense Splitter Activity Diagram
 
+.SimplifiedAddItemActivityDiagram
 image::ExpenseSplitterActivityDiagram.png[]
-Figure : Add Item Activity Diagram
+
+[NOTE]
+====
+SimplifiedAddItemActivityDiagram is not the actual AddItem Activity Diagram. It has been
+simplified to provide just enough information
+for the user to know about the rough workflow of expense splitter. A more detailed
+diagram can be found in <<Add-Item-Command, AddItemCommand>>.
+====
+
 //end::expensesplitteractivitydiagram[]
 
 
