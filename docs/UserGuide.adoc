@@ -425,7 +425,7 @@ NOTE: `FROM_DATE` cannot be a future date. +
 
 image::wireframe/transaction.png[width="700", align="left"]
 
-=== Delete A Transaction: `*delete*`  <Done By: Xavier>
+=== Delete a Transaction: `*delete*`  <Done By: Xavier>
 
 Accidentally added a wrong food to your purchases? The `delete` command allows you to do just that, by
 giving the index of the food to delete.
@@ -561,6 +561,34 @@ You can `filter 4` on the menu page. This will display all the options available
 
 *Q*: Can I write my personal review in other languages?  +
 *A*: Yes, FoodieBot accepts input for different types of language, however it does not support in-app localization.
+
+== Glossary  <Done By: Shaun>
+Function::
+A program that performs a specific task.
+eg. `randomize` is a function in FoodieBot that performs the task of choosing a random store for the user.
+
+In-app Localization::
+The process of changing and translating features within the application to appeal to a certain target market. In the case of FoodieBot, FoodieBot is currently unable to process commands
+given in other languages.
+
+Jar::
+Jar is the acronym for  Java ARchive, a file format that is typically used to collect and store many Java files into a single file. This makes it easier for usage and distribution of Java files.
+
+Java 11::
+A software engineering platform to perform the programming language Java. The version used in this application is the 11th edition of the platform.
+
+Json::
+Json is the acronym for JavaScript Object Notation, a minimal, readable format for structuring data. It is mainly used to transfer data between a server and web  application.
+
+Parameter::
+A value that is passed into a function. This value allows a single function to perform different actions based on the type of value passed to it.
+eg. `view` and `set` are different parameters for the function `budget`.
+Passing `view` into `budget` will allow the user to see the budget.
+Passing `set` into `budget` will allow the user to create a budget.
+
+Tag::
+A characteristic or attribute associated with an object. FoodieBot assigns tags to canteens, stalls and food to allow the user to easily see the type of food, the type of cuisine and price ranges.
+
 
 == Command Summary  <Done By: Shaun>
 [width="80%",cols="33%,<60%,<60%",options="header",]
