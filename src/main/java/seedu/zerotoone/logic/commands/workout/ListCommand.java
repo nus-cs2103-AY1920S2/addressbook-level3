@@ -13,7 +13,7 @@ import seedu.zerotoone.model.Model;
  */
 public class ListCommand extends WorkoutCommand {
     public static final String COMMAND_WORD = "list";
-    public static final String MESSAGE_SUCCESS = "Listed all workouts";
+    public static final String MESSAGE_SUCCESS = "Here is a list of all your workouts!";
 
 
     @Override

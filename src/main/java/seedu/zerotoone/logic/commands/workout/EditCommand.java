@@ -10,6 +10,7 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
+import seedu.zerotoone.logic.commands.util.Commands;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutName;
@@ -19,9 +20,9 @@ import seedu.zerotoone.model.workout.WorkoutName;
  */
 public class EditCommand extends WorkoutCommand {
     public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_USAGE = "Usage: workout edit WORKOUT_ID e/<workout_name>";
-    public static final String MESSAGE_EDIT_WORKOUT_SUCCESS = "Edited workout: %1$s";
-    public static final String MESSAGE_DUPLICATE_WORKOUT = "This workout already exists.";
+    public static final String MESSAGE_USAGE = "Usage: " + Commands.WORKOUT_EDIT;
+    public static final String MESSAGE_EDIT_WORKOUT_SUCCESS = "Successfully edited workout: %1$s";
+    public static final String MESSAGE_DUPLICATE_WORKOUT = "Sorry, this workout already exists. Try again!";
 
     private final Index workoutId;
     private final WorkoutName workoutName;
@@ -64,7 +65,9 @@ public class EditCommand extends WorkoutCommand {
         }
 
         model.setWorkout(workoutToEdit, editedWorkout);
-        model.editWorkoutInSchedule(workoutToEdit, editedWorkout);
+        if (!workoutToEdit.getWorkoutName().equals(editedWorkout.getWorkoutName())) {
+            model.editWorkoutNameInSchedule(workoutToEdit.getWorkoutName(), editedWorkout.getWorkoutName());
+        }
         model.updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
 
         String outputMessage = String.format(MESSAGE_EDIT_WORKOUT_SUCCESS,

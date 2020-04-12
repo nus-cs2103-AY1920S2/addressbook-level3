@@ -1,20 +1,21 @@
 package seedu.zerotoone.ui;
 
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.zerotoone.commons.core.LogsCenter;
-import seedu.zerotoone.model.log.StatisticsData;
+import seedu.zerotoone.logic.statistics.StatisticsData;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.ui.util.DateViewUtil;
 import seedu.zerotoone.ui.util.UiPart;
+import seedu.zerotoone.ui.views.log.DataPointView;
 
 /**
  * Controller for a help page
@@ -24,16 +25,13 @@ public class StatisticsWindow extends UiPart<Stage> {
     private static final String FXML = "StatisticsWindow.fxml";
 
     @FXML
-    private Label totalWorkoutCount;
-    @FXML
-    private Label totalTime;
-    @FXML
-    private Label averageTimePerDay;
-    @FXML
     private Text statisticsSubTitle;
 
     @FXML
     private VBox lineChartContainer;
+
+    @FXML
+    private VBox dataPoints;
 
     /**
      * Creates a new ReportWindow.
@@ -74,11 +72,6 @@ public class StatisticsWindow extends UiPart<Stage> {
         getRoot().show();
         getRoot().centerOnScreen();
 
-        totalWorkoutCount.setText(statisticsData.getTotalWorkoutCount() + " workouts");
-
-        totalTime.setText(DateViewUtil.getPrettyDuration(statisticsData.getTotalTime()));
-        averageTimePerDay.setText(DateViewUtil.getPrettyDuration(statisticsData.getAverageTimePerDay()));
-
 
         statisticsSubTitle.setText(
             String.format("Statistics generated from %s to %s.",
@@ -86,26 +79,34 @@ public class StatisticsWindow extends UiPart<Stage> {
                 DateViewUtil.getPrettyDateTime(statisticsData.getEndRange())));
 
 
-        // Populate Line Chart
+        dataPoints.getChildren().removeAll();
+        dataPoints.getChildren().addAll(statisticsData.getDataPoints()
+            .stream().map(point -> (new DataPointView(point).getRoot())).collect(Collectors.toList()));
 
-        NumberAxis xAxis = new NumberAxis();
-        xAxis.setLabel("Day number");
+        // Populate Line Chart
+        NumberAxis xAxis = new NumberAxis(1.0, statisticsData.getWorkouts().size(), 1);
+        xAxis.setLabel("Session Number");
 
         NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Workout Time in minutes");
+        yAxis.setLabel("Workout Time in Minutes");
 
         LineChart lineChart = new LineChart(xAxis, yAxis);
 
         XYChart.Series dataSeries = new XYChart.Series();
         dataSeries.setName("ZeroToOne Progress");
 
-        int dayCount = 1;
+        int sessionCount = 1;
         for (CompletedWorkout workout : statisticsData.getWorkouts()) {
-            dataSeries.getData().add(new XYChart.Data(dayCount++,
+            dataSeries.getData().add(new XYChart.Data(sessionCount++,
                 DateViewUtil.getDurationInMinutes(workout.getStartTime(), workout.getEndTime())));
         }
 
         lineChart.getData().add(dataSeries);
+
+        if (lineChartContainer.getChildren().size() > 0) {
+            lineChartContainer.getChildren().removeAll();
+        }
+
         lineChartContainer.getChildren().add(lineChart);
     }
 

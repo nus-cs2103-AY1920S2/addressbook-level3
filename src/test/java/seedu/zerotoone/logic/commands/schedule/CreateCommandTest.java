@@ -32,6 +32,7 @@ import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutList;
+import seedu.zerotoone.model.workout.WorkoutName;
 import seedu.zerotoone.testutil.ModelStub;
 import seedu.zerotoone.testutil.schedule.OneTimeScheduleBuilder;
 
@@ -51,13 +52,16 @@ public class CreateCommandTest {
     @Test
     public void execute_scheduleAcceptedByModel_addSuccessful() throws Exception {
         Index index = INDEX_FIRST_OBJECT;
-        Workout workout = model.getFilteredWorkoutList().get(index.getZeroBased());
+        WorkoutName workoutName = model.getFilteredWorkoutList().get(index.getZeroBased()).getWorkoutName();
         DateTime dateTime = new DateTime(VALID_DATETIME_JUNE);
         CreateCommand createCommand = new CreateCommand(index, dateTime);
 
         ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
         CommandResult commandResult = createCommand.execute(modelStub);
-        Schedule expectedSchedule = new OneTimeScheduleBuilder().withWorkout(workout).withDateTime(dateTime).build();
+        Schedule expectedSchedule = new OneTimeScheduleBuilder()
+                .withWorkoutName(workoutName)
+                .withDateTime(dateTime)
+                .build();
 
         assertEquals(
                 String.format(CreateCommand.MESSAGE_SUCCESS, expectedSchedule),
@@ -101,11 +105,14 @@ public class CreateCommandTest {
 
     @Test
     public void execute_duplicateSchedule_throwsCommandException() {
-        Workout workout = model.getFilteredWorkoutList().get(0);
+        WorkoutName workoutName = model.getFilteredWorkoutList().get(0).getWorkoutName();
         DateTime dateTime = new DateTime(VALID_DATETIME_JUNE);
         CreateCommand createCommand = new CreateCommand(INDEX_FIRST_OBJECT, dateTime);
 
-        Schedule expectedSchedule = new OneTimeScheduleBuilder().withWorkout(workout).withDateTime(dateTime).build();
+        Schedule expectedSchedule = new OneTimeScheduleBuilder()
+                .withWorkoutName(workoutName)
+                .withDateTime(dateTime)
+                .build();
 
         Model modelWithSchedule = new ModelStubWithSchedule(expectedSchedule);
 

@@ -30,10 +30,6 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
 `Main` has two classes called link:{repoURL}/src/main/java/seedu.zerotoone/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu.zerotoone/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
@@ -98,7 +94,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu.zerotoone/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `ExerciseListParser` class to parse the user command.
+.  `Logic` uses the `ParserManager` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a exercise).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -240,72 +236,88 @@ image::CommitActivityDiagram.png[]
 // end::undoredo[]
 
 // tag::completedExercise[]
-=== Session
+=== Session (Home)
 ==== Implementation
 The Session feature resides on the Home page and is comprised of `Start`, `Stop`, `Done`, and `Skip` commands.
-`OngoingSession`, `Session`, `SessionList` and `SessionSet` are models that are vital components of the feature.
+`OngoingWorkout`, `OngoingSession`, `OngoingSet`, and `OngoingSetList` are models that are vital components of the feature.
 
 The activity diagram below demonstrates the actions of a user with this feature.
 
 .Session Feature Activity Diagram
 image::StartStopActivityDiagram.png[]
 
-Start depicts the start of a valid Session (non-zero sets remaining).
-Upon depletion of all remaining sets, the completedExercise automatically stops and is saved.
-The only inputs the user is required to give throughout the activity are `done` (corresponding to the yes of the conditional branch)
-and `skip` (no of the conditional branch).
+Start depicts the start of a valid (non-zero sets remaining) Workout Session.
+Upon depletion of all remaining sets, the `OngoingWorkout` automatically stops and produces a `CompletedWorkout` which is saved.
+The only inputs the user is required to give throughout the session are `done` (corresponding to the yes of the conditional branch)
+and `skip` (no of the conditional branch). `Stop` is optional.
+
 This is a conscious design choice as elaborated in the next section.
 
 ---
 
 The operations handling these actions are found in OngoingSession:
 
-* `OngoingSession#skip()/OngoingSession#done()` -- returns previous set and updates queue of remaining sets.
-* `OngoingSession#finish()` -- creates and returns an immutable `Session` object for saving and logging.
+* `OngoingWorkout#skip()/OngoingWorkout#done()` -- removes and returns the next set and updates queue of remaining sets.
+* `OngoingWorkout#finish()` -- creates and returns an immutable `CompletedWorkout` object for saving and logging.
 
 Further operations are exposed in the `Model` interface as `Model#startSession()` and `Model#stopSession()`.
 
 ---
 
 The inner workings of the feature are briefly expounded below through example usage.
-`Arms Day` is a `Workout` with ID = `2` and consists of 2 sets of one exercise called `Benchpress`.
+`Arms Day` is a `Workout` with ID = `2` and consists of 2 sets of one exercise called `Bench Press`.
+
+
+.Example Workout Session
+image::sessionExample.png[]
 
 Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a completedExercise with `start 2`.
 
 * `Logic` and `Parser` redirects control to `StartCommand#execute()` where an instance of `OngoingSession` is created with
 `Arms Day`. The upcoming set of the next exercise is displayed for the user.
 
+* The timer starts counting. This acts as a visual cue for the user that notifies the start of the workout and is essentially superfluous, since it's main purpose is to time rest between sets.
+
 Step 2. The user completes the first set and types `done`.
 
 * `DoneCommand#execute()` is invoked, which in turn calls `OngoingSession#done()` to obtain the next set and statefully
-updates the instance of `OngoingSession`.
+updates the instance of `OngoingWorkout`.
 
-* The rest timer starts counting from 00:00.
+* The rest timer resets and starts counting from 00:00.
 
 .DoneCommand sequence diagram
 image::DoneCommandSequenceDiagram.png[]
 
-Step 3. The user fails the last and final set of `Benchpress` and types `skip`.
+* The sequence diagram above demonstrates the interaction between the Logic and Model of ZeroToOne.
+For brevity, some inner details between `OngoingWorkout.done()` and the return of `cs` are omitted.
 
-* `SkipCommand#execute()` is invoked. The instance of `OngoingSession` is updated. Since `OngoingSession#hasSetLeft()`
-returns false, `OngoingSession#finish()` is called which creates and returns an immutable `Session` object. This object
-is saved into the `completedExerciseList` of `ModelManager` for saving and use by the `Log` feature.
+Step 3. After resting, the user fails the last and final set of `Bench Press` and types `skip`.
+
+* `SkipCommand#execute()` is invoked. The process is almost identical to the above execution of `done` except this time the instance of `CompletedSet` is created with `isFinished` set to `false`.
+
+* Since this is the final set of the session, `OngoingWorkout#hasSetLeft()`
+returns false, and `OngoingWorkout#finish()` is called which creates and returns an immutable `CompletedWorkout` object. This object
+is saved and passed on for use by the `Log` feature.
+
+* The workout session is now complete, and the timer and UI is reset.
+
+* The workout session can be viewed in the `Log` tab.
 
 [Note] In the usual flow, the `stop` command is not used, and is reserved only for a premature (incomplete) ending of a
-completedExercise.
+workout session.
 
 ==== Design Considerations
 ===== Aspect: Seamless user-first experience
-* **Current Implementation:** Minimal commands and typing during an ongoing completedExercise.
+* **Current Implementation:** Minimal commands and typing during an ongoing session.
 ** Pros: Less interruption during actual exercising to enter commands.
 ** Cons: More experienced users are not able to have a more customizable workout.
 
 
 ===== Aspect: Beginner-friendly automatic set-ordering
 * **Current Implementation:** Exercises and sets have fixed ordering based on their creation.
-** Pros: Easier for new user to follow a completedExercise, less typing required during ongoing completedExercise.
-** Cons: Experienced users are not able to have an ad-hoc customizable workout without creating a new workout with the specific order they want.
-// end::completedExercise[]
+** Pros: Easier for new user to follow a workout session, less typing required during a workout session.
+** Cons: Experienced users are not able to have an ad-hoc, customizable workout without creating a new workout with the specific order they want.
+// end::session[]
 
 // tag::exercise[]
 === Exercise
@@ -339,22 +351,20 @@ One of the consideration while designing was that the commands in exercise are e
 // end::exercise[]
 
 // tag::workout[]
-
-=== Workout Manager
+=== Workout
 ==== Overview
-The workout feature in ZeroToOne allows users to manage their workouts! Users will be able to create a workout, add exercises to it,
-as well as edit the workout and its exercises.
+The workout feature in ZeroToOne allows users to manage their workouts! Users will be able to create a workout, add exercises to it, as well as edit the workout and its exercises.
 
-==== Implementation
+==== Components
 The Workout Manager consists of a `WorkoutList`, which contains a number of workouts that the user has created.
 Each workout consists of a `WorkoutId`, a `WorkoutName` and finally, an `WorkoutExerciseList`.
 
 The following class diagram shows the overview of the Workout Manager:
 
-image::WorkoutManagerClassDiagram.png[]
+.Workout Class Diagram
+image::WorkoutClassDiagram.png[]
 
-Figure: Workout Manager Class Diagram
-
+==== Workout Model
 ZeroToOne's `Model` extends the `WorkoutModel`. Here are all the functions to carry out workout-related activities:
 
 * `Model#getWorkoutListFilePath()` - Retrieves the `Path` of the `WorkoutList`
@@ -365,37 +375,42 @@ ZeroToOne's `Model` extends the `WorkoutModel`. Here are all the functions to ca
 * `Model#deleteWorkout(Workout target)` - Deletes a specified workout from the workout list
 * `Model#addWorkout(Workout target)` - Adds a new workout to the workout list
 * `Model#setWorkout(Workout target, Workout editedWorkout)` - Replaces a particular workout with an edited workout
+* `Model#deleteExerciseFromWorkout(Exercise exercise)` - Deletes any instance of an exercise from all workouts
 * `Model#getFilteredWorkoutList()` - Returns an unmodifiable view of `ObservableList<Workout>`
 * `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` - Updates the filter of `FilteredWorkoutList`
 
+==== Command Execution
+
 To illustrate an example of a command from the Workout Manager, the following sequence diagram
-depicts flow of the program when the command `workout find w/Strength Training`
+depicts flow of the program when the command `workout find w/Arms Workout` is run.
 
-image::WorkoutManagerSequenceDiagram.png[]
+.Sequence Diagram for Finding a Workout
+image::WorkoutSequenceDiagram.png[]
 
-Figure: Workout Manager Sequence Diagram
+. When the user runs the command `workout find w/Arms Workout`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
+. The `ParserManager` then has to `parse("workout find w/Arms Workout"`.
+. Next, the `WorkoutCommandParser` has to `parse("find w/Arms Workout")` for the command.
+. Once the command has been parsed as a `FindCommand`, it will be passed on to the `FindCommandParser`, which will then create a new `WorkoutName`.
+. The `FindCommandParser` can then create a `FindCommand`, which in turn creates a `PredicateFilterWorkoutName`.
+. The `FindCommand` can be returned to the `LogicManager`, where it will `execute()` the `FindCommand`.
+. `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` is used to update the view of the workout list to show the requested Workout(s).
+. Finally, the resulting output message will be returned as the `CommandResult`.
 
-. When the user runs the command `workout find w/Strength Training`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
-. Next, the `WorkoutCommandParser` has to `parseCommand()` for the command.
-. Once the command has been parsed as a `FindCommand`, it will be passed on to the `FindCommandParser`, which will then `findWorkout()` for the requested workout in the `Model`.
-. Finally, the requested `Workout` will be returned as the `CommandResult`.
-.. `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` is used to update the view of the workout list to show the requested Workout(s).
 
 ==== Design Considerations
 
 ===== Aspect: Exercises in workout
 
-* Option 1: Use existing Exercise class in workouts
-** Advantage: Building on an existing class is simpler and more intuitive
-** Disadvantage: Introduces a dependency on the Exercise class
-* Option 2: Create a new WorkoutExercise class for workouts
-** Advantage: Creates an extra layer of abstraction
-** Disadvantage: More code needed which may be redundant
+* Option 1: Use existing `Exercise` class in `Workout`
+** Advantage: Building on an existing class is simpler and more intuitive.
+** Disadvantage: Introduces a dependency on the `Exercise` class
+* Option 2: Create a new `WorkoutExercise` class for the `Workout` class
+** Advantage: Creates an extra layer of abstraction and removes the dependency on `Exercise`.
+** Disadvantage: More code needed which may be redundant.
 
-In the end, we decided to stick with Option 1. This is because creating a new WorkoutExercise class
+In the end, I decided to stick with Option 1. This is because creating a new WorkoutExercise class
 is redundant and unnecessary, when there is no functional difference between an Exercise and a WorkoutExercise,
-other than the context that they are referenced in. To simplify matters, using the existing Exercise class
-to construct workouts was better.
+other than the context that they are referenced in. In addition, this would make the deletion of any instance of a particular Exercise from a Workout easier, when an Exercise is deleted from the ExerciseList. Hence, to simplify matters, using the existing Exercise class to construct workouts was better.
 // end::workout[]
 
 // tag::schedule[]
@@ -476,17 +491,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+|`* * *` |User who wants to track live progress while exercising |Time each part of my workout |Stay on track for each workout session I do
+
+|`* * *` |User who does a large variety of kinds of exercises |Keep track of all my exercises for different fitness purposes |Stay organised
+
 |`* * *` |User with many different workouts |Keep track of all my workouts |Stay organised
 
 |`* * *` |User that is busy with multiple commitments |Keep on schedule for my exercise regime |Stay disciplined and keep exercising regularly
 
 |`* * *` |User who has exercise goals |See or track my current progress |Check if I am reaching my goals
 
-|`* * *` |User who has exercise goals |Set and adjust goals accordingly |Make plans to reach my goals, and improve upon those plans as I see fit
+|`* *` |User who likes to schedule single workout sessions, but will occasionally do recurring ones |Keep track of the two types of workouts |Manage different types of workouts simultaneously
 
 |`* * *` |User who wants to track live progress while exercising |Have a timer for each part of my workout |Stay on schedule for each workout completedExercise I do
 
-|`* *` |User who does exercises in sets |Keep track of how many repetitions per exercise |Know the details of each exercise
+|`* *` |User who enjoys social activities |Share my workout routines with my friends |Help each other out by sharing new exercise regimes
 
 |`* *` |User who has a regular workout schedule, but likes to schedule one-off completedExercises |Some way to keep track of both regular and one-off workouts |Differentiate between the workouts and manage them both simultaneously
 
@@ -496,21 +515,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |User who needs some inspiration or a change of pace |Have sample workout routines to follow |Get more ideas and ways to structure my workouts and find new exercises
 
-|`* *` |User who enjoys graphical displays |Have a graphical overview of various health statistics |Easily comprehend and view my statistics
-
-|`* *` |User who enjoys exercising and discussing it |Share my workout routines with my friends  |Help each other out by sharing new exercise regimes
-
 |`* *` |User who has many different types of workouts |To categorize the different types of workout  |Achieve better organisation
-
-|`* *` |User who has many different workouts and exercises |To have an overview of all my workout related information |Achieve better organisation
 
 |`*` |New user who is not familiar with setting up exercise regimes |To have a way to consult with fitness trainers or professionals |Gain better knowledge and understanding of exercise regimes
 
 |`*` |User who is sociable and largely influenced by my peers |To see my friends’ progress and achievements |Motivate myself to work harder and help each other out
 
 |`*` |User who sometimes gets a little bored when working out |To have a way to entertain or distract myself when working out  |Keep myself on the task at hand by giving an extra motivation boost
-
-|`*` |User who enjoys exercising to music that matches the exercise |To have music tailored to my current workout |Have even more fun with my workouts
 |=======================================================================
 
 [appendix]

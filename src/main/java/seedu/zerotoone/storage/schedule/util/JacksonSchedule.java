@@ -7,8 +7,7 @@ import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.schedule.DateTime;
 import seedu.zerotoone.model.schedule.OneTimeSchedule;
 import seedu.zerotoone.model.schedule.Schedule;
-import seedu.zerotoone.model.workout.Workout;
-import seedu.zerotoone.storage.workout.util.JacksonWorkout;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  *
@@ -17,16 +16,16 @@ public class JacksonSchedule {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Schedule's %s field is missing!";
 
-    private final JacksonWorkout workoutToSchedule;
+    private final String workoutNameToSchedule;
     private final JacksonDateTime dateTime;
 
     /**
      * Constructs a {@code JsonAdaptedSchedule} with the given schedule details.
      */
     @JsonCreator
-    public JacksonSchedule(@JsonProperty("workoutToSchedule") JacksonWorkout workoutToSchedule,
+    public JacksonSchedule(@JsonProperty("workoutNameToSchedule") String workoutNameToSchedule,
                            @JsonProperty("dateTime") JacksonDateTime dateTime) {
-        this.workoutToSchedule = workoutToSchedule;
+        this.workoutNameToSchedule = workoutNameToSchedule;
         this.dateTime = dateTime;
     }
 
@@ -35,7 +34,7 @@ public class JacksonSchedule {
      */
     public JacksonSchedule(Schedule source) {
         OneTimeSchedule oneTimeSchedule = (OneTimeSchedule) source;
-        workoutToSchedule = new JacksonWorkout(oneTimeSchedule.getWorkoutToSchedule());
+        workoutNameToSchedule = oneTimeSchedule.getWorkoutNameToSchedule().fullName;
         dateTime = new JacksonDateTime(oneTimeSchedule.getDateTime());
         // STEPH_TODO: add support for recurring schedule
     }
@@ -46,10 +45,18 @@ public class JacksonSchedule {
      * @throws IllegalValueException if there were any data constraints violated in the adapted schedule.
      */
     public Schedule toModelType() throws IllegalValueException {
-        Workout workout = workoutToSchedule.toModelType();
-        DateTime dateTime = this.dateTime.toModelType();
+        if (workoutNameToSchedule == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                            WorkoutName.class.getSimpleName()));
+        } else if (!WorkoutName.isValidWorkoutName(workoutNameToSchedule)) {
+            throw new IllegalValueException(WorkoutName.MESSAGE_CONSTRAINTS);
+        }
 
-        return new OneTimeSchedule(workout, dateTime);
+        final WorkoutName workoutName = new WorkoutName(workoutNameToSchedule);
+        final DateTime dateTime = this.dateTime.toModelType();
+
+        return new OneTimeSchedule(workoutName, dateTime);
     }
 
 }

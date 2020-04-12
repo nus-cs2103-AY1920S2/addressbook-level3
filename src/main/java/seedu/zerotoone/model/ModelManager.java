@@ -42,6 +42,7 @@ import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutList;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 
 /**
@@ -114,6 +115,9 @@ public class ModelManager implements Model {
         this.timerList = new TimerList();
         this.start = 0;
         this.timer = new Timer();
+        List<Integer> data = new LinkedList<>();
+        data.add(0);
+        timerList.setSessionList(data);
 
         this.logList = new LogList(logList);
         filteredLogList = new FilteredList<>(this.logList.getLogList());
@@ -193,6 +197,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
         requireNonNull(predicate);
+        filteredExercises.setPredicate(PREDICATE_SHOW_NONE);
         filteredExercises.setPredicate(predicate);
     }
 
@@ -224,6 +229,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredLogList(Predicate<CompletedWorkout> predicate) {
         requireNonNull(predicate);
+        filteredLogList.setPredicate(PREDICATE_SHOW_NONE);
         filteredLogList.setPredicate(predicate);
     }
 
@@ -301,10 +307,12 @@ public class ModelManager implements Model {
 
         // Timer stuff
         this.start = 0;
-        this.timerList.resetData(new TimerList());
         this.timer.cancel();
         this.timer.purge();
         this.timer = new Timer();
+        List<Integer> data = new LinkedList<>();
+        data.add(0);
+        timerList.setSessionList(data);
     }
 
     @Override
@@ -376,13 +384,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteWorkoutFromSchedule(Workout workoutToDelete) {
-        scheduler.deleteWorkoutFromSchedule(workoutToDelete);
+    public void deleteWorkoutNameFromSchedule(WorkoutName workoutNameToDelete) {
+        scheduler.deleteWorkoutNameFromSchedule(workoutNameToDelete);
     }
 
-    @Override
-    public void editWorkoutInSchedule(Workout workoutToEdit, Workout editedWorkout) {
-        scheduler.editWorkoutInSchedule(workoutToEdit, editedWorkout);
+    public void editWorkoutNameInSchedule(WorkoutName workoutNameToEdit, WorkoutName editedWorkoutName) {
+        scheduler.editWorkoutNameInSchedule(workoutNameToEdit, editedWorkoutName);
     }
 
     @Override
@@ -450,6 +457,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setExerciseInWorkouts(Exercise target, Exercise editedExercise) {
+        workoutList.setExerciseInWorkouts(target, editedExercise);
+    }
+
+    @Override
     public void addWorkout(Workout workout) {
         workoutList.addWorkout(workout);
         updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
@@ -469,6 +481,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
         requireNonNull(predicate);
+        filteredWorkouts.setPredicate(PREDICATE_SHOW_NONE);
         filteredWorkouts.setPredicate(predicate);
     }
 

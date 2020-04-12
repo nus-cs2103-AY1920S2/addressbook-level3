@@ -6,6 +6,7 @@ import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.util.SampleWorkoutDataUtil.SampleWorkoutIndex;
 import seedu.zerotoone.model.workout.Workout;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  * Contains utility methods for populating {@code ScheduleList} with sample data.
@@ -17,15 +18,18 @@ public class SampleScheduleDataUtil {
 
         // Push Day
         DateTime pushDayDateTime = new DateTime("2020-05-11 13:00");
-        schedules[0] = new OneTimeSchedule(workouts[SampleWorkoutIndex.PUSH_DAY], pushDayDateTime);
+        WorkoutName pushDayWorkoutName = workouts[SampleWorkoutIndex.PUSH_DAY].getWorkoutName();
+        schedules[0] = new OneTimeSchedule(pushDayWorkoutName, pushDayDateTime);
 
         // Pull Day
         DateTime pullDayDateTime = new DateTime("2020-05-05 23:00");
-        schedules[1] = new OneTimeSchedule(workouts[SampleWorkoutIndex.PULL_DAY], pullDayDateTime);
+        WorkoutName pullDayWorkoutName = workouts[SampleWorkoutIndex.PULL_DAY].getWorkoutName();
+        schedules[1] = new OneTimeSchedule(pullDayWorkoutName, pullDayDateTime);
 
         // Legs Day
         DateTime legsDayDateTime = new DateTime("2021-05-15 12:00");
-        schedules[2] = new OneTimeSchedule(workouts[SampleWorkoutIndex.LEGS_DAY], legsDayDateTime);
+        WorkoutName legsDayWorkoutName = workouts[SampleWorkoutIndex.LEGS_DAY].getWorkoutName();
+        schedules[2] = new OneTimeSchedule(legsDayWorkoutName, legsDayDateTime);
         return schedules;
     }
 

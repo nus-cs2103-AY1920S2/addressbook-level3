@@ -1,7 +1,7 @@
-package seedu.zerotoone.model.log;
+package seedu.zerotoone.logic.statistics;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,9 +12,7 @@ import seedu.zerotoone.model.session.CompletedWorkout;
  */
 public class StatisticsData {
 
-    private Integer totalWorkoutCount;
-    private Duration totalTime;
-    private Duration averageTimePerDay;
+    private List<DataPoint> dataPoints;
     private LocalDateTime startRange;
     private LocalDateTime endRange;
     private List<CompletedWorkout> workouts;
@@ -23,29 +21,32 @@ public class StatisticsData {
      * Instantiates a new Statistics data.
      */
     public StatisticsData() {
-        totalWorkoutCount = 0;
-        totalTime = Duration.ZERO;
-        averageTimePerDay = Duration.ZERO;
+        dataPoints = new ArrayList<>();
     }
 
     /**
      * Instantiates a new Statistics data.
      *
-     * @param workouts          the workouts
-     * @param startRange        the start range
-     * @param endRange          the end range
-     * @param totalWorkoutCount the total workout count
-     * @param totalTime         the total time
-     * @param averageTimePerDay the average time per day
+     * @param workouts   the workouts
+     * @param startRange the start range
+     * @param endRange   the end range
+     * @param dataPoints the data points
      */
     public StatisticsData(List<CompletedWorkout> workouts, LocalDateTime startRange, LocalDateTime endRange,
-                          Integer totalWorkoutCount, Duration totalTime, Duration averageTimePerDay) {
+                          List<DataPoint> dataPoints) {
         this.workouts = workouts;
-        this.totalWorkoutCount = totalWorkoutCount;
-        this.totalTime = totalTime;
-        this.averageTimePerDay = averageTimePerDay;
         this.startRange = startRange;
         this.endRange = endRange;
+        this.dataPoints = dataPoints;
+    }
+
+    /**
+     * Gets data points.
+     *
+     * @return the data points
+     */
+    public List<DataPoint> getDataPoints() {
+        return dataPoints;
     }
 
     /**
@@ -84,33 +85,6 @@ public class StatisticsData {
         return endRange;
     }
 
-    /**
-     * Gets total workout count.
-     *
-     * @return the total workout count
-     */
-    public int getTotalWorkoutCount() {
-        return totalWorkoutCount;
-    }
-
-    /**
-     * Gets total time.
-     *
-     * @return the total time
-     */
-    public Duration getTotalTime() {
-        return totalTime;
-    }
-
-    /**
-     * Gets average time per day.
-     *
-     * @return the average time per day
-     */
-    public Duration getAverageTimePerDay() {
-        return averageTimePerDay;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -122,11 +96,9 @@ public class StatisticsData {
         }
 
         StatisticsData that = (StatisticsData) o;
-        return Objects.equals(totalWorkoutCount, that.totalWorkoutCount)
-            && Objects.equals(totalTime, that.totalTime)
-            && Objects.equals(averageTimePerDay, that.averageTimePerDay)
-            && Objects.equals(startRange, that.startRange)
+        return Objects.equals(startRange, that.startRange)
             && Objects.equals(endRange, that.endRange)
-            && Objects.equals(workouts, that.workouts);
+            && Objects.equals(workouts, that.workouts)
+            && dataPoints.equals(((StatisticsData) o).dataPoints);
     }
 }

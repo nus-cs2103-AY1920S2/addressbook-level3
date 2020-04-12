@@ -2,6 +2,7 @@ package seedu.zerotoone.ui;
 
 import java.util.logging.Logger;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TabPane;
@@ -10,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.Logic;
 import seedu.zerotoone.logic.commands.CommandResult;
@@ -135,6 +137,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setY((screenBoundary.getHeight() - primaryStage.getHeight()) / 2);
 
         primaryStage.show();
+
+        // Focus user context onto command box at startup
+        commandBoxPlaceholder.setFocusTraversable(true);
     }
 
     /**
@@ -168,7 +173,9 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         logic.showdownTimer();
         statisticsWindow.hide();
-        primaryStage.hide();
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event -> primaryStage.hide());
+        pause.play();
     }
 
     /**

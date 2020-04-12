@@ -46,8 +46,10 @@ public class AddCommandTest {
         Workout editedWorkout = new WorkoutBuilder(workoutToEdit).withWorkoutExercise(exerciseToAdd).build();
         AddCommand addCommand = new AddCommand(INDEX_FIRST_OBJECT, INDEX_FIRST_OBJECT);
 
-        String expectedMessage = String.format(AddCommand.MESSAGE_ADD_WORKOUT_EXERCISE_SUCCESS,
-                exerciseToAdd.getExerciseName());
+        String expectedMessage = String.format(
+                AddCommand.MESSAGE_ADD_WORKOUT_EXERCISE_SUCCESS,
+                exerciseToAdd.getExerciseName(),
+                workoutToEdit.getWorkoutName());
 
         ModelManager expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),
