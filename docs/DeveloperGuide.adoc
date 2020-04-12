@@ -158,7 +158,7 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-ViewController]]
-=== ViewModel component (HIEU)
+=== ViewModel component [Hieu]
 image::ViewModelDiagram.png[]
 *API*: link:{repoURL}/src/main/java/seedu/address/viewmodel/ViewModel.java[`ViewModel.java`]
 
@@ -170,7 +170,7 @@ The `ViewModel`,
 observableMap, which in turn will automatically update the corresponding `DetailPanel` view.
 
 [[Design-Model]]
-=== Model component [Ivan Tee Jun Jie]
+=== Model component [Tee Jun Jie Ivan]
 
 .Structure of the Model Component
 image::Ivan-ModelClassDiagram.png[]
@@ -199,10 +199,9 @@ image::Ivan-AssignmentClassDiagram.png[]
 [NOTE]
 The AddressBookGeneric in the diagram above is actually an AddressBookGeneric<Assignment>.
 The AddressBookGeneric has been made to accept any class that extends ModelObject.
-This cannot be shown due to limitations in PUML.
+This cannot be shown due to limitations in PlantUML.
 
 ==== Notable Implementations in Model
-
 . By making use of `Generics` and `Polymorphism`, the group has made it such that `AddressBookGeneric<K extends ModelObject>` can hold any class that extends from ModelObject
 Benefits::
 .. Allows for code optimization by having reusable code.
@@ -212,6 +211,12 @@ Future features that involve creating new AddressBooks can be developed very qui
 
 . All `ModelObjects` implement `Cloneable` so as to allow for Defensive Programming more easily.
 .. Please refer to <<Design-Assign-Copy, `Step 2 of Section 2.2.2`>> for the team's rationale behind having ModelObject implement Cloneable.
+
+. All Non-Crud Commands such as `Assign`/`Un-assign`/`Done` are handled in `DiffTypesOfManagers` such as `EdgeManager` or
+`ProgressManager` instead of having all implementations being done in `ModelManager`
+Benefits::
+.. Easier implementation since lower level implementations can be abstracted away
+.. More decoupling which will lead to be better testability and easier debugging
 
 [[Design-Storage]]
 === Storage component [NEED TO UPDATE]
@@ -248,7 +253,6 @@ In order to allow the tracking of the students/assignments/teachers that are ass
 .Relationship between Entities
 image::Ivan-OODMForEntityRS.png[]
 
-
 The group came up with the structure above where we centralize most links around the `Course` object so as for easier management of entity links.
 Every non-directed association between 2 objects ensures that both objects have each other's ID.
 
@@ -281,6 +285,7 @@ For the actual execution of an assign/un-assign command, 3 main steps are perfor
 . Add both object's ID into each other - Handled by `EdgeManager`
 . Create/remove Progress objects when assignments/students are involved - Handled by `Progress Manager`
 
+[[Preprocess-entity]]
 ===== Step 1: Preprocess Entities
 
 ====== Rationale
@@ -465,6 +470,31 @@ Cons: Harder to implement
 ==== Opposite Command for edit [Dat]
 
 ==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
+Generating of opposite commands for assign and un-assign commands is very intuitive. The opposite of assign is un-assign and vice versa.
+
+The *tricky* part comes after you un-assign a Student/Assignment from a Course and remove the affected `Progress` objects.
+When you want to undo the un-assign command, you need to add back those `Progress` objects which were just removed instead of adding new `*undone* Progress objects`.
+This is because those removed `Progress` objects may or may not be `done`.
+
+This is achieved by 3 simple, additional steps.
+
+. When pre-processing an un-assign command as per <<Preprocess-entity, `*Step 1 of Section 2.2.2*`>>,
+you'll need to assign all `Progress` objects that are about to be removed to a variable
+. When `GenerateOppositeCommand` is called, as mentioned, the opposite command will be an `Assign` Command.
+Instead, this time you will need to instantiate a new `Assign` using the `Progress` objects that you have saved via an overloaded constructor:
+[source, java]
+public AssignAssignmentToCourseCommand(AssignDescriptor assignDescriptor, Set<Progress> undoProgresses)
+
+.. This allows the opposite command to add back the removed `Progress` objects
+. Finally, when `executeUndoableCommand` is executed, seeing that the undoProgresses is not null,
+the `Assign` Command will add those `Progress` objects back. Please see the activity diagram below for a better understanding of when the
+Undo Progress will be added back in.
+
+image::Ivan-ActivityDiagramUndoAssign.png[]
+
+This results in the *correct* `Progress` objects added back in instead of completely new `Progress` objects that are all `Undone`.
+You can also notice that this is a faster implementation since we do not need to re-create a `CompositeID` and the actual
+`Progress` object itself when we are just adding back the UndoProgresses.
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities) [Dat]
 
@@ -493,7 +523,7 @@ an event of `DataStorageChangeEvent` or `DeleteEntitySyncEvent` happens, it will
 which `observableMap` (which corresponds to different `DetailedView`) is active then
 do the query again.
 
-. 2/ Lazy loading: For example, when seeing details of the students, we only want to show the courses
+. Lazy loading: For example, when seeing details of the students, we only want to show the courses
 that the students have without the progresses of this course that the student currently have.
 To query that, after executing `select sid/ student_id`, the user needs to run
 `select sid/ student_id cid/ course-id` as well
