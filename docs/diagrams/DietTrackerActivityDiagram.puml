@@ -1,4 +1,6 @@
 @startuml
+/' @author @jarrod-bob'/
+
 start
 
 :Enter Diet Tracker;
