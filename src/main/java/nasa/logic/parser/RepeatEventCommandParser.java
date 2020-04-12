@@ -7,7 +7,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_REPEAT;
 import java.util.stream.Stream;
 
 import nasa.commons.core.index.Index;
-import nasa.logic.commands.RepeatDeadlineCommand;
 import nasa.logic.commands.RepeatEventCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;

@@ -1,7 +1,5 @@
 package nasa.ui;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -70,8 +68,8 @@ public class ModuleListPanel extends UiPart<Region> {
             });
 
             setOnDragOver(event -> {
-                if (event.getGestureSource() != thisCell &&
-                        event.getDragboard().hasString()) {
+                if (event.getGestureSource() != thisCell
+                        && event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.MOVE);
                 }
 
@@ -79,15 +77,15 @@ public class ModuleListPanel extends UiPart<Region> {
             });
 
             setOnDragEntered(event -> {
-                if (event.getGestureSource() != thisCell &&
-                        event.getDragboard().hasString()) {
+                if (event.getGestureSource() != thisCell
+                        && event.getDragboard().hasString()) {
                     setOpacity(0.3);
                 }
             });
 
             setOnDragExited(event -> {
-                if (event.getGestureSource() != thisCell &&
-                        event.getDragboard().hasString()) {
+                if (event.getGestureSource() != thisCell
+                        && event.getDragboard().hasString()) {
                     setOpacity(1);
                 }
             });
@@ -104,7 +102,6 @@ public class ModuleListPanel extends UiPart<Region> {
                     ObservableList<Module> items = getListView().getItems();
                     int draggedIdx = items.indexOf(db.getString());
                     int thisIdx = items.indexOf(getItem());
-
 
                     success = true;
                 }

@@ -1,28 +1,20 @@
 package nasa.ui;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
 import nasa.logic.Logic;
-import nasa.logic.commands.Command;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
@@ -47,8 +39,6 @@ public class MainWindow extends UiPart<Stage> {
     private QuotePanel quotePanel;
     private TabPanel tabPanel;
     private ExportQrWindow exportQrWindow;
-    protected Popup popupCmdHint;
-    protected TextArea txtCmdHint;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -149,7 +139,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getNasaBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, primaryStage, this);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 

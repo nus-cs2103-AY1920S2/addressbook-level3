@@ -3,13 +3,6 @@ package nasa.model.activity;
 import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Timer;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Represents Deadlines method in NASA.
  * Guarantees: details are present and not null, field values are validated, immutable.
