@@ -31,6 +31,7 @@ public class ListReceiptCommandTest {
             splitterModel.getPersonAmountBook(), new UserPrefs());
     }
 
+
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListReceiptCommand(), splitterModel, ListReceiptCommand.MESSAGE_SUCCESS,
@@ -43,6 +44,8 @@ public class ListReceiptCommandTest {
         assertCommandSuccess(new ListReceiptCommand(), splitterModel, ListReceiptCommand.MESSAGE_SUCCESS,
             expectedSplitterModel);
     }
+
+
 
     @Test
     public void equals() {

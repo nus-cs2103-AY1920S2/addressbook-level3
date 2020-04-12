@@ -27,8 +27,8 @@ public class ListReceiptCommand extends Command<SplitterModel> {
     public CommandResult execute(SplitterModel splitterModel) {
         requireNonNull(splitterModel);
         if (!splitterModel.getReceipt().getReceipt().isEmpty()) {
-            splitterModel.listReceipt();
-            return new CommandResult(MESSAGE_SUCCESS);
+            String output = splitterModel.listReceipt();
+            return new CommandResult(output.concat(MESSAGE_SUCCESS));
         } else {
             return new CommandResult(MESSAGE_EMPTY);
         }

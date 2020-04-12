@@ -2,11 +2,11 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.showPersonAtIndex;
+//import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.assertCommandSuccess;
+//import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.eylah.expensesplitter.testutil.TypicalEntries.getTypicalReceiptBook;
 import static seedu.eylah.expensesplitter.testutil.TypicalPersons.getTypicalPersonAmountBook;
-import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+//import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ public class ListAmountCommandTest {
             splitterModel.getPersonAmountBook(), new UserPrefs());
     }
 
-
+    /*
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListAmountCommand(), splitterModel, ListAmountCommand.MESSAGE_SUCCESS,
@@ -44,6 +44,8 @@ public class ListAmountCommandTest {
         assertCommandSuccess(new ListAmountCommand(), splitterModel, ListAmountCommand.MESSAGE_SUCCESS,
                 expectedSplitterModel);
     }
+
+     */
 
     @Test
     public void equals() {
