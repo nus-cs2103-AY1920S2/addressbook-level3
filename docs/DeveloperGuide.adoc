@@ -444,7 +444,7 @@ image::chart-analytics/ToggleViewStep1.png[,650]
 Step 2. The user inputs **toggleview** to change the view from list of transactions to chart analysis.
 
 .User input for toggle view
-image::chart-analytics/ToggleViewStep2.png[,650]
+image::chart-analytics/ToggleViewStep2.png[]
 
 Step 3. `ToggleViewCommand#execute()` switches `isViewList` of `ToggleView` from true to false.
 
@@ -459,8 +459,8 @@ image::chart-analytics/ToggleViewStep4.png[,650]
 
 Step 5. User inputs **toggleview** again to change view back to list of transactions.
 
+image::chart-analytics/ToggleViewStep2.png[]
 .Switched from showing list of transactions to chart analysis
-image::chart-analytics/ToggleViewStep2.png[,650]
 image::chart-analytics/ToggleViewStep1.PNG[,650]
 
 Step 6. User can set filter to a certain month to view a different kind of bar chart.
