@@ -91,8 +91,8 @@ Follow the steps below to help you set up EYLAH in no time!
 e.g. typing *`help`* and pressing kbd:[Enter] will show you the commands you can type.
 .  Some example commands you can try:
 
-* `1` : enters the Diet Tracker component of EYLAH.
-* `2` : enters the Expense Splitter component of EYLAH.
+* `1` or `diet` : enters the Diet Tracker component of EYLAH.
+* `2` or `split` : enters the Expense Splitter component of EYLAH.
 * `help` : shows the list of commands you can execute at each page.
 * `exit` : exits the app
 
@@ -133,15 +133,9 @@ to to improve your user experience of EYLAH.
 | <<expensesplitterhelp, help>>
 
 | <<editfooditem, edit>>
-| <<back, back>>
+| <<dietback, back>>
 
-| <<diettrackerhelp, help>>
-| <<exit, exit>>
-
-| <<back, back>>
-|
-
-| <<exit, exit>>
+| <<splitback, back>>
 |
 
 |===
@@ -198,31 +192,6 @@ image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
 ====
 Help in main menu and different mode will give different help information.
 ====
-
-'''
-
-=== Exiting the Application : `exit`
-
-In this section, you will learn more about `exit` command, <<howtouseexitcommand, how to use it>>
-and the <<exitexpectedoutcome, expected outcome>> after using the `exit` command.
-
-*Summary of Exit Command:* +
-`exit` You can use this command everywhere in the application to exit.
-
-[[howtouseexitcommand]]
-*How to use the Exit Command:*
-
-Format: +
-`exit` +
-
-Valid Example: +
-`exit`
-
-[[exitexpectedoutcome]]
-*Expected outcome:*
-
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
-
 
 '''
 
@@ -911,7 +880,7 @@ Use `listamount` command to find the index of the person who paid you.
 [[clearreceipt]]
 ==== Clears the receipt `clearreceipt`
 In this section, you will learn more about the `clearreceipt` command, <<howtouseclearreceiptcommand,how to use it>>
-and the <<clearreceipt,expected outcome>> after using the `clearreceipt` command.
+and the <<clearreceiptexpectedoutcome,expected outcome>> after using the `clearreceipt` command.
 
 *Summary of Clear Receipt Command:* +
 `clearreceipt` allows you to remove all items from the receipt and start with a clean receipt.
@@ -960,6 +929,31 @@ Valid Example: +
 *Expected outcome:*
 
 image::placeholder.png[]
+
+
+'''
+
+=== Exiting the Application : `exit`
+
+In this section, you will learn more about `exit` command, <<howtouseexitcommand, how to use it>>
+and the <<exitexpectedoutcome, expected outcome>> after using the `exit` command.
+
+*Summary of Exit Command:* +
+`exit` You can use this command everywhere in the application to exit.
+
+[[howtouseexitcommand]]
+*How to use the Exit Command:*
+
+Format: +
+`exit` +
+
+Valid Example: +
+`exit`
+
+[[exitexpectedoutcome]]
+*Expected outcome:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
 
 
 '''
@@ -1044,7 +1038,7 @@ or
 |`help`
 |`help`
 
-|<<back, *Going Back*>>
+|<<dietback, *Going Back*>>
 |`back`
 |`back`
 
@@ -1095,11 +1089,11 @@ or +
 |`clearreceipt`
 |`clearreceipt`
 
-|<<expensesplitterhelp, *Getting Help*>>
+|<<help, *Getting Help*>>
 |`help`
 |`help`
 
-|<<back, *Going Back*>>
+|<<splitback, *Going Back*>>
 |`back`
 |`back`
 
