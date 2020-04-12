@@ -22,10 +22,8 @@ and adding documentation for the Student View*. In total, I wrote about *7kLoc*.
 
 I created the `Module`, `UniqueModuleList`, `Group` and `UniqueGroupList` models
 that were used in *Student View* from scratch.
-
-A TA would need to keep track of their students, grouped according
-to which group and module they are a part of. These models are required to ensure the
-proper functioning of the commands in the student view that would meet the user's purposes.
+These models are necessary to ensure the
+proper functioning of the commands in the *Student View*.
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/88[#88])
 
 I created a lot of supporting methods for the UI, especially the highlighting feature.
@@ -96,14 +94,11 @@ and the commands used in the Student View.
 
 ** Community:
 *** I reviewed PRs to help maintain code and documentation quality. Some examples are:
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/187[#187],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/208[#208],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/179[#179],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/364[#364],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/187[#187], https://github.com/AY1920S2-CS2103T-W17-4/main/pull/208[#208],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/179[#179], https://github.com/AY1920S2-CS2103T-W17-4/main/pull/364[#364],
 
 *** I also contributed to forum discussions. Some examples are:
-https://github.com/nus-cs2103-AY1920S2/forum/issues/105[1],
-https://github.com/nus-cs2103-AY1920S2/forum/issues/98[2],
+https://github.com/nus-cs2103-AY1920S2/forum/issues/105[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/98[2],
 https://github.com/nus-cs2103-AY1920S2/forum/issues/111[3]
 
 == Contributions to the User Guide
@@ -130,3 +125,5 @@ contributions to the project._
 include::../DeveloperGuide.adoc[tag=studentviewmodel]
 
 include::../DeveloperGuide.adoc[tag=sortgroupmoduleall]
+
+include::../DeveloperGuide.adoc[tag=moduleaddeditdelete]
