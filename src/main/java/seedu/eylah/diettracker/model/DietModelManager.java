@@ -30,7 +30,6 @@ public class DietModelManager extends ModelManager implements DietModel {
     private final FoodBook foodBook;
     private final Myself myself;
     private final FilteredList<Food> filteredFoods;
-    private Mode mode = Mode.MAINTAIN;
 
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs and myself (user metrics).
@@ -220,9 +219,9 @@ public class DietModelManager extends ModelManager implements DietModel {
         if (mode == null || mode.equals("")) {
             Calories caloriesLeft;
             long calorieIntake;
-            if (this.mode == Mode.GAIN) {
+            if (myself.getMode() == Mode.GAIN) {
                 calorieIntake = GAIN_CALORIES;
-            } else if (this.mode == Mode.LOSS) {
+            } else if (myself.getMode() == Mode.LOSS) {
                 calorieIntake = LOSE_CALORIES;
             } else { // MAINTAIN
                 calorieIntake = MAINTAIN_CALORIES;
