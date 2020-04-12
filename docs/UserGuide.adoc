@@ -384,6 +384,9 @@ A person can have any number of tags (including 0)
 
 === Profile / Module Book (Part 1: Manage your modules)
 
+.Main Screen for profile tab
+image::ProfileMainScreen.png[width="790"]
+
 This feature allows individuals to see their own profile, their current cap and the all modules that the individual have taken and all the grades gotten.
 
 ==== Adding a module : `moduleAdd`
@@ -406,6 +409,9 @@ also can update or add in your grade later.
 The program checks whether a module code provided is valid or not by using the search function in module planning feature, which fetch information about
 modules online. If the search function fails to fetch any information, the module code will be treated as invalid.
 
+.Adding a module
+image::AddModule.png[width="790"]
+
 ==== Deleting a module : `moduleDel`
 
 - Deletes a module you have added to the program before from the profile tab.
@@ -417,6 +423,10 @@ modules online. If the search function fails to fetch any information, the modul
 * You can only delete the module which you have added into the program before.
 * Module code inputted is not case sensitive ('moduleDel cs2103' is the same as 'moduleDel CS2103')
 ****
+
+.Deleting a module
+image::DeleteModule.png[width="790"]
+
 
 ==== Editing the grade of a module : `grade`
 
@@ -434,6 +444,8 @@ modules online. If the search function fails to fetch any information, the modul
 [TIP]
 List of all valid grade: A+, A, A-, B+, B, B-, C+, C, D+, D, F, S and U.
 
+.Updating the grade of a module
+image::Grade.png[width="790"]
 
 ==== View current CAP : `cap`
 
@@ -450,6 +462,9 @@ List of all valid grade: A+, A, A-, B+, B, B-, C+, C, D+, D, F, S and U.
 
 [TIP]
 You don't need to indicate the modular credits for each module when you add it in because the program will fetch that infomation online.
+
+.View current CAP
+image::Cap.png[width="790"]
 
 === Profile / Module Book (Part 2: Manage your tasks separately for each module)
 
@@ -486,7 +501,16 @@ The date inputted should be in the format: DD-MM-YYYY.
 * You will get an updated list of tasks related to that specific module after adding. (shown in command line)
 ****
 
+.Adding a module task for certain module
+image::ModuleTaskProfile.png[width="790"]
+
+.module task added will also be shown on calendar
+image::ModuleTaskCalendar.png[width="790"]
+
 ==== Listing all module tasks of certain module
+
+[TIP]
+You can also view module tasks in calendar using `findModule m/MODULE_CODE`
 
 - Lists all module tasks related to the specific module.
 
@@ -497,7 +521,8 @@ The date inputted should be in the format: DD-MM-YYYY.
 * Module code inputted must be valid module code you have added in before.
 ****
 
-*Example:*
+.Showing all module tasks related to specified module
+image::ListModuleTask.png[width="790"]
 
 ==== Deleting a module task : `taskDelete`
 
@@ -514,6 +539,12 @@ This command is similar to the `taskDelete` command in Calendar feature but you 
 * The index must be a positive integer 1, 2, 3, …
 ****
 
+[WARNING]
+Only refer to the index of tasks shown in command line when performing this command. (not the one in calendar)
+
+.Deleting a module task
+image::TaskDeleteWirhModuleCode.png[width="790"]
+
 ==== Marking a module task as done : `done`
 
 - Marks the specified module tasks for certain module as done in the module book and calendar.
@@ -529,6 +560,12 @@ This command is similar to the `done` command in Calendar feature but you need t
 * The index must be a positive integer 1, 2, 3, …
 ****
 
+[WARNING]
+Only refer to the index of tasks shown in command line when performing this command. (not the one in calendar)
+
+.Marking a module task as done
+image::DoneWithModuleCode.png[width="790"]
+
 ==== View task breakdown per module : `taskBreakdown`
 
 - Shows the how many tasks are there in total and how many tasks haven't been completed yet for each module.
@@ -536,6 +573,9 @@ This command is similar to the `done` command in Calendar feature but you need t
 - Format: `taskBreakdown`
 
 - Shows in the command line
+
+.Show task breakdown
+image::TaskBreakDown.png[width="790"]
 
 ==== States major taken : `major` (coming in v2.0)
 

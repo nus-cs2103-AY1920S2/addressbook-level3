@@ -8,7 +8,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.Capulator;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
@@ -135,7 +134,6 @@ public class ModuleBook {
     public void deleteModuleTask(ModuleCode moduleCode, Index index) {
         requireNonNull(moduleCode);
         requireNonNull(index);
-        Task.remove(getModule(moduleCode).getTasks().get(index.getZeroBased()));
         getModule(moduleCode).getTasks().remove(index.getZeroBased());
     }
 
