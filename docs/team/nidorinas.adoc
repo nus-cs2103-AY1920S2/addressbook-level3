@@ -43,20 +43,12 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 ** Tools:
 *** Integrated Travis with the team repo
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
 
 == PROJECT: PowerPointLabs
 
