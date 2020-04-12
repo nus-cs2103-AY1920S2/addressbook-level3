@@ -14,8 +14,8 @@ Class JsonFitBizStorage
 Class StorageReaderWriter
 
 StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> FitBizStorage
+StorageManager -right-> UserPrefsStorage
+StorageManager --> FitBizStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 FitBizStorage <|.right. JsonFitBizStorage
