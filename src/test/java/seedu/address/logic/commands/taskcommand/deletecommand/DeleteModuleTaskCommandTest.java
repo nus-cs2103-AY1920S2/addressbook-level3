@@ -62,7 +62,7 @@ class DeleteModuleTaskCommandTest {
     @Test
     public void execute_argumentWithInvalidIndex_throwsCommandException() {
         DeleteModuleTaskCommand deleteModuleTaskCommand = new DeleteModuleTaskCommand(validModuleCode,
-                Index.fromZeroBased(100));
+                Index.fromZeroBased(10000));
 
         assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MODULE_TASK_INDEX, (
         ) -> deleteModuleTaskCommand.execute(model));

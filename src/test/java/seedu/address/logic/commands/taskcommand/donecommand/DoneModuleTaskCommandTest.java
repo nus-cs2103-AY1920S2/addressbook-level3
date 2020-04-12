@@ -60,7 +60,7 @@ class DoneModuleTaskCommandTest {
     @Test
     public void execute_argumentWithInvalidIndex_throwsCommandException() {
         DoneModuleTaskCommand doneModuleTaskCommand = new DoneModuleTaskCommand(validModuleCode,
-                Index.fromZeroBased(100));
+                Index.fromZeroBased(100000));
 
         assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MODULE_TASK_INDEX, (
         ) -> doneModuleTaskCommand.execute(model));

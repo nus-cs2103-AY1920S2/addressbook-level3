@@ -4,12 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.FXCollections;
+
+
 
 class TaskTest {
 
     private static final String VALID_DATE = "20-04-2020";
-    private static final String VALID_DATE_NEXT = "21-04-2020";
+    private static final String VALID_DATE_NEXT = "01-03-2020";
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -46,8 +52,9 @@ class TaskTest {
     @Test
     public void removeTask() {
         Task newTask = new Task("Test Task");
-        Task.addTaskPerDate(VALID_DATE_NEXT, newTask);
-        Task.removeTaskPerDate(VALID_DATE_NEXT, newTask);
+        Task.setDeadlineTaskList(FXCollections.observableList(new ArrayList<Task>()));
+        Task.add(newTask);
+        Task.remove(newTask);
 
         // no task should be present
         assertFalse(Task.isTaskPresent(VALID_DATE_NEXT));
