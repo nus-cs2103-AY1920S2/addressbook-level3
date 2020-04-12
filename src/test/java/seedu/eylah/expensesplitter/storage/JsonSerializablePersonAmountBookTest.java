@@ -18,16 +18,6 @@ public class JsonSerializablePersonAmountBookTest {
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAmountBook.json");
     private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAmountBook.json");
 
-    /*
-    @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
-        JsonSerializablePersonAmountBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
-            JsonSerializablePersonAmountBook.class).get();
-        PersonAmountBook addressBookFromFile = dataFromFile.toModelType();
-        PersonAmountBook typicalPersonsAddressBook = TypicalPersons.getTypicalPersonAmountBook();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
-    }
-    */
     @Test
     public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
         JsonSerializablePersonAmountBook dataFromFile = JsonUtil.readJsonFile(INVALID_PERSON_FILE,
