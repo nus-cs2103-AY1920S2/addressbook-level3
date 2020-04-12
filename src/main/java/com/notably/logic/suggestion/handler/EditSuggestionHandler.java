@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.notably.commons.LogsCenter;
-import com.notably.logic.suggestion.generator.SearchSuggestionGenerator;
 import com.notably.logic.suggestion.generator.SuggestionGenerator;
 import com.notably.model.Model;
 

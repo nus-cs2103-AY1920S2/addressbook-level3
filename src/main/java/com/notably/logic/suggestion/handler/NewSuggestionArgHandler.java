@@ -10,7 +10,6 @@ import com.notably.commons.LogsCenter;
 import com.notably.commons.parser.ArgumentMultimap;
 import com.notably.commons.parser.ArgumentTokenizer;
 import com.notably.commons.parser.ParserUtil;
-import com.notably.logic.suggestion.generator.SearchSuggestionGenerator;
 import com.notably.logic.suggestion.generator.SuggestionGenerator;
 import com.notably.model.Model;
 import com.notably.model.block.Title;

@@ -15,7 +15,6 @@ import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.logic.suggestion.generator.OpenSuggestionGenerator;
-import com.notably.logic.suggestion.generator.SearchSuggestionGenerator;
 import com.notably.model.Model;
 
 /**
