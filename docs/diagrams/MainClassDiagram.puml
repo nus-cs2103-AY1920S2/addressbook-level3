@@ -12,12 +12,18 @@ package Main <<Rectangle>>{
     Class Application   
 }
 
+package Ui <<Rectangle>> {
+    Class HiddenUi #FFFFFF
+}
+
 MainApp -up-|> Application
 Preloader -up-|> Application
 SplashScreen -up-|> Preloader
+SplashScreen -right[hidden]- MainApp
 
 Main -up-> SplashScreen
 Main -up-> MainApp
 
-SplashScreen -right[hidden]- MainApp
+MainApp -right-> Ui
+
 @enduml
