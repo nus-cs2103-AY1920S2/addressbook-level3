@@ -32,7 +32,7 @@ public class ModuleTaskCommand extends Command {
             + PREFIX_MODULETASK_TIMING + "30-04-2020 "
             + PREFIX_PRIORITY + "5 ";
 
-    public static final String MESSAGE_SUCCESS = "New task added:  ";
+    public static final String MESSAGE_SUCCESS = "New task added successfully\nList of tasks for %s\n%s";
     public static final String MESSAGE_NO_SUCH_MODULE = "This module does not exist, "
             + "maybe you can add the module first";
 
@@ -58,7 +58,10 @@ public class ModuleTaskCommand extends Command {
         model.addDeadlineTask(toAdd);
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
         model.sortTaskList();
-        return new CommandResult(MESSAGE_SUCCESS + " " + toAdd);
+
+        String tasksInfo = model.getModuleTaskInfo(toAdd.getModuleRelated());
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getModuleRelated(), tasksInfo));
     }
 
     @Override

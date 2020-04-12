@@ -46,7 +46,7 @@ public class DeleteDeadlineCommand extends DeleteTaskCommand {
         model.sortTaskList();
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
 
-        return new CommandResult(MESSAGE_SUCCESS );
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
 

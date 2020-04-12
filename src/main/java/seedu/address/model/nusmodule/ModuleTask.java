@@ -36,11 +36,15 @@ public class ModuleTask extends Task {
         return isDone ? 1 : 0;
     }
 
+    public String getDoneMessage() {
+        return isDone ? "completed" : "not completed";
+    }
+
     @Override
     public String toString() {
         StringJoiner sj = new StringJoiner("   ");
         String desiredString = sj.add(this.getDescription()).add(moduleRelated.toString())
-                .add(timing.toString()).add(priority.toString()).toString();
+                .add(timing.toString()).add(priority.toString()).add(getDoneMessage()).toString();
         return desiredString;
     }
 
