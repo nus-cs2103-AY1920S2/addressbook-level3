@@ -12,10 +12,12 @@ if () then ([else])
     cannot be used in midst of editing
     Receipt;
 else ([receiptIsDone])
-    if () then ([index is not specified])
-        :Display an error message;
+    if () then ([indexNotSpecified])
+        :Display an error message
+        informing User that Index is a
+        compulsory field;
     else ([else])
-        if () then ([amountPaid is specified])
+        if () then ([amountPaidSpecified])
             :amountPaid is set to User's input;
         else ([else])
             :amountPaid is set to the total Amount

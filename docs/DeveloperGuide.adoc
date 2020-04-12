@@ -964,7 +964,7 @@ In this section, we will learn more about how the `paid` command is implemented.
 The `paid` command allows user to reduce the amount of money owed by a Person after they
 have paid.
 
-The `paid` command was implemented as a `PaidCommand` in the `expenseSplitterLogic` package.
+The `paid` command was implemented as a `PaidCommand` in the `expensesplitter/logic` package.
 
 The `paid` command has the following input format:
 
@@ -977,15 +977,16 @@ can type their index. To find out his/her index, use the command
  `listamount`.
 
 * `AMOUNT` is an *optional* field. It refers to the amount paid by that Person. Leaving this field
-empty is equivalent to the Person paying you the full amount he/she owes the user.
+empty is equivalent to the Person paying the user the full amount he/she owes the user.
 
 * `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
 ====
 
 The following activity diagram illustrates what happens when a user executes `paid` command:
 
+
+.Paid Command Activity Diagram
 image::ExpenseSplitterPaidCommandActivityDiagram.png[]
-Figure : Paid Command Activity Diagram
 
 
 *Implementation of Paid Command*
@@ -999,19 +1000,20 @@ String amountPaid will be converted into an Amount by instantiating a new instan
 
 3. The `personAmountBook#removeAmount(Person person, Amount amount)` is then called to remove Amount from Person.
 
-4. Thus calling `UniquePersonList#removeAmount(Person person, Amount amount)`.
+4. This in turns calls `UniquePersonList#removeAmount(Person person, Amount amount)`.
 
-5. Lastly, `Person#removeAmount(Amount amount)` is called to subtract the amount.
+5. Lastly, `Person#removeAmount(Amount amount)` is called to subtract the amount from the person.
 
 *Sequence Diagram for Paid Command* +
 
 The following sequence diagram summarizes what happens during the execution of `paid` command.
 
+.Paid Command Sequence Diagram
 image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
-Figure : Paid Command Sequence Diagram
 
+.Execution of Paid Command Sequence Diagram
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
-Figure : Execution of Paid Command
+
 //end::expensesplitterpaidcommand[]
 
 [[Clear-Receipt-Command]]
