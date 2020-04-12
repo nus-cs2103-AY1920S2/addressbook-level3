@@ -16,7 +16,7 @@ public class ExitSuggestionHandler implements SuggestionHandler<SuggestionGenera
 
     private static final String RESPONSE_MESSAGE = "Exit the application";
 
-    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionGenerator.class);
+    private static final Logger logger = LogsCenter.getLogger(ExitSuggestionHandler.class);
 
     private Model model;
 

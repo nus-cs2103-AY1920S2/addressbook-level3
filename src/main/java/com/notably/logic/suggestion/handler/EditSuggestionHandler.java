@@ -16,7 +16,7 @@ public class EditSuggestionHandler implements SuggestionHandler<SuggestionGenera
 
     private static final String RESPONSE_MESSAGE = "Edit this note";
 
-    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionGenerator.class);
+    private static final Logger logger = LogsCenter.getLogger(EditSuggestionHandler.class);
 
     private Model model;
 

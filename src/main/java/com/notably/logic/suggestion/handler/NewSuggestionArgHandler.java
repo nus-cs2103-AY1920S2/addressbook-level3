@@ -30,7 +30,7 @@ public class NewSuggestionArgHandler implements SuggestionArgHandler<SuggestionG
             + "Titles cannot start with the period character. "
             + "Titles should only contain alphanumeric characters and symbols except - and /";
 
-    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionGenerator.class);
+    private static final Logger logger = LogsCenter.getLogger(NewSuggestionArgHandler.class);
 
     private Model model;
 

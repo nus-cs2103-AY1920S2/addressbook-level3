@@ -21,7 +21,7 @@ public class SearchSuggestionArgHandler implements SuggestionArgHandler<SearchSu
     private static final String RESPONSE_MESSAGE = "Search through all notes based on keyword";
     private static final String RESPONSE_MESSAGE_WITH_KEYWORD = "Search through all notes based on keyword \"%s\"";
 
-    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionGenerator.class);
+    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionArgHandler.class);
 
     private Model model;
 

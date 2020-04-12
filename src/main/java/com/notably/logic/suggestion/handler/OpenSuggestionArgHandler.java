@@ -28,7 +28,7 @@ public class OpenSuggestionArgHandler implements SuggestionArgHandler<OpenSugges
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
     private static final String ERROR_MESSAGE_CANNOT_OPEN_NOTE = "Cannot open \"%s\" as it is an invalid path";
 
-    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionGenerator.class);
+    private static final Logger logger = LogsCenter.getLogger(OpenSuggestionArgHandler.class);
 
     private Model model;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;

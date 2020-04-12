@@ -16,7 +16,7 @@ public class HelpSuggestionHandler implements SuggestionHandler<SuggestionGenera
 
     private static final String RESPONSE_MESSAGE = "Display a list of available commands";
 
-    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionGenerator.class);
+    private static final Logger logger = LogsCenter.getLogger(HelpSuggestionHandler.class);
 
     private Model model;
 

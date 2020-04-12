@@ -28,7 +28,7 @@ public class DeleteSuggestionArgHandler implements SuggestionArgHandler<DeleteSu
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Delete a note titled \"%s\"";
     private static final String ERROR_MESSAGE_CANNOT_DELETE_NOTE = "Cannot delete \"%s\" as it is an invalid path";
 
-    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionGenerator.class);
+    private static final Logger logger = LogsCenter.getLogger(DeleteSuggestionArgHandler.class);
 
     private Model model;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
