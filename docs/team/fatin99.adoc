@@ -17,7 +17,7 @@ ensure a smooth on-boarding process for both users and contributors alike.
 === Summary of contributions
 
 As the main developer of the application’s `User Interface` (UI), I play a crucial role in integrating the features my
-teammates create with the UI. During group discussions, I placed extra emphasis on guiding my teammates to engineer
+teammates create with the `UI`. During group discussions, I placed extra emphasis on guiding my teammates to engineer
 solutions that could be more easily assimilated into the `UI`, to ensure that their work becomes user-visible. As a
 result, my team was able to morph the given codebase from a trivial application into a polished product.
 
@@ -52,7 +52,7 @@ Earnings` label in the `Claims Tab` was also added to improve user experience, a
 
 As *TA-Tracker* was initially based on *AB3*, the `UI` at the beginning of the project looked plain and dull. Instead of
 indiscriminately adding colours to *TA-Tracker*, I favoured a different approach, and enabled the relevant `ListCells` in
-the `Student Tab` and `Claims Tab` to be highlighted whenever filter commands were entered (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/210[#210]
+the `Student Tab` and `Claims Tab` to be highlighted whenever `filter` commands were entered (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/210[#210]
 , https://github.com/AY1920S2-CS2103T-W17-4/main/pull/227[#227]
 , https://github.com/AY1920S2-CS2103T-W17-4/main/pull/235[#235]
 , https://github.com/AY1920S2-CS2103T-W17-4/main/pull/238[#238]
@@ -60,7 +60,7 @@ the `Student Tab` and `Claims Tab` to be highlighted whenever filter commands we
 not only made a huge improvement in the visual differences between *TA-Tracker* and *AB3*, but also enabled users to better
 focus on the information displayed.
 
-This contribution also required extensive debugging and contributions to the inner workings of the `FilterCommand`, which
+This contribution also required extensive debugging and improvements to the inner workings of the `FilterCommand`, which
 was a rather challenging command to implement (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/243[#243]
 , https://github.com/AY1920S2-CS2103T-W17-4/main/pull/314[#314]
 , https://github.com/AY1920S2-CS2103T-W17-4/main/pull/322[#322]
