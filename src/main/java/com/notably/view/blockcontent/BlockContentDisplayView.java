@@ -9,14 +9,11 @@ import com.notably.model.block.BlockTreeItem;
 import com.notably.view.ViewPart;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.web.WebView;
 
 /**
@@ -56,20 +53,8 @@ public class BlockContentDisplayView extends ViewPart<WebView> {
      * Sets up the view's initial data and wires up all required change listeners.
      */
     private void setup() {
-        setSettings();
         updateBlockContentDisplay(model);
         setChangeListeners();
-    }
-
-    private void setSettings() {
-        blockPathDisplay.setTextAlignment(TextAlignment.RIGHT);
-        blockTitlePathContainer.setMinWidth(50);
-        blockTitlePathContainer.setMinWidth(0);
-        blockTitlePathContainer.setPrefWidth(1);
-        blockTitlePathContainer.setAlignment(Pos.CENTER_LEFT);
-        blockTitlePathContainer.setHgrow(blockPathDisplay, Priority.SOMETIMES);
-        blockTitlePathContainer.setHgrow(separator, Priority.SOMETIMES);
-        blockTitlePathContainer.setHgrow(blockTitleDisplay, Priority.ALWAYS);
     }
 
     /**
