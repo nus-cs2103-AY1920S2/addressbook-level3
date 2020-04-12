@@ -20,13 +20,13 @@ public class CheckCommandParser implements Parser<CheckCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_KEYWORD);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_KEYWORD)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_KEYWORD) || !arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE));
         }
 
         Type checkType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
         String keyword = argMultimap.getValue(PREFIX_KEYWORD).get();
-        if (keyword.equals("")) {
+        if ("".equals(keyword)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE));
         }
         return new CheckCommand(checkType, keyword);

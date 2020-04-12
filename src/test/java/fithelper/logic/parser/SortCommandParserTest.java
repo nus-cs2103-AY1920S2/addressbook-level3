@@ -1,6 +1,19 @@
 package fithelper.logic.parser;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static fithelper.logic.commands.CommandTestUtil.ASCENDING;
+import static fithelper.logic.commands.CommandTestUtil.CALORIE;
+import static fithelper.logic.commands.CommandTestUtil.CAL_ACRONYM;
+import static fithelper.logic.commands.CommandTestUtil.DESCENDING;
+import static fithelper.logic.commands.CommandTestUtil.FOOD;
+import static fithelper.logic.commands.CommandTestUtil.FOOD_ACRONYM;
+import static fithelper.logic.commands.CommandTestUtil.NAME;
+import static fithelper.logic.commands.CommandTestUtil.NAME_ACRONYM;
+import static fithelper.logic.commands.CommandTestUtil.SPORTS;
+import static fithelper.logic.commands.CommandTestUtil.SPORTS_ACRONYM;
+import static fithelper.logic.commands.CommandTestUtil.TIME;
+import static fithelper.logic.commands.CommandTestUtil.TIME_ACRONYM;
+import static fithelper.logic.commands.CommandTestUtil.WHITE_SPACE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SORT_BY;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SORT_ORDER;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
@@ -15,19 +28,6 @@ import fithelper.model.entry.Type;
 
 public class SortCommandParserTest {
 
-    private static final String WHITE_SPACE = " ";
-    private static final String TIME = "time";
-    private static final String CALORIE = "cal";
-    private static final String NAME = "name";
-    private static final String TIME_ACRONYM = "t";
-    private static final String CAL_ACRONYM = "c";
-    private static final String NAME_ACRONYM = "n";
-    private static final String SPORTS = "sports";
-    private static final String SPORTS_ACRONYM = "s";
-    private static final String FOOD = "food";
-    private static final String FOOD_ACRONYM = "f";
-    private static final String DESCENDING = "d";
-    private static final String ASCENDING = "a";
     private SortCommandParser parser = new SortCommandParser();
 
     @Test
