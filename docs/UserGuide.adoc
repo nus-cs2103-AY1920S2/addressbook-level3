@@ -77,7 +77,7 @@ Listed below are the notations used to define a `RelativePath`.
 - AbsolutePath
 ** Must start with the root note.
 ** After every `/` you can provide a `Title` <<TitleValidity, (Valid Title)>>
- 
+
 - Relative Path
 ** Starts with `.` or `..` or a Title <<TitleValidity, (Valid Title)>>
 
