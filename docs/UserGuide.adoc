@@ -778,7 +778,7 @@ e.g. `diary weather 1 SUNNY`
 e.g. `diary emotion 1 HAPPY`
 
 * Mod Plan:
-** search MODULE_CODE + 
+** search MODULE_CODE +
  e.g. `search CS2103T`
 ** mymodplan: mymodplan (coming in v2.0)
 ** mymodplan add MODULE CODE
