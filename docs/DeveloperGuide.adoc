@@ -153,14 +153,14 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-//tag::schedule[]
+tag::schedule[]
 
 === Schoolwork Tracker
 [.text-justify]
 The `SchoolworkTracker` helps users keep track of their assignments so that they do not accidentally overlook any of them.
 
 [.text-justify]
-From Fig 1 below, each `Assignment` has four components: `Title`, `Deadline`, `Status` and `Workload`. `Workload` refers to the expected amount of time required to finish the `Assignment`. These components will be used for schedule generation when `(st)schedule n/NUM_DAYS` is executed (explained below).
+From *Fig 1* below, each `Assignment` has four components: `Title`, `Deadline`, `Status` and `Workload`. `Workload` refers to the expected amount of time required to finish the `Assignment`. These components will be used for schedule generation when `(st)schedule n/NUM_DAYS` is executed (explained below).
 
 image::stClassDiagram.png[align="center"]
 [.text-center]
@@ -173,13 +173,13 @@ image::scheduleResult.png[align="center"]
 _Fig 2. Sample result of the generated schedule_
 
 [.text-justify]
-Schedule is facilitated by the `SchoolworkTracker`. This feature enhances the basic form of the `SchoolworkTracker` by allowing users to better visualise their current commitments so that they can better manage their time to pursue social events. This feature aims to distribute `Workload` as evenly as possible while ensuring that the user is able to complete the `Assignment` before the `Deadline`, unless it is impossible (i.e. `Workload` exceeds the amount of time the user has before the `Deadline` after taking into account more urgent assignments). A sample result is shown in Fig 2 above.
+Schedule is facilitated by the `SchoolworkTracker`. This feature enhances the basic form of the `SchoolworkTracker` by allowing users to better visualise their current commitments so that they can better manage their time to pursue social events. This feature aims to distribute `Workload` as evenly as possible while ensuring that the user is able to complete the `Assignment` before the `Deadline`, unless it is impossible (i.e. `Workload` exceeds the amount of time the user has before the `Deadline` after taking into account more urgent assignments). A sample result is shown in *Fig 2* above.
 
 [.text-justify]
 It utilizes the existing `Assignment` stored in the `SchoolworkTracker` and implements `ScheduleList` which represents the generated schedule.
 
 [.text-justify]
-As seen from Fig 3 below, `ScheduleList` consists of `Day` objects and each `Day` has 3 components. `totalAllocatedHours` represents the total number of hours allocated to the `Day`.
+As seen from *Fig 3* below, `ScheduleList` consists of `Day` objects and each `Day` has 3 components. `totalAllocatedHours` represents the total number of hours allocated to the `Day`.
 `dueAssignment` refers to an assignment that is due on the `Day` and `allocatedAssignment` represents an assignment that has been scheduled to be done on that `Day`. The latter also has an additional field `allocatedHours` which correspond to the suggested amount of time
 that should be spent on the assignment on that `Day`.
 
@@ -198,7 +198,7 @@ Given below is a detailed example of how the schedule command behaves at each st
 *Step 3*: User wants to better understand his schedule for the next 5 days before deciding whether he has time to hang out with his friends and executes `(st)schedule n/5`.
 
 [.text-justify]
-As seen from Fig 4 below, after the user enters the schedule command, the command will first be checked for validity. If it is not valid, the user will be informed and can then choose whether to re-enter the command or enter another command. On the other hand, if the input command is valid, the application will proceed to generate his schedule and after display it on the GUI.
+As seen from *Fig 4* below, after the user enters the schedule command, the command will first be checked for validity. If it is not valid, the user will be informed and can then choose whether to re-enter the command or enter another command. On the other hand, if the input command is valid, the application will proceed to generate his schedule and after display it on the GUI.
 
 image::scheduleActivityDiagram.png[align="center"]
 [.text-center]
@@ -208,7 +208,7 @@ _Fig 4. Activity Diagram summarizing what happens when the schedule command is e
 The specific workings of the schedule command will be explained in the paragraphs below.
 
 [.text-justify]
-As seen from Fig 5 below, arguments from the input command is first parsed using the `ScheduleCommandParser` which converts
+As seen from *Fig 5* below, arguments from the input command is first parsed using the `ScheduleCommandParser` which converts
 the string variable into an integer and then passes it to `ScheduleCommand` for use later on and represents the `NUM_DAYS` queried. If the input argument is invalid, a `ParseException`
 is thrown and the user will be notified of the proper command usage.
 
@@ -220,7 +220,7 @@ _Fig 5. Sequence Diagram depicting generation of ScheduleCommand object_
 If the command is valid, `LogicManager` will call the `execute()` method in `ScheduleCommand`.
 
 [.text-justify]
-As seen from Fig 6 below, the necessary preparations will be made before the schedule is being generated:
+As seen from *Fig 6* below, the necessary preparations will be made before the schedule is being generated:
 
 1. The `ScheduleCommand` will retrieve the `filteredAssignments` from the `Model` component.
 
@@ -234,7 +234,7 @@ _Fig 6. Sequence Diagram showing the execution of the Schedule Command_
 The schedule generation process will be explained next and begins with Fig 7.
 
 [.text-justify]
-In Fig 7 below, `filteredAssignments` is iterated through in sorted order, starting with the `Assignment` due the earliest and for all assignments:
+In *Fig 7* below, `filteredAssignments` is iterated through in sorted order, starting with the `Assignment` due the earliest and for all assignments:
 
 1. The `Status` and `Deadline` of the `Assignment` will be retrieved.
 2. If `Status` is uncompleted and `Deadline` is not over, `Workload` will be distributed.
@@ -244,10 +244,10 @@ image::generateSchedule.png[align="center"]
 _Fig 7. Sequence Diagram showing the process of generating the schedule_
 
 [.text-justify]
-As shown in Fig 8 below, for each uncompleted `Assignment`:
+As shown in *Fig 8* below, for each uncompleted `Assignment`:
 
 1. `Workload` is retrieved and distributed across several days, from query date to deadline, incrementally so as to generate a balanced schedule.
-2. The final allocation of hours, including amount unscheduled, is recorded and the `Assignment` will be recorded as a `dueAssignment` if its `Deadline` falls within the range of days queried.
+2. The final allocation of hours, including amount unscheduled, is recorded and the `Assignment` will be recorded as a `dueAssignment` if its deadline falls within the range of days queried.
 
 image::handleUncompletedAssignment.png[align="center"]
 [.text-center]
@@ -258,7 +258,7 @@ image::allocateHours.png[align="center"]
 _Fig 9. Sequence Diagram showing how the workload of an assignment is distributed_
 
 [.text-justify]
-From Fig 9 above, assignments due on query date are handled differently from those that are not.
+From *Fig 9* above, assignments due on query date are handled differently from those that are not.
 
 * If the `Assignment` is *due* on the query date: The amount of time that can be allocated to the assignment will be capped at the amount of time available before the `Deadline`.
 * If the `Assignment` is *not due* on the query date: `Workload` will be allocated in an incrementally.
@@ -303,7 +303,7 @@ _Fig 10. Sequence Diagram showing how the generated schedule is retrieved_
 ** Pros: Easier to handle and more accurate comparisons can be made as compared to when floats are used as floating point arithmetic is not exact.
 ** Cons: A lot of unnecessary ‘loss’ in allocated and available time due to rounding errors.
 
-//end::schedule[]
+end::schedule[]
 
 // tag::get[]
 === Detailed Contact Viewer
