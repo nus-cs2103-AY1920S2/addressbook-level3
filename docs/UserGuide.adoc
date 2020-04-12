@@ -21,6 +21,7 @@ endif::[]
 
 By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
+//tag::introduction[]
 == Introduction
 
 Are you a *Teaching Assistant* in *NUS School of Computing (NUS SOC)* who is tired of having to
@@ -50,6 +51,8 @@ can type fast and prefer to use a keyboard, and
 you can easily view all your *teaching duties*.
 
 If you are interested, jump to <<Quick Start>> to discover how easy it is to fill out forms using *TA-Tracker*.
+
+//end::introduction[]
 
 == Quick Start
 
@@ -100,6 +103,7 @@ This symbol indicates that a tip is being mentioned.
 This symbol indicates that there is something you should be careful to avoid.
 ====
 
+//tag::commandformat[]
 === Command Format
 
 This section shows you how all the commands in this guide have been formatted.
@@ -428,6 +432,9 @@ For example, if a command needs an `INDEX`, it must be the *first parameter*:
 * `INDEX n/NAME` is valid, but
 * `n/NAME INDEX` is invalid
 
+//end::commandformat[]
+
+//tag::layout[]
 [[Layout]]
 == Layout
 This section gives you a brief overview of the layout of the *TA-Tracker*.
@@ -470,6 +477,7 @@ and then clicked on the `claims tab`.
 
 ====
 
+//tag::studentview[]
 === Student View
 Under the `student tab`, the *Student View* is used to show you the students that you're teaching. The students
 have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
@@ -503,7 +511,9 @@ The `RATING` value must be a positive integer.
 
 image::StudentView.png[,1000]
 This is an example of what the Student View might look like.
+//end::studentview[]
 
+//tag::sessionview[]
 === Session View
 Under the `session tab`, the *Session View* contains a list of the upcoming sessions
 that you haven't done yet.
@@ -522,7 +532,8 @@ duties. It will show you information such as:
 
 image::SessionView.png[,1000]
 This is an example of what the Session View might look like.
-
+//end::sessionview[]
+//tag::claimsview[]
 === Claims View
 Under the `claims tab`, the *Claims View* contains a list of all the claimable teaching
 duties you have completed so far.
@@ -540,11 +551,14 @@ assistant for.
 
 image::ClaimsView.png[,1000]
 This is an example of what the Claims View might look like.
+//end::claimsview[]
+//end::layout[]
 
 [[Usage]]
 == Usage
 This section describes how you can interact with *TA-Tracker*.
 
+//tag::keyboard[]
 === Keyboard Shortcuts
 You can navigate everything in *TA-Tracker* with just a *keyboard*!
 
@@ -581,7 +595,8 @@ arrow keys
 (you must toggle out of the `command box` in order to use this shortcut)
 
 |=======================================================================
-
+//end::keyboard[]
+//tag::syntax[]
 === Syntax Highlighting
 When you type a command into the `command box`, your input will be *highlighted*.
 
@@ -647,6 +662,8 @@ Showing the *parameter usage*
 image::Default.png[,1000]
 This is an example of what a hint may look like.
 
+//end::syntax[]
+
 [[Commands]]
 == Commands
 This section explains how to use all the `CLI` commands in *TA-Tracker*.
@@ -710,6 +727,7 @@ or `claims filter` command.
 
 This section explains all the commands you can use in the *Student View*.
 
+//tag::addmodule[]
 [[AddModule]]
 ==== Adding a Module : `module add`
 
@@ -756,7 +774,8 @@ This will add a module with the module code `CS2100` and name `Computer Organisa
 to the TA-Tracker.
 
 ====
-
+//end::addmodule[]
+//tag::deletemodule[]
 [[DeleteModule]]
 ==== Deleting a Module : `module delete`
 
@@ -786,6 +805,9 @@ image::ModuleDelete.png[,1000]
 This will delete the module with the module code `CS2103T` from the TA-Tracker.
 ====
 
+//end::deletemodule[]
+
+//tag::editmodule[]
 [[EditModule]]
 ==== Editing a Module : `module edit`
 
@@ -818,7 +840,8 @@ Examples:
 image::ModuleEdit.png[,1000]
 This will change the name of the module with module code `CS3243` to `Intro to AI`.
 ====
-
+//end::editmodule[]
+//tag::addgroup[]
 [[AddGroup]]
 ==== Adding a Group : `group add`
 
@@ -856,7 +879,8 @@ image::GroupAdd.png[,1000]
 This will add a group with the group code `G03`, which is a `tutorial`, inside the module that
 has module code `CS2100`.
 ====
-
+//end::addgroup[]
+//tag::deletegroup[]
 [[DeleteGroup]]
 ==== Deleting a Group : `group delete`
 
@@ -891,7 +915,8 @@ image::GroupDelete.png[,1000]
 This will delete the group with the group code `G06` from the module that
 has module code `CS3243`.
 ====
-
+//end::deletegroup[]
+//tag::editgroup[]
 [[EditGroup]]
 ==== Editing a Group : `group edit`
 
@@ -931,6 +956,7 @@ image::GroupEdit.png[,900]
 This will change the group type of the group with group code `G01`, inside the module with
 module code `CS3243`, to be a `lab`.
 ====
+//edit::editgroup[]
 
 [[AddStudent]]
 ==== Adding a Student : `student add`
@@ -1066,6 +1092,7 @@ Edits student with the matriculation number `A0186153P` to have:
 ** All existing tags removed
 ====
 
+//tag::sortgroup[]
 [[Sort]]
 ==== Sorting a Group : `sort group`
 
@@ -1105,7 +1132,8 @@ image::SortGroup.png[width="790"]
 Sorts the student inside `G01` of module `CS3242` by `rating asc` (that is, rating in
 ascending order).
 ====
-
+//end::sortgroup[]
+//tag::sortmodule[]
 
 ==== Sorting a Module : `sort module`
 
@@ -1143,7 +1171,8 @@ Examples:
 +
 Sorts all students inside all groups inside the module `CS2103` `alphabetically`.
 ====
-
+//end::sortmodule[]
+//tag::sortall[]
 ==== Sorting Everything : `sort all`
 
 You can use this command to chose how you want to sort all of your students.
@@ -1178,6 +1207,7 @@ Examples:
 +
 Sorts all students in all groups inside all modules `alphabetically`.
 ====
+//end::sortall[]
 
 [[FilterStudent]]
 ==== Filter : `filter`
