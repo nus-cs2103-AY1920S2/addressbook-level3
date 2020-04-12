@@ -505,7 +505,9 @@ Step 5. `BmiCommand()` will then proceed to calculate the BMI based on the curre
 
 The following is a sample sequence diagram of the BmiCommand with no additional user input.
 
-image::BmiNILSequenceDiagram.png[]
+image::DietTrackerBmiCommandNILSequenceDiagram.png[]
+image::DietTrackerBmiCommandNILSequenceDiagram2.png[]
+
 [NOTE]
 There is a need to ensure that there are stored values in `Height` and `Weight` attributes in the `Self` class.
 
@@ -524,7 +526,8 @@ Step 5. `BmiCommand()` will then proceed to calculate the BMI based on the curre
 
 The following is a sample sequence diagram of the BmiCommand with additional user input.
 
-image::BmiSequenceDiagram.png[]
+image::DietTrackerBmiCommandSequenceDiagram.png[]
+image::DietTrackerBmiCommandSequenceDiagram2.png[]
 
 *Design Considerations*
 
