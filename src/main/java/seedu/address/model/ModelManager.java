@@ -220,6 +220,7 @@ public class ModelManager implements Model {
     public void addTask(Task task) {
         taskList.addTask(task);
         this.tagSet.addTask(task);
+        this.showAllTasks();
         setTimer(task);
     }
 
@@ -230,6 +231,7 @@ public class ModelManager implements Model {
         this.tagSet.addTask(editedTask);
         this.tagSet.removeTask(target);
         taskList.setTask(target, editedTask);
+        this.showAllTasks();
         cancelTimerTask(target);
         setTimer(editedTask);
         if (taskSaver != null) {
@@ -288,7 +290,6 @@ public class ModelManager implements Model {
     public void setSearchResultOrder(Comparator<Task> comparator) {
         requireNonNull(comparator);
         this.taskList.setComparator(comparator);
-        this.taskList.setComparator(null);
         this.taskList.setSortOrder("");
     }
 
