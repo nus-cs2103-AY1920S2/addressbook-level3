@@ -31,22 +31,16 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label startDate;
-    @FXML
-    private Label endDate;
+    private Label date;
     @FXML
     private Label note;
-    @FXML
-    private Label status;
 
     public EventCard(Event event, int displayedIndex) {
         super(FXML);
         this.event = event;
         name.setText(displayedIndex + ". " + event.getName().toString());
-        startDate.setText("From " + event.getStartDate().toString());
-        endDate.setText("To " + event.getEndDate().toString());
+        date.setText("From " + event.getStartDate().toString() + " to " + event.getEndDate().toString());
         note.setText(event.getNote().toString());
-        //status.setText(event.getStatus().toString());
     }
 
     @Override

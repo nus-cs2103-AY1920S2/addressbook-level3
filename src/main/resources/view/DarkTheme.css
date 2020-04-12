@@ -158,7 +158,6 @@
     -fx-background-radius: 15;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 10px;
 }
 
 .list-cell:filled {
@@ -173,14 +172,10 @@
     -fx-background-color: transparent;
 }
 
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
-
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
-    -fx-padding: 10px;
+    -fx-padding: 0px;
 }
 
 
@@ -206,6 +201,22 @@
     -fx-text-fill: #303030;
     -fx-font-family: "Verdana";
     -fx-font-size: 10px;
+}
+
+.activity-label {
+    -fx-text-fill: white;
+    -fx-font-family: "Verdana";
+    -fx-font-size: 15px;
+}
+
+.check-box .box {
+    -fx-border-radius: 100px;
+    -fx-background-radius: 100px;
+    -fx-border-color: white;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: black;
 }
 
 .cell_big_label {
@@ -445,6 +456,10 @@
 #pieChart, #barChart {
     -fx-background-radius: 15px;
     -fx-background-color: white;
+}
+
+#eventListView .list-cell {
+    -fx-padding: 10px;
 }
 
 
