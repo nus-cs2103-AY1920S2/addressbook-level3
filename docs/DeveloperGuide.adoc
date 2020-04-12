@@ -330,10 +330,21 @@ In this portion, we will trace the sequence diagram of the `exercise create` com
 . This result is then passed back to the `LogicManager` which will display the output on the GUI
 
 ===== Summary
+.Editing Exercise Set Activity Diagram
+image::exercise/EditSetActivityDiagram.png[]
 
+At this point, you should have gather enough information to start developing the Exercise feature. As a summary, this is a sample Activity Diagram that depicts a user flow when they want to edit an exercise set.
 
 ==== Design Considerations
+===== Parser Component
 One of the consideration while designing was that the commands in exercise are extremely nested. We have commands such as `exercise set create r/1 m/10`. While we could have chucked all the parsing in `ExerciseSetCreateParser` class, we realised that it will be better if we were to abstract the parser into separate classes. This allows us to group the functionalities of the parser in a single file. For example, `ExerciseCommandParser` will parse any string that has the word `exercise` as the prefix. `SetCommandParser` will do so for a prefix of `set`. This means that for the above command, while we have to go through multiple parsers which can make the performance of the application suffer, each of the parsers have a single responsibility which makes it a better design choice.
+
+===== Model Component
+For the Model component, note that `Exercise` objects are supposed to be unique whereas `ExerciseSet` objects are not. This is created due to our observations of the workout regimes in the real world.
+
+For `ExerciseSet`, while set weights and number of repetitions tend to vary during an exercise, users may want to have the freedom to do multiple sets with the same configuration during the course of the exercise. Hence, it is unwise to make it unique.
+
+However, for exercises, we noted that users tend to reuse the same exercise throughout different workout plans. At the same time, there is a high chance of users creating duplicate exercises when the number of exercises in the application increases significantly. Therefore, we chose to make `Exercise` a unique object instead.
 
 // end::exercise[]
 
