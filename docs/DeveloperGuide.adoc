@@ -290,7 +290,7 @@ Eventually, we decided on alternative 1 for the convenience of the user since th
 
 Eventually, we decided on alternative 1 for the benefits of the user. To tackle the cons, we have set `time` to be "23:59" by default if user did not specify.
 
-
+// tag::show[]
 === Show Feature
 
 The `show` feature allows the user to display information about a `Module`, `Course`, `FocusArea` or `Semester` with the command `show`, appended with the tags below. These information cannot be seen from the main UI and have to be displayed through the `show` command.

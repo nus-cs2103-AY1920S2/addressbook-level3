@@ -21,6 +21,7 @@ MODdy is a desktop application used by NUS Computing students to track their cou
 * *Minor enhancements*:
 ** Added a show command that allows the user to display further details of course-related information in MODdy
 ** Added the ability to store course information in JSON format that can be used by all users of MODdy
+** Added the feature to add deadlines to and delete deadlines from a module (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/321[#321] https://github.com/AY1920S2-CS2103T-W13-3/main/pull/327[#327])
 *** Credits: With reference to https://github.com/chanckben[@chanckben]'s https://github.com/AY1920S2-CS2103T-W13-3/main/blob/master/src/main/java/seedu/address/storage/JsonModule.java[JsonModule] class
 ** Added Cumulative Average Point (CAP) calculator for users to keep track of their grades
 ** Ensured features were working as intended for each commit and version release. Raised and also solved multiple issues (https://github.com/AY1920S2-CS2103T-W13-3/main/issues?q=is%3Aissue+author%3Agyant6[Issues raised])
