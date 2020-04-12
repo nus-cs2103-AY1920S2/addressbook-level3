@@ -334,7 +334,7 @@ You might have the following exercise in your table.
 
 image::ug-addeDuplicatePart1.png[]
 
-If you were to enter `add-e n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets. 
+If you were to enter `add-e n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets.
 
 image::ug-addeDuplicatePart2.png[]
 
@@ -432,7 +432,7 @@ You might have the following exercise in your table.
 
 image::ug-editeDuplicatePart1.png[]
 
-If you were to enter `edit-e 2 n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets. 
+If you were to enter `edit-e 2 n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets.
 
 image::ug-editeDuplicatePart2.png[]
 
