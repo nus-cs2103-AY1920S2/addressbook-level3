@@ -88,8 +88,23 @@ simply showing the statistics for today.
 |===
 
 == Features
+
+== *Insert feature*
+This whole section of the Insert feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#insert[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../UserGuide.adoc[tag=insert]
+
+== *List feature*
+This whole section of the List feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#list[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../UserGuide.adoc[tag=list]
+
+== *Show feature*
+This whole section of the Show feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#show[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../UserGuide.adoc[tag=show]
 
 == Contributions to the Developer Guide
@@ -99,21 +114,68 @@ include::../UserGuide.adoc[tag=show]
 |===
 
 == Features
+
+== *Insert feature*
+This whole section of the Insert feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#insert[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../DeveloperGuide.adoc[tag=insert]
+
+== *List feature*
+This whole section of the List feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#list[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../DeveloperGuide.adoc[tag=list]
+
+== *Show feature*
+This whole section of the Show feature can be found https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#show[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../DeveloperGuide.adoc[tag=show]
 
 == Use Cases
+
+== *Use case for insert feature*
+This whole section on Use case for insert feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../DeveloperGuide.adoc[tag=use_case_insert]
+
+== *Use case for show feature*
+This whole section on Use case for show feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../DeveloperGuide.adoc[tag=use_case_show]
+
+== *Use case for list feature*
+This whole section on Use case for list feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../DeveloperGuide.adoc[tag=use_case_list]
 
 == Glossary
+
+This whole section on Glossary can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#glossary[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../UserGuide.adoc[tag=command_prefix]
 
 == Appendix G: Instructions for Manual Testing
+
+== *Manual Testing for insert*
+This whole section on manual testing for insert feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#inserting-an-order[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../DeveloperGuide.adoc[tag=appendix-insert]
-include::../DeveloperGuide.adoc[tag=appendix-show]
+
+== *Manual Testing for list*
+This whole section on manual testing for list feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#list-orders[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
+
 include::../DeveloperGuide.adoc[tag=appendix-list]
 
+== *Manual Testing for show*
+This whole section on manual testing for show feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#show-2[here].
+This link is provided in the event if some of the cross links are not working, as they refer to documents done by another team member
 
+include::../DeveloperGuide.adoc[tag=appendix-show]
