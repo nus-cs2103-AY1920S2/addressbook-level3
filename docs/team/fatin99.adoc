@@ -8,9 +8,9 @@
 === Overview
 
 *TA-Tracker* is a productivity tool made for NUS School of Computing Teaching Assistants (TAs). Rather than using
-several excel spreadsheets or notes, TA-Tracker enables TAs to manage their students and track teaching duties in a
-single, convenient-to-use platform . The application is mainly written in *Java* and spans a considerable 20k Lines of
-Code. With a rigorous system of checks and tests put in place, users can be assured that the codebase is
+several excel spreadsheets or notes, *TA-Tracker* enables TAs to manage their students and track teaching duties in a
+single, convenient-to-use platform . The application is mainly written in *Java* and spans a considerable *20k Lines of
+Code*. With a rigorous system of checks and tests put in place, users can be assured that the codebase is
 well-maintained, and that the code quality is consistently high. A comprehensive set of guides are also provided to
 ensure a smooth on-boarding process for both users and contributors alike.
 
