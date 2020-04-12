@@ -503,10 +503,15 @@ with the relevant keywords.
 . `LogicManager` calls `GotoCommand` 's execute method.
 
 . The `GotoCommand` object checks whether any of the keywords given by the user
-matches the existing tab headers. If it does, the `GotoCommand` returns a `CommandResult`
-with a success message.
+matches the existing tab headers.
 
-. `MainWindow` selects the `ClaimsTab` in the `TabPane` to switch to the `Claims Tab`
+.. If it does, the `GotoCommand` returns a `CommandResult` with a success message and an enum specifying
+how MainWindow should handle the next action.
+
+..If it doesn't, an exceptions is thrown.
+
+. `MainWindow` called the handleGoto() method to select the `ClaimsTab` in the `TabPane`, completing the tab-switching
+process.
 
 [[StudentView]]
 === Student View

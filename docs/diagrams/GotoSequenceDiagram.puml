@@ -60,7 +60,7 @@ activate CommandResult
 CommandResult --> GotoCommand
 deactivate CommandResult
 
-GotoCommand --> LogicManager : CommandResult("feedbackToUser", Action.GOTO_CLAIMS)
+GotoCommand --> LogicManager : CommandResult("success", Action.GOTO_CLAIMS)
 deactivate GotoCommand
 
 LogicManager --> MainWindow
@@ -69,4 +69,3 @@ deactivate LogicManager
 MainWindow -> MainWindow : handleGoto(claimsListTab)
 
 @enduml
-
