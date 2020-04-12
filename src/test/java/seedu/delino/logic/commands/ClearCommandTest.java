@@ -20,7 +20,7 @@ import seedu.delino.model.ModelManager;
 import seedu.delino.model.OrderBook;
 import seedu.delino.model.ReturnOrderBook;
 import seedu.delino.model.UserPrefs;
-
+//@@author Exeexe93
 public class ClearCommandTest {
     private HashSet<String> flags;
 

@@ -18,6 +18,7 @@ import seedu.delino.model.parcel.parcelattributes.TimeStamp;
 import seedu.delino.model.parcel.parcelattributes.TransactionId;
 import seedu.delino.model.parcel.parcelattributes.Warehouse;
 
+//@@author Exeexe93
 public class JsonAdaptedReturnOrderTest {
     private static final String INVALID_TID = " ";
     private static final String INVALID_NAME = "R@chel";
@@ -25,7 +26,6 @@ public class JsonAdaptedReturnOrderTest {
     private static final String INVALID_EMAIL = "1234gg.com";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_TIMESTAMP = "2019-02-32 1500";
-    private static final String INVALID_TIMESTAMP_BEFORE_NOW = "2019-02-02 1500";
     private static final String INVALID_WAREHOUSE = "";
     private static final String INVALID_COMMENT = " ";
     private static final String INVALID_TYPE = "#bottle";
