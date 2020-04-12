@@ -165,15 +165,34 @@ command.
 In this section, we look at one of the key features of Coupon Stash's
 Graphical User Interface. The interface can be broadly split into
 3 different parts based on the different tabs present in the
-program, namely Coupons, Summary and Help.
+program, namely Coupons, Summary and Help. Also, the calendar and
+command result box are two features visible on every tab.
 
 [<insert image of tabs>]
 
 === Coupons tab
+The coupons tab contains a visual overview of the coupons which
+you have added to the application.
+
+==== Coupon card
+
+The coupon card displays information about each coupon, and
+it is styled to look like a coupon itself!
 
 === Summary tab
 
+In the summary tab,
+
+==== Savings graph
+
 === Help tab
+
+The help tab
+
+=== Calendar
+
+
+=== Command result box
 
 
 [[Features]]
