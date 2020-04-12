@@ -20,7 +20,7 @@ Users will be able to edit existing exercises.
 - `delete-e` Command +
 Users will be able to delete existing exercises.
 ** Justification: This feature improves the product significantly because recording the exercises of clients is one of the main features of the application. Many other features like showing the client's personal bests and drawing their clients' progression graph rely on having the exercises recorded.
-** Highlights: Many of the future features will require the exercise classes. Therefore, it was essential to have thorough considerations on how the classes are implemented. I also wrote a substantial amount of code to test the classes while practicing good test case designs like boundary value analysis. This will help reduce further bugs when expanding the application.
+** Highlights: Many of the future features will require the exercise classes. Therefore, it is essential to have thorough considerations on how the classes are implemented. I also wrote a substantial amount of code to test the classes while practising good test case designs like boundary value analysis. This will help reduce further bugs when expanding the application.
 
 * *Major enhancement*: hooked many features from Logic to Graphical User Interface
 ** What it does: features are shown in GUI instead of being shown in text format.
@@ -34,7 +34,7 @@ The user will be able to see the exercises done by their clients' listed in a ta
 
 ** Highlights: This enhancement requires a good understanding of Javafx. I have developed a good grasp at using it to provide GUI for Java application.
 - The exercise progession graph +
-I used `LineChart` in Javafx to display the graph. The X axis to be shown is date but JavaFx only provides `NumberAxis` and `CategoryAxis`. To display the axis as date, I used the `NumberAxis` but also had to use `setTickLabelFormatter()` to change the label from `epochDay` to date.
+I used `LineChart` from Javafx to display the graph. The X axis to be shown is date but JavaFx only provides `NumberAxis` and `CategoryAxis`. To display the axis as date, I used the `NumberAxis` but also had to use `setTickLabelFormatter()` to change the label from `epochDay` to date.
 - The client's information displayed after `view-c` command +
 There is a lot of information shown after `view-c` but only a limited space in the GUI. To solve this, I implemented `ScrollPane` so that the user can scroll to view the information.
 - The exercise table done by the client +
