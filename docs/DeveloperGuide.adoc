@@ -344,6 +344,7 @@ For more information regarding the procedure, please refer to the Activity Diagr
 image::SnoozeReminderActivityDiagram.png[]
 
 === Automation
+`Contributed by:EdmondOng`
 Every time a user stores an activity, start date for event will be recorded for `event` and due date for `deadline`.
 Based on user input to repeat the task either weekly, twice weekly or monthly, our application will check whether today's date has passed
 `due date` or `end date of event`. Once it passed,
@@ -358,27 +359,20 @@ By default there will not be any scheduling for any activities. Therefore, user 
 
 Once the command line is entered, our application will react in the following steps :
 
-. LogicManager will create NasaBookParser to parse the user input `repeat-d`.
-
-. NasaBookParser will call RepeatActivityCommandParser to check if all the following prefixes `m/`, and `r/` are present.
-.. If not present, an error message `"invalid command format!"` will be prompted.
-.. Else, a success message `"Successfully added a repeat! for CS3233 0 1"` will be given, and RepeatCommand will be executed.
-
-. RepeatCommand will set schedule in Model.
-. Model will first find the module in it internal module list.
-. After that, it will find for the activity inside the module.
-. Once found, the attribute Schedule in activity will be set to `1`, `2` or `3` and update changes to the expiring date.
+. NasaBook will search ModelManager for the module code `CS3233`.
+. If present, it will search for the activity in the list with index `1`.
+. Once identified, it will change the type of schedule to `weekly`.
+. A success message `Successfully added a repeat! for CS3233 0 1` will be given.
 
 image::sequenceDiagramAutomationV2.png[]
 
-However, above is only the creation.
+However, above is for the initialisation of schedule.
 What happen if the activity has expired when NasaBook is not in use? Not to worry, because when
 the user initialise the program again, the system will automatically reset the expired date.
 
 This is how it goes :
 
 . MainApp will execute initialisation which will fetch data through NasaBookStorage.
-
 . NasaBook will load every module in the module list and update each activity in the module.
 . If dateline of the activity has passed, it will check if it has a schedule
 .. If scheduler sees `0` nothing will be done.
@@ -507,6 +501,21 @@ Below is an example of a user requesting for statistics by for the week and how 
 
 . User interface switches tabs to the statistics tab where the overall statistics are displayed.
 
+=== Motivational Quotes
+`Contributed by: EdmondOng`
+Given our hectic education lifestyle, we tend to neglect the emotional aspect of what makes life purposeful other than academic works.
+This features randomly select a quote and displayed to user on start-up of application. It aims to lighten the mood of the user.
+
+==== Implementation
+On the first start-up of application, Nasa will store all the quotes inside a text file in the data folder. If the quotes file is
+already present, it will carry on with selecting one of the quote to be displayed to the user. At any point of time, if you wish to see
+another motivation quote, you can type `quote`.
+
+==== Internal workings for the motivation quote.
+
+. User enters a command `quote`.
+. NASA will generate a random number and select a quote in quotes.txt file.
+. Command result generated will be displayed to the user.
 
 === Logging
 
