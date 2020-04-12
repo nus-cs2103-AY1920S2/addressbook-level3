@@ -238,7 +238,6 @@ public class ModelManager implements Model {
             }
         });
         if (sortedProduct.size() == fullProductListSize) {
-
             inventorySystem.setProducts(sortedProduct);
         }
     }

@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_PRODUCT;
 import static seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
 import static seedu.address.logic.commands.product.EditProductCommand.createEditedProduct;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import java.util.List;
 
@@ -82,7 +81,6 @@ public class UndoTransactionCommand extends Command {
         }
 
         model.setProduct(productToEdit, editedProduct);
-        model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
     }
 
     @Override
