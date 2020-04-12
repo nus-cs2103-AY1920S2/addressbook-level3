@@ -23,11 +23,12 @@ public class Streak {
         this.records = records;
     }
 
+
+
     /**
      * Updates Streak every time App is opened
      */
     public void updateStreak() {
-        System.out.println(records.size());
         if (records.size() == 0) {
             currStreak = 0;
         } else {
@@ -39,7 +40,7 @@ public class Streak {
                 if (days <= 1) {
                     currDate = records.get(index).getDate();
                     index--;
-                    if (days == 1) {
+                    if (days == 1 || currStreak == 0) { //day more than one or streak has not been updated for the day
                         currStreak++;
                     }
                 } else {
