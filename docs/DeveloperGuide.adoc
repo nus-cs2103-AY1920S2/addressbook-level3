@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
+:imagesDir: images/developer-guide
 :stylesDir: stylesheets
 :xrefstyle: full
 ifdef::env-github[]
@@ -27,7 +27,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::common/ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -56,7 +56,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::common/LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -64,14 +64,14 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `exercise delete 1`.
 
 .Component interactions for `exercise delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::common/ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
 [[Design-Main]]
 === Main Component
 .Structure of the Main Component
-image::MainClassDiagram.png[]
+image::common/MainClassDiagram.png[]
 
 *API* : link:{codeURL}/src/main/java/seedu/zerotoone/Main.java[`Main.java`]
 
@@ -85,7 +85,7 @@ During the GUI start up process, the `SplashScreen` will first load on a `Thread
 === UI Component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::common/UiClassDiagram.png[]
 
 *API* : link:{codeURL}/src/main/java/seedu/zerotoone/ui/Ui.java[`Ui.java`]
 
@@ -102,7 +102,7 @@ For more information about each component, check out the 'Implementation' sectio
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::common/LogicClassDiagram.png[]
 
 *API* :
 link:{codeURL}/src/main/java/seedu/zerotoone/logic/Logic.java[`Logic.java`]
@@ -119,7 +119,7 @@ Inside the `Logic` package, there are some utility classes such as the `Argument
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::common/DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `ExerciseCommandParser` and `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -129,7 +129,7 @@ For more information about each component, check out the 'Implementation' sectio
 === Model Component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::common/ModelClassDiagram.png[]
 
 *API* : link:{codeURL}/src/main/java/seedu/zerotoone/model/Model.java[`Model.java`]
 
@@ -149,7 +149,7 @@ For more information about each component, check out the 'Implementation' sectio
 === Storage Component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::common/StorageClassDiagram.png[]
 
 *API* : link:{codeURL}/src/main/java/seedu/zerotoone/storage/Storage.java[`Storage.java`]
 
@@ -181,7 +181,7 @@ The Session feature resides on the Home page and is comprised of `Start`, `Stop`
 The activity diagram below demonstrates the actions of a user with this feature.
 
 .Session Feature Activity Diagram
-image::StartStopActivityDiagram.png[]
+image::session/StartStopActivityDiagram.png[]
 
 Start depicts the start of a valid (non-zero sets remaining) Workout Session.
 Upon depletion of all remaining sets, the `OngoingWorkout` automatically stops and produces a `CompletedWorkout` which is saved.
@@ -206,7 +206,7 @@ The inner workings of the feature are briefly expounded below through example us
 
 
 .Example Workout Session
-image::sessionExample.png[]
+image::session/sessionExample.png[]
 
 Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a completedExercise with `start 2`.
 
@@ -223,7 +223,7 @@ updates the instance of `OngoingWorkout`.
 * The rest timer resets and starts counting from 00:00.
 
 .DoneCommand sequence diagram
-image::DoneCommandSequenceDiagram.png[]
+image::session/DoneCommandSequenceDiagram.png[]
 
 * The sequence diagram above demonstrates the interaction between the Logic and Model of ZeroToOne.
 For brevity, some inner details between `OngoingWorkout.done()` and the return of `cs` are omitted.
@@ -360,7 +360,7 @@ Each workout consists of a `WorkoutId`, a `WorkoutName` and finally, an `Workout
 The following class diagram shows the overview of the Workout Manager:
 
 .Workout Class Diagram
-image::WorkoutClassDiagram.png[]
+image::workout/WorkoutClassDiagram.png[]
 
 ==== Workout Model
 ZeroToOne's `Model` extends the `WorkoutModel`. Here are all the functions to carry out workout-related activities:
@@ -383,7 +383,7 @@ To illustrate an example of a command from the Workout Manager, the following se
 depicts flow of the program when the command `workout find w/Arms Workout` is run.
 
 .Sequence Diagram for Finding a Workout
-image::WorkoutSequenceDiagram.png[]
+image::workout/WorkoutSequenceDiagram.png[]
 
 . When the user runs the command `workout find w/Arms Workout`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
 . The `ParserManager` then has to `parse("workout find w/Arms Workout"`.
@@ -442,7 +442,7 @@ For logging, we propose saving the completedExercise data in the following class
 
 ==== Implementation
 
-image::WorkoutSessionDiagram.png[]
+image::log/WorkoutSessionDiagram.png[]
 
 ==== Design Considerations
 Immutability was a huge consideration for us and hence we came up with the `ReadOnly` interface.
