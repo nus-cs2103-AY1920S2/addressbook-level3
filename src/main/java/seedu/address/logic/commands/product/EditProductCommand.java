@@ -91,6 +91,18 @@ public class EditProductCommand extends Command {
         // update transactions with product info
         updateTransactionList(model, editedProduct);
 
+        // display notification window if threshold is reached
+        if (editedProduct.reachesThreshold()) {
+            return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct),
+                    null,
+                    editedProduct,
+                    "",
+                    false,
+                    true,
+                    false,
+                    false);
+        }
+
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct));
     }
 

@@ -85,7 +85,8 @@ public class AddTransactionCommand extends Command {
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList();
 
-        if (editedProduct.isBelowThreshold()) {
+        // display notification window if threshold is reached
+        if (editedProduct.reachesThreshold()) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
                     null,
                     editedProduct,
