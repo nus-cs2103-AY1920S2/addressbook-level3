@@ -77,9 +77,9 @@ include::../UserGuide.adoc[tag=deletec]
 
 include::../UserGuide.adoc[tag=lowlimit]
 
-//include::../UserGuide.adoc[tag=lowstockproducts]
+include::../UserGuide.adoc[tag=lowstockproducts]
 
-include::../UserGuide.adoc[tag=receivenotif]
+//include::../UserGuide.adoc[tag=receivenotif]
 
 include::../UserGuide.adoc[tag=reuseinputs]
 

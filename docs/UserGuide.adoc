@@ -121,7 +121,7 @@ The history is deleted after application closes.
 // tag::lowstockproducts[]
 ==== Keeping track of products that are running low on stock
 
-The product list updates and sorts by the progress bar indicator automatically. +
+The product list updates and sorts by the progress bar indicator when user uses the `listp` command. +
 Products are ordered by the level of progress bar indicator. (E.g. the lower the bar, the higher it is in the list).
 This is to help the user easier to know which products are running low on stock.
 
@@ -295,7 +295,7 @@ Show all products in the product list. +
 Format: `listp`
 
 [NOTE]
-The product is automatically sorted by the product quantity, represented by the bar indicator beside the product name.
+Sorts all of the product by the product quantity, represented by the bar indicator beside the product name.
 // end::listp[]
 
 // tag::editp[]

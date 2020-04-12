@@ -5,7 +5,6 @@ import static seedu.address.logic.commands.product.EditProductCommand.EditProduc
 import static seedu.address.logic.commands.product.EditProductCommand.createEditedProduct;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_THRESHOLD;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import java.util.List;
 
@@ -69,7 +68,7 @@ public class LowLimitCommand extends Command {
 
         // update product list
         model.setProduct(productToEdit, editedProduct);
-        model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+        model.updateFilteredProductList();
 
         // show notification if quantity < threshold
         if (editedProduct.getQuantity().getValue() <= thresholdValue) {

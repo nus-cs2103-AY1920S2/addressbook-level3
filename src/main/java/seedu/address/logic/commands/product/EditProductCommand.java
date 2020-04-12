@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALES;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import java.util.List;
 import java.util.Optional;
@@ -86,7 +85,7 @@ public class EditProductCommand extends Command {
 
         // update product list
         model.setProduct(productToEdit, editedProduct);
-        model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+        model.updateFilteredProductList();
 
         // update transactions with product info
         updateTransactionList(model, editedProduct);
