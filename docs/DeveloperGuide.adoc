@@ -95,7 +95,7 @@ image::UiClassDiagram.png[]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TransactionListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/expensela/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component does the following actions:
 
@@ -400,7 +400,7 @@ image::chart-analytics/ToggleViewStep2.png[,650]
 Step 3. `ToggleViewCommand#execute()` switches `isViewList` of `ToggleView` from true to false.
 
 .`isViewList` of `ToggleView` switched from `ToggleViewCommand#execute()`
-image::chart-analytics/ToggleViewStep3.png[,650]
+image::chart-analytics/ToggleViewStep3.png[]
 
 Step 4. `MainWindow#executeCommand()` checks the boolean value of isViewList in ToggleView, which is false,
 and displays chart analysis.
@@ -444,6 +444,49 @@ The following activity diagram gives an overview of what ExpenseLa shows the use
 :figure-caption: Figure
 .Activity diagram for execution of toggleview command
 image::chart-analytics/ToggleViewActivityDiagram.png[]
+
+==== Design considerations
+This section shows some of the design considerations taken when implementing the undo and redo features.
+
+===== Aspect: Design used to implement toggelview feature
+
+* Alternative 1 (current choice): Create a ToggleView Class to keep a boolean value of isViewList to keep track of
+showing list of transactions or chart analysis.
+** Pros: Easily extendable next time to accommodate more different kind of views by changing boolean to possibly enum.
+** Pros: Easy to implement functions to change values in `ToggleView` object, which allows easy extendability next time also.
+** Cons: Needs to implement many functions through `Logic` and `Model`.
+* Alternative 2: Create a boolean value in `Model` to track whether to show list of transactions or chart analysis.
+** Pros: Easy implementation and checking of boolean value by `MainWindow` to check which view to show.
+** Cons: Not extendable next time when trying to accommodate different kind of views.
+
+Alternative 1 was chosen because it is easily extendable, in case we want to improve or develop on the feature in the
+future. It also follows better OOP principles, making the code much neater and understandable.
+
+=== Export
+
+The *export* command allows user to export currently filtered transactions to a csv file, in case he would like to use
+the data for his own analysis.
+
+==== Implementation
+
+`ExportCommand` is instantiated by `ExpenseLaParser#parseCommand(String userInput)`, which attempts to split the userInput
+into the command word and its parameters. Since `ExportCommand` does not require any arguments, it is instantiated directly.
+
+The sequence diagram below shows how the execution of *export* is like:
+
+.Sequence diagram of how *export* command is applied at the back-end.
+image::export/ExportSequenceDiagram.png[]
+
+==== Proposed extension
+In the near future, we plan to enhance the export feature. We want to improve the export command to take in view as a
+possible argument, thus allowing the user to choose between exporting list of transactions or the chart analysis. The
+user can use the chart analysis generated for visual presentations, especially if the expense tracker is for a business.
+
+The image below shows how a possible future implementation of this feature could look like:
+
+.Expected result of filtering by both Nov 2019 and Transport.
+image::list/TagFilter.png[,550]
+
 
 === Logging
 
@@ -498,47 +541,163 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *`
+|new user
+|see usage instructions
+|refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new expense entry |
+|`* * *`
+|general user
+|add a new expense entry
+|keep track of my expenses
 
-|`* * *` |user |add a new income entry |
+|`* * *`
+|someone who earns income
+|add a new income entry
+|keep track of my income
 
-|`* * *` |user |set budget for current month |
+|`* * *`
+|high-income user
+|keep track of all the money I earn
+|make decisions on where my most lucrative source of income is
 
-|`* * *` |user |set budget for every month(recurrent budget) once |budget for subsequent months are automatically set
+|`* * *`
+|low-income user
+|set budget for current month
+|limit my expenditure for the month
 
-|`* * *` |user |be visually alerted when i spend a certain proportion of my budget |adjust my spending habit for the rest of the month
+|`* * *`
+|low-income user
+|be notified by the application if i am spending too much money
+|be wary of overshooting my budget
 
-|`* * *` |user |delete an expense or income entry |remove entries that I added in by mistake
+|`* * *`
+|consistent thrifty user
+|set budget for every month(recurrent budget) once
+|have no need to constant;y set my unchanging budget
 
-|`* * *` |user |find an entry by keyword |locate details of my expense or income
+|`* * *`
+|user with varying income
+|be flexible with my budgets
+|spend more or less on certain months depending on my financial situation
 
-|`* * *` |user |filter expense based on category |see how much money i spend on that particular category
+|`* * *`
+|visual user
+|be visually alerted when I spend a certain proportion of my budget
+|adjust my spending habit for the rest of the month
 
-|`* * *` |user |filter expense based on date or time period |see how much money i spend in that time period
+|`* * *`
+|careless user
+|delete an expense or income entry
+|remove entries that I added in by mistake
 
-|`* * *` |user |view amount of budget left to spend |adjust spending habit for the rest of the month
+|`* * *`
+|forgetful user
+|find an entry by keyword
+|check if I spent money on a particular thing
 
-|`* * *` |user |view total money i have |
+|`* * *`
+|spendthrift user
+|filter expense based on category
+|know if I generally spend a lot of money or only on certain months
 
-|`* * *` |user |view total expense for a particular month |
+|`* * *`
+|forward-looking user
+|look at my spending trend by week or month
+|keep track of my income
 
-|`* * *` |user |view pie chart of money spent based on category |see where i spend the most money on
+|`* * *`
+|user trying to save money
+|filter expense based on date or time period
+|see how much money I have spent in that time period and make better decisions
 
-|`* * *` |user |view bar chart of money spent based on time period |see when i spend the most money
+|`* * *`
+|user trying to save money
+|view amount of budget left to spend
+|adjust spending habit for the rest of the month
 
-|`* *` |user |add friends in the application
+|`* * *`
+|general user
+|view total money I have
+|be able to tell how much I can spend
 
-|`* *` |user |look at my friend's spending habit
+|`* * *`
+|user trying to save money
+|view total expense for a particular month
+|decide on my future expenditures
 
-|`*` |user who owes people money |view the people who i owe money to |
+|`* * *`
+|visually analytical user
+|view pie chart of money spent based on category
+|see where I spend the most money on
 
-|`*` |user who lends people money |request payment from people who owe me money|
+|`* * *`
+|visually analytical user
+|view bar chart of money spent based on time period
+|see when I spend the most money
+
+|`* * *`
+|organized user
+|organize my expenditure into different categories
+|better able to track where I am spending my money
+
+|`* * *`
+|not one-off user
+|all my expenditures and income to be saved
+|continue on from previous whenever I exit and launch back the application
+
+|`* *`
+|smart analytical user
+|export my expenditure and income
+|use the data to make my own analysis
+
+|`* *`
+|secretive user
+|set a password to login tp the application
+|prevent unwanted users from viewing my expenses
+
+|`* *`
+|businessman
+|have multiple accounts
+|manage my expenses not only for myself but my business
+
+|`* *`
+|parent
+|have multiple accounts
+|help manage my children’s expenses |
+
+|`* *`
+|user with many friends
+|add friends in the application
+|help each other in their savings
+
+|`* *`
+|concerned friend
+|look at my friend's spending habit
+|keep a lookout for their expenditure
+
+|`*`
+|user who owes people money
+|view the people who I owe money to
+|keep track of who I owe
+
+|`*`
+|user who lends people money
+|request payment from people who owe me money
+|keep track of my loans
+
+|`*`
+|sociable user
+|indicate when my expenditure is within the budget
+|share the achievement with my friends
+
+|`*`
+|lazy user
+|have the application make recommendations on my spending habits
+|easily change my spending habit without thinking
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
