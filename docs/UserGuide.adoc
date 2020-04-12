@@ -207,6 +207,7 @@ is the coupons tabs. The coupons tab contains a visual
 overview of the coupons which you have added to the
 application.
 
+[[couponcard]]
 ===== Coupon card
 
 The coupon card displays information about each coupon, and
@@ -776,6 +777,7 @@ coupons in the coupon stash) +
 * <<Archiving a coupon: `archive`, `archive`>>
 * <<Unarchiving a coupon: `unarchive`, `unarchive`>>
 * <<Clearing all entries: `clear`, `clear`>>
+* <<Using a coupon: `used`, `used`>>
 ====
 
 [NOTE]
@@ -1005,22 +1007,24 @@ file with your intended data file. +
 *Q* : Why do I need to tag my coupons?
 
 *A* : Tagging is not compulsory. However, it allows you to group similar
-coupons together for easier execution. For example, you can easily
-delete all the coupons that are tagged, cheap. Do refer to section 4
-for more detail. +
+coupons together for easier identification. For example, you can easily
+identify all the coupons that are tagged "cheap", as these tags are
+displayed in bright orange at the top of each coupon.
+Do refer to <<couponcard, section 4.1.1>> for more details about the coupon card. +
 {empty} +
 
-*Q* : How do I store coupons with no ending date?
+*Q* : How do I store coupons with no expiry date?
 
-*A* : Sorry, at the moment, coupon entries with no ending date cannot be
+*A* : Sorry, at the moment, coupon entries with no expiry date cannot be
 stored. You would need to enter a much further date like 1-1-2030. To
 be added in version 2.0.0 +
 {empty} +
 
 *Q* : How do you calculate the savings value?
 
-*A* :  Whenever a coupon is marked as used, Stash will automatically
-calculate the values saved based on the details of the coupon.
+*A* :  Whenever a coupon is marked as used, Coupon Stash will automatically
+calculate the values saved based on the details of the coupon. You
+can used the <<saved, saved command>> to view amount saved.
 {empty} +
 
 
@@ -1098,6 +1102,10 @@ e.g. setcurrency ms/€
 
 
 == Appendix
+
+This section talks about features that have not been
+implemented in Coupon Stash yet, but features that
+the developers are keen to add in upcoming versions.
 
 === *Query expressions (coming in v2.0)*
 
