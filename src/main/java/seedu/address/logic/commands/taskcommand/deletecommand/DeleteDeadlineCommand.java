@@ -46,7 +46,11 @@ public class DeleteDeadlineCommand extends DeleteTaskCommand {
         model.sortTaskList();
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
 
-        return new CommandResult(MESSAGE_SUCCESS );
+        return new CommandResult(MESSAGE_SUCCESS + removed);
+    }
+
+    public Task getDeadlineToDelete() {
+        return this.deadlineToDelete;
     }
 
 
@@ -54,7 +58,7 @@ public class DeleteDeadlineCommand extends DeleteTaskCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteDeadlineCommand // instanceof handles nulls
-                && deadlineToDelete == deadlineToDelete);
+                && deadlineToDelete.equals(((DeleteDeadlineCommand) other).getDeadlineToDelete()));
     }
 
 

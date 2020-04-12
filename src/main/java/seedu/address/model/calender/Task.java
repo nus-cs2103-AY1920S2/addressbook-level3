@@ -276,6 +276,8 @@ public class Task {
         }
 
         Task otherTask = (Task) other;
+        System.out.println(otherTask.getDescription().equals(this.description));
+        System.out.println(otherTask.getDate().equals(this.getDate()));
         return otherTask.getDescription().equals(this.description)
                 && otherTask.getDate().equals(this.getDate());
 

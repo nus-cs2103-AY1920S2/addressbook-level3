@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalTasks.DEADLINE_A_DATE_A;
+import static seedu.address.testutil.TypicalTasks.DEADLINE_D_DATE_B;
 import static seedu.address.testutil.TypicalTasks.MODULE_TASK;
 
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class JsonAdaptedCalendarTest {
 
     @Test
     public void toModelType_notDoneTask_returnFalse() throws Exception {
-        JsonAdaptedCalendar calendar = new JsonAdaptedCalendar(DEADLINE_A_DATE_A);
+        JsonAdaptedCalendar calendar = new JsonAdaptedCalendar(DEADLINE_D_DATE_B);
         assertFalse(calendar.toModelType().getStatus());
     }
 

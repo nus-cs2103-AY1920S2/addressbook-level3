@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import seedu.address.model.calender.Deadline;
 import seedu.address.model.calender.Task;
@@ -32,10 +32,14 @@ public class TypicalTasks {
     private TypicalTasks() {} // prevents instantiation
 
 
-    public static ArrayList<Task> getTypicalTask() {
+    public static List<Task> getTypicalTask() {
 
-        return new ArrayList<>(Arrays.asList(
-                DEADLINE_A_DATE_A, DEADLINE_B_DATE_A, DEADLINE_C_DATE_B, DEADLINE_D_DATE_B));
+        ArrayList<Task> newList = new ArrayList<>();
+        newList.add(DEADLINE_A_DATE_A);
+        newList.add(DEADLINE_B_DATE_A);
+        newList.add(DEADLINE_C_DATE_B);
+        newList.add(DEADLINE_D_DATE_B);
+        return newList;
 
     }
 

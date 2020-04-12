@@ -15,7 +15,7 @@ import javafx.collections.FXCollections;
 class TaskTest {
 
     private static final String VALID_DATE = "20-04-2020";
-    private static final String VALID_DATE_NEXT = "21-04-2020";
+    private static final String VALID_DATE_NEXT = "01-03-2020";
 
     @Test
     public void constructor_null_throwsNullPointerException() {
