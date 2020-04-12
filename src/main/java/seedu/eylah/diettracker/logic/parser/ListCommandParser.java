@@ -45,6 +45,10 @@ public class ListCommandParser implements Parser<ListCommand> {
         if (mode.equals("-d")) {
             int numDays;
             try {
+                System.out.println("VALUE: " + argMultimap.getValue(PREFIX_DAYS).get());
+                if (argMultimap.getValue(PREFIX_DAYS).get().length() > 6) {
+                    throw new ParseException("Input days is invalid.");
+                }
                 numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAYS).get());
                 if (numDays < 1) {
                     throw new ParseException("Input days is invalid.");

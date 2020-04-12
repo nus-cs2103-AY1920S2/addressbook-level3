@@ -21,6 +21,7 @@ public class ModeCommand extends Command<DietModel> {
             + "Parameters: [-l] [-g] [-m]";
 
     public static final String MESSAGE_SUCCESS = "Mode Change Successful: %1$s";
+    public static final String MESSAGE_FLAG_NOT_PROVIDED = "Please provide a flag [-g]/[-m]/[-l]!";
 
     private final Mode mode;
 
