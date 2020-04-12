@@ -53,15 +53,13 @@ Any help on the development of the TA-Tracker
 would be greatly appreciated, and there
 are a couple of ways that you can do so:
 
-* contribute to TA-Tracker
-'s code base by expanding its features
+* contribute to TA-Tracker's code base by expanding its features
 * help us improve test coverage
 * propose and implement improvements on current features
 
 This guide aims to kick-start your journey as a contributor to the TA-Tracker
 by getting
-you up to speed with how TA-Tracker
-'s codebase and inner workings function. It also
+you up to speed with how TA-Tracker's codebase and inner workings function. It also
 hopes to serve as a useful reference to current contributors in times of confusion or
 when faced with difficulties.
 //end::introduction[]
@@ -362,7 +360,7 @@ The following _Class Diagram_ shows the relationship between the different class
 in the `Model` component.
 
 .Model Components - Class Diagram
-image::ModelComponentsClassDiagram.png[]
+image::ModelComponentsClassDiagram.png[,670]
 
 ==== Example of Model Usage
 
@@ -567,7 +565,7 @@ of the different *modules* the user is teaching.
 
 * Each `Module` contains a `UniqueGroupList`.
 
-* The `UniqueGroupList` contains a list of all the *groups of a module* that the user
+* Each `UniqueGroupList` contains a list of all the *groups of a module* that the user
 is teaching.
 
 * Each `Group` contains a `UniqueStudentsList` that contains the *students in that group*.
@@ -579,8 +577,8 @@ The initial idea for the *Student View* UI was to show the Student View as a *li
 where each module contained a *list of groups* and each group contained a *list of students*.
 Keeping this in mind, we created the current model framework.
 
-The idea for the UI was scrapped as once it was implemented as it looked messy and wasn't
-user-friendly. We changed the UI to what it is now,but decided to keep the model framework
+The idea for the UI was scrapped as once we realised it would look messy and won't
+be user-friendly. We changed the UI to what it is now, but decided to keep the model framework
 the way it is.
 
 *Alternative Implementation*
@@ -850,7 +848,7 @@ group in the given module* by type `TYPE`.
 2. `sort module g/MODULE_CODE t/TYPE` : This sorts all the students of *all the groups in the
 given module* by type `TYPE`.
 
-3. `sort all t/TYPE` : This sorts all students of *all groups of all the modules* in the
+3. `sort all t/TYPE` : This sorts all students of *all groups in all modules* in the
 TA-Tracker
 by the type `TYPE`
 
@@ -863,7 +861,7 @@ by the type `TYPE`
 ** `matric` to sort by matriculation number.
 ====
 
-Since these `Sort` commands function differently but use a single parser,
+Since the `Sort` commands function differently but use a single parser,
 the structure shown in the following
 _Class Diagram_ is used.
 
@@ -2417,7 +2415,6 @@ Use case resumes at step 1.
 [appendix]
 == Glossary
 
-(Contributed by Aakanksha)
 [width="%",cols="<20%,<40,options="header",]
 |=======================================================================
 |Term | Explanation
