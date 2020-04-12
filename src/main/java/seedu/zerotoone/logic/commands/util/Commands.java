@@ -33,8 +33,6 @@ public class Commands {
     public static final String SCHEDULE_CREATE = "schedule create WORKOUT_ID d/<datetime>";
     public static final String SCHEDULE_EDIT = "schedule edit SCHEDULED_WORKOUT_ID d/<datetime>";
     public static final String SCHEDULE_DELETE = "schedule delete SCHEDULED_WORKOUT_ID";
-    public static final String SCHEDULE_RECURRING_CREATE =
-            "schedule recurring create WORKOUT_ID d/<datetime> f/<frequency>";
 
     public static final String LOG_LIST = "log list";
     public static final String LOG_DELETE = "log delete LOG_ID";

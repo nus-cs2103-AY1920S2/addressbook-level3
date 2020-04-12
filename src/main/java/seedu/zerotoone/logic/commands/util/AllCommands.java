@@ -50,8 +50,7 @@ public class AllCommands {
             Commands.SCHEDULE_LIST,
             Commands.SCHEDULE_CREATE,
             Commands.SCHEDULE_EDIT,
-            Commands.SCHEDULE_DELETE,
-            Commands.SCHEDULE_RECURRING_CREATE
+            Commands.SCHEDULE_DELETE
         ));
         commands.add(new CommandSection(
             "Log Commands",
