@@ -13,7 +13,7 @@ import com.notably.model.Model;
 import com.notably.model.block.Title;
 
 /**
- * Represents a Handler for New Command.
+ * Represents a Handler for the command word "new".
  */
 public class NewSuggestionArgHandler implements SuggestionArgHandler<SuggestionGenerator> {
     public static final String COMMAND_WORD = "new";
