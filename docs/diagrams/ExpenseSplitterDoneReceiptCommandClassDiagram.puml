@@ -44,5 +44,4 @@ DoneReceiptCommand .left.> SplitterModel
 SplitterModelManager *-right->"1" Receipt
 SplitterModel ..> Receipt
 
-
 @enduml
