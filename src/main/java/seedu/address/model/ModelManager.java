@@ -39,7 +39,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final TagSet tagSet;
     private FilteredList<Task> filteredTasks;
-    private Comparator<Task> comparator;
 
     private PomodoroManager pomodoroManager;
     private PetManager petManager;
@@ -274,18 +273,6 @@ public class ModelManager implements Model {
         filteredTasks.setPredicate(predicate);
     }
 
-    // /** Used when a predicate is applied to show the more relevant serach results */
-    // @Override
-    // public void sortSearchByRelevance(Comparator<Task> comparator) {
-    //     requireAllNonNull(comparator);
-    //     // Comparator<Task> searchThenNormalOrder = comparator;
-    //     // if (this.comparator != null) {
-    //     //     searchThenNormalOrder = searchThenNormalOrder.thenComparing(this.comparator);
-    //     // }
-    //     // this.taskList.sort(searchThenNormalOrder);
-    //     this.setComparator(comparator);
-    // }
-
     // ================ Sort list methods
 
     /** Used when for the sort command when sorting by multiple fields */
@@ -296,8 +283,10 @@ public class ModelManager implements Model {
         this.taskList.setSortOrder(sortOrder);
     }
     
+    /** Used when a predicate is applied to show the more relevant serach results */
     @Override
-    public void setSearchResultOrder(Comparator<Task> comaprator) {
+    public void setSearchResultOrder(Comparator<Task> comparator) {
+        requireNonNull(comparator);
         this.taskList.setComparator(comparator);
         this.taskList.setComparator(null);
         this.taskList.setSortOrder("");

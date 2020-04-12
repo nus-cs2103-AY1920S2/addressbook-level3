@@ -53,10 +53,10 @@ public class FindCommand extends Command {
                     }
                 };
 
-        // for (Task t: model.getTaskList().getTaskList()) {
-        //     int score = predicate.getEditDistance(t) - predicate.countTag(t);
-        //     System.out.println(String.format("%s %d", t, score));
-        // }
+        for (Task t: model.getTaskList().getTaskList().sorted(comparator)) {
+            // int score = predicate.getEditDistance(t) - predicate.countTag(t);
+            System.out.println(t.getName().toString());
+        }
 
         model.setSearchResultOrder(comparator);
 
