@@ -4,13 +4,13 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-FitBiz *-right-> "1" UniqueClientList
-FitBiz *-right-> "1" UniqueTagList
+FitBiz -right-> "1" UniqueClientList
+FitBiz -right-> "1" UniqueTagList
 UniqueTagList -[hidden]down- UniqueClientList
 UniqueTagList -[hidden]down- UniqueClientList
 
-UniqueTagList *-right-> "*" Tag
-UniqueClientList *-right-> "*" Client
+UniqueTagList -right-> "*" Tag
+UniqueClientList -right-> "*" Client
 
-Client *-up-> "*" Tag
+Client -up-> "*" Tag
 @enduml

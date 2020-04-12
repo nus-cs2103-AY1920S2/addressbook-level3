@@ -17,13 +17,13 @@ enum DayEnum <<enumeration>> {
     SUN
 }
 
-ScheduleList "1" *--> "*" Schedule
+ScheduleList "1" --> "*" Schedule
 
-Schedule "1" *--> "1" Day
-Schedule "1" *--> "1" StartTime
-Schedule "1" *--> "1" EndTime
+Schedule "1" --> "1" Day
+Schedule "1" --> "1" StartTime
+Schedule "1" --> "1" EndTime
 
-Day "1" *--> "1" DayEnum
+Day "1" --> "1" DayEnum
 
 StartTime --|> Time
 EndTime --|> Time
