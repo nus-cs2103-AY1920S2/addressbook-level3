@@ -748,7 +748,7 @@ If no flag is given in this step, `search` command will be performed on both the
 The syntax for a valid `search` command can be seen below:
 
 * `search` `[<<command_flags, FLAG>>]` `KEYWORD` `[MORE_KEYWORDS]...` OR
-* `search` `[<<command_flags, FLAG>>]` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
+* `search` `[<<command_flags, FLAG>>]` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD]` `[MORE_KEYWORDS]...`
 
 [NOTE]
 ====
