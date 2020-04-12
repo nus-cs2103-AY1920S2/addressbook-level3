@@ -282,7 +282,7 @@ Step 1: The user launches the application for the first time. The `RestaurantBoo
 
 Step 2: The user executes the following commands to add notes to a restaurant.
 
-* 1. `(rt)add n/Ameens l/Clementi v/No o/09:2300 p/$ c/Indian`
+* 1. `(rt)add n/Ameens l/Clementi v/No o/0900:2300 p/$ c/Indian`
 * 2. `(rt)addnote r/Cheese fries`
 
 Step 3: The user executes the `(rt)editnote 1 rl/1 r/Butter chicken` command to edit the first recommended food of the restaurant at index 1, to Butter chicken.
@@ -298,8 +298,8 @@ image::addRestNote.png[]
 ** Pros: Easy for user to use, without switching between different commands.
 ** Cons: As line number of the relevant note needs to be indicated, many levels of checking of the user input is required, and is thus more prone to errors.
 * **Alternative 2:** Have 3 separate edit commands, one for each restaurant's note.
-* Pros: Easier to implement.
-* Cons: Not user-friendly since different notes cannot be edited in a single command.
+** Pros: Easier to implement.
+** Cons: Not user-friendly since different notes cannot be edited in a single command.
 end::editRestNote[]
 
 === Logging
