@@ -276,37 +276,48 @@ Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` a
 * `Logic` and `Parser` redirects control to `StartCommand#execute()` where an instance of `OngoingSession` is created with
 `Arms Day`. The upcoming set of the next exercise is displayed for the user.
 
+* The timer starts counting. This acts as a visual cue for the user that notifies the start of the workout and is essentially superfluous, since it's main purpose is to time rest between sets.
+
 Step 2. The user completes the first set and types `done`.
 
 * `DoneCommand#execute()` is invoked, which in turn calls `OngoingSession#done()` to obtain the next set and statefully
-updates the instance of `OngoingSession`.
+updates the instance of `OngoingWorkout`.
 
-* The rest timer starts counting from 00:00.
+* The rest timer resets and starts counting from 00:00.
 
 .DoneCommand sequence diagram
 image::DoneCommandSequenceDiagram.png[]
 
-Step 3. The user fails the last and final set of `Benchpress` and types `skip`.
+* The sequence diagram above demonstrates the interaction between the Logic and Model of ZeroToOne.
+For brevity, some inner details between `OngoingWorkout.done()` and the return of `cs` are omitted.
 
-* `SkipCommand#execute()` is invoked. The instance of `OngoingSession` is updated. Since `OngoingSession#hasSetLeft()`
-returns false, `OngoingSession#finish()` is called which creates and returns an immutable `Session` object. This object
-is saved into the `completedExerciseList` of `ModelManager` for saving and use by the `Log` feature.
+Step 3. After resting, the user fails the last and final set of `Bench Press` and types `skip`.
+
+* `SkipCommand#execute()` is invoked. The process is almost identical to the above execution of `done` except this time the instance of `CompletedSet` is created with `isFinished` set to `false`.
+
+* Since this is the final set of the session, `OngoingWorkout#hasSetLeft()`
+returns false, and `OngoingWorkout#finish()` is called which creates and returns an immutable `CompletedWorkout` object. This object
+is saved and passed on for use by the `Log` feature.
+
+* The workout session is now complete, and the timer and UI is reset.
+
+* The workout session can be viewed in the `Log` tab.
 
 [Note] In the usual flow, the `stop` command is not used, and is reserved only for a premature (incomplete) ending of a
-completedExercise.
+workout session.
 
 ==== Design Considerations
 ===== Aspect: Seamless user-first experience
-* **Current Implementation:** Minimal commands and typing during an ongoing completedExercise.
+* **Current Implementation:** Minimal commands and typing during an ongoing session.
 ** Pros: Less interruption during actual exercising to enter commands.
 ** Cons: More experienced users are not able to have a more customizable workout.
 
 
 ===== Aspect: Beginner-friendly automatic set-ordering
 * **Current Implementation:** Exercises and sets have fixed ordering based on their creation.
-** Pros: Easier for new user to follow a completedExercise, less typing required during ongoing completedExercise.
-** Cons: Experienced users are not able to have an ad-hoc customizable workout without creating a new workout with the specific order they want.
-// end::completedExercise[]
+** Pros: Easier for new user to follow a workout session, less typing required during a workout session.
+** Cons: Experienced users are not able to have an ad-hoc, customizable workout without creating a new workout with the specific order they want.
+// end::session[]
 
 // tag::exercise[]
 === Exercise
