@@ -114,13 +114,13 @@ public class OrderCard extends UiPart<Region> {
 
         if (order.isDelivered()) {
             ImageView deliveredImage = new ImageView(getImage("/images/delivered.png"));
-            deliveredImage.setFitHeight(40);
-            deliveredImage.setFitWidth(40);
+            deliveredImage.setFitHeight(50);
+            deliveredImage.setFitWidth(50);
             tagFlowPane.getChildren().add(deliveredImage);
         } else {
             ImageView undeliveredImage = new ImageView(getImage("/images/not_delivered.png"));
-            undeliveredImage.setFitHeight(40);
-            undeliveredImage.setFitWidth(40);
+            undeliveredImage.setFitHeight(50);
+            undeliveredImage.setFitWidth(50);
             tagFlowPane.getChildren().add(undeliveredImage);
         }
 

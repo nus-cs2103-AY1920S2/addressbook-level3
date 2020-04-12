@@ -49,13 +49,11 @@ public class SearchCommand extends Command {
     }
 
     public SearchCommand(OrderContainsKeywordsPredicate orderPredicate) {
-        this.orderPredicate = orderPredicate;
-        this.returnPredicate = null;
+        this(orderPredicate, null);
     }
 
     public SearchCommand(ReturnOrderContainsKeywordsPredicate returnPredicate) {
-        this.returnPredicate = returnPredicate;
-        this.orderPredicate = null;
+        this(null, returnPredicate);
     }
 
     @Override
