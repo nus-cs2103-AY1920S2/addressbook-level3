@@ -87,4 +87,22 @@ public class Deadline extends Task {
     public String toString() {
         return super.toString() + " (" + by + ")" + "(" + category + ")";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline otherTask = (Deadline) other;
+        System.out.println(otherTask.getDescription().equals(getDescription()));
+        System.out.println(otherTask.getDate().equals(this.getDate()));
+        return otherTask.getDescription().equals(getDescription())
+                && otherTask.getDate().equals(this.getDate());
+
+    }
 }

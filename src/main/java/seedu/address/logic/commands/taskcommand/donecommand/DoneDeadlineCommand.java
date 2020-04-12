@@ -42,11 +42,15 @@ public class DoneDeadlineCommand extends DoneCommand {
         return new CommandResult(MESSAGE_SUCCESS + completed);
     }
 
+    public Task getDeadlineDone() {
+        return deadlineDone;
+    }
+
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DoneDeadlineCommand // instanceof handles nulls
-                && deadlineDone == deadlineDone);
+                && deadlineDone.equals(((DoneDeadlineCommand) other).getDeadlineDone()));
     }
 }
