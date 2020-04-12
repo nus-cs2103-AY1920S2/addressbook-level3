@@ -190,9 +190,16 @@ public class ModuleBook {
     public String getTaskBreakdown() {
         String infoOfTasks = "";
         for (NusModule module: modules) {
-            String numberOfTasks = "- " + module.getModuleCode() + ":   "
-                    + module.getTasks().size() + " tasks in total\n";
-            infoOfTasks += numberOfTasks;
+            int numberOfTasksNotDone = 0;
+            for (ModuleTask moduleTask: module.getTasks()) {
+                if (moduleTask.getDoneStatus() == 0) {
+                    numberOfTasksNotDone += 1;
+                }
+            }
+            String message = "- " + module.getModuleCode() + ":   "
+                    + module.getTasks().size() + " tasks in total   "
+                    + numberOfTasksNotDone + " tasks haven't been completed\n";
+            infoOfTasks += message;
         }
         return infoOfTasks;
     }

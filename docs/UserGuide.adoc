@@ -382,7 +382,7 @@ A person can have any number of tags (including 0)
 - Format: `clear`
 
 
-=== Profile (Module Book)
+=== Profile / Module Book (Part 1: Manage your modules)
 
 This feature allows individuals to see their own profile, their current cap and the all modules that the individual have taken and all the grades gotten.
 
@@ -445,29 +445,101 @@ List of all valid grade: A+, A, A-, B+, B, B-, C+, C, D+, D, F, S and U.
 * Calculates your current CAP.
 * CAP = Sum (module grade point x modular credits for the module) / Sum (modular credits)
 * The calculation strictly follow the grading system of NUS.
+* Shows current CAP in CLI, CAP on UI will only get updated after you restart.
 ****
 
 [TIP]
 You don't need to indicate the modular credits for each module when you add it in because the program will fetch that infomation online.
 
-==== Managing your tasks separately for each module
+=== Profile / Module Book (Part 2: Manage your tasks separately for each module)
 
-[WARNING]
-For this part, the UI hasn't been implemented yet so that you can only view your tasks in Calendar tab stated above.
+[TIP]
+These tasks related to certain module are called 'module task' from now on.
 
-.  Creating a module task : `moduleTask`
+[TIP]
+All commands that make changes to the module tasks will be synchronous for both module book and the task list in calendar feature.
 
-- Adds a task related to certain module you have added before.
+[NOTE]
+For this part, the UI hasn't been implemented yet but you are able to see the updated list of module tasks in command line.
+
+[NOTE]
+Most functionality covered in this part can also be achieved by some commands in Calendar feature above. Just provides users
+with an alternative way. (The orders of tasks shown are different. Thus, the index inputted may be different to achieve the same modification.)
+
+==== Creating a module task : `moduleTask`
+
+[NOTE]
+This command has been covered in Calendar feature already.
+
+- Adds a module task related to certain module you have added before in module book.
 
 - You need to indicate which module the task is related to, its priority level (how important it is) and also its deadline or scheduled timing.
 
 - Format: `moduleTask desc/DESCRIPTION m/MODULE_CODE date/DEADLINE_OR_SCHEDULED_TIMING pri/PRIORITY`
 
+[NOTE]
+The date inputted should be in the format: DD-MM-YYYY.
+
 ****
-* This command allows you to create tasks specific to certain module you added to the program before.
+* This command allows you to create tasks to certain module you added to the program before.
 * Stores the task added in the module book and automatically adds and shows on the Calender.
+* You will get an updated list of tasks related to that specific module after adding. (shown in command line)
 ****
 
+==== Listing all module tasks of certain module
+
+- Lists all module tasks related to the specific module.
+
+- Format: `listModuleTasks MODULE_CODE`
+
+****
+* Lists all module tasks related to that module in *CLI*.
+* Module code inputted must be valid module code you have added in before.
+****
+
+*Example:*
+
+==== Deleting a module task : `taskDelete`
+
+- Deletes the specified module tasks for certain module from the module book and calendar.
+
+- Format: `taskDelete m/MODULE_CODE index/INDEX`
+
+[NOTE]
+This command is similar to the `taskDelete` command in Calendar feature but you need to specify the module code.
+
+****
+* Deletes the module task at the specified INDEX.
+* The index refers to the index number *shown in the CLI* (you can get that by entering 'listModuleTasks MODULE_CODE')
+* The index must be a positive integer 1, 2, 3, …
+****
+
+==== Marking a module task as done : `done`
+
+- Marks the specified module tasks for certain module as done in the module book and calendar.
+
+- Format: `done m/MODULE_CODE index/Index`
+
+[NOTE]
+This command is similar to the `done` command in Calendar feature but you need to specify the module code.
+
+****
+* Deletes the module task at the specified INDEX.
+* The index refers to the index number *shown in the CLI* (you can get that by entering 'listModuleTasks MODULE_CODE')
+* The index must be a positive integer 1, 2, 3, …
+****
+
+==== View task breakdown per module : `taskBreakdown`
+
+- Shows the how many tasks are there in total and how many tasks haven't been completed yet for each module.
+
+- Format: `taskBreakdown`
+
+- Shows in the command line
+
+==== States major taken : `major` (coming in v2.0)
+
+=== Module planning
 
 ==== View module requirement: `modreq`
 
