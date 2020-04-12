@@ -559,6 +559,7 @@ Cons:
 ** Non-functional requirements
 * slightly GUI-dependent, some buttons need to be clicked and screens traversed to perform a task
 
+
 [appendix]
 // tag::ManualTesting[]
 == Instructions for Manual Testing
@@ -605,33 +606,85 @@ Expected: *CookBuddy* will shut down.
 .. Test case: `new n/Eggs on Toast ing/bread, 2 slices; egg, 1` +
    Expected: No recipe is added. An _"Invalid command format"_ error message is shown in the result pane.
 
+. Add a recipe with a missing ingredient quantity
+
+.. Test Case: `new n/Eggs on Toast ing/bread, 2 slices; egg ins/toast the 2 slices of bread; scramble the eggs;
+               put eggs on toasted bread; serve` +
+   Expected: No recipe is added. Error message _No quantity has been provided for one or more ingredients!_ is shown in the result pane.
+
 === Modifying a recipe
+
+Prerequisites: *CookBuddy* should contain at least one recipe.
+If no recipe exists, delete the `data` folder and re-launch *CookBuddy*.
+The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
 
 . Modifying a recipe's name
 
-.. Prerequisites:
+.. Test Case: `modify 1 n/Chicken Rice` +
+   Expected: The first recipe's name is updated to _Chicken Rice_.
 
 . Modifying a recipe's ingredients
 
-// missing ingredient name or quantity
+.. Test Case: `modify 1 ing/ing1, qty1; ing2, qty2` +
+   Expected: The first recipe's original ingredients should be overwritten with ing1 & ing2.
 
 . Modifying a recipe's instructions
 
-. Modifying a recipe's calorie amount
+.. Test Case: `modify 1 ins/ins1; ins2` +
+   Expected: The first recipe's original instructions should be overwritten with ins1 & ins2.
 
-// entering non-integer value
+. Modifying a recipe's calories
+
+.. Test Case: `modify 1 cal/2000` +
+   Expected: The first recipe's original calories should be updated to 2000 kCal.
+.. Test Case: `modify 1 cal/abc` +
+   Expected: The first recipe's calories is not updated. Error details are shown in in result pane.
+
+. Modifying a recipe's serving size
+
+.. Test Case: `` +
+   Expected:
+
+
+. Modifying a recipe's difficulty
+
+.. Test Case: `` +
+   Expected:
 
 . Modifying a recipe's rating
+
+.. Test Case: `` +
+   Expected:
 
 // enter rating < 0 or > 5
 
 === Finding a recipe
 
-// finding a recipe by name
+. Finding recipes by name
 
-// finding a recipe by ingredient
+.. Prerequisite: *CookBuddy* contains a recipe with _Ham_ in its name. +
+   Test Case: `find n/Ham` +
+   Expected: Recipes with the word _Ham_ in their name are listed.
+
+. Finding recipes by ingredient
+
+.. Prerequisite: *CookBuddy* contains a recipe with _bread_ in its ingredients. +
+   Test Case: `find ing/bread` +
+   Expected: Recipes with the word _bread_ in their ingredients are listed.
 
 // finding a recipe by instruction
+
+
+=== Marking a recipe as done / not done
+
+Prerequisites: *CookBuddy* should contain at least one recipe.
+If no recipe exists, delete the `data` folder and re-launch *CookBuddy*.
+The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
+
+
+
+=== Marking / un-marking a recipe as a favourite
+
 
 === Deleting a recipe
 
