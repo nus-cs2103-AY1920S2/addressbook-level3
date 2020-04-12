@@ -316,6 +316,7 @@ The result of the command execution is encapsulated as a CommandResult object wh
 The command inherit from superclass `Command` and require command parser to parse the user input arguments.
 
 The following sequence diagram shows how the low limit operation works:
+
 image:LowLimitCommandSequenceDiagram.png[]
 
 ==== Design Considerations
@@ -329,6 +330,27 @@ image:LowLimitCommandSequenceDiagram.png[]
 ** Pros: Will reduce number of commands the user needs to use.
 ** Cons: Hard to unit test, increase coupling.
 //end::lowlimitfeature[]
+
+//tag::notificationWindow[]
+=== Notification window for products
+The notification window appears whenever an product's quantity reaches the threshold that was set. +
+The notification comes with information such as the product's description and remaining quantity left.
+
+The following activity diagram shows how the operation works:
+
+image:NotificationWindowActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Display of the notification window
+
+* **Alternative 1 (current choice):** Only display product's name and remaining quantity.
+** Pros: User friendly, easy to implement.
+** Cons: Have to find and change the product's quantity via the command line.
+* **Alternative 2:** Provide quick way to change product's quantity via GUI
+** Pros: Speeds up the process of stocking up.
+** Cons: Hard to do testing for GUI, and project scope was on command line application.
+//end::notificationWindow[]
 
 === Logging
 
