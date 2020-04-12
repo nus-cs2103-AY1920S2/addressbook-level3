@@ -44,6 +44,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+// tag::prefix[]
 == Common Fields and Keywords
 * *x/* entry type
 * *n/* entry name
@@ -63,6 +64,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *o/* sorting order
 * *k/* keywords for searching/checking
 * *-f* force change flag
+// end::prefix[]
 
 [[Features]]
 == Features
@@ -82,6 +84,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 //end::command_format[]
 
+//tag::help[]
 === Viewing help : `help`
 
 Asks the application to go to Help page, which displays a condensed list of available
@@ -92,83 +95,70 @@ Note that once the user types `help` or click the **Help** button,
 the url of the User Guide is copied to the clipboard, so the user
 can directly access the Guide by pasting the url into the browser.
 Format: `help`
+//end::help[]
 
-// tag::add[]
 === Keep Food and Sports Entries
 
+//tag::add[]
 ==== Adding an entry: `add`
 
 Adds an entry to the fitness log book. The entry added will be displayed in DashBoard, Calendar
-and possibly Today Page (if its date is today) immediately after the command is executed.
-No entry can have time clashes. If a duration of an entry is not specified, default duration is set to 1 hour. +
+and possibly Today Page (if its date is today) immediately after the command is executed. +
 Note that due to space constraint, entry card in DashBoard and Today page will only display
 first 14 characters of its name and first 21 characters of its location. The entry icon in
 Calendar Page are even more constrained.
 
-[WARNING]
-FitHelper accepts duplicate fields, but only the last value specified under this field will be taken.
+* FitHelper accepts duplicate fields, but only the last value specified under this field will be taken.*
 
-Format: `add x/TYPE n/NAME t/DATETIME l/LOCATION c/CALORIE [dr/DURATION] [r/REMARK]...`
+* Default value for unspecified optional field: `status` : Undone; `duration`: 1 hr*
+
+Format: `add x/TYPE n/NAME t/DATETIME l/LOCATION c/CALORIE [dr/DURATION]...`
 
 Examples:
 
-* `add x/s n/running t/2020-04-10-18:00 l/utown gym c/500 r/relly fun`
-* `add x/f n/chicken rice t/2020-04-10-11:00 l/Super Snacks c/200 r/cheap and yummy`
+* `add x/s n/running t/2020-04-10-18:00 l/utown gym c/500`
+* `add x/f n/chicken rice t/2020-04-10-11:00 l/Super Snacks c/200`
+//end::add[]
 
 .Add Command
 image::add.png[]
 .Add Command Result
 image::add2.png[]
 
-//end::add[]
-
-// tag::list[]
-==== Listing all entries : `list`
+//tag::list[]
+====  Listing all entries : `list`
 
 Shows a list of all entries in the fitness log book. +
 Format: `list`
-
-Examples:
-
-* `list`
 //end::list[]
 
-// tag::reminder[]
+//tag::reminder[]
 ==== View Reminder : `reminder`
 
-Shows a list of all undone tasks in the fitness log book, which can be seen from a fixed field in the home page. +
-Format: `reminders`
+Shows a list of all undone tasks which can be seen from a fixed field in the home page (Dashboard). +
+Format: `reminder`
 
-Examples:
+//end::reminder[]
 
-* `reminder`
-//end::remind[]
-
-// tag::edit[]
+//tag::edit[]
 ==== Editing an entry : `edit`
 
-Edits an existing entry in the fitness log book. +
-Format: `edit x/TYPE i/INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK] [dr/DURATION]...`
+Edits an existing entry in the fitness log book with the specified values. +
+Format: `edit x/TYPE i/INDEX [s/STATUS] [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE][dr/DURATION]...` +
 
 ****
-* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed corresponding entry list from the dashboard. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing remarks, the existing remarks of the entry will be removed i.e adding of remarks is not cumulative.
-* You can remove all the entry's remarks by typing `r/` without specifying any remarks after it.
+* If the user is currently in other pages, a successful execution of `edit` will switch the page to the dashboard.
+* To obtain accurate indices, the user should first switch to the home page by calling `home` or `list` and refer to the displayed list in `food entry history` and `sport entry history` fields.
+* Additionally, the user can first called `find` command and then refer to the resulting list's indices to `edit` an entry. However, right after a `find`, the user can only refer to entries that are currently displayed. +
+i.e. If there are 5 food entries in total, and after `find` 2 food entries are displayed. If the user does not switch back to the home page, he can only refer to the displayed 2 entries (with indices 1 and 2). He can `edit` any entries only when he turns to home page after the `find`.
+* The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
-
+(after switching to Home Page)
 * `edit x/s i/1 t/Friday 16:00 l/PGP gym` +
 Edits the time and email location of the 1st entry to be `Friday 4pm` and `PGP gym` respectively.
-* `edit x/f i/2 n/Fries r/` +
-Edits the name of the 2nd entry from food entry list to be `Fries` and clears all existing remarks.
-
-.Edit Command
-image::edit.png[]
-.Edit Command Result
-image::edit2.png[]
 
 ===== Mark an entry as done
 
@@ -181,6 +171,11 @@ Similar to the previous command, marking an entry as undone edits the `s/` field
 Format: `edit x/TYPE i/INDEX s/Undone`
 //end::edit[]
 
+.Edit Command
+image::edit.png[]
+.Edit Command Result
+image::edit2.png[]
+
 // tag::find[]
 ==== Locating entries by name: `find`
 
@@ -189,11 +184,11 @@ Format: `find [x/TYPE] k/ONE_OR_MORE_KEYWORDS`
 If the `TYPE` field is empty, FitHelper will search from the whole list.
 
 ****
-* The search is case insensitive. e.g `apples` will match `Apples`
-* The order of the keywords does not matter. e.g. `Apple Pie` will match `Pie Apple`
+* The search is case insensitive. e.g `apples` will match `Apples`.
+* The order of the keywords does not matter. e.g. `Apple Pie` will match `Pie Apple`.
 * Only the name is searched.
-* Only full words will be matched e.g. `Straw` will not match `Strawberries`
-* Entries matching at least one keyword will be returned (i.e. `OR` search). e.g. `Apple Banana` will return `Apple Pie`, `Banana Milkshake`
+* Only full words will be matched e.g. `Straw` will not match `Strawberries`.
+* Entries matching at least one keyword will be returned (i.e. `OR` search). e.g. `Apple Banana` will return `Apple Pie`, `Banana Milkshake`.
 ****
 
 Examples:
@@ -204,34 +199,28 @@ Returns `running` and `slow running`
 Returns any entry having names `Juice`,  or `Apple`
 //end::find[]
 
-// tag::delete[]
+//tag::delete[]
 ==== Deleting an entry : `delete`
 
-Deletes the specified entry from the fitness log book. +
+Deletes the entry at the specified `INDEX` from the fitness log book. +
 Format: `delete x/TYPE i/INDEX`
-
-[WARNING]
-If `delete` is called right after a `find` command (when a shortened list is displayed), the index follows the current list view
-after executing `find` command. i.e. If entry X originally has an index 3 and currently has an index 1 after the `find` command,
-calling `delete ... i/1` will successfully delete entry X.
 ****
-* Deletes the entry at the specified `INDEX`.
-* The index refers to the index number shown in the displayed entry list.
+* To obtain accurate indices, the user should first switch to the home page by calling `home` or `list` and refer to the displayed list in `food entry history` and `sport entry history` fields.
+* Additionally, the user can first called a `find` and then refer to the resulting list's indices to `delete` an entry. However, right after a `find`, the user can only refer to entries that are currently displayed. +
+i.e. If there are 5 food entries in total, and after `find` 2 food entries are displayed. If the user does not switch back to the home page, he can only refer to the displayed 2 entries (with indices 1 and 2).
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `delete x/sports i/2`
+* `delete x/sports index/2`
 Deletes the 2nd sports entry in the sports list from dashboard.
+//end::delete[]
 
 .Delete Command
 image::delete.png[]
 .Delete Command Result
 image::delete2.png[]
-
-//end::delete[]
-
 
 ==== Sort food/sports entry list: `sort`
 
@@ -280,13 +269,15 @@ Examples:
 * `check x/food k/apple` (searches for calorie intake of food
 whose name match/contain keyword "apple")
 
-// tag::diary[]
+//tag::diary[]
 === Keep Diaries
 
 The user can keep a diary in FitHelper, and command for adding/editing/deleting/searching/clearing diary logs.
 
 * `diary` switches to the `Diary Page` where all diary logs are displayed in chronological order
+//end::diary[]
 
+//tag::addDiary[]
 ==== Add a new diary: `addDiary`
 
 * `addDiary d/DATE dc/DIARYCONTENT` +
@@ -298,7 +289,9 @@ Examples:
 
 * `addDiary d/2020-03-31 dc/Happy birthday Alice!`
 Adds a diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
+//end::addDiary[]
 
+//tag::appendDiary[]
 ==== Append new content to an existing diary: `appendDiary`
 * `appendDiary d/DATE dc/APPENDED CONTENT` +
 appends new content to the existing diary on the specified `DATE`. +
@@ -311,7 +304,9 @@ Examples:
 * `appendDiary d/2020-03-31 dc/You are one year older now:)` (after `addDiary d/2020-03-31 dc/Happy birthday Alice!`)+
 This command appends the new diary content to the existing the diary log on the date `2020-03-31`.
 The new diary content after this command will be "Happy birthday Alice! You are one year older now:)".
+//end::appendDiary[]
 
+//tag::edit_findDiary[]
 ==== Edit a diary: `editDiary`
 * `editDiary d/DATE dc/NEW DIARYCONTENT` +
 edits the diary on the specified `DATE` with the new `DIARYCONTENT`. +
@@ -325,19 +320,6 @@ Examples:
 
 * `editDiary d/2020-03-31 dc/Happy birthday Alice!` +
 This command edits the content of the diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
-
-==== Delete a diary: `deleteDiary`
-* `deleteDiary d/DATE` +
-deletes the diary on the specified `DATE`. +
-
-If there is no diary under the specified `DATE`, this command will be discarded with the reminder of
-`DIARY_NOT_FOUND`.
-
-Examples:
-
-* `deleteDiary d/2020-03-31` +
-This command deletes the diary log on the date `2020-03-3`, if the diary on this date exists, and discards the command
-if no diary was added previously on this date.
 
 ==== Find a diary: `findDiary`
 * `findDiary [d/DATE] [k/ONE OR MORE KEYWORDS]` +
@@ -366,14 +348,31 @@ Examples:
 Displays diaries with their content containing the keyword `running`, ignoring the letter capitalization.
 * `find d/2020-03-31 k/cake` +
 Returns the diary on the date of `2020-03-31` regardless of the `KEYWORDS` field.
+//end::edit_findDiary[]
 
+//tag::deleteDiary[]
+==== Delete a diary: `deleteDiary`
+* `deleteDiary d/DATE` +
+deletes the diary on the specified `DATE`. +
+
+If there is no diary under the specified `DATE`, this command will be discarded with the reminder of
+`DIARY_NOT_FOUND`.
+
+Examples:
+
+* `deleteDiary d/2020-03-31` +
+This command deletes the diary log on the date `2020-03-3`, if the diary on this date exists, and discards the command
+if no diary was added previously on this date.
+//end::deleteDiary[]
+
+//tag::clearDiary[]
 ==== Clear the diary: `clearDairy`
 
 * `clearDiary`＋
 clears all diary logs in this FitHelper.
 [TIP]
 The user can always revoke the clearing command by calling `undo`, which will be explained in a later section.
-//end::diary[]
+//end::clearDiary[]
 
 // tag::clear[]
 === Clear All Entries And Diaries: `clear`
@@ -398,9 +397,9 @@ Examples:
 
 * `undo` (after `addDiary d/2020-03-31 dc/I am happy.`) +
 This `undo` commands remove the added diary log from FitHelper.
-//end::undo
+//end::undo[]
 
-//tag::redo
+//tag::redo[]
 === Redo : `redo`
 
 `redo` is the reverse of `undo`. +
@@ -494,6 +493,12 @@ The user's daily task completion is shown in percentage (round to integer).
 Based on the user's intake food calorie and sport task completion, FitHelper provides suggestions and reminders
 in the `FitHelper Feedback` area.
 
+Examples:
+
+* `today`
+//end::today[]
+
+//tag::someday[]
 ==== Some Day Page `[coming in v2.0]`
 
 The `Today Page` for some day in the history can be displayed.
@@ -504,9 +509,10 @@ The `DATE` should be equal or prior to `today`. Requiring a `Today Page` for a f
 
 Examples:
 
-* `today`
 * `today 2020-02-14`
+//end::someday[]
 
+//tag::report[]
 === Weekly Summary
 
 ==== Weekly Report `[coming in v2.0]`
@@ -535,8 +541,9 @@ Examples:
 
 * `weekreport`
 * `weekreport 2020-02-14`
-//end::today[]
+//end::report[]
 
+//tag::profile[]
 === Keep User Profile
 
 ==== Profile Page: `profile`
@@ -565,7 +572,9 @@ Examples:
 
 * `update attr/height v/160`
 * `update -f attr/name v/Alice Wang`
+//end::profile[]
 
+//tag::weight_records[]
 === Keep Weight Records
 
 ==== Weight Page: `weight`
@@ -656,16 +665,17 @@ Weight Page's graphs will be empty, and
 Profile Page's Current Weight and Current BMI fields will be `Not Available Now` after clear all weight records.
 
 Format: `clearWeight`
+//end::weight_records[]
 
 //tag::exit[]
-=== Exit the program : `exit`
+=== Exit the program : `exit`/`bye`/`quit`
 
 Exits the program. +
 
 Format: `exit` or `bye` or `quit`
 //end::exit[]
 
-
+//tag::save_data[]
 === Save the data
 
 fitness log book data are saved in the hard disk automatically after any command that changes the data. +
@@ -678,16 +688,19 @@ Three local database in Json format will exist after running FitHelper:
 * *weightrecords.json* : data related to weight records.
 ****
 
-// remark::dataencryption[]
+//end::save_data[]
+
+//tag::dataencryption[]
 === Encrypte data files `[coming in v2.0]`
 
-// end::dataencryption[]
+//end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous fitness log book folder.
 
+//tag::command_summary[]
 == Command Summary
 
 * *Help - switch to Help Page* : `help`
@@ -747,4 +760,6 @@ Three local database in Json format will exist after running FitHelper:
 //.
 
 * *Exit the Program*: `exit` or `bye` or `quit`
+
+//end::command_summary[]
 
