@@ -15,8 +15,8 @@ import java.util.stream.Stream;
 
 import seedu.delino.logic.commands.ReturnCommand;
 import seedu.delino.logic.parser.exceptions.ParseException;
-import seedu.delino.model.parcel.comment.Comment;
-import seedu.delino.model.parcel.itemtype.TypeOfItem;
+import seedu.delino.model.parcel.optionalparcelattributes.Comment;
+import seedu.delino.model.parcel.optionalparcelattributes.TypeOfItem;
 import seedu.delino.model.parcel.parcelattributes.Address;
 import seedu.delino.model.parcel.parcelattributes.Email;
 import seedu.delino.model.parcel.parcelattributes.Name;
@@ -44,9 +44,10 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
                         PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_TYPE,
                         PREFIX_COMMENT);
 
-        if (onlyTransactionIdPresent(argMultimap)) {
+        if (onlyTidAndReturnTimeStampPresent(argMultimap)) {
             TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
-            return new ReturnCommand(null, tid);
+            TimeStamp timeStamp = ParserUtil.parseTimeStamp(argMultimap.getValue(PREFIX_RETURN_TIMESTAMP).get());
+            return new ReturnCommand(null, tid, timeStamp);
         }
 
         if (anyCompulsoryPrefixMissing(argMultimap)) {
@@ -54,19 +55,20 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
         }
         ReturnOrder returnOrder = createReturnOrder(argMultimap);
         TransactionId tid = returnOrder.getTid();
-        return new ReturnCommand(returnOrder, tid);
+        TimeStamp timeStamp = returnOrder.getTimestamp();
+        return new ReturnCommand(returnOrder, tid, timeStamp);
     }
 
     /**
      * Checks if only the transaction id is present to trigger a different logic for the return command.
      * {@param argMultimap}
      */
-    private boolean onlyTransactionIdPresent(ArgumentMultimap argMultimap) {
+    private boolean onlyTidAndReturnTimeStampPresent(ArgumentMultimap argMultimap) {
         return arePrefixesPresent(argMultimap, PREFIX_TID)
+                && arePrefixesPresent(argMultimap, PREFIX_RETURN_TIMESTAMP)
                 && !arePrefixesPresent(argMultimap, PREFIX_NAME)
                 && !arePrefixesPresent(argMultimap, PREFIX_ADDRESS)
                 && !arePrefixesPresent(argMultimap, PREFIX_PHONE)
-                && !arePrefixesPresent(argMultimap, PREFIX_RETURN_TIMESTAMP)
                 && !arePrefixesPresent(argMultimap, PREFIX_WAREHOUSE)
                 && !arePrefixesPresent(argMultimap, PREFIX_EMAIL);
     }

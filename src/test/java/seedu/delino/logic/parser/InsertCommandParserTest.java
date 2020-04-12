@@ -66,8 +66,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.delino.logic.commands.InsertCommand;
-import seedu.delino.model.parcel.comment.Comment;
-import seedu.delino.model.parcel.itemtype.TypeOfItem;
+import seedu.delino.model.parcel.optionalparcelattributes.Comment;
+import seedu.delino.model.parcel.optionalparcelattributes.TypeOfItem;
 import seedu.delino.model.parcel.order.CashOnDelivery;
 import seedu.delino.model.parcel.order.Order;
 import seedu.delino.model.parcel.parcelattributes.Address;

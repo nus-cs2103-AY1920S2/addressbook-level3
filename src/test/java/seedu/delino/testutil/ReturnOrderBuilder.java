@@ -2,8 +2,8 @@ package seedu.delino.testutil;
 
 import static seedu.delino.model.parcel.parcelattributes.TimeStamp.REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW;
 
-import seedu.delino.model.parcel.comment.Comment;
-import seedu.delino.model.parcel.itemtype.TypeOfItem;
+import seedu.delino.model.parcel.optionalparcelattributes.Comment;
+import seedu.delino.model.parcel.optionalparcelattributes.TypeOfItem;
 import seedu.delino.model.parcel.order.CashOnDelivery;
 import seedu.delino.model.parcel.parcelattributes.Address;
 import seedu.delino.model.parcel.parcelattributes.Email;

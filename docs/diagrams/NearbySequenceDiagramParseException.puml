@@ -3,7 +3,7 @@
 !include style.puml
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DelinoParser" as DelinoParser LOGIC_COLOR
 participant ":NearbyCommandParser" as NearbyCommandParser LOGIC_COLOR
 end box
 
@@ -11,17 +11,17 @@ end box
 [-> LogicManager : execute("nearby")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("nearby")
-activate OrderBookParser
+LogicManager -> DelinoParser : parseCommand("nearby")
+activate DelinoParser
 
 create NearbyCommandParser
-OrderBookParser -> NearbyCommandParser
+DelinoParser -> NearbyCommandParser
 activate NearbyCommandParser
 
-NearbyCommandParser --> OrderBookParser
+NearbyCommandParser --> DelinoParser
 deactivate NearbyCommandParser
 
-OrderBookParser -> NearbyCommandParser : parse("")
+DelinoParser -> NearbyCommandParser : parse("")
 activate NearbyCommandParser
 return ParseException(MESSAGE_INVALID_COMMAND_FORMAT)
 

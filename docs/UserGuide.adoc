@@ -335,7 +335,7 @@ i.e. `return` `tid/123abcd` +
 
 The syntax for a valid `return` command can be seen below!
 
-* `return` `TRANSACTION_ID` or `return` `TRANSACTION_ID` `CUSTOMER_NAME` `ADDRESS` `CUSTOMER_EMAIL`
+* `return` `TRANSACTION_ID` `RETURN_TIMESTAMP` or `return` `TRANSACTION_ID` `CUSTOMER_NAME` `ADDRESS` `CUSTOMER_EMAIL`
 `WAREHOUSE_LOCATION` `PHONE_NUMBER` `RETURN_TIMESTAMP` `[COMMENTS_BY_CUSTOMER]` `[TYPE_OF_ITEM]`
 
 [NOTE]
@@ -346,6 +346,7 @@ The syntax for a valid `return` command can be seen below!
 * The `WAREHOUSE_LOCATION` refers to the location which the return should be delivered to.
 * The `PHONE_NUMBER` refers to the phone number of the customer.
 * The `RETURN_TIMESTAMP` refers to the return date and time of the parcel. This field cannot be earlier than the current date and time.
+Also, it cannot be before the delivery time stamp of the order to be converted.
 * The `COMMENTS_BY_CUSTOMER` is an optional attribute which can be included if the customer has special requests.
 * The `TYPE_OF_ITEM` is an optional attribute which can be included if the item requires special attention.
 For example, it can be used when the item is fragile.
@@ -358,8 +359,9 @@ These are the possible combinations of the `return` command:
 |Scenario |Command |Result
 
 | If you want to convert the order with Transaction Id `abc1234` into a return order and display it on returns list.
-| `return` `tid/abc1234`
-| This order will be removed from the order list and be added into the returns list as a return order.
+| `return` `tid/abc1234` `rts/2020-05-05 1600`
+| This order will be removed from the order list and be added into the returns list as a return order with the updated
+return time stamp.
 
 | If you want to create a new return order in the return order list.
 | `return` `tid/123abcd` `n/weijie` `a/311 Clementi Ave 2 #02-25 S120363` `p/92123412` `w/5 Toh Guan Rd E #02-30 S608831` `rts/2020-05-05 1600`
@@ -369,6 +371,7 @@ These are the possible combinations of the `return` command:
 [NOTE]
 ====
 * The `TRANSACTION_ID` given belongs to the return order that will be created.
+* The `RETURN_TIMESTAMP` has to be before the delivery time stamp of the order.
 * A return order will be created after executing this `return` command.
 * If the parcel is an existing order, it will be removed from the order list and converted into a return order
 and added into the return order list.

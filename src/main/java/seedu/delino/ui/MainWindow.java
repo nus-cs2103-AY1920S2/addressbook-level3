@@ -99,9 +99,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane returnOrderListPanelPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
-
-    @FXML
     private Label dateToday;
 
     @FXML
@@ -205,7 +202,7 @@ public class MainWindow extends UiPart<Stage> {
         // Try to start clock
         showTime();
     }
-
+    //@@author Exeexe93
     /**
      * Print out start up message to user.
      */
@@ -217,7 +214,7 @@ public class MainWindow extends UiPart<Stage> {
         }
         resultDisplay.setFeedbackToUser(printMessage);
     }
-
+    //@@author
     /**
      * Sets the default size based on {@code guiSettings}.
      */
@@ -257,7 +254,6 @@ public class MainWindow extends UiPart<Stage> {
             clearWindow.focus();
         }
     }
-    //@@author
 
     //@@Amoscheong97
     /**

@@ -31,6 +31,7 @@ import seedu.delino.model.ModelManager;
 import seedu.delino.model.parcel.OrderContainsKeywordsPredicate;
 import seedu.delino.model.parcel.ReturnOrderContainsKeywordsPredicate;
 import seedu.delino.model.parcel.order.Order;
+import seedu.delino.model.parcel.parcelattributes.TimeStamp;
 import seedu.delino.model.parcel.parcelattributes.TransactionId;
 import seedu.delino.model.parcel.returnorder.ReturnOrder;
 import seedu.delino.testutil.EditParcelDescriptorBuilder;
@@ -109,17 +110,18 @@ public class DelinoParserTest {
     public void parseCommand_return() throws Exception {
         Order order = new OrderBuilder().buildDelivered();
         TransactionId transactionId = order.getTid();
+        TimeStamp timeStamp = order.getTimestamp();
         ModelManager modelManager = new ModelManager();
         modelManager.addOrder(order);
 
         ReturnCommand commandForExistingOrderToBeReturned = (ReturnCommand) parser.parseCommand(
-                ReturnCommand.COMMAND_WORD + " tid/" + transactionId);
-        assertEquals(new ReturnCommand(null, transactionId),
+                ReturnCommand.COMMAND_WORD + " tid/" + transactionId + " rts/" + timeStamp);
+        assertEquals(new ReturnCommand(null, transactionId, timeStamp),
                 commandForExistingOrderToBeReturned);
 
         ReturnCommand commandForNewReturn = (ReturnCommand) parser.parseCommand(OrderUtil.getReturnCommand(order));
         ReturnOrder returnOrder = new ReturnOrder(order);
-        assertEquals(new ReturnCommand(returnOrder, transactionId),
+        assertEquals(new ReturnCommand(returnOrder, transactionId, timeStamp),
                 commandForNewReturn);
     }
 

@@ -57,8 +57,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.delino.commons.core.index.Index;
 import seedu.delino.logic.commands.EditCommand;
-import seedu.delino.model.parcel.comment.Comment;
-import seedu.delino.model.parcel.itemtype.TypeOfItem;
+import seedu.delino.model.parcel.optionalparcelattributes.Comment;
+import seedu.delino.model.parcel.optionalparcelattributes.TypeOfItem;
 import seedu.delino.model.parcel.parcelattributes.Address;
 import seedu.delino.model.parcel.parcelattributes.Name;
 import seedu.delino.model.parcel.parcelattributes.Phone;

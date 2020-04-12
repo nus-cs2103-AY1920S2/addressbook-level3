@@ -16,6 +16,56 @@ endif::[]
 
 By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
+//@@author
+== About Us
+Delino is for couriers who *prefer to use a desktop app for managing their delivery tasks*.
+It is *optimised for those who have a strong preference towards Command Line Interface* (CLI)
+while still enjoying the benefits of a Graphical User Interface (GUI).
+
+Delino is adapted from the https://se-education.org/addressbook-level3/[AddressBook-Level3] project created by
+https://se-education.org[SE-EDU initiative].
+
+If you wish to contact the team, more details can be found <<AboutUs#, here>>.
+
+== How to navigate this Developer Guide
+This developer guide is written for anyone who wish to extend/modify Delino.
+This guide will first touch on the overview of our application in the <<Design-Architecture, design architecture>>.
+Secondly, the specific implementation of Delino's commands will be further elaborated in the
+<<implementation, implementation>> section.
+
+If you need help setting up your development environment to work on Delino, you can follow the
+<<SettingUp#, Setting Up>> guide.
+
+Manual testing of Delino can be done by following <<manual-testing, Appendix G: Instructions for Manual Testing>>.
+
+Throughout this developer guide, you might encounter additional symbols. These symbols are used to
+highlight important information. +
+This developer guide uses the following symbols:
+
+[NOTE]
+====
+This block contains additional *notes*. +
+It contains more information regarding complex content that you should take note of.
+====
+
+[TIP]
+====
+This block contains additional *tips*.
+====
+
+[WARNING]
+====
+This block contains *warning* information.
+====
+
+[IMPORTANT]
+====
+This block contains *important* information that you should be mindful of.
+====
+
+`text markup` : This is used to indicate keywords such as command arguments to Delino. (e.g. `exit`) +
+*bold* : This is used to indicate the various Java files in Delino.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -80,14 +130,17 @@ image::UiClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a *MainWindow* that is made up of parts e.g.*CommandBox*, *ResultDisplay*, *PersonListPanel* etc. All these, including the *MainWindow*, inherit from the abstract *UiPart* class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/delino/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The *UI* component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/blob/master/src/main/java/seedu/delino/ui/MainWindow.java[`MainWindow`] is specified
+in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The *UI* component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the *Logic* component.
+* Listens for changes to *Model* data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
@@ -99,39 +152,45 @@ image::LogicClassDiagram.svg[]
 *API* :
 link:{repoURL}/blob/master/src/main/java/seedu/delino/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `OrderBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a new order).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  *Logic* uses the *DelinoParser* class to parse the user command.
+.  This results in a *Command* object which is executed by the *LogicManager*.
+.  The command execution can affect the *Model* (e.g. adding a new order).
+.  The result of the command execution is encapsulated as a *CommandResult* object which is passed back to the *Ui*.
+.  In addition, the *CommandResult* object can also instruct the *Ui* to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete -o 1")` API call.
+Given below is the Sequence Diagram for interactions within the *Logic* component for the `execute("delete -o 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete -o 1` Command
 image::DeleteSequenceDiagram.svg[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for *DeleteCommandParser* should end at the destroy marker (X) but due to a limitation of
+PlantUML, the lifeline reaches the end of diagram.
 
 //tag::design_model[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.svg[]
+image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/model/Model.java[`Model.java`]
 
-The `Model`,
+The *Model*,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Order Book data.
-* exposes an unmodifiable `ObservableList<Order>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a *UserPref* object that represents the user's preferences.
+* stores the Order Book and Return Order Book data.
+* exposes two unmodifiable lists, the `ObservableList<ReturnOrder>` and `ObservableList<Order>` that can be
+'observed'. +
+ e.g. The UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-An Order class consists of nine different fields as shown in the image. Every order is part of a UniqueOrderList and
-every UniqueOrderList is part of an OrderBook.
-image:BetterModelClassDiagram.svg[]
+An *Order* class consists of ten different fields as shown in the image.
+Every order is part of a *UniqueOrderList* and
+every *UniqueOrderList* is part of an *OrderBook*. +
+Similarly, a *ReturnOrder* class consists of nine different fields as shown in the image.
+Every return order is part of a *UniqueReturnOrderList* and every
+*UniqueReturnOrderList* is part of a *ReturnOrderBook*.
 //end::design_model[]
 
 //tag::Design-Storage[]
@@ -143,10 +202,10 @@ image::StorageClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The *Storage* component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save both OrderBook and ReturnOrderBook data in json format and read it back.
+* can save *UserPref* objects in json format and read it back.
+* can save both *OrderBook* and *ReturnOrderBook* data in json format and read it back.
 //end::Design-Storage[]
 
 [[Design-Commons]]
@@ -154,21 +213,25 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.delino.commons` package.
 
+[[implementation]]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//@@author Amoscheong97
 //tag::insert[]
 [[insert]]
 === Insert Feature
-This section, will <<what-is-insert, introduce>> the Insert Feature. In addition, it will show the expected
-<<insert-sequence, path-execution>>, the <<insert-class, structure>> of the of the *InsertCommand* class,
+This section, will <<what-is-insert, introduce>> the `insert` feature.
+In addition, it will show the expected <<insert-sequence, path-execution>>,
+the <<insert-class, structure>> of the of the *InsertCommand* class,
 <<insertparser-class, structure>> of the *InsertCommandParser* class and
-it will also describe the <<insert-activity, interaction>> of objects between the *InsertCommand* object and other object classes.
+it will also describe the <<insert-sequence, interaction>> of objects between the *InsertCommand* object
+and other object classes.
 
 [[what-is-insert]]
 ==== What is the Insert feature
-The insert feature allows the user to insert an incoming delivery order into the list using the command line.
+The `insert` feature allows the user to insert an incoming delivery order into the list using the command line. +
 
 The order consists of : Transaction ID, Name, Phone, Address, Email, Delivery Timestamp, Warehouse location,
 CashOnDelivery
@@ -182,38 +245,38 @@ The order also consists of two optional fields that can be added:
 [[insert-class]]
 ==== Structure of Insert feature
 
-The following diagrams shows the overview of the `InsertCommand` Class Diagram: +
+The following diagrams shows the overview of the *InsertCommand* Class Diagram: +
 
 .Insert Class Diagram
 image::InsertClassDiagram.svg[]
 
-The above class diagram shows the structure of the `InsertCommand`
+The above class diagram shows the structure of the *InsertCommand*
 and its associated classes and interfaces. Some methods and fields are not included because they are
-not extensively utilised in `InsertCommand`; such as public static fields and getter/setter methods.
+not extensively utilised in *InsertCommand*; such as public static fields and getter/setter methods.
 
 [[insertparser-class]]
 ==== Structure of InsertCommandParser
 .InsertCommandParser Class Diagram
 image::InsertParserClassDiagram.svg[]
 
-The above class diagram shows the structure of the `InsertCommandParser`
-and its associated classes and interfaces. It describes all the class dependencies of the `InsertCommandParser`
+The above class diagram shows the structure of the *InsertCommandParser*
+and its associated classes and interfaces. It describes all the class dependencies of the *InsertCommandParser*
 class. Some methods and fields are not included because they are
-not extensively utilised in `InsertCommand`; such as public static fields and getter/setter methods.
-As shown in the diagram above, the `InsertCommandParser` make use of methods from classes such as using the
-getValue method from the `ArgumentMultimap` class.
+not extensively utilised in *InsertCommand*; such as public static fields and getter/setter methods.
+As shown in the diagram above, the *InsertCommandParser* make use of methods from classes such as using the
+getValue method from the *ArgumentMultimap* class.
 
 [[insert-activity]]
 ==== Path Execution of Insert Command
 
-The overview of the `InsertCommand` Activity Diagram is shown below: +
+The overview of the *InsertCommand* Activity Diagram is shown below: +
 
 .Insert Activity Diagram
 image::InsertActivityDiagram.svg[]
 
 After the user calls the `insert` command, the code will check if the command has all the compulsory prefixes present.
-The code will throw a ParseException when there are missing prefixes. After that is checked, it will check if the
-new order added is a duplicate (The Order is already inserted into the application). It will throw a CommandException
+The code will throw a *ParseException* when there are missing prefixes. After that is checked, it will check if the
+new order added is a duplicate (The Order is already inserted into the application). It will throw a *CommandException*
 when the user tries to insert a duplicate order. Otherwise, it will insert the order and prints a success message to
 the user.
 
@@ -224,41 +287,47 @@ Here is the sequence diagram for the *Insert Command* as shown below: +
 .Insert
 image::InsertCommandSequenceDiagram.svg[]
 
-The arguments of the Insert Command will be parsed using the parse method of the `InsertCommandParser` class. +
-The `InsertCommandParser` will tokenize the arguments parsed in using the tokenize method of `ArgumentTokenizer` class which
-returns the tokenized arguments. Using the tokenized arguments, the Parser will check if the arguments parsed in matches with the
+The arguments of the `insert` command will be parsed using the parse method of the *InsertCommandParser* class. +
+The *InsertCommandParser* will tokenize the arguments parsed in using the tokenize method of
+*ArgumentTokenizer* class which returns the tokenized arguments.
+Using the tokenized arguments, the Parser will check if the arguments parsed in matches with the
 tokenized arguments using the arePrefixesPresent method.
 
 There are two scenarios : +
 
 . Some compulsory prefixes are not present : +
-`InsertCommandParser` will throw a new `ParseException` object to the `LogicManager`.
+*InsertCommandParser* will throw a new *ParseException* object to the *LogicManager*.
 
 . All compulsory prefixes are present in the arguments : +
-It will the  proceed to use the getValue method of the `ArgumentMultimap` class to get the value of the prefix. For example,
-if the argument parsed in is tid/A12345, the getValue method will get the value 'A12345'. Subsequently, it will use the
-`ParseUtil` methods to get the corresponding object values and put it into the parameters of the new `Order` object.
-The order object will be put into the parameter of the `InsertCommand` object and this will be returned
-to the `LogicManager` class for execution.
+It will the  proceed to use the getValue method of the *ArgumentMultimap* class to get the value of the prefix.
+For example, if the argument parsed in is tid/A12345, the getValue method will get the
+value 'A12345'. Subsequently, it will use the *ParseUtil* methods to get the corresponding object
+values and put it into the parameters of the new *Order* object.
+The order object will be put into the parameter of the *InsertCommand* object and this will be returned
+to the *LogicManager* class for execution.
 
-`LogicManager` will call the execute() method of this `InsertCommand` object. In the execute() method, it will use the `Model` class
-to call hasOrder method to check for duplicates, if it is a duplicate, the order will throw a CommandException which
-indicates that there is a duplicate order in the OrderBook already. Else, it will successfully inserts the new order
-using addOder method. Finally, it return a new `CommandResult` object, containing a String that indicates a successful
-insertion.
+*LogicManager* will call the execute() method of this *InsertCommand* object.
+In the execute() method, it will use the *Model* class to call hasOrder method to check
+for duplicates, if it is a duplicate, the order will throw a *CommandException* which
+indicates that there is a duplicate order in the *OrderBook* already.
+Else, it will successfully inserts the new order
+using addOrder method. Finally, it return a new *CommandResult* object,
+containing a String that indicates a successful insertion.
 //end::insert[]
 
+//@@author Amoscheong97
 //tag::list[]
 [[list]]
 === List feature
 This section describes the <<list-functionality, functionality>> , the <<list-structure, structure>>,
-<<list-interactions, interactions>> between objects and <<list-path, path>> the path execution of the *List Command*.
+<<list-interactions, interactions>> between objects and <<list-path, path>> the path execution
+of the `list` command.
 
 [[list-functionality]]
 ==== What is the List feature
 List feature allows the user to see all the orders from both Delivery Orders and Return Orders.
 
-The user can enter `list` to display all the orders. Besides that, the user can also input `done` to dispay
+The user can enter `list` to display all the orders. Besides that, the user can also input `done` to display
 all delivered orders and `undone` to display all orders that are not delivered.
 
 [[list-structure]]
@@ -268,8 +337,8 @@ The structure of the List Feature is as shown below:
 .List Class Diagram
 image::ListClassDiagram.svg[]
 
-The above class diagram shows the structure of the `ListCommand` and all its associated classes and interfaces.
-The `ListCommand` has dependencies on the `Model` class as it uses the two methods from it : +
+The above class diagram shows the structure of the *ListCommand* and all its associated classes and interfaces.
+The *ListCommand* has dependencies on the *Model* class as it uses the two methods from it : +
 
 * updateFilteredOrderList
 
@@ -282,7 +351,7 @@ There are other variables and strings not shown in this Class Diagrams as they a
 .List Activity Diagram
 image::ListActivityDiagram.svg[]
 
-The above activity diagram shows the logic and the path execution when the *List Command* is executed.
+The above activity diagram shows the logic and the path execution when the `list` command is executed.
 There are only three correct syntax available for `ListCommand`: +
 
 * `list`
@@ -296,53 +365,58 @@ cause the code the throw an error message to the user.
 
 [[list-interactions]]
 ==== Interaction between objects during execution of List Command
-The sequence diagram for the *List Command* is shown below: +
+The sequence diagram for the `list` command is shown below: +
 
 .List Command Sequence Diagram
 image::ListCommandSequenceDiagram.svg[]
 
-The user first calls the command "list".
+The user first calls the command `list`.
 [NOTE]
 ====
 The second argument of the `list` command can be `done` or `undone` or an empty String.
 ====
 
-The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
-into the `ListCommand` object. This object will then be ultimately returned to the `LogicManager`.
-Next, the `LogicManager` will call the execute(model) method using the `ListCommand` object. In this method, it wil use
-the `Model` object to call the methods : updateFilteredOrderList and updateFilteredReturnOrderList. Since in this case, the
-argument is empty, the predicate that is parsed to the two methods will always result to true, which means to list
-everything from the order book and return book. When completed, the execute(model) will return a `CommandResult` object
-to the `LogicManager`, indicating that the command execution is a success.
+The LogicManager will call the parseCommand method of *DelinoParser*, which then passes the second argument
+into the *ListCommand* object. This object will then be ultimately returned to the *LogicManager*.
+Next, the *LogicManager* will call the execute(model) method using the *ListCommand* object.
+In this method, it wil use the *Model* object to call the methods :
+updateFilteredOrderList and updateFilteredReturnOrderList.
+Since in this case, the argument is empty, the predicate that is parsed to the two methods
+will always result to true, which means to list
+everything from the order book and return book.
+When completed, the execute(model) will return a *CommandResult* object
+to the *LogicManager*, indicating that the command execution is a success.
 //end::list[]
 
+//@@author Exeexe93
 //tag::clear[]
 === Clear feature
-In this section, the <<what-is-clear, functionality>> of the `clear` feature, the expected <<clear-execution-path, execution path>>,
-the <<clear-structure, structure>> of the `ClearCommand` class and the <<clear-interaction, interactions>>
-between objects with the `ClearCommand` object will be discussed.
+In this section, the <<what-is-clear, functionality>> of the `clear` feature,
+the expected <<clear-execution-path, execution path>>,
+the <<clear-structure, structure>> of the *ClearCommand* class and the <<clear-interaction, interactions>>
+between objects with the *ClearCommand* object will be discussed.
 
 [[what-is-clear]]
 ==== What is the Clear feature
-The `clear` feature was implemented as a `ClearCommand` in the `logic` package. +
+The `clear` feature was implemented as a *ClearCommand* in the logic package. +
 The `clear` feature allows the user to remove the orders and return orders by input one command line. +
 
 [[clear-execution-path]]
 ==== Execution paths of Clear Command
-The execution path of the `ClearCommand` is shown below: +
+The execution path of the `clear` command is shown below: +
 
 .Clear Class Activity Diagram
 image::ClearActivityDiagram.svg[]
 
-After user enter the `clear` command, the `ClearCommandParser` will run the following two checks: +
+After user enter the `clear` command, the *ClearCommandParser* will run the following two checks: +
 
 ** Check if flag in the arguments do not belong to one of the three valid flags: `-f`, `-r` and `-o`
 ** Check if both `-r` and `-o` flags found in the arguments +
 
 If either one of the conditions occurs, exception will be thrown and the error message will be display to the user.
-Afterward,  the new `ClearCommand` object will be executed.
+Afterward,  the new *ClearCommand* object will be executed.
 
-During the execution of the `ClearCommand`:
+During the execution of the `clear` command:
 
 ** If `-f` flag is found in flags, the respective order book will be cleared and
 display a success message to the user.
@@ -353,12 +427,12 @@ display a success message to the user.
 
 [[clear-structure]]
 ==== Structure of Clear Command
-The following diagrams shows the overview of the `ClearCommand` Class Diagram: +
+The following diagrams shows the overview of the `clear` command Class Diagram: +
 
 .Clear Command Class Diagram
 image::ClearCommandClassDiagram.svg[]
 
-In the `ClearCommand` class, there are also some static messages for the different input command
+In the *ClearCommand* class, there are also some static messages for the different input command
 the user has key in:
 
 1. `MESSAGE_USAGE` +
@@ -386,46 +460,51 @@ Confirmation message to the user if the user want to clear both order book lists
 
 [[clear-interaction]]
 ==== Interactions between objects when Clear Command is executed
-In this section, the interactions between objects when `ClearCommand` is executed will be display in the Clear Command
+In this section, the interactions between objects when `clear` command is executed will be display in the Clear Command
 Sequence Diagram below: +
 
 .Clear Command Sequence Diagram
 image::ClearCommandSequenceDiagram.svg[]
 
-The above sequence diagram illustrate how `Clear` Command being processed when the user input `clear -f` to force clear
-both order book and return order book.
+The above sequence diagram illustrate how the `clear` Command is being processed when the user inputs
+`clear -f` to force clear both the order book and return order book.
 
-After the user input. the arguments passed to the `Clear` Command will be parsed by the `ClearCommandParser` class +
-If the given arguments are valid, a new `Clear` Command object will be returned.
+After the user input. the arguments passed to the `clear` command will be parsed by the *ClearCommandParser* class +
+If the given arguments are valid, a new *ClearCommand* object will be returned.
 
-In the `ClearCommandParser`, there will be two validation checks: +
+In *ClearCommandParser*, there will be two validation checks: +
 1. Ensure the flag is one of the three flags: `-f`, `-o` and `-r` +
 2. Ensure the arguments do not have both `-o` and `-r` flags.
 
 After the two validation checks, the flag will be added into HashSet, *flags* which will then passed to
-the new `ClearCommand` object created by `ClearCommandParser` and it is being returned to the `LogicManager`.
-The `LogicManager` will start to run the execute the `clear` Command, which will be
+the new *ClearCommand* object created by *ClearCommandParser* and it is being returned to the *LogicManager*.
+The *LogicManager* will start to run the execute the `clear` command, which will be
 shown in details in below diagram:
 
 .Execution of Clear Command Sequence Diagram
 image::ExecuteClearCommand.svg[]
 
-After `LogicManager` call the `ClearCommand#execute(model)`, the `clear` Command will update the model by pass a new
-`OrderBook` object and a new `ReturnOrderBook` object to `Model`.  The `Model` will then update its own orderBook and
-returnOrderBook. In addition, the `clear` Command will pass back a new `CommandResult` object with the success message
-in it to the `LogicManager` at the end of the execution.
+After *LogicManager* call the ClearCommand#execute(model), the `clear` command will update the model by pass a new
+*OrderBook* object and a new *ReturnOrderBook* object to *Model*.  The *Model* will then update its own orderBook and
+returnOrderBook. In addition, the `clear` command will pass back a new *CommandResult* object with the success message
+in it to the *LogicManager* at the end of the execution.
 
 //end::clear[]
 
+//@@author JeremyLoh
 //tag::delete[]
 [[delete]]
 === Delete Feature
-In this section, you will learn more about how the `delete` feature is implemented.
+In this section, the <<what-is-delete, functionality>> of the `delete` feature, the
+<<execution-paths-delete, expected execution path>>,
+the <<structure-delete, structure>> of the *DeleteCommand* class and the <<interactions-delete, interactions>>
+between objects with the *DeleteCommand* will be discussed.
 
+[[what-is-delete]]
 ==== What is the Delete Feature
-The delete feature allows the user to delete orders in either the order list or return order list. +
+The `delete` feature allows the user to delete orders in either the order list or return order list. +
 
-The delete feature was implemented as a `DeleteCommand` in the `Logic` package. +
+The `delete` feature was implemented as a *DeleteCommand* in the Logic package. +
 
 The `delete` command has the following format: +
 
@@ -443,6 +522,7 @@ delete in the list. +
 The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
 ====
 
+[[execution-paths-delete]]
 ==== Execution paths of Delete command
 In this section, you will learn more about the execution paths for the `delete` command.
 
@@ -465,7 +545,7 @@ The specified return order will be deleted from the return order list. +
 4. User provides an invalid `delete` command input that has an invalid flag. +
 A Command Exception wil be generated.
 
-
+[[structure-delete]]
 ==== Structure of Delete command
 In this section, you will learn more about the relationships between objects
 related to the `delete` command.
@@ -473,7 +553,7 @@ related to the `delete` command.
 .Delete Command Class Diagram
 image::DeleteClassDiagram.svg[]
 
-In the `DeleteCommand` class, there are also static strings present that represent the
+In the *DeleteCommand* class, there are also static strings present that represent the
 various possible messages. +
 For some of the message strings, there are placeholder %s strings used for including dynamic input +
 These messages are the following:
@@ -487,6 +567,7 @@ Deleted Return Order: %1$s +
 3. `MESSAGE_INVALID_FLAG` +
 Invalid flag given! +
 
+[[interactions-delete]]
 ==== Interactions between Delete command and its associated objects
 In this section, you will learn more about the `delete` command and its inner workings.
 
@@ -498,26 +579,26 @@ list.
 .Delete Command Sequence Diagram for `delete` `-o` `1`
 image::DeleteSequenceDiagram.svg[]
 
-The arguments passed to the `delete` command will be parsed by the `DeleteCommandParser` class. +
-If the given arguments are valid, a new `DeleteCommand` object will be returned. +
-In this class, invalid arguments will result in a `ParseException`. +
+The arguments passed to the `delete` command will be parsed by the *DeleteCommandParser* class. +
+If the given arguments are valid, a new *DeleteCommand* object will be returned. +
+In this class, invalid arguments will result in a *ParseException*. +
 Two checks will be done for the arguments:
 
 1. Invalid `FLAG` argument
 
 2. Invalid `INDEX` argument
 
-When the `LogicManager` runs the `execute()` method of `DeleteCommand`,
-`DeleteCommand` will first check the list to delete from. +
+When the *LogicManager* runs the `execute()` method of *DeleteCommand*,
+*DeleteCommand* will first check the list to delete from. +
 
-The `deleteFromOrderList(model)` method of `DeleteCommand` will then
-be called and the filtered order list will be obtained from the `getFilteredOrderList()`
-method of the `model`. +
+The deleteFromOrderList(model) method of *DeleteCommand* will then
+be called and the filtered order list will be obtained from the getFilteredOrderList()
+method of the model. +
 
-The specified order at `INDEX` 1 will be deleted using the `deleteOrder(order)` method
-in the `model`.
+The specified order at `INDEX` 1 will be deleted using the deleteOrder(order) method
+in the model.
 
-A new `CommandResult` will be created and returned to the `LogicManager`.
+A new *CommandResult* will be created and returned to the *LogicManager*.
 
 
 The sequence diagram below shows the interactions for a `delete` command execution of
@@ -528,35 +609,36 @@ list.
 .Delete Command Sequence Diagram for `delete` `-r` `2`
 image::DeleteSequenceDiagram2.svg[]
 
-The arguments passed to the `delete` command will be parsed by the `DeleteCommandParser` class. +
-If the given arguments are valid, a new `DeleteCommand` object will be returned. +
-In this class, invalid arguments will result in a `ParseException`. +
+The arguments passed to the `delete` command will be parsed by the *DeleteCommandParser* class. +
+If the given arguments are valid, a new *DeleteCommand* object will be returned. +
+In this class, invalid arguments will result in a *ParseException*. +
 Two checks will be done for the arguments:
 
 1. Invalid `FLAG` argument
 
 2. Invalid `INDEX` argument
 
-When the `LogicManager` runs the `execute()` method of `DeleteCommand`,
-`DeleteCommand` will first check the list to delete from. +
+When the *LogicManager* runs the execute() method of *DeleteCommand*,
+*DeleteCommand* will first check the list to delete from. +
 
-The `deleteFromReturnList(model)` method of `DeleteCommand` will then
-be called and the filtered return order list will be obtained from the `getFilteredReturnOrderList()`
-method of the `model`. +
+The deleteFromReturnList(model) method of *DeleteCommand* will then
+be called and the filtered return order list will be obtained from the getFilteredReturnOrderList()
+method of the model. +
 
-The specified return order at `INDEX` 2 will be deleted using the `deleteReturnOrder(returnOrder)` method
-in the `model`.
+The specified return order at `INDEX` 2 will be deleted using the deleteReturnOrder(returnOrder) method
+in the model.
 
-A new `CommandResult` will be created and returned to the `LogicManager`.
+A new *CommandResult* will be created and returned to the *LogicManager*.
 //end::delete[]
 
+//@@author cherweijie
 //tag::delivered[]
 [[delivered]]
 === Delivered Feature
 In this section, the <<what-is-delivered, functionality>> of the `delivered` feature, the
 <<execution-paths-delivered, expected execution path>>,
-the <<structure-delivered, structure>> of the `DeliveredCommand` class and the <<sequence-delivered, interactions>>
-between objects with the `DeliveredCommand` will be discussed.
+the <<structure-delivered, structure>> of the *DeliveredCommand* class and the <<sequence-delivered, interactions>>
+between objects with the *DeliveredCommand* will be discussed.
 
 
 [[what-is-delivered]]
@@ -564,7 +646,7 @@ between objects with the `DeliveredCommand` will be discussed.
 The `delivered` function allows the user to mark orders or return orders
 as delivered after delivering an order or a return order. +
 
-The `delivered` feature was implemented as the `DeliveredCommand` in the `logic` package. +
+The `delivered` feature was implemented as the *DeliveredCommand* in the logic package. +
 The `delivered` function requires a valid <<command_prefix, `FLAG`>> and a valid <<command_prefix, `INDEX`>>. +
 i.e. `delivered` <<command_prefix, `INDEX`>> <<command_prefix, `FLAG`>>
 
@@ -582,19 +664,20 @@ the <<command_prefix, `INDEX`>> should not be greater than the size of the order
 ==== Execution Paths of Delivered Command
 .Activity Diagram of the Delivered Command
 image::DeliveredCommandActivityDiagram.png[]
-The above activity diagram shows the logic behind the `DeliveredCommand` which is determined in
-the `DeliveredCommandParser` class when the user inputs the command word `delivered` to activate the
+The above activity diagram shows the logic behind the *DeliveredCommand* which is determined in
+the *DeliveredCommandParser* class when the user inputs the command word `delivered` to activate the
 `delivered` feature.
 
 [[structure-delivered]]
 ==== Structure of Delivered Command
 image::DeliveredClassDiagram.png[]
-The above class diagram shows the structure of the `DeliveredCommand` and
+The above class diagram shows the structure of the *DeliveredCommand* and
 its associated classes and interfaces. Some methods and fields are not included because they are
-not extensively utilised in `DeliveredCommand`; such as public static fields and getter/setter methods.
+not extensively utilised in *DeliveredCommand*; such as public static fields and getter/setter methods.
 
-==== Sequence Diagram for delivering an order
-The sequence diagrams for the *Delivered Command* are shown below.
+[[sequence-delivered]]
+==== Interactions between Delivered command and its associated objects
+The sequence diagrams for the `delivered` command are shown below.
 
 .Delivered Command Sequence Diagram
 image::DeliveredSequenceDiagram.png[]
@@ -602,67 +685,70 @@ image::DeliveredSequenceDiagram.png[]
 .Execution of Delivered Command
 image::DeliveredSequenceDiagram2.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+method in `LogicManager`. After which, an `DelinoParser` object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `delivered` command word that will be parsed. +
 
-Then, a `DeliveredCommandParser` object will be created to parse the arguments after removing
+Then, a *DeliveredCommandParser* object will be created to parse the arguments after removing
 the command word `delivered` from the user's input. Based on the command word `delivered`,
-a `DeliveredCommand` object will be created. +
+a *DeliveredCommand* object will be created. +
 
-Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+Subsequently, the parseCommand method in *LogicManager* will continue to create a *CommandResult*
 based on the validity of the user's input; which is determined by the `execute` method in
-`DeliveredCommand`. +
+*DeliveredCommand*. +
 
-The `execute` method of `DeliveredCommand` will first check if a valid
+The `execute` method of *DeliveredCommand* will first check if a valid
 <<command_prefix, `FLAG`>> is present in the user's input. If the <<command_prefix, `FLAG`>>
-is not valid, a `CommandException` will be thrown to the user to tell him/her that their
+is not valid, a *CommandException* will be thrown to the user to tell him/her that their
 input was invalid and tell them the format which their input should follow. +
 
 If a valid <<command_prefix, `FLAG`>> is present, this will trigger the
-`processDeliveryOfOrder` method in `DeliveredCommand` which will check if
+processDeliveryOfOrder method in *DeliveredCommand* which will check if
 a valid <<command_prefix, `INDEX`>> is present in the user's input. +
 
-If the <<command_prefix, `INDEX`>> is not valid, `processDeliveryOfOrder` method will throw
-a `CommandException` to the user; telling him/her that their input was invalid and the format
+If the <<command_prefix, `INDEX`>> is not valid, processDeliveryOfOrder method will throw
+a *CommandException* to the user; telling him/her that their input was invalid and the format
 that their input should follow. i.e. `delivered` <<command_prefix, `FLAG`>>
  <<command_prefix, `INDEX`>> +
 
-If both <<command_prefix, `FLAG`>> and <<command_prefix, `INDEX`>> are valid, an `Order`
-or `ReturnOrder` object will be created based on the <<command_prefix, `FLAG`>>.
+If both <<command_prefix, `FLAG`>> and <<command_prefix, `INDEX`>> are valid, an *Order*
+or *ReturnOrder* object will be created based on the <<command_prefix, `FLAG`>>.
 The <<command_prefix, `INDEX`>> will determine which order or return order to take from
 the order list or return order list respectively using the appropriate getter method.
-The `Order` or `ReturnOrder` object will be checked to see if it was delivered using the `isDelivered()` method. +
+The `Order` or `ReturnOrder` object will be checked to see if it was delivered using the `checkIfOrderWasDelivered(model)` method. +
 
-If the `Order` or `ReturnOrder` was already delivered, this will call the `updateOrderList(model)` or
-`updatedReturnOrderList(model)` method respectively in `DeliveredCommand` and a new
-instance of `CommandResult` will be created to tell the user that the order or return order was delivered. +
+If the *Order* or *ReturnOrder* was already delivered, this will call the updateOrderList(model) or
+updatedReturnOrderList(model) method respectively in *DeliveredCommand* and a new
+instance of *CommandResult* will be created to tell the user that the order or return order was delivered. +
 
-If the `Order` or `ReturnOrder` was not delivered, this will call the `deliverAndUpdateOrderList(model)` or
-`deliverAndUpdateReturnOrderList(model)` respectively in `DeliveredCommand`. In these methods, the particular `Order` or
-`ReturnOrder` will be retrieved from the `model` using the `getFilteredOrderList()` or `getFilteredReturnOrderList()`
-method. Based on the retrieved `Order` or `ReturnOrder`, a new `Order` or `ReturnOrder` with the `delivered`
-delivery status will be instantiated using the `createDeliveredOrder` or `createDeliveredReturnOrder` methods respectively. +
+If the *Order* or *ReturnOrder* was not delivered, this will call the deliverAndUpdateOrderList(model) or
+deliverAndUpdateReturnOrderList(model) respectively in *DeliveredCommand*.
+In these methods, the particular *Order* or *ReturnOrder* will be retrieved from the
+model using the getFilteredOrderList() or getFilteredReturnOrderList() method.
+Based on the retrieved *Order* or *ReturnOrder*, a new *Order* or *ReturnOrder* with the `delivered`
+delivery status will be instantiated using the createDeliveredOrder or createDeliveredReturnOrder methods respectively. +
 
-Then, the `setOrder` or `setReturnOrder` method will be called to replace the original `Order` or `ReturnOrder` object
-respectively in `model`. The `deliverOrder` or `deliverReturnOrder` method will be called to to set the
-delivery status of the object to delivered. Then, the `updateFilteredOrderList()` method or `updateFilteredReturnOrderList()`
-method to update the list in the `model`. +
+Then, the setOrder or setReturnOrder method will be called to replace the original *Order* or *ReturnOrder* object
+respectively in model. The deliverOrder or deliverReturnOrder method will be called to to set the
+delivery status of the object to delivered. Then, the updateFilteredOrderList() method or
+updateFilteredReturnOrderList() method to update the list in the model. +
 
-Based on the new updates, a new `CommandResult` object will be instantiated to print the message success to the user.
+Based on the new updates, a new *CommandResult* object will be instantiated to print the message success to the user.
 //end::delivered[]
 
+//@@author khsc96
 //tag::edit[]
 [[edit]]
 === Edit Feature
 
-In this section, the <<what-is-edit,functionality>> of the `edit` feature, the expected <<edit-path-execution, execution path>>, the <<edit-structure, structure>> of the `EditCommand` class
-and the <<edit-interactions, interactions>> between objects with the `EditCommand` object will be discussed.
+In this section, the <<what-is-edit,functionality>> of the `edit` feature, the
+expected <<edit-path-execution, execution path>>, the <<edit-structure, structure>> of the *EditCommand* class
+and the <<edit-interactions, interactions>> between objects with the *EditCommand* object will be discussed.
 
 [[what-is-edit]]
 ==== What is Edit Command
 
-The `edit` feature was implemented as `EditCommand` in the `Logic` package. +
+The `edit` feature was implemented as *EditCommand* in the Logic package. +
 
 `edit` feature format : `edit` `INDEX` `<<command_flags, FLAG>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE]`
 
@@ -690,12 +776,14 @@ image::EditCommandActivityDiagram.svg[]
 
 The above figure illustrates the execution path of `edit` command when performed by the user. +
 
-Input when received, will be parsed by the `OrderBookParser`. `OrderBookParser` will check if command word matches any features command word. +
-In this feature, the command word is `edit`. If no command word is detected, a exception class should be generated for displaying of error message. `CommandException` is used in this feature to achieve that function. +
+Input when received, will be parsed by the *DelinoParser*.
+*DelinoParser* will check if command word matches any features command word. +
+In this feature, the command word is `edit`. If no command word is detected, a exception class should be
+generated for displaying of error message. *CommandException* is used in this feature to achieve that function. +
 
 Once validated, user input is once again parse and check for validity. At this step, if user have provided input not matching the valid `edit` <<what-is-edit, format>>, an exception class is thrown. +
 Furthermore, if `NEW_VALUE` is invalid an exception should be thrown as well. +
-`ParseException` class is used in this scenario.
+*ParseException* class is used in this scenario.
 
 Some invalid `NEW_VALUE`: +
 1) Editing delivery date or return date to the past. +
@@ -712,8 +800,9 @@ A correct input will prompts Delino to carry out the rest of the steps according
 
 .Edit Command Class Diagram
 image::EditCommandClassDiagram.png[]
-The class diagram above depicts the structure of `EditCommand`. As per any `Command` class, `EditCommand` needs to extend the abstract class `Command`. +
-Information that are left out in this class diagram are the common messages used in `EditCommand`.
+The class diagram above depicts the structure of *EditCommand*. As per any *Command* class,
+*EditCommand* needs to extend the abstract class *Command*. +
+Information that are left out in this class diagram are the common messages used in *EditCommand*.
 
 [[edit-interactions]]
 ==== Interactions between Edit Command and it's associated objects
@@ -721,37 +810,48 @@ Information that are left out in this class diagram are the common messages used
 .Edit Command Sequence Diagram
 image::EditCommandSequenceDiagram.svg[]
 
-The above figure illustrates the important interactions of `EditCommand` when the user successfully edit the first displayed order name to `Alice`. +
+The above figure illustrates the important interactions of *EditCommand* when the user successfully edit the first displayed order name to `Alice`. +
 
-The handling of breaking down the user input is done in the `EditcommandParser` class which is called upon by the `OrderBookParser` after an initial check for correctness of the command input. +
+The handling of breaking down the user input is done in the *EditCommandParser* class which is called upon by the
+*DelinoParser* after an initial check for correctness of the command input. +
 
-The `EditParcelDescriptor` class is a static class contained in the `EditCommand` class. It act as a helper class to allow the setting of all the `NEW_VALUE` to the corresponding `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` in the `EditCommandParser` class.
-The `EditParcelDescriptor` object is then passed back as a parameter to instantiate an `EditCommand`. In the diagram above, the `EditParcelDescriptor` object is named as `epd`.
-The `EditCommand` object is then passed back as `e` to the `LogicManager` which will then call the `EditCommand#execute`. This execute method mainly calls the 3 helper method, not shown, `EditCommand#createEditedOrder`/`EditComand#createEditedReturnOrder` and `EditCommand#generalSetParcel`.
-The main function of these methods are to help `EditCommand` in updating the `ObservableList` in the `Model` class which is responsible for the updating of list displayed.
+The *EditParcelDescriptor* class is a static class contained in the *EditCommand* class.
+It act as a helper class to allow the setting of all the `NEW_VALUE` to the corresponding
+`<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` in the *EditCommandParser* class.
+The *EditParcelDescriptor* object is then passed back as a parameter to instantiate an *EditCommand*.
+In the diagram above, the *EditParcelDescriptor* object is named as epd.
+The *EditCommand* object is then passed back as e to the *LogicManager*
+which will then call EditCommand#execute.
+This execute method mainly calls the 3 helper method, not shown,
+EditCommand#createEditedOrder/EditCommand#createEditedReturnOrder and EditCommand#generalSetParcel.
+The main function of these methods are to help *EditCommand* in updating the *ObservableList* in the
+*Model* class which is responsible for the updating of list displayed.
 
-The `ObeservableList` is a JavaFX function which listens and automatically changes the list once an update is performed.
+The *ObservableList* is a JavaFX class which listens and automatically changes the list once an update is performed.
 //end::edit[]
 
+//@@author cherweijie
 //tag::return[]
 [[return]]
 === Return Feature
-In this section, you will learn more about how the `return` feature is implemented.
+In this section, the <<what-is-return,functionality>> of the `return` feature, the
+expected <<execution-paths-return, execution path>>, the <<structure-return, structure>> of the *ReturnCommand* class
+and the <<return-interactions, interactions>> between objects with the *ReturnCommand* object will be discussed.
 
 [[what-is-return]]
 ==== What is the Return Feature
-The return feature allows the user to either: +
+The `return` feature allows the user to either: +
 1. Create a new return order from his/her input parcel attributes. +
 2. Convert an existing delivered order to a return order.
 
-The return feature was implemented as a `ReturnCommand` in the `Logic` package. +
+The return feature was implemented as a *ReturnCommand* in the Logic package. +
 
 The `return` command has two possible formats: +
 
-1. `return` <<command_prefix, `TRANSACTION_ID`>>
-If the user provides only a valid <<command_prefix, `TRANSACTION_ID`>> in his input, the order with the given
-<<command_prefix, `TRANSACTION_ID`>> will be converted into a return order with the same attributes.
-The created return order will be added into the return order list.
+1. `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `RETURN_TIMESTAMP`>>
+If the user provides a valid <<command_prefix, `TRANSACTION_ID`>> and <<command_prefix, `RETURN_TIMESTAMP`>> in his input, the order with the given
+<<command_prefix, `TRANSACTION_ID`>> will be converted into a return order with the same attributes but with the updated
+<<command_prefix, `RETURN_TIMESTAMP`>>. The created return order will be added into the return order list.
 
 2. `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>>
 <<command_prefix, `EMAIL`>> <<command_prefix, `RETURN_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>> <<command_prefix, `[COMMENTS]`>>
@@ -770,7 +870,7 @@ If the user provides these compulsory parcel attributes, a return order with the
 the date and time.
 8. The <<command_prefix, `WAREHOUSE_LOCATION`>> is alphanumeric and it determines the <<command_prefix, `WAREHOUSE_LOCATION`>> of the resulting return order.
 9. The <<command_prefix, `[COMMENTS]`>> is an optional alphanumeric field and determines the <<command_prefix, `[COMMENTS]`>> of the resulting return order.
-10. The <<command_prefix, `[ITEM_TYPE]`>> is an optional alphanumeric field and determines the <<command_prefix, `[ITEM_TYPE]`>> of the resulting return order.
+10. The <<command_prefix, `[ITEM_TYPE]`>> is an optional alphabetic field and determines the <<command_prefix, `[ITEM_TYPE]`>> of the resulting return order.
 ====
 
 [[execution-paths-return]]
@@ -806,12 +906,14 @@ This will result in a parse exception and an error message will be displayed to 
 [[structure-return]]
 ==== Structure of Return Command
 image::ReturnClassDiagram.png[]
-The above class diagram shows the structure of the `ReturnCommand`
+The above class diagram shows the structure of the *ReturnCommand*
 and its associated classes and interfaces. Some methods and fields are not included because they are
-not extensively utilised in `ReturnCommand`; such as public static fields and getter/setter methods.
+not extensively utilised in *ReturnCommand*; such as public static fields and getter/setter methods.
 
 [[return-interactions]]
 ==== Interactions between objects when Return Command is executed
+
+The sequence diagrams for the `return` command are shown below.
 
 ==== Sequence Diagram for converting an order into a return order
 The sequence diagrams for the *Return Command* are shown below.
@@ -822,7 +924,7 @@ image::ReturnSequenceDiagram1_a.png[]
 .Execution of Return Command to convert a delivered Order into a Return Order
 image::ReturnSequenceDiagram2_a.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+method in `LogicManager`. After which, an `DelinoParser` object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `return` command word that will be parsed. +
 
@@ -843,11 +945,14 @@ If the given <<command_prefix, `TRANSACTION_ID`>> exists in the order list, the
 getOrderByTransactionId(model) method will attempt to create a new Order object from
 the model's Order list based on the given transaction ID, i.e. orderToBeReturned. +
 
-The isDelivered() method checks if the newly created Order is delivered. If the order was not
+The checkIfOrderWasDelivered(model) method checks if the newly created Order is delivered. If the order was not
 delivered, it will throw a command exception and display an error message to the user. +
 
-If the order was delivered, the deleteOrder(orderToBeReturned) method will be triggered
-to delete the order from the model's order list. Also, a new return order will be created based
+If the order was delivered, Delino will proceed to check if the timestamp input was valid. If it was
+invalid, an exception will be thrown and an error message will be displayed to the user.
+
+If the order was delivered and the timestamp input was valid,
+the deleteOrder(orderToBeReturned) method will be triggered to delete the order from the model's order list. Also, a new return order will be created based
 on the ReturnOrder's constructor that takes in an Order, i.e. ReturnOrder(orderToBeReturned). This
 creates a new Return Order object, toBeCreated. +
 
@@ -870,49 +975,56 @@ image::ReturnSequenceDiagram1_b.png[]
 .Execution of Return Command to create a new Return Order
 image::ReturnSequenceDiagram2_b.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+method in *LogicManager*. After which, an *DelinoParser* object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `return` command word that will be parsed. +
 
-Then, a `ReturnCommandParser` object will be created to parse the arguments after removing
+Then, a *ReturnCommandParser* object will be created to parse the arguments after removing
 the command word `return` from the user's input. Based on the command word `return`,
-a `ReturnCommand` object will be created. +
+a *ReturnCommand* object will be created. +
 
-Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+Subsequently, the parseCommand method in *LogicManager* will continue to create a CommandResult
 based on the validity of the user's input; which is determined by the `execute` method in
-`ReturnCommand`. +
+*ReturnCommand*. +
 
-The `execute` method of `ReturnCommand` will first check if the return order in the constructor of
-ReturnCommand is present. In this case, since we are creating a new return order from the given parcel attributes, a
-return order will be created and it will be used in the constructor of `ReturnCommand` and
+The `execute` method of *ReturnCommand* will first check if the return order in the constructor of
+*ReturnCommand* is present. In this case, since we are creating a new return order from the given parcel attributes, a
+return order will be created and it will be used in the constructor of *ReturnCommand* and
 the isReturnOrderNotPresent() method will return false. +
 
-Also, a new return order will be created based on the ReturnOrder's constructor
-that takes in an Order, i.e. ReturnOrder(orderToBeReturned). This
-creates a new ReturnOrder object, toBeCreated. +
+Also, a new return order will be created based on the *ReturnOrder*'s constructor
+that takes in an *Order*, i.e. ReturnOrder(orderToBeReturned). This
+creates a new *ReturnOrder* object, toBeCreated. +
 
-Subsequently, this newly created ReturnOrder object toBeCreated, will be checked against the
+Subsequently, this newly created *ReturnOrder* object toBeCreated, will be checked against the
 model's return order list using the hasParcel(toBeCreated) method.
 If it exists, a command exception will be thrown
 and an error message will be displayed to the user. +
 
-If the ReturnOrder does not exist in the model's return order list, the newly created ReturnOrder object,
+If the *ReturnOrder* does not exist in the model's return order list, the newly created *ReturnOrder* object,
 toBeCreated, will be added to the model's return order list using the addReturnOrder(toBeCreated) method. +
 
-Finally, a new CommandResult will be created to display the success message to the user for creating a
+Finally, a new *CommandResult* will be created to display the success message to the user for creating a
 new return order with the given parcel attributes.
 //end::return[]
 
+//@@author JeremyLoh
 //tag::nearby[]
 [[nearby]]
 === Nearby Feature
+
+In this section, the <<what-is-nearby,functionality>> of the `nearby` feature, the
+expected <<nearby-path-execution, execution path>>, the <<nearby-structure, structure>> of the *NearbyCommand* class
+and the <<nearby-interactions, interactions>> between objects with the *NearbyCommand* object will be discussed.
+
 In this section, you will learn more about how the `nearby` feature is implemented.
 
+[[what-is-nearby]]
 ==== What is the Nearby Feature
-The nearby feature allows the user to view all orders that are located at a particular area
+The `nearby` feature allows the user to view all orders that are located at a particular area
 based on a given search criteria. +
 
-The nearby feature was implemented as a `NearbyCommand` in the `Logic` package. +
+The `nearby` feature was implemented as a *NearbyCommand* in the Logic package. +
 
 The `nearby` command has two possible formats: +
 
@@ -943,7 +1055,7 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 https://keylocation.sg/singapore/districts-map[this website]
 ====
 
-
+[[nearby-path-execution]]
 ==== Execution paths of Nearby command
 In this section, you will learn more about the execution paths for the `nearby` command.
 
@@ -972,6 +1084,7 @@ There are currently five areas that are searchable:
 4. West
 5. North
 
+[[nearby-structure]]
 ==== Structure of Nearby command
 In this section, you will learn more about the relationships between objects
 related to the `nearby` command.
@@ -979,7 +1092,7 @@ related to the `nearby` command.
 .Nearby Command Class Diagram
 image::NearbyClassDiagram.svg[]
 
-In the `NearbyCommand` class, there are also static strings present that represent the
+In the *NearbyCommand* class, there are also static strings present that represent the
 various possible messages. +
 For some of the message strings, there are placeholder %s strings used for including dynamic input +
 These messages are the following:
@@ -1004,7 +1117,7 @@ Invalid postal sector given. +
 5. `MESSAGE_FAILURE_AREA` +
 Invalid area given. +
 
-
+[[nearby-interactions]]
 ==== Interactions between Nearby command and its associated objects
 In this section, you will learn more about the `nearby` command and its inner workings.
 
@@ -1018,30 +1131,30 @@ should be displayed to the user.
 .Nearby Command Sequence Diagram for `nearby` `-o` `14`
 image::NearbyCommandSequenceDiagram1.svg[]
 
-The arguments passed to the Nearby Command will be parsed by the `NearbyCommandParser` class. +
-If the given arguments are valid, a new `NearbyCommand` object will be returned. +
-In this class, invalid arguments will result in a `ParseException`. +
+The arguments passed to the Nearby Command will be parsed by the *NearbyCommandParser* class. +
+If the given arguments are valid, a new *NearbyCommand* object will be returned. +
+In this class, invalid arguments will result in a *ParseException*. +
 Two types of invalid arguments are checked for: empty arguments
 and arguments with only whitespace characters.
 
-The `execute()` function of the `NearbyCommand` will first check if the given arguments
+The execute() function of the *NearbyCommand* will first check if the given arguments
 are in the format required for postal sector search (the argument can be converted into an integer).
 If the first check is successful, the argument will be converted into an integer and
-a second check is performed via the `isValidPostalSector(Index postalSector)` function
-of the `NearbyCommandUtil` helper class.
+a second check is performed via the isValidPostalSector(Index postalSector) function
+of the *NearbyCommandUtil* helper class.
 
 [NOTE]
 ====
-`NearbyCommandUtil` is a helper class that contains functions and variables used for
+*NearbyCommandUtil* is a helper class that contains functions and variables used for
 identifying postal sectors and their corresponding general locations. +
-This class was created to reduce the responsibility of the `NearbyCommand` class. +
+This class was created to reduce the responsibility of the *NearbyCommand* class. +
 
-* A `HashMap` was used to store information about postal sectors and their respective general locations.
+* A *HashMap* was used to store information about postal sectors and their respective general locations.
 ====
 
-The `model` will then be updated by the `updateFilteredOrderList(orderPredicate)` function. +
+The model will then be updated by the updateFilteredOrderList(orderPredicate) function. +
 
-A `CommandResult` is then generated and returned to the `LogicManager`.
+A *CommandResult* is then generated and returned to the *LogicManager*.
 
 
 The sequence diagram below shows the interactions for a `nearby` command execution of
@@ -1053,58 +1166,60 @@ should be displayed to the user.
 .Nearby Command Sequence Diagram of `nearby` `-o` `central`
 image::NearbyCommandSequenceDiagram2.svg[]
 
-The `NearbyCommandParser` will check for invalid arguments given by the user. +
+The *NearbyCommandParser* will check for invalid arguments given by the user. +
 Invalid arguments can be either empty arguments or arguments with
 only whitespace characters.
-A `ParseException` will be generated if an invalid argument is present.
+A *ParseException* will be generated if an invalid argument is present.
 
-A new `NearbyCommand` will be created and returned to `LogicManager`.
+A new *NearbyCommand* will be created and returned to *LogicManager*.
 
-`LogicManager` will then call the `execute()` function of the `NearbyCommand`. +
+*LogicManager* will then call the execute() function of the *NearbyCommand*. +
 There will then be a check for whether the given argument is a valid area with the
-function `isValidArea(area)` present in the `DistrictInfo` class.
+function isValidArea(area) present in the *DistrictInfo* class.
 
 [NOTE]
 ====
-`DistrictInfo` is a helper class that contains functions and variables used for
+*DistrictInfo* is a helper class that contains functions and variables used for
 identifying areas. +
-This class was created to reduce the responsibility of the `NearbyCommand` class. +
+This class was created to reduce the responsibility of the *NearbyCommand* class. +
+
 ====
 
-The model will then be updated using the `updateFilteredOrderList(orderPredicate)` function.
+The model will then be updated using the updateFilteredOrderList(orderPredicate) function.
 
-A new `CommandResult` will be created and returned to the `LogicManager`.
+A new *CommandResult* will be created and returned to the *LogicManager*.
 
 
 The sequence diagram below shows the interactions for a `nearby` command execution of
 `nearby`. +
-This will result in a `ParseException` as invalid arguments are provided.
+This will result in a *ParseException* as invalid arguments are provided.
 
 .Parse Exception due to invalid `nearby` command
 image::NearbySequenceDiagramParseException.svg[]
 
-The exception will be thrown in the `NearbyCommandParser`.
+The exception will be thrown in the *NearbyCommandParser*.
 
 //end::nearby[]
 
+//@@author cherweijie
 //tag::help[]
 [[help]]
 === Help Feature
-In this section, the <<what-is-import, functionality>> of the `help` feature,
-the expected <<import-execution-path, execution path>>, the <<import-structure, structure>>
-of the `HelpCommand` class and the <<import-interaction, interactions>>
+In this section, the <<what-is-help, functionality>> of the `help` feature,
+the expected <<execution-paths-help, execution path>>, the <<structure-help, structure>>
+of the `HelpCommand` class and the <<help-interactions, interactions>>
 between objects with the `HelpCommand` object will be discussed.
 
 [[what-is-help]]
 ==== What is the Help Feature
-The `help` feature was implemented as the `HelpCommand` in the `logic` package. +
+The `help` feature was implemented as the *HelpCommand* in the logic package. +
 The `help` feature allows users to save the trouble of adding the delivery orders and the return orders one by one
 when they have large amount of delivery orders or return orders to add into Delino.
 
 
 [[execution-paths-help]]
 ==== Execution paths of the Help command
-The execution path of the `HelpCommand` is shown below: +
+The execution path of the *HelpCommand* is shown below: +
 
 .Help Command Activity Diagram
 image::HelpCommandActivityDiagram.png[]
@@ -1113,71 +1228,72 @@ After the user enters the help command word, there will be a validation check to
 non-whitespace characters following after the `help` command word so that the help command can
 be processed as a valid command.
 
-If there are non-whitespace characters following `help` command word, a ParseException object willl
+If there are non-whitespace characters following `help` command word, a *ParseException* object will
 be created and thrown to the user by displaying an error message.
 
-If there are no non-whitespace characters following the `help` command word, a new HelpCommand object
-will be created and a CommandResult object will be created subsequently to display the success message
+If there are no non-whitespace characters following the `help` command word, a new *HelpCommand* object
+will be created and a *CommandResult* object will be created subsequently to display the success message
 to the user.
 
 [[structure-help]]
 ==== Structure of Help Command
-The following diagram shows the overview structure of the `HelpCommand` Class Diagram: +
+The following diagram shows the overview structure of the *HelpCommand* Class Diagram: +
 
 .Help Command Class Diagram
 image::HelpCommandClassDiagram.png[]
-The above class diagram shows the structure of the `HelpCommand`
+The above class diagram shows the structure of the *HelpCommand*
 and its associated classes and interfaces. Some methods and fields are not included because they are
-not extensively utilised in `HelpCommand`; such as public static fields and getter/setter methods.
+not extensively utilised in *HelpCommand*; such as public static fields and getter/setter methods.
 
 [[help-interactions]]
 ==== Interactions between objects when Help Command is executed
 
 ==== Sequence Diagram for executing the Help Command
-The sequence diagrams for the *Help Command* are shown below.
+The sequence diagrams for the `help` command are shown below.
 
 .Help Command Sequence Diagram
 image::HelpCommandSequenceDiagram.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+method in *LogicManager*. After which, an *DelinoParser* object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `return` command word that will be parsed. +
 
-Then, a `HelpCommandParser` object will be created to parse the arguments after removing
+Then, a *HelpCommandParser* object will be created to parse the arguments after removing
 the command word `help` from the user's input. Based on the command word `help`,
-a `HelpCommand` object will be created. The parse() method in `HelpCommand` will
+a *HelpCommand* object will be created. The parse() method in *HelpCommand* will
 check the validity of the user's input to see if there are any non-whitespace characters following
 the `help` command word. +
 
-Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+Subsequently, the parseCommand method in *LogicManager* will continue to create a *CommandResult*
 based on the validity of the user's input. +
 
 If the user input is invalid, i.e. there are non-whitespace characters after the `help` command word,
-a ParseException object will be created in the `parse` method in `HelpCommandParser`
+a *ParseException* object will be created in the `parse` method in *HelpCommandParser*
 and an error message will be displayed to the user. +
 
 If the user input is valid, i.e. there are no non-whitespace characters after the `help` command word,
-the `parse` method of `HelpCommandParser` will return a new HelpCommand. +
+the `parse` method of *HelpCommandParser* will return a new *HelpCommand*. +
 
-Then, a new `CommandResult` will be created based on the user input. This will then display the
+Then, a new *CommandResult* will be created based on the user input. This will then display the
 success message to the user.
 //end::help[]
 
+//@@author Exeexe93
 //tag::import[]
 [[import]]
 === Import feature
 In this section, the <<what-is-import, functionality>> of the `import` feature, the expected <<import-execution-path, execution path>>, the <<import-structure, structure>> of the
-`ImportCommand` class and the <<import-interaction, interactions>> between objects with the `ImportCommand` object will be discussed.
+*ImportCommand* class and the <<import-interaction, interactions>> between objects with the *ImportCommand* object will be discussed.
 
 [[what-is-import]]
 ==== What is the Import feature
-The `import` feature was implemented as the `ImportCommand` in the `logic` package. +
+The `import` feature was implemented as the *ImportCommand* in the logic package. +
 The `import` feature allows users to save the trouble of adding the delivery orders and the return orders one by one
 when they have large amount of delivery orders or return orders to add into Delino.
 
 [[import-execution-path]]
 ==== Execution paths of Import Command
-The execution path of the `ImportCommand` is shown below: +
+The execution path of the *ImportCommand* is shown below: +
 
 .Import Command Activity Diagram
 image::ImportActivityDiagram.svg[]
@@ -1198,18 +1314,18 @@ After the user enter the `import` command, there are three validation check for 
 ** If `Yes`, retrieve the data from the CSV file and process the data.
 ** If `No`, display the error message to the user.
 
-Afterward, a new `ImportCommand` will be created and executed. For every data inside the list, either order or return order
+Afterward, a new *ImportCommand* will be created and executed. For every data inside the list, either order or return order
 will be added into the order book and return order book respectively based on the `orderType` value.
 If the `orderType` is invalid, add the data into the result, which will be displayed to the user after processing.
 
 [[import-structure]]
 ==== Structure of Import Command
-The following diagram shows the overview structure of the `ImportCommand` Class Diagram: +
+The following diagram shows the overview structure of the *ImportCommand* Class Diagram: +
 
 .Import Command Class Diagram
 image::ImportClassDiagram.svg[]
 
-In the `ImportCommand` Class, there are also a few static message to display to the user for the various scenarios occurred
+In the *ImportCommand* Class, there are also a few static message to display to the user for the various scenarios occurred
 during the importing of data from the CSV file: +
 
 1.  `MESSAGE_USAGE` +
@@ -1236,54 +1352,57 @@ order and return order.
 
 [[import-interaction]]
 ==== Interactions between objects when Import Command is executed
-In this section, the interactions between the objects when `ImportCommand` is executed will be shown in the Import Command
+In this section, the interactions between the objects when *ImportCommand* is executed will be shown in the Import Command
 Sequence Diagram below: +
 
 .Import Command Sequence Diagram
 image::ImportCommandSequenceDiagram.svg[]
 
-The arguments passed to the `import` Command will be parsed by the `ImportCommandParser` class. +
-Then, the `ImportCommandParser` will called the `ParseUtil#parseCsvFile()` to get the filePath based
-on the input the user provides. Afterward, `CsvProcessor` will be called to retrieve the data from the csv file
-and return the processed `fileData` back to ParseUtil. The `fileData` will be further pass to `ImportCommandParser`
-and to the constructor of `ImportCommand`.
+The arguments passed to the `import` command will be parsed by the *ImportCommandParser* class. +
+Then, the *ImportCommandParser* will called the ParseUtil#parseCsvFile() to get the filePath based
+on the input the user provides. Afterward, *CsvProcessor* will be called to retrieve the data from the csv file
+and return the processed `fileData` back to ParseUtil. The `fileData` will be further pass to *ImportCommandParser*
+and to the constructor of *ImportCommand*.
 
 [NOTE]
 ====
-`CsvProcessor` is  a helper class that helps to retrieve the data from the csv file and process the data before
-giving to `ImportCommand`.
+*CsvProcessor* is  a helper class that helps to retrieve the data from the csv file and process the data before
+giving to *ImportCommand*.
 ====
 
-Afterward, the `ImportCommand` object is being returned to the `LogicManager` and the `LogicManager` will start
-to run the execute the `ImportCommand`, which will be shown at the diagram below.
+Afterward, the *ImportCommand* object is being returned to the *LogicManager* and the *LogicManager* will start
+to run the execute the *ImportCommand*, which will be shown at the diagram below.
 
 .Execution of Import Command Sequence Diagram
 image::ExecuteImportCommand.svg[]
 
-The `ImportCommand#execute()` will first check if the data given starts with
-*order* or *return* and pass to the `InsertCommandParser` or `ReturnCommandParser` respectively. +
+The ImportCommand#execute() will first check if the data given starts with
+*order* or *return* and pass to the *InsertCommandParser* or *ReturnCommandParser* respectively. +
 
-Afterwards, `InsertCommandParser` or `ReturnCommandParser` will return a new `InsertCommand` or `ReturnCommand` respectively
-if it successfully parse the data. The `ImportCommand` will then call the `InsertCommand#execute()`
-or `ReturnCommand#execute()` depend whether it is delivery order or return order. This will cause a delivery order or return order being added into the `Model`.
+Afterwards, *InsertCommandParser* or *ReturnCommandParser* will return a new *InsertCommand* or *ReturnCommand* respectively
+if it successfully parse the data. The *ImportCommand* will then call the InsertCommand#execute()
+or ReturnCommand#execute() depend whether it is delivery order or return order.
+This will cause a delivery order or return order being added into the Model.
 
-The `ImportCommand` will call its own `printResult()` function and return a String message to the `CommandResult` object
-which is then pass back to the `LogicManager`.
+The *ImportCommand* will call its own printResult() function and return a String message to the *CommandResult* object
+which is then pass back to the *LogicManager*.
 //end::import[]
 
+//@@author khsc96
 //tag::search[]
 [[search]]
 === Search Feature
 
-In this section, the <<what-is-search,functionality>> of the `search` feature, the expected <<search-path-execution, execution path>>, the <<search-structure, structure>> of the `SearchCommand` class
-and the <<search-interactions, interactions>> between objects with the `SearchCommand` object will be discussed.
+In this section, the <<what-is-search,functionality>> of the `search` feature, the expected
+<<search-path-execution, execution path>>, the <<search-structure, structure>> of the *SearchCommand* class
+and the <<search-interactions, interactions>> between objects with the *SearchCommand* object will be discussed.
 
 [[what-is-search]]
 ==== What is the Search feature
 
-The `search` feature was implemented as the `SearchCommand` in the `logic` package.
+The `search` feature was implemented as the *SearchCommand* in the logic package.
 
-The search function allow users to search for any orders according to the provided input. +
+The `search` feature allow users to search for any orders according to the provided input. +
 
 `search` feature format: `search` `<<command_flags, [FLAG]>>` `<<command_prefix, [ORDER_ATTRIBUTE_PREFIX]>>`/`[KEYWORD]`
 
@@ -1294,7 +1413,8 @@ A space is needed in between each word.
 Keyword search is case-insensitive. E.g: Given `Jeremy` it matches `JeReMy`, `jeremy` or any permutations of alphabet casing.
 
 There are two mode of searching, *general search* or *specific search*. +
-If the user does not provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *general search* mode will be performed on orders, return orders, or both depending on the `<<command_flag, FLAG>>`. +
+If the user does not provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *general search* mode will be
+performed on orders, return orders, or both depending on the `<<command_flags, FLAG>>`. +
 
 The `<<command_flags, [FLAG]>>` `-o` when given, searches only for parcels in the order list. +
 The `<<command_flags, [FLAG]>>` `-r` when given, searches only for the parcels in the return list.
@@ -1312,10 +1432,10 @@ If the user provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *specifi
 image::SearchCommandActivityDiagram.svg[]
 
 The above activity diagram illustrates the different execution paths of `search` command. +
-Whenever a user keys in an input with the `search` keyword, the `SearchCommandParser` class will handle the parsing of input. +
-User input will be validated in the `SearchCommandParser` class.
+Whenever a user keys in an input with the `search` keyword, the *SearchCommandParser* class will handle the parsing of input. +
+User input will be validated in the *SearchCommandParser* class.
 
-Input is deemed as invalid and `ParseException` is thrown under these scenarios: +
+Input is deemed as invalid and *ParseException* is thrown under these scenarios: +
 1) `<<command_flags, FLAG>>` given is not `-o` or `-r`. +
 2) Multiple `<<command_flags, FLAG>>` detected. +
 3) No `KEYWORD` is given after `search`.
@@ -1327,8 +1447,9 @@ View the list of allowed prefixes in this `search` command <<command_prefix, her
 .Search Command Class Diagram
 image::SearchCommandClassDiagram.png[]
 
-The above class diagram depicts the structure of the class `SearchCommand`. As per any `Command` class, `SearchCommand` needs to extend the abstract class `Command`. +
-Information that are left out in this class diagram are the common messages used in `SearchCommand`.
+The above class diagram depicts the structure of the class *SearchCommand*. As per any *Command* class,
+*SearchCommand* needs to extend the abstract class *Command*. +
+Information that are left out in this class diagram are the common messages used in *SearchCommand*.
 
 [[search-interactions]]
 ==== Interactions between objects when Search Command is executed
@@ -1340,43 +1461,51 @@ The sequence diagram above illustrates the interactions between objects when `se
 Particularly, the interactions shown is a success `search` command executed by the user and only an abstract view is shown.
 
 
-`LogicManager` first calls `parseCommand` with arguments representing the user input, `Alice`. The `SearchCommandParser` will then check for any invalid arguments passed by the user. +
+*LogicManager* first calls parseCommand with arguments representing the user input, `Alice`.
+The *SearchCommandParser* will then check for any invalid arguments passed by the user. +
 
 [TIP]
 ====
-* If the given arguments are valid, `SearchCommandParser` will return  a new `SearchCommand` object. +
-* If the given arguments are invalid or empty, a `ParseException` object will be thrown (not shown in the diagram).
+* If the given arguments are valid, *SearchCommandParser* will return  a new *SearchCommand* object. +
+* If the given arguments are invalid or empty, a *ParseException* object will be thrown (not shown in the diagram).
 ====
 
-The `SearchCommandParser` will then checks for the presence of any `<<command_flags, FLAG>>`. The presence of one will result in different `SearchCommand` constructor being called. +
-The `SearchCommandParser` will call the both the `OrderContainsKeywordsPredicate` constructor and the `ReturnOrderContainsKeywordsPredicate` if no `<<command_flags, FLAG>>` is given. +
-However, if a `<<command_flags, FLAG>>` is given, the corresponding predicate will be instantiated and passed as an parameter for the `SearchCommand` constructor with the other left as null value.
+The *SearchCommandParser* will then checks for the presence of any `<<command_flags, FLAG>>`.
+The presence of one will result in different *SearchCommand* constructor being called. +
+The *SearchCommandParser* will call the both the *OrderContainsKeywordsPredicate* constructor and
+the *ReturnOrderContainsKeywordsPredicate* if no `<<command_flags, FLAG>>` is given. +
+However, if a `<<command_flags, FLAG>>` is given, the corresponding predicate will be instantiated and passed
+as an parameter for the *SearchCommand* constructor with the other left as null value.
 
 [IMPORTANT]
 ====
-* What is not shown is that optionally, either `OrderContainsKeywordsPredicate` or `ReturnOrderContainsKeywordsPredicate` can be null if a `<<command_flags, FLAG>>` is given. However, under no circumstances should both be null.
+* What is not shown is that optionally, either *OrderContainsKeywordsPredicate* or
+*ReturnOrderContainsKeywordsPredicate* can be null if a `<<command_flags, FLAG>>` is given.
+However, under no circumstances should both be null.
 ====
 
-The parsing of user input utilises `ArgumentTokenzier` (not shown in sequence diagram) to process and split each `KEYWORD` to it's corresponding `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, if given any. +
+The parsing of user input utilises *ArgumentTokenzier* (not shown in sequence diagram) to process and split
+each `KEYWORD` to it's corresponding `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, if given any. +
 
 If the preamble to any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` is not empty, a *general search* will be performed in which `KEYWORD` will be searched through all fields of parcel. +
 However, if `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` is given and the preamble is empty, the *specific search* will be performed. Only parcel fields that correspond to the given `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` will be searched and matched with the `KEYWORD`.
 
-The order and return order list updates automatically as the JavaFX class `ObservableList` is used to listen to any changes.
+The order and return order list updates automatically as the JavaFX class *ObservableList* is used to listen to any changes.
 //end::search[]
 
+//@@author Amoscheong97
 //tag::show[]
 [[show]]
 === Show feature
 This section describes the <<show-functionality, functionality>> , the <<show-structure, structure>>,
-<<show-interactions, interactions>> between objects and <<show-path, path>> the path execution of the *Show Command*.
+<<show-interactions, interactions>> between objects and <<show-path, path>> the path execution of the `show` command.
 
 [[show-functionality]]
 ==== What is the Show feature
-Show feature allows the user to see the statistical information of all the orders for both Delivery Orders
+The `show` feature allows the user to see the statistical information of all the orders for both Delivery Orders
 and Return Orders.
 
-There are a few ways in which the user can input to the command box to execute the *Show Command* :
+There are a few ways in which the user can input to the command box to execute the `show` command:
 
 * `show` `START_DATE` `[END_DATE]`
 
@@ -1388,34 +1517,35 @@ There are a few ways in which the user can input to the command box to execute t
 
 [[show-structure]]
 ==== Structure Show feature
-The structure of the Show Feature is as shown below:
+The structure of the `show` feature is as shown below:
 
 .Show Command Class Diagram
 image:ShowCommandClassDiagram.svg[]
 
-The above diagram shows all the methods and variables that the `ShowCommand` class is using when the command is
+The above diagram shows all the methods and variables that the *ShowCommand* class is using when the command is
 executed. All the static methods and variables are not mentioned in this diagram. Furthermore, there are
-some mehods and variables omitted from this diagram as it is irrelevant to the `ShowCommand` class.
+some methods and variables omitted from this diagram as it is irrelevant to the *ShowCommand* class.
 
 [[show-path]]
 ==== Path execution of the Show Command
 .Show Command Activity Diagram
 image::ShowCommandActivityDiagram.svg[]
 
-The above activity diagram shows the logic and the path execution when the *Show Command* is executed.
+The above activity diagram shows the logic and the path execution when the `show` command is executed.
 
-The main logic of the `ShowCommand` is to check if the number of arguments in the input besides `show` is one or two.
+The main logic of the *ShowCommand* is to check if the number of arguments in the input besides `show` is one or two.
 If it is neither, the code will throw an exception. If there is only one argument, the code will check if the word
-provided is either `all` or `today` or simply just a `DATE` the value of `DATE` will be validated t check if it is a valid date.
+provided is either `all` or `today` or simply just a `DATE` the value of `DATE` will be validated to check
+if it is a valid date.
 It throws an error if it is invalid. When its correct, the code will execute the input accordingly.
 If the number is two arguments, it will check if the dates provided are valid or invalid date.
 It throws an error for the latter. The code will then ensure that the `START_DATE` is before the `END_DATE`.
-Once the input passes all the validations in the `ShowCommand` code,
+Once the input passes all the validations in the *ShowCommand* code,
 the command will then be executed and it prints a success message to the user.
 
 [[show-interactions]]
 ==== Interaction between objects during execution of Show Command
-The sequence diagram for the *Show Command* is shown below: +
+The sequence diagram for the `show` command is shown below: +
 
 .Show Command Sequence Diagram
 image::ShowCommandSequenceDiagram.svg[]
@@ -1426,21 +1556,21 @@ The user first calls the command "show all".
 It can accept either one or two arguments.
 ====
 
-The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
-into the `ShowCommand` object. Within the object, it will call the parseData method to make sense of the dates given.
+The *LogicManager* will call the parseCommand method of *DelinoParser*, which then passes the second argument
+into the *ShowCommand* object. Within the object, it will call the parseData method to make sense of the dates given.
 After that, it returns the object to the `LogicManager`.
-Next, the `LogicManager` will call the execute(model) method using the `ShowCommand` object.
-When completed, the execute(model) will return a `CommandResult` object to the `LogicManager`, indicating that the command execution is a success.
+Next, the *LogicManager* will call the execute(model) method using the *ShowCommand* object.
+When completed, the execute(model) will return a *CommandResult* object to the *LogicManager*, indicating that the command execution is a success.
 In this case where the input is "show all", it will have a message that indicates that the command is showing all information.
 //end::show[]
 
-
+//@@author
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging. The *LogsCenter* class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* The *Logger* for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
@@ -1472,11 +1602,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage his or her delivery orders conveniently
+* has a need to manage his or her delivery orders and return orders conveniently
+* has a need to search the orders or return orders by region
+* want to check his or her today's earnings.
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using <<cli, CLI>> apps
 
 *Value proposition*: manage their deliveries faster than a typical mouse/GUI driven app
 
@@ -1735,14 +1867,14 @@ Use case ends.
 Use case ends.
 
 [none]
-* 3b. Delino unable to detect any order specified by the user.
+* 3b. Delino unable to detect any parcel specified by the user.
 [none]
-** 3b1. Delino shows no order found message.
+** 3b1. Delino shows no parcel found message.
 
 [none]
-* 3c. Delino detects duplicate a order.
+* 3c. Delino detects duplicate parcel.
 [none]
-** 3c1. Delino shows duplicate order message.
+** 3c1. Delino shows duplicate parcel message.
 +
 Use case ends.
 //end::use_case_edit[]
@@ -1767,11 +1899,12 @@ Use case ends.
 //tag::use_case_search[]
 [discrete]
 === Use case: UC07 - Search an order
+Preconditions: There should be a valid order/return order in Delino.
 
 *MSS*
 
-1.  User wants to search a specifc order by a given keyword.
-2.  User request to search specific order by a given keyword.
+1.  User wants to search a specifc order or return order by a given keyword.
+2.  User request to search specific order or return order by a given keyword.
 3.  Delino display the requested order.
 +
 Use case ends.
@@ -1786,9 +1919,9 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2b. Delino unable to find order with the transaction id.
+* 2b. Delino unable to find any parcel field that matches the given keyword.
 [none]
-** 2b1. Delino display order not found message.
+** 2b1. Delino display parcel not found message.
 +
 Use case ends.
 //end::use_case_search[]
@@ -1944,10 +2077,19 @@ the given <<command_prefix, `TRANSACTION_ID`>> does not exist.
 Use case ends.
 
 [none]
-* 2d. Delino detects missing parcel attributes.
+* 2d. Delino detects invalid <<command_prefix, `RETURN_TIMESTAMP`>>, i.e. order with
+the given <<command_prefix, `RETURN_TIMESTAMP`>> is bfeore the delivery time stamp of the order.
 +
 [none]
 ** 2d1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 2e. Delino detects missing parcel attributes.
++
+[none]
+** 2e1. Delino shows an error message to the user.
 +
 Use case ends.
 //end::use_case_return[]
@@ -1991,12 +2133,24 @@ Use case ends.
 //tag::use_case_show[]
 [discrete]
 === Use case: UC13 - Show statistics
+Preconditions: There should be a delivered order/return order in the list.
 
 *MSS*
 
-1. User requests to see the statistics of orders.
-2. Delino opens a window that contains the statistics.
-+
+1. User wants to know about their delivery statistics.
+2. User requests to see the statistics of orders or return orders.
+3. Delino displays the statistics.
+
+*Extensions*
+[none]
+* 2a. Delino detects invalid syntax from user input.
+[none]
+** 2a1. Delino shows an error message.
+[none]
+* 2b. Delino detecs an invalid date from user input.
+[none]
+** 2b1. Delino shows an error message.
+
 Use case ends.
 //end::use_case_show[]
 
@@ -2021,11 +2175,21 @@ Use case ends.
 crashing.
 //end::non_functional_requirements[]
 
+//@@author
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
+
+[[cli]] CLI::
+Command line interface
+
+[[mss]] MSS::
+Main Success Scenario, the most straightforward interaction for a given use case, which assumes that nothing goes wrong
+
+[[extension]] Extensions::
+Possible alternative flow of events of MSS.
 
 [[returns]] Returns::
 An order that is rejected and needs to be returned to the warehouse
@@ -2142,6 +2306,7 @@ Cons:
 
 //end::appendix-product-survey[]
 
+[[manual-testing]]
 [appendix]
 == Instructions for Manual Testing
 
@@ -2185,19 +2350,22 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Convert a delivered order into a return order or create a new return order
 
-.. Insert command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_TIMESTAMP` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
-
+.. Return command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_TIMESTAMP` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
+OR `return` `tid/TRANSACTION_ID` `rts/RETURN_TIMESTAMP`
 .. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `rts/2020-02-20 1300` `w/Yishun` +
    Expected: Creates a new return order with the above details and adds it into the return order list. This will be displayed on the GUI
 .. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `rts/2020-03-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +
    Expected: Creates a new return order with the above details, including type and comments and adds it into the return order list. This will be displayed on the GUI
-.. Test case: `return` `tid/1023456789` +
-   Expected: Checks if an order with the given <<command_prefix, `TRANSACTION_ID`>> exists. If it exists and
-it was delivered, it will be converted into a return order and added into the return order list.
+.. Test case: `return` `tid/1023456789` `rts/2020-05-12 1300` +
+   Expected: Checks if an order with the given Transaction ID exists. If it exists and
+it was delivered, check if the given return time stamp is after the delivery time stamp. If it is both delivered and the return time stamp is after
+the delivery time stamp, the order will be converted into a return order and added into the return order list.
 .. Test case: Invalid Syntax +
    Expected: No return order is added. Error details shown in the response message. A help message displayed for user to use the return command accordingly.
 .. Test case: Return order with invalid Transaction ID in order list +
-   Expected: An error will occur and a message will be displayed, stating that order with the given <<command_prefix, `TRANSACTION_ID`>>
+   Expected: An error will occur and a message will be displayed, stating that order with the given Transaction ID.
+.. Test case: Return order with invalid return time stamp in order list +
+   Expected: An error will occur and a message will be displayed, stating that order with the given Transaction ID.
 cannot be found in the order list.
 .. Test case: Return order with missing parcel attributes +
    Expected: An error will occur and a message will be displayed, indicating the right message usage of the return feature.
@@ -2239,11 +2407,11 @@ cannot be found in the order list.
 .. Test case: `edit` `-r` `1` `n/Xuan En` +
    Expected: The first index customer's name is changed to Xuan En.
 .. Test case: `edit` `-o` `2` `p/99521654` +
-   Expected: The second index phone number is changed to 9952 1654.
+   Expected: The second index phone number is changed to 99521654.
 .. Test case: `edit` `-o` `1` `a/Blk 123 Pasir Ris street 51 #12-23 S510123` +
    Expected: The first index is edited where the address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123.
-.. Test case: `edit` `-r` `2` `n/Mr Tan` `p/98776655` `a/Blk 888 Jurong East street 2 #01-02 S609601` +
-   Expected: The second index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 888 Jurong East street 2 #01-02 S609601.
+.. Test case: `edit` `-r` `2` `n/Mr Tan` `p/98776655` `a/Blk 841 Yishun st 81 #01-02 S760841` +
+   Expected: The second index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 841 Yishun st 81 #01-02 S760841.
 .. Test case: `edit` `-o` `1` `dts/09/08/2020` +
    Expected: The delivery date of the first index of the customer will be rescheduled to 09/08/2020.
 .. Test case: `edit` `-r` `1` `rts/02/02/1900` +
@@ -2407,7 +2575,7 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
    Expected: An error will occur as the given postal sector is invalid
 .. Test case: `nearby` `-o` `600` +
    Expected: An error will occur as the given postal sector is invalid
-.. Test case: `nearby -o` +
+.. Test case: `nearby` `-o` +
    Expected: An error will occur as it is an invalid syntax (no postal sector is provided)
 
 
@@ -2447,3 +2615,56 @@ https://keylocation.sg/singapore/districts-map[this website] +
    Expected: The GUI window will be closed
 .. Test case: Adding any other words as the second argument of the `exit` command
 Expected: The response box will display an invalid command message
+
+//@@ author
+[appendix]
+== Effort
+
+*Overview* +
+Our team wanted to make an application that could reduce the hassle of managing couriers' orders. We decided to build
+Delino which aims to provide a centralised platform for couriers to easily manage their deliveries. Delino is
+significantly different from Address Book 3 (AB3). In addition to the existing basic features of AB3, we needed to add
+additional features to satisfy the needs of our target audience, couriers. Features that are unique to Delino are
+Nearby, Show, Import, Return and the enhanced Search.
+
+*Challenges faced* +
+
+. *Brainstorming of ideas* - Ideation was the first hurdle we faced as a team. Coming up with ideas was easy, however,
+the conflict arose when we were deciding on which idea to implement as every member wanted to solve a different problem.
+We listed the pros and cons of each proposed idea, and had a few group meetings to evaluate the proposed ideas. We
+finally chose an idea that was deemed to be most feasible.
+
+. *Debugging* - Had to spend a huge amount of time tracing through the code of more than 7kLoC in order to determine
+coding bugs/errors. Sometimes, the problem could have been solved by a simple removal or addition of a line of code,
+in order to resolve the long list of error messages that were displayed to us.
+
+
+. *Separate the return order from order* - It is important to be able to show two lists, one with orders and the other
+with return orders. However, this caused list updating to be a major problem for most of the commands. This required
+significant modifications to our code.
+
+
+. *Documentation* - It was difficult to efficiently ensure that everything was standardised in the user guide and
+developer guide as we encountered a lot of different terms that required group discussion before we could finalise
+on a proper way of dealing with it.
+
+In order to deal with this documentation problem, it often resulted in us having to meet up for long hours (up to 10
+hours/day) on consecutive days in order for us to finalise a document together. As a result, it was one of the most
+time-consuming parts of this project as we usually had to use one person’s screen and go through an entire document
+together so that we could standardise it consistently.
+
+*Achievements* +
+
+. *Implementing commands* - Ensuring that our commands were implemented in an OOP manner was essential for further
+extension or fixing of bugs. Throughout the project, we made various code restructuring to allow for better code
+maintainability.
+
+. *Maintaining test coverage* - As a group, we set a soft-limit for our test coverage to be 80% as we wanted to ensure
+that the code that we wrote as a team is functional and extensively covered by all the different test-cases. As much as
+possible, we applied the different testing methods taught in lessons such as Regression testing, Integration testing
+and Unit testing.
+
+*Conclusion* +
+In conclusion, Our team had a great time working with one another and we are proud to have come up with a product like
+Delino by working tirelessly to build it together. Overall, we believe that Delino is a good testament to our hard work
+and time spent on perfecting it.

@@ -1,4 +1,4 @@
-package seedu.delino.model.parcel.comment;
+package seedu.delino.model.parcel.optionalparcelattributes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

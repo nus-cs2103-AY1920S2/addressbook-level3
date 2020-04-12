@@ -1,4 +1,5 @@
 :imagesDir: ../../images/
+:stylesDir: ../../stylesheets
 == Eng Xuan En - UML Diagrams
 
 * *Import Feature UML Diagrams* +
@@ -8,20 +9,20 @@ This Activity Diagram purpose is to describe the general work flow of the Import
 useful for users, as it give them a general work flow of how Import command works and what they should expect out of
 Delino when performing a Import command.
 
-image::ImportClassDiagram.svg[width=50%]
+image::ImportClassDiagram.svg[width=45%]
 This Class Diagram purpose is to describe the dependencies of ImportCommand class when implementing this feature.
 This diagram is essential to our Delino application because it allows developer or users who are interested to better
 understand the underlying dependencies of ImportCommand class.
 
-image::ImportCommandSequenceDiagram.svg[width=60%]
+image::ImportCommandSequenceDiagram.svg[width=55%]
 image::ExecuteImportCommand.svg[width=55%]
-This Sequence Diagram shows a more detailed explanation of the communication between the different classes used in
+The two sequence diagrams show a more detailed explanation of the communication between the different classes used in
 the Logic and Model after the user execute the `import` command. This would allows the user to further understand how
 ImportCommand works after `import` Command being executed.
 
 * *Clear Feature UML Diagram*
 
-image::ClearActivityDiagram.svg[width=60%]
+image::ClearActivityDiagram.svg[width=55%]
 The purpose of this Activity Diagram is to describe the general work flow of the Clear feature.
 This diagram is especially useful for users, as it give them a general work flow of how Clear command works and what
 they should expect out of Delino when performing a Clear command.
@@ -33,9 +34,9 @@ understand the underlying dependencies of SearchCommand class.
 
 image::ClearCommandSequenceDiagram.svg[width=50%]
 image::ExecuteClearCommand.svg[width=50%]
-The two Sequence Diagram shows a more detailed explanation of the communication between the Logic and Model class of
+The two sequence diagrams show a more detailed explanation of the communication between the Logic and Model class of
 Delino when the `clear` command is being executed. During the parsing of ClearCommandParser, it will check if the flags
-in the arguments are valid and whether if both `-r` and `-o` flags found in the arguments which will throws
+in the arguments are valid and whether if both `-r` and `-o` flags are found in the arguments which will throws
 ParseException if it fails the checks. This allows the user to be able to understand how the ClearCommand works after
 executing the `clear` Command.
 

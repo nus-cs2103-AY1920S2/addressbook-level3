@@ -8,8 +8,8 @@ import static seedu.delino.testutil.TypicalReturnOrders.BENSON_RETURN;
 import org.junit.jupiter.api.Test;
 
 import seedu.delino.commons.exceptions.IllegalValueException;
-import seedu.delino.model.parcel.comment.Comment;
-import seedu.delino.model.parcel.itemtype.TypeOfItem;
+import seedu.delino.model.parcel.optionalparcelattributes.Comment;
+import seedu.delino.model.parcel.optionalparcelattributes.TypeOfItem;
 import seedu.delino.model.parcel.parcelattributes.Address;
 import seedu.delino.model.parcel.parcelattributes.Email;
 import seedu.delino.model.parcel.parcelattributes.Name;
@@ -18,6 +18,7 @@ import seedu.delino.model.parcel.parcelattributes.TimeStamp;
 import seedu.delino.model.parcel.parcelattributes.TransactionId;
 import seedu.delino.model.parcel.parcelattributes.Warehouse;
 
+//@@author Exeexe93
 public class JsonAdaptedReturnOrderTest {
     private static final String INVALID_TID = " ";
     private static final String INVALID_NAME = "R@chel";
@@ -25,7 +26,6 @@ public class JsonAdaptedReturnOrderTest {
     private static final String INVALID_EMAIL = "1234gg.com";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_TIMESTAMP = "2019-02-32 1500";
-    private static final String INVALID_TIMESTAMP_BEFORE_NOW = "2019-02-02 1500";
     private static final String INVALID_WAREHOUSE = "";
     private static final String INVALID_COMMENT = " ";
     private static final String INVALID_TYPE = "#bottle";

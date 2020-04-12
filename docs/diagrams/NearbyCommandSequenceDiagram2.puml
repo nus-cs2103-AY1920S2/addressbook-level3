@@ -3,7 +3,7 @@
 !include style.puml
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DelinoParser" as DelinoParser LOGIC_COLOR
 participant ":NearbyCommandParser" as NearbyCommandParser LOGIC_COLOR
 participant "n:NearbyCommand" as NearbyCommand LOGIC_COLOR
 participant ":DistrictInfo" as DistrictInfo LOGIC_COLOR
@@ -17,17 +17,17 @@ end box
 [-> LogicManager : execute("nearby -o central")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("nearby -o central")
-activate OrderBookParser
+LogicManager -> DelinoParser : parseCommand("nearby -o central")
+activate DelinoParser
 
 create NearbyCommandParser
-OrderBookParser -> NearbyCommandParser
+DelinoParser -> NearbyCommandParser
 activate NearbyCommandParser
 
-NearbyCommandParser --> OrderBookParser
+NearbyCommandParser --> DelinoParser
 deactivate NearbyCommandParser
 
-OrderBookParser -> NearbyCommandParser : parse(" -o central")
+DelinoParser -> NearbyCommandParser : parse(" -o central")
 activate NearbyCommandParser
 
 create NearbyCommand
@@ -37,14 +37,14 @@ activate NearbyCommand
 NearbyCommand --> NearbyCommandParser : n
 deactivate NearbyCommand
 
-NearbyCommandParser --> OrderBookParser : n
+NearbyCommandParser --> DelinoParser : n
 deactivate NearbyCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-NearbyCommandParser -[hidden]-> OrderBookParser
+NearbyCommandParser -[hidden]-> DelinoParser
 destroy NearbyCommandParser
 
-OrderBookParser --> LogicManager : n
-deactivate OrderBookParser
+DelinoParser --> LogicManager : n
+deactivate DelinoParser
 
 LogicManager -> NearbyCommand : execute(model)
 activate NearbyCommand

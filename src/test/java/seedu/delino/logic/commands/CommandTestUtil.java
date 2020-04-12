@@ -55,6 +55,7 @@ public class CommandTestUtil {
     public static final String VALID_COD_BOB = "$4.10";
     public static final String VALID_COMMENT_NIL = "NIL";
     public static final String VALID_COMMENT_INSTRUCTION = "Leave the parcel at the riser";
+    public static final String VALID_RETURN_TIMESTAMP = "2020-05-30 1800";
     public static final String VALID_TYPE_GLASS = "glass";
     public static final String VALID_TYPE_PLASTIC = "plastic";
     public static final String VALID_TYPE_METAL = "metal";

@@ -1,4 +1,4 @@
-package seedu.delino.model.parcel.itemtype;
+package seedu.delino.model.parcel.optionalparcelattributes;
 
 import static java.util.Objects.requireNonNull;
 
