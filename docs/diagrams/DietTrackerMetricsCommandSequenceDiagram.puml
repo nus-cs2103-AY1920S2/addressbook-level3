@@ -68,7 +68,7 @@ deactivate CommandResult
 MetricsCommand --> LogicManager : commandResult
 deactivate MetricsCommand
 
-HeightCommand -[hidden]-> LogicManager
+MetricsCommand -[hidden]-> LogicManager
 destroy MetricsCommand
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
