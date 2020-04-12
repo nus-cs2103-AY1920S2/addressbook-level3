@@ -1727,4 +1727,39 @@ in splitting that item.
 
 . Manual saving is not required as data is already saved in the hard disk after any commands that changes the data.
 
-_{ more test cases ... }_
+
+
+[appendix]
+== Effort
+
+*Overview* +
+After studying a survey conducted by a resident in Temasek Hall, our team wanted
+to make an application that could help students with problems they face while staying in Temasek Hall.
+We decided to build EYLAH, a super app that has both diet tracker and expense splitter functionality.
+EYLAH is significantly different from Address Book 3 (AB3).
+In addition to the existing basic features of AB3,
+we needed to add additional features to satisfy the needs of our target audience, residents staying in Temasek Hall.
+
+
+*Challenges* +
+The team encountered a few issues during the development process of Sharkie. The more notable ones are:
+
+- *Initial brainstorming and filtering of ideas* +
+At the start of the project, ideation and brainstorming came up with a bunch of features that we wanted to implement in Sharkie. We came up with many different ideas and ways to implement our commands and features, however, it was messy as we were unsure and unclear of how each of us wanted to implement our features. We sat down for a few meetings to discuss our implementation and our thought processes, ensuring that everyone was on the same page before starting the development process.
+
+- *Wallet model* +
+Since we wanted an expense tracker for Sharkie, we required some proper way of storing our data. We decided to adapt from AB3's address book system, following their saving of data and storing of user details, implementing it in our `Wallet` model.
+
+- *Commands* +
+We also adapted AB3's command system using their `XYZParser` and `XYZCommand` implementations, making our application easier to develop since we were using the same implementation as their `Logic`.
+
+- *Reminder feature* +
+One of the more prominent features that we added that was completely not part of AB3 was our reminder feature. This feature had nothing similar to it in AB3, and had to be implemented from scratch in order to make it work with our program.
+
+- *User interface* +
+We decided early on that we wanted to redo the user interface from AB3, as it would not only be more asthetically pleasing, but also tie in well to the features that we wanted to be implemented. Daniel did the main UI implementation using JavaFX and CSS, and along the way the entire team chipped in to fix the many different bugs that arose due to the UI. Threading errors, wrong values being displayed etc. were all fixed after careful testing and fixing by the team.
+
+*Conclusion* +
+In conclusion, our team had a great time working with each another and we hope our application,
+EYLAH, will ease the lives of residents at Temasek Hall.
+Overall, we believe that EYLAH is a good testament to our hard work and time spent on perfecting it.
