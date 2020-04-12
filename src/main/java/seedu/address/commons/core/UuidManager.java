@@ -4,9 +4,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.modelStudent.Student;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelStudent.Student;
 
 import java.util.Random;
 
@@ -29,7 +29,7 @@ public class UuidManager {
     public static ID assignNewUUID(ModelObject object) throws ParseException {
         Random random = new Random();
         for (int i = 0; i < numAttemps; i++) {
-            ID newID = new ID( ((Integer)random.nextInt((int)Math.pow(10, IDLength))).toString());
+            ID newID = new ID(((Integer) random.nextInt((int) Math.pow(10, IDLength))).toString());
             if (containsID(object, newID) == false) {
                 return newID;
             }

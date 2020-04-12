@@ -1,15 +1,8 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
-import java.nio.file.Path;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -18,8 +11,14 @@ import seedu.address.storage.storageAssignments.JsonAssignmentAddressBookStorage
 import seedu.address.storage.storageCourse.JsonCourseAddressBookStorage;
 import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
 import seedu.address.storage.storageProgress.JsonProgressAddressBookStorage;
-import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
 import seedu.address.storage.storageStaff.JsonStaffAddressBookStorage;
+import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
+
+import java.nio.file.Path;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 public class StorageManagerTest {
 
@@ -32,22 +31,22 @@ public class StorageManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonStaffAddressBookStorage teacherAddressBookStorage =
-            new JsonStaffAddressBookStorage(getTempFilePath("tab"));
+                new JsonStaffAddressBookStorage(getTempFilePath("tab"));
         JsonStudentAddressBookStorage studentAddressBookStorage =
-            new JsonStudentAddressBookStorage(getTempFilePath("sab"));
+                new JsonStudentAddressBookStorage(getTempFilePath("sab"));
         JsonFinanceAddressBookStorage financeAddressBookStorage =
-            new JsonFinanceAddressBookStorage(getTempFilePath("fab"));
+                new JsonFinanceAddressBookStorage(getTempFilePath("fab"));
         JsonCourseAddressBookStorage courseAddressBookStorage =
-            new JsonCourseAddressBookStorage(getTempFilePath("cab"));
+                new JsonCourseAddressBookStorage(getTempFilePath("cab"));
         JsonAssignmentAddressBookStorage assignmentAddressBookStorage =
                 new JsonAssignmentAddressBookStorage(getTempFilePath("zab"));
         JsonProgressAddressBookStorage progressAddressBookStorage =
-            new JsonProgressAddressBookStorage(getTempFilePath("pab"));
+                new JsonProgressAddressBookStorage(getTempFilePath("pab"));
 
 
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, teacherAddressBookStorage,
-            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage, progressAddressBookStorage, userPrefsStorage);
+                studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage, progressAddressBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

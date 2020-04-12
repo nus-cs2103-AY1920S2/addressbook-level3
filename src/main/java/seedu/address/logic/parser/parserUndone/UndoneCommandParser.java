@@ -1,8 +1,6 @@
 package seedu.address.logic.parser.parserUndone;
 
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
-import seedu.address.logic.commands.commandDone.DoneCommandBase;
-import seedu.address.logic.commands.commandDone.DoneCommandFactory;
 import seedu.address.logic.commands.commandUndone.UndoneCommandBase;
 import seedu.address.logic.commands.commandUndone.UndoneCommandFactory;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -12,7 +10,8 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 
 /**
  * Parses input arguments and creates a new AssignCommand object
@@ -23,7 +22,7 @@ public class UndoneCommandParser implements Parser<UndoneCommandBase> {
                     + "\nParameters: "
                     + "\n" + PREFIX_STUDENTID + "STUDENTID"
                     + " " + PREFIX_ASSIGNMENTID + "ASSIGNMENTID"
-                    + "\n" + "Example: "  + "undone "
+                    + "\n" + "Example: " + "undone "
                     + PREFIX_STUDENTID + "101 "
                     + PREFIX_ASSIGNMENTID + "359 ";
 
@@ -49,7 +48,7 @@ public class UndoneCommandParser implements Parser<UndoneCommandBase> {
         }
 
 
-        if(assignDescriptor.getAllAssignKeys().size() != 2) {
+        if (assignDescriptor.getAllAssignKeys().size() != 2) {
             throw new ParseException(
                     String.format(MESSAGE_USAGE, "")
             );

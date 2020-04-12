@@ -1,16 +1,6 @@
 package seedu.address.viewmodel;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FINANCEID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
-
 import com.google.common.eventbus.Subscribe;
-
-import java.util.*;
-
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -26,10 +16,14 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
+
+import java.util.*;
+
+import static seedu.address.logic.parser.CliSyntax.*;
 
 public class ViewModel extends BaseManager {
     enum TYPE {
@@ -96,9 +90,9 @@ public class ViewModel extends BaseManager {
 
     // Select commands will update the observable lists here
     public void updateType(List<ArgumentTokenizer.PrefixPosition> positions,
-                         List<ID> selectMetaDataIDs) {
+                           List<ID> selectMetaDataIDs) {
         this.type = this.getType(positions);
-        for (int i = 0; i < positions.size(); i ++) {
+        for (int i = 0; i < positions.size(); i++) {
             IdMapping.put(positions.get(i).getPrefix(), selectMetaDataIDs.get(i));
         }
     }
@@ -138,14 +132,14 @@ public class ViewModel extends BaseManager {
     }
 
     public void updateDetails(List<ArgumentTokenizer.PrefixPosition> positions,
-                             List<ID> selectMetaDataIDs) throws CommandException {
+                              List<ID> selectMetaDataIDs) throws CommandException {
         updateType(positions, selectMetaDataIDs);
         if (type.equals(TYPE.STUDENT_DETAILS)) {
             studentDetailsMap.put("select_ids", new ArrayList<ID>(Arrays.asList(IdMapping.get(PREFIX_STUDENTID))));
             updateStudentDetailsMap(IdMapping.get(PREFIX_STUDENTID));
         } else if (type.equals(TYPE.STUDENT_COURSE_DETAILS)) {
             studentDetailsMap.put("select_ids", new ArrayList<ID>(Arrays.asList(IdMapping.get(PREFIX_STUDENTID),
-                                                                                IdMapping.get(PREFIX_COURSEID))));
+                    IdMapping.get(PREFIX_COURSEID))));
             updateStudentDetailsMap(IdMapping.get(PREFIX_STUDENTID));
             updateProgressStudentCourse(IdMapping.get(PREFIX_STUDENTID), IdMapping.get(PREFIX_COURSEID));
         } else if (type.equals(TYPE.COURSE_DETAILS)) {
@@ -153,7 +147,7 @@ public class ViewModel extends BaseManager {
             updateCourseDetailsMap(IdMapping.get(PREFIX_COURSEID));
         } else if (type.equals(TYPE.COURSE_STUDENT_DETAILS)) {
             courseDetailsMap.put("select_ids", new ArrayList<ID>(Arrays.asList(IdMapping.get(PREFIX_COURSEID),
-                                                                                IdMapping.get(PREFIX_STUDENTID))));
+                    IdMapping.get(PREFIX_STUDENTID))));
             updateCourseDetailsMap(IdMapping.get(PREFIX_COURSEID));
             updateProgressCourseStudent(IdMapping.get(PREFIX_COURSEID), IdMapping.get(PREFIX_STUDENTID));
         } else if (type.equals(TYPE.STAFF_DETAILS)) {
@@ -180,12 +174,12 @@ public class ViewModel extends BaseManager {
             forcePutNotify(studentDetailsMap, "courses", null);
             return;
         }
-        Student student = (Student)model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
+        Student student = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
         forcePutNotify(studentDetailsMap, "details", student);
 
         ObservableList<HashMap> courses = FXCollections.observableArrayList();
         Set<ID> courseIDs = student.getAssignedCoursesID();
-        for (ID courseID: courseIDs) {
+        for (ID courseID : courseIDs) {
             if (model.has(courseID, Constants.ENTITY_TYPE.COURSE)) {
                 HashMap<String, Object> courseDetail = new HashMap<String, Object>();
                 courseDetail.put("selected_studentID", studentID);
@@ -200,8 +194,8 @@ public class ViewModel extends BaseManager {
     }
 
     public void updateProgressStudentCourse(ID studentID, ID courseID) throws CommandException {
-        for (HashMap<String, Object> courseDetail: (ObservableList<HashMap>)studentDetailsMap.get("courses")) {
-            Course course = (Course)courseDetail.get("info");
+        for (HashMap<String, Object> courseDetail : (ObservableList<HashMap>) studentDetailsMap.get("courses")) {
+            Course course = (Course) courseDetail.get("info");
             if (course.getId().equals(courseID)) {
                 courseDetail.put("progress_list",
                         FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getAllProgressesForOneStudent(courseID, studentID))));
@@ -215,7 +209,6 @@ public class ViewModel extends BaseManager {
     // #######################################################################################################
 
 
-
     // ###############  Update course details map ###########################################################
     public void updateCourseDetailsMap(ID courseID) throws CommandException {
         if (model.has(courseID, Constants.ENTITY_TYPE.COURSE) == false) {
@@ -223,12 +216,12 @@ public class ViewModel extends BaseManager {
             forcePutNotify(courseDetailsMap, "students", null);
             return;
         }
-        Course course = (Course)model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Course course = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
         forcePutNotify(courseDetailsMap, "details", course);
 
         ObservableList<HashMap> students = FXCollections.observableArrayList();
         Set<ID> studentIDs = course.getAssignedStudentsID();
-        for (ID studentID: studentIDs) {
+        for (ID studentID : studentIDs) {
             if (model.has(studentID, Constants.ENTITY_TYPE.STUDENT)) {
                 HashMap<String, Object> studentDetail = new HashMap<String, Object>();
                 studentDetail.put("selected_courseID", courseID);
@@ -243,8 +236,8 @@ public class ViewModel extends BaseManager {
     }
 
     public void updateProgressCourseStudent(ID courseID, ID studentID) throws CommandException {
-        for (HashMap<String, Object> studentDetail: (ObservableList<HashMap>)courseDetailsMap.get("students")) {
-            Student student = (Student)studentDetail.get("info");
+        for (HashMap<String, Object> studentDetail : (ObservableList<HashMap>) courseDetailsMap.get("students")) {
+            Student student = (Student) studentDetail.get("info");
             if (student.getId().equals(studentID)) {
                 studentDetail.put("progress_list",
                         FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getAllProgressesForOneStudent(courseID, studentID))));
@@ -280,7 +273,6 @@ public class ViewModel extends BaseManager {
     // ####################################################################################################
 
 
-
     // ################### Update Finance Details Map #####################################################
     public void updateFinanceDetailsMap(ID financeID) throws CommandException {
         if (model.has(financeID, Constants.ENTITY_TYPE.FINANCE) == false) {
@@ -307,7 +299,7 @@ public class ViewModel extends BaseManager {
     // #################### Handle sub-view map data update on model data update ##########################
     private void resetStudentDetailsMap() throws CommandException {
         if (studentDetailsMap.containsKey("select_ids")) {
-            ArrayList<ID> idsList = (ArrayList<ID>)studentDetailsMap.get("select_ids");
+            ArrayList<ID> idsList = (ArrayList<ID>) studentDetailsMap.get("select_ids");
             updateStudentDetailsMap(idsList.get(0));
             if (idsList.size() == 2) {
                 updateProgressStudentCourse(idsList.get(0), idsList.get(1));
@@ -317,7 +309,7 @@ public class ViewModel extends BaseManager {
 
     private void resetCourseDetailsMap() throws CommandException {
         if (courseDetailsMap.containsKey("select_ids")) {
-            ArrayList<ID> idsList = (ArrayList<ID>)courseDetailsMap.get("select_ids");
+            ArrayList<ID> idsList = (ArrayList<ID>) courseDetailsMap.get("select_ids");
             updateCourseDetailsMap(idsList.get(0));
             if (idsList.size() == 2) {
                 updateProgressCourseStudent(idsList.get(0), idsList.get(1));
@@ -327,21 +319,21 @@ public class ViewModel extends BaseManager {
 
     private void resetStaffDetailsMap() throws CommandException {
         if (staffDetailsMap.containsKey("select_ids")) {
-            ArrayList<ID> idsList = (ArrayList<ID>)staffDetailsMap.get("select_ids");
+            ArrayList<ID> idsList = (ArrayList<ID>) staffDetailsMap.get("select_ids");
             updateStaffDetailsMap(idsList.get(0));
         }
     }
 
     private void resetFinanceDetailsMap() throws CommandException {
         if (financeDetailsMap.containsKey("select_ids")) {
-            ArrayList<ID> idsList = (ArrayList<ID>)financeDetailsMap.get("select_ids");
+            ArrayList<ID> idsList = (ArrayList<ID>) financeDetailsMap.get("select_ids");
             updateFinanceDetailsMap(idsList.get(0));
         }
     }
 
     private void resetAssignmentDetailsMap() throws CommandException {
         if (assignmentDetailsMap.containsKey("select_ids")) {
-            ArrayList<ID> idsList = (ArrayList<ID>)assignmentDetailsMap.get("select_ids");
+            ArrayList<ID> idsList = (ArrayList<ID>) assignmentDetailsMap.get("select_ids");
             updateAssignmentDetailsMap(idsList.get(0));
         }
     }

@@ -9,15 +9,17 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.person.ID;
 
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 
-/** This class will be in charge of assigning stuff (e.g Assignments, Teacher, etc) to a course. */
+/**
+ * This class will be in charge of assigning stuff (e.g Assignments, Teacher, etc) to a course.
+ */
 public class UnassignTeacherFromCourseCommand extends UnassignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";

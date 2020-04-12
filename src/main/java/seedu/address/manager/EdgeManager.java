@@ -1,7 +1,5 @@
 package seedu.address.manager;
 
-import java.util.Set;
-import java.util.logging.Logger;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.DeleteEntityEvent;
@@ -12,9 +10,12 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
+
+import java.util.Set;
+import java.util.logging.Logger;
 
 public class EdgeManager extends BaseManager {
     private static Model model = ModelManager.getInstance();
@@ -125,13 +126,13 @@ public class EdgeManager extends BaseManager {
         try {
             Constants.ENTITY_TYPE entityType = model.modelObjectToEntityType(deletedObject);
             if (entityType == Constants.ENTITY_TYPE.COURSE) {
-                processEdgeFromCourse((Course)deletedObject, false);
+                processEdgeFromCourse((Course) deletedObject, false);
             } else if (entityType == Constants.ENTITY_TYPE.ASSIGNMENT) {
-                processEdgeFromAssignment((Assignment)deletedObject, false);
+                processEdgeFromAssignment((Assignment) deletedObject, false);
             } else if (entityType == Constants.ENTITY_TYPE.STUDENT) {
-                processEdgeFromStudent((Student)deletedObject, false);
+                processEdgeFromStudent((Student) deletedObject, false);
             } else if (entityType == Constants.ENTITY_TYPE.STAFF) {
-                processEdgeFromStaff((Staff)deletedObject, false);
+                processEdgeFromStaff((Staff) deletedObject, false);
             }
         } catch (CommandException e) {
             System.out.println("Revoke edges of not valid object");
@@ -211,7 +212,7 @@ public class EdgeManager extends BaseManager {
         try {
             // Delete edges to assignments
             Set<ID> courseIDs = staff.getAssignedCoursesID();
-            for (ID courseID: courseIDs) {
+            for (ID courseID : courseIDs) {
                 try {
                     if (isDelete) {
                         unassignTeacherFromCourse(staff.getId(), courseID);

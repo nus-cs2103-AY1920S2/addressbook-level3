@@ -9,9 +9,9 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
 
 import java.util.Set;
 
@@ -91,7 +91,7 @@ public class UndoneOneAssignmentOneStudent extends UndoneCommandBase {
         } else {
             Progress progress = model.getProgress(assignmentID, studentID);
 
-            if(!progress.getIsDone()) {
+            if (!progress.getIsDone()) {
                 throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_UNDONE);
             }
         }

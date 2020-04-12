@@ -1,10 +1,5 @@
 package seedu.address.logic.commands.commandUnassign;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
-
-import java.util.Set;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignAssignmentToCourseCommand;
@@ -16,10 +11,18 @@ import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelProgress.Progress;
-import seedu.address.model.person.ID;
 
-/** This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course. */
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+
+/**
+ * This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course.
+ */
 public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such Course that with ID";
@@ -53,8 +56,8 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
         ProgressManager.removeOneProgressFromAllStudents(courseID, assignmentID);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                    assigningAssignment.getName(), assignmentID.value,
-                    assignedCourse.getName(), courseID.value));
+                assigningAssignment.getName(), assignmentID.value,
+                assignedCourse.getName(), courseID.value));
     }
 
     /**
@@ -85,9 +88,9 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
             boolean assignedCourseContainsAssignment = assignedCourse.containsAssignment(assignmentID);
             boolean assigningAssignmentContainsCourse = assigningAssignment.isAssignedToCourse();
 
-            if(!assignedCourseContainsAssignment) {
+            if (!assignedCourseContainsAssignment) {
                 throw new CommandException(MESSAGE_INVALID_COURSE_NO_SUCH_ASSIGNMENT);
-            } else if(!assigningAssignmentContainsCourse) {
+            } else if (!assigningAssignmentContainsCourse) {
                 throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_TO_COURSE);
             } else {
                 Set<Progress> undoProgress = ProgressManager.getOneProgressFromAllStudents(courseID, assignmentID);

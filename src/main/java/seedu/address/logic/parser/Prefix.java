@@ -6,35 +6,35 @@ package seedu.address.logic.parser;
  */
 public class Prefix {
 
-  private final String prefix;
+    private final String prefix;
 
-  public Prefix(String prefix) {
-    this.prefix = prefix;
-  }
-
-  public String getPrefix() {
-    return prefix;
-  }
-
-  public String toString() {
-    return getPrefix();
-  }
-
-  @Override
-  public int hashCode() {
-    return prefix == null ? 0 : prefix.hashCode();
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (!(obj instanceof Prefix)) {
-      return false;
-    }
-    if (obj == this) {
-      return true;
+    public Prefix(String prefix) {
+        this.prefix = prefix;
     }
 
-    Prefix otherPrefix = (Prefix) obj;
-    return otherPrefix.getPrefix().equals(getPrefix());
-  }
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String toString() {
+        return getPrefix();
+    }
+
+    @Override
+    public int hashCode() {
+        return prefix == null ? 0 : prefix.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Prefix)) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+
+        Prefix otherPrefix = (Prefix) obj;
+        return otherPrefix.getPrefix().equals(getPrefix());
+    }
 }

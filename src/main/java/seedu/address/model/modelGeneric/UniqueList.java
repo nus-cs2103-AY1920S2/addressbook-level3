@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.NotFoundException;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +21,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  * exactly the same fields will be removed.
  * <p>
  * Supports a minimal set of list operations.
- *
  */
 public class UniqueList<K extends ModelObject> implements Iterable<K> {
 
@@ -123,6 +122,7 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     }
 
     // Operations by ID
+
     /**
      * Returns true if the list contains an equivalent item as the given argument.
      */

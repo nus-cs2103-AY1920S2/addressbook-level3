@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static seedu.address.logic.commands.CommandTestUtil.*;
-
 /**
  * A utility class containing a list of {@code Assignment} objects to be used in tests.
  */
@@ -36,7 +34,8 @@ public class TypicalAssignment {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalAssignment() {} // prevents instantiation
+    private TypicalAssignment() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical Assignments.

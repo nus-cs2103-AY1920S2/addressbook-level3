@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class AddressBookGeneric
+Class Assignment
+
+Package Assignment {
+Abstract Class ModelObject <<Abstract>>
+Interface Cloneable <<Interface>>
+Class UniqueList
+Class Assignment
+Class ID
+Class Name
+Class Deadline
+}
+
+Package Tag {
+Class Tag
+}
+
+AddressBookGeneric *--> "1" UniqueList
+UniqueList *--> "*" ModelObject
+ModelObject .up.|> Cloneable
+Assignment -up-|> ModelObject
+Assignment *--> "1...2" ID
+Assignment *--> "1" Name
+Assignment *--> "1" Deadline
+Assignment *--> "*" Tag
+
+
+@enduml

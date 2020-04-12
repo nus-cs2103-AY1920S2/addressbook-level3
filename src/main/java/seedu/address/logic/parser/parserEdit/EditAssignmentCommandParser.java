@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.parserEdit;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.commandEdit.EditAssignmentCommand;
 import seedu.address.logic.commands.commandEdit.EditAssignmentCommand.EditAssignmentDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -8,7 +7,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.tag.Tag;
 
 import java.util.Collection;
@@ -25,58 +24,58 @@ import static seedu.address.logic.parser.CliSyntax.*;
  */
 public class EditAssignmentCommandParser implements Parser<EditAssignmentCommand> {
 
-  /**
-   * Parses the given {@code String} of arguments in the context of the EditCommand and returns an
-   * EditCommand object for execution.
-   *
-   * @throws ParseException if the user input does not conform the expected format
-   */
-  public EditAssignmentCommand parse(String args) throws ParseException {
-    requireNonNull(args);
-    ArgumentMultimap argMultimap =
-        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DEADLINE, PREFIX_TAG);
+    /**
+     * Parses the given {@code String} of arguments in the context of the EditCommand and returns an
+     * EditCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public EditAssignmentCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DEADLINE, PREFIX_TAG);
 
-    ID id;
+        ID id;
 
-    try {
-      id = ParserUtil.parseID(argMultimap.getPreamble());
-    } catch (ParseException pe) {
-      throw new ParseException(
-          String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAssignmentCommand.MESSAGE_USAGE), pe);
+        try {
+            id = ParserUtil.parseID(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAssignmentCommand.MESSAGE_USAGE), pe);
+        }
+
+        EditAssignmentDescriptor editAssignmentDescriptor = new EditAssignmentDescriptor();
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editAssignmentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DEADLINE).isPresent()) {
+            editAssignmentDescriptor.setDeadline(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DEADLINE).get()));
+        }
+
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
+                .ifPresent(editAssignmentDescriptor::setTags);
+
+        if (!editAssignmentDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditAssignmentCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditAssignmentCommand(id, editAssignmentDescriptor);
     }
 
-    EditAssignmentDescriptor editAssignmentDescriptor = new EditAssignmentDescriptor();
-    if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-      editAssignmentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty. If
+     * {@code tags} contain only one element which is an empty string, it will be parsed into a {@code
+     * Set<Tag>} containing zero tags.
+     */
+    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> tagSet =
+                tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        return Optional.of(ParserUtil.parseTags(tagSet));
     }
-    if (argMultimap.getValue(PREFIX_DEADLINE).isPresent()) {
-      editAssignmentDescriptor.setDeadline(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DEADLINE).get()));
-    }
-
-    parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
-        .ifPresent(editAssignmentDescriptor::setTags);
-
-    if (!editAssignmentDescriptor.isAnyFieldEdited()) {
-      throw new ParseException(EditAssignmentCommand.MESSAGE_NOT_EDITED);
-    }
-
-    return new EditAssignmentCommand(id, editAssignmentDescriptor);
-  }
-
-  /**
-   * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty. If
-   * {@code tags} contain only one element which is an empty string, it will be parsed into a {@code
-   * Set<Tag>} containing zero tags.
-   */
-  private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-    assert tags != null;
-
-    if (tags.isEmpty()) {
-      return Optional.empty();
-    }
-    Collection<String> tagSet =
-        tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-    return Optional.of(ParserUtil.parseTags(tagSet));
-  }
 
 }

@@ -1,31 +1,27 @@
 package seedu.address.logic.commands.commandAssign;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
-
-import java.util.HashMap;
-import java.util.Set;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandUnassign.UnassignStudentFromCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.manager.ProgressManager;
 import seedu.address.manager.EdgeManager;
+import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
-import seedu.address.model.tag.Tag;
 
-/** This class will be in charge of assigning stuff (e.g students, teacher, etc) to a course. */
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+
+/**
+ * This class will be in charge of assigning Student to a Course.
+ */
 public class AssignStudentToCourseCommand extends AssignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID!";
@@ -55,6 +51,13 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         return allAssignEntities.contains(PREFIX_COURSEID) && allAssignEntities.contains(PREFIX_STUDENTID);
     }
 
+    /**
+     * Executes the AssignStudentToCourse command by calling EdgeManager and Progress Manager
+     *
+     * @param model
+     * @return A successful commandResult
+     * @throws CommandException
+     */
     @Override
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
         // Check whether both IDs even exists
@@ -64,7 +67,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
         Student assigningStudent = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
 
-        if(this.undoProgresses != null) {
+        if (this.undoProgresses != null) {
             ProgressManager.addUndoProgress(this.undoProgresses);
         } else {
             ProgressManager.addAllProgressesToOneStudent(courseID, studentID);

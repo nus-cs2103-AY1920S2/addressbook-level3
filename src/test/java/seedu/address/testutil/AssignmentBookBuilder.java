@@ -6,7 +6,7 @@ import seedu.address.model.modelAssignment.AssignmentAddressBook;
 /**
  * A utility class to help with building AssignmentAddressBook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AssignmentBookBuilder().withPerson("John", "Doe").build();}
+ * {@code AddressBook ab = new AssignmentBookBuilder().withPerson("John", "Doe").build();}
  */
 
 public class AssignmentBookBuilder {

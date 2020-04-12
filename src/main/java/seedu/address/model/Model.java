@@ -11,11 +11,11 @@ import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Person;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Person;
 import seedu.address.ui.MainWindow;
 
 import java.nio.file.Path;
@@ -26,19 +26,19 @@ import java.util.function.Predicate;
  */
 public interface Model {
 
-  /**
-   * {@code Predicate} that always evaluate to true
-   */
-  Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-  Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
-  Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
-  Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
-  Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
-  Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
-  Predicate<Progress> PREDICATE_SHOW_ALL_PROGRESSES = unused -> true;
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
+    Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
+    Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
+    Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
+    Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+    Predicate<Progress> PREDICATE_SHOW_ALL_PROGRESSES = unused -> true;
 
 
-  Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
+    Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
     Predicate<Staff> PREDICATE_HIDE_ALL_STAFFS = unused -> false;
     Predicate<Student> PREDICATE_HIDE_ALL_STUDENTS = unused -> false;
     Predicate<Finance> PREDICATE_HIDE_ALL_FINANCES = unused -> false;
@@ -103,16 +103,16 @@ public interface Model {
 
     void removeProgress(ID assignmentID, ID studentID) throws CommandException;
 
-  /**
+    /**
      * Returns the AddressBook
      */
     ReadOnlyAddressBook getAddressBook();
 
     AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
 
-    Constants.ENTITY_TYPE modelObjectToEntityType(ModelObject obj) throws CommandException;
-
     AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException;
+
+    Constants.ENTITY_TYPE modelObjectToEntityType(ModelObject obj) throws CommandException;
 
     ReadOnlyAddressBookGeneric getReadOnlyAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
 
@@ -287,12 +287,12 @@ public interface Model {
      */
     void updateExtraFilteredStudentCourseList(Predicate<Course> predicate);
 
-  /**
-   * Updates the filter of the filtered course list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateExtraFilteredStaffCourseList(Predicate<Course> predicate);
+    /**
+     * Updates the filter of the filtered course list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateExtraFilteredStaffCourseList(Predicate<Course> predicate);
 
     /**
      * Updates the filter of the filtered course list to filter by the given {@code predicate}.
@@ -413,6 +413,7 @@ public interface Model {
 
     // ====================================================================== //
     // There is no CRUD operations for Progress objects for now
+
     /**
      * Returns the user prefs' assignment address book file path.
      */

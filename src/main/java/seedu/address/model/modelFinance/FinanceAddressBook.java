@@ -9,22 +9,22 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
  */
 public class FinanceAddressBook extends AddressBookGeneric<Finance> {
 
-  /**
-   * Creates a Finance AddressBook.
-   */
-  public FinanceAddressBook() {
-    super();
-  }
+    /**
+     * Creates a Finance AddressBook.
+     */
+    public FinanceAddressBook() {
+        super();
+    }
 
-  /**
-   * Creates an Finance AddressBook using the objects in the {@code toBeCopied}
-   */
-  public FinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> toBeCopied) {
-    super(toBeCopied);
-  }
+    /**
+     * Creates an Finance AddressBook using the objects in the {@code toBeCopied}
+     */
+    public FinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> toBeCopied) {
+        super(toBeCopied);
+    }
 
-  @Override
-  public String toString() {
-    return objects.asUnmodifiableObservableList().size() + " finance";
-  }
+    @Override
+    public String toString() {
+        return objects.asUnmodifiableObservableList().size() + " finance";
+    }
 }

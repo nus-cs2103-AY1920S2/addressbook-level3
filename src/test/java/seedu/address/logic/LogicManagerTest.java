@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.io.TempDir;
 import seedu.address.model.Model;
@@ -15,6 +13,9 @@ import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
 import seedu.address.storage.storageProgress.JsonProgressAddressBookStorage;
 import seedu.address.storage.storageStaff.JsonStaffAddressBookStorage;
 import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
+
+import java.io.IOException;
+import java.nio.file.Path;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -30,21 +31,21 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonStaffAddressBookStorage teacherAddressBookStorage =
-            new JsonStaffAddressBookStorage(temporaryFolder.resolve("teacherAddressBook.json"));
+                new JsonStaffAddressBookStorage(temporaryFolder.resolve("teacherAddressBook.json"));
         JsonStudentAddressBookStorage studentAddressBookStorage =
-            new JsonStudentAddressBookStorage(temporaryFolder.resolve("studentAddressBook.json"));
+                new JsonStudentAddressBookStorage(temporaryFolder.resolve("studentAddressBook.json"));
         JsonFinanceAddressBookStorage financeAddressBookStorage =
-            new JsonFinanceAddressBookStorage(temporaryFolder.resolve("FinanceAddressBook.json"));
+                new JsonFinanceAddressBookStorage(temporaryFolder.resolve("FinanceAddressBook.json"));
         JsonCourseAddressBookStorage courseAddressBookStorage =
-            new JsonCourseAddressBookStorage(temporaryFolder.resolve("courseAddressBook.json"));
+                new JsonCourseAddressBookStorage(temporaryFolder.resolve("courseAddressBook.json"));
         JsonAssignmentAddressBookStorage assignmentAddressBookStorage =
                 new JsonAssignmentAddressBookStorage(temporaryFolder.resolve("assignmentAddressBook.json"));
         JsonProgressAddressBookStorage progressAddressBookStorage =
-            new JsonProgressAddressBookStorage(temporaryFolder.resolve("progressAddressBook.json"));
+                new JsonProgressAddressBookStorage(temporaryFolder.resolve("progressAddressBook.json"));
 
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
-            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage,
+                studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage,
                 progressAddressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }

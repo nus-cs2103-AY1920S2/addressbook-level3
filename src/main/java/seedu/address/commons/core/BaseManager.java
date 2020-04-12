@@ -5,7 +5,7 @@ import seedu.address.commons.events.DataStorageChangeEvent;
 import seedu.address.commons.events.DeleteEntityEvent;
 import seedu.address.commons.util.Constants;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 public class BaseManager {
     protected static EventsCenterSingleton eventsCenterSingleton;
@@ -25,7 +25,7 @@ public class BaseManager {
     }
 
     public static void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook,
-                                            Constants.ENTITY_TYPE entityType) {
+                                                  Constants.ENTITY_TYPE entityType) {
         raiseEvent(new DataStorageChangeEvent(addressBook, entityType));
     }
 
