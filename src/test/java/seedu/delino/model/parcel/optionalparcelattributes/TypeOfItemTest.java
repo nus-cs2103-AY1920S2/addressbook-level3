@@ -1,12 +1,10 @@
-package seedu.delino.model.parcel.itemtype;
+package seedu.delino.model.parcel.optionalparcelattributes;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.delino.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.delino.model.parcel.optionalparcelattributes.TypeOfItem;
 
 public class TypeOfItemTest {
     @Test
