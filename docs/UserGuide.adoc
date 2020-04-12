@@ -27,7 +27,12 @@ ExpenseLA is for money-conscious NUS students who wish to track their spending, 
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[[width="790"]]
+image::Ui.png[width="790"]
++
+.  The UI has 5 different components: Command Input box, Command Result box, Monthly Data panel
+Filter panel and Transaction List panel(Chart Analytics Panel)
++
+image::UI_annotated.png[width="790"]
 +
 .  Filters are only to filter transaction list, MonthlyData is data for the current month and not the month
 shown in the filter
@@ -90,7 +95,10 @@ Examples:
 
 === Reset total balance `resetbalance`
 
-Reset Balance value to the total from the amount of all transactions in stored in the application so far
+Reset Balance value to the total from the amount of all transactions in stored in the application so far.
+This command is used in case user messes up with json file or there is an unhandled bug in the app that
+causes difference in the value of total balance and the net balance of all the transactions added together.
+This command will rectify that issue.
 
 
 === Key in transaction : `add`
