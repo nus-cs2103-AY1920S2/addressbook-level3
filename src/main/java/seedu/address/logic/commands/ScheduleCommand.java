@@ -49,10 +49,10 @@ public class ScheduleCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         ObservableList<Assignment> assignmentList = model.getAssignmentList();
-        ArrayList<String> recordOfUnscheduledAssignments = new ArrayList<>();
+        ArrayList<String> recordOfUnscheduledHours = new ArrayList<>();
 
         model.createSchedule(numDays);
-        ArrayList<Day> allocationResult = generateSchedule(numDays, assignmentList, recordOfUnscheduledAssignments);
+        ArrayList<Day> allocationResult = generateSchedule(numDays, assignmentList, recordOfUnscheduledHours);
 
         for (int i = 0; i < numDays; i++) {
             model.setDay(i, allocationResult.get(i));
@@ -60,8 +60,8 @@ public class ScheduleCommand extends Command {
 
         String successMessage = MESSAGE_SUCCESS;
 
-        for (int i = 0; i < recordOfUnscheduledAssignments.size(); i++) {
-            successMessage = successMessage + "\n" + (i + 1) + ". " + recordOfUnscheduledAssignments.get(i);
+        for (int i = 0; i < recordOfUnscheduledHours.size(); i++) {
+            successMessage = successMessage + "\n" + (i + 1) + ". " + recordOfUnscheduledHours.get(i);
         }
 
         logger.info("Scheduling was done successfully.");
@@ -78,7 +78,7 @@ public class ScheduleCommand extends Command {
      * Aim is to have the workload as evenly spread out across days (from current date to deadline) as possible.
      */
     public ArrayList<Day> generateSchedule(int numDays, ObservableList<Assignment> assignmentList,
-                                           ArrayList<String> recordOfUnscheduledAssignments) {
+                                           ArrayList<String> recordOfUnscheduledHours) {
 
         // Keeps track of the total number of hours allocated to each day for all assignments (Calculation purposes)
         ArrayList<BigDecimal> distributedHoursAllAssignments = new ArrayList<>();
@@ -113,7 +113,7 @@ public class ScheduleCommand extends Command {
                     totalHoursToBeAllocated, deadline, currDateTime, noOfDaysBetween);
 
                 recordResultsForAssignment(allocationResult, newSchedule, distributedHoursResult,
-                    recordOfUnscheduledAssignments, numDays, noOfDaysBetween, assignmentTitle, totalHoursToBeAllocated);
+                    recordOfUnscheduledHours, numDays, noOfDaysBetween, assignmentTitle, totalHoursToBeAllocated);
             }
         }
 
@@ -133,7 +133,7 @@ public class ScheduleCommand extends Command {
      */
     private void recordResultsForAssignment(ArrayList<BigDecimal> allocationResult, ArrayList<Day> newSchedule,
                                             ArrayList<BigDecimal> distributedHoursResult,
-                                            ArrayList<String> recordOfUnscheduledAssignments, int numDays,
+                                            ArrayList<String> recordOfUnscheduledHours, int numDays,
                                             int noOfDaysBetween, String assignmentTitle,
                                             BigDecimal totalHoursToBeAllocated) {
 
@@ -164,7 +164,7 @@ public class ScheduleCommand extends Command {
             BigDecimal unassignedHours = totalHoursToBeAllocated.subtract(actualTotalHoursAllocated);
             float unassignedHoursFloat =
                 (float) (Math.round(unassignedHours.floatValue() * 2) / 2.0);
-            recordOfUnscheduledAssignments.add(assignmentTitle + " (" + unassignedHoursFloat + " hours)");
+            recordOfUnscheduledHours.add(assignmentTitle + " (" + unassignedHoursFloat + " hours)");
         }
     }
 
@@ -262,7 +262,8 @@ public class ScheduleCommand extends Command {
             result = BigDecimal.ONE;
 
             while (currMinAndSecondMin[1].compareTo(new BigDecimal(Float.toString(Float.MAX_VALUE))) != 0
-                && result.compareTo(BigDecimal.ZERO) > 0) {
+                && result.compareTo(BigDecimal.ZERO) > 0 && totalHoursToBeAllocated
+                .compareTo(new BigDecimal(Float.toString((float) 0.01))) > 0) {
 
                 int daysWithMinHours = getMinDays(distributedHoursAllAssignments, noOfDaysBetween,
                     currMinAndSecondMin[0]);
