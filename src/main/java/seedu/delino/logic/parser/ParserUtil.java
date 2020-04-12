@@ -185,6 +185,7 @@ public class ParserUtil {
             throw new ParseException(errorMessage);
         }
     }
+    //@@author Amoscheong97
     /**
      * Parses a {@code String tid} into a {@code TransactionId}.
      * Leading and trailing whitespaces will be trimmed.
@@ -199,7 +200,7 @@ public class ParserUtil {
         }
         return new TransactionId(trimmedTid);
     }
-
+    //@@author
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
@@ -259,7 +260,7 @@ public class ParserUtil {
         }
         return new Address(trimmedAddress);
     }
-
+    //@@author Exeexe93
     /**
      * Parses a {@code String timeStamp} into an {@code TimeStamp}.
      * Leading and trailing whitespaces will be trimmed.
@@ -282,7 +283,7 @@ public class ParserUtil {
 
         return new TimeStamp(trimmedTimeStamp, REQUIRE_CHECK_IF_TIMESTAMP_BEFORE_NOW);
     }
-
+    //@@author JeremyLoh
     /**
      * Parses a {@code String address} into an {@code Warehouse}.
      * Leading and trailing whitespace will be removed.
@@ -297,7 +298,7 @@ public class ParserUtil {
         }
         return new Warehouse(trimmedAddress);
     }
-
+    //@@author Amoscheong97
     /**
      * Parses a {@code String cod} into a {@code CashOnDelivery}.
      * Leading and trailing whitespaces will be trimmed.
@@ -312,7 +313,7 @@ public class ParserUtil {
         }
         return new CashOnDelivery(trimmedCash);
     }
-
+    //@@author Exeexe93
     /**
      * Parses a {@code String comment} into a {@code Comment}.
      * Leading and trailing whitespaces will be trimmed.
@@ -329,7 +330,7 @@ public class ParserUtil {
         }
         return new Comment(trimmedComment);
     }
-
+    //@@author Amoscheong97
     /**
      * Parses a {@code String itemType} into a {@code TypeOfItem}
      * Leading and trailing whitespaces will be trimmed.
