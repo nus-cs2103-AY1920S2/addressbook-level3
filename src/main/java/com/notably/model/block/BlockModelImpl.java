@@ -95,6 +95,11 @@ public class BlockModelImpl implements BlockModel {
             return false;
         }
 
+        // Handle deletion of root
+        if (matchPathList.size() == 0) {
+            return false;
+        }
+
         for (int index = 0; index < matchPathList.size(); index++) {
             if (!Objects.equals(currentOpenPathList.get(index), matchPathList.get(index))) {
                 match = false;
