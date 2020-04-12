@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images/userguide-screenshots
+:imagesDir: images/user-guide
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
