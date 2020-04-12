@@ -25,8 +25,9 @@ InventoryManager is for those who *prefer to use a desktop app for managing thei
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `inventorymanager.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your InventoryManager.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI should appear in a few seconds. For Mac OS users, permission may need to be granted to the file before usage.
 +
+.GUI of Inventory Manager
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -34,7 +35,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list-s`* : lists all suppliers
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 gp/apple 4.50` : adds a supplier named `John Doe` selling apples at 4.50 each to the InventoryManager.
+* **`add`**`n/John Doe c/98765432 e/johnd@example.com a/John street, block 123, #01-01 gp/apple 4.50` : adds a supplier named `John Doe` selling apples at 4.50 each to the InventoryManager.
 * **`delete-s 3`** : deletes the 3rd supplier shown in the current list
 * *`exit`* : exits the app
 
@@ -49,26 +50,34 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [gp/GOOD PRICE]` can be used as `n/John Doe gp/apple 4.50` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[gp/GOOD PRICE]...` can be used as `{nbsp}` (i.e. 0 times), `gp/apple 4.50`, `gp/orange 2.00 gp/pear 5.00` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME c/CONTACT_NUMBER`, `c/CONTACT_NUMBER n/NAME` is also acceptable.
+* For parameters where only one value is expected, only the last specified value will be taken e.g. `c/12345 c/54321` will use only `c/54321`.
 * All dates follow the format `yyyy-MM-dd`
 ====
 
 === Viewing help : `help`
+To view the command usage or the command format of this application.
 
 Format: `help`
+
+An url link will be shown that linked to this page.
+
+.Demo for `help` command
+image::UG/help.png[width="790"]
+
 
 === Adding a supplier: `add`
 
 Adds a supplier to the inventory manager +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...`
+Format: `add n/NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...`
 
 [TIP]
 A supplier can have any number of good-price pairs (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 gp/drugs 500`
+* `add n/John Doe c/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe e/betsycrowe@example.com a/Newgate Prison c/1234567 gp/drugs 500`
 
 === Listing all suppliers : `list-s`
 
@@ -78,7 +87,7 @@ Format: `list-s`
 === Editing a supplier : `edit-s`
 
 Edits an existing supplier in the inventory manager. +
-Format: `edit-s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...`
+Format: `edit-s INDEX [n/NAME] [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...`
 
 ****
 * Edits the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index *must be a positive integer* 1, 2, 3, ...
@@ -92,8 +101,8 @@ You can add any number of good-price pairs to the existing suppliers at one time
 
 Examples:
 
-* `edit-s 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st supplier to be `91234567` and `johndoe@example.com` respectively.
+* `edit-s 1 c/91234567 e/johndoe@example.com` +
+Edits the contact number and email address of the 1st supplier to be `91234567` and `johndoe@example.com` respectively.
 * `edit-s 2 gp/apple 5 gp/banana 10` +
 The existing second supplier only has apple priced at 1 dollar. Hence, this command will edit the price of apple to 5 dollar and add the good price pair of banana into the supplier's good list.
 
@@ -146,6 +155,7 @@ Deletes the good price pair of good 'banana' in the good list of the first suppl
 Clears all supplier entries from the address book. +
 Format: `clear-s`
 
+//tag::buycommand[]
 === Buying goods from supplier: `buy`
 
 Buys a batch of goods from a supplier in the contact list who stocks that product. The inventory manager cannot buy products in the following cases:
@@ -153,25 +163,21 @@ Buys a batch of goods from a supplier in the contact list who stocks that produc
 . The supplier has not been entered in the supplier list
 . The supplier has not been registered to the good, as indicated by the "offers" section of each supplier
 
-Format: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY`
+Format: `buy SUPPLIER_DISPLAY_INDEX g/GOOD_NAME q/QUANTITY`
 
 Example:
 
-* `buy n/Cold Storage g/Apple q/4` +
-Buys 4 apples from Supplier named Cold Storage.
+* `buy 1 g/Apple q/4` +
+Buys 4 apples from supplier at displayed index 1 in the supplier list.
 
 [TIP]
 If the good does not exist in the inventory, a new entry for that good will be created.
 
 [CAUTION]
-Name of supplier and good name is case sensitive.
-
-[CAUTION]
 The maximum quantity of any good in the inventory is 999,999. Users are not allowed to buy quantities of goods that would cause that limit to be exceeded.
+//end::buycommand[]
 
-[NOTE]
-As of v1.3, the buy command does not yet interact with the transaction history.
-
+//tag::sellcommand[]
 === Selling goods: `sell`
 
 Sells a particular goods from the inventory.
@@ -181,12 +187,12 @@ The inventory manager cannot sell products in the following cases:
 . The good being sold does not exist in the inventory
 . The quantity being sold is larger than the amount existing in the inventory
 
-Format: `sell g/GOOD_NAME q/QUANTITY p/PRICE`
+Format: `sell GOOD_DISPLAYED_INDEX q/QUANTITY p/PRICE`
 
 Example:
 
-* `sell g/Apple q/4 p/3.5` +
-Sells 4 apples at $3.50 each.
+* `sell 1 q/4 p/3.5` +
+Sells 4 units of good at displayed index 1 in the inventory at $3.50 each.
 
 [TIP]
 The selling price can be specified to the nearest cent, or 2 decimal places maximum.
@@ -194,13 +200,9 @@ The selling price can be specified to the nearest cent, or 2 decimal places maxi
 [TIP]
 When the quantity in inventory reaches 0, the name of the good is not deleted for future reference or restocking.
 This entry can be deleted using the `delete-g` command.
+//end::sellcommand[]
 
-[CAUTION]
-Name of supplier and good name is case sensitive.
-
-[NOTE]
-As of v1.3, the sell command does not yet interact with the transaction history.
-The selling price will be used to perform profit calculations in v1.4.
+//tag::deletegood[]
 
 === Delete good entry in inventory: `delete-g`
 Deletes an entry for a good in the inventory.
@@ -210,11 +212,13 @@ All of the good's quantity will be removed in the process.
 Format: `delete-g INDEX`
 
 Example:
+
 * `delete-g 3`
 The good entry at displayed index 3 will be removed, provided there is an entry at index 3.
+//end::deletegood[]
 
 
-=== Sourcing suppliers for a particular goods: `source`
+=== Sourcing suppliers for a particular goods: `source` [to be implemented in v1.4]
 
 Displays all the suppliers selling the specified goods, sorted in increasing price. +
 Format: `source g/GOOD_NAME`
@@ -232,11 +236,85 @@ Format: `warn INDEX q/MIN_QUANTITY`
 
 Example:
 
-* `warn 1 q/100` +
-This sets the minimum quantity threshold for good at index 1 with an quantity of 100.
+* `warn 5 q/100` +
+This sets the minimum quantity threshold for good at index 5 with an quantity of 100.
+
+.Demo for `warn` command
+image::UG/warn.png[width="790"]
 
 [NOTE]
 When a new good is added into the inventory, its minimum quantity threshold is set at 0.
+
+=== Locating transactions by search criteria:
+
+Display list of transactions that fulfills the given search criteria.
+
+3 types of search criteria:
+
+. transaction type
+. supplier's name
+. good's name
+
+Format: `find-t [TRANSACTION TYPE] [n/NAME] [g/GOOD NAME]`;
+
+.GUI before demo
+image::UG/original.png[width="790"]
+
+Example:
+
+* Search by transaction type: +
+`find-t buy` +
+display all `buy` transactions.
+
+NOTE: Currently, there are only two types of transaction: `buy` and `sell`. Type of transaction is case sensitive.
+
+.Demo for `find-t` command that uses only [TRANSACTION TYPE] criteria
+image::UG/find-t buy.png[width="790"]
+
+* Search by `Name` of `Supplier`: +
+`find-t n/alex bernice` +
+display all transactions that related to `Alex` or `Bernice`.
+
+****
+* The search is case insensitive. e.g `bernice` will match `Bernice`
+* The order of the keywords does not matter. e.g. `Bernice Yu` will match `Yu Bernice`
+* Only the name is searched.
+* Only full words will be matched e.g. `bernice` will not match `bernices`
+* Supplier matching at least one keyword will be returned (i.e. `OR` search). e.g. `Alex Bernice` will return `Alex Yeoh`, `Bernice Yu`
+****
+
+.Demo for `find-t` command that uses only [NAME] criteria
+image::UG/find-t name.png[width="790"]
+
+* Search by `Good Name` of `Good`: +
+`find-t g/apple noodle` +
+display all transactions that related to `Apple` or `Noodle`.
+
+.Demo for `find-t` command that uses only [GOOD NAME] criteria
+image::UG/find-t good name.png[width="790"]
+
+`Combination of criteria` +
+Criteria can be combined to give a more constraint search.
+
+Example:
+
+* Search by transaction type and `GoodName` of `Good: +
+`find-t buy n/apple noodle` +
+display all `buy` transactions that is related to `Apple` or `Noodle`.
+
+.Demo for `find-t` command that uses [TRANSACTION TYPE] and [GOOD NAME] criteria.
+image::UG/combination.png[width="790"]
+
+NOTE: The transaction related to `Noodle` is no longer shown as compare to search only by
+`Good Name`, as that transaction is a sell transaction and does not fulfill the transaction type.
+
+=== Listing all transactions : `list-t`
+Shows the list of transaction history in the inventory manager. +
+
+Format: `list-t`
+
+.Demo for `list-t` command
+image::UG/list-t.png[width="790"]
 
 === Undoing a recently executed command: `undo`
 
@@ -271,29 +349,26 @@ For security concerns, all data will be encrypted by default.
 
 == Command Summary
 
-* *Add supplier* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 gp/pen 1.00`
+* *Add supplier* `add n/NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...` +
+e.g. `add n/James Ho c/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 gp/pen 1.00`
 * *List supplier* : `list-s`
 * *Clear suppliers* : `clear-s`
 * *Delete supplier* : `delete-s INDEX [g/GOOD NAME]` +
 e.g. `delete-s 3 g/apple`
-* *Edit supplier* : `edit-s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...` +
+* *Edit supplier* : `edit-s INDEX [n/NAME] [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...` +
 e.g. `edit-s 2 n/James Lee e/jameslee@example.com` gp/apple 10
 * *Find supplier* : `find-s KEYWORD [MORE_KEYWORDS]` +
 e.g. `find-s James Jake`
-* *List goods*: `list-i`
 * *List supplier for a goods*: `source`
 * *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE` +
-e.g. `buy n/Dave g/apple q/4 x/2003-08-01 d/2002-07-03`
+e.g. `buy n/Dave g/apple q/4`
 * *Sell goods*: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE` +
-e.g. `sell g/apple q/4 d/2030-01-05`
-* *List goods low in quantity*: `list-l`
-* *Set minimum quantity for goods*: `set g/GOOD_NAME q/MIN_QUANTITY`
+e.g. `sell g/apple q/4`
+* *Set minimum threshold quantity for goods*: `warn INDEX q/MIN_QUANTITY`
 * *List expiring goods*: `list-e`
 * *List transaction history*: `list-t`
+* *Find transaction*: `find-t [TRANSACTION TYPE][NAME][GOOD NAME]`
 * *Clear transaction history*: `clear-t`
-* *Edit buy order*: `edit-bo INDEX [n/SUPPLIER_NAME] [g/GOOD_NAME] [q/QUANTITY] [d/TRANSACTION_DATE] [x/EXPIRY_DATE]`
-* *Edit sell order*: `edit-so INDEX [g/GOOD_NAME][q/QUANTITY][d/TRANSACTION_DATE]`
 * *Undo*: `undo`
 * *Redo*: `redo`
 * *Help* : `help`
