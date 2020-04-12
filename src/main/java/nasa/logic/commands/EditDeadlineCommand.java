@@ -93,7 +93,8 @@ public class EditDeadlineCommand extends Command {
 
         Deadline editedDeadline = createEditedDeadline(deadlineToEdit, editDeadlineDescriptor);
 
-        if (!editedDeadline.isValidDeadline(editedDeadline.getDueDate())) {
+        // check due date validity only when due date is edited
+        if (isDueDateEdited() && !editedDeadline.isValidDeadline(editedDeadline.getDueDate())) {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_PAST_DEADLINE);
         }
 
@@ -127,6 +128,14 @@ public class EditDeadlineCommand extends Command {
         return new Deadline(updatedName, updatedDateCreated, updatedNote, updatedPriority, updatedDueDate,
                 deadlineToEdit.isDone());
 
+    }
+
+    /**
+     * Checks if due date has been edited and returns true. Else, false.
+     * @return true if {@code editDeadlineDescriptor} is updated with new due date. Else, return false.
+     */
+    private boolean isDueDateEdited() {
+        return this.editDeadlineDescriptor.getDueDate().isPresent();
     }
 
     @Override
