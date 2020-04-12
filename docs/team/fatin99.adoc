@@ -32,60 +32,99 @@ into the development of their respective features to the users. My major contrib
 The UI is at the heart of TA-Tracker, displaying the output of TA-Tracker to the user visually. As the main contributor
 to the MainWindow of the UI, I play an integral role in ensuring that the content is being displayed to the user
 correctly, while keeping the interface simple and informative. The overall layout of TA-Tracker was changed by adding
-tabs and icons (#120, #182, #227), and by creating all the ListPanels and their respective ListCards (#120, #182, #204).
+tabs and icons (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/120[#120]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/182[#182]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/227[#227]
+), and by creating all the ListPanels and their respective ListCards (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/120[#120]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/182[#182]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/204[#204]
+).
 
 I also took care to ensure that the information displayed in the Cards was integrated with the backend whenever my
-teammates made new contributions to the application, such as adding new fields (#322) or commands (#330). A "Total
-Earnings" label in Claims tab was also added to improve user experience, as money makes the world go round (#243, #322).
+teammates made new contributions to the application, such as adding new fields (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/322[#322]
+) or commands (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/330[#330]
+). A "Total
+Earnings" label in Claims tab was also added to improve user experience, as money makes the world go round (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/243[#243]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/322[#322]
+).
 
 ==== Enabled highlighting of applied filters
 
 As the TA-Tracker was initially based on AB3, the UI at the beginning of the project looked plain. Instead of
 indiscriminately adding colours to TA-Tracker, I favoured a different approach, and enabled the relevant ListCells in
-the Student Tab and Claims Tab to be highlighted whenever filter commands were entered (#210, #227, #235, #238). This
+the Student Tab and Claims Tab to be highlighted whenever filter commands were entered (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/210[#210]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/227[#227]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/235[#235]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/238[#238]
+). This
 not only made a huge improvement in the visual differences between TA-Tracker and AB3, but also enabled users to better
 focus on the information displayed.
 
 This contribution also required extensive debugging and contributions to the inner workings of the filter command, which
-was a rather challenging command to implement (#243, #314, #322). In the Session Tab, highlighting the ListCells was a
+was a rather challenging command to implement (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/243[#243]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/314[#314]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/322[#322]
+). In the Session Tab, highlighting the ListCells was a
 less favourable option, since there was only one ListPanel to display. I overcame this challenge by creating a filter
-header (#322).
+header (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/322[#322]
+).
 
 ==== Implemented relevant commands to improve User Experience
 
 *Goto Command* : To achieve the goal of making TA-Tracker a keyboard-only application, I implemented the GoTo Command
-to allow users to switch between tabs via the command-line rather than clicking on the tab-headers (#189).
+to allow users to switch between tabs via the command-line rather than clicking on the tab-headers (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/189[#189]
+).
 
 In a similar spirit, I enabled *switching to relevant tabs for all commands*, to better the user experience. This allows
-new information to be displayed instantaneously upon entering a command (#189, #210, #212). This involved
-creating an enum for UI handling in CommandResult (#189, #212) and as a result, the painstaking process of updating the
+new information to be displayed instantaneously upon entering a command (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/189[#189]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/210[#210]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/212[#212]
+). This involved
+creating an enum for UI handling in CommandResult (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/189[#189]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/212[#212]
+) and as a result, the painstaking process of updating the
 entire code-base.
 
 *SetRate Command* : The hourly rate for all the displayed Earnings was initially set to $40, which is the rate at
 which the majority of TAs are being paid. Based on feedback from the PE Dry-Run, I created a command to change this value
-due to the possibility of changes being made to it. (#321)
+due to the possibility of changes being made to it. (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/321[#321]
+)
 
 ==== Other UI Improvements
 
-I also contributed to the development of HelpWindow and StatisticsWindow (#227, #235) by fixing sizing issues and
+I also contributed to the development of HelpWindow and StatisticsWindow (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/227[#227]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/235[#235]
+) by fixing sizing issues and
 adding ScrollPanes. Moreover, I included the option to close both windows by pressing the ESC key to achieve
-the goal of making TA-Tracker a keyboard-only application (#236).
+the goal of making TA-Tracker a keyboard-only application (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/236[#236]
+).
 
 ==== Added extensive automated tests
 
 I made thorough JUnit tests for the StudentCommand, StudentCommandParser, and Student as well as its relevant fields.
-(#340, #341, #347)
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/340[#340]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/341[#341]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/347[#347]
+)
 
 ==== Improved overall code quality
 
-* Packaged all commands, parsers, models and UI components (#143, #212)
-* General quality fixes to the entire code-base based on Codacy report (#350, #351)
-* Created enum classes for SessionType and GroupType (#120, #182)
+* Packaged all commands, parsers, models and UI components (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/143[#143]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/212[#212]
+)
+* General quality fixes to the entire code-base based on Codacy reports (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/350[#350]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/351[#351]
+)
+* Created enum classes for SessionType and GroupType (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/120[#120]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/182[#182]
+)
 
 ==== Other contributions
 
-* Created a skeleton for the student delete command (#113)
-* Removed the requirement for compulsory phone and email fields in student add (#146)
+* Created a skeleton for the student delete command (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/113[#113]
+)
+* Removed the requirement for compulsory phone and email fields in student add (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/146[#146]
+)
 * Managed the project by commenting on critical pull requests (various)
 
 Here is the code that I have written for this product: [https://github.com/AY1920S2-CS2103T-W17-4/main/commits/master?author=fatin99[All commits]]

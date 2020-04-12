@@ -21,7 +21,7 @@ Responsibilities: Scheduling and tracking
 
 === AAKANKSHA RAI
 image::aakanksha-rai.png[width="150", align="left"]
-{empty}[https://github.com/aakanksha-rai[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/aakanksha-rai[github]] [<<aakanksha-rai#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of Student View, PlantUML Expert, Deliverables and deadlines
