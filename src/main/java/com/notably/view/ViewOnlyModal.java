@@ -153,7 +153,7 @@ public abstract class ViewOnlyModal extends ViewPart<Stage> {
     }
 
     /**
-     * Opens the Block Edit modal or focuses on it if it's already opened.
+     * Opens the modal or focuses on it if it's already opened.
      */
     protected void handle() {
         if (!isShowing()) {

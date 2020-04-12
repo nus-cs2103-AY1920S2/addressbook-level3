@@ -33,14 +33,25 @@ public class BlockContentEditView extends ViewOnlyModal {
         this.logic = logic;
     }
 
-    /**
-     * Sets listeners that update the content in the Block Edit modal and toggle the visibility
-     * and controls of the edit modal.
-     */
     @Override
     protected void setChangeListeners() {
         setContentChangeListeners();
         super.setChangeListeners();
+    }
+
+    @Override
+    protected void setModelProperty(Boolean bool) {
+        model.setBlockEditable(bool);
+    }
+
+    /**
+     * Closes the Block Edit modal after saving the changes to the note's contents.
+     */
+    @Override
+    @FXML
+    public void handleClose() {
+        saveData();
+        super.handleClose();
     }
 
     /**
@@ -60,11 +71,6 @@ public class BlockContentEditView extends ViewOnlyModal {
         setText(model);
     }
 
-    @Override
-    protected void setModelProperty(Boolean bool) {
-
-    }
-
     /**
      * Sets the {@link TextArea}'s content to the currently open block's content in markdown form.
      *
@@ -79,16 +85,6 @@ public class BlockContentEditView extends ViewOnlyModal {
         String markdownBody = currentlyOpenBlock.getBody().getText();
 
         blockContentTextArea.setText(markdownBody);
-    }
-
-    /**
-     * Closes the Block Edit modal after saving the changes to the note's contents.
-     */
-    @Override
-    @FXML
-    public void handleClose() {
-        saveData();
-        super.handleClose();
     }
 
     /**
