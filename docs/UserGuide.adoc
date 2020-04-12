@@ -23,13 +23,13 @@ By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 //tag::introduction[]
 == Introduction
 
-Are you a *Teaching Assistant* in *NUS School of Computing (NUS SOC)* who is tired of having to
-fill out the *Teaching Support Student (TSS) Claims Form* accurately at the end of the semester?
+Are you a *Teaching Assistant* at *NUS School of Computing (NUS SOC)* who is tired of having to
+fill out the *Teaching Support Student (TSS) Claims Form* in great detail at the end of the semester?
 
 Do you wish there was a *desktop application* that can help you *keep track of your teaching duties*,
 such as your *claimable hours* and *student ratings*, all in *one place*?
 
-Look no further, because *TA-Tracker* is the tool just for *you*!
+Look no further, because *TA-Tracker* is just the tool for *you*!
 
 *No more* saving your claimable hours in an *unappealing spreadsheet*.
 
@@ -49,7 +49,8 @@ can type fast and prefer to use a keyboard, and
 * A *Graphical User Interface (GUI)* so that
 you can easily view all your *teaching duties*.
 
-If you are interested, jump to <<Quick Start>> to discover how easy it is to fill out forms using *TA-Tracker*.
+If you are interested, jump to <<Quick Start>> and discover how easy it is to fill
+out the TSS form using the *TA-Tracker*.
 //end::introduction[]
 //tag::quickstart[]
 
@@ -65,7 +66,7 @@ the application.
 
 +
 image::Ui.png[width="790"]
-This is how the GUI may look like when the TA-Tracker is opened.
+This is what the GUI may look like when the TA-Tracker is opened.
 +
 .  Type a command in the command box, and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -489,9 +490,12 @@ the same size*. +
 This is to *prevent* the highlights from *overlapping* each other,
 allowing you to see them better.
 
+
 image::Tabs.png[width="790"]
 This shows what happens when you last made a change in the `student tab`
 and then clicked on the `claims tab`.
+
+
 ====
 //end::layout[]
 //tag::studentview[]
@@ -531,7 +535,9 @@ The `RATING` value must be a positive integer.
 ====
 
 image::StudentView.png[,1000]
-This is an example of what the Student View might look like.
+This is an example of what the Student View looks like.
+
+
 //end::studentview[]
 //tag::sessionview[]
 
@@ -552,7 +558,7 @@ duties. It will show you information such as:
 * `WEEK`: the recurring period of the session
 
 image::SessionView.png[,1000]
-This is an example of what the Session View might look like.
+This is an example of what the Session View looks like.
 //end::sessionview[]
 //tag::claimsview[]
 
@@ -575,7 +581,7 @@ assistant for.
 . The second column shows you a *list of all the sessions* that you have *marked as done*.
 
 image::ClaimsView.png[,1000]
-This is an example of what the Claims View might look like.
+This is an example of what the Claims View looks like.
 //end::claimsview[]
 
 [[Usage]]
@@ -685,7 +691,9 @@ Showing the *parameter usage*
 |=======================================================================
 
 image::Default.png[,1000]
-This is an example of what a hint may look like.
+This is an example of what a hint may look like. You may also note that the default text colour, white
+is being used here.
+
 //end::syntax[]
 
 [[Commands]]
@@ -742,7 +750,7 @@ This command takes you to the `student tab`.
 
 ==== Exiting the program : `exit`
 
-You can exit the program with this command.
+You can *exit the program* with this command.
 
 Format: `exit`
 //end::exit[]
@@ -770,11 +778,14 @@ This section explains all the commands you can use in the *Student View*.
 
 (Contributed by Aakanksha)
 
-You can use this command to add a new module to the TA-Tracker.
+You can use this command to *add a new module* to the TA-Tracker.
 
 When a new module is created, the *Student View* will show the groups
-and students of the new module. (Initially, a new module doesn't have any students or
-groups till you add some).
+and students of the new module.
+
+You may notice that the *group list and the student list are empty*. This is because
+you haven't added any groups or students to the module yet.
+
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `module add m/MOD_CODE n/NAME`
@@ -783,7 +794,7 @@ Format: `module add m/MOD_CODE n/NAME`
 ====
 * You *can't* have two modules with the *same module code* in the TA-Tracker.
 
-* `MOD_CODE` and `MOD_NAME` can't be an empty string or a sequence of spaces.
+* `MOD_CODE` and `MOD_NAME` can't be an empty or a sequence of spaces.
 
 * You can give a module your own *custom* `MOD_CODE` or `NAME` if you find it easier
 to remember. However,  we recommend you use the *official
@@ -821,21 +832,22 @@ to the TA-Tracker.
 
 (Contributed by Aakanksha)
 
-You can use this command to delete a module from the TA-Tracker.
+You can use this command to *delete a module* from the TA-Tracker.
 
-When you delete a module, all groups, students and sessions associated with
-the module will also be deleted.
+When you delete a module, *all groups, students and sessions associated with
+the module will also be deleted*.
 
 When a module is deleted, the *Student View* will go back to its default
-setting. That is, you will see the details of the first group in the first module of
+setting. That is, you will see the details of the *first group in the first module* of
 the TA-Tracker.
+
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `module delete m/MOD_CODE`
 
 [NOTE]
 ====
-* You cannot delete a module that doesn't exist.
+* You can't delete a module that doesn't exist.
 ====
 
 ====
@@ -854,10 +866,10 @@ This will delete the module with the module code `CS2103T` from the TA-Tracker.
 
 (Contributed by Aakanksha)
 
-You can use this command to edit a module's name in the TA-Tracker.
+You can use this command to *edit a module's name* in the TA-Tracker.
 
-When a module is edited, the *Student View* will show the groups of the edited module and
-the students of the first group of the edited module. If you were on a different `tab`,
+When a module is edited, the *Student View* will show the *groups of the edited module* and
+the students of the *first group* of the edited module. If you were on a different `tab`,
 you will automatically be switched to the `student tab`.
 
 Format: `module edit m/MOD_CODE n/NEW NAME`
