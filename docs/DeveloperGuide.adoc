@@ -416,7 +416,7 @@ In designing this feature, we had to decide on the placement of the `PersonalBes
 [options='header']
 .Table of Design Considerations
 |====================
-| |  Put `PersonalBest` as a part of `Client`(Chosen) | Put `PersonalBest` as a part of `Exercise` 
+| |  Put `PersonalBest` as a part of `Client`(Chosen) | Put `PersonalBest` as a part of `Exercise`
 | *Adhering to OOP standards (Coupling and Cohesion)* | Increases cohesion as it logically makes more sense, currently each client has a list of exercises to themselves, and thus each client should also have a list of `PersonalBest` of each of these exercises to themselves |  Increases coupling between the logic and model as every time the commands `view-c`, `add-e`, `edit-e` and `delete-e` are called, the personal best table has to be updated, a new `PersonalBest` object has to be created. Then the `Client` will have to be dependent on this `PersonalBest` object created in the logic component, which causes unnecessary dependencies and higher coupling
 | *Ease of Implementation* | Might have significant conflicts as the `Client` model is changed to include one more attribute | Easier to implemention as methods related to `PersonalBest` is kept under `Exercise` model and separate from `Client` data and methods, so no refactoring is needed
 
@@ -424,7 +424,7 @@ In designing this feature, we had to decide on the placement of the `PersonalBes
 
 We decided to use the first approach of placing `PersonalBest` as a part of `Client` instead of `Exercise`. There are multiple reasons for our choice as mentioned below.
 
-We want to maintain the OOP structure of the program. Logically, the personal best should belong to the client as the list of exercises belongs to the client. As the list of exercises is unique to every client, the personal best should also be so. We also do not want to increase coupling of the program as mentioned in the table above. 
+We want to maintain the OOP structure of the program. Logically, the personal best should belong to the client as the list of exercises belongs to the client. As the list of exercises is unique to every client, the personal best should also be so. We also do not want to increase coupling of the program as mentioned in the table above.
 
 Moreover, even though personal best is generated using the list of exercises in the client, it can be instantiated even without an exercise list. Therefore it does not require the exercise class to exist and does not have a whole-part relationship with exercise. Coupling will also be increased as the client will be relying on the exercise class to generate the personal best. Therefore, the final choice was to place the personal best under client, with every client having their own personal best attribute.
 
@@ -434,7 +434,7 @@ This personal best feature also leads into the `Graph` feature, which will be di
 
 This feature allows users to see the progress graph of the current client in view. The user has to specify the exercise name, the y-axis (either weights or reps), the start date and the end date. There has to be existing exercises in the client's exercise list for the specified axis and time period for the graph to be plotted, if no graph can be plotted, an error will be thrown.
 
-==== Implementation 
+==== Implementation
 
 The graph mechanism is faciliated by the model class `Graph`, which contains the details of the graph. These include `ExerciseName`, `Axis`, `StartDate` and `EndDate`. The figure below is a UML class diagram to illustrate the `Graph` model.
 
@@ -455,7 +455,7 @@ The behaviour of this feature determines the graph plotted of the exercise speci
 
 When the user inputs `graph` with all relevant arguments input correctly, a new `GraphCommand()` is created, taking the newly created `Graph` object as parameter.
 
-`GraphCommand#execute()` then retrieves the exercise list from the client currently in view and checks if there is at least one exercise with a matching exercise name. If there is no exercise to plot, then an error `GraphCommand.MESSAGE_EXERCISE_NOT_IN_LIST` will be thrown. Next, the list of exercises to be plot will be generated using `Graph#generateGraphList()`. Once again, there will be a sanity check to see if the list size is zero, which means that no graph cannot be plotted. 
+`GraphCommand#execute()` then retrieves the exercise list from the client currently in view and checks if there is at least one exercise with a matching exercise name. If there is no exercise to plot, then an error `GraphCommand.MESSAGE_EXERCISE_NOT_IN_LIST` will be thrown. Next, the list of exercises to be plot will be generated using `Graph#generateGraphList()`. Once again, there will be a sanity check to see if the list size is zero, which means that no graph cannot be plotted.
 
 The flow of the program is illustrated using the sequence diagram below:
 
@@ -463,18 +463,25 @@ image::GraphSequenceDiagram.png[]
 
 ==== Design Considerations
 
-In designing this feature, we had to decide on the implementation of certain classes like `Axis` to comply with the OOP standards of Abstraction. 
+In designing this feature, we had to decide on the implementation of certain classes like `Axis` to comply with the OOP standards of Abstraction.
 
 [options='header']
 .Table of Design Considerations
 |====================
-| |  Create enum class `Axis Type`(Chosen) | Check for `Axis` value using raw types 
+| |  Create enum class `Axis Type`(Chosen) | Check for `Axis` value using raw types
 | *Adhering to OOP standards (Abstraction)* | Increases level of abstraction as there are only two different types of axis that can be chosen |  Less abstraction and increases complexity as we will have to check for the equality of the axis type using the equality check for the `String` raw type
 | *Ease of Implementation* | Requires some refactoring to include `AxisType` class and the relevant getter methods | Easier to implemention as no extra classes or methods are needed, so no refactoring is needed
 
 |====================
 
-We decided to use the approach of abstracting the axis types away into `AxisType` enum class. 
+We decided to use the approach of abstracting the axis types away into `AxisType` enum class. As the graph implementation will require a substantial amount of equality checks, especially for the attributes of `Graph` to make sure that we are drawing the correct graph for the user. As such equality checks are made, it makes it difficult to keep checking `String` equality as regular data types like `String` would allow invalid values to be assigned to a variable.
+
+As our axis values can only be `REPS`, `WEIGHT` or `NA`, we can check for each case using the switch case method instead of checking for equality using raw types. This is also much more efficient than using multiple if-else statements.
+
+
+Moreover, to keep in line with the OOP standards, we decided that it will be better to abstract away data types like `AxisType` into its separate class instead of storing it as a raw type in `Axis`. This ensures the code quality of our program and reduces complexity (especially in terms of equality checking as mentioned above) by abstracting away the more complex details into classes of a lower level. The consideration of abstracting details away is also used for creating `StartDate` and `EndDate` classes as attributes of `Graph`, instead of using the Java in-built `LocalDate`.
+
+By considering the above two factors, despite having to put in the extra effort to create a new `AxisType` class and thus requiring extra methods like getters and setters, we decided to move with the approach of creating the `AxisType` enum class and refactor to accomodate for the additional data type.
 
 == Documentation
 
