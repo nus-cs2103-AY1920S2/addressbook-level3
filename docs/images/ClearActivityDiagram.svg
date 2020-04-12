@@ -31,7 +31,7 @@ else ([else])
              to clear all return orders to user;
         endif
     else ([flags equal to null])
-    :Display the confirmation 
+    :Display the confirmation
     message to clear all orders
     and return orders to user;
     endif
