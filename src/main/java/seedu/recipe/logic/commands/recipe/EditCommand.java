@@ -363,8 +363,7 @@ public class EditCommand extends Command {
                     && getProteins().equals(e.getProteins())
                     && getFruits().equals(e.getFruits())
                     && getOthers().equals(e.getOthers())
-                    && getSteps().equals(e.getSteps())
-                    && getGoals().equals(e.getGoals());
+                    && getSteps().equals(e.getSteps());
         }
     }
 }

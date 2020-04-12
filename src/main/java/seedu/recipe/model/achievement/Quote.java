@@ -11,7 +11,6 @@ public class Quote {
 
     public Quote(Content quote) {
         requireNonNull(quote);
-        //checkArgument(isValidGoalName(quote), MESSAGE_CONSTRAINTS);
         this.content = quote;
     }
 
@@ -37,9 +36,7 @@ public class Quote {
     }
 
     /**
-     * Check if quote is the same as the other quote
-     * @param otherQuote
-     * @return
+     * Check if quote is the same as the other quote.
      */
     public boolean isSameQuote(Quote otherQuote) {
         if (otherQuote == this) {

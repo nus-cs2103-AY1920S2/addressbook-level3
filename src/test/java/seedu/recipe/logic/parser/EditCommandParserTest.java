@@ -166,15 +166,4 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
-
-    @Test
-    public void parse_resetGoals_success() {
-        Index targetIndex = INDEX_THIRD_RECIPE;
-        String userInput = targetIndex.getOneBased() + GOAL_EMPTY;
-
-        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withGoals().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
 }

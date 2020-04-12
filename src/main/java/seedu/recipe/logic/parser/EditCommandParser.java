@@ -22,7 +22,6 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.recipe.EditCommand;
 import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.parser.exceptions.ParseException;
-import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Step;
 import seedu.recipe.model.recipe.ingredient.Fruit;
 import seedu.recipe.model.recipe.ingredient.Grain;
@@ -75,7 +74,6 @@ public class EditCommandParser implements Parser<EditCommand> {
                 .ifPresent(editRecipeDescriptor::setOthers);
 
         parseStepsForEdit(argMultimap.getAllValues(PREFIX_STEP)).ifPresent(editRecipeDescriptor::setSteps);
-        parseGoalsForEdit(argMultimap.getAllValues(PREFIX_GOAL)).ifPresent(editRecipeDescriptor::setGoals);
 
         if (!editRecipeDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -161,20 +159,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         Collection<String> otherSet = others.size() == 1 && others.contains("") ? Collections.emptySet() : others;
         return Optional.of(ParserUtil.parseOthers(otherSet));
-    }
-
-    /**
-     * Parses {@code Collection<String> goals} into a {@code Set<Goal>} if {@code goals} is non-empty.
-     * If {@code goals} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Goal>} containing zero goals.
-     */
-    private Optional<Set<Goal>> parseGoalsForEdit(Collection<String> goals) throws ParseException {
-        assert goals != null;
-        if (goals.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> goalSet = goals.size() == 1 && goals.contains("") ? Collections.emptySet() : goals;
-        return Optional.of(ParserUtil.parseGoals(goalSet));
     }
 
     /**

@@ -1,7 +1,6 @@
 package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
@@ -34,7 +33,6 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_CANNOT_REDO);
         }
         Tab toSwitch = model.redoBook(numberOfRedo, model);
-        model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         if (numberOfRedo > 0) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfRedo),
                     false, false, toSwitch, false);
