@@ -20,6 +20,7 @@ public class TaskBreakdownCommand extends Command {
         requireNonNull(model);
 
         String taskBreakdown = model.getTaskBreakdown();
+        System.out.println(model.getTaskBreakdown());
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskBreakdown));
     }
 }
