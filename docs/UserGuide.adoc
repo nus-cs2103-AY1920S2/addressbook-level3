@@ -612,8 +612,6 @@ Returns `java` and `Java Assignment`
 
 // end::assignmentmanagement[]
 
-=== Clear all database
-
 // tag::v2.0[]
 === Upcoming Features
 [[Register-Improvement]]
