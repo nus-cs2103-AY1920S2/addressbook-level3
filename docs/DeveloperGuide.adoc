@@ -110,13 +110,6 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `deleteitem 1` command
 image::ArchitectureSequenceDiagram.png[]
 
-==== EYLAH comprehensive class diagram for both Diet Tracker and Expense Spliter
-
-image::eylah_overall_class_diagram.png[]
-
-This shows a brief class diagram for EYLAH. [More details to be added in v1.3]
-
-
 [[Design-Ui]]
 === UI component
 
@@ -1045,14 +1038,27 @@ the correct item back.
 
 The following activity diagram illustrates what happens when a user executes `donereceipt` command:
 
+.Done Receipt Command Activity Diagram
+image::ExpenseSplitterDoneReceiptCommandActivityDiagram.png[]
+
 *Implementation of Done Receipt Command*
 
-The following is a detailed explanation of the operations DoneReceiptCommand performs.
+The following is a detailed explanation of the operations `DoneReceiptCommand` performs.
+
+1. The `DoneReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
+
+2. The `SplitterModel#getReceipt()` method is executed and get the current `Receipt`.
+
+3. Then `Receipt#markDone()` method is called.
+
+4. This will invoke the boolean `Receipt#isDone` variable changed to true.
 
 *Sequence Diagram for Done Receipt Command*
 
 The following sequence diagram summarizes what happens during the execution of `donereceipt` command.
 
+.Done Receipt Command Sequence Diagram
+image::ExpenseSplitterDoneReceiptCommandSequenceDiagram.png[]
 
 
 

@@ -159,13 +159,14 @@ e.g: `additem -i pizza -p 19.90 -n charlotte`.
 (i.e. 0 times), `-n Charlotte`, `-n Alice -n Bob` etc.
 ====
 
-=== Viewing Help : `help`
+=== Display the available commands : `help`
 
 In this section, you will learn more about `help` command, <<howtousehelpcommand, how to use it>>
 and the <<helpexpectedoutcome, expected outcome>> after using the `help` command.
 
 *Summary of Help Command:* +
-`help` You can use this command to view help everywhere in the application.
+`help` You can use the `help` command, if you are uncertain, to see the list of available commands.
+This command can be used everywhere in the application.
 
 [[howtousehelpcommand]]
 *How to use the Help Command:*
@@ -198,20 +199,18 @@ image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
 Help in main menu and different mode will give different help information.
 ====
 
-Format: `help`
-
 '''
 
-=== Exiting Application : `exit`
+=== Exiting the Application : `exit`
 
 In this section, you will learn more about `exit` command, <<howtouseexitcommand, how to use it>>
-and the <<exitexpectedoutcome, expected outcome>> after using the `help` command.
+and the <<exitexpectedoutcome, expected outcome>> after using the `exit` command.
 
 *Summary of Exit Command:* +
-`exit` You can use this command to exit the application from anywhere in the application.
+`exit` You can use this command everywhere in the application to exit.
 
 [[howtouseexitcommand]]
-*How to use the exit Command:*
+*How to use the Exit Command:*
 
 Format: +
 `exit` +
@@ -219,29 +218,11 @@ Format: +
 Valid Example: +
 `exit`
 
-[[helpexpectedoutcome]]
+[[exitexpectedoutcome]]
 *Expected outcome:*
 
-*Main Menu:*
-
 image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
 
-*Diet Tracker Mode:*
-
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
-
-*Expense Splitter Mode:*
-
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
-
-*Additional notes and tips* +
-
-[NOTE]
-====
-Help in main menu and different mode will give different help information.
-====
-
-Format: `help`
 
 '''
 
@@ -654,36 +635,30 @@ You can list based on time period or tags to find the item that you want to edit
 
 '''
 
-[[diettrackerhelp]]
-==== Displaying available commands for Diet Tracker `help`
+[[dietback]]
+==== Exiting Diet Tracker to go back to main menu `back`
+In this section, you will learn more about the `back` command, <<howtousedietbackcommand,how to use it>>
+and the <<dietbackexpectedoutcome,expected outcome>> after using the `back` command.
 
-In this section, you will learn more about the `help` command, <<howtouseDThelpcommand, how to use it>>
-and the <<DThelpexpectedoutcome, expected outcome>> after using the
-`help` command.
+*Summary of Back Command:* +
+`back` allows you to exits Diet Tracker mode to go back to main menu of the application.
 
-*Summary of Help Command:* +
-`help` You can use the `help` command, if you are uncertain, to see the list of available commands for Diet Tracker.
-
-[[howtouseDTHelpcommand]]
-*How to use the Help Command:*
+[[howtousedietbackcommand]]
+*How to use the Back Command:*
 
 Format: +
-`help` +
+`back`
 
 Valid Example: +
-`help`
+`back`
 
-[[DThelpexpectedoutcome]]
+[[dietbackexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerHelpCommandSuccessPhoto.png[width="890", height="200"]
-
-
+image::placeholder.png[]
 
 
 '''
-
-
 
 //tag::introtoexpensesplitter[]
 === Expense Splitter : `split`
@@ -858,7 +833,7 @@ In this section, you will learn more about the `donereceipt` command, <<howtouse
 and the <<donereceiptexpectedoutcome,expected outcome>> after using the `donereceipt` command.
 
 *Summary of Done Receipt Command:* `donereceipt` *marks the receipt as done when you have completed entering
-all the items*.
+all the items.
 
 [[howtousedonereceiptcommand]]
 *How to use the Done Receipt Command:*
@@ -971,41 +946,37 @@ and delete items using the `deleteitem` command.
 
 '''
 
-[[expensesplitterhelp]]
-==== Display the available commands `help`
+[[splitback]]
+==== Exiting Expense Splitter to go back to main menu `back`
+In this section, you will learn more about the `back` command, <<howtousesplitbackcommand,how to use it>>
+and the <<splitbackexpectedoutcome,expected outcome>> after using the `back` command.
 
-Use this command to view the available commands.
+*Summary of Back Command:* +
+`back` allows you to exits Expense Splitter mode to go back to main menu of the application.
 
-Format: +
-`help`
-
-Example: +
-`help`
-
-'''
-
-[[back]]
-==== Exiting split to go back to main menu `back`
-
-You can exits `split` mode to go back to the main menu of the application.
+[[howtousesplitbackcommand]]
+*How to use the Back Command:*
 
 Format: +
 `back`
 
-Example: +
+Valid Example: +
 `back`
 
+[[splitbackexpectedoutcome]]
+*Expected outcome:*
+
+image::placeholder.png[]
+
+
 '''
 
-==== Saving the data
-
-EYLAH data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-'''
+=== Saving the data
+In this section, you will learn more about the saving mechanism of the application. EYLAH will automatically
+helps you store the data in the hard disk after any command that changes the data. +
+You *do not* need to save manually.
 
 == FAQ
-
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EYLAH folder.
 
