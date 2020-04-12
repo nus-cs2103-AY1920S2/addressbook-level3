@@ -18,8 +18,8 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.PrefixDetails;
 import tatracker.logic.parser.PrefixDictionary;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.ui.CommandBoxParser.ArgumentMatch;
-import tatracker.ui.CommandBoxParser.CommandMatch;
+import tatracker.ui.CommandBoxUtil.ArgumentMatch;
+import tatracker.ui.CommandBoxUtil.CommandMatch;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -33,7 +33,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
     static {
-        logger.setLevel(Level.WARNING);
+        logger.setLevel(Level.INFO);
     }
 
     private CommandDetails commandDetails = null;
@@ -117,7 +117,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
             return;
         }
 
-        CommandMatch match = CommandBoxParser.parseInput(input);
+        CommandMatch match = CommandBoxUtil.parseInput(input);
 
         if (!match.hasFullCommandWord()) {
             logger.info("======== [ Invalid input ]");
@@ -141,7 +141,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     private void highlightArguments(String arguments) {
         assert !arguments.isEmpty();
 
-        int numWhitespaces = CommandBoxParser.countTrailingWhitespaces(arguments);
+        int numWhitespaces = CommandBoxUtil.countTrailingWhitespaces(arguments);
         logger.info("" + numWhitespaces);
 
         if (numWhitespaces > 0) {
@@ -150,7 +150,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
             return;
         }
 
-        List<ArgumentMatch> matches = CommandBoxParser.parseArguments(arguments);
+        List<ArgumentMatch> matches = CommandBoxUtil.parseArguments(arguments);
         logger.info(matches.toString());
 
         assert matches.size() > 0; // always have preamble
@@ -215,6 +215,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     private void handleNoInput() {
         resetCommandDetails();
         setStyleToDefault();
+        resultDisplay.setFeedbackToUser("");
     }
 
     private void handleInvalidInput() {
@@ -235,7 +236,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     private void handleNextArgument(String arguments) {
         setStyleToDefault();
 
-        if (CommandBoxParser.countTrailingWhitespaces(arguments) > 1) {
+        if (CommandBoxUtil.countTrailingWhitespaces(arguments) > 1) {
             resultDisplay.setFeedbackToUser(getCommandFeedback());
         }
     }

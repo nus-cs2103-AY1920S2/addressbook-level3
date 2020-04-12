@@ -15,13 +15,13 @@ import tatracker.logic.commands.CommandDictionary;
 /**
  * Analyses the input in the CommandBox in order to perform syntax highlight.
  */
-public class CommandBoxParser {
+public class CommandBoxUtil {
     private static final Pattern COMMAND_FORMAT = Pattern.compile(
             "\\s*(?<word1>\\S+)(?<args1>\\s*(?<word2>$|\\S+)(?<args2>.*))");
 
     private static final Pattern PREFIX = Pattern.compile("(?<prefix>\\S+/)");
 
-    private static final Logger logger = LogsCenter.getLogger(CommandBoxParser.class);
+    private static final Logger logger = LogsCenter.getLogger(CommandBoxUtil.class);
 
     static {
         logger.setLevel(Level.WARNING);
