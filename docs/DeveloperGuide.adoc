@@ -457,6 +457,7 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `Notably` and the *Actor* is the `user`, unless specified otherwise)
 
+//tag::usecasesearch[]
 [discrete]
 === Use case: Search notes using the Auto-suggestion feature
 *MSS*
@@ -479,7 +480,9 @@ particular keyword.
 ** 2a2. Since the empty suggestion conveys that the keyword cannot be found, the user enters a new data.
 
 Steps 1a1-1a2 are repeated until the data entered is correct. Use case resumes from Step 3.
+//end::usecasesearch[]
 
+//tag::usecaseopendelete[]
 [discrete]
 === Use case: Open/ Delete notes using the Auto-suggestion feature
 *MSS*
@@ -511,7 +514,7 @@ with that particular path or title.
 ** 1b3. User enters a new data.
 
 Steps 1b1-1b3 are repeated until the data entered is correct. Use case resumes from Step 2.
-
+//end::usecaseopendelete[]
 
 
 ===
