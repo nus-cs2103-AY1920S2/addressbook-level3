@@ -7,7 +7,6 @@ import static tatracker.logic.parser.Prefixes.SORT_TYPE;
 
 import java.util.List;
 
-import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
@@ -18,7 +17,7 @@ import tatracker.model.Model;
 /**
  * Command to sort all students in all groups of all modules.
  */
-public class SortCommand extends Command {
+public class SortCommand extends SortGroupCommand {
 
     //@@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
@@ -33,10 +32,8 @@ public class SortCommand extends Command {
     //@@author aakanksha-rai
     public static final String MESSAGE_SORT_ALL_SUCCESS = "All students in each module have been sorted";
 
-    protected final SortType type;
-
     public SortCommand(SortType type) {
-        this.type = type;
+        super(type);
     }
 
     @Override

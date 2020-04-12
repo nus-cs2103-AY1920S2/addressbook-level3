@@ -20,6 +20,7 @@ endif::[]
 
 By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 TA-Tracker
@@ -62,6 +63,7 @@ you up to speed with how TA-Tracker
 's codebase and inner workings function. It also
 hopes to serve as a useful reference to current contributors in times of confusion or
 when faced with difficulties.
+// end::introduction[]
 
 == Setting up
 
@@ -496,7 +498,7 @@ to the `GotoCommandParser`.
 . The `GotoCommandParser` creates a `GotoCommand` object
 with the relevant keywords.
 
-. `LogicManager` calls `GotoCommand` 's execute method.
+. `LogicManager` calls `GotoCommand#execute()`.
 
 . The `GotoCommand` object checks whether any of the keywords given by the user
 matches the existing tab headers.
@@ -515,6 +517,7 @@ process.
 
 Students are a part of *groups* and groups are a part of *modules*.
 
+// tag::studentviewmodel[]
 ==== Implementation of the Model Framework
 The following _Class Diagram_ shows how different classes are related in the
 functioning of the *Student View*.
@@ -535,28 +538,40 @@ is teaching.
 * Each `Group` contains a `UniqueStudentsList` that contains the *students in that group*.
 
 ====
+*Design Considerations*
+
+The initial idea for the *Student View* UI was to simply *list* all the students of
+all groups and modules, *sorted by group code and module code*. Therefore the model
+framework has been implemented in this manner.
+
+The idea was scrapped as once it was implemented, it looked too messy and wasn't
+user-friendly. We changed the UI but kept the current model framework.
+
 *Alternative Implementation*
 
 * An alternative implementation would be to have a single `UniqueModuleList` to store
 all modules, a `List` to store all groups and a `List` to store all students.
 
-* We would then have to filter by module code and/or group code to show the appropriate
+* We would then have to *filter by module code and/or group code* to show the appropriate
 groups and students.
 
-* This would require students to keep track of which group and which module they're
-a part of. Similarly, groups would have to keep a track of the students it contains.
-This would create a cyclic dependency (which could be solved using an association class).
+* This would require *students to keep track of which group and which module they're
+a part of*. Similarly, *groups would have to keep a track of the students it contains*.
+This would create a **cyclic dependenc**y (which could be solved using an association class).
 
 * The `List` of groups could contain multiple groups with the same group code as group code
 is only unique within a module. Group codes can be shared across modules.
 
 * While this implementation would make it easier to generate a report at the end of
-the semester (explained towards the end of the guide), it would require more commands
-and the creation of association classes which would unnecessarily complicate the model.
+the semester (explained later in the guide), it would require more commands
+and the *creation of many association classes* which would unnecessarily
+*complicate the model*.
 That is why we decided to stick to our current implementation.
 
 ====
+// end::studentviewmodel[]
 
+// tag::studentmodel[]
 The following _Class Diagram_ shows how different classes are related in the functioning of a `Student` Object.
 
 .Structure of the Student Component
@@ -564,7 +579,8 @@ image::StudentClassDiagram.png[]
 
 *API*: link:{repoURL}/src/main/java/tatracker/model/student/Student.java[`Student.java`]
 
-The other models (`Module`, `Group` and `Session`) have been implemented in a similar manner. The main difference is that the other models do not
+The other models (`Module`, `Group` and `Session`) have been implemented in a similar manner.
+The main difference is that the other models do not
 have any `Tags`.
 
 [NOTE]
@@ -574,7 +590,9 @@ reference. This would allow `TaTracker` to only require one `Tag` object per uni
 such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+//end::studentmodel[]
 
+// tag::moduleaddeditdelete[]
 ==== Implementation of the Module Add, Delete and Edit Commands
 
 The following _Sequence Diagram_ shows the interactions
@@ -588,7 +606,7 @@ image::AddModuleSequenceDiagram.png[]
 [NOTE]
 ====
 * This diagram assumes that a module with the module code `CS2103`
-exists in the TA-Tracker.
+doesn't exist in the TA-Tracker.
 
 * The lifeline for `ModuleCommandParser` and `AddModuleCommandParser` should end at the
 destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
@@ -596,10 +614,10 @@ destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches t
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that this command is a *module* command and passes the
+2. The `TaTrackerParser` sees that this command is a *module command* and passes the
 command to the `ModuleCommandParser`.
 
-3. The `ModuleCommandParser` sees that this command is an *add* command and passes the
+3. The `ModuleCommandParser` sees that this command is an *add command* and passes the
 arguments to the `AddModuleCommandParser`.
 
 4. The `AddModuleCommandParser` creates a `Module` with the given module code and
@@ -608,57 +626,59 @@ name.
 5. The `AddModuleCommandParser` then creates an `AddModuleCommand` object with a newly
 created module. The parser then returns the `AddModuleCommand` object.
 
-6. `LogicManager` calls `AddModuleCommand` 's execute method.
+6. `LogicManager` calls `AddModuleCommand#execute()`.
 
 7. The `AddModuleCommand` object
-checks whether a module with the given module code already exists in *TA-Tracker
-*
+checks whether a module with the given module code already exists in *TA-Tracker*
 
-.. If it does, a command exception is thrown saying that a module with the given module
-code already exists in the *TA-Tracker
-*.
+.. If it does, a *command exception is thrown* saying that a module with the given module
+code already exists in the *TA-Tracker*.
 
-.. If no such module exists, the module is added to the *TA-Tracker
-*.
+.. If no such module exists, the *module is added to the TA-Tracker*.
 
-8. The `AddModuleCommand` returns a `CommandResult` with a success message.
+8. The `AddModuleCommand` returns a `CommandResult`.
 
 The command used to delete a module has been implemented in a similar way. The main
-difference is that the `DeleteModuleCommand` checks whether an object with the given
-module code exists in the TA-Tracker.
+difference is that when the `DeleteModuleCommand` checks whether an object with the given
+module code exists in the TA-Tracker
 
-. If no such module exists, a command exception
-is thrown saying that a module with the given module code doesn't exist.
-. If it does exist, *first all the sessions linked to that module are removed*, then the module
-is removed from the TA-Tracker.
+.. If no such module exists, a *command exception
+is thrown* saying that a module with the given module code doesn't exist.
+
+.. If it does
+exist, *first all the sessions linked to that module are removed* , then the module
+is removed from the TA-Tracker
+
 
 The `module edit` command has been implemented in a similar manner.
+// end::moduleaddeditdelete[]
 
+// tag::groupaddeditdelete[]
 ==== Implementation of the Group Add, Delete and Edit Commands
 
 A *group* is added to the TA-Tracker
 in a similar manner to  how a *module* is added to
 the TA-Tracker.
 
-The following steps are taken once the _execute_ command of an `AddGroupCommand` object
+The following steps are taken once the _execute_ method of an `AddGroupCommand` object
 is called:
 
-. The `AddGroupCommand` object checks whether the *module* is present in the model of the TA-Tracker.
-
-.. If it exists, the module is retrieved.
-.. If it doesn't exist, an exception is thrown explaining that the module doesn't
+. The `AddGroupCommand` object checks whether the *module* is present in the model of the TA-Tracker
+.
+.. If it exists, the *module is retrieved*.
+.. If it doesn't exist, an *exception is thrown* explaining that the module doesn't
 exist.
 . The `AddGroupCommand` object checks whether a *group* with the same group code as
 the new group exists in the module retrieved beforehand.
-.. If it doesn't exist, the group is added to the module and a `CommandResult` object
+.. If it doesn't exist, the *group is added to the module* and a `CommandResult` object
 with the success message is returned.
-.. If it does exist, an exception is thrown explaining that you can't have two groups
+.. If it does exist, an *exception is thrown* explaining that you can't have two groups
 with the same group code in a module.
 
 The interactions between the `Logic` and `Model` components when adding a group are similar
 to the interactions when deleting a group as shown below.
 
-The following _Sequence Diagram_ shows the interactions between the `logic` and `model`
+The following _Sequence Diagram_ shows the interactions between the `Logic` and `Model`
 components when the user inputs the command `group delete m/CS2103 g/G03`.
 
 .Group Delete - Sequence Diagram
@@ -679,29 +699,31 @@ exists inside the module with the given module code.
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is of type *group* and passes the
+2. The `TaTrackerParser` sees that the command is a *group command* and passes the
 command to the `GroupCommandParser`.
 
-3. The `GroupCommandParser` sees that the command is of type *delete* and passes the
+3. The `GroupCommandParser` sees that the command is a *delete command* and passes the
 arguments to the `DeleteGroupCommandParser`.
 
 4. The `DeleteGroupCommandParser` then creates a `DeleteGroupCommand` object and passes
 it the module code, group code and group type. The parser then returns the `DeleteGroupCommand` object.
 
-5. `LogicManager` calls `DeleteGroupCommand` 's execute method. The `DeleteGroupCommand` object
-checks whether a *module* with the given module code already exists in TA-Tracker.
-If it doesn't, a command exception is thrown saying that a module with the given module
-code doesn't exist in the TA-Tracker.
+5. `LogicManager` calls `DeleteGroupCommand#execute()`. The `DeleteGroupCommand` object
+checks whether a *module* with the given module code already exists in TA-Tracker
+If it doesn't, a *command exception is thrown* saying that a module with the given module
+code doesn't exist in the TA-Tracker
 
 6. If the module exists, the `DeleteGroupCommand` then checks whether a group with the
 given group code exists within that module.
-.. If the group doesn't exist, a command exception is thrown saying that no such group exists.
-.. If the group does exist, it is removed from the module.
+.. If the group doesn't exist, a *command exception is thrown* saying that no such group exists.
+.. If the group does exist, it is *removed from the module*.
 
-7. The `DeleteGroupCommand` returns a `CommandResult` with a success message.
+7. The `DeleteGroupCommand` returns a `CommandResult`.
 
 The `group edit` command has been implemented in a similar manner.
+// end::groupaddeditdelete[]
 
+// tag::studentaddeditdelete[]
 ==== Implementation of the Student Add, Delete and Edit Commands
 
 The following _Sequence Diagram_ shows the interactions that take place
@@ -724,10 +746,10 @@ destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches t
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is of type *student* and passes the
+2. The `TaTrackerParser` sees that the command is a *student command* and passes the
 command to the `StudentCommandParser`.
 
-3. The `StudentCommandParser` sees that the command is of type *delete* and passes the
+3. The `StudentCommandParser` sees that the command is a *delete command* and passes the
 arguments to the `DeleteStudentCommandParser`.
 
 4. The `DeleteStudentCommandParser` creates a *Student* with the given matric number,
@@ -736,7 +758,7 @@ arguments to the `DeleteStudentCommandParser`.
 5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object and passes
 it the created student. The parser then returns the `DeleteStudentCommand`
 
-6. `LogicManager` calls `DeleteStudentCommand's` execute method.
+6. `LogicManager` calls `DeleteStudentCommand#execute()`.
 
 7. The `DeleteStudentCommand` object
 checks whether a student with the given matric number already exists in TA-Tracker
@@ -753,23 +775,22 @@ difference is that the `AddStudentCommand` checks whether an object with the giv
 matric number exists in the TA-Tracker. If such student exists, a command exception
 is thrown saying that a student with the given matric number already exists.
 
+// end::studentaddeditdelete[]
+
+// tag::sortgroupmoduleall[]
 ==== Implementation of the Sort Group, Module and All Command
 
-The sort command allows the user to sort the students in the *Student View*. Here are the ways you can use the sort command:
-
-. alphabetically
-. rating (in ascending or descending order)
-. matriculation number
+The sort command allows the user to sort the students in the *Student View*.
 
 The sort command can be used in three ways:
 
-1. `sort group g/GROUP_CODE m/MODULE_CODE t/TYPE`: This sorts all the students of the given
-group in the given module by type `TYPE`.
+1. `sort group g/GROUP_CODE m/MODULE_CODE t/TYPE` : This sorts all the students of the *given
+group in the given module* by type `TYPE`.
 
-2. `sort module g/MODULE_CODE t/TYPE`: This sorts all the students of all the groups in the
-given module by type `TYPE`.
+2. `sort module g/MODULE_CODE t/TYPE` : This sorts all the students of *all the groups in the
+given module* by type `TYPE`.
 
-3. `sort all t/TYPE`: This sorts all students of all groups of all the modules in the
+3. `sort all t/TYPE` : This sorts all students of *all groups of all the modules* in the
 TA-Tracker
 by the type `TYPE`
 
@@ -782,16 +803,23 @@ by the type `TYPE`
 ** `matric` to sort by matriculation number.
 ====
 
-Since these `Sort` commands function differently but use the same parser, the structure shown in the following
+Since these `Sort` commands function differently but use a single parser,
+the structure shown in the following
 _Class Diagram_ is used.
 
 .Sort Commands - Class Diagram
 image::SortCommandsClassDiagram.png[]
 
-Since the different commands use the same parser, the `SortCommandParser` needs to:
-
-. check which prefixes have been passed and
-. return the appropriate command accordingly.
+[NOTE]
+====
+* `SortGroupCommand` sorts the students in a particular group of a
+particular module.
+* `SortModuleCommand` sorts the students in all groups of all modules.
+* `SortCommand` sorts the students in all groups of all modules.
+====
+Since the different commands use the same parser,
+the `SortCommandParser` needs to check the sub-command word and return
+the appropriate sort command.
 
 The following _Activity Diagram_ shows the steps the `SortCommandParser` takes once
 its _parse_ method is called (assuming that no exception is thrown).
@@ -801,15 +829,12 @@ image::SortParserActivityDiagram.png[]
 
 [NOTE]
 ====
-* The final else clause would throw an error explaining that the command format is
-invalid. But due to a limitation in *PlantUML's* beta version of showing activity diagrams,
-we were unable to indicate exceptions thrown in the proper way and decided to mention
-it here instead.
+* The sub-command word here refers to `all`, `module` or `group`. If none of the above
+command words are used, a *command exception* will be thrown, explaining that it is an
+invalid comnmand.
 
-* Command word here refers to `all`, `module` or `group`.
-
-* If the user enters the `sort` command with a command word but doesn't include the
-appropriate parameters with the correct prefixes, a command exception is thrown.
+* If the user enters the `sort` command with a command word but *doesn't include the
+appropriate parameters with the correct prefixes, a command exception is thrown*.
 ====
 
 The following _Sequence Diagram_ illustrates the interactions between the `Logic` and
@@ -831,19 +856,20 @@ creates all the different Sort commands within itself.
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is of type `sort` and passes the
+2. The `TaTrackerParser` sees that the command is a *sort command* and passes the
 command to the `SortCommandParser`.
 
 3. The `SortCommandParser` performs the steps shown in the previous activity diagram
-and determines that since the sort command word is `all`, it must create and return a
+and determines that since the sub-command word is `all` , it must create and return a
 `SortCommand`.
 
-4. `LogicManager` calls `SortCommand` 's execute method.
+4. `LogicManager` calls `SortCommand#execute()`.
 
 5. `SortCommand` checks the type of sorting that is indicated. Since the sort type
-is `matric`, it calls `Model` 's `sortModulesByMatricNumber()` command.
+is `matric` , it calls `Model#sortModulesByMatricNumber()` command.
 
 6. The `SortCommand` returns a `CommandResult` with a success message.
+// end::sortgroupmoduleall[]
 
 //tag::tssview[]
 [[SessionView]]
@@ -1361,14 +1387,16 @@ Refer to the guide <<DevOps#, here>>.
 
 * targets NUS Computing Teaching Assistants
 * has a need to track and manage all their claimable hours of teaching
-* has a need to keep track of their tasks and reminders (TA-related and/or personal)
+* has a need to track all their students in multiple groups and/or modules
+* has a need to keep track of their tasks (TA-related)
 * prefer apps on desktop over other platforms
 * types quickly and prefers it over mouse
 * experiences no discomfort with CLI navigation
 
 *Value proposition*:
 
-* congregates all information regarding claimable hours of teaching in a single location
+* congregates all information regarding claimable hours of teaching and student information
+in a single location
 * provides desired (TSS) format back to users for convenient viewing
 
 [appendix]
@@ -1382,6 +1410,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |new user | be able to use a help command |refer to instructions on what commands are available when
 I forget about them
+
+|`* * *` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
 
 |`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
 
@@ -1428,7 +1458,9 @@ much money I have earned and stay motivated
 
 |`*` |TA |receive a warning message when a new task clashes with an old one |prevent clashes in my schedule (coming in V2.0)
 
-|`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
+|`*` |TA |be able to mark student's attendance | keep track of my students' attendance (coming in V2.0)
+
+|`*` |TA |enter my students' assignment grades  |keep track of my students' progress (coming in V2.0)
 
 |=======================================================================
 
@@ -1498,10 +1530,24 @@ Use case ends.
 
 *Extensions*
 
-* 1a. The given module code is invalid.
+* 1a. The given module code already exists in the TA-Tracker.
 +
 [none]
 ** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The give module code is invalid.
++
+[none]
+** 1b1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+* 1c. The given module name is invalid.
++
+[none]
+** 1c1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
 
@@ -1518,6 +1564,22 @@ the list of existing modules in the *Student View*.
 
 +
 Use case ends.
+
+*Extensions*
+
+* 3a. The given module code doesn't exist in the TA-Tracker.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given module name is invalid.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC06 - Deleting module
@@ -1539,7 +1601,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given module code is invalid.
+* 3a. The given module code doesn't exist in the TA-Tracker.
 +
 [none]
 ** 3a1. TA-Tracker shows an error message.
@@ -1562,21 +1624,33 @@ Use case ends.
 
 *Extensions*
 
-[none]
-* 1a. The given module code is invalid.
+* 3a. The given module code doesn't exist in the TA-Tracker.
 +
 [none]
-** 1a1. TA-Tracker shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
-Use case resumes at step 1.
+Use case resumes at step 3.
 
-[none]
-* 1a. The given class code is invalid.
+* 3b. The given group code is invalid.
 +
 [none]
-** 1a1. TA-Tracker shows an error message.
+** 3b1. TA-Tracker shows an error message.
 +
-Use case resumes at step 1.
+Use case resumes at step 3.
+
+* 3c. The given group code already exists in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. The given group code is invalid.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC08 - Editing a group
@@ -1588,6 +1662,36 @@ the list of existing groups in the *Student View*.
 . TA-Tracker switches to the `Student Tab`.
 . User requests to edit a group
 . TA-Tracker edits the group
+
+*Extensions*
+
+* 3a. The given module code doesn't exist in the TA-Tracker.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given group doesn't exist in the module.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The new group code already exists in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. The new group code is invalid.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC09 - Deleting group
@@ -1609,10 +1713,17 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given group code is invalid.
+* 3a. The given module doesn't exist in the TA-Tracker.
 +
 [none]
 ** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given group doesn't exist in the module.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
@@ -1632,12 +1743,26 @@ Use case ends.
 
 *Extensions*
 
-* 1a. The input required (e.g. Matric Number) to add a student is invalid.
+* 3a. The input required (for example, Matric Number) to add a student is invalid.
 +
 [none]
-** 1a1. TA-Tracker shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
+
+* 3b. The given module doesn't exist.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given group doesn't exist in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC11 - Editing a Student
@@ -1703,11 +1828,96 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC13 - Sorting a group
 
+*MSS*
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing groups in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to sort all students in a group.
+. TA-Tracker sorts the students in the group.
+
++
+Use case ends.
+
+*Extensions*
+
+* 3a. The given sort type is invalid.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+* 3b. The given module doesn't exist.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given group doesn't exist in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
 [discrete]
 ==== Use case: UC14 - Sorting a module
 
+*MSS*
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing groups in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to sort all students in all groups of a module.
+. TA-Tracker sorts the students in the group.
+
++
+Use case ends.
+
+*Extensions*
+
+* 3a. The given sort type is invalid.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+* 3b. The given module doesn't exist.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given group doesn't exist in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
 [discrete]
-==== Use case: UC15 - Sorting all
+==== Use case: UC15 - Sorting all modules
+
+*MSS*
+
+. User requests to sort all students in all groups of a module.
+. TA-Tracker sorts the students in the group.
+. TA-Tracker switches to the `Student Tab`.
+
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The given sort type is invalid.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
+
 
 [discrete]
 ==== Use case: UC16 - Filtering the Student View
@@ -1942,8 +2152,6 @@ Use case resumes at step 1.
 [appendix]
 == Glossary
 
-== GLOSSARY
-
 [width="%",cols="<20%,<40,<40,options="header",]
 |=======================================================================
 |Term | Explanation | Examples
@@ -2013,6 +2221,7 @@ conjunction with our User Guide to test the product thoroughly.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+[discrete]
 === Launch and Shutdown
 
 . Initial launch
@@ -2033,6 +2242,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Relaunch the app +
 Expected: The student view under the student app is shown.
 
+[discrete]
 === Viewing help
 
 . Opens the help window.
@@ -2040,6 +2250,7 @@ Expected: The student view under the student app is shown.
 .. Test Case: `help` +
 Expected: Opens the help window.
 
+[discrete]
 === Changing Tabs
 
 . Changes the tab.
@@ -2051,6 +2262,7 @@ Expected: Opens the claims tab.
 .. Test Case: `goto student` +
 Expected: Opens the student tab.
 
+[discrete]
 === Adding a module
 
 . Adding a module from any view.
@@ -2069,6 +2281,7 @@ The test cases after this assume that your TA-Tracker has a module with module c
 CS1101S.
 ====
 
+[discrete]
 === Adding a group to a module
 
 . Adding a group to a module.
@@ -2092,6 +2305,7 @@ The test cases after this assume that your TA-Tracker has a group with group cod
 `G06` in the module CS1101S.
 ====
 
+[discrete]
 === Adding students to a group
 
 . Adding a student to a group.
@@ -2103,6 +2317,7 @@ to the group `G06` of the module `CS1101S` with a default rating of 3.
 Expected: A student named `John Doe` with matriculation number `A0123457X` is added
 to the group `G06` of the module `CS1101S` with a rating of 5.
 
+[discrete]
 === Editing a student
 
 . Editing a student in a group.
@@ -2110,6 +2325,7 @@ to the group `G06` of the module `CS1101S` with a rating of 5.
 .. Test Case: `student edit g/G06 m/CS1101S id/A0123456X r/4` +
 Expected: Changes the rating of the student with matric number `A123456X` to 4.
 
+[discrete]
 === Editing a group
 
 . Editing a group in a module.
@@ -2119,6 +2335,7 @@ Expected: The group with group code `G06` will be changed to type `tutorial` fro
 `CS1101S`. The students inside the group will be unchanged. If you were on a different
 tab, you are automatically switched to *Student View*.
 
+[discrete]
 === Editing a module's name
 
 . Edits the name of a module.
@@ -2127,6 +2344,7 @@ tab, you are automatically switched to *Student View*.
 Expected: The name of the module with module code `CS1101S` will change to `New Name`
 but the groups and students inside it will remain intact.
 
+[discrete]
 === Viewing a specific module
 
 . Allows you to view groups in a particular module.
@@ -2135,6 +2353,7 @@ but the groups and students inside it will remain intact.
 Expected: You can now view the groups of the module `CS1101S`. You will see the students
 of the group at index 1 of the module's group list.
 
+[discrete]
 === Viewing a specific group
 
 . Allows you to view students in a particular group of a particular module.
@@ -2143,6 +2362,7 @@ of the group at index 1 of the module's group list.
 Expected: You can now view the groups of the module `CS1101S`. You will see the students
 of the group `G06`.
 
+[discrete]
 === Sorting a group
 
 . Sorting students in a group.
@@ -2150,6 +2370,7 @@ of the group `G06`.
 .. Test Case: `sort group g/G06 m/CS1101S t/alpha` +
 Expected: Sorts all the students in the group `G06` of the module `CS1101S` alphabetically.
 
+[discrete]
 === Sorting a module
 
 . Sorting students in a module.
@@ -2158,6 +2379,7 @@ Expected: Sorts all the students in the group `G06` of the module `CS1101S` alph
 Expected: Sorts all the students in all the groups of the module `CS1101S` alphabetically.
 You will see the students in the group at index 1 of the group list of  the module `CS1101S`.
 
+[discrete]
 === Sorting all modules
 
 . Sorting students in all modules.
@@ -2167,7 +2389,7 @@ Expected: Sorts all the students in all the groups of all modules alphabetically
 You will see the students in the group at index 1 of the group list of the module
 at index 1 of the module list.
 
-
+[discrete]
 === Deleting a student
 
 . Deleting a student from a group
@@ -2176,6 +2398,7 @@ at index 1 of the module list.
 Expected: Deletes the student with matric number `A123456X` from the group `G06`
 of the module `m/CS1101S`.
 
+[discrete]
 === Deleting a group
 
 . Deleting a group from a module.
@@ -2185,6 +2408,7 @@ Expected: The group with group code `G06`` will be deleted from the module
 `CS1101S`. The students inside the group will be deleted. If you were on a different
 tab, you are automatically switched to *Student View*.
 
+[discrete]
 === Adding a session
 
 . Adding a session to the session list.
@@ -2195,6 +2419,7 @@ Expected: A session starting at `14:00` and ending at `16:00` on `2020-06-20`
 recurring every two weeks will be added to the sessions list. It will be associated
 with the module `CS1101S` and be a `consultation` with Alice and Bob.
 
+[discrete]
 === Marking a session as done
 
 . Marking a session as done.
@@ -2204,6 +2429,7 @@ Expected: Marks the session at index `1` of the session list as done. If it is a
 recurring session, a new session will be added in its place, dated after the recurring
 period. The session marked as done will be added to the claims list.
 
+[discrete]
 === Deleting a session
 
 . Deleting a session.
@@ -2211,6 +2437,7 @@ period. The session marked as done will be added to the claims list.
 .. Test Case: `session delete 1` +
 Expected: Deletes the session at index `1` of the session list.
 
+[discrete]
 === Editing a session
 
 . Editing a session
@@ -2218,6 +2445,7 @@ Expected: Deletes the session at index `1` of the session list.
 .. Test Case: `session edit 1 t/lab` +
 Expected: Edits the session at index `1` of the session list to be of type `lab`.
 
+[discrete]
 === Filtering sessions
 
 . Filtering sessions based on keywords.
@@ -2232,6 +2460,7 @@ Expected: Shows all sessions on the *date* `2020-03-20`.
 Expected: Shows all sessions that contains *date* `2020-03-20`, *session type* `tutorial`
 and *module code* `CS1101S`.
 
+[discrete]
 === Filtering Claims
 
 . Filtering claims by module code.
@@ -2240,6 +2469,7 @@ and *module code* `CS1101S`.
 Expected: Shows all sessions that have been marked as done
 (aka claims) associated with the module `CS1101S`.
 
+[discrete]
 === Listing sessions and claims
 
 . Lists all sessions and claims again (removes all filters that have been previously applied).
@@ -2247,6 +2477,7 @@ Expected: Shows all sessions that have been marked as done
 .. Test Case: `list` +
 Expected: Shows all sessions and claims that have previously been filtered.
 
+[discrete]
 === Changing rate
 
 . Setting the hourly rate.
@@ -2255,6 +2486,7 @@ Expected: Shows all sessions and claims that have previously been filtered.
 Expected: Sets the rate of the claims to be 25$ per hour. Money computation is
 changed accordingly.
 
+[discrete]
 === Viewing Statistics
 
 . Displays the statistics window.
@@ -2264,6 +2496,7 @@ Expected: Displays the statistics report showing statistics of all modules.
 .. Test Case: `report CS1101S` +
 Expected: Displays the statistics report of the module `CS1101S`.
 
+[discrete]
 === Deleting a module
 
 . Deleting a module.
@@ -2276,6 +2509,7 @@ groups, students and sessions related to this module.
 Expected: Assuming you already deleted the module with module code m/CS1101S from your TA-Tracker,
 this would show you an error message.
 
+[discrete]
 === Exiting the program
 
 . Exiting the program.

@@ -20,7 +20,7 @@ import tatracker.model.module.Module;
 /**
  * Sorts all students of all groups in a module.
  */
-public class SortModuleCommand extends SortCommand {
+public class SortModuleCommand extends SortGroupCommand {
 
 
     //@@author potatocombat
