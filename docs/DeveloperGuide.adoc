@@ -200,7 +200,7 @@ Every return order is part of a *UniqueReturnOrderList* and every
 .Structure of the Storage Component
 image::StorageClassDiagram.svg[]
 
-*API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/storage/Storage.java[`Storage.java`]
+*API* : link:https://github.com/AY1920S2-CS2103T-W12-1/main/blob/master/src/main/java/seedu/delino/storage/Storage.java[`Storage.java`]
 
 The *Storage* component,
 
@@ -2498,6 +2498,7 @@ whenever the parcel has been delivered.
 
 //@@author Exeexe93
 //tag::appendix-clear[]
+
 === Clear orders
 
 . Clear all orders while all orders are listed

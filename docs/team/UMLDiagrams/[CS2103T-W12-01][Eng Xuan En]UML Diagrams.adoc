@@ -27,7 +27,7 @@ The purpose of this Activity Diagram is to describe the general work flow of the
 This diagram is especially useful for users, as it give them a general work flow of how Clear command works and what
 they should expect out of Delino when performing a Clear command.
 
-image::ClearCommandClassDiagram.svg[width=50%]
+image::ClearCommandClassDiagram.svg[width=45%]
 This Class Diagram purpose is to describe the dependencies of SearchCommand class when implementing this feature.
 This diagram is essential to our Delino application because it allows developer or users who are interested to better
 understand the underlying dependencies of SearchCommand class.
