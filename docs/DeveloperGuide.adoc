@@ -1646,9 +1646,8 @@ EYLAH will prompt the user to use `listamount` to find the Index of Person who
 paid.
 +
 Use case ends.
-
-
 //end::willyusecase[]
+
 
 //tag::ailanclearreceiptusecase[]
 [discrete]

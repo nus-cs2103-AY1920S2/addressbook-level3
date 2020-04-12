@@ -769,7 +769,7 @@ image::placeholder.png[]
 Use `listreceipt` to view your item indices before deletion.
 
 '''
-
+//tag::listreceipt[]
 [[listreceipt]]
 ==== Listing the current receipt: `listreceipt`
 
@@ -808,7 +808,7 @@ not have to remember who you split this item with!
 Use `listreceipt` command to find the index of the item in the receipt. The index is useful for commands
 such as `deleteitem` where you have to pass in the index of item to be deleted.
 ====
-
+//end::listreceipt[]
 
 '''
 //tag::listamount[]
