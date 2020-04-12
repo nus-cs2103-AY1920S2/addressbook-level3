@@ -9,8 +9,8 @@ class SortCommand
 class SortModuleCommand
 class SortGroupCommand
 
-SortCommand -up-|> Command
-SortModuleCommand -up-|> SortCommand
-SortGroupCommand -up-|> SortCommand
+SortGroupCommand -up-|> Command
+SortModuleCommand -up-|> SortGroupCommand
+SortCommand -up-|> SortGroupCommand
 
 @enduml
