@@ -15,8 +15,30 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop personal income and task management application for NUS Computing Teaching Assistants (TAs).
-* It is intended for TAs who want to be able to track and manage all of their claimable hours of teaching in NUS.
+TA-Tracker
+is a productivity tool made for *NUS School of Computing (SoC) Teaching Assistants (TAs)*
+who want to be able to track and manage their *students* and *claimable
+hours* in one place.
+
+Teaching Assistants at SoC have to keep a track of:
+
+* claimable hours so that they can fill up the TSS Claims form at the end of each semester.
+* teaching-related sessions with claimable hours
+* students and their contact information
+* students' participation marks
+* notes for certain students (such as recommendations)
+
+Rather than managing this through several excel
+spreadsheets and notes, TA-Tracker
+allows TAs to track everything in a single, convenient-to-use
+platform.
+
+In particular, TA-Tracker
+is a *Command Line Interface (CLI)* application packaged
+with a *Graphical User Interface (GUI)*. This means that users are expected to interact
+with the TA-Tracker
+mainly through the command line, and each command executed will
+evoke a visual response in the TA-Tracker.
 
 == Site Map
 
