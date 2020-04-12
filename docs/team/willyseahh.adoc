@@ -27,8 +27,8 @@ Allows the user to perform the `additem` command successfully hence adding an En
 of an Item into the current Receipt.
 
 *** *Justification:* +
-These classes are crucial for Expense Splitter to work because this the User
-has to input an Item to split among his friends.
+These classes are crucial for Expense Splitter to work because this allows the User
+to input an Item to split among his friends, the crux of Expense Splitter.
 
 *** *Highlights:* +
 Implementing the ItemPrice was a little tricky because Double should not be used to hold Currency
@@ -77,7 +77,6 @@ Ability to save a Person name and their amount owed automatically.
 
 *** *Credits:* +
 N.A
-
 
 
 * *Minor enhancement*:
@@ -132,10 +131,8 @@ This reduces the chances of EYLAH crashing.
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com/nus-cs2103-AY1920S2/forum/issues/105[3])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/willyseahh/ped/issues)
 
-** Tools:
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._

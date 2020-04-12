@@ -1,4 +1,7 @@
 @startuml
+
+title Activity Diagram: Simplified AddItem
+
 start
 :AddItem;
 note right: This process repeats until the User has finished entering all Items
