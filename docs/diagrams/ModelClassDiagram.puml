@@ -16,7 +16,11 @@ Class ReadOnlyUserPrefs
 Package Profile {
 Class Profile
 Class DeadlineList
-Class SemModHashMap
+Class ModuleList
+}
+
+Package Module {
+Class Module
 }
 
 
@@ -29,19 +33,19 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 ProfileManager .up.|> Model
-Model .right.> ObservableList
-ProfileManager *--> ProfileList
-ProfileManager *-left-> UserPrefs
+Model ..> ObservableList
+ProfileManager *-- ProfileList
+ProfileManager *-left- UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-ProfileList *--> "1"Profile
+ProfileList *-- "1"Profile
 
-Profile *--right> DeadlineList
-Profile *--down> SemModHashMap
+Profile *--right DeadlineList
+Profile *--down ModuleList
 DeadlineList ..up|> ObservableList
+ModuleList *--left "*" Module
 
-
-DeadlineList *--> "*"Deadline
+DeadlineList *-- "*"Deadline
 
 @enduml
 

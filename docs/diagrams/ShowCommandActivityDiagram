@@ -2,9 +2,9 @@
 start
 :User executes show command;
 :MODdy parses command for tags;
-if (User input command) then ([contains valid tag])
+if () then ([user input contains valid tag])
   :Check object name given as parameter;
-  if (Object to be shown) then ([valid object])
+  if () then ([object to be shown is valid])
   :Display object on UI;
   else ([else])
   :Display invalid object message;

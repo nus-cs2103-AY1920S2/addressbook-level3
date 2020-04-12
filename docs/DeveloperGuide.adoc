@@ -144,7 +144,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the profile data.
-* stores the semester-module data in a HashMap.
+* stores a `ModuleList` of modules taken in each semester in a `HashMap`
 * exposes an unmodifiable `ObservableList<Deadline>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
 
@@ -274,38 +274,38 @@ Eventually, we decided on alternative 2 for the benefits of the user. To tackle 
 
 === Show Feature
 
-The `show` feature allows the user to display information about a `Module`, `Course`, `Focus Area` or `Semester` with the command `show`, appended with the tags. These information cannot be seen from the main UI and have to be displayed through the `show` command.
+The `show` feature allows the user to display information about a `Module`, `Course`, `FocusArea` or `Semester` with the command `show`, appended with the tags below. These information cannot be seen from the main UI and have to be displayed through the `show` command.
 
 The tags are:
 
-* `m/module_code` for `Module`
-* `c/course_name` for `Course`
-* `f/focus_area` for `Focus Area`
-* `y/semester_index` for `Semester`
+* `m/moduleCode` for `Module`
+* `c/course` for `Course`
+* `f/focusArea` for `FocusArea`
+* `y/year.semester` for `Semester`
 
 ==== Current Implementations
 
 `ShowCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `ShowCommand` is parsed using `ShowCommandParser` to split the user input into relevant fields.
 
-The following sequence diagram shows how the `show` operation works with input: `show c/Computer Science`
+The following activity diagram shows how the `show` operation works with input: `show c/Computer Science`
 
 .Activity Diagram for a Show Command input
 image::ShowCommandActivityDiagram.png[]
 
-NOTE: If more than accepted tag is given, such as `show c/Computer Science m/CS1101s`, MODdy will not display anything and will show the user a message that only one tag should be provided.
+NOTE: If more than one accepted tag is given, such as `show c/Computer Science m/CS1101s`, MODdy will not display anything and will instead give the user a message that only one tag should be provided.
 
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice):* Have one ShowCommand for all objects
+* *Alternative 1 (current choice):* Have one `ShowCommand` for all objects to be displayed
 ** Pros: Repeated code is avoided
-** Cons: Takes in an Object in its constructor, any Object can call this method and cause the application to fail
+** Cons: Takes in an Object in its constructor, any Object can call this method and cause unintended usages
 
-* *Alternative 2:* Have a separate ShowCommand (e.g. ShowModuleCommand, ShowCourseCommand) for each object shown
+* *Alternative 2:* Have a separate `ShowCommand` (e.g. `ShowModuleCommand`, `ShowCourseCommand`) for each object shown
 ** Pros: Applies Single Level of Abstraction Principle (SLAP)
 ** Cons: Too many classes having repeated code
 
-Eventually, we decided on alternative 1 due to the benefits of avoiding repeated code. To tackle the cons from this, we implemented methods to gracefully reject other Objects that unintendedly called this method.
+Eventually, we decided on alternative 1 due to the benefits of avoiding repeated code. To tackle the cons from this, we implemented guard conditions to gracefully reject other Objects that may unintentionally call this method.
 
 // end::show[]
 // tag::edit[]
