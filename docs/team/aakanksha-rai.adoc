@@ -1,0 +1,135 @@
+= Aakanksha Rai - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TA-Tracker
+
+---
+
+== Overview
+
+TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
+who want to be able to track and manage all of their claimable hours and the students
+they are teaching in one place..
+
+== Summary of contributions
+
+=== Student View
+
+I was in charge of the *Student View* and created the models used in *Student View*.
+I also wrote most of the commands that come under *Student View*.
+
+==== Create the Models
+
+I created the `Module`, `UniqueModuleList`, `Group` and `UniqueGroupList` models
+that were used in *Student View* from scratch.
+
+* *Justification:* A TA would need to keep track of their students, grouped according
+to which group and module they are a part of. These models were required in all the features
+of our product.
+
+* *Highlights:* The models were created the way they were as initially the UI plans for
+*Student View* were different. Once we realised that our previous plan wasn't feasible,
+we switched to our current implementation and I had to add many functions to support
+the new UI.
+
+==== Sort Commands
+
+This was one of my main features.
+
+* *What it does:* Allows the user to sort the students by rating (in ascending or
+descending order), by matriculation number or alphabetically. There are three variations
+of the sort - `sort all` which is used to sort all students in all groups of all modules,
+`sort module` which is used to sort all students in all groups of a particular module and
+`sort group` which is used to sort all students in a particular group of a particular module.
+
+* *Justification:* This feature improves the product as TA's are often required to
+sort their students in different ways. For example, *alphabetically* when taking attendance,
+by *matriculation number* when grading assessments or by *rating* when keeping track of
+strong or weak students.
+
+* *Highlights:* This feature was difficult to implement as it had several sub-parts.
+Furthermore, it had initially been implemented in a different way but had to be changed
+significantly in order for it to be compatible with the *interactive parser*.
+
+==== Other Minor Enhancements
+My other minor enhancements include the implementation of the following commands:
+
+. `module add`
+. `module delete`
+. `module edit`
+. `group add`
+. `group delete`
+. `group edit`
+
+* *Justification:* These commands are needed to manipulate data in the *Student View*.
+
+* *Highlights:* While they come under Minor Enhancements, overall these commands were
+quite a lot of work as they had many edge cases such as editing the group code of to
+make it a duplicate group.
+
+=== Code contributed
+The code I contributed can be found here:
+
+[https://github.com[Functional code]] _{give links to collated code files}_
+
+[https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33],
+https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88%
+to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide:
+https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12],
+https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1],
+https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples :
+https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other
+class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my
+ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase
+my ability to write technical documentation and the technical depth of my
+contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
