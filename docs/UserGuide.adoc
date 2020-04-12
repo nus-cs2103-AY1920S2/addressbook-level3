@@ -1005,7 +1005,7 @@ image::GroupEdit.png[,900]
 This will change the group type of the group with group code `G01`, inside the module with
 module code `CS3243`, to be a `lab`.
 ====
-//edit::editgroup[]
+//end::editgroup[]
 //tag::addstudent[]
 
 [[AddStudent]]
