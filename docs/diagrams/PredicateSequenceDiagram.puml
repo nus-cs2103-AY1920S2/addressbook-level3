@@ -7,6 +7,7 @@ end box
 
 box Predicate LOGIC_COLOR_T1
 participant "pred:Predicate" as Predicate LOGIC_COLOR
+participant ":StringUtil" as StringUtil LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -25,16 +26,28 @@ activate Task
 Task -> Predicate: name
 deactivate Task
 
-loop chunks of name\n of size keyword length
+loop chunks of task name
+    Predicate -> StringUtil: limitedCompare(chunk,\n keyword, threshold)
+    activate StringUtil
+    StringUtil -> Predicate: editDistance
+    deactivate StringUtil
+
     alt keyword matches start of chunk
         Predicate -> Predicate: temp = 1
-    else keyword's edit distance with chunk < 2
+    else edit distance with chunk < 2
         Predicate -> Predicate: temp = 1
     else keyword equals chunk
         Predicate -> Predicate: temp = 0
     end
+
     opt temp < score
         Predicate -> Predicate: score = temp
+    end
+end
+
+loop tags of search term
+    opt tag exists in taskList
+        Predicate -> Predicate: score -= 1:
     end
 end
 

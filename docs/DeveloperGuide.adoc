@@ -229,7 +229,7 @@ The above diagram provides a big picture overview of decisions `CommandCompletor
 . If input is a delete/done command
 .. remove any invalid indices that are greater than the length of the displayed task list or that are not a positive integer
 . If input is a sort command
-.. Auto completion of fields is performed based on the criteria mentioned in the callout <<completion criteria, here>>
+.. Auto completion of fields is performed based on the <<completion criteria>>
 .. If the field is not recongized, then it is removed
 
 // TODO maybe can insert diagram as well?
@@ -272,9 +272,8 @@ image::ACIndexActivityDiagram.png[]
 
 Similar to before, we iterate through the arguments and we remove indexes that are either out of the displayed TaskList's size or that is not a positive integer. We then append it to a removed list so that we can inform the user what input has been removed.
 
-// TODO what checks? clarify
 ==== Sort field Completion
-Sort field completion is performed by iterating through all arguments and performing the auto complete checks between a user's input word and all possible sort fields.
+Sort field completion is done by iterating through all arguments word by word and performing the auto complete checks against all possible sort fields. The auto complete checks were the same as the above <<completion criteria>>.
 
 === Enhanced Find
 We've built upon the existing find function in AB-3 to filter tasks based on phrases instead of words.
@@ -284,30 +283,37 @@ We've built upon the existing find function in AB-3 to filter tasks based on phr
 .Find Command Sequence diagram
 image::FindSequenceDiagram.png[]
 
-* After setting the predicate on the model, the FilteredList will apply the Test method of the predicate and only display tasks with a score < 2. Scoring will be discussed below
-* Model will also generate a searchComparator based on the output of applying the Predicate on a Task
+* After setting the predicate on the model, the FilteredList will apply the Test method of the predicate and only display tasks with a score < 2. Scoring will be discussed in the next section.
+* Model will also generate a searchComparator based on the score of applying the Predicate on a Task
 ** This comparator is then used to display more relevant search results to the user
-* If the model has existing comparators set via the SortCommand, they are applied for search results of equal relevance
+* Any existing comparator set is removed in the `sortSearchByRelevance` call
 
-==== Predicate
+==== Predicate's test
 
 .Scoring decision
 image::PredicateSequenceDiagram.png[] 
 //TODO add functionc calls to stringUtil
+// TODO update tag scoring
 
-* We perform the filtering by taking chunks of the task name whereby the number of words in a chunk = number of words used in the search term
-* We iterate through all chunks of the task name and calculate a score for each chunk and taking the minimum of those scores as the task's relevance score
+===== Name scoring
+* We perform the filtering by taking chunks of the task name 
+** A chunk is a String subsequence of the task name that has the same number of words as the search term
+* We iterate through all chunks of the task name and calculate a score for each chunk
+** The minimum of these scores is as the task's overall relevance score
 ** a smaller score means a more relevant task
-* The calculation of a chunk is decided by:
-** If edit distance between chunk and search term < 2, score is set to 1
-** If the search term matches the start of the chunk, score is set to 1
-** If the chunk is the same as the search term, score is set to 0
+* The calculation of a chunk is given by:
+** edit distance between one of the chunks and the search term < 2, score is set to 1
+** search term matches the start of one of the chunks, score is set to 1
+** one of the chunks is the same as the search term, score is set to 0
 
-In addition the predicate decrements the score for every tag that matches so that find commands with more matches will be showed first.
+===== Tag scoring
+Tag scoring is carried out on top of name scoring. For every tag in the search term that appears in a Task, we decrement the Task's name score by 1.
+
+The combination of name and tag score is then used as a Task's final score in determining it's relevance in the search results.
 
 ==== Other Considerations
 * We chose to not use edit distance for search terms of string length less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
-* We also chose to display task names who's start matches the search term for ease of usage
+* We also chose to display task names who's start matches the search term for ease of usage even though the edit distance could be significant.
 
 [[Pomodoro]]
 === Pomodoro
