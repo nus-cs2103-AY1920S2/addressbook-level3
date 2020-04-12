@@ -170,6 +170,19 @@ command result box are two features visible on every tab.
 
 [<insert image of tabs>]
 
+The tabs can be switched by pressing kbd:[Ctrl] + kbd:[Tab] or
+by clicking on the tabs bar on the left side of the application
+with the name of the tab you want to switch to. The current
+selected tab will be highlighted with a bolder text, and a
+darker blue.
+
+[image of selected]
+
+[NOTE]
+The tabs bar is visible on every single tab! It serves
+as a good visual reference to tell you which
+tab is currently being displayed.
+
 === Coupons tab
 The coupons tab contains a visual overview of the coupons which
 you have added to the application.
