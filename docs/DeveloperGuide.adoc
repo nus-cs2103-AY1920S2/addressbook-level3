@@ -874,6 +874,7 @@ is `matric` , it calls `Model#sortModulesByMatricNumber()` command.
 //tag::tssview[]
 [[SessionView]]
 === Session View
+(Written by Chua Yi Jing)
 
 *Session View* is the term used to refer to the view that contains a list of all sessions
 that haven't been completed yet.
@@ -924,8 +925,8 @@ checks whether the current session called by the user has a recurring period.
 
 The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
 
-.Session Done- Activity Diagram
-image::TssActivityDiagram.png[]
+.Session Done _Activity Diagram_
+image::DoneSessionActivityDiagram.png[]
 
 [NOTE]
 ====
@@ -946,7 +947,6 @@ The `session add` command has been implemented in a similar way. The main differ
 
 * If it doesn’t exist, an exception is thrown saying that the given module code doesn’t exist.
 
-//tag::claimsview[]
 
 === Claims View
 *Claims View* refers to the view that contains a list of all the sessions that have
@@ -1202,6 +1202,7 @@ many flashing colours may be distracting to the user.
 
 [[Implementation-Filter]]
 === Filter Command
+(Written by Chua Yi Jing)
 
 ==== Description
 

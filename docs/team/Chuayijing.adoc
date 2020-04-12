@@ -91,6 +91,7 @@ The User Guide contains instructions on how to use the various commands
 of the application. The following is an excerpt from our TA-Tracker User Guide,
 showing additions that I have made for `filter` and `Session` features.
 
+include::../UserGuide.adoc[tag=]
 
 
 === Contributions to the Developer Guide
@@ -101,3 +102,4 @@ The Developer Guide showcases my ability to write technical documentation
 and the technical depth of my contributions to the project.
 Given below is my contribution to the Developer Guide:
 
+include::../DeveloperGuide.adoc[tag=]
