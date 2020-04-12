@@ -25,6 +25,8 @@ to everyone. Whether you need a random suggestion of what to eat, directions to 
 // insert image to show section of UI attributes/ objects
 
 == About this Document
+<Done By: Samantha>
+
 === Symbols and Notations Used
 The following are the symbols and formatting used in this document:
 
@@ -76,8 +78,8 @@ TIP:  Some example commands you can try are listed below:
 
 * `*list*` : Lists all canteens or return to the main page.
 * `*enter* The Deck` : Display all the stalls location within The Deck.
-* `*goto* The Deck f/ COM1` : Display direction to go to deck from COM1.
 * `*back*` : Go back to the previous view
+* `*goto* The Deck f/ COM1` : Display direction to go to deck from COM1.
 * `*exit*` : the exit command will close FoodieBot
 
 
@@ -92,7 +94,7 @@ TIP:  Some example commands you can try are listed below:
 * _Canteen names_, _stall names_ and _commands_ are *case sensitive*.
 ====
 
-=== Back Command: `*back*`
+=== Back Command: `*back*`  <Done By: Ignatius>
 
 If you want to return to your previous screen, just key in `*back*` and it'll bring you back
 (at least if a previous screen exists).
@@ -105,7 +107,7 @@ When you're done using the application, type `*exit*` into the command box to cl
 
 Format: `exit`
 
-=== List all Canteens: `*list*`
+=== List all Canteens: `*list*`  <Done By: Leslie>
 
 Curious to discover the range of dining options on campus? Simply enter `*list*` into the command box
 and FoodieBot will show you all the fabulous canteens on campus for you to browse at your leisure.
@@ -133,7 +135,7 @@ List all canteens starting with the nearest canteen from com1
 image::app/list1.PNG[width="700", align="left"]
 
 
-=== Go to a Canteen: `*goto*`
+=== Go to a Canteen: `*goto*`  <Done By: Leslie>
 
 If you're ever lost in NUS, worry no more! The `goto` function can conveniently tell you the directions to the canteen you wish to
 go to from your current location which you have indicated. It even includes a map image to aid you with understanding
@@ -173,7 +175,7 @@ image::wireframe/gotoStep1.PNG[width="700", align="left"]
 image::wireframe/gotoStep2.PNG[width="700", align="left"]
 
 
-=== View Stalls or Menu: `*enter*`
+=== View Stalls or Menu: `*enter*`  <Done By: Ignatius>
 
 Curious about the details of a particular canteen or stall? The `enter` command allows you to find out
 all the information you want about the canteen or stall you are interested in.
@@ -218,7 +220,7 @@ image::wireframe/enterStall.PNG[width="700", align="left"]
 * Similarly, you can also enter `back` to return to the Nus Flavor canteen screen or enter `list` if you wish to return to the main screen.
 
 
-=== Select the Food : `*select*`
+=== Select the Food : `*select*`  <Done By: Shaun>
 
 Finally decided on a food item after browsing the countless food options at NUS, ordered it and want to record
 down your dining experience? The `*select*` function is here allowing you to save your selected food
@@ -249,7 +251,7 @@ image::wireframe/enterStall.PNG[width="700", align="left"]
 image::wireframe/select.png[width="700", align="left"]
 
 
-=== Randomize Food Selection : `*randomize*`
+=== Randomize Food Selection : `*randomize*`  <Done By: Samantha>
 
 Bamboozled by the countless dining options at NUS or simply bored of going to the same boring old canteens to
 eat everyday? `randomize` is here to help you to generate a random option when you cannot decide on what to eat or
@@ -302,7 +304,7 @@ image::wireframe/randomizeTag.PNG[width="700", align="left"]
 image::wireframe/randomizeTagOutput.PNG[width="700", align="left"]
 
 
-=== Set a Budget : `*budget set*`
+=== Set a Budget : `*budget set*`  <Done By: Xavier>
 
 Have problems keeping track of your spending? The `budget set` command allows you to set up
 a daily, weekly or monthly budget to help you track how much money you have left to spend. This budget
@@ -342,7 +344,7 @@ Examples:
 Set monthly budget to $100.
 ****
 
-=== View Budget: `*budget view*`
+=== View Budget: `*budget view*`  <Done By: Xavier>
 
 Curious about your budget this cycle, how much you have spent and how much you have left? `budget view` allows
 you to see all your spending as well as the amount of money you have left to spend.
@@ -351,7 +353,7 @@ Format: `budget view`
 
 image::wireframe/budgetView.PNG[width="700", align="left"]
 
-=== View Expense Report: `*report*`
+=== View Expense Report: `*report*`  <Done By: Xavier>
 If you want to see how much you have spent over a period of time, view a beautifully designed report of your
 past expenses with the `report` command.
 
@@ -387,7 +389,7 @@ NOTE: `FROM_DATE` cannot be a future date. +
 
 image::wireframe/report.png[width="700", align="left"]
 
-=== View Past Transactions: `*transactions*`
+=== View Past Transactions: `*transactions*`  <Done By: Xavier>
 
 In a similar way to `report`, `transactions` also allow you to see all the food you have purchased in
 a particular period.
@@ -423,7 +425,7 @@ NOTE: `FROM_DATE` cannot be a future date. +
 
 image::wireframe/transaction.png[width="700", align="left"]
 
-=== Delete A Transaction: `*delete*`
+=== Delete A Transaction: `*delete*`  <Done By: Xavier>
 
 Accidentally added a wrong food to your purchases? The `delete` command allows you to do just that, by
 giving the index of the food to delete.
@@ -448,7 +450,7 @@ Example:: You had accidentally selected the same food twice in a row too quickly
 TIP: Removing a food purchased only during a current budget cycle will add the amount back to your remaining budget!
 
 
-=== Review Food Items: `*review*`
+=== Review Food Items: `*review*`  <Done By: Xavier>
 
 From the *transactions* screen, leave a food review for a food item you have consumed to help you jog
 your memory and recall your experiences, be it pleasant or unpleasant, of the previous time you had the food.
@@ -471,7 +473,7 @@ image::wireframe/review.png[width="700", align="left"]
 
 TIP: You can update existing reviews by using the same command.
 
-=== Rate Food Items: `*rate*`
+=== Rate Food Items: `*rate*`  <Done By: Xavier>
 
 Lazy to write a full food review? Well from the `*transactions*` screen, you can simply leave a food rating
 to show how well you thought of the food you had.
@@ -492,7 +494,7 @@ Rate the 3rd item in the transactions list as 8.
 
 TIP: You can also update existing ratings by using the rate on the same food item.
 
-=== Set Food Items as Favorites: `*favorites set*`
+=== Set Food Items as Favorites: `*favorites set*`  <Done By: Leslie>
 
 Just had this absolutely delicious meal and want to save it for the next time so you can remember to have it
 again or recommend it to others? From the *menu screen* of a stall, you can easily set your favourite food items
@@ -505,7 +507,7 @@ Parameters:
 * `INDEX` - This must be the first parameter and an index from the list has to be specified.
 
 
-=== View Favorited Food Items: `*favorites view*`
+=== View Favorited Food Items: `*favorites view*`  <Done By: Leslie>
 
 Once you have saved your favorite food items, you can easily access them with this command.
 
@@ -513,7 +515,7 @@ Format: `favorites view`
 
 image::wireframe/favoritesView.PNG[width="700", align="left"]
 
-=== Remove Favorite Food Items: `*favorites remove*`
+=== Remove Favorite Food Items: `*favorites remove*`  <Done By: Leslie>
 
 Had a change of heart and a particular food has lost your fancy? Don't worry because FoodieBot makes it
 painless to sever your ties, by allowing quick removal of that food.
@@ -524,7 +526,7 @@ Parameters:
 
 * `INDEX` - This must be the first parameter and an index from the list has to be specified.
 
-=== Filter Canteens, Stalls or Food: `*filter*`
+=== Filter Canteens, Stalls or Food: `*filter*`  <Done By: Ignatius>
 
 If you only want a canteen, stall or food with a particular tag, filter allows you to as its name suggests
 filter to show only the things you want. Filter also enables you to filter based on the maximum price you
@@ -560,7 +562,7 @@ You can `filter 4` on the menu page. This will display all the options available
 *Q*: Can I write my personal review in other languages?  +
 *A*: Yes, FoodieBot accepts input for different types of language, however it does not support in-app localization.
 
-== Command Summary
+== Command Summary  <Done By: Shaun>
 [width="80%",cols="33%,<60%,<60%",options="header",]
 |=======================================================================
 |Command |Function |Example
