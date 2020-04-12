@@ -154,13 +154,14 @@ seconds. If nothing occurs, use the command
 open the file up.
 .  Type the command in the command box and press Enter to execute it.
 .  Some example commands you can try:
-* *list* : lists all coupons
 * *add:* `add n/Domino's Pizza Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5
           t/pizza t/delivery`
 *** adds a coupon named Domino's Pizza Extra Large to the Coupon Stash, with an
 expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a
 limit of 5 usages.
-* *delete*: `delete 3` : deletes the 3rd coupon shown in the current list
+* *used*: `used 3` : marks the 3rd coupon shown in the current list
+as used, and automatically archives it if the limit is reached
+* *saved*: `saved` : displays how much you have saved from all coupons
 * *exit* : exits the app (your data will be saved automatically)
 .  Refer to the <<Features, Features>> section below for the details of each
 command.
