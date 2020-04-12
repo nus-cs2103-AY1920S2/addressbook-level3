@@ -318,7 +318,7 @@ NOTE: If more than one accepted tag is given, such as `show c/Computer Science m
 
 * *Alternative 1 (current choice):* Have one `ShowCommand` for all objects to be displayed
 ** Pros: Repeated code is avoided
-** Cons: Takes in an Object in its constructor, any Object can call this method and cause unintended usages
+** Cons: Takes in an `Object` in its constructor, any `Object` can call this method and cause unintended usages
 
 * *Alternative 2:* Have a separate `ShowCommand` (e.g. `ShowModuleCommand`, `ShowCourseCommand`) for each object shown
 ** Pros: Applies Single Level of Abstraction Principle (SLAP)

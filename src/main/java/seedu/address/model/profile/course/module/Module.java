@@ -5,7 +5,6 @@ import java.util.List;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.DeadlineList;
 import seedu.address.model.profile.course.module.personal.Personal;
-import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
 //@@author gyant6
 /**
@@ -105,7 +104,11 @@ public class Module {
         return personal.getDeadlines();
     }
 
-    public void deleteDeadline(Deadline deadline) throws DeadlineNotFoundException {
+    public boolean hasDeadline(Deadline deadline) {
+        return personal.hasDeadline(deadline);
+    }
+
+    public void deleteDeadline(Deadline deadline) {
         personal.deleteDeadline(deadline);
     }
 

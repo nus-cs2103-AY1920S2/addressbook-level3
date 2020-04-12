@@ -150,9 +150,10 @@ public class DeleteCommandTest {
         String moduleCode = VALID_MODCODE_AMY;
         LocalDate date = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
         LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_AMY);
-        Deadline task = new Deadline(moduleCode, VALID_TASK_AMY, date, time);
+        ArrayList<Deadline> tasks = new ArrayList<>();
+        tasks.add(new Deadline(moduleCode, VALID_TASK_AMY, date, time));
 
-        assertThrows(NullPointerException.class, () -> new DeleteCommand(null, task));
+        assertThrows(NullPointerException.class, () -> new DeleteCommand(null, tasks));
     }
 
     // Task to be deleted does not exist
@@ -161,10 +162,11 @@ public class DeleteCommandTest {
         String moduleCode = VALID_MODCODE_AMY;
         LocalDate date = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
         LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_AMY);
-        Deadline task = new Deadline(moduleCode, VALID_TASK_AMY, date, time);
-        DeleteCommand deleteCommandTask = new DeleteCommand(Set.of(new ModuleCode(moduleCode)), task);
+        ArrayList<Deadline> tasks = new ArrayList<>();
+        tasks.add(new Deadline(moduleCode, VALID_TASK_AMY, date, time));
+        DeleteCommand deleteCommandTask = new DeleteCommand(Set.of(new ModuleCode(moduleCode)), tasks);
 
-        assertThrows(CommandException.class, String.format(MESSAGE_DELETE_DEADLINE_FAILURE, task.toString()), () ->
+        assertThrows(CommandException.class, String.format(MESSAGE_DELETE_DEADLINE_FAILURE, tasks.toString()), () ->
                 deleteCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                         new ModuleManagerStubCs()));
     }
