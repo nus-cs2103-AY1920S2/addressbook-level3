@@ -604,7 +604,7 @@ Instagram!
 Format: `share INDEX`
 
 [NOTE]
-Image generated looks exactly like how a coupon shows up in the user interface.
+Image generated will have an index of 1 regardless of its true index.
 Below is a sample of how a shared coupon image looks like:
 
 image::example_shared_coupon.png[]
