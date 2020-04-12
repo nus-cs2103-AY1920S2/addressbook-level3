@@ -1,6 +1,6 @@
 package csdev.couponstash.ui;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

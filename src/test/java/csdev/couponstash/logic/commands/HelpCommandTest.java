@@ -2,12 +2,13 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 
-import java.util.Optional;
 
 public class HelpCommandTest {
     private Model model = new ModelManager();

@@ -5,6 +5,8 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSucc
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.Messages;
@@ -15,8 +17,6 @@ import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.testutil.TypicalCoupons;
 import csdev.couponstash.testutil.TypicalIndexes;
-
-import java.util.Optional;
 
 class ExpandCommandTest {
 
