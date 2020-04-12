@@ -36,4 +36,15 @@ public class TransactionIdTest {
         assertTrue(TransactionId.isValidTid("A943739")); // alphanumeric characters
         assertTrue(TransactionId.isValidTid("A01010101010101010101")); // long TID
     }
+
+    @Test
+    public void isSameTid() {
+        // same tid returns true
+        assertTrue(new TransactionId("1234ABC").equals(new TransactionId("1234ABC")));
+        // same tid but different case returns true
+        assertTrue(new TransactionId("1234ABC").equals(new TransactionId("1234abc")));
+        // different tid returns false
+        assertFalse(new TransactionId("1234ABC").equals(new TransactionId("1234CBA")));
+    }
+
 }
