@@ -1,10 +1,8 @@
 package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.util.DateUtil.MONTH_YEAR_VALIDATION_REGEX;
-import static csdev.couponstash.model.coupon.RemindDate.DATE_FORMATTER;
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -152,7 +150,7 @@ public class ParserUtil {
             } else {
                 String trimmedSaveable = checkStringLength(str.trim(), Saveable.STRING_LENGTH_LIMIT);
                 // numbers might be a mistake by the user
-                if (trimmedSaveable.matches(".*\\d.*")) {
+                if (trimmedSaveable.matches(Saveable.INVALIDATION_REGEX)) {
                     throw new ParseException(
                             String.format(Savings.NUMBER_DETECTED_BUT_NOT_IN_FORMAT, moneySymbol));
                 }
@@ -357,9 +355,7 @@ public class ParserUtil {
         if (!DateUtil.isValidDate(trimmedDate)) {
             throw new ParseException(RemindDate.MESSAGE_CONSTRAINTS);
         }
-        RemindDate remind = new RemindDate();
-        remind.setRemindDate(LocalDate.parse(trimmedDate, DATE_FORMATTER));
-        return remind;
+        return new RemindDate(trimmedDate);
     }
 
     /**

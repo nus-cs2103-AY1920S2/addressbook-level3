@@ -72,7 +72,7 @@ public class AddCommand extends Command {
         }
 
         // Conditions for remind date
-        if (toAdd.getRemindDate().getDate().isAfter(toAdd.getExpiryDate().getDate())) {
+        if (toAdd.getRemindDate().isAfter(toAdd.getExpiryDate())) {
             throw new CommandException(DateUtil.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
         }
 

@@ -42,7 +42,7 @@ public class ShareCommand extends IndexedCommand {
     public static final String MESSAGE_DIALOG_CLOSED =
             "Coupon was not saved, save dialog was closed without choosing a directory.";
 
-    private static final String FORMAT = "png";
+    public static final String FORMAT = "png";
 
     /**
      * @param index of the coupon in the filtered coupon list to share
