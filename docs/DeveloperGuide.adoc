@@ -199,8 +199,9 @@ When inserting a new Expense/Income, the `AddCommandParser` will determine which
 * `**Date**` is parsed by `AddCommandParser#parseDate(ArgumentMultimap)`, CLI Syntax is d/.
 * `**Category**` is parsed by `AddCommandParser#parseCategory(ArgumentMultimap)`, CLI Syntax is c/.
 * `**Remark**` is parsed by `AddCommandParser#parseRemark(ArgumentMultimap)`, CLI Syntax is r/.
+* CLI Syntax "rc/" will set the transaction to be a monthly recurring transaction.
 
-`**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
+NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
 
 The following sequence diagram shows how the add transaction operation works:
 
@@ -231,6 +232,7 @@ image::add-command/AddTransactionToList1.png[]
 Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income rc/ ** to indicate his monthly pay, to insert a positive `**Transaction**`.
 
 NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GROCERIES, HEALTH, RECREATION, MISC, UTILITIES, INCOME.
+
 NOTE: "rc/" CLI Syntax will set the transaction to be a recurring transaction.
 
 Again, since the input is valid, the positive `Transaction` is successfully added into the transaction list. The transaction list
