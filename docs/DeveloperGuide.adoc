@@ -446,6 +446,10 @@ These attributes are bounded by these characteristics:
 . Earliest `StartDate` possible can only be one year before the current date and cannot be after `EndDate`. `StartDate` also cannot be a future date
 . Earliest `EndDate` possible can only be one year before the current date and cannot be before `StartDate`. `EndDate` also cannot be a future date
 
+Here is an activity diagram displaying the steps taken when FitBiz receives a user input for the `graph` command:
+
+image::GraphCommandActivityDiagram.png[]
+
 The behaviour of this feature determines the graph plotted of the exercise specified based on these considerations:
 
 . If there is no such exercise with the matching `ExerciseName` in the client's exercise list from the specified `StartDate` to `EndDate`, then the graph cannot be plotted
@@ -453,13 +457,13 @@ The behaviour of this feature determines the graph plotted of the exercise speci
 . If the `Axis` input is `weight` and the exercise specified does not have any weight input within the `StartDate` to `EndDate`, then the graph cannot be plot
 . If all of the above are fulfilled (ie. there is at least one valid exercise with the matching `ExerciseName` and has weight/reps input depending on the `Axis` specified), then the graph will be plotted, with each exercise in chronological order
 
-When the user inputs `graph` with all relevant arguments input correctly, a new `GraphCommand()` is created, taking the newly created `Graph` object as parameter.
-
-`GraphCommand#execute()` then retrieves the exercise list from the client currently in view and checks if there is at least one exercise with a matching exercise name. If there is no exercise to plot, then an error `GraphCommand.MESSAGE_EXERCISE_NOT_IN_LIST` will be thrown. Next, the list of exercises to be plot will be generated using `Graph#generateGraphList()`. Once again, there will be a sanity check to see if the list size is zero, which means that no graph cannot be plotted.
-
 The flow of the program is illustrated using the sequence diagram below:
 
 image::GraphSequenceDiagram.png[]
+
+The explanation is as follows: when the user inputs `graph` with all relevant arguments input correctly, a new `GraphCommand()` is created, taking the newly created `Graph` object as parameter.
+
+`GraphCommand#execute()` then retrieves the exercise list from the client currently in view and checks if there is at least one exercise with a matching exercise name. If there is no exercise to plot, then an error `GraphCommand.MESSAGE_EXERCISE_NOT_IN_LIST` will be thrown. Next, the list of exercises to be plot will be generated using `Graph#generateGraphList()`. Once again, there will be a sanity check to see if the list size is zero, which means that no graph cannot be plotted.
 
 ==== Design Considerations
 
@@ -476,8 +480,24 @@ In designing this feature, we had to decide on the implementation of certain cla
 
 We decided to use the approach of abstracting the axis types away into `AxisType` enum class. As the graph implementation will require a substantial amount of equality checks, especially for the attributes of `Graph` to make sure that we are drawing the correct graph for the user. As such equality checks are made, it makes it difficult to keep checking `String` equality as regular data types like `String` would allow invalid values to be assigned to a variable.
 
-As our axis values can only be `REPS`, `WEIGHT` or `NA`, we can check for each case using the switch case method instead of checking for equality using raw types. This is also much more efficient than using multiple if-else statements.
+As our axis values can only be `REPS`, `WEIGHT` or `NA`, we can check for each case using the switch case method instead of checking for equality using raw types. This is also much more efficient than using multiple if-else statements. For example, in the code snippet below, the method `fillSeries()` uses switch case statements to add data values depending on the `AxisType`.
 
+[source, java]
+----
+    private void fillSeries() {
+        switch (axisType) {
+        case REPS:
+            fillRepsSeries();
+            yAxis.setLabel("Reps");
+            break;
+        case WEIGHT:
+            fillWeightSeries();
+            yAxis.setLabel("Weight");
+            break;
+        default:
+        }
+    }
+----
 
 Moreover, to keep in line with the OOP standards, we decided that it will be better to abstract away data types like `AxisType` into its separate class instead of storing it as a raw type in `Axis`. This ensures the code quality of our program and reduces complexity (especially in terms of equality checking as mentioned above) by abstracting away the more complex details into classes of a lower level. The consideration of abstracting details away is also used for creating `StartDate` and `EndDate` classes as attributes of `Graph`, instead of using the Java in-built `LocalDate`.
 

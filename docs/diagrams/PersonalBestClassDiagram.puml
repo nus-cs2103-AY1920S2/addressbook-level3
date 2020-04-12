@@ -1,14 +1,19 @@
 @startuml
 !include style.puml
 
-Class Client MODEL_COLOR
-Class PersonalBest MODEL_COLOR
-Class UniqueExerciseList MODEL_COLOR
-Class ViewCommand LOGIC_COLOR
-Class AddExerciseCommand LOGIC_COLOR
-Class EditExerciseCommand LOGIC_COLOR
-Class DeleteExerciseCommand LOGIC_COLOR
-Class PersonalBestFinder LOGIC_COLOR
+package Model {
+    Class Client MODEL_COLOR
+    Class PersonalBest MODEL_COLOR
+    Class UniqueExerciseList MODEL_COLOR
+}
+
+package Logic {
+    Class ViewCommand LOGIC_COLOR
+    Class AddExerciseCommand LOGIC_COLOR
+    Class EditExerciseCommand LOGIC_COLOR
+    Class DeleteExerciseCommand LOGIC_COLOR
+    Class PersonalBestFinder LOGIC_COLOR
+}
 
 Client "1" *-down-> "1" PersonalBest
 Client "1" *-up-> "1" UniqueExerciseList

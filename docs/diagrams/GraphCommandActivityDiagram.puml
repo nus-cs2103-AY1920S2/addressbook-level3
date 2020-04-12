@@ -1,0 +1,28 @@
+@startuml GraphCommandActivityDiagram
+start
+
+
+:User enters a graph command;
+:FitBizParser creates the associated
+graph command's parser;
+:The parser parses arguments and
+creates the graph command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Is currently viewing a client])
+    if () then ([Valid exercise record exists within time frame])
+        :Executes the graph command;
+        :Creates client's graph list;
+        :Displays graph in GUI;
+        :Show execution success feedback to user;
+    else ([else])
+        :Shows no graph for this exercise error;
+    endif
+else ([else])
+    :Shows not viewing client error;
+endif
+
+stop
+@enduml
