@@ -48,7 +48,7 @@ public class AssignmentDetailedPanel extends UiPart<Region> {
   }
 
   private void updateDetailView(ObservableMap<String, Object> newAssignmentMap) {
-    if (newAssignmentMap.containsKey("details") && newAssignmentMap.get("details") != null) {
+    if (newAssignmentMap.containsKey("details")) {
       Assignment assignment = (Assignment) newAssignmentMap.get("details");
       ObservableList<Assignment> filteredAssignments = FXCollections.observableArrayList();
       filteredAssignments.add(assignment);
