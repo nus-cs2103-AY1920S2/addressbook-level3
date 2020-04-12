@@ -27,7 +27,6 @@ HiddenModel -left[hidden]-> Model
 EYLAH -up-> HiddenUI
 EYLAH -left-> HiddenModel
 UI -> Logic
-UI -right-> Model
 Logic -> Storage
 Logic -down-> Model
 
