@@ -158,7 +158,7 @@ public class GenerateReportCommand extends Command {
             stringBuilder.append(", ");
         }
         System.out.println(stringBuilder.toString());
-        ArrayList<String> splitAttributeScoresSentence = splitSentence(stringBuilder.toString(), 82);
+        ArrayList<String> splitAttributeScoresSentence = splitSentence(stringBuilder.toString(), 80);
         ArrayList<String> splitName = splitSentence(fullName, 70);
         System.out.println(splitName);
         splitAttributeScoresSentence.add(0, ATTRIBUTE_SCORE_TITLE);
@@ -216,6 +216,10 @@ public class GenerateReportCommand extends Command {
             pageContentStream.newLineAtOffset(50, -15);
         }
         pageContentStream.setFont(PDType1Font.HELVETICA, 12);
+        if (sentenceList.isEmpty()) {
+            pageContentStream.newLineAtOffset(0, -20);
+            pageContentStream.showText("-");
+        }
         for (String currentString : sentenceList) {
             pageContentStream.showText(currentString);
             pageContentStream.newLineAtOffset(0, -13);
@@ -237,7 +241,7 @@ public class GenerateReportCommand extends Command {
         boolean firstPage = true;
         ArrayList<TableRowEntry> rowsInAPage = new ArrayList<>();
         for (Remark currentRemark : remarkList) {
-            ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage(), 80);
+            ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage(), 78);
             boolean firstSentence = true;
             for (String currentLine : splitRemarks) {
                 TableRowEntry currentRow = new TableRowEntry(currentLine,
