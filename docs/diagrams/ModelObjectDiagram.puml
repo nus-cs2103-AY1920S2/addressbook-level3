@@ -88,4 +88,14 @@ Student4 -- Group1
 Session1 -up- Module1
 Session2 -up- Module1
 
+hide Student1 circle
+hide Student2 circle
+hide Student3 circle
+hide Student4 circle
+hide Group1 circle
+hide Group2 circle
+hide Module1 circle
+hide Session1 circle
+hide Session2 circle
+
 @enduml
