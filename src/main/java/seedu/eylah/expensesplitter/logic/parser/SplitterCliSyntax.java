@@ -11,6 +11,5 @@ public class SplitterCliSyntax {
     public static final Prefix PREFIX_ITEM = new Prefix("-i");
     public static final Prefix PREFIX_PRICE = new Prefix("-p");
     public static final Prefix PREFIX_NAME = new Prefix("-n");
-    public static final Prefix PREFIX_INDEX = new Prefix(" ");
 }
 

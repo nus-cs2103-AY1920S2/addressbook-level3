@@ -63,7 +63,7 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the personAmountBook.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -71,8 +71,8 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the person amount book.
+     * The person must not already exist in the personAmountBook.
      * Person is duplicated so that a new Person is added instead of the
      * existing Person in the Receipt.
      */
@@ -98,8 +98,8 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
 
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code PersonAmountBook}.
+     * {@code key} must exist in the personamount book.
      */
     public void removePerson(Person key) {
         persons.remove(key);

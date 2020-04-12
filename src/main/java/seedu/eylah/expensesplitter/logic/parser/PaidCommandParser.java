@@ -2,12 +2,9 @@ package seedu.eylah.expensesplitter.logic.parser;
 
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.stream.Stream;
-
 import seedu.eylah.commons.core.index.Index;
-import seedu.eylah.commons.logic.parser.ArgumentMultimap;
+
 import seedu.eylah.commons.logic.parser.Parser;
-import seedu.eylah.commons.logic.parser.Prefix;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.expensesplitter.logic.commands.PaidCommand;
 
@@ -20,7 +17,9 @@ public class PaidCommandParser implements Parser<PaidCommand> {
     public static final String VALIDATION_REGEX = "(?=.*?\\d)^\\$?(([1-9]\\d{0,2}(,\\d{3})*)|\\d+)?(\\.\\d{1,2})?$";
 
     /**
-     * Parsing.
+     * For Paid Command we maintained consistency because INDEX did not have a flag like "-i" or "/i"
+     * similar to AB3. We decided not to have a flag for amount too.
+     * Thus the entire command is consistent in a way that there is no flags.
      * @param args
      * @return
      * @throws ParseException
@@ -51,28 +50,8 @@ public class PaidCommandParser implements Parser<PaidCommand> {
             throw new ParseException(PaidCommand.PROPER_AMOUNT);
         }
 
-        /*
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemCommand.MESSAGE_USAGE));
-        }
-
-        int index = ParserUtil.parseIndexV2(argMultimap.getValue(PREFIX_INDEX).get());
-
-         */
 
         return new PaidCommand(indexOfPerson, amountPaid);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 
