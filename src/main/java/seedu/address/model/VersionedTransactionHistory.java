@@ -19,7 +19,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
     }
 
     /**
-     * Creates a VersionedTransactionHistory with an initial state containing the {@code Transaction}s
+     * Creates a VersionedTransactionHistory with an initial state containing the list of {@code Transaction}
      * in the {@code toBeCopied}.
      */
     public VersionedTransactionHistory(ReadOnlyList<Transaction> toBeCopied) {
@@ -30,10 +30,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
 
     //=========== List Overwrite Operations =========================================================================
 
-    /**
-     * Resets the existing data of this {@code VersionedTransactionHistory} with {@code newData}.
-     * Resets the history to an empty state as well.
-     */
+    @Override
     public void resetData(ReadOnlyList<Transaction> newData) {
         version.getCurrentState().resetData(newData);
         updateDisplayedTransactions();
@@ -41,26 +38,18 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
 
     //=========== Transaction-Level Operations =========================================================================
 
-    /**
-     * Returns true if a transaction with the same identity as {@code transaction} exists in the current state.
-     */
+    @Override
     public boolean hasTransaction(Transaction transaction) {
         return version.getCurrentState().hasTransaction(transaction);
     }
 
-    /**
-     * Adds a transaction to the current state.
-     * The transaction must not already exist in the current state.
-     */
+    @Override
     public void addTransaction(Transaction p) {
         version.getCurrentState().addTransaction(p);
         updateDisplayedTransactions();
     }
 
-    /**
-     * Removes {@code key} from the current state.
-     * {@code key} must exist in the current state.
-     */
+    @Override
     public void removeTransaction(Transaction key) {
         version.getCurrentState().removeTransaction(key);
         updateDisplayedTransactions();

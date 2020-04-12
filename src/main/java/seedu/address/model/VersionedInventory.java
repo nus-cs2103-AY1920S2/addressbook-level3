@@ -11,14 +11,14 @@ import seedu.address.model.version.Versionable;
  */
 public class VersionedInventory extends Inventory implements Versionable {
     private Version<Inventory> version;
-
+    
     public VersionedInventory() {
         super();
         version = new LinearHistory<>(new Inventory());
     }
 
     /**
-     * Creates a VersionedInventory with an initial state containing the {@code Good}s in the {@code toBeCopied}.
+     * Creates a VersionedInventory with an initial state containing the list of {@code Good} in the {@code toBeCopied}.
      */
     public VersionedInventory(ReadOnlyList<Good> toBeCopied) {
         super();
@@ -28,9 +28,7 @@ public class VersionedInventory extends Inventory implements Versionable {
 
     //=========== List Overwrite Operations =========================================================================
 
-    /**
-     * Resets the existing data in the current state with {@code newData}.
-     */
+    @Override
     public void resetData(ReadOnlyList<Good> newData) {
         version.getCurrentState().resetData(newData);
         updateDisplayedGoods();
@@ -38,40 +36,30 @@ public class VersionedInventory extends Inventory implements Versionable {
 
     //=========== Good-Level Operations =========================================================================
 
-    /**
-     * Returns true if a good with the same identity as {@code good} exists in the address book.
-     */
+    @Override
     public boolean hasGood(Good good) {
         return version.getCurrentState().hasGood(good);
     }
 
+
+    @Override
     public int index(Good toFind) {
         return version.getCurrentState().index(toFind);
     }
 
-    /**
-     * Adds a good to the current state.
-     * The good must not already exist in the current state.
-     */
+    @Override
     public void addGood(Good p) {
         version.getCurrentState().addGood(p);
         updateDisplayedGoods();
     }
 
-    /**
-     * Replaces the given good {@code target} in the current state with {@code editedGood}.
-     * {@code target} must exist in the current state.
-     * The good identity of {@code editedGood} must not be the same as another existing good in the current state.
-     */
+    @Override
     public void setGood(Good target, Good editedGood) {
         version.getCurrentState().setGood(target, editedGood);
         updateDisplayedGoods();
     }
 
-    /**
-     * Removes {@code key} from this {@code Inventory}.
-     * {@code key} must exist in the current state.
-     */
+    @Override
     public void removeGood(Good key) {
         version.getCurrentState().removeGood(key);
         updateDisplayedGoods();

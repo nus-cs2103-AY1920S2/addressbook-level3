@@ -18,7 +18,8 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
     }
 
     /**
-     * Creates a VersionedAddressBook with an initial state containing the {@code Supplier}s in the {@code toBeCopied}.
+     * Creates a VersionedAddressBook with an initial state containing the list of {@code Supplier} in the
+     * {@code toBeCopied}.
      */
     public VersionedAddressBook(ReadOnlyList<Supplier> toBeCopied) {
         super();
@@ -28,9 +29,7 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
 
     //=========== List Overwrite Operations =========================================================================
 
-    /**
-     * Resets the existing data of the current state with {@code newData}.
-     */
+    @Override
     public void resetData(ReadOnlyList<Supplier> newData) {
         version.getCurrentState().resetData(newData);
         updateDisplayedSuppliers();
@@ -38,37 +37,25 @@ public class VersionedAddressBook extends AddressBook implements Versionable {
 
     //=========== Supplier-Level Operations =========================================================================
 
-    /**
-     * Returns true if a supplier with the same identity as {@code supplier} exists in the current state.
-     */
+    @Override
     public boolean hasSupplier(Supplier supplier) {
         return version.getCurrentState().hasSupplier(supplier);
     }
 
-    /**
-     * Adds a supplier to the current state.
-     * The supplier must not already exist in the current state.
-     */
+
+    @Override
     public void addSupplier(Supplier p) {
         version.getCurrentState().addSupplier(p);
         updateDisplayedSuppliers();
     }
 
-    /**
-     * Replaces the given supplier {@code target} in the current state with {@code editedSupplier}.
-     * {@code target} must exist in the current state.
-     * The supplier identity of {@code editedSupplier} must not be the same as another existing supplier in the
-     * current state.
-     */
+    @Override
     public void setSupplier(Supplier target, Supplier editedSupplier) {
         version.getCurrentState().setSupplier(target, editedSupplier);
         updateDisplayedSuppliers();
     }
 
-    /**
-     * Removes {@code key} from the current state.
-     * {@code key} must exist in the current state.
-     */
+    @Override
     public void removeSupplier(Supplier key) {
         version.getCurrentState().removeSupplier(key);
         updateDisplayedSuppliers();
