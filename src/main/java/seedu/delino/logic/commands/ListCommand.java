@@ -33,7 +33,7 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_FAILURE = "Invalid use of List Command.";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List the orders from order book based on arguments. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List the orders from order list based on arguments. "
             + "Argument: "
             + DONE + "/"
             + UNDONE + "\n"

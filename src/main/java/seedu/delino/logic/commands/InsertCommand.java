@@ -49,7 +49,7 @@ public class InsertCommand extends Command {
             + PREFIX_TYPE + "glass ";
 
     public static final String MESSAGE_SUCCESS = "New order added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the order book";
+    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the Order List";
 
     private final Order toAdd;
 

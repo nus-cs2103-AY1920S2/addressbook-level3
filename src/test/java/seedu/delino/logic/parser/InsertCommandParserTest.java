@@ -34,15 +34,18 @@ import static seedu.delino.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.delino.logic.commands.CommandTestUtil.TID_DESC_AMY;
 import static seedu.delino.logic.commands.CommandTestUtil.TID_DESC_BOB;
 import static seedu.delino.logic.commands.CommandTestUtil.TYPE_DESC_GLASS;
+import static seedu.delino.logic.commands.CommandTestUtil.TYPE_DESC_METAL;
 import static seedu.delino.logic.commands.CommandTestUtil.TYPE_DESC_PLASTIC;
 import static seedu.delino.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.delino.logic.commands.CommandTestUtil.VALID_COD_BOB;
+import static seedu.delino.logic.commands.CommandTestUtil.VALID_COMMENT_INSTRUCTION;
 import static seedu.delino.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.delino.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.delino.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.delino.logic.commands.CommandTestUtil.VALID_TID_BOB;
 import static seedu.delino.logic.commands.CommandTestUtil.VALID_TIMESTAMP_BOB;
 import static seedu.delino.logic.commands.CommandTestUtil.VALID_TYPE_GLASS;
+import static seedu.delino.logic.commands.CommandTestUtil.VALID_TYPE_METAL;
 import static seedu.delino.logic.commands.CommandTestUtil.VALID_WAREHOUSE_BOB;
 import static seedu.delino.logic.commands.CommandTestUtil.WAREHOUSE_DESC_AMY;
 import static seedu.delino.logic.commands.CommandTestUtil.WAREHOUSE_DESC_BOB;
@@ -75,7 +78,7 @@ import seedu.delino.model.parcel.parcelattributes.TimeStamp;
 import seedu.delino.model.parcel.parcelattributes.TransactionId;
 import seedu.delino.model.parcel.parcelattributes.Warehouse;
 import seedu.delino.testutil.OrderBuilder;
-
+//@@author Amoscheong97
 public class InsertCommandParserTest {
 
     public static final String NEWLINE_INSERT = "\n%1$s";
@@ -196,7 +199,25 @@ public class InsertCommandParserTest {
     }
 
     @Test
-    public void parse_compulsoryFieldMissing_failure() {
+    public void parse_commentFieldMissing_success() {
+        // only has itemType
+        Order expectedOrder = new OrderBuilder(AMY).withItemType(VALID_TYPE_METAL).build();
+        assertParseSuccess(parser, TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                + DELIVERY_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + COD_DESC_AMY + TYPE_DESC_METAL,
+                new InsertCommand(expectedOrder));
+    }
+
+    @Test
+    public void parse_itemTypeMissing_success() {
+        // only has comment
+        Order expectedOrder = new OrderBuilder(AMY).withComment(VALID_COMMENT_INSTRUCTION).build();
+        assertParseSuccess(parser, TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                        + DELIVERY_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + COD_DESC_AMY + COMMENT_DESC_INSTRUCTION,
+                new InsertCommand(expectedOrder));
+    }
+
+    @Test
+    public void parse_oneCompulsoryFieldMissing_failure() {
         String expectedMessage = String.format(missingTid, InsertCommand.MESSAGE_USAGE);
         //----------------------------- One Prefix Missing----------------------------------------------------------
 
@@ -238,13 +259,21 @@ public class InsertCommandParserTest {
         expectedMessage = String.format(missingCash, InsertCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB, expectedMessage);
-
+    }
+    @Test
+    public void parse_twoCompulsoryFieldsMissing_failure() {
         //-------------------------------- Two prefixes missing -------------------------------------------------------
-
+        String expectedMessage;
         //missing TID and Address prefixes
         String tidAndAddress = emptyMessage + PREFIX_TID + NEWLINE + PREFIX_ADDRESS + NEWLINE_INSERT;
         expectedMessage = String.format(tidAndAddress, InsertCommand.MESSAGE_USAGE);
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        //missing TID and Email prefixes
+        String tidAndEmail = emptyMessage + PREFIX_TID + NEWLINE + PREFIX_EMAIL + NEWLINE_INSERT;
+        expectedMessage = String.format(tidAndEmail, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB
                 + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
 
         //missing TID and Name prefixes
@@ -259,11 +288,42 @@ public class InsertCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
 
+        //missing TID and TimeStamp prefixes
+        String tidAndTimeStamp = emptyMessage + PREFIX_TID + NEWLINE + PREFIX_DELIVERY_TIMESTAMP + NEWLINE_INSERT;
+        expectedMessage = String.format(tidAndTimeStamp, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
         //missing TID and Warehouse prefixes
         String tidAndWarehouse = emptyMessage + PREFIX_TID + NEWLINE + PREFIX_WAREHOUSE + NEWLINE_INSERT;
         expectedMessage = String.format(tidAndWarehouse, InsertCommand.MESSAGE_USAGE);
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + DELIVERY_TIMESTAMP_DESC_BOB + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
+
+        //missing TID and CashOnDelivery prefixes
+        String tidAndCod = emptyMessage + PREFIX_TID + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(tidAndCod, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + VALID_COD_BOB, expectedMessage);
+
+        //missing Name and Phone prefixes
+        String nameAndPhone = emptyMessage + PREFIX_NAME + NEWLINE + PREFIX_PHONE + NEWLINE_INSERT;
+        expectedMessage = String.format(nameAndPhone, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        //missing Name and Email prefixes
+        String nameAndEmail = emptyMessage + PREFIX_NAME + NEWLINE + PREFIX_EMAIL + NEWLINE_INSERT;
+        expectedMessage = String.format(nameAndEmail, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+
+        //missing Name and Address prefixes
+        String nameAndAddress = emptyMessage + PREFIX_NAME + NEWLINE + PREFIX_ADDRESS + NEWLINE_INSERT;
+        expectedMessage = String.format(nameAndAddress, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
 
         //missing Name and TimeStamp prefixes
         String nameAndTimeStamp = emptyMessage + PREFIX_NAME + NEWLINE + PREFIX_DELIVERY_TIMESTAMP + NEWLINE_INSERT;
@@ -283,18 +343,51 @@ public class InsertCommandParserTest {
         assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                 + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
 
+        //missing Email and Timestamp prefixes
+        String emailAndTimestamp = emptyMessage + PREFIX_EMAIL + NEWLINE + PREFIX_DELIVERY_TIMESTAMP + NEWLINE_INSERT;
+        expectedMessage = String.format(emailAndTimestamp, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
         //missing Email and Warehouse prefixes
         String emailAndWarehouse = emptyMessage + PREFIX_EMAIL + NEWLINE + PREFIX_WAREHOUSE + NEWLINE_INSERT;
         expectedMessage = String.format(emailAndWarehouse, InsertCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
                 + DELIVERY_TIMESTAMP_DESC_BOB + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
 
+        //missing Email and Cash prefixes
+        String emailAndCod = emptyMessage + PREFIX_EMAIL + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(emailAndCod, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB, expectedMessage);
+
+        //missing Address and Timestamp prefixes
+        String addressAndTimestamp = emptyMessage + PREFIX_ADDRESS + NEWLINE + PREFIX_DELIVERY_TIMESTAMP
+                + NEWLINE_INSERT;
+        expectedMessage = String.format(addressAndTimestamp, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB
+                + VALID_TIMESTAMP_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        //missing Address and Warehouse prefixes
+        String addressAndWarehouse = emptyMessage + PREFIX_ADDRESS + NEWLINE + PREFIX_WAREHOUSE
+                + NEWLINE_INSERT;
+        expectedMessage = String.format(addressAndWarehouse, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
+
+        //missing Address and Cash prefixes
+        String addressAndCash = emptyMessage + PREFIX_ADDRESS + NEWLINE + PREFIX_COD
+                + NEWLINE_INSERT;
+        expectedMessage = String.format(addressAndCash, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + VALID_COD_BOB, expectedMessage);
+
         //missing TimeStamp and CashOnDelivery prefixes
         String timeStampAndCashOnDelivery = emptyMessage + PREFIX_DELIVERY_TIMESTAMP + NEWLINE
                 + PREFIX_COD + NEWLINE_INSERT;
         expectedMessage = String.format(timeStampAndCashOnDelivery, InsertCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + WAREHOUSE_DESC_BOB, expectedMessage);
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + WAREHOUSE_DESC_BOB, expectedMessage);
 
         //missing TimeStamp and Warehouse prefixes
         String timeStampAndWarehouse = emptyMessage + PREFIX_DELIVERY_TIMESTAMP + NEWLINE
@@ -303,7 +396,18 @@ public class InsertCommandParserTest {
         assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + COD_DESC_BOB, expectedMessage);
 
+        //missing Warehouse and Cash prefixes
+        String warehouseAndCash = emptyMessage + PREFIX_WAREHOUSE + NEWLINE + PREFIX_COD
+                + NEWLINE_INSERT;
+        expectedMessage = String.format(addressAndTimestamp, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB
+                + VALID_TIMESTAMP_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+    }
+
+    @Test
+    public void parse_threeCompulsoryFieldsMissing_failure() {
         //-------------------------------- Three prefixes missing -----------------------------------------------------
+        String expectedMessage;
 
         // Missing TID, Name and Phone prefixes
         String tidNamePhone = emptyMessage + PREFIX_TID + NEWLINE
@@ -313,18 +417,265 @@ public class InsertCommandParserTest {
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
                 + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
 
-        // Missing Email, Address and DeliveryTimeStamp prefixes
-        String emailAddressDts = emptyMessage + PREFIX_EMAIL + NEWLINE
+
+        // Missing TID, Name and Email prefixes
+        String tidNameEmail = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_NAME + NEWLINE + PREFIX_EMAIL + NEWLINE_INSERT;
+        expectedMessage = String.format(tidNameEmail, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + VALID_NAME_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Name and Address prefixes
+        String tidNameAddress = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_NAME + NEWLINE + PREFIX_ADDRESS + NEWLINE_INSERT;
+        expectedMessage = String.format(tidNameAddress, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + VALID_NAME_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + VALID_ADDRESS_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Name and Timestamp prefixes
+        String tidNameTimestamp = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_NAME + NEWLINE + PREFIX_DELIVERY_TIMESTAMP + NEWLINE_INSERT;
+        expectedMessage = String.format(tidNameTimestamp, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + VALID_NAME_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + VALID_TIMESTAMP_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Name and Warehouse prefixes
+        String tidNameWarehouse = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_NAME + NEWLINE + PREFIX_WAREHOUSE + NEWLINE_INSERT;
+        expectedMessage = String.format(tidNameWarehouse, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + VALID_NAME_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Name and Cash prefixes
+        String tidNameCash = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_NAME + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(tidNameCash, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + VALID_NAME_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + VALID_COD_BOB, expectedMessage);
+
+        // Missing TID, Phone and Email prefixes
+        String tidPhoneEmail = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_PHONE + NEWLINE + PREFIX_EMAIL + NEWLINE_INSERT;
+        expectedMessage = String.format(tidPhoneEmail, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + VALID_PHONE_BOB
+                + VALID_EMAIL_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Phone and Address prefixes
+        String tidPhoneAddress = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_PHONE + NEWLINE + PREFIX_ADDRESS + NEWLINE_INSERT;
+        expectedMessage = String.format(tidPhoneAddress, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + VALID_PHONE_BOB
+                + EMAIL_DESC_BOB + VALID_ADDRESS_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Phone and Timestamp prefixes
+        String tidPhoneTimestamp = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_PHONE + NEWLINE + PREFIX_DELIVERY_TIMESTAMP + NEWLINE_INSERT;
+        expectedMessage = String.format(tidPhoneTimestamp, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + VALID_PHONE_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + VALID_TIMESTAMP_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Phone and Warehouse prefixes
+        String tidPhoneWarehouse = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_PHONE + NEWLINE + PREFIX_WAREHOUSE + NEWLINE_INSERT;
+        expectedMessage = String.format(tidPhoneWarehouse, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + VALID_PHONE_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Phone and Cash prefixes
+        String tidPhoneCash = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_PHONE + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(tidPhoneCash, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + VALID_PHONE_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + VALID_COD_BOB, expectedMessage);
+
+        // Missing TID, Email and Address prefixes
+        String tidEmailAddress = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_EMAIL + NEWLINE + PREFIX_ADDRESS + NEWLINE_INSERT;
+        expectedMessage = String.format(tidEmailAddress, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + VALID_ADDRESS_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Email and Timestamp prefixes
+        String tidEmailTimestamp = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_EMAIL + NEWLINE + PREFIX_DELIVERY_TIMESTAMP + NEWLINE_INSERT;
+        expectedMessage = String.format(tidEmailTimestamp, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + ADDRESS_DESC_BOB + VALID_TIMESTAMP_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Email and Warehouse prefixes
+        String tidEmailWarehouse = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_EMAIL + NEWLINE + PREFIX_WAREHOUSE + NEWLINE_INSERT;
+        expectedMessage = String.format(tidEmailWarehouse, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Email and Cash prefixes
+        String tidEmailCash = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_EMAIL + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(tidEmailCash, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + VALID_COD_BOB, expectedMessage);
+
+        // Missing TID, Address and Timestamp prefixes
+        String tidAddressTimestamp = emptyMessage + PREFIX_TID + NEWLINE
                 + PREFIX_ADDRESS + NEWLINE + PREFIX_DELIVERY_TIMESTAMP + NEWLINE_INSERT;
-        expectedMessage = String.format(emailAddressDts, InsertCommand.MESSAGE_USAGE);
+        expectedMessage = String.format(tidAddressTimestamp, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + VALID_ADDRESS_BOB + VALID_TIMESTAMP_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Address and Warehouse prefixes
+        String tidAddressWarehouse = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_ADDRESS + NEWLINE + PREFIX_WAREHOUSE + NEWLINE_INSERT;
+        expectedMessage = String.format(tidAddressWarehouse, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + VALID_ADDRESS_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Address and Cash prefixes
+        String tidAddressCod = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_ADDRESS + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(tidAddressCod, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + VALID_ADDRESS_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + VALID_COD_BOB, expectedMessage);
+
+        // Missing TID, Timestamp, Warehouse prefixes
+        String tidTimestampWarehouse = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_DELIVERY_TIMESTAMP + NEWLINE + PREFIX_WAREHOUSE + NEWLINE_INSERT;
+        expectedMessage = String.format(tidTimestampWarehouse, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + VALID_TIMESTAMP_BOB
+                + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing TID, Timestamp, Cash prefixes
+        String tidTimestampCash = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_DELIVERY_TIMESTAMP + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(tidTimestampCash, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + VALID_TIMESTAMP_BOB
+                + WAREHOUSE_DESC_BOB + VALID_COD_BOB, expectedMessage);
+
+        // Missing TID, Warehouse, Cash prefixes
+        String tidWarehouseCash = emptyMessage + PREFIX_TID + NEWLINE
+                + PREFIX_WAREHOUSE + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(tidWarehouseCash, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, VALID_TID_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + VALID_WAREHOUSE_BOB + VALID_COD_BOB, expectedMessage);
+
+        // Missing Name, Phone, Email prefixes
+        String namePhoneEmail = emptyMessage + PREFIX_NAME + NEWLINE
+                + PREFIX_PHONE + NEWLINE + PREFIX_EMAIL + NEWLINE_INSERT;
+        expectedMessage = String.format(namePhoneEmail, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + VALID_PHONE_BOB
+                + VALID_EMAIL_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing Name, Phone, Address prefixes
+        String namePhoneAddress = emptyMessage + PREFIX_NAME + NEWLINE
+                + PREFIX_PHONE + NEWLINE + PREFIX_ADDRESS + NEWLINE_INSERT;
+        expectedMessage = String.format(namePhoneAddress, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + VALID_PHONE_BOB
+                + EMAIL_DESC_BOB + VALID_ADDRESS_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing Name, Phone, Timestamp prefixes
+        String namePhoneTimestamp = emptyMessage + PREFIX_NAME + NEWLINE
+                + PREFIX_PHONE + NEWLINE + PREFIX_DELIVERY_TIMESTAMP + NEWLINE_INSERT;
+        expectedMessage = String.format(namePhoneTimestamp, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + VALID_PHONE_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + VALID_TIMESTAMP_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing Name, Phone, Warehouse prefixes
+        String namePhoneWarehouse = emptyMessage + PREFIX_NAME + NEWLINE
+                + PREFIX_PHONE + NEWLINE + PREFIX_WAREHOUSE + NEWLINE_INSERT;
+        expectedMessage = String.format(namePhoneWarehouse, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + VALID_PHONE_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing Name, Phone, Cash prefixes
+        String namePhoneCash = emptyMessage + PREFIX_NAME + NEWLINE
+                + PREFIX_PHONE + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(namePhoneCash, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + VALID_PHONE_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + VALID_COD_BOB, expectedMessage);
+
+        // Missing Name, Email, Address prefixes
+        String nameEmailAddress = emptyMessage + PREFIX_NAME + NEWLINE
+                + PREFIX_EMAIL + NEWLINE + PREFIX_ADDRESS + NEWLINE_INSERT;
+        expectedMessage = String.format(nameEmailAddress, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + VALID_ADDRESS_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing Name, Email, Timestamp prefixes
+        String nameEmailTimestamp = emptyMessage + PREFIX_NAME + NEWLINE
+                + PREFIX_EMAIL + NEWLINE + PREFIX_DELIVERY_TIMESTAMP + NEWLINE_INSERT;
+        expectedMessage = String.format(nameEmailTimestamp, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + ADDRESS_DESC_BOB + VALID_TIMESTAMP_BOB
+                + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing Name, Email, Warehouse prefixes
+        String nameEmailWarehouse = emptyMessage + PREFIX_NAME + NEWLINE
+                + PREFIX_EMAIL + NEWLINE + PREFIX_WAREHOUSE + NEWLINE_INSERT;
+        expectedMessage = String.format(nameEmailWarehouse, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing Name, Email, Cash prefixes
+        String nameEmailCod = emptyMessage + PREFIX_NAME + NEWLINE
+                + PREFIX_EMAIL + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(nameEmailCod, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + VALID_NAME_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + VALID_COD_BOB, expectedMessage);
+
+        // Missing Email, Address and Warehouse prefixes
+        String emailAddressWarehouse = emptyMessage + PREFIX_EMAIL + NEWLINE
+                + PREFIX_ADDRESS + NEWLINE + PREFIX_WAREHOUSE + NEWLINE_INSERT;
+        expectedMessage = String.format(emailAddressWarehouse, InsertCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
-                + VALID_EMAIL_BOB + VALID_ADDRESS_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, expectedMessage);
+                + VALID_EMAIL_BOB + VALID_ADDRESS_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + VALID_WAREHOUSE_BOB + COD_DESC_BOB, expectedMessage);
+
+        // Missing Email, Address and Cash prefixes
+        String emailAddressCod = emptyMessage + PREFIX_EMAIL + NEWLINE
+                + PREFIX_ADDRESS + NEWLINE + PREFIX_COD + NEWLINE_INSERT;
+        expectedMessage = String.format(emailAddressCod, InsertCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + VALID_ADDRESS_BOB + DELIVERY_TIMESTAMP_DESC_BOB
+                + WAREHOUSE_DESC_BOB + VALID_COD_BOB, expectedMessage);
+
+    }
+
+    @Test
+    public void parse_allCompulsoryFieldMissing_failure() {
+        String expectedMessage;
 
         // all prefixes missing
         expectedMessage = String.format(missingAll, InsertCommand.MESSAGE_USAGE);
         assertParseFailure(parser, VALID_TID_BOB + VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB
                 + VALID_ADDRESS_BOB + VALID_TIMESTAMP_BOB + VALID_WAREHOUSE_BOB + VALID_COD_BOB, expectedMessage);
-
     }
 
     @Test
