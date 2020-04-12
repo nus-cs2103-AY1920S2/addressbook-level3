@@ -27,11 +27,13 @@ import seedu.delino.model.parcel.order.Order;
 import seedu.delino.model.parcel.returnorder.ReturnOrder;
 
 //@@author JeremyLoh
+
 /**
  * Contains integration tests (interactions with the Model) and unit test for
  * {@code NearbyCommand}.
  */
 class NearbyCommandTest {
+    private String newline = System.lineSeparator();
     private Model model = new ModelManager(getTypicalOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
     private Model expectedModel;
     private String invalidPostalSector;
@@ -235,14 +237,20 @@ class NearbyCommandTest {
 
     @Test
     void execute_invalidPostalSectorUnfilteredList_throwsCommandException() {
+        String expectedMessage = String.format("%s" + newline + "%s",
+                NearbyCommand.MESSAGE_FAILURE_POSTAL_SECTOR,
+                NearbyCommand.MESSAGE_USAGE);
         NearbyCommand nearbyCommand = new NearbyCommand(invalidPostalSector);
-        assertCommandFailure(nearbyCommand, model, NearbyCommand.MESSAGE_FAILURE_POSTAL_SECTOR);
+        assertCommandFailure(nearbyCommand, model, expectedMessage);
     }
 
     @Test
     void execute_invalidAreaUnfilteredList_throwsCommandException() {
+        String expectedMessage = String.format("%s" + newline + "%s",
+                NearbyCommand.MESSAGE_FAILURE_AREA,
+                NearbyCommand.MESSAGE_USAGE);
         NearbyCommand nearbyCommand = new NearbyCommand(invalidArea);
-        assertCommandFailure(nearbyCommand, model, NearbyCommand.MESSAGE_FAILURE_AREA);
+        assertCommandFailure(nearbyCommand, model, expectedMessage);
     }
 
     /**
