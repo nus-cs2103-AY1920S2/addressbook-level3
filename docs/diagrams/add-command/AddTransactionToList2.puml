@@ -10,17 +10,19 @@ package "Transaction List" {
         <color:#white>Amount: - 20.5
         <color:#white>Date: 2020-02-02
         <color:#white>Category: "MISC"
+        <color:#white>isRecurring: false
     }
 
-    class transaction1 as "__:Transaction__" {
+    class transaction2 as "__:Transaction__" {
             <color:#white>Name: "Salary"
-            <color:#white>Amount: + 3000
+            <color:#white>Amount: 3000
             <color:#white>Date: 2020-02-03
             <color:#white>Remarks: "Monthly Salary"
             <color:#white>Category: "INCOME"
+            <color:#white>isRecurring: true
         }
 }
 
-transaction1 -[hidden]left- transaction2
+
 show members
 @enduml

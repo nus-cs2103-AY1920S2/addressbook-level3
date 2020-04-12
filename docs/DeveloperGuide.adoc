@@ -166,6 +166,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the ExpenseLa data in json format and read it back.
+* can save GlobalData data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -184,7 +185,7 @@ We allow users to add Expense/Income transactions into ExpenseLa which denotes a
 
 We store every single `Transaction` added by the user into an `ObservableList<Transaction>`, which is a list object in `TransactionList`. We used an `ObservableList` to easily reflect changes to the list by any other component of ExpenseLa using the list.
 
-There are two ways of implementing a Transaction:
+These are the ways of implementing either a positive or negative Transaction:
 * Adding an expense (negative transaction): add
 * Adding an income (positive transaction): add i/
 These two commands will indicate whether the transaction is positive or negative.
@@ -224,7 +225,7 @@ Since the user input is valid, the `Transaction` is successfully created and ins
 
 image::add-command/AddTransactionToList1.png[]
 
-Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income ** to indicate his monthly pay, to insert a positive `**Transaction**`.
+Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income rc/ ** to indicate his monthly pay, to insert a positive `**Transaction**`.
 The input is now checked in a similar fashion as in Step 1 except that:
 
 * `**Remark**` is parsed by `AddCommandParser#parseRemark(ArgumentMultimap)`
@@ -239,9 +240,114 @@ image::add-command/AddTransactionToList2.png[]
 
 The following activity diagram summarizes what happens when the user executes a command to add a new `Transaction`:
 
-image::add-command/AddTransactionActivityDiagram.png[]
+:figure-caption: Figure 10
+.Activity diagram of adding a `Transaction` into the transaction list.
+image::add-command/AddTransactionActivityDiagram.png[,650]
 
-Figure 10. Activity diagram of adding a `Transaction` into the transaction list.
+==== Design considerations
+
+There are many different ways to implement how a transaction is added into `**Expensela**`. In this section, we will justify why we chose to implement it the way we did.
+
+===== Aspect: Differentiating between **positive** and **negative** transactions.
+* **Alternative 1: (current choice):** Adding a simple "i/" syntax in the input to differentiate between positive and negative transactions
+** Pros: Increases the speed and simplicity of adding a positive or negative transaction. Updating balance in MonthlyData information only requires an iteration through
+all the transaction amounts in transaction list for calculation.
+** Cons: Transactions may not be easily distinguishable as positive or negative transactions on first sight, and may only be distinguished when the transaction amount is inspected.
+This may cause slower processing times when extracting all only positive or only negative transactions.
+
+* **Alternative 2: Having separate classes for **positive** and **negative** transactions.
+** Pros: Maintains an intuitive design: `**NegativeTransaction**` deducts money and `**PositiveTransaction**` increases money.
+** Cons: May incur significant overhead since it is likely that both `**NegativeTransaction**` and `**PositiveTransaction**` will
+have very similar methods.
+
+Alternative 1 was chosen because we want the application to be as simple and quick as possible to indicate positive and negative transactions. We focused on separating
+the data between months so that the analytics function could calculate data faster.
+
+===== Aspect: Managing how `**RecurringTransactions**` are handled.
+* **Alternative 1: (current choice):** Adding a simple "rc/" syntax in the input to differentiate between recurring and non-recurring transactions. "rc/" is quickly parsed by the
+AddCommandParser and the transaction is labelled as recurring, which is added to RecurringTransactionsList before the command is added to the TransactionsList in Model.
+** Pros: "rc/" is quick and intuitive to indicate during input. Almost no hassle to add the information to RecurringTransactionsList.
+** Cons: Inability for existing transactions to set as recurring transactions.
+
+* **Alternative 2:** Create a separate command to indicate which transactions are recurring and the range of when it recurs.
+** Pros: Transactions are more customizable for users. Users are able to set recurring transactions to repeat over required months.
+** Cons: Users may easily lose track of the transactions that are recurring which will affect their monthly budgeting.
+
+Alternative 1 was chosen because we want to again keep the recurring transactions intuitive and simple. Users can clear their recurring transaction lists whenever
+they become invalid, and input the new recurring transactions whenever there are changes
+
+//end::addtransaction[]
+
+// tag::editTransactions[]
+=== Editing transactions
+The **edit **functionality modifies details of a specified `**Transaction**` in the existing list and saves
+modifications to the external storage file.
+
+==== Implementation
+**Edit** mechanism utilizes `**Logic**` operations with the `**EditCommand**` class in place of
+`**Command**`, and a unique `**EditCommandParser**` class. The following methods are the implementation for
+**edit** operations:
+
+* `EditCommandParser#parse()` - Parses the user's input via the index of the transaction and creates an `**EditCommand**` to execute the command.
+* `EditCommand#execute()` - Modifies the `**Transaction**` in `**Model**` with new details and returns a
+`**CommandResult**`.
+* `TransactionList#setTransaction(Transaction target, Transaction editedTransaction)` - Sets the modified `**Transaction**` to its correct position in the
+existing `**TransactionList**`.
+
+Command example: **edit 1 n/[NAME] a/[AMOUNT] r/[REMARK]** will edit the name, amount and remark of transaction of index 1 with
+the respective inputs.
+
+Below is an example usage scenario for editing a transaction and explanation of how the **edit** mechanism
+behaves at each step:
+
+Step 1. The user starts up the application with an initial list loaded from a sample transaction list.
+
+:figure-caption!:
+.Initial transaction list
+image::edit-command/editCommand1.png[,650]
+
+Step 2. The user inputs **edit 1 n/Laksa Noodle a/6.00** to update the transaction (with index 1) name to "Laksa Noodle" and value
+to "6". Input is parsed by `EditCommandParser#parse()` which creates an `**EditCommand**`.
+
+Step 3. `EditCommand#execute()` creates a new transaction that reflects the changes and gets the index of current
+transaction to be updated.
+
+.New edited transaction in transaction list
+image::edit-command/editCommand2.png[,650]
+
+Step 4. `UpdateCommand#execute()` replaces original transaction in the list with the updated transaction.
+
+The following activity diagram gives an overview of what ExpenseLa shows the user when executing **edit** command:
+
+:figure-caption: Figure
+.Activity diagram for execution of update command
+image::edit-command/EditActivityDiagram.png[,650]
+
+==== Design considerations
+This subsection explores some alternative designs considered for certain aspects of the feature's implementation.
+
+===== Aspect: Modifying details of a transaction
+* **Alternative 1 (current choice)**: Replace the values of the original transaction with new updated values.
+- Pros: Can easily check for inputs that result in no changes.
+- Cons: May incur overhead when creating new instance of `**Transaction**`.
+
+* **Alternative 2**: Modify the transaction directly using setter methods.
+- Pros: Easy to implement and efficient.
+- Cons: Modifying transactions violates the immutability principle, possibly resulting in bugs for UI or
+accessing modified transaction fields.
+
+**Alternative 1 chosen** to maintain better coding practices and maintain immutability of transactions for the entire project.
+Overhead of creating new `**Transaction**` is insignificant due to relatively small object size.
+
+===== Aspect: Edit transaction by getting it's index or by unique transaction ID
+* **Alternative 1 (current choice)**: Get the index of original transaction in the transactions list and update its values in the list.
+- Pros: High certainty of obtaining the correct transaction, editing its values and replacing the same index in the transaction list.
+- Cons: If there are too many transactions in the list, it might be tedious to obtain the transaction index by scrolling.
+
+* **Alternative 2**: Iterate through the transactions list and update the transaction with the correct transaction ID.
+- Pros: Virtually impossible to not be able to distinguish between similar transactions of different IDs.
+- Cons: Transactions ID would cause significant overhead when looking into each transaction for it's ID.
+// end::update[]
 
 Hubert Halim
 
@@ -305,7 +411,7 @@ image::set-budget/SetBudgetSequenceDiagram.png[]
 image::set-budget/SetBudgetActivityDiagram.png[]
 
 ==== Design considerations
-We have considered various ways as to how `**Budget**` should be stored in `**ExpensLa**`. In this section, we will explain the
+We have considered various ways as to how `**Budget**` should be stored in `**ExpenseLa**`. In this section, we will explain the
 rationale on our course of actions.
 
 ===== Aspect: Make `**Budget**` a part of a bigger class called `**MonthlyData**`

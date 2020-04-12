@@ -46,7 +46,7 @@ activate Model
 deactivate Model
 
 opt transaction is recurring
-create GlobalData
+
 
 
 AddCommand -[hidden]> GlobalData

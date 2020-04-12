@@ -10,9 +10,9 @@ package "Transaction List" {
         <color:#white>Amount: - 20.5
         <color:#white>Date: 2020-02-02
         <color:#white>Category: "MISC"
+        <color:#white>isRecurring: false
     }
 }
 
-transaction1 -[hidden]left- transaction2
 show members
 @enduml
