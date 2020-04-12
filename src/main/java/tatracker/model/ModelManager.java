@@ -102,6 +102,7 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void setDefaultStudentViewList() {
         if (this.getFilteredModuleList().isEmpty()) {
@@ -265,17 +266,20 @@ public class ModelManager implements Model {
 
     // ======== Module Methods =================================================
 
+    //@@author aakanksha-rai
     public Module getModule(String code) {
         requireNonNull(code);
         return taTracker.getModule(code);
     }
 
+    //@@author aakanksha-rai
     @Override
     public boolean hasModule(String moduleCode) {
         requireNonNull(moduleCode);
         return taTracker.hasModule(moduleCode);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void addModule(Module module) {
         requireNonNull(module);
@@ -283,6 +287,7 @@ public class ModelManager implements Model {
         taTracker.addModule(module);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void deleteModule(Module module) {
         requireNonNull(module);
@@ -290,6 +295,7 @@ public class ModelManager implements Model {
         taTracker.deleteModule(module);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
@@ -297,42 +303,48 @@ public class ModelManager implements Model {
         taTracker.setModule(target, editedModule);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void sortModulesAlphabetically() {
         logger.info(String.format("Modules are sorted alphabetically"));
         taTracker.sortModulesAlphabetically();
     }
 
+    //@@author aakanksha-rai
     @Override
     public void sortModulesByRatingAscending() {
         logger.info(String.format("Modules are sorted by rating in ascending order"));
         taTracker.sortModulesByRatingAscending();
     }
 
+    //@@author aakanksha-rai
     @Override
     public void sortModulesByRatingDescending() {
         logger.info(String.format("Modules are sorted by rating in descending order"));
         taTracker.sortModulesByRatingDescending();
     }
 
+    //@@author aakanksha-rai
     @Override
     public void sortModulesByMatricNumber() {
         logger.info(String.format("Modules are sorted by matric number in ascending order"));
         taTracker.sortModulesByMatricNumber();
     }
 
-
+    //@@author aakanksha-rai
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
     }
 
+    //@@author aakanksha-rai
     @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredModules.setPredicate(predicate);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void showAllModules() {
         logger.info(String.format("All modules are shown"));
@@ -341,12 +353,14 @@ public class ModelManager implements Model {
 
     // ======== Group Methods ==================================================
 
+    //@@author aakanksha-rai
     @Override
     public boolean hasGroup(String groupCode, String moduleCode) {
         requireNonNull(groupCode, moduleCode);
         return taTracker.hasGroup(groupCode, moduleCode);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void addGroup(Group group, Module targetModule) {
         requireNonNull(group);
@@ -354,6 +368,7 @@ public class ModelManager implements Model {
         taTracker.addGroup(group, targetModule);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void deleteGroup(String target, String targetModule) {
         requireNonNull(target);
@@ -361,6 +376,7 @@ public class ModelManager implements Model {
         taTracker.removeGroup(new Group(target), new Module(targetModule));
     }
 
+    //@@author aakanksha-rai
     @Override
     public void setGroup(Group target, Group editedGroup, Module targetModule) {
         requireAllNonNull(target, editedGroup);
@@ -369,23 +385,27 @@ public class ModelManager implements Model {
         taTracker.setGroup(target, editedGroup, targetModule);
     }
 
+    //@@author aakanksha-rai
     @Override
     public ObservableList<Group> getFilteredGroupList() {
         return taTracker.getCurrentlyShownGroupList();
     }
 
+    //@@author aakanksha-rai
     @Override
     public void updateFilteredGroupList(String moduleCode) {
         logger.info(String.format("Group list being shown is of module %s", moduleCode));
         taTracker.updateCurrentlyShownGroups(moduleCode);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void setFilteredGroupList() {
         logger.info(String.format("Empty grouplist is shown"));
         taTracker.setCurrentlyShownGroups(new ArrayList<>());
     }
 
+    //@@author aakanksha-rai
     @Override
     public void updateGroupList(int moduleIndex) {
         logger.info(String.format("Groups from module %d is showns", moduleIndex));
@@ -394,6 +414,7 @@ public class ModelManager implements Model {
 
     // ======== Student Methods ================================================
 
+    //@@author
     @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
@@ -452,6 +473,7 @@ public class ModelManager implements Model {
         taTracker.setStudent(target, editedStudent, targetGroup, targetModule);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void updateStudentList(int moduleIndex, int groupIndex) {
         logger.info(String.format("Students are from module of index %d and group index %d",
@@ -459,17 +481,20 @@ public class ModelManager implements Model {
         taTracker.setCurrentlyShownStudents(moduleIndex, groupIndex);
     }
 
+    //@@author aakanksha-rai
     @Override
     public ObservableList<Student> getFilteredStudentList() {
         return taTracker.getCurrentlyShownStudentList();
     }
 
+    //@@author aakanksha-rai
     @Override
     public void setFilteredStudentList() {
         logger.info(String.format("Empty student list is shown."));
         taTracker.setCurrentlyShownStudents(new ArrayList<>());
     }
 
+    //@@author aakanksha-rai
     @Override
     public void setFilteredStudentList(String moduleCode, int groupIndex) {
         logger.info(String.format("Students of group index %d from module %s are showmn",
@@ -477,6 +502,7 @@ public class ModelManager implements Model {
         taTracker.setCurrentlyShownStudents(moduleCode, groupIndex);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void updateFilteredStudentList(String groupCode, String moduleCode) {
         logger.info(String.format("Students are shown of group %s of module %s",
@@ -484,6 +510,7 @@ public class ModelManager implements Model {
         taTracker.updateCurrentlyShownStudents(groupCode, moduleCode);
     }
 
+    //@@author aakanksha-rai
     @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
@@ -491,6 +518,7 @@ public class ModelManager implements Model {
 
     // ======== Others Methods =================================================
 
+    //@@author
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
