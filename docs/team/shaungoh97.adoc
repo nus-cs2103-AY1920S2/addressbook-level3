@@ -9,18 +9,18 @@
 
 == Overview
 
-Our team was tasked with the objective of morphing AddressBook Level 3 and further building from it.
+Our team was tasked with the objective of morphing AddressBook Level-3 and further building from it.
 We came to a decision to create FoodieBot, an application that caters to the broad masses that dine at NUS.
 
 FoodieBot maintains the original CLI interface and we updated the GUI using JavaFX along with adding
 new functionality to fulfil the requirements of FoodieBot.
 
-FoodieBot was created with the vision of catering to the various needs of people of dine at NUS, and solve
-the pain points that these groups of people have. We narrowed our focus down to three issues, people who cannot
-find their way around, people who want to save money and people who cannot decide where to eat. FoodieBot
-solves all these problems with key features such as a _navigation_ feature to help people find their way,
-a _budget_ feature to help NUS students keep track of their spendings and a _randomizer_ feature that makes
-the decision of where to eat for you.
+FoodieBot was created with the vision of catering to the various needs of diners in NUS, and solve
+the pain points that these groups of people have. We narrowed our focus on developing features for FoodieBot
+to help 3 groups of people, a _navigation_ feature to help people find the canteen you are looking for, a
+_budget_ feature to help NUS students keep track of their food spending and a _randomize_ feature to help
+people who cannot decide where they want to eat. FoodieBot has several other features, to compliment these
+features, which is why FoodieBoe is a must-have for anyone who dines in NUS.
 
 == Summary of contributions
 
@@ -39,19 +39,25 @@ the decision of where to eat for you.
 * *Other contributions*:
 ** Enhancements to existing features:
 *** Updated UI with a budget bar to give visual indication of remaining budget (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/206[#206])
-** Entry of Sample Data:
-*** Filled FoodieBot with input data of Canteens, Stalls and Food. (Pull Request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/91[#91])
-*** Inserted pictures for the sample data to improve quality of UI (Pull Request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/147[#147])
+*** Created tags to help with the functionality of the Randomize feature (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/100[#100])
+*** Improve UI by including user-friendly messages to give user more direction when using FoodieBot (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/132[#132])
+** Documentation:
+*** Maintained quality of language in User Guide and Developer Guide (Pull Request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/110[#100])
+** Collecting of Sample Data:
+*** Went to The Deck and Nus Flavors to take pictures and collect pictures of the canteens, stalls and food to fill
+    FoodieBot with sample data.(Pull Request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/91[#91]
+    https://github.com/AY1920S2-CS2103T-F11-3/main/pull/147[#147])
 
 == Contributions to the User Guide
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 * https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#46-select-the-food--select[SelectItemCommand Selection]
-
+* https://github.com/AY1920S2-CS2103T-F11-3/main/pull/43[Command Summary]
 
 == Contributions to the Developer Guide
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 * https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/DeveloperGuide.adoc#511-select-command[SelectItem Command]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/pull/110/files[Use Cases]

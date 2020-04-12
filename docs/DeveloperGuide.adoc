@@ -371,11 +371,11 @@ image::FilterSequenceDiagram.png[]
 
 * **Alternative 1 (current choice):** `filter` is using the strict match case.
 ** Pros: Can be accurate in the filter, for example, typing `filter ex` with not
-return both food that are expensive and or considered as extras in a combo set
+return both food that are expensive and or considered as extras in a combo set.
 ** Cons: -
 * **Alternative 2:** `filter` allows partial name tag search.
-** Pros: More lenient in tag search
-** Cons: Long list of filter results
+** Pros: More lenient in tag search.
+** Cons: Long list of filter results.
 
 
 
@@ -524,10 +524,10 @@ image::ReviewSequenceDiagram.png[]
 ===== Aspect: `review` uses a separate screen
 
 * **Alternative 1 (current choice):** `review 1 this is a message`
-** Pros: Able to update a review message conveniently
-** Cons: Review message may be too long which may not fit within the ui card
+** Pros: Able to update a review message conveniently.
+** Cons: Review message may be too long which may not fit within the ui card.
 * **Alternative 2:** `review INDEX`. FoodieBot shows the review edit screen to type a review message.
-** Pros: Remove the need to do any checking on prefixes
+** Pros: Remove the need to do any checking on prefixes.
 ** Cons: A valid command can be entered but not recognised. The user has to accept the change to navigate away.
 If the back command is accepted, the user can't enter the single word `back` as the review message.
 
@@ -598,9 +598,12 @@ image::SelectItemSequenceDiagram.png[]
 ==== Select Design Considerations
 ===== Aspect: How food items are selected
 
-* **Current Choice:** Selects the food item with `select INDEX`
-** Pros: clean, easy to understand command syntax
-** Cons: may be confused and used interchangeably with `enter`
+* **Alternative 1 (current choice):** Select food items with `select INDEX`
+** Pros: Clean, easy to understand command syntax.
+** Cons: More coding required as have to create a separate command class for the select command.
+* **Alternative 2:** Use `enter INDEX` command to select food
+** Pros: Less coding required, can tag on use of already implemented `enter` command for canteens and stalls.
+** Cons: Awkward syntax to _enter_ food instead of _select_food.
 
 === Transactions Command
 
