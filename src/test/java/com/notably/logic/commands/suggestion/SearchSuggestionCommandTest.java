@@ -43,11 +43,11 @@ public class SearchSuggestionCommandTest {
 
         SuggestionItem cs2103tTut1 = new SuggestionItemImpl(
                 TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1.getStringRepresentation(), 1, () -> {});
-        SuggestionItem cs2103tTut2 = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), 2, () -> {});
         SuggestionItem cs2106Tut1 = new SuggestionItemImpl(
                 TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1.getStringRepresentation(), 1, () -> {});
-        List<SuggestionItem> expectedSuggestions = List.of(cs2103tTut1, cs2103tTut2, cs2106Tut1);
+        SuggestionItem cs2103tTut2 = new SuggestionItemImpl(
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), 2, () -> {});
+        List<SuggestionItem> expectedSuggestions = List.of(cs2103tTut1, cs2106Tut1, cs2103tTut2);
 
         for (int i = 0; i < expectedSuggestions.size(); i++) {
             SuggestionItem suggestion = suggestions.get(i);
@@ -57,7 +57,7 @@ public class SearchSuggestionCommandTest {
         }
 
         List<AbsolutePath> expectedCurrentlyOpenPaths = List.of(TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1,
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2, TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1);
+                TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1, TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2);
 
         for (int i = 0; i < expectedCurrentlyOpenPaths.size(); i++) {
             SuggestionItem suggestion = suggestions.get(i);
