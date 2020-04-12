@@ -91,7 +91,14 @@ The User Guide contains instructions on how to use the various commands
 of the application. The following is an excerpt from our TA-Tracker User Guide,
 showing additions that I have made for `filter` and `Session` features.
 
-include::../UserGuide.adoc[tag=]
+include::../UserGuide.adoc[tag=sessionview]
+include::../UserGuide.adoc[tag=list]
+include::../UserGuide.adoc[tag=addsession]
+include::../UserGuide.adoc[tag=deletesession]
+include::../UserGuide.adoc[tag=donesession]
+include::../UserGuide.adoc[tag=filtersession]
+include::../UserGuide.adoc[tag=filterclaims]
+include::../UserGuide.adoc[tag=summary]
 
 
 === Contributions to the Developer Guide
@@ -102,4 +109,11 @@ The Developer Guide showcases my ability to write technical documentation
 and the technical depth of my contributions to the project.
 Given below is my contribution to the Developer Guide:
 
-include::../DeveloperGuide.adoc[tag=]
+include::../DeveloperGuide.adoc[tag=sessionmodel]
+include::../DeveloperGuide.adoc[tag=sessiondone]
+include::../DeveloperGuide.adoc[tag=sessioncommands]
+include::../DeveloperGuide.adoc[tag=filter]
+include::../DeveloperGuide.adoc[tag=productscope]
+include::../DeveloperGuide.adoc[tag=usecases]
+include::../DeveloperGuide.adoc[tag=testing]
+
