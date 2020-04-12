@@ -1,4 +1,4 @@
-package nasa.logic.commands;
+package nasa.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
@@ -10,6 +10,8 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 
 import nasa.commons.util.CollectionUtil;
+import nasa.logic.commands.Command;
+import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Deadline;

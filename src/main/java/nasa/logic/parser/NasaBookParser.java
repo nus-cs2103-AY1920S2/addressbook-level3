@@ -6,17 +6,17 @@ import static nasa.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import nasa.logic.commands.AddModuleCommand;
+import nasa.logic.commands.module.AddModuleCommand;
 import nasa.logic.commands.ClearCommand;
 import nasa.logic.commands.Command;
 import nasa.logic.commands.ContinueCommand;
 import nasa.logic.commands.DeleteDeadlineCommand;
 import nasa.logic.commands.DeleteEventCommand;
-import nasa.logic.commands.DeleteModuleCommand;
+import nasa.logic.commands.module.DeleteModuleCommand;
 import nasa.logic.commands.DoneCommand;
 import nasa.logic.commands.EditDeadlineCommand;
 import nasa.logic.commands.EditEventCommand;
-import nasa.logic.commands.EditModuleCommand;
+import nasa.logic.commands.module.EditModuleCommand;
 import nasa.logic.commands.ExitCommand;
 import nasa.logic.commands.ExportCalendarCommand;
 import nasa.logic.commands.ExportQrCommand;
@@ -34,6 +34,9 @@ import nasa.logic.commands.addcommands.AddEventCommand;
 import nasa.logic.parser.addcommandparser.AddDeadlineCommandParser;
 import nasa.logic.parser.addcommandparser.AddEventCommandParser;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.logic.parser.module.AddModuleCommandParser;
+import nasa.logic.parser.module.DeleteModuleCommandParser;
+import nasa.logic.parser.module.EditModuleCommandParser;
 
 /**
  * Parses user input.

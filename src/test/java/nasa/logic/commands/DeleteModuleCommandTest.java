@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import nasa.logic.commands.module.DeleteModuleCommand;
 import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;

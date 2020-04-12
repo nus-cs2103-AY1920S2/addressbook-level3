@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import nasa.logic.commands.AddModuleCommand;
+import nasa.logic.commands.module.AddModuleCommand;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.ListCommand;
 import nasa.logic.commands.exceptions.CommandException;

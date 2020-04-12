@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.logic.commands.module.AddModuleCommand;
 import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
