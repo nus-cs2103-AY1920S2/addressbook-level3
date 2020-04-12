@@ -3,10 +3,13 @@ package nasa.ui;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
@@ -32,7 +35,6 @@ public class ModuleListPanel extends UiPart<Region> {
         }
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
-
     }
 
     /**

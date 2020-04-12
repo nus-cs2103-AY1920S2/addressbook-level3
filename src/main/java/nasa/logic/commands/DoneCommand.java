@@ -64,8 +64,6 @@ public class DoneCommand extends Command {
                         deadline.getNote(), deadline.getPriority(), deadline.getDueDate(), true));
                 return new CommandResult(String.format(MESSAGE_SUCCESS, deadline));
             }
-
-
         }
     }
 

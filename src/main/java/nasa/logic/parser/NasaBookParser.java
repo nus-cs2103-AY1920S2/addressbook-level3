@@ -22,6 +22,7 @@ import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
 import nasa.logic.commands.QuoteCommand;
 import nasa.logic.commands.RedoCommand;
+import nasa.logic.commands.RefreshCommand;
 import nasa.logic.commands.RepeatDeadlineCommand;
 import nasa.logic.commands.SortCommand;
 import nasa.logic.commands.StatisticsCommand;
@@ -101,6 +102,9 @@ public class NasaBookParser {
 
         case EditModuleCommand.COMMAND_WORD:
             return new EditModuleCommandParser().parse(arguments);
+
+        case RefreshCommand.COMMAND_WORD:
+            return new RefreshCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
