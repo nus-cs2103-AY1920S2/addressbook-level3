@@ -47,7 +47,5 @@ public class Person {
         return this.age;
     }
 
-    public Boolean equals(Person obj) {
-        return this.nric.equals(obj.nric);
-    }
+    public Boolean equals(Person obj) { return this.nric.equals(obj.getNric()); }
 }
