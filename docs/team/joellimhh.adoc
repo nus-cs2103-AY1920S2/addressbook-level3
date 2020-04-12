@@ -1,4 +1,4 @@
-= Elysia Tan - Project Portfolio
+= Joel Lim - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
