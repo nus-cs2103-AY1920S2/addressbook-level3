@@ -162,6 +162,10 @@ public class MainWindow extends UiPart<Stage> {
         hintWindow.hide();
     }
 
+    public boolean isHintShowing() {
+        return hintWindow.isShowing();
+    }
+
 
     public void getQuote(String input) {
         quotePanel.setText(input);

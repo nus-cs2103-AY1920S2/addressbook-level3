@@ -46,10 +46,15 @@ public class HintWindow extends UiPart<Region> {
     public void show(Stage stage) {
         popup.setWidth(stage.getWidth());
         label.setMaxWidth(stage.getWidth());
-        popup.show(stage, stage.getX() + 10, stage.getY() + stage.getHeight() - 225);
+        popup.show(stage);
+        popup.show(stage, stage.getX() + 10, stage.getHeight() - 80 - popup.getHeight());
     }
 
     public void hide() {
         popup.hide();
+    }
+
+    public boolean isShowing() {
+        return popup != null && popup.isShowing();
     }
 }

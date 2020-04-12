@@ -69,7 +69,7 @@ public class CommandBox extends UiPart<Region> {
                 if (isValidCommand()) {
                     main.getHint(commandList.get(matchedCommand));
                     commandTextField.requestFocus();
-                } else {
+                } else if (main.isHintShowing()) {
                     main.hideHint();
                 }
                 break;
@@ -106,7 +106,6 @@ public class CommandBox extends UiPart<Region> {
                     .listIterator(commandHistory.size());
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
-            main.hideHint();
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
