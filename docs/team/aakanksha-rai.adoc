@@ -130,6 +130,20 @@ include::../UserGuide.adoc[tag=addmodule]
 
 include::../UserGuide.adoc[tag=deletemodule]
 
+include::../UserGuide.adoc[tag=editmodule]
+
+include::../UserGuide.adoc[tag=editgroup]
+
+include::../UserGuide.adoc[tag=deletegroup]
+
+include::../UserGuide.adoc[tag=editgroup]
+
+include::../UserGuide.adoc[tag=sortgroup]
+
+include::../UserGuide.adoc[tag=sortmodule]
+
+include::../UserGuide.adoc[tag=sortall]
+
 == Contributions to the Developer Guide
 
 |===
@@ -138,6 +152,10 @@ my ability to write technical documentation and the technical depth of my
 contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=studentviewmodel]
 
-include::../DeveloperGuide.adoc[tag=sort]
+include::../DeveloperGuide.adoc[tag=moduleaddeditdelete]
+
+include::../DeveloperGuide.adoc[tag=groupaddeditdelete]
+
+include::../DeveloperGuide.adoc[tag=sortgroupmoduleall]
