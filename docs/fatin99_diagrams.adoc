@@ -1,0 +1,73 @@
+= TA-Tracker
+- Developer Guide
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
+
+The _Class Diagram_ below shows how the `UI` components interact with each other.
+
+.Structure of the UI Component
+image::UiClassDiagram.png[]
+
+The _Class Diagram_ below shows how the components in the `Student Tab` interact with each other.
+
+.Structure of the Student Tab Component
+image::StudentTabClassDiagram.png[]
+
+The following _Class Diagram_ shows how the different `Model` components interact with each other.
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+The following _Class Diagram_ shows the relationship between the different classes
+in the `Model` component.
+
+.Model Components - Class Diagram
+image::ModelComponentsClassDiagram.png[]
+
+The following _Object Diagram_ shows an example of the relationship between the different `Model` objects.
+This example is based on the state of TA-Tracker when it is first run (without any user data).
+
+.Model Components - Object Diagram
+image::ModelObjectDiagram.png[]
+
+The following _Sequence Diagram_ shows the interactions between the `Logic` and `UI` components of
+the TA-Tracker when the user enters the command `goto claims`.
+
+.Sequence Diagram for Goto Claims Command
+image::GotoSequenceDiagram.png[]
+
+The following _Class Diagram_ shows how different classes are related in the functioning of a `Student` Object.
+
+.Structure of the Student Component
+image::StudentClassDiagram.png[]
+
+As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can
+reference. This would allow `TaTracker` to only require one `Tag` object per unique
+`Tag`, instead of each `Student` needing their own `Tag` object. An example of what
+such a model may look like is given below. +
+ +
+image:BetterModelClassDiagram.png[]
+
+The following _Class Diagram_ shows how different classes are related in the functioning
+of the *Session View*.
+
+._Class Diagram_ of Session View
+image::SessionModelClassDiagram.png[]
+
+The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
+
+.Session Done- Activity Diagram
+image::TssActivityDiagram.png[]
+
+The following _Class Diagram_ shows how different classes are related in the
+functioning of the *Claims View*.
+
+.Claims View - Class Diagram
+image::TssModelClassDiagram.png[]
