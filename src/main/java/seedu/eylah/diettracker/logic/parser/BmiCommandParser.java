@@ -1,8 +1,8 @@
 package seedu.eylah.diettracker.logic.parser;
 
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_HEIGHT;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_WEIGHT;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_HEIGHT;
+import static seedu.eylah.diettracker.logic.parser.DietCliSyntax.PREFIX_WEIGHT;
 
 import java.util.logging.Logger;
 import java.util.stream.Stream;
