@@ -166,7 +166,7 @@ For more information about each component, check out the 'Implementation' sectio
 [[Design-Commons]]
 === Common Classes
 
-Classes used by multiple components are in the `seedu/zerotoone.commons` package.
+Classes used by multiple components are in the `seedu.zerotoone.commons` package.
 
 == Implementation
 
