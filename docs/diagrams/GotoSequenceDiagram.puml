@@ -1,5 +1,11 @@
+
+
 @startuml
 !include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -9,12 +15,11 @@ participant "g:GotoCommand" as GotoCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-box UI UI_COLOR_T1
-participant ":MainWindow" as MainWindow UI_COLOR
-end box
-
-[-> LogicManager : execute("goto claims")
+[-> MainWindow : User enters the \ncommand 'goto claims'
 activate LogicManager
+
+activate MainWindow
+MainWindow -> LogicManager : execute("goto claims")
 
 LogicManager -> TaTrackerParser : parseCommand("goto claims")
 activate TaTrackerParser
@@ -48,12 +53,6 @@ deactivate TaTrackerParser
 LogicManager -> GotoCommand : execute()
 activate GotoCommand
 
-GotoCommand -> MainWindow : handleGoto(claimsTab)
-activate MainWindow
-
-MainWindow --> GotoCommand
-deactivate MainWindow
-
 create CommandResult
 GotoCommand -> CommandResult
 activate CommandResult
@@ -61,9 +60,12 @@ activate CommandResult
 CommandResult --> GotoCommand
 deactivate CommandResult
 
-GotoCommand --> LogicManager : result
+GotoCommand --> LogicManager : CommandResult("success", Action.GOTO_CLAIMS)
 deactivate GotoCommand
 
-[<--LogicManager
+LogicManager --> MainWindow
 deactivate LogicManager
+
+MainWindow -> MainWindow : handleGoto(claimsListTab)
+
 @enduml

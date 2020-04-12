@@ -78,7 +78,7 @@ MainWindow -> Statistic
 activate Statistic
 
 'Read data from Logic
-Statistic -> ReadOnlyTaTracker : Retreive Sessions and Students
+Statistic -> ReadOnlyTaTracker : Retrieve Sessions and Students
 activate ReadOnlyTaTracker
 ReadOnlyTaTracker --> Statistic
 deactivate ReadOnlyTaTracker
@@ -91,10 +91,8 @@ MainWindow -> StatisticWindow
 activate StatisticWindow
 
 'Read from Statistic to gather Data
-StatisticWindow -> Statistic : Retreive Statistical Data
+StatisticWindow -> Statistic : Retrieve Statistical Data
 activate Statistic
-
-
 
 Statistic --> StatisticWindow
 deactivate Statistic
@@ -111,7 +109,6 @@ MainWindow -> StatisticWindow : Focus Window
 activate StatisticWindow
 StatisticWindow --> MainWindow
 deactivate StatisticWindow
-
 
 return
 

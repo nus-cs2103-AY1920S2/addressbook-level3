@@ -1,3 +1,5 @@
+//@@author aakanksha-rai
+
 package tatracker.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
@@ -27,6 +29,7 @@ import tatracker.model.module.Module;
  */
 public class EditGroupCommand extends Command {
 
+    //@@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GROUP,
             CommandWords.EDIT_MODEL,
@@ -36,6 +39,7 @@ public class EditGroupCommand extends Command {
             MODULE, GROUP, NEWGROUP, NEWTYPE
     );
 
+    //@@author aakanksha-rai
     public static final String MESSAGE_EDIT_GROUP_SUCCESS = "Edited group: %s [%s]";
     public static final String MESSAGE_EDIT_GROUP_FAILURE = "There is already a group with the group code"
             + " that you are editing with.";
