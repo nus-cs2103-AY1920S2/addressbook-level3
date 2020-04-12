@@ -1380,8 +1380,9 @@ OR +
 [[glossary]]
 == Glossary
 
-//tag::command_prefix[]
+
 [[command_prefix]]
+//tag::command_prefix[]
 === Command Prefix
 .Command Prefix
 |===
@@ -1437,9 +1438,10 @@ OR +
 |===
 //end::command_prefix[]
 
-//tag::command_flags[]
+
 [[command_flags]]
 === Command Flags
+//tag::command_flags[]
 .Possible Command Flags
 |===
 |Flag |Meaning |Used in the following Command(s)
