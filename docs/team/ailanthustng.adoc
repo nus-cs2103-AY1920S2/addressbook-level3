@@ -129,9 +129,7 @@ from being thrown. In addition, I also did the formatting of the BigDecimal to b
 ** Assisted in downscaling of AddressBook3 by removing Phone class
 
 * *Code contributed*: +
-[https://github.com[Functional code]]  +
-[https://github.com[Test code]] +
-_{give links to collated code files}_
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=ailanthustng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and Test code]
 
 
 
@@ -149,6 +147,7 @@ _{give links to collated code files}_
 
 ** Documentation:
 *** To be added
+
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
