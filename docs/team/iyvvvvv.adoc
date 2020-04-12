@@ -9,45 +9,126 @@
 
 == Overview
 
-FitHelper is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+*FitHelper* is a desktop diet-and-exercise-recording application made for Users who want to keep fit.
+It is built based on *AddressBook* (Level 3), a desktop address book application used for teaching Software Engineering principles.
+
+*FitHelper* enables Users to record their basic profile data, weight records, daily food intake and sports.
+Rather than just keeping the raw data, *FitHelper* also provided useful analysis and other customized services, such as calendar view and reminders.
+
+The application is mainly written in *Java* and built by a considerable *19k Lines of Code*.
+The codebase is well-maintained by reasonable amount of tests, and the program is written in high-quality code.
+A detailed and comprehensive set of guides are also provided for both application developers and users.
 
 == Summary of contributions
+:sectnums:
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+=== Major Enhancement
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+==== Build FitHelper Entry in Model, Storage Part and Its Basic Commands (https://github.com/AY1920S2-CS2103-T09-4/main/pull/143[#143])
+
+* *Content*
+** *Model Part*: Create Entry class (for both food and sport entries) and all of its attributes classes.
+Modify Model and Model Manager to build a basic skeleton of FitHelper.
+** *Storage Part*: Create Json-adaptive Entry and Json-adaptive FitHelper main storage.
+Modify Storage and Storage Manager to enable FitHelper store both type of entry (food and sports).
+** *Logic Part*: Update all command prefix and flags. Create basic commands and corresponding parsers related to Entry, including `add`, `edit`, `find`, `delete`.
+
+* *Justification* +
+This feature builds the basic skeleton of the whole application in Model and Storage Part.
+The creation of Entry allows user to record their daily food intake and sports.
+
+* *Highlights* +
+This feature allows other developers to build all other features related to Entry, such as Today Page, Calendar Page.
+
+
+==== Build Profile in Model, Storage, UI Part and Its Commands
+
+* *Content*
+** *Model Part*: Create Profile class and all of its attributes classes.
+A UserProfile class is built to wrap up user profile, which is parallel to the FitHelper class.
+Modify Model and Model Manager to include the profile system.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/170[#170],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/186[#186])
+** *Storage Part*: Create Json-adaptive Profile and Json-adaptive UserProfile main storage.
+Modify Storage and Storage Manager to establish a separate new database for profile-related data.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/203[#203],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/248[#248])
+** *UI Part*: Build Profile Page, which shows a table of user profile data.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/186[#186],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/203[#203])
+** *Logic Part*:  Enable Profile Page switch
+and enable user to update profile's attributes value by corresponding commands and command parsers,
+including `profile` and `update`.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/203[#203],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/214[#214])
+
+* *Justification* +
+** This feature influences all Model, Storage, Logic and UI part in the application.
+It builds and manipulated a separate new database just for user profile.
+** Profile Page is an essential part of the application, as user's basic data
+can be used in other features and analysis to provide a more customized service.
+
+* *Highlights* +
+Originally, the application only contains a system dealing with Entry and Entry data.
+This feature creates a new parallel system, handling user's profile data from back end to front end.
+
+
+==== Build Weight in Model, Storage, UI Part and Its Commands
+
+* *Content*
+** *Model Part*: Create Weight class and all of its attributes classes.
+A WeightRecords class is built to wrap up all weight records, which is parallel to the FitHelper and UserProfile class.
+Modify Model and Model Manager to include the weight system.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/186[#186],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/240[#240])
+** *Storage Part*: Create Json-adaptive Weight and Json-adaptive WeightRecords main storage.
+Modify Storage and Storage Manager to establish a separate new database for weight-related data.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/240[#240])
+** *UI Part*: Build Weight Page, which shows a notification indicating the gap to user target data and two Trend Graphs for weight and data.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/186[#186],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/242[#242])
+** *Logic Part*:  Enable Weight Page switch
+and enable user to manipulate weight database by corresponding commands and command parsers,
+including `addWeight`, `editWeight`, `deleteWeight` and `clearWeight`.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/240[#240],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/311[#311])
+
+* *Justification* +
+** This feature influences all Model, Storage, Logic and UI part in the application.
+It builds and manipulated a separate new database just for user weight records.
+** Weight Page is one of the main parts in this application, as keep tracking of user's weight and provided useful analysis
+can significantly help the user to lose weight and keep fit.
+
+* *Highlights* +
+** With this feature, all three database for this database are built:
+*** FitHelper for entry and diary data
+*** UserProfile for profile data
+*** WeightRecords for weight data
+** This feature is also strongly linked with profile. One command may change both profile and weight database and GUI page.
+
+=== Code contribution
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=iyvvvvv&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=IYVVVVV&tabRepo=AY1920S2-CS2103-T09-4%2Fmain%5Bmaster%5D[Functional code]]
 
-* *Other contributions*:
+=== Other contributions
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Create Milestone `v1.0`-`v2.0` on GitHub
+*** Updated and closed issues and milestone regularly on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme (https://github.com/AY1920S2-CS2103-T09-4/main/pull/214[#214])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Make each session in User Guide aligned in structure, and summarize all commands (https://github.com/AY1920S2-CS2103-T09-4/main/pull/324[#324])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** PRs reviewed (with non-trivial review comments) (https://github.com/AY1920S2-CS2103-T09-4/main/pull/242[#242])
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/IYVVVVV/ped/issues/1[#1], https://github.com/IYVVVVV/ped/issues/4[#4], https://github.com/IYVVVVV/ped/issues/7[#7] )
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 |===
 
 include::../UserGuide.adoc[tag=delete]
@@ -64,9 +145,3 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
