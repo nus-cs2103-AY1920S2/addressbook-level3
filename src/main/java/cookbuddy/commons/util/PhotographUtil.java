@@ -1,6 +1,7 @@
 package cookbuddy.commons.util;
 
 import static cookbuddy.commons.util.FileUtil.getResourceAsInputStream;
+import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
@@ -20,6 +21,7 @@ import cookbuddy.MainApp;
 import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.model.recipe.Recipe;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
 /**
  * A singleton class for working with images, converting between image objects,
@@ -49,6 +51,11 @@ public class PhotographUtil {
 
     public static PhotographUtil imageUtil() {
         return new PhotographUtil();
+    }
+
+    public static Image getPhoto(String imagePath) {
+        requireNonNull(imagePath);
+        return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
     /**
