@@ -15,10 +15,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("bmi")
+[-> LogicManager : execute("bmi -h 172 -w 73")
 activate LogicManager
 
-LogicManager -> FoodBookParser : parseCommand("bmi")
+LogicManager -> FoodBookParser : parseCommand("bmi -h 172 -w 73")
 activate FoodBookParser
 
 create BmiCommandParser
