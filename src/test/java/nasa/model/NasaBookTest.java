@@ -28,6 +28,7 @@ import nasa.model.module.UniqueModuleList;
 import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.testutil.ModuleBuilder;
 
+
 class NasaBookTest {
     private final NasaBook nasaBook = new NasaBook();
     private final UniqueModuleList uniqueModuleList = new UniqueModuleList();

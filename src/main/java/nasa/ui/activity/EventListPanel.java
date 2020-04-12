@@ -2,15 +2,12 @@ package nasa.ui.activity;
 
 import java.util.logging.Logger;
 
-import javafx.beans.binding.Bindings;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Event;
@@ -43,7 +40,7 @@ public class EventListPanel extends UiPart<Region> {
         protected void updateItem(Event event, boolean empty) {
             super.updateItem(event, empty);
             prefWidthProperty().bind(eventListView.widthProperty().subtract(10));
-            eventListView.setMaxHeight((eventListView.getItems().size() + 1)  * 75);
+            eventListView.setMaxHeight((eventListView.getItems().size() + 1) * 75);
 
             if (empty || event == null) {
                 setStyle("");
@@ -52,10 +49,7 @@ public class EventListPanel extends UiPart<Region> {
             } else {
                 setGraphic(new EventCard(event, getIndex() + 1).getRoot());
                 setStyle("-fx-background-color: #aee4ff;");
-
-
             }
-
         }
     }
 }

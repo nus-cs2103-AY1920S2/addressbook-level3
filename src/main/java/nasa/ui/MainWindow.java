@@ -18,7 +18,6 @@ import nasa.logic.Logic;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
-import nasa.ui.activity.QuotePanel;
 
 /**
  * The Main Window. Provides the basic application layout containing

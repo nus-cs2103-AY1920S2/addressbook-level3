@@ -2,7 +2,6 @@ package nasa.ui.activity;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -45,7 +44,7 @@ public class DeadlineListPanel extends UiPart<Region> {
         protected void updateItem(Deadline deadline, boolean empty) {
             super.updateItem(deadline, empty);
             prefWidthProperty().bind(deadlineListView.widthProperty().subtract(10));
-            deadlineListView.setMaxHeight((deadlineListView.getItems().size() + 1) * 100 );
+            deadlineListView.setMaxHeight((deadlineListView.getItems().size() + 1) * 100);
 
             if (empty || deadline == null) {
                 setStyle("");

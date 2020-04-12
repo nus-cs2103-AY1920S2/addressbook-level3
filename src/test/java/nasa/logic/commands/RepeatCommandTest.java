@@ -6,7 +6,6 @@ import static nasa.testutil.TypicalModules.CS2103T;
 import org.junit.jupiter.api.Test;
 
 import nasa.commons.core.index.Index;
-
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.activity.Name;

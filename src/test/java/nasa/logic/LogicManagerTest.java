@@ -15,10 +15,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import nasa.logic.commands.module.AddModuleCommand;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.ListCommand;
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.logic.commands.module.AddModuleCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.HistoryBook;
 import nasa.model.Model;

@@ -1,4 +1,4 @@
-package nasa.ui.activity;
+package nasa.ui;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import nasa.ui.UiPart;
 
 /**

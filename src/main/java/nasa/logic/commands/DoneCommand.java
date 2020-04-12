@@ -60,7 +60,7 @@ public class DoneCommand extends Command {
             } else {
 
                 model.setDeadline(moduleCode, deadline, new Deadline(deadline.getName(), deadline.getDateCreated(),
-                        deadline.getNote(), deadline.getPriority(),  deadline.getDueDate(), true));
+                        deadline.getNote(), deadline.getPriority(), deadline.getDueDate(), true));
                 return new CommandResult(String.format(MESSAGE_SUCCESS, deadline));
             }
 

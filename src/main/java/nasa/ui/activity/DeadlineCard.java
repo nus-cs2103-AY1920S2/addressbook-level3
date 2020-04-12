@@ -1,21 +1,13 @@
 package nasa.ui.activity;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
 
 import nasa.model.activity.Deadline;
-import nasa.storage.NasaBookStorage;
-import nasa.storage.Storage;
-import nasa.storage.StorageManager;
-import nasa.ui.MainWindow;
 import nasa.ui.UiPart;
 
 /**
