@@ -103,15 +103,12 @@ public class SuggestionEngineTest {
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
-        // Expected suggestions
-        List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSearchSugForKeywordFalse();
-
-        // Test suggestions
-        SuggestionTestUtil.assertSearchSuggestions(expectedSuggestions, suggestions);
-
-        // Test response text
         assertEquals(Optional.of(String.format(SEARCH_RESPONSE_MESSAGE_WITH_KEYWORD, keyword)),
                 model.responseTextProperty().getValue());
+
+        List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSearchSugForKeywordFalse();
+        SuggestionTestUtil.assertSearchSuggestions(expectedSuggestions, suggestions, model);
+
     }
 
     @Test

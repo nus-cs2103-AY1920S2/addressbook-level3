@@ -101,6 +101,7 @@ public class SearchSuggestionGenerator implements SuggestionGenerator {
             try {
                 OpenCommand openCommand = new OpenCommand(absolutePath);
                 openCommand.execute(model);
+                model.clearInput();
             } catch (CommandException ex) {
                 /* notes suggested will definitely be able to be opened,
                 as the block actually exists. AssertionError would never be thrown */

@@ -37,15 +37,13 @@ public class SearchSuggestionArgHandlerTest {
     }
 
     @Test
-    public void parse_emptyKeyword_returnsEmptySuggestions() {
+    public void parse_emptyKeyword_returnsOptionalEmpty() {
         String keyword = "";
         String userInput = " " + PREFIX_SEARCH + " " + keyword;
         Optional<? extends SearchSuggestionGenerator> command = searchSuggestionArgHandler.handleArg(userInput);
 
-        // Test response text
         assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
 
-        // Test command
         assertFalse(command.isPresent());
     }
 
@@ -58,18 +56,12 @@ public class SearchSuggestionArgHandlerTest {
 
         command.get().execute(model);
 
-        // Test response text
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_KEYWORD, keyword)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSearchSugForKeywordFalse();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
-
-        // Test suggestions
-        SuggestionTestUtil.assertSearchSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSearchSuggestions(expectedSuggestions, suggestions, model);
     }
 
     @Test
@@ -81,17 +73,11 @@ public class SearchSuggestionArgHandlerTest {
 
         command.get().execute(model);
 
-        // Test response text
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_KEYWORD, keyword)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSearchSugForKeywordFalse();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
-
-        // Test suggestions
-        SuggestionTestUtil.assertSearchSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSearchSuggestions(expectedSuggestions, suggestions, model);
     }
 }
