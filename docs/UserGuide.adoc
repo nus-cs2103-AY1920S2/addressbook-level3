@@ -640,7 +640,7 @@ image::dietTrackerHelpCommandSuccessPhoto.png[width="890", height="200"]
 
 
 
-
+//tag::introtoexpensesplitter[]
 === Expense Splitter : `split`
 Getting a headache from splitting *that* ever-so-complicated bill?
 
@@ -747,7 +747,7 @@ such as `deleteitem` where you have to pass in the index of item to be deleted.
 
 
 '''
-
+//tag::listamount[]
 [[listamount]]
 ==== Listing amounts owed by each person: `listamount`
 
@@ -807,7 +807,7 @@ or delete any items using the `deleteitem` command.
 ====
 
 '''
-
+//tag::paid[]
 [[paid]]
 ==== Paying money: `paid`
 
@@ -1054,6 +1054,7 @@ or
 
 |===
 
+//tag::commandsummaryforexpensesplitter[]
 === For Expense Splitter
 
 * *Adding Item* `additem` +
