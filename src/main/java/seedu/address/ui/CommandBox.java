@@ -33,12 +33,13 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, ResultDisplay resultDisplay) {
+    public CommandBox(CommandExecutor commandExecutor, ResultDisplay resultDisplay,
+            CommandHistory commandHistory, AutoComplete autoComplete) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.resultDisplay = resultDisplay;
-        commandHistory = new CommandHistory();
-        autoComplete = new AutoComplete();
+        this.commandHistory = commandHistory;
+        this.autoComplete = autoComplete;
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
