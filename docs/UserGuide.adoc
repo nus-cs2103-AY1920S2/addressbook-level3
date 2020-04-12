@@ -1128,12 +1128,15 @@ TA-Tracker in the form of lines of text |
 | Index | This refers to the position of an item on a list. | Index of 1 refers to the first
 item in a list.
 
+| Activity Diagram | This refers to the workflow of a software. | <<AppendixA,Appendix>>
+
 |=======================================================================
 
 [[AppendixA]]
-== Appendix: Simple activity to aid you with using Expense Splitter +
+== Appendix: Simple activity diagram to aid you with using Expense Splitter +
 
-This diagram will help you understand the flow of Expense Splitter.
+This diagram will help you understand the flow of Expense Splitter thus improving your user experience.
+
 The fully blackened circle at the top represents the start point while the circle
 at the bottom represents the end point.
 
