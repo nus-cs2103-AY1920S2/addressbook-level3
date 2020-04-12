@@ -20,6 +20,9 @@ By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
 Welcome to *MODdy*!
 
+.Overview of main features *MODdy* has
+image::Main.png[width="790"]
+
 *MODdy* is a one-stop application for all your academic needs!
 
 It keeps you organized and well-planned throughout your course of study.
@@ -69,7 +72,7 @@ This section provides you with steps on how you can install *MODdy* on your comp
 .Homepage of *MODdy*
 image::QuickStart.png[width="790"]
 +
-.  Type the command in the command box as shown in Figure 1 and press kbd:[Enter] to execute it. +
+.  Type the command in the command box as shown in Figure 2 and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Create your own profile by entering your details in the command box using these parameters: `new n/name c/course y/year.semester [f/focusArea]`.
 .  Some other example commands you can try:
@@ -93,18 +96,18 @@ The following 10 sections provides you a deeper understanding on how to use the 
 * Items in square brackets are optional e.g `m/moduleCode [g/grade]` can be used as `m/CS2103 g/A+` or as `m/CS2103`.
 ====
 
-
+// tag::help[]
 [[Help]]
 === Viewing help : `help`
 
 If you are unsure about the commands and want to seek help, this command opens up a pop-up help window where there are examples for basic command format.
-For more detailed help, you can visit the link provided, as shown in Figure 2 below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
+For more detailed help, you can visit the link provided, as shown in Figure 3 below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
 
 Format: `help`
 
 .Help window of *MODdy*
 image::Help.png[width="790"]
-
+// end::help[]
 
 
 [[New]]
@@ -121,7 +124,7 @@ Format: `new n/name c/course y/year.semester [f/focusArea]`
 * You can only have one profile! If you wish to create a new profile, you can remove it with the <<Delete, delete>> feature mentioned in <<Delete, Section 4.6>>.
 ****
 
-Example: `new n/John c/Computer Science y/2.2` creates a new profile with the name "John", currently majoring in "Computer Science" and is a Year 2 Semester 2 student, as shown in Figure 3 below.
+Example: `new n/John c/Computer Science y/2.2` creates a new profile with the name "John", currently majoring in "Computer Science" and is a Year 2 Semester 2 student, as shown in Figure 4 below.
 
 .New profile created is displayed in the Profile Panel
 image::New.png[width="790"]
@@ -153,7 +156,7 @@ NOTE: However, you cannot add grades when adding multiple modules.
 * `g/GRADE` is optional. If you have yet to obtain a grade for the module, don't worry, you can always add it to the module later using the <<Edit, edit>> feature mentioned in <<Edit, Section 4.4>>.
 ****
 
-Example: `add m/CS2103T y/2.2` adds CS2103T to Year 2 Semester 2, as shown in Figure 4 below.
+Example: `add m/CS2103T y/2.2` adds CS2103T to Year 2 Semester 2, as shown in Figure 5 below.
 
 .CS2105 is added as a module under year 2 semester 1
 image::AddModule.png[width="790"]
@@ -182,7 +185,7 @@ Format: `add m/moduleCode t/task [d/deadline]` +
 ****
 
 Example: `add m/CS2101 t/Presentation d/2020-04-25 17:00` adds a task named "Presentation"
-with the deadline "25 April 2020 17:00" to the already-existing module CS2101, as shown in Figure 6 below.
+with the deadline "25 April 2020 17:00" to the already-existing module CS2101, as shown in Figure 7 below.
 
 .CS2101 task is added into and displayed on the sorted Deadline Panel
 image::DeadlinePanel.png[width="790"]
@@ -214,7 +217,7 @@ Format: `edit [n/name] [c/course] [y/year.semester] [f/focusArea]` +
 * If you did not specify your focus area when you created your profile, `edit f/focusArea` adds the focusArea to your profile
 ****
 
-Example: `edit n/Brad c/Information Systems` edits your profile name to "Brad" and your course to "Information Systems", as shown in Figure 7 below.
+Example: `edit n/Brad c/Information Systems` edits your profile name to "Brad" and your course to "Information Systems", as shown in Figure 8 below.
 
 .Profile Panel is updated with new details
 image::EditProfile.png[width="790"]
@@ -231,7 +234,7 @@ Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
 * You are allowed to add a grade to a module you are planning to take in future, if you wish to predict your CAP. You can delete grades anytime using the `delete` command.
 ****
 
-Example: `edit m/CS2103T g/A+` edits your grade of the module CS2103T to A+, as shown in Figure 8 below.
+Example: `edit m/CS2103T g/A+` edits your grade of the module CS2103T to A+, as shown in Figure 9 below.
 
 .Module detail of CS2103T edited
 image::EditModule.png[width="790"]
@@ -249,7 +252,7 @@ Format: `edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]`
 ****
 
 Example: `edit m/CS2103T t/tP Submission nt/UG and DG Submission` +
-edits CS2103T task "tP Submission" to new task name "UG and DG Submission", as shown in Figure 9 below.
+edits CS2103T task "tP Submission" to new task name "UG and DG Submission", as shown in Figure 10 below.
 
 .Deadline for CS2103T is edited from "tP Submission" to "UG and DG Submission"
 image::EditDeadline.png[width="790"]
@@ -271,7 +274,7 @@ There are *five* ways you can use the `show` command:
 ==== Showing your profile +
 Format: `show n/NAME`
 
-Example: `shown n/Brad` shows the profile overview of user "Brad", as shown in Figure 10 below.
+Example: `shown n/Brad` shows the profile overview of user "Brad", as shown in Figure 11 below.
 
 .Profile overview of "Brad" is shown in the Overview Panel
 image::ShowProfile.png[width="790"]
@@ -281,7 +284,7 @@ NOTE: All the modules under every semester, grades of completed modules, as well
 ==== Showing details of a module +
 Format: `show m/moduleCode`
 
-Example: `show m/CS2103T` show all the module details of CS2103T, as shown in Figure 11 below.
+Example: `show m/CS2103T` show all the module details of CS2103T, as shown in Figure 12 below.
 
 .Details of the module CS2103T shown in the Main Panel
 image::ShowModule.png[width="790"]
@@ -294,7 +297,7 @@ MODdy will remind you that you can only display one object at a time.
 ==== Showing modules in the specified semester +
 Format: `show y/year.semester`
 
-Example: `show y/1.1` shows all modules taken in Year 1 Semester 1, as shown in Figure 12 below. If grades for these modules
+Example: `show y/1.1` shows all modules taken in Year 1 Semester 1, as shown in Figure 13 below. If grades for these modules
 are available, it will be displayed as well.
 
 .Modules added to Year 1 Semester 1 are shown in Main Panel
@@ -304,7 +307,7 @@ image::ShowSemester.png[width="790"]
 ==== Showing the course's requirements +
 Format: `show c/course`
 
-Example: `show c/Computer Science` shows the Course Requirement and Focus Area of "Computer Science", as shown in Figure 13 below.
+Example: `show c/Computer Science` shows the Course Requirement and Focus Area of "Computer Science", as shown in Figure 14 below.
 
 .Course requirement and focus areas of Computer Science is shown in the Main Panel
 image::ShowCourse.png[width="790"]
@@ -315,7 +318,7 @@ NOTE: You need to enter the course name in full!
 Format: `show f/focusArea`
 
 Example: `show f/Software Engineering` shows the Primaries and Electives of focus area "Software Engineering",
-as shown in Figure 14 below.
+as shown in Figure 15 below.
 
 .Modules under Electronic Commerce, which is a focus area of Information Systems, shown in the Main Panel
 image::ShowFocusArea.png[width="790"]
@@ -335,7 +338,7 @@ If you wish to remove your profile, you can do so with the command below. The ef
 
 Format: `delete n/name`
 
-Example: `delete n/Brad` deletes "Brad" from the profile panel as well as all other data, as shown in Figure 15 below.
+Example: `delete n/Brad` deletes "Brad" from the profile panel as well as all other data, as shown in Figure 16 below.
 
 .Entire profile deleted from *MODdy*
 image::DeleteProfile.png[width="790"]
@@ -350,7 +353,7 @@ Format: `delete m/moduleCode`
 You can delete multiple modules at the same time. To delete multiple modules, just append the `m/moduleCode` tags one after another, e.g. `delete m/CS1231 m/IS1130 m/MA1521`.
 
 Example: `delete m/CS2103T` deletes CS2103T from Year 2 Semester 2 and also removes all tasks related to CS2103T from the deadline panel, as
-shown in Figure 16 below.
+shown in Figure 17 below.
 
 .CS2103T and its tasks are deleted from *MODdy*
 image::DeleteModule.png[width="790"]
@@ -364,7 +367,7 @@ Format: `delete m/moduleCode t/task`
 
 You can delete multiple tasks at the same time but only from the *same* module. To delete multiple tasks, just append the `t/task` tags one after another, e.g. `delete m/CS1231 t/quiz t/exam`.
 
-Example: `delete m/CS2103T t/Quiz` deletes the task "Quiz" of module CS2103T from the Deadline Panel, as shown in Figure 17 below.
+Example: `delete m/CS2103T t/Quiz` deletes the task "Quiz" of module CS2103T from the Deadline Panel, as shown in Figure 18 below.
 
 ."Quiz" for CS2103T deleted from the Deadline Panel
 image::DeleteTask.png[width="790"]
@@ -376,11 +379,14 @@ If you have been using *MODdy* to simulate your grades or you have entered a gra
 
 Format: `delete m/moduleCode g/`
 
-Example: `delete m/CS2103T g/` deletes the grade of module CS2103T, as shown in Figure 18 below.
+Example: `delete m/CS2103T g/` deletes the grade of module CS2103T, as shown in Figure 19 below.
 
 .Grade of CS2103T is deleted
 image::DeleteGrade.png[width="790"]
-// end::delete[] [[Home]]
+// end::delete[]
+
+[[Home]]
+// tag::home[]
 === Returning to Homepage : `home`
 
 If you want to return to *MODdy*'s Homepage, use this command, as shown in the figure below.
@@ -389,6 +395,8 @@ Format: `home`
 
 .Homepage of *MODdy* shown in Main Panel
 image::Home.png[width="790"]
+
+// end::home[]
 
 [[Clear]]
 === Resetting *MODdy*: `clear`
