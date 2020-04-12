@@ -1130,7 +1130,7 @@ Sorts all students in all groups inside all modules `alphabetically`.
 ====
 
 [[FilterStudent]]
-==== Filter : `filter`
+==== Filter : `student filter`
 
 You can use this command to see the students in a particular group
 and module.
@@ -1314,7 +1314,7 @@ Examples:
 This will mark the 25th session in the *Session View* as done.
 ====
 
-==== Filter : `filter`
+==== Filter : `session filter`
 
 You can use this command to filter the sessions in the *Session View*.
 
@@ -1362,7 +1362,7 @@ As long as a session contains one of the keyword given by the user, the session 
 
 === Claims View
 
-==== Filter : `filter`
+==== Filter : `claims filter`
 
 You can use this command to filters sessions in the *Claims View* by the module code.
 
