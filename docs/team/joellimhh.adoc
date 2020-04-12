@@ -30,7 +30,6 @@ Naggy Joel allows users to keep track of contacts, restaurants, school deadlines
 *** This enhancement affects existing commands and commands to be added in future, and hence required an in-depth analysis of design alternatives (for example, how do we want to modify Model and ModelManager, how do we want to store the different states, what is the implementation that uses the least memory, what are the commands that changes the state, etc)
 *** The implementation was also challenging as it required a manual inspection and changing of the 20 commands that changes the state of the model (for example, adding an item into an ArrayList had to be done by first creating a new ArrayList and copying all existing items instead of simply adding the new item into the ArrayList, etc)
 *** This enhancement also had to consider what was shown on the GUI, on top of reversing the database, as an indication/confirmation to the user that the command was indeed undone/redone
-** Credits: _NIL_
 
 === Minor Enhancements
 * *Edited the `edit/addnote/editnote/deletenote` command for AddressBook*
@@ -38,17 +37,14 @@ Naggy Joel allows users to keep track of contacts, restaurants, school deadlines
 ** Justification: The list of contact shows only the name, tags, and phone number; showing the user the details of these contacts when the user edits the user provides visual confirmation of the successful execution of the commands
 ** Highlights:
 *** These 4 commands that show the details of a contact changes the state of the data while the `(ab)get` command does not change the state of the data; hence a careful distinction between the 2 is essential to ensuring `undo/redo` works properly
-** Credits: _NIL_
 
 * *Reworked the `clear` command to clear all entries from the entire application*
 ** What it does: Clears all entries in the entire application instead of just the AddressBook
 ** Justification: `clear` as intuitively understood should be to clear the entire application and not just one portion (AddressBook) of the application
 ** Highlights:
 *** As the only command that does more than modifies more than 1 area of the model (clears AddressBook, RestaurantBook, SchoolworkTracker, EventTracker), it had to be implemented properly to trigger only 1 state change, and not 4 for `undo/redo` to work properly
-** Credits: _NIL_
 
-=== Code
-* Code contributed: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=hhjoel[Code]]
+=== Code Contributed: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=hhjoel[Code]]
 
 === Other Contributions
 * Enhancements to existing features
