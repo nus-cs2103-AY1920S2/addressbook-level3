@@ -1,0 +1,2610 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Jeremy Loh - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://github.com/AY1920S2-CS2103T-W12-1/main"><img src="../images/delino_icon.png" alt="Delino"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="../index.html">Delino</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">Delino</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S2-CS2103T-W12-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Jeremy Loh - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-delino"><a class="link" href="#project-delino">PROJECT: Delino</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Delino is a desktop application for couriers to manage delivery tasks. The user
+interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: Add <code>nearby</code> command (searching by postal sector) <strong>(+1091 -45 LOC)</strong><br>
+(Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/181">#181</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it does</strong>:<br>
+Allows the user to find all orders located at a specified postal sector.</p>
+</li>
+<li>
+<p><strong>Justification</strong>:<br>
+It is helpful for our target audience, couriers, to find all relevant orders
+at a specific postal sector.<br>
+This would allow them to deliver their pending orders in
+a more efficient manner.</p>
+</li>
+<li>
+<p><strong>Highlights</strong>:<br>
+Ability to find orders based on all postal codes in Singapore.<br>
+A helpful message regarding the specified postal code is also shown.<br>
+Parsing has been done to user input of a valid postal sector (the first two digits of a six digit Singapore postal code).
+Figuring out an effective way of testing and implementing all possible postal sectors
+was time consuming as there are 28 postal sectors in Singapore.<br>
+Thankfully, JUnit 5 has <a href="https://www.baeldung.com/parameterized-tests-junit-5">parameterized tests</a>
+that allowed me to test more effectively. The mapping of postal sectors was done using a <strong>HashMap</strong>.</p>
+</li>
+<li>
+<p><strong>Credits</strong>: Information about the various postal sectors was obtained from <a href="https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm">here</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Major enhancement</strong>: Enhancement to <code>nearby</code> command to search the 5 general regions of Singapore<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add ability for <code>nearby</code> command to search orders located at one of the 5 areas of Singapore:<br>
+Central, East, North-east, West, North. <strong>(+1,579 −164 LOC)</strong><br>
+(Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/194">#194</a>)<br></p>
+</li>
+<li>
+<p><strong>What it does</strong>:<br>
+Allows the user to find all orders located at a specified region of Singapore.<br></p>
+</li>
+<li>
+<p><strong>Justification</strong>:<br>
+This makes it easy for couriers in a certain area to select orders to be done in that region.</p>
+</li>
+<li>
+<p><strong>Highlights</strong>:<br>
+Ability to find orders based on the 5 regions in Singapore. A helpful message regarding the specified area is also shown.<br>
+The 5 regions were mapped using a separate helper class as these regions were
+grouped using their postal sectors.</p>
+</li>
+<li>
+<p><strong>Credits</strong>: Information about the various areas was obtained from <a href="https://keylocation.sg/singapore/districts-map" class="bare">https://keylocation.sg/singapore/districts-map</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add Warehouse field for Orders.<br>
+(Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/174">#174</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Allows for orders to keep track of warehouse.</p>
+</li>
+<li>
+<p>Justification: It is a must have. Couriers need to keep track of the warehouse they need to collect/return
+the order to.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Modify Ui for application (temporary change).<br>
+(Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/192">#192</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Cosmetic change to UI (change in colours and placement of UI elements).</p>
+</li>
+<li>
+<p>Justification: A temporary UI change to differentiate our application from the
+original UI of AddressBook Level 3.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Modify delete command to take in flags.<br>
+(Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/240">#240</a>)
+(Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/304">#304</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Allows for deletion of orders or return orders.</p>
+</li>
+<li>
+<p>Justification: It is a must have. Couriers need to be able to delete from a specific list.
+Our application has two lists: Order list and Return Order list.
+Deletion is done by providing an appropriate flag.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jeremyloh&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2020-02-14&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false">Functional code and Test Code</a>]</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management: In charge of Documentation. Supporting role in Testing and Code Quality.<br></p>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Update delete and nearby command DG:
+<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/251">#251</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PRs reviewed (with non-trivial review comments):<br>
+<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/71">#71</a>
+<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/171">#171</a>
+<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/187">#187</a>
+<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/226">#226</a>
+<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/310">#310</a></p>
+</li>
+<li>
+<p>Contributed to forum discussions (<a href="https://github.com/nus-cs2103-AY1920S2/forum/issues/88">88</a>)</p>
+</li>
+<li>
+<p>Reported bugs and suggestions for other teams in the class (<a href="https://github.com/JeremyLoh/ped/issues">PE dry run issues</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrated a third party library (Coveralls) to the project (<a href="https://github.com/AY1920S2-CS2103T-W12-1/main/commit/248bb4db86666270ee5025f1d4f9276ef1d530ec">248bb4d</a>)</p>
+</li>
+<li>
+<p>Configure Repo to Provide Additional Data to RepoSense (Pull request <a href="https://github.com/AY1920S2-CS2103T-W12-1/main/pull/220">#220</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This whole section on "how to navigate user guide" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#navigate-user-guide" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#navigate-user-guide</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="sect2">
+<h3 id="navigate-user-guide"><a class="link" href="#navigate-user-guide">How to navigate this user guide</a></h3>
+<div class="paragraph">
+<p>Throughout this user guide, you might encounter additional symbols. These symbols are used to
+highlight important information.<br>
+This user guide uses the following symbols:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This block contains additional <strong>notes</strong>.<br>
+It contains more information regarding complex content that you should take note of.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This block contains additional <strong>tips</strong>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This block contains <strong>warning</strong> information.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This block contains <strong>important</strong> information that you should be mindful of.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>text markup</code> : This is used to indicate keywords such as command arguments to Delino. (e.g. <code>exit</code>)</p>
+</div>
+<div class="paragraph">
+<p><code>[FLAG]</code> : For the various commands, you might encounter <strong>keywords</strong> placed in square brackets.<br>
+(e.g. <code>nearby</code> <code>[FLAG]</code> <code>AREA</code>)<br>
+These indicate the <strong>optional arguments</strong> to a command.</p>
+</div>
+<div class="paragraph">
+<p>Keywords that are capitalized represent all possible combinations of an argument.<br>
+(e.g. <code>[FLAG]</code> represents all possible flag arguments available).<br>
+For the list of all possible combinations of an argument, you can refer to the <a href="#glossary">glossary</a></p>
+</div>
+<div class="paragraph">
+<p>Finally, you will encounter links to external web pages for additional information.
+These links will <a href="#navigate-user-guide">look like this</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="features"><a class="link" href="#features">Features</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on "delete" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#delete" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#delete</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="sect2">
+<h3 id="delete"><a class="link" href="#delete">Deleting an order : <code>delete</code> [Done by - Loh Jeremy Wen Jun]</a></h3>
+<div class="paragraph">
+<p>In this section, you will learn more about the <code>delete</code> command,
+<a href="#how_to_use_delete_command">how to use it</a> and the
+<a href="#usage_scenario_delete_command">possible usage scenarios</a> of the <code>delete</code> command.<br></p>
+</div>
+<div class="paragraph">
+<p>The <code>delete</code> command is useful if you would like to delete a specific order from either
+the order list or return order list.<br>
+This would allow you to correct any accidental additions that you may have made
+when <a href="#insert">inserting orders</a> or <a href="#import">importing an order file</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="how_to_use_delete_command"><a class="link" href="#how_to_use_delete_command">How to use the Delete command</a></h4>
+<div class="paragraph">
+<p>In this section, you learn more about the exact inputs required to use the <code>delete</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Here are the steps you should follow to delete an order using the <code>delete</code> command:<br>
+<strong>Step 1</strong> : Type in the keyword <code>delete</code><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2</strong> : Provide a <code>FLAG</code> to indicate which list to delete your order from<br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A <code>FLAG</code> can be either <code>-o</code> or <code>-r</code>.<br>
+A <code>-o</code> flag indicates the order list.<br>
+A <code>-r</code> flag indicates the return order list.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Step 3</strong> : Provide an <code>INDEX</code> to indicate the specific order to delete based on the list</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>INDEX</code> refers to the <code>INDEX</code> number shown in the displayed list.<br>
+The <code>INDEX</code> <strong>must be a positive integer</strong> i.e. 1, 2, 3, &#8230;&#8203;</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Step 4</strong> : Press <code>Enter</code> on your keyboard to see the magic!</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="what-constitutes-a-valid-delete-command"><a class="link" href="#what-constitutes-a-valid-delete-command">What constitutes a valid Delete command</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn more about the syntax of the <code>delete</code> command<br></p>
+</div>
+<div class="paragraph">
+<p>The syntax for a valid <code>delete</code> command is the following:<br>
+<code>delete</code> <code>FLAG</code> <code>INDEX</code><br></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="usage_scenario_delete_command"><a class="link" href="#usage_scenario_delete_command">Delete command usage scenarios</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn more about the various usage scenarios of the <code>delete</code> command!</p>
+</div>
+<div class="paragraph">
+<p>These are the possible combinations of the <code>delete</code> command:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. Possible Combinations of Delete command</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scenario</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to delete the second order from the order list.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>delete</code> <code>-o</code> <code>2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes the 2nd order from the order list.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to delete the third order from the return order list.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>delete</code> <code>-r</code> <code>3</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes the 3rd return order from the return order list.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want delete the first order that belongs to the customer 'Betsy'.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>-o</code> <code>Betsy</code><br>
+<code>delete</code> <code>-o</code> <code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes the 1st order in the results of the <code>search</code> command
+(search all orders with customer&#8217;s name <code>Betsy</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to obtain all orders in the return order list located in the central region of Singapore.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>-r</code> <code>Aaron</code><br>
+<code>delete</code> <code>-r</code> <code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes the 1st return order in the results of the <code>search</code> command
+(search all return orders with customer&#8217;s name <code>Aaron</code>).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This whole section on "Viewing orders located at the same area or postal sector: nearby" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#nearby" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#nearby</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nearby"><a class="link" href="#nearby">Viewing orders located at the same area or postal sector: <code>nearby</code> [Done by - Loh Jeremy Wen Jun]</a></h3>
+<div class="paragraph">
+<p>In this section, you will learn more about the <code>nearby</code> command,
+<a href="#how_to_use_nearby_command">how to use it</a> and the
+<a href="#usage_scenario_nearby_command">possible usage scenarios</a> of the <code>nearby</code> command.<br></p>
+</div>
+<div class="paragraph">
+<p>The <code>nearby</code> command is useful if you would like to obtain all orders located in the same
+postal sector or region of Singapore. This would allow you to be more efficient with your delivery
+orders.</p>
+</div>
+<div class="sect3">
+<h4 id="how_to_use_nearby_command"><a class="link" href="#how_to_use_nearby_command">How to use the nearby command</a></h4>
+<div class="paragraph">
+<p>In this section, you learn more about the exact inputs required to use the <code>nearby</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Here are the steps you should follow to obtain all orders using the <code>nearby</code> command:<br>
+<strong>Step 1</strong> : Type in the keyword <code>nearby</code><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2 (optional)</strong> : Provide an optional <code><a href="#command_flags">FLAG</a></code> that indicates which order list to
+search (order list or return order list).<br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A <code>-o</code> flag indicates searching of nearby orders using the order list.<br>
+A <code>-r</code> flag indicates searching of the nearby orders using the return order list.<br></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default, if no <code>FLAG</code> is provided, both order list and return order list will be searched.<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3</strong> : Provide either a <code><a href="#postal_sector">POSTAL SECTOR</a></code> or an <code><a href="#area">AREA</a></code><br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A <code>POSTAL_SECTOR</code> refers to the first <strong>two</strong> digits of a six digit Singapore postal code.<br>
+Example: The postal code <code>140239</code> has a <code>POSTAL_SECTOR</code> of <code>14</code>.<br>
+The list of postal sectors and their corresponding general locations can be found
+<a href="https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm">here</a>.</p>
+</div>
+<div id="area" class="paragraph">
+<p>An <code>AREA</code> refers to one of the five areas of Singapore<br></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Central</p>
+</li>
+<li>
+<p>East</p>
+</li>
+<li>
+<p>North East</p>
+</li>
+<li>
+<p>West</p>
+</li>
+<li>
+<p>North</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A quick reference for the five areas of Singapore can be <a href="#area_table">found here</a>.</p>
+</div>
+<div class="paragraph">
+<p>You can obtain more detailed information about each area from
+<a href="https://keylocation.sg/singapore/districts-map">this website</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Step 4</strong> : Press <code>Enter</code> on your keyboard to see the magic!</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="what-constitutes-a-valid-nearby-command"><a class="link" href="#what-constitutes-a-valid-nearby-command">What constitutes a valid nearby command</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn more about the syntax of the <code>nearby</code> command<br></p>
+</div>
+<div class="paragraph">
+<p>The syntax for a valid <code>nearby</code> command can be one of the following:<br>
+1. <code>nearby</code> <code>[FLAG]</code> <code>POSTAL_SECTOR</code><br>
+2. <code>nearby</code> <code>[FLAG]</code> <code>AREA</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>An optional <code>FLAG</code> can be provided to indicate which list to search on.<br>
+A <code>-o</code> flag indicates searching of nearby orders using the order list.<br>
+A <code>-r</code> flag indicates searching of the nearby orders using the return order list.<br>
+By default, if no <code>FLAG</code> is provided, both order list and return order list will be searched.<br></p>
+</div>
+<div class="paragraph">
+<p>A <code>POSTAL_SECTOR</code> refers to the first <strong>two</strong> digits of a six digit Singapore postal code.<br>
+Example: The postal code <code>140239</code> has a <code>POSTAL_SECTOR</code> of <code>14</code><br>
+The list of postal sectors and their corresponding general locations can be found
+<a href="https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>An <code>AREA</code> refers to one of the five areas of Singapore:<br></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Central</p>
+</li>
+<li>
+<p>East</p>
+</li>
+<li>
+<p>North East</p>
+</li>
+<li>
+<p>West</p>
+</li>
+<li>
+<p>North</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A quick reference for the five areas of Singapore can be <a href="#area_table">found here</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="usage_scenario_nearby_command"><a class="link" href="#usage_scenario_nearby_command">Nearby command usage scenarios</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn more about the various usage scenarios of the <code>nearby</code> command!</p>
+</div>
+<div class="paragraph">
+<p>These are the possible combinations of the <code>nearby</code> command:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. Possible Combinations of nearby command</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scenario</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to obtain all orders in both the order list and return order list located in the the north region of Singapore.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nearby</code> <code>north</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All orders in the order list and return order list that are located in the north region of Singapore will be displayed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to obtain all orders in the order list located in the general location of  <code>Queenstown, Tiong Bahru</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nearby</code> <code>-o</code> <code>14</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All orders in the order list that are located in postal sector <code>14</code> (<code>Queenstown, Tiong Bahru</code>) will be displayed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to obtain all orders in the return order list located in the general location of <code>Raffles Place, Cecil, Marina, People&#8217;s Park</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nearby</code> <code>-r</code> <code>04</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All orders in the return order list that are located in the postal sector <code>04</code> (<code>Raffles Place, Cecil, Marina, People&#8217;s Park</code>) will be displayed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you want to obtain all orders in the return order list located in the central region of Singapore.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nearby</code> <code>-r</code> <code>central</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All orders in the return order list that are located in the central region of Singapore will be displayed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Suppose you are delivering an order to Buona Vista and would like to know all the orders located near
+that region (central region of Singapore). Are you going manually look through all of your orders and
+find those that are located near Buona Vista?<br>
+If only there was a way to efficiently find all orders based on a given region or postal sector!<br>
+This would allow you to complete more orders!</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nearby</code> <code>-o</code> <code>central</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All orders in the order list that are located in the central region of Singapore will be displayed.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You can obtain more information about the various postal sectors in the following table:</p>
+</div>
+<table id="postal_sector" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. Postal Sectors in Singapore</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Postal Sector</th>
+<th class="tableblock halign-left valign-top">General Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">01, 02, 03, 04, 05, 06</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Raffles Place, Cecil, Marina, People&#8217;s Park</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">07, 08</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anson, Tanjong Pagar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14, 15, 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Queenstown, Tiong Bahru</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">09, 10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Telok Blangah, Harbourfront</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11, 12, 13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pasir Panjang, Hong Leong Garden, Clementi New Town</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High Street, Beach Road (part)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18, 19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Middle Road, Golden Mile</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20, 21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Little India</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22, 23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Orchard, Cairnhill, River Valley</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24, 25, 26, 27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ardmore, Bukit Timah, Holland Road, Tanglin</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">28, 29, 30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Watten Estate, Novena, Thomson</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">31, 32, 33</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Balestier, Toa Payoh, Serangoon</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">34, 35, 36, 37</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Macpherson, Braddell</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">38, 39, 40, 41</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Geylang, Eunos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">42, 43, 44, 45</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Katong, Joo Chiat, Amber Road</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">46, 47, 48</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bedok, Upper East Coast, Eastwood, Kew Drive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">49, 50, 81</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Loyang, Changi</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">51, 52</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tampines, Pasir Ris</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">53, 54, 55, 82</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Serangoon Garden, Hougang, Punggol</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">56, 57</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bishan, Ang Mo Kio</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">58, 59</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper Bukit Timah, Clementi Park, Ulu Pandan</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">60, 61, 62, 63, 64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jurong</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">65, 66, 67, 68</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">69, 70, 71</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lim Chu Kang, Tengah</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">72, 73</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kranji, Woodgrove</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">77, 78</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper Thomson, Springleaf</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">75, 76</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yishun, Sembawang</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">79, 80</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Seletar</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="glossary"><a class="link" href="#glossary">Glossary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on "Command Prefix" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command_prefix" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command_prefix</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="sect2">
+<h3 id="command_prefix"><a class="link" href="#command_prefix">Command Prefix</a></h3>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 4. Command Prefix</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Prefix</th>
+<th class="tableblock halign-left valign-top">Order Attributes</th>
+<th class="tableblock halign-left valign-top">Used in the following Command(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ot/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Order Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tid/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transaction ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Customer Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">p/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Phone Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">e/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Email</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#insert">Insert</a>, <a href="#edit">Edit</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dts/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delivery Date And Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rts/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return Date and Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">w/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Warehouse Location</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cod/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cash On Delivery</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">c/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comments by Customer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of Item</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a>, <a href="#import">Import</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This whole section on "Command Flags" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command_flags" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command_flags</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="command_flags"><a class="link" href="#command_flags">Command Flags</a></h3>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 5. Possible Command Flags</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Flag</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+<th class="tableblock halign-left valign-top">Used in the following Command(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-f</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Force clear, no user confirmation will be requested</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#clear">Clear</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-o</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Order flag, Operation on order list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#clear">Clear</a>, <a href="#delete">Delete</a>, <a href="#delivered">Delivered</a>, <a href="#edit">Edit</a>, <a href="#nearby">Nearby</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-r</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return Order flag, Operation on return order list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#clear">Clear</a>, <a href="#delete">Delete</a>, <a href="#delivered">Delivered</a>, <a href="#edit">Edit</a>, <a href="#nearby">Nearby</a>, <a href="#search">Search</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This whole section on "Area Information of Singapore" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#area_table" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#area_table</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="area_table"><a class="link" href="#area_table">Area Information of Singapore</a></h3>
+<div class="paragraph">
+<p><a href="#nearby">Click here</a> to navigate back to the Nearby Command!</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 6. Central</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">District</th>
+<th class="tableblock halign-left valign-top">Areas</th>
+<th class="tableblock halign-left valign-top">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Marina Area</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Boat Quay</p>
+</li>
+<li>
+<p>Chinatown</p>
+</li>
+<li>
+<p>Havelock Road</p>
+</li>
+<li>
+<p>Marina Square</p>
+</li>
+<li>
+<p>Raffles Place</p>
+</li>
+<li>
+<p>Suntec City</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CBD</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Anson Road</p>
+</li>
+<li>
+<p>Chinatown</p>
+</li>
+<li>
+<p>Neil Road</p>
+</li>
+<li>
+<p>Raffles Place</p>
+</li>
+<li>
+<p>Shenton Way</p>
+</li>
+<li>
+<p>Tanjong Pagar</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Central South</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Alexandra Road</p>
+</li>
+<li>
+<p>Tiong Bahru</p>
+</li>
+<li>
+<p>Queenstown</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keppel</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Keppel</p>
+</li>
+<li>
+<p>Mount Faber</p>
+</li>
+<li>
+<p>Sentosa</p>
+</li>
+<li>
+<p>Telok Blangah</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">South West</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Buona Vista</p>
+</li>
+<li>
+<p>Dover</p>
+</li>
+<li>
+<p>Pasir Panjang</p>
+</li>
+<li>
+<p>West Coast</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">City Hall</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>City Hall</p>
+</li>
+<li>
+<p>High Street</p>
+</li>
+<li>
+<p>North Bridge Road</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beach Road</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Beach Road</p>
+</li>
+<li>
+<p>Bencoolen Road</p>
+</li>
+<li>
+<p>Bugis</p>
+</li>
+<li>
+<p>Rochor</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Little India</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Little India</p>
+</li>
+<li>
+<p>Farrer Park</p>
+</li>
+<li>
+<p>Serangoon Road</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Orchard</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Cairnhill</p>
+</li>
+<li>
+<p>Killiney</p>
+</li>
+<li>
+<p>Leonie Hill</p>
+</li>
+<li>
+<p>Orchard</p>
+</li>
+<li>
+<p>Oxley</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tanglin</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Balmoral</p>
+</li>
+<li>
+<p>Bukit Timah</p>
+</li>
+<li>
+<p>Grange Road</p>
+</li>
+<li>
+<p>Holland</p>
+</li>
+<li>
+<p>Orchard Boulevard</p>
+</li>
+<li>
+<p>River Valley</p>
+</li>
+<li>
+<p>Tanglin Road</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Newton</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Chancery</p>
+</li>
+<li>
+<p>Bukit Timah</p>
+</li>
+<li>
+<p>Dunearn Road</p>
+</li>
+<li>
+<p>Newton</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Toa Payoh</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Balestier</p>
+</li>
+<li>
+<p>Moulmein</p>
+</li>
+<li>
+<p>Novena</p>
+</li>
+<li>
+<p>Toa Payoh</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Central East</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Potong Pasir</p>
+</li>
+<li>
+<p>Macpherson</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eunos</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Eunos</p>
+</li>
+<li>
+<p>Geylang</p>
+</li>
+<li>
+<p>Kembangan</p>
+</li>
+<li>
+<p>Paya Lebar</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">East Coast</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Katong</p>
+</li>
+<li>
+<p>Marine Parade</p>
+</li>
+<li>
+<p>Siglap</p>
+</li>
+<li>
+<p>Tanjong Rhu</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Central West</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Clementi</p>
+</li>
+<li>
+<p>Upper Bukit Timah</p>
+</li>
+<li>
+<p>Hume Avenue</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 7. East<br></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">District</th>
+<th class="tableblock halign-left valign-top">Areas</th>
+<th class="tableblock halign-left valign-top">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper East Coast</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Bayshore</p>
+</li>
+<li>
+<p>Bedok</p>
+</li>
+<li>
+<p>Chai Chee</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Far East</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Changi</p>
+</li>
+<li>
+<p>Loyang</p>
+</li>
+<li>
+<p>Pasir Ris</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tampines</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Pasir Ris</p>
+</li>
+<li>
+<p>Simei</p>
+</li>
+<li>
+<p>Tampines</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 8. North East</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">District</th>
+<th class="tableblock halign-left valign-top">Areas</th>
+<th class="tableblock halign-left valign-top">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">North East</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Hougang</p>
+</li>
+<li>
+<p>Punggol</p>
+</li>
+<li>
+<p>Sengkang</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ang Mo Kio</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Ang Mo Kio</p>
+</li>
+<li>
+<p>Bishan</p>
+</li>
+<li>
+<p>Braddell Road</p>
+</li>
+<li>
+<p>Thomson</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">North East</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Seletar</p>
+</li>
+<li>
+<p>Yio Chu Kang</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 9. West</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">District</th>
+<th class="tableblock halign-left valign-top">Areas</th>
+<th class="tableblock halign-left valign-top">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Far West</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Boon Lay</p>
+</li>
+<li>
+<p>Jurong</p>
+</li>
+<li>
+<p>Tuas</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">North West</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Bukit Batok</p>
+</li>
+<li>
+<p>Choa Chu Kang</p>
+</li>
+<li>
+<p>Hillview Avenue</p>
+</li>
+<li>
+<p>Upper Bukit Timah</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Far North West</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Kranji</p>
+</li>
+<li>
+<p>Lim Chu Kang</p>
+</li>
+<li>
+<p>Sungei Gedong</p>
+</li>
+<li>
+<p>Tengah</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 10. North</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">District</th>
+<th class="tableblock halign-left valign-top">Areas</th>
+<th class="tableblock halign-left valign-top">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Far North</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Admiralty</p>
+</li>
+<li>
+<p>Woodlands</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">North</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Tagore</p>
+</li>
+<li>
+<p>Yio Chu Kang</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Far North</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Admiralty</p>
+</li>
+<li>
+<p>Sembawang</p>
+</li>
+<li>
+<p>Yishun</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="features-2"><a class="link" href="#features-2">Features</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on "Delete Feature" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#delete" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#delete</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<div class="sect2">
+<h3 id="delete"><a class="link" href="#delete">Delete Feature</a></h3>
+<div class="paragraph">
+<p>In this section, the <a href="#what-is-delete">functionality</a> of the <code>delete</code> feature, the
+<a href="#execution-paths-delete">expected execution path</a>,
+the <a href="#structure-delete">structure</a> of the <strong>DeleteCommand</strong> class and the <a href="#interactions-delete">interactions</a>
+between objects with the <strong>DeleteCommand</strong> will be discussed.</p>
+</div>
+<div class="sect3">
+<h4 id="what-is-delete"><a class="link" href="#what-is-delete">What is the Delete Feature</a></h4>
+<div class="paragraph">
+<p>The <code>delete</code> feature allows the user to delete orders in either the order list or return order list.<br></p>
+</div>
+<div class="paragraph">
+<p>The <code>delete</code> feature was implemented as a <strong>DeleteCommand</strong> in the Logic package.<br></p>
+</div>
+<div class="paragraph">
+<p>The <code>delete</code> command has the following format:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete</code> <code>FLAG</code> <code>INDEX</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A <code>FLAG</code> is a compulsory argument that indicates the list to delete from.<br>
+It can be either <code>-o</code> or <code>-r</code>.<br>
+A <code>-o</code> <code>FLAG</code> argument indicates deletion from the order list.<br>
+A <code>-r</code> <code>FLAG</code> argument indicates deletion from the return order list.<br></p>
+</li>
+<li>
+<p>An <code>INDEX</code> is a compulsory argument that identifies the specific order to
+delete in the list.<br>
+The <code>INDEX</code> <strong>must be a positive integer</strong> i.e. 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="execution-paths-delete"><a class="link" href="#execution-paths-delete">Execution paths of Delete command</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn more about the execution paths for the <code>delete</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/DeleteActivityDiagram.svg" alt="DeleteActivityDiagram">
+</div>
+<div class="title">Figure 1. Delete Command Activity Diagram</div>
+</div>
+<div class="paragraph">
+<p>There are four possible execution paths for the <code>delete</code> command</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User provides an invalid <code>delete</code> command input<br>
+This results in a parse exception<br></p>
+</li>
+<li>
+<p>User provides a valid <code>delete</code> command input that has a flag indicating deletion
+from the order list.<br>
+The specified order will be deleted from the order list.<br></p>
+</li>
+<li>
+<p>User provides a valid <code>delete</code> command input that has a flag indicating deletion
+from the return order list.<br>
+The specified return order will be deleted from the return order list.<br></p>
+</li>
+<li>
+<p>User provides an invalid <code>delete</code> command input that has an invalid flag.<br>
+A Command Exception wil be generated.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="structure-delete"><a class="link" href="#structure-delete">Structure of Delete command</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn more about the relationships between objects
+related to the <code>delete</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/DeleteClassDiagram.svg" alt="DeleteClassDiagram">
+</div>
+<div class="title">Figure 2. Delete Command Class Diagram</div>
+</div>
+<div class="paragraph">
+<p>In the <strong>DeleteCommand</strong> class, there are also static strings present that represent the
+various possible messages.<br>
+For some of the message strings, there are placeholder %s strings used for including dynamic input<br>
+These messages are the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>MESSAGE_DELETE_ORDER_SUCCESS</code><br>
+Deleted Order: %1$s<br></p>
+</li>
+<li>
+<p><code>MESSAGE_DELETE_RETURN_ORDER_SUCCESS</code><br>
+Deleted Return Order: %1$s<br></p>
+</li>
+<li>
+<p><code>MESSAGE_INVALID_FLAG</code><br>
+Invalid flag given!<br></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="interactions-delete"><a class="link" href="#interactions-delete">Interactions between Delete command and its associated objects</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn more about the <code>delete</code> command and its inner workings.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interactions for a <code>delete</code> command execution of
+<code>delete</code> <code>-o</code> <code>1</code>.<br>
+This indicates that the first order should be deleted from the order
+list.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/DeleteSequenceDiagram.svg" alt="DeleteSequenceDiagram">
+</div>
+<div class="title">Figure 3. Delete Command Sequence Diagram for <code>delete</code> <code>-o</code> <code>1</code></div>
+</div>
+<div class="paragraph">
+<p>The arguments passed to the <code>delete</code> command will be parsed by the <strong>DeleteCommandParser</strong> class.<br>
+If the given arguments are valid, a new <strong>DeleteCommand</strong> object will be returned.<br>
+In this class, invalid arguments will result in a <strong>ParseException</strong>.<br>
+Two checks will be done for the arguments:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Invalid <code>FLAG</code> argument</p>
+</li>
+<li>
+<p>Invalid <code>INDEX</code> argument</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When the <strong>LogicManager</strong> runs the <code>execute()</code> method of <strong>DeleteCommand</strong>,
+<strong>DeleteCommand</strong> will first check the list to delete from.<br></p>
+</div>
+<div class="paragraph">
+<p>The deleteFromOrderList(model) method of <strong>DeleteCommand</strong> will then
+be called and the filtered order list will be obtained from the getFilteredOrderList()
+method of the model.<br></p>
+</div>
+<div class="paragraph">
+<p>The specified order at <code>INDEX</code> 1 will be deleted using the deleteOrder(order) method
+in the model.</p>
+</div>
+<div class="paragraph">
+<p>A new <strong>CommandResult</strong> will be created and returned to the <strong>LogicManager</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interactions for a <code>delete</code> command execution of
+<code>delete</code> <code>-r</code> <code>2</code>.<br>
+This indicates that the second order should be deleted from the return order
+list.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/DeleteSequenceDiagram2.svg" alt="DeleteSequenceDiagram2">
+</div>
+<div class="title">Figure 4. Delete Command Sequence Diagram for <code>delete</code> <code>-r</code> <code>2</code></div>
+</div>
+<div class="paragraph">
+<p>The arguments passed to the <code>delete</code> command will be parsed by the <strong>DeleteCommandParser</strong> class.<br>
+If the given arguments are valid, a new <strong>DeleteCommand</strong> object will be returned.<br>
+In this class, invalid arguments will result in a <strong>ParseException</strong>.<br>
+Two checks will be done for the arguments:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Invalid <code>FLAG</code> argument</p>
+</li>
+<li>
+<p>Invalid <code>INDEX</code> argument</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When the <strong>LogicManager</strong> runs the execute() method of <strong>DeleteCommand</strong>,
+<strong>DeleteCommand</strong> will first check the list to delete from.<br></p>
+</div>
+<div class="paragraph">
+<p>The deleteFromReturnList(model) method of <strong>DeleteCommand</strong> will then
+be called and the filtered return order list will be obtained from the getFilteredReturnOrderList()
+method of the model.<br></p>
+</div>
+<div class="paragraph">
+<p>The specified return order at <code>INDEX</code> 2 will be deleted using the deleteReturnOrder(returnOrder) method
+in the model.</p>
+</div>
+<div class="paragraph">
+<p>A new <strong>CommandResult</strong> will be created and returned to the <strong>LogicManager</strong>.</p>
+</div>
+<div class="paragraph">
+<p>This whole section on "Nearby Feature" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#nearby" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#nearby</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nearby"><a class="link" href="#nearby">Nearby Feature</a></h3>
+<div class="paragraph">
+<p>In this section, the <a href="#what-is-nearby">functionality</a> of the <code>nearby</code> feature, the
+expected <a href="#nearby-path-execution">execution path</a>, the <a href="#nearby-structure">structure</a> of the <strong>NearbyCommand</strong> class
+and the <a href="#nearby-interactions">interactions</a> between objects with the <strong>NearbyCommand</strong> object will be discussed.</p>
+</div>
+<div class="paragraph">
+<p>In this section, you will learn more about how the <code>nearby</code> feature is implemented.</p>
+</div>
+<div class="sect3">
+<h4 id="what-is-nearby"><a class="link" href="#what-is-nearby">What is the Nearby Feature</a></h4>
+<div class="paragraph">
+<p>The <code>nearby</code> feature allows the user to view all orders that are located at a particular area
+based on a given search criteria.<br></p>
+</div>
+<div class="paragraph">
+<p>The <code>nearby</code> feature was implemented as a <strong>NearbyCommand</strong> in the Logic package.<br></p>
+</div>
+<div class="paragraph">
+<p>The <code>nearby</code> command has two possible formats:<br></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>nearby</code> <code>FLAG</code> <code>POSTAL_SECTOR</code></p>
+</li>
+<li>
+<p><code>nearby</code> <code>FLAG</code> <code>AREA</code></p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>FLAG</code> is an optional argument and indicates which order list to search on.<br>
+It can be either <code>-o</code> or <code>-r</code>.
+A <code>-o</code> <code>FLAG</code> argument indicates that the order list will be searched.<br>
+A <code>-r</code> <code>FLAG</code> argument indicates that the return order list will be searched.<br>
+By default, if no <code>FLAG</code> arguments are provided, both order list and return order list will be searched.</p>
+</li>
+<li>
+<p>Searching of nearby orders is done by either <code>POSTAL_SECTOR</code> or <code>AREA</code><br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>POSTAL_SECTOR</code> refers to the first <strong>two</strong> digits of a six digit Singapore postal code.<br>
+The list of postal sectors and their corresponding general locations can be found
+<a href="https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm">on this website</a>.<br></p>
+</li>
+<li>
+<p>An <code>AREA</code> refers to one of the five areas of Singapore:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Central</p>
+</li>
+<li>
+<p>East</p>
+</li>
+<li>
+<p>North East</p>
+</li>
+<li>
+<p>West</p>
+</li>
+<li>
+<p>North</p>
+</li>
+<li>
+<p>You can obtain more detailed information about each area from
+<a href="https://keylocation.sg/singapore/districts-map">this website</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="nearby-path-execution"><a class="link" href="#nearby-path-execution">Execution paths of Nearby command</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn more about the execution paths for the <code>nearby</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/NearbyActivityDiagram.svg" alt="NearbyActivityDiagram">
+</div>
+<div class="title">Figure 5. Nearby Command Activity Diagram</div>
+</div>
+<div class="paragraph">
+<p>There are four possible execution paths for the <code>nearby</code> command</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User provides an invalid <code>nearby</code> command input<br>
+This results in a parse exception<br></p>
+</li>
+<li>
+<p>User provides a valid <code>nearby</code> command input that has no flags<br>
+All matching nearby orders will be shown for all lists (order list and return order list)<br></p>
+</li>
+<li>
+<p>User provides a valid <code>nearby</code> command input that has one flag. This flag indicates the order list (<code>-o</code>)<br>
+All matching nearby orders will be shown for the order list.</p>
+</li>
+<li>
+<p>User provides a valid <code>nearby</code> command input that has one flag. This flag indicates the return order list (<code>-r</code>)<br>
+All matching nearby orders will be shown for the return order list.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The matching orders are determined based on the given user argument.<br>
+If a two digit integer is given, searching of nearby orders will be based on their postal sector.<br>
+Else, searching of nearby orders will be based on their area.<br>
+There are currently five areas that are searchable:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Central</p>
+</li>
+<li>
+<p>East</p>
+</li>
+<li>
+<p>North-East</p>
+</li>
+<li>
+<p>West</p>
+</li>
+<li>
+<p>North</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="nearby-structure"><a class="link" href="#nearby-structure">Structure of Nearby command</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn more about the relationships between objects
+related to the <code>nearby</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/NearbyClassDiagram.svg" alt="NearbyClassDiagram">
+</div>
+<div class="title">Figure 6. Nearby Command Class Diagram</div>
+</div>
+<div class="paragraph">
+<p>In the <strong>NearbyCommand</strong> class, there are also static strings present that represent the
+various possible messages.<br>
+For some of the message strings, there are placeholder %s strings used for including dynamic input<br>
+These messages are the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>MESSAGE_USAGE</code><br>
+nearby: View all orders located at the same postal sector based on the displayed list.<br>
+Parameters: [FLAG] POSTAL_SECTOR or AREA<br>
+An optional flag may be given to indicate the list to be searched for.<br>
+The flag can be either -o for orders for -r for return orders<br>
+A postal sector is the first two digits of a six digit Singapore postal code<br>
+An area is one of the following: Central, East, North-East, West, North<br>
+Example: nearby -o 14<br>
+Example: nearby -r central<br>
+Example: nearby east<br></p>
+</li>
+<li>
+<p><code>MESSAGE_SUCCESS_POSTAL_SECTOR</code><br>
+Displayed all orders in postal sector.<br>
+General Location: %1$s<br></p>
+</li>
+<li>
+<p><code>MESSAGE_SUCCESS_AREA</code><br>
+Displayed all orders in area (%s)<br></p>
+</li>
+<li>
+<p><code>MESSAGE_FAILURE_POSTAL_SECTOR</code><br>
+Invalid postal sector given.<br></p>
+</li>
+<li>
+<p><code>MESSAGE_FAILURE_AREA</code><br>
+Invalid area given.<br></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="nearby-interactions"><a class="link" href="#nearby-interactions">Interactions between Nearby command and its associated objects</a></h4>
+<div class="paragraph">
+<p>In this section, you will learn more about the <code>nearby</code> command and its inner workings.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interactions for a <code>nearby</code> command execution of
+<code>nearby</code> <code>-o</code> <code>14</code>.<br>
+This indicates that the order list should be operated on and
+all orders in the order list that have a <code>POSTAL_SECTOR</code> of <code>14</code>
+should be displayed to the user.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/NearbyCommandSequenceDiagram1.svg" alt="NearbyCommandSequenceDiagram1">
+</div>
+<div class="title">Figure 7. Nearby Command Sequence Diagram for <code>nearby</code> <code>-o</code> <code>14</code></div>
+</div>
+<div class="paragraph">
+<p>The arguments passed to the Nearby Command will be parsed by the <strong>NearbyCommandParser</strong> class.<br>
+If the given arguments are valid, a new <strong>NearbyCommand</strong> object will be returned.<br>
+In this class, invalid arguments will result in a <strong>ParseException</strong>.<br>
+Two types of invalid arguments are checked for: empty arguments
+and arguments with only whitespace characters.</p>
+</div>
+<div class="paragraph">
+<p>The execute() function of the <strong>NearbyCommand</strong> will first check if the given arguments
+are in the format required for postal sector search (the argument can be converted into an integer).
+If the first check is successful, the argument will be converted into an integer and
+a second check is performed via the isValidPostalSector(Index postalSector) function
+of the <strong>NearbyCommandUtil</strong> helper class.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>NearbyCommandUtil</strong> is a helper class that contains functions and variables used for
+identifying postal sectors and their corresponding general locations.<br>
+This class was created to reduce the responsibility of the <strong>NearbyCommand</strong> class.<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <strong>HashMap</strong> was used to store information about postal sectors and their respective general locations.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The model will then be updated by the updateFilteredOrderList(orderPredicate) function.<br></p>
+</div>
+<div class="paragraph">
+<p>A <strong>CommandResult</strong> is then generated and returned to the <strong>LogicManager</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interactions for a <code>nearby</code> command execution of
+<code>nearby</code> <code>-o</code> <code>central</code>.<br>
+This indicates that the order list should be operated on and
+all orders in the order list that have an <code>AREA</code> of <code>central</code>
+should be displayed to the user.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/NearbyCommandSequenceDiagram2.svg" alt="NearbyCommandSequenceDiagram2">
+</div>
+<div class="title">Figure 8. Nearby Command Sequence Diagram of <code>nearby</code> <code>-o</code> <code>central</code></div>
+</div>
+<div class="paragraph">
+<p>The <strong>NearbyCommandParser</strong> will check for invalid arguments given by the user.<br>
+Invalid arguments can be either empty arguments or arguments with
+only whitespace characters.
+A <strong>ParseException</strong> will be generated if an invalid argument is present.</p>
+</div>
+<div class="paragraph">
+<p>A new <strong>NearbyCommand</strong> will be created and returned to <strong>LogicManager</strong>.</p>
+</div>
+<div class="paragraph">
+<p><strong>LogicManager</strong> will then call the execute() function of the <strong>NearbyCommand</strong>.<br>
+There will then be a check for whether the given argument is a valid area with the
+function isValidArea(area) present in the <strong>DistrictInfo</strong> class.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>DistrictInfo</strong> is a helper class that contains functions and variables used for
+identifying areas.<br>
+This class was created to reduce the responsibility of the <strong>NearbyCommand</strong> class.<br></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The model will then be updated using the updateFilteredOrderList(orderPredicate) function.</p>
+</div>
+<div class="paragraph">
+<p>A new <strong>CommandResult</strong> will be created and returned to the <strong>LogicManager</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interactions for a <code>nearby</code> command execution of
+<code>nearby</code>.<br>
+This will result in a <strong>ParseException</strong> as invalid arguments are provided.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/NearbySequenceDiagramParseException.svg" alt="NearbySequenceDiagramParseException">
+</div>
+<div class="title">Figure 9. Parse Exception due to invalid <code>nearby</code> command</div>
+</div>
+<div class="paragraph">
+<p>The exception will be thrown in the <strong>NearbyCommandParser</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="glossary-2"><a class="link" href="#glossary-2">Glossary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on "Command Prefix" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<table id="command_prefix" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 11. Command Prefix</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Prefix</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+<th class="tableblock halign-left valign-top">Used in the following Command(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ot/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Order Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#import">Import</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tid/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transaction ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#import">Import</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Customer Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#import">Import</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#import">Import</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">p/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Phone Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#import">Import</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">e/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Email</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#import">Import</a>, <a href="#insert">Insert</a>, <a href="#edit">Edit</a>, <a href="#return">Return</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dts/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delivery Date And Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#import">Import</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rts/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return Date and Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#import">Import</a>, <a href="#return">Return</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">w/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Warehouse Location</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#import">Import</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cod/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cash On Delivery</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#insert">Insert</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">c/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comments by Customer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#import">Import</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of Item</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit">Edit</a>, <a href="#import">Import</a>, <a href="#insert">Insert</a>, <a href="#return">Return</a>, <a href="#search">Search</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This whole section on "Possible Command Flags" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<table id="command_flags" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 12. Possible Command Flags</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Flag</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+<th class="tableblock halign-left valign-top">Used in the following Command(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-f</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Force clear, no user confirmation will be requested</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#clear">Clear</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-o</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Order flag, Operation on order list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#clear">Clear</a>, <a href="#delete">Delete</a>, <a href="#delivered">Delivered</a>, <a href="#edit">Edit</a>, <a href="#nearby">Nearby</a>, <a href="#search">Search</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-r</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return Order flag, Operation on return order list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#clear">Clear</a>, <a href="#delete">Delete</a>, <a href="#delivered">Delivered</a>, <a href="#edit">Edit</a>, <a href="#nearby">Nearby</a>, <a href="#search">Search</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-case"><a class="link" href="#use-case">Use Case</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on "Use case: UC03 - Delete an order" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<h3 id="use-case-uc03-delete-an-order" class="discrete">Use case: UC03 - Delete an order</h3>
+<div class="paragraph">
+<p>Preconditions: There should be a valid order/return order that can be deleted.</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to <span class="underline">list orders (UC10).</span></p>
+</li>
+<li>
+<p>User wants to delete a specific order/return oder.</p>
+</li>
+<li>
+<p>User requests to delete a specific order/return order in the list.</p>
+</li>
+<li>
+<p>Delino deletes the order/return order.</p>
+</li>
+<li>
+<p>Delino displays order/return order deleted.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a. Delino detects invalid syntax from user input.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. Delino shows an error message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3b. The given index for deletion is not valid.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3b1. Delino shows an error message indicating an invalid deletion index has been provided.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This whole section on "Use case: UC12 - Obtain orders in a postal sector" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.</p>
+</div>
+<h3 id="use-case-uc12-obtain-orders-in-a-postal-sector" class="discrete">Use case: UC12 - Obtain orders in a postal sector</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User wants to obtain all orders in a specified postal sector.</p>
+</li>
+<li>
+<p>User requests to obtain orders in a specified postal sector</p>
+</li>
+<li>
+<p>Delino obtains all orders located in the postal sector</p>
+</li>
+<li>
+<p>Delino display the list of orders</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. Delino detects invalid syntax from user input.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. Delino shows an error message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a. Delino detects no orders.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. Delino shows empty order list message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="product-survey"><a class="link" href="#product-survey">Appendix A: Product Survey</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong><a href="https://www.pinglockergroup.com/en/parcel-management-software">PingLocker</a></strong></p>
+</div>
+<div class="paragraph">
+<p>Pros:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You can take a picture of the parcel and it is automatically added to the application for tracking.</p>
+</li>
+<li>
+<p>You can also receive weekly statistics on your delivery tasks and time saved.</p>
+</li>
+<li>
+<p>The application interface looks good and easy to navigate.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Cons:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Required to scan the parcels one by one, which can be slow and tedious.</p>
+</li>
+<li>
+<p>There does not seem to be a feature to keep track of parcels in a particular area/region.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong><a href="https://sg.pickupp.io/en/delivery-agents">Pickupp</a></strong></p>
+</div>
+<div class="paragraph">
+<p>Pros:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You can take a picture of the parcel barcode to add to the application for tracking.</p>
+</li>
+<li>
+<p>There is language support for chinese language (in addition to english)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Cons:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There are no statistics available.</p>
+</li>
+<li>
+<p>Required to scan the parcels one by one, which can be slow and tedious.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appendix-g-instructions-for-manual-testing"><a class="link" href="#appendix-g-instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This whole section on "Deleting an order" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#deleting-an-order" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#deleting-an-order</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
+=== Deleting an order</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deleting an order with respect to the current list displayed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Delete command format: <code>delete</code> <code>FLAG</code> <code>INDEX</code></p>
+</li>
+<li>
+<p>Prerequisites: List all orders using the <code>list</code> command. Multiple orders in the list</p>
+</li>
+<li>
+<p>Test case: <code>delete</code> <code>-o</code> <code>1</code><br>
+Expected: The first order item in the current order list will be removed. Details of the deleted order will be displayed in the response box</p>
+</li>
+<li>
+<p>Test case: <code>delete</code> <code>-r</code> <code>2</code><br>
+Expected: The second item in the current return order list will be removed. Details of the deleted order will be displayed in the response box</p>
+</li>
+<li>
+<p>Test case: <code>delete</code> <code>20</code><br>
+Expected: No order is deleted as no <code>FLAG</code> is provided.<br>
+An error message will be displayed in the response box.</p>
+</li>
+<li>
+<p>Test case: <code>delete</code> <code>-r</code> <code>INVALID_INDEX</code><br>
+Expected: No order is deleted. An error message will be displayed in the response box, indicating that the index cannot be found in the list</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This whole section on "Obtain all nearby orders based on area or postal sector" can be found at
+<a href="https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#obtain-all-nearby-orders-based-on-area-or-postal-sector" class="bare">https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#obtain-all-nearby-orders-based-on-area-or-postal-sector</a>
+This link is provided in the event if some of the cross links are not working, as they refer to documents
+done by another team member.
+=== Obtain all nearby orders based on area or postal sector</p>
+</div>
+<div class="paragraph">
+<p>There are two possible search criteria for nearby orders</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Obtain all orders located in the same postal sector.<br>
+The postal sector to search for is given by the user.<br>
+A <strong>postal sector</strong> is the first <strong>two</strong> digits of a six digit Singapore postal code.<br>
+The list of postal sectors and their corresponding general locations can be found
+<a href="https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm">here</a>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Nearby command format: <code>nearby</code> <code>[FLAG]</code> <code>POSTAL_SECTOR</code></p>
+</li>
+<li>
+<p>Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list</p>
+</li>
+<li>
+<p>Test case: <code>nearby</code> <code>-o</code> <code>79</code><br>
+Expected: Obtain all orders located in postal sector 79 (Seletar)</p>
+</li>
+<li>
+<p>Test case: <code>nearby</code> <code>-r</code> <code>07</code><br>
+Expected: Obtain all return orders located in postal sector 07 (Anson, Tanjong Pagar)</p>
+</li>
+<li>
+<p>Test case: <code>nearby</code> <code>-o</code> <code>99</code><br>
+Expected: An error will occur as the given postal sector is invalid</p>
+</li>
+<li>
+<p>Test case: <code>nearby</code> <code>-o</code> <code>600</code><br>
+Expected: An error will occur as the given postal sector is invalid</p>
+</li>
+<li>
+<p>Test case: <code>nearby</code> <code>-o</code><br>
+Expected: An error will occur as it is an invalid syntax (no postal sector is provided)</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Obtain all orders located in the same area.<br>
+There are <strong>5</strong> different areas in Singapore: Central, East, North East, West, North<br></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Nearby command format: <code>nearby</code> <code>[FLAG]</code> <code>AREA</code></p>
+</li>
+<li>
+<p>Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list</p>
+</li>
+<li>
+<p>Test case: <code>nearby</code> <code>-o</code> <code>central</code><br>
+Expected: Obtain all orders located in central area of Singapore</p>
+</li>
+<li>
+<p>Test case: <code>nearby</code> <code>-r</code> <code>east</code><br>
+Expected: Obtain all return orders located in east area of Singapore</p>
+</li>
+<li>
+<p>Test case: <code>nearby</code> <code>-o</code> <code>north east</code><br>
+Expected: Obtain all orders located in east area of Singapore</p>
+</li>
+<li>
+<p>Test case: <code>nearby</code> <code>-r</code> <code>west</code><br>
+Expected: Obtain all return orders located in east area of Singapore</p>
+</li>
+<li>
+<p>Test case: <code>nearby</code> <code>-r</code> <code>north</code><br>
+Expected: Obtain all return orders located in east area of Singapore</p>
+</li>
+<li>
+<p>Information about each area was obtained from
+<a href="https://keylocation.sg/singapore/districts-map">this website</a><br></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 00:32:47 SGT</div></div></div></body></html>
