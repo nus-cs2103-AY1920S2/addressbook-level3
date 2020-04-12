@@ -22,6 +22,7 @@ import seedu.zerotoone.ui.views.about.AboutDisplay;
 import seedu.zerotoone.ui.views.exercise.ExerciseListPanel;
 import seedu.zerotoone.ui.views.home.HomePanel;
 import seedu.zerotoone.ui.views.log.LogListPanel;
+import seedu.zerotoone.ui.views.log.StatisticsWindow;
 import seedu.zerotoone.ui.views.schedule.ScheduledWorkoutListPanel;
 import seedu.zerotoone.ui.views.workout.WorkoutListPanel;
 

@@ -1,4 +1,4 @@
-package seedu.zerotoone.ui;
+package seedu.zerotoone.ui.views.log;
 
 import java.util.logging.Logger;
 
@@ -21,7 +21,7 @@ import seedu.zerotoone.ui.util.UiPart;
  */
 public class StatisticsWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(StatisticsWindow.class);
-    private static final String FXML = "StatisticsWindow.fxml";
+    private static final String FXML = "log/StatisticsWindow.fxml";
 
     @FXML
     private Label totalWorkoutCount;
