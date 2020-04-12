@@ -149,6 +149,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void clearInput() {
+        viewStateModel.clearInput();
+    }
+
+    @Override
     public BooleanProperty helpOpenProperty() {
         return viewStateModel.helpOpenProperty();
     }
