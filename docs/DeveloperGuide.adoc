@@ -230,7 +230,7 @@ The above diagram provides a big picture overview of decisions `CommandCompletor
 .. Auto completion of fields is performed based on the <<completion criteria>>
 .. If the field is not recongized, then it is removed
 
-==== Auto Complete output: 
+==== Auto Complete output:
 As seen from the activity diagram above:
 
 . Known Command UI displayed when:
@@ -244,7 +244,7 @@ As seen from the activity diagram above:
 
 ==== Known Command UI
 
-.AutoComplete Success UI 
+.AutoComplete Success UI
 image::ACSuccess.png[width=600]
 
 * `CommandTextField` is set to green
@@ -254,7 +254,7 @@ image::ACSuccess.png[width=600]
 
 ==== Unknown Command UI
 
-.AutoComplete Failure UI 
+.AutoComplete Failure UI
 image::ACFailure.png[width=500]
 
 * `CommandTextField` is set to red
