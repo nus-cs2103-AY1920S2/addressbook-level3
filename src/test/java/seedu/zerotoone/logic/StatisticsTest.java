@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.zerotoone.model.log.StatisticsData;
+import seedu.zerotoone.logic.statistics.StatisticsData;
 import seedu.zerotoone.model.session.CompletedWorkout;
 
 class StatisticsTest {

@@ -39,24 +39,10 @@
                     <Text fx:id="statisticsSubTitle">Statistics generated from </Text>
                 </HBox>
 
-                <VBox alignment="CENTER_LEFT">
+                <VBox fx:id="dataPoints" alignment="CENTER_LEFT">
                     <padding>
                         <Insets bottom="10" left="20" right="20" />
                     </padding>
-                        <HBox>
-                            <Label prefWidth="210.0" styleClass="metricLabel">Total # of workouts: </Label>
-                            <Label fx:id="totalWorkoutCount" styleClass="metricResult">3</Label>
-                        </HBox>
-
-                        <HBox>
-                            <Label prefWidth="210.0" styleClass="metricLabel" text="Total time spent:">Total time spent: </Label>
-                            <Label fx:id="totalTime"  styleClass="metricResult" text="1" />
-                        </HBox>
-
-                        <HBox>
-                            <Label prefWidth="210.0" styleClass="metricLabel">Average time per session:</Label>
-                            <Label fx:id="averageTimePerSession" styleClass="metricResult" text="1" />
-                        </HBox>
                 </VBox>
 
                 <VBox fx:id="lineChartContainer" alignment="CENTER"/>

@@ -1,20 +1,21 @@
 package seedu.zerotoone.ui.views.log;
 
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.zerotoone.commons.core.LogsCenter;
-import seedu.zerotoone.model.log.StatisticsData;
+import seedu.zerotoone.logic.statistics.StatisticsData;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.ui.util.DateViewUtil;
 import seedu.zerotoone.ui.util.UiPart;
+import seedu.zerotoone.ui.views.log.DataPointView;
 
 /**
  * Controller for a help page
@@ -24,16 +25,13 @@ public class StatisticsWindow extends UiPart<Stage> {
     private static final String FXML = "log/StatisticsWindow.fxml";
 
     @FXML
-    private Label totalWorkoutCount;
-    @FXML
-    private Label totalTime;
-    @FXML
-    private Label averageTimePerSession;
-    @FXML
     private Text statisticsSubTitle;
 
     @FXML
     private VBox lineChartContainer;
+
+    @FXML
+    private VBox dataPoints;
 
     /**
      * Creates a new ReportWindow.
@@ -74,11 +72,6 @@ public class StatisticsWindow extends UiPart<Stage> {
         getRoot().show();
         getRoot().centerOnScreen();
 
-        totalWorkoutCount.setText(statisticsData.getTotalWorkoutCount() + " workouts");
-
-        totalTime.setText(DateViewUtil.getPrettyDuration(statisticsData.getTotalTime()));
-        averageTimePerSession.setText(DateViewUtil.getPrettyDuration(statisticsData.getAverageTimePerSession()));
-
 
         statisticsSubTitle.setText(
             String.format("Statistics generated from %s to %s.",
@@ -86,9 +79,12 @@ public class StatisticsWindow extends UiPart<Stage> {
                 DateViewUtil.getPrettyDateTime(statisticsData.getEndRange())));
 
 
-        // Populate Line Chart
+        dataPoints.getChildren().removeAll();
+        dataPoints.getChildren().addAll(statisticsData.getDataPoints()
+            .stream().map(point -> (new DataPointView(point).getRoot())).collect(Collectors.toList()));
 
-        NumberAxis xAxis = new NumberAxis(1.0, statisticsData.getTotalWorkoutCount(), 1);
+        // Populate Line Chart
+        NumberAxis xAxis = new NumberAxis(1.0, statisticsData.getWorkouts().size(), 1);
         xAxis.setLabel("Session Number");
 
         NumberAxis yAxis = new NumberAxis();
