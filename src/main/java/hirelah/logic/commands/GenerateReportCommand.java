@@ -144,12 +144,12 @@ public class GenerateReportCommand extends Command {
     private static Pair<Integer, PDPage> generateNameAndAttributeAllPages(PDDocument document, int nameListSize, ArrayList<String> nameAndAttributeScoreList) throws IOException {
         boolean firstPage = true;
         while (nameAndAttributeScoreList.size() > 57) {
-            ArrayList<String> firstSixtyAttributeScoresList = new ArrayList<>();
+            ArrayList<String> attributeScoreLisOnePage = new ArrayList<>();
             for (int i = 0; i < 57; i++) {
-                firstSixtyAttributeScoresList.add(nameAndAttributeScoreList.get(0));
+                attributeScoreLisOnePage.add(nameAndAttributeScoreList.get(0));
                 nameAndAttributeScoreList.remove(0);
             }
-            generateNameAndAttributeOnePage(document, firstPage ? nameListSize : 0, firstSixtyAttributeScoresList);
+            generateNameAndAttributeOnePage(document, firstPage ? nameListSize : 0, attributeScoreLisOnePage);
             firstPage = false;
         }
         int verticalSpacing = firstPage ? nameAndAttributeScoreList.size() * 13 + 40 : nameAndAttributeScoreList.size() * 13 + 20;
@@ -157,34 +157,16 @@ public class GenerateReportCommand extends Command {
     }
 
     private static PDPage generateNameAndAttributeOnePage(PDDocument document, int nameListSize, ArrayList<String> sentenceList) throws IOException {
-        printNamePart(page, nameListSize, sentenceList)
-        if (sentenceList.get(0).equals(ATTRIBUTE_SCORE_TITLE)) {
-            pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 13);
-            pageContentStream.newLineAtOffset(50, -15);
-            pageContentStream.showText(sentenceList.get(0));
-            sentenceList.remove(0);
-            pageContentStream.newLineAtOffset(0, -15);
-        } else {
-            pageContentStream.newLineAtOffset(50, -15);
-        }
-        pageContentStream.setFont(PDType1Font.HELVETICA, 12);
-        if (sentenceList.isEmpty()) {
-            pageContentStream.newLineAtOffset(0, -20);
-            pageContentStream.showText("-");
-        }
-        for (String currentString : sentenceList) {
-            pageContentStream.showText(currentString);
-            pageContentStream.newLineAtOffset(0, -13);
-        }
-        pageContentStream.endText();
-        pageContentStream.close();
-        return page;
-    }
-
-    private static void printNamePart(PDDocument document, int nameListSize, ArrayList<String> sentenceList) throws IOException {
         PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
         PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
+        printName(page, pageContentStream, nameListSize, sentenceList);
+        printAttributeTitle(pageContentStream, sentenceList);
+        printAttributeScores(pageContentStream, sentenceList);
+        return page;
+    }
+
+    private static void printName(PDPage page, PDPageContentStream pageContentStream, int nameListSize, ArrayList<String> sentenceList) throws IOException {
         PDFont font = PDType1Font.HELVETICA_BOLD_OBLIQUE;
         int fontSize = 15;
         pageContentStream.setFont(font, fontSize);
@@ -200,6 +182,31 @@ public class GenerateReportCommand extends Command {
         }
     }
 
+    private static void printAttributeTitle(PDPageContentStream pageContentStream, ArrayList<String> sentenceList) throws IOException {
+        if (sentenceList.get(0).equals(ATTRIBUTE_SCORE_TITLE)) {
+            pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 13);
+            pageContentStream.newLineAtOffset(50, -15);
+            pageContentStream.showText(sentenceList.get(0));
+            sentenceList.remove(0);
+            pageContentStream.newLineAtOffset(0, -15);
+        } else {
+            pageContentStream.newLineAtOffset(50, -15);
+        }
+    }
+
+    private static void printAttributeScores(PDPageContentStream pageContentStream, ArrayList<String> sentenceList) throws IOException {
+        pageContentStream.setFont(PDType1Font.HELVETICA, 12);
+        if (sentenceList.isEmpty()) {
+            pageContentStream.newLineAtOffset(0, -20);
+            pageContentStream.showText("-");
+        }
+        for (String currentString : sentenceList) {
+            pageContentStream.showText(currentString);
+            pageContentStream.newLineAtOffset(0, -13);
+        }
+        pageContentStream.endText();
+        pageContentStream.close();
+    }
 
     private static void printRemarksPart(PDDocument document, ObservableList<Remark> remarks, Pair<Integer, PDPage> startingPosition) throws IOException {
         ArrayList<Remark> remarkList = new ArrayList<>();
@@ -208,7 +215,7 @@ public class GenerateReportCommand extends Command {
         boolean firstPage = true;
         ArrayList<TableRowEntry> rowsInAPage = new ArrayList<>();
         for (Remark currentRemark : remarkList) {
-            ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage(), 75);
+            ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage(), 73);
             boolean firstSentence = true;
             for (String currentLine : splitRemarks) {
                 TableRowEntry currentRow = new TableRowEntry(currentLine,
