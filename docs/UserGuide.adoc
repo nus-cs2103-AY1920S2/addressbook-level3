@@ -37,7 +37,7 @@ In this guide, we cover:
 
 === Understanding the Graphical User Interface (GUI)
 
-When you first launch FitBiz, you will be greeted by the GUI. In this section, we shall discuss about what each section of this GUI is responsible for.
+When you first launch FitBiz, you will be greeted by the GUI. In this section, we shall learn about what each section of this GUI is responsible for.
 
 // diagram for hello world command box
 .FitBiz GUI
@@ -87,7 +87,22 @@ If you are not currently browsing the history, you can press the kbd:[&darr;] ar
 
 Again, similar to most modern CLIs, users of FitBiz can press the kbd:[Tab] key to auto complete commands that they have partially typed. If the partially typed letters uniquely identifies a valid command in FitBiz (see <<Commands>>), the complete command will automatically appear in the Command Box. Otherwise, a list of all commands similar to the ambiguous letters will appear in the *Feedback Box*.
 
-Even if you have prior experience in using a CLI, you may want to read on to learn how to autocomplete prefixes.
+Moreover, we understand that some of FitBiz's commands may be very long and diffcult to remember. In order to remedy this, we have also provided *autocompletion of parameter prefixes*, as well as the ability to *use tab to easily get to the next prefix*.
+
+To see this feature in action, type `add-c` into the *Command Box* and press kbd:[Tab]:
+
+image::autocomplete-1.png[]
+
+Immediately, you should have noticed three things:
+
+. All the parameter prefixes pertaining to the `add-c` command should have been automatically completed for you
+. Your caret should be placed right after the `n/` for you to type your parameter
+. The **Feedback Box** shows you the usage of the command that you have just completed
+
+Now, you can also press the kbd:[Tab] key repeatedly to go to the next parameter prefix, instead of wasting time using your mouse.
+
+[NOTE]
+The autocompletion of the prefixes are only for these commands: `add-c`, `add-c`, `graph`, `schedule`, and `filter-c`. Autocompletion of prefixes for edit commands are not included as we understand that most likely than not, users would only choose to edit one field at a time.
 
 == Quick Start
 
