@@ -201,9 +201,7 @@ image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
 Help in main menu and different mode will give different help information.
 ====
 
-
 '''
-
 
 === Exiting the Application : `exit`
 
@@ -672,6 +670,19 @@ With EYLAH, splitting a large receipt with friends has never been easier! All yo
 it's price and the names involved in splitting that item and EYLAH will calculate the rest for you!
 
 We have drawn some diagrams to help you visualize how Expense Splitter works, click <<AppendixA, here>> to find out more!
+
+
+Here are some of the prefixes used:
+|===
+|*Prefix* | *Representation*
+| -i | Item Name
+| -p | Item Price
+| -n | Name of Person
+|===
+
+
+
+'''
 //end::introtoexpensesplitter[]
 [[additem]]
 ==== Adding an item: `additem`
@@ -977,46 +988,6 @@ In this section, you can find out more about the commands supported by EYLAH (th
 If you would like to know more about a specific command, you can view more information by clicking the provided link in the table below.
 
 === For Diet Tracker
-
-* *Changing Mode* `mode` +
-e.g `mode -l`
-
-* *Adding Food* `add` +
-e.g `add -n salad -c 235 -t healthy`
-
-* *Deleting Food* `delete` +
-e.g `delete 3`
-
-* *Editing Food* `edit` +
-e.g `edit -i 2 -n chips -c 230`
-
-* *Listing Food* `list [-a] [-d numDays] [-t tagName]` +
-e.g `list`
-
-* *Setting Mode* `mode MODE` +
-e.g. `mode -m`
-
-* *Setting Height* : `height HEIGHT` +
-e.g. `height 169`
-
-* *Setting Weight* `weight WEIGHT` +
-e.g. `weight 56`
-
-* *Showing Your Metrics* `metrics` +
-e.g. `metrics`
-
-* *Calculating BMI* `bmi` +
-e.g. `bmi -h 172 -w 65.5`
-
-* *Getting Help* `help` +
-e.g. `help`
-
-* *Going Back* `back` +
-e.g. `back`
-
-* *Exiting the Application* `exit` +
-e.g `exit`
-
 |===
 |Command |Format |Example
 
@@ -1094,37 +1065,6 @@ or
 
 //tag::commandsummaryforexpensesplitter[]
 === For Expense Splitter
-
-* *Adding Item* `additem` +
-e.g `additem -i pasta -p 19.20 -n charlotte -n bob`
-
-* *Deleting Item* `deleteitem` +
-e.g `deleteitem 3`
-
-* *Listing Receipt* `listreceipt` +
-e.g. `listreceipt`
-
-* *Listing Amount* `listamount` +
-e.g `listamount`
-
-* *Marking Receipt as Done* `donereceipt` +
-e.g `donereceipt`
-
-* *Getting Paid by Someone* `paid INDEX` +
-e.g. `paid 3`
-
-* *Clear Receipt* `clearreceipt` +
-e.g `clearreceipt`
-
-* *Getting Help* `help` +
-e.g `help`
-
-* *Going Back* `back` +
-e.g. `back`
-
-* *Exiting the Application* `exit` +
-e.g `exit`
-
 |===
 |Command |Format |Example
 
