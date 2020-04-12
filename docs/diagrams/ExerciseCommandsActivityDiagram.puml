@@ -5,7 +5,7 @@ start
 :User enters an exercise command;
 :FitBizParser creates the associated
 exercise command's parser;
-:The parser parses arguments and 
+:The parser parses arguments and
 creates the exercise command;
 
 'Since the beta syntax does not support placing the condition outside the
