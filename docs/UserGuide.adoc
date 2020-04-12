@@ -20,8 +20,8 @@ By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`
 
 == Introduction
 //tag::intro[]
-This user guide provides in-depth documentation on the EYLAH desktop application. It comprises of 6 main portions,
-including the introduction, getting started, features, FAQ, command summary, and glossary.
+This user guide provides in-depth documentation on the EYLAH desktop application. It comprises of 7 main portions,
+the introduction, getting started, features, FAQ, command summary, glossary and appendix.
 
 Hello there! welcome to EYLAH's User Guide.
 Are you someone who *lives in Temasek hall* in the National University of Singapore and
@@ -772,17 +772,14 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 *Additional notes and tips* +
 
 [NOTE]
-====
-* Each entry in the receipt has the item's name, price and person(s) who is splitting that item with you thus you do
+Each entry in the receipt has the item's name, price and person(s) who is splitting that item with you thus you do
 not have to remember who you split this item with!
-* When you enter `clearrreceipt` it deletes the old receipt's data. Use it with caution!
-====
+
 
 [TIP]
-====
 Use `listreceipt` command to find the index of the item in the receipt. The index is useful for commands
 such as `deleteitem` where you have to pass in the index of item to be deleted.
-====
+
 //end::listreceipt[]
 
 '''
