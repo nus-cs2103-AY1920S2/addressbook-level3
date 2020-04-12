@@ -751,11 +751,17 @@ image::DietTrackerMetricsCommandSequenceDiagram.png[]
 The Expense Splitter feature is designed to aid our users with the splitting of large bills that involves meany people.
 The feature comprises of six commands namely.
 
-* <<Add-Item-Command, `AddItemCommand`>> - Creates an Item with its ItemPrice, Person(s) involved in splitting that Item and adds it to Receipt.
-* <<Delete-Item-Command, `DeleteItemCommand`>> - Deletes an Item from the current Receipt and reduces the Person's amount accordingly.
-* <<List-Receipt-Command, `ListReceiptCommand`>> - Lists the Item(s) in the current Receipt, its ItemPrice and Person(s) involved in splitting that Item.
+* <<Add-Item-Command, `AddItemCommand`>> - Creates an Item with its ItemPrice, Person(s) involved in splitting that
+Item and adds it to Receipt.
+* <<Delete-Item-Command, `DeleteItemCommand`>> - Deletes an Item from the current Receipt and reduces the
+Person's amount accordingly.
+* <<List-Receipt-Command, `ListReceiptCommand`>> - Lists the Item(s) in the current Receipt,
+its ItemPrice and Person(s) involved in splitting that Item.
 * <<List-Amount-Command, `ListAmountCommand`>> - Lists the Person(s) Name and Amount they owe the user.
+* <<Done-Receipt-Command, `DoneReceiptCommand`>> - Finalize the receipt, after which the Receipt
+will be immutable.
 * <<Paid-Command, `PaidCommand`>> - Reduces the Amount a Person owes.
+* <<Clear-Receipt-Command, `ClearReceipt`>> - Clear the current Receipt to start a new Receipt.
 * <<Back-Command, `BackCommand`>> - Exits Expense Splitter portion to return to EYLAH's Main Menu.
 
 Below are some diagrams to explain how our team implemented this portion.
@@ -981,6 +987,7 @@ The following sequence diagram summarizes what happens during the execution of `
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 //end::expensesplitterlistamountcommand[]
 
+[[Done-Receipt-Command]]
 ==== Done Receipt Command
 
 In this section, we will learn more about how the `donereceipt` command is implemented.
