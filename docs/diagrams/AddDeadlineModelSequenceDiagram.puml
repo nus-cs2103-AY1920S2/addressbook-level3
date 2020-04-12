@@ -60,9 +60,4 @@ deactivate CommandResult
 AddDeadlineCommand --> LogicManager : CommandResult
 deactivate AddDeadlineCommand
 
-
-
-
-
-
 @enduml
