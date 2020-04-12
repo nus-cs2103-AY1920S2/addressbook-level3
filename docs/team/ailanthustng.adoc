@@ -16,36 +16,60 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 == Summary of contributions
 
-*Major Enhancements*
+* *Major Enhancements*
 
 . *Added Entry and Receipt for Expense Splitter portion of EYLAH*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/130[#130])
 
 *** *What it does:* +
-Receipt is used to store multiple Entries, and these Entries are meant to store the information about a particular Item
-and the Persons involved in splitting the cost of that item.
+Receipt is used to store multiple Entries, and these Entries are used to store the information about a particular Item
+and the Persons involved in splitting the cost of that Item.
 
 *** *Justification:* +
-These classes are required to keep track of items and the persons involved for each of that item.
-
-*** *Highlights:*
+These classes are required to keep track of Items and the Persons involved for each of that Item.
 
 
 
-. *Added AddItemCommand and DeleteItemCommand for the Expense Splitter portion of EYLAH*
+
+. *Added AddItemCommand and enhanced the DeleteItemCommand for the Expense Splitter portion of EYLAH*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/134[#134],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/164[#163])
 
 *** *What it does:* +
 It simply adds a new Entry into the Receipt or deletes an existing Entry from the Receipt.
 
 *** *Justification:* +
-The DeleteItemCommand feature allows the user to delete any items that he/she made a mistake on.
+The AddItemCommand is required for users to input new Items and the Persons involved in splitting the cost of that Item.
+The DeleteItemCommand is for users to remove an Item in case he/she made a mistake or simply wants to remove the Item.
 
 *** *Highlights:* +
 These commands are only allowed to be used when the Receipt has not been marked as completed as this was accomplished
-using a boolean flag in the Receipt class. This is because DeleteItemCommand actually removes the Amount owed by the person from the PersonAmountBook. So does the PaidCommand. As such, if a user uses the DeleteItemCommand after using the PaidCommand, and if the Amount owed goes to negative, an exception would be thrown due to the nature of BigDecimal. Hence, a flag was included to prevent this from happening.
+using a boolean flag in the Receipt class. This is because of a bug that we discovered, which will be explained in the
+point below.
+
+
+
+
+
+. *Added a boolean flag in Receipt*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/201[#201])
+
+*** *What it does* +
+It checks if the Receipt is marked as complete (true) or incomplete (false).
+
+*** *Justification* +
+DeleteItemCommand actually removes the Amount owed by the person from the PersonAmountBook. So does the PaidCommand.
+As such, if a user uses the DeleteItemCommand after using the PaidCommand, and if the Amount owed goes to negative,
+an exception would be thrown due to the nature of BigDecimal (BigDecimal does not accept negative values).
+Hence, a flag was included to prevent this from happening.
+
+
 
 
 
 . *Added DoneReceiptCommand and ClearReceiptCommand for the Expense Splitter portion of EYLAH*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/201[#201],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/204[#204])
 
 *** *What it does:* +
 DoneReceiptCommand marks the Receipt as done and ClearReceiptCommand removes all existing Entries from the Receipt.
@@ -55,32 +79,64 @@ DoneReceiptCommand is required to toggle the boolean flag of Receipt to be done.
 by toggling the Receipt back as undone.
 
 *** *Highlights:* +
-These commands are required to prevent an exception being thrown with regards to negative BigDecimal values, as
-explained in the text above.
+These commands are required to prevent an Exception being thrown with regards to negative BigDecimal values, as
+explained in the point above.
 
 
 
-. *Added CalculateUtil and ParserUtil for the Expense Splitter portion of EYLAH*
+. *Added CalculateUtil for EYLAH*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/191[#191])
 
 *** *What it does:* +
-CalculateUtil does all the handling of calculations required in EYLAH. ParserUtil parses all the inputted texts and
-outputs them as the required Objects.
+CalculateUtil does all the handling of calculations required in EYLAH.
 
 *** *Justification:* +
 Abstraction, to make things easier and more streamlined in our application.
 
-*** *Highlights:*
 
-*Minor Enhancements*’
+
+
+* *Minor Enhancements*
+
+. *Removed case sensitivity when adding a new Person*
+
+** *What it does:* +
+All the names inputted by the user are now made into lowercase.
+
+** *Justification* +
+This is to facilitate quicker use of the application as users would not be required to capitalize any names.
+Internally, this is also to prevent duplicate Person objects with the same name (but in different case sensitivity)
+from being created, i.e Bob vs bob or aLiCe vs alice.
+
+. *Fixed the rounding issue with regards to using BigDecimal as currency in our application*
+
+** *What it does:* +
+Decimals with regards to currency in EYLAH is made to be 2 decimal points (d.p).
+
+** *Justification* +
+The Amount class only accepts decimals up till 2 d.p. Users are also made to only input decimals up
+till 2 d.p. However, the problem comes when dividing BigDecimals, e.g 10 / 3 = 3.333333... Since we create a new Amount
+object called amountPerPerson, i.e new Amount("3.33333"), this would throw an Exception. As such, I made it such that
+any all calculations with regards to BigDecimal and Amount would be kept at a maximum of 2 d.p to prevent this Exception
+from being thrown. In addition, I also did the formatting of the BigDecimal to be represented as a currency.
+
+** *Credits* +
+*** http://www.javapractices.com/topic/TopicAction.do?Id=13 +
+*** https://stackoverflow.com/questions/1359817/using-bigdecimal-to-work-with-currencies
 
 ** Added test cases for Entry and Receipt classes
 ** Added test cases for AddItemCommand, DeleteItemCommand, DoneReceiptCommand and ClearReceiptCommand
 ** Assisted in downscaling of AddressBook3 by removing Phone class
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: +
+[https://github.com[Functional code]]  +
+[https://github.com[Test code]] +
+_{give links to collated code files}_
+
+
+
 
 * *Other contributions*:
-
 
 ** Project management:
 *** Lead for ExpenseSplitter portion of EYLAH.
@@ -88,6 +144,8 @@ Abstraction, to make things easier and more streamlined in our application.
 
 
 ** Enhancements to existing features:
+*** Enhanced ParserUtil to be able to handle more inputted texts and output the required Objects.
+
 
 ** Documentation:
 *** To be added
