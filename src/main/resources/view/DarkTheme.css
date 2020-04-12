@@ -543,11 +543,12 @@
 }
 
 .highlight_label {
-    -fx-background-color: white;
+    -fx-background-color: lightblue;
     -fx-text-fill: black;
     -fx-font-size: 30;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
+    -fx-font-family: fantasy;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
 .hint_label {

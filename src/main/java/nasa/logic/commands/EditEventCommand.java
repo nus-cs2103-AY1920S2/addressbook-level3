@@ -101,7 +101,8 @@ public class EditEventCommand extends Command {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_INVALID_DATE);
         }
 
-        if (!editedEvent.isValidFutureEvent(editedEvent.getEndDate())) {
+        // check end date validity only when end date is edited
+        if (isEndDateEdited() && !editedEvent.isValidFutureEvent(editedEvent.getEndDate())) {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_PAST_EVENT);
         }
 
@@ -133,6 +134,14 @@ public class EditEventCommand extends Command {
 
         return new Event(updatedName, updatedDateCreated, updatedNote, updatedStartDate, updatedEndDate);
 
+    }
+
+    /**
+     * Checks if end date has been edited and returns true. Else, false.
+     * @return true if {@code editEventDescriptor} is updated with new end date. Else, return false.
+     */
+    private boolean isEndDateEdited() {
+        return this.editEventDescriptor.getEndDate().isPresent();
     }
 
     @Override

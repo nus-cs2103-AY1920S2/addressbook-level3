@@ -153,103 +153,39 @@ Classes used by multiple components are in the `nasa.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+`Contributed by:EdmondOng`
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `NasaBook` with an undo/redo history, stored internally as an `addressBookStateList` and
-`currentStatePointer`.
-Additionally, it implements the following operations:
+==== Implementation
 
-* `VersionedAddressBook#commit()` -- Saves the current NASA book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous NASA book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone NASA book state from its history.
+For the undo/redo features, we aim to synchronize how the UI will look like and the data that is stored.
+Hence, we created two Json files to store the internal data list and the filtered modules and activity list.
+We uses Stack as the data structure for undo and redo features as it allows a Last In First Out effects, that suits
+functionality of storing and getting data.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Below is a sequence diagram for undo feature.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
-initial NASA book state, and the `currentStatePointer` pointing to that single NASA book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th module in the NASA book. The `delete` command calls
-`Model#commitAddressBook()`, causing the modified state of the NASA book after the `delete 5` command executes to be
-saved
-
-in the `NASABookStateList`, and the `currentStatePointer` is shifted to the newly inserted NASA book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new module. The `add` command also calls `Model#commitAddressBook()
-`, causing another modified NASA book state to be saved into the `NASABookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the NASA book state will not be saved
-
-into the `NASABookStateList`.
-
-Step 4. The user now decides that adding the module was a mistake, and decides to undo that action by executing the
-`undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once
-to the left, pointing it to the previous NASA book state, and restores the NASA book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial NASA book state, then there are no previous NASA
-book
-states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once
-to the right, pointing to the previously undone state, and restores the NASA book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `NASABookStateList.size() - 1`, pointing to the latest NASA book state, then
-there
-are no undone NASA book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the
-case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the NASA book, such as `list`,
-will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the
-`NASABookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not
-pointing at the end of the `NASABookStateList`, all NASA book states after the `currentStatePointer` will be purged. We
-designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::undoSequenceDiagramV2.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire NASA book.
+* **Alternative 1 (current choice):** Saves the entire NASA book and state of UI.
 ** Pros: Easy to implement.
+** Pros: Less repetition of opposite commands.
 ** Cons: May have performance issues in terms of memory usage.
+** Cons: Maintain the actual looks for UI based on the filtered list.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the module being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Storing of the state of UI is still required.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of NASA book states.
+* **Alternative 1 (current choice):** Use a stack to store the history of NASA book states and UI state based on filtered list.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Nasa internal list`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -343,7 +279,10 @@ For more information regarding the procedure, please refer to the Activity Diagr
 
 image::SnoozeReminderActivityDiagram.png[]
 
+// tag::automation[]
 === Automation
+`Contributed by:EdmondOng`
+
 Every time a user stores an activity, start date for event will be recorded for `event` and due date for `deadline`.
 Based on user input to repeat the task either weekly, twice weekly or monthly, our application will check whether today's date has passed
 `due date` or `end date of event`. Once it passed,
@@ -358,33 +297,27 @@ By default there will not be any scheduling for any activities. Therefore, user 
 
 Once the command line is entered, our application will react in the following steps :
 
-. LogicManager will create NasaBookParser to parse the user input `repeat`.
+. NasaBook will search ModelManager for the module code `CS3233`.
+. If present, it will search for the activity in the list with index `1`.
+. Once identified, it will change the type of schedule to `weekly`.
+. A success message `Successfully added a repeat! for CS3233 0 1` will be given.
 
-. NasaBookParser will call RepeatActivityCommandParser to check if all the following prefixes `m/`, and `r/` are present.
-.. If not present, an error message `"invalid command format!"` will be prompted.
-.. Else, a success message `"Successfully added a repeat! for CS3233 0 1"` will be given, and RepeatCommand will be executed.
+image::sequenceDiagramAutomationV2.png[]
 
-. RepeatCommand will set schedule in Model.
-. Model will first find the module in it internal module list.
-. After that, it will find for the activity inside the module.
-. Once found, the attribute Schedule in activity will be set to `1`, `2` or `3` and update changes to the expiring date.
-
-image::sequenceDiagramAutomation.png[]
-
-However, above is only the creation. What happen if the activity has expired when NasaBook is not in use? Not to worry, because when
+However, above is for the initialisation of schedule.
+What happen if the activity has expired when NasaBook is not in use? Not to worry, because when
 the user initialise the program again, the system will automatically reset the expired date.
 
 This is how it goes :
 
 . MainApp will execute initialisation which will fetch data through NasaBookStorage.
-
-. NasaBookStorage will access json file in JsonAdaptedModule to retrieve the old schedule.
-
-. NasaBook will load every module in the module list and update each activity in the module through the Schedule class.
-.. If scheduler sees `0` nothing will be done and the activity will get deleted.
+. NasaBook will load every module in the module list and update each activity in the module.
+. If dateline of the activity has passed, it will check if it has a schedule
+.. If scheduler sees `0` nothing will be done.
 .. If scheduler sees `1`,`2` or `3` it will update to the new date.
 
-image::activityDiagramAutomation2.png[]
+image::activityDiagramAutomationV2.png[]
+// end::automation[]
 
 // tag::sort[]
 === Sort Deadline Feature
@@ -507,6 +440,23 @@ Below is an example of a user requesting for statistics by for the week and how 
 
 . User interface switches tabs to the statistics tab where the overall statistics are displayed.
 
+// tag::quote[]
+=== Motivational Quotes
+`Contributed by: EdmondOng`
+Given our hectic education lifestyle, we tend to neglect the emotional aspect of what makes life purposeful other than academic works.
+This features randomly select a quote and displayed to user on start-up of application. It aims to lighten the mood of the user.
+
+==== Implementation
+On the first start-up of application, Nasa will store all the quotes inside a text file in the data folder. If the quotes file is
+already present, it will carry on with selecting one of the quote to be displayed to the user. At any point of time, if you wish to see
+another motivation quote, you can type `quote`.
+
+==== Internal workings for the motivation quote.
+
+. User enters a command `quote`.
+. NASA will generate a random number and select a quote in quotes.txt file.
+. Command result generated will be displayed to the user.
+// end::quote[]
 
 === Logging
 
@@ -1071,17 +1021,17 @@ Expected: Format error is displayed along with an example of a correct format.
 
 . Deleting a module that exists
 
-.. Test case: `Mdelete m/CS2101` (default module preset) +
+.. Test case: `del m/CS2101` (default module preset) +
 Expected: The module `CS2101` should have been deleted.
 
 . Trying to delete a module that does not exist
 
-.. Test case: `Mdelete m/AX1103` +
+.. Test case: `del m/AX1103` +
 Expected: Unless the user adds in the module above, there should be an error message displayed.
 
 . Passing in a wrong format for module
 
-.. Test case: `Mdelete m/1@00` +
+.. Test case: `del m/1@00` +
 Expected: Error message with wrong format for module will be shown.
 
 === Adding an activity
@@ -1108,20 +1058,20 @@ Expected: Assuming this module does not exist (not displayed), then a module not
 
 . Deleting an activity that exists
 
-.. Test case: `delete 1 m/CS2030` +
+.. Test case: `del-d 1 m/CS2030` +
 Expected: The first activity in the CS2030 activity list will be deleted.
 
 . Deleting an activity that does not exist
 
-.. Test case: `delete 10 m/CS2030` +
+.. Test case: `del-d 10 m/CS2030` +
 Expected: An error message will be displayed.
 
-.. Test case: `delete 200 m/CS2101` +
+.. Test case: `del-d 200 m/CS2101` +
 Expected: An error message will be displayed.
 
 . Deleting an activity from a module that does not exist
 
-.. Test case: `delete 1 m/AX1107` +
+.. Test case: `del-d 1 m/AX1107` +
 Expected: An error message will be displayed.
 
 === Editing a module

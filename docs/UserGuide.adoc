@@ -339,7 +339,7 @@ Examples:
 ** `statistics at/deadline` +
 Displays statistics for all deadline activities.
 
-=== Automating a activity: `repeat-d` or `repeat-e` [coming in v2.0]
+=== Automating a activity: `repeat-d` or `repeat-e`
 
 `Contributed by: EdmondOng`
 

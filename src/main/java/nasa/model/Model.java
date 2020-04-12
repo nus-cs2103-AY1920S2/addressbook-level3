@@ -138,7 +138,7 @@ public interface Model {
 
     ObservableList<Deadline> getFilteredDeadlineList(ModuleCode moduleCode);
 
-    void sortDeadlineList(SortMethod sortMethod);
+    void sortActivityList(SortMethod sortMethod);
 
     ObservableList<Event> getFilteredEventList(ModuleCode moduleCode);
 

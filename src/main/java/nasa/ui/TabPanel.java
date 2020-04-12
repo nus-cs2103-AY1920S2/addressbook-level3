@@ -53,7 +53,6 @@ public class TabPanel extends UiPart<Region> {
             tabPane.setTabMaxWidth(tabPane.getWidth() / 4);
         });
     }
-
     public void getStatistics() {
         tabPane.getSelectionModel().select(2);
     }

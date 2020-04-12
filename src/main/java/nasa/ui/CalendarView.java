@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -154,13 +155,18 @@ public class CalendarView extends UiPart<Region> {
 
         // populate the first row of the calendar grid
         for (int i = 0; i < 7; i++) {
+            ScrollPane dateContentSp = new ScrollPane();
             VBox dateContent = new VBox();
-            GridPane.setVgrow(dateContent, Priority.ALWAYS);
+            dateContentSp.setFitToWidth(true);
+            dateContentSp.setFitToHeight(true);
+            dateContentSp.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            dateContentSp.setContent(dateContent);
             if (i < nullDays) {
                 // not in current month, set to white color
                 dateContent.getStyleClass().add("date-pane");
             } else {
                 // set to purple color plus add date number
+                dateContentSp.setId(Integer.toString(currentDate));
                 dateContent.setId(Integer.toString(currentDate));
                 dateContent.getStyleClass().add("date-pane");
                 Label dateLabel = new Label();
@@ -170,14 +176,19 @@ public class CalendarView extends UiPart<Region> {
                 dateContent.getChildren().add(dateLabel);
                 currentDate++;
             }
-            calendarGrid.add(dateContent, i, 1);
+            calendarGrid.add(dateContentSp, i, 1);
         }
 
         // populate the rest of the grids as per normal
         for (int i = 2; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
+                ScrollPane dateContentSp = new ScrollPane();
                 VBox dateContent = new VBox();
-                GridPane.setVgrow(dateContent, Priority.ALWAYS);
+                dateContentSp.setFitToWidth(true);
+                dateContentSp.setFitToHeight(true);
+                dateContentSp.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+                dateContentSp.setContent(dateContent);
+                dateContentSp.setId(Integer.toString(currentDate));
                 dateContent.setId(Integer.toString(currentDate));
 
                 // check if current grid is still within the month
@@ -193,7 +204,7 @@ public class CalendarView extends UiPart<Region> {
                     // create a white pane
                     dateContent.getStyleClass().add("date-pane");
                 }
-                calendarGrid.add(dateContent, j, i);
+                calendarGrid.add(dateContentSp, j, i);
             }
         }
     }
@@ -238,28 +249,12 @@ public class CalendarView extends UiPart<Region> {
 
             if (size > 0) {
                 Node node = calendarGrid.lookup("#" + Integer.toString(i));
-                VBox dateContent = (VBox) node;
-                int counter = 1;
+                ScrollPane dateContentSp = (ScrollPane) node;
+                VBox dateContent = (VBox) dateContentSp.getContent();
                 for (Activity activity : dateActivities) {
-                    if (counter <= 2) {
-                        Label activityLabel = getActivityLabel(activity);
-                        activityLabel.setMaxWidth(Double.MAX_VALUE);
-                        dateContent.getChildren().add(activityLabel);
-                        counter++;
-                    } else {
-                        break;
-                    }
-                }
-                // add the others... label
-                if (size > 2) {
-                    int left = size - 2;
-                    Label leftActivities = new Label();
-                    leftActivities.setText(String.format("%d other activities", left));
-                    leftActivities.setPadding(new Insets(0, 5, 0, 5));
-                    leftActivities.setStyle("-fx-background-color:#f4c2c2");
-                    leftActivities.setMaxWidth(Double.MAX_VALUE);
-                    leftActivities.setAlignment(Pos.CENTER);
-                    dateContent.getChildren().add(leftActivities);
+                    Label activityLabel = getActivityLabel(activity);
+                    activityLabel.setMaxWidth(Double.MAX_VALUE);
+                    dateContent.getChildren().add(activityLabel);
                 }
             }
         }
@@ -276,7 +271,7 @@ public class CalendarView extends UiPart<Region> {
         activityLabel.setPadding(new Insets(0, 5, 0, 5));
         if (activity instanceof Deadline) {
             // color it red
-            activityLabel.setStyle("-fx-background-color: purple; -fx-color-label-visible: -fx-background-radius: 5"
+            activityLabel.setStyle("-fx-background-color: purple; -fx-background-radius: 5"
                     + " 5 5 5");
         } else if (activity instanceof Event) {
             // color it yellow
