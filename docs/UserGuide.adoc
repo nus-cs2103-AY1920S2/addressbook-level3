@@ -34,14 +34,14 @@ Filter panel and Transaction List panel(Chart Analytics Panel)
 +
 image::UI_annotated.png[width="790"]
 +
-.  Filters are only to filter the transaction list and chart analytics, MonthlyData is data for the current month and not the month
-shown in the filter
+.  Filters are only to filter transaction list and chart analytics, MonthlyData is data for the current month and not the month
+shown in the filter. So filter does not apply to MonthlyData.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  You can navigate through your command history by pressing the kbd:[Up] or kbd:[Down] arrow key.
 Only successful commands are stored in the command history. There can be at most 50 commands stored.
 This feature is just like the command navigation feature in your favourite command line or shell.
-.  Some example commands you can try:
+.  An example command sequence you can try:
 
 * *`clear`* : clear the expenseLa app to start at a clean slate
 * *`budget b/1000 rc/`* : set a recurring budget of $1000 for the current month and subsequent months
@@ -183,13 +183,14 @@ Examples:
 * `edit 3 a/ 200.00 n/ pocket money`
 
 
-=== Analysis of transactions : `toggleview` (Choi Min Suk)
+=== Analysis of transactions : `toggleview`
 
 Toggle between viewing list of transactions and analytics with bar graph and pie chart to show expense trend
 
-Format `toggleview`
-
-Expected Outcome: changed view to charts if previously was list view and to list view if previously was chart view
+Expected Outcome: changed view to charts if previously was list view and to list view if previously was chart view.
+For Chart Analytics view, a pie chart will show transactions by different categories. A bar chart will either display
+transactions by day of the week (filter is set to a specific month) or
+transactions by month for this year and last year(filter is set to all).
 
 image::ListView.png[width="790"]
 image::ChartView.png[width="790"]
@@ -220,7 +221,7 @@ Clear all recurring transactions stored
 Expected Outcome: All recurring transactions in the json file GlobalData.json will be cleared
 
 
-=== Export transaction data to csv : `export` (Choi Min Suk)
+=== Export transaction data to csv : `export`
 
 Export the filtered transaction list to a csv file
 
@@ -230,7 +231,7 @@ will be exported to the csv file.
 image::Csv.png[width="790"]
 
 
-=== Import transaction data from csv : `import` (Fheng Guo Jing, Benjamin)
+=== Import transaction data from csv : `import`
 
 Import transactions from csv and add it to transaction list, duplicate transactions are ignored.
 
