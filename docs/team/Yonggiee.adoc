@@ -150,8 +150,8 @@ image::ug-findcMultiplePart2.png[]
 You can try to enter keywords for `NAME` that are more specific to the client you are looking for. This will help to keep your search more scoped.
 
 ==== Other UG contributions
-- `add-e`
-- `edit-e`
+- https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/UserGuide.adoc#add-a-clients-exercise-add-e[`add-e`]
+- https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/UserGuide.adoc#edit-a-clients-exercise-edit-e[`edit-e`]
 
 include::../UserGuide.adoc[tag=delete]
 
