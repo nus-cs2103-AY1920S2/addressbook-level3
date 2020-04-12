@@ -23,7 +23,7 @@ Users will be able to delete existing exercises.
 ** Highlights: Many of the future features will require the exercise classes. Therefore, it was essential to have thorough considerations on how the classes are implemented. I also wrote a substantial amount of code to test the classes while practicing good test case designs like boundary value analysis. This will help reduce further bugs when expanding the application.
 
 * *Major enhancement*: hooked many features from Logic to Graphical User Interface
-** What it does: features are shown in GUI instead of being shown in text format.  
+** What it does: features are shown in GUI instead of being shown in text format.
 ** Justification: In order for the application to be appealing and user-friendly, the features have to be properly displayed in the GUI. The features include:
 - The exercise progession graph +
  This is one of the features that is proposed to really attract users. It is a step further from the user just recording his clients' exercises and having the user see the progression of his clients over a period of time.
@@ -209,7 +209,7 @@ We do consider that the user might want to record the two instances separately a
 
 ===== Execution flow of Exercise Commands
 
-The exercise commands edits the client's `UniqueExerciseList`. Currently, there are 3 exercise commands. 
+The exercise commands edits the client's `UniqueExerciseList`. Currently, there are 3 exercise commands.
 
 . `add-e` : Adds an exercise to a client
 . `edit-e` : Edits a client's exercise
@@ -261,7 +261,7 @@ if (dateComparision > 0) {
     }
 } else {
     idx++;
-}    
+}
 ----
 
 `Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. This custom insertion sort will guarantee an `O(n)` time complexity to insert the new `Exercise` correctly. This is as efficient as it gets as any insertion will already incur an O(n) time complexity to first check if the internal list contains the same exercise. It is important to keep the time complexity low as clients will have many exercises.
@@ -293,7 +293,7 @@ Might have too many JSON files, one for each client
 | Low chances of exceeding the size limit of a JSON file
 
 | Separation of concerns
-| Non-separate code for reading/storing exercises and clients data 
+| Non-separate code for reading/storing exercises and clients data
 | Separate code for reading/storing exercises and clients data
 | Non-separate ode for reading/storing exercises and clients data
 
