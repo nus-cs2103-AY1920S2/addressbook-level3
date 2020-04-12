@@ -583,8 +583,8 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to add a client
-2.  FitBiz requests for details(eg. name)
-3.  User enters the details
+2.  FitBiz requests for details (eg. name, phone number, address, email)
+3.  User enters the requested details
 4.  FitBiz adds client to database
 +
 Use case ends.
@@ -592,11 +592,11 @@ Use case ends.
 *Extensions*
 
 [none]
-* 3a.  The input format is invalid.
+* 3a.  The input format is invalid
 +
 [none]
 ** 3a1.  FitBiz shows an error message
-** 3a2.  User enters the new details.
+** 3a2.  User enters the new details
 +
 Steps 3a1 to 3a2 are repeated until the data entered is correct.
 Use case resumes from step 4
@@ -616,23 +616,28 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a.  The list is empty.
+* 2a.  The list is empty
++
+[none]
+** 2a1. FitBiz displays an empty client list
 +
 Use case ends.
 
-* 3a.  The given name is invalid.
+* 3a.  The given index is invalid or out of range
 +
 [none]
-** 3a1. FitBiz shows an error message.
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new index
 +
-Use case resumes at step 2.
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
 
 [discrete]
 === Use case 3: Edit client
 
 *MSS*
 
-1.  User requests to edit a client's cliental details
+1.  User requests to edit a client's details
 2.  FitBiz shows a list of clients
 3.  User requests to edit a specific client in the list and inputs the attributes and values
 4.  FitBiz edits client's details
@@ -642,16 +647,21 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a.  The list is empty.
+* 2a.  The list is empty
++
+[none]
+** 2a1. FitBiz displays an empty client list
 +
 Use case ends.
 
-* 3a.  The input format is invalid.
+* 3a.  The given input is invalid
 +
 [none]
-** 3a1. FitBiz shows an error message.
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new details
 +
-Use case resumes at step 2.
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
 
 [discrete]
 === Use case 4: Delete client
@@ -668,16 +678,21 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a.  The list is empty
++
+[none]
+** 2a1. FitBiz displays an empty client list
 +
 Use case ends.
 
-* 3a. The given format is invalid.
+* 3a.  The given index is invalid or out of range
 +
 [none]
-** 3a1. FitBiz shows an error message.
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new index
 +
-Use case resumes at step 2.
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
 
 [discrete]
 === Use case 5: List clients
@@ -692,12 +707,15 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a.  The input format is invalid.
+* 1a.  The input format is invalid
 +
 [none]
-** 2a1.  FitBiz shows an error message.
+** 1a1.  FitBiz shows an error message
+** 1a2.  User provides new input
 +
-Use case resumes at step 1.
+Steps 1a1 to 1a2 are repeated until the input entered is correct.
++
+Use case resumes at step 2.
 
 [discrete]
 === Use case 6: Add exercise
@@ -707,31 +725,37 @@ Use case resumes at step 1.
 1.  User requests to add an exercise to a client
 2.  FitBiz shows a list of clients
 3.  User requests to add exercise to a specific client in the list
-4.  FitBiz add exercise to the client
+4.  FitBiz adds exercise to the client
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a.  The list is empty.
+* 2a.  The list is empty
++
+[none]
+** 2a1. FitBiz displays an empty client list
 +
 Use case ends.
 
-* 3a.  The given name is invalid.
+* 3a.  The input format is invalid
 +
 [none]
-** 3a1. FitBiz shows an error message.
+** 3a1. FitBiz shows an error message
+** 3a2. User enters the new details
 +
-Use case resumes at step 2.
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes at step 4.
+
 
 [discrete]
-=== Use case 7: Start timer
+=== Use case 7: Filter clients
 
 *MSS*
 
-1.  User requests to start a timer
-2.  FitBiz starts a timer for the specified duration
+1.  User requests to filter clients based on a keyword in a client's tag and/or sports
+2.  FitBiz filters and displays clients based on specified keyword
 +
 Use case ends.
 
@@ -746,53 +770,7 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case 8: Filter clients
-
-*MSS*
-
-1.  User requests to filter clients based on an attribute
-2.  FitBiz filters clients based on specified attribute
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.  The input format is invalid.
-+
-[none]
-** 2a1.  FitBiz shows an error message.
-+
-Use case resumes at step 1.
-
-[discrete]
-=== Use case 9: View cliental best
-
-*MSS*
-
-1.  User requests to view a client's cliental best
-2.  FitBiz lists all clients
-3.  User requests to view the cliental best of a specific client on the list
-3.  FitBiz displays the cliental best
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.  The list is empty.
-+
-Use case ends.
-
-* 3a.  The input format is invalid.
-+
-[none]
-** 3a1. FitBiz shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case 10: View schedule
+=== Use case 8: View schedule
 
 *MSS*
 
@@ -812,33 +790,7 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case 11: Export data
-
-*MSS*
-
-1.  User requests to export a client's training record to a CSV file
-2.  FitBiz shows a list of clients
-3.  User requests to export a specific client's training record in the list
-4.  FitBiz exports the client's training records
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.  The list is empty.
-+
-Use case ends.
-
-* 3a.  The given name is invalid.
-+
-[none]
-** 3a1. FitBiz shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case 12: View visualisations
+=== Use case 9: View graph visualisations
 
 *MSS*
 
