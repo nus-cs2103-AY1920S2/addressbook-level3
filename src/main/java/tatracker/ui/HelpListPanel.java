@@ -16,9 +16,6 @@ import tatracker.logic.commands.CommandDetails;
  */
 public class HelpListPanel extends UiPart<Region> implements Focusable {
     private static final String FXML = "HelpListPanel.fxml";
-    private static final String BACKGROUND_COLOUR = "#5f4d42";
-    private static final String BORDER_COLOUR = "#917b3e";
-    private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(HelpListPanel.class);
 
@@ -27,6 +24,7 @@ public class HelpListPanel extends UiPart<Region> implements Focusable {
 
     public HelpListPanel(ObservableList<CommandDetails> helpList) {
         super(FXML);
+        logger.fine("Showing Help List");
         helpListView.setItems(helpList);
         helpListView.setCellFactory(listView -> new HelpListViewCell());
     }

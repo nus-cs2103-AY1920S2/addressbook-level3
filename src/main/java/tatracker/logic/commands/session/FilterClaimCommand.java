@@ -13,7 +13,6 @@ import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
-import tatracker.model.session.DoneSessionPredicate;
 
 /**
  * Filter Module based on user's inputs.

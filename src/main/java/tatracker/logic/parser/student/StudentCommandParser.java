@@ -19,8 +19,6 @@ public class StudentCommandParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final String UNIMPLEMENTED_CODE_FORMAT = "%s not yet implemented!";
-
     /**
      * Parses user input into command for execution.
      *

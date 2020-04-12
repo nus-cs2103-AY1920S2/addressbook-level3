@@ -14,10 +14,10 @@ participant "m:Student" as Student MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("student filter m/cs2103t g/g06")
+[-> LogicManager : execute("student filter \nm/CS2103T g/G06")
 activate LogicManager
 
-LogicManager -> TaTrackerParser : parseCommand("student filter m/cs2103t g/g06")
+LogicManager -> TaTrackerParser : parseCommand("student filter \nm/CS2103T g/G06")
 activate TaTrackerParser
 
 create StudentCommandParser
@@ -27,7 +27,7 @@ activate StudentCommandParser
 StudentCommandParser --> TaTrackerParser
 deactivate StudentCommandParser
 
-TaTrackerParser -> StudentCommandParser : parse("filter m/cs2103t g/g06")
+TaTrackerParser -> StudentCommandParser : parse("filter \nm/CS2103T g/G06")
 activate StudentCommandParser
 
 create FilterStudentViewCommand
@@ -52,14 +52,14 @@ deactivate TaTrackerParser
 LogicManager -> FilterStudentViewCommand : execute()
 activate FilterStudentViewCommand
 
-FilterStudentViewCommand -> Model : hasModule("cs2103t")
+FilterStudentViewCommand -> Model : hasModule("CS2103T")
 activate Model
 Model --> FilterStudentViewCommand : true
 
-FilterStudentViewCommand -> Model : hasGroup("g06", "cs2103t")
+FilterStudentViewCommand -> Model : hasGroup("G06", "CS2103T")
 Model --> FilterStudentViewCommand : true
 
-FilterStudentViewCommand -> Model : setFilteredStudentList(cs2103t, g06);
+FilterStudentViewCommand -> Model : setFilteredStudentList(CS2103T, G06);
 Model --> FilterStudentViewCommand
 deactivate Model
 

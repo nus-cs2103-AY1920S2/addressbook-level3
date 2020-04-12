@@ -564,10 +564,6 @@ public class ModelStub implements Model {
         }
 
         @Override
-        public void showAllModules() {
-        }
-
-        @Override
         public ObservableList<Group> getFilteredGroupList() {
             return null;
         }
@@ -576,6 +572,16 @@ public class ModelStub implements Model {
         public void updateFilteredStudentList(String groupCode, String moduleCode) {
             moduleShown = moduleCode;
             groupShown = groupCode;
+        }
+
+        @Override
+        public void showAllModules() {
+            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
+            requireNonNull(predicate);
         }
 
         @Override

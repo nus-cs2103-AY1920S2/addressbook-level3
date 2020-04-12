@@ -47,7 +47,6 @@ public class EditGroupCommandTest {
     @Test
     public void execute_invalidGroup_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
-        Group validGroup = new GroupBuilder().build();
         EditGroupCommand editGroupCommand =
                 new EditGroupCommand(new Group("G15"), validModule.getIdentifier(),
                         "GNEW", GroupType.OTHER);
@@ -61,7 +60,6 @@ public class EditGroupCommandTest {
     @Test
     public void execute_invalidModule_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
-        Group validGroup = new GroupBuilder().build();
         EditGroupCommand editGroupCommand =
                 new EditGroupCommand(new Group("G15"), validModule.getIdentifier(),
                         "GNEW", GroupType.OTHER);
@@ -94,7 +92,7 @@ public class EditGroupCommandTest {
         assertFalse(editGroupCommand.equals(1));
 
         // null -> returns false
-        assertFalse(editGroupCommand.equals(null));
+        assertFalse(editGroupCommand == null);
 
         // different modules -> returns false
         assertFalse(editGroupCommand.equals(editGroupCommandTwo));

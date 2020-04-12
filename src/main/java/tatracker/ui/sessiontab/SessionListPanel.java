@@ -22,9 +22,6 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
     private static final String NO_FILTER = "No filter";
 
     private static final String FXML = "SessionListPanel.fxml";
-    private static final String BACKGROUND_COLOUR = "#5f4d42";
-    private static final String BORDER_COLOUR = "#917b3e";
-    private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(SessionListPanel.class);
 
@@ -45,20 +42,28 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
 
     public SessionListPanel(ObservableList<Session> sessionList) {
         super(FXML);
+        logger.fine("Showing Session List");
         sessionListView.setItems(sessionList);
         sessionListView.setCellFactory(listView -> new SessionListViewCell());
         currentDateFilters.setText(NO_FILTER);
         currentModuleFilters.setText(NO_FILTER);
         currentTypeFilters.setText(NO_FILTER);
-        currentFiltersGrid.setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
-                + "-fx-border-color: " + BORDER_COLOUR + "; "
-                + "-fx-border-width: " + BORDER_WIDTH + ";");
+
+        sessionListView.focusedProperty().addListener((arg, oldVal, focused) -> {
+            if (focused) {
+                sessionListView.setStyle("-fx-border-color: #264780; -fx-border-width: 1;");
+            } else {
+                sessionListView.setStyle("");
+            }
+        });
     }
 
     /**
      * Update Label in order to facilitate changing current filters
      */
     public void updateLabel(String dateFilter, String moduleFilter, String typeFilter) {
+        logger.fine("Update session filters label");
+
         String actualDateFilter = dateFilter;
         if (dateFilter.isBlank()) {
             actualDateFilter = NO_FILTER;
