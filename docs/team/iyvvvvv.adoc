@@ -6,6 +6,7 @@
 == PROJECT: FitHelper
 
 ---
+:sectnums:
 
 == Overview
 
@@ -20,7 +21,6 @@ The codebase is well-maintained by reasonable amount of tests, and the program i
 A detailed and comprehensive set of guides are also provided for both application developers and users.
 
 == Summary of contributions
-:sectnums:
 
 === Major Enhancement
 
@@ -123,9 +123,8 @@ can significantly help the user to lose weight and keep fit.
 *** PRs reviewed (with non-trivial review comments) (https://github.com/AY1920S2-CS2103-T09-4/main/pull/242[#242])
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/IYVVVVV/ped/issues/1[#1], https://github.com/IYVVVVV/ped/issues/4[#4], https://github.com/IYVVVVV/ped/issues/7[#7] )
 
-:sectnums!:
 == Contributions to the User Guide
-
+:sectnums!:
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
@@ -143,7 +142,9 @@ include::../UserGuide.adoc[tag=save_data]
 
 include::../UserGuide.adoc[tag=command_summary]
 
+:sectnums:
 == Contributions to the Developer Guide
+:sectnums!:
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
