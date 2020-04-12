@@ -1,6 +1,7 @@
 = NUSProductivity
 :site-section: UserGuide
 :toc:
+:toclevels: 4
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -11,6 +12,8 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:caution-caption: :fire:
+:important-caption: :heavy_exclamation_mark:
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W16-4/main
 
@@ -39,6 +42,12 @@ This symbol indicates something you should take note of.
 
 [TIP]
 This symbol indicates a tip that you could use.
+
+[CAUTION]
+This symbol indicates something need be used or followed with caution.
+
+[IMPORTANT]
+This symbol indicates something you really need to pay attention to.
 
 
 ==  Quick Start
@@ -480,16 +489,19 @@ image::Cap.png[width="790"]
 
 === Profile / Module Book (Part 2: Manage your tasks separately for each module)
 
-[TIP]
+Most of the functionality here has been integrate into the Calendar feature but these commands left here still can be used.
+You can give it a try if you want.
+
+[NOTE]
 These tasks related to certain module are called 'module task' from now on.
 
 [TIP]
 All commands that make changes to the module tasks will be synchronous for both module book and the task list in calendar feature.
 
-[NOTE]
+[IMPORTANT]
 For this part, the UI hasn't been implemented yet but you are able to see the updated list of module tasks in command line.
 
-[NOTE]
+[IMPORTANT]
 Most functionality covered in this part can also be achieved by some commands in Calendar feature above. Just provides users
 with an alternative way. (The orders of tasks shown are different. Thus, the index inputted may be different to achieve the same modification.)
 
@@ -504,7 +516,7 @@ This command has been covered in Calendar feature already.
 
 - Format: `moduleTask desc/DESCRIPTION m/MODULE_CODE date/DEADLINE_OR_SCHEDULED_TIMING pri/PRIORITY`
 
-[NOTE]
+[CAUTION]
 The date inputted should be in the format: DD-MM-YYYY.
 
 ****
@@ -558,7 +570,7 @@ This command is similar to the `taskDelete` command in Calendar feature but you 
 * The index must be a positive integer 1, 2, 3, …
 ****
 
-[WARNING]
+[CAUTION]
 Only refer to the index of tasks shown in command line when performing this command. (not the one in calendar)
 
 - Example:
@@ -584,7 +596,7 @@ This command is similar to the `done` command in Calendar feature but you need t
 * The index must be a positive integer 1, 2, 3, …
 ****
 
-[WARNING]
+[CAUTION]
 Only refer to the index of tasks shown in command line when performing this command. (not the one in calendar)
 
 - Example:
@@ -609,7 +621,7 @@ image::TaskBreakDown.png[width="790"]
 
 === Module planning
 
-==== View module requirement: `modreq`
+==== View module requirement: `modreq` (coming in v2.0)
 
 - Shows the modules requirement for the major specified. This function will show the core modules that the individual have to take before graduation but have not taken yet.
 
@@ -620,18 +632,18 @@ image::TaskBreakDown.png[width="790"]
 * `modreq computer science`
 
 
-==== Module information: `module`
+==== Module information: `search`
 
 - Shows basic information about the module, such as time of lecture, tutorial, exam venues and
 professor’s contact associated with the module.
 
-- Format: `module MODULE CODE`
+- Format: `search MODULE_CODE`
 
 - Example:
 
-* `module CS2103T`
+* `search CS2103T`
 
-==== Module planning: `mymodplan`
+==== Module planning: `mymodplan` (coming in v2.0)
 
 - Shows list of modules taken/to be taken to fulfill major requirements.
 
@@ -698,7 +710,7 @@ e.g. `moduleTask desc/Project Deadline date/30-04-2020 m/CS2103T pri/5`
 e.g. `done index/1`
 ** *taskDelete*: `taskDelete index/INDEX`
 e.g. `taskDelete index/1`
-** *sortTask*: `sortTask by/SORT`
+** *sortTask*: `sortTask by/SORTING_PARAM`
 e.g. `sortTask by/priority`
 ** *findTask*: `findTask m/MODULECODE` or `findTask cat/CATEGORY` or `findTask date/DD-MM-YYYY`
 e.g. `findTask m/CS2103T`
@@ -731,8 +743,23 @@ e.g. `notesDelete loc/Desktop/ name/Test.doc pt/abs`
  e.g. `find James Jake`
 ** list: list
 
-* Profile
-** cap : cap {BREAKDOWN}
+* *Profile* (Module Book)
+** moduleAdd m/MODULE_CODE [g/GRADE] +
+ e.g. `moduleAdd m/cs2103 g/A`
+** moduleDel*MODULE_CODE +
+ e.g. `moduleDel CS2103`
+** grade m/MODULE_CODE g/GRADE +
+ e.g. `grade m/cs2103 g/A`
+** cap
+** moduleTask desc/DESCRIPTION m/MODULE CODE date/DD-MM-YYYY pri/PRIORITY +
+ e.g. `moduleTask desc/Project m/CS2103T date/30-04-2020 pri/5`
+** taskDelete m/MODULE_CODE index/INDEX
+ e.g. `taskDelete m/cs2103 index/1`
+** done m/MODULE_CODE index/INDEX
+ e.g. `done m/cs2103 index/1`
+** listModuleTasks m/MODULE_CODE
+ e.g. `listModuleTasks m/CS2103`
+** taskBreakdown
 
 * Diary :
 ** diary log LIMIT
@@ -751,11 +778,24 @@ e.g. `diary weather 1 SUNNY`
 e.g. `diary emotion 1 HAPPY`
 
 * Mod Plan:
-** mymodplan: mymodplan
+** search MODULE_CODE + 
+ e.g. `search CS2103T`
+** mymodplan: mymodplan (coming in v2.0)
 ** mymodplan add MODULE CODE
-e.g. `mymodplan add CS2103T`
+e.g. `mymodplan add CS2103T` (coming in v2.0)
 ** mymodplan done MODULE CODE
-e.g. `mymodplan done CS2103T`
-** modreq : modreq {\MAJOR} +
+e.g. `mymodplan done CS2103T` (coming in v2.0)
+** modreq : modreq {\MAJOR} + (coming in v2.0)
 e.g. `modreq computer science`
 
+== Glossary
+- *NUS* : National University of Singapore
+
+- *CAP* : The Cumulative Average Point is the weighted average grade point of the letter grades of all the modules taken by the students, according to NUS's grading system.
+
+== FAQ
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous fitness log book folder.
+
+*Q*: How do I save my data in my own PC? +
+*A*: NusProductivity saves your data of all your modules, grades and tasks after you make changes.
