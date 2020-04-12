@@ -313,7 +313,7 @@ image::AddGroupSequenceDiagram.png[]
 ====
 [horizontal]
 * The lifeline for `GroupCommandParser` and `AddGroupCommandParser` should end at the
-destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 
 * Since the purpose of this diagram is to show the interactions within the `Logic` component,
 irrelevant interactions with the `Model` component have been omitted.
@@ -602,7 +602,7 @@ image::AddModuleSequenceDiagram.png[]
 exists in the TA-Tracker
 .
 * The lifeline for `ModuleCommandParser` and `AddModuleCommandParser` should end at the
-destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 ====
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
@@ -683,7 +683,7 @@ in the module with module code CS2103 inside the TA-Tracker
 .
 
 * The lifeline for `GroupCommandParser` and `DeleteGroupCommandParser` should end at the
-destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 
 * The main difference between the `Module` and `Group` commands is that the `Group`
 commands require extra checks to check whether a group with the given group code
@@ -719,55 +719,69 @@ The `group edit` command has been implemented in a similar manner.
 
 ==== Implementation of the Student Add, Delete and Edit Commands
 
+A *student* can be added to the TA-Tracker after a *module* and *group* is added.
+
+The commands for *students* are similar to the commands for *modules* and *groups*.
+The main difference is that there are a few additional conditions in order to
+ensure that a *student* is inside the TA-Tracker.
+
 The following _Sequence Diagram_ shows the interactions that take place
 between the `Logic` and `Model` components of the TA-Tracker
 when the user enters the
-command `student delete id/A0181234G`.
+command `student delete m/CS2103 g/G03 id/A0181234G`.
 
 .Student Delete - Sequence Diagram
-image::DeleteStudentSequenceDiagram.png[]
+image::DeleteStudentSequenceDiagram.png[,1000]
 
 [NOTE]
 ====
 
-* This diagram assumes that there is a student with the matric number `A0181234G` in the TA-Tracker
+* This diagram assumes that the following data are inside the TA-Tracker:
+** A student with the matric number `A0181234G` +
+(shown as `id` in the diagram)
+** The same student inside the group `G03` +
+(shown as `g` in the diagram)
+** The same group inside the module `CS2103` +
+(shown as `m` in the diagram) +
+{fbl}
 
 * The lifeline for `StudentCommandParser` and `DeleteStudentCommandParser` should end at the
-destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 ====
 
-1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
+. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is a *student* command and passes the
+. The `TaTrackerParser` sees that the command is a *student command* and passes the
 command to the `StudentCommandParser`.
 
-3. The `StudentCommandParser` sees that the command is a *delete* command and passes the
+. The `StudentCommandParser` sees that the command is a *delete command* and passes the
 arguments to the `DeleteStudentCommandParser`.
 
-4. The `DeleteStudentCommandParser` creates a `Student` object with the given matric number,
-`A0181234G`. It also extracts the *module code* and *group code* from the arguments.
-
-5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object
-using the created `Student` object, *module code* and *group code*.
+. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object
+with the *matric number*, *module code* and *group code* from the arguments.
 The parser then returns the `DeleteStudentCommand`.
 
-6. `LogicManager` calls `DeleteStudentCommand's` execute method.
+. `LogicManager` calls `DeleteStudentCommand#execute()` to begin removing a student from the TA-Tracker.
 
-7. The `DeleteStudentCommand` object
-checks whether a student with the given matric number already exists in TA-Tracker
+. The `DeleteStudentCommand` checks the following three conditions:
+.. A module with the given *module code* is inside the TA-Tracker.
+.. A group with the given *group code* is inside the same module.
+.. A student with the given *matric number* is inside the same group.
+. For each condition, there are two outcomes:
+.. If the condition is false, then a *command exception is thrown* saying that the object does not exist.
+.. If it is true, then the student with the given *matric number* is removed from
+the *expected group* inside the *expected module*.
+. Finally, the `DeleteStudentCommand` returns a `CommandResult`.
+.. If the command successfully removed a student, the `CommandResult` will contain a success message.
+.. If not, the `CommandResult` will have a message explaining why the student could not be removed.
 
-.. If it student doesn't exist, a command exception is thrown saying that a student with the given matric number
-doesn't exist in the TA-Tracker
-.. If the student exists, the `DeleteStudentCommand` object retrieves the student from the
-model and removes the student.
 
-The `student edit` command has been implemented in a similar manner.
+The `student add` and `student edit` command has been implemented in a similar manner.
+However, the `student add` command has a slight difference.
 
-The `student add` command has been implemented in a similar way as well. The main
-difference is that the `AddStudentCommand` checks whether an object with the given
-matric number exists in the TA-Tracker
-. If such student exists, a command exception
-is thrown saying that a student with the given matric number already exists.
+When the `student add` command is executed,
+there is an extra condition that must be true: there cannot be a student with the given *matric number* already inside
+the *expected group* inside the *expected module*.
 
 ==== Implementation of the Sort Group, Module and All Command
 
@@ -837,7 +851,7 @@ image::SortAllSequenceDiagram.png[]
 [NOTE]
 ====
 * The lifeline for `SortCommandParser` should end at the
-destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 
 * The `SortCommandParser`, which creates `Sort` commands, is different from the other
 command parsers. While the other commands have another level of parsing (such as the
