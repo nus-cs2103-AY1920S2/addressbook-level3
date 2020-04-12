@@ -3,7 +3,7 @@ start
 :User executes ScheduleCommand;
 :parse input from user;
 :create new ScheduleList with empty ArrayList of Schedule;
-if () then ([number of valid schedule parameters >= 1])    
+if () then ([number of valid schedule parameters >= 1])
     :populate ScheduleList with all Schedule from parsed input;
     :set feedback message to "schedule successfully overwritten";
 

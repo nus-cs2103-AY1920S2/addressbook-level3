@@ -309,7 +309,7 @@ The list of schedules of each client are structured as a `ScheduleList`, which i
 
 `Day` wraps the enum `DayEnum.Weekday` and represents the day of the week the schedule takes place on.
 
-`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively. 
+`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively.
 
 The relations between these classes are shown in the class diagram below.
 
