@@ -106,7 +106,10 @@ Retrieves collected trace data based on by timestamp filter.
 
 Format: `from <ts: start> to <ts: end>`
 
-Example: `from 1500000000 to 1500001000`
+Example:
+
+* To view recorded pings from Epoch 1500000000 - 1500001000 : `from 1500000000 to 1500001000`
+* To view all pings : `from 1 to 150000100000`
 
 *Note: Currently accepted timestamp is in epoch timing. The time range support now is from 15000000 to 16000000
 For example on how to use the timing, refer link:{epochTiming}/releases[here]
@@ -155,7 +158,6 @@ Example: `person_add /name John Doe /mobile 92139231 /nric S1323923P /age 50` ad
 
 ===== Constraints
 * Sequence must abide in sequence /name, /mobile, /nric, /age
-* Cannot add same NRIC number
 
 ==== Adding a new user: `person_deletes`
 Registers a new user to the system
@@ -210,8 +212,8 @@ Format: `report_person <personID: count>`
 
 Example: `report_person 1`
 
-
-
+=== Help
+Key in `help` to see all possible commands
 
 == FAQ
 
