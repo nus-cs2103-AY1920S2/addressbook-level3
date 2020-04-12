@@ -66,7 +66,7 @@ We decided it is best for the exercises to be viewed in a table form. To do so, 
 |===
 
 === Find clients by name: `find-c`
-`find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire list might be troublesome and difficult. `find-c` is the command for you.
+`find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire *Client List* might be troublesome and difficult. `find-c` is the command for you.
 
 ==== Parameters
 This section acts as a summary of the important things to note when using `find-c` including their parameters.
@@ -97,17 +97,17 @@ For a detailed explanation, you can refer to the commons errors / problems secti
 |====================
 
 ==== Example
-Let's say that you want to find a client named "Bryan Low" in client list. You can simply use the `find-c` command as shown.
+Let's say that you want to find a client named "Bryan Low" in *Client List*. You can simply use the `find-c` command as shown.
 
-1.Type `find-c bryan` into the command box, and press `Enter` to execute it.
+1.Type `find-c bryan` into *Command Box*, and press `Enter` to execute it.
 
 image::ug-findcExamplePart1.png[]
 
-2.The result box will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
+2.*Result Box* will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
 
 image::ug-findcExamplePart2.png[]
 
-3.You can now see the clients with "bryan" in their names. As you can see, the name you use to search does not need to be case-senstive. The client that we are looking for "Bryan Low" is in the search results.
+3.You can now see the clients with "bryan" in their names. As you can see, the name you use to search does not need to be case-senstive. The client that we are looking for "Bryan Low" is in *Client List*.
 
 image::ug-findcExamplePart3.png[]
 
@@ -115,18 +115,18 @@ image::ug-findcExamplePart3.png[]
 You might face some errors or difficulties when you `find-c`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the result box when using `find-c`.
 
 ===== Using incomplete names
-You might wonder why `find-c` do not show the clients even though the client is in clearly in your client list. It might be possible that you have entered an incomplete name and does not match any word in the name of that client. The example below might help you understand better.
+You might wonder why `find-c` do not show the clients even though the client is clearly in your client list records. It might be possible that you have entered an incomplete name and does not match any word in the name of that client. The example below might help you understand better.
 
 Example:
-You want to find the client named "Bryan Low" in client list. Below shows that "Bryan Low" indeed exists in the client list.
+You want to find the client named "Bryan Low" in *Client List*. Below shows that "Bryan Low" indeed exists and is recorded.
 
 image::ug-findcIncompleteNamePart1.png[]
 
-Type `find-c bry" into the command box, and press `Enter` to execute it.
+Type `find-c bry` into *Command Box*, and press `Enter` to execute it.
 
 image::ug-findcIncompleteNamePart2.png[]
 
-You will obtain "no clients listed!".
+You will obtain "0 clients listed!" in *Result Box*.
 
 image::ug-findcIncompleteNamePart3.png[]
 
@@ -137,9 +137,9 @@ This is because the name that you have entered is incomplete and does not match 
 You might wonder why the application shows more clients than you intended. It might be possible that you have misunderstood how the `NAME` parameter gets the client you are finding. The application will show clients as long as one of the words of the client match a keyword you use for name. The example below might help you understand better.
 
 Example:
-You want to find the client named "Bryan Low" in client list.
+You want to find the client named "Bryan Low" in *Client List*.
 
-Type `find-c bryan low` in to the command box, and press `Enter` to execute it.
+Type `find-c bryan low` in to *Command Box*, and press `Enter` to execute it.
 
 image::ug-findcMultiplePart1.png[]
 
