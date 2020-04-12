@@ -263,14 +263,18 @@ and the <<modeexpectedoutcome, expected outcome>> after using the
 `mode` command.
 
 *Summary of Mode Command:* +
-`mode` to switch the dieting mode, based on the following modes: +
+`mode` You can set your desired dieting goal with the different modes that set a limit on your daily
+calorie intake. The calorie limits are calculated based on that of an average human. Your daily calories intake status
+can be monitored with the `list` command.
 
-* Lose Weight (-l)
-* Gain Weight (-g)
-* Maintain (-m)
+Switch the dieting mode, based on the following modes: +
+
+* Lose Weight (-l) (2000 calorie limit)
+* Gain Weight (-g) (3000 calorie limit)
+* Maintain (-m) (2500 calorie limit)
 
 [[howtousemodecommand]]
-*How to use the List Receipt Command:*
+*How to use the Mode Command:*
 
 Format: +
 `mode [-l] [-g] [-m]` +
@@ -290,48 +294,7 @@ image::dietTrackerModeCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
-The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
-====
-
-[TIP]
-====
-Switch the mode to help yourself reach your diet targets better!
-====
-
-'''
-In this section, you will learn more about the `mode` command, <<howtousemodecommand, how to use it>>
-and the <<modeexpectedoutcome, expected outcome>> after using the
-`mode` command.
-
-*Summary of Mode Command:* +
-`mode` to switch the dieting mode, based on the following modes: +
-
-* Lose Weight (-l)
-* Gain Weight (-g)
-* Maintain (-m)
-
-[[howtousemodecommand]]
-*How to use the Mode Command:*
-
-Format: +
-`mode [-l] [-g] [-m]` +
-
-Valid Example: +
-`mode -l`
-
-[WARNING]
-You must only input one mode per mode command.
-
-[[modeexpectedoutcome]]
-*Expected outcome:*
-
-image::dietTrackerModeCommandSuccessPhoto.png[width="890", height="200"]
-
-*Additional notes and tips* +
-
-[NOTE]
-====
-The default mode for any individual who has chosen his/her Dieting Mode will be MAINTAIN.
+The default mode is MAINTAIN if you have not set your mode.
 ====
 
 [TIP]
@@ -339,6 +302,9 @@ The default mode for any individual who has chosen his/her Dieting Mode will be 
 * Switch your Dieting Mode to help yourself reach your diet targets better!
 * Check your currently chosen Dieting Mode with `metrics`.
 ====
+
+
+
 
 [[height]]
 ==== Storing Height `height`
@@ -497,7 +463,7 @@ Valid Examples:
 Change your height and your weight to your current measurements before calculating your BMI.
 BMI is calculated based off the stored height and weight in this instance.
 * `height 173.5` +
-`bmi -w 59.9`
+`bmi -w 59.9` +
 Change your height to your current measurements before calculating you BMI.
 BMI is calculated based off the stored height and input weight in this instance.
 * `bmi -h 172 -w 65.5` +
@@ -561,7 +527,8 @@ and the <<listexpectedoutcome, expected outcome>> after using the
 
 *Summary of List Command:* +
 `list` You can use this function to list out the different foods that you have consumed and their total calories.
-Different listing modes allow you to watch your overall diet during the period, and gives you a tip on your level of consumption based on your Dieting Mode.
+Different listing modes allow you to watch your overall diet during the period, or how much you can/should eat based
+on your daily intake.
 
 Displays different data based on the below flags:
 
@@ -594,6 +561,7 @@ image::dietTrackerListCommandSuccessPhoto.png[width="890", height="200"]
 ====
 * Default value of list is food consumed for the day.
 * For the `-d` tag, the amount of days specified must be a positive Integer value.
+* Calorie intake based on mode is only shown when listing food for the day.
 ====
 
 '''
@@ -615,7 +583,7 @@ Format: +
 `delete INDEX` +
 
 ****
-* Deletes the food item at the specified `INDEX`.
+* Deletes the food item at the specified `INDEX` of the list.
 * The index refers to the index number shown in the displayed food list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -624,6 +592,9 @@ Valid Example: +
 `list` +
 `delete 2` +
 Deletes the 2nd row of food data from today's list of food.
+[WARNING]
+You *MUST* use `list` to check the list of items to identify a target to edit. This would ensure that you get the
+correct index of the item.
 
 [[deleteexpectedoutcome]]
 *Expected outcome:*
@@ -632,14 +603,9 @@ image::dietTrackerDeleteCommandSuccessPhoto.png[width="890", height="200"]
 
 *Additional notes and tips* +
 
-[NOTE]
-====
-Index has to be a valid index in the list of Foods. You can use `list` to check this out.
-====
-
 [TIP]
 ====
-Use list to view your item indices before deletion.
+You can list based on time period or tags to find the item that you want to delete.
 ====
 
 '''
@@ -673,18 +639,18 @@ Valid Example: +
 Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
 
 [WARNING]
-You *MUST* use `list` to check the lists of items to identify a target to edit. Failure to do so might cause unintended consequences to the Diet Tracker's Food List.
+You *MUST* use `list` to check the list of items to identify a target to edit. This would ensure that you get the
+correct index of the item.
 
 [[editexpectedoutcome]]
 *Expected outcome:*
 
 image::dietTrackerEditCommandSuccessPhoto.png[width="890", height="200"]
 
-*Additional notes* +
-
-[NOTE]
+*Additional notes and tips* +
+[TIP]
 ====
-Index has to be a valid index in the list of Foods. You can use `list` to check this out.
+You can list based on time period or tags to find the item that you want to edit.
 ====
 
 '''
@@ -697,7 +663,7 @@ and the <<DThelpexpectedoutcome, expected outcome>> after using the
 `help` command.
 
 *Summary of Help Command:* +
-`metrics` You can use the `help` command, if you are uncertain, to see the list of available commands for Diet Tracker.
+`help` You can use the `help` command, if you are uncertain, to see the list of available commands for Diet Tracker.
 
 [[howtouseDTHelpcommand]]
 *How to use the Help Command:*
