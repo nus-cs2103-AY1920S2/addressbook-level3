@@ -37,6 +37,11 @@ activate Logic
 Logic --> CalendarPane
 deactivate Logic
 
+CalendarPane -> Logic: getMonthView()
+activate Logic
+Logic --> CalendarPane
+deactivate Logic
+
 CalendarPane -> CalendarPane: initializeUi()
 activate CalendarPane
 
