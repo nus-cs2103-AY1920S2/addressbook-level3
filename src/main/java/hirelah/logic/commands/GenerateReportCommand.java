@@ -423,6 +423,12 @@ public class GenerateReportCommand extends Command {
             splitRemarks.add(currentBuilder.toString());
         }
         return splitRemarks;
+    }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GenerateReportCommand // instanceof handles nulls
+                && identifier.equals(((GenerateReportCommand) other).identifier));
     }
 }
