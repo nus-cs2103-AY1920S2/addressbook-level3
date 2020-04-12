@@ -42,12 +42,22 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 | ??              | Placeholder for whatever we don't know needs to be there.
 |=======================================================================
 
+[[Use-case-diagram]]
+== Use case diagram
+.Use case diagram for our ContactTracing app
+image::UseCaseDiagram.png[]
+
+The functionalities for our application are highlighted in the use case diagram.
+This diagram was enacted based on premilinary brainstorming of our user stories.
+
 == Class diagram illustration
 
 .Class diagram
 image::ClassDiagram.png[]
 
 === Class definitions
+
+We created the following classes (and their relationship) in order to fulfil our use cases in <<Use-case-diagram>>.
 
 `ContactTracingMainApp` Entry point to launch our contact tracing application
 
@@ -100,16 +110,19 @@ as illustrated in the figure above.
 
 === Retrieving command / storage
 
-.Logic for route(request / command)
+.Logic for route(request / command) for Command Router
 image::CommandSequenceDiagram.png[]
 
 Figure illustrates how a command is chosen based on a user defined *COMMAND_WORD*.
 
-The exact image can be applied for selecting the data access object we want to use.
+The exact concepts can be applied for selecting the data access object we want to use.
+
+.Logic for route(request / command) for Dao Router
+image::DaoRouterSequenceDiagram.png[]
 Here, the `DaoRouter` infers the type of data access needed by looking at class `AppCommand`.
 
-Routing is done based on whether the `AppCommand` class inherits from `BluetoothPingStorageAccess`
-or `UserStorageAccess`.
+Routing is done based on whether the `AppCommand` class inherits from the list of avaible storage access classes.
+At present, we only have `BluetoothPingStorageAccess` or `UserStorageAccess`.
 
 == The activities in using this app
 image::ActivityDiagram.png[]
