@@ -70,7 +70,8 @@ public class AddCommandTest {
     public void execute_noExistingProfile_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
         int semester = new Year(VALID_SEMESTER_AMY).getSemester();
-        AddCommand addCommand = new AddCommand(Set.of(moduleCode), semester, null, null);
+        ArrayList<Deadline> deadlines = new ArrayList<>();
+        AddCommand addCommand = new AddCommand(Set.of(moduleCode), semester, null, deadlines);
         assertThrows(CommandException.class, MESSAGE_EMPTY_PROFILE_LIST, () ->
                 addCommand.execute(new ProfileManagerStub(), new CourseManagerStub(), new ModuleManagerStub()));
     }
@@ -95,8 +96,9 @@ public class AddCommandTest {
     public void execute_invalidModuleCode_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode(INVALID_MODCODE_DESC);
         int semester = new Year(VALID_SEMESTER_AMY).getSemester();
+        ArrayList<Deadline> deadlines = new ArrayList<>();
         AddCommand addCommandModule = new AddCommand(
-                Set.of(moduleCode), semester, null, null);
+                Set.of(moduleCode), semester, null, deadlines);
         assertThrows(CommandException.class, MESSAGE_INVALID_MODULE, () ->
                 addCommandModule.execute(
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
@@ -108,8 +110,9 @@ public class AddCommandTest {
     public void execute_duplicateModule_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode("CS1101S");
         int semester = new Year("1.2").getSemester();
+        ArrayList<Deadline> deadlines = new ArrayList<>();
         AddCommand addCommandModule = new AddCommand(
-                Set.of(moduleCode), semester, null, null);
+                Set.of(moduleCode), semester, null, deadlines);
         assertThrows(CommandException.class, MESSAGE_DUPLICATE_MODULE, () ->
                 addCommandModule.execute(
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
@@ -120,12 +123,13 @@ public class AddCommandTest {
     public void execute_validModuleCode_success() {
         ModuleCode moduleCode = new ModuleCode("CS1231");
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
+        ArrayList<Deadline> deadlines = new ArrayList<>();
         AddCommand addCommandAllCap = new AddCommand(
-                Set.of(moduleCode), semester, null, null);
+                Set.of(moduleCode), semester, null, deadlines);
         AddCommand addCommandVariety = new AddCommand(
-                Set.of(new ModuleCode("Cs1231")), semester, null, null);
+                Set.of(new ModuleCode("Cs1231")), semester, null, deadlines);
         AddCommand addCommandNoCap = new AddCommand(
-                Set.of(new ModuleCode("cs1231")), semester, null, null);
+                Set.of(new ModuleCode("cs1231")), semester, null, deadlines);
 
         try {
             assertEquals(addCommandAllCap.execute(
@@ -148,8 +152,9 @@ public class AddCommandTest {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
         String grade = VALID_GRADE_BOB;
+        ArrayList<Deadline> deadlines = new ArrayList<>();
         AddCommand addCommandGrade = new AddCommand(
-                Set.of(moduleCode), semester, grade, null);
+                Set.of(moduleCode), semester, grade, deadlines);
         try {
             assertEquals(addCommandGrade.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                     new ModuleManagerStubCs()).getFeedbackToUser(), String.format(MESSAGE_ADD_SUCCESS, moduleCode));
