@@ -16,7 +16,7 @@ endif::[]
 
 By: `AY1920S2-CS2103T-W12-4`      Since: `Feb 2020`      Licence: `MIT`
 
-== Introduction
+== Introduction [Done by Zain Alam]
 
 Welcome to CookBuddy!
 
@@ -28,7 +28,7 @@ All your recipe information is stored on our simple and clean Graphical User Int
 
 If you are looking for a way to easily manage your recipes and have quick fingers, then CookBuddy is definitely for you!
 
-== About this Document
+== About this Document [Done by Zain Alam]
 
 This document is a Developer Guide written for developers who wish to contribute to or extend our CookBuddy project.
 It is technical, and explains the inner workings of CookBuddy and how the different components of our
@@ -42,7 +42,7 @@ TIP: This icon denotes useful tips to note of during development.
 
 NOTE: This icon denotes important details to take note of during development.
 
-== Overview of Features
+== Overview of Features [Done by Zain Alam]
 
 This section will provide you a short overview of CookBuddy's features.
 
@@ -320,9 +320,9 @@ Refer to the guide <<Testing#, here>>.
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
-== Product Scope
+== Product Scope [Done by Zain Alam & ]
 
-*Target user profile*:
+*Target user profile*: [Done by ]
 
 * cooks for oneself on a nearly daily basis, and hence:
    - needs to manage many recipes
@@ -339,7 +339,7 @@ Refer to the guide <<DevOps#, here>>.
 
 * requires a straightforward means to catalogue and codify recipes and meals without using spreadsheets
 
-*Value proposition*:
+*Value proposition*: [Done by Zain Alam]
 
 * Store, retrieve, manage and display recipes faster than navigating through websites and bookmarks, with command-line input, but GUI responses.
 
@@ -505,7 +505,7 @@ Use case ends.
 
 
 [appendix]
-== Non Functional Requirements
+== Non Functional Requirements [Done by Zain Alam]
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 recipes without noticeable sluggishness in performance for typical usage.
@@ -517,7 +517,7 @@ Use case ends.
 _{More to be added}_
 
 [appendix]
-== Glossary
+== Glossary [Done by Zain Alam]
 
 [[attributes]] Attributes::
 The information of a recipe. For example, calories, ingredients or instructions etc.
@@ -538,7 +538,7 @@ A list of ingredients followed by a list of instructions, detailing how to prepa
 A (possibly custom) text marker that users can use to organise their recipes; examples include `vegetarian`, `spicy`, `Indian`. Tags can themselves be organised into groups, such as `cuisines`, `diet`, `ingredients`, `mealtime`, etc.
 
 [appendix]
-== Product Survey
+== Product Survey [Done by Zain Alam]
 
 *CookBuddy*
 
