@@ -9,8 +9,6 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import nasa.ui.UiPart;
-
 /**
  * UI component for quote panel.
  */
