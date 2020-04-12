@@ -30,22 +30,8 @@ public class TagsContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        // we want to find whether they keyword matches any of the tags
-        // DEBUGGING INFO
-        /*
-        logger.info("This is the person's tags concatenated into one line: " + person.getName().fullName);
-        logger.info(person.getTagsForPredicate());
-        logger.info("These are the keywords we are checking up against");
-        for (int i = 0; i < keywords.size(); i++) {
-            logger.info(keywords.get(i));
-            logger.info(Boolean.toString(person.getTagsForPredicate().contains(keywords.get(i))));
-        }
-        logger.info("END");
-        */
-
-        //return keywords.stream()
-        //.anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getTagsForPredicate(), keyword));
-        return keywords.stream().anyMatch(keyword -> person.getTagsForPredicate().contains(keyword));
+        return keywords.stream()
+                .anyMatch(keyword -> person.getTagsForPredicate().contains(keyword));
     }
 
     // what is this equals here for?
