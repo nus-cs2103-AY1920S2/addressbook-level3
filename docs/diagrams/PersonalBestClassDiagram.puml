@@ -1,18 +1,30 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.1
-skinparam arrowColor MODEL_COLOR
-skinparam classBackgroundColor MODEL_COLOR
 
-Client *-down-> "1" PersonalBest
-Client *-up-> "1" UniqueExerciseList
+package Model {
+    Class Client MODEL_COLOR
+    Class PersonalBest MODEL_COLOR
+    Class UniqueExerciseList MODEL_COLOR
+}
 
-PersonalBestFinder -left-> PersonalBest : sets >
-PersonalBestFinder -left-> "1" Client
-PersonalBestFinder -left-> "1" UniqueExerciseList
+package Logic {
+    Class ViewCommand LOGIC_COLOR
+    Class AddExerciseCommand LOGIC_COLOR
+    Class EditExerciseCommand LOGIC_COLOR
+    Class DeleteExerciseCommand LOGIC_COLOR
+    Class PersonalBestFinder LOGIC_COLOR
+}
 
-ViewCommand -up-> "1" PersonalBestFinder
-AddExerciseCommand -up-> "1" PersonalBestFinder
-DeleteExerciseCommand -left-> "1" PersonalBestFinder
+Client "1" *-down-> "1" PersonalBest
+Client "1" *-up-> "1" UniqueExerciseList
+
+PersonalBestFinder "1" -left-> "1" PersonalBest : sets >
+PersonalBestFinder "1" -left-> "1" Client
+PersonalBestFinder "1" -left-> "1" UniqueExerciseList
+
+ViewCommand "1" -up[LOGIC_COLOR]-> "1" PersonalBestFinder
+AddExerciseCommand "1" -up[LOGIC_COLOR]-> "1" PersonalBestFinder
+DeleteExerciseCommand "1" -left[LOGIC_COLOR]-> "1" PersonalBestFinder
+EditExerciseCommand "1" -up[LOGIC_COLOR]-> "1" PersonalBestFinder
 
 @enduml

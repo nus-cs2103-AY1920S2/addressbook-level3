@@ -1,43 +1,54 @@
 @startuml
 !include style.puml
 
-Actor User as user USER_COLOR
-Participant ":CommandBox" as ui UI_COLOR
-Participant ":CommandHistory" as logic LOGIC_COLOR
-Participant ":CommandHistoryState" as model MODEL_COLOR
-Participant ":CommandHistoryStorage" as storage STORAGE_COLOR
+Participant ":CommandBox" as commandBox UI_COLOR
+Participant ":TextField" as textField UI_COLOR
+Participant ":CommandHistory" as commandHistory LOGIC_COLOR
+Participant ":CommandHistoryState" as commandHistoryState MODEL_COLOR
+Participant "<<static>>\n:FileUtil" as fileUtil STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "list-c"
-activate ui UI_COLOR
+-[UI_COLOR]> commandBox : handleCommandEntered()
+activate commandBox UI_COLOR
 
-ui -[UI_COLOR]> logic : addToHistory("list-c")
-activate logic LOGIC_COLOR
+commandBox -[UI_COLOR]> textField : getText()
+activate textField UI_COLOR
 
-logic -[LOGIC_COLOR]> model : add("list-c")
-activate model MODEL_COLOR
+textField -[UI_COLOR]-> commandBox : "list-c"
+deactivate textField
 
-model -[MODEL_COLOR]-> logic
-deactivate model
+commandBox -[UI_COLOR]> commandHistory : addToHistory("list-c")
+activate commandHistory LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : getCurrentState()
-activate model MODEL_COLOR
+commandHistory -[LOGIC_COLOR]> commandHistoryState : add("list-c")
+activate commandHistoryState MODEL_COLOR
 
-model -[MODEL_COLOR]-> logic : ArrayList<String> history
-deactivate model
+commandHistoryState -[MODEL_COLOR]-> commandHistory
+deactivate commandHistoryState
 
-logic -[LOGIC_COLOR]> storage : saveToStorage(history)
-activate storage STORAGE_COLOR
+commandHistory -[LOGIC_COLOR]> commandHistoryState : getCurrentState()
+activate commandHistoryState MODEL_COLOR
 
-storage -[STORAGE_COLOR]> storage : Save to file
-activate storage STORAGE_COLOR_T1
-deactivate storage
+commandHistoryState -[MODEL_COLOR]-> commandHistory : List<String> history
+deactivate commandHistoryState
 
-storage --[STORAGE_COLOR]> logic
-deactivate storage
+commandHistory -[LOGIC_COLOR]> commandHistory : stateListToStorageString(history)
+activate commandHistory LOGIC_COLOR_T1
+commandHistory -[LOGIC_COLOR]-> commandHistory : lines
+deactivate commandHistory
 
-logic --[LOGIC_COLOR]> ui
-deactivate logic
+commandHistory -[LOGIC_COLOR]> fileUtil : writeToFile(filePath, lines)
+activate fileUtil STORAGE_COLOR
 
-ui--[UI_COLOR]> user
-deactivate ui
+fileUtil -[STORAGE_COLOR]> fileUtil : Overwrites existing file
+activate fileUtil STORAGE_COLOR_T1
+deactivate fileUtil
+
+fileUtil -[STORAGE_COLOR]-> commandHistory
+deactivate fileUtil
+
+commandHistory -[LOGIC_COLOR]-> commandBox
+deactivate commandHistory
+
+[<[UI_COLOR]-- commandBox
+
 @enduml

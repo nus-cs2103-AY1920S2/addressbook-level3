@@ -150,7 +150,8 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFitBizFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, resultDisplay);
+        CommandBox commandBox = new CommandBox(this::executeCommand, resultDisplay,
+                logic.getCommandHistory(), logic.getAutocomplete());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
