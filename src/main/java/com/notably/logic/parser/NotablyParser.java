@@ -101,6 +101,7 @@ public class NotablyParser {
             return List.of(new ExitCommand());
         case SearchCommandParser.COMMAND_WORD:
             new SearchCommandParser(notablyModel).parse(arguments);
+            break;
         default:
             throw new ParseException(String.format(ERROR_MESSAGE, commandWord));
         }
