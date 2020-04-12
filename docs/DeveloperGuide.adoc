@@ -207,6 +207,8 @@ In the following sequence diagram, we trace the execution of the classes involve
 .Sequence Diagram for Saving a User Entered Command
 image::CommandHistorySequenceDiagram.png[]
 
+`CommandBox` simply passes the user input text to `CommandHistory`, which adds this text to the internal list within `CommandHistoryState`, retrieves the full internal list, converts it to a text-based format, and finally asks `FileUtil` to save the text to storage.
+
 ===== How the Command History is persisted on storage
 
 Each command that the user enters is essentially just a line of text. We simply use the utility class `FileUtil` to write these lines of text (where each command represents a new line of text) to a text-based file `command.txt`.
@@ -343,10 +345,14 @@ In the following sequence diagram, we follow the execution for when the user tri
 .Simplified Sequence Diagram for Command Autocomplete
 image::CommandAutocompleteSequenceDiagram.png[]
 
-.Sequence Diagram for the Autocomplete Logic
+`CommandBox` retrieves the user input command and caret position from the `TextField`, and calls the `execute` method from `Autocomplete` with these information. This `execute` method (shown and explained in full in the next sequence diagram) creates an `AutocompleteResult` object and returns this to `CommandBox`, which retrieves all the information required and sets the `TextField` and `ResultDisplay` accordingly. 
+
+.Sequence Diagram for the Autocomplete#execute Method
 image::CommandAutocompleteSequenceDiagramRef.png[]
 
-This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to enable <<command-history-behaviour-4, behaviour 4>> as defined above: by simply checking for the presence of white spaces from the trimmed user input. The following activity diagram is given to show the decisions made at each step of the execution:
+Within the `execute` method, `Autocomplete` calls the `listAllSimilarWords` method from `Trie` with the user input text. `Trie`, which would already have all the commands stored, finds the longest prefix node, calls the `constructWord` method from this node, and checks if this node represents the end of a completed word. `Trie` then creates a `SimilarWordsResult` object to store these information and returns it to `Autocomplete`. Then, `Autocomplete` retrieves these information, realises that it is dealing with an unambiguous command, and constructs the corresponding prefixes. It then creates a `AutocompleteResult` object to store all the information that `CommandBox` requires, and finally returns this object to `CommandBox`. 
+
+This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to enable <<command-history-behaviour-4, behaviour 4>> as defined above: by simply checking for the presence of white spaces from the trimmed user input. The following activity diagram is given to show the decisions starting from the point where the user presses kbd:[Tab]:
 
 [[autocomplete-activity-diagram]]
 .Activity Diagram for the Autocomplete Logic
