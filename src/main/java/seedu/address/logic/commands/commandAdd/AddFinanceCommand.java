@@ -1,5 +1,16 @@
 package seedu.address.logic.commands.commandAdd;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FINANCETYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
+
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
@@ -15,10 +26,6 @@ import seedu.address.model.person.Amount;
 import seedu.address.model.person.FinanceType;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Adds a finance to the address book.
@@ -63,8 +70,8 @@ public class AddFinanceCommand extends AddCommand {
       + "Example: " + COMMAND_WORD + " "
       + PREFIX_FINANCETYPE + "cs "
       + PREFIX_DATE + "2020-12-09 "
-      + PREFIX_COURSEID + "829 "
-      + PREFIX_STUDENTID + "33 "
+      + PREFIX_COURSEID + "2 "
+      + PREFIX_STUDENTID + "22 "
       + PREFIX_TAG + "Late "
       + "\nType 3: A staff is paid for teaching a course(Specify ft/ as ct "
       + "Parameters: "
@@ -76,8 +83,8 @@ public class AddFinanceCommand extends AddCommand {
       + "Example: " + COMMAND_WORD + " "
       + PREFIX_FINANCETYPE + "ct "
       + PREFIX_DATE + "2020-12-09 "
-      + PREFIX_COURSEID + "829 "
-      + PREFIX_TEACHERID + "21 "
+      + PREFIX_COURSEID + "3 "
+      + PREFIX_TEACHERID + "31 "
       + PREFIX_TAG + "Early ";
 
 

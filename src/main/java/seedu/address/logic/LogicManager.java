@@ -59,6 +59,11 @@ public class LogicManager implements Logic {
     this.undoRedoStack.push(command);
 
     // Updates summary panel
+    summaryPanel.updateTotalStudents(getFilteredStudentList().size());
+    summaryPanel.updateTotalStaffs(getFilteredStaffList().size());
+    summaryPanel.updateTotalCourses(getFilteredCourseList().size());
+    summaryPanel.updateTotalFinances(getFilteredFinanceList().size());
+    summaryPanel.updateTotalAssignments(getFilteredAssignmentList().size());
 
     return commandResult;
   }

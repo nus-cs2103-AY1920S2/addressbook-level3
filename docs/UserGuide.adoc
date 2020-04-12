@@ -98,7 +98,9 @@ records efficiently. Several analytical features are also incorporated to assist
 and devising marketing strategies.
 
 === Assignments
-You can keep track of the available assignments of the various students or courses through this functionality.
+You can keep track of the available assignments of the various students or courses through this functionality. Additionally,
+the progress of the assignments can be viewed for the course of the student (In Student Tab)
+or the student of a course (In Course Tab).
 
 [[Features]]
 == Key Features
@@ -164,6 +166,14 @@ Removes the Student ID from the Course ID specified. +
 Format: `unassign cid/COURSEID sid/STUDENTID` +
 Example: `unassign cid/829 sid/33`
 
+[NOTE]
+====
+When a student is assigned to a course, a progress will be
+created for the student for every assignment of the course.
+This progress tracks whether the student has completed the
+specific assignment (Done) or not (Not Done)
+====
+
 ===== A Teacher to a Course : `assign` or `unassign` respectively
 
 Adds the Teacher ID to the Course ID specified. +
@@ -184,6 +194,14 @@ Removes the Assignment ID from the Course ID specified. +
 Format: `unassign cid/COURSEID aid/ASSIGNMENTID` +
 Example: `unassign cid/829 aid/21`
 
+[NOTE]
+====
+When an assignment is assigned to a course, a progress will be
+created for every student currently assigned to the course.
+This progress tracks whether the student has completed the
+specific assignment (Done) or not (Not Done)
+====
+
 ==== Select a Student/Staff/Course : `select` or simply click the bar
 Selecting means to view the specified item in detail.
 As mentioned in the previous section, a course may be assigned
@@ -191,31 +209,70 @@ student/s, a teacher, or assignment/s. When you select a course
 for example, you can view the list of students assigned in
 the list on the right.
 
+If the specified ID does not exist, the selected panel will become empty.
+
+
 ===== Select a Student:
-Views the list of courses of a student +
+Views details of a student and list of courses of a student +
 Format: `select sid/STUDENTID` +
-Example: `select sid/1`
+Example: `select sid/11`
 or click the desired Student bar
 
+===== Select Assignment belonging to the Course of a Student:
+Views list of Assignment belong to Course of a Student +
+Format: `select sid/STUDENTID cid/COURSEID` +
+Example: `select sid/11 cid/1`
+or click the desired Course bar under the Student
+
 ===== Select a Staff:
-Views the list of courses of a staff +
+Views the details of a staff and list of courses of a staff +
 Format: `select tid/STAFFID` +
 Example: `select tid/31`
 or click the desired Staff bar
 
 ===== Select a Course:
-Views the list of students of a course +
+Views the details of a course and list of students of a course +
 Format: `select cid/COURSEID` +
 Example: `select cid/1`
 or click the desired Course bar
 
-==== Switch between tabs : `m`, `s`, `t`, `c`, `f`, `a`
+===== Select Assignment belonging to the Student of a Course:
+Views list of Assignment belong to Student of a Course +
+Format: `select cid/COURSEID sid/STUDENTID` +
+Example: `select cid/1 sid/11`
+or click the desired Student bar under the Course
+
+===== Select a Finance:
+Views the details of a finance +
+Format: `select fid/FINANCEID` +
+Example: `select fid/801`
+or click the desired Finance bar
+
+===== Select an Assignment:
+Views the details of an assignment +
+Format: `select aid/ASSIGNMENTID` +
+Example: `select aid/901`
+or click the desired Assignment bar
+
+==== Switch between tabs : `[CTRL] + [UP ARROW]`, `[CTRL] + [DOWN ARROW]` `m`, `s`, `t`, `c`, `f`, `a`
+- The tab orders are: Summary, Staff, Course, Finance, Assignment
+- Switch quickly to previous Tab (with wrap around) : Click command box + `[CTRL]` + `[UP ARROW]`
+- Switch quickly to next Tab (with wrap around):  Click command box + `[CTRL]` + `[DOWN ARROW]`
+
 - Switch quickly to Summary Tab : `m` or `summary`
 - Switch quickly to Student Tab : `s` or `student`
 - Switch quickly to Staff Tab : `t` or `staff`
 - Switch quickly to Course Tab : `c` or `course`
 - Switch quickly to Finance Tab : `f` or `finance`
 - Switch quickly to Assignment Tab : `a` or `assignment`
+
+==== Navigate through your command history: `[UP ARROW]` or `[DOWN ARROW]`
+- Just like a typical CLI application, you can use up and down arrow keys
+to navigate through your command history
+- Click the command box and press `[UP ARROW]` or `[DOWN ARROW]`
+- Only complete and successfully executed commands will be added to this history
+- There will not be two identical commands beside each other
+
 
 ==== Saving the data
 
@@ -225,7 +282,7 @@ saving is required.
 ==== Clearing all the data
 
 Coding Camp book data can be cleared by `clear-all` command. This action will *CLEAR* all the entire address book and
-this action can not undo.
+this action can not undone.
 [WARNING]
 ====
 This will irrevocably clear the entire address book and you cannot undo it! Be very careful with this command.
@@ -234,7 +291,7 @@ This will irrevocably clear the entire address book and you cannot undo it! Be v
 // tag::studentmanagement[]
 
 === Student
-.Student label. The assigned courses display the course names with the course ID beside
+.List of Students. Shows details and list of courses of selected student. The list of Assignments is also shown for the selected course
 image::studentTab.png[width="1000"]
 ==== Add a student: `add-student`
 
@@ -243,6 +300,14 @@ Format: `add student n/NAME g/GENDER [t/TAG]…` +
 Example:
 * `add student n/Jon Snow g/m t/Hardworking`
 
+[TIP]
+====
+The Gender of the Student is shown in the form of a little icon
+on the left. This automatically updates when you `edit-student 12 g/f` or `edit-student 12 g/m` as well.
+Try it!
+====
+
+
 ==== Remove a student: `delete-student`
 Remove a student from the list of students +
 Format: `delete-student ID` +
@@ -250,14 +315,13 @@ Example:
 
 * `delete-student 16100`
 ****
-* Edits the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel list
+* Deletes the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel list
 * The ID *must be a positive integer* 16100, 25200, 55250, ...
 ****
-[TIP]
+[NOTE]
 ====
 Be reminded that when you delete a student, the student will be deleted from every course as well +
 For example, a course that was only assigned to this student *Bob* will change to *None* if student *Bob* is deleted. +
-Similarly, all finances that involve this student will be deleted.
 ====
 
 ==== Locating items by name: `find-student`
@@ -287,7 +351,7 @@ Format: `list-student`
 
 ==== Edit information about a student: `edit-student`
 Edits an existing student in the student list
-Format: `edit-student ID [n/NAME] [t/TAG]…` +
+Format: `edit-student ID [n/NAME] [g/GENDER] [t/TAG]…` +
 Example:
 
 * `edit-student 16100 n/Aegon Targaryen t/freshman`
@@ -306,7 +370,7 @@ Example:
 // tag::teachermanagement[]
 
 === Staff
-.Staff label. For staffs that are teachers, the assigned courses display the course names with the course ID beside
+.List of Staffs. Shows details and list of courses of selected staff
 image::teacherTab.png[width="1000"]
 ==== Add a staff: `add-staff`
 
@@ -314,6 +378,21 @@ Add a new staff to the list of staff +
 Format: `add-staff n/NAME [t/TAG]…` +
 Example:
 * `add-staff n/Jon Snow lvl/teacher g/m t/Hardworking`
+[WARNING]
+====
+The lvl of the staff refers to the Staff Type. It can only be
+specified as `teacher` or `admin`. Only a `teacher` can be assigned
+to a course. An `admin` cannot be assigned to a course. +
+A `teacher` is paid by the courses that he/she teaches. (finance type ft/ct)
+An `admin` is paid by miscellaneous transactions. (finance type ft/m)
+====
+
+[TIP]
+====
+The Gender of the Staff is shown in the form of a little icon
+on the left. This automatically updates when you `edit-staff 31 g/f` or `edit-staff 31 g/m` as well.
+Try it!
+====
 
 ==== Remove a staff: `delete-staff`
 Remove a staff from the list of teachers +
@@ -322,14 +401,13 @@ Example:
 
 * `delete-staff 16100`
 ****
-* Edits the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel
+* Deletes the item at the specified `ID`. The ID refers to the ID number shown in the displayed item panel
 * The ID *must be a positive integer* 16100, 25200, 52500, ...
 ****
-[TIP]
+[NOTE]
 ====
-Be reminded that when you delete a staff having Level is a teacher, the teacher will be deleted from every course as well. +
+Be reminded that when you delete a staff that is of staff type: Teacher, the teacher will be deleted from every course as well. +
 For example, a course that was assigned teacher *Bob* will change to *None* if teacher *Bob* is deleted. +
-Similarly, all finances that involve this teacher will be deleted.
 ====
 
 ==== Locating items by name: `find-teacher`
@@ -359,7 +437,7 @@ Format: `list-staff`
 
 ==== Edit information about a staff: `edit-staff`
 Edits an existing staff in the staff list
-Format: `edit-teacher ID [n/NAME] [t/TAG]…` +
+Format: `edit-staff ID [n/NAME] [g/GENDER] [p/PHONE] [e/EMAIL] [s/SALARY] [a/ADDRESS] [t/TAG]...` +
 Example:
 
 * `edit-staff 16100 n/Aegon Targaryen t/legend`
@@ -378,7 +456,7 @@ Example:
 // tag::coursemanagement[]
 
 === Course
-.Course label. The assigned teachers/students display the teacher/student names with the teacher/student ID beside
+.List of Courses. Shows details and list of students of selected Course. The list of Assignments is also shown for the selected Student
 image::courseTab.png[width="1000"]
 ==== Add a course: `add-course`
 
@@ -394,16 +472,24 @@ Example:
 
 * `delete-course 16100`
 
-[TIP]
+[NOTE]
 ====
 Be reminded that when you delete a course, the course will be deleted from every student and teacher as well. +
 For example, a teacher that was only assigned to this course *Java* will change to *None* if course *Java* is deleted. +
-Similarly, all finances that involve this course will be deleted.
 ====
-==== Edit a course: `edit-course`
+==== Edit information about a course: `edit-course`
+Edits an existing course in the course list
+Format: `edit-course ID [n/NAME] [a/AMOUNT] [t/TAG]...` +
+Example:
+
+* `edit-course 1 n/Java 101 a/1000 t/intermediate`
 ****
-* Edits the item at the specified `ID`. The ID refers to the ID number shown in the displayed item list
-* The ID *must be a positive integer* 16100, 25200, 55250, ...
+* Edits the course at the specified `ID`. The ID refers to the ID number shown in the displayed course panel
+* The ID *must be a positive integer* 16100, 25200, 52500, ...
+* At least one of the optional fields must be provided
+* Existing values will be updated to the input values
+* When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
+* You can remove all the course's tags by typing `t/` without specifying any tags after it
 ****
 
 ==== Locating items by name: `find-course`
@@ -451,7 +537,7 @@ Example:
 // tag::financemanagement[]
 
 === Finance
-.Finance labels. Type m is Finance Type 1, Type cs is Finance Type 2, and Type ct is Finance Type 3
+.List of Finances. Shows details of selected Finance. Type m is Finance Type 1, Type cs is Finance Type 2, and Type ct is Finance Type 3
 image::financeTab.png[width="1000"]
 ==== Add a finance: `add-finance`
 
@@ -553,7 +639,7 @@ Format: `expenses`
 // tag::assignmentmanagement[]
 
 === Assignment
-.Assignment labels.
+.List of Assignments. Shows details of selected Assignment.
 image::assignmentTab.png[width="1000"]
 
 ==== Add an assignment: `add-assignment`
@@ -576,9 +662,17 @@ Example:
 * Deletes the item at the specified `ID`. The ID refers to the ID number shown in the displayed item list
 * The ID *must be a positive integer* 16100, 25200, 52500, ...
 ****
+[NOTE]
+====
+Be reminded that when you delete an assignment, the assignment will be deleted from every course as well. +
+Furthermore, the progress of the assignment will also be removed from every course of any student +
+and every student of any course. +
+For example, a student that was only assigned to a course that contains only this assignment
+will have no assignment left after this assignment is deleted.
+====
 
 ==== Edit an assignment: `edit-assignment`
-Format: `edit-assignment ID [n/NAME dl/DEADLINE t/TAGS]` +
+Format: `edit-assignment ID [n/NAME] dl/DEADLINE t/TAGS]` +
 Example:
 
 * `edit-assignment 16100 n/Edit Python Assignment 1`
@@ -676,10 +770,12 @@ contains the data of your previous *CodeCampX* folder.
 .2+|Undo/Redo
 |*Undo an undoable command* |`undo` |`undo`
 |*Redo a redoable command* |`redo` |`redo`
-.3+|Select item
+.5+|Select item
 |*Select a Student* | `select sid/STUDENTID` |`select sid/1`
 |*Select a Staff* | `select tid/STAFFID` | `select tid/31`
 |*Select a Course* | `select cid/COURSEID` | `select cid/1`
+|*Select Assignment belonging to the Course of a Student:* | `select sid/STUDENTID cid/COURSEID` | `select sid/11 cid/1`
+|*Select Assignment belonging to the Student of a Course:* | `select cid/COURSEID sid/STUDENTID` | `select cid/1 sid/11`
 .6+|Switch tab
 |*Switch to Summary Tab* | `m` or `summary`  | `m` or `summary`
 |*Switch to Student Tab* | `s` or `student`  | `s` or `student`
@@ -694,25 +790,25 @@ contains the data of your previous *CodeCampX* folder.
 |*Unassign Student from a Course* | `unassign cid/COURSEID sid/STUDENTID`  |`unassign cid/829 sid/33`
 |*Unassign Teacher from a Course* | `unassign cid/COURSEID tid/TEACHERID`  | `unassign cid/829 tid/21`
 |*Unassign Assignment from a Course* | `unassign cid/COURSEID aid/ASSIGNMENTID`  | `unassign cid/829 aid/21`
-.6+|Student Commands
+.5+|Student Commands
 |*Add Student* |`add-student n/NAME [t/TAG]…` | `add-student n/Jon Snow t/Hardworking`
 |*Delete Student* | `delete-student ID` | `delete-student 16100`
 |*Find Student* | `find-student KEYWORD [MORE_KEYWORDS]...` | `find-student Lannister Targaryen Stark`
 |*List Student* | `list-student` | `list-student`
 | *Edit Student* | `edit-student ID [n/NAME] [t/TAG]…` | `edit-student 16100 n/Aegon Targaryen t/knownothing`
-.6+|Teacher Commands
+.5+|Teacher Commands
 |*Add Teacher* |`add-staff n/NAME [t/TAG]…` |`add-staff n/Jon Snow t/Hardworking`
 |*Delete Teacher* | `delete-staff ID` | `delete-staff 16100`
 |*Find Teacher* | `find-staff KEYWORD [MORE_KEYWORDS]...` | `find-staff Lannister Targaryen Stark`
 |*List Teacher* | `list-staff` | `list-staff`
 | *Edit Teacher* | `edit-staff ID [n/NAME] [t/TAG]…` | `edit-staff 16100 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
-.6+|Course Commands
+.5+|Course Commands
 |*Add Course* |`add-course n/NAME a/AMOUNT [t/TAG]…` | `add-course n/Cozmo Programming a/2000 t/Fun t/Robot`
 |*Delete Course* | `delete-course ID` | `delete-course 16100`
 |*Find Course* | `find-course KEYWORD [MORE_KEYWORDS]...` | `find-course Java Python C`
 |*List Course* | `list-course` | `list-course`
 | *Edit Course* | `edit-course ID [n/NAME] [a/AMOUNT] [t/TAG]…` | `edit-course 16100 n/Java Programming a/2000`
-.9+|Finance Commands
+.8+|Finance Commands
 |*Add Finance Type 1 (ft/m)* |`add-finance ft/FINANCETYPE d/DATE n/NAME a/AMOUNT [t/TAG]...` |`add-finance ft/m d/2020-12-09 n/Paid NTU a/1200 t/Partnership t/Monthly`
 |*Add Finance Type 2 (ft/cs)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID sid/STUDENTID [t/TAG]...` |`add-finance ft/cs d/2020-12-09 cid/829 sid/33 t/Late`
 |*Add Finance Type 3 (ft/ct)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID tid/TEACHERID [t/TAG]...` |`add-finance ft/ct d/2020-12-09 cid/829 tid/21 t/Early`

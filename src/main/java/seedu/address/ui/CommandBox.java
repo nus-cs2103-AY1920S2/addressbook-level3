@@ -143,6 +143,8 @@ public class CommandBox extends UiPart<Region> {
    */
   private String getPreviousView(String view){
     switch (view) {
+      case "SUMMARY":
+        return "ASSIGNMENT";
       case "STUDENT":
         return "SUMMARY";
       case "STAFF":
@@ -173,6 +175,8 @@ public class CommandBox extends UiPart<Region> {
         return "FINANCE";
       case "FINANCE":
         return "ASSIGNMENT";
+      case "ASSIGNMENT":
+        return "SUMMARY";
       default:
         return "NONE";
     }
