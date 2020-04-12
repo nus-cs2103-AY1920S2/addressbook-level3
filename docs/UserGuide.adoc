@@ -153,6 +153,7 @@ e.g: `additem -i pizza -p 19.90 -n charlotte`.
 (i.e. 0 times), `-n Charlotte`, `-n Alice -n Bob` etc.
 ====
 
+[[help]]
 === Display the available commands : `help`
 
 In this section, you will learn more about `help` command, <<howtousehelpcommand, how to use it>>
@@ -933,6 +934,7 @@ image::placeholder.png[]
 
 '''
 
+[[exit]]
 === Exiting the Application : `exit`
 
 In this section, you will learn more about `exit` command, <<howtouseexitcommand, how to use it>>
