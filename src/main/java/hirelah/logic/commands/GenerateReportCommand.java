@@ -113,6 +113,7 @@ public class GenerateReportCommand extends Command {
             PDDocument document = new PDDocument();
             //printTitlePart(document, interviewee.getFullName());
             Pair<Integer, PDPage> positionAfterAttributeScorePrinting = printNameAndAttributeScoresPart(document, interviewee.getFullName().toUpperCase(), attributeToScoreData);
+            System.out.println(document.getNumberOfPages());
             printRemarksPart(document, remarks, positionAfterAttributeScorePrinting);
             //currentPage.getPageContentStream().endText();
             //currentPage.getPageContentStream().close();
@@ -156,50 +157,64 @@ public class GenerateReportCommand extends Command {
             }
             stringBuilder.append(", ");
         }
-        ArrayList<String> splitAttributeScoresSentence = splitSentence(stringBuilder.toString(), 85);
-        ArrayList<String> splitName = splitSentence(fullName, 85);
+        System.out.println(stringBuilder.toString());
+        ArrayList<String> splitAttributeScoresSentence = splitSentence(stringBuilder.toString(), 82);
+        ArrayList<String> splitName = splitSentence(fullName, 70);
+        System.out.println(splitName);
         splitAttributeScoresSentence.add(0, ATTRIBUTE_SCORE_TITLE);
         splitAttributeScoresSentence.addAll(0, splitName);
         return  generateAttributeScores(document, splitName.size(), splitAttributeScoresSentence);
     }
 
     private static Pair<Integer, PDPage> generateAttributeScores(PDDocument document, int nameListSize, ArrayList<String> nameAndAttributeScoreList) throws IOException {
-        boolean onePageOnly = true;
-        while (nameAndAttributeScoreList.size() > 60) {
-            onePageOnly = false;
+        System.out.println(nameAndAttributeScoreList.size());
+        for (String s: nameAndAttributeScoreList) System.out.println(s);
+        boolean firstPage = true;
+        while (nameAndAttributeScoreList.size() > 57) {
             ArrayList<String> firstSixtyAttributeScoresList = new ArrayList<>();
-            for (int i = 0; i < 60; i++) {
-                firstSixtyAttributeScoresList.add(nameAndAttributeScoreList.get(i));
-                nameAndAttributeScoreList.remove(i);
+            for (int i = 0; i < 57; i++) {
+                firstSixtyAttributeScoresList.add(nameAndAttributeScoreList.get(0));
+                nameAndAttributeScoreList.remove(0);
             }
-            generateAttributeScoresPage(document, nameListSize, firstSixtyAttributeScoresList);
+            System.out.println("PANGGILA GENERATE");
+
+            generateAttributeScoresPage(document, firstPage? nameListSize : 0, firstSixtyAttributeScoresList);
+            firstPage = false;
         }
-        int verticalSpacing = onePageOnly? nameAndAttributeScoreList.size() *13 + 40 : nameAndAttributeScoreList.size() *13;
-        return new Pair<>(verticalSpacing, generateAttributeScoresPage(document, nameListSize, nameAndAttributeScoreList));
+        int verticalSpacing = firstPage? nameAndAttributeScoreList.size() *13 + 40 : nameAndAttributeScoreList.size() *13 + 20;
+        System.out.println("PANGGILAN GENERATE");
+        System.out.println(verticalSpacing);
+
+        return new Pair<>(verticalSpacing, generateAttributeScoresPage(document, firstPage? nameListSize : 0, nameAndAttributeScoreList));
     }
 
     private static PDPage generateAttributeScoresPage(PDDocument document, int nameListSize, ArrayList<String> sentenceList) throws IOException {
+        System.out.println("AKU DIPANNGIL LG HELP");
         PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
         PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
+        PDFont font = PDType1Font.HELVETICA_BOLD_OBLIQUE;
+        int fontSize = 15;
+        pageContentStream.setFont(font, fontSize);
+        pageContentStream.beginText();
         float startX = 0;
+        pageContentStream.newLineAtOffset(0, 800);
         for (int i = 0; i < nameListSize; i++) {
-            PDFont font = PDType1Font.HELVETICA_BOLD_OBLIQUE;
-            int fontSize = 15;
-            pageContentStream.setFont(font, fontSize);
-            pageContentStream.beginText();
-            startX = (page.getMediaBox().getWidth() - (font.getStringWidth(sentenceList.get(i)) / 1000 * fontSize)) / 2;
-            pageContentStream.newLineAtOffset(startX, 800);
-            pageContentStream.showText(sentenceList.get(i));
-            sentenceList.remove(i);
-            pageContentStream.newLineAtOffset(0, -15);
+            startX = (page.getMediaBox().getWidth() - (font.getStringWidth(sentenceList.get(0)) / 1000 * fontSize)) / 2;
+            pageContentStream.newLineAtOffset(startX, 0);
+            pageContentStream.showText(sentenceList.get(0));
+            sentenceList.remove(0);
+            pageContentStream.newLineAtOffset(-startX, -15);
         }
-        pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 13);
-        pageContentStream.newLineAtOffset(50 - startX, -15);
-        pageContentStream.showText(sentenceList.get(0));
-        sentenceList.remove(0);
-        pageContentStream.newLineAtOffset(0, -15);
-
+        if (sentenceList.get(0).equals(ATTRIBUTE_SCORE_TITLE)) {
+            pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 13);
+            pageContentStream.newLineAtOffset(50, -15);
+            pageContentStream.showText(sentenceList.get(0));
+            sentenceList.remove(0);
+            pageContentStream.newLineAtOffset(0, -15);
+        } else {
+            pageContentStream.newLineAtOffset(50, -15);
+        }
         pageContentStream.setFont(PDType1Font.HELVETICA, 12);
         for (String currentString : sentenceList) {
             pageContentStream.showText(currentString);
@@ -216,28 +231,28 @@ public class GenerateReportCommand extends Command {
         ArrayList<Remark> remarkList = new ArrayList<>();
         remarkList.addAll(remarks);
         int currentYOffset = 800 - startingPosition.getKey();
+        System.out.println("PAGESNYA SEGinIN GEngS");
+        System.out.println(document.getNumberOfPages());
         System.out.println(currentYOffset);
         boolean firstPage = true;
         ArrayList<TableRowEntry> rowsInAPage = new ArrayList<>();
         for (Remark currentRemark : remarkList) {
             ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage(), 80);
+            boolean firstSentence = true;
             for (String currentLine : splitRemarks) {
                 TableRowEntry currentRow = new TableRowEntry(currentLine,
-                        currentLine.equals(splitRemarks.get(0))? currentRemark.getTimeString() : "",
-                        currentLine.equals(splitRemarks.get(0))? -20 : -13);
+                        firstSentence? currentRemark.getTimeString() : "",
+                        firstSentence? -20 : -13);
                 rowsInAPage.add(currentRow);
-                currentYOffset -= (currentLine.equals(splitRemarks.get(0))? 20 : 13);
+                currentYOffset -= (firstSentence? 20 : 13);
+                firstSentence = false;
                 if (currentYOffset < 50) {
                     if (firstPage) {
-                        System.out.println(currentYOffset);
-                        System.out.println("els1e");
                         generatePartialRemarkPage(document, startingPosition, rowsInAPage);
                         rowsInAPage = new ArrayList<>();
                         currentYOffset = 800;
                         firstPage = false;
                     } else {
-                        System.out.println(currentYOffset);
-                        System.out.println("else");
                         generateFullRemarkPage(document, rowsInAPage);
                         rowsInAPage = new ArrayList<>();
                         currentYOffset = 800;
@@ -250,8 +265,6 @@ public class GenerateReportCommand extends Command {
                 if (firstPage) {
                     generatePartialRemarkPage(document, startingPosition, rowsInAPage);
                 } else {
-                    System.out.println(currentYOffset);
-                    System.out.println("elsaaa");
                     firstPage = false;
                     generateFullRemarkPage(document, rowsInAPage);
                     rowsInAPage = new ArrayList<>();
@@ -263,8 +276,6 @@ public class GenerateReportCommand extends Command {
             generatePartialRemarkPage(document, startingPosition, rowsInAPage);
         } else {
             firstPage = false;
-            System.out.println(currentYOffset);
-            System.out.println("elsaaaaaaaaaa");
             generateFullRemarkPage(document, rowsInAPage);
             rowsInAPage = new ArrayList<>();
             currentYOffset = 800;
@@ -281,6 +292,10 @@ public class GenerateReportCommand extends Command {
         pageContentStream.showText(REMARKS_TITLE);
         pageContentStream.newLineAtOffset(-50, 0);
         pageContentStream.setFont( PDType1Font.HELVETICA , 12 );
+        if (rowList.isEmpty()) {
+            pageContentStream.newLineAtOffset(50, -20);
+            pageContentStream.showText("-");
+        }
         while(!rowList.isEmpty()) {
             pageContentStream.newLineAtOffset(50, rowList.get(0).getValueYOffset());
             pageContentStream.showText(rowList.get(0).getDuration());
@@ -422,13 +437,15 @@ public class GenerateReportCommand extends Command {
      * @param limit the maximum number of characters per line
      */
     private static ArrayList<String> splitSentence(String sentence, int limit) {
-        int numberOfLines = (sentence.length()/80) + 1;
         ArrayList<String> splitRemarks = new ArrayList<>();
         String[] words = sentence.split(" ");
 
         int i = 0;
-        while (splitRemarks.size() < numberOfLines) {
+        while (true) {
             StringBuilder currentBuilder = new StringBuilder();
+            if (i >= words.length) {
+                break;
+            }
             while (i < words.length) {
                 String currentWord = words[i];
                 if (currentWord.length() > limit) {
@@ -443,7 +460,7 @@ public class GenerateReportCommand extends Command {
                     currentBuilder.append(currentWord + " ");
                     currentWord = words[++i];
                 }
-                if (currentBuilder.length() + currentWord.length() > limit -1) {
+                if (currentBuilder.length() + currentWord.length() > limit) {
                     break;
                 }
                 currentBuilder.append(currentWord + " ");
@@ -452,5 +469,6 @@ public class GenerateReportCommand extends Command {
             splitRemarks.add(currentBuilder.toString());
         }
         return splitRemarks;
+
     }
 }
