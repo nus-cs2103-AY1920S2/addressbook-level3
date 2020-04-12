@@ -1,0 +1,104 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFF
+
+Class Entry {
+ - type :Type
+ - name : Name
+ - time : Time
+ - location : Location
+ - calorie : Calorie
+ - status : Status
+ - remark : Remark
+ - duration : Duration
+ + getType()
+ + getName()
+ + getLocation()
+ + getTime()
+ + getDate()
+ + getDateTime()
+ + getEndTime()
+ + getCalorie()
+ + getCalorieValue()
+ + getMinutes()
+ + getHours()
+ + getDuration()
+ + addRemark(remark:Remark)
+ + getRemark()
+ + getStatus()
+ + isFood()
+ + isSports()
+ + isDone()
+ + isUndone()
+ + isToday(dateStr: String)
+ + isSameEntry(anotherEntry: Entry)
+ + hasTimeClashes(anotherEntry: Entry)
+ + hasTimeClashes(entry:Entry, toBeCompared: Entry)
+}
+
+Class Name {
+ + value : String
+ + isValidName()
+}
+
+Class Type {
+ - value : String
+ + isValidType()
+ + getValue()
+}
+
+Class Calorie {
+ + value : String
+ + isValidCalorie()
+ + getValue()
+}
+
+Class Location {
+ + value : String
+ + isValidLocation()
+}
+
+Class Time {
+ + value : String
+ + date : LocalDate
+ + time : LocalTime
+ + dateTime : LocalDateTime
+ + isValidTime()
+ + concat()
+ + getDate()
+ + getDateStr()
+ + getDateTime()
+}
+
+Class Duration {
+ + value : String
+ + isValidDuration()
+ + getValue()
+ + getMinutes()
+ + getHours()
+}
+
+Class Status {
+ + value : String
+ + isValidStatus()
+}
+
+Class Remark {
+ + value : String
+ + isValidRemark()
+}
+
+Entry *-left-> "1" Name
+Entry *-right-> "1" Remark
+Entry *-down-> "1" Calorie
+Entry *-down-> "1" Location
+Entry *-down-> "1" Time
+Entry *-down-> "1" Duration
+Entry *-down-> "1" Status
+Entry *-down-> "1" Type
+
+@enduml

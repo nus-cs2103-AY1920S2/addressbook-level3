@@ -9,7 +9,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class Duration {
 
-    public static final String MESSAGE_CONSTRAINTS = "Duration can only be greater than or equals to 0 (hrs)";
+    public static final String MESSAGE_CONSTRAINTS = "Duration can only be greater than or equals to 0.02 (hrs),"
+            + "\n with smallest accuracy set to 0.02 (1 min)";
 
     /*
      * The first character of the entry name must not be a whitespace,
@@ -37,7 +38,7 @@ public class Duration {
         boolean isValid;
         try {
             double temp = Double.parseDouble(test);
-            if (temp >= 0) {
+            if (temp >= 0.02) {
                 if (test.matches(VALIDATION_REGEX)) {
                     isValid = true;
                 } else {

@@ -241,7 +241,12 @@ public class Entry {
         return anotherEntry != null
                 && anotherEntry.getName().equals(getName())
                 && (anotherEntry.getLocation().equals(getLocation()))
-                && (anotherEntry.getTime().equals(getTime()));
+                && (anotherEntry.getTime().equals(getTime()))
+                && (anotherEntry.getType().equals(getType()))
+                && (anotherEntry.getStatus().equals(getStatus()))
+                && (anotherEntry.getRemark().equals(getRemark()))
+                && (anotherEntry.getCalorie().equals(getCalorie()))
+                && (anotherEntry.getDuration().equals(getDuration()));
     }
 
     /**

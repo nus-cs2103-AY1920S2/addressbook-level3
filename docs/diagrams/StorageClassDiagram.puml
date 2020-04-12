@@ -4,16 +4,29 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
-Interface Storage <<Interface>>
-Interface FitHelperStorage <<Interface>>
+Package Storage <<Rectangle>> {
+    Interface Storage <<Interface>>
+    Interface FitHelperStorage <<Interface>>
+    Interface UserPrefsStorage <<Interface>>
+    Interface UserProfileStorage <<Interface>>
+    Interface WeightRecordsStorage <<Interface>>
 
-Class StorageManager
-Class JsonFitHelperStorage
+    Class StorageManager
+    Class JsonUserPrefsStorage
+    Class JsonFitHelperStorage
+    Class JsonUserProfileStorage
+    Class JsonWeightRecordsStorage
+}
 
-StorageManager .left.|> Storage
-StorageManager o--> FitHelperStorage
+StorageManager .up.|> Storage
 
-JsonFitHelperStorage .left.|> FitHelperStorage
-JsonFitHelperStorage .down.> JsonSerializableFitHelperStorage
-JsonSerializableFitHelperStorage .right.> JsonSerializableEntry
+StorageManager o-left-> "1" UserPrefsStorage
+StorageManager o-right-> "1" UserProfileStorage
+StorageManager o-down-> "1" FitHelperStorage
+StorageManager o-down-> "1" WeightRecordsStorage
+
+JsonUserPrefsStorage .right.> UserPrefsStorage
+JsonUserProfileStorage .left.> UserProfileStorage
+JsonFitHelperStorage .up.> FitHelperStorage
+JsonWeightRecordsStorage .up.> WeightRecordsStorage
 @enduml

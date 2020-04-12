@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFF
+
+Class WeightRecords
+Class UniqueWeightList
+Class Weight
+Class Date
+Class WeightValue
+Class Bmi
+
+WeightRecords *-down-> "1" UniqueWeightList
+UniqueWeightList *-down-> "*" Weight
+Weight *-down-> "1" Date
+Weight *-down-> "1" WeightValue
+Weight *-down-> "1" Bmi
+
+@enduml

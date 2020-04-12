@@ -4,48 +4,25 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model <<Rectangle>>{
-Interface ReadOnlyFitHelper <<Interface>>
-Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
-Class FitHelper
-Class ReadOnlyFitHelper
-Class Model
-Class ModelManager
+Package Model <<Rectangle>> {
+    Interface Model <<Interface>>
 
-Package Entry {
-Class Calorie
-Class Duration
-Class Name
-Class Time
-Class Type
-Class Location
-Class Remark
-Class Status
-Class UniqueEntryList
+    Class FitHelper
+    Class FitHelperCommit
+    Class UserPrefs
+    Class UserProfile
+    Class VersionedFitHelper
+    Class WeightRecords
+    Class ModelManager
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
-
-Entry .up.|> ReadOnlyFitHelper
-
 ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" FitHelper
 
-FitHelper *--> "2" UniqueEntryList
-UniqueEntryList o--> "*" Entry
-Entry *--> Calorie
-Entry *--> Duration
-Entry *--> Name
-Entry *--> Time
-Entry *--> Type
-Entry *--> Location
-Entry *--> Remark
-Entry *--> Status
+ModelManager o-left-> "1" UserPrefs
+ModelManager o-right-> "1" UserProfile
+ModelManager o-down-> "1" WeightRecords
+ModelManager o-down-> "1" FitHelper
+ModelManager o-down-> "1" VersionedFitHelper
+ModelManager o-down-> "1" FitHelperCommit
 
-
-ModelManager -->"1" Entry : filtered list
 @enduml
-

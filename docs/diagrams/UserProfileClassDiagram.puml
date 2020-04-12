@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFF
+
+Class UserProfile
+Class Profile
+Class Address
+Class Gender
+Class Height
+Class Name
+Class TargetWeight
+Class WeightValue
+Class Bmi
+
+UserProfile *-down-> "1" Profile
+Profile *-left-> "1" Address
+Profile *-right-> "1" Gender
+Profile *-down-> "1" Height
+Profile *-down-> "1" Name
+Profile *-down-> "1" TargetWeight
+Profile *-down-> "1" WeightValue
+Profile *-down-> "1" Bmi
+
+
+@enduml

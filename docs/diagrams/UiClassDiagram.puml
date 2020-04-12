@@ -11,11 +11,8 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class FoodListPanel
-Class SportsListPanel
-Class SportsCard
-Class FoodCard
-Class StatusBarFooter
+Class XYZPanel
+Class XYZCard
 Class CommandBox
 }
 
@@ -27,6 +24,8 @@ package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 }
 
+note "XYZCard & XYZPanel refer to the\nindividual components of FitHelper." as N1
+
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
@@ -35,32 +34,27 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> FoodListPanel
-MainWindow *-down-> SportsListPanel
+MainWindow *-down-> XYZPanel
 
-FoodListPanel -down-> FoodCard
-SportsListPanel -down-> SportsCard
+XYZPanel -down-> XYZCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-FoodListPanel --|> UiPart
-SportsListPanel --|> UiPart
-FoodCard --|> UiPart
-SportsCard --|> UiPart
+XYZPanel --|> UiPart
+XYZCard --|> UiPart
 HelpWindow -down-|> UiPart
 
-FoodCard ..> Model
-SportsCard ..> Model
+XYZCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-FoodListPanel -[hidden]left- HelpWindow
-SportsListPanel -[hidden]left- HelpWindow
+XYZPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
 
+XYZPanel .. N1
+XYZCard .. N1
 MainWindow -[hidden]-|> UiPart
 @enduml

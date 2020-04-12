@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFF
+
+Class VersionedFitHelper
+Class FitHelperCommit
+Class ReadOnlyFitHelper
+
+VersionedFitHelper *-down-> "*" FitHelperCommit
+FitHelperCommit *-down-> "1" ReadOnlyFitHelper
+@enduml
