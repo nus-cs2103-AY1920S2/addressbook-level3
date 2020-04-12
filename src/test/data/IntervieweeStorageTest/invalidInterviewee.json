@@ -7,9 +7,9 @@
     "resume" : null,
     "transcript" : false
   },{
-    "fullName" : "JANE",
+    "fullName" : "invalid alias",
     "id" : 2,
-    "alias" : "lucky girl",
+    "alias" : 123,
     "resume" : null,
     "transcript" : false
   } ]
