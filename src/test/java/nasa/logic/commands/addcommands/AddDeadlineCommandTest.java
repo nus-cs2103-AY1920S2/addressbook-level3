@@ -26,7 +26,7 @@ public class AddDeadlineCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
+        model = new ModelManager(new NasaBook(), new HistoryBook<>(), new HistoryBook<>(), new UserPrefs());
         module = new Module(new ModuleCode(VALID_MODULE_CODE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
         model.addModule(module);
     }
@@ -35,7 +35,8 @@ public class AddDeadlineCommandTest {
     public void execute_newDeadline_success() {
         Deadline deadline = new DeadlineBuilder().build();
 
-        Model expectedModel = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
+        Model expectedModel = new ModelManager(new NasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
         expectedModel.addModule(new Module(new ModuleCode(VALID_MODULE_CODE_CS1231),
                 new ModuleName(VALID_MODULE_NAME_CS1231)));
         expectedModel.addDeadline(new ModuleCode(VALID_MODULE_CODE_CS1231), deadline);

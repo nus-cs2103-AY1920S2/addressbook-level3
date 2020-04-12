@@ -21,8 +21,10 @@ import nasa.testutil.NasaBookBuilder;
 
 public class FindCommandTest {
 
-    private Model model = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(), new UserPrefs());
-    private Model expectedModel = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(), new UserPrefs());
+    private Model model = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(), new HistoryBook<>(),
+            new UserPrefs());
+    private Model expectedModel = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(),
+            new HistoryBook<>(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -63,7 +65,8 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleActivitiesFound() {
-        expectedModel = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(), new UserPrefs());
+        expectedModel = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
 
         String expectedMessage = String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW, 4);
         ActivityContainsKeyWordsPredicate predicate = preparePredicate("Lab");

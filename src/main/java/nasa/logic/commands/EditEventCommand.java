@@ -53,6 +53,8 @@ public class EditEventCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
     public static final String MESSAGE_NO_NEW_EDIT = "No new field is being edited.";
+    public static final String MESSAGE_NO_PAST_EVENT = "Cannot edit event to an end date that has passed.";
+    public static final String MESSAGE_INVALID_DATE = "Cannot edit event to have end date before start date.";
 
     private final Index index;
     private final ModuleCode moduleCode;
@@ -83,8 +85,7 @@ public class EditEventCommand extends Command {
         List<Event> lastShownList = model.getFilteredEventList(moduleCode);
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(
-                    Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
         Event eventToEdit = lastShownList.get(index.getZeroBased());
@@ -92,6 +93,14 @@ public class EditEventCommand extends Command {
         requireNonNull(eventToEdit);
 
         Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
+
+        if (!editedEvent.isValidStartEndDates(editedEvent.getStartDate(), editedEvent.getEndDate())) {
+            throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_INVALID_DATE);
+        }
+
+        if (!editedEvent.isValidFutureEvent(editedEvent.getEndDate())) {
+            throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_PAST_EVENT);
+        }
 
         if (eventToEdit.isSameEvent(editedEvent)) { // if edit is exactly the same as the original
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_NEW_EDIT);
@@ -103,18 +112,17 @@ public class EditEventCommand extends Command {
         model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
 
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
+
     }
 
     /**
      * Creates and returns an {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editModuleDescriptor}.
      */
-    private static Event createEditedEvent(Event eventToEdit,
-                                                  EditEventDescriptor editEventDescriptor) {
+    private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
         requireNonNull(eventToEdit);
 
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
-        // by default date created cannot be edited, and will take previous value
         Date updatedDateCreated = editEventDescriptor.getDateCreated().orElse(eventToEdit.getDateCreated());
         Note updatedNote = editEventDescriptor.getNote().orElse(eventToEdit.getNote());
         Date updatedStartDate = editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());

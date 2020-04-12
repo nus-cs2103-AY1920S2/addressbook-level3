@@ -53,6 +53,7 @@ public class EditDeadlineCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
     public static final String MESSAGE_NO_NEW_EDIT = "No new field is being edited.";
+    public static final String MESSAGE_NO_PAST_DEADLINE = "Cannot edit deadline to a date that has passed.";
 
     private final Index index;
     private final ModuleCode moduleCode;
@@ -83,8 +84,7 @@ public class EditDeadlineCommand extends Command {
         List<Deadline> lastShownList = model.getFilteredDeadlineList(moduleCode);
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(
-                    Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
         Deadline deadlineToEdit = lastShownList.get(index.getZeroBased());
@@ -92,6 +92,10 @@ public class EditDeadlineCommand extends Command {
         requireNonNull(deadlineToEdit);
 
         Deadline editedDeadline = createEditedDeadline(deadlineToEdit, editDeadlineDescriptor);
+
+        if (!editedDeadline.isValidDeadline(editedDeadline.getDueDate())) {
+            throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_PAST_DEADLINE);
+        }
 
         // case when edit made to deadline is exactly the same
         if (deadlineToEdit.isSameDeadline(editedDeadline)) {
@@ -111,16 +115,14 @@ public class EditDeadlineCommand extends Command {
      * edited with {@code editModuleDescriptor}.
      */
     private static Deadline createEditedDeadline(Deadline deadlineToEdit,
-                                                  EditDeadlineDescriptor editDeadlineDescriptor) {
+                                                 EditDeadlineDescriptor editDeadlineDescriptor) {
         requireNonNull(deadlineToEdit);
-
         Name updatedName = editDeadlineDescriptor.getName().orElse(deadlineToEdit.getName());
         // by default date created cannot be edited, and will take previous value
         Date updatedDateCreated = editDeadlineDescriptor.getDateCreated().orElse(deadlineToEdit.getDateCreated());
         Note updatedNote = editDeadlineDescriptor.getNote().orElse(deadlineToEdit.getNote());
         Priority updatedPriority = editDeadlineDescriptor.getPriority().orElse(deadlineToEdit.getPriority());
         Date updatedDueDate = editDeadlineDescriptor.getDueDate().orElse(deadlineToEdit.getDueDate());
-
         return new Deadline(updatedName, updatedDateCreated, updatedNote, updatedPriority, updatedDueDate);
 
     }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import nasa.commons.core.index.Index;
 import nasa.model.activity.exceptions.ActivityNotFoundException;
 import nasa.model.activity.exceptions.DuplicateActivityException;
@@ -67,7 +68,6 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
         requireAllNonNull(targetActivity, editedActivity);
 
         int index = internalList.indexOf(targetActivity);
-
         if (index == -1) {
             throw new ActivityNotFoundException();
         }
@@ -76,7 +76,6 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
         if (!targetActivity.equals(editedActivity) && contains(editedActivity)) {
             throw new DuplicateActivityException();
         }
-
         internalList.set(index, editedActivity);
     }
 
@@ -115,7 +114,7 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
      */
     public void setActivities(UniqueActivityList replacement) {
         requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
+        internalList.setAll(replacement.getDeepCopyList());
     }
 
     /**
@@ -128,6 +127,10 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
         internalList.setAll(activities);
     }
 
+    /**
+     * Return a copy of activity list.
+     * @return ObservableList
+     */
     public ObservableList<Activity> getDeepCopyList() {
         ObservableList<Activity> deepCopyList = FXCollections.observableArrayList();
         for (Activity activity : internalUnmodifiableList) {
@@ -145,7 +148,9 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
     }
 
     public void setSchedule(Index index, Index type) {
-        internalList.get(index.getZeroBased()).setSchedule(type.getZeroBased());
+        T test = internalList.get(index.getZeroBased());
+        test.setSchedule(type.getZeroBased());
+        internalList.set(index.getZeroBased(), test);
     }
 
     @Override

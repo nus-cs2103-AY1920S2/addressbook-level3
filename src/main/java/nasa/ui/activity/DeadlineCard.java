@@ -60,7 +60,7 @@ public class DeadlineCard extends UiPart<Region> {
         priority.setText("Priority: " + deadline.getPriority().toString());
         dateToRepeat.setText("-");
         if (deadline.getSchedule().getType() != 0) {
-            dateToRepeat.setText("Repeat: " + deadline.getScheduleDate().toString());
+            dateToRepeat.setText("Repeat: " + deadline.getSchedule().typeInString());
         }
     }
 

@@ -101,12 +101,10 @@ class JsonAdaptedEvent {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
         final Date modelEndDate = new Date(endDate);
-
-        Schedule modelSchedule = new Schedule(schedule);
+        final Schedule modelSchedule = new Schedule(schedule);
 
         Event event = new Event(modelName, modelDate, modelNote, eventStartDate, modelEndDate);
         event.setSchedule(modelSchedule);
-
         return event;
     }
 }

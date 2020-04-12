@@ -1,6 +1,6 @@
 package nasa.model.activity;
 
 /**
- * List containing all deadlines.
+ * Constructor for uniqueDeadlineList.
  */
 public class UniqueDeadlineList extends UniqueActivityList<Deadline> {}

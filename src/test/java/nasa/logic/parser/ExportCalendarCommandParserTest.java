@@ -17,7 +17,7 @@ import nasa.model.UserPrefs;
 public class ExportCalendarCommandParserTest {
 
     private ExportCalendarCommandParser parser = new ExportCalendarCommandParser();
-    private Model model = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
+    private Model model = new ModelManager(new NasaBook(), new HistoryBook<>(), new HistoryBook<>(), new UserPrefs());
 
     @Test
     public void parse_argsWithoutFilePath_success() {
