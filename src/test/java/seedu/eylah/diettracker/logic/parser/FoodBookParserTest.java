@@ -45,8 +45,8 @@ public class FoodBookParserTest {
     @Test
     public void parseCommand_bmi() throws Exception {
         BmiCommand command = (BmiCommand) parser.parseCommand(
-                BmiCommand.COMMAND_WORD + " " + DietCliSyntax.PREFIX_HEIGHT + " 170.2 " + DietCliSyntax.PREFIX_WEIGHT + " 67"
-                        + ".5");
+                BmiCommand.COMMAND_WORD + " " + DietCliSyntax.PREFIX_HEIGHT + " 170.2 "
+                        + DietCliSyntax.PREFIX_WEIGHT + " 67" + ".5");
         assertEquals(new BmiCommand(new Height("170.2"), new Weight("67.5")), command);
     }
 

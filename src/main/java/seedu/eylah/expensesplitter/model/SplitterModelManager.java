@@ -153,12 +153,12 @@ public class SplitterModelManager implements SplitterModel {
     @Override
     public void setPersonAmountBookFilePath(Path addressBookFilePath) {
         requireAllNonNull(addressBookFilePath);
-        super.getUserPrefs().setPersonAmountBookFilePath(addressBookFilePath);
+        userPrefs.setPersonAmountBookFilePath(addressBookFilePath);
     }
 
     @Override
     public Path getPersonAmountBookFilePath() {
-        return super.getUserPrefs().getPersonAmountBookFilePath();
+        return userPrefs.getPersonAmountBookFilePath();
     }
 
     @Override
