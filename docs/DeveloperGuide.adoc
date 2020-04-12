@@ -1,5 +1,4 @@
-= TA-Tracker
-- Developer Guide
+= TA-Tracker - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -18,7 +17,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
 
-By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
+By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -189,143 +188,123 @@ The other 2 `Tabs` follow the same structure as the _Class Diagram_ above.
 [[Design-Logic]]
 === Logic component
 
-The `Logic` component of `TA-Tracker
-`:
+=== Logic component
 
-* processes user inputs into different `Command` objects,
-* executes these `Command` objects to interact with the `Model` component, and
-* saves data in the `Storage` component.
+The `Logic` component of `TA-Tracker`:
+
+* Processes user inputs into different `Command` objects
+* Executes `Command` objects to interact with the `Model` component
+* Saves data by interacting with the `Storage` component
 
 ==== Logic Structure
-The following _Class Diagram_ shows a simplified view of the structure of the `Logic` component .
+The following _Class Diagram_ shows a simplified view of the structure of the `Logic` component.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram1.png[]
+image::LogicClassDiagram1.png[,550]
 
 *API* :
 link:{repoURL}/src/main/java/tatracker/logic/Logic.java[`Logic.java`]
 
-In the figure above, you can see that:
+In the `Logic` component,
 
-. `Logic` behaves as a Façade class between the different `TA-Tracker
-` components.
-. `LogicManager` is the main driver class behind the logic in `TA-Tracker
-`
-. `LogicManager` interacts with classes in the `Model` and `Storage` component.
-. `TA-Tracker
-` logic is organised into *commands* and *parsers*.
-. `TaTrackerParser` is the *main parser*.
-. A `Command` can interact with classes in the `Model` component.
+* `Logic` behaves as a façade class between the different TA-Tracker components
+* `LogicManager` is the main driver class behind the logic of TA-Tracker
+* `LogicManager` interacts with classes in the `Model` and `Storage` components
+* The logic of TA-Tracker is organised into *commands* and *parsers*
+* `TaTrackerParser` is the *main parser*
+* A `Command` can interact with classes in the `Model` component
 
-==== Logic Hierarchy
+==== Logic Organization
 
-The following _Class Diagram_ shows how the `commands` and `parsers` are organised.
+The following diagram shows how the *commands* and *parsers* are organized.
 
-.Structure of commands and the hierarchy of parsers
-image::LogicClassDiagram2.png[]
+.Logic Component - Organization of commands and parsers
+image::LogicClassDiagram2.png[,1000]
 
 [NOTE]
 ====
 [horizontal]
-* `X` is the category name for a group of commands +
-(e.g. `Student`, `Session`, `Module`).
-* `XY` is the category name for actions specific to a group of commands +
-(e.g. `AddStudent`, `EditSession`, `DeleteModule`).
+* The letter `X` represents the category name for a group of commands +
+(e.g. `Student`, `Session`, `Module`)
+* The letters `XY` represent the names of actions specific to a command category +
+(e.g. `AddStudent`, `EditSession`, `DeleteModule`)
+* *CommandPackageX* and *ParserPackageX* are _placeholders_ for the actual package names
 ====
 
-[NOTE]
-====
-[horizontal]
-* `Prefixes` contains some `Prefix` constants that are shared among classes in the *Logic component*.
-* The *red arrow* shows that each command knows about the `Prefix` constants stored in `Prefixes`.
+In the *Logic* package,
 
-====
+* There is a *hierarchy of parsers*, starting from `TaTrackerParser`
 
-In addition to Figure 6., in the figure above, you can see that:
+* Within the *Parser* package, all parsers have been grouped into *smaller packages*
+* Every `Command` is created by a `Parser` object with a matching name
 
-. There is a *hierarchy* of parsers, starting from `TaTrackerParser`.
-. Each group of parsers have been split into *smaller packages* (named as `X` in the diagram)
-within the package of parsers.
-. Each `Command` has a `Parser` that creates it from a user input.
-. These `Command` classes are placed in *smaller packages* (with the same name `X`) within the package of commands.
-. A `Command` produces a `CommandResult` when executed by `LogicManager`.
-* This will modify the `Model` internally (e.g. adding a student).
-. The resulting `CommandResult` encapsulates the feedback that needs to be passed to the `Ui`. +
-This feedback includes:
-* showing messages in the `UI`, and
-* instructing the `Ui` to perform certain actions (e.g. displaying the `HelpWindow`).
+* Within the *Commands* package, all commands have been grouped into *smaller packages*
+* Every `Command` produces a `CommandResult` when executed by `LogicManager`.
+This will modify the `Model` internally (e.g. _adding a student_).
+* The produced `CommandResult` sends feedback to the `UI` component. This feedback includes:
+** Showing messages in the `UI`
+** Instructing the `UI` to perform certain actions (e.g. displaying the help window).
 
 ====
 [horizontal]
-In most cases, there are *two levels* of parsing before a command is created +
-(i.e. `XCommandParser` passes the parsing to `XYCommandParser`).
+In most cases, there are *two levels* of parsing before a `Command` is created +
+(e.g. `SessionCommandParser` passes the remaining user input to the `AddSessionCommandParser`
+for further parsing).
 
 However there are some cases where only *one level* of parsing is needed +
-(e.g. for the `help`, `report`, and `exit` commands).
+(e.g. for the `HelpCommand`, `ListCommand`, and `ExitCommand`).
 
 .Skipping the second layer of parsers
 image::LogicClassDiagram3.png[,500]
 
 These command parsers will immediately create the respective `Command`,
-*skipping the second layer* of parsers (represented by the *red arrow* in the figure above).
+*skipping the second layer* of parsers.
 ====
 
 ==== Overview of Commands
 
-The following _Class Diagram_ illustrates how all `commands` have been packaged under their respective categories.
+Within the *Commands* package, all commands have been grouped into *smaller packages*.
 
-.Structure of commands in different categories
+The following _Class Diagram_ shows the names of the *smaller packages*:
+
+.Structure of smaller packages within the *Commands* package
 image::CommandsPackageDiagram1.png[]
 
-These packages depend on the `Command` class since they contain commands that inherit from the `Command` class (not shown above).
+These smaller packages group the commands into different categories.
+Furthermore, these packages *depend* on the `Command` class
+since they contain classes that inherit from it.
 
-In addition, the following `Class Diagram` shows the information that a `command` should have.
+For example, the *Module* package contains the following classes that inherit from the `Command` class:
 
-.Internal structure of all commands
-image::CommandsPackageDiagram2.png[,500]
-
-. In each package, all commands should have their own `CommandDetails`.
-. `CommandDetails` store all the information that each command should have, +
-(e.g. their `commandWord` and `usage` message).
-. For their `commandWord` and `sub word`, commands may use constants in `CommandWords` to avoid repetition +
-(e.g. "add", "delete", "edit").
-. The `CommandDictionary`, stores a list of `CommandDetails` for all the commands.
-. The `CommandDictionary` is used for:
-* *syntax highlighting*, and
-* listing information in the *help window*
+* `AddModuleCommand`
+* `DeleteModuleCommand`
+* `EditModuleCommand`
 
 ==== Overview of Parsers
 
-In a similar way, all *parsers* have been packaged under the same respective categories.
+Within the *Parser* package, all parsers have been grouped into *smaller packages*.
 
-.Structure of parsers in different categories
+These packages have been organised in the same way as the *Commands* package.
+
+.Structure of smaller packages within the *Parser* package
 image::ParserPackageDiagram1.png[]
 
-These packages depend on the `Parser` interface since they contain command parsers that inherit from the `Parser` interface
-(not shown above).
+These smaller packages group the parsers into different categories.
+Furthermore, these packages *depend* on the `Parser` interface
+since they contain classes that implement it.
 
-In addition, the following `Class Diagram` shows the information that a `command parser` should have.
+For example, the *Module* package contains the following classes that implement the `Parser` interface:
 
-.Internal structure of all command parsers
-image::ParserPackageDiagram2.png[,300]
-
-. All command parsers use some `Prefix` constants defined in `Prefixes`.
-. `PrefixDetails` adds more information to a `Prefix` +
-(e.g. their `constraint` message and a list of `examples`).
-. A `PrefixDetail` has a `Predicate` to validate the user input arguments.
-. The `PrefixDictionary` stores two lists of `Prefix` objects:
-** `parameters` - a list of command parameters, and
-** `optionals` - a list of optional parameters for the same command.
-. The `PrefixDictionary` stores a list of `PrefixDetails` for all the `Prefix` objects in `parameters` and `optionals`.
-. The `PrefixDictionary` is used for:
-* *syntax highlighting*, and
-* listing information in the *help window*
+* `AddModuleCommandParser`
+* `DeleteModuleCommandParser`
+* `EditModuleCommandParser`
 
 ==== Example Logic Sequence
-Given below is the _Sequence Diagram_ for interactions within the `Logic` component for the `execute("group add m/CS2103 g/G03 t/lab")` API call.
+The following _Sequence Diagram_ shows all the interactions inside the `Logic` component
+when executing the `group add m/CS2103 g/G03 t/lab` command.
 
-.Interactions Inside the Logic Component for the `group add m/CS2103 g/G03 t/lab` Command
+.Interactions inside the Logic Component during the `group add m/CS2103 g/G03 t/lab` command
 image::AddGroupSequenceDiagram.png[]
 
 [NOTE]
@@ -337,43 +316,6 @@ destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches t
 * Since the purpose of this diagram is to show the interactions within the `Logic` component,
 irrelevant interactions with the `Model` component have been omitted.
 ====
-
-==== Design Considerations
-
-===== Rationale behind `PrefixDetails` not inheriting from the `Prefix` class
-The following _Class Diagrams_ compare the structure of `commands` and their respective `parsers.`
-
-[.clearfix]
---
-[.left]
-.Structure of a `command parser`
-image::ParserPackageDiagram2.png[,300]
-[.left]
-.Structure of a `command`
-image::CommandsPackageDiagram2.png[,500]
---
-
-The difference between the *commands* and *parsers* is that the *commands* store their own `CommandDetails`,
-while the *parsers* do not store any `PrefixDetails`. Instead, they use a number of `Prefix` objects to
-parse user inputs. This is because they do not need the extra information stored in `PrefixDetails`.
-
-`PrefixDetails` adds more information to a `Prefix` instead of extending it.
-Therefore, it can be detached from the command parsers without changing the `Prefix` constants in `Prefixes`.
-
-===== Moving `Prefixes` to the *Commands* package
-
-In future versions, `Prefixes` could be stored in the *Commands* package,
-since each command will need to know all the `Prefix` that they are using.
-
-The following `Class Diagrams` shows how the command parsers can obtain all the required `Prefix` from the respective `command.`
-
-.Improving the Logic component
-image::LogicClassDiagram4.png[,500]
-
-In the diagram above:
-
-* The *red arrow* will be removed to show that the command parsers no longer need information in `Prefixes`.
-* `Prefixes` will be moved into the *commands* package.
 
 [[Design-Model]]
 === Model component
