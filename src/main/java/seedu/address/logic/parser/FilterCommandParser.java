@@ -40,21 +40,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         List<String> tags = getTagsFromMap(argMultimap);
         List<String> sports = getSportsFromMap(argMultimap);
 
-        return new FilterCommand(new TagAndSportContainsKeywordsPredicate(splitKeywords(tags), splitKeywords(sports)));
-    }
-
-    /**
-     * Splits the tags input by " "
-     * @param list List of tag input
-     * @return List of tags
-     */
-    public List<String> splitKeywords(List<String> list) {
-        List<String> keywords = new ArrayList<>();
-        if (!list.isEmpty()) {
-            String[] keywordArray = list.get(0).split(" ");
-            keywords.addAll(Arrays.asList(keywordArray));
-        }
-        return keywords;
+        return new FilterCommand(new TagAndSportContainsKeywordsPredicate(tags, sports));
     }
 
     /**
@@ -82,7 +68,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         Set<Sport> sportSet = ParserUtil.parseSports(argMultimap.getAllValues(PREFIX_SPORT));
         List<String> sports = new ArrayList<String>();
         for (Sport sport : sportSet) {
-            sports.add(sport.sportName);
+            String[] sportString = sport.sportName.split(" ", 0);
+            sports.addAll(Arrays.asList(sportString));
         }
         return sports;
     }

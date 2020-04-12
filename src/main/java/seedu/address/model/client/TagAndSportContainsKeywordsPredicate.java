@@ -25,24 +25,25 @@ public class TagAndSportContainsKeywordsPredicate implements Predicate<Client> {
 
     @Override
     public boolean test(Client client) {
-        boolean hasTag;
-        boolean hasSport;
-        if (tagKeywords.isEmpty()) {
-            hasTag = true;
-        } else {
-            hasTag = tagKeywords.stream()
-                    .allMatch(keyword -> StringUtil.containsWordIgnoreCase(setTagToString(client.getTags()), keyword));
+
+        boolean hasAllTags = true;
+        boolean hasAllSports = true;
+
+        if (!tagKeywords.isEmpty()) {
+            for (String tag : tagKeywords) {
+                boolean hasTag = StringUtil.containsWordIgnoreCase(setTagToString(client.getTags()), tag);
+                hasAllTags = hasAllTags && hasTag;
+            }
         }
 
-        if (sportKeywords.isEmpty()) {
-            hasSport = true;
-        } else {
-            hasSport = sportKeywords.stream()
-                    .allMatch(keyword -> StringUtil
-                            .containsWordIgnoreCase(setSportToString(client.getSports()), keyword));
+        if (!sportKeywords.isEmpty()) {
+            for (String sport : sportKeywords) {
+                boolean hasSport = StringUtil.containsWordIgnoreCase(setSportToString(client.getSports()), sport);
+                hasAllSports = hasAllSports && hasSport;
+            }
         }
 
-        return hasTag && hasSport;
+        return hasAllTags && hasAllSports;
     }
 
     /**
