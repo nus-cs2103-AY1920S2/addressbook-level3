@@ -132,6 +132,10 @@ include::../DeveloperGuide.adoc[tag=nearby]
 include::../DeveloperGuide.adoc[tag=command_prefix]
 include::../DeveloperGuide.adoc[tag=command_flags]
 
+== Use Case
+include::../DeveloperGuide.adoc[tag=use_case_delete]
+include::../DeveloperGuide.adoc[tag=use_case_nearby]
+
 // Appendix F: Product Survey
 include::../DeveloperGuide.adoc[tag=appendix-product-survey]
 
