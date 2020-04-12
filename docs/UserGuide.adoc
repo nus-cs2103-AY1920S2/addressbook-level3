@@ -161,8 +161,88 @@ e.g: `additem -i pizza -p 19.90 -n charlotte`.
 (i.e. 0 times), `-n Charlotte`, `-n Alice -n Bob` etc.
 ====
 
-=== Viewing help : `help`
-To provide help for users +
+=== Viewing Help : `help`
+
+In this section, you will learn more about `help` command, <<howtousehelpcommand, how to use it>>
+and the <<helpexpectedoutcome, expected outcome>> after using the `help` command.
+
+*Summary of Help Command:* +
+`help` You can use this command to view help everywhere in the application.
+
+[[howtousehelpcommand]]
+*How to use the Weight Command:*
+
+Format: +
+`help` +
+
+Valid Example: +
+`help`
+
+[[helpexpectedoutcome]]
+*Expected outcome:*
+
+*Main Menu:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Diet Tracker Mode:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Expense Splitter Mode:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+Help in main menu and different mode will give different help information.
+====
+
+Format: `help`
+
+'''
+
+=== Exiting Application : `exit`
+
+In this section, you will learn more about `exit` command, <<howtouseexitcommand, how to use it>>
+and the <<helpexpectedoutcome, expected outcome>> after using the `help` command.
+
+*Summary of Help Command:* +
+`help` You can use this command to view help everywhere in the application.
+
+[[howtousehelpcommand]]
+*How to use the Weight Command:*
+
+Format: +
+`help` +
+
+Valid Example: +
+`help`
+
+[[helpexpectedoutcome]]
+*Expected outcome:*
+
+*Main Menu:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Diet Tracker Mode:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Expense Splitter Mode:*
+
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+Help in main menu and different mode will give different help information.
+====
+
 Format: `help`
 
 '''
@@ -763,13 +843,25 @@ such as `paid`.
 [[donereceipt]]
 ==== Mark receipt as done `donereceipt`
 
-Use this command to mark the receipt as done when you have completed entering all the items.
+In this section, you will learn more about the `donereceipt` command, <<howtousedonereceiptcommand,how to use it>>
+and the <<donereceiptexpectedoutcome,expected outcome>> after using the `donereceipt` command.
+
+*Summary of Done Receipt Command:* `donereceipt` *marks the receipt as done when you have completed entering
+all the items*.
+
+[[howtousedonereceiptcommand]]
+*How to use the Done Receipt Command:*
 
 Format: +
 `donereceipt`
 
 Example: +
 `donereceipt`
+
+[[donereceiptexpectedoutcome]]
+*Expected outcome:*
+
+image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
 
 [NOTE]
 ====
