@@ -24,7 +24,7 @@
       <VBox fx:id="mainWindow">
         <SplitPane VBox.vgrow="ALWAYS">
           <VBox fx:id="sideBar" VBox.vgrow="ALWAYS" SplitPane.resizableWithParent="false" minWidth="180">
-            <Label fx:id="notablyLogo" VBox.vgrow="ALWAYS" text="NOTABLY" />
+            <Label fx:id="notablyLogo" VBox.vgrow="NEVER" text="NOTABLY" />
             <StackPane fx:id="sideBarPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 

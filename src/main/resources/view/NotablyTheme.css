@@ -386,6 +386,7 @@
     -fx-font-size: 12px;
     -fx-text-fill: #19216c;
     -fx-pref-height: 36px;
+    -fx-min-height: 36px;
     -fx-padding: 0 16px 0 16px;
 }
 
