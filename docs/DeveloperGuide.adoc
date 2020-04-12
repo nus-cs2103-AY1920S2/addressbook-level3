@@ -1517,10 +1517,24 @@ Use case ends.
 
 *Extensions*
 
-* 1a. The given module code is invalid.
+* 1a. The given module code already exists in the TA-Tracker.
 +
 [none]
 ** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The give module code is invalid.
++
+[none]
+** 1b1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+* 1c. The given module name is invalid.
++
+[none]
+** 1c1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
 
@@ -1537,6 +1551,22 @@ the list of existing modules in the *Student View*.
 
 +
 Use case ends.
+
+*Extensions*
+
+* 3a. The given module code doesn't exist in the TA-Tracker.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given module name is invalid.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC06 - Deleting module
@@ -1558,7 +1588,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given module code is invalid.
+* 3a. The given module code doesn't exist in the TA-Tracker.
 +
 [none]
 ** 3a1. TA-Tracker shows an error message.
@@ -1581,21 +1611,33 @@ Use case ends.
 
 *Extensions*
 
-[none]
-* 1a. The given module code is invalid.
+* 3a. The given module code doesn't exist in the TA-Tracker.
 +
 [none]
-** 1a1. TA-Tracker shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
-Use case resumes at step 1.
+Use case resumes at step 3.
 
-[none]
-* 1a. The given class code is invalid.
+* 3b. The given group code is invalid.
 +
 [none]
-** 1a1. TA-Tracker shows an error message.
+** 3b1. TA-Tracker shows an error message.
 +
-Use case resumes at step 1.
+Use case resumes at step 3.
+
+* 3c. The given group code already exists in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. The given group code is invalid.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC08 - Editing a group
@@ -1606,6 +1648,36 @@ the list of existing groups in the *Student View*.
 . TA-Tracker switches to the `Student Tab`.
 . User requests to edit a group
 . TA-Tracker edits the group
+
+*Extensions*
+
+* 3a. The given module code doesn't exist in the TA-Tracker.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given group doesn't exist in the module.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The new group code already exists in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. The new group code is invalid.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC09 - Deleting group
@@ -1627,10 +1699,17 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given group code is invalid.
+* 3a. The given module doesn't exist in the TA-Tracker.
 +
 [none]
 ** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given group doesn't exist in the module.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
