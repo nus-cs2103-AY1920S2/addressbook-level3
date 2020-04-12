@@ -183,24 +183,23 @@ image::SwitchActivityDiagram.png[]
 Description: TODO
 
 ===== Implementation
-For brevity, we will only be talking about the `favourite` command and its implementation. The `unfavourite
+For brevity, we will only be talking about the `favourite` command here. Note that the `unfavourite` command is
+implemented in the same way.
 
-1. User enters the indexes of recipes that he wishes to favourite or unfavourite. The user input will be received by
-`FavouriteCommandParser#parse(String args)` and `UnfavouriteCommandParser#parse(String args)` respectively.
+1. User enters the indexes of recipes that he wishes to favourite. The user input will be received by
+`FavouriteCommandParser#parse(String args)`.
 
-2. The respective parsers will pass on the user input to `ParserUtil#parseMultipleIndex(String oneBasedIndex)` to
+2. The `FavouriteCommandParser` will pass on the user input to `ParserUtil#parseMultipleIndex(String oneBasedIndex)` to
 verify if the indexes keyed in are non-zero, unsigned integers. An error is thrown if any of the indexes do not meet
 this requirement.
 
-3. On top of verifying the validity of the indexes, `ParserUtil#parseMultipleIndex(String oneBasedIndex)` will remove
-any duplicate indexes and sort them. It finally returns a sorted array of one-based indexes.
+3. On top of verifying the validity of the indexes, `ParserUtil#parseMultipleIndex` will remove any duplicate indexes
+and sort them. It finally returns a sorted array of one-based indexes.
 
-4. A new `FavouriteCommand` or `UnfavouriteCommand` object will be created with the array of indexes and returned to
-the `LogicManager`.
+4. A new `FavouriteCommand` object will be created with the array of indexes and returned to the `LogicManager`.
 
-5. The `FavouriteCommand#execute(model)` method is executed and `Model#updateFilteredRecipeList(p)` is called. This tests
-every recipe in the database against the predicate, p, and updates the filtered recipe list with recipes that meet the
-user specified criteria.
+5. The `FavouriteCommand#execute(model)` method is executed. First, the array of indexes will be checked to ensure that
+there exists a corresponding recipe index
 
 6. Once complete, this filtered recipe list is displayed to the user.
 
