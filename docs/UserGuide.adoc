@@ -511,7 +511,7 @@ image::Screenshots/EndInterview.png[]
 
 === Decision Phase
 
-// tag::open[]
+// tag::report[]
 ==== Viewing Interviewee Reports
 
 After interviewing a candidate, you can view the interview transcript any
@@ -540,9 +540,9 @@ Successfully opened Interviewee report: Jane Doe
 ....
 
 image::Screenshots/Report.png[]
-// end::open[]
+// end::report[]
 
-// tag::report[]
+// tag::export[]
 ==== Exporting Interviewee Reports to PDF
 
 After interviewing a candidate, you can also export the report of the interviewee
@@ -568,8 +568,8 @@ _Output_:
 Report of Anna exported in /Users/jane/main with file name "2.pdf".
 ....
 
-image::Screenshots/Report.png[]
-// end::report[]
+image::Screenshots/Export.png[]
+// end::export[]
 
 // tag::navigation[]
 ==== Working in an Interviewee Report
