@@ -12,6 +12,8 @@ import static seedu.delino.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.delino.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.delino.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
+import java.util.logging.Logger;
+
 import seedu.delino.logic.commands.exceptions.CommandException;
 import seedu.delino.model.Model;
 import seedu.delino.model.parcel.order.Order;
@@ -49,7 +51,10 @@ public class InsertCommand extends Command {
             + PREFIX_TYPE + "glass ";
 
     public static final String MESSAGE_SUCCESS = "New order added: %1$s";
+
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the Order List";
+
+    private static final Logger logger = Logger.getLogger(InsertCommand.class.getName());
 
     private final Order toAdd;
 
@@ -64,11 +69,13 @@ public class InsertCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        logger.fine("Check if order already exists in both Order List and Return Order List");
         if (model.hasParcel(toAdd)) {
+            logger.info("Duplicate found in both lists");
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
 
+        logger.fine("Inserts order into the list");
         model.addOrder(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

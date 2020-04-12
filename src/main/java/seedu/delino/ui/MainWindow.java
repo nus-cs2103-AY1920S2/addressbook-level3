@@ -263,6 +263,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      */
     public void calcEarnings() {
+        logger.fine("Calculate the earnings from the list");
         DecimalFormat df2 = new DecimalFormat("$0.00");
         double sum = 0;
 
@@ -281,6 +282,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      */
     public void populatePieChart() {
+        logger.info("Add all the data into the PieChart");
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Orders completed: " + deliveredList.size() , deliveredList.size()),
@@ -301,6 +303,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      */
     public void getDeliveryData() {
+        logger.fine("Get all Orders data");
         orderList = (new FilteredList<>(logic.getOrderBook().getOrderList()))
                 .stream()
                 .filter(ShowCommand::filterListByDates)
@@ -318,6 +321,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      */
     public void populateDeliveryStats() {
+        logger.fine("Add data for the number of delivered orders");
         doneOrders.setText(String.valueOf(deliveredList.size()));
     }
 
@@ -328,6 +332,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      */
     public void getReturnData() {
+        logger.fine("Get all Return Orders data");
         returnList = (new FilteredList<>(logic.getReturnOrderBook().getReturnOrderList()))
                 .stream()
                 .filter(ShowCommand::filterListByDates)
@@ -345,6 +350,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      */
     public void populateReturnStats() {
+        logger.fine("Add data for the number of returned orders");
         returnedOrders.setText(String.valueOf(returnedList.size()));
     }
 
@@ -358,14 +364,18 @@ public class MainWindow extends UiPart<Stage> {
         LocalDate dateFrom = ShowCommand.getStartDate();
         LocalDate dateTo = ShowCommand.getEndDate();
 
+
         // Go to the Show Tab
         tabPane.getSelectionModel().select(showTab);
 
         if (ShowCommand.isAll()) {
+            logger.fine("Show All Dates");
             dateToday.setText((ShowCommand.ALL_DATES));
         } else if (dateFrom.compareTo(dateTo) == 0) {
+            logger.info("Show Date");
             dateToday.setText(dateFrom.format(dateFormatter));
         } else {
+            logger.info("Show Start Date to End Date");
             dateToday.setText(dateFrom.format(dateFormatter) + " to " + dateTo.format(dateFormatter));
         }
 
@@ -432,6 +442,7 @@ public class MainWindow extends UiPart<Stage> {
 
                 // Show Command
                 if (commandResult.isDisplayEarnings()) {
+                    logger.fine("Handle Show Command");
                     handleShowCommand();
                 }
             }

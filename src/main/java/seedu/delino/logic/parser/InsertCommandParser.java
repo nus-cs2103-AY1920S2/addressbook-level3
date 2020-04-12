@@ -15,6 +15,7 @@ import static seedu.delino.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.delino.logic.commands.InsertCommand;
@@ -37,6 +38,8 @@ import seedu.delino.model.parcel.parcelattributes.Warehouse;
  *
  */
 public class InsertCommandParser implements Parser<InsertCommand> {
+
+    private static final Logger logger = Logger.getLogger(InsertCommandParser.class.getName());
 
     /**
      * Parses the given {@code String} of arguments in the context of the InsertCommand
@@ -69,8 +72,10 @@ public class InsertCommandParser implements Parser<InsertCommand> {
             if (!arePrefixesPresent(argMultimap, PREFIX_TID, PREFIX_NAME, PREFIX_ADDRESS,
                     PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE,
                     PREFIX_PHONE, PREFIX_EMAIL, PREFIX_COD)) {
+                logger.info("There are missing prefixes in the input");
                 for (Prefix p : prefixes) {
                     if (!arePrefixesPresent(argMultimap, p)) {
+                        logger.info("Prefix " + p + " is missing");
                         missingMessage = missingMessage + p + "\n";
                     }
                 }
@@ -102,7 +107,8 @@ public class InsertCommandParser implements Parser<InsertCommand> {
                 : argMultimap.getValue(PREFIX_TYPE).get());
 
         Order order = new Order(tid, name, phone, email, address, timeStamp, warehouse, cash, comment, type);
-
+        logger.fine("All Order attributes are valid");
+        logger.fine("New Order created");
         return new InsertCommand(order);
     }
 
