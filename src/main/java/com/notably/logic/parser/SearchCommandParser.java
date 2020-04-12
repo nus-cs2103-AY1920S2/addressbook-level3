@@ -25,7 +25,7 @@ public class SearchCommandParser {
     }
     /**
      * Parses the given {@code String} of arguments in the context of the SearchCommand
-     * @throws ParseException is always thrown, error message is chosen depending on user input.
+     * @throws ParseException is always thrown, error message is determined by user input.
      */
     public void parse(String args) throws ParseException {
         requireNonNull(args);
