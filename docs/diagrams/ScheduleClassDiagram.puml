@@ -17,7 +17,7 @@ enum DayEnum <<enumeration>> {
     SUN
 }
 
-ScheduleList "1" --> "*" Schedule
+ScheduleList --> "*" Schedule
 
 Schedule "1" --> "1" Day
 Schedule "1" --> "1" StartTime
