@@ -190,7 +190,8 @@ public class ModuleBook {
     public String getTaskBreakdown() {
         String infoOfTasks = "";
         for (NusModule module: modules) {
-            String numberOfTasks = "- " + module.getModuleCode() + ":   " + module.getTasks().size() + " tasks in total\n";
+            String numberOfTasks = "- " + module.getModuleCode() + ":   "
+                    + module.getTasks().size() + " tasks in total\n";
             infoOfTasks += numberOfTasks;
         }
         return infoOfTasks;

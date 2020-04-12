@@ -172,8 +172,8 @@ public class AddressBookParser {
         case ListModuleTaskCommand.COMMAND_WORD:
             return new ListModuleTaskCommandParser().parse(arguments);
 
-            case TaskBreakdownCommand.COMMAND_WORD:
-                return new TaskBreakdownCommand();
+        case TaskBreakdownCommand.COMMAND_WORD:
+            return new TaskBreakdownCommand();
 
         case SortTasksCommand.COMMAND_WORD:
             return new SortTasksCommandParser().parse(arguments);

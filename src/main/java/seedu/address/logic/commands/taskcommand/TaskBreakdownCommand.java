@@ -6,6 +6,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
+/**
+ * Shows the number of tasks for each module in the program.
+ */
 public class TaskBreakdownCommand extends Command {
     public static final String COMMAND_WORD = "taskBreakdown";
 
