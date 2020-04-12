@@ -3,7 +3,9 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Project: TA-Tracker
+== PROJECT: TA-Tracker
+
+---
 
 == Overview
 
