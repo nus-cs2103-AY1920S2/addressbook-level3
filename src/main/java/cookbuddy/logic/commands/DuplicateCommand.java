@@ -24,6 +24,7 @@ public class DuplicateCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_RECIPE_SUCCESS = "Recipe duplicated: %1$s";
+    public static final String MESSAGE_DUPLICATE_RECIPE_FAIL = "This recipe has already been duplicated!";
 
     private final Index targetIndex;
 
@@ -47,7 +48,7 @@ public class DuplicateCommand extends Command {
         editRecipeDescriptor.setName(nameOfDuplicate);
         Recipe duplicatedRecipe = ModifyCommand.createEditedRecipe(recipeToDuplicate, editRecipeDescriptor);
         if (model.hasRecipe(duplicatedRecipe)) {
-            throw new CommandException("The recipe has already been duplicated!");
+            throw new CommandException(MESSAGE_DUPLICATE_RECIPE_FAIL);
         } else {
             model.addRecipe(duplicatedRecipe);
             return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDuplicate));
