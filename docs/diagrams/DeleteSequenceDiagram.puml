@@ -3,10 +3,11 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ParserManager" as ParserManager LOGIC_COLOR
 participant ":ExerciseCommandParser" as ExerciseCommandParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "res:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -16,7 +17,17 @@ end box
 [-> LogicManager : execute("exercise delete 1")
 activate LogicManager
 
-LogicManager -> ExerciseCommandParser : parseCommand("exercise delete 1")
+LogicManager -> ParserManager : parse("exercise delete 1")
+activate ParserManager
+
+create ExerciseCommandParser
+ParserManager -> ExerciseCommandParser
+activate ExerciseCommandParser
+
+ExerciseCommandParser --> ParserManager
+deactivate ExerciseCommandParser
+
+ParserManager -> ExerciseCommandParser : parse("delete 1")
 activate ExerciseCommandParser
 
 create DeleteCommandParser
@@ -44,6 +55,9 @@ destroy DeleteCommandParser
 
 ExerciseCommandParser --> LogicManager : d
 deactivate ExerciseCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ExerciseCommandParser -[hidden]-> ParserManager
+destroy ExerciseCommandParser
 
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
@@ -61,9 +75,8 @@ activate CommandResult
 CommandResult --> DeleteCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
+DeleteCommand --> LogicManager : res
 deactivate DeleteCommand
 
 [<--LogicManager
-deactivate LogicManager
 @enduml

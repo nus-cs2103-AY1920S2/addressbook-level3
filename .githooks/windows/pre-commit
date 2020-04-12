@@ -1,6 +1,6 @@
 #!/bin/sh
 
-./gradlew.bat checkstyleMain checkstyleTest
+./config/travis/run-checks.sh && ./gradlew.bat checkstyleMain checkstyleTest
 [ $? -gt 0 ] && exit 1
 
 exit 0

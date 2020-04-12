@@ -4,21 +4,61 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
-Interface Storage <<Interface>>
-Interface UserPrefsStorage <<Interface>>
-Interface ExerciseListStorage <<Interface>>
+Package Storage {
+    Interface Storage <<Interface>>
+    Interface UserPrefsStorage <<Interface>>
+    Interface ExerciseListStorage <<Interface>>
+    Interface WorkoutListStorage <<Interface>>
+    Interface ScheduleListStorage <<Interface>>
+    Interface LogListStorage <<Interface>>
 
-Class StorageManager
-Class JsonUserPrefsStorage
-Class JsonExerciseListStorage
+    Class StorageManager
+    Class UserPrefsStorageManager
+    Class ExerciseListStorageManager
+    Class WorkoutListStorageManager
+    Class ScheduleListStorageManager
+    Class LogListStorageManager
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> ExerciseListStorage
+    Package UserPrefs {
+        Class HiddenUserPrefsModel #FFFFFF
+    }
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonExerciseListStorage .left.|> ExerciseListStorage
-JsonExerciseListStorage .down.> JsonSerializableExerciseListStorage
-JsonSerializableExerciseListStorage .right.> JsonSerializableExercise
-JsonSerializableExercise .right.> JsonAdaptedExerciseSet
+    Package Exercise {
+        Class HiddenExerciseModel #FFFFFF
+    }
+
+    Package Workout {
+        Class HiddenWorkoutModel #FFFFFF
+    }
+
+    Package Schedule {
+        Class HiddenScheduleModel #FFFFFF
+    }
+
+    Package Log {
+        Class HiddenLogModel #FFFFFF
+    }
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside .right.> Storage
+
+Storage -up-|> UserPrefsStorage
+Storage -up-|> ExerciseListStorage
+Storage -up-|> WorkoutListStorage
+Storage -up-|> ScheduleListStorage
+Storage -up-|> LogListStorage
+
+StorageManager .up.|> Storage
+StorageManager o----> UserPrefsStorageManager
+StorageManager o----> ExerciseListStorageManager
+StorageManager o--> WorkoutListStorageManager
+StorageManager o--> ScheduleListStorageManager
+StorageManager o--> LogListStorageManager
+
+UserPrefsStorageManager --> UserPrefs
+ExerciseListStorageManager --> Exercise
+WorkoutListStorageManager --> Workout
+ScheduleListStorageManager --> Schedule
+LogListStorageManager --> Log
 @enduml

@@ -24,6 +24,7 @@ import seedu.zerotoone.ui.views.about.AboutDisplay;
 import seedu.zerotoone.ui.views.exercise.ExerciseListPanel;
 import seedu.zerotoone.ui.views.home.HomePanel;
 import seedu.zerotoone.ui.views.log.LogListPanel;
+import seedu.zerotoone.ui.views.log.StatisticsWindow;
 import seedu.zerotoone.ui.views.schedule.ScheduledWorkoutListPanel;
 import seedu.zerotoone.ui.views.workout.WorkoutListPanel;
 
@@ -47,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private StatisticsWindow statisticsWindow;
     private AboutDisplay aboutDisplay;
+    private CommandBox commandBox;
 
     @FXML
     private VBox tabsVBox;
@@ -116,7 +118,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         // Focus on command box

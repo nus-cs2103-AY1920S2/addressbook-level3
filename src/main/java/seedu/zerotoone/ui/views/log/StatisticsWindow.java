@@ -1,4 +1,4 @@
-package seedu.zerotoone.ui;
+package seedu.zerotoone.ui.views.log;
 
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -15,14 +15,13 @@ import seedu.zerotoone.logic.statistics.StatisticsData;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.ui.util.DateViewUtil;
 import seedu.zerotoone.ui.util.UiPart;
-import seedu.zerotoone.ui.views.log.DataPointView;
 
 /**
  * Controller for a help page
  */
 public class StatisticsWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(StatisticsWindow.class);
-    private static final String FXML = "StatisticsWindow.fxml";
+    private static final String FXML = "log/StatisticsWindow.fxml";
 
     @FXML
     private Text statisticsSubTitle;
