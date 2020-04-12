@@ -21,6 +21,15 @@ image:Stash.png[image,width=322,height=322]
 
 By: Team F09-1
 
+Welcome to the Coupon Stash User Guide! Thank you so much for choosing
+Coupon Stash, the world's most popular command-line coupon management desktop
+application*!
+
+This guide will help you get started quickly, providing useful tips and hints
+along the way.
+
+*as of April 2020
+
 [cols=",",options="header",]
 |=========================================
 |*Contents* |*Section Number*
@@ -86,14 +95,10 @@ a|
 *Appendix*|9
 |=========================================
 
-Welcome to the Coupon Stash User Guide! Thank you so much for choosing
-Coupon Stash, the world's most popular command-line coupon management desktop
-application*!
-
-This guide will help you get started quickly, providing useful tips and hints
-along the way.
-
-*as of April 2020
+image::ug_stasher.png[]
+Hi! I'm Stasher, the mascot of Coupon Stash. Together,
+we are going to save so much money! Let me guide you
+to use this wonderful application.
 
 == Introduction
 
@@ -1030,6 +1035,15 @@ be added in version 2.0.0 +
 calculate the values saved based on the details of the coupon. You
 can used the <<saved, saved command>> to view amount saved.
 {empty} +
+
+*Q* : What animal is Stasher?
+
+*A* :  Stasher is a beetle that loves discounts and hot deals!
+Beetles are resourceful insects that know how to scavenge for
+the best coupons, as well as remember these coupons safely
+inside their tough exoskeleton and elytra.
+{empty} +
+
 
 
 == Command Summary
