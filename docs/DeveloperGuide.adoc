@@ -362,7 +362,11 @@ method, which calls the `Model#updateFilteredCouponList(Predicate)` method. It t
 If a command fails its execution, it will not call the `FilteredList<Coupon>#setPredicate(Predicate)` method. Hence, the
 observable coupon list will not be altered and the calendar will not be altered.
 
-===== Updating the Calendar with a different Month View
+The following sequence diagram shows how the Calendar updates with the observable coupon list:
+
+image::CalendarFindCommandSeqDiagram.png[]
+
+===== Updating the Calendar with a Different Month View
 The Calendar updates with the current `ObservableMonthView` with commands such as `goto`, `expiring` and `list` or by
 clicking on the arrows at the sides of the calendar title. The following steps describes how this behavior is
 implemented.
@@ -393,6 +397,10 @@ year on display to September 2020.
 [NOTE]
 If a command fails its execution, it will not call the `ObservableMonthView#setValue(String)` method. Hence, the
 observable month view will not be altered and the calendar will not be altered.
+
+The following sequence diagram shows how the Calendar updates with the observable month view:
+
+image::CalendarExpiringCommandSeqDiagram.png[]
 
 OR
 
