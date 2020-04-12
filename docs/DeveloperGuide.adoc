@@ -180,7 +180,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features
-are implemented, and pitfalls to avoid when making modifications.
+are implemented and pitfalls to avoid when making modifications.
 
 === Buy and Sell Commands
 
@@ -244,12 +244,13 @@ the above 3 input validations as they form the basis of future features.
 [NOTE]
 The `buy` command format is: `buy SUPPLIER_DISPLAYED_INDEX g/GOODNAME q/QUANTITY`
 
-The current implementation of `buy` performs validation as follows:
+The current implementation of `buy` performs validation of the above
+respectively as follows:
 
 . The `SUPPLIER_DISPLAYED_INDEX` must be within the length of list of suppliers
 returned by `Model#getFilteredSupplierList()`.
 . Get the offers of the supplier through `Supplier#getOffers()`.
-Iterate through the `set<Offer>` of the selected supplier to find
+Iterate through the `Set<Offer>` of the selected supplier to find
 existence of an `Offer` with `GOODNAME`.
 . Reuse the inbuilt quantity validation in the `Good` constructor to test
 if the resulting inventory quantity is valid. A `Good` with the new quantity
@@ -280,7 +281,7 @@ first parameter.
 * **Alternative 2:** `buy n/SUPPLIER_NAME g/GOODNAME q/QUANTITY`.
 ** Pros: Flexibility of having unordered input is maintained.
 ** Cons: Testing revealed that command entry was tedious and error prone,
-especially since Supplier names tended to be long and a mix of upper- and lower-
+especially since supplier names tended to be long and a mix of upper- and lower-
 case alphabets, reducing user-friendliness.
 
 ===== Aspect: `buy` Input Constraints:
@@ -294,9 +295,9 @@ transaction because the supplier will have to exist in the supplier list.
 The feasible future features include: cost analysis and
 ranking of suppliers by certain parameters.
 *** Users do not have to enter an additional parameter: purchase price,
-since this can be extracted from the Supplier's offers under the hood.
+since this can be extracted from the Supplier's offer under the hood.
 
-** Cons: If user has making a new purchase, he or she has to first do data entry
+** Cons: If user has making a new purchase, he or she has to first perform data entry
 for the supplier and all it's relevant information before the `buy` command
 can be executed.
 
@@ -541,7 +542,91 @@ The readable Json data is then stored in the Json file, which can be read by `Js
 // end::dataencryption[]
 
 === [Proposed] Automatic Batch Expiry and Warning
+
+The primary aim of inventory management is to ensure that there is always
+sufficient stock of goods. Out-of-stock situations
+cost the company needless revenue losses.
+
+When stores sell fast moving consumer goods with short shelf lives,
+this problem becomes hard to solve when every individual batch of purchases
+have their respective expiry dates.
+
+This feature aims to augment every `buy` command with it's respective
+`EXPIRY_DATE`. When the expiry date approaches, unsold goods from that batch
+would automatically be removed from the inventory, the user would be notified
+of the expiration and warned if that causes the good to fall below it's
+stipulated threshold. The command to source for suppliers who sell that good can
+also be triggered to facilitate restocking of that good.
+
 ==== Proposed Implementation
+===== Proposed Changes to `Good` class
+Inventory Manager v1.4 currently stores the name, current quantity, and
+threshold quantity of every good in the inventory. An `expiryDates` field
+will be added to store all distinct expiry dates, from closest to furthest, and
+the number of units expiring on that date. Java's built-in `Date` class
+will suffice.
+
+image:GoodWithExpiryDate.png[]
+
+
+===== Proposed Changes to `buy` Command
+
+The `buy` command will include an expiry date for every purchase
+goods. A possible format would be: `buy SUPPLIER_DISPLAYED_INDEX q/QUANTITY
+g/GOOD_NAME x/EXPIRY_DATE`. This assigns the `EXPIRY_DATE` to all `QUANTITY`
+units of `GOOD_NAME` bought.
+
+The correct `Good` entry can be retrieved from the  `InventoryManager`.
+If there is currently no expiry dates on `EXPIRY_DATE`, a new `Map.entry`
+will be created indicating that `QUANTITY` many units will expire on
+`EXPIRY_DATE`. Else, the current `Map.entry` will be updated.
+
+===== Proposed Changes to `sell` Command
+
+Under this implementation, the `sell` command must sell goods in a
+First-In-First-Out (FIFO) manner. When any valid `sell` command is entered,
+the earliest expiry dates are removed first. This is accomplished by reducing
+the values that are mapped to the earliest expiry dates.
+
+===== Expiry Detection
+
+Upon Inventory Manager Program startup, the `expiryDates` of all `Good` s in the
+inventory is checked with the current System Date. When any expiry date is found
+to be earlier than the System date, the mapped number of goods will expire
+and be removed from inventory.
+
+===== Possible Extensions
+Possible extensions of usefulness are listed below:
+
+. Make any expiry event generate it's respective transaction record in the
+transaction history.
+. If goods fall below their warning threshold as a result of expiry,
+have a notification to the user and display the list of suppliers that
+sell that particular good, sorted by increasing price.
+
+==== Design Considerations
+
+===== Aspect: Data Structure for `expiryDates`
+
+* **Alternative 1 (current choice):** Use a `TreeMap<Date, Integer>`
+** Pros: Memory efficient.
+** Cons:
+*** `TreeMap` navigation is more complex than a linear data structure.
+*** Updating is more complex for `sell` commands, especially if goods with
+multiple expiry dates are being sold.
+
+* **Alternative 2:** Maintain an ordered `LinkedList<Date>`.
+** Pros: Simple to implement and update.
+*** Buying `QUANTITY` of a good would correspond to inserting `QUANTITY` of
+`EXPIRY_DATE` into the list and sorting it.
+*** Selling `QUANTITY` of a good would correspond to removing the first
+`QUANTITY` elements.
+*** Finding all expired items can be done be traversing down the list until
+the first non-expired item is found. Everything traversed has expired.
+
+** Cons:
+*** Extremely memory inefficient, especially since each `Good` can contain
+up to `999,999` quantity, and there will be 1 `Date` for each good stored.
 
 === Logging
 
