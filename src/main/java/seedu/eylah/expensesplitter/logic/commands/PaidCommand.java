@@ -30,7 +30,8 @@ public class PaidCommand extends Command<SplitterModel> {
             + "It should not contain any alphabets and only has a maximum of 2 decimal places.";
 
     public static final String MESSAGE_RECEIPT_UNDONE = "The current receipt is marked as incomplete. You may not "
-            + "use the paid command.";
+            + "use the paid command.\n"
+            + "To mark the current receipt as done, please use the donereceipt command.";
 
     //private final Person personPaid;
     private final Index indexOfPersonPaid;
