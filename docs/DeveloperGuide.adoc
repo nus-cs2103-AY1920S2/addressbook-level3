@@ -363,7 +363,7 @@ image::ModelObjectDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
-The following `Class Diagram` is a simplified view of the `Storage` component.
+The following _Class Diagram_ shows a simplified view of the `Storage` component.
 
 .Simplified structure of the Storage Component
 image::StorageClassDiagram1.png[]
@@ -372,34 +372,28 @@ image::StorageClassDiagram1.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the TA-Tracker
-data in json format and read it back.
+* Can save `UserPref` objects in Json format, and read it back
+* Can save all TA-Tracker data in Json format, and read it back.
 
 ==== Saved Data
-The following `Class Diagram` is a breakdown of the data managed by the `Storage` component.
+The following _Class Diagram_ shows a breakdown of the TA-Tracker data managed by the `Storage` component.
 
 .Structure of the data stored by TA-Tracker
-
 image::StorageClassDiagram2.png[]
 
-`TA-Tracker
-` saves the following data:
+TA-Tracker saves the following data in _Json format_:
 
-* a list of `Module` objects representing the modules that the user is assisting. +
-+
-Within each module, there is:
+* A list of `Module` objects representing the *modules* that the user is teaching
+* A list of `Session` objects representing the *sessions* that the user has not completed (*not marked as done*)
 
-** a list of `Session`, representing the `done sessions` that the user has completed for that module.
-** a list of `Group`, representing the groups that the user is
-in charge of, such as a tutorial or lab. +
-+
-Within each group, there is:
+Within each `Module`, there is:
 
-*** a list of `Student`, representing the students enrolled in
-the respective groups.
+* A list of `Session` objects, representing the *sessions* that the user has completed (*marked as done*) for that module
+* A list of `Group` objects, representing the *groups* for that module that the user is in charge of, such as a tutorial or lab
 
-* a separate list of `Session` objects representing the sessions that the user has scheduled in the future.
+Within each `Group`, there is:
+
+* A list of `Student` objects, representing the students enrolled in the group
 
 [[Design-Commons]]
 === Common classes
