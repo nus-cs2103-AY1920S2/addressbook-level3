@@ -142,7 +142,7 @@ public class ScheduleCommand extends Command {
         BigDecimal actualTotalHoursAllocated = BigDecimal.ZERO;
 
         for (int i = 0; i < daysAllocated; i++) {
-            if (allocationResult.get(i).compareTo(new BigDecimal(0.25)) > 0) {
+            if (allocationResult.get(i).compareTo(new BigDecimal(Float.toString((float) 0.25))) > 0) {
                 float hoursAllocatedEachDay = (float) (Math.round(allocationResult.get(i).floatValue() * 2) / 2.0);
                 newSchedule.get(i).addAllocatedAssignment(hoursAllocatedEachDay, assignmentTitle);
 
@@ -181,8 +181,8 @@ public class ScheduleCommand extends Command {
 
         if (noOfDaysBetween == 0) {
 
-            BigDecimal hoursBeforeDeadline = new BigDecimal(ChronoUnit.SECONDS.between(currDateTime, deadline))
-                .divide(BigDecimal.valueOf(3600.0), 4, RoundingMode.HALF_UP);
+            BigDecimal hoursBeforeDeadline = new BigDecimal(Float.toString(ChronoUnit.SECONDS.between(currDateTime,
+                deadline))).divide(BigDecimal.valueOf(3600.0), 4, RoundingMode.HALF_UP);
             hoursLeftEachDay.add(hoursBeforeDeadline.subtract(distributedHoursAllAssignments.get(0)));
 
             BigDecimal hoursToBeAdded = hoursLeftEachDay.get(0).min(totalHoursToBeAllocated);
@@ -211,8 +211,8 @@ public class ScheduleCommand extends Command {
 
             LocalDateTime midnightToday = LocalDateTime.of(currDateTime.toLocalDate().plusDays(1), LocalTime.MIDNIGHT);
 
-            BigDecimal hoursBeforeMidnight = new BigDecimal(ChronoUnit.SECONDS
-                .between(currDateTime, midnightToday)).divide(BigDecimal.valueOf(3600.0), 4,
+            BigDecimal hoursBeforeMidnight = new BigDecimal(Float.toString(ChronoUnit.SECONDS
+                .between(currDateTime, midnightToday))).divide(BigDecimal.valueOf(3600.0), 4,
                 RoundingMode.HALF_UP);
 
             // Amount of time on query day that can be allocated to this current assignment
@@ -220,8 +220,9 @@ public class ScheduleCommand extends Command {
 
             LocalDateTime midnightDeadline = LocalDateTime.of(deadline.toLocalDate(), LocalTime.MIDNIGHT);
 
-            BigDecimal hoursBeforeDeadline = new BigDecimal(ChronoUnit.SECONDS
-                .between(midnightDeadline, deadline)).divide(BigDecimal.valueOf(3600.0), 4, RoundingMode.HALF_UP);
+            BigDecimal hoursBeforeDeadline = new BigDecimal(Float.toString(ChronoUnit.SECONDS
+                .between(midnightDeadline, deadline))).divide(BigDecimal.valueOf(3600.0), 4,
+                RoundingMode.HALF_UP);
 
             // Amount of time on the day the assignment is due that can be allocated to this current assignment
             BigDecimal hoursLeftOnDeadlineDay = hoursBeforeDeadline.subtract(distributedHoursAllAssignments
@@ -256,7 +257,7 @@ public class ScheduleCommand extends Command {
             // Ensure that following loop will not be prevented from entering if no new days were created
             result = BigDecimal.ONE;
 
-            while (currMinAndSecondMin[1].compareTo(new BigDecimal(Float.MAX_VALUE)) != 0
+            while (currMinAndSecondMin[1].compareTo(new BigDecimal(Float.toString(Float.MAX_VALUE))) != 0
                 && result.compareTo(BigDecimal.ZERO) > 0) {
 
                 int daysWithMinHours = getMinDays(distributedHoursAllAssignments, noOfDaysBetween,
@@ -284,7 +285,7 @@ public class ScheduleCommand extends Command {
             // Ensure that the following loop will not be prevented from entering if there was no previous allocation
             result = BigDecimal.ONE;
 
-            while (totalHoursToBeAllocated.compareTo(new BigDecimal(0.01)) > 0
+            while (totalHoursToBeAllocated.compareTo(new BigDecimal(Float.toString((float) 0.01))) > 0
                 && result.compareTo(BigDecimal.ZERO) > 0) {
 
                 result = allocateHoursEvenly(distributedHoursAllAssignments, allocationResultThisAssignment,
@@ -296,7 +297,7 @@ public class ScheduleCommand extends Command {
                 + totalHoursToBeAllocated);
             logger.info("Hours left to each day: " + String.valueOf(hoursLeftEachDay));
 
-            if (totalHoursToBeAllocated.compareTo(new BigDecimal(0.25)) > 0) {
+            if (totalHoursToBeAllocated.compareTo(new BigDecimal(Float.toString( (float) 0.25))) > 0) {
                 allocationResultThisAssignment.add(totalHoursToBeAllocated);
             }
         }
@@ -334,11 +335,11 @@ public class ScheduleCommand extends Command {
                                         ArrayList<BigDecimal> allocationResultThisAssignment,
                                         ArrayList<BigDecimal> hoursLeftEachDay) {
 
-        BigDecimal allocatedHours = new BigDecimal(0);
+        BigDecimal allocatedHours = BigDecimal.ZERO;
 
         if (numNewDays != 0) {
             // Decide how many hours to allocate to new days
-            BigDecimal hoursRequired = hoursToBeAllocated.divide(BigDecimal.valueOf(numNewDays), 4,
+            BigDecimal hoursRequired = hoursToBeAllocated.divide(new BigDecimal(numNewDays), 4,
                 RoundingMode.HALF_UP);
             BigDecimal hoursToBeAdded = currMin.min(hoursRequired);
             BigDecimal actualAllocated;
@@ -384,9 +385,9 @@ public class ScheduleCommand extends Command {
                                            ArrayList<BigDecimal> hoursLeftEachDay, BigDecimal hoursToBeAllocated,
                                            int noOfDaysBetween) {
 
-        BigDecimal hoursToBeAdded = hoursToBeAllocated.divide(BigDecimal.valueOf(noOfDaysBetween + 1), 4,
+        BigDecimal hoursToBeAdded = hoursToBeAllocated.divide(new BigDecimal(noOfDaysBetween + 1), 4,
             RoundingMode.HALF_UP);
-        BigDecimal allocatedHours = new BigDecimal(0);
+        BigDecimal allocatedHours = BigDecimal.ZERO;
         BigDecimal actualAllocated;
 
         for (int k = 0; k < Math.min(distributedHoursAllAssignments.size(), noOfDaysBetween + 1); k++) {
@@ -407,11 +408,13 @@ public class ScheduleCommand extends Command {
      */
     private BigDecimal[] getMinAndSecondMin(ArrayList<BigDecimal> distributedHoursAllAssignments,
                                             ArrayList<BigDecimal> hoursLeftEachDay, int daysInBetween) {
-        BigDecimal min = new BigDecimal(Float.MAX_VALUE);
-        BigDecimal secondMin = new BigDecimal(Float.MAX_VALUE);
+        BigDecimal min = new BigDecimal(Float.toString(Float.MAX_VALUE));
+        BigDecimal secondMin = new BigDecimal(Float.toString(Float.MAX_VALUE));
 
         for (int i = 0; i < Math.min(distributedHoursAllAssignments.size(), daysInBetween + 1); i++) {
-            if ((i != 0 && i != daysInBetween) || (hoursLeftEachDay.get(i).compareTo(new BigDecimal(0.01)) > 0)) {
+            if ((i != 0 && i != daysInBetween) || (hoursLeftEachDay.get(i)
+                .compareTo(new BigDecimal(Float.toString((float) 0.01))) > 0)) {
+
                 if (distributedHoursAllAssignments.get(i).compareTo(min) < 0) {
                     secondMin = min.add(BigDecimal.ZERO);
                     min = distributedHoursAllAssignments.get(i).add(BigDecimal.ZERO);
@@ -420,6 +423,7 @@ public class ScheduleCommand extends Command {
                     && distributedHoursAllAssignments.get(i).compareTo(min) > 0) {
                     secondMin = distributedHoursAllAssignments.get(i).add(BigDecimal.ZERO);
                 }
+
             }
         }
 
