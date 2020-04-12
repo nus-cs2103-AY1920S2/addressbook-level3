@@ -4,21 +4,76 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
+Package Storage {
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
-
-Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+Package DietTracker {
+Interface FoodBookStorage <<Interface>>
+Interface MySelfStorage <<Interface>>
+Interface DietStorage <<Interface>>
+Class DietStorageManager
+Class JsonFoodBookStorage
+Class JsonMySelfStorage
+Class JsonSerializableFoodBookStorage
+Class JsonSerializableMySelfStorage
+Class JsonAdaptedFood
+Class JsonAdaptedSelf
+Class JsonAdaptedTag
+}
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+Package ExpenseSplitter {
+Interface PersonAmountBookStorage <<Interface>>
+Interface ReceiptBookStorage <<Interface>>
+Interface SplitterStorage <<Interface>>
+Class SplitterStorageManager
+Class JsonPersonAmountBookStorage
+Class JsonReceiptBookStorage
+Class JsonSerializablePersonAmountBookStorage
+Class JsonSerializableReceiptBookStorage
+Class JsonAdaptedPerson
+Class JsonAdaptedReceipt
+Class JsonAdaptedItem
+Class JsonAdaptedEntry
+}
+
+}
+
+DietStorage -up-|> Storage
+SplitterStorage -up-|> Storage
+DietStorageManager .up.|> DietStorage
+SplitterStorageManager .up.|> SplitterStorage
+SplitterStorageManager o--> UserPrefsStorage
+DietStorageManager o--> UserPrefsStorage
+JsonUserPrefsStorage ..|> UserPrefsStorage
+
+DietStorageManager o--> FoodBookStorage
+DietStorageManager o--> MySelfStorage
+JsonFoodBookStorage .up.|> FoodBookStorage
+JsonMySelfStorage .up.|> MySelfStorage
+JsonFoodBookStorage ..> JsonSerializableFoodBookStorage
+JsonMySelfStorage ..> JsonSerializableMySelfStorage
+
+JsonSerializableFoodBookStorage ..> JsonAdaptedFood
+JsonAdaptedFood ..> JsonAdaptedTag
+JsonSerializableMySelfStorage ..> JsonAdaptedSelf
+
+
+SplitterStorageManager o--> PersonAmountBookStorage
+SplitterStorageManager o--> ReceiptBookStorage
+JsonPersonAmountBookStorage .up.|> PersonAmountBookStorage
+JsonReceiptBookStorage .up.|> ReceiptBookStorage
+JsonPersonAmountBookStorage ..> JsonSerializablePersonAmountBookStorage
+JsonReceiptBookStorage ..> JsonSerializableReceiptBookStorage
+
+JsonSerializablePersonAmountBookStorage ..> JsonAdaptedPerson
+JsonSerializableReceiptBookStorage ..> JsonAdaptedReceipt
+JsonAdaptedReceipt ..> JsonAdaptedEntry
+JsonAdaptedEntry ..> JsonAdaptedPerson
+JsonAdaptedEntry ..> JsonAdaptedItem
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Storage
+
 @enduml

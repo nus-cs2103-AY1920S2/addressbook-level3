@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.exceptions.DataConversionException;
-import seedu.eylah.commons.storage.StorageManager;
+import seedu.eylah.commons.model.ReadOnlyUserPrefs;
+import seedu.eylah.commons.model.UserPrefs;
 import seedu.eylah.commons.storage.UserPrefsStorage;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
 import seedu.eylah.diettracker.model.ReadOnlyMyself;
@@ -15,15 +16,16 @@ import seedu.eylah.diettracker.model.ReadOnlyMyself;
 /**
  * Manages storage of FoodBook data  and User metrics data in local storage.
  */
-public class DietStorageManager extends StorageManager implements DietStorage {
+public class DietStorageManager implements DietStorage {
 
     private static final Logger logger = LogsCenter.getLogger(DietStorageManager.class);
+    private UserPrefsStorage userPrefsStorage;
     private FoodBookStorage foodBookStorage;
     private MyselfStorage myselfStorage;
 
     public DietStorageManager(FoodBookStorage foodBookStorage, UserPrefsStorage userPrefsStorage,
                               MyselfStorage myselfStorage) {
-        super(userPrefsStorage);
+        this.userPrefsStorage = userPrefsStorage;
         this.foodBookStorage = foodBookStorage;
         this.myselfStorage = myselfStorage;
     }
@@ -86,4 +88,18 @@ public class DietStorageManager extends StorageManager implements DietStorage {
         foodBookStorage.saveFoodBook(foodBook, filePath);
     }
 
+    @Override
+    public Path getUserPrefsFilePath() {
+        return userPrefsStorage.getUserPrefsFilePath();
+    }
+
+    @Override
+    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+        return userPrefsStorage.readUserPrefs();
+    }
+
+    @Override
+    public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
+        userPrefsStorage.saveUserPrefs(userPrefs);
+    }
 }
