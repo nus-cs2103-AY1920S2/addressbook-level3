@@ -61,11 +61,12 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
-        model.addTransaction(toAdd);
-
         if (toAdd.getRecurringBoolean() == true) {
             model.addTransactionToGlobalData(toAdd);
         }
+
+        model.addTransaction(toAdd);
+
         model.setFilter(
                 new Filter(
                         new CategoryEqualsKeywordPredicate(Arrays.asList(model.getFilter().getFilterCategoryName())),

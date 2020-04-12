@@ -189,11 +189,13 @@ There are two ways of implementing a Transaction:
 * Adding an income (positive transaction): add i/
 These two commands will indicate whether the transaction is positive or negative.
 
-When inserting a new Expense/Income, the `AddTransactionCommandParser` will detemine which object to initialise depending on whether the i/ syntax is present.
+Indicating whether it is a recurring transaction or not will depend if rc/ is present in the input
+
+When inserting a new Expense/Income, the `AddCommandParser` will determine which object to initialise depending on whether the i/ syntax is present.
 
 The following sequence diagram shows how the add transaction operation works:
 
-image::UndoSequenceDiagram.png[]
+image::AddCommandSequenceDiagram.png[]
 
 Figure 9. Sequence diagram of how adding a new `Transaction` is processed depending on syntax.
 
@@ -202,57 +204,48 @@ Figure 9. Sequence diagram of how adding a new `Transaction` is processed depend
 * Missing parameters
 * Incorrect syntax (i.e. missing prefix if required)
 * Illegal values in parameters (i.e. special character and symbols entered for an integer only field)
-* Multiple occurences of parameters which only expects single entry
+* Multiple occurence of parameters which only expects single entry
 
 [NOTE]
 Incorrect user input will display error message
 
 We will demonstrate how a `Transaction` is added into `ExpenseLa`:
 
-Step 1. The user executres the command add *n/Pizza a/20.5 d/2020-02-02* to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
+Step 1. The user executes the command add *n/Pizza a/20.5 d/2020-02-02* to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
 
 * `**Name**` is parsed by `AddCommandParser#parseName(ArgumentMultimap)`
 * `**Value**` is parsed by `AddCommandParser#parseAmount(ArgumentMultimap)`
-* `**Date**` is parse by `AddCommandParser#parseDate(ArgumentMultimap)`
+* `**Date**` is parsed by `AddCommandParser#parseDate(ArgumentMultimap)`
+* `**Category**` is set to default category `MISC`
 
 NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
 
 Since the user input is valid, the `Transaction` is successfully created and inserted into the transaction list. The transaction list now contains 1 `Transaction` object.
 
-image::UndoRedoState4.png[]
+image::AddTransactionToList1.png[]
 
-Step 2. The user executes **add i/ n/Salary a/3000 r/Monthly Salary to indicate his monthly pay** to insert a positive `**Transaction**`.
+Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income ** to indicate his monthly pay, to insert a positive `**Transaction**`.
 The input is now checked in a similar fashion as in Step 1 except that:
 
 * `**Remark**` is parsed by `AddCommandParser#parseRemark(ArgumentMultimap)`
+* `**Category**` is parsed by `AddCommandParser#parseCategory(ArgumentMultimap)`
+
+NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GROCERIES, HEALTH, RECREATION, MISC, UTILITIES, INCOME.
 
 Again, since the input is valid, the positive `Transaction` is successfully added into the transaction list. The transaction list
 now contains 2 `**Transaction**` objects.
 
+image::AddTransactionToList2.png[]
+
 The following activity diagram summarizes what happens when the user executes a command to add a new `Transaction`:
 
-image::UndoRedoState5.png[]
+image::AddTransactionActivityDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
 
 Figure 10. Activity diagram of adding a `Transaction` into the transaction list.
-
-==== Design Considerations
-
-There are many different ways to implement how a transaction is added into `ExpenseLa`. In this section, we will be justifying why we chose to implement it the way we did.
-
-===== Aspect: Differentiating between positive and negative `Transactions`
-
-* **Alternative 1: (current choice):** Introduce a CliSyntax to differentiate between positive and negative `Transaction`
-** Pros: All transactions are differentiated easily with the positive or negative sign.
-** Cons: Reduces the readability of the program as polymorphism can be confusing.
-
-* **Alternative 2:** Keep `**Expense**` and `**Income**` classes separate, with each having their own specialized methods.
-** Pros: Maintains an intuitive design: `**Expense**` deducts money and `**Income**` increases money.
-** Cons: Incurs significant overhead and duplicated codes since it is likely that both `**Expense**` and `**Income**` will
-have very similar methods.
 
 Hubert Halim
 

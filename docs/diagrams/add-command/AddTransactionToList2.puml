@@ -1,0 +1,26 @@
+@startuml
+
+!include ../style.puml
+
+skinparam classBackgroundColor MODEL_COLOR
+
+package "Transaction List" {
+    class transaction1 as "__:Transaction__" {
+        <color:#white>Name: "Pizza"
+        <color:#white>Amount: - 20.5
+        <color:#white>Date: 2020-02-02
+        <color:#white>Category: "MISC"
+    }
+
+    class transaction1 as "__:Transaction__" {
+            <color:#white>Name: "Salary"
+            <color:#white>Amount: + 3000
+            <color:#white>Date: 2020-02-03
+            <color:#white>Remarks: "Monthly Salary"
+            <color:#white>Category: "INCOME"
+        }
+}
+
+transaction1 -[hidden]left- transaction2
+show members
+@enduml
