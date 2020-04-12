@@ -26,7 +26,7 @@ image::wang-yuchen-alice.png[width="150", align="left"]
 
 Role: Team Lead, Developer +
 Responsibilities: Testing, Integration +
-In charge of [Today Page][Weekly Report]
+In charge of [Home Page][Today Page][Diary Page]
 
 '''
 

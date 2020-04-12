@@ -46,11 +46,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Common Fields and Keywords
 * *x/* entry type
 * *n/* entry name
-* *t/* entry time
+* *t/* entry time in format yyyy-MM-dd-hh-mm
 * *l/* entry location
 * *c/* entry calorie
 * *s/* entry status
-* *r/* entry remark
 * *i/* entry index
 * *d/* date in format yyyy-MM-dd
 * *m/* mode
@@ -66,7 +65,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-// tag::command_format[]
+//tag::command_format[]
 ====
 *Command Format*
 
@@ -92,69 +91,61 @@ the url of the User Guide is copied to the clipboard, so the user
 can directly access the Guide by pasting the url into the browser.
 Format: `help`
 
-// tag::add[]
+//tag::add[]
 === Adding an entry: `add`
 
 Adds an entry to the fitness log book. The entry added will be displayed in DashBoard, Calendar
-and possibly Today Page (if its date is today) immediately after the command is executed.
-No entry can have time clashes. If a duration of an entry is not specified, default duration is set to 1 hour. +
+and possibly Today Page (if its date is today) immediately after the command is executed. +
 Note that due to space constraint, entry card in DashBoard and Today page will only display
 first 14 characters of its name and first 21 characters of its location. The entry icon in
 Calendar Page are even more constrained.
 
-[WARNING]
-FitHelper accepts duplicate fields, but only the last value specified under this field will be taken.
+* FitHelper accepts duplicate fields, but only the last value specified under this field will be taken.*
 
-Format: `add x/TYPE n/NAME t/DATETIME l/LOCATION c/CALORIE [dr/DURATION] [r/REMARK]...`
+* Default value for unspecified optional field: `status` : Undone; `duration`: 1 hr*
+
+Format: `add x/TYPE n/NAME t/DATETIME l/LOCATION c/CALORIE [dr/DURATION]...`
 
 Examples:
 
-* `add x/s n/running t/2020-04-10-18:00 l/utown gym c/500 r/relly fun`
-* `add x/f n/chicken rice t/2020-04-10-11:00 l/Super Snacks c/200 r/cheap and yummy`
+* `add x/s n/running t/2020-04-10-18:00 l/utown gym c/500`
+* `add x/f n/chicken rice t/2020-04-10-11:00 l/Super Snacks c/200`
 //end::add[]
 
-// tag::list[]
+//tag::list[]
 === Listing all entries : `list`
 
 Shows a list of all entries in the fitness log book. +
 Format: `list`
-
-Examples:
-
-* `list`
 //end::list[]
 
-// tag::reminder[]
+//tag::reminder[]
 === View Reminder : `reminder`
 
-Shows a list of all undone tasks in the fitness log book, which can be seen from a fixed field in the home page. +
-Format: `reminders`
+Shows a list of all undone tasks which can be seen from a fixed field in the home page (Dashboard). +
+Format: `reminder`
 
-Examples:
+//end::reminder[]
 
-* `reminder`
-//end::remind[]
-
-// tag::edit[]
+//tag::edit_find[]
 === Editing an entry : `edit`
 
-Edits an existing entry in the fitness log book. +
-Format: `edit x/TYPE i/INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK] [dr/DURATION]...`
+Edits an existing entry in the fitness log book with the specified values. +
+Format: `edit x/TYPE i/INDEX [s/STATUS] [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE][dr/DURATION]...` +
 
 ****
-* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed corresponding entry list from the dashboard. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing remarks, the existing remarks of the entry will be removed i.e adding of remarks is not cumulative.
-* You can remove all the entry's remarks by typing `r/` without specifying any remarks after it.
+* If the user is currently in other pages, a successful execution of `edit` will switch the page to the dashboard.
+* To obtain accurate indices, the user should first switch to the home page by calling `home` or `list` and refer to the displayed list in `food entry history` and `sport entry history` fields.
+* Additionally, the user can first called `find` command and then refer to the resulting list's indices to `edit` an entry. However, right after a `find`, the user can only refer to entries that are currently displayed. +
+i.e. If there are 5 food entries in total, and after `find` 2 food entries are displayed. If the user does not switch back to the home page, he can only refer to the displayed 2 entries (with indices 1 and 2). He can `edit` any entries only when he turns to home page after the `find`.
+* The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
-
+(after switching to Home Page)
 * `edit x/s i/1 t/Friday 16:00 l/PGP gym` +
 Edits the time and email location of the 1st entry to be `Friday 4pm` and `PGP gym` respectively.
-* `edit x/f i/2 n/Fries r/` +
-Edits the name of the 2nd entry from food entry list to be `Fries` and clears all existing remarks.
 
 ==== Mark an entry as done
 
@@ -165,9 +156,8 @@ Format: `edit x/TYPE i/INDEX s/Done`
 
 Similar to the previous command, marking an entry as undone edits the `s/` field and modify it as `Undone`.
 Format: `edit x/TYPE i/INDEX s/Undone`
-//end::edit[]
 
-// tag::find[]
+
 === Locating entries by name: `find`
 
 Finds entries whose names contain any of the given keywords. +
@@ -175,11 +165,11 @@ Format: `find [x/TYPE] k/ONE_OR_MORE_KEYWORDS`
 If the `TYPE` field is empty, FitHelper will search from the whole list.
 
 ****
-* The search is case insensitive. e.g `apples` will match `Apples`
-* The order of the keywords does not matter. e.g. `Apple Pie` will match `Pie Apple`
+* The search is case insensitive. e.g `apples` will match `Apples`.
+* The order of the keywords does not matter. e.g. `Apple Pie` will match `Pie Apple`.
 * Only the name is searched.
-* Only full words will be matched e.g. `Straw` will not match `Strawberries`
-* Entries matching at least one keyword will be returned (i.e. `OR` search). e.g. `Apple Banana` will return `Apple Pie`, `Banana Milkshake`
+* Only full words will be matched e.g. `Straw` will not match `Strawberries`.
+* Entries matching at least one keyword will be returned (i.e. `OR` search). e.g. `Apple Banana` will return `Apple Pie`, `Banana Milkshake`.
 ****
 
 Examples:
@@ -188,21 +178,17 @@ Examples:
 Returns `running` and `slow running`
 * `find x/food k/Juice Apple` +
 Returns any entry having names `Juice`,  or `Apple`
-//end::find[]
+//end::edit_find[]
 
-// tag::delete[]
+//tag::delete[]
 === Deleting an entry : `delete`
 
-Deletes the specified entry from the fitness log book. +
+Deletes the entry at the specified `INDEX` from the fitness log book. +
 Format: `delete x/TYPE i/INDEX`
-
-[WARNING]
-If `delete` is called right after a `find` command (when a shortened list is displayed), the index follows the current list view
-after executing `find` command. i.e. If entry X originally has an index 3 and currently has an index 1 after the `find` command,
-calling `delete ... i/1` will successfully delete entry X.
 ****
-* Deletes the entry at the specified `INDEX`.
-* The index refers to the index number shown in the displayed entry list.
+* To obtain accurate indices, the user should first switch to the home page by calling `home` or `list` and refer to the displayed list in `food entry history` and `sport entry history` fields.
+* Additionally, the user can first called a `find` and then refer to the resulting list's indices to `delete` an entry. However, right after a `find`, the user can only refer to entries that are currently displayed. +
+i.e. If there are 5 food entries in total, and after `find` 2 food entries are displayed. If the user does not switch back to the home page, he can only refer to the displayed 2 entries (with indices 1 and 2).
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -212,13 +198,15 @@ Examples:
 Deletes the 2nd sports entry in the sports list from dashboard.
 //end::delete[]
 
-// tag::diary[]
+//tag::diary[]
 === Keep a diary
 
 The user can keep a diary in FitHelper, and command for adding/editing/deleting/searching/clearing diary logs.
 
-* `diary` switches to the `Diary Page` where all diary logs are displayed in chronological order
+* `diary` switches to the `Diary Page` where all diary logs are displayed based on the order they are created/modified.
+//end::diary[]
 
+//tag::addDiary[]
 ==== Add a new diary
 
 * `addDiary d/DATE dc/DIARYCONTENT` +
@@ -230,46 +218,37 @@ Examples:
 
 * `addDiary d/2020-03-31 dc/Happy birthday Alice!`
 Adds a diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
+//end::addDiary[]
 
+//tag::appendDiary[]
 ==== Append new content to an existing diary
 * `appendDiary d/DATE dc/APPENDED CONTENT` +
 appends new content to the existing diary on the specified `DATE`. +
 
-If the specified `DATE` does not have previously added diary log, this command will be discarded with a `DIARY_NOT_FOUND`
+If the specified `DATE` does not have previously added diary log, this command will be discarded with a `INVALID_DIARY_DATE`
 reminder.
 
 Examples:
 
-* `appendDiary d/2020-03-31 dc/You are one year older now:)` (after `addDiary d/2020-03-31 dc/Happy birthday Alice!`)+
+* `appendDiary d/2020-03-31 dc/You are one year older now.` (after `addDiary d/2020-03-31 dc/Happy birthday Alice!`)+
 This command appends the new diary content to the existing the diary log on the date `2020-03-31`.
 The new diary content after this command will be "Happy birthday Alice! You are one year older now:)".
+//end::appendDiary[]
 
+//tag::edit_findDiary[]
 ==== Edit a diary
 * `editDiary d/DATE dc/NEW DIARYCONTENT` +
 edits the diary on the specified `DATE` with the new `DIARYCONTENT`. +
 
-If the specified `DATE` does not have previously added diary log, this command will be discarded with a `DIARY_NOT_FOUND`
+If the specified `DATE` does not have previously added diary log, this command will be discarded with a `INVALID_DIARY_DATE`
 reminder.
-If the existing diary with the specified `DATE` has the same content as the specified content, this command will be discarded with a `DUPLICATE_DIARY`
+If the existing diary with the specified `DATE` has the same content as the specified content, this command will be discarded with a `DIARY_ALREADY_EXISTS`
 reminder.
 
 Examples:
 
 * `editDiary d/2020-03-31 dc/Happy birthday Alice!` +
-This command edits the content of the diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
-
-==== Delete a diary
-* `deleteDiary d/DATE` +
-deletes the diary on the specified `DATE`. +
-
-If there is no diary under the specified `DATE`, this command will be discarded with the reminder of
-`DIARY_NOT_FOUND`.
-
-Examples:
-
-* `deleteDiary d/2020-03-31` +
-This command deletes the diary log on the date `2020-03-3`, if the diary on this date exists, and discards the command
-if no diary was added previously on this date.
+If there is diary log on `2020-03-31` reviously, this command edits the content of the diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
 
 ==== Find a diary
 * `findDiary [d/DATE] [k/ONE OR MORE KEYWORDS]` +
@@ -279,17 +258,13 @@ If there is no diary under the specified `DATE`, this command will be discarded 
 `DIARY_NOT_FOUND`.
 
 ****
-* The field `DATE` has higher priority than `KEYWORDS` in the search.
+* The field `DATE` has higher priority than `KEYWORDS` in this search.
 i.e. If the `DATE` field is non-empty, regardless of the presence and the content of the `KEYWORDS` field,
 the diary under that date will be displayed. If the specified `DATE` contains no previous diary logs,
 no diary will be listed.
 * If the field `DATE` is left empty, only the `KEYWORDS` field is considered in the search,
 similar to the case of `find` command for food/sport entries.
-* The search is case insensitive. e.g `apples` will match `Apples`
-* The order of the keywords does not matter. e.g. `Apple Pie` will match `Pie Apple`
-* Only the name is searched.
-* Only full words will be matched e.g. `Straw` will not match `Strawberries`
-* Entries matching at least one keyword will be returned (i.e. `OR` search). e.g. `Apple Banana` will return `Apple Pie`, `Banana Milkshake`
+* Other searching rules are the same as the `find` command searching in section 4.6.
 ****
 
 Examples:
@@ -298,20 +273,38 @@ Examples:
 Displays diaries with their content containing the keyword `running`, ignoring the letter capitalization.
 * `find d/2020-03-31 k/cake` +
 Returns the diary on the date of `2020-03-31` regardless of the `KEYWORDS` field.
+//end::edit_findDiary[]
 
+//tag::deleteDiary[]
+==== Delete a diary
+* `deleteDiary d/DATE` +
+deletes the diary on the specified `DATE`. +
+
+If there is no diary under the specified `DATE`, this command will be discarded with the reminder of
+`INVALID_DIARY_DATE`.
+
+* The rules regarding the indices are the same as Section 4.5 `edit`, points 3 - 5. *
+
+Examples:
+
+* `deleteDiary d/2020-03-31` +
+This command deletes the diary log on the date `2020-03-3`, if the diary on this date exists, and discards the command
+if no diary was added previously on this date.
+//end::deleteDiary[]
+
+
+
+//tag::clearDiary[]
 ==== Clear the diary
 
 * `clearDiary`＋
 clears all diary logs in this FitHelper.
-[TIP]
-The user can always revoke the clearing command by calling `undo`, which will be explained in a later section.
-//end::diary[]
+//end::clearDiary[]
 
-// tag::clear[]
+//tag::clear[]
 === Clearing all data in FitHelper : `clear`
 
 Clears all entries from the fitness log book. +
-
 Format: `clear`
 //end::clear[]
 
@@ -330,9 +323,9 @@ Examples:
 
 * `undo` (after `addDiary d/2020-03-31 dc/I am happy.`) +
 This `undo` commands remove the added diary log from FitHelper.
-//end::undo
+//end::undo[]
 
-//tag::redo
+//tag::redo[]
 === Redo : `redo`
 
 `redo` is the reverse of `undo`. +
@@ -367,10 +360,10 @@ Three local database in Json format will exist after running FitHelper:
 * *weightrecords.json* : data related to weight records.
 ****
 
-// remark::dataencryption[]
+//tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-// end::dataencryption[]
+//end::dataencryption[]
 
 === Show calorie table
 
@@ -514,7 +507,13 @@ The user's daily task completion is shown in percentage (round to integer).
 Based on the user's intake food calorie and sport task completion, FitHelper provides suggestions and reminders
 in the `FitHelper Feedback` area.
 
-==== [proposed][comes in v1.4] Some Day Page
+Examples:
+
+* `today`
+//end::today[]
+
+//tag::someday[]
+==== [proposed][comes in v2.0] Some Day Page
 
 The `Today Page` for some day in the history can be displayed.
 Format: `today DATE`
@@ -524,10 +523,11 @@ The `DATE` should be equal or prior to `today`. Requiring a `Today Page` for a f
 
 Examples:
 
-* `today`
-* `today 2020-02-14`
+* `today 2020-02-14`[proposed][comes in v2.0]
+//end::someday[]
 
-=== [proposed][comes in v1.4] Weekly Report
+//tag::report[]
+=== [proposed][comes in v2.0] Weekly Report
 
 A weekly report serves as a summary for the past week. The user can see his performance in the past week. The weekly report also contains his rewarding points, diary logs, and preferred sports and food from the previous week. +
 Format: `weekreport`
@@ -553,7 +553,7 @@ Examples:
 
 * `weekreport`
 * `weekreport 2020-02-14`
-//end::today[]
+//end::report[]
 
 === Sort food/sports entry list: `sort`
 

@@ -358,7 +358,7 @@ The Sequence Diagram below shows how the components interact with each other for
 
 .Sequence Diagram for Diary Feature
 image::DiarySequenceDiagram.png[]
-//tag:diary[]
+//end::diary[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -416,11 +416,12 @@ image::UndoRedoState4.png[]
 Step 6. The user executes `clear`, which calls `Model#commit()`. Since the `currentStatePointer` is not pointing at the end of the `fitHelperStateList`, all FitHelper states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
+// end::undoredo[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
-// end::undoredo[]
+image::CommitActivityDiagram.png[][height = "50"]
+
 
 // tag::calendar[]
 === Calendar
