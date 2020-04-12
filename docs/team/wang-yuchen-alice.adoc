@@ -13,75 +13,90 @@ FitHelper is a desktop address book application used for teaching Software Engin
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
+* *Major enhancement 1*: added the ability to *undo/redo previous commands*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing models.
+** Credits: The proposed "undo/redo" features in AddressBook3 Developer Guide has guided the design of this feature in this project.
+
+* *Major enhancement 2*: added the feature of *Today Page*
+** What it does: allows the user to view food/sports entries on today, visualize the distribution of calories in their diet, and obtain feedback for their performance.
+** Justification: This feature improves the product significantly because a user usually need to overview the today schedule and adjust the daily arrangement.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement 3*: *GUI* main structure [https://github.com/AY1920S2-CS2103-T09-4/main/pull/145[#145]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/147[#147]]
+** Justification: This enhancement builds the FitHelper GUI from scratch, creates the main structure of pages, enables page switches and logic-model-GUI connection.
+** Justification: This feature improves the product significantly because a user usually need to overview the today schedule and adjust the daily arrangement.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=alice&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=WANG-Yuchen-Alice&tabRepo=AY1920S2-CS2103-T09-4%2Fmain%5Bmaster%5D[Functional code]]
-
-[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=alice&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=WANG-Yuchen-Alice&tabRepo=AY1920S2-CS2103-T09-4%2Fmain%5Bmaster%5D][https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/model/VersionedFitHelper.java](VersionedFitHelper.java) [https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/logic/commands/UndoCommand.java](UndoCommand.java) [https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/logic/commands/RedoCommand.java](RedoCommand.java)
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=alice&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=WANG-Yuchen-Alice&tabRepo=AY1920S2-CS2103-T09-4%2Fmain%5Bmaster%5D[RepoSense Link]]
 
 * *Other contributions*:
 ** Project Refactor
-*** Initialize new model for FitHelper
-*** Modify and refactor basic commands (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/85, https://github.com/AY1920S2-CS2103-T09-4/main/pull/86)
+*** Initialize new model for FitHelper [https://github.com/AY1920S2-CS2103-T09-4/main/pull/85[#85]]
+*** Refactor and re-implement basic commands: `add`, `edit`, `delete`, `clear`, `exit`, `list` [https://github.com/AY1920S2-CS2103-T09-4/main/pull/86[#86]]
+*** Enhanced Commands: `reminder`, `find` [https://github.com/AY1920S2-CS2103-T09-4/main/pull/100[#100]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/177[#177]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/191[#191]]
 ** GUI
-*** Set up GUI main structure, enabling page switches and logic-model-GUI connection. (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/145, https://github.com/AY1920S2-CS2103-T09-4/main/pull/147)
+*** DashBoard - entry master list [https://github.com/AY1920S2-CS2103-T09-4/main/pull/174[#174]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/177[#177]]
+*** Today Page - daily schedule and performance assessment [https://github.com/AY1920S2-CS2103-T09-4/main/pull/201[#201]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/236[#236]]
+*** Diary Page - add/edit/append/delete diaries [https://github.com/AY1920S2-CS2103-T09-4/main/pull/209[#209]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/211[#211]]
 ** Documentation
-*** UG structure (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/90, https://github.com/AY1920S2-CS2103-T09-4/main/pull/91, https://github.com/AY1920S2-CS2103-T09-4/main/pull/95)
-*** DG Use Cases (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/97, https://github.com/AY1920S2-CS2103-T09-4/main/pull/99)
-** Basic Functions with GUI
-*** Add, Edit, Clear, Delete
-** Enhanced Functions
-*** Reminder, Find,
-** DashBoard
-** Today Page
-** Diary Page
+*** UG Draft1 [https://github.com/AY1920S2-CS2103-T09-4/main/pull/90[#90]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/91[#91]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/95[#95]]
+*** DG Use Cases [https://github.com/AY1920S2-CS2103-T09-4/main/pull/97[#97]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/99[#99]]
 ** Project management:
 *** Participated in releases `v1.3` - `v1.4` (2 releases) on GitHub by creating and updating jar files
+** Managed issues on GitHub and assigned issues to corresponding Milestones and team membersManaged issues on GitHub and assigned issues to corresponding Milestones and team members.
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/WANG-Yuchen-Alice/ped/issues)
+*** Reported bugs and suggestions for other teams (example: https://github.com/WANG-Yuchen-Alice/ped/issues[PED])
+*** Reviewed User Guide and Developer Guide for other teams in class (example:https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/3[Inclass Peer Review])
 ** Tools:
 *** Set up Travis to perform Continuous Integration (CI) for the group fork
 *** Integrated a third party Tool (Coverall) to the project (https://github.com[#42])
 
 == Contributions to the User Guide
-
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=add]
+|===
+|[NOTE]
+|_Due to page limit, only selected sections are included. Refer to User Guide for more sections._
+|===
+
+//include::../UserGuide.adoc[tag=add]
 include::../UserGuide.adoc[tag=edit]
-include::../UserGuide.adoc[tag=delete]
-include::../UserGuide.adoc[tag=clear]
-include::../UserGuide.adoc[tag=exit]
+
 include::../UserGuide.adoc[tag=find]
-include::../UserGuide.adoc[tag=reminder]
+
+//include::../UserGuide.adoc[tag=delete]
+//include::../UserGuide.adoc[tag=clear]
+//include::../UserGuide.adoc[tag=exit]
+=== Keep a diary
+
+include::../UserGuide.adoc[tag=edit_findDiary]
+
 include::../UserGuide.adoc[tag=undo]
-include::../UserGuide.adoc[tag=redo]
-include::../UserGuide.adoc[tag=diary]
+
+//include::../UserGuide.adoc[tag=redo]
+//include::../UserGuide.adoc[tag=diary]
+//include::../UserGuide.adoc[tag=addDiary]
+//include::../UserGuide.adoc[tag=appendDiary]
+//include::../UserGuide.adoc[tag=deleteDiary]
+//include::../UserGuide.adoc[tag=clearDiary]
 include::../UserGuide.adoc[tag=today]
-include::../UserGuide.adoc[tag=dataencryption]
+//include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+|===
+|[NOTE]
+|_Due to page limit, the activity diagram of UndoRedo feature is not shown. Refer to Developer Guide for the diagram_
+|===
 
 include::../DeveloperGuide.adoc[tag=today]
 include::../DeveloperGuide.adoc[tag=diary]
 include::../DeveloperGuide.adoc[tag=undoredo]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+//test
