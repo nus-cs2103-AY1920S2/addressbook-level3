@@ -303,9 +303,7 @@ public class MainWindow extends UiPart<Stage> {
             // Handle tabs
             int tabIndexToSwitch = getTabIndexFromCommand(commandResult);
             tabPanePlaceholder.getSelectionModel().select(tabIndexToSwitch);
-            tabPanePlaceholder
-                    .getSelectionModel()
-                    .select(tabIndexToSwitch);
+            tabPanePlaceholder.getSelectionModel().select(tabIndexToSwitch);
 
             // Update StatisticsDisplay when stats tab is selected
             if (tabIndexToSwitch == STATS_TAB_INDEX) {
@@ -507,7 +505,9 @@ public class MainWindow extends UiPart<Stage> {
             try {
                 SwitchTabCommandResult switchTabCommandResult =
                         (SwitchTabCommandResult) commandResult;
-                result = switchTabCommandResult.getTabToSwitchIndex(); // switch to tab in SwitchTabCommandResult
+                result =
+                        switchTabCommandResult
+                                .getTabToSwitchIndex(); // switch to tab in SwitchTabCommandResult
             } catch (ClassCastException ce) {
             }
         } else if (commandResult instanceof SetCommandResult) {
