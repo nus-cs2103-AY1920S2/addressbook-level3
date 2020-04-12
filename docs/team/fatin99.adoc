@@ -136,9 +136,14 @@ Here is the code that I have written for this product: [https://github.com/AY192
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |====
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=commonsymbols]
+include::../UserGuide.adoc[tag=commandformat]
+include::../UserGuide.adoc[tag=layout]
+include::../UserGuide.adoc[tag=claimsview]
+include::../UserGuide.adoc[tag=help]
+include::../UserGuide.adoc[tag=goto]
+include::../UserGuide.adoc[tag=donesession]
+include::../UserGuide.adoc[tag=setrate]
 
 === Contributions to the Developer Guide
 

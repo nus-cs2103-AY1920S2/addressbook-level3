@@ -51,9 +51,8 @@ can type fast and prefer to use a keyboard, and
 you can easily view all your *teaching duties*.
 
 If you are interested, jump to <<Quick Start>> to discover how easy it is to fill out forms using *TA-Tracker*.
-
 //end::introduction[]
-
+//tag::quickstart[]
 == Quick Start
 
 This section gives you a step-by-step explanation on how you can download and open
@@ -84,7 +83,8 @@ your data manually.
 == About the User Guide
 This User Guide introduces you to TA-Tracker's features and shows you how you can use
 the TA-Tracker to make your life as a Teaching Assistant easier.
-
+//end::quickstart[]
+//tag::commonsymbols[]
 === Common Symbols
 This section shows you the symbols commonly used in this guide.
 
@@ -102,7 +102,7 @@ This symbol indicates that a tip is being mentioned.
 ====
 This symbol indicates that there is something you should be careful to avoid.
 ====
-
+//end::commonsymbols[]
 //tag::commandformat[]
 === Command Format
 
@@ -186,7 +186,8 @@ This means that it can be:
 `t/friend t/family`
 
 |=======================================================================
-
+//end::commandformat[]
+//tag::commonparameters[]
 === Common Parameters
 
 This section lists and explains what the parameters commonly used in the commands mean.
@@ -373,7 +374,8 @@ The domain name must also:
 *johnDoe97@example123.com*
 
 |=======================================================================
-
+//end::commonparameters[]
+//tag::duplicateparameters[]
 ==== Duplicate Parameters
 
 You can specify the same parameter *more than once* in a command.
@@ -414,7 +416,8 @@ If you execute this command, you will create a *module* with the name `Software 
 The name `SE` will be ignored.
 
 |=======================================================================
-
+//end::duplicateparameters[]
+//tag::rearrangingparameters[]
 ==== Rearranging Parameters
 
 Parameters can be in *any order* if they have *prefixes*.
@@ -431,9 +434,7 @@ For example, if a command needs an `INDEX`, it must be the *first parameter*:
 
 * `INDEX n/NAME` is valid, but
 * `n/NAME INDEX` is invalid
-
-//end::commandformat[]
-
+//end::rearrangingparameters[]
 //tag::layout[]
 [[Layout]]
 == Layout
@@ -474,9 +475,8 @@ allowing you to see them better.
 image::Tabs.png[width="790"]
 This shows what happens when you last made a change in the `student tab`
 and then clicked on the `claims tab`.
-
 ====
-
+//end::layout[]
 //tag::studentview[]
 === Student View
 Under the `student tab`, the *Student View* is used to show you the students that you're teaching. The students
@@ -512,7 +512,6 @@ The `RATING` value must be a positive integer.
 image::StudentView.png[,1000]
 This is an example of what the Student View might look like.
 //end::studentview[]
-
 //tag::sessionview[]
 === Session View
 Under the `session tab`, the *Session View* contains a list of the upcoming sessions
@@ -552,7 +551,6 @@ assistant for.
 image::ClaimsView.png[,1000]
 This is an example of what the Claims View might look like.
 //end::claimsview[]
-//end::layout[]
 
 [[Usage]]
 == Usage
@@ -661,7 +659,6 @@ Showing the *parameter usage*
 
 image::Default.png[,1000]
 This is an example of what a hint may look like.
-
 //end::syntax[]
 
 [[Commands]]
@@ -672,7 +669,8 @@ This section explains how to use all the `CLI` commands in *TA-Tracker*.
 
 These commands are used to control the different *windows* in *TA-Tracker*,
 as well as switching between the different *Views*.
-
+//end::syntax[]
+//tag::help[]
 ==== Viewing help : `help`
 
 You can open the `help window` with this command. You can close the `help window`
@@ -684,7 +682,8 @@ Format: `help`
 
 image::HelpWindow.png[width="790"]
 This is what the `help` window looks like.
-
+//end::help[]
+//tag::goto[]
 ==== Switching tabs : `goto`
 
 You can switch to different `tabs` with this command to show their associated *view*.
@@ -705,14 +704,15 @@ image::GotoStudent.png[width="790"]
 This command takes you to the `student tab`.
 
 ====
-
-
+//end::goto[]
+//tag::exit[]
 ==== Exiting the program : `exit`
 
 You can exit the program with this command.
 
 Format: `exit`
-
+//end::exit[]
+//tag::list[]
 ==== Listing all sessions : `list`
 
 `list` command shows you all the sessions under Session View and Claims View.
@@ -722,6 +722,7 @@ Format: `exit`
 * You can use this command to display all your sessions after using the `session filter`
 or `claims filter` command.
 ====
+//end::list[]
 
 === Student View
 
@@ -804,9 +805,7 @@ Examples:
 image::ModuleDelete.png[,1000]
 This will delete the module with the module code `CS2103T` from the TA-Tracker.
 ====
-
 //end::deletemodule[]
-
 //tag::editmodule[]
 [[EditModule]]
 ==== Editing a Module : `module edit`
@@ -957,7 +956,7 @@ This will change the group type of the group with group code `G01`, inside the m
 module code `CS3243`, to be a `lab`.
 ====
 //edit::editgroup[]
-
+//tag::addstudent[]
 [[AddStudent]]
 ==== Adding a Student : `student add`
 
@@ -1005,8 +1004,8 @@ command or,
 * you can edit their rating later by using the `student edit` command (details given below
 in 5.2.9.)
 ====
-
-
+//tag::endstudent[]
+//tag::deletestudent[]
 [[DeleteStudent]]
 ==== Deleting a Student : `student delete`
 
@@ -1037,7 +1036,8 @@ image::StudentDelete.png[,900]
 Deletes the student with the matriculation number `A0187945J` from group `G01` of
 the module `CS3243`.
 ====
-
+//end::deletestudent[]
+//tag::editstudent[]
 [[EditStudent]]
 ==== Editing a Student : `student edit`
 
@@ -1091,7 +1091,7 @@ Edits student with the matriculation number `A0186153P` to have:
 
 ** All existing tags removed
 ====
-
+//end::editstudent[]
 //tag::sortgroup[]
 [[Sort]]
 ==== Sorting a Group : `sort group`
@@ -1134,7 +1134,6 @@ ascending order).
 ====
 //end::sortgroup[]
 //tag::sortmodule[]
-
 ==== Sorting a Module : `sort module`
 
 You can use this command to chose how you want to sort your students in a specific module.
@@ -1208,7 +1207,7 @@ Examples:
 Sorts all students in all groups inside all modules `alphabetically`.
 ====
 //end::sortall[]
-
+//tag::filterstudent[]
 [[FilterStudent]]
 ==== Filter : `filter`
 
@@ -1271,12 +1270,13 @@ This shows you the students in the first group of the module `CS3243`
 [horizontal]
 *Keywords are case-insensitive. e.g. `cs2103t` is the same as `CS2103T`*
 ====
-
+//end::filterstudent[]
 
 === Session View
 
 This section explains the different commands that can be used in the *Session View*.
 
+//tag::addsession[]
 [[AddSession]]
 ==== Adding a Session : `session add`
 
@@ -1324,6 +1324,8 @@ be created with `DATE d/2020-07-04` (2 weeks later from the date of the original
 ** `NOTE` "with Alice and Bob"
 
 ====
+//end::addsession[]
+//tag::deletesession[]
 ==== Deleting a Session : `session delete`
 
 You can use this command to delete a session at a specific `index`.
@@ -1346,7 +1348,8 @@ image::SessionDelete.png[width="790"]
 +
 This command deletes the first session in the *Session View*.
 ====
-
+//end::deletesession[]
+//tag::editsession[]
 ==== Editing a Session : `session edit`
 You can use this command to edit a session in the TA-Tracker.
 
@@ -1375,7 +1378,8 @@ Edits the session at index 1 to have:
 ** The new `TYPE` grading
 ** The new `NOTE` "Location: PLAB04"
 ====
-
+//end::editsession[]
+//tag::donesession[]
 ==== Marking a Session as Done : `session done`
 
 You can use this command to mark a session as done.
@@ -1398,7 +1402,8 @@ image::SessionDone.png[width="790"]
 * `session done 2` +
 This will mark the 2nd session in the *Session View* as done.
 ====
-
+//end::donesession[]
+//tag::filtersession[]
 ==== Filter : `filter`
 
 You can use this command to filter the sessions in the *Session View*.
@@ -1446,9 +1451,10 @@ will be shown.
 ====
 As long as a session contains one of the keyword given by the user, the session will be shown to the user.
 ====
-
+//end::filtersession[]
 === Claims View
 
+//tag::filterclaims[]
 ==== Filter : `filter`
 
 You can use this command to filters sessions in the *Claims View* by the module code.
@@ -1467,7 +1473,8 @@ Example:
 image::ClaimsFilter.png[width="790"]
 All sessions in the *Claims View* with module code `CS3243` are displayed.
 ====
-
+//end::filterclaims[]
+//tag::setrate[]
 [#setrate]
 ==== Changing the hourly rate : `setrate`
 
@@ -1489,7 +1496,8 @@ Examples:
 +
 image::SetRate.png[width="790"]
 Sets the current hourly rate to $25.
-
+//end::setrate[]
+//tag::statistics[]
 === Statistics Window
 
 ==== Generate Statistic Report : `report`
@@ -1523,7 +1531,8 @@ Generate and display a report of sessions and students from all modules.
 +
 image::CS2103Statistics.png[,1000]
 Generate and display a report of sessions and students from the module CS3243.
-
+//end::statistics[]
+//tag::glossary[]
 == Glossary
 
 [width="%",cols="<20%,<40,<40,options="header",]
@@ -1562,14 +1571,15 @@ lab , tutorial , recitation
 students, for discussion of a subject that is being studied.  |
 
 |=======================================================================
-
-
+//end::glossary[]
+//tag::faq[]
 == FAQ
 
 *Q*: How can I transfer my data to another Computer? +
 *A*: You can do so by first installing the app in another computer. You can then replace
 the empty data file it creates with the data file of your previous TA-Tracker folder.
-
+//end::faq[]
+//tag::summary[]
 == Command Summary
 
 === Navigation
@@ -1617,3 +1627,4 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 
 === Statistics
 * *Generate Statistics Report:* `report [MOD_CODE]`
+//end::summary[]
