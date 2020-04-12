@@ -48,6 +48,7 @@ public class ExpandCommand extends IndexedCommand {
                 String.format(MESSAGE_EXPAND_COUPON_SUCCESS, couponToExpand.getName()),
                 Optional.of(couponToExpand),
                 Optional.empty(),
+                false,
                 false
         );
     }

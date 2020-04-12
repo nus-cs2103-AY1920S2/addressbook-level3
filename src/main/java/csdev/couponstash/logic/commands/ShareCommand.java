@@ -58,6 +58,7 @@ public class ShareCommand extends IndexedCommand {
                 String.format(MESSAGE_SHARE, couponToShare.getName()),
                 Optional.empty(),
                 Optional.of(couponToShare),
+                false,
                 false
         );
     }
