@@ -91,6 +91,8 @@ MySelf o-->"1" Self
 Self *--> Height
 Self *--> Weight
 Self *--> Mode
+Bmi ..> Height
+Bmi ..> Weight
 
 SplitterModel -up-|> Model
 SplitterModelManager ..|> SplitterModel

@@ -25,7 +25,7 @@ import seedu.eylah.diettracker.model.DietModel;
 /**
  * Parses user input.
  */
-public class FoodBookParser extends CommonParser<DietModel> {
+public class FoodBookParser implements CommonParser<DietModel> {
 
     @Override
     public Command<DietModel> parseCommand(String userInput) throws ParseException {
