@@ -16,8 +16,6 @@ participant "e:Exercise" as Exercise MODEL_COLOR
 participant "en:ExerciseName" as ExerciseName MODEL_COLOR
 end box
 
-participant "es:ArrayList" as ArrayList MODEL_COLOR
-
 [-> LogicManager : execute("exercise create e/Bench Press")
 activate LogicManager
 
@@ -45,22 +43,15 @@ ExerciseCommandParser -> CreateCommandParser : parse("e/Bench Press")
 activate CreateCommandParser
 
 create ExerciseName
-CreateCommandParser -> ExerciseName : ExerciseName("Bench Press")
+CreateCommandParser -> ExerciseName : "Bench Press"
 activate ExerciseName
 
 ExerciseName --> CreateCommandParser : en
 deactivate ExerciseName
 
 create CreateCommand
-CreateCommandParser -> CreateCommand : CreateCommand(en)
+CreateCommandParser -> CreateCommand : en
 activate CreateCommand
-
-create ArrayList
-CreateCommand -> ArrayList
-activate ArrayList
-
-ArrayList --> CreateCommand : es
-deactivate ArrayList
 
 CreateCommand --> CreateCommandParser : c
 deactivate CreateCommand
@@ -86,7 +77,7 @@ LogicManager -> CreateCommand : execute()
 activate CreateCommand
 
 create Exercise
-CreateCommand -> Exercise : Exercise(en, es)
+CreateCommand -> Exercise : en
 activate Exercise
 
 Exercise --> CreateCommand : e
