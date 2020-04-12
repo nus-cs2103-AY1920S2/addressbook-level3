@@ -180,6 +180,8 @@ public interface Model {
 
     String getModuleTaskInfo(ModuleCode moduleCode);
 
+    String getTaskBreakdown();
+
     List<ModuleTask> getModuleTaskList(ModuleCode moduleCode);
 
     List<Task> findTasksByDate(String date);

@@ -184,6 +184,19 @@ public class ModuleBook {
         return infoOfTasks;
     }
 
+    /**
+     * Return a String contains the information of how many tasks are there related to each module in module book.
+     */
+    public String getTaskBreakdown() {
+        String infoOfTasks = "";
+        for (NusModule module: modules) {
+            String numberOfTasks = "- " + module.getModuleCode() + ":   " + module.getTasks().size() + " tasks in total\n";
+            infoOfTasks += numberOfTasks;
+        }
+        return infoOfTasks;
+    }
+
+
     public void setMajor(Major major) {
         requireNonNull(major);
         this.majorTaken = major;

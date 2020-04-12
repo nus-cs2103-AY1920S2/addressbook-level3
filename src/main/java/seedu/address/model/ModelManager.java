@@ -300,6 +300,11 @@ public class ModelManager implements Model {
         return moduleBook.getModuleTaskInfo(moduleCode);
     }
 
+    @Override
+    public String getTaskBreakdown() {
+        return moduleBook.getTaskBreakdown();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
