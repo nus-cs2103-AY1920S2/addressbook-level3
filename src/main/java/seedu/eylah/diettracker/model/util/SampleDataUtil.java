@@ -49,6 +49,11 @@ public class SampleDataUtil {
         return sampleFb;
     }
 
+    public static ReadOnlyFoodBook getEmptyFoodBook() {
+        FoodBook emptyFb = new FoodBook();
+        return emptyFb;
+    }
+
     /**
      * Returns a tag set containing the list of strings given.
      */
