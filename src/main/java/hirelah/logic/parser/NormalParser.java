@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import hirelah.logic.commands.Command;
 import hirelah.logic.commands.ExitCommand;
-import hirelah.logic.commands.GenerateReportCommand;
 import hirelah.logic.commands.HelpCommand;
 import hirelah.logic.commands.ListAttributeCommand;
 import hirelah.logic.commands.ListIntervieweeCommand;

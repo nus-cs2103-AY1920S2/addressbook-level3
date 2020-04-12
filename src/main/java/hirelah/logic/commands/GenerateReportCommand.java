@@ -1,5 +1,18 @@
 package hirelah.logic.commands;
 
+import static hirelah.logic.commands.OpenReportCommand.MESSAGE_NOT_INTERVIEWED;
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
 import hirelah.logic.commands.exceptions.CommandException;
 import hirelah.model.Model;
 import hirelah.model.hirelah.Attribute;
@@ -8,38 +21,33 @@ import hirelah.model.hirelah.IntervieweeList;
 import hirelah.model.hirelah.Remark;
 import hirelah.model.hirelah.exceptions.IllegalActionException;
 import hirelah.storage.Storage;
+
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import static hirelah.logic.commands.OpenReportCommand.MESSAGE_NOT_INTERVIEWED;
-import static java.util.Objects.requireNonNull;
-
-
+/**
+ * Generates the report of the given interviewee in the form of a PDF.
+ */
 public class GenerateReportCommand extends Command {
 
     public static final String COMMAND_WORD = "report";
     public static final String MESSAGE_SUCCESS = "Report of %s generated.";
     public static final String MESSAGE_FORMAT = COMMAND_WORD + " <interviewee>";
-    public static final String MESSAGE_FUNCTION = ": Generates the interview report of a particular interviewee in PDF.\n";
+    public static final String MESSAGE_FUNCTION =
+            ": Generates the interview report of a particular interviewee in PDF.\n";
     public static final String MESSAGE_USAGE = MESSAGE_FORMAT
             + MESSAGE_FUNCTION
             + "Example: " + COMMAND_WORD
             + " Jane Doe ";
+
     private static final String ATTRIBUTE_SCORE_TITLE = "Attribute Score";
     private static final String REMARKS_TITLE = "Remarks";
 
-    private final String identifier;
-
-    static class TableRowEntry {
+    /**
+     * Static class that holds information of sentences
+     * to be printed in every line in the remarks part of the interviewee.
+     */
+    private static class TableRowEntry {
         private final String message;
         private final String duration;
         private final int valueYOffset;
@@ -61,11 +69,9 @@ public class GenerateReportCommand extends Command {
         public int getValueYOffset() {
             return valueYOffset;
         }
-
-        public boolean hasRealDuration() {
-            return !duration.equals("");
-        }
     }
+
+    private final String identifier;
 
     public GenerateReportCommand(String identifier) {
         this.identifier = identifier;
@@ -110,7 +116,8 @@ public class GenerateReportCommand extends Command {
 
 
             PDDocument document = new PDDocument();
-            Pair<Integer, PDPage> positionAfterNameAndAttributePrinting = printNameAndAttributePart(document, interviewee.getFullName().toUpperCase(), attributeToScoreData);
+            Pair<Integer, PDPage> positionAfterNameAndAttributePrinting =
+                    printNameAndAttributePart(document, interviewee.getFullName().toUpperCase(), attributeToScoreData);
             Pair<Integer, PDPage> startingPositionOfRemarksPart = positionAfterNameAndAttributePrinting;
             if (positionAfterNameAndAttributePrinting.getKey() > 780) {
                 startingPositionOfRemarksPart = new Pair<>(0, new PDPage(PDRectangle.A4));
@@ -123,7 +130,16 @@ public class GenerateReportCommand extends Command {
         }
     }
 
-    private static Pair<Integer, PDPage> printNameAndAttributePart(PDDocument document, String fullName, ObservableList<Pair<Attribute, Double>> attributeScores) throws IOException {
+    /**
+     * Collate attribute scores mapping into one sentence and print them according to the available spaces per page.
+     *
+     * @param document the current document
+     * @param fullName the full name of the interviewee
+     * @param attributeScores all mappings between attribute and scores of this interviewee
+     */
+    private static Pair<Integer, PDPage> printNameAndAttributePart(
+            PDDocument document, String fullName, ObservableList<Pair<Attribute, Double>> attributeScores)
+            throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         for (Pair<Attribute, Double> attributeScorePair : attributeScores) {
             stringBuilder.append(attributeScorePair.getKey());
@@ -141,7 +157,16 @@ public class GenerateReportCommand extends Command {
         return generateNameAndAttributeAllPages(document, splitName.size(), splitAttributeScoresSentence);
     }
 
-    private static Pair<Integer, PDPage> generateNameAndAttributeAllPages(PDDocument document, int nameListSize, ArrayList<String> nameAndAttributeScoreList) throws IOException {
+    /**
+     * Generate all PDF pages of the name and attribute scores of the interviewee.
+     *
+     * @param document the current document
+     * @param nameListSize the size of the name of the interviewee
+     * @param nameAndAttributeScoreList all contents of the first part to be printed, including the name, attribute
+     * score title and attribute score mapping
+     */
+    private static Pair<Integer, PDPage> generateNameAndAttributeAllPages(
+            PDDocument document, int nameListSize, ArrayList<String> nameAndAttributeScoreList) throws IOException {
         boolean firstPage = true;
         while (nameAndAttributeScoreList.size() > 57) {
             ArrayList<String> attributeScoreLisOnePage = new ArrayList<>();
@@ -152,55 +177,89 @@ public class GenerateReportCommand extends Command {
             generateNameAndAttributeOnePage(document, firstPage ? nameListSize : 0, attributeScoreLisOnePage);
             firstPage = false;
         }
-        int verticalSpacing = firstPage ? nameAndAttributeScoreList.size() * 13 + 40 : nameAndAttributeScoreList.size() * 13 + 20;
-        return new Pair<>(verticalSpacing, generateNameAndAttributeOnePage(document, firstPage ? nameListSize : 0, nameAndAttributeScoreList));
+        int verticalSpacing = firstPage ? nameAndAttributeScoreList.size() * 13 + 40
+                : nameAndAttributeScoreList.size() * 13 + 20;
+        return new Pair<>(verticalSpacing,
+                generateNameAndAttributeOnePage(document, firstPage ? nameListSize : 0, nameAndAttributeScoreList));
     }
 
-    private static PDPage generateNameAndAttributeOnePage(PDDocument document, int nameListSize, ArrayList<String> sentenceList) throws IOException {
+    /**
+     * Generate one PDF page of the name and attribute scores of the interviewee.
+     *
+     * @param document the current document
+     * @param nameListSize the size of the name of the interviewee
+     * @param nameAndAttributeScoreList all contents of the first part to be printed, including the name,
+     * attribute score title and attribute score mapping
+     */
+    private static PDPage generateNameAndAttributeOnePage(
+            PDDocument document, int nameListSize, ArrayList<String> nameAndAttributeScoreList) throws IOException {
         PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
         PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
-        printName(page, pageContentStream, nameListSize, sentenceList);
-        printAttributeTitle(pageContentStream, sentenceList);
-        printAttributeScores(pageContentStream, sentenceList);
+        printName(page, pageContentStream, nameListSize, nameAndAttributeScoreList);
+        printAttributeTitle(pageContentStream, nameAndAttributeScoreList);
+        printAttributeScores(pageContentStream, nameAndAttributeScoreList);
         return page;
     }
 
-    private static void printName(PDPage page, PDPageContentStream pageContentStream, int nameListSize, ArrayList<String> sentenceList) throws IOException {
+    /**
+     * Print the name part of the interviewee.
+     *
+     * @param pageContentStream the current page content stream
+     * @param nameAndAttributeScoreList all contents of the first part to be printed, including the name,
+     * attribute score title and attribute score mapping
+     */
+    private static void printName(PDPage page, PDPageContentStream pageContentStream,
+                                  int nameListSize, ArrayList<String> nameAndAttributeScoreList) throws IOException {
         PDFont font = PDType1Font.HELVETICA_BOLD_OBLIQUE;
         int fontSize = 15;
         pageContentStream.setFont(font, fontSize);
         pageContentStream.beginText();
-        float startX = 0;
+        float alignCenterXStart = 0;
         pageContentStream.newLineAtOffset(0, 800);
         for (int i = 0; i < nameListSize; i++) {
-            startX = (page.getMediaBox().getWidth() - (font.getStringWidth(sentenceList.get(0)) / 1000 * fontSize)) / 2;
-            pageContentStream.newLineAtOffset(startX, 0);
-            pageContentStream.showText(sentenceList.get(0));
-            sentenceList.remove(0);
-            pageContentStream.newLineAtOffset(-startX, -15);
+            alignCenterXStart = (page.getMediaBox().getWidth()
+                    - (font.getStringWidth(nameAndAttributeScoreList.get(0)) / 1000 * fontSize)) / 2;
+            pageContentStream.newLineAtOffset(alignCenterXStart, 0);
+            pageContentStream.showText(nameAndAttributeScoreList.get(0));
+            nameAndAttributeScoreList.remove(0);
+            pageContentStream.newLineAtOffset(-alignCenterXStart, -15);
         }
     }
 
-    private static void printAttributeTitle(PDPageContentStream pageContentStream, ArrayList<String> sentenceList) throws IOException {
-        if (sentenceList.get(0).equals(ATTRIBUTE_SCORE_TITLE)) {
+    /**
+     * Print the attribute score title.
+     *
+     * @param pageContentStream the current page content stream
+     * @param attributeList all contents of the attribute score part, including title and mapping
+     */
+    private static void printAttributeTitle(PDPageContentStream pageContentStream, ArrayList<String> attributeList)
+            throws IOException {
+        if (attributeList.get(0).equals(ATTRIBUTE_SCORE_TITLE)) {
             pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 13);
             pageContentStream.newLineAtOffset(50, -15);
-            pageContentStream.showText(sentenceList.get(0));
-            sentenceList.remove(0);
+            pageContentStream.showText(attributeList.get(0));
+            attributeList.remove(0);
             pageContentStream.newLineAtOffset(0, -15);
         } else {
             pageContentStream.newLineAtOffset(50, -15);
         }
     }
 
-    private static void printAttributeScores(PDPageContentStream pageContentStream, ArrayList<String> sentenceList) throws IOException {
+    /**
+     * Print the attribute to score mapping of this interviewee.
+     *
+     * @param pageContentStream the current page content stream
+     * @param attributeScoreList all mappings from attribute to score in the form of split sentence
+     */
+    private static void printAttributeScores(
+            PDPageContentStream pageContentStream, ArrayList<String> attributeScoreList) throws IOException {
         pageContentStream.setFont(PDType1Font.HELVETICA, 12);
-        if (sentenceList.isEmpty()) {
+        if (attributeScoreList.isEmpty()) {
             pageContentStream.newLineAtOffset(0, -20);
             pageContentStream.showText("-");
         }
-        for (String currentString : sentenceList) {
+        for (String currentString : attributeScoreList) {
             pageContentStream.showText(currentString);
             pageContentStream.newLineAtOffset(0, -13);
         }
@@ -208,7 +267,16 @@ public class GenerateReportCommand extends Command {
         pageContentStream.close();
     }
 
-    private static void printRemarksPart(PDDocument document, ObservableList<Remark> remarks, Pair<Integer, PDPage> startingPosition) throws IOException {
+    /**
+     * Partition the remarks part to sufficient space of 1 A4 page and print them.
+     *
+     * @param document the current document
+     * @param remarks the list of all remarks
+     * @param startingPosition the starting position to print the remarks after printing the attribute scores
+     */
+    private static void printRemarksPart(
+            PDDocument document, ObservableList<Remark> remarks, Pair<Integer, PDPage> startingPosition)
+            throws IOException {
         ArrayList<Remark> remarkList = new ArrayList<>();
         remarkList.addAll(remarks);
         int currentYOffset = 800 - startingPosition.getKey();
@@ -254,35 +322,57 @@ public class GenerateReportCommand extends Command {
         }
     }
 
-
-    private static void generatePartialRemarkPage(PDDocument document, Pair<Integer, PDPage> startingPosition, ArrayList<TableRowEntry> rowList) throws IOException {
+    /**
+     * Generate partial remarks page, this is used to print remarks
+     * that starts in the same page after the attribute scores part.
+     *
+     * @param document the current document
+     * @param rowList the list of all rows
+     */
+    private static void generatePartialRemarkPage(
+            PDDocument document, Pair<Integer, PDPage> startingPosition, ArrayList<TableRowEntry> rowList)
+            throws IOException {
         PDPageContentStream.AppendMode append = PDPageContentStream.AppendMode.APPEND;
-        PDPageContentStream pageContentStream = new PDPageContentStream(document, startingPosition.getValue(), append, false);
+        PDPageContentStream pageContentStream =
+                new PDPageContentStream(document, startingPosition.getValue(), append, false);
         pageContentStream.setFont(PDType1Font.HELVETICA_BOLD_OBLIQUE, 13);
         pageContentStream.beginText();
         pageContentStream.newLineAtOffset(50, 800 - startingPosition.getKey());
         pageContentStream.showText(REMARKS_TITLE);
         pageContentStream.newLineAtOffset(-50, 0);
-        pageContentStream.setFont( PDType1Font.HELVETICA , 12 );
+        pageContentStream.setFont(PDType1Font.HELVETICA , 12);
         if (rowList.isEmpty()) {
             pageContentStream.newLineAtOffset(50, -20);
             pageContentStream.showText("-");
         }
         printRemarkPerLine(pageContentStream, rowList);
-
     }
 
-    private static void generateFullRemarkPage(PDDocument document, ArrayList<TableRowEntry> rowList) throws IOException {
+    /**
+     * Generate one whole page of remarks, this is used to print remarks that starts on a new page.
+     *
+     * @param document the current document
+     * @param rowList the list of all rows
+     */
+    private static void generateFullRemarkPage(PDDocument document, ArrayList<TableRowEntry> rowList)
+            throws IOException {
         PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
         PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
-        pageContentStream.setFont( PDType1Font.HELVETICA , 12 );
+        pageContentStream.setFont(PDType1Font.HELVETICA , 12);
         pageContentStream.beginText();
         pageContentStream.newLineAtOffset(0, 800);
         printRemarkPerLine(pageContentStream, rowList);
     }
 
-    private static void printRemarkPerLine(PDPageContentStream pageContentStream, ArrayList<TableRowEntry> rowList) throws IOException {
+    /**
+     * Prints every row in the remarks part.
+     *
+     * @param pageContentStream the current page content stream
+     * @param rowList the list of all rows
+     */
+    private static void printRemarkPerLine(PDPageContentStream pageContentStream, ArrayList<TableRowEntry> rowList)
+            throws IOException {
         for (TableRowEntry currentRow : rowList) {
             pageContentStream.newLineAtOffset(50, currentRow.getValueYOffset());
             pageContentStream.showText(currentRow.getDuration());
@@ -315,7 +405,7 @@ public class GenerateReportCommand extends Command {
                 String currentWord = words[i];
                 if (currentWord.length() > limit) {
                     while (currentWord.length() > limit) {
-                        int remainingCapacity = Math.min(limit-1, limit - 1 - currentBuilder.length());
+                        int remainingCapacity = Math.min(limit - 1, limit - 1 - currentBuilder.length());
                         currentBuilder.append(currentWord.substring(0, remainingCapacity).toString() + "-");
                         splitRemarks.add(currentBuilder.toString());
                         currentWord = currentWord.substring(remainingCapacity);

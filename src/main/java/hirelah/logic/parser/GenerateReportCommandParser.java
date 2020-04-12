@@ -1,11 +1,13 @@
 package hirelah.logic.parser;
 
-import hirelah.logic.commands.GenerateReportCommand;
-import hirelah.logic.commands.OpenReportCommand;
-import hirelah.logic.parser.exceptions.ParseException;
-
 import static hirelah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import hirelah.logic.commands.GenerateReportCommand;
+import hirelah.logic.parser.exceptions.ParseException;
+
+/**
+ * Parses the GenerateReportCommand with the identifier.
+ */
 public class GenerateReportCommandParser {
 
     /**
