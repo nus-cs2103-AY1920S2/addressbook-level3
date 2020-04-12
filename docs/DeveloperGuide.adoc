@@ -229,7 +229,7 @@ are discussed in the following section. Users will not be allowed to:
 individual good in the inventory to exceed the `Good` limit.
 
 [NOTE]
-The `Good` limit is 999,999.
+The maximum `Good` limit is 999,999.
 
 Developers seeking to modify the `buy` command must respect
 the above 3 input validations as they form the basis of future features.
@@ -276,14 +276,82 @@ first parameter.
 especially since Supplier names tended to be long and a mix of upper- and lower-
 case alphabets, reducing user-friendliness.
 
-===== Aspect: Input constraints
+===== Aspect: `buy` Input Constraints:
+* **Alternative 1 (current choice):** Supplier has to exist in supplier list
+before purchase.
+
+** Pros: Supports future data analytics commands. We can save all relevant
+transaction information with every particular supplier at the point of
+transaction because the supplier will have to exist in the supplier list.
+The feasible future features include: cost analysis and
+ranking of suppliers by certain parameters.
+
+** Cons: If user has making a new purchase, he or she has to first do data entry
+for the supplier and all it's relevant information before the `buy` command
+can be executed.
+
+* **Alternative 2:** Supplier would be an optional parameter to the buy command.
+
+** Pros: Command usage is more fluid and user-friendly.
+
+** Cons: Cost and supplier related data would be incomplete, reducing
+comprehensiveness of data analytics commands.
+
 
 ==== Specifics of `sell` Command
+
 ===== Sell Command Input Constraints
+The following constraints have been put on `sell` command inputs. Their reasons
+are discussed in the following section. Users will not be allowed to:
+
+. Sell a good they do not currently have in inventory.
+. Sell a quantity a larger quantity of a good than they currently
+have in inventory.
+
+[NOTE]
+The minimum `Good` limit is 0.
+
+Developers seeking to modify the `sell` command must respect
+the above 2 input validations as they form the basis of future features.
+
+[NOTE]
+The `sell` command format is: `sell GOOD_DISPLAYED_INDEX p/PRICE q/QUANTITY`
+
+The current implementation of `sell` performs validation as follows:
+
+. The `GOOD_DISPLAYED_INDEX` must be within the length of list of Goods
+returned by `Model#getFilteredGoodList()`.
+. Reuse the inbuilt quantity validation in the `Good` constructor to test
+if the resulting inventory quantity is valid. A `Good` with the new quantity
+is constructed. If the quantity is invalid, an error is thrown and the
+relevant feedback to the user returned.
+
+==== Design Considerations
+
+===== Aspect: Format of `sell` command
+
+* **Alternative 1 (current choice):** `sell GOOD_DISPLAYED_INDEX p/PRICE
+                                       q/QUANTITY`.
+** Pros:
+*** Users would not have to type out the entire Good's name in full and
+case sensitive. This increases command input speed and further optimizes usage
+for fast typists. Wasted time from typos in minimized.
+*** Verification that a good exists in the inventory is trivial. The
+good at the given index only needs to be retrieved.
+
+** Cons:
+*** We lose the flexibility of having input parameters being unordered.
+All inputs with a prefix flag, e.g. `g/`, can be input in any order, but now
+the ``GOOD_DISPLAYED_INDEX`` has to be the first parameter.
+*** Additional cognitive burden on users to remember the `sell` command format's
+first parameter.
 
 
-
-==== design considerations of the needed checks
+* **Alternative 2:** `sell g/GOOD_NAME p/PRICE q/QUANTITY`.
+** Pros: Flexibility of having unordered input is maintained.
+** Cons: Testing revealed that command entry was tedious and error prone,
+especially since Good names tended to be long and a mix of upper- and lower-
+case alphabets, reducing user-friendliness.
 
 
 // tag::undoredo[]
@@ -418,7 +486,7 @@ result in temporary files being left behind and cluttering space.
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== Data Encryption
+=== [Proposed] Data Encryption
 ==== Proposed Implementation
 The data encryption adn decryption mechanism is facilitated by `FileCryptoUtil`. The crypto algorithm employed is Advanced
 Encryption Standard (AES) under symmetric encryption algorithm, where both the encryption and decryption uses same key.
@@ -461,6 +529,9 @@ The readable Json data is then stored in the Json file, which can be read by `Js
 ** Cons: Hard to implement to password feature. The password has to be further strengthen by PBKDF2 to enhance the complexity of the key.
 
 // end::dataencryption[]
+
+=== [Proposed] Automatic Batch Expiry and Warning
+==== Proposed Implementation
 
 === Logging
 
