@@ -14,7 +14,7 @@ import seedu.address.model.nusmodule.ModuleCode;
  */
 public class DoneModuleTaskCommand extends DoneCommand {
 
-    public static final String MESSAGE_SUCCESS = "Task done: ";
+    public static final String MESSAGE_SUCCESS = "Mark task as done successfully\nList of tasks for %s\n%s";
 
     private final Index targetIndex;
     private final ModuleCode targetModule;
@@ -42,8 +42,10 @@ public class DoneModuleTaskCommand extends DoneCommand {
 
         model.sortTaskList();
         model.updateDeadlineTaskList(Model.PREDICATE_SHOW_ALL_TASK);
-        return new CommandResult(MESSAGE_SUCCESS + " " + targetModule + " task number "
-                + targetIndex.getOneBased());
+
+        String tasksInfo = model.getModuleTaskInfo(targetModule);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetModule, tasksInfo));
     }
 
     @Override

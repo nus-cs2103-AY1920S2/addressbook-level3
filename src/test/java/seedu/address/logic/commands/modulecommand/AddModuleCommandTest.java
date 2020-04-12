@@ -255,6 +255,16 @@ public class AddModuleCommandTest {
         }
 
         @Override
+        public String getModuleTaskInfo(ModuleCode moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getTaskBreakdown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public List<ModuleTask> getModuleTaskList(ModuleCode moduleCode) {
             throw new AssertionError("This method should not be called.");
         }

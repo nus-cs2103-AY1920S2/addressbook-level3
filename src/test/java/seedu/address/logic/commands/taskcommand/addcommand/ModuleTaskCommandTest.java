@@ -32,14 +32,12 @@ class ModuleTaskCommandTest {
     @Test
     public void execute_addInNewModuleTask_successful() throws Exception {
         ModuleTaskCommand moduleTaskCommand = new ModuleTaskCommand(taskValid);
-        String expectedMessage = ModuleTaskCommand.MESSAGE_SUCCESS + " "
-                + taskValid;
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs(),
                 new ModuleBook(model.getModuleBook()), FXCollections.observableList(new ArrayList<Task>()));
         expectedModel.addModuleTask(taskValid);
 
-        assertCommandSuccess(moduleTaskCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(moduleTaskCommand, model, expectedModel);
     }
 
     @Test
