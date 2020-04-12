@@ -113,6 +113,7 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
+// tag::model[]
 === Model component
 The `Model`,
 
@@ -139,6 +140,7 @@ image::UserProfileClassDiagram.png[]
 image::VersionedFitHelperClassDiagram.png[]
 .Class Diagram for WeightRecords
 image::WeightRecordsClassDiagram.png[]
+//end::model[]
 [[Design-Storage]]
 === Storage component
 
@@ -161,6 +163,7 @@ Classes used by multiple components are in the `fithelper.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::entry[]
 === Entry Feature
 The Entry consists of the following:
 
@@ -247,7 +250,7 @@ Consequently, we chose Option 1 as it standardized the format of date and time a
 ** Cons: The duration does not reflect the true value when user chooses not to enter
 
 We chose Option 2 for better display of entries on the calendar
-
+//end::entry[]
 
 // tag::today[]
 === Today Feature
