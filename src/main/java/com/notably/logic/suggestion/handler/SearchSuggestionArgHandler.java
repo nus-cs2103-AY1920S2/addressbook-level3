@@ -47,9 +47,9 @@ public class SearchSuggestionArgHandler implements SuggestionArgHandler<SearchSu
         if (keyword.isEmpty()) {
             model.setResponseText(RESPONSE_MESSAGE);
             return Optional.empty();
-        } else {
-            model.setResponseText(String.format(RESPONSE_MESSAGE_WITH_KEYWORD, keyword));
-            return Optional.of(new SearchSuggestionGenerator(keyword));
         }
+
+        model.setResponseText(String.format(RESPONSE_MESSAGE_WITH_KEYWORD, keyword));
+        return Optional.of(new SearchSuggestionGenerator(keyword));
     }
 }
