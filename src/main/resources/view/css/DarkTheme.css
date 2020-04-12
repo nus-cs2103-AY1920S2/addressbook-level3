@@ -376,7 +376,8 @@
 }
 
 #exerciseId, #exerciseTitle, #exerciseName,
-#scheduledWorkoutId, #scheduledWorkoutName, #sectionName {
+#scheduledWorkoutId, #scheduledWorkoutDateTime,
+#sectionName {
     -fx-font-family: "Open Sans SemiBold";
     -fx-font-size: 16px;
     -fx-text-fill: #FFA372;
