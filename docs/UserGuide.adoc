@@ -382,20 +382,92 @@ A person can have any number of tags (including 0)
 - Format: `clear`
 
 
-=== Profile
+=== Profile (Module Book)
 
-This feature allows individuals to see their own profile, their target cap, their current cap and the all modules that the individual have taken.
+This feature allows individuals to see their own profile, their current cap and the all modules that the individual have taken and all the grades gotten.
 
+==== Adding a module : `moduleAdd`
 
-==== View CAP summary : `cap`
+- Adds a module you have taken before or is taking now and store your grade for each module if you want.
 
-- Shows the current cap of the individual. If only cap is specified, it will only show the MCs taken up to the point and the CAP.
+- Format: `moduleAdd m/MODULE_CODE [g/GRADE]`
 
-- Format: `cap BREAKDOWN`
+[TIP]
+The grade field is optional. You can state your grade when you add in modules and
+also can update or add in your grade later.
 
 ****
-If cap breakdown is inputted, it will show a breakdown of all the modules and grades that is tagged to the module.
+* You can only add in modules which are valid modules that can be taken in NUS.
+* All other module codes inputted will be considered as invalid and the program will not allow you to add in.
+* This requirement is not case sensitive, which means for example, both "CS2103" and "cs2103" are considered valid module code.
 ****
+
+[TIP]
+The program checks whether a module code provided is valid or not by using the search feature, which fetch information about
+modules online. If the search function fails to fetch any information, the module code will be treated as invalid.
+
+==== Deleting a module : `moduleDel`
+
+- Deletes a module you have added to the program before from the profile tab.
+
+- Format: `moduleDel MODULE_CODE`
+
+****
+* Deletes the module specified from the module book (profile)
+* You can only delete the module which you have added into the program before.
+* Module code inputted is not case sensitive ('moduleDel cs2103' is the same as 'moduleDel CS2103')
+****
+
+==== Editing the grade of a module : `grade`
+
+- Updates or adds the grade of certain modules you have added to the program.
+
+- Format: `grade m/MODULE_CODE g/GRADE`
+
+****
+* Updates the grade of the specified module as the grade you provided now.
+* You can only update the grade of module which you have added into the program before.
+* Grade inputted should be a valid grade in NUS's grading system.
+* Both module code and grade inputted is not case sensitive.
+****
+
+[TIP]
+List of all valid grade: A+, A, A-, B+, B, B-, C+, C, D+, D, F, S and U.
+
+
+==== View current CAP : `cap`
+
+- Shows your current cap based on the grades of modules you have stated.
+
+- Format: `cap`
+
+****
+* Calculates your current CAP.
+* CAP = Sum (module grade point x modular credits for the module) / Sum (modular credits)
+* The calculation strictly follow the grading system of NUS.
+****
+
+[TIP]
+You don't need to indicate the modular credits for each module when you add it in because the program will fetch that infomation online.
+
+==== Managing your tasks separately for each module
+
+[WARNING]
+For this part, the UI hasn't been implemented yet so that you can only view your tasks in Calendar tab stated above.
+
+.  Creating a module task : `moduleTask`
+
+- Adds a task related to certain module you have added before.
+
+- You need to indicate which module the task is related to, its priority level (how important it is) and also its deadline or scheduled timing.
+
+- Format: `moduleTask desc/DESCRIPTION m/MODULE_CODE date/DEADLINE_OR_SCHEDULED_TIMING pri/PRIORITY`
+
+****
+* This command allows you to create tasks specific to certain module you added to the program before.
+* Stores the task added in the module book and automatically adds and shows on the Calender.
+****
+
 
 ==== View module requirement: `modreq`
 
