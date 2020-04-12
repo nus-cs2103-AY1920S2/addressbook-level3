@@ -154,7 +154,8 @@ public class ModelManager implements Model {
 
     @Override
     public void undoHistory() {
-        if (historyManager.undo()) {
+        boolean hasUndoHistory = historyManager.undo();
+        if (hasUndoHistory) {
             nasaBook.setModuleList(historyManager.getItem().getDeepCopyList());
             refreshUi();
         }
@@ -162,12 +163,12 @@ public class ModelManager implements Model {
 
     @Override
     public boolean redoHistory() {
-        boolean hasRedo = historyManager.redo();
-        if (hasRedo) {
+        boolean hasRedoHistory = historyManager.redo();
+        if (hasRedoHistory) {
             nasaBook.setModuleList(historyManager.getItem().getDeepCopyList());
             refreshUi();
         }
-        return hasRedo;
+        return hasRedoHistory;
     }
 
     //=========== UserPrefs ==================================================================================

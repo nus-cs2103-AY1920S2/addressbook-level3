@@ -163,6 +163,10 @@ Hence, we created two Json files to store the internal data list and the filtere
 We uses Stack as the data structure for undo and redo features as it allows a Last In First Out effects, that suits
 functionality of storing and getting data.
 
+Below is a sequence diagram for undo feature.
+
+image::undoSequenceDiagramV2.png[]
+
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
