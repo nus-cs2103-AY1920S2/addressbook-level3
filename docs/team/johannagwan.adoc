@@ -97,5 +97,7 @@ include::../UserGuide.adoc[tag=suggestions]
 
 include::../DeveloperGuide.adoc[tag=suggestionengine]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=usecasesearch]
+
+include::../DeveloperGuide.adoc[tag=usecaseopendelete]
 
