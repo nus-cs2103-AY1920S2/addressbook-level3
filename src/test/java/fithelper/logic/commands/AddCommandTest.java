@@ -287,6 +287,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateVevents() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteVevent(Entry entry) {
             throw new AssertionError("This method should not be called.");
         }

@@ -207,6 +207,8 @@ public interface Model {
 
     ObservableList<VEvent> getVEvents();
 
+    void updateVevents();
+
     void setCalendarDate(String date);
     LocalDate getCalendarDate();
 

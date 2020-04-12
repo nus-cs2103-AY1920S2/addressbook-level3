@@ -1,5 +1,6 @@
 package fithelper.logic.commands;
 
+import static fithelper.logic.commands.CommandResult.DisplayedPage.CALENDAR;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_MODE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SHOW;
@@ -44,7 +45,7 @@ public class CalendarCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS + "Reference Date: "
-                + model.getCalendarDate()), false);
+                + model.getCalendarDate()), CALENDAR, false);
     }
 
     public void setDate(String date) {

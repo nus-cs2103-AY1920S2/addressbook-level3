@@ -23,7 +23,7 @@ import jfxtras.icalendarfx.components.VEvent;
  */
 public class VeventList {
     private ObservableList<VEvent> vEvents = FXCollections.observableArrayList();
-    private ObservableList<VEvent> vEventUnmodifiableList =
+    private final ObservableList<VEvent> vEventUnmodifiableList =
         FXCollections.unmodifiableObservableList(vEvents);
 
     public VeventList() {
@@ -39,7 +39,7 @@ public class VeventList {
     /**
      * Refreshes the existing list with new lists.
      */
-    public void refreshedList(FilteredList<Entry> foodEntries, FilteredList<Entry> sportsEntries) {
+    public void refreshedList(ObservableList<Entry> foodEntries, ObservableList<Entry> sportsEntries) {
         requireNonNull(foodEntries);
         requireNonNull(sportsEntries);
         ArrayList<VEvent> vEvents = entriesToVEvents(foodEntries, sportsEntries);
@@ -50,7 +50,7 @@ public class VeventList {
     /**
      * Maps events to VEvents
      */
-    private ArrayList<VEvent> entriesToVEvents(FilteredList<Entry> foodEntries, FilteredList<Entry> sportsEntries) {
+    private ArrayList<VEvent> entriesToVEvents(ObservableList<Entry> foodEntries, ObservableList<Entry> sportsEntries) {
         ArrayList<VEvent> veventList = new ArrayList<>();
         for (Entry entry: foodEntries) {
             veventList.add(entryToVEvent(entry));
