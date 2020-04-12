@@ -146,7 +146,7 @@ You want to find the client named "Bryan Low" in *Client List*. Below shows that
 
 image::ug-findcIncompleteNamePart1.png[]
 
-Type `find-c bry" into *Command Box*, and press `Enter` to execute it.
+Type `find-c bry` into *Command Box*, and press `Enter` to execute it.
 
 image::ug-findcIncompleteNamePart2.png[]
 
