@@ -40,12 +40,12 @@ In this guide, we cover:
 When you first launch FitBiz, you will be greeted by the GUI. In this section, we shall learn about what each section of this GUI is responsible for.
 
 // diagram for hello world command box
-.FitBiz GUI
+.FitBiz GUI Layout
 image::Ui-annotated.png[]
 
 * **Command Box**: this is where you enter your commands
 ** Note that the border will glow green if your command is successfully executed, and red otherwise
-* **Feedback Box**: this displays feedback and other useful information about your commands that you have just entered
+* **Result Box**: this displays feedback and other useful information about your commands that you have just entered
 * **Client List**: this displays all your clients currently recorded in FitBiz
 * **Schedule Panel**: this displays all your schedules of your clients
 * **Client View**: this displays all the important details about the client you are currently viewing (which we refer to as _client in view_). In here, we have 3 further sections:
@@ -56,9 +56,9 @@ image::Ui-annotated.png[]
 [TIP]
 If this is your first time using FitBiz and you have just started up the application, you may realise that the *Client View* section is missing. This is because you are currently not viewing a client. Refer to <<view-c-command>> for more information about what you need to do.
 
-=== Miscellaneous features
+=== Understanding the Command Line Interface (CLI) --- Aaron Choo
 
-As this is primarily a CLI based application with lots of anticipated typing, we have provided some features to make your user experience with FitBiz much better. In this section, we shall look at the **Command History** and the **Command Autocomplete** feature, and learn how to effectively utilise them.
+Even though FitBiz comes with a GUI, it is mainly used to display data. Most of the user interaction occurs via the CLI, which in FitBiz is comprised of the *Command Box* and *Result Box*. We understand that CLIs have higher barriers of entry and may scare some inexperienced users away. As such, we have provided some features common to most modern CLIs to make your user experience with FitBiz much better. In this section, we shall look at the **Command History** and the **Command Autocomplete** feature, and learn how to effectively utilise them.
 
 ==== Command History
 
@@ -69,7 +69,7 @@ First, start by typing anything into the *Command Box*. It _need not_ have to be
 // diagram for hello world command box
 image::command-history-hello-world.png[]
 
-Next, hit the kbd:[Enter] key to enter the command into FitBiz. Notice that whatever you have typed in the *Command Box* should have disappeared. If you did not enter a valid command (like `Hello World`), the border of the *Command Box* would have turned red, and you would have been prompted by a message saying `Unknown command` in the *Feedback Box* like shown:
+Next, hit the kbd:[Enter] key to enter the command into FitBiz. Notice that whatever you have typed in the *Command Box* should have disappeared. If you did not enter a valid command (like `Hello World`), the border of the *Command Box* would have turned red, and you would have been prompted by a message saying `Unknown command` in the *Result Box* like shown:
 
 // diagram for invalid command
 image::command-history-unknown-command.png[]
@@ -85,9 +85,9 @@ If you are not currently browsing the history, you can press the kbd:[&darr;] ar
 
 ==== Command Autocompletion
 
-Again, similar to most modern CLIs, users of FitBiz can press the kbd:[Tab] key to auto complete commands that they have partially typed. If the partially typed letters uniquely identifies a valid command in FitBiz (see <<Commands>>), the complete command will automatically appear in the Command Box. Otherwise, a list of all commands similar to the ambiguous letters will appear in the *Feedback Box*.
+Again, similar to most modern CLIs, users of FitBiz can press the kbd:[Tab] key to autocomplete commands that they have partially typed. If the partially typed letters uniquely identifies a valid command in FitBiz (see <<Commands>>), the complete command will automatically appear in the Command Box. Otherwise, a list of all commands similar to the ambiguous letters will appear in the *Result Box*.
 
-Moreover, we understand that some of FitBiz's commands may be very long and diffcult to remember. In order to remedy this, we have also provided *autocompletion of parameter prefixes*, as well as the ability to *use tab to easily get to the next prefix*.
+Also, we understand that some of FitBiz's commands may be very long and diffcult to remember. In order to remedy this, we have also provided *autocompletion of parameter prefixes*, as well as the ability to *use tab to easily get to the next prefix*.
 
 To see this feature in action, type `add-c` into the *Command Box* and press kbd:[Tab]:
 
@@ -97,12 +97,18 @@ Immediately, you should have noticed three things:
 
 . All the parameter prefixes pertaining to the `add-c` command should have been automatically completed for you
 . Your caret should be placed right after the `n/` for you to type your parameter
-. The **Feedback Box** shows you the usage of the command that you have just completed
+. The **Result Box** shows you the usage of the command that have just been autocompleted
 
 Now, you can also press the kbd:[Tab] key repeatedly to go to the next parameter prefix, instead of wasting time using your mouse.
 
+Note however, that there are some similar commands in FitBiz that have the same few starting letters. For example: both `add-c` and `add-e` starts with the letter "a". As such, hitting kbd:[Tab] when you have only typed `a` in the *Command Box* will not autocomplete either command (unfortunately, FitBiz cannot read your mind). However, you will find that the command will be completed up till `add-`, the point where `add-e` and `add-c` differs. The **Result Box** will also prompt you with the list of all similar commands found:
+
+image::autocomplete-2.png[]
+
+To autocomplete the parameter prefixes like in the first example above, you would just have to complete the command and press kbd:[Tab] once more.
+
 [NOTE]
-The autocompletion of the prefixes are only for these commands: `add-c`, `add-c`, `graph`, `schedule`, and `filter-c`. Autocompletion of prefixes for edit commands are not included as we understand that most likely than not, users would only choose to edit one field at a time.
+The autocompletion of the parameter prefixes are only for these commands: `add-c`, `add-e`, `filter-c`, `graph`, and `schedule`. Autocompletion of prefixes for edit commands are not included as we understand that most likely than not, users would only choose to edit one field at a time.
 
 == Quick Start
 
