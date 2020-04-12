@@ -15,34 +15,34 @@ MODdy is a desktop application used by NUS Computing students to track their cou
 
 * *Major enhancement*: added *the ability to create a new profile*
 ** What it does: Allows the user to create his/her profile, which includes his/her name, course, current semester and focus area.
-** Justification: This feature improves the product significantly because it is what makes the app personal, and all the data such as modules and tasks of the user will be stored in this profile created.
-** Highlights: There were many design considerations involved, such as restricting user input to valid courses and focus areas, as well as an effective way to store all the user's modules, grades and deadlines within the profile.
+** Justification: This feature improves the product significantly because it is what makes the app personal, and all the data such as modules and tasks of the user will be stored in the profile created using this command.
+** Highlights: There were many design considerations involved, such as ways to restrict user input to valid courses and focus areas, as well as finding an effective way to store all the user's modules, grades and deadlines within the profile.
 
 * *Major enhancement*: added *the ability to add modules and tasks*
 ** What it does: Allows the user to add NUS modules to a specific semester, whereby each module can store the user's grades as well as a list of deadlines which can be added at any time by the user.
-** Justification: This feature improves the product significantly because it allows the user to add the modules and information he/she wants to add, which is a major feature of this product.
+** Justification: This is the main feature of the product as it allows the user to add modules and other information that he/she wants to add into the product.
 ** Highlights: There were many design considerations involved, for example, which fields in the user input should be compulsory and how the information should be stored within the module. Additionally, since the user is allowed to add both a new module and a new deadline task to an existing module, there had to be considerations as to how to differentiate between them using the same command.
 
 * *Major enhancement*: added *the ability to edit profiles, modules and tasks*
 ** What it does: Allows the user to edit his/her user profile, edit module details of a module that was added previously and edit the task description and deadline of a deadline task added to a module previously.
 ** Justification: This feature improves the product seriously because the user can edit any element of his profile, module and tasks, without having to delete it and add it again. This gives the user much more flexibility in the usage of the product.
-** Highlights: There were many design considerations involved, such as which elements should be editable to make ths product user-friendly. Additionally, there were considerations as to how to specify which module/task is meant to be edited.
+** Highlights: There were many design considerations involved, such as which elements should be editable to make the product user-friendly. Additionally, there were considerations as to how to specify which module/task is meant to be edited.
 
-* *Minor enhancement*: added the ability to check that the user's focus area is valid for  his/her course, and that
+* *Minor enhancement*: added the ability to check that the user's course is a valid computing course and that his/her focus area is valid for the specified course.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=joycelynteo&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and test code]]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage from 44% to 56% (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/282[#282])
 ** Documentation:
 *** Wrote the About Us and Contact Us documentation (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/19[#19])
+*** Contributed the `edit` command documentation in the user guide
+*** Contributed segments to the developer guide such as logic, dependency between modules and personal classes as well as the edit command
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1])
+*** PRs reviewed: Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/72[#72],  https://github.com/AY1920S2-CS2103T-W13-3/main/pull/74[#74]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/joycelynteo/ped/issues/1[1], https://github.com/joycelynteo/ped/issues/2[2], https://github.com/joycelynteo/ped/issues/5[3])
 
 == Contributions to the User Guide
 
