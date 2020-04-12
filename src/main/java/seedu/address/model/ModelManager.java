@@ -6,8 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Set;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Predicate;
@@ -398,7 +398,7 @@ public class ModelManager implements Model {
     }
 
     public void updatesDayDataStatistics(DayData dayData) {
-        statistics.updatesDayData(dayData);
+        statistics.updateDayData(dayData);
     }
 
     public DayData getDayDataFromDateStatistics(Date date) {
