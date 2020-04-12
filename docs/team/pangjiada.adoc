@@ -27,6 +27,8 @@ input from the user, the required parameters would form the basis of other
 commands, especially profit analytics and historical analysis extensions.
 As such, it was a challenge to ensure that it was as extensible as possible
 because it was expected to change frequently with additional commands.
+*** A total of 3 extensions were needed to `buy` and `sell` commands and their related tests.
+
 *** As `buy` and `sell` commands needed to assess all the models of persistent
 storage, the development of this feature also shaped the storage design and API
 of the underlying model to facilitate maximum assess without violating
@@ -39,8 +41,13 @@ encapsulation principles.
 * *Other contributions*:
 
 ** Project management:
+*** Updates About Us, Contact Us, ReadMe page (
+https://github.com/AY1920S2-CS2103-W14-2/main/pull/45[#45]
+)
+
 ** Enhancements to existing features:
 *** Refactored `ModelStubs` used for easier model related testing.
+
 ** Community:
 *** Participated in PRs reviews:
 https://github.com/AY1920S2-CS2103-W14-2/main/pull/126[#126]
