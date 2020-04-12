@@ -38,6 +38,8 @@ encapsulation principles.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=pangjiada&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense report]]
 
+* *Documentation*: Excerpts from my documentations is reproduced below.
+
 * *Other contributions*:
 
 ** Project management:
