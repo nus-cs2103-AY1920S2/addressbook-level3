@@ -1,4 +1,4 @@
-= Coupon Stash v1.3.1 - User Guide
+= Coupon Stash v1.4 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -46,7 +46,7 @@ a|
    . Using a coupon: used
    . Viewing savings: saved
    . Archiving a coupon: archive
-   . Unarchive a coupon: unarchive
+   . Unarchiving a coupon: unarchive
    . Locating coupons by name: find
    . Listing all expiring coupons: expiring
    . Sorting coupons: sort
@@ -64,13 +64,21 @@ a|
  |4
 
 a|
-*FAQ*|5
+*Keyboard Shortcuts*
+
+   . Restore previously entered command texts: kbd:[↑] and kbd:[↓]
+   . Close expanded coupon window: kbd:[Ctrl]+kbd:[q]
+   . Cycle through tabs: kbd:[Ctrl]+kbd:[Tab]
+|5
 
 a|
-*Command Summary* |6
+*FAQ*|6
 
 a|
-*Appendix*|7
+*Command Summary* |7
+
+a|
+*Appendix*|8
 |=========================================
 
 Welcome to the Coupon Stash User Guide! Thank you so much for choosing
@@ -111,33 +119,29 @@ Notes describe certain features or behaviour that may
 not be so obvious!
 
 ====
-Boxes like this contain useful information, for
+Boxes like these contain useful information, for
 emphasis and easy reference!
 ====
 
-* Coupon Stash command words are enclosed in `code blocks`
+* Coupon Stash command words are formatted with `code blocks`.
 
 [[link]]
-* Blue, underlined words are <<UserGuide.adoc#link, links>>! Try clicking on
+* Blue, underlined words are <<link, links>>! Try clicking on
 the link on the left!
 
 
 == Quick Start
 
-.  Ensure you have Java (recommended: version 11 or above) installed in your
+.  Ensure you have Java (version 11 or above) installed in your
 Computer.
-.  Download the latest link:{repoURL}/archive/v1.2.zip[`CouponStash.jar`]
+.  Download the latest link:{repoURL}/releases[`CouponStash.jar`].
 .  Copy the file to the folder you want to use as the home folder for your
 Coupon Stash.
 .  Double-click the file to start the app. The GUI should appear in a few
 seconds. If nothing occurs, use the command
-`java -jar CouponStash.jar` in your computer's Command Line Interface (CLI) to
+`java -jar CouponStash.jar` on your computer's Command Line Interface (CLI) to
 open the file up.
-.  Type the command in the command box and press Enter to execute it. +
-e.g. typing *help* and pressing Enter will open a browser window showing
-this user guide..
-.. You can use the up and down arrow keys to navigate through previous
-executed commands.
+.  Type the command in the command box and press Enter to execute it.
 .  Some example commands you can try:
 * *list* : lists all coupons
 * *add:* `add n/Domino's Pizza Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5
@@ -149,7 +153,6 @@ limit of 5 usages.
 * *exit* : exits the app (your data will be saved automatically)
 .  Refer to the <<Features, Features>> section below for the details of each
 command.
-
 
 [[Features]]
 == Features
@@ -196,11 +199,14 @@ Adds a coupon. Some fields like `name`, `expiry date` and `savings` are
 required.
 Optional fields like `promo code` and `tags` may be provided as well.
 
-Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS_OR_FREE_ITEM [sd/START_DATE] [p/PROMO_CODE]
-[c/CONDITIONS] [u/USAGE] [l/USAGE_LIMIT] [s/EXTRA_FREE_ITEMS]... [t/TAG]...`
+Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS_OR_FREE_ITEM [sd/START_DATE] [r/REMIND_DATE] [p/PROMO_CODE] [c/CONDITIONS][u/USAGE] [l/USAGE_LIMIT] [s/EXTRA_FREE_ITEMS]... [t/TAG]...`
 
 [TIP]
 A coupon can have any number of tags (including 0)
+
+[TIP]
+If unspecified, the default `REMIND_DATE` of a coupon will be set to
+`EXPIRY_DATE` - 3 days.
 
 ****
 * Coupons must have at least one "savings" value, whether it is
@@ -286,6 +292,7 @@ Deletes the 2nd coupon in the coupon stash.
 `delete 1` +
 Deletes the 1st coupon in the results of the find command.
 
+// end::delete[]
 
 === Listing coupons: `list`
 
@@ -435,8 +442,7 @@ been reached,
 or when they have expired, to keep your stash more organized!
 // end::archive[]
 
-// tag::unarchive[]
-=== Unarchive a coupon: `unarchive`
+=== Unarchiving a coupon: `unarchive`
 Unarchive a coupon, thus brining it back to your active coupons list.
 
 [NOTE]
@@ -550,7 +556,8 @@ Format: `copy INDEX`
 ****
 * Copies the coupon at the specified INDEX.
 * The <<Adding a coupon: `add`, `add`>> command of the coupon will be copied to
-your clipboard. Simply Ctrl + V to paste it! (Cmd + V for macOS)
+your clipboard. Simply kbd:[Ctrl] + kbd:[V] to paste it!
+(kbd:[Cmd] + kbd:[V] for macOS)
 ****
 // Put GIF
 
@@ -593,7 +600,7 @@ Below is a sample of how a shared coupon image looks like:
 image::example_shared_coupon.png[]
 
 
-=== Undo the previous command: `undo`
+=== Undoing the previous command: `undo`
 Undo the most recent operation on the coupon stash. Only operations that change
 the coupons in the coupon stash can be undone.
 
@@ -606,7 +613,7 @@ coupons in the coupon stash) +
 * <<Editing a coupon: `edit`, `edit`>>
 * <<Deleting a coupon: `delete`, `delete`>>
 * <<Archiving a coupon: `archive`, `archive`>>
-* <<Unarchive a coupon: `unarchive`, `unarchive`>>
+* <<Unarchiving a coupon: `unarchive`, `unarchive`>>
 * <<Clearing all entries: `clear`, `clear`>>
 
 Note that changes to user preferences cannot be undone.
@@ -625,7 +632,7 @@ Revert the edit that was performed.
 
 === Redoing the undone command: `redo`
 Redo the previously undone operation. This is akin to undoing an
-<<Undo the previous command: `undo`, `undo`>>.
+<<Undoing the previous command: `undo`, `undo`>>.
 
 Format: `redo`
 
@@ -710,9 +717,42 @@ command that changes the data.
 
 There is no need to save manually.
 
+[[KeyboardShortcuts]]
+== Keyboard Shortcuts
+With Coupon Stash being optimized for efficient command line usage, how can we
+not include some nifty keyboard shortcuts to further streamline
+your workflow! This section introduces some of the keyboard shortcuts available
+for use in this program.
+
+=== Restore previously entered command texts: kbd:[↑] and kbd:[↓]
+Pressing the kbd:[↑] keyboard button while the focus is on the command box
+allows you to restore the text of the previous executed command. Pressing
+the kbd:[↓] keyboard button allows you to revert to a more recently entered
+command.
+
+Demonstration:
+
+image::gifs/Up down arrow.gif[]
+
+=== Close expanded coupon window: kbd:[Ctrl]+kbd:[q]
+After <<_displaying_a_coupon_expand, `expanding`>> a coupon, you can close
+the expanded coupon window by keeping the focus on the coupon window and
+pressing the keyboard buttons kbd:[Ctrl] and kbd:[q] simultaneously.
+
+Demonstration:
+
+image::gifs/ctrl q.gif[]
+
+=== Cycle through tabs: kbd:[Ctrl]+kbd:[Tab]
+You can press the keyboard buttons kbd:[Ctrl] and kbd:[Tab] simultaneously to
+switch tabs. Do note that the focus has to be on the main panel before the
+key presses would work.
+
+Demonstration:
+
+image::gifs/ctrl tab.gif[]
 
 == FAQ
-
 
 *Q*: How do I transfer my data to another computer?
 

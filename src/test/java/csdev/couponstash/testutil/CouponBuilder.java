@@ -76,7 +76,7 @@ public class CouponBuilder {
         startDate = new StartDate(DEFAULT_START_DATE);
         usage = new Usage(DEFAULT_USAGE);
         limit = new Limit(DEFAULT_LIMIT);
-        remindDate = new RemindDate(expiryDate);
+        remindDate = new RemindDate(DEFAULT_REMIND_DATE);
         tags = new HashSet<>();
         condition = new Condition(DEFAULT_CONDITION);
         archived = new Archived(DEFAULT_ARCHIVED);

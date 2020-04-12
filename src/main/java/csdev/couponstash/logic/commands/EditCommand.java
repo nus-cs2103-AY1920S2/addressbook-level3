@@ -1,6 +1,5 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.commons.util.DateUtil.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE;
 import static csdev.couponstash.commons.util.DateUtil.MESSAGE_START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static java.util.Objects.requireNonNull;
 
@@ -13,6 +12,7 @@ import java.util.Set;
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.util.CollectionUtil;
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
@@ -104,8 +104,8 @@ public class EditCommand extends IndexedCommand {
         }
 
         // Conditions for remind date
-        if (editedCoupon.getRemindDate().getDate().isAfter(editedCoupon.getExpiryDate().getDate())) {
-            throw new CommandException(MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
+        if (editedCoupon.getRemindDate().isAfter(editedCoupon.getExpiryDate())) {
+            throw new CommandException(DateUtil.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
         }
 
         Usage currentUsage = couponToEdit.getUsage();

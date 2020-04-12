@@ -182,7 +182,7 @@ class JsonAdaptedCoupon {
             modelTotalSaved = totalSaved.toModelType();
         }
 
-        if (!RemindDate.isValidRemindDate(remindDate, expiryDate)) {
+        if (!DateUtil.isValidDate(remindDate)) {
             throw new IllegalValueException(RemindDate.MESSAGE_CONSTRAINTS);
         }
         final RemindDate modelRemindDate = new RemindDate(remindDate);
