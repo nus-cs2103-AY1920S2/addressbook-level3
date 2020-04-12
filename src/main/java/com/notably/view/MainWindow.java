@@ -9,6 +9,8 @@ import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.view.blockcontent.BlockContent;
+import com.notably.view.sidebar.SideBarTreeView;
+import com.notably.view.suggestion.SuggestionsWindowView;
 
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
