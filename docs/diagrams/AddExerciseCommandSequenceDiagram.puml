@@ -70,6 +70,13 @@ activate client2 MODEL_COLOR
 client2 --[MODEL_COLOR]> AddExerciseCommand : editedClient
 deactivate client2
 
+note over AddExerciseCommand
+Personal Best sequence
+is omitted and
+shown in Personal Best
+Section
+end note
+
 [<[LOGIC_COLOR]-- AddExerciseCommand : CommandResult
 deactivate AddExerciseCommand
 
