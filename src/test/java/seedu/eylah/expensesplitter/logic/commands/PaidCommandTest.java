@@ -1,6 +1,7 @@
 package seedu.eylah.expensesplitter.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.eylah.expensesplitter.testutil.TypicalPersons.getTypicalPersonAmountBook;
 import static seedu.eylah.testutil.Assert.assertThrows;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
@@ -18,6 +20,7 @@ import seedu.eylah.expensesplitter.model.PersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReceiptStub;
 import seedu.eylah.expensesplitter.model.person.Amount;
+import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.receipt.Receipt;
 import seedu.eylah.expensesplitter.testutil.TypicalPersons;
@@ -103,6 +106,60 @@ public class PaidCommandTest {
     }
 
 
+    /**
+     * For this test case I am testing if the PaidCommand is working as expected with a
+     * pre creatied personamount book, with TYPICALPERSON.ALICE as index 1 and deducting fully from ALICE.
+     * The expected output should be ALICE's Amount dropping from $3.50
+     * to $0.00.
+     * @throws Exception
+     */
+    @Test
+    public void execute_paidCommandAcceptedByModel_paidFullySuccessful() throws Exception {
+
+        ModelStubPaidCommand modelStub = new ModelStubPaidCommand();
+        // Ensuring that the receipt is done before I can use PaidCommand.
+        modelStub.receipt.makeDone();
+        CommandResult commandResult = new PaidCommand(ParserUtil.parseIndex("1"), "3.50")
+            .execute(modelStub);
+
+        //System.out.println(modelStub.personAmountBook.getPersonList().size());
+
+        assertEquals(String.format(PaidCommand.MESSAGE_SUCCESS + TypicalPersons.ALICE.getName()
+            + ". Amount owed decreased from " + "$3.50 to $0.00."), commandResult.getFeedbackToUser());
+
+    }
+
+    /**
+     * For this test case I am testing if the PaidCommand is working as expected with a
+     * pre creatied personamount book, with TYPICALPERSON.ALICE as index 1 and deducting fully from ALICE.
+     * ALICE should be deleted from the list since she owes $0.00.
+     * Ensuring that the person at INDEX 0 is different.
+     * Previously it was ALICE, after command its BOB.
+     * @throws Exception
+     */
+    @Test
+    public void execute_paidCommandAcceptedByModel_deleteOfPersonSuccessful() throws Exception {
+
+        ModelStubPaidCommand modelStub = new ModelStubPaidCommand();
+        // Ensuring that the receipt is done before I can use PaidCommand.
+        int initialNumberOfPersons = modelStub.personAmountBook.getPersonList().size();
+        Name initialPersonAtIndexZero = modelStub.personAmountBook.getPersonByIndex(0).getName();
+        modelStub.receipt.makeDone();
+        CommandResult commandResult = new PaidCommand(ParserUtil.parseIndex("1"), "3.50")
+            .execute(modelStub);
+
+        int finalNumberOfPersons = modelStub.personAmountBook.getPersonList().size();
+        Name finalPersonAtIndexZero = modelStub.personAmountBook.getPersonByIndex(0).getName();
+
+        //Since I am comparing both int primitives I can use ==
+        assertTrue(initialNumberOfPersons - 1 == finalNumberOfPersons);
+
+
+        assertFalse(initialPersonAtIndexZero.equals(finalPersonAtIndexZero));
+
+    }
+
+
 
     /**
      * For this test case I am testing if the PaidCommand is working as expected by
@@ -133,6 +190,55 @@ public class PaidCommandTest {
         assertTrue(test.equals("fail"));
 
     }
+
+
+    @Test
+    public void equals() {
+
+        PaidCommand paidCommand = new PaidCommand(Index.fromOneBased(1), "1.00");
+
+        // same object -> returns true
+        assertTrue(paidCommand.equals(paidCommand));
+
+        // different types -> returns false
+        assertFalse(paidCommand.equals(1));
+
+        //null -> returns false
+        assertFalse(paidCommand.equals(null));
+
+    }
+
+    /**
+     * This tests ensures that if all fields are null then it is not a valid command.
+     * And that a NullPointerException.class is thrown
+     */
+    @Test
+    public void constructor_allNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new PaidCommand(null, null));
+    }
+
+    /**
+     * This tests ensures that if Index field is negative then it is not a valid command.
+     * And that a NullPointerException.class is thrown
+     */
+    @Test
+    public void constructor_invalidIndex_throwsParseException() {
+        assertThrows(ParseException.class, () -> new PaidCommand(ParserUtil.parseIndex("-1"),
+            "1"));
+    }
+
+
+
+
+    /**
+     * This tests ensures that if all fields are invalid then it is not a valid command.
+     * And that a NullPointerException.class is thrown
+     */
+    @Test
+    public void constructor_nullIndex_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new PaidCommand(null, "1"));
+    }
+
 
 
 
