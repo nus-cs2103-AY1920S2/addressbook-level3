@@ -1,4 +1,6 @@
 @startuml
+/' @author @jarrod-bob'/
+
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
@@ -7,6 +9,12 @@ participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
 participant ":BmiCommandParser" as BmiCommandParser LOGIC_COLOR
 participant "b:BmiCommand" as BmiCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "height:Height" as Height MODEL_COLOR
+participant "weight:Weight" as Weight MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
 end box
 
 [-> LogicManager : execute("bmi")
@@ -25,6 +33,20 @@ deactivate BmiCommandParser
 FoodBookParser -> BmiCommandParser : parse("")
 activate BmiCommandParser
 
+create Height
+BmiCommandParser -> Height : 0
+activate Height
+
+Height --> BmiCommandParser : height
+deactivate Height
+
+create Weight
+BmiCommandParser -> Weight : 0
+activate Weight
+
+Weight --> BmiCommandParser : weight
+deactivate Weight
+
 create BmiCommand
 BmiCommandParser -> BmiCommand
 activate BmiCommand
@@ -34,15 +56,14 @@ deactivate BmiCommand
 
 BmiCommandParser --> FoodBookParser : b
 deactivate BmiCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-BmiCommandParser -[hidden]-> FoodBookParser
-destroy BmiCommandParser
 
 FoodBookParser --> LogicManager : b
 deactivate FoodBookParser
 
 LogicManager -> BmiCommand : execute()
 activate BmiCommand
+
+ref over BmiCommand, Model : Retrieve Height and Weight from Model for usage in BmiCommand.
 
 create CommandResult
 BmiCommand -> CommandResult
@@ -53,6 +74,10 @@ deactivate CommandResult
 
 BmiCommand --> LogicManager : result
 deactivate BmiCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+BmiCommandParser -[hidden]-> FoodBookParser
+destroy BmiCommandParser
 
 [<--LogicManager
 deactivate LogicManager

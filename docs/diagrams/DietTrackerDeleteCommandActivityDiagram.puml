@@ -1,4 +1,6 @@
 @startuml
+/' @author @jarrod-bob'/
+
 start
 :User executes DeleteCommand;
  :Validate Index given;
