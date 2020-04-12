@@ -162,21 +162,21 @@ This section describes some noteworthy details on how certain features are imple
 
 .Sequence of executing a sort command
 image::SortSequenceDiagram.png[]
-The sort command takes in a list of fields and generates FieldComparators as seen in the diagram and then uses Comparator.thenComparing to aggregate the comparators. The first field provided will be of the highest sort order. The Model will then set the same aggregated comparator on the `TaskList` which internally sets it on a `SortedList` from JavaFx. This SortedList will then help us maintain a sorted order even when new or edited tasks are added.
+The sort command takes in a list of fields and generates FieldComparators as seen in the diagram and then uses Comparator.thenComparing to aggregate the comparators. The first field provided will be of the highest sort order. The Model will then set the aggregated comparator on the `TaskList`.
 
 .Class diagram of SortedList
 image::SortedListClassDiagram.png[]
-We use a new SortedList within TaskList because the FilteredList does not allow for sorting. As such we have the FilteredList reference the SortedList and the SortedList refernce the UniqueTaskList so that any changes to the UniqueTaskList will go through both sorting and filtering.
+We use a new SortedList within TaskList because FilteredList does not allow for sorting. As such we have the FilteredList reference the SortedList and the SortedList refernce the UniqueTaskList. By warpping the lists around another, this allows the SortedList and FilteredList to read changes to the UniqueTaskList and perform the appropriate filtering and sorting based on predicate/comaprators set.
 
 .Sequence of initializing the Sorted List
 image::SortInitliazeDiagram.png[]
 
-Due to the requirements mentioned, this is how we had to create our FilteredList. We set FilteredList to reference the SortedList and then the SortedList to reference the UniqueTaskList.
+Due to the requirements mentioned, this is how we generate our FilteredList. We set FilteredList to reference the SortedList and then the SortedList to reference the UniqueTaskList.
 
 ==== Updating UI
 image::SortUiSequenceDiagram.png[]
 
-Meanwhile to update the UI on the newest sorting order, the SortCommand will return a `SortCommandResult`. This `SortCommandResult` contains an additional field which would be the highest sorting order of the TaskList. The `SortCommandResult` is then passed back to the `MainWindow` and to the `TaskListPanel`. The `TaskListPanel` then gets the sort order from `SortCommandResult` and updates the UI.
+Meanwhile to update the UI on the newest sorting order, the latest sortOrder is set on the `TaskList`. The LogicManager is then able to access the sort order through the Model and provide the `MainWindow` with the sort order. The MainWindow then sets it on the `TaskListPanel`.
 
 SortCommandResult extends CommandResult and contains an additional String attribute `sortOrder`.
 

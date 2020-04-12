@@ -19,9 +19,7 @@ activate LogicManager
 LogicManager -> MainWindow: ComandResult
 deactivate LogicManager
 
-opt is SortCommandResult
-MainWindow -> TaskListPanel: setSortOrder(CommandResult.getSortOrder())
-activate TaskListPanel
+MainWindow -> LogicManager: getSortOrder()
 
 TaskListPanel -> MainWindow
 deactivate TaskListPanel
