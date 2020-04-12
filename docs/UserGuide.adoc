@@ -998,7 +998,7 @@ be added in version 2.0.0 +
 
 *Q* : How do you calculate the savings value?
 
-*A* :  Whenever a coupon is marked as done, Stash will automatically
+*A* :  Whenever a coupon is marked as used, Stash will automatically
 calculate the values saved based on the details of the coupon.
 {empty} +
 
