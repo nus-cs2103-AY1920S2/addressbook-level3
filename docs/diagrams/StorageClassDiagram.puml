@@ -1,4 +1,4 @@
-@startuml
+`@startuml
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
@@ -21,6 +21,9 @@ StorageManager o--> GlobalDataStorage
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonExpenseLaStorage .left.|> ExpenseLaStorage
 JsonExpenseLaStorage .down.> JsonSerializableExpenseLa
-JsonSerializableExpenseLa .right.> JsonAdaptedTransaction
+JsonSerializableExpenseLa .down.> JsonAdaptedTransaction
+JsonGlobalDataStorage .left.|> GlobalDataStorage
+JsonGlobalDataStorage .down.> JsonSerializableGlobalData
+JsonSerializableGlobalData .down.>JsonAdaptedMonthlyData
 
 @enduml
