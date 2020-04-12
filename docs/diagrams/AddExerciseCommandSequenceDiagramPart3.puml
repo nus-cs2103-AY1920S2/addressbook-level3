@@ -9,7 +9,7 @@ end box
 group conditional checks
     activate exerciseList MODEL_COLOR
 
-    exerciseList --[MODEL_COLOR]> toAddDate  : compareTo(currDate)
+    exerciseList -[MODEL_COLOR]> toAddDate  : compareTo(currDate)
     activate toAddDate MODEL_COLOR
 
     toAddDate --[MODEL_COLOR]> exerciseList  : dateComparision

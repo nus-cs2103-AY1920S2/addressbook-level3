@@ -8,6 +8,7 @@ end box
 box Model MODEL_COLOR_T1
     Participant ":Model" as model MODEL_COLOR
     Participant "clientToEdit:Client" as client MODEL_COLOR
+    Participant "clientToEditExerciseList:UniqueExerciseList" as UniqueExerciseList MODEL_COLOR
     Participant "editedClient:Client" as client2 MODEL_COLOR
 end box
 
@@ -31,11 +32,27 @@ deactivate model
 
 AddExerciseCommand -[LOGIC_COLOR]> client : getExerciseList()
 activate client MODEL_COLOR
-AddExerciseCommand <[MODEL_COLOR]-- client : exerciseList
+AddExerciseCommand <[MODEL_COLOR]-- client : clientToEditExerciseList
 deactivate client
 
+AddExerciseCommand -[LOGIC_COLOR]> UniqueExerciseList : contains(toAdd)
+activate UniqueExerciseList MODEL_COLOR
+AddExerciseCommand <[MODEL_COLOR]-- UniqueExerciseList : false
+deactivate UniqueExerciseList
+
+AddExerciseCommand -[LOGIC_COLOR]> model : addExerciseToClient(toAdd)
 activate model MODEL_COLOR
-ref over model, client
+
+model -[MODEL_COLOR]> model : getClientInView()
+activate model MODEL_COLOR
+model --[MODEL_COLOR]> model : clientToEdit
+deactivate model
+model -[MODEL_COLOR]> client : getExerciseList()
+activate client MODEL_COLOR
+model <[MODEL_COLOR]-- client : clientToEditExerciseList
+deactivate client
+
+ref over model, UniqueExerciseList
     addToSorted
 end ref
 

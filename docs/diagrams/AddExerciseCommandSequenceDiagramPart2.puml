@@ -30,7 +30,7 @@ group addToSorted
         exerciseList -[MODEL_COLOR]> toAddExercise : getExerciseName()
         activate toAddExercise MODEL_COLOR
 
-        toAddExercise --[MODEL_COLOR]> toAddExerciseName : getValue()
+        toAddExercise -[MODEL_COLOR]> toAddExerciseName : getValue()
         activate toAddExerciseName MODEL_COLOR
 
         toAddExerciseName --[MODEL_COLOR]> toAddExercise : toAddName
@@ -56,7 +56,7 @@ group addToSorted
         exerciseList -[MODEL_COLOR]> currExercise : getExerciseName()
         activate currExercise MODEL_COLOR
 
-        currExercise --[MODEL_COLOR]> currExerciseName : getValue()
+        currExercise -[MODEL_COLOR]> currExerciseName : getValue()
         activate currExerciseName MODEL_COLOR
 
         currExerciseName --[MODEL_COLOR]> currExercise : toAddName
