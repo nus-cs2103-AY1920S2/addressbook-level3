@@ -864,9 +864,6 @@ e.g. `sort n/`
 |*Expiring*
 |`expiring e/EXPIRY_DATE` or `expiring my/MONTH_YEAR` +
 e.g. `expiring e/11-9-2020` or `expiring my/9-2020`
-|*Remind*
-|`remind INDEX e/PERIOD_BEFORE_EXPIRY_DATE` or `remind INDEX d/REMIND_DATE` +
-e.g. `remind 1 e/ 5 days` or `remind 5 d/ 1-5-2020`
 |*Used*
 |`used INDEX` or `used INDEX MONETARY_SYMBOL + ORIGINAL_AMOUNT` +
 e.g. `used 1` or `used 1 $10`
