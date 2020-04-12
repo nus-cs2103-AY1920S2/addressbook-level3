@@ -3,8 +3,16 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR
 skinparam classBackgroundColor LOGIC_COLOR
+skinparam noteBackgroundColor LOGIC_COLOR_T1
+skinparam noteBorderColor LOGIC_COLOR_1
 
 Package Commands <<Rectangle>>{
+
+note as Sidenote
+These are <b>packages</b> with
+a number of classes inside them
+end note
+
 Class "{abstract}\nCommand" as Command
 
 Package Commons {}
@@ -47,7 +55,7 @@ Class CommandDetails {
 show CommandDetails members
 hide CommandDetails methods
 
-Package X {
+Package CommandPackageX {
     Class XCommand
 }
 
@@ -59,7 +67,10 @@ XCommand -up-> "1" CommandDetails
 
 Class "{abstract}\nCommand" as Command
 XCommand -left-|> Command
-XCommand .right.> CommandWords
+XCommand .up.> CommandWords
+
+CommandDictionary -down[hidden]-> CommandWords
+Command -up[hidden]-> CommandWords
 @enduml
 
 @startuml

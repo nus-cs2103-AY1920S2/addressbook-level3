@@ -1,26 +1,27 @@
-= TA-Tracker
-- Developer Guide
+= TA-Tracker - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
 :toclevels: 3
-
 :sectnums:
 :sectnumlevels: 4
+:sectlinks:
+:sectanchors:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
-ifdef::env-github[]
+:experimental:
+:icons: font
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :caution-caption: :fire:
-endif::[]
-:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/
+:fbl: pass:[ +]
 
-By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
+By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
-// tag::introduction[]
+//tag::introduction[]
 == Introduction
 
 TA-Tracker
@@ -63,7 +64,7 @@ you up to speed with how TA-Tracker
 's codebase and inner workings function. It also
 hopes to serve as a useful reference to current contributors in times of confusion or
 when faced with difficulties.
-// end::introduction[]
+//end::introduction[]
 
 == Setting up
 
@@ -78,6 +79,7 @@ possible. This section serves to give a description of the
 major components in the architecture of TA-Tracker. Subsequent sections
 provide more information on the inner workings of individual components.
 
+//tag::architecture[]
 [[Design-Architecture]]
 === Architecture
 
@@ -132,9 +134,13 @@ for the scenario where the user enters the command `session delete 1`.
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
+//end::architecture[]
+//tag::ui[]
 
 [[Design-Ui]]
 === UI component
+
+(Contributed by Fatin)
 
 The _Class Diagram_ below shows how the `UI` components interact with each other.
 
@@ -183,198 +189,145 @@ respective Card (e.g. `StudentCard`). In each List Panel, the `Graphics` compone
 each of the List Cells is defined by the respective Card.
 
 The other 2 `Tabs` follow the same structure as the _Class Diagram_ above.
+//end::ui[]
 
+//tag::logic[]
 [[Design-Logic]]
 === Logic component
 
-The `Logic` component of `TA-Tracker
-`:
+The `Logic` component of `TA-Tracker`:
 
-* processes user inputs into different `Command` objects,
-* executes these `Command` objects to interact with the `Model` component, and
-* saves data in the `Storage` component.
+* Processes user inputs into different `Command` objects.
+* Executes `Command` objects to interact with the `Model` component.
+* Saves data by interacting with the `Storage` component.
 
 ==== Logic Structure
-The following _Class Diagram_ shows a simplified view of the structure of the `Logic` component .
+The following _Class Diagram_ shows a simplified view of the structure of the `Logic` component.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram1.png[]
+image::LogicClassDiagram1.png[,550]
 
 *API*:
 link:{repoURL}/src/main/java/tatracker/logic/Logic.java[`Logic.java`]
 
-In the figure above, you can see that:
+In the `Logic` component,
 
-. `Logic` behaves as a Façade class between the different `TA-Tracker
-` components.
-. `LogicManager` is the main driver class behind the logic in `TA-Tracker
-`
-. `LogicManager` interacts with classes in the `Model` and `Storage` component.
-. `TA-Tracker
-` logic is organised into *commands* and *parsers*.
-. `TaTrackerParser` is the *main parser*.
-. A `Command` can interact with classes in the `Model` component.
+* `Logic` behaves as a façade class between the different TA-Tracker components
+* `LogicManager` is the main driver class behind the logic of TA-Tracker
+* `LogicManager` interacts with classes in the `Model` and `Storage` components
+* The logic of TA-Tracker is organised into *commands* and *parsers*
+* `TaTrackerParser` is the *main parser*
+* A `Command` can interact with classes in the `Model` component
 
-==== Logic Hierarchy
+==== Logic Organization
 
-The following _Class Diagram_ shows how the `commands` and `parsers` are organised.
+The following diagram shows how the *commands* and *parsers* are organized.
 
-.Structure of commands and the hierarchy of parsers
-image::LogicClassDiagram2.png[]
+.Logic Component - Organization of commands and parsers
+image::LogicClassDiagram2.png[,1000]
 
 [NOTE]
 ====
 [horizontal]
-* `X` is the category name for a group of commands +
-(e.g. `Student`, `Session`, `Module`).
-* `XY` is the category name for actions specific to a group of commands +
-(e.g. `AddStudent`, `EditSession`, `DeleteModule`).
+* The letter `X` represents the category name for a group of commands +
+(e.g. `Student`, `Session`, `Module`)
+* The letters `XY` represent the names of actions specific to a command category +
+(e.g. `AddStudent`, `EditSession`, `DeleteModule`)
+* *CommandPackageX* and *ParserPackageX* are _placeholders_ for the actual package names
 ====
 
-[NOTE]
-====
-[horizontal]
-* `Prefixes` contains some `Prefix` constants that are shared among classes in the *Logic component*.
-* The *red arrow* shows that each command knows about the `Prefix` constants stored in `Prefixes`.
+In the *Logic* package,
 
-====
+* There is a *hierarchy of parsers*, starting from `TaTrackerParser`
 
-In addition to Figure 6., in the figure above, you can see that:
+* Within the *Parser* package, all parsers have been grouped into *smaller packages*
+* Every `Command` is created by a `Parser` object with a matching name
 
-. There is a *hierarchy* of parsers, starting from `TaTrackerParser`.
-. Each group of parsers have been split into *smaller packages* (named as `X` in the diagram)
-within the package of parsers.
-. Each `Command` has a `Parser` that creates it from a user input.
-. These `Command` classes are placed in *smaller packages* (with the same name `X`) within the package of commands.
-. A `Command` produces a `CommandResult` when executed by `LogicManager`.
-* This will modify the `Model` internally (e.g. adding a student).
-. The resulting `CommandResult` encapsulates the feedback that needs to be passed to the `Ui`. +
-This feedback includes:
-* showing messages in the `UI`, and
-* instructing the `Ui` to perform certain actions (e.g. displaying the `HelpWindow`).
+* Within the *Commands* package, all commands have been grouped into *smaller packages*
+* Every `Command` produces a `CommandResult` when executed by `LogicManager`.
+This will modify the `Model` internally (e.g. _adding a student_).
+* The produced `CommandResult` sends feedback to the `UI` component. This feedback includes:
+** Showing messages in the `UI`
+** Instructing the `UI` to perform certain actions (e.g. displaying the help window).
 
 ====
 [horizontal]
-In most cases, there are *two levels* of parsing before a command is created +
-(i.e. `XCommandParser` passes the parsing to `XYCommandParser`).
+In most cases, there are *two levels* of parsing before a `Command` is created +
+(e.g. `SessionCommandParser` passes the remaining user input to the `AddSessionCommandParser`
+for further parsing).
 
 However, there are some cases where only *one level* of parsing is needed +
-(e.g. for the `help`, `report`, and `exit` commands).
+(e.g. for the `HelpCommand`, `ListCommand`, and `ExitCommand`).
 
 .Skipping the second layer of parsers
 image::LogicClassDiagram3.png[,500]
 
 These command parsers will immediately create the respective `Command`,
-*skipping the second layer* of parsers (represented by the *red arrow* in the figure above).
+*skipping the second layer* of parsers.
 ====
 
 ==== Overview of Commands
 
-The following _Class Diagram_ illustrates how all `commands` have been packaged under their respective categories.
+Within the *Commands* package, all commands have been grouped into *smaller packages*.
 
-.Structure of commands in different categories
+The following _Class Diagram_ shows the names of the *smaller packages*:
+
+.Structure of smaller packages within the *Commands* package
 image::CommandsPackageDiagram1.png[]
 
-These packages depend on the `Command` class since they contain commands that inherit from the `Command` class (not shown above).
+These smaller packages group the commands into different categories.
+Furthermore, these packages *depend* on the `Command` class
+since they contain classes that inherit from it.
 
-In addition, the following _Class Diagram_ shows the information that a `command` should have.
+For example, the *Module* package contains the following classes that inherit from the `Command` class:
 
-.Internal structure of all commands
-image::CommandsPackageDiagram2.png[,500]
-
-. In each package, all commands should have their own `CommandDetails`.
-. `CommandDetails` store all the information that each command should have, +
-(e.g. their `CommandWord` and `usage` message).
-. For their `CommandWord` and `SubWord`, commands may use constants in `CommandWords` to avoid repetition +
-(e.g. "add", "delete", "edit").
-. The `CommandDictionary`, stores a list of `CommandDetails` for all the commands.
-. The `CommandDictionary` is used for:
-* *syntax highlighting*, and
-* listing information in the *help window*
+* `AddModuleCommand`
+* `DeleteModuleCommand`
+* `EditModuleCommand`
 
 ==== Overview of Parsers
 
-In a similar way, all *parsers* have been packaged under the same respective categories.
+Within the *Parser* package, all parsers have been grouped into *smaller packages*.
 
-.Structure of parsers in different categories
+These packages have been organised in the same way as the *Commands* package.
+
+.Structure of smaller packages within the *Parser* package
 image::ParserPackageDiagram1.png[]
 
-These packages depend on the `Parser` interface since they contain command parsers that inherit from the `Parser` interface
-(not shown above).
+These smaller packages group the parsers into different categories.
+Furthermore, these packages *depend* on the `Parser` interface
+since they contain classes that implement it.
 
-In addition, the following _Class Diagram_ shows the information that a `command parser` should have.
+For example, the *Module* package contains the following classes that implement the `Parser` interface:
 
-.Internal structure of all command parsers
-image::ParserPackageDiagram2.png[,300]
-
-. All command parsers use some `Prefix` constants defined in `Prefixes`.
-. `PrefixDetails` adds more information to a `Prefix` +
-(e.g. their `constraint` message and a list of `examples`).
-. A `PrefixDetail` has a `Predicate` to validate the user input arguments.
-. The `PrefixDictionary` stores two lists of `Prefix` objects:
-** `parameters` - a list of command parameters, and
-** `optionals` - a list of optional parameters for the same command.
-. The `PrefixDictionary` stores a list of `PrefixDetails` for all the `Prefix` objects in `parameters` and `optionals`.
-. The `PrefixDictionary` is used for:
-* *syntax highlighting*, and
-* listing information in the *help window*
+* `AddModuleCommandParser`
+* `DeleteModuleCommandParser`
+* `EditModuleCommandParser`
 
 ==== Example Logic Sequence
-Given below is the _Sequence Diagram_ for interactions within the `Logic` component for the `execute("group add m/CS2103 g/G03 t/lab")` API call.
+The following _Sequence Diagram_ shows all the interactions inside the `Logic` component
+when executing the `group add m/CS2103 g/G03 t/lab` command.
 
-.Interactions Inside the Logic Component for the `group add m/CS2103 g/G03 t/lab` Command
+.Interactions inside the Logic Component during the `group add m/CS2103 g/G03 t/lab` command
 image::AddGroupSequenceDiagram.png[]
 
 [NOTE]
 ====
 [horizontal]
 * The lifeline for `GroupCommandParser` and `AddGroupCommandParser` should end at the
-destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 
 * Since the purpose of this diagram is to show the interactions within the `Logic` component,
 irrelevant interactions with the `Model` component have been omitted.
 ====
+//end::logic[]
 
-==== Design Considerations
-
-===== Rationale behind `PrefixDetails` not inheriting from the `Prefix` class
-The following _Class Diagrams_ compare the structure of `commands` and their respective `parsers.`
-
-[.clearfix]
---
-[.left]
-.Structure of a `command parser`
-image::ParserPackageDiagram2.png[,300]
-[.left]
-.Structure of a `command`
-image::CommandsPackageDiagram2.png[,500]
---
-
-The difference between the *commands* and *parsers* is that the *commands* store their own `CommandDetails`,
-while the *parsers* do not store any `PrefixDetails`. Instead, they use a number of `Prefix` objects to
-parse user inputs. This is because they do not need the extra information stored in `PrefixDetails`.
-
-`PrefixDetails` adds more information to a `Prefix` instead of extending it.
-Therefore, it can be detached from the command parsers without changing the `Prefix` constants in `Prefixes`.
-
-===== Moving `Prefixes` to the *Commands* package
-
-In future versions, `Prefixes` could be stored in the *Commands* package,
-since each command will need to know all the `Prefix` that they are using.
-
-The following _Class Diagrams_ shows how the command parsers can obtain all the required `Prefix` from the respective `command.`
-
-.Improving the Logic component
-image::LogicClassDiagram4.png[,500]
-
-In the diagram above:
-
-* The *red arrow* will be removed to show that the command parsers no longer need information in `Prefixes`.
-* `Prefixes` will be moved into the *commands* package.
-
+//tag::model[]
 [[Design-Model]]
 === Model component
+
+(Contributed by Fatin)
 
 The following _Class Diagram_ shows how the different `Model` components interact with each other.
 
@@ -416,10 +369,12 @@ when it is first run (without any user data).
 
 .Model Components - Object Diagram
 image::ModelObjectDiagram.png[]
+//end::model[]
 
+//tag::storage[]
 [[Design-Storage]]
 === Storage component
-The following _Class Diagram_ is a simplified view of the `Storage` component.
+The following _Class Diagram_ shows a simplified view of the `Storage` component.
 
 .Simplified structure of the Storage Component
 image::StorageClassDiagram1.png[]
@@ -428,34 +383,29 @@ image::StorageClassDiagram1.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the TA-Tracker
-data in json format and read it back.
+* Can save `UserPref` objects in Json format, and read it back
+* Can save all TA-Tracker data in Json format, and read it back.
 
 ==== Saved Data
-The following _Class Diagram_ is a breakdown of the data managed by the `Storage` component.
+The following _Class Diagram_ shows a breakdown of the data managed by the `Storage` component.
 
 .Structure of the data stored by TA-Tracker
-
 image::StorageClassDiagram2.png[]
 
-`TA-Tracker
-` saves the following data:
+TA-Tracker saves the following data in _Json format_:
 
-* a list of `Module` objects representing the modules that the user is assisting. +
-+
-Within each module, there is:
+* A list of `Module` objects representing the *modules* that the user is teaching
+* A list of `Session` objects representing the *sessions* that the user has not completed (*not marked as done*)
 
-** a list of `Session`, representing the `done sessions` that the user has completed for that module.
-** a list of `Group`, representing the groups that the user is
-in charge of, such as a tutorial or lab. +
-+
-Within each group, there is:
+Within each `Module`, there is:
 
-*** a list of `Student`, representing the students enrolled in
-the respective groups.
+* A list of `Session` objects, representing the *sessions* that the user has completed (*marked as done*) for that module
+* A list of `Group` objects, representing the *groups* for that module that the user is in charge of, such as a tutorial or lab
 
-* a separate list of `Session` objects representing the sessions that the user has scheduled in the future.
+Within each `Group`, there is:
+
+* A list of `Student` objects, representing the students enrolled in the group
+//end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -466,8 +416,86 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::logicDesign[]
+[[Logic]]
+=== Logic
+The *Logic* of TA-Tracker ensures that all the user's commands are parsed and executed correctly.
+In order to ensure that all the commands contain the correct information,
+two utility classes have been created:
+
+* A `CommandDetails` class to encapsulate details, such as the usage message,
+inside each `Command` in TA-Tracker.
++
+This is used to:
+
+** Fetch messages for `CommandResult` objects
+** List commands in the `HelpWindow`
+** Simplify the number of imports used in test cases
+
+* A `PrefixDetails` class to encapsulate details, such as the usage message,
+of each `Prefix` used in TA-Tracker.
+
+Both utility classes support the <<Syntax, Syntax Highlighting feature>>.
+
+The `CommandDetails` of every `Command` are stored in a `CommandDictionary`,
+The `PrefixDetails` of every `Prefix` are stored in a `PrefixDictionary`.
+
+The following sections will describe the implementation of these two dictionaries.
+
+==== Implementation of the `CommandDictionary`
+
+The following _Class Diagram_ shows how a `CommandDictionary` stores all the
+details of every `Command` in TA-Tracker.
+
+.Structure of the CommandDictionary
+image::CommandsPackageDiagram2.png[,400]
+
+. The `CommandDictionary`, stores a list of `CommandDetails` for all the commands in TA-Tracker.
+. All commands should have their own `CommandDetails`.
+. A `CommandDetails` object stores all the information that a command should have +
+(e.g. their `commandWord` and `usage` message).
+. For their `commandWord` and `sub word`, commands may use constants in `CommandWords` to avoid repetition +
+(e.g. "add", "delete", "edit").
+
+==== Implementation of the `PrefixDictionary`
+
+The following _Class Diagram_ shows how a `PrefixDictionary` stores all the
+details of every `Prefix` in TA-Tracker.
+
+.Structure of the PrefixDictionary
+image::ParserPackageDiagram2.png[,400]
+
+. A `PrefixDictionary` stores two lists of `Prefix` objects:
+** `parameters` - a list of compulsory parameters for a command
+** `optionals` - a list of optional parameters for a command
+
+. A `PrefixDictionary` contains a list of `PrefixDetails`.
+These `PrefixDetails` are the details of all the `Prefix` objects stored in `parameters` and `optionals`
+
+. A `PrefixDetails` object adds more information to a `Prefix` +
+(e.g. their `constraint` message and a list of `examples`).
+. A `PrefixDetail` has a `Predicate` to validate the user input arguments.
+
+. All parsers use some `Prefix` constants defined in `Prefixes`.
+These constants are kept in `PrefixDictionary` in a lookup table.
+
+====
+The difference between the *commands* and *parsers* is that the *commands* store their own `CommandDetails`,
+while the *parsers* do not store any `PrefixDetails`.
+
+This is because the *parsers* do not need the extra information stored in `PrefixDetails`.
+They only need to use different `Prefix` objects in order to parse user inputs.
+
+`PrefixDetails` adds more information to a `Prefix` object instead of extending it.
+Therefore, it can be detached from the *parsers* without changing the `Prefix` constants in `Prefixes`.
+====
+//end::logicDesign[]
+
+//tag::goto[]
 [[Implementation-Goto]]
 === Goto Command
+
+(Contributed by Fatin)
 
 ==== Description
 
@@ -510,6 +538,7 @@ how MainWindow should handle the next action.
 
 . `MainWindow` calls the handleGoto() method to select the `ClaimsTab` in the `TabPane`, completing the tab-switching
 process.
+//end::goto[]
 
 [[StudentView]]
 === Student View
@@ -517,7 +546,7 @@ process.
 
 Students are a part of *groups* and groups are a part of *modules*.
 
-// tag::studentviewmodel[]
+//tag::studentviewmodel[]
 ==== Implementation of the Model Framework
 The following _Class Diagram_ shows how different classes are related in the
 functioning of the *Student View*.
@@ -570,9 +599,13 @@ and the *creation of many association classes* which would unnecessarily
 That is why we decided to stick to our current implementation.
 
 ====
+
 // end::studentviewmodel[]
 
+(Contributed by Fatin)
+
 // tag::studentmodel[]
+
 The following _Class Diagram_ shows how different classes are related in the functioning of a `Student` Object.
 
 .Structure of the Student Component
@@ -592,8 +625,8 @@ such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 //end::studentmodel[]
+//tag::moduleaddeditdelete[]
 
-// tag::moduleaddeditdelete[]
 ==== Implementation of the Module Add, Delete and Edit Commands
 
 The following _Sequence Diagram_ shows the interactions
@@ -610,7 +643,7 @@ image::AddModuleSequenceDiagram.png[]
 doesn't exist in the TA-Tracker.
 
 * The lifeline for `ModuleCommandParser` and `AddModuleCommandParser` should end at the
-destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 ====
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
@@ -652,9 +685,9 @@ is removed from the TA-Tracker
 
 
 The `module edit` command has been implemented in a similar manner.
-// end::moduleaddeditdelete[]
+//end::moduleaddeditdelete[]
+//tag::groupaddeditdelete[]
 
-// tag::groupaddeditdelete[]
 ==== Implementation of the Group Add, Delete and Edit Commands
 
 A *group* is added to the TA-Tracker
@@ -691,7 +724,7 @@ image::DeleteGroupSequenceDiagram.png[]
 in the module with module code CS2103 inside the TA-Tracker.
 
 * The lifeline for `GroupCommandParser` and `DeleteGroupCommandParser` should end at the
-destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 
 * The main difference between the `Module` and `Group` commands is that the `Group`
 commands require extra checks to check whether a group with the given group code
@@ -722,63 +755,77 @@ given group code exists within that module.
 7. The `DeleteGroupCommand` returns a `CommandResult`.
 
 The `group edit` command has been implemented in a similar manner.
-// end::groupaddeditdelete[]
+//end::groupaddeditdelete[]
+//tag::studentaddeditdelete[]
 
-// tag::studentaddeditdelete[]
 ==== Implementation of the Student Add, Delete and Edit Commands
+
+A *student* can be added to the TA-Tracker after a *module* and *group* is added.
+
+The commands for *students* are similar to the commands for *modules* and *groups*.
+The main difference is that there are a few additional conditions in order to
+ensure that a *student* is inside the TA-Tracker.
 
 The following _Sequence Diagram_ shows the interactions that take place
 between the `Logic` and `Model` components of the TA-Tracker
-when the user enters the
-command `student delete id/A0181234G`.
+when the user enters the command `student delete m/CS2103 g/G03 id/A0181234G`.
 
 .Student Delete - Sequence Diagram
-image::DeleteStudentSequenceDiagram.png[]
+image::DeleteStudentSequenceDiagram.png[,1000]
 
 [NOTE]
 ====
 
-* This diagram assumes that there is a student with the matric number `A0181234G`
-already exists in the TA-Tracker
+* This diagram assumes that the following data are inside the TA-Tracker:
+** A student with the matric number `A0181234G` +
+(shown as `id` in the diagram)
+** The same student inside the group `G03` +
+(shown as `g` in the diagram)
+** The same group inside the module `CS2103` +
+(shown as `m` in the diagram) +
+{fbl}
 
 * The lifeline for `StudentCommandParser` and `DeleteStudentCommandParser` should end at the
-destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 ====
 
-1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
+. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is a *student command* and passes the
+. The `TaTrackerParser` sees that the command is a *student command* and passes the
 command to the `StudentCommandParser`.
 
-3. The `StudentCommandParser` sees that the command is a *delete command* and passes the
+. The `StudentCommandParser` sees that the command is a *delete command* and passes the
 arguments to the `DeleteStudentCommandParser`.
 
-4. The `DeleteStudentCommandParser` creates a *Student* with the given matric number,
-`A0181234G`.
+. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object
+with the *matric number*, *module code* and *group code* from the arguments.
+The parser then returns the `DeleteStudentCommand`.
 
-5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object and passes
-it the created student. The parser then returns the `DeleteStudentCommand`
+. `LogicManager` calls `DeleteStudentCommand#execute()` to begin removing a student from the TA-Tracker.
 
-6. `LogicManager` calls `DeleteStudentCommand#execute()`.
+. The `DeleteStudentCommand` checks the following three conditions:
+.. A module with the given *module code* is inside the TA-Tracker.
+.. A group with the given *group code* is inside the same module.
+.. A student with the given *matric number* is inside the same group.
 
-7. The `DeleteStudentCommand` object
-checks whether a student with the given matric number already exists in TA-Tracker
+. For each condition, there are two outcomes:
+.. If the condition is false, then a *command exception is thrown* saying that the object does not exist.
+.. If it is true, then the student with the given *matric number* is removed from
+the *expected group* inside the *expected module*.
 
-.. If the student doesn't exist, a command exception is thrown saying that a student with the given matric number
-doesn't exist in the TA-Tracker
-.. If the student exists, the `DeleteStudentCommand` object retrieves the student from the
-model and removes the student.
+. Finally, the `DeleteStudentCommand` returns a `CommandResult`.
+.. If the command successfully removed a student, the `CommandResult` will contain a success message.
+.. If not, the `CommandResult` will have a message explaining why the student could not be removed.
 
-The `student edit` command has been implemented in a similar manner.
+The `student add` and `student edit` command has been implemented in a similar manner.
+However, the `student add` command has a slight difference.
 
-The `student add` command has been implemented in a similar way as well. The main
-difference is that the `AddStudentCommand` checks whether an object with the given
-matric number exists in the TA-Tracker. If such student exists, a command exception
-is thrown saying that a student with the given matric number already exists.
+When the `student add` command is executed,
+there is an extra condition that must be true: there cannot be a student with the given *matric number* already inside
+the *expected group* inside the *expected module*.
+//end::studentaddeditdelete[]
+//tag::sortgroupmoduleall[]
 
-// end::studentaddeditdelete[]
-
-// tag::sortgroupmoduleall[]
 ==== Implementation of the Sort Group, Module and All Command
 
 The sort command allows the user to sort the students in the *Student View*.
@@ -847,7 +894,7 @@ image::SortAllSequenceDiagram.png[]
 [NOTE]
 ====
 * The lifeline for `SortCommandParser` should end at the
-destroy marker (X) but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 
 * The `SortCommandParser`, which creates `Sort` commands, is different from the other
 command parsers. While the other commands have another level of parsing (such as the
@@ -870,9 +917,9 @@ and determines that since the sub-command word is `all` , it must create and ret
 is `matric` , it calls `Model#sortModulesByMatricNumber()` command.
 
 6. The `SortCommand` returns a `CommandResult` with a success message.
-// end::sortgroupmoduleall[]
+//end::sortgroupmoduleall[]
+//tag::sessionmodel[]
 
-//tag::tssview[]
 [[SessionView]]
 === Session View
 
@@ -880,6 +927,8 @@ is `matric` , it calls `Model#sortModulesByMatricNumber()` command.
 that haven't been completed yet.
 
 ==== Model Framework
+
+(Contributed by Fatin)
 
 The following _Class Diagram_ shows how different classes are related in the functioning
 of the *Session View*.
@@ -890,6 +939,8 @@ image::SessionModelClassDiagram.png[]
 The TA-Tracker model class contains a `UniqueSessionList` which helps keep track of
 all the *sessions* in TA-Tracker
 that have *not* been marked as done.
+//end::sessionmodel[]
+//tag::sessiondone[]
 
 ==== Implementation of the Session Done Command
 
@@ -923,7 +974,11 @@ checks whether the current session called by the user has a recurring period.
 
 8. The updated session list will be displayed to the user.
 
+(Contributed by Fatin)
+
 The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
+//end::sessiondone[]
+//tag::sessiondoneactivity[]
 
 .Session Done- Activity Diagram
 image::TssActivityDiagram.png[]
@@ -933,6 +988,8 @@ image::TssActivityDiagram.png[]
 The above diagram assumes that a valid index has been input into the TA-Tracker
 during the done session command.
 ====
+//end::sessiondoneactivity[]
+//tag::sessioncommands[]
 
 ==== Implementation of Session Add, Edit and Delete
 
@@ -946,10 +1003,13 @@ The `session add` command has been implemented in a similar way. The main differ
 * If no such module code exists, the session is created successfully.
 
 * If it doesn’t exist, an exception is thrown saying that the given module code doesn’t exist.
-
+//end::sessioncommands[]
 //tag::claimsview[]
 
 === Claims View
+
+(Contributed by Fatin)
+
 *Claims View* refers to the view that contains a list of all the sessions that have
 been done.
 
@@ -981,28 +1041,27 @@ by the user is a valid integer. If it is, the `SetRateCommandParser` creates a
 . `LogicManager` calls `SetRateCommand` 's execute method.
 
 . `MainWindow` updates the `TotalEarnings` label in the `ClaimsTab` and the `StatisticsWindow`
+//end::claimsview[]
+//tag::syntaxhighlighting[]
 
-
-// tag::syntaxhighlighting[]
+[[Syntax]]
 === Syntax Highlighting
-When a user types a command into the `CommandBox`, their inputs will be highlighted in different colours
+When a user types a command, their inputs will be highlighted in different colours
 as a form of input validation.
 
-In addition, the `ResultDisplay` will display different messages based on the result of the syntax highlighting.
+In addition, different messages will be displayed based on the result of the syntax highlighting.
 
-The following shows how the `CommandBox` and `ResultDisplay` appear in the `MainWindow` of `TA-Tracker
-`
+The following _screenshot_ shows how the `CommandBox` and `ResultDisplay` appear in the TA-Tracker.
 
-.The `CommandBox` and the `ResultDisplay` in `TA-Tracker
-`
-image::syntax-highlighting/SH-CommandBox.png[]
+.The CommandBox and the ResultDisplay in TA-Tracker
+image::syntax-highlighting/ui.png[,600]
 
-In the figure above:
+In the _screenshot_ above:
 
 * There is a user input highlighted in `green` in the `CommandBox`
 * There is a message in `white` showing in the `ResultDisplay`
 * The command being entered is `session edit`
-* There are three arguments: `date`, `start time`, and `end time`.
+* The user has entered three arguments: `date`, `start time`, and `end time`.
 
 ==== Overview
 The following _Class Diagram_ shows how the `Logic` and `UI` components interact with each other to produce the highlighting.
@@ -1012,194 +1071,358 @@ image::SyntaxHighlightingClassDiagram.png[]
 
 The `CommandBox`:
 
-* Uses a `CommandDictionary` to search for valid commands.
-* Stores a `CommandDetail` for processing the current command in the user input.
-* Stores a `PrefixDictionary` containing the required argument details (`PrefixDetails`) for the current command.
-* Uses a `CommandBoxUtil` to scan for valid user inputs.
-* Returns feedback to the `ResultDisplay`.
+* Uses a `CommandDictionary` to search for valid commands
+* Stores a `CommandDetail` for processing the current command in the user input
+* Stores a `PrefixDictionary` containing the `PrefixDetails` for the current command.
+* Uses `PrefixDetails` to process each argument in the current command
+* Uses a `CommandBoxUtil` to validate user inputs
+* Returns feedback to the `ResultDisplay`
 
-The `ResultDisplay` displays the given feedback as a message in the program.
+The `ResultDisplay` displays the given feedback as a message in the TA-Tracker.
 
-==== Implementation
-The following diagrams show the steps for the different types of syntax highlighting.
+==== Identifying the parts of a User Input
 
-Here are some keywords that will be used to explain the implementation:
+Here is an example of a user input in the `CommandBox`:
 
-* A `full command word` is a text that identifies a command.
+.An example of a user input in the `CommandBox`
+image::syntax-highlighting/commandbox.png[,500]
 
-* An `argument` is a text that contains a `prefix` and a `value`.
+User inputs can be divided into the following parts:
 
-** The `prefix` is the text value of a `Prefix` in the Logic component.
-** The `value` is all the text following the `prefix`.
+[width="%",cols="<20%a,<20%a,<60%a",options="header"]
+|====
+|
+Keyword
+|
+Meaning
+|
+Example
 
-* The `preamble` is the text (including whitespaces) between the end of the
+|
+`full command word`
+|
+The part of the user input that *identifies a command*.
+|
+.A `full command word` (coloured in blue in this screenshot)
+image::syntax-highlighting/full-command-word.png[]
+{fbl}
+
+|
+`argument`
+|
+The part of the user input that *identifies a command parameter*.
+
+It contains a `prefix` and a `value`.
+|
+image::syntax-highlighting/argument-1.png[]
+image::syntax-highlighting/argument-2.png[]
+.The `arguments` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/argument-3.png[]
+{fbl}
+
+|
+`prefix`
+|
+The part of an `argument` up to and including the `/` forward slash delimiter.
+|
+image::syntax-highlighting/prefix-1.png[]
+image::syntax-highlighting/prefix-2.png[]
+.The `prefixes` of each `argument` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/prefix-3.png[]
+{fbl}
+
+|
+`value`
+|
+Everything after the `prefix` of an `argument`.
+|
+image::syntax-highlighting/value-1.png[]
+image::syntax-highlighting/value-2.png[]
+.The `values` of each `argument` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/value-3.png[]
+{fbl}
+
+|
+`preamble`
+|
+The part of the user input (including whitespaces) between the end of the
 `full command word`, and the beginning of the first `argument`.
+|
+.The `preamble` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/preamble.png[]
+{fbl}
+
+|====
+
+[[Impl-Syntax]]
+==== Implementation of the Syntax Highlighting
+The following diagrams show the steps that take place when applying syntax highlighting
+to the user's input.
 
 [NOTE]
 ====
-Due to the limitations of *PlantUML*, some of the diagrams may not appear as expected.
+Due to the limitations of *PlantUML*, the following _Activity Diagrams_
+may not follow UML notation.
 
-In particular, there are issues with representing alternate paths in *PlantUML* BETA Activity Diagrams
+In particular, there are issues with representing alternate branches.
 
-For example:
+For example, alternate branches:
 
-. They split into multiple diamonds, instead of all originating from the same diamond.
-. They do not converge at a single diamond, and instead skips it altogether.
-. They cannot join other branches.
+* *Split into multiple branch nodes*, instead of all originating from the same node
+* *Do not converge* at a single merge node before the end node
 
-In particular, the biggest limitation was the third issue.
-To overcome this, you will see multiple end nodes in some of the diagrams.
-Please assume that they all converge into a single diamond before reaching the end node.
+
+There is a way for the diagrams to be arranged vertically.
+However, this dilates the diagrams, making them difficult to fit in this guide.
 
 ====
 
-===== Step 1. Highlighting a new input
-When a new user input is entered in the `CommandBox`,
-the syntax highlighting will be reapplied.
+[[SH-1]]
+===== Step 1 - Highlighting a new input
+Syntax highlighting is applied when the user changes their input in the `CommandBox`.
 
-The following _Activity Diagram_ explains how the `full command word` is highlighted,
+The following _Activity Diagram_ shows how the `full command word` is highlighted,
 up until the beginning of the `preamble`.
 
 .Step 1 - Highlighting a new input
-image::SyntaxHighlightingActivityDiagram1.png[]
+image::SyntaxHighlightingActivityDiagram1.png[,950]
 
-Here is the purpose of each partition in the above diagram:
+NOTE: There should be a _rake symbol_ next to the *bolded* activity - *Highlight arguments*.
 
-* `blank` +
+Here is the purpose of each alternate path in the above diagram:
+
+[width="%",cols="<28%a,<32%a,<40%a",options="header"]
+|====
+|
+Path
+|
+Action
+|
+Example
+
+|
+`[empty input]`
+|
 When there is no input,
-the `ResultDisplay` should not show anything.
+the `ResultDisplay` will not show anything.
+|
+.An empty `ResultDisplay`
+image::syntax-highlighting/empty-input.png[]
+{fbl}
 
-.Blank `ResultDisplay`
-image::syntax-highlighting/SH-1-Blank.png[,300]
-
-* `invalid` +
+|
+`[invalid command word]`
+|
 When there is no matching `full command word`,
-the `ResultDisplay` should indicate that a wrong command is entered.
-
+the `ResultDisplay` will indicate that a wrong command is entered.
+|
 .Invalid `full command word`
-image::syntax-highlighting/SH-1-Invalid.png[,300]
+image::syntax-highlighting/invalid-command-word.png[]
+{fbl}
 
-* `valid` +
-When there is a matching `full command word`,
-change the highlighting rules for the new command.
-
-* `no_arguments` +
-When `full command word` has just been entered,
-the `ResultDisplay` should indicate that a correct command has been entered.
-
+|
+`[no arguments]`
+|
+When a `full command word` has just been entered,
+the `ResultDisplay` will show that a correct command has been entered.
+|
 .`CommandBox` has no `arguments`
-image::syntax-highlighting/SH-1-NoArgs.png[,300]
+image::syntax-highlighting/no-arguments.png[]
+{fbl}
 
-* `has_arguments` +
-After processing the `full command word`,
-proceed to step 2. +
-+
-NOTE: There should be a rake symbol next to the only activity in this partition.
-
+|
+`[has arguments]`
+|
+After processing the `full command word`, proceed to <<SH-2, Step 2>>.
+|
 .`CommandBox` has `arguments`
-image::syntax-highlighting/SH-1-HasArgs.png[,250]
+image::syntax-highlighting/has-arguments.png[]
+{fbl}
 
-===== Step 2. Highlighting the preamble
-After verifying that the new input has a `full command word`,
-the highlighting will also need to be reapplied to the `preamble` and `arguments`.
+|====
 
-The following _Activity Diagram_ explains how the `preamble` is highlighted,
+[[SH-2]]
+===== Step 2 - Highlighting the preamble
+If the new input has a `full command word`,
+the next step is to apply syntax highlighting on the `preamble` and `arguments`.
+
+The following _Activity Diagram_ shows how the `preamble` is highlighted,
 up until the beginning of the first `argument`.
 
 .Step 2 - Highlighting the preamble
-image::SyntaxHighlightingActivityDiagram2.png[]
+image::SyntaxHighlightingActivityDiagram2.png[,820]
 
-Here is the purpose of each partition in the above diagram:
+NOTE: There should be a _rake symbol_ next to the *bolded* activities - *Highlight invalid arguments*.
 
+Here is the purpose of each alternate path in the above diagram:
+
+[width="%",cols="<28%a,<32%a,<40%a",options="header"]
+|====
+|
+Path
+|
+Action
+|
+Example
 * `whitespaces` +
-Inputs that have trailing whitespaces will be handled separately.
 
-.Trailing whitespace, coloured in blue for this diagram
-image::syntax-highlighting/SH-2-Space.png[,250]
+|
+`[trailing whitespace]`
+|
+When there are trailing whitespaces, the syntax highlighting is removed.
+|
+.A trailing whitespace (coloured in blue in this screenshot)
+image::syntax-highlighting/trailing-whitespace.png[]
+{fbl}
 
-* `many_whitespaces` +
-When there are more than two trailing whitespaces,
-the `ResultDisplay` should reshow how to use the command.
+|
+`[many whitespaces]`
+|
+When there are two or more trailing whitespaces,
+the `ResultDisplay` will show how to use the command.
+|
+.Many trailing whitespaces (coloured in blue in this screenshot)
+image::syntax-highlighting/many-whitespaces.png[]
+{fbl}
 
-.Many trailing whitespaces, coloured in blue for this diagram
-image::syntax-highlighting/SH-2-ManySpace.png[,400]
-
-* `preamble_error` +
+|
+`[invalid preamble]`
+|
 When the input has a `preamble` that the command does not need,
-the `ResultDisplay` should indicate that a wrong command is entered.
+the `ResultDisplay` will indicate that a wrong command is entered.
+|
+.An invalid `preamble`
+image::syntax-highlighting/invalid-preamble.png[]
+{fbl}
 
-.Invalid `preamble` in input
-image::syntax-highlighting/SH-2-WrongPreamble.png[,350]
+|
+`[blank preamble]`, and +
+`[needs preamble]`
+|
+After processing the `preamble`, proceed to <<SH-3, Step 3>>.
+|
 
-* `preamble_end` +
-After processing the `preamble`,
-proceed to step 3. +
-+
-NOTE: There should be a rake symbol next to the only activity in this partition.
+.A command that requires a blank `preamble`
+image::syntax-highlighting/blank-preamble.png[]
 
-.Valid `preamble` in input
-image::syntax-highlighting/SH-2-RightPreamble.png[,350]
+.A command that needs a valid `preamble`
+image::syntax-highlighting/needs-preamble.png[]
+{fbl}
 
-===== Step 3. Highlighting the remaining arguments
-After verifying that the `preamble` is valid for the given `full command word`,
-the highlighting will need to be reapplied to each `argument` in the remaining user input.
+|====
+
+[[SH-3]]
+===== Step 3 - Highlighting the remaining arguments
+After the `preamble` has been verified,
+the syntax highlighting is applied on each `argument` in the remaining user input.
+An _invalid_ or _wrong_ `argument` will *stop* the highlighting.
 
 The following _Activity Diagram_ explains how each `argument` is highlighted,
 up until end of the user input.
 
 .Step 3 - Highlighting the remaining arguments
-image::SyntaxHighlightingActivityDiagram3.png[]
+image::SyntaxHighlightingActivityDiagram3.png[,800]
 
-Here is the purpose of each partition in the above diagram:
+Here is the purpose of each alternate path in the above diagram:
 
-* `wrong` +
-When the command does not need the given `argument`,
-the `ResultDisplay` should reshow how to use the command.
+[width="%",cols="<28%a,<32%a,<40%a",options="header"]
+|====
+|
+Path
+|
+Action
+|
+Example
 
+|
+`[wrong]`
+|
+When the command does not recognise the given `argument`,
+the `ResultDisplay` will show how to use the command.
+|
 .Wrong `argument` in input
-image::syntax-highlighting/SH-3-Wrong.png[,500]
+image::syntax-highlighting/wrong.png[]
+{fbl}
 
-* `invalid` +
+|
+`[invalid]`
+|
 When the `argument` cannot have the given `value`,
-the `ResultDisplay` should show how to use the `argument`.
-
+the `ResultDisplay` will show how to use the `argument`.
+|
 .Invalid `argument` in input
-image::syntax-highlighting/SH-3-Invalid.png[,500]
+image::syntax-highlighting/invalid.png[]
+{fbl}
 
-* `valid` +
+|
+`[valid]`
+|
 After processing the current `argument`,
-the `ResultDisplay` will still show how to use the argument in case the `argument`
-can have spaces.
-
+the `ResultDisplay` will still show how to use it in case the `argument` can have spaces.
+|
 .Valid `argument` in input
-image::syntax-highlighting/SH-3-Valid.png[,500]
+image::syntax-highlighting/valid.png[]
+{fbl}
+
+|====
 
 ==== Design Considerations
 
-===== Aspect #1: Executing the syntax highlighting in real-time
-The current implementation reapplies the highlighting whenever the user input changes.
-When no input is changed, the program will idle.
+[[Syntax-Aspect1]]
+===== Showing the command usage after every two white spaces
 
-In contrast, having an infinite loop can achieve the same highlighting,
-but the program cannot idle and will consume memory when in use.
+When a user enters two white spaces, the usage for the current command wil reappear in
+the `ResultDisplay`. The purpose of this is to provide the user with a *quick example*
+of how to use the command, since a command may have *a lot of parameters*.
 
-===== Aspect #2: Range of syntax highlighting
-The current implementation uses three colours for the syntax highlighting.
+The following are reasons why the usage appears after every two spaces:
 
-The following colours are used:
+* The user will have to enter whitespaces frequently.
+This should allow our *target users* (whom are fast typers) to *quickly verify* how to use the different commands.
+* A user input will usually have words separated with a single white space
+* It gives a use for user inputs to have `arguments` separated with more than one whitespace
 
-* `Red` - invalid input
-* `Green` - valid input
-* `White` - the default font colour for the `CommandBox` input
+====
+*Alternative Implementation*
 
-These colours have been chosen because they are standard signalling colours used in
-everyday life. Therefore, the user will be familiar with these colour signals without
-a need for an explanation.
+An alternative would be to *assign a keyboard shortcut*, such as the kbd:[Tab] key,
+to give the user the option to display the command usage only when they need it.
 
-Valid inputs have been highlighted in order to signal to the user that they have used
-the command correctly. An alternative would be to remove this colour though, as having too
-many flashing colours may be distracting to the user.
-// end::syntaxhighlighting[]
+Currently, the `ResultDisplay` shows the command usage
+whenever the user inputs something new. This could be annoying for the user
+when they are familiar with the commands.
+
+However, the user may have assigned actions to these keyboard shortcuts on their computer,
+Therefore, TA-Tracker would need to allow the user to *assign their own keyboard settings*.
+
+As TA-Tracker is meant to be used primarily on the *CLI*, assigning keyboard shortcuts
+does not seem like a suitable feature for our *target users*. However, implementing this
+is an option in future versions of TA-Tracker.
+====
+
+[[Syntax-Aspect2]]
+===== Always showing the syntax highlighting
+
+Similar to <<Syntax-Aspect1, the previous design consideration>>, the syntax highlighting
+could instead be toggled _on_ and _off_ using a keyboard shortcut.
+
+====
+*Alternative Implementation*
+
+Alternatively, there could be a command to toggle the syntax highlighting _on_ and _off_.
+
+Here is an example of how the command could be made:
+
+* `syntax on` - enables the syntax highlighting
+* `syntax off` - disables the syntax highlighting
+* `syntax cmd` - enables the syntax highlighting for `full command words` only
+* `syntax args` - enables the syntax highlighting for `arguments` only
+
+Then, the `CommandBox` will have _boolean flags_ to toggle the syntax highlighting
+before the each of the three steps explained in the <<Impl-Syntax, Implementation of the Syntax Highlighting>>.
+====
+//end::syntaxhighlighting[]
+//tag::filter[]
 
 [[Implementation-Filter]]
 === Filter Command
@@ -1297,6 +1520,8 @@ When the user enters the command `claims filter m/MODULE_CODE`, claims that cont
 will be filtered.
 
 The command used to filter claims is implemented the same way as `SessionFilterCommand`.
+//end::filter[]
+//tag::statistic[]
 
 === Statistic Report Generation
 
@@ -1348,6 +1573,8 @@ by creating a `Statistic` object that retrieves data necessary for generating th
 . A `StatisticWindow` object is now created by `MainWindow`. The `Statistic` object is passed into the constructor of `StatisticWindow`.
 
 . Finally, `StatisticWindow` updates its FXML elements and is shown to the user.
+//end::statistic[]
+//tag::logging[]
 
 === Logging
 
@@ -1363,6 +1590,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING`: Can continue, but with caution
 * `INFO`: Information showing the noteworthy actions by the App
 * `FINE`: Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+//end::logging[]
 
 [[Implementation-Configuration]]
 === Configuration
@@ -1381,6 +1609,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+//tag::productscope[]
 [appendix]
 == Product Scope
 
@@ -1399,6 +1628,8 @@ Refer to the guide <<DevOps#, here>>.
 * congregates all information regarding claimable hours of teaching and student information
 in a single location
 * provides desired (TSS) format back to users for convenient viewing
+//end::productscope[]
+//tag::userstories[]
 
 [appendix]
 == User Stories
@@ -1464,6 +1695,8 @@ much money I have earned and stay motivated
 |`*` |TA |enter my students' assignment grades  |keep track of my students' progress (coming in V2.0)
 
 |=======================================================================
+//end::userstories[]
+//tag::usecases[]
 
 [appendix]
 == Use Cases
@@ -1478,7 +1711,7 @@ much money I have earned and stay motivated
 [discrete]
 ==== Use case: UC01 - Viewing the help menu
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 1.  User requests to view the `help window.`
 2. TA-Tracker opens a new window showing the list of commands.
@@ -1488,7 +1721,7 @@ Use case ends.
 [discrete]
 ==== Use case: UC02 - Going to a different tab
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 1.  User requests to go to a different `tab`.
 2. TA-Tracker switches to the requested `tab`.
@@ -1508,7 +1741,7 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC03 - Exiting the app
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 1. User requests to exit the app.
 2. TA-Tracker closes the App window.
@@ -1520,7 +1753,7 @@ Use case ends.
 [discrete]
 ==== Use case: UC04 - Adding a module
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 1.  User requests to add a new module.
 2. TA-Tracker adds a new module.
@@ -1555,7 +1788,7 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC05 - Editing a module
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing modules in the *Student View*.
@@ -1585,7 +1818,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC06 - Deleting module
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing modules in the *Student View*.
@@ -1612,7 +1845,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC07 - Adding a group
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing modules in the *Student View*.
@@ -1656,7 +1889,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC08 - Editing a group
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing groups in the *Student View*.
@@ -1697,7 +1930,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC09 - Deleting group
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing groups in the *Student View*.
@@ -1731,7 +1964,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC10 - Adding a student
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing groups in the *Student View*.
@@ -1768,7 +2001,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC11 - Editing a Student
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing students in the *Student View*.
@@ -1802,7 +2035,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC12 - Deleting a student
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Student Tab` (UC02) to view
 the list of existing students in the *Student View*.
@@ -1947,7 +2180,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC17 - Adding a session
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to add a session.
 . TA-Tracker adds the session.
@@ -1974,7 +2207,7 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC18 - Deleting a session
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -1996,7 +2229,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC19 - Editing a session
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2018,7 +2251,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC20 - Marking a session as done
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2066,7 +2299,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC22 - Changing the hourly pay rate
 
-*MSS*
+*MSS* (Contributed by Fatin)
 
 1. User requests to change the hourly pay rate to a specified amount.
 2. TA-Tracker changes the pay rate and adjusted the total earnings to reflect the new pay rate.
@@ -2134,10 +2367,11 @@ Use case ends.
 ** 1b1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
-
+//end::usecases[]
 
 :sectnums: // Enables section numbering again outside of the use cases
 
+//tag::nfr[]
 [appendix]
 == Non-Functional Requirements
 
@@ -2149,6 +2383,8 @@ Use case resumes at step 1.
 . `**TAT**` should not require user to install.
 . Features implemented should be testable using manual testing and automated testing.
 . `**TAT**` should support screen resolution of 1920 x 1080 or higher.
+//end::nfr[]
+//tag::glossary[]
 
 [appendix]
 == Glossary
@@ -2211,6 +2447,8 @@ Stands for Main Success Scenario that describes the interaction for a given use 
 
 
 |=======================================================================
+//end::glossary[]
+//tag::testing[]
 
 [appendix]
 == Instructions for Manual Testing
@@ -2517,6 +2755,8 @@ this would show you an error message.
 
 .. Test Case: `exit` +
 Expected: Exits the program.
+//end::testing[]
+//tag::effort[]
 
 [appendix]
 == Effort
@@ -2542,4 +2782,4 @@ Another challenge we faced was that we were unaware of restrictions regarding ti
 in features for the module CS2103 for which this application has been created. Two of
 our features that relied on timing that were almost ready had to be scrapped and we
 had to look for new features to replace them.
-
+//end::effort[]

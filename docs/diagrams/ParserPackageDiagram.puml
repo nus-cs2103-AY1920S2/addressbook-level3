@@ -3,9 +3,16 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR
 skinparam classBackgroundColor LOGIC_COLOR
+skinparam noteBackgroundColor LOGIC_COLOR_T1
+skinparam noteBorderColor LOGIC_COLOR_1
 
 Package Parser as ParserPkg <<Rectangle>>{
 Interface Parser <<Interface>>
+
+note as Sidenote
+These are <b>packages</b> with
+a number of classes inside them
+end note
 
 Package Commons {}
 Package Module {}
@@ -67,7 +74,7 @@ Class PrefixDictionary
 Class Prefix
 
 Interface Parser <<Interface>>
-Package X {
+Package ParserPackageX {
     Class XCommandParser
 }
 
