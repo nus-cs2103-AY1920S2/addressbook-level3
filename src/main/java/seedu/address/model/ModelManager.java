@@ -231,7 +231,6 @@ public class ModelManager implements Model {
         this.tagSet.addTask(editedTask);
         this.tagSet.removeTask(target);
         taskList.setTask(target, editedTask);
-        this.showAllTasks();
         cancelTimerTask(target);
         setTimer(editedTask);
         if (taskSaver != null) {
