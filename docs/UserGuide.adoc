@@ -604,6 +604,7 @@ If this is successful, the following message will be displayed in the feedback d
 Successfully imported /data/myFriendsWorkout.txt into ZeroToOne!
 ```
 
+// tag::schedule[]
 === Managing Your Scheduled Sessions
 
 You are now an expert in managing your workouts, and can start a workout any time! However, wouldn’t you like to have the ability to schedule your workout sessions? In this section, we will guide you to learn how ZeroToOne can help you in this aspect!
@@ -717,6 +718,7 @@ NOTE:
 * <datetime> must not be outdated and follow the format {yyyy}-{mm}-{dd} {HH:mm}
 * <frequency> must be one of the following: DAILY, WEEKLY, MONTHLY
 ```
+// end::schedule[]
 
 === Managing Your Session Logs
 Well done, you have successfully gone through the whole process of setting up your workouts, scheduling them and even logging the workout. In addition to all these cool features, ZeroToOne also allows you to manage your workout log history and even provides you with meaningful statistics to help you track your current progress to help you hit all those fitness goals.
