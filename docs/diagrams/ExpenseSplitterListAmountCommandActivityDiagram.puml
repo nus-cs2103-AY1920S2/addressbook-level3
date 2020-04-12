@@ -5,10 +5,10 @@ title Activity: List Amount Command
 start
 :User enters the list amount command;
 
-if () then ([no person owes money])
+if () then ([noPersonOwesMoney])
     :Inform user that no one owes money;
 else ([else])
-    :Displays to user all the person and the
+    :Displays all the person and the
     amount they owe;
 
 endif

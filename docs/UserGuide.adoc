@@ -19,7 +19,7 @@ endif::[]
 By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`
 
 == Introduction
-
+//tag::intro[]
 This user guide provides in-depth documentation on the EYLAH desktop application. It comprises of 6 main portions,
 including the introduction, getting started, features, FAQ, command summary, and glossary.
 
@@ -43,6 +43,7 @@ Interested? Jump to <<Getting Started>> to get started. Let's go!
 
 image::Ui.png[width="790"]
 Figure 1. Photo of EYLAH
+//end::intro[]
 
 === Purpose
 * This documentation serves as an introduction to the features and proper usage of EYLAH, and is made for you
@@ -686,7 +687,7 @@ image::dietTrackerHelpCommandSuccessPhoto.png[width="890", height="200"]
 
 
 
-
+//tag::introtoexpensesplitter[]
 === Expense Splitter : `split`
 Getting a headache from splitting *that* ever-so-complicated bill?
 
@@ -694,7 +695,7 @@ With EYLAH, splitting a large receipt with friends has never been easier! All yo
 it's price and the names involved in splitting that item and EYLAH will calculate the rest for you!
 
 We have drawn some diagrams to help you visualize how Expense Splitter works, click <<AppendixA, here>> to find out more!
-
+//end::introtoexpensesplitter[]
 [[additem]]
 ==== Adding an item: `additem`
 In this section, you will learn more about the `additem` command, <<howtouseadditemcommand,how to use it>>
@@ -799,7 +800,7 @@ such as `deleteitem` where you have to pass in the index of item to be deleted.
 
 
 '''
-
+//tag::listamount[]
 [[listamount]]
 ==== Listing amounts owed by each person: `listamount`
 
@@ -836,7 +837,7 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 Use `listamount` command to find the index of the person who paid you. The index is useful for commands
 such as `paid`.
 ====
-
+//end::listamount[]
 '''
 
 [[donereceipt]]
@@ -871,7 +872,7 @@ or delete any items using the `deleteitem` command.
 ====
 
 '''
-
+//tag::paid[]
 [[paid]]
 ==== Paying money: `paid`
 
@@ -925,7 +926,7 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 ====
 Use `listamount` command to find the index of the person who paid you.
 ====
-
+//end::paid[]
 '''
 
 [[clearreceipt]]
@@ -1118,6 +1119,7 @@ or
 
 |===
 
+//tag::commandsummaryforexpensesplitter[]
 === For Expense Splitter
 
 * *Adding Item* `additem` +
@@ -1202,7 +1204,7 @@ or +
 |`exit`
 
 |===
-
+//end::commandsummaryforexpensesplitter[]
 == Glossary
 [width="%",cols="<20%,<40,<40,options="header",]
 |=======================================================================

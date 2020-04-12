@@ -11,7 +11,7 @@ if () then ([itemAddedCorrectly])
     :List Amount;
   endif
 else ([else])
-  :DeleteItem>
+  :DeleteItem;
 endif
 stop
 

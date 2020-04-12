@@ -1,5 +1,6 @@
 package seedu.eylah.expensesplitter.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.eylah.expensesplitter.testutil.Assert.assertThrows;
 
@@ -50,13 +51,13 @@ public class JsonUserPrefsSplitterStorageTest {
     }
 
 
-    /*
+
     @Test
     public void readUserPrefs_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
         UserPrefs actual = readUserPrefs("EmptyUserPrefs.json").get();
         assertEquals(new UserPrefs(), actual);
     }
-    */
+
 
 
 
