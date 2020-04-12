@@ -42,21 +42,21 @@ public class CommandBox extends UiPart<Region> {
         // commandText
         commandTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.UP) {
-                String retrivedCommand = commandTextHistory.getUp();
-                commandTextField.setText(retrivedCommand);
+                String retrievedCommand = commandTextHistory.getUp();
+                commandTextField.setText(retrievedCommand);
                 logger.info(
                         String.format(
                                 "UP arrow key pressed. Previous command text \"%s\" retrived.",
-                                retrivedCommand
+                                retrievedCommand
                         )
                 );
             } else if (event.getCode() == KeyCode.DOWN) {
-                String retrivedCommand = commandTextHistory.getDown();
-                commandTextField.setText(retrivedCommand);
+                String retrievedCommand = commandTextHistory.getDown();
+                commandTextField.setText(retrievedCommand);
                 logger.info(
                         String.format(
                                 "DOWN arrow key pressed. Next command text \"%s\" retrived.",
-                                retrivedCommand
+                                retrievedCommand
                         )
                 );
             }
