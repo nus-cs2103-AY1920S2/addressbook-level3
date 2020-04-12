@@ -97,7 +97,6 @@ public class CookedRecordBook implements ReadOnlyCookedRecordBook {
     @Override
     public String toString() {
         return records.asUnmodifiableObservableList().size() + " records";
-        // TODO: refine later
     }
 
 
