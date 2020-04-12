@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.NotFoundException;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 import java.util.Iterator;
 import java.util.List;

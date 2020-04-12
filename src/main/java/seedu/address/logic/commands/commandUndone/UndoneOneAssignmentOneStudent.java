@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 import java.util.Set;
 

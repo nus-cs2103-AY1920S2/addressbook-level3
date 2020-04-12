@@ -33,7 +33,7 @@ import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelProgress.ProgressAddressBook;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.modelStaff.StaffAddressBook;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.modelObjectTags.NameContainsKeywordsPredicate;
 import seedu.address.testutil.*;
 
 public class ModelManagerTest {

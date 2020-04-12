@@ -8,7 +8,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.person.*;
+import seedu.address.model.modelObjectTags.*;
 import seedu.address.model.tag.Tag;
 
 import java.util.Set;

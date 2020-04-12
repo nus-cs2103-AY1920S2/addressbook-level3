@@ -23,13 +23,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.Staff.Level;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Salary;
+import seedu.address.model.modelObjectTags.Address;
+import seedu.address.model.modelObjectTags.Email;
+import seedu.address.model.modelObjectTags.Gender;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Name;
+import seedu.address.model.modelObjectTags.Phone;
+import seedu.address.model.modelObjectTags.Salary;
 import seedu.address.model.tag.Tag;
 
 /**

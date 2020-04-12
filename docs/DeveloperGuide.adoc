@@ -31,7 +31,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 ==== Design Pattern and Control Flow
 Two main design patterns were used in the design of our software.
 
-* A/ Model - View - ViewModel Control Flow
+Model - View - ViewModel (MVVM) Control Flow::
 
 Design Consideration between Model-View-Controller(MVC) and Model-View-ViewModel(MVVM) design:
 
@@ -47,8 +47,7 @@ UI-specific logic to our Model and ViewController class, which is not very desir
 of data. Each custom view in our UI will have a one-to-one mapping with an observableMap,
 and to calculate those observableMap the ViewModel will make use of the Managers we define.
 
-* B/ Event-Driven Design
-
+Event-Driven Design::
 
 We adopt event-driven design, where different components will try to communicate with each other
 through publishing events and subscribing to events, de-couple between components, and facilitate communication between components a lot.
@@ -75,15 +74,15 @@ Here is an example of how a command to delete student with ID 1 will invoke diff
 .Sequence Diagram for Events Flow
 image::EventsFlowDiagram.png[]
 
-* 1/ ViewController(i.e LogicManager) will invoke ModelManager.delete method (Note that ModelManager extends from BaseManager,
+. ViewController(i.e LogicManager) will invoke ModelManager.delete method (Note that ModelManager extends from BaseManager,
 and has the Publisher capacity)
-* 2/ ModelManager will invoke publishing of events to EventsCenterSingleton (which holds
+. ModelManager will invoke publishing of events to EventsCenterSingleton (which holds
 an EventBus), in this case postDataStorageChangeEvent
 and postDeleteEntitySyncEvent will be invoked.
-* 3/ Other BaseManagers will also hold this EventsCenterSingleton and listen to new publish events
+. Other BaseManagers will also hold this EventsCenterSingleton and listen to new publish events
 in the event bus. If the manager class has the handler function for that types of events,
 the method will be invoked.
-* In this case, StorageManager will have handler for both DataStorageChangeEvent and
+. In this case, StorageManager will have handler for both DataStorageChangeEvent and
 DeleteEntitySyncEvent, while ViewModel will have handler for DataStorageChangeEvent.
 
 
@@ -316,7 +315,7 @@ NOTE: This sequence diagram can be generalized for `un-assign command` as well. 
 each other's ID from the respective objects.
 
 ====== +++<u>Design Considerations</u>+++
-. Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObject`.
+. Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObjectTags`.
 Pros::
 .. Simpler implementation since any changes to the model will change the actual object directly
 .. Faster execution since any changes is done to the actual modelObject

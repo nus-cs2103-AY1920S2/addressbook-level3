@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.modelObjectTags.Address;
+import seedu.address.model.modelObjectTags.Email;
+import seedu.address.model.modelObjectTags.Name;
+import seedu.address.model.modelObjectTags.Person;
+import seedu.address.model.modelObjectTags.Phone;
 import seedu.address.model.tag.Tag;
 
 /**

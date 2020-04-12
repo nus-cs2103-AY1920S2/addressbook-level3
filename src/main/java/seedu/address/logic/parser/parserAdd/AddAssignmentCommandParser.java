@@ -5,10 +5,8 @@ import seedu.address.logic.commands.commandAdd.AddCommand;
 import seedu.address.logic.parser.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Deadline;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
+import seedu.address.model.modelObjectTags.Date;
+import seedu.address.model.modelObjectTags.Name;
 import seedu.address.model.tag.Tag;
 
 import java.util.Set;

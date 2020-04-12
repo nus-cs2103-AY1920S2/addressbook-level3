@@ -2,7 +2,6 @@ package seedu.address.logic.commands.commandDelete;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.Constants;
@@ -11,9 +10,7 @@ import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelFinance.Finance;
-import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 /**
  * Deletes a finance identified using it's displayed index from the address book.

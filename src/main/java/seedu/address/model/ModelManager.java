@@ -23,9 +23,9 @@ import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.person.CompositeID;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Person;
+import seedu.address.model.modelObjectTags.CompositeID;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Person;
 import seedu.address.ui.MainWindow;
 
 import java.nio.file.Path;

@@ -10,7 +10,6 @@ import com.google.common.eventbus.Subscribe;
 
 import java.util.*;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -29,7 +28,7 @@ import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 public class ViewModel extends BaseManager {
     enum TYPE {

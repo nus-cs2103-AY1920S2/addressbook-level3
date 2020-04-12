@@ -14,8 +14,8 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Person;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Person;
 import seedu.address.ui.MainWindow;
 
 import java.nio.file.Path;

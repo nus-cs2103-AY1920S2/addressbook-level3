@@ -9,14 +9,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Salary;
+import seedu.address.model.modelObjectTags.Address;
+import seedu.address.model.modelObjectTags.Email;
+import seedu.address.model.modelObjectTags.Gender;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Name;
+import seedu.address.model.modelObjectTags.Person;
+import seedu.address.model.modelObjectTags.Phone;
+import seedu.address.model.modelObjectTags.Salary;
 import seedu.address.model.tag.Tag;
 
 /**

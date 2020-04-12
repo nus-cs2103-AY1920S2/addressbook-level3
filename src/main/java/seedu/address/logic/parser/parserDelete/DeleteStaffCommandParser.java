@@ -3,7 +3,7 @@ package seedu.address.logic.parser.parserDelete;
 import seedu.address.logic.commands.commandDelete.DeleteStaffCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 

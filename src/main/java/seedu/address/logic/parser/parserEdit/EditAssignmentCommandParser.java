@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.parserEdit;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.commandEdit.EditAssignmentCommand;
 import seedu.address.logic.commands.commandEdit.EditAssignmentCommand.EditAssignmentDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -8,7 +7,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.tag.Tag;
 
 import java.util.Collection;

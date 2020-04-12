@@ -2,7 +2,7 @@ package seedu.address.model.modelGeneric;
 
 import seedu.address.commons.exceptions.DuplicateException;
 import seedu.address.commons.exceptions.NotFoundException;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 /**
  * Data-centric class to be extended which encapsulate closely related items.

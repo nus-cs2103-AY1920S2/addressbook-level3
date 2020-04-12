@@ -2,8 +2,8 @@ package seedu.address.model.ModelObjectTest;
 
 import org.junit.jupiter.api.Test;
 import seedu.address.model.modelProgress.Progress;
-import seedu.address.model.person.CompositeID;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.CompositeID;
+import seedu.address.model.modelObjectTags.ID;
 
 import static seedu.address.testutil.Assert.assertThrows;
 

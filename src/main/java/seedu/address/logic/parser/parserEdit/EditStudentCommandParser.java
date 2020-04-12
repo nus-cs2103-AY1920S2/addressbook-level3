@@ -14,10 +14,9 @@ import seedu.address.logic.commands.commandEdit.EditStudentCommand;
 import seedu.address.logic.commands.commandEdit.EditStudentCommand.EditStudentDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.tag.Tag;
 
 /**

@@ -11,10 +11,10 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.FinanceType;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
+import seedu.address.model.modelObjectTags.Amount;
+import seedu.address.model.modelObjectTags.FinanceType;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Name;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;

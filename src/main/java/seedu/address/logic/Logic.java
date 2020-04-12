@@ -15,7 +15,7 @@ import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.Person;
+import seedu.address.model.modelObjectTags.Person;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.SummaryPanel;
 

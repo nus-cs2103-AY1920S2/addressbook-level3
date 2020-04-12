@@ -9,9 +9,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
+import seedu.address.model.modelObjectTags.Gender;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Name;
 import seedu.address.model.tag.Tag;
 
 /**

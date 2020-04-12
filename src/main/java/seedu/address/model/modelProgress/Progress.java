@@ -1,8 +1,8 @@
 package seedu.address.model.modelProgress;
 
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.CompositeID;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.CompositeID;
+import seedu.address.model.modelObjectTags.ID;
 
 import java.util.Objects;
 

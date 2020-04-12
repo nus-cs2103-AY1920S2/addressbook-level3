@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.ProgressCard;
 import seedu.address.ui.UiPart;

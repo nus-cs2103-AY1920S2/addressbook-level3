@@ -2,7 +2,7 @@ package seedu.address.model.modelGeneric;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 import java.util.List;
 

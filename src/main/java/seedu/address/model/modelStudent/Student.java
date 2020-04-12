@@ -3,9 +3,9 @@ package seedu.address.model.modelStudent;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
+import seedu.address.model.modelObjectTags.Gender;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Name;
 import seedu.address.model.tag.Tag;
 
 import java.util.*;

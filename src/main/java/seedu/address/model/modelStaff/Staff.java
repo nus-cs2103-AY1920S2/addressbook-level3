@@ -3,7 +3,7 @@ package seedu.address.model.modelStaff;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.*;
+import seedu.address.model.modelObjectTags.*;
 import seedu.address.model.tag.Tag;
 import java.util.*;
 

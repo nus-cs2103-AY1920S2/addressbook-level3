@@ -10,7 +10,7 @@ import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 import java.util.Set;
 

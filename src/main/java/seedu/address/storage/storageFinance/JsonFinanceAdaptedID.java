@@ -3,7 +3,7 @@ package seedu.address.storage.storageFinance;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 import seedu.address.model.tag.Tag;
 
 /**

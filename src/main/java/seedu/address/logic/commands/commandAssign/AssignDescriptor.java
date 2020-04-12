@@ -2,13 +2,9 @@ package seedu.address.logic.commands.commandAssign;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.modelObjectTags.ID;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class AssignDescriptor {

@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 import java.util.ArrayList;
 import java.util.Collections;

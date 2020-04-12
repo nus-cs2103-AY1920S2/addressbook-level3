@@ -7,7 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.viewmodel.ViewModel;
 import seedu.address.model.Model;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 /**
  * Finds and lists all courses in address book whose name contains any of the argument keywords.

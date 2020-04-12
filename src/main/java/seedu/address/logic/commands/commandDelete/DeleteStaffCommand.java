@@ -8,7 +8,7 @@ import seedu.address.logic.commands.commandAdd.AddStaffCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 import static java.util.Objects.requireNonNull;
 

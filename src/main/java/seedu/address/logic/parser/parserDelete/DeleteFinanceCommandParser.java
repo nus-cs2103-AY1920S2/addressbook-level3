@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

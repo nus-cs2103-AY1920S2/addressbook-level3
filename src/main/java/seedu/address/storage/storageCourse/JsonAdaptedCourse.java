@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.AssignedStaff;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.modelObjectTags.Amount;
+import seedu.address.model.modelObjectTags.AssignedStaff;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Name;
+import seedu.address.model.modelObjectTags.Person;
 import seedu.address.model.tag.Tag;
 
 /**

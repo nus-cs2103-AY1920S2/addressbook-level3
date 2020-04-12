@@ -15,9 +15,8 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.AssignedCourses;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.Name;
+import seedu.address.model.modelObjectTags.Gender;
+import seedu.address.model.modelObjectTags.Name;
 import seedu.address.model.tag.Tag;
 
 /**

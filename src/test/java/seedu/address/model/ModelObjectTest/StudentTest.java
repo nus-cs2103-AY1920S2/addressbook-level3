@@ -2,7 +2,7 @@ package seedu.address.model.ModelObjectTest;
 
 import org.junit.jupiter.api.Test;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.*;
+import seedu.address.model.modelObjectTags.*;
 import seedu.address.model.tag.Tag;
 
 import java.util.HashSet;

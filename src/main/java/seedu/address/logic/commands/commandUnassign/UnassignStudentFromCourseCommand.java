@@ -17,7 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 /** This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course. */
 public class UnassignStudentFromCourseCommand extends UnassignCommandBase {

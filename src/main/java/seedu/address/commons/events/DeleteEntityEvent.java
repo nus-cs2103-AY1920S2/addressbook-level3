@@ -1,7 +1,7 @@
 package seedu.address.commons.events;
 
 import seedu.address.commons.util.Constants;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 public class DeleteEntityEvent extends BaseEvent {
     public Constants.ENTITY_TYPE entityType;

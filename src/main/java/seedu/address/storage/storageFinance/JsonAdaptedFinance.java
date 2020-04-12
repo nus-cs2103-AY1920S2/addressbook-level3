@@ -9,13 +9,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelFinance.Finance;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.FinanceType;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.modelObjectTags.Amount;
+import seedu.address.model.modelObjectTags.Date;
+import seedu.address.model.modelObjectTags.FinanceType;
+import seedu.address.model.modelObjectTags.ID;
+import seedu.address.model.modelObjectTags.Name;
+import seedu.address.model.modelObjectTags.Person;
+import seedu.address.model.modelObjectTags.Phone;
 import seedu.address.model.tag.Tag;
 
 /**

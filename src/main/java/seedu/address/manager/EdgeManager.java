@@ -14,7 +14,7 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
+import seedu.address.model.modelObjectTags.ID;
 
 public class EdgeManager extends BaseManager {
     private static Model model = ModelManager.getInstance();

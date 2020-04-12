@@ -8,11 +8,7 @@ import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
-
-import java.util.List;
+import seedu.address.model.modelObjectTags.ID;
 
 import static java.util.Objects.requireNonNull;
 
