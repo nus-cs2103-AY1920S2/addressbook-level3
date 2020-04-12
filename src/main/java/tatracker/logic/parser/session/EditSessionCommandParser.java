@@ -80,8 +80,10 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
         }
 
         if (argMultimap.getValue(MODULE).isPresent()) {
-            editSessionDescriptor.setModuleCode(ParserUtil
-                    .parseValue(argMultimap.getValue(MODULE).get().toUpperCase()));
+            editSessionDescriptor.setModuleCode(argMultimap.getValue(MODULE)
+                    .map(String::trim)
+                    .map(String::toUpperCase)
+                    .get());
         }
 
         if (argMultimap.getValue(SESSION_TYPE).isPresent()) {
@@ -90,7 +92,7 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
         }
 
         if (argMultimap.getValue(NOTES).isPresent()) {
-            editSessionDescriptor.setDescription(ParserUtil.parseValue(argMultimap.getValue(NOTES).get()));
+            editSessionDescriptor.setDescription(argMultimap.getValue(NOTES).map(String::trim).get());
         }
 
         if (!editSessionDescriptor.isAnyFieldEdited()) {

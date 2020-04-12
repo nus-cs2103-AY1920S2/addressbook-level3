@@ -1,28 +1,25 @@
 @startuml
-
 !include ../style.puml
 show interface members
 skinparam arrowThickness 1.1
-skinparam classBackgroundColor MODEL_COLOR
+skinparam classBackgroundColor LOGIC_COLOR_T4
 
 abstract class Command
 
-interface Parser {
-	T parse(String userInput)
-}
+Interface Parser <<Interface>>
 
-class FindCommand
+class FilterClaimCommand
 
 class DoneSessionPredicate
 
-class FindCommandParser
+class FilterClaimCommandParser
 
-Command <|.. FindCommand
+Command <|.. FilterClaimCommand
 
-Parser <|-- FindCommandParser
+Parser <|-- FilterClaimCommandParser
 
-DoneSessionPredicate <.. FindCommand
-DoneSessionPredicate <.. FindCommandParser
+DoneSessionPredicate <.. FilterClaimCommand
+DoneSessionPredicate <.. FilterClaimCommandParser
 
 
 @enduml
