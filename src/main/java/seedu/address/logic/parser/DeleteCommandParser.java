@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -52,7 +51,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                     .stream()
                     .map(x->x.trim().toUpperCase())
                     .collect(Collectors.toList());
-            Set<ModuleCode> moduleCodes = ParserUtil.parseModuleCodes(strModuleCodes);
+            List<ModuleCode> moduleCodes = ParserUtil.parseModuleCodes(strModuleCodes);
 
             // Delete task
             if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {

@@ -37,7 +37,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -66,34 +66,34 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB
                 + TASK_DESC_BOB + DEADLINE_DESC_BOB,
-                new AddCommand(Set.of(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
 
         // multiple modules - all modules accepted
         /*
         assertParseSuccess(parser, MODCODE_DESC_AMY + MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB
-                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(Set.of(moduleCode,
+                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(Collections.singletonList(moduleCode,
                 new ModuleCode(VALID_MODCODE_AMY)), semester, grade, deadlines));
         */
         // multiple semesters - last semester accepted
         assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_AMY + SEMESTER_DESC_BOB + GRADE_DESC_BOB
                 + TASK_DESC_BOB + DEADLINE_DESC_BOB,
-                new AddCommand(Set.of(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
 
         // multiple grades - last grade accepted
         assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_AMY + GRADE_DESC_BOB
                 + TASK_DESC_BOB + DEADLINE_DESC_BOB,
-                new AddCommand(Set.of(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
 
         // multiple tasks - last task accepted
         /*
         assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB + TASK_DESC_AMY
                 + TASK_DESC_BOB + DEADLINE_DESC_BOB,
-                new AddCommand(Set.of(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
 
         // multiple deadlines - last deadline accepted
         assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB + TASK_DESC_BOB
                 + DEADLINE_DESC_AMY + DEADLINE_DESC_BOB,
-                new AddCommand(Set.of(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
          */
     }
 
@@ -111,15 +111,15 @@ public class AddCommandParserTest {
 
         // No grade
         assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + TASK_DESC_AMY + DEADLINE_DESC_AMY,
-                new AddCommand(Set.of(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
 
         // No task and deadline
         assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY,
-                new AddCommand(Set.of(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
 
         // No grade, task and deadline
         assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY,
-                new AddCommand(Set.of(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
     }
 
     @Test
