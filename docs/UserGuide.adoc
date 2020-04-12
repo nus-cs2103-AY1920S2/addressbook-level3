@@ -515,6 +515,13 @@ Exports all deadlines and events in NasaBook as a QR-code text, compatible with 
 Format: `export`
 // end::export[]
 
+// tag::refresh[]
+=== Refresh current NasaBook: `refresh`
+`Contributed by: kester-ng` +
+Refreshes the NasaBook to reflect correct statuses for activities. +
+Format: `refresh`
+// end::refresh[]
+
 === Adding Reminders: `Coming in v2.0`
 `Contributed by: kester-ng` +
 Adds a reminder to a deadline or event +
