@@ -412,6 +412,7 @@ his expenditure.
 `Logic#getToggleView()`.
 
 Here is a Class Diagram for the implementation of `ToggleView`:
+
 image:chart-analytics/ToggleViewClassDiagram.png[]
 
 The *ToggleView* mechanism utilizes `Logic` operations with the `ToggleViewCommand` class in place of `Command`. The following
@@ -448,7 +449,7 @@ image::chart-analytics/ToggleViewStep2.png[,650]
 Step 3. `ToggleViewCommand#execute()` switches `isViewList` of `ToggleView` from true to false.
 
 .`isViewList` of `ToggleView` switched from `ToggleViewCommand#execute()`
-image::chart-analytics/ToggleViewStep3.png[]
+image::chart-analytics/ToggleViewStep3.PNG[]
 
 Step 4. `MainWindow#executeCommand()` checks the boolean value of isViewList in ToggleView, which is false,
 and displays chart analysis.
@@ -460,12 +461,12 @@ Step 5. User inputs **toggleview** again to change view back to list of transact
 
 .Switched from showing list of transactions to chart analysis
 image::chart-analytics/ToggleViewStep2.png[,650]
-image::chart-analytics/ToggleViewStep1.png[,650]
+image::chart-analytics/ToggleViewStep1.PNG[,650]
 
 Step 6. User can set filter to a certain month to view a different kind of bar chart.
 
 .Example of stacked bar chart of expenditure for a certain month
-image::chart-analytics/ToggleViewStep6.png[,650]
+image::chart-analytics/ToggleViewStep6.PNG[,650]
 
 The following code snippet from `MainWindow#executeCommand()` checking of the boolean value of isViewList in ToggleView,
 and deciding whether to show a list of transactions of chart analysis, and what bar graph to show:
