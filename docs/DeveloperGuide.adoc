@@ -158,7 +158,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ==== Implementation
 
-For the undo/redo features, we aim to synchronize what the UI will look like and the data that is stored.
+For the undo/redo features, we aim to synchronize how the UI will look like and the data that is stored.
 Hence, we created two Json files to store the internal data list and the filtered modules and activity list.
 We uses Stack as the data structure for undo and redo features as it allows a Last In First Out effects, that suits
 functionality of storing and getting data.
@@ -282,6 +282,7 @@ image::SnoozeReminderActivityDiagram.png[]
 // tag::automation[]
 === Automation
 `Contributed by:EdmondOng`
+
 Every time a user stores an activity, start date for event will be recorded for `event` and due date for `deadline`.
 Based on user input to repeat the task either weekly, twice weekly or monthly, our application will check whether today's date has passed
 `due date` or `end date of event`. Once it passed,
@@ -1020,17 +1021,17 @@ Expected: Format error is displayed along with an example of a correct format.
 
 . Deleting a module that exists
 
-.. Test case: `Mdelete m/CS2101` (default module preset) +
+.. Test case: `del m/CS2101` (default module preset) +
 Expected: The module `CS2101` should have been deleted.
 
 . Trying to delete a module that does not exist
 
-.. Test case: `Mdelete m/AX1103` +
+.. Test case: `del m/AX1103` +
 Expected: Unless the user adds in the module above, there should be an error message displayed.
 
 . Passing in a wrong format for module
 
-.. Test case: `Mdelete m/1@00` +
+.. Test case: `del m/1@00` +
 Expected: Error message with wrong format for module will be shown.
 
 === Adding an activity
@@ -1057,20 +1058,20 @@ Expected: Assuming this module does not exist (not displayed), then a module not
 
 . Deleting an activity that exists
 
-.. Test case: `delete 1 m/CS2030` +
+.. Test case: `del-d 1 m/CS2030` +
 Expected: The first activity in the CS2030 activity list will be deleted.
 
 . Deleting an activity that does not exist
 
-.. Test case: `delete 10 m/CS2030` +
+.. Test case: `del-d 10 m/CS2030` +
 Expected: An error message will be displayed.
 
-.. Test case: `delete 200 m/CS2101` +
+.. Test case: `del-d 200 m/CS2101` +
 Expected: An error message will be displayed.
 
 . Deleting an activity from a module that does not exist
 
-.. Test case: `delete 1 m/AX1107` +
+.. Test case: `del-d 1 m/AX1107` +
 Expected: An error message will be displayed.
 
 === Editing a module
