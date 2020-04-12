@@ -38,6 +38,9 @@ Package Model <<Rectangle>> {
     }
 }
 
+Class HiddenOutside #FFFFFF
+HiddenOutside .right.> Model
+
 Model -up-|> ExerciseModel
 Model -up-|> WorkoutModel
 Model -up-|> ScheduleModel
