@@ -25,6 +25,7 @@ public class TypicalTasks {
     public static final Task DEADLINE_B_DATE_A = new Deadline("Test B with Date A", DATE_A, WORK_CATEGORY, "add");
     public static final Task DEADLINE_C_DATE_B = new Deadline("Test C with Date B", DATE_B, WORK_CATEGORY, "add");
     public static final Task DEADLINE_D_DATE_B = new Deadline("Test D with Date B", DATE_B, MISC_CATEGORY, "add");
+    public static final Task DELETE_THIS_TASK = new Deadline("DELETE THIS", DATE_C, TEST_CATEGORY, "add");
 
     public static final Task MODULE_TASK = new ModuleTask(
             "Test D with Date B", new ModuleCode("CS2103T"), DATE_B, Priority.VERYLOW);
