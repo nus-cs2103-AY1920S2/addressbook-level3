@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalTask;
 
 import java.nio.file.Path;
 
@@ -10,10 +11,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.calender.Task;
 
 public class StorageManagerTest {
 
@@ -62,6 +67,14 @@ public class StorageManagerTest {
         storageManager.saveAddressBook(original);
         ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
+    }
+
+    @Test
+    public void calendarBookReadSave() throws Exception {
+        ObservableList<Task> original = FXCollections.observableList(getTypicalTask());
+        storageManager.saveCalendar(original);
+        ObservableList<Task> retrieved = storageManager.readCalendar().get();
+        assertEquals(original, retrieved);
     }
 
     @Test
