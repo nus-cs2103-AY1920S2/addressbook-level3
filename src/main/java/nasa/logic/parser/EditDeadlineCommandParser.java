@@ -40,11 +40,9 @@ public class EditDeadlineCommandParser implements Parser<EditDeadlineCommand> {
             moduleCode = ParserUtil.parseModuleCode(argMultimap.getFirstValue(PREFIX_MODULE).get());
 
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDeadlineCommand.MESSAGE_USAGE),
-                    pe);
+            throw new ParseException(EditDeadlineCommand.MESSAGE_USAGE, pe);
         } catch (NoSuchElementException ne) { // case when no module code is provided
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDeadlineCommand.MESSAGE_USAGE),
-                    ne);
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, ne);
         }
 
         EditDeadlineCommand.EditDeadlineDescriptor editDeadlineDescriptor =
