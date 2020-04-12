@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -57,11 +58,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *dc/* diary content
 * *dr/* duration
 * *attr/* profile attribute name
-* *v/* profile attribute value
-* *-f* force change
+* *v/* profile attribute value/ weight value
 * *by/* sorting criterion
 * *o/* sorting order
 * *k/* keywords for searching/checking
+* *-f* force change flag
 
 [[Features]]
 == Features
@@ -93,7 +94,9 @@ can directly access the Guide by pasting the url into the browser.
 Format: `help`
 
 // tag::add[]
-=== Adding an entry: `add`
+=== Keep Food and Sports Entries
+
+==== Adding an entry: `add`
 
 Adds an entry to the fitness log book. The entry added will be displayed in DashBoard, Calendar
 and possibly Today Page (if its date is today) immediately after the command is executed.
@@ -114,7 +117,7 @@ Examples:
 //end::add[]
 
 // tag::list[]
-=== Listing all entries : `list`
+==== Listing all entries : `list`
 
 Shows a list of all entries in the fitness log book. +
 Format: `list`
@@ -125,7 +128,7 @@ Examples:
 //end::list[]
 
 // tag::reminder[]
-=== View Reminder : `reminder`
+==== View Reminder : `reminder`
 
 Shows a list of all undone tasks in the fitness log book, which can be seen from a fixed field in the home page. +
 Format: `reminders`
@@ -136,7 +139,7 @@ Examples:
 //end::remind[]
 
 // tag::edit[]
-=== Editing an entry : `edit`
+==== Editing an entry : `edit`
 
 Edits an existing entry in the fitness log book. +
 Format: `edit x/TYPE i/INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK] [dr/DURATION]...`
@@ -156,19 +159,19 @@ Edits the time and email location of the 1st entry to be `Friday 4pm` and `PGP g
 * `edit x/f i/2 n/Fries r/` +
 Edits the name of the 2nd entry from food entry list to be `Fries` and clears all existing remarks.
 
-==== Mark an entry as done
+===== Mark an entry as done
 
 Users can mark an entry as done, either a meal or sports, where the calories intake and consumption will be taken in to consideration.
 Format: `edit x/TYPE i/INDEX s/Done`
 
-==== Mark an entry as undone
+===== Mark an entry as undone
 
 Similar to the previous command, marking an entry as undone edits the `s/` field and modify it as `Undone`.
 Format: `edit x/TYPE i/INDEX s/Undone`
 //end::edit[]
 
 // tag::find[]
-=== Locating entries by name: `find`
+==== Locating entries by name: `find`
 
 Finds entries whose names contain any of the given keywords. +
 Format: `find [x/TYPE] k/ONE_OR_MORE_KEYWORDS`
@@ -191,7 +194,7 @@ Returns any entry having names `Juice`,  or `Apple`
 //end::find[]
 
 // tag::delete[]
-=== Deleting an entry : `delete`
+==== Deleting an entry : `delete`
 
 Deletes the specified entry from the fitness log book. +
 Format: `delete x/TYPE i/INDEX`
@@ -212,14 +215,62 @@ Examples:
 Deletes the 2nd sports entry in the sports list from dashboard.
 //end::delete[]
 
+
+==== Sort food/sports entry list: `sort`
+
+Sorts food or sports entry list, or both of them, based on starting time or
+calorie value or name of the entry (case insensitive), in either ascending or descending order.
+In addition, the reminders entry list will also be sorted in the same manner specified by the user.
+The user must specify the sorting criterion `cal/c OR time/t OR name/n`.
+If the user does not specify the type of entry list, both lists will be sorted.
+And if the user does not specify the sorting order `a OR d`,
+the default order is descending (i.e. entry that starts later
+or entry with higher calorie value or entry whose name starts with
+later alphabet comes first).
+
+format: `sort [x/TYPE] by/SORT_BY [o/ORDER]`
+
+Examples:
+
+* `sort x/f by/time o/a` (sort food entry list and reminders list in ascending order of recording time,
+i.e. the older entry comes first)
+* `sort by/c` (sort both food and sports entry list, as well as reminders list,
+in descending order of calorie value, i.e. entry with higher calorie intake/consumption comes first)
+
+==== Check calorie intake/consumption of common food/sports: `check`
+
+Searches through the pre-set database for calorie intake/consumption information
+about common food/sports (i.e. a datum) whose name matches/contains keywords specified by the user.
+Note that due to space constraint, at most 3 matching data will be shown
+at the left-bottom corner of the application. Each datum shows the name of
+the food/sports and its calorie intake/consumption information: for food, it will be
+in cal per serving (weight per serving in gram will also be shown); for sports, it will
+be in cal per hour. The searching works as follows:
+
+* Retrieves food/sports data based on check type specified by the user.
+* Checks and adds food/sports datum whose name **equals one of the keywords**.
+* If fewer than 3 food/sports data are added so far, checks and adds food/sports datum
+whose name **contains the keywords as a whole**.
+* If still fewer than 3 food/sports data are added so far, checks and adds food/sports datum
+whose name **contains one of the keywords**.
+* If no datum is added after all the steps, replies user that search failed.
+Otherwise, shows user the data.
+
+format: `check x/TYPE k/ONE_OR_MORE_KEYWORDS`
+
+Examples:
+
+* `check x/food k/apple` (searches for calorie intake of food
+whose name match/contain keyword "apple")
+
 // tag::diary[]
-=== Keep a diary
+=== Keep Diaries
 
 The user can keep a diary in FitHelper, and command for adding/editing/deleting/searching/clearing diary logs.
 
 * `diary` switches to the `Diary Page` where all diary logs are displayed in chronological order
 
-==== Add a new diary
+==== Add a new diary: `addDiary`
 
 * `addDiary d/DATE dc/DIARYCONTENT` +
 adds a new diary on the specified `DATE` with the specified `CONTENT` +
@@ -231,7 +282,7 @@ Examples:
 * `addDiary d/2020-03-31 dc/Happy birthday Alice!`
 Adds a diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
 
-==== Append new content to an existing diary
+==== Append new content to an existing diary: `appendDiary`
 * `appendDiary d/DATE dc/APPENDED CONTENT` +
 appends new content to the existing diary on the specified `DATE`. +
 
@@ -244,7 +295,7 @@ Examples:
 This command appends the new diary content to the existing the diary log on the date `2020-03-31`.
 The new diary content after this command will be "Happy birthday Alice! You are one year older now:)".
 
-==== Edit a diary
+==== Edit a diary: `editDiary`
 * `editDiary d/DATE dc/NEW DIARYCONTENT` +
 edits the diary on the specified `DATE` with the new `DIARYCONTENT`. +
 
@@ -258,7 +309,7 @@ Examples:
 * `editDiary d/2020-03-31 dc/Happy birthday Alice!` +
 This command edits the content of the diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
 
-==== Delete a diary
+==== Delete a diary: `deleteDiary`
 * `deleteDiary d/DATE` +
 deletes the diary on the specified `DATE`. +
 
@@ -271,7 +322,7 @@ Examples:
 This command deletes the diary log on the date `2020-03-3`, if the diary on this date exists, and discards the command
 if no diary was added previously on this date.
 
-==== Find a diary
+==== Find a diary: `findDiary`
 * `findDiary [d/DATE] [k/ONE OR MORE KEYWORDS]` +
 finds diaries either on the specified `DATE` or contains the specified `KEYWORDS`. +
 
@@ -299,7 +350,7 @@ Displays diaries with their content containing the keyword `running`, ignoring t
 * `find d/2020-03-31 k/cake` +
 Returns the diary on the date of `2020-03-31` regardless of the `KEYWORDS` field.
 
-==== Clear the diary
+==== Clear the diary: `clearDairy`
 
 * `clearDiary`＋
 clears all diary logs in this FitHelper.
@@ -308,9 +359,9 @@ The user can always revoke the clearing command by calling `undo`, which will be
 //end::diary[]
 
 // tag::clear[]
-=== Clearing all data in FitHelper : `clear`
+=== Clear All Entries And Diaries: `clear`
 
-Clears all entries from the fitness log book. +
+Clears all entries and diaries from the fitness log book. +
 
 Format: `clear`
 //end::clear[]
@@ -345,107 +396,6 @@ Examples:
 * `redo` (after `undo`-ing the previous `addDiary d/2020-03-31 dc/I am happy.`) +
 This `undo` commands adds the diary log back to FitHelper.
 //end::redo[]
-
-//tag::exit[]
-=== Exiting the program : `exit`
-
-Exits the program. +
-
-Format: `exit`
-//end::exit[]
-
-
-=== Saving the data
-
-fitness log book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually. +
-****
-Three local database in Json format will exist after running FitHelper:
-
-* *fithelper.json* : data related to entries and diaries.
-* *userprofile.json* : data related to user profile.
-* *weightrecords.json* : data related to weight records.
-****
-
-// remark::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-// end::dataencryption[]
-
-=== Show calorie table
-
-Asks the application to display a table that shows calorie intake from food consumption
-or calorie consumption from exercise in a particular day specified by the user.
-
-Format: `tableX DATE`
-
-example:
-
-* `tableX 2020-02-02`
-
-=== Profile Page: `profile`
-Profile page serves to be a summary for basic user data. +
-The profile information includes: Name, Age, Gender, Address, Height, Target Weight, Current Weight and Current BMI. +
-
-Format: `profile`
-
-=== Update Profile Data : `update`
-
-Update user data in the profile by attributes. Profile attributes include: Name, Age, Address, Gender, Height and Target Weight. +
-Every `update` command will lead to the profile page. +
-
-Format: `update [-f] attr/ATTRIBUTE v/VALUE`
-
-****
-* If no user profile data is provided by the user, FitHelper will initialize with the sample profile data.
-* The updated attribute name is *not* case-sensitive and can include spaces, but the name must match some fields in user profile.
-* e.g. Both `attr/target weight` and `attr/TARGETWEIGHT` are acceptable.
-* Any updated value should follow its original data type.
-* If the chosen updated attribute has already had original value, *flag `-f`* need to be used to enable *force overwrite*.
-
-****
-
-Examples:
-
-* `update attr/height v/160`
-* `update -f attr/name v/Alice Wang`
-
-=== Weight Page: `weight`
-
-Weight page serves to be a summary for user's weight and BMI changes according to time. +
-It shows user data in graph for easy understanding. By default, it will generate graph from all history data chronologically.
-
-* *Gap notification* +
-The top notification shows the comparison between user current weight and target weight. +
-- If current weight is *larger* than target, the gap between the two will be highlighted.
-- If current weight is *the same or less* than the target, a succeed notification will be generated.
-
-* *Trend Graph - Weight* +
-Display a trend graph of user's weight according to time.
-
-* *Trend Graph - BMI* +
-Display a trend graph of user's BMI according to time. The BMI value is calculated by weight and height value at that date.
-
-Format: `weight`
-
-=== Add Weight Records : `addWeight`
-
-Add a new weight record into the weight records database. A weight record is related to date and weight value, and a auto-computed BMI value will be stored as well. +
-Every `addWeight` command will lead to the weight page. If the new weight record is added successfully, explicit changes of new points in the two trend graph can be found. +
-
-Format: `addWeight v/WEIGHT_VALUE [d/DATE]`
-
-****
-* If no weight record exists in the database, "Not Available Now" will be shown in profile page's Current Weight and Current BMI fields.
-* The date of the new weighe record can be *omitted*. By default, it will refer to the date of today.
-* The date should be in format of `yyyy-MM-dd`.
-* *No two weight records should have the same date.* If adding a weight record with the same date as an existing weight, a warning will be generated, and thus fail to add.
-****
-
-Examples:
-
-* `addWeight v/50.0 d/2020-02-01`
-* `addWeight v/52.30`
 
 === Calendar View: `calendar`
 Calendar view will display all the food and sports entries for each day of the referenced week/month. The referenced date is default set to be the current date, but can be changed to a user given date. Calendar can be switched between two modes, list mode or timetable mode, with default set to be in timetable mode. +
@@ -485,8 +435,11 @@ Examples:
 * `calendar m/ls d/2020-04-20`
 * `calendar sh/2020-05-01`
 
+
+=== Daily Summary
+
 //tag::today[]
-=== Today Page
+==== Today Page: `today`
 
 Today page serves to be a summary for the daily arrangements. +
 It shows the daily schedule for the user. Users can see the entries for the day, a recommended lunch place, and their performances. They can also see their diary for the day as well as the rewarding point. +
@@ -514,7 +467,7 @@ The user's daily task completion is shown in percentage (round to integer).
 Based on the user's intake food calorie and sport task completion, FitHelper provides suggestions and reminders
 in the `FitHelper Feedback` area.
 
-==== [proposed][comes in v1.4] Some Day Page
+==== Some Day Page `[coming in v2.0]`
 
 The `Today Page` for some day in the history can be displayed.
 Format: `today DATE`
@@ -527,7 +480,9 @@ Examples:
 * `today`
 * `today 2020-02-14`
 
-=== [proposed][comes in v1.4] Weekly Report
+=== Weekly Summary
+
+==== Weekly Report `[coming in v2.0]`
 
 A weekly report serves as a summary for the past week. The user can see his performance in the past week. The weekly report also contains his rewarding points, diary logs, and preferred sports and food from the previous week. +
 Format: `weekreport`
@@ -541,7 +496,7 @@ Rewarding points gained from the past week and current "fit level" is also shown
 * *Trendy Food and Sports* +
 Users can see his preferred food and sports, based on his entries for the past week.
 
-==== Some Week Report
+==== Some Week Report `[coming in v2.0]`
 
 The `Week Report` for some week in the history can be displayed. +
 Format: `weekreport DATE` where `DATE` specifies the week it is in
@@ -555,52 +510,151 @@ Examples:
 * `weekreport 2020-02-14`
 //end::today[]
 
-=== Sort food/sports entry list: `sort`
+=== Keep User Profile
 
-Sorts food or sports entry list, or both of them, based on starting time or
-calorie value or name of the entry (case insensitive), in either ascending or descending order.
-In addition, the reminders entry list will also be sorted in the same manner specified by the user.
-The user must specify the sorting criterion `cal/c OR time/t OR name/n`.
-If the user does not specify the type of entry list, both lists will be sorted.
-And if the user does not specify the sorting order `a OR d`,
-the default order is descending (i.e. entry that starts later
-or entry with higher calorie value or entry whose name starts with
-later alphabet comes first).
+==== Profile Page: `profile`
+Profile page serves to be a summary for basic user data. +
+The profile information includes: Name, Age, Gender, Address, Height, Target Weight, Current Weight and Current BMI. +
 
-format: `sort [x/TYPE] by/SORT_BY [o/ORDER]`
+Format: `profile`
 
-Examples:
+==== Update Profile Data : `update`
 
-* `sort x/f by/time o/a` (sort food entry list and reminders list in ascending order of recording time,
-i.e. the older entry comes first)
-* `sort by/c` (sort both food and sports entry list, as well as reminders list,
-in descending order of calorie value, i.e. entry with higher calorie intake/consumption comes first)
+Update user data in the profile by attributes. Profile attributes include: Name, Age, Address, Gender, Height and Target Weight. +
+Every `update` command will lead to the profile page. +
 
-=== Check calorie intake/consumption of common food/sports: `check`
+Format: `update [-f] attr/ATTRIBUTE v/VALUE`
 
-Searches through the pre-set database for calorie intake/consumption information
-about common food/sports (i.e. a datum) whose name matches/contains keywords specified by the user.
-Note that due to space constraint, at most 3 matching data will be shown
-at the left-bottom corner of the application. Each datum shows the name of
-the food/sports and its calorie intake/consumption information: for food, it will be
-in cal per serving (weight per serving in gram will also be shown); for sports, it will
-be in cal per hour. The searching works as follows:
+****
+* If no user profile data is provided by the user, FitHelper will initialize with the sample profile data.
+* The updated attribute name is *not* case-sensitive and can include spaces, but the name must match some fields in user profile.
+* e.g. Both `attr/target weight` and `attr/TARGETWEIGHT` are acceptable.
+* Any updated value should follow its original data type.
+* If the chosen updated attribute has already had original value, *flag `-f`* need to be used to enable *force overwrite*.
 
-* Retrieves food/sports data based on check type specified by the user.
-* Checks and adds food/sports datum whose name **equals one of the keywords**.
-* If fewer than 3 food/sports data are added so far, checks and adds food/sports datum
-whose name **contains the keywords as a whole**.
-* If still fewer than 3 food/sports data are added so far, checks and adds food/sports datum
-whose name **contains one of the keywords**.
-* If no datum is added after all the steps, replies user that search failed.
-Otherwise, shows user the data.
-
-format: `check x/TYPE k/ONE_OR_MORE_KEYWORDS`
+****
 
 Examples:
 
-* `check x/food k/apple` (searches for calorie intake of food
-whose name match/contain keyword "apple")
+* `update attr/height v/160`
+* `update -f attr/name v/Alice Wang`
+
+=== Keep Weight Records
+
+==== Weight Page: `weight`
+
+Weight page serves to be a summary for user's weight and BMI changes according to time. +
+It shows user data in graph for easy understanding. By default, it will generate graph from all history data chronologically.
+
+* *Gap notification* +
+The top notification shows the comparison between user current weight and target weight. +
+- If current weight is *larger* than target, the gap between the two will be highlighted.
+- If current weight is *the same or less* than the target, a succeed notification will be generated.
+
+* *Trend Graph - Weight* +
+Display a trend graph of user's weight according to time.
+
+* *Trend Graph - BMI* +
+Display a trend graph of user's BMI according to time. The BMI value is calculated by weight and height value at that date.
+
+Format: `weight`
+
+==== Add Weight Records : `addWeight`
+
+Add a new weight record into the weight records database. A weight record is related to date and weight value, and a auto-computed BMI value will be stored as well. +
+Every `addWeight` command will lead to the weight page.
+If a new weight record is added successfully, two new points will be added into the two trend graphs separately. +
+
+Format: `addWeight v/WEIGHT_VALUE [d/DATE]`
+
+****
+* If no weight record exists in the database, "Not Available Now" will be shown in Profile Page's Current Weight and Current BMI fields.
+* The date of a new weight record can be *omitted* when user inputs the `addWeight` command. By default, it will refer to the date of today.
+* The date should be in format of `yyyy-MM-dd`, and should *not after the date of today*.
+* *No two weight records should have the same date.* If adding a new weight record with the same date as an existing weight,
+a warning will be generated, and thus will fail to add.
+****
+
+Examples:
+
+* `addWeight v/50.0 d/2020-02-01`
+* `addWeight v/52.30`
+
+==== Edit Weight Records : `editWeight`
+
+Edit an existing weight record in the weight records database.
+A weight record is identified by its *unique date*, and user can find the date on the x-axis of the Weight Trend Graph. +
+User are able to edit the weight value, and corresponding BMI value will be auto-computed using the new weight value and user's *current height*. +
+Every `editWeight` command will lead to the weight page.
+If a weight record is edited successfully, two new points will change their positions on the two trend graphs separately. +
+
+Format: `editWeight [d/DATE] v/NEW_WEIGHT_VALUE`
+
+****
+* The date should be in format of `yyyy-MM-dd`. If no existing weight record is on the input date, the input date is considered as invalid, and thus a warning will be thrown.
+* If the date is *omitted* when user inputs the `editWeight` command, by default, it will refer to the date of today.
+* If the edited weight record is the *latest weight record* in the database, an update in Profile Page's Current Weight and Current BMI fields can be found as well.
+* If the new weight value is the same as original weight value in the weight records, an exception will be thrown.
+****
+
+Examples:
+
+* `editWeight d/2020-02-01 v/51.0`
+* `editWeight v/52.40`
+
+==== Delete Weight Records : `deleteWeight`
+
+Delete an existing weight record in the weight records database.
+Same as `editWeight` command, a weight record is identified by its *unique date*, and user can find the date on the x-axis of the Weight Trend Graph. +
+Every `deleteWeight` command will lead to the weight page.
+If a weight record is deleted successfully, two corresponding points will be removed from the two trend graphs separately. +
+
+Format: `deleteWeight [d/DATE]`
+
+****
+* The date should be in format of `yyyy-MM-dd`. If no existing weight record is on the input date, the input date is considered as invalid, and thus a warning will be thrown.
+* If the date is *omitted* when user inputs the `deleteWeight` command, by default, it will refer to the date of today.
+* If the deleted weight record is the *latest weight record* in the database, the second latest weight record will be used to update Profile Page's Current Weight and Current BMI fields.
+****
+
+Examples:
+
+* `deleteWeight d/2020-02-01`
+* `deleteWeight`
+
+==== Clear Weight Records : `clearWeight`
+
+Clear all weight records in the weight records database. +
+Weight Page's graphs will be empty, and
+Profile Page's Current Weight and Current BMI fields will be `Not Available Now` after clear all weight records.
+
+Format: `clearWeight`
+
+//tag::exit[]
+=== Exit the program : `exit`
+
+Exits the program. +
+
+Format: `exit` or `bye` or `quit`
+//end::exit[]
+
+
+=== Save the data
+
+fitness log book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually. +
+****
+Three local database in Json format will exist after running FitHelper:
+
+* *fithelper.json* : data related to entries and diaries.
+* *userprofile.json* : data related to user profile.
+* *weightrecords.json* : data related to weight records.
+****
+
+// remark::dataencryption[]
+=== Encrypte data files `[coming in v2.0]`
+
+// end::dataencryption[]
 
 == FAQ
 
@@ -609,29 +663,61 @@ whose name match/contain keyword "apple")
 
 == Command Summary
 
-* *Add* `add n/NAME t/TIME l/LOCATION c/CALORIE [r/remark]...` +
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-* *Edit* : `edit INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/remark]...` +
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-* *List* : `list`
-* *Help* : `help`
-* *DashBoard* : `home`
-* *Reminders* : `reminder`
-* *Today* : `today`
-* *Diary* : `diary`
-* *Diary - add* : `addDiary d/DATE dc/DIARYCONTENT`
-* *Diary - edit* : `editDiary d/DATE dc/DIARYCONTENT`
-* *Diary - delete* : `deleteDiary d/DATE`
-* *Diary - find* : `findDiary [d/DATE] [dc/DIARYCONTENT]`
-* *Diary - clear* : `clearDiary`
+* *Help - switch to Help Page* : `help`
+
+//.
+
+* *Entry - switch to DashBoard* : `home`
+* *Entry - add an entry* `add n/NAME t/TIME l/LOCATION c/CALORIE [r/remark]...`
+* *Entry - list all entries* : `list`
+* *Entry - view reminders* : `reminder`
+* *Entry - edit an entry* : `edit INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/remark]...`
+* *Entry - find by name* : `find KEYWORD [MORE_KEYWORDS]`
+* *Entry - delete an entry* : `delete INDEX`
+* *Entry - sort entry list* : `sort [x/TYPE] by/SORT_BY [o/ORDER]`
+* *Entry - check calorie reference* : `check x/TYPE k/ONE_OR_MORE_KEYWORDS`
+
+//.
+
+* *Diary - switch to Diary Page* : `diary`
+* *Diary - add a diary* : `addDiary d/DATE dc/DIARYCONTENT`
+* *Diary - edit a diary* : `editDiary d/DATE dc/DIARYCONTENT`
+* *Diary - delete a diary* : `deleteDiary d/DATE`
+* *Diary - find a diary* : `findDiary [d/DATE] [dc/DIARYCONTENT]`
+* *Diary - clear all diaries* : `clearDiary`
+
+//.
+
+* *Clear - clear all entries and diaries* : `clear`
+* *Undo - undo commands related to entries and diaries* : `undo`
+* *Redo - redo commands related to entries and diaries* : `redo`
+
+//.
+
+* *Calendar - switch to Calendar Page* : `calendar`
 * *Calendar - display from a referenced date* : `calendar d/DATE`
 * *Calendar - change to list mode* : `calendar m/ls [d/DATE]`
 * *Calendar - change to timetable mode* : `calendnar m/tb [d/DATE]`
 * *Calendar - display entries from a particular date* : `calendar sh/DATE`
-* *Profile*: `profile`
-* *Update*: `update [-f] attr/ATTRIBUTE V/VALUE`
-* *Weight*: `weight`
-* *AddWeight* `addWeight v/VALUE [d/DATE]`
-* *Undo* : `undo`
-* *Redo* : `redo`
+
+//.
+
+* *Today - switch to Today Page* : `today`
+
+//.
+
+* *Profile - switch to Profile Page*: `profile`
+* *Profile - update profile data*: `update [-f] attr/ATTRIBUTE V/VALUE`
+
+//.
+
+* *Weight - switch to Weight Page*: `weight`
+* *Weight - add a weight record* `addWeight v/VALUE [d/DATE]`
+* *Weight - edit a weight record* `editWeight [d/DATE] v/VALUE`
+* *Weight - delete a weight record* `deleteWeight [d/DATE]`
+* *Weight - clear all weight records* `clearWeight`
+
+//.
+
+* *Exit the Program*: `exit` or `bye` or `quit`
+
