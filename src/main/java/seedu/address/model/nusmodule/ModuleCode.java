@@ -24,7 +24,7 @@ public class ModuleCode {
     public static boolean isValidModuleCode(String test) {
         try {
             Search.findModule(test);
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (Exception e) {
             return false;
         }
         return true;

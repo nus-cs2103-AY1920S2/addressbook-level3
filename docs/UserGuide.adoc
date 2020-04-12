@@ -403,7 +403,7 @@ also can update or add in your grade later.
 ****
 
 [TIP]
-The program checks whether a module code provided is valid or not by using the search feature, which fetch information about
+The program checks whether a module code provided is valid or not by using the search function in module planning feature, which fetch information about
 modules online. If the search function fails to fetch any information, the module code will be treated as invalid.
 
 ==== Deleting a module : `moduleDel`
