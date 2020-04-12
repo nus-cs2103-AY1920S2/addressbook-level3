@@ -148,14 +148,19 @@ image::WeightRecordsClassDiagram.png[]
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
-
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the FitHelper data in json format and read it back.
+* saves a `UserPrefsStorage` object in json format and can read it back.
+* saves a `FitHelperStorage` object in json format (*_fithelper.json_*) and can read it back. This database includes all data related to entries and diaries.
+** `FitHelperStorage` consists of lists of `Entry` and `Diary`, and thus these two types of objects can be saved in json format and read back too.
+* saves a `UserProfileStorage` object in json format (*_userprofile.json_*) and can read it back. This database includes all data related to user profile attributes.
+** `UserProfileStorage` consists of a list of `Profile`, and objects in type of `Profile` can be saved in json format and read back.
+* saves a `WeightRecordsStorage` object in json format (*_weightrecords.json_*) and can read it back. This database includes all data related to weight records.
+** `WeightRecordsStorage` consists of a list of `Weight`, and objects in type of `Weight` can be saved in json format and read back.
 
+//end::storage[]
 [[Design-Commons]]
 === Common classes
 
@@ -164,7 +169,6 @@ Classes used by multiple components are in the `fithelper.commons` package.
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-//end::storage[]
 
 // tag::entry[]
 === Entry Feature
