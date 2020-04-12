@@ -14,7 +14,6 @@ import com.notably.logic.exceptions.EditBlockBodyException;
 import com.notably.logic.parser.NotablyParser;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.logic.suggestion.SuggestionEngine;
-import com.notably.logic.suggestion.SuggestionEngineImpl;
 import com.notably.model.Model;
 import com.notably.model.block.Body;
 import com.notably.model.block.exceptions.CannotModifyRootException;
@@ -37,7 +36,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         notablyParser = new NotablyParser(model);
-        suggestionEngine = new SuggestionEngineImpl(model);
+        suggestionEngine = new SuggestionEngine(model);
     }
 
     @Override
