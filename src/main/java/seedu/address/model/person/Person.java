@@ -91,7 +91,7 @@ public class Person {
 
         for (Iterator<Tag> it = tags.iterator(); it.hasNext(); ) {
             Tag t = it.next();
-            concatenatedTags = concatenatedTags + t.toString();
+            concatenatedTags = concatenatedTags + t.toString().toLowerCase();
         }
 
         return concatenatedTags;

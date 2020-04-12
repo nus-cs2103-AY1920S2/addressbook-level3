@@ -30,6 +30,11 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] keywords = trimmedArgs.split("\\s+");
 
+        // convert all to lower case first
+        for (int i = 0; i < keywords.length; i++) {
+            keywords[i] = keywords[i].toLowerCase();
+        }
+
         ArrayList<String> organizationKeywords = new ArrayList<>();
         ArrayList<String> nameKeywords = new ArrayList<>();
         ArrayList<String> tagKeywords = new ArrayList<>();

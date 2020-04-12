@@ -28,15 +28,15 @@ public class FindCommand extends Command {
             + PREFIX_NAME + " Lim";
 
     private final OrganizationContainsKeywordsPredicate organizationPredicate;
-    private final NameContainsKeywordsPredicate wordPredicate;
+    private final NameContainsKeywordsPredicate namePredicate;
     private final TagsContainsKeywordsPredicate tagPredicate;
 
     public FindCommand(OrganizationContainsKeywordsPredicate organizationPredicate,
-                       NameContainsKeywordsPredicate wordPredicate,
+                       NameContainsKeywordsPredicate namePredicate,
                        TagsContainsKeywordsPredicate tagPredicate) {
         // we split the different keywords into different predicates
         this.organizationPredicate = organizationPredicate;
-        this.wordPredicate = wordPredicate;
+        this.namePredicate = namePredicate;
         this.tagPredicate = tagPredicate;
     }
 
@@ -44,20 +44,24 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        if (organizationPredicate.size() == 0 && wordPredicate.size() == 0 && tagPredicate.size() != 0) {
+        int osize = organizationPredicate.size();
+        int nsize = namePredicate.size();
+        int tsize = tagPredicate.size();
+
+        if (osize == 0 && nsize == 0 && tsize != 0) {
             model.updateFilteredPersonList(tagPredicate); // 001
-        } else if (organizationPredicate.size() == 0 && wordPredicate.size() != 0 && tagPredicate.size() == 0) {
-            model.updateFilteredPersonList(wordPredicate); // 010
-        } else if (organizationPredicate.size() == 0 && wordPredicate.size() != 0 && tagPredicate.size() != 0) {
-            model.updateFilteredPersonList(wordPredicate.and(tagPredicate)); // 011
-        } else if (organizationPredicate.size() != 0 && wordPredicate.size() == 0 && tagPredicate.size() == 0) {
+        } else if (osize == 0 && nsize != 0 && tsize == 0) {
+            model.updateFilteredPersonList(namePredicate); // 010
+        } else if (osize == 0 && nsize != 0 && tsize != 0) {
+            model.updateFilteredPersonList(namePredicate.and(tagPredicate)); // 011
+        } else if (osize != 0 && nsize == 0 && tsize == 0) {
             model.updateFilteredPersonList(organizationPredicate); // 100
-        } else if (organizationPredicate.size() != 0 && wordPredicate.size() == 0 && tagPredicate.size() != 0) {
+        } else if (osize != 0 && nsize == 0 && tsize != 0) {
             model.updateFilteredPersonList(organizationPredicate.and(tagPredicate)); // 101
-        } else if (organizationPredicate.size() != 0 && wordPredicate.size() != 0 && tagPredicate.size() == 0) {
-            model.updateFilteredPersonList(organizationPredicate.and(wordPredicate)); // 110
-        } else if (organizationPredicate.size() != 0 && wordPredicate.size() != 0 && tagPredicate.size() != 0) {
-            model.updateFilteredPersonList(organizationPredicate.and(wordPredicate).and(tagPredicate));
+        } else if (osize != 0 && nsize != 0 && tsize == 0) {
+            model.updateFilteredPersonList(organizationPredicate.and(namePredicate)); // 110
+        } else if (osize != 0 && nsize != 0 && tsize != 0) {
+            model.updateFilteredPersonList(organizationPredicate.and(namePredicate).and(tagPredicate));
         }
 
         return new CommandResult(
@@ -69,7 +73,7 @@ public class FindCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
                 && organizationPredicate.equals(((FindCommand) other).organizationPredicate)
-                && wordPredicate.equals(((FindCommand) other).wordPredicate)
+                && namePredicate.equals(((FindCommand) other).namePredicate)
                 && tagPredicate.equals(((FindCommand) other).tagPredicate)); // state check
     }
 
