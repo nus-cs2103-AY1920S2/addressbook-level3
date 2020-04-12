@@ -250,6 +250,11 @@ public class AddDeadlineCommandTest {
         }
 
         @Override
+        public String getTaskBreakdown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public List<ModuleTask> getModuleTaskList(ModuleCode moduleCode) {
             throw new AssertionError("This method should not be called.");
         }
