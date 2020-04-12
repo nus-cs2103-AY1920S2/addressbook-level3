@@ -94,12 +94,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-=== Get help list
-==== Get help list with all commands: `help`
-Display the command list and  all data points in the database.
-
-Format: `help`
-
 === Querying over collected trace data
 ==== Searching over timestamp : `From`
 Retrieves collected trace data based on by timestamp filter.
@@ -109,9 +103,9 @@ Format: `from <ts: start> to <ts: end>`
 Example:
 
 * To view recorded pings from Epoch 1500000000 - 1500001000 : `from 1500000000 to 1500001000`
-* To view all pings : `from 1 to 150000100000`
+* To view all pings : `from 1 to 1500100000`
 
-*Note: Currently accepted timestamp is in epoch timing. The time range support now is from 15000000 to 16000000
+*Note: Currently accepted timestamp is in epoch timing.
 For example on how to use the timing, refer link:{epochTiming}/releases[here]
 
 ==== Searching over user ID : `id is`
@@ -121,12 +115,14 @@ Format: `id is <user: id>`
 
 Example: `id is 1`
 
+*Note: Currently we add 20 users into our database with userID from 1 to 20.
+
 ==== Searching over user ID pairs : `pairs`
 Retrieves all trace data that contains interactions between 2 user pairs
 
 Format: `pairs <user1: id> and <user2: id>`
 
-Example: `pairs 1 and 2`
+Example: `pairs 1 and 12`
 
 ==== Searching for danger signs : `danger`
 Identifies user pairs that are most at risk, based on occurrence spanning more than a threshold count.
@@ -134,7 +130,7 @@ These individuals are obviously not practicing good social distancing and are a 
 
 Format: `danger <threshold: counts>`
 
-Example: `danger 10` will flag out user pairs which are present more than 10 times
+Example: `danger 5` will flag out user pairs which are present more than 5 times
 
 === Querying user related information
 ==== Searching all users: `person`
@@ -154,7 +150,7 @@ Registers a new user to the system
 
 Format: `person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age>`
 
-Example: `person_add /name John Doe /mobile 92139231 /nric S1323923P /age 50` adds a new user with fields
+Example: `person_add /name John David /mobile 9213 /nric S1323923P /age 50` adds a new user with fields
 
 ===== Constraints
 * Sequence must abide in sequence /name, /mobile, /nric, /age
@@ -175,14 +171,14 @@ Example: `report all`
 ==== Reporting over time range: `report time`
 Generate a report includes all interaction instances in a time range
 
-Format: `report time from <ts: start> to <ts:end>
+Format: `report time from <ts: start> to <ts:end>`
 
-Example: `report time from 15000000 to 15003000
+Example: `report time from 1500000000 to 1500003000`
 
 ==== Report all danger cases: `report danger`
 Generate a report with user pairs that are most at risk, based on occurrence spanning more than a threshold count.
 
-Format: `report danger <threshold: count>
+Format: `report danger <threshold: count>`
 
 Example: `report danger 10`
 
@@ -191,7 +187,7 @@ Generate a report includes user pairs with given userIDs
 
 Format: `report pairs <user1: id> and <user2: id>`
 
-Example: `report pairs 1 and 2`
+Example: `report pairs 1 and 12`
 
 ==== Report user with a given ID: `report id`
 Generate a report includes interactions with a specific given ID
