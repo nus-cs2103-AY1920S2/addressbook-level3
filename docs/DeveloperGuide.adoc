@@ -168,14 +168,6 @@ Classes used by multiple components are in the `hirelah.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::findbestfeature[]
-=== Find Best Interviewees Feature
-==== Description
-When an interviewer wants to take a decision on hiring interviewees, it will be cumbersome for the interviewer to take
-a look of the interviewees' score, to take a decision, especially when it comes to a large scale hiring pool. Therefore,
-HireLah! provides a Find Best Interviewees feature to show the top interviewees, depending on how many employees the
-company need, and what kind of employees does the company desire.
-
 === Session Feature
 
 HireLah! differs from AddressBook significantly in that a single user will likely have many sessions,
@@ -216,46 +208,50 @@ then creating a new UI `InterviewPanel` again.
 ===== Aspect: How sessions are stored in the app
 
 * **Alternative 1 (current choice):** Do not store information about sessions in Model. Directly read available sessions
-  from the `/data` directory (or whatever the user set the "sessionsDirectory" to in `preferences.json`). Scan the
-  directory again every time the SessionPanel is displayed.
+from the `/data` directory (or whatever the user set the "sessionsDirectory" to in `preferences.json`). Scan the
+directory again every time the SessionPanel is displayed.
 ** Pros: Information about the available directories is always synchronized with the filesystem.
-   It is possible to copy a session from somewhere else into the "sessionsDirectory" and the app will detect it.
+It is possible to copy a session from somewhere else into the "sessionsDirectory" and the app will detect it.
 ** Cons: Simplistic - app naively treats all directories in the "sessionsDirectory" directory as sessions and displays
-   them as available sessions to the user. If a folder is created externally with invalid data, it will also be treated
-   as a session, only failing when the user tries to load it.
+them as available sessions to the user. If a folder is created externally with invalid data, it will also be treated
+as a session, only failing when the user tries to load it.
 * **Alternative 2:** Model contains a `SessionList` which tracks what sessions have been created or deleted.
 ** Pros: User cannot create/delete sessions outside the app, changes to the sessions (new session/delete session)
-   can be tracked within the app itself rather than repeatedly making IO calls to the filesystem.
+can be tracked within the app itself rather than repeatedly making IO calls to the filesystem.
 ** Cons: There is no "single source of truth" as both the file system and the app have a list of sessions, and it is not
-   straightforward to ensure both are synchronized, eg. if a session data directory is deleted on the file system, the app
-   will not be aware of it.
+straightforward to ensure both are synchronized, eg. if a session data directory is deleted on the file system, the app
+will not be aware of it.
 
 
 ===== Aspect: How session data is loaded and saved
 
 * **Alternative 1 (current choice):** Load session only when a command is given to open a session from a directory.
 ** Pros: Most user friendly, managing sessions is performed through the same CLI. Memory efficient - data is loaded only
-   exactly when needed.
+exactly when needed.
 ** Cons: Complex to implement
 * **Alternative 2:** Load all data for all sessions into memory when the app starts, open session
-  merely selects the current session in focus and displays UI with current session data.
+merely selects the current session in focus and displays UI with current session data.
 ** Pros: Straightforward to implement (All data can be loaded on app starting, need not change implementation from
-   AddressBook). Switching between sessions is very straightforward.
+AddressBook). Switching between sessions is very straightforward.
 ** Cons: Will be memory intensive as all data even from non-active sessions and past sessions will be loaded. As HireLah!
-   may include large amounts of data in interview Transcripts, loading all the Transcripts from previous sessions will likely
-   negatively impact startup timing. Furthermore, it is unlikely that an interviewer needs to access previous interview sessions
-   data in a current interview, making a lot of the memory consumption wasteful.
+may include large amounts of data in interview Transcripts, loading all the Transcripts from previous sessions will likely
+negatively impact startup timing. Furthermore, it is unlikely that an interviewer needs to access previous interview sessions
+data in a current interview, making a lot of the memory consumption wasteful.
 ** Relevance consideration: It is not often that an interviewer would need to switch between sessions while interviewing for a
-   specific thing, for example a role in the company.
+specific thing, for example a role in the company.
 * **Alternative 3:** Require the user to configure the session to load before app starts up, in `preferences.json`
 ** Pros: Simplest to implement, yet memory efficient as only the relevant data is loaded
 ** Cons: Not user friendly - functionality cannot be performed within the app. User cannot discover the functionality on how
-   to start a new session without consulting the user guide.
+to start a new session without consulting the user guide.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
 
+// tag::findbestfeature[]
+=== Find Best Interviewees Feature
+==== Description
+When an interviewer wants to take a decision on hiring interviewees, it will be cumbersome for the interviewer to take
+a look of the interviewees' score, to take a decision, especially when it comes to a large scale hiring pool. Therefore,
+HireLah! provides a Find Best Interviewees feature to show the top interviewees, depending on how many employees the
+company need, and what kind of employees does the company desire.
 
 ==== Implementation
 
@@ -330,12 +326,6 @@ best interviewees list to point to this list, and the MainWindow's BestInterview
 
 // end::findbestfeature[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
