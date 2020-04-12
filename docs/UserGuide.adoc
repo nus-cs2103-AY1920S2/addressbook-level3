@@ -397,9 +397,9 @@ Examples:
 
 * `undo` (after `addDiary d/2020-03-31 dc/I am happy.`) +
 This `undo` commands remove the added diary log from FitHelper.
-//end::undo
+//end::undo[]
 
-//tag::redo
+//tag::redo[]
 === Redo : `redo`
 
 `redo` is the reverse of `undo`. +
