@@ -18,7 +18,6 @@ import nasa.logic.Logic;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
-import nasa.ui.activity.QuotePanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -73,11 +72,11 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
             //Overriding default redo
             if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
-                event.consume();
+                //event.consume();
                 handleRedo();
                 //Overriding default undo
             } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
-                event.consume();
+                //event.consume();
                 handleUndo();
             } else if (event.getCode() == KeyCode.TAB) {
                 tabPanel.next();
@@ -127,11 +126,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
-        /*
-        TODO: Implement Activity list panel to display activity of the respective module
-        Can use {@code logic.getFilteredActivityList()}
-         */
         tabPanel = new TabPanel(logic);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 

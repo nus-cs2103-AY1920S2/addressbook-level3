@@ -2,7 +2,7 @@ package nasa.ui.activity;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 import nasa.model.activity.Event;
@@ -26,29 +26,20 @@ public class EventCard extends UiPart<Region> {
 
     public final Event event;
     @FXML
-    private GridPane eventPane;
-    @FXML
-    private Label index;
+    private HBox eventPane;
     @FXML
     private Label name;
     @FXML
-    private Label startDate;
-    @FXML
-    private Label endDate;
+    private Label date;
     @FXML
     private Label note;
-    @FXML
-    private Label status;
 
     public EventCard(Event event, int displayedIndex) {
         super(FXML);
         this.event = event;
-        index.setText(String.valueOf(displayedIndex));
-        name.setText(event.getName().toString());
-        startDate.setText("From " + event.getStartDate().toString());
-        endDate.setText("To " + event.getEndDate().toString());
+        name.setText(displayedIndex + ". " + event.getName().toString());
+        date.setText("From " + event.getStartDate().toString() + " to " + event.getEndDate().toString());
         note.setText(event.getNote().toString());
-        //status.setText(event.getStatus().toString());
     }
 
     @Override

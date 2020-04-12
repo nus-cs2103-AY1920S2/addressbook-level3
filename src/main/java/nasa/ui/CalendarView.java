@@ -24,6 +24,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
@@ -275,7 +276,8 @@ public class CalendarView extends UiPart<Region> {
         activityLabel.setPadding(new Insets(0, 5, 0, 5));
         if (activity instanceof Deadline) {
             // color it red
-            activityLabel.setStyle("-fx-background-color:#AFEEEE; -fx-background-radius: 5 5 5 5");
+            activityLabel.setStyle("-fx-background-color: purple; -fx-color-label-visible: -fx-background-radius: 5"
+                    + " 5 5 5");
         } else if (activity instanceof Event) {
             // color it yellow
             activityLabel.setStyle("-fx-background-color: darkblue; -fx-background-radius: 5 5 5 5");

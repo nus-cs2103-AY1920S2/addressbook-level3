@@ -2,10 +2,10 @@ package nasa.ui.activity;
 
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
 
 import nasa.model.activity.Deadline;
 import nasa.ui.UiPart;
@@ -27,9 +27,9 @@ public class DeadlineCard extends UiPart<Region> {
 
     public final Deadline deadline;
     @FXML
-    private GridPane deadlinePane;
+    private HBox deadlinePane;
     @FXML
-    private Label index;
+    private CheckBox isDone;
     @FXML
     private Label name;
     @FXML
@@ -37,32 +37,64 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private Label note;
     @FXML
-    private Label status;
-    @FXML
     private Label priority;
     @FXML
     private Group type;
     @FXML
     private Label labelForCircle;
     @FXML
-    private Circle circle;
-    @FXML
     private Label dateToRepeat;
 
     public DeadlineCard(Deadline deadline, int displayedIndex) {
         super(FXML);
         this.deadline = deadline;
-        index.setText(String.valueOf(displayedIndex));
-        name.setText(deadline.getName().toString());
+        name.setText(displayedIndex + ". " + deadline.getName().toString());
         date.setText("Due by: " + deadline.getDueDate().toString());
         note.setText(deadline.getNote().toString());
-        //status.setText(deadline.getStatus().toString());
-        priority.setText("Priority: " + deadline.getPriority().toString());
         dateToRepeat.setText("-");
         if (deadline.getSchedule().getType() != 0) {
             dateToRepeat.setText("Repeat: " + deadline.getSchedule().typeInString());
         }
+        isDone.setSelected(deadline.isDone());
+        isDone.setOnAction(e -> {
+            deadline.setDone(!deadline.isDone());
+            //mainWindow.handleDeadlineClick(displayedIndex);
+            isDone.setSelected(deadline.isDone());
+        });
+        setPriority();
     }
+
+    /**
+     * Returns a Ui representation of the priority.
+     */
+    public void setPriority() {
+        switch (deadline.getPriority().getPriorityLevel()) {
+        case 1:
+            priority.setText("!");
+            priority.setStyle("-fx-text-fill:#00bc6b;");
+            break;
+        case 2:
+            priority.setText("!!");
+            priority.setStyle("-fx-text-fill:#85ba00;");
+            break;
+        case 3:
+            priority.setText("!!!");
+            priority.setStyle("-fx-text-fill:#d0d000;");
+            break;
+        case 4:
+            priority.setText("!!!!");
+            priority.setStyle("-fx-text-fill:#e1b400;");
+            break;
+        case 5:
+            priority.setText("!!!!!");
+            priority.setStyle("-fx-text-fill:#e80303;");
+            break;
+        default:
+            priority.setStyle("");
+            break;
+        }
+    }
+
 
     @Override
     public boolean equals(Object other) {

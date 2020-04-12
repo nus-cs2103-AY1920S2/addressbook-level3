@@ -9,10 +9,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 
@@ -30,7 +30,7 @@ public class StatisticsPanel extends UiPart<Region> {
     @FXML
     private PieChart pieChart;
     @FXML
-    private BarChart<String, Integer> barChart;
+    private StackedBarChart<String, Integer> stackedBarChart;
     @FXML
     private CategoryAxis xAxis;
     @FXML
@@ -39,15 +39,14 @@ public class StatisticsPanel extends UiPart<Region> {
 
     public StatisticsPanel(ObservableList<Module> moduleObservableList) {
         super(FXML);
-
+        pieChart.setMinWidth(500);
+        stackedBarChart.setMinWidth(500);
         loadStatistics(moduleObservableList);
-
         moduleObservableList.addListener(new ListChangeListener<Module>() {
             @Override
             public void onChanged(Change<? extends Module> c) {
                 resetStatistics();
                 loadStatistics(moduleObservableList);
-                updateStatistics(moduleObservableList);
             }
         });
         updateStatistics(moduleObservableList);
@@ -85,30 +84,45 @@ public class StatisticsPanel extends UiPart<Region> {
         }
 
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList(pieData);
+
         pieChart.setData(chartData);
         chartData.forEach(data ->
                 data.nameProperty().bind(data.pieValueProperty().getValue() > 1
                         ? Bindings.concat(
-                                data.getName(), " - ", data.pieValueProperty().intValue(), " activities"
+                                data.getName(), " - ", data.pieValueProperty().intValue(), " deadlines"
                         )
                         : Bindings.concat(
-                                data.getName(), " - ", data.pieValueProperty().intValue(), " activity"
+                                data.getName(), " - ", data.pieValueProperty().intValue(), " deadline"
                         )
                 )
         );
 
         //Bar chart
-        XYChart.Series<String, Integer> barData = new XYChart.Series();
+        XYChart.Series<String, Integer> tasksCompleted = new XYChart.Series();
         for (Module module : moduleList) {
-            barData.getData().add(new XYChart.Data(module.getModuleCode().toString(),
-                    module.getFilteredDeadlineList().size()));
+            tasksCompleted.getData().add(new XYChart.Data(module.getModuleCode().toString(),
+                    module.getFilteredDeadlineList()
+                            .stream()
+                            .filter(activity -> activity.isDone())
+                            .count()));
         }
-        barChart.setData(FXCollections.observableArrayList(barData));
+        tasksCompleted.setName("Completed");
+
+        XYChart.Series<String, Integer> tasksNotCompleted = new XYChart.Series();
+        for (Module module : moduleList) {
+            tasksNotCompleted.getData().add(new XYChart.Data(module.getModuleCode().toString(),
+                    module.getFilteredDeadlineList()
+                            .stream()
+                            .filter(activity -> !activity.isDone())
+                            .count()));
+        }
+        tasksNotCompleted.setName("Not completed");
+        stackedBarChart.getData().addAll(tasksCompleted, tasksNotCompleted);
 
     }
 
     private void resetStatistics() {
         pieChart.getData().clear();
-        barChart.getData().clear();
+        stackedBarChart.getData().clear();
     }
 }

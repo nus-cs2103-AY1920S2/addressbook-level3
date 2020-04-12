@@ -3,7 +3,6 @@ package nasa.logic.calendar;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.format.DateTimeFormatter;
-
 import java.util.UUID;
 
 import nasa.model.activity.Deadline;
