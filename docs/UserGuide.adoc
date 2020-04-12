@@ -106,7 +106,7 @@ Example:
 * To view all pings : `from 1 to 1500100000`
 
 *Note: Currently accepted timestamp is in epoch timing.
-For example on how to use the timing, refer link:{epochTiming}/releases[here]
+For example on how to use the timing, refer link:{epochTiming}[here]
 
 ==== Searching over user ID : `id is`
 Retrieves all trace data based on a given user id
