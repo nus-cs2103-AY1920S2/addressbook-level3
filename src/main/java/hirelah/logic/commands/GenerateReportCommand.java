@@ -4,7 +4,10 @@ import static hirelah.logic.commands.OpenReportCommand.MESSAGE_NOT_INTERVIEWED;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -24,6 +27,7 @@ import hirelah.storage.Storage;
 
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 
 /**
  * Generates the report of the given interviewee in the form of a PDF.
@@ -88,7 +92,30 @@ public class GenerateReportCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_NOT_INTERVIEWED, interviewee));
             }
             model.setCurrentInterviewee(interviewee);
-            generateReport(interviewee);
+
+            Instant interviewTime = interviewee
+                    .getTranscript()
+                    .orElseThrow(() ->
+                            new CommandException("The transcript for this interviewee could not be found"))
+                    .getStartTime();
+            Date myDate = Date.from(interviewTime);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+            String formattedDate = formatter.format(myDate);
+
+            ObservableList<Pair<Attribute, Double>> attributeToScoreData = interviewee
+                    .getTranscript()
+                    .orElseThrow(() ->
+                            new CommandException("The transcript for this interviewee could not be found"))
+                    .getAttributeToScoreData();
+
+            ObservableList<Remark> remarks = interviewee
+                    .getTranscript()
+                    .orElseThrow(() ->
+                            new CommandException("The transcript for this interviewee could not be found"))
+                    .getRemarkListView();
+
+            generateReport(interviewee.getId(), interviewee.getFullName().toUpperCase(),
+                    formattedDate, attributeToScoreData, remarks);
         } catch (IllegalActionException e) {
             throw new CommandException(e.getMessage());
         }
@@ -98,35 +125,51 @@ public class GenerateReportCommand extends Command {
     /**
      * Generate interview report in the form of PDF for a particular interviewee.
      *
-     * @param interviewee the interviewee.
+     * @param id the ID of the interviewee
+     * @param fullName the full name of the interviewee
+     * @param date the date of the interview
+     * @param attributeToScoreData the attribute to score mapping of the interviewee
+     * @param remarks the remark list of this interviewee
+     * @throws CommandException if the report could not be generated.
      */
-    private void generateReport(Interviewee interviewee) throws CommandException {
+    private void generateReport(
+            int id, String fullName, String date, ObservableList<Pair<Attribute, Double>> attributeToScoreData,
+            ObservableList<Remark> remarks) throws CommandException {
         try {
-            ObservableList<Remark> remarks = interviewee
-                    .getTranscript()
-                    .orElseThrow(() ->
-                            new CommandException("The transcript for this interviewee could not be found"))
-                    .getRemarkListView();
-
-            ObservableList<Pair<Attribute, Double>> attributeToScoreData = interviewee
-                    .getTranscript()
-                    .orElseThrow(() ->
-                            new CommandException("The transcript for this interviewee could not be found"))
-                    .getAttributeToScoreData();
-
-
             PDDocument document = new PDDocument();
             Pair<Integer, PDPage> positionAfterNameAndAttributePrinting =
-                    printNameAndAttributePart(document, interviewee.getFullName().toUpperCase(), attributeToScoreData);
+                    printNameAndAttributePart(document, fullName, attributeToScoreData);
             Pair<Integer, PDPage> startingPositionOfRemarksPart = positionAfterNameAndAttributePrinting;
             if (positionAfterNameAndAttributePrinting.getKey() > 780) {
                 startingPositionOfRemarksPart = new Pair<>(0, new PDPage(PDRectangle.A4));
             }
             printRemarksPart(document, remarks, startingPositionOfRemarksPart);
-            document.save("data/Jo.pdf");
+            printDateAtEveryPage(document, date);
+            document.save(id + ".pdf");
             document.close();
         } catch (IOException e) {
             throw new CommandException("There is an error in generating the report!");
+        }
+    }
+
+    /**
+     * Prints date stamp at the left corner of a page.
+     *
+     * @param document the current document
+     * @param date the date to be printed
+     * @throws IOException if there is an error in writing
+     */
+    private static void printDateAtEveryPage(PDDocument document, String date) throws IOException {
+        for (PDPage page : document.getPages()) {
+            PDPageContentStream.AppendMode append = PDPageContentStream.AppendMode.APPEND;
+            PDPageContentStream pageContentStream =
+                    new PDPageContentStream(document, page, append, true);
+            pageContentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 9);
+            pageContentStream.beginText();
+            pageContentStream.newLineAtOffset(5, 826);
+            pageContentStream.showText(date);
+            pageContentStream.endText();
+            pageContentStream.close();
         }
     }
 
@@ -136,6 +179,7 @@ public class GenerateReportCommand extends Command {
      * @param document the current document
      * @param fullName the full name of the interviewee
      * @param attributeScores all mappings between attribute and scores of this interviewee
+     * @throws IOException if there is an error in writing
      */
     private static Pair<Integer, PDPage> printNameAndAttributePart(
             PDDocument document, String fullName, ObservableList<Pair<Attribute, Double>> attributeScores)
@@ -164,6 +208,7 @@ public class GenerateReportCommand extends Command {
      * @param nameListSize the size of the name of the interviewee
      * @param nameAndAttributeScoreList all contents of the first part to be printed, including the name, attribute
      * score title and attribute score mapping
+     * @throws IOException if there is an error in writing
      */
     private static Pair<Integer, PDPage> generateNameAndAttributeAllPages(
             PDDocument document, int nameListSize, ArrayList<String> nameAndAttributeScoreList) throws IOException {
@@ -177,7 +222,7 @@ public class GenerateReportCommand extends Command {
             generateNameAndAttributeOnePage(document, firstPage ? nameListSize : 0, attributeScoreLisOnePage);
             firstPage = false;
         }
-        int verticalSpacing = firstPage ? nameAndAttributeScoreList.size() * 13 + 40
+        int verticalSpacing = firstPage ? nameAndAttributeScoreList.size() * 13 + nameListSize + 40
                 : nameAndAttributeScoreList.size() * 13 + 20;
         return new Pair<>(verticalSpacing,
                 generateNameAndAttributeOnePage(document, firstPage ? nameListSize : 0, nameAndAttributeScoreList));
@@ -190,6 +235,7 @@ public class GenerateReportCommand extends Command {
      * @param nameListSize the size of the name of the interviewee
      * @param nameAndAttributeScoreList all contents of the first part to be printed, including the name,
      * attribute score title and attribute score mapping
+     * @throws IOException if there is an error in writing
      */
     private static PDPage generateNameAndAttributeOnePage(
             PDDocument document, int nameListSize, ArrayList<String> nameAndAttributeScoreList) throws IOException {
@@ -208,6 +254,7 @@ public class GenerateReportCommand extends Command {
      * @param pageContentStream the current page content stream
      * @param nameAndAttributeScoreList all contents of the first part to be printed, including the name,
      * attribute score title and attribute score mapping
+     * @throws IOException if there is an error in writing
      */
     private static void printName(PDPage page, PDPageContentStream pageContentStream,
                                   int nameListSize, ArrayList<String> nameAndAttributeScoreList) throws IOException {
@@ -232,6 +279,7 @@ public class GenerateReportCommand extends Command {
      *
      * @param pageContentStream the current page content stream
      * @param attributeList all contents of the attribute score part, including title and mapping
+     * @throws IOException if there is an error in writing
      */
     private static void printAttributeTitle(PDPageContentStream pageContentStream, ArrayList<String> attributeList)
             throws IOException {
@@ -251,6 +299,7 @@ public class GenerateReportCommand extends Command {
      *
      * @param pageContentStream the current page content stream
      * @param attributeScoreList all mappings from attribute to score in the form of split sentence
+     * @throws IOException if there is an error in writing
      */
     private static void printAttributeScores(
             PDPageContentStream pageContentStream, ArrayList<String> attributeScoreList) throws IOException {
@@ -273,6 +322,7 @@ public class GenerateReportCommand extends Command {
      * @param document the current document
      * @param remarks the list of all remarks
      * @param startingPosition the starting position to print the remarks after printing the attribute scores
+     * @throws IOException if there is an error in writing
      */
     private static void printRemarksPart(
             PDDocument document, ObservableList<Remark> remarks, Pair<Integer, PDPage> startingPosition)
@@ -327,6 +377,7 @@ public class GenerateReportCommand extends Command {
      *
      * @param document the current document
      * @param rowList the list of all rows
+     * @throws IOException if there is an error in writing
      */
     private static void generatePartialRemarkPage(
             PDDocument document, Pair<Integer, PDPage> startingPosition, ArrayList<TableRowEntry> rowList)
@@ -352,6 +403,7 @@ public class GenerateReportCommand extends Command {
      *
      * @param document the current document
      * @param rowList the list of all rows
+     * @throws IOException if there is an error in writing
      */
     private static void generateFullRemarkPage(PDDocument document, ArrayList<TableRowEntry> rowList)
             throws IOException {
@@ -369,6 +421,7 @@ public class GenerateReportCommand extends Command {
      *
      * @param pageContentStream the current page content stream
      * @param rowList the list of all rows
+     * @throws IOException if there is an error in writing
      */
     private static void printRemarkPerLine(PDPageContentStream pageContentStream, ArrayList<TableRowEntry> rowList)
             throws IOException {
