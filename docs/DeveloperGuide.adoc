@@ -166,7 +166,7 @@ The sort command takes in a list of fields and generates FieldComparators as see
 
 .Class diagram of SortedList
 image::SortedListClassDiagram.png[]
-We use a new SortedList within TaskList because FilteredList does not allow for sorting. As such we have the FilteredList reference the SortedList and the SortedList refernce the UniqueTaskList. By warpping the lists around another, this allows the SortedList and FilteredList to read changes to the UniqueTaskList and perform the appropriate filtering and sorting based on predicate/comaprators set.
+We use a new SortedList within TaskList because FilteredList does not allow for sorting. As such we have the FilteredList reference the SortedList and the SortedList refernce the UniqueTaskList. By warpping the lists around another, this allows the SortedList and FilteredList to read changes to the UniqueTaskList and perform the appropriate filtering and sorting.
 
 .Sequence of initializing the Sorted List
 image::SortInitliazeDiagram.png[]
@@ -214,43 +214,36 @@ Auto completion of a word happens when either:
 =====
 [#completion criteria]
 
-The above diagram shows the decisions `CommandCompletor` goes through when deciding how to edit users input.
+The above diagram provides a big picture overview of decisions `CommandCompletor` goes through when processing user input.
 
-. attempts to complete the command word against all possible commands based on the criteria in the callout above
-.. if command word is unrecognized, throws a `CompletorException`
+. It attempts to complete the command word as in the callout above
+.. if command word is unrecognized, `CommandCompletor` throws a `CompletorException` which leads to Unknown Command UI
 .. else it performs argument checks and auto completes as necessary
 
-==== Argument checks overview
+===== Argument checks overview
 
 . If the input is an add/edit/pom command then CommandCompletor will attempt to add prefixes.
 .. add/edit command -> add priority and reminder prefixes
+... Edit auto complete will only add prefixes after the second word to avoid adding a prefix to the compulsory INDEX field of edit commands
 .. pom command -> add timer prefix
 . If input is a delete/done command
 .. remove any invalid indices that are greater than the length of the displayed task list or that are not a positive integer
 . If input is a sort command
 .. Auto completion of fields is performed based on the criteria mentioned in the callout <<completion criteria, here>>
-.. If it cannot be completed and is not recongized, then it is removed
-
-==== Prefix Completion
-image::ACPrefixActivityDiagram.png[]
-
-Here we take a closer look at how prefix completion is implemented. We iterate through every word of the user's input and then check if the word is a valid task field. If it, we append the prefix and update the hasPrefix boolean to true so that we don't append duplicate prefixes. The input is updated and we iterate until we reach the end of the input.
-
-==== Index Completion
-image::ACIndexActivityDiagram.png[]
-
-Similar to before, we iterate through the arguments and we remove indexes that are either out of the displayed TaskList's size or not a positive integer. We then append it to a removed list so that we can inform the user what input has been removed.
-
-==== Sort field Completion
-Is performed simply by iterating through all arguments and performing the checks mentioned above.
+.. If the field is not recongized, then it is removed
 
 // TODO maybe can insert diagram as well?
 ==== Auto Complete output: 
-. If words are completed or prefixes are added or nothing has changed for the input, auto complete is labelled as successful
-. If any input is deleted (invalid index or sort field), `CommandCompletor` will raise a warning by throwing a `CompletorDeletionException`
-. If no command word is found, auto complete is labelled as an error and `CommandCompletor` will raise a `CompletorException`
+. Known Command UI displayed when:
+.. Any kind of completion has happened or nothing has changed for the input
+... `CompletorResult` is returned
+.. Any input is deleted (invalid index or sort field)
+... `CompletorDeletionResult` is returned
+. Unknown Command UI is displayed when: 
+.. Command word provided is not recognized
+... CompletorException` is raised
 
-==== Auto Complete Success UI
+==== Known Command UI
 
 .AutoComplete Success UI 
 image::ACSuccess.png[width=600]
@@ -260,14 +253,28 @@ image::ACSuccess.png[width=600]
 * Feedback is also provided on what changes have been made
 ** If input has been removed, `ResultDisplay` is set to orange
 
-==== Auto Complete Failure UI
+==== Unknown Command UI
 
 .AutoComplete Failure UI 
-image::ACFailure.png[width=600]
+image::ACFailure.png[width=500]
 
-* `CommandTextField` is set to green
+* `CommandTextField` is set to red
 * `CommandTextField` text is unchanged
 * Feedback is provided that command word is not recognized
+
+==== Prefix Completion
+image::ACPrefixActivityDiagram.png[]
+
+Here we take a closer look at how prefix completion is implemented. We iterate through every word of the user's input and then check if the word is a valid task field. If it is, we append the prefix and update the hasPrefix boolean to true so that we don't append duplicate prefixes. The input is then updated and we continue iterating.
+
+==== Index Completion
+image::ACIndexActivityDiagram.png[]
+
+Similar to before, we iterate through the arguments and we remove indexes that are either out of the displayed TaskList's size or that is not a positive integer. We then append it to a removed list so that we can inform the user what input has been removed.
+
+// TODO what checks? clarify
+==== Sort field Completion
+Sort field completion is performed by iterating through all arguments and performing the auto complete checks between a user's input word and all possible sort fields.
 
 === Enhanced Find
 We've built upon the existing find function in AB-3 to filter tasks based on phrases instead of words.
@@ -285,7 +292,8 @@ image::FindSequenceDiagram.png[]
 ==== Predicate
 
 .Scoring decision
-image::PredicateSequenceDiagram.png[]
+image::PredicateSequenceDiagram.png[] 
+//TODO add functionc calls to stringUtil
 
 * We perform the filtering by taking chunks of the task name whereby the number of words in a chunk = number of words used in the search term
 * We iterate through all chunks of the task name and calculate a score for each chunk and taking the minimum of those scores as the task's relevance score
