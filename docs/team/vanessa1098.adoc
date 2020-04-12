@@ -58,22 +58,28 @@ It is an application that allows users to manage all aspects of their social lif
 *** Edited the GUI of the application (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/53[#53], https://github.com/AY1920S2-CS2103-W14-3/main/pull/142[#142])
 *** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/46[#46])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152])
+*** Did cosmetic tweaks to existing contents of the User Guide (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/140[#140], https://github.com/AY1920S2-CS2103-W14-3/main/pull/146[#146], https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152], https://github.com/AY1920S2-CS2103-W14-3/main/pull/158[#158], https://github.com/AY1920S2-CS2103-W14-3/main/pull/161[#161])
+*** Contributed to the Developer Guide of this project
 ** Community:
-*** Reviewed PRs and provided suggestions for my teammates
 *** Reported bugs and suggestions for other teams in the module
+** Team-based Contributions:
+*** Reviewed PRs, provided suggestions for my teammates and comments to improve/clarify (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/150[#150], https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152], https://github.com/AY1920S2-CS2103-W14-3/main/pull/153[#153], https://github.com/AY1920S2-CS2103-W14-3/main/pull/155[#155], https://github.com/AY1920S2-CS2103-W14-3/main/pull/158[#158], https://github.com/AY1920S2-CS2103-W14-3/main/pull/160[#160])
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._ +
+include::../UserGuide.adoc[tag=notetaker]
 |===
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._ +
+include::../DeveloperGuide.adoc[tag=get]
+include::../DeveloperGuide.adoc[tag=sortAssgn]
+include::../DeveloperGuide.adoc[tag=editRestNote]
 |===
 
 == PROJECT: PowerPointLabs

@@ -167,6 +167,7 @@ Changes the 2nd person’s name to Elysia Tan, and organization to Comp Club.
 * `(ab)edit 2 t/best friend -t/good friend` +
 Removes the tag good friend from the 2nd person and adds the tag best friend to him/her.
 
+tag::notetaker[]
 ==== Store additional information about contacts using the Note Taker: `(ab)addnote`
 
 Store additional information about contacts using the Note Taker +
@@ -212,6 +213,7 @@ Example:
 
 * `(ab)deletenote 1 l/4 l/5` +
 Deletes the 4th and 5th note from the first person.
+end::notetaker[]
 
 ==== Finding a specific contact/a specific set of contacts : `(ab)find`
 

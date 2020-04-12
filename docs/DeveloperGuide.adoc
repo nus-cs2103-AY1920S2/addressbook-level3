@@ -203,7 +203,7 @@ image::stScheduleResult.png[]
 
 // end::schedule[]
 
-// tag::get[]
+tag::get[]
 === Detailed Contact Viewer
 ==== Implementation
 
@@ -232,7 +232,9 @@ image::getCommand.png[]
 * **Alternative 2:** Display selective information on the AddressBook list and the full information under get command.
 ** Pros: AddressBook list is less cluttered.
 ** Cons: Omits certain information.
+end::get[]
 
+tag::sortAssgn[]
 === Sorting of Assignments
 ==== Implementation
 
@@ -243,6 +245,7 @@ Given below is an example usage scenario and how the sort mechanism behaves at e
 Step 1. The user launches the application for the first time. The 'AssignmentList' will be initialized with the initial state, which is an empty list.
 
 Step 2. The user executes the following commands to add new assignments.
+
 * 1. `(st)add t/CS2103 Project d/2020-04-18 23:59 e/180`
 * 2. `(st)add t/DBA3702 Project d/2020-04-19 19:00 e/150`
 * 3. `(st)add t/CS2106 Lab d/2020-04-11 20:00 e/20`
@@ -264,7 +267,9 @@ image::listAssgnCommand.png[]
 * **Alternative 2:** Ascending order
 ** Pros: User can clear more assignments faster, by completing those that takes a shorter amount of time first.
 ** Cons: User may delay starting on assignments that take longer and risk having uncompleted assignments at the deadline.
+end::sortAssgn[]
 
+tag::editRestNote[]
 === Editing of Restaurant Notes
 ==== Implementation
 
@@ -275,6 +280,7 @@ Given below is an example usage scenario and how the editing of note mechanism b
 Step 1: The user launches the application for the first time. The `RestaurantBook` will be initialized with the initial state, which is an empty list.
 
 Step 2: The user executes the following commands to add notes to a restaurant.
+
 * 1. `(rt)add n/Ameens l/Clementi v/No o/09:2300 p/$ c/Indian`
 * 2. `(rt)addnote r/Cheese fries`
 
@@ -293,6 +299,7 @@ image::addRestNote.png[]
 * **Alternative 2:** Have 3 separate edit commands, one for each restaurant's note.
 * Pros: Easier to implement.
 * Cons: Not user-friendly since different notes cannot be edited in a single command.
+end::editRestNote[]
 
 === Logging
 
@@ -412,7 +419,7 @@ _{More to be added}_
 
 *MSS*
 
-1. User adds an assignment by typing the "add" command and includes description of the assignment, deadline, and number of estimated hours to complete the work.
+1. User adds an assignment by typing the "(st)add" command and includes description of the assignment, deadline, and number of estimated hours to complete the work.
 2. Naggy Joel adds the assignment to the list of assignments.
 +
 Use case ends.
@@ -590,13 +597,21 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `(ab)delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `(ab)delete`, `(ab)delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
+
+. Deleting a person while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)delete 1` +
+   Expected: First contact in the filtered list is deleted. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `(ab)delete x` (where x exists in the full contact list but not in the filtered list) +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
 _{ more test cases ... }_
 
