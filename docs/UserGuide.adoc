@@ -409,7 +409,7 @@ Finds recipes that have 15 minutes or less of preparation time.
 Example 2: `filter t/20-30` +
 Finds recipes that have 20 to 30 minutes (inclusive) of preparation time.
 
-== Planning Command
+== Planning Command (Beatrice)
 Most of the planning commands take place in the planning tab. +
 Switch to the planning tab by typing `switch planning` or by clicking on Planning from the *Tab Panel*. +
 
