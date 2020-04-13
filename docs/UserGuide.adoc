@@ -129,7 +129,7 @@ The Root simply serves as a way for Notably to hierarchically organise your note
 visible to you while you are using the application.
 
 [WARNING]
-You cannot open or delete the root note. e.g `Delete /../` is invalid. An error message will be displayed to
+You cannot delete the root note. e.g `Delete ../..` is invalid. An error message will be displayed to
 remind you of this.
 // end::paths[]
 ====
