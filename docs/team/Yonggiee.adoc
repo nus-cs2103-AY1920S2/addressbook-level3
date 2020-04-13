@@ -281,7 +281,7 @@ if (dateComparision > 0) {
 This section explains the our design considerations and analysis for the storage of exercises.
 
 [options='header']
-[cols="3,2,2,2"]
+[cols="2,2,2,2"]
 |====================
 | Considerations | Store exercises with client and all clients in one JSON file (chosen) | Store all exercises into a separate JSON file | Store exercises with client but one JSON for each client
 
