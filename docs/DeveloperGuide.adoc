@@ -1010,7 +1010,7 @@ checks whether the current session called by the user has a recurring period.
     a. If it does, a new session with the updated date will be added to `Model#UniqueSessionList()`.
     b. If it does not have a recurring period, it will move on to *Step 6*.
 
-7. The current session will be removed from `Model#UniqueSessionList`.
+7. The current session is marked as done and will be removed from `Model#UniqueSessionList`.
 
 8. The updated session list will be displayed to the user.
 
@@ -2628,7 +2628,7 @@ CS1101S.
 Expected: A group with group code `G06` of type `lab` will be added to the module
 `CS1101S`. If you were on a different tab, you are
 automatically switched to *Student View*.
-.. Test Case: `group add g/G06 m/CS1101S t/lab`` +
+.. Test Case: `group add g/G06 m/CS1101S t/lab` +
 Expected: You will see an error message that this group already exists in the module. (Assuming you
 added a group with group code G06 to the module CS1101S)
 .. Test Case: `group add g/G06 m/CS3243 t/lab` +
