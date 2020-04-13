@@ -17,7 +17,7 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> MainWindow : ("calendar")
+[-> MainWindow : ("calendar d/2020-04-12")
 activate MainWindow
 
 MainWindow -> LogicManager : execute("calendar d/2020-04-12")
