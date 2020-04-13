@@ -14,7 +14,7 @@ import fithelper.model.WeightRecords;
 public class ClearCommandTest {
 
     @Test
-    public void executeEmptyFitHelperSuccess() {
+    public void execute_emptyFitHelper_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -22,7 +22,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void executeNonEmptyFitHelperSuccess() {
+    public void execute_nonEmptyFitHelper_success() {
         Model model = new ModelManager(getTypicalFitHelper(), new UserProfile(), new WeightRecords());
         Model expectedModel = new ModelManager(getTypicalFitHelper(), new UserProfile(), new WeightRecords());
         expectedModel.setFitHelper(new FitHelper());

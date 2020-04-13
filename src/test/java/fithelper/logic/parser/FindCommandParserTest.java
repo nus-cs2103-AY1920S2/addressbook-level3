@@ -20,12 +20,12 @@ public class FindCommandParserTest {
     private FindCommandParser parser = new FindCommandParser();
 
     @Test
-    public void parseEmptyArgThrowsParseException() {
+    public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parseValidArgsReturnsFindCommand() {
+    public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         List<String> keywords = Arrays.asList("Noodles", "Mala");
         FindCommand expectedFindCommand =

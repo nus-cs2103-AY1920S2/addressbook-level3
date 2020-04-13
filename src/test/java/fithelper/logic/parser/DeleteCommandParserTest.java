@@ -24,14 +24,14 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parseValidArgsReturnsDeleteCommand() {
+    public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser,
                 DeleteCommand.COMMAND_WORD + " " + PREFIX_TYPE + "f" + " " + PREFIX_INDEX + "1",
                 new DeleteCommand(new Type("food"), new Index(0)));
     }
 
     @Test
-    public void parseInvalidArgsThrowsParseException() {
+    public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

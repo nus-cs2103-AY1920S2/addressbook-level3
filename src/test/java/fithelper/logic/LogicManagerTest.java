@@ -42,19 +42,19 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void executeInvalidCommandFormatThrowsParseException() {
+    public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
-    public void executeCommandExecutionErrorThrowsCommandException() {
+    public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete x/f i/9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
     }
 
     @Test
-    public void getFilteredEntryListModifyListThrowsUnsupportedOperationException() {
+    public void getFilteredEntryList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredFoodEntryList().remove(0));
     }
 
