@@ -108,13 +108,13 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             if (mainCommandStack.isEmpty() || !mainCommandStack.peek()
-                    .equals(commandTextField.getText())) {
+                .equals(commandTextField.getText())) {
                 mainCommandStack.push(commandTextField.getText());
                 leftCommandStack.clear();
                 leftCommandStack.addAll(mainCommandStack);
                 rightCommandStack.clear();
             } else if (!mainCommandStack.isEmpty() && mainCommandStack.peek()
-                    .equals(commandTextField.getText())) {
+                .equals(commandTextField.getText())) {
                 if (!rightCommandStack.isEmpty()) {
                     String commandStr = rightCommandStack.pop();
                     commandTextField.setText(commandStr);
@@ -145,6 +145,8 @@ public class CommandBox extends UiPart<Region> {
      */
     private String getPreviousView(String view) {
         switch (view) {
+            case "SUMMARY":
+                return "ASSIGNMENT";
             case "STUDENT":
                 return "SUMMARY";
             case "STAFF":
@@ -175,6 +177,8 @@ public class CommandBox extends UiPart<Region> {
                 return "FINANCE";
             case "FINANCE":
                 return "ASSIGNMENT";
+            case "ASSIGNMENT":
+                return "SUMMARY";
             default:
                 return "NONE";
         }
