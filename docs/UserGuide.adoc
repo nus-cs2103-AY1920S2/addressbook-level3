@@ -31,8 +31,9 @@ rubrics in one central location so that you can focus on what's important - the 
 .. A list of attributes you want to look out for in an interviewee.
 .. A set of questions that you would like to ask all interviewees.
 .. A collection of metrics to score interviewees, allowing you to easily rank potential candidates.
-. Record you remarks for an interviewee during an interview, and score the interviewee based on the attributes.
+. Record your remarks for an interviewee during an interview, and score the interviewee based on the attributes.
 . Identify the best interviewees based on particular attributes or metrics, so that you can follow up with them.
+. Export interview transcripts for future reference.
 {empty} +
 {empty} +
 
@@ -384,6 +385,36 @@ image::Screenshots/Question.png[]
 {empty} +
 // end::questions[]
 
+//tag::load[]
+==== Load Attributes and Questions from other Session
+In case of having multiple sessions with the same attributes and questions. There is a `load` command
+to load attributes and questions from other session. Therefore, there is no extra work to do.
+
+*Command*
+
+....
+load attribute <session>
+load question <session>
+....
+
+*Example*
+
+....
+> load attribute ceo
+> load question janitor
+....
+
+_Output:_
+
+....
+Loaded attributes from ceo
+
+Loaded questions from janitor
+....
+
+image::Screenshots/Load.png[]
+{empty} +
+// end::load[]
 ==== Switching views
 
 When working on the attributes, questions and metrics (more about metrics in <<Metrics>>),
