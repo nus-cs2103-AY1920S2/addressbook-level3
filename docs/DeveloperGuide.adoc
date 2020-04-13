@@ -745,6 +745,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+tag::manual[]
+
 === Adding a person
 
 . Test case: `(ab)add n/John p/12345 o/NUS n/05-20`
@@ -892,8 +894,6 @@ Expected: All restaurants added should be displayed.
 .. Test case: `(rt)delete x` (where x is larger than the size of the restaurant list) +
    Expected: No restaurant is deleted. Error details shown in the status message.
 
-tag::manual1[]
-
 === Adding food note(s) to a restaurant
 
 . Add food note(s) to a restaurant while all restaurants are listed
@@ -922,8 +922,6 @@ tag::manual1[]
 .. Test case `(rt)deletenote 1 rl/1 gl/x bl/aaa` (where x is larger than the size of good food notes, and non-integer line number for bad food notes) +
    Expected: No restaurant's bad notes is edited. Error details shown in the status message.
 
-end::manual1[]
-
 === Search for restaurants based on a number of criteria
 
 . `(rt)find l/Clementi` +
@@ -936,8 +934,6 @@ end::manual1[]
 .. Test case: `(st)add t/CS2105 lab d/DATETIME e/5` (where DATETIME is after the current date and time) +
    Expected: No assignment is added. Error details shown in the status message.
 
-tag::manual[]
-
 === List current assignments
 
 . Test case: `(st)list -d` +
@@ -946,8 +942,6 @@ tag::manual[]
   Expected: Assignments will be shown according to the estimated completed time in descending order with all completed assignments at the bottom of the list.
 . Test case: `(st)list -d -e` +
   Expected: Assignments will not be sorted. Error details shown in the status message.
-
-end::manual[]
 
 === Deleting an assignment
 
@@ -1006,6 +1000,8 @@ Expected: List all added social events in the Event Schedule.
    Expected: Deletes the first social event in the Event Schedule.
 .. Test case: `(ev)delete x` (where x is larger than the size of Event Schedule) +
    Expected: No social event is deleted. Error details shown in the status message.
+
+end::manual[]
 
 === Saving data
 

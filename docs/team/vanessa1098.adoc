@@ -82,8 +82,6 @@ include::../DeveloperGuide.adoc[tag=sortAssgn]
 
 include::../DeveloperGuide.adoc[tag=editRestNote]
 
-include::../DeveloperGuide.adoc[tag=manual1]
-
 include::../DeveloperGuide.adoc[tag=manual]
 
 ---
