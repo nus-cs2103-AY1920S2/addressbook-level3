@@ -309,11 +309,25 @@ image::demo/Suggestions4.png[]
 Variations of path with `../` (e.g. `open ../`, `open Note/../Note`, etc.) will not generate a comprehensive response text.
 Currently, typing `open ../` will generate a response text of `Open a note titled "../"` instead of `Open a parent note`.
 
-=== Auto correct
+=== Auto correction
 
-Even if you mistype, Notably tries its best to correct the typo automatically, as long as the mistyped input command is not too far away from Notably's available commands. This provides you with a more fluid typing experience.
+Notably will try its best to correct your mistypes automatically, as long as your mistyped inputs are not too far away from the understood commands. This provides you with a more fluid typing experience!
 
-.Demo for the auto-correction feature
+Notably's auto correction feature works on two aspects of your typing:
+
+. It auto corrects command names, where command names refers to `open`, `search`, `delete`, `edit`, and others. For example, Notably will correct the mistyped command name `opne` to `open`.
+. It auto corrects the `Paths` of notes. For example, depending on the notes that exist in your database, Notably might correct `/Notaby` to `/Notably`.
+
+See the example below for more information.
+
+==== Example: Auto correcting user input
+
+[NOTE]
+Even though the user types in the command name `opne`, Notably is still able to recognise this as an `open` command. +
+In addition, the inputted `RelativePath` `Notaby` is understood by Notably, even though there's no note in the database with the title `Notaby`. Instead, there exists a note in the database with the `RelativePath` `Notably`. +
+After corrections are done, a list of suggestions will be generated as if the user has inputted `open -t Notably`!
+
+.Demo for the auto correction feature
 image::demo/Correction.png[]
 
 <<<<<<< HEAD
