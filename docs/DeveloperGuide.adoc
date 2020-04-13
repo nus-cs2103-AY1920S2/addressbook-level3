@@ -604,10 +604,12 @@ The personal best feature is facilitated by the model `PersonalBest`, and the lo
 
 A simplified class diagram of the classes involved in this feature is given below:
 
+.Simplified Class Diagram for Personal Best
 image::PersonalBestClassDiagram.png[]
 
 In the following sequence diagram, we trace the execution for when the user decides to enter the command `view-c` into FitBiz:
 
+.Sequence Diagram of the View#execute Method for Personal Best
 image::PersonalBestSequenceDiagram.png[]
 
 The explanation for the sequence diagram is as follows: when the user inputs `view-c`, `add-e`, `edit-c` or `delete-c`, `PersonalBestFinder#generateAndSetPersonalBest` is called, taking the client currently in view as the parameter. `PersonalBestFinder#generateAndSetPersonalBest` then retrieves client's list of exercises using `Client#getExerciseList` and creates a new `HashMap`, where the `key` is `ExerciseName` and the `value` is `Exercise`. Then the personal bests of each exercise of the client in view are generated using the above considerations. Finally the list of personal bests is set using `PersonalBest#setPersonalBest`.
@@ -641,6 +643,7 @@ This feature allows users to see the progress graph of the current client in vie
 
 The graph mechanism is faciliated by the model class `Graph`, which contains the details of the graph. These include `ExerciseName`, `Axis`, `StartDate` and `EndDate`. The figure below is a UML class diagram to illustrate the `Graph` model.
 
+.Simplified Class Diagram for Graph
 image::GraphClassDiagram.png[]
 
 These attributes are bounded by these characteristics:
@@ -651,6 +654,7 @@ These attributes are bounded by these characteristics:
 
 Here is an activity diagram displaying the steps taken when FitBiz receives a user input for the `graph` command:
 
+.Activity Diagram for Graph Command
 image::GraphCommandActivityDiagram.png[]
 
 The behaviour of this feature determines the graph plotted of the exercise specified based on these considerations:
@@ -662,6 +666,7 @@ The behaviour of this feature determines the graph plotted of the exercise speci
 
 The flow of the program is illustrated using the sequence diagram below:
 
+.Sequence Diagram for Graph Command
 image::GraphSequenceDiagram.png[]
 
 The explanation is as follows: when the user inputs `graph` with all relevant arguments input correctly, a new `GraphCommand()` is created, taking the newly created `Graph` object as parameter.
@@ -685,6 +690,7 @@ We decided to use the approach of abstracting the axis types away into `AxisType
 
 As our axis values can only be `REPS`, `WEIGHT` or `NA`, we can check for each case using the switch case method instead of checking for equality using raw types. This is also much more efficient than using multiple if-else statements. For example, in the code snippet below, the method `fillSeries()` uses switch case statements to add data values depending on the `AxisType`.
 
+.Code snippet
 [source, java]
 ----
     private void fillSeries() {
