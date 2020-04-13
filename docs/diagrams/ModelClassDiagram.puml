@@ -41,7 +41,7 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 ProfileList *-- "1"Profile
 
 Profile *--right DeadlineList
-Profile *--down ModuleList
+Profile *--down "0..18" ModuleList
 DeadlineList ..up|> ObservableList
 ModuleList *--left "*" Module
 
