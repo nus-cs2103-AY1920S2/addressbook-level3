@@ -299,6 +299,19 @@ include::../DeveloperGuide.adoc[tag=testing]
 
 include::../DeveloperGuide.adoc[tag=devops]
 
+include::../DeveloperGuide.adoc[tag=appendixdtedit]
+
+include::../DeveloperGuide.adoc[tag=appendixdtbmi]
+
+include::../DeveloperGuide.adoc[tag=appendixdtheight]
+
+include::../DeveloperGuide.adoc[tag=appendixdtweight]
+
+include::../DeveloperGuide.adoc[tag=appendixdtmode]
+
+include::../DeveloperGuide.adoc[tag=appendixdtmetrics]
+
+
 ---
 
 Questions to ask: +
