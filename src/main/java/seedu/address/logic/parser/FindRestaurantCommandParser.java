@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_BLANK_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
@@ -82,6 +83,13 @@ public class FindRestaurantCommandParser implements Parser<FindRestaurantCommand
             }
         }
 
+        // if they wrote in the prefix but did not supply keywords
+        if (locationKeywords.size() == 0 || rNameKeywords.size() == 0) {
+            throw new ParseException(
+                    String.format(MESSAGE_BLANK_COMMAND_FORMAT, FindRestaurantCommand.MESSAGE_USAGE));
+        }
+
+        // assign the keywords to an Array
         String[] rNameKeywordsArray = new String[rNameKeywords.size()];
         for (int i = 0; i < rNameKeywords.size(); i++) {
             rNameKeywordsArray[i] = rNameKeywords.get(i);
