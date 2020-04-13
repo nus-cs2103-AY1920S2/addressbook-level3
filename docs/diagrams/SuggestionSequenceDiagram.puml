@@ -2,10 +2,9 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":SuggestionEngineImpl" as SuggestionEngineImpl LOGIC_COLOR
-participant ":OpenSuggestionCommandParser" as OpenSuggestionCommandParser LOGIC_COLOR
-participant "o:OpenSuggestionCommand" as OpenSuggestionCommand LOGIC_COLOR
+participant ":SuggestionEngine" as SuggestionEngine LOGIC_COLOR
+participant ":OpenSuggestionArgHandler" as OpenSuggestionArgHandler LOGIC_COLOR
+participant "o:OpenSuggestionGenerator" as OpenSuggestionGenerator LOGIC_COLOR
 participant ":SuggestionItemImpl" as SuggestionItemImpl LOGIC_COLOR
 end box
 
@@ -13,63 +12,99 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("open /")
-activate LogicManager
+box CorrectionEngine MODEL_COLOR_T1
+participant ":CorrectionEngine" as CorrectionEngine MODEL_COLOR
+end box
 
-LogicManager -> SuggestionEngineImpl : parseCommand("open /")
-activate SuggestionEngineImpl
+[-> SuggestionEngine
+activate SuggestionEngine
 
-create OpenSuggestionCommandParser
-SuggestionEngineImpl -> OpenSuggestionCommandParser
-activate OpenSuggestionCommandParser
+SuggestionEngine -> SuggestionEngine : autoUpdateInput("opne /a")
+activate SuggestionEngine
 
-OpenSuggestionCommandParser --> SuggestionEngineImpl
-deactivate OpenSuggestionCommandParser
-
-SuggestionEngineImpl -> OpenSuggestionCommandParser : parse("open /")
-activate OpenSuggestionCommandParser
-
-create OpenSuggestionCommand
-OpenSuggestionCommandParser -> OpenSuggestionCommand
-activate OpenSuggestionCommand
-
-OpenSuggestionCommand --> OpenSuggestionCommandParser : o
-deactivate OpenSuggestionCommand
-
-OpenSuggestionCommandParser --> SuggestionEngineImpl : o
-deactivate OpenSuggestionCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-OpenSuggestionCommandParser -[hidden]-> SuggestionEngineImpl
-destroy OpenSuggestionCommandParser
-
-SuggestionEngineImpl --> LogicManager : o
-deactivate SuggestionEngineImpl
-
-LogicManager -> OpenSuggestionCommand : execute(model)
-activate OpenSuggestionCommand
-
-OpenSuggestionCommand -> Model : setResponseText("Open a note")
+SuggestionEngine -> Model : clearSuggestions()
 activate Model
 
-Model --> OpenSuggestionCommand
+Model --> SuggestionEngine
 deactivate Model
 
+SuggestionEngine -> Model : clearResponseText()
+activate Model
+
+Model --> SuggestionEngine
+deactivate Model
+
+SuggestionEngine -> CorrectionEngine : correct("opne")
+activate CorrectionEngine
+
+CorrectionEngine --> SuggestionEngine : "open"
+deactivate CorrectionEngine
+
+create OpenSuggestionArgHandler
+SuggestionEngine -> OpenSuggestionArgHandler
+activate OpenSuggestionArgHandler
+
+OpenSuggestionArgHandler --> SuggestionEngine
+deactivate OpenSuggestionArgHandler
+
+SuggestionEngine -> OpenSuggestionArgHandler : handleArg("/a")
+activate OpenSuggestionArgHandler
+
+OpenSuggestionArgHandler -> Model : setResponseText("Open a note titled "a"")
+activate Model
+
+Model --> OpenSuggestionArgHandler
+deactivate Model
+
+OpenSuggestionArgHandler -> CorrectionEngine : correct("/a")
+activate CorrectionEngine
+
+CorrectionEngine --> OpenSuggestionArgHandler : "/a"
+deactivate CorrectionEngine
+
+create OpenSuggestionGenerator
+OpenSuggestionArgHandler -> OpenSuggestionGenerator
+activate OpenSuggestionGenerator
+
+OpenSuggestionGenerator --> OpenSuggestionArgHandler : o
+deactivate OpenSuggestionGenerator
+
+OpenSuggestionArgHandler --> SuggestionEngine : o
+deactivate OpenSuggestionArgHandler
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+OpenSuggestionArgHandler -[hidden]-> SuggestionEngine
+destroy OpenSuggestionArgHandler
+
+SuggestionEngine -> OpenSuggestionGenerator : execute(model)
+activate OpenSuggestionGenerator
+
+OpenSuggestionGenerator -> OpenSuggestionGenerator : getSuggestions(possiblePaths, model)
+activate OpenSuggestionGenerator
+
+loop possiblePaths
 create SuggestionItemImpl
-OpenSuggestionCommand -> SuggestionItemImpl
+OpenSuggestionGenerator -> SuggestionItemImpl
 activate SuggestionItemImpl
 
-SuggestionItemImpl --> OpenSuggestionCommand : item
+SuggestionItemImpl --> OpenSuggestionGenerator : item
 deactivate SuggestionItemImpl
+end
 
-OpenSuggestionCommand -> Model : setSuggestions(item)
+OpenSuggestionGenerator --> OpenSuggestionGenerator : suggestions
+deactivate OpenSuggestionGenerator
+
+OpenSuggestionGenerator -> Model : setSuggestions(suggestions)
 activate Model
 
-Model --> OpenSuggestionCommand
+Model --> OpenSuggestionGenerator
 deactivate Model
 
-OpenSuggestionCommand --> LogicManager
-deactivate OpenSuggestionCommand
+OpenSuggestionGenerator --> SuggestionEngine
+deactivate OpenSuggestionGenerator
 
-[<--LogicManager
-deactivate LogicManager
+SuggestionEngine --> SuggestionEngine
+deactivate SuggestionEngine
+
+[<--SuggestionEngine
+deactivate SuggestionEngine
 @enduml
