@@ -147,15 +147,15 @@ creation of `XYZSuggestionGenerator` object (except for `new` command) which imp
 `XYZSuggestionGenerator` is then executed by the `SuggestionEngine`.
 4. If `SuggestionHandler` object is created: the `responseText` in the `Model` will be updated.
 5. The `Model` could be affected in 2 ways:
-* Update `responseText` of the `Model` (by the `SuggestionHandler`): for instance, the input `open /` will set the `responseText` in the `Model` as
+* Update `responseText` of the `Model` (by the `SuggestionHandler` and `SuggestionArgHandler`): for instance, the input `open /` will set the `responseText` in the `Model` as
 "Open a note".
 * Store a list of `SuggestionItem` in the `Model` (by the `SuggestionGenerator`).
 6. The UI will then be able to retrieve the `responseText` and list of `SuggestionItem` from the `Model` to be displayed
 to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` and `Suggestion` component for the `execute("open /a")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` and `Suggestion` component for the input `opne /a`.
 
-.Interactions Inside the Logic and Suggestion Component for the input `open /a`
+.Interactions Inside the Logic and Suggestion Component for the input `opne /a`
 image::SuggestionSequenceDiagram.png[]
 
 NOTE: The lifeline for `OpenSuggestionArgHandler` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -292,7 +292,7 @@ creation of `XYZSuggestionGenerator` object (except for `new` command) which imp
 `XYZSuggestionGenerator` is then executed by the `SuggestionEngine`.
 4. If `SuggestionHandler` object is created: the `responseText` in the `Model` will be updated.
 5. The `Model` could be affected in 2 ways:
-* Update `responseText` of the `Model` (by the `SuggestionHandler`): for instance, the input `open /` will set the `responseText` in the `Model` as
+* Update `responseText` of the `Model` (by the `SuggestionHandler` and `SuggestionArgHandler`): for instance, the input `open /` will set the `responseText` in the `Model` as
 "Open a note".
 * Store a list of `SuggestionItem` in the `Model` (by the `SuggestionGenerator`).
 6. The UI will then be able to retrieve the `responseText` and list of `SuggestionItem` from the `Model` to be displayed
