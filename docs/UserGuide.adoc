@@ -424,7 +424,7 @@ image::reminder_add_success.png[width=790]
 
 [IMPORTANT]
 ====
-- Firstly, the format for the date must adhere strictly to the `r/DD/MM/YY@HH:mm` format or else it will not be recognized. 
+- Firstly, the format for the date must adhere strictly to the `r/DD/MM/YY@HH:mm` format or else it will not be recognized.
 - Secondly, the date can only be set in the future and not the past. +
 An error message will be shown on the result display if either of the 2 aforementioned issues are breached. This applies for editing as task to have a reminder as well.
 ====
@@ -489,7 +489,7 @@ Results in a task with the reminder's date in the specific task card.
 image::recurring_edit_success.png[width=790]
 
 === Recurring behaviour when task is marked as done
-Mark a task as done as you would normally using the command `done <index>`. For a recurring task, after the stipulated amount of time(either daily or weekly), the task will be reset as undone. 
+Mark a task as done as you would normally using the command `done <index>`. For a recurring task, after the stipulated amount of time(either daily or weekly), the task will be reset as undone.
 
 For example: `done 1`. After a day's worth of time, the task will be set from done to undone.
 
