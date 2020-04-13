@@ -1339,6 +1339,30 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: Add a valid supplier, `undo`, add a different valid supplier, and finally `redo` +
    An error is shown, indicating that redo cannot be done from latest state.
 
+=== Set threshold quantity for good
 
+.. Prerequisites: One buy command to add good into the inventory. Buy quantity set as 100.
+.. Test case: `warn 1 q/10000` +
+   Expected: First good will be under alert with red colour background, as the quantity is lower than the threshold quantity.
+.. Test case: `warn 1 q/99` +
+   Expected: No effect is shown, as the current quantity of good is greater than the threshold quantity.
+.. Test case: `warn 1 q/99` followed by sell command to sell quantity of 10 +
+   Expected: First good will be under alert with red colour background, as the quantity is lower than the threshold quantity after selling.
+.. Test case: `warn` +
+   Expected: An error is shown, indicating that the format of the command is wrong.
+.. Other incorrect warn commands to try: `warn abc`, `warn x q/abc` (where x is larger than the list size) +
+   Expected: Similar to previous.
 
+=== Find transaction
 
+.. Prerequisites: List transaction command.
+.. Test case: `find-t buy` +
+   Expected: All buy transaction will be listed.
+.. Test case: `find-t buy n/Alice` +
+   Expected: All buy transaction with Alice being the supplier will be listed.
+.. Test case: `find-t buy n/Alice g/apple` +
+   Expected: All buy transaction with Alice being the supplier and the good bought being apple will be listed.
+.. Test case: `find-t abc` +
+   Expected: An error is shown, indicating that the format of the command is wrong.
+.. Other incorrect warn commands to try: `find-t`, `find-t x` (where x is not "buy" or "sell") +
+   Expected: Similar to previous.
