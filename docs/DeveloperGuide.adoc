@@ -575,27 +575,29 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== the
+
 === Add a new Note
 . Adding a new Note to Notably without jumping to that Note
 
 .. Prerequisites: The current Note does not contain any child Note that has the same title. +
-You current opened Note must be the note you want you new Note to be contained.
+The current opened Note must be the place you want your new Note to be stored.
 .. Command: `new -t Notably` +
 Expected: new Note titled Notably added to the current Note.
 The current opened Note remain the same(highlighted in at sidebar)
 
 . Adding a new Note to Notably and jump to that Note
 .. Prerequisites: The current Note does not contain any child Note that has the same title. +
-The current opened Note must be the note you want you new Note to be contained.
+The current opened Note must be the place you want your new Note to be stored.
 .. Command: `new -t CS2103T -o` +
-Expected: new Note titled Notably added to the current Note.
+Expected: new Note titled Notably added to the current opened Note.
 The current opened Note is changed to the new Note created.(highlighted in at sidebar)
 
 === Open a Note
 . Open a Note in Notably.
 
 .. Prerequisites: The Note selected must not be the root Note.
-.. Command: `open -t Notably` +
+.. Command: `open [-t] Notably` +
 Expected: The Note selected will be opened displaying its content of the Note and it will be highlighted in the sidebar.
 
 
@@ -603,7 +605,7 @@ Expected: The Note selected will be opened displaying its content of the Note an
 . Delete a Note in Notably.
 
 .. Prerequisites: The Note selected must not be the root Note.
-.. Command: `delete -t Notably` +
+.. Command: `delete [-t] Notably` +
 Expected: The Note selected will be deleted, other Notes nested inside the selected Note will also be deleted. +
 The Note will no longer be visible in the sidebar.
 
@@ -612,9 +614,11 @@ The Note will no longer be visible in the sidebar.
 
 .. Prerequisites: The Note selected must not be the root Note. +
 The current opened Note must be the Note you want to edit.
-.. Command: `edit -t Notably` +
+.. Command: `edit [-t] Notably` +
 Expected: A edit modal will pop up displaying your Note's content in html format. You can exit and save the Note by
-exiting that modal.
+exiting that modal. The
+
+
 
 === Saving data
 
