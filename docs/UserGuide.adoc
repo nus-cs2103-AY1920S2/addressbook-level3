@@ -312,7 +312,7 @@ This command appends the new diary content to the existing the diary log on the 
 The new diary content after this command will be "Happy birthday Alice! You are one year older now:)".
 //end::appendDiary[]
 
-//tag::edit_findDiary[]
+//tag::editDiary[]
 ==== Edit a diary: `editDiary`
 * `editDiary d/DATE dc/NEW DIARYCONTENT` +
 edits the diary on the specified `DATE` with the new `DIARYCONTENT`. +
@@ -326,7 +326,9 @@ Examples:
 
 * `editDiary d/2020-03-31 dc/Happy birthday Alice!` +
 This command edits the content of the diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
+//edn::editDiary[]
 
+//tag::findDiary[]
 ==== Find a diary: `findDiary`
 * `findDiary [d/DATE] [k/ONE OR MORE KEYWORDS]` +
 finds diaries either on the specified `DATE` or contains the specified `KEYWORDS`. +
@@ -350,7 +352,7 @@ Examples:
 Displays diaries with their content containing the keyword `running`, ignoring the letter capitalization.
 * `find d/2020-03-31 k/cake` +
 Returns the diary on the date of `2020-03-31` regardless of the `KEYWORDS` field.
-//end::edit_findDiary[]
+//end::findDiary[]
 
 //tag::deleteDiary[]
 ==== Delete a diary: `deleteDiary`
@@ -495,9 +497,6 @@ The user's daily task completion is shown in percentage (round to integer).
 Based on the user's intake food calorie and sport task completion, FitHelper provides suggestions and reminders
 in the `FitHelper Feedback` area.
 
-Examples:
-
-* `today`
 //end::today[]
 
 //tag::someday[]
@@ -691,16 +690,6 @@ Three local database in Json format will exist after running FitHelper:
 ****
 
 //end::save_data[]
-
-//tag::dataencryption[]
-=== Encrypte data files `[coming in v2.0]`
-
-//end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous fitness log book folder.
 
 //tag::command_summary[]
 == Command Summary
