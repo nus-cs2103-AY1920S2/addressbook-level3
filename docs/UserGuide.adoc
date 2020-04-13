@@ -921,7 +921,9 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 [TIP]
 Use `listamount` command to find the index of the person who paid you.
 //end::paid[]
+
 '''
+
 //tag::clearreceipt[]
 [[clearreceipt]]
 ==== Clears the receipt `clearreceipt`
