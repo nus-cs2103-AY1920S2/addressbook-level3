@@ -1015,7 +1015,7 @@ Examples:
 |Command | Summary
 |`export INDEX`| Exports client's training record to a CSV file.
 |`help`| Shows all available commands and their description.
-|`view-s TYPE`| Shows schedule for today or time specified.
+|`view-s TYPE` [v2.0]| Shows schedule for today or time specified.
 |=======================================================================
 
 === Client Commands
@@ -1029,8 +1029,9 @@ Examples:
 |`filter-c [t/TAG]... [s/Sport]...`| Filters the list of clients based on specified tags or sports.
 |`find-c NAME...`| Filters the list of clients based on specified name.
 |`list-c`| Displays the list of clients in FitBiz.
-|`view-c INDEX`| Displays detailed information of a client.
 |`schedule INDEX [day/DAY] [st/STARTTIME] [et/ENDTIME]`| Assigns a schedule to a client.
+|`schedule INDEX sch/DAY-STARTTIME-ENDTIME`| Assigns a schedule to a client.
+|`view-c INDEX`| Shows detailed information of a client.
 |=======================================================================
 
 === Exercise Commands
