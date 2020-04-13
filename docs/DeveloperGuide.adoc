@@ -160,11 +160,11 @@ data in the list change.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in Coupon Stash, which a
-`Coupon` can reference.
+`Coupon` can refer to.
 This would allow Coupon Stash to only require one `Tag` object per unique
 tag, instead of each `Coupon` needing their own `Tag` object.
 An example of how such a model may look like is given below. +
- +
++
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
@@ -323,7 +323,7 @@ correct.
 
 Alternative 1 was chosen due to its relative simplicity and extensibility.
 Little to no modification needs to be made to each command that can be
-undone, thus reducing chances of new bugs surfacing. Addtionally, the ability
+undone, thus reducing chances of new bugs surfacing. Additionally, the ability
 to undo operations such as `clear` will require alternative 2 to copy the
 entire coupon stash too, so both alternatives will have the same memory
 footprint in such a context. Finally, the real world performance impact of
@@ -340,7 +340,7 @@ extensible and simpler alternative 1 was chosen.
 The Calendar component provides a visual representation of the stored coupons that are expiring over a month. It is
 facilitated by `CalendarPane`, `DateCell`, `ObservableList<Coupon>` and `ObservableMonthView`.
 
-The `CalendarPane` is controller of the Calendar on display. Users can change the month on display to show the coupons
+The `CalendarPane` is the controller of the Calendar on display. Users can change the month on display to show the coupons
 that expire during a specific month year by clicking on the arrows at the sides of the calendar's title or
 by using the `goto` command.
 
@@ -460,12 +460,12 @@ observable month view.
 `MainWindow`
 
 We decided on alternative 1, to show coupons expiring on specific dates with highlights. This is because a coupon contains
-many information and the calendar may look cluttered and messy, which may be aesthetically unpleasant to the user.
+much information and the calendar may look cluttered and messy, which may be aesthetically unpleasant to the user.
 Furthermore, the user can use the `expiring` command to search for coupons expiring on a date or month year and have a
 more detailed view of the coupons in the `CouponListPanel`.
 
 ===== Aspect: Whether the Calendar should update with the list
-* **Alternative 1 (current choice):** Calender updates with the filtered list
+* **Alternative 1 (current choice):** Calendar updates with the filtered list
 ** Pros: User can easily relate and reference to the coupons shown in the Calendar to the `CouponListPanel`
 ** Cons: May overlook some coupons if the list is filtered
 
@@ -506,7 +506,7 @@ coupon. The following methods in the `CouponStash`,
 out archived coupons from a given `CouponStash`.
 
 [#img-archiving]
-.Overview class diagram representation of the the coupon archiving implementation.
+.Overview class diagram representation of the coupon archiving implementation.
 image::ArchivingClassDiagram.png[ArchivingClassDiagram]
 
 Given below is two example usage scenarios and how the archiving mechanism
@@ -580,13 +580,13 @@ image::ArchiveExhaustedSequenceDiagram.png[]
 ** Cons: Saved data may get get considerably huge after heavy usage of
 application.
 
-* **Alternative 2:** Archived `Coupon` s are stored in another separate data file.
+* **Alternative 2:** Archived ``Coupon`` s are stored in another separate data file.
 ** Pros: Separates the logic between the two different `CouponStash`, e.g. ability
 to limit the functions on archived `Coupon` s
 ** Cons: Sharply increases the maintainability and coupling of the application
 with two data files.
 
-Alternative 1 was chosen, due the the cons of Alternative 2. While a separate
+Alternative 1 was chosen, due to the cons of Alternative 2. While a separate
 file is akin to having two separate stashes of coupons, this would increase
 the overall complexity of the application. `Logic` and `Model` would have to
 deal with another set of data, and `Commands` may have to split up the logic
@@ -657,7 +657,7 @@ The `currIndex` is incremented, and then the command text pointed to by
 `currIndex` is returned and
 displayed in the program command box.
 
-.After pressing "up" arrow key.
+.After pressing the "up" arrow key.
 image::UpDownHistory3.png[]
 
 Step 4. The user then executes the retrieved command (`delete 2`). As in the
@@ -687,7 +687,7 @@ bottom of the stack, there is no next command to retrieve when pressing the
 down key. Thus,
 the down button will simple return the command text currently being pointed to
 by the `currIndex`.
-No changes to the stack and `currIndex` will be effected.
+No changes to the stack and `currIndex` will be affected.
 
 Below is a sequence diagram describing the events that happen when a user
 presses a key.
@@ -715,7 +715,7 @@ operations supported by stacks.
 the command text history.
 ** Pros: `ArrayList` is more recognizable to people who are relatively new to
 Java, thus reducing confusion.
-** Cons: Stack operations are less effifcient on `ArrayList` s.
+** Cons: Stack operations are less efficient on `ArrayList` s.
 // end::updownarrowcommandhistory[]
 
 // tag::couponsorting[]
@@ -760,7 +760,7 @@ leads to a change of the comparator of the `SortedList` stored in
 
 * *Alternative 1 (current choice):* Make sorting non - persistent.
 ** Pros: Sorting is faster as no write to disk is needed to make the new
-order persistent. Addtionally, with the coupons being sorted by the time they
+order persistent. Additionally, with the coupons being sorted by the time they
 are added to the coupon stash by default, there is no way to restore this order
 without storing the time a coupon was added to the stash. Thus, the non -
 persistent approach shines here as restoring the original order of the coupon
@@ -772,7 +772,7 @@ launched or each time a coupon is added or edited.
 * *Alternative 2:* Make sorting persistent.
 ** Pros: Gives users more freedom over the default order of their coupons.
 ** Cons: Can be unnecessarily complicated to implement a hidden field stating
-a coupon's addtion time just so users can revert to the default order.
+a coupon's addition time just so users can revert to the default order.
 Additionally, it can be confusing to users when there are so many different
 ways to sort.
 
@@ -862,7 +862,7 @@ day as the coupons are stored in a hash table.
 (in this case coupons)
 
 All in all, we chose alternative 1 as we feel that it is good for users to be
-able to view the remind date of a coupon in the coupon view. Addtionally, all
+able to view the remind date of a coupon in the coupon view. Additionally, all
 speed-ups and efficiency of storing the remind dates in a separate data file
 is nullified by the fact that we still need to loop through all coupons to
 display their remind dates on the calendar component. Thus, to make it easier
@@ -1022,7 +1022,7 @@ is updated. This total savings is represented by
 a <<DeveloperGuide.adoc#dssm, DateSavingsSumMap>>.
 
 One key implementation within the `UsedCommand` is the checks
-that is has to make to ensure the valid usage of a `Coupon`.
+that it has to make to ensure the valid usage of a `Coupon`.
 Below is an activity diagram to show the flow of checks within
 the `UsedCommand#execute()` method.
 
@@ -1108,7 +1108,7 @@ depending on which fields it has.
 
 === Logging
 
-We are using `java.util.logging` package for logging.
+We are using the `java.util.logging` package for logging.
 The `LogsCenter` class is used to manage the logging levels and logging
 destinations.
 
@@ -1253,7 +1253,7 @@ This use case describes how a user uses Coupon Stash to add a new coupon entry.
 
 . User keys in command to add coupon.
 . Coupon Stash adds coupon.
-. Coupon Stash informs to user that coupon is added.
+. Coupon Stash informs user that a coupon is added.
 +
 Use case ends.
 
@@ -1283,7 +1283,7 @@ entries.
 
 . User keys in command to list all the coupons.
 . Coupon Stash lists out all coupons.
-. Coupon Stash informs to user the number of coupons found in list.
+. Coupon Stash informs to user of the number of coupons found in the list.
 +
 Use case ends.
 
@@ -1315,7 +1315,7 @@ Use case ends.
 . User keys in command to pass:[<u>list all coupons (UC2)</u>].
 . User marks coupon as used.
 . Coupon Stash marks the coupon as used.
-. Coupon Stash informs the user the specific coupon that is succesdfully used.
+. Coupon Stash informs the user the specific coupon that is successfully used.
 +
 Use case ends.
 
@@ -1334,14 +1334,14 @@ Use case ends.
 [none]
 ** 1b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
-** 1b2. User enters new index.
+** 1b2. User enters a new index.
 ** Use case resumes from step 2.
 
 [none]
 * 1c. Coupon Stash detects that the specified coupon has been previously marked as
 done.
 [none]
-** 1c1. Coupon Stash informs user that coupon has been previously marked as done.
+** 1c1. Coupon Stash informs user that the coupon has been previously marked as done.
 ** Use case ends.
 
 === **Use Case: UC4 - Find coupon(s) by keyword(s)**
@@ -1374,7 +1374,7 @@ Use case ends.
 [none]
 ** 1b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
-** 1b2. User enters new index.
+** 1b2. User enters a new index.
 ** Use case resumes from step 2.
 
 
@@ -1390,7 +1390,7 @@ coupon.
 . User keys in command to pass:[<u>list all coupons (UC2)</u>].
 . User edits an existing coupon.
 . Coupon Stash updates the coupon details.
-. Coupon Stash informs the user the which coupon has been edited.
+. Coupon Stash informs the user which coupon has been edited.
 +
 Use case ends.
 
@@ -1409,7 +1409,7 @@ Use case ends.
 [none]
 ** 2b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
-** 2b2. User enters new index.
+** 2b2. User enters a new index.
 ** Use case resumes from step 3.
 
 === **Use Case: UC6 - Set reminder**
@@ -1422,7 +1422,7 @@ coupon.
 **MSS**
 
 . User keys in command to pass:[<u>list all coupons (UC2)</u>].
-. User sets reminder for an existing coupon.
+. User sets a reminder for an existing coupon.
 . On the day of the input date, a pop up will appear to remind the user about
 the coupon.
 +
@@ -1443,7 +1443,7 @@ Use case ends.
 [none]
 ** 2b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
-** 2b2. User enters new index.
+** 2b2. User enters a new index.
 ** Use case resumes from step 3.
 
 === **Use Case: UC7 - List coupon(s) expiring before date**
@@ -1457,7 +1457,7 @@ before the input expiry date.
 
 . User keys in command to find a coupon based on expiry date.
 . Matched coupons are displayed.
-+ Coupon Stash informs the user the number of coupons expiring before the specified date.
+Coupon Stash informs the user the number of coupons expiring before the specified date.
 Use case ends.
 
 **Extensions**
@@ -1475,7 +1475,7 @@ Use case ends.
 [none]
 ** 1b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
-** 1b2. User enters new index.
+** 1b2. User enters a new index.
 ** Use case resumes from step 2.
 
 === **Use Case: UC8 - Delete coupon**
@@ -1507,7 +1507,7 @@ Use case ends.
 [none]
 ** 2b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
-** 2b2. User enters new index.
+** 2b2. User enters a new index.
 ** Use case resumes from step 2.
 
 === **Use Case: UC9 - Undo previous command**
@@ -1661,15 +1661,15 @@ Expected: All previously used coupons are displayed on the list.
 .. Prerequisites: List all coupons using the `list` command. Have at least one
 coupon in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list.
+Expected: First contact is deleted from the list.
 Details of the deleted contact shown in the status message.
 Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No coupon is deleted.
+Expected: No coupon is deleted.
 Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is
 larger than the list size) +
-   Expected: Similar to previous.
+Expected: Similar to previous.
 
 === Editing a Coupon
 
@@ -1680,7 +1680,7 @@ coupon in the list.
 .. Test case: `edit 1 p/ILOVESTASH` +
 Expected: The first coupon will have its Promo Code changed to `ILOVESTASH`.
 .. Test case: `edit 1 e/31-12-2021` +
-Expected: The first coupon with have its Expiry Date changed to `31-12-2021`.
+Expected: The first coupon will have its Expiry Date changed to `31-12-2021`.
 .. Test case: `edit 1 l/0` +
 Expected: The first coupon will now have unlimited usage.
 .. Test case: `edit 1 u/10` +
