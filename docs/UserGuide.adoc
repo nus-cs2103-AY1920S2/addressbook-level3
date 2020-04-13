@@ -663,7 +663,7 @@ Examples:
 |Command | Summary
 |`export INDEX`| Exports client's training record to a CSV file.
 |`help`| Shows all available commands and their description.
-|`view-s TYPE`| Shows schedule for today or time specified.
+|`view-s TYPE` [v2.0]| Shows schedule for today or time specified.
 |=======================================================================
 
 === Client Commands
@@ -676,8 +676,8 @@ Examples:
 |`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​`| Edits an existing client.
 |`filter-c KEYWORD [MORE_KEYWORDS]`| Filters a client based on specified keywords.
 |`list-c`| Shows the list of clients in FitBiz.
+|`schedule INDEX sch/DAY-STARTTIME-ENDTIME`| Assigns a schedule to a client.
 |`view-c INDEX`| Shows detailed information of a client.
-|`schedule INDEX [day/DAY] [st/STARTTIME] [et/ENDTIME]`| Assigns a schedule to a client.
 |=======================================================================
 
 === Exercise Commands
