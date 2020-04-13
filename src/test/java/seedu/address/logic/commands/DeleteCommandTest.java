@@ -11,11 +11,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_AMY;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_DEADLINE_FAILURE;
+//import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_DEADLINE_FAILURE;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_GRADE_FAILURE;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PROFILE_FAILURE;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_NOT_TAKING_MODULE;
+//import static seedu.address.logic.commands.DeleteCommand.MESSAGE_NOT_TAKING_MODULE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
