@@ -9,8 +9,8 @@
 
 == Overview
 
-ExpenseLa is a desktop expense tracking application. The user interacts with it using a CLI, and it has a GUI created
-with JavaFX. It is written in Java for an NUS module CS2103/CS2103T Software Engineering.
+ExpenseLa is a desktop expense tracking application. The user works with a Command Line Interface (CLI), and enjoys a
+Graphical User Interface(GUI) created using JavaFX. It is written in Java for an NUS module CS2103/CS2103T Software Engineering.
 
 == Summary of contributions
 
@@ -52,7 +52,7 @@ Which has to reference many things from `Model` making it not easy to implement.
 ** Wrote additional tests for existing features to increase coverage from 88% to 92%
 (Pull request https://github.com/AY1920S2-CS2103-T09-3/main/pull/146[#146])
 * Documentation:
-** Did the first version of the User Guide early on with our vision for the application: (Pull request https://github.com/AY1920S2-CS2103-T09-3/main/pull/6[#6])
+** Did the first version of the User Guide early on with our vision for the application. (Pull request https://github.com/AY1920S2-CS2103-T09-3/main/pull/6[#6])
 * Community:
 *** Reviewed pull requests from my teammates: https://github.com/AY1920S2-CS2103-T09-3/main/pull/36[#36], https://github.com/AY1920S2-CS2103-T09-3/main/pull/37[#37]
 
