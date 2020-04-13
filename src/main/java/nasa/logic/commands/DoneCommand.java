@@ -56,12 +56,14 @@ public class DoneCommand extends Command {
             // check if activity already done
             Deadline deadline = module.getFilteredDeadlineList().get(index.getZeroBased());
             model.updateHistory("done" + model.currentUiLocation());
+            model.updateSchedule();
             if (deadline.isDone()) {
                 throw new CommandException(MESSAGE_ACTIVITY_ALREADY_DONE);
             } else {
-
-                model.setDeadline(moduleCode, deadline, new Deadline(deadline.getName(), deadline.getDateCreated(),
-                        deadline.getNote(), deadline.getPriority(), deadline.getDueDate(), true));
+                Deadline deadlineCopy = new Deadline(deadline.getName(), deadline.getDateCreated(),
+                    deadline.getNote(), deadline.getPriority(), deadline.getDueDate(), true);
+                deadlineCopy.setSchedule(deadline.getSchedule());
+                model.setDeadline(moduleCode, deadline, deadlineCopy);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, deadline));
             }
         }
