@@ -103,6 +103,7 @@ public class EditDeadlineCommand extends Command {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_NEW_EDIT);
         }
 
+        editedDeadline.setSchedule(deadlineToEdit.getSchedule());
         model.setDeadline(moduleCode, deadlineToEdit, editedDeadline);
 
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);

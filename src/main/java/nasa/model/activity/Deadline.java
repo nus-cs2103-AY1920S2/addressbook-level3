@@ -143,6 +143,7 @@ public class Deadline extends Activity {
         if (Date.now().isAfter(dueDate) && getSchedule().getType() != 0) {
             setDueDate(getSchedule().getRepeatDate());
             setDateCreated(getSchedule().getRepeatDate());
+            setDone(false);
         }
     }
 

@@ -30,26 +30,28 @@ public class RefreshCommand extends Command {
         // show all activities and modules
         model.updateFilteredActivityList(model.PREDICATE_SHOW_ALL_ACTIVITIES);
         model.updateFilteredModuleList(model.PREDICATE_SHOW_ALL_MODULES);
+        model.updateSchedule();
 
         try {
             // now update all deadlines and events
+            model.updateSchedule();
             ObservableList<Module> modules = model.getFilteredModuleList();
             for (Module module : modules) {
                 ObservableList<Deadline> deadlines = module.getFilteredDeadlineList();
                 ObservableList<Event> events = module.getFilteredEventList();
                 for (Deadline deadline : deadlines) {
-                    if (deadline.isOverdue()) {
-                        model.setDeadline(module.getModuleCode(), deadline, new Deadline(deadline.getName(),
-                            deadline.getDateCreated(), deadline.getNote(),
-                                deadline.getPriority(), deadline.getDueDate(),
-                            false)); // auto set it to overdue
-                    }
+                    Deadline deadlineCopy = new Deadline(deadline.getName(),
+                        deadline.getDateCreated(), deadline.getNote(),
+                        deadline.getPriority(), deadline.getDueDate(),
+                        deadline.isDone());
+                    deadlineCopy.setSchedule(deadline.getSchedule());
+                    model.setDeadline(module.getModuleCode(), deadline, deadlineCopy);
                 }
                 for (Event event : events) {
-                    if (event.isOver()) {
-                        model.setEvent(module.getModuleCode(), event, new Event(event.getName(),
-                            event.getStartDate(), event.getEndDate(), event.getNote())); // auto set to its done
-                    }
+                    Event eventCopy = new Event(event.getName(),
+                        event.getStartDate(), event.getEndDate(), event.getNote());
+                    eventCopy.setSchedule(event.getSchedule());
+                    model.setEvent(module.getModuleCode(), event, eventCopy); // auto set to its done
                 }
             }
         } catch (Exception e) {
