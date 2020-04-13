@@ -220,9 +220,6 @@ The edit command is done in 2 parts. `EditCommandParser` as well as `EditCommand
 image::EditSequenceDiagram.png[]
 //end::editTaskList[]
 
-//tag::DGDoneAndDelete
-==== Done and Delete (Fyon)
-
 //tag::branson[]
 === Sort
 
@@ -1128,21 +1125,6 @@ Use case ends.
 //end::glossary[]
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 //tag::manualTesting[]
 [appendix]
