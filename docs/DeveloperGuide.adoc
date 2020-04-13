@@ -620,7 +620,7 @@ image::SequenceDiagramForCheckCommand2.png[test, 150%]
 
 The detailed searching mechanism is illustrated in the following activity diagram:
 
-image:SearchMechanismofCheckCommand.png[test, 50%]
+image::SearchMechanismofCheckCommand.png[test, 50%]
 
 ==== Design Considerations
 
