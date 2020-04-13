@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+
+package SuggestionEngine {
+Class SuggestionEngine
+}
+
+package Handler {
+Interface SuggestionHandler <<Interface>>
+Interface SuggestionArgHandler <<Interface>>
+Class ABCSuggestionHandler
+Class XYZSuggestionArgHandler
+}
+
+package SuggestionGenerator {
+Interface SuggestionGenerator <<Interface>>
+Class XYZSuggestionGenerator
+}
+
+package SuggestionItem {
+Interface SuggestionItem <<interface>>
+Class SuggestionItemImpl
+}
+
+Interface Logic <<Interface>>
+Class LogicManager
+}
+
+package Model{
+Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+
+
+LogicManager .up.|> Logic
+LogicManager -down->"1" SuggestionEngine
+SuggestionEngine ..> XYZSuggestionArgHandler: creates >
+SuggestionEngine ..> ABCSuggestionHandler: creates >
+
+ABCSuggestionHandler -right[hidden]- XYZSuggestionArgHandler
+
+ABCSuggestionHandler .down.|> SuggestionHandler
+
+XYZSuggestionArgHandler .up.> XYZSuggestionGenerator : creates >
+XYZSuggestionArgHandler .down.|> SuggestionArgHandler
+
+XYZSuggestionGenerator .up.|> SuggestionGenerator
+SuggestionEngine .right.> SuggestionGenerator : executes >
+XYZSuggestionGenerator .right.> SuggestionItemImpl : creates >
+
+LogicManager --> Model
+SuggestionGenerator --> Model
+ABCSuggestionHandler -up- Model
+XYZSuggestionArgHandler -up- Model
+note right of XYZSuggestionGenerator: XYZSuggestionGenerator = \nOpenSuggestionGenerator, \nDeleteSuggestionGenerator, \nand SearchSuggestionGenerator
+
+note bottom of ABCSuggestionHandler: ABCSuggestionHandler = \nEditSuggestionHandler, \nExitSuggestionHandler, \nand HelpSuggestionHandler
+
+note bottom of XYZSuggestionArgHandler: XYZSuggestionArgHandler = \nOpenSuggestionArgHandler, \nDeleteSuggestionArgHandler, \nSearchSuggestionArgHandler, \n NewSuggestionArgHandler
+
+SuggestionItemImpl .up.|> SuggestionItem
+SuggestionItem ...> Model
+@enduml

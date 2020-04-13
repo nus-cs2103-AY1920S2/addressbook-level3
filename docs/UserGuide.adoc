@@ -320,6 +320,11 @@ you can just type `search lect` and Notably will still show you a list of notes 
 ==== Example: Searching for the keyword "Computer science"
 Let's look for the keyword "Computer science" if it exists in any of the notes that you have saved in Notably. +
 
+`search -s Computer science`
+
+If the word "Computer science" exists, a list of suggestions will be generated. This list will be sorted in descending order
+of the number of matches, i.e. the note with the highest number of matches will be at the top of the list, as seen in the figure below.
+
 .Demo for the `search` command: keyword found
 image::demo/Search.png[]
 
@@ -342,6 +347,7 @@ There is no need for you to save manually.
 === Auto suggestions
 
 As you type, Notably will provide you with suggestions. You can press the keyboard kbd:[↓] button followed by kbd:[Enter] to select any suggestion in the list.
+
 For example, as you type `open -t Notably`, a list of suggestions will be generated as seen in the figure below.
 
 .Demo for the suggestions feature: Suggestions are generated as the user keys in his input
