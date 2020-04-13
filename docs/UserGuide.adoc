@@ -420,7 +420,7 @@ Here is how you can edit the details of any parcel by following the steps below:
 
 The syntax for a valid `edit` command can be seen below:
 
-* `edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/NEW_VALUE` `[ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]...`
+* `edit` `<<command_flags, FLAG>>` `INDEX` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE]...`
 
 [NOTE]
 ====
@@ -459,7 +459,7 @@ These are the possible combinations of the `edit` command:
 * The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
 * The `INDEX` *must be in range* of the number of displayed orders
 * Only can be used when there is at least an order displayed.
-* The `FLAG` can only be either `-o` or `-r`, please refer to <<command_flags, here>> for more information.
+* The `FLAG` can only be either `-o` or `-r`.
 ====
 //end::edit[]
 
@@ -505,7 +505,7 @@ The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
 In this section, you will learn more about the syntax of the `delete` command +
 
 The syntax for a valid `delete` command is the following: +
-`delete` `FLAG` `INDEX` +
+`delete` `<<command_flags, FLAG>>` `INDEX` +
 
 [[usage_scenario_delete_command]]
 ==== Delete command usage scenarios
@@ -571,7 +571,7 @@ In this section, you will learn about the syntax for a valid `clear` command and
 
 The syntax for a valid `clear` command can be seen below:
 
-* `clear` `[FLAG]`
+* `clear` `[<<command_flags, FLAG>>]`
 
 [NOTE]
 ====
@@ -724,7 +724,7 @@ Here is how you can search for any parcel containing the keywords given by the f
 ====
 If no flag is given in this step, `search` command will be performed on both the order and return order list.
 ====
-*Step 3 (optional)* : If you wish to only specifically search for keywords in a field, you should provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the keyword you want to search for. +
+*Step 3 (optional)* : If you wish to only specifically search for keywords in a field, you should provide the `ORDER_ATTRIBUTE_PREFIX` coupled with a front slash `/` and the keyword you want to search for. +
 *Step 4* : Provide any number of alphanumeric words you wish to search for in the parcel. +
 *Step 5* : Press `Enter` on your keyboard to see the magic!
 
@@ -806,7 +806,7 @@ In this section, you learn more about the exact inputs required to use the `near
 Here are the steps you should follow to obtain all orders using the `nearby` command: +
 *Step 1* : Type in the keyword `nearby` +
 
-*Step 2 (optional)* : Provide an optional `<<command_flags, FLAG>>` that indicates which order list to
+*Step 2 (optional)* : Provide an optional `FLAG` that indicates which order list to
 search (order list or return order list). +
 [NOTE]
 ====
@@ -815,7 +815,7 @@ A `-r` flag indicates searching of the nearby orders using the return order list
 ====
 By default, if no `FLAG` is provided, both order list and return order list will be searched. +
 
-*Step 3* : Provide either a `<<postal_sector, POSTAL SECTOR>>` or an `<<area, AREA>>` +
+*Step 3* : Provide either a `POSTAL SECTOR` or an `AREA` +
 [NOTE]
 ====
 A `POSTAL_SECTOR` refers to the first *two* digits of a six digit Singapore postal code. +
@@ -845,8 +845,8 @@ https://keylocation.sg/singapore/districts-map[this website]
 In this section, you will learn more about the syntax of the `nearby` command +
 
 The syntax for a valid `nearby` command can be one of the following: +
-1. `nearby` `[FLAG]` `POSTAL_SECTOR` +
-2. `nearby` `[FLAG]` `AREA`
+1. `nearby` `[<<command_flags, FLAG>>]` `<<postal_sector, POSTAL_SECTOR>>` +
+2. `nearby` `[<<command_flags, FLAG>>]` `<<area, AREA>>`
 
 [NOTE]
 ====
@@ -1018,22 +1018,22 @@ This section will explain the steps needed to use the `delivered` command. +
 Here is how you can mark the details of any order or return order by following the steps below: +
 
 *Step 1* : Type in the keyword `delivered` +
-*Step 2* : Provide the `<<command_flags, FLAG>>` corresponding to the parcel order type you want to mark as delivered +
+*Step 2* : Provide the `FLAG` corresponding to the parcel order type you want to mark as delivered +
 *Step 3* : Provide the `INDEX` of the parcel displayed on the screen that you wish to mark as delivered +
 *Step 4* : Press `Enter` on your keyboard to see the magic!
 
 [NOTE]
 ====
 * Please include a whitespace in between the keyword, command flag and index. i.e. `delivered -o 1`
-* If you can't see any orders use the <<list, `list`>> command to view existing parcel!
-If nothing is showing up, it means you got to <<insert, `insert`>> or <<return, `return`>> some parcel and start doing work!
+* If you can't see any orders use the `<<list, list>>` command to view existing parcel!
+If nothing is showing up, it means you got to `<<insert, insert>>` or `<<return, return>>` some parcel and start doing work!
 ====
 
 [[delivered-examples]]
 ==== What constitutes a valid Delivered command
 The syntax for a valid `delivered` command can be seen below!
 
-* `delivered` `FLAG` `INDEX`
+* `delivered` `<<command_flags, FLAG>>` `INDEX`
 
 These are the possible combinations of the `delivered` command:
 
@@ -1063,7 +1063,7 @@ These are the possible combinations of the `delivered` command:
 * The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
 * The `INDEX` *must be in range* of the number of displayed orders.
 * Only can be used when there is at least an order or return order displayed.
-* The `FLAG` can only be either `-o` or `-r`, please refer to <<command_flags, here>> for more information.
+* The `FLAG` can only be either `-o` or `-r`.
 ====
 //end::delivered[]
 
