@@ -1057,7 +1057,7 @@ Use case ends.
 
 1. User requests to see assignment using UC2
 2. CCX outputs the whole list of assignment
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to assign a assignment to a course using their respective IDs
 5. CCX adds the assignmentID into the course's list of assignment
 6. CCX outputs a success message with the successful addition of assignment
@@ -1089,7 +1089,7 @@ Use case ends.
 
 1. User requests to see assignment using UC2
 2. CCX outputs the whole list of assignment
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to assign a list of assignment to a course using their respective IDs
 5. CCX adds the list of assignmentID into the course's list of assignment
 6. CCX outputs a success message with the successful addition of assignment
@@ -1120,9 +1120,9 @@ Use case ends.
 
 *MSS*
 
-1. User requests to see all students using *UC??*
+1. User requests to see all students using *UC21*
 2. CCX outputs the whole list of students
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to signup a student to a course using their respective IDs
 5. CCX finds all assignment assigned to the course
 6. CCX creates a Progress object for each assignment and ties it to the student ID
@@ -1154,9 +1154,9 @@ Use case ends.
 
 *MSS*
 
-1. User requests to see all students using *UC??*
+1. User requests to see all students using *UC21*
 2. CCX outputs the whole list of students
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to view the progress for a student, for a course using their respective IDs
 5. CCX finds all Progress objects using the courseID and studentID
 6. CCX outputs all the respective Progress objects
@@ -1194,7 +1194,7 @@ Use case ends.
 
 *MSS*
 
-1. User requests to see all courses using *UC??*
+1. User requests to see all courses using *UC20*
 2. User requests to view the progress for all students for a course using their respective IDs using UC9
 3. CCX finds all Progress objects using the courseID and studentID
 4. CCX outputs all the respective Progress objects
