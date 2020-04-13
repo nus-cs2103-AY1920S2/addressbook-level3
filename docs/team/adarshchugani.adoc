@@ -30,10 +30,10 @@ identify the recipes they like.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme (Pull requests https://github.com[#3], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 27% to 51% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
@@ -54,9 +54,13 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=TimeCommand]
+include::../UserGuide.adoc[tag=FavCommand]
+include::../UserGuide.adoc[tag=UnFavCommand]
+include::../UserGuide.adoc[tag=DoneCommand]
+include::../UserGuide.adoc[tag=UndoCommand]
+include::../UserGuide.adoc[tag=FutureStuff]
 
 == Contributions to the Developer Guide
 
@@ -64,9 +68,14 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=FavCommandImpl]
+include::../DeveloperGuide.adoc[tag=UnfavCommandImpl]
+include::../DeveloperGuide.adoc[tag=DoneCommandImpl]
+include::../DeveloperGuide.adoc[tag=UndoCommandImpl]
+include::../DeveloperGuide.adoc[tag=TimeCommandImpl]
+include::../DeveloperGuide.adoc[tag=ViewCommandImpl]
+include::../DeveloperGuide.adoc[tag=UserStories]
 
 
 == PROJECT: PowerPointLabs
