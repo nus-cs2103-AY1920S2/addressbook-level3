@@ -1044,7 +1044,7 @@ Use case ends.
 * 2a. The desired recipe name does not exist in the list.
 +
 [none]
-** 2a1. HealthyBaby shows an error message.
+** 2a1. HealthyBaby tells the user that 0 recipes are listed.
 +
 Use case ends.
 
@@ -1124,7 +1124,6 @@ Given below are instructions to test the app manually.
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
-
 . Initial launch
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
@@ -1155,9 +1154,50 @@ Plan list contains a plan for the recipe at recipe index 1. If required, add a p
    Expected: First recipe is deleted from the list. Name of the deleted recipe shown in the result box.
 The plan for recipe 1 is removed from the list of plans in the 'Planning' tab.
 
+=== Favourite a recipe
+. Favouriting a recipe while all recipes are listed
+.. Prerequisites: List all recipes using the `list` command. There must be at least 2 recipes for all the following test
+cases to work as expected.
+.. Test case: `favourite 1` +
+   Expected: A star appears beside the recipe name, indicating that it has been marked as a favourite and a success
+message appears in the message box.
+.. Test case: `favourite 0` +
+   Expected: No recipe is favourited. An error message appears in the message box.
+.. Test case: `favourite 1 2` +
+   Expected: A star appears beside the names of recipe 1 and 2, indicating that they have been marked as favourites and
+a success message appears in the message box.
+
+=== Unfavourite a recipe
+. Unfavouriting a recipe while all recipes are listed
+.. Prerequisites: List all recipes using the `list` command. Recipe 1 must be favourited as well.
+.. Test case: `unfavourite 1` +
+   Expected: The star beside recipe 1 disappears, indicating that it has been removed from favourites and a success
+message appears in the message box.
+.. Test case: `unfavourite 0` +
+   Expected: No recipe is unfavourited. An error message appears in the message box.
+
+=== Filtering recipes
+. Filters recipes that match the given criteria
+.. Prerequisites: List all recipes using the `list` command. At least one recipe should be favourited and at least one
+recipe should contain a grain ingredient called "Bread"
+.. Test case: `filter favourites` +
+   Expected: Only recipes that are favourites (has a star beside its name) are displayed.
+.. Test case: `filter ig/Bread` +
+   Expected: Only recipes that have a grain ingredient called "Bread" are displayed.
+
+=== Undo and Redo
+. Undoes the previous action, followed by restoring the action that was undone
+.. Prerequisites: List all recipes using the `list` command. Recipe 1 should not be favourited and should not contain a
+grain ingredient called "Bread"
+.. Test case: `favourite 1`, followed by `undo`, followed by `redo`
+   Expected: A star appears beside recipe 1's name upon favouriting it, disappears upon undoing, and reappears upon
+redoing.
+.. Test case: `addingredient 1 ig/2g, Bread`, followed by `undo`, followed by `redo`
+   Expected: A bread ingredient appears under the "Grains" section of recipe 1 upon addingredient, disappears upon
+undoing, and reappears upon redoing.
+
 === Clearing the recipe list
 . Clearing the list while plans are present.
-
 .. Prerequisites: Plan a recipe using the `plan` command.
 .. Test case: `clear` +
    Expected: All recipes and plans are cleared from the list.
