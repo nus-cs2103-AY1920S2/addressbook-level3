@@ -52,11 +52,14 @@ public class ContinueCommand extends Command {
 
             Deadline deadline = module.getFilteredDeadlineList().get(index.getZeroBased());
             model.updateHistory("continue" + model.currentUiLocation());
+            model.updateSchedule();
             if (!deadline.isDone()) {
                 throw new CommandException(MESSAGE_ACTIVITY_ALREADY_UNDONE);
             } else {
-                model.setDeadline(moduleCode, deadline, new Deadline(deadline.getName(), deadline.getDateCreated(),
-                    deadline.getNote(), deadline.getPriority(), deadline.getDueDate(), false));
+                Deadline deadlineCopy = new Deadline(deadline.getName(), deadline.getDateCreated(),
+                    deadline.getNote(), deadline.getPriority(), deadline.getDueDate(), false);
+                deadlineCopy.setSchedule(deadline.getSchedule());
+                model.setDeadline(moduleCode, deadline, deadlineCopy);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, deadline));
             }
         }

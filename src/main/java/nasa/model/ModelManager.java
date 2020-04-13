@@ -81,6 +81,7 @@ public class ModelManager implements Model {
     /**
      * Update the schedule for each activity.
      */
+    @Override
     public void updateSchedule() {
         nasaBook.scheduleAll();
     }

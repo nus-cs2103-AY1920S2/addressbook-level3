@@ -163,4 +163,6 @@ public interface Model {
     boolean setEventSchedule(ModuleCode module, Index index, Index schedule);
 
     boolean hasActivity(ModuleCode module, Activity activity);
+
+    public void updateSchedule();
 }
