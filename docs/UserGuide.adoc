@@ -146,7 +146,8 @@ the kbd:[Ctrl] key, which is used for most shortcuts.
 
 == Quick Start
 
-TODO: Preface
+Getting started! Look no further! The simple steps below will get you up to
+speed on this program faster than a beetle!
 
 .  Ensure you have Java (version 11 or above) installed in your
 Computer. Java is an application development platform
@@ -175,7 +176,7 @@ as used, and automatically archives it if the limit is reached
 command.
 
 [NOTE]
-There are some default sample data in Coupon Stash on your first startup of Coupon Stash. They are for you to experiment
+There is some default sample data in Coupon Stash on your first startup of Coupon Stash. They are for you to experiment
 with Coupon Stash's <<Features, features>>! +
 Once you are ready, use the <<Clearing all entries: `clear`, `clear`>> command to clear them and start your couponing
 journey with Coupon Stash!
@@ -189,6 +190,7 @@ into 4 different parts: the different tabs present in the
 program (Coupons, Summary and Help), the calendar,
 the command input box and the command result box.
 
+.Coupon Stash main screen.
 image::ug_user_interface.png[]
 
 === Tabs
@@ -202,6 +204,7 @@ with the name of the tab you want to switch to. The current
 selected tab will be highlighted with a bolder text, and a
 darker blue.
 
+.Coupon Stash summary tab.
 image::ug_currently_selected_tab.png[]
 
 [NOTE]
@@ -227,6 +230,7 @@ application.
 The coupon card displays information about each coupon, and
 it is styled to look like a coupon itself!
 
+.Sample coupon card.
 image::ShopeeCoupon.png[]
 
 ====
@@ -271,6 +275,7 @@ top of the page, with saved items that may not be easily
 quantified displayed in a lime-green box at the side,
 preceded by the text "And these saveables too!".
 
+.Coupon Stash summary tab.
 image::ug_summary_tab.png[]
 
 Also, a graph that shows the monetary amount saved
@@ -304,6 +309,7 @@ the time period of 10 weeks will not be shown in the graph.
 However, they can still be calculated using the
 <<saved, saved command>>.
 
+.Coupon Stash savings graph.
 image::ug_savings_graph.png[]
 
 [NOTE]
@@ -458,13 +464,17 @@ Examples:
 * `add n/McDonald's McGriddles p/ILOVEMCGRIDDLES e/31-12-2020 s/$2
    sd/1-4-2020 l/2 t/value t/savoury`
 +
-Adds a new Coupon: +
-image:ug_mcdonalds_mcgriddles.png[]
+Adds a new Coupon:
+
+.Newly added McDonald's coupon.
+image::ug_mcdonalds_mcgriddles.png[]
 
 * `add n/Grabfood s/40% e/30-4-2020 p/GRAB40 t/delivery`
 +
-Adds a new Coupon: +
-image:ug_grabfood.png[]
+Adds a new Coupon:
+
+.Newly added Grabfood coupon.
+image::ug_grabfood.png[]
 
 [TIP]
 If your coupon allows for unlimited usage, set the limit of the coupon to a
@@ -737,7 +747,6 @@ The <<Finding coupons by name: `find`, `find`>> command searches the
 found
 in the <<Archiving a coupon: `archive`, `archive`>> are displayed **below** the
 non-archived matches.
-// Insert GIF/image
 
 // end::find[]
 
@@ -773,10 +782,9 @@ Shows you all the coupons that expire on 30 September 2020.
 Shows you all the coupons that expire during September 2020.
 
 [NOTE]
-The `expiring` command will include <<_archiving_a_coupon_archive, archived>>
+The `expiring` command will include <<archive, archived>>
 coupons in its results too. Coupons that are expiring in the archives are
 displayed **below** the non-archived matches.
-// Insert GIF/image
 // end::expiring[]
 
 // tag::sort[]
@@ -793,10 +801,9 @@ runtime of the  program.
 
 [NOTE]
 The command will sort any coupons currently on screen, including
-<<_archiving_a_coupon_archive, archived>> coupons, if they are present on
-screen. <<_archiving_a_coupon_archive, Archived>> coupons will always appear
+<<archive, archived>> coupons, if they are present on
+screen. <<archive, Archived>> coupons will always appear
 **below** active coupons.
-// Put GIF here
 
 Format: `sort PREFIX`
 
@@ -839,14 +846,18 @@ not be copied.
 ** Promo Code (if any)
 ** Condition (if any)
 ****
-// Put GIF
+
+Below is a short demonstration of the `copy` command:
+
+.Animation of `copy` command operation.
+image::gifs/copy command.gif[]
 
 Examples:
 
 * `list` +
 `copy 2` +
 Copies the second coupon in the resulting coupon list of the
-<<Listing all coupons: `list`, `list`>> command to an
+<<_listing_coupons_list, `list`>> command to an
 <<Adding a coupon: `add`, `add`>> command and copies it to
 your clipboard.
 * `find chicken` +
@@ -884,7 +895,8 @@ Examples:
 
 * `list` +
 `share 2` +
-Shares the second coupon in the resulting coupon list of the <<Listing all coupons: `list`, `list`>> command and save
+Shares the second coupon in the resulting coupon list of the
+<<_listing_coupons_list, `list`>> command and save
 it as a `.png` file.
 * `find chicken` +
 `share 1` +
@@ -953,8 +965,9 @@ list is edited.
 * `delete 1` +
 `undo` +
 `redo` +
-//TODO LINK
-Un-undo the `delete` command. First coupon that was in the resulting coupon list is deleted.
+
+Un-undo the <<Deleting a coupon: `delete`, `delete`>> command. First coupon that
+was in the resulting coupon list is deleted.
 // end::redo[]
 
 // tag::goto[]
@@ -985,7 +998,7 @@ Examples:
 * `expand 1` +
 Opens the first coupon in the coupon list in a new window.
 
-.Example of an expanded coupon window
+.Example of an expanded coupon window.
 image::expand_example.png[]
 // end::expand[]
 
@@ -1084,13 +1097,17 @@ Examples:
    sd/1-4-2020 l/2 t/value t/savoury`
 +
 Add a new Coupon without specifying a remind date. Note that the default
-remind date is 3 days before the state expiry date: +
-image:ug_mcdonalds_mcgriddles.png[]
+remind date is 3 days before the state expiry date:
+
+.New coupon with a default remind date.
+image::ug_mcdonalds_mcgriddles.png[]
 
 * `add n/Grabfood s/40% e/30-4-2020 p/GRAB40 t/delivery r/10-4-2020`
 +
-Add a new Coupon while specifying a remind date of `10-4-2020`: +
-image:ug_Grabfood_reminder.png[]
+Add a new Coupon while specifying a remind date of `10-04-2020`:
+
+.New coupon with remind date set to `10-04-2020`.
+image::ug_Grabfood_reminder.png[]
 
 * `edit 1 r/10-4-2020`
 +
@@ -1118,10 +1135,11 @@ command.
 
 Demonstration:
 
+.Animation of kbd:[↑]/kbd:[↓] button presses.
 image::gifs/Up down arrow.gif[]
 
 === Close expanded coupon or reminder windows: kbd:[Ctrl]+kbd:[q]
-After <<_displaying_a_coupon_expand, `expanding`>> a coupon, you can close
+After <<Expanding a coupon: `expand`, `expanding`>> a coupon, you can close
 the expanded coupon window by keeping the focus on the coupon window and
 pressing the keyboard buttons kbd:[Ctrl] and kbd:[q] simultaneously. This
 shortcut also works for closing <<_reminding_of_coupon_expiry, reminder>>
@@ -1129,6 +1147,7 @@ windows.
 
 Demonstration:
 
+.Animation of closing window with kbd:[Ctrl]+kbd:[q].
 image::gifs/ctrl q.gif[]
 
 === Cycle through tabs: kbd:[Ctrl]+kbd:[Tab]
@@ -1138,6 +1157,7 @@ key presses would work.
 
 Demonstration:
 
+.Animation of switching tabs with kbd:[Ctrl]+kbd:[Tab].
 image::gifs/ctrl tab.gif[]
 
 == FAQ
