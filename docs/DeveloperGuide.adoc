@@ -228,6 +228,17 @@ Mainly, the `Compiler` component consists of the following classes:
 * link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/Parser.java[`Parser`], which deals with creating an https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Sytax Tree] representation of an unprocessed Markdown.
 * link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`], which is an abstract class representing a node in a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree]. All concrete implementations of nodes in a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] inherit from this class.
 
+The concrete implementations of the link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`] class consist of:
+
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/DocumentBlock.java[`DocumentBlock`], which represents
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/HeaderBlock.java[`HeaderBlock`]
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ListBlock.java[`ListBlock`]
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ListItemBlock.java[`ListItemBlock`]
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ParagraphBlock.java[`ParagraphBlock`]
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/TextBlock.java[`TextBlock`]
+
+Given below is the _Sequence Diagram_ for interactions within the `Compiler` component for the `compile(markdown)` API call.
+
 .Interactions inside the Compiler component for the `compile(markdown)` call
 image::CompilerSequenceDiagram.png[]
 
