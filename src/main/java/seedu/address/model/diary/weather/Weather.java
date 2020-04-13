@@ -1,7 +1,7 @@
 package seedu.address.model.diary.weather;
 
 /**
- * Dummy javadocs
+ * Represents a particular weather.
  */
 public abstract class Weather {
     private final String weather;

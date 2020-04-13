@@ -9,7 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Java Docs dummy.
+ * Represents the command that deletes a diary entry.
  */
 public class DiaryDeleteCommand extends Command {
 

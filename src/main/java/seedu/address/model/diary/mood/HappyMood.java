@@ -1,7 +1,7 @@
 package seedu.address.model.diary.mood;
 
 /**
- * Dummy javadocs
+ * Represents a happy mood. Extends from abstract class Mood.
  */
 public class HappyMood extends Mood {
     public HappyMood() {

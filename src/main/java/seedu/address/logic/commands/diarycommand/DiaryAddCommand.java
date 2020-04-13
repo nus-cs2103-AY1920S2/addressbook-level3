@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
 
 /**
- * Dummy java docs.
+ * Represents the command that adds a diary entry.
  */
 public class DiaryAddCommand extends Command {
 

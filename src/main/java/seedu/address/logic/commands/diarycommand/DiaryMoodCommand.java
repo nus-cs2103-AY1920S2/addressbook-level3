@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.diary.mood.Mood;
 
 /**
- * Dummy Java docs.
+ * Represents the command that tags a diary entry with mood.
  */
 public class DiaryMoodCommand extends Command {
 

@@ -7,7 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
- * Dummy java docs
+ * Represents the command that shows diary log.
  */
 public class DiaryLogCommand extends Command {
 

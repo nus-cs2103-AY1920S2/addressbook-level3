@@ -678,38 +678,115 @@ professor’s contact associated with the module.
 
 === Diary
 
-The diary feature allows you to jot down any thoughts, be it for your personal life or for school work, or just a concept that you may not understand that you will have to revisit in the future.
+- The diary feature is just like a real life diary book. It allows you jot down any thoughts, be it for your personal life or for school work. You can also note down a concept you don't understand or your reflection for each day in case you want to revisit them in the future.
+The diary supports adding and deleting a diary entry, display a particular diary entry and tag each entry with your mood or the weather on that day.
+
+.Main Screen for diary tab
+image::diaryMainScreen.png[width="790"]
+
+
+[NOTE]
+The UI for diary is not fully implemented yet. (coming in v2.0) You can just refer to the message section for response when using the diary feature and ignore the GUI for now as it may not function properly.
 
 ==== Adding an diary entry: `diaryAdd`
 - Adds a diary entry to the diary book.
 - Format: `diaryAdd ec/ENTRY_CONTENT`
 
+[TIP]
+The date of the diary will be automatically recorded according to the date you jot down the diary.
+
+- Example: `diaryAdd ec/I had a weird dream today.`
+
+.Adding a diary entry
+image::DiaryAdd.png[width="790"]
+
 ==== Viewing diary logs: `diaryLog`
-- Shows all diary entry IDs.
-- Format: `diaryLog `
+- Shows all diary entries with IDs and relevant information like date, weather and mood.
+- Format: `diaryLog`
 
-==== Viewing diary entries with specified entry ID: `diaryShow`
-- Shows the diary entry for the specified entry ID.
-- Format: `diaryShow id/ENTRY_ID`
+[TIP]
+Anything thing that comes after the `diaryLog` command will be ignored.
 
-==== Viewing diary entries with specified date: `diaryShow`
-- Shows the diary entry at the specified date if there is any, date needs to be in DD-MM-YYYY.
-- Format: `diaryShow date/DATE`
+- Example: `diaryLog`
+
+.Showing diary logs
+image::DiaryLog.png[width="790"]
 
 ==== Deleting an diary entry: `diaryDelete`
 - Deletes the specified diary ID’s entry.
 - Format: `diaryDelete id/ENTRY_ID`
 
-==== Tagging weather: `diaryWeather`
+[CAUTION]
+The ENTRY_ID entered must be a integer and in the range of all available ENTRY_IDs as shown by the result of `diaryLog`.
+
+- Example: `diaryDelete id/1`
+
+.Deleting a diary entry with ID 1
+image::DiaryDelete.png[width="790"]
+
+==== Viewing diary entries with a specified entry ID: `diaryShow`
+- Shows the diary entry for the specified entry ID.
+- Format: `diaryShow id/ENTRY_ID`
+
+[CAUTION]
+The ENTRY_ID entered must be a integer and in the range of all available ENTRY_IDs as shown by the result of `diaryLog`.
+
+- Example: `diaryShow id/1`
+
+.Showing a diary entry with ID 1
+image::DiaryShowID.png[width="790"]
+
+
+==== Viewing list of diary entries with a specified date: `diaryShow`
+- Shows the entry IDs of the diary entries that match the given date.
+- Format: `diaryShow date/DATE`
+
+[NOTE]
+DATE needs to be in the format of DD-MM-YYYY.
+
+[TIP]
+With the list of IDs, you can then view a specific diary entry with the `diaryShow id/ENTRY_ID` command.
+
+- Example: `diaryShow date/13-04-2020`
+
+.Showing the list of entry IDs with date April 13, 2020
+image::DiaryShowDate.png[width="790"]
+
+==== Tagging a diary entry with weather: `diaryWeather`
 - Tags the diary with the specific ID with a specific weather (e.g. sunny, cloudy)
 - Format: `diaryWeather id/ENTRY_ID w/WEATHER`
 
-==== Tagging mood: `diaryMood`
+[NOTE]
+The application supports four different kinds of weathers. They are "cloudy", "rainy", "sunny", "windy".
+[CAUTION]
+The `diaryWeather` command argument is case sensitive, all weathers should be in lower case.
+
+- Example: `diaryWeather id/1 w/sunny`
+
+.Recording weather for a particular diary entry
+image::DiaryWeather.png[width="790"]
+
+==== Tagging a diary entry with mood: `diaryMood`
 - Tags the diary with the specific ID with a specific mood (e.g. happy, stressed)
 - Format: `diaryMood id/ENTRY_ID m/MOOD`
 
+[NOTE]
+The application supports four different kinds of moods. They are "calm, "happy", "sad", "stressed".
+[CAUTION]
+The `diaryMood` command argument is case sensitive, all moods should be in lower case.
 
+- Example: `diaryMood id/1 m/calm`
 
+.Recording your mood for a particular diary entry
+image::DiaryMood.png[width="790"]
+
+==== Filtering diary entries according to mood or weather: `diaryFilter` (coming in v2.0)
+- Shows the entry IDs of the diary entries that match the given mood or weather.
+- Format: `diaryFilter m/MOOD` or `diaryFilter w/WEATHER`
+
+- Example:
+* `diaryFilter m/happy`
+* `diaryFilter w/sunny`
 
 == Command Summary
 
@@ -784,21 +861,24 @@ e.g. `notesDelete loc/Desktop/ name/Test.doc pt/abs`
  e.g. `listModuleTasks m/CS2103`
 ** taskBreakdown
 
-* Diary :
-** diary log LIMIT
-e.g. `diary log 10`
-** diary show ENTRY ID
-e.g. `diary show 3`
-** diary show DD-MM-YYYY
-e.g. `diary show 30-03-2020`
-** diary add ENTRY
-e.g. `diary add "Today is a good day"`
-** diary delete ENTRY ID
-e.g. `diary delete 1`
-** diary weather ID WEATHER
-e.g. `diary weather 1 SUNNY`
-** diary emotion ID EMOTION
-e.g. `diary emotion 1 HAPPY`
+* *Diary* :
+** diaryAdd ec/ENTRY_CONTENT +
+e.g. `diaryAdd ec/I had a weird dream today.`
+** diaryLog +
+e.g. `diaryLog`
+** diaryDelete id/ENTRY_ID +
+e.g. `diaryDelete id/1`
+** diaryShow id/ENTRY_ID or diaryShow date/DATE +
+e.g. `diaryShow date/13-04-2020`
+** diaryWeather id/ENTRY_ID w/WEATHER` +
+e.g. `diaryWeather id/1 w/sunny`
+** diaryMood id/ENTRY_ID m/MOOD +
+e.g. `diaryMood id/1 m/calm`
+** diaryFilter m/MOOD or diaryFilter w/WEATHER (coming in v2.0) +
+e.g. `diaryFilter m/happy`
+
+
+
 
 * Mod Plan:
 ** search MODULE_CODE +
@@ -825,3 +905,6 @@ e.g. `modreq computer science`
 
 *Q*: How do I save my data in my own PC? +
 *A*: NusProductivity saves your data of all your modules, grades and tasks after you make changes.
+
+*Q*: Do I need Internet connection when using NUSProductivity? +
+*A*: Although we try to keep NUSProductivity as an offline application, some minimal network connection is required for the first time usage of certain features such as `moduleAdd` and `search`. However, only the first time searching for a module information is required as the results will be cached in our application to allow no Internet connection for future usage.
