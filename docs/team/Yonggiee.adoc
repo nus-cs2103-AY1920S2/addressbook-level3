@@ -65,7 +65,7 @@ We decided it is best for the exercises to be viewed in a table form. To do so, 
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-=== Find clients by name: `find-c` --- Yong Jie
+=== Find clients by name: `find-c`
 `find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire *Client List* might be troublesome and difficult. `find-c` is the command for you.
 
 ==== Parameters
