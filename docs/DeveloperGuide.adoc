@@ -341,7 +341,7 @@ image::FindCommandActivityDiagram.svg[align="center]
 The following sequence diagram summarizes the execution of the `find` command
 
 .Sequence diagram for the execution of a `find` command
-image::FindSequenceDiagram.svg[align="center"]
+image::FindCommandSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
