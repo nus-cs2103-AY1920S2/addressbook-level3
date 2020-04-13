@@ -614,7 +614,7 @@ Address book, Schoolwork Tracker, Event Book and Restaurant Book data are saved 
 ** `(rt)addnote INDEX [r/RECOMMENDED_FOOD]... [g/GOOD_FOOD]... [b/BAD_FOOD]...`
 * *Delete notes* :
 ** `(ab)deletenote INDEX l/LINE_NUMBER...`
-** `(rt)deletenote INDEX [rl/RECOMMENDED_FOOD_LINE_NUMBER] [gl/GOOD_FOOD_LINE_NUMBER] [bl/BAD_FOOD_LINE_NUMBER]`
+** `(rt)deletenote INDEX [rl/RECOMMENDED_FOOD_LINE_NUMBER]... [gl/GOOD_FOOD_LINE_NUMBER]... [bl/BAD_FOOD_LINE_NUMBER]...`
 * *Edit notes* :
 ** `(ab)editnote INDEX l/LINE_NUMBER i/INFO`
 ** `(rt)editnote INDEX [rl/LINE_NUMBER_RECOMMENDED] [r/RECOMMENDED_FOOD] [gl/LINE_NUMBER_GOOD] [g/GOOD_FOOD] [bl/LINE_NUMBER_BAD] [b/BAD_FOOD]`
