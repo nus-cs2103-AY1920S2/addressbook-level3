@@ -75,7 +75,7 @@ public class ModelManager implements Model {
         createNewState("BIRTHDAY");
         setAddressBook(new AddressBook());
         setRestaurantBook(new RestaurantBook());
-        setAssignmentSchedule(new SchoolworkTracker());
+        setSchoolworkTracker(new SchoolworkTracker());
         setEventSchedule(new EventSchedule());
     }
 
@@ -155,8 +155,8 @@ public class ModelManager implements Model {
     //========== Schoolwork Tracker ==========================================================================
 
     @Override
-    public void setAssignmentSchedule(ReadOnlySchoolworkTracker assignmentSchedule) {
-        this.assignmentSchedule.resetData(assignmentSchedule);
+    public void setSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker) {
+        this.assignmentSchedule.resetData(schoolworkTracker);
     }
 
     @Override
