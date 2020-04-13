@@ -25,9 +25,9 @@ public class DeleteRestaurantNoteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX and LINE_NUMBER (must be a positive integer) "
-            + "[" + PREFIX_LINE_NUMBER_RECOMMENDED + "LINE_NUMBER] "
-            + "[" + PREFIX_LINE_NUMBER_GOOD + "LINE_NUMBER] "
-            + "[" + PREFIX_LINE_NUMBER_BAD + "LINE_NUMBER]\n"
+            + "[" + PREFIX_LINE_NUMBER_RECOMMENDED + "LINE_NUMBER]... "
+            + "[" + PREFIX_LINE_NUMBER_GOOD + "LINE_NUMBER]... "
+            + "[" + PREFIX_LINE_NUMBER_BAD + "LINE_NUMBER]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_LINE_NUMBER_RECOMMENDED + "2 "
             + PREFIX_LINE_NUMBER_GOOD + "1 "
