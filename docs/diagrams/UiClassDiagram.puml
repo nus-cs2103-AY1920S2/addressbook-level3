@@ -10,7 +10,7 @@ Class "{abstract}\nViewPart" as ViewPart
 Class ViewManager
 Class MainWindow
 Class SuggestionsList
-Class HelpModal
+Class HelpWindow
 Class SideBarTree
 Class CommandBox
 Class BlockContent
@@ -31,28 +31,28 @@ ViewManager .left.|> View
 ViewManager -down-> MainWindow
 MainWindow *-down-> SuggestionsList
 MainWindow *-down-> CommandBox
-MainWindow *-down-> HelpModal
+MainWindow *-down-> HelpWindow
 MainWindow *-down-> SideBarTree
 MainWindow *-down-> BlockContent
 
-MainWindow ----|> ViewPart
+MainWindow ---|> ViewPart
 
-HelpModal --|> ViewPart
+HelpWindow --|> ViewPart
 CommandBox --|> ViewPart
 SideBarTree --|> ViewPart
 SuggestionsList -down-|> ViewPart
 BlockContent --|> ViewPart
 
-SideBarTree .left...> Model
+SideBarTree .right.> Model
 BlockContent .down..> Model
-SuggestionsList ....> Model
+SuggestionsList .right.> Model
 ViewManager -right-> Logic
-MainWindow -left-> Logic
-MainWindow -left-> Model
+MainWindow -right-> Logic
+MainWindow -right-> Model
 
 SideBarTree -[hidden]left- SuggestionsList
 SuggestionsList -[hidden]left- CommandBox
-CommandBox -[hidden]left- HelpModal
+CommandBox -[hidden]left- HelpWindow
 BlockContent -[hidden]left-SideBarTree
 
 MainWindow -[hidden]-|> ViewPart
