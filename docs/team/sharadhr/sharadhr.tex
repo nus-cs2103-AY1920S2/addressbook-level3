@@ -25,24 +25,24 @@ CookBuddy is written in Java, and has about \num{10000} lines of code.
     \item \textbf{What it does:} Allows users to add images to their recipes, by specifying a relative or absolute
     filepath. Images are saved in a data folder local to CookBuddy, and are named with a
     UID (unique identifier). If an image cannot be found at the specified path, a placeholder is used instead.
-    
+
     \item \textbf{Justification}: Users should be able to see what the final dish looks
     like, and an image goes a very long way in showing that. Furthermore, images are a prominent feature of most competing recipe managers, and we feel this is a key feature that allows CookBuddy to compete on a similar standing.
-    
+
     \item \textbf{Highlights}:
     \begin{itemize}
-    	\item Adding reading images required a firm understanding of file I/O, as well as understanding the various Java classes in \href{https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/nio/file/package-summary.html}{\texttt{java.nio.file}}. 
-    	
+    	\item Adding reading images required a firm understanding of file I/O, as well as understanding the various Java classes in \href{https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/nio/file/package-summary.html}{\texttt{java.nio.file}}.
+
     	Appropriate methods for easy extensibility were implemented in \href{https://github.com/AY1920S2-CS2103T-W12-4/main/blob/master/src/main/java/cookbuddy/commons/util/PhotographUtil.java}{\texttt{cookbuddy.commons.util.PhotographUtil}}, as well as multiple constructors in \href{https://github.com/AY1920S2-CS2103T-W12-4/main/blob/master/src/main/java/cookbuddy/model/recipe/attribute/Photograph.java}{\texttt{cookbuddy.model.recipe.attribute.Photograph}}.
-    	
+
     	\item Other file read/write methods were also implemented in \href{https://github.com/AY1920S2-CS2103T-W12-4/main/blob/master/src/main/java/cookbuddy/commons/util/FileUtil.java}{\texttt{cookbuddy.commons.util.FileUtil}}.
-    	
+
     	\item \texttt{PhotographUtil} employs the \href{https://en.wikipedia.org/wiki/Singleton_pattern}{singleton pattern}, to prevent initialisation errors.
-    \end{itemize} 
+    \end{itemize}
 \end{itemize}
 
 \subsubsection{Minor Contributions}
-\paragraph{Revamped the User Interface (UI) of CookBuddy (PR \href{https://github.com/AY1920S2-CS2103T-W12-4/main/pull/179}{\texttt{\#179}}) } 
+\paragraph{Revamped the User Interface (UI) of CookBuddy (PR \href{https://github.com/AY1920S2-CS2103T-W12-4/main/pull/179}{\texttt{\#179}}) }
 \begin{itemize}
 	\item A light theme was preferred by the team members
 	\item \href{https://pixelduke.com/java-javafx-theme-jmetro/}{\texttt{JMetro}} was used to change the theme
@@ -75,7 +75,7 @@ CookBuddy is written in Java, and has about \num{10000} lines of code.
 \subsection{Project Management and Teamwork}
 \paragraph{Project Management}
 \begin{itemize}
-	\item Set up the organisation, repository, and initial branches for all group members 
+	\item Set up the organisation, repository, and initial branches for all group members
 	\item Set up \texttt{Travis CI} and \texttt{AppVeyor} for initial continuous integration testing
 \end{itemize}
 
