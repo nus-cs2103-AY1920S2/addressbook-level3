@@ -54,6 +54,10 @@ public class Reminder implements Comparable {
         this.hasFired = true;
     }
 
+    public boolean getHasFired() {
+        return hasFired;
+    }
+
     public static boolean isValidReminder(String dateTimeString) {
         try {
             stringFormatter.parse(dateTimeString);
