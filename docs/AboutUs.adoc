@@ -23,7 +23,7 @@ Responsibilities: Integration, features development and UI
 image::xuanxinng.png[width="150", align="left"]
 {empty}[http://github.com/xuanxinng[github]] [<<xuanxinng#, portfolio>>]
 
-Role: # To be updated
+Role: Documentation, Developer
 
 '''
 
