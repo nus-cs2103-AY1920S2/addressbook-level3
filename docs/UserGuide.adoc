@@ -19,7 +19,7 @@ endif::[]
 
 By: `Team W16-4`      Since: `Mar 2020`      Licence: `MIT`
 
-== Introduction
+== Introduction (Xinwei)
 
 
 
@@ -79,7 +79,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 [[Features]]
-== Features
+== Features (Xinwei)
 
 This section shows the detailed list of usable commands.
 
@@ -91,7 +91,7 @@ This section shows the detailed list of usable commands.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
-=== General
+=== General (Xinwei)
 
 ==== Viewing help : `help`
 
@@ -115,7 +115,7 @@ image::switching_tabs.png[width="790"]
 
 // tag::Calendar[]
 
-=== Calendar
+=== Calendar (Xinwei)
 
 The calendar feature in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
 
@@ -150,14 +150,27 @@ Deadline tasks are defaulty tagged with the lowest priority.
 
 ==== Module Tasks
 
-===== Adding Module Tasks: `moduleTask`
+==== Adding a module task : `moduleTask`
 
-- Schedules a module task, this module task includes priority level, module that is associated with the task.
+- Format: `moduleTask desc/DESCRIPTION m/MODULE_CODE date/DEADLINE_OR_SCHEDULED_TIMING pri/PRIORITY`
 
-- Format: `moduleTask desc/DESCRIPTION m/MODULE_CODE date/DD-MM-YYYY pri/PRIORITY-LEVEL`
+[CAUTION]
+The date inputted should be in the format: DD-MM-YYYY.
 
-.Adding Module Tasks
-image::moduleTaskAdd.png[width="790"]
+****
+* This command allows you to create tasks to certain module you added to the program before.
+* Stores the task added in the module book and automatically adds and shows on the Calender.
+* You will get an updated list of tasks related to that specific module after adding. (shown in command line)
+****
+- Example:
+* `moduleTask desc/essay m/CS2101 date/02-04-2020 pri/3` +
+Add a module task as specified in module book and also shows on calendar.
+
+.Adding a module task for certain module
+image::ModuleTaskProfile.png[width="790"]
+
+.module task added will also be shown on calendar
+image::ModuleTaskCalendar.png[width="790"]
 
 [NOTE]
 This requires you to add a module under `moduleAdd` before you can use it
@@ -226,12 +239,45 @@ The dots on the calendar will not disappear and will show that there is still ta
 .Listing all tasks
 image::listTask.png[width="790"]
 
+==== Event (coming in v2.0)
+
+===== Adding Event: `eventAdd`
+
+- Schedules event to the calendar
+
+- Format: `eventAdd` desc/DESCRIPTION on/DD-MM-YYYY
+
+===== Deleting Event: `eventDelete`
+
+- Deletes event from list with the given index
+
+- Format: `eventDelete` index/INDEX
+
+===== Marking Event as done: `done`
+
+[NOTE]
+This is meant to be an extension of the done command above, hence its implementation will follow said format.
+
+- Format: done index/INDEX
+
+===== Sorting Events: `sortEventList`
+
+- Sorts events by date (default)
+
+- Format: `sortEventList`
+
+===== List Events: `listEvent`
+
+- Lists scheduled events
+
+- Format: `listEvent`
+
 // end::Calendar[]
 
 
 // tag::Notes[]
 
-=== Notes
+=== Notes (Xinwei)
 
 - Allows you to create notes from the application, making it easier for you to find your files since often time students have a lot of research papers or references opened when writing a report.
 
@@ -511,34 +557,7 @@ For this part, the UI hasn't been implemented yet but you are able to see the up
 Most functionality covered in this part can also be achieved by some commands in Calendar feature above. Just provides users
 with an alternative way. (The orders of tasks shown are different. Thus, the index inputted may be different to achieve the same modification.)
 
-==== Creating a module task : `moduleTask`
 
-[NOTE]
-This command has been covered in Calendar feature already.
-
-- Adds a module task related to certain module you have added before in module book.
-
-- You need to indicate which module the task is related to, its priority level (how important it is) and also its deadline or scheduled timing.
-
-- Format: `moduleTask desc/DESCRIPTION m/MODULE_CODE date/DEADLINE_OR_SCHEDULED_TIMING pri/PRIORITY`
-
-[CAUTION]
-The date inputted should be in the format: DD-MM-YYYY.
-
-****
-* This command allows you to create tasks to certain module you added to the program before.
-* Stores the task added in the module book and automatically adds and shows on the Calender.
-* You will get an updated list of tasks related to that specific module after adding. (shown in command line)
-****
-- Example:
-* `moduleTask desc/essay m/CS2101 date/02-04-2020 pri/3` +
-Add a module task as specified in module book and also shows on calendar.
-
-.Adding a module task for certain module
-image::ModuleTaskProfile.png[width="790"]
-
-.module task added will also be shown on calendar
-image::ModuleTaskCalendar.png[width="790"]
 
 ==== Listing all module tasks of certain module
 
