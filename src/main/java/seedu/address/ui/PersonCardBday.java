@@ -43,6 +43,7 @@ public class PersonCardBday extends UiPart<Region> {
         super(FXML);
         this.person = person;
         name.setText(person.getName().fullName);
+        name.setWrapText(true);
         phone.setText("Phone: " + person.getPhone().value);
 
         birthday.setStyle("-fx-text-fill: #000");
