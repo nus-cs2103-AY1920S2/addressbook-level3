@@ -6,7 +6,9 @@ import static fithelper.model.entry.Type.FOOD;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Set;
+import java.util.logging.Logger;
 
+import fithelper.commons.core.LogsCenter;
 import fithelper.model.Model;
 import fithelper.model.calorietable.CalorieDatum;
 import fithelper.model.entry.Type;
@@ -27,6 +29,9 @@ public class CheckCommand extends Command {
 
     private Type checkType;
     private String keywords;
+    private static final Logger logger = LogsCenter.getLogger(CheckCommand.class);
+    private static final String LOGGER_SUCCESS = "Found some matching results.";
+    private static final String LOGGER_FAILURE = "No matching result found.";
 
     public CheckCommand(Type checkType, String keywords) {
         requireNonNull(checkType);
@@ -72,8 +77,10 @@ public class CheckCommand extends Command {
                 userFeedback.append(entry);
             }
             userFeedback.append(MESSAGE_MAX_THREE_RESULTS);
+            logger.info(LOGGER_SUCCESS);
             return new CommandResult(userFeedback.toString());
         } else {
+            logger.info(LOGGER_FAILURE);
             return new CommandResult(MESSAGE_FAILURE_PART1 + checkType
                     + MESSAGE_FAILURE_PART2 + keywords + "\n");
         }

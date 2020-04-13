@@ -1,6 +1,9 @@
 package fithelper.model.entry;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import static fithelper.model.entry.SortBy.CALORIE;
+import static fithelper.model.entry.SortBy.NAME;
+import static fithelper.model.entry.SortBy.TIME;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
@@ -145,7 +148,7 @@ public class UniqueEntryList implements Iterable<Entry> {
     }
 
     /**
-     * Sorts all the entries in the list by a criterion (calorie value or time) in ascending order.
+     * Sorts all the entries in the list by a criterion (calorie value, time or name) in ascending order.
      *
      * @param sortBy sort criterion
      * @throws IllegalValueException if sort type specified is not valid
@@ -153,7 +156,7 @@ public class UniqueEntryList implements Iterable<Entry> {
     public void sortAscending(SortBy sortBy) throws IllegalValueException {
         Comparator<Entry> newComparator;
         switch (sortBy.getValue()) {
-        case "calorie":
+        case CALORIE:
             newComparator = (e1, e2) -> {
                 int firstCompare = Double.compare(e1.getCalorieValue(), e2.getCalorieValue());
                 if (firstCompare != 0) {
@@ -163,10 +166,10 @@ public class UniqueEntryList implements Iterable<Entry> {
                 }
             };
             break;
-        case "time":
+        case TIME:
             newComparator = Comparator.comparing(Entry::getDateTime);
             break;
-        case "name":
+        case NAME:
             newComparator = (e1, e2) -> {
                 int firstCompare = e1.getName().toString().toLowerCase()
                         .compareTo(e2.getName().toString().toLowerCase());
@@ -178,13 +181,13 @@ public class UniqueEntryList implements Iterable<Entry> {
             };
             break;
         default:
-            throw new IllegalValueException("Unknown sort-by type");
+            throw new IllegalValueException("Unknown sort-by type.");
         }
         FXCollections.sort(internalList, newComparator);
     }
 
     /**
-     * Sorts all the entries in the list by a criterion (calorie value or time) in descending order.
+     * Sorts all the entries in the list by a criterion (calorie value, time or name) in descending order.
      *
      * @param sortBy sort criterion
      * @throws IllegalValueException if sort type specified is not valid
