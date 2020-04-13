@@ -8,7 +8,7 @@ import seedu.address.model.diary.mood.Mood;
 import seedu.address.model.diary.weather.Weather;
 
 /**
- * Dummy javadocs
+ * Represents a diary entry.
  */
 public class DiaryEntry {
 

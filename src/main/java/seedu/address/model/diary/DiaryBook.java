@@ -12,7 +12,7 @@ import seedu.address.model.diary.weather.CloudyWeather;
 import seedu.address.model.diary.weather.Weather;
 
 /**
- * dummy javadocs
+ * Represents a diary book that manages a list of diary entries.
  */
 public class DiaryBook {
     private static List<DiaryEntry> diaryEntries;
@@ -41,9 +41,9 @@ public class DiaryBook {
     }
 
     /**
-     * Dummy java docs
+     * Shows the logs of the recorded diary entries.
      *
-     * @return
+     * @return String message representing the log messages.
      */
     public String showLog() {
         if (diaryEntries.size() == 0) {
