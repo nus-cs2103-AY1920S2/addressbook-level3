@@ -1146,7 +1146,7 @@ arguments to the `FilterStudentCommandParser`.
 . The `FilterStudentCommandParser` creates a `FilterStudentCommand` object
 with the relevant keywords.
 
-. `LogicManager` calls `FilterStudentCommand` 's execute method.
+. `LogicManager` calls `FilterStudentCommand#execute()`.
 
 . The `FilterStudentCommand` object checks whether any of the keywords given by the user matches the existing
 module and/or group.
