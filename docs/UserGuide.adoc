@@ -273,7 +273,6 @@ Notably supports basic https://guides.github.com/features/mastering-markdown/[Gi
 Currently supported syntax of GitHub Flavored Markdown in Notably consists of:
 
 * https://github.github.com/gfm/#atx-heading[ATX headings] +
-Example: +
 ----
 # Level 1 header
 ## Level 2 header
@@ -283,7 +282,8 @@ Example: +
 ###### Level 6 header
 ----
 * https://github.github.com/gfm/#list[Lists] and https://github.github.com/gfm/#list-items[List items] +
-Example: +
+[IMPORTANT]
+Currently, only unordered lists are supported. In addition, only the hyphen `-` symbol is supported to be used as the list bullets. +
 ----
 - List item
 - Another list item
@@ -292,7 +292,6 @@ Example: +
 - Last list item
 ----
 * https://github.github.com/gfm/#paragraph[Paragraphs] +
-Example: +
 ----
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Proin dictum accumsan nunc sed feugiat.
@@ -303,13 +302,11 @@ Proin dictum accumsan nunc sed feugiat.
 In our v2.0 release, we'll be supporting the following additional Markdown syntax:
 
 * https://github.github.com/gfm/#emphasis-and-strong-emphasis[Emphasis and strong emphasis] +
-Example: +
 ----
 *This text will get italicised*
 **This text will get bold**
 ----
 * https://github.github.com/gfm/#strikethrough-extension-[Strikethrough] +
-Example: +
 ----
 ~~This text will get a strikethrough treatment~~
 ----
