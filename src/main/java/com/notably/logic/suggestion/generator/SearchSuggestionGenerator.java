@@ -150,7 +150,7 @@ public class SearchSuggestionGenerator implements SuggestionGenerator {
                 return displayText1.compareToIgnoreCase(displayText2);
             }
 
-            return frequency1 - frequency2;
+            return frequency2 - frequency1;
         });
     }
 }
