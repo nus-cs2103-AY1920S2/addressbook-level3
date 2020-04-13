@@ -585,6 +585,10 @@ data of your previous HYBB folder.
 *Q*: Why are there no safeguards for adding ingredients? +
 *A*: Currently, HYBB is designed to help you manage your customized recipe list. Hence, the addition of ingredients and under which tag(ip/ iv/ ig/ if/ io/) they fall would be solely based on your judgement! For future releases, we will ensure more safeguards to prevent invalid inputs based on common knowledge.
 
+*Q*: What are recipe indexes and plan indexes? +
+*A*: Recipe indexes are the numbers beside each recipe in the 'Recipes' tab.
+On the other hand, Plan indexes are the numbers beside each plan in the 'Planning' tab.
+
 == Glossary
 |===
 |Term |Definition
