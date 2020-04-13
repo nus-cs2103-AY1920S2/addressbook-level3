@@ -71,7 +71,7 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI component (by Fang Shao Hua)
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
@@ -88,7 +88,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic component (by Fang Shao Hua)
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -103,6 +103,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+(By Pang Jia Da)
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("buy g/Apple q/50")` API call.
 
@@ -114,7 +115,7 @@ image::BuySequenceDiagram.png[]
 NOTE: The lifeline for `BuyCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
-=== Model component
+=== Model component (by Nicholas Cristian Fernando)
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -163,7 +164,7 @@ A `Transaction` can be either `SellTransaction` or `BuyTransaction`:
 image::TransactionModelClassDiagram.png[]
 
 [[Design-Storage]]
-=== Storage component
+=== Storage component (by Fang Shao Hua)
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -178,7 +179,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.address.commons` package.
+Classes used by multiple components are in the `cs2103_w14_2.inventory.commons` package.
 
 == Implementation
 
@@ -186,7 +187,7 @@ This section describes some noteworthy details on how certain features
 are implemented and pitfalls to avoid when making modifications.
 
 //tag::buyandsellcommand[]
-=== Buy and Sell Commands
+=== Buy and Sell Commands (By Pang Jia Da)
 
 The `buy` and `sell` commands are the main ways a user is expected to
 interact with the Inventory Manager, and encompasses the bulk of the commands a
@@ -372,7 +373,7 @@ case alphabets, reducing user-friendliness.
 
 // tag::undoredo[]
 
-=== Undo/Redo feature
+=== Undo/Redo feature (by Nicholas Cristian Fernando)
 ==== Implementation
 
 The undo/redo mechanism is facilitated by three versioned databases `VersionedInventory`, `VersionedAddressBook` and `VersionedTransactionHistory`
@@ -512,7 +513,7 @@ result in temporary files being left behind and cluttering space.
 // end::undoredo[]
 
 
-=== Supplier Feature (Written by Liu Chao)
+=== Supplier Feature (By Liu Chao)
 InventoryManager allows users (store managers) to record the suppliers whom they buy goods from. Users could add and
 store the information of suppliers such as company name, company address, registered phone number, official email
 address and goods that company is selling.
@@ -522,6 +523,8 @@ A supplier can be stored as a supplier object in the InventoryManager. The main 
 is selling. Company name is used to identify the company since every company needs to have an unique name which is
 registered legally with Accounting and Corporate Regulatory Authority. A Good-price pair of good is a combination of records
 of a good’s name and a selling price. Good-price pairs are stored as an offer object in the InventoryManager.
+
+image::SupplierModelClassDiagram.png[]
 
 ==== Edit Supplier Feature
 Users could edit and update the information of registered supplier should there be any changes in InventoryManager by
@@ -626,7 +629,7 @@ pairs that could not be found to assist the users.
 
 //tag::autoexpiry[]
 
-=== [Proposed] Automatic Batch Expiry and Warning
+=== [Proposed] Automatic Batch Expiry and Warning (By Pang Jia Da)
 
 The primary aim of inventory management is to ensure that there is always
 sufficient stock of goods. Out-of-stock situations
@@ -719,7 +722,7 @@ up to `999,999` quantity, and there will be 1 `Date` for each good stored.
 
 // tag::findtransaction[]
 
-=== Find transaction (Fang Shao Hua)
+=== Find transaction (By Fang Shao Hua)
 
 Inventory Manager has a find transaction feature which allows the user to filter transactions, so that it
 saves time for the user to look for specific transactions among the transaction history.
@@ -767,7 +770,7 @@ image::FindTransactionSequenceDiagram.png[]
 
 // tag::setthreshold[]
 
-=== Set threshold for good (Fang Shao Hua)
+=== Set threshold for good (By Fang Shao Hua)
 
 Inventory Manager has a set threshold feature which allows the user to set the threshold quantity for `goods` in `Inventory`,
 so that it can alert the user when a particular good fall below its threshold quantity.
