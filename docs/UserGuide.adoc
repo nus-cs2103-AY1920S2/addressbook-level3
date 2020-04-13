@@ -80,8 +80,8 @@ a|
 a|
 *Keyboard Shortcuts*
 
-. Restore previously entered command texts: kbd:[↑] and kbd:[↓]
-. Close expanded coupon window: kbd:[Ctrl]+kbd:[q]
+   . Restore previously entered command texts: kbd:[↑] and kbd:[↓]
+   . Close expanded coupon window: kbd:[Ctrl]+kbd:[q]
    . Cycle through tabs: kbd:[Ctrl]+kbd:[Tab]
 |6
 
@@ -145,8 +145,7 @@ the kbd:[Ctrl] key, which is used for most shortcuts.
 
 
 == Quick Start
-
-TODO: Preface
+Follow the steps below to get started with Coupon Stash!
 
 .  Ensure you have Java (version 11 or above) installed in your
 Computer. Java is an application development platform
@@ -737,7 +736,6 @@ The <<Finding coupons by name: `find`, `find`>> command searches the
 found
 in the <<Archiving a coupon: `archive`, `archive`>> are displayed **below** the
 non-archived matches.
-// Insert GIF/image
 
 // end::find[]
 
@@ -776,7 +774,6 @@ Shows you all the coupons that expire during September 2020.
 The `expiring` command will include <<_archiving_a_coupon_archive, archived>>
 coupons in its results too. Coupons that are expiring in the archives are
 displayed **below** the non-archived matches.
-// Insert GIF/image
 // end::expiring[]
 
 // tag::sort[]
@@ -795,8 +792,7 @@ runtime of the  program.
 The command will sort any coupons currently on screen, including
 <<_archiving_a_coupon_archive, archived>> coupons, if they are present on
 screen. <<_archiving_a_coupon_archive, Archived>> coupons will always appear
-**below** active coupons.
-// Put GIF here
+**below** the active coupons.
 
 Format: `sort PREFIX`
 
@@ -951,10 +947,9 @@ list is edited.
 
 
 * `delete 1` +
-`undo` +
-`redo` +
-//TODO LINK
-Un-undo the `delete` command. First coupon that was in the resulting coupon list is deleted.
+  `undo` +
+  `redo` +
+Un-undo the <<Deleting a coupon: `delete`, `delete`>> command. First coupon that was in the resulting coupon list is deleted.
 // end::redo[]
 
 // tag::goto[]
