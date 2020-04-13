@@ -1,0 +1,20 @@
+@startuml
+/' @author @jarrod-bob'/
+
+start
+
+:User executes HeightCommand;
+:Validate Height given;
+
+if () then ([height is not specified or invalid])
+    :Display an error message;
+
+else ([valid height])
+    :Creates Height from height input;
+    :Stores Height into MyselfStorage;
+    :Save MyselfStorage;
+    :Display to user that Height has been saved;
+
+endif
+stop
+@enduml

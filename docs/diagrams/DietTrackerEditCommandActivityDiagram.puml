@@ -1,0 +1,20 @@
+@startuml
+/' @author @jarrod-bob'/
+/' @author @akhilvuputuri'/
+
+start
+:User enters the Edit command;
+:Validate input arguments (Index, Name and Calories);
+
+if () then ([wrong inputs])
+    :Display an error message;
+else ([else])
+    :Retrieves Food from FoodBook;
+    :Creates new EditFoodDescriptor;
+    :Creates new editedFood;
+    :Replaces old Food in FoodBook with editedFood;
+    :Updates Storage;
+endif
+stop
+
+@enduml

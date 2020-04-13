@@ -4,53 +4,120 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Package Model {
 Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
-Class Model
-Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs
+Interface ReadOnlyUserPrefs <<Interface>>
+Interface ObservableList <<Interface>>
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package DietTracker {
+Interface DietModel <<Interface>>
+Interface ReadOnlyFoodBook <<Interface>>
+Interface ReadOnlyMySelf <<Interface>>
+Class DietModelManger
+Class FoodBook
+Class MySelf
+Enum Mode <<Enum>>
+
+Package Food {
+Class UniqueFoodList
+Class Food
+Class "Name" as fName
+Class Calories
+Class Date
 }
-
+Package Self {
+Class Self
+Class Bmi
+Class Height
+Class Weight
+}
 Package Tag {
 Class Tag
 }
+
 }
+
+Package ExpenseSplitter {
+Interface SplitterModel <<Interface>>
+Interface ReadOnlyPersonAmountBook <<Interface>>
+Interface ReadOnlyReceiptBook <<Interface>>
+Class SplitterModelManager
+Class PersonAmountBook
+Class ReceiptBook
+
+Package Person {
+Class UniquePersonList
+Class Person
+Class "Name" as pName
+Class Amount
+}
+
+Package Receipt {
+Class UniqueReceiptList
+Class Receipt
+Class Entry
+
+Package Item {
+Class Item
+Class ItemName
+Class ItemPrice
+}
+}
+
+}
+
+}
+UserPrefs ..|> ReadOnlyUserPrefs
+DietModel ..> ObservableList
+SplitterModel ..> ObservableList
+
+
+DietModel -up-|> Model
+DietModelManger ..|> DietModel
+DietModelManger o-->"1" FoodBook
+DietModelManger o-->"1" MySelf
+DietModelManger o-->"1" UserPrefs
+FoodBook ..|> ReadOnlyFoodBook
+MySelf ..|> ReadOnlyMySelf
+
+FoodBook o-->"1" UniqueFoodList
+UniqueFoodList *-->"*" Food
+Food *--> fName
+Food *--> Calories
+Food *--> Date
+Food *-->"*" Tag
+MySelf o-->"1" Self
+Self *--> Height
+Self *--> Weight
+Self *--> Mode
+Bmi ..> Height
+Bmi ..> Weight
+
+SplitterModel -up-|> Model
+SplitterModelManager ..|> SplitterModel
+SplitterModelManager o-->"1" PersonAmountBook
+SplitterModelManager o-->"1" ReceiptBook
+SplitterModelManager o-->"1" UserPrefs
+PersonAmountBook ..|> ReadOnlyPersonAmountBook
+ReceiptBook ..|> ReadOnlyReceiptBook
+
+PersonAmountBook o-->"1" UniquePersonList
+UniquePersonList *-->"*" Person
+Person *--> pName
+Person *--> Amount
+ReceiptBook o-->"1" UniqueReceiptList
+UniqueReceiptList *-->"*" Receipt
+Receipt *-->"*" Entry
+Entry *-->"1" Item
+Entry *--> Person
+Item *--> ItemName
+Item *--> ItemPrice
+Item *--> Amount
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
 
-ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
-
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
-
-ModelManager -->"1" Person : filtered list
 @enduml

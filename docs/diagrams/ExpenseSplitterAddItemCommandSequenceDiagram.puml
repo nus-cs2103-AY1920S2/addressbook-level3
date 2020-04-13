@@ -1,0 +1,69 @@
+@startuml
+/' @author @ailanthustng'/
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
+participant ":AddItemCommandParser" as AddItemCommandParser LOGIC_COLOR
+participant "command:AddItemCommand" as AddItemCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":SplitterStorage" as SplitterStorageManager STORAGE_COLOR
+end box
+
+[-> SplitterLogicManager : execute("additem -i pasta \n -p 5 -n bob")
+activate SplitterLogicManager
+
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand("additem -i pasta \n -p 5 -n bob")
+activate ExpenseSplitterParser
+
+create AddItemCommandParser
+ExpenseSplitterParser -> AddItemCommandParser
+activate AddItemCommandParser
+
+AddItemCommandParser --> ExpenseSplitterParser
+deactivate AddItemCommandParser
+
+ExpenseSplitterParser -> AddItemCommandParser : parse("additem -i pasta \n -p 5 -n bob")
+activate AddItemCommandParser
+
+create AddItemCommand
+AddItemCommandParser -> AddItemCommand
+activate AddItemCommand
+
+AddItemCommand --> AddItemCommandParser : command
+deactivate AddItemCommand
+
+AddItemCommandParser --> ExpenseSplitterParser : command
+deactivate AddItemCommandParser
+
+ExpenseSplitterParser --> SplitterLogicManager : command
+deactivate ExpenseSplitterParser
+
+ref over SplitterLogicManager, SplitterModelManager: Execution of AddItemCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddItemCommand -[hidden]-> AddItemCommandParser
+destroy AddItemCommand
+destroy AddItemCommandParser
+
+SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
+activate SplitterStorageManager
+
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
+activate SplitterStorageManager
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+[<--SplitterLogicManager : result
+deactivate SplitterStorageManager
+@enduml

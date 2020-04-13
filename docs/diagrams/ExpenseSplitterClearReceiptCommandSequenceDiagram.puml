@@ -1,0 +1,57 @@
+@startuml
+/' @author @ailanthustng'/
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
+participant "command:ClearReceiptCommand" as ClearReceiptCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+participant ":Receipt" as Receipt MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":SplitterStorage" as SplitterStorageManager STORAGE_COLOR
+end box
+
+[-> SplitterLogicManager : execute("clearreceipt")
+activate SplitterLogicManager
+
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand("clearreceipt")
+activate ExpenseSplitterParser
+
+create ClearReceiptCommand
+ExpenseSplitterParser -> ClearReceiptCommand
+activate ClearReceiptCommand
+
+ClearReceiptCommand --> ExpenseSplitterParser : command
+deactivate ClearReceiptCommand
+
+ExpenseSplitterParser --> SplitterLogicManager : command
+deactivate ExpenseSplitterParser
+
+ref over SplitterLogicManager, SplitterModelManager: Execution of ClearReceiptCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ClearReceiptCommand -[hidden]-> SplitterLogicManager
+destroy ClearReceiptCommand
+
+SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
+activate SplitterStorageManager
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
+activate SplitterStorageManager
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+deactivate SplitterStorageManager
+
+[<--SplitterLogicManager : result
+deactivate SplitterStorageManager
+
+@enduml

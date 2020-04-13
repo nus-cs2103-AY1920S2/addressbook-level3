@@ -1,0 +1,79 @@
+@startuml
+/' @author @akhilvuputuri'/
+/' Got inspiration and adapted
+from https://github.com/AY1920S2-CS2103T-W12-1/main/blob/master/docs/images/DeliveredClassDiagram.png '/
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+
+class ListCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : ListCommand
+}
+
+interface Parser<T extends Command> {
+    parse(userInput : String) : ListCommand
+}
+
+abstract class Command {
+    {abstract} execute(dietModel:Model) : CommandResult
+}
+
+class ListCommand extends Command {
+    /' Fields '/
+    - COMMAND_WORD : String = "list"
+    - MESSAGE_USAGE : String
+    - MESSAGE_USAGE_DAYS : String
+    - MESSAGE_SUCCESS : String
+    - numDays : int
+    - mode : String
+
+    /' Methods '/
+    + execute(dietModel : DietModel) : CommandResult
+
+}
+
+interface DietModel <<Interface>> {
+    - PREDICATE_SHOW_ALL_FOODS : Predicate<Food>
+
+    + listFoods(mode : String) : String
+    + updateFilteredFoodList(predicate : Predicate<Food>) : void
+
+}
+
+class ParserUtil {
+    <u> + parseTag(tag : String) : Tag
+    <u> + parseDays(days : String) : int
+}
+
+class DietModelManager implements DietModel {
+    /' Fields '/
+    - GAIN_CALORIES : long
+    - LOSE_CALORIES : long
+    - MAINTAIN_CALORIES : long
+    - foodBook : FoodBook
+    - filteredFoods : FilteredList<Food>
+
+    /' Methods '/
+    + addFood(food : Food) : void
+    + isReceiptDone() : boolean
+}
+
+class FoodBook {
+    /' Fields '/
+    - foods : UniqueFoodList
+
+    /' Methods '/
+    + listFoods(mode : String) : String
+}
+
+
+
+ListCommandParser ..> ListCommand
+ListCommandParser ..> ParserUtil
+ListCommand ..> DietModel
+DietModelManager *-right->"1" FoodBook
+
+@enduml

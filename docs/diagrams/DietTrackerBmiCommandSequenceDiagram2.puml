@@ -1,0 +1,50 @@
+@startuml
+/' @author @jarrod-bob'/
+
+!include style.puml
+
+mainframe sd Create Height and Weight Objects for usage in BmiCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":BmiCommandParser" as BmiCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "height:Height" as Height MODEL_COLOR
+participant "weight:Weight" as Weight MODEL_COLOR
+end box
+
+activate FoodBookParser
+FoodBookParser -> BmiCommandParser : parse("-h 172 -w 73")
+activate BmiCommandParser
+
+BmiCommandParser -> ParserUtil : parseHeight("172")
+activate ParserUtil
+
+create Height
+ParserUtil -> Height
+activate Height
+
+Height --> ParserUtil : height
+deactivate Height
+
+ParserUtil --> BmiCommandParser : height
+deactivate ParserUtil
+
+BmiCommandParser -> ParserUtil : parseWeight("73")
+activate ParserUtil
+
+create Weight
+ParserUtil -> Weight
+activate Weight
+
+Weight --> ParserUtil : weight
+deactivate Weight
+
+ParserUtil --> BmiCommandParser : weight
+deactivate ParserUtil
+
+
+@enduml

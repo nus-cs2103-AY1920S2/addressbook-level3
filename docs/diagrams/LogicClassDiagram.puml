@@ -7,14 +7,15 @@ skinparam classBackgroundColor LOGIC_COLOR
 package Logic {
 
 package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
+Interface CommonParser <<Interface>>
+Class Prefix
 Class ArgumentMultimap
 Class ArgumentTokenizer
-Class Prefix
+Interface Parser <<Interface>>
+Class XYZCommandParser
+Class MODEParserUtil
+Class MODEParser
+Class MODECliSyntax
 }
 
 package Command {
@@ -24,39 +25,47 @@ Class "{abstract}\nCommand" as Command
 }
 
 Interface Logic <<Interface>>
-Class LogicManager
+Interface MODELogic <<Interface>>
+Class MODELogicManager
 }
+
+MODELogic -up-|> Logic
+MODELogicManager .up.|> MODELogic
+MODELogicManager -->"1" CommonParser
+
+MODEParser .right.|> CommonParser
+MODEParser .left.> XYZCommandParser: creates >
+XYZCommandParser ..|> Parser
+XYZCommandParser ..> MODECliSyntax
+XYZCommandParser ..> MODEParserUtil
+XYZCommandParser ..> ArgumentMultimap
+XYZCommandParser ..> ArgumentTokenizer
+ArgumentTokenizer .left.> ArgumentMultimap
+MODECliSyntax ..> Prefix
+MODEParserUtil ..> Prefix
+ArgumentTokenizer ..> Prefix
+XYZCommandParser ..> XYZCommand: creates >
+
+ArgumentTokenizer .[hidden]left.> MODEParserUtil
+MODEParserUtil .[hidden]left.> MODECliSyntax
+
+Logic ..> CommandResult
+MODELogic ..> CommandResult
+MODELogicManager ..> CommandResult
+MODELogicManager ..> Command: execute >
+MODELogicManager --> Model
+
+XYZCommand -up-|> Command
+Command .up.> CommandResult
+Command .right.> Model
+note right of XYZCommand: XYZCommand = AddCommand, \nHeightCommand, AddItemCommand, \nListAmountCommand, etc
+note left of MODELogic: MODELogic = DietLogic or \nSplitterLogic
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
 
 package Model{
 Class HiddenModel #FFFFFF
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
-
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
-
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
-
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
 @enduml

@@ -1,0 +1,7 @@
+{
+  "foods": [ {
+    "name": "Food with invalid name field: Ha!ns Mu@ster",
+    "calories": "120",
+    "date": ""
+  } ]
+}

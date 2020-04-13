@@ -1,7 +1,8 @@
-= AddressBook Level 3 - User Guide
+= EYLAH - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 5
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -11,167 +12,1231 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`
 
+[[intro]]
 == Introduction
+//tag::intro[]
+This user guide provides in-depth documentation on the EYLAH desktop application. It comprises of 7 main portions,
+the <<intro, introduction>>, <<getting-started, getting started>>, <<Features,features>>, <<faq, FAQ>>,
+<<command-summary, command summary>>, <<glossary, glossary>> and <<AppendixA, appendix>>.
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Hello there! Welcome to EYLAH's User Guide.
 
-== Quick Start
+Are you someone who *lives in Temasek Hall* in the National University of Singapore (NUS) and
+has *supper frequently with your hall mates?* Do experience *splitting headaches when splitting large bills amongst
+a large group of friends*? Have you ever wished for a *quick and easy way to manage your calorie intake*?
+Or wished for a *Command Line Interface* (CLI) application that can solve the above mentioned issues?
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+If you answered *"YES!"* to any of the above questions, Ease Your Life At Halls (EYLAH) is a revolutionary new
+super-application that developed just for you that will make your lives at halls much easier!
+
+EYLAH is an Expense Splitter and Diet Tracker rolled into one, for Temasek Hall residents who *prefer to use a desktop
+app to solve issues.* More importantly, EYLAH is optimized for residents who prefer to work with a *Command Line
+Interface* (CLI).
+
+EYLAH can solve your problems in halls by *tracking your diet* after those unhealthy suppers
+and *splitting the cost* after each outing or late-night party session with a few keystrokes of your keyboard.
+Interested? Jump to <<Getting Started>> to get started. Let's go!
+
+Hope you have a pleasant experience using EYLAH!
+
+.Launch screen of EYLAH
+image::Ui.png[width="890"]
+//end::intro[]
+
+=== Purpose
+* This documentation serves as an introduction to the features and proper usage of EYLAH, and is made to aid you
+in using the application to improve your lives in Temasek Hall.
+
+
+=== Tips on reading the User Guide
+We encourage you to read EYLAH's User Guide from top to bottom.
+
+While reading the User Guide you may encounter some symbols.
+These symbols are used to highlight crucial information or tips and in this portion we will be explaining the symbols
+and what they stand for.
+
+These symbols include:
+
+[NOTE]
+====
+This block of text with a blue exclamation mark indicates *additional notes* and *information* that you should
+consider to prevent unexpected behaviour you are using EYLAH.
+====
+
+[TIP]
+====
+This block of text with a yellow light bulb indicates *additional tips* that will help you when using EYLAH.
+====
+
+[WARNING]
+====
+This block of text with a warning sign indicates warnings, information you should take extreme note of.
+====
+
+kbd:[Enter] - This symbol indicates the enter button on the keyboard.
+
+`markup` - A grey highlight (known as a mark-up) indicates a command that can be inputted into EYLAH. +
+
+`[-c Calories]` - For some commands there are optional fields. Keywords placed in square brackets are optional fields. +
+(e.g: `edit INDEX [-n NAME] [-c CALORIES]` )
+
+Lastly, blue underline words like link:[this] will lead you to other portions of the User Guide or to an external
+website.
+
+[[getting-started]]
+== Getting Started
+
+Need help setting up EYLAH? Simply follow the steps below to get started in no time!
+
+.  Ensure you have `Java 11` or above installed in your Computer.
+.  Download the latest `EYLAH.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for EYLAH.
+.  Navigate to the folder in terminal and to run the jar file type `java -jar EYLAH.jar`.
 +
-image::Ui.png[width="790"]
+
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will show you the commands you can type.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* `1` or `diet` : enters the Diet Tracker component of EYLAH.
+* `2` or `split` : enters the Expense Splitter component of EYLAH.
+* `help` : shows the list of commands you can execute at each page.
+* `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
+In this section, you can find *all* the commands of EYLAH and some tips and trick you can use to improve your user
+experience while using EYLAH.
+
+[cols= "50%, 50%"]
+
+|===
+|*Diet Tracker*  | *Expense Splitter*
+| <<mode, mode>>
+| <<additem, additem>>
+
+| <<height, height>>
+| <<deleteitem, deleteitem>>
+
+| <<weight, weight>>
+| <<listreceipt, listreceipt>>
+
+| <<metrics, metrics>>
+| <<listamount, listamount>>
+
+| <<calculatebmi, bmi>>
+| <<donereceipt, donereceipt>>
+
+| <<addfood, add>>
+| <<paid, paid>>
+
+| <<listfooditem, list>>
+| <<clearreceipt, clearreceipt>>
+
+| <<deletefooditem, delete>>
+| <<help, help>>
+
+| <<editfooditem, edit>>
+| <<dietback, back>>
+
+| <<help, help>>
+|
+
+| <<splitback, back>>
+|
+
+|===
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters supplied by the user,
+e.g: in `additem -i ITEMNAME -p ITEMPRICE -n NAME`,
+`ITEMNAME`, `ITEMPRICE` and `NAME` are parameters which can decided by the user,
+e.g: `additem -i pizza -p 19.90 -n charlotte`.
+* Items in square brackets are optional, e.g: `paid INDEX [AMOUNT]` can be used as `paid 1` or as
+`paid 1 3.90`.
+* Parameters with `…`​ after them can be used multiple times including zero times, e.g: `[-n NAME]...` can be used as `{nbsp}`
+(i.e. 0 times), `-n Charlotte`, `-n Alice -n Bob` etc.
 ====
 
-=== Viewing help : `help`
+//tag::help[]
+[[help]]
+=== Display the available commands : `help`
 
-Format: `help`
+In this section, you will learn more about `help` command, <<howtousehelpcommand, how to use it>>
+and the <<helpexpectedoutcome, expected outcome>> after using the `help` command.
 
-=== Adding a person: `add`
+*Summary of Help Command:* +
+`help` You can use the `help` command, if you are uncertain, to see the list of available commands.
+This command can be used everywhere in the application.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+[[howtousehelpcommand]]
+*How to use the Help Command:*
+
+Format: +
+`help` +
+
+Valid Example: +
+`help`
+
+[[helpexpectedoutcome]]
+*Expected outcome:*
+
+*Main Menu:*
+
+.Main Menu Help
+image::main_help.png[width="890"]
+
+*Diet Tracker Mode:*
+
+.Diet Tracker Help
+image::diethelp.png[width="890"]
+
+*Expense Splitter Mode:*
+
+.Expense Splitter Help
+image::splithelp.png[width="890"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+Help in main menu and different mode will give different help information.
+====
+
+//end::help[]
+
+'''
+
+//tag::diettrackerintro[]
+=== Diet Tracker : `diet`
+
+Using a Dieting App has never been easier! You can easily achieve the functionalities of a standard Dieting App with Diet Tracker.
+
+Diet Tracker will help you achieve your ideal weight and body mass!
+
+You can store all your food intake everyday and calculate useful information.
+
+'''
+//end::diettrackerintro[]
+
+//tag::diettrackermode[]
+[[mode]]
+==== Dieting Mode `mode`
+
+In this section, you will learn more about the `mode` command, <<howtousemodecommand, how to use it>>
+and the <<modeexpectedoutcome, expected outcome>> after using the
+`mode` command.
+
+*Summary of Mode Command:* +
+`mode` You can set your desired dieting goal with the different modes that set a limit on your daily
+calorie intake. The calorie limits are calculated based on that of an average human. Your daily calories intake status
+can be monitored with the `list` command.
+
+Switch the dieting mode, based on the following modes: +
+
+* Lose Weight (-l) (2000 calorie limit)
+* Gain Weight (-g) (3000 calorie limit)
+* Maintain (-m) (2500 calorie limit)
+
+[[howtousemodecommand]]
+*How to use the Mode Command:*
+
+Format: +
+`mode [-l] [-g] [-m]` +
+
+Valid Example: +
+`mode -l`
+
+[WARNING]
+You must only input *EXACTLY ONE* mode per mode command.
+
+[[modeexpectedoutcome]]
+*Expected outcome:*
+
+.Diet Tracker Mode Command
+image::dietTrackerModeCommandSuccessPhoto.png[width="890"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+The default mode is MAINTAIN if you have not set your mode.
+====
 
 [TIP]
-A person can have any number of tags (including 0)
+====
+* Switch your Dieting Mode to help yourself reach your diet targets better!
+* Check your currently chosen Dieting Mode with `metrics`.
+====
+//end::diettrackermode[]
 
-Examples:
+'''
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+//tag::diettrackerheight[]
+[[height]]
+==== Storing Height `height`
 
-=== Listing all persons : `list`
+In this section, you will learn more about the `height` command, <<howtouseheightcommand, how to use it>>
+and the <<heightexpectedoutcome, expected outcome>> after using the
+`height` command.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+*Summary of Height Command:* +
+`height` You can use this command to save your Height to the Diet Tracker.
 
-=== Editing a person : `edit`
+[[howtouseheightcommand]]
+*How to use the Height Command:*
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: +
+`height HEIGHT` +
+
+Valid Example: +
+`height 170.2`
+
+[[heightexpectedoutcome]]
+*Expected outcome:*
+
+.Diet Tracker Height Command
+image::dietTrackerHeightCommandSuccessPhoto.png[width="890"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+Height in centimetres (cm). Decimal places are accepted. I.e. `height 172.305` is accepted.
+====
+
+[TIP]
+====
+Check your stored height with `metrics`.
+====
+//end::diettrackerheight[]
+
+'''
+//tag::diettrackerweight[]
+[[weight]]
+==== Storing Weight `weight`
+
+In this section, you will learn more about the `weight` command, <<howtouseweightcommand, how to use it>>
+and the <<weightexpectedoutcome, expected outcome>> after using the
+`weight` command.
+
+*Summary of Weight Command:* +
+`weight` You can use this command to save your Weight to the Diet Tracker.
+
+[[howtouseweightcommand]]
+*How to use the Weight Command:*
+
+Format: +
+`weight WEIGHT` +
+
+Valid Example: +
+`weight 65.7`
+
+[[weightexpectedoutcome]]
+*Expected outcome:*
+
+.Diet Tracker Weight Command
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+Weight in kilograms (kg). Decimal places are accepted. I.e. `weight 65.77` is accepted.
+====
+
+[TIP]
+====
+Check your stored weight with `metrics`.
+====
+//end::diettrackerweight[]
+
+'''
+
+//tag::diettrackermetrics[]
+[[metrics]]
+==== Showing your Metrics `metrics`
+
+In this section, you will learn more about the `metrics` command, <<howtousemetricscommand, how to use it>>
+and the <<metricsexpectedoutcome, expected outcome>> after using the
+`metrics` command.
+
+*Summary of Metrics Command:* +
+`metrics` You can print out your individual metrics (Height, Weight and Mode) to check them.
+
+It will display the following data: +
+
+* Your height
+* Your weight
+* Your chosen Dieting Mode
+
+[[howtousemetricscommand]]
+*How to use the Metrics Command:*
+
+Format: +
+`metrics` +
+
+Valid Example: +
+`metrics`
+
+[[metricsexpectedoutcome]]
+*Expected outcome:*
+
+.Diet Tracker Metrics Command
+image::dietTrackerMetricsCommandSuccessPhoto.png[width="890"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+Diet Tracker will prompt you if you did not have any previously stored Height, Weight.
+====
+
+[TIP]
+====
+Use this to check whether you have previously stored a Height, a Weight, or have chosen your Dieting Mode already.
+====
+//end::diettrackermetrics[]
+
+'''
+
+//tag::diettrackerbmi[]
+[[calculatebmi]]
+==== Calculating Body Mass Index (BMI) `bmi`
+
+In this section, you will learn more about the `bmi` command, <<howtousebmicommand, how to use it>>
+and the <<bmiexpectedoutcome, expected outcome>> after using the
+`bmi` command.
+
+*Summary of Bmi Command:* +
+`bmi` You can calculate your BMI either through an input height and weight or your previously stored Height and Weight. +
+
+It will display the following data: +
+
+* BMI value
+
+[[howtousebmicommand]]
+*How to use the Bmi Command:*
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* There are 3 ways to use `bmi`.
+* The first is if there is no input height and weight. This will use
+the height and weight that is stored in the Self object.
+* The second is if there is either no input height or input weight. This will use the
+stored Height (in the case of missing input height) or stored Weight (in the case of missing input weight)
+to do the calculation instead.
+* The third is to calculate bmi with an input height and weight.
 ****
 
-Examples:
+Format: +
+`bmi [-h HEIGHT] [-w WEIGHT]` +
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Valid Examples:
 
-=== Locating persons by name: `find`
+* `height 172` +
+`weight 65` +
+`bmi` +
+Change your height and your weight to your current measurements before calculating your BMI.
+BMI is calculated based off the stored height and weight in this instance.
+* `height 173.5` +
+`bmi -w 59.9` +
+Change your height to your current measurements before calculating you BMI.
+BMI is calculated based off the stored height and input weight in this instance.
+* `bmi -h 172 -w 65.5` +
+Calculate BMI based on the input height and weight values.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+[[bmiexpectedoutcome]]
+*Expected outcome:*
+
+.Diet Tracker Bmi Command
+image::dietTrackerBmiCommandSuccessPhoto.png[width="890"]
+
+*Additional tips* +
+
+[TIP]
+====
+If you are unsure whether you have already input your height and weight, you may `metrics` to check.
+====
+//end::diettrackerbmi[]
+
+'''
+
+//tag::diettrackeradd[]
+[[addfood]]
+==== Adding food `add`
+
+In this section, you will learn more about the `add` command, <<howtouseaddcommand, how to use it>>
+and the <<addexpectedoutcome, expected outcome>> after using the
+`add` command.
+
+*Summary of Add Command:* +
+`add` You can use this command to add a food to the list.
+
+[[howtouseaddcommand]]
+*How to use the Add Command:*
+
+Format: +
+`add -n NAME -c CALORIES [-t TAG]...` +
+
+Valid Example: +
+`add -n Fishball Noodles -c 383 -t favourite -t noodles`
+
+[[addexpectedoutcome]]
+*Expected outcome:*
+
+.Diet Tracker Add Command
+image::dietTrackerAddCommandSuccessPhoto.png[width="890"]
+
+*Additional notes* +
+
+[NOTE]
+====
+* Name and Calories are compulsory.
+* Tags are optional.
+* Any food that you add will be added based on the time that you keyed in the food data. As of Diet Tracker's current functionalities, you cannot add in foods that you have consumed the day before while also setting that food to appear for the previous day's data.
+====
+//end::diettrackeradd[]
+
+'''
+
+//tag::diettrackerlist[]
+[[listfooditem]]
+==== Listing items `list`
+
+In this section, you will learn more about the `list` command, <<howtouselistcommand, how to use it>>
+and the <<listexpectedoutcome, expected outcome>> after using the
+`list` command.
+
+*Summary of List Command:* +
+`list` You can use this function to list out the different foods that you have consumed and their total calories.
+Different listing modes allow you to watch your overall diet during the period, or how much you can/should eat based
+on your daily intake.
+
+Displays different data based on the below flags:
+
+* Food consumed for the day (NO FLAG)
+* All food ever consumed (-a)
+* Food consumed for the past number of days (-d)
+* All food with the given tag (-t)
+
+
+[[howtouselistcommand]]
+*How to use the List Command:*
+
+Format: +
+`list [-a] [-d NUMDAYS] [-t TAGNAME]` +
+
+Valid Examples: +
+`list` +
+`list -a` +
+`list -d 3` +
+`list -t healthy`
+
+[[listexpectedoutcome]]
+*Expected outcome:*
+
+.Diet Tracker List Command
+image::dietTrackerListCommandSuccessPhoto.png[width="890"]
+
+*Additional notes* +
+
+[NOTE]
+====
+* Default value of list is food consumed for the day.
+* For the `-d` tag, the amount of days specified must be a positive Integer value.
+* Calorie intake based on mode is only shown when listing food for the day.
+====
+//end::diettrackerlist[]
+
+'''
+
+//tag::diettrackerdelete[]
+[[deletefooditem]]
+==== Deleting a Food Item `delete`
+
+In this section, you will learn more about the `delete` command, <<howtousedeletecommand, how to use it>>
+and the <<deleteexpectedoutcome, expected outcome>> after using the
+`delete` command.
+
+*Summary of Delete Command:* +
+`delete` You can delete a food item based on the previous list of Foods that you have listed. +
+
+[[howtousedeletecommand]]
+*How to use the Delete Command:*
+
+Format: +
+`delete INDEX` +
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the food item at the specified `INDEX` of the list.
+* The index refers to the index number shown in the displayed food list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples:
-
-* `list` +
+Valid Example: +
+`list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 2nd row of food data from today's list of food.
+[WARNING]
+You *MUST* use `list` to check the list of items to identify a target to edit. This would ensure that you get the
+correct index of the item.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+[[deleteexpectedoutcome]]
+*Expected outcome:*
 
-Clears all entries from the address book. +
-Format: `clear`
+.Diet Tracker Delete Command
+image::dietTrackerDeleteCommandSuccessPhoto.png[width="890"]
 
-=== Exiting the program : `exit`
+*Additional notes and tips* +
 
-Exits the program. +
-Format: `exit`
+[TIP]
+====
+You can list based on time period or tags to find the item that you want to delete.
+====
+//end::diettrackerdelete[]
+
+'''
+
+//tag::diettrackeredit[]
+[[editfooditem]]
+==== Editing a Food Item `edit`
+
+In this section, you will learn more about the `edit` command, <<howtouseeditcommand, how to use it>>
+and the <<editexpectedoutcome, expected outcome>> after using the
+`edit` command.
+
+*Summary of Edit Command:* +
+`edit` You can edit either the Food name, or the calories of the food at the specified index.  +
+
+[[howtouseeditcommand]]
+*How to use the Edit Command:*
+
+Format: +
+`edit -i INDEX [-n NAME] [-c CALORIES]` +
+
+****
+* Edits the Food Item at the specified `INDEX`.
+The index refers to the index number shown in the displayed Food list.
+The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Valid Example: +
+`edit -i 2 -n Chicken Rice -c 585` +
+Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
+
+[WARNING]
+You *MUST* use `list` to check the list of items to identify a target to edit. This would ensure that you get the
+correct index of the item.
+
+[[editexpectedoutcome]]
+*Expected outcome:*
+
+.Diet Tracker Edit Command
+image::dietTrackerEditCommandSuccessPhoto.png[width="890"]
+
+*Additional notes and tips* +
+[TIP]
+====
+You can list based on time period or tags to find the item that you want to edit.
+====
+//end::diettrackeredit[]
+
+'''
+
+
+//tag::diettrackerback[]
+[[dietback]]
+==== Exiting Diet Tracker to go back to main menu `back`
+In this section, you will learn more about the `back` command, <<howtousedietbackcommand,how to use it>>
+and the <<dietbackexpectedoutcome,expected outcome>> after using the `back` command.
+
+*Summary of Back Command:* +
+`back` allows you to exits Diet Tracker mode to go back to main menu of the application.
+
+[[howtousedietbackcommand]]
+*How to use the Back Command:*
+
+Format: +
+`back`
+
+Valid Example: +
+`back`
+
+[[dietbackexpectedoutcome]]
+*Expected outcome:*
+
+.Diet Tracker Back Command
+image::dietTrackerBackCommandSuccessPhoto.png[width="890"]
+//end::diettrackerback[]
+
+'''
+
+//tag::introtoexpensesplitter[]
+=== Expense Splitter : `split`
+Getting a headache from splitting *that* ever-so-complicated bill?
+
+With EYLAH, splitting a large receipt with friends has never been easier! All you have to do is add the item,
+it's price and the names involved in splitting that item and EYLAH will calculate the rest for you!
+
+We have drawn some diagrams to help you visualize how Expense Splitter works, click <<AppendixA, here>> to find out more!
+
+
+Here are some of the prefixes used:
+|===
+|*Prefix* | *Representation*
+| -i | Item Name
+| -p | Item Price
+| -n | Name of Person
+|===
+
+
+
+'''
+//end::introtoexpensesplitter[]
+//tag::additem[]
+[[additem]]
+==== Adding an item: `additem`
+In this section, you will learn more about the `additem` command, <<howtouseadditemcommand,how to use it>>
+and the <<additemexpectedoutcome,expected outcome>> after using the `additem` command.
+
+*Summary of Add Item Command:* +
+`additem` allows you to add an item, it's price and the persons involved in sharing the cost of that item.
+
+[[howtouseadditemcommand]]
+*How to use the Add Item Command:*
+
+Format: +
+`additem -i ITEMNAME -p PRICE -n NAME` +
+`additem -i ITEMNAME -p PRICE -n NAME [-n NAME]...` +
+
+Valid Example: +
+`additem -i pizza -p 30 -n bob` +
+`additem -i pasta -p 19.90 -n alice -n bob -n charlie`
+
+[[additemexpectedoutcome]]
+*Expected outcome:*
+
+.Expense Splitter Add Item Command
+image::expensesplitteradditemexpectedoutcome.png[width="890"]
+
+[NOTE]
+====
+* Price can be up to 2 decimal places, i.e. 7.99.
+There is no need to add the dollar sign ($).
+
+* The maximum price of an item is 10,000.
+
+* All names inputted will automatically be converted to lowercase. (e.g: Bob -> bob)
+====
+//end::additem[]
+'''
+//tag::deleteitem[]
+[[deleteitem]]
+==== Deleting an item: `deleteitem`
+In this section, you will learn more about the `deleteitem` command, <<howtousedeleteitemcommand,how to use it>>
+and the <<deleteitemexpectedoutcome,expected outcome>> after using the `deleteitem` command.
+
+*Summary of Delete Item Command:* +
+`deleteitem` allows you to delete an item from the receipt.
+
+[[howtousedeleteitemcommand]]
+*How to use the Delete Item Command:*
+
+Format: +
+`deleteitem INDEX` +
+
+Valid Example: +
+`deleteitem 3`
+
+[[deleteitemexpectedoutcome]]
+*Expected outcome:*
+
+.Expense Splitter Delete Item Command
+image::expensesplitterdeleteitemexpectedoutcome.png[width="890"]
+
+[TIP]
+Use `listreceipt` to view your item indices before deletion.
+//end::deleteitem[]
+'''
+//tag::listreceipt[]
+[[listreceipt]]
+==== Listing the current receipt: `listreceipt`
+
+In this section, you will learn more about the `listreceipt` command, <<howtouselistreceiptcommand,how to use it>>
+and the <<listreceiptexpectedoutcome,expected outcome>> after using the
+`listreceipt` command.
+
+*Summary of List Receipt Command:* +
+`listreceipt` shows you all the entries in your current receipt.
+
+[[howtouselistreceiptcommand]]
+*How to use the List Receipt Command:*
+
+Format: +
+`listreceipt` +
+
+Valid Example: +
+`listreceipt`
+
+[[listreceiptexpectedoutcome]]
+*Expected outcome:*
+
+.Expense Splitter List Receipt Command
+image::listreceipt.png[width="890"]
+
+*Additional notes and tips* +
+
+[NOTE]
+Each entry in the receipt has the item's name, price and person(s) who is splitting that item with you thus you do
+not have to remember who you split this item with!
+
+
+[TIP]
+Use `listreceipt` command to find the index of the item in the receipt. The index is useful for commands
+such as `deleteitem` where you have to pass in the index of item to be deleted.
+
+//end::listreceipt[]
+
+'''
+//tag::listamount[]
+[[listamount]]
+==== Listing amounts owed by each person: `listamount`
+
+In this section, you will learn more about the `listamount` command, <<howtouselistamountcommand,how to use it>>
+and the <<listamountexpectedoutcome,expected outcome>> after using the
+`listamount` command.
+
+*Summary of List Amount Command:* `listamount` *shows you how much each Person owes you*.
+
+[[howtouselistamountcommand]]
+*How to use the List Amount Command:*
+
+Format: +
+`listamount` +
+
+Valid example: +
+`listamount`
+
+[[listamountexpectedoutcome]]
+*Expected outcome:*
+
+.Expense Splitter List Amount Command
+image::listamount.png[width="890"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+* The Person and amount owed will be automatically saved after each command.
+* A person is deleted after they have completely paid the amount they owe you.
+====
+
+[TIP]
+Use `listamount` command to find the index of the person who paid you. The index is useful for commands
+such as `paid`.
+//end::listamount[]
+
+'''
+
+//tag::donereceipt[]
+[[donereceipt]]
+==== Mark receipt as done `donereceipt`
+
+In this section, you will learn more about the `donereceipt` command, <<howtousedonereceiptcommand,how to use it>>
+and the <<donereceiptexpectedoutcome,expected outcome>> after using the `donereceipt` command.
+
+*Summary of Done Receipt Command:* `donereceipt` *marks the receipt as done when you have completed entering
+all the items.
+
+[[howtousedonereceiptcommand]]
+*How to use the Done Receipt Command:*
+
+Format: +
+`donereceipt`
+
+Example: +
+`donereceipt`
+
+[[donereceiptexpectedoutcome]]
+*Expected outcome:*
+
+.Expense Splitter Done Receipt Command
+image::donereceipt.png[width="890"]
+
+[NOTE]
+====
+* Use this command only after all Items have been correctly added to the Receipt.
+* After you use this command, you will be unable to add any new items using the `additem` command
+or delete any items using the `deleteitem` command.
+* However, you are now able to use the `paid` command.
+====
+//end::donereceipt[]
+'''
+//tag::paid[]
+[[paid]]
+==== Paying money: `paid`
+
+In this section, you will learn more about the `paid` command, <<howtousepaidcommand,how to use it>> and the
+<<paidcommandexpectedoutcome,expected outcome>> after using the
+`paid` command.
+
+*Summary of Paid Command:* `paid` *subtracts the amount of money a Person owes you.*
+
+[[howtousepaidcommand]]
+*How to use the Paid Command:*
+
+Format: +
+
+`paid INDEX [AMOUNT]` +
+
+[NOTE]
+====
+* `INDEX` is a *compulsory* field that must be stated by you. Instead of typing a Person's name,
+you can type his/her index thus saving you time and effort. To find out his/her index, use the command
+ `listamount`.
+
+* `AMOUNT` is an *optional* field. It refers to the amount paid by that Person. Leaving this field
+empty is equivalent to the Person paying you the full amount he/she owes you.
+
+* `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
+====
+
+Valid examples: +
+
+`paid 2` - This commmand means that the Person at index 2 has paid you the full amount they owe you. +
+
+`paid 3 3.90` - This command means that the Perosn at index 3 has paid you $3.90. +
+
+
+[[paidcommandexpectedoutcome]]
+*Expected outcome:*
+
+.Expense Splitter Paid Command
+image::paid.png[width="890"]
+
+*Additional notes and tips*
+
+[NOTE]
+====
+* You will only be able to use this command after you have marked the receipt as done using the
+`donereceipt` command.
+* The person will automatically be removed from the list if the amount he owes you drops to $0.
+====
+
+[TIP]
+Use `listamount` command to find the index of the person who paid you.
+//end::paid[]
+
+'''
+
+//tag::clearreceipt[]
+[[clearreceipt]]
+==== Clears the receipt `clearreceipt`
+In this section, you will learn more about the `clearreceipt` command, <<howtouseclearreceiptcommand,how to use it>>
+and the <<clearreceiptexpectedoutcome,expected outcome>> after using the `clearreceipt` command.
+
+*Summary of Clear Receipt Command:* +
+`clearreceipt` allows you to remove all items from the receipt and start with a clean receipt.
+
+[[howtouseclearreceiptcommand]]
+*How to use the Clear Receipt Command:*
+
+Format: +
+`clearreceipt`
+
+Valid Example: +
+`clearreceipt`
+
+[[clearreceiptexpectedoutcome]]
+*Expected outcome:*
+
+.Expense Splitter Clear Receipt Command
+image::expensesplitterclearreceiptexpectedoutcome.png[width="890"]
+
+[WARNING]
+====
+* If you use this command before marking the receipt as done via the `donereceipt` command, you will be removing all the
+previously inputting items, as well as the amount owed by each person.
+* However, if you use this command after marking the receipt as done via the `donereceipt` command, the amount owed by
+each person will still be present and will be accessible via the `listamount` command.
+====
+
+[NOTE]
+====
+* After you use this command, you will be able to add new items using the `additem` command and delete items using the
+`deleteitem` command.
+* However, you will be unable to use the `paid` command.
+====
+//end::clearreceipt[]
+'''
+
+//tag::splitback[]
+[[splitback]]
+==== Exiting Expense Splitter to go back to main menu `back`
+In this section, you will learn more about the `back` command, <<howtousesplitbackcommand,how to use it>>
+and the <<splitbackexpectedoutcome,expected outcome>> after using the `back` command.
+
+*Summary of Back Command:* +
+`back` allows you to exits Expense Splitter mode to go back to main menu of the application.
+
+[[howtousesplitbackcommand]]
+*How to use the Back Command:*
+
+Format: +
+`back`
+
+Valid Example: +
+`back`
+
+[[splitbackexpectedoutcome]]
+*Expected outcome:*
+
+.Expense Splitter Back Command
+image::expenseback.png[width="890"]
+//end::splitback[]
+
+'''
+
+//tag::exit[]
+[[exit]]
+=== Exiting the Application : `exit`
+
+In this section, you will learn more about `exit` command, <<howtouseexitcommand, how to use it>>
+and the <<exitexpectedoutcome, expected outcome>> after using the `exit` command.
+
+*Summary of Exit Command:* +
+`exit` You can use this command everywhere in the application to exit.
+
+[[howtouseexitcommand]]
+*How to use the Exit Command:*
+
+Format: +
+`exit` +
+
+Valid Example: +
+`exit`
+
+[[exitexpectedoutcome]]
+*Expected outcome:*
+
+.Exit Command
+image::exit.png[width="890"]
+//end::exit[]
+
+'''
 
 === Saving the data
+In this section, you will learn more about the saving mechanism of EYLAH. +
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+EYLAH will automatically help you store any information that you have inputted into the hard disk. +
+You *do not* need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
+[[faq]]
 == FAQ
-
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EYLAH folder.
 
+[[command-summary]]
 == Command Summary
+In this section, you can find out more about the commands supported by EYLAH, as well as their respective format and
+example.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+If you would like to know more about a specific command, simply click on the provided links in the table below and you
+will be brought to the respective command.
+//tag::commandsummaryfordiettracker[]
+
+=== For Diet Tracker
+.Summary of Command for Diet Tracker
+|===
+|Command |Format |Example
+
+|<<addfood, *Adding Food*>>
+|`add -n NAME -c CALORIES [-t TAGS]`
+|`add -n salad -c 235` +
+`add -n fries -c 195 -t fastfood`
+
+|<<deletefooditem, *Deleting Food*>>
+|`delete INDEX`
+|`delete 1` +
+`delete 2`
+
+|<<editfooditem, *Editing Food*>>
+|`edit -i INDEX [-n NAME] [-c CALORIES]`
+|`edit -i 1 -n carbonara -c 543` +
+`edit -i 2 -n chips`
+
+|<<listfooditem, *Listing Food*>>
+|`list [-a] [-d NUMDAYS] [-t TAG]`
+|`list` +
+or +
+`list -a` +
+or +
+`list -d 6` +
+or +
+`list -t healthy`
+
+|<<mode, *Setting Mode*>>
+|`mode MODE`
+|`mode -l` +
+or +
+`mode -g` +
+or +
+`mode -h`
+
+|<<height, *Storing Height*>>
+|`height HEIGHT`
+|`height 165` +
+`height 172.5`
+
+|<<weight, *Storing Weight*>>
+|`weight WEIGHT`
+|`weight 69` +
+`weight 67.3`
+
+|<<metrics, *Showing Metrics*>>
+|`metrics`
+|`metrics`
+
+|<<calculatebmi, *Calculating BMI*>>
+|`bmi [-h HEIGHT] [-w WEIGHT]`
+|`bmi` +
+or +
+`bmi -h 172 -w 65.5` +
+or +
+`bmi -h 172` +
+or
++
+`bmi -w 65.7`
+
+|<<help, *Getting Help*>>
+|`help`
+|`help`
+
+|<<dietback, *Going Back*>>
+|`back`
+|`back`
+
+|<<exit, *Exiting the Application*>>
+|`exit`
+|`exit`
+
+|===
+//end::commandsummaryfordiettracker[]
+//tag::commandsummaryforexpensesplitter[]
+=== For Expense Splitter
+
+.Summary of Command for Expense Splitter
+|===
+|Command |Format |Example
+
+|<<additem, *Adding Item*>>
+|`additem` `-i ITEMNAME` `-p ITEMPRICE` `-n NAME` `[-n NAME]...`
+|`additem` `-i pasta` `-p 5` `-n John` +
+or +
+`additem` `-i pasta` `-p 32` `-n John` `-n Carl` `-n Jasmine`
+
+|<<deleteitem, *Deleting Item*>>
+|`deleteitem` `INDEX`
+|`deleteitem` `1` +
+or +
+`deleteitem` `2`
+
+|<<listreceipt, *Listing Receipt*>>
+|`listreceipt`
+|`listreceipt`
+
+|<<listamount, *Listing Amount*>>
+|`listamount`
+|`listamount`
+
+|<<donereceipt, *Marking Receipt as Done*>>
+|`donereceipt`
+|`donereceipt`
+
+|<<paid, *Getting Paid by Someone*>>
+|`paid` `INDEX` `[AMOUNT]`
+|`paid` `3`  +
+or +
+`paid` `3` `10.00` +
+or +
+`paid` `2` `10.0`
+
+|<<clearreceipt, *Clearing Receipt*>>
+|`clearreceipt`
+|`clearreceipt`
+
+|<<help, *Getting Help*>>
+|`help`
+|`help`
+
+|<<splitback, *Going Back*>>
+|`back`
+|`back`
+
+|<<exit, *Exiting the Application*>>
+|`exit`
+|`exit`
+
+|===
+//end::commandsummaryforexpensesplitter[]
+
+[[glossary]]
+== Glossary
+
+.Glossary
+[width="%",cols="<20%,<40,<40,options="header",]
+|=======================================================================
+|Term | Explanation | Examples
+
+| Temasek Hall | This refers the one of the Halls of Residences in the National University of Singapore |
+
+| Halls of Residences | This refers to student accommodation on campus |
+
+| NUS | This is the short form of National University of Singapore. |
+
+| SOC or SoC | This is the short form for School of Computing. |
+
+| CLI | This is the short form for Command Line Interface. It processes commands to
+TA-Tracker in the form of lines of text |
+
+| Index | This refers to the position of an item on a list. | Index of 1 refers to the first
+item in a list.
+
+| Activity Diagram | This refers to the workflow of a software. | <<AppendixA,Appendix>>
+
+|=======================================================================
+
+[[AppendixA]]
+== Appendix: Simple activity diagram to aid you with using Expense Splitter +
+
+This diagram will help you understand the flow of Expense Splitter thus improving your user experience.
+
+The fully blackened circle at the top represents the start point while the circle
+at the bottom represents the end point.
+
+.Expense Splitter Activity Diagram
+image::ExpenseSplitterActivityDiagramV2.png[width="890"]
+
+*Simplified Add Item Activity Diagram*  +
+
+This diagram below is used in conjunction with the diagram directly above this.
+
+.Simplified Add Item Activity Diagram
+image::ExpenseSplitterActivityDiagram.png[width="890"]
+
+
+

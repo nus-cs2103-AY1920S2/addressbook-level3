@@ -1,0 +1,45 @@
+@startuml
+/' @author @akhilvuputuri @jarrod-bob'/
+
+start
+
+:Enter Diet Tracker;
+
+
+
+if (Are all metrics entered?) then ([Yes])
+
+else ([No])
+    if (Are both Height and Weight entered?) then ([Yes])
+        if (Is Mode entered?) then ([Yes])
+
+        else ([No])
+            : Mode Command;
+        endif
+    else ([No])
+        if (Only one of Height and Weight is entered?) then ([Yes])
+            if (Only height is entered?) then ([Yes])
+                : Weight Command;
+            else ([No])
+                : Height Command;
+            endif
+        else ([No])
+            : Height Command;
+            : Weight Command;
+        endif
+        if (Is Mode entered?) then ([Yes])
+
+                else ([No])
+                    : Mode Command;
+                endif
+    endif
+
+endif
+
+
+: Add Command;
+
+: List Command;
+
+stop
+@enduml

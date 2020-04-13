@@ -1,0 +1,115 @@
+@startuml
+/' @author @jarrod-bob'/
+/' @author @akhilvuputuri'/
+
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":DietLogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant "efd:EditFoodDescriptor" as EditFoodDescriptor LOGIC_COLOR
+participant "e:EditCommand" as EditCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "foodToEdit:Food" as FoodToEdit MODEL_COLOR
+participant "editedFood:Food" as EditedFood MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":DietStorage" as FoodBookStorage STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("edit -i 1 -n Pasta -c 1200")
+activate LogicManager
+
+LogicManager -> FoodBookParser : parseCommand("edit -i 1 -n Pasta -c 1200")
+activate FoodBookParser
+
+create EditCommandParser
+FoodBookParser -> EditCommandParser
+activate EditCommandParser
+
+EditCommandParser --> FoodBookParser
+deactivate EditCommandParser
+
+FoodBookParser -> EditCommandParser : parse("-i 1 -n Pasta -c 1200")
+activate EditCommandParser
+
+create EditFoodDescriptor
+EditCommandParser -> EditFoodDescriptor
+activate EditFoodDescriptor
+
+EditFoodDescriptor --> EditCommandParser : efd
+deactivate EditFoodDescriptor
+
+create EditCommand
+EditCommandParser -> EditCommand
+activate EditCommand
+
+EditCommand --> EditCommandParser : e
+deactivate EditCommand
+
+EditCommandParser --> FoodBookParser : e
+deactivate EditCommandParser
+
+FoodBookParser --> LogicManager : e
+deactivate FoodBookParser
+
+LogicManager -> EditCommand : execute()
+activate EditCommand
+
+create FoodToEdit
+EditCommand -> FoodToEdit
+activate FoodToEdit
+
+FoodToEdit -> EditCommand : foodToEdit
+deactivate FoodToEdit
+
+create EditedFood
+EditCommand -> EditedFood
+activate EditedFood
+
+EditedFood -> EditCommand : editedFood
+deactivate EditedFood
+
+EditCommand -> Model : setFood(foodToEdit, editedFood)
+activate Model
+
+Model --> EditCommand
+deactivate Model
+
+create CommandResult
+EditCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditCommand : result
+deactivate CommandResult
+
+EditCommand --> LogicManager : result
+deactivate EditCommand
+
+EditCommand -[hidden]-> LogicManager
+destroy EditCommand
+destroy FoodToEdit
+destroy EditedFood
+destroy EditCommandParser
+
+LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+LogicManager -> FoodBookStorage : saveMyself(myself)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

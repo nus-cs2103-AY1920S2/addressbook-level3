@@ -1,0 +1,96 @@
+@startuml
+/' @author @WillySeahh'/
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
+participant "command:ListReceiptCommand" as ListReceiptCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+participant ":Receipt" as Receipt MODEL_COLOR
+participant ":Entry" as Entry MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":SplitterStorage" as SplitterStorageManager STORAGE_COLOR
+end box
+
+[-> SplitterLogicManager : execute("listreceipt")
+activate SplitterLogicManager
+
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand("listreceipt")
+activate ExpenseSplitterParser
+
+create ListReceiptCommand
+ExpenseSplitterParser -> ListReceiptCommand
+activate ListReceiptCommand
+
+ListReceiptCommand --> ExpenseSplitterParser: command
+deactivate ListReceiptCommand
+
+ExpenseSplitterParser --> SplitterLogicManager: command
+deactivate ExpenseSplitterParser
+
+SplitterLogicManager -> ListReceiptCommand: execute(model)
+activate ListReceiptCommand
+
+ListReceiptCommand -> SplitterModelManager: listReceipt()
+activate SplitterModelManager
+
+SplitterModelManager -> Receipt: toString()
+activate Receipt
+
+loop for all entries
+    Receipt -> Entry: toString()
+    activate Entry
+    Entry --> Receipt: String
+end
+deactivate Entry
+
+
+Receipt --> SplitterModelManager: String
+deactivate Receipt
+
+
+
+
+SplitterModelManager --> ListReceiptCommand : String
+deactivate SplitterModelManager
+
+create CommandResult
+ListReceiptCommand -> CommandResult:
+activate CommandResult
+
+CommandResult --> ListReceiptCommand: result
+deactivate CommandResult
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CommandResult -[hidden]-> ListReceiptCommand
+
+
+
+ListReceiptCommand --> SplitterLogicManager: result
+deactivate ListReceiptCommand
+
+ListReceiptCommand -[hidden]-> ExpenseSplitterParser
+destroy ListReceiptCommand
+
+SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
+activate SplitterStorageManager
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
+activate SplitterStorageManager
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+
+[<--SplitterLogicManager : result
+deactivate SplitterStorageManager
+
+@enduml

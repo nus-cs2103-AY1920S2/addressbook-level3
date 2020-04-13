@@ -1,0 +1,66 @@
+@startuml
+/' @author @jarrod-bob'/
+/' Got inspiration and adapted
+from https://github.com/AY1920S2-CS2103T-W12-1/main/blob/master/docs/images/DeliveredClassDiagram.png '/
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+class MetricsCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : MetricsCommand
+}
+
+interface Parser<T extends Command> <<Interface>> {
+    parse(userInput : String) : MetricCommand
+}
+
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
+}
+
+class MetricsCommand extends Command {
+    /' Fields '/
+
+    /' Methods '/
+    + execute(dietModel : DietModel) : CommandResult
+    + equals(other : Object) : boolean
+
+}
+
+interface DietModel <<Interface>> {
+    + PREDICATE_SHOW_ALL_FOODS : Predicate<Food>
+
+    + setUserPrefs(userPrefs : ReadOnlyUserPrefs) : void
+    + getUserPrefs() : ReadOnlyUserPrefs
+    + getMyselfFilePath() : Path
+    + setMyselfFilePath(myselfFilePath : Path) : void
+    + setMyself(myself : ReadOnlyMyself) : void
+    + getMyself() : ReadOnlyMyself
+    + setHeight(height : Height) : void
+    + setWeight(weight : Weight) : void
+    + getHeight() : Height
+    + getWeight() : Weight
+    + setMode(mode : Mode) : void
+    + printMetrics() : String
+    + getMode() : Mode
+    + getFoodBookFilePath() : Path
+    + setFoodBookFilePath(foodBookFilePath : Path) : void
+    + setFoodBook(foodBook : ReadOnlyFoodBook) : void
+    + getFoodBook() : ReadOnlyFoodBook
+    + hasFood(food : Food) : boolean
+    + deleteFood(target : Food) : void
+    + addFood(food : Food) : void
+    + setFood(target : Food, editedFood : Food) : void
+    + getFilteredFoodList() : ObservableList<Food>
+    + listFoods(mode : String) : String
+    + updateFilteredFoodList(predicate : Predicate<Food>) : void
+}
+
+
+MetricsCommand ..> DietModel
+MetricsCommandParser ..> MetricsCommand
+
+
+@enduml

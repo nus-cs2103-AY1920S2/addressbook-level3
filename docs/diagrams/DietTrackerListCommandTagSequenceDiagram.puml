@@ -1,0 +1,111 @@
+@startuml
+/' @author @jarrod-bob'/
+/' @author @akhilvuputuri'/
+
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":DietLogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":ListCommandParser" as ListCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "l:ListCommand" as ListCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "tag:Tag" as Tag MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":DietStorage" as FoodBookStorage STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("list -t fastfood")
+activate LogicManager
+
+LogicManager -> FoodBookParser : parseCommand("list -t fastfood")
+activate FoodBookParser
+
+create ListCommandParser
+FoodBookParser -> ListCommandParser
+activate ListCommandParser
+
+ListCommandParser --> FoodBookParser
+deactivate ListCommandParser
+
+FoodBookParser -> ListCommandParser : parse("-t fastfood")
+activate ListCommandParser
+
+ListCommandParser -> ParserUtil : parseTag("fastfood")
+activate ParserUtil
+
+create Tag
+ParserUtil -> Tag
+activate Tag
+
+Tag --> ParserUtil : tag
+deactivate Tag
+
+ParserUtil --> ListCommandParser : tag
+deactivate ParserUtil
+
+create ListCommand
+ListCommandParser -> ListCommand : mode, tag
+activate ListCommand
+
+ListCommand --> ListCommandParser : l
+deactivate ListCommand
+
+ListCommandParser --> FoodBookParser : l
+deactivate ListCommandParser
+
+FoodBookParser --> LogicManager : l
+deactivate FoodBookParser
+
+LogicManager -> ListCommand : execute()
+activate ListCommand
+
+ListCommand -> Model : updateFilteredFoodList(tagPredicate)
+activate Model
+
+Model --> ListCommand
+deactivate Model
+
+ListCommand -> Model : listFoods(mode)
+activate Model
+
+Model --> ListCommand
+deactivate Model
+
+create CommandResult
+ListCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ListCommand : result
+deactivate CommandResult
+
+ListCommand --> LogicManager : result
+deactivate ListCommand
+
+ListCommand -[hidden]-> LogicManager
+destroy ListCommand
+destroy Tag
+destroy ListCommandParser
+
+LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+LogicManager -> FoodBookStorage : saveMyself(myself)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

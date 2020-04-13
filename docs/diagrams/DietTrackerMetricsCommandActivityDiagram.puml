@@ -1,0 +1,9 @@
+@startuml
+/' @author @jarrod-bob'/
+
+start
+:User executes MetricsCommand;
+ :Retrieves Height, Weight and Mode from MyselfStorage;
+ :Display to user their health metrics (Height, Weight, Mode);
+ stop
+ @enduml

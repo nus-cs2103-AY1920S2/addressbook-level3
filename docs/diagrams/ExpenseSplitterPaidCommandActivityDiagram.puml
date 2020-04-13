@@ -1,0 +1,32 @@
+@startuml
+/' @author @WillySeahh'/
+title Activity: Paid Command
+
+start
+:User enters the paid command;
+
+
+if () then ([else])
+    :Display an error message
+    informing User that paid command
+    cannot be used in midst of editing
+    Receipt;
+else ([receiptIsDone])
+    if () then ([indexNotSpecified])
+        :Display an error message
+        informing User that Index is a
+        compulsory field;
+    else ([else])
+        if () then ([amountPaidSpecified])
+            :amountPaid is set to User's input;
+        else ([else])
+            :amountPaid is set to the total Amount
+            owed by the Person;
+        endif
+        :Reduce Amount owed by the Person;
+        :Updates the Storage;
+    endif
+
+endif
+stop
+@enduml

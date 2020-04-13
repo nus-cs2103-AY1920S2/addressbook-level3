@@ -1,0 +1,153 @@
+@startuml
+/' @author @ailanthustng '/
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
+}
+
+class AddItemCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : AddItemCommand
+}
+
+interface Parser<T extends Command> <<Interface>> {
+    parse(userInput : String) : AddItemCommand
+}
+
+class AddItemCommand extends Command {
+    /' Fields '/
+    - toBeAdded : Entry
+    - persons : ArrayList<Person>
+    - amount : Amount
+    - item : Item
+
+    /' Methods '/
+    + execute(splitterModel : SplitterModel) : CommandResult
+
+}
+
+interface SplitterModel <<Interface>> {
+    + addEntry(entry : Entry) : void
+    + deleteEntry(index : int) : void
+    + getEntry(entry : Entry) : Entry
+    + paidPerson(person : Person, amountPaid : String) : void
+    + listAmount() : String
+    + listReceipt() : String
+    + getReceipt() : Receipt
+    + clearReceipt() : void
+    + isReceiptDone() : boolean
+    + deleteAllEntries() : void
+    + hasPerson(person : Person) : boolean
+    + addPerson(person : Person) : void
+    + getPerson(person : Person) : Person
+    + addAmount(person : Person, amount : Amount) : void
+    + removeAmount(person : Person, amount : Amount) : void
+    + getReceiptBook() : ReadOnlyReceiptBook
+    + updateFilteredPersonList(predicate : Predicate<Person>) : void
+    + getFilteredPersonList() : ObservableList<Person>
+}
+
+
+class SplitterModelManager implements SplitterModel {
+    /' Fields '/
+    - receipt : Receipt
+
+    /' Methods '/
+    + addEntry(entry : Entry) : void
+    + isReceiptDone() : boolean
+}
+
+class Receipt {
+    /' Fields '/
+    - receipt : ArrayList<Entry>
+    - isDone : boolean
+
+    /' Methods '/
+    + addEntry(entry : Entry) : void
+    + isDone() : boolean
+}
+
+class ParserUtil {
+    <u> + parseIndex(oneBasedIndex : String) : Index
+    <u> + parseItemName(itemName : String) throws : ItemName
+    <u> + parseItemPrice(priceInString : String) : ItemPrice
+    <u> + parseAmount(price : ItemPrice , numPersons : int) : Amount
+    <u> + parseName(name : String) : Name
+    <u> + parseNames(names : Collection<String>) : ArrayList<Name>
+    <u> + parsePersons(names : ArrayList<Name>, amount : Amount) : ArrayList<Person>
+}
+
+class Name {
+    /' Fields '/
+    + fullName : String
+}
+
+class ItemName {
+    /' Fields '/
+    + itemName : String
+}
+
+class ItemPrice {
+    /' Fields '/
+    + itemPrice : BigDecimal
+}
+
+class Item {
+    /' Fields '/
+    - name : ItemName
+    - price : ItemPrice
+    - amountPerPerson : Amount
+}
+
+class Amount {
+    /' Fields '/
+    + amount : BigDecimal
+}
+
+class Person {
+    /' Fields '/
+    - name : Name
+    - amount : Amount
+}
+
+class Entry {
+    /' Fields '/
+    - item : Item
+    - persons : ArrayList<Person>
+}
+
+
+Item *--> Amount
+Item *--> ItemName
+Item *--> ItemPrice
+
+AddItemCommand *-right-> Entry
+AddItemCommand *--> Item
+AddItemCommand ..> Person
+AddItemCommand *--> Amount
+AddItemCommand ..> SplitterModel
+
+Person *--> Name
+Person *--> Amount
+
+Entry .right.> Person
+Entry *-right-> Item
+
+AddItemCommandParser ..> AddItemCommand
+AddItemCommandParser ..> Name
+AddItemCommandParser ..> Amount
+AddItemCommandParser ..> Person
+AddItemCommandParser ..> ItemName
+AddItemCommandParser ..> ItemPrice
+AddItemCommandParser ..> Item
+AddItemCommandParser .up.> ParserUtil
+SplitterModelManager ..> Entry
+Receipt ..> Entry
+SplitterModelManager *-right->"1" Receipt
+
+
+@enduml

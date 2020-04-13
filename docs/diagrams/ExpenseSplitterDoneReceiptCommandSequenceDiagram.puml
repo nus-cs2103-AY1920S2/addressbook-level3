@@ -1,0 +1,79 @@
+@startuml
+/' @author @sheexiong'/
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
+participant "command:DoneReceiptCommand" as DoneReceiptCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+participant "receipt:Receipt" as Receipt MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":SplitterStorage" as SplitterStorageManager STORAGE_COLOR
+end box
+
+[-> SplitterLogicManager : execute("donereceipt")
+activate SplitterLogicManager
+
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand("donereceipt")
+activate ExpenseSplitterParser
+
+create DoneReceiptCommand
+ExpenseSplitterParser -> DoneReceiptCommand
+activate DoneReceiptCommand
+
+DoneReceiptCommand --> ExpenseSplitterParser : command
+deactivate DoneReceiptCommand
+
+ExpenseSplitterParser --> SplitterLogicManager : command
+deactivate ExpenseSplitterParser
+
+SplitterLogicManager -> DoneReceiptCommand : execute(model)
+activate DoneReceiptCommand
+
+DoneReceiptCommand -> SplitterModelManager : markDone()
+activate SplitterModelManager
+
+SplitterModelManager -> Receipt : markDone()
+activate Receipt
+
+Receipt --> SplitterModelManager
+deactivate Receipt
+
+SplitterModelManager --> DoneReceiptCommand
+deactivate SplitterModelManager
+
+create CommandResult
+DoneReceiptCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DoneReceiptCommand : result
+deactivate CommandResult
+
+DoneReceiptCommand --> SplitterLogicManager : result
+deactivate DoneReceiptCommand
+
+DoneReceiptCommand -[hidden]-> SplitterLogicManager
+destroy DoneReceiptCommand
+
+SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
+activate SplitterStorageManager
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
+activate SplitterStorageManager
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+[<--SplitterLogicManager : result
+deactivate SplitterStorageManager
+
+
+@enduml

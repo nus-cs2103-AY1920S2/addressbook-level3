@@ -1,0 +1,48 @@
+@startuml
+/' @author @jarrod-bob'/
+!include style.puml
+
+mainframe sd Retrieve Height and Weight from Model for usage in BmiCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":DietLogicManager" as DietLogicManager LOGIC_COLOR
+participant ":BmiCommand" as BmiCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":DietModelManager" as DietModelManager MODEL_COLOR
+participant "storedHeight:Height" as Height MODEL_COLOR
+participant "storedWeight:Weight" as Weight MODEL_COLOR
+end box
+
+activate DietLogicManager
+DietLogicManager -> BmiCommand :execute(model)
+activate BmiCommand
+
+BmiCommand -> DietModelManager : getHeight()
+activate DietModelManager
+
+create Height
+DietModelManager -> Height
+activate Height
+
+Height --> DietModelManager : storedHeight
+deactivate Height
+
+DietModelManager --> BmiCommand : storedHeight
+deactivate DietModelManager
+
+BmiCommand -> DietModelManager : getWeight()
+activate DietModelManager
+
+create Weight
+DietModelManager -> Weight
+activate Weight
+
+Weight --> DietModelManager : storedWeight
+deactivate Weight
+
+DietModelManager --> BmiCommand : storedWeight
+deactivate DietModelManager
+
+@enduml

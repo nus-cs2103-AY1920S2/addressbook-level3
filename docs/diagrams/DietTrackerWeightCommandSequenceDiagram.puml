@@ -1,0 +1,105 @@
+@startuml
+/' @author @jarrod-bob'/
+
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":DietLogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":WeightCommandParser" as WeightCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "w:WeightCommand" as WeightCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "weight:Weight" as WeightWeight MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":DietStorage" as FoodBookStorage STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("weight 65.7")
+activate LogicManager
+
+LogicManager -> FoodBookParser : parseCommand("weight 65.7")
+activate FoodBookParser
+
+create WeightCommandParser
+FoodBookParser -> WeightCommandParser
+activate WeightCommandParser
+
+WeightCommandParser --> FoodBookParser
+deactivate WeightCommandParser
+
+FoodBookParser -> WeightCommandParser : parse("65.7")
+activate WeightCommandParser
+
+
+WeightCommandParser -> ParserUtil : parseWeight("65.7")
+activate ParserUtil
+
+create WeightWeight
+ParserUtil -> WeightWeight
+activate WeightWeight
+
+WeightWeight --> ParserUtil : weight
+deactivate WeightWeight
+
+ParserUtil --> WeightCommandParser : weight
+deactivate ParserUtil
+
+create WeightCommand
+WeightCommandParser -> WeightCommand : weight
+activate WeightCommand
+
+WeightCommand --> WeightCommandParser : w
+deactivate WeightCommand
+
+WeightCommandParser --> FoodBookParser : w
+deactivate WeightCommandParser
+
+FoodBookParser --> LogicManager : w
+deactivate FoodBookParser
+
+LogicManager -> WeightCommand : execute(model)
+activate WeightCommand
+
+WeightCommand -> Model : setWeight(weight)
+activate Model
+
+Model --> WeightCommand
+deactivate Model
+
+create CommandResult
+WeightCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> WeightCommand : result
+deactivate CommandResult
+
+WeightCommand --> LogicManager : result
+deactivate WeightCommand
+
+WeightCommand -[hidden]-> LogicManager
+destroy WeightCommand
+destroy WeightWeight
+destroy WeightCommandParser
+
+LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+LogicManager -> FoodBookStorage : saveMyself(myself)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

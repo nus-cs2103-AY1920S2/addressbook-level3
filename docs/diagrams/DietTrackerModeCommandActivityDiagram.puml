@@ -1,0 +1,20 @@
+@startuml
+/' @author @jarrod-bob'/
+
+start
+
+:User executes ModeCommand;
+:Validate Mode flag given;
+
+if () then ([mode flag is not specified or invalid])
+    :Display an error message;
+
+else ([valid mode flag])
+    :Creates Height from mode flag input;
+    :Stores Mode into MyselfStorage;
+    :Save MyselfStorage;
+    :Display to user that Mode has been set;
+
+endif
+stop
+@enduml

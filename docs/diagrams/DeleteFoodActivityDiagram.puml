@@ -1,0 +1,20 @@
+@startuml
+/' @author @akhilvuputuri'/
+
+start
+
+:User executes DeleteCommand;
+:Validate Index given;
+
+if () then ([index is not specified or invalid])
+    :Display an error message;
+
+else ([valid index])
+    :Retrieve FoodBook from dietStorage;
+    :Delete Food at given index from FoodBook;
+    :Save FoodBook;
+    :Display to user that Food has been deleted;
+
+endif
+stop
+@enduml

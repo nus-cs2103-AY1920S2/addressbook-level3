@@ -1,0 +1,15 @@
+@startuml
+/' @author @jarrod-bob'/
+
+start
+:User enters the Add command;
+
+if () then ([name, calories is not specified])
+    :Display an error message;
+else ([else])
+    :Adds a Food into the FoodBook;
+    :Updates the storage;
+endif
+stop
+
+@enduml

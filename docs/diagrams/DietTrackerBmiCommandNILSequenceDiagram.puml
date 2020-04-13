@@ -1,0 +1,86 @@
+@startuml
+/' @author @jarrod-bob'/
+
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":DietLogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":BmiCommandParser" as BmiCommandParser LOGIC_COLOR
+participant "b:BmiCommand" as BmiCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "height:Height" as Height MODEL_COLOR
+participant "weight:Weight" as Weight MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("bmi")
+activate LogicManager
+
+LogicManager -> FoodBookParser : parseCommand("bmi")
+activate FoodBookParser
+
+create BmiCommandParser
+FoodBookParser -> BmiCommandParser
+activate BmiCommandParser
+
+BmiCommandParser --> FoodBookParser
+deactivate BmiCommandParser
+
+FoodBookParser -> BmiCommandParser : parse("")
+activate BmiCommandParser
+
+create Height
+BmiCommandParser -> Height
+activate Height
+
+Height --> BmiCommandParser : height
+deactivate Height
+
+create Weight
+BmiCommandParser -> Weight
+activate Weight
+
+Weight --> BmiCommandParser : weight
+deactivate Weight
+
+create BmiCommand
+BmiCommandParser -> BmiCommand
+activate BmiCommand
+
+BmiCommand --> BmiCommandParser : b
+deactivate BmiCommand
+
+BmiCommandParser --> FoodBookParser : b
+deactivate BmiCommandParser
+
+FoodBookParser --> LogicManager : b
+deactivate FoodBookParser
+
+LogicManager -> BmiCommand : execute(model)
+activate BmiCommand
+
+ref over LogicManager, Model : Retrieve Height and Weight from Model for usage in BmiCommand.
+
+create CommandResult
+BmiCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> BmiCommand : result
+deactivate CommandResult
+
+BmiCommand --> LogicManager : result
+deactivate BmiCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+BmiCommandParser -[hidden]-> FoodBookParser
+destroy BmiCommandParser
+destroy Height
+destroy Weight
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

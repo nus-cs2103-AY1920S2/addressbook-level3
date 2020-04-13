@@ -1,0 +1,16 @@
+@startuml
+/' @author @sheexiong'/
+title Activity: Done Receipt Command
+
+start
+:User enters the donereceipt command;
+
+if () then ([receipt already marked as done])
+    :Inform user that receipt has already been marked as done;
+else ([else])
+    :Mark the current receipt as done.;
+    :Inform user that receipt has been marked as done;
+endif
+stop
+
+@enduml

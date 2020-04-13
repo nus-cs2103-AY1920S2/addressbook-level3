@@ -1,0 +1,24 @@
+@startuml
+/' @author @ailanthustng'/
+
+title Activity: AddItem Command
+
+start
+:User enters the additem command;
+
+if () then ([itemname, itemprice or name is not specified])
+    :Display an error message;
+else ([else])
+    :Adds an Entry into the Receipt;
+    if () then ([Person does not exist
+    in the PersonAmountBook])
+        :Add Person into PersonAmountBook;
+    else ([Person already exists
+    in the PersonAmountBook])
+        :Adds the Amount to the Person;
+    endif
+    :Updates the storage;
+endif
+stop
+
+@enduml

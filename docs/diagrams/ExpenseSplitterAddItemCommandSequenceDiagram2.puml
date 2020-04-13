@@ -1,0 +1,76 @@
+@startuml
+/' @author @ailanthus'/
+!include style.puml
+
+mainframe sd Execution of AddItemCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":AddItemCommand" as AddItemCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+participant ":Receipt" as Receipt MODEL_COLOR
+participant ":PersonAmountBook" as PersonAmountBook MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+participant ":Person" as Person MODEL_COLOR
+end box
+
+activate SplitterLogicManager
+SplitterLogicManager -> AddItemCommand :execute(model)
+activate AddItemCommand
+
+AddItemCommand -> SplitterModelManager : addEntry(Entry entry)
+activate SplitterModelManager
+
+SplitterModelManager -> Receipt : addEntry(Entry entry)
+activate Receipt
+
+Receipt --> SplitterModelManager
+deactivate Receipt
+
+alt person does not exist in personAmountBook
+
+    SplitterModelManager -> PersonAmountBook : addPerson(Person person)
+    activate PersonAmountBook
+
+    PersonAmountBook --> SplitterModelManager
+    deactivate PersonAmountBook
+
+else person already exists in personAmountBook
+
+    SplitterModelManager --> PersonAmountBook : addAmount(Person person, Amount amount)
+    activate PersonAmountBook
+
+    PersonAmountBook --> UniquePersonList : addAmount(Person person, \n Amount amount)
+    activate UniquePersonList
+
+    UniquePersonList --> Person : addAmount(Amount amount)
+    activate Person
+
+    Person --> UniquePersonList
+    deactivate Person
+
+    UniquePersonList --> PersonAmountBook
+    deactivate UniquePersonList
+
+    PersonAmountBook --> SplitterModelManager
+    deactivate PersonAmountBook
+
+end
+
+SplitterModelManager --> AddItemCommand
+deactivate SplitterModelManager
+
+create CommandResult
+AddItemCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddItemCommand : result
+deactivate CommandResult
+
+AddItemCommand --> SplitterLogicManager : result
+
+@enduml

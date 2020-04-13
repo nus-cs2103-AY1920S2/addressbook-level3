@@ -1,0 +1,24 @@
+@startuml
+/' @author @jarrod-bob'/
+/' @author @akhilvuputuri'/
+
+start
+:User executes ListCommand;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([flag -d or -t])
+    if () then ([flag -d])
+        :Filter List based on Days input;
+    else ([flag -t])
+        :Filter List based on Tag input;
+    endif
+
+else ([flag -a or no-flag input])
+    :Filter List based on all days;
+endif
+
+:Display Food List to User;
+stop
+@enduml

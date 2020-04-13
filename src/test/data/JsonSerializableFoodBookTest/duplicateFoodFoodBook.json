@@ -1,0 +1,13 @@
+{
+  "foods": [ {
+    "name": "Pasta",
+    "calories": "1200",
+    "date" : "",
+    "tagged": [ "favorite" ]
+  }, {
+    "name": "Pasta",
+    "calories": "1200",
+    "date" : "",
+    "remark" : ""
+  } ]
+}

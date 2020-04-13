@@ -1,0 +1,83 @@
+@startuml
+/' @author @ailanthustng'/
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+
+abstract class Command {
+    {abstract} execute(splitterModel:SplitterModel) : CommandResult
+}
+
+class ClearReceiptCommand extends Command {
+    /' Fields '/
+
+    /' Methods '/
+    + execute(splitterModel : SplitterModel) : CommandResult
+}
+
+interface SplitterModel <<Interface>> {
+    + addEntry(entry : Entry) : void
+    + deleteEntry(index : int) : void
+    + getEntry(entry : Entry) : Entry
+    + paidPerson(person : Person, amountPaid : String) : void
+    + listAmount() : String
+    + listReceipt() : String
+    + getReceipt() : Receipt
+    + clearReceipt() : void
+    + isReceiptDone() : boolean
+    + deleteAllEntries() : void
+    + hasPerson(person : Person) : boolean
+    + addPerson(person : Person) : void
+    + getPerson(person : Person) : Person
+    + addAmount(person : Person, amount : Amount) : void
+    + removeAmount(person : Person, amount : Amount) : void
+    + getReceiptBook() : ReadOnlyReceiptBook
+    + updateFilteredPersonList(predicate : Predicate<Person>) : void
+    + getFilteredPersonList() : ObservableList<Person>
+}
+
+class SplitterModelManager implements SplitterModel {
+    /' Fields '/
+    - receipt : Receipt
+
+    /' Methods '/
+    + clearReceipt() : void
+    + getReceipt() : Receipt
+    + deleteAllEntries() : void
+}
+
+class Receipt {
+    /' Fields '/
+    - receipt : ArrayList<Entry>
+    - isDone : boolean
+
+    /' Methods '/
+    + clearReceipt() : void
+    + makeUndone() : void
+}
+
+class PersonAmountBook {
+    /' Fields '/
+    - persons : UniquePersonList
+
+    /' Methods '/
+    + deleteAllEntries(receipt : Receipt) : void
+    + removeAmount(person : Person, amount : Amount) : void
+}
+
+class Entry {
+    /' Fields '/
+    - item : Item
+    - persons : ArrayList<Person>
+}
+
+ClearReceiptCommand ..> SplitterModel
+SplitterModelManager *-left->"1" Receipt
+SplitterModelManager *-right->"1" PersonAmountBook
+PersonAmountBook ..> Receipt
+Receipt .up.> Entry
+
+
+@enduml

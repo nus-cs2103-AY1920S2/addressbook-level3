@@ -1,0 +1,181 @@
+= Willy Seah Wee Hung - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EYLAH
+
+---
+
+== Overview
+
+This project portfolio details my key contributions to the team software engineering project, EYLAH. The team consists
+of five Year 2 Computer Science undergraduates in the National University of Singapore (NUS), including myself.
+
+We were given six weeks to either morph or enhance an existing Java project, Address Book.
+We chose to morph the project into EYLAH, a desktop application specifically
+programmed for students staying in Temasek Hall at the National University
+of Singapore. It aims to ease their lives
+at halls by providing them with an application that *split bills easily* and *help
+them track their diet*.
+The user interacts with it using a CLI and it is programmed using JAVA 11.
+
+My role was to build the Expense Splitter portion of EYLAH and ensure that our project
+is on schedule for completion.
+
+== Summary of contributions
+
+* *Major enhancement*:
+
+. Adding of *Item, ItemPrice, ItemName for the Expense Splitter* portion of EYLAH
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/127[#127])
+
+*** *What it does:* +
+Allows the user to perform the `additem` command successfully hence adding an Entry which consists
+of an Item into the current Receipt.
+
+*** *Justification:* +
+These classes are crucial for Expense Splitter to work because this allows the User
+to input an Item to split among his friends, the crux of Expense Splitter.
+
+*** *Highlights:* +
+Implementing the ItemPrice was a little tricky because Double should not be used to hold Currency
+as it will lead to rounding errors.
+Upon further research on Stack Overflow, I have decided that BigDecimal will be a better type to hold currency.
+
+*** *Credits:* +
+Online links where I researched on: "https://stackoverflow.com/questions/1359817/using-bigdecimal-to-work-with-currencies"
+
+
+. Added *the ability to deduct Amount owed by a Person when they have paid through `paid` command*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/176[#176])
+
+*** *What it does:* +
+Allows the user to reduce the amount owed by a Person.
+
+*** *Justification:* +
+This feature allows a Person to clear his/her debt. In EYLAH after a Person has cleared his/her debt, their
+name will be deleted to prevent cluttering of names which may confuse the user. Thus it is important to have a feature which reduces the
+amount of money owed by a Person.
+
+
+*** *Highlights:* +
+This enhancement helped our team discover a rather major bug with Expense Splitter workflow. In the event where
+the user accidentally delete an item in the receipt after his/her peers has paid the user, EYLAH will not work as intended.
+Fortunately, we
+resolved it by not allowing users to use the `paid` command until after a receipt has been finalised.
+
+
+. Added *the expense splitter
+storage component that allowed the user to automatically save a Person and their amount owed after
+each command*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/148[#148])
+
+*** *What it does:* +
+Allows EYLAH to save a Person and the amount they owe after each command.
+
+*** *Justification:* +
+This feature allows the user to automatically save the amount of money each person owes him after every command.
+This is important so the user do not have to manually input every entry again in the unlikely event where EYLAH crash.
+
+*** *Highlights:* +
+Ability to save a Person name and their amount owed automatically.
+
+* *Minor enhancement*:
+
+. Modified the `paid` command to allow a Person to pay his debt fully +
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/209[#209])
+
+*** *What it does:* +
+Expanded the `paid` command to accept empty amount field, which meant that the Person paid his debt fully. +
+Previously: `paid 1 3` meant that person at INDEX 1 paid $3. +
+Now: `paid 1` meant that person at INDEX 1 paid the full amount he owes.
+
+*** *Justification:* +
+This allows the user to conveniently clear a Person debt fully.
+
+. Performed defensive coding for `additem` command and `paid` command +
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/352[#352])
+
+*** *What it does:* +
+`additem` and `paid` commands are commands in expense splitter
+which includes numerical digits and multiple parameters. As a result, these commands may be exploited
+when discovering bugs in EYLAH. Common issues includes passing a huge numerical number which causes Integer Overflow
+or passing a negative index which causes ArrayOutOfBounds Exceptions. Thus I handled these rouge commands by
+including try-catch statement to catch these exceptions.
+
+*** *Justification:* +
+This reduces the chances of EYLAH crashing.
+
+
+* *Code contributed*:[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=willyseahh&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test Code]]
+
+* *Other contributions*:
+
+** Project management:
+*** In charge of team progress and planning intermediate deadlines to achieve milestones.
+*** Ensure that project deliverables are completed on time.
+
+
+** Enhancements to existing features:
+*** Adapted the given Address Book code into EYLAH's.
+
+** Documentation:
+*** Updated Developer Guide to include Paid Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/352[#352])
+*** Updated Developer Guide to include List Amount Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/355[#355])
+*** Updated Developer Guide to include List Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/355[#355])
+*** Updated Developer Guide to include Expense Splitter main activity diagram (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/252[#252])
+*** Updated User Guide to include Paid, List Amount Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/349[#349])
+
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): (Pull requests: https://github.com/AY1920S2-CS2103T-W13-1/main/pull/132[#132], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/134[#134])
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com/nus-cs2103-AY1920S2/forum/issues/105[3])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/willyseahh/ped/issues)
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+
+include::../UserGuide.adoc[tag=listreceipt]
+
+include::../UserGuide.adoc[tag=listamount]
+
+include::../UserGuide.adoc[tag=paid]
+
+include::../UserGuide.adoc[tag=commandsummaryforexpensesplitter]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+
+
+include::../DeveloperGuide.adoc[tag=expensesplitteractivitydiagram]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterlistreceiptcommand]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterlistamountcommand]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterpaidcommand]
+
+include::../DeveloperGuide.adoc[tag=willyusecase]
+
+include::../DeveloperGuide.adoc[tag=willylistreceiptappendixg]
+
+include::../DeveloperGuide.adoc[tag=willylistamountappendixg]
+
+include::../DeveloperGuide.adoc[tag=willypaidappendixg]
+
+
+
+
+
+

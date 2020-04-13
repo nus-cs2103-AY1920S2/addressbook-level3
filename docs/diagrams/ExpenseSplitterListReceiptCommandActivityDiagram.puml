@@ -1,0 +1,16 @@
+@startuml
+/' @author @WillySeahh'/
+title Activity: List Receipt Command
+
+start
+:User enters the list receipt command;
+
+if () then ([noExistingEntry])
+    :Inform user that receipt is empty;
+else ([else])
+    :Displays all the entries in
+    the receipt;
+
+endif
+stop
+@enduml

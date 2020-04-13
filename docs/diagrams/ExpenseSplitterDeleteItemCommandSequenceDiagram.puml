@@ -1,0 +1,68 @@
+@startuml
+/' @author @ailanthustng'/
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
+participant ":DeleteItemCommandParser" as DeleteItemCommandParser LOGIC_COLOR
+participant "command:DeleteItemCommand" as DeleteItemCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":SplitterStorage" as SplitterStorageManager STORAGE_COLOR
+end box
+
+[-> SplitterLogicManager : execute("deleteitem 1")
+activate SplitterLogicManager
+
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand("deleteitem 1")
+activate ExpenseSplitterParser
+
+create DeleteItemCommandParser
+ExpenseSplitterParser -> DeleteItemCommandParser
+activate DeleteItemCommandParser
+
+DeleteItemCommandParser --> ExpenseSplitterParser
+deactivate DeleteItemCommandParser
+
+ExpenseSplitterParser -> DeleteItemCommandParser : parse("deleteitem 1")
+activate DeleteItemCommandParser
+
+create DeleteItemCommand
+DeleteItemCommandParser -> DeleteItemCommand
+activate DeleteItemCommand
+
+DeleteItemCommand --> DeleteItemCommandParser : command
+deactivate DeleteItemCommand
+
+DeleteItemCommandParser --> ExpenseSplitterParser : command
+deactivate DeleteItemCommandParser
+
+ExpenseSplitterParser --> SplitterLogicManager : command
+deactivate ExpenseSplitterParser
+
+ref over SplitterLogicManager, SplitterModelManager: Execution of DeleteItemCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteItemCommandParser -[hidden]-> ExpenseSplitterParser
+destroy DeleteItemCommand
+destroy DeleteItemCommandParser
+
+SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
+activate SplitterStorageManager
+
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
+activate SplitterStorageManager
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+[<--SplitterLogicManager : result
+deactivate SplitterStorageManager
+@enduml

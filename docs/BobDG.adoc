@@ -1,0 +1,1063 @@
+= EYLAH - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S2-CS2103T-W13-1/main
+
+By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`      Licence: `MIT`
+
+== Introduction
+
+Ease Your Lives At Hall (EYLAH) is a Command Line Interface (CLI) application designed to aid students staying in NUS with commonly faced problems in halls such as,
+tracking their diet and splitting the bill with a large group of friends.
+
+Shown below is the GUI of EYLAH.
+
+image::Ui.png[]
+
+This documentation serves as an introduction to the architecture and implementation of EYLAH,
+and is made for developers who wish to maintain,
+modify or understand the software development behind our application.
+We adopted the top-down approach; we will first look into high-level
+architectures before exploring implementation details of each feature.
+
+We encourage you to traverse the full path from the high level design to the
+implementation details of the feature you are interested for the most complete understanding.
+
+== Setting up
+
+Refer to the guide <<SettingUp#, here>>.
+
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
+[TIP]
+The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:
+
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+The rest of the App consists of four components.
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+Each of the four components
+
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[]
+
+[discrete]
+==== How the architecture components interact with each other
+
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+
+.Component interactions for `delete 1` command
+image::ArchitectureSequenceDiagram.png[] +
+
+
+==== EYLAH comprehensive class diagram for both Diet Tracker and Expense Spliter
+
+image::eylah_overall_class_diagram.png[]
+
+This shows a brief class diagram for EYLAH. [More details to be added in v1.3]
+
+==== EYLAH Activity Diagram for Expense Splitter
+
+image::activityDiagram_for_expensesplitter.png[]
+
+This shows a brief activity diagram for Expense Splitter. [More details to be added in v1.3]
+
+
+The sections below give more details of each component. +
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+[[Design-Logic]]
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+[[Design-Model]]
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/splitterModel/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Address Book data.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+[NOTE]
+As a more OOP splitterModel, we can store a `Tag` list in `Address Book`, which `person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `person` needing their own `Tag` object. An example of how such a splitterModel may look like is given below. +
+ +
+image:BetterModelClassDiagram.png[]
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/splitterStorage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
+* can save the Address Book data in json format and read it back.
+
+[[Design-Commons]]
+=== Common classes
+
+Classes used by multiple components are in the `seedu.addressbook.commons` package.
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+// tag::undoredo[]
+=== DietTracker feature
+
+The Diet Tracker feature is designed to aid our users in maintaining a healthy lifestyle. The feature comprises
+of 9 Commands.
+
+* <<Add-Command, `AddCommand`>> - Creates a new Food object with its attributes (Name, Calories) and adds it to the FoodBook Storage.
+* <<Delete-Command, `DeleteCommand`>> - Deletes the Food specified by the input index from FoodBook Storage.
+* <<List-Command, `ListCommand`>> - Lists the Foods and its attributes (Name, Calories) for the timeframe specified by users
+based on their user input.
+* <<Edit-Command, `EditCommand`>> - Allows the user to edit an of the Food in Storage.
+* <<Bmi-Command, `BmiCommand`>> - Calculates the BMI.
+* <<Height-Command, `HeightCommand`>> - Allows users to log their Height in centimeters.
+* <<Weight-Command, `WeightCommand`>> - Allows users to log their Weight in kilograms.
+* <<Mode-Command, `ModeCommand`>> - Allows users to toggle between different modes of the diet tracker.
+* <<Help-Command, `HelpCommand`>> - Provides a help guide for users based on what commands are available.
+
+Below are some diagrams to explain how our team implemented this portion.
+
+
+*Activity Diagram* of Diet Tracker: +
+
+image::activityDiagram_for_expensesplitter.png[]
+
+==== Add Command
+
+==== Delete Command
+*Implementation*
+
+The following is a detailed explanation of the operations `DeleteCommand` performs. +
+
+1. The `DeleteCommand#execute(Model splitterModel)` method is executed and it validates that the specified `INDEX` to delete
+is within range. If valid, the item to be deleted will be retrieved from Storage using its `Index`.
+
+2. The method `Model#getFilteredFoodList() will then be called to retrieve the List of Foods from Storage.
+`List#get(int Index)` is then invoked which retrieves the specified Food to be deleted.
+
+3. The method `Model#deleteFood(Food food) will then be called to remove the Item from the List.
+`FoodBook#remove(int Index)` is invoked which makes a call to its internal list to remove the specified Food.
+
+4. If successful, a success message will be generated by `CommandResult` and it will be returned with the generated
+success message. Otherwise, an error message showing the correct command syntax is thrown as `CommandException`.
+
+5. If the command syntax was valid and Food was removed from FoodBook, `LogicManager` calls
+`FoodBookStorage#saveFoodBook(ReadOnlyFoodBook foodBook)` which saves the new Foods
+into JSON format after serializing it using `JsonAdaptedFood`.
+
+
+The following is a sample sequence diagram of the DeleteItemCommand.
+
+image::.png[]
+
+==== List Command
+*Implementation*
+
+The following is a detailed explanation of the operations `ListCommand` performs. +
+
+1. The `ListCommand#execute(Model splitterModel)` method is executed and it validates that the flag used to decide what
+Foods to list. If the flag is valid, the items to be listed will be retrieved from FoodBookStorage according
+to the input flag.
+
+2. The method `splitterModel#updateFilteredFoodList() will then be called to retrieve the List of Foods from Storage.
+`FilteredList#setPredicate(Predicate<Food> predicate)` is then invoked which retrieves the specified Foods to be listed.
+
+3. If successful, a success message will be generated by `CommandResult` and it will be returned with the generated
+success message. Otherwise, an error message showing the correct command syntax is thrown as `CommandException`.
+
+The following is a sample sequence diagram of the ListCommand.
+
+image::DietTrackerListCommandSequenceDiagram.png[]
+
+==== Edit Command
+*Implementation*
+
+The following is a detailed explanation of the operations `EditCommand` performs. +
+
+1. The `EditCommand#execute(Model splitterModel)` method is executed and it validates that the specified `INDEX` to edit
+is within range. If valid, the item to be edited will be retrieved from Storage using its `Index`.
+
+2. The method `Model#getFilteredFoodList() will then be called to retrieve the List of Foods from Storage.
+`List#get(int Index)` is then invoked which retrieves the specified Food to be deleted.
+
+3. The method `Model#setFood(Food toBeEdited, Food editedFood)` will then be called to replace the Food toBeEdited with the
+ Food editedFood from the List.
+
+4. If successful, a success message will be generated by `CommandResult` and it will be returned with the generated
+success message. Otherwise, an error message showing the correct command syntax is thrown as `CommandException`.
+
+5. If the command syntax was valid and Food was edited in FoodBook, `LogicManager` calls
+`FoodBookStorage#saveFoodBook(ReadOnlyFoodBook foodBook)` which saves the new Foods
+into JSON format after serializing it using `JsonAdaptedFood`.
+
+
+The following is a sample sequence diagram of the EditCommand.
+
+image::DietTrackerEditCommandSequenceDiagram.png[]
+
+==== Bmi Command
+*Implementation*
+
+The following is a detailed explanation of the operations `BmiCommand` performs. BmiCommand has two different usages
+depending on the user input. +
+
+1. The `BmiCommand#execute(Model splitterModel)` method is executed and it will return the output of the calculated BMI
+based on user arguments.
+
+2. If successful, a success message will be generated by `CommandResult` and it will be returned with the generated
+success message. Otherwise, an error message showing the correct command syntax is thrown as `CommandException`.
+
+The activity diagram of `BmiCommand` is as follows:
+
+image::BmiActivityDiagram.png[]
+
+Given below are 2 example usages of `BmiCommand` based on different user input.
+
+*Usage 1: No Height and Weight input*
+
+Step 1. User launches application and enters `Diet` mode. The user then enters `bmi` as the command.
+
+Step 2. The FoodBook parser validates this command and sets up the `BmiCommandParser`, which checks for the input.
+
+Step 3. Since there are no arguments, the `BmiCommandParser` will call the empty constructor `BmiCommand()`.
+
+Step 4. `BmiCommand` would then refer to the internal state of the splitterModel under Self, and retrieve the values stored in
+Self's Height and Weight attributes.
+
+Step 5. `BmiCommand()` will then proceed to calculate the BMI based on the current values of height and weight.
+
+The following is a sample sequence diagram of the BmiCommand with no additional user input.
+
+image::BmiNILSequenceDiagram.png[]
+[NOTE]
+There is a need to ensure that there are stored values in `Height` and `Weight` attributes in the `Self` class.
+
+*Usage 2: With Height and Weight input*
+
+Step 1. User launches application and enters `Diet` mode. The user then enters `bmi` as the command.
+
+Step 2. The FoodBook parser validates this command and sets up the `BmiCommandParser`, which checks for the input.
+
+Step 3. Since there are no arguments, the `BmiCommandParser` will call the empty constructor `BmiCommand()`.
+
+Step 4. `BmiCommand` would then refer to the internal state of the splitterModel under Self, and retrieve the values stored in
+Self's Height and Weight attributes.
+
+Step 5. `BmiCommand()` will then proceed to calculate the BMI based on the current values of height and weight.
+
+The following is a sample sequence diagram of the BmiCommand with additional user input.
+
+image::BmiSequenceDiagram.png[]
+
+*Design Considerations*
+
+Aspect: How BmiCommand executes
+
+* Alternative 1 (current choice): Executes with other without arguments
+** Pros: More flexible use of the Command, better user experience overall.
+** Cons: Harder to implement, as there needs to be multiple `BmiCommand` constructors.
+
+* Alternative 2: Executes separately with arguments input and without arguments input
+** Pros: Easier to implement, less potential bugs as Command uses a single constructor.
+** Cons:  We must ensure that the implementation of each individual command are correct.
+
+Aspect: Storage of BMI
+
+* Alternative 1 (current choice): No splitterStorage of BMI value, simply prints when user requests.
+** Pros: Less memory used; reduces complexity of the Command and objects involved.
+** Cons: Users may want to access it elsewhere from Self.
+
+* Alternative 2: Storage of BMI value in Self class in Model.
+** Pros: Users have access to it anytime.
+** Cons: Coding complexity.
+
+==== Height Command
+*Implementation*
+
+The following is a detailed explanation of the operations `HeightCommand` performs. +
+
+1. The `HeightCommand#execute(Model splitterModel)` method is executed and it validates that the specified `HEIGHT` to store
+is a valid Height. If valid, the height will be stored in the `Self` class.
+
+2. The method `Model#setHeight(Height height) will then be called to set the Height of the `Self` class.
+`Self#setHeight(Height height)` is invoked which makes a call to its internal Height to replace the value stored.
+
+3. If successful, a success message will be generated by `CommandResult` and it will be returned with the generated
+success message. Otherwise, an error message showing the correct command syntax is thrown as `CommandException`.
+
+The following is a sample sequence diagram of the HeightCommand.
+
+image::DietTrackerHeightCommandSequenceDiagram.png[]
+
+==== Weight Command
+*Implementation*
+
+The following is a detailed explanation of the operations `WeightCommand` performs. +
+
+1. The `WeightCommand#execute(Model splitterModel)` method is executed and it validates that the specified `WEIGHT` to store
+is a valid Weight. If valid, the weight will be stored in the `Self` class.
+
+2. The method `Model#setWeight(Weight weight) will then be called to set the Height of the `Self` class.
+`Self#setWeight(Weight weight)` is invoked which makes a call to its internal Weight to replace the value stored.
+
+3. If successful, a success message will be generated by `CommandResult` and it will be returned with the generated
+success message. Otherwise, an error message showing the correct command syntax is thrown as `CommandException`.
+
+The following is a sample sequence diagram of the WeightCommand.
+
+image::DietTrackerWeightCommandSequenceDiagram.png[]
+
+==== Mode Command
+*Implementation*
+
+The following is a detailed explanation of the operations `ModeCommand` performs. +
+
+1. The `ModeCommand#execute(Model splitterModel)` method is executed and it validates that the specified `MODE` to store
+is a valid Mode. If valid, the mode will be stored in the `Self` class.
+
+2. The method `Model#setMode(Mode mode) will then be called to set the Mode of the `Self` class.
+`Self#setMode(Mode mode)` is invoked which makes a call to its internal Mode to replace the value stored.
+
+3. If successful, a success message will be generated by `CommandResult` and it will be returned with the generated
+success message. Otherwise, an error message showing the correct command syntax is thrown as `CommandException`.
+
+The following is a sample sequence diagram of the ModeCommand.
+
+image::DietTrackerModeCommandSequenceDiagram.png[]
+
+The undo/redo mechanism is facilitated by `VersionedAddressBook`.
+It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+
+image::UndoRedoState1.png[]
+
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+
+image::UndoRedoState3.png[]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+
+image::UndoRedoState4.png[]
+
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoState5.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
+
+
+=== Expense Splitter feature
+
+The Expense Splitter feature is designed to aid our users with the splitting of large bills that involves meany people.
+The feature comprises of six commands namely.
+
+* <<Add-Item-Command, `AddItemCommand`>> - Creates an Item with its ItemPrice, Person(s) involved in splitting that Item and adds it to Receipt.
+* <<Delete-Item-Command, `DeleteItemCommand`>> - Deletes an Item from the current Receipt and reduces the Person's amount accordingly.
+* <<List-Receipt-Command, `ListReceiptCommand`>> - Lists the Item(s) in the current Receipt, its ItemPrice and Person(s) involved in splitting that Item.
+* <<List-Amount-Command, `ListAmountCommand`>> - Lists the Person(s) Name and Amount they owe the user.
+* <<Paid-Command, `PaidCommand`>> - Reduces the Amount a Person owes.
+* <<Back-Command, `BackCommand`>> - Exits Expense Splitter portion to return to EYLAH's Main Menu.
+
+Below are some diagrams to explain how our team implemented this portion.
+
+
+*Activity Diagram* of Expense Splitter: +
+
+image::activityDiagram_for_expensesplitter.png[]
+
+==== Add Item Command
+
+==== Delete Item Command
+
+*Implementation*
+
+The following is a detailed explanation of the operations `DeleteItemCommand` performs. +
+
+1. The `DeleteItemCommand#execute(Model splitterModel)` method is executed and it validates that the specified `INDEX` to delete
+is within range. If valid, the item to be deleted will be retrieved from Receipt using its I`Index`.
+
+2. The method `Model#deleteEntry(int Index) will then be called to remove the Item from the Receipt.
+`Receipt#deleteEntry(int Index)` is invoked which makes a call to its internal list to remove the specified Item.
+
+3. If successful, a success message will be generated by `CommandResult` and it will be returned with the generated
+success message. Otherwise, an error message showing the correct command syntax is thrown as `CommandException`.
+
+4. If the command syntax was valid and Item was removed from Receipt, `LogicManager` calls
+`PersonAmountStorage#savePersonAmountBook(ReadOnlyPersonAmountBook personAmountBook)` which saves the new Person(s) Amount
+into JSON format after serializing it using `JsonAdaptedPerson`.
+
+
+The following is a sample sequence diagram of the DeleteItemCommand.
+
+image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
+
+==== List Receipt Command
+
+*Implementation*
+
+The following
+
+
+==== List Amount Command
+
+*Implementation*
+
+The following is a detailed explanation of the operations `ListAmountCommand` performs. +
+
+1. The `ListAmountCommand#execute(Model splitterModel)` method is executed.
+
+2. The method `Model#listAmount()` will then be called to return the list of person with amount.
+
+3. `PersonAmountBook#toString()` will convert list of person in the list to the expected format.
+
+The following is a sample sequence diagram of the ListAmountCommand.
+
+image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+
+
+==== Paid Command
+
+==== Back Command
+
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+
+
+== Documentation
+
+Refer to the guide <<Documentation#, here>>.
+
+== Testing
+
+Refer to the guide <<Testing#, here>>.
+
+== Dev Ops
+
+Refer to the guide <<DevOps#, here>>.
+
+[appendix]
+== Product Scope
+
+*Target user profile*:
+
+* <<temasek-hall,Temasek Hall>> residents
+* Diet-conscious residents
+* Residents who frequently pays on behalf of a group
+* Residents who prefer desktop applications
+* Residents who can type fast
+* Residents who prefer typing over using the mouse
+* Residents who are reasonably comfortable using <<cli,CLI>> applications
+
+*Value proposition*: manage diet and expenses faster than a typical mouse/GUI driven app
+
+[appendix]
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+
+|`* * *` |Temasek Hall resident |want to keep track of my expenses accurately |calculate the exact amount I should collect from my friends after each time we split a meal
+
+|`* * *` |healthy hall resident who is trying to lose weight |check how many calories I took today |keep track of my calories intake and weight
+
+|`* * *` |Temasek hall resident who frequents supper food spots |split the bill easily with fellow mates| ensure that the amount is correctly accounted for
+
+|`* * *` |Temasek Hall resident who wants to stay healthy |keep track of my calories |more accurately watch my weight
+
+|`*` |Temasek Hall leader |keep track of my committee events |know if things are going according to schedule
+
+|`*` |Temasek Hall exchange student |to have a translation for Singaporean lingo |better understand the language my friends speak in hall
+
+|`*` |Temasek Hall sports captain |to keep track of the various attendances for my training |know who usually attends training and who does not
+
+|`*` |Temasek Hall leader |to keep track of my committee events |ensure things run smoothly
+
+|`*` |Temasek Hall resident who actively participates in hall events |check the upcoming events |keep myself up-to-date.
+|=======================================================================
+
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is the `EYLAH` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Diet Tracker Use Cases
+
+[discrete]
+==== Use case: UC01 Update User Profile
+
+*MSS*
+
+1.  User chooses dieting mode (i.e. Weight Loss, Weight Gain, Maintain)
+2.  EYLAH updates users' dieting mode
+3.  User updates height
+4.  EYLAH updates height of user
+5.  User updates weight
+6.  EYLAH updates weight of user
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The flag field for dieting mode is empty or flag is invalid.
+** 1a1. EYLAH requests user to re-enter command with flag
+** 1a2. User enters command with flag +
+Steps 1a1-1a2 are repeated until the correct entered is correct. +
+Use case resumes from step 3.
+
+* 3a. Height field is empty or in invalid format.
+** 3a1. EYLAH requests user to re-enter height in correct format
+** 3a2. User enters command with height in correct format +
+Steps 3a1-3a2 are repeated until the correct  entered is correct. +
+Use case resumes from step 5.
+
+* 5a. Weight field is empty or in invalid format.
+** 5a1. EYLAH requests user to re-enter weight in correct format
+** 5a2. User enters command with weight in correct format +
+Steps 5a1-5a2 are repeated until the correct  entered is correct. +
+Use case ends.
+
+[discrete]
+==== Use case: UC02 Add Food Item
+
+*MSS*
+
+1.  User adds food item
+2.  EYLAH adds food item to user's log
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The food item is added in an invalid format or certain fields are missing.
+** 1a1. EYLAH requests user to re-enter food item in valid format.
+** 1a2. User enters command in the correct format as requested by EYLAH +
+Steps 1a1-1a2 are repeated until the correct entered is correct. +
+Use case ends.
+
+[discrete]
+==== Use case: UC03 Delete Food Item
+
+*MSS*
+
+1.  User lists out existing items
+2.  EYLAH shows the list based on flags entered
+3.  User deletes item by index
+4.  EYLAH deletes item tagged to specified index
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. List command contains invalid flag.
+** 1a1. EYLAH prints out default list which contains food logged for the day
+
+* 3a. Invalid or empty index keyed into command.
+** 3a1. EYLAH requests user to re-enter index in correct format
+** 3a2. User enters delete item in  correct format +
+Steps 3a1-3a2 are repeated until the correct  entered is correct. +
+Use case ends.
+
+[discrete]
+==== Use case: UC04 Edit Food Item
+
+*MSS*
+
+1.  User lists out existing items
+2.  EYLAH shows the list based on flags entered
+3.  User edits item by index
+4.  EYLAH edits the data of the item stored at the index.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. List command contains invalid flag.
+** 1a1. EYLAH prints out default list which contains food logged for the day
+
+* 3a. Invalid or empty index keyed into command.
+** 3a1. EYLAH requests user to re-enter index in correct format
+** 3a2. User enters delete item in  correct format +
+Steps 2a1-2a2 are repeated until the correct  entered is correct. +
+Use case ends.
+
+* 3b. No additional tags and data keyed in as flags to replace existing data.
+** 3b1. EYLAH requests user to re-enter command with at least one flag
+** 3b2. User enters command with flag and data +
+Steps 3b1-3b2 are repeated until the correct  entered is correct. +
+Use case ends.
+
+[discrete]
+==== Use case: UC05 List Food Items
+
+*MSS*
+
+1.  User lists out existing items
+2.  EYLAH shows the list based on flags entered
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. List command contains invalid flag.
+** 1a1. EYLAH prints out default list which contains food logged for the day
++
+Use case ends.
+
+[discrete]
+==== Use case: UC06 Calories count
+
+*MSS*
+
+1.  User calls the command
+2.  EYLAH shows the list food, their calories, as well as the total calories consumed for the day
+3.  User can track their remaining calories via the interface, based on their input height and weight
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Invalid argument keyed into command.
+** 1a1. EYLAH would raise a **"errorneous argument"** message
+** 1a2. EYLAH would run the command and calculate the outputs ignoring additional arguments
+
+[discrete]
+==== Use case: UC07 Calculate BMI
+
+*MSS*
+
+1.  User calls `bmi` command, with optional height and weight entered
+2.  EYLAH calculates and shows user's BMI based on the height and weight
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. BMI command contains invalid flag.
+** 1a1. EYLAH suggests to user the correct format to use
+** 1a2. User will key in the correct format
+
+[discrete]
+=== Expense Splitter Use Cases
+
+[discrete]
+==== Use case: UC01 - Add item
+
+*MSS*
+
+1.  User keys in Food name, its price and Person(s) involved in the splitting of that food.
+2.  EYLAH adds the Food object.
+3.  EYLAH displays the Food and the Person(s) involved with splitting of that food.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. EYLAH detects empty Food name, Food price or Person(s)
++
+[none]
+** 1a1. EYLAH shows an error message and displays an example of a correct `addfood` function.
++
+Use case ends.
+
+[none]
+* 1b. Eylah detects invalid <<syntax,syntax>>.
+
++
+[none]
+** 1b1. EYLAH shows an error message and displays an example of a correct `addfood` function.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC02 - Delete item
+*Actor:* User +
+*Preconditions:* User is logged in. +
+*Guarantees:* +
+Item will be deleted from Receipt only if the Item is currently present in Receipt.
+
+*MSS*
+
+1.  User keys in request to delete an Item in the current Receipt.
+2.  EYLAH deletes that Item and deducts the appropriate amount associated with each Person(s) involved in splitting that Item.
+3.  EYLAH display a MESSAGE_SUCCESS informing user that Item have been successfully deleted.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User did not input Item index. (Inserting `deleteitem` instead of  `deleteitem 1`)
++
+[none]
+** 1a1. EYLAH shows an error message and displays an example of a correct `deletitem` function.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 - Listing Receipt
+*Actor:* User +
+*Preconditions:* User is logged in. +
+*Guarantees:* +
+All Items in the current Receipt will be listed out.
+
+*MSS*
+
+1.  User requests to list receipt containing Item(s) in the current Receipt.
+2.  EYLAH displays the list of Item(s) in the current Receipt, its ItemPrice and Person(s) involved in spliting that Item.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. EYLAH detects an empty Receipt.
++
+[none]
+** 1a1. EYLAH displays an error message, saying that the Receipt has 0 Item.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: UC04 - Listing Person(s) and the Amount they owe
+*Actor:* User +
+*Preconditions:* User is logged in. +
+*Guarantees:* +
+All Person(s) and the amount they owe will be listed.
+
+*MSS*
+
+1.  User requests to list the Person(s) and the Amount they owe the user.
+2.  EYLAH displays the list of Person and its associated Amount.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. EYLAH detects an empty Person list.
++
+[none]
+** 1a1. EYLAH displays an error message, informing user that there are no Person in the list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - Amount paid
+*Actor:* User +
+*Preconditions:* User is logged in. +
+*Guarantees:* +
+Reduces the Amount a Person owes and if they owe $0 the Person is automatically deleted.
+
+*MSS*
+
+1.  User requests to reduce the Person's Amount when he/she has paid the user.
+2.  EYLAH searches for the Person and reduces the Amount they owe the user, if Amount = $0 the Person is removed from the list.
+3.  EYLAH then displays the new Amount owed by the Person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. EYLAH detects an empty PersonList.
++
+[none]
+** 1a1. EYLAH displays an error message, saying that there is no Person in the list.
++
+Use case ends.
+
+[none]
+* 1b. EYLAH detects invalid <<syntax,syntax>>.
++
+[none]
+** 1b1. EYLAH displays an error message and informs User to key in the correct syntax.
++
+Use case ends.
+
+[none]
+* 1c. EYLAH detects that the Person does not exist in the list.
++
+[none]
+** 1c1. EYLAH displays an error message, informing the user to key in the correct index of the Person. The user may use `listamount` to show the Person's index.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 - Back to Main Menu
+
+*MSS*
+
+1.  User requests to exit Expense Splitter and go back to Main Menu of EYLAH.
+2.  EYLAH exits Expense Splitter and goes back to Main Menu
++
+Use case ends.
+
+*Extensions*
+
+[appendix]
+== Non Functional Requirements
+
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 food items without a noticeable sluggishness in performance for typical usage.
+.  Should have a pre-loaded list of commonly consumed food items in database.
+.  Should be able to work without internet access.
+.  A user should be able to use EYLAH easily and intuitively.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+_{More to be added}_
+
+[appendix]
+== Glossary
+
+[[temasek-hall]] Temasek Hall::
+A Hall of Residences in National University of Singapore
+
+[[cli]] CLI::
+Command Line Interface
+
+[[syntax]] Syntax::
+The structure of statements in the command
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
+
+[[private-contact-detail]] Private contact detail::
+A contact detail that is not meant to be shared with others
+
+[appendix]
+== Product Survey
+
+*Product Name*
+
+Author: ...
+
+Pros:
+
+* ...
+* ...
+
+Cons:
+
+* ...
+* ...
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+_{ more test cases ... }_
+
+=== Deleting a person
+
+. Deleting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `delete 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_

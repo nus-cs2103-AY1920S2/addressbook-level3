@@ -1,0 +1,65 @@
+@startuml
+/' @author @WillySeahh'/
+
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+
+abstract class Command <E> {
+    {abstract} execute(model : E) : CommandResult
+}
+
+class ListReceiptCommand extends Command {
+    /' Fields '/
+
+    /' Methods '/
+    + execute(splitterModel : SplitterModel) : CommandResult
+
+}
+
+class SplitterModelManager implements SplitterModel {
+    /' Fields '/
+    - receipt : Receipt
+
+    /' Methods '/
+    + listReceipt() : void
+    + getReceipt() : Receipt
+}
+
+interface SplitterModel <<Interface>> {
+    + addEntry(entry : Entry) : void
+    + deleteEntry(index : int) : void
+    + getEntry(entry : Entry) : Entry
+    + paidPerson(person : Person, amountPaid : String) : void
+    + listAmount() : String
+    + listReceipt() : String
+    + getReceipt() : Receipt
+    + clearReceipt() : void
+    + hasPerson(person : Person) : boolean
+    + addPerson(person : Person) : void
+    + getPerson(person : Person) : Person
+    + addAmount(person : Person, amount : Amount) : void
+    + removeAmount(person : Person, amount : Amount) : void
+    + isReceiptDone() : boolean
+    + getReceiptBook() : ReadOnlyReceiptBook
+
+
+}
+
+class Receipt {
+    /' Fields '/
+    - isDone : boolean
+
+    /' Methods '/
+    + markDone() : void
+    + toString() : String
+}
+
+
+ListReceiptCommand ..> SplitterModel
+SplitterModelManager *-right->"1" Receipt
+
+
+@enduml

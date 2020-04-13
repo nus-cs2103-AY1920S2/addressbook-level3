@@ -1,0 +1,97 @@
+@startuml
+/' @author @jarrod-bob'/
+
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":DietLogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":ModeCommandParser" as ModeCommandParser LOGIC_COLOR
+participant "m:ModeCommand" as ModeCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "mode:Mode" as ModeMode MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":DietStorage" as FoodBookStorage STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("mode -l")
+activate LogicManager
+
+LogicManager -> FoodBookParser : parseCommand("mode -l")
+activate FoodBookParser
+
+create ModeCommandParser
+FoodBookParser -> ModeCommandParser
+activate ModeCommandParser
+
+ModeCommandParser --> FoodBookParser
+deactivate ModeCommandParser
+
+FoodBookParser -> ModeCommandParser : parse("-l")
+activate ModeCommandParser
+
+create ModeMode
+ModeCommandParser -> ModeMode
+activate ModeMode
+
+ModeMode --> ModeCommandParser : mode
+deactivate ModeMode
+
+create ModeCommand
+ModeCommandParser -> ModeCommand
+activate ModeCommand
+
+ModeCommand --> ModeCommandParser : m
+deactivate ModeCommand
+
+ModeCommandParser --> FoodBookParser : m
+deactivate ModeCommandParser
+
+FoodBookParser --> LogicManager : m
+deactivate FoodBookParser
+
+LogicManager -> ModeCommand : execute()
+activate ModeCommand
+
+ModeCommand -> Model : setMode(mode)
+activate Model
+
+Model --> ModeCommand
+deactivate Model
+
+create CommandResult
+ModeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ModeCommand : result
+deactivate CommandResult
+
+ModeCommand --> LogicManager : result
+deactivate ModeCommand
+
+ModeCommand -[hidden]-> LogicManager
+destroy ModeCommand
+destroy ModeMode
+destroy ModeCommandParser
+
+LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+LogicManager -> FoodBookStorage : saveMyself(myself)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

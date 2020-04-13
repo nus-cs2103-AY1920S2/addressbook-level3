@@ -1,0 +1,222 @@
+= Tng Liang Yi, Ailanthus - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:imagesDir: ../images/expense-splitter
+:stylesDir: ../stylesheets
+
+== PROJECT: EYLAH
+
+---
+
+== Overview
+
+EYLAH is a desktop application programmed specifically for students staying in Temasek Hall at the National University
+of Singapore. It aims to ease their lives in hall by providing them with an application that split bills easily and help
+them keep track of their diet. The user interacts with the application using a CLI and it is programmed using `Java 11`.
+
+== Summary of contributions
+
+* *Major Enhancements*
+
+. *Added Entry and Receipt for Expense Splitter portion of EYLAH*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/130[#130])
+
+*** *What it does:* +
+Receipt is used to store multiple Entries, and these Entries are used to store the information about a particular Item
+and the Persons involved in splitting the cost of that Item.
+
+*** *Justification:* +
+These classes are required to keep track of Items and the Persons involved for each of that Item.
+
+
+
+
+. *Added AddItemCommand and enhanced the DeleteItemCommand for the Expense Splitter portion of EYLAH*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/134[#134],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/164[#163])
+
+*** *What it does:* +
+It simply adds a new Entry into the Receipt or deletes an existing Entry from the Receipt.
+
+*** *Justification:* +
+The AddItemCommand is required for users to input new Items and the Persons involved in splitting the cost of that Item.
+The DeleteItemCommand is for users to remove an Item in case he/she made a mistake or simply wants to remove the Item.
+
+*** *Highlights:* +
+These commands are only allowed to be used when the Receipt has not been marked as completed as this was accomplished
+using a boolean flag in the Receipt class. This is because of a bug that we discovered, which will be explained in the
+point below.
+
+
+
+
+
+. *Added a boolean flag in Receipt*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/201[#201])
+
+*** *What it does* +
+It checks if the Receipt is marked as complete (true) or incomplete (false).
+
+*** *Justification* +
+DeleteItemCommand actually removes the Amount owed by the person from the PersonAmountBook. So does the PaidCommand.
+As such, if a user uses the DeleteItemCommand after using the PaidCommand, and if the Amount owed goes to negative,
+an exception would be thrown due to the nature of BigDecimal (BigDecimal does not accept negative values).
+Hence, a flag was included to prevent this from happening.
+
+
+
+
+
+. *Added DoneReceiptCommand and ClearReceiptCommand for the Expense Splitter portion of EYLAH*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/201[#201],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/204[#204])
+
+*** *What it does:* +
+DoneReceiptCommand marks the Receipt as done and ClearReceiptCommand removes all existing Entries from the Receipt.
+
+*** *Justification:* +
+DoneReceiptCommand is required to toggle the boolean flag of Receipt to be done. ClearReceiptCommand does the opposite
+by toggling the Receipt back as undone.
+
+*** *Highlights:* +
+These commands are required to prevent an Exception being thrown with regards to negative BigDecimal values, as
+explained in the point above.
+
+
+
+. *Added CalculateUtil for EYLAH*
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/191[#191])
+
+*** *What it does:* +
+CalculateUtil does all the handling of calculations required in EYLAH.
+
+*** *Justification:* +
+Abstraction, to make things easier and more streamlined in our application.
+
+
+
+
+* *Minor Enhancements*
+
+. *Removed case sensitivity when adding a new Person*
+
+** *What it does:* +
+All the names inputted by the user are now made into lowercase.
+
+** *Justification* +
+This is to facilitate quicker use of the application as users would not be required to capitalize any names.
+Internally, this is also to prevent duplicate Person objects with the same name (but in different case sensitivity)
+from being created, i.e Bob vs bob or aLiCe vs alice.
+
+
+
+. *Fixed the rounding issue with regards to using BigDecimal as currency in our application*
+
+** *What it does:* +
+Decimals with regards to currency in EYLAH is made to be 2 decimal points (d.p).
+
+** *Justification* +
+The Amount class only accepts decimals up till 2 d.p. Users are also made to only input decimals up
+till 2 d.p. However, the problem comes when dividing BigDecimals, e.g 10 / 3 = 3.333333... Since we create a new Amount
+object called amountPerPerson, i.e new Amount("3.33333"), this would throw an Exception. As such, I made it such that
+any all calculations with regards to BigDecimal and Amount would be kept at a maximum of 2 d.p to prevent this Exception
+from being thrown. In addition, I also did the formatting of the BigDecimal to be represented as a currency.
+
+** *Credits* +
+*** http://www.javapractices.com/topic/TopicAction.do?Id=13 +
+*** https://stackoverflow.com/questions/1359817/using-bigdecimal-to-work-with-currencies
+
+** Added test cases for Entry and Receipt classes
+** Added test cases for AddItemCommand, DeleteItemCommand, DoneReceiptCommand and ClearReceiptCommand
+** Assisted in downscaling of AddressBook3 by removing Phone class
+
+* *Code contributed*: +
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=ailanthustng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and Test code]
+
+
+* *Other contributions*:
+
+** Project management:
+*** Lead for ExpenseSplitter portion of EYLAH.
+*** Participated in planning the project timeline for EYLAH.
+
+
+** Enhancements to existing features:
+*** Enhanced ParserUtil to be able to handle more inputted texts and output the required Objects.
+*** Adapted the given Address Book 3 code into EYLAH.
+
+
+** Documentation:
+*** Updated the Developer Guide to include AddItemCommand and DeleteItemCommand
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/164[#164],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/171[#171],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/353[#353],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/409[#409])
+*** Updated the Developer Guide to include ClearReceiptCommand
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/359[#359],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/409[#409])
+*** Updated the User Guide to include DoneReceiptCommand and ClearReceipt Command
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/241[#241])
+*** Updated the User Guide to include Appendix H: Effort
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/384[#384])
+*** Updated the User Guide with minor changes with regards to the use of English and to maintain consistency throughout
+the document
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/411[#411])
+
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): Pull requests https://github.com/AY1920S2-CS2103T-W13-1/main/pull/397[#397]
+*** Reported bugs and suggestions for other teams in the class: https://github.com/ailanthustng/ped/issues[ped]
+
+== Code contributed
+Please click the following link to see my code contributions dashboard.
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=ailanthustng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Report]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=additem]
+
+'''
+include::../UserGuide.adoc[tag=deleteitem]
+
+'''
+include::../UserGuide.adoc[tag=clearreceipt]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=expensesplitteradditem]
+
+'''
+include::../DeveloperGuide.adoc[tag=expensesplitterdeleteitem]
+
+'''
+include::../DeveloperGuide.adoc[tag=expensesplitterclearreceipt]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailanadditemusecase]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailandeleteitemusecase]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailanclearreceiptusecase]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailanappendixgadditem]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailanappendixgdeleteitem]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailanappendixgdonereceipt]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailanappendixgclearreceipt]

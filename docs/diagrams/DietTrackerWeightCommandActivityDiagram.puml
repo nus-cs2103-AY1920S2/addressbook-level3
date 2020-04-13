@@ -1,0 +1,20 @@
+@startuml
+/' @author @jarrod-bob'/
+
+start
+
+:User executes WeightCommand;
+:Validate Weight given;
+
+if () then ([weight is not specified or invalid])
+    :Display an error message;
+
+else ([valid weight])
+    :Creates Weight from weight input;
+    :Stores Weight into MyselfStorage;
+    :Save MyselfStorage;
+    :Display to user that Weight has been saved;
+
+endif
+stop
+@enduml

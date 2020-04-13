@@ -1,0 +1,20 @@
+{
+  "receipts" : [ {
+    "entries" : [ {
+      "item" : {
+        "itemName" : "pasta",
+        "itemPrice" : 20,
+        "amountPerPerson" : 6.67
+      },
+      "persons" : [ {
+        "name" : "xiong",
+      }, {
+        "name" : "willy",
+        "amount" : 6.67
+      }, {
+        "name" : "ailan",
+      } ]
+    } ],
+    "isDone" : false
+  } ]
+}

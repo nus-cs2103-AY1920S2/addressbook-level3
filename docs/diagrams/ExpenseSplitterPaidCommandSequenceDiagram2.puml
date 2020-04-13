@@ -1,0 +1,73 @@
+@startuml
+/' @author @WillySeahh'/
+!include style.puml
+
+mainframe sd Execution of PaidCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":PaidCommand" as PaidCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+participant "amount:Amount" as Amount MODEL_COLOR
+participant ":PersonAmountBook" as PersonAmountBook MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+participant ":Person" as Person MODEL_COLOR
+end box
+
+activate SplitterLogicManager
+SplitterLogicManager -> PaidCommand :execute(model)
+activate PaidCommand
+
+PaidCommand -> SplitterModelManager : paidPerson(Person person,\n String amountPaid)
+activate SplitterModelManager
+
+create Amount
+SplitterModelManager -> Amount
+activate Amount
+
+Amount --> SplitterModelManager : amount
+deactivate Amount
+
+SplitterModelManager -> PersonAmountBook : removeAmount(Person person,\n Amount amount)
+activate PersonAmountBook
+
+PersonAmountBook -> UniquePersonList : removeAmount(Person person,\n Amount amount)
+activate UniquePersonList
+
+UniquePersonList -> Person : removeAmount(Amount amount)
+activate Person
+
+Person --> UniquePersonList
+deactivate Person
+
+UniquePersonList --> PersonAmountBook
+deactivate UniquePersonList
+
+PersonAmountBook --> SplitterModelManager
+deactivate PersonAmountBook
+
+SplitterModelManager --> PaidCommand
+deactivate SplitterModelManager
+
+create CommandResult
+PaidCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> PaidCommand :result
+deactivate CommandResult
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CommandResult -[hidden]-> PaidCommand
+
+
+PaidCommand --> SplitterLogicManager: result
+deactivate PaidCommand
+
+
+
+
+@enduml

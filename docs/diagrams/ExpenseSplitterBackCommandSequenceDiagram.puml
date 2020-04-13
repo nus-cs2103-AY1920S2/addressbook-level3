@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":EYLAH" as ui UI_COLOR
+Participant ":LogicManager" as logic LOGIC_COLOR
+
+user -[USER_COLOR]> ui : "back"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("back")
+activate logic LOGIC_COLOR
+
+logic -[MODEL_COLOR]-> ui  : CommandResult
+deactivate logic
+
+alt not BackCommand
+
+    ui -[LOGIC_COLOR]> user : stay at current mode
+
+else BackCommand
+
+    ui -[LOGIC_COLOR]> user : back to main menu
+
+end
+@enduml

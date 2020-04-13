@@ -1,0 +1,110 @@
+= Chen Shee Xiong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EYLAH
+
+---
+
+== Overview
+
+EYELAH is a desktop application specifically programmed for Freshmen staying on NUS Campus. It aims to ease their lives
+at halls/residential colleges by providing them with an application to split bills easily and help
+them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
+
+== Summary of contributions
+
+* *Major enhancement*:
+
+. *Integrating* 2 main features of EYLAH by common generic class.
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/140[#140], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/232[#232], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/357[#357]
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/367[#367])
+
+*** *What it does:* +
+Ensure both of the features integrated in the main application.
+*** *Justification:* +
+The integration can help to reduce the duplicate code in the `EYLAH` which cased by the features done by different sub group.
+*** *Highlights:* +
+During the implementation, I faced a lot of difficulty as we working on the existing `AddressBook Level-3`, the code base given does not show how to integrate 2 different features.
+I have decided to modify some common use class to generic version in order can be implemented by both features.
+*** *Credits:* +
+N.A.
+
+. Added the expense splitter storage component to allowed the application to automatically save the *Receipt* in local file.
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/197[#197])
+*** *What it does:* +
+Allow EYLAH to save the receipt details into a local files after execution of each command.
+*** *Justification:* +
+This will allow the user to be able to view the receipt details even they accidentally close the application
+or the application crashing. The receipt details will store in the local file after each command to ensure the updated data
+in the local storage.
+*** *Highlights:* +
+The structure of the receipt storage is much more complicated from the original `AddressBook Level-3` storage.
+So when I implementing this storage, I am required to understand how the Json file store the value. The receipt storage has much
+more complicated structure compare to other storage structure. It contains nested json structure to store the different entry of
+item and person involved.
+*** *Credits:* +
+N.A.
+
+* *Minor enhancement*:
+. Create `ExitCommand` and `BackCommand` for the application
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/357[#357])
+
+*** *What it does:* +
+Allows user to go back to main menu when in either one of the feature mode and exit the application at any point of time.
+*** *Justification:* +
+The user now have the option to go back main menu if want to use another feature. They also able to exit the application through the command
+instead of close the app through the mouse curser to click the exit button.
+*** *Highlights:* +
+The `ExitCommand` in the main menu handle differently as it directly handle by `Eylah.java` instead of going through the
+`ModelManager#execute()` to create the `ExitCommand` object.
+*** *Credits:* +
+N.A.
+
+* *Code contributed*:[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=sheexiong&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test Code]]
+
+* *Other contributions*:
+
+** Project management:
+*** In charge of project repository management and ensure the weekly task achievement.
+*** Participated in planning the project timeline for EYLAH.
+
+** Enhancements to existing features:
+*** Adapted the given Address Book Storage into EYLAH's Storage.
+
+** Documentation:
+*** Updated Developer Guide for Done Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/388[#388])
+*** Updated Developer Guide for whole Design Section (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/369[#369], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380])
+*** Updated User Guide for Back, Exit, Help and Done Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/394[#394])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): (Pull requests: https://github.com/AY1920S2-CS2103T-W13-1/main/pull/306[#306], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/176[#176], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/177[#177])
+*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1920S2/forum/issues/48[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/69[2])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/sheexiong/ped/issues)
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=help]
+
+include::../UserGuide.adoc[tag=donereceipt]
+
+include::../UserGuide.adoc[tag=splitback]
+
+include::../UserGuide.adoc[tag=exit]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=design-architecture]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterdonereceiptcommand]

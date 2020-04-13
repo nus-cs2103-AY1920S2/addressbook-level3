@@ -1,0 +1,12 @@
+{
+  "foods": [ {
+      "name": "Valid Food",
+      "calories": "1200",
+      "date": "2020-03-31T16:49:40.210009"
+    },
+    {
+      "name": "P@sta",
+      "calories": "1200",
+      "date": ""
+    }]
+}

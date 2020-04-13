@@ -1,0 +1,12 @@
+@startuml
+/' @author @jarrod-bob'/
+
+start
+:User executes DeleteCommand;
+ :Validate Index given;
+ :Retrieve FoodBook from DietStorage;
+ :Delete Food at given index from FoodBook;
+ :Save FoodBook;
+ :Display to user that Food has been deleted;
+ stop
+ @enduml

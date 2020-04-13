@@ -1,0 +1,30 @@
+@startuml
+start
+
+:Enter Expense Splitter;
+
+if () then ([receiptNotDone])
+
+    if () then ([itemToAdd])
+    : @Rake: Visit SimplifiedAddItemActivityDiagram;
+    : DoneReceipt;
+
+    else ([receiptDone])
+    : Done Receipt;
+    endif
+
+
+else ([receiptDone])
+
+endif
+
+
+: Paid Command;
+
+: Clear Receipt;
+
+
+
+
+stop
+@enduml

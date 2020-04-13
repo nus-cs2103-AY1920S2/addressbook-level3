@@ -1,0 +1,20 @@
+@startuml
+/' @author @ailanthustng'/
+title Activity: Clear Receipt Command
+
+start
+:User enters the clearreceipt command;
+
+if () then ([receipt is marked as done])
+    :All Entries are removed from the Receipt;
+
+    :Receipt is made undone;
+else ([receipt is marked as undone])
+    :All the Amounts owed by Persons are
+    removed from the PersonAmountBook;
+
+    :All Entries are removed from the Receipt;
+endif
+
+stop
+@enduml
