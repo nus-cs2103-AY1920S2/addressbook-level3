@@ -120,7 +120,7 @@ can directly access the Guide by pasting the url into the browser.
 
 Format: `help`
 
-image::HelpPage.png[width="790"]
+image::Help.png[width="790"]
 //end::help[]
 
 === Keep Food and Sports Entries
@@ -151,7 +151,7 @@ page by clicking the `DashBoard` button, the Dashboard page will still only show
 list. But is you input `home` command, entries in all three lists will be shown.
 
 .Dashboard page in default display setting
-image::Home.png[]
+image::Dashboard.png[][width="790"]
 
 ==== Adding an entry: `add`
 
