@@ -10,6 +10,9 @@ package Parser {
 Interface Parser <<Interface>>
 Class NotablyParser
 Class XYZCommandParser
+}
+
+package Commons {
 Class CliSyntax
 Class ParserUtil
 Class ArgumentMultimap

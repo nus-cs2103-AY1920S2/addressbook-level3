@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package BlockModel {
+Interface BlockModel <<Interface>>
+Interface BlockTree <<Interface>>
+Interface BlockTreeItem <<Interface>>
+Interface Block <<Interface>>
+Class BlockModelImpl
+Class BlockTreeImpl
+Class BlockTreeItemImpl
+Class BlockImpl
+Class Title
+Class Body
+Class "TreeItem<<Block>>" as TreeItem
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> BlockModel
+
+BlockModelImpl .right.|> BlockModel
+
+BlockTreeImpl .left.|> BlockTree
+BlockTreeItemImpl .left.|> BlockTreeItem
+BlockImpl .left.|> Block
+
+BlockTreeItemImpl *-up-> "*" BlockTreeItemImpl
+
+BlockModelImpl o-down-> "1" BlockTree
+BlockTreeImpl o--> "1" BlockTreeItem
+BlockTreeItemImpl ..> "1" TreeItem
+TreeItem o--> "1" Block
+BlockImpl ..>  "1" Title
+BlockImpl ..>  "1" Body
+
+@enduml
