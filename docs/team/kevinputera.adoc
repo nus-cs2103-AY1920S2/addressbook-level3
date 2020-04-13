@@ -32,8 +32,6 @@ Notably is for those who *prefer to use a desktop app for managing notes*. More 
 * *Other contributions*:
 
 ** Software architecture: Designed Notably's overall architecture. In addition, I held a meeting with my teammates to get everyone on the same page about Notably's overall architecture.
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W17-2/main/pull/108[#108], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/116[#116], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/123[#123], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/134[#134], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/144[#144], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/150[#150], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/257[#257], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/385[#385]
 *** Contributed to design discussions: https://github.com/AY1920S2-CS2103T-W17-2/main/issues/1[#1], https://github.com/AY1920S2-CS2103T-W17-2/main/issues/8[#8], https://github.com/AY1920S2-CS2103T-W17-2/main/issues/9[#9]
