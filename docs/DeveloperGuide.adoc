@@ -1360,14 +1360,14 @@ Expected: Error "This phone number and/or email already exists in FitBiz." shown
 
 .. Prerequisites: At least one client in the *Client List*
 .. Test Case: `schedule 1 sch/MON-1100-1200` +
-Expected: `FIRST_CLIENT_NAME` 's overall schedule has been changed to: 
+Expected: `FIRST_CLIENT_NAME` 's overall schedule has been changed to:
 MON Time: 11:00 - 12:00
 
 . Scheduling an invalid client index
 
 .. Test Case: `schedule -1 sch/MON-1100-1200` +
-Expected: Invalid command format! + 
-schedule: Adds the training schedule of the client, identified by the index number used in the displayed client list. The schedule should include the first 3 letters of the day, 
+Expected: Invalid command format! +
+schedule: Adds the training schedule of the client, identified by the index number used in the displayed client list. The schedule should include the first 3 letters of the day,
 start and end time in 24 hour format, in 1-minute denominations. Multiple training schedule can be added to a client.
 
 
@@ -1375,7 +1375,7 @@ start and end time in 24 hour format, in 1-minute denominations. Multiple traini
 
 .. Prerequisite: At least one client in the *Client List*
 .. Test Case: `schedule 1 sch/MON-1300-1400 sch/TUE-1700-1900` +
-Expected: Alex Yeoh's overall schedule has been changed to: + 
+Expected: Alex Yeoh's overall schedule has been changed to: +
 MON Time: 13:00 - 14:00 +
 TUE Time: 17:00 - 19:00
 
@@ -1401,11 +1401,3 @@ Expected: Edited Client: `CLIENT INFORMATION`
 .. Prerequisites: At least one client in the *Client List*, with existing sports
 .. Test Case: `edit-c 1 s/` +
 Expected: Edited Client: `CLIENT INFORMATION`
-
-.. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
-   Expected: Similar to previous.
