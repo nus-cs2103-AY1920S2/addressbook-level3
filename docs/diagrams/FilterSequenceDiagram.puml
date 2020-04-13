@@ -16,69 +16,69 @@ participant ":Client" as Client MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
---> LogicManager : execute("filter-c t/obese s/swim")
-activate LogicManager
+-[LOGIC_COLOR]> LogicManager : execute("filter-c t/obese s/swim")
+activate LogicManager LOGIC_COLOR
 
-LogicManager -> FitBizParser : parseCommand\n("filter-c t/obese s/swim")
-activate FitBizParser
+LogicManager -[LOGIC_COLOR]> FitBizParser : parseCommand\n("filter-c t/obese s/swim")
+activate FitBizParser LOGIC_COLOR
 
 create FilterCommandParser
-FitBizParser -> FilterCommandParser
-activate FilterCommandParser
+FitBizParser -[LOGIC_COLOR]> FilterCommandParser : FilterCommandParser()
+activate FilterCommandParser LOGIC_COLOR
 
-FilterCommandParser --> FitBizParser
+FilterCommandParser --[LOGIC_COLOR]> FitBizParser
 deactivate FilterCommandParser
 
-FitBizParser --> FilterCommandParser : parse("t/obese s/swim")
-activate FilterCommandParser
+FitBizParser -[LOGIC_COLOR]> FilterCommandParser : parse("t/obese s/swim")
+activate FilterCommandParser LOGIC_COLOR LOGIC_COLOR
 
 create FilterCommand
-FilterCommandParser --> FilterCommand
-activate FilterCommand
+FilterCommandParser -[LOGIC_COLOR]> FilterCommand : FilterCommand()
+activate FilterCommand LOGIC_COLOR
 
 
-FilterCommand --> FilterCommandParser : fc
+FilterCommand --[LOGIC_COLOR]> FilterCommandParser : fc
 deactivate FilterCommand
 
-FilterCommandParser --> FitBizParser : fc
+FilterCommandParser --[LOGIC_COLOR]> FitBizParser : fc
 deactivate FilterCommandParser
 
-FitBizParser --> LogicManager : fc
+FitBizParser --[LOGIC_COLOR]> LogicManager : fc
 deactivate FitBizParser
 
-LogicManager -> FilterCommand : execute()
-activate FilterCommand
+LogicManager -[LOGIC_COLOR]> FilterCommand : execute()
+activate FilterCommand  LOGIC_COLOR
 
 create TagAndNameContainsKeyWordsPredicate
-FilterCommand --> TagAndNameContainsKeyWordsPredicate : TagAndNameContainsKeyWordsPredicate()
-activate TagAndNameContainsKeyWordsPredicate
+FilterCommand -[LOGIC_COLOR]> TagAndNameContainsKeyWordsPredicate : TagAndNameContainsKeyWordsPredicate()
+activate TagAndNameContainsKeyWordsPredicate MODEL_COLOR
 
 create Client
-TagAndNameContainsKeyWordsPredicate --> Client : test()
-activate Client
+TagAndNameContainsKeyWordsPredicate -[MODEL_COLOR]> Client : test()
+activate Client MODEL_COLOR
 
-Client --> TagAndNameContainsKeyWordsPredicate : boolean
+Client --[MODEL_COLOR]> TagAndNameContainsKeyWordsPredicate : boolean
 deactivate Client
 
-TagAndNameContainsKeyWordsPredicate --> FilterCommand : p
+TagAndNameContainsKeyWordsPredicate --[MODEL_COLOR]> FilterCommand : p
 deactivate TagAndNameContainsKeyWordsPredicate
 
-FilterCommand -> Model: updateFilteredClientList(p)
-activate Model
+FilterCommand -[LOGIC_COLOR]> Model: updateFilteredClientList(p)
+activate Model MODEL_COLOR
 
-Model --> FilterCommand
+Model --[MODEL_COLOR]> FilterCommand
 deactivate Model
 
 create CommandResult
-FilterCommand -> CommandResult
-activate CommandResult
+FilterCommand -[LOGIC_COLOR]> CommandResult : CommandResult()
+activate CommandResult LOGIC_COLOR
 
-CommandResult --> FilterCommand
+CommandResult --[LOGIC_COLOR]> FilterCommand : result
 deactivate CommandResult
 
-FilterCommand --> LogicManager : result
+FilterCommand --[LOGIC_COLOR]> LogicManager : result
 deactivate FilterCommand
 
-<-- LogicManager : result
+<[LOGIC_COLOR]-- LogicManager : result
 deactivate LogicManager
 @enduml
