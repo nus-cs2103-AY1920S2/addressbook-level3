@@ -6,8 +6,17 @@ skinparam classAttributeIconSize 0
 hide circle
 
 
-abstract class Command {
-    {abstract} execute(splitterModel:SplitterModel) : CommandResult
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
+}
+
+class DeleteItemCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : DeleteItemCommand
+}
+
+interface Parser<T extends Command> <<Interface>> {
+    parse(userInput : String) : DeleteItemCommand
 }
 
 class DeleteItemCommand extends Command {
@@ -39,6 +48,20 @@ interface SplitterModel <<Interface>> {
     + getFilteredPersonList() : ObservableList<Person>
 }
 
+class ParserUtil {
+    <u> + parseIndex(oneBasedIndex : String) : Index
+    <u> + parseItemName(itemName : String) throws : ItemName
+    <u> + parseItemPrice(priceInString : String) : ItemPrice
+    <u> + parseAmount(price : ItemPrice , numPersons : int) : Amount
+    <u> + parseName(name : String) : Name
+    <u> + parseNames(names : Collection<String>) : ArrayList<Name>
+    <u> + parsePersons(names : ArrayList<Name>, amount : Amount) : ArrayList<Person>
+}
+
+class Index {
+    + getZeroBased() : int
+    + getOneBased() : int
+}
 
 class SplitterModelManager implements SplitterModel {
     /' Fields '/
@@ -59,8 +82,19 @@ class Receipt {
     + isDone() : boolean
 }
 
+class Entry {
+    /' Fields '/
+    - item : Item
+    - persons : ArrayList<Person>
+}
+
 DeleteItemCommand ..> SplitterModel
+DeleteItemCommand *--> Index
+DeleteItemCommandParser .left.> Index
+DeleteItemCommandParser ..> DeleteItemCommand
+DeleteItemCommandParser ..> ParserUtil
 SplitterModelManager *-right->"1" Receipt
+Receipt .right.> Entry
 
 
 @enduml
