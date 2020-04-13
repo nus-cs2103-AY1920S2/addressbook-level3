@@ -58,7 +58,7 @@ proposed Data Encryption feature, and proposed ExpenseLa Statement feature: http
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-==== Filter transactions : `filter`
+=== Filter transactions : `filter`
 
 Filters transactions for user to view specific transactions according to the filter type. Upon application
 launch the preset filter is for all transactions in the current month as depicted below:
@@ -81,12 +81,12 @@ Examples:
 * `filter c/ALL m/ALL` - show all transactions
 
 
-==== Data Encryption [coming in v2.0]
+=== Data Encryption [coming in v2.0]
 
 With the AES-256 encryption, ExpenseLa ensures that the sensitive information you have provided is safe from outside
 prying eyes, and this is all done without any additional effort from the user.
 
-==== ExpenseLa Statement `Statement` [coming in v2.0]
+=== ExpenseLa Statement `Statement` [coming in v2.0]
 
 With the ability to generate your personalised ExpenseLa statement, you will be able to export all your expenses,
 income, budget, and balance information into a pdf document. Using ExpenseLa's `Filter` command, you will be able
@@ -100,7 +100,7 @@ to selectively include which transactions to make your statement tailored to you
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-==== Architecture
+=== Architecture
 
 In this section, we will be introducing the individual components that form ExpenseLa using various diagrams.
 
@@ -150,7 +150,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
-==== Model component
+=== Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -171,7 +171,7 @@ The `Model`,
 so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-==== Filtering Transactions (Pang Kim Jin)
+=== Filtering Transactions (Pang Kim Jin)
 
 The `Filter` command allows the user to bring up a list of `Transaction`, and filter it by either category, month,
 or both at the same time. This is implemented by using a predicate for category and another predicate for month,
@@ -233,7 +233,7 @@ expenses.
 The design consideration mentioned earlier hence facilitates this proposed extension, reducing the difficulty of such a
 future implementation.
 
-==== [Proposed] Data Encryption
+=== [Proposed] Data Encryption
 
 Given the sensitive nature of the information provided by users, we would like to safeguard the information provided by
 our users through encryption. Naturally, the information would be encrypted and decrypted in the back-end without the user
@@ -272,7 +272,7 @@ will be using the Advanced Encryption Standard (AES 256) encryption algorithm.
 ** Cons: Harder to implement
 
 
-==== [Proposed] ExpenseLa Monthly Statement
+=== [Proposed] ExpenseLa Monthly Statement
 
 Similar to how banks issue a statement of account, we believe that it would be helpful to provide
 our users with an overview of their expenses. This statement would include the user's balance,
@@ -310,7 +310,7 @@ transactions to include.
 Ultimately we chose Alternative 1 as we prioritise our user's freedom of choice and we understand that not all transactions
 may be relevant for the purposes of exporting the statement.
 
-==== Non Functional Requirements
+=== Non Functional Requirements
 
 .  The software should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  The software should be able to hold up to 2000 transactions(expenses and incomes).
@@ -320,14 +320,14 @@ may be relevant for the purposes of exporting the statement.
 .  The software should support both manual and automated testing.
 .  The source code should be open-source
 
-== Instructions for Manual Testing
+=== Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+==== Launch and Shutdown
 
 . Initial launch
 
@@ -341,7 +341,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Setting a monthly budget
+==== Setting a monthly budget
 
 . Setting a monthly budget to a user decided amount
 
@@ -350,14 +350,14 @@ Expected: The monthly budget for the current month is set to $1000
 .. Test Case: `budget` +
 Expected: The monthly budget is not updated. Error is shown in the status message
 
-=== Resetting total balance
+==== Resetting total balance
 
 . Reset `Balance` value to the total from the amount of all transactions stored
 
 .. Test Case: `resetBalance` +
 Expected: The `Balance` is reset
 
-=== Adding a transaction
+==== Adding a transaction
 
 . Add either an expense or income transaction
 
@@ -376,7 +376,7 @@ current date. Details of the added transaction is visible in the Command Result
 .. Test Case: `add i/ n/ allowance c/INCOME rc/` +
 Expected: No transaction is added. Error details are shown in the Command Result
 
-=== Filtering transactions
+==== Filtering transactions
 
 . Filtering transactions listed by category, month, or both.
 
@@ -395,7 +395,7 @@ relevant transactions are listed. Details of the number of transactions found is
 .. Test Case: `filter` +
 Expected: No filter is applied and no transactions listed. Error details are shown in the Command Result.
 
-=== Deleting a transaction
+==== Deleting a transaction
 
 . Deleting a transaction from the transactions listed
 
@@ -407,7 +407,7 @@ Expected: No transaction is deleted. Error details shown in the status message.
 .. Test Case: `delete` +
 Expected: No transaction is deleted. Error details are shown in the Command Result.
 
-=== Editing a transaction
+==== Editing a transaction
 
 . Editing a transaction from the transactions listed
 
@@ -420,7 +420,7 @@ Expected: No transaction is edited. Error details shown in the status message.
 Expected: No transaction is edited. Error details are shown in the Command Result.
 
 
-=== Analysis of transactions
+==== Analysis of transactions
 
 . Toggle between viewing list of transactions and analytics with bar graph and pie chart to show expense trend.
 
@@ -430,7 +430,7 @@ Expected: Transaction view is toggled to analytics view or vice versa.
 Expected: No toggling happens. Error details shown in the status message.
 
 
-=== Finding transactions
+==== Finding transactions
 
 . Finding transactions that match any of the supplied keywords in its name field.
 
@@ -442,7 +442,7 @@ transaction list.
 .. Test case: `find` +
 Expected: No transactions found. Error details shown in the status message.
 
-=== Listing all transactions
+==== Listing all transactions
 
 . Listing all transactions and resetting all filters to "ALL".
 
@@ -450,14 +450,14 @@ Expected: No transactions found. Error details shown in the status message.
 Expected: All transactions will be displayed in the transaction list. Filter for Category and Month are now
 "ALL".
 
-=== Clearing all recurring transactions
+==== Clearing all recurring transactions
 
 . Clearing all recurring transactions stored.
 
 .. Test case: `clearrecurring` +
 Expected: All recurring transactions in the transaction list will be cleared.
 
-=== Exporting transaction data to csv
+==== Exporting transaction data to csv
 
 . Exporting the filtered transaction list to a csv file.
 
@@ -465,7 +465,7 @@ Expected: All recurring transactions in the transaction list will be cleared.
 .. Test case: `export` +
 Expected: All transactions in the transaction list after applying filters will be exported.
 
-=== Importing transaction data from csv
+==== Importing transaction data from csv
 
 . Importing the filtered transaction list to a csv file.
 
@@ -474,7 +474,7 @@ Expected: All transactions in the transaction list after applying filters will b
 Expected: All transactions that are in the correct format and not duplicated entries in the csv file
 will be imported.
 
-=== Clearing all data
+==== Clearing all data
 
 . Clearing all data in ExpenseLa including monthly data and global data
 
@@ -482,14 +482,14 @@ will be imported.
 Expected: All transactions are deleted, balance is set to 0 and monthly data is also set to 0.
 All recurring data such as budget and transactions are also cleared.
 
-=== Showing help window
+==== Showing help window
 
 . View the help window for help with commands
 
 .. Test Case: `help` +
 Expected: A popup with a link to the User Guide pops up.
 
-=== Saving data
+==== Saving data
 
 . Dealing with missing/corrupted data files
 .. Delete the data files at `.\data\expenseLa.json` and `.\data\globalData.json`
