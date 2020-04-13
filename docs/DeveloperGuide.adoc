@@ -30,9 +30,8 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-[TIP]
+[NOTE]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -114,43 +113,51 @@ NOTE: The lifeline for `BuyCommandParser` should end at the destroy marker (X) b
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
-
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the 3 sets of data: `AddressBook`, `Inventory` and `TransactionHistory`.
-* these 3 sets of data stores `Supplier`, `Good` and `Transaction` respectively.
-* have close interaction between each other through various commands input.
-* exposes 3 sets of  unmodifiable list: `ObservableList<Supplier>`, `ObservableList<Good>` and `ObservableList<Transaction>` that can be 'observed' as 3 separate panels on the UI. e.g. the UI can be bound to this list so that the UI automatically updates when any of the data in the list change.
+* stores three sets of versioned data: `VersionedAddressBook`, `VersionedInventory` and `VersionedTransactionHistory`,
+which inherit features from their non-versioned counterparts
+* exposes three unmodifiable lists: `ObservableList<Supplier>`, `ObservableList<Good>` and `ObservableList<Transaction>`
+to be observed and displayed by the UI.
 * does not depend on any of the other three components.
 
-The `Supplier`,
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
 
-* stores details of supplier: `Name`, `Phone`, `Address`, `Email` and `Offer`.
-* can have no `Offer` or multiple `Offer`.
-* each offer consists of `GoodName` and `Price`, indicating the supplier offer to sell a specific good with a specific price.
+The `AddressBook` stores a list of `Supplier` objects, which each:
 
-image:SupplierModelClassDiagram.png[]
+* stores details of a supplier: `Name`, `Phone`, `Address`, `Email` and `Offer`.
+* can have variable number of `Offer` objects, representing an offer to sell a specific good at a specific price.
+* links to a `GoodName` and a `Price` via each of its `Offer` objects
 
+.Structure of the AddressBook
+image::SupplierModelClassDiagram.png[]
 
-The `Good`,
+The `Inventory` stores a list of `Good` objects, which each stores details of a good:
 
-* stores details of good: `GoodName`, `Quantity` and `ThresholdQuantity`.
+* its name `GoodName`,
+* two quantities represented by two `GoodQuantity` objects, one indicating the current quantity and the other the
+minimum threshold quantity
 
-image:GoodModelClassDiagram.png[]
+.Structure of the Inventory
+image::GoodModelClassDiagram.png[]
 
-The `Transaction`,
+The `TransactionHistory` stores a list of `Transaction` objects. Each `Transaction` stores common details of a transaction:
 
-* stores details of transaction: `TransactionId`, `Good` and `Quantity`.
-* differentiate by two types: `SellTransaction` and `BuyTransaction`.
-* `SellTransaction` stores additional detail: `Price` which is selling price of the good.
-* `BuyTransaction` stores additional details: `Price` and `Supplier`, which are the buying price of the good and the seller of the good respectively.
+* `TransactionId` for unique identification,
+* `GoodName` for the transaction good, and
+* `GoodQuantity` for the transaction quantity.
 
-image:TransactionModelClassDiagram.png[]
+A `Transaction` can be either `SellTransaction` or `BuyTransaction`:
+
+* `SellTransaction` has a `Price` to indicate the price at which the goods is sold.
+* `BuyTransaction` has a `Supplier` and a `Price` to indicate the supplier and the price the goods is bought at respectively.
+
+.Structure of the TransactionHistory
+image::TransactionModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -172,9 +179,197 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain features
+are implemented and pitfalls to avoid when making modifications.
+
+//tag::buyandsellcommand[]
+
+=== Buy and Sell Commands
+
+The `buy` and `sell` commands are the main ways a user is expected to
+interact with the Inventory Manager, and encompasses the bulk of the commands a
+user is going to enter into Inventory Manager.
+
+==== Commonalities in Implementation of `buy` and `sell`
+
+
+Both `buy` and `sell` commands are required to accomplish 3 things:
+
+. Update the quantity in the inventory, subject to their respective validity
+checks.
+. Create a transaction record of itself to be added to the transaction history.
+. Commit the mutated model to facilitate proper functioning of `undo` and `redo`
+commands
+
+The API that `Model` exposes has been structured to mirror the requirements
+of the commands. The above 3 requirements can be satisfied by calls to:
+
+. `Model#setGood()`
+. `Model#addTransaction()`
+. `Model#commit()`.
+
+==== Specifics of `buy` Command
+The two ways `buy` executes successfully depends on whether the good
+already exists in the inventory or not.
+
+* If the good does not already exist, then a new Good
+entry has to be created with the quantity bought.
+
+* If it does exist, then the
+existing good entry has to be retrieved, and the quantity updated.
+
+[CAUTION]
+Developers modifying existing `Good` related information must be aware that
+Goods are immutable. In updating only the `quantity` field, all other fields
+must be correctly duplicated to the updated `Good` entry created. Common mistakes
+are to omit those fields, resulting in loss of persistent Good related
+information. To make explicit this requirement to future Developers, multiple
+constructors have been created with their respective purposes documented:
+`Good()`, `Good.newGoodEntry()`, `Good.goodWithName()`.
+
+
+===== Buy Command Input Constraints
+The following constraints have been put on `buy` command inputs. Their reasons
+are discussed in the following section. Users will not be allowed to:
+
+. Purchase from a supplier that is not in the supplier list
+. Purchase a good that the supplier does not offer.
+. Purchase a quantity of good that would cause the total quantity of any
+individual good in the inventory to exceed the `Good` limit.
+
+[NOTE]
+The maximum `Good` limit is 999,999.
+
+Developers seeking to modify the `buy` command must respect
+the above 3 input validations as they form the basis of future features.
+
+[NOTE]
+The `buy` command format is: `buy SUPPLIER_DISPLAYED_INDEX g/GOODNAME q/QUANTITY`
+
+The current implementation of `buy` performs validation of the above
+respectively as follows:
+
+. The `SUPPLIER_DISPLAYED_INDEX` must be within the length of list of suppliers
+returned by `Model#getFilteredSupplierList()`.
+. Get the offers of the supplier through `Supplier#getOffers()`.
+Iterate through the `Set<Offer>` of the selected supplier to find
+existence of an `Offer` with `GOODNAME`.
+. Reuse the inbuilt quantity validation in the `Good` constructor to test
+if the resulting inventory quantity is valid. A `Good` with the new quantity
+is constructed. If the quantity is invalid, an error is thrown and the
+relevant feedback to the user returned.
+
+==== Design Considerations
+
+===== Aspect: Format of `buy` command
+
+* **Alternative 1 (current choice):** `buy SUPPLIER_DISPLAYED_INDEX g/GOODNAME
+                                       q/QUANTITY`.
+** Pros:
+*** Users would not have to type out the entire Supplier's name in full and
+case sensitive. This increases command input speed and further optimizes usage
+for fast typists. Wasted time from typos in minimized.
+*** Verification that a supplier exists in the supplier list is trivial. The
+supplier at the given index only needs to be retrieved.
+
+** Cons:
+*** We lose the flexibility of having input parameters being unordered.
+All inputs with a prefix flag, e.g. `g/`, can be input in any order, but now
+the ``SUPPLIER_DISPLAYED_INDEX`` has to be the first parameter.
+*** Additional cognitive burden on users to remember the `buy` command format's
+first parameter.
+
+
+* **Alternative 2:** `buy n/SUPPLIER_NAME g/GOODNAME q/QUANTITY`.
+** Pros: Flexibility of having unordered input is maintained.
+** Cons: Testing revealed that command entry was tedious and error prone,
+especially since supplier names tended to be long and a mix of upper- and lower-
+case alphabets, reducing user-friendliness.
+
+===== Aspect: `buy` Input Constraints:
+* **Alternative 1 (current choice):** Supplier has to exist in supplier list
+before purchase.
+
+** Pros:
+*** Supports future data analytics commands. We can save all relevant
+transaction information with every particular supplier at the point of
+transaction because the supplier will have to exist in the supplier list.
+The feasible future features include: cost analysis and
+ranking of suppliers by certain parameters.
+*** Users do not have to enter an additional parameter: purchase price,
+since this can be extracted from the Supplier's offer under the hood.
+
+** Cons: If user has making a new purchase, he or she has to first perform data entry
+for the supplier and all it's relevant information before the `buy` command
+can be executed.
+
+* **Alternative 2:** Supplier would be an optional parameter to the buy command.
+
+** Pros: Command usage is more fluid and user-friendly.
+
+** Cons: Cost and supplier related data would be incomplete, reducing
+comprehensiveness of data analytics commands.
+
+
+==== Specifics of `sell` Command
+
+===== Sell Command Input Constraints
+The following constraints have been put on `sell` command inputs. Their reasons
+are discussed in the following section. Users will not be allowed to:
+
+. Sell a good they do not currently have in inventory.
+. Sell a quantity a larger quantity of a good than they currently
+have in inventory.
+
+[NOTE]
+The minimum `Good` limit is 0.
+
+Developers seeking to modify the `sell` command must respect
+the above 2 input validations as they form the basis of future features.
+
+[NOTE]
+The `sell` command format is: `sell GOOD_DISPLAYED_INDEX p/PRICE q/QUANTITY`
+
+The current implementation of `sell` performs validation as follows:
+
+. The `GOOD_DISPLAYED_INDEX` must be within the length of list of Goods
+returned by `Model#getFilteredGoodList()`.
+. Reuse the inbuilt quantity validation in the `Good` constructor to test
+if the resulting inventory quantity is valid. A `Good` with the new quantity
+is constructed. If the quantity is invalid, an error is thrown and the
+relevant feedback to the user returned.
+
+==== Design Considerations
+
+===== Aspect: Format of `sell` command
+
+* **Alternative 1 (current choice):** `sell GOOD_DISPLAYED_INDEX p/PRICE
+                                       q/QUANTITY`.
+** Pros:
+*** Users would not have to type out the entire Good's name in full and
+case sensitive. This increases command input speed and further optimizes usage
+for fast typists. Wasted time from typos in minimized.
+*** Verification that a good exists in the inventory is trivial. The
+good at the given index only needs to be retrieved.
+
+** Cons:
+*** We lose the flexibility of having input parameters being unordered.
+All inputs with a prefix flag, e.g. `g/`, can be input in any order, but now
+the ``GOOD_DISPLAYED_INDEX`` has to be the first parameter.
+*** Additional cognitive burden on users to remember the `sell` command format's
+first parameter.
+
+
+* **Alternative 2:** `sell g/GOOD_NAME p/PRICE q/QUANTITY`.
+** Pros: Flexibility of having unordered input is maintained.
+** Cons: Testing revealed that command entry was tedious and error prone,
+especially since Good names tended to be long and a mix of upper- and lower-
+case alphabets, reducing user-friendliness.
+
+//end::buyandsellcommand[]
 
 // tag::undoredo[]
+
 === Undo/Redo feature
 ==== Implementation
 
@@ -306,7 +501,7 @@ result in temporary files being left behind and cluttering space.
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== Data Encryption
+=== [Proposed] Data Encryption
 ==== Proposed Implementation
 The data encryption adn decryption mechanism is facilitated by `FileCryptoUtil`. The crypto algorithm employed is Advanced
 Encryption Standard (AES) under symmetric encryption algorithm, where both the encryption and decryption uses same key.
@@ -349,6 +544,98 @@ The readable Json data is then stored in the Json file, which can be read by `Js
 ** Cons: Hard to implement to password feature. The password has to be further strengthen by PBKDF2 to enhance the complexity of the key.
 
 // end::dataencryption[]
+
+//tag::autoexpiry[]
+
+=== [Proposed] Automatic Batch Expiry and Warning
+
+The primary aim of inventory management is to ensure that there is always
+sufficient stock of goods. Out-of-stock situations
+cost the company needless revenue losses.
+
+When stores sell fast moving consumer goods with short shelf lives,
+this problem becomes hard to solve when every individual batch of purchases
+have their respective expiry dates.
+
+This feature aims to augment every `buy` command with it's respective
+`EXPIRY_DATE`. When the expiry date approaches, unsold goods from that batch
+would automatically be removed from the inventory, the user would be notified
+of the expiration and warned if that causes the good to fall below it's
+stipulated threshold. The command to source for suppliers who sell that good can
+also be triggered to facilitate restocking of that good.
+
+==== Proposed Implementation
+
+===== Proposed Changes to `Good` class
+Inventory Manager v1.4 currently stores the name, current quantity, and
+threshold quantity of every good in the inventory. An `expiryDates` field
+will be added to store all distinct expiry dates, from closest to furthest, and
+the number of units expiring on that date. Java's built-in `Date` class
+will suffice.
+
+image:GoodWithExpiryDate.png[]
+
+
+===== Proposed Changes to `buy` Command
+
+The `buy` command will include an expiry date for every purchase
+goods. A possible format would be: `buy SUPPLIER_DISPLAYED_INDEX q/QUANTITY
+g/GOOD_NAME x/EXPIRY_DATE`. This assigns the `EXPIRY_DATE` to all `QUANTITY`
+units of `GOOD_NAME` bought.
+
+The correct `Good` entry can be retrieved from the  `InventoryManager`.
+If there is currently no expiry dates on `EXPIRY_DATE`, a new `Map.entry`
+will be created indicating that `QUANTITY` many units will expire on
+`EXPIRY_DATE`. Else, the current `Map.entry` will be updated.
+
+===== Proposed Changes to `sell` Command
+
+Under this implementation, the `sell` command must sell goods in a
+First-In-First-Out (FIFO) manner. When any valid `sell` command is entered,
+the earliest expiry dates are removed first. This is accomplished by reducing
+the values that are mapped to the earliest expiry dates.
+
+===== Expiry Detection
+
+Upon Inventory Manager Program startup, the `expiryDates` of all `Good` s in the
+inventory is checked with the current System Date. When any expiry date is found
+to be earlier than the System date, the mapped number of goods will expire
+and be removed from inventory.
+
+===== Possible Extensions
+Possible extensions of usefulness are listed below:
+
+. Make any expiry event generate it's respective transaction record in the
+transaction history.
+. If goods fall below their warning threshold as a result of expiry,
+have a notification to the user and display the list of suppliers that
+sell that particular good, sorted by increasing price.
+
+==== Design Considerations
+
+===== Aspect: Data Structure for `expiryDates`
+
+* **Alternative 1 (current choice):** Use a `TreeMap<Date, Integer>`
+** Pros: Memory efficient.
+** Cons:
+*** `TreeMap` navigation is more complex than a linear data structure.
+*** Updating is more complex for `sell` commands, especially if goods with
+multiple expiry dates are being sold.
+
+* **Alternative 2:** Maintain an ordered `LinkedList<Date>`.
+** Pros: Simple to implement and update.
+*** Buying `QUANTITY` of a good would correspond to inserting `QUANTITY` of
+`EXPIRY_DATE` into the list and sorting it.
+*** Selling `QUANTITY` of a good would correspond to removing the first
+`QUANTITY` elements.
+*** Finding all expired items can be done be traversing down the list until
+the first non-expired item is found. Everything traversed has expired.
+
+** Cons:
+*** Extremely memory inefficient, especially since each `Good` can contain
+up to `999,999` quantity, and there will be 1 `Date` for each good stored.
+
+//end::autoexpiry[]
 
 // tag::findtransaction[]
 
