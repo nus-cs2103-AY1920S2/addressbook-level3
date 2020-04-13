@@ -28,6 +28,7 @@ interface SplitterModel <<Interface>> {
     + getReceipt() : Receipt
     + clearReceipt() : void
     + isReceiptDone() : boolean
+    + deleteAllEntries() : void
     + hasPerson(person : Person) : boolean
     + addPerson(person : Person) : void
     + getPerson(person : Person) : Person
@@ -37,6 +38,7 @@ interface SplitterModel <<Interface>> {
     + updateFilteredPersonList(predicate : Predicate<Person>) : void
     + getFilteredPersonList() : ObservableList<Person>
 }
+
 
 class SplitterModelManager implements SplitterModel {
     /' Fields '/

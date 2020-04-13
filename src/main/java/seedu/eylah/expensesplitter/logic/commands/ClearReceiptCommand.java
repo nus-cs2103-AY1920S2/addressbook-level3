@@ -20,6 +20,7 @@ public class ClearReceiptCommand extends Command<SplitterModel> {
         requireNonNull(splitterModel);
         if (!splitterModel.isReceiptDone()) {
             splitterModel.deleteAllEntries();
+            splitterModel.clearReceipt();
         } else {
             splitterModel.clearReceipt();
             splitterModel.getReceipt().makeUndone();
