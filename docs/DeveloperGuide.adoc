@@ -369,7 +369,7 @@ The `fav` command is implemented in the _FavCommand_ class.
 
 The following activity diagram shows the possible paths *CookBuddy* can take when a `fav` command is run.
 
-.Activity diagram of finding recipes
+.Activity diagram of the `fav` command
 image::FavActivityDiagram.svg[align="center]
 
 ==== Implementation
@@ -391,7 +391,7 @@ Think of smth
 
 In the current implementation, you are able to favourite recipes, even if they have already been favourited.
 A possible improvement would be to notify users if the recipe they are trying to favourite has already been favourited.
-This would greatly enhance the usefulness of the `find` function in *CookBuddy*.
+This would greatly enhance the usefulness of the `fav` function in *CookBuddy*.
 
 // end::FavCommandImpl[]
 
@@ -406,8 +406,8 @@ The `unfav` command is implemented in the _UnFavCommand_ class.
 
 The following activity diagram shows the possible paths *CookBuddy* can take when a `unfav` command is run.
 
-.Activity diagram of un-favouriting recipes
-image::UnFavActivityDiagram.svg[align="center]
+.Activity diagram of the `unfav` command
+image::UnfavActivityDiagram.svg[align="center]
 
 ==== Implementation
 
@@ -417,8 +417,8 @@ image::UnFavActivityDiagram.svg[align="center]
 
 The following sequence diagram summarizes the execution of the `unfav` command
 
-.Sequence diagram for the execution of a `fav` command
-image::UnFavSequenceDiagram.svg[align="center"]
+.Sequence diagram for the execution of a `unfav` command
+image::UnfavSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
@@ -443,7 +443,7 @@ The `done` command is implemented in the _DoneCommand_ class.
 
 The following activity diagram shows the possible paths *CookBuddy* can take when a `done` command is run.
 
-.Activity diagram of un-favouriting recipes
+.Activity diagram of the `done` command
 image::DoneActivityDiagram.svg[align="center]
 
 ==== Implementation
@@ -454,7 +454,7 @@ image::DoneActivityDiagram.svg[align="center]
 
 The following sequence diagram summarizes the execution of the `done` command
 
-.Sequence diagram for the execution of a `fav` command
+.Sequence diagram for the execution of a `done` command
 image::DoneSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
@@ -480,7 +480,7 @@ The `undo` command is implemented in the _UndoCommand_ class.
 
 The following activity diagram shows the possible paths *CookBuddy* can take when a `undo` command is run.
 
-.Activity diagram of un-favouriting recipes
+.Activity diagram of the `undo` command
 image::UndoActivityDiagram.svg[align="center]
 
 ==== Implementation
@@ -491,7 +491,7 @@ image::UndoActivityDiagram.svg[align="center]
 
 The following sequence diagram summarizes the execution of the `undo` command
 
-.Sequence diagram for the execution of a `do` command
+.Sequence diagram for the execution of a `undo` command
 image::UndoSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
@@ -517,7 +517,7 @@ The `view` command is implemented in the _ViewCommand_ class.
 
 The following activity diagram shows the possible paths *CookBuddy* can take when a `view` command is run.
 
-.Activity diagram of un-favouriting recipes
+.Activity diagram of the `view` command
 image::ViewActivityDiagram.svg[align="center]
 
 ==== Implementation
@@ -552,7 +552,7 @@ The `time` command is implemented in the _UndoCommand_ class.
 
 The following activity diagram shows the possible paths *CookBuddy* can take when a `time` command is run.
 
-.Activity diagram of un-favouriting recipes
+.Activity diagram of the `time` command
 image::TimeActivityDiagram.svg[align="center]
 
 ==== Implementation
@@ -563,7 +563,7 @@ image::TimeActivityDiagram.svg[align="center]
 
 The following sequence diagram summarizes the execution of the `time` command
 
-.Sequence diagram for the execution of a `do` command
+.Sequence diagram for the execution of a `time` command
 image::TimeSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
