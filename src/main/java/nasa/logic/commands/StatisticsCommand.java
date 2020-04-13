@@ -26,6 +26,7 @@ public class StatisticsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         //model.updateFilteredD(deadlinePredicate);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true, false, CommandResult.EMPTY_BYTE_ARRAY_DATA);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, true, false,
+                CommandResult.EMPTY_BYTE_ARRAY_DATA);
     }
 }

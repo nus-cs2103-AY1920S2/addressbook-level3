@@ -15,7 +15,7 @@ public class RepeatEventCommand extends Command {
     public static final String COMMAND_WORD = "repeat-e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": repeat a event activity.\n"
-            + "Parameters: m/MODULE_CODE INDEX r/REPETITION (0: cancel, 1: weekly, 2: biweekly, 3: monthly)\n"
+            + "Parameters: ITEM_INDEX m/MODULE_CODE r/REPETITION (0: cancel, 1: weekly, 2: biweekly, 3: monthly)\n"
             + "Example for monthly repetition: " + COMMAND_WORD + " 1 m/CS3233 r/3";
 
     public static final String MESSAGE_SUCCESS = "Successfully added a repeat!";

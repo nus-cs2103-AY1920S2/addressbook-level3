@@ -37,6 +37,7 @@ public class CommandHint {
             put(RepeatEventCommand.COMMAND_WORD, RepeatEventCommand.MESSAGE_USAGE);
             put(SortCommand.COMMAND_WORD, SortCommand.MESSAGE_USAGE);
             put(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_USAGE);
+            put(ViewCommand.COMMAND_WORD, ViewCommand.MESSAGE_USAGE);
         }};
 
 

@@ -87,7 +87,7 @@ public class Event extends Activity {
      */
     public boolean isValidStartDate(Date startDate) {
         requireAllNonNull(startDate);
-        return startDate.isBefore(endDate);
+        return startDate.isBefore(endDate) || startDate.isEqual(endDate);
     }
 
     /**
@@ -97,7 +97,7 @@ public class Event extends Activity {
      */
     public boolean isValidEndDate(Date endDate) {
         requireAllNonNull(endDate);
-        return startDate.isBefore(endDate);
+        return startDate.isBefore(endDate) || startDate.isEqual(endDate);
     }
 
     @Override
@@ -141,8 +141,9 @@ public class Event extends Activity {
     public void regenerate() {
         getSchedule().update();
         if (Date.now().isAfter(endDate) && getSchedule().getType() != 0) {
-            setEndDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDuration()));
-            setStartDate(getSchedule().getRepeatDate());
+            int timeDiff = getDuration();
+            setEndDate(getSchedule().getRepeatDate().addDaysToCurrDate(timeDiff));
+            setStartDate(endDate);
             setDateCreated(getSchedule().getRepeatDate());
         }
     }
@@ -154,7 +155,12 @@ public class Event extends Activity {
         Date endDateCopy = new Date(getEndDate().toString());
         Note noteCopy = new Note(getNote().toString());
         Date dateCreatedCopy = new Date(getDateCreated().toString());
+        Schedule scheduleCopy = new Schedule();
+        scheduleCopy.setDefaultDate(dateCreatedCopy);
+        scheduleCopy.setRepeatDate(getScheduleDate());
+        scheduleCopy.setType(getSchedule().getType());
         Event eventCopy = new Event(nameCopy, dateCreatedCopy, noteCopy, startDateCopy, endDateCopy);
+        eventCopy.setSchedule(scheduleCopy);
         return eventCopy;
     }
 
