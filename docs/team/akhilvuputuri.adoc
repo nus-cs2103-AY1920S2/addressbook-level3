@@ -1,7 +1,6 @@
 = Akhil Vuputuri - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
-:imagesDir: ../images/expense-splitter
 :stylesDir: ../stylesheets
 
 == PROJECT: EYLAH
@@ -10,7 +9,7 @@
 
 == Overview
 
-EYELAH is a desktop application specifically programmed for Freshmen staying on NUS Campus. It aims to ease their lives
+EYLAH is a desktop application specifically programmed for Freshmen staying on NUS Campus. It aims to ease their lives
 at halls/residential colleges by providing them with an application to split bills easily and help
 them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
 
@@ -22,12 +21,105 @@ them track their diet. The user interacts with it using a CLI and it is programm
 ** Highlights:
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-** *Implement Storage for Diet Tracker in EYLAH*
-*** What it does: Store food data of user so that when the app is restarted, the information still exists.
-*** Justifcation: Users will not constantly keep the app open and there are times when they would close it,thus, storage
+* *Major Enhancements*:
+
+. *Refactored entire AB3 Code base to be used for EYLAH*
+(Refactoring Codebase - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/126[#126]
+
+*** *What it does:* +
+The idea was to allow both the Expense Splitter and Diet Tracker features of EYLAH to be built onto the existing AB3
+framework rather than replace it entirely.
+
+*** *Justification:* +
+The partitioning into the two feature sections during the refactoring meant that it would be easy to extend the app in
+the future when adding more new features. It would also allow the two teams for each of the features work independently
+without much conflict of code, especially during the initial building phase where there are bound to be many bugs.
+Building on the existing AB3 code base also meant that we were able to follow the good practices and structure used.
+*** *Highlights:* +
+As we had already started development of the two features before the refactoring, the highlight was trying to understand
+the existing structure at that point to refactor and partition without introducing any bugs. This required working
+together with my teammates to understand the functionality they had started to implement.
+
+*** *Credits:* +
+Address Book 3 Code Base
+
+. *Adding of Food, Calories and Date classes, their test classes for the Diet Tracker*
+(Food, Calories, Tests - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/104[#104]
+& Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/125[#125]
+& Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/111[#111])
+(Date - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/104[#104])
+
+*** *What it does:* +
+Food is used to represent a food item to be added into the diet tracker and it stores a Calorie object that contains the
+number of calories in the food.
+
+*** *Justification:* +
+These classes are what the Diet Tracker is built upon as almost every command uses the classes to track the
+food intake of users. Without these classes, users would be unable to track the food they eat and their
+calorie intake. Date was added subsequently to allow for functionality of tracking food by date.
+
+*** *Highlights:* +
+The highlight was understanding the requirements of a user when using the Diet Tracker and translating them into the
+Food class. For example, for a diet tracker a user would want a food item that they store to have calories so as to
+track and a name to remember by. It was also interesting to understand how date was to be stored. Instead of serializing
+the LocalDateTime object, I decided to store as a string and call the parser that Java offers to convert it back.
+
+*** *Credits:* +
+AB3 Code Base on how Person is being modelled and used. Duke for the idea of using LocalDateTime.
+
+
+. *Implement Storage for Diet Tracker in EYLAH*
+*** *What it does:* +
+Store food data of user so that when the app is restarted, the information still exists.
+(Storage - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/152[#152]
+& https://github.com/AY1920S2-CS2103T-W13-1/main/pull/210[#210])
+
+*** *Justification:* +
+Users will not constantly keep the app open and there are times when they would close it,thus, storage
 allows users to close the app and continue where they left off without doing all the work again.
 *** Highlights:
+It was quite a challenge dealing with the storage due to the complex nature of translating Java objects into a form that
+can be stored in a Json. There were several issues, such as data being able to be stored but no read when the app was
+re-initialised.
+*** Credits: Would like to credit all my team mates in discussing and deciding that in this case the best way to store
+would be as a JSON rather than a string and also helping me with troubleshooting storage issues.
+
+. *Implement Add, Delete Commands and relevant tests*
+*** *What it does:* +
+Allows for food to be added and removed.
+(Add, Delete - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/128[#128])
+(Tests - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/242[#242])
+
+*** *Justification:* +
+The core functionality of a diet tracking app is to be able to control the food in the app, that the Add and Delete
+commands let you do.
+
+*** Highlights:
+It was intriguing to understand the LogicManager as this was my first implementation of logic components.
+
 *** Credits: Address Book 3
+
+
+. *Implement various list command (Daily, By Tag, By Time Period, All)*
+*** *What it does:* +
+This allows the list shown to change based on the flag provided by the user. They can view daily list, filter by tag,
+filter by time period or view all consumption ever.
+(List Fix - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/210[#210])
+(List By Tag - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/221[#221])
+(List By Past Num of Days - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/225[#225])
+(Refactor Flags For Each Type - https://github.com/AY1920S2-CS2103T-W13-1/main/pull/248[#248])
+
+
+*** *Justification:* +
+Instead of simply listing out all the food, there are different list commands for different user needs. If the user
+wants to track his daily consumption, they can view the daily list, if they wish to find a certain type of food,
+they can filter by tag and if they want to know what they ate over a past number of days they can use time period.
+
+*** Highlights:
+The incorporation of the various list command types was not straightforward as it did not just require changes in the
+List Command but also required addition of date and tags into food to be filtered.
+
+*** Credits: My team mate, Jarrod for the idea on having different types of lists to serve different user functions
 
 
 * *Minor enhancement*: [In Process]
