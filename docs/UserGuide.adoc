@@ -268,10 +268,18 @@ There is no need for you to save manually.
 
 === Auto suggestions
 
-As you type, Notably will provide you suggestions. You can then press kbd:[Enter] to select the first suggestion.
+As you type, Notably will provide you with suggestions. You can press the keyboard kbd:[↓] button followed by kbd:[Enter] to select any suggestion in the list.
 
-.Demo for the suggestions feature
+For example, as you type `open -t Notably`, a list of suggestions will be generated as seen in the figure below.
+
+.Demo for the suggestions feature: Suggestions are generated as the user keys in his input
 image::demo/Suggestions.png[]
+
+Let's say you would like to choose the option `/Workspace/Notably/Another Note`. After pressing kbd:[↓] to reach that suggestion
+and pressing kbd:[Enter], the command input line will be auto-filled by the suggestion, as seen in the figure below.
+
+.Demo for the suggestions feature: The user input is auto-completed when the user selects a suggestion
+image::demo/Suggestions2.png[]
 
 ==== (Coming in v2.0) Suggestion response text when opening or deleting a parent note
 Variations of path with `../` (e.g. `open ../`, `open Note/../Note`, etc.) will not generate a comprehensive response text.
