@@ -649,7 +649,9 @@ otherwise)
 *MSS*
 
 1.  NASA prompt user to key in modules taken during the semester on start-up.
-2.  User enters modules taken eg. `add m/ CS2103T CS2106 CS2101`.
+2.  User enters modules taken one by one as per the following eg.
+`add m/CS2103T n/Software engineering`,
+ `add m/CS2106 n/Operating System`, `add m/CS2101 n/Effective Communication for Computing Professionals`.
 3.  NASA confirms and display the modules entered.
 4.  User can start to use the command line.
 +
@@ -658,8 +660,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Add nothing.
-* 1b. Add activities.
+* 2a. Catch errors for prefixes not provided eg, `add CS2106 Software engineering`, `m/` and `n/` is not provided.
 +
 Use case ends.
 
@@ -680,6 +681,7 @@ Use case ends.
 [none]
 * 1a. No such modules.
 * 1b. Prompt user to add the modules not listed.
+* 1c. Due date has already passed.
 +
 Use case ends.
 
