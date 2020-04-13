@@ -516,15 +516,25 @@ image::UpdatePetDisplaySequenceDiagram.png[]
 ==== Design Consideration
 
 === Set Commands
+
+.Set command class diagram
+image::SetClassDiagram.png[]
+
 The Set Commands can be used to customise the features in BB Productive. It can be used to customised the name of the pet, the duration for pomodoro and the daily challenge target so as to better cater to the needs of the user.
 
 Below is an example scenario when the user runs the set command.
 
 Step 1. User runs the command "Set pet/momu pom/30 daily/150". MainWindow will take the user input and call upon LogicManager to pasrse it. LogicManager will the call AddressBookParser which in creates a SetcommandPArser object and then parse the user argument. A SetCommand object is then executed and returned to logic.
 
+.Set command sequence diagram
+image::SetCommandSequenceDiagram.png[]
+
 Step 2. Logic calls upon the method `SetCommand#execute` which eventually calls the methods `Model#SetPetName` and `Model#setPomodoroDefaultTime`. A SetCommandResult object is return once these methods are executed.
 
 Step 3. Upon receiving the SetCommandResult object, MainWindow then calls the method `MainWindow:UpdatePetDisplay` to update the UI for Pet. It also calls `PomodormoManager#SetDefaultStartTime` and `PomdooroDisplay#setTimerText` to update the Ui of pomodoro. Lastly, `StatisticsManager#setDailyTarget` is called to update the value of the dailyTargetText.
+
+.set command updating Ui
+image::SetCommandUpdatingUi.png[]
 
 ==== Design Consideration
 === Logging
