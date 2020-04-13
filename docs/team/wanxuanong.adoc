@@ -17,7 +17,7 @@ It is an application developed by a team of 5 NUS Computing students, adapted fr
 * *Major enhancement*: Added the ability to *show profile, module, semester and focus area*
 ** What it does: Allows the user to display an overview of his profile, display details of a module, display all modules taken in the specified semester, and display all modules available under the specified focus area.
 ** Justification: This feature improves the product significantly because it allows a user to see all his modules and grades at one glance, and this convenience is a main feature of this app. It also allows user to see the modules he has taken, information on each module and requirements of each focus area so they can plan for modules to take better.
-** Highlights: This enhancement required an in-depth analysis of design alternatives as there were many different objects (e.g. `Name`, `ModuleCode`, `Year`, `FocusArea)` to be parsed separately. The implementation too was challenging as it was decided to have a single `ShowCommand` class instead of extracting each `show` feature to inherit a `ShowCommand` class.
+** Highlights: This enhancement required an in-depth analysis of design alternatives as there were many different objects (e.g. `Name`, `ModuleCode`, `Year`, `FocusArea`) to be parsed separately. The implementation too was challenging as it was decided to have a single `ShowCommand` class instead of extracting each `show` feature to inherit a `ShowCommand` class.
 
 * *Major enhancement*: Added the ability to *store modules under each course requirements, as well as modules under each focus areas in JSON format*
 ** What it does: Allows the app to parse the course data into relevant Java objects, and to be used for the implementations of the app's main features.
@@ -44,7 +44,7 @@ https://ay1920s2-cs2103t-w13-3.github.io/main/DeveloperGuide.html#introduction[I
 *** Did major cosmetic tweaks to revamp the User Guide, redesigning the way information is presented in the User Guide (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/150[#150], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/156[#156], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/160[#160]).
 
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features (`add` and `delete`) to increase coverage across a few pull requests (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/266/commits/3c5900b5df7d592eb4283b44a2ac99db0345c012[#266], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/287[#287], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/314[#314]).
+*** Wrote additional tests for existing features (`add` and `delete`) to increase coverage across a few pull requests (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/266/commits/3c5900b5df7d592eb4283b44a2ac99db0345c012[#266], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/287[#287], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/314[#314], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/357[#357]).
 
 ** Community:
 *** PRs reviewed: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/72[#72], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/74[#74], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/75[#75], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/82[#82], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/94[#94]
