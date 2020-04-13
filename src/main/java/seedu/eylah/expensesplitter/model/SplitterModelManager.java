@@ -103,7 +103,6 @@ public class SplitterModelManager implements SplitterModel {
     @Override
     public void deleteAllEntries() {
         personAmountBook.deleteAllEntries(receipt);
-        receipt.clearReceipt();
     }
 
     /**
