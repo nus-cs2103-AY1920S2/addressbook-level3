@@ -436,9 +436,9 @@ image::stats_tab.png[width=400]
 ==== Daily Challenge
 The Daily Challenge tracks the total duration you have kept the Pomodoro running on the current day. The more you run the Pomodoro, the more the progress bar fills, and the closer you are to clearing the challenge! Try to clear the Daily Challenge every day to hit your productivity goals!
 
-[IMPORTANT]
+[TIP]
 ====
-You can customise the duration you aim to achieve on a daily basis by using the Set Command.
+You can customise the duration you aim to achieve on a daily basis by using the Set Command as described <<settings, here>>.
 ====
 
 ==== Productivity Charts
@@ -642,6 +642,7 @@ Use the `settings` command to view the _Settings_ tab. The orange background on 
 image::settings.png[width="790"]
 
 === Set Commands
+anchor:settings[]
 _This section explains how to use the set commands_
 
 Tired of the name "BB"? Is 25 minutes of pomodoro time too short for you? Want to achieve more with the daily challenge? BB productive provides you with the option to customise the various features! Simply use the set commands to customise it the way you want.
@@ -675,11 +676,12 @@ Pomodoro Duration : The maximum amount is 60 minutes so as to prevent you from b
 Daily Target: The maximun amount is 720 minutes
 
 //tag::storage[]
-=== Storage (Permas)
+=== Storage
 All your progress, user preferences and settings are stored in the “data” folder. If you plan to switch devices, you may transfer your progress to another computer by copying the contents of the original device’s “data” folder to the new device’s data folder. This can be done through a thumbdrive.
 
-[TIP]
 Please check that the following files are in the “data” folder to ensure that you are transferring the correct files!
+
+.Files in data folder
 image::storage.png[width="395"]
 
 //end::storage[]

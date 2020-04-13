@@ -220,6 +220,7 @@ The edit command is done in 2 parts. `EditCommandParser` as well as `EditCommand
 image::EditSequenceDiagram.png[]
 //end::editTaskList[]
 
+//tag::DoneAndDelete
 ==== Done and Delete (Fyon)
 
 //tag::branson[]
@@ -602,6 +603,7 @@ image::StatisticsUiSequenceDiagram.png[]
 
 //end::statistics[]
 
+//tag::pet
 === Pet
 ==== Implementation
 The pet feature aims to provide a virtual pet for the app in order to motivate the user. The pet has three main components: the XP points, the evolution and the mood. To facilitate this function, a Pet class is created to represent the pet. A PetManager class is created to manage the pet via communications from MainWindow. Lastly, a PetDisplay class is created to handle the UI of the pet.
@@ -631,6 +633,7 @@ image::UpdatePetDisplaySequenceDiagram.png[]
 
 ==== Design Consideration
 
+//tag::setcommands
 === Set Commands
 
 .Set command class diagram
@@ -640,7 +643,7 @@ The Set Commands can be used to customise the features in BB Productive. It can 
 
 Below is an example scenario when the user runs the set command.
 
-Step 1. User runs the command "Set pet/momu pom/30 daily/150". MainWindow will take the user input and call upon LogicManager to pasrse it. LogicManager will the call AddressBookParser which in creates a SetcommandPArser object and then parse the user argument. A SetCommand object is then executed and returned to logic.
+Step 1. User runs the command "Set pet/momu pom/30 daily/150". MainWindow will take the user input and call upon LogicManager to pasrse it. LogicManager will the call AddressBookParser which in creates a SetcommandParser object and then parse the user argument. A SetCommand object is then executed and returned to logic.
 
 .Set command sequence diagram
 image::SetCommandSequenceDiagram.png[]
