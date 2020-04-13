@@ -192,7 +192,7 @@ image::UGListCDiagram4.png[]
 
 You may be greeted with the following scene. This means that there are no clients in your FitBiz. You can begin adding clients by using the `add-c` command. Do refer to the `add-c` section in this document for help regarding `add-c`.
 
-image::UGListCDiagram1.png[]
+image::UGListCDiagram5.png[]
 
 // end::list-c[]
 
