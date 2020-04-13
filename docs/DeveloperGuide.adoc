@@ -201,6 +201,7 @@ The `Logic` component of `TA-Tracker`:
 * Executes `Command` objects to interact with the `Model` component.
 * Saves data by interacting with the `Storage` component.
 
+//tag::logicStructure[]
 ==== Logic Structure
 The following _Class Diagram_ shows a simplified view of the structure of the `Logic` component.
 
@@ -219,6 +220,9 @@ In the `Logic` component,
 * The logic of TA-Tracker is organised into *commands* and *parsers*
 * `TaTrackerParser` is the *main parser*
 * A `Command` can interact with classes in the `Model` component
+
+//end::logicStructure[]
+//tag::logicOrganization[]
 
 ==== Logic Organization
 
@@ -267,6 +271,9 @@ These command parsers will immediately create the respective `Command`,
 *skipping the second layer* of parsers.
 ====
 
+//end::logicOrganization[]
+//tag::logicCommands[]
+
 ==== Overview of Commands
 
 Within the *Commands* package, all commands have been grouped into *smaller packages*.
@@ -285,6 +292,9 @@ For example, the *Module* package contains the following classes that inherit fr
 * `AddModuleCommand`
 * `DeleteModuleCommand`
 * `EditModuleCommand`
+
+//end::logicCommands[]
+//tag::logicParsers[]
 
 ==== Overview of Parsers
 
@@ -305,6 +315,9 @@ For example, the *Module* package contains the following classes that implement 
 * `DeleteModuleCommandParser`
 * `EditModuleCommandParser`
 
+//end::logicParsers[]
+//tag::logicSequence[]
+
 ==== Example Logic Sequence
 The following _Sequence Diagram_ shows all the interactions inside the `Logic` component
 when executing the `group add m/CS2103 g/G03 t/lab` command.
@@ -321,6 +334,7 @@ destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches 
 * Since the purpose of this diagram is to show the interactions within the `Logic` component,
 irrelevant interactions with the `Model` component have been omitted.
 ====
+//end::logicSequence[]
 //end::logic[]
 
 //tag::model[]
@@ -442,6 +456,7 @@ The `PrefixDetails` of every `Prefix` are stored in a `PrefixDictionary`.
 
 The following sections will describe the implementation of these two dictionaries.
 
+//tag::commandDictionary[]
 ==== Implementation of the CommandDictionary
 
 The following _Class Diagram_ shows how a `CommandDictionary` stores all the
@@ -456,6 +471,9 @@ image::CommandsPackageDiagram2.png[,400]
 (e.g. their `commandWord` and `usage` message).
 . For their `commandWord` and `sub word`, commands may use constants in `CommandWords` to avoid repetition +
 (e.g. "add", "delete", "edit").
+
+//end::commandDictionary[]
+//tag::prefixDictionary[]
 
 ==== Implementation of the PrefixDictionary
 
@@ -489,6 +507,7 @@ They only need to use different `Prefix` objects in order to parse user inputs.
 `PrefixDetails` adds more information to a `Prefix` object instead of extending it.
 Therefore, it can be detached from the *parsers* without changing the `Prefix` constants in `Prefixes`.
 ====
+//end::prefixDictionary[]
 //end::logicDesign[]
 
 //tag::goto[]

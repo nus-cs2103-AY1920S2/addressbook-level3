@@ -581,6 +581,7 @@ This section describes how you can interact with *TA-Tracker*.
 
 //tag::keyboard[]
 === Keyboard Shortcuts
+
 You can navigate everything in *TA-Tracker* with just a *keyboard*!
 
 Here are some keyboard shortcuts that you can use:
@@ -710,7 +711,6 @@ This section explains how to use all the `CLI` commands in *TA-Tracker*.
 
 These commands are used to control the different *windows* in *TA-Tracker*,
 as well as switching between the different *Views*.
-//end::syntax[]
 //tag::help[]
 
 ==== Viewing help : `help`

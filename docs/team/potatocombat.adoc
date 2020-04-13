@@ -38,7 +38,7 @@ I created the `Rating` model to represent a student's rating from scratch.
 *Justification:* Since our *target users* are Teaching Assistants (TAs), they may need to rate students as part of their teaching duties.
 
 ==== Code contributed
-The section of code that I contributed can be found [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=potatocombat[here]].
+The sections of code that I contributed can be found [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=potatocombat[here]].
 
 ==== Other Contributions
 
@@ -61,13 +61,6 @@ https://github.com/AY1920S2-CS2103T-W17-4/main/pull/178[PR #183])
 * Coordinated face-to-face meetings with team members to keep track of the team's progress
 
 //* Coordinated face-to-face meetings with team members to keep track of all work in progress (WIPs)
-
-* Enforced code quality in the pull requests of other team members +
-(eg. https://github.com/AY1920S2-CS2103T-W17-4/main/pull/189[PR #189],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/195[PR #195],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/220[PR #220],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/222[PR #222],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/345[PR #345])
 
 ===== Enhancements to Existing Features
 
@@ -109,6 +102,15 @@ https://github.com/AY1920S2-CS2103T-W17-4/main/pull/361[PR #361])
 
 * Contributed to forum discussions. (https://github.com/nus-cs2103-AY1920S2/forum/issues/112[Forum #112], https://github.com/nus-cs2103-AY1920S2/forum/issues/113[Forum #113])
 
+* Enforced code quality in the pull requests of other team members +
+(eg. https://github.com/AY1920S2-CS2103T-W17-4/main/pull/189[PR #189],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/195[PR #195],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/345[PR #345])
+
+* Reviewed the pull requests of other team members in significant detail +
+(eg. https://github.com/AY1920S2-CS2103T-W17-4/main/pull/220[PR #220],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/222[PR #222])
+
 ===== Tools
 
 * Integrated and managed the following GitHub plugins:
@@ -121,14 +123,21 @@ https://github.com/AY1920S2-CS2103T-W17-4/main/pull/361[PR #361])
 
 ==== Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=usage]
-//include::../UserGuide.adoc[tag=delete]
-//include::../UserGuide.adoc[tag=syntax]
+include::../UserGuide.adoc[tag=introduction]
+
+include::../UserGuide.adoc[tag=commandformat]
+
+//include::../UserGuide.adoc[tag=duplicateparameters]
+
+//include::../UserGuide.adoc[tag=rearrangingparameters]
+
+include::../UserGuide.adoc[tag=keyboard]
+
+include::../UserGuide.adoc[tag=syntax]
 
 ==== Contributions to the Developer Guide
 
@@ -136,8 +145,18 @@ https://github.com/AY1920S2-CS2103T-W17-4/main/pull/361[PR #361])
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=logic]
+include::../DeveloperGuide.adoc[tag=logicStructure]
+
+include::../DeveloperGuide.adoc[tag=logicOrganization]
+
 //include::../DeveloperGuide.adoc[tag=storage]
-//include::../DeveloperGuide.adoc[tag=studentaddeditdelete]
+
+//include::../DeveloperGuide.adoc[tag=commandDictionary]
+
+//include::../DeveloperGuide.adoc[tag=prefixDictionary]
+
 //include::../DeveloperGuide.adoc[tag=logicDesign]
-//include::../DeveloperGuide.adoc[tag=syntaxhighlighting]
+
+include::../DeveloperGuide.adoc[tag=studentaddeditdelete]
+
+include::../DeveloperGuide.adoc[tag=syntaxhighlighting]
