@@ -68,12 +68,12 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
      */
     private void addToPredicates(ArgumentMultimap argMultimap) throws ParseException {
         if (anyPrefixesPresent(argMultimap, PREFIX_CUSTOMER)) {
-            String customerArgs = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_CUSTOMER).get()).trim();
+            String customerArgs = ParserUtil.parseName(argMultimap.getValue(PREFIX_CUSTOMER).get()).toString();
             String[] customerKeywords = customerArgs.split("\\s+");
             predicates.add(new CustomerContainsKeywordPredicate(Arrays.asList(customerKeywords)));
         }
         if (anyPrefixesPresent(argMultimap, PREFIX_PRODUCT)) {
-            String productArgs = ParserUtil.parseProduct(argMultimap.getValue(PREFIX_PRODUCT).get()).trim();
+            String productArgs = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_PRODUCT).get()).toString();
             String[] productKeywords = productArgs.split("\\s+");
             predicates.add(new ProductContainsKeywordPredicate(Arrays.asList(productKeywords)));
         }
