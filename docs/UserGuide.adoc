@@ -1029,7 +1029,6 @@ Examples:
 |`filter-c [t/TAG]... [s/Sport]...`| Filters the list of clients based on specified tags or sports.
 |`find-c NAME...`| Filters the list of clients based on specified name.
 |`list-c`| Displays the list of clients in FitBiz.
-|`schedule INDEX [day/DAY] [st/STARTTIME] [et/ENDTIME]`| Assigns a schedule to a client.
 |`schedule INDEX sch/DAY-STARTTIME-ENDTIME`| Assigns a schedule to a client.
 |`view-c INDEX`| Shows detailed information of a client.
 |=======================================================================
@@ -1040,7 +1039,7 @@ Examples:
 |=======================================================================
 |Command | Summary
 |`add-e n/EXERCISE_NAME d/DATE ew/WEIGHT reps/REPS sets/SETS`| Adds a new exercise to the client being viewed.
-|`edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/WEIGHT] [reps/REPS] [sets/SETS]`| Edits the exercise details of the client being viewed.
 |`delete-e INDEX`| Deletes an exercise in the exercise list of the client being viewed.
+|`edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/WEIGHT] [reps/REPS] [sets/SETS]`| Edits the exercise details of the client being viewed.
 |`graph n/NAME a/AXIS sd/STARTDATE ed/ENDDATE`| Shows a graph of the exercise progress done by a client between the indicated dates.
 |=======================================================================
