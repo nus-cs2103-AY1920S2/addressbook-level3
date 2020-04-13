@@ -129,7 +129,7 @@ The `Model`,
 * `NasaBook` contain a set of module list stored in `UniqueModuleList`.
 * each `Module` consists of several `Activity`.
 * an `Activity` can be either a `Deadline` or `Event`.
-
+// tag::modelid[]
 .Structure of the Activity package of the Model Component
 image::ModelActivityDiagram.png[,500,]
 
@@ -141,7 +141,7 @@ From the diagram above, the Activity package consists of the following:
 
 .Class diagram for Activity
 image::ModelActivityClassDiagram.png[,600,]
-
+// end::modelid[]
 [[Design-Storage]]
 === Storage component
 
