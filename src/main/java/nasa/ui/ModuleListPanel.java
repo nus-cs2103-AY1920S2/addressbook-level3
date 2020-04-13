@@ -38,7 +38,6 @@ public class ModuleListPanel extends UiPart<Region> {
         }
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
-
     }
 
     /**
@@ -69,7 +68,7 @@ public class ModuleListPanel extends UiPart<Region> {
 
             setOnDragOver(event -> {
                 if (event.getGestureSource() != thisCell
-                        && event.getDragboard().hasString()) {
+                    && event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.MOVE);
                 }
 
@@ -78,14 +77,14 @@ public class ModuleListPanel extends UiPart<Region> {
 
             setOnDragEntered(event -> {
                 if (event.getGestureSource() != thisCell
-                        && event.getDragboard().hasString()) {
+                    && event.getDragboard().hasString()) {
                     setOpacity(0.3);
                 }
             });
 
             setOnDragExited(event -> {
                 if (event.getGestureSource() != thisCell
-                        && event.getDragboard().hasString()) {
+                    && event.getDragboard().hasString()) {
                     setOpacity(1);
                 }
             });
@@ -128,5 +127,4 @@ public class ModuleListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
