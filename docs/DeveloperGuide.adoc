@@ -293,6 +293,32 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 This section describes the details on how features are implemented.
 
+
+[[Implementation-CorrectionEngine]]
+===  Correction Engine
+
+==== Rationale
+
+`CorrectionEngine` is needed to enable auto-correction of user inputs, to deliver as good typing experience as possible.
+
+==== Current implementation
+
+`CorrectionEngine` revolves around two _API_ s, namely:
+
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface, implemented by `StringCorrectionEngine` and `AbsolutePathCorrectionEngine`. Concrete implementations of `CorrectionEngine` are employed to correct an uncorrected user input.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] interface, implemented by `LevenshteinDistanceCalculator`. Concrete implementations of `EditDistanceCalculator` are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
+
+Two concrete implementations of the `CorrectionEngine` interface are, namely:
+
+* The `StringCorrectionEngine` class, which deals with the correction of plain strings.
+* The `AbsolutePathCorrectionEngine` class, which deals with the correction of absolute paths. The absolute paths here refer to the address of the notes (or blocks, as we call it) that exist in the App.
+
+==== Design considerations
+
+1. `CorrectionEngine` is built as a standalone module that can be used by both <<Implementation-SuggestionEngine,*`SuggestionEngine`*>> and <<Implementation-Parser,*`Parser`*>>. This decision is made so that code duplication in relation to auto-correction is minimal.
+2. Both `CorrectionEngine` and `EditDistanceCalculator` are implemented as interfaces, in an attempt to make the design of the `CorrectionEngine` component resilient to change. This design enables us to leverage on the https://en.wikipedia.org/wiki/Strategy_pattern[strategy pattern] to make our `CorrectionEngine` component more future-proof.
+
+
 //tag::sugengineimpl[]
 [[Implementation-SuggestionEngine]]
 === Suggestion Engine
@@ -549,6 +575,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `Notably` and the *Actor* is the `user`, unless specified otherwise)
 
+//tag::usecasesearch[]
 [discrete]
 === Use case: Search notes using the Auto-suggestion feature
 *MSS*
@@ -571,7 +598,9 @@ particular keyword.
 ** 2a2. Since the empty suggestion conveys that the keyword cannot be found, the user enters a new data.
 
 Steps 2a1-2a2 are repeated until the data entered is correct. Use case resumes from Step 3.
+//end::usecasesearch[]
 
+//tag::usecaseopendelete[]
 [discrete]
 === Use case: Open/ Delete notes using the Auto-suggestion feature
 *MSS*
@@ -603,6 +632,13 @@ with the particular path or title that the user inputs.
 ** 1b3. User enters a new data.
 
 Steps 1b1-1b3 are repeated until the data entered is correct. Use case resumes from Step 2.
+//end::usecaseopendelete[]
+
+
+===
+
+_{More to be added}_
+
 
 [appendix]
 == Non Functional Requirements
@@ -631,7 +667,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample Notes. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -639,7 +675,46 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Add a new Note
+. Adding a new Note to Notably without jumping to that Note
+
+.. Prerequisites: The current Note does not contain any child Note that has the same title. +
+You current opened Note must be the note you want you new Note to be contained.
+.. Command: `new -t Notably` +
+Expected: new Note titled Notably added to the current Note.
+The current opened Note remain the same(highlighted in at sidebar)
+
+. Adding a new Note to Notably and jump to that Note
+.. Prerequisites: The current Note does not contain any child Note that has the same title. +
+The current opened Note must be the note you want you new Note to be contained.
+.. Command: `new -t CS2103T -o` +
+Expected: new Note titled Notably added to the current Note.
+The current opened Note is changed to the new Note created.(highlighted in at sidebar)
+
+=== Open a Note
+. Open a Note in Notably.
+
+.. Prerequisites: The Note selected must not be the root Note.
+.. Command: `open -t Notably` +
+Expected: The Note selected will be opened displaying its content of the Note and it will be highlighted in the sidebar.
+
+
+=== Delete a Note
+. Delete a Note in Notably.
+
+.. Prerequisites: The Note selected must not be the root Note.
+.. Command: `delete -t Notably` +
+Expected: The Note selected will be deleted, other Notes nested inside the selected Note will also be deleted. +
+The Note will no longer be visible in the sidebar.
+
+=== Edit a Note
+. Edit a Note in Notably.
+
+.. Prerequisites: The Note selected must not be the root Note. +
+The current opened Note must be the Note you want to edit.
+.. Command: `edit -t Notably` +
+Expected: A edit modal will pop up displaying your Note's content in html format. You can exit and save the Note by
+exiting that modal.
 
 === Saving data
 
