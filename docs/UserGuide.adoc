@@ -17,7 +17,15 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-F09-2/main
 
-By: `AY1920S2-CS2103T-F09-2`      Since: `Jan 2020`      Licence: `MIT`
+[.text-center]
+By: `AY1920S2-CS2103T-F09-2`      Since: `Jan 2020`      Licence: `MIT` +
+{blank} +
+{blank} +
+A0190055L Ong Eden +
+A0187819J Amanda Lam +
+A0188384M Lim We Si, Jel +
+A0184679H Yap Dian Hao +
+A0187280Y Thng Yao Jie
 
 <<<
 toc::[]
@@ -180,7 +188,8 @@ Easily remember command shortcuts by checking the bolded letter in the title of 
 <<<
 // tag::summary[]
 === Summary (Eden)
-This tab will be the first panel you see after entering JelphaBot!
+
+This will be the first panel you see after entering JelphaBot!
 
 This section gives you a minimalistic overview of the day, namely tasks that you have due within the day, and tasks that you have completed within the day.
 Tasks displayed will only have it's module code as well as their description for simplicity!
@@ -188,7 +197,8 @@ Tasks displayed will only have it's module code as well as their description for
 ==== Viewing the summary tab: `summary`
 
 You can enter the `summary` command or its shortcuts `:S` or `:s` to manually switch to the summary tab.
-The summary panel will then display a summary of your tasks due and completed today. +
+Summary panel shows your tasks that are due today, and those that you have completed today.
+Once a task that is due today is marked as done, it will appear under the tasks that you have completed today.
 
 Format: `summary` +
 Shortcut: `:S` or `:s`
@@ -319,9 +329,6 @@ image::ug_figures/listByDate.png[width="600"]
 
 `list date` allows you to group your tasks into the following categories:
 
-* *Pinned* [Coming in V2.0] +
-(Pinned tasks will always be displayed at the top.
-To read more about pinning tasks, go <<#pin, here>>)
 * *Overdue*  +
 (Shows tasks which are past their due date)
 * *Due Today* +
@@ -334,19 +341,16 @@ To read more about pinning tasks, go <<#pin, here>>)
 These categories are arranged to make it easier for you to see what is immediately due.
 By moving tasks that are due soon to the top of the list, you can decide what to focus your time on.
 
-<<<
-
 ===== Grouping Tasks by Module : `list module`
 
 You can also group your tasks based on their module code. +
-Format: `list module`
-
+Format: `list module` +
 [.text-center]
 .Example of an expected result after executing `list module`
 image::ug_figures/listByModule.png[width="600"]
 
 This grouping allows you to manage your time by tracking the amount of time spent on each module.
-You can also see which modules are more intensive or have upcoming projects or assignments due.
+You can also see which modules have upcoming projects or assignments due.
 // end::list[]
 
 <<<
@@ -383,7 +387,7 @@ Format: `edit INDEX [d/DESCRIPTION] [dt/DATETIME] [m/MODULE_CODE] [p/PRIORITY (-
 
 [.text-center]
 .Example of an expected result after executing `edit 1 m/CS2105 d/Tutorial 2`
-image::ug_figures/editCommand.png[width="600"]
+image::ug_figures/editCommand.png[width="500"]
 
 ****
 * Edits the task at the specified `INDEX` number shown in the displayed task list.
@@ -567,20 +571,21 @@ Examples:
 
 [.text-center]
 .Example of expected result after executing `calendar May-2020`
-image::ug_figures/CalendarView.png[width="600"]
+image::ug_figures/CalendarView.png[width="500"]
 
-This command should displays the calendar for the month of May in the year 2020 in the calendar panel (on the right) and display the corresponding tasks due for 1-May-2020 in the task list (on the left).
+
+This command should display the calendar for the month of May in the year 2020 in the calendar panel (on the right) and display the corresponding tasks due for 1-May-2020 in the task list (on the left).
 
 [IMPORTANT]
 Format of the month in MONTHYEAR (MMM) input has to have the first letter in upper-case. +
 E.g `Mar` instead of `mar` when specifying the month of March.
 
 [NOTE]
-Dot indicator showing tasks: Dates that have more than 3 tasks due would have a red dot indicator, while dates with
-at least 1 task but less than 4 tasks due would be represented with a green dot indicator.
+Dot indicator showing tasks: Dates that have more than 3 tasks due would have a red dot indicator, while dates with at least 1 task but less than 4 tasks due would be represented with a green dot indicator.
 
 <<<
 ==== Showing tasks due on a specific date : `calendar`
+
 Displays the tasks due on specified date, while highlighting that day on the calendar +
 Format: `calendar DATE`
 
@@ -591,11 +596,11 @@ Format: `calendar DATE`
 
 Examples:
 
-* `calendar Apr-11-2020`
-* `calendar Apr/11/2020` +
+* `calendar Apr-6-2020`
+* `calendar Apr/6/2020` +
 
 [.text-center]
-.Example of expected result after executing `calendar Apr-11-2020`
+.Example of expected result after executing `calendar Apr-6-2020`
 image::ug_figures/CalendarDate.png[width="600"]
 
 This command should highlight the 11th of April in the calendar panel (on the right) and display the corresponding tasks due in the task list (on the left).
@@ -612,7 +617,7 @@ Examples:
 * `calendar today` +
 
 [.text-center]
-.Example of expected result after executing `calendar today` on 12th April, 2020
+.Example of expected result after executing `calendar today` on 13th April, 2020
 image::ug_figures/CalendarToday.png[width="600"]
 
 This command will display the corresponding calendar for this month and highlight today's date in the calendar panel (on the right). The task list panel also will display the corresponding tasks due today (on the left).
