@@ -221,7 +221,7 @@ Auto completion of a word happens when either:
 . the input matches the start of a target word
 . the edit distance between the input and the target < 2.
 =====
-[#completion criteria]
+[#criteria]
 
 The above diagram provides a big picture overview of decisions `CommandCompletor` goes through when processing user input.
 
@@ -238,7 +238,7 @@ The above diagram provides a big picture overview of decisions `CommandCompletor
 . If input is a delete/done command
 .. remove any invalid indices that are greater than the length of the displayed task list or that are not a positive integer
 . If input is a sort command
-.. Auto completion of fields is performed based on the <<completion criteria>>
+.. Auto completion of fields is performed based on the <<criteria, criteria>>
 .. If the field is not recongized, then it is removed
 
 ==== Auto Complete output:
@@ -283,10 +283,10 @@ image::ACIndexActivityDiagram.png[]
 Similar to before, we iterate through the arguments and we remove indexes that are either out of the displayed TaskList's size or that is not a positive integer. We then append it to a removed list so that we can inform the user what input has been removed.
 
 ==== Sort field Completion
-Sort field completion is done by iterating through all arguments word by word and performing the auto complete checks against all possible sort fields. The auto complete checks were the same as the above <<completion criteria>>.
+Sort field completion is done by iterating through all arguments word by word and performing the auto complete checks against all possible sort fields. The auto complete checks were the same as the above <<criteria, criteria>>.
 
 === Enhanced Find
-We've built upon the existing find function in AB-3 to filter tasks based on phrases instead of words.
+We've built upon the existing find function in AB-3 to filter tasks based on phrases (with some degree of typing errors) and based on task tags.
 
 ==== Implementation
 
@@ -301,7 +301,9 @@ image::FindSequenceDiagram.png[]
 ==== Predicate
 
 .Scoring decision
-The score is given by name score - tag count. Only tasks with scores < 2 will be displayed.
+The score is given by name score - tag score. Only tasks with scores < 2 will be displayed.
+
+The final score is then used tp determine it's relevance in the search results by sorting the fitered tasklist in ascending score order.
 
 image::PredicateSequenceDiagram.png[]
 
@@ -309,21 +311,20 @@ image::PredicateSequenceDiagram.png[]
 * The name score of a task is the minimum of the scores of each of a task's chunks
 ** A chunk is a String subsequence of the task name that has the same number of words as the search term
 * We iterate through all chunks of the task name and calculate a score for each chunk
-** The minimum of these scores is set as the task's overall name score
-** a smaller score means a more relevant task
-* The calculation of a chunk is decided by:
+* A task is displayed if one of the three criteria are met and the name score is set to below 2:
 ** edit distance between one of the chunks and the search term < 2, score is set to 1
 ** search term matches the start of one of the chunks, score is set to 1
 ** one of the chunks is the same as the search term, score is set to 0
+* If none of the three criteria are met, the name score is set to 2
+** The task is then not displayed unless it's tag score is positive
 
 ===== Tag scoring
-Tag scoring is carried out on top of name scoring. For every tag in the search term that appears in a Task, we decrement the Task's name score by 1.
-
-The combination of name and tag score is then used as a Task's final score in determining it's relevance in the search results.
+For every tag in the search term that appears in a Task, we increment the tag score by 1.
 
 ==== Other Considerations
 * We chose to not use edit distance for search terms of string length less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
-* We also chose to display task names who's start matches the search term for ease of usage even though the edit distance could be significant.
+* We also chose to display task names who's start matches the search term for users to find tasks without typing the task's entire name
+** Even though the edit distance could be significant
 //end::branson[]
 
 //tag::pomodoro[]
