@@ -3,14 +3,17 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.logging.Logger;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 
 /**
- * HashMap that maps tag to tag frequency
- * Tags are considered to be equivalent when names match, ignoring case
+ * HashMap that maps tag to tag frequency Tags are considered to be equivalent when names match,
+ * ignoring case
  */
 public class TagSet {
+    private static final Logger logger = LogsCenter.getLogger(TagSet.class);
 
     private final HashMap<Tag, Integer> tagCount = new HashMap<>();
 
@@ -45,6 +48,7 @@ public class TagSet {
                     (tag, count) -> {
                         return count + 1;
                     });
+            logger.info(String.format("Task %s: %d", t.tagName, tagCount.get(t)));
         }
     }
 
@@ -61,13 +65,14 @@ public class TagSet {
                         }
                         return count - 1;
                     });
+            logger.info(String.format("Task %s: %d", t.tagName, tagCount.get(t)));
         }
     }
 
     /** Array of tag names */
     public String[] getTagNames() {
         ArrayList<String> tagNames = new ArrayList<>();
-        for (Tag t: tagCount.keySet().toArray(new Tag[0])) {
+        for (Tag t : tagCount.keySet().toArray(new Tag[0])) {
             tagNames.add(t.tagName);
         }
         return tagNames.toArray(new String[0]);

@@ -90,7 +90,8 @@ public class ModelManagerTest {
     public void multipleTag_returnsTrue() {
         modelManager.addTask(HOMEWORK10);
         for (int i = 0; i < 100; i++) {
-            TaskBuilder lowerCaseTag = new TaskBuilder(HOMEWORK10).withName(String.format("task %d", i));
+            TaskBuilder lowerCaseTag =
+                    new TaskBuilder(HOMEWORK10).withName(String.format("task %d", i));
             modelManager.addTask(lowerCaseTag.build());
         }
         assertTrue(modelManager.hasTag(new Tag("MA1521")));

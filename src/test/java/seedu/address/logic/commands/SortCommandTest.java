@@ -67,11 +67,11 @@ public class SortCommandTest {
     public void execute_sortWithFindDone_successful() throws Exception {
         String[] prioritySort = {"priority"};
         CommandResult commandResult = new SortCommand(prioritySort).execute(modelStub);
-        
+
         new FindCommandParser().parse(" Reminder").execute(modelStub);
 
         commandResult = new SortCommand(prioritySort).execute(modelStub);
-        
+
         TaskList stubList = new TaskList();
         ModelStub expectedModel = new ModelStub();
         stubList.addTask(taskDate3);
@@ -83,12 +83,12 @@ public class SortCommandTest {
                 String.format(SortCommand.MESSAGE_SUCCESS, prioritySort[0]),
                 commandResult.getFeedbackToUser());
         assertEquals(expectedModel.getFilteredTaskList(), modelStub.getFilteredTaskList());
-        
+
         stubList = new TaskList();
         stubList.addTask(taskDateDone3);
         stubList.addTask(taskDate1);
         stubList.addTask(taskDate2);
-        
+
         assertEquals(expectedModel.getFilteredTaskList(), modelStub.getFilteredTaskList());
 
         String[] reversePriorityAfterPriority = {"priority", "r-priority"};
@@ -156,14 +156,14 @@ public class SortCommandTest {
                 commandResult.getFeedbackToUser());
         assertEquals(expectedModel.getFilteredTaskList(), modelStub.getFilteredTaskList());
     }
-    
+
     @Test
     public void execute_sortByDone_doneTaskreSort_successful() throws Exception {
         String[] doneSort = {"done"};
 
         CommandResult commandResult = new SortCommand(doneSort).execute(modelStub);
         Task doneTask = doneTask(taskPriority1);
-        
+
         modelStub.setTask(taskPriority1, doneTask);
 
         TaskList stubList = new TaskList();

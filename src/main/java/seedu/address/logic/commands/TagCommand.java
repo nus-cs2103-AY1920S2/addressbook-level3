@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.Model;
 
-/**
- * Gets all tags currently in the list
- */
+/** Gets all tags currently in the list */
 public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";

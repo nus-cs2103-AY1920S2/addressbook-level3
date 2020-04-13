@@ -62,8 +62,8 @@ public interface Model {
 
     /** Returns an array of strings containing names of all tags in tasklist */
     public String[] getTagNames();
-    
-    /** Checks if a tag is present  */
+
+    /** Checks if a tag is present */
     boolean hasTag(Tag t);
 
     /**

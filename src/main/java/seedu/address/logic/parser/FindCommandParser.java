@@ -39,7 +39,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         return new FindCommand(
-                new NameContainsKeywordsPredicate(
-                        Arrays.asList(nameKeywords), tagList)); // also need to provide a sorting
+                new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords), tagList));
     }
 }

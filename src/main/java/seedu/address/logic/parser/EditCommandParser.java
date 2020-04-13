@@ -92,9 +92,8 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     /**
      * Uses argMultimap to detect existing prefixes used so that it won't add double prefixes. Adds
-     * priority and reminder prefixes.
-     * Note that we ignore the second word when adding prefixes as it should be the index
-     * Also note that if the index is invalid, an exception is thrown
+     * priority and reminder prefixes. Note that we ignore the second word when adding prefixes as
+     * it should be the index Also note that if the index is invalid, an exception is thrown
      *
      * @param input trimmed
      * @param listSize

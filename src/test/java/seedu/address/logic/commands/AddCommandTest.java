@@ -10,7 +10,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Set;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
