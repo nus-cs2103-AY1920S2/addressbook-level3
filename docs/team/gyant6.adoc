@@ -35,7 +35,7 @@ MODdy is a desktop application used by NUS Computing students to track their cou
 ** Enhancements to existing features:
 *** Implemented Show command (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/115[#115])
 *** Implemented Module class (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/29[#29])
-*** Implemented CourseManager class and its JSON storage (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/94[#94] https://github.com/AY1920S2-CS2103T-W13-3/main/pull/119[#119])\
+*** Implemented CourseManager class and its JSON storage (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/94[#94] https://github.com/AY1920S2-CS2103T-W13-3/main/pull/119[#119])
 *** Created CAP calculator (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/155[#155])
 *** Refactored commands to non-static access of Manager objects (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/151[#151])
 *** Addressed and closed numerous issues raised by other users in dry Practical Exam (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/259[#259])
