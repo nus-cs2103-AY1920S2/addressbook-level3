@@ -109,6 +109,8 @@ For ZeroToOne commands, every user-fillable parameter is identified by a flag pr
 * `d/` - datetime
 * `f/` - frequency of schedule
 * `p/` - file path
+* `st/` - start datetime
+* `et/` - end datetime
 
 // tag::about[]
 === Viewing App Information
@@ -440,16 +442,17 @@ workout exercise add 1 3
 If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Added exercise to workout: Bench Press
+Added exercise Bench Press to Arms Workout!
 ```
 
 ```
 NOTE:
+* You cannot add an empty exercise (i.e. exercise that does not contain any sets) to a workout
 * WORKOUT_ID refers to the index of the workout in `workout list`
 * EXERCISE_ID refers to the index of the exercise in `exercise list`
 ```
 
-==== Changing an exercise in a workout (In Progress)
+==== Editing an exercise in a workout
 
 If you add the wrong exercise to a workout by mistake, or want to change a particular exercise to a different one, no worries! You can run this command:
 
@@ -462,20 +465,20 @@ Example use:
 workout exercise edit 1 2 3
 ```
 
-This command allows you to edit an exercise in a workout, by replacing the exercise corresponding to `EXERCISE_ID` with the exercise corresponding to `NEW_EXERCISE_ID`. ZeroToOne will automatically update the exercise in the workout on your result display.  If this is successful, the following message will be displayed in the feedback display:
+This command allows you to edit an exercise in a workout, by replacing the exercise corresponding to `EXERCISE_ID` with the exercise corresponding to `NEW_EXERCISE_ID`. Hence, the order of exercises within the workout is retained. ZeroToOne will automatically update the exercise in the workout on your result display. If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Edited exercise in workout: Overhead Press
+Successfully edited Bench Press in Arms Workout to become Bicep Curl
 ```
 
 ```
 NOTE:
 * WORKOUT_ID refers to the index of the workout in `workout list`
-* EXERCISE_ID refers to the index of the exercise in `workout find w/<workout_name>`
+* EXERCISE_ID refers to the index of the exercise in the workout, when `workout find w/<workout_name>` is executed
 * NEW_EXERCISE_ID refers to the index of the exercise in `exercise list`
 ```
 
-==== Deleting an exercise in a workout
+==== Deleting an exercise from a workout
 
 If editing an exercise does not work for your purposes, you can also choose to simply delete any exercise from a workout. You may type the following command:
 
@@ -488,16 +491,16 @@ Example use:
 workout exercise delete 1 3
 ```
 
-ZeroToOne will delete the set with the specified set ID, from the exercise with the specified exercise ID. If this is successful, the following message will be displayed in the feedback display:
+ZeroToOne will delete the exercise with the specified exercise ID, from the workout with the specified workout ID. If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Deleted workout exercise: Strength Training Workout set:
+Successfully deleted Bench Press from Arms Workout
 ```
 
 ```
 NOTE:
 * WORKOUT_ID refers to the index of the workout in `workout list`
-* EXERCISE_ID refers to the index of the exercise in `exercise list`
+* EXERCISE_ID refers to the index of the exercise in the workout, when `workout find w/<workout_name>` is executed
 ```
 
 ==== Listing all workouts
@@ -511,7 +514,7 @@ workout list
 .Workout List
 image::user-guide/UgWorkoutList.png[]
 
-ZeroToOne will show you a list of all the workouts you have created! From this list, you can see the names of all your workouts, as well as their corresponding workout IDs.
+ZeroToOne will show you a list of all the workouts you have created! From this list, you can see the names of all your workouts and their corresponding IDs. Additionally, it shows all the information about the exercises in each workout.
 
 ==== Finding a workout by name
 
@@ -537,9 +540,9 @@ NOTE:
 * <workout_name> can be a partial substring of the actual workout name
 ```
 
-==== Changing a workout’s name
+==== Editing the name of a workout
 
-If you ever want to change the name of a workout, simply type this command:
+If you ever want to edit the name of a workout, simply type this command:
 
 ```
 workout edit WORKOUT_ID w/<new_workout_name>
@@ -553,7 +556,7 @@ workout edit 1 w/Arms Training
 ZeroToOne will update its display to show you the new workout name.  If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Edited workout: Arms Training
+Successfully edited name from Arms Workout to Arms Training
 ```
 
 ```
@@ -577,7 +580,7 @@ workout delete 1
 ZeroToOne will update its display to show you the updated list of workouts. If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Deleted Workout: Arms Training
+Successfully deleted workout: Arms Training
 ```
 
 ```
@@ -585,7 +588,7 @@ NOTE:
 * WORKOUT_ID refers to the index of the workout in `workout list`
 ```
 
-==== Exporting a workout plan to a file (Proposed)
+==== Exporting a workout plan to a file (Coming in v2.0)
 
 Do you enjoy sharing your fitness journey with your friends? Well, this feature allows you to share your workouts with your friends, so you can help each other out in the journey to become fit!
 
@@ -604,23 +607,23 @@ If this is successful, the following message will be displayed in the feedback d
 Successfully exported workout 1 to /data/myWorkout.txt!
 ```
 
-==== Importing a workout plan from a file (Proposed)
+==== Importing a workout plan from a file (Coming in v2.0)
 
 ZeroToOne will import a workout from a plain text file stored in the specified file_path in your computer. This feature allows you to get workouts from your friends, so you can help each other out in the journey to become fit.
 
 ```
-workout import p/<file_path>
+workout import w/<workout_name> p/<file_path>
 ```
 
 ```
 Example use:
-workout import p/data/myFriendsWorkout.txt
+workout import w/My Friend's Workout p/data/myFriendsWorkout.txt
 ```
 
 If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Successfully imported /data/myFriendsWorkout.txt into ZeroToOne!
+Successfully imported /data/myFriendsWorkout.txt as a new workout: My Friend's Workout!
 ```
 // end::workout[]
 
@@ -713,7 +716,7 @@ NOTE:
 * SCHEDULED_WORKOUT_ID refers to the index of the scheduled workout in `schedule list`
 ```
 
-==== Scheduling a recurring workout session (Proposed)
+==== Scheduling a recurring workout session (Coming in v2.0)
 
 Sometimes you will want to schedule a workout session that repeats over time, with a certain frequency. No problem! Simply type the following command:
 

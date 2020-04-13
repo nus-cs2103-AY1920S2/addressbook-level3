@@ -3,9 +3,11 @@ package seedu.zerotoone.logic.parser;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.util.Pair;
 import seedu.zerotoone.logic.commands.AboutCommand;
 import seedu.zerotoone.logic.commands.Command;
@@ -39,6 +41,8 @@ public class ParserManager implements Parser<Command> {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    private final Logger logger = LogsCenter.getLogger(ParserManager.class);
+
     /**
      * Parses user input into command for execution.
      *
@@ -47,6 +51,8 @@ public class ParserManager implements Parser<Command> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parse(String input) throws ParseException {
+        logger.fine("Parsing: " + input);
+
         Pair<String, String> separatedInput = separateCommandAndArguments(input);
         String commandWord = separatedInput.getFirstObject();
         String arguments = separatedInput.getSecondObject();
@@ -84,6 +90,8 @@ public class ParserManager implements Parser<Command> {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public ViewType parseViewType(String input) throws ParseException {
+        logger.fine("Parsing View Type: " + input);
+
         Pair<String, String> separatedInput = separateCommandAndArguments(input);
         String commandWord = separatedInput.getFirstObject();
 

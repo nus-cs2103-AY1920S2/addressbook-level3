@@ -3,6 +3,10 @@ package seedu.zerotoone.model.exercise;
 import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.util.AppUtil.checkArgument;
 
+import java.util.logging.Logger;
+
+import seedu.zerotoone.commons.core.LogsCenter;
+
 /**
  * Represents a Set's weight in ZeroToOne.
  * Guarantees: immutable; is valid as declared in {@link #isValidWeight(String)}
@@ -19,6 +23,8 @@ public class Weight {
 
     public final String value;
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     /**
      * Constructs an {@code Weight}.
      *
@@ -27,6 +33,7 @@ public class Weight {
     public Weight(String weight) {
         requireNonNull(weight);
         checkArgument(isValidWeight(weight), MESSAGE_CONSTRAINTS);
+        logger.fine("Creating Weight with value: " + weight);
         value = weight;
     }
 
