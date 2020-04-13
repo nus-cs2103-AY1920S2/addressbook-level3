@@ -15,11 +15,10 @@ import java.util.stream.Collectors;
 public enum GroupType {
     LAB,
     TUTORIAL,
-    RECITATION,
     OTHER;
 
     public static final String MESSAGE_CONSTRAINTS =
-            "These are the only group types: lab, tutorial, recitation, other";
+            "These are the only group types: lab, tutorial, other";
 
     //@@author potatocombat
     private static final Map<String, GroupType> GROUP_TYPES = Arrays.stream(values())

@@ -2,7 +2,6 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_SESSION;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_TIMES;
 import static tatracker.logic.parser.Prefixes.DATE;
@@ -68,9 +67,9 @@ public class AddSessionCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        if (model.hasSession(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_SESSION);
-        }
+        // if (model.hasSession(toAdd)) {
+        //     throw new CommandException(MESSAGE_DUPLICATE_SESSION);
+        // }
 
         model.addSession(toAdd);
         return new CommandResult(

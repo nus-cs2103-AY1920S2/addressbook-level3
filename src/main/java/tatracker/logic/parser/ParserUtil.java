@@ -229,8 +229,6 @@ public class ParserUtil {
             return GroupType.TUTORIAL;
         case "lab":
             return GroupType.LAB;
-        case "recitation":
-            return GroupType.RECITATION;
         case "other":
             return GroupType.OTHER;
         default:

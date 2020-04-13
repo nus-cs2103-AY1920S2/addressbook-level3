@@ -79,7 +79,7 @@ public class SampleDataUtil {
         return new Group[]{
             new Group("G06", GroupType.LAB),
             new Group("G01", GroupType.TUTORIAL),
-            new Group("G02", GroupType.RECITATION),
+            new Group("G02", GroupType.LAB),
             new Group("G03", GroupType.OTHER),
         };
     }
@@ -111,38 +111,38 @@ public class SampleDataUtil {
 
     public static Session[] getSampleSessions() {
         return new Session[]{
-            new Session(LocalDateTime.of(2020, 04, 30, 13, 00),
-                        LocalDateTime.of(2020, 04, 30, 14, 30),
+            new Session(LocalDateTime.of(2020, 4, 30, 13, 0),
+                        LocalDateTime.of(2020, 4, 30, 14, 30),
                         SessionType.CONSULTATION, 1,
                         "CS2103T",
                         "with Alice and Bob"),
-            new Session(LocalDateTime.of(2020, 04, 10, 10, 00),
-                        LocalDateTime.of(2020, 04, 10, 11, 00),
+            new Session(LocalDateTime.of(2020, 4, 10, 10, 0),
+                        LocalDateTime.of(2020, 4, 10, 11, 0),
                         SessionType.LAB, 2,
                         "CS3243",
                         "prepare notes"),
-            new Session(LocalDateTime.of(2020, 06, 26, 14, 00),
-                        LocalDateTime.of(2020, 06, 26, 15, 00),
+            new Session(LocalDateTime.of(2020, 6, 26, 14, 0),
+                        LocalDateTime.of(2020, 6, 26, 15, 0),
                         SessionType.TUTORIAL, 1,
                         "CS2103T",
                         "check work"),
-            new Session(LocalDateTime.of(2020, 04, 29, 9, 30),
-                        LocalDateTime.of(2020, 04, 29, 11, 00),
+            new Session(LocalDateTime.of(2020, 4, 29, 9, 30),
+                        LocalDateTime.of(2020, 4, 29, 11, 0),
                         SessionType.GRADING, 0,
                         "CS2103T",
                         "grade group 1 first"),
-            new Session(LocalDateTime.of(2020, 05, 26, 14, 00),
-                        LocalDateTime.of(2020, 05, 26, 17, 00),
+            new Session(LocalDateTime.of(2020, 5, 26, 14, 0),
+                        LocalDateTime.of(2020, 5, 26, 17, 0),
                         SessionType.GRADING, 0,
                         "CS3243",
                         "clarifications for Bob's question"),
-            new Session(LocalDateTime.of(2020, 03, 26, 14, 00),
-                        LocalDateTime.of(2020, 03, 26, 17, 00),
+            new Session(LocalDateTime.of(2020, 3, 26, 14, 0),
+                        LocalDateTime.of(2020, 3, 26, 17, 0),
                         SessionType.CONSULTATION, 0,
                         "CS3243",
                         "clarifications for Alice's question"),
-            new Session(LocalDateTime.of(2020, 03, 21, 9, 30),
-                        LocalDateTime.of(2020, 03, 21, 11, 00),
+            new Session(LocalDateTime.of(2020, 3, 21, 9, 30),
+                        LocalDateTime.of(2020, 3, 21, 11, 0),
                         SessionType.GRADING, 0,
                         "CS2103T",
                         "grade group 1 first"),
@@ -159,8 +159,7 @@ public class SampleDataUtil {
         for (int i = 5; i < getSampleStudents().length; i++) {
             sList.add(getSampleStudents()[i]);
         }
-        Student[] s = sList.toArray(new Student[sList.size()]);
-        return s;
+        return sList.toArray(Student[]::new);
     }
 
     /**
@@ -173,8 +172,7 @@ public class SampleDataUtil {
         for (int i = 0; i < 5; i++) {
             sList.add(getSampleStudents()[i]);
         }
-        Student[] s = sList.toArray(new Student[sList.size()]);
-        return s;
+        return sList.toArray(Student[]::new);
     }
 
     /**
@@ -187,8 +185,7 @@ public class SampleDataUtil {
         for (int i = 0; i < 3; i++) {
             sList.add(getSampleStudents()[i]);
         }
-        Student[] s = sList.toArray(new Student[sList.size()]);
-        return s;
+        return sList.toArray(Student[]::new);
     }
 
     /**
@@ -201,13 +198,11 @@ public class SampleDataUtil {
         for (int i = 3; i < getSampleStudents().length; i++) {
             sList.add(getSampleStudents()[i]);
         }
-        Student[] s = sList.toArray(new Student[sList.size()]);
-        return s;
+        return sList.toArray(Student[]::new);
     }
 
     /**
-     * each module consists of 2 groups, each group consists of students.
-     * @return
+     * Each module consists of 2 groups, each group consists of students.
      */
     public static ReadOnlyTaTracker getSampleTaTracker() {
         TaTracker sampleAb = new TaTracker();
@@ -246,12 +241,10 @@ public class SampleDataUtil {
     /**
      * Returns a tag set containing the list of strings given.
      */
-
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-
 }
 

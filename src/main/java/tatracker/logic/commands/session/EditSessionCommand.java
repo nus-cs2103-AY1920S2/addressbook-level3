@@ -3,7 +3,6 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_SESSION;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.END_TIME;
@@ -81,9 +80,12 @@ public class EditSessionCommand extends Command {
         Session sessionToEdit = lastShownList.get(index.getZeroBased());
         Session editedSession = createEditedSession(sessionToEdit, editSessionDescriptor);
 
-        if (sessionToEdit.isSameSession(editedSession)) {
-            throw new CommandException(MESSAGE_DUPLICATE_SESSION);
-        }
+        // boolean hasSameStartTime = sessionToEdit.getStartDateTime().isEqual(editedSession.getStartDateTime());
+        // boolean hasSameEndTime = sessionToEdit.getEndDateTime().isEqual(editedSession.getEndDateTime());
+        //
+        // if (!hasSameStartTime || !hasSameEndTime) {
+        //     throw new CommandException(MESSAGE_DUPLICATE_SESSION);
+        // }
 
         model.setSession(sessionToEdit, editedSession);
         model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
@@ -223,7 +225,7 @@ public class EditSessionCommand extends Command {
         }
 
         public Optional<Integer> getRecurring() {
-            if (hasRecurring()) {
+            if (!hasRecurring()) {
                 return Optional.empty();
             } else {
                 return Optional.of(newRecurring);
