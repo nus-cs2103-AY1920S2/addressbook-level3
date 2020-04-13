@@ -1250,12 +1250,12 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a client while all clients are listed
 
-.. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+.. Prerequisites: List all clients using the `list-c` command. Multiple clients in the list.
+.. Test case: `delete-c 1` +
+   Expected: First client is deleted from the list. Details of the deleted client shown in the status message.
+.. Test case: `delete-c 0` +
+   Expected: No client is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete-c`, `delete-c x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 === Saving data
@@ -1293,5 +1293,31 @@ Expected: Error "Invalid command format!" shown.
 .. Test case: `add-c n/Secret Man p/97656561 e/cantseemee@void.com a/here @ dodo coast g/ b/ cw/ tw/ h/ r/ s/ t/` +
 Expected: New client added.
 
-.. Test case: `add-c n/Rachel tan p/93214321 e/RachelTan@mail.com a/choa chu kang ave 22 blk 909` followed by `add-c n/Rachellie Tan p/98786110 e/RachelTan@mail.com a/bishan grove 45`+
+.. Test case: `add-c n/Rachel tan p/93214321 e/RachelTan@mail.com a/choa chu kang ave 22 blk 909` followed by `add-c n/Rachellie Tan p/98786110 e/RachelTan@mail.com a/bishan grove 45` +
 Expected: Error "This phone number and/or email already exists in FitBiz." shown.
+
+=== Viewing a client
+. Viewing a client while all clients are listed
+
+.. Prerequisites: List all clients using the `list-c` command. Multiple clients in the list.
+.. Test case: `view-c 1` +
+   Expected: First client is viewed from the list. Success message shows that you are currently viewing the first client.
+.. Test case: `view-c 0` +
+   Expected: No client is viewed. Error details shown in the status message.
+.. Other incorrect delete commands to try: `view-c`, `view-c x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Viewing a graph of an exercise
+. Viewing a graph of the specified exercise while a client is in view
+
+.. Prerequisities: Have a client currently in view using the `view-c` command. Have at least one exercise in the exercise table.
+.. Test case: `graph n/Push Up a/reps sd/01-01-2020 ed/01-04-2020` +
+Expected: Graph is displayed and success message is shown.
+.. Test case: `graph` or any other parameters missing +
+Expected: No graph displayed, error stating "Invalid command format!" with the correct usage is shown.
+.. Test case: Correct graph command format but no exercise record within the stipulated timeframe +
+Expected: No graph displayed, error stating "Graph cannot be plotted" as there are no records of this exercise within the given timeframe.
+.. Test case: Correct graph command format and existing exercise records but no valid inputs for the given axis +
+Expected: No graph displayed, error stating "There is no graph to be plotted for this axis specified" is shown and the user is asked to pick a different axis or exericse.
+.. Test case: Correct graph command format but the start date is chronologically later than the end date +
+Expected: No graph displayed, error stating "Invalid command format!" with the correct usage is shown
