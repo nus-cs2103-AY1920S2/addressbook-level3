@@ -53,6 +53,7 @@ image::Legends3.png[width="800"]
 
 [[LegendsClosed]]
 // end::introduction[]
+
 === Symbols used in this guide
 [NOTE]
 Denotes something that you may want to take note of.
@@ -221,10 +222,12 @@ image::demo/PathDuplicates3.png[]
 
     new -t CS2103T
 
++
+
 [NOTE]
 ====
-* Observe that the (Absolute) Path to the currently open note is now changed from `/Workspace` in <<New1, step 1>> to `/WorkspaceNotably` in  <<New2, step 2>>.
-** Not sure where to see this path? Check it out <<LegendsClosed, here>>
+* Observe that the (Absolute) Path to the currently open note is now changed from `/Workspace` in <<New1, step 1>> to `/Workspace/Notably` in  <<New2, step 2>>.
+** Not sure where to see this path? Check it out <<Legends1, here>>
 ** Not sure what Absolute Paths are or why the new note is created in this way? Check it out <<paths, here>>
 ====
 
@@ -307,7 +310,7 @@ kbd:[CMD/CTRL] + kbd:[v] respectively.
 
 [WARNING]
 ====
-* You are not allowed to `edit` the root note, i.e is the currently opened path is ``"/"``
+* You are not allowed to `edit` the root note, i.e when your currently opened path is ``"/"``
 ====
 //end:editing[]
 
@@ -506,6 +509,7 @@ image::demo/ResponseText2.png[]
 
 // tag::markdown[]
 
+[[Markdown]]
 === Markdown (GitHub Flavored Markdown)
 
 [NOTE]
@@ -531,8 +535,8 @@ Currently, only unordered lists are supported. In addition, only the hyphen `-` 
 ----
 - List item
 - Another list item
-- A nested list item
-- A deeper nested list item
+  - A nested list item
+    - A deeper nested list item
 - Last list item
 ----
 * https://github.github.com/gfm/#paragraph[Paragraphs] +
