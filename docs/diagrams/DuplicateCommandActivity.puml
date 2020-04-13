@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+
+start
+:User inputs Duplicate command;
+:Parse User Input;
+
+If () then ([Correct command format])
+    :Duplicate the indicated recipe;
+else ([Syntax error])
+    :Returns failure message;
+endif
+:Displays duplicated recipe to user;
+
+stop
+@enduml
