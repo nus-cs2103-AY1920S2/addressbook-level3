@@ -453,7 +453,7 @@ more detailed view of the coupons in the `CouponListPanel`.
 ** Cons: User may be confused if he/she sees a highlighted date on the Calendar when there is no coupon expiring on that
 date in the `CouponListPanel`
 
-Decided on alternative 1, for the calendar to update with the list in the `CouponListPanel`. This is because this
+Alternative 1 was chosen for the calendar to update with the list in the `CouponListPanel`. This is because this
 follows the Observer Pattern Design Principle. Furthermore, this will not confuse the user when the user sees a
 highlighted date on the Calendar when there is no coupon expiring on that date in the `CouponListPanel`.
 
@@ -547,8 +547,6 @@ this method, the current `FilteredList` will be updated to show active
 [#img-archiveexhausted]
 .Sequence diagram representation of archiving exhausted coupons
 image::ArchiveExhaustedSequenceDiagram.png[]
-// end::archiving[]
-
 
 ==== Design Considerations
 
@@ -564,6 +562,16 @@ application.
 to limit the functions on archived `Coupon` s
 ** Cons: Sharply increases the maintainability and coupling of the application
 with two data files.
+
+Alternative 1 was chosen, due the the cons of Alternative 2. While a separate
+file is akin to having two separate stashes of coupons, this would increase
+the overall complexity of the application. `Logic` and `Model` would have to
+deal with another set of data, and `Commands` may have to split up the logic
+for different data sets. Furthermore, while saved data will be larger for
+Alternative 1, it should only affect the performance of starting Coupon Stash
+up, since most of the interactions with the program is with active coupons.
+// end::archiving[]
+
 
 // tag::updownarrowcommandhistory[]
 === Up/down arrow retrieve command history
