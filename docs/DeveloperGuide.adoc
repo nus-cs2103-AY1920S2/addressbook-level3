@@ -169,8 +169,6 @@ Shown below is a high level overview of task class and related classes. This is 
 image::TaskClassDiagram.png[width=790]
 
 
-//tag::editTaskList[]
-
 //tag::add[]
 ==== Add
 
@@ -206,6 +204,7 @@ The following activity diagram summarises what happens when the `AddCommand` is 
 image::AddCommandActivityDiagram.png[]
 
 //end::add[]
+//tag::editTaskList[]
 
 ==== Edit
 The edit feature allows the user to edit the task, adding or updating fields in a task accordingly.
@@ -219,7 +218,7 @@ The edit command is done in 2 parts. `EditCommandParser` as well as `EditCommand
 
 .Sequence of executing an edit command
 image::EditSequenceDiagram.png[]
-//tag::editTaskList[]
+//end::editTaskList[]
 
 ==== Done and Delete (Fyon)
 
@@ -543,7 +542,7 @@ image::SwitchTabSequenceDiagram.png[]
 
 === Statistics Feature
 
-The Statistics feature allows the user to view information about their number of tasks completed and Pomodoro duration ran on a daily basis for the past `CONSTANT_SIZE` days.
+The Statistics feature allows the user to view information about their number of tasks completed and Pomodoro duration ran (in minutes) on a daily basis for the past `CONSTANT_SIZE` days.
 
 [NOTE]
 `CONSTANT_SIZE` can be set to any number for any future developments. In our current implementation, we chose to store data for only the past 7 days to keep Statistics simple and intuitive for users.
@@ -604,7 +603,6 @@ image::StatisticsUiSequenceDiagram.png[]
 //end::statistics[]
 
 === Pet
-
 ==== Implementation
 The pet feature aims to provide a virtual pet for the app in order to motivate the user. The pet has three main components: the XP points, the evolution and the mood. To facilitate this function, a Pet class is created to represent the pet. A PetManager class is created to manage the pet via communications from MainWindow. Lastly, a PetDisplay class is created to handle the UI of the pet.
 
@@ -1348,3 +1346,33 @@ _{ more test cases ... }_
 _{ more test cases ... }_
 
 //end::manualTesting[]
+
+=== Switching tabs
+. Switching tabs by using the SwitchTabCommands. +
+.. Run the command `stats`
+Expected: The right screen displays the 'Statistics' tab. The 'Statistics' tab should have an orange background to indicate selection.
+
+. Switching tabs by using other Commands. +
+.. Run the command `stats`.
+.. Take note that the right screen displays the 'Statistics' tab.
+.. Run the command `set daily/50`. This is a SetCommand, and the right screen should automatically display the 'Settings' tab.
+Expected: The right screen displays the 'Statistics' tab. The 'Statistics' tab should have an orange background to indicate selection.
+
+=== Checking Statistics
+. Check done tabulation
+.. Run the command `stats`.
+.. Take note of the number of tasks done on the current day.
+.. Run the command `clear`.
+.. Run the command `add n/new task`.
+.. Run the command `done 1`.
+.. Run the command `stats` again.
+Expected: The number of tasks done on the current day should increase by 1.
+
+. Check Pomodoro duration tabulation
+.. Run the command `stats`.
+.. Take note of the Pomodoro duration on the current day.
+.. Run the command `clear`.
+.. Run the command `add n/new task`.
+.. Run the command `pom 1 tm/1`. This runs the Pomodoro for 1 minute.
+.. Run the command `stats` again.
+Expected: The Pomodoro duration on the current day should increase by 1.
