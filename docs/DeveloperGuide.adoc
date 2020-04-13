@@ -993,7 +993,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 4: Finding a assignment by assignmentID
+=== Use Case 4: Finding an assignment by assignmentID
 
 *MSS*
 
@@ -1657,4 +1657,6 @@ enough for the user to use.
 
 Thirdly, the entity linking aspect is a very tedious and tricky part of the program that the group has put numerous hours
 into perfecting. In AB3, there is only 1 entity - person. However, in our program, we have up to 6 different entities, 5 of which has relationships to one another.
-We needed to think of a way to allow different entities to hold references to each other while making sure th
+We needed to think of a way to allow different entities to hold references to each other while making sure that there was no circular referencing errors.
+Hence, we decided to implement an ID to every different entity, except Progress which can be identified by a CompositeID of assignmentID and studentID.
+This also meant that we needed to implement methods in ModelManager such that we are able to get and set entities via the ID instead of index.
