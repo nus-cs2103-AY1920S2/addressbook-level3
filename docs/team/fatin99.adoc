@@ -124,9 +124,9 @@ and `Student` as well as its relevant `fields`.
 
 === Other contributions
 
-* Created a skeleton for the `StudentDeleteCommand` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/113[#113]
+* Created a skeleton for the `DeleteStudentCommand` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/113[#113]
 )
-* Removed the requirement for compulsory `Phone` and `Email` fields in `StudentAddCommand` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/146[#146]
+* Removed the requirement for compulsory `Phone` and `Email` fields in `AddStudentCommand` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/146[#146]
 )
 * Managed the project by commenting on critical pull requests (various)
 

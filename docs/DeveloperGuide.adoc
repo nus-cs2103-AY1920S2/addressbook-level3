@@ -992,6 +992,13 @@ when the user enters the command
 ._Sequence Diagram_ for Done Session
 image::DoneSessionSequenceDiagram.png[]
 
+[NOTE]
+====
+[horizontal]
+* The lifeline for `SessionCommandParser` and `DoneSessionCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+===
+
 1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
 2. The `TaTrackerParser` sees that the command is a `Session` command and passes the command
@@ -1010,7 +1017,7 @@ checks whether the current session called by the user has a recurring period.
     a. If it does, a new session with the updated date will be added to `Model#UniqueSessionList()`.
     b. If it does not have a recurring period, it will move on to *Step 6*.
 
-7. The current session will be removed from `Model#UniqueSessionList`.
+7. The current session is marked as done and will be removed from `Model#UniqueSessionList`.
 
 8. The updated session list will be displayed to the user.
 
@@ -1085,6 +1092,114 @@ by the user is a valid integer. If it is, the `SetRateCommandParser` creates a
 . `MainWindow` updates the `TotalEarnings` label in the `ClaimsTab` and the `StatisticsWindow`
 //end::claimsview[]
 //tag::syntaxhighlighting[]
+
+//tag::filter[]
+
+[[Implementation-Filter]]
+=== Filter Command
+(Contributed by Chua Yi Jing)
+
+==== Description
+
+Different view has its own designated filter command.
+
+====
+* *Student View*, has the `student filter`
+* *Session View*, has the `session filter`
+* *Claims View*, has the `claims filter`
+====
+
+==== Implementation
+This section describes the implementation of the `filter` command.
+
+The _Activity Diagram_ below summarises what happens when the user executes a `filter` command:
+
+._Activity Diagram_ of the Filter Command
+image::FilterCommandActivityDiagram.png[,1100]
+
+The filter feature consists of three main steps:
+
+1. *Validating and parsing* user input
+
+2. Creating a *filtering predicate* from user's input
+
+3. *Updating the filtered* list with the *filtering predicate*
+
+===== Filter under Student View
+
+Students are filtered based on the module code and/or
+group code given by the user.
+
+Module code is a compulsory parameter for the user.
+
+The following _Sequence Diagram_ shows the sequence of commands that take place between
+the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
+`student filter m\CS2103T g\G06`. This command will return students from module code `CS2103T`, under group `G06`.
+
+._Sequence Diagram_ for Filter Student Command
+image::FilterStudentSequenceDiagram.png[]
+
+[NOTE]
+====
+[horizontal]
+* The lifeline for `StudentCommandParser` and `FilterStudentCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+===
+
+Given below is an example scenario where the user enters a command to filter students.
+
+. The user command is passed through the `LogicManager` to `TaTrackerParser`.
+`TaTrackerParser` checks the input arguments and identify the String keywords.
+
+. The `TaTrackerParser` sees that the command is a type of Student and passes the command
+to the `StudentCommandParser`.
+
+. The `StudentCommandParser` sees that the command is a type of filter and passes the
+arguments to the `FilterStudentCommandParser`.
+
+. The `FilterStudentCommandParser` creates a `FilterStudentCommand` object
+with the relevant keywords.
+
+. `LogicManager` calls `FilterStudentCommand#execute()`.
+
+. The `FilterStudentCommand` object checks whether any of the keywords given by the user matches the existing
+module and/or group.
+.. If it doesn't, a `CommandException` is thrown saying that no such students exists.
+.. If it does, the `FilterStudentCommand` returns a `CommandResult` with a success message.
+
+===== Filter under Session View
+
+Sessions can be filtered with the following parameters:
+
+* `d/DATE`
+* `m/MODULE CODE`
+* `t/SESSION_TYPE`
+
+These parameters can be used alone or together.
+
+The command used to filter sessions has been implemented in a similar way. The main
+difference is that the `FilterSessionCommandParser` creates a `SessionPredicate` object.
+The `SessionPredicate` object updates the filtered session list by keywords in Model.
+The filtered list will then be displayed.
+
+When the user specifies a keyword, sessions that contain the keywords will be filtered and shown to the user.
+If none of the keywords supplied by the user appears in any sessions, a `CommandException`
+will be shown.
+
+The following _Class Diagram_ shows how different classes are related in the functioning of
+the `SessionFilter` Command.
+
+.Class Diagram for Filter Session Command
+image::FindCommandClassDiagram.png[]
+
+===== Filter under Claims View
+
+The user can only filter the *Claims View* by module code.
+When the user enters the command `claims filter m/MODULE_CODE`, claims that contain the module code
+will be filtered.
+
+The command used to filter claims is implemented the same way as `SessionFilterCommand`.
+//end::filter[]
 
 [[Syntax]]
 === Syntax Highlighting
@@ -1465,106 +1580,7 @@ Then, the `CommandBox` will have _boolean flags_ to toggle the syntax highlighti
 before the each of the three steps explained in the <<Impl-Syntax, Implementation of the Syntax Highlighting>>.
 ====
 //end::syntaxhighlighting[]
-//tag::filter[]
 
-[[Implementation-Filter]]
-=== Filter Command
-(Contributed by Chua Yi Jing)
-
-==== Description
-
-Different view has its own designated filter command.
-
-====
-* *Student View*, has the `student filter`
-* *Session View*, has the `session filter`
-* *Claims View*, has the `claims filter`
-====
-
-==== Implementation
-This section describes the implementation of the `filter` command.
-
-The _Activity Diagram_ below summarises what happens when the user executes a `filter` command:
-
-._Activity Diagram_ of the Filter Command
-image::FilterCommandActivityDiagram.png[,1100]
-
-The filter feature consists of three main steps:
-
-1. *Validating and parsing* user input
-
-2. Creating a *filtering predicate* from user's input
-
-3. *Updating the filtered* list with the *filtering predicate*
-
-===== Filter under Student View
-
-Students are filtered based on the module code and/or
-group code given by the user.
-
-Module code is a compulsory parameter for the user.
-
-The following _Sequence Diagram_ shows the sequence of commands that take place between
-the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
-`student filter m\CS2103T g\G06`. This command will return students from module code `CS2103T`, under group `G06`.
-
-._Sequence Diagram_ for Filter Student Command
-image::FilterStudentSequenceDiagram.png[]
-
-Given below is an example scenario where the user enters a command to filter students.
-
-. The user command is passed through the `LogicManager` to `TaTrackerParser`.
-`TaTrackerParser` checks the input arguments and identify the String keywords.
-
-. The `TaTrackerParser` sees that the command is a type of Student and passes the command
-to the `StudentCommandParser`.
-
-. The `StudentCommandParser` sees that the command is a type of filter and passes the
-arguments to the `FilterStudentCommandParser`.
-
-. The `FilterStudentCommandParser` creates a `FilterStudentCommand` object
-with the relevant keywords.
-
-. `LogicManager` calls `FilterStudentCommand` 's execute method.
-
-. The `FilterStudentCommand` object checks whether any of the keywords given by the user matches the existing
-module and/or group.
-.. If it doesn't, a `CommandException` is thrown saying that no such students exists.
-.. If it does, the `FilterStudentCommand` returns a `CommandResult` with a success message.
-
-===== Filter under Session View
-
-Sessions can be filtered with the following parameters:
-
-* `d/DATE`
-* `m/MODULE CODE`
-* `t/SESSION_TYPE`
-
-These parameters can be used alone or together.
-
-The command used to filter sessions has been implemented in a similar way. The main
-difference is that the `FilterSessionCommandParser` creates a `SessionPredicate` object.
-The `SessionPredicate` object updates the filtered session list by keywords in Model.
-The filtered list will then be displayed.
-
-When the user specifies a keyword, sessions that contain the keywords will be filtered and shown to the user.
-If none of the keywords supplied by the user appears in any sessions, a `CommandException`
-will be shown.
-
-The following _Class Diagram_ shows how different classes are related in the functioning of
-the `SessionFilter` Command.
-
-.Class Diagram for Filter Session Command
-image::FindCommandClassDiagram.png[]
-
-===== Filter under Claims View
-
-The user can only filter the *Claims View* by module code.
-When the user enters the command `claims filter m/MODULE_CODE`, claims that contain the module code
-will be filtered.
-
-The command used to filter claims is implemented the same way as `SessionFilterCommand`.
-//end::filter[]
 //tag::statistic[]
 
 === Statistic Report Generation
@@ -1620,6 +1636,64 @@ by creating a `Statistic` object that retrieves data necessary for generating th
 . Finally, `StatisticWindow` updates its FXML elements and is shown to the user.
 //end::statistic[]
 //tag::logging[]
+
+=== System Notification - Ready for Use
+(Contributed by Haoyi)
+
+==== Overview
+
+TA-Tracker supports a cross-platform OS-level notification system. Notifications can be triggered from anywhere within TA-Tracker's code base. This feature can be used to implement time-based features in V2.0.
+
+==== Usage
+
+Notifications can be triggered via the `Notification` class. For example:
+
+```java
+Notification.sendNotification("TA Tracker", "You have a consultation scheduled in 15 minutes!", TrayIcon.MessageType.INFO);
+```
+On MacOS, the following notification will be triggered.
+
+.An Example TA-Tracker Notification on MacOS
+image::MacOSNotification.png[,500]
+
+==== Implementation
+
+Notifications are implemented with Java's `SystemTray`. A `SystemTray` object will be created when
+`Notification.sendNotification` is invoked for the first time. In order to guarantee that only one
+instance of `SystemTray` is ever created, Notifications are implemented using the defensive _Singleton_ pattern.
+
+The following activity diagram shows an example of how a `SessionDoneCommand` can
+trigger a notification.
+
+.Activity Diagram for Notification Singleton
+image::NotificationSingletonActivityDiagram.png[,400]
+
+The following is an example scenario when a seperate system requests for two seperate notifications from within TA-Tracker.
+
+.Sequence Diagram for Notification Singleton
+image::NotificationSingletonSequenceDiagram.png[,800]
+
+
+. The static `Notification.sendNotification(...)` method is invoked for the very first time.
+
+. The `Notification` class calls its own `getInstance()` function to try to locate an existing instance
+of the notification singleton object.
+
+. Since this is the first time a notification has been requested, `getInstance()` constructs the first notification
+singleton object.
+
+. A notification in then requested from the singleton.
+
+. The singleton creates and triggers an OS-level notification.
+
+. Some time later, `Notification.sendNotification(...)` is invoked again.
+
+. The `Notification` class calls its own `getInstance()` function to try to locate an existing instance
+of the notification singleton object.
+
+. Since the singleton already exists, a notification is requested directly from the existing singleton.
+
+. The singleton creates and triggers the second OS-level notification.
 
 === Logging
 
@@ -2565,13 +2639,13 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Move to the folder and enter the command `java -jar TaTracker.jar` in the terminal +
+   Expected: TA-Tracker should start in a few seconds.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app by following the steps you did in the previous test +
    Expected: The most recent window size and location is retained.
 
 . Default view
