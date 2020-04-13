@@ -14,8 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::jiachen247.png[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~jiachen[homepage]] [https://github.com/jiachen247[github]] [<<jiachen247#, portfolio>>]
 
-Role: Developer +
-Responsibilities: DevOps
+Role: Full-Stack Developer / QA Tester
 
 '''
 
@@ -23,8 +22,7 @@ Responsibilities: DevOps
 image::gb3h.png[width="150", align="left"]
 {empty}[http://github.com/gb3h[github]] [<<gb3h#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI/UX
+Role: Full-Stack Developer / DevOps Engineer
 
 '''
 
@@ -32,8 +30,7 @@ Responsibilities: UI/UX
 image::Guofeng-Tang.png[width="150", align="left"]
 {empty}[http://github.com/Guofeng-Tang[github]] [<<Guofeng-Tang#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Full-Stack Developer / QA Tester
 
 '''
 
@@ -41,8 +38,7 @@ Responsibilities: Data
 image::chishanw.png[width="150", align="left"]
 {empty}[http://github.com/chishanw[github]] [<<chishanw#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Threading
+Role: Full-Stack Developer / UI Designer
 
 '''
 
@@ -50,7 +46,6 @@ Responsibilities: Threading
 image::alloystory.png[width="150", align="left"]
 {empty}[https://www.aloysiuschan.co[homepage]] [http://github.com/alloystory[github]] [<<alloystory#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI/UX
+Role: Full-Stack Developer / Product Manager
 
 '''

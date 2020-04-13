@@ -233,11 +233,7 @@ image::user-guide/UgCreatedExercise.png[]
 
 The newly created exercise will be automatically added to the bottom of the exercise list. This exercise will not contain any sets at this point.
 
-
-```
-NOTE:
-<exercise_name> has to be a string, consisting of only alphanumeric characters
-```
+*NOTE:* `<exercise_name>` has to be a string, consisting of only alphanumeric characters
 
 ==== Adding a set to an exercise
 After you have created a new exercise in ZeroToOne, the next step is to add a set to the exercise! To add a set, simply enter this command:
@@ -256,13 +252,12 @@ image::user-guide/UgAddedExerciseSet.png[]
 
 The exercise set will be automatically appended to the current list of sets in the exercise. The user interface will be updated to show the edited exercise.
 
-```
-NOTE:
-* This command assumes that you have already created an exercise under EXERCISE_ID. If you have not created the exercise, refer to the section on “Creating a new exercise” first.
-* EXERCISE_ID refers to the index of the exercise in `exercise list`
-* <num_of_reps> should be a positive integer
-* <weight> should be a positive integer between 1 and 1000
-```
+*NOTE:*
+
+* This command assumes that you have already created an exercise under `EXERCISE_ID`. If you have not created the exercise, refer to the section on “Creating a new exercise” first.
+* `EXERCISE_ID` refers to the index of the exercise in `exercise list`
+* `<num_of_reps>` should be a positive integer
+* `<weight>` should be a positive integer between 1 and 1000
 
 ==== Editing a set in an exercise
 Changed your mind on the details of an exercise set? No worries, you can edit the information in an exercise set by simply entering this command:
@@ -282,13 +277,12 @@ The exercise set will be automatically updated in the exercise list. If so, the 
 Edited exercise set: Deadlift
 ```
 
-```
-NOTE:
-* EXERCISE_ID refers to the index of the exercise in `exercise list`
-* SET_ID refers to the index of the set in the exercise
-* <num_of_reps> has to be a positive integer
-* <weight> has to be a positive integer between 1 and 1000
-```
+*NOTE:*
+
+* `EXERCISE_ID` refers to the index of the exercise in `exercise list`
+* `SET_ID` refers to the index of the set in the exercise
+* `<num_of_reps>` has to be a positive integer
+* `<weight>` has to be a positive integer between 1 and 1000
 
 ==== Deleting a set in an exercise
 Want to delete an exercise set from the exercise? You can do so by simply entering this command:
@@ -308,11 +302,10 @@ The exercise set will be removed from the exercise, and the view will automatica
 Deleted Exercise Set: Deadlift
 ```
 
-```
-NOTE:
-* EXERCISE_ID refers to the index of the exercise in `exercise list`
-* SET_ID refers to the index of the set in the exercise
-```
+*NOTE:*
+
+* `EXERCISE_ID` refers to the index of the exercise in `exercise list`
+* `SET_ID` refers to the index of the set in the exercise
 
 ==== Listing all exercises
 
@@ -345,12 +338,11 @@ The Result Display will automatically update to only show exercises that match t
 .Find Exercise
 image::user-guide/UgFindExercise.png[]
 
-```
-NOTE:
-* <exercise_name> has to be a String, consisting of only Alphanumeric characters
-* <exercise_name> can be a partial substring of the full exercise name
-* <exercise_name> is not case-sensitive
-```
+*NOTE:*
+
+* `<exercise_name>` has to be a String, consisting of only Alphanumeric characters
+* `<exercise_name>` can be a partial substring of the full exercise name
+* `<exercise_name>` is not case-sensitive
 
 ==== Changing an exercise’s name
 
@@ -371,13 +363,12 @@ The exercise in ZeroToOne will be automatically updated to show its new name. If
 Edited exercise: Squat
 ```
 
-```
-NOTE:
-* EXERCISE_ID refers to the index of the exercise in `exercise list`
-* <exercise_name> has to be a String, consisting of only Alphanumeric characters
-```
+*NOTE:*
 
-==== Deleting an exercise (In Progress)
+* `EXERCISE_ID` refers to the index of the exercise in `exercise list`
+* `<exercise_name>` has to be a String, consisting of only Alphanumeric characters
+
+==== Deleting an exercise
 
 Want to remove an exercise from ZeroToOne? You can do so by entering this command into the command box:
 
@@ -396,10 +387,10 @@ The exercise will be removed from ZeroToOne. At the same time, all current worko
 Deleted Exercise: Deadlift
 ```
 
-```
-NOTE:
-* EXERCISE_ID refers to the index of the exercise in `exercise list`
-```
+*NOTE:*
+
+* `EXERCISE_ID` refers to the index of the exercise in `exercise list`
+
 // end::exercise[]
 
 // tag::workout[]
@@ -442,16 +433,17 @@ workout exercise add 1 3
 If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Added exercise to workout: Bench Press
+Added exercise Bench Press to Arms Workout!
 ```
 
 ```
 NOTE:
+* You cannot add an empty exercise (i.e. exercise that does not contain any sets) to a workout
 * WORKOUT_ID refers to the index of the workout in `workout list`
 * EXERCISE_ID refers to the index of the exercise in `exercise list`
 ```
 
-==== Changing an exercise in a workout (In Progress)
+==== Editing an exercise in a workout
 
 If you add the wrong exercise to a workout by mistake, or want to change a particular exercise to a different one, no worries! You can run this command:
 
@@ -464,20 +456,20 @@ Example use:
 workout exercise edit 1 2 3
 ```
 
-This command allows you to edit an exercise in a workout, by replacing the exercise corresponding to `EXERCISE_ID` with the exercise corresponding to `NEW_EXERCISE_ID`. ZeroToOne will automatically update the exercise in the workout on your result display.  If this is successful, the following message will be displayed in the feedback display:
+This command allows you to edit an exercise in a workout, by replacing the exercise corresponding to `EXERCISE_ID` with the exercise corresponding to `NEW_EXERCISE_ID`. Hence, the order of exercises within the workout is retained. ZeroToOne will automatically update the exercise in the workout on your result display. If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Edited exercise in workout: Overhead Press
+Successfully edited Bench Press in Arms Workout to become Bicep Curl
 ```
 
 ```
 NOTE:
 * WORKOUT_ID refers to the index of the workout in `workout list`
-* EXERCISE_ID refers to the index of the exercise in `workout find w/<workout_name>`
+* EXERCISE_ID refers to the index of the exercise in the workout, when `workout find w/<workout_name>` is executed
 * NEW_EXERCISE_ID refers to the index of the exercise in `exercise list`
 ```
 
-==== Deleting an exercise in a workout
+==== Deleting an exercise from a workout
 
 If editing an exercise does not work for your purposes, you can also choose to simply delete any exercise from a workout. You may type the following command:
 
@@ -490,16 +482,16 @@ Example use:
 workout exercise delete 1 3
 ```
 
-ZeroToOne will delete the set with the specified set ID, from the exercise with the specified exercise ID. If this is successful, the following message will be displayed in the feedback display:
+ZeroToOne will delete the exercise with the specified exercise ID, from the workout with the specified workout ID. If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Deleted workout exercise: Strength Training Workout set:
+Successfully deleted Bench Press from Arms Workout
 ```
 
 ```
 NOTE:
 * WORKOUT_ID refers to the index of the workout in `workout list`
-* EXERCISE_ID refers to the index of the exercise in `exercise list`
+* EXERCISE_ID refers to the index of the exercise in the workout, when `workout find w/<workout_name>` is executed
 ```
 
 ==== Listing all workouts
@@ -513,7 +505,7 @@ workout list
 .Workout List
 image::user-guide/UgWorkoutList.png[]
 
-ZeroToOne will show you a list of all the workouts you have created! From this list, you can see the names of all your workouts, as well as their corresponding workout IDs.
+ZeroToOne will show you a list of all the workouts you have created! From this list, you can see the names of all your workouts and their corresponding IDs. Additionally, it shows all the information about the exercises in each workout.
 
 ==== Finding a workout by name
 
@@ -539,9 +531,9 @@ NOTE:
 * <workout_name> can be a partial substring of the actual workout name
 ```
 
-==== Changing a workout’s name
+==== Editing the name of a workout
 
-If you ever want to change the name of a workout, simply type this command:
+If you ever want to edit the name of a workout, simply type this command:
 
 ```
 workout edit WORKOUT_ID w/<new_workout_name>
@@ -555,7 +547,7 @@ workout edit 1 w/Arms Training
 ZeroToOne will update its display to show you the new workout name.  If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Edited workout: Arms Training
+Successfully edited name from Arms Workout to Arms Training
 ```
 
 ```
@@ -579,7 +571,7 @@ workout delete 1
 ZeroToOne will update its display to show you the updated list of workouts. If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Deleted Workout: Arms Training
+Successfully deleted workout: Arms Training
 ```
 
 ```
@@ -587,7 +579,7 @@ NOTE:
 * WORKOUT_ID refers to the index of the workout in `workout list`
 ```
 
-==== Exporting a workout plan to a file (Proposed)
+==== Exporting a workout plan to a file (Coming in v2.0)
 
 Do you enjoy sharing your fitness journey with your friends? Well, this feature allows you to share your workouts with your friends, so you can help each other out in the journey to become fit!
 
@@ -606,23 +598,23 @@ If this is successful, the following message will be displayed in the feedback d
 Successfully exported workout 1 to /data/myWorkout.txt!
 ```
 
-==== Importing a workout plan from a file (Proposed)
+==== Importing a workout plan from a file (Coming in v2.0)
 
 ZeroToOne will import a workout from a plain text file stored in the specified file_path in your computer. This feature allows you to get workouts from your friends, so you can help each other out in the journey to become fit.
 
 ```
-workout import p/<file_path>
+workout import w/<workout_name> p/<file_path>
 ```
 
 ```
 Example use:
-workout import p/data/myFriendsWorkout.txt
+workout import w/My Friend's Workout p/data/myFriendsWorkout.txt
 ```
 
 If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Successfully imported /data/myFriendsWorkout.txt into ZeroToOne!
+Successfully imported /data/myFriendsWorkout.txt as a new workout: My Friend's Workout!
 ```
 // end::workout[]
 
@@ -715,7 +707,7 @@ NOTE:
 * SCHEDULED_WORKOUT_ID refers to the index of the scheduled workout in `schedule list`
 ```
 
-==== Scheduling a recurring workout session (Proposed)
+==== Scheduling a recurring workout session (Coming in v2.0)
 
 Sometimes you will want to schedule a workout session that repeats over time, with a certain frequency. No problem! Simply type the following command:
 
@@ -755,7 +747,7 @@ log list
 .List of logged workout sessions
 image::user-guide/UgLogList.png[]
 
-ZeroToOne will display a list of all the logged workout completedExercises you have carried out. Here, you can see all the logged completedExercises as well as their corresponding log ID number.
+ZeroToOne will display a list of all the logged workout sessions you have carried out. Here, you can see all the logged sessions as well as their corresponding log ID number.
 
 ==== Filtering your logs
 
@@ -831,7 +823,7 @@ NOTE:
 .Graphical view of logs
 image::user-guide/UgGraphicalLogs.png[]
 
-ZeroToOne will display a graphical line chart that depicts your overall progress. This means you can quickly see at a glance how successful you have been in completing your completedExercises. This can help motivate you to work harder to improve, or continue maintaining your progress.
+ZeroToOne will display a graphical line chart that depicts your overall progress. This means you can quickly see at a glance how successful you have been in completing your sessions. This can help motivate you to work harder to improve, or continue maintaining your progress.
 
 Here is a list and explanation of the metrics provided:
 
@@ -972,7 +964,7 @@ A workout that has been planned to be carried out on a specific date or dates.
 
 *Session*
 
-An instance of a workout, whereby the workout is a template for a completedExercise.
+An instance of a workout, whereby the workout is a template for a session.
 
 *Set*
 
