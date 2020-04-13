@@ -270,7 +270,7 @@ The `create` command allows user to create a new Deck in the current Library.
 
 Accepted syntax: `create DECK_NAME`
 
-This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
+This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on `CardListPanel` via a `TableView`.
 
 ===== Validation and extraction of input in parser
 The validation of the arguments in the `create` command is performed in `CreateDeckCommandParser#parse()`. It ensures
@@ -284,7 +284,7 @@ object is then constructed with the Deck name as its parameter.
 When `CreateDeckCommand#execute()` is executed, an empty Deck with the Name parsed in the `CreateDeckCommand` will be
 created when the Model Manager invokes the `ModelManager#selectDeck()` command.
 After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content
-on the right panel. Lastly, the name of the selected Deck will be displayed together with the
+on `CardListPanel`. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
 The following sequence diagram shows the sequence of operations due to a `create` command.
@@ -332,13 +332,16 @@ which is to assign different keywords to these two different feature.
 
 //tag::selectdeck[]
 === Selecting a Deck
+[NOTE]
+UI implementation will be discussed in detail only in this section. In other sections, detailed UI implementation will be omitted.
+
 ==== Current Implementation
 
 The `select` command allows user to view the Card content of a Deck.
 
 Accepted syntax: `select INDEX`
 
-This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
+This functionality is implemented by getting the Deck based on the index provided. Subsequently, the selected Deck will be highlighted on `DeckListPanel` and the Card(s) that belongs to it will be displayed on `CardListPanel` via a `TableView`.
 
 The validation of the arguments in the `select` command is performed in `SelectDeckCommandParser#parse()`. It ensures that the user has entered a valid index (valid data type and range). This is also used for separation of parsing
 logic and model management logic.
@@ -347,10 +350,10 @@ In `SelectDeckCommandParser#parse()`, the `INDEX` of the selected Deck is extrac
 from the arguments in the `select` command. The `INDEX` is converted to an Index object. An `SelectCardCommand`
 object is then constructed with the Index as its parameter.
 
-When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content on the right panel. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI by highlighting the selected Deck on `DeckListPanel` and displaying its content on `CardListPanel`. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
 ==== Design Considerations
-The UI will have to be constantly updated when we select to view a deck, and other decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected deck.
+The UI will have to be constantly updated when we select to view a Deck, and other Decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected Deck.
 
 .Interactions inside Model, Logic and UI components to reflect UI changes when selecting a deck
 image::SelectDeckSequenceDiagram.png[]
@@ -371,7 +374,7 @@ Accepted syntax: `add FRONT_VALUE:BACK_VALUE`
 This functionality is implemented by getting the Deck based on the current deck selected.
 The Model Manager will be responsible of keeping track of the current deck.
 Subsequently, the Model Manager creates a new card  adds it to the current Deck.
-The display on the right panel will be updated via updating the `TableView`.
+The display on `CardListPanel` will be updated via updating the `TableView`.
 
 ===== Validation and extraction of input in parser
 The validation of the arguments in the `add` command is performed in `AddCardCommandParser#parse()`. It ensures
@@ -388,7 +391,7 @@ When `AddCardCommand#execute()` is called, a `Card` object with the `FrontFace` 
 parsed in the `CreateDeckCommand` will be
 created when the Model Manager invokes the `ModelManager#addCard()` command.
 After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content
-on the right panel. Lastly, the name of the selected Deck will be displayed together with the
+on `CardListPanel`. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
 The following sequence diagram shows the sequence of operations due to an `add` command.
