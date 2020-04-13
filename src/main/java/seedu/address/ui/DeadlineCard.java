@@ -70,8 +70,14 @@ public class DeadlineCard extends UiPart<Region> {
             moduleColour.setStyle("-fx-background-color: \"ea9085\"; -fx-border-color: #3a3a3a;");
         } else if (tag == 6) {
             moduleColour.setStyle("-fx-background-color: \"cae8d5\"; -fx-border-color: #3a3a3a;");
-        } else {
-
+        } else if (tag == 7) {
+            moduleColour.setStyle("-fx-background-color: \"FFE6EB\"; -fx-border-color: #3a3a3a;");
+        } else if (tag == 8) {
+            moduleColour.setStyle("-fx-background-color: \"D9FFF8\"; -fx-border-color: #3a3a3a;");
+        } else if (tag == 9) {
+            moduleColour.setStyle("-fx-background-color: \"FFFFD2\"; -fx-border-color: #3a3a3a;");
+        } else if (tag == 10) {
+            moduleColour.setStyle("-fx-background-color: \"A9FFC0\"; -fx-border-color: #3a3a3a;");
         }
 
         //module name
