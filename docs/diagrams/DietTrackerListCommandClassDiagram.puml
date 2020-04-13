@@ -8,6 +8,15 @@ skinparam classAttributeIconSize 0
 hide circle
 
 
+class ListCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : ListCommand
+}
+
+interface Parser<T extends Command> {
+    parse(userInput : String) : ListCommand
+}
+
 abstract class Command {
     {abstract} execute(dietModel:Model) : CommandResult
 }
@@ -29,7 +38,7 @@ interface DietModel <<Interface>> {
 
 
 
-
+ListCommandParser ..> ListCommand
 ListCommand ..> DietModel
 
 
