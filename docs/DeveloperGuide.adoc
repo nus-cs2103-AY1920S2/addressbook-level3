@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-F11-2/main
 
-By: `AY1920S2-CS2103T-F11-2`   Since: `Feb 2020`      Licence: `MIT`
+By: `AY1920S2-CS2103T-F11-2`   Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -92,6 +92,9 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
+
+// tag::logic[]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -112,6 +115,8 @@ Given below is the sequence diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete-c 1` Command
 image::DeleteSequenceDiagram.png[]
 
+// end::logic[]
+
 [[Design-Model]]
 === Model component
 
@@ -129,7 +134,7 @@ The `Model`,
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Client` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Client` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
++
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
@@ -505,7 +510,7 @@ image::ExerciseCommandActivityDiagram.png[]
 . The `FitBizParser` will create the associated exercise command parser. e.g. `AddExerciseCommandParser`
 . Using `ParserUtil`, the parser will extract attribute details from the input and create the `Command`. e.g. `AddExerciseCommand`
 . The exercise `Command` will be executed and modify the client's `UniqueExerciseList`.
-    .. Exceptions like no client being viewed and invalid input are thrown here.
+.. Exceptions like no client being viewed and invalid input are thrown here.
 . The change will be reflected in the exercise table in GUI.
 . Result box will display success message for the `Command`.
 
@@ -718,6 +723,8 @@ Moreover, to keep in line with the OOP standards, we decided that it will be bet
 
 By considering the above two factors, despite having to put in the extra effort to create a new `AxisType` class and thus requiring extra methods like getters and setters, we decided to move with the approach of creating the `AxisType` enum class and refactor to accomodate for the additional data type.
 
+// tag::filter-c-command[]
+
 === Filtering the list of clients --- Toh Ker Wei
 This feature allows users to filter the list of clients by specifying the `Tag` or `Sport` of the clients they want to view.
 
@@ -756,6 +763,10 @@ Secondly, separating the checks for each attributes will allow us to add attribu
 
 Therefore, as we foresee us adding more attributes to be filtered increasing the need to ensure logical correctness, the first approach is the most ideal.
 
+// end::filter-c-command[]
+
+// tag::view-c-command[]
+
 === Viewing the information of a client --- Toh Ker Wei
 This feature allows users to view the information of a specific client using his `INDEX` in the clients list. Information displayed includes additional information of the client, exercises done and his personal best of exercises done.
 
@@ -784,6 +795,8 @@ Firstly, as the client's `INDEX` is unique, `view-c` will only be responsible fo
 Secondly, for clients with the same name, `INDEX` qill be used to specify the client to be view. This causes extra work for the implementation. Furthermore, in cases where users manage many clients and some with same names, there are functions like find and filter which allow users to scope the clients list and easily find the desired client's `INDEX`.
 
 Therefore, viewing a client by his `INDEX` minimises the responsibility of the command and will not need to resolve conflicting clients and is the most ideal.
+
+// end::view-c-command[]
 
 == Documentation
 
