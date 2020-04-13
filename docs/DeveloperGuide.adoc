@@ -26,6 +26,8 @@ Refer to the guide <<SettingUp#, here>>.
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
+// tag::architecture[]
+
 [[Design-Architecture]]
 === Architecture
 
@@ -69,6 +71,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for the `new -t Notably` command
 image::ArchitectureSequenceDiagram.png[]
+// end::architecture[]
 
 // tag::view-diagram[]
 [[Design-View]]
@@ -89,6 +92,8 @@ The `View` component,
 * Listens for changes to `Model` data so that the View can be updated with the modified data.
 // end::view-diagram[]
 
+// tag::logic[]
+
 [[Design-Logic]]
 === Logic
 
@@ -105,9 +110,12 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 * <<Design-SuggestionEngine,*`SuggestionEngine`*>>: Deals with suggestions generation.
 * <<Design-CorrectionEngine,*`CorrectionEngine`*>>: Deals with auto-correction.
 
+// end::logic[]
+
 // tag::parser[]
 [[Design-NotablyParser]]
-==== NotabyParser
+
+==== NotablyParser component
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -117,9 +125,9 @@ image::LogicClassDiagram.png[]
 .  The command execution can affect the `Model` (e.g. adding a Note).
 .  The updated model/data structure will automatically be reflected on to the `View`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete cs2103")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delte -t cs2103")` API call.
 
-.Interactions Inside the Logic Component for the `delete -t cs2103` Command
+.Interactions Inside the Logic Component for the `delte -t cs2103` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -163,6 +171,8 @@ image::SuggestionSequenceDiagram.png[]
 NOTE: The lifeline for `OpenSuggestionArgHandler` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 //end::sugengine[]
 
+// tag::correctiondesign[]
+
 [[Design-CorrectionEngine]]
 ==== CorrectionEngine
 
@@ -178,6 +188,8 @@ Given below is the Sequence Diagram for interactions within the link:{repoURL}/s
 
 .Interactions inside the StringCorrectionEngine component for the `correct("uncorrected")` call
 image::StringCorrectionEngineSequenceDiagram.png[]
+
+// end::correctiondesign[]
 
 //tag::design-model[]
 [[Design-Model]]
@@ -195,7 +207,25 @@ The `Model`,
 * stores the current state of the `View`, through ViewStateModel
 ** stores the command input given by the user, through CommandInputModel
 ** stores the state of the `help` modal being open, through HelpFlagModel
+** stores the state of the current block's `edit` modal being open, through BlockEditFlagModel
 * stores `UserPref` data that represents the user's preferences, through UserPrefModel
+
+[[Design-BlockModel]]
+==== BlockModel component
+.Structure of the Model Component
+image::BlockModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/com/notably/model/Model.java[`BlockModel.java`]
+
+The `BlockModel`
+
+* stores and directly manipulates the `BlockTree`
+** contains a single `BlockTreeItem` as the `root`; the tree is built by adding chilren `BlockTreeItems` to the `root`
+*** each `BlockTreeItem` stores the reference to its parent and children `BlockTreeItems`, and its own content, through `TreeItem<Block>`
+**** stores its content, through `Block`
+***** contains the `Title` and `Body` content
+
+
 //end::design-model[]
 
 //tag::design-storage[]
@@ -210,13 +240,16 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in JSON format and read it back.
-* can save the Block data in JSON format and read it back.
+* can save Notably's `BlockModel` data in JSON format and read it back.
+** stores the `BlockTree` and also the path of the last opened `Block`
 //end::design-storage[]
 
 [[Design-Commons]]
 === Commons
 
 Classes used by multiple components are in the `com.notably.commons` package.
+
+// tag::compilerdesign[]
 
 [[Design-Compiler]]
 === Compiler
@@ -254,6 +287,8 @@ Given below is the _Sequence Diagram_ for interactions within the `Compiler` com
 
 .Interactions inside the Compiler component for the `compile(markdown)` call
 image::CompilerSequenceDiagram.png[]
+
+// end::compilerdesign[]
 
 === Logging
 
@@ -376,6 +411,8 @@ does not restrict the functionality of the interface and classes to just parse a
 such as updating the `responseText` in the `Model`.
 //end::sugengineimpl[]
 
+// tag::correctionimplementation[]
+
 [[Implementation-CorrectionEngine]]
 ===  Correction Engine
 
@@ -400,19 +437,21 @@ Two concrete implementations of the link:{repoURL}/src/main/java/com/notably/log
 1. `CorrectionEngine` is built as a standalone module that can be used by both <<Implementation-SuggestionEngine,*`SuggestionEngine`*>> and <<Implementation-Parser,*`Parser`*>>. This decision is made so that code duplication in relation to auto-correction is minimal.
 2. Both link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] and link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] are implemented as interfaces, in an attempt to make the design of the `CorrectionEngine` component resilient to change. This design enables us to leverage on the https://en.wikipedia.org/wiki/Strategy_pattern[strategy pattern] to make our `CorrectionEngine` component more future-proof.
 
+// end::correctionimplementation[]
+
 // tag::paths[]
 [[Implementation-Path]]
 === Paths
 Given below is the implementation detail of the Path feature and some alternative design considerations.
 
 ==== Current Implementation
-The `Path` interface represents the directory of a `Block` in our data structure. A path can exist in 2 forms namely :
+The `Path` interface represents the location of a `Block` in our data structure. A path can exist in 2 forms namely :
 
 . AbsolutePath
 . RelativePath
 
-An AbsolutePath is a path that takes its reference from the root `/` block. +
-While a RelativePath takes it reference from the current directory that is opened.
+An `AbsolutePath` is a path that takes its reference from the root `/` block. +
+While a `RelativePath` takes it reference from the current note that is opened.
 
 Currently the user is given the freedom to provide any of the 2 forms when using the `open`, `delete` command. +
 Given the following DataStructure below. +
@@ -420,7 +459,7 @@ Given the following DataStructure below. +
 .DataStructure example to illustrate Path
 image::PathExample1.png[]
 
-Using `AbsolutePath` `open /CS2101` and using `RelativePath` `open ../CS2101` would yield the same result Design Consideration.
+Using `AbsolutePath` `open /CS2101` and using `RelativePath` `open ../CS2101` would yield the same result.
 
 ==== Design Consideration
 
@@ -433,8 +472,8 @@ its a Relative or Absolute path.
 
 *Aspect: Logical equivalence of `RelativePath`* :
 
-*   Alternative 1(Current choice): Relative path `CS2103/../note1` would be equivalent to `note1`. This was deem to be
-**  Pros: More readable and OOP, each class can have their individual validity REGEX.
+*   Alternative 1(Current choice): Relative path `CS2103/../note1` would be equivalent to `note1`.
+**  Pros: More intuitive for the user and developer, making it easier to integrate paths with other features.
 *   Alternative 2: Relative path `CS2103/../note1` would not be logically equivalent to `note1`.
 
 // end::paths[]
@@ -448,16 +487,21 @@ While this can be done with a linear data structure (a simple list), a linear li
 
 On top of that, observability must be ensured so that the UI can update with any changes that happen on the tree (and its nodes) and also the data within each node.
 
+.Tree Data Structure Design Example
+image::TreeDataStructureDesign.png[]
+
 ==== Current Implementation
-A custom tree data structure that supports observability has been implemented. The tree (referred to as `BlockTree`) is made up of tree nodes (referred to as `BlockTreeItem`). The tree is observable such that if any change occurs on any of the tree's nodes, the change event will bubble upwards to the root node. Hence, the root node serves as the entry point for the `BlockTree`.
+A custom tree data structure that supports observability has been implemented. As seen <<Design-BlockTree, here>>, the `BlockModel` is the entry of point of manipulating the data tree. The tree (referred to as `BlockTree`) is made up of tree nodes (referred to as `BlockTreeItem`). The tree is observable such that if any change occurs on any of the tree's nodes, the change event will bubble upwards to the root node. Hence, the root node serves as the entry point for the `BlockTree`.
 
-Each BlockTreeItem contains 3 primary components:
+To achieve this design, a `BlockTreeItem` needs to contain 3 primary components:
 
-* a reference to its parent
+* an Observable reference to its parent
 * an ObservableList of its children
 * User's note data (referred to as `Block` data) consisting of:
 ** `Title` of the note
 ** `Body` content of the note (optional)
+
+After multiple designs, the current implementation now has `BlockTreeItem` using an underlying `TreeItem<Block>` to handle the general behaviour of a tree node.
 
 When manipulating the `BlockTree`, the execution of any operation is always split in this order:
 
@@ -466,18 +510,48 @@ When manipulating the `BlockTree`, the execution of any operation is always spli
 3. Execute the operation on the block that is currently open
 
 ==== Design Considerations
+===== Aspect: Using JavaFX's `TreeItem<T>` vs implementing a `BlockTreeItem` from scratch
+
+Current choice: Using JavaFX's `TreeItem<T>`
+
+Pros:
+
+* seamless integration with JavaFX's `TreeView` which is used in Notably's sidebar to show the notes in a traditional file-browser-like manner
+
+* `TreeItem<T>` has the requirements of `BlockTreeItem's` design already implemented to a usable extent
+
+* conveniently handles underlying event handling required for `BlockTree` to be observable
+
+Cons:
+
+* Implementation still requires wrapping and unwrapping of underlying `TreeItem<T>` to work with `TreeView`
+
+
 ===== Aspect: `BlockTreeItem` vs Folders to represent path structure
+
 Current choice: `BlockTreeItem`
-Pros: No need for an additional class. Having a separate `folder` object would also require a separate UI View since folders should not contain any block data.
-Cons: Somewhat unconventional design. User might be unfamiliar with the intention on first use, without proper explanation
+
+Pros:
+
+* No need for an additional class. Having a separate `folder` object would also require a separate UI View since folders should not contain any block data.
+
+Cons:
+
+* Somewhat unconventional design. User might be unfamiliar with the intention on first use, without proper explanation
 
 ===== Aspect: Root should also be a `BlockTreeItem`
-Pros: Seamless transition to JSON storage
-Cons: Need to add constraint  to ensure that the root `BlockTreeItem` does not contain any `Body` and is also unmodifiable
+Pros:
 
-.Tree Data Structure Design Example
-image::TreeDataStructureDesign.png[]
+* Seamless transition to JSON storage
+
+Cons:
+
+* Need to add constraint to ensure that the root `BlockTreeItem` does not contain any `Body` and is also unmodifiable
+
+
 //end::datastructure[]
+
+// tag::compilerimplementation[]
 
 [[Implementation-Compiler]]
 ===  Compiler
@@ -496,6 +570,8 @@ Generally speaking, compilers usually consist of several main components, namely
 
 . Leveraging on the fact that Markdown's syntax is not overly complicated, we decided not to fully adhere to the usual compiler design. Instead, we merged the tokenizer and parser section into our link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/Parser.java[`Parser`] class. This link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/Parser.java[`Parser`] class thus deals converting raw Markdown string into a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree].
 . In addition, we opted to not build a standalone generator component. Instead, we make it such that each node in our Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] supports a `toHtml` method, which returns the HTML representation of the tree starting from itself as a node. This way, we can leverage on OOP's polymorphism to generate the HTML string out of our Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] a lot easier.
+
+// end::compilerimplementation[]
 
 == Documentation
 
@@ -541,8 +617,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |student |can quickly make changes to a note| so that I can update my notes with new information accurately while in class.
 
 |`*` |impatient student |alias a path to a folder | do not have to memorise and type out the entire file structure when accessing a nested note
-
-|`*` |student |export my notes into PDF documents | share/print my notes effortlessly.
 
 |=======================================================================
 
@@ -680,45 +754,56 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 
 === Add a new Note
-. Adding a new Note to Notably without jumping to that Note
+. Adding a new Note to Notably without immediately opening that Note.
 
-.. Prerequisites: The current Note does not contain any child Note that has the same title. +
-You current opened Note must be the note you want you new Note to be contained.
+.. Prerequisites: None of the child(ren) Note(s) of the currently opened Note has the same title as the new Note. +
+Moreover, the currently opened Note must be the directory where the user wants to store the new Note.
+
 .. Command: `new -t Notably` +
-Expected: new Note titled Notably added to the current Note.
-The current opened Note remain the same(highlighted in at sidebar)
+Expected: a new Note titled "Notably" is added to the currently opened Note.
+The currently opened Note (current working directory) remains the same (highlighted at the sidebar).
 
-. Adding a new Note to Notably and jump to that Note
-.. Prerequisites: The current Note does not contain any child Note that has the same title. +
-The current opened Note must be the note you want you new Note to be contained.
-.. Command: `new -t CS2103T -o` +
-Expected: new Note titled Notably added to the current Note.
-The current opened Note is changed to the new Note created.(highlighted in at sidebar)
+. Adding a new Note to Notably and immediately opening that Note
+.. Prerequisites: None of the child(ren) Note(s) of the currently opened Note has the same title as the new Note. +
+Moreover, the currently opened Note must be the directory where the user wants to store the new Note.
+
+.. Command: `new -t Notably -o` +
+Expected: a new Note titled "Notably" is added to the currently opened Note.
+The currently opened Note (current working directory) is now the newly created "Notably" note (highlighted at the sidebar).
 
 === Open a Note
-. Open a Note in Notably.
+. Opening a Note in Notably.
 
-.. Prerequisites: The Note selected must not be the root Note.
-.. Command: `open -t Notably` +
-Expected: The Note selected will be opened displaying its content of the Note and it will be highlighted in the sidebar.
+.. Prerequisites: The Note that is about to be opened must not be the root Note.
+.. Command: `open [-t] Notably` +
+Expected: The Note titled "Notably" will be opened, with its content being displayed in the UI. The label "Notably" at the sidebar
+will also be highlighted, to indicate that the Note is being opened.
 
 
 === Delete a Note
-. Delete a Note in Notably.
+. Deleting a Note in Notably.
 
-.. Prerequisites: The Note selected must not be the root Note.
-.. Command: `delete -t Notably` +
-Expected: The Note selected will be deleted, other Notes nested inside the selected Note will also be deleted. +
-The Note will no longer be visible in the sidebar.
+.. Prerequisites: The Note that is about to be deleted must not be the root Note.
+.. Command: `delete [-t] Notably` +
+Expected: The Note titled "Notably" will be deleted. The other nested Notes inside the Note "Notably" will also be deleted. +
+The Note "Notably" will no longer be visible in the sidebar.
 
 === Edit a Note
-. Edit a Note in Notably.
+. Editing a Note in Notably.
 
-.. Prerequisites: The Note selected must not be the root Note. +
-The current opened Note must be the Note you want to edit.
+.. Prerequisites: The Note that is about to be edited must not be the root Note. +
+The currently opened Note must be the Note that the user wants to edit.
 .. Command: `edit` +
-Expected: A edit modal will pop up displaying your Note's content in html format. You can exit and save the Note by
+Expected: An edit modal will pop up displaying your Note's content in HTML format. The user can edit and save the Note by
 exiting that modal.
+
+=== Search for a Note based on a keyword
+. Searching for a note by using a keyword in Notably.
+
+.. Prerequisites: -
+.. Command: `search [-s] hello` +
+Expected: A list of suggestions will be displayed, sorted based on the number of keyword matches, i.e.
+the note having the highest number of "hello" in its body will be put at the top of the suggestion list.
 
 === Saving data
 

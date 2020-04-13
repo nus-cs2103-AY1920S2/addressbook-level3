@@ -1,0 +1,69 @@
+= Kevin Putera - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Notably
+
+---
+
+== Overview
+
+Notably is for those who *prefer to use a desktop app for managing notes*. More importantly, Notably is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
+
+== Summary of contributions
+
+* *Major enhancement*: Added *Notably's auto correction functionality*
+** What it does: Allows Notably to understand mistyped commands from user, as long as it is within a certain configured threshold. This makes it possible for the user to type faster than before, as he/she does not need to worry about wrong spelling anymore.
+** Justification: This feature improves user experience significantly, as it allows our users to type commands without worrying about wrong spelling any longer. This is really crucial, as Notably is a keyboard/CLI first note-taking application; most interactions are done via typing.
+** Highlights:
+*** This enhancement calls for good abstraction. Due to the fact that this component is used the suggestions generation and command parsing aspects of Notably, I had to come up with an abstraction that minimize code duplication and at the same time is flexible for future improvements.
+*** In addition, this feature requires calculating https://en.wikipedia.org/wiki/Edit_distance[edit distance]. This shows that I am able to incorporate and create suitable wrappers around complex algorithms to be used in a Software Engineering project.
+** Credits: The implementation of the https://en.wikipedia.org/wiki/Edit_distance[edit distance] algorithm is inspired by https://web.stanford.edu/class/cs124/lec/med.pdf.
+
+* *Major enhancement*: Wrote *Notably's Markdown to HTML compiler*
+** What it does: Allows Notably to compile Markdown into HTML.
+** Justification: This feature improves user experience significantly, as it allows our users to format their notes using the Markdown syntax. This is really crucial, as Notably is a keyboard/CLI first note-taking application; GUI-based text formatting solution would not work well.
+** Highlights: This enhancement requires me to learn basic compilation techniques, such as tokenizing, parsing, and target code generation. Although Markdown is not a complex syntax, building a Markdown to HTML compiler following the techniques prove to be quite challenging.
+** Credits: The implementation of the compiler is inspired by https://github.github.com/gfm/#appendix-a-parsing-strategy.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kevinputera&tabRepo=AY1920S2-CS2103T-W17-2%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kevinputera&tabRepo=AY1920S2-CS2103T-W17-2%2Fmain%5Bmaster%5D[Test code]]
+
+* *Other contributions*:
+
+** Software architecture: Designed Notably's overall architecture. In addition, I held a meeting with my teammates to get everyone on the same page about Notably's overall architecture.
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W17-2/main/pull/108[#108], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/116[#116], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/123[#123], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/134[#134], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/144[#144], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/150[#150], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/257[#257], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/385[#385]
+*** Contributed to design discussions: https://github.com/AY1920S2-CS2103T-W17-2/main/issues/1[#1], https://github.com/AY1920S2-CS2103T-W17-2/main/issues/8[#8], https://github.com/AY1920S2-CS2103T-W17-2/main/issues/9[#9]
+** Tools:
+*** Integrated Codecov (code coverage analysis tool) into Notably's development workflow (https://github.com/AY1920S2-CS2103T-W17-2/main/pull/386[#386])
+*** Integrated Netlify into Notably's development workflow
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=correction]
+
+include::../UserGuide.adoc[tag=markdown]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=architecture]
+
+include::../DeveloperGuide.adoc[tag=logic]
+
+include::../DeveloperGuide.adoc[tag=correctiondesign]
+
+include::../DeveloperGuide.adoc[tag=correctionimplementation]
+
+include::../DeveloperGuide.adoc[tag=compilerdesign]
+
+include::../DeveloperGuide.adoc[tag=compilerimplementation]
+
