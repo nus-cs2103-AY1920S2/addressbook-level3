@@ -1246,10 +1246,30 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Undo and Redo
 
-. Dealing with missing/corrupted data files
+. Undo at initial state
+.. Prerequisites: The application is newly opened i.e. no undoable commands has been done
+.. Test case: `undo` +
+   Expected: An error is shown, indicating that undo cannot be done from initial state.
+.. Test case: Add a valid supplier followed by `undo` +
+   Expected: The supplier is removed
+.. Test case: `list-g` followed by `undo` +
+   Expected: An error is shown, indicating that undo cannot be done from initial state.
+   This is because `list-g` is not an undoable command
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Redo from latest state
+.. Prerequisites: One undoable command e.g. `add-s` has been successfully executed as the latest command
+.. Test case: `redo` +
+   An error is shown, indicating that redo cannot be done from latest state.
+.. Test case: `undo` followed by `redo` +
+   The changes done by the latest undoable command is removed, then reinstated.
 
-_{ more test cases ... }_
+. Overwriting history
+.. Prerequisites: None
+.. Test case: Add a valid supplier, `undo`, add a different valid supplier, and finally `redo` +
+   An error is shown, indicating that redo cannot be done from latest state.
+
+
+
+
