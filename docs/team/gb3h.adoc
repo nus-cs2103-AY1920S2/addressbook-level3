@@ -29,20 +29,23 @@ Major design consideration was required to ensure that the timer was not computa
 
 ** *Overview*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=gb3h&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Reposense]
 
-** *Functional Code*:
+|===
+|*Feature* |*Component* |*Functional Code* |*Test Code*
 
-1. https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/logic/commands[github folder] <- Commands (Start, Stop, Skip, Done)
-2. https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/logic/parser/session[github folder] <- Parsers
-3. https://github.com/gb3h/main/tree/master/src/main/java/seedu/zerotoone/model/session[github folder] <- Models (All the Ongoing- models and worked in collaboration with @Jiachen247 for some Completed- models)
-4. https://github.com/gb3h/main/tree/master/src/main/java/seedu/zerotoone/ui/views/home[github folder] <- UI work
-5. https://github.com/gb3h/main/tree/master/src/main/resources/view/home[github folder] <- FXML
-6. https://github.com/AY1920S2-CS2103T-W16-2/main/blob/master/src/main/java/seedu/zerotoone/model/ModelManager.java[github file] <- Timer functionality (and major session-related functions)
+.5+|Session feature |Commands (Start, Stop, Skip, Done) |https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/logic/commands[github folder] |https://github.com/gb3h/main/tree/master/src/test/java/seedu/zerotoone/logic/commands[github folder]
 
-** *Tests*:
+|Parsers |https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/logic/parser/session[github folder] |https://github.com/gb3h/main/tree/master/src/test/java/seedu/zerotoone/logic/parser/session[github folder]
 
-1. https://github.com/gb3h/main/tree/master/src/test/java/seedu/zerotoone/logic/commands[github folder] <- Command Tests (Start, Stop, Skip, Done)
-2. https://github.com/gb3h/main/tree/master/src/test/java/seedu/zerotoone/logic/parser/session[github folder] <- Parser Tests
-3. https://github.com/gb3h/main/tree/master/src/test/java/seedu/zerotoone/model/session[github folder] <- Model Tests
+|Models (Ongoing- prefixed) |https://github.com/gb3h/main/tree/master/src/main/java/seedu/zerotoone/model/session[github folder] |https://github.com/gb3h/main/tree/master/src/test/java/seedu/zerotoone/model/session[github folder]
+
+|Ui |https://github.com/gb3h/main/tree/master/src/main/java/seedu/zerotoone/ui/views/home[github folder] | NA
+
+|FXML |https://github.com/gb3h/main/tree/master/src/main/resources/view/home[github folder] |NA
+
+.1+|Timer feature |Found in ModelManager |https://github.com/AY1920S2-CS2103T-W16-2/main/blob/master/src/main/java/seedu/zerotoone/model/ModelManager.java[github file] | NA
+
+|===
+
 
 ---
 
@@ -55,14 +58,14 @@ Major design consideration was required to ensure that the timer was not computa
 *** Edit GUI for overall cohesiveness (Pull requests https://github.com/AY1920S2-CS2103T-W16-2/main/pull/213[#213], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/219[#219])
 *** Disabled non session related commands during a session for more predictable app behaviour (no editing of workouts during workout) (Pull requests https://github.com/AY1920S2-CS2103T-W16-2/main/pull/187[#187])
 ** Documentation:
-*** Add documentation coverage for the entire workout session feature including diagrams. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/110[#14]
+*** Add documentation coverage for the entire workout session feature including diagrams. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/110[#110]
 *** Edit Model Component diagram. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/238[#238]
 *** Update all screenshots in user guide. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/241[#241]
 *** Add DG Appendix F and G. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/244[#244], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/254[#254]
 ** Review Contributions:
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/AY1920S2-CS2103T-W16-2/main/pull/66[#66], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/114[#114]
-*** Total PRs reviewed: https://github.com/AY1920S2-CS2103T-W16-2/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Agb3h[15]
+*** Total PRs reviewed: https://github.com/AY1920S2-CS2103T-W16-2/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Agb3h[21+]
 ** Community:
 *** Reviewed other teams documentation: https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/29[#29]
 
