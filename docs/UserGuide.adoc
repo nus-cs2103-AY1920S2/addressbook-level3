@@ -123,7 +123,7 @@ You will then see a Help window on your screen, as seen in Figure 4 below, which
 .Demo for the `help` command (continued)
 image::demo/Help2.png[]
 
-[NOTE]
+[TIP]
 ====
 * While the help window is open, you can hold the kbd:[Up] and kbd:[Down] keys to scroll through it's contents. This is
 a more efficient solution than using your mouse!
