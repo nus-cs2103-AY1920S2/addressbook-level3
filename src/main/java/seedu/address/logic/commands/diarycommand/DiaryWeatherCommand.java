@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.diary.weather.Weather;
 
 /**
- * Dummy java docs.
+ * Represents the command that tags a diary entry with weather.
  */
 public class DiaryWeatherCommand extends Command {
 
