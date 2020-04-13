@@ -1,17 +1,18 @@
 @startuml
 !include style.puml
 
-box "<color:black>Logic</color>" LOGIC_COLOR_T1
+box "<color:white>Logic</color>" LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":UsedCommand" as UsedCommand LOGIC_COLOR
 end box
 
-box "<color:black>Model</color>" MODEL_COLOR_T1
+box "<color:white>Model</color>" MODEL_COLOR_T1
 participant ":Coupon" as Coupon MODEL_COLOR
 participant ":Usage" as Usage MODEL_COLOR
 participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
+-> LogicManager : execute()
 activate LogicManager
 
 LogicManager -> UsedCommand : execute()
@@ -61,5 +62,7 @@ deactivate ModelManager
 
 UsedCommand --> LogicManager : commandResult
 deactivate UsedCommand
+
+[<-- LogicManager : commandResult
 
 @enduml
