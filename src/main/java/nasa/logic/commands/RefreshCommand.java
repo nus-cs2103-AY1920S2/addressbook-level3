@@ -16,6 +16,9 @@ public class RefreshCommand extends Command {
 
     public static final String COMMAND_WORD = "refresh";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": refresh data.\n"
+            + "Parameters: none\nExample: " + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Refreshed!";
 
     public static final String MESSAGE_FAILURE = "Refreshed failed!";

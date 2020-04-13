@@ -52,6 +52,9 @@ public class ModuleListPanel extends UiPart<Region> {
 
     public void setModuleListView() {
         moduleListView.getChildren().clear();
+        if (moduleObservableList.isEmpty()) {
+            return;
+        }
         int width = Math.max((int) scrollPane.getWidth() / moduleObservableList.size(), 275);
         for (Module module :moduleObservableList) {
             moduleListView.getChildren().add(new ModuleCard(module, width).getRoot());

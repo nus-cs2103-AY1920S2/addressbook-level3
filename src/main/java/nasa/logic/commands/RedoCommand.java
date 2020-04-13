@@ -8,8 +8,8 @@ import nasa.model.Model;
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": reset data by a single step.\n"
-            + "Parameters: none \nExample: " + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redo latest action.\n"
+            + "Parameters: none\nExample: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Redo last action.";
     public static final String SHOWING_HELP_MESSAGE = "No last action to redo.";

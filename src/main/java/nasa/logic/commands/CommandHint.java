@@ -32,6 +32,7 @@ public class CommandHint {
             put(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_USAGE);
             put(QuoteCommand.COMMAND_WORD, QuoteCommand.MESSAGE_USAGE);
             put(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_USAGE);
+            put(RefreshCommand.COMMAND_WORD, RefreshCommand.MESSAGE_USAGE);
             put(RepeatDeadlineCommand.COMMAND_WORD, RepeatDeadlineCommand.MESSAGE_USAGE);
             put(RepeatEventCommand.COMMAND_WORD, RepeatEventCommand.MESSAGE_USAGE);
             put(SortCommand.COMMAND_WORD, SortCommand.MESSAGE_USAGE);
