@@ -526,7 +526,7 @@ The `Exercise` class is facilitated by the `UniqueExerciseList`, which is a wrap
 . `ExerciseWeight`
 . `ExerciseSets`
 
-All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`. There is an additional class `PersonalBest` which is also associated to `Exercise`. It is omitted and will discuss in <<Personal Best --- Li Zi Ying>> section due to its high significance. Below shows a UML class diagram which shows `Exercise` class interactions.
+All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`. There is an additional class `PersonalBest` which is also associated to `Exercise`. It is omitted and will be discussed in the <<Personal Best --- Li Zi Ying,Personal Best Section>> due to its high significance. Below shows a UML class diagram which shows `Exercise` class interactions.
 
 .Simplified Class Diagram for Exercise
 image::ExerciseClassDiagram.png[]
