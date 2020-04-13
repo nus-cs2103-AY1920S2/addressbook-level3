@@ -1,4 +1,4 @@
-//@@ chuayijing
+//@@author chuayijing
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
@@ -23,6 +23,7 @@ import tatracker.model.session.SessionType;
  */
 public class FilterSessionCommand extends Command {
 
+    //@@author PotatoCombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.FILTER_MODEL,
@@ -32,6 +33,7 @@ public class FilterSessionCommand extends Command {
             MODULE, DATE, SESSION_TYPE
     );
 
+    //@@author Chuayijing
     public static final String MESSAGE_FILTERED_SESSIONS_SUCCESS = "Filtered session list";
 
     // public static final String MESSAGE_NO_SESSIONS_IN_MODULE = "There are no sessions"

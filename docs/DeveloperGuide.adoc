@@ -53,15 +53,13 @@ Any help on the development of the TA-Tracker
 would be greatly appreciated, and there
 are a couple of ways that you can do so:
 
-* contribute to TA-Tracker
-'s code base by expanding its features
+* contribute to TA-Tracker's code base by expanding its features
 * help us improve test coverage
 * propose and implement improvements on current features
 
 This guide aims to kick-start your journey as a contributor to the TA-Tracker
 by getting
-you up to speed with how TA-Tracker
-'s codebase and inner workings function. It also
+you up to speed with how TA-Tracker's codebase and inner workings function. It also
 hopes to serve as a useful reference to current contributors in times of confusion or
 when faced with difficulties.
 //end::introduction[]
@@ -319,6 +317,9 @@ For example, the *Module* package contains the following classes that implement 
 //tag::logicSequence[]
 
 ==== Example Logic Sequence
+
+(Contributed by Aakanksha)
+
 The following _Sequence Diagram_ shows all the interactions inside the `Logic` component
 when executing the `group add m/CS2103 g/G03 t/lab` command.
 
@@ -373,7 +374,7 @@ The following _Class Diagram_ shows the relationship between the different class
 in the `Model` component.
 
 .Model Components - Class Diagram
-image::ModelComponentsClassDiagram.png[]
+image::ModelComponentsClassDiagram.png[,670]
 
 ==== Example of Model Usage
 
@@ -567,11 +568,14 @@ Students are a part of *groups* and groups are a part of *modules*.
 
 //tag::studentviewmodel[]
 ==== Implementation of the Model Framework
+
+(Contributed by Aakanksha)
+
 The following _Class Diagram_ shows how different classes are related in the
 functioning of the *Student View*.
 
 .Student View - Class Diagram
-image::ModuleModelClassDiagram.png[]
+image::ModuleModelClassDiagram.png[,670]
 
 In the diagram above, you can see that:
 
@@ -580,7 +584,7 @@ of the different *modules* the user is teaching.
 
 * Each `Module` contains a `UniqueGroupList`.
 
-* The `UniqueGroupList` contains a list of all the *groups of a module* that the user
+* Each `UniqueGroupList` contains a list of all the *groups of a module* that the user
 is teaching.
 
 * Each `Group` contains a `UniqueStudentsList` that contains the *students in that group*.
@@ -588,12 +592,13 @@ is teaching.
 ====
 *Design Considerations*
 
-The initial idea for the *Student View* UI was to simply *list* all the students of
-all groups and modules, *sorted by group code and module code*. Therefore the model
-framework has been implemented in this manner.
+The initial idea for the *Student View* UI was to show the Student View as a *list of modules*
+where each module contained a *list of groups* and each group contained a *list of students*.
+Keeping this in mind, we created the current model framework.
 
-The idea was scrapped as once it was implemented, it looked too messy and wasn't
-user-friendly. We changed the UI but kept the current model framework.
+The idea for the UI was scrapped as once we realised it would look messy and won't
+be user-friendly. We changed the UI to what it is now, but decided to keep the model framework
+the way it is.
 
 *Alternative Implementation*
 
@@ -603,8 +608,8 @@ all modules, a `List` to store all groups and a `List` to store all students.
 * We would then have to *filter by module code and/or group code* to show the appropriate
 groups and students.
 
-* This would require *students togt keep track of which group and which module they're
-a part of*. Similarly, *groups would have to keep a track of the students it contains*.
+* This would require *students to keep track of which group and which module they're
+a part of*. Similarly, *groups would have to keep a track of the students they contain*.
 This would create a **cyclic dependency** (which could be solved using an association class).
 
 * The `List` of groups could contain multiple groups with the same group code as group code
@@ -627,7 +632,7 @@ That is why we decided to stick to our current implementation.
 The following _Class Diagram_ shows how different classes are related in the functioning of a `Student` Object.
 
 .Structure of the Student Component
-image::StudentClassDiagram.png[]
+image::StudentClassDiagram.png[,670]
 
 *API*: link:{repoURL}/src/main/java/tatracker/model/student/Student.java[`Student.java`]
 
@@ -641,11 +646,13 @@ reference. This would allow `TaTracker` to only require one `Tag` object per uni
 `Tag`, instead of each `Student` needing their own `Tag` object. An example of what
 such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagram.png[,670]
 //end::studentmodel[]
 //tag::moduleaddeditdelete[]
 
 ==== Implementation of the Module Add, Delete and Edit Commands
+
+(Contributed by Aakanksha)
 
 The following _Sequence Diagram_ shows the interactions
 between the `Logic` and `Model` components of the TA-Tracker
@@ -707,6 +714,8 @@ The `module edit` command has been implemented in a similar manner.
 //tag::groupaddeditdelete[]
 
 ==== Implementation of the Group Add, Delete and Edit Commands
+
+(Contributed by Aakanksha)
 
 A *group* is added to the TA-Tracker
 in a similar manner to  how a *module* is added to
@@ -846,6 +855,8 @@ the *expected group* inside the *expected module*.
 
 ==== Implementation of the Sort Group, Module and All Command
 
+(Contributed by Aakanksha)
+
 The sort command allows the user to sort the students in the *Student View*.
 
 The sort command can be used in three ways:
@@ -856,7 +867,7 @@ group in the given module* by type `TYPE`.
 2. `sort module g/MODULE_CODE t/TYPE` : This sorts all the students of *all the groups in the
 given module* by type `TYPE`.
 
-3. `sort all t/TYPE` : This sorts all students of *all groups of all the modules* in the
+3. `sort all t/TYPE` : This sorts all students of *all groups in all modules* in the
 TA-Tracker
 by the type `TYPE`
 
@@ -869,12 +880,12 @@ by the type `TYPE`
 ** `matric` to sort by matriculation number.
 ====
 
-Since these `Sort` commands function differently but use a single parser,
+Since the `Sort` commands function differently but use a single parser,
 the structure shown in the following
 _Class Diagram_ is used.
 
 .Sort Commands - Class Diagram
-image::SortCommandsClassDiagram.png[]
+image::SortCommandsClassDiagram.png[,400]
 
 [NOTE]
 ====
@@ -896,8 +907,8 @@ image::SortParserActivityDiagram.png[]
 [NOTE]
 ====
 * The sub-command word here refers to `all`, `module` or `group`. If none of the above
-command words are used, a *command exception* will be thrown, explaining that it is an
-invalid comnmand.
+sub-command words is used, a *command exception* will be thrown, explaining that it is an
+invalid command.
 
 * If the user enters the `sort` command with a command word but *doesn't include the
 appropriate parameters with the correct prefixes, a command exception is thrown*.
@@ -1657,6 +1668,8 @@ in a single location
 [appendix]
 == User Stories
 
+(Contributed by Aakanksha)
+
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
@@ -1787,7 +1800,7 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
+*Extensions* (Contributed by Aakanksha)
 
 * 1a. The given module code already exists in the TA-Tracker.
 +
@@ -1824,7 +1837,7 @@ the list of existing modules in the *Student View*.
 +
 Use case ends.
 
-*Extensions*
+*Extensions* (Contributed by Aakanksha)
 
 * 3a. The given module code doesn't exist in the TA-Tracker.
 +
@@ -1853,7 +1866,7 @@ the list of existing modules in the *Student View*.
 +
 Use case ends.
 
-*Extensions*
+*Extensions* (Contributed by Aakanksha)
 
 [none]
 * 2a. The list is empty.
@@ -1881,7 +1894,7 @@ the list of existing modules in the *Student View*.
 +
 Use case ends.
 
-*Extensions*
+*Extensions* (Contributed by Aakanksha)
 
 * 3a. The given module code doesn't exist in the TA-Tracker.
 +
@@ -1922,7 +1935,7 @@ the list of existing groups in the *Student View*.
 . User requests to edit a group
 . TA-Tracker edits the group
 
-*Extensions*
+*Extensions* (Contributed by Aakanksha)
 
 * 3a. The given module code doesn't exist in the TA-Tracker.
 +
@@ -1965,7 +1978,7 @@ the list of existing groups in the *Student View*.
 +
 Use case ends.
 
-*Extensions*
+*Extensions* (Contributed by Aakanksha)
 
 [none]
 * 2a. The list is empty.
@@ -2136,6 +2149,8 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC13 - Sorting a group
 
+(Contributed by Aakanksha)
+
 *MSS*
 
 . User requests to go to the `Student Tab` (UC02) to view
@@ -2173,6 +2188,8 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC14 - Sorting a module
 
+(Contributed by Aakanksha)
+
 *MSS*
 
 . User requests to go to the `Student Tab` (UC02) to view
@@ -2209,6 +2226,8 @@ Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC15 - Sorting all modules
+
+(Contributed by Aakanksha)
 
 *MSS*
 
@@ -2529,6 +2548,8 @@ Stands for Main Success Scenario that describes the interaction for a given use 
 [appendix]
 == Instructions for Manual Testing
 
+(Contributed by Aakanksha)
+
 Given below are instructions to test the app manually. These instructions will help you
 navigate through the app and get an idea of what to test. We suggest you use this in
 conjunction with our User Guide to test the product thoroughly.
@@ -2740,8 +2761,6 @@ at index 1 of the module list.
 [discrete]
 === Adding a session
 
-(Contributed by Chua Yi Jing)
-
 . Adding a session to the session list.
 
 .. Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
@@ -2753,8 +2772,6 @@ with the module `CS1101S` and be a `consultation` with Alice and Bob.
 [discrete]
 === Marking a session as done
 
-(Contributed by Chua Yi Jing)
-
 . Marking a session as done.
 
 .. Test Case: `session done 1` +
@@ -2765,8 +2782,6 @@ period. The session marked as done will be added to the claims list.
 [discrete]
 === Deleting a session
 
-(Contributed by Chua Yi Jing)
-
 . Deleting a session.
 
 .. Test Case: `session delete 1` +
@@ -2775,8 +2790,6 @@ Expected: Deletes the session at index `1` of the session list.
 [discrete]
 === Editing a session
 
-(Contributed by Chua Yi Jing)
-
 . Editing a session
 
 .. Test Case: `session edit 1 t/lab` +
@@ -2784,8 +2797,6 @@ Expected: Edits the session at index `1` of the session list to be of type `lab`
 
 [discrete]
 === Filtering sessions
-
-(Contributed by Chua Yi Jing)
 
 . Filtering sessions based on keywords.
 
@@ -2802,8 +2813,6 @@ and *module code* `CS1101S`.
 [discrete]
 === Filtering claims
 
-(Contributed by Chua Yi Jing)
-
 . Filtering claims by module code.
 
 .. Test Case: `claims filter m/CS1101S` +
@@ -2812,8 +2821,6 @@ Expected: Shows all sessions that have been marked as done
 
 [discrete]
 === Listing sessions and claims
-
-(Contributed by Chua Yi Jing)
 
 . Lists all sessions and claims again (removes all filters that have been previously applied).
 
@@ -2889,7 +2896,7 @@ Expected: Exits the program.
 [appendix]
 == Effort
 
-(Contributed by Fatin)
+(Contributed by Fatin and Aakanksha)
 
 Creating this application was fairly difficult and required much blood, toil, tears and sweat. Cumulatively, the
 project amasses a great *20,000 lines of code* combined. This meant that it required a great deal of *communication and

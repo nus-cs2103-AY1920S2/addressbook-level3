@@ -89,8 +89,10 @@ public class TaTracker implements ReadOnlyTaTracker {
         this.rate = newData.getRate();
     }
 
+
     // ======== Filter Methods ================================================
 
+    //@@author chuayijing
     /**
      *Sets the currently used filter under Claim View.
      */
@@ -99,6 +101,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currClaimFilter = module;
     }
 
+    //@@author chuayijing
     /**
      * Get the currently used filter under Claim View.
      */
@@ -106,6 +109,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currClaimFilter;
     }
 
+    //@@author chuayijing
     /**
      *Sets the currently used filter under Session View.
      */
@@ -114,6 +118,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currSessionFilter = params;
     }
 
+    //@@author chuayijing
     /**
      * Get the currently used filter under Session View.
      */
@@ -121,6 +126,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currSessionFilter;
     }
 
+    //@@author chuayijing
     /**
      *Sets the currently used filter under Session View.
      */
@@ -129,6 +135,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currSessionDateFilter = params;
     }
 
+    //@@author chuayijing
     /**
      * Get the currently used filter under Session View.
      */
@@ -136,6 +143,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currSessionDateFilter;
     }
 
+    //@@author chuayijing
     /**
      *Sets the currently used filter under Session View.
      */
@@ -144,6 +152,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currSessionModuleFilter = params;
     }
 
+    //@@author chuayijing
     /**
      * Get the currently used filter under Session View.
      */
@@ -151,6 +160,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currSessionModuleFilter;
     }
 
+    //@@author chuayijing
     /**
      *Sets the currently used filter under Session View.
      */
@@ -159,6 +169,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currSessionTypeFilter = params;
     }
 
+    //@@author chuayijing
     /**
      * Get the currently used filter under Session View.
      */
@@ -166,6 +177,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currSessionTypeFilter;
     }
 
+    //@@author chuayijing
     /**
      *Sets the currently used filter under Student View.
      */
@@ -174,6 +186,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currStudentFilter = params;
     }
 
+    //@@author chuayijing
     /**
      * Get the currently used filter under Student View.
      */
@@ -183,6 +196,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     // ======== Session Methods ================================================
 
+    //@@author chuayijing
     /**
      * Returns true if a session with the same identity as {@code session} exists in the ta-tracker.
      */
@@ -191,6 +205,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return sessions.contains(session);
     }
 
+    //@@author chuayijing
     /**
      * Adds a session to the ta-tracker.
      * The session must not already exist in the ta-tracker.
@@ -199,6 +214,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         sessions.add(s);
     }
 
+    //@@author chuayijing
     /**
      * Returns true if a session with the same identity as {@code session} exists in the ta-tracker.
      * Removes {@code session} from this {@code TaTracker}.
@@ -208,6 +224,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         sessions.remove(session);
     }
 
+    //@@author chuayijing
     /**
      * Replaces the given session {@code target} in the list with {@code editedSession}.
      * {@code target} must exist in the ta-tracker.
@@ -220,6 +237,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         sessions.setSession(target, editedSession);
     }
 
+    //@@author chuayijing
     /**
      * Replaces the contents of the session list with {@code sessions}.
      * {@code sessions} must not contain duplicate sessions.
@@ -228,6 +246,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         this.sessions.setSessions(sessions);
     }
 
+    //@@author chuayijing
     @Override
     public ObservableList<Session> getSessionList() {
         return sessions.asUnmodifiableObservableList();
@@ -235,6 +254,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     // ======== Done Session Methods =================================================
 
+    //@@author
     /**
      * Adds a completed session to the list of done sessions.
      */

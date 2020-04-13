@@ -1,3 +1,4 @@
+//@@author Chuayijing
 package tatracker.logic.commands.commons;
 
 import static java.util.Objects.requireNonNull;
@@ -17,6 +18,7 @@ import tatracker.model.Model;
  */
 public class ListCommand extends Command {
 
+    //@@author PotatoCombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.LIST,
             "Removes all session and claim filters inside TA-Tracker",
@@ -26,7 +28,7 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_LISTED_SESSIONS = "Removed all filters";
 
-
+    //@@author Chuayijing
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

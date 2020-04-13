@@ -1,3 +1,4 @@
+//@@author chuayijing
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
@@ -29,6 +30,7 @@ import tatracker.model.session.Session;
  */
 public class AddSessionCommand extends Command {
 
+    //@@author PotatoCombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.ADD_MODEL,
@@ -38,6 +40,7 @@ public class AddSessionCommand extends Command {
             MODULE, START_TIME, END_TIME, DATE, SESSION_TYPE, NOTES
     );
 
+    //@@author Chuayijing
     public static final String MESSAGE_ADD_SESSION_SUCCESS = "New session added: %s";
 
     private final Session toAdd;

@@ -1,3 +1,5 @@
+//@@author chuayijing
+
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
@@ -22,6 +24,7 @@ import tatracker.model.session.Session;
  */
 public class DeleteSessionCommand extends Command {
 
+    //@@author potatoCombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.DELETE_MODEL,
@@ -31,6 +34,7 @@ public class DeleteSessionCommand extends Command {
             INDEX
     );
 
+    //@@author Chuayijing
     public static final String MESSAGE_DELETE_SESSION_SUCCESS = "Deleted session: %s";
 
     private final Index index;

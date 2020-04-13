@@ -1,4 +1,4 @@
-//@@ chuayijing
+//@@author chuayijing
 
 package tatracker.logic.parser.session;
 
