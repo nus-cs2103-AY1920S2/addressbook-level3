@@ -88,6 +88,10 @@ public class Module {
         return personal.getStatus();
     }
 
+    public boolean hasGrade() {
+        return personal.hasGrade();
+    }
+
     public String getGrade() {
         return personal.getGrade();
     }
