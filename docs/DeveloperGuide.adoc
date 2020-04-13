@@ -1217,7 +1217,29 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding an exercise
+
+. Adding an exercise to the client in view's exercise table
+
+.. Prerequisites: View a client using the `view-c` command. A list of exercises done by the client can be seen in the exercise table. It is possible to have no exercises recorded at the moment.
+.. Test case: Substitute DATE with the current date +
+`add-e n/bench press date/DATE reps/30 sets/4 ew/10` +
+Expected: The added exercise can be seen in the exercise table. A success message stating that there is a new exercise recorded will also be shown in the result box.
+.. Test case: Substitute DATE with the current date +
+`add-e n/pushup date/DATE` +
+Expected: The added exercise can be seen in the exercise table. A success message stating that there is a new exercise recorded will also be shown in the result box.
+.. Test case: Substitute DATE with the day after the current date +
+`add-e n/bench press date/DATE reps/30 sets/4 ew/10` +
+Expected: No exercise added. An error message stating that the valid range for date will be shown.
+.. Test case: Substitute DATE with the current date +
+`add-e n/pushup d/DATE reps/ten` +
+Expected: No exercise added. An error message stating that input for reps have to be a whole number from 1 to 9999 will be shown.
+.. `add-e n/pushup` +
+Expected: No exercise added. An error message stating "invalid command format!" and a description on how to use `add-e` command will be shown.
+.. Test case: Substitute DATE with the current date +
+`add-e n/pushup d/DATE sets/4` +
+`add-e n/pushup d/DATE sets/2` +
+Expected: No exercise added. An error message stating that the exercise already exists and ask user to increment the existing exercise will be shown.
 
 === Saving data
 
