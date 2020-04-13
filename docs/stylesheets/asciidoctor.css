@@ -190,7 +190,7 @@ body {
   color: rgba(0, 0, 0, 0.8);
   padding: 0;
   margin: 0;
-  font-family: "Noto Serif", "DejaVu Serif", serif;
+  font-family: "Open Sans", "Arial", sans-serif;
   font-weight: 400;
   font-style: normal;
   line-height: 1;
@@ -346,8 +346,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Open Sans", "DejaVu Sans", sans-serif;
-  font-weight: 300;
+  font-family: "Montserrat", "Open Sans", sans-serif;
+  font-weight: 600;
   font-style: normal;
   color: #F8713D;
   text-rendering: optimizeLegibility;
@@ -1000,7 +1000,7 @@ table.tableblock > .title,
 .hdlist > .title {
   text-rendering: optimizeLegibility;
   text-align: left;
-  font-family: "Noto Serif", "DejaVu Serif", serif;
+  font-family: "Open Sans", "Arial", sans-serif;
   font-size: 1rem;
   font-style: italic;
 }
