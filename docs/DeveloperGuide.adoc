@@ -22,20 +22,20 @@ FlashSpeed is a text-based flashcard application specifically designed for unive
 
 FlashSpeed enhances the revision process by implementing a <<smart-review-system,smarter review system>> in its design. Users will be tested more frequently on words that they have gotten wrong in a game session.
 
-The main features of FlashSpeed allows users to
+The main features of FlashSpeed allows users to:
 
-* create their own <<deck, decks>> of flashcards (or <<card, cards>>)
-* choose a deck to revise (or <<play, play>>) which uses the SRS design mentioned above.
+* create their own <<deck, decks>> of <<card, cards>> (flashcards)
+* choose a deck to <<play, play>> (review) which uses the SRS design mentioned above.
 
 [[Purpose]]
 === Purpose
 
-This document specifies architecture, software design decisions and implementation for the flashcard app, FlashSpeed.
+This document specifies architecture, software design decisions and implementation for the FlashSpeed application.
 
 === Audience
 This document is intended for anyone who wants to understand the system architecture, design and implementation of FlashSpeed.
 
-The following groups are in particular the intended audience of this document.
+The following groups are in particular are the intended audience of this document.
 
 * FlashSpeed developers
 * FlashSpeed features enhancement team members
@@ -43,12 +43,12 @@ The following groups are in particular the intended audience of this document.
 === How to use
 
 * Section 3 - Design contains information about the main components of FlashSpeed.
-** First, refer to <<#Design-Architecture, 3.1 Architecture>> section to learn more about the overall architecture.
-** Then proceed to further sections 3.2 - 3.6 to learn more about each individual components of the architecture.
+** Firstly, refer to <<#Design-Architecture, 3.1 Architecture>> section to learn more about the overall architecture.
+** Then proceed to sections 3.2 - 3.6 to learn more about each individual component in the architecture.
 
-* Section 4 - Implementation contains information about the main commands and the implementation of each command used in FlashSpeed.
+* Section 4 - Implementation contains information about the main commands and the implementations of each command used in FlashSpeed.
 
-* Appendix Section - Any miscellaneous information that is not essential for the implementation of FlashSpeed but is good to know.
+* Appendix - Information related to the development process and design choices of FlashSpeed.
 
 // end::introduction[]
 
@@ -98,6 +98,8 @@ The following classes plays an important role at the architecture level:
 * <<Design-Model,*`Model`*>>: Holds the data and current state of FlashSpeed in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from and writes data to a data file on the hard disk.
 
+// end::design-arch[]
+
 Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
@@ -107,8 +109,6 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
-
-// end::design-arch[]
 
 {empty} +
 
@@ -141,6 +141,9 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* `HelpWindow` will only be shown when executing `help` command.
+* `StatisticsPopUp` will only be shown after finishing or stopping a *Play session*.
+* Either `CardListPanel` or `PlayPanel` is displayed depending on the current <<view, view>>.
 
 //end::UI-component[]
 
@@ -208,7 +211,7 @@ The `Model`,
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::../diagrams/StorageClassDiagram.png[]
 
 
 *API* : link:{repoURL}/src/main/java/com/flashspeed/storage/Storage.java[`Storage.java`]
@@ -258,34 +261,6 @@ This section describes some noteworthy details on how certain features are imple
 
 {empty} +
 
-//tag::selectdeck[]
-=== Selecting a Deck
-==== Current Implementation
-
-The `select` command allows user to view the Card content of a Deck.
-
-Accepted syntax: `select INDEX`
-
-This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
-
-The validation of the arguments in the `select` command is performed in `SelectDeckCommandParser#parse()`. It ensures that the user has entered a valid index (valid data type and range). This is also used for separation of parsing
-logic and model management logic.
-
-In `SelectDeckCommandParser#parse()`, the `INDEX` of the selected Deck is extracted
-from the arguments in the `select` command. The `INDEX` is converted to an Index object. An `SelectCardCommand`
-object is then constructed with the Index as its parameter.
-
-When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content on the right panel. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
-
-==== Design Considerations
-The UI will have to be constantly updated when we select to view a deck, and other decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected deck.
-
-.Interactions inside Model, Logic and UI components to reflect UI changes when selecting a deck
-image::SelectDeckSequenceDiagram.png[]
-
-//end::selectdeck[]
-{empty} +
-
 // tag::createdeck[]
 
 === Creating a Deck
@@ -311,6 +286,11 @@ created when the Model Manager invokes the `ModelManager#selectDeck()` command.
 After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+
+The following sequence diagram shows the sequence of operations due to a `create` command.
+
+.Interactions inside the Model and Logic components when the user enters `create Japanese` into the input box.
+image::../diagrams/CreateSequenceDiagram.png[Something]
 
 // tag::create-deck-consideration[]
 ==== Design Considerations
@@ -349,9 +329,39 @@ which is to assign different keywords to these two different feature.
 // end::createdeck[]
 {empty} +
 
+
+//tag::selectdeck[]
+=== Selecting a Deck
+==== Current Implementation
+
+The `select` command allows user to view the Card content of a Deck.
+
+Accepted syntax: `select INDEX`
+
+This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
+
+The validation of the arguments in the `select` command is performed in `SelectDeckCommandParser#parse()`. It ensures that the user has entered a valid index (valid data type and range). This is also used for separation of parsing
+logic and model management logic.
+
+In `SelectDeckCommandParser#parse()`, the `INDEX` of the selected Deck is extracted
+from the arguments in the `select` command. The `INDEX` is converted to an Index object. An `SelectCardCommand`
+object is then constructed with the Index as its parameter.
+
+When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content on the right panel. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+
+==== Design Considerations
+The UI will have to be constantly updated when we select to view a deck, and other decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected deck.
+
+.Interactions inside Model, Logic and UI components to reflect UI changes when selecting a deck
+image::SelectDeckSequenceDiagram.png[]
+
+//end::selectdeck[]
+{empty} +
+
+
 // tag::addcard[]
 
-=== Creating a Card
+=== Adding a Card
 ==== Current Implementation
 
 The `add` command allows user to create a new Card in the current Deck.
@@ -381,13 +391,18 @@ After that, `ModelManager#setSelectedDeck()` method will be called to update the
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
+The following sequence diagram shows the sequence of operations due to an `add` command.
+
+.Interactions inside Model and Logic components when user enters `add ありがとう:thanks` into the input box.
+image::../diagrams/AddSequenceDiagram.png[]
+
 ==== Design Considerations
 See <<Four-Two-Two, 4.2.2 - Design Considerations for creating a Deck - Aspect: Naming convention of command keywords>>.
 // end::addcard[]
 
-// tag::editcard[]
-
 {empty} +
+
+// tag::editcard[]
 
 === Editing a Card: Shortcut Formats
 ==== Current Implementation
@@ -433,7 +448,7 @@ preserved (if needed). We can get the Card to be edited using `ModelManager#getC
 The new Card can then be created.
 We can then perform the replacement using `ModelManager#replaceCard()` with the old Card and the new Card as the parameters.
 
-The following sequence diagram shows how the sequence of operations due to an `edit` command.
+The following sequence diagram shows the sequence of operations due to an `edit` command.
 
 .Operations performed for the `edit 1 fr:bk` command.
 image::EditSequenceDiagram.png[]
@@ -982,32 +997,32 @@ Use case resumes at step 3.
 .  Should be able to hold up to 1000 decks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 // tag::appendixE[]
+
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, macOS.
 
 [[deck]] Deck::
-A Deck holds cards
+A Deck is a group of Cards.
 
 [[card]] Card::
-A Card has two faces. One side for prompting the user and the other side for the content the user wants to memorize
+A Card mimics a physical flashcard. It has two faces. One side for prompting the user and the other side for the content the user wants to memorize.
 
 [[smart-review-system]] Smarter Review System::
 The smarter review system is adopted from the well known <<spaced-repetition-system, Space Repetition System>>.
 Cards that are answered wrongly in Play Mode will be shown more frequently in this system.
 
 [[spaced-repetition-system]] Space Repetition System::
-Spaced repetition is an evidence-based learning technique that is usually performed with flashcards. Newly introduced and more difficult flashcards are shown more frequently while older and less difficult flashcards are shown less frequently in order to exploit the psychological spacing effect
+Spaced repetition is an evidence-based learning technique that is usually performed with flashcards. Newly introduced and more difficult flashcards are shown more frequently while older and less difficult flashcards are shown less frequently in order to exploit the psychological spacing effect.
 
 // end::appendixE[]
 
 //tag::views[]
 [[view]] View::
+The state or mode which FlashSpeed is in.
 There are three different views in FlashSpeed.
 
 * <<library-view, Library View>>
@@ -1015,19 +1030,19 @@ There are three different views in FlashSpeed.
 * <<play, Play View>>
 
 [[library-view]] Library View::
-When no deck is selected and no cards are shown
+When no deck is selected and no cards are shown.
 
 .In Library view. No deck is selected.
 image::library.png[]
 
 [[deck-view]] Deck View::
-When a deck is selected and its cards are shown
+When a deck is selected and its cards are shown.
 
 .In Deck view. A deck has been selected.
 image::Ui.png[]
 
 [[play]] Play View::
-When in a study session of a deck
+When in a study session of a deck.
 
 .In Play view. A deck is being studied.
 image::Ui2.png[]
@@ -1202,9 +1217,9 @@ Expected: Similar to previous
 == Effort
 *Overview*
 FlashSpeed, a flashcard application, is aimed specifically at helping University students with learning a new language.
-FlashSpeed is significantly different from Address Book 3 (AB3) although it is based off it. In additional to the features from AB3,
-we needed to add additional features that would complete our flashcard application. For example, the Play feature is a new feature
-introduced in FlashSpeed
+FlashSpeed is significantly different from Address Book 3 (AB3) although it is based off of it.
+In addition to changing existing features in AB3, we needed to add additional features that would complete our flashcard application. For example, the Play feature is a new feature
+introduced in FlashSpeed.
 
 *Challenges and Effort*
 
@@ -1216,32 +1231,34 @@ be described as a "layered AB3" implementation, where in AB3, an addressbook con
 contains multiple addressbooks.
 
 * *Play feature* +
-Since this was a brand new feature that was created from scratch, there were multiple suggestions from different members which was the
+Since this was a brand new feature that was created from scratch,
+there were multiple suggestions from different members for
 best way to implement it. After much discussion and some compromise from each design, we came out with our final implementation. Additionally, since
 it was a new feature, even after we did the initial implementation, there were things that we did not foresee, such as how the UI would
-handle the different views depending on the state of the game and potentially how many bugs could have arose.
+handle the different views depending on the state of the game and the defensive code to implement to prevent bugs.
 
 * *User Interface Design* +
 We were brainstorming for a good interface that could support the three views that we had: Library View, Deck View and Play View.
-We managed to create about 2-3 mock-ups that everyone thought looked really good. Then, we compared the User Experience (UX) advantages
-between the mock-ups and decided ultimately that the mock-up that was built on AB3's design was the best for our flashcard purposes (in terms of UI/UX).
+We managed to create about 2-3 mock-ups that everyone thought looked really good.
+We then examined the User Experience (UX) advantages
+between the mock-ups and decided ultimately that an enhanced AB3 layout was the best for our flashcard purposes.
 
 * *User Interface Implementation* +
-As none of our team were experienced with UI, our initial mock-up and vision of the UI proved too difficult for us to implement it at one go.
-However, Robert (our UI Lead) focused on building on the UI while the rest of the team focused on building the core functionality of FlashSpeed.
-Robert would ask us on input based off the UI that he had designed and improve it based on our suggestions. +
+As none of the members in our team were experienced with UI design, our initial mock-up and vision of the UI proved too difficult for us to implement within our time frame.
+However, Robert (our UI Lead) focused on building and designing the UI while the rest of the team focused on the functional components of FlashSpeed.
+Robert would ask us for input based on the experimental UIs that he had designed and improve it based on our suggestions. +
 
 * *Design Considerations* +
-For each major enhancement, there was always a few design alternatives to choose from. As each team member felt that their design was the best,
-in our first major enhancement meeting, we spent 2-3 hours deciding the final implementation. After that meeting, our team decided
-on a faster way to resolve such cases by spending a maximum of 30minutes discussion before casting a vote. It worked efficiently for the
+For each major enhancement, there were always a few design alternatives to choose from. As each team member felt that their design considerations had merit,
+in our first major enhancement meeting, we spent 2 hours deciding on the initial design implementation. After that meeting, our team decided
+on a faster way to resolve such cases by spending a maximum of 30 minutes discussing before casting a vote. It worked well for the
 future meetings.
 
 *Achievements*
 
-. We managed to create FlashSpeed to what we envisioned to be.
-. Although we did not manage to implement all the user-stories that we brain-stormed, we implemented all the essential functionality of FlashSpeed
-. FlashSpeed can safely support most available languages in the world, due to our stringent parser checks and language support from Java.
-. We learnt what was important in software development (Good coding style, Github skills, Documentation Writing, Testing, etc...)
+. We managed to create FlashSpeed to what we envisioned it to be with the features we wanted.
+. Although we did not manage to implement all the user-stories that we brain-stormed, we implemented all the essential functionality of FlashSpeed plus a few more nice features.
+. FlashSpeed can safely support most digitized written languages in the world, due to our stringent parser checks and language support from Java.
+. We learnt a lot about important processes and considerations in software development, e.g consistent coding style, version control skills, documentation writing, extensive testing, etc.
 
 // end::appendix[]

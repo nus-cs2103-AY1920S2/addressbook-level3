@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager  " as LogicManager LOGIC_COLOR
+participant ":MasterParser  " as MasterParser LOGIC_COLOR
+participant ":AddCardCommandParser    " as AddCardCommandParser LOGIC_COLOR
+participant "r:AddCardCommand   " as AddCardCommand LOGIC_COLOR
+participant ":CommandResult    " as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Library " as Library MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add ありがとう:thanks")
+activate LogicManager
+
+LogicManager -> MasterParser : parseCommand("add ありがとう:thanks")
+activate MasterParser
+
+create AddCardCommandParser
+MasterParser -> AddCardCommandParser
+activate AddCardCommandParser
+
+AddCardCommandParser --> MasterParser
+deactivate AddCardCommandParser
+
+MasterParser -> AddCardCommandParser : parse("ありがとう:thanks")
+activate AddCardCommandParser
+
+create AddCardCommand
+AddCardCommandParser -> AddCardCommand
+activate AddCardCommand
+
+AddCardCommand --> AddCardCommandParser : r
+deactivate AddCardCommand
+
+AddCardCommandParser --> MasterParser : r
+deactivate AddCardCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCardCommandParser -[hidden]-> MasterParser
+destroy AddCardCommandParser
+
+MasterParser --> LogicManager : r
+deactivate MasterParser
+
+LogicManager -> AddCardCommand : execute()
+activate AddCardCommand
+
+AddCardCommand -> Model : addCard("ありがとう", "thanks")
+activate Model
+
+Model -> Library : addCard("ありがとう", "thanks")
+activate Library
+
+Library -> Model
+deactivate Library
+
+Model --> AddCardCommand
+deactivate Model
+
+create CommandResult
+AddCardCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddCardCommand
+deactivate CommandResult
+
+AddCardCommand --> LogicManager : result
+deactivate AddCardCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

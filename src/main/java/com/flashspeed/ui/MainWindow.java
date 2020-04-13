@@ -63,6 +63,8 @@ public class MainWindow extends UiPart<Stage> {
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
+
+        //Set window size to be optimal based on screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setX(primaryScreenBounds.getMinX());
         primaryStage.setY(primaryScreenBounds.getMinY());
@@ -72,8 +74,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setMinHeight(primaryScreenBounds.getHeight());
         primaryStage.setMaxWidth(primaryScreenBounds.getWidth());
         primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
-
-
 
         // Set dependencies
         this.primaryStage = primaryStage;
@@ -131,6 +131,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        //toggle between Play view and other views depending on the current View.
         if (logic.getView() != View.PLAY) {
             cardListPanel = new CardListPanel(logic.selectedDeckProperty());
             rightPlaceholder.getChildren().add(cardListPanel.getRoot());

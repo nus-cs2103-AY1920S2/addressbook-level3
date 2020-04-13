@@ -33,12 +33,22 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final MasterParser masterParser;
 
+    /**
+     * Initializes LogicManager with the given Model and Storage.
+     */
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         this.masterParser = new MasterParser();
     }
 
+    /**
+     * Executes the command and returns the result
+     * @param commandText The command as entered by the user
+     * @return the result of the command execution
+     * @throws CommandException If an error occurs during command execution
+     * @throws ParseException If an error occurs during parsing
+     */
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -56,72 +66,119 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    /**
+     * Returns a Read-Only copy of the current Library
+     */
+    @Override
     public ReadOnlyLibrary getLibrary() {
         return model.getLibrary();
     }
 
+    /**
+     * Returns an unmodifiable view of the filtered list of decks
+     */
     @Override
     public ObservableList<Deck> getFilteredDeckList() {
         return model.getFilteredDeckList();
     }
 
+    /**
+     * Returns the user prefs' library file path
+     */
     @Override
     public Path getLibraryFilePath() {
         return model.getLibraryFilePath();
     }
 
+    /**
+     * Returns the user prefs' GUI settings
+     */
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
     }
 
+    /**
+     * Sets the user prefs' GUI settings
+     */
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Returns the currently selected Deck
+     */
     @Override
     public Deck getCurrentDeck() {
         return model.getCurrentDeck();
     }
 
+    /**
+     * Returns the current View of the Model
+     */
     @Override
-    public ReadOnlyProperty<Deck> selectedDeckProperty() {
-        return model.selectedDeckProperty();
+    public View getView() {
+        return model.getView();
     }
 
-    @Override
-    public ReadOnlyProperty<Card> playingCardProperty() {
-        return model.playingCardProperty();
-    }
-
-    @Override
-    public ReadOnlyProperty<View> currentViewProperty() {
-        return model.currentViewProperty();
-    }
-
-    @Override
-    public ReadOnlyProperty<Boolean> flippedProperty() {
-        return model.flippedProperty();
-    }
-
-    @Override
-    public ReadOnlyProperty<Integer> cardAttemptedProperty() {
-        return model.cardAttemptedProperty();
-    }
-
-    @Override
-    public ReadOnlyProperty<Integer> cardRemainingProperty() {
-        return model.cardRemainingProperty();
-    }
-
+    /**
+     * Sets selected deck in the Model
+     * @param deck target deck
+     */
     @Override
     public void setSelectedDeck(Deck deck) {
         model.setSelectedDeck(deck);
     }
 
+    //===Read-Only Property components for UI==============================================
+
+    /**
+     * Returns the selected Deck Read-only Property
+     */
     @Override
-    public View getView() {
-        return model.getView();
+    public ReadOnlyProperty<Deck> selectedDeckProperty() {
+        return model.selectedDeckProperty();
     }
+
+    /**
+     * Returns the current View Read-only Property
+     */
+    @Override
+    public ReadOnlyProperty<View> currentViewProperty() {
+        return model.currentViewProperty();
+    }
+
+    /**
+     * Returns the currently playing Card Read-only Property
+     */
+    @Override
+    public ReadOnlyProperty<Card> playingCardProperty() {
+        return model.playingCardProperty();
+    }
+
+    /**
+     * Returns the current Card flipped status Read-Only Property
+     */
+    @Override
+    public ReadOnlyProperty<Boolean> flippedProperty() {
+        return model.flippedProperty();
+    }
+
+    /**
+     * Returns the no of Cards attempted Read-Only Property
+     */
+    @Override
+    public ReadOnlyProperty<Integer> cardAttemptedProperty() {
+        return model.cardAttemptedProperty();
+    }
+
+    /**
+     * Returns the no of Cards remaining Read-Only Property
+     */
+    @Override
+    public ReadOnlyProperty<Integer> cardRemainingProperty() {
+        return model.cardRemainingProperty();
+    }
+
 }

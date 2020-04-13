@@ -47,6 +47,7 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); // this should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            //listens for any changes in the current View to toggle between Play view and other views
             this.view.addListener((observable, oldValue, newValue) -> {
                 mainWindow.fillInnerParts();
             });

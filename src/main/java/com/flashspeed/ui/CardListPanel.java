@@ -19,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 
 /**
- * The Browser Panel of the App.
+ * The Card List Panel of the App.
  */
 public class CardListPanel extends UiPart<Region> {
 
@@ -69,12 +69,17 @@ public class CardListPanel extends UiPart<Region> {
                 itemTbl.getItems().clear();
                 defaultText.setText("No deck selected");
             } else {
-                getCardList(newValue);
+                showCardList(newValue);
             }
         });
     }
 
-    private void getCardList(Deck deck) {
+    /**
+     * Shows Cards of current Deck on right panel.
+     *
+     * @param deck current deck
+     */
+    private void showCardList(Deck deck) {
         itemTbl.getItems().clear();
         ObservableList<Card> cardList = deck.asUnmodifiableObservableList();
         if (cardList.size() == 0) {
@@ -85,7 +90,4 @@ public class CardListPanel extends UiPart<Region> {
         }
     }
 
-    private void printCard(Card card) {
-        itemTbl.getItems().add(card);
-    }
 }

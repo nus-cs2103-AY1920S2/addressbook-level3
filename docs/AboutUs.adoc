@@ -42,7 +42,7 @@ image::olixino.png[width="150", align="left"]
 {empty}[http://github.com/oLiXino[github]] [<<oLiXino#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Play Mode Developer
+Responsibilities: Play View, Model, Game Component
 
 '''
 
@@ -50,7 +50,7 @@ Responsibilities: Play Mode Developer
 image::lacedaemon98.png[width="150", align="left"]
 {empty}[http://github.com/lacedaemon98[github]] [<<lacedaemon98#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer, Designer +
+Responsibilities: UI/UX, Visual, Logic
 
 '''

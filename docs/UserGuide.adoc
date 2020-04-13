@@ -74,15 +74,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the Help window.
 == Features
 
 ====
-*Command Format*
+*Command Format and Input*
 
-* Words in `<>` are the parameters to be supplied by you. +
-e.g. in `create <deck>`, `<deck>` is a parameter of your choice, such as `create Japanese 1`.
+* Words in `<>` are the command parameters to be supplied by you, +
+e.g. for the command format of `create <deck>`, `<deck>` is a parameter of your choice, such as `create Japanese 1`.
+* All *parameters* will have any leading and trailing whitespace removed before being processed, +
+e.g. `<deck>` is equal to `&#32;<deck>&#32;`.
 ====
 
 //tag::views[]
 ====
 *Different Views*
+
+A view is simply the state or mode of FlashSpeed you are in now.
+You will be able to identify the view you are in from what you are currently seeing in FlashSpeed.
 
 [NOTE]
 Some commands only work in certain views. Don't worry, this guide will tell you all you need to know!
@@ -120,7 +125,7 @@ image::Ui2.png[]
 
 Format: `help`
 
-You can view this user guide in a new window by
+You can view this user guide in a new popup window by
 typing `help` in the input box and pressing kbd:[Enter]. +
 
 [TIP]
@@ -144,6 +149,9 @@ Format: `reset`
 
 If you want to delete everything in the library to start fresh, you can choose to reset the library.
 Simply type `reset` in the input box and press kbd:[Enter]. +
+
+[NOTE]
+You cannot reset the library while in Play view.
 
 .After resetting. A new start!
 image::reset.png[]
@@ -311,6 +319,7 @@ image::Ui.png[]
 
 // tag::addcard[]
 
+[#_adding_a_card_add]
 ==== Adding a card : `add`
 
 Format: `add <front>:<back>`
@@ -366,7 +375,8 @@ Format 3: `edit <index> <front>:`
 Since a colon is used as the separator, there should not be any colons in the `front` or `back` values.
 ****
 
-You can edit the front and/or back values of any card in the current deck. The way to do so is similar to the `add` command as shown before. +
+You can edit the front and/or back values of any card in the current deck.
+The way to do so is similar to the <<_adding_a_card_add, `add`>> command as shown before. +
 
 Type `edit`, followed by the index number of the card to be edited, then the new `front` value, then a colon (":"), and finally the new `back` value. +
 
@@ -449,8 +459,7 @@ image::Ui2.png[]
 Format: `flip`
 
 Are you ready to reveal the back face of the card?
-Let's flip it to check if your memory is spot on. +
-
+Let's flip it to check if your memory is spot on.
 To flip a card, simply type `flip` into the input box and press kbd:[Enter]. +
 
 // end::flip-language[]
@@ -460,13 +469,13 @@ image::flip.png[]
 {empty} +
 
 // tag::answer-language[]
-==== Answering "yes" or "no" : `yes`/`no`
+==== Answering : `yes`/`no`
 
 Format: `yes` or `no`
 
 Were you able to recall the correct back value? +
 If you could, type `yes` into the input box and press kbd:[Enter]. Congratulations! +
-If you could not or your memory was incorrect, type `no` into the input box and press kbd:[Enter]. Don't give up! +
+If you could not or your guess was incorrect, type `no` into the input box and press kbd:[Enter]. Don't give up! +
 
 // end::answer-language[]
 [NOTE]
@@ -508,8 +517,6 @@ image::stop.png[]
 All data in FlashSpeed (e.g. decks, cards) is saved automatically. It is all neatly placed in the folder you put FlashSpeed in. +
 You don't have to worry about saving your precious flashcards manually!
 
-{empty} +
-
 //tag::faq[]
 == FAQ
 
@@ -539,8 +546,6 @@ You can then follow the same instructions as found in <<Quick Start>>.
 *Q*: I am not able to run this application. What can I do? +
 *A*: Refer to <<Quick Start>> for the installation guide. Ensure that your computer has Java 11 installed. FlashSpeed may not be able to run on other versions of Java.
 Alternatively, you can contact us https://ay1920s2-cs2103t-w17-1.github.io/main/ContactUs.html[here] for any further help.
-
-{empty} +
 
 //end::faq[]
 

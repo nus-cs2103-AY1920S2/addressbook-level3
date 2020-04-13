@@ -38,7 +38,7 @@ public class PlayPanel extends UiPart<Region> {
     private Label noRemaining;
 
     @FXML
-    private ProgressBar progress;
+    private ProgressBar progressBar;
 
     @FXML
     private Label progressPercent;
@@ -51,12 +51,13 @@ public class PlayPanel extends UiPart<Region> {
 
     public PlayPanel(ObservableValue<Card> playingCard, ObservableValue<Boolean> flipped,
                      ObservableValue<Integer> cardAttempted, ObservableValue<Integer> cardRemaining) {
-        super(FXML);
 
+        //initialize view
+        super(FXML);
         back.setVisible(false);
-        progress.setProgress(0);
+        progressBar.setProgress(0);
         progressPercent.setText("0.0%");
-        progress.prefWidthProperty().bind(progressRoot.widthProperty().subtract(40));
+        progressBar.prefWidthProperty().bind(progressRoot.widthProperty().subtract(40));
 
         //Load playing card
         playingCard.addListener((observable, oldValue, newValue) -> {
@@ -76,6 +77,7 @@ public class PlayPanel extends UiPart<Region> {
             }
         });
 
+        //Display new value and recalculate progress bar when number of Cards attempted changes
         cardAttempted.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 attempted = newValue;
@@ -84,6 +86,7 @@ public class PlayPanel extends UiPart<Region> {
             }
         });
 
+        //Display new value and recalculate progress bar when number of Cards remaining changes
         cardRemaining.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 remaining = newValue;
@@ -94,7 +97,7 @@ public class PlayPanel extends UiPart<Region> {
     }
 
     /**
-     * Shows current playing card in right panel.
+     * Shows current playing card on right panel.
      *
      * @param card card to be shown
      */
@@ -106,10 +109,13 @@ public class PlayPanel extends UiPart<Region> {
         instruction.setText("Type 'flip' to reveal back face");
     }
 
+    /**
+     * Changes value of progress bar based on noOfCards attempted and remaining
+     */
     private void setProgress() {
         double currentProgress = Double.valueOf(attempted) / (attempted + remaining);
         double prog = currentProgress * 100;
         progressPercent.setText(String.format("%.1f", prog) + "%");
-        progress.setProgress(currentProgress);
+        progressBar.setProgress(currentProgress);
     }
 }

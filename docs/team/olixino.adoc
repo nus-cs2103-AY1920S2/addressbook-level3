@@ -33,7 +33,7 @@ scalability of the code since all operations are handled at one same place.
 * *Minor enhancement*: added create/remove/rename deck command and add/delete card commands as the core functionality of the app.
 
 
-* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=oLiXino&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional and Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=olixino&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=oLiXino&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional and Test code]]
 
 * *Other contributions*:
 
@@ -56,11 +56,17 @@ https://github.com/oLiXino/ped/issues/1[#1] https://github.com/oLiXino/ped/issue
 |===
 
 include::../UserGuide.adoc[tag=play-view-language]
+
 ---
+
 include::../UserGuide.adoc[tag=flip-language]
+
 ---
+
 include::../UserGuide.adoc[tag=answer-language]
+
 ---
+
 include::../UserGuide.adoc[tag=stop-language]
 
 == Contributions to the Developer Guide
@@ -70,7 +76,8 @@ include::../UserGuide.adoc[tag=stop-language]
 |===
 
 include::../DeveloperGuide.adoc[tag=model]
----
-include::../DeveloperGuide.adoc[tag=play]
 
+---
+
+include::../DeveloperGuide.adoc[tag=play]
 
