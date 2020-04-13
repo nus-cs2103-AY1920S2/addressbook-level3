@@ -527,6 +527,9 @@ image::FindListCommandActivityDiagram.png[]
 
 // end::categoricalsubstringfindsearch[]
 
+
+<<<
+
 // tag::lexicographicalordering[]
 [[Implementation-LexicographicalOrder]]
 === Lexicographical `Food` order
@@ -642,8 +645,6 @@ model.updateFilteredFoodRecord(Model.PREDICATE_SHOW_ALL_FOODS);
 - More troublesome as we require self-defined methods, abstracted over the existing ones. If not careful, these self-defined methods can possibly contain violations of certain software engineering principles, which may introduce regression in the future.
 - May be inefficient in using resources.
 
-<<<
-
 ==== Summary
 
 The `UniqueFoodList` facilitates the lexicographical ordering of `Food` objects and hence how their respective entries appear in the GUI `Food Record`. This can be summarised in the activity diagram below:
@@ -699,6 +700,8 @@ Step 3: `ExportCommand` then calls the `generateExport` method of `ExportGenerat
 
 Step 4: A new `CommandResult` object indicating the result of the execution is then constructed and reflected in the GUI.
 
+<<<
+
 [[Design-Export]]
 ==== Design considerations
 
@@ -746,6 +749,8 @@ Step 4: A new `CommandResult` object indicating the result of the execution is t
 ** Cons:
 - Unable to reap benefits of the above alternatives.
 
+<<<
+
 ==== Summary
 
 In short, this section addresses how users are able to obtain an editable copy of the current `FoodRecord` using the `export` command.
@@ -759,6 +764,7 @@ image::ExportActivityDiagram.png[]
 
 // end::exportfoodrecord[]
 
+<<<
 
 [[Implementation-ConsumptionManagement]]
 === `Food` consumption management
@@ -806,6 +812,12 @@ Here is what happens when different classes call `toModelType`: +
 
 Below shows the high level view of the initialization process:
 
+
+[NOTE]
+For the subsequent sequence diagrams in the section,
+the lifelines for objects should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
 .Sequence Diagram for loading of Consumption Record
 image::ConsumptionRecordSequenceDiagram.png[]
 
@@ -823,10 +835,6 @@ Step 2: `NomCommandParser` gets relevant values from `Prefixes` of input `String
 It specifically checks if there exists a `DailyFoodLog` with the same `LocalDate` as what was parsed so that it can use existing information if
 they are already present. From all these information, a `DailyFoodLog` object representing the result of consuming a `Food` is created, and supplied to create
 `NomCommand`. The diagram below shows how this happens:
-
-[NOTE]
-For the subsequent sequence diagrams in the section,
-the lifelines for objects should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 .Sequence Diagram for parsing of Nom command
 image::NomCommandParserSequenceDiagram.png[]
@@ -1165,6 +1173,7 @@ image::RealTimeSuggestionActivityDiagram.png[]
 [[Implementation-HelpGuide]]
 //tag:: helpCommand[]
 === Command guide `help` command
+(by Janice)
 
 This section addresses how the `help` command works.
 
