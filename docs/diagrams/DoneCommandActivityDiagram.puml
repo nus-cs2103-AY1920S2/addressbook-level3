@@ -1,0 +1,23 @@
+@startuml
+
+start
+:User executes done command;
+:Done command parser parses input;
+if () then ([module code specified by user])
+    if () then ([module code and index inputted are valid])
+        :Mark the specified task in module task list as done;
+        :Show the updated list of tasks
+        for this module on result display;
+        :Update on calendar;
+    else ([else])
+    endif
+else ([else])
+    if () then ([index inputted is valid])
+        :Mark the specified task on calendar as done;
+        :Update display of calendar;
+        :Update module book when needed;
+     else ([else])
+     endif
+endif
+stop
+@enduml

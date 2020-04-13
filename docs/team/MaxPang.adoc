@@ -30,7 +30,7 @@ The application is intended to help NUS students solve their productivity issues
 * *Other Contributions*:
 
 ** Documentation:
-*** Tweaks to existing User Guide
+*** Tweaks to existing Developers Guide
 ** Reviewing/mentoring contribution:
 *** Gave feedbacks and reviewed on code pull requests
 ** Community:

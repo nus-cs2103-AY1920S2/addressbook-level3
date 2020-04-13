@@ -39,5 +39,5 @@ NUSProductivity is a desktop application for NUS students. The user interacts wi
 *** Reviewed pull requests with non-trivial comments at least twice (for other teams in the class)
 
 ** Community:
-*** Reported at least twelve bugs and suggestions for other teams in the class
+*** Reported at least twelve bugs and suggestions for other teams in the class (example: [https://github.com/xuanxinng/ped/issues/1[#1]])
 
