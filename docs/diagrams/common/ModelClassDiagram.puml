@@ -18,6 +18,8 @@ Package Model <<Rectangle>> {
     Class WorkoutList
     Class ScheduleList
     Class LogList
+    Class TimerList
+    Class OngoingWorkout
 
     Class Model
     Class ModelManager
@@ -38,6 +40,10 @@ Package Model <<Rectangle>> {
     Package Log {
         Class HiddenLogModel #FFFFFF
     }
+
+    Package Timer {
+            Class HiddenLogModel #FFFFFF
+    }
 }
 
 Class HiddenOutside #FFFFFF
@@ -57,9 +63,12 @@ ModelManager o--> "1" ExerciseList
 ModelManager o--> "1" WorkoutList
 ModelManager o--> "1" ScheduleList
 ModelManager o--> "1" LogList
+ModelManager o--> "1" OngoingWorkout
+ModelManager o--> "1" TimerList
 
 ExerciseList ...down.> Exercise
 WorkoutList ...down.> Workout
 ScheduleList .down.> Schedule
 LogList .down.> Log
+TimerList ...down.> Timer
 @enduml
