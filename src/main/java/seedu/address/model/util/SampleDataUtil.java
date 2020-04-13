@@ -42,17 +42,17 @@ public class SampleDataUtil {
     public static Student[] getSampleStudents() {
         return new Student[] {
             new Student(new Name("Alex Yeoh"), new MatricNumber("A0187596R"), new Email("alexyeoh@example.com"),
-                getTagSet("friends")),
+                getTagSet("too quiet")),
             new Student(new Name("Bernice Yu"), new MatricNumber("A0125875G"), new Email("berniceyu@example.com"),
-                getTagSet("colleagues", "friends")),
+                getTagSet("perfect", "hardworking", "future TA")),
             new Student(new Name("Charlotte Oliveiro"), new MatricNumber("A0123456A"),
-                    new Email("charlotte@example.com"), getTagSet("neighbours")),
+                    new Email("charlotte@example.com"), getTagSet("noisy", "distracting", "2nd time as my student")),
             new Student(new Name("David Li"), new MatricNumber("A0356982H"), new Email("lidavid@example.com"),
-                getTagSet("family")),
+                getTagSet()),
             new Student(new Name("Irfan Ibrahim"), new MatricNumber("A0167954H"), new Email("irfan@example.com"),
-                getTagSet("classmates")),
+                getTagSet("always late")),
             new Student(new Name("Roy Balakrishnan"), new MatricNumber("A0136975F"), new Email("royb@example.com"),
-                getTagSet("colleagues"))
+                getTagSet())
         };
     }
 
