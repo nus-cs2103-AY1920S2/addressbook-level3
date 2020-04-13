@@ -11,7 +11,8 @@ endif::[]
 === Aakanksha Rai - UML Diagrams
 
 Some sections from the explanations have been removed from this document in order
-to fit the page requirement. Read the Developer Guide for more details
+to fit the page requirement. Please read the Developer Guide for more detailed
+explanations.
 
 ---
 
