@@ -60,9 +60,13 @@ public class ModuleListTest extends ModuleList {
 
     @Test
     public void hasModule_moduleDeletedFromModuleList_returnsFalse() throws ParseException {
-        moduleList.addModule(module);
-        moduleList.removeModuleWithModuleCode(moduleCode);
-        assertFalse(moduleList.hasModule(module));
+        try {
+            moduleList.addModule(module);
+            moduleList.removeModuleWithModuleCode(moduleCode);
+            assertFalse(moduleList.hasModule(module));
+        } catch (ParseException e) {
+            throw e;
+        }
     }
 
     @Test
@@ -85,9 +89,13 @@ public class ModuleListTest extends ModuleList {
 
     @Test
     public void removeModuleWithModuleCode_moduleCodeInModuleList_returnsTrue() throws ParseException {
-        moduleList.addModule(module);
-        moduleList.removeModuleWithModuleCode(moduleCode);
-        assertFalse(moduleList.hasModuleWithModuleCode(moduleCode)); //false because module not in list anymore
+        try {
+            moduleList.addModule(module);
+            moduleList.removeModuleWithModuleCode(moduleCode);
+            assertFalse(moduleList.hasModuleWithModuleCode(moduleCode)); //false because module not in list anymore
+        } catch (ParseException e) {
+            throw e;
+        }
     }
 
     @Test
@@ -95,9 +103,9 @@ public class ModuleListTest extends ModuleList {
         assertThrows(ParseException.class, () -> moduleList.removeModuleWithModuleCode(moduleCode));
     }
 
-//    @Test
-//    public void removeModuleWithModuleCode_nullModuleCode_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> moduleList.removeModuleWithModuleCode(null));
-//    }
+    @Test
+    public void removeModuleWithModuleCode_nullModuleCode_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> moduleList.removeModuleWithModuleCode(null));
+    }
 
 }
