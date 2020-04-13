@@ -1202,6 +1202,37 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Command autocomplete
+
+. Unambiguous, single command found
+
+.. Test case: type `gr` into the command box and press kbd:[Tab] +
+   Expected: command box shows completed `graph n/ a/ sd/ ed/` command, with the caret position right after `n/`. Result box shows the `graph` command usage.
+.. Test case: type `add-e` into the command box and press kbd:[Tab] +
+   Expected: command box shows completed `add-e n/ d/ reps/ ew/ sets/` command, with the caret position right after `n/`. Result box shows the `add-e` command usage.
+
+. Ambiguous, multiple commands found
+
+.. Test case: type `a` into the command box and press kbd:[Tab] +
+   Expected: command box shows longest common prefix `add-`, with the caret position at the end of the line. Result box indicates and lists that `add-e` and `add-c` commands are found.
+
+. No valid commands found
+
+.. Test case: type `Fitbiz!` into the command box and press kbd:[Tab] +
+   Expected: command box and caret positions does not change. Result box indicates that no commands were found.
+
+. Prefix traversal when commands are completed with white spaces
+
+.. Test case: type `graph n/ a/ sd/ ed/` into the command box and press kbd:[Tab] +
+   Expected: caret position travels around all the `/` with wraparound.
+.. Test case: type `///` into the command box and press kbd:[Tab] +
+   Expected: command box and caret positions does not change. Result box indicates that no commands were found. This is similar to 3, no valid commands found.
+
+. Commands with white spaces but without `/`
+
+.. Test case: type `i <3 2103` into the command box and press kbd:[Tab] +
+   Expected: command box and caret positions does not change. Result box does not change. Basically nothing happens.
+
 === Deleting a client
 
 . Deleting a client while all clients are listed
