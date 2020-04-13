@@ -29,7 +29,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(getTypicalFitHelper(), new UserProfile(), new WeightRecords());
 
     @Test
-    public void executeValidIndexUnfilteredFoodListSuccess() {
+    public void execute_validIndex_unfilteredFoodList_success() {
         Entry foodEntryToDelete = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(new Type("food"), INDEX_FIRST_ENTRY);
 
@@ -42,7 +42,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void executeInvalidIndexUnfilteredFoodListThrowsCommandException() {
+    public void execute_invalidIndexUnfilteredFoodList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFoodEntryList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(new Type("food"), outOfBoundIndex);
 
@@ -50,7 +50,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void executeInvalidIndexFilteredFoodListThrowsCommandException() {
+    public void execute_invalidIndexFilteredFoodList_throwsCommandException() {
         showEntryAtIndex(model, INDEX_FIRST_ENTRY);
 
         Index outOfBoundIndex = INDEX_SECOND_ENTRY;

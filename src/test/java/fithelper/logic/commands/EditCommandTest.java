@@ -29,7 +29,7 @@ public class EditCommandTest {
     private Model model = new ModelManager(getTypicalFitHelper(), new UserProfile(), new WeightRecords());
 
     @Test
-    public void executeAllFieldsSpecifiedUnfilteredListSuccess() {
+    public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Entry editedEntry = new EntryBuilder().build();
         EditEntryDescriptor descriptor = new EditEntryDescriptorBuilder(editedEntry).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTRY, descriptor);

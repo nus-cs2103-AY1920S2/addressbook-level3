@@ -13,7 +13,7 @@ public class HelpCommandTest {
     private Model expectedModel = new ModelManager();
 
     @Test
-    public void executeHelpSuccess() {
+    public void execute_help_success() {
         CommandResult expectedCommandResult =
                 new CommandResult(MESSAGE_SUCCESS, CommandResult.DisplayedPage.HELP, false);
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
