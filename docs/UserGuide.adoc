@@ -737,7 +737,6 @@ The <<Finding coupons by name: `find`, `find`>> command searches the
 found
 in the <<Archiving a coupon: `archive`, `archive`>> are displayed **below** the
 non-archived matches.
-// Insert GIF/image
 
 // end::find[]
 
@@ -776,7 +775,6 @@ Shows you all the coupons that expire during September 2020.
 The `expiring` command will include <<_archiving_a_coupon_archive, archived>>
 coupons in its results too. Coupons that are expiring in the archives are
 displayed **below** the non-archived matches.
-// Insert GIF/image
 // end::expiring[]
 
 // tag::sort[]
@@ -795,8 +793,7 @@ runtime of the  program.
 The command will sort any coupons currently on screen, including
 <<_archiving_a_coupon_archive, archived>> coupons, if they are present on
 screen. <<_archiving_a_coupon_archive, Archived>> coupons will always appear
-**below** active coupons.
-// Put GIF here
+**below** the active coupons.
 
 Format: `sort PREFIX`
 
