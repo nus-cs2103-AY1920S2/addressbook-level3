@@ -1764,12 +1764,10 @@ Use case ends.
 [none]
 * 1a. EYLAH detects empty ItemName, ItemPrice or Person(s)
 +
-[none]
 ** 1a1. EYLAH displays an error message and displays an example of a correct `additem` function.
 +
 Use case ends.
 
-[none]
 * 1b. Eylah detects invalid <<syntax,syntax>>.
 
 +
@@ -1798,10 +1796,8 @@ Use case ends.
 
 *Extensions*
 
-[none]
 * 1a. User did not input the Index of the Item. (Inserting `deleteitem` instead of  `deleteitem 1`)
 +
-[none]
 ** 1a1. EYLAH displays an error message and displays an example of a correct `deleteitem` function.
 +
 Use case ends.
