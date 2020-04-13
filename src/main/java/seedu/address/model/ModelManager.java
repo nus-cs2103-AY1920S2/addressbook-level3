@@ -444,7 +444,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Day> getScheduleVisualResult() {
+    public ObservableList<Day> getSchedule() {
         return this.schedule.getScheduleList();
     }
 
