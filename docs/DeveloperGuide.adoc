@@ -512,7 +512,8 @@ public AssignAssignmentToCourseCommand(AssignDescriptor assignDescriptor, Set<Pr
 the `Assign` Command will add those `Progress` objects back. Please see the activity diagram below for a better understanding of when the
 Undo Progress will be added back in.
 
-image::Ivan-ActivityDiagramUndoAssign.png[]
+.Activity Diagram of executing executeUndoableCommand of Assign Commands
+image::Ivan-ActivityDiagramAssignUndo.png[]
 ---
 
 This results in the *correct* `Progress` objects, which may or may not be `Done`, to be added back in instead of completely new `Progress` objects that are all `Undone`.
