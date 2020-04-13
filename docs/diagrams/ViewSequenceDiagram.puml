@@ -13,52 +13,52 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
---> LogicManager : excute("view-c 3)
-activate LogicManager
+-[LOGIC_COLOR]> LogicManager : excute("view-c 3)
+activate LogicManager LOGIC_COLOR
 
-LogicManager --> FitBizParser : parseCommand("view-c 3")
-activate FitBizParser
+LogicManager -[LOGIC_COLOR]> FitBizParser : parseCommand("view-c 3")
+activate FitBizParser LOGIC_COLOR
 
-FitBizParser --> ViewCommandParser
-activate ViewCommandParser
+FitBizParser -[LOGIC_COLOR]> ViewCommandParser : ViewCommandParser()
+activate ViewCommandParser LOGIC_COLOR
 
-ViewCommandParser --> FitBizParser
+ViewCommandParser --[LOGIC_COLOR]> FitBizParser
 deactivate ViewCommandParser
 
-FitBizParser --> ViewCommandParser : parse("3")
-activate ViewCommandParser
+FitBizParser -[LOGIC_COLOR]> ViewCommandParser : parse("3")
+activate ViewCommandParser LOGIC_COLOR
 
-ViewCommandParser --> ViewCommand
-activate ViewCommand
+ViewCommandParser -[LOGIC_COLOR]> ViewCommand : ViewCommand()
+activate ViewCommand LOGIC_COLOR
 
-ViewCommand --> ViewCommandParser : v
+ViewCommand --[LOGIC_COLOR]>> ViewCommandParser : v
 deactivate ViewCommand
 
-ViewCommandParser --> FitBizParser : v
+ViewCommandParser --[LOGIC_COLOR]> FitBizParser : v
 deactivate ViewCommandParser
 
-FitBizParser --> LogicManager : v
+FitBizParser --[LOGIC_COLOR]> LogicManager : v
 deactivate FitBizParser
 
-LogicManager --> ViewCommand : execute()
-activate ViewCommand
+LogicManager -[LOGIC_COLOR]> ViewCommand : execute()
+activate ViewCommand LOGIC_COLOR
 
-ViewCommand --> Model : setClientInView()
-activate Model
+ViewCommand -[LOGIC_COLOR]> Model : setClientInView()
+activate Model MODEL_COLOR
 
 Model --> ViewCommand
 deactivate Model
 
-ViewCommand --> CommandResult
-activate CommandResult
+ViewCommand -[LOGIC_COLOR]> CommandResult
+activate CommandResult  LOGIC_COLOR
 
-CommandResult --> ViewCommand : result
+CommandResult --[LOGIC_COLOR]> ViewCommand : result
 deactivate CommandResult
 
-ViewCommand --> LogicManager : result
+ViewCommand --[LOGIC_COLOR]> LogicManager : result
 deactivate ViewCommand
 
-<-- LogicManager : result
+<[LOGIC_COLOR]-- LogicManager : result
 deactivate LogicManager
 
 @enduml
