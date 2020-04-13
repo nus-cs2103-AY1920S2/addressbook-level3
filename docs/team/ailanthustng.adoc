@@ -208,3 +208,15 @@ include::../DeveloperGuide.adoc[tag=ailandeleteitemusecase]
 
 '''
 include::../DeveloperGuide.adoc[tag=ailanclearreceiptusecase]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailanappendixgadditem]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailanappendixgdeleteitem]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailanappendixgdonereceipt]
+
+'''
+include::../DeveloperGuide.adoc[tag=ailanappendixgclearreceipt]

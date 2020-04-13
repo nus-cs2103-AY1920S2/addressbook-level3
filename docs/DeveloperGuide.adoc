@@ -2274,6 +2274,7 @@ Expected: Weight will not be stored.
 Error message shown with details.
 //end::appendixdtweight[]
 
+//tag::ailanappendixgadditem[]
 === Add Item In Expense Splitter
 
 . Adding an Item into the current Receipt.
@@ -2286,10 +2287,26 @@ with the number of person splitting that item.
 
 .. Test case: `Invalid Syntax` +
 Expected: No item is added to the current receipt and no change to person amount.
-Error details shown in the response message.
+An error message will be displayed.
+//end::ailanappendixgadditem[]
+
+//tag::ailanappendixgdeleteitem[]
+=== Delete Item In Expense Splitter
+
+. Deleting an Item from the current Receipt.
+
+.. Delete Item Command format: `deleteitem INDEX`
+
+.. Test case: `delete 1` +
+Expected: Removes the item of the specified index from the receipt.
+
+.. Test case: `Invalid Syntax` +
+Expected: No item will be deleted from the current receipt.
+An error message will be displayed.
+//end::ailanappendixgdeleteitem[]
 
 //tag::willylistreceiptappendixg[]
-=== List Receipt in Expense Spliter
+=== List Receipt in Expense Splitter
 
 . Listing the items contained in the current receipt. The order of items listed depends on the order
 of items added by the user.
@@ -2323,6 +2340,17 @@ deleted from the PersonList.
 Expected: If there are no Person in the list: EYLAH will inform user that there no one owes money.
 //end::willylistamountappendixg[]
 
+//tag::ailanappendixgdonereceipt[]
+=== Done Receipt In Expense Splitter
+
+. Marks the current receipt as done.
+
+.. Done Receipt Command format: `donereceipt`
+
+.. Test case: `donereceipt` +
+Expected: The receipt is marked as done. A success message will be displayed.
+//end::ailanappendixgdonereceipt[]
+
 //tag::willypaidappendixg[]
 === Paid Command In Expense Splitter
 
@@ -2339,6 +2367,17 @@ Expected: Reduces the entire amount of money the Person at Index 1 owes.
 .. Test case: `paid -1` +
 Expected: EYLAH will inform the user that INDEX is incorrect.
 //end::willypaidappendixg[]
+
+//tag::ailanappendixgclearreceipt[]
+=== Clear Receipt In Expense Splitter
+
+. Clears the receipt and marks the receipt as undone.
+
+.. Clear Receipt Command format: `clearreceipt`
+
+.. Test case: `clearreceipt` +
+Expected: The receipt is cleared and is marked as undone. A success message will be displayed.
+//end::ailanappendixgclearreceipt[]
 
 === Saving data
 
