@@ -15,8 +15,8 @@
 
 == Summary of contributions
 === Major Enhancements:
-* *Added the model for Assignment and the necessary basic commands*
-** *What it does:* The model forms the backbone of most commands which require Assignment and the basic commands allow adding, deleting and editing an assignment
+* *Added the model for Schoolwork Tracker and the necessary basic commands*
+** *What it does:* The model forms the backbone of all commands for the Schoolwork Tracker and the basic commands allow adding, deleting and editing an assignment.
 ** *Justification:* Naggy Joel is designed to enable students to keep track of their assignments so that they can make the most out of their university life. As such, this addition is crucial as it would later be involved in some of the future enhancements.
 ** *Highlights:* This enhancement requires an understanding of what a typical assignment should consist of so that it does not violate the law of demeter and learning of RegEx.
 ** *Credits:* _Referenced the original AddressBook and Person Model_
