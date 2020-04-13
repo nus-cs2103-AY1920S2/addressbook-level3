@@ -1,5 +1,6 @@
 @startuml
 /' @author @jarrod-bob'/
+/' @author @akhilvuputuri'/
 
 !include style.puml
 
@@ -9,7 +10,7 @@ participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
 participant ":ListCommandParser" as ListCommandParser LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 participant "l:ListCommand" as ListCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -17,7 +18,7 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
-participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
+participant ":DietStorage" as FoodBookStorage STORAGE_COLOR
 end box
 
 [-> LogicManager : execute("list -d 3")
@@ -51,9 +52,6 @@ deactivate ListCommand
 
 ListCommandParser --> FoodBookParser : l
 deactivate ListCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-ListCommandParser -[hidden]-> FoodBookParser
-destroy ListCommandParser
 
 FoodBookParser --> LogicManager : l
 deactivate FoodBookParser
@@ -77,16 +75,23 @@ create CommandResult
 ListCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> ListCommand
+CommandResult --> ListCommand : result
 deactivate CommandResult
 
-ListCommand --> LogicManager : commandResult
+ListCommand --> LogicManager : result
 deactivate ListCommand
 
 ListCommand -[hidden]-> LogicManager
 destroy ListCommand
+destroy ListCommandParser
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+LogicManager -> FoodBookStorage : saveMyself(myself)
 activate FoodBookStorage
 
 FoodBookStorage --> LogicManager

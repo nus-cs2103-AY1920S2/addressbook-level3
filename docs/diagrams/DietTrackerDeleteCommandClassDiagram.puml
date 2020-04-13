@@ -17,12 +17,13 @@ interface Parser<T extends Command> {
     parse(userInput : String) : DeleteCommand
 }
 
-abstract class Command {
-    {abstract} execute(dietModel:Model) : CommandResult
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class DeleteCommand extends Command {
     /' Fields '/
+
 
     /' Methods '/
     + execute(dietModel : DietModel) : CommandResult

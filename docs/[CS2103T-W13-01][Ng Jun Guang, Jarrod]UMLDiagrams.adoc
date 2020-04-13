@@ -1,28 +1,80 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-== Willy Seah Wee Hung UML Diagrams
+== Ng Jun Guang, Jarrod UML Diagrams
 
+* *Add Command Activity & Sequence Diagram*
 
-* *Paid Command UML Diagrams*
+image::DietTrackerAddCommandActivityDiagram.png[]
 
-image::ExpenseSplitterPaidCommandActivityDiagram.png[]
+image::DietTrackerAddCommandSequenceDiagram.png[]
 
-image::ExpenseSplitterPaidCommandClassDiagram.png[]
+* *Delete Command Activity & Sequence Diagram*
 
-image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
+image::DietTrackerDeleteCommandActivityDiagram.png[]
 
-image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
+image::DietTrackerDeleteCommandSequenceDiagram.png[]
 
-* *Expense Splitter Overall Activity Diagram*
+* *Edit Command Activity & Sequence Diagram*
 
-image::ExpenseSplitterActivityDiagramV2.png[]
+image::DietTrackerEditCommandActivityDiagram.png[]
 
-image::ExpenseSplitterActivityDiagram.png[]
+image::DietTrackerEditCommandSequenceDiagram.png[]
 
-* *List Amount Command UML Diagrams*
+* *List Command Activity & Sequence Diagrams*
 
-image::ExpenseSplitterListAmountCommandClassDiagram.png[]
+image::DietTrackerListCommandActivityDiagram.png[]
 
-image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+image::DietTrackerListCommandAllSequenceDiagram.png[]
+
+image::DietTrackerListCommandDaySequenceDiagram.png[]
+
+image::DietTrackerListCommandTagSequenceDiagram.png[]
+
+* *Bmi Command UML Diagrams*
+
+image::DietTrackerBmiCommandActivityDiagram.png[]
+
+image::DietTrackerBmiCommandClassDiagram.png[]
+
+image::DietTrackerBmiCommandNILSequenceDiagram.png[]
+
+image::DietTrackerBmiCommandNILSequenceDiagram2.png[]
+
+image::DietTrackerBmiCommandSequenceDiagram.png[]
+
+image::DietTrackerBmiCommandSequenceDiagram2.png[]
+
+* *Height Command UML Diagrams*
+
+image::DietTrackerHeightCommandActivityDiagram.png[]
+
+image::DietTrackerHeightCommandClassDiagram.png[]
+
+image::DietTrackerHeightCommandSequenceDiagram.png[]
+
+* *Weight Command UML Diagrams*
+
+image::DietTrackerWeightCommandActivityDiagram.png[]
+
+image::DietTrackerWeightCommandClassDiagram.png[]
+
+image::DietTrackerWeightCommandSequenceDiagram.png[]
+
+* *Mode Command UML Diagrams*
+
+image::DietTrackerModeCommandActivityDiagram.png[]
+
+image::DietTrackerModeCommandClassDiagram.png[]
+
+image::DietTrackerModeCommandSequenceDiagram.png[]
+
+* *Metric Command UML Diagrams*
+
+image::DietTrackerMetricsCommandActivityDiagram.png[]
+
+image::DietTrackerMetricsCommandClassDiagram.png[]
+
+image::DietTrackerMetricsCommandSequenceDiagram.png[]
+
 

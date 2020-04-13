@@ -13,19 +13,15 @@ class BmiCommandParser implements Parser {
 }
 
 interface Parser<T extends Command> <<Interface>> {
-    parse(userInput : String) : Command
+    parse(userInput : String) : BmiCommand
 }
 
-abstract class Command {
-    {abstract} execute(dietModel:DietModel) : CommandResult
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class BmiCommand extends Command {
     /' Fields '/
-    + COMMAND_WORD : String = "bmi"
-    + MESSAGE_USAGE : String
-    + MESSAGE_CALCULATE_BMI_SUCCESS : String
-
     - bmi : Bmi
     - height : Height
     - weight : Weight
@@ -107,9 +103,9 @@ BmiCommand ..> DietModel
 BmiCommandParser ..> BmiCommand
 BmiCommandParser ..> Height
 BmiCommandParser ..> Weight
-BmiCommand --> Height
-BmiCommand --> Weight
-BmiCommand --> Bmi
+BmiCommand *--> Height
+BmiCommand *--> Weight
+BmiCommand *--> Bmi
 
 
 @enduml
