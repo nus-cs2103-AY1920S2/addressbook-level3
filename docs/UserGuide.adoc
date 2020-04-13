@@ -19,11 +19,12 @@ By: `AY1920S2-CS2103T-W16-1`      Since: `Jan 2020`      Licence: `NUS`
 
 .Cover Page of User Guide.
 image::CoverPage.png[width="790"]
-
+//tags::intro
 == What is BB Productive?
 
 BB Productive is for those who looking for motivation in their work. This app serves as a great task manager and includes a Pomodoro feature and a Pet companion. It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BB Productive can get you to get tasks done faster. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
+//tags::about
 == About this document
 
 BB Productive is for those who looking for motivation in their work. This app serves as a great task manager and includes a Pomodoro feature and a Pet companion. It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BB Productive can get you to get tasks done faster. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
@@ -285,6 +286,7 @@ image::clear_success.png[width=790]
 
 //end::TaskList[]
 
+//tags::pet
 === Pet
 anchor:pet[]
 

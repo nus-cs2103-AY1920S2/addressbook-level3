@@ -3,6 +3,10 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+image::fyonnoh.png[width="200", align="left"]
+{empty}[https://github.com/FyonnOh[github]] +
+{empty}[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=FyonnOh&tabRepo=AY1920S2-CS2103T-W16-1%2Fmain%5Bmaster%5D[CodeBase]]
+
 == PROJECT: BB Productive - Level 3
 
 ---
@@ -42,9 +46,10 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=pet]
+include::../UserGuide.adoc[tag=setcommands]
+include::../UserGuide.adoc[tag=intro]
+include::../UserGuide.adoc[tag=about]
 
 == Contributions to the Developer Guide
 
@@ -52,7 +57,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-
+include::../DeveloperGuide.adoc[tag=pet]
+include::../DeveloperGuide.adoc[tag=setcommands]
+include::../DeveloperGuide.adoc[tag=DoneAndDelete]
 == PROJECT: PowerPointLabs
 
 ---
