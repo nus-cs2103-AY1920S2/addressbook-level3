@@ -110,31 +110,25 @@ https://github.com/AY1920S2-CS2103T-F09-1/main/pull/284[#284]
 ** Community:
 *** Contributed to forum discussions
 (example:  https://github.com/nus-cs2103-AY1920S2/forum/issues/7[1])
-*** Reported bugs and suggestions for other teams in the class (examples:
-https://github.com[1], https://github.com[2], https://github.com[3])
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my
-ability to write documentation targeting end-users._
+|Here are some sections of the User Guide authored by me.
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=undo]
+
+include::../UserGuide.adoc[tag=redo]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase
-my ability to write technical documentation and the technical depth of my
-contributions to the project._
+|_These are some sections I contributed to the Developer Guide.
+Highlights include frequent use of Unified Modelling Language
+(UML) diagrams to illustrate associations between program components._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=savings]

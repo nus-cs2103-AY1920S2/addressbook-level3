@@ -25,7 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Architecture Diagram of Coupon Stash.
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the
@@ -69,7 +69,7 @@ Each of the four components
 The _Sequence Diagram_ below shows how the components interact with each other
 for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete 1` command.
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -77,7 +77,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the UI Component.
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/csdev/couponstash/ui/Ui.java[`Ui.java`]
@@ -88,7 +88,7 @@ All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The TabsPanel can be further divided into three tabs - `HelpPane`, `SummaryPane`
 and the `CouponListPanel`. The `CouponListPanel` contains the `CouponCard` that
-represents the `Coupon` s themselves.
+represents the ``Coupon``s themselves.
 
 The `CalendarResultsDisplayPanel` is split into two UI components - the
 `CalendarPane` and the `ResultDisplay`. As the name suggests, the `CalendarPane`
@@ -114,7 +114,7 @@ modified data.
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Structure of the Logic Component.
 image::LogicClassDiagram.png[]
 
 *API* :
@@ -131,7 +131,7 @@ certain actions, such as displaying help to the user.
 Given below is the Sequence Diagram for interactions within the `Logic`
 component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete 1` Command.
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker
@@ -141,7 +141,7 @@ diagram. This limitation affects all of the sequence diagrams in this document.
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Structure of the Model Component.
 image::ModelClassDiagram.png[]
 
 *API* :
@@ -170,7 +170,7 @@ image:BetterModelClassDiagram.png[]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+.Structure of the Storage Component.
 image::StorageClassDiagram.png[]
 
 *API* :
@@ -251,7 +251,7 @@ state, and restores the coupon stash to that state. Plus, the command text is
 returned, thus allowing for the display of the command that was undone. In this
 case, the command undone is `add n/OMO STORE...`.
 
-.`currStateIndex` shifted once to the left
+.`currStateIndex` shifted once to the left.
 image::UndoRedoState3.png[]
 
 [NOTE]
@@ -515,7 +515,7 @@ by Coupon Stash.
 
 [#img-automaticarchiving]
 .Activity diagram representation of the general flow of archiving of coupons in Coupon Stash
-image::ArchivingActivityDiagram.png[]
+image::ArchivingActivityDiagram.png[width="300"]
 
 **Archiving of Expired Coupons**
 
@@ -579,9 +579,9 @@ image::ArchiveExhaustedSequenceDiagram.png[]
 ** Cons: Saved data may get get considerably huge after heavy usage of
 application.
 
-* **Alternative 2:** Archived ``Coupon`` s are stored in another separate data file.
+* **Alternative 2:** Archived ``Coupon``s are stored in another separate data file.
 ** Pros: Separates the logic between the two different `CouponStash`, e.g. ability
-to limit the functions on archived `Coupon` s
+to limit the functions on archived ``Coupon``s
 ** Cons: Sharply increases the maintainability and coupling of the application
 with two data files.
 
@@ -1561,59 +1561,29 @@ code, or barcode) (coming in in v2.0)
 [appendix]
 == Glossary
 
-[red]# Terms that are italicised inline code (e.g `_operating system_`) can be
-found with definitions here. #
-
-. **Apple** - American technology company well known for lifestyle devices like
-iPhone and iPad, which are manufactured exclusively by exploited minimum wage
-workers in China and Taiwan.
-. **coding** - the process of writing code that represents a computer program,
-or using a programming language to get a computer to behave how you want it to.
-. **Coupon Stash** - the program that makes handling your coupons easier, and
+* **Coupon Stash** - the program that makes handling your coupons easier, and
 also the subject matter of this Developer Guide.
-. **common operating system** - refers to the most widely seen `_operating
-systems_` within the top 3 most common `_desktop_` `_operating system
-families_`, namely `_Microsoft Windows_`, `_Apple_` Mac OS X and `_GNU
-Project_` Linux as of February 2020 (and within these families, Windows 10,
-macOS Catalina, no data for Linux).
-. **desktop** - a computer meant for use at an ordinary desk, usually one with
-a screen, as well as devices that allow people to interact with the computing
-system with physical controls such as a moveable hand-held device typically
-with large buttons and a wheel called a mouse, as well as a panel of buttons
-with printed alphanumeric characters known as a keyboard.
-. **GNU Project** - a label used for certain open-source software applications
-that are developed completely without expectation of remuneration, the acronym
-GNU in this case does not refer to any significant terms and can instead be
-taken just as a distinctive name.
-. **Java 11** - the 11th version of the highly popular Java platform and
+* **common operating system** - refers to the most widely seen operating
+systems for desktop computers.
+* **Java 11** - the 11th version of the highly popular Java platform and
 programming language, on which many software applications are built upon.
-. **lag** - the phenomenon where some arbitrary user input takes a noticeable
+* **lag** - the phenomenon where some arbitrary user input takes a noticeable
 and vexatious amount of time to effect a change in the application state.
-. **Microsoft** - American technology company well known for the Windows
-operating system, as well as the highly popular productivity software
-collection `_Microsoft_` Office, amongst various other products which comprise
-mostly of competing offerings to more well-established products, that fail to
-gain as much market share as the precedent.
-. **monetary amounts** - any currency amount (for example, 10.55 may represent
+* **monetary amount** - any currency amount (for example, 10.55 may represent
 10 dollars and 55 cents, or 10 pounds and 55 pence, or 10 pesos and 55
 centavos).
-. **operating system** - a fundamental software application that runs on a
+* **operating system** - a fundamental software application that runs on a
 computer, supporting basic functions such as ability to manage computer memory,
 to allow users to use the device without concern for such technical details.
-. **operating system family** - a group of `_operating systems_` that are
-developed by the same company or organisation, usually with the same branding
-as each other, having visually similar UIs and behaviour.
-. **OS (Operating System)** - see operating system.
-. **promo code** - short for promotional code, usually refer to an unique
+* **OS (Operating System)** - see operating system.
+* **promo code** - short for promotional code, usually refer to an unique
 string of letters and numbers that can be entered in some mobile application to
 redeem certain benefits.
-. **SoC (School of Computing)** - the School of Computing at the National
+* **SoC (School of Computing)** - the School of Computing at the National
 University of Singapore.
-. **source code** - a set of instructions, written in a programming language
+* **source code** - a set of instructions, written in a programming language
 that determine the final application’s internal and external behaviour.
-. **Stash** - a group of something valuable that the user would like to keep
-securely, ideally using our `_Coupon Stash_` application.
-. **UI (User Interface)** - a catch-all term referring to how a computer system
+* **UI (User Interface)** - a catch-all term referring to how a computer system
 and a coupon interacts, usually referring to specific elements displayed on the
 computer screen that the user may interact with such as buttons or text boxes,
 as well as areas where the computer application displays certain outputs to the
@@ -1892,3 +1862,30 @@ another window.
 .. Test case: `help` +
 Expected: A web browser window opens, showing
 the Coupon Stash User Guide.
+
+[appendix]
+== Efforts
+Coupon Stash is the first team-based software engineering project for all of us.
+Without much experience, we faced many difficulties in coordinating our features
+and codes. Since Coupon Stash is User Interface intensive, we had to learn
+JavaFX comprehensively to fulfil the high standards that we set for ourselves.
+Learning a new Framework was as good as learning a new language in itself,
+taking us some time to understand how to fully utilize it.
+
+Each of us would push commits every other day every week to try and complete
+our tasking too. While our product is similar to AB3 in terms of data fields, we
+push it further by adding functionality to these fields. The intertwining of these
+functionality was the most difficult part about this project. We would usually
+try to sort out the implementation on chat, but there are times where one of
+us would mess up the implementation somewhere afterwards, causing a bit of
+debugging. We also try to apply as much of our learning from the textbook,
+but again without much practice, it would usually take us a few iterations
+and discussions to correct our code. Nonetheless, we learnt a lot from this
+project throughout these 7 weeks.
+
+What we believe we did well in was getting our project workflow right from the
+start. Using Github’s project board, issue tracker and branch protections, we
+were able to help each other spot mistakes, ensuring that our master branch
+was always working. Even though we started as strangers, the long weekly
+discussions that we have brought us close! We are definitely proud of the
+product that we created, and believe that it serves its purpose well.
