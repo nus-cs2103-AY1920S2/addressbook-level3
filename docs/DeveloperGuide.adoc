@@ -2574,9 +2574,12 @@ conjunction with our User Guide to test the product thoroughly.
 
 [NOTE]
 ====
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+These instructions only provide a starting point for testers to work on; testers
+are expected to do more _exploratory_ testing.
 
-All of these test cases assume that you have launched TA-Tracker for the first time and have not changed the sample data provided for you.
+All of these test cases assume that you have launched TA-Tracker for the first time
+and have not changed the sample data provided for you. We also assume that you are doing
+the tests in this order. Therefore modules added in previous steps can be used, etc.
 ====
 
 [discrete]
@@ -2585,7 +2588,7 @@ All of these test cases assume that you have launched TA-Tracker for the first t
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Move to the folder and enter the command `java -jar TaTracker.jar` in the terminal +
+.. Open the folder containing the jar and enter the command `java -jar TaTracker.jar` in the terminal +
    Expected: TA-Tracker should start in a few seconds.
 
 . Saving window preferences
@@ -2703,37 +2706,7 @@ If you were on a different tab, you are automatically switched to *Student View*
 .. Test Case: `student edit g/G06 m/CS3243 id/A0187613T r/5` +
 Expected: Changes the rating of the student with matric number `A123456X` to `5`.
 
-[discrete]
-=== Deleting a module
 
-. Deleting a module.
-
-.. Test Case: `module delete m/CS3243` +
-Expected: Assuming you already had a module with module code m/CS3243 in your TA-Tracker,
-this would delete the module with module code m/CS3243. This would also delete all
-groups, students and sessions related to this module.
-.. Test Case: `module delete m/CS3243` +
-Expected: Assuming you already deleted the module with module code m/CS3243 from your TA-Tracker,
-this would show you an error message.
-
-[discrete]
-=== Deleting a student
-
-. Deleting a student from a group
-
-.. Test Case: `student delete g/G06 m/CS1101S id/A0123456X` +
-Expected: Deletes the student with matric number `A123456X` from the group `G06`
-of the module `m/CS1101S`.
-
-[discrete]
-=== Deleting a group
-
-. Deleting a group from a module.
-
-.. Test Case: `group delete g/G06 m/CS1101S` +
-Expected: The group with group code `G06` will be deleted from the module
-`CS1101S`. The students inside the group will be deleted. If you were on a different
-tab, you are automatically switched to *Student View*.
 
 [discrete]
 === Viewing a specific module
@@ -2904,6 +2877,37 @@ Expected: The input is highlighted in red, and the _command usage_ is displayed.
 
 .. Test Case: `session edit m/CS3243` +
 Expected: The input is highlighted in red, and the _constraint for index numbers_ is displayed.
+
+[discrete]
+=== Deleting a module
+
+. Deleting a module.
+
+.. Test Case: `module delete m/CS3243` +
+Expected: Assuming you already had a module with module code m/CS3243 in your TA-Tracker,
+this would delete the module with module code m/CS3243. This would also delete all
+groups, students and sessions related to this module.
+.. Test Case: `module delete m/CS3243` +
+Expected: Assuming you already deleted the module with module code m/CS3243 from your TA-Tracker,
+this would show you an error message.
+
+[discrete]
+=== Deleting a student
+
+. Deleting a student from a group
+
+.. Test Case: `student delete g/G02 m/CS2103T id/A0181137L` +
+Expected: Deletes the student with matric number `A0181137L` from the group `G02`
+of the module `CS2103T`.
+
+[discrete]
+=== Deleting a group
+
+. Deleting a group from a module.
+
+.. Test Case: `group delete g/G02 m/CS2103T` +
+Expected: The group with group code `G02` will be deleted from the module
+`CS2103T`. The students inside the group will be deleted.
 
 [discrete]
 === Exiting the program
