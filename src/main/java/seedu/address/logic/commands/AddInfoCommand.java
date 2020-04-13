@@ -29,7 +29,7 @@ public class AddInfoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_REMARK + " [INFO]\n"
+            + PREFIX_REMARK + " INFO...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_REMARK + "Likes to swim.";
 
