@@ -438,7 +438,7 @@ observable month view.
 ** Cons: Messy to look at when there are multiple coupons expiring on a date & may take up more space on the
 `MainWindow`
 
-Decided on alternative 1, to show coupons expiring on specific dates with highlights. This is because a coupon contains
+We decided on alternative 1, to show coupons expiring on specific dates with highlights. This is because a coupon contains
 many information and the calendar may look cluttered and messy, which may be aesthetically unpleasant to the user.
 Furthermore, the user can use the `expiring` command to search for coupons expiring on a date or month year and have a
 more detailed view of the coupons in the `CouponListPanel`.
@@ -453,7 +453,7 @@ more detailed view of the coupons in the `CouponListPanel`.
 ** Cons: User may be confused if he/she sees a highlighted date on the Calendar when there is no coupon expiring on that
 date in the `CouponListPanel`
 
-Alternative 1 was chosen for the calendar to update with the list in the `CouponListPanel`. This is because this
+We decided on alternative 1, for the calendar to update with the list in the `CouponListPanel`. This is because this
 follows the Observer Pattern Design Principle. Furthermore, this will not confuse the user when the user sees a
 highlighted date on the Calendar when there is no coupon expiring on that date in the `CouponListPanel`.
 
@@ -517,7 +517,6 @@ predicate `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS`.
 [#img-archiveexpired]
 .Sequence diagram representation of archiving expired coupons
 image::ArchiveExpiredSequenceDiagram.png[]
-
 
 **Archiving of Exhausted Coupons**
 
