@@ -200,7 +200,7 @@ image::UGListCDiagram1.png[]
 ==== Parameters
 This section acts as a summary of the important things to note when using `find-c` including their parameters.
 
-Format: `find-c NAME`
+Format: `find-c NAME...`
 
 [options='header']
 [cols="15%,85%"]
@@ -1289,7 +1289,7 @@ Examples:
 |Command | Summary
 |`export INDEX`| Exports client's training record to a CSV file.
 |`help`| Shows all available commands and their description.
-|`view-s TYPE`| Shows schedule for today or time specified.
+|`view-s TYPE` [v2.0]| Shows schedule for today or time specified.
 |=======================================================================
 
 === Client Commands
@@ -1301,9 +1301,10 @@ Examples:
 |`delete-c INDEX`| Deletes a client and its associated exercises.
 |`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​`| Edits an existing client.
 |`filter-c [t/TAG]... [s/Sport]...`| Filters the list of clients based on specified tags or sports.
+|`find-c NAME...`| Filters the list of clients based on specified name.
 |`list-c`| Displays the list of clients in FitBiz.
-|`view-c INDEX`| Displays detailed information of a client.
-|`schedule INDEX [day/DAY] [st/STARTTIME] [et/ENDTIME]`| Assigns a schedule to a client.
+|`schedule INDEX sch/DAY-STARTTIME-ENDTIME`| Assigns a schedule to a client.
+|`view-c INDEX`| Shows detailed information of a client.
 |=======================================================================
 
 === Exercise Commands
@@ -1311,7 +1312,8 @@ Examples:
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`add-e n/EXERCISE_NAME d/DATE ew/WEIGHT reps/REPS sets/SETS`| Adds a new exercise to a client.
-|`delete-e INDEX`| Deletes an exercise in the exercise list of the client.
-|`graph e/Push Ups`| Shows a graph of the exercise progress done by a client.
+|`add-e n/EXERCISE_NAME d/DATE ew/WEIGHT reps/REPS sets/SETS`| Adds a new exercise to the client being viewed.
+|`delete-e INDEX`| Deletes an exercise in the exercise list of the client being viewed.
+|`edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/WEIGHT] [reps/REPS] [sets/SETS]`| Edits the exercise details of the client being viewed.
+|`graph n/NAME a/AXIS sd/STARTDATE ed/ENDDATE`| Shows a graph of the exercise progress done by a client between the indicated dates.
 |=======================================================================
