@@ -163,7 +163,7 @@ If you're done with taking notes, use `exit` to close Notably straight from the 
 .Demo for the `exit` command
 image::demo/Exit.png[]
 
-//tag::new[]
+// tag::new[]
 [#create]
 === Create a new note: `new`
 
@@ -244,7 +244,7 @@ image::demo/New2.png[]
 [[New3]]
 .Step 3 - Final state after creating both notes
 image::demo/New3.png[]
-//end:new[]
+//end::new[]
 
 === Open an existing note: `open`
 
@@ -308,7 +308,7 @@ kbd:[CMD/CTRL] + kbd:[v] respectively.
 * You are not allowed to `edit` the root note, i.e when your currently opened path is ``"/"``
 ====
 
-//tag:delete[]
+//tag::delete[]
 === Delete a note: `delete`
 
 If you no longer need a note, or if you have accidentally created a wrong note, don't worry! You can always delete that note. +
