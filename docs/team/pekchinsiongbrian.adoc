@@ -5,68 +5,103 @@
 
 == PROJECT: HealthyBaby
 
----
+'''
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+*HealthyBaby* (HYBB) is a desktop application targeted towards university students that provides users with a database
+of quick, easy, and healthy recipes. HYBB helps alleviate the challenges faced while maintaining healthy eating habits,
+easing the transition from eating out everyday to cooking healthy meals regularly.
+
+The user interacts with HYBB using a Command Line Interface, and it has a Graphical User Interface created with JavaFX.
+It is written in Java, and has about 18 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement 1*: Added the undo and redo feature
+** *What it does*: It allows the user to undo the actions of previous commands. The user may choose undo one command at
+a time, undo multiple commands at a time, or even undo all previous commands at once. Undo commands can be reversed by
+using the redo command (with equal robustness).
+** *Justification*: This feature vastly improves the user-friendliness of the app as the user can now conveniently
+rectify any mistakes made.
+** *Highlights*: HYBB maintains 4 different "books" (databases) and this feature involves keeping track of the changes
+made to these 4 books. Since, most commands will make changes to at least one of these books when executed, designing
+and implementing this feature was meaningful and challenging as it required a deep understanding of how each command
+affects the 4 books. Essentially, this feature affects most of the existing commands and commands that are added in
+future!
++
+Changes to existing commands had to made, and more data structures and tracking mechanisms had to
+be added on to make undo/redo compatible with all the commands in HYBB. Though inspiration was intially taken from the
+proposed undo/redo feature in AB3, the final implementation of undo/redo in HYBB is significantly different to suit our
+needs.
+** *Credits*: As mentioned above, this was inspired by the proposed undo/redo feature in AB3.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement 2*: Added recipe customisation commands (`addingredient`, `editingredient`, `deleteingredient`,
+`addstep`, `editstep`, `editingredient`)
+** *What they do*: These commands allow the user to edit the ingredients or steps of a recipe without having to rewrite
+the entire field.
+** *Justification*: The edit command inherited from AB3 was limited as it could only edit entire fields at once.
+These commands vastly improve the user-friendliness of the app as the user can now make small changes without
+having to rewrite the entire field (imagine if the recipe has 10 steps but the user only wants to edit 1 of them!)
+** *Highlights*: Implementing these commands required a good understanding of how recipes are created and edited, and
+how recipes interact with the RecipeBook (the database for all recipes) and the Model.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major enhancement 3*: Added the filter feature
+** *What it does*: It allows users to search for recipes using various criteria such as prep time, ingredients used, or
+by the goals tagged to the recipe.
+** *Justification*: The find command inherited from AB3 was limited as it could only find recipes by name. This means
+the user will have to roughly know a recipe's name beforehand. Not only is this inconvenient, but it doesn't tell the
+user much about the recipe. The filter feature allows the user to find recipes with much more ease and makes the search
+more targeted. E.g. people with allergies can find recipes without allergens, people with no time can find recipes with
+short prep time etc.
+** *Highlights*: Implementing this feature required a good understanding of how recipes are filtered (using predicates).
+It was challenging because the construction of the predicate had to be precise and accurate, otherwise the wrong
+recipes would be displayed to the user.
+
+* *Minor enhancement*: Added the ability to favourite and unfavourite recipes
+** *What it does*: It allows the user to mark a recipe as "favourite" or unmark a favourited recipe.
+** *Justification*: It is observed that humans are habitual creatures and will tend to eat the same things. Hence this
+minor feature is to complement the filter feature, allowing the user to find all his favourites with one simple line:
+`filter favourites`
+** *Highlights*: Implementing this feature required a good understanding of how recipes are edited. This understanding
+provided a good foundation for the implementation of the recipe customisation commands (which were implemented after
+this feature). It also required a good understanding of how the UI components work with each other as I had to display
+a star beside the recipe name if it's a favourite.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=pekchinsiongbrian[RepoSense Report for Brian Pek]]
 
 * *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+** *Enhancements to existing features*:
+*** Enhanced the `find` command to have 2 methods of searching with 2 corresponding levels of strictness
+(Pull request https://github.com/AY1920S2-CS2103T-T10-1/main/pull/159[#159])
+*** Enhanced `ParserUtil` to be able to parse multiple indexes (instead of just one) (Pull request https://github.com/AY1920S2-CS2103T-T10-1/main/pull/68[#68]).
+Initially, this was an enhancement for `delete` so that the user can delete multiple recipes at once, but subsequently,
+it was taken up by other commands!
+** *Community*:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-T10-1/main/pull/23[#23],
+https://github.com/AY1920S2-CS2103T-T10-1/main/pull/95#discussion_r399608456[#95],
+https://github.com/AY1920S2-CS2103T-T10-1/main/pull/105#discussion_r400787470[#105],
+https://github.com/AY1920S2-CS2103T-T10-1/main/pull/164#discussion_r405227169[#164]
+*** The multiple index input parsing enhancement was adopted by several other teammates (Pull request https://github.com/AY1920S2-CS2103T-T10-1/main/pull/107[#107],
+https://github.com/AY1920S2-CS2103T-T10-1/main/pull/176[#176])
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The following section is a portion of my contributions to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=recipecustomisation]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=advancedfilter]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following section is a portion of my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=recipecustomisation]
