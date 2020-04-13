@@ -2052,42 +2052,164 @@ These instructions only provide a starting point for testers to work on; testers
 .. Navigate to that folder using Terminal and type `java -jar EYLAH.jar` +
    Expected: Shows the CLI interface with welcome message. The window size may not be optimum.
 
+//tag::appendixdtadd[]
 === Adding a Food in Diet Tracker
 
 . Adding a Food
 
 .. Test case: `add -n burger -c 170` +
    Expected: Food is added to FoodBook. Details of the added Food are shown in the status message. Timestamp in the status bar is updated.
+
 .. Test case: `add burger` +
    Expected: No Food is added. Error details and the correct format to input will be shown to the user.
-.. Other incorrect add commands to try: `add`, `add` with no flags `-f` and `-c` appended to the command. +
-   Expected: Similar to previous.
 
+.. Other incorrect add commands to try: `add`, `add` with no flags `-n` and `-c` appended to the command. +
+   Expected: Similar to previous.
+//end::appendixdtadd[]
+
+
+//tag::appendixdtdelete[]
 === Deleting a Food in Diet Tracker
 
 . Deleting a Food while all Foods are listed
 
-.. Prerequisites: List all Foods using the `list -f` command. Multiple Foods in the list.
+.. Prerequisites: List all Foods using the `list` command. Multiple Foods in the list.
+
 .. Test case: `delete 1` +
    Expected: First Food is deleted from the list. Details of the deleted Food shown in the status message. Timestamp in the status bar is updated.
+
 .. Test case: `delete 0` +
    Expected: No Food is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
 
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+//end::appendixdtdelete[]
+
+//tag::appendixdtedit[]
 === Editing a Food in Diet Tracker
 
 . Editing a Food while all Foods are listed
 
-.. Prerequisites: List all Foods using the `list -f` command. Multiple Foods in the list.
-.. Test case: `edit 1 -n Pasta` +
+.. Edit Command format: `edit -i INDEX [-n NAME] [-c CALORIES]`
+
+.. Prerequisites: List all Foods using the `list` command. Multiple Foods in the list.
+
+.. Test case: `edit -i 1 -n Pasta` +
    Expected: First Food is edited. Details of the edited Food shown in the status message. Timestamp in the status bar is updated.
    Food is edited and then restored.
-.. Test case: `edit 1` +
-   Expected: No Food is edited. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
 
+.. Test case: `edit -i 1` +
+   Expected: No Food is edited. Error details shown in the status message. Status bar remains the same.
+
+.. Other incorrect delete commands to try: `edit`, `edit -i x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+//end::appendixdtedit[]
+
+//tag::appendixdtmode[]
+=== Set Dieting Mode In Diet Tracker
+
+. Setting a Dieting Mode for Diet Tracker.
+
+.. Mode Command format: `mode [-l] [-g] [-m]`
+
+.. Test case: `mode -l` +
+Expected: Sets the Dieting Mode for the Diet Tracker and stores it.
+
+.. Test case: `mode` +
+Expected: No Dieting Mode will be set.
+Error details shown in the response message.
+//end::appendixdtmode[]
+
+//tag::appendixdtmetrics[]
+=== Check User Metrics In Diet Tracker
+
+. Checking a Users own health metrics (Height, Weight and Dieting Mode).
+
+.. Metrics Command format: `metrics`
+
+.. Test case: `metrics` +
+Expected: The User's own metrics will be printed out.
+
+.. Test case: `metrics -h` +
+Expected: No metrics will be shown.
+Error details shown in the response message.
+//end::appendixdtmetrics[]
+
+//tag::appendixdtbmi[]
+=== Calculate BMI In Diet Tracker
+
+. Calculating BMI for the User or for others.
+
+.. Bmi Command format: `bmi [-h HEIGHT] [-w WEIGHT]`
+
+.. Test case: `bmi -h 170.2 -w 65.7` +
+Expected: BMI will be calculated with the Height of 170.2cm and Weight of 65.7kg, and will be printed and shown to the user.
+The BMI category will also be displayed to the User.
+
+.. Test case: `bmi -h 170.2` +
+Prerequisites: Must have stored Weight using `weight WEIGHT`.
+Expected: BMI will be calculated with the Height of 170.2cm and the User's stored Weight, and will be printed and shown to the user.
+The BMI category will also be displayed to the User.
+
+.. Test case: `bmi -w 65.7` +
+Prerequisites: Must have stored Weight using `height HEIGHT`.
+Expected: BMI will be calculated with the User's stored Height and the Weight of 65.7kg,
+and will be printed and shown to the user.
+The BMI category will also be displayed to the User.
+
+.. Test case: `bmi` +
+Prerequisites: Must have stored Height using `height HEIGHT` and Weight using `weight WEIGHT`.
+Expected: BMI will be calculated with the User's stored Height and Weight, and will be printed and shown to the user.
+The BMI category will also be displayed to the User.
+
+.. Test case: `bmi -h 10000000000000000 -w 10000000000000000` +
+Expected: Input height and weight are above the acceptable range.
+Error details shown in the response message.
+
+.. Other incorrect edit commands to try: `bmi -h -1`, `bmi -h 137` (without storing Weight),
+`bmi -w 67` (without storing Height) +
+Expected: BMI will not be calculated.
+Error Message will be shown with details.
+//end::appendixdtbmi[]
+
+
+//tag::appendixdtheight[]
+=== Store Height In Diet Tracker
+
+. Storing Height into the Diet Tracker.
+
+.. Height Command format: `height HEIGHT`
+
+.. Test case: `height 170.2` +
+Expected: Stores a Height of 170.2cm into Diet Tracker. Details of the height stored are shown in success message.
+
+.. Test case: `height -1` +
+Expected: Height will not be stored.
+Error details shown in the response message.
+
+.. Other incorrect height commands to try: `height 0`, `height 1000000000000001` +
+Expected: Height will not be stored.
+Expected: Error message shown with details.
+//end::appendixdtheight[]
+
+//tag::appendixdtweight[]
+=== Store Weight In Diet Tracker
+
+. Storing Weight into the Diet Tracker.
+
+.. Height Command format: `weight WEIGHT`
+
+.. Test case: `weight 65.7` +
+Expected: Stores a Weight of 65.7kg into Diet Tracker. Details of the weight stored are shown in success message.
+
+.. Test case: `weight -1` +
+Expected: Weight will not be stored.
+Error details shown in the response message.
+
+.. Other incorrect weight commands to try: `weight 0`, `weight 1000000000000001` +
+Expected: Weight will not be stored.
+Error message shown with details.
+//end::appendixdtweight[]
 
 === Add Item In Expense Splitter
 

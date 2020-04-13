@@ -144,10 +144,13 @@ experience while using EYLAH.
 | <<clearreceipt, clearreceipt>>
 
 | <<deletefooditem, delete>>
-| <<expensesplitterhelp, help>>
+| <<help, help>>
 
 | <<editfooditem, edit>>
 | <<dietback, back>>
+
+| <<help, help>>
+|
 
 | <<splitback, back>>
 |
