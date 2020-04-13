@@ -51,8 +51,8 @@ interface SplitterModel <<Interface>> {
 }
 
 class Index {
-    + getZeroBased()
-    + getOneBased()
+    + getZeroBased() : int
+    + getOneBased() : int
 }
 
 
