@@ -278,6 +278,7 @@ public class ModelManager implements Model {
     @Override
     public void setComparator(Comparator<Task> comparator, String sortOrder) {
         requireNonNull(comparator);
+        requireNonNull(sortOrder);
         this.taskList.setComparator(comparator);
         this.taskList.setSortOrder(sortOrder);
     }
@@ -292,7 +293,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean equals(Object obj) {
-        // short circuit if same object
+        // short circuit if same object  
         if (obj == this) {
             return true;
         }

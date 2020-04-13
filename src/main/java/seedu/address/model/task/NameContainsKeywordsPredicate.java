@@ -27,8 +27,13 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
     }
 
     /**
-     * score is -1 if keywords is e mpty else if edit distance calculated is larger than threshold,
-     * score will be Integer.MAX_VALUE
+     * Score always starts of as threshold + 1 as anything above the threshold is not shown. 
+     * We then decrement the score whenever a name match occurs/edit distance < 2 or tag match is found.
+     * This ensures that any task with tag matching or name matching will be displayed.
+     * The score will then also provide a relevance order.
+     *  
+     * This is how the score is calculated:
+     * name score - total tag match count
      */
     @Override
     public boolean test(Task task) { // change test to return an int value as the edit distance
@@ -68,20 +73,18 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
     }
 
     /**
-     * Predicate has been enhanced to be return true based on three cases: 1.Complete match
-     * this.score set to 0 2.Partial match from the start (i.e. Dist matches Distance search)
-     * this.score set to 1 3.Any word with an edit disatnce of <= 2 [Used Levenshtein distance to
-     * calculate this value] this.score set to result from levenshtein distance algorithm
+     * Predicate has been enhanced to return true if the final score < 2.
+     * A chunk is a subsequence of the taskname that has as many words as in the search phrase.
+     * we go through all chunks of the task name and calculate a score for each chunk and take the minimum of all scores.
+     * This minimum is defined as the name score of a task.
+     * 
+     * Score is calculated by:
+     * 1. A partial name match where input matches start of chunk => 1
+     * 2. A match where chunk and input have edit distance < 2 => 1
+     * 3. A full chunk match => 0
      *
-     * <p>For case 3, we calculate the distance by chunking the task name to segments of length ==
-     * number of words in the search phrase. The score is then set to the minimum score of all task
-     * name chunks.
-     *
-     * <p>Threshold of edit distance refers to the maximum edit distance allowed. It is set at 2 so
-     * that phrases that are too dissimilar will not show up.
-     *
-     * <p>Order of Task search results will be based on the score. Tasks will be displayed in
-     * ascending order of score.
+     * The edit distance threshold is set at 2 so that phrases that are too 
+     * dissimilar will not show up.
      */
     private int getEditDistance(Task task) {
         if (keywords.size() == 0) {

@@ -48,8 +48,6 @@ public class CommandBox extends UiPart<Region> {
                         String suggestion =
                                 commandSuggestor.suggestCommand(commandTextField.getText());
                         commandTextField.setText(suggestion);
-                        // cancels all previous timers so that we won't have a case of previous
-                        // timers setting colors in before the 1 second of success style
                         CssManipulator.setStyleToIndicateSuccess(commandTextField);
                     } catch (CompletorException e) {
                         CssManipulator.setStyleToIndicateFailure(commandTextField);

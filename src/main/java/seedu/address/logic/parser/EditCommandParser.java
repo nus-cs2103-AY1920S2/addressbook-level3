@@ -92,13 +92,14 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     /**
      * Uses argMultimap to detect existing prefixes used so that it won't add double prefixes. Adds
-     * priority and reminder prefixes
+     * priority and reminder prefixes.
+     * Note that we ignore the second word when adding prefixes as it should be the index
+     * Also note that if the index is invalid, an exception is thrown
      *
      * @param input trimmed
      * @param listSize
      * @return contains userFeedback and suggestedCommand
-     * @throws CompletorException throws an exception when index provided is not an int or out of
-     *     list range
+     * @throws CompletorException throws an exception when index is invalid
      */
     public CompletorResult completeCommand(String input, int listSize) throws CompletorException {
         String[] trimmedInputs = input.split("\\s+");

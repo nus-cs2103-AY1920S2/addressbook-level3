@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.Set;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -61,8 +60,10 @@ public interface Model {
     /** Adds the given task. {@code task} must not already exist in the task list. */
     void addTask(Task task);
 
+    /** Returns an array of strings containing names of all tags in tasklist */
     public String[] getTagNames();
     
+    /** Checks if a tag is present  */
     boolean hasTag(Tag t);
 
     /**
@@ -82,10 +83,13 @@ public interface Model {
      */
     void updateFilteredTaskList(Predicate<Task> predicate);
 
+    /** Sets FilteredList's predicate to show all tasks */
     void showAllTasks();
 
+    /** Sets comparator on tasklist and also the dominant sort order */
     void setComparator(Comparator<Task> comparator, String sortOrder);
 
+    /** Set sort order after find command has been performed */
     void setSearchResultOrder(Comparator<Task> comaprator);
 
     // void sortSearchByRelevance(Comparator<Task> comparator);

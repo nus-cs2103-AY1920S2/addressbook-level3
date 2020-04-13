@@ -41,10 +41,15 @@ public class CommandCompletor {
     }
 
     /**
-     * Provides auto complete for all partial command words
+     * Provides auto complete for all partial command words:
+     * Auto completion happens when:
+     * 1. Edit distance between target and input < 2
+     * 2. input matches the head of the target
      *
-     * <p>For done, delete commands: remove indices that are out of range For add and edit commands:
-     * Adds prefixes for priority and reminder For pom command: adds timer prefix
+     * For done, delete commands: remove indices that are out of range 
+     * For add and edit commands: Adds prefixes for priority and reminder 
+     * For pom command: adds timer prefix
+     * For sort command: auto completes recognized sort fields else removes other fields
      *
      * @param input raw user input
      * @return CompletorResult which contains both the completed message and feedback to display
@@ -59,10 +64,10 @@ public class CommandCompletor {
             throw new CompletorException(String.format(Messages.COMPLETE_UNFOUND_FAILURE, ""));
         }
 
+        // Gets auto completed command based on the two criteria above
         Optional<String> suggestedCommandWord =
                 StringUtil.getCompletedWord(splitInput[0], this.commands.toArray(new String[0]));
 
-        // Handles auto completion of command and error throwing for invalid command.
         if (suggestedCommandWord.isPresent()) {
             splitInput[0] = suggestedCommandWord.get();
         } else {
