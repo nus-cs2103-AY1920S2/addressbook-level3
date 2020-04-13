@@ -1,3 +1,5 @@
+//@@author Eclmist
+
 package tatracker.ui;
 
 import java.util.logging.Logger;
@@ -118,6 +120,8 @@ public class StatisticWindow extends UiPart<Stage> {
         studentName5Label.setText(stats.worstStudents[4].getFullName());
         rating5Label.setText(Integer.toString(stats.worstStudents[4].getRating()));
 
+        //@@author fatin99
+
         root.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent t) {
@@ -128,6 +132,8 @@ public class StatisticWindow extends UiPart<Stage> {
             }
         });
     }
+
+    //@@author Eclmist
 
     /**
      * Creates a new HelpWindow.
