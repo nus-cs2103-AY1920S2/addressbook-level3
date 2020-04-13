@@ -46,6 +46,7 @@ encapsulation principles.
 *** Updates About Us, Contact Us, ReadMe page (
 https://github.com/AY1920S2-CS2103-W14-2/main/pull/45[#45]
 )
+*** Set up Appveyor CI
 
 ** Enhancements to existing features:
 *** Refactored `ModelStubs` used for easier model-related testing.
@@ -88,6 +89,9 @@ include::../UserGuide.adoc[tag=deletegood]
 
 == UML Diagrams
 ==== Sequence Diagrams
+
+include::../DeveloperGuide.adoc[tag=ArchitectureSequenceDiagram]
+
 include::../DeveloperGuide.adoc[tag=buysequencediagram]
 
 ==== Class Diagrams
