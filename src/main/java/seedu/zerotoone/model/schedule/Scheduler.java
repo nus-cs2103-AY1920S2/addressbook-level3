@@ -6,16 +6,20 @@ import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  * Main class for the Scheduler. Used to store all the lists related to Scheduler.
  */
 public class Scheduler {
+
+    private static final Logger logger = LogsCenter.getLogger(Scheduler.class);
 
     private final ScheduleList scheduleList;
     private ScheduledWorkoutList scheduledWorkoutList;
@@ -44,6 +48,8 @@ public class Scheduler {
     public boolean hasSchedule(Schedule schedule) {
         requireNonNull(schedule);
 
+        logger.fine(String.format("Checking whether already has schedule: %s", schedule));
+
         return scheduleList.hasSchedule(schedule);
     }
 
@@ -53,6 +59,8 @@ public class Scheduler {
     public void addSchedule(Schedule schedule) {
         requireNonNull(schedule);
 
+        logger.fine(String.format("Adding schedule: %s", schedule));
+
         scheduleList.addSchedule(schedule);
 
         populateSortedScheduledWorkoutList();
@@ -60,6 +68,10 @@ public class Scheduler {
 
     public void setSchedule(Schedule scheduleToEdit, Schedule editedSchedule) {
         requireAllNonNull(scheduleToEdit, editedSchedule);
+
+        logger.fine(String.format("Replacing old schedule (%s) with new schedule (%s)",
+                scheduleToEdit,
+                editedSchedule));
 
         scheduleList.setSchedule(scheduleToEdit, editedSchedule);
 
@@ -71,6 +83,8 @@ public class Scheduler {
      */
     public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
         requireNonNull(scheduledWorkoutToDelete);
+
+        logger.fine(String.format("Deleting ScheduledWorkout: %s", scheduledWorkoutToDelete.getScheduledWorkoutName()));
 
         Schedule scheduleToDelete = scheduledWorkoutToDelete.getSchedule();
         scheduleList.removeSchedule(scheduleToDelete);
@@ -117,6 +131,8 @@ public class Scheduler {
      * Populates the scheduled workout list by querying schedules in the schedule list.
      */
     public void populateSortedScheduledWorkoutList() {
+        logger.fine("Populating SortedScheduledWorkoutList");
+
         List<ScheduledWorkout> newScheduledWorkouts = scheduleList.getScheduleList().stream()
                 .map(schedule -> schedule.getScheduledWorkout(DateTime.now()))
                 .filter(Optional::isPresent)
