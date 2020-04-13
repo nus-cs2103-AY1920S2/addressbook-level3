@@ -26,13 +26,13 @@ public class CheckCommand extends Command {
     public static final String MESSAGE_FAILURE_PART1 = "Sorry, no matching reference data in the ";
     public static final String MESSAGE_FAILURE_PART2 = " category for the given keyword: ";
     public static final String MESSAGE_MAX_THREE_RESULTS = "Note: at most 3 records are shown.\n";
-
-    private Type checkType;
-    private String keywords;
     private static final Logger logger = LogsCenter.getLogger(CheckCommand.class);
     private static final String LOGGER_SUCCESS = "Found some matching results.";
     private static final String LOGGER_FAILURE = "No matching result found.";
 
+    private Type checkType;
+    private String keywords;
+    
     public CheckCommand(Type checkType, String keywords) {
         requireNonNull(checkType);
         requireNonNull(keywords);

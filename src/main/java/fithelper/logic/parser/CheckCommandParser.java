@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import fithelper.commons.core.LogsCenter;
-import fithelper.logic.commands.AddCommand;
 import fithelper.logic.commands.CheckCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.entry.Type;

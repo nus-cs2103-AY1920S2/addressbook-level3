@@ -14,17 +14,20 @@ import javafx.scene.layout.AnchorPane;
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<AnchorPane> {
-    public static final String LIST_OF_VALID_COMMANDS = "Common commands, their format and functions are as follows:\n"
-            + "(Please note that TYPE can only be f/food/s/sports)\n"
-            + "add x/TYPE n/NAME t/YYYY-MM-DD 24:60 l/LOCATION c/CALORIE\n"
-            + "  - add a food/exercise entry.\n"
+    public static final String LIST_OF_VALID_COMMANDS = "General rules:\n"
+            + "1) TYPE can only be food(f) OR sports(s).\n"
+            + "2) [prefix/ATTRIBUTE] means an optional attribute for this command,\n"
+            + "   while prefix/ATTRIBUTE means a compulsory attribute.\n\n"
+            + "Common commands, their format and functions are as follows:\n"
+            + "add x/TYPE n/NAME t/YYYY-MM-DD-24:60 l/LOCATION c/CALORIE\n"
+            + "  - add a food/sports entry.\n"
             + "list (x/TYPE) (d/YYYY-MM-DD)\n"
             + "  - list entries (of food/sport in a given day).\n"
             //+ "reminder (x/TYPE) (d/YYYY-MM-DD)\n"
             //+ "  - list all entries (of food/sport) not marked as done (in a given day)\n"
             + "edit x/TYPE (d/YYYY-MM-DD) i/INDEX s/Done OR Undone\n"
             + "  - Mark an entry as done/not done.\n"
-            + "edit x/TYPE i/INDEX [n/NAME] [t/YYYY-MM-DD 24:60] [l/LOCATION] [c/CALORIE] [r/REMARK]\n"
+            + "edit x/TYPE i/INDEX [n/NAME] [t/YYYY-MM-DD-24:60] [l/LOCATION] [c/CALORIE] [r/REMARK]\n"
             + "  - edit the information of an entry.\n"
             + "delete x/type (d/YYYY-MM-DD) i/INDEX\n"
             + "  - delete an entry.\n"
@@ -43,7 +46,9 @@ public class HelpWindow extends UiPart<AnchorPane> {
             + "  - search the pre-set database for calorie intake/consumption of common food/sports.\n"
             + "update -f attr/ATTRIBUTE v/VALUE\n"
             + "  - edit the information of the user profile.\n"
-            + "[ATTRIBUTE can only be name/gender/age/address/height/weight/targetweight]\n";
+            + "    [ATTRIBUTE can only be name/gender/age/address/height/weight/targetweight]\n"
+            + "quit/exit/bye\n"
+            + "  - exit the application.\n";
     public static final String LOOK_FOR_URL = "For detailed information regarding the usage of commands, "
             + "please refer to the user guide via\n";
     public static final String USERGUIDE_URL =
