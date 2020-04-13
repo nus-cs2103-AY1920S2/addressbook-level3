@@ -39,7 +39,7 @@ public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
-    public void parseAllFieldsPresentSuccess() {
+    public void parse_allFieldsPresent_success() {
         Entry expectedEntry = new EntryBuilder(BURGER).build();
 
         // whitespace only preamble
@@ -65,7 +65,7 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parseOptionalFieldsMissingSuccess() {
+    public void parse_optionalFieldsMissing_success() {
         // zero duration
         Entry expectedEntry = new EntryBuilder(CAKE).withDuration("1").build();
         assertParseSuccess(parser, TYPE_DESC_FOOD + NAME_DESC_CAKE + TIME_DESC_CAKE
@@ -74,7 +74,7 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parseCompulsoryFieldMissingFailure() {
+    public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
@@ -99,7 +99,7 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parseInvalidValueFailure() {
+    public void parse_invalidValue_failure() {
 
         // invalid name
         assertParseFailure(parser, " " + TYPE_DESC_FOOD + INVALID_NAME_DESC + TIME_DESC_BURGER
