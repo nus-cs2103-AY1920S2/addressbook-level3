@@ -29,8 +29,8 @@ create GenerateStats
 ViewReportCommand -> GenerateStats
 activate GenerateStats
 ViewReportCommand -> GenerateStats : generateStatsByTags()
-activate Model
 GenerateStats -> Model : getReportableAccount()
+activate Model
 Model --> GenerateStats : reportableAcct
 deactivate Model
 GenerateStats --> ViewReportCommand : stats
