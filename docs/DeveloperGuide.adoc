@@ -188,7 +188,7 @@ The activity diagram below demonstrates the actions of a user with this feature.
 .Session Feature Activity Diagram
 image::developer-guide/session/StartStopActivityDiagram.png[]
 
-Start depicts the start of a valid (non-zero sets remaining) Workout Session.
+Start depicts the start of a valid (non-zero sets remaining) workout session.
 Upon depletion of all remaining sets, the `OngoingWorkout` automatically stops and produces a `CompletedWorkout` which is saved.
 The only inputs the user is required to give throughout the session are `done` (corresponding to the yes of the conditional branch)
 and `skip` (no of the conditional branch). `Stop` is optional.
@@ -213,7 +213,7 @@ The `OngoingWorkout` class has a dependency on `Workout`, which has been abstrac
 
 In turn, `CompletedWorkout` class has a dependency on `OngoingWorkout`.
 
-`OngoingWorkout` objects are created at the start of a workout session, and can be thought of as 'converted' to `CompletedWorkout` objects at the end of a workout session. `Workout` and `CompletedWorkout` objects are immutable, hence the design choice for using an intermediary, stateuful, `OngoingWorkout` class.
+`OngoingWorkout` objects are created at the start of a workout session, and can be thought of as 'converted' to `CompletedWorkout` objects at the end of a workout session. `Workout` and `CompletedWorkout` objects are immutable, hence the design choice for using an intermediary, stateful `OngoingWorkout` class.
 
 ---
 
@@ -242,7 +242,7 @@ updates the instance of `OngoingWorkout`.
 image::developer-guide/session/DoneCommandSequenceDiagram.png[]
 
 * The sequence diagram above demonstrates the interaction between the Logic and Model of ZeroToOne.
-For brevity, some inner details between `OngoingWorkout.done()` and the return of `cs` are omitted.
+For brevity, some inner details between `OngoingWorkout#done()` and the return of `cs` are omitted.
 
 Step 3. After resting, the user fails the last and final set of `Bench Press` and types `skip`.
 
@@ -569,17 +569,117 @@ On the other hand, implementing option 2 makes it easier to handle these problem
 
 
 // tag::log[]
-=== Log
-For logging, we propose saving the completedExercise data in the following class architecture.
+=== Log Statistics
+The log statistics feature in ZeroToOne allows users to view their completed workouts visually with meaningful aggregated information so they can see how much progress made.
+
+==== Overview
+The ZeroToOne user can generate and view these statistics via the `log display` command which takes in two optional parameters `startRange` and `endRange`. Workouts will only be considered if they fall within the `startTime` and `endTime` range.
+
+===== Architecture
+The log statistics feature was built from the ground up with modularity and extensibility in mind which is inline with SLAP and SOLID principles. This is exemplified in the decision to have a `DataPoint` abstract class. The class diagram is shown below.
+
+A `DataPoint` is metric that takes gives the user some information on his or her performance. Data points are list row by row to the user with the `labelName` on the left followed by the `result` on the right in a table format.
+
+.Log Display Screenshot
+image::developer-guide/log/LogDisplayScreenshot.png[]
+
+.DataPoint Abstract Class
+image::developer-guide/log/DataPointAbstractClass.png[]
+
+This abstract class is then extended by concrete class as shown below.
+
+.Example Concrete Data Points
+image::developer-guide/log/StatisticsDataPointsClassDiagram.png[]
+
+Through this abstraction we make it easy to extend and include new metrics to track in the future. All that needs to be done is to create a new class that extends `DataPoint` and implements the `calculate` function that takes as input a list of `CompletedWorkout` and does the necessary calculations and sets the results.
 
 ==== Implementation
+To help explain the implementation of this feature, this portion of the developer guide will examine the command execution of the `log display` command.
 
-image::developer-guide/log/WorkoutSessionDiagram.png[]
+For the sake of clarity, this portion of implementation has been broken down into two phases.
+
+Phase 1 will primarily deal with the actual command parsing, execution and the storing of the `startRange` and `endRage` in the model while Phase 2 will then go on to generate statistics based on the `startRange` and `endRange` provided in phase 1.
+
+===== Execution Phase 1
+The sequence diagram below describes the flow when the `log display` command is invoked by the user.
+
+.Display Command Invocation Phase 1
+image::developer-guide/log/DisplayCommandSequenceDiagramPart1.png[]
+
+This next section goes over in a little more detail how the program unfolds.
+
+Step 1: When the user enters the `log display` command, the `MainWindow#executeCommand()` is executed and in turn calls on the `LogicManager` to help with this.
+
+Step 2: The `LogicManager` then goes through with the normal flow of parsing the command and its parameters and then returning a valid  `DisplayCommand`. This section will not go into details and specifics of this process as it has already been covered above.
+
+Step 3: Once the `Logic Manager` receives the `DisplayCommand`, it will call the concrete implementation of the `DisplayCommand#execute(Model model)` to run the command with the current model.
+
+Step 4: The `execute` function will then go ahead and store the `startRange` and `endRange` in the model via the `Model#setStatisticsDataRange` function.
+
+Step 5: This is where the display command differs from all the other commands. When constructing the `CommandResult` to be returned, the `showReport` flag in `CommandResult` is set to `True`.
+
+Summary:
+`startRange` and `endRange` are updated in the current `Model`
+The `showReport` flag in `CommandResult` being returned is set to `True`
+
+===== ExecutionPhase 2
+Following immediately from phase 1, phase 2 will commence with the return of `CommandResult` to the `MainWindow#executeCommand` function. The sequence diagram below documents the execution flow.
+
+.Example Display Command Invocation Phase 2
+image::developer-guide/log/DisplayCommandSequenceDiagramPart2.png[]
+
+Similar to phase 1, this next section will detail the steps taken in a little more detail.
+
+Step 1: When `CommandResult` is returned to the main window, it is checked for the `showReport` to decide if the report page should be shown.
+
+Step 2: Since the `showResult` flag will be set to `True`, the `MainWindow` will call `LogicManager#generateStatistics` to help with the generating of the statistics.
+
+Step 3: The `LogicManager` will then query all the information it requires from the model including the `startRange` and `endRange` described in phase 1.
+
+Step 4: Next, the static function `Statistics#generate` will be invoked. This function will then instantiate new instances of all the `DataPoints` configured.
+
+Step 5: Once instantiated, the `DataPoint#calculate` function will be invoked on all the `DataPoint` objects. This used to calculate and populate each data point with valid data from the list of workouts.
+
+Step 6: Once this is done, a new `StatisticsData` object is created with the data points and the list of workouts and returned.
+
+Step 7: Lastly, the view `StatisticsWindow#show` function is called with the `StatisticsData` previously returned. This renders the new window with the computed statistics.
+
 
 ==== Design Considerations
-Immutability was a huge consideration for us and hence we came up with the `ReadOnly` interface.
+The following section will detail some of the design consideration and design choices we made while implementing the log statics feature.
 
-Also, due to the lack of a database backing our application, we have no choice but to nest our object.
+==== Flexibility and Sensible Defaults
+We wanted to build the statistics feature to be flexible. This is why we decided to include a `startRange` and `endRange` to the `log display` command. This allows users to generate reports for custom datetime ranges.
+
+Due to this flexibility we had to think hard of sensible defaults for this date range if they were not specified. We eventually decided on the flow specified by the activity diagram below.
+
+.Log sensible date range defaults
+image::developer-guide/glog/LogDateRangeSensibleDefaults.png[]
+
+* **Alternative 1:** Do not support date range in log command
+** Pros: Easy to implement.
+** Cons: Less flexible and metrics used will be limited.
+
+* **Alternative 2 :** Require `startRange` and `endRange` in all display commands
+** Pros: Would have to consider sensible defaults
+** Cons: More for the user to type if he/she wants to view statistics over all workouts.
+
+* **Alternative 3 :** Allow optional `startRange` and `endRange` use start of epoch for start time and current datetime for end date.
+** Pros: Easy to implement
+** Cons: Statistics generated using the number of days might not make sense.
+[Note] For example, the average workout time per day would not make sense since the number of days since epoch will be huge.
+
+* **Alternative 4 (current choice):** Allow optional `startRange` and `endRange` and if not given take earliest start date time and latest end datetime
+** Pros: More meaningful metrics and statistics
+** Cons: More complicated model and defaults might not seem intuitive at first
+
+===== Defensive Programming
+We decided to build these features with security at the forefront. This can be seen in
+
+* The use of optionals and `ifPresent()` functions guards against `NullPointerExceptions` when the user does not provide optional fields.
+* `requireNonNull` are frequently used to check for `null` values.
+* Strong exception handling when parsing `startRange` and `endRange` in the display command and throwing a `ParseCommandException` if date times provided are not valid in the specified format.
+
 // end::log[]
 
 === Configuration
@@ -633,11 +733,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |User who likes to schedule single workout sessions, but will occasionally do recurring ones |Keep track of the two types of workouts |Manage different types of workouts simultaneously
 
-|`* * *` |User who wants to track live progress while exercising |Have a timer for each part of my workout |Stay on schedule for each workout completedExercise I do
+|`* * *` |User who wants to track live progress while exercising |Have a timer for each part of my workout |Stay on schedule for each workout session I do
 
 |`* *` |User who enjoys social activities |Share my workout routines with my friends |Help each other out by sharing new exercise regimes
 
-|`* *` |User who has a regular workout schedule, but likes to schedule one-off completedExercises |Some way to keep track of both regular and one-off workouts |Differentiate between the workouts and manage them both simultaneously
+|`* *` |User who has a regular workout schedule, but likes to schedule one-off sessions |Some way to keep track of both regular and one-off workouts |Differentiate between the workouts and manage them both simultaneously
 
 |`* *` |User who loses motivation over a long period of time |Something to help me stay motivated |Keep going and not give up halfway
 
@@ -767,6 +867,7 @@ A workout that has been planned to be carried out on a specific date or dates.
 [[workout]]Workout::
 A set of exercises to be done together, in a certain order and time frame.
 
+//tag::gb3h[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -781,7 +882,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of exercises and workouts. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -789,26 +890,71 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Starting a workout session
 
-=== Deleting a exercise
+. Starting a workout session with a `WORKOUT_ID`
 
-. Deleting a exercise while all exercises are listed
-
-.. Prerequisites: List all exercises using the `list` command. Multiple exercises in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No exercise is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: At least 1 workout containing valid exercises and sets must exist.
+.. Test case: `start 1` +
+   Expected: Workout session started with the index of the workout shown in the status message. Timer starts counting from 00:00.
+.. Test case: `start 0` +
+   Expected: No workout session is started. Error details shown in the status message. Status bar remains the same. Timer remains at 00:00.
+.. Other incorrect delete commands to try: `start`, `start x` (where x is larger than the list size), `start y` (where y is the ID of an invalid workout) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Saving a workout session
 
-=== Saving data
+. Workout sessions are saved automatically at the end of a workout session.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: A workout session must be ongoing.
+.. Test case: `stop` +
+   Expected: Workout session stops and displays in the status message. Timer resets to 00:00. The workout session should appear in the `Log` tab.
+.. Test case: `skip`, `done` +
+   Expected: Same as above, if `skip` or `done` is given on the last set.
+.. Other incorrect delete commands to try: `save`, `stop 1`, `skip`/`done` (when there are more sets remaining) +
+   Expected: Error message displayed in the status bar.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+//end::gb3h[]
 
-_{ more test cases ... }_
+//tag::session[]
+[appendix]
+== Effort
+
+
+[width="59%",cols="22%,<23%,<25%,options="header",]
+|=======================================================================
+|Feature |AB3 |ZeroToOne
+
+|LoC |~10k |~26k
+|Difficulty |10 |15
+|Effort |10 |15
+|=======================================================================
+
+The idea of an exercise app alone itself is not particularly challenging.
+However, the ZeroToOne team believes that taking a user-experience-first philosophy toward designing an exercise app requires a conscientious design-approach, one that _is_ a challenge.
+
+This is something that we have endeavoured to achieve in this project.
+
+We think that despite the constraints of the CS2103T project, we have managed to demonstrate this to a larger degree.
+
+AB3 deals primarily in the domain of data storage and retrieval. ZeroToOne has taken this one step further, with the ability to:
+
+1. Statefully update new models during a workout session
+2. Apply useful statistics across an entire collection of stored data
+3. Extend AB3's models to be more functional
+
+Furthermore, on top of the ~16k LoC added to the project, the ZeroToOne team has managed to:
+
+1. Maintain > 70% test coverage
+2. Apply SOLID design principles
+3. Maintain a consistent quality of the codebase through stringent PR reviews and hooks.
+
+The largest challenge we faced as a team was communication.
+Being fast-moving and driven individuals, taking the initiative sometimes meant being able to make decisions for the team as an individual. This meant that it was vital that we were on the same page with our goals and expectations from the project.
+Thus, we took more time than usual at the beginning of the project to plan our road-map moving forward, delegating work and defining our expectations clearly.
+This meant we were later to start coding and making PRs than other teams (as seen on reposense), which we felt was a more-than-fair trade-off for our team dynamic.
+
+We hope you have enjoyed this journey and learnt as much as we have!
+- The ZeroToOne Team
+
+//end::session[]

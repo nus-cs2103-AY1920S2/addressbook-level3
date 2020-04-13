@@ -3,6 +3,10 @@ package seedu.zerotoone.model.exercise;
 import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.util.AppUtil.checkArgument;
 
+import java.util.logging.Logger;
+
+import seedu.zerotoone.commons.core.LogsCenter;
+
 /**
  * Represents a Set's number of repetitions in ZeroToOne.
  * Guarantees: immutable; is valid as declared in {@link #isValidNumReps(String)}
@@ -20,6 +24,8 @@ public class NumReps {
 
     public final String value;
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     /**
      * Constructs an {@code NumReps}.
      *
@@ -28,6 +34,7 @@ public class NumReps {
     public NumReps(String numReps) {
         requireNonNull(numReps);
         checkArgument(isValidNumReps(numReps), MESSAGE_CONSTRAINTS);
+        logger.fine("Creating Num Reps with value: " + numReps);
         value = numReps;
     }
 

@@ -2,6 +2,9 @@ package seedu.zerotoone.logic.commands.workout;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
@@ -20,6 +23,8 @@ public class FindCommand extends WorkoutCommand {
     public static final String MESSAGE_WORKOUTS_LISTED_OVERVIEW = "%1$d workout(s) listed!";
 
     private final WorkoutName workoutName;
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     public FindCommand(WorkoutName workoutName) {
         requireNonNull(workoutName);
         this.workoutName = workoutName;
@@ -27,6 +32,10 @@ public class FindCommand extends WorkoutCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.info(String.format("Executing %s for Workout with %s",
+                getClass().getSimpleName(),
+                workoutName.fullName));
+
         requireNonNull(model);
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);

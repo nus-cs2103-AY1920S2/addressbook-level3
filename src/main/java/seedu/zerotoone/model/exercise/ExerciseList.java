@@ -3,8 +3,10 @@ package seedu.zerotoone.model.exercise;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import seedu.zerotoone.commons.core.LogsCenter;
 
 /**
  * Wraps all data at the exercise list level
@@ -13,6 +15,7 @@ import javafx.collections.ObservableList;
 public class ExerciseList implements ReadOnlyExerciseList {
 
     private final UniqueExerciseList exercises;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -42,6 +45,7 @@ public class ExerciseList implements ReadOnlyExerciseList {
      * {@code exercises} must not contain duplicate exercises.
      */
     public void setExercises(List<Exercise> exercises) {
+        logger.fine("Replacing current list with " + exercises);
         this.exercises.setExercises(exercises);
     }
 
@@ -50,7 +54,7 @@ public class ExerciseList implements ReadOnlyExerciseList {
      */
     public void resetData(ReadOnlyExerciseList newData) {
         requireNonNull(newData);
-
+        logger.fine("Resetting data with " + newData);
         setExercises(newData.getExerciseList());
     }
 
@@ -61,6 +65,7 @@ public class ExerciseList implements ReadOnlyExerciseList {
      */
     public boolean hasExercise(Exercise exercise) {
         requireNonNull(exercise);
+        logger.fine("Checking if list contains " + exercise);
         return exercises.contains(exercise);
     }
 
@@ -69,6 +74,7 @@ public class ExerciseList implements ReadOnlyExerciseList {
      * The exercise must not already exist in the exercise list.
      */
     public void addExercise(Exercise p) {
+        logger.fine("Adding " + p + " into Exercise List");
         exercises.add(p);
     }
 
@@ -80,7 +86,7 @@ public class ExerciseList implements ReadOnlyExerciseList {
      */
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireNonNull(editedExercise);
-
+        logger.fine("Setting Exercise " + target + " with " + editedExercise);
         exercises.setExercise(target, editedExercise);
     }
 
@@ -89,6 +95,7 @@ public class ExerciseList implements ReadOnlyExerciseList {
      * {@code key} must exist in the exercise list.
      */
     public void removeExercise(Exercise key) {
+        logger.fine("Removing Exercise " + key + " from Exercise List");
         exercises.remove(key);
     }
 

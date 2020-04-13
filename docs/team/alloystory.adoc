@@ -1,20 +1,99 @@
-= Aloysius - Project Portfolio
+= Aloysius Chan - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: ../images/
 :stylesDir: ../stylesheets
 
 == PROJECT: ZeroToOne
 
----
+.Screenshot
+image::user-guide/UgExerciseList.png[]
 
 == Overview
 
-ZeroToOne is a desktop application that serves as an all-in-one exercise tracker and personal aide. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+ZeroToOne is a desktop application that serves as an all-in-one exercise tracker and personal aide. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 26 kLoC.
 
 == Summary of contributions
 
-* Created the Workout model
+* *Major enhancement*: added *the Exercise Feature*
+** What it does: This feature allows users to create, read, update and delete exercises and exercise sets.
 
+** Justification: The feature formed the base for all the other features to build upon. For example, the Workout feature required exercises to have been created first.
+
+** Highlights: Since this feature forms the base for all other features, the design of this feature will inevitably affect them, as well as features that will be implemented in the future. As such, I ensured that the feature is compliant with the SOLID priciples. All relevant classes are abstracted and well documented, such that each class only has one single responsibility. As such, this allows the Exercise feature to be extensible by any other developers.
+
+* *Major enhancement*: added *the Splash Screen*
+** What it does: The splash screen will load up first while the application runs through its initialisation process.
+
+** Justification: This enables users to feel that the application is more responsive, enhancing the user experience of the application.
+
+** Highlights: While the application runs locally and the loading process is relatively fast right now, the aim of this enhancement is for future-proofing purposes. It allows developers to further extend the application using other external sources such as an external DBMS, while retaining the "responsiveness" of the application.
+
+** Credits: Some ideas to implement this feature were taken from this https://docs.oracle.com/javafx/2/deployment/preloaders.htm[tutorial] created by Oracle.
+
+* *Code contributed*:
+** https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=alloystory&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Reposense]
+** https://github.com/AY1920S2-CS2103T-W16-2/main/pulls?q=is%3Apr+author%3Aalloystory[Github - Pull Requests]
+
+** Exercise Feature
++
+[options="header"]
+|======
+|Type | Functional Code |Test Code
+
+| Command Package
+| https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/logic/commands/exercise[link]
+| https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/test/java/seedu/zerotoone/logic/commands/exercise[link]
+
+| Parser Package
+| https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/logic/parser/exercise[link]
+| https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/test/java/seedu/zerotoone/logic/parser/exercise[link]
+
+| Model Package
+| https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/model/exercise[link]
+| https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/test/java/seedu/zerotoone/model/exercise[link]
+
+| Storage Package
+| https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/storage/exercise[link]
+| https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/test/java/seedu/zerotoone/storage/exercise[link]
+
+| Ui Package
+| https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/ui/views/exercise[link]
+| -
+
+| FXML Files
+| https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/resources/view/exercise[link]
+| -
+
+|======
+
+** Splash Screen Feature
+*** https://github.com/AY1920S2-CS2103T-W16-2/main/blob/master/src/main/resources/view/SplashScreen.fxml[Splash Screen FXML File]
+*** https://github.com/AY1920S2-CS2103T-W16-2/main/blob/master/src/main/java/seedu/zerotoone/ui/SplashScreen.java[Splash Screen Controller]
+
+* *Other contributions*:
+
+** Project management:
+*** Lead release `v1.2` on GitHub
+*** Explained the original codebase to developers
+
+** Enhancements to existing features:
+*** Headed the initial code refactorisation
+**** Replaced all references to AddressBook to ZeroToOne
+**** Modularised the inital AddressBook-Level3 codebase that allowed developers to easily extend the project
+**** Pull Request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/66[#66]
+
+** Documentation:
+*** Helped Chi Shan with the editing of the User Guide and Developer Guide to ensure that the English used is friendly and simpler to understand.
+*** Edited high-level UML Diagrams of the application to fit the latest update. Pull Request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/228[#228]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W16-2/main/pull/192[#192], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/231[#231]
+*** Number of PRs reviewed: 25
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S2-CS2103-W15-3/main/issues/165[#165], https://github.com/AY1920S2-CS2103-W15-3/main/issues/166[#166], https://github.com/AY1920S2-CS2103-W15-3/main/issues/169[#169])
+
+** Tools:
+*** Added Appveyor and Coveralls Support. Pull Request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/12[#12]
+*** Added githooks support to prevent developers from pushing errorneous code. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/193[#193]
 
 == Contributions to the User Guide
 
@@ -23,9 +102,7 @@ ZeroToOne is a desktop application that serves as an all-in-one exercise tracker
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=exercise]
 
 == Contributions to the Developer Guide
 
@@ -33,6 +110,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=exercise]

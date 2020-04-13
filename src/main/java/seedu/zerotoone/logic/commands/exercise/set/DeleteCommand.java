@@ -2,10 +2,13 @@ package seedu.zerotoone.logic.commands.exercise.set;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
+import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_WORKOUTS;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
@@ -26,6 +29,7 @@ public class DeleteCommand extends SetCommand {
 
     private final Index exerciseId;
     private final Index setId;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public DeleteCommand(Index exerciseId, Index setId) {
         requireNonNull(exerciseId);
@@ -37,6 +41,9 @@ public class DeleteCommand extends SetCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.fine(String.format("Executing %s with %s and %s",
+                getClass().getSimpleName(), exerciseId, setId));
+
         requireNonNull(model);
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);
@@ -59,7 +66,9 @@ public class DeleteCommand extends SetCommand {
         Exercise editedExercise = new Exercise(exerciseToEdit.getExerciseName(), updatedExerciseSets);
 
         model.setExercise(exerciseToEdit, editedExercise);
+        model.setExerciseInWorkouts(exerciseToEdit, editedExercise);
         model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
+        model.updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
 
         String outputMessage = String.format(MESSAGE_DELETE_EXERCISE_SET_SUCCESS, editedExercise);
         return new CommandResult(outputMessage);
