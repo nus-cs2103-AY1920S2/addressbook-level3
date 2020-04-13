@@ -360,7 +360,7 @@ Edits note to the restaurant at index 2 with good food Chicken chop.
 ==== Delete notes to a restaurant : `(rt)deletenote`
 
 Deletes a note to a restaurant +
-Format: `(rt)deletenote INDEX [rl/LINE_NUMBER1] [rl/LINE_NUMBER2] [gl/LINE_NUMBER] [bl/BAD_FOOD]`
+Format: `(rt)deletenote INDEX [rl/LINE_NUMBER1]... [gl/LINE_NUMBER]... [bl/BAD_FOOD]...`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective restaurant as displayed in the LIST function.
