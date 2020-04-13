@@ -742,7 +742,7 @@ When a `sort` command is executed, the field to sort by is indicated by the
 inputted prefix. The sequence diagram below describes what happens when a
 `sort` command is run.
 
-.Sequence diagram describing the process of sorting coupons
+.Sequence diagram describing the process of sorting coupons.
 image::SortCommandSeqDiagram.png[]
 
 Depending on the prefix to sort by, `ModelManager#sortCoupons()` will be
@@ -819,57 +819,53 @@ After establishing the remind dates for all the coupons,
 the next step is ensure that there will be a reminder pop
 up (if necessary) upon opening the application.
 
-The following steps describe how to reminder pop up works,
+The following steps describe how to reminder pop up works:
 
-Step 1. The user launches Coupon Stash. The `start` method
+. The user launches Coupon Stash. The `start` method
 in `MainApp` class will kick start the program
 by setting up the stage, along with the saved data.
+. This will trigger the `start` method in `UiManager`, which leads to the
+creation of a new `RemindWindow` instance, with a `List` of all coupons
+currently stored passed in as a parameter.
+. In the constructor of `RemindWindow`, coupons that do not have a remind
+date of today are filtered out.
+. After filtering the coupons, if there are coupons to be reminded today,
+their information will be concatenated into a `String` that is displayed in
+the reminder window.
 
-Step 2. The `checkReminder()` method is invoked to exhaust
-all the coupons in the coupon stash to check if there is
-any coupon's `remindDate` that matches the `system's date`.
-
-Step 3. In this example, we will assume that there are
-coupons that needs to be reminded and will call `RemindWindow#displayWindow`
-method with a concatenated string of coupons information.
-Coupon information, such as coupon's name and its
-expiry date, are retrieved by using  `toString` method
-of coupon's `Name` class and `ExpiryDate` class.
-
-Step 4. A new `stage`, along with new `label` with buttons
-and coupon information, will be
-built onto the scene that resembles a pop up window. This pop
-up would require the user to response before resuming the use of
-the application by clicking "OK"
-
-Step 5. The coupon's `remindDate` will set to `null` through the setter method
-of `Remind` class.
-
-
+.Sequence diagram describing the process of opening the reminder window.
 image::RemindSequenceDiagram.png[]
 
 ==== Design consideration
 
-*Aspect: The implementation of remind date for every
-coupon to facilitate coupon reminder*
+*Aspect: How to keep track of coupon remind date*
 
-* *Alternative 1 (current state):* Coupon contains an
- `Remind` field
+* *Alternative 1 (current choice):* Coupon contains a `Remind` field.
 
-** Pros: Code Implementation is easier and requires lower maintenance
+** Pros: Code implementation is easier and this makes the remind date more
+visible to the user since it is a field.
 
-** Cons: Inefficient to access all coupon-objects to
-get the remind dates for crosschecking with sys date
+** Cons: Coupon display may get very cluttered with the addition of this
+extra field.
 
-* *Alternative 2 :* To store a list of coupons based
-on their remind dates, in ascending order
-(Queue-data structure) in a separate data file
+* *Alternative 2 :* Store the remind dates of all coupons in a separate data
+file. Coupons can be stored in a hash table with their remind dates as keys.
 
-** Pros: Avoid going through the entire coupon stash.
-Efficient.
+** Pros: No need to clutter coupon display with additional fields. Plus, it
+is efficient to list all coupons that have to be reminded for on a certain
+day as the coupons are stored in a hash table.
 
-** Cons: Harder to maintain two data files.
-Very prone to error.
+** Cons: Hard to maintain two separate data files that have shared components
+(in this case coupons)
+
+All in all, we chose alternative 1 as we feel that it is good for users to be
+able to view the remind date of a coupon in the coupon view. Addtionally, all
+speed-ups and efficiency of storing the remind dates in a separate data file
+is nullified by the fact that we still need to loop through all coupons to
+display their remind dates on the calendar component. Thus, to make it easier
+to extend the program in the future, we decided against adding another data
+file which can make extension more complicated, and chose to work with
+alternative 1.
 
 // tag::savings[]
 === Savings per use and total amount saved
