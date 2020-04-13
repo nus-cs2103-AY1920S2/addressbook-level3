@@ -1,7 +1,7 @@
 @startuml
 
-skinparam ActivityFontSize 7
-skinparam ArrowFontSize 7
+skinparam ActivityFontSize 11
+skinparam ArrowFontSize 11
 
 start
 :User starts Coupon Stash up;
