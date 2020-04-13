@@ -534,8 +534,8 @@ Format: `(ev)edit [t/EVENT_TITLE] [dt/EVENT_DATE] [d/DURATION] [p/PLACE]`
 
 Examples:
 
-* `(ev)edit 2 dt/2020-04-09 22:00 d/2` +
-Edits the 2nd event in the Event Schedule by changing the timing to 10PM on the 9th of April and the estimated duration to be 2 hours.
+* `(ev)edit 2 dt/2020-04-25 22:00 d/2` +
+Edits the 2nd event in the Event Schedule by changing the timing to 10PM on the 25th of April and the estimated duration to be 2 hours.
 
 ==== Deletes a social event : `(ev)delete`
 

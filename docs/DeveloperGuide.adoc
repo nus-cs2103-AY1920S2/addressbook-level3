@@ -917,7 +917,7 @@ Expected: No restaurant deleted. Error details shown in the status message.
 === Adding an assignment
 
 . Test case: `(st)add t/CS2103 post lecture quiz d/2020-11-11 23:59 e/2` +
-  Expected: Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-11-2020 23:59 PM and which takes an estimated two hours to complete. Details of the added assignment shown in the status message.
+  Expected: Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11 Nov 2020 23:59 PM and which takes an estimated two hours to complete. Details of the added assignment shown in the status message.
 .. Test case: `(st)add t/CS2105 lab d/DEADLINE e/5` (where `DEADLINE` is before the current date and time) +
    Expected: No assignment is added. Error details shown in the status message.
 
@@ -984,9 +984,9 @@ Expected: List all added social events in the Event Schedule.
 . Edits a social event while all social events are listed
 
 .. Prerequisites: List all social events using the `(ev)list` command. Multiple social events in the list.
-.. Test case: `(ev)edit 1 edt/2020-04-09 11:00 ed/2` +
-   Expected: Edits the first event in the Event Schedule by changing the timing to 11AM on the 9th of April and the estimated duration to be 2 hours.
-.. Test case: `(ev)edit dt/DATETIME` (where DATETIME is after the current date and time) +
+.. Test case: `(ev)edit 1 dt/2020-04-25 11:00 d/2` +
+   Expected: Edits the first event in the Event Schedule by changing the timing to 11AM on the 25th of April and the estimated duration to be 2 hours.
+.. Test case: `(ev)edit dt/DATETIME` (where DATETIME is before the current date and time) +
    Expected: No social event is edited. Error details shown in the status message.
 
 === Deleting a social event
