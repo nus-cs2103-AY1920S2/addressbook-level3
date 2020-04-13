@@ -137,6 +137,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         gradWindow = new GradWindow(logic.getPlanner());
+        gradWindow.changeColor(0);
         gradPlaceholder.getChildren().add(gradWindow.getRoot());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
@@ -231,12 +232,14 @@ public class MainWindow extends UiPart<Stage> {
         if (colorTrack == 1) {
             primaryStage.getScene().getStylesheets().add(getClass().getResource("/view/LightTheme.css")
                     .toExternalForm());
+            gradWindow.changeColor(1);
             colorTrack = 0;
         } else {
             primaryStage.getScene().getStylesheets().remove(getClass().getResource("/view/LightTheme.css")
                     .toExternalForm());
             primaryStage.getScene().getStylesheets().add(getClass().getResource("/view/DarkTheme.css")
                     .toExternalForm());
+            gradWindow.changeColor(0);
             colorTrack = 1;
         }
     }

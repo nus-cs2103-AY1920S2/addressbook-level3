@@ -20,7 +20,7 @@
             <HBox alignment="CENTER_LEFT" spacing="5">
                 <Label fx:id="graduationStatus" styleClass="cell_big_label" />
             </HBox>
-         <ScrollPane style="-fx-background: #383838">
+         <ScrollPane fx:id="scrollPaneGraduation">
            <content>
                <Label fx:id="info" styleClass="cell_small_label" />
            </content>
