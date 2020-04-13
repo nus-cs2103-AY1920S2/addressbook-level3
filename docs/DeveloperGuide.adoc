@@ -432,8 +432,27 @@ image::DiaryClass.png[width="790"]
 - Different types of `Mood` such as `CalmMood`, `HappyMood` extends from the abstract class `Mood`. Similar subtype relation holds for different types of weather and the abstract class `Weather`.
 - List of diary entries are managed by the `DiaryBook` class. All relevant actions such as adding, deleting as described above are implemented inside `DiaryBook`. This can be seen from the methods of `DiaryBook` in the class diagram above.
 
+==== Example Use Case
+Given below are example usages scenario and how the Module Book feature behaves at each step.
 
+- *Example*: deleting the diary entry with entry ID 1
+The sequence diagram below shows how the `diaryDelete id/1` command is executed
 
+.Sequence Diagram for executing `diaryDelete id/1`
+image::DiarySequence.png[width="790"]
+
+==== Design Considerations
+How does the user edit a diary entry?
+- Current solution: `Mood` and `Weather` can be updated easily with the `diaryMood` and `diaryWeather` command. However, We have not include a edit feature for the entry content. The users can first delete the entry and re-add the entry with updated diary entry.
+** *Pros*: May deter users from changing past diary content as diary is meant to record what have happened and editing the past experience may not be encouraged.
+** *Cons*: The users may need to retype the whole entry content which is a time consuming process.
+
+- Alternative solution: include a feature that replaces a certain keyword with a new keyword.
+** *Pros*: Requires less typing and less time consuming.
+** *Cons*: May cause some unintended changes to the entry content because of entry content containing substrings of the replaced keyword.
+
+*Reason for chosen implementation:*
+We want to adhere to the fact that past diary entries should not be changed but still allows editing, only that it will require more effort. The alternative solution is certainly feasible, to avoid the downsides of the alternative solution we can incorporate regular expressions to ensure more accurate replacing. However, this may require the users to have some prior knowledge which is not desired.
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
