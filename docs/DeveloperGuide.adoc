@@ -218,12 +218,10 @@ This package defines utility classes for certain operations, like file I/O, argu
 
 
 
-// tag::undoredo[]
+== Implementation details and possible enchancements
 
-
-== Implementation Details, and Future Work
-
-This section right nowdescribes some noteworthy details on how certain features are implemented, as well as alternatives. Some possible future components are briefly covered, and these may be released in `v2.0`.
+This section describes some noteworthy details on how certain features are implemented.
+Some possible future components are briefly covered, and these may be released in `v2.0`.
 
 
 === Counting recipes [Done by Zain Alam]
@@ -319,6 +317,36 @@ Furthermore, the initial `ImageUtil` written as an ordinary static utility class
 
 ==== Possible Improvements
 As it is, image processing spans _several_ classes: `FileUtil`, `ImageUtil`, `Photograph`. We would like to simplify this. Furthermore, _saving_ image data requires returning a file path through several methods, which have little relation to one another.
+
+
+// tag::FindCommandImpl[]
+=== Finding recipes [Kevin]
+
+The following section describes how the `find` command is implemented as well as design considerations that were taken into account during its implementation.
+Some possible future improvements are also explored.
+
+==== Implementation
+
+The `find` command is implemented in the _FindCommand_ class.
+
+The following activity diagram shows the possible paths *CookBuddy* can take when a `find` command is run.
+
+.Activity diagram of finding recipes
+image::FindCommandActivityDiagram.svg[align="center]
+
+
+==== Design Considerations
+
+
+
+==== Possible improvements
+
+As it is currently implemented, the `find` command only accepts finding via one attribute at a time.
+A possible future improvement would enable it to search for recipes using multiple attributes.
+
+For example, running `find n/Ham ing/toast` will make *CookBuddy* search for recipes with _Ham_ in its name, or _toast_ in its ingredients.
+
+// end::FindCommandImpl[]
 
 === Logging
 
