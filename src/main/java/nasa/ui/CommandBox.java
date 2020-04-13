@@ -87,19 +87,19 @@ public class CommandBox extends UiPart<Region> {
      * @return
      */
     public boolean isValidCommand() {
-
         boolean isCommand = false;
         // We match the longest command
         for (String command : commandList.keySet()) {
             if (commandTextField.getText().trim().toLowerCase().startsWith(command)) {
                 isCommand = true;
                 matchedCommand = command;
-
+                break;
             }
         }
         return isCommand;
-
     }
+
+
 
 
     /**
