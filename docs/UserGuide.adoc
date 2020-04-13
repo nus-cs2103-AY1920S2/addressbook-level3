@@ -1572,7 +1572,8 @@ All sessions in the *Session View* with module code `CS3243`,
 
 [NOTE]
 ====
-As long as a session contains one of the keyword given by the user, the session will be shown to the user.
+As long as a session contains *any one of the keywords* given by the user,
+the session will be shown to the user.
 ====
 //end::filtersession[]
 
@@ -1583,7 +1584,7 @@ As long as a session contains one of the keyword given by the user, the session 
 
 (Contributed by Chua Yi Jing)
 
-You can use this command to filters sessions in the *Claims View* by the module code.
+You can use this command to *filter sessions in the Claims View* by the module code.
 
 You will see the module with the specified `MOD_CODE` highlighted in orange in the list.
 
@@ -1607,14 +1608,14 @@ All sessions in the *Claims View* with module code `CS3243` are displayed.
 
 (Contributed by Fatin)
 
-Sets the hourly rate for the total income and claim computation.
+Sets the *hourly rate for the total income and claim computation*.
 
 Format: `setrate RATE`
 
 [NOTE]
 ====
-* If you don't specify a rate, it is set at $40 by default (the rate at which most SOC TAs are being paid per hour).
-* `RATE` is the amount you want to change the hourly rate to, this value will be used to calulate the
+* If you don't specify a rate, it is *set at $40 by default* (the rate at which most SOC TAs are being paid per hour).
+* `RATE` is the amount you want to change the hourly rate to, this value will be used to calculate the
 `Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
 * The `RATE` must be a positive integer.
 ====
@@ -1633,13 +1634,14 @@ Sets the current hourly rate to $25.
 ==== Generate Statistic Report : `report`
 (Contributed by Haoyi)
 
-You can use this command to generate a report to display information such as:
+You can use this command to *generate a report to display information* such as:
 
 * A breakdown and summary of completed sessions
 * The number of hours of each type of completed sessions
 * A breakdown of your student's ratings
 
-Optionally, you can specify a module code. If a module code is specified, the report generated will only include data from the specified module.
+Optionally, you can specify a *module code*. If a module code is specified,
+the report generated will only include data from the *specified module*.
 
 Pressing the `esc` key on your keyboard will close the statistics window.
 
