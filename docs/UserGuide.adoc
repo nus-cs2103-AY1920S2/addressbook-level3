@@ -1667,7 +1667,7 @@ Generate and display a report of sessions and students from the module CS3243.
 //end::statistics[]
 //tag::glossary[]
 
-=== Timed Session - Coming in V2.0
+=== Timed Sessions - Coming in V2.0
 (Contributed by Haoyi)
 
 In V2.0, you will be able to add timed sessions. Timed sessions include sessions that will notify
