@@ -5,16 +5,19 @@ import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEM
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.results.ExitCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 public class ExitCommandTest {
+
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
 
     @Test
     public void execute_exit_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
-        assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new ExitCommand(), model,
+                new ExitCommandResult("Exiting", MESSAGE_EXIT_ACKNOWLEDGEMENT, model.getDisplayType()),
+                expectedModel);
     }
 }

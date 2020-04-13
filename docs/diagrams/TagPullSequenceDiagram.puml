@@ -1,0 +1,95 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ResumeBookParser" as ResumeBookParser LOGIC_COLOR
+participant ":TagPullCommandParser" as TagPullCommandParser LOGIC_COLOR
+participant "t:TagPullCommand" as TagPullCommand LOGIC_COLOR
+participant ":TagPullCommandResult" as TagPullCommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "resumeCopy:Resume" as Resume MODEL_COLOR
+end box
+
+[-> LogicManager : execute("tagpull 2 #/ tech")
+activate LogicManager
+
+LogicManager -> ResumeBookParser : parseCommand("tagpull 2 #/ tech")
+activate ResumeBookParser
+
+create TagPullCommandParser
+ResumeBookParser -> TagPullCommandParser
+activate TagPullCommandParser
+
+TagPullCommandParser --> ResumeBookParser
+deactivate TagPullCommandParser
+
+ResumeBookParser -> TagPullCommandParser : parse("2 #/ tech")
+activate TagPullCommandParser
+
+create TagPullCommand
+TagPullCommandParser -> TagPullCommand
+activate TagPullCommand
+
+TagPullCommand --> TagPullCommandParser : t
+deactivate TagPullCommand
+
+TagPullCommandParser --> ResumeBookParser : t
+deactivate TagPullCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+TagPullCommandParser -[hidden]-> ResumeBookParser
+destroy TagPullCommandParser
+
+ResumeBookParser --> LogicManager : t
+deactivate ResumeBookParser
+
+LogicManager -> TagPullCommand : execute()
+activate TagPullCommand
+
+TagPullCommand -> Model : getResumeByIndex(index)
+activate Model
+
+Model ---> TagPullCommand : toEdit
+deactivate Model
+
+TagPullCommand -> Model : pullItemsByTags()
+activate Model
+
+Model ---> TagPullCommand : taggedItems
+deactivate Model
+
+create Resume
+TagPullCommand -> Resume
+activate Resume
+
+Resume ---> TagPullCommand : resumeCopy
+deactivate Resume
+
+TagPullCommand -> Model : editResume(resumeCopy, taggedItems)
+activate Model
+
+Model ---> TagPullCommand
+deactivate Model
+
+TagPullCommand -> Model : setResume(toEdit, resumeCopy)
+activate Model
+
+Model ---> TagPullCommand
+deactivate Model
+
+create TagPullCommandResult
+TagPullCommand -> TagPullCommandResult
+activate TagPullCommandResult
+
+TagPullCommandResult --> TagPullCommand
+deactivate TagPullCommandResult
+
+TagPullCommand --> LogicManager : result
+deactivate TagPullCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

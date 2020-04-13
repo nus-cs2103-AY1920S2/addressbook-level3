@@ -7,14 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.results.CommandResult;
+
 public class CommandResultTest {
     @Test
     public void equals() {
-        CommandResult commandResult = new CommandResult("feedback");
+        CommandResult commandResult = new CommandResult("", "feedback", "int");
 
         // same values -> returns true
-        assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
+        assertTrue(commandResult.equals(new CommandResult("", "feedback", "int")));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -25,30 +26,35 @@ public class CommandResultTest {
         // different types -> returns false
         assertFalse(commandResult.equals(0.5f));
 
+        // different dataToUser value -> false
+        assertFalse(commandResult.equals(new CommandResult("different",
+                "feedback", "int")));
+
         // different feedbackToUser value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("different")));
+        assertFalse(commandResult.equals(new CommandResult("", "different", "int")));
 
-        // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false)));
-
-        // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+        // different display type -> returns false
+        assertFalse(commandResult.equals(new CommandResult("", "feedback", "proj")));
     }
 
     @Test
     public void hashcode() {
-        CommandResult commandResult = new CommandResult("feedback");
+        CommandResult commandResult = new CommandResult("", "feedback", "int");
 
         // same values -> returns same hashcode
-        assertEquals(commandResult.hashCode(), new CommandResult("feedback").hashCode());
+        assertEquals(commandResult.hashCode(),
+                new CommandResult("", "feedback", "int").hashCode());
+
+        // different dataToUser value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(),
+                new CommandResult("different", "feedback", "int").hashCode());
 
         // different feedbackToUser value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
+        assertNotEquals(commandResult.hashCode(),
+                new CommandResult("", "different", "int").hashCode());
 
-        // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false).hashCode());
-
-        // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+        // different display type -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(),
+                new CommandResult("", "different", "proj").hashCode());
     }
 }

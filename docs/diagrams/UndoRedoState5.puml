@@ -3,19 +3,25 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "clear"
+title After command "sort i/ ski order/ name"
 
 package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab3:AddressBook__"
+    class State1 as "__rb0:ResumeBook__" {
+        displayType = ""
+    }
+    class State2 as "__rb1:ResumeBook__" {
+        displayType = "res"
+    }
+    class State3 as "__rb3:ResumeBook__" {
+        displayType = "ski"
+    }
 }
 
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 
 class Pointer as "Current State" #FFFFF
-
+hide Pointer field
 Pointer -up-> State3
-note right on link: State ab2 deleted.
+note right on link: State rb2 deleted.
 @end

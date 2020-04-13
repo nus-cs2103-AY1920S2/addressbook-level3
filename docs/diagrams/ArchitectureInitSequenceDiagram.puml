@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+
+'Actor User as user USER_COLOR
+Participant ":MainApp" as main MAIN_COLOR
+Participant ":Storage" as storage STORAGE_COLOR
+Participant ":Model" as model MODEL_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":UI" as ui UI_COLOR
+
+[-[MAIN_COLOR]> main : init()
+activate main MAIN_COLOR
+
+create storage
+main -[STORAGE_COLOR]> storage: new Storage(resumeBookStorage, userPrefsStorage)
+activate storage STORAGE_COLOR
+storage --[STORAGE_COLOR]> main: storage
+deactivate storage
+
+main -[MAIN_COLOR]> main: initModelManager(storage, userPrefs)
+activate main MAIN_COLOR_T1
+
+create model
+main -[MODEL_COLOR]> model: new ModelManager(initialData, userPrefs)
+activate model MODEL_COLOR
+model --[MODEL_COLOR]> main: model
+deactivate model
+
+main --[MAIN_COLOR]> main: model
+deactivate main
+
+create logic
+main -[LOGIC_COLOR]> logic: new LogicManager(model, storage)
+activate logic LOGIC_COLOR
+logic --[LOGIC_COLOR]> main: logic
+deactivate logic
+
+create ui
+main -[UI_COLOR]> ui: new UI(logic)
+activate ui UI_COLOR
+ui --[UI_COLOR]> main: ui
+deactivate ui
+
+<[MAIN_COLOR]--main
+deactivate main
+@enduml

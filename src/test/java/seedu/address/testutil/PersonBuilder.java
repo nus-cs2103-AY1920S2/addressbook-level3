@@ -1,49 +1,82 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.item.Person;
+import seedu.address.model.item.field.Cap;
+import seedu.address.model.item.field.Description;
+import seedu.address.model.item.field.DisplayPicture;
+import seedu.address.model.item.field.Email;
+import seedu.address.model.item.field.Github;
+import seedu.address.model.item.field.Major;
+import seedu.address.model.item.field.Name;
+import seedu.address.model.item.field.Phone;
+import seedu.address.model.item.field.Time;
+import seedu.address.model.item.field.University;
 
 /**
  * A utility class to help with building Person objects.
  */
 public class PersonBuilder {
-
+    public static final String DEFAULT_DP = "/images/Duke.png";
     public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_DESCRIPTION = "I am an aspiring software engineer.";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_GITHUB = "alicepauline";
+    public static final String DEFAULT_UNIVERSITY = "National University of Singapore";
+    public static final String DEFAULT_MAJOR = "Bachelor of Computing";
+    public static final String DEFAULT_FROM = "08-2018";
+    public static final String DEFAULT_TO = "05-2022";
+    public static final String DEFAULT_CAP = "5.0 5.0";
 
+    private DisplayPicture displayPicture;
     private Name name;
+    private Description description;
     private Phone phone;
     private Email email;
-    private Address address;
-    private Set<Tag> tags;
+    private Github github;
+    private University university;
+    private Major major;
+    private Time from;
+    private Time to;
+    private Cap cap;
 
     public PersonBuilder() {
+        displayPicture = new DisplayPicture(DEFAULT_DP);
         name = new Name(DEFAULT_NAME);
+        description = new Description(DEFAULT_DESCRIPTION);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
+        github = new Github(DEFAULT_GITHUB);
+        university = new University(DEFAULT_UNIVERSITY);
+        major = new Major(DEFAULT_MAJOR);
+        from = new Time(DEFAULT_FROM);
+        to = new Time(DEFAULT_TO);
+        cap = new Cap(DEFAULT_CAP);
     }
 
     /**
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
     public PersonBuilder(Person personToCopy) {
+        displayPicture = personToCopy.getDisplayPicture();
         name = personToCopy.getName();
+        description = personToCopy.getDescription();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
-        tags = new HashSet<>(personToCopy.getTags());
+        github = personToCopy.getGithub();
+        university = personToCopy.getUniversity();
+        major = personToCopy.getMajor();
+        from = personToCopy.getFrom();
+        to = personToCopy.getTo();
+        cap = personToCopy.getCap();
+    }
+
+    /**
+     * Sets the {@code DisplayPicture} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDisplayPicture(String displayPicture) {
+        this.displayPicture = new DisplayPicture(displayPicture);
+        return this;
     }
 
     /**
@@ -55,18 +88,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Sets the {@code Description} of the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public PersonBuilder withDescription(String description) {
+        this.description = new Description(description);
         return this;
     }
 
@@ -86,8 +111,56 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Github} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGithub(String github) {
+        this.github = new Github(github);
+        return this;
+    }
+
+    /**
+     * Sets the {@code University} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withUniversity(String university) {
+        this.university = new University(university);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Major} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withMajor(String major) {
+        this.major = new Major(major);
+        return this;
+    }
+
+    /**
+     * Sets the {@code from} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withFrom(String from) {
+        this.from = new Time(from);
+        return this;
+    }
+
+    /**
+     * Sets the {@code to} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withTo(String to) {
+        this.to = new Time(to);
+        return this;
+    }
+
+    /**
+     * Sets the {@code cap} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withCap(String cap) {
+        this.cap = new Cap(cap);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(displayPicture, name, description, phone, email, github, university, major, from, to, cap);
     }
 
 }

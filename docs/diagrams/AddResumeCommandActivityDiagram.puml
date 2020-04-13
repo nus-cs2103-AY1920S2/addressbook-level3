@@ -1,0 +1,12 @@
+@startuml
+start
+:Execute Command;
+if () then ([resume already exists])
+    :throw exception;
+else ([else])
+    :add resume;
+    :set all resumes to display;
+    :commit;
+endif
+stop
+@enduml

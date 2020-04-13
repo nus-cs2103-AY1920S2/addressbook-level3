@@ -1,0 +1,26 @@
+@startuml
+skinparam defaultFontSize 15
+skinparam nodesep 90
+skinparam ranksep 130
+
+start
+:user executes EditNoteCommand;
+
+if () then ([invalid index is present])
+    :throw invalid index exception;
+else ([else])
+    :get note to edit from model
+    based on index;
+    :create edited note from
+    edit note descriptor;
+    if () then ([note present in resume book])
+        :throw duplicate note exception;
+    else ([else])
+        :update note to edited version in model;
+        :commit resume book;
+        :display edited note in note list;
+    endif
+    :show result message to user;
+endif
+stop
+@enduml

@@ -1,18 +1,30 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.item.Internship;
+import seedu.address.model.item.Item;
+import seedu.address.model.item.Note;
+import seedu.address.model.item.ObservablePerson;
+import seedu.address.model.item.Person;
+import seedu.address.model.item.Project;
+import seedu.address.model.item.Resume;
+import seedu.address.model.item.Skill;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
+    Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -35,53 +47,341 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' resume book file path.
      */
-    Path getAddressBookFilePath();
+    Path getResumeBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' resume book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setResumeBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces resume book data with the data in {@code resumeBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setResumeBook(ReadOnlyResumeBook resumeBook);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyResumeBook getResumeBook();
+
+    /** Returns the stateless AddressBook */
+    ReadOnlyResumeBook getStatelessResumeBook();
+
+    //=========== User ================================================================================
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Replaces the current user with {@code person}.
      */
-    boolean hasPerson(Person person);
+    void setUser(Person person);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * @return the user in the model as a Person object.
      */
-    void deletePerson(Person target);
+    Person getUser();
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * @return the user in the model as an ObservablePerson object.
      */
-    void addPerson(Person person);
+    ObservablePerson getObservableUser();
+
+    boolean hasNote(Note note);
+
+    void addNote(Note note);
+
+    void setNote(Note target, Note editedNote);
+
+    void deleteNote(Note note);
+
+    Note getNoteByIndex(Index index);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Sorts all Note items in the resume book using the supplied Comparator.
+     * @param sortComparator a Comparator that compares two Note items.
      */
-    void setPerson(Person target, Person editedPerson);
+    void sortNotes(Comparator<Note> sortComparator);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    int getNoteListSize();
+
+    //=========== Internships ================================================================================
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Returns true if an internship with the same identity as {@code internship} exists in the resume book.
+     */
+    boolean hasInternship(Internship internship);
+
+    /**
+     * Adds the given internship.
+     * {@code internship} must not already exist in the resume book.
+     */
+    void addInternship(Internship internship);
+
+    /**
+     * Replaces the given internship {@code target} with {@code editedInternship}.
+     * {@code target} must exist in the resume book.
+     * The identity of {@code editedInternship} must not be the same as another existing internship in the resume book.
+     */
+    void setInternship(Internship target, Internship editedInternship);
+
+    /**
+     * Deletes the given internship.
+     * The internship must exist in the resume book.
+     */
+    void deleteInternship(Internship internship);
+
+    /**
+     * Returns an Internship item at the specified index from the internship list.
+     * @param index
+     * @return Internship item at {@code index}
+     */
+    Internship getInternshipByIndex(Index index);
+
+    boolean hasInternshipId(int id);
+
+    /**
+     * Returns a Internship item with the specified ID from the internship list.
+     * @param id
+     * @return Internship item with {@code id}
+     */
+    Internship getInternshipById(int id);
+
+    List<Internship> getInternshipsByTag(Tag tag);
+
+    /**
+     * Sorts all Internship items in the resume book using the supplied Comparator.
+     * @param sortComparator a Comparator that compares two Internship items.
+     */
+    void sortInternships(Comparator<Internship> sortComparator);
+
+    /**
+     * Return the size of the internship list.
+     */
+    int getInternshipSize();
+
+    /**
+     * Updates the List as the internship list.
+     */
+    void setInternshipToDisplay();
+
+    //=========== Projects ================================================================================
+
+    /**
+     * Returns true if a project with the same identity as {@code project} exists in the resume book.
+     */
+    public boolean hasProject(Project project);
+
+    /**
+     * Adds a project to the resume book.
+     * The project must not already exist in the resume book.
+     */
+    public void addProject(Project project);
+
+    /**
+     * Replaces the given project {@code target} in the list with {@code editedProject}.
+     * {@code target} must exist in the resume book.
+     * The identity of {@code editedProject} must not be the same as another existing project in the resume book.
+     */
+    public void setProject(Project target, Project editedProject);
+
+    /**
+     * Removes {@code key} from this {@code ResumeBook}.
+     * {@code key} must exist in the resume book.
+     */
+    public void deleteProject(Project key);
+
+    /**
+     * Return a Project item at the specified index from the project list.
+     * @param index
+     * @return Project item at {@code index}
+     */
+    Project getProjectByIndex(Index index);
+
+    boolean hasProjectId(int id);
+
+    /**
+     * Return a Project item with the specified ID from the project list.
+     * @param id
+     * @return Project item with {@code id}
+     */
+    Project getProjectById(int id);
+
+    List<Project> getProjectsByTag(Tag tag);
+
+    /**
+     * Sorts all Project items in the resume book using the supplied Comparator.
+     * @param sortComparator a Comparator that compares two Project items.
+     */
+    void sortProjects(Comparator<Project> sortComparator);
+
+    /**
+     * Return the size of the project list.
+     */
+    int getProjectSize();
+
+    /**
+     * Updates the List as the project list.
+     */
+    void setProjectToDisplay();
+
+    //=========== Skills ================================================================================
+
+    /**
+     * Returns true if a skill with the same identity as {@code skill} exists in the resume book.
+     */
+    public boolean hasSkill(Skill skill);
+
+    /**
+     * Adds a skill to the resume book.
+     * The skill must not already exist in the resume book.
+     */
+    public void addSkill(Skill skill);
+
+    /**
+     * Replaces the given skill {@code target} in the list with {@code editedSkill}.
+     * {@code target} must exist in the resume book.
+     * The identity of {@code editedSkill} must not be the same as another existing skill in the resume book.
+     */
+    public void setSkill(Skill target, Skill editedSkill);
+
+    /**
+     * Removes {@code key} from this {@code ResumeBook}.
+     * {@code key} must exist in the resume book.
+     */
+    public void deleteSkill(Skill key);
+
+    /**
+     * Return a Skill item at the specified index from the skill list.
+     * @param index
+     * @return Skill item at {@code index}
+     */
+    Skill getSkillByIndex(Index index);
+
+    boolean hasSkillId(int id);
+
+    /**
+     * Return a Skill item with the specified ID from the skill list.
+     * @param id
+     * @return Skill item with {@code id}
+     */
+    Skill getSkillById(int id);
+
+    List<Skill> getSkillsByTag(Tag tag);
+
+    /**
+     * Sorts all Skill items in the resume book using the supplied Comparator.
+     * @param sortComparator a Comparator that compares two Skill items.
+     */
+    void sortSkills(Comparator<Skill> sortComparator);
+
+    /**
+     * Return the size of the skill list.
+     */
+    int getSkillSize();
+
+    /**
+     * Updates the List as the skill list.
+     */
+    void setSkillToDisplay();
+
+    //=========== Resumes ================================================================================
+
+    /**
+     * Returns true if a resume with the same identity as {@code resume} exists in the resume book.
+     */
+    boolean hasResume(Resume resume);
+
+    /**
+     * Adds the given resume.
+     * {@code resume} must not already exist in the resume book.
+     */
+    void addResume(Resume resume);
+
+    /**
+     * Replaces the given resume {@code target} with {@code editedResume}.
+     * {@code target} must exist in the resume book.
+     * The identity of {@code editedResume} must not be the same as another existing resume in the resume book.
+     */
+    void setResume(Resume target, Resume editedResume);
+
+    /**
+     * Updates the given resume to contain the internship, project, and skill items with the specified indices.
+     */
+    void editResume(Resume target, List<Integer> internshipIds, List<Integer> projectIds, List<Integer> skillIds);
+
+    /**
+     * Deletes the given resume.
+     * The resume must exist in the resume book.
+     */
+    void deleteResume(Resume resume);
+
+    /**
+     * Return a Resume item at the specified index from the resume list.
+     * @param index
+     * @return Resume item at {@code index}
+     */
+    Resume getResumeByIndex(Index index);
+
+    /**
+     * Sorts all Resume items in the resume book using the supplied Comparator.
+     * @param sortComparator a Comparator that compares two Resume items.
+     */
+    void sortResumes(Comparator<Resume> sortComparator);
+
+    boolean hasResumeId(int id);
+
+    /**
+     * Return the size of the resume list.
+     */
+    int getResumeSize();
+
+    /**
+     * Updates the List as the resume list.
+     */
+    void setResumeToDisplay();
+
+    //=========== Item Lists ================================================================================
+
+    /** Returns an unmodifiable view of the filtered item list */
+    ObservableList<Item> getFilteredItemList();
+
+    void setItemsToDisplay(String typeString);
+
+    /**
+     * Updates the filter of the filtered item list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredItemList(Predicate<Item> predicate);
+
+    ObservableList<Note> getFilteredNoteList();
+
+    public void updateFilteredNoteList(Predicate<Item> predicate);
+
+    String getDisplayType();
+
+    //================================ Undo/Redo =============================================================
+
+    /**
+     * Returns true if the model has previous resume book states to restore.
+     */
+    boolean canUndoResumeBook();
+
+    /**
+     * Returns true if the model has undone resume book states to restore.
+     */
+    boolean canRedoResumeBook();
+
+    /**
+     * Restores the model's resume book to its previous state.
+     */
+    void undoResumeBook();
+
+    /**
+     * Restores the model's resume book to its previously undone state.
+     */
+    void redoResumeBook();
+
+    /**
+     * Saves the current resume book state for undo/redo.
+     */
+    void commitResumeBook();
+
 }

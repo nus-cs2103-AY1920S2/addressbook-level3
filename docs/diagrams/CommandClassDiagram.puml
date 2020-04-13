@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Command {
+
+Class "{abstract}\nCommand" as Command
+Class XYZCommand
+Class "{abstract}\nABCCommand" as ABCCommand
+Class ABCInternshipCommand
+Class ABCSkillCommand
+Class ABCResumeCommand
+Class ABCProjectCommand
+Class ABCNoteCommand
+
+}
+
+ABCInternshipCommand -up-|> ABCCommand
+ABCSkillCommand -up-|> ABCCommand
+ABCResumeCommand -up-|> ABCCommand
+ABCProjectCommand -up-|> ABCCommand
+ABCNoteCommand -up-|> ABCCommand
+ABCCommand -up-|> Command
+XYZCommand -up-|> Command
+
+@enduml
+

@@ -19,3 +19,12 @@ src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+
+# Visual Code Studio trash
+.classpath
+.project
+.settings/
+bin/
+
+# .pdf generated files
+/*.pdf

@@ -1,0 +1,18 @@
+@startuml
+skinparam defaultTextAlignment center
+
+start
+:user executes TagPullCommand;
+
+if () then ([tags are not present or
+invalid resume index present])
+    :throw exception;
+else ([else])
+    :pull items which has the given tags
+    from model;
+    :add pulled items to the resume;
+    :show updated resume to user;
+
+endif
+stop
+@enduml

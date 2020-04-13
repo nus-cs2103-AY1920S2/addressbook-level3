@@ -45,4 +45,10 @@ class JsonAdaptedTag {
         return new Tag(tagName);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return this == other
+                || (other instanceof JsonAdaptedTag
+                && this.getTagName().equals(((JsonAdaptedTag) other).getTagName()));
+    }
 }

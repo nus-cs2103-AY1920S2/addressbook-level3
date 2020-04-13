@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ResumeBookParser" as ResumeBookParser LOGIC_COLOR
+participant ":ResumeEditCommandParser" as ResumeEditCommandParser LOGIC_COLOR
+participant "r:ResumeEditCommand" as ResumeEditCommand LOGIC_COLOR
+participant ":ResumeEditCommandResult" as ResumeEditCommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "resumeCopy:Resume" as Resume MODEL_COLOR
+end box
+
+[-> LogicManager : execute("redit 1 int/ 2")
+activate LogicManager
+
+LogicManager -> ResumeBookParser : parseCommand("redit 1 int/ 2")
+activate ResumeBookParser
+
+create ResumeEditCommandParser
+ResumeBookParser -> ResumeEditCommandParser
+activate ResumeEditCommandParser
+
+ResumeEditCommandParser --> ResumeBookParser
+deactivate ResumeEditCommandParser
+
+ResumeBookParser -> ResumeEditCommandParser : parse("1 int/ 2")
+activate ResumeEditCommandParser
+
+create ResumeEditCommand
+ResumeEditCommandParser -> ResumeEditCommand
+activate ResumeEditCommand
+
+ResumeEditCommand --> ResumeEditCommandParser : r
+deactivate ResumeEditCommand
+
+ResumeEditCommandParser --> ResumeBookParser : r
+deactivate ResumeEditCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ResumeEditCommandParser -[hidden]-> ResumeBookParser
+destroy ResumeEditCommandParser
+
+ResumeBookParser --> LogicManager : r
+deactivate ResumeBookParser
+
+LogicManager -> ResumeEditCommand : execute()
+activate ResumeEditCommand
+
+ResumeEditCommand -> Model : getResumeByIndex(index)
+activate Model
+
+Model ---> ResumeEditCommand : toEdit
+deactivate Model
+
+create Resume
+ResumeEditCommand -> Resume
+activate Resume
+
+Resume ---> ResumeEditCommand : resumeCopy
+deactivate Resume
+
+ResumeEditCommand -> Model : editResume(resumeCopy)
+activate Model
+
+Model ---> ResumeEditCommand
+deactivate Model
+
+ResumeEditCommand -> Model : setResume(toEdit, resumeCopy)
+activate Model
+
+Model ---> ResumeEditCommand
+deactivate Model
+
+create ResumeEditCommandResult
+ResumeEditCommand -> ResumeEditCommandResult
+activate ResumeEditCommandResult
+
+ResumeEditCommandResult --> ResumeEditCommand
+deactivate ResumeEditCommandResult
+
+ResumeEditCommand --> LogicManager : result
+deactivate ResumeEditCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

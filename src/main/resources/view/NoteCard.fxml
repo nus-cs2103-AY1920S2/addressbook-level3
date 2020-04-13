@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox id="noteCardPane" stylesheets="@NoteCard.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox id="indexBox" prefHeight="40.0" prefWidth="40.0" HBox.hgrow="NEVER">
+            <children>
+                <Label id="index" fx:id="id" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="40.0" text="\\\$index" textAlignment="CENTER" VBox.vgrow="NEVER">
+                    <font>
+                        <Font size="9.0" />
+                    </font></Label>
+            </children>
+        </VBox>
+        <BorderPane maxWidth="263.5" HBox.hgrow="NEVER">
+            <top>
+                <HBox BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fx:id="tickBox" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="6.0" />
+                            </HBox.margin></ImageView>
+                        <Label fx:id="title" text="\$title" underline="true">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets left="5.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </top>
+            <center>
+                <HBox BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox id="box1" HBox.hgrow="NEVER">
+                            <children>
+                                <HBox VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <ImageView fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                            <image>
+                                                <Image url="@../images/summer.png" />
+                                            </image></ImageView>
+                                        <Label id="header" minWidth="30.0" text="Time: " wrapText="true" HBox.hgrow="ALWAYS" />
+                                        <Label id="details" fx:id="time" minWidth="50.0" text="\\\$time" wrapText="true" HBox.hgrow="ALWAYS" />
+                                        <FlowPane fx:id="tags" prefWrapLength="150.0" HBox.hgrow="NEVER">
+                                            <HBox.margin>
+                                                <Insets left="15.0" />
+                                            </HBox.margin>
+                                            <padding>
+                                                <Insets left="5.0" />
+                                            </padding>
+                                        </FlowPane>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </center>
+        </BorderPane>
+    </children>
+</HBox>

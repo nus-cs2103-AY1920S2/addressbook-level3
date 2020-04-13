@@ -3,54 +3,111 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
+skinparam defaultFontSize 20
+skinparam nodesep 100
+skinparam ranksep 180
+
+Class LogicManager LOGIC_COLOR
+Class ItemCard UI_COLOR
+Class MainApp MAIN_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
-Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
-Class Model
+Interface ObservableList <<interface>>
+Interface Model <<interface>>
+Interface ReadOnlyUserPrefs <<interface>>
+Interface ReadOnlyResumeBook <<interface>>
 Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs
+Class ResumeBook
+Class VersionedResumeBook
+Class UniqueItemList
+Class ObservablePerson
 
-Package Person {
+Package User {
 Class Person
-Class Address
-Class Email
-Class Name
+
+Class DisplayPicture
 Class Phone
-Class UniquePersonList
+Class Email
+Class Github
+Class University
+Class Major
+Class CAP
+
 }
 
-Package Tag {
+Package Item {
+Class Item <<abstract>>
+Class Resume
+Class Internship
+Class Project
+Class Skill
+Class Note
+
+Class Type
+Class Role
+Class Website
+Class Level
 Class Tag
 }
+
+Package SharedFiled\n {
+Class Name
+Class Time
+Class Description
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+MainApp -d-> Model
+LogicManager -d-> Model
+ItemCard .d.> Model
+Model .l.> ObservableList
+ModelManager .l.|> Model
 
-ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+ModelManager o-r- "1" UserPrefs
+UserPrefs .r.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+ModelManager o-- "1" VersionedResumeBook
+VersionedResumeBook --|> ResumeBook
+ResumeBook .u.|> ReadOnlyResumeBook
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+ResumeBook *- "1" ObservablePerson
+ObservablePerson *-- "1" Person
 
-ModelManager -->"1" Person : filtered list
+Person *-u- "1" Phone
+Person *-u- "1" Email
+Person *-u- "1" Github
+Person *-l-- "1" University
+Person *-- "1" Major
+Person *-- "1" CAP
+Person *-- "1" DisplayPicture
+Person *-- "1" Name
+Person *-- "1" Description
+Person *-- "2" Time
+
+ResumeBook *-r- "5" UniqueItemList
+UniqueItemList o-- "*" Item
+
+Item *-- "1" Name
+Item *-u- "1" Type
+Item *-u- "*" Tag
+
+Skill -|> Item
+Resume --|> Item
+Project -l-|> Item
+Note -u-|> Item
+Internship --|> Item
+
+Internship *-r- "1" Role
+Internship *- "2" Time
+Internship *- "1" Description
+
+Project *-r- "1" Website
+Project *-- "1" Time
+Project *- "1" Description
+
+Skill *-- "1" Level
+
+Note *-- "1" Time
+}
 @enduml

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+  <HBox alignment="CENTER" VBox.vgrow="NEVER">
+    <Label fx:id="internshipLabel" styleClass="typeNotSelected" text="Internship" HBox.hgrow="NEVER">
+      <padding>
+        <Insets bottom="5" left="10" right="10" top="5" />
+      </padding>
+      <HBox.margin>
+        <Insets right="5" />
+      </HBox.margin>
+    </Label>
+    <Label fx:id="skillLabel" styleClass="typeNotSelected" text="Skill" HBox.hgrow="NEVER">
+      <padding>
+        <Insets bottom="5" left="10" right="10" top="5" />
+      </padding>
+      <HBox.margin>
+        <Insets right="5" />
+      </HBox.margin>
+    </Label>
+    <Label fx:id="projectLabel" styleClass="typeNotSelected" text="Project" HBox.hgrow="NEVER">
+      <padding>
+        <Insets bottom="5" left="10" right="10" top="5" />
+      </padding>
+      <HBox.margin>
+        <Insets right="5" />
+      </HBox.margin>
+    </Label>
+    <Label fx:id="resumeLabel" styleClass="typeNotSelected" text="Resume" HBox.hgrow="NEVER">
+      <padding>
+        <Insets bottom="5" left="10" right="10" top="5" />
+      </padding>
+      <HBox.margin>
+        <Insets right="5" />
+      </HBox.margin>
+    </Label>
+    <VBox.margin>
+      <Insets bottom="10" />
+    </VBox.margin>
+  </HBox>
+
+  <ListView fx:id="itemListView" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+</VBox>

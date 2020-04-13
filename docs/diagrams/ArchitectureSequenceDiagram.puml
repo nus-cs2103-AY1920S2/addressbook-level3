@@ -7,30 +7,36 @@ Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "delete 1"
+user -[USER_COLOR]> ui : "delete 1 i/ ski"
 activate ui UI_COLOR
+note right of ui: Calls execute with input string
 
-ui -[UI_COLOR]> logic : execute("delete 1")
+ui -[UI_COLOR]> logic : execute("delete 1 i/ ski")
 activate logic LOGIC_COLOR
+note right of logic: Calls methods to update model
 
-logic -[LOGIC_COLOR]> model : deletePerson(p)
+logic -[LOGIC_COLOR]> model : deleteSkill(s)
 activate model MODEL_COLOR
+note right of model: Updates the model
 
 model -[MODEL_COLOR]-> logic
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
+logic -[LOGIC_COLOR]> storage : saveResumeBook(resumeBook)
 activate storage STORAGE_COLOR
 
-storage -[STORAGE_COLOR]> storage : Save to file
+storage -[STORAGE_COLOR]> storage : saveResumeBook(resumeBook, path)
+note right of storage: Saves to file
 activate storage STORAGE_COLOR_T1
 deactivate storage
 
 storage --[STORAGE_COLOR]> logic
 deactivate storage
 
-logic --[LOGIC_COLOR]> ui
+logic --[LOGIC_COLOR]> ui: commandResult
 deactivate logic
+
+note right of ui: Updates UI to user according to commandResult
 
 ui--[UI_COLOR]> user
 deactivate ui

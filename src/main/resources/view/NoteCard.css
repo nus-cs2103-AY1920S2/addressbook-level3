@@ -1,0 +1,47 @@
+/* Card */
+#noteCardPane {
+    -fx-background-color: #5a6872;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: rgba(51, 50, 80, 0.65);
+}
+
+#indexBox {
+    -fx-background-color: #4d5f72;
+    -fx-alignment: center;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-alignment: center;
+}
+
+#index {
+    -fx-text-fill: white;
+    -fx-font-size: 10pt;
+    -fx-font-family: "Impact";
+    -fx-label-padding: 10;
+}
+
+#tag {
+    -fx-font-family: "helvetica neue";
+    -fx-text-fill: white;
+    -fx-font-size: 8pt;
+}
+
+#title {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-font-size: 10pt;
+}
+
+#header {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-font-size: 8pt;
+}
+
+#details {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-font-size: 8pt;
+}
+

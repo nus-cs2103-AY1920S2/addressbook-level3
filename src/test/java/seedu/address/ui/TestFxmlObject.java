@@ -32,4 +32,6 @@ public class TestFxmlObject {
                         && text.equals(((TestFxmlObject) other).getText()));
     }
 
+
+
 }

@@ -4,53 +4,56 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. Our team was
+tasked to build on top of this project to morph it to something new! We chose to build a resume managing
+application, *ResuMe*, to help university students like us!
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Christian James Welly
+image::chrisjwelly.png[width="150", align="left"]
+{empty}[http://github.com/chrisjwelly[github]] [<<chrisjwelly#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Parser
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Nguyen Minh Hoang
+image::wardetu.png[width="150", align="left"]
+{empty}[http://github.com/wardetu[github]] [<<wardetu#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Storage
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Nguyen Chi Hai
+image::helloimhai.png[width="150", align="left"]
+{empty}[http://github.com/helloImHai[github]] [<<helloimhai#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Commands
+
+'''
+
+=== Nham Quoc Hung
+image::nhamhung.png[width="150", align="left"]
+{empty}[http://github.com/nhamhung[github]] [<<nhamhung#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
 
 '''
+
+=== Pham Thuy Duong
+image::duongphammmm.png[width="150", align="left"]
+{empty}[http://github.com/duongphammmm[github]] [<<duongphammmm#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Model
+
+'''
+

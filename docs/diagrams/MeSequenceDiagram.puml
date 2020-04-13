@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+skinparam defaultFontSize 13
+skinparam nodesep 100
+skinparam ranksep 180
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ResumeBookParser" as ResumeBookParser LOGIC_COLOR
+participant ":EditUserParser" as EditUserParser LOGIC_COLOR
+participant "d:EditUserCommand" as EditUserCommand LOGIC_COLOR
+participant ":EditUserCommandResult" as EditUserCommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Person" as Person MODEL_COLOR
+end box
+
+[-> LogicManager : execute("me n/Quoc Hung")
+activate LogicManager
+
+LogicManager -> ResumeBookParser : parseCommand("me n/Quoc Hung")
+activate ResumeBookParser
+
+create EditUserParser
+ResumeBookParser -> EditUserParser : new EditUserParser()
+activate EditUserParser
+
+EditUserParser --> ResumeBookParser
+deactivate EditUserParser
+
+ResumeBookParser -> EditUserParser : parse("n/Quoc Hung")
+activate EditUserParser
+
+create EditUserCommand
+EditUserParser -> EditUserCommand : new EditUserCommand(editUserDescriptor)
+activate EditUserCommand
+
+EditUserCommand --> EditUserParser : d
+deactivate EditUserCommand
+
+EditUserParser --> ResumeBookParser : d
+deactivate EditUserParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditUserParser -[hidden]-> ResumeBookParser
+destroy EditUserParser
+
+ResumeBookParser --> LogicManager : d
+deactivate ResumeBookParser
+
+LogicManager -> EditUserCommand : execute()
+activate EditUserCommand
+
+EditUserCommand -> Model : getUser()
+activate Model
+
+Model --> EditUserCommand : userToEdit
+deactivate Model
+
+create Person
+EditUserCommand -> Person : new Person("Quoc Hung")
+activate Person
+
+Person --> EditUserCommand : editedUser
+deactivate Person
+
+EditUserCommand -> Model : setUser(editedUser)
+activate Model
+
+Model --> EditUserCommand
+deactivate Model
+
+create EditUserCommandResult
+EditUserCommand -> EditUserCommandResult : new EditUserCommandResult(dataToUser, feedbackToUser, modelType)
+activate EditUserCommandResult
+
+EditUserCommandResult --> EditUserCommand : result
+deactivate EditUserCommandResult
+
+EditUserCommand --> LogicManager : result
+deactivate EditUserCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

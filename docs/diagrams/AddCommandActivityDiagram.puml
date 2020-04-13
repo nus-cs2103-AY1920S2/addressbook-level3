@@ -1,0 +1,48 @@
+@startuml
+!pragma useVerticalIf on
+start
+if () then ([is add skill])
+    if () then ([has duplicate])
+      :throw exception;
+    else ([else])
+      :add skill;
+      :set all skills to display;
+      :commit;
+    endif
+elseif () then ([is add project])
+    if () then ([has duplicate])
+     :throw exception;
+    else ([else])
+     :add project;
+     :set all projects to display;
+     :commit;
+    endif
+elseif () then ([is add internship])
+    if () then ([has duplicate])
+        :throw exception;
+    else ([else])
+        :add internship;
+        :set all internships to display;
+        :commit;
+    endif
+elseif () then ([is add note])
+   if () then ([has duplicate])
+       :throw exception;
+   else ([else])
+       :add note;
+       :set all notes to display;
+       :commit;
+   endif
+elseif () then ([is add resume])
+   if () then ([has duplicate])
+       :throw exception;
+   else ([else])
+       :add resume;
+       :set all resumes to display;
+       :commit;
+   endif
+else ([else])
+    :throw exception;
+endif
+stop
+@enduml

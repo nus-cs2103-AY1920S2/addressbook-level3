@@ -39,4 +39,6 @@ Hidden .down.> Commons
 Storage .right.>File
 User --> UI
 Main --> Hidden
+
+hide fields
 @enduml

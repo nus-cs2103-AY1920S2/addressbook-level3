@@ -3,42 +3,43 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ResumeBookParser" as ResumeBookParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant ":VersionedResumeBook" as VersionedResumeBook MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
+[-> LogicManager : execute("undo")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> ResumeBookParser : parseCommand("undo")
+activate ResumeBookParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+ResumeBookParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> ResumeBookParser
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+ResumeBookParser --> LogicManager : u
+deactivate ResumeBookParser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> Model : undoResumeBook()
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+Model -> VersionedResumeBook : undo()
+activate VersionedResumeBook
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+VersionedResumeBook -> VersionedResumeBook :resetData(ReadOnlyResumeBook)
+VersionedResumeBook -> VersionedResumeBook :setItemsToDisplay(String)
+VersionedResumeBook --> Model :
+deactivate VersionedResumeBook
 
 Model --> UndoCommand
 deactivate Model

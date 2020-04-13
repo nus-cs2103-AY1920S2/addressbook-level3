@@ -1,0 +1,28 @@
+@startuml
+start
+:Execute Command;
+
+if () then ([index out of bound])
+    :throw exception;
+else ([else])
+    :add resume's title;
+    :add user's bio;
+    :add user's contact details;
+    :add user's education details;
+    if ()
+        :add internships;
+    else ([empty internships])
+    endif
+    if ()
+        :add projects;
+    else ([empty projects])
+    endif
+    if ()
+        :add skills;
+    else ([empty skills])
+    endif
+    :export Resume to .pdf file;
+
+endif
+stop
+@enduml

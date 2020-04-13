@@ -1,0 +1,70 @@
+{
+  "user": {
+    "dp": "/images/Duke.png",
+    "name": "Alice Pauline",
+    "description": "I am an aspiring software engineer.",
+    "phone": "94351253",
+    "email": "alice@example.com",
+    "github": "alicepauline",
+    "university": "National University of Singapore",
+    "major": "Bachelor of Computing",
+    "from": "08-2018",
+    "to": "05-2022",
+    "current cap": "5.0",
+    "max cap": "5.0"
+  },
+  "resumes": [{
+    "name": "Mechanical Engineering Intern Resume",
+    "id": "0",
+    "containedInternshipIds": [],
+    "containedProjectIds": [],
+    "containedSkillIds": [],
+    "tagged": ["backend", "naps"]
+  }],
+  "internships": [
+    {
+      "name": "Ninja Van",
+      "id": "0",
+      "from": "07-2020",
+      "to": "11-2020",
+      "role": "Ninja Intern",
+      "description": "My journey to become a better ninja",
+      "tagged": ["tech", "UX"]
+    }, {
+      "name": "PayPal",
+      "id": "1",
+      "from": "06-2020",
+      "to": "12-2020",
+      "role": "Backend Software Intern",
+      "description": "I am learning new things",
+      "tagged": ["backend", "SE", "tech"]
+    }
+  ],
+  "skills": [
+    {
+      "name": "React",
+      "id": "0",
+      "level": "GOOD",
+      "tagged": ["tech", "Frontend"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Orbital",
+      "id": "0",
+      "time": "06-2020",
+      "website": "myorbital.github.io",
+      "description": "My first summer project!",
+      "tagged": ["tech"]
+    }
+  ],
+  "notes": [
+    {
+      "name": "Finish CS2103",
+      "id": "0",
+      "time": "12-2020",
+      "isDone": "false",
+      "tagged": ["urgent"]
+    }
+  ]
+}

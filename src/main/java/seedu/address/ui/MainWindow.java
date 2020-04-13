@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -13,9 +15,12 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.results.CommandResult;
+import seedu.address.logic.commands.results.HelpCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.note.NoteListPanel;
+import seedu.address.ui.personbio.UserOverallPane;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,9 +36,14 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ItemListPanel itemListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private PreviewWindow previewWindow;
+    private UserOverallPane userOverallPane;
+    private ItemDisplayList itemDisplayList;
+    private ObservableList<String> observableItemList;
+    private NoteListPanel noteListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -48,7 +58,19 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
+    private StackPane itemDisplayPlaceholder;
+
+    @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane profilePlaceholder;
+
+    @FXML
+    private StackPane testPanelPlaceholder;
+
+    @FXML
+    private StackPane notePlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -63,6 +85,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        previewWindow = new PreviewWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -81,7 +104,6 @@ public class MainWindow extends UiPart<Stage> {
         menuItem.setAccelerator(keyCombination);
 
         /*
-         * TODO: the code below can be removed once the bug reported here
          * https://bugs.openjdk.java.net/browse/JDK-8131666
          * is fixed in later version of SDK.
          *
@@ -107,13 +129,23 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        itemListPanel = new ItemListPanel(logic.getFilteredItemList());
+        personListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
+
+        userOverallPane = new UserOverallPane(logic.getObservableUser());
+
+        profilePlaceholder.getChildren().add(userOverallPane.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        noteListPanel = new NoteListPanel(logic.getFilteredNoteEntryList());
+        notePlaceholder.getChildren().add(noteListPanel.getRoot());
+
+        itemDisplayList = new ItemDisplayList(FXCollections.observableArrayList(new String[0]));
+        itemDisplayPlaceholder.getChildren().add(itemDisplayList.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getResumeBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -144,6 +176,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handlePreview() {
+        if (!previewWindow.isShowing()) {
+            previewWindow.show();
+        } else {
+            previewWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -157,11 +201,12 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        previewWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public ItemListPanel getItemListPanel() {
+        return itemListPanel;
     }
 
     /**
@@ -172,10 +217,26 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
+            logger.info("Item Display: " + commandResult.getDataToUser());
+
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            itemListPanel.changeStyle(commandResult.getDisplayType());
+
+
+            if (commandResult.hasItemChanged()) {
+                itemDisplayList.updateDisplayItem(commandResult.getDataToUser().split("\n"));
+            }
+
+            if (commandResult.isShowPreview()) {
+                previewWindow.setPreviewText(commandResult.getDataToUser());
+                handlePreview();
+            }
 
             if (commandResult.isShowHelp()) {
+                HelpCommandResult helpCommandResult = (HelpCommandResult) commandResult;
+                helpWindow.setText(helpCommandResult.getPopUpContent());
                 handleHelp();
             }
 

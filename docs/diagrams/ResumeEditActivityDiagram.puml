@@ -1,0 +1,56 @@
+@startuml
+skinparam defaultTextAlignment center
+
+start
+:user executes ResumeEditCommand;
+
+if () then ([invalid indices are present])
+    :throw exception;
+else ([else])
+    if () then ([internship prefix used])
+        if () then ([internship indices specified])
+            :set internship items
+            of resume to match
+            indices specified;
+        else ([else])
+            :remove all internship
+            items from resume;
+        endif
+    else ([else])
+        :set internship items
+        of resume to be
+        unchanged;
+    endif
+    if () then ([project prefix used])
+        if () then ([project indices specified])
+            :set project items
+            of resume to match
+            indices specified;
+        else ([else])
+            :remove all project
+            items from resume;
+        endif
+    else ([else])
+        :set project items
+        of resume to be
+        unchanged;
+    endif
+    if () then ([skill prefix used])
+        if () then ([skill indices specified])
+            :set skill items
+            of resume to match
+            indices specified;
+        else ([else])
+            :remove all skill
+            items from resume;
+        endif
+    else ([else])
+        :set skill items
+        of resume to be
+        unchanged;
+    endif
+    :show updated resume to user;
+
+endif
+stop
+@enduml

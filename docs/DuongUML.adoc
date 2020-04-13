@@ -1,0 +1,41 @@
+:imagesDir: images
+
+image::ModelClassDiagram.png[width="1000"]
+
+This Class Diagram illustrates the *Model* component of our application.
+
+In addition to the original diagram in *_AddressBook Level 3_*, to support `undo`/`redo`, `ModelManager` also contains a
+`VersionedResumeBook` class that extends from `ResumeBook`. A `ResumeBook` is a _composition_ of an `OvsevablePerson`
+that represents the user, and five `UniqueItemList` that contains the different `internships`, `projects`, `skills`,
+`resumes` and `notes` respectively.
+
+The `OvsevablePerson` class is composed of an internal `Person` class. A `Person` class further demonstrates _composition_
+relationships with its corresponding attributes, having 1 `Name`, 1 `DisplayPicture`, 1 `Phone`, 1 `Email`, 1 `Github`,
+1 `University`, 1 `Major`, 2 `Time` (for matriculation start and end date respectively), 1 `CAP` and 1 `Description`.
+When a `Person` object is destroyed, its attribute objects are destroyed too.
+
+Each `UniqueItemList` can contain any number of abstract `Item`, with concrete subclasses being `Internship`, `Project`,
+`Skill`, `Resume` and `Note`. All `Item` has 1 `Name`, 1 `Type` and any number of `Tag`. Additionally, each `Internship`
+has 1 `Role`, 2 `Time` (for internship start and end date respectively) and 1 `Description`; each `Project` has 1
+`Website`, 1 `Time` and 1 `Description`; each `Skill` has 1 `Level` and each `Note` has 1 `Time`. Similar to `Person`,
+when an `Item` object is destroyed, so are its corresponding attribute objects.
+
+image::ExportActivityDiagram.png[, 300]
+
+The Activity Diagram illustrates the flow of steps when `rgen` is executed.
+
+A `CommandException` is thrown if the index
+given is out of bound. Otherwise, content sections of the resume with the specified index will be retrieved and added
+to the `.pdf` file correspondingly.
+
+image::ExportSequenceDiagram.png[, 1000]
+
+This Sequence Diagram illustrates the interactions between different components and classes when `rgen` is executed.
+
+`LogicManager#execute()` will call `ResumeBookParser#parseCommand()`, which will parse the command word and create
+a `GenerateResumeCommandParser` accordingly. This parser will then `parse()` the arguments of the command and create a
+`GenerateResumeCommand` instance with the corresponding input. When `GenerateResumeCommand#execute()` is called, it
+retrieves the user and resume information from `Model` using `getUser()` and `getResumeByIndex()`. It also creates a
+`PdfBuilder` object that helps build and format the content of the `.pdf` file. Finally, a `GenerateResumeCommandResult`
+is created and returned to `LogicManager`, which would be passed to `Ui` to update the application view.
+

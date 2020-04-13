@@ -1,0 +1,81 @@
+= Christian James Welly - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ResuMe
+
+---
+
+== 1. Overview
+
+=== 1.1 About the Project
+ResuMe is a desktop resume management application developed by a team of students from National University of Singapore (NUS). The application is aimed at university students, who may want to manage different resumes due to internship and job applications.
+
+The project builds upon the code from https://github.com/nus-cs2103-AY1920S2/addressbook-level3[Address Book Level 3 (AB3)], a desktop Address Book application. ResuMe retains the characteristics of AB3, and thus ResuMe has a Graphical User Interface (GUI) while most interactions happen through the Command Line Interface (CLI).
+
+The application is developed using Java, and within a short span of 6 weeks we have contributed a total of more than 25,000 lines of code to the application.
+
+=== 1.2 About the Team
+The team consists of 5 Year 2 Computer Science students from NUS, taking the Software Engineering module, CS2103T.
+
+== 2. Summary of Contributions
+
+=== 2.1 Individual Contributions
+
+My code contributions can be found here: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=variance&sortWithin=variance&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&since=2020-02-14&tabOpen=true&tabType=authorship&tabAuthor=chrisjwelly&tabRepo=AY1920S2-CS2103T-F10-1%2Fmain%5Bmaster%5D[Functional and Test code (via RepoSense)] +
+
+==== 2.1.1 Enhancements Implemented
+
+* *Major enhancement*: added *the ability to modify items in the resume*: `redit`
+** What it does: allows the user to selectively modify the items in a specified resume.
+** Justification: This is a key feature in the application because a user would need to select existing items in the resume to be included before generating them.
+** Highlights: This enhancement is particularly tricky to implement due to the various possibilities of input that a user can give. For example, a combination of internship and project items. Careful parsing of the input is required before the command is processed.
+
+* *Major enhancement*: added *the ability to add items in the resume based on tags*: `tagpull`
+** What it does: allows the user to add items that have been given a particular tag.
+** Justification: This increases the convenience of modifying a resume, since items that have the same tags are likely to be included togehter in the resume.
+
+* *Minor enhancement*: modified the `edit` command and its parser to suit the application
+** Justification: ResuMe requires handling of various item types such as `Internship`, `Project` and `Skill` items. Therefore, it is necessary to morph the existing `Parser` from AB3 to suit our needs.
+
+* *Minor enhancement*: wrote the `view` command
+** Justification: Items such as `Project` omit a lot of details in our list in the GUI. The `view` command helps include more details about the `Item`.
+
+=== 2.2 Contributions to team-based tasks:
+
+==== 2.2.1 Morphed CommandResult in overall architecture
+* What it means: `CommandResult` has been separated to many different subclasses which correspond to the different `Command`.
+* Justification: Several `CommandResult` require a special boolean value to indicate that it is the result of a certain `Command`. With only one class, the constructor would have to take in many booleans in the constructor and this gets very messy.
+
+==== 2.2.2 Project management
+* Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
+* Managed GitHub issue tracker
+* Set-up Travis and Coveralls
+
+==== 2.2.3 Reviewing contributions:
+*** PRs reviewed with non-trivial review comments (https://github.com/AY1920S2-CS2103T-F10-1/main/pull/135[#135],
+https://github.com/AY1920S2-CS2103T-F10-1/main/pull/145[#145],
+https://github.com/AY1920S2-CS2103T-F10-1/main/pull/159[#159], https://github.com/AY1920S2-CS2103T-F10-1/main/pull/204[#204],
+https://github.com/AY1920S2-CS2103T-F10-1/main/pull/245[#245], https://github.com/AY1920S2-CS2103T-F10-1/main/pull/326[#326]
+ ...)
+
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/chrisjwelly/ped/issues/8[1],
+https://github.com/chrisjwelly/ped/issues/10[2], https://github.com/chrisjwelly/ped/issues/16[3])
+
+== 3. Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=tagpull]
+
+== 4. Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=redit]
+---

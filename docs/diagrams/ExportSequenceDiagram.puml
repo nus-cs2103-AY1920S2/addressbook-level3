@@ -1,0 +1,117 @@
+@startuml
+!include style.puml
+skinparam defaultFontSize 20
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ResumeBookParser" as ResumeBookParser LOGIC_COLOR
+participant "p:GenerateResumeCommandParser" as GenerateResumeCommandParser LOGIC_COLOR
+participant "g:GenerateResumeCommand" as GenerateResumeCommand LOGIC_COLOR
+participant "b:PdfBuilder" as PdfBuilder LOGIC_COLOR
+participant "result:GenerateResumeCommandResult" as GenerateResumeCommandResult LOGIC_COLOR
+end box
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("rgen 1 n/ SE Resume")
+activate LogicManager
+
+LogicManager -> ResumeBookParser : parseCommand("rgen 1 n/ SE Resesume")
+activate ResumeBookParser
+
+create GenerateResumeCommandParser
+ResumeBookParser -> GenerateResumeCommandParser
+activate GenerateResumeCommandParser
+
+GenerateResumeCommandParser --> ResumeBookParser : p
+deactivate GenerateResumeCommandParser
+
+ResumeBookParser -> GenerateResumeCommandParser : parse("1 n/ SE Resume")
+activate GenerateResumeCommandParser
+
+create GenerateResumeCommand
+GenerateResumeCommandParser -> GenerateResumeCommand
+activate GenerateResumeCommand
+
+create PdfBuilder
+GenerateResumeCommand -> PdfBuilder
+activate PdfBuilder
+PdfBuilder --> GenerateResumeCommand : b
+deactivate PdfBuilder
+
+GenerateResumeCommand --> GenerateResumeCommandParser : g
+deactivate GenerateResumeCommand
+
+GenerateResumeCommandParser --> ResumeBookParser : g
+deactivate GenerateResumeCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+GenerateResumeCommandParser -[hidden]-> ResumeBookParser
+destroy GenerateResumeCommandParser
+
+ResumeBookParser --> LogicManager : g
+deactivate ResumeBookParser
+
+LogicManager -> GenerateResumeCommand : execute()
+activate GenerateResumeCommand
+
+GenerateResumeCommand -> Model : getUser()
+activate Model
+Model --> GenerateResumeCommand : u
+deactivate Model
+
+GenerateResumeCommand -> Model : getResumeByIndex("1")
+activate Model
+Model --> GenerateResumeCommand : r
+deactivate Model
+
+GenerateResumeCommand -> PdfBuilder : addPage()
+activate PdfBuilder
+PdfBuilder --> GenerateResumeCommand
+deactivate PdfBuilder
+
+GenerateResumeCommand -> PdfBuilder : addPersonalDetails(u)
+activate PdfBuilder
+PdfBuilder --> GenerateResumeCommand
+deactivate PdfBuilder
+
+opt internships not empty
+GenerateResumeCommand -> PdfBuilder : addInternships()
+activate PdfBuilder
+PdfBuilder --> GenerateResumeCommand
+deactivate PdfBuilder
+end opt
+
+opt projects not empty
+GenerateResumeCommand -> PdfBuilder : addProjects()
+activate PdfBuilder
+PdfBuilder --> GenerateResumeCommand
+deactivate PdfBuilder
+end opt
+
+opt skills not empty
+GenerateResumeCommand -> PdfBuilder : addSkills()
+activate PdfBuilder
+PdfBuilder --> GenerateResumeCommand
+deactivate PdfBuilder
+end opt
+
+GenerateResumeCommand -> PdfBuilder : build()
+activate PdfBuilder
+PdfBuilder --> GenerateResumeCommand :
+deactivate PdfBuilder
+
+create GenerateResumeCommandResult
+GenerateResumeCommand -> GenerateResumeCommandResult
+activate GenerateResumeCommandResult
+
+GenerateResumeCommandResult --> GenerateResumeCommand: result
+deactivate GenerateResumeCommandResult
+
+GenerateResumeCommand --> LogicManager : result
+deactivate GenerateResumeCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
