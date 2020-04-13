@@ -379,6 +379,7 @@ image::UG/list-t.png[width="790"]
 
 // end::listtransaction[]
 
+//tag::undoredo[]
 === Undoing a recently executed command: `undo` (By Nicholas Cristian Fernando)
 
 Removes changes from a recently executed command. Commands that only affect display e.g. find and list, and undo commands, will be ignored and the next command in line will be undone. +
@@ -419,6 +420,8 @@ Examples (assuming all other commands are valid):
   `delete-g 1` +
   `redo` +
   The `redo` fails as `delete-g 1` will remove the undone states.
+
+//end::undoredo[]
 
 === Exiting the program : `exit`
 
@@ -474,9 +477,11 @@ e.g. `sell 1 q/4 p/3`
 * *Find transaction*: `find-t [TRANSACTION TYPE][NAME][GOOD NAME]`
 * *Clear transaction history*: `clear-t`
 
+//tag::undoredosummary[]
 (By Nicholas Cristian Fernando)
 
 * *Undo*: `undo`
 * *Redo*: `redo`
+//end::undoredosummary[]
 
 * *Help* : `help`

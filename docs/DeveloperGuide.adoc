@@ -119,6 +119,8 @@ image::BuySequenceDiagram.png[]
 
 NOTE: The lifeline for `BuyCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+//tag::model[]
+
 [[Design-Model]]
 === Model component (by Nicholas Cristian Fernando)
 
@@ -167,6 +169,8 @@ A `Transaction` can be either `SellTransaction` or `BuyTransaction`:
 
 .Structure of the TransactionHistory
 image::TransactionModelClassDiagram.png[]
+
+//end::model[]
 
 [[Design-Storage]]
 === Storage component (by Fang Shao Hua)
@@ -519,17 +523,18 @@ result in temporary files being left behind and cluttering space.
 
 
 === Supplier Feature (By Liu Chao)
-InventoryManager allows users (store managers) to record the suppliers whom they buy goods from. Users could add and
-store the information of suppliers such as company name, company address, registered phone number, official email
+InventoryManager allows users (store managers) to record the `suppliers` whom they buy goods from. Users could add and
+store the information of `suppliers` such as company name, company address, registered phone number, official email
 address and goods that company is selling.
 
-A supplier can be stored as a supplier object in the InventoryManager. The main components are 1) company name,
+A `supplier` can be stored as a `supplier` object in the InventoryManager. The main components are 1) company name,
 2) company address, 3) registered phone number, 4) official email address and 5) good-price pairs of goods that company
 is selling. Company name is used to identify the company since every company needs to have an unique name which is
 registered legally with Accounting and Corporate Regulatory Authority. A Good-price pair of good is a combination of records
-of a good’s name and a selling price. Good-price pairs are stored as an offer object in the InventoryManager.
+of a good’s name and a selling price. Good-price pairs are stored as an offer object in the InventoryManager. The following is a class diagram of Supplier feature.
 
-image::SupplierModelClassDiagram.png[]
+.Class diagram of `Supplier` Feature, displaying only directly related classes
+image::SupplierModelClassDiagram.jpg[]
 
 ==== Edit Supplier Feature
 Users could edit and update the information of registered supplier should there be any changes in InventoryManager by
@@ -1294,6 +1299,8 @@ Use case ends.
 +
 Use case ends.
 
+// tag::undoredousecase[]
+
 === Use case: UC13 - undoing a command
 
 *MSS*
@@ -1334,6 +1341,8 @@ Use case ends.
 +
 Use case ends.
 
+// end::undoredousecase[]
+
 :numbered:
 
 [appendix]
@@ -1358,23 +1367,6 @@ A record of an event that results in change in the quantity of goods i.e. buying
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X.
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1478,3 +1470,21 @@ Expected: The quantity of rice in the inventory should decrease by 3.
    Expected: An error is shown, indicating that the format of the command is wrong.
 .. Other incorrect warn commands to try: `find-t`, `find-t x` (where x is not "buy" or "sell") +
    Expected: Similar to previous.
+
+[appendix]
+== Effort
+
+* *Difficulty Level*: 10
+* *Challenges*:
+** This is an application with three different databases. In addition to having to
+   define operations for three different objects, many of the commands exhibit much interlinking between the components.
+   There is a need to take extra care to ensure that the interactions are clearly defined and avoid side effects.
+** Many features are dependent on other features being developed compared to AB3, which makes it hard to concurrently arrange the interactions.
+   An API needed to be clearly defined before the start of the sprint in order to allow team members to start working immediately.
+** There are many commands that needs to be tracked, which necessitates consideration whether it would affect the
+   implementation of other commands.
+** There is significant amount of code duplication due to having three database classes. Refactoring is needed to make
+   the code easier to read.
+* *Achievements*:
+** Refactored some of the Model classes to allow custom extension by future developers and reduce code duplication.
+** Implemented a search feature that navigates between two different databases.
