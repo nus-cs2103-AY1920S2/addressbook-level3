@@ -9,7 +9,7 @@
 
 == Overview
 
-MODdy is a desktop application used by NUS Computing students to track their course progression, manage modules and manage deadlines. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+*MODdy* is a desktop application used by NUS Computing students to track their course progression, manage modules and manage deadlines. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
@@ -17,18 +17,19 @@ MODdy is a desktop application used by NUS Computing students to track their cou
 
 . Developed the deadline management UI
 
-** What it does: allows the user's input tasks to be permanently display in the main window. The tasks are sorted by date then time and each deadline card has an accompanying colour strip to indicate the module. Different module will
+** What it does: allows the user's input tasks to be permanently display in the main window. The tasks are sorted by date then time and each deadline card has an accompanying colour strip to indicate their respective module. Different module will
 have different coloured strip.
 ** Justification: This feature improves the product significantly as it creates a neat deadline management interface that allows the user to stay organised.
-** Highlights: This enhancement affects existing commands dealing with deadlines. It required an in-depth understanding of the interaction between FilteredList and the UI. The implementation too was challenging as it required accurate sorting of the deadlines, taking
+** Highlights: This enhancement affects existing commands dealing with deadlines. It requires an in-depth understanding of the interaction between FilteredList and the UI. The implementation too was challenging as it required accurate sorting of the deadlines, taking
 into consideration that some tasks do not have a deadline. Furthermore, additional tagging to the module was required to achieve the differentiated coloured strip.
+** Credits: The ideas in the backend code of Address Book UI were adapted as the foundation blocks of the panel.
 
 . Developed the profile overview UI
 
 ** What it does: allows the user to view a neat and concise overview of their academic data in *MODdy*. It shows their profile information, current CAP and also all the modules taken organised
 by Year and Semester.
 ** Justification: This feature improves the product significantly as the user can now conveniently keep track of their academic progression.
-** Highlights: This enhancement involves working with many different JavaFX layout. It required an in-depth understanding of each layout and the interaction between them and the commands that changes the object the layout store.
+** Highlights: This enhancement involves working with many different JavaFX layout. It requires an in-depth understanding of each layout and the interaction between them and the commands that changes the object the layout store.
 The implementation too was challenging as it required careful design and implementation consideration of each layout to ensure high functionality and usability.
 
 * *Minor enhancement*:
@@ -73,6 +74,7 @@ include::../UserGuide.adoc[tag=help]
 include::../UserGuide.adoc[tag=home]
 
 include::../UserGuide.adoc[tag=cap]
+
 
 == Contributions to the Developer Guide
 
