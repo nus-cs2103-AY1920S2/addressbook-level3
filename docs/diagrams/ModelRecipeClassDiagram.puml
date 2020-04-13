@@ -35,6 +35,7 @@ Enum Unit <<enumeration>>
 HiddenOutside ...> Model
 ModelManager o--> "1" RecipeBook
 ModelManager .up.|> Model
+ModelManager --> "1" Recipe : filtered list
 
 RecipeBook *--> "1" UniqueRecipeList
 UniqueRecipeList o--> "*" Recipe

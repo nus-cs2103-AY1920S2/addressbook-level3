@@ -27,6 +27,7 @@ Package Recipe {
 HiddenOutside ...> Model
 ModelManager o--> "1" CookedRecordBook
 ModelManager .up.|> Model
+ModelManager --> "1" Record : filtered list
 
 CookedRecordBook *-down->"1" UniqueRecordList
 UniqueRecordList o--> "*" Record

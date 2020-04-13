@@ -115,41 +115,82 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Simplified Structure of the Model Component
 image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/recipe/model/Model.java[`Model.java`]
 
-The `Model`,
+The diagram above has been simplified in order to provide a clearer Overview of the Model component. +
+The `Model` consists of 4 main sections: recipe, plan, record and quote. +
+For more details on each of the main sections of the `Model`, please refer to the corresponding models
+illustrated in the next few sections of this document.
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores a `RecipeBook` object that stores all recipes.
-* stores a `PlannedBook` object that stores all plans.
-* stores a `CookedRecordBook` object that stores the records of all the cooked recipes.
-* stores a `QuoteBook` object that stores all quotes.
-* exposes four unmodifiable lists that can be 'observed' +
-1. `ObservableList<Recipe>`
-2. `ObservableList<Plan>`
-3. `ObservableList<Record>`
-4. `ObservableList<Quote>` +
-e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
-* does not depend on any of the other three components.
+The `Model` component stores a,
+
+* `UserPref` object that represents the user's preferences.
+* `RecipeBook` object that stores all recipes.
+* `PlannedBook` object that stores all plans.
+* `CookedRecordBook` object that stores the records of all the cooked recipes.
+* `QuoteBook` object that stores all quotes.
+
+It also exposes four unmodifiable lists that can be 'observed' by the `UI`: +
+
+* `ObservableList<Recipe>`
+* `ObservableList<Plan>`
+* `ObservableList<Record>`
+* `ObservableList<Quote>` +
+The `UI` can be bound to these lists so that the `UI` automatically updates when the data in the list changes. +
+
+The `Model` does not depend on any of the other three components. +
 
 ==== Recipe Model
 .Structure of the Recipe Model
 image::ModelRecipeClassDiagram.png[]
 
+The Recipe Model stores the `UniqueRecipeList` containing all recipes.
+
+Each `Recipe` consists of,
+
+* One `Name`
+* One `Time`
+* Any number of `Step`
+* At least one `Ingredient`
+
+For a more comprehensive description on the structure of a Recipe, please refer to
+<<UserGuide#, The Anatomy of a Recipe>> in our User Guide.
+
 ==== Plan Model
 .Structure of the Plan Model
 image::ModelPlanClassDiagram.png[]
+
+The Plan Model stores the,
+
+* `UniquePlannedList` which contains all plans
+* `PlannedRecipeMap` which  maintains the mapping from `Recipe` to all the plans that uses this `Recipe`
+
+Each `Plan` consists of,
+
+* One `Date`
+* One `Recipe`
 
 ==== Record Model
 .Structure of the Record Model
 image::ModelRecordClassDiagram.png[]
 
+The Record Model stores the `UniqueRecordList` which contains all records.
+
+Each `Record` consists of,
+
+* One `Date`
+* One `Name` from a `Recipe`
+
 ==== Quote Model
 .Structure of the Quote Model
 image::ModelQuoteClassDiagram.png[]
+
+The Quote Model stores the `UniqueQuoteList` which contains all quotes.
+
+Each `Quote` consists of one `Content`.
 
 [[Design-Storage]]
 === Storage component
@@ -188,14 +229,7 @@ This section describes some noteworthy details on how certain features are imple
 
 image::SwitchActivityDiagram.png[]
 
-==== List command
-
-
-==== Find command
-
-
 ==== Add command
-
 
 ==== Edit command (Beatrice)
 The edit feature allows users to edit the properties of a Recipe with ease using the `edit` command. +
@@ -456,7 +490,7 @@ on top of the existing prefixes. This is double work for the user.
 // end::advancedfilter[]
 
 // tag::planning[]
-=== Planning feature (Beatrice)
+=== Add plan command (Beatrice)
 ==== Implementation
 The planning feature uses the `UniquePlannedList` to store and display all plans and the `PlannedRecipeMap` to
 navigate between recipes and plans.

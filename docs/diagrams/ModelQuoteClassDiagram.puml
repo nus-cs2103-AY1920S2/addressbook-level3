@@ -23,6 +23,7 @@ Package Quote {
 HiddenOutside ...> Model
 ModelManager o--> "1" QuoteBook
 ModelManager .up.|> Model
+ModelManager --> "1" Quote : filtered list
 
 QuoteBook *-down->"1" UniqueQuoteList
 UniqueQuoteList o--> "*" Quote

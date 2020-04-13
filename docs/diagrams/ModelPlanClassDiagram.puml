@@ -27,7 +27,7 @@ Package Recipe {
 HiddenOutside ...> Model
 ModelManager o--> "1" PlannedBook
 ModelManager .up.|> Model
-
+ModelManager --> "1" Plan : filtered list
 
 PlannedBook *-down->"1" UniquePlannedList
 PlannedBook *-down->"1" PlannedRecipeMap
