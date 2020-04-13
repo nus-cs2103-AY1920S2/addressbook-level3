@@ -78,6 +78,9 @@ public class ModelManager implements Model {
         updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
+    /**
+     * Update the schedule for each activity.
+     */
     @Override
     public void updateSchedule() {
         nasaBook.scheduleAll();

@@ -110,6 +110,7 @@ public class EditEventCommand extends Command {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_NEW_EDIT);
         }
 
+        editedEvent.setSchedule(eventToEdit.getSchedule());
         model.setEvent(moduleCode, eventToEdit, editedEvent);
 
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
