@@ -32,9 +32,9 @@ public class DeleteGoodPricePairFromSupplierCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes an entry / entries of good price pair(s) in the supplier's good list given a good's or goods' "
             + "name(s) which is / are identified by keyword(s) (case-sensitive)\n"
-            + "Parameters: INDEX (must be a positive integer),"
-            + " a good's or goods' name(s) (g/good name)\n"
-            + "Example: " + COMMAND_WORD + " 1" + " g/apple" + " g/orange (to delete two different goods)";
+            + "Parameters: INDEX (must be a positive integer) "
+            + "g/GOOD_NAME [g/MORE_GOOD_NAME]...\n"
+            + "Example: " + COMMAND_WORD + " 1" + " g/apple" + " g/orange";
 
     public static final String MESSAGE_SUCCESS_DELETE_GOOD = "Successfuly deleted goods from supplier's list: ";
     public static final String MESSAGE_COULD_NOT_FIND_GOOD = "Could not find goods: ";

@@ -46,8 +46,8 @@ public class EditSupplierCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_OFFER + "GOOD_PRICE_PAIR]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CONTACT + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_CONTACT + "63865586 "
+            + PREFIX_OFFER + "Watermelon 10";
 
     public static final String MESSAGE_EDIT_SUPPLIER_SUCCESS = "Edited Supplier: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

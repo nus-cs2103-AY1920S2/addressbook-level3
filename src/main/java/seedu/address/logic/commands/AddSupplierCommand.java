@@ -16,9 +16,9 @@ import seedu.address.model.supplier.Supplier;
  */
 public class AddSupplierCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add-s";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a supplier to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a supplier to the address book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_CONTACT + "PHONE "
@@ -26,10 +26,10 @@ public class AddSupplierCommand extends Command {
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_OFFER + "GOOD PRICE]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_CONTACT + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_NAME + "NTUC Fairprice Macpherson Mall "
+            + PREFIX_CONTACT + "63521728 "
+            + PREFIX_EMAIL + "MacphersonMall@NTUCFairprice.com "
+            + PREFIX_ADDRESS + "401, #02-22 MacPherson Rd, Macpherson Mall, 368125 "
             + PREFIX_OFFER + "banana 5 "
             + PREFIX_OFFER + "tissue paper 0.55";
 
