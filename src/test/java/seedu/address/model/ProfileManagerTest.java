@@ -153,7 +153,7 @@ public class ProfileManagerTest {
     public void deleteDeadline_nullDeadline_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> profileManager.deleteDeadline(null));
     }
-    
+
 
     @Test
     public void replaceDeadline_nullDeadline_throwsNullPointerException() {

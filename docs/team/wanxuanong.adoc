@@ -44,7 +44,7 @@ https://ay1920s2-cs2103t-w13-3.github.io/main/DeveloperGuide.html#introduction[I
 *** Did major cosmetic tweaks to revamp the User Guide, redesigning the way information is presented in the User Guide (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/150[#150], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/156[#156], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/160[#160]).
 
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features (`add` and `delete`) to increase coverage across a few pull requests (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/266/commits/3c5900b5df7d592eb4283b44a2ac99db0345c012[#266], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/287[#287], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/314[#314]).
+*** Wrote additional tests for existing features (`add` and `delete`) to increase coverage across a few pull requests (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/266/commits/3c5900b5df7d592eb4283b44a2ac99db0345c012[#266], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/287[#287], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/314[#314], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/357[#357]).
 
 ** Community:
 *** PRs reviewed: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/72[#72], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/74[#74], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/75[#75], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/82[#82], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/94[#94]
