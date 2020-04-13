@@ -1,3 +1,5 @@
+//@@author Eclmist
+
 package tatracker.logic.parser.session;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;

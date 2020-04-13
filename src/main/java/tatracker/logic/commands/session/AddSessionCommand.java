@@ -30,7 +30,7 @@ import tatracker.model.session.Session;
  */
 public class AddSessionCommand extends Command {
 
-    //@@author PotatoCombat
+    //@@author potatoCombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.ADD_MODEL,

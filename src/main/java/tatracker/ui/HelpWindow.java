@@ -1,4 +1,4 @@
-//@@author PotatoCombat
+//@@author potatoCombat
 
 package tatracker.ui;
 
@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -63,16 +62,13 @@ public class HelpWindow extends UiPart<Stage> {
 
         //@@author fatin99
 
-        getRoot().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent t) {
-                logger.info("escaped");
+        getRoot().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+            logger.info("escaped");
 
-                if (t.getCode() == KeyCode.ESCAPE) {
-                    getRoot().show();
-                    logger.info("click on escape");
-                    root.close();
-                }
+            if (event.getCode().equals(KeyCode.ESCAPE)) {
+                getRoot().show();
+                logger.info("click on escape");
+                root.close();
             }
         });
     }

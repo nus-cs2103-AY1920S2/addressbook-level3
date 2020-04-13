@@ -17,8 +17,6 @@ import tatracker.model.student.Student;
  * The API of the Model component.
  */
 public interface Model {
-    // TODO: Remove interface constants (aim for pure interface).
-
     /** {@code Predicate} that always evaluate to true */
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
 
@@ -201,9 +199,8 @@ public interface Model {
     void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode);
 
     /**
-     * Returns true if a given module with the same identity as {@code module}
+     * Returns true if a given module with the same identity as {@code moduleCode}
      * exists in TaTracker.
-     * @param moduleCode
      */
     boolean hasModule(String moduleCode);
 
@@ -266,10 +263,9 @@ public interface Model {
 
 
     /**
-     * Returns true if a given group with the same identity as {@code group}
+     * Returns true if a given group with the same identity as {@code groupCode}
      * exists in a module that is in TaTracker.
-     * @param groupCode
-     * @param moduleCode module that contains {@code group}.
+     * @param moduleCode module that contains group with the given {@code groupCode}.
      */
     boolean hasGroup(String groupCode, String moduleCode);
 
@@ -389,9 +385,6 @@ public interface Model {
      * Sets the student list to be of group of index groupIndex in the module of index moduleIndex.
      */
     void updateStudentList(int moduleIndex, int groupIndex);
-
-
-    // TODO: Student filter methods. Javadoc comments should mention students are inside group -> inside module
 
     /** Returns an unmodifiable view of the filtered student list */
     ObservableList<Student> getFilteredStudentList();

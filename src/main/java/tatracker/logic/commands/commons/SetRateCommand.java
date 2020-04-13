@@ -19,6 +19,8 @@ import tatracker.model.Model;
  */
 public class SetRateCommand extends Command {
 
+    // @@author potatocombat
+
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SET_RATE,
             "Sets the pay rate to a specified integer greater than zero.",
@@ -26,6 +28,8 @@ public class SetRateCommand extends Command {
             List.of(),
             RATE
     );
+
+    // @@author fatin99
 
     public static final String MESSAGE_SET_RATE = "Set pay rate at $%s per hour.";
 

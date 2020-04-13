@@ -1,3 +1,4 @@
+// @@author potatocombat
 package tatracker.commons.core;
 
 /**
@@ -27,10 +28,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_SESSION_DISPLAYED_INDEX = "There is no session at the given list index";
     public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists";
     public static final String MESSAGE_INVALID_SESSION_TIMES = "You cannot have a session start after it ends!";
-
-    // TODO: Delete these
-    public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "The student index provided is invalid";
-    public static final String MESSAGE_STUDENTS_LISTED_OVERVIEW = "%1$d students listed!";
 
     public static String getUnknownCommandWithHelpMessage() {
         return MESSAGE_UNKNOWN_COMMAND + MESSAGE_HELP;

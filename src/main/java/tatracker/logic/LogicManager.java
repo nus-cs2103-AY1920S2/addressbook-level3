@@ -101,11 +101,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String getCurrSessionFilter() {
-        return model.getCurrSessionFilter();
-    }
-
-    @Override
     public String getCurrSessionDateFilter() {
         return model.getCurrSessionDateFilter();
     }

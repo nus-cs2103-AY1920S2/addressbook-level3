@@ -1,3 +1,5 @@
+//@@author Eclmist
+
 package tatracker.logic.parser.session;
 
 import static java.util.Objects.requireNonNull;
@@ -19,14 +21,6 @@ import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
-
-/*
- * === BUGS ===
- * TODO: No error when end time is after start time.
- *
- * TODO: Sessions cannot have dates that are earlier than the current date.
- *        Earlier dates are replaced by the current date.
- */
 
 /**
  * Parses input arguments and creates a new EditSessionCommand object

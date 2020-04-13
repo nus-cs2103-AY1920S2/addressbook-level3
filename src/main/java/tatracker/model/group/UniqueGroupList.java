@@ -11,6 +11,9 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import tatracker.model.group.exceptions.DuplicateGroupException;
+import tatracker.model.group.exceptions.GroupNotFoundException;
+
 /**
  * A list of groups that enforces uniqueness between its elements and does not allow nulls.
  * A group is considered unique by comparing using {@code Group#equals(Object)}. As such, adding and updating of

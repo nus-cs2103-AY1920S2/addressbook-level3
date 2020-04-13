@@ -1,3 +1,5 @@
+// @@author potatocombat
+
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
@@ -40,6 +42,8 @@ import tatracker.model.tag.Tag;
  * Edits the details of an existing student in the TA-Tracker.
  */
 public class EditStudentCommand extends Command {
+
+    // @@author potatocombat
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,

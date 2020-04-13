@@ -23,6 +23,7 @@ By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
 //tag::introduction[]
 == Introduction
+(Contributed by Aakanksha)
 
 TA-Tracker
 is a productivity tool made for *NUS School of Computing (SoC) Teaching Assistants (TAs)*
@@ -192,6 +193,8 @@ The other 2 `Tabs` follow the same structure as the _Class Diagram_ above.
 //tag::logic[]
 [[Design-Logic]]
 === Logic component
+
+(Contributed by Gabriel)
 
 The `Logic` component of `TA-Tracker`:
 
@@ -389,6 +392,8 @@ image::ModelObjectDiagram.png[]
 //tag::storage[]
 [[Design-Storage]]
 === Storage component
+(Contributed by Gabriel)
+
 The following _Class Diagram_ shows a simplified view of the `Storage` component.
 
 .Simplified structure of the Storage Component
@@ -434,6 +439,8 @@ This section describes some noteworthy details on how certain features are imple
 //tag::logicDesign[]
 [[Logic]]
 === Logic
+(Contributed by Gabriel)
+
 The *Logic* of TA-Tracker ensures that all the user's commands are parsed and executed correctly.
 In order to ensure that all the commands contain the correct information,
 two utility classes have been created:
@@ -786,6 +793,7 @@ The `group edit` command has been implemented in a similar manner.
 //tag::studentaddeditdelete[]
 
 ==== Implementation of the Student Add, Delete and Edit Commands
+(Contributed by Gabriel)
 
 A *student* can be added to the TA-Tracker after a *module* and *group* is added.
 
@@ -958,7 +966,7 @@ that haven't been completed yet.
 
 ==== Model Framework
 
-(Contributed by Fatin)
+(Contributed by Haoyi)
 
 The following _Class Diagram_ shows how different classes are related in the functioning
 of the *Session View*.
@@ -1080,6 +1088,8 @@ by the user is a valid integer. If it is, the `SetRateCommandParser` creates a
 
 [[Syntax]]
 === Syntax Highlighting
+(Contributed by Gabriel)
+
 When a user types a command, their inputs will be highlighted in different colours
 as a form of input validation.
 
@@ -1477,7 +1487,7 @@ This section describes the implementation of the `filter` command.
 The _Activity Diagram_ below summarises what happens when the user executes a `filter` command:
 
 ._Activity Diagram_ of the Filter Command
-image::FilterCommandActivityDiagram.png[]
+image::FilterCommandActivityDiagram.png[,1100]
 
 The filter feature consists of three main steps:
 
@@ -1558,6 +1568,7 @@ The command used to filter claims is implemented the same way as `SessionFilterC
 //tag::statistic[]
 
 === Statistic Report Generation
+(Contributed by Haoyi)
 
 ==== Description
 
@@ -1649,19 +1660,19 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* targets NUS Computing Teaching Assistants
-* has a need to track and manage all their claimable hours of teaching
-* has a need to track all their students in multiple groups and/or modules
-* has a need to keep track of their tasks (TA-related)
-* prefer apps on desktop over other platforms
-* types quickly and prefers it over mouse
-* experiences no discomfort with CLI navigation
+* Targets NUS Computing Teaching Assistants
+* Has a need to track and manage all their claimable hours of teaching
+* Has a need to track all their students in multiple groups and/or modules
+* Has a need to keep track of their tasks (TA-related)
+* Prefer apps on desktop over other platforms
+* Types quickly and prefers it over mouse
+* Experiences no discomfort with CLI navigation
 
 *Value proposition*:
 
-* congregates all information regarding claimable hours of teaching and student information
+* Collates all information regarding claimable teaching hours and student information
 in a single location
-* provides desired (TSS) format back to users for convenient viewing
+* Displays forms (such as the TSS Claims Form) in a format that is convenient for users to view
 //end::productscope[]
 //tag::userstories[]
 
@@ -2013,7 +2024,7 @@ the list of existing groups in the *Student View*.
 +
 Use case ends.
 
-*Extensions* (Contributed by Fatin and Gabriel)
+*Extensions* (Contributed by Gabriel)
 
 * 3a. User provides invalid student details (for example, an invalid matric number).
 +
@@ -2056,7 +2067,7 @@ the list of existing students in the *Student View*.
 +
 Use case ends.
 
-*Extensions* (Contributed by Fatin and Gabriel)
+*Extensions* (Contributed by Gabriel)
 
 [none]
 * 2a. The list is empty.
@@ -2111,7 +2122,7 @@ the list of existing students in the *Student View*.
 +
 Use case ends.
 
-*Extensions* (Contributed by Fatin and Gabriel)
+*Extensions* (Contributed by Gabriel)
 
 [none]
 * 2a. The list is empty.
@@ -2273,7 +2284,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC17 - Adding a session
 
-*MSS* (Contributed by Fatin, Chua Yi Jing)
+*MSS* (Contributed by Chua Yi Jing and Fatin)
 
 . User requests to add a session.
 . TA-Tracker adds the session.
@@ -2300,7 +2311,7 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC18 - Deleting a session
 
-*MSS* (Contributed by Fatin, Chua Yi Jing)
+*MSS* (Contributed by Chua Yi Jing and Fatin)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2322,7 +2333,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC19 - Editing a session
 
-*MSS* (Contributed by Fatin, Chua Yi Jing)
+*MSS* (Contributed by Chua Yi Jing and Fatin)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2344,7 +2355,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC20 - Marking a session as done
 
-*MSS* (Contributed by Fatin, Chua Yi Jing)
+*MSS* (Contributed by Chua Yi Jing and Fatin)
 
 . User requests to go to the `Session Tab` (UC02) to view
 the list of existing sessions in the *Session View*.
@@ -2439,7 +2450,7 @@ Use case resumes at step 3.
 [discrete]
 ==== Use case: UC24 - Displaying a statistic report
 
-*MSS*
+*MSS* (Contributed by Haoyi)
 
 1. User requests to generate and display a statistic report.
 2. TA-Tracker retrieves the list of sessions and students from all modules and processes the data.
@@ -2450,12 +2461,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The user specifies a valid module code.
+* 1a. User specifies a valid module code.
 [none]
 ** 1a1. TA-Tracker retrieves the list of sessions and students from the specified module and processes the data.
 ** Use case resumes at step 3.
 [none]
-* 1b. The user specifies a module code that does not exist.
+* 1b. User specifies a module code that does not exist.
 [none]
 ** 1b1. TA-Tracker shows an error message.
 +
@@ -2467,20 +2478,24 @@ Use case resumes at step 1.
 //tag::nfr[]
 [appendix]
 == Non-Functional Requirements
+(Contributed by Haoyi)
 
 . `**TAT**` should be able to run on any <<mainstream-os, mainstream OS>> as long as it has `Java 11` installed.
-. A user with above average typing speed for <<regular-english-text, regular English text>> (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. A user with *above average typing speed* should be able to accomplish most of the tasks using keyboard inputs faster than by using the mouse.
 . A user should be able to easily see the commands that they have wrongly typed.
 . `**TAT**` should be able to run with or without internet connection.
 . `**TAT**` should work for a single user only.
 . `**TAT**` should not require user to install.
 . Features implemented should be testable using manual testing and automated testing.
 . `**TAT**` should support screen resolution of 1920 x 1080 or higher.
+. `**TAT**` should be able to save data locally.
+. `**TAT**` should be able to save data in a human-editable file to allow advanced users to manipulate the dat by editing the file.
 //end::nfr[]
 //tag::glossary[]
 
 [appendix]
 == Glossary
+(Contributed by Haoyi)
 
 [width="%",cols="<20%,<40,options="header",]
 |=======================================================================
@@ -2517,25 +2532,12 @@ students, for discussion of a subject that is being studied.
 by abstracting the underlying implementation and only exposing objects or actions
 the developer needs.
 
-| Locale | Stands for a setting on the user's computer that defines the user's
-language and region.
-
 | PlantUML | Stands for a software tool that we use to render the diagrams used
 in this document.
 
 | NFR | Stands for "Non-functional Requirement"
 
 | Mainstream OS | Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X.
-
-| Regular English Text |
-Stands for text with ordinary English grammar structures and vocabulary generally used by the public.
-It excludes syntax related to programming and <<system-administration, system administration>>.
-
-
-| System Administration |
-Stands for the field of work in which someone manages one or more systems, be they software, hardware, servers or workstations
-with the goal of ensuring the systems are running efficiently and effectively.
-
 
 | MSS |
 Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong.

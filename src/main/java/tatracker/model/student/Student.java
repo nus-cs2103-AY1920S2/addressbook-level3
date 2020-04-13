@@ -1,3 +1,5 @@
+//@@author fatin99
+
 package tatracker.model.student;
 
 import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
@@ -23,8 +25,13 @@ public class Student {
     // Optional fields
     private final Phone phone;
     private final Email email;
-    private final Rating rating;
     private final Set<Tag> tags;
+
+    //@@author potatocombat
+
+    private final Rating rating;
+
+    //@@author fatin99
 
     /**
      * Every field must be present and not null.
@@ -36,11 +43,16 @@ public class Student {
 
         this.phone = phone;
         this.email = email;
-        this.rating = rating;
 
         this.tags = new HashSet<>();
         this.tags.addAll(tags);
+
+        //@@author potatocombat
+
+        this.rating = rating;
     }
+
+    //@@author fatin99
 
     public Matric getMatric() {
         return matric;
@@ -58,10 +70,6 @@ public class Student {
         return email;
     }
 
-    public Rating getRating() {
-        return rating;
-    }
-
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -69,6 +77,14 @@ public class Student {
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
+
+    //@@author potatocombat
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    //@@author fatin99
 
     /**
      * Returns true if both students of the same name have at least one other identity field that is the same.

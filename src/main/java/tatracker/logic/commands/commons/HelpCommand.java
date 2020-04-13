@@ -14,12 +14,16 @@ import tatracker.model.Model;
  */
 public class HelpCommand extends Command {
 
+    // @@author potatocombat
+
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.HELP,
             "Shows the help window",
             List.of(),
             List.of()
     );
+
+    // @@author
 
     public static final String MESSAGE_SHOWING_HELP = "Opened help window";
 

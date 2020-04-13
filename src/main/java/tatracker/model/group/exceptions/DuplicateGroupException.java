@@ -1,6 +1,6 @@
 //@@author aakanksha-rai
 
-package tatracker.model.group;
+package tatracker.model.group.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Groups

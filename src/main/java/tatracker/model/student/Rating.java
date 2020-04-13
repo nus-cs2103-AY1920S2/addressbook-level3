@@ -1,3 +1,5 @@
+//@@author potatocombat
+
 package tatracker.model.student;
 
 import static tatracker.commons.util.AppUtil.checkArgument;
