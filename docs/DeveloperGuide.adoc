@@ -153,55 +153,157 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::schedule[]
-=== [Proposed] Schedule Visualiser
-==== Proposed implementation
+tag::schedule[]
 
-The schedule visualiser is facilitated by the implemented `SchoolworkTracker`. The main purpose of the `SchoolworkTracker` is to allow users to keep track of all their assignments so that they do not accidentally overlook any of them. The main components of the `SchoolworkTracker` are as shown in the following class diagram.
+=== Schoolwork Tracker
+[.text-justify]
+The `SchoolworkTracker` helps users keep track of their assignments so that they do not accidentally overlook any of them.
 
-image::stClassDiagram.png[]
+[.text-justify]
+From *Fig 1* below, each `Assignment` has four components: `Title`, `Deadline`, `Status` and `Workload`. `Workload` refers to the expected amount of time required to finish the `Assignment`. These components will be used for schedule generation when `(st)schedule n/NUM_DAYS` is executed (explained below).
 
-This feature enhances the basic form of the `SchoolworkTracker` by allowing a user to get a better sense of their current commitments and workload so that they can better manage their time to pursue other social events and hang out with friends. It utilises the existing `Assignments` stored in the `AssignmentList` of the `SchoolworkTracker`. Additionally, it implements the following operations:
+image::stClassDiagram.png[align="center"]
+[.text-center]
+_Fig 1. Class Diagram detailing the main components of the SchoolworkTracker_
 
-* `SchoolworkTracker#calExpectedWorkPerDay()` -- Calculates the expected amount of work the user has to put in each day for the next five days (based on hours) to meet all deadlines.
+=== Schedule
+==== Current Implementation
+image::scheduleResult.png[align="center"]
+[.text-center]
+_Fig 2. Sample result of the generated schedule_
 
-Given below is an example usage scenario of how the schedule visualizer behaves at each stage.
+[.text-justify]
+Schedule is facilitated by the `SchoolworkTracker`. This feature enhances the basic form of the `SchoolworkTracker` by allowing users to better visualise their current commitments so that they can better manage their time to pursue social events. This feature aims to distribute `Workload` as evenly as possible while ensuring that the user is able to complete the `Assignment` before the `Deadline`, unless it is impossible (i.e. `Workload` exceeds the amount of time the user has before the `Deadline` after taking into account more urgent assignments). A sample result is shown in *Fig 2* above.
 
- Step 1. The user launches the application for the first time. The `SchoolworkTracker` will be initialized with the initial state, which is an empty list.
+[.text-justify]
+It utilizes the existing `Assignment` stored in the `SchoolworkTracker` and implements `ScheduleList` which represents the generated schedule.
 
-Step 2. The user executes the add assignment command [`(st)add t/CS2103 tP d/2020-03-27 12:00 e/5`] to add the following assignments to the Schoolwork Tracker.
+[.text-justify]
+As seen from *Fig 3* below, `ScheduleList` consists of `Day` objects and each `Day` has 3 components. `totalAllocatedHours` represents the total number of hours allocated to the `Day`.
+`dueAssignment` refers to an assignment that is due on the `Day` and `allocatedAssignment` represents an assignment that has been scheduled to be done on that `Day`. The latter also has an additional field `allocatedHours` which correspond to the suggested amount of time
+that should be spent on the assignment on that `Day`.
 
-image::stFilledList.png[]
+image::scheduleClassDiagram.png[align="center"]
+[.text-center]
+_Fig 3. Class Diagram detailing the main components of ScheduleList_
 
-Step 3. Today is 23 March 2020 and the user wants to see how busy he is and whether he has time to go out with his friends in the next five days while still being able to complete his assignments on time.
+[.text-justify]
+Given below is a detailed example of how the schedule command behaves at each stage.
 
-The following sequence diagram below shows how the schedule visualisation operation works. 
+[.text-justify]
+*Step 1*: User launches `Naggy Joel` for the first time. `SchoolworkTracker` is initialized to an empty list.
+[.text-justify]
+*Step 2*: User executes the add assignment command [`(st)add n/NAME d/DEADLINE e/ESTIMATED_COMPLETION_HOURS`] to add assignments to the `SchoolworkTracker`.
+[.text-justify]
+*Step 3*: User wants to better understand his schedule for the next 5 days before deciding whether he has time to hang out with his friends and executes `(st)schedule n/5`.
 
-image::stOverallSequenceDiagram.png[]
+[.text-justify]
+As seen from *Fig 4* below, after the user enters the schedule command, the command will first be checked for validity. If it is not valid, the user will be informed and can then choose whether to re-enter the command or enter another command. On the other hand, if the input command is valid, the application will proceed to generate his schedule and after display it on the GUI.
 
-image::stPart1.png[]
+image::scheduleActivityDiagram.png[align="center"]
+[.text-center]
+_Fig 4. Activity Diagram summarizing what happens when the schedule command is executed_
 
-image::stPart2.png[]
+[.text-justify]
+The specific workings of the schedule command will be explained in the paragraphs below.
 
-image::stPart3.png[]
+[.text-justify]
+As seen from *Fig 5* below, arguments from the input command is first parsed using the `ScheduleCommandParser` which converts
+the string variable into an integer and then passes it to `ScheduleCommand` for use later on and represents the `NUM_DAYS` queried. If the input argument is invalid, a `ParseException`
+is thrown and the user will be notified of the proper command usage.
 
-Step 4. Based on the results obtained from the schedule command, the user can then decide on how to best plan his outing with his friends.
+image::scheduleCommandGeneration.png[align="center"]
+[.text-center]
+_Fig 5. Sequence Diagram depicting generation of ScheduleCommand object_
 
-A sample result of the schedule command is as follows:
+[.text-justify]
+If the command is valid, `LogicManager` will call the `execute()` method in `ScheduleCommand`.
 
-image::stScheduleResult.png[]
+[.text-justify]
+As seen from *Fig 6* below, the necessary preparations will be made before the schedule is being generated:
+
+1. The `ScheduleCommand` will retrieve the `filteredAssignments` from the `Model` component.
+
+2. The `ScheduleList` will then be initialized to have a size equals to the `NUM_DAYS` queried by the user, which in this example is `5` since the user typed `(st)schedule n/5`.
+
+image::scheduleCommandExecution.png[align="center"]
+[.text-center]
+_Fig 6. Sequence Diagram showing the execution of the Schedule Command_
+
+[.text-justify]
+The schedule generation process will be explained next and begins with Fig 7.
+
+[.text-justify]
+In *Fig 7* below, `filteredAssignments` is iterated through in sorted order, starting with the `Assignment` due the earliest and for all assignments:
+
+1. The `Status` and `Deadline` of the `Assignment` will be retrieved.
+2. If `Status` is uncompleted and `Deadline` is not over, `Workload` will be distributed.
+
+image::generateSchedule.png[align="center"]
+[.text-center]
+_Fig 7. Sequence Diagram showing the process of generating the schedule_
+
+[.text-justify]
+As shown in *Fig 8* below, for each uncompleted `Assignment`:
+
+1. `Workload` is retrieved and distributed across several days, from query date to deadline, incrementally so as to generate a balanced schedule.
+2. The final allocation of hours, including amount unscheduled, is recorded and the `Assignment` will be recorded as a `dueAssignment` if its deadline falls within the range of days queried.
+
+image::handleUncompletedAssignment.png[align="center"]
+[.text-center]
+_Fig 8 Sequence Diagram showing how an uncompleted Assignment is handled_
+
+image::allocateHours.png[align="center"]
+[.text-center]
+_Fig 9. Sequence Diagram showing how the workload of an assignment is distributed_
+
+[.text-justify]
+From *Fig 9* above, assignments due on query date are handled differently from those that are not.
+
+* If the `Assignment` is *due* on the query date: The amount of time that can be allocated to the assignment will be capped at the amount of time available before the `Deadline`.
+* If the `Assignment` is *not due* on the query date: `Workload` will be distributed incrementally.
+** Between query date and deadline (both exclusive): Available time is capped at 24 hours.
+** Query date: Available time is capped at the amount of time left in the day.
+** Deadline: Available time is capped at the amount of time before the assignment is due.
+
+The actual caps placed are as stated above but after accounting for the amount of time already allocated to other assignments in the respective days.
+
+[.text-justify]
+Once the user’s schedule is generated, `ScheduleList` is updated with the `allocationResult`, a `CommandResult`
+object will be created and returned to `LogicManager`. `LogicManager` returns it to `MainWindow` who
+will then retrieve the generated schedule and display it as shown in Fig 10 below.
+
+image::getUi.png[align="center"]
+[.text-center]
+_Fig 10. Sequence Diagram showing how the generated schedule is retrieved_
+
+[.text-justify]
+*Step 4*: Based on the results, the user can then decide on how to best schedule his outing.
 
 ==== Design Considerations
-===== Aspect: How the expected work hours per day is to be calculated
-* **Alternative 1 (current choice):** Allocate hours required to complete assignment whose deadline is the next day from query date, if any. Then, allocate hours of the other assignments in such a way to ensure balance workload.
-** Pros: Takes into account approaching deadlines and attempts to allocate an equal number of hours each day.
+===== Aspect: Distribution of estimated work hours for each assignment
+[.text-justify]
+* **Current choice:** Hours are allocated incrementally to achieve a balanced schedule while still ensuring that deadlines can be met (unless impossible due to the constraints of time left)
+** Pros: Better reflects the real-world scenario where students are more likely to spread out their work and encourages work life balance which is the main selling point of Naggy Joel.
 ** Cons: Complicated algorithm is more prone to errors.
 
-* **Alternative 2:** Sum the estimated hours / Number of days to deadline for all assignments.
+[.text-justify]
+* **Alternative:** For each day, cumulatively add `Workload/Days to deadline` for all assignments
 ** Pros: Easier to implement.
-** Cons: Does not take into account approaching deadlines and may result in some days having impossibly high workload.
+** Cons: Some days may have impossibly high workload, deadlines are not handled properly.
 
-// end::schedule[]
+===== Aspect: Variable type to be used for calculations during distribution of workload
+[.text-justify]
+* **Current choice:** Use of BigDecimal for calculations
+** Pros: More accurate allocation of hours while minimizing lost hours due to rounding errors.
+** Cons: Harder to handle and new objects have to be created each time.
+
+[.text-justify]
+* **Alternative:** Restrict calculations to the use of integer
+** Pros: Easier to handle and more accurate comparisons can be made as compared to when floats are used as floating point arithmetic is not exact.
+** Cons: A lot of unnecessary ‘loss’ in allocated and available time due to rounding errors.
+
+end::schedule[]
 
 tag::get[]
 === Detailed Contact Viewer

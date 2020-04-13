@@ -293,7 +293,7 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the user's upcoming schedule for the next n days (today inclusive).
      */
-    ObservableList<Day> getScheduleVisualResult();
+    ObservableList<Day> getSchedule();
 
     //=========== Undo and Redo =======================================================================
 
