@@ -85,7 +85,7 @@ public class TypicalProducts {
     /**
      * Returns an {@code InventorySystem} with all the typical persons.
      */
-    public static InventorySystem getTypicalAddressBook() {
+    public static InventorySystem getTypicalInventorySystem() {
         InventorySystem ab = new InventorySystem();
         for (Product product : getTypicalProducts()) {
             ab.addProduct(product);

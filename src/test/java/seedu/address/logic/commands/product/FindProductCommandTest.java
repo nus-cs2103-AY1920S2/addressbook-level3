@@ -3,7 +3,7 @@ package seedu.address.logic.commands.product;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PRODUCTS_LISTED_OVERVIEW;
-import static seedu.address.testutil.product.TypicalProducts.getTypicalAddressBook;
+import static seedu.address.testutil.product.TypicalProducts.getTypicalInventorySystem;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,8 +19,8 @@ import seedu.address.model.product.DescriptionContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindProductCommand}.
  */
 public class FindProductCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalInventorySystem(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalInventorySystem(), new UserPrefs());
 
     @Test
     public void equals() {
