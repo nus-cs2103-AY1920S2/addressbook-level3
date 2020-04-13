@@ -1063,7 +1063,9 @@ Format: `exit`
 There are many ways of exiting the program! One other way
 is to click the cross at the top of the application (position
 of this cross button differs depending on operating system).
+// end::exit[]
 
+// tag::reminding[]
 === Reminding of coupon expiry
 
 By default, all added coupons have a remind date that is 3 days before its
@@ -1113,6 +1115,8 @@ image::ug_Grabfood_reminder.png[]
 +
 Edit the coupon at index 1 and change its remind date to `10-4-2020`.
 
+// end::reminding[]
+
 === Saving the data
 
 Coupon data is saved in the hard disk automatically after any
@@ -1120,6 +1124,7 @@ command that changes the data.
 
 There is no need to save manually.
 
+// tag::KeyboardShortcuts[]
 [[KeyboardShortcuts]]
 == Keyboard Shortcuts
 With Coupon Stash being optimized for efficient command line usage, how can we
@@ -1146,7 +1151,7 @@ shortcut also works for closing <<_reminding_of_coupon_expiry, reminder>>
 windows.
 
 Demonstration:
-
+during the process of adding
 .Animation of closing window with kbd:[Ctrl]+kbd:[q].
 image::gifs/ctrl q.gif[]
 
@@ -1159,6 +1164,8 @@ Demonstration:
 
 .Animation of switching tabs with kbd:[Ctrl]+kbd:[Tab].
 image::gifs/ctrl tab.gif[]
+
+// end::KeyboardShortcuts[]
 
 == FAQ
 
@@ -1204,7 +1211,6 @@ Beetles are resourceful insects that know how to scavenge for
 the best coupons, as well as remember these coupons safely
 inside their tough exoskeleton and elytra.
 {empty} +
-
 
 
 == Command Summary
