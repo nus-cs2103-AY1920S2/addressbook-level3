@@ -351,7 +351,7 @@ However, for exercises, we noted that users tend to reuse the same exercise thro
 // tag::workout[]
 === Workout
 ==== Overview
-The workout feature in ZeroToOne allows users to manage their workouts! Users will be able to create a workout, add exercises to it, as well as edit the workout and its exercises.
+The workout feature in ZeroToOne allows users to manage their workouts! Users will be able to create a workout, add exercises to it, as well as edit the workout and its exercises, and more.
 
 .Activity Diagram for Creating a Workout
 image::developer-guide/workout/WorkoutActivityDiagram.png[]
@@ -404,7 +404,7 @@ image::developer-guide/workout/WorkoutStorageClassDiagram.png[]
 4. The relationship of the Storage component to the Model component is also shown.
 
 ==== Parser for Workouts
-I will go on to explain the Parser structure for workouts. For the sake of brevity, I will not elaborate on the Command structure for workouts, as it has the same hierarchy as the Parser structure.
+I will go on to explain the Parser structure for the workout commands.
 
 .Class Diagram of the Parser for Workouts
 image::developer-guide/workout/WorkoutParserClassDiagram.png[]
@@ -442,12 +442,10 @@ image::developer-guide/workout/WorkoutSequenceDiagram.png[]
 ** Advantage: Creates an extra layer of abstraction and removes the dependency on `Exercise`.
 ** Disadvantage: More code needed which may be redundant.
 
-In the end, I decided to stick with Option 1. This is because creating a new WorkoutExercise class
-is redundant and unnecessary, when there is no functional difference between an Exercise and a WorkoutExercise,
-other than the context that they are referenced in. In addition, this would make the deletion of any instance of a particular Exercise from a Workout easier, when an Exercise is deleted from the ExerciseList. Hence, to simplify matters, using the existing Exercise class to construct workouts was better.
+In the end, I decided to stick with Option 1. This is because creating a new `WorkoutExercise` class
+is redundant and unnecessary, when there is no functional difference between an `Exercise` and a `WorkoutExercise`,
+other than the context that they are referenced in. In addition, this would make the deletion of any instance of a particular `Exercise` from a Workout easier, when an `Exercise` is deleted from the `ExerciseList`. Hence, to simplify matters, using the existing `Exercise` class to construct workouts was better.
 // end::workout[]
-
-
 
 // tag::schedule[]
 === Schedule
