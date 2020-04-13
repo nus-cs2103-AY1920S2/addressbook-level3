@@ -170,7 +170,7 @@ If you have not met the prerequisites of a module, you will receive a warning me
 ****
 
 .Warning message shown when adding CS2030 to year 1 semester 1
-image::Prereq.png[width="790"]
+image::PreReq.png[width="790"]
 
 
 ==== Adding a task with a deadline to a module in *MODdy* +
