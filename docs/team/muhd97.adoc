@@ -17,7 +17,7 @@ the application to an online version as well as for different platforms.
 == Summary of contributions
 
 * *Major enhancement*:
-. added a count command that allows the user to count the total number of recipes stored in CookBuddy.
+. Added a count command that allows the user to count the total number of recipes stored in CookBuddy.
 ** What it does: It gives the user an ability to keep track of total number of recipes stored in CookBuddy.
 ** Justification: This feature improves the product significantly because a user can know the number of recipes he/ she has. When a user have highly differentiated tastes and needs, knowing how many recipes he/ she has can let him/ her satisfy his/ her own particular wants.
 ** Highlights: The user is able to view the number of recipes he/ she has. This enhancement also affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
