@@ -113,6 +113,7 @@ Examples:
 ** Module code must contain 1-10 alphanumeric characters and not have any spaces. eg: `CS 2030` will not be accepted.
 ====
 
+//tag::add[]
 === Adding a type of  activity into a module respective activity-list:
 `Contributed by: kester-ng` +
 Types of activities available and their description are displayed in the table below. Each type of activity has its own dedicated list in the module. How to add individual types of activities are listed in subsections below.
@@ -192,6 +193,8 @@ Format: `event m/MODULE_CODE a/ACTIVITY_NAME sd/START_DATE ed/END_DATE [n/NOTES]
 ** However, an event that is ongoing (ie START_DATE has passed but not END_DATE) can be added.
 ** There is no priority for events!
 ====
+
+//end::add[]
 
 === Listing all activities : `list`
 `Contributed by: kester-ng` +
@@ -276,6 +279,7 @@ Edits the notes and start date of the 3rd event in CS2030 event-list to `Practic
 ====
 // end::edit[]
 
+// tag::done[]
 === Setting a deadline to done: `done`
 `Contributed by kester-ng` +
 Sets a deadline to be done (or completed) +
@@ -313,6 +317,8 @@ Format: `continue INDEX m/MODULE_CODE`
 ** Users are not able to edit the status (done or ongoing) of the deadline via the edit command.
 ** INDEX must appear first in the command. `continue m/MODULE_CODE INDEX` is not allowed.
 ====
+
+// end::done[]
 
 === Locating activities by name: `find`
 `Contributed by: kester-ng` +
@@ -494,6 +500,7 @@ Example :
 
 // end::undoredo[]
 
+// tag::calendar[]
 === Calendar View:
 `Contributed by: kester-ng` +
 Allows the user to see the activities onto a calendar.
@@ -534,6 +541,8 @@ exports the current calendar into nasa.ics file that is located at `./nasa` dire
 ** Typing this command will cause all activities to be displayed!
 ** Deadlines are represented as a `VTODO` entry in the .ics file. And there are some calendars that do not support this (eg: Google calendar). Currently, deadlines will not be able to be displayed on such calendars. Will expand to support these types of calendars `[Coming in V2.0]`.
 ====
+
+// end::calendar[]
 
 // tag::sort[]
 === Sort deadline and event: `sort`
