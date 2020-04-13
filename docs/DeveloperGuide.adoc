@@ -459,28 +459,59 @@ Current implementation of Predicates uses the `stream` and `anyMatch` commands t
 The `RestaurantBook` helps users keep track of `Restaurants`, so that users can quickly find an eating place given their constraints (e.g. odd hours, location, food cravings, etc). We will briefly introduce the implementation and logic behind this component as a stepping stone to understand the `undo/redo` implementation in the next section.
 
 [.text-justify]
-The following depicts the class diagram for the `Restaurant`component of the application.
+The following depicts the class diagram for the `Restaurant` component of the application.
 
 image::rtClassDiagram.PNG[align="center"]
 
+[.text-justify]
 Each `Restaurant` has 9 components `Name`, `Location`, `Visit`, `Hours`, `Price`, `Cuisine`, and 3 lists of `Note`s to represent the recommended, good, and bad food that the user can input. `Visit` represents whether the user has visited the restaurant, and `hours` represent the restaurant's opening hours. The other fields are self-explanatory.
 
 We will illustrate how commands to the `RestaurantBook` works using the simple `(rt)add` command, which adds a new `Restaurant` to the `RestaurantBook`.
 
 image::rtAddActivityDiagram.PNG[align="center"]
 
-Example with (rt)add
+[.text-justify]
+The above shows a medium level abstraction of the activity diagram with swim lanes when the user enters a valid add restaurant command. Even though the command is valid, the parameters might not be, or the restaurant entered might be a duplicate (duplicate iff the name and phone matches). Hence, the corresponding units check for these executing the command.
 
-==== Design Considerations
+Once these checks pass, before the `ModelManager` adds the new restaurant in, the `ModelManager` first does some housekeeping to support the `undo/redo` operation as seem in the activity diagram. This is the key we want to illustrate here to better understand `undo/redo`. This is very useful because all commands that change the state will go through a similar process.
 
 === Undo/Redo
 ==== Current Implementation
+This is the Class Diagram for the `ModelManager` and the `ModelState`, the 2 integral classes to understand the `undo/redo` operations. Note that we have omitted methods used to support other commands but are irrelevant to the `undo/redo` operation and also omitted the getter methods of the `ModelState` for better readability.
+
+The `undo/redo` mechanism is facilitated by modifying `ModelManager` to include 3 additional attributes.
+* undoStack: which stores the lists of `ModelState` from which the `undo` operation will draw upon
+* redoStack: which stores the lists of `ModelState` from which the `redo` operation will draw upon
+* currentModel: which is simply the `ModelState` that the application is currently in
+
 image::ModelManagerClassDiagram.PNG[align="center"]
+
+We will now go through a very simple example of how the `undo/redo` operation is implemented. Assume the following is the initial state:
+
 image::undo(1).PNG[align="center"]
+
+The undo stack is consists of only 1 state, which is the current state. The redo stack will always be empty initially.
+
 image::undo(2).PNG[align="center"]
+
+Suppose the user executes a command to add a new restaurant. The application will then execute a series of commands that is equivalent to duplicating m0, pushing the duplicate into the undo stack, and then making the `currentModel` pointer point to the top of the stack. All changes will then be made to this new duplicate, with the previous state `m0` intact at the bottom of the undo stack. The redo stack still remains empty.
+
 image::undo(3).PNG[align="center"]
+
+Now, suppose the user executes the `undo` command. The application will simply push the current state `m1` into the redo stack, and make the current state pointer point to the resultant top element in the undo stack `m0`, which will be the state before the user entered the last command. The redo stack simply stores all the undone states.
+
 image::undo(3.1).PNG[align="center"]
+
+Now, if the user then executes the `redo` command, the application will simply push the top state `m1` in the redo stack into the undo stack, and make the current state pointer point to the resultant top state in the undo stack again.
+
 image::undo(3.2).PNG[align="center"]
+
+However, suppose if instead of executing the `redo` command, the user executes another command that changes the state such as `(rt)delete 1`, apart from modifying the undo stack as we mentioned earlier when the user executes a command, the redo stack will also be emptied, since there is nothing to redo anymore.
+
+This is a brief summary of how the `undo/redo` operation is implemented. In reality, the type of command that caused the change is also stored in the `ModelState`. This is to ensure that we can display the appropriate visual confirmation in the UI when the user executes an `undo` or `redo` command.
+
+For greater detail, below is the sequence flow diagram when the user executes an `undo` command.
+
 image::undoSequence(1).PNG[align="center"]
 image::undoSequence(2).PNG[align="center"]
 
