@@ -318,7 +318,7 @@ tag::rtnotetaker[]
 ==== Add notes to a restaurant : `(rt)addnote`
 
 Adds a new note to a restaurant +
-Format: `(rt)addnote INDEX [r/RECOMMENDED_FOOD1] [r/RECOMMENDED_FOOD2] [g/GOOD_FOOD] [b/BAD_FOOD] ...`
+Format: `(rt)addnote INDEX [r/RECOMMENDED_FOOD]... [g/GOOD_FOOD]... [b/BAD_FOOD] ...`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective restaurant as displayed in the LIST function.
@@ -486,6 +486,7 @@ Assignments will be shown in chronological order, with respect to the deadline, 
 Assignments will be sorted in order of decreasing estimated work hours, with all completed assignments shown at the bottom of the list.
 
 tag::schedule[]
+
 ==== Generate upcoming schedule : `(st)schedule`
 
 Looks through the list of saved assignments to generate your upcoming schedule.
