@@ -62,7 +62,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the location book.";
-    public static final String MESSAGE_TIME_CLASHES = "Maximum one entry can have time clashes";
+    public static final String MESSAGE_TIME_CLASHES = "No entries can have time clashes";
 
     private static final String MESSAGE_COMMIT = "Edit an entry";
 
