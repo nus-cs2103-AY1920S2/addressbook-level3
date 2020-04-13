@@ -152,7 +152,65 @@ Format: `help`
 Exits the program. +
 Format: `exit`
 
-==== Undo an undoable command : `undo`/Redo a redoable command : `redo`
+
+==== Undo Command: `undo`
+
+Set the app state back to the most recent undoableCommand.
+
+[NOTE]
+======
+See the full list of undoable commands: all edit/add/delete/assign/unassign commands.
+======
+
+Examples:
+
+* `find-student hieu` +
+`undo`
+
+This will fail because `find-student` is not an undoableCommand.
+
+* `delete-student 35853` +
+`undo`
+
+Undo the delete command of student and add the student back at the previous relative ordering too.
+
+Illustration:
+
+image::undo_1.PNG[]
+
+After `delete-student 35853`
+
+image::undo_2.PNG[]
+
+After `undo`:
+
+image::undo_3.png[]
+
+==== Redo Command: `redo`
+
+Reverses the most recent `undo` command, but will fail if the most recent command was not the `undo` command or `redo`
+command
+
+Examples:
+
+* `delete-student 35853` +
+`undo` +
+`redo`
+
+Successfully delete the student, then add the student back with `undo`, then delete student again with `redo`
+
+* `find-student hieu` +
+`redo`
+
+`redo` fails because no `undo` command previously
+
+* `delete-student 35853` +
+`undo` +
+`find-student hieu` +
+`redo`
+
+This `redo` also fails because the most recent command is not `undo` or `redo`
+
 
 Format: `undo` or `redo`
 
@@ -742,6 +800,7 @@ Returns `java` and `Java Assignment`
 // tag::v2.0[]
 === Upcoming Features
 [[Register-Improvement]]
+
 ==== Add registration `[coming in v2.0]`
 Add a `register` command by including role (i.e. privilege system).
 

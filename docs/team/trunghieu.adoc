@@ -1,0 +1,281 @@
+= Le Trung Hieu - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: CodeCampX
+
+
+== Summary of Contributions:
+
+* *Major enhancement*:
+
+** Develop undo-redo feature main template and then extend for add / delete
+
+*** Default suggested implement: The **entire**  memory contents of the app was stored at every step.
+
+*** Current Implementation: Each command that changes the state of the app will learn how to undo/redo
+itself.
+
+*** Reason: This will significantly reduce memory consumption of the app, but with the cost of
+more complicated implementation.
+
+** Build the architecture design interactions, this includes
+
+*** Building EventsCenter and BaseManager and events classes, which have different methods for event-firing and event-handling.
+
+*** Enforce and abstract out responsibility for different managers, bind code here and
+then to follow MVVM structure.
+
+*** Building ViewModel which keeps track of observableMap that the UI uses,
+and handles events as well as query from managers to update ViewModel **automatically**
+
+* *Minor enhancement*:
+
+** Build factory pattern design and template for assign command.
+
+** Code refactoring: Examples: Refactor all model and addressBook related stuff
+under modelGeneric and extends from that, then in return methods in ModelManager becomes generic
+as well.
+
+** Develop UUID Manager to auto-assign unique random ID for new entities in the system.
+Abstract out EdgeManager (which is in charge of consistency of linking relationship between entities)
+, and event-handling of EdgeManager.
+
+** Bind stuff here and there for event-flow design.
+
+** `Select` command to view details of different entities, and `select` can be in
+2 layers as well for lazy loading. For example: `select sid/ student_id` will show the list of courses of this
+student, but if we want to see details of this student progress under a course then need
+`select sid/ student_id cid/ course_id`
+
+* *Other contributions*:
+** Project Structure communication:
+*** Discuss details of implementation with different team members before implemented
+to ensure the overall architecture flow and design principles are met and consistent.
+
+** Project Management:
+
+*** Helped others and ensure on Git strategies.
+*** Ensure code quality through reviews on Github
+**** Some examples:
+Pull request [https://github.com/AY1920S2-CS2103-W14-1/main/pull/109[#109]],
+Pull request [https://github.com/AY1920S2-CS2103-W14-1/main/pull/113[#113]]
+*** Set up continuous integration on Travis CI
+
+== Contributions to the User Guide
+
+=== Undo Command: `undo`
+
+Set the app state back to the most recent undoableCommand.
+
+[NOTE]
+====
+See the full list of undoable commands: all edit/add/delete/assign/unassign commands.
+====
+
+
+Examples:
+
+* `find-student hieu` +
+`undo`
+
+This will fail because `find-student` is not an undoableCommand.
+
+* `delete-student 35853` +
+`undo`
+
+Undo the delete command of student and add the student back at the previous relative ordering too.
+
+Illustration:
+
+image::undo_1.PNG[]
+
+After `delete-student 35853`
+
+image::undo_2.PNG[]
+
+After `undo`:
+
+image::undo_3.png[]
+
+=== Redo Command: `redo`
+
+Reverses the most recent `undo` command, but will fail if the most recent command was not the `undo` command or `redo`
+command
+
+Examples:
+
+* `delete-student 35853` +
+`undo` +
+`redo`
+
+Successfully delete the student, then add the student back with `undo`, then delete student again with `redo`
+
+* `find-student hieu` +
+`redo`
+
+`redo` fails because no `undo` command previously
+
+* `delete-student 35853` +
+`undo` +
+`find-student hieu` +
+`redo`
+
+This `redo` also fails because the most recent command is not `undo` or `redo`
+
+== Contributions to the Developer Guide
+
+=== Architecture (HIEU)
+
+.Architecture Diagram
+image::ArchitectureNewDiagram.png[]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+Given below is a quick overview of each component.
+
+==== Design Pattern and Control Flow
+
+Two main design patterns were used in the design of our software.
+
+Model - View - ViewModel (MVVM) Control Flow::
+
+Design Consideration between Model-View-Controller(MVC) and Model-View-ViewModel(MVVM) design:
+
+- The original design was a standard MVC, where Controller is our LogicManager, and the Model is our ModelManager.
+Then components in the view will bind to the model objects, whenever there is an update to the model object the UI view will be updated automatically.
+
+- However, the more UI custom views logic we decide, we might need to push more and more custom UI-specific logic to our Model and ViewController class, which is not very desirable.
+Or as the infamous quote, MVC becomes "Massive View Controller".
+
+- Instead, we will adapt to MVVM design, where ViewModel will hold a list of observableMap of data.
+Each custom view in our UI will have a one-to-one mapping with an observableMap, and to calculate those observableMap the ViewModel will make use of the Managers we define.
+
+Event-Driven Design::
+
+We adopt event-driven design, where different components will try to communicate with each other through publishing events and subscribing to events, de-couple between components, and facilitate communication between components a lot.
+
+** To separate responsibilities well between components, we divide them into multiple managers, all extending from the BaseManager class.
+The BaseManager will always hold refer to the EventsCenter (which is designed to be a singleton class in our case)
+
+*** One is publishing managers (those in Model section, i.e EdgeManager, ProgressManager, etc).
+They can post events to the EventsCenterSingleton.
+
+*** The other one is subscribing managers, one is the ViewModel (which is DetailManager) and StorageManager.
+Subscribing managers will have handler method that listen to the events and decide what to do.
+
+** Different events types will extend from the BaseEvent.
+In our app we have
+
+- DataStorageChangeEvent: signals when model object changes
+
+- DeleteEntitySyncEvent: signals when the entity linking relationship is broken (e.g when a student is deleted, its link to course and progress and teacher, etc will be broken)
+
+Here is an example of how a command to delete student with ID 1 will invoke different parts along the flow.
+
+.Sequence Diagram for Events Flow
+image::EventsFlowDiagram.png[]
+
+. ViewController(i.e LogicManager) will invoke ModelManager.delete method (Note that ModelManager extends from BaseManager, and has the Publisher capacity)
+. ModelManager will invoke publishing of events to EventsCenterSingleton (which holds an EventBus), in this case postDataStorageChangeEvent and postDeleteEntitySyncEvent will be invoked.
+. Other BaseManagers will also hold this EventsCenterSingleton and listen to new publish events in the event bus.
+If the manager class has the handler function for that types of events, the method will be invoked.
+. In this case, StorageManager will have handler for both DataStorageChangeEvent and DeleteEntitySyncEvent, while ViewModel will have handler for DataStorageChangeEvent.
+
+=== ViewModel component (HIEU)
+image::ViewModelDiagram.png[]
+*API*: link:{repoURL}/src/main/java/seedu/address/viewmodel/ViewModel.java[`ViewModel.java`]
+
+The `ViewModel`,
+
+* stores a list of `observableMap`, each map will corresponds to one `DetailPanel` in ui folder.
+* Each `DetailPanel` (in MainWindow) will listen to the `ViewModel` through the Logic layer.
+* the `ViewModel` will then query the managers from `Model` layer to update its
+observableMap, which in turn will automatically update the corresponding `DetailPanel` view.
+
+=== Undo/Redo [Hieu]
+
+Currently we only support undo/redo for commands that modify the storage (or state of the app).
+I.e add / delete, assign / un-assign, edit commands.
+
+View Controller (LogicManager) will hold UndoRedoStack class, which stores the undoStack and redoStack which will be explained below.
+
+Those commands listed above will inherit from UndoableCommand abstract class.
+UndoableCommand will extends from Command class.
+
+UndoableCommand will contain the general algorithm flow for doing undo/ redo, while there will be some details delegated to the actual command class.
+This technique is also known as template pattern.
+
+[source,java]
+----
+public abstract class UndoableCommand extends Command {
+    public abstract void preprocessUndoableCommand() {}
+
+    public abstract void generateOppositeUndoableCommand();
+
+    public CommandResult executeUndoableCommand();
+    @Override
+    public CommandResult execute() {
+        preprocessUndoableCommand();
+        generateOppositeUndoableCommand();
+        return executeUndoableCommand();
+    }
+}
+----
+
+Note that for each UndoableCommand, before execution, it needs to save some information (through the preprocessUndoableCommand) then generate (and store) the opposite corresponding command (through generateOppositeUndoableCommand)
+
+Let's go through the example in diagram below.
+- The user first executes a new UndoableCommand delete-student.
+Before this delete command is executed, we preprocessUndoableCommand to get the to-be-deleted student object, as well as the current index of this student object in list.
+
+- Then we will generate a AddStudentCommand (which is opposite of this DeleteStudentCommand) with this studentObject and index and push it to undoStack
+
+- When undo command is executed, the top of undoStack is popped out, then pushed to redoStack.
+Then the oppositeCommand of it will be excecuted (in this case AddStudentCommand will be invoked)
+
+- When redo command is executed, the top of redoStack is popped out, then pushed to undoStack.
+Then the originalCommand will be executed (again) (in this case it will be DeleteStudentCommand again).
+
+image::UndoRedoStack.png[]
+
+* Design Considerations:
+1/ How Undo and Redo works:
+Option A: Save the entire app state after every command.
+Pros: Very easy implementation.
+Cons: Serious memory performance issue when storing the whole address book at every time step.
+
+Option B (Current choice): Each (undoable) command will know how to generateOpposite command itself.
+Pros: Reduce a lot of memory issue.
+
+Cons: Harder to implement
+
+=== View Switching [HIEU]
+To see sub-view details of each section we can issue a select command.
+
+Let's see an example of how selecting sub-view data of a student 1 works.
+
+image::ViewSwitchFlowDiagram.png[]
+
+. `select sid/ 1` command is issued to `ViewController`
+. `ViewController`  will call `ViewModel` method `updateStudentDetailsMap`
+. In turn, that method will invoke managers from `Model` layer, for example `ModelManager`,
+to update `observableStudentDetailMap` inside `ViewModel`
+. Because `StudentDetailsMap` implements an `onChange` function that
+listen to update in `observableStudentDetailMap`, the UI part will be updated correspondingly
+with data of this student 1.
+
+Design considerations:
+
+. Automatically updating the UI sub-view when the app state changes. Let's say the current sub-view
+shown in the UI is of the details of student 1, then some information of the course of that
+student is changed, or the student is removed from the course, the UI should update immediately
+without the need to issue the click command again. To support that, our `ViewModel` will listen to `EventsCenter` , then whenever
+an event of `DataStorageChangeEvent` or `DeleteEntitySyncEvent` happens, it will check
+which `observableMap` (which corresponds to different `DetailedView`) is active then
+do the query again.
+
+. Lazy loading: For example, when seeing details of the students, we only want to show the courses
+that the students have without the progresses of this course that the student currently have.
+To query that, after executing `select sid/ student_id`, the user needs to run
+`select sid/ student_id cid/ course-id` as well
