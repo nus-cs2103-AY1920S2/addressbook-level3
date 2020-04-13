@@ -58,6 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *i/* entry index
 * *d/* date in format yyyy-MM-dd
 * *m/* mode
+* *sh/* date in format of yyyy-MM-dd in calendar
 * *dc/* diary content
 * *dr/* duration
 * *attr/* profile attribute name
@@ -91,7 +92,9 @@ The only valid values are food OR sports, or in acronym f OR s.
 * The field `TIME` needs to be in the format of yyyyy-mm-dd-hh:MM, e.g. `2020-04-10-03:00`
 * The field `DATE` should be entered in the format of `yyyy-mm-dd`, e.g. `2020-02-02`.
 * The field `INDEX` should be a positive integer representing a one-based index of an entry in an list.
-* The field `DURATION` should be a positive double number, representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
+* The field `DURATION` should be a positive double number,
+representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
+* The flag `-f` should be added *just after the command word*, e.g. `update -f`.
 ====
 //end::command_format[]
 
@@ -470,7 +473,7 @@ Format for showing entries of a particular date: `calendar sh/DATE`
 
 Examples:
 
-* `calendar d/2020-04-15`
+* `calendar m/tb d/2020-04-15`
 * `calendar m/ls d/2020-04-20`
 * `calendar sh/2020-05-01`
 
@@ -578,6 +581,7 @@ Format: `update [-f] attr/ATTRIBUTE v/VALUE`
 * e.g. Both `attr/target weight` and `attr/TARGETWEIGHT` are acceptable.
 * Any updated value should follow its original data type.
 * If the chosen updated attribute has already had original value, *flag `-f`* need to be used to enable *force overwrite*.
+The flag should be added *just after the command word*, i.e. `update -f attr/ATTRIBUTE v/VALUE`.
 
 ****
 
