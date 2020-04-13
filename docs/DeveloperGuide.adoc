@@ -471,6 +471,11 @@ other than the context that they are referenced in. In addition, this would make
 ==== Overview
 The schedule feature in ZeroToOne allows users to plan their workouts! Users will be able to create a schedule on a specific date and time in the future, edit the date and time, as well as delete the schedule.
 
+.Activity Diagram for Creating a Schedule
+image::developer-guide/schedule/ScheduleActivityDiagram.png[]
+
+This is an activity diagram for the user to create a new schedule. First, the user will try to find workout to schedule, and if their desired workout cannot be found, the user will create one and schedule them on a specified date.
+
 
 ==== Components
 The following class diagram shows the overview of the `Scheduler`:
