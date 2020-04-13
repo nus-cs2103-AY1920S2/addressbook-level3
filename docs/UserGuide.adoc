@@ -609,6 +609,13 @@ Instead of `add_group`, `ag` would suffice when adding groups to CoderLifeInsigh
 
 Format `toggle shortcuts`
 
+=== Find group command : `find_group` `[coming in v2.0]`
+`[written by: Raivat Bhupesh Shah]`
+
+Enable searching for groups with specified keyword. The feature would match the given keyword with group indexes and then update
+This feature will be useful when there are at least a certain number of groups. +
+Format: `find_group keyword`.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
