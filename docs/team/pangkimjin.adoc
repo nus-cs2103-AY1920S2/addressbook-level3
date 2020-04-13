@@ -48,7 +48,7 @@ feature extension.
 proposed Data Encryption feature, and proposed ExpenseLa Statement feature: https://github.com/AY1920S2-CS2103-T09-3/main/pull/167[#167] https://github.com/AY1920S2-CS2103-T09-3/main/pull/176[#176]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103-T09-3/main/pull/180[#180], https://github.com[#181]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/PangKimJin/ped/issues/1[1])
+*** Reported bugs and suggestions for other teams in the class (https://github.com/PangKimJin/ped/issues/1[1])
 
 
 == Contributions to the User Guide
