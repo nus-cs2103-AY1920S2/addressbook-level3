@@ -401,7 +401,7 @@ image::CookbookViewSequenceDiagram.png[]
 
 The following sequence diagram shows how the recipe viewing function interacts between the classes in `Ui`:
 
-image::CookbookViewSEquenceDiagram2.png[]
+image::CookbookViewSequenceDiagram2.png[]
 //end::viewrecipesequence[]
 
 ==== Design considerations
@@ -434,12 +434,8 @@ the various `UiPart` s.
 // tag::gohkh[]
 === Search for recipes based on ingredients in the inventory https://github.com/gohkh[(by Goh Ka Hui)]
 The user may use this command to search for recipes that they can cook using the ingredients available in their
-inventory.
-
-==== Implementation reasoning
-This command was implemented to address the users' need of easily finding a recipe based on the ingredients they have
-. It
-allows users to whip up a meal without having to go grocery shopping if they are short of time. This feature sorts
+inventory. This feature was implemented to address users' need of easily finding a recipe based on the ingredients they have.
+With this feature, users can whip up a meal without having to go grocery shopping if they are short of time. This feature sorts
 recipes by how much the inventory fulfils their ingredient requirements, and filters out recipes whose ingredient
 requirements are not met at all. Users can immediately see at the top of the cookbook the recipes that their ingredients
 are most suitable for preparing. A user can use this feature by typing the command: `cookbook search inventory`.
