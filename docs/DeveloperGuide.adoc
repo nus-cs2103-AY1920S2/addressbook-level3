@@ -327,7 +327,7 @@ its a Relative or Absolute path.
 *Aspect: Logical equivalence of `RelativePath`* :
 
 *   Alternative 1(Current choice): Relative path `CS2103/../note1` would be equivalent to `note1`.
-**  Pros: More intuitive for the user and developer, easier to integrate paths with other features.
+**  Pros: More intuitive for the user and developer, making it easier to integrate paths with other features.
 *   Alternative 2: Relative path `CS2103/../note1` would not be logically equivalent to `note1`.
 
 // end::paths[]
