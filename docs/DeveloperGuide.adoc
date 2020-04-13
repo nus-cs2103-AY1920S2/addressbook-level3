@@ -777,52 +777,29 @@ application.
 To achieve this feature, the following methods in the `RemindDate` and
 `RemindWindow` classes are used.
 
-* `RemindDate#isToday()`
-* `RemindWindow#filterRemindCoupons()`
-* `RemindWindow#constructRemindCoupons()`
-* `RemindWindow#showIfAny()`
+* `RemindDate#isToday()` - Check if the `RemindDate` is today.
+* `RemindWindow#filterRemindCoupons()` - Filters out all `RemindDates` that
+are not today from `RemindWindow`.
+* `RemindWindow#constructRemindCoupons()` - Creates a `String` of coupons
+that have their `RemindDates` today. This `String` is used in the displayed
+reminder window.
+* `RemindWindow#showIfAny()` - Shows the reminder window if there are coupons
+to be reminded of today. If there are no coupons that have to be reminded
+today, no window will be shown.
 
 .Overview of the class diagram representation of the reminder checking implementation.
 image::RemindClassDiagram.png[]
 
 
-To make sense of how coupon reminder function, let's dive into the specifics of
+To make sense of how coupon reminder functions, let's dive into the specifics of
 RemindDate
 class, RemindCommand class and RemindWindow class.
 
-==== Class structure of RemindDate field
 
-It is mandatory that each Coupon has a `RemindDate` object, that
-represent a date to be reminded. `RemindDate` class is heavily reliant of
-the expiry date of the coupon.
-
-Images are provided below to help understand the above said connectivity and
-to identify which are valid input remind date.
-
-Given below are two ways of a coupon's remind date are be derived from.
-
-**Default remind date**
-
-Whenever a new coupon without specifying a remind date is added,
-the default reminder will be set on 3 days before its expiry date.
-
-**Pre-determined remind date**
-
-Whenever the user has a specific remind date for a coupon, he/she can either
-
-* add a new coupon, specifying the remind date
-
-* use the remind command to set the remind field of an existing coupon
-
-
-==== Implementation of RemindCommand
-Depending of user's preference, there are two ways to use the remind command to
-set a coupon's remind date. The user can choose to input a specific remind date
-or
-input X amount of days before the expiry date.
+==== Implementation of editing a coupon's RemindDate
 
 The following activity diagram depicts what happens when the user runs a
-`edit` command to edit the `remind date`.
+`edit` command to edit a coupons's `RemindDate`.
 
 image::EditRemindActivityDiagram.png[]
 

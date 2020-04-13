@@ -565,8 +565,8 @@ Archives a coupon when you want to keep a record of it, without cluttering your
 current stash of coupons.
 
 [NOTE]
-To view archived coupons, the user can run the <<Listing coupons: `list`, `list
-a/`>> command to list all
+To view archived coupons, the user can run the
+<<Listing coupons: `list`, `list a/`>> command to list all
 archived coupons. Alternatively, the <<Finding coupons by name: `find`,
 `find`>> command explained below will
 search all archived coupons, thus displaying archives that match the supplied
