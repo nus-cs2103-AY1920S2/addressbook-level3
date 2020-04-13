@@ -646,7 +646,7 @@ regardless of how many entries are in the HashMap.
 
 //tag::store(proposed)[]
 
-=== Store calorie data input by the user [proposed in v2.0]
+=== Store calorie data defined by the user [proposed in v2.0]
 
 This proposed function allows the user to create his/her own calorie data and store them
 into the application database. These data can be later searched by and shown to the user
@@ -658,12 +658,27 @@ in the future.
 
 ==== proposed implementation
 
+To store user-defined calorie data internally, we need current FitHelper class in
+the Model component to associate 2 new classes `UserFoodCalorieTable`
+and `UserSportsCalorieTable`, which will store user-defined calorie
+intake of food and calorie consumption of sports respectively.
 
+To allow the application to access these user-defined data in the future, we need another class
+in the Storage component responsible for writing internally data into Json file
+and reading the Json file back to internally stored data when the user reopens the application.
 
-.Additional Storage Class responsible for storing user data (existing storage classes omitted)
-image::AdditionalStorage.png[test, 30%]
+.Additional class associated with FitHelper for storing user-defined data (existing classes associated with FitHelper omitted)
+image::AdditionalModel.png[test, 50%]
+
+.Additional Storage Class for writing and reading user-defined data (existing storage classes omitted)
+image::AdditionalStorage.png[test, 40%]
+
+To allow the `check` command to search for user-defined data, the command will be modified to
+retrieve data from `UserFoodCalorieTable` or `UserSportsCalorieTable` as well, depending
+on the search type specified by the user.
 
 //end::store(proposed)[]
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.

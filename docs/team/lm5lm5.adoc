@@ -81,6 +81,7 @@ include::../UserGuide.adoc[tag=command_format]
 |===
 
 include::../DeveloperGuide.adoc[tag=check]
+include::../DeveloperGuide.adoc[tag=store(proposed)]
 
 |===
 |Given below are sections I reviewed and edited in the Developer Guide.
