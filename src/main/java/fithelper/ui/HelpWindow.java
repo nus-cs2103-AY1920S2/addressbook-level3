@@ -15,8 +15,8 @@ import javafx.scene.layout.AnchorPane;
  */
 public class HelpWindow extends UiPart<AnchorPane> {
     public static final String LIST_OF_VALID_COMMANDS = "General rules:\n"
-            + "1) [prefix/ATTRIBUTE] means an optional attribute for this command,\n"
-            + "   while prefix/ATTRIBUTE means a compulsory attribute.\n"
+            + "1) [prefix/ATTRIBUTE] means an optional parameter for this command,\n"
+            + "   while prefix/ATTRIBUTE means a compulsory parameter.\n"
             + "2) TYPE can only be food(f) OR sports(s).\n"
             + "3) DATE follows the format of YYYY-MM-DD.\n"
             + "4) TIME follows the format of YYYY-MM-DD-24:60.\n"

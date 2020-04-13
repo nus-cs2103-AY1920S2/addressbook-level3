@@ -94,6 +94,15 @@ The only valid values are food OR sports, or in acronym f OR s.
 * The field `INDEX` should be a positive integer representing a one-based index of an entry in an list.
 * The field `DURATION` should be a positive double number,
 representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
+* You may input multiple parameters of a same prefix, but only the last input value will be read.
+
+Example: `add n/Alice n/Bob n/Charlie` is equivalent to `add c/Charlie`.
+
+* Please do not input parameters not required by a particular command.
+
+Example: the format of sort command is `sort [x/TYPE] by/SORT_BY [o/ORDER]`,
+so you should not input other parameters like `n/NAME`, `k/KEYWORDS` or `v/VALUE`.
+
 * The flag `-f` should be added *just after the command word*, e.g. `update -f`.
 ====
 //end::command_format[]
@@ -108,12 +117,42 @@ clicking the **Help** button on the left hand side of the application.
 Note that once the user types `help` or click the **Help** button,
 the url of the User Guide is copied to the clipboard, so the user
 can directly access the Guide by pasting the url into the browser.
+
 Format: `help`
+
+image::Help.png[width="790"]
 //end::help[]
 
 === Keep Food and Sports Entries
 
 //tag::add[]
+==== Go to dashboard page: `home`
+
+Go to the Dashboard page, which displays three entry lists:
+Food Entry History, Sports Entry History and Reminders.
+
+* *Food Entry History* +
+Shows food entries.
+
+* *Sports Entry History* +
+Shows sports entries.
+
+* *Reminders* +
+Shows entries that are remarked as not done.
+
+Note that you can also go to the Dashboard page by clicking the `DashBoard` button on the
+left side of the application. However, using `home` command will further **reset the display status**
+of the Dashboard page to the default setting (showing all entries in all three lists).
+
+Example: +
+If you input `reminder` command, the DashBoard page will now only show entries in the reminders
+list (display status changed). If you switch to other page and then try to go back to the Dashboard
+page by clicking the `DashBoard` button, the Dashboard page will still only show the reminders
+list. But is you input `home` command, entries in all three lists will be shown.
+
+.Dashboard page in default display setting
+image::Dashboard.png[][width="790"]
+
 ==== Adding an entry: `add`
 
 Adds an entry to the fitness log book. The entry added will be displayed in DashBoard, Calendar
