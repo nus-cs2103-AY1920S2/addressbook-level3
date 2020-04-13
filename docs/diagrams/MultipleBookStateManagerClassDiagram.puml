@@ -4,9 +4,9 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-MultipleBookStateManager o-down-> "*" ReadOnlyRecipeBook
-MultipleBookStateManager o-down-> "*" ReadOnlyPlannedBook
-MultipleBookStateManager o-down-> "*" ReadOnlyCookedRecordBook
+MultipleBookStateManager o-down-> "1..*" ReadOnlyRecipeBook
+MultipleBookStateManager o-down-> "1..*" ReadOnlyPlannedBook
+MultipleBookStateManager o-down-> "                       1..*" ReadOnlyCookedRecordBook
 MultipleBookStateManager o-up-> "*" CommandType
 MultipleBookStateManager o-up-> "*" Tab
 
