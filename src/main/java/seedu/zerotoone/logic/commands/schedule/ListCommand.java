@@ -8,7 +8,7 @@ import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Lists all scheduled workouts in the {@code ScheduledWorkOutList} to the user.
  */
 public class ListCommand extends ScheduleCommand {
     public static final String COMMAND_WORD = "list";

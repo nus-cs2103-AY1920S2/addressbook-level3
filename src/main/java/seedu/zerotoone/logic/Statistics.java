@@ -3,10 +3,15 @@ package seedu.zerotoone.logic;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.zerotoone.model.log.StatisticsData;
+import seedu.zerotoone.logic.statistics.AverageWorkoutTimePerDay;
+import seedu.zerotoone.logic.statistics.DataPoint;
+import seedu.zerotoone.logic.statistics.StatisticsData;
+import seedu.zerotoone.logic.statistics.TotalWorkoutTimeDataPoint;
+import seedu.zerotoone.logic.statistics.WorkoutCountDataPoint;
 import seedu.zerotoone.model.session.CompletedWorkout;
 
 /**
@@ -23,9 +28,9 @@ public class Statistics {
      */
     public static StatisticsData generate(List<CompletedWorkout> workouts, Optional<LocalDateTime> startDateRange,
                                           Optional<LocalDateTime> endDateRange) {
+
         LocalDateTime startDateTime = startDateRange.orElseGet(() -> Statistics.getEarliestWorkoutStartTime(workouts));
         LocalDateTime endDateTime = endDateRange.orElseGet(() -> Statistics.getLatestEndDate(workouts));
-
 
         workouts.removeIf(workout -> workout.getStartTime().isBefore(startDateTime));
         workouts.removeIf(workout -> workout.getEndTime().isAfter(endDateTime));
@@ -35,15 +40,18 @@ public class Statistics {
         if (workoutCount.equals(0)) {
             return new StatisticsData();
         }
+        List<DataPoint> dataPoints = new ArrayList<>();
 
-        Duration totalWorkoutDuration = calculateTotalWorkoutTime(workouts);
+        WorkoutCountDataPoint workoutCountDataPoint = new WorkoutCountDataPoint();
+        dataPoints.add(workoutCountDataPoint);
+        TotalWorkoutTimeDataPoint totalWorkoutDuration = new TotalWorkoutTimeDataPoint();
+        dataPoints.add(totalWorkoutDuration);
+        AverageWorkoutTimePerDay averageWorkoutTimePerDay = new AverageWorkoutTimePerDay(startDateTime, endDateTime);
+        dataPoints.add(averageWorkoutTimePerDay);
 
-        long numberOfDays = Duration.between(startDateTime, endDateTime).toDays() + 1;
+        dataPoints.forEach(point -> point.calculate(workouts));
 
-        Duration averageTimePerSession = calculateAverageTimePerSession(totalWorkoutDuration, numberOfDays);
-
-        return new StatisticsData(workouts, startDateTime, endDateTime, workoutCount, totalWorkoutDuration,
-            averageTimePerSession);
+        return new StatisticsData(workouts, startDateTime, endDateTime, dataPoints);
     }
 
     /**
@@ -60,18 +68,6 @@ public class Statistics {
 
         // Round to nearest second
         return totalWorkoutDuration.dividedBy(numberOfDays).truncatedTo(ChronoUnit.SECONDS);
-    }
-
-    /**
-     * Calculates the sum of time spent on all workouts in the list.
-     *
-     * @param workouts
-     * @return totalTimeSpent
-     */
-    private static Duration calculateTotalWorkoutTime(List<CompletedWorkout> workouts) {
-        return workouts.stream().map(
-            workout -> Duration.between(workout.getStartTime(), workout.getEndTime()))
-            .reduce(Duration.ZERO, Duration::plus);
     }
 
     /**

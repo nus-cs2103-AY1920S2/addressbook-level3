@@ -1,0 +1,85 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ParserManager" as ParserManager LOGIC_COLOR
+participant ":ExerciseCommandParser" as ExerciseCommandParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant "res:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("exercise delete 1")
+activate LogicManager
+
+LogicManager -> ParserManager : parse("exercise delete 1")
+activate ParserManager
+
+create ExerciseCommandParser
+ParserManager -> ExerciseCommandParser
+activate ExerciseCommandParser
+
+ExerciseCommandParser --> ParserManager
+deactivate ExerciseCommandParser
+
+ParserManager -> ExerciseCommandParser : parse("delete 1")
+activate ExerciseCommandParser
+
+create DeleteCommandParser
+ExerciseCommandParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> ExerciseCommandParser
+deactivate DeleteCommandParser
+
+ExerciseCommandParser -> DeleteCommandParser : parse("1")
+activate DeleteCommandParser
+
+create DeleteCommand
+DeleteCommandParser -> DeleteCommand
+activate DeleteCommand
+
+DeleteCommand --> DeleteCommandParser : d
+deactivate DeleteCommand
+
+DeleteCommandParser --> ExerciseCommandParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> ExerciseCommandParser
+destroy DeleteCommandParser
+
+ExerciseCommandParser --> ParserManager : d
+deactivate ExerciseCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ExerciseCommandParser -[hidden]-> ParserManager
+destroy ExerciseCommandParser
+
+ParserManager --> LogicManager : d
+deactivate ParserManager
+
+LogicManager -> DeleteCommand : execute()
+activate DeleteCommand
+
+DeleteCommand -> Model : deleteExercise(1)
+activate Model
+
+Model --> DeleteCommand
+deactivate Model
+
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteCommand
+deactivate CommandResult
+
+DeleteCommand --> LogicManager : res
+deactivate DeleteCommand
+
+[<--LogicManager
+@enduml

@@ -7,18 +7,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.zerotoone.logic.commands.AboutCommand;
-import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.log.DeleteCommand;
 import seedu.zerotoone.logic.commands.log.DisplayCommand;
 import seedu.zerotoone.logic.commands.log.FindCommand;
 import seedu.zerotoone.logic.commands.log.ListCommand;
+import seedu.zerotoone.logic.commands.log.LogCommand;
+import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 
 
 /**
  * Parses user input.
  */
-public class LogCommandParser {
+public class LogCommandParser implements Parser<LogCommand> {
 
     /**
      * Used for initial separation of command word and args.
@@ -32,7 +33,7 @@ public class LogCommandParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parse(String input) throws ParseException {
+    public LogCommand parse(String input) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AboutCommand.MESSAGE_USAGE));

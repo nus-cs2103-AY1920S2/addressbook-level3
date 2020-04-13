@@ -1,6 +1,6 @@
 package seedu.zerotoone.logic;
 
-import seedu.zerotoone.model.log.StatisticsData;
+import seedu.zerotoone.logic.statistics.StatisticsData;
 
 /**
  * The interface Statistics logic.

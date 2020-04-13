@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
+:imagesDir: images/
 :stylesDir: stylesheets
 :xrefstyle: full
 ifdef::env-github[]
@@ -13,6 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W16-2/main
+:codeURL: {repoURL}/tree/master/
 
 By: `Team AY1920S2 W16-2`      Since: `Feb 2020`
 
@@ -26,11 +27,11 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::developer-guide/common/ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu.zerotoone/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu.zerotoone/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{codeURL}/src/main/java/seedu/zerotoone/Main.java[`Main`] and link:{codeURL}/src/main/java/seedu/zerotoone/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -55,7 +56,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::developer-guide/common/LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -63,177 +64,113 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `exercise delete 1`.
 
 .Component interactions for `exercise delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::developer-guide/common/ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+[[Design-Main]]
+=== Main Component
+.Structure of the Main Component
+image::developer-guide/common/MainClassDiagram.png[]
+
+*API* : link:{codeURL}/src/main/java/seedu/zerotoone/Main.java[`Main.java`]
+
+The `Main` class consists of the `SplashScreen` and the `MainApp`.
+
+When the app starts up, `Main#main` is called. This sets the `Preloader` of the `Application` to be `SplashScreen`. Thereafter, it launches `MainApp`.
+
+During the GUI start up process, the `SplashScreen` will first load on a `Thread`. In the meantime, `MainApp#init` will run. Once `MainApp#init` completes, and just as `MainApp#start` is about to run, `MainApp` will send a `Preloader.StateChangeNotification` to `SplashScreen` to close its window. After that, `UiManager#start` is called, which creates the view for the main application.
+
 [[Design-Ui]]
-=== UI component
+=== UI Component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::developer-guide/common/UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu.zerotoone/ui/Ui.java[`Ui.java`]
+*API* : link:{codeURL}/src/main/java/seedu/zerotoone/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ExerciseListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of a `CommandBox`, `ResultDisplay` and other panels. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu.zerotoone/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{codeURL}/src/main/java/seedu/zerotoone/ui/MainWindow.java[`MainWindow`] is specified in link:{codeURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component executes user commands using the `Logic` component.
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+For more information about each component, check out the 'Implementation' section.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic Component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::developer-guide/common/LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu.zerotoone/logic/Logic.java[`Logic.java`]
+link:{codeURL}/src/main/java/seedu/zerotoone/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `ParserManager` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a exercise).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+. `Logic` uses the `ParserManager` class to parse the user command
+. The `ParserManager` creates and returns a `Command` object
+. The `Command` object is executed by the `LogicManager`
+. The command execution can affect the `Model` (e.g. adding a exercise).
+. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying the list of workouts.
+
+Inside the `Logic` package, there are some utility classes such as the `ArgumentTokenizer`. It is responsible for tokenizing an input and returning an `ArgumentMultimap`, which can be used to get the value of a particular `Prefix`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::developer-guide/common/DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `ExerciseCommandParser` and `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+For more information about each component, check out the 'Implementation' section.
 
 [[Design-Model]]
-=== Model component
+=== Model Component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::developer-guide/common/ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu.zerotoone/model/Model.java[`Model.java`]
+*API* : link:{codeURL}/src/main/java/seedu/zerotoone/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Session data.
-* stores the Exercise data.
-* stores the Workout data.
-* stores the Schedule data.
-* stores the Log data.
-* exposes an unmodifiable `ObservableList<Session>`, `ObservableList<Exercise>`, `ObservableList<Workout>`, `ObservableList<ScheduledWorkout>`, `ObservableList<Log>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores an `ExerciseList` that represents the list of exercises.
+* stores a `WorkoutList` that represents the list of workouts available.
+* stores a `ScheduleList` that represents the list of upcoming schedules.
+* stores a `LogList` that represents the list of completed data.
+* exposes an unmodifiable `ObservableList<Exercise>`, `ObservableList<Workout>`, `ObservableList<ScheduledWorkout>`, `ObservableList<Log>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Zero To One`, which `Exercise` can reference. This would allow `Zero To One` to only require one `Tag` object per unique `Tag`, instead of each `Exercise` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+For more information about each component, check out the 'Implementation' section.
 
 [[Design-Storage]]
-=== Storage component
+=== Storage Component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::developer-guide/common/StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu.zerotoone/storage/Storage.java[`Storage.java`]
+*API* : link:{codeURL}/src/main/java/seedu/zerotoone/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component is resonsible for the persistent storage of the application. It can save these class in JSON format and read it back:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Zero To One data in json format and read it back.
+* `UserPrefs`
+* `Exercise`
+* `Workout`
+* `Schedule`
+* `Log`
+
+For more information about each component, check out the 'Implementation' section.
 
 [[Design-Commons]]
-=== Common classes
+=== Common Classes
 
 Classes used by multiple components are in the `seedu.zerotoone.commons` package.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature [SAMPLE]
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedExerciseList`.
-It extends `ExerciseList` with an undo/redo history, stored internally as an `ExerciseListStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedExerciseList#commit()` -- Saves the current address book state in its history.
-* `VersionedExerciseList#undo()` -- Restores the previous address book state from its history.
-* `VersionedExerciseList#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitExerciseList()`, `Model#undoExerciseList()` and `Model#redoExerciseList()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedExerciseList` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th exercise in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new exercise. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitExerciseList()`, so the address book state will not be saved into the `ExerciseListStateList`.
-
-Step 4. The user now decides that adding the exercise was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoExerciseList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoExerciseList()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `ExerciseListStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoExerciseList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitExerciseList()`, `Model#undoExerciseList()` or `Model#redoExerciseList()`. Thus, the `ExerciseListStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitExerciseList()`. Since the `currentStatePointer` is not pointing at the end of the `ExerciseListStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the exercise being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedExerciseList`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+This section describes some noteworthy details on how each features are implemented.
 
 // tag::session[]
 
@@ -245,7 +182,7 @@ The Session feature resides on the Home page and is comprised of `Start`, `Stop`
 The activity diagram below demonstrates the actions of a user with this feature.
 
 .Session Feature Activity Diagram
-image::StartStopActivityDiagram.png[]
+image::developer-guide/session/StartStopActivityDiagram.png[]
 
 Start depicts the start of a valid (non-zero sets remaining) Workout Session.
 Upon depletion of all remaining sets, the `OngoingWorkout` automatically stops and produces a `CompletedWorkout` which is saved.
@@ -270,7 +207,7 @@ The inner workings of the feature are briefly expounded below through example us
 
 
 .Example Workout Session
-image::sessionExample.png[]
+image::developer-guide/session/sessionExample.png[]
 
 Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a completedExercise with `start 2`.
 
@@ -287,7 +224,7 @@ updates the instance of `OngoingWorkout`.
 * The rest timer resets and starts counting from 00:00.
 
 .DoneCommand sequence diagram
-image::DoneCommandSequenceDiagram.png[]
+image::developer-guide/session/DoneCommandSequenceDiagram.png[]
 
 * The sequence diagram above demonstrates the interaction between the Logic and Model of ZeroToOne.
 For brevity, some inner details between `OngoingWorkout.done()` and the return of `cs` are omitted.
@@ -323,32 +260,93 @@ workout session.
 
 // tag::exercise[]
 === Exercise
+==== Overview
+The Exercise feature forms the basic building block for the application. It allows users to CRUD exercises, which will then be used for the creation of workouts. The command is prefixed by the keyword `exercise`. Available commands are `create`, `edit`, `list`, `delete` and many more.
+
 ==== Implementation
-The exercise feature forms the basic building block for the application. It allows users to CRUD exercises, which will then be used for the creation of workouts. The command is prefixed by the keyword `exercise`. Available commands are `create`, `edit`, `list`, `delete` and many more.
+The following portion will explain in-detail each component of the Exercise feature.
+
+===== Model
+.Exercise Model Structure
+image::developer-guide/exercise/ExerciseModelClassDiagram.png[]
+
+The figure above depicts the Model of the Exercise feature. Starting from the most primitive type:
+
+. `NumReps` stores the number of repetitions a person has to complete for a particular exercise set
+. `Weight` stores the weight in kg that a person has to complete for a particular exercise set
+. `ExerciseSet` represents an exercise set that a person has to complete. Each `ExerciseSet` comprises of exactly 1 `NumReps` object and 1 `Weight` object
+. `ExerciseName` stores the name of a particular exercise
+. `Exercise` represents a collection of exercise sets that a person has to complete. Each `Exercise` will consists of exactly 1 `ExerciseName` object and any number of `ExerciseSet` (including zero)
+. `UniqueExerciseList` represents a collection of `Exercise` objects. There can be any number of `Exercise` objects in `UniqueExerciseList`, but they must be unique.
+. `ExerciseList` implements the interface `ReadOnlyExerciseList` that ensures that the outward-facing exercise list is unmodifiable by other modules. The `ExerciseList` object has exactly 1 `UniqueExerciseList` for storage purposes.
+. `ExerciseList` is controlled by the `ModelManager`.
+
+Do note that some of the `Exercise` objects in the `ExerciseList` are also referenced in the `WorkoutList`. For more information, refer to the `Workout` implementation.
+
+===== Storage
+.Exercise Storage Structure
+image::developer-guide/exercise/ExerciseStorageClassDiagram.png[]
+
+The Storage component provides the functionalities that enable the persistent storage of the model. Starting from the most primitive type:
+
+. `JacksonExerciseSet` contains exactly two `String` objects, one for the number of repetitions and one for the weight. This class has a dependency to the `NumReps` and `Weight` model due to the `toModelType()` function. This function converts `JacksonExerciseSet` into the model's `ExerciseSet` so that it can be used in other parts of the application.
+. `JacksonExercise` contains exactly one `String` object that represents the exercise name, and any number of `JacksonExerciseSet` objects. Similarly, it has a dependency to `ExerciseName`, `ExerciseSet` and `Exercise` object due to the `toModelType()` function.
+. `JacksonExerciseList` is the persistent storage for the `ExerciseList` model, and it contains any number of `JacksonExercise` objects.
+. `ExerciseListStorageManager` implements the `ExerciseListStorage` which provides certain functionalities required for the storage to work properly. The `ExerciseListStorageManager` is controlled by the `StorageManager`.
+
+===== Logic - Commands
+.Exercise Commands Structure
+image::developer-guide/exercise/ExerciseCommandClassDiagram.png[]
+
+The Exercise Commands package stores the business logic of the exercise feature. The commands are organised in a hierarchical fashion, in the order of precedence in a valid input. For example, `SetCommand` inherits from `ExerciseCommand` as the `set` comes after `exercise` in the input `exercise set`.
+
+Each command contains a `COMMAND_WORD` which is a single word that is unique to the command. Each command also implements an `execute` method that represents the logic of the command. Instructions to control the model, storage and view are stored inside this method.
+
+===== Logic - Parsers
+.Exercise Parser Structure
+image::developer-guide/exercise/ExerciseParserClassDiagram.png[]
+
+The parsers are responsible for parsing a user input into a `Command` object. For the Exercise component, there are parsers for every command that accepts user arguments. For example, since `exercise list` does not take in any argument, there is no parser for the `ListCommand`. After parsing the user input, the parser will return `Command` object to the caller, which will execute the command via the `execute` method.
+
+===== Sample Command Execution
+This section will illustrate an example of an exercise command execution using the input `exercise create e/Bench Press`.
 
 .Exercise's CreateCommand Sequence Diagram
-image::exercise/CreateCommandSequenceDiagram.png[]
+image::developer-guide/exercise/CreateCommandSequenceDiagram.png[]
 
 In this portion, we will trace the sequence diagram of the `exercise create` command to better understand the internals of the Exercise feature.
 
 . The user enters the command `exercise create e/Bench Press`
-. LogicManager will pass the command to the ParserManager for parsing
-. ParserManager upon seeing that the command is prefixed by `exercise` creates a ExerciseCommandParser
-. ParserManager then pass `create e/Bench Press` to ExerciseCommandParser
-. ExerciseCommandParser upon seeing that the command is prefixed by `create` creates a CreateCommandParser
-. ExerciseCommandParser then pass the argument `e/Bench Press` to CreateCommandParser
-. CreateCommandParser then attempts to create an ExerciseName object using the String in the argument
-. Using the ExerciseName, CreateCommandParser then create a CreateCommand object with the exercise name
-. During the construction of the CreateCommand object, a new ArrayList object is created and stored in CreateCommand
-. The CreateCommand is then passed back to the LogicManager
-. LogicManager calls the `c.execute()`
-. CreateCommand will attempt to create an Exercise using the exercise name and the empty ArrayList
-. After creating the Exercise object, the CreateCommand will attempt to store the new exercise by calling the `addExercise` method of Model
-. After the exercise is successfully added, a CommandResult object is created
-. This result is then passed back to the LogicManager which will display the output on the GUI
+. `LogicManager` will pass the command to the `ParserManager` for parsing
+. `ParserManager` upon seeing that the command is prefixed by `exercise` creates a `ExerciseCommandParser`
+. `ParserManager` then pass `create e/Bench Press` to `ExerciseCommandParser`
+. `ExerciseCommandParser` upon seeing that the command is prefixed by `create` creates a `CreateCommandParser`
+. `ExerciseCommandParser` then pass the argument `e/Bench Press` to `CreateCommandParser`
+. `CreateCommandParser` then attempts to create an `ExerciseName` object using the `String` in the argument
+. Using the `ExerciseName`, `CreateCommandParser` then create a `CreateCommand` object with the exercise name
+. The `CreateCommand` is then passed back to the `LogicManager`
+. `LogicManager` calls `c.execute()`
+. `CreateCommand` will attempt to create an `Exercise` using the exercise name
+. After creating the `Exercise` object, the `CreateCommand` will attempt to store the new exercise by calling the `addExercise` method of `Model`
+. After the exercise is successfully added, a `CommandResult` object is created
+. This result is then passed back to the `LogicManager` which will display the output on the GUI
+
+===== Summary
+.Editing Exercise Set Activity Diagram
+image::developer-guide/exercise/EditSetActivityDiagram.png[]
+
+At this point, you should have gather enough information to start developing the Exercise feature. As a summary, this is a sample Activity Diagram that depicts a user flow when they want to edit an exercise set.
 
 ==== Design Considerations
+===== Parser Component
 One of the consideration while designing was that the commands in exercise are extremely nested. We have commands such as `exercise set create r/1 m/10`. While we could have chucked all the parsing in `ExerciseSetCreateParser` class, we realised that it will be better if we were to abstract the parser into separate classes. This allows us to group the functionalities of the parser in a single file. For example, `ExerciseCommandParser` will parse any string that has the word `exercise` as the prefix. `SetCommandParser` will do so for a prefix of `set`. This means that for the above command, while we have to go through multiple parsers which can make the performance of the application suffer, each of the parsers have a single responsibility which makes it a better design choice.
+
+===== Model Component
+For the Model component, note that `Exercise` objects are supposed to be unique whereas `ExerciseSet` objects are not. This is created due to our observations of the workout regimes in the real world.
+
+For `ExerciseSet`, while set weights and number of repetitions tend to vary during an exercise, users may want to have the freedom to do multiple sets with the same configuration during the course of the exercise. Hence, it is unwise to make it unique.
+
+However, for exercises, we noted that users tend to reuse the same exercise throughout different workout plans. At the same time, there is a high chance of users creating duplicate exercises when the number of exercises in the application increases significantly. Therefore, we chose to make `Exercise` a unique object instead.
 
 // end::exercise[]
 
@@ -364,7 +362,7 @@ Each workout consists of a `WorkoutId`, a `WorkoutName` and finally, an `Workout
 The following class diagram shows the overview of the Workout Manager:
 
 .Workout Class Diagram
-image::WorkoutClassDiagram.png[]
+image::developer-guide/workout/WorkoutClassDiagram.png[]
 
 ==== Workout Model
 ZeroToOne's `Model` extends the `WorkoutModel`. Here are all the functions to carry out workout-related activities:
@@ -387,10 +385,10 @@ To illustrate an example of a command from the Workout Manager, the following se
 depicts flow of the program when the command `workout find w/Arms Workout` is run.
 
 .Sequence Diagram for Finding a Workout
-image::WorkoutSequenceDiagram.png[]
+image::developer-guide/workout/WorkoutSequenceDiagram.png[]
 
 . When the user runs the command `workout find w/Arms Workout`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
-. The `ParserManager` then has to `parse("workout find w/Arms Workout"`.
+. The `ParserManager` then has to `parse("workout find w/Arms Workout")`.
 . Next, the `WorkoutCommandParser` has to `parse("find w/Arms Workout")` for the command.
 . Once the command has been parsed as a `FindCommand`, it will be passed on to the `FindCommandParser`, which will then create a new `WorkoutName`.
 . The `FindCommandParser` can then create a `FindCommand`, which in turn creates a `PredicateFilterWorkoutName`.
@@ -415,30 +413,111 @@ is redundant and unnecessary, when there is no functional difference between an 
 other than the context that they are referenced in. In addition, this would make the deletion of any instance of a particular Exercise from a Workout easier, when an Exercise is deleted from the ExerciseList. Hence, to simplify matters, using the existing Exercise class to construct workouts was better.
 // end::workout[]
 
+
+
 // tag::schedule[]
 === Schedule
-==== Implementation
-The following sequence diagram shows how the `schedule create` operation works:
-
-image::schedule/ScheduleCreateSequenceDiagram.png[]
 
 
-The following sequence diagram shows how the `scheduledWorkout` are populated to user view:
+==== Overview
+The schedule feature in ZeroToOne allows users to plan their workouts! Users will be able to create a schedule on a specific date and time in the future, edit the date and time, as well as delete the schedule.
 
-image::schedule/PopulateSortedScheduledWorkoutList.png[]
 
-==== Design Considerations
+==== Components
+The following class diagram shows the overview of the `Scheduler`:
+
+.Scheduler Class Diagram
+image::developer-guide/schedule/ModelScheduleClassDiagram.png[]
+
+As seen in the diagram above, The `Scheduler` consists two lists, `ScheduleList` and `ScheduledWorkoutList`.
+
+The `ScheduleList` contains a number of `Schedule` that the user has created, while the `ScheduledWorkoutList` is essentially a chronologically sorted list of `ScheduledWorkout` that allows JavaFX listeners to track changes when they occur.
+
+NOTE: The decision to have both `ScheduleList` and `ScheduledWorkoutList` may seem bizarre at first glance, but it is implemented this way after careful consideration, to better support operations on 'RecurringSchedule'(Proposed). Refer to <<Model Design Considerations>> for more information.
+
+
+==== Schedule Model
+ZeroToOne’s `Model` extends the `SchedulerModel`. Here are all the functions to carry out schedule-related activities:
+
+* `Model#hasSchedule(Schedule schedule)` - Returns true if a schedule exists in the schedule list
+
+* `Model#addSchedule(Schedule schedule)` - Adds a new schedule to the schedule list
+
+* `Model#setSchedule(Schedule scheduleToEdit, Schedule editedSchedule)` - Replaces a particular schedule with an edited schedule
+
+* `Model#populateSortedScheduledWorkoutList()` - Clear and populate `SortedScheduledWorkoutList` by querying every `Schedule` in `SchedueList` through method `Schedule#getScheduledWorkout()`
+
+* `Model#getSortedScheduledWorkoutList()` - Returns an unmodifiable view of `ObservableList<ScheduledWorkout>`
+
+* `Model#deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete)` - Deletes the `Schedule` that generated the specified `ScheduledWorkout` from the schedule list, then re-populates `SortedScheduledWorkoutList`
+
+* `Model#deleteWorkoutNameFromSchedule(WorkoutName workoutNameToDelete)` - Deletes all instances of schedules that are associated with the specified workout name
+
+* `Model#editWorkoutNameInSchedule(WorkoutName workoutNameToEdit, WorkoutName editedWorkoutName)` - Updates all instances of schedules that are associated with the specified workout name to the new workout name
+
+* `Model#getScheduleList()` - Returns an unmodifiable `ReadOnlyScheduleList`
+
+
+==== Command Execution
+
+===== Creating a Schedule
+To illustrate an example of a command from the `Scheduler`, the following sequence diagram depicts flow of the program when the command `schedule create 1 d/2020-04-01 14:00` is run.
+
+.Sequence Diagram for Creating a Schedule
+image::developer-guide/schedule/ScheduleCreateSequenceDiagram.png[]
+
+. When the user runs the command `schedule create 1 d/2020-04-01 14:00`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
+. The `ParserManager` then has to `parse("schedule create 1 d/2020-04-01 14:00")`.
+. Next, the `ScheduleCommandParser` has to `parse("create 1 d/2020-04-01 14:00")` for the command.
+. Once the command has been parsed as a `CreateCommand`, it will be passed on to the `CreateCommandParser`, which will then parse the index using `ParserUtil`, and parse the date and time using `ScheduleParserUtil`.
+. The `CreateCommandParser` can then create a `CreateCommand`, which is then passed back to `LogicManager` to execute.
+. When `LogicManager` executes the `CreateCommand`, it creates a new `Schedule`, and checks whether the model already contains this `Schedule`.
+. If the model does not contain this `Schedule`, the `LogicalManager` will then add it to the model by calling `Model#addSchedule(schedule)`.
+. Finally, the resulting output message will be returned as the `CommandResult`.
+
+NOTE: Date and time must not be outdated and follow the format {yyyy}-{mm}-{dd} {HH:mm}
+
+===== Populating the SortedScheduledWorkoutList
+
+And the following sequence diagram shows how the `ScheduledWorkoutList` is populated after the method `Model#addSchedule(schedule)` is called:
+
+.Sequence Diagram for Populating `SortedScheduledWorkoutList`
+image::developer-guide/schedule/PopulateSortedScheduledWorkoutList.png[]
+
+. After the `LogicManager` calls the method `Model#addSchedule(schedule)`, `ModelManager` calls `Scheduler#addSchedule(schedule)`, which in turns calls `ScheduleList#addSchedule(schedule)` and adds the `Schedule` in the `ScheduleList`.
+. The `Scheduler` will then populate the `ScheduledWorkoutList` by calling the method `populateSortedScheduledWorkoutList()`.
+. First, `Scheduler` gets the current date and time by calling `DateTime#now()`.
+. Then, `Scheduler` iterates through every `Schedule` in `ScheduleList`, and requests to get `ScheduledWorkout` by calling `Schedule#getScheduledWorkout(now)` on each of them.
+. Finally, `Scheduler` resets the `SortedScheduledWorkoutList` with the latest `ScheduledWorkout` by calling `ScheduledWorkoutList#setScheduledWorkouts(scheduledWorkouts)`, and user's view of `ScheduledWorkout` is refreshed.
+. And in the end, the resulting output message will be passed back to `LogicManager` and display to user.
+
+NOTE: `Scheduler#populateSortedScheduledWorkoutList()` is called whenever the schedules in `ScheduleList` have been changed.
+
+
+==== Model Design Considerations
 
 ===== Aspect: How to handle editing and deletion of recurring schedules
 
-* **Alternative 1:** Saves `scheduledWorkout` objects.
-** Pros: Easy to implement.
-** Cons: Hard to maintain when it comes to `edit` or `delete` of recurring scheduled workouts.
-* **Alternative 2 (current choice):** Saves `schedule` objects that can be used to produce `scheduledWorkout` when
-requested.
-** Pros: Changes to recurring schedules can populated to `scheduledWorkout` more easily.
-** Cons: Much more complicated model.
+* **Option 1:** `Model` stores only `ScheduledWorkout` objects.
+** Pros: Easier to implement.
+** Cons: Harder to maintain when it comes to `edit` or `delete` of recurring scheduled workouts.
+* **Option 2 (current choice):** Saves `Schedule` objects that can be used to produce `ScheduledWorkout` when requested.
+** Pros: Changes can be made to recurring schedules instead, and in turn reflect in all related `ScheduledWorkout`.
+** Cons: Makes model much more complicated.
+
+In the end, I decided to go with option 2 as it is easier to maintain, more extensible and less computationally expensive.
+
+When the system has a number of recurring schedules that do not have an end date, it introduces a few problems:
+
+* How many scheduled workouts to create/store for each recurring schedule
+* How to efficiently retrieve and update all related scheduled workouts when a recurring schedule is edited or deleted
+
+Implementing option 1 would mean that we will have to impose an additional constraint onto the system, which is either how many scheduled workouts to display for each recurring schedule or what is the longest time frame of scheduled workouts to display to user, as we simply can't generate indefinite number of scheduled workouts for technically everlasting recurring schedules. Additionally, when the number of high frequency recurring schedules in the system increases, it will be extremly computationally expensive to edit or delete recurring schedules, as the system will have to iterate through every ScheduledWorkout objects and update accordingly.
+
+On the other hand, implementing option 2 makes it easier to handle these problems by storing changes to the Schedule objects instead, which can be used to generate ScheduleWorkout objects when requested. Moreover, it is more extensible because if we are going to introduce a calendar view in the future, where user can view a specific time frame of scheduled workouts, the system only needs to generate for that time frame only, which can be done much more efficiently!
 // end::schedule[]
+
+
 
 // tag::log[]
 === Log
@@ -446,7 +525,7 @@ For logging, we propose saving the completedExercise data in the following class
 
 ==== Implementation
 
-image::WorkoutSessionDiagram.png[]
+image::developer-guide/log/WorkoutSessionDiagram.png[]
 
 ==== Design Considerations
 Immutability was a huge consideration for us and hence we came up with the `ReadOnly` interface.
@@ -612,7 +691,7 @@ Use case ends
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 100 workouts a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 100 workouts without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 . Should not depend on a remote server, so that a user can exercise in any condition or environment.
 
