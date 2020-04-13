@@ -32,19 +32,17 @@ NUSProductivity is a desktop application for NUS students. The user interacts wi
 
 
 ** Project management:
-*** Setting up team organization and team repository
-*** Enable Travis CI for the team repo.
-*** Set up auto-publishing of docs for the team repo.
-*** Open up issues for user stories and manage milestones.
+*** Created issues and assigning to relevant teammates.
 
 ** Documentation:
-*** Added contents for user guide: https://github.com/AY1920S2-CS2103T-W16-4/main/pull/12[#12], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/199[#199], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/203[#203]
-*** Added contents for developer guide: https://github.com/AY1920S2-CS2103T-W16-4/main/pull/41[#41], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/205[#205], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/205[#208]
+*** Added contents for user guide: https://github.com/AY1920S2-CS2103T-W16-4/main/pull/210[#210]
+*** Added contents for developer guide: https://github.com/AY1920S2-CS2103T-W16-4/main/pull/210[#210]
+*** Fixed user guide format: https://github.com/AY1920S2-CS2103T-W16-4/main/commit/0bce7f9091d637d1f64c11448543718b831ac90a[fix format]
 
 ** Reviewing/mentoring contribution:
-*** Gave feedbacks and reviewed on code pull requests https://github.com/AY1920S2-CS2103T-W16-4/main/pull/45[#45], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/185[#185]
+*** Reivewed and gave feedback for pull requests: https://github.com/AY1920S2-CS2103T-W16-4/main/pull/172[#172]
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/30[#30])
+*** Reported bugs and reviewed developer guide for other teams in the class.
 
 == Contributions to the User Guide
 
@@ -53,9 +51,7 @@ NUSProductivity is a desktop application for NUS students. The user interacts wi
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=ProfilePart1]
-
-include::../UserGuide.adoc[tag=ProfilePart2]
+include::../UserGuide.adoc[tag=Diary]
 
 
 == Contributions to the Developer Guide
@@ -64,5 +60,5 @@ include::../UserGuide.adoc[tag=ProfilePart2]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=ModuleBook]
+include::../DeveloperGuide.adoc[tag=Diary]
 
