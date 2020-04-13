@@ -1,0 +1,39 @@
+@startuml
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor COMMONS_COLOR
+skinparam classBackgroundColor COMMONS_COLOR
+
+package Compiler {
+Class Compiler
+Class Parser
+
+Abstract Class Block {
+    - List<Block> children
+    - boolean open
+    + {abstract} boolean next(String line)
+    + {abstract} String toHtml()
+}
+Class DocumentBlock
+Class HeaderBlock
+Class ListBlock
+Class ListItemBlock
+Class ParagraphBlock
+Class TextBlock
+}
+
+Block <|-- DocumentBlock
+Block <|-- HeaderBlock
+Block <|-- ListBlock
+Block <|-- ListItemBlock
+Block <|-- ParagraphBlock
+Block <|-- TextBlock
+
+Block <.left. Parser
+Parser <.left. Compiler
+
+show Block members
+skinparam classAttributeIconSize 0
+
+@enduml
