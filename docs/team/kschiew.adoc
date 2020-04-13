@@ -1,0 +1,116 @@
+= Chiew Kok Seng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+:toc:
+:toclevels: 3
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-1/main
+
+== PROJECT: FlashSpeed
+
+---
+
+== Overview
+
+FlashSpeed is a text-based flashcard application specifically designed for university students
+who are learning a foreign language.
+University students often have hectic schedules.
+With this in mind,
+FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly.
+
+FlashSpeed was developed as a team project for the CS2103T Software Engineering module in the National University of Singapore
+(NUS). It is considered a brownfield project as it was built on top of the AddressBook-Level3 project created by the https://se-education.org[SE-EDU initiative].
+FlashSpeed is written in Java and has a GUI created using https://openjfx.io/[JavaFX], with a storage system implemented using
+https://github.com/FasterXML/jackson[Jackson].
+
+
+== Summary of contributions
+
+* *Major enhancement 1*: designed the *architecture* of the app.
+** What it does: creates the backbone structure of the application.
+** Justification: This contribution is critical to the development of the product
+because it created the basic structure of the app as well as designed the logic of the application,
+so that different features could be developed simultaneously.
+** Highlights: This contribution sets the tone of the application.
+It required an in-depth analysis of how the application should work in the future.
+The implementation too was challenging as it required making high-level design choices.
+** Credits: Some of the high-level structure of FlashSpeed is inspired by Anki, a digital flashcard application.
+
+* *Major enhancement 2*: added the *storage function* to the app.
+** What it does: allows the user to save and load the decks of cards created by the user to/from a local directory.
+** Justification: This feature improves the usability of the product significantly
+because a user needs to be able to retrieve the decks of cards that he/she has created in the past.
+** Highlights: This enhancement requires an deep understanding of how JSON files and the Jackson library.
+The implementation was quite challenging as there are quite a few layers of abstraction in the storage system
+implemented by the original project that FlashSpeed is built upon.
+
+* *Major enhancement 3*: added the ability to *generate statistics* after every game session.
+** What it does: allows the user to look at the statistics related to the game session that he/she played.
+** Justification: This feature increases the usage rate of the app,
+because it provides a feedback on the performance of the user.
+By quantifying the performance, this gives user motivation to do better in subsequent game sessions.
+Thus, the user will start more game sessions and hence the app
+usage time will increase.
+** Highlights: The difficulty was manageable,
+as most of the enhancement was essentially arithmetic manipulation.
+
+* *Minor enhancement*: Implemented the library class that contains the decks of cards along with another teammate,
+LiXin. Built and enhanced the Model and Logic Component with Amirul and LiXin.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kschiew&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional and Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Opened https://github.com/AY1920S2-CS2103T-W17-1/main/issues?q=author%3Akschiew+[22 issues], and got assigned https://github.com/AY1920S2-CS2103T-W17-1/main/issues?q=assignee%3Akschiew[17 issues] on GitHub.
+** Enhancements to existing features:
+*** Created test utilities for teammates to utilize during testing (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/300[#300], https://github.com/AY1920S2-CS2103T-W17-1/main/pull/285[#285])
+*** Wrote additional tests for existing features to increase coverage
+(Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/315[#36]
+https://github.com/AY1920S2-CS2103T-W17-1/main/pull/377[#377])
+** Documentation:
+*** Changed the language used in the User Guide to be more user-friendly (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/170[#170] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/201[#201])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W17-1/main/pull/295[#295]
+https://github.com/AY1920S2-CS2103T-W17-1/main/pull/84[#84]
+https://github.com/AY1920S2-CS2103T-W17-1/main/pull/347[#347]
+*** Reported bugs and suggestions for other teams in the class (examples:
+https://github.com/kschiew/ped/issues/1[#1] https://github.com/kschiew/ped/issues/2[#2]
+https://github.com/kschiew/ped/issues/3[#3] https://github.com/kschiew/ped/issues/4[#4]
+** Tools:
+*** Integrated a third party library (Jackson) to the project (https://github.com/AY1920S2-CS2103T-W17-1/main/pull/119[#119])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=createdeck]
+include::../UserGuide.adoc[tag=addcard]
+
+//include::../UserGuide.adoc[]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=storage]
+include::../DeveloperGuide.adoc[tag=createdeck]
+include::../DeveloperGuide.adoc[tag=addcard]
+
+
+---

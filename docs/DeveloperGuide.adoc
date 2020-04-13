@@ -211,7 +211,7 @@ The `Model`,
 === Storage component
 
 .Structure of the Storage Component
-image::../diagrams/StorageClassDiagram.png[]
+image::StorageClassDiagram.png[]
 
 
 *API* : link:{repoURL}/src/main/java/com/flashspeed/storage/Storage.java[`Storage.java`]
@@ -290,7 +290,7 @@ on the right panel. Lastly, the name of the selected Deck will be displayed toge
 The following sequence diagram shows the sequence of operations due to a `create` command.
 
 .Interactions inside the Model and Logic components when the user enters `create Japanese` into the input box.
-image::../diagrams/CreateSequenceDiagram.png[Something]
+image::CreateSequenceDiagram.png[Something]
 
 // tag::create-deck-consideration[]
 ==== Design Considerations
@@ -394,7 +394,7 @@ on the right panel. Lastly, the name of the selected Deck will be displayed toge
 The following sequence diagram shows the sequence of operations due to an `add` command.
 
 .Interactions inside Model and Logic components when user enters `add ありがとう:thanks` into the input box.
-image::../diagrams/AddSequenceDiagram.png[]
+image::AddSequenceDiagram.png[]
 
 ==== Design Considerations
 See <<Four-Two-Two, 4.2.2 - Design Considerations for creating a Deck - Aspect: Naming convention of command keywords>>.
