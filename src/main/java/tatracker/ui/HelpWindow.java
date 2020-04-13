@@ -26,7 +26,7 @@ import tatracker.logic.commands.CommandDictionary;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-4.github.io/TA-Tracker/UserGuide.html";
+    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-4.github.io/main/UserGuide.html";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
