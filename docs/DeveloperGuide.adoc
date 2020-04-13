@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= CardiBuddy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-T10-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T10-2`      Since: `Jan 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/cardibuddy/Main.java[`Main`] and link:{repoURL}/src/main/java/cardibuddy/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -71,6 +71,8 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+{empty} +
+
 [[Design-Ui]]
 === UI component
 
@@ -79,7 +81,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DeckListPanel`, `FlashcardListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,18 +100,48 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `CardiBuddyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a deck).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete deck 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete deck 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+// tag::ash-logictoui[]
+== LogicToUiManager
+This class serves as a bridge between relevant `Command` classes and the `Ui`, for use cases that do not update the `ObservableList`. It calls specific methods in the `MainWindow` class to modify the display to the user according to the `Command` executed.
+
+The `LogicToUiManager` object is created upon startup in the MainApp class, and there can exist only one instance of it throughout the use of CardiBuddy.
+
+*Commands that make use of `LogicToUiManager`:*
+
+. `OpenCommand`
+. `AddCommand`
+. `DeleteDeckCommand`
+. `DeleteCardCommand`
+. `TestCommand`
+. `AnswerCommand`
+. `NextCommand`
+. `QuitCommand`
+. `SkipCommand`
+. `SearchCardCommand`
+. `StatisticsCommand`
+. `ListCommand`
+
+The following sequence diagram illustrates how the `LogicToUiManager` can be used to modify the `MainWindow`, when CardiBuddy needs to display the flashcard question to the user during a `Test Session`. More details on `Test Session` in the section: <<test-session>>.
+
+This diagram is also an extension of the <<test-sequence-diagram, sequence diagram>> found in that section.
+
+.Sequence diagram showing how LogicToUiManager accesses the Ui to display a question during a test session.
+image::LogicToUiSequenceDiagram.png[]
+// end::ash-logictoui[]
+
 
 [[Design-Model]]
 === Model component
@@ -117,19 +149,14 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/cardibuddy/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the CardiBuddy data.
+* exposes an unmodifiable `ObservableList<Deck>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -137,59 +164,59 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/cardibuddy/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the CardiBuddy data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `cardibuddy.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Design
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedCardiBuddy`.
+It extends `CardiBuddy` with an undo/redo history, stored internally as an `cardiBuddyStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedCardiBuddy#commit()` -- Saves the current CardiBuddy state in its history.
+* `VersionedCardiBuddy#undo()` -- Restores the previous CardiBuddy state from its history.
+* `VersionedCardiBuddy#redo()` -- Restores a previously undone CardiBuddy state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitCardiBuddy()`, `Model#undoCardiBuddy()` and `Model#redoCardiBuddy()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedCardiBuddy` will be initialized with the initial CardiBuddy state, and the `currentStatePointer` pointing to that single CardiBuddy state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th deck in the address book. The `delete` command calls `Model#commitCardiBuddy()`, causing the modified state of CardiBuddy, after the `delete 5` command executes, to be saved in the `cardiBuddyStateList`, and the `currentStatePointer` is shifted to the newly inserted CardiBuddy state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add d/cs2103T ...` to add a new deck. The `add` command also calls `Model#commitCardiBuddy()`, causing another modified CardiBuddy state to be saved into the `cardiBuddyStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitCardiBuddy()`, so the CardiBuddy state will not be saved into the `cardiBuddyStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the deck was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCardiBuddy()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous CardiBuddy state, and restores the CardiBuddy to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous CardiBuddy states to restore. The `undo` command uses `Model#canUndoCardiBuddy()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +224,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoCardiBuddy()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the CardiBuddy to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `cardiBuddyStateList.size() - 1`, pointing to the latest CardiBuddy state, then there are no undone CardiBuddy states to restore. The `redo` command uses `Model#canRedoCardiBuddy()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the CardiBuddy, such as `list`, will usually not call `Model#commitCardiBuddy()`, `Model#undoCardiBuddy()` or `Model#redoCardiBuddy()`. Thus, the `cardiBuddyStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitCardiBuddy()`. Since the `currentStatePointer` is not pointing at the end of the `CardiBuddyStateList`, all CardiBuddy states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add d/cs2103T ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -218,29 +245,360 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire CardiBuddy.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Pros: Will use less memory (e.g. for `delete`, just save the deck being deleted).
+** Cons: We must ensure that the implementation of each individual command is correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of CardiBuddy states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedCardiBuddy`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::jingying[]
+=== Flashcards
+==== Design
+Users are able to add two different types of cards -- cards with images and cards without. These cards have three types of answers -- True/False, MCQ and short answers.
 
-_{Explain here how the data encryption feature will be implemented}_
+The following is a Use Case Diagram for this feature:
 
-// end::dataencryption[]
+image::CardsAnswersUseCase.png[]
+
+===== Model Component
+The following classes can be found inside _cardibuddy/model/flashcard_.
+
+The add feature revolves around 2 abstract classes: `Card` and `Answer`.
+
+The `Card` class is extended by two card classes: `Flashcard` and `Imagecard`.
+
+The `Answer` class is extended by three answer classes: `TfAnswer`, `McqAnswer` and `ShortAnswer`.
+
+===== Logic Component
+To add a card, a deck must first be opened. This can be checked from accessing the `LogicToUiManager` which stores the currently opened deck.
+Subsequently, The `Parser` classes will separate the relevant arguments from the user input and execute commands from the `Command` classes.
+These `Parser` and Command` classes are part of the *Logic* component of CardiBuddy, and can be found within the _cardibuddy/logic_ package.
+
+These commands allow the user to add the different types of flashcards and answers into a deck:
+
+* The user will first open a deck.
+* _Adding a Flashcard:_ The user will enter `add` followed by `q/` with their question and `a/` with their answer.
+* _Adding an Imagecard:_ The user will enter `add` followed by `p/` with the filepath to the image, `q/` with their
+question and `a/` with their answer.
+* _Adding a TfAnswer_: The user will enter either `T` or `F` for their answer after the `a/` prefix.
+Only capital, single-lettered answers are accepted and a `WrongTfException` will be thrown if the user enters `t`, `f`, `True` or `False`.
+* _Adding an MCQAnswer_: The user will enter `A)CHOICE_A B)CHOICE_B C)CHOICE_C`, with the correct choice positioned first, for their answer after the `a/` prefix.
+In other words, if `C)CHOICE_C B)CHOICE_B A)CHOICE_A` is entered by the user, `C` will be taken as the correct answer.
+A `WrongMcqAnswerException` will be thrown if the user input does not have all three options in capital letters with parentheses.
+
+==== Types of Cards
+
+===== Flashcard
+To add a `Flashcard` in an opened deck, the user will enter `add q/QUESTION a/ANSWER`.
+A sample command would be `add q/Is defensive code desirable at all times? a/F`. +
+ +
+The following sequence diagram shows how a `Flashcard` is created from the above command and displayed immediately in the flashcard panel to the user:
+
+image::AddFlashcardDiagram.png[]
+
+===== Imagecard
+To add an `Imagecard` in an opened deck, the user will enter `add p/file:IMAGE_FILEPATH q/QUESTION a/ANSWER`.
+A sample command would be `add p/file:/Users/Jing/ArchitectureDiagram.png q/What kind of diagram is this?
+a/B)Architecture C)Sequence A)Object`. +
+ +
+When an `ImagecardCard` is displayed in the `FlashcardPanel`, the image will be
+ retrieved via the stored `IMAGE_FILEPATH` from the user's computer.
+If the file path is invalid, the middle part of the card will be blank and an image will not be shown.
+ More information regarding the implementation of the `Ui` can be found inside _cardibuddy/ui/ImagecardCard_. +
+ +
+The following sequence diagram shows how an `Imagecard` is created from the above command and displayed immediately in the flashcard panel to the user:
+
+image::AddImagecardDiagram.png[]
+
+It is largely similar to the sequence diagram for the creation of a `Flashcard` but with an extra `IMAGE_FILEPATH` argument.
+
+==== Types of Answers
+When adding cards, the `ParserUtil` will parse the different answer inputs to create one of the three different types of answers.
+
+The following activity diagram shows how the `ParserUtil` chooses which type of answer object to create:
+
+image::AnswerActivityDiagram.png[]
+
+===== TfAnswer
+For a `TfAnswer` to be associated with a `Card`, the user will have to enter either `T` or `F` after the answer prefix `a/`.
+A sample command was mentioned in the example for `Flashcard` above: `add q/Is defensive code desirable at all times? a/F`.
+
+The following sequence diagram shows how the `ParserUtil` class creates a `TfAnswer` answer based on the given sample command:
+
+image::ParserUtilTfDiagram.png[]
+
+===== McqAnswer
+For an `McqAnswer` to be associated with a `Card`, the user will have to enter
+`A)CHOICE_A B)CHOICE_B C)CHOICE_C`, with the correct choice positioned first, for their answer after the answer prefix `a/`.
+A sample command was mentioned in the example for `Imagecard` above: `add p/file:/Users/Jing/ArchitectureDiagram.png q/What kind of diagram is this?
+a/B)Architecture C)Sequence A)Object`.
+
+The following sequence diagram shows how the `ParserUtil` class creates an `McqAnswer` answer based on the given sample command:
+
+image::ParserUtilMcqDiagram.png[]
+
+===== ShortAnswer
+For a `ShortAnswer` to be associated with a `Card`, the user will have to enter an answer that does not fulfil the
+requirements of both `TfAnswer` and `McqAnswer` after the answer prefix `a/`.
+A sample command would be `add q/How does one go about solving recursion problems? a/Wishful thinking`.
+
+The following sequence diagram shows how the `ParserUtil` class creates a `ShortAnswer` answer based on the given sample command:
+
+image::ParserUtilShortAnsDiagram.png[]
+// end::jingying[]
+
+==== Design Considerations
+// tag::design[]
+===== Aspect: How to implement the different card and answer types
+
+* **Alternative 1 (current choice):** Using an abstract class to contain general functionalities.
+** Pros: Can define method bodies general methods. Easier to make changes such as creating new methods which can be defined directly in the abstract class.
+** Cons: Child `Card` and `Answer` classes cannot extend multiple abstract classes.
+* **Alternative 2:** Using an interface to contain general functionalities.
+** Pros: Supports multiple inheritances.
+** Cons: Cannot define method bodies in the interface.
+
+Due to the similarities in method bodies of the different answers and cards classes, a `Card` and `Answer` abstract class was used instead of an interface. +
+
+// end::design[]
+{empty} +
+
+// tag::ash-test-feature[]
+=== Test feature
+==== Design
+A flashcard application is not complete without the ability to test oneself.
+
+===== Model Component
+The following classes can be found inside _cardibuddy/model/testsession_.
+
+The test feature revolves around 2 classes: `TestSession` and `TestResult`.
+
+`TestSession` stores the tested deck, retrieves the questions to be tested, acts according to the user's commands and manages the <<test-queue, test queue>>.
+
+`TestResult` stores the `Result` (explained below) of each _individual_ test on a flashcard. That is, whether the flashcard was answered wrongly, correctly, or was skipped. `Result` is an enums class to store these 3 outcomes.
+
+Another enums class used is `AnswerType` which contains 3 answering options to display to the user - True/False, MCQ or Short Answer.
+
+To ensure good design practice, `Test Session` is not exposed to the other classes, but is instead called using the `ModelManager`.
+
+The following figure is a more focused class diagram for the _cardibuddy/model/testsession_ package, and displays important methods and fields used.
+
+Click <<Design-Model, here>> to view the full class diagram for the `Model` component, to see all the classes within `Model` interact.
+
+.Class diagram for the test session package.
+image::TestFocusClassDiagram.png[]
+
+
+===== Logic Component
+The test feature makes use of a suite of `Command` classes exclusive to a `TestSession`. These `Command` classes are part of the *Logic* component of CardiBuddy, and can be found within the _cardibuddy/logic/testsession_ package.
+
+These commands allow the user to perform the following during a test session:
+
+* The user will enter `test INDEX` to start the test session for the deck at the `INDEX`.
+* The user will enter `ans` followed by their answer to the question.
+* The user can use the `next` command to view the next question.
+* The user can choose to `skip` questions
+* The user can choose to `quit` the session halfway
+* The user can choose to `force` correct their answer if they wish to manually mark their answer as correct.
+
+The above commands can only be triggered when certain conditions are met. The following table provides a summary of all the `Command` classes related to the test feature, as well as the conditions for their execution and exceptions thrown when these conditions are not met.
+
+.Summary of Test Feature Commands
+[width="59%",cols="5%,<5%,<25%,<60%,<5%",options="header",]
+|=======================================================================
+|Command Class|Corresponding user input|Description|Conditions|Exceptions Thrown
+|TestCommand|`test INDEX`|Creates a `TestSession` for the specified deck at that index.|-|EmptyDeckException
+|AnswerCommand|`ans USER_ANSWER`|Submits the user's answer to the `TestSession`.|The user has not already submitted an answer to the displayed question. The answer submitted must be comply with the question type (True False, MCQ, or Short Answer)|AlreadyAnsweredException, IncorrectAnswerFormatException
+|NextCommand|`next`|Displays the next question.|The user must already have answered the question.|UnansweredQuestionException
+|SkipCommand|`skip`|Skips the current question. Does not require the user to submit an answer.|The user must not have submitted a correct answer.|AlreadyCorrectException
+|QuitCommand|`quit`|Quits the test session.|-|-
+|ForceCommand|`force`|Forces CardiBuddy to mark the user's submitted answer as correct.|The user must have submitted an incorrect answer.|UnansweredQuestionException, AlreadyCorrectException
+|=======================================================================
+
+==== Using the test feature
+===== Starting a Test Session
+Users can start a TestSession with a chosen `Deck`:
+
+* The `index` of the deck will be provided by the user and parsed by Cardi Buddy. A `TestSession` object containing the indicated `Deck` is created.
+* The `TestSession` object creates a HashMap named `testResults` that contains `<Flashcard, TestResult>` for easy access to the testing history.
+
+The following is a UML Sequence Diagram of how a `TestSession` object is created when the `test INDEX` command is called:
+
+[[test-sequence-diagram]]
+
+
+.A sequence diagram illustrating the logic flow when a TestSession is created. The first question in the provided deck will immediately be displayed.
+image::TestSequenceDiagram.png[]
+
+===== Other commands included in the Test Feature
+Aside from `TestCommand` which is called to create the `TestSession`, there are specific commands that can be used only when a TestSession is running. These commands have certain *conditions* that must be met before they can be executed. Otherwise, they will throw a `CommandException`.
+
+For example, other application-wide commands, such as `add deck` and `delete card` will not be allowed to be executed during the TestSession.
+
+
+
+The following activity diagrams describe the logic flow.
+
+Note the following terminology used in the activity diagrams:
+
+* `tr` stands for a `TestResult` object
+* `testResults` stands for a `HashMap<Flashcard, TestResult>` object stored in the `TestSession` object
+* `testQueue` is a `LinkedList<Flashcard>` that stores the queue of flashcards to be tested.
+
+.Overall activity diagram for the different use cases, extension cases omitted.
+image::TestSessionActivityDiagram.png[]
+
+
+
+
+For more descriptive use case scenarios from a user's perspective, please take a look at <<Use Cases>>.
+
+
+==== Design considerations
+===== Aspect: Data structure for the test queue
+* *Alternative 1*
++
+* Use an ArrayList to store the flashcards in the test queue.
++
+** Pros:
++
+*** Makes use of the current data structure used to store flashcards in a list.
++
+*** Easy retrieval of flashcards at indices.
++
+*** Easy iteration of the flashcard list.
+** Cons:
++
+** Possible difficulties in designing how flashcards should be retested.
++
+** It is possible that we create a large ArrayList, and split it such that the first half is used for flashcards that have not been tested, and the second half be used for flashcards that are going to be retested.
++
+** However, this approach is unnecessarily complicated, and uses excessive memory space.
++
+** In addition, it is still difficult to check if flashcards have been tested before, which is part of our feature which counts the number of times a flashcard has been attempted.
+
+* *Alternative 2 (current choice)*
++
+* Use a LinkedList to store the flashcards in the test queue.
+** Pros:
++
+*** Easy insertion and removal of flashcards from the front and back of the queue, which is the main driver behind a test session.
+** Cons:
++
+*** Difficult to retrieve flashcards at indices, and check if a flashcard has been visited before
++
+*** In addition, other features of CardiBuddy require the easy retrieval of flashcards such as the get(index) method offered by ArrayList.
+** Why we went with this:
++
+*** Logically, a test session will not be used as often as the other commands that entail retrieval of elements at a specific index, such as the `edit` command.
++
+*** There may be some overhead in converting the ArrayList used to a LinkedList, but our tests have showed minimal lag in starting a test session.
++
+** Workarounds:
++
+*** To still retain the ability to check if a flashcard has been visited before, we use a separate HashMap data structure that makes use of flashcards that have been visited before as keys.
++
+** A HashMap will also allow us to link a flashcard to a specific TestResult, and modify it as needed (such as when a user calls force correct on the flashcard).
+
+{empty} +
+
+===== Aspect: How to store the results of each individual test on a flashcard
+* *Alternative 1*
++
+* Use a `Result` enums to indicate if the question was correct, wrong or skipped
++
+** Pros:
++
+*** An enums class improves code readability, and ensures that there are only 3 possible results linked to each flashcard.
++
+** Cons:
++
+*** Too simplistic and does not give room for further enhancements as described below.
+
+* *Alternative 2 (current choice)*
++
+* Use a custom `TestResult` class that stores the user answer, as well as the model flashcard answer
++
+** Pros:
++
+*** Provides room for further customisation, such as recording the number of attempts on the flashcard, which alternative 1 was unable to achieve.
++
+*** More Object-Oriented Design, and keeps `TestSession` from getting too cluttered.
++
+** Cons:
++
+*** Higher chance for error as more code and methods needed to be written.
+
+{empty} +
+
+==== Aspect: When to replace the `current` variable holding the latest flashcard that was tested
+
+* *Alternative 1*
++
+* Move on to the next question, hence replacing `current`, as soon as the user submits their answer.
+** Pros:
++
+*** Simple and easy to implement
++
+** Cons:
++
+*** This would have been fine in the initial stages, but would not work after further enhancements (`skip`, `force`) were added.
++
+*** The 2 mentioned enhancements require modifying of the `testResults` HashMap, and hence require the flashcard they are being used on as a key to retrieve and modify the TestResult.
+
+* *Alternative 2 (current choice)*
++
+* Only replace `current` with the next flashcard when `next` or `skip` is used.
++
+** Pros:
++
+*** These 2 commands are the ones that trigger the displaying of the next question in the queue to the user.
++
+*** This ensures that should there be a need to retrieve the current flashcard, such as in modifying the `testResults` HashMap as well as checking the flashcard's `CardType` (image or normal) and getting its `AnswerType`.
++
+** Cons:
++
+*** This complicates the code, and may possibly be difficult to understand for another developer.
++
+** Workarounds:
++
+*** Do our best to document the test feature in this Developer's Guide, and supplement it with activity diagrams and other explanations to help the reader better understand the workings of this feature.
+// end::ash-test-feature[]
+{empty} +
+
+=== Statistics
+==== Design
+The user's activities will be logged and stored in `Statistics`. It is entirely a data storage class, recording data wherever necessary.
+
+Currently, the actions that update the `Statistics` are:
+
+* Adding and removing a deck
+* Adding and removing a card
+* Finishing a `TestSession` - this updates a number of items, which are:
+** `TestSessions` finished
+** Total cards answered
+** Average correct percentage
+** Average tries to get correct
+
+There's 2 different locations where a `Statistics` instance is stored:
+
+* `CardiBuddy`: The Model of the program. Tracks user statistics across the whole program.
+* `Deck` : Each `Deck` also has a `Statistics` instance. This is to help identify which `Deck`s are used more often, are more difficult, etc.
+
+Each time the user does something that can be tracked, it updates both the universal `Statistics` and the `Statistics` of the `Deck` that he or she is using. The call to update both statistics is done simultaneously in the `CardiBuddy` model for adding/removing decks/cards, or in `ModelManager` for finishing a `TestSession`.
+
+{empty} +
 
 === Logging
 
@@ -274,19 +632,44 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+// tag::ash-product-scope[]
 [appendix]
 == Product Scope
+*Target users*: NUS School of Computing students
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+
+* enrolled in content-heavy modules in university
+* has a need for an effective way to revise and memorise content
+* values efficiency
 * prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
+* able to type quickly
+* generally prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
 
+1. Time efficient
+* It is easier for fast typers to add and delete flashcards
+* Unlike regular GUI apps in the market, minimal navigation and clicking is required
+* Faster loading time for CLI applications
+
+2. No steep learning curve
+* Command words are intuitive and uncomplicated
+* Easy for computing students to learn and remember
+
+3. Retests cards
+* More tests for flashcards that the student got wrong
+
+4. Flexible answering
+* Students can paraphrase their answers, and manually evaluate if their answers are correct
+* No need for word-for-word answers
+* Accommodates different module types and scenarios eg. having to describe a situation, or a diagram
+* Paraphrasing is also a much more effective way to learn, compared to rote memorisation
+// end::ash-product-scope[]
+
+// tag::ash-user-stories[]
 [appendix]
 == User Stories
 
@@ -294,89 +677,314 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority|As a ... |I want to ... |So that I can...
+|`* * *`|new user |see usage instructions |refer to instructions when I forget how to use CardiBuddy
 
-|`* * *` |user |add a new person |
+|`* * *`|student currently taking cs2105|edit my flashcards |change or add extra information whenever I learn something new
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *`|student practicing for my finals|create test sessions|repeatedly test myself on the same content
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *`|student studying for finals|see the flashcards that I got correct during test sessions|know what content I am more familiar with
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *`|student studying for finals|test flashcards that I got wrong more often during test sessions|better remember unfamiliar content
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *`|student taking many modules|create new decks to contain my flashcards|organise my notes and modules
+
+|`* * *`|student who is very busy|easily search for a deck that I want to access|more efficient with my time
+
+|`* * *`|student who likes to keep things organised|delete decks of the modules that I am no longer taking|be more organised
+
+|`* * *`|student with many content-heavy modules|easily search for any flashcards that are relevant to my modules|more efficient with my time
+
+|`* *`|student|revisit previous test sessions|continue my revision
+
+|`* *` |student|set priority levels for the flashcards I am less familiar with|it will appear more often during future test sessions
+
+|`* *`|student|tag flashcards with different topics|filter and revise the topics that I am less familiar with
+
+|`* *`|student taking timed examinations|time myself during a test session|better prepared to think under timed conditions
+
+|`* *`|student who likes designing and aesthetics|customise the colours and fonts of the flashcards|tweak the theme to my preferences
+
+|`* *`|student who owns multiple devices|access flashcards on all my devices|revise them while travelling
+
+|`* *`|student who receives flashcard images from her friends|drag and drop the images into the application|conveniently create new flashcards
+
+|`* *`|student with short attention span|play memory games in the application|remember my key concepts better
+
+|`*`|competitive student|graded on a bell-curve with other Computer Science students who are using the same application|see how well I have revised compared to the rest
+
+|`*`|student|edit other people's decks|fill in any gaps in my knowledge
+
+|`*`|student taking modules with other friends|collaborate on decks with other users|help each other revise the content
+
+|`*`|student who likes to store content to study on her phone|convert the flashcards to images|so that I can refer to them easily
+
+|`*`|student who likes to study with her friends|send my friends flashcards that I created|share my flashcards with them
+
+|`*`|student who needs incentive|earn rewards|will be motivated to use the flashcards more
+
+|`*`|student with a short attention span|add animations to my flashcards|remain entertained
+
 |=======================================================================
+// end::ash-user-stories[]
 
-_{More to be added}_
-
+// tag::ash-use-cases[]
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `CardiBuddy` and the *Actor* is the `user`, unless specified otherwise)
+
 
 [discrete]
-=== Use case: Delete person
+=== Test Sessions
+
+=== Use case: Starting a test session
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to start a test session with a chosen deck.
+2. CardiBuddy displays the test session page to the user, with the first question displayed.
+3. CardiBuddy awaits the user's answer.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The given index is invalid
++
+** i. CardiBuddy shows an error message
++
+** ii. Use case resumes at step 1.
++
+
+[none]
+* 2a. The deck is empty
++
+** i. Use case ends.
+
+=== Use case: Submitting an answer
+
+*MSS*
+
+1. User submits their answer to a question not tested before.
+2. CardiBuddy gets the result of the user's answer. The user answered the question correctly.
+3. CardiBuddy creates a new record for this flashcard to save this correct result.
+4. CardiBuddy displays the result to the user.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Inclusions*
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a. The current flashcard has been answered before.
 +
-Use case resumes at step 2.
+** i. CardiBuddy modifies its records by increasing the number of tries logged for this flashcard.
++
+** ii. Use case resumes at step 3.
+
+[none]
+* 2a. The user got the question wrong.
++
+** i. CardiBuddy creates a new record for this flashcard to save this wrong result.
++
+** ii. CardiBuddy appends this flashcard to the back of the queue for retesting later.
++
+** iii. Use case resumes at step 4.
+
+
+=== Use case: Skipping a question
+
+*MSS*
+
+1. User requests to skip the current question.
+2. CardiBuddy modifies its records to show that this flashcard was skipped
+3. CardiBuddy removes the next flashcard in the queue.
+4. CardiBuddy displays the question on this flashcard to the user.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user has already answered this question correctly
++
+** i. CardiBuddy shows an error message and prompts user to type 'next' instead
++
+** ii. Use case ends.
+
+[none]
+*Inclusions*
+
+* 1a. The user has already answered this question wrongly
++
+** i. CardiBuddy removes this flashcard, that was set to be retested, from the back of the queue
++
+** ii. Use case resumes at step 2.
+
+=== Use case: Forcing a wrong answer to be marked correct
+
+*MSS*
+
+1. User requests to force their answer to be marked as correct
+2. CardiBuddy acknowledges the user's request and changes the recorded result for this flashcard
++ Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user has not answered the question yet
++
+** i. CardiBuddy shows an error message and tells the user to answer the question first, or skip it
++
+** ii. Use case ends.
+
+[none]
+* 1a. The user is trying to force correct their already correct answer
++
+** i. CardiBuddy shows an error message and prompts the user to type 'next'
++
+** ii. Use case ends.
+
+=== Use case: Going to the next question
+
+*MSS*
+
+1. User requests to go to the next question.
+2. CardiBuddy removes the next flashcard in the queue and displays its question to the user.
++
+Use case ends.
+
+[none]
+*Inclusions*
+
+* 2a. There are no more flashcards in the queue
++
+** i. CardiBuddy ends the test session, and returns the user to the home page
++
+** ii. Use case ends.
+
+[none]
+*Extensions*
+
+* 1a. The user has not answered the question yet
++
+** i. CardiBuddy shows an error message and prompts the user to answer the question or skip it.
++
+** ii. Use case ends.
+// end::ash-use-cases[]
+
+[discrete]
+==== Adding Decks and Flashcards
+=== Use case: Add a new deck
+
+*MSS*
+
+1. User requests to add a new deck
+2. CardiBuddy creates a new deck with the specified name
+
+*Extensions*
+
+[none]
+* 1a. A deck with the same name already exists
++
+** i. CardiBuddy shows an error message, tells the user that there already exists a deck with the same name.
+** ii. Use case ends.
+* 1b. While creating the deck, user also specifies a few tags to attach to the deck.
++
+** i. At step 2, CardiBuddy creates a deck with the specified name and tags.
++
+** ii. Use case ends.
+* 1c. The user tries to create tags with more than one word
++
+** i. CardiBuddy shows the user an error message, as tags cannot have more than one word.
+
+** ii. Use case ends.
 
 _{More to be added}_
 
+// tag::ash-nfrs[]
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+. Should be able to hold up to 100 decks without a noticeable sluggishness in performance for typical usage.
+. Each deck should be able to hold up to 100 flashcards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+// end::ash-nfrs[]
 
-_{More to be added}_
-
+// tag::ash-glossary[]
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
+[[flashcard]] Flashcard::
+A card created by the user to test themselves. Contains a question and an answer.
+
+Example
+
+ Question: `Give the code to create a new ArrayList containing Integers`
+ Answer: `ArrayList<Integer> lst = new ArrayList<>();`
+
+[[deck]] Deck::
+A group containing flashcards belonging to the same category, both of which are created and defined by the user.
+
+Example
+
+ A deck named "CS2103T" contains the flashcards testing CS2103T content.
+
+[[tag]] Tag::
+A single word that can be attached to a deck. Typically describes the category the deck belongs to, and is used to filter and organise the user's flashcards.
+
+Example
+
+ A tag called "computing" can be assigned to decks named "CS2103T", "CS2101" and "CS3223". When the user filters their deck by the tag "computing", these 3 decks will be shown. (These 3 modules are read in the School of Computing)
+
+[[test-session]] Test Session::
+A session started by the user when the user wishes to test themselves on the contents of a deck. Each flashcard in the deck specified by the user is shown sequentially, and can only proceed when the user enters the answer to the question.
+
+
+[[test-queue]] Test Queue::
+A temporary queue created when a Test Session is started. It stores the flashcards that either have not been tested yet, or have been tested but the user got wrong.
+// end::ash-glossary[]
+
+// tag::ash-product-survey[]
 [appendix]
 == Product Survey
 
-*Product Name*
+*Quizlet*
 
-Author: ...
+Author: Andrew Sutherland
 
 Pros:
 
-* ...
-* ...
+* User can create an account
+* Clean user interface
+* Ability to search for decks created by other users
+* Ability to turn flashcard questions into 3 different kinds of questions: True and False, MCQ and short answer
+* 3 different ways to test self: Test, Write and Swipe/Flip
+* Ability to play a timed matching game to match questions to their answers
+* "Don't know" option if the user does not know the answer to the question.
 
 Cons:
 
-* ...
-* ...
+* Confusing options for tests: "write", "test" and "swipe/flip"
+** Both "write" and "test" tests the user on flashcard content.
+** However, "write" allows the user to force correct on the flashcard while "test" only allows the user to skip the question.
+** Hence answers need to be written word for word to be marked as correct when using "test"
+** The "swipe/flip" test option is not displayed together with the write and test options, and user has to navigate around before stumbling onto it.
+*** These similar options may overwhelm the user with too much choice.
+*** Naming of the options are also not clear (eg. "write")
+
+* Scrolling view of flashcards at the end of test sessions, instead of a list view of the cards and their outcomes.
+* Difficult to add a new flashcard to an existing deck
+** Had to explore many options before finding a "..." button at the top right hand corner, which displayed a dropdown list of options for the set. User has to select edit set, before being able to
+* More confusing naming
+** Statistics (not seen, familiar, mastered for flashcards are nested under the option "Learn"
+// end::ash-product-survey[]
 
 [appendix]
 == Instructions for Manual Testing
@@ -392,27 +1000,50 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of 5 sample decks. The first deck will contain 4 sample flashcards, while the rest are empty.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Resize the window to an optimum size. Move the window to a different location. Close the window or type `exit` into the command box.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Modifying decks and flashcards
+. Adding a deck
 
-. Deleting a person while all persons are listed
+.. Prerequisites: Not running a test session.
+.. Test case: `add d/NewDeck` +
+   Expected: Add a new deck to the bottom of the list called "NewDeck" with no tags and 0 cards. The status message will say that there are no tags and 0 cards on the deck, alongside the name of the deck.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Open a deck
+.. Prerequisites: Not running a test session, has at least one deck.
+.. Test case: `open 1` +
+Expected: Shows up the list of flashcards in the first deck. Status message will notify which deck you have opened.
+
+. Adding a flashcard
+.. Prerequisites: Has a deck open with the `open` command.
+.. Test case: `add q/What is the powerhouse of the cell? a/Mitochondria` +
+Expected: List of flashcards should update with the newest card, showing the Question and answer.
+
+=== Running a Test Session
+
+. Running a test session
+
+.. Prerequisites: Has a deck with at least one flashcards.
+.. Test case: `test [DECK_INDEX]` +
+   Expected: The list of decks and cards should be covered by the test session panel. Status message will have instructions on how to proceed.
+.. Test case: `test [DECK_INDEX_WITHOUT_CARDS]` +
+   Expected: No new panel covering, status message notifies that there are no cards.
+
+. Answering a test session
+
+.. Prerequisites: Test session is running.
+.. Test case: `ans [CORRECT_ANSWER]` +
+Expected: Test panel notifies your correct answer, shows the whole question to recap, and urges to type in `next` to go to the next question.
+.. Test case `add d/Deck` +
+Expected: An error message appears, saying you can't modify the model while in a test session.
 
 _{ more test cases ... }_
 

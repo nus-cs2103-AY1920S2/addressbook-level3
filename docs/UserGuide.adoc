@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= CardiB - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,30 +12,31 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-T10-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T10-2`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+CardiBuddy (CardiB) is for students who *prefer to use a desktop app to store their revision materials as flashcards*. More importantly, CardiB is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CardiB can help you to store revision materials quickly. The self-testing features will definitely help you to ace your examinations as opposed to traditional ways of revision by re-reading lecture notes. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `cardibuddy.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your CardiBuddy.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="790", align="center"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all decks
+* **`add`**`d/CS1101S t/Basics` : adds an empty deck titled `CS1101S` to the CardiBuddy.
+* *`open 1`* : opens the 1st deck shown in the current list
+* **`delete deck`**`3` : deletes the 3rd deck shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -44,134 +45,531 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
+*Application-specific Terminologies*
+
+* *Decks* are the containers that contain the flashcard. A flashcard can only exist in a deck.
+* *Flashcards* are cards that contain revision materials, specifically a question and an answer.
+* *Test Session* emulates how you would test yourself with a deck of flashcards in real life. You get to view each flashcard in a chosen deck one by one, question first. Once you have decided on your answer to it, you can 'flip' the flashcard and see the answer. See <<Testing, here>> for more details on using test sessions.
+* *Statistics* is the numerical, summarized version of your data, based on your test history. Your statistics can serve as a guideline for you to decide which areas you need to work on, and which areas you are familiar with.
+
+
+*Common Terminologies*
+
+* *File path* specifies the unique location of a file in a file system from the root directory.
+
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add d/TITLE`, `TITLE` is a parameter which can be used as `add d/CS1101S`.
+* Items in square brackets are optional e.g `d/TITLE [t/TAG]` can be used as `d/CS1101S t/Basics` or as `d/CS1101S`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Easy`, `t/Easy t/Basics` etc.
+* Parameters can be in any order e.g. if the command specifies `d/TITLE t/TAG`, `t/TAG d/TITLE` is also acceptable.
+
+*Special Icons*
+
+* :bulb: is used to signal information that is helpful for the users to know.
 ====
 
-=== Viewing help : `help`
+{empty} +
 
+=== Basic Features
+
+==== Viewing help : `help`
+
+Opens a window that links to this User Guide. +
 Format: `help`
 
-=== Adding a person: `add`
+==== Saving data
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+The data is automatically saved into the hard disk after the user enters any command that changes the data
 
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Exiting program: `exit`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Exits the program.
+Format: `exit`
+
+{empty} +
+
+=== Opening
+
+==== Opening a deck: `open`
+
+Opens an existing deck in the library.
+Format: `open DECK_INDEX`
+
+Shows a list of all the cards in the deck. +
+Format: `open 1`
+
+{empty} +
+
+=== Adding
+
+==== Adding a deck: `add d/TITLE`
+
+Creates a new deck to be added to the library.
+Format: `add d/TITLE [t/TAG]…`
+
+* Tag names are alphanumeric with no spaces E.g. t/Core Module is an invalid tag while t/CoreModule is valid.
+
+> :bulb: A deck can have any number of tags (including 0)
+
+Examples:
+
+* `add d/CS2103` +
+Returns a new deck titled `CS2103`
+
+* `add d/CS1101S t/Easy t/Basics` +
+Adds a new deck titled `CS1101S` with the tags `Easy` and `Basics`
+
+// tag::addingImage[]
+==== Adding a normal card: `add q/QUESTION a/ANSWER`
+
+Creates a new card to be added to the deck.
+Format: `add q/QUESTION a/ANSWER`
+
+[TIP]
+These are the three types of `ANSWER` and their corresponding formats: +
+1. T/F -- `T` or `F` +
+2. MCQ -- `A)CHOICE_A B)CHOICE_B C)CHOICE_C` with the correct option being entered first, the order of the next two does not matter  +
+3. Short Answer -- `ANY_TEXT`
+
+* The deck to be added in must be opened for you to add a card.
+
+Examples:
+
+* `open 2` +
+`add q/How does one go about solving recursion problems? a/Wishful thinking` +
+Adds a new card with a `Short Answer` type belonging to the opened deck indexed at 2.
+
+* `open 1` +
+`add q/Is defensive code desirable at all times? a/F` +
+Adds a new card with a `T/F` answer type belonging to the opened deck indexed at 1.
+
+
+==== Adding an image card: `add p/file:FILE_PATH_TO_IMAGE q/QUESTION a/ANSWER`
+
+Creates a new image card to be added to the deck.
+Format: `add p/file:FILE_PATH_TO_IMAGE q/QUESTION a/ANSWER`
+
+* The deck to be added in must be opened for you to add a card.
+
+* The images can only be PNG or JPG files.
+
+* The FILE_PATH_TO_IMAGE must end with .png or .jpg suffix.
+
+Examples:
+
+* `open 1` +
+`add p/file:/Users/qiujingying/Documents/GitHub/cs2103/main/docs/images/ArchitectureDiagram.png q/What type of diagram is this? a/B)Architecture Diagram A)Sequence Diagram C)Object Diagram` +
+Adds a new card with an image and `MCQ` answer type belonging to the opened deck indexed at 1.
+Note that the correct answer is `B` as it is the first choice entered.
+
+[TIP]
+You can drag and drop the image you want to add into a terminal window to obtain its file path. File paths may differ across operating systems (Windows vs Mac).
+
+==== Adding an image card via the Image button: `q/QUESTION a/ANSWER`
+This is a shortcut for users who do not want to search for the file path.
+Format: `q/QUESTION a/ANSWER`
+
+* The deck to be added in must be opened, before you click on the button, for you to add a card.
+
+* Do note the differences in the command to be entered. There is no `add` or `p/IMAGE_FILEPATH` inputs that are required.
+
+Examples:
+
+* `open 1` +
+_click on button and choose image_ +
+`q/What type of diagram is this? a/B)Architecture Diagram A)Sequence Diagram C)Object Diagram` +
+Adds a new card with an image and `MCQ` answer type belonging to the opened deck indexed at 1.
+
+// end::addingImage[]
+
+{empty} +
+
+=== Editing
+
+==== Editing a deck: `edit`
+
+Edits an existing deck in the library.
+Format: `edit deck DECK_INDEX [d/TITLE] [t/TAG]…`
+
+* Edits the decks at the specified DECK_INDEX. The index refers to the index number shown in the complete list of decks. The index must be a positive integer 1, 2, 3, …
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the deck will be removed i.e adding of tags is not cumulative.
+* You can remove all the deck’s tags by typing t/ without specifying any tags after it. If not, the tags will not be
+removed.
+
+Examples:
+
+* `edit deck 1 d/CS2103T` +
+Edits the title of the 1st deck to be `CS2103T` without removing existing tags.
+
+* `edit deck 2 d/CS2040 t/` +
+Edits the title of the 2nd deck to be `CS2040` and clears all existing tags.
+
+==== Editing a card: `edit card`
+
+Edits an existing card in the deck.
+Format: `edit card CARD_INDEX [q/QUESTION] [a/ANSWER] [t/TAG]…`
+
+* You must open a deck before you can edit a flashcard. A flashcard can only exist inside a deck.
+* Edits the card at the specified CARD_INDEX. The index refers to the index number shown in the complete list of decks. The index must be a positive integer 1, 2, 3, …
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the card will be removed i.e adding of tags is not cumulative.
+* You can remove all the card’s tags by typing t/ without specifying any tags after it.
+
+Examples:
+
+* `open 1` +
+`edit card 1 q/What does MVC stand for?` +
+Opens the first deck and tEdits the question of the 1st card to be `What does MVC stand for?`.
+
+* `open 1` +
+`edit card 2 a/cs2040 t/` +
+Edits the answer of the 2nd card to be `cs2040` and clears all existing tags.
+
+{empty} +
+
+=== Listing
+
+==== Listing all decks: `list`
+
+Shows a list of all the decks in the library and hides the displayed cards (if any). +
+Format: `list`
+
+{empty} +
+
+=== Clearing
+
+==== Clearing all decks: `clear`
+
+Clears all deck entries from the library. +
+Format: `clear`
+
+{empty} +
+
+=== Deleting
+
+==== Deleting a deck: `delete deck`
+
+Deletes the specified deck from the library.
+Format: `delete deck DECK_INDEX`
+
+* Deletes the deck at the specified DECK_INDEX.
+* The index refers to the index number shown in the complete list of decks.
+* The index must be a positive integer 1, 2, 3, …
+
+Examples:
+
+* `list decks` +
+`delete deck 2` +
+Deletes the 2nd deck in the library.
+
+* `search deck cs2030` +
+`delete deck 1` +
+Deletes the 1st deck in the results of the search command.
+
+==== Deleting a card: `delete card`
+
+Deletes the specified card from the currently open deck.
+Format: `delete INDEX`
+
+* You must open a deck before you can delete a flashcard. A flashcard can only exist inside a deck.
+* Deletes the card at the specified INDEX of the deck.
+* The index refers to the index number shown in the complete list of flashcards in the deck.
+* The index must be a positive integer 1, 2, 3, …
+
+Examples:
+
+* `open 1` +
+`delete card 2` +
+Opens the first deck and deletes the 2nd flash card in the deck.
+
+* `search card java` +
+`delete card 1` +
+Deletes the 1st card in the results of the search card command.
+
+// tag::search[]
+
+{empty} +
+
+=== Searching
+
+==== Searching for a deck: `search deck`
+
+Searches for the decks with titles that contain any of the given keywords or all of the keywords
+concatenated with the `&` symbol.
+Format: `search deck KEYWORD [&] [MORE_KEYWORDS]`
+
+* If the search has a `&` symbol, only decks with the words concatenated before and after
+the symbol will be returned.
+* The search is case insensitive. e.g cs2040 will match CS2040
+* The order of the keywords does not matter. e.g. Science Module will match Module Science
+* Only titles of the decks are searched.
+* The keyword needs to match a word within the deck’s title exactly . e.g. cs will not match with cs2030
+
+Examples:
+
+* `search deck database` +
+Displays decks with the word `database` in the titles.
+
+* `search deck database & relational` +
+Displays decks with both of the words `database` and `relational` in the titles.
+
+==== Searching for a card: `search card`
+
+Finds the cards with a question that contain any of the given keywords.
+Format: `search card KEYWORD [&] [MORE_KEYWORDS]`
+
+* A deck needs to be opened for the `search card` command to work. The command will only search for cards in the
+opened deck.
+* If the search has a `&` symbol, only cards with the words concatenated before and after
+the symbol, in the question, will be returned.
+* The search is case insensitive. e.g programming will match Programming.
+* The order of the keywords does not matter. e.g. Javascript programming language will match with programming language Javascript.
+* The keyword needs to match a word within the question exactly. e.g. Java will not match with Javascript.
+
+Examples:
+
+* `search card principle` +
+Displays cards with the word `principle` in the questions.
+
+* `search card diagram & UML` +
+Displays decks with both of the words `diagram` and `UML` in the questions.
+// end::search[]
+
+{empty} +
+
+// tag::filter[]
+=== Filtering
+
+==== Filtering by tags: `filter`
+
+Filters across all decks and only displays the decks with the specific tag.
+Format: `filter TAGNAME [&] [MORE_TAGNAMES]`
+
+* If the search has a `&` symbol, only decks with the tags concatenated before and after
+the symbol will be returned.
+* Filtering by tag is case insensitive. e.g hard will match Hard
+
+Examples:
+
+* `filter hard` +
+Displays decks with the tag `hard`.
+
+* `filter hard & coremodule` +
+Displays decks with both the tags `hard` and `coremodule`.
+// end::filter[]
+
+{empty} +
+
+//tag::ash-testing[]
+=== Testing
+==== Overview
+Of course, you did not create all those decks and flashcards just so you can admire them! It's time to get your revision on. Start a `test session` for a deck to begin testing yourself!
+
+A `test session` works just like how flashcard testing works in real life - You look at the question, think of the answer, and 'flip' the card around to see if your answer matches the one on the flashcard.
+
+The difference here is that you do not need to manually keep track of how many flashcards you got right and wrong -- CardiBuddy does all that for you!
+
+In addition, you will also get to see a summary of how you've done at the end of your `test session`.
+
+==== Retesting
+A `test session` in CardiBuddy is special - it includes a *retesting* feature to make sure you know your content well.
+
+When you answer a flashcard's question wrongly, you will encounter it again later on in the same `test session`. There is no need to do this manually - CardiBuddy does this for you too.
+
+Hence if you keep getting a question wrong, a `test session` can go on and on forever - unless you finally get it right, or you manually quit the `test session`!
+
+==== Starting a test session for a deck: `test INDEX`
+To start your `test session`, replace `INDEX` with the index number of the deck you wish to test. This number will be to the _left_ of the title of your deck, when you are viewing all your decks as a list.
+
+What this command does:
+
+* A test session will immediately replace the normal deck and flashcard list view.
+* The first question of the test session will be shown to you.
+
+Example Usage:
+
+* `test 1` +
+Creates a test session for the 1st deck.
+
+==== To answer the question: `ans YOUR_ANSWER`
+Replace `YOUR ANSWER` with your answer to the displayed question.
+
+What this command does:
+
+* Submits your answer, and checks your answer against the flashcard's stored answer
+* Displays the result of your answer (CORRECT or WRONG)
+* Displays your answer and the flashcard's answer
+
+Example Usage:
+
+* `ans CardiBuddy` +
+To answer the question: "What is the name of this application?"
+
+==== Don't want to answer? Skip a question with: `skip`
+What this command does:
+
+* If you already know the answer to the question, and don't want to waste your time answering it, just type `skip` to go to the next question.
+* Your skipped flashcard will not impact your overall test score, and CardiBuddy will merely remove it from your current test session.
+
+Note:
+
+* You can use this command if either:
+** You have not answered the question.
+** You have answered the question, but you got it wrong.
+* CardiBuddy will not let you use `skip` if you have already gotten that question correct.
+
+
+==== To force your wrong answer to be marked as correct: `force`
+
+What this command does:
+
+* CardiBuddy's uses automated marking to mark your answers. It takes your answer _word for word_ when checking against the model answer stored in your flashcard.
+* If your answer differs from the model answer, it will be marked as wrong.
+* After submitting your answer, you will get to see the model answer and your answer, for you to compare them.
+* If you feel that your answer still meets the question's requirements, you can `force` your answer to be marked as correct.
+
+==== To go to the next question: `next`
+
+What this command does:
+
+* After submitting your answer, type `next` to go to the next question (if there are any left to test).
+
+Note:
+
+* You can only type `next` once you have submitted your answer.
+
+==== Quit the test session halfway: `quit`
+
+What this command does:
+
+* Allows you to quit the current test session even before it is completed.
+
+//end::ash-testing[]
+
+{empty} +
+
+
+=== Displaying History
+
+==== Displaying the command history: 'history'
+
+Displays all the commands that has been inputted by the user during the current session.
+Format: 'history'
+
+{empty} +
+
+=== Undo/Redo
+
+==== Undoing command: `undo`
+
+Undoes latest deck-level command.
+Format: `undo`
+
+==== Redoing command: `redo`
+
+Redoes latest deck-level command.
+Format: `redo`
+
+{empty} +
+
+=== Detecting duplicates
+
+==== Detecting duplicate deck
+
+Upon adding a new deck, the application automatically checks if there are any existing decks with the same title. Only decks with unique titles can be successfully added.
+
+==== Detecting duplicate card
+
+Upon adding a new card to a specific deck, the application automatically checks if there are any existing cards with the same question in that deck. Only cards with unique questions can be successfully added.
+
+If there is a card with the same question but it is in a different deck, the card can still be successfully added.
+
+{empty} +
+
+=== Statistics
+
+* Shows the number of Decks/Cards created and deleted, number of Test Sessions played, average correct percentage, average number of tries for each question.
+* Includes a line graph of the history of test previous test results.
+
+
+==== Displaying all statistics: `statistics`
+
+Displays the statistics across all decks.
+Format: `statistics`
+
+==== Displaying statistics of a certain Deck: `statistics`
+
+Displays the statistics of a specific deck.
+Format: `statistics INDEX`
+
+Example:
+
+* `statistics 2` +
+Shows the statistics of the deck with the shown index of 2.
+
+
+==== Displaying statistics of a test session of a certain Deck: `statistics`
+
+Displays the statistics of a test session of a specific deck.
+Format: `statistics INDEX TEST_SESSION_INDEX`
+
+Example:
+
+* `statistics 2 3` +
+Shows the statistics of the 3rd test session of the deck with the shown index of 2.
+
+{empty} +
+
+=== Syncing across multiple platforms: sync [coming in v2.0]
+
+=== Playing memory games: game [coming in v2.0]
+
+=== Customising flashcards UI: custom [coming in v2.0]
+
+=== Replacing image [coming in v2.0]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CardiBuddy folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add deck* : `add d/TITLE [t/TAG]...` +
+e.g. `add d/CS2030 t/Fundamentals t/Medium`
+* *Add normal card* : `add q/QUESTION a/ANSWER` +
+e.g. `add q/What does OOP stand for? a/Object Oriented Programming`
+* *Add image card* : `add p/file:FILE_PATH_TO_IMAGE q/QUESTION a/ANSWER` +
+e.g. `add p/file:/Users/foo/ObjectDiagram.png q/Which SOLID principle did the code not adhere to? a/Single Responsibility Principle`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Delete deck/card* : `delete deck/card INDEX` +
+e.g. `delete deck 3`
+* *Edit* : `edit INDEX [d/TITLE] [t/TAG]...` +
+e.g. `edit 2 d/CS2103T t/`
+* *Exit* : `exit`
+* *Force* : `force`
+* *Filter* : `filter TAGNAME [&] [MORE_TAGNAMES]` +
+e.g. `filter hard & CS`
+* *History* : `history`
+* *Next* : `next`
 * *List* : `list`
-* *Help* : `help`
+* *Next* : `next`
+* *Open* : `open INDEX` +
+e.g. `open 2`
+* *Quit* : `quit`
+* *Search deck/card* : `search deck/card KEYWORD [&] [MORE_KEYWORDS]` +
+e.g. `search database & relational`
+* *Statistics deck/card* : `search deck/card KEYWORD [&] [MORE_KEYWORDS]` +
+e.g. `search database & relational`
+* *Redo* : `redo`
+* *Statistics* : `statistics`
+* *Test* : `test INDEX` +
+e.g. `test 1`
+* *Undo* : `undo`
+

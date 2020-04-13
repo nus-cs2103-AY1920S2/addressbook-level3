@@ -1,36 +1,48 @@
-= Address Book (Level 3)
-ifdef::env-github,env-browser[:relfileprefix: docs/]
+= Cardi Buddy (CardiB)
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-
+https://travis-ci.com/AY1920S2-CS2103T-T10-2/main[image:https://travis-ci.com/AY1920S2-CS2103T-T10-2/main.svg?branch=master[Build Status]]
+https://coveralls.io/github/AY1920S2-CS2103T-T10-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103T-T10-2/main/badge.svg?branch=master[Coverage Status]]
+image:https://api.codacy.com/project/badge/Grade/f8b5ed4e9c134355b556b8fc55befef4[link="https://app.codacy.com/gh/AY1920S2-CS2103T-T10-2/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S2-CS2103T-T10-2/main&utm_campaign=Badge_Grade_Settings"]
+image:https://img.shields.io/badge/license-MIT-blue.svg[MIT License, link=LICENSE]
+image:https://api.netlify.com/api/v1/badges/bae88b55-91f5-422d-9af1-880149df0478/deploy-status[link="https://app.netlify.com/sites/cardi-buddy/deploys"]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="900"]
 endif::[]
 
 ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+== What is Cardi Buddy?
+Flash Cards allow you to learn _twice as fast_, and remember longer as proven by decades of cognitive science – they promote studying through active recall, which is one of the practices through which our brains learn most effectively.
 
-== Site Map
+*Cardi Buddy (CardiB)* is a flash cards application that allows students to generate their own flash cards and test themselves through a simple Command Line Interface. Through making your own flash cards, you are _processing, summarising and internalizing_ the content that you have learnt and creating _stronger neural pathways_ as opposed to using pre-made decks.
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
-* <<AboutUs#, About Us>>
-* <<ContactUs#, Contact Us>>
+If you can type fast, CardiB can also help you to store revision materials in a blink of an eye. Instead of revising by re-reading lecture notes, CardiB allows you _break down complex concepts into simpler questions_ in multiple flash cards and create test sessions to run through unfamiliar concepts.
+
+In addition, CardiB comes with a multitude of features specially designed for NUS SoC students taking content-heavy modules:
+
+* *Drag and drop images* into flash cards to cater to visual learners
+* *Detect duplicates* of flash cards to prevent repetition
+* *Tag flash cards* for better organization
+* *Search for flash cards according to Tags* to access relevant topics more efficiently
+* *Prioritise flash cards* that have a higher frequency of incorrect answers in quizzes for more effective testing
+
+What are you waiting for? Give CardiB a go and you will be sure to see improvements in your examination grades to get that elusive A!
+
+== Table of Contents
+
+* <<docs/UserGuide#, User Guide>>
+* <<docs/DeveloperGuide#, Developer Guide>>
+* <<docs/AboutUs#, About Us>>
+* <<docs/ContactUs#, Contact Us>>
 
 == Acknowledgements
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
+* This product is based on the source code from AddressBook-Level 3 project created by https://se-education.org[SE-EDU] initiative
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
