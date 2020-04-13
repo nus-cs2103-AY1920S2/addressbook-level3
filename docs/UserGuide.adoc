@@ -109,19 +109,14 @@ For ZeroToOne commands, every user-fillable parameter is identified by a flag pr
 * `p/` - file path
 
 === Getting Help
-Can’t remember the commands off the top of your head? Fret not. ZeroToOne provides you with a convenient way to view a list of all available commands that you can try. Simply enter the following command into the command box:
+Can’t remember the commands off the top of your head? Fret not. ZeroToOne provides you with a convenient way to view a list of all available commands that you can try. Simply click on the `About` tab:
 
-```
-help
-```
-
-.Help Window
+.About Tab
 image::user-guide/UgHelp.png[]
 
-A pop-up window will appear, showing you a list of all available commands that you can try.
+The about tab contains a list of all available commands that you can try.
 
-
-=== Closing ZeroToOne (In Progress)
+=== Closing ZeroToOne
 After you have finished using the application, you can exit the application by simply entering the following command into the command box:
 
 `exit`
