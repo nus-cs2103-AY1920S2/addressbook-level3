@@ -1,6 +1,6 @@
 @startuml
 /' @author @sheexiong'/
-title Activity: Clear Receipt Command
+title Activity: Done Receipt Command
 
 start
 :User enters the donereceipt command;
