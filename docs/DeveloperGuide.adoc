@@ -347,6 +347,8 @@ as a CommandResult object which is passed back to the Ui.
 The following sequnce diagram shos how the plot sale operation works:
 
 image:PlotSalesSequenceDiagram.png[]
+//end::plotsalesfeature[]
+
 //end::lowlimitfeature[]
 
 //tag::lowlimitfeature[]
