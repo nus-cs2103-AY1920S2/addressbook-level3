@@ -6,6 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.product.PlotSalesCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -15,8 +17,6 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.DateTime;
-
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new PlotProductSalesCommand object

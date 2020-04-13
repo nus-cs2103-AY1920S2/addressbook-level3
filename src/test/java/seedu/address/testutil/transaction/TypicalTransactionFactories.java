@@ -3,6 +3,9 @@ package seedu.address.testutil.transaction;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.transaction.TransactionFactory;
 
+/**
+ * A utility class containing a list of {@code TransactionFactory} objects to be used in tests.
+ */
 public class TypicalTransactionFactories {
 
     public static final TransactionFactory ONE_ONE_MARCH_FIRST_TWENTY_ONE = new TransactionFactoryBuilder()

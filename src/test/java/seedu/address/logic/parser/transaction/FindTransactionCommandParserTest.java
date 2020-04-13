@@ -1,15 +1,12 @@
 package seedu.address.logic.parser.transaction;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.address.logic.commands.CommandTestUtil.CUSTOMER_NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DATETIME_DESC_AMY_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CUSTOMER_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATETIME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_MONEY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRODUCT_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.MONEY_DESC_AMY_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;

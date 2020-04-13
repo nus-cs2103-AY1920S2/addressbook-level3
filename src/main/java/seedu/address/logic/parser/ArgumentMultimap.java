@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

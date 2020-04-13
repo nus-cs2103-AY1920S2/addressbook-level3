@@ -10,6 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCRIPTION;
 
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.transaction.EditTransactionCommand;
 import seedu.address.logic.commands.transaction.EditTransactionCommand.EditTransactionDescriptor;
@@ -19,8 +21,6 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new EditCommand object

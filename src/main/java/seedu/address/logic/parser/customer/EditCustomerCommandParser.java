@@ -18,7 +18,6 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.customer.EditCustomerCommand;
 import seedu.address.logic.commands.customer.EditCustomerCommand.EditCustomerDescriptor;
-import seedu.address.logic.commands.transaction.EditTransactionCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
