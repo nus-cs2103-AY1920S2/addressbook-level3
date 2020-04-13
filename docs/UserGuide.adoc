@@ -482,7 +482,7 @@ image::Grade.png[width="790"]
 * Calculates your current CAP.
 * CAP = Sum (module grade point x modular credits for the module) / Sum (modular credits)
 * The calculation strictly follow the grading system of NUS.
-* Shows current CAP in CLI, CAP on UI will only get updated after you restart.
+* Shows current CAP in in result display panel, CAP on UI will only get updated after you restart.
 ****
 
 [TIP]
@@ -548,7 +548,7 @@ You can also view module tasks in calendar using `findModule m/MODULE_CODE`
 - Format: `listModuleTasks MODULE_CODE`
 
 ****
-* Lists all module tasks related to that module in *CLI*.
+* Lists all module tasks related to that module in *in result display panel*.
 * Module code inputted must be valid module code you have added in before.
 ****
 
@@ -570,7 +570,7 @@ This command is similar to the `taskDelete` command in Calendar feature but you 
 
 ****
 * Deletes the module task at the specified INDEX.
-* The index refers to the index number *shown in the CLI* (you can get that by entering 'listModuleTasks MODULE_CODE')
+* The index refers to the index number *shown in result display panel* (you can get that by entering 'listModuleTasks MODULE_CODE')
 * The index must be a positive integer 1, 2, 3, …
 ****
 
@@ -596,12 +596,12 @@ This command is similar to the `done` command in Calendar feature but you need t
 
 ****
 * Deletes the module task at the specified INDEX.
-* The index refers to the index number *shown in the CLI* (you can get that by entering 'listModuleTasks MODULE_CODE')
+* The index refers to the index number *shown in the in result display panel* (you can get that by entering 'listModuleTasks MODULE_CODE')
 * The index must be a positive integer 1, 2, 3, …
 ****
 
 [CAUTION]
-Only refer to the index of tasks shown in command line when performing this command. (not the one in calendar)
+Only refer to the index of tasks shown in result display panel when performing this command. (not the one in calendar)
 
 - Example:
 * `done m/cs2103 index/1` +
@@ -610,13 +610,19 @@ Marks the first module task for module cs2103 as done.
 .Marking a module task as done
 image::DoneWithModuleCode.png[width="790"]
 
+[IMPORTANT]
+*Clarification for `taskDelete` and `done` commands.* +
+If you did not provide specific module code in the command, the index required refers to the index of list of tasks shown in calendar tab. Otherwise,
+it refers to the index of list of module tasks shown in the result display panel. +
+*For example:* +
+`taskDelete m/cs2103 index/1` will delete the first task as shown in Figure 26 +
+`taskDelete index/1` will delete the first task shown in the task list in calendar tab.
+
 ==== View task breakdown per module : `taskBreakdown`
 
 - Shows the how many tasks are there in total and how many tasks haven't been completed yet for each module.
 
 - Format: `taskBreakdown`
-
-- Shows in the command line
 
 .Show task breakdown
 image::TaskBreakDown.png[width="790"]
@@ -787,6 +793,9 @@ e.g. `modreq computer science`
 - *NUS* : National University of Singapore
 
 - *CAP* : The Cumulative Average Point is the weighted average grade point of the letter grades of all the modules taken by the students, according to NUS's grading system.
+
+- *CLI* : Command Line Interface
+
 
 == FAQ
 *Q*: How do I transfer my data to another Computer? +

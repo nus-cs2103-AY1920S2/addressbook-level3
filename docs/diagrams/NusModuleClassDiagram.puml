@@ -1,4 +1,6 @@
 @startuml
+skinparam classAttributeIconSize 0
+hide circle
 
 Class ModuleBook {
     - modules: List<NusModule>
@@ -12,9 +14,9 @@ Package NusModule {
         - tasks: List<ModuleTask>
     }
     Class ModuleCode {
-            isValidModuleCode() : boolean
+            {static} isValidModuleCode() : boolean
     }
-    enum Grade {
+    enum Grade <<enumeration>> {
         APLUS
         A
         AMINUS
@@ -28,7 +30,7 @@ Package NusModule {
         S
         U
     }
-    enum Priority {
+    enum Priority <<enumeration>> {
         VERYHIGH
         HIGH
         MEDIAN
