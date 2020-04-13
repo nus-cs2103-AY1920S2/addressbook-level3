@@ -409,7 +409,7 @@ This would greatly enhance the usefulness of the `fav` function in *CookBuddy*.
 // end::FavCommandImpl[]
 
 
-// tag::UnfavCommandImpl[]
+// tag::UnFavCommandImpl[]
 === Un-favouriting recipes [Adarsh]
 
 The following section describes how the `unfav` command is implemented as well as design considerations that were taken into account during its implementation.
@@ -727,6 +727,7 @@ Refer to the guide <<DevOps#, here>>.
 
 
 [appendix]
+// tag::UserStories[]
 == User Stories [Done by Sharadh Rajaraman and Adarsh Chugani]
 
 Priorities: *High* (must have), *Medium* (nice to have), *Low* (unlikely to have)
