@@ -3,9 +3,9 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":NasaBookParser" as NasaBookParser LOGIC_COLOR
+participant ":DeleteModuleCommandParser" as DeleteModuleCommandParser LOGIC_COLOR
+participant "d:DeleteModuleCommand" as DeleteModuleCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,55 +13,55 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("del m/cs2030")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> NasaBookParser : parseCommand("del m/cs2030")
+activate NasaBookParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create DeleteModuleCommandParser
+NasaBookParser -> DeleteModuleCommandParser
+activate DeleteModuleCommandParser
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+DeleteModuleCommandParser --> NasaBookParser
+deactivate DeleteModuleCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+NasaBookParser -> DeleteModuleCommandParser : parse("m/cs2030")
+activate DeleteModuleCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create DeleteModuleCommand
+DeleteModuleCommandParser -> DeleteModuleCommand
+activate DeleteModuleCommand
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+DeleteModuleCommand --> DeleteModuleCommandParser : d
+deactivate DeleteModuleCommand
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
+DeleteModuleCommandParser --> NasaBookParser : d
+deactivate DeleteModuleCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
+DeleteModuleCommandParser -[hidden]-> NasaBookParser
+destroy DeleteModuleCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+NasaBookParser --> LogicManager : d
+deactivate NasaBookParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> DeleteModuleCommand : execute()
+activate DeleteModuleCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteModuleCommand -> Model : removeModule(CS2030)
 activate Model
 
-Model --> DeleteCommand
+Model --> DeleteModuleCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+DeleteModuleCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> DeleteModuleCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
+DeleteModuleCommand --> LogicManager : result
 deactivate DeleteCommand
 
 [<--LogicManager
