@@ -470,8 +470,8 @@ Expected: All transactions in the transaction list after applying filters will b
 . Importing the filtered transaction list to a csv file.
 
 .. Prerequisite: There must be at least one transaction in the csv file
-.. Test case: `import` +
-Expected: All transactions that are in the correct format and not duplicated entries in the csv file
+.. Test case: `import transactions.csv` +
+Expected: All transactions that are in the correct format and not duplicated entries in the transactions.csv file
 will be imported.
 
 ==== Clearing all data
