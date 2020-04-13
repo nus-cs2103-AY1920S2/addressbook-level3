@@ -187,8 +187,6 @@ image::SwitchActivityDiagram.png[]
 
 
 ==== Favourite and Unfavourite commands (Brian)
-Description: TODO
-
 ===== Implementation
 For brevity, we will only talk about the `favourite` command. Note that the `unfavourite` command is implemented in the
 same way.
@@ -230,18 +228,22 @@ For brevity, we will only talk about the `undo` command. Note that the `redo` co
 called, `Model#commitBook` is called as well.
 
 2. `Model#commitBook` will first purge all redundant states in `MultipleBookStateManager` (ie. if the user called undo
-before and is now committing a new book, he will not be able to call redo those undos anymore). This is the behavior
-that most modern desktop applications like Microsoft Word adopt.
+before and is now committing a new book, he will not be able to redo the actions of those undos anymore). This is the
+behavior that most modern desktop applications like Microsoft Word adopt.
 
 3. `Model#commitBook` also saves the `CommandType` and `Tab` of the command in 2 separate stacks in
-`MultipleBookStateManager`. It will also save the current state of the affected book(s) (before the command executes)
-in an ArrayList of that book type.
+`MultipleBookStateManager`. Finally, it saves the new state of the affected book(s) in an ArrayList of that book type.
 
 Note #1: `CommandType` tells you which book(s) the command affects, while `Tab` tells you which tab should be
 displayed upon execution of the command.
 
 Note #2: All 3 ArrayLists of the 3 book types have a "current pointer" each, which points to the respective states of
 the books that the `Model` is currently using (ie. what the user is seeing).
+
+The following diagram summarizes what happens when the user executes a command that changes the state of any book:
+
+.Activity diagram when a command is executed
+image::CommitActivityDiagram.png[]
 
 ===== Implementation (when undo is called)
 1. `Model#canUndo` is called to check if there are sufficient actions to be undone. An error is thrown if there are
@@ -251,21 +253,48 @@ insufficient actions to be undone.
 At the same time, the "current pointer" of the corresponding book ArrayList(s) is/are shifted backwards. All 3 books
 in `Model` are then set to the version of the book that each "current pointer" is pointing to.
 
-The following diagrams show what happens when the user calls an undo operation:
+This class diagram shows the components of `MultipleBookStateManager`:
 
-.Undo command sequence diagram
-image::UndoRedoSequenceDiagram.png[]
+.Class diagram for MultipleBookStateManager
+image::MultipleBookStateManagerClassDiagram.png[]
 
-Result: TODO
+The following diagrams show what happens after the execution of various commands:
+
+.When the app is first opened
+image::UndoRedoState0.png[]
+
+.When "delete 5" is called, the state of RecipeBook is changed. This new state is added to ArrayList<RecipeBook>.
+image::UndoRedoState1.png[]
+
+.When "favourite 3" is called, the state of RecipeBook is changed. This new state is added to ArrayList<RecipeBook>.
+image::UndoRedoState2.png[]
+
+.When "undo" is called, the current state pointer of ArrayList<RecipeBook> is shifted back and the Model's RecipeBook is set to this version.
+image::UndoRedoState3.png[]
+
+.When a command like "list" (that does not change the state of any book) is called, the current state pointer remains where it is (ie. there is no change of states).
+image::UndoRedoState4.png[]
+
+.If a command like "clear" (that changes the state of a book) is called while the current pointer is not pointing to the latest version, all versions after the current pointer will be purged and the newest version will be added to the ArrayList.
+image::UndoRedoState5.png[]
 
 ===== Design Considerations
 ====== Aspect: How undo and redo executes
-Challenges faced: TODO
+One concern we had while choosing the design of the undo and redo features was the amount of memory that has to be used
+to keep track of the different states of the 3 books.
+
+On top of the ArrayLists of different book types, we also needed to have 2 additional stacks to keep track of the
+corresponding `CommandType` and `Tab`.
+
+We eventually decided on the current implementation because we do not expect the user to make that many changes to the
+books in a single session. We also do not expect the size of any book to grow so huge that a single commit would take
+up all the memory capacity. In other words, we foresee that the "cons" of our current choice will not happen (it would
+take really abnormal user behavior for it to reach that stage).
 
 * **Alternative 1 (current choice):** Saves the entire recipe book.
 ** Pros: Easy to implement.
-** Cons: May use up a lot of memory space within a single session 1) if there is a large number of recipe book commits
-and/or 2) if the magnitude of a single commit is large (ie. the database is huge, containing many recipes).
+** Cons: May use up a lot of memory space within a single session 1) if there is a large number of book commits
+and/or 2) if the magnitude of a single commit is large (ie. the book being committed is huge just by itself).
 
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory.
@@ -287,7 +316,7 @@ were implemented to overcome the limitations of the `edit` command. These recipe
 entire field using `edit`.
 
 ==== Implementation
-TODO
+
 
 ===== Design Considerations
 ====== Aspect: TODO
