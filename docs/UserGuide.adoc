@@ -203,15 +203,12 @@ If you want to change the `BODY` content of the currently opened note, use the `
 ====
 
 ==== Example: Editing the currently opened note
-. Let's update the `BODY` content of the currently opened note `Workspace`, with "This is the new paragraph". This can be done with the command: +
+. Let's update the `BODY` content of the currently opened note `Workspace` with the command: +
 
     edit
 
 .Demo for the `edit` command
-image::demo/Edit1.png[]
-
-.Demo for the `edit` command (after edit)
-image::demo/Edit2.png[]
+image::demo/Edit.png[]
 
 === Delete a note: `delete`
 
