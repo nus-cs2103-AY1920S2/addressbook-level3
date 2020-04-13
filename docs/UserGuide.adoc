@@ -701,16 +701,16 @@ To correct this, you have to enter a valid `INDEX` that is not more than the num
 === Add a client's exercise: `add-e`  --- YongJie
 `add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in the *Exercise Table*.
 
+*Format*: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
+
 ==== Parameters
 This section acts as a summary of the important things to note when using `add-e` including their parameters. The square bracket shows that it is optional and your command will still execute even if you do not enter them.
-
-Format: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| n/NAME |
+| `n/NAME` |
 * Substitute `NAME` with the name of the exercise. +
 
 * `n/NAME` is compulsory and you have to specify it. +
@@ -718,7 +718,7 @@ Format: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SET
 * `n/NAME` is case sensitive. +
 e.g. An exercise named `pushup` will be considered to have a different name as an exercise named `Pushup`.
 
-| d/DATE |
+| `d/DATE` |
 * Substitute `DATE` with the date of the exercise. +
 
 * `d/DATE` is compulsory and you have to specify it. +
@@ -727,21 +727,21 @@ e.g. An exercise named `pushup` will be considered to have a different name as a
 
 * The range of `DATE` is from one year before the current date to the current date (inclusive).
 
-| [reps/REPS] |
+| `[reps/REPS]` |
 * Substitute `REPS` with the reps of the exercise. +
 
 * `reps/REPS` is optional.
 
 * Range for `REPS` is 1-9999. +
 
-| [sets/SETS] |
+| `[sets/SETS]` |
 * Substitute `SETS` with the sets of the exercise. +
 
 * `sets/SETS` is optional.
 
 * Range for `SETS` is 1-9999. +
 
-| [ew/WEIGHT] |
+| `[ew/WEIGHT]` |
 * Substitute `Weight` with the weight of the exercise. +
 
 * `ew/WEIGHT` is optional.
@@ -802,21 +802,21 @@ To solve this, we suggest incrementing the sets of the existing exercise by usin
 === Edit a client's exercise: `edit-e` --- YongJie
 `edits-e` allows edit an existing exercise done by the client that you are currently viewing. You will be able to see the updated exercise in *Exercise Table*.
 
+*Format*: `edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
+
 ==== Parameters
 This section acts as a summary of the important things to note when using `edit-e` including their parameters. The square bracket shows that it is optional and your command will still execute even if you do not enter them. However, at least one of them have to be specified.
-
-Format: `edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| INDEX |
+| `INDEX` |
 * Substitute `INDEX` with the index of the exercise shown on the table. +
 
 * `INDEX` is compulsory and you have to specify it. +
 
-| n/NAME |
+| `n/NAME` |
 * Substitute `NAME` with the name of the exercise. +
 
 * `n/NAME` is optional. +
@@ -824,7 +824,7 @@ Format: `edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/EXERCISE_WEIGHT] [reps/REPS
 * `n/NAME` is case sensitive. +
 e.g. An exercise named `pushup` will be considered to have a different name as an exercise named `Pushup`.
 
-| d/DATE |
+|`d/DATE` |
 * Substitute `DATE` with the date of the exercise. +
 
 * `d/DATE` is optional. +
@@ -833,21 +833,21 @@ e.g. An exercise named `pushup` will be considered to have a different name as a
 
 * The range of `DATE` is from one year before the current date to the current date (inclusive).
 
-| [reps/REPS] |
+| `[reps/REPS]` |
 * Substitute `REPS` with the reps of the exercise. +
 
 * `reps/REPS` is optional.
 
 * Range for `REPS` is 1-9999. +
 
-| [sets/SETS] |
+| `[sets/SETS]` |
 * Substitute `SETS` with the sets of the exercise. +
 
 * `sets/SETS` is optional.
 
 * Range for `SETS` is 1-9999. +
 
-| [ew/WEIGHT] |
+| `[ew/WEIGHT]` |
 * Substitute `Weight` with the weight of the exercise. +
 
 * `ew/WEIGHT` is optional.
@@ -944,6 +944,8 @@ If you find that you are unable to execute this command successfully, there are 
 
 `Schedule` allows you to assign weekly schedule timings to a client. The schedule will be displayed on the right panel of FitBiz, with the timings as well as the client's name. You can assign multiple schedules to a client at once, by adding more arguments following the command. All of the schedules from the current *Client List* will be displayed on the *Schedule Panel*.
 
+*Format*: `schedule INDEX sch/DAY-STARTTIME-ENDTIME [sch/DAY-STARTTIME-ENDTIME]...`
+
 [NOTE]
 The `schedule` command overwrites the client's existing schedule with the new schedules given in the command.
 
@@ -951,20 +953,18 @@ The `schedule` command overwrites the client's existing schedule with the new sc
 
 This section acts as a summary of the important things to note when using `schedule`. The square bracket shows that it is optional and your command will still execute even if you do not enter them.
 
-Format: `schedule INDEX sch/DAY-STARTTIME-ENDTIME [sch/DAY-STARTTIME-ENDTIME]...`
-
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| INDEX |
+| `INDEX` |
 * Substitute `INDEX` with the index of the desired client to add the schedule to. +
 
 * `INDEX` is compulsory and you have to specify it. +
 
 * `INDEX` must be a positive number, and must be a valid index number for a client as displayed from the list of clients. +
 
-| DAY |
+| `DAY` |
 * Substitute `DAY` with the first three letters of the day. +
 eg. MON / TUE / WED / THU / FRI / SAT / SUN
 
@@ -974,7 +974,7 @@ eg. MON / TUE / WED / THU / FRI / SAT / SUN
 
 * `DAY` is not case sensitive.
 
-| STARTTIME |
+| `STARTTIME` |
 * Substitute `STARTTIME` with the starting time of the schedule slot. +
 
 * `STARTTIME` is compulsory.
@@ -983,7 +983,7 @@ eg. MON / TUE / WED / THU / FRI / SAT / SUN
 
 * `STARTTIME` must always be earlier than or equal to `ENDTIME`.
 
-| ENDTIME |
+| `ENDTIME` |
 * Substitute `ENDTIME` with the ending time of the schedule slot. +
 
 * `ENDTIME` is compulsory.
@@ -1045,6 +1045,8 @@ image::UGScheduleDiagram8.png[]
 
 `export` allows you to export your client's recorded exercises into a spreadsheet format which you can then easily save or share with your clients. Note that this will create a CSV file, which you can view and open in other applications like Microsoft Excel, or Google Sheets (as shown in the example later).
 
+*format*: `export`
+
 [NOTE]
 This command can only be used when you have a client in view; make sure you know how to view a client first. Refer to <<view-c-command>> for more information.
 
@@ -1085,8 +1087,9 @@ If you find that you are unable to execute this command successfully, there are 
 
 When you have many clients and want to filter the list of clients to view a specific group, you can use the command `filter-c` to filter clients based on their tags or their sports.
 
-==== Format
-Format: `filter-c [t/TAG]... [s/SPORT]...
+*Format*: `filter-c [t/TAG]... [s/SPORT]...`
+
+==== Parameters
 
 [options='header']
 [cols= "15%,85%"]
@@ -1151,17 +1154,17 @@ image::FilterTagSuccess.png[]
 
 `graph` allows you to see a graphical visualisation of a client’s exercise progress within a specified timeframe, so that you can easily track your client's progress and improvement.
 
+*Format*: `n/EXERCISE_NAME a/Y_AXIS sd/START_DATE ed/END_DATE`
+
 ==== Parameters
 
 This section acts as a summary of important things to note when using `graph` including their parameters.
-
-Format: `n/EXERCISE_NAME a/Y_AXIS sd/START_DATE ed/END_DATE`
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| n/EXERCISE_NAME |
+| `n/EXERCISE_NAME` |
 Substitute `EXERCISE_NAME` with the name of the exercise. +
 
 `n/EXERCISE_NAME` is compulsory and you have to specify it. +
@@ -1169,7 +1172,7 @@ Substitute `EXERCISE_NAME` with the name of the exercise. +
 `n/EXERCISE_NAME` is case sensitive. +
 e.g. An exercise `pushup` will be considered to be different from the exercise `Pushup`.
 
-| a/Y_AXIS |
+| `a/Y_AXIS` |
 Substitute `Y_AXIS` with the y-axis of your choice. +
 
 `Y_AXIS` is compulsory and you have to specify it. +
@@ -1177,7 +1180,7 @@ Substitute `Y_AXIS` with the y-axis of your choice. +
 `Y_AXIS` must either be `reps` or `weight` (case insensitive), allowing you to specify the exercise attribute you wish to focus on +
 e.g. `Reps`, `weigHt` and `WEIGHT` will be valid inputs for `Y_AXIS`. +
 
-| sd/START_DATE |
+| `sd/START_DATE` |
 Substitute `START_DATE` with the start date of your graph. +
 
 `sd/START_DATE` is compulsory and you have to specify it. +
@@ -1188,7 +1191,7 @@ The range of `START_DATE` is from one year before the current date to the curren
 
 `START_DATE` cannot be chronologically after `END_DATE` +
 
-| ed/END_DATE |
+| `ed/END_DATE` |
 Substitute `END_DATE` with the end date of your graph +
 
 `ed/END_DATE` is compulsory and you have to specify it. +
