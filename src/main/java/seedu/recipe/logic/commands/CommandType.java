@@ -7,5 +7,6 @@ public enum CommandType {
     MAIN,
     MAIN_LONE,
     PLAN,
-    GOALS
+    GOALS,
+    QUOTE
 }

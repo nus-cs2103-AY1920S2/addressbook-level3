@@ -6,6 +6,7 @@ import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.achievement.Content;
 import seedu.recipe.model.achievement.Quote;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Represents a quote command.
@@ -23,9 +24,12 @@ public class QuoteCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Added your new quote!";
 
     private String quote;
+    private final Tab achivementsTab = Tab.ACHIEVEMENTS;
+    private final CommandType commandType;
 
     public QuoteCommand(String quote) {
         this.quote = quote;
+        this.commandType = CommandType.QUOTE;
     }
 
     @Override
@@ -40,6 +44,7 @@ public class QuoteCommand extends Command {
         }
         //add record to internal list and update goals tally for each record added
         model.addQuote(newQuote);
+        model.commitBook(commandType, achivementsTab);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
