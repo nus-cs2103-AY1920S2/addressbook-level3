@@ -109,12 +109,25 @@ The term `Markdown` as used in this document will be a shorthand for GitHub Flav
 
 === View help : `help`
 
-If you can't remember the commands or you are unsure about what a particular command does, type `help` and hit kbd:[Enter]. Notably will show you a link to the list of the commands it has and what they do. +
+If you can't remember the commands or you are unsure about what a particular command does, type `help` and hit kbd:[Enter].
+Figure 3 below shows you what this will look like on your screen.
 
 *Format:* `help`
 
 .Demo for the `help` command
-image::demo/Help.png[]
+image::demo/Help1.png[]
+
+
+You will then see a Help window on your screen, as seen in Figure 4 below, which will include a summary of the commands and a link to Notably's User Guide. +
+
+.Demo for the `help` command (continued)
+image::demo/Help2.png[]
+
+[NOTE]
+====
+* While the help window is open, you can hold the kbd:[Up] and kbd:[Down] keys to scroll through it's contents. This is
+a more efficient solution than using your mouse!
+====
 
 === Exit the program: `exit`
 
