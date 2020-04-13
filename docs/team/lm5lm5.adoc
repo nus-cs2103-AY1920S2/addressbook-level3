@@ -42,8 +42,8 @@ which facilitates editing.
 
 * *Minor enhancement*: added and updated the Help Page,
 which shows the list of valid user commands and their usage,
-and the link to the user guide. https://github.com/AY1920S2-CS2103-T09-4/main/pull/181[#181]
-https://github.com/AY1920S2-CS2103-T09-4/main/pull/338[#338]
+and the link to the user guide https://github.com/AY1920S2-CS2103-T09-4/main/pull/181[#181]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/338[#338].
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=lm5lm5[Functional and Test code]]
 
@@ -56,8 +56,8 @@ https://github.com/AY1920S2-CS2103-T09-4/main/pull/338[#338]
 and gave feedback about bugs/feature flaws to team members promptly.
 *** Review and comment team members' PR https://github.com/AY1920S2-CS2103-T09-4/main/pull/91[#91].
 ** Testing:
-*** Added test cases (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/323[#323],
-https://github.com/AY1920S2-CS2103-T09-4/main/pull/332[#332]).
+*** Added test cases https://github.com/AY1920S2-CS2103-T09-4/main/pull/323[#323]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/332[#332].
 ** Documentation:
 *** Contributed to the User Guide and Developer Guide
 https://github.com/AY1920S2-CS2103-T09-4/main/pull/224[#224]
