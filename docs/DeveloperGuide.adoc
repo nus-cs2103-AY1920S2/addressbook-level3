@@ -409,6 +409,24 @@ Cons: Need to add constraint  to ensure that the root `BlockTreeItem` does not c
 image::TreeDataStructureDesign.png[]
 //end::datastructure[]
 
+[[Implementation-Compiler]]
+===  Compiler
+
+==== Rationale
+
+`Compiler` is needed to enable compilation of Markdown to HTML. By having an Markdown to HTML compiler, we can allow user to format their notes in Markdown, which enhances their note-editing experience tremendously.
+
+==== Current implementation
+
+The implementation of `Compiler` is highly inspired by https://github.github.com/gfm/#appendix-a-parsing-strategy[the parsing strategy] explained in https://github.github.com/gfm[GitHub's GFM Specification]. Please read more from the specification for a more comprehensive explanation.
+
+==== Design considerations
+
+Generally speaking, compilers usually consist of several main components, namely a tokenizer, a parser, and a generator. However, this is not the case in our design of the link:{repoURL}/src/main/java/com/notably/commons/compiler/Compiler.java[`Compiler`] component:
+
+. Leveraging on the fact that Markdown's syntax is not overly complicated, we decided not to fully adhere to the usual compiler design. Instead, we merged the tokenizer and parser section into our link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/Parser.java[`Parser`] class. This link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/Parser.java[`Parser`] class thus deals converting raw Markdown string into a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree].
+. In addition, we opted to not build a standalone generator component. Instead, we make it such that each node in our Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] supports a `toHtml` method, which returns the HTML representation of the tree starting from itself as a node. This way, we can leverage on OOP's polymorphism to generate the HTML string out of our Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] a lot easier.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
