@@ -29,8 +29,11 @@ FitHelper mainly serves as a fitness log book where users can *mark down their d
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `FitHelper.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Fitness Helper.
+Please ensure that writing or reading data inside the home folder that you choose
+does **not** require administrator permission.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+.A snapshot of the app
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -72,16 +75,44 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 // tag::command_format[]
 ====
-*Command Format*
+*General rules about command format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/running`.
-* Items in square brackets are optional e.g `n/NAME [r/REMARK]` can be used as `n/swimming r/energy consuming but fun` or as `n/running`.
+* A prefix followed by a word in `UPPER_CASE` form a parameter to be supplied by the user.
+
+Example: in `add n/NAME`, `n/NAME` is a parameter which can be `n/running`.
+
+* Parameters in square brackets are optional e.g `n/NAME [r/REMARK]`
+means both `n/swimming r/fun` and `n/swimming` are both valid user inputs.
+* Parameters not in square brackets are compulsory e.g. `x/TYPE k/KEYWORDS`
+means you must input both `TYPE` and `KEYWORDS` parameters.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[r/remark]...` can be used as `{nbsp}` (i.e. 0 times), `r/really fun`, `r/really fun r/helps me lose weight` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME t/2020-04-10-08:00`, `t/2020-04-10-18:00 n/NAME` is also acceptable.
-* The field `TYPE` or `x/` in this document refers to type of entries: food/sport, it can also be write in short form: f/s.
-* The field `TIME` needs to be in the format of yyyyy-mm-dd-hh:MM, e.g. `t/2020-04-10-03:00`
-* The field `DATE` should be entered in the fixed format of `yyyy-mm-dd` in order to trace the corresponding daily file.
-* The field `DURATION` should be a postive double number, representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
+* Parameters can be in any order e.g. if a command format is `add n/NAME t/TIME`, then
+ `add n/Bob t/2020-04-10-08:00` and `add t/2020-04-10-18:00 n/Bob` are both acceptable.
+* The field `TYPE` in this document refers to type of entries.
+The only valid values are food OR sports, or in acronym f OR s.
+* The field `TIME` needs to be in the format of yyyyy-mm-dd-hh:MM, e.g. `2020-04-10-03:00`
+* The field `DATE` should be entered in the format of `yyyy-mm-dd`, e.g. `2020-02-02`.
+* Our time parser will auto-correct some invalid date/time entered. More specifically,
+as long as the month value is valid and the day value is between 1 and 31,
+the parser will auto-correct an invalid date to the last valid date of the year-month
+specified by the user.
+
+Example: `2020-02-31-12:34` will be auto-corrected as `2020-02-29-12:34` since
+`2020-02-29` is the last valid date of Feb 2020.  `2020-22-31` and `2020-02-40`
+will not be auto-corrected since the month value is invalid or the day value is beyond 31.
+
+* The field `INDEX` should be a positive integer representing a one-based index of an entry in an list.
+* The field `DURATION` should be a positive double number,
+representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
+* You may input multiple parameters of a same prefix, but only the last input value will be read.
+
+Example: `add n/Alice n/Bob n/Charlie` is equivalent to `add c/Charlie`.
+
+* Please do not input parameters not required by a particular command.
+
+Example: the format of sort command is `sort [x/TYPE] by/SORT_BY [o/ORDER]`,
+so you should not input other parameters like `n/NAME`, `k/KEYWORDS` or `v/VALUE`.
+
 * The flag `-f` should be added *just after the command word*, e.g. `update -f`.
 ====
 //end::command_format[]
@@ -96,12 +127,43 @@ clicking the **Help** button on the left hand side of the application.
 Note that once the user types `help` or click the **Help** button,
 the url of the User Guide is copied to the clipboard, so the user
 can directly access the Guide by pasting the url into the browser.
+
 Format: `help`
+
+.Help page
+image::Help.png[width="790"]
 //end::help[]
 
 === Keep Food and Sports Entries
 
 //tag::add[]
+==== Go to dashboard page: `home`
+
+Go to the Dashboard page, which displays three entry lists:
+Food Entry History, Sports Entry History and Reminders.
+
+* *Food Entry History* +
+Shows food entries.
+
+* *Sports Entry History* +
+Shows sports entries.
+
+* *Reminders* +
+Shows entries that are remarked as not done.
+
+Note that you can also go to the Dashboard page by clicking the `DashBoard` button on the
+left side of the application. However, using `home` command will further **reset the display status**
+of the Dashboard page to the default setting (showing all entries in all three lists).
+
+Example: +
+If you input `reminder` command, the DashBoard page will now only show entries in the reminders
+list (display status changed). If you switch to other page and then try to go back to the Dashboard
+page by clicking the `DashBoard` button, the Dashboard page will still only show the reminders
+list. But is you input `home` command, entries in all three lists will be shown.
+
+.Dashboard page in default display setting
+image::Dashboard.png[]
+
 ==== Adding an entry: `add`
 
 Adds an entry to the fitness log book. The entry added will be displayed in DashBoard, Calendar
@@ -251,6 +313,9 @@ i.e. the older entry comes first)
 * `sort by/c` (sort both food and sports entry list, as well as reminders list,
 in descending order of calorie value, i.e. entry with higher calorie intake/consumption comes first)
 
+.Dashboard page after all 3 lists are sorted by time in descending order (later entry comes at top)
+image::Sort.png[width="790"]
+
 ==== Check calorie intake/consumption of common food/sports: `check`
 
 Searches through the pre-set database for calorie intake/consumption information
@@ -259,13 +324,17 @@ Note that due to space constraint, at most 3 matching data will be shown
 at the left-bottom corner of the application. Each datum shows the name of
 the food/sports and its calorie intake/consumption information: for food, it will be
 in cal per serving (weight per serving in gram will also be shown); for sports, it will
-be in cal per hour. The searching works as follows:
+be in cal per hour for a 70kg person.
+Please note after the command is executed, the application will
+automatically go to Dashboard page *without resetting the display status*.
+
+The searching works as follows:
 
 * Retrieves food/sports data based on check type specified by the user.
 * Checks and adds food/sports datum whose name **equals one of the keywords**.
-* If fewer than 3 food/sports data are added so far, checks and adds food/sports datum
+If fewer than 3 food/sports data are added so far, checks and adds food/sports datum
 whose name **contains the keywords as a whole**.
-* If still fewer than 3 food/sports data are added so far, checks and adds food/sports datum
+If still fewer than 3 food/sports data are added so far, checks and adds food/sports datum
 whose name **contains one of the keywords**.
 * If no datum is added after all the steps, replies user that search failed.
 Otherwise, shows user the data.
@@ -277,6 +346,11 @@ Examples:
 * `check x/food k/apple` (searches for calorie intake of food
 whose name match/contain keyword "apple")
 
+.Check command result (matching data found)
+image::Check.png[width="790"]
+
+//.Check command result (no matching data)
+//image::Check2.png[width="790"]
 //tag::diary[]
 === Keep Diaries
 
@@ -418,7 +492,7 @@ This `undo` commands adds the diary log back to FitHelper.
 //end::redo[]
 
 //tag::calendar[]
-=== Calendar View: `calendar`
+=== Calendar View
 Calendar view will display all the food and sports entries for each day of the referenced week/month. The referenced date is default set to be the current date, but can be changed to a user given date. Calendar can be switched between two modes, list mode or timetable mode, with default set to be in timetable mode. +
 
 Format for entering calendar view: `calendar`
@@ -458,6 +532,11 @@ image::calendartb.png[]
 A pop up window will display all entries from the chosen date.
 
 Format for showing entries of a particular date: `calendar sh/DATE`
+
+==== Set calendar referenced date: `calendar d/DATE`
+Sets the referenced date of the current calendar page.
+
+Format for showing entries of a particular date: `calendar d/DATE`
 
 Examples:
 
@@ -713,22 +792,22 @@ Three local database in Json format will exist after running FitHelper:
 //.
 
 * *Entry - switch to DashBoard* : `home`
-* *Entry - add an entry* `add n/NAME t/TIME l/LOCATION c/CALORIE [r/remark]...`
-* *Entry - list all entries* : `list`
-* *Entry - view reminders* : `reminder`
-* *Entry - edit an entry* : `edit INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/remark]...`
-* *Entry - find by name* : `find KEYWORD [MORE_KEYWORDS]`
-* *Entry - delete an entry* : `delete INDEX`
+* *Entry - add an entry* `add x/TYPE n/NAME t/TIME l/LOCATION c/CALORIE ...`
+* *Entry - list all entries or entries of a given date* : `list [d/DATE]`
+* *Entry - view reminders list only* : `reminder`
+* *Entry - edit an entry* : `edit x/TYPE i/INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] ...`
+* *Entry - find and list entries by keywords* : `find k/KEYWORDS`
+* *Entry - delete an entry* : `delete x/TYPE i/INDEX`
 * *Entry - sort entry list* : `sort [x/TYPE] by/SORT_BY [o/ORDER]`
-* *Entry - check calorie reference* : `check x/TYPE k/ONE_OR_MORE_KEYWORDS`
+* *Entry - check calorie reference* : `check x/TYPE k/KEYWORDS`
 
 //.
 
 * *Diary - switch to Diary Page* : `diary`
-* *Diary - add a diary* : `addDiary d/DATE dc/DIARYCONTENT`
-* *Diary - edit a diary* : `editDiary d/DATE dc/DIARYCONTENT`
+* *Diary - add a diary* : `addDiary d/DATE dc/CONTENT`
+* *Diary - edit a diary* : `editDiary d/DATE dc/CONTENT`
 * *Diary - delete a diary* : `deleteDiary d/DATE`
-* *Diary - find a diary* : `findDiary [d/DATE] [dc/DIARYCONTENT]`
+* *Diary - find a diary* : `findDiary [d/DATE] [k/KEYWORDS]`
 * *Diary - clear all diaries* : `clearDiary`
 
 //.
