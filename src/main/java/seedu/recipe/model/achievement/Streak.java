@@ -46,6 +46,7 @@ public class Streak {
                         currStreakTemp++;
                     } else if (days > 1) { //end iteration of current streak
                         stillStreak = false;
+                        currHighScore = 1; //start new streak
                     } //if day <0 continue streak without streak increase
                     finalHigh = currStreakTemp;
                     currDate = records.get(index).getDate();
@@ -55,6 +56,10 @@ public class Streak {
                     if (days <= 1) { //curr streak continues
                         if (days == 1) {
                             currHighScore++;
+                        } else {
+                            if (currHighScore == 0) { //score not updated for the day yet
+                                currHighScore++;
+                            }
                         }
                     } else { //days > 1
                         currHighScore = 0; //reset currentHighScore
