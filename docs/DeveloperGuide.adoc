@@ -174,6 +174,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::aaron-choo[]
+
 === Command History --- Aaron Choo
 
 This feature serves to improve the user experience by allowing users to browse and retrieve their previously entered commands using the kbd:[&uarr;] and kbd:[&darr;] arrow keys, similar to what most modern CLIs offer.
@@ -250,7 +252,7 @@ In choosing the maximum size of the command history, we have to take note of som
 
 Ultimately, we felt that 100 is a very generous estimate given that a user really only needs the past few commands at any point of time.
 
-=== Command Autocompletion --- Aaron Choo
+=== Command Autocomplete --- Aaron Choo
 
 Similar to the previously mentioned <<Command History --- Aaron Choo, Command History>> feature, this feature also serves to improve the user experience by allowing users to press the kbd:[Tab] key to autocomplete their partially entered commands.
 
@@ -308,9 +310,9 @@ Now, let us discuss about how we implemented `Trie` to support the <<command-his
 . If the argument `word` is ambiguous: the `Node` whose constructed word is the longest common prefix of all words similar to `word` contained in `Trie`
 
 [TIP]
-Refer to <<autocomplete-activity-diagram>> given in the next section for the complete sequences of decision.
+Refer to <<autocomplete-activity-diagram>> given in the next section for the complete sequence of the key decisions.
 
-Let us move on to `Trie#listAllSimilarWords` which contains the main driver logic, and which makes use of the `Node` found by `Trie#getLongestPrefixNode`. Cases 1 and 2 discussed above are relatively trivial and we shall not discuss about how they are handled in `Trie#listAllSimilarWords`. For case 3, in order for us to find all the similar words, we have chosen to use a Depth-First Search (DFS) approach, starting the search from the `Node` returned by `Trie#getLongestPrefixNode`, as shown here:
+Let us move on to `Trie#listAllSimilarWords` which makes use of the `Node` found by `Trie#getLongestPrefixNode`. Cases 1 and 2 discussed above are relatively trivial and we shall not discuss about how they are handled in `Trie#listAllSimilarWords`. For case 3, in order for us to find all the similar words, we have chosen to use a Depth-First Search (DFS) approach, starting the search from the `Node` returned by `Trie#getLongestPrefixNode`, as shown here:
 
 ```java
 Node subtrie = getLongestPrefixNode(word);
@@ -335,12 +337,12 @@ The choice of a DFS approach as opposed to a Breadth-First Search (BFS) approach
 
 ===== How this feature works
 
-Similar to <<Command History --- Aaron Choo, Command History>> , this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `Autocomplete` directly. A simplified class diagram of the classes involved is shown here:
+Similar to <<Command History --- Aaron Choo, Command History>>, this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `Autocomplete` directly. A simplified class diagram of the classes involved is shown here:
 
 .Simplified Class Diagram for Autocomplete
 image::CommandAutocompleteClassDiagram.png[]
 
-In the following sequence diagram, we follow the execution for when the user tries to autocomplete his partially entered command `gra` (which, in the current application, is an unambiguous command, and will result in the full completion of the `graph` command as well as the prefixes):
+In the following sequence diagram, we follow the execution for when the user tries to autocomplete his partially entered command `gra` (which, in the current application, is an unambiguous command, and will result in the full completion of the `graph` command as well as its prefixes):
 
 .Simplified Sequence Diagram for Command Autocomplete
 image::CommandAutocompleteSequenceDiagram.png[]
@@ -350,13 +352,15 @@ image::CommandAutocompleteSequenceDiagram.png[]
 .Sequence Diagram for the Autocomplete#execute Method
 image::CommandAutocompleteSequenceDiagramRef.png[]
 
-Within the `execute` method, `Autocomplete` calls the `listAllSimilarWords` method from `Trie` with the user input text. `Trie`, which would already have all the commands stored, finds the longest prefix node, calls the `constructWord` method from this node, and checks if this node represents the end of a completed word. `Trie` then creates a `SimilarWordsResult` object to store these information and returns it to `Autocomplete`. Then, `Autocomplete` retrieves these information, realises that it is dealing with an unambiguous command, and constructs the corresponding prefixes. It then creates a `AutocompleteResult` object to store all the information that `CommandBox` requires, and finally returns this object to `CommandBox`.
+Within the `execute` method, `Autocomplete` calls the `listAllSimilarWords` method from `Trie` with the user input text. `Trie`, which would already have all the commands stored, finds the longest prefix node, calls the `constructWord` method from this node, and checks if this node represents the end of a completed word. Since it is indeed a completed word, `Trie` immediately creates a `SimilarWordsResult` object to store these information and returns it to `Autocomplete`. Then, `Autocomplete` retrieves these information, realises that it is dealing with an unambiguous command, and constructs the corresponding prefixes. It then creates a `AutocompleteResult` object to store all the information that `CommandBox` requires, and finally returns this object to `CommandBox`.
 
-This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to enable <<command-history-behaviour-4, behaviour 4>> as defined above: by simply checking for the presence of white spaces from the trimmed user input. The following activity diagram is given to show the decisions starting from the point where the user presses kbd:[Tab]:
+Lastly, in order to explain the key decisions that this feature does at each step starting from the point where the user presses kbd:[Tab], we have provided the following activity diagram:
 
 [[autocomplete-activity-diagram]]
 .Activity Diagram for the Autocomplete Logic
 image::CommandAutocompleteActivityDiagram.png[]
+
+This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to allow users to press kbd:[Tab] to get to the next prefix (<<command-history-behaviour-4, behaviour 4>>): by simply checking for the presence of white spaces from the trimmed user input.
 
 ==== Design Considerations
 
@@ -384,6 +388,8 @@ As such, the choice of implementing our own Trie data structure is obvious. As t
 Exchanging some initial development time for future scalability of our app will ensure that we, or future developers, do not end up wasting time refactoring what could have been done in the first place. Moreover, the Trie data structure is much more effective and computationally inexpensive in finding the longest common prefix of all ambiguous commands. The same cannot be said when using a List.
 
 Also, since we have implemented our own Trie data structure, it would also allow more custom logic to be added later, and allow more creative freedom with respect to the features that we, or future developers would want to add. For example, future version of this application might want to also include the autocompletion of frequently used parameters by the user.
+
+// end::aaron-choo[]
 
 === Scheduling for a Client --- Ng Ming Liang
 This feature allows for a user to assign a weekly schedule to a client. Timings are represented in the 24-hour format `HHmm`. Each client can have none or multiple schedules that do not have overlapping timings. Multiple clients are allowed to have overlapping timings with each other.

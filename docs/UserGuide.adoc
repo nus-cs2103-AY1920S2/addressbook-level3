@@ -16,6 +16,7 @@ endif::[]
 
 By: `CS2103T-F11-2` Since: `Feb 2020` Licence: `MIT`
 
+[[overview]]
 == Overview
 
 === About FitBiz
@@ -31,10 +32,12 @@ This User Guide explains how to use FitBiz, as well as provides an understanding
 In this guide, we cover:
 
 * How to navigate the Graphical User Interface (GUI)
+* How to use the Command Line Interface (CLI)
 * Syntax of the commands available in FitBiz
 * Common use cases for each command
 * Common problems encountered by users
 
+[[understanding-the-gui]]
 === Understanding the Graphical User Interface (GUI)
 
 When you first launch FitBiz, you will be greeted by the GUI. In this section, we shall learn about what each section of this GUI is responsible for.
@@ -56,13 +59,16 @@ image::Ui-annotated.png[]
 [TIP]
 If this is your first time using FitBiz and you have just started up the application, you may realise that the *Client View* section is missing. This is because you are currently not viewing a client. Refer to <<view-c-command>> for more information about what you need to do.
 
+// tag::understanding-the-cli[]
+[[understanding-the-cli]]
 === Understanding the Command Line Interface (CLI) --- Aaron Choo
 
-Even though FitBiz comes with a GUI, it is mainly used to display data. Most of the user interaction occurs via the CLI, which in FitBiz is comprised of the *Command Box* and *Result Box*. We understand that CLIs have higher barriers of entry and may scare some inexperienced users away. As such, we have provided some features common to most modern CLIs to make your user experience with FitBiz much better. In this section, we shall look at the **Command History** and the **Command Autocomplete** feature, and learn how to effectively utilise them.
+Even though FitBiz comes with a GUI, it is mainly used to display data. Most of the user interaction occurs via the CLI, which in FitBiz, is comprised of the *Command Box* and the *Result Box*. We understand that CLIs have higher barriers to entry and may scare some inexperienced users away. As such, we have provided some features common to most modern CLIs to make your user experience with FitBiz much better. In this section, we shall look at the **Command History** and the **Command Autocomplete** feature, and learn how to effectively utilise them.
 
+[[command-history]]
 ==== Command History
 
-Similar to most modern CLIs, users of FitBiz can press the kbd:[&uarr;] and kbd:[&darr;] arrow key to cycle through their previously entered commands. If you have prior experience in using a CLI, feel free to skip this section as this should be second nature to you. If not, here is a quick tutorial on how to use this time saving feature.
+Similar to most modern CLIs, users of FitBiz can press the kbd:[&uarr;] and kbd:[&darr;] arrow keys to cycle through their previously entered commands. If you have prior experience in using a CLI, feel free to skip this section as this should be second nature to you. If not, here is a quick tutorial on how to use this time saving feature.
 
 First, start by typing anything into the *Command Box*. It _need not_ have to be a valid command (like those shown in <<Commands>>). In our example, we chose to type `Hello World`:
 
@@ -76,18 +82,19 @@ image::command-history-unknown-command.png[]
 
 Next, continue entering different commands into the *Command Box*. You can safely ignore all the `Unknown command` prompts for now.
 
-Once you feel like you have entered enough commands into FitBiz, try hitting the kbd:[&uarr;] arrow key several times. You should start to see the history of your entered commands displaying in the *Command Box* in reverse chronological order. If you press the kbd:[&uarr;] arrow key enough times (or simply hold down the key), you would realise that the command in the *Command Box* no longer changes. In our case, it currently displays `Hello World`, our first ever entered command.
+Once you feel like you have entered enough commands into FitBiz, try hitting the kbd:[&uarr;] key several times. You should start to see the history of your entered commands displaying in the *Command Box* in reverse chronological order. If you press the kbd:[&uarr;] key enough times (or simply hold down the key), you would realise that the command in the *Command Box* no longer changes. In our case, it displays `Hello World`, our first ever entered command.
 
-Now, you can also see your more recent commands by pressing the kbd:[&darr;] arrow key. Again, if you press it enough times, you would realise that the *Command Box* will display nothing (right after displaying your most recent command). This means that you have reached the end of your command history.
+Likewise, you can also see your more recent commands by pressing the kbd:[&darr;] key. Again, if you press it enough times, you would realise that the text from the *Command Box* disappeares (right after displaying your most recent command). This means that you have reached the end of your command history.
 
 [TIP]
-If you are not currently browsing the history, you can press the kbd:[&darr;] arrow key to immediately clear what you are currently typing in the *Command Box*.
+If you are not currently browsing the history, you can press the kbd:[&darr;] key to immediately clear what you are currently typing in the *Command Box*.
 
-==== Command Autocompletion
+[[command-autocomplete]]
+==== Command Autocomplete
 
-Again, similar to most modern CLIs, users of FitBiz can press the kbd:[Tab] key to autocomplete commands that they have partially typed. If the partially typed letters uniquely identifies a valid command in FitBiz (see <<Commands>>), the complete command will automatically appear in the Command Box. Otherwise, a list of all commands similar to the ambiguous letters will appear in the *Result Box*.
+Again, similar to most modern CLIs, users of FitBiz can press the kbd:[Tab] key to autocomplete commands that they have partially typed. If the partially typed letters uniquely identifies a valid command in FitBiz (see <<Commands>>), the complete command will automatically appear in the *Command Box*. Otherwise, a list of all commands similar to the ambiguous letters will appear in the *Result Box*.
 
-Also, we understand that some of FitBiz's commands may be very long and diffcult to remember. In order to remedy this, we have also provided *autocompletion of parameter prefixes*, as well as the ability to *use tab to easily get to the next prefix*.
+Also, we understand that some of FitBiz's commands may be particularly long and diffcult to remember. In order to remedy this, we have also provided *autocompletion of parameter prefixes* for some commands, as well as the *use of kbd:[Tab] to easily get to the next prefix*.
 
 To see this feature in action, type `add-c` into the *Command Box* and press kbd:[Tab]:
 
@@ -95,9 +102,9 @@ image::autocomplete-1.png[]
 
 Immediately, you should have noticed three things:
 
-. All the parameter prefixes pertaining to the `add-c` command should have been automatically completed for you
-. Your caret should be placed right after the `n/` for you to type your parameter
-. The **Result Box** shows you the usage of the command that have just been autocompleted
+. All the parameter prefixes pertaining to the `add-c` command have been automatically completed for you
+. Your caret is placed right after the `n/` for you to type your parameter
+. The **Result Box** shows you the usage of the `add-c` command
 
 Now, you can also press the kbd:[Tab] key repeatedly to go to the next parameter prefix, instead of wasting time using your mouse.
 
@@ -110,19 +117,23 @@ To autocomplete the parameter prefixes like in the first example above, you woul
 [NOTE]
 The autocompletion of the parameter prefixes are only for these commands: `add-c`, `add-e`, `filter-c`, `graph`, and `schedule`. Autocompletion of prefixes for edit commands are not included as we understand that most likely than not, users would only choose to edit one field at a time.
 
+// end::understanding-the-cli[]
+
 == Quick Start
 
 . Ensure you have Java 11 or above installed in your Computer
 . Download the latest `FitBiz.jar` link:{repoURL}/releases[here]
-. Copy the file to the folder you want to use as the home folder for your Fitness Manager
-. Double-click the file to start the app. The GUI should appear in a few seconds
-. Type the command in the command box and press kbd:[Enter] to execute it. e.g. typing `help` and pressing kbd:[Enter] will open the help window.
-. Some example commands you can try:
-* `list-c` : lists all clients
-* `add-c n/John Doe g/Male p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/24-12-1997 h/170 cw/70 tw/75`
-: adds a client named John Doe to FitBiz
-* `exit` : exits the app
-. Refer to <<Commands>> below for details of each command
+. Move the `FitBiz.jar` file to the folder you want to use as the home folder of this application (to reduce clutter, an empty folder is recommended as files will be generated)
+. Double-click the file to start the app. The following GUI should appear in a few seconds:
++
+image::Ui.png[]
+. Type the command in the *Command Box* and press kbd:[Enter] to execute it
+** For example, executing the `help` command will lead you to this page
+
+====
+* Refer to the <<understanding-the-gui, GUI>> and <<understanding-the-cli, CLI>> guides if you need help navigating this application
+* Refer to <<Commands>> for the details and syntax of each command
+====
 
 == Commands
 
@@ -139,17 +150,7 @@ This section introduces the syntax and the usages of the commands available in F
 
 === View help: `help`
 
-Opens a window with the link to the User Guide. `Currently in v1.3`
-Lists all available commands and a short description of what they do. Specify the command for more detailed explanation. `Coming in v1.4`
-
-Format: `help [c/COMMAND]`
-
-Examples:
-
-* `help`
-** Lists all commands
-* `help add-c`
-** Shows a detailed explanation of the `add-c` command
+Entering `help` into FitBiz will bring you right here! 😬
 
 === List all clients: `list-c`
 
@@ -692,7 +693,9 @@ image::ug-editeDuplicatePart3.png[]
 
 To solve this, we suggest you delete the exercise you want to edit and increment the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact.
 
-=== Delete a client's exercise: `delete-e`
+// tag::delete-e-command[]
+
+=== Delete a client's exercise: `delete-e` --- Aaron Choo
 
 `delete-e` allows you to delete a previously recorded exercise of the client currently in view.
 
@@ -732,7 +735,9 @@ image::delete-e-3.png[]
 If you find that you are unable to execute this command successfully, there are a few things you can check:
 
 . Ensure that you are currently viewing a client using the `view-c` command. If you are indeed viewing a client, the *Client View* should not be empty.
-. Ensure that you actually have exercises to delete and that the `INDEX` specified is correct. If the client does indeed have recorded exercises, the *Exercise List* should not be empty.
+. Ensure that you actually have exercises to delete and that the `INDEX` specified is correct. If the client does indeed have recorded exercises, the *Exercise Table* should not be empty.
+
+// end::delete-e-command[]
 
 === Schedule trainings for a client: `schedule`
 
@@ -753,9 +758,11 @@ Format: `schedule INDEX day/DAY st/STARTTIME et/ENDTIME`
 ** SUN
 * `DAY` is not case-sensitive
 
-=== Export as CSV: `export`
+// tag::export-command[]
+[[export-command]]
+=== Export a client's exercises to CSV format: `export` --- Aaron Choo
 
-`export` allows you to export your client's recorded exercises into a spreadsheet format which you can then easily save or share with your clients. Note that this will create a CSV file, which you can then view and open in other programmes like Microsoft Excel, or Google Sheets (as shown in the example later).
+`export` allows you to export your client's recorded exercises into a spreadsheet format which you can then easily save or share with your clients. Note that this will create a CSV file, which you can view and open in other applications like Microsoft Excel, or Google Sheets (as shown in the example later).
 
 [NOTE]
 This command can only be used when you have a client in view; make sure you know how to view a client first. Refer to <<view-c-command>> for more information.
@@ -771,24 +778,25 @@ This command can only be used when you have a client in view; make sure you know
 . First, ensure that you are currently viewing a client by using the `view-c` command:
 +
 image::export-1.png[]
-. Now, if the client you are viewing currently has recorded exercises, simply enter `export` into the *Command Box*
-. If the success message shows, the file should also have been successfully exported:
+. Now, if the client you are viewing currently has recorded exercises in the *Exercise Table*, simply execute the `export` command
+. The exercises should have been successfully exported, if the following success message is shown:
 +
 image::export-2.png[]
-. Now, simply use your favourite file explorer to locate the `exports` folder, which should be created at the same directory as `FitBiz.jar`. In the `exports` folder, you will then find your exported CSV file:
+. Now, simply use your favourite file explorer to locate the `exports` folder, which should be created in the same directory as `FitBiz.jar`. In the `exports` folder, you will then find your exported CSV file:
 +
 image::export-3.png[]
 . If you have a spreadsheet software (like Microsoft Excel) installed on your computer, you can easily view the CSV file by launching it. In our example, we have https://support.google.com/docs/answer/40608?co=GENIE.Platform%3DDesktop&hl=en[imported it into Google Sheets] instead:
 +
 image::export-4.png[]
 
-
 ==== Common errors/problems
 
 If you find that you are unable to execute this command successfully, there are a few things you can check:
 
 . Ensure that you are currently viewing a client using the `view-c` command. If you are indeed viewing a client, the *Client View* should not be empty.
-. Ensure that you actually do have exercises recorded for the client currently in view using the `add-e` command. If the client does indeed have recorded exercises, the *Exercise List* should not be empty.
+. Ensure that you actually do have exercises recorded for the client currently in view using the `add-e` command. If the client does indeed have recorded exercises, the *Exercise Table* should not be empty.
+
+// end::export-command[]
 
 === Filter clients based on attribute: `filter-c` --- Toh Ker Wei
 
