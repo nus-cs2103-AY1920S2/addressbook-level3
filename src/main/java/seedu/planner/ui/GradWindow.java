@@ -2,6 +2,7 @@ package seedu.planner.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.planner.commons.GraduationRequirementUtil;
@@ -24,6 +25,9 @@ public class GradWindow extends UiPart<Region> {
 
     @FXML
     private Label info;
+
+    @FXML
+    private ScrollPane scrollPaneGraduation;
 
     public GradWindow(ReadOnlyPlanner planner) {
         super(FXML);
@@ -60,5 +64,18 @@ public class GradWindow extends UiPart<Region> {
             return false;
         }
         return false;
+    }
+
+    /**
+     * Set the styles for light theme/dark theme.
+     * @param type
+     */
+    public void changeColor(int type) {
+        if (type == 0) {
+            scrollPaneGraduation.setStyle("-fx-background: #383838");
+        } else {
+            scrollPaneGraduation.setStyle("-fx-background: #606060");
+        }
+
     }
 }
