@@ -19,7 +19,7 @@ public class SortCommand extends Command {
     public static final String DISPLAY_POSSIBLE_FIELDS =
             "1.(r-)priority\n2.(r-)name\n3.(r-)done\n4.(r-)date";
 
-    public static final String MESSAGE_SUCCESS = "TaskList sorted by: %1$s";
+    public static final String MESSAGE_SUCCESS = "TaskList sorted by: %1$s\n";
     public static final String MESSAGE_SORT_UNKNOWN = "No such field to sort by %1$s!";
     public static final String MESSAGE_USAGE =
             String.format(
@@ -73,7 +73,7 @@ public class SortCommand extends Command {
 
         model.setComparator(aggregateComparator, fields[0]);
 
-        String commandFeedback = String.format(MESSAGE_SUCCESS, String.join(" ", fields));
+        String commandFeedback = String.format(MESSAGE_SUCCESS, String.join(", ", fields));
 
         return new CommandResult(commandFeedback);
     }

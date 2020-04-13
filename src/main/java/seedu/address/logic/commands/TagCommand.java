@@ -18,6 +18,6 @@ public class TagCommand extends Command {
         if (tagNames.length == 0) {
             return new CommandResult(MESSAGE_NO_TAGS);
         }
-        return new CommandResult(MESSAGE_SUCCESS + String.join("\n", tagNames));
+        return new CommandResult(MESSAGE_SUCCESS + String.join(",\n", tagNames));
     }
 }
