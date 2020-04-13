@@ -20,15 +20,12 @@ end box
 [-> ExpiringCommand: execute(model, "expiring my/9-2020")
 activate ExpiringCommand
 ExpiringCommand -> ModelManager :updateMonthView()
-deactivate ExpiringCommand
 
 activate ModelManager
 ModelManager -> ObservableMonthView : setValue()
-deactivate ModelManager
 
 activate ObservableMonthView
-ObservableMonthView -> CalendarPane: notify()
-deactivate ObservableMonthView
+ObservableMonthView -> CalendarPane: fireValueChangedEvent()
 
 activate CalendarPane
 CalendarPane -> CalendarPane: fillUpCalendar()
@@ -36,8 +33,19 @@ activate CalendarPane
 
 ref over CalendarPane, DateCell : Set details of DateCell
 CalendarPane --> CalendarPane
-
 deactivate CalendarPane
+
+CalendarPane --> ObservableMonthView
+deactivate CalendarPane
+
+ObservableMonthView --> ModelManager
+deactivate ObservableMonthView
+
+ModelManager --> ExpiringCommand
+deactivate ModelManager
+
+ExpiringCommand -->[ : CommandResult
+deactivate ExpiringCommand
 
 
 @enduml
