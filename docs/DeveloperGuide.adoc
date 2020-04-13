@@ -269,12 +269,8 @@ Two concrete implementations of the `CorrectionEngine` interface are, namely:
 1. `CorrectionEngine` is built as a standalone module that can be used by both <<Implementation-SuggestionEngine,*`SuggestionEngine`*>> and <<Implementation-Parser,*`Parser`*>>. This decision is made so that code duplication in relation to auto-correction is minimal.
 2. Both `CorrectionEngine` and `EditDistanceCalculator` are implemented as interfaces, in an attempt to make the design of the `CorrectionEngine` component resilient to change. This design enables us to leverage on the https://en.wikipedia.org/wiki/Strategy_pattern[strategy pattern] to make our `CorrectionEngine` component more future-proof.
 
-<<<<<<< HEAD
 
 //tag::sugengineimpl[]
-=======
-//tag::suggestionengine[]
->>>>>>> Update ppp
 [[Implementation-SuggestionEngine]]
 === Suggestion Engine
 
@@ -327,8 +323,6 @@ the user the meaning of his command) and the list of `SuggestionItem` into the `
 `responseText` and suggestions immediately to the UI, `SuggestionEngine` will not interfere with the `View` functionality.
 3. `SuggestionArgHandler`, `SuggestionHandler`, `SuggestionGenerator`, `SuggestionItem`, and `SuggestionModel` are
 implemented as interfaces, in an attempt to make the design of the `SuggestionEngine` component resilient to change.
-//end::suggestionengine[]
-
 
 *Aspect 2: Implementation of suggestions generation*
 
@@ -505,12 +499,8 @@ Use case ends.
 particular keyword.
 ** 2a2. Since the empty suggestion conveys that the keyword cannot be found, the user enters a new data.
 
-<<<<<<< HEAD
 Steps 2a1-2a2 are repeated until the data entered is correct. Use case resumes from Step 3.
-=======
-Steps 1a1-1a2 are repeated until the data entered is correct. Use case resumes from Step 3.
 //end::usecasesearch[]
->>>>>>> Add DG contribution
 
 //tag::usecaseopendelete[]
 [discrete]
