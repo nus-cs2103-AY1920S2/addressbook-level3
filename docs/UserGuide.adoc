@@ -389,6 +389,8 @@ Example: `delete m/CS2103T g/` deletes the grade of module CS2103T, as shown in 
 
 .Grade of CS2103T is deleted
 image::DeleteGrade.png[width="790"]
+
+NOTE: Any input after the `g/` tag will be ignored.
 // end::delete[]
 
 // tag::home[]
