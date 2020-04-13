@@ -24,7 +24,6 @@ import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.profile.course.module.personal.Deadline;
-import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
 //@@author chanckben
 
@@ -49,7 +48,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Profile: %1$s";
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
-    public static final String MESSAGE_DELETE_DEADLINE_SUCCESS = "Deleted Deadline: %1$s";
+    public static final String MESSAGE_DELETE_DEADLINE_SUCCESS = "Deleting deadline(s) from module: %1$s";
     public static final String MESSAGE_DELETE_GRADE_SUCCESS = "Deleted grade of module %1$s";
     public static final String MESSAGE_DELETE_DEADLINE_FAILURE = "Unable to delete task: %1$s";
     public static final String MESSAGE_DELETE_PROFILE_FAILURE = "Profile with name %1$s does not exist!";
@@ -189,25 +188,32 @@ public class DeleteCommand extends Command {
 
             // Deleting a deadline/task
             if (deleteDeadlines != null) {
+                String deleteDeadlineSuccessAppendMsg = "";
+                String deleteDeadlineFailureAppendMsg = "";
                 try {
-                    // Check if all deadlines exist first
                     for (Deadline deadline : deleteDeadlines) {
                         if (!profile.getModule(deleteModuleCode).hasDeadline(deadline)) {
-                            throw new DeadlineNotFoundException();
+                            if (deleteDeadlineFailureAppendMsg.equals("")) {
+                                deleteDeadlineFailureAppendMsg += "\nFailed to delete these task(s) "
+                                        + "as they were not added: ";
+                            }
+                            deleteDeadlineFailureAppendMsg += deadline.getDescription() + "; ";
+                        } else {
+                            if (deleteDeadlineSuccessAppendMsg.equals("")) {
+                                deleteDeadlineSuccessAppendMsg += "\nThese task(s) have been deleted: ";
+                            }
+                            deleteDeadlineSuccessAppendMsg += deadline.getDescription() + "; ";
+                            profile.getModule(deleteModuleCode).deleteDeadline(deadline);
+                            profileManager.deleteDeadline(deadline); //delete from observablelist
                         }
-                    }
-
-                    for (Deadline deadline : deleteDeadlines) {
-                        profile.getModule(deleteModuleCode).deleteDeadline(deadline);
-                        profileManager.deleteDeadline(deadline); //delete from observablelist
                     }
 
                 } catch (ModuleNotFoundException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
-                } catch (DeadlineNotFoundException e) {
-                    throw new CommandException(String.format(MESSAGE_DELETE_DEADLINE_FAILURE, deleteDeadlines));
                 }
-                return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadlines), false);
+                String messageDeleteReturnMessage = MESSAGE_DELETE_DEADLINE_SUCCESS
+                        + deleteDeadlineSuccessAppendMsg + deleteDeadlineFailureAppendMsg;
+                return new CommandResult(String.format(messageDeleteReturnMessage, deleteModuleCode), false);
             }
 
             // Delete grade
