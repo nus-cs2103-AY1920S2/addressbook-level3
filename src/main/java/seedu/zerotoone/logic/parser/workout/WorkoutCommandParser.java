@@ -24,12 +24,12 @@ import seedu.zerotoone.logic.parser.workout.exercise.WorkoutExerciseCommandParse
  * Parses user input.
  */
 public class WorkoutCommandParser implements Parser<WorkoutCommand> {
-    private final Logger logger = LogsCenter.getLogger(getClass());
-
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses user input into command for execution.
