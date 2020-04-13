@@ -22,7 +22,7 @@ it is primarily based off of the Address Book 3 application developed by the CS2
 
 === Summary of Contributions
 You can view my code contributions to this project
-https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=mikhailfaiz&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2020-04-09[on RepoSense].
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=mikhailfaiz[on RepoSense].
 
 * *Major Enhancement:* Implemented Journal page of application (with Grant)
 ** What it does: Allow users to view and manipulate the list of journal entries in the application.
