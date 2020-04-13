@@ -177,6 +177,8 @@ one for `Note` and one for `Internship`, `Project`, `Skill` and `Resume`.
 // end::model[]
 { end of `model` section written by: Pham Thuy Duong }
 
+{ start of `storage` section written by: Nguyen Minh Hoang }
+
 // tag::storage[]
 [[Design-Storage]]
 === Storage component
@@ -193,6 +195,9 @@ The `Storage` component,
 * can save the `ResumeBook` data in json format and read it back.
 
 // end::storage[]
+
+{ end of `storage` section written by: Nguyen Minh Hoang }
+
 
 [[Design-Commons]]
 === Common classes
@@ -411,9 +416,14 @@ be switch-cased again in `ABCCommand`.
 
 // end::command-classes[]
 
+
+{ start of `observable-user` section written by: Nguyen Minh Hoang }
+
+// tag::observable-user[]
+
 { end of Implementation of `Command` section written by: Nguyen Chi Hai }
 
-// tag::observableuser[]
+
 === Usage of `Observable` and `Observer`
 ==== Reason for Implementation
 ResuMe inherits a lot of implementations from AddressBook Level 3, one of which is the usage of `ObservableList` that
@@ -443,7 +453,10 @@ not likely to manifest considering the usage scenarios for our application (offl
 We would, however, make it a priority to change the implementation to Alternative 2, since we want to scale up
 our application and it is not recommendable to build it on top of something that is no longer supported.
 
-// end::observableuser[]
+// end::observable-user[]
+
+{ end of `observable-user` section written by: Nguyen Minh Hoang }
+
 
 { start of `me` section written by: Nham Quoc Hung }
 
@@ -750,7 +763,9 @@ extended features (e.g. allow user to choose from a variety of pre-defined resum
 //end::export[]
 { end of `export` section written by: Pham Thuy Duong }
 
-// tag::undoredo[]
+{ start of `undo-redo` section written by: Nguyen Minh Hoang }
+
+// tag::undo-redo[]
 === Undo/Redo feature
 ==== Implementation
 
@@ -770,17 +785,17 @@ Step 1. The user launches the application for the first time. The `VersionedResu
 Do note that all resume books begin with its display type set to an empty string. Display type of a resume book determines which item
 list will be selected for display (e.g. if the display type is "res" - an alias for resume, then the list of all resumes will be selected).
 
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[width="550"]
 
 Step 2. The user executes `delete 5 i/ res` command to delete the 5th resume in the resume book. The `delete` command calls `Model#commitResumeBook()`, causing the modified state of the resume book after the `delete 5 i/ res` command executes to be saved in the `resumeBookStateList`, and the `currentStatePointer` is shifted to the newly inserted resume book state.
 In addition, the display type of the current resume book will be set to resume.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[width="550"]
 
 Step 3. The user executes `add i/ int n/ RESUME Internship ...` to add a new internship. The `add` command also calls `Model#commitResumeBook()`, causing another modified resume book state to be saved into the `resumeBookStateList`. This resume
 book has its display type set to `int` - which is an alias for internship.
 
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[width="550"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitResumeBook()`, so the resume book state will not be saved into the `resumeBookStateList`.
@@ -793,7 +808,7 @@ Note: `resumeBookStateList` stores resume book states as `ReadOnlyResumeBook`, t
 their life cycle. Operations like `Model#commitResumeBook()`, `Model#undoResumeBook()`, and `VersionedResumeBook#setItemsToDisplay()` will not
 change any of these state at all. Immutable state like this is desirable because it gives rise to fewer bugs and fewer unexpected behaviours.
 
-image::UndoRedoState3.png[]
+image::UndoRedoState3.png[width="550"]
 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial resume book state, then there are no previous resume book states to restore. The `undo` command uses `Model#canUndoResumeBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
@@ -815,12 +830,12 @@ Step 5. The user then decides to execute the command `list i/ ski`. Commands tha
 Here we also see how the stored resume book states are immutable. `list i/ ski` causes the display type of the current resume book to switch to skill (whose alias is "ski"),
 while the resume book state pointed to by the `currentStatePointer` still maintains its display type (which is resume).
 
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[width="550"]
 
 Step 6. The user executes `sort i/ ski order/ name`, which calls `Model#commitResumeBook()`. Since the `currentStatePointer` is not pointing at the end of the `resumeBookStateList`, all resume book states after the `currentStatePointer` will be purged.
 We designed it this way because it no longer makes sense to redo the `add i/ int ...` command. This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoState5.png[]
+image::UndoRedoState5.png[width="550"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -868,9 +883,13 @@ A better data structure - like a search tree - can be used in place of a list. I
 change is taken into consideration, then it is desirable to improve search time for a resume book state, from
 worst case linear to worst case logarithmic.
 
-// end::undoredo[]
+// end::undo-redo[]
 
-// tag::dataencryption[]
+{ end of `undo-redo` section written by: Nguyen Minh Hoang }
+
+{ start of `data-encryption` section written by: Nguyen Minh Hoang }
+
+// tag::data-encryption[]
 === [Proposed] Data Encryption
 
 Data encryption can be implemented in the future versions.
@@ -886,7 +905,9 @@ is still present if we store the encryption key in the same machine.
 ** Pros: Data is not bound to one machine and can be restored if the user forgets their credentials. If a DBMS is used then there are additional benefits to storage functionality as well.
 ** Cons: We need to generate access tokens and check them. We also need to change the current implementation to work with external storage.
 
-// end::dataencryption[]
+// end::data-encryption[]
+
+{ end of `data-encryption` section written by: Nguyen Minh Hoang }
 
 === Logging
 

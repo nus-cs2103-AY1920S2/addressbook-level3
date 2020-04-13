@@ -20,18 +20,18 @@ JsonUserPrefsStorage .up.|> UserPrefsStorage
 JsonResumeBookStorage .up.|> ResumeBookStorage
 JsonResumeBookStorage .down.> JsonSerializableResumeBook
 
-JsonSerializableResumeBook .right.> JsonAdaptedPerson
-JsonSerializableResumeBook .down.> JsonAdaptedInternship
-JsonSerializableResumeBook .down.> JsonAdaptedProject
-JsonSerializableResumeBook .down.> JsonAdaptedResume
-JsonSerializableResumeBook .down.> JsonAdaptedSkill
-JsonSerializableResumeBook .down.> JsonAdaptedNote
+JsonSerializableResumeBook o-right- "1" JsonAdaptedPerson
+JsonSerializableResumeBook o-down- "*" JsonAdaptedInternship
+JsonSerializableResumeBook o-down- "*" JsonAdaptedProject
+JsonSerializableResumeBook o-down- "*" JsonAdaptedResume
+JsonSerializableResumeBook o-down- "*" JsonAdaptedSkill
+JsonSerializableResumeBook o-down- "*" JsonAdaptedNote
 
-JsonAdaptedInternship .down.> JsonAdaptedTag
-JsonAdaptedProject .down.> JsonAdaptedTag
-JsonAdaptedResume .down.> JsonAdaptedTag
-JsonAdaptedSkill .down.> JsonAdaptedTag
-JsonAdaptedNote .down.> JsonAdaptedTag
-
+JsonAdaptedInternship *-down- "*" JsonAdaptedTag
+JsonAdaptedProject *-down- "*" JsonAdaptedTag
+JsonAdaptedResume *-down- "*" JsonAdaptedTag
+JsonAdaptedSkill *-down- "*" JsonAdaptedTag
+JsonAdaptedNote *-down- "*" JsonAdaptedTag
+hide field
 @enduml
 

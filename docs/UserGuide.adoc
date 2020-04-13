@@ -521,18 +521,20 @@ correct `index` for deletion. Or just fall back on `undo` if you accidentally de
 to the second `resume` item.
 +
 .List of all resume items
-image::BeforeDeleteResumeList.png[width="790"]
+image::BeforeDeleteResumeList.png[width="700"]
 
 . We delete the 2nd `resume` with `delete 2 i/ res` .
 +
 .Application view after deleting the resume item at index 2
-image::ResumeDelete2.png[width="790"]
+image::ResumeDelete2.png[width="700"]
 
 . We delete the 3rd `skill` with `delete 3 i/ ski` . Do note how it is not a must for the list box to display `skill` items for
 deletion to proceed. After the deletion the list box is set to show `skill` items.
 +
-.Application view after deleting the skill item at index 3
-image::DeleteSkill3.png[width="790"]
+
+.Application view after deleteing the skill item at index 3
+image::DeleteSkill3.png[width="700"]
+
 
 // end::delete[]
 
@@ -561,7 +563,7 @@ just like to type.
 --
 [TIP]
 --
-* <<Modifying the content a resume: `redit`,`redit`>> can be very potent when used in conjunction with
+* `redit` can be very potent when used in conjunction with
 `sort`. Sort internships by latest, then call `redit` with `int/ 1 2 3` to add the three most
 recent internships to a resume. So easy!
 --
@@ -590,18 +592,18 @@ recent internships to a resume. So easy!
 . We sort all `resume` items by their name in ascending order with `sort i/ res order/ name`.
 +
 .List of resume items sorted by name in ascending order
-image::SortResByName.png[width="790"]
+image::SortResByName.png[width="700"]
 
 . We sort all `skill` items in descending level of proficiency with `sort i/ ski order/ level reverse/ true` .
 +
 .List of skill items sorted by level in descending order
-image::SortSkiByLevelReverse.png[width="790"]
+image::SortSkiByLevelReverse.png[width="700"]
 
 . We sort all `internship` by their start date in ascending order with `sort i/ int order/ time reverse/ false`, specifying
 `reverse/` this time because we really like to type.
 +
 .List of all note items sorted by deadline in ascending order
-image::SortIntByTime.png[width="790"]
+image::SortIntByTime.png[width="700"]
 
 // end::sort[]
 
@@ -831,16 +833,16 @@ for instance, using a single `me` command, then `undo` will revert all the chang
 also do a `list i/ proj` to switch to viewing projects because that is how staging for an example works.
 +
 .List of all skill items after deleting "Java"
-image::deleteJava_beforeUndo.png[width="790"]
+image::deleteJava_beforeUndo.png[width="700"]
 +
 .List of all project items
-image::beforeUndo_switchToProj.png[width="790"]
+image::beforeUndo_switchToProj.png[width="700"]
 
 . But Stockholm's syndrome kicks in and we decide that Java has its merits, so we revert our action with `undo`.
 Voila, Java is back, and our list box now displays `skill` items.
 +
 .List of all skill items after undo
-image::postUndo_JavaIsBack.png[width="790"]
+image::postUndo_JavaIsBack.png[width="700"]
 
 // end::undo[]
 
@@ -872,12 +874,12 @@ anymore.
 
 *Example:*
 
-After the Java deletion incidence in the previous example section (for <<Undo a command: `undo`, `undo`>>), we
+After the Java deletion incidence in the previous example section (for `undo`), we
 decide that the merits of Java do not warrant the pain it wreaks so we want to `redo` our original decision to delete
 Java. Once again, Java is removed from our life.
 
 .List of all skill items after redo
-image::redo_success.png[width="790"]
+image::redo_success.png[width="700"]
 
 // end::redo[]
 
