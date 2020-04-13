@@ -15,18 +15,18 @@
 
 == Summary of contributions
 === Major Enhancements:
+* *Added the model for Assignment and the necessary basic commands*
+** *What it does:* The model forms the backbone of most commands which require Assignment and the basic commands allow adding, deleting and editing an assignment
+** *Justification:* Naggy Joel is designed to enable students to keep track of their assignments so that they can make the most out of their university life. As such, this addition is crucial as it would later be involved in some of the future enhancements.
+** *Highlights:* This enhancement requires an understanding of what a typical assignment should consist of so that it does not violate the law of demeter and learning of RegEx.
+** *Credits:* _Referenced the original AddressBook and Person Model_
+
 * *Added the ability to allow users to generate their upcoming schedule*
 ** *What it does:* Generates the user’s schedule for a specified number of day(s) based on their stored uncompleted assignments, their individual deadlines and estimated completion time.
 ** *Justification:* Generally, students will consider outstanding assignments and the estimated amount of time required to complete them before deciding whether they have the time to hang out with friends. However, often times there are just too many assignments and it is difficult to estimate the work hours per day for the next few days at the back of their minds.
 ** *Highlights:*
 *** Each day is colour-coded based on the estimated work hours for the day.
 *** There were many cases to consider to ensure a balanced distribution of work hours to each day while ensuring that the user can still meet all deadlines and not go against the concept of time (i.e. a maximum of 24 hours a day and we cannot rewind time).
-
-* *Added the model for Assignment and the necessary basic commands*
-** *What it does:* The model forms the backbone of most commands which require Assignment and the basic commands allow adding, deleting and editing an assignment
-** *Justification:* Naggy Joel is designed to enable students to keep track of their assignments so that they can make the most out of their university life. As such, this addition is crucial as it would later be involved in some of the future enhancements.
-** *Highlights:* This enhancement requires an understanding of what a typical assignment should consist of so that it does not violate the law of demeter and learning of RegEx.
-** *Credits:* _Referenced the original AddressBook and Person Model_
 
 === Minor Enhancements:
 * *Added the ability to visualise contacts with upcoming birthdays*
