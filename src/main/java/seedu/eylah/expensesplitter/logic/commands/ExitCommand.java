@@ -15,6 +15,6 @@ public class ExitCommand extends Command<SplitterModel> {
 
     @Override
     public CommandResult execute(SplitterModel splitterModel) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false);
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, true, false);
     }
 }
