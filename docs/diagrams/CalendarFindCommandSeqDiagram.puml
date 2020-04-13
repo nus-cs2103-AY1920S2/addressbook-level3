@@ -25,7 +25,7 @@ activate ModelManager
 ModelManager -> FilteredList : setPredicate()
 
 activate FilteredList
-FilteredList -> CalendarPane: notify()
+FilteredList -> CalendarPane
 
 activate CalendarPane
 CalendarPane -> CalendarPane: fillUpCalendar()
