@@ -2,6 +2,7 @@ package fithelper.logic.commands;
 
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
+import static fithelper.model.entry.Type.FOOD;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Set;
@@ -60,7 +61,7 @@ public class CheckCommand extends Command {
         requireNonNull(model);
         String typeValue = checkType.getValue();
         Set<CalorieDatum> result;
-        if ("food".equals(typeValue)) {
+        if (FOOD.equals(typeValue)) {
             result = model.searchFoodCalorieTable(keywords);
         } else {
             result = model.searchSportsCalorieTable(keywords);

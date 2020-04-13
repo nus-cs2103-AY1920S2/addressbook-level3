@@ -7,6 +7,7 @@ import static fithelper.logic.commands.CommandTestUtil.CAL_ACRONYM;
 import static fithelper.logic.commands.CommandTestUtil.DESCENDING;
 import static fithelper.logic.commands.CommandTestUtil.FOOD;
 import static fithelper.logic.commands.CommandTestUtil.FOOD_ACRONYM;
+import static fithelper.logic.commands.CommandTestUtil.INVALID;
 import static fithelper.logic.commands.CommandTestUtil.NAME;
 import static fithelper.logic.commands.CommandTestUtil.NAME_ACRONYM;
 import static fithelper.logic.commands.CommandTestUtil.SPORTS;
@@ -52,14 +53,17 @@ public class SortCommandParserTest {
     @Test
     public void parseAllFieldsPresentSuccess() {
         // order of input varies, types are specified in full name or acronym
-        assertParseSuccess(parser, WHITE_SPACE + PREFIX_SORT_BY + TIME + WHITE_SPACE
-                        + PREFIX_TYPE + SPORTS_ACRONYM + WHITE_SPACE + PREFIX_SORT_ORDER + DESCENDING,
+        assertParseSuccess(parser, WHITE_SPACE + PREFIX_SORT_BY + TIME
+                        + WHITE_SPACE + PREFIX_TYPE + SPORTS_ACRONYM
+                        + WHITE_SPACE + PREFIX_SORT_ORDER + DESCENDING,
                 new SortCommand(new Type(SPORTS), new SortBy(TIME), false));
-        assertParseSuccess(parser, WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING + WHITE_SPACE
-                        + PREFIX_TYPE + FOOD + WHITE_SPACE + PREFIX_SORT_BY + CALORIE,
+        assertParseSuccess(parser, WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING
+                        + WHITE_SPACE + PREFIX_TYPE + FOOD
+                        + WHITE_SPACE + PREFIX_SORT_BY + CALORIE,
                 new SortCommand(new Type(FOOD), new SortBy(CALORIE), true));
-        assertParseSuccess(parser, WHITE_SPACE + PREFIX_TYPE + SPORTS + WHITE_SPACE
-                        + PREFIX_SORT_BY + NAME + WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING,
+        assertParseSuccess(parser, WHITE_SPACE + PREFIX_TYPE + SPORTS
+                        + WHITE_SPACE + PREFIX_SORT_BY + NAME
+                        + WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING,
                 new SortCommand(new Type(SPORTS), new SortBy(NAME), true));
     }
 
@@ -67,25 +71,27 @@ public class SortCommandParserTest {
     public void parseNoSortByFieldFailure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE);
 
-        assertParseFailure(parser, WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING + WHITE_SPACE
-                + PREFIX_TYPE + FOOD + WHITE_SPACE, expectedMessage);
+        assertParseFailure(parser, WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING
+                + WHITE_SPACE + PREFIX_TYPE + FOOD, expectedMessage);
         assertParseFailure(parser, WHITE_SPACE, expectedMessage);
     }
 
     @Test
     public void parseInvalidFieldValuesFailure() {
         // invalid sort by category
-        assertParseFailure(parser, WHITE_SPACE + PREFIX_TYPE + SPORTS + WHITE_SPACE + PREFIX_SORT_BY
-                + "location" + WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING, SortBy.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, WHITE_SPACE + PREFIX_TYPE + SPORTS
+                + WHITE_SPACE + PREFIX_SORT_BY + INVALID
+                + WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING, SortBy.MESSAGE_CONSTRAINTS);
 
         // invalid type
-        assertParseFailure(parser, WHITE_SPACE + PREFIX_TYPE + "entry" + WHITE_SPACE + PREFIX_SORT_BY
-                + CAL_ACRONYM + WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING, Type.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, WHITE_SPACE + PREFIX_TYPE + INVALID
+                + WHITE_SPACE + PREFIX_SORT_BY + CAL_ACRONYM
+                + WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING, Type.MESSAGE_CONSTRAINTS);
 
         // invalid sorting order
-        assertParseFailure(parser, WHITE_SPACE + PREFIX_TYPE + FOOD_ACRONYM + WHITE_SPACE + PREFIX_SORT_BY
-                        + CAL_ACRONYM + WHITE_SPACE + PREFIX_SORT_ORDER + "up",
-                "Sort order can only be ascending (a) or descending (d)");
+        assertParseFailure(parser, WHITE_SPACE + PREFIX_TYPE + FOOD_ACRONYM
+                        + WHITE_SPACE + PREFIX_SORT_BY + CAL_ACRONYM
+                        + WHITE_SPACE + PREFIX_SORT_ORDER + INVALID, SortCommand.SORT_ORDER_CONSTRAINT);
     }
 
     @Test
@@ -94,20 +100,26 @@ public class SortCommandParserTest {
 
         // duplicate sort by category
         assertParseSuccess(parser, WHITE_SPACE + PREFIX_SORT_BY + CAL_ACRONYM
-                        + WHITE_SPACE + PREFIX_SORT_BY + TIME + WHITE_SPACE + PREFIX_SORT_BY + NAME_ACRONYM
-                        + WHITE_SPACE + PREFIX_TYPE + SPORTS_ACRONYM + WHITE_SPACE + PREFIX_SORT_ORDER + DESCENDING,
+                        + WHITE_SPACE + PREFIX_SORT_BY + TIME
+                        + WHITE_SPACE + PREFIX_SORT_BY + NAME_ACRONYM
+                        + WHITE_SPACE + PREFIX_TYPE + SPORTS_ACRONYM
+                        + WHITE_SPACE + PREFIX_SORT_ORDER + DESCENDING,
                 new SortCommand(new Type(SPORTS), new SortBy(NAME), false));
 
         // duplicate sort order
-        assertParseSuccess(parser, WHITE_SPACE + PREFIX_TYPE + FOOD + WHITE_SPACE
-                        + PREFIX_SORT_ORDER + DESCENDING + WHITE_SPACE + PREFIX_SORT_BY + CALORIE + WHITE_SPACE
-                        + PREFIX_SORT_ORDER + ASCENDING + WHITE_SPACE + PREFIX_SORT_ORDER + DESCENDING,
+        assertParseSuccess(parser, WHITE_SPACE + PREFIX_TYPE + FOOD
+                        + WHITE_SPACE + PREFIX_SORT_ORDER + DESCENDING
+                        + WHITE_SPACE + PREFIX_SORT_BY + CALORIE
+                        + WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING
+                        + WHITE_SPACE + PREFIX_SORT_ORDER + DESCENDING,
                 new SortCommand(new Type(FOOD), new SortBy(CALORIE), false));
 
         // duplicate type of list
-        assertParseSuccess(parser, WHITE_SPACE + PREFIX_TYPE + SPORTS + WHITE_SPACE
-                        + PREFIX_SORT_BY + NAME + WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING
-                        + WHITE_SPACE + PREFIX_TYPE + FOOD_ACRONYM + WHITE_SPACE + PREFIX_TYPE + SPORTS_ACRONYM,
+        assertParseSuccess(parser, WHITE_SPACE + PREFIX_TYPE + SPORTS
+                        + WHITE_SPACE + PREFIX_SORT_BY + NAME
+                        + WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING
+                        + WHITE_SPACE + PREFIX_TYPE + FOOD_ACRONYM
+                        + WHITE_SPACE + PREFIX_TYPE + SPORTS_ACRONYM,
                 new SortCommand(new Type(SPORTS), new SortBy(NAME), true));
     }
 }

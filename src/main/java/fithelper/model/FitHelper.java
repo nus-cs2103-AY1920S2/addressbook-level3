@@ -1,9 +1,11 @@
 package fithelper.model;
 
+import static fithelper.model.entry.Type.FOOD;
+import static fithelper.model.entry.Type.SPORTS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -417,12 +419,12 @@ public class FitHelper implements ReadOnlyFitHelper {
      * @return a set of {@code CalorieDatum} with matching keywords.
      */
     public Set<CalorieDatum> addCalorieData(String type, String words) {
-        assert "f".equals(type) || "s".equals(type) : "check type can only be f(food) or s(sports)";
-        Set<CalorieDatum> result = new HashSet<>();
+        assert FOOD.equals(type) || SPORTS.equals(type) : "check type can only be food or sports";
+        Set<CalorieDatum> result = new LinkedHashSet<>();
         Set<? extends CalorieDatum> data;
         String keywords = words.toLowerCase();
         String[] keywordsByWord = keywords.split(" ");
-        if ("f".equals(type)) {
+        if (FOOD.equals(type)) {
             data = foodCalorieTable.getData();
         } else {
             data = sportsCalorieTable.getData();

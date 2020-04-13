@@ -333,14 +333,14 @@ public class ModelStub implements Model {
     }
 
     public void sortFilteredFoodEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
-        throw new AssertionError("This method should not be called.");
+        System.out.println("List sorted.");
     }
 
     public void sortFilteredSportsEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
-        throw new AssertionError("This method should not be called.");
+        System.out.println("List sorted.");
     }
 
     public void sortFilteredEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
-        throw new AssertionError("This method should not be called.");
+        System.out.println("List sorted.");
     }
 }

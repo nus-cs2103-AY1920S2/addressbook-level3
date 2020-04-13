@@ -10,6 +10,8 @@ import static java.util.Objects.requireNonNull;
 public class Type {
 
     public static final String MESSAGE_CONSTRAINTS = "Type can only be food/f or sports/s.";
+    public static final String FOOD = "food";
+    public static final String SPORTS = "sports";
 
     private final String value;
 
