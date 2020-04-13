@@ -119,6 +119,8 @@ image::BuySequenceDiagram.png[]
 
 NOTE: The lifeline for `BuyCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+//tag::model[]
+
 [[Design-Model]]
 === Model component (by Nicholas Cristian Fernando)
 
@@ -167,6 +169,8 @@ A `Transaction` can be either `SellTransaction` or `BuyTransaction`:
 
 .Structure of the TransactionHistory
 image::TransactionModelClassDiagram.png[]
+
+//end::model[]
 
 [[Design-Storage]]
 === Storage component (by Fang Shao Hua)
@@ -1294,6 +1298,8 @@ Use case ends.
 +
 Use case ends.
 
+// tag::undoredousecase[]
+
 === Use case: UC13 - undoing a command
 
 *MSS*
@@ -1333,6 +1339,8 @@ Use case ends.
 ** 2a1. InventoryManager informs the user that it is unable to redo from the latest state.
 +
 Use case ends.
+
+// end::undoredousecase[]
 
 :numbered:
 
