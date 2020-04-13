@@ -714,7 +714,7 @@ The Note will no longer be visible in the sidebar.
 
 .. Prerequisites: The Note selected must not be the root Note. +
 The current opened Note must be the Note you want to edit.
-.. Command: `edit -t Notably` +
+.. Command: `edit` +
 Expected: A edit modal will pop up displaying your Note's content in html format. You can exit and save the Note by
 exiting that modal.
 
