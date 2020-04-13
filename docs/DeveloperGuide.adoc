@@ -1559,29 +1559,29 @@ code, or barcode) (coming in in v2.0)
 [appendix]
 == Glossary
 
-. **Coupon Stash** - the program that makes handling your coupons easier, and
+* **Coupon Stash** - the program that makes handling your coupons easier, and
 also the subject matter of this Developer Guide.
-. **common operating system** - refers to the most widely seen operating
+* **common operating system** - refers to the most widely seen operating
 systems for desktop computers.
-. **Java 11** - the 11th version of the highly popular Java platform and
+* **Java 11** - the 11th version of the highly popular Java platform and
 programming language, on which many software applications are built upon.
-. **lag** - the phenomenon where some arbitrary user input takes a noticeable
+* **lag** - the phenomenon where some arbitrary user input takes a noticeable
 and vexatious amount of time to effect a change in the application state.
-. **monetary amount** - any currency amount (for example, 10.55 may represent
+* **monetary amount** - any currency amount (for example, 10.55 may represent
 10 dollars and 55 cents, or 10 pounds and 55 pence, or 10 pesos and 55
 centavos).
-. **operating system** - a fundamental software application that runs on a
+* **operating system** - a fundamental software application that runs on a
 computer, supporting basic functions such as ability to manage computer memory,
 to allow users to use the device without concern for such technical details.
-. **OS (Operating System)** - see operating system.
-. **promo code** - short for promotional code, usually refer to an unique
+* **OS (Operating System)** - see operating system.
+* **promo code** - short for promotional code, usually refer to an unique
 string of letters and numbers that can be entered in some mobile application to
 redeem certain benefits.
-. **SoC (School of Computing)** - the School of Computing at the National
+* **SoC (School of Computing)** - the School of Computing at the National
 University of Singapore.
-. **source code** - a set of instructions, written in a programming language
+* **source code** - a set of instructions, written in a programming language
 that determine the final application’s internal and external behaviour.
-. **UI (User Interface)** - a catch-all term referring to how a computer system
+* **UI (User Interface)** - a catch-all term referring to how a computer system
 and a coupon interacts, usually referring to specific elements displayed on the
 computer screen that the user may interact with such as buttons or text boxes,
 as well as areas where the computer application displays certain outputs to the
