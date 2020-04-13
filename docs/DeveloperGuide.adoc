@@ -153,7 +153,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-tag::schedule[]
+//tag::schedule[]
 
 === Schoolwork Tracker
 [.text-justify]
@@ -261,7 +261,7 @@ _Fig 9. Sequence Diagram showing how the workload of an assignment is distribute
 From *Fig 9* above, assignments due on query date are handled differently from those that are not.
 
 * If the `Assignment` is *due* on the query date: The amount of time that can be allocated to the assignment will be capped at the amount of time available before the `Deadline`.
-* If the `Assignment` is *not due* on the query date: `Workload` will be allocated in an incrementally.
+* If the `Assignment` is *not due* on the query date: `Workload` will be distributed incrementally.
 ** Between query date and deadline (both exclusive): Available time is capped at 24 hours.
 ** Query date: Available time is capped at the amount of time left in the day.
 ** Deadline: Available time is capped at the amount of time before the assignment is due.
@@ -278,7 +278,7 @@ image::getUi.png[align="center"]
 _Fig 10. Sequence Diagram showing how the generated schedule is retrieved_
 
 [.text-justify]
-*Step 4*: Based on the results, the user can decide on how to best schedule his outing.
+*Step 4*: Based on the results, the user can then decide on how to best schedule his outing.
 
 ==== Design Considerations
 ===== Aspect: Distribution of estimated work hours for each assignment
@@ -303,7 +303,7 @@ _Fig 10. Sequence Diagram showing how the generated schedule is retrieved_
 ** Pros: Easier to handle and more accurate comparisons can be made as compared to when floats are used as floating point arithmetic is not exact.
 ** Cons: A lot of unnecessary ‘loss’ in allocated and available time due to rounding errors.
 
-end::schedule[]
+//end::schedule[]
 
 // tag::get[]
 === Detailed Contact Viewer
