@@ -129,7 +129,7 @@ The Root simply serves as a way for Notably to hierarchically organise your note
 visible to you while you are using the application.
 
 [WARNING]
-You cannot open or delete the root note. e.g `Delete /../` is invalid. An error message will be displayed to
+You cannot delete the root note. e.g `Delete ../..` is invalid. An error message will be displayed to
 remind you of this.
 // end::paths[]
 ====
@@ -458,6 +458,8 @@ Variations of path with `../` (e.g. `open ../`, `open Note/../Note`, etc.) will 
 Currently, typing `open ../` will generate a response text of `Open a note titled "../"` instead of `Open a parent note`.
 // end::suggestions[]
 
+// tag::correction[]
+
 === Auto correction
 
 Notably will try its best to correct your mistypes automatically, as long as your mistyped inputs are not too far away from the understood commands. This provides you with a more fluid typing experience!
@@ -479,6 +481,7 @@ After corrections are done, a list of suggestions will be generated as if the us
 .Demo for the auto correction feature
 image::demo/Correction.png[]
 
+// end::correction[]
 
 //tag::responsetext[]
 === Response text
@@ -498,7 +501,8 @@ below.
 image::demo/ResponseText2.png[]
 //end::responsetext[]
 
-[[Markdown]]
+// tag::markdown[]
+
 === Markdown (GitHub Flavored Markdown)
 
 [NOTE]
@@ -565,6 +569,7 @@ In our v2.0 release, we'll be supporting the following additional Markdown synta
 ~~This text will get a strikethrough treatment~~
 ----
 
+// end::markdown[]
 
 === Sidebar
 The sidebar is where you can see your notes in a neatly organised way, reminiscent of a file browser in an Operating System. +

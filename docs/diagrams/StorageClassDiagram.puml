@@ -18,6 +18,6 @@ StorageManager o--> BlockStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonBlockStorage .left.|> BlockStorage
-JsonBlockStorage .down.> JsonSerializableBlockStorage
-JsonSerializableBlockStorage .right.> JsonSerializableBlock
+JsonBlockStorage .down.> JsonSerializableBlockModel
+JsonSerializableBlockModel .right.> JsonAdaptedBlockTreeItem
 @enduml
