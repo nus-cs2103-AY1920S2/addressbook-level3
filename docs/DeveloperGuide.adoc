@@ -457,7 +457,7 @@ observable month view.
 ** Cons: Messy to look at when there are multiple coupons expiring on a date & may take up more space on the
 `MainWindow`
 
-Decided on alternative 1, to show coupons expiring on specific dates with highlights. This is because a coupon contains
+We decided on alternative 1, to show coupons expiring on specific dates with highlights. This is because a coupon contains
 many information and the calendar may look cluttered and messy, which may be aesthetically unpleasant to the user.
 Furthermore, the user can use the `expiring` command to search for coupons expiring on a date or month year and have a
 more detailed view of the coupons in the `CouponListPanel`.
@@ -472,9 +472,10 @@ more detailed view of the coupons in the `CouponListPanel`.
 ** Cons: User may be confused if he/she sees a highlighted date on the Calendar when there is no coupon expiring on that
 date in the `CouponListPanel`
 
-Decided on alternative 1, for the calendar to update with the list in the `CouponListPanel`. This is because this
+We decided on alternative 1, for the calendar to update with the list in the `CouponListPanel`. This is because this
 follows the Observer Pattern Design Principle. Furthermore, this will not confuse the user when the user sees a
 highlighted date on the Calendar when there is no coupon expiring on that date in the `CouponListPanel`.
+
 // end::calendar[]
 
 
@@ -539,7 +540,6 @@ predicate `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS`.
 .Sequence diagram representation of archiving expired coupons
 image::ArchiveExpiredSequenceDiagram.png[]
 
-
 **Archiving of Exhausted Coupons**
 
 Coupons that have exhausted its usages will be automatically archived by the
@@ -568,8 +568,6 @@ this method, the current `FilteredList` will be updated to show active
 [#img-archiveexhausted]
 .Sequence diagram representation of archiving exhausted coupons
 image::ArchiveExhaustedSequenceDiagram.png[]
-// end::archiving[]
-
 
 ==== Design Considerations
 
@@ -585,6 +583,16 @@ application.
 to limit the functions on archived `Coupon` s
 ** Cons: Sharply increases the maintainability and coupling of the application
 with two data files.
+
+Alternative 1 was chosen, due the the cons of Alternative 2. While a separate
+file is akin to having two separate stashes of coupons, this would increase
+the overall complexity of the application. `Logic` and `Model` would have to
+deal with another set of data, and `Commands` may have to split up the logic
+for different data sets. Furthermore, while saved data will be larger for
+Alternative 1, it should only affect the performance of starting Coupon Stash
+up, since most of the interactions with the program is with active coupons.
+// end::archiving[]
+
 
 // tag::updownarrowcommandhistory[]
 === Up/down arrow retrieve command history
@@ -1609,14 +1617,10 @@ testers are expected to do more _exploratory_ testing.
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample coupons.
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different
-location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Head over to your local Command Line Interface (CLI), and change to the
+directory where the jar file was saved.
+.. Type `java - jar CouponStash.jar` in the CLI. +
+Expected: Shows the GUI with a set of sample coupons.
 
 === Adding a coupon
 
@@ -1627,12 +1631,21 @@ Expected: Coupon Popular Bookstore is added to the list. `Start Date` is set to
 the `system's date`, while the Remind Date is set to 3 days before the specified
 `Expiry Date`. In this case, it would be 28-12-2020.
 
+=== Listing coupons
+. List different type of coupons
+.. Test case: `list` +
+Expected: All active coupons are displayed on the list.
+.. Test case: `list a/` +
+Expected: All archived coupons are displayed on the list.
+.. Test case: `list u/` +
+Expected: All previously used coupons are displayed on the list.
+
 === Deleting a coupon
 
 . Deleting a coupon while all coupons are listed
 
-.. Prerequisites: List all coupons using the `list` command. Multiple coupons
-in the list.
+.. Prerequisites: List all coupons using the `list` command. Have at least one
+coupon in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list.
 Details of the deleted contact shown in the status message.
@@ -1640,7 +1653,24 @@ Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No coupon is deleted.
 Error details shown in the status message.
-Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is
-larger than the list size) _{give more}_ +
+larger than the list size) +
    Expected: Similar to previous.
+
+=== Editing a Coupon
+
+. Editing a coupon while all coupons are listed
+
+.. Prerequisites: List all coupons using the `list` command. Have at least one
+coupon in the list.
+.. Test case: `edit 1 p/ILOVESTASH` +
+Expected: The first coupon will have its Promo Code changed to `ILOVESTASH`.
+.. Test case: `edit 1 e/31-12-2021` +
+Expected: The first coupon with have its Expiry Date changed to `31-12-2021`.
+.. Test case: `edit 1 l/0` +
+Expected: The first coupon will now have unlimited usage.
+.. Test case: `edit 1 u/10` +
+Expected: An error message will be thrown, explaining that usage cannot be edited.
+.. Test case: `edit 1 s/$10 s/Water Bottle` +
+Expected: The first coupon will have its savings changed to $10, and include
+a Water Bottle item.
