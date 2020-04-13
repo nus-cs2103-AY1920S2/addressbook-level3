@@ -1,20 +1,38 @@
 @startuml
 start
-:Notification is reqested;
+:User executes filter command;
 
-:Checks if singleton exists;
+:User can call filter command on
+    claims, student or session;
 
-if () then ([singleton exists])
-    :Singleton requests for notification from TrayIcon;
+:Parse and validate the keywords;
 
-else ([singleton does not exist])
-    :Instance of a singleton is created;
+:Respective filter command will be called;
+
+if () then ([filterClaimCommand OR
+filterSessionCommand is called])
+    :User key in keywords;
+    :Create filtering predicate
+    using the keywords specified;
+    :Update the filtered list;
+    :Display the filtered list to the user;
+
+
+else ([filterStudentCommand is called])
+    :User filter via module code
+           and/or group code ;
+
+    if () then ([group code does not exists])
+       :Update the filtered list with students
+        from first group of the module code;
+    else ([group code exists])
+       :Update the filtered list with students
+        from group code and module code;
 
 endif
 :Display the filtered list to the user;
 
 endif
-:Notification is shown to the User;
 
 stop
 @enduml
