@@ -112,7 +112,7 @@ public class SortCommandTest {
         stubList.addTask(taskPriority1);
         expectedModel.setTaskList(stubList);
         assertEquals(
-                String.format(SortCommand.MESSAGE_SUCCESS, String.join(" ", prioritySort)),
+                String.format(SortCommand.MESSAGE_SUCCESS, String.join(", ", prioritySort)),
                 commandResult.getFeedbackToUser());
         assertEquals(expectedModel.getFilteredTaskList(), modelStub.getFilteredTaskList());
     }
