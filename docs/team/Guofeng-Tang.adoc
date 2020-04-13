@@ -18,20 +18,51 @@ ZeroToOne is a desktop application that serves as an all-in-one exercise tracker
 
 ** What it does: allows the user to schedule workout sessions.
 
-** Justification: This feature is essential to the product as it enbale user to make plans of their workout sessions, stick to the plans and finally achieve a life transformation.
+** Justification: this feature is essential to the product as it enbale user to make plans of their workout sessions, stick to the plans and finally achieve a life transformation.
 
-** Highlights: This feature affects efficiency and responsiveness if not implemented correctly. It required careful consideration and analysis of design alternatives. The implementation itself was challenging because it required implementation of a fairly complex model and its storage.
+** Highlights: this feature affects efficiency and responsiveness if not implemented correctly. It required careful consideration and analysis of design alternatives. The implementation itself was challenging because it required implementation of a fairly complex model as well as its storage.
 
-* *Code contributed on RepoSense*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=guofeng-tang&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
+* *Minor enhancement*: Created a DateTime class and its utility functions for team members' usage to standardize datetime formatting across the app and compare different datetime objects easily.
+
+
+
+* *Code contributed on RepoSense*:
+
+** *Overview*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=guofeng-tang&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
+
+** *Functional Code*:
+. https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/logic/commands/schedule[Github Folder] <- Commands
+. https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/logic/parser/schedule[Github Folder] <- Parsers
+. https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/model/schedule[Github Folder] <- Models
+. https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/storage/schedule[Github Folder] <- Storage
+. https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/ui/views/schedule[Github Folder] <- UI
+. https://github.com/Guofeng-Tang/main/tree/master/src/main/resources/view/schedule[Github Folder] <- FXML
+
+** *Tests*:
+. https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/logic/commands/schedule[Github Folder] <- Commands Tests
+. https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/logic/parser/schedule[Github Folder] <- Parsers Tests
+. https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/model/schedule[Github Folder] <- Models Tests
+. https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/storage/schedule[Github Folder] <- Storage Tests
+
+
 
 * *Other contributions*:
+
+** Project management:
+*** Organised and facilitated brainstorming sessions at the inception of the tP.
+*** Proposed and finalized the overall fitness theme of the app and its epic features.
+*** Facilitated delegation of epic features to each team members.
 
 ** Enhancements to existing features:
 *** Help refactor and create modular exercise list application (Pull request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/66[#66])
 *** Enchancement to the GUI of Schedule tab (Pull requests https://github.com/AY1920S2-CS2103T-W16-2/main/pull/221[#221], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/172[#172])
 *** Wrote sufficient tests for scheduler features to increase its code coverage (except UI) to near 100% (Pull requests https://github.com/AY1920S2-CS2103T-W16-2/main/pull/192[#192])
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W16-2/main/pull/103[#103], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/174[#174], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/192[#192]
+*** Total PRs reviewed: https://github.com/AY1920S2-CS2103T-W16-2/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Aguofeng-tang[18+]
+*** I advocated standardized git workflow to my team and regularly helped troubleshoot git related errors for my teammates.
+
 
 
 == Contributions to the User Guide
