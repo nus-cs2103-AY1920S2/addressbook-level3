@@ -27,7 +27,7 @@ Looking for an all-in-one solution to manage your recipe? Look no further!
 *CookBuddy* is an integrated platform fully customized for users with the aim of helping you manage your recipes effectively. The application allows you to keep track of your recipes.
 It looks like you will never have to worry about finding your recipe anymore!
 
-All your recipe information is stored on our simple and clean Graphical User Interface (GUI) and we are optimized for users who are very comfortable with working on the Command Line Interface (CLI).
+CookBuddy uses a graphical user interface (GUI) to display your recipes, while allowing interaction using text, which is optimised for users familiar with the command-line, and are fast typists.
 
 If you are looking for a way to easily manage your recipes and have quick fingers, then CookBuddy is definitely for you!
 
@@ -570,7 +570,7 @@ The following section answers some questions you might have regarding *CookBuddy
 *A*: Download the jar in the other computer and copy the entire data folder over to the same directory. Run CookBuddy and update the preferences.json if necessary.
 
 *Q: Can I edit my data folder of CookBuddy which contains the information regarding my recipes?* +
-*A*: No. Please do not modify the data folder of your CookBuddy. All modifications of the recipes should be done through the `modify`
+*A*: No. Please do not modify the data folder of CookBuddy. All modifications of the recipes should be done through the `modify`
 command only.
 
 *Q: How do I retrieve back all the recipes in CookBuddy if I accidentally reset CookBuddy?* +
