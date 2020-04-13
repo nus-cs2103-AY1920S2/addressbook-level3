@@ -194,6 +194,7 @@ ZeroToOne will stop the workout that is currently in progress, and will stop tra
 Stopped completedExercise: Bench Press at 1 Apr 2020, 10:32:10 AM
 ```
 
+// tag::exercise[]
 === Managing Your Exercises
 The commands in this section allows you to manage your customised exercises in ZeroToOne. These exercises will eventually be the building blocks of a workout.
 
@@ -381,6 +382,7 @@ Deleted Exercise: Deadlift
 NOTE:
 * EXERCISE_ID refers to the index of the exercise in `exercise list`
 ```
+// end::exercise[]
 
 === Managing Your Workouts
 
