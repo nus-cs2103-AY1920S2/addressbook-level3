@@ -9,11 +9,9 @@ Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class XYZPanel
-Class XYZCard
 Class CommandBox
+Class ResultDisplay
+Class XYZPage
 }
 
 package Model <<Rectangle>> {
@@ -24,37 +22,34 @@ package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 }
 
-note "XYZCard & XYZPanel refer to the\nindividual components of FitHelper." as N1
-
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
+
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> XYZPanel
+MainWindow *-down-> XYZPage
 
-XYZPanel -down-> XYZCard
+XYZPage -down-> XYZCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-XYZPanel --|> UiPart
+XYZPage --|> UiPart
 XYZCard --|> UiPart
-HelpWindow -down-|> UiPart
 
 XYZCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-XYZPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
+note "XYZPage represents a several GUI page classes\n located at the `PagePane` placeholder in MainWindow." as N2
+note "XYZCard corresponds to the GUI elements in XYZPage." as N3
 
-XYZPanel .. N1
-XYZCard .. N1
+XYZPage .. N2
+XYZCard .. N3
 MainWindow -[hidden]-|> UiPart
 @enduml
