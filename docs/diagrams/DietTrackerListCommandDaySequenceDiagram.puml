@@ -97,6 +97,6 @@ activate FoodBookStorage
 FoodBookStorage --> LogicManager
 deactivate FoodBookStorage
 
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 @enduml

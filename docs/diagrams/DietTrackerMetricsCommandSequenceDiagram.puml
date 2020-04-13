@@ -77,6 +77,12 @@ activate FoodBookStorage
 FoodBookStorage --> LogicManager
 deactivate FoodBookStorage
 
+LogicManager -> FoodBookStorage : saveMyself(myself)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
 [<--LogicManager : result
 deactivate LogicManager
 @enduml
