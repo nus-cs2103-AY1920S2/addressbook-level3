@@ -49,6 +49,7 @@ public class AssignmentCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         deadline.setText(assignment.getDeadline().toString());
         title.setText(assignment.getTitle().title);
+        title.setWrapText(true);
         status.setText(" " + assignment.getStatus().status + " ");
 
         status.setStyle("-fx-text-fill: #000");
