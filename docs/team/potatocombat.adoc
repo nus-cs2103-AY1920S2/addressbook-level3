@@ -15,26 +15,26 @@ they are teaching in one place.
 
 ==== Summary of contributions
 
-===== Major Enhancement: Syntax Highlighting
-
+* *Major Enhancement: Syntax Highlighting*
++
 This feature highlights the user input whenever it changes in the `CommandBox`. In addition, usage hints will appear in the `ResultDisplay` as the user is typing out a command
-
++
 *Justification:* Since our *target users* are fast typers, this feature helps them to quickly identify and correct their input as they are typing. Furthermore, they will not need to remember how to use the commands, especially those with many parameters.
-
++
 *Highlights:* Implementing this feature was very time-consuming. It required the creation of many utility classes and a decent understanding of _regex patterns_.
 
-===== Major Enhancement: The Student Commands
-
+* *Major Enhancement: The Student Commands*
++
 I created the following three commands: `AddStudentCommand`, `DeleteStudentCommand`, and `EditStudentCommand`
-
++
 *Justification:* Since our *target users* are Teaching Assistants (TAs), these commands allow them to store and update the details of the students that they are teaching.
-
++
 *Highlights:* These commands were challenging to implement because `Student` objects are stored inside `Group` objects, which are in turn stored inside `Module` objects. There were a lot of changes made to our `Model` in order to implement these commands.
 
-===== Minor Enhancement: Student Ratings
-
+* *Minor Enhancement: Student Ratings*
++
 I created the `Rating` model to represent a student's rating from scratch.
-
++
 *Justification:* Since our *target users* are Teaching Assistants (TAs), they may need to rate students as part of their teaching duties.
 
 ==== Code contributed
@@ -112,12 +112,12 @@ https://github.com/AY1920S2-CS2103T-W17-4/main/pull/361[PR #361])
 ===== Tools
 
 * Integrated and managed the following GitHub plugins:
-** _Travis CI_ - to ensure our product builds on Unix platforms.
-** _AppVeyor_ - to ensure our product builds on Windows platforms (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/56[PR #56]).
-** _Coveralls_ - to track the coverage of our team's repository.
-** _Netlify_ - to update the team's website whenever a documentation is changed.
+** _Travis CI_ - to ensure our product builds on Unix platforms
+** _AppVeyor_ - to ensure our product builds on Windows platforms (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/56[PR #56])
+** _Coveralls_ - to track the coverage of our team's repository
+** _Netlify_ - to update the team's website whenever a documentation is changed
 
-* Provided team members with technical support for `git` and `IntelliJ IDE`.
+* Provided team members with technical support for `git` and `IntelliJ IDE`
 
 ==== Contributions to the User Guide
 
