@@ -553,6 +553,7 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+// tag::ManualTesting[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -618,12 +619,21 @@ The current opened Note must be the Note you want to edit.
 Expected: A edit modal will pop up displaying your Note's content in html format. You can exit and save the Note by
 exiting that modal. The
 
+=== Correction feature
 
+[NOTE]
+Correction feature work with every command.
 
-=== Saving data
+. Correct command word in user input.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: There should exist a Note titled Notably.
+.. Command: 'delte [-t] Notably'
+.. Expected: The command is interpreted as a delete command by Notably.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Correct path in user input.
 
-_{ more test cases ... }_
+.. Prerequisites: There should exist a Note titled Notably.
+.. Command: 'delete [-t] Notbly'
+.. Expected: The command is interpreted as a delete command by Notably.
+
+// end::ManualTesting[]
