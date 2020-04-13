@@ -168,12 +168,14 @@ _Fig 1. Class Diagram detailing the main components of the SchoolworkTracker_
 
 === Schedule
 ==== Current Implementation
+
+
+[.text-justify]
+Schedule is facilitated by the `SchoolworkTracker`. This feature enhances the basic form of the `SchoolworkTracker` by allowing users to better visualise their current commitments so that they can better manage their time to pursue social events. This feature aims to distribute `Workload` as evenly as possible while ensuring that the user is able to complete the `Assignment` before the `Deadline`, unless it is impossible (i.e. `Workload` exceeds the amount of time the user has before the `Deadline` after taking into account more urgent assignments). A sample result is shown in *Fig 2* below.
+
 image::scheduleResult.png[align="center"]
 [.text-center]
 _Fig 2. Sample result of the generated schedule_
-
-[.text-justify]
-Schedule is facilitated by the `SchoolworkTracker`. This feature enhances the basic form of the `SchoolworkTracker` by allowing users to better visualise their current commitments so that they can better manage their time to pursue social events. This feature aims to distribute `Workload` as evenly as possible while ensuring that the user is able to complete the `Assignment` before the `Deadline`, unless it is impossible (i.e. `Workload` exceeds the amount of time the user has before the `Deadline` after taking into account more urgent assignments). A sample result is shown in *Fig 2* above.
 
 [.text-justify]
 It utilizes the existing `Assignment` stored in the `SchoolworkTracker` and implements `ScheduleList` which represents the generated schedule.
