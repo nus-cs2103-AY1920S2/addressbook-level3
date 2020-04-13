@@ -212,7 +212,7 @@ This section acts as a summary of the important things to note when using `find-
 | Parameters | Important points to note
 | `KEYWORD` |
 
-* At least one `KEYWORD` must be added.
+* At least one `KEYWORD` must be entered.
 
 * Substitute `KEYWORD` with the names you want to search with +
 
