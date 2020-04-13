@@ -182,6 +182,20 @@ the size of the input string and taking into consideration the average lifespan 
 .Diet Tracker Overall Activity Diagram
 image::DietTrackerActivityDiagram.png[]
 
+** *Drew Sequence Diagrams for various Diet Tracker functions.*
+
+.Diet Tracker Add Command Sequence Diagram
+image::DietTrackerAddCommandSequenceDiagram.png[]
+
+.Diet Tracker Delete Command Sequence Diagram
+image::DietTrackerDeleteCommandSequenceDiagram.png[]
+
+.Diet Tracker Edit Command Sequence Diagram
+image::DietTrackerEditCommandSequenceDiagram.png[]
+
+.Diet Tracker List Command Sequence Diagram
+image::DietTrackerListCommandSequenceDiagram.png[]
+
 ** *Drew Class Diagrams for various Diet Tracker functions.*
 
 .Diet Tracker Add Command Class Diagram
