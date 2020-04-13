@@ -30,7 +30,7 @@ public class RefreshCommand extends Command {
         // show all activities and modules
         model.updateFilteredActivityList(model.PREDICATE_SHOW_ALL_ACTIVITIES);
         model.updateFilteredModuleList(model.PREDICATE_SHOW_ALL_MODULES);
-        model.updateSchedule();
+        //model.updateSchedule();
 
         try {
             // now update all deadlines and events

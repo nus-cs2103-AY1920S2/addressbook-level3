@@ -113,11 +113,12 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::classDiagramModel.png[]
+image::modelDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/nasa/model/Model.java[`Model.java`]
 
@@ -129,6 +130,8 @@ The `Model`,
 * `NasaBook` contain a set of module list stored in `UniqueModuleList`.
 * each `Module` consists of several `Activity`.
 * an `Activity` can be either a `Deadline` or `Event`.
+
+//end::model[]
 
 //tag::modelid[]
 
@@ -210,6 +213,8 @@ image::undoSequenceDiagramV3.png[]
 // end::undoredo[]
 
 // tag::dataencryption[]
+
+// tag::deadlines[]
 === Add Deadlines feature
 
 `Contributed by: kester-ng`
@@ -261,14 +266,14 @@ The design considerations for the classes are shown below:
 `Contributed by:EdmondOng`
 
 Every time a user stores an activity, start date for event will be recorded for `event` and due date for `deadline`.
-Based on user input to repeat the task either weekly, twice weekly or monthly, our application will check whether today's date has passed
+Based on user input to repeat the task either weekly, fortnightly or monthly, our application will check whether today's date has passed
 `due date` or `end date of event`. Once it passed,
 the newly set date will be updated.
 
 ==== Implementation
 By default there will not be any scheduling for any activities. Therefore, user has to enter `repeat-d` or `repeat-e` followed by
 `INDEX` of the activity in the module list, followed by `module code`
-,and set the activity to `0-Cancel, 1-Weekly-, 2-Twice Weekly, 3-Monthly`.
+,and set the activity to `0-Cancel, 1-Weekly-, 2-Fortnightly, 3-Monthly`.
 
 * An example of command line `repeat-d 1 m/CS3233 r/1`.
 
@@ -375,6 +380,8 @@ Below is an example of a user typing in the command "deadline" by for the week a
 . HintWindow displays to show user parameters of deadline and its example.
 // end::hint[]
 
+// tag::calendar[]
+
 === Calendar Export Feature
 This feature allows the current calendar view to be exported as a ics file for other calendars to import.
 Users can choose to either export it to the default ./data filepath or specify their own filepath for the file to be exported to.
@@ -411,6 +418,8 @@ image::ExportCalendarLogicSequenceDiagram.png[]
 
 image::ExportCalendarModelSequenceDiagram.png[]
 
+// end::calendar[]
+
 ==== Design Considerations
 
 The design considerations for the classes are shown below:
@@ -444,6 +453,8 @@ another motivation quote, you can type `quote`.
 . Command result generated will be displayed to the user.
 // end::quote[]
 
+// tag::reminder[]
+
 === Add Reminder Feature (Coming in `v2.0`)
 
 Reminders can be added to activities so that the user can be notified when the activity is going to occur soon.
@@ -472,6 +483,8 @@ For more information regarding the structure of the feature, refer to the class 
 
 image::AddReminderClassDiagram.png[]
 
+//end::reminder[]
+
 === Snooze Reminder Feature (Coming in `v2.0`)
 
 Users can also snooze reminders so that they can get the same reminder at a different time.
@@ -489,6 +502,7 @@ Below is an example of how users can snooze reminders:
 For more information regarding the procedure, please refer to the Activity Diagram below:
 
 image::SnoozeReminderActivityDiagram.png[]
+
 
 === Logging
 
@@ -619,7 +633,9 @@ otherwise)
 *MSS*
 
 1.  NASA prompt user to key in modules taken during the semester on start-up.
-2.  User enters modules taken eg. `add m/ CS2103T CS2106 CS2101`.
+2.  User enters modules taken one by one as per the following eg.
+`add m/CS2103T n/Software engineering`,
+ `add m/CS2106 n/Operating System`, `add m/CS2101 n/Effective Communication for Computing Professionals`.
 3.  NASA confirms and display the modules entered.
 4.  User can start to use the command line.
 +
@@ -628,8 +644,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Add nothing.
-* 1b. Add activities.
+* 2a. Catch errors for prefixes not provided eg, `add CS2106 Software engineering`, `m/` and `n/` is not provided.
 +
 Use case ends.
 
@@ -650,6 +665,7 @@ Use case ends.
 [none]
 * 1a. No such modules.
 * 1b. Prompt user to add the modules not listed.
+* 1c. Due date has already passed.
 +
 Use case ends.
 
@@ -672,6 +688,7 @@ Use case ends.
 [none]
 * 1a. No such modules.
 * 1b. Prompt user to add the modules not listed.
+* 1c. Due date has already passed.
 +
 Use case ends.
 
@@ -682,7 +699,7 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to list activities +
+1.  User requests to list all activities +
 `list`
 2.  NASA will provide a acknowledgement messages
 3.  NASA will display an updated list of all deadlines and events.
@@ -706,6 +723,7 @@ Use case ends.
 [none]
 * 1a. No such module code exists in NASA.
 * 1b. Prompt user to re-enter the correct module code.
+* 1c. Index out of bounds when choosing the activity to edit.
 +
 Use case ends.
 
@@ -749,7 +767,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to repeat a task under CS2103T every week. +
-`repeat m/CS2103T a/task d/1`
+`repeat-d 1 m/CS2103T r/1`
 2.  NASA will provide an acknowledgement message.
 +
 Use case ends.
@@ -759,6 +777,9 @@ Use case ends.
 [none]
 * 1a. Nothing to repeat.
 * 1b. Prompt user no such modules.
+* 1c. Index out of bounds when choosing activity not in the list to edit.
+* 1d. Index out of bounds when choosing repeat type that is < 0 and more than 3.
+`eg. repeat-d -1 m/CS2103T r/4`
 +
 Use case ends.
 
@@ -807,7 +828,7 @@ Use case ends.
 
 1.  User requests for a motivation quote +
 `quote`
-2.  NASA will display a pop-up with a quote.
+2.  NASA will display a pop-up with a quote in the middle of the screen.
 +
 Use case ends.
 
@@ -1066,7 +1087,7 @@ Expected: All activity will be hide, as there is no such activity with the name.
 . Initialise the following data. +
 `add m/CS2030 n/Programming Methodology` +
 `deadline m/CS2030 a/Lab d/20-08-2020 00:00` +
-`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
+`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 02:01 a/CP contest`
 
 . `edit-d` to edit a deadline and `edit-e` to edit an event.
 .. Test case: `edit-d 1 m/CS2030 n/Remember to do checkstyle testing` +
@@ -1090,14 +1111,20 @@ Expected: Module not found error will be displayed.
 Expected: No new field is edited error will be shown.
 
 === Repeat an activity
-. Repeat an activity by weekly `r/1`, twice weekly `r/2` or monthly `r/3`. To cancel `r/0`.
+. Repeat an activity by weekly `r/1`, fortnightly `r/2` or monthly `r/3`. To cancel `r/0`.
 . Initialise the following data. +
 `add m/CS2030 n/Programming Methodology` +
 `deadline m/CS2030 a/Lab d/20-05-2020 00:00` +
 `event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
 
+CAUTION:  You may choose to use a different start date and end date that is relevant to you
+at that point of time during your testing. It is important to choose a short-time difference, eg. 1min to see the effects immediately.
+
 .. Test case: `repeat-d 1 m/CS2030 r/1`
 Expected: Activity will display a "Repeat Weekly" in the module card.
+
+.. Test case: `repeat-d 2 m/CS2030 r/2`
+Expected: Activity will display a "Repeat Fortnightly" in the module card.
 
 .. Test case: `repeat-d 1 m/CS2030 r/0`
 Expected: Activity will cancel the repeat function and text "Repeat" will disappear.
