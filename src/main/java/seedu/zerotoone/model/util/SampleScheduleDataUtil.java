@@ -17,19 +17,19 @@ public class SampleScheduleDataUtil {
         Workout[] workouts = SampleWorkoutDataUtil.getSampleWorkouts();
 
         // Push Day
-        DateTime pushDayDateTime = new DateTime("2020-05-11 13:00");
+        DateTime pushDayDateTime = new DateTime("2020-04-01 13:00");
         WorkoutName pushDayWorkoutName = workouts[SampleWorkoutIndex.PUSH_DAY].getWorkoutName();
-        schedules[0] = new OneTimeSchedule(pushDayWorkoutName, pushDayDateTime);
+        schedules[SampleScheduleIndex.PUSH_DAY] = new OneTimeSchedule(pushDayWorkoutName, pushDayDateTime);
 
         // Pull Day
         DateTime pullDayDateTime = new DateTime("2020-05-05 23:00");
         WorkoutName pullDayWorkoutName = workouts[SampleWorkoutIndex.PULL_DAY].getWorkoutName();
-        schedules[1] = new OneTimeSchedule(pullDayWorkoutName, pullDayDateTime);
+        schedules[SampleScheduleIndex.PULL_DAY] = new OneTimeSchedule(pullDayWorkoutName, pullDayDateTime);
 
         // Legs Day
         DateTime legsDayDateTime = new DateTime("2021-05-15 12:00");
         WorkoutName legsDayWorkoutName = workouts[SampleWorkoutIndex.LEGS_DAY].getWorkoutName();
-        schedules[2] = new OneTimeSchedule(legsDayWorkoutName, legsDayDateTime);
+        schedules[SampleScheduleIndex.LEGS_DAY] = new OneTimeSchedule(legsDayWorkoutName, legsDayDateTime);
         return schedules;
     }
 
@@ -44,7 +44,7 @@ public class SampleScheduleDataUtil {
     /**
      * A convenience class to easily navigate within the array returned by getSampleSchedules()
      */
-    class SampleScheduleIndex {
+    static class SampleScheduleIndex {
         static final int PUSH_DAY = 0;
         static final int PULL_DAY = 1;
         static final int LEGS_DAY = 2;
