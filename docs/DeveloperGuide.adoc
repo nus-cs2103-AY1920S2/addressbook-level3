@@ -210,6 +210,8 @@ image::undoSequenceDiagramV3.png[]
 // end::undoredo[]
 
 // tag::dataencryption[]
+
+// tag::deadlines[]
 === Add Deadlines feature
 
 `Contributed by: kester-ng`
@@ -242,6 +244,8 @@ image::AddDeadlineLogicSequenceDiagram.png[]
 
 image::AddDeadlineModelSequenceDiagram.png[]
 
+// end::deadlines[]
+
 ==== Design Considerations
 
 The design considerations for the classes are shown below:
@@ -255,6 +259,7 @@ The design considerations for the classes are shown below:
 |=======================================================================
 
 ** Choice of design was option 3 as it made all objects separate from one another and allows easy debugging. At the same time, it follows SRP design principle.
+
 
 // tag::automation[]
 === Automation
@@ -388,6 +393,8 @@ current status for each module over the past week.
 
 . The view is switched to the statistics tab to display the overalls statistics for the week.
 
+// tag::calendar[]
+
 === Calendar Export Feature
 This feature allows the current calendar view to be exported as a ics file for other calendars to import.
 Users can choose to either export it to the default ./data filepath or specify their own filepath for the file to be exported to.
@@ -424,6 +431,8 @@ image::ExportCalendarLogicSequenceDiagram.png[]
 
 image::ExportCalendarModelSequenceDiagram.png[]
 
+// end::calendar[]
+
 ==== Design Considerations
 
 The design considerations for the classes are shown below:
@@ -437,6 +446,7 @@ The design considerations for the classes are shown below:
 |=======================================================================
 
 ** Option 3 was chosen as having different classes allowed us to pinpoint the exact error when the ics file was not working as intended. And any extensions or upgrades to iCalendar format can be easily extended from the current code without refactoring a lot. However, drawback is that some calendars do not support `VTODO`.
+
 
 === Chat bot Feature (To be implemented)
 
@@ -477,6 +487,8 @@ another motivation quote, you can type `quote`.
 . Command result generated will be displayed to the user.
 // end::quote[]
 
+// tag::reminder[]
+
 === Add Reminder Feature (Coming in `v2.0`)
 
 Reminders can be added to activities so that the user can be notified when the activity is going to occur soon.
@@ -505,6 +517,8 @@ For more information regarding the structure of the feature, refer to the class 
 
 image::AddReminderClassDiagram.png[]
 
+//end::reminder[]
+
 === Snooze Reminder Feature (Coming in `v2.0`)
 
 Users can also snooze reminders so that they can get the same reminder at a different time.
@@ -522,6 +536,7 @@ Below is an example of how users can snooze reminders:
 For more information regarding the procedure, please refer to the Activity Diagram below:
 
 image::SnoozeReminderActivityDiagram.png[]
+
 
 === Logging
 
