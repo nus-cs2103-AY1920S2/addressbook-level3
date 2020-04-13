@@ -20,6 +20,11 @@ import seedu.address.model.TaskList;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
+// TODO check normal then reverse, no change
+// TODO check sort order when tasklist is set
+// TODO check that sort order is removed when find command is issued
+// TODO check that sort order is maintained after add/edit
+
 public class SortCommandTest {
     private static Task taskPriority1 =
             new TaskBuilder().withName("Task 1").withPriority("1").build();

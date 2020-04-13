@@ -55,7 +55,7 @@ public class TaskList implements ReadOnlyTaskList {
         return sortOrder;
     }
 
-    //// list overwrite operations
+    // list overwrite operations
 
     /**
      * Replaces the contents of the task list with {@code tasks}. {@code tasks} must not contain
@@ -72,7 +72,7 @@ public class TaskList implements ReadOnlyTaskList {
         setTasks(newData.getTaskList());
     }
 
-    //// task-level operations
+    // task-level operations
 
     /** Returns true if a task with the same identity as {@code task} exists in the task list. */
     public boolean hasTask(Task task) {
