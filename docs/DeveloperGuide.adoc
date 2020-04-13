@@ -1637,7 +1637,7 @@ Notification.sendNotification("TA Tracker", "You have a consultation scheduled i
 ```
 On MacOS, the following notification will be triggered.
 
-.Activity Diagram for Notification Singleton
+.An Example TA-Tracker Notification on MacOS
 image::MacOSNotification.png[,500]
 
 ==== Implementation
