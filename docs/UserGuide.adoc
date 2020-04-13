@@ -18,13 +18,39 @@ By: `Team Notably`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-Notably is for those who *prefer to use a desktop app for managing notes*. More importantly, Notably is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
+Notably is for those who *prefer to use a desktop app for managing notes*. More importantly, Notably is *optimized
+for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User
+Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
 
 === An Introduction to Notably
-The image shown below highlights the different sections of Notably's user interface:
+The following 3 diagrams (<<Legends1, Figure 1>>, <<Legends2, Figure 2>>, <<Legends3, Figure 3>>) highlight key
+sections of Notably's user interface. Refer to the description below each diagram for more information.
 
+[[LegendsOpened]]
+[[Legends1]]
 .Notably GUI legends
-image::Legends.png[width="900"]
+image::Legends1.png[width="800"]
+
+. As shown in the top-left hand corner of the diagram above, Notably's Sidebar allows you to systematically organise your notes
+in a hierarchical manner.
+. As shown in the centre of the diagram above, Notably allows you to view the content of your notes in a structured way.
+. As shown in the top-centre of the diagram above, you can interact with Notably by typing certain commands.
+
+[[Legends2]]
+.Notably GUI legends (continued)
+image::Legends2.png[width="800"]
+
+. As highlighted in diagram above, Notably's response text provides you with constant feedback and guidance with
+every keystroke.
+. Notably helps you to find what you're looking for by intelligently providing you with a list of suggestions.
+
+[[Legends3]]
+.Notably GUI legends (continued)
+image::Legends3.png[width="800"]
+
+. As shown in the diagram above, Notably allows you to edit and customise your notes in a fuss free manner.
+
+[[LegendsClosed]]
 
 === Symbols used in this guide
 [NOTE]
@@ -59,7 +85,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * `Paths` are used to specify the location of a note you want the `Command` to be pointed at.
 * There are 2 types of  `Path` namely:
-- AbsolutePath (which takes reference from the root)
+- AbsolutePath (which takes reference from the root, as shown in <<PathExample1, Figure 2>> below)
 - RelativePath (which takes reference from the current note)
 
 [NOTE]
@@ -87,9 +113,9 @@ Listed below are the notations used to define a `RelativePath`.
 
 The picture below helps to illustrate the use of `RelativePath` and `AbsolutePath`
 
-.DataStructure example to illustrate Path
+.Example to illustrate Path
+[[PathExample1]]
 image::UGPathDiagram.png[width="790"]
-
 
 The `AbsolutePath` `/Workspace/CS2101` is equivalent to `RelativePath` `../CS2101`
 
@@ -98,20 +124,37 @@ Thus `open /Workspace/CS2101` and `open ../CS2101` would yield the same result.
 [NOTE]
 Paths are used by the `open` and `delete` command
 
+[NOTE]
+The Root simply serves as a way for Notably to hierarchically organise your notes. It will not be
+visible to you while you are using the application.
+
 [WARNING]
-We cannot open or delete the parent of the root note because it does not exist.
-Taking example from Figure 2 above, `Delete ../..` will result in an error.
+You cannot open or delete the root note. e.g `Delete /../` is invalid. An error message will be displayed to
+remind you of this.
 // end::paths[]
 ====
 
 === View help : `help`
 
-If you can't remember the commands or you are unsure about what a particular command does, type `help` and hit kbd:[Enter]. Notably will show you a link to the list of the commands it has and what they do. +
+If you can't remember the commands or you are unsure about what a particular command does, type `help` and hit kbd:[Enter].
+Figure 5 below shows you what this will look like on your screen.
 
 *Format:* `help`
 
 .Demo for the `help` command
-image::demo/Help.png[]
+image::demo/Help1.png[]
+
+
+You will then see a Help window on your screen, as seen in Figure 4 below, which will include a summary of the commands and a link to Notably's User Guide. +
+
+.Demo for the `help` command (continued)
+image::demo/Help2.png[]
+
+[TIP]
+====
+* While the help window is open, you can hold the kbd:[Up] and kbd:[Down] keys to scroll through it's contents. This is
+a more efficient solution than using your mouse!
+====
 
 === Exit the program: `exit`
 
@@ -123,56 +166,91 @@ If you're done with taking notes, use `exit` to close Notably straight from the 
 image::demo/Exit.png[]
 
 //tag::new[]
+[#create]
 === Create a new note: `new`
 
-If you want to add a new note to the current working directory (currently opened note), use the `new` command and specify the `TITLE` of the note. +
+If you want to add a new note (to the path of the currently open note), use the `new` command and specify the `TITLE` of the note. +
 
 *Format:* `new -t TITLE [-o]`
 
 [[TitleValidity]]
-[IMPORTANT]
+[WARNING]
 ====
+* Don't forget the `-t` flag!
 * The `TITLE` for the note MUST be specified.
-* The `TITLE` for the note can only contain alphabets, numbers, symbols (except ` and -) and whitespaces.
+* The `TITLE` for the note can only contain alphabets, numbers, symbols (except / and -) and whitespaces.
+* The `TITLE` for the note cannot begin with whitespaces or the period `.` characer.
+* Duplicate notes are not allowed under the same note.
+** This is explained <<duplicateNotes, here>>
 ====
 
 [TIP]
 ====
 * Use the optional `-o` flag to immediately open the note after creating it.
+* Leaving out the `-o` open flag can be useful if you want to create multiple notes quickly for future use, but you don't need to edit them right away!
+* Want to save some time? Use the `n` shorthand instead of `new`
+** `n -t TITLE [-o]`
 ====
 
+[#duplicateNotes]
+==== Creating duplicate notes
+Creating duplicate notes are not allowed as mentioned <<create, 3.3>>. What are considered duplicate notes? +
+
+* Two notes are considered duplicates IF their `TITLEs` are the same while ignore their case. For example:
+** `Hello`, `hello`, `HELLO` and `HeLLo` are considered duplicates
+** `hello world!`, `helloworld!` and `helloworld@` are **not** considered duplicates, because whitespaces and allowed symbols are not ignored
+* Two notes are considered duplicate IF they have the same `TITLE` under the **same note**. This can be seen in the following diagrams below:
++
+[[Duplicate1]]
+.INVALID as there are duplicate notes under `/Workspace/CS2103`
+image::demo/PathDuplicates1.png[]
+[[Duplicate2]]
+.VALID as they are not both directly under `/Workspace/CS2103`
+image::demo/PathDuplicates2.png[]
+[[Duplicate3]]
+.VALID as one exists in `/Workspace/CS2103` and the other in `/Workspace/CS2101`
+image::demo/PathDuplicates3.png[]
+
 ==== Example: Creating new notes
-. Let's first create a note (with a `TITLE`), and open it immediately after. <<New1, (Step 1)>> Type this command: +
+. Let's first create a note (with a `TITLE`), and open it immediately after. Type this command: +
 
     new -t Notably -o
 
-
-. Now the currently open note is `Notably`. Let's add create a note to the currently opened note, <<New2, (Step 2)>> with a `TITLE` only as follows: +
+. Due to the `-o` flag, the currently open note is now `Notably` (as seen in the sidebar). Let's add a new note to the currently opened note, <<New2, (Step 2)>> with a `TITLE` as follows: +
 
     new -t CS2103T
 
-. The new note `CS2103T` has been created successfully! <<New3, (Step 3)>> +
-
 [NOTE]
 ====
-Observe that the note `CS2103T` was not opened immediately
+* Observe that the (Absolute) Path to the currently open note is now changed from `/Workspace` in <<New1, step 1>> to `/WorkspaceNotably` in  <<New2, step 2>>.
+** Not sure where to see this path? Check it out <<LegendsClosed, here>>
+** Not sure what Absolute Paths are or why the new note is created in this way? Check it out <<paths, here>>
 ====
+
+. The new note `CS2103T` has been created successfully!
++
+[NOTE]
+====
+* Observe that the note `CS2103T` was not opened immediately as seen in <<New3, step 3>>
+** This is because the `-o` open flag was not specified, so the note `CS2103T` was created without opening it immediately.
+====
+
 [[New1]]
-.Step 1 - Demo for the `new` command (with the `open` flag)
-image::demo/New1.png[Demo]
+.Step 1 - Create a new note with the title "Notably" (with the `-o` open flag)
+image::demo/New1.png[]
 [[New2]]
-.Step 2 - Demo for the `new` command (without the `open` flag)
+.Step 2 - Create a new note with the title "CS2103T" (without the `-o` open flag)
 image::demo/New2.png[]
 [[New3]]
-.Step 3 - Demo for the `new` command (after creating both notes)
+.Step 3 - Final state after creating both notes
 image::demo/New3.png[]
 //end:new[]
 
 === Open an existing note: `open`
 
-You can open an existing note by specifying its title (and optionally with its absolute or relative <<paths, path>>). +
+You can open an existing note by specifying its absolute or relative <<paths, path>>). +
 
-*Format:* `open [-t] [PATH/TO/]TITLE` +
+*Format:* `open [-t] AbsolutePath/Relativepath` +
 
 [TIP]
 ====
@@ -195,99 +273,243 @@ image::demo/Open.png[]
 === Edit an existing note: `edit`
 
 If you want to change the `BODY` content of the currently opened note, use the `edit` command. This command *opens* an editing window where you can update the existing `BODY` of the note.
+
 *Format:* `edit`
 
-[WARNING]
-====
-* You are not allowed to `edit` the root note, i.e the currently opened path is ``"/"``
-====
-
 ==== Example: Editing the currently opened note
-. Let's update the `BODY` content of the currently opened note `Workspace` with the command: +
+. As shown in <<EditStep1, Step 1>>, let's update the `BODY` content of the currently opened note `Workspace` with the command: +
 
     edit
 
-.Demo for the `edit` command
-image::demo/Edit.png[]
+. An Edit modal will appear on your screen, as shown in <<EditStep2, Step 2>>. You will now be able to edit the
+content of the currently open note.
+
+. Once done, press kbd:[Esc] to close the modal. Any changes made to the content
+of the note are automatically saved when you do so.
+
+[[EditStep1]]
+.Step 1 - Demo for the `edit` command (Typing the edit command)
+image::demo/Edit1.png[]
+
+[[EditStep2]]
+.Step 2 - Demo for the `edit` command (Interacting with the Edit modal)
+image::demo/Edit2.png[]
+
+[TIP]
+====
+* Instead of editing a note in plain text, leverage Notably's <<Markdown, Markdown>> feature to better organise
+the text in your note!
+* You can copy and paste text in the edit modal, as per the conventional keyboard shortcuts kbd:[CMD/CTRL] + kbd:[c] and
+kbd:[CMD/CTRL] + kbd:[v] respectively.
+====
+
+[WARNING]
+====
+* You are not allowed to `edit` the root note, i.e is the currently opened path is ``"/"``
+====
 
 //tag:delete[]
 === Delete a note: `delete`
 
-If you no longer need a note, or you accidentally created a wrong note, don't worry! You can always delete That note. A slash `/` character can be used to denote a filesystem-like hierarchy. +
+If you no longer need a note, or if you have accidentally created a wrong note, don't worry! You can always delete that note. +
 
-*Format:* `delete [-t] [PATH/TO/]TITLE`
+*Format:* `delete [-t] AbsolutePath/RelativePath`
+[NOTE]
+====
+* Requires prior understanding of `AbsolutePath` and `RelativePath`. You can refer <<paths, here>> for an explanation
+====
 
 [WARNING]
 ====
 * Deleting a note will also delete its child notes. Be very careful! You can refer to the example below for an illustration
+* Deleting the root note (i.e. `delete /`) is prohibited.
 ====
 
-==== Example: Deleting an existing note
+[TIP]
+====
+* You can delete the currently open note using the command `delete .`
+** Refer to <<deleteCurrent, example 3.6.2>>
+* Want to save some time? Drop the optional `-t` flag and use the `d` shorthand instead of `delete`
+** `d AbsolutePath/RelativePath`
+====
+
+==== Example: Deleting a note under the currently open note
 . Let's delete the `Notably` note using this command:
 
     delete -t Notably
-
++
 [NOTE]
 ====
-* `Another Note`, `CS2103` and `ST2334` are immediately deleted as well since they are child notes of `Notably`
+* The currently open note is `Workspace`
 * The above example uses `RelativePath`. You can achieve the same result as above by using an `AbsolutePath` instead by executing `delete -t /Workspace/Notably`.
+** Not sure about `AbsolutePath` and `RelativePath`? You can refer <<paths, here>> for a clearer explanation
 ====
-.Demo for the `delete` command
-image::demo/Delete1.png[]
 
-.Demo for the `delete` command (after deletion)
+. The note with the title `Notably` is deleted successfully since it exists!
++
+[WARNING]
+====
+* `Another Note`, `CS2103` and `ST2334` are immediately deleted as well since they are notes under `Notably`
+====
++
+.Step 1 - Key in the example command
+image::demo/Delete1.png[]
++
+.Final state after deletion
+image::demo/Delete2.png[]
+
+[#deleteCurrent]
+==== Deleting the currently open note
+. In this example, `Notably` is the currently open note. Let's delete it using the command:
+
+    delete .
++
+[NOTE]
+====
+* The `.` in the command is a `RelativePath` that points to the path of the currently open note
+====
++
+. `Notably` note is deleted and the currently open note is now `Workspace`
++
+[NOTE]
+====
+* This will change the currently open note to the deleted note's parent note
+====
++
+.Step 1 - Key in the example command
+image::demo/Delete3.png[]
++
+.Final state after deletion
 image::demo/Delete2.png[]
 //end::delete[]
 
+//tag::search[]
 === Find a note based on certain keywords: `search`
 
-If you need to look for a note that contain a specific keyword, use the `search` command and Notably when show you the result sorted by the number of matches in the note.  +
+If you need to look for a note that contains a specific keyword in its *content*, use the `search` command and Notably
+will show you the search results sorted by the number of matches in the note. The note with the highest number of match will be
+at the top of the list, so that you can access it faster. +
 *Format:* `search [-s] KEYWORD`
 
 [NOTE]
 ====
 * `search` looks through *all* the notes that you have
-* Partial matches work as well!
+* Partial matches work as well! It means that when you have a set of notes containing the word "lecture" but no "lect" as a word on its own,
+you can just type `search lect` and Notably will still show you a list of notes containing the word "lecture", as "lect" is part of the word "lecture".
 * Matches are case insensitive, meaning it will find the word no matter if it is in uppercase or lowercase or even mixed-case
 ====
 
 ==== Example: Searching for the keyword "Computer science"
-. Let's look through all the notes that we have saved, for the keyword "Computer science" +
+Let's look for the keyword "Computer science" if it exists in any of the notes that you have saved in Notably. +
 
-search -s Computer science
+`search -s Computer science`
 
-.Demo for the `search` command
+If the word "Computer science" exists, a list of suggestions will be generated. This list will be sorted in descending order
+of the number of matches, i.e. the note with the highest number of matches will be at the top of the list, as seen in the figure below.
+
+.Demo for the `search` command: keyword found
 image::demo/Search.png[]
+
+Let's say the first option `/Workspace/Notably/CS2103/Project` is the note you are looking for. You may press kbd:[↓] and kbd:[Enter]
+to open the note. The figure below illustrates how the note chosen will be opened and the command line box is cleared.
+
+.Demo for the `search` command: open a note with the searched keyword
+image::demo/Search1.png[]
+
+If the keyword you are looking for does not exist in any of your notes, no suggestions will be generated, as seen in the figure below.
+
+.Demo for the `search` command: keyword not found
+image::demo/Suggestions4.png[]
+// end::search[]
 
 === Save the data
 
-Notes data are saved in the hard disk automatically after any command that changes the data. +
-There is no need for you to save manually.
+Your notes are saved in the hard disk automatically after any command that changes the data. There is no need for you to save manually! +
 
+Also, your currently opened note and window size (of Notably) is also saved every time it changes so that you can continue where you left off the next time you start Notably!
+
+//tag::suggestions[]
 === Auto suggestions
 
-As you type, Notably will provide you suggestions. You can then press kbd:[Enter] to select the first suggestion.
+As you type, Notably will provide you with suggestions. You can press the keyboard kbd:[↓] button followed by kbd:[Enter] to select any suggestion in the list.
 
-.Demo for the suggestions feature
+For example, as you type `open -t Notably`, a list of suggestions will be generated as seen in the figure below.
+
+.Demo for the suggestions feature: Suggestions are generated as the user keys in his input
 image::demo/Suggestions.png[]
+
+Let's say you would like to choose the option `/Workspace/Notably/Another Note`. After pressing kbd:[↓] to reach that suggestion
+and pressing kbd:[Enter], the command input line will be auto-filled by the suggestion, as seen in the figure below.
+
+.Demo for the suggestions feature: The user input is auto-completed when the user selects a suggestion
+image::demo/Suggestions2.png[]
+
+If no suggestion list is generated for the command `open`, `delete` or `search`, it means the path, title, or keyword cannot be found
+anywhere in Notably, as seen in the figures below.
+
+.Demo for the suggestions feature: The user inputs a path/ title that does not exist in his Notably app, thus no suggestion list is generated
+image::demo/Suggestions3.png[]
+
+.Demo for the suggestions feature: The user inputs a keyword that does not exist in any of his notes, thus no suggestion list is generated
+image::demo/Suggestions4.png[]
 
 ==== (Coming in v2.0) Suggestion response text when opening or deleting a parent note
 Variations of path with `../` (e.g. `open ../`, `open Note/../Note`, etc.) will not generate a comprehensive response text.
 Currently, typing `open ../` will generate a response text of `Open a note titled "../"` instead of `Open a parent note`.
+// end::suggestions[]
 
-=== Auto correct
+// tag::correction[]
 
-Even if you mistype, Notably tries its best to correct the typo automatically, as long as the mistyped input command is not too far away from Notably's available commands. This provides you with a more fluid typing experience.
+=== Auto correction
 
-.Demo for the auto-correction feature
+Notably will try its best to correct your mistypes automatically, as long as your mistyped inputs are not too far away from the understood commands. This provides you with a more fluid typing experience!
+
+Notably's auto correction feature works on two aspects of your typing:
+
+. It auto corrects command names, where command names refers to `open`, `search`, `delete`, `edit`, and others. For example, Notably will correct the mistyped command name `opne` to `open`.
+. It auto corrects the `Paths` of notes. For example, depending on the notes that exist in your database, Notably might correct `/Notaby` to `/Notably`.
+
+See the example below for more information.
+
+==== Example: Auto correcting user input
+
+[NOTE]
+Even though the user types in the command name `opne`, Notably is still able to recognise this as an `open` command. +
+In addition, the inputted `RelativePath` `Notaby` is understood by Notably, even though there's no note in the database with the title `Notaby`. Instead, there exists a note in the database with the `RelativePath` `Notably`. +
+After corrections are done, a list of suggestions will be generated as if the user has inputted `open -t Notably`!
+
+.Demo for the auto correction feature
 image::demo/Correction.png[]
+
+// end::correction[]
+
+//tag::responsetext[]
+=== Response text
+Notably also displays a response text which enables you to understand the meaning of the input you type and shows
+an error message when your input is invalid.
+
+For example, if you type `open /CS`, the response text will indicates that you are trying to `Open a note titled "/CS"`,
+as seen in the figure below.
+
+.Demo for the response text feature: open command
+image::demo/ResponseText1.png[]
+
+On the other hand, if you key in an invalid command, the response text will display an error message as seen in the figure
+below.
+
+.Demo for the response text feature: invalid command
+image::demo/ResponseText2.png[]
+//end::responsetext[]
+
+// tag::markdown[]
 
 === Markdown (GitHub Flavored Markdown)
 
 [NOTE]
 We use the term Markdown and GitHub Flavored Markdown interchangably in this document.
 
-Notably supports basic https://guides.github.com/features/mastering-markdown/[GitHub Flavored Markdown (GFM)] as the `BODY` content of a note. By supporting Markdown, we hope to enhance your typing experience even further!
+Notably supports basic https://guides.github.com/features/mastering-markdown/[GitHub Flavored Markdown (GFM)] as the `BODY` content of a note.
+By supporting Markdown, we hope to enhance your typing experience even further. You can simply type your note in Markdown, and it'll take care of displaying the content of your note in a nice layout for you.
 
 Currently supported syntax of GitHub Flavored Markdown in Notably consists of:
 
@@ -306,14 +528,31 @@ Currently, only unordered lists are supported. In addition, only the hyphen `-` 
 ----
 - List item
 - Another list item
-  - A nested list item
-    - A deeper nested list item
+- A nested list item
+- A deeper nested list item
 - Last list item
 ----
 * https://github.github.com/gfm/#paragraph[Paragraphs] +
 ----
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Proin dictum accumsan nunc sed feugiat.
+----
+
+==== Example: Writing your note in Markdown
+
+For example, you might write your note as follows:
+
+----
+# Hello Notably
+
+Notably is for those who prefer to use a desktop app for managing notes.
+More importantly, Notably is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+## Getting started
+
+- Ensure you have Java `11` or above installed in your Computer.
+- Download the latest `notably.jar`
+- Double-click the file to start the app. The Application should start in a few seconds.
 ----
 
 ==== (Coming in v2.0) More complete support of Markdown syntax
@@ -330,6 +569,29 @@ In our v2.0 release, we'll be supporting the following additional Markdown synta
 ~~This text will get a strikethrough treatment~~
 ----
 
+// end::markdown[]
+
+=== Sidebar
+The sidebar is where you can see your notes in a neatly organised way, reminiscent of a file browser in an Operating System. +
+
+[NOTE]
+====
+* The sidebar only shows up to 3 levels of notes at a single time.
+** The 3 levels will compromise of the:
+*** currently open note and its siblings
+*** its parent note
+*** its children notes
+** This will be demonstrated in the following diagrams, with `Workspace` as the level 1 note
+*** There is no level 0 note (root) that is displayed in the sidebar
+
+====
+
+.Before and after opening a level 2 note
+image::demo/Sidebar.png[]
+
+.Before and after opening a level 3 note
+image::demo/Sidebar2.png[]
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -340,8 +602,7 @@ In our v2.0 release, we'll be supporting the following additional Markdown synta
 * *View help*: `help`
 * *Exit the program*: `exit`
 * *Create a new note*: `new -t TITLE [-o]`
-* *Open an existing note*: `open [-t] [PATH/TO/]TITLE`
+* *Open an existing note*: `open [-t] AbsolutePath/Relativepath`
 * *Opens an editing window to edit the currently opened note*: `edit`
-* *Delete a note*: `delete [-t] [PATH/TO/]TITLE`
+* *Delete a note*: `delete [-t] AbsolutePath/Relativepath`
 * *Find a note based on certain keywords*: `search [-s] KEYWORD`
-
