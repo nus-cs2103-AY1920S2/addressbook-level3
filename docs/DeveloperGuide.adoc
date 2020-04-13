@@ -260,6 +260,7 @@ image::SwitchActivityDiagram.png[]
 
 ==== Add command
 
+// tag::editcommand[]
 ==== Edit command (Beatrice)
 The edit feature allows users to edit the properties of a Recipe with ease using the `edit` command. +
 
@@ -360,7 +361,7 @@ filtering and sorting to be supported. For example, plans need to be sorted in c
 recipe list needs to be filtered for our filter feature. +
 Additionally, we would not have enough time in the scope of this project to write our own implementation, and importing from pre-existing
 libraries gives the risk of running into bugs in the future if the the dependencies were not maintained.
-
+// end::editcommand[]
 
 
 ==== Delete command

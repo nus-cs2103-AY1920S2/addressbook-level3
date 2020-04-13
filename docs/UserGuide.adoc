@@ -107,6 +107,7 @@ You can use the following units to measure how much of each ingredient is needed
 |cup |Cups
 |===
 
+// tag::GUI[]
 == HealthyBaby's User Interface (Beatrice)
 Upon opening *HYBB*, you will see our Graphical User Interface.
 
@@ -120,6 +121,7 @@ Alternatively, if you wish to switch between tabs by typing instead of clicking,
 into the Command Box instead. +
 For more information, please refer to <<Switch the current tab: `switch`>>. +
 The *Display Panel* displays the information for the current tab you are on.
+// end::GUI[]
 
 == Notations Used
 === List of Tags
@@ -455,6 +457,7 @@ Finds recipes that have 15 minutes or less of preparation time.
 Example 2: `filter t/20-30` +
 Finds recipes that have 20 to 30 minutes (inclusive) of preparation time.
 
+// tag::planning[]
 == Planning Command (Beatrice)
 Most of the planning commands take place in the planning tab. +
 Switch to the planning tab by typing `switch planning` or by clicking on Planning from the *Tab Panel*. +
@@ -548,6 +551,7 @@ Format: `viewWeek`
 === View this month's planned recipes: `viewMonth` [Coming in v2.0]
 View all the plans for the month. +
 Format: `viewMonth`
+// end::planning[]
 
 == Goals Command (Harshita)
 
