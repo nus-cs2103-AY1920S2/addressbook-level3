@@ -832,7 +832,7 @@ tag::manual[]
 
 === Adding a person
 
-. Test case: `(ab)add n/John p/12345 o/NUS n/05-20`
+. Test case: `(ab)add n/John p/12345 o/NUS n/05-20` +
   Expected: A new contact with the name John, phone number 12345, and birthday 20 May is added to the list. Details of the added contact shown in the status message.
 
 === Deleting a person
@@ -1024,7 +1024,7 @@ Expected: No restaurant deleted. Error details shown in the status message.
 
 . Test case: `(st)add t/CS2103 post lecture quiz d/2020-11-11 23:59 e/2` +
   Expected: Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11 Nov 2020 23:59 PM and which takes an estimated two hours to complete. Details of the added assignment shown in the status message.
-.. Test case: `(st)add t/CS2105 lab d/DEADLINE e/5` (where `DEADLINE` is before the current date and time) +
+. Test case: `(st)add t/CS2105 lab d/DEADLINE e/5` (where `DEADLINE` is before the current date and time) +
    Expected: No assignment is added. Error details shown in the status message.
 
 === List current assignments
@@ -1077,7 +1077,7 @@ Expected: No restaurant deleted. Error details shown in the status message.
 
 . Test case: `(ev)add t/Facebook job interview d/2020-05-18 10:00 h/3 p/Facebook APAC HQ` +
 Expected: Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and location at "Facebook APAC HQ".
-.. Test case: `(ev)add t/Birthday party d/DATETIME h/3 p/Clementi` (where DATETIME is after the current date and time) +
+. Test case: `(ev)add t/Birthday party d/DATETIME h/3 p/Clementi` (where DATETIME is after the current date and time) +
    Expected: No social event is added. Error details shown in the status message.
 
 === Listing all events
