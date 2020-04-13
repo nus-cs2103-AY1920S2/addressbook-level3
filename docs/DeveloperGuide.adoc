@@ -469,6 +469,7 @@ In the following sequence diagram, we trace the execution for when the user deci
 
 image::ScheduleSequenceDiagram.png[]
 
+This sequence diagram shows how the schedule command is processed in FitBiz. The LogicManager receives the input commandText and parses it with `FitBizParser` to obtain arguments that are then parsed into `ScheduleCommandParser` to construct a `ScheduleCommand`. This `ScheduleCommand` is returned back up to the `LogicManager` which then executes it with reference to the `model` argument. Subsequently, the `Model` is updated with a new `Client` with the schedule changes through a series of commands as shown in the right hand side of the sequence diagram, and control is return back to LogicManager.
 
 
 ==== Design Considerations

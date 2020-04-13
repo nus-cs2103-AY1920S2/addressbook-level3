@@ -14,24 +14,24 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 [-[UI_COLOR]> LogicManager : execute(commandText)
-activate LogicManager
+activate LogicManager LOGIC_COLOR
 
 LogicManager -[LOGIC_COLOR]> FitBizParser : parseCommand(commandText)
-activate FitBizParser
+activate FitBizParser LOGIC_COLOR
 
 create ScheduleCommandParser
 FitBizParser -[LOGIC_COLOR]> ScheduleCommandParser : ScheduleCommandParser()
-activate ScheduleCommandParser
+activate ScheduleCommandParser LOGIC_COLOR
 
 ScheduleCommandParser --[LOGIC_COLOR]> FitBizParser
 deactivate ScheduleCommandParser
 
 FitBizParser -[LOGIC_COLOR]> ScheduleCommandParser : parse(arguments)
-activate ScheduleCommandParser
+activate ScheduleCommandParser LOGIC_COLOR
 
 create ScheduleCommand
 ScheduleCommandParser -[LOGIC_COLOR]> ScheduleCommand : ScheduleCommand(index, scheduleList)
-activate ScheduleCommand
+activate ScheduleCommand LOGIC_COLOR
 
 ScheduleCommand --[LOGIC_COLOR]> ScheduleCommandParser : s
 deactivate ScheduleCommand
@@ -43,16 +43,16 @@ FitBizParser --[LOGIC_COLOR]> LogicManager : s
 deactivate FitBizParser
 
 LogicManager -[LOGIC_COLOR]> ScheduleCommand : execute(model)
-activate ScheduleCommand
+activate ScheduleCommand LOGIC_COLOR
 
 ScheduleCommand -[LOGIC_COLOR]> Model : getFilteredClientList()
-activate Model
+activate Model MODEL_COLOR
 
 Model --[MODEL_COLOR]> ScheduleCommand : filteredClientList
-deactivate Model
+deactivate Model 
 
 ScheduleCommand -[LOGIC_COLOR]> Model : setClient(clientToEdit, editedClient)
-activate Model
+activate Model MODEL_COLOR
 
 Model --[MODEL_COLOR]> ScheduleCommand:
 deactivate Model
@@ -60,7 +60,7 @@ deactivate Model
 
 create CommandResult
 ScheduleCommand -[LOGIC_COLOR]> CommandResult : CommandResult(feedbackToUser)
-activate CommandResult
+activate CommandResult LOGIC_COLOR
 
 CommandResult --[LOGIC_COLOR]> ScheduleCommand : c
 deactivate CommandResult

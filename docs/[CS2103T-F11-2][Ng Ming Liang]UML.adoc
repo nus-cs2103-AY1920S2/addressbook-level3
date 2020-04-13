@@ -1,0 +1,60 @@
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+== Structure of the Model Component
+
+image::ModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+This diagram shows the overview of the classes within the Model architecture of FitBiz, and the relationships and hierarchy among the classes, which includes the packages used by the `Client` such as `Sports`, `Tag`, `Schedule` and `Exercise`. This provides readers with a more comprehensive visualisation of the structure of the model.
+
+The `Model`,
+
+1. stores a `UserPref` object that represents the user's preferences
+1. stores a `ClientInView` to represent the current selected `Client` selected by the `view-c` command
+1. stores `FitBiz`
+1. stores `Client`, `Sports`, `Tag`, `Schedule` and `Exercise` packages, where `Client` utilises the latter packages as attributes
+1. exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+
+[NOTE]
+As a more OOP model, we can choose to store a `Tag` list in `FitBiz`, which `Client` can reference. This would allow `FitBiz` to only require one `Tag` object per unique `Tag`, instead of each `Client` needing their own `Tag` object. An example of how such a model may look like is given below. For simplicity, we have omitted the rest of the attributes that `Client` has. Refer back to the diagram above for more details. +
+ +
+image:BetterModelClassDiagram.png[]
+
+== Schedule Class Diagram
+image::ScheduleClassDiagram.png[]
+
+The list of schedules of each client are structured as a `ScheduleList`, which is a wrapper class for an `ArrayList` of `Schedule` objects. Each `Client` contains one `ScheduleList` attribute to keep track of all `Schedule` assigned to it. If there are no assigned `Schedule` for the `Client`, then the `ScheduleList` simply contains an empty `ArrayList` of `Schedule`.
+
+`Schedule` comprises three attributes, `Day`, `StartTime`, `EndTime`.
+
+`Day` wraps the enum `DayEnum.Weekday` and represents the day of the week the schedule takes place on.
+
+`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively.
+
+== Schedule Sequence Diagram
+
+image::ScheduleSequenceDiagram.png[]
+
+This sequence diagram shows how the schedule command is processed in FitBiz. The LogicManager receives the input commandText and parses it with `FitBizParser` to obtain arguments that are then parsed into `ScheduleCommandParser` to construct a `ScheduleCommand`. This `ScheduleCommand` is returned back up to the `LogicManager` which then executes it with reference to the `model` argument. Subsequently, the `Model` is updated with a new `Client` with the schedule changes through a series of commands as shown in the right hand side of the sequence diagram, and control is return back to LogicManager.
+
+== Schedule Activity Diagram
+
+image::ScheduleActivityDiagram.png[]
+
+This activity diagram gives an overview of the schedule command process, from when the command is executed to the updating of the display in the Schedule Panel UI. After the user  enters the ScheduleCommand, the input is parsed and a new `ScheduleList` with empty ArrayList of `Schedule` is created. If there is at least one valid parsed schedule, then the `ScheduleList` is populated with the parsed schedules. If not, that means there are no schedules to add which means the user is looking to clear the schedule. +
+
+Then, the feedback message is set to the respective message either for adding the schedules or clearing the schedule. This is fed back to the `Ui`, which eventually updates the GUI such as shown in the activity diagram.
