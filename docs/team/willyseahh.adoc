@@ -1,7 +1,6 @@
 = Willy Seah Wee Hung - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
-:imagesDir: ../images/expense-splitter
 :stylesDir: ../stylesheets
 
 == PROJECT: EYLAH
