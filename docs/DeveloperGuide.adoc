@@ -157,7 +157,7 @@ tag::schedule[]
 
 === Schoolwork Tracker
 [.text-justify]
-The `SchoolworkTracker` helps users keep track of their assignments so that they do not accidentally overlook any of them.
+The `SchoolworkTracker` helps users keep track of their assignments so that they do not accidentally overlook any of them. It consists of the `AssignmentList` which contains all the added assignments.
 
 [.text-justify]
 From *Fig 1* below, each `Assignment` has four components: `Title`, `Deadline`, `Status` and `Workload`. `Workload` refers to the expected amount of time required to finish the `Assignment`. These components will be used for schedule generation when `(st)schedule n/NUM_DAYS` is executed (explained below).
@@ -168,7 +168,6 @@ _Fig 1. Class Diagram detailing the main components of the SchoolworkTracker_
 
 === Schedule
 ==== Current Implementation
-
 
 [.text-justify]
 Schedule is facilitated by the `SchoolworkTracker`. This feature enhances the basic form of the `SchoolworkTracker` by allowing users to better visualise their current commitments so that they can better manage their time to pursue social events. This feature aims to distribute `Workload` as evenly as possible while ensuring that the user is able to complete the `Assignment` before the `Deadline`, unless it is impossible (i.e. `Workload` exceeds the amount of time the user has before the `Deadline` after taking into account more urgent assignments). A sample result is shown in *Fig 2* below.
@@ -233,7 +232,7 @@ image::scheduleCommandExecution.png[align="center"]
 _Fig 6. Sequence Diagram showing the execution of the ScheduleCommand_
 
 [.text-justify]
-The schedule generation process will be explained next and begins with Fig 7.
+The schedule generation process will be explained next and begins with Fig 7 all the way to Fig 9.
 
 [.text-justify]
 In *Fig 7* below, `filteredAssignments` is iterated through in sorted order, starting with the `Assignment` due the earliest and for all assignments:
@@ -262,18 +261,18 @@ _Fig 9. Sequence Diagram showing how the workload of an assignment is distribute
 [.text-justify]
 From *Fig 9* above, assignments due on query date are handled differently from those that are not.
 
-* If the `Assignment` is *due* on the query date: The amount of time that can be allocated to the assignment will be capped at the amount of time available before the `Deadline`.
-* If the `Assignment` is *not due* on the query date: `Workload` will be distributed incrementally.
+* `Assignment` *due* on query date: The amount of time that can be allocated to the assignment will be capped at the amount of time available before the `Deadline`.
+* `Assignment` *not due* on query date: Incremental distribution of `Workload` starting from days with no allocated hours, then days with least amount of allocated hours and lastly allocating evenly.
 ** Between query date and deadline (both exclusive): Available time is capped at 24 hours.
 ** Query date: Available time is capped at the amount of time left in the day.
 ** Deadline: Available time is capped at the amount of time before the assignment is due.
 
-The actual caps placed are as stated above but after accounting for the amount of time already allocated to other assignments in the respective days.
+Actual caps are as above but after accounting for hours already allocated to other assignments.
 
 [.text-justify]
 Once the user’s schedule is generated, `ScheduleList` is updated with the `allocationResult`, a `CommandResult`
 object will be created and returned to `LogicManager`. `LogicManager` returns it to `MainWindow` who
-will then retrieve the generated schedule and display it as shown in Fig 10 below.
+will then retrieve the generated schedule and display it as shown in *Fig 10* below.
 
 image::getUi.png[align="center"]
 [.text-center]
