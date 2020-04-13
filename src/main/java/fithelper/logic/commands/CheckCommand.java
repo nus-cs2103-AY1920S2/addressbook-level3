@@ -20,7 +20,8 @@ public class CheckCommand extends Command {
     public static final String COMMAND_WORD = "check";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for calorie intake/consumption "
             + "of common food/sports from pre-set database using keywords.\n"
-            + "Parameters: " + PREFIX_TYPE + "TYPE " + PREFIX_KEYWORD + "ONE_OR_MORE_KEYWORDS";
+            + "Parameters: " + PREFIX_TYPE + "TYPE " + PREFIX_KEYWORD + "ONE_OR_MORE_KEYWORDS\n"
+            + "Example: check x/s k/swim\n";
 
     public static final String MESSAGE_SUCCESS = "Matching reference data:\n";
     public static final String MESSAGE_FAILURE_PART1 = "Sorry, no matching reference data in the ";

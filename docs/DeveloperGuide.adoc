@@ -588,6 +588,11 @@ image:AddWeightSequenceDiagram.png[]
 //tag::check[]
 === Check calorie intake/consumption of some common food/sports
 
+This function allows the user to search for calorie intake/consumption of food/sports by keywords.
+It helps the user better estimate how much calorie he/she will gain/burn
+by eating/exercising, so that he/she can add food/sports entry into the application
+without the need to search online for relevant information.
+
 ==== Implementation
 The check function is achieved by calling the `FitHelper` inside the `ModelManager` to search
 through either `FoodCalorieTable` or `SportsCalorieTable` for `CalorieDatum` that contain the
@@ -639,6 +644,26 @@ regardless of how many entries are in the HashMap.
 
 //end::check[]
 
+//tag::store(proposed)[]
+
+=== Store calorie data input by the user [proposed in v2.0]
+
+This proposed function allows the user to create his/her own calorie data and store them
+into the application database. These data can be later searched by and shown to the user
+via the existing `check` command. This function helps the user to record calorie data of
+food/sports not included in the pre-set database (or data more accurate than the ones
+stored in the pre-set database), so that he/she do not need to remember these data
+or search them online when he/she need to add same food/sports entry into the application
+in the future.
+
+==== proposed implementation
+
+
+
+.Additional Storage Class responsible for storing user data (existing storage classes omitted)
+image::AdditionalStorage.png[test, 30%]
+
+//end::store(proposed)[]
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -999,7 +1024,44 @@ These instructions only provide a starting point for testers to work on; testers
 - The window is automatically directed to weight page. A new point is shown on both Weight Line Graph and BMI Line Graph, and form a new trend line with previous data points. The top notification is also updated.
 - In profile page, Current Weight and Current BMI remain the same, since the newly added weight record is not the most recent record in the database.
 
+=== Sorting entry lists
 
+. sort and display the entry lists stored in the sample FitHelper
+.. Prerequisite: The data stored in FitHelper are the sample data. To restore to sample data,
+delete all files stored in the data folder and launch the application.
+.. Test case: `sort by/time` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- Entries in all three lists (Food Entry History, Sports Entry History and Reminders)
+are sorted by time in the descending order (entry with a later time comes first i.e. at top).
+.. Test case: `sort x/s by/cal o/a` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- Entries in Sports Entry History and Reminders list are sorted by calorie value
+in the ascending order (entry with a lower calorie value comes first i.e. at top).
+- Entries in Food Entry History list remain unchanged.
+.. Test case: `sort x/s o/a` +
+Expected:
+- The application shows invalid command format error, followed by
+correct command format and example command in the bottom left corner.
+
+=== Checking calorie data
+
+. search for calorie intake/consumption of common food/sports
+.. Prerequisite: None, as long as the application is launched properly.
+.. Test case: `check x/s k/swim` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- The application shows calorie consumption per hour of common swimming styles
+in the bottom left corner.
+.. Test case: `check x/f k/swim` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- The application shows no matching results message in the bottom left corner.
+.. Test case: `check k/swim` +
+Expected:
+- The application shows invalid command format error, followed by
+correct command format and example command in the bottom left corner.
 
 === Saving data
 
@@ -1009,5 +1071,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Delete `fithelper.json`, and launch FitHelper again. All user manipulation on entries and diaries will be cleared. `Dashboard`, `Today`, `Calendar` and `Diary` Page will restart with sample data.
 .. Delete `userprofile.json`, and launch FitHelper again. All user manipulation on user profile will be clear. `Profile` page will restart with sample user data.
 .. Delete `weightrecords.json`, and launch FitHelper again. All user manipulation on weight records will be clear. `Profile` page will show Current Weight and Current BMI as "Not Available Now", and `Weight` Page will have no data point on the trend line graph.
+
+
 
 //end::manual_test[]

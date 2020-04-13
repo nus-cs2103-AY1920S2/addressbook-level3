@@ -61,7 +61,7 @@ https://github.com/AY1920S2-CS2103-T09-4/main/pull/332[#332]).
 == Contributions to the User Guide
 
 |===
-|Given below are sections I wrote in the User Guide.
+|Given below are sections I contributed to the User Guide.
 |===
 
 include::../UserGuide.adoc[tag=sort]
@@ -77,7 +77,7 @@ include::../UserGuide.adoc[tag=command_format]
 == Contributions to the Developer Guide
 
 |===
-|Given below are sections I wrote in the Developer Guide.
+|Given below are sections I contributed to the Developer Guide.
 |===
 
 include::../DeveloperGuide.adoc[tag=check]
@@ -87,3 +87,4 @@ include::../DeveloperGuide.adoc[tag=check]
 |===
 
 include::../DeveloperGuide.adoc[tag=userStories]
+include::../DeveloperGuide.adoc[tag=manual_test]
