@@ -220,12 +220,6 @@ public class ModelManager implements Model {
         taskList.removeTask(target);
     }
 
-    // @Override
-    // public Index getIndexOfNewTask() {
-    //     List<Task> lastShownTask = getFilteredTaskList();
-    //     return Index.fromZeroBased(lastShownTask.size());
-    // }
-
     @Override
     public void addTask(Task task) {
         taskList.addTask(task);
