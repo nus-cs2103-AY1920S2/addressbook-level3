@@ -38,8 +38,8 @@ public class ModuleCard extends UiPart<Region> {
     public ModuleCard(Module module, int width) {
         super(FXML);
         this.module = module;
-        cardPane.setMinWidth(275);
-        cardPane.setMaxWidth(275);
+        cardPane.setMinWidth(width);
+        cardPane.setMaxWidth(width);
         cardPane.setMaxHeight(Double.MAX_VALUE);
 
         code.setText(module.getModuleCode().toString() + " " + module.getModuleName().toString());

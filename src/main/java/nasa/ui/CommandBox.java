@@ -51,6 +51,12 @@ public class CommandBox extends UiPart<Region> {
 
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
             switch (key.getCode()) {
+            case LEFT:
+                commandTextField.backward();
+                break;
+            case RIGHT:
+                commandTextField.forward();
+                break;
             case UP:
                 if (commandHistoryIterator.hasPrevious()) {
                     commandTextField.setText(commandHistoryIterator.previous());
@@ -61,13 +67,6 @@ public class CommandBox extends UiPart<Region> {
                     commandTextField.setText(commandHistoryIterator.next());
                 }
                 break;
-            case H:
-                if (key.isControlDown()) {
-                    commandTextField.setText("help");
-                    handleCommandEntered();
-                }
-                break;
-
             default:
                 if (matchedCommand.equals(commandTextField.getText().trim().toLowerCase())) {
                     break;
@@ -116,6 +115,8 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
+        } finally {
+            main.hideHint();
         }
     }
 

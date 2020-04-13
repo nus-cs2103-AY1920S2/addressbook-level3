@@ -20,6 +20,7 @@ public class ModuleListPanel extends UiPart<Region> {
     private static final String FXML = "ModuleListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
+    private ObservableList<Module> moduleObservableList;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -30,6 +31,7 @@ public class ModuleListPanel extends UiPart<Region> {
 
     public ModuleListPanel(ObservableList<Module> moduleObservableList) {
         super(FXML);
+        this.moduleObservableList = moduleObservableList;
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
 
@@ -37,20 +39,22 @@ public class ModuleListPanel extends UiPart<Region> {
             noModules.setManaged(false);
         }
 
-        for (Module module :moduleObservableList) {
-            moduleListView.getChildren().add(new ModuleCard(module, 1).getRoot());
-        }
+        setModuleListView();
+
         moduleObservableList.addListener(new ListChangeListener<Module>() {
             @Override
             public void onChanged(Change<? extends Module> c) {
-                moduleListView.getChildren().clear();
-                int width = Math.max((int) scrollPane.getWidth() / moduleObservableList.size(), 300);
-                System.out.println(width);
-                for (Module module :moduleObservableList) {
-                    moduleListView.getChildren().add(new ModuleCard(module, width).getRoot());
-                }
+                setModuleListView();
             }
         });
 
+    }
+
+    public void setModuleListView() {
+        moduleListView.getChildren().clear();
+        int width = Math.max((int) scrollPane.getWidth() / moduleObservableList.size(), 275);
+        for (Module module :moduleObservableList) {
+            moduleListView.getChildren().add(new ModuleCard(module, width).getRoot());
+        }
     }
 }
