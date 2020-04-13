@@ -22,7 +22,7 @@ import seedu.planner.model.time.StudentSemester;
 //@@author thetruevincentchow
 class TimeTableCommandParserTest {
     private TimeTableCommandParser parser = new TimeTableCommandParser();
-    private StudentSemester expectedSemester = new StudentSemester(new SemesterYear(Semester.SPECIAL_ONE), 1);
+    private StudentSemester expectedSemester = new StudentSemester(new SemesterYear(Semester.SPECIAL_TERM_ONE), 1);
 
     @Test
     public void parse_validAddCommand_success() {

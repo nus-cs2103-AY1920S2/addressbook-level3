@@ -1,16 +1,13 @@
 package seedu.planner.model.time;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 /**
  * Represents a semester at NUS.
  */
 public enum Semester {
     ONE("Semester 1"),
     TWO("Semester 2"),
-    SPECIAL_ONE("Special Semester 1"),
-    SPECIAL_TWO("Special Semester 2");
+    SPECIAL_TERM_ONE("Special Semester 1"),
+    SPECIAL_TERM_TWO("Special Semester 2");
 
     public static final String MESSAGE_CONSTRAINTS = "Semester must be one of the following: "
             + getConcatenatedString();
@@ -21,8 +18,7 @@ public enum Semester {
     }
 
     private static String getConcatenatedString() {
-        return Arrays.stream(Semester.values()).map(Semester::toString)
-                .collect(Collectors.joining(", "));
+        return "1, 2, st1, st2";
     }
 
     public String getFullName() {

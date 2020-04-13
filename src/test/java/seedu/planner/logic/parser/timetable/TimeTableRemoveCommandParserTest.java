@@ -25,7 +25,7 @@ class TimeTableRemoveCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        StudentSemester expectedSemester = new StudentSemester(new SemesterYear(Semester.SPECIAL_ONE), 1);
+        StudentSemester expectedSemester = new StudentSemester(new SemesterYear(Semester.SPECIAL_TERM_ONE), 1);
 
         // whitespace in preamble, all fields present
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + DEGREE_YEAR_DESC + SEM_DESC,

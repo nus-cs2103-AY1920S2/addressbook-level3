@@ -26,6 +26,8 @@ import seedu.planner.model.time.Semester;
  */
 class LessonAddCommandParser implements Parser<LessonAddCommand> {
 
+    public static final String MESSAGE_INVALID_SEMESTER = "Semester is not valid: %1$s";
+
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
@@ -50,10 +52,15 @@ class LessonAddCommandParser implements Parser<LessonAddCommand> {
         String lessonNumber = ParserUtil.parseLessonNumber(argMultimap.getValue(PREFIX_LESSON).get());
         Semester sem = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_STUDENT_SEM).get());
         int semNo;
-        if (sem.name().startsWith("ONE")) {
+        switch (sem.getFullName()) {
+        case "Semester 1":
             semNo = 1;
-        } else {
+            break;
+        case "Semester 2":
             semNo = 2;
+            break;
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_SEMESTER, sem.getFullName()));
         }
         LessonDataImporterUtil lessonDataImporter = new LessonDataImporterUtil();
         List<Lesson> lessons = LessonDataImporterUtil.run(moduleCode.toString(), semNo);

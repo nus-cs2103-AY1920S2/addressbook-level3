@@ -138,9 +138,9 @@ These are parameters that are commonly used in commands available in NUSModPlnr.
 * `NAME` - a name of a entity
 ** Must be alphanumeric, spaces are allowed
 * `SEM` - an academic semester
-** Must be one of the following: `ONE`, `TWO`, `SPECIAL_ONE`, `SPECIAL_TWO`
+** Must be one of the following: `1`, `2`, `st1`, `st2`
 * `YEAR` - a year of study (e.g. Year 1, 2, 3, 4, 5, 6)
-** Must be a non-negative integer from 1 to 6
+** Must be a non-negative integer from `1` to `6`
 * `GRADE` a letter grade for a module
 ** Must be one of the following: `A+`, `A`, `A-`, `B+`, `B`, `B-`, `C+`, `C`, `D+`, `D`, `F`, `CS`, `CU`, `W`, `EXE`
 ====

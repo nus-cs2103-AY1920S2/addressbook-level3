@@ -98,6 +98,26 @@ public class ParserUtil {
     public static Semester parseSemester(String semester) throws ParseException {
         requireNonNull(semester);
         try {
+            switch (semester) {
+            case "ONE":
+            case "1":
+                semester = "ONE";
+                break;
+            case "TWO":
+            case "2":
+                semester = "TWO";
+                break;
+            case "SPECIAL_ONE":
+            case "st1":
+                semester = "SPECIAL_TERM_ONE";
+                break;
+            case "SPECIAL_TWO":
+            case "st2":
+                semester = "SPECIAL_TERM_TWO";
+                break;
+            default:
+                throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
+            }
             return Semester.valueOf(semester);
         } catch (IllegalArgumentException e) {
             throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
