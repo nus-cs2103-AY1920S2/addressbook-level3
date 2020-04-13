@@ -780,6 +780,7 @@ sorting order when the program is launched. Plus, we feel that the simplicity
 of excluding a sort by default order function will be well favored by users,
 and thus we chose alternative 1.
 
+// tag::reminder[]
 === Coupon Reminder
 To ensure users are aware of expiring coupons and maximise their saving,
 Coupon Stash reminds the user through a pop-up window, upon launching the
@@ -868,6 +869,8 @@ display their remind dates on the calendar component. Thus, to make it easier
 to extend the program in the future, we decided against adding another data
 file which can make extension more complicated, and chose to work with
 alternative 1.
+// end::reminder[]
+
 
 // tag::savings[]
 === Savings per use and total amount saved
