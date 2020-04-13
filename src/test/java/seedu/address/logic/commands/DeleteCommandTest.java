@@ -115,7 +115,7 @@ public class DeleteCommandTest {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
         DeleteCommand deleteCommand = new DeleteCommand(Collections.singletonList(moduleCode));
 
-        assertThrows(CommandException.class, String.format(MESSAGE_NOT_TAKING_MODULE, moduleCode), () ->
+        assertThrows(CommandException.class, String.format(MESSAGE_NOT_TAKING_MODULE, Arrays.asList(moduleCode)), () ->
                 deleteCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                         new ModuleManagerStubCs()));
     }
