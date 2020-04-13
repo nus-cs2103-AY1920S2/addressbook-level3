@@ -10,7 +10,7 @@ import com.notably.logic.Logic;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
-import com.notably.view.blockcontent.BlockContent;
+import com.notably.view.blockcontent.BlockContentView;
 import com.notably.view.sidebar.SideBarTreeView;
 import com.notably.view.suggestion.SuggestionsWindowView;
 
@@ -37,7 +37,7 @@ public class MainWindow extends ViewPart<Stage> {
 
     private HelpWindow helpWindow;
     private SideBarTreeView sidebarTreeView;
-    private BlockContent blockContent;
+    private BlockContentView blockContentView;
     private SuggestionsWindowView suggestionsWindowView;
 
     @FXML
@@ -88,7 +88,7 @@ public class MainWindow extends ViewPart<Stage> {
         sidebarTreeView = new SideBarTreeView(model.getBlockTree(), model.currentlyOpenPathProperty());
         sideBarPlaceholder.getChildren().add(sidebarTreeView.getRoot());
 
-        blockContent = new BlockContent(blockContentPlaceholder, logic, model);
+        blockContentView = new BlockContentView(blockContentPlaceholder, logic, model);
 
         suggestionsWindowView = new SuggestionsWindowView(model.getSuggestions(),
                 model.responseTextProperty());
@@ -128,7 +128,7 @@ public class MainWindow extends ViewPart<Stage> {
     }
 
     /**
-     * Opens the help window or focuses on it if it's already opened.
+     * Opens the help modal or focuses on it if it's already opened.
      */
     @FXML
     public void handleHelp() {

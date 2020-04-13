@@ -40,9 +40,9 @@ public class HelpWindow extends ViewPart<Stage> {
     private Label helpMessage;
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new help modal.
      *
-     * @param root Stage to use as the root of the HelpWindow.
+     * @param root Stage to use as the root of the help modal.
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
@@ -55,7 +55,7 @@ public class HelpWindow extends ViewPart<Stage> {
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new help modal.
      */
     public HelpWindow() {
         this(new Stage());
@@ -73,7 +73,7 @@ public class HelpWindow extends ViewPart<Stage> {
     }
 
     /**
-     * Shows the help window.
+     * Shows the help modal.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -97,21 +97,21 @@ public class HelpWindow extends ViewPart<Stage> {
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the help modal is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the help modal.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the help modal.
      */
     public void focus() {
         getRoot().requestFocus();

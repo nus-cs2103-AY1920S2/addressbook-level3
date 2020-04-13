@@ -71,9 +71,9 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for the `new -t Notably` command
 image::ArchitectureSequenceDiagram.png[]
-
 // end::architecture[]
 
+// tag::view-diagram[]
 [[Design-View]]
 === View
 
@@ -90,6 +90,7 @@ The `View` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the View can be updated with the modified data.
+// end::view-diagram[]
 
 // tag::logic[]
 
@@ -623,13 +624,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |student |traverse my notes in a file system-like manner | so that I can skim through my sea of notes and drafts without any problem.
 
-|`* * *` |student |search my notes by their content | I won’t have to remember the exact titles I had given my notes.
+|`* * *` |student |search my notes by their content | I won’t have to remember the exact location and title of notes.
 
-|`* * *` |impatient student |alias a path to a folder | do not have to memorise and type out the entire file structure when accessing a nested note
+|`* * *` |student |reliably type search commands(not error-prone) | focus on searching my notes rather than ensuring my commands are exact
 
-|`* *` |student |can view the relevant search results| so that I don’t need to worry about remembering the exact location and title of notes
+|`* *` |student |can quickly make changes to a note| so that I can update my notes with new information accurately while in class.
 
-|`* *` |student |reliably type search commands(not error-prone) | focus on searching my notes rather than ensuring my commands are exact
+|`*` |impatient student |alias a path to a folder | do not have to memorise and type out the entire file structure when accessing a nested note
 
 |=======================================================================
 
@@ -699,8 +700,34 @@ with the particular path or title that the user inputs.
 Steps 1b1-1b3 are repeated until the data entered is correct. Use case resumes from Step 2.
 //end::usecaseopendelete[]
 
+//tag::edit-use[]
+[discrete]
+=== Use case: Quickly Edit notes using the Edit Modal
+*MSS*
 
-===
+1.  User invokes edit command by typing "edit" in the command box.
+2.  Notably immediately opens an edit modal for the currently open note to allow for editing.
+3.  User presses a keyboard shortcut ("ESC").
+4.  Notably saves the user's changes
+5.  Notably closes the edit modal.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. User does not make any edits to the content of the note.
++
+[none]
+Proceed to 3 first, then resume use case from 5.
+
+* 2b. User edits the content of the note.
++
+[none]
+Use case continues from 3.
+
+//end::edit-use[]
+
+
 
 _{More to be added}_
 

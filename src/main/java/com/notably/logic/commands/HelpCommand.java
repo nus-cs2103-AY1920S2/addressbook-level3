@@ -8,7 +8,7 @@ import com.notably.commons.LogsCenter;
 import com.notably.model.Model;
 
 /**
- * Represent a command that enable/disables the help window.
+ * Represent a command that enable/disables the help modal.
  */
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
@@ -20,6 +20,6 @@ public class HelpCommand extends Command {
         requireNonNull(notablyModel);
         logger.info("Executing HelpCommand");
         notablyModel.setHelpOpen(true);
-        logger.info("Help Modal Enabled");
+        logger.info("Help WindowEnabled");
     }
 }

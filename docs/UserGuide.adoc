@@ -22,6 +22,7 @@ Notably is for those who *prefer to use a desktop app for managing notes*. More 
 for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User
 Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
 
+//tag::introduction[]
 === An Introduction to Notably
 The following 3 diagrams (<<Legends1, Figure 1>>, <<Legends2, Figure 2>>, <<Legends3, Figure 3>>) highlight key
 sections of Notably's user interface. Refer to the description below each diagram for more information.
@@ -50,6 +51,9 @@ image::Legends3.png[width="800"]
 
 . As shown in the diagram above, Notably allows you to edit and customise your notes in a fuss free manner.
 
+[[LegendsClosed]]
+//end::introduction[]
+
 === Symbols used in this guide
 [NOTE]
 Denotes something that you may want to take note of.
@@ -65,7 +69,7 @@ Denotes a warning for something critical.
 .  Copy the file to the folder you want to use as the home folder for your notes.
 .  Double-click the file to start the app. The Application should start in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help modal.
 
 == Features
 
@@ -150,7 +154,7 @@ image::demo/Help2.png[]
 
 [TIP]
 ====
-* While the help window is open, you can hold the kbd:[Up] and kbd:[Down] keys to scroll through it's contents. This is
+* While the help modal is open, you can hold the kbd:[Up] and kbd:[Down] keys to scroll through it's contents. This is
 a more efficient solution than using your mouse!
 ====
 
@@ -272,6 +276,7 @@ You can open an existing note by specifying its absolute or relative <<paths, pa
 image::demo/Open.png[]
 
 //end::open[]
+//tag::editing[]
 === Edit an existing note: `edit`
 
 If you want to change the `BODY` content of the currently opened note, use the `edit` command. This command *opens* an editing window where you can update the existing `BODY` of the note.
@@ -309,6 +314,7 @@ kbd:[CMD/CTRL] + kbd:[v] respectively.
 ====
 * You are not allowed to `edit` the root note, i.e when your currently opened path is ``"/"``
 ====
+//end:editing[]
 
 //tag::delete[]
 === Delete a note: `delete`

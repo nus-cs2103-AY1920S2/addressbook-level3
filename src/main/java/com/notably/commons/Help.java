@@ -1,7 +1,9 @@
 package com.notably.commons;
 
+import com.notably.view.HelpWindow;
+
 /**
- * Manages useful information that is to be displayed to the user in the {@link com.notably.view.HelpWindow}.
+ * Manages useful information that is to be displayed to the user in the {@link HelpWindow}.
  */
 public class Help {
     private static String commandSummaryMarkdown = "### Command Summary"

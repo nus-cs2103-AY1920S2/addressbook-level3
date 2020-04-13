@@ -1,0 +1,86 @@
+= Hemanshu Gandhi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Notably
+
+---
+
+== Overview
+
+Notably is for those who prefer to use a desktop app for managing notes. More importantly, Notably is optimized for
+those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User
+Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
+
+== Summary of contributions
+
+* *Major enhancement*: Completely overhauled the original user interface to meet the new application's demands.*
+
+** What it does:
+*** Adds a *Side Bar* that allows the user to view his notes in a *hierarchy*, and track the location of the currently
+opened note.
+*** Adds an *Edit Modal* that allows the user to edit his notes, as well as the ability for the user to quickly save and edit the editing mode
+with the press of one key.
+*** Adds a *Response Text* that gives realtime feedback to the user on what he is typing in the command box.
+*** Adds a *Suggestion Window* that displays suggested items to the user in the form of a list. This list needs to support dynamic resizing
+as the number of suggestions continuously changes.
+*** Adds a *Web View* that allows for the content of the user's note, and other metadata (information on path location and title) to be displayed
+to the user.
+** Justification:
+*** The *Side Bar* overcomes the challenges that are present in using a command-line like app; ie the user sometimes gets "lost" and is unable
+to visualise the organisation of his notes. The ability to effectively organise notes is critical to meeting our use case.
+*** The *Edit Modal* allows for a very fast editing process. The user types "edit", the modal opens. He can immediately make changes. He presses "esc",
+the modal closes. This makes the process fast for users that use the keyboard.
+*** The *Response Text* ensures the user does not get confused while using the app; ie this feature is crucial for ensuring ease of use, especially
+in an app that discourages the use of the mouse in favour of the keyboard.
+*** The *Suggestion Window* allows the heavy-lifting done by the back end of the application to be visualised meaningfully by the user in a list format.
+*** The *Web View* allows for the *Markdown* feature to be leveraged, and visualised to the user.
+** Highlights:
+*** The interface of Notably is crucial for manifesting its core features (suggestions engine, markdown compiler, parser), and required a lot of
+teamwork and communication with my collaborators, including an understanding of API programming, to be able to stitch together their features.
+*** Much attention to detail is also present in the user interface
+with regards to styling and the user interactions (e.g. pressing the down key and up key allows the user to seamlessly navigate to the
+suggestions list and the command box).
+*** It was a challenge implementing certain UI enhancements (components such as the edit modal must listen to changes to be dynamically resized and updated)
+and therefore involved a deep understanding of the inner workings of JavaFx (e.g. observer pattern, MVC pattern,  FXML). Furthermore, no third parties were used to achieve
+the UI functionality, which was a challenge.
+** Credits:
+*** JavaFX 11 API: [https://openjfx.io/javadoc/11/]
+*** How to use Listeners: [https://code.makery.ch/blog/javafx-2-event-handlers-and-change-listeners/]
+
+* *Minor enhancement*:
+** Updated the `Model` by creating a `ViewStateModel` that comprises of several other interfaces. These interfaces contain
+the state for the View components (e.g. `Help Modal`, `Edit Modal`, `SideBar` etc)
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=HemanshuGandhi&tabRepo=AY1920S2-CS2103T-W17-2%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=HemanshuGandhi&tabRepo=AY1920S2-CS2103T-W17-2%2Fmain%5Bmaster%5D[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Facilitated through GitHub using the branching, and PR workflow, and using issue tracker.
+** Documentation:
+*** UG Introduction, and UG description of Edit Command: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/502[502]
+*** Added new UiClassDiagram.png and added new use case for Editing Command.
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W17-2/main/pull/244[#244], https://github.com/AY1920S2-CS2103T-W17-2/main/issues/323[#323], amongst others.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=introduction]
+
+include::../UserGuide.adoc[tag=editing]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=view-diagram]
+
+include::../DeveloperGuide.adoc[tag=edit-use]
