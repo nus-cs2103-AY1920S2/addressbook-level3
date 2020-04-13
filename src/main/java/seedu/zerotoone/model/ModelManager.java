@@ -95,15 +95,17 @@ public class ModelManager implements Model {
                 logList);
 
         logger.fine("Initializing with user prefs " + userPrefs);
-
         this.userPrefs = new UserPrefs(userPrefs);
 
+        logger.fine("Initializing with exercise list" + exerciseList.getExerciseList());
         this.exerciseList = new ExerciseList(exerciseList);
         filteredExercises = new FilteredList<>(this.exerciseList.getExerciseList());
 
+        logger.fine("Initializing with workout list" + workoutList.getWorkoutList());
         this.workoutList = new WorkoutList(workoutList);
         filteredWorkouts = new FilteredList<>(this.workoutList.getWorkoutList());
 
+        logger.fine("Initializing with schedule list" + scheduleList.getScheduleList());
         this.scheduler = new Scheduler(scheduleList);
 
         // Init session variables
@@ -119,6 +121,7 @@ public class ModelManager implements Model {
         data.add(0);
         timerList.setSessionList(data);
 
+        logger.fine("Initializing with log list" + logList.getLogList());
         this.logList = new LogList(logList);
         filteredLogList = new FilteredList<>(this.logList.getLogList());
 
@@ -147,38 +150,47 @@ public class ModelManager implements Model {
     // Exercise List
     @Override
     public Path getExerciseListFilePath() {
+        logger.fine("Getting Exercise List File Path");
         return userPrefs.getExerciseListFilePath();
     }
 
     @Override
     public void setExerciseListFilePath(Path exerciseListFilePath) {
         requireNonNull(exerciseListFilePath);
+        logger.fine("Setting Exercise List File Path to: " + exerciseListFilePath);
         userPrefs.setExerciseListFilePath(exerciseListFilePath);
     }
 
     @Override
     public void setExerciseList(ReadOnlyExerciseList exerciseList) {
+        logger.fine("Setting Exercise List to: " + exerciseList.getExerciseList());
         this.exerciseList.resetData(exerciseList);
     }
 
     @Override
     public ReadOnlyExerciseList getExerciseList() {
+        logger.fine("Getting Exercise List");
         return exerciseList;
     }
 
     @Override
     public boolean hasExercise(Exercise exercise) {
         requireNonNull(exercise);
+        logger.fine("Checking if " + exercise + " is in Exercise List");
         return exerciseList.hasExercise(exercise);
     }
 
     @Override
     public void deleteExercise(Exercise target) {
+        requireNonNull(target);
+        logger.fine("Deleting Exercise " + target + " from Exercise List");
         exerciseList.removeExercise(target);
     }
 
     @Override
     public void addExercise(Exercise exercise) {
+        requireNonNull(exercise);
+        logger.fine("Adding Exercise " + exercise + " to Exercise List");
         exerciseList.addExercise(exercise);
         updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
     }
@@ -186,17 +198,20 @@ public class ModelManager implements Model {
     @Override
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
+        logger.fine("Setting Exercise " + target + " to " + editedExercise);
         exerciseList.setExercise(target, editedExercise);
     }
 
     @Override
     public ObservableList<Exercise> getFilteredExerciseList() {
+        logger.fine("Getting Filtered Exercise List");
         return filteredExercises;
     }
 
     @Override
     public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
         requireNonNull(predicate);
+        logger.fine("Updating Predicate of Exercise List");
         filteredExercises.setPredicate(PREDICATE_SHOW_NONE);
         filteredExercises.setPredicate(predicate);
     }
