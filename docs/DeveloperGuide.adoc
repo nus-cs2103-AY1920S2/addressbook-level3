@@ -597,7 +597,7 @@ image::InitializationOfCalorieTables.png[test, 50%]
 
 Case 1: when the user enter the command `check x/sports k/swim`, the `LogicManager` will create
 a `CheckCommand`, which askes `ModelManager` to let `FitHelper` to search through `SportsCalorieTable`
-to add first 3 `CalorieDatum` whose name contains the keyword `swim` into a List, and return the
+to add first 3 `CalorieDatum` whose name matches the keyword `swim` into a List, and return the
 list to `CheckCommand`. Since the list contains at least one `CalorieDatum` (meaning there is
 some matching data), the `CheckCommand` returns a `CommandResult` whose `feedbackToUser`
 contains a success message followed by the string representation of each matching datum.
@@ -611,6 +611,11 @@ a failure message followed by the string representation of the keyword.
 
 image::SequenceDiagramForCheckCommand1.png[test, 150%]
 image::SequenceDiagramForCheckCommand2.png[test, 150%]
+
+The detailed searching mechanism is illustrated as the following:
+
+image:SearchMechanismofCheckCommand.png[test, 50%]
+
 ==== Design Considerations
 
 Aspect: Data structure to store entries
