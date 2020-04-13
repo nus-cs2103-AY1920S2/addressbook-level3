@@ -11,12 +11,14 @@ import javafx.collections.ObservableList;
 public interface SuggestionModel {
     /**
      * Gets the list of suggestions saved in the model.
+     *
      * @return The Observable List of suggested items.
      */
     ObservableList<SuggestionItem> getSuggestions();
 
     /**
      * Saves the list of suggestions in the model.
+     *
      * @param suggestions The list of paths or notes that match the user input.
      */
     void setSuggestions(List<SuggestionItem> suggestions);

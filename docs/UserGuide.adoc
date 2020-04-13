@@ -159,10 +159,10 @@ If you want to add a new note to the current working directory (currently opened
 Observe that the note `CS2103T` was not opened immediately
 ====
 [[New1]]
-.Step 1 - Demo for the `new` command (with all parameters and `open` flag)
+.Step 1 - Demo for the `new` command (with the `open` flag)
 image::demo/New1.png[Demo]
 [[New2]]
-.Step 2 - Demo for the `new` command (with only title parameter)
+.Step 2 - Demo for the `new` command (without the `open` flag)
 image::demo/New2.png[]
 [[New3]]
 .Step 3 - Demo for the `new` command (after creating both notes)
@@ -203,15 +203,12 @@ If you want to change the `BODY` content of the currently opened note, use the `
 ====
 
 ==== Example: Editing the currently opened note
-. Let's update the `BODY` content of the currently opened note `Workspace`, with "This is the new paragraph". This can be done with the command: +
+. Let's update the `BODY` content of the currently opened note `Workspace` with the command: +
 
     edit
 
 .Demo for the `edit` command
-image::demo/Edit1.png[]
-
-.Demo for the `edit` command (after edit)
-image::demo/Edit2.png[]
+image::demo/Edit.png[]
 
 === Delete a note: `delete`
 
