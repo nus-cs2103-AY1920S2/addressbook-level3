@@ -191,6 +191,9 @@ image::NusModuleClassDiagram.png[width="790"]
 - As shown in the class diagram above, modules are created by a class called `NusModule`. Every instance of `NusModule` contains a `ModuleCode` object, a
 `Grade` object (optional) and a list of `ModuleTask` objects.
 
+[NOTE]
+The module book only accept modules that are provided in NUS and will check the module code the user want to add is valid or not by using the search feature mentioned above.
+
 - All possible actions mentioned above such as creating modules, deleting modules and adding tasks to modules are implemented through
 the `ModuleBook` class.
 
@@ -204,19 +207,51 @@ And then call method `addModule` in `ModuleBook` to create the module as require
 - The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user want to add a module in our program.
 
 .Sequence diagram when moduleAdd command is executed
-image::ModuleAddSequenceDiagram.png[width="790"]
+image::ModuleAddSequenceDiagram.png[width="950"]
 
 .Relation between ModuleBook and Task
-image::PartOfModelClassDiagramForProfile.png[width="790"]
-
+image::PartOfModelClassDiagramForProfile.png[width="400"]
 
 - The program will synchronize the modification to module tasks in `ModuleBook` with that shown in Calendar tab through `ModelManager` as shown above.
 i.e. Any modification in module tasks will be updated in `Task` which is the main class Calendar feature depends on. (see more details in Calendar feature)
 
 ==== Example Use Scenario
 
+
+
 ==== Design Considerations
 
+*Aspect 1*: How the user add in a module into module book for future management ?
+
+- *Current solution*: Only need to provide the module code to add module and it will fetch the information about the module using Module Search feature automatically.
+* *Pros*: Users don't need to provide any other information (such as modular credit of the module) for other functionality such as calculating the CAP.
+* *Pros*: The module information will be cached locally after you add the module once and this can used for future development.
+* *Cons*: Need Internet connection when you add in certain module for the first time.
+* *Cons*: Highly depends on the Module Search feature.
+
+- *Alternative Solution*: Let the user enter all information required for each module when they add it in. (such as modular credit)
+* *Pros*: More flexible, not depends on other features.
+* *Cons*: Very tedious for users to add in lots of modules.
+* *Cons*: Need to ask user to provide new information when more new functionality is added in the future.
+
+*Reason for chosen implementation*: +
+The current implementation is much more user friendly and have more potential for future development. The implement can become
+very ideal if the Module Search feature works properly.
+
+*Aspect 2*: How the user manage their tasks for each module?
+
+- *Current solution*: For each module added, it contains a list of `ModuleTask`. Also update the calendar when add task in.
+* *Pros*: Users can either view their tasks for each module separately or view all the tasks shown in Calendar tab.
+* *Pros*: More nice-looking that the user can view all the deadlines on calendar.
+* *Cons*: Prone to bugs during the synchronization of module book and calendar.
+
+- *Alternative solution*: Only store the list of `ModuleTask` in module book and do not update in Calendar tab.
+* *Pros*: Easier to implement and can avoid some synchronization bugs.
+* *Cons*: Users can not gain a view of the whole pictures with all tasks shown on calendar.
+
+*Reason for chosen implementation*: +
+The current implementation updates the module tasks added in onto the calender and provides the users different ways
+to manage their tasks. (as a whole or separately for each module)
 
 === Calendar Feature
 
