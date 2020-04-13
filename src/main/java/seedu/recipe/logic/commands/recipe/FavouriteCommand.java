@@ -34,11 +34,11 @@ public class FavouriteCommand extends Command {
     public static final String MESSAGE_ALREADY_FAVOURITE = "%1$s already in favourites!";
 
     private final Tab recipesTab = Tab.RECIPES;
-    private final Index[] targetIndex;
+    private final Index[] targetIndexes;
     private final CommandType commandType;
 
-    public FavouriteCommand(Index[] targetIndex) {
-        this.targetIndex = targetIndex;
+    public FavouriteCommand(Index[] targetIndexes) {
+        this.targetIndexes = targetIndexes;
         this.commandType = CommandType.MAIN;
     }
 
@@ -49,11 +49,11 @@ public class FavouriteCommand extends Command {
         List<String> successfullyFavouritedRecipes = new ArrayList<>();
         List<String> alreadyFavouritedRecipes = new ArrayList<>();
 
-        if (!canFavouriteTargetRecipes(lastShownList.size(), targetIndex)) {
+        if (!canFavouriteTargetRecipes(lastShownList.size(), targetIndexes)) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
-        for (Index index : targetIndex) {
+        for (Index index : targetIndexes) {
             Recipe recipeToFavourite = lastShownList.get(index.getZeroBased());
             if (!recipeToFavourite.isFavourite()) {
                 EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
@@ -100,9 +100,9 @@ public class FavouriteCommand extends Command {
     /**
      * Checks if the recipe that the user wishes to favourite exists within the recipe list.
      */
-    private boolean canFavouriteTargetRecipes(int lastShownListSize, Index[] targetIndex) {
-        for (int i = targetIndex.length - 1; i >= 0; i--) {
-            if (targetIndex[i].getOneBased() > lastShownListSize) {
+    private boolean canFavouriteTargetRecipes(int lastShownListSize, Index[] targetIndexes) {
+        for (int i = targetIndexes.length - 1; i >= 0; i--) {
+            if (targetIndexes[i].getOneBased() > lastShownListSize) {
                 return false;
             }
         }
@@ -113,6 +113,6 @@ public class FavouriteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FavouriteCommand // instanceof handles nulls
-                && Arrays.equals(targetIndex, ((FavouriteCommand) other).targetIndex)); // state check
+                && Arrays.equals(targetIndexes, ((FavouriteCommand) other).targetIndexes)); // state check
     }
 }
