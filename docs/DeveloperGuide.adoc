@@ -156,6 +156,7 @@ This section describes some noteworthy details on how certain features are imple
 tag::schedule[]
 
 (Elysia Tan Ziyi: 3.1, 3.2)
+
 === Schoolwork Tracker
 [.text-justify]
 The `SchoolworkTracker` helps users keep track of their assignments so that they do not accidentally overlook any of them. It consists of the `AssignmentList` which contains all the added assignments.
@@ -310,6 +311,7 @@ end::schedule[]
 tag::get[]
 
 (Kwan Xin Jie: 3.3, 3.4, 3.5)
+
 === Detailed Contact Viewer
 ==== Implementation
 
@@ -411,8 +413,10 @@ image::addRestNote.png[]
 
 end::editRestNote[]
 
-(Chua Xinhui Sarah: 3.6)
 tag::findContacts[]
+
+(Chua Xinhui Sarah: 3.6)
+
 === Finding Contacts
 ==== Implementation
 
@@ -458,6 +462,7 @@ Current implementation of Predicates uses the `stream` and `anyMatch` commands t
 end::findContacts[]
 
 (Joel Lim Hee Heng: 3.7, 3.8)
+
 === Restaurant Book
 ==== Current Implementation
 [.text-justify]
