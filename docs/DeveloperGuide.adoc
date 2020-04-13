@@ -453,6 +453,27 @@ Current implementation of Predicates uses the `stream` and `anyMatch` commands t
 * Pros: Easier to implement.
 * Cons: More troublesome for the user because if they want to search for multiple tags, they would have to keep typing the `/t` prefix for each keyword.
 
+=== Restaurant Book
+==== Current Implementation
+[.text-justify]
+The `RestaurantBook` helps users keep track of `Restaurants`, so that users can quickly find an eating place given their constraints (e.g. odd hours, location, food cravings, etc)
+
+[.text-justify]
+From *Fig 1* below, each `Assignment` has four components: `Title`, `Deadline`, `Status` and `Workload`. `Workload` refers to the expected amount of time required to finish the `Assignment`. These components will be used for schedule generation when `(st)schedule n/NUM_DAYS` is executed (explained below).
+
+image::rtClassDiagram.png[align="center"]
+
+Bla bla bla
+
+image::rtActivityDiagram.png[align="center"]
+
+Example with (rt)add
+
+==== Design Considerations
+
+=== Undo/Redo
+==== Current Implementation
+==== Design Considerations
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
