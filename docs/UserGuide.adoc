@@ -179,9 +179,9 @@ Format: `exit`
 Set the app state back to the most recent undoableCommand.
 
 [NOTE]
-=====
+======
 See the full list of undoable commands: all edit/add/delete/assign/unassign commands.
-=====
+======
 
 Examples:
 

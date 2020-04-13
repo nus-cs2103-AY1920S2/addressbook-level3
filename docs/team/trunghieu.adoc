@@ -64,14 +64,14 @@ https://github.com/AY1920S2-CS2103-W14-1/main/pull/113
 
 == Contributions to the User Guide
 
-==== Undo Command: `undo`
+=== Undo Command: `undo`
 
 Set the app state back to the most recent undoableCommand.
 
 [NOTE]
-=====
+====
 See the full list of undoable commands: all edit/add/delete/assign/unassign commands.
-=====
+====
 
 
 Examples:
@@ -98,7 +98,7 @@ After `undo`:
 
 image::undo_3.png[]
 
-==== Redo Command: `redo`
+=== Redo Command: `redo`
 
 Reverses the most recent `undo` command, but will fail if the most recent command was not the `undo` command or `redo`
 command
