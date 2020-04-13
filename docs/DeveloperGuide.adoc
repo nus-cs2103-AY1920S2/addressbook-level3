@@ -34,40 +34,40 @@ image::ArchitectureDiagram.png[]
 
 ==== Design pattern and data flow
 
-The App is built following the https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller[Model-View-Controller] design pattern.
+The App is built following the https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller[Model-View-Controller design pattern].
 
-In addition, the App's data flow is unidirectional. That is, all user interactions in `View` will trigger an appropriate handler in `Logic`, which in turn updates `Model` and `Storage`.
-Any data/state changes in `Model` will then propagate back to `View` automatically through https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm[JavaFX's Property and Binding].
+In addition, the App's data flow is unidirectional. That is, all user interactions in <<Design-View,*`View`*>> will trigger an appropriate handler in <<Design-Logic,*`Logic`*>>, which in turn updates <<Design-Model,*`Model`*>> and <<Design-Storage,*`Storage`*>>.
+
+Any data/state changes in <<Design-Model,*`Model`*>> will then propagate back to <<Design-View,*`View`*>> automatically through https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm[JavaFX's Property and Binding]. In other words, the https://en.wikipedia.org/wiki/Observer_pattern[Observer design pattern] is employed; <<Design-Model,*`Model`*>> is the observable while <<Design-View,*`View`*>> is the observer.
 
 In short, the App's data flow can be summarized as: +
-`View` -> `Logic` -> `Model` + `Storage` -> `View`
+<<Design-View,*`View`*>> -> <<Design-Logic,*`Logic`*>> -> <<Design-Model,*`Model`*>> + <<Design-Storage,*`Storage`*>> -> <<Design-View,*`View`*>>
 
 ==== Architecture-level components
 
-Overall, the App consists of four components:
+Overall, the App consists of five main components:
 
 * <<Design-View,*`View`*>>: View of the App.
 * <<Design-Logic,*`Logic`*>>: Business logic of the App.
 * <<Design-Model,*`Model`*>>: In-memory representation of the App's data/state.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Commons,*`Commons`*>>: A collection of classes used by multiple other components.
 
-In addition, <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+The first four components, namely <<Design-View,*`View`*>>, <<Design-Logic,*`Logic`*>>, <<Design-Model,*`Model`*>> and <<Design-Storage,*`Storage`*>>:
+
+* Defines its _API_ in an `interface` with the same name as the itself, e.g. link:{repoURL}/src/main/java/com/notably/logic/Logic.java[`Logic.java`]
+* Exposes its functionality using a `{Component Name}Manager` class, e.g. link:{repoURL}/src/main/java/com/notably/logic/LogicManager.java[`LogicManager.java`]
+
+The following classes from <<Design-Commons,*`Commons`*>> plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
-Each of the four components:
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+* <<Design-Compiler,*`Compiler`*>> : Used mainly by the <<Design-View,*`View`*>> to compile Markdown to HTML for displaying notes.
 
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `new -t Notably -b Lorem ipsum`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `new -t Notably`.
 
-.Component interactions for the `new -t Notably -b Lorem ipsum` command
+.Component interactions for the `new -t Notably` command
 image::ArchitectureSequenceDiagram.png[]
 
 [[Design-View]]
@@ -123,35 +123,43 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 // end::parser[]
+
+//tag::sugengine[]
 [[Design-SuggestionEngine]]
 ==== SuggestionEngine component
 
-.Class Diagram of the Suggestion Engine Component (still WIP)
+.Class Diagram of the Suggestion Engine Component
 image::SuggestionClassDiagram.png[]
 
 *API* :
-link:{repoURL}blob/master/src/main/java/com/notably/logic/suggestion/SuggestionEngine.java[`SuggestionEngine.java`]
+link:{repoURL}/blob/master/src/main/java/com/notably/logic/suggestion/SuggestionEngine.java[`SuggestionEngine.java`]
 
 `SuggestionEngine` gives users the meaning of the command they input and a list of notes suggestions that they want to
-open/ delete/ search/ edit.
+open, delete, or search.
 
-1. `Logic` uses the `SuggestionEngineImpl` class, which implements `SuggestionEngine` interface, to parse the user command.
-2. According to the command the user inputs, `SuggestionEngineImpl` will create a `XYZSuggestionCommandParser` object
-which implements `SuggestionCommandParser` interface.
-3. This results in the creation of `XYZSuggestionCommand` object which implements `SuggestionCommand` interface.
-`XYZSuggestionCommand` is then executed by the `LogicManager`.
-4. The command execution can affect the `Model` (e.g. `open` command will set the response text in the model as
-"Open a note" and store a list of `SuggestionItem` in the model).
-5. The UI will then be able to retrieve the response text and list of `SuggestionItem` from the model to be displayed
+1. `Logic` uses the `SuggestionEngine` class, to handle the user input.
+2. According to the command the user inputs, `SuggestionEngine` will create a `XYZSuggestionArgHandler` or `ABCSuggestionHandler` object
+which implements `SuggestionArgHandler` and `SuggestionHandler` interface respectively. `XYZSuggestionArgHandler` are for commands that
+require argument parsing, i.e. `open`, `delete`, `search`, `new`, whereas `ABCSuggestionHandler` are for commands that do not require argument
+parsing, i.e. `edit`, `exit`, `help`.
+3. If `SuggestionArgHandler` object is created: the `responseText` in the `Model` will be updated. This case will also result in the
+creation of `XYZSuggestionGenerator` object (except for `new` command) which implements `SuggestionGenerator` interface.
+`XYZSuggestionGenerator` is then executed by the `SuggestionEngine`.
+4. If `SuggestionHandler` object is created: the `responseText` in the `Model` will be updated.
+5. The `Model` could be affected in 2 ways:
+* Update `responseText` of the `Model` (by the `SuggestionHandler` and `SuggestionArgHandler`): for instance, the input `open /` will set the `responseText` in the `Model` as
+"Open a note".
+* Store a list of `SuggestionItem` in the `Model` (by the `SuggestionGenerator`).
+6. The UI will then be able to retrieve the `responseText` and list of `SuggestionItem` from the `Model` to be displayed
 to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` and `Suggestion` component for the `execute("open /")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` and `Suggestion` component for the input `opne /a`.
 
-.Interactions Inside the Logic and Suggestion Component for the `open /` Command
+.Interactions Inside the Logic and Suggestion Component for the input `opne /a`
 image::SuggestionSequenceDiagram.png[]
 
-NOTE: The lifeline for `OpenSuggestionCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
+NOTE: The lifeline for `OpenSuggestionArgHandler` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+//end::sugengine[]
 
 [[Design-CorrectionEngine]]
 ==== CorrectionEngine component
@@ -298,6 +306,8 @@ Two concrete implementations of the `CorrectionEngine` interface are, namely:
 1. `CorrectionEngine` is built as a standalone module that can be used by both <<Implementation-SuggestionEngine,*`SuggestionEngine`*>> and <<Implementation-Parser,*`Parser`*>>. This decision is made so that code duplication in relation to auto-correction is minimal.
 2. Both `CorrectionEngine` and `EditDistanceCalculator` are implemented as interfaces, in an attempt to make the design of the `CorrectionEngine` component resilient to change. This design enables us to leverage on the https://en.wikipedia.org/wiki/Strategy_pattern[strategy pattern] to make our `CorrectionEngine` component more future-proof.
 
+
+//tag::sugengineimpl[]
 [[Implementation-SuggestionEngine]]
 === Suggestion Engine
 
@@ -305,30 +315,68 @@ Two concrete implementations of the `CorrectionEngine` interface are, namely:
 
 `SuggestionEngine` allows the users to traverse their notes conveniently, without having
 to remember the hierarchical structure of their notes. `SuggestionEngine` gives users the meaning of the command they input and a list of notes suggestions that they want to
-open/ delete/ search/ edit.
+open, delete, or search.
 
 ==== Current implementation
 
-1. `Logic` uses the `SuggestionEngineImpl` class, which implements `SuggestionEngine` interface, to parse the user command.
-2. According to the command the user inputs, `SuggestionEngineImpl` will create a `XYZSuggestionCommandParser` object
-which implements `SuggestionCommandParser` interface.
-3. This results in the creation of `XYZSuggestionCommand` object which implements `SuggestionCommand` interface.
-`XYZSuggestionCommand` is then executed by the `LogicManager`.
-4. The command execution can affect the `Model` (e.g. `open` command will set the response text in the model as
-"Open a note" and store a list of `SuggestionItem` in the model).
-5. The UI will then be able to retrieve the response text and list of `SuggestionItem` from the model to be displayed
+[width="75%",cols="23%,<33%,<25%",options="header",]
+|=======================================================================
+| |SuggestionArgHandler |SuggestionHandler
+
+| Purpose | Handles the arguments part of the user input and updates the `responseText` in the `Model` according to the user's command input |
+Updates the `responseText` in the `Model` according to the user's command input
+
+| Commands | `open`, `delete`, `search`, `new` | `edit`, `exit`, `help`
+
+| Suggestion Generation | Yes, by `SuggestionGenerator` (except for `new` command, since suggestions are generated based on the existing data in the app) | No
+
+|=======================================================================
+
+1. `Logic` uses the `SuggestionEngine` class, to handle the user input.
+2. According to the command the user inputs, `SuggestionEngine` will create a `XYZSuggestionArgHandler` or `ABCSuggestionHandler` object
+which implements `SuggestionArgHandler` and `SuggestionHandler` interface respectively. `XYZSuggestionArgHandler` are for commands that
+require argument parsing, i.e. `open`, `delete`, `search`, `new`, whereas `ABCSuggestionHandler` are for commands that do not require argument
+parsing, i.e. `edit`, `exit`, `help`.
+3. If `SuggestionArgHandler` object is created: the `responseText` in the `Model` will be updated. This case will also result in the
+creation of `XYZSuggestionGenerator` object (except for `new` command) which implements `SuggestionGenerator` interface.
+`XYZSuggestionGenerator` is then executed by the `SuggestionEngine`.
+4. If `SuggestionHandler` object is created: the `responseText` in the `Model` will be updated.
+5. The `Model` could be affected in 2 ways:
+* Update `responseText` of the `Model` (by the `SuggestionHandler` and `SuggestionArgHandler`): for instance, the input `open /` will set the `responseText` in the `Model` as
+"Open a note".
+* Store a list of `SuggestionItem` in the `Model` (by the `SuggestionGenerator`).
+6. The UI will then be able to retrieve the `responseText` and list of `SuggestionItem` from the `Model` to be displayed
 to the user.
 
 ==== Design considerations
 
+*Aspect 1: Design with respect to the whole architecture*
+
 1. `SuggestionEngine` is segregated from `Parser` in order to differentiate the logic when the user has finished typing
-and pressed `enter` (which will be handled by `Parser`) in contrast to when the user presses `tab` to take in the
+and pressed kbd:[Enter] (which will be handled by `Parser`) in contrast to when the user presses the keyboard kbd:[down] button and kbd:[Enter] to take in the
 suggestion item.
-2. In order to keep the App's data flow unidirectional, `SuggestionEngine` will update the response text (which tells
+2. In order to keep the App's data flow unidirectional, `SuggestionEngine` will update the `responseText` (which tells
 the user the meaning of his command) and the list of `SuggestionItem` into the `Model`. Thus, by not showing the
-response text and suggestions immediately to the UI, `SuggestionEngine` will not interfere with the `View` functionality.
-3. `SuggestionEngine`, `SuggestionCommandParser`, `SuggestionCommand`, `SuggestionItem`, and `SuggestionModel` are
+`responseText` and suggestions immediately to the UI, `SuggestionEngine` will not interfere with the `View` functionality.
+3. `SuggestionArgHandler`, `SuggestionHandler`, `SuggestionGenerator`, `SuggestionItem`, and `SuggestionModel` are
 implemented as interfaces, in an attempt to make the design of the `SuggestionEngine` component resilient to change.
+
+*Aspect 2: Implementation of suggestions generation*
+
+* *Alternative 1:* Have a `SuggestionCommandParser` interface and `SuggestionCommand` interface to parse each of the
+command, update `responseText` in the `Model`, and give suggestions.
+** Pros: This provides a consistency for all the commands, where each command has a `XYZSuggestionCommandParser` and `XYZSuggestionCommand` class.
+** Cons: The `SuggestionCommandParsers` of the commands that do not require parsing of user input (`edit`, `exit`, `help`) end up passing a `userInput`
+argument that is not being used anywhere, which makes this design unintuitive. Moreover, since the updating of the `responseText`
+in the `Model` can be done in each `SuggestionCommandParser`, the `SuggestionCommand`s of `edit`, `exit`, and `help` end up to be redundant.
+
+* *Alternative 2 (current choice):* Create 2 separate interface to handle commands with input parsing and those without, and name it as a
+`SuggestionArgHandler` and `SuggestionHandler` respectively.
+** Pros: This solves the cons discussed in Alternative 1, as this design gives a separate implementation for the commands with input
+parsing and those without. It does not force the `Handler` to parse the user input when there is no need to. The naming `Handler` also
+does not restrict the functionality of the interface and classes to just parse an input, but allows for a flexibility in executing other functionality
+such as updating the `responseText` in the `Model`.
+//end::sugengineimpl[]
 
 // tag::paths[]
 [[Implementation-Path]]
@@ -482,39 +530,66 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Notably` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Traverse notes
-
+=== Use case: Search notes using the Auto-suggestion feature
 *MSS*
 
-1.  User types in the title of note/subnotes to traverse to
-2.  Notably opens the target note
+1.  User types in a keyword of a note's content that he wants to open.
+2.  Notably lists out the relevant search results, with the most relevant at the top of the list (based on the keyword's
+number of occurrences in the note).
+3.  User chooses one of the suggested notes.
+4.  Notably opens the chosen note.
 +
 Use case ends.
 
-[discrete]
-=== Use case: Search notes
+*Extensions*
+[none]
+* 2a. No suggestion is being generated.
++
+[none]
+** 2a1. Notably displays a response text, indicating that the user is trying to search through all of the notes using that
+particular keyword.
+** 2a2. Since the empty suggestion conveys that the keyword cannot be found, the user enters a new data.
 
+Steps 2a1-2a2 are repeated until the data entered is correct. Use case resumes from Step 3.
+
+[discrete]
+=== Use case: Open/ Delete notes using the Auto-suggestion feature
 *MSS*
 
-1.  User types in the approximate title or content of note intended to be opened
-2.  Notably lists out the relevant search results
-3.  User chooses one of the suggested notes
-4.  Notably opens the chosen note
+1. User types in an incomplete path or title of a note.
+2. Notably lists out suggestions of notes.
+3. User chooses one of the suggested notes.
+4. Notably opens/ deletes the chosen note.
 +
 Use case ends.
 
-[discrete]
-=== Use case: Note alias
-
-*MSS*
-
-1.  User types in a command to open a note by an alias name
-2.  Notably opens the aliased note
+*Extensions*
+[none]
+* 1a. Path or title contains invalid character(s) ( symbols `-` or ```)
 +
-Use case ends.
+[none]
+** 1a1. Notably displays a response text, indicating that the path or title is invalid.
+** 1a2. User enters a new data.
+
+Steps 1a1-1a2 are repeated until the data entered is correct. Use case resumes from Step 2.
+
+[none]
+* 1b. Path or title does not exist
++
+[none]
+** 1b1. Notably displays a response text, indicating that the user is trying to open/ delete the note
+with the particular path or title that the user inputs.
+** 1b2. Notably does not generate any suggestions, which means the note cannot be found.
+** 1b3. User enters a new data.
+
+Steps 1b1-1b3 are repeated until the data entered is correct. Use case resumes from Step 2.
+
+
+
+===
 
 _{More to be added}_
 
