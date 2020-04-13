@@ -21,7 +21,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 Refer to the guide <<SettingUp#, here>>.
 
 [[Design-Architecture]]
-=== Architecture
+=== Architecture (HIEU)
 
 .Architecture Diagram
 image::ArchitectureNewDiagram.png[]
@@ -493,7 +493,7 @@ an event of `DataStorageChangeEvent` or `DeleteEntitySyncEvent` happens, it will
 which `observableMap` (which corresponds to different `DetailedView`) is active then
 do the query again.
 
-. 2/ Lazy loading: For example, when seeing details of the students, we only want to show the courses
+. Lazy loading: For example, when seeing details of the students, we only want to show the courses
 that the students have without the progresses of this course that the student currently have.
 To query that, after executing `select sid/ student_id`, the user needs to run
 `select sid/ student_id cid/ course-id` as well
