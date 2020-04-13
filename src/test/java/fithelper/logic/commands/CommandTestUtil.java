@@ -86,6 +86,7 @@ public class CommandTestUtil {
     public static final EditCommand.EditEntryDescriptor DESC_SPORTS;
 
     public static final String WHITE_SPACE = " ";
+    public static final String INVALID = "invalid";
     public static final String TIME = "time";
     public static final String CALORIE = "cal";
     public static final String NAME = "name";

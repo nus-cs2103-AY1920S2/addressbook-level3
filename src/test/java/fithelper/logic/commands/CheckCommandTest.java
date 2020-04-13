@@ -60,7 +60,7 @@ public class CheckCommandTest {
                 + new SportsCalorieDatum("test1", "456").toString()
                 + new SportsCalorieDatum("test2", "789").toString()
                 + new SportsCalorieDatum("test3", "123").toString()
-                + MESSAGE_MAX_THREE_RESULTS;;
+                + MESSAGE_MAX_THREE_RESULTS;
         assertCommandSuccess(command, model, expectedMessage, model);
     }
 

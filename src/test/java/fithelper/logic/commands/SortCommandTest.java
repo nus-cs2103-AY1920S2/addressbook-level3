@@ -30,13 +30,15 @@ public class SortCommandTest {
         // all fields present
         SortCommand command = new SortCommand(new Type(FOOD), new SortBy("name"), false);
         CommandResult commandResult = command.execute(model);
-        String expectedMessage = Messages.MESSAGE_FOOD_ENTRY_LIST_SORTED + BY + command.getSortBy() + DESCENDING_ORDER;
+        String expectedMessage = Messages.MESSAGE_FOOD_ENTRY_LIST_SORTED + BY
+                + command.getSortBy() + DESCENDING_ORDER;
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
 
         // sort type filed missing
         command = new SortCommand(null, new SortBy("time"), true);
         commandResult = command.execute(model);
-        expectedMessage = Messages.MESSAGE_BOTH_ENTRY_LIST_SORTED + BY + command.getSortBy() + ASCENDING_ORDER;
+        expectedMessage = Messages.MESSAGE_BOTH_ENTRY_LIST_SORTED + BY
+                + command.getSortBy() + ASCENDING_ORDER;
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
 }
