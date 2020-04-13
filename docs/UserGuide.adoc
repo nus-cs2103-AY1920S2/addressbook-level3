@@ -87,10 +87,25 @@ Sets a spendable budget for the current month
 Format: `budget b/AMOUNT` (to set a budget for the given month only)
         `budget b/AMOUNT rc/` (to set repeating budget of $AMOUNT for the coming months)
 
-Examples:
+Example Usage:
+
+* `budget b/1000`
++
+image::BeforeSetBudget.png[width="790"]
++
+
++
+image::AfterSetBudget.png[width="790"]
++
 
 * `budget b/1000 rc/`
-* `budget b/1500`
++
+image::BeforeSetBudget.png[width="790"]
++
+
++
+image::AfterSetRecurringBudget.png[width="790"]
++
 
 
 === Reset total balance `resetbalance` (Hubert Halim)
