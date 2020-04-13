@@ -25,7 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Architecture Diagram of Coupon Stash.
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the
@@ -69,7 +69,7 @@ Each of the four components
 The _Sequence Diagram_ below shows how the components interact with each other
 for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete 1` command.
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -77,7 +77,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the UI Component.
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/csdev/couponstash/ui/Ui.java[`Ui.java`]
@@ -88,7 +88,7 @@ All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The TabsPanel can be further divided into three tabs - `HelpPane`, `SummaryPane`
 and the `CouponListPanel`. The `CouponListPanel` contains the `CouponCard` that
-represents the `Coupon` s themselves.
+represents the ``Coupon``s themselves.
 
 The `CalendarResultsDisplayPanel` is split into two UI components - the
 `CalendarPane` and the `ResultDisplay`. As the name suggests, the `CalendarPane`
@@ -114,7 +114,7 @@ modified data.
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Structure of the Logic Component.
 image::LogicClassDiagram.png[]
 
 *API* :
@@ -131,7 +131,7 @@ certain actions, such as displaying help to the user.
 Given below is the Sequence Diagram for interactions within the `Logic`
 component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete 1` Command.
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker
@@ -141,7 +141,7 @@ diagram. This limitation affects all of the sequence diagrams in this document.
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Structure of the Model Component.
 image::ModelClassDiagram.png[]
 
 *API* :
@@ -170,7 +170,7 @@ image:BetterModelClassDiagram.png[]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+.Structure of the Storage Component.
 image::StorageClassDiagram.png[]
 
 *API* :
@@ -251,7 +251,7 @@ state, and restores the coupon stash to that state. Plus, the command text is
 returned, thus allowing for the display of the command that was undone. In this
 case, the command undone is `add n/OMO STORE...`.
 
-.`currStateIndex` shifted once to the left
+.`currStateIndex` shifted once to the left.
 image::UndoRedoState3.png[]
 
 [NOTE]
@@ -515,7 +515,7 @@ by Coupon Stash.
 
 [#img-automaticarchiving]
 .Activity diagram representation of the general flow of archiving of coupons in Coupon Stash
-image::ArchivingActivityDiagram.png[]
+image::ArchivingActivityDiagram.png[width="300"]
 
 **Archiving of Expired Coupons**
 
@@ -579,9 +579,9 @@ image::ArchiveExhaustedSequenceDiagram.png[]
 ** Cons: Saved data may get get considerably huge after heavy usage of
 application.
 
-* **Alternative 2:** Archived ``Coupon`` s are stored in another separate data file.
+* **Alternative 2:** Archived ``Coupon``s are stored in another separate data file.
 ** Pros: Separates the logic between the two different `CouponStash`, e.g. ability
-to limit the functions on archived `Coupon` s
+to limit the functions on archived ``Coupon``s
 ** Cons: Sharply increases the maintainability and coupling of the application
 with two data files.
 
@@ -1889,3 +1889,30 @@ another window.
 .. Test case: `help` +
 Expected: A web browser window opens, showing
 the Coupon Stash User Guide.
+
+[appendix]
+== Efforts
+Coupon Stash is the first team-based software engineering project for all of us.
+Without much experience, we faced many difficulties in coordinating our features
+and codes. Since Coupon Stash is User Interface intensive, we had to learn
+JavaFX comprehensively to fulfil the high standards that we set for ourselves.
+Learning a new Framework was as good as learning a new language in itself,
+taking us some time to understand how to fully utilize it.
+
+Each of us would push commits every other day every week to try and complete
+our tasking too. While our product is similar to AB3 in terms of data fields, we
+push it further by adding functionality to these fields. The intertwining of these
+functionality was the most difficult part about this project. We would usually
+try to sort out the implementation on chat, but there are times where one of
+us would mess up the implementation somewhere afterwards, causing a bit of
+debugging. We also try to apply as much of our learning from the textbook,
+but again without much practice, it would usually take us a few iterations
+and discussions to correct our code. Nonetheless, we learnt a lot from this
+project throughout these 7 weeks.
+
+What we believe we did well in was getting our project workflow right from the
+start. Using Github’s project board, issue tracker and branch protections, we
+were able to help each other spot mistakes, ensuring that our master branch
+was always working. Even though we started as strangers, the long weekly
+discussions that we have brought us close! We are definitely proud of the
+product that we created, and believe that it serves its purpose well.
