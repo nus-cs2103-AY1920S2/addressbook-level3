@@ -1,0 +1,23 @@
+@startuml
+
+start
+:Create an empty workout with a name;
+:View list of exercises;
+repeat :Find exercise to add;
+
+    if (Desired exercise found?) then ([yes])
+    else ([no])
+        if (Edit existing exercise?) then ([yes])
+            :Edit new exercise;
+        else ([no])
+            :Create new exercise;
+        endif
+    endif
+
+    :Find exercise ID;
+    :Add new exercise to workout;
+repeat while (More exercises to add?) is ([yes])
+-> [no];
+stop
+
+@enduml
