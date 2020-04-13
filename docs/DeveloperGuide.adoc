@@ -140,7 +140,9 @@ The `Model`,
 * stores a `WorkoutList` that represents the list of workouts available.
 * stores a `ScheduleList` that represents the list of upcoming schedules.
 * stores a `LogList` that represents the list of completed data.
-* exposes an unmodifiable `ObservableList<Exercise>`, `ObservableList<Workout>`, `ObservableList<ScheduledWorkout>`, `ObservableList<Log>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `TimerList` that represents a time delta in seconds.
+* stores an `Optional` `OngoingWorkout` that may contain a session, if started.
+* exposes an unmodifiable `ObservableList<Exercise>`, `ObservableList<Workout>`, `ObservableList<ScheduledWorkout>`, `ObservableList<Log>`, `ObservableList<OngoingSet>`, and `ObservableList<Integer>` (time delta) that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other components.
 
 For more information about each component, check out the 'Implementation' section.
