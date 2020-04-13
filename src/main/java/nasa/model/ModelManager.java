@@ -132,13 +132,13 @@ public class ModelManager implements Model {
                     }
                 } else {
                     updateFilteredModuleList(x->true);
-                    updateFilteredActivityList(x -> false);
+                    //updateFilteredActivityList(x -> false);
                 }
             } else if (test.get(1).equals("module")) {
                 List<String> listTemp = test.subList(2, 3);
                 updateFilteredModuleList(new NameContainsKeywordsPredicate(listTemp));
-                List<String> activityCurrentlyDisplayed = listTemp.subList(0, listTemp.size());
-                if (activityCurrentlyDisplayed.subList(0,1).get(0).equals("null")) {
+                List<String> activityCurrentlyDisplayed = test.subList(4, test.size());
+                if (activityCurrentlyDisplayed.subList(0, 1).get(0).equals("null")) {
                     System.out.println("TRUE");
                     updateFilteredActivityList(x -> true);
                 } else if (activityCurrentlyDisplayed.size() == getFilteredDeadlineList(
