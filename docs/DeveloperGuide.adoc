@@ -301,12 +301,12 @@ image::FindSequenceDiagram.png[]
 ==== Predicate
 
 .Scoring decision
-All tasks will initially have a score of 2 and based on the below criteria, the score will be adjusted. Only tasks with scores < 2 will be displayed.
+The score is given by name score - tag count. Only tasks with scores < 2 will be displayed.
 
 image::PredicateSequenceDiagram.png[]
 
 ===== Name scoring
-* The name score of a task is the minimum score of all chunks of the name
+* The name score of a task is the minimum of the scores of each of a task's chunks
 ** A chunk is a String subsequence of the task name that has the same number of words as the search term
 * We iterate through all chunks of the task name and calculate a score for each chunk
 ** The minimum of these scores is set as the task's overall name score
