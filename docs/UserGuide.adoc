@@ -201,7 +201,7 @@ image::UGListCDiagram5.png[]
 === Find clients by name: `find-c` --- Yong Jie
 `find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire *Client List* might be troublesome and difficult. `find-c` is the command for you.
 
-*Format*: `find-c NAME...`
+*Format*: `find-c KEYWORD [KEYWORD]...`
 
 ==== Parameters
 This section acts as a summary of the important things to note when using `find-c` including their parameters.
@@ -210,21 +210,24 @@ This section acts as a summary of the important things to note when using `find-
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| `NAME` + |
-* Substitute `NAME` with keywords you want to search with +
+| `KEYWORD` |
 
-* You can use multiple keywords for `NAME`. +
+* At least one `KEYWORD` must be entered.
+
+* Substitute `KEYWORD` with the names you want to search with +
+
+* You can use multiple `KEYWORD`. +
 e.g. You can enter `find-c bryan low`.
 
-* The `NAME` keywords are case insensitive. +
+* `KEYWORD` are case insensitive. +
 e.g. Typing `find-c hans` will show clients even with the name `Hans`. +
 For a better understanding, you can refer to the example section .
 
-* The keywords used for `NAME` have to match at least one word in the name of the clients. +
+* The words used for `KEYWORD` have to match at least one word in the name of the clients. +
 e.g. Typing `find-c Bry` will not show clients with the name `Bryan`. +
 For a detailed explanation, you can refer to the commons errors / problems section.
 
-* Clients matching at least one `NAME` keyword will be returned and does not require all the words in their name to match. +
+* Clients matching at least one `KEYWORD` will be returned and does not require all the words in their name to match. +
 e.g. Typing `find-c Hans Bo` will show clients `Hans Gruber` and `Bo Yang` and not necessarily just client `Hans Bo`. +
 For a detailed explanation, you can refer to the commons errors / problems section.
 |====================
@@ -248,7 +251,7 @@ image::ug-findcExamplePart3.png[]
 ==== Common errors / problems
 You might face some errors or difficulties when you `find-c`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the result box when using `find-c`.
 
-===== Using incomplete names
+===== Using incomplete KEYWORD
 You might wonder why `find-c` do not show the clients even though the client is clearly in your client list records. It might be possible that you have entered an incomplete name and does not match any word in the name of that client. The example below might help you understand better.
 
 Example:
@@ -266,9 +269,9 @@ image::ug-findcIncompleteNamePart3.png[]
 
 This is because the name that you have entered is incomplete and does not match any word in the name of any of the clients. To correct this, you have to enter `find-c bryan` as seen in the example.
 
-===== Using multiple keywords for `NAME`
+===== Using multiple KEYWORD
 
-You might wonder why the application shows more clients than you intended. It might be possible that you have misunderstood how the `NAME` parameter gets the client you are finding. The application will show clients as long as one of the words of the client match a keyword you use for name. The example below might help you understand better.
+You might wonder why the application shows more clients than you intended. It might be possible that you have misunderstood how the `KEYWORD` parameter gets the client you are finding. The application will show clients as long as one of the words of the client match a keyword you use for name. The example below might help you understand better.
 
 Example:
 You want to find the client named "Bryan Low" in *Client List*.
@@ -1365,7 +1368,7 @@ Examples:
 |`delete-c INDEX`| Deletes a client and its associated exercises.
 |`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​`| Edits an existing client.
 |`filter-c [t/TAG]... [s/Sport]...`| Filters the list of clients based on specified tags or sports.
-|`find-c NAME...`| Filters the list of clients based on specified name.
+|`find-c KEYWORD [KEYWORD]...`| Filters the list of clients based on specified name.
 |`list-c`| Displays the list of clients in FitBiz.
 |`schedule INDEX sch/DAY-STARTTIME-ENDTIME`| Assigns a schedule to a client.
 |`view-c INDEX`| Shows detailed information of a client.
