@@ -55,7 +55,7 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
             editSessionDescriptor.setStartTime(ParserUtil.parseTime(argMultimap.getValue(START_TIME).get()));
         }
         if (argMultimap.getValue(END_TIME).isPresent()) {
-            editSessionDescriptor.setStartTime(ParserUtil.parseTime(argMultimap.getValue(END_TIME).get()));
+            editSessionDescriptor.setEndTime(ParserUtil.parseTime(argMultimap.getValue(END_TIME).get()));
         }
         if (argMultimap.getValue(RECUR).isPresent()) {
             editSessionDescriptor.setRecurring(ParserUtil.parseNumWeeks(argMultimap.getValue(RECUR).get()));
