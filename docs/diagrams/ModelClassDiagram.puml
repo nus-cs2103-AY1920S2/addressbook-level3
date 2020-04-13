@@ -15,6 +15,9 @@ Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class Filter
+Class Filter
+Class ToggleView
 
 
 Package Transaction {
@@ -23,7 +26,7 @@ Class Remark
 Class Category
 Class Name
 Class Amount
-Class FilteredTransactionList
+Class FilteredList
 Class TransactionList
 }
 
@@ -34,11 +37,7 @@ Class Expense
 Class Income
 }
 
-Package Filter {
-
-}
-
-Package ToggleView {
+Package GlobalData{
 
 }
 
@@ -50,12 +49,15 @@ ExpenseLa .up.|> ReadOnlyExpenseLa
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" ExpenseLa
+ModelManager o-right-> "1" GlobalData
+ModelManager o-right-> "1" Filter
 ModelManager o-left-> "1" UserPrefs
+ModelManager o-down-> "1" FilteredList
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 ExpenseLa *--> "1" TransactionList
 TransactionList o--> "*" Transaction
-TransactionList *--> "1" FilteredTransactionList
+TransactionList *--> "1" FilteredList
 Transaction *--> "1" Name
 Transaction *--> "1" Amount
 Transaction *--> "1" Category
@@ -74,6 +76,6 @@ Name -[hidden]right-> Amount
 Amount -[hidden]right-> Remark
 Remark -[hidden]right-> Category
 
-ModelManager -->"1" FilteredTransactionList
-FilteredTransactionList *--> "*" Transaction
+
+FilteredList *--> "*" Transaction
 @enduml

@@ -28,7 +28,7 @@ public class ModelManager implements Model {
 
     private final ExpenseLa expenseLa;
     private final UserPrefs userPrefs;
-    private final FilteredList<Transaction> unfilteredTransactions;
+    private final FilteredList<Transaction> filteredTransactions;
     private final Filter filter;
     private final GlobalData globalData;
     private final ArrayList<String> commandHistory = new ArrayList<>();
@@ -43,7 +43,7 @@ public class ModelManager implements Model {
 
         this.expenseLa = new ExpenseLa(expenseLa);
         this.userPrefs = new UserPrefs(userPrefs);
-        unfilteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
+        filteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
         filter = this.expenseLa.getFilter();
         this.globalData = new GlobalData(globalData);
         updateFilteredTransactionList(filter.getCategoryNamePredicate(), filter.getDateMonthPredicate());
@@ -221,22 +221,22 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Transaction> getFilteredTransactionList() {
-        return unfilteredTransactions;
+        return filteredTransactions;
     }
 
     /**
-    * Applies setPredicate(predicate) to 2 different filteredLists and then making unfilteredTransactions
+    * Applies setPredicate(predicate) to 2 different filteredLists and then making filteredTransactions
      * a filteredList containing the elements list 1 and 2 have in common.
      */
     @Override
     public void updateFilteredTransactionList(Predicate<Transaction> predicate1, Predicate<Transaction> predicate2) {
         if (predicate1 != null && predicate2 != null) {
             Predicate<Transaction> predicate = predicate1.and(predicate2);
-            unfilteredTransactions.setPredicate(predicate);
+            filteredTransactions.setPredicate(predicate);
         } else if (predicate1 != null && predicate2 == null) {
-            unfilteredTransactions.setPredicate(predicate1);
+            filteredTransactions.setPredicate(predicate1);
         } else if (predicate1 == null && predicate2 != null) {
-            unfilteredTransactions.setPredicate(predicate2);
+            filteredTransactions.setPredicate(predicate2);
         } else {
             throw new NullPointerException();
         }
@@ -259,7 +259,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return expenseLa.equals(other.expenseLa)
                 && userPrefs.equals(other.userPrefs)
-                && unfilteredTransactions.equals(other.unfilteredTransactions)
+                && filteredTransactions.equals(other.filteredTransactions)
                 && filter.equals(other.filter)
                 && globalData.equals(other.globalData)
                 && commandHistory.equals(other.commandHistory);
