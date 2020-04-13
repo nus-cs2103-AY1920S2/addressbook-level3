@@ -1261,6 +1261,24 @@ Prerequisite: Take note of the current time plus 1 minute and date in the format
 Expected: After 60 seconds, the done is set back to unfinished, with the tick being removed from the task card. After the reminder appears, the date displayed changes to the next day, for example `15 March at 15:48` changes to `16 March at 15:48`.
 
 
+=== Activating Pomodoro
+. Activating Pomodoro. +
+.. Run the command `pom 1`
+.. Take note of the index of that task. +
+Expected: Pomodoro timer will start counting down from 25:00 minutes (default). Upon expiry of the time, app will prompt user in the response bubble, asking if done or no.
+
+. Activating Pomodoro with special time. +
+.. Run the command `pom 1 tm/0.5`
+.. Take note of the index of that task +
+Expected: Pomodoro timer will start counting down from 00:30 minutes. Upon expiry of the time, app will prompt user in the response bubble, asking if done or no.
+
+. Pausing and Resuming Pomodoro. +
+.. Run the command `pom 2`
+.. Then, run the command `pom pause`.
+.. Then, run the command `pom continue`. +
+Expected: After the firs command, Pomodoro timer will start counting down from 25:00 minutes (default). After `pom pause`, the timer will pause. After `pom continue`, timer will resume.
+
+
 _{ more test cases ... }_
 === Saving data
 
