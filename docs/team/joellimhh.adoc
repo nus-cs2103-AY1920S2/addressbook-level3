@@ -70,6 +70,7 @@ Naggy Joel allows users to keep track of contacts, restaurants, school deadlines
 |===
 
 include::../UserGuide.adoc[tag=clear]
+
 include::../UserGuide.adoc[tag=res]
 
 == Contributions to the Developer Guide
