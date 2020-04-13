@@ -25,7 +25,6 @@ public class Restaurant {
     private final Hours hours;
     private final Price price;
     private final Cuisine cuisine;
-    private final ArrayList<Remark> remarks = new ArrayList<>();
     private final Visit visit;
     private final ArrayList<Note> recommendedFood;
     private final ArrayList<Note> goodFood;
@@ -33,7 +32,7 @@ public class Restaurant {
 
 
     public Restaurant(Name name, Location location, Hours hours, Price price, Cuisine cuisine,
-                      ArrayList<Remark> remark, Visit visit, ArrayList<Note> recommendedFood,
+                      Visit visit, ArrayList<Note> recommendedFood,
                       ArrayList<Note> goodFood, ArrayList<Note> badFood) {
         requireAllNonNull(name, location);
         this.name = name;
@@ -41,7 +40,6 @@ public class Restaurant {
         this.hours = hours;
         this.price = price;
         this.cuisine = cuisine;
-        this.remarks.addAll(remark);
         this.visit = visit;
         this.recommendedFood = recommendedFood;
         this.goodFood = goodFood;
@@ -66,10 +64,6 @@ public class Restaurant {
 
     public Cuisine getCuisine() {
         return cuisine;
-    }
-
-    public ArrayList<Remark> getRemark() {
-        return remarks;
     }
 
     public Visit getVisit() {
@@ -122,7 +116,6 @@ public class Restaurant {
                 && otherRestaurant.getHours().equals(getHours())
                 && otherRestaurant.getPrice().equals(getPrice())
                 && otherRestaurant.getCuisine().equals(getCuisine())
-                && otherRestaurant.getRemark().equals(getRemark())
                 && otherRestaurant.getVisit().equals(getVisit())
                 && otherRestaurant.getRecommendedFood().equals(getRecommendedFood())
                 && otherRestaurant.getGoodFood().equals(getGoodFood())
@@ -132,7 +125,7 @@ public class Restaurant {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, location, hours, price, cuisine, remarks, visit, recommendedFood, goodFood, badFood);
+        return Objects.hash(name, location, hours, price, cuisine, visit, recommendedFood, goodFood, badFood);
     }
 
     @Override
@@ -156,7 +149,6 @@ public class Restaurant {
                 .append(getGoodFood())
                 .append("\nBad food: ")
                 .append(getBadFood());
-        getRemark().forEach(builder::append);
         return builder.toString();
     }
 
