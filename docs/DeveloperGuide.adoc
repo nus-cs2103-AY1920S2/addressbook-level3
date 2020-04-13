@@ -1722,7 +1722,7 @@ Use case ends.
 [discrete]
 === Expense Splitter Use Cases
 
-//tag::ailanaddanddeleteitemusecase[]
+//tag::ailanadditemusecase[]
 [discrete]
 ==== Use case: UC08 - Adding an Item
 *Actor:* User +
@@ -1756,7 +1756,9 @@ Use case ends.
 ** 1b1. EYLAH displays an error message and displays an example of a correct `additem` function.
 +
 Use case ends.
+//end::ailanadditemusecase[]
 
+//tag::ailandeleteitemusecase[]
 [discrete]
 ==== Use case: UC09 - Deleting an Item
 *Actor:* User +
@@ -1782,7 +1784,7 @@ Use case ends.
 ** 1a1. EYLAH displays an error message and displays an example of a correct `deleteitem` function.
 +
 Use case ends.
-//end::ailanaddanddeleteitemusecase[]
+//end::ailandeleteitemusecase[]
 
 // tag::willyusecase[]
 [discrete]
@@ -1887,7 +1889,6 @@ paid.
 +
 Use case ends.
 //end::willyusecase[]
-
 
 //tag::ailanclearreceiptusecase[]
 [discrete]

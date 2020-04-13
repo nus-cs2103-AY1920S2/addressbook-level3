@@ -690,6 +690,7 @@ Here are some of the prefixes used:
 
 '''
 //end::introtoexpensesplitter[]
+//tag::additem[]
 [[additem]]
 ==== Adding an item: `additem`
 In this section, you will learn more about the `additem` command, <<howtouseadditemcommand,how to use it>>
@@ -723,9 +724,9 @@ There is no need to add the dollar sign ($).
 
 * All names inputted will automatically be converted to lowercase. (e.g: Bob -> bob)
 ====
-
+//end::additem[]
 '''
-
+//tag::deleteitem[]
 [[deleteitem]]
 ==== Deleting an item: `deleteitem`
 In this section, you will learn more about the `deleteitem` command, <<howtousedeleteitemcommand,how to use it>>
@@ -750,7 +751,7 @@ image::placeholder.png[]
 
 [TIP]
 Use `listreceipt` to view your item indices before deletion.
-
+//end::deleteitem[]
 '''
 //tag::listreceipt[]
 [[listreceipt]]
@@ -916,7 +917,7 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 Use `listamount` command to find the index of the person who paid you.
 //end::paid[]
 '''
-
+//tag::clearreceipt[]
 [[clearreceipt]]
 ==== Clears the receipt `clearreceipt`
 In this section, you will learn more about the `clearreceipt` command, <<howtouseclearreceiptcommand,how to use it>>
@@ -941,11 +942,12 @@ image::placeholder.png[]
 
 [NOTE]
 ====
-* After you use this command, you will be able to add new items using the `additem` command
-and delete items using the `deleteitem` command.
+* After you use this command, you will be able to add new items using the `additem` command and delete items using the
+`deleteitem` command.
 * However, you will be unable to use the `paid` command.
+* The existing list of people who owe you money will still be accessible by using the `listamount` command.
 ====
-
+//end::clearreceipt[]
 '''
 
 [[splitback]]

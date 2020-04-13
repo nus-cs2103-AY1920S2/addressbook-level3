@@ -42,6 +42,11 @@ public class ModelStub implements SplitterModel {
     }
 
     @Override
+    public void deleteAllEntries() {
+        throw new AssertionError("This method should not be called");
+    }
+
+    @Override
     public ReadOnlyPersonAmountBook getPersonAmountBook() {
         throw new AssertionError("This method should not be called");
     }
