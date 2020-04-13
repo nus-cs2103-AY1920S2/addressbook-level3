@@ -218,6 +218,8 @@ application.
 The coupon card displays information about each coupon, and
 it is styled to look like a coupon itself!
 
+image::ShopeeCoupon.png[]
+
 [NOTE]
 Coupon card duplicates cannot exist!
 
@@ -288,7 +290,7 @@ descriptions provided in the help tab are less detailed!
 
 === Calendar
 
-The calendar shows you all the dates this month.
+The calendar shows you all the expiry dates this month.
 
 === Command input box
 
