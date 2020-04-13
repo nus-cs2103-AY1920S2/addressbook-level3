@@ -1,10 +1,27 @@
 @startuml
-(*)  --> "check input"
-If "input is verbose" then
---> [Yes] "turn on verbosity"
---> "run command"
-else
---> "run command"
-Endif
--->(*)
+start
+:User enters edit command;
+
+if () then ([user enters invalid index])
+:Display invalid index error message;
+
+else ([else])
+    if () then ([user enters invalid values\nfor properties (name, time, etc..)])
+        :Display invalid value error message;
+
+    else ([else])
+        if () then ([user does not edit any properties])
+            :Display error message with \nproper edit command's usage example;
+
+        else ([else])
+            :Edit recipe;
+            if () then ([Plans exists for recipe])
+                :Edit plans;
+            else ([else])
+            endif
+        endif
+    endif
+endif
+stop
+
 @enduml

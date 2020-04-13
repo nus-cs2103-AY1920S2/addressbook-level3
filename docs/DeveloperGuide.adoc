@@ -191,9 +191,52 @@ image::SwitchActivityDiagram.png[]
 
 
 ==== Edit command
-The edit command
-.Edit sequence diagram focusing on Logic
+The edit feature allows users to edit the properties of a Recipe with ease using the `edit` command. +
+
+This feature is facilitated by the `EditCommand` class. +
+
+The following activity diagram illustrates how the `EditCommand` is used. +
+
+.Activity Diagram for edit command
+image::EditActivityDiagram.png[]
+
+===== Implementation
+This section explains how the `edit` command is implemented.
+
+1. User specified arguments are passed to the `EditCommandParser` and passed into `ArgumentTokenizer` and
+`ArgumentMultimap`.
+
+2. The arguments will then be parsed by `ParserUtil` and passed into `EditRecipeDescriptor`.
+An error will be thrown if the inputs were invalid or if no properties of the Recipe were edited.
+
+3. A new `EditCommand` object will be created containing the new properties of the `Recipe`.
+
+4. `EditCommand#execute()` will then get the latest list of recipes from `Model` and obtain the `Recipe` that is
+being edited.
+
+5. This `Recipe` is passed into `EditCommand#createEditedRecipe()` which creates a new `Recipe` with the edited properties.
+
+6. `Model#setRecipe()` will then replace the `Recipe` being edited with the new `Recipe` and update the list of recipes and plans.
+
+The following sequence diagram summarizes the steps taken so far:
+
+.Edit sequence diagram
 image::EditSequenceDiagram.png[]
+
+The edited recipe will be updated in both the list of recipes and plans.
+The following section explains in detail the implementation behind how each list is updated in the
+`RecipeBook` and `PlannedBook` class.
+
+1. Continuing off from Step 8, `ModelManager#setRecipe()` will be called to replace the target `Recipe` with the
+edited `Recipe`. (`ModelManager` implements `Model`)
+
+2. These arguments will then be passed into `RecipeBook#setRecipe()` and `UniqueRecipeList#setRecipe()`
+
+2.
+
+
+The following sequence diagram illustrates how the `Recipe` is updated and how each `Plan`
+that uses this `Recipe` is updated.
 
 
 .Edit sequence diagram focusing on Model
@@ -271,7 +314,7 @@ by the user. Think of it as a greatly enhanced and more robust version of the `f
 user to find recipes by their name.
 
 ==== Implementation
-This section explains how the filter command is implemented.
+This section explains how the `filter` command is implemented.
 
 1. User specified keywords are directed to the `FilterCommandParser` where `ArgumentTokenizer` and `ArgumentMultimap`
 are used to parse the user input. An error will be thrown if no keywords are specified at all.
