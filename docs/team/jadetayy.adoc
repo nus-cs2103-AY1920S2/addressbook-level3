@@ -13,7 +13,7 @@ MODdy is a desktop application used by NUS Computing students to track their cou
 
 == Summary of contributions
 
-* *Major enhancement*: developed the whole *User Interface and User Experience (UI/UX)* for MODdy
+* *Major enhancement*: developed the whole *User Interface and User Experience (UI/UX)* for *MODdy*
 
 . Developed the deadline management UI
 
@@ -25,17 +25,16 @@ into consideration that some tasks do not have a deadline. Furthermore, addition
 
 . Developed the profile overview UI
 
-** What it does: allows the user to view a neat and concise overview of their academic data in MODdy. It shows their profile information, current CAP and also all the modules taken organised
+** What it does: allows the user to view a neat and concise overview of their academic data in *MODdy*. It shows their profile information, current CAP and also all the modules taken organised
 by Year and Semester.
-** Justification: This feature improves the product significantly as the user can now conveniently keep track of their academic progression .
+** Justification: This feature improves the product significantly as the user can now conveniently keep track of their academic progression.
 ** Highlights: This enhancement involves working with many different JavaFX layout. It required an in-depth understanding of each layout and the interaction between them and the commands that changes the object the layout store.
 The implementation too was challenging as it required careful design and implementation consideration of each layout to ensure high functionality and usability.
 
 * *Minor enhancement*:
 . Developed the semester information course information, focus area information and module information UI.
-
+. Integrated UI with *MODdy* commands.
 . Implemented the `home` and `home` command.
-
 . Redesigned pop-up help window.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=jadetayy[Functional code and test code]]
@@ -46,7 +45,7 @@ The implementation too was challenging as it required careful design and impleme
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** Redesigned the UI (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/74[#74], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/97[#97], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/125[#125], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/136[#136] )
-*** KIVVVVVV Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests for existing features to increase coverage from 57% to 60% (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/322[#322], https://github.com[#38])
 
 ** Documentation:
 *** Updated the README.adoc such that it correspond to our project: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/16[#16]
@@ -55,7 +54,7 @@ The implementation too was challenging as it required careful design and impleme
 *** Did cosmetic tweaks and added detailed images to existing contents of the User Guide: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/331[#331]
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W13-3/main/issues/274[#274])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W13-3/main/issues/274[#274]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S2-CS2103T-W12-4/main/issues/244[1], https://github.com/AY1920S2-CS2103T-W12-4/main/issues/245[2], https://github.com/AY1920S2-CS2103T-W12-4/main/issues/240[3], https://github.com/AY1920S2-CS2103T-W12-4/main/issues/243[4])
 
 ** Tools:

@@ -16,6 +16,7 @@ endif::[]
 
 By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
+<<<
 // tag::introduction[]
 == Introduction (Jade Tay)
 
@@ -35,6 +36,7 @@ If you are from SoC and is looking for an application to manage all your modules
 Jump to <<Quick Start, Quick Start>> to get started. Hope you enjoy the company of *MODdy* on your SoC journey!
 // end::introduction[]
 
+<<<
 // tag::about[]
 == About the User Guide (Jade Tay)
 This user guide aims to provide you with essential information on how to use MODdy.
@@ -65,6 +67,7 @@ NOTE: This symbol indicates information that you may wish to note.
 TIP: This symbol indicates tips provided by us.
 // end::about[]
 
+<<<
 // tag::quickstart[]
 == Quick Start (Ong Wan Xuan)
 
@@ -76,20 +79,21 @@ This section provides you with steps on how you can install *MODdy* on your comp
 .  Double-click the file to start the app. The GUI, as shown in Figure 2 below, should appear in a few seconds.
 +
 .Homepage of *MODdy*
-image::QuickStart.png[width="790"]
+image::QuickStart.png[width="760"]
 +
 .  Type the command in the command box as shown in Figure 2 and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Create your own profile by entering your details in the command box using these parameters: `new n/name c/course y/year.semester`.
 .  Some other example commands you can try:
 
-* **`add`**`m/CS1231 y/1.1` : Adds CS1231 into your list of modules under year 1 semester 1.
-* **`delete`**`n/name` : Deletes your entire profile and its data.
+* `add m/CS1231 y/1.1` : Adds CS1231 into your list of modules under year 1 semester 1.
+* `delete n/name` : Deletes your entire profile and its data.
 * *`exit`* : Closes the GUI and exits *MODdy*.
 
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
 
+<<<
 [[Features]]
 == Features
 The following 11 sections provides you a deeper understanding on how to use the features you can perform in *MODdy* and how the features work.
@@ -134,7 +138,7 @@ Format: `new n/name c/course y/year.semester [f/focusArea]`
 Example: `new n/John c/Computer Science y/2.2` creates a new profile with the name "John", currently majoring in "Computer Science" and is a Year 2 Semester 2 student, as shown in Figure 4 below.
 
 .New profile created is displayed in the Profile Panel
-image::New.png[width="790"]
+image::New.png[width="760"]
 
 TIP: `new n/John c/Computer Science y/2.2 f/Software Engineering` +
 If you know your focus area, using this command will add focus area "Software Engineering" to your new profile alongside other details.
@@ -166,7 +170,7 @@ NOTE: However, you cannot add grades when adding multiple modules.
 Example: `add m/CS2103T y/2.2` adds CS2103T to Year 2 Semester 2, as shown in Figure 5 below.
 
 .CS2103T is added as a module under Year 2 Semester 2
-image::AddModule.png[width="790"]
+image::AddModule.png[width="760"]
 
 TIP: `add m/CS2105 y/2.1 g/A+` +
 You can add CS2105 with its resulting grade, A+, concurrently to the list of modules under Year 2 Semester 1.
@@ -195,7 +199,7 @@ Example: `add m/CS2105 t/Assignment d/2020-04-20 23:59` adds a task named "Prese
 with the deadline "20 April 2020 23:59" to the already-existing module CS2105, as shown in Figure 7 below.
 
 .CS2105 task is added into and displayed on the Deadline Panel
-image::DeadlinePanel.png[width="790"]
+image::DeadlinePanel.png[width="760"]
 
 TIP: You can add multiple tasks at once but only to the *same module*, e.g. `add m/CS1231 t/tutorial d/2020-04-20 18:00 t/assignment d/2020-04-25 23:59`. +
 
@@ -231,7 +235,7 @@ Example: `edit n/Brad c/Information Systems` edits your profile name to "Brad" a
 as shown in Figure 8 below.
 
 .Profile Panel is updated with new details
-image::EditProfile.png[width="790"]
+image::EditProfile.png[width="760"]
 
 
 TIP: `edit n/Brad c/Information Systems f/Electronic Commerce` +
@@ -248,7 +252,7 @@ Format: `edit m/moduleCode [y/year.semester] [g/grade]`
 Example: `edit m/CS2103T g/A+` edits your grade of the module CS2103T to A+, as shown in Figure 9 below.
 
 .Module detail of CS2103T edited
-image::EditModule.png[width="790"]
+image::EditModule.png[width="760"]
 
 TIP: `edit m/CS2103T y/2.1 g/A+` +
 You can edit the grade of module CS2103T to A+ and change the semester module is taken in to Year 2 Semester 1 concurrently.
@@ -286,10 +290,10 @@ There are *five* ways you can use the `show` command:
 ==== Showing your profile +
 Format: `show n/name`
 
-Example: `shown n/Brad` shows the profile overview of user "Brad", as shown in Figure 11 below.
+Example: `show n/Brad` shows the profile overview of user "Brad", as shown in Figure 11 below.
 
 .Profile overview of "Brad" is shown in the Overview Panel
-image::ShowProfile.png[width="790"]
+image::ShowProfile.png[width="760"]
 
 NOTE: All the modules under every semester, their grades, as well as your current CAP will be displayed.
 
@@ -299,11 +303,11 @@ Format: `show m/moduleCode`
 Example: `show m/CS2103T` show all the module details of CS2103T, as shown in Figure 12 below.
 
 .Details of the module CS2103T shown in the Main Panel
-image::ShowModule.png[width="790"]
+image::ShowModule.png[width="760"]
 
 NOTE: The module name, prerequisites, modular credits, description and semesters the module is offered in will be displayed.
 
-NOTE: If you request for MODdy to show multiple information at one time, such as course information on Computer Science and module information on CS1101S, using the command `show c/Computer Science m/1101s`, no objects will be displayed. +
+NOTE: If you request for MODdy to show multiple information at one time, such as course information on Computer Science and module information on CS1101S, using the command `show c/Computer Science m/CS1101S`, no objects will be displayed. +
 MODdy will remind you that you can only display one object at a time.
 
 ==== Showing modules in the specified semester +
@@ -313,15 +317,15 @@ Example: `show y/1.1` shows all modules taken in Year 1 Semester 1, as shown in 
 are available, it will be displayed as well.
 
 .Modules added to Year 1 Semester 1 are shown in Main Panel
-image::ShowSemester.png[width="790"]
+image::ShowSemester.png[width="760"]
 
 [[showCourse]]
 ==== Showing the course's requirements +
 Format: `show c/course`
 
-Example: `show c/Computer Science` shows the Course Requirement and Focus Area of "Computer Science", as shown in Figure 14 below.
+Example: `show c/Computer Science` shows the course requirements and focus areas of "Computer Science", as shown in Figure 14 below.
 
-.Course requirement and focus areas of Computer Science are shown in the Main Panel
+.Course requirements and focus areas of Computer Science are shown in the Main Panel
 image::ShowCourse.png[width="790"]
 
 NOTE: You need to enter the course name in full!
@@ -333,7 +337,7 @@ Example: `show f/Software Engineering` shows the Primaries and Electives of focu
 as shown in Figure 15 below.
 
 .Modules under Software Engineering, which is a focus area of Computer Science, are shown in the Main Panel
-image::ShowFocusArea.png[width="790"]
+image::ShowFocusArea.png[width="760"]
 
 TIP: You can retrieve the list of focus areas under a course using the <<showCourse, `show c/course`>> command. This list can also be found in the <<Appendix, Appendix>> of this guide.
 // end::show[]
@@ -353,7 +357,7 @@ Format: `delete n/name`
 Example: `delete n/Brad` deletes "Brad" from the profile panel as well as all other data, as shown in Figure 16 below.
 
 .Entire profile deleted from *MODdy*
-image::DeleteProfile.png[width="790"]
+image::DeleteProfile.png[width="760"]
 
 NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from *MODdy*
 
@@ -368,7 +372,7 @@ Example: `delete m/CS2103T` deletes CS2103T from Year 2 Semester 2 and also remo
 shown in Figure 17 below.
 
 .CS2103T and its tasks are deleted from *MODdy*
-image::DeleteModule.png[width="790"]
+image::DeleteModule.png[width="760"]
 
 NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from *MODdy*.
 
@@ -382,7 +386,7 @@ You can delete multiple tasks at the same time but only from the *same* module. 
 Example: `delete m/CS2103T t/Quiz` deletes the task "Quiz" of module CS2103T from the Deadline Panel, as shown in Figure 18 below.
 
 ."Quiz" for CS2103T deleted from the Deadline Panel
-image::DeleteTask.png[width="790"]
+image::DeleteTask.png[width="760"]
 
 NOTE: The specified task and its deadline will be deleted from the specified module.
 
@@ -410,7 +414,7 @@ Example: If you are currently in Year 2 Semester 2, and all the modules taken in
 your current CAP being calculated. This example is highlighted in Figure 20 below.
 
 .Current CAP is being calculated and reflected in the CAP Panel
-image::CAPCalculator.png[width="790"]
+image::CAPCalculator.png[width="760"]
 
 TIP: If you want to simulate your future CAP, you can add grades into modules in your future semesters.
 // end::cap[]
@@ -424,7 +428,7 @@ If you want to return to *MODdy*'s Homepage, use this command, as shown in the F
 Format: `home`
 
 .Homepage of *MODdy* shown in Main Panel
-image::Home.png[width="790"]
+image::Home.png[width="760"]
 
 // end::home[]
 
@@ -436,7 +440,7 @@ Want a new profile? If you want to clear your profile and data from *MODdy*, use
 Format: `clear`
 
 .All entries from *MODdy* cleared
-image::Clear.png[width="790"]
+image::Clear.png[width="760"]
 
 
 [[Exit]]
@@ -453,6 +457,7 @@ If your *MODdy* application closes unexpectedly or if your computer suddenly shu
 Your *MODdy*'s data is saved in the hard disk automatically after any command that changes the data. There is no need for you to save manually and worry that you will lose any unsaved data.
 // end::sav[]
 
+<<<
 // tag::faq[]
 == FAQ (Tang Guang Yan)
 This section provides you with some commonly asked questions you might have when using *MODdy*. +
@@ -468,6 +473,7 @@ Here are our answers to those questions!
 *A3*: We are currently working on an improved version of *MODdy* where there will be log in features to encrypt your data. Do keep a look out for future updates!
 // end::faq[]
 
+<<<
 // tag:summary[]
 == Command Summary (Chan Choon Kong)
 
@@ -518,10 +524,11 @@ e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`, `delete m/CS2105
 ** `exit`
 // end::summary[]
 
+<<<
 // tag::appendix[]
 == Appendix (Chan Choon Kong)
 
-. List of courses and focus areas (if applicable) currently supported by *MODdy*
+. List of courses and focus areas (if applicable) under each course currently supported by *MODdy*
 
 .. Business Analytics
 ... Financial Analytics
