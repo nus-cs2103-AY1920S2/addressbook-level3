@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Modulo - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,33 +12,166 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103-T09-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Modulo`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Modulo is for *NUS students* who *prefer to use a desktop app for managing their school work on a modular level*.
+It helps you to break down your modules into deadlines and track their progress. +
 
+Currently Modulo is made for NUS students taking modules this Academic Year AY2019/2020 Semester 2! More importantly, Modulo is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, Modulo can get your module management tasks done faster than traditional GUI apps.
+Interested?
+Jump to <<Quick Start>> to get started.
+Enjoy!
+
+// tag::quickstart[]
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+. Ensure you have Java `11` or above installed in your Computer.
+. Download the latest `modulo.jar` link:{repoURL}/releases[here].
+. Copy the file to the folder you want to use as the home folder for Modulo.
+. Double-click the file to start the app.
+The GUI should appear in a few seconds.
+Don't worry if it's empty!
+We'll be getting it populated in a matter of minutes in <<Tutorial>>.
 +
-image::Ui.png[width="790"]
+image::UiBlank.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+. Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+. Refer to <<Tutorial>> for a quick tutorial to Modulo!
+. Used Modulo before?
+Refer to <<Features>> for details of each command.
+Note: We highly recommend going through the <<Tutorial,tutorial>> before starting!
+// end::quickstart[]
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+// tag::tutorial[]
+[[Tutorial]]
+== Tutorial
 
-.  Refer to <<Features>> for details of each command.
+Isn't the empty application just ugly?
+Let us get your modules into the app in just a matter of minutes!
+
+=== Multistep Commands
+
+====
+*Wait... Multistep?*
+
+We understand that many may be used to instant, one-step commands when using CLI apps.
+Here at Modulo, we strongly believe in smooth and seamless user experiences. +
+
+Why type the same thing twice when you can do it once, or even never?
+Modulo builds onto what you've already entered, to reduce the amount of typing required, and make everything easier for you!
+
+And for the testers out there: No, we don't believe this reduces testability.
+In fact, it helps you jump right into testing the exciting stuff!
+====
+
+In Modulo, some commands are multistep commands.
+These commands *require you to go through all the steps* before you can move on to other commands. +
+
+You will know you're in the middle of a multistep command when you see the colour of your command box change:
+
+image::Multistep.png[width="790"]
+
+====
+*Warning:* Quitting the app in the middle of a multistep command will terminate the command!
+Any undone operations will be lost. +
+
+If you're interested to help us with improving Modulo, do take a look at our <<DeveloperGuide.adoc#,Developer Guide>>!
+====
+
+[[AddingModule]]
+=== Adding Our First Module
+
+Our first command, `module`, is a multistep command!
+This command helps you to add a module and all of its related events in one go! +
+
+Let us start with `module m/cs2103`!
+This add `CS2103 - Software Engineering` into our list of modules.
+
+Now you may see the following prompt:
+
+image::Multistep.png[width="500"]
+
+Simply type in your slot and press kbd:[Enter]!
+For the purposes of this tutorial, we'll go with slot 3!
+
+You'll see two changes.
+Firstly, the event is added:
+
+image::SlotAdded.png[width="500"]
+
+Secondly, the command prompt changes:
+
+image::MultistepLecture.png[width="500"]
+
+Key in your lecture slot as well.
+When you see the below message, you know you're done!
+
+image::AllSlotsAdded.png[width="500"]
+
+====
+For users who may be taking `CS2103T` instead, go ahead and add that instead.
+You'll only have your lecture to add, so enter your lecture slot when prompted, e.g. `G01`.
+====
+
+=== Viewing the Events we just added
+
+Now that we've added our events, it's time to start planning!
+Go ahead to switch to the Event list with the following command: `list event`. +
+
+image::SwitchEventList.png[width="790"]
+
+You'll see the events that you just added on the left!
+Let us try to view the details for Tutorial 2. We just need to type: `view 3`, where 3 is the index of Tutorial 2!
+
+image::ViewEvent.png[width="790"]
+
+Now we get to see the details of the event on the right!
+
+[[Focused]]
+====
+Tutorial 2 is now the *focused* event.
+We call the item that is displayed on the right the *focused* item.
+For example, earlier, CS2103 was the *focused* module.
+====
+
+=== Adding our first Deadline
+
+With Tutorial 2 in focus, we can now add deadlines easily to it.
+Let's say we want to practice drawing UML diagrams before the tutorial starts. +
+
+We can create a suitable deadline by typing: `deadline n/Practice UML Diagrams`.
+
+image::DeadlineAdded.png[width="500"]
+
+We have now just added the deadline to Tutorial 2, which is the <<Focused,*focused*>> event!
+
+=== Completing our first Deadline
+
+Hopefully, everyone here is hardworking!
+We're now done with creating a deadline.
+How about completing it? +
+
+Let us complete the deadline we've just added by simply typing: `done 2`, where `2` is the index of the deadline shown!
+
+image::DeadlineCompleted.png[width="500"]
+
+And we're done with the tutorial!
+
+=== What next?
+
+Of course, Modulo supports CLI usage, i.e. minimal references to the GUI!
+For that, our commands have variations that do not depend on the <<Focused,*focused*>> item, and commands that reduce the need for scrolling!
+
+Want to find out more?
+Head over to <<Features>> now!
+// end::tutorial[]
+
 
 [[Features]]
 == Features
@@ -46,132 +179,422 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `module m/MODULE_CODE`, `MODULE_CODE`
+is a parameter which can be used as `module m/CS2103`.
+* Items in square brackets are optional e.g `deadline n/NAME [r/REPEAT]` can be used as `deadline n/Work r/YES` or as
+`deadline n/Work`.
+* Parameters can be in any order e.g. if the command specifies `m/MODULE_CODE n/NAME`, `n/NAME m/MODULE_CODE` is also acceptable.
 ====
-
+// tag::help[]
 === Viewing help : `help`
 
+Opens the pop-up help window with the link to this user guide. +
 Format: `help`
 
-=== Adding a person: `add`
+image::HelpWindow.png[width="790"]
+// end::help[]
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+// tag::addmodule[]
+=== Adding a module: `module` (Multistep)
 
-[TIP]
-A person can have any number of tags (including 0)
+Adds a module for AY 19/20 Sem 2 to Modulo. +
+Format: `module m/MODULE_CODE`
 
-Examples:
+Example:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `module m/cs2100`
 
-=== Listing all persons : `list`
+This command will kickstart the autopopulation of module events.
+Refer to <<AddingModule,our tutorial>> for more information! +
 
-Shows a list of all persons in the address book. +
-Format: `list`
+You will be prompted to enter the slot numbers for all events under this module, e.g. tutorial slot 2, lecture slot 1, lab slot 13, etc.
 
-=== Editing a person : `edit`
+Example of prompts by Modulo:
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+* `Enter slot for CS2100 Lab:`
+* `Enter slot for LAJ1201 Tutorial Type Two:`
+
+image::SamplePrompt1.png[width="500"]
+
+*****
+* *Known Issue:* There are limitations with module data obtained from NUS. For example, based on official records, some tutorials will start from Week 1, despite actually only starting in Week 3.
+* If you quit Modulo in the middle of this process, your autopopulation will be incomplete!
+You may have to restart the process by deleting the module and re-adding it.
+Do see the section on <<Delete,deleting a module>> below.
+*****
+// end::addmodule[]
+
+// tag::addevent[]
+=== Adding an event: `event`
+
+Adds a custom event to a module.
+This is perhaps the lengthiest command in Modulo.
+Events refer to Tutorials, Lectures, Examinations, etc. +
+
+====
+*Note:* You're only able to add by slot when going through the multistep `module` command!
+The `event` command requires manual entry.
+====
+
+image::SampleEvents.png[width="500"]
+
+Format: `event m/MODULE_CODE n/EVENT_NAME s/START_DATETIME e/END_DATE v/VENUE [r/REPEAT] [f/FREQUENCY]
+[until/REPEAT_STOP_DATE]`
+
+Limitations: +
+
+* You cannot add events of the same name under a single module.
+* The datetime format recognised is YYYY-MM-DD HH:MM.
+* The date format is YYYY-MM-DD.
+* The start and end times of the event must be within AY 19/20 Sem 2, and the end time must be after the start time.
+* Your event cannot be longer than a day.
+* By default, the event will not repeat.
+* The default repeat frequency (in weeks) is 1 week.
+* If no repeat end datetime is specified, the event will repeat until the end of the semester (Week 16).
+
+Example:
+
+* `event m/CS2103 n/Make Up Tutorial s/2020-01-30 10:00 e/2020-01-30 11:00 v/COM1-B103 r/YES until/2020-05-08`
+
+*****
+All events with types that are recognised come with a default `deadline` created. +
+
+You can view the full list of event types <<EventTypes,here>>.
+*****
+
+==== Pro-tip (GUI-dependent)
+
+If you're already viewing a module (i.e. <<Focused,focused>> on a module), you can actually drop the `m/MODULE_CODE`!
+// end::addevent[]
+
+// tag::adddeadline[]
+[[AddingDeadline]]
+=== Adding a deadline: `deadline`
+
+Adds a deadline to an event.
+This deadline will be due when the event starts.
+
+image::SampleDeadline.png[width="500"]
+
+Format: `deadline m/MODULE_CODE e/EVENT_NAME n/DEADLINE_NAME [r/REPEAT]`
+
+Limitations: +
+
+* Deadlines are due when the event starts!
+* Repeat refers to the creation of the same deadline for events of the same type, occuring *after* the specified event.
+* By default, the deadline will not repeat.
+* The deadline repeat function only works for events of recognised types, e.g. `Tutorial`, `Lecture` etc.
+This is to prevent the creation of irrelevant deadlines for unrecognised types of events.
+
+==== Pro-tip (GUI-dependent)
+
+If you're already viewing an event (i.e. <<Focused,focused>> on an event), you can actually drop the `m/MODULE_CODE`
+AND the `e/EVENT_NAME`!
+// end::adddeadline[]
+
+// tag::list[]
+[[List]]
+=== Listing events or modules on the left: `list`
+
+=====
+*Note:* Given that this command changes the list being listed on the left, it is largely GUI-dependent.
+=====
+
+Shows a list of all events or modules in the left panel of Modulo.
+This helps you to toggle between the two lists. +
+
+image::MenuButtons.png[width="500"]
+
+You can always check which list you're viewing by looking at the menu bar above:
+
+Format: `list events` OR `list modules`
+
+Shorthands:
+
+* `list event` / `list e` +
+Same behaviour as `list events` - lists all the events on the left display panel.
+* `list module` / `list m` +
+Same behaviour as `list modules` - lists all the modules on the left display panel.
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Lists all events or modules recorded in Modulo.
+* Switching of the lists can also be done by clicking the `Modules` or `Events` buttons at the top of the left display panel.
 ****
+// end::list[]
 
-Examples:
+// tag::view[]
+[[View]]
+=== Viewing module or event details: `view`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+=====
+*Note:* Given that this command changes the item being <<Focused,*focused on*>> on the right, it is largely GUI-dependent.
+=====
 
-=== Locating persons by name: `find`
+Lets user view the details for a module or event on the right panel based on its index on the left panel.
+This index is based on the current list being <<List,listed>>. +
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `view INDEX`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Example:
 
-Examples:
+* `view 3`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+image::SampleView.png[width="790"]
+// end::view[]
+
+// tag::done[]
+=== Finishing a deadline: `done`
+
+Toggles the completion status of a deadline.
+If the deadline was incomplete, it would be completed, and vice versa. +
+
+Format: `done index m/MODULE_CODE e/EVENT_NAME` +
+
+The index in question here is the index of the deadline.
+This may be a bit tough to know without first using the
+<<View,`view`>> command.
+
+Example:
+
+* `done 1 m/CS2103 e/Tutorial 13`
+
+image::DeadlinesComplete.png[width="500"]
+All deadlines completed.
+
+image::DeadlinesIncomplete.png[width="500"]
+At least one incomplete deadline.
+
+==== Pro-tip (GUI-dependent)
+
+If you're already viewing an event (i.e. <<Focused,focused>> on an event), you can actually drop the `m/MODULE_CODE`
+AND the `e/EVENT_NAME`!
+
+=====
+*Known Bug:* When you complete a deadline, the list on the left side will refresh, and the item that was selected will unselect itself.
+
+=====
+// end::done[]
+
+// tag::find[]
+[[Find]]
+=== Finding events or modules using keywords: `find`
+
+=====
+*Note:* Given that this command searches through the list being listed on the left, it is largely GUI-dependent.
+=====
+
+Allows the user to search through the current list for items which match any of the given keywords.
+
+Format: `find SEARCH_TERM`
+
+Things to note: +
+
+* The search is case insensitive. e.g `find tutorial` will produce all events that match Tutorial.
+* Names containing part of the searched words will be matched e.g. `find tut` will match Tutorial 4.
+* Modules will be searched according to their Module Code, Name as well as Academic Year.
+* Events will be searched according to their Module Code and Name.
+* After finding, to get back the whole list again, users can simply enter `list events` or `list modules`.
+
+image::SampleFind.png[width="500"]
+
+==== Pro-tip
+
+The `find` command allows the user to continually filter their list of searches.
+For example, while viewing the list of events, entering `find cs2103` and then `find tutorial` right after will allow the user to view CS2103 tutorials.
+// end::find[]
 
 // tag::delete[]
-=== Deleting a person : `delete`
+[[Delete]]
+=== Deleting a module/event/deadline: `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+=====
+*Note:* Given that this command deletes based on the list being listed, it is largely GUI-dependent.
+=====
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Deletes a module, event, or deadline by its index, a search term, or delete all.
+
+==== Deleting Modules and Events
+
+Format: `delete INDEX` OR `delete SEARCH_TERM` OR `delete all`
+
+Things to note:
+
+* Deleting a module will delete all its associated events.
+* Deleting an event with delete all its associated deadlines.
+* You can delete a module or an event based on its displayed index on the left panel or using a search term.
+You can also delete all modules or events.
+
+*****
+The logic of the search term follows that of the <<Find,find command>>.
+*****
+
+image::DeleteAll.png[width="500"]
+
+==== Deleting Deadlines
+
+====
+*Note:* You *NEED* to have the event you want <<Focused,focused>> to do this.
+We will work on removing the need for this in future versions.
+====
+
+Format: `delete d/INDEX` OR `delete d/all`
+
+Things to note:
+
+* You can delete an event's deadline using the deadline's index.
+* You can also delete all deadlines of that event.
+* This event needs to be currently viewed on the right panel.
+// end::delete[]
+
+// tag::export[]
+=== Exporting Events and Deadlines: `export`
+
+Exports all events and deadlines into a `.ics` file.
+File will be named `modulo.ics` inside the export directory.
+
+Format: `export [d/TARGET_DIRECTORY]`
+
+Things to note:
+
+* If no directory is provided, by default Modulo will deposit the `.ics` file into the `data` folder.
+* `.ics` file will be generated with the Singapore (Asia) timezone.
+* Event entity will be converted as VEVENT.
+* Deadline entity will be exported as VTODO.
+* However, as certain common calendar applications (e.g. Google Calendars, Microsoft Outlook) do not parse VTODO, summarised deadlines are also displayed under the event's description.
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `export`
+* `export d/data/`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+*****
+* If the given export directory does not exist, it will be created.
+So do be careful with the directory given!
+*****
+// end::export[]
 
-Clears all entries from the address book. +
+// tag::clear[]
+=== Clearing all data: `clear`
+
+Clears all data from Modulo and starts the app from a clean slate.
+
+*Note:* This command cannot be undone! So do use it wisely.
+
 Format: `clear`
+// end::clear[]
 
-=== Exiting the program : `exit`
+// tag::edit[]
+=== Editing added Events and Deadlines: `[coming in v2.0]`
 
-Exits the program. +
-Format: `exit`
+_This is an upcoming feature! Do keep an eye out!_
+// end::edit[]
 
-=== Saving the data
+// tag::import[]
+=== Importing a NUSMods Calendar: `[coming in v2.0]`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+_This is an upcoming feature! Do keep an eye out!_
+// end::import[]
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::ui[]
+== UI
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+*****
+Although this app is designed with a fast CLI user in mind, there are UI features that can help to enhance a user's experience.
+This may be of use should one's fingers get tired.
+*****
 
+=== Menu Bar Buttons
+
+image::MenuButtons.png[width="500"]
+These buttons perform the equivalent of `list modules` and `list events` respectively.
+Just click them!
+
+=== Module and Event List
+
+image::ModuleList.png[width="500"]
+Click on any of these list items to view them on the right panel.
+They perform the equivalent of `view INDEX`.
+
+Modules are separated accordingly into their academic years and semesters, and events are separated based on their dates.
+
+*****
+*Note:* There is unfortunately an unfixed bug with how the focus of the UI is handled.
+After performing an action such as typing into the Command Box or clicking the Menu Buttons, you may need to double click the list item for it to show.
+*****
+
+=== Module Details
+
+image::ModuleDetails.png[width="500"]
+The right panel displays the details of the module.
+Only official events added using slots will be listed here.
+
+You can click "Click to view description" to open the <<DescriptionWindow,Description Window>>.
+
+Clicking any of the events listed below will also bring you to the first event of that type and slot.
+
+=== Description Window
+
+image::DescriptionWindow.png[width="790"]
+This window displays the description of the module.
+
+*****
+*Known Issue:* This is currently the only feature that is only accessible via the UI. This will be updated in subsequent releases.
+*****
+
+=== Event Details
+
+image::EventDetails.png[width="500"]
+The right panel displays the details of the event.
+You can check any of the deadlines to mark them as complete or incomplete, performing the equivalent of `done INDEX`.
+
+The second tag / label indicates whether all deadlines have been completed.
+
+=== Status Bar Footer
+
+image::StatusBarFooter.png[width="790"]
+This status bar displays where your data is being saved at.
+You can head over to that folder to find the `.json` file for your usage.
+
+Your exported `modulo.ics` will also be found in the same directory, unless otherwise specified when exporting.
+// end::ui[]
+
+// tag::faq[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Modulo.
 
-== Command Summary
+*Q*: My tutorial starts in Week 3. Why does it show up from Week 1 on Modulo? +
+*A*: Modulo uses NUS module data to do the event autopopulation.
+Unfortunately, there are discrepancies between the data they have and what actually happens on the ground.
+To overcome this, you can either manually create a repeating event, or delete the first two occurrences of the event.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+*Q*: Does Modulo work for other semesters? +
+*A*: For now, Modulo is made for students taking modules this Academic Year AY2019/2020, Semester 2! Upon the new Academic Year, Modulo will be updated!
+Stay Tuned!
+
+*Q*: Does Modulo only work for NUS students? +
+*A*: Unfortunately for now, Modulo is only catered to NUS students.
+For other universities, feel free to reach out to our team to discuss a possible collaboration!
+// end::faq[]
+
+// tag::appendix[]
+== Appendix
+
+[[EventTypes]]
+=== Official Event Types
+
+Recognised official event types are:
+
+* Tutorial
+* Lecture
+* Sectional
+* Seminar
+* Recitation
+* Laboratory
+* Workshop
+* Packaged Tutorial
+* Packaged Lecture
+* Tutorial Type Two
+* Design Lecture
+// end::appendix[]

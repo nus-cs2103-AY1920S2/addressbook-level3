@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<HBox id="deadlineCardPane" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane HBox.hgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="35.0" minHeight="10.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <HBox>
+                    <children>
+                        <CheckBox fx:id="isCompleted" mnemonicParsing="false">
+                            <padding>
+                                <Insets left="10.0"/>
+                            </padding>
+                        </CheckBox>
+                        <Label fx:id="name" text="name" styleClass="deadlineName">
+                            <padding>
+                                <Insets left="10.0"/>
+                            </padding>
+                        </Label>
+                    </children>
+                </HBox>
+            </children>
+        </GridPane>
+    </children>
+</HBox>
