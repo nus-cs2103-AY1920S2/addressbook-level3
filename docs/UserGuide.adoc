@@ -297,7 +297,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Proin dictum accumsan nunc sed feugiat.
 ----
 
-==== (Coming in v2.0) More complete support for Markdown syntax
+==== (Coming in v2.0) More complete support of Markdown syntax
 
 In our v2.0 release, we'll be supporting the following additional Markdown syntax:
 
