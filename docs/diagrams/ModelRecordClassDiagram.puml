@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class CookedRecordBook
+class Date
+
+Package Record {
+    class UniqueRecordList
+    class Record
+    class Name
+}
+
+
+CookedRecordBook *-down->"1" UniqueRecordList
+UniqueRecordList o--> "*" Record
+Record o--> "1" Name
+Record o--> "1" Date
+
+@enduml
