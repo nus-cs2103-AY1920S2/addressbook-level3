@@ -1,3 +1,5 @@
+//@@author PotatoCombat
+
 package tatracker.ui;
 
 import java.util.logging.Logger;
@@ -59,6 +61,8 @@ public class HelpWindow extends UiPart<Stage> {
         HelpListPanel helpListPanel = new HelpListPanel(COMMAND_DETAILS);
         helpListPanelPlaceholder.getChildren().add(helpListPanel.getRoot());
 
+        //@@author fatin99
+
         getRoot().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent t) {
@@ -72,6 +76,8 @@ public class HelpWindow extends UiPart<Stage> {
             }
         });
     }
+
+    //@@author PotatoCombat
 
     /**
      * Creates a new HelpWindow.
