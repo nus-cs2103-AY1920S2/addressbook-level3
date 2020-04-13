@@ -22,7 +22,6 @@ public class ModelState {
     private final FilteredList<Restaurant> filteredRestaurants;
     private final FilteredList<Assignment> filteredAssignments;
     private final FilteredList<Event> filteredEvents;
-    private final FilteredList<Person> bdayList;
 
     private String commandType;
 
@@ -45,7 +44,6 @@ public class ModelState {
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         filteredAssignments = new FilteredList<>(this.assignmentSchedule.getAssignmentsList());
         filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
-        bdayList = new FilteredList<>(this.addressBook.getBdayList());
         this.commandType = "ADDRESS";
     }
 
@@ -68,7 +66,6 @@ public class ModelState {
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         filteredAssignments = new FilteredList<>(this.assignmentSchedule.getAssignmentsList());
         filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
-        bdayList = new FilteredList<>(this.addressBook.getBdayList());
         this.commandType = commandType;
     }
 
@@ -88,7 +85,6 @@ public class ModelState {
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         filteredAssignments = new FilteredList<>(this.assignmentSchedule.getAssignmentsList());
         filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
-        bdayList = new FilteredList<>(this.addressBook.getBdayList());
         this.commandType = commandType;
     }
 
@@ -140,10 +136,6 @@ public class ModelState {
 
     public FilteredList<Event> getFilteredEvents() {
         return this.filteredEvents;
-    }
-
-    public FilteredList<Person> getBdayList() {
-        return this.bdayList;
     }
 
     public String getCommandType() {
