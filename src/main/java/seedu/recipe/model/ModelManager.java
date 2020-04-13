@@ -62,7 +62,7 @@ public class ModelManager implements Model {
         this.cookedRecordBook = new CookedRecordBook(cookedRecordBook);
         this.quoteBook = new QuoteBook(quoteBook);
         this.filteredRecords = new FilteredList<>(this.cookedRecordBook.getRecordsList());
-        this.states = new MultipleBookStateManager(recipeBook, plannedBook, cookedRecordBook);
+        this.states = new MultipleBookStateManager(recipeBook, plannedBook, cookedRecordBook, quoteBook);
         filteredPlannedDates = new FilteredList<>(this.plannedBook.getPlannedList());
         filteredQuotes = new FilteredList<>(this.quoteBook.getQuoteList());
     }
@@ -169,6 +169,9 @@ public class ModelManager implements Model {
             break;
         case GOALS:
             states.commitCookedRecordBook(new CookedRecordBook(cookedRecordBook), commandType, tab);
+            break;
+        case QUOTE:
+            states.commitQuoteBook(new QuoteBook(quoteBook), commandType, tab);
             break;
         default:
             // This block will never be reached
@@ -304,6 +307,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Quote> getFilteredQuoteList() {
         return filteredQuotes;
+    }
+
+    @Override
+    public void setQuoteBook(ReadOnlyQuoteBook quoteBook) {
+        this.quoteBook.resetData(quoteBook);
     }
 
     @Override

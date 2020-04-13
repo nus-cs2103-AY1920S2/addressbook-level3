@@ -764,7 +764,7 @@ image::QuoteSequenceDiagram.png[]
 The lifeline for EditCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML,
 the lifeline reaches the end of diagram.
 
-[Note]
+[NOTE]
 `Undo` button currently does not work for adding of quotes as there is no remove function currently implemented for quote
 ==== Implementation
 
@@ -788,7 +788,7 @@ The following activity diagram further illustrates how the `QuoteCommand` is use
 image::QuoteActivityDiagram.png[]
 
 ==== Design Considerations
-====== Aspect: How quote command executes
+===== Aspect: How quote command executes
 
 * **Alternative 1 (current choice):** The `QuoteCommand` only accepts adding of quotes
 
@@ -823,7 +823,7 @@ a new record is detected, the streaks are calculated again through parsing of th
 real time in the achievement tab.
 
 ==== Design Considerations
-====== Aspect: How streak is stored
+===== Aspect: How streak is stored
 
 * **Alternative 1 (current choice):** Streak is calculated and updated via access to `UniqueRecordList`
 
@@ -836,7 +836,7 @@ added and subtracted from its recorded data in the database
 ** Cons: A database section will be dedicated to just storing one number and without access to the `UniqueRecordsList`
 it is harder for Streak to be updated realtime when cookedRecord is updated.
 
-====== Aspect: How streak is calculated
+===== Aspect: How streak is calculated
 
 * **Alternative 1 (current choice):** Accumulative streaks is calculated based on whether there is a 1-day difference
 between 2 consecutive cooked recipes

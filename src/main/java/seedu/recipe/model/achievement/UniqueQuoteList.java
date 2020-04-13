@@ -35,6 +35,7 @@ public class UniqueQuoteList implements Iterable<Quote> {
             throw new DuplicateQuoteException();
         }
 
+        internalList.clear();
         internalList.setAll(quotes);
     }
 

@@ -276,7 +276,13 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public ObservableList<Quote> getFilteredQuoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setQuoteBook(ReadOnlyQuoteBook quoteBook) {
             throw new AssertionError("This method should not be called.");
         }
 

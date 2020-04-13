@@ -196,7 +196,7 @@ public interface Model {
     ReadOnlyCookedRecordBook getRecordBook();
 
     /**
-     * Replaces record book data with the data in {@code CookedRecordBook}.
+     * Replaces record book data with the data in {@code cookedRecordBook}.
      */
     void setCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook);
 
@@ -209,6 +209,11 @@ public interface Model {
      * Returns an unmodifiable view of the filtered quote list
      */
     ObservableList<Quote> getFilteredQuoteList();
+
+    /**
+     * Replaces quote book data with the data in {@code quoteBook}
+     */
+    void setQuoteBook(ReadOnlyQuoteBook quoteBook);
 
     /**
      * Replaces quote book data with the data in {@code CQuoteBook}.
