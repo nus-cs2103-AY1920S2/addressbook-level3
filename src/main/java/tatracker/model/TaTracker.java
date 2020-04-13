@@ -262,6 +262,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         doneSessions.add(s);
     }
 
+    //@@author fatin99
+
     @Override
     public long getTotalHours() {
         long totalHours = 0;
@@ -295,6 +297,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     public long getTotalEarnings() {
         return rate * getTotalHours();
     }
+
+    //@@author
 
     /**
      * Replaces the contents of the donesession list with {@code donesessions}.
