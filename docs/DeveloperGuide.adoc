@@ -551,7 +551,7 @@ The two `Exercise` only have different values in `ExerciseSets` but equal values
 . `ExerciseReps`
 . `ExerciseWeight`
 
-This implementation is chosen as we felt that the user should increment the value in `ExerciseSets` in the existing `Exercise`. We followed the same idea as in the real life context. Exercises with the same reps and weight can be grouped together as sets.
+This implementation is chosen as we felt that the user should increment the value in `ExerciseSets` in the existing `Exercise`. We followed the same idea as in the real life context and want to combine the sets of exercises with the same name, date, reps and weight.
 
 We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. In the future, when adding a same `Exercise`, we can implement it such that the sets value of the exising `Exercise` gets incremented automatically instead of showing an error. For now, this implementation keeps the exercise table neat and compact for the user.
 
@@ -586,7 +586,7 @@ We will use an example of a `add-e` command to illustrate the execution of `addT
 .Sequence Diagram for AddExerciseCommand
 image::AddExerciseCommandSequenceDiagram.png[]
 
-`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of `addToSorted(Exercise)` to obtain details of the `Exercise` being added and exising `Exercise` in `UniqueExerciseList`.
+`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of `addToSorted(Exercise)` to obtain details of the `Exercise` being added and the existing `Exercise` in `UniqueExerciseList`. `AddCommand` will then check if there is an exercise that we consider as the same in the `UniqueExerciseList`.
 
 .Sequence Diagram for the addToSorted Method
 image::AddExerciseCommandSequenceDiagramPart2.png[]
