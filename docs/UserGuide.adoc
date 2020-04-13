@@ -71,7 +71,10 @@ Pay attention to the warnings before you execute the command, or else things may
 ==== Viewing help : `help`
 
 Format: `help`
+View the user guide page in a pop-out window.
 // end::help[]
+
+image::Help.png[align="center"]
 
 // tag::receivenotif[]
 ==== Receiving notification while a certain product is running low.
@@ -134,14 +137,14 @@ image::ProductCard.png[align="center" width="600"]
 
 [NOTE]
 This is a passive feature. +
-Green: >0.6 +
-Yellow: 0.6 +
-Orange: 0.4 +
-Red: 0.2
+Green: stock > 60% +
+Yellow: 40% < stock < 60% +
+Orange: 20% < stock < 40% +
+Red: stock < 20%
 
 // end::lowstockproducts[]
 
-=== Customer
+=== Manage customers
 
 // tag::addc[]
 ==== Adding a customer: `addc`
@@ -155,7 +158,9 @@ Format: `addc n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…`
 * The address field can take up to 45 characters. +
 * The name field can take up to 30 characters. +
 * The phone field can be between 3 to 15 characters long and contain only integers. +
-* The  email field can take up to 40 characters and should be a valid email format.
+* The  email field can take up to 40 characters and should be a valid email format. +
+* Duplicate fields, except tags, are not allowed. E.g. keying in the email field for more
+than one time.
 ****
 
 [TIP]
@@ -187,6 +192,8 @@ Format: `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the customer will be removed i.e adding of tags is not cumulative.
 * You can remove all the customer’s tags by typing t/ without specifying any tags after it.
+* Duplicate fields, except tags, are not allowed. E.g. keying in the email field for more
+than one time.
 ****
 
 Examples:
@@ -210,6 +217,8 @@ Format: `findc [n/NAME [NAME]...] [p/PHONE] [e/EMAIL] [a/ADDRESS [ADDRESS]...]`
 * The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, n/Bob a/31 will match a/31 n/Bob
 * Only customers matching all attributes will be returned (i.e. AND search) e.g. `findc n/Jane a/31` will return customers with 'jane' in their names and '31' in their addresses
 * Customers matching any keywords in an attribute (for name and address only) will be returned (i.e. OR search) e.g. `findc a/clementi ave` will return customers with 'clementi' or 'ave' in their addresses
+* Duplicate fields, except tags, are not allowed. E.g. keying in the phone field for more
+than one time.
 ****
 
 image::FindCustomerByAddress.png[width="790" align="center"]
@@ -264,7 +273,7 @@ Permanently deletes all the stored customer data in the application. +
 Deletes all transactions as well.
 // end::clearc[]
 
-=== Product
+=== Manage product
 
 // tag::addp[]
 ==== Adding a product: `addp`
@@ -276,6 +285,8 @@ Format: `addp d/DESCRIPTION pr/PRICE q/QUANTITY cp/COSTPRICE [s/SALES]`
 * Duplicate products (with the same description, cost price, price) are not allowed. +
 * The price, cost price, quantity and sales can take integers up to 1000000. +
 * The price and cost price must be at least $1.
+* Duplicate fields are not allowed. E.g. keying in the price field for more
+than one time.
 ****
 
 [NOTE]
@@ -312,6 +323,8 @@ Format: `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [cp/COSTPRICE] [s/S
 * Edits the product at the specified `INDEX`. The index refers to the index number shown in the displayed product list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* Duplicate fields are not allowed. E.g. keying in the price field for more
+than one time.
 ****
 
 Examples:
@@ -360,7 +373,7 @@ Format: `deletep INDEX`
 ****
 
 [WARNING]
-Deletes transactions that are associated with this particular product as well.
+This action deletes transactions that are associated with this particular product as well.
 
 Examples:
 
@@ -399,6 +412,8 @@ Format: `addt p/PRODUCT_ID c/CUSTOMER_ID q/QUANTITY [dt/DATETIME] [m/MONEY] [d/D
 * Duplicate transactions (with the same customer, product, datetime) are not allowed. +
 * The quantity and money fields can take integers up to 1000000. +
 * The quantity must be at least 1.
+* Duplicate fields are not allowed. E.g. keying in the quantity field for more
+than one time.
 ****
 
 [TIP]
@@ -407,6 +422,9 @@ The money field [m/] is optional, and will be recorded as product price multipli
 Only need to enter if necessary (i.e. discounts on products). +
 The description field [d/] is optional, will be recorded as N/A if left empty.
 Only need to enter if user wants to add notes to the transaction.
+
+[WARNING]
+Adding transaction will update the quantity and sales of its associated product as well.
 
 image::AddTransaction.png[width="790" align="center"]
 After adding transactions, the transaction list can be viewed under the transaction tab.
@@ -439,7 +457,13 @@ Format: `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] 
 * Edits the transaction at the specified `INDEX`. The index refers to the index number shown in the displayed transaction list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* Duplicate fields are not allowed. E.g. keying in the quantity field for more
+than one time.
 ****
+
+[WARNING]
+Editting the quantity or money of a transaction will update the quantity and sales
+of its associated product as well.
 
 Examples:
 
@@ -456,9 +480,11 @@ Format: `findt [p/PRODUCT_NAME [PRODUCT_NAME]...] [c/CUSTOMER_NAME [CUSTOMER_NAM
 ****
 * The search is case insensitive. e.g blue will match Blue
 * At least one of the option fields must be provided.
-* The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, c/Bob m/31 will match m/31 c/Bob
-* Only transactions matching all attributes will be returned (i.e. AND search). e.g. `findt c/Jane p/bag` will return transactions with 'jane' in their customer names and 'bag' in their product names
-* Transactions matching any keywords in an attribute (for product or customer name only) will be returned (i.e. OR search) e.g. `findt c/jane avery` will return transactions with 'jane' or 'avery' in their customer names
+* The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, c/Bob m/31 will match m/31 c/Bob.
+* Only transactions matching all attributes will be returned (i.e. AND search). e.g. `findt c/Jane p/bag` will return transactions with 'jane' in their customer names and 'bag' in their product names.
+* Transactions matching any keywords in an attribute (for product or customer name only) will be returned (i.e. OR search) e.g. `findt c/jane avery` will return transactions with 'jane' or 'avery' in their customer names.
+* Duplicate fields are not allowed. E.g. keying in the `DATE_TIME` field for more
+than one time.
 ****
 
 image::FindTransactionByProduct.png[width="790" align="center"]

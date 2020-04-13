@@ -152,7 +152,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::manageitem[]
-=== Add delete/edit/clear/list/find <<customer,customer>>/<<product,product>> feature
+=== Add/delete/edit/clear/list/find <<customer,customer>>/<<product,product>> feature
 The manage product mechanism is facilitated by `InventorySystemParser`.
 First, the InventorySystemParser class parses the user command.
 This results in a Command object which is executed by the LogicManager.
@@ -214,59 +214,88 @@ image::CommandActivityDiagram.png[]
 // end::manageitem[]
 
 // tag::managetransaction[]
-=== Add/edit/delete <<transaction,transactions>>
+=== Add/edit/undo/list/find <<transaction,transactions>>
 The user input is handled by the `MainWindow` class in Ui first, then passed to the `LogicManager` and parsed into
 `AddTransactionCommand`, `EditTransactionCommand`, etc. Depending on the nature of each command, new transaction or
 updated transaction will be added to a new index or existing index of the `UniqueTransactionList`, hosted by the
 `InventorySystem` class. For the `deleteTransactionCommand`, a transaction will be dropped from the `internalList`.
 Since the `quantity` and `sales` attribute will affect the same attributes of a product, the affiliated `product` will
 also be edited. In the end, the `filteredTransactionList` of the system will be updated so that the user can view the change
-accordingly. Three commands are implemented corresponding to these 3 operations in the logic module:
+accordingly. For the list and find transction commands, the filteredTransactionList will be updated for the UI to interact with users.
+One command is implemented for each operations in the logic module:
 
 * `AddTransactionCommand` -- Adds a transaction into the system and update the the quantity and sales attribute
 of the corresponding product.
-* `EditTransactionCommand` -- Edit detials of a transaction. If `quantity` is changed, edit the affected product
+* `EditTransactionCommand` -- Edit details of a transaction. If `quantity` is changed, edit the affected product
 as well.
-* `DeleteTransactionCommand` -- Delete a transaction from the system and edit the affiliated product.
+* `UndoTransactionCommand` -- Undo a transaction from the system and edit the affiliated product.
+* `ListTransactionCommand` -- List all the transaction in the system.
+* `FindTransactionCommand` -- Find certain transactions by keywords.
 
 For each command, a parser is implemented to parse the input into arguments.
 
 * `AddTransactionCommmandParser` -- Parse the add transaction input and generates `AddTransactionCommand`. +
 * `EditTransactionCommandParser` -- Parse the edit transaction input and generates `EditTransactionCommand`. +
-* `DeleteTransactionCommandParser` --Parse the delete transaction input and generates `DeleteTransactionCommand`. +
+* `UndoTransactionCommandParser` --Parse the undo transaction input and generates `UndoTransactionCommand`. +
+* `ListTransactionCommandParser` --Parse the list transaction input and generates `ListTransactionCommand`. +
+* `FindTransactionCommandParser` --Parse the find transaction input and generates `FindTransactionCommand`. +
 
 The following sequence diagram shows how each operation works.
 
 AddTransaction Operation:
 
 image::AddTransactionSequenceDiagram.png[]
-NOTE: The AddTransactionCommmandParser returns a transactionFacotry with `productIndex` and `customerIndex`, while a
+[NOTE]
+The AddTransactionCommmandParser returns a transactionFacotry with `productIndex` and `customerIndex`, while a
 transaction is only generated in AddTransactionCommand.
+
+EditTransaction Operation:
+
+Unlike the edit operation of customer and products, editting transaction will trigger another operation of
+editting its associated product with the new quantity and money. If its product is editted, its quantity will be added back
+to the original product's quantity, and the new quantity will be deducted from the quantity of the newly referenced product. The update on sales object will
+be done in the reverse way. In the end, the new transction and product will replace the old ones in the system.
+
+image::EditTransactionSequenceDiagram.png[]
+
+UndoTransaction Operation:
+
+Undoing a transaction will add back its quantity to teh associated product and remove its amount of money from the
+sales of that product.
+
+image::UndoTransactionSequenceDiagram.png[]
+
+ListTransaction/FindTransaction Operation:
+
+The list operation for transaction is the same as that for products and customers.
 
 ==== Design Considerations
 
 ===== Aspect: How to store product & customer in transaction.
 
-* **Alternative 1 (current choice):** Store the product/ customer instance as an attribute.
-** Pros: Easy to construct a transaction and display product/ customer name.
-** Cons: Easy to generate bugs while any of the instance is editted.
-* **Alternative 2:** Store an unique id and name of the product/ customer.
+* **Alternative 1 (current choice):** Store an unique id and name of the product/ customer.
 ** Pros: Do not need to update transaction while product is editted.
+** Cons: More complex when displaying the customer/product information in UI. Needs to query model whenver
+the system needs to calcualte statistics related with product and transactions.
+* **Alternative 2 (previous choice):** Store the product/ customer instance as an attribute.
+** Pros: Easy to construct a transaction and display product/ customer name.
+** Cons: Easy to generate bugs while any of the instance is editted. Needs to update the product in transaction when a product
+is editted.
 
 ===== Aspect: How to change the quantity & sales attribute of product while editing transactions.
 
-* **Alternative 1 (current choice):** If quantity/ product is changed,
+* **Alternative 1 (current choice):** If quantity/ product is changed, check validation first,
+re-store the quantity & sales of the original product, and then
+and update the quantity & sales of the new product.
+** Pros: Straightforward logic, not likely to create bugs.
+** Cons: Validation checking would be very complex.
+
+* **Alternative 2 (previous choice):** If quantity/ product is changed,
 re-store the quantity & sales of the original product, check validation
 (whether the product has that much inventory as required on transaction), and then
 and update the quantity & sales of the new product.
 ** Pros: Easy to implement.
 ** Cons: Likely to generate bugs when the new quantity exceeds inventory, i.e. the edit operation is not valid.
-
-* **Alternative 2:** If quantity/ product is changed, check validation first,
-re-store the quantity & sales of the original product, and then
-and update the quantity & sales of the new product.
-** Pros: Straightforward logic, not likely to create bugs.
-** Cons: Validation checking would be very complex.
 // end::managetransaction[]
 
 // tag::getprofitrevenue[]
@@ -304,8 +333,24 @@ The revenue operation works in the same way as the profit operation.
 ** Cons: Hard to unit test, increase coupling
 // end::getprofitrevenue[]
 
+//tag::plotsalesfeature[]
+=== Plot the quantity sold of a product
+The plot sales command is facilitated by `InventorySystemParser`.
+First, the InventorySystemParser class parses the user command.
+Then the `PlotSalesCommandParser` parses the user input arguments into the index of the product,
+the `start date`, and the `end date`.
+The generated `PlotSalesCommand` is executed by the LogicManager.
+The command execution generates a daily time sequence and calcualte the quantity sold on each day by querying all the
+related transactions. The time series data and the signal of displaying the sales graph is then encapsulated
+as a CommandResult object which is passed back to the Ui.
+
+The following sequnce diagram shos how the plot sale operation works:
+
+image:PlotSalesSequenceDiagram.png[]
+//end::lowlimitfeature[]
+
 //tag::lowlimitfeature[]
-=== Setting low limit threshold to receive notifications for products
+=== Set low limit threshold to receive notifications for products
 The low limit mechanism is facilitated by `InventorySystemParser`.
 First, the InventorySystemParser class parses the user command.
 Then the `LowLimitCommandParser` parses the user input arguments into `LowLimitCommand` object.
@@ -353,7 +398,7 @@ image:NotificationWindowActivityDiagram.png[]
 //end::notificationWindow[]
 
 //tag::sortProductList[]
-=== Sorting of Product List
+=== Sort Product List
 The product list sorts by the progress bar indicator beside each product's description whenever user enters `listp` command. +
 
 An example is shown below:
@@ -666,6 +711,27 @@ Use case ends.
 ** 1a1. The app shows an error message.
 +
 Use case ends.
+
+[discrete]
+=== Use case:  UC09 - Plot the quantity sold of a product (for products)
+
+*MSS*
+
+1. User enters the index of the product as well as the start date and end date for ploting purposes.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The index is out of boundary.
++
+[none]
+** 1a1. The app shows an error message.
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
