@@ -376,7 +376,7 @@ image::FavActivityDiagram.svg[align="center]
 
 . When entering the `fav` command, the user will specify the index of the recipe to be favourited.
 
-. _FindCommandParser_ ensures that index specified is valid and returns a _FavCommand_.
+. _FavCommandParser_ ensures that index specified is valid and returns a _FavCommand_.
 
 The following sequence diagram summarizes the execution of the `fav` command
 
@@ -603,7 +603,7 @@ That way, users can input either the recipe name or index.
 The following section describes how the `time` command is implemented as well as design considerations that were taken into account during its implementation.
 Some possible future improvements are also suggested to improve the functionality of the `time` command.
 
-The `time` command is implemented in the _UndoCommand_ class.
+The `time` command is implemented in the _TimeCommand_ class.
 
 The following activity diagram shows the possible paths *CookBuddy* can take when a `time` command is run.
 
