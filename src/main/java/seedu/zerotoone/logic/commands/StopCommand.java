@@ -28,7 +28,7 @@ public class StopCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        logger.info("Executing stop command.");
+        logger.fine("Executing stop command.");
         if (!model.isInSession()) {
             throw new CommandException((MESSAGE_SESSION_NOT_STARTED));
         }
