@@ -8,7 +8,7 @@ participant ":DietLogicManager" as LogicManager LOGIC_COLOR
 participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
 participant ":MetricsCommandParser" as MetricsCommandParser LOGIC_COLOR
 participant "m:MetricsCommand" as MetricsCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -16,7 +16,7 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
-participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
+participant ":DietStorage" as FoodBookStorage STORAGE_COLOR
 end box
 
 [-> LogicManager : execute("delete 3")
@@ -44,9 +44,6 @@ deactivate MetricsCommand
 
 MetricsCommandParser --> FoodBookParser : m
 deactivate MetricsCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-MetricsCommandParser -[hidden]-> FoodBookParser
-destroy MetricsCommandParser
 
 FoodBookParser --> LogicManager : m
 deactivate FoodBookParser
@@ -64,14 +61,15 @@ create CommandResult
 MetricsCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> MetricsCommand
+CommandResult --> MetricsCommand : result
 deactivate CommandResult
 
-MetricsCommand --> LogicManager : commandResult
+MetricsCommand --> LogicManager : result
 deactivate MetricsCommand
 
 MetricsCommand -[hidden]-> LogicManager
 destroy MetricsCommand
+destroy MetricsCommandParser
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
 activate FoodBookStorage
@@ -79,6 +77,6 @@ activate FoodBookStorage
 FoodBookStorage --> LogicManager
 deactivate FoodBookStorage
 
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 @enduml

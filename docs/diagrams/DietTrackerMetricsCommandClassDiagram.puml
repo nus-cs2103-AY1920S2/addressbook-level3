@@ -13,18 +13,15 @@ class MetricsCommandParser implements Parser {
 }
 
 interface Parser<T extends Command> <<Interface>> {
-    parse(userInput : String) : Command
+    parse(userInput : String) : MetricCommand
 }
 
-abstract class Command {
-    {abstract} execute(dietModel:DietModel) : CommandResult
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class MetricsCommand extends Command {
     /' Fields '/
-    + COMMAND_WORD : String = "metrics"
-    + MESSAGE_USAGE : String
-    + MESSAGE_CALCULATE_BMI_SUCCESS : String
 
     /' Methods '/
     + execute(dietModel : DietModel) : CommandResult

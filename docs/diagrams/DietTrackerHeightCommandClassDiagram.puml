@@ -13,19 +13,15 @@ class HeightCommandParser implements Parser {
 }
 
 interface Parser<T extends Command> <<Interface>> {
-    parse(userInput : String) : Command
+    parse(userInput : String) : HeightCommand
 }
 
-abstract class Command {
-    {abstract} execute(dietModel:DietModel) : CommandResult
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class HeightCommand extends Command {
     /' Fields '/
-    + COMMAND_WORD : String = "height"
-    + MESSAGE_USAGE : String
-    + MESSAGE_ADD_HEIGHT_SUCCESS : String = "Added Height: %1$s"
-
     - height : Height
 
     /' Methods '/
@@ -89,7 +85,7 @@ HeightCommand ..> DietModel
 HeightCommandParser ..> HeightCommand
 HeightCommandParser ..> Height
 HeightCommandParser ..> ParserUtil
-HeightCommand --> Height
+HeightCommand *--> "1" Height
 
 
 @enduml

@@ -8,7 +8,7 @@ participant ":DietLogicManager" as LogicManager LOGIC_COLOR
 participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
 participant ":BmiCommandParser" as BmiCommandParser LOGIC_COLOR
 participant "b:BmiCommand" as BmiCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -56,12 +56,12 @@ create CommandResult
 BmiCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> BmiCommand
+CommandResult --> BmiCommand : result
 deactivate CommandResult
 
 BmiCommand --> LogicManager : result
 deactivate BmiCommand
 
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 @enduml

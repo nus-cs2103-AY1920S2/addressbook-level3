@@ -24,6 +24,16 @@ public class HeightCommandParser implements Parser<HeightCommand> {
         }
 
         Height height = ParserUtil.parseHeight(args);
+        if (height.getHeightFloat() <= 0) {
+            throw new ParseException("Please enter a height value >0 and <1000. Fun fact: The shortest person in the "
+                    + "world is Chandra Bahadur Dangi at 54.6cm. However, we at EYLAH know you might want to calculate"
+                    + " metrics for your baby too!");
+        }
+
+        if (height.getHeightFloat() > 1000) {
+            throw new ParseException("Please enter a height value >0 and <1000. Fun fact: The tallest person in the "
+                    + "world is Robert Wadlow at 2.72m. However, we at EYLAH believe people can grow till 10m!");
+        }
 
         return new HeightCommand(height);
     }

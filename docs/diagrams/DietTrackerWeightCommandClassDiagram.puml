@@ -16,16 +16,12 @@ interface Parser<T extends Command> <<Interface>> {
     parse(userInput : String) : Command
 }
 
-abstract class Command {
-    {abstract} execute(dietModel:DietModel) : CommandResult
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class WeightCommand extends Command {
     /' Fields '/
-    + COMMAND_WORD : String = "weight"
-    + MESSAGE_USAGE : String
-    + MESSAGE_ADD_WEIGHT_SUCCESS : String = "Added Weight: %1$s"
-
     - weight : Weight
 
     /' Methods '/
@@ -89,7 +85,7 @@ WeightCommand ..> DietModel
 WeightCommandParser ..> WeightCommand
 WeightCommandParser ..> Weight
 WeightCommandParser ..> ParserUtil
-WeightCommand --> Weight
+WeightCommand *--> "1" Weight
 
 
 @enduml
