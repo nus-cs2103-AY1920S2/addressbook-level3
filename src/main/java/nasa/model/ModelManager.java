@@ -127,20 +127,24 @@ public class ModelManager implements Model {
                 if (!test.get(0).equals("null")) {
                     if (type.equals("list") || type.equals("find")) {
                         updateFilteredModuleList(x->true);
+                    } else {
+                        updateFilteredModuleList(x -> true);
+                        updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
                     }
-                    updateFilteredModuleList(x->true);
-                    updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
                 } else {
                     updateFilteredModuleList(x->true);
-                    updateFilteredActivityList(x -> false);
                 }
             } else if (test.get(1).equals("module")) {
                 List<String> listTemp = test.subList(2, 3);
                 updateFilteredModuleList(new NameContainsKeywordsPredicate(listTemp));
-                if (test.size() == getFilteredDeadlineList(new ModuleCode(listTemp.get(0))).size()) {
+                List<String> activityCurrentlyDisplayed = test.subList(4, test.size());
+                if (activityCurrentlyDisplayed.subList(0, 1).get(0).equals("null")) {
+                    System.out.println("TRUE");
                     updateFilteredActivityList(x -> true);
-                }
-                if (test.size() > 2) {
+                } else if (activityCurrentlyDisplayed.size() == getFilteredDeadlineList(
+                        new ModuleCode(listTemp.get(0))).size()) {
+                    updateFilteredActivityList(x -> true);
+                } else if (activityCurrentlyDisplayed.size() > 2) {
                     List<String> help = test.subList(4, test.size());
                     updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(help));
                 }

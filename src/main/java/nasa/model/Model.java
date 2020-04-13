@@ -144,6 +144,8 @@ public interface Model {
 
     void updateFilteredActivityList(Predicate<Activity> predicate);
 
+    void updateSchedule();
+
     String quote();
 
     String currentUiLocation();
@@ -164,5 +166,4 @@ public interface Model {
 
     boolean hasActivity(ModuleCode module, Activity activity);
 
-    public void updateSchedule();
 }

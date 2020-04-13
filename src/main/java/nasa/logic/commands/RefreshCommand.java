@@ -34,6 +34,7 @@ public class RefreshCommand extends Command {
 
         try {
             // now update all deadlines and events
+            model.updateSchedule();
             ObservableList<Module> modules = model.getFilteredModuleList();
             for (Module module : modules) {
                 ObservableList<Deadline> deadlines = module.getFilteredDeadlineList();
