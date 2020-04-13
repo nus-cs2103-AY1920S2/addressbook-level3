@@ -712,7 +712,7 @@ NOTE:
 * SCHEDULED_WORKOUT_ID refers to the index of the scheduled workout in `schedule list`
 ```
 
-==== Scheduling a recurring workout session (Proposed)
+==== Scheduling a recurring workout session (Coming in v2.0)
 
 Sometimes you will want to schedule a workout session that repeats over time, with a certain frequency. No problem! Simply type the following command:
 
