@@ -166,7 +166,7 @@ The sort command takes in a list of fields and generates FieldComparators as see
 
 .Class diagram of SortedList
 image::SortedListClassDiagram.png[]
-We use a new SortedList within TaskList because FilteredList does not allow for sorting. As such we have the FilteredList reference the SortedList and the SortedList refernce the UniqueTaskList. By warpping the lists around another, this allows the SortedList and FilteredList to read changes to the UniqueTaskList and perform the appropriate filtering and sorting.
+We use a new SortedList from JavaFx within TaskList because FilteredList does not allow for sorting. As such we have the FilteredList reference the SortedList and the SortedList refernce the UniqueTaskList. By warpping the lists around another, this allows the SortedList and FilteredList to read changes to the UniqueTaskList and perform the appropriate filtering and sorting.
 
 .Sequence of initializing the Sorted List
 image::SortInitliazeDiagram.png[]
@@ -814,21 +814,72 @@ Use case ends.
 
 [appendix]
 == Glossary
+[%header,cols="2,6"] 
+|===
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+|Term
+|Detail
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+|Mainstream OS
+|Windows, Linux, Unix, OS-X
 
-[[pomodoro]] Pomodoro::
-A time management method developed by Francesco Cirillo. Traditionally, cycles of 25 minutes of work and 5 minutes of rest.
+|Pomodoro [[pomodoro]]
+|A time management method developed by Francesco Cirillo. Traditionally, cycles of 25 minutes of work and 5 minutes of rest.
 
-[[task]] Task::
-A snippet of text specified by the user that can be tracked (done/time spent).
+|Task [[task]]
+|A snippet of text specified by the user that can be tracked (done/time spent).
 
-[[pet]] Pet::
-A cute little companion whom the player can care for and accessorise with more tasks being done.
+|Pet [[pet]]
+|A cute little companion whom the player can care for and accessorise with more tasks being done.
+
+|CLI
+|Command Line Interface - a typing interface which is used to interact with the application
+
+|Command
+|Executes user input in the application
+
+|CommandBox
+|UI component that takes in user input
+
+|ResultDisplay
+|UI component that displays the feedback to the user
+
+|FXML
+|XML-based user interface markup language for defining user interface of a JaxaFX application
+
+|TaskListCard
+|UI component that displays information on an item
+
+|TaskListPanel
+|UI component that displays list of items
+
+|JavaFX
+|Software platform for creating and delivering desktop applications and rich Internet applications
+
+|JSON
+|An open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types
+
+|Logic
+|Handles user input for the application and returns the application’s output
+
+|MainWindow
+|Provides the basic application layout containing a pet and CLI sidebar and a task list interface with pomodoro timer
+
+|Model
+|Represents and exposes data in the task list, pet, pomodoro and statistics
+
+|Parser
+|Converts user input into a Command object
+
+|ReadOnlyTaskList
+|Provides an unmodifiable view of a task list
+
+|Storage
+|Manages data of the pet, pomodoro, tasklist and statistics in local storage
+
+|Edit distance
+|Integer calculated with the levenshtein distance that represents the number of changes to get from one string to another
+|===
 
 [appendix]
 == Product Survey
