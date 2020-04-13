@@ -311,8 +311,12 @@ edited `Recipe`. (`ModelManager` implements `Model`)
 will replace the target with the edited `Recipe` in the recipe list.
 
 3. The same arguments are then passed into `PlannedBook#setRecipe()` which will get a list of all the plans that uses
-the target `Recipe` from `PlannedRecipeMap` and update each plan.
+the target `Recipe` from `PlannedRecipeMap`.
 
+4. If there are no plans that uses `Recipe`, the process stops. However if plans exists, the `PlannedBook`
+will iterate through each old plan and update each plan.
+
+Step 4. is an example of how the `PlannedRecipeMap` can be used to ease the cost of updating each plan.
 
 The following sequence diagram summarizes how the `Recipe` and all its related `Plan` are updated
 when the `Recipe` is edited.
