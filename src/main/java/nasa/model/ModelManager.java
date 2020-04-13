@@ -78,9 +78,7 @@ public class ModelManager implements Model {
         updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
-    /**
-     * Update the schedule for each activity.
-     */
+    @Override
     public void updateSchedule() {
         nasaBook.scheduleAll();
     }
@@ -132,7 +130,6 @@ public class ModelManager implements Model {
                     }
                 } else {
                     updateFilteredModuleList(x->true);
-                    //updateFilteredActivityList(x -> false);
                 }
             } else if (test.get(1).equals("module")) {
                 List<String> listTemp = test.subList(2, 3);
