@@ -94,7 +94,7 @@ a|
 a|
 *Appendix*|9
 |=========================================
-
+.Picture of Stasher (Coupon Stash's Mascot)
 image::ug_stasher.png[]
 Hi! I'm Stasher, the mascot of Coupon Stash. Together,
 we are going to save so much money! Let me guide you
@@ -160,7 +160,6 @@ Interface (GUI) should appear in a few
 seconds. If nothing occurs, use the command
 `java -jar CouponStash.jar` on your computer's Command Line Interface (CLI) to
 open the file up.
-. TODO: Sample data... Can clear it if you want
 .  Type the command in the command box and press Enter to execute it.
 .  Some example commands you can try:
 * *add:* `add n/Domino's Pizza Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5
@@ -174,6 +173,12 @@ as used, and automatically archives it if the limit is reached
 * *exit* : exits the app (your data will be saved automatically)
 .  Refer to the <<Features, Features>> section below for the details of each
 command.
+
+[NOTE]
+There are some default sample data in Coupon Stash on your first startup of Coupon Stash. They are for you to experiment
+with Coupon Stash's <<Features, features>>! +
+Once you are ready, use the <<Clearing all entries: `clear`, `clear`>> command to clear them and start your couponing
+journey with Coupon Stash!
 
 
 == User Interface
@@ -840,6 +845,7 @@ Format: `share INDEX`
 
 ****
 * Shares the coupon at the specified <<index, INDEX>>.
+* A message with the file path to the `.png` file will be displayed in the <<CommandResultBox, Command Result Box>>.
 ****
 
 [WARNING]
@@ -847,14 +853,15 @@ Image generated will have an index of 1 regardless of
 its true index!
 Below is a sample of how a shared coupon image looks like:
 
+.Example of a shared coupon
 image::example_shared_coupon.png[]
 
 Examples:
 
 * `list` +
 `share 2` +
-Shares the second coupon in the resulting coupon list of the
-<<Listing all coupons: `list`, `list`>> command and save it as a `.png` file.
+Shares the second coupon in the resulting coupon list of the <<Listing all coupons: `list`, `list`>> command and save
+it as a `.png` file.
 * `find chicken` +
 `share 1` +
 Shares the first coupon in the resulting coupon list of the
@@ -945,11 +952,9 @@ Format: `expand INDEX`
 Examples:
 
 * `expand 1` +
-Open the coupon at index 1 in a new window.
+Opens the first coupon in the coupon list in a new window.
 
-
-.Example of an expanded coupon window.
-[caption=""]
+.Example of an expanded coupon window
 image::expand_example.png[]
 
 // tag::setcurrency[]
@@ -1020,7 +1025,6 @@ falls on the date of program launch will be listed in a popup window on launch.
 The popup window can be closed by pressing kbd:[Ctrl] + kbd:[q].
 
 .Popup window showing all coupons that have their remind dates set on the date of program launch.
-[caption=""]
 image::ug_reminder_window.PNG[]
 
 [WARNING]
