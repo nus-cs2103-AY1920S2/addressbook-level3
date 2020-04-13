@@ -14,7 +14,7 @@ We are a team that consists of students from http://www.comp.nus.edu.sg[School o
 === Sheng Xue
 
 image::shengxue97.png[width="150",align="left"]
-{empty}[https://github.com/ShengXue97[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ShengXue97[github]] [<<shengxue97#, portfolio>>]
 
 Role: Developer + UI expert +
 Responsibilities: UI + Testing + Code quality
@@ -34,7 +34,7 @@ Responsibilities: Deliverables and deadlines, Scheduling and tracking
 === Le Trung Hieu
 
 image::lth08091998.png[width="150",align="left"]
-{empty}[https://github.com/lth08091998[github]] [<<trunghieu#, portfolio>>]
+{empty}[https://github.com/lth08091998[github]] [<<lth08091998#, portfolio>>]
 
 Role: Developer, Database expert +
 Responsibilities: Integration, In charge of Model and storage
@@ -44,7 +44,7 @@ Responsibilities: Integration, In charge of Model and storage
 === Nguyen Tien Dat
 
 image::tiendat161.png[width="150",align="left"]
-{empty}[http://github.com/tiendat161[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/tiendat161[github]] [<<tiendat161#, portfolio>>]
 
 Role: Developer + Documentator +
 Responsibilities: Testing + Documentation + Code quality
