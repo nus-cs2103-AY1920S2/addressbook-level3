@@ -688,10 +688,9 @@ Use case ends.
 +
 [none]
 ** 1a1. Naggy Joel shows an error message.
-** 1a2. User enters new data
-** Steps 1a1 and 1a2 are repeated until the data entered are correct
-** Use case resumes at step 2.
-+
+** 1a2. User enters new data +
+   Steps 1a1 and 1a2 are repeated until the data entered are correct +
+   Use case resumes at step 2.
 
 [discrete]
 === Use case: Finding restaurants to hang out
@@ -700,48 +699,25 @@ Use case ends.
 
 1. User requests to list out all upcoming social events.
 2. Naggy Joel lists out all upcoming social events, displaying the dates and times of each event.
-3. User chooses the event for which he wants to find a restaurant for.
-4. Naggy Joel recommends a restaurant based on the people attending the social event, the number of people attending the social event, and what restaurants the user has noted down previously.
+3. User chooses the event for which he wants to find a restaurant for and notes down the time and location.
+4. User searches for restaurants based on the location of the event.
+5. Naggy Joel lists out all restaurants that match the given location.
+4. User selects a restaurant based on the opening hours and the attendees of the event.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 4a. The contacts attending the social event do not have any likes/dislikes recorded down in Naggy Joel's database.
+* 4a. There are no restaurants that match the location that the user used to search.
 +
 [none]
-** 4a1. Naggy Joel recommends the user a few restaurants in its default database which the user has not visited before.
+** 4a1. Naggy Joel shows an error message.
+** 4a2. User searches using a nearby location +
+   Steps 4a1 and 4a2 are repeated until a restaurant is shown +
+   Use case resumes at step 2.
 +
 Use case ends.
-
-[discrete]
-=== Use case: Adding social event
-
-*MSS*
-
-1. User adds a social event, providing information such as the description, date and time of the social event.
-2. Naggy Joel requests for the user to add contacts who are going to the social event.
-3. User adds the contacts going to the social event.
-4. Naggy Joel adds the social event to the list of upcoming social events.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The social event to be added clashes with an assignment's due date/due time, or another social event's date/time.
-+
-[none]
-** 1a1. Naggy Joel throws an error and scolds the user for trying to fit too many events in their schedule.
-+
-Use case ends.
-
-[none]
-* 3a. The user does not add any contacts from Naggy Joel's database to the upcoming social event.
-+
-Use case ends.
-
 
 [discrete]
 === Use case: Finding time for a social event
@@ -762,9 +738,7 @@ Use case ends.
 * 4a. User cancels creating a social event.
 +
 [none]
-** 4a1. Naggy Joel prompts the user if they are sure they want to cancel the creation of the social event.
-** 4a2. User affirms cancellation.
-** 4a3. Naggy Joel cancels the creation of the social event.
+** 4a1. Naggy Joel cancels the creation of the social event.
 +
 Use case ends.
 
