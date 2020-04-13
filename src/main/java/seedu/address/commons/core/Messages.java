@@ -32,7 +32,4 @@ public class Messages {
             + "multiple modules";
     public static final String MESSAGE_ADD_FUTURE_GRADE_ERROR = "You cannot add a grade to future semesters!";
     public static final String MESSAGE_DEADLINE_DOES_NOT_EXIST = "Error: Deadline to be edited does not exist";
-
-    public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module already exists as PLANNING, "
-            + "please specify specify task name and deadline if you would like to add a task";
 }

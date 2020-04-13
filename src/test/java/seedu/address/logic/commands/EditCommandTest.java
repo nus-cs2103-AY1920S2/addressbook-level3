@@ -135,7 +135,7 @@ public class EditCommandTest {
         EditCommand editCommandValidForWrongCourse = new EditCommand(null, null, 0,
                 "f/Financial Analytics");
         assertThrows(CommandException.class, MESSAGE_INVALID_COURSE_FOCUS_AREA, () ->
-                editCommandInvalid.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(),
+                editCommandValidForWrongCourse.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(),
                         new ModuleManagerStub()));
     }
 

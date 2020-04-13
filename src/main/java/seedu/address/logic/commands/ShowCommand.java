@@ -52,7 +52,7 @@ public class ShowCommand extends Command {
     private Object toShow;
     /**
      * Creates a ShowCommand to show the specified object
-     * @param itemParsed - Can be any object from this list: (Course,
+     * @param toParse - Can be any object from this list: (Course,
      *               CourseFocusArea, Module, List of Modules in a semester)
      */
 

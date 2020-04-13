@@ -27,7 +27,7 @@
                 </Label>
                 <Label fx:id="moduleCode" text="\$moduleCode" styleClass="cell_big_label" />
             </HBox>
-            <Label fx:id="moduleName" styleClass="cell_small_label" text="\$moduleName" />
+            <Label fx:id="moduleName" styleClass="cell_small_label" text="\$moduleName" wrapText="true" />
             <Label fx:id="grade" styleClass="cell_small_label" text="\$grade" />
 
         </VBox>

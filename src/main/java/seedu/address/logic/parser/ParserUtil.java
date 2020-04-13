@@ -140,7 +140,7 @@ public class ParserUtil {
      * @throws ParseException if the given {@code grade} is invalid.
      */
     public static String parseGrade(String grade) throws ParseException {
-        String trimmedGrade = grade.trim();
+        String trimmedGrade = grade.trim().toUpperCase();
         if (!Grade.isValidGrade(trimmedGrade)) {
             throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
         }

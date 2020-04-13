@@ -66,22 +66,29 @@ public class EditCommandParserTest {
         // All profile fields present
         assertParseSuccess(parser, NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_AMY + FOCUS_AREA_DESC_AMY,
                 new EditCommand(name, courseName, semester, VALID_FOCUS_AREA_AMY));
+    }
 
-        // Multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_AMY
-                + FOCUS_AREA_DESC_AMY, new EditCommand(name, courseName, semester, VALID_FOCUS_AREA_AMY));
+    @Test
+    public void parse_multipleProfileFieldsPresent_failure() {
+        Name name = new Name(VALID_NAME_AMY);
+        CourseName courseName = new CourseName(VALID_COURSE_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
 
-        // Multiple courses - last course accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + COURSE_DESC_BOB + COURSE_DESC_AMY + SEMESTER_DESC_AMY
-                + FOCUS_AREA_DESC_AMY, new EditCommand(name, courseName, semester, VALID_FOCUS_AREA_AMY));
+        // Multiple names
+        assertParseFailure(parser, NAME_DESC_BOB + NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_AMY
+                + FOCUS_AREA_DESC_AMY, "Error: you can only specify one name!");
 
-        // Multiple semesters - last semester accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_BOB + SEMESTER_DESC_AMY
-                + FOCUS_AREA_DESC_AMY, new EditCommand(name, courseName, semester, VALID_FOCUS_AREA_AMY));
+        // Multiple courses
+        assertParseFailure(parser, NAME_DESC_AMY + COURSE_DESC_BOB + COURSE_DESC_AMY + SEMESTER_DESC_AMY
+                + FOCUS_AREA_DESC_AMY, "Error: you can only specify one course!");
 
-        // Multiple focus areas - last focus area accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_AMY + FOCUS_AREA_DESC_BOB
-                + FOCUS_AREA_DESC_AMY, new EditCommand(name, courseName, semester, VALID_FOCUS_AREA_AMY));
+        // Multiple semesters
+        assertParseFailure(parser, NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_BOB + SEMESTER_DESC_AMY
+                + FOCUS_AREA_DESC_AMY, "Error: you can only specify one semester!");
+
+        // Multiple focus areas
+        assertParseFailure(parser, NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_AMY + FOCUS_AREA_DESC_BOB
+                + FOCUS_AREA_DESC_AMY, "Error: you can only specify one focus area!");
     }
 
     @Test
@@ -93,37 +100,42 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_AMY
                 + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY, new EditCommand(moduleCode, semester, VALID_GRADE_AMY,
                 VALID_TASK_AMY, VALID_NEW_TASK_AMY, VALID_DEADLINE_AMY));
+    }
 
+    @Test
+    public void parse_multipleModuleFieldsPresent_failure() {
+        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
 
-        // Multiple module codes - last module code accepted
-        assertParseSuccess(parser, MODCODE_DESC_BOB + MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY
-                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY, new EditCommand(moduleCode, semester,
-                VALID_GRADE_AMY, VALID_TASK_AMY, VALID_NEW_TASK_AMY, VALID_DEADLINE_AMY));
+        // Multiple module codes
+        assertParseFailure(parser, MODCODE_DESC_BOB + MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY
+                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                "Error: you can only edit one module at a time!");
 
-        // Multiple semesters - last semester accepted
-        assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_BOB + SEMESTER_DESC_AMY + GRADE_DESC_AMY
-                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY, new EditCommand(moduleCode, semester,
-                VALID_GRADE_AMY, VALID_TASK_AMY, VALID_NEW_TASK_AMY, VALID_DEADLINE_AMY));
+        // Multiple semesters
+        assertParseFailure(parser, MODCODE_DESC_AMY + SEMESTER_DESC_BOB + SEMESTER_DESC_AMY + GRADE_DESC_AMY
+                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                "Error: you can only specify one semester!");
 
-        // Multiple grades - last grade accepted
-        assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_BOB + GRADE_DESC_AMY
-                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY, new EditCommand(moduleCode, semester,
-                VALID_GRADE_AMY, VALID_TASK_AMY, VALID_NEW_TASK_AMY, VALID_DEADLINE_AMY));
+        // Multiple grades
+        assertParseFailure(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_BOB + GRADE_DESC_AMY
+                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                "Error: you can only specify one grade for each module!");
 
-        // Multiple old tasks - last old task accepted
-        assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_BOB
-                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY, new EditCommand(moduleCode, semester,
-                VALID_GRADE_AMY, VALID_TASK_AMY, VALID_NEW_TASK_AMY, VALID_DEADLINE_AMY));
+        // Multiple old tasks
+        assertParseFailure(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_BOB
+                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                "Error: you can only edit one task at a time!");
 
-        // Multiple new tasks - last new task accepted
-        assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_AMY
-                + NEW_TASK_DESC_BOB + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY, new EditCommand(moduleCode, semester,
-                VALID_GRADE_AMY, VALID_TASK_AMY, VALID_NEW_TASK_AMY, VALID_DEADLINE_AMY));
+        // Multiple new tasks
+        assertParseFailure(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_AMY
+                + NEW_TASK_DESC_BOB + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                "Error: you can only specify one description for each task!");
 
-        // Multiple new deadlines - last new deadline accepted
-        assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_AMY
-                + NEW_TASK_DESC_AMY + DEADLINE_DESC_BOB + DEADLINE_DESC_AMY, new EditCommand(moduleCode, semester,
-                VALID_GRADE_AMY, VALID_TASK_AMY, VALID_NEW_TASK_AMY, VALID_DEADLINE_AMY));
+        // Multiple new deadlines
+        assertParseFailure(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_AMY
+                + NEW_TASK_DESC_AMY + DEADLINE_DESC_BOB + DEADLINE_DESC_AMY,
+                "Error: you can only specify one deadline for each task!");
     }
 
     @Test

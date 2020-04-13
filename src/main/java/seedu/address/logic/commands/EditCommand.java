@@ -21,7 +21,6 @@ import java.util.Map;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
@@ -32,6 +31,7 @@ import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 //@@author joycelynteo
@@ -156,13 +156,14 @@ public class EditCommand extends Command {
             if (oldSemester != 0 && editSemester != 0) {
                 try {
                     hashMap.get(oldSemester).removeModuleWithModuleCode(moduleCode);
-                } catch (ParseException e) { // Will not happen
+                } catch (ModuleNotFoundException e) { // Will not happen
                     throw new CommandException("Error deleting existing module.");
                 }
 
                 profileToEdit.addModule(editSemester, existingModule);
                 updateStatus(profileToEdit);
                 profileManager.setDisplayedView(profileToEdit);
+                profileManager.deleteModuleFromDeadlineList(moduleCode);
                 showCommand = true;
             }
 
@@ -217,7 +218,6 @@ public class EditCommand extends Command {
                 updateStatus(profileToEdit);
                 profileManager.clearDeadlineList();
                 profileManager.setNewDeadlineList(profileToEdit);
-
 
             }
             if (focusAreaString != null) {

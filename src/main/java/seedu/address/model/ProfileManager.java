@@ -281,6 +281,16 @@ public class ProfileManager implements Model {
         }
     }
 
+    @Override
+    public void deleteModuleFromDeadlineList(ModuleCode moduleCode) {
+        System.out.println("TEST!!!!");
+        for (Deadline deadline : this.deadlineList) {
+            if (deadline.getModuleCode().equals(moduleCode)) {
+                this.deadlineList.remove(deadline);
+            }
+        }
+    }
+
 }
 
 /**

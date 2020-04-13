@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
 
 //@@author gyant6
 /**
@@ -70,10 +71,10 @@ public class ModuleList implements Iterable<Module> {
      * Removes the module with module code {@code moduleCode} in the module list, if it exists.
      * @throws ParseException No module in the module list contains {@code moduleCode}.
      */
-    public void removeModuleWithModuleCode(ModuleCode moduleCode) throws ParseException {
+    public void removeModuleWithModuleCode(ModuleCode moduleCode) throws ModuleNotFoundException {
         requireNonNull(moduleCode);
         if (!hasModuleWithModuleCode(moduleCode)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_MODULE, moduleCode));
+            throw new ModuleNotFoundException(String.format(MESSAGE_INVALID_MODULE, moduleCode));
         }
         Module modToRemove = getModuleWithModuleCode(moduleCode);
         moduleList.remove(modToRemove);

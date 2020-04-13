@@ -17,6 +17,7 @@ import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 //@@author chanckben
@@ -200,7 +201,7 @@ public class Profile {
         throw new NoSuchElementException(name.toString() + " is not taking " + moduleCode.toString());
     }
 
-    public Module getModule(ModuleCode moduleCode) throws ParseException {
+    public Module getModule(ModuleCode moduleCode) throws ModuleNotFoundException {
         for (ModuleList moduleList: semModHashMap.values()) {
             for (Module module: moduleList) {
                 if (module.getModuleCode().equals(moduleCode)) {
@@ -208,7 +209,7 @@ public class Profile {
                 }
             }
         }
-        throw new ParseException(name.toString() + " is not taking " + moduleCode.toString());
+        throw new ModuleNotFoundException(name.toString() + " is not taking " + moduleCode.toString());
     }
 
     /**
@@ -226,13 +227,13 @@ public class Profile {
     /**
      * Deletes a module with module code {@code moduleCode}.
      */
-    public void deleteModule(ModuleCode moduleCode) throws ParseException {
+    public void deleteModule(ModuleCode moduleCode) throws ModuleNotFoundException {
         if (hasModule(moduleCode)) {
             int semester = getModuleSemester(moduleCode);
             semModHashMap.get(semester).removeModuleWithModuleCode(moduleCode);
             return;
         }
-        throw new ParseException(name.toString() + " is not taking " + moduleCode.toString());
+        throw new ModuleNotFoundException(name.toString() + " is not taking " + moduleCode.toString());
     }
 
     /**

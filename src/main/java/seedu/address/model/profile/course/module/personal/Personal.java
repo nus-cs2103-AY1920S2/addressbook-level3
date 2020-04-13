@@ -51,6 +51,10 @@ public class Personal {
         return this.status.getStatus();
     }
 
+    public boolean hasGrade() {
+        return this.grade.getGrade() != null;
+    }
+
     public String getGrade() {
         return this.grade.getGrade();
     }

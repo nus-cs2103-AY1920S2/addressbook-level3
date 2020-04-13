@@ -24,6 +24,9 @@ package Module {
         Class Grade
         Class Status
         Class DeadlineList
+        Class Deadline
+        Enum ModuleGrade
+        Enum ModuleStatus
     }
 }
 
@@ -39,5 +42,8 @@ Module *-down- PrereqTreeNode
 Personal *-- Grade
 Personal *-- Status
 Personal *-- DeadlineList
+Personal *-- ModuleGrade
+Personal *-- ModuleStatus
+DeadlineList o-- Deadline
 
 @enduml

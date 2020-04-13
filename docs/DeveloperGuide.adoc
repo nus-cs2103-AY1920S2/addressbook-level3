@@ -124,7 +124,7 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.j
 
 .  `Logic` uses the `ModdyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a module).
+.  The command execution can affect the `Model` (e.g. adding a `Module`).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -182,20 +182,22 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-
+//tag::dependency[]
 === Dependency between Module and Personal
 .Structure of the Module Component
 image::ModuleClassDiagram.png[]
 
-Each Module class consists of a Personal class, alongside other module attributes from NUSMODS. In each Personal class, there are 3 attributes that are for the user to store their data: +
+Each `Module` class consists of a `Personal` class, alongside other module attributes from NUSMODS. In each `Personal` class, there are 3 attributes that are for the user to store their data: +
 
-* `Grade` : the user's grade for te particular module
-* `Status` : the status of the module (`IN_PROGRESS`, `TAKING` or `TAKEN`)
-* `DeadlineList` : a list of deadline tasks added by the user
+* `Grade` : the user's grade for the particular module
+* `Status` : the status of the module (COMPLETED, IN_PROGRESS, PLANNING)
+* `DeadlineList` : a list of `Deadline` tasks added by the user
 
 These attributes were included in `Personal` as they are the attributes that are personal to the user, and which the user can edit at any time.
+`ModuleGrade` and `ModuleStatus` are enumeration classes that store valid grades and module statuses.
+//end::dependency[]
 
-
+// tag::command[]
 === Structure of Command Features
 
 The `Command` features in MODdy all extends from a single abstract class `Command`. A specific `Command` object created is executed by the `LogicManger` using the respective `Parser`, which then returns a `CommandResult` object and provides the result of that `Command` feature. +
@@ -206,7 +208,9 @@ The following class diagram shows the implementation of MODdy's `Command` featur
 image::CommandClassDiagram.png[]
 
 The sections below gives more details on each `Command` feature.
+// end::command[]
 
+// tag::new[]
 === New Profile Feature
 The `new` feature allows the user to create a `Profile` with the command `new`, appended with the tags.
 
@@ -237,7 +241,9 @@ image::NewCommandSequenceDiagram.png[]
 ** Cons: More tags to parse, and also less intuitive for user (have to use both `cs/` and `y/`).
 
 Eventually, we decided on alternative 1 to prioritize user-friendliness and cleaner code.
+// end::new[]
 
+// tag::add[]
 === Add Module / Task Feature
 
 The `add` feature allows the user to add a `Module` and a `Task` with a `Deadline` for an existing module with the command `add`, appended with the tags.
@@ -248,10 +254,11 @@ The tags are:
 * `m/moduleCode y/year.semester t/task [d/deadline]` for adding a task to an existing module
 
 [NOTE]
-`g/grade` is optional. +
-[NOTE]
 Multiple modules can be added at once but only to the *same year and semester*, e.g. `add m/CS1231 m/IS1103 m/MA1521 y/1.1`. +
 Multiple tasks can be added at once but only to the *same module*, e.g. `add m/CS1231 t/tutorial d/2020-04-20 18:00 t/assignment d/2020-04-25 23:59`. +
+[NOTE]
+`g/grade` is optional. +
+However, grades cannot be added when adding multiple modules.
 [NOTE]
 `d/deadline` is optional. +
 However, for multiple tasks, as long as one `Task` has a `Deadline`, all `t/task` tags have to be appended with `d/deadline` tags. For the tasks with no deadlines, the tag can just be `d/`.
@@ -279,7 +286,7 @@ image::AddSequenceDiagram.png[]
 
 Eventually, we decided on alternative 1 for the convenience of the user since the number of modules taken per semester is not low.
 
-*Aspect 2: How `deadline` feature is implemented*
+*Aspect 2: How `Deadline` feature is implemented*
 
 * *Alternative 1 (current choice):* The `date` is compulsory while `time` is optional for a `deadline`.
 ** Pros: Gives user the flexibility to input different types of tasks.
@@ -291,14 +298,75 @@ Eventually, we decided on alternative 1 for the convenience of the user since th
 
 
 Eventually, we decided on alternative 1 for the benefits of the user. To tackle the cons, we have set `time` to be "23:59" by default if user did not specify.
+// end::add[]
+
+// tag::edit[]
+
+=== Edit Profile / Module Feature
+
+The `edit` feature supports the editing of both `Profile` and `Module`. `Profile` is edited with the command `edit` and `Module` is edited with the command `edit` appended with `m/moduleCode`. +
+
+The edit profile feature is a complementary feature to the new profile feature. It allows the user to edit their profile that was created at the start. Profile features such as name, course, current year/semester and focus area can be edited using this command. +
+
+In addition, the edit module feature is a complementary feature to the add module feature. It allows the user to edit a module that has previously been added. The user can edit module information such as the semester it is taken and grade. +
+
+Lastly, the edit deadline feature is a complementary feature to the add deadline feature. It allows the user to edit a deadline that has previously been added to a module. The user can edit deadline information such as its description, date and time. +
+
+To edit the profile, the command `edit` should be appended with one or more of the tags:
+
+* `n/name` : New name
+* `c/course` : New course
+* `y/year.semester` : New current year/semester
+* `f/focusArea` : New focus area
+
+To edit a module, the command `edit` should be appended with `m/moduleCode`, followed by one or more of the tags:
+
+* `y/year.semester` : New year/semester where module is taken
+* `g/grade` : New grade for the module
+* `t/task` : Old task description
+** `nt/newTask` : New task description
+** `d/deadline` : New date and time
+
+To edit a deadline that has previously been added, append `edit m/moduleCode` with `t/task` which is the description of the task to be edited, followed by either `nt/newTask` which is the new description of the task and/or `d/deadline` which is the new  deadline that will replace the existing one.
+
+==== Current Implementations
+`EditCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `EditCommannd` is parsed using `EditCommandParser` to split the user input into relevant fields.
 
 
-=== Show Feature
+The following sequence diagram shows how the `edit` command works: `edit n/John`:
 
-The `show` feature allows the user to display information about a `Module`, `Course`, `FocusArea` or `Semester` with the command `show`, appended with the tags below. These information cannot be seen from the main UI and have to be displayed through the `show` command.
+.Interactions between UI, Logic and Model components for the `edit n/John` Command
+image::EditSequenceDiagram.png[]
+
+==== Design Considerations
+
+* *Alternative 1 (current choice):* Edit `Profile`, `Module` or `Deadline`  with one `EditCommand`
+** Pros: Easier for the user as they will not have to remember different edit commands for different purposes.
+** Cons: More considerations to differentiate the intent of the user and there is more room for error.
+
+* *Alternative 2:* Have separate commands to edit `Profile`, `Module` and `Deadline`
+** Pros: Makes it clearer what the user intent is and is easier to parse.
+** Cons: Harder for the user to remember the commands and the user will not be allowed to edit both module details and deadline tasks within the module at the same time.
+
+Eventually, we decided on alternative 1 due to the benefits of consistency. Additionally, by requiring a `m/moduleCode` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
+
+We also considered whether to allow users to edit the grade of a module that has yet to be taken. We eventually decided to allow that as many students may want to predict their <<CAP, CAP>>, which our CAP calculator will allow them to do.
+
+The following activity diagram shows how the `edit` command decides what to edit (profile, module details or deadline task):
+
+.Activity Diagram for an Edit Command input
+image::EditCommandActivityDiagram.png[]
+
+// end::edit[]
+
+// tag::show[]
+=== Show Profile / Module / Semester / Course / Focus Area Feature
+
+The `show` feature allows the user to display information about a `Profile`, `Module`, `Course`, `FocusArea` or `Semester` with the command `show`, appended with the tags below. These information cannot be seen from the main UI and have to be displayed through the `show` command.
 
 The tags are:
 
+* `n/name` for `Profile`
 * `m/moduleCode` for `Module`
 * `c/course` for `Course`
 * `f/focusArea` for `FocusArea`
@@ -327,82 +395,25 @@ NOTE: If more than one accepted tag is given, such as `show c/Computer Science m
 ** Cons: Too many classes having repeated code
 
 Eventually, we decided on alternative 1 due to the benefits of avoiding repeated code. To tackle the cons from this, we implemented guard conditions to gracefully reject other Objects that may unintentionally call this method.
-
 // end::show[]
-// tag::edit[]
 
-=== Edit Profile / Module Feature
-
-The `edit` feature supports the editing of both `Profile` and `Module`. `Profile` is edited with the command `edit` and `Module` is edited with the command `edit` appended with `m/module_code`. +
-
-The edit profile feature is a complementary feature to the new profile feature. It allows the user to edit their profile that was created at the start. Profile features such as name, course, current semester and focus area can be edited using this command. +
-
-In addition, the edit module feature is a complementary feature to the add module feature. It allows the user to edit a module that has previously been added. The user can edit module information such as the semester it is taken and grade. +
-
-Lastly, the edit deadline feature is a complementary feature to the add deadline feature. It allows the user to edit a deadline that has previously been added to a module. The user can edit deadline information such as it's description, date and time. +
-
-==== Current Implementations
-`EditCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `EditCommannd` is parsed using `EditCommandParser` to split the user input into relevant fields.
-
-To edit the profile, the command `edit` should be appended with one or more of the tags:
-
-* `n/NAME` : New name
-* `c/COURSE` : New course
-* `y/CURRENT_SEMESTER` : New current semester
-* `f/FOCUS_AREA` : New focus area
-
-To edit a module, the command `edit` should be appended with `m/moduleCode`, followed by one or more of the tags:
-
-* `y/SEMESTER` : New semester where module is taken
-* `g/GRADE` : New grade for the module
-* `t/TASK` : Old task description
-** `nt/newTask` : New task description
-** `d/DEADLINE` : New date and time
-
-To edit a deadline, append `edit m/moduleCode` with `t/TASK` that already exists and is to be edited, followed by either `nt/NEW_TASK` and/or `d/DEADLINE` which contain the new task or deadline that will replace the existing one.
-
-The following sequence diagram shows how the `edit` command works: `edit n/John`:
-
-.Interactions Inside the Logic Component for the `edit n/John` Command
-image::EditSequenceDiagram.png[]
-
-==== Design Considerations
-
-* *Alternative 1 (current choice):* Edit `Profile`, `Module` or `Deadline`  with one `EditCommand`.
-** Pros: Easier for the user as they will not have to remember different edit commands for different purposes.
-** Cons: More considerations to differentiate the intent of the user and there is more room for error.
-
-* *Alternative 2:* Have separate commands to edit `Profile`, `Module` and `Deadline`.
-** Pros: Makes it clearer what the user intent is and is easier to parse.
-** Cons: Harder for the user to remember the commands and the user will not be allowed to edit both module details and deadline tasks within the module at the same time.
-
-Eventually, we decided on alternative 1 due to the benefits of consistency. Additionally, by requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
-
-We also considered whether to allow users to edit the grade of a module that has yet to be taken. We eventually decided to allow that as many students may want to predict their CAP, which our CAP calculator will allow them to do.
-
-The following activity diagram shows how the `edit` command decides what to edit (profile, module details or deadline task):
-
-.Activity Diagram for an Edit Command input
-image::EditCommandActivityDiagram.png[]
-
-// end::edit[]
 // tag::delete[]
 
-=== Delete Profile / Module / Deadline / Grade Feature
+=== Delete Profile / Module / Task / Grade Feature
 
-The `delete` feature allows the user to delete a `Profile`, `Module`, `Deadline` or `Grade` with the command `delete`, appended with the tags.
+The `delete` feature allows the user to delete a `Profile`, `Module`, `Task` or `Grade` with the command `delete`, appended with the tags.
 
 The tags are:
 
 * `n/name` for deleting a `Profile`
 * `m/moduleCode` for deleting a `Module`
-* `m/moduleCode t/task` for deleting a `Deadline`
+* `m/moduleCode t/task` for deleting a `Task`
 * `m/moduleCode g/` for deleting a `Grade`
 
 [NOTE]
-You can delete multiple modules at once, e.g. `delete m/CS1231 m/IS1103 m/MA1521`. +
-You can also delete multiple deadlines at once but only from the same module, e.g. `delete m/CS1231 t/task t/exam`. +
-You can also delete multiple grades at once, e.g. `delete m/CS1231 m/IS1103 m/MA1521 g/`.
+Multiple modules can be deleted at once, e.g. `delete m/CS1231 m/IS1103 m/MA1521`. +
+Multiple tasks can be deleted at once but only from the *same module*, e.g. `delete m/CS1231 t/task t/exam`. +
+Multiple grades can be deleted at once, e.g. `delete m/CS1231 m/IS1103 m/MA1521 g/`.
 
 ==== Current Implementations
 
@@ -418,15 +429,15 @@ image::DeleteCommandActivityDiagram.png[]
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice):* Delete only one `Module` or `Deadline` object with one `DeleteCommand`.
-** Pros: Easier to implement and consistent across all inputs.
-** Cons: More to type if user intends to delete multiple `Module` objects or `Deadline` objects.
-
-* *Alternative 2:* Delete multiple `Module` or `Deadline` objects with one `DeleteCommand`.
-** Pros: More convenient for the user.
+* *Alternative 1 (current choice):* Delete multiple `Module` or `Task` objects with one `DeleteCommand`.
+** Pros: More convenient for users.
 ** Cons: Inconsistent with deleting a `Profile`, which can only take in at most one `Profile`.
 
-Eventually, we decided on alternative 1 due to the benefits of consistency in the number of items to be deleted, as well as to reduce the number of bugs faced.
+* *Alternative 2:* Delete only one `Module` or `Task` object with one `DeleteCommand`.
+** Pros: Easier to implement and consistent with deleting `Profile`.
+** Cons: More to type if user intends to delete multiple `Module` objects or `Task` objects.
+
+Eventually, we decided on alternative 1 to provide more convenience and flexibility to users.
 // end::delete[]
 
 // tag::help[]
@@ -440,7 +451,7 @@ quick view of sample inputs if they run into trouble while using the application
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice):* `HelpWindow` exists as a pop-up window.
+* *Alternative 1 (current choice):* `HelpWindow` exists as a pop-up window
 ** Pros: Easier for user to refer to while typing different commands in the `CommandBox` in `MainWindow`.
 ** Cons: As it exists as a separate window, it might cause hindrance for user when use MODdy.
 
@@ -448,7 +459,7 @@ quick view of sample inputs if they run into trouble while using the application
 ** Pros: Integral with the whole `MainWindow`.
 ** Cons: The `HelpWindow` might be replaced by user input command, and user would have to enter `help` command again to view the `HelpWindow`.
 
-Eventually, we decided on alternative 1 due to the benefits of allowing user to cross-reference the commands.
+Eventually, we decided on alternative 1 due to the benefits of allowing user to cross-reference the commands while using the application.
 // end::help[]
 
 // tag::home[]
@@ -728,17 +739,17 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Adding a profile
+=== Creating a new profile
 
-. Adding a new profile while at Quick Start page
+. Creating a new profile while at Quick Start page
 
-.. Prerequisites: Currently at the Quick Start page. No profiles added.
+.. Prerequisites: Currently at the Quick Start page. No profiles created.
 .. Test case: `new n/john y/2.2 c/computer science f/computer security` +
    Expected: Details of the new profile are shown in the profile panel. Name of the new profile shown in the status message.
 .. Test case: `new n/john y/2.2 c/computer science` +
    Expected: Details of the new profile are shown in the profile panel. Focus area is shown as `UNDECIDED`. Name of the new profile shown in the status message.
 .. Test case: `new n/john y/2.2` +
-   Expected: No profile is added. Error details shown in the status message. All panels remain the same.
+   Expected: No profile is created. Error details shown in the status message. All panels remain the same.
 .. Other incorrect new commands to try: `new n/john y/2.2 c/abc`, `new n/john y/2.x c/computer science` (where x is larger than 2), `new n/john& y/2.1 c/computer science` +
    Expected: Similar to previous.
 
@@ -878,47 +889,47 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `edit m/CS1010 t/midterm nt/exam` +
    Expected: Name of the task is not modified. Error details shown in the status message. All panels remain the same.
 
-=== Viewing module overview
+=== Showing module overview
 
-. Viewing the module overview throughout all semesters.
+. Showing the module overview throughout all semesters.
 
 .. Prerequisites: Profile with name `john` has been created.
-.. Test case: `view n/john` +
+.. Test case: `show n/john` +
    Expected: The overview panel is shown with all the added modules.
-.. Test case: `view n/tom` +
+.. Test case: `show n/tom` +
    Expected: User interface does not change. Error details shown in the status message. All panels remain the same.
 
-=== Viewing semester overview
+=== Showing semester overview
 
-. Viewing the module overview for a particular semester
+. Showing the module overview for a particular semester
 
 .. Prerequisites: Profile has been created. The module `CS1010` has been added to year 1 semester 1. No modules have been added to year 1 semester 2.
-.. Test case: `view y/1.1` +
+.. Test case: `show y/1.1` +
    Expected: Module `CS1010` and its title appears in the overview panel.
-.. Test case: `view y/1.2` +
+.. Test case: `show y/1.2` +
    Expected: User interface does not change. Error details shown in the status message.
 
-=== Viewing module information
+=== Showing module information
 
-. Viewing the information (description, prerequisites, preclusions, etc) of a module
+. Showing the information (description, prerequisites, preclusions, etc) of a module
 
 .. Test case: `show m/CS1010` +
    Expected: The module information is shown in the overview panel.
 .. Test case: `show m/CS1111` +
    Expected: User interface does not change. Error details shown in the status message.
 
-=== Viewing course information
+=== Showing course information
 
-. Viewing the information (course requirements, focus areas) of a course
+. Showing the information (course requirements, focus areas) of a course
 
 .. Test case: `show c/computer science` +
    Expected: The course requirements and focus areas of Computer Science are shown in the overview panel.
 .. Test case: `show c/course` +
    Expected: User interface does not change. Error details shown in the status message.
 
-=== Viewing focus area information
+=== Showing focus area information
 
-. Viewing the information (modules in primaries and electives) of a focus area
+. Showing the information (modules in primaries and electives) of a focus area
 
 .. Test case: `show f/computer security` +
    Expected: The modules in Area Primaries and Electives of Computer Security are shown in the overview panel.
