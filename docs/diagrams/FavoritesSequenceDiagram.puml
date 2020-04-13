@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodieBotParser" as FoodieBotParser LOGIC_COLOR
+participant ":FavoritesCommandParser" as FavoritesCommandParser LOGIC_COLOR
+participant "fc:FavoritesCommand" as FavoritesCommand LOGIC_COLOR
+participant "f:Food" as Food LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("favorites set " + INDEX)
+activate LogicManager
+
+LogicManager -> FoodieBotParser : parseCommand("favorites set " + INDEX)
+activate FoodieBotParser
+
+FoodieBotParser -> FavoritesCommandParser : parse(INDEX)
+activate FavoritesCommandParser
+
+create FavoritesCommand
+FavoritesCommandParser -> FavoritesCommand
+activate FavoritesCommand
+
+FavoritesCommand --> FavoritesCommandParser :
+deactivate FavoritesCommand
+
+FavoritesCommandParser --> FoodieBotParser : rc
+deactivate FavoritesCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FavoritesCommandParser -[hidden]-> FoodieBotParser
+destroy FavoritesCommandParser
+
+FoodieBotParser --> LogicManager : rc
+deactivate FoodieBotParser
+
+LogicManager -> FavoritesCommand : execute(model)
+activate FavoritesCommand
+
+FavoritesCommand -> Model : getFilteredFoodList()
+activate Model
+
+Model --> FavoritesCommand :
+deactivate Model
+
+create Food
+FavoritesCommand -> Food
+activate Food
+
+
+
+Food --> FavoritesCommand
+deactivate Food
+
+FavoritesCommand -> Model : setFood(f)
+activate Food
+
+Model --> FavoritesCommand :
+deactivate Food
+
+
+create CommandResult
+FavoritesCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FavoritesCommand
+deactivate CommandResult
+
+FavoritesCommand --> LogicManager : cr
+deactivate FavoritesCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

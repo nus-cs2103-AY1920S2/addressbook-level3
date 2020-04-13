@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodieBotParser" as FoodieBotParser LOGIC_COLOR
+participant ":TransactionsCommandParser" as TransactionsCommandParser LOGIC_COLOR
+participant "tc:TransactionsCommand" as TransactionsCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("Transactions")
+activate LogicManager
+
+LogicManager -> FoodieBotParser : parseCommand("Transactions")
+activate FoodieBotParser
+
+FoodieBotParser -> TransactionsCommandParser : parse("Transactions")
+activate TransactionsCommandParser
+
+create TransactionsCommand
+TransactionsCommandParser -> TransactionsCommand
+activate TransactionsCommand
+
+TransactionsCommand --> TransactionsCommandParser :
+deactivate TransactionsCommand
+
+TransactionsCommandParser --> FoodieBotParser : tc
+deactivate TransactionsCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+TransactionsCommandParser -[hidden]-> FoodieBotParser
+destroy TransactionsCommandParser
+
+FoodieBotParser --> LogicManager : tc
+deactivate FoodieBotParser
+
+LogicManager -> TransactionsCommand : execute(model)
+activate TransactionsCommand
+
+TransactionsCommand -> Model : loadFilteredTransactionsList()
+activate Model
+
+Model --> TransactionsCommand :
+deactivate Model
+
+TransactionsCommand -> Model : updateFilteredTransactionsList()
+activate Model
+
+Model --> TransactionsCommand
+deactivate Model
+
+create CommandResult
+TransactionsCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> TransactionsCommand
+deactivate CommandResult
+
+TransactionsCommand --> LogicManager : cr
+deactivate TransactionsCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

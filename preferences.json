@@ -1,0 +1,16 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 740.0,
+    "windowHeight" : 600.0,
+    "windowCoordinates" : null
+  },
+  "foodieBotFilePath" : "foodiebot.json",
+  "stallsFilePath" : "foodiebot-stalls.json",
+  "budgetFilePath" : "foodiebot-budget.json",
+  "foodFilePath" : "foodiebot-food.json",
+  "favoriteFoodFilePath" : "foodiebot-favorites.json",
+  "transactionsFilePath" : "foodiebot-transactions.json",
+  "dateFirstLaunched" : {
+    "value" : "Optional.empty"
+  }
+}

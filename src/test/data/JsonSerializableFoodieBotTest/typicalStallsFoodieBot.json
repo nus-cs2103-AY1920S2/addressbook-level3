@@ -1,0 +1,19 @@
+{
+  "stalls" : [ {
+    "name" : "Muslim",
+    "canteenName" : "The Deck",
+    "stallNumber" : 1,
+    "stallImageName" : "muslim.png",
+    "cuisine" : "muslim",
+    "overallPriceRating": "$",
+    "favorite": 0
+  }, {
+    "name" : "Yong Tau Foo",
+    "canteenName" : "The Deck",
+    "stallNumber" : 6,
+    "stallImageName" : "yongtaufoo.png",
+    "cuisine" : "asian",
+    "overallPriceRating": "$",
+    "favorite": 0
+  }]
+}

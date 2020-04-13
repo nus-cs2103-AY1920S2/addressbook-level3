@@ -1,0 +1,60 @@
+= Ignatius Ong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FoodieBot
+
+---
+
+== Overview
+
+Our team was tasked to make a new application by morphing from the existing AddressBook-3 application and building on it.
+We decided to make FoodieBot, which maintains the CLI style of AddressBook-3 while updating the GUI and adding additional functionality.
+
+FoodieBot is an application built for people around NUS in order to help them with various problems which may crop up from
+time to time while dining in NUS. It can help users decide by randomizing food options, get directions from Point A to Point
+as well as help the user plan their budget.
+
+
+
+== Summary of contributions
+
+* *Enhancement*: added *the enter function*
+** What it does: it allows users to switch from viewing the list of canteens to viewing the list of stalls
+    and from the list of the stalls to view the menu of each individual stall.
+** Justification: Suppose that the user wants to find out more about the stalls in a canteen or more information about the food
+provided in the stall. The *enter* command conveniently encapsulates that idea of wanting to find out more about the thing you're interested
+in and not having to memorize so many commands to do it.
+** Highlights: While in the process of implementing *enter* I also created the idea of a *Context* for users to call
+commands which forms a very important part of our entire application allowing users simpler commands to remember.
+** Credits: -
+
+
+* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F11-3/main/commits?author=ignatiusong[Functional code]]
+[https://github.com/AY1920S2-CS2103T-F11-3/main/commit/de8636e50a4984ffa98ae6ff66e29344cc1b9efa[Test code]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Updated UI with a label showing clearly what the UI is showing (Pull requests https://github.com/AY1920S2-CS2103T-F11-3/main/pull/202[#202])
+*** Added the *back* command to allow the user to return to the previous menu more easily (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/199[#199])
+** Documentation:
+*** In charge of maintaining the quality of English in the user guide.
+*** Made the user guide more friendly with more personal language
+
+== Contributions to the User Guide
+
+
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#view-stalls-or-menu-enter[Enter Canteen Command]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#back-command-back[Back Command]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Please find below the parts which I have contributed to the Developer Guide. They showcase my
+knowledge of the inner workings of the project and the overall project structure._
+|===
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/DeveloperGuide.adoc#enter-command[Enter Command]
+

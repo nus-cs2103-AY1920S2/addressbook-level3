@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
+<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display" />
+    <ProgressBar fx:id="budgetTrackerHigh" maxWidth="-Infinity" prefWidth="200.0" progress="0.0">
+      <StackPane.margin>
+         <Insets left="485.0" />
+      </StackPane.margin></ProgressBar>
+    <ProgressBar fx:id="budgetTrackerLow" maxWidth="-Infinity" prefWidth="200.0" progress="0.0">
+        <StackPane.margin>
+            <Insets left="485.0" />
+        </StackPane.margin></ProgressBar>
+    <Label fx:id="budgetLabel" text="Budget" textFill="white">
+      <StackPane.margin>
+         <Insets bottom="50.0" left="485.0" />
+      </StackPane.margin></Label>
 </StackPane>

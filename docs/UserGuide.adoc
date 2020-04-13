@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= FoodieBot - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,631 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-F11-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `FoodieBot Team`      Since: `Feb 2020`    Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FoodieBot is an all-in-one application created for NUS students, staff and visitors.
+Designed primarily to help with your everyday campus dining needs, FoodieBot has something to offer
+to everyone. Whether you need a random suggestion of what to eat, directions to get to the canteen, help in planning your budget for the week, or just want to see what each canteen has to offer, FoodieBot is here to provide for your needs.
+
+// insert image to show section of UI attributes/ objects
+
+== About this Document
+<Done By: Samantha>
+
+=== Symbols and Notations Used
+The following are the symbols and formatting used in this document:
+
+[NOTE]
+This symbol indicates important information.
+
+[TIP]
+This symbol indicates tips for the particular feature.
+
+`list` - A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command box and executed by the application.
+The command box location can be seen in the diagram below.
+
+image::Ui_screenshot_windows.PNG[width="850"]
+
+=== Definition of Common Words Used
+
+Context::
+There are some commands that are only permissible at certain states of the application.
+For instance, the `review` and `rate` commands are only allowed after navigating to the transactions screen.
+We refer to this state as a *context*. Commands which specify a context which they are used in generally cannot work outside of that context.
+However, some commands are less particular about the context which they run in
+such as in the case of the `enter` command which can run in both the Main, Canteen and Stall contexts.
+
+GUI::
+Graphic User Interface is a type of visual interface that allows users to interact with.
+
+Index::
+It is a number that is linked to the item of the list
+An index is limited to the maximum number of items shown in the list, the item does not exist if an invalid index is specified in commands that use an index.
+
+
+=== How to Use this Document
+Section 4. Features will introduce you to the commands for the application.
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Ensure that you have **Java 11** or above installed in your Computer.
+.  Download the latest **foodiebot.jar** link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your FoodieBot.
+.  Double-click the file to start the app. The Graphical User Interface(GUI) similar to the image shown below should appear in a few seconds.
+
 +
-image::Ui.png[width="790"]
+image::Ui_screenshot_windows.PNG[width="850"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+TIP:  Some example commands you can try are listed below:
 
-.  Refer to <<Features>> for details of each command.
+* `*list*` : Lists all canteens or return to the main page.
+* `*enter* The Deck` : Display all the stalls location within The Deck.
+* `*back*` : Go back to the previous view
+* `*goto* The Deck f/ COM1` : Display direction to go to deck from COM1.
+* `*exit*` : the exit command will close FoodieBot
+
 
 [[Features]]
 == Features
 
 ====
-*Command Format*
+[red]*Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `budget set w/ AMOUNT`, `AMOUNT` is a parameter which can be used as `budget set w/ 9.50`
+* Items in square brackets are optional entries e.g `report [w/DATE]` can be entered as `report [w/ 12-02-2020]` or as `report`.
+* _Canteen names_, _stall names_ and _commands_ are *case sensitive*.
 ====
 
-=== Viewing help : `help`
+=== Back Command: `*back*`  <Done By: Ignatius>
 
-Format: `help`
+If you want to return to your previous screen, just key in `*back*` and it'll bring you back
+(at least if a previous screen exists).
 
-=== Adding a person: `add`
+Format: `back`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Exit Command: `*exit*`
 
-[TIP]
-A person can have any number of tags (including 0)
+When you're done using the application, type `*exit*` into the command box to close the application.
 
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== List all Canteens: `*list*`  <Done By: Leslie>
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Curious to discover the range of dining options on campus? Simply enter `*list*` into the command box
+and FoodieBot will show you all the fabulous canteens on campus for you to browse at your leisure.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Format: `list`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Parameters:
+
+*  `[f/BLOCK_NAME]` - If you want to view the canteens by their distance from the place specified by
+`BLOCK_NAME`, this is the tag for you. This will list the canteens in order of increasing distance from
+`BLOCK_NAME`.
+
+TIP: You can also type `list` into the command box to return to the main page. This is a handy shortcut if
+you ever forget which *Context* you're in.
+
+****
+Examples:
+
+`*list*`::
+List all canteens.
+`*list f/com1*`::
+List all canteens starting with the nearest canteen from com1
+****
+
+image::app/list1.PNG[width="700", align="left"]
+
+
+=== Go to a Canteen: `*goto*`  <Done By: Leslie>
+
+If you're ever lost in NUS, worry no more! The `goto` function can conveniently tell you the directions to the canteen you wish to
+go to from your current location which you have indicated. It even includes a map image to aid you with understanding
+the directions even easier.
+
+NOTE: This function will only work on the main page.
+
+Format: `goto CANTEEN_NAME f/ CURRENT_LOCATION`
+
+Parameters:
+
+* `CANTEEN_NAME`: The canteen name
+* `CURRENT_LOCATION`: The nearest block from your current location
+
+These `CURRENT LOCATION`(s) are available for directions:
+
+* com1
+
+These `CURRENT LOCATION`(s) will be added in future releases
+(but are recognised as valid locations):
+
+* pgpr
+* uhc
+* utown
+
+NOTE: `CANTEEN_NAME` and `CURRENT_LOCATION` field has to be one of the suggestions. Otherwise an error message will be displayed telling the user to provide a valid `CANTEEN_NAME` and `CURRENT_LOCATION`.
+
+====
+Example:: Let say you wish to go to The Deck from your current location at com1.
+====
+. Enter the canteen which you want to go to and your current location in this format on the main page `goto The Deck f/ com1`.
++
+image::wireframe/gotoStep1.PNG[width="700", align="left"]
+
+.  Then press kbd:[Enter]. This will give you a clear image and instruction on how to get to canteen from the nearest bus stop.
+
+image::wireframe/gotoStep2.PNG[width="700", align="left"]
+
+
+=== View Stalls or Menu: `*enter*`  <Done By: Ignatius>
+
+Curious about the details of a particular canteen or stall? The `enter` command allows you to find out
+all the information you want about the canteen or stall you are interested in.
+
+Format: `enter STALL_NAME/ CANTEEN_NAME/ INDEX`
+
+Parameters:
+
+* `INDEX`: An index that corresponds to a particular canteen. This index is located beside the canteen name.
+* `CANTEEN_NAME`: The canteen name has to be from one of the canteens displayed. Partial names are not allowed.
+* `STALL_NAME`:  The stall name has to be from one of the stalls displayed. Partial names are not allowed.
+
+NOTE: Information about the types of food sold at the stall, the rating of the stall and various other things will be implemented in v2.0. +
+The stall's rating is determined from the user's past experiences of the food items which were selected (find out
+more in Section 4.13: Rate Food Items).
+
+====
+Example:: You wish to see the stalls available in Nus Flavors.
+====
+. On the main screen, type `enter Nus Flavors` or `enter 1` into the command box.
++
+image::wireframe/enterStep1.PNG[width="700", align="left"]
+
+. This will display the list of stalls that Nus Flavors has.
+At the bottom of the screen, there will be a display box which displays the current canteen which you
+have entered.
++
+image::wireframe/enterStep2.PNG[width="700", align="left"]
+
+* If you wish to view stalls in another canteen you can enter `back` into the command box. This will bring you back to the main page.
+
+. If you wish to see the menu of a stall, you can key in `enter` again.
+Let us see what the Western stall has on their menu. You can key in `enter Western` or `enter 9`.
+Don't forget to hit the kbd:[enter] after you are done typing.
+
+. This will show you the menu of the Western stall.
+For each food item, the name, the cost and the description of the food item will be given.
+At the bottom of the screen, there will also be a display box showing the current stall which you have entered.
++
+image::wireframe/enterStall.PNG[width="700", align="left"]
+
+* Similarly, you can also enter `back` to return to the Nus Flavor canteen screen or enter `list` if you wish to return to the main screen.
+
+
+=== Select the Food : `*select*`  <Done By: Shaun>
+
+Finally decided on a food item after browsing the countless food options at NUS, ordered it and want to record
+down your dining experience? The `*select*` function is here allowing you to save your selected food
+into your past transactions to help you track your history of food consumption.
+
+Format: `select`
+
+Parameters:
+
+* `INDEX`: Select the food with the given index from the list displayed on the GUI
+* `FOOD_NAME`: Select the food with the given name from the list displayed on the GUI
+
+NOTE: If a budget has been set up, the price of the selected food will be automatically deducted from your
+budget. This helps you keep track of how much money you have spent and how much more you can spend. Nifty, isn't it?
+
+Example:: You have decided what you want to eat and you want to save that item to update your transaction history.
+
+. Ensure that you are on the menu screen of the stall. If you do not know how to get to the menu you can refer to the section above or <<View Stalls or Menu, here>>.
+
+. Continuing on from the example from the `*enter*` command above, we are currently in the Western stall.
++
+image::wireframe/enterStall.PNG[width="700", align="left"]
+
+. Enter `select Combo Set` or `select 1` into the command box.
+
+. This will display the cost of the item, the remaining amount that you have and the amount you are left with to spend for the day.
+
+image::wireframe/select.png[width="700", align="left"]
+
+
+=== Randomize Food Selection : `*randomize*`  <Done By: Samantha>
+
+Bamboozled by the countless dining options at NUS or simply bored of going to the same boring old canteens to
+eat everyday? `randomize` is here to help you to generate a random option when you cannot decide on what to eat or
+if you just want to spice up your culinary experience in NUS.
+
+Format: `randomize`
+
+Parameters:
+
+* `[c/ CANTEEN_NAME]` - Produce a randomized list of foods from foods available at the particular canteen .
+* `[t/ TAG]` - Randomize based on foods which are tagged with the tag provided.
+
+====
+Example:: On a day where you cannot decide on what to eat but you don't mind travelling anywhere on campus, you suddenly
+remember that FoodieBot has a convenient `randomize` function.
+====
+. Just enter `randomize` into the command box on the main screen.
++
+image::wireframe/randomizeStep1.PNG[width="700", align="left"]
+
+. This will generate 1 option for you with the details of the _canteen name_ that this stall belongs to, the _stall name_, the _stall number_,
+the _price rating_ and the tag if there are any.
++
+image::wireframe/randomize.png[width="700", align="left"]
+
+* If you like the option that you see, you can key in `enter Japanese` or `enter 1` to be redirected to the stall to see the menu.
+
+* If you do not like the option, you can enter `randomize` again to be given another option.
+
+====
+Example:: What if you want to get a random option only from a particular canteen (eg. The Deck) that you are at or an option based on what you crave (eg. spicy food)?
+====
+
+* If you want to get a random option based on the canteen (eg. The Deck), you can enter `randomize c/ The Deck` on the main screen.
+This will display an option that is based on the canteen you want (in this case The Deck).
+* If you want to get a random option based on your craving (eg. spicy), you can enter `randomize t/ spicy` on the main screen.
+This will display a food which has the spicy tag.
+
+* OR similarly, you can also enter the canteen first before getting a random option.
+. In the command box key in `enter The deck` or `enter 2` to get the list of stalls available in The Deck.
++
+image::wireframe/enterDeck.PNG[width="700", align="left"]
+. After that enter `randomize` or `randomize t/ TAG` to get an option. +
+Let's try getting a food option that has rice from The deck
++
+image::wireframe/randomizeTag.PNG[width="700", align="left"]
+
+. This will display an option if there is a stall option that has that tag. Otherwise it will display a message in the feedback box.
++
+image::wireframe/randomizeTagOutput.PNG[width="700", align="left"]
+
+
+=== Set a Budget : `*budget set*`  <Done By: Xavier>
+
+Have problems keeping track of your spending? The `budget set` command allows you to set up
+a daily, weekly or monthly budget to help you track how much money you have left to spend. This budget
+can be changed anytime you want but please note the consequences in the box below!
+
+NOTE: Changing the budget will reset the budget overview for the current budget cycle. +
+For example, if you have $5 remaining from a weekly budget of $20, setting a new monthly budget of $150
+will update your current budget settings to the new one, but at the same time resets the start date
+of the cycle, your remaining budget, as well as an overview of your spendings in your budget. +
+(But not to worry, all of your transactions are still saved!)
+
+NOTE: When you set a weekly or monthly budget, you get to see an average daily budget available to
+spend over 5 days (if weekly) or 20 days (if monthly). Sometimes you may want to comfort yourself,
+so it’s still okay to spend more than the daily average budget, as long as your remaining budget
+doesn’t reach $0 before the end of the week/month!
+
+Format: `budget set PERIOD AMOUNT`
+
+Parameters:
+
+* `AMOUNT`: The maximum amount available to spend for the given time period.
+* `PERIOD`: The length of the cycle that a budget is effective for and when it will refresh.
++
+List of values for `PERIOD` are:
++
+** `d/` - Daily
+** `w/` - Weekly
+** `m/` - Monthly
+
+NOTE: `PERIOD` field has to be one of the above suggestions. +
+`AMOUNT` field has to be numeric (with or without decimal places). +
+Otherwise an error message will be displayed requesting a correct type to be provided.
+
+****
+Examples:
+
+`*budget set d/ 10*`::
+** Set daily budget to $10.
+`*budget set w/ 30.50*`::
+** Set weekly budget to $30.50.
+`*budget set m/ 100*`::
+Set monthly budget to $100.
+****
+
+=== View Budget: `*budget view*`  <Done By: Xavier>
+
+Curious about your budget this cycle, how much you have spent and how much you have left? `budget view` allows
+you to see all your spending as well as the amount of money you have left to spend.
+
+Format: `budget view`
+
+image::wireframe/budgetView.PNG[width="700", align="left"]
+
+=== View Expense Report: `*report*`  <Done By: Xavier>
+If you want to see how much you have spent over a period of time, view a beautifully designed report of your
+past expenses with the `report` command.
+
+NOTE: This command has several variations to choose from! Also, the date can be delimited with '-', '.' or '/',
+as long as your date format follows a generic DD/M/YY or D-M-YYYY format (e.g. 11/4/20, 3-6-2019)! +
+D - day +
+M - month +
+Y - year +
+
+Format:
+
+* `report`
+* `report [f/FROM_DATE] [t/TO_DATE]`
+* `report [w/DATE]`
+* `report [m/MONTH]`
+* `report [y/YEAR]`
+
+Parameters:
+
+* `[f/FROM_DATE] [t/TO_DATE]` - Generates report from `FROM_DATE` until `TO_DATE`.
+** Example: `report f/ 12-02-2020 t/ 30-04-2020`
+* `[w/DATE]` - Generates report for the week (Monday-Sunday) of the input date.
+** Example: `report w/ 12-02-2020`
+* `[m/MONTH]` - Generates report of the input month.
+** Example: `report m/ jan` - Generates a report for the month of January for the current year.
+** Example: `report m/ jul y/ 2019` - Generates a report for the month of July of the specified year
+of 2019.
+* `[y/YEAR]` - Generates report of the input year.
+** Example: `report y/ 2020`
+
+NOTE: `FROM_DATE` cannot be a future date. +
+`TO_DATE` cannot be before the `FROM_DATE`, or the earliest possible date if the [f/] field is empty.
+
+image::wireframe/report.png[width="700", align="left"]
+
+=== View Past Transactions: `*transactions*`  <Done By: Xavier>
+
+In a similar way to `report`, `transactions` also allow you to see all the food you have purchased in
+a particular period.
+
+NOTE: This command has several variations to choose from! Also, the date can be delimited with '-', '.' or '/',
+as long as your date format follows a generic DD/M/YY or D-M-YYYY format (e.g. 11/4/20, 3-6-2019)! +
+D - day +
+M - month +
+Y - year +
+
+Format:
+
+* `transactions`
+* `transactions [f/FROM_DATE] [t/TO_DATE]`
+* `transactions [w/DATE]`
+* `transactions [m/MONTH]`
+* `transactions [y/YEAR]`
+
+Parameters:
+
+* `[f/FROM_DATE] [t/TO_DATE]` - Displays transactions from and till the given dates.
+** Example: transactions `f/ 12-02-2020 t/ 30-04-2020`
+* `[w/DATE]` - Displays transactions for the week (Monday-Sunday) of the input date.
+** Example: transactions `w/ 12-02-2020`
+* `[m/MONTH]` - Displays transactions of the input month.
+** Example: transactions `m/ jan` - Displays all transactions in the month of the current year.
+** Example: transactions `m/ jul y/ 2019` - Displays all transactions in the month of the specified year.
+* `[y/YEAR]` - Displays transactions of the input year.
+** Example: transactions `y/ 2020`
+
+NOTE: `FROM_DATE` cannot be a future date. +
+`TO_DATE` cannot be before the `FROM_DATE`, or the earliest possible date if the f/ field is empty.
+
+image::wireframe/transaction.png[width="700", align="left"]
+
+=== Delete a Transaction: `*delete*`  <Done By: Xavier>
+
+Accidentally added a wrong food to your purchases? The `delete` command allows you to do just that, by
+giving the index of the food to delete.
+
+NOTE: The index to delete has to be within the range of the list of transactions.
+
+
+Format: `delete` INDEX
+
+Parameters:
+
+* `INDEX` - The index of the item in the list of transactions.
+
+====
+Example:: You had accidentally selected the same food twice in a row too quickly, and want to delete one of them.
+====
+. Type in `transactions` from the main screen to enter the transactions page.
+. Locate the index number of the food you wish to delete.
+. Type in `delete` followed by the index number of the purchase, then hit kbd:[enter].
+. The additional purchase is now removed!
+
+TIP: Removing a food purchased only during a current budget cycle will add the amount back to your remaining budget!
+
+
+=== Review Food Items: `*review*`  <Done By: Xavier>
+
+From the *transactions* screen, leave a food review for a food item you have consumed to help you jog
+your memory and recall your experiences, be it pleasant or unpleasant, of the previous time you had the food.
+
+Format: `review INDEX REVIEW`
+
+Parameters:
+
+* `INDEX` - This must be the first parameter and an index from the list has to be specified.
+* `REVIEW` - This must be the second parameter and the review message cannot be blank.
+
+====
+Example:: You want to review a food item that you have eaten for future reference.
+====
+. Ensure that you are on the transaction screen. You can key in `transactions` on the main screen to get there.
+. Pick a food you wish to review. Now perhaps you think that the Combo Set was delicious and that you absolutely adored the bbq sauce. +
+Key in `review 1 The food is delicious! Love the bbq sauce` into the command box, and hit kbd:[enter].
++
+image::wireframe/review.png[width="700", align="left"]
+
+TIP: You can update existing reviews by using the same command.
+
+=== Rate Food Items: `*rate*`  <Done By: Xavier>
+
+Lazy to write a full food review? Well from the `*transactions*` screen, you can simply leave a food rating
+to show how well you thought of the food you had.
+
+Format: `rate INDEX RATING`
+
+Parameters:
+
+* `INDEX` - This must be the first parameter and an index from the list has to be specified.
+* `RATING` - This must be the second parameter and requires a rating for the food item.
+
+****
+Example:
+
+`*rate 3 8*`::
+Rate the 3rd item in the transactions list as 8.
+****
+
+TIP: You can also update existing ratings by using the rate on the same food item.
+
+=== Set Food Items as Favorites: `*favorites set*`  <Done By: Leslie>
+
+Just had this absolutely delicious meal and want to save it for the next time so you can remember to have it
+again or recommend it to others? From the *menu screen* of a stall, you can easily set your favourite food items
+for easier access in the future.
+
+Format: `favorites set INDEX`
+
+Parameters:
+
+* `INDEX` - This must be the first parameter and an index from the list has to be specified.
+
+
+=== View Favorited Food Items: `*favorites view*`  <Done By: Leslie>
+
+Once you have saved your favorite food items, you can easily access them with this command.
+
+Format: `favorites view`
+
+image::wireframe/favoritesView.PNG[width="700", align="left"]
+
+=== Remove Favorite Food Items: `*favorites remove*`  <Done By: Leslie>
+
+Had a change of heart and a particular food has lost your fancy? Don't worry because FoodieBot makes it
+painless to sever your ties, by allowing quick removal of that food.
+
+Format: `favorites remove INDEX`
+
+Parameters:
+
+* `INDEX` - This must be the first parameter and an index from the list has to be specified.
+
+=== Filter Canteens, Stalls or Food: `*filter*`  <Done By: Ignatius>
+
+If you only want a canteen, stall or food with a particular tag, filter allows you to as its name suggests
+filter to show only the things you want. Filter also enables you to filter based on the maximum price you
+are willing to pay
+
+Format: `filter TAG/ PRICE`
+
+Parameters:
+
+* `TAG` - Label tag associated with the canteen or stall depending on which context you are in.
+* `PRICE` - a number which indicates the maximum price of food you are willing to pay for.
+
+
+NOTE: You can only filter by _price_ from the *menu page* of a stall. +
+When filtering by _tag_, tags vary based on the *current context*.
+
+****
+Examples:
+****
+* If you wish to filter tags based on what the canteen has, you can enter
+`*filter asian*` on the main screen. This will display canteens with the asian tag.
+
+* After entering a canteen, you can also filter the stalls based on tags as well.
+
+* If you have decided on the stall you wish to eat from, but then have a limit on how much you can spend ($4).
+You can `filter 4` on the menu page. This will display all the options available that are within your budget.
+
 
 == FAQ
+*Q*: How can I update the list of canteens if there are changes to the canteens on campus? +
+*A*: You can manually download foodiebot.json file which we have published link:https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/foodiebot.json[here].
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: Can I write my personal review in other languages?  +
+*A*: Yes, FoodieBot accepts input for different types of language, however it does not support in-app localization.
 
-== Command Summary
+== Glossary  <Done By: Shaun>
+Function::
+A program that performs a specific task.
+eg. `randomize` is a function in FoodieBot that performs the task of choosing a random store for the user.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+In-app Localization::
+The process of changing and translating features within the application to appeal to a certain target market. In the case of FoodieBot, FoodieBot is currently unable to process commands
+given in other languages.
+
+Jar::
+Jar is the acronym for  Java ARchive, a file format that is typically used to collect and store many Java files into a single file. This makes it easier for usage and distribution of Java files.
+
+Java 11::
+A software engineering platform to perform the programming language Java. The version used in this application is the 11th edition of the platform.
+
+Json::
+Json is the acronym for JavaScript Object Notation, a minimal, readable format for structuring data. It is mainly used to transfer data between a server and web  application.
+
+Parameter::
+A value that is passed into a function. This value allows a single function to perform different actions based on the type of value passed to it.
+eg. `view` and `set` are different parameters for the function `budget`.
+Passing `view` into `budget` will allow the user to see the budget.
+Passing `set` into `budget` will allow the user to create a budget.
+
+Tag::
+A characteristic or attribute associated with an object. FoodieBot assigns tags to canteens, stalls and food to allow the user to easily see the type of food, the type of cuisine and price ranges.
+
+
+== Command Summary  <Done By: Shaun>
+[width="80%",cols="33%,<60%,<60%",options="header",]
+|=======================================================================
+|Command |Function |Example
+
+|back |Return to the screen before | back
+
+|budget set PERIOD AMOUNT |Set a budget for the allocated period |budget set w/ 9.50
+
+|budget view |Views the current budget|budget view
+
+|delete INDEX |Removes a transaction| delete 1
+
+|enter CANTEEN_NAME/ STALL_NAME |Displays the stalls for the selected canteen or the menu of the selected stall |enter The Deck/ enter Japanese
+
+|exit |Close the application| exit
+
+|favorites remove | Remove the food item from favorites | favorites remove 1
+
+|favorites set |Set the food item in the stall as a favorite |favorites set 1
+
+|favorites view |Displays all favorited food |favorites view
+
+|filter |Shows only canteens or stalls with a specified tag |filter asian
+
+|goto CANTEEN_NAME f/ CURRENT_LOCATION |Gets direction to canteen from the current location |goto The Deck f/ COM1
+
+|list |Displays the list of canteen |list
+
+|rate INDEX | Gives a rating to the stall | rate 2
+
+|randomize |Displays a list of randomize options | randomize c/ The Deck
+
+|report |Generates a report of the food consumed |report f/ 12-02-2020 t/ 30-04-2020
+
+|review INDEX | Creates a review for the stall| review 3
+
+|select INDEX| Saves the food in transactions | select 2
+
+|transactions |Generates the transaction breakdown |transaction w/ 12-02-2020
+
+
+|=======================================================================
+
+

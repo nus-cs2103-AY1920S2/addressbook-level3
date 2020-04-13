@@ -1,0 +1,69 @@
+= Xavier Lee - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FoodieBot
+
+---
+
+== Overview
+Our team was tasked with the morphing of an existing application AddressBook3 into a new application as
+part of a brown-field software engineering project.
+We discussed and reached a decision to create FoodieBot, an application that ultimately focuses on every
+food available in our university, National University of Singapore, in a similar vein to a food directory.
+
+FoodieBot aims to be the missing link for students to find food in campus easily from a wide catalog. It
+allows for directions, where students can find their way from their current location to the canteen with
+step-by-step directions, where most mapping applications currently do not have accurate information. It
+also have important features such as randomizing food options for users who are indecisive on what to eat,
+a budget tracker for people to help maintain their expenditures, as well as a rate/review functionality
+for their easier reference to help them remember how good a food is.
+
+== Summary of contributions
+
+* *Enhancement*: Added the *budget* command.
+** What it does: Helps the user to maintain a budget.
+** Justification: For people who often overspend on food, this function helps to give an overview of their expenditure for each budget cycle (day/week/month), as well as to limit their spending where necessary.
+** Highlights: This command functions independently from the other segments of the application.
+** Credits: -
+
+* *Enhancement*: Added the *report*, *transactions*, *rate* and *review* command.
+** What it does: Contain a list of the user's expenditure for their reference, and have the ability to rate and review the food they ate.
+** Justification: Important feature to help users remember what they eat, and keep track of what they eat often.
+** Highlights: User can see a consolidated purchased food list in `report`, the full details in `transactions`.
+** Credits: -
+
+* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F11-3/main/commits?author=lsjxavier[Functional code]] [https://github.com/AY1920S2-CS2103T-F11-3/main/commit/09713a518825f6f6db4f6d6714389c9716cc790d[Test code]]
+
+* *Other contributions*:
+** Enhancements to existing features:
+*** Extended `select` function to save foo selected into storage, in preparation for `report` and `transaction` commands (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/107[#107])
+** Enhancements to backend utility classes:
+*** Created a customized `DateRange` class to assist in a simple encapsulation of a range of dates, as well as a `DateFormatter` class to accept various forms of date formats. (https://github.com/AY1920S2-CS2103T-F11-3/main/commit/09713a518825f6f6db4f6d6714389c9716cc790d[#70])
+*** Expanded the functionality of the `ArgumentMultiMap` class with more methods to abstract out accessing data. (https://github.com/AY1920S2-CS2103T-F11-3/main/commit/09713a518825f6f6db4f6d6714389c9716cc790d[#70])
+
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#set-a-budget-budget-set[Set A Budget]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#view-budget-budget-view[View A Budget]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#view-expense-report-report[View Expense Report]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#view-past-transactions-transactions[View Past Transactions]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#delete-a-transaction-delete[Delete A Transaction]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#review-food-items-review[Review Food Items]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#rate-food-items-rate[Rate Food Items]
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/DeveloperGuide.adoc#budget-command[Budget Command]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/DeveloperGuide.adoc#rate-command[Rate Command]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/DeveloperGuide.adoc#review-command[Review Command]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/DeveloperGuide.adoc#report-command[Report Command]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/DeveloperGuide.adoc#transactions-command[Transactions Command]
+
+

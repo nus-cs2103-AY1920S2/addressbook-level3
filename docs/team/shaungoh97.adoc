@@ -1,0 +1,66 @@
+= Shaun Goh - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FoodieBot
+
+---
+
+== Overview
+
+Our team was tasked with the objective of morphing AddressBook Level-3 and further building from it.
+We came to a decision to create FoodieBot, an application that caters to the broad masses that dine at NUS.
+
+FoodieBot maintains the original CLI interface and we updated the GUI using JavaFX along with adding
+new functionality to fulfil the requirements of FoodieBot.
+
+FoodieBot was created with the vision of catering to the various needs of diners in NUS, and solve
+the pain points that these groups of people have. We narrowed our focus on developing features for FoodieBot
+to help 3 groups of people, a _navigation_ feature to help people find the canteen you are looking for, a
+_budget_ feature to help NUS students keep track of their food spending and a _randomize_ feature to help
+people who cannot decide where they want to eat. FoodieBot has several other features, to compliment these
+features, which is why FoodieBoe is a must-have for anyone who dines in NUS.
+
+== Summary of contributions
+
+* *Enhancement*: added the *select* function
+** What it does: The `select` function allows users to select food they are planning to purchase directly from
+   the application
+** Justification: The `select' function gives the user the ability to keep track of food he is planning to eat, and
+   FoodieBot saves the selected food in its internal database so that it can be retrieved when required for other features.
+** Highlights: When the user selects the food, FoodieBot automatically updates the budget if the user has set a
+  budget. This makes it convenient for the user to keep track of his/her spending.
+** Credits: -
+
+* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F11-3/main/commits?author=SHAUNGOH97[Functional code]]
+[https://github.com/AY1920S2-CS2103T-F11-3/main/commit/de8636e50a4984ffa98ae6ff66e29344cc1b9efa[Test code]]
+
+* *Other contributions*:
+** Enhancements to existing features:
+*** Updated UI with a budget bar to give visual indication of remaining budget (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/206[#206])
+*** Created tags to help with the functionality of the Randomize feature (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/100[#100])
+*** Improve UI by including user-friendly messages to give user more direction when using FoodieBot (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/132[#132])
+** Documentation:
+*** Maintained quality of language in User Guide and Developer Guide (Pull Request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/110[#100])
+** Community:
+*** Contributed to the main module forum (Issues https://github.com/nus-cs2103-AY1920S2/forum/issues/30[#30] https://github.com/nus-cs2103-AY1920S2/forum/issues/57[#57])
+*** Reported bugs for the team (Issues https://github.com/AY1920S2-CS2103T-F11-3/main/issues/103[#103])
+** Collecting of Sample Data:
+*** Went to The Deck and Nus Flavors to take pictures and collect pictures of the canteens, stalls and food to fill
+    FoodieBot with sample data.(Pull Request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/91[#91]
+    https://github.com/AY1920S2-CS2103T-F11-3/main/pull/147[#147])
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#46-select-the-food--select[SelectItemCommand Selection]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/pull/43[Command Summary]
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/DeveloperGuide.adoc#511-select-command[SelectItem Command]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/pull/110/files[Use Cases]

@@ -1,0 +1,18 @@
+@startuml
+start
+:User Executes Report Command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+:Get Prefixes and Parameters;
+:Create DateRange;
+if () then
+    :Retrieve Transactions List;
+    :Filter List with Dates of Purchases within DateRange;
+    :Generate and Display Report from Filtered List;
+else ([DateRange is invalid])
+
+endif
+stop
+@enduml

@@ -14,6 +14,10 @@ awk '
         # (e.g. GitHub web editor)
         if ($1 ~ /\.md$/) {
             severity = "WARN"
+        } else if ($1 ~ /\.puml$/) {
+            severity = "WARN"
+        } else if ($1 ~ /\.adoc$/) {
+            severity = "WARN"
         } else {
             severity = "ERROR"
             ret = 1

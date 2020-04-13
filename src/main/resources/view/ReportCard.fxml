@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="id" fx:id="id" styleClass="stack-pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+
+    <children>
+        <VBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+            <children>
+
+                <!--  prefHeight here is the height of the scrollbar-->
+                <ScrollPane fitToWidth="true" styleClass="stack-pane" vbarPolicy="AS_NEEDED">
+                    <content>
+                        <VBox styleClass="stack-pane" VBox.vgrow="ALWAYS">
+                            <children>
+                                <!--  alternatively use spacing property in vbox -->
+                                <Label fx:id="textArea" styleClass="label-bright" />
+                            </children>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+            </children>
+        </VBox>
+    </children>
+</HBox>

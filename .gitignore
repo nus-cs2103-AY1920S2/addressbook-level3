@@ -13,9 +13,16 @@ src/main/resources/docs/
 /config.json
 /preferences.json
 /*.log.*
+/*.json
 
 # Test sandbox files
 src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+foodiebot-budget.json
+foodiebot.json
+src/main/resources/.idea/misc.xml
+*.xml
+*.iml
+*.pdf

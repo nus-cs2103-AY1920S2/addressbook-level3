@@ -1,0 +1,85 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodieBotParser" as FoodieBotParser LOGIC_COLOR
+participant ":BudgetCommandParser" as BudgetCommandParser LOGIC_COLOR
+participant "bc:BudgetCommand" as BudgetCommand LOGIC_COLOR
+participant ":Budget" as Budget LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("budget " + ACTION)
+activate LogicManager
+
+LogicManager -> FoodieBotParser : parseCommand("budget " + ACTION)
+activate FoodieBotParser
+
+FoodieBotParser -> BudgetCommandParser : parse(ACTION)
+activate BudgetCommandParser
+
+create BudgetCommand
+BudgetCommandParser -> BudgetCommand
+activate BudgetCommand
+
+BudgetCommand --> BudgetCommandParser :
+deactivate BudgetCommand
+
+BudgetCommandParser --> FoodieBotParser : bc
+deactivate BudgetCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+BudgetCommandParser -[hidden]-> FoodieBotParser
+destroy BudgetCommandParser
+
+FoodieBotParser --> LogicManager : bc
+deactivate FoodieBotParser
+
+LogicManager -> BudgetCommand : execute(model)
+activate BudgetCommand
+
+BudgetCommand -> Model : loadBudget(model)
+activate Model
+
+Model --> Budget : Budget
+deactivate Model
+activate Budget
+
+Budget --> BudgetCommand : Budget
+deactivate Budget
+
+BudgetCommand -> Model : saveBudget(Budget)
+activate Model
+
+Model --> BudgetCommand
+deactivate Model
+
+BudgetCommand -> Model : loadFilteredTransactionsList()
+activate Model
+
+Model --> BudgetCommand
+deactivate Model
+
+BudgetCommand -> Model : updateFilteredTransactionsList()
+activate Model
+
+Model --> BudgetCommand
+deactivate Model
+
+create CommandResult
+BudgetCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> BudgetCommand
+deactivate CommandResult
+
+BudgetCommand --> LogicManager : cr
+deactivate BudgetCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

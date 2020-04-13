@@ -3,6 +3,11 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+#bottomLabel {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -206,7 +211,27 @@
 .menu .left-container {
     -fx-background-color: black;
 }
+#budgetLabel {
+    -fx-text-fill: white;
+}
 
+#budgetTrackerHigh > .track {
+    -fx-text-box-border: forestgreen;
+    -fx-control-inner-background: white;
+}
+
+#budgetTrackerHigh > .bar {
+    -fx-background-color: palegreen;
+}
+
+#budgetTrackerLow > .track {
+    -fx-text-box-border: forestgreen;
+    -fx-control-inner-background: white;
+}
+
+#budgetTrackerLow > .bar {
+    -fx-background-color: #ff3b31;
+}
 /*
  * Metro style Push Button
  * Author: Pedro Duque Vieira
@@ -307,6 +332,10 @@
     -fx-padding: 8 1 8 1;
 }
 
+.scroll-pane {
+ background-color: #353535;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -349,4 +378,12 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+.styled-text-area .text{
+    -fx-fill:#ffffff;
+}
+
+.styled-text-area .caret{
+      -fx-stroke: white;
 }

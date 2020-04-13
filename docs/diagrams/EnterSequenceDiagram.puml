@@ -1,0 +1,118 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodieBotParser" as FoodieBotParser LOGIC_COLOR
+participant ":EnterCanteenCommandParser" as EnterCommandParser LOGIC_COLOR
+participant ":EnterStallCommandParser" as EnterStallCommandParser LOGIC_COLOR
+participant "ec:EnterCanteenCommand" as EnterCommand LOGIC_COLOR
+participant "ec:EnterStallCommand" as EnterStallCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("enter" + index/name)
+activate LogicManager
+
+LogicManager -> FoodieBotParser : parseCommand("enter " + index/name)
+activate FoodieBotParser
+
+alt ParserContext = MainContext
+
+    FoodieBotParser -> EnterCommandParser : parse(INDEX)
+    activate EnterCommandParser
+
+    create EnterCommand
+    EnterCommandParser -> EnterCommand
+    activate EnterCommand
+
+    EnterCommand --> EnterCommandParser :
+    deactivate EnterCommand
+
+    EnterCommandParser --> FoodieBotParser : ec
+    deactivate EnterCommandParser
+    'Hidden arrow to position the destroy marker below the end of the activation bar.
+    EnterCommandParser -[hidden]-> FoodieBotParser
+    destroy EnterCommandParser
+
+    FoodieBotParser --> LogicManager : ec
+    deactivate FoodieBotParser
+
+
+else ParserContext = CanteenContext
+
+    FoodieBotParser -> EnterStallCommandParser : parse(INDEX)
+    activate EnterStallCommandParser
+
+    create EnterStallCommand
+    EnterStallCommandParser -> EnterStallCommand
+    activate EnterStallCommand
+
+    EnterStallCommand --> EnterStallCommandParser :
+    deactivate EnterStallCommand
+
+    EnterStallCommandParser --> FoodieBotParser : ec
+    deactivate EnterStallCommandParser
+    'Hidden arrow to position the destroy marker below the end of the activation bar.
+    EnterStallCommandParser -[hidden]-> FoodieBotParser
+    destroy EnterStallCommandParser
+
+    FoodieBotParser --> LogicManager : ec
+    deactivate FoodieBotParser
+
+end
+
+
+alt ParserContext = MainContext
+    LogicManager -> EnterCommand : execute(model)
+    activate EnterCommand
+
+    EnterCommand -> Model : updateFilteredStallList(keyword)
+    activate Model
+
+    Model --> EnterCommand :
+    deactivate Model
+
+
+    create CommandResult
+    EnterCommand -> CommandResult
+    activate CommandResult
+
+    CommandResult --> EnterCommand
+    deactivate CommandResult
+
+    EnterCommand --> LogicManager : cr
+    deactivate EnterCommand
+
+else ParserContext=CanteenContext
+
+    LogicManager -> EnterStallCommand : execute(model)
+    activate EnterStallCommand
+
+    EnterStallCommand -> Model : updateFilteredFoodList(keyword)
+    activate Model
+
+    Model --> EnterStallCommand :
+    deactivate Model
+
+    create CommandResult
+    EnterStallCommand -> CommandResult
+    activate CommandResult
+
+    CommandResult --> EnterStallCommand
+    deactivate CommandResult
+
+    EnterStallCommand --> LogicManager : cr
+    deactivate EnterStallCommand
+
+end
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
