@@ -337,7 +337,7 @@ image::user-guide/modifyremovetag-before.png[width="600"]
 image::user-guide/modifyremovetag-after.png[width="600"]
 
 
-=== Favouriting a recipe — `fav`
+=== Favouriting a recipe — `fav` [Done by: Adarsh Chugani]
 You can favourite an existing recipe from *CookBuddy* using the `fav` command.
 
 Format: `fav INDEX`
@@ -361,7 +361,7 @@ Example: You can type `fav 1` and *CookBuddy* will favourite the recipe at index
 //image::user-guide/modifytag-after.png[width="600"]
 
 
-=== Un-Favouriting a recipe — `unfav`
+=== Un-Favouriting a recipe — `unfav` [Done by: Adarsh Chugani]
 You can un-favourite an existing recipe from *CookBuddy* using the `unfav` command.
 
 Format: `unfav INDEX`
@@ -371,7 +371,7 @@ Format: `unfav INDEX`
 * `INDEX` must be a positive integer value, within range of the number of recipes in your CookBuddy.
 * Recipes are not favourited by default.
 * This command is only useful if you wish to un-favourite a recipe that is already favourited.
-A non-favourited recipe is indicated by a heart with a read outline and no fill.
+* A non-favourited recipe is indicated by a heart with a read outline and no fill.
 ====
 
 //*Expected Outcome*
@@ -385,7 +385,7 @@ A non-favourited recipe is indicated by a heart with a read outline and no fill.
 //image::user-guide/modifytag-after.png[width="600"]
 
 
-=== Marking a recipe as done — `done`
+=== Marking a recipe as done — `done` [Done by: Adarsh Chugani]
 You can mark an existing recipe from *CookBuddy* as being done using the `done` command. This indicates that the recipe
 has been attempted.
 
@@ -393,7 +393,8 @@ Format: `done INDEX`
 
 [NOTE]
 ====
-`INDEX` must be a positive integer value, within the range of the number of recipes in your CookBuddy.
+* `INDEX` must be a positive integer value, within the range of the number of recipes in your CookBuddy.
+
 ====
 
 Example: You can type `done 1` and *CookBuddy* will mark the recipe at index 1 as being done, indicating that it has
@@ -410,7 +411,7 @@ been attempted.
 //image::user-guide/modifytag-after.png[width="600"]
 
 
-=== Un-Marking a recipe as done — `undo`
+=== Un-Marking a recipe as done — `undo` [Done by: Adarsh Chugani]
 You can un-mark an existing recipe from *CookBuddy* as being done, using the`undo` command. This indicates that the
 recipe has not been attempted.
 
@@ -420,7 +421,7 @@ Format: `undo INDEX`
 ====
 * `INDEX` must be a positive integer value, within range of the number of recipes in your CookBuddy.
 * Recipes are marked as not attempted by default.
-This command is only useful if you wish to un-mark recipe that is already marked as done.
+* This command is only useful if you wish to un-mark recipe that is already marked as done.
 ====
 
 Example: You can type `undo 1` and *CookBuddy* will un-mark the recipe at index 1 as done, indicating that it has not
@@ -559,10 +560,11 @@ With this, to can assign every recipe a specific price.
 
 Format: `price INDEX PRICE`
 
-Key-Words:
-INDEX: the index of the recipe you wish to assign a price to
+Inputs from user:
 
-PRICE: the price that you wish to assign to the recipe (accepts both integer and decimal values)
+* INDEX: the index of the recipe you wish to assign a price to
+
+* PRICE: the price that you wish to assign to the recipe (accepts both integer and decimal values)
 
 Example: `price 1 10.50`
 
@@ -592,7 +594,8 @@ The quantities of the ingredients used, as well as the prep time required will b
 
 Format: `scale INDEX SIZE`
 
-Key-Words:
+Inputs from user:
+
 * INDEX: The index of the recipe you wish to scale
 
 * SIZE: The size that you wish to scale the recipe to
@@ -612,7 +615,8 @@ Imports recipes from the file at the given path.
 
 Format: `import PATH`
 
-Key-Words:
+Inputs from user:
+
 * PATH: the file path at which the desired file is
 
 Example: import "/docs/recipebook.json" 
@@ -625,7 +629,8 @@ Exports all transactions to the given path.
 
 Format: `export PATH`
 
-Key-Words:
+Inputs from user:
+
 * PATH: the file path at which the desired file is
 
 Exports the recipes from cookbuddy into the given path
