@@ -23,7 +23,7 @@ public class SetParserUtil extends ParserUtil {
      * @throws ParseException if the given {@code numReps} is invalid.
      */
     public static NumReps parseNumReps(String numReps) throws ParseException {
-        logger.info("Parsing: " + numReps);
+        logger.fine("Parsing: " + numReps);
 
         requireNonNull(numReps);
         String trimmedNumReps = numReps.trim();
@@ -40,7 +40,7 @@ public class SetParserUtil extends ParserUtil {
      * @throws ParseException if the given {@code weight} is invalid.
      */
     public static Weight parseWeight(String weight) throws ParseException {
-        logger.info("Parsing: " + weight);
+        logger.fine("Parsing: " + weight);
 
         requireNonNull(weight);
         String trimmedWeight = weight.trim();

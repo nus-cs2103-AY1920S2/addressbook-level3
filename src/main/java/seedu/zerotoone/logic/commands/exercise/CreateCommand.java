@@ -40,7 +40,7 @@ public class CreateCommand extends ExerciseCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        logger.info(String.format("Executing %s with %s and %s",
+        logger.fine(String.format("Executing %s with %s and %s",
                 getClass().getSimpleName(), this.exerciseName, this.exerciseSets));
 
         requireNonNull(model);

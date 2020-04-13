@@ -38,7 +38,7 @@ public class DeleteCommand extends LogCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        logger.info("Executing log delete command.");
+        logger.fine("Executing log delete command.");
 
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);

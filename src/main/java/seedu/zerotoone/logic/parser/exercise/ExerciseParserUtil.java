@@ -22,7 +22,7 @@ public class ExerciseParserUtil extends ParserUtil {
      * @throws ParseException if the given {@code exerciseName} is invalid.
      */
     public static ExerciseName parseExerciseName(String exerciseName) throws ParseException {
-        logger.info("Parsing: " + exerciseName);
+        logger.fine("Parsing: " + exerciseName);
 
         requireNonNull(exerciseName);
         String trimmedExerciseName = exerciseName.trim();

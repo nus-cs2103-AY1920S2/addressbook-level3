@@ -51,7 +51,7 @@ public class ParserManager implements Parser<Command> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parse(String input) throws ParseException {
-        logger.info("Parsing: " + input);
+        logger.fine("Parsing: " + input);
 
         Pair<String, String> separatedInput = separateCommandAndArguments(input);
         String commandWord = separatedInput.getFirstObject();
@@ -90,7 +90,7 @@ public class ParserManager implements Parser<Command> {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public ViewType parseViewType(String input) throws ParseException {
-        logger.info("Parsing View Type: " + input);
+        logger.fine("Parsing View Type: " + input);
 
         Pair<String, String> separatedInput = separateCommandAndArguments(input);
         String commandWord = separatedInput.getFirstObject();

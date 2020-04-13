@@ -49,7 +49,7 @@ public class AddCommand extends SetCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        logger.info(String.format("Executing %s with %s, %s and %s",
+        logger.fine(String.format("Executing %s with %s, %s and %s",
                 getClass().getSimpleName(), exerciseId, numReps, weight));
 
         requireNonNull(model);

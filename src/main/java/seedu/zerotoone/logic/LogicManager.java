@@ -45,34 +45,34 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        logger.info("Parsing User Command: [" + commandText + "]");
+        logger.fine("Parsing User Command: [" + commandText + "]");
         Command command = parser.parse(commandText);
-        logger.info("Parsed User Command: " + command.toString());
+        logger.fine("Parsed User Command: " + command.toString());
 
-        logger.info("Executing Command: " + command.toString());
+        logger.fine("Executing Command: " + command.toString());
         CommandResult commandResult = command.execute(model);
-        logger.info("Executed Command: " + commandResult.toString());
-        logger.info("Feedback to user: " + commandResult.getFeedbackToUser());
-        logger.info("Is Show About: " + commandResult.isShowAbout());
-        logger.info("Is Show Report: " + commandResult.isShowReport());
-        logger.info("Is Exit: " + commandResult.isExit());
+        logger.fine("Executed Command: " + commandResult.toString());
+        logger.fine("Feedback to user: " + commandResult.getFeedbackToUser());
+        logger.fine("Is Show About: " + commandResult.isShowAbout());
+        logger.fine("Is Show Report: " + commandResult.isShowReport());
+        logger.fine("Is Exit: " + commandResult.isExit());
 
         try {
-            logger.info("Saving Exercise List");
+            logger.fine("Saving Exercise List");
             storage.saveExerciseList(model.getExerciseList());
-            logger.info("Saved Exercise List");
+            logger.fine("Saved Exercise List");
 
-            logger.info("Saving Workout List");
+            logger.fine("Saving Workout List");
             storage.saveWorkoutList(model.getWorkoutList());
-            logger.info("Saved Workout List");
+            logger.fine("Saved Workout List");
 
-            logger.info("Saving Schedule List");
+            logger.fine("Saving Schedule List");
             storage.saveScheduleList(model.getScheduleList());
-            logger.info("Saved Schedule List");
+            logger.fine("Saved Schedule List");
 
-            logger.info("Saving Log List");
+            logger.fine("Saving Log List");
             storage.saveLogList(model.getLogList());
-            logger.info("Saved Log List");
+            logger.fine("Saved Log List");
         } catch (IOException ioe) {
             logger.severe("Exception: " + ioe.getMessage());
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -83,7 +83,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ViewType getViewType(String commandText) throws ParseException {
-        logger.info("Getting View Type: " + commandText);
+        logger.fine("Getting View Type: " + commandText);
         return parser.parseViewType(commandText);
     }
 

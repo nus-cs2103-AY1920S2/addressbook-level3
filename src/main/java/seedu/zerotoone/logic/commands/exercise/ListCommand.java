@@ -22,7 +22,7 @@ public class ListCommand extends ExerciseCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        logger.info(String.format("Executing %s",
+        logger.fine(String.format("Executing %s",
                 getClass().getSimpleName()));
 
         requireNonNull(model);

@@ -26,7 +26,7 @@ public class CreateCommandParser implements Parser<CreateCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public CreateCommand parse(String args) throws ParseException {
-        logger.info("Parsing: " + args);
+        logger.fine("Parsing: " + args);
 
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);

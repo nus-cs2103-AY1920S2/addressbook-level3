@@ -40,7 +40,7 @@ public class ExerciseCommandParser implements Parser<ExerciseCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ExerciseCommand parse(String input) throws ParseException {
-        logger.info("Parsing: " + input);
+        logger.fine("Parsing: " + input);
 
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {

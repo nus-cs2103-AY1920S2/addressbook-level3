@@ -52,7 +52,7 @@ public class EditCommand extends SetCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        logger.info(String.format("Executing %s with %s, %s, %s and %s",
+        logger.fine(String.format("Executing %s with %s, %s, %s and %s",
                 getClass().getSimpleName(), exerciseId, setId,
                 numReps, weight));
 
