@@ -454,9 +454,9 @@ image::ListEventActivityDiagram.png[]
 
 ==== Further Developments
  * The event feature will aim to link contacts from the addressbook to the calendar.
- 
+
 For now, the full activity diagram for `Event`, which has a similar implementation to `Deadline`, is shown below:
- 
+
 .Event Activity Diagram
 image::EventActivityDiagram.png[]
 
