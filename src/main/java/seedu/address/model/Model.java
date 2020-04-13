@@ -176,26 +176,27 @@ public interface Model {
     //=================  Schoolwork Tracker ==========================================================
 
     /**
-     * Replaces assignmentSchedule data with the data in {@code assignmentSchedule}.
+     * Replaces SchoolworkTracker data with the data in {@code schoolworkTracker}.
      */
-    void setAssignmentSchedule(ReadOnlySchoolworkTracker assignmentSchedule);
+    void setSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker);
 
     /** Returns the SchoolworkTracker */
     ReadOnlySchoolworkTracker getSchoolworkTracker();
 
     /**
      * Adds the given assignment.
-     * {@code Assignment} must not already exist in the scheduler.
+     * {@code Assignment} must not already exist in the schoolwork tracker.
      */
     void addAssignment(Assignment toAdd);
 
     /**
-     * Returns true if an assignment with the same title and deadline as {@code assignment} exists in the scheduler.
+     * Returns true if an assignment with the same title and deadline as {@code assignment} exists in the
+     * schoolwork tracker.
      */
     boolean hasAssignment(Assignment toAdd);
 
     /**
-     * Sorts the scheduler by the filter.
+     * Sorts the schoolwork tracker by the filter.
      */
     void sortAssignment(Comparator<Assignment> comparator);
 

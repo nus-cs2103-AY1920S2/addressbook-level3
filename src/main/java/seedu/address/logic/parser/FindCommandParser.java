@@ -1,11 +1,13 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_BLANK_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindRestaurantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.OrganizationContainsKeywordsPredicate;
@@ -82,6 +84,16 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
         }
 
+        // if they wrote in the prefix but did not supply keywords
+        if (hasOrganization) {
+            for (int i = 0; i < organizationKeywords.size(); i++) {
+                if (organizationKeywords.get(i).equals("")) {
+                    throw new ParseException(
+                            String.format(MESSAGE_BLANK_COMMAND_FORMAT, FindRestaurantCommand.MESSAGE_USAGE));
+                }
+            }
+        }
+
         for (int i = 0; i < keywords.length; i++) {
             if (keywords[i].contains("n/")) {
                 keywords[i] = keywords[i].substring(2);
@@ -97,6 +109,16 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
         }
 
+        // if they wrote in the prefix but did not supply keywords
+        if (hasName) {
+            for (int i = 0; i < nameKeywords.size(); i++) {
+                if (nameKeywords.get(i).equals("")) {
+                    throw new ParseException(
+                            String.format(MESSAGE_BLANK_COMMAND_FORMAT, FindRestaurantCommand.MESSAGE_USAGE));
+                }
+            }
+        }
+
         for (int i = 0; i < keywords.length; i++) {
             if (keywords[i].contains("t/")) {
                 keywords[i] = keywords[i].substring(2);
@@ -109,6 +131,16 @@ public class FindCommandParser implements Parser<FindCommand> {
                     }
                 }
                 break;
+            }
+        }
+
+        // if they wrote in the prefix but did not supply keywords
+        if (hasTags) {
+            for (int i = 0; i < tagKeywords.size(); i++) {
+                if (tagKeywords.get(i).equals("")) {
+                    throw new ParseException(
+                            String.format(MESSAGE_BLANK_COMMAND_FORMAT, FindRestaurantCommand.MESSAGE_USAGE));
+                }
             }
         }
 

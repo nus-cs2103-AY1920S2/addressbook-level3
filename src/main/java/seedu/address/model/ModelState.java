@@ -94,7 +94,7 @@ public class ModelState {
      * @return a new copy of the state m
      */
     public static ModelState copy(ModelState m) {
-        return new ModelState(m.getAddressBook(), m.getRestaurantBook(), m.getAssignmentSchedule(),
+        return new ModelState(m.getAddressBook(), m.getRestaurantBook(), m.getSchoolworkTracker(),
             m.getEventSchedule(), m.getUserPrefs(), m.getCommandType());
     }
 
@@ -106,7 +106,7 @@ public class ModelState {
         return this.restaurantBook;
     }
 
-    public SchoolworkTracker getAssignmentSchedule() {
+    public SchoolworkTracker getSchoolworkTracker() {
         return this.assignmentSchedule;
     }
 
