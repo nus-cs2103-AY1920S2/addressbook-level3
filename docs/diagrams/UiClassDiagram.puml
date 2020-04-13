@@ -38,21 +38,21 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
-UiManager -down-> MainWindow
+UiManager -down- MainWindow
 MainWindow --> HelpWindow
 MainWindow --> GroceryListWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> StatusBarFooter
-MainWindow *-down-> MainTabPanel
+MainWindow *-down- CommandBox
+MainWindow *-down- ResultDisplay
+MainWindow *-down- StatusBarFooter
+MainWindow *-down- MainTabPanel
 
-MainTabPanel *-down-> RecipeListPanel
-RecipeListPanel -down-> RecipeCard
-MainTabPanel *-down-> PlanningListPanel
-PlanningListPanel -down-> PlanningCard
-MainTabPanel *-down-> CookedListPanel
-CookedListPanel -down-> CookedCard
-MainTabPanel *-down-> AchievementCard
+MainTabPanel *-down- RecipeListPanel
+RecipeListPanel -down- RecipeCard
+MainTabPanel *-down- PlanningListPanel
+PlanningListPanel -down- PlanningCard
+MainTabPanel *-down- CookedListPanel
+CookedListPanel -down- CookedCard
+MainTabPanel *-down- AchievementCard
 
 
 MainWindow -left-|> UiPart
@@ -64,8 +64,11 @@ RecipeListPanel --|> UiPart
 PlanningListPanel --|> UiPart
 CookedListPanel  --|> UiPart
 AchievementCard  --|> UiPart
+RecipeCard  --|> UiPart
+PlanningCard  --|> UiPart
+CookedCard  --|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+HelpWindow --|> UiPart
 
 RecipeCard .down.> Model
 PlanningCard .down.> Model
@@ -78,6 +81,7 @@ RecipeListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+GroceryListWindow -[hidden]left- StatusBarFooter
 
 MainWindow -[hidden]-|> UiPart
 @enduml

@@ -103,6 +103,7 @@ public class LogicManager implements Logic {
         return model.getGroceryList();
     }
 
+    @Override
     public ObservableList<Quote> getFilteredQuoteList() {
         return model.getFilteredQuoteList();
     }

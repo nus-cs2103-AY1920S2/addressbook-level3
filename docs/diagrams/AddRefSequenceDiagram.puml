@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+skinparam sequenceGroup {
+    borderColor black
+    borderThickness 1
+    FontName Arial
+    FontStyle normal
+    HeaderFontStyle normal
+    BodyBackgroundColor azure
+}
+
+
+participant "r:Recipe" as Recipe MODEL_COLOR
+participant "Ingredient" as Ingredient MODEL_COLOR
+participant "q:Quantity" as Quantity MODEL_COLOR
+
+
+loop each ingredient in ingredients
+Recipe -> Ingredient : getMainIngredientType()
+activate Ingredient
+Ingredient -> Quantity : getQuantity()
+activate Quantity
+Quantity -> Quantity : convertToGram()
+activate Quantity
+Quantity --> Quantity
+deactivate Quantity
+Quantity --> Ingredient : q
+deactivate Quantity
+Ingredient --> Recipe: q
+deactivate Ingredient
+end
+@enduml

@@ -1,6 +1,7 @@
 package seedu.recipe.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
 import static seedu.recipe.logic.commands.recipe.EditCommand.createEditedRecipe;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
@@ -60,7 +61,7 @@ public class DeleteGoalCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
-        EditCommand.EditRecipeDescriptor editRecipeDescriptor = new EditCommand.EditRecipeDescriptor();
+        EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
 
         Set<Goal> updatedGoalsList = new HashSet<>(recipeToEdit.getGoals());
@@ -73,7 +74,6 @@ public class DeleteGoalCommand extends Command {
         } else {
             throw new CommandException(MESSAGE_INVALID_GOAL);
         }
-
 
         editRecipeDescriptor.setGoals(updatedGoalsList);
 

@@ -36,7 +36,7 @@ Get motivated through our eye-catching goals and achievements.
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-== Overview
+== Overview (Harshita)
 The main features of HYBB are as follows:
 
 === Filter
@@ -83,7 +83,7 @@ You can store the following information in a recipe: +
 *Steps* - Steps taken to cook the meal +
 *Goals* - Goal that the recipe falls under +
 
-=== Goals
+=== Goals (Harshita)
 HYBB supports the following goals that model the Healthy Eating Plate. Goals are automatically added to a recipe you add or edit if they meet the recommended nutritional quantity specified for their respective food group.
 |===
 |Goal |Food Group represented by Goal
@@ -94,7 +94,7 @@ HYBB supports the following goals that model the Healthy Eating Plate. Goals are
 |Wholesome Wholemeals | Whole Grains
 |===
 
-=== Ingredients
+=== Ingredients (Beatrice)
 You can use the following units to measure how much of each ingredient is needed in the recipe.
 
 |===
@@ -107,7 +107,7 @@ You can use the following units to measure how much of each ingredient is needed
 |cup |Cups
 |===
 
-== HealthyBaby's User Interface
+== HealthyBaby's User Interface (Beatrice)
 Upon opening *HYBB*, you will see our Graphical User Interface.
 
 .HealthyBaby's User Interface
@@ -168,11 +168,11 @@ Also, commands are case-insensitive, but tags are case-sensitive.
 Gives you a short summary of all the available commands. +
 Format: `help`
 
-=== Switch the current tab: `switch`
+=== Switch the current tab: `switch` (Harshita)
 Switches the current tab you are in and changes the display. +
 Format: `switch` [tab name]
 
-Example usage: `switch planning` +
+Example: `switch planning` +
 Switches the current tab to the planning tab.
 
 [TIP]
@@ -247,7 +247,8 @@ For example, if the 4th recipe currently has a list of 5 vegetable ingredients, 
 replace the *entire* list of vegetable ingredients with only 50g of Lettuce. +
 
 [TIP]
-To make changes to a single entity in a field without having to rewrite everything, please refer to Section 7. +
+To make changes to a single entity in a field without having to rewrite everything, please refer to
+<<Recipe Customisation Commands (Brian)>>. +
 
 [TIP]
 For fields that can only contain one entry like name and time, if more than one name or more than one time is given,
@@ -265,7 +266,7 @@ Deletes recipe 1, 3, and 4 from the recipe book.
 [TIP]
 You can *delete, favourite, or unfavourite* multiple recipes at the same time (at least one recipe must be selected).
 
-[tip]
+[TIP]
 If you specify a recipe number that does not exist in the list of recipes _that you are currently viewing_, none of your
 selected recipes will be deleted, favourited, or unfavourited.
 
@@ -298,6 +299,10 @@ Undoes all previous actions.
 
 [TIP]
 For both undo and redo, the number of actions that you specify (if any) has to be a non-zero unsigned integer!
+
+[TIP]
+The undo and redo command is currently not compatible with the `quote` command. This means that adding a quote is an
+irreversible action!
 
 === Redo a previous undo: `redo` (Brian)
 Restores actions that have been previously undone using `undo`.
@@ -348,6 +353,9 @@ Adds 50g of Bread and 5g of Butter to recipe 2.
 [TIP]
 You can add multiple ingredients at a time (at least one ingredient must be added).
 
+[TIP]
+If you add an ingredient that already exists in the recipe, that existing ingredient will be replaced with the new one.
+
 === Edit Ingredient Quantity in a Recipe: `editIngredient` (Brian)
 Edits the quantity of an ingredient in an existing recipe. +
 Format: `editIngredient [recipe index] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>… <io/other>...]`
@@ -373,6 +381,10 @@ You can delete multiple ingredients at a time (at least one ingredient must be d
 
 [TIP]
 There is no need to specify quantity here. Just the ingredient name will do!
+
+[TIP]
+If you type an ingredient prefix (e.g. "ig/") but don't specify any ingredients, all ingredients of that type will be
+deleted.
 
 === Add Steps to a Recipe: `addStep` (Brian)
 Adds more steps to an existing recipe. +
@@ -458,29 +470,33 @@ You can the see the details of each plan from the list of plans.
 .Details of each plan
 image::PlanTab_Plan.png[]
 
-
-=== Plan a recipe: `plan`
+=== Plan a recipe: `plan` (Beatrice)
 Plans a recipe that you would like to cook on a certain day in the future. +
 Format: `plan [recipe index] [d/yyyy-mm-dd]`
 
 Example 1: `plan 1 d/2020-05-27` +
-Plans the recipe at index 1 in the recipe book to 27 May 2020. +
-1. Type `plan 1 d/2020-05-27` into the *Command Box*.
-
+Plans the recipe at _recipe index_ 1 on 27 May 2020 and adds this plan into the plan list. +
 
 Example 2: `plan 1 2 3 d/2020-05-27` +
-Plans the recipe at index 1 in the recipe book to 27 May 2020.
+Plans the recipes at _recipe indexes_ 1, 2 and 3 on 27 May 2020 and adds these three plans into
+the plan list.
 
 [TIP]
-The latest date that you can input is today's date.
+As long as at least one index is specified, you can plan as many recipes as you want in one go. For example, we can
+plan for five recipes in one command. `plan 1 2 3 4 5 d/2020-05-27` will plan for the recipes at _recipe indexes_
+1, 2, 3, 4 and 5 on 27 May 2020.
 
-[TIP]
-Multiple indexes can be given in one go. `plan 1 2 3 d/2020-05-27` will plan all three recipes at indexes 1 2 and 3
-on 27 May 2020.
+[WARNING]
+Valid indexes are integer numbers ranging from 1 to the current plan list size. If one of the indexes given was
+invalid, the command will not be successful.
 
-=== Delete a plan: `deletePlan`
+[WARNING]
+Valid dates start from the today's date and are in the format yyyy-mm-dd.
+This means that we cannot make a plan on yesterday's date.
+
+=== Delete a plan: `deletePlan` (Beatrice)
 Deletes a plan. +
-Format: `deletePlan [planned recipe index]...`
+Format: `deletePlan [plan index]...`
 
 Example 1: `deletePlan 3` +
 Deletes the 3rd plan.
@@ -489,12 +505,19 @@ Example 2: `deletePlan 3 5 8` +
 Deletes the 3rd, 5th and 8th plan.
 
 [TIP]
-Multiple indexes can be given in one go. `deletePlan 1 2 3` will delete all three plans at indexes 1 2 and 3.
+As long as at least one index is specified, you can delete as many plans as you want in one go. For example, we can
+delete five plans in one command. `deletePlan 1 2 3 4 5` will delete all plans at plan indexes 1, 2, 3, 4 and 5.
+
+[WARNING]
+Valid indexes are integer numbers ranging from 1 to the current plan list size. If one of the indexes given was
+invalid, the command will not be successful.
 
 [TIP]
-Using the `cooked` command in Section 10.4 will automatically delete today's plan for that recipe.
+Using the `cooked` command in <<Track cooked meals: `cooked` (Harshita)>> will automatically delete today's plan for
+the recipe that is cooked.
 
-=== Clear all planned recipes: `clearPlan`
+
+=== Clear all planned recipes: `clearPlan` (Beatrice)
 Clears all the plans you have made. +
 Format: `clearPlan`
 
@@ -504,9 +527,19 @@ All plans will be removed.
 [TIP]
 You can `undo` this command if it was performed by accident.
 
-=== Obtain ingredients for planned recipes: `groceryList`
-Lists all ingredients needed for the recipes that have been planned. +
+=== Obtain ingredients for planned recipes: `groceryList` (Beatrice)
+Lists the ingredients needed for all recipes that have been planned. +
+Click on 'Copy' to copy all the ingredients into your clipboard. +
+Simplify your next grocery shopping experience by pasting this list into your preferred social networking
+application (like Telegram or Whatsapp) and sending it to yourself for an easy reference from your
+mobile phone. +
+Alternatively, you can paste the list into a word document and print it out.
+
+You can print this list out by pasting the text into a word document  to
 Format: `groceryList`
+
+[WARNING]
+If no plans have been made, the grocery list will not be generated.
 
 === View this week's planned recipes: `viewWeek` [Coming in v2.0]
 View all the plans for the week. +
@@ -518,27 +551,42 @@ Format: `viewMonth`
 
 == Goals Command (Harshita)
 
-=== Remove goal: `deleteGoal`
+=== Remove goal: `deleteGoal` (Harshita)
 Deletes a goal that has been auto-generated through the addition or editing of a recipe from a specific recipe. +
 Format: `deleteGoal [recipe index] [goal]`
+
+Example 1: `deleteGoal 2 Bulk like the Hulk` +
+Deletes goal named Bulk like the Hulk from the 2nd recipe if it exists.
 
 [TIP]
 Ensure that the capitalisation of the goal is the same! Check out `listGoals` if unsure.
 
-=== List goals being tracked: `listGoals`
+=== List goals being tracked: `listGoals` (Harshita)
 Lists all goals tracked by HYBB. +
 Format: `listGoals`
 
-=== Track cooked meals: `cooked`
+Example 1: `listGoals` +
+Displays the 4 main goals being tracked in the *Result Box*.
+
+=== Track cooked meals: `cooked` (Harshita)
 Tracks all cooked meals and adds to the progress of their respective goals. +
 Format: `cooked [recipe index] <recipe index>...`
+
+Example 1: `cooked 2` +
+Marks the 2nd recipe as cooked.
 
 [TIP]
 You can mark multiple recipes as cooked at the same time (at least one recipe must be marked).
 
+Example 2: `cooked 3 4 8` +
+Marks the 3rd, 4th and 8th recipe as cooked.
+
 [WARNING]
 If you specify a recipe number that has already been cooked within the day or does not exist in the list of recipes
 _under the recipes tab_, none of your selected recipes will be marked as cooked.
+
+[WARNING]
+If a plan for the recipe being cooked exists today, using `cooked` will automatically delete these plans.
 
 [TIP]
 A history of all cooked meals, along with a pie chart based on your meals cooked, can be found under the goals tab.
@@ -556,21 +604,30 @@ Format: `chart [g/goal]`
 === Analyse images added: `analyse` [Coming in v2.0]
 Auto-generates goals and statistics through the use of Artificial Intelligence. +
 
-== Achievement (Yue Tong)
+== Achievement Command (Yue Tong)
 
-=== Display streak: `streak` [Coming in v1.4]
-Displays number of consecutive days user has cooked a meal from the app +
-Format: `streak`
+=== Add motivational quote : `quote`
 
-=== Display motivational quote : `quote` [Coming in v1.4]
-Displays randomized motivational quote of the day +
-Format: `quote`
+Adds a quote by the user to the quote database to store for future(randomised) display of quote in Achievement tab.
+Format: `quote` [quote]
 
-=== Upload an image to the gallery: `addImage` [Coming in v1.4]
-Adds an image uploaded by the user to the image gallery +
-Format: `addImage [i/image]`
+Example 1: `quote Today was yesterday's tomorrow` +
+Adds quote "Today was yesterday's tomorrow" to quote database.
 
-== FAQ
+[WARNING]
+`undo` currently does not work for `quote` command
+
+.Achievement tab
+image::QuotesTab.png[width="790"]
+
+=== Display streak: `streak` [Coming in v2.0]
+Displays line chart of all logged streaks by user
+
+=== Remove quote: `remove quote` [Coming in v2.0]
+Removes quote indicated by user +
+Format: `remove quote` [quote]
+
+== FAQ (Harshita)
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
@@ -587,9 +644,9 @@ data of your previous HYBB folder.
 
 *Q*: What are recipe indexes and plan indexes? +
 *A*: Recipe indexes are the numbers beside each recipe in the 'Recipes' tab.
-On the other hand, Plan indexes are the numbers beside each plan in the 'Planning' tab.
+On the other hand, plan indexes are the numbers beside each plan in the 'Planning' tab.
 
-== Glossary
+== Glossary (Harshita)
 |===
 |Term |Definition
 
@@ -627,4 +684,5 @@ On the other hand, Plan indexes are the numbers beside each plan in the 'Plannin
 |`deleteGoal` |Deletes specified goal from a recipe
 |`listGoals` |Lists all available goals
 |`cooked` |Records a recipe as cooked
+|`quote` |Adds a new quote
 |===

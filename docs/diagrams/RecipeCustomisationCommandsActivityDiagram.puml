@@ -1,0 +1,40 @@
+@startuml
+start
+:User executes recipe customisation command;
+:EditRecipeDescriptor (ERD) is populated with parsed user input;
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ( [addingredient / addstep])
+    :       Add existing
+    ingredients / steps
+            to the ERD;
+else ()
+    if () then ([editingredient / editstep])
+        if () then ( [ingredients / step
+    exists in recipe])
+            :   Add unchanged
+            ingredients / steps
+                    to the ERD;
+        else ([else])
+            :Throws Exception;
+            stop
+        endif
+    else ([deleteingredient / deletestep])
+        if () then ( [ingredient / step
+   exists in recipe])
+            :ERD re-populated with existing
+             ingredients / steps <b>less</b> those
+                      specified by the user;
+        else ([else])
+            :Throws Exception;
+            stop
+        endif
+    endif
+endif
+
+:Create edited recipe;
+:Change old version of the recipe in Model to the newly edited version;
+:Commit book to MultipleBookStateManager;
+stop
+@enduml

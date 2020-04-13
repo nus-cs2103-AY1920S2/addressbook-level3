@@ -31,11 +31,11 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Deleted %1$s from recipe book!";
 
     private final Tab recipesTab = Tab.RECIPES;
-    private final Index[] targetIndex;
+    private final Index[] targetIndexes;
     private final CommandType commandType;
 
-    public DeleteCommand(Index[] targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(Index[] targetIndexes) {
+        this.targetIndexes = targetIndexes;
         this.commandType = CommandType.MAIN;
     }
 
@@ -45,12 +45,12 @@ public class DeleteCommand extends Command {
         List<Recipe> lastShownList = model.getFilteredRecipeList();
         List<String> deletedRecipesList = new ArrayList<>();
 
-        if (!canDeleteTargetRecipes(lastShownList.size(), targetIndex)) {
+        if (!canDeleteTargetRecipes(lastShownList.size(), targetIndexes)) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
-        for (int i = 0; i < targetIndex.length; i++) {
-            Index indexAfterEachDeletion = Index.fromZeroBased(targetIndex[i].getZeroBased() - i);
+        for (int i = 0; i < targetIndexes.length; i++) {
+            Index indexAfterEachDeletion = Index.fromZeroBased(targetIndexes[i].getZeroBased() - i);
             Recipe recipeToDelete = lastShownList.get(indexAfterEachDeletion.getZeroBased());
             model.deleteRecipe(recipeToDelete);
             deletedRecipesList.add(recipeToDelete.getName().toString());
@@ -81,9 +81,9 @@ public class DeleteCommand extends Command {
     /**
      * Checks if the recipe that the user wishes to remove exists within the recipe list.
      */
-    private boolean canDeleteTargetRecipes(int lastShownListSize, Index[] targetIndex) {
-        for (int i = targetIndex.length - 1; i >= 0; i--) {
-            if (targetIndex[i].getOneBased() > lastShownListSize) {
+    private boolean canDeleteTargetRecipes(int lastShownListSize, Index[] targetIndexes) {
+        for (int i = targetIndexes.length - 1; i >= 0; i--) {
+            if (targetIndexes[i].getOneBased() > lastShownListSize) {
                 return false;
             }
         }
@@ -94,6 +94,6 @@ public class DeleteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && Arrays.equals(targetIndex, ((DeleteCommand) other).targetIndex)); // state check
+                && Arrays.equals(targetIndexes, ((DeleteCommand) other).targetIndexes)); // state check
     }
 }

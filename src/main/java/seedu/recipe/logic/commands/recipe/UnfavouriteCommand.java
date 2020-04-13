@@ -34,11 +34,11 @@ public class UnfavouriteCommand extends Command {
     public static final String MESSAGE_ALREADY_NOT_FAVOURITE = "%1$s already not in favourites!";
 
     private final Tab recipesTab = Tab.RECIPES;
-    private final Index[] targetIndex;
+    private final Index[] targetIndexes;
     private final CommandType commandType;
 
-    public UnfavouriteCommand(Index[] targetIndex) {
-        this.targetIndex = targetIndex;
+    public UnfavouriteCommand(Index[] targetIndexes) {
+        this.targetIndexes = targetIndexes;
         this.commandType = CommandType.MAIN;
     }
 
@@ -49,11 +49,11 @@ public class UnfavouriteCommand extends Command {
         List<String> successfullyUnfavouritedRecipes = new ArrayList<>();
         List<String> alreadyUnfavouritedRecipes = new ArrayList<>();
 
-        if (!canUnfavouriteTargetRecipes(lastShownList.size(), targetIndex)) {
+        if (!canUnfavouriteTargetRecipes(lastShownList.size(), targetIndexes)) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
-        for (Index index : targetIndex) {
+        for (Index index : targetIndexes) {
             Recipe recipeToUnfavourite = lastShownList.get(index.getZeroBased());
             if (recipeToUnfavourite.isFavourite()) {
                 EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
@@ -101,9 +101,9 @@ public class UnfavouriteCommand extends Command {
     /**
      * Checks if the recipe that the user wishes to unfavourite exists within the recipe list.
      */
-    private boolean canUnfavouriteTargetRecipes(int lastShownListSize, Index[] targetIndex) {
-        for (int i = targetIndex.length - 1; i >= 0; i--) {
-            if (targetIndex[i].getOneBased() > lastShownListSize) {
+    private boolean canUnfavouriteTargetRecipes(int lastShownListSize, Index[] targetIndexes) {
+        for (int i = targetIndexes.length - 1; i >= 0; i--) {
+            if (targetIndexes[i].getOneBased() > lastShownListSize) {
                 return false;
             }
         }
@@ -114,6 +114,6 @@ public class UnfavouriteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UnfavouriteCommand // instanceof handles nulls
-                && Arrays.equals(targetIndex, ((UnfavouriteCommand) other).targetIndex)); // state check
+                && Arrays.equals(targetIndexes, ((UnfavouriteCommand) other).targetIndexes)); // state check
     }
 }
