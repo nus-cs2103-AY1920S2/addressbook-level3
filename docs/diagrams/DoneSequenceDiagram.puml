@@ -50,7 +50,7 @@ deactivate RecipeBookParser
 LogicManager -> DoneCommand : execute()
 activate DoneCommand
 
-DoneCommand -> Model : attemptRecipe(1)
+DoneCommand -> Model : attemptRecipe(r)
 activate Model
 
 Model --> DoneCommand

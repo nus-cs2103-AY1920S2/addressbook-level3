@@ -38,7 +38,7 @@ ViewCommandParser -> ViewCommand
 activate ViewCommand
 
 ViewCommand --> ViewCommandParser : d
-ViewCommand -> Ui: changeRecipe(1)
+ViewCommand -> Ui: changeRecipe(r)
 activate Ui
 
 
@@ -58,7 +58,7 @@ deactivate RecipeBookParser
 LogicManager -> ViewCommand : execute()
 activate ViewCommand
 
-ViewCommand -> Model : viewRecipe(1)
+ViewCommand -> Model : viewRecipe(r)
 activate Model
 
 Model --> ViewCommand

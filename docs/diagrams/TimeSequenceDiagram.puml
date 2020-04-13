@@ -50,7 +50,7 @@ deactivate RecipeBookParser
 LogicManager -> TimeCommand : execute()
 activate TimeCommand
 
-TimeCommand -> Model : setTime(1, 01:00:00)
+TimeCommand -> Model : setTime(r, 01:00:00)
 activate Model
 
 Model --> TimeCommand

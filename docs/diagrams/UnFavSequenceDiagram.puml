@@ -50,7 +50,7 @@ deactivate RecipeBookParser
 LogicManager -> UnfavCommand : execute()
 activate UnfavCommand
 
-UnfavCommand -> Model : unFavRecipe(1)
+UnfavCommand -> Model : unFavRecipe(r)
 activate Model
 
 Model --> UnfavCommand

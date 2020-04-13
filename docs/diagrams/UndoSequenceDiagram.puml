@@ -50,7 +50,7 @@ deactivate RecipeBookParser
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : unAttemptRecipe(1)
+UndoCommand -> Model : unAttemptRecipe(r)
 activate Model
 
 Model --> UndoCommand

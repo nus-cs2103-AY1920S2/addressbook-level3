@@ -50,7 +50,7 @@ deactivate RecipeBookParser
 LogicManager -> FavCommand : execute()
 activate FavCommand
 
-FavCommand -> Model : favRecipe(1)
+FavCommand -> Model : favRecipe(r)
 activate Model
 
 Model --> FavCommand
