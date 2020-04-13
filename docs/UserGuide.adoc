@@ -18,13 +18,38 @@ By: `Team Notably`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-Notably is for those who *prefer to use a desktop app for managing notes*. More importantly, Notably is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
+Notably is for those who *prefer to use a desktop app for managing notes*. More importantly, Notably is *optimized
+for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User
+Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
 
 === An Introduction to Notably
-The image shown below highlights the different sections of Notably's user interface:
+The following 3 diagrams (<<Legends1, Figure 1>>, <<Legends2, Figure 2>>, <<Legends3, Figure 3>>) highlight key
+sections of Notably's user interface. Refer to the description below each diagram for more information.
 
+
+[[Legends1]]
 .Notably GUI legends
-image::Legends.png[width="900"]
+image::Legends1.png[width="800"]
+
+. As shown in the top-left hand corner of the diagram above, Notably's Sidebar allows you to systematically organise your notes
+in a hierarchical manner.
+. As shown in the centre of the diagram above, Notably allows you to view the content of your notes in a structured way.
+. As shown in the top-centre of the diagram above, you can interact with Notably by typing certain commands.
+
+[[Legends2]]
+.Notably GUI legends (continued)
+image::Legends2.png[width="800"]
+
+. As highlighted in diagram above, Notably's response text provides you with constant feedback and guidance with
+every keystroke.
+. Notably helps you to find what you're looking for by intelligently providing you with a list of suggestions.
+
+[[Legends3]]
+.Notably GUI legends (continued)
+image::Legends3.png[width="800"]
+
+. As shown in the diagram above, Notably allows you to edit and customise your notes in a fuss free manner.
+
 
 === Symbols used in this guide
 [NOTE]
