@@ -27,7 +27,7 @@ NUSProductivity is a desktop application for NUS students. The user interacts wi
 ** What it does: The person in our application does not have an address field.
 ** Justification: The address field in not necessary as we are targeting the NUS students and only contact number, email and related modules are relevant information.
 
-* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=watsheldon&tabRepo=AY1920S2-CS2103T-W16-4%2Fmain%5Bmaster%5D [Functional Code]
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=watsheldon&tabRepo=AY1920S2-CS2103T-W16-4%2Fmain%5Bmaster%5D[Functional Code]
 * *Other contributions*:
 
 
