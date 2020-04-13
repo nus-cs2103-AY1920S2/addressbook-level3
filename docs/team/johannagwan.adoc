@@ -89,6 +89,8 @@ include::../UserGuide.adoc[tag=search]
 
 include::../UserGuide.adoc[tag=suggestions]
 
+include::../UserGuide.adoc[tag=responsetext]
+
 == Contributions to the Developer Guide
 
 |===

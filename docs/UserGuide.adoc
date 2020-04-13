@@ -265,7 +265,6 @@ of the number of matches, i.e. the note with the highest number of matches will 
 
 .Demo for the `search` command: keyword found
 image::demo/Search.png[]
-// end::search[]
 
 Let's say the first option `/Workspace/Notably/CS2103/Project` is the note you are looking for. You may press kbd:[↓] and kbd:[Enter]
 to open the note. The figure below illustrates how the note chosen will be opened and the command line box is cleared.
@@ -277,6 +276,7 @@ If the keyword you are looking for does not exist in any of your notes, no sugge
 
 .Demo for the `search` command: keyword not found
 image::demo/Suggestions4.png[]
+// end::search[]
 
 === Save the data
 
@@ -334,7 +334,7 @@ After corrections are done, a list of suggestions will be generated as if the us
 .Demo for the auto correction feature
 image::demo/Correction.png[]
 
-<<<<<<< HEAD
+//tag::responsetext[]
 === Response text
 Notably also displays a response text which enables you to understand the meaning of the input you type and shows
 an error message when your input is invalid.
@@ -350,7 +350,8 @@ below.
 
 .Demo for the response text feature: invalid command
 image::demo/ResponseText2.png[]
-=======
+//tag::responsetext[]
+
 === Markdown (GitHub Flavored Markdown)
 
 [NOTE]
@@ -398,7 +399,6 @@ In our v2.0 release, we'll be supporting the following additional Markdown synta
 ----
 ~~This text will get a strikethrough treatment~~
 ----
->>>>>>> master
 
 == FAQ
 

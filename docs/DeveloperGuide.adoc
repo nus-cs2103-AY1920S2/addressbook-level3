@@ -322,8 +322,6 @@ the user the meaning of his command) and the list of `SuggestionItem` into the `
 `responseText` and suggestions immediately to the UI, `SuggestionEngine` will not interfere with the `View` functionality.
 3. `SuggestionArgHandler`, `SuggestionHandler`, `SuggestionGenerator`, `SuggestionItem`, and `SuggestionModel` are
 implemented as interfaces, in an attempt to make the design of the `SuggestionEngine` component resilient to change.
-//end::sugengineimpl[]
-
 
 *Aspect 2: Implementation of suggestions generation*
 
