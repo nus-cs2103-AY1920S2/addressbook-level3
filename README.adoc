@@ -1,10 +1,11 @@
 = iTrack Pro
+ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S2-CS2103-T09-2/main[image:https://travis-ci.org/AY1920S2-CS2103-T09-2/main.svg?branch=master[Build Status]]
 https://app.netlify.com/sites/eager-kirch-5d6bd2/deploys[image:https://api.netlify.com/api/v1/badges/8179f1a7-7a48-48a7-98ac-85784b47997d/deploy-status[Netlify Status]]
 https://coveralls.io/github/AY1920S2-CS2103-T09-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103-T09-2/main/badge.svg?branch=master[Coverage Status]]
 
-ifdef::env-github[]
+ifdef::env-github,env-browser[]
 image::docs/images/Ui.png[width="600" align="center"]
 endif::[]
 
