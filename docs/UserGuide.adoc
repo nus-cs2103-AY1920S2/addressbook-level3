@@ -57,6 +57,7 @@ This block displays *tips* that you may find useful.
 [CAUTION]
 This block displays *cautions* that you should exercise.
 
+// tag::QuickStart[]
 == Quick Start
 
 The following steps will walk you through installing *CookBuddy* on your computer.
@@ -89,6 +90,8 @@ image::Ui.png[width="790"]
    * `exit` : quits *CookBuddy*.
 
 . Refer to <<Features>> for details of each command.
+
+// end::QuickStart[]
 
 == Understanding CookBuddy’s GUI [Done by Zain Alam]
 
@@ -129,6 +132,16 @@ The following sub-sections describes the features you can use in *CookBuddy*.
 [CAUTION]
 Please follow the format specified *strictly* and carefully.
 
+=== Command History [Done by Kevin]
+
+You can view previously entered commands with kbd:[Page Up] and kbd:[Page Down].
+
+Ensure the _Command Box_ is in focus.
+
+To view the previous command in the command history, press kbd:[Page Up].
+
+To view the next command in the command history, press kbd:[Page Down].
+
 ===  Help — `help`
 You can list all the commands recognised by *CookBuddy* by typing `help` into the command box and pressing kbd:[Enter].
 
@@ -154,8 +167,8 @@ A separate help window will appear with details on the delete command's usage.
 
 image::user-guide/helpwindowdelete.png[width="600"]
 
-
-=== Adding a recipe — `new`
+// tag::AddRecipe[]
+=== Adding a recipe — `new` [Done by Kevin]
 You can add a new recipe to *CookBuddy* using the `new` command.
 
 [NOTE]
@@ -170,14 +183,14 @@ Remember to follow the format specified *strictly* and carefully.
 *CookBuddy* accepts the following parameters:
 
     * `n/` - *name of the recipe*
-    * `ing/` - *ingredients of the recipe*
-    * `ins/` - *instructions of the recipe*
+    * `ing/` - *ingredients in the recipe*
+    * `ins/` - *instructions to follow*
     * `p/` - path of the recipe's photo
     * `cal/` - calories in the recipe (in kcal)
     * `s/` - serving size of the recipe (any integer greater than 0)
     * `r/` - personal rating of the recipe (any integer between 0-5 inclusive)
-    * `d/` - difficulty of following the recipe (any integer between 0-5 inclusive)
-    * `t/` - tags of the recipe (separated by commas)
+    * `d/` - difficulty in following the recipe (any integer between 0-5 inclusive)
+    * `t/` - tags (separated by commas)
 
 Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram ins/Fry the rice; add salt` into *CookBuddy*, and a new recipe with the following attributes will be added:
 
@@ -193,12 +206,13 @@ Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram i
 
 [caption=]
 .1) If you would like to add a recipe to *CookBuddy*, enter the `new` command including the attributes of the recipe
-image::user-guide/new-before.png[width="300"]
+image::user-guide/new-before.png[width="600"]
 
 [caption=]
 .2) After using the `new` command, the new recipe will be added to *CookBuddy* and will be displayed.
 image::user-guide/new-after.png[width="600"]
 
+// end::AddRecipe[]
 
 === Viewing a Recipe — `view`
 You can view a recipe at the given index on *CookBuddy* using the `view` command.
@@ -220,7 +234,7 @@ image::user-guide/view-before.png[width="600"]
 
 [caption=]
 .2) After using the `view` command, the recipe will be displayed to you
-image::user-guide/view-after.png[width="300"]
+image::user-guide/view-after.png[width="600"]
 
 === Assigning a time to a recipe — `time` [Done by: Adarsh Chugani]
 You can assign a time to an existing recipe from *CookBuddy* using the `time` command.
@@ -267,7 +281,7 @@ image::user-guide/delete-before.png[width="600"]
 
 [caption=]
 .2) After using the `delete` command, the recipe will be removed from *CookBuddy*
-image::user-guide/delete-after.png[width="300"]
+image::user-guide/delete-after.png[width="600"]
 
 [IMPORTANT]
 ====
@@ -278,6 +292,7 @@ This command cannot be undone. Once a `recipe` has been deleted, its respective 
 //
 ====
 
+// tag::ModifyRecipe[]
 === Modifying a recipe — `modify`
 You can modify the attributes of an existing recipe in *CookBuddy* using the `modify` command.
 
@@ -361,6 +376,7 @@ image::user-guide/modifyremovetag-before.png[width="600"]
 .2) After using the `modify` command, the recipe's tags will be removed accordingly
 image::user-guide/modifyremovetag-after.png[width="600"]
 
+// end::ModifyRecipe[]
 
 === Favouriting a recipe — `fav` [Done by: Adarsh Chugani]
 You can favourite an existing recipe from *CookBuddy* using the `fav` command.
@@ -481,11 +497,13 @@ Example: You can type `list` and *CookBuddy* will display all the recipes that a
 //.2) After using the `modify` command, the `recipe tags` will be changed accordingly
 //image::user-guide/modifytag-after.png[width="600"]
 
+// tag::FindRecipe[]
+=== Finding recipes — `find` [Done by Kevin]
+You can find an existing recipe with a particular attribute from *CookBuddy* using the `find` command.
 
-=== Finding recipes — `find`
-You can find an existing recipe with a particular parameter from *CookBuddy* using the `find` command.
-
-Format: `find [n/NAME [...]] [ing/INGREDIENT [...]]`
+Format: `find [n/NAME [...]]` +
+Format: `find [ing/INGREDIENT 1, QUANTITY [; ...]]` +
+Format: `find [ins/INSTRUCTION [; ...]]`
 
 [NOTE]
 ====
@@ -493,36 +511,48 @@ Format: `find [n/NAME [...]] [ing/INGREDIENT [...]]`
 ====
 
 ==== Finding a recipe by name
-You can find a recipe by its name by appending `n/NAME [...]` to a `find` command.
+You can find a recipe by its name by running `find n/NAME [...]`.
 
-Example: You can type `find n/sandwich` and *CookBuddy* will display recipes that contain the word `sandwich` in their name.
+Example: You can type `find n/Ham` and *CookBuddy* will display recipes that contain the word *Ham* in their name.
 
-//*Expected Outcome*
-//
-//[caption=]
-//.1) You want to favourite the first `recipe` in your CookBuddy
-//image::user-guide/fav-before.png[width="600"]
-//
-//[caption=]
-//.2) After using the `modify` command, the `recipe tags` will be changed accordingly
-//image::user-guide/modifytag-after.png[width="600"]
+*Expected Outcome*
+
+[caption=]
+.1) You want to find recipes that contain *Ham* in their name
+image::user-guide/findName-before.png[width="600"]
+
+[caption=]
+.2) After using the `find n/Ham` command, recipes that contain *Ham* in their name are displayed.
+image::user-guide/findName-after.png[width="600"]
 
 
 ==== Finding a recipe by ingredient
-You can find a recipe by its ingredient by appending `[ing/INGREDIENT [...]]` to a `find` command.
+You can find a recipe by its ingredients by running `find ing/INGREDIENT [...]`.
 
-Example: You can type `find ing/bread` and *CookBuddy* will display the recipes containing bread as an ingredient to you.
+Example: You can type `find ing/bread` and *CookBuddy* will display the recipes containing *bread* as an ingredient to you.
 
-//*Expected Outcome*
-//
-//[caption=]
-//.1) You want to favourite the first `recipe` in your CookBuddy
-//image::user-guide/fav-before.png[width="600"]
-//
-//[caption=]
-//.2) After using the `modify` command, the `recipe tags` will be changed accordingly
-//image::user-guide/modifytag-after.png[width="600"]
+[caption=]
+.1) You want to find recipes that contain *bread* in their ingredients
+image::user-guide/findIngredients-before.png[width="600"]
 
+[caption=]
+.2) After using the `find ing/bread` command, recipes that contain *bread* in their ingredients are displayed.
+image::user-guide/findIngredients-after.png[width="600"]
+
+==== Finding a recipe by instructions
+You can find a recipe by its instructions by running `find ins/INSTRUCTION [...]`.
+
+Example: You can type `find ins/head` and *CookBuddy* will display the recipes containing *head* in its instructions to you.
+
+[caption=]
+.1) You want to find recipes that contain *head* in their instructions
+image::user-guide/findInstructions-before.png[width="600"]
+
+[caption=]
+.2) After using the `find ins/head` command, recipes that contain *head* in their ingredients are displayed.
+image::user-guide/findInstructions-after.png[width="600"]
+
+// end::FindRecipe[]
 
 === Counting recipes — `count`
 You can count the total number of recipes stored in *CookBuddy* using the `count` command.
@@ -565,7 +595,7 @@ Example: You can type `reset` and *CookBuddy* will clear all the recipes stored 
 //image::user-guide/modifytag-after.png[width="600"]
 
 
-=== Exiting *CookBuddy* — `exit`
+=== Exiting CookBuddy — `exit`
 You can exit from *CookBuddy* using the `exit` command.
 
 Format: `exit`
@@ -735,41 +765,41 @@ This would share the recipe at index 1 on the user's facebook account.
 
 The following section answers some questions you might have regarding *CookBuddy*.
 
-*Q: Is CookBuddy safe to use?* +
+*Q: Is *CookBuddy* safe to use?* +
 *A*: Yes, *CookBuddy* is safe to use. We regularly review our code to ensure that there are no vulnerabilities for hackers to exploit.
 
-*Q: Is CookBuddy secure?* +
+*Q: Is *CookBuddy* secure?* +
 *A*: Yes, *CookBuddy* is secure. Your data is stored only on your computer. No data is sent to any online server.
 
-*Q: Do I need an Internet connection to use CookBuddy?* +
+*Q: Do I need an Internet connection to use *CookBuddy*?* +
 *A*: No. *CookBuddy* works 100% offline.
 
-*Q: Will CookBuddy receive updates?* +
+*Q: Will *CookBuddy* receive updates?* +
 *A*: Yes. We are a dedicated team of software developers who are constantly collating feedback and running tests on the app. We are also working towards delivering additional features for our users.
 
 *Q: Can I use CookBuddy on a mobile device?* +
 *A*: *CookBuddy* is designed to work best on a desktop/ laptop computer. We are currently working on releasing *CookBuddy* on mobile platforms.
 
 *Q: How do I transfer my data to another Computer?* +
-*A*: Download the jar in the other computer and copy the entire data folder over to the same directory. Run CookBuddy and update the preferences.json if necessary.
+*A*: Download the jar in the other computer and copy the entire data folder over to the same directory. Run *CookBuddy* and update the preferences.json if necessary.
 
-*Q: Can I edit my data folder of CookBuddy which contains the information regarding my recipes?* +
-*A*: No. Please do not modify the data folder of CookBuddy. All modifications of the recipes should be done through the `modify`
+*Q: Can I edit my data folder of *CookBuddy* which contains the information regarding my recipes?* +
+*A*: No. Please do not modify the data folder of *CookBuddy*. All modifications of the recipes should be done through the `modify`
 command only.
 
-*Q: How do I retrieve back all the recipes in CookBuddy if I accidentally reset CookBuddy?* +
-*A*: Right now CookBuddy does not support a backup feature. Thus, it would be best if you do not accidentally use the `reset`
+*Q: How do I retrieve back all the recipes in *CookBuddy* if I accidentally reset *CookBuddy*?* +
+*A*: Right now *CookBuddy* does not support a backup feature. Thus, it would be best if you do not accidentally use the `reset`
 command. The backup feature will be released soon in the near future.
 
-*Q: CookBuddy is not working on my computer. How do I fix it?* +
-*A*: Ensure that your computer is running on Java 11 and not other versions. CookBuddy does not support other versions of Java.
+*Q: *CookBuddy* is not working on my computer. How do I fix it?* +
+*A*: Ensure that your computer is running on Java 11 and not other versions. *CookBuddy* does not support other versions of Java.
 
 == Command Summary [Done by Zain Alam]
 
 The following section gives a quick summary of all the commands you can use in CookBuddy arranged in an alphabetical order in the table below.
 
 [cols="1, 3", options="header"]
-.Various commands of CookBuddy.
+.Various commands of *CookBuddy*.
 |==============
 |Command | Usage
 | `count` | Counts the total number of recipes stored in CookBuddy.
