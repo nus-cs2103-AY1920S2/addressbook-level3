@@ -650,7 +650,7 @@ Might have too many JSON files, one for each client
 
 |====================
 
-We decided to use the first approach of storing the exercises with the associated client and have all the clients data in one JSON file. By codewise, each `JsonAdaptedClient` will have a list of `JsonAdaptedExercise`.
+We decided to use the first approach of storing the exercises with the associated client and have all the clients data in one JSON file. Codewise, each `JsonAdaptedClient` will have a list of `JsonAdaptedExercise`.
 
 image::ClientExerciseStorageClassDiagram.png[]
 
