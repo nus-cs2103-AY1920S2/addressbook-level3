@@ -1,0 +1,30 @@
+@startuml
+
+start
+:View list of schedules;
+
+if (Desired schedule present?) then ([yes])
+else ([no])
+
+    repeat :View list of workouts;
+        :Find workout to schedule;
+
+        if (Desired workout present?) then ([yes])
+        else ([no])
+            if (Edit existing workout?) then ([yes])
+                :Edit new workout;
+            else ([no])
+                :Create new workout;
+            endif
+        endif
+
+        :Find workout ID;
+        :Schedule new workout on a specified date;
+    repeat while (More workout to schedule?) is ([yes])
+
+endif
+    :Start a workout session;
+
+stop
+
+@enduml

@@ -16,7 +16,7 @@ Package Model <<Rectangle>> {
 
     Class ExerciseList
     Class WorkoutList
-    Class ScheduleList
+    Class Scheduler
     Class LogList
     Class TimerList
     Class OngoingWorkout
@@ -61,14 +61,14 @@ ModelManager .up.|> Model
 ModelManager o--> "1" UserPrefs
 ModelManager o--> "1" ExerciseList
 ModelManager o--> "1" WorkoutList
-ModelManager o--> "1" ScheduleList
+ModelManager o--> "1" Scheduler
 ModelManager o--> "1" LogList
 ModelManager o--> "1" OngoingWorkout
 ModelManager o--> "1" TimerList
 
 ExerciseList ...down.> Exercise
 WorkoutList ...down.> Workout
-ScheduleList .down.> Schedule
+Scheduler .down.> Schedule
 LogList .down.> Log
 TimerList ...down.> Timer
 @enduml

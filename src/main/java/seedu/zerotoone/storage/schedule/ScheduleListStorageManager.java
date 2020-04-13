@@ -46,6 +46,8 @@ public class ScheduleListStorageManager implements ScheduleListStorage {
     public Optional<ScheduleList> readScheduleList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
+        logger.fine(String.format("Attempting to read schedule list from file at %s.", filePath.toString()));
+
         Optional<JacksonScheduleList> jacksonScheduleList = JsonUtil.readJsonFile(
                 filePath, JacksonScheduleList.class);
         if (!jacksonScheduleList.isPresent()) {
@@ -62,6 +64,8 @@ public class ScheduleListStorageManager implements ScheduleListStorage {
 
     @Override
     public void saveScheduleList(ScheduleList scheduleList) throws IOException {
+        logger.fine(String.format("Attempting to read schedule list from file at %s.", filePath.toString()));
+
         saveScheduleList(scheduleList, filePath);
     }
 
