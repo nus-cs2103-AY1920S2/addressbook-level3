@@ -896,14 +896,17 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `start`, `start x` (where x is larger than the list size), `start y` (where y is the ID of an invalid workout) +
    Expected: Similar to previous.
 
-=== Saving data
+=== Saving a workout session
 
-. Dealing with missing/corrupted data files
+. Workout sessions are saved automatically at the end of a workout session.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
+.. Prerequisites: A workout session must be ongoing.
+.. Test case: `stop` +
+   Expected: Workout session stops and displays in the status message. Timer resets to 00:00. The workout session should appear in the `Log` tab.
+.. Test case: `skip`, `done` +
+   Expected: Same as above, if `skip` or `done` is given on the last set.
+.. Other incorrect delete commands to try: `save`, `stop 1`, `skip`/`done` (when there are more sets remaining) +
+   Expected: Error message displayed in the status bar.
 
 
 //tag::session[]
