@@ -6,30 +6,42 @@
 
 * *Add Item Command UML Diagrams*
 
+.This diagram shows the Activity Diagram for the Add Item Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterAddItemCommandActivityDiagram.png[]
 
+.This diagram shows the Class Diagram for the Add Item Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterAddItemCommandClassDiagram.png[]
 
+.This diagram shows the Sequence Diagram for the Add Item Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterAddItemCommandSequenceDiagram.png[]
 
+.This diagram shows the Sequence Diagram for the execution of the Add Item Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterAddItemCommandSequenceDiagram2.png[]
 
 * *Delete Item Command UML Diagrams*
 
+.This diagram shows the Activity Diagram for the Delete Item Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterDeleteItemCommandActivityDiagram.png[]
 
+.This diagram shows the Class Diagram for the Delete Item Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterDeleteItemCommandClassDiagram.png[]
 
+.This diagram shows the Sequence Diagram for the Delete Item Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
 
+.This diagram shows the Sequence Diagram for the execution of the Delete Item Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterDeleteItemCommandSequenceDiagram2.png[]
 
 * *Clear Receipt Command UML Diagrams*
 
+.This diagram shows the Activity Diagram for the Clear Receipt Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterClearReceiptCommandActivityDiagram.png[]
 
+.This diagram shows the Class Diagram for the Clear Receipt Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterClearReceiptCommandClassDiagram.png[]
 
+.This diagram shows the Sequence Diagram for the Clear Receipt Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterClearReceiptCommandSequenceDiagram.png[]
 
+.This diagram shows the Sequence Diagram for the execution of the Clear Receipt Command for the Expense Splitter portion of EYLAH.
 image::ExpenseSplitterClearReceiptCommandSequenceDiagram2.png[]

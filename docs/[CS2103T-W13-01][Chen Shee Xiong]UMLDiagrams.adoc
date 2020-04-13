@@ -1,0 +1,36 @@
+:imagesDir: images
+:stylesDir: stylesheets
+
+== Chen Shee Xiong UML Diagrams
+
+
+* *EYLAH Architecture Diagram*
+
+image::ArchitectureDiagram.png[]
+
+image::ArchitectureSequenceDiagram.png[]
+
+* *EYLAH Design UML Diagrams*
+
+image::LogicClassDiagram.png[]
+
+image::UiClassDiagram.png[]
+
+image::ModelClassDiagram.png[]
+
+image::LogicClassDiagram.png[]
+
+image::StorageClassDiagram.png[]
+
+* *Done Receipt Command UML Diagrams*
+
+image::ExpenseSplitterDoneReceiptCommandActivityDiagram.png[]
+
+image::ExpenseSplitterDoneReceiptCommandClassDiagram.png[]
+
+image::ExpenseSplitterDoneReceiptCommandSequenceDiagram.png[]
+
+
+
+
+

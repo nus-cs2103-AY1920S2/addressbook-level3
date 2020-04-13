@@ -195,15 +195,15 @@ Valid Example: +
 
 *Main Menu:*
 
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+image::main_help.png[width="890", height="200"]
 
 *Diet Tracker Mode:*
 
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+image::diethelp.png[width="890", height="200"]
 
 *Expense Splitter Mode:*
 
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+image::splithelp.png[width="890", height="200"]
 
 *Additional notes and tips* +
 
@@ -717,7 +717,7 @@ Valid Example: +
 [[additemexpectedoutcome]]
 *Expected outcome:*
 
-image::placeholder.png[]
+image::expensesplitteradditemexpectedoutcome.png[][width="890", height="200"]
 
 [NOTE]
 ====
@@ -751,7 +751,7 @@ Valid Example: +
 [[deleteitemexpectedoutcome]]
 *Expected outcome:*
 
-image::placeholder.png[]
+image::expensesplitterdeleteitemexpectedoutcome.png[][width="890", height="200"]
 
 [TIP]
 Use `listreceipt` to view your item indices before deletion.
@@ -857,7 +857,7 @@ Example: +
 [[donereceiptexpectedoutcome]]
 *Expected outcome:*
 
-image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
+image::donereceipt.png[width="890", height="200"]
 
 [NOTE]
 ====
@@ -945,7 +945,7 @@ Valid Example: +
 [[clearreceiptexpectedoutcome]]
 *Expected outcome:*
 
-image::placeholder.png[]
+image::expensesplitterclearreceiptexpectedoutcome.png[][width="890", height="200"]
 
 [WARNING]
 ====
@@ -985,7 +985,7 @@ Valid Example: +
 [[splitbackexpectedoutcome]]
 *Expected outcome:*
 
-image::placeholder.png[]
+image::expenseback.png[width="890", height="200"]
 //end::splitback[]
 
 '''
@@ -1012,7 +1012,7 @@ Valid Example: +
 [[exitexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+image::exit.png[width="890", height="200"]
 //end::exit[]
 
 '''
@@ -1035,7 +1035,7 @@ example.
 
 If you would like to know more about a specific command, simply click on the provided links in the table below and you
 will be brought to the respective command.
-
+//tag::commandsummaryfordiettracker[]
 === For Diet Tracker
 |===
 |Command |Format |Example
@@ -1111,7 +1111,7 @@ or
 |`exit`
 
 |===
-
+//end::commandsummaryfordiettracker[]
 //tag::commandsummaryforexpensesplitter[]
 === For Expense Splitter
 |===

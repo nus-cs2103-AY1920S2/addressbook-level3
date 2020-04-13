@@ -23,6 +23,11 @@ abstract class Command<E> {
 
 class EditCommand extends Command {
     /' Fields '/
+    - COMMAND_WORD : String = "edit"
+    - MESSAGE_USAGE : String
+    - MESSAGE_SUCCESS : String
+    - MESSAGE_DUPLICATE_FOOD : String
+    - MESSAGE_NOT_EDITED : String
     - editFoodDescriptor : EditFoodDescriptor
     - index : Index
 
@@ -32,6 +37,8 @@ class EditCommand extends Command {
 }
 
 interface DietModel <<Interface>> {
+    - PREDICATE_SHOW_ALL_FOODS : Predicate<Food>
+
     + hasFood(food : Food) : boolean
     + setFood(food : Food, editedFood : Food) : void
     + getFilteredFoodList() : ObservableList<Food>
@@ -43,10 +50,38 @@ class Index {
     + getOneBased()
 }
 
+class ParserUtil {
+    <u> + parseIndex(oneBasedIndex : String) : Index
+    <u> + parseCalories(calories : String) : Calories
+    <u> + parseName(name : String) : Name
+    <u> + parseTag(tag : String) : Tag
+    <u> + parseTags(tags : Collection<Tag>) : Set<Tag>
+}
+
+class DietModelManager implements DietModel {
+    /' Fields '/
+    - FoodBook : foodBook
+
+    /' Methods '/
+    + addFood(food : Food) : void
+    + isReceiptDone() : boolean
+}
+
+class FoodBook {
+    /' Fields '/
+    - UniqueFoodList : foods
+
+    /' Methods '/
+    + hasFood(Food food) : boolean
+    + setFood(target : Food, editedFood : Food) : void
+}
+
 
 EditCommandParser ..> EditCommand
+EditCommandParser ..> ParserUtil
 EditCommand ..> DietModel
 EditCommandParser ..> Index
 EditCommand *--> "1" Index
+DietModelManager *-right->"1" FoodBook
 
 @enduml
