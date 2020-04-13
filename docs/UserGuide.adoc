@@ -473,7 +473,7 @@ Example: You can type `list` and *CookBuddy* will display all the recipes that a
 
 // tag::FindRecipe[]
 === Finding recipes — `find` [Done by Kevin]
-You can find an existing recipe with a particular parameter from *CookBuddy* using the `find` command.
+You can find an existing recipe with a particular attribute from *CookBuddy* using the `find` command.
 
 Format: `find [n/NAME [...]]` +
 Format: `find [ing/INGREDIENT 1, QUANTITY [; ...]]` +
@@ -485,35 +485,46 @@ Format: `find [ins/INSTRUCTION [; ...]]`
 ====
 
 ==== Finding a recipe by name
-You can find a recipe by its name by appending `n/NAME [...]` to a `find` command.
+You can find a recipe by its name by running `find n/NAME [...]`.
 
-Example: You can type `find n/sandwich` and *CookBuddy* will display recipes that contain the word `sandwich` in their name.
+Example: You can type `find n/Ham` and *CookBuddy* will display recipes that contain the word *Ham* in their name.
 
-//*Expected Outcome*
-//
-//[caption=]
-//.1) You want to favourite the first `recipe` in your CookBuddy
-//image::user-guide/fav-before.png[width="600"]
-//
-//[caption=]
-//.2) After using the `modify` command, the `recipe tags` will be changed accordingly
-//image::user-guide/modifytag-after.png[width="600"]
+*Expected Outcome*
+
+[caption=]
+.1) You want to find recipes that contain *Ham* in their name
+image::user-guide/findName-before.png[width="600"]
+
+[caption=]
+.2) After using the `find n/Ham` command, recipes that contain *Ham* in their name are displayed.
+image::user-guide/findName-after.png[width="600"]
 
 
 ==== Finding a recipe by ingredient
-You can find a recipe by its ingredient by appending `[ing/INGREDIENT [...]]` to a `find` command.
+You can find a recipe by its ingredients by running `find ing/INGREDIENT [...]`.
 
-Example: You can type `find ing/bread` and *CookBuddy* will display the recipes containing bread as an ingredient to you.
+Example: You can type `find ing/bread` and *CookBuddy* will display the recipes containing *bread* as an ingredient to you.
 
-//*Expected Outcome*
-//
-//[caption=]
-//.1) You want to favourite the first `recipe` in your CookBuddy
-//image::user-guide/fav-before.png[width="600"]
-//
-//[caption=]
-//.2) After using the `modify` command, the `recipe tags` will be changed accordingly
-//image::user-guide/modifytag-after.png[width="600"]
+[caption=]
+.1) You want to find recipes that contain *bread* in their ingredients
+image::user-guide/findIngredients-before.png[width="600"]
+
+[caption=]
+.2) After using the `find ing/bread` command, recipes that contain *bread* in their ingredients are displayed.
+image::user-guide/findIngredients-after.png[width="600"]
+
+==== Finding a recipe by instructions
+You can find a recipe by its instructions by running `find ins/INSTRUCTION [...]`.
+
+Example: You can type `find ins/head` and *CookBuddy* will display the recipes containing *head* in its instructions to you.
+
+[caption=]
+.1) You want to find recipes that contain *head* in their instructions
+image::user-guide/findInstructions-before.png[width="600"]
+
+[caption=]
+.2) After using the `find ins/head` command, recipes that contain *head* in their ingredients are displayed.
+image::user-guide/findInstructions-after.png[width="600"]
 
 // end::FindRecipe[]
 

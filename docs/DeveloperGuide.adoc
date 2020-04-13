@@ -217,7 +217,7 @@ This package defines utility classes for certain operations, like file I/O, argu
 
 
 
-== Implementation details and possible enchancements
+== Implementation details and Possible Enhancements
 
 This section describes some noteworthy details on how certain features are implemented.
 Some possible future components are briefly covered, and these may be released in `v2.0`.
