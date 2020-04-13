@@ -169,7 +169,7 @@ Shown below is a high level overview of task class and related classes. This is 
 image::TaskClassDiagram.png[width=790]
 
 
-// tag::editTaskList[]
+//tag::editTaskList[]
 
 //tag::add[]
 ==== Add
@@ -219,7 +219,7 @@ The edit command is done in 2 parts. `EditCommandParser` as well as `EditCommand
 
 .Sequence of executing an edit command
 image::EditSequenceDiagram.png[]
-// tag::editTaskList[]
+//tag::editTaskList[]
 
 ==== Done and Delete (Fyon)
 
@@ -477,7 +477,7 @@ The following sequence diagram shows how the SwitchTabCommand updates the tab in
 .Sequence Diagram of SwitchTabCommand
 image::SwitchTabSequenceDiagram.png[]
 
-// tag::reminder[]
+//tag::reminder[]
 === Reminders
 The user's reminder functionality is achieved by calculating the time delay from the current time and the time from the user input. This time delay as well as the Task name and description is passed to the MainWindow for the reminder to be triggered as a pop up at the right time.
 
@@ -489,9 +489,9 @@ Reminder is stored as a string in the `JsonAdaptedTask`. This string contains th
 .Reminder Sequence Diagram
 image::ReminderSequenceDiagram.png[width=790]
 
-// end::reminder[]
+//end::reminder[]
 
-// tag::recurring[]
+//tag::recurring[]
 === Recurring
 The user's recurring tasks functionality is twofold. Resetting the task to be unfinished after the stipulated time interval and resetting the task's reminder date according to the stipulated time interval. The behaviour for this recurring feature is mainly represented in the activity diagram below.
 
@@ -511,7 +511,7 @@ Additionally, a flag has been made to check if the task needs to be changed, if 
 
 Recurring is stored as a string in the `JsonAdaptedTask`. This string contains the LocalDateTime information for the reference date as well as the type of interval itself. A special constructor for this string is used to reconstruct the recurring attribute when reading from storage.
 
-// end::recurring[]
+//end::recurring[]
 
 //tag::statistics[]
 
@@ -603,6 +603,58 @@ image::StatisticsUiSequenceDiagram.png[]
 
 //end::statistics[]
 
+=== Pet
+
+==== Implementation
+The pet feature aims to provide a virtual pet for the app in order to motivate the user. The pet has three main components: the XP points, the evolution and the mood. To facilitate this function, a Pet class is created to represent the pet. A PetManager class is created to manage the pet via communications from MainWindow. Lastly, a PetDisplay class is created to handle the UI of the pet.
+
+.Pet Class Diagram
+image::PetClassDiagram.png[]
+
+To exemplify the implementation for the components of the XP points and the evolution of the pet, an example usage scenario is given below.
+
+Step 1. User finishes a task. User calls the done command for the task. MainWindow would execute this command and generate a DoneCommandResult object
+
+image::DoneCommandSequenceDiagram.png[]
+
+Step 2. The MainWindow will update PetManager to increase XP points after the DoneCommandResult Object is received. This is done by calling the method `PetManager#incrementExp`. PetManager would then update XP points of Pet by calling `Pet#incrementExp`. This method also checks whether the XP points have reached the milestones for the levels and will update the level of the pet accordingly.
+
+.Pet Sequence Diagram
+image::PetSequenceDiagram.png[]
+
+Step 3. Following the update of XP points, MainWindow also updates the mood of the pet. Supposedly, the pet is originally in "HANGRY" mood, MainWindow will call "MainWindow#updateMoodWhenDone" method to change the pet's mood to Happy. It will also update the time of the last done task and reschedules a new timertask so that the pet will turn "Hangry" at the correct time. Lastly, this method also updates the elements
+
+Step 4. MainWindow would then update the string of the filepaths for the respective UI elements in PetDisplay by executing the method `PetManager#updateDisplayElements`.
+
+Step 5. Lastly, MainWindow will the update PetDisplay. The user will then see the UI be updated accodingly. For example, the progress bar would increase.
+
+.update PetDisplay Diagram
+image::UpdatePetDisplaySequenceDiagram.png[]
+
+==== Design Consideration
+
+=== Set Commands
+
+.Set command class diagram
+image::SetClassDiagram.png[]
+
+The Set Commands can be used to customise the features in BB Productive. It can be used to customised the name of the pet, the duration for pomodoro and the daily challenge target so as to better cater to the needs of the user.
+
+Below is an example scenario when the user runs the set command.
+
+Step 1. User runs the command "Set pet/momu pom/30 daily/150". MainWindow will take the user input and call upon LogicManager to pasrse it. LogicManager will the call AddressBookParser which in creates a SetcommandPArser object and then parse the user argument. A SetCommand object is then executed and returned to logic.
+
+.Set command sequence diagram
+image::SetCommandSequenceDiagram.png[]
+
+Step 2. Logic calls upon the method `SetCommand#execute` which eventually calls the methods `Model#SetPetName` and `Model#setPomodoroDefaultTime`. A SetCommandResult object is return once these methods are executed.
+
+Step 3. Upon receiving the SetCommandResult object, MainWindow then calls the method `MainWindow:UpdatePetDisplay` to update the UI for Pet. It also calls `PomodormoManager#SetDefaultStartTime` and `PomdooroDisplay#setTimerText` to update the Ui of pomodoro. Lastly, `StatisticsManager#setDailyTarget` is called to update the value of the dailyTargetText.
+
+.set command updating Ui
+image::SetCommandUpdatingUi.png[]
+
+==== Design Consideration
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -649,7 +701,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: We integrate a Pomodoro-Pet environment into a full fledged task manager. The pet system serves to gamify the act of doing tasks, thereby motivating users, and the Pomodoro helps users get into a regular work/rest cycle. This integrationcovers all aspects of productivity in line platform. It covers motivation, organising of tasks and also how to go about doing them. This all in one solution is seldom found in other applications which implement maybe 1 or 2 of these features.
 
-// tag::userStories[]
+//tag::userStories[]
 [appendix]
 == User Stories
 
@@ -706,7 +758,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 
 |=======================================================================
-// end::userStories[]
+//end::userStories[]
 
 [appendix]
 
@@ -1113,7 +1165,7 @@ Cons:
 * ...
 * ...
 
-// tag::manualTesting[]
+//tag::manualTesting[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -1267,6 +1319,24 @@ Expected: After 60 seconds, the done is set back to unfinished, with the tick be
 .. sort: `sort na prioruty blabla` -> `sort name priority`
 ... result display set to orange if input has been deleted
 
+=== Activating Pomodoro
+. Activating Pomodoro. +
+.. Run the command `pom 1`
+.. Take note of the index of that task. +
+Expected: Pomodoro timer will start counting down from 25:00 minutes (default). Upon expiry of the time, app will prompt user in the response bubble, asking if done or no.
+
+. Activating Pomodoro with special time. +
+.. Run the command `pom 1 tm/0.5`
+.. Take note of the index of that task +
+Expected: Pomodoro timer will start counting down from 00:30 minutes. Upon expiry of the time, app will prompt user in the response bubble, asking if done or no.
+
+. Pausing and Resuming Pomodoro. +
+.. Run the command `pom 2`
+.. Then, run the command `pom pause`.
+.. Then, run the command `pom continue`. +
+Expected: After the firs command, Pomodoro timer will start counting down from 25:00 minutes (default). After `pom pause`, the timer will pause. After `pom continue`, timer will resume.
+
+
 _{ more test cases ... }_
 === Saving data
 
@@ -1277,4 +1347,4 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-// end::manualTesting[]
+//end::manualTesting[]
