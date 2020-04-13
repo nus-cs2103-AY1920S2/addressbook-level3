@@ -23,7 +23,7 @@ public class FindCommand extends Command {
             + "[p/PROTEIN] [c/CARBOHYDRATE] [f/FAT] [t/TAG]. NAME and TAG are case-insensitive. \n"
             + "Example: '"
             + COMMAND_WORD + " cal/150' to search by Calorie, or '"
-            + COMMAND_WORD + " n/Pear' to search by Name";
+            + COMMAND_WORD + " n/Ban' to search by Name";
 
     private final Predicate<Food> predicate;
 

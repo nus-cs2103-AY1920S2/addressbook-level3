@@ -1,20 +1,20 @@
 @startuml
 start
-:User executes Nom command;
+:User executes Vomit command;
 
 :Extract relevant prefixes using ArgumentMultimap;
 :Check if the exist DailyFoodLog with same date;
 :Ensure arguments have valid format;
 
 if() then ([exist])
-:update existing log;
-
-else ([does not exist])
-:create new food log;
-endif
-
+:Update existing log;
 :Command created;
 :Execute command;
+else ([does not exist])
+:Create exception message;
+:Catch exception and show on Result Display;
+endif
+
 :Update FilteredList with relevant DisplayFood;
 
 stop
