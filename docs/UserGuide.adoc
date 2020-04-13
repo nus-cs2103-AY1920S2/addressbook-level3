@@ -155,13 +155,14 @@ Deletes the good price pair of good 'banana' in the good list of the first suppl
 Clears all supplier entries from the address book. +
 Format: `clear-s`
 
+
 //tag::buycommand[]
 === Buying goods from supplier: `buy`
 
 Buys a batch of goods from a supplier in the contact list who stocks that product. The inventory manager cannot buy products in the following cases:
 
 . The supplier has not been entered in the supplier list
-. The supplier has not been registered to the good, as indicated by the "offers" section of each supplier
+. The supplier does not sell the good, as indicated by the "offers" section of each supplier
 
 Format: `buy SUPPLIER_DISPLAY_INDEX g/GOOD_NAME q/QUANTITY`
 
@@ -176,6 +177,7 @@ If the good does not exist in the inventory, a new entry for that good will be c
 [CAUTION]
 The maximum quantity of any good in the inventory is 999,999. Users are not allowed to buy quantities of goods that would cause that limit to be exceeded.
 //end::buycommand[]
+
 
 //tag::sellcommand[]
 === Selling goods: `sell`
@@ -202,8 +204,8 @@ When the quantity in inventory reaches 0, the name of the good is not deleted fo
 This entry can be deleted using the `delete-g` command.
 //end::sellcommand[]
 
-//tag::deletegood[]
 
+//tag::deletegood[]
 === Delete good entry in inventory: `delete-g`
 Deletes an entry for a good in the inventory.
 The good to be deleted is at the displayed index shown in the middle inventory panel.
@@ -215,6 +217,13 @@ Example:
 
 * `delete-g 3`
 The good entry at displayed index 3 will be removed, provided there is an entry at index 3.
+
+[TIP]
+No transaction history will be recorded for `delete-g`. This command is
+meant to recove goods with no quantity in the inventory when reference to them
+is no longer required. If there are quantities being transacted, `buy` and `sell`
+should be used instead.
+
 //end::deletegood[]
 
 
@@ -374,10 +383,10 @@ e.g. `edit-s 2 n/James Lee e/jameslee@example.com` gp/apple 10
 * *Find supplier* : `find-s KEYWORD [MORE_KEYWORDS]` +
 e.g. `find-s James Jake`
 * *List supplier for a goods*: `source`
-* *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE` +
-e.g. `buy n/Dave g/apple q/4`
-* *Sell goods*: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE` +
-e.g. `sell g/apple q/4`
+* *Buy goods*: `buy SUPPLIER_DISPLAYED_INDEX g/GOOD_NAME q/QUANTITY +
+e.g. `buy 1 g/Apple q/4`
+* *Sell goods*: `sell GOOD_DISPLAYED_INDEX q/QUANTITY p/PRICE +
+e.g. `sell 1 q/4 p/3.0`
 * *Set minimum threshold quantity for goods*: `warn INDEX q/MIN_QUANTITY`
 * *List expiring goods*: `list-e`
 * *List transaction history*: `list-t`
