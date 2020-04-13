@@ -71,7 +71,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::ArchitectureSequenceDiagram.png[]
 
 [[Design-View]]
-=== View component
+=== View
 
 .Structure of the View Component
 image::UiClassDiagram.png[]
@@ -88,7 +88,7 @@ The `View` component,
 * Listens for changes to `Model` data so that the View can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic
 
 .Architecture of Logic
 image::LogicArchitectureDiagram.png[]
@@ -105,7 +105,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 // tag::parser[]
 [[Design-NotablyParser]]
-==== NotabyParser component
+==== NotabyParser
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -126,7 +126,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 
 //tag::sugengine[]
 [[Design-SuggestionEngine]]
-==== SuggestionEngine component
+==== SuggestionEngine
 
 .Class Diagram of the Suggestion Engine Component
 image::SuggestionClassDiagram.png[]
@@ -162,7 +162,7 @@ NOTE: The lifeline for `OpenSuggestionArgHandler` should end at the destroy mark
 //end::sugengine[]
 
 [[Design-CorrectionEngine]]
-==== CorrectionEngine component
+==== CorrectionEngine
 
 .Class Diagram of the CorrectionEngine Component
 image::CorrectionEngineClassDiagram.png[]
@@ -179,7 +179,7 @@ image::StringCorrectionEngineSequenceDiagram.png[]
 
 //tag::design-model[]
 [[Design-Model]]
-=== Model component
+=== Model
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -198,7 +198,7 @@ The `Model`,
 
 //tag::design-storage[]
 [[Design-Storage]]
-=== Storage component
+=== Storage
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -212,12 +212,12 @@ The `Storage` component,
 //end::design-storage[]
 
 [[Design-Commons]]
-=== Commons component
+=== Commons
 
 Classes used by multiple components are in the `com.notably.commons` package.
 
 [[Design-Compiler]]
-=== Compiler component
+=== Compiler
 
 .Class Diagram of the Compiler Component
 image::CompilerClassDiagram.png[]
