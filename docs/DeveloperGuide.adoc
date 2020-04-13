@@ -912,10 +912,9 @@ not extensively utilised in *ReturnCommand*; such as public static fields and ge
 [[return-interactions]]
 ==== Interactions between objects when Return Command is executed
 
-The sequence diagrams for the `return` command are shown below.
-
-==== Sequence Diagram for converting an order into a return order
 The sequence diagrams for the *Return Command* are shown below.
+
+The sequence diagram for converting an order into a return order are shown below.
 
 .Return Command Sequence Diagram
 image::ReturnSequenceDiagram1_a.png[]
@@ -965,8 +964,7 @@ toBeCreated, will be added to the model's return order list using the addReturnO
 Finally, a new CommandResult will be created to display the success message to the user for converting
 a delivered order to a return order.
 
-==== Sequence Diagram for creating a new return order
-The sequence diagrams for the *Return Command* are shown below.
+The sequence diagram for creating a new return order are shown below.
 
 .Return Command Sequence Diagram
 image::ReturnSequenceDiagram1_b.png[]
@@ -1247,7 +1245,6 @@ not extensively utilised in *HelpCommand*; such as public static fields and gett
 [[help-interactions]]
 ==== Interactions between objects when Help Command is executed
 
-==== Sequence Diagram for executing the Help Command
 The sequence diagrams for the `help` command are shown below.
 
 .Help Command Sequence Diagram
@@ -1329,7 +1326,7 @@ during the importing of data from the CSV file: +
 
 1.  `MESSAGE_USAGE` +
 import: Import the data in .csv file into Delino +
-Parameters: fileName.csv\n  +
+Parameters: fileName.csv  +
 Example: import orders.csv +
 
 2. `INVALID_MESSAGE` +
