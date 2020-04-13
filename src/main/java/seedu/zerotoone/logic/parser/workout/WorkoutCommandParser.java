@@ -3,9 +3,11 @@ package seedu.zerotoone.logic.parser.workout;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.commands.AboutCommand;
 import seedu.zerotoone.logic.commands.workout.CreateCommand;
 import seedu.zerotoone.logic.commands.workout.DeleteCommand;
@@ -22,11 +24,12 @@ import seedu.zerotoone.logic.parser.workout.exercise.WorkoutExerciseCommandParse
  * Parses user input.
  */
 public class WorkoutCommandParser implements Parser<WorkoutCommand> {
-
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses user input into command for execution.
@@ -36,6 +39,8 @@ public class WorkoutCommandParser implements Parser<WorkoutCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public WorkoutCommand parse(String input) throws ParseException {
+        logger.info("Parsing workout command: " + input);
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AboutCommand.MESSAGE_USAGE));

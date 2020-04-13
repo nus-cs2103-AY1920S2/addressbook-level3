@@ -3,7 +3,9 @@ package seedu.zerotoone.logic.commands.schedule;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
@@ -20,6 +22,8 @@ public class DeleteCommand extends ScheduleCommand {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = "Usage: " + Commands.SCHEDULE_DELETE;
     public static final String MESSAGE_DELETE_SCHEDULED_WORKOUT_SUCCESS = "Deleted scheduled workout: %1$s";
+
+    private static final Logger logger = LogsCenter.getLogger(DeleteCommand.class);
     private final Index scheduledWorkoutId;
 
     public DeleteCommand(Index targetIndex) {
@@ -29,6 +33,8 @@ public class DeleteCommand extends ScheduleCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.info("Executing schedule delete command");
+
         requireNonNull(model);
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);

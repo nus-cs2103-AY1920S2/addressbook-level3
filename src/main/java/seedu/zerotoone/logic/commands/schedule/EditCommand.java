@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
@@ -27,6 +29,7 @@ public class EditCommand extends ScheduleCommand {
     public static final String MESSAGE_DUPLICATE_SCHEDULE = "This schedule already exists.";
     public static final String MESSAGE_DATETIME_IN_THE_PAST = "Datetime provided is in the past";
 
+    private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
     private final Index scheduledWorkoutId;
     private final DateTime dateTime;
 
@@ -43,6 +46,8 @@ public class EditCommand extends ScheduleCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.info("Executing schedule edit command");
+
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);
         }

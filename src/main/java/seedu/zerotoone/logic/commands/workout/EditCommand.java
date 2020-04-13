@@ -1,10 +1,12 @@
 package seedu.zerotoone.logic.commands.workout;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_WORKOUTS;
+import static seedu.zerotoone.model.workout.WorkoutModel.PREDICATE_SHOW_ALL_WORKOUTS;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
@@ -26,6 +28,7 @@ public class EditCommand extends WorkoutCommand {
 
     private final Index workoutId;
     private final WorkoutName workoutName;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * @param workoutId of the workout in the filtered workout list to edit
@@ -41,6 +44,10 @@ public class EditCommand extends WorkoutCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.info(String.format("Executing %s for Workout with %d",
+                getClass().getSimpleName(),
+                workoutId.getOneBased()));
+
         requireNonNull(model);
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);

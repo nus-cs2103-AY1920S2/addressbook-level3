@@ -2,6 +2,7 @@ package seedu.zerotoone.logic.commands.exercise.set;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
+import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_WORKOUTS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,9 @@ public class DeleteCommand extends SetCommand {
         Exercise editedExercise = new Exercise(exerciseToEdit.getExerciseName(), updatedExerciseSets);
 
         model.setExercise(exerciseToEdit, editedExercise);
+        model.setExerciseInWorkouts(exerciseToEdit, editedExercise);
         model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
+        model.updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
 
         String outputMessage = String.format(MESSAGE_DELETE_EXERCISE_SET_SUCCESS, editedExercise);
         return new CommandResult(outputMessage);

@@ -5,7 +5,9 @@ import static seedu.zerotoone.model.workout.WorkoutModel.PREDICATE_SHOW_ALL_WORK
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
@@ -26,6 +28,7 @@ public class DeleteCommand extends WorkoutExerciseCommand {
 
     private final Index workoutId;
     private final Index exerciseId;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * @param workoutId of the workout in the filtered workout list to edit
@@ -41,6 +44,11 @@ public class DeleteCommand extends WorkoutExerciseCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.info(String.format("Executing %s for Workout with %d and Exercise with %d",
+                getClass().getSimpleName(),
+                workoutId.getOneBased(),
+                exerciseId.getOneBased()));
+
         requireNonNull(model);
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);
