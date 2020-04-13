@@ -159,7 +159,7 @@ Set the app state back to the most recent undoableCommand.
 
 [NOTE]
 ======
-See the full list of undoable commands: all edit/add/delete/assign/unassign commands.
+See the full list of undoable commands: all edit/add/delete/assign/unassign/done/undone commands.
 ======
 
 Examples:
@@ -214,10 +214,12 @@ This `redo` also fails because the most recent command is not `undo` or `redo`
 
 Format: `undo` or `redo`
 
+
 // tag::AssignUnassign[]
 
 ==== Assigning/Unassigning -TYPE- to a Course : `assign` or `unassign` respectively
 ===== A Student to a Course : `assign` or `unassign` respectively
+
 Adds the Student ID to the Course ID specified. +
 Format: `assign cid/COURSEID sid/STUDENTID` +
 Example: `assign cid/829 sid/33`
@@ -246,7 +248,7 @@ Student's details and Assigned Assignments for this courses can also be viewed u
 .Selected Course and Assigned Students Panel. Shows ID and details of assigned Students and their Assignments.
 image::CourseViewAssignToStudent.png[width="500"]
 
-===== A Teacher to a Course : `assign` or `unassign` respectively
+==== `assign`/`unassign` Teacher to/from a Course
 
 Adds the Teacher ID to the Course ID specified. +
 Format: `assign cid/COURSEID tid/TEACHERID` +
@@ -271,6 +273,7 @@ Example: `unassign cid/829 tid/21`
 When a teacher is unassigned to a course, the teacher's ID is removed from course and course's ID is removed from teacher.
 In Selected Staff Tab, after unassign Command, the course's ID and details no longer appears.
 
+
 // end::AssignUnassign[]
 
 ==== Add An Assignment to a Course : `assign` or `unassign` respectively
@@ -291,7 +294,30 @@ This progress tracks whether the student has completed the
 specific assignment (Done) or not (Not Done)
 ====
 
-==== Select a Student/Staff/Course : `select` or simply click the bar
+=== Mark a Student's Assignment as `Done`/`Undone`
+Mark a student's assignment as `Done`. +
+Format: `done aid/ASSIGNMENTID sid/STUDENTID` +
+Example: `done aid/829 sid/21`
+
+Mark a student's assignment as `Undone`. +
+Format: `undone aid/ASSIGNMENTID sid/STUDENTID` +
+Example: `undone aid/829 sid/21`
+
+Illustration:
+
+image::Ivan-done1.PNG[]
+Notice that George has initially not completed Assignment 44736.
+
+After `done aid/44736 sid/63865`:
+
+image::Ivan-done2.png[]
+Now observe 3 updates:
+
+. Success message as displayed in message box
+. The `status` of the Assignment has been marked as done
+. The `Number of Done Progress` has been incremented by 1
+
+=== Select a Student/Staff/Course : `select` or simply click the bar
 Selecting means to view the specified item in detail.
 As mentioned in the previous section, a course may be assigned
 student/s, a teacher staff, or assignment/s. When you select a course
@@ -301,49 +327,49 @@ the list on the right.
 If the specified ID does not exist, the selected panel will become empty.
 
 
-===== Select a Student:
+==== Select a Student
 Views details of a student and list of courses of a student +
 Format: `select sid/STUDENTID` +
 Example: `select sid/11`
 or click the desired Student bar
 
-===== Select Assignment belonging to the Course of a Student:
+==== Select Assignment belonging to the Course of a Student
 Views list of Assignment belong to Course of a Student +
 Format: `select sid/STUDENTID cid/COURSEID` +
 Example: `select sid/11 cid/1`
 or click the desired Course bar under the Student
 
-===== Select a Staff:
+==== Select a Staff
 Views the details of a staff and list of courses of a staff +
 Format: `select tid/STAFFID` +
 Example: `select tid/31`
 or click the desired Staff bar
 
-===== Select a Course:
+==== Select a Course
 Views the details of a course and list of students of a course +
 Format: `select cid/COURSEID` +
 Example: `select cid/1`
 or click the desired Course bar
 
-===== Select Assignment belonging to the Student of a Course:
+==== Select Assignment belonging to the Student of a Course:
 Views list of Assignment belong to Student of a Course +
 Format: `select cid/COURSEID sid/STUDENTID` +
 Example: `select cid/1 sid/11`
 or click the desired Student bar under the Course
 
-===== Select a Finance:
+==== Select a Finance
 Views the details of a finance +
 Format: `select fid/FINANCEID` +
 Example: `select fid/801`
 or click the desired Finance bar
 
-===== Select an Assignment:
+==== Select an Assignment
 Views the details of an assignment +
 Format: `select aid/ASSIGNMENTID` +
 Example: `select aid/901`
 or click the desired Assignment bar
 
-==== Switch between tabs : `[CTRL] + [UP ARROW]`, `[CTRL] + [DOWN ARROW]` `m`, `s`, `t`, `c`, `f`, `a`
+=== Switch between tabs : `[CTRL] + [UP ARROW]`, `[CTRL] + [DOWN ARROW]` `m`, `s`, `t`, `c`, `f`, `a`
 - The tab orders are: Summary, Staff, Course, Finance, Assignment
 - Switch quickly to previous Tab (with wrap around) : Click command box + `[CTRL]` + `[UP ARROW]`
 - Switch quickly to next Tab (with wrap around):  Click command box + `[CTRL]` + `[DOWN ARROW]`
@@ -363,14 +389,14 @@ to navigate through your command history
 - There will not be two identical commands beside each other
 
 
-==== Saving the data
+=== Saving the data
 
 Coding Camp book data are saved in the hard disk automatically after any command that changes the data. No manual
 saving is required.
 
 // tag::clearAll[]
 
-==== Clearing all the data
+=== Clearing all the data
 
 Coding Camp book data can be cleared by `clear-all` command. This action will *CLEAR* all the entire address book and
 this action can not undone.
@@ -895,6 +921,9 @@ contains the data of your previous *CodeCampX* folder.
 |*Unassign Student from a Course* | `unassign cid/COURSEID sid/STUDENTID`  |`unassign cid/829 sid/33`
 |*Unassign Teacher from a Course* | `unassign cid/COURSEID tid/TEACHERID`  | `unassign cid/829 tid/21`
 |*Unassign Assignment from a Course* | `unassign cid/COURSEID aid/ASSIGNMENTID`  | `unassign cid/829 aid/21`
+.2+|Done/Undone Commands
+|*Mark an Assignment as Done* | `done sid/STUDENTID aid/ASSIGNMENTID` | `done sid/33 aid/21`
+|*Mark an Assignment as Undone* | `undone sid/STUDENTID aid/ASSIGNMENTID` | `undone sid/33 aid/21`
 .5+|Student Commands
 |*Add Student* |`add-student n/NAME [t/TAG]…` | `add-student n/Jon Snow t/Hardworking`
 |*Delete Student* | `delete-student ID` | `delete-student 16100`
