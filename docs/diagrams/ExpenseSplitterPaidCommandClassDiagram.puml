@@ -14,6 +14,7 @@ class PaidCommandParser implements Parser {
 
 interface Parser<T extends Command> <<Interface>> {
     parse(userInput : String) : PaidCommand
+
 }
 
 abstract class Command <E> {
