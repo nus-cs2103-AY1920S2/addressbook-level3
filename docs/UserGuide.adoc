@@ -617,8 +617,8 @@ Archives a coupon when you want to keep a record of it, without cluttering your
 current stash of coupons.
 
 [NOTE]
-To view archived coupons, the user can run the <<Listing coupons: `list`, `list
-a/`>> command to list all
+To view archived coupons, the user can run the
+<<Listing coupons: `list`, `list a/`>> command to list all
 archived coupons. Alternatively, the <<Finding coupons by name: `find`,
 `find`>> command explained below will
 search all archived coupons, thus displaying archives that match the supplied
@@ -737,13 +737,19 @@ displayed **below** the non-archived matches.
 === Sorting coupons: `sort`
 
 Sorts the coupons in Coupon Stash in **ascending** order. It is possible to sort
-by coupon name or expiry date.
+by coupon name, expiry date, or remind date.
+
+[WARNING]
+When you <<Editing a coupon: `edit`, `edit`>> or
+<<Adding a coupon: `add`, `add`>> a coupon, the sorting order will revert to
+the original order. Otherwise, the sorting order will persist throughout the
+runtime of the  program.
 
 [NOTE]
-The sorting order will persist throughout the runtime of the program.
 The command will sort any coupons currently on screen, including
-<<_archiving_a_coupon_archive, archived>> coupons , if they are present on
-screen. <<_archiving_a_coupon_archive, Archived>> coupons will always appear **below** active coupons.
+<<_archiving_a_coupon_archive, archived>> coupons, if they are present on
+screen. <<_archiving_a_coupon_archive, Archived>> coupons will always appear
+**below** active coupons.
 // Put GIF here
 
 Format: `sort PREFIX`
