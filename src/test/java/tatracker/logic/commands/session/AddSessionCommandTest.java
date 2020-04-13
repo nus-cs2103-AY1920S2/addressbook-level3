@@ -71,16 +71,16 @@ public class AddSessionCommandTest {
         assertEquals(Arrays.asList(validSession), modelStub.sessionsAdded);
     }
 
-    @Test
-    public void execute_duplicateSession_throwsCommandException() {
-        Session validSession = new SessionBuilder().build();
-        AddSessionCommand addSessionCommand = new AddSessionCommand(validSession);
-
-        ModelStub modelStub = new ModelStubWithSession(validSession);
-
-        assertThrows(CommandException.class, Messages.MESSAGE_DUPLICATE_SESSION, ()
-            -> addSessionCommand.execute(modelStub));
-    }
+    // @Test
+    // public void execute_duplicateSession_throwsCommandException() {
+    //     Session validSession = new SessionBuilder().build();
+    //     AddSessionCommand addSessionCommand = new AddSessionCommand(validSession);
+    //
+    //     ModelStub modelStub = new ModelStubWithSession(validSession);
+    //
+    //     assertThrows(CommandException.class, Messages.MESSAGE_DUPLICATE_SESSION, ()
+    //         -> addSessionCommand.execute(modelStub));
+    // }
 
     @Test
     public void equals() {

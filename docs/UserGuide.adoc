@@ -61,6 +61,11 @@ the application.
 
 .  Ensure that you have Java `11` or above installed in your Computer.
 .  Download the latest `TaTracker.jar` link:{repoURL}/releases[here].
++
+image::JarExample.png[width="790"]
+This image shows how you can identify what the latest release is and what file
+you should download.
++
 .  Copy the file to the folder you want to use as the home folder for your TA tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
@@ -257,15 +262,14 @@ Refers to the new group code of a group when you edit a group.
 |
 Refers to the group type.
 |
-*lab*, *tutorial*, *recitation* or *other*
+*lab*, *tutorial* or *other*
 
 |
 `NEW_GROUP_TYPE`
 |
 Refers to the new group type you want a group to be.
 |
-*lab*, *tutorial*,
-*recitation* or *other*
+*lab*, *tutorial* or *other*
 
 |
 `MATRIC_NUMBER`
@@ -1418,6 +1422,8 @@ and timing will be added to *Session View* when it is marked as done.
 . You will find the recurring period `[w/WEEKS]` field handy for tasks that happen once every few weeks
 such as your weekly lab sessions or fortnightly assignment grading.
 
+. You can add sessions with time clashes so that you can quickly plan a session
+and correct the details later.
 ====
 
 ====
@@ -1802,7 +1808,7 @@ Index of 1 refers to the first item in a list.
 | Matric Number | This refers to a student's matriculation number. For example: A0123456X
 
 | Group | The is the general term given to a group of students a TA teaches. For example:
-lab , tutorial , recitation
+lab , tutorial
 
 | TAT | This is the short form of TA-Tracker.
 

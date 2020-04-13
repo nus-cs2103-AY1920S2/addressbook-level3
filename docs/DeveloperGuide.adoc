@@ -2590,7 +2590,7 @@ Index of 1 refers to the first item in a list.
 | Matric Number | This refers to a student's matriculation number. For example: A0123456X
 
 | Group | The is the general term given to a group of students a TA teaches. For example:
-lab, tutorial, recitation
+lab, tutorial
 
 | TAT | This is the short form of TA-Tracker.
 
@@ -2827,6 +2827,11 @@ at index 1 of the module list.
 Expected: A session starting at `14:00` and ending at `16:00` on `2020-06-20`, which has also been
 set to recur every two weeks, will be added to the sessions list. It will be associated
 with the module `CS2103T` and be a `consultation` with Alice and Bob.
+
+.. Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
+ t/consultation n/with Alice and Bob` +
+Expected: A duplicate session will be added to the session list
+(Assuming you have entered the same command previously)
 
 [discrete]
 === Marking a session as done

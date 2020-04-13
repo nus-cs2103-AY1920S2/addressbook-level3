@@ -397,7 +397,6 @@ public class ParserUtilTest {
     public void parseGroupType_validValueWithoutWhitespace_returnsGroupType() throws Exception {
         assertEquals(GroupType.TUTORIAL, ParserUtil.parseGroupType("tutorial"));
         assertEquals(GroupType.LAB, ParserUtil.parseGroupType("lab"));
-        assertEquals(GroupType.RECITATION, ParserUtil.parseGroupType("recitation"));
         assertEquals(GroupType.OTHER, ParserUtil.parseGroupType("other"));
     }
 
