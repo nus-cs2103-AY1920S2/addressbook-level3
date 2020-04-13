@@ -100,7 +100,7 @@ Paths are used by the `open` and `delete` command
 
 [WARNING]
 We cannot open or delete the parent of the root note because it does not exist.
-Taking example from Figure 2 above. e.g `Delete ../..` will result in an error.
+Taking example from Figure 2 above, `Delete ../..` will result in an error.
 // end::paths[]
 ====
 [[Markdown]]
