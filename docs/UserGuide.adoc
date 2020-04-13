@@ -302,7 +302,7 @@ When a new good is added into the inventory, its minimum quantity threshold is s
 
 // tag::findtransaction[]
 
-=== Locating transactions by search criteria: `find-t`
+=== Locating transactions by search criteria: `find-t` (By Fang Shao Hua)
 
 Display list of transactions that fulfills the given search criteria.
 
@@ -369,7 +369,7 @@ NOTE: The transaction related to `Noodle` is no longer shown as compare to searc
 
 // tag::listtransaction[]
 
-=== Listing all transactions : `list-t`
+=== Listing all transactions : `list-t` (By Fang Shao Hua)
 Shows the list of transaction history in the inventory manager. +
 
 Format: `list-t`
@@ -473,7 +473,7 @@ e.g. `sell 1 q/4 p/3`
 
 * *Set minimum threshold quantity for goods*: `warn INDEX q/MIN_QUANTITY`
 * *List transaction history*: `list-t`
-* *Find transaction*: `find-t [TRANSACTION TYPE][NAME][GOOD NAME]`
+* *Find transaction*: `find-t [TRANSACTION TYPE][n/NAME][g/GOOD NAME]`
 
 //tag::undoredosummary[]
 (By Nicholas Cristian Fernando)
