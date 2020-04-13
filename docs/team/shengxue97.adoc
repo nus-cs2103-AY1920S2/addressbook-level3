@@ -267,6 +267,8 @@ come to an end.
 user guide. Due to the page limit, I will only show the command summary table.* They showcase my ability to write documentation targeting end-users._
 |===
 
+// tag::commandsummary[]
+
 == Command Summary
 
 .Summary of command formats
