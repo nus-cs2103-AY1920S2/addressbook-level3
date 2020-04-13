@@ -466,6 +466,7 @@ The `Exercise` class is facilitated by the `UniqueExerciseList`, which is a wrap
 
 All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`. There is an additional class `PersonalBest` which is also associated to `Exercise`. It is omitted and will discuss in (...) section due to its high significance. Below shows a UML class diagram which shows `Exercise` class interactions.
 
+.Simplified Class Diagram for Exercise
 image::ExerciseClassDiagram.png[]
 
 An important point to note about our implementation of `Exercise` is the method, `isSameExercise()`. We will consider two `Exercise` as the same if `isSameExercise()` returns true.
@@ -477,6 +478,7 @@ Two `Exercise` are equal only if *all* attributes are equal.
 
 Below shows an object diagram of two `Exercises` that will return true for `isSameExercise()`.
 
+.Object diagram of two same Exercise
 image::IsSameExerciseObjectDiagram.png[]
 
 The two `Exercise` only have different values in `ExerciseSets` but equal values in:
@@ -490,7 +492,7 @@ This implementation is chosen as we felt that the user should increment the valu
 
 We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. In the future, when adding a same `Exercise`, we can implement it such that the sets value of the exising `Exercise` gets incremented automatically instead of showing an error. For now, this implementation keeps the exercise table neat and compact for the user.
 
-===== Execution flow of Exercise Commands
+===== Execution flow of exercise commands
 
 The exercise commands edits the client's `UniqueExerciseList`. Currently, there are 3 exercise commands.
 
@@ -500,6 +502,7 @@ The exercise commands edits the client's `UniqueExerciseList`. Currently, there 
 
 The commands follow a similar execution flow as other commands.
 
+.Activity Diagram for exercise commands
 image::ExerciseCommandActivityDiagram.png[]
 
 . The `FitBizParser` will create the associated exercise command parser. e.g. `AddExerciseCommandParser`
@@ -517,14 +520,17 @@ To address this problem, a custom insertion sort has been written in UniqueExerc
 
 We will use an example of a `add-e` command to illustrate the execution of `addToSorted(Exercise)`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The sequence diagram below shows the execution flow when the `AddExerciseCommand` is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
 
+.Sequence Diagram for AddExerciseCommand
 image::AddExerciseCommandSequenceDiagram.png[]
 
 `AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of `addToSorted(Exercise)` to obtain details of the `Exercise` being added and exising `Exercise` in `UniqueExerciseList`.
 
+.Sequence Diagram for the addToSorted Method
 image::AddExerciseCommandSequenceDiagramPart2.png[]
 
 `UniqueExerciseList` loops through the exercises in the list. and calls `getExerciseDate()` and `getExerciseName()`. The `LocalDate` and exercise name in `String` type are then used for comparision. The sequence diagram below illustrates the conditional checks during the comparision.
 
+.Sequence Diagram for conditional checks in addToSorted Method
 image::AddExerciseCommandSequenceDiagramPart3.png[]
 
 The conditional checks are such that `UniqueExerciseList` maintain sorted by descending chronological order, followed by alphabetical order for exercises with the same dates.
