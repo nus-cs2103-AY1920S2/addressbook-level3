@@ -60,3 +60,7 @@ include::../DeveloperGuide.adoc[tag=storage]
 include::../DeveloperGuide.adoc[tag=delete]
 
 include::../DeveloperGuide.adoc[tag=userStories]
+
+=== Instructions for Manual Testing
+
+(Content omitted for brevity)

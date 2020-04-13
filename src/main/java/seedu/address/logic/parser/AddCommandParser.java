@@ -44,6 +44,11 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        // Check there is only 1 year tag
+        if (arePrefixesPresent(argMultimap, PREFIX_YEAR) && argMultimap.getAllValues(PREFIX_YEAR).size() > 1) {
+            throw new ParseException("You can only choose to add a module/task to one semester!");
+        }
+
         // Create module object
         Collection<String> strModuleCodes = argMultimap.getAllValues(PREFIX_MODULE)
                 .stream()
@@ -70,6 +75,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException("Please provide a task name with the tag t/");
         }
         if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+            if (arePrefixesPresent(argMultimap, PREFIX_YEAR)) {
+                throw new ParseException("Please omit the year tag when adding a task!");
+            }
             Object[] oneModuleCodeList = moduleCodes.toArray();
             String moduleCode = oneModuleCodeList[0].toString();
 
