@@ -45,10 +45,10 @@ public class SortCommand extends Command {
     private final SortBy sortBy;
     private final boolean isAscendingSort;
 
-    public SortCommand(Type type, SortBy order, boolean isAscending) {
-        requireNonNull(order);
+    public SortCommand(Type type, SortBy criterion, boolean isAscending) {
+        requireNonNull(criterion);
         sortType = type;
-        sortBy = order;
+        sortBy = criterion;
         isAscendingSort = isAscending;
     }
 
