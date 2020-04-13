@@ -667,7 +667,7 @@ Valid Example: +
 [[dietbackexpectedoutcome]]
 *Expected outcome:*
 
-image::placeholder.png[]
+image::dietTrackerBackCommandSuccessPhoto.png[]
 //end::diettrackerback[]
 
 '''
