@@ -57,7 +57,7 @@ https://github.com/AY1920S2-CS2103T-F11-2/main/pull/232[232],
 *** Wrote the implementation of exercise classes and commands in Developer Guide: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/262[262]
 *** Wrote the command guide for `list-c`, `add-e` and `edit-e` in User Guide: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/227[227]
 *** Changed `UI` and `Storage` diagrams of Developer Guide: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/246[246], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/264[264]
-*** Added manual
+*** Added manual testing for adding an exercise: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/277[277]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-F11-2/main/pull/137[137,] https://github.com/AY1920S2-CS2103T-F11-2/main/pull/225[225]
 *** Reported bugs and suggestions for other teams in the class: https://github.com/AY1920S2-CS2103T-F09-2/main/issues/249[249], https://github.com/AY1920S2-CS2103T-F09-2/main/issues/250[250], https://github.com/AY1920S2-CS2103T-F09-2/main/issues/251[251]
@@ -308,7 +308,7 @@ Might have too many JSON files, one for each client
 
 |====================
 
-We decided to use the first approach of storing the exercises with the associated client and have all the clients data in one JSON file. By code wise, each `JsonAdaptedClient` will have a list of `JsonAdaptedExercise`.
+We decided to use the first approach of storing the exercises with the associated client and have all the clients data in one JSON file. Codewise, each `JsonAdaptedClient` will have a list of `JsonAdaptedExercise`.
 
 image::ClientExerciseStorageClassDiagram.png[]
 
