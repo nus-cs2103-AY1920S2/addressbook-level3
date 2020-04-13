@@ -17,7 +17,6 @@ NUSProductivity is a desktop application for NUS students. The user interacts wi
 ** What it does: Allows all commands entered to display on the User interface
 ** Justification: This feature improves the product significantly because a user will be able to see all changes made to the user display.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Major enhancement 2*: Notes Feature
 ** What it does: This feature allow users to create, open, delete and list all files in a directory that the user specified
@@ -56,9 +55,10 @@ NUSProductivity is a desktop application for NUS students. The user interacts wi
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=notes]
+include::../UserGuide.adoc[tag=Calendar]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=Notes]
+
 
 == Contributions to the Developer Guide
 
@@ -66,7 +66,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=Notes Feature]
+include::../DeveloperGuide.adoc[tag=UIDiagram]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=Xinwei]
 

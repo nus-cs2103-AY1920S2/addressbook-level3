@@ -66,6 +66,7 @@ image::LogicClassDiagram.png[width="790"]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `moduleAdd m/CS2103T`.
 
+// tag::UIDiagram[]
 .Component interactions for `moduleAdd m/CS2103T` command
 image::ArchitectureSequenceDiagram.png[width="790"]
 
@@ -74,8 +75,10 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+
 .Structure of the UI Component
 image::UiClassDiagram.png[width="790"]
+// end::UIDiagram[]
 
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -217,18 +220,70 @@ i.e. Any modification in module tasks will be updated in `Task` which is the mai
 
 ==== Design Considerations
 
+// tag::Xinwei[]
+=== Calendar Feature (Xinwei)
+NUSProductivity consist of a calendar feature that provides an overarching view of all tasks, allowing user to view their uncompleted tasks and whether there is a task present on the date itself.
 
-=== Calendar Feature
+The calendar feature allows users to add either a `deadline` or a `Module Task` to the calendar, which inherits from a super class `Task`
+
 
 ==== Implementation
 
-The calendar feature allows users to add either a `deadline` or a `Module Task` to the calendar.
 
-The implementation of the main calender is facilitated by the CalenderMainPanel class, which serves as the main container for this feature.
+The implementation of the main Calender tab is facilitated a `SplitPane` in the MainWindow class consisting of 2 main classes, `CalenderListPanel` and `CalenderPanel`
+
+The `CalenderListPanel` on the right contains a list of `Task` added to the calendar will the `CalenderPanel` shows the actual calender view for the current month.
+
+The diagram below describes the class structure of the calendar class structure.
+
+.Calender UI Class Diagram
+image::CalenderUIClassDiagram.png[]
+
+Upon initialisation of CalenderPanel, the CalenderPanel would call its 2 methods of `setMonth()` and `setDate()` to create `CalenderDate` instances starting from the first day of the current month.
+
+Then, upon initialisation of CalenderListPanel, it will create instances of `CalenderDeadline` by getting the `ObservableList<Task>` from `getDeadlineTaskList`.
+
+This will call upon the inner class in `CalenderListPanel`, `DeadlineListViewCell updateItem` method which allows the program to check whether there is any deadline due on any on the date in `calenderDatesArrayList`.
+
+If a `deadline` or a `Module Task` is found, `setPriorityColour()` and `setStatusColour()` will be invoked to update the Calendar display to change the colour of the dots based on the priority levels mentioned in the User Guide.
+
+Every time a `Task` is modified, the `DeadlineListViewCell updateItem` method will be invoked to update any changes to the display.
+
+==== Implementation logic
+
+* Implementation: both deadline and module Task are inherits from the super class Task. A task is created when the `moduleTask` or `deadlineAdd` command is invoked.
+
+* The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user wants to add a task to the program.
+
+.Add task sequence diagram
+image::AddTaskSequenceDiagram.png[]
+
+The `addDeadlineTask` method will modify the `ObservableList<Task>` supplied to the `CalenderListPanel`, invoking the `updateItem` method, causing a change in the user display.
+
+All other calendar functions works similarly to `addDeadlineTask` as shown in the Activity diagram below.
+
+.Calendar Activity Diagram
+image::CalendarActivityDiagram.png[]
+
+==== Design Considerations:
+
+Aspect 1: Method of displaying the dot indicator
+
+* *Current solution*: Currently, the dot is being shown by getting the `static HashMap` from `Task` as this `HashMap` stores a key-pair value of date - Tasks.
+* By making changes to the `deadlineTaskList`, we also edited the `HashMap`. This allows everytime a `updateItem` method call to check whether a task is present, and if so the priority of the task.
+
+* *Alternative 1*: Store all tasks of the current date in `CalendarDate`.
+** Pros: Allows for tasks to be accessed locally and not through a static variable from the main class `Task`.
+** Cons: Implementation may be more complex as more parameters have to be passed to `CalenderDate` and also ensuring that the list of task passed in `CalendarDate` is up to date.
+
+
+**Reason for chosen implementation:**
+The current solution is easier to implement as everything is done in the relevant functions such as `deadlineAdd` or `taskDelete`. The only thing that the program needs to check is whether a date in the `HashMap` contains a task and if so, the priority of the task. With the alternative implementation, we will need to pass in a `List` for each of the 31 dates which may be very troublesome to keep track of especially when we are editing the main task list. This ease of implementation is the deciding factor when choosing which method to implement.
 
 
 
-=== Notes Feature
+
+=== Notes Feature (Xinwei)
 
 ==== Implementation
 
@@ -237,6 +292,13 @@ The notes feature allow users to access their desktop files and folders with com
 This feature is implemented using a panel on the main window, listing out a list of documents and folders that are in the specified directory.
 
 Notes features includes `notesOpen`, `notesCreate`, `notesDelete` and `notesList`.
+
+The diagram below shows the sequence diagram of a `notesOpen` command with the other methods working similarly to the stated method.
+
+.Notes Open Sequence Diagram
+image::notesOpenSequenceDiagram.png[width="600"]
+
+
 
 .Notes List Activity Diagram
 image::NotesList.png[width="600"]
@@ -248,7 +310,7 @@ notesCreate and notesDelete activity diagram works similar to notesOpen.
 
 
 ==== Pathing
-The Path interface in java allows for 2 implementation of pathing namely:
+Our program allows the user to specify different pathing system, namely:
 
    1. AbsolutePath
    2. RelativePath
@@ -284,6 +346,7 @@ Not as flexible. Referring to the above diagram,
 Accessing the *Documents* folder will require the user to input `loc/../../Documents`, this may not be as intuitive to people with no programming background.
 Using `loc/Documents abs/abs` will allow the user to access any folder from anywhere.
 
+// end::Xinwei[]
 
 === Diary
 - `diaryAdd` and `diaryLog` extends from `Command` class
