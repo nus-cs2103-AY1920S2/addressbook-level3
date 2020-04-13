@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    background-color: #3e7b91; /* Used in the default.html file */
 }
 
 .label {
@@ -67,7 +67,7 @@
 .table-view .column-header .label {
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
@@ -90,7 +90,7 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#619196, 0%);
 }
 
 .list-cell {
@@ -100,24 +100,30 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
-}
-
-.list-cell:filled:odd {
-    -fx-background-color: #515658;
-}
-
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
-
-.list-cell:filled:selected #cardPane {
+    -fx-background-color: #FFEBE8;
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
 }
 
+.list-cell:filled:odd {
+    -fx-background-color: #f4dcd6;
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #f4dcd6;
+    -fx-border-color: #b2d9ea;
+    -fx-border-width: 1;
+}
+
+.list-cell:filled:selected #cardPane {
+    -fx-border-color: #b2d9ea;
+    -fx-border-width: 1;
+}
+
 .list-cell .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #2F4F4F;
 }
 
 .cell_big_label {
@@ -132,18 +138,24 @@
     -fx-text-fill: #010504;
 }
 
+.cell_amount_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-background-color: derive(#619196, 0%);
+     -fx-border-color: derive(#b2d9ea, 10%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#619196, 30%);
 }
 
 .result-display {
@@ -165,8 +177,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#84b4c8, 30%);
+    -fx-border-color: derive(#84b4c8, 25%);
     -fx-border-width: 1px;
 }
 
@@ -282,11 +294,11 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(whitesmoke, 20%);
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(gray, 50%);
     -fx-background-insets: 3;
 }
 
@@ -318,7 +330,7 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-color: transparent #778899 transparent #778899;
     -fx-background-insets: 0;
     -fx-border-color: #383838 #383838 #ffffff #383838;
     -fx-border-insets: 0;
@@ -328,8 +340,8 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+#filterField, #transactionListPanel, #transactionWebpage {
+    -fx-effect: innershadow(gaussian, #FFEBE8, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {
@@ -337,16 +349,52 @@
     -fx-background-radius: 0;
 }
 
-#tags {
+#category {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
-#tags .label {
+#category .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#monthlyDataContainer {
+    -fx-padding: 5 0 5 15
+}
+
+.monthly-data-label {
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-padding: 5 40 0 0
+}
+
+.circle-data-label {
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+}
+
+.filter-label-left {
+     -fx-text-fill: white;
+     -fx-font-size: 13;
+     -fx-padding: 0 0 0 5
+ }
+
+.filter-label-right {
+     padding-right: 50px;
+     -fx-text-fill: white;
+     -fx-font-size: 13;
+     -fx-padding: 0 10 0 0
+}
+
+.filter-category {
+    -text-fill: white;
+}
+
+.hbox {
+    -fx-padding: 0;
 }

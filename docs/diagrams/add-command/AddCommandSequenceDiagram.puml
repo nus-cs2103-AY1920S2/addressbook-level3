@@ -1,0 +1,87 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ExpenseLaParser" as ExpenseLaParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "d:AddCommand" as AddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+
+participant ":Model" as Model MODEL_COLOR
+participant ":GlobalData" as GlobalData MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add")
+activate LogicManager
+
+LogicManager -> ExpenseLaParser : parseCommand("add")
+activate ExpenseLaParser
+
+create AddCommandParser
+ExpenseLaParser -> AddCommandParser
+activate AddCommandParser
+
+
+AddCommandParser --> ExpenseLaParser : d
+deactivate AddCommandParser
+
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> ExpenseLaParser
+
+ExpenseLaParser --> LogicManager : d
+deactivate ExpenseLaParser
+
+LogicManager -> AddCommand : execute()
+activate AddCommand
+
+
+
+AddCommand -> Model : addTransaction(transaction)
+activate Model
+
+Model --> AddCommand
+deactivate Model
+
+opt transaction is recurring
+
+
+
+AddCommand -[hidden]> GlobalData
+AddCommand -> Model : addTransactionToGlobalData(transaction)
+
+activate Model
+
+Model -> GlobalData : addTransaction(transaction)
+
+
+activate GlobalData
+GlobalData --> Model
+
+deactivate GlobalData
+
+Model --> AddCommand
+
+
+deactivate Model
+
+
+end
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddCommand
+deactivate CommandResult
+
+AddCommand --> LogicManager : result
+deactivate AddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

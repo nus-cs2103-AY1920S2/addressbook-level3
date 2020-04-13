@@ -1,0 +1,107 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ExpenseLaParser" as ExpenseLaParser LOGIC_COLOR
+participant ":BudgetCommandParser" as BudgetCommandParser LOGIC_COLOR
+participant "d:BudgetCommand" as BudgetCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "monthlyData:MonthlyData" as MonthlyData MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":GlobalData" as GlobalData MODEL_COLOR
+end box
+
+[-> LogicManager : execute("budget b/1000 rc/")
+activate LogicManager
+
+LogicManager -> ExpenseLaParser : parseCommand("budget b/1000 rc/")
+activate ExpenseLaParser
+
+create BudgetCommandParser
+ExpenseLaParser -> BudgetCommandParser
+activate BudgetCommandParser
+
+BudgetCommandParser --> ExpenseLaParser
+deactivate BudgetCommandParser
+
+ExpenseLaParser -> BudgetCommandParser : parse("1000")
+activate BudgetCommandParser
+
+create BudgetCommand
+alt rc/ is present
+BudgetCommandParser -> BudgetCommand : BudgetCommand("1000", true)
+activate BudgetCommand
+BudgetCommand --> BudgetCommandParser : d
+deactivate BudgetCommand
+else rc/ is absent
+BudgetCommandParser -> BudgetCommand : BudgetCommand("1000", false)
+activate BudgetCommand
+BudgetCommand --> BudgetCommandParser : d
+deactivate BudgetCommand
+end
+
+BudgetCommandParser --> ExpenseLaParser : d
+deactivate BudgetCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+BudgetCommandParser -[hidden]-> ExpenseLaParser
+destroy BudgetCommandParser
+
+ExpenseLaParser --> LogicManager : d
+deactivate ExpenseLaParser
+
+LogicManager -> BudgetCommand : execute()
+activate BudgetCommand
+
+create MonthlyData
+BudgetCommand -> MonthlyData : MonthlyData(new Budget("1000"))
+activate MonthlyData
+MonthlyData --> BudgetCommand : monthlyData
+deactivate MonthlyData
+MonthlyData -[hidden]-> BudgetCommand
+destroy MonthlyData
+
+BudgetCommand -> Model : setMonthlyData(monthlyData)
+activate Model
+
+Model --> BudgetCommand
+
+opt rc/ is present
+
+BudgetCommand -> Model : getGlobalData()
+Model --> BudgetCommand : globalData
+deactivate Model
+
+create GlobalData
+BudgetCommand -[hidden]> GlobalData
+BudgetCommand -> GlobalData : setRecurringBudget("1000")
+activate GlobalData
+GlobalData --> BudgetCommand
+deactivate GlobalData
+BudgetCommand -[hidden]> GlobalData
+destroy GlobalData
+
+BudgetCommand -> Model : setGlobalData(globalData)
+activate Model
+Model --> BudgetCommand
+deactivate Model
+BudgetCommand -[hidden]> GlobalData
+
+end
+
+create CommandResult
+BudgetCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> BudgetCommand
+deactivate CommandResult
+
+BudgetCommand --> LogicManager : result
+deactivate BudgetCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+start
+
+:User executes a command;
+:CommandExecutor attempts to execute Command;
+
+
+if () then ([Command Execution throws an error])
+    :Show Usage Message;
+else ([Command Executed successfully])
+    if () then ([Command exist in CommandHistory])
+        :Delete Command from CommandHistory;
+        :Set new GlobalData to ModelManager;
+    else ([Command does not exist in CommandHistory])
+    endif
+    :Add Command to CommandHistory;
+endif
+
+stop
+@enduml

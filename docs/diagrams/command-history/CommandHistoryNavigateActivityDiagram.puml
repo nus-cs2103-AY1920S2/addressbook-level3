@@ -1,0 +1,19 @@
+@startuml
+start
+
+:User presses Up or Down button;
+if () then ([Up pressed])
+    :increment offset in CommandBox but cap it
+        at the size of CommandHistory - 1;
+else ([Down pressed])
+    :decrement offset in CommandBox but cap it
+        at -1;
+endif
+if () then ([offset == -1])
+    :Set CommandBox's textfield to empty string;
+else ([offset > -1])
+    :Get command from CommandHistory array
+        at index [CommandHistory.size() - offset - 1];
+endif
+stop
+@enduml

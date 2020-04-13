@@ -1,0 +1,17 @@
+{
+  "transactions": [ {
+    "name": "Domino's Pizza",
+    "amount": "100.00",
+    "date": "2019-02-07",
+    "positive": "false",
+    "remark": "Treating friends",
+    "category": "FOOD"
+  }, {
+    "name": "Domino's Pizza",
+    "amount": "100.00",
+    "date": "2019-02-07",
+    "positive": "false",
+    "remark": "Treating friends",
+    "category": "FOOD"
+  } ]
+}

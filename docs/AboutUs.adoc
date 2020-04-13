@@ -4,53 +4,43 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+ExpenseLa was developed by the AY1920S2-CS2103-T09-3 team
+ based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Hubert Halim
+image::huberthalim.png[width="150", align="left"]
+{empty}[https://github.com/HubertHalim[github]] [<<huberthalim#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Travis integration, git issuing, version tracking and data management. Also inspects the quality of member's code.
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Benjamin Fheng Guo Jing
+image::benfheng.png[width="150", align="left"]
+{empty}[http://github.com/BenFheng[github]] [<<benfheng#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Backend Integration and UI/UX +
+Responsibilities: Ensures quality of documents and keeps track of project deliverables. Also responsible for the testing of application functionalities.
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Choi Min Suk
+image::chlalstjr.png[width="150", align="left"]
+{empty}[http://github.com/chlalstjr[github]] [<<chlalstjr#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Analytics and Backend Management +
+Responsibilities: Software integration and testing of member's code.
+
+'''
+
+=== Pang Kim Jin
+image::pangkimjin.png[width="150", align="left"]
+{empty}[http://github.com/PangKimJin[github]] [<<kimjin#, portfolio>>]
+
+Role: Algorithm Management and UI/UX +
+Responsibilities: Ensures that all code adheres to the coding standard and the quality of project documents.
 
 '''

@@ -1,0 +1,408 @@
+== Fheng Guo Jing, Benjamin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ExpenseLa
+
+---
+
+== Overview
+
+ExpenseLa is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. ExpenseLa maintains a record of your daily incoming and outgoing transactions to constantly keep track of your finances, and provides financial analytics to provides insights on your spending. ExpenseLa is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI).
+
+== Summary of contributions
+
+* *Major enhancement*: Adding Transactions and Editing Transactions
+** What it does: It allows users to add and customize their daily expenses into the transactions list, which is displayed in the Ui of the software.
+** Justification: This feature is the quintessential function of the application which all of the other features rely on. It enables users to key in and record their transactions daily and view them whenever they require to.
+** Depth of enhancement & completeness: Transaction list is sorted by date, the categories are reflected in colour coded tags. The transaction provides comprehensive information, with the transaction amounts correctly reflected as positive or negative. The only required information is the name and amount if users are in a hurry where the rest are optional. The other information has default inputs which will automatically be filled in if the user does not input. It is complete as the feature is intuitive, easy to use with very little hassle.
+** Difficulties: Ensuring that all the information is easily accessible by the other features (MonthlyData, analytics and filter). Also ensuring that the application’s functionality is not affected by having optional inputs for transaction.
+
+* *Major enhancement*: Adding recurring transactions
+** What it does: It allows users add a transaction that is recurring for every subsequent month.
+** Justification: This feature will allow users to set their monthly outgoing or incoming expenses such as insurance or their monthly income. It eases the need to constantly input the same transactions every month.
+** Highlights: This enhancement makes it more efficient and easier to use for users as they don’t have to constantly key in the transactions that recur every month.
+** Depth of enhancement & completeness: Recurring transactions are all stored in the Global Data. Only when the user’s computer date reaches the new month, the new monthly recurring transactions are added to the transactions list. These changes are also automatically reflected in the monthly data panel.
+** Difficulties: Ensuring that the recurring transactions will not prematurely affect the monthly data.
+
+* *Major enhancement*: Import transactions from external file
+** What it does: It allows users to import their transactions from previously saved transaction lists.
+** Justification: This feature will allow users to transfer their previous transactions from another device into different devices.
+** Highlights: This enhancement makes it easier for users to save and reload their data anytime they require and view their expense statements.
+** Depth of enhancement & completeness: It works perfectly in tandem with the export function to help users to transfer their stored transactions to other devices, or just plain saving the information into csv files.
+
+* *Minor enhancement*: Overhauled the UI of the application to make it more visually appealing to users.
+
+* *Code contributed*: [https://github.com/AY1920S2-CS2103-T09-3/main/commits/master?author=BenFheng[Commits]] [https://github.com/AY1920S2-CS2103-T09-3/main/pulls?q=is%3Apr+author%3ABenFheng[Pull Requests]][https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=BenFheng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=HubertHalim&tabRepo=AY1920S2-CS2103-T09-3%2Fmain%5Bmaster%5D[RepoSense Code Contribution]]
+
+* *Other contributions*:
+
+** Contributions to User Guide:
+***	Product Overview, Add Transaction, Delete transaction, Edit transaction, Clear Recurring command, Import transactions command.
+
+** Contributions to Developer Guide:
+*** 1 Introduction, 1.1 Purpose, 1.2 Scope.
+*** 3.5 Storage component (with updated class diagram)
+*** 4.1 Adding Transactions (with updated sequence diagram, activity diagram and two additional class diagrams.)
+*** 4.2 Editing Transactions (with updated activity diagram and two additional product demonstrations.)
+
+** Contributions to team-based tasks:
+***	Initial refactor for the DG, UG and code from addressbook to ExpenseLa.
+***	Updating the initial DG to reflect the correct terms that correspond to our product.
+*** Allocating of roles for DG and UG.
+***	Keeping track of project requirements and communicating them to the team
+
+** Review/mentoring contributions:
+***	Testing of team member’s code every time a pull request is approved.
+***	Resolving merge conflicts between team members.
+
+**	Contributions beyond project team:
+***	Bug reports for other teams during mock practical assessment [https://github.com/BenFheng/ped/issues[PED issue tracker]]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Product Overview
+
+ExpenseLa is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. ExpenseLa maintains a record of your daily incoming and outgoing transactions to constantly keep track of your finances! ExpenseLa is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI). If you want a simple, no-frills expense tracker, look no further than ExpenseLa!
+=== Key in transaction : `add` (Fheng Guo Jing, Benjamin)
+
+Adds an expense or income to the expense tracker. Expenses/incomes are stored as transactions.
+
+Format: `add [i/] n/ NAME a/ AMOUNT [d/ DATE] [c/ CATEGORY] [r/ REMARK]  [rc/]`
+
+Expected Outcome: A new transaction would be created in the list of transactions. If the newly
+created transaction is part of the currently filtered transaction, it'll be visible in the list
+
+[TIP]
+Leaving the DATE option blank will auto fill with today's date
+[TIP]
+Leaving the CATEGORY option blank will auto fill with 'MISC' category
+[TIP]
+Not including i/ will make transaction an expense by default while including i/ will make it an income
+[TIP]
+Including rc/ will make transaction recurring every month on the same day set in the transaction date
+
+Examples:
+
+* `add a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT`
+* `add a/ 16.00 n/ Pizza r/ Lunch c/ FOOD`
+* `add i/ a/ 200.00 n/ pocket money c/INCOME rc/`
+
+
+=== Deleting a transaction : `delete` (Fheng Guo Jing, Benjamin)
+
+Deletes the specified transaction from the expense tracker.
+
+Format: `delete TRANSACTION_ID`
+
+Expected Outcome: Transaction at the specified index in the current transaction list is deleted
+
+[TIP]
+`TRANSACTION_ID` refers to the index of the transaction in the list visible to user.
+
+Examples:
+
+* `delete 3` +
+Deletes the transaction with index number 3 in the expense tracker's current transaction list.
+
+
+=== Edit a transaction : `edit` (Fheng Guo Jing, Benjamin)
+
+Edit the specified transaction from the expense tracker
+
+Format: `edit TRANSACTION_ID [n/ NAME] [a/ AMOUNT] [d/ DATE] [c/ CAT] [r/ REMARK]`
+
+Expected Outcome: Transaction at the given index has its parameters changed as specified
+
+Examples:
+
+* `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT`
+* `edit 2 a/ 16.00 n/ Pizza c/ FOOD`
+* `edit 3 a/ 200.00 n/ pocket money`
+
+=== Clear all recurring transactions stored : `clearrecurring` (Fheng Guo Jing, Benjamin)
+
+Clear all recurring transactions stored
+
+Expected Outcome: All recurring transactions in the json file GlobalData.json will be cleared
+
+=== Import transaction data from csv : `import` (Fheng Guo Jing, Benjamin)
+
+Import transactions from csv and add it to transaction list, duplicate transactions are ignored.
+
+Csv File has to be in the same directory as the jar file in order for it to read. `import` has to be accompanied by the
+[filename].csv in order to import. Transactions in the csv file have to be of the same format as the above table format in
+3.12 (export).
+
+Expected Outcome: All transactions in the csv that is in the correct format and does not exist in the current transaction lsit
+will be added to transaction list
+
+Examples:
+
+* `import transactions.csv` (imports all transactions from transactions.csv folder)
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+== Introduction
+
+ExpenseLa is an application for NUS students to be able to track their spending and also gain insights to their monthly spending through data analytics. The data analytics portion of ExpenseLa aims to aid students in viewing and comparing their monthly expenditure on items of different categories such as shopping and groceries, as well as keeping track of their monthly budgets. ExpenseLa records daily incoming and outgoing transactions and constantly keeps track of the user's budget, income and spending. ExpenseLa is optimised for users who prefer to work with a Command Line Interface (CLI) which works in parallel with a Graphical User Interface (GUI). It is an easy, insight-driven application that hopes to help students keep better track of their expenses.
+
+=== Purpose
+
+This developer guide aims to communicate the design and architecture of the software implementation to developers working on ExpenseLa. It also includes future implementations to give developers an idea of the direction that ExpenseLa intends to take on both current and future features. A developer should be able to understand the design, architecture and future goals of ExpenseLa upon reading this guide.
+
+=== Scope
+
+This developer guide specifies the technical and non-technical details of ExpenseLa. The technical aspects include the design and architecture of the software and the non-technical aspects include the user stories, use cases and non-functional requirements.
+
+[[Design-Storage]]
+=== Storage component (BenjaminFheng)
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/expensela/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
+* can save the `ExpenseLa` data in json format and read it back.
+* can save `GlobalData` data in json format and read it back.
+
+=== Adding transactions (BenjaminFheng)
+We allow users to add Expense/Income transactions into ExpenseLa which denotes a positive or negative inflow of money. This section shows how we handle these requests from the user.
+
+==== Implementation
+
+We store every single `Transaction` added by the user into an `ObservableList<Transaction>`, which is a list object in `TransactionList`. We used an `ObservableList` to easily reflect changes to the list by any other component of ExpenseLa using the list.
+
+These are the ways of implementing either a positive or negative Transaction:
+
+* Adding an expense (negative transaction): add
+* Adding an income (positive transaction): add i/
+
+These two commands will indicate whether the transaction is positive or negative.
+
+Indicating whether it is a recurring transaction or not will depend if rc/ is present in the input
+
+When inserting a new Expense/Income, the `AddCommandParser` will determine which object to initialise depending on whether the "i/" CLI syntax is present. Afterwhich, the AddCommandParser will parse the values of the transaction depending on whether the respective CLI Syntaxes are present.
+
+* `**Name**` is parsed by `AddCommandParser#parseName(ArgumentMultimap)`, CLI Syntax is n/.
+* `**Amount**` is parsed by `AddCommandParser#parseAmount(ArgumentMultimap)`, CLI Syntax is a/.
+* `**Date**` is parsed by `AddCommandParser#parseDate(ArgumentMultimap)`, CLI Syntax is d/.
+* `**Category**` is parsed by `AddCommandParser#parseCategory(ArgumentMultimap)`, CLI Syntax is c/.
+* `**Remark**` is parsed by `AddCommandParser#parseRemark(ArgumentMultimap)`, CLI Syntax is r/.
+* CLI Syntax "rc/" will set the transaction to be a monthly recurring transaction.
+
+NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
+
+NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GROCERIES, HEALTH, RECREATION, MISC, UTILITIES, INCOME.
+
+The following sequence diagram shows how the add transaction operation works:
+
+image::add-command/AddCommandSequenceDiagram.png[]
+
+Figure 9. Sequence diagram of how adding a new `Transaction` is processed depending on syntax.
+
+`Transaction` are normally instantiated by `AddCommandParser#parse(String args)`, which attempts to parse the various parameters supplied in args and return either a positive or negative `Transaction`. The following conditions will cause a `ParseException` to be thrown by the parser:
+
+* Missing parameters
+* Incorrect syntax (i.e. missing prefix if required)
+* Illegal values in parameters (i.e. special character and symbols entered for an integer only field)
+* Multiple occurence of parameters which only expects single entry
+
+[NOTE]
+Incorrect user input will display `ParseException` message.
+
+
+*We will demonstrate how a `Transaction` is added into `ExpenseLa` below:*
+
+Step 1. The user executes the command **add n/Pizza a/20.5 d/2020-02-02** to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
+
+NOTE: `**Category**` is set to default category `MISC`
+
+Since the user input is valid, the `Transaction` is successfully created and inserted into the transaction list. The transaction list now contains 1 `Transaction` object.
+
+image::add-command/AddTransactionToList1.png[]
+
+Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income rc/ ** to indicate his monthly pay, to insert a positive `**Transaction**`.
+
+NOTE: "rc/" CLI Syntax will set the transaction to be a recurring transaction.
+
+Again, since the input is valid, the positive `Transaction` is successfully added into the transaction list. The transaction list
+now contains 2 `**Transaction**` objects.
+
+image::add-command/AddTransactionToList2.png[]
+
+The following activity diagram summarizes what happens when the user executes a command to add a new `Transaction`:
+
+:figure-caption: Figure
+.Activity diagram of adding a `Transaction` into the transaction list.
+image::add-command/AddTransactionActivityDiagram.png[,650]
+
+==== Design considerations
+
+There are many different ways to implement how a transaction is added into `**ExpenseLa**`. In this section, we will justify why we chose to implement it the way we did.
+
+===== Aspect: Differentiating between **positive** and **negative** transactions.
+* **Alternative 1: (current choice):** Adding a simple "i/" syntax in the input to differentiate between positive and negative transactions
+** Pros: Increases the speed and simplicity of adding a positive or negative transaction. Updating balance in `MonthlyData` information only requires an iteration through
+all the transaction amounts in transaction list for calculation.
+** Cons: Transactions may not be easily distinguishable as positive or negative transactions on first sight, and may only be distinguished when the transaction amount is inspected.
+This may cause slower processing times when extracting all only positive or only negative transactions.
+
+* **Alternative 2: Having separate classes for **positive** and **negative** transactions.
+** Pros: Maintains an intuitive design: `**NegativeTransaction**` deducts money and `**PositiveTransaction**` increases money.
+** Cons: May incur significant overhead since it is likely that both `**NegativeTransaction**` and `**PositiveTransaction**` will
+have very similar methods.
+
+Alternative 1 was chosen because we want the application to be as simple and quick as possible to indicate positive and negative transactions. We focused on separating
+the data between months so that the analytics function could calculate data faster.
+
+===== Aspect: Managing how `**RecurringTransactions**` are handled.
+* **Alternative 1: (current choice):** Adding a simple "rc/" syntax in the input to differentiate between recurring and non-recurring transactions. "rc/" is quickly parsed by the
+AddCommandParser and the transaction is labelled as recurring, which is added to RecurringTransactionsList before the command is added to the TransactionsList in Model.
+** Pros: "rc/" is quick and intuitive to indicate during input. Almost no hassle to add the information to RecurringTransactionsList.
+** Cons: Inability for existing transactions to set as recurring transactions.
+
+* **Alternative 2:** Create a separate command to indicate which transactions are recurring and the range of when it recurs.
+** Pros: Transactions are more customizable for users. Users are able to set recurring transactions to repeat over required months.
+** Cons: Users may easily lose track of the transactions that are recurring which will affect their monthly budgeting.
+
+Alternative 1 was chosen because we want to again keep the recurring transactions intuitive and simple. Users can clear their recurring transaction lists whenever
+they become invalid, and input the new recurring transactions whenever there are changes
+
+
+=== Editing transactions (BenjaminFheng)
+The **edit **functionality modifies details of a specified `**Transaction**` in the existing list and saves
+modifications to the external storage file.
+
+==== Implementation
+**Edit** mechanism utilizes `**Logic**` operations with the `**EditCommand**` class in place of
+`**Command**`, and a unique `**EditCommandParser**` class. The following methods are the implementation for
+**edit** operations:
+
+* `EditCommandParser#parse()` - Parses the user's input via the index of the transaction and creates an `**EditCommand**` to execute the command.
+* `EditCommand#execute()` - Modifies the `**Transaction**` in `**Model**` with new details and returns a
+`**CommandResult**`.
+* `TransactionList#setTransaction(Transaction target, Transaction editedTransaction)` - Sets the modified `**Transaction**` to its correct position in the
+existing `**TransactionList**`.
+
+Command example: **edit 1 n/[NAME] a/[AMOUNT] r/[REMARK]** will edit the name, amount and remark of transaction of index 1 with
+the respective inputs.
+
+*Below is an example usage scenario for editing a transaction and explanation of how the edit mechanism
+behaves at each step:*
+
+Step 1. The user starts up the application with an initial list loaded from a sample transaction list.
+
+:figure-caption!:
+.Initial transaction list
+image::edit-command/editCommand1.png[,650]
+
+Step 2. The user inputs **edit 1 n/Laksa Noodle a/6.00** to edit the transaction (with index 1) name to "Laksa Noodle" and value
+to "6". Input is parsed by `EditCommandParser#parse()` which creates an `**EditCommand**`.
+
+Step 3. `EditCommand#execute()` creates a new transaction that reflects the changes and gets the index of current
+transaction to be edited.
+
+.New edited transaction in transaction list
+image::edit-command/editCommand2.png[,650]
+
+Step 4. `EditCommand#execute()` replaces original transaction in the list with the eddited transaction.
+
+The following activity diagram gives an overview of what ExpenseLa shows the user when executing **edit** command:
+
+:figure-caption: Figure
+.Activity diagram for execution of edit command
+image::edit-command/EditActivityDiagram.png[,650]
+
+==== Design considerations
+This subsection explores some alternative designs considered for certain aspects of the feature's implementation.
+
+===== Aspect: Modifying details of a transaction
+* **Alternative 1 (current choice)**: Replace the values of the original transaction with new editd values.
+- Pros: Can easily check for inputs that result in no changes.
+- Cons: May incur overhead when creating new instance of `**Transaction**`.
+
+* **Alternative 2**: Modify the transaction directly using setter methods.
+- Pros: Easy to implement and efficient.
+- Cons: Modifying transactions violates the immutability principle, possibly resulting in bugs for UI or
+accessing modified transaction fields.
+
+**Alternative 1 chosen** to maintain better coding practices and maintain immutability of transactions for the entire project.
+Overhead of creating new `**Transaction**` is insignificant due to relatively small object size.
+
+===== Aspect: Edit transaction by getting it's index or by unique transaction ID
+* **Alternative 1 (current choice)**: Get the index of original transaction in the transactions list and edit its values in the list.
+- Pros: High certainty of obtaining the correct transaction, editing its values and replacing the same index in the transaction list.
+- Cons: If there are too many transactions in the list, it might be tedious to obtain the transaction index by scrolling.
+
+* **Alternative 2**: Iterate through the transactions list and edit the transaction with the correct transaction ID.
+- Pros: Virtually impossible to not be able to distinguish between similar transactions of different IDs.
+- Cons: Transactions ID would cause significant overhead when looking into each transaction for it's ID.
+
+
+== Glossary
+
+[horizontal]
+[[expensela]] ExpenseLa::
+Stands for the application that this developer guide is written for.
+
+[[api]] API::
+Stands for "Application Programming Interface" which simplifies programming by abstracting the underlying implementation and only exposing objects or actions the developer needs.
+
+[[puml]] PlantUML::
+Stands for a software tool that we use to render the diagrams used in this document.
+
+[[mainstream-os]] Mainstream OS::
+Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X
+
+[[system-administration]] System Administration::
+Stands for the field of work in which someone manages one or more systems, be they software, hardware, servers or workstations
+with the goal of ensuring the systems are running efficiently and effectively.
+
+[[MSS]] MSS::
+Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong.
+
+[[CLI-syntax]] CLI Syntax::
+Stands for the Command Line Interface Syntax such as "a/" and "c/" that preceeds input values which act as indicators for the system to detect those values.
+
+[[Ui]] UI::
+Stands for the user interface which is the display which interacts with the user.
+
+== Product Survey
+
+*ExpenseLa*
+
+Author: Team Halim
+
+Pros:
+
+* Very easy and quick tracking for people that prefer command line interfaces.
+* Analytics serve as a quick bird's eye view on monthly spending.
+* Analytics breakdown of spending per category helps me gain insights on the categories which I have spent too much money on.
+* Well made prompts to warn me when I am going to exceed my monthly budget. Helps to better my budgeting practices.
+
+Cons:
+
+* Takes quite a bit of time to learn all the commands.
+* It can get quite tedious to input every single transaction at any time. Could possibly automate some inputs.
+
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

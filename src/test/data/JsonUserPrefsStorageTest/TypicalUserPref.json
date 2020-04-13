@@ -7,5 +7,6 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "expenseLaFilePath" : "expenseLa.json",
+  "balance" : 0.0
 }

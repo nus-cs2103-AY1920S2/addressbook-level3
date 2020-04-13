@@ -1,0 +1,14 @@
+@startuml
+!include ../style.puml
+skinparam classBackgroundColor MODEL_COLOR
+show members
+abstract class Transaction {
+    <color:#white>Name
+    <color:#white>Date
+    <color:#white>Amount
+    <color:#white>Remark
+    <color:#white>Category
+
+}
+
+@enduml

@@ -4,53 +4,78 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Class HiddenOutside
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyExpenseLa <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class ExpenseLa
+Class ReadOnlyExpenseLa
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class Filter
+Class Filter
+Class ToggleView
 
-Package Person {
-Class Person
-Class Address
-Class Email
+
+Package Transaction {
+Class Transaction
+Class Remark
+Class Category
 Class Name
-Class Phone
-Class UniquePersonList
+Class Amount
+Class FilteredList
+Class TransactionList
 }
 
-Package Tag {
-Class Tag
+Package MonthlyData {
+Class MonthlyData
+Class Budget
+Class Expense
+Class Income
 }
+
+Package GlobalData{
+
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+ExpenseLa .up.|> ReadOnlyExpenseLa
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" ExpenseLa
+ModelManager o-right-> "1" GlobalData
+ModelManager o-right-> "1" Filter
 ModelManager o-left-> "1" UserPrefs
+ModelManager o-down-> "1" FilteredList
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+ExpenseLa *--> "1" TransactionList
+TransactionList o--> "*" Transaction
+TransactionList *--> "1" FilteredList
+Transaction *--> "1" Name
+Transaction *--> "1" Amount
+Transaction *--> "1" Category
+Transaction *--> "0..1" Remark
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+ExpenseLa *--> "1" MonthlyData
+MonthlyData *--> "1" Budget
+MonthlyData *--> "1" Expense
+MonthlyData *--> "1" Income
 
-ModelManager -->"1" Person : filtered list
+ExpenseLa *--> "1" ToggleView
+
+ExpenseLa *--> "1" Filter
+
+Name -[hidden]right-> Amount
+Amount -[hidden]right-> Remark
+Remark -[hidden]right-> Category
+
+
+FilteredList *--> "*" Transaction
 @enduml

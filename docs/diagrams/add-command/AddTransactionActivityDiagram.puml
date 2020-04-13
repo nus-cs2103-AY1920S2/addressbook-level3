@@ -1,0 +1,26 @@
+@startuml
+start
+:User executes add transaction command;
+:AddCommandParser parses arguments;
+if () then ([Invalid input])
+    :Throw ParseException;
+else ([Valid input])
+
+    if () then ([Positive transaction])
+        :Amount is set to positive;
+    else ([Negative transation])
+
+    endif
+
+    :Initialize Transaction;
+    :Initialize AddCommand;
+    if () then ([Transaction is recurring])
+        :Add transaction to RecurringTransactionList in GlobalData;
+
+    else ([Transaction is not recurring])
+
+    endif
+        :Add to transaction list;
+endif
+stop
+@enduml

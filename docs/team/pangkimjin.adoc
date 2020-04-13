@@ -1,0 +1,497 @@
+= Pang Kim Jin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ExpenseLa
+
+---
+
+== Overview
+
+ExpenseLa is a desktop expense tracking application for money-conscious NUS students who wish to track their spending, in order to make better informed
+decisions when it comes to saving money. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 16 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Added *the ability to filter transactions based on category or transaction month*
+** What it does: Allows the user to apply category or month filters to the transaction list in the transaction list view. +
+    On top of this core functionality, `filter` also interacts closely with many other features to:
+*** Display specific transactions for a shorter and more relevant transaction list to `edit` or `delete` transactions
+*** Include/exclude transactions for the user to view chart analytics using the `toggleview` feature
+*** Include/exclude transactions for the `export` feature
+*** Include/exclude transactions for the ExpenseLa Statement proposed feature
+** Justification: This feature improves the product significantly because `filter` reduces the size of the transaction list
+shown to the user, leaving behind only the relevant transactions. +
+And upon application launch, `filter` is preset to show only transactions of the current month to prevent overloading the user with information.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives.
+The implementation too was challenging as it required changes to existing commands, support for multiple filter types at once, and support for future
+feature extension.
+
+
+* *Major enhancement*: Implemented *Pie Chart for a breakdown of expenses* in the month by category, according to the filter set by the user.
+** What it does: Provides a visual representation of the amount spent per category as a percentage of the total amount spent in the filter's month.
+** Justification: This feature improves the product significantly because users are able to tell, at a glance, where the bulk of their money has been spent on.
+
+* *Minor enhancement*: Implemented responsive UI for `filter` command with colour schemes matching the transaction categories.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=pangkimjin&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]] [https://github.com/AY1920S2-CS2103-T09-3/main/pulls?q=is%3Amerged+is%3Apr+author%3APangKimJin[Pull Requests]]
+
+* *Other contributions*:
+
+** Project management:
+*** There were a total of 4 releases, from version 1.1 to 1.4. I contributed to each release from project planning, feature implementation, enhancement, to testing.
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase test coverage (Pull request https://github.com/AY1920S2-CS2103-T09-3/main/pull/52[#52])
+** Documentation:
+*** Contributed multiple diagrams in the Developer Guide to better illustrate the new software architecture, Model component, `filter` feature,
+proposed Data Encryption feature, and proposed ExpenseLa Statement feature: https://github.com/AY1920S2-CS2103-T09-3/main/pull/167[#167] https://github.com/AY1920S2-CS2103-T09-3/main/pull/176[#176]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103-T09-3/main/pull/180[#180], https://github.com/AY1920S2-CS2103-T09-3/main/pull/181[#181]
+*** Reported bugs and suggestions for other teams in the class (https://github.com/PangKimJin/ped/issues/1[1])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== Filter transactions : `filter`
+
+Filters transactions for user to view specific transactions according to the filter type. Upon application
+launch the preset filter is for all transactions in the current month as depicted below:
+
+image::Filter.png[width="790"]
+
+Format: `filter c/CATEGORY m/YYYY-MM`
+
+Expected Outcome: Filter is changed to the filter specified. List of transactions will only
+show transactions that fulfill the filter criteria.
+
+[TIP]
+If only 1 filter type is specified (either category or month), the other filter type will automatically be set to "ALL".
+
+Examples:
+
+* `filter m/2020-04` - show transactions in April 2020 across all categories
+* `filter c/TRANSPORT` - show transactions with category "TRANSPORT" across all months
+* `filter c/FOOD m/2020-04` - show transactions with category "FOOD" in April 2020
+* `filter c/ALL m/ALL` - show all transactions
+
+
+=== Data Encryption [coming in v2.0]
+
+With the AES-256 encryption, ExpenseLa ensures that the sensitive information you have provided is safe from outside
+prying eyes, and this is all done without any additional effort from the user.
+
+=== ExpenseLa Statement `Statement` [coming in v2.0]
+
+With the ability to generate your personalised ExpenseLa statement, you will be able to export all your expenses,
+income, budget, and balance information into a pdf document. Using ExpenseLa's `Filter` command, you will be able
+to selectively include which transactions to make your statement tailored to your needs.
+
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Architecture
+
+In this section, we will be introducing the individual components that form ExpenseLa using various diagrams.
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
+[TIP]
+The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/expensela/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/expensela/MainApp.java[`MainApp`]. It is responsible for,
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:
+
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+The rest of the App consists of four components.
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+Each of the four components
+
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+.Class Diagram of the `Logic` Component
+image::LogicClassDiagram.png[]
+
+[discrete]
+==== How the architecture components interact with each other
+
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+
+.Component interactions for `delete 1` command
+image::ArchitectureSequenceDiagram.png[]
+
+The sections below give more details of each component.
+
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/expensela/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores an ArrayList which contains the user's command history.
+* stores a `UserPref` object that represents the user's preferences.
+* stores the `ExpenseLa` data.
+* stores the `GlobalData` which contains the recurring budget, transactions, total balance, and last updated date.
+* stores a `MonthlyData` object which contains budget, expense, and income information set by the user.
+* stores a `ToggleView` object that represents the nature of transaction information displayed to the user.
+* stores a `Filter` object which represents the filter on the transactions as set by the user
+* stores `TransactionList` which contains the list of all transactions
+* exposes an unmodifiable `ObservableList<Transaction>` that can be 'observed' e.g. the UI can be bound to this list
+so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+=== Filtering Transactions (Pang Kim Jin)
+
+The `Filter` command allows the user to bring up a list of `Transaction`, and filter it by either category, month,
+or both at the same time. This is implemented by using a predicate for category and another predicate for month,
+both of which inheriting from `Predicate<Transaction>` to filter the `Transaction`.
+
+==== Implementation
+
+`FilterCommand` is instantiated by `FilterCommandParser#parse(String args)` method, which parses the arguments supplied in the user
+command to return a `FilterCommand` object.
+
+The below sequence diagram depicts the interactions within the `Logic` component for the execute("filter c/FOOD m/2020-04") call:
+image:FilterSequenceDiagram.png[]
+
+The below scenario shows a typical usage of the filter feature:
+
+Step 1: Upon application launch, the filter for all categories and the current month is automatically applied.
+image:filter/Filter_SS_1.PNG[]
+
+Step 2: User executes the command `filter c/food m/2020-02` to bring up transactions in the category "FOOD" for the month
+of February 2020. (Note: The command in the command line disappears upon hitting Enter, the command in the command line
+is purely for illustration purposes).
+image:filter/Filter_SS_2.PNG[]
+
+Step 3: The `FilterCommandParser#parse(String args)` parses the arguments.
+
+Step 4: Since user input is correct and the arguments are parsed, a new `FilterCommand` object is created by the
+`FilterCommandParser`.
+
+Step 5: The `FilterCommand` object will use a `Predicate<Transaction>` based on the specified category, month, or both, to filter
+the list of transactions.
+
+Step 6: The list of filtered transactions is brought up. The filter category and month UI will also update accordingly
+to show the category and month that the transactions are filtered by.
+
+The below activity diagram gives an overview of the command execution:
+image:filter/FilterActivityDiagram.png[]
+
+==== Design Considerations
+
+*Aspect: Using `Predicate` to improve extendability of the `Filter` feature in the future.*
+
+* Alternative 1 (current choice): Create a new `Predicate<Transaction>` for each new filter type
+** Pros: Greater flexibility can be provided for each filter type since different filter types have different requirements (e.g. Month vs Category)
+** Cons: Tedious to implement a new class for each new type of filter
+* Alternative 2: Use a single `Predicate<Transaction>` to filter for all filter types
+** Pros: Easy to implement
+** Cons: Prone to being inflexible for extensions
+
+We decided to go with Alternative 1 since the current filter feature supports increasing the number of filter types
+- on top of the current category and month filters. Despite having a different `Predicate` for each filter type, we use
+a composed `Predicate` comprising of both `Predicate` s, making it much easier to support extensions to this feature.
+
+==== Proposed Extension
+
+We plan to enhance the filter feature to support other arguments in the command to filter by different types such as
+price range or date range. This allows the user to have greater flexibility and have a better understanding of his/her
+expenses.
+
+The design consideration mentioned earlier hence facilitates this proposed extension, reducing the difficulty of such a
+future implementation.
+
+=== [Proposed] Data Encryption
+
+Given the sensitive nature of the information provided by users, we would like to safeguard the information provided by
+our users through encryption. Naturally, the information would be encrypted and decrypted in the back-end without the user
+requiring to do any of the encryption, decryption, or even any knowledge of how it works.
+
+==== Proposed Implementation
+
+We thus propose a `Keystore` module to contain authorisation certificates or public key certificates
+interacting with the `Logic` and `Storage` modules. With this addition, the following architecture diagram
+gives an overview of how it would fit in:
+
+image::DataEncryptionClassDiagram.png[]
+
+The `Keystore` module would have a `KeystoreManager` which implements the following methods:
+
+* `KeystoreManager#setCipher(Cipher cipher)` - sets the `Cipher` for encryption usage.
+* `KeystoreManager#encryptExpenseLa(ExpenseLa expenseLa)` - encrypts the given `ExpenseLa` object with the encryption cipher set with every
+call to `LogicManager#execute()` method.
+* `KeystoreManager#decryptExpenseLa(ExpenseLa expenseLa)` - Decrypts the encrypted json file upon application launch.
+
+The following class diagram provides a depiction of the above:
+
+image::DataEncryptionClassDiagram2.png[]
+
+NOTE: `KeystoreManager#encryptExpenseLa(ExpenseLa expenseLa)` and `KeystoreManager#decryptExpenseLa(ExpenseLa expenseLa)`
+will be using the Advanced Encryption Standard (AES 256) encryption algorithm.
+
+==== Design Considerations
+*Aspect: Encryption Algorithm*
+
+* Alternative 1: Data Encryption Standard
+** Pros: Simpler to implement encryption and decryption
+** Cons: Weaker security, easy to brute force
+* Alternative 2 (current choice) : Advanced Encryption Standard
+** Pros: 256 bit key is exponentially more secure than DES' 56 bit key
+** Cons: Harder to implement
+
+
+=== [Proposed] ExpenseLa Monthly Statement
+
+Similar to how banks issue a statement of account, we believe that it would be helpful to provide
+our users with an overview of their expenses. This statement would include the user's balance,
+budget, expense, income, and transactions in a user specified time frame.The user can choose to include/exclude certain
+transactions based on their categories or dates.
+
+==== Proposed Implementation
+
+To generate the statement, we propose a `StatementCommand` that extends `Command` and works with `ModelManager` just like
+all other commands, as depicted in the following diagram:
+
+image::StatementCommandClassDiagram.png[]
+
+* The user uses the `FilterCommand` to  filter the list of transactions to show only the transactions with the
+user's preferred category and transaction month
+* Then `StatementCommand#execute()` will retrieve the `FilteredList` of transactions
+and generate a Portable Document Format (PDF) file with Java's PDFWrite API.
+
+Below is a truncated example of the PDF ExpenseLa statement:
+
+image::statement/Statement.png[]
+
+==== Design Considerations
+
+*Aspect: Time and Nature of Transactions to Export*
+
+* Alternative 1 (current choice): Users get to choose when to generate their statement and which month and categories of
+transactions to include.
+** Pros: Users get a statement tailored according to their needs.
+** Cons: Users may forget to include certain types of transactions.
+* Alternative 2: At the end of every month, a statement of all transactions and user information is exported
+** Pros: Users get a comprehensive view of their expenses
+** Cons: Users may be overloaded with information
+
+Ultimately we chose Alternative 1 as we prioritise our user's freedom of choice and we understand that not all transactions
+may be relevant for the purposes of exporting the statement.
+
+=== Non Functional Requirements
+
+.  The software should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  The software should be able to hold up to 2000 transactions(expenses and incomes).
+.  The software should be able to respond within 5 seconds.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The software should be able to run irrespective of internet connection.
+.  The software should support both manual and automated testing.
+.  The source code should be open-source
+
+=== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+==== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+==== Setting a monthly budget
+
+. Setting a monthly budget to a user decided amount
+
+.. Test Case: `budget b/1000` +
+Expected: The monthly budget for the current month is set to $1000
+.. Test Case: `budget` +
+Expected: The monthly budget is not updated. Error is shown in the status message
+
+==== Resetting total balance
+
+. Reset `Balance` value to the total from the amount of all transactions stored
+
+.. Test Case: `resetBalance` +
+Expected: The `Balance` is reset
+
+==== Adding a transaction
+
+. Add either an expense or income transaction
+
+.. Test Case: `add a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+Expected: A new expense transaction is added to the transaction list. Depending on the current filter applied
+this change may or may not be visible. Details of the added transaction is visible in the Command Result
+
+.. Test Case: `add a/ 16.00 n/ Pizza r/ Lunch c/ FOOD` +
+Expected: A new expense transaction is added to the transaction list, with the transaction date set to the
+current date. Details of the added transaction is visible in the Command Result
+
+.. Test Case: `add i/ a/ 200.00 n/ pocket money c/INCOME rc/` +
+Expected: A recurring income transaction is added to the transaction list, with the transaction date set to the
+current date. Details of the added transaction is visible in the Command Result
+
+.. Test Case: `add i/ n/ allowance c/INCOME rc/` +
+Expected: No transaction is added. Error details are shown in the Command Result
+
+==== Filtering transactions
+
+. Filtering transactions listed by category, month, or both.
+
+.. Test Case: `filter m/2020-04` +
+Expected: A month filter for April 2020 is applied to the transaction list, relevant transactions are listed.
+Details of the number of transactions found is visible in the Command Result
+
+.. Test Case: `filter c/TRANSPORT` +
+Expected: A category filter for "TRANSPORT" is applied to the transaction list, relevant transactions are listed.
+Details of the number of transactions found is visible in the Command Result
+
+.. Test Case: `filter c/FOOD m/2020-02` +
+Expected: A category filter for "FOOD" and month filter for February 2020 is applied to the transaction list,
+relevant transactions are listed. Details of the number of transactions found is visible in the Command Result
+
+.. Test Case: `filter` +
+Expected: No filter is applied and no transactions listed. Error details are shown in the Command Result.
+
+==== Deleting a transaction
+
+. Deleting a transaction from the transactions listed
+
+.. Prerequisites: At least one transaction in the list using either `list` or `filter` command.
+.. Test case: `delete 1` +
+Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+.. Test case: `delete 0` +
+Expected: No transaction is deleted. Error details shown in the status message.
+.. Test Case: `delete` +
+Expected: No transaction is deleted. Error details are shown in the Command Result.
+
+==== Editing a transaction
+
+. Editing a transaction from the transactions listed
+
+.. Prerequisites: At least one transaction in the list using either `list` or `filter` command.
+.. Test case: `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+Expected: First contact is edited from the list. Details of the edited contact shown in the status message.
+.. Test case: `edit 0 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+Expected: No transaction is edited. Error details shown in the status message.
+.. Test Case: `edit a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+Expected: No transaction is edited. Error details are shown in the Command Result.
+
+
+==== Analysis of transactions
+
+. Toggle between viewing list of transactions and analytics with bar graph and pie chart to show expense trend.
+
+.. Test case: `toggleview` +
+Expected: Transaction view is toggled to analytics view or vice versa.
+.. Test case: `toggle` +
+Expected: No toggling happens. Error details shown in the status message.
+
+
+==== Finding transactions
+
+. Finding transactions that match any of the supplied keywords in its name field.
+
+.. Test case: `find Airpods` +
+Expected: Transactions with the word "Airpods" in its name will be displayed in the transaction list.
+.. Test case: `find Airpods Allowance Electricity` +
+Expected: Transactions with the word "Airpods" "Allowance" or "Electricity" in its name will be displayed in the
+transaction list.
+.. Test case: `find` +
+Expected: No transactions found. Error details shown in the status message.
+
+==== Listing all transactions
+
+. Listing all transactions and resetting all filters to "ALL".
+
+.. Test case: `list` +
+Expected: All transactions will be displayed in the transaction list. Filter for Category and Month are now
+"ALL".
+
+==== Clearing all recurring transactions
+
+. Clearing all recurring transactions stored.
+
+.. Test case: `clearrecurring` +
+Expected: All recurring transactions in the transaction list will be cleared.
+
+==== Exporting transaction data to csv
+
+. Exporting the filtered transaction list to a csv file.
+
+.. Prerequisite: There must be at least one transaction in the transaction list
+.. Test case: `export` +
+Expected: All transactions in the transaction list after applying filters will be exported.
+
+==== Importing transaction data from csv
+
+. Importing the filtered transaction list to a csv file.
+
+.. Prerequisite: There must be at least one transaction in the csv file
+.. Test case: `import transactions.csv` +
+Expected: All transactions that are in the correct format and not duplicated entries in the transactions.csv file
+will be imported.
+
+==== Clearing all data
+
+. Clearing all data in ExpenseLa including monthly data and global data
+
+.. Test case: `clear` +
+Expected: All transactions are deleted, balance is set to 0 and monthly data is also set to 0.
+All recurring data such as budget and transactions are also cleared.
+
+==== Showing help window
+
+. View the help window for help with commands
+
+.. Test Case: `help` +
+Expected: A popup with a link to the User Guide pops up.
+
+==== Saving data
+
+. Dealing with missing/corrupted data files
+.. Delete the data files at `.\data\expenseLa.json` and `.\data\globalData.json`
+
+

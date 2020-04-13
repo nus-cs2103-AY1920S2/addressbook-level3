@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ExpenseLa - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,329 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103-T09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S2-CS2103-T09-3`      Since: `Feb 2020`      Licence: `MIT`
 
-== Introduction
+== Product Overview
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ExpenseLa is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. ExpenseLa maintains a record of your daily incoming and outgoing transactions to constantly keep track of your finances! ExpenseLa is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI). If you want a simple, no-frills expense tracker, look no further than ExpenseLa!
 
-== Quick Start
+== Quick Start (Hubert Halim)
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `expensela.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your ExpenseLa.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
+.  The UI has 5 different components: Command Input box, Command Result box, Monthly Data panel
+Filter panel and Transaction List panel(Chart Analytics Panel)
++
+image::UI_annotated.png[width="790"]
++
+.  Filters are only to filter transaction list and chart analytics, MonthlyData is data for the current month and not the month
+shown in the filter. So filter does not apply to MonthlyData.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  You can navigate through your command history by pressing the kbd:[Up] or kbd:[Down] arrow key.
+Only successful commands are stored in the command history. There can be at most 50 commands stored.
+This feature is just like the command navigation feature in your favourite command line or shell.
+.  An example command sequence you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`clear`* : clear the expenseLa app to start at a clean slate
+* *`budget b/1000 rc/`* : set a recurring budget of $1000 for the current month and subsequent months
+* `add i/ c/Income n/salary a/2500 d/2020-04-02 rc/` : adds a recurring income with amount `$2500.00`
+* **`add a/100`**`n/Wagyu Steak c/FOOD` : adds an expense named `Wagyu Steak` with amount `$100.00` spent on the day it is added in category `FOOD` to the expense tracker
+* **`add a/10`**`n/Laksa c/FOOD` : adds an expense named `Laksa` with amount `$10.00` spent on the day it is added in category `FOOD` to the expense tracker
+* **`add a/5.5`**`n/Chicken Rice c/FOOD` : adds an expense named `Chicken Rice` with amount `$5.50` spent on the day it is added in category `FOOD` to the expense tracker
+* **`add a/50`**`n/shirt c/SHOPPING d/2020-04-08` : adds an expense named `shirt` with amount `50.00` spent on `2020-04-08` in category `SHOPPING` to the expense tracker
+* **`filter`**`c/FOOD m/2020-02` : filters to only show transactions made on `2020-02` with category `FOOD`
+* **`delete`**`1` : deletes the expense with id `1` in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
-== Features
+== Features Present
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `filter c/OBJECT`, `OBJECT` is a parameter which can be used as `filter c/FOOD`.
+
+* Parameters are not case sensitive, but prefixes are
+
+* Items in square brackets are optional e.g `spend a/AMOUNT n/ OBJECT [d/ DATE] [c/ CAT]` and can used as `add a/100 n/Pizza` or `add a/100 n/Pizza d/2020-02-02 c/Food`
+
+* Parameters can be in any order e.g. if the command specifies `n/NAME a/AMOUNT`, `a/AMOUNT n/NAME` is also acceptable.
+
+* The length of command a user can input is at most 140 characters.
 ====
 
-=== Viewing help : `help`
+
+===  Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+image::Help.png[width="790"]
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Set a monthly budget : `budget` (Hubert Halim)
+
+Sets a spendable budget for the current month
+
+Format: `budget b/AMOUNT` (to set a budget for the given month only)
+        `budget b/AMOUNT rc/` (to set repeating budget of $`AMOUNT` for the coming months)
+
+Example Usage:
+
+* `budget b/1000` - set a non-recurring budget of $1000.00
++
+image::BeforeSetBudget.png[width="790"]
++
+
++
+image::AfterSetBudget.png[width="790"]
++
+
+* `budget b/1500 rc/` - set a recurring budget of $1500.00
++
+image::BeforeSetBudget.png[width="790"]
++
+
++
+image::AfterSetRecurringBudget.png[width="790"]
++
+
+
+=== Reset total balance `resetbalance` (Hubert Halim)
+
+Reset `Balance` value to the total from the amount of all transactions in stored in the application so far.
+This command is used in case the user makes a mistake when editing the json file or there is an unhandled bug in the app that
+causes difference in the value of total balance and the net balance of all the transactions added together.
+This command will rectify that issue.
+
+
+=== Key in transaction : `add` (Fheng Guo Jing, Benjamin)
+
+Adds an expense or income to the expense tracker. Expenses/incomes are stored as transactions.
+
+Format: `add [i/] n/ NAME a/ AMOUNT [d/ DATE] [c/ CATEGORY] [r/ REMARK]  [rc/]`
+
+Expected Outcome: A new transaction would be created in the list of transactions. If the newly
+created transaction is part of the currently filtered transaction, it'll be visible in the list
 
 [TIP]
-A person can have any number of tags (including 0)
+Leaving the DATE option blank will auto fill with today's date
+[TIP]
+Leaving the CATEGORY option blank will auto fill with 'MISC' category
+[TIP]
+Not including i/ will make transaction an expense by default while including i/ will make it an income
+[TIP]
+Including rc/ will make transaction recurring every month on the same day set in the transaction date
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT`
+* `add a/ 16.00 n/ Pizza r/ Lunch c/ FOOD`
+* `add i/ a/ 200.00 n/ pocket money c/INCOME rc/`
 
-=== Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+=== Filter transactions : `filter` (Pang Kim Jin)
 
-=== Editing a person : `edit`
+Filters transactions for user to view specific transactions according to the filter type. Upon application
+launch the preset filter is for all transactions in the current month as depicted below:
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+image::Filter.png[width="790"]
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `filter c/CATEGORY m/YYYY-MM`
 
-Examples:
+Expected Outcome: Filter is changed to the filter specified. List of transactions will only
+show transactions that fulfill the filter criteria.
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+[TIP]
+If only 1 filter type is specified (either category or month), the other filter type will automatically be set to "ALL".
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `filter m/2020-04` - show transactions in April 2020 across all categories
+* `filter c/TRANSPORT` - show transactions with category "TRANSPORT" across all months
+* `filter c/FOOD m/2020-04` - show transactions with category "FOOD" in April 2020
+* `filter c/ALL m/ALL` - show all transactions
 
-// tag::delete[]
-=== Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+
+=== Deleting a transaction : `delete` (Fheng Guo Jing, Benjamin)
+
+Deletes the specified transaction from the expense tracker.
+
+Format: `delete TRANSACTION_ID`
+
+Expected Outcome: Transaction at the specified index in the current transaction list is deleted
+
+[TIP]
+`TRANSACTION_ID` refers to the index of the transaction in the list visible to user.
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete 3` +
+Deletes the transaction with index number 3 in the expense tracker's current transaction list.
 
-// end::delete[]
-=== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Edit a transaction : `edit` (Fheng Guo Jing, Benjamin)
+
+Edit the specified transaction from the expense tracker
+
+Format: `edit TRANSACTION_ID [n/ NAME] [a/ AMOUNT] [d/ DATE] [c/ CAT] [r/ REMARK]`
+
+Expected Outcome: Transaction at the given index has its parameters changed as specified
+
+Examples:
+
+* `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT`
+* `edit 2 a/ 16.00 n/ Pizza c/ FOOD`
+* `edit 3 a/ 200.00 n/ pocket money`
+
+
+=== Analysis of transactions : `toggleview` (Choi Min Suk + Pang Kim Jin)
+
+Toggle between viewing list of transactions and analytics with bar graph and pie chart to show expense trend.
+
+If filter is set to a specific month, the bar graph displays the transactions by day of the week. If filter is
+set to all months, bar chart will display transactions by month for current and previous year. The pie chart will
+show the transactions by the different categories according to the filter.
+
+
+Expected Outcome: changed view to charts if previously was list view and to list view if previously was chart view.
+
+
+image::ListView.png[width="790"]
+image::ChartView.png[width="790"]
+
+NOTE: `ToggleView` and `BarChart` by Choi Min Suk and `PieChart` by Pang Kim Jin
+
+=== Find transaction by name : `find`
+
+Find Transaction that matches one of the words from a given list of keywords
+
+Format: `find KEYWORD_1 [KEYWORD_2] ... [KEYWORD_N]`
+
+Expected Outcome: Clears all filter and display all transactions whose name matches any of the keyword
+
+Examples:
+
+* `find bottle school` (find all transactions whose name contain either bottle or school)
+
+
+=== List of transactions : `list`
+
+List all transactions and reset all filters
+
+
+=== Clear all recurring transactions stored : `clearrecurring` (Fheng Guo Jing, Benjamin)
+
+Clear all recurring transactions stored
+
+Expected Outcome: All recurring transactions in the json file GlobalData.json will be cleared
+
+
+=== Export transaction data to csv : `export` (Choi Min Suk)
+
+Export the filtered transaction list to a csv file
+
+Expected Outcome: A csv file will be created at the root directory and all transactions currently visible in the app
+will be exported to the csv file.
+
+image::Csv.png[width="790"]
+
+
+=== Import transaction data from csv : `import` (Fheng Guo Jing, Benjamin)
+
+Import transactions from csv and add it to transaction list, duplicate transactions are ignored.
+
+Csv File has to be in the same directory as the jar file in order for it to read. `import` has to be accompanied by the
+[filename].csv in order to import. Transactions in the csv file have to be of the same format as the above table format in
+3.12 (export).
+
+Expected Outcome: All transactions in the csv that is in the correct format and does not exist in the current transaction lsit
+will be added to transaction list
+
+Examples:
+
+* `import transactions.csv` (imports all transactions from transactions.csv folder)
+
+
+
+=== Clear all data : `clear` (Hubert Halim)
+
+Clear all data in ExpenseLa including monthly data and global data
+
+Expected Outcome: All transactions are deleted, balance is set to 0 and monthly data is also set to 0.
+All recurring data such as budget and transactions are also cleared
+
 
 === Exiting the program : `exit`
 
-Exits the program. +
+Exits the program.
+
 Format: `exit`
+
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+ExpenseLa data are saved in the hard disk automatically as a json file after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Data Encryption [coming in v2.0] (Pang Kim Jin)
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+With the AES-256 encryption, ExpenseLa ensures that the sensitive information you have provided is safe from outside
+prying eyes, and this is all done without any additional effort from the user.
+
+=== ExpenseLa Statement `Statement` [coming in v2.0] (Pang Kim Jin)
+
+With the ability to generate your personalised ExpenseLa statement, you will be able to export all your expenses,
+income, budget, and balance information into a pdf document. Using ExpenseLa's `Filter` command, you will be able
+to selectively include which transactions to make your statement tailored to your needs.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Expense Tracker folder.
+
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Budget* : `budget b/ AMOUNT` +
+           `budget rc/ b/ AMOUNT` +
+e.g. `budget b/ 1000` +
+     `budget b/ 1500 rc/`
+* *add* : `add a/ AMOUNT n/ NAME [d/ DATE] [c/ CATEGORY] [r/ REMARK] [rc/]` +
+e.g.  `add a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+       `add a/ 16.00 n/ Pizza r/ Lunch c/ FOOD` +
+       `add i/ a/ 200.00 n/ pocket money c/INCOME rc/`
+* *Filter* : `filter m/YYYY-MM` +
+             `filter c/CATEGORY` +
+e.g. `filter m/2020-02` +
+     `filter c/FOOD` +
+     `filter c/TRANSPORT m/2020-03` +
+     `filter c/ALL m/ALL`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+e.g. `find pizza` +
+     `find hawaiian wood fired pizza`
+* *Delete* : `delete TRANSACTION_ID` +
+e.g. `delete 3`
+* *Edit* : `edit TRANSACTION_ID [n/ NAME] [a/ AMOUNT] [d/ DATE] [c/ CAT] [r/ REMARK]` +
+e.g. `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+     `edit 2 a/ 16.00 n/ Pizza c/ FOOD` +
+     `edit 3 a/ 200.00 n/ pocket money`
+* *Toggle View* : `toggleview`
+* *Reset Balance*: `resetbalance`
+* *Clear*: `clear`
+* *Exit*: `exit`
 * *List* : `list`
+* *Export* : `export`
+* *Import* : `import [FILENAME].csv`
+* *Clear Recurring Transactions*: `clearrecurring`
 * *Help* : `help`

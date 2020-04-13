@@ -1,0 +1,10 @@
+{
+  "transactions": [ {
+    "name": "Transaction with invalid amount field: 100.15.50",
+    "amount": "100.15.50",
+    "positive": "false",
+    "date": "2019-02-07",
+    "remark": "Treating friends",
+    "category": "FOOD"
+  } ]
+}

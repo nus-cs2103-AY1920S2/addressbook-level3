@@ -1,0 +1,39 @@
+
+@startuml
+!include ../style.puml
+
+box Ui UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":TextField" as TextField UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[->CommandBox : handle()
+note left: EventHandler that handles keyboard press events
+activate CommandBox
+alt event.getCode().equals(KeyCode.UP)
+CommandBox -> CommandBox: offset incremented if < Array Size
+else event.getCode().equals(KeyCode.DOWN)
+CommandBox -> CommandBox: offset decremented if > -1
+end
+CommandBox -> LogicManager: getCommandFromHistory(offset)
+activate LogicManager
+LogicManager -> ModelManager: getCommandFromHistory(offset)
+activate ModelManager
+ModelManager --> LogicManager: command
+deactivate ModelManager
+LogicManager --> CommandBox: command
+deactivate LogicManager
+
+CommandBox -> TextField: setText(command)
+activate TextField
+TextField --> CommandBox
+deactivate TextField
+@enduml

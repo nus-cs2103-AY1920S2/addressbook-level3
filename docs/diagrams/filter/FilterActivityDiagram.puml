@@ -1,0 +1,16 @@
+@startuml
+start
+
+:User executes filter command;
+:FilterCommandParsers parses arguments;
+
+
+if () then ([Syntax error])
+    :Show Usage Message;
+else ([Correct input])
+    :Create new FilterCommand object;
+    :Show filtered list of transactions;
+endif
+
+stop
+@enduml
