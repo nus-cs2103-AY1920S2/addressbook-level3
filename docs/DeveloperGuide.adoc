@@ -214,12 +214,19 @@ The `Storage` component,
 Classes used by multiple components are in the `com.notably.commons` package.
 
 [[Design-Compiler]]
-=== Compiler
+=== Compiler component
 
 .Class Diagram of the Compiler Component
 image::CompilerClassDiagram.png[]
 
-Our `Compiler` design is based off https://github.github.com/gfm[GitHub's GFM Specification].
+The `Compiler` component's primary usage is to compile Markdown to HTML.
+Our `Compiler` component's design is based off https://github.github.com/gfm[GitHub's GFM Specification].
+
+Mainly, the `Compiler` component consists of the following classes:
+
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/Compiler.java[`Compiler`], which deals with the end-to-end job of compiling unprocessed Markdown to HTML.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/Parser.java[`Parser`], which deals with creating an https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Sytax Tree] representation of an unprocessed Markdown.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`], which is an abstract class representing a node in a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree]. All concrete implementations of nodes in a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] inherit from this class.
 
 .Interactions inside the Compiler component for the `compile(markdown)` call
 image::CompilerSequenceDiagram.png[]
