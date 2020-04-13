@@ -765,7 +765,7 @@ this application with the community!
 |Shows recipe at given INDEX.
 |``add recipe n/NAME d/DESCRIPTION``
 |Adds a new empty recipe with the given NAME and DESCRIPTION.
-|``add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [s/STEP] [t/TAG]``
+|``add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [s/STEP_DESCRIPTION] [t/TAG]``
 |Adds a new recipe with the given NAME and DESCRIPTION.
 INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be added according to input from user.
 |``remove recipe INDEX``

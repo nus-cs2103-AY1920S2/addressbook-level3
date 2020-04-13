@@ -71,6 +71,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 
+//tag::ui[]
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
@@ -87,6 +88,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+//end::ui[]
 
 // tag::gohkh[]
 [[Design-Logic]]
@@ -157,11 +159,11 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Add Recipe to the Cookbook https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
+=== Add recipe to the cookbook https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 ==== Implementation
 
 The recipe addition mechanism is facilitated by `CookbookAddCommand`, which extends the `Command` abstract class. The
-format of the command is as follows: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT_NAME]... [q/INGREDIENT_QUANTITY]... [t/TAG]...`.
+format of the command is as follows: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [t/TAG]...`.
 
 This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, steps, tags) -
 only the recipe name and recipe description are mandatory fields. This way, a user does not have input all the fields
@@ -230,6 +232,8 @@ The following `Recipe` object diagram is an overview of the attributes of a `Rec
 .UML object diagram of Recipe providing an overview on how the various objects interact
 image::RecipeObjectDiagram.png[]
 
+// tag::addrecipesequence[]
+
 The following sequence diagram shows how the recipe adding function works (full command [`cookbook add recipe
                                                                                           n/Recipe name d/Recipe
                                                                                           description i/Ingredient 1
@@ -238,7 +242,6 @@ The following sequence diagram shows how the recipe adding function works (full 
                                                                                           step 2 t/This t/Is t/A
                                                                                           t/Tag`]  omitted from diagram
 for brevity):
-// tag::addrecipesequence[]
 
 .Sequence diagram for CookbookAddCommand
 image::CookbookAddRecipeSequenceDiagram.png[]
@@ -541,7 +544,7 @@ Design A was chosen due to time constraints, as handling the conversion between 
 Given more time, Design B will be implemented to handle conversion for standard units, such as between `g` and `kg`, but Design A would still have to be used for units with non-standard conversion factors.
 // end::gohkh[]
 
-=== Adding ingredients to inventory and cart https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
+=== Add ingredients to inventory and cart https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
 
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
 respectively, which extends the `Command` abstract class. Since `CartAddCommand` and `InventoryAddCommand` both serve the
@@ -659,7 +662,7 @@ image::InventoryCookRecipeSequenceDiagram.png[]
 
 //end::inventorycookrecipe[]
 
-=== Moving ingredients from cart to inventory https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
+=== Move ingredients from cart to inventory https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
 The user may use this command after their shopping trip. With this one command, all ingredients will be shifted from the cart to the inventory.
 
 This command is implemented to ease the process of having the user adding every single ingredient to their inventory after they have bought ingredients from their cart
@@ -868,11 +871,16 @@ limit is hit. This repeats until all the lines are added to the PDF.
 their addition was successful.
 //end::cartexport[]
 
+// tag::cartexportsequence[]
 The following sequence diagram shows how the function of exporting ingredients in the cart to a PDF file works:
 
-// tag::cartexportsequence[]
 .Sequence diagram for CartExportCommand
 image::CartExportCommandSequenceDiagram.png[]
+
+The following activity diagram shows a possible flow of events for a user using this command:
+.Activity diagram for CartExportCommand
+image::CartExportActivityDiagram.png[]
+
 // end::cartexportsequence[]
 
 ==== Design considerations
@@ -1144,7 +1152,7 @@ ingredients) +
    Expected: a new recipe is added to the cookbook, with the duplicate ingredients being added to one another. The
 new recipe will be displayed as the index 3 (one-based index) in the cookbook panel.
 
-=== Removing a recipe from the cookbook
+=== Remove a recipe from the cookbook
 Please note that these test cases are to be tested individually, i.e. should test case a be executed, executing test
 case a again will remove a different recipe from the cookbook. In this case, after executing test case a once, to
 execute it again, please add back the removed recipe using `cookbook add recipe ...` or by deleting the `.json` files.
@@ -1158,7 +1166,7 @@ cookbook*.
 out-of-bounds; the latter command is out-of-bounds because there are only 4 recipes in the cookbook. Both commands
 will show an error message reflecting the invalid recipe indices provided.
 
-=== Searching for recipes by tags
+=== Search for recipes by tags
 Please note for this search command, with more tags being included, the number of results returned will be greater, i
 .e. if
 there are three tags included, the recipes returned do not have to be tagged with all three tags.
@@ -1170,7 +1178,7 @@ there are three tags included, the recipes returned do not have to be tagged wit
     Expected: the recipe panel will be updated to show only three recipes, of these three recipes, they are either
 tagged with "Simple" or "Celebrity".
 
-=== Adding an ingredient to a recipe
+=== Add an ingredient to a recipe
 
 Please note that the results of these test cases are based on the sample cookbook. The tests can be performed in any order.
 
@@ -1198,7 +1206,7 @@ Please note that the results of these test cases are based on the sample cookboo
 .. Test case: `recipe 1 remove ingredient i/Cheese` (no quantity specified) +
    Expected: cheese is removed from the recipe entirely, and the recipe no longer contains any cheese
 
-=== Exporting the cart to a PDF file
+=== Export the cart to a PDF file
 Please note that for the export command, the result is based on the sample cart.
 a. Prerequisite: have the sample cart data in `cart.json`, if the file has been modified, please exit Cooking Papa,
 and delete it in `/data`, and run Cooking Papa again.

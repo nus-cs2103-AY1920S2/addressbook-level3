@@ -9,7 +9,11 @@
 
 == Overview
 
-Cooking Papa is a desktop cookbook application used to manage recipes and ingredients for cooking. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoC.
+Cooking Papa is a desktop cookbook application used to manage recipes and ingredients for cooking. The user interacts
+with it using a CLI (Command Line Input), and it has a GUI (Graphical User Interface) created with JavaFX. It is written
+in
+Java, and has about
+15 kLoC.
 
 == Summary of contributions
 
@@ -57,7 +61,7 @@ button.
 which allows them bring along with them to the supermarkets. This feature solved the constraint of the application
 being desktop-only, and with it, Cooking Papa can _still_ help users when they are away from their computers.
 +
-Credits: _Apache PDFbox_ and _mkl_ on
+Credits: _Apache PDFbox_ and user  _mkl_ on
 https://stackoverflow.com/questions/19635275/how-to-generate-multiple-lines-in-pdf-using-apache-pdfbox[StackOverflow]
 for a great example on using `PDFbox`.
 
@@ -72,7 +76,8 @@ https://github.com/AY1920S2-CS2103T-F11-4/main/pull/242[#242]).
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.2.1` and `v1.3` (2 releases) out of 5 releases(`v1.1`, `v1.2`, `v.1.2.1`, `v1.3`, `v1.4`) on
+*** Managed releases `v1.2.1`, `v1.3`, and `v1.4` (3 releases) out of 5 releases(`v1.1`, `v1.2`, `v.1.2.1`, `v1.3`, `v1
+                                                                                                                .4`) on
 GitHub
 *** Managed features development under Project on GitHub
 (https://github.com/AY1920S2-CS2103T-F11-4/main/projects/1[features])
@@ -95,7 +100,7 @@ https://github.com/AY1920S2-CS2103T-F11-4/main/pull/254[#254]
 https://github.com/AY1920S2-CS2103T-F11-4/main/pull/13[#13]
 *** Added UML diagrams and document implementation of core features:
 https://github.com/AY1920S2-CS2103T-F11-4/main/pull/121[#121]
-*** Reviewed user guide and enforced standardisation in user guide:
+*** Reviewed user and developer guide and enforced standardisation:
 https://github.com/AY1920S2-CS2103T-F11-4/main/pull/228[#228]
 
 ** Community:
@@ -135,24 +140,27 @@ include::../UserGuide.adoc[tag=faq]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+=== Cooking Papa UI component
+
+include::../DeveloperGuide.adoc[tag=ui]
 === Implementation of a core feature: `cookbook add recipe`
 
 include::../DeveloperGuide.adoc[tag=addrecipe]
 
-=== UML Sequence Diagram for a core feature: `cookbook add recipe`
+=== UML Diagrams for `cookbook add recipe`
 include::../DeveloperGuide.adoc[tag=addrecipesequence]
 
-=== Crucial Design Considerations for a core feature: `cookbook add recipe`
+=== Design Considerations for `cookbook add recipe`
 include::../DeveloperGuide.adoc[tag=addrecipedesign]
 
 === Implementation of a core feature: `cart export`
 include::../DeveloperGuide.adoc[tag=cartexport]
 
-=== UML Sequence Diagram for a core feature: `cart export`
+=== UML Diagrams for `cart export`
 include::../DeveloperGuide.adoc[tag=cartexportsequence]
 
 === Implementation of a core feature: `cookbook view recipe`
 include::../DeveloperGuide.adoc[tag=viewrecipe]
 
-=== UML Sequence Diagram for a core feature: `cookbook view recipe`
+=== UML Sequence Diagrams for `cookbook view recipe`
 include::../DeveloperGuide.adoc[tag=viewrecipesequence]
