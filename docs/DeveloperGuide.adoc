@@ -34,40 +34,40 @@ image::ArchitectureDiagram.png[]
 
 ==== Design pattern and data flow
 
-The App is built following the https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller[Model-View-Controller] design pattern.
+The App is built following the https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller[Model-View-Controller design pattern].
 
-In addition, the App's data flow is unidirectional. That is, all user interactions in `View` will trigger an appropriate handler in `Logic`, which in turn updates `Model` and `Storage`.
-Any data/state changes in `Model` will then propagate back to `View` automatically through https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm[JavaFX's Property and Binding].
+In addition, the App's data flow is unidirectional. That is, all user interactions in <<Design-View,*`View`*>> will trigger an appropriate handler in <<Design-Logic,*`Logic`*>>, which in turn updates <<Design-Model,*`Model`*>> and <<Design-Storage,*`Storage`*>>.
+
+Any data/state changes in <<Design-Model,*`Model`*>> will then propagate back to <<Design-View,*`View`*>> automatically through https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm[JavaFX's Property and Binding]. In other words, the https://en.wikipedia.org/wiki/Observer_pattern[Observer design pattern] is employed; <<Design-Model,*`Model`*>> is the observable while <<Design-View,*`View`*>> is the observer.
 
 In short, the App's data flow can be summarized as: +
-`View` -> `Logic` -> `Model` + `Storage` -> `View`
+<<Design-View,*`View`*>> -> <<Design-Logic,*`Logic`*>> -> <<Design-Model,*`Model`*>> + <<Design-Storage,*`Storage`*>> -> <<Design-View,*`View`*>>
 
 ==== Architecture-level components
 
-Overall, the App consists of four components:
+Overall, the App consists of five main components:
 
 * <<Design-View,*`View`*>>: View of the App.
 * <<Design-Logic,*`Logic`*>>: Business logic of the App.
 * <<Design-Model,*`Model`*>>: In-memory representation of the App's data/state.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Commons,*`Commons`*>>: A collection of classes used by multiple other components.
 
-In addition, <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+The first four components, namely <<Design-View,*`View`*>>, <<Design-Logic,*`Logic`*>>, <<Design-Model,*`Model`*>> and <<Design-Storage,*`Storage`*>>:
+
+* Defines its _API_ in an `interface` with the same name as the itself, e.g. link:{repoURL}/src/main/java/com/notably/logic/Logic.java[`Logic.java`]
+* Exposes its functionality using a `{Component Name}Manager` class, e.g. link:{repoURL}/src/main/java/com/notably/logic/LogicManager.java[`LogicManager.java`]
+
+The following classes from <<Design-Commons,*`Commons`*>> plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
-Each of the four components:
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+* <<Design-Compiler,*`Compiler`*>> : Used mainly by the <<Design-View,*`View`*>> to compile Markdown to HTML for displaying notes.
 
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `new -t Notably -b Lorem ipsum`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `new -t Notably`.
 
-.Component interactions for the `new -t Notably -b Lorem ipsum` command
+.Component interactions for the `new -t Notably` command
 image::ArchitectureSequenceDiagram.png[]
 
 [[Design-View]]
