@@ -22,6 +22,7 @@ Notably is for those who *prefer to use a desktop app for managing notes*. More 
 for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User
 Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
 
+//tag::introduction[]
 === An Introduction to Notably
 The following 3 diagrams (<<Legends1, Figure 1>>, <<Legends2, Figure 2>>, <<Legends3, Figure 3>>) highlight key
 sections of Notably's user interface. Refer to the description below each diagram for more information.
@@ -51,7 +52,7 @@ image::Legends3.png[width="800"]
 . As shown in the diagram above, Notably allows you to edit and customise your notes in a fuss free manner.
 
 [[LegendsClosed]]
-
+// end::introduction[]
 === Symbols used in this guide
 [NOTE]
 Denotes something that you may want to take note of.
@@ -246,6 +247,7 @@ image::demo/New2.png[]
 image::demo/New3.png[]
 //end:new[]
 
+//tag::editing[]
 === Open an existing note: `open`
 
 You can open an existing note by specifying its absolute or relative <<paths, path>>). +
@@ -307,6 +309,7 @@ kbd:[CMD/CTRL] + kbd:[v] respectively.
 ====
 * You are not allowed to `edit` the root note, i.e is the currently opened path is ``"/"``
 ====
+//end:editing[]
 
 //tag:delete[]
 === Delete a note: `delete`

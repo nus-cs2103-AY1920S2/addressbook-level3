@@ -70,6 +70,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for the `new -t Notably` command
 image::ArchitectureSequenceDiagram.png[]
 
+// tag::view-diagram[]
 [[Design-View]]
 === View
 
@@ -86,6 +87,7 @@ The `View` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the View can be updated with the modified data.
+// end::view-diagram[]
 
 [[Design-Logic]]
 === Logic
@@ -610,7 +612,7 @@ with the particular path or title that the user inputs.
 Steps 1b1-1b3 are repeated until the data entered is correct. Use case resumes from Step 2.
 //end::usecaseopendelete[]
 
-//tag::useeditmodal[]
+//tag::edit-use[]
 [discrete]
 === Use case: Quickly Edit notes using the Edit Modal
 *MSS*
@@ -635,7 +637,7 @@ Proceed to 3 first, then resume use case from 5.
 [none]
 Use case continues from 3.
 
-//end::useeditmodal[]
+//end::edit-use[]
 
 
 
