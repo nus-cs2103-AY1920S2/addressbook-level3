@@ -32,7 +32,11 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=kester-ng&sort=groupT
 
 * *Minor enhancement*: Updated list command to be able to filter based on modules.
 
+* *Minor enhancement*: Updated the find command.
+
 * *Minor enhancement*: Added all the CRUD functionality for the application.
+
+* *Minor enhancement*: Added a refresh command that allows users to refresh to update the UI statuses.
 
 * *Other contributions*:
 
@@ -46,6 +50,8 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=kester-ng&sort=groupT
 ** Documentation:
 *** Updated basic command usage, test cases for DG and updated images for UG and DG. (Pull Requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/22[#22], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/65/files[#65], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/168[#168])
 *** Updated DG with proper UML diagrams. (Pull Request https://github.com/AY1920S2-CS2103T-T10-4/main/pull/151[#151])
+*** UML diagrams for DG includes the adding deadline, export calendar and reminder features.
+*** Updated UG commands for adding activities, find, list, delete activities, calendar and reminder features.
 ** Community:
 *** PRs reviewed (with non-trivial comments): https://github.com/AY1920S2-CS2103T-T10-4/main/pull/263[#263], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/89[#89], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/77[#77], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/142[#142]
 *** Reported bugs for teammates (Example: https://github.com/AY1920S2-CS2103T-T10-4/main/issues/249[#249])

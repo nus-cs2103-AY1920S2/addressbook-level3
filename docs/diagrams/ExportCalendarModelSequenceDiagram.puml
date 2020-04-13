@@ -4,8 +4,6 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ExportCalendarCommand" as ExportCalendarCommand LOGIC_COLOR
-participant ":IcsDeadline" as IcsDeadline LOGIC_COLOR
-participant ":IcsEvent" as IcsEvent LOGIC_COLOR
 participant ":IcsWriter" as IcsWriter LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -25,7 +23,7 @@ activate Model
 Model --> ExportCalendarCommand : ObservableList<Module> list
 deactivate Model
 
-loop for all modules : list
+loop until every module is processed in the list
     ExportCalendarCommand -> Module : getFilteredDeadlineList
     activate Module
     Module --> ExportCalendarCommand : ObservableList<Deadline> deadlines
@@ -37,7 +35,7 @@ loop for all modules : list
     deactivate Module
 end
 
-ExportCalendarCommand -> IcsWriter : writeToIcsFile(Path, deadlines, events)
+ExportCalendarCommand -> IcsWriter : writeToIcsFile(Path, allDeadlines, allEvents)
 activate IcsWriter
 
 IcsWriter --> ExportCalendarCommand
