@@ -90,7 +90,7 @@ public class Schedule {
      * Setting the type.
      * @param type int
      */
-    private void setType(int type) {
+    public void setType(int type) {
         this.type = type;
     }
 
