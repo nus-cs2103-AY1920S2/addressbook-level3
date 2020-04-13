@@ -88,7 +88,6 @@ Format: `add-s n/NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...`
 
 Examples:
 
-* `add-s n/NTUC Fairprice Macpherson Mall c/63521728 e/MacphersonMall@NTUC Fairprice.com a/401, #02-22 MacPherson Rd, Macpherson Mall, 368125`
 * `add-s n/NTUC Fairprice Macpherson Mall c/63521728 e/MacphersonMall@NTUC Fairprice.com a/401, #02-22 MacPherson Rd, Macpherson Mall, 368125 gp/banana 5 gp/tissue paper 0.55`
 
 === Editing a supplier : `edit-s` (By Liu Chao)
