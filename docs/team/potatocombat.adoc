@@ -1,9 +1,9 @@
-=== Gabriel Benedict Teo Jian Cheng - Project Portfolio
+= Gabriel Benedict Teo Jian Cheng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-==== PROJECT: TA-Tracker
+== PROJECT: TA-Tracker
 
 ---
 
