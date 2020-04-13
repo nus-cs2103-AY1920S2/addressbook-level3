@@ -2590,7 +2590,7 @@ Index of 1 refers to the first item in a list.
 | Matric Number | This refers to a student's matriculation number. For example: A0123456X
 
 | Group | The is the general term given to a group of students a TA teaches. For example:
-lab, tutorial, recitation
+lab, tutorial
 
 | TAT | This is the short form of TA-Tracker.
 
