@@ -79,7 +79,7 @@ Format: `clear-s`
 === Adding a supplier: `add-s` (By Liu Chao)
 
 Adds a supplier to the inventory manager +
-Format: `add n/NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...`
+Format: `add-s n/NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...`
 
 [TIP]
 * A supplier can have any number of good-price pairs (including 0)
@@ -88,8 +88,8 @@ Format: `add n/NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...`
 
 Examples:
 
-* `add-s n/NTUC Fairprice Macpherson Mall c/6352 1728 e/MacphersonMall@NTUC Fairprice.com a/401, #02-22 MacPherson Rd, Macpherson Mall, 368125`
-* `add-s n/NTUC Fairprice Macpherson Mall c/6352 1728 e/MacphersonMall@NTUC Fairprice.com a/401, #02-22 MacPherson Rd, Macpherson Mall, 368125 gp/banana 5 gp/tissue paper 0.55`
+* `add-s n/NTUC Fairprice Macpherson Mall c/63521728 e/MacphersonMall@NTUC Fairprice.com a/401, #02-22 MacPherson Rd, Macpherson Mall, 368125`
+* `add-s n/NTUC Fairprice Macpherson Mall c/63521728 e/MacphersonMall@NTUC Fairprice.com a/401, #02-22 MacPherson Rd, Macpherson Mall, 368125 gp/banana 5 gp/tissue paper 0.55`
 
 === Editing a supplier : `edit-s` (By Liu Chao)
 
@@ -138,7 +138,7 @@ Returns `NTUC Fairprice` and `ColdStorage Orchard`
 === Source supplier(s) for good(s): `source` (By Liu Chao)
 
 Source suppliers who sell goods with good names containing any of the given keywords. +
-Format: `Source g/GOOD_NAME [g/MORE_GOOD_NAME]...`
+Format: `Source GOOD_NAME [MORE_GOOD_NAME]...`
 
 ****
 * The search is case insensitive. e.g `apple` will match `APPLE`
@@ -157,8 +157,8 @@ Format: `Source g/GOOD_NAME [g/MORE_GOOD_NAME]...`
 
 Examples:
 
-* `find-s NTUC ColdStorage` +
-Returns `NTUC Fairprice` and `ColdStorage Orchard`
+* `source banana apple` +
+Returns `Cavendish banana` and `Fuji apple`
 
 // tag::delete[]
 === Deleting a supplier : `delete-s` (By Liu Chao)
@@ -302,7 +302,7 @@ When a new good is added into the inventory, its minimum quantity threshold is s
 
 // tag::findtransaction[]
 
-=== Locating transactions by search criteria: `find-t`
+=== Locating transactions by search criteria: `find-t` (By Fang Shao Hua)
 
 Display list of transactions that fulfills the given search criteria.
 
@@ -369,7 +369,7 @@ NOTE: The transaction related to `Noodle` is no longer shown as compare to searc
 
 // tag::listtransaction[]
 
-=== Listing all transactions : `list-t`
+=== Listing all transactions : `list-t` (By Fang Shao Hua)
 Shows the list of transaction history in the inventory manager. +
 
 Format: `list-t`
@@ -388,8 +388,8 @@ Format: `undo`
 Examples (assuming all other commands are valid):
 
 * `clear-s` +
-  `list-g` +
-  `undo` (ignores `list-g` and reverses `clear-s`)
+  `list-t` +
+  `undo` (ignores `list-t` and reverses `clear-s`)
 
 * `clear-s` +
   `delete-g 1` +
@@ -404,8 +404,8 @@ Format: `redo`
 Examples (assuming all other commands are valid):
 
 * `clear-s` +
-  `list-g` +
-  `undo` (ignores `list-g` and reverses `clear-s`) +
+  `list-t` +
+  `undo` (ignores `list-t` and reverses `clear-s`) +
   `redo` (repeats `clear-s`)
 
 * `clear-s` +
@@ -416,7 +416,7 @@ Examples (assuming all other commands are valid):
   `redo` (repeats `delete-g 1`) +
 
 * `clear-s` +
-  `undo` (ignores `list-g` and reverses `clear-s`) +
+  `undo` (reverses `clear-s`) +
   `delete-g 1` +
   `redo` +
   The `redo` fails as `delete-g 1` will remove the undone states.
@@ -448,7 +448,7 @@ For security concerns, all data will be encrypted by default.
 (By Liu Chao)
 
 * *Adding a supplier* `add-s n/NAME c/PHONE e/EMAIL a/ADDRESS [gp/GOOD PRICE]…` +
-e.g. `add-s n/NTUC Fairprice Macpherson Mall c/6352 1728 e/MacphersonMall@NTUC Fairprice.com a/401, #02-22 MacPherson Rd, Macpherson Mall, 368125 gp/banana 5 gp/tissue paper 0.55`
+e.g. `add-s n/NTUC Fairprice Macpherson Mall c/63521728 e/MacphersonMall@NTUC Fairprice.com a/401, #02-22 MacPherson Rd, Macpherson Mall, 368125 gp/banana 5 gp/tissue paper 0.55`
 * *Listing all suppliers* : `list-s`
 * *Clearing all supplier entries* : `clear-s`
 * *Deleting a supplier* : `delete-s INDEX (must be a positive integer)` +
@@ -459,7 +459,7 @@ e.g. `delete-gp 1 g/apple g/orange (to delete two different goods)`
 e.g. `edit-s 1 c/63865586 gp/Watermelon 10`
 * *Locating suppliers by name* : `find-s KEYWORD [MORE_KEYWORD]…` +
 e.g. `find-s NTUC ColdStorage`
-* *Source supplier(s) for good(s)*: `source g/GOOD_NAME [g/MORE_GOOD_NAME]...` +
+* *Source supplier(s) for good(s)*: `source GOOD_NAME [MORE_GOOD_NAME]...` +
 e.g. `source banana apple`
 
 (By Pang Jia Da)
@@ -473,7 +473,7 @@ e.g. `sell 1 q/4 p/3`
 
 * *Set minimum threshold quantity for goods*: `warn INDEX q/MIN_QUANTITY`
 * *List transaction history*: `list-t`
-* *Find transaction*: `find-t [TRANSACTION TYPE][NAME][GOOD NAME]`
+* *Find transaction*: `find-t [TRANSACTION TYPE][n/NAME][g/GOOD NAME]`
 
 //tag::undoredosummary[]
 (By Nicholas Cristian Fernando)
