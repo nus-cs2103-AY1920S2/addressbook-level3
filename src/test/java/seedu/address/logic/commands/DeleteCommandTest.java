@@ -219,12 +219,12 @@ public class DeleteCommandTest {
         LocalDate date = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
         LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_AMY);
         ArrayList<Deadline> tasks = new ArrayList<>();
-        tasks.add(new Deadline(moduleCode, VALID_TASK_AMY, date, time));
+        tasks.add(new Deadline(moduleCode, "tutorial", date, time));
         DeleteCommand deleteCommandTask =
                 new DeleteCommand(Collections.singletonList(new ModuleCode(moduleCode)), tasks);
 
         String updateMessage = String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, moduleCode);
-        String deleteError = String.format("Failed to delete these task(s) as they were not added: %1$s; ", tasks);
+        String deleteError = String.format("Failed to delete these task(s) as they were not added: %1$s; ", "tutorial");
         updateMessage += "\n" + deleteError;
 
         try {
@@ -240,14 +240,20 @@ public class DeleteCommandTest {
     public void execute_allTasks_success() {
         String moduleCode = VALID_MODCODE_AMY;
         ArrayList<Deadline> tasks = new ArrayList<>();
-        tasks.add(new Deadline(moduleCode, VALID_TASK_AMY));
-        tasks.add(new Deadline(moduleCode, VALID_TASK_BOB));
+        Deadline taskA = new Deadline(moduleCode, VALID_TASK_AMY);
+        Deadline taskB = new Deadline(moduleCode, VALID_TASK_BOB);
+        tasks.add(taskA);
+        tasks.add(taskB);
         DeleteCommand deleteCommandTasks =
                 new DeleteCommand(Collections.singletonList(new ModuleCode(moduleCode)), tasks);
 
+        String updateMessage = String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, moduleCode);
+        String deleteSuccess = String.format("These task(s) have been deleted: %1$s; %2$s; ", VALID_TASK_AMY, VALID_TASK_BOB);
+        updateMessage += "\n" + deleteSuccess;
+
         try {
             assertEquals(deleteCommandTasks.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser(), String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, tasks.toString()));
+                    new ModuleManagerStubCs()).getFeedbackToUser(), updateMessage);
         } catch (CommandException e) {
             fail();
         }

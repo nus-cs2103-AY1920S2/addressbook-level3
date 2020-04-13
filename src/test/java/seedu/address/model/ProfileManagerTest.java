@@ -153,12 +153,7 @@ public class ProfileManagerTest {
     public void deleteDeadline_nullDeadline_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> profileManager.deleteDeadline(null));
     }
-
-    @Test
-    public void deleteDeadline_deadlineNotInList_throwsDeadlineNotFoundException() {
-        Deadline deadline = new Deadline("CS1101S", "Dummy description");
-        assertThrows(DeadlineNotFoundException.class, () -> profileManager.deleteDeadline(deadline));
-    }
+    
 
     @Test
     public void replaceDeadline_nullDeadline_throwsNullPointerException() {

@@ -175,9 +175,9 @@ public class ProfileManager implements Model {
             }
         }
 
-        if (!flag) {
+        /*if (!flag) {
             throw new DeadlineNotFoundException();
-        }
+        }*/
     }
 
     /**
@@ -195,9 +195,7 @@ public class ProfileManager implements Model {
                 flag = true;
             }
         }
-        if (!flag) {
-            throw new DeadlineNotFoundException();
-        } else {
+        if (flag) {
             this.deadlineList.add(newDeadline);
         }
     }

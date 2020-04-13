@@ -202,7 +202,7 @@ public class DeleteCommand extends Command {
                             if (deleteDeadlineSuccessAppendMsg.equals("")) {
                                 deleteDeadlineSuccessAppendMsg += "\nThese task(s) have been deleted: ";
                             }
-                            deleteDeadlineSuccessAppendMsg += deadline.getDescription() + ";t ";
+                            deleteDeadlineSuccessAppendMsg += deadline.getDescription() + "; ";
                             profile.getModule(deleteModuleCode).deleteDeadline(deadline);
                             profileManager.deleteDeadline(deadline); //delete from observablelist
                         }
