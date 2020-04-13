@@ -67,7 +67,7 @@ or
 
 E.g. `[t/TAG]…`​ can be used as
 
-`t/friend 
+`t/friend
 
 or
 
@@ -406,7 +406,7 @@ Once the timer expires, the app will prompt you if you have finished the task. Y
 image::pom_time_expire.png[width=790]
 
 ===== Step 5: Break-time!
-Afterwards, the app will prompt you if you would like to begin a 5 minute break (as per the pomodoro technique). Similarly, you need to respond with Yes (Y) or No (N). Responding with No will set the app to its neutral state. Yes will start the break timer. 
+Afterwards, the app will prompt you if you would like to begin a 5 minute break (as per the pomodoro technique). Similarly, you need to respond with Yes (Y) or No (N). Responding with No will set the app to its neutral state. Yes will start the break timer.
 
 .Prompt checking if you'd like to take a break
 image::pom_prompt_break.png[width=790]
@@ -663,13 +663,13 @@ Once, the set is successful, you will this success message being displayed.
 .set success message
 image::UG_set_successmessage.png[width="790"]
 
-This is the view you will be seeing after running the set command. As you can see the pet name, pomodoro duration and daily challenge target have been changed! 
+This is the view you will be seeing after running the set command. As you can see the pet name, pomodoro duration and daily challenge target have been changed!
 
 .Set after
 image::UG_Set_After.png[width="790"]
 
 [IMPORTANT]
-Take note that there are restrictions in the values you can set.  
+Take note that there are restrictions in the values you can set.
 Pet Name: Only alphanumerics are allowed
 Pomodoro Duration : The maximum amount is 60 minutes so as to prevent you from burning out
 Daily Target: The maximun amount is 720 minutes

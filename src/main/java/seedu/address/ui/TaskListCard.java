@@ -53,28 +53,28 @@ public class TaskListCard extends UiPart<Region> {
     private String getPriorityString() {
         String value = task.getPriority().value;
         switch (value) {
-            case "1":
-                return "low";
-            case "2":
-                return "medium";
-            case "3":
-                return "high";
-            default:
-                return "low";
+        case "1":
+            return "low";
+        case "2":
+            return "medium";
+        case "3":
+            return "high";
+        default:
+            return "low";
         }
     }
 
     private String getPriorityColor() {
         String value = task.getPriority().value;
         switch (value) {
-            case "1":
-                return "#2EBE04";
-            case "2":
-                return "#F8713D";
-            case "3":
-                return "#FF0000";
-            default:
-                return "#2EBE04";
+        case "1":
+            return "#2EBE04";
+        case "2":
+            return "#F8713D";
+        case "3":
+            return "#FF0000";
+        default:
+            return "#2EBE04";
         }
     }
 

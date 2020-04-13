@@ -89,53 +89,53 @@ public class PetManager {
         int expBarPerc = expBarInt / 10;
 
         switch (expBarPerc) {
-            case 0:
-                expBarImage = "/images/progress/ProgressBar0%.png";
-                break;
+        case 0:
+            expBarImage = "/images/progress/ProgressBar0%.png";
+            break;
 
-            case 1:
-                expBarImage = "/images/progress/ProgressBar10%.png";
-                break;
+        case 1:
+            expBarImage = "/images/progress/ProgressBar10%.png";
+            break;
 
-            case 2:
-                expBarImage = "/images/progress/ProgressBar20%.png";
-                break;
+        case 2:
+            expBarImage = "/images/progress/ProgressBar20%.png";
+            break;
 
-            case 3:
-                expBarImage = "/images/progress/ProgressBar30%.png";
-                break;
+        case 3:
+            expBarImage = "/images/progress/ProgressBar30%.png";
+            break;
 
-            case 4:
-                expBarImage = "/images/progress/ProgressBar40%.png";
-                break;
+        case 4:
+            expBarImage = "/images/progress/ProgressBar40%.png";
+            break;
 
-            case 5:
-                expBarImage = "/images/progress/ProgressBar50%.png";
-                break;
+        case 5:
+            expBarImage = "/images/progress/ProgressBar50%.png";
+            break;
 
-            case 6:
-                expBarImage = "/images/progress/ProgressBar60%.png";
-                break;
+        case 6:
+            expBarImage = "/images/progress/ProgressBar60%.png";
+            break;
 
-            case 7:
-                expBarImage = "/images/progress/ProgressBar70%.png";
-                break;
+        case 7:
+            expBarImage = "/images/progress/ProgressBar70%.png";
+            break;
 
-            case 8:
-                expBarImage = "/images/progress/ProgressBar80%.png";
-                break;
+        case 8:
+            expBarImage = "/images/progress/ProgressBar80%.png";
+            break;
 
-            case 9:
-                expBarImage = "/images/progress/ProgressBar90%.png";
-                break;
+        case 9:
+            expBarImage = "/images/progress/ProgressBar90%.png";
+            break;
 
-            case 10:
-                expBarImage = "/images/progress/ProgressBar100%.png";
-                break;
+        case 10:
+            expBarImage = "/images/progress/ProgressBar100%.png";
+            break;
 
-            default:
-                expBarImage = "/images/progress/ProgressBar0%.png";
-                break;
+        default:
+            expBarImage = "/images/progress/ProgressBar0%.png";
+            break;
         }
     }
 

@@ -75,18 +75,18 @@ public class CommandCompletor {
         String newCommand = String.join(" ", splitInput);
 
         switch (splitInput[0]) {
-            case AddCommand.COMMAND_WORD:
-                return new AddCommandParser().completeCommand(newCommand);
-            case EditCommand.COMMAND_WORD:
-                return new EditCommandParser().completeCommand(newCommand, listSize);
-            case PomCommand.COMMAND_WORD:
-                return new PomCommandParser().completeCommand(newCommand);
-            case SortCommand.COMMAND_WORD:
-                return new SortCommandParser().completeCommand(newCommand);
-            case DoneCommand.COMMAND_WORD:
-                return new DoneCommandParser().completeCommand(newCommand, listSize);
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommandParser().completeCommand(newCommand, listSize);
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().completeCommand(newCommand);
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().completeCommand(newCommand, listSize);
+        case PomCommand.COMMAND_WORD:
+            return new PomCommandParser().completeCommand(newCommand);
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().completeCommand(newCommand);
+        case DoneCommand.COMMAND_WORD:
+            return new DoneCommandParser().completeCommand(newCommand, listSize);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().completeCommand(newCommand, listSize);
         }
         return new CompletorResult(newCommand, feedbackToUser);
     }

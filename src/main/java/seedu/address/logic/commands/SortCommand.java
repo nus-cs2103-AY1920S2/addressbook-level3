@@ -39,30 +39,30 @@ public class SortCommand extends Command {
         ArrayList<Comparator<Task>> comparatorList = new ArrayList<>();
         for (String field : fields) {
             switch (field) {
-                case "priority":
-                    comparatorList.add(getPriorityComparator());
-                    break;
-                case "date":
-                    comparatorList.add(getReminderComparator());
-                    break;
-                case "name":
-                    comparatorList.add(getNameComparator());
-                    break;
-                case "done":
-                    comparatorList.add(getDoneComparator());
-                    break;
-                case "r-priority":
-                    comparatorList.add(getPriorityComparator().reversed());
-                    break;
-                case "r-date":
-                    comparatorList.add(getReminderComparator().reversed());
-                    break;
-                case "r-name":
-                    comparatorList.add(getNameComparator().reversed());
-                    break;
-                case "r-done":
-                    comparatorList.add(getDoneComparator().reversed());
-                    break;
+            case "priority":
+                comparatorList.add(getPriorityComparator());
+                break;
+            case "date":
+                comparatorList.add(getReminderComparator());
+                break;
+            case "name":
+                comparatorList.add(getNameComparator());
+                break;
+            case "done":
+                comparatorList.add(getDoneComparator());
+                break;
+            case "r-priority":
+                comparatorList.add(getPriorityComparator().reversed());
+                break;
+            case "r-date":
+                comparatorList.add(getReminderComparator().reversed());
+                break;
+            case "r-name":
+                comparatorList.add(getNameComparator().reversed());
+                break;
+            case "r-done":
+                comparatorList.add(getDoneComparator().reversed());
+                break;
             }
         }
 

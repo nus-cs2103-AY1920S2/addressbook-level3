@@ -1299,7 +1299,7 @@ Expected: After 60 seconds, the done is set back to unfinished, with the tick be
 .. try partial start matches: `fi` -> `find`
 .. try typo matches: `fand` -> `find`
 ... All command word partial matches should work
-.. `asdf` -> `asdf` 
+.. `asdf` -> `asdf`
 ... [command text field set to red]
 .. try misspelled words by 1 character: `fand` -> `find`
 . Test prefix completion
@@ -1308,10 +1308,10 @@ Expected: After 60 seconds, the done is set back to unfinished, with the tick be
 ... Ensure that the date values are valid
 .. Pom: `pom 2 2.5` -> `pom 2 tm/2.5`
 . Test index checking
-.. Edit: `edit -2` -> `edit -2` 
+.. Edit: `edit -2` -> `edit -2`
 ... [result display shown to user and turned orange]
 ... any non positive integer or integers outside of the displayed task list's size will trigger the same deletion and feedback
-.. delete/done: `done -2 a 1999 2` -> `done 2` 
+.. delete/done: `done -2 a 1999 2` -> `done 2`
 ... [result display also set to orange]
 . Sort field completion
 .. sort: `sort na prioruty blabla` -> `sort name priority`
