@@ -19,9 +19,9 @@ Responsibilities: Team Facilitation, Expense Splitter
 
 '''
 
-=== Ailanthus Tng
+=== Tng Liang Yi, Ailanthus
 image::ailanthustng.png[width="150", align="left"]
-{empty}[http://github.com/ailanthustng[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ailanthustng[github]] [<<ailanthustng#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Expense Splitter
