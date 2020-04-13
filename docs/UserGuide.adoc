@@ -70,16 +70,18 @@ Listed below are the notations used to define a `RelativePath`.
 
 * `.` (Point to current note)
 * `..` (Point to parent note)
-* `exampleNote` (Point to child node titled "exampleNote")
+* `exampleNote` (Point to child node)
 
 **Validity of Paths**
 
 - AbsolutePath
 ** Must start with the root note.
-** After every `/` you can provide a `Title` <<TitleValidity, (Valid Title)>>
+** After every `/` you can provide a `Title` <<TitleValidity, (Valid Title)>>.
+** `/Workspace/2103T` is a valid `AbsolutePath`, `Workspace/2103T` is not.
 
 - Relative Path
-** Starts with `.` or `..` or a Title <<TitleValidity, (Valid Title)>>
+** Starts with `.` or `..` or a Title <<TitleValidity, (Valid Title)>>.
+** `./CS2103T/../CS2101`  is a valid `RelativePath`.
 
 **Example**
 
@@ -89,15 +91,15 @@ The picture below helps to illustrate the use of `RelativePath` and `AbsolutePat
 image::UGPathDiagram.png[width="790"]
 
 
-The `AbsolutePath` `/CS2101` is equivalent to `RelativePath` `../CS2101`
+The `AbsolutePath` `/Workspace/CS2101` is equivalent to `RelativePath` `../CS2101`
 
-Thus `open /CS2101` and `open ../CS2101` would yield the same result.
+Thus `open /Workspace/CS2101` and `open ../CS2101` would yield the same result.
 
 [NOTE]
 Paths are used by the `open` and `delete` command
 
 [WARNING]
-We cannot open or delete the parent of the root note because it does not exist. e.g `Delete /../` will result in an error.
+We cannot open or delete the parent of the root note because it does not exist. e.g `Delete /` will result in an error.
 // end::paths[]
 ====
 [[Markdown]]
