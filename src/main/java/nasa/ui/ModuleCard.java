@@ -38,13 +38,10 @@ public class ModuleCard extends UiPart<Region> {
     public ModuleCard(Module module, int width) {
         super(FXML);
         this.module = module;
-        cardPane.setMinWidth(350);
-        cardPane.setMaxWidth(350);
+        cardPane.setMinWidth(275);
+        cardPane.setMaxWidth(275);
         cardPane.setMaxHeight(Double.MAX_VALUE);
-        cardPane.setStyle("    -fx-background-color: #211463;\n"
-                + "    -fx-border-width: 5px;\n"
-                + "    -fx-border-color: black;\n"
-                + " -fx-background-radius: 10px");
+
         code.setText(module.getModuleCode().toString() + " " + module.getModuleName().toString());
         deadlineListPanel = new DeadlineListPanel(module.getFilteredDeadlineList());
         eventListPanel = new EventListPanel(module.getFilteredEventList());
