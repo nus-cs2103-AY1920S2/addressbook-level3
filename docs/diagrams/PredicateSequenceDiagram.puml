@@ -50,7 +50,11 @@ loop chunks of task name
 end
 
 loop tags of search term
-    opt tag exists in taskList
+    Predicate -> Task: hasTag(tag)
+    activate Task
+    Task -> Predicate
+    deactivate Task
+    opt Task contains tag
         Predicate -> Predicate: score -= 1
     end
 end
