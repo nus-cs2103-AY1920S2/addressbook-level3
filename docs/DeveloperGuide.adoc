@@ -813,6 +813,9 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+
+
+//tag::session[]
 [appendix]
 == Effort
 
@@ -853,3 +856,5 @@ This meant we were later to start coding and making PRs than other teams (as see
 We hope you have enjoyed this journey and learnt as much as we have!
 
 - The ZeroToOne Team
+
+//end::session[]

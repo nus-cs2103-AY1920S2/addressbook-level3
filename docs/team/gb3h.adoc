@@ -84,3 +84,5 @@ include::../UserGuide.adoc[tag=session]
 |===
 
 include::../DeveloperGuide.adoc[tag=session]
+
+include::../DeveloperGuide.adoc[tag=effort]
