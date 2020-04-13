@@ -187,7 +187,7 @@ The maximum quantity of any good in the inventory is 999,999. Users are not allo
 //end::buycommand[]
 
 //tag::sellcommand[]
-=== Selling goods: `sell`
+=== Selling goods: `sell` (By Pang Jia Da)
 
 Sells a particular goods from the inventory.
 
@@ -214,7 +214,7 @@ This entry can be deleted using the `delete-g` command.
 
 //tag::deletegood[]
 
-=== Delete good entry in inventory: `delete-g`
+=== Delete good entry in inventory: `delete-g` (By Pang Jia Da)
 Deletes an entry for a good in the inventory.
 The good to be deleted is at the displayed index shown in the middle inventory panel.
 All of the good's quantity will be removed in the process.
@@ -426,12 +426,14 @@ e.g. `find-s NTUC ColdStorage`
 e.g. `source banana apple`
 
 (By Pang Jia Da)
-* *Buy goods*: `buy SUPPLIER_INDEX g/GOOD_NAME q/QUANTITY` +
-e.g. `buy n/Dave g/apple q/4`
-* *Sell goods*: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE` +
-e.g. `sell g/apple q/4`
+
+* *Buy goods*: `buy SUPPLIER_DISPLAYED_INDEX g/GOOD_NAME q/QUANTITY` +
+e.g. `buy 1 g/Apple q/4`
+* *Sell goods*: `sell GOOD_DISPLAYED_INDEX q/QUANTITY p/PRICE` +
+e.g. `sell 1 q/4 p/3`
 
 (By Fang Shao Hua)
+
 * *Set minimum threshold quantity for goods*: `warn INDEX q/MIN_QUANTITY`
 * *List expiring goods*: `list-e`
 * *List transaction history*: `list-t`
@@ -439,6 +441,7 @@ e.g. `sell g/apple q/4`
 * *Clear transaction history*: `clear-t`
 
 (By Nicholas Cristian Fernando)
+
 * *Undo*: `undo`
 * *Redo*: `redo`
 

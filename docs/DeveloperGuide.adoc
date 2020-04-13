@@ -61,12 +61,14 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[]
 
 [discrete]
-==== How the architecture components interact with each other
+==== How the architecture components interact with each other (By Pang Jia Da)
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete-s 1`.
 
 .Component interactions for `delete-s 1` command
+//tag::ArchitectureSequenceDiagram[]
 image::ArchitectureSequenceDiagram.png[]
+//end::ArchitectureSequenceDiagram[]
 
 The sections below give more details of each component.
 
@@ -103,9 +105,12 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-(By Pang Jia Da)
+:numbered!:
+=== (By Pang Jia Da)
+:numbered:
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("buy g/Apple q/50")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic`
+component for the `execute("buy 1 g/Apple q/50")` API call.
 
 .Interactions Inside the Logic Component for the `buy g/Apple q/50` Command
 //tag::buysequencediagram[]
@@ -1429,6 +1434,22 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequisites: None
 .. Test case: Add a valid supplier, `undo`, add a different valid supplier, and finally `redo` +
    An error is shown, indicating that redo cannot be done from latest state.
+
+=== Buying goods
+. Prerequisites:
+.. A supplier at displayed index 1 in the supplier list that sells a good named Rice.
+.. There should either not be any Rice in the inventory or have an amount that
+will be strictly less than 1 million after buying.
+. Test case: `buy 1 g/Rice q/10` +
+Expected: The quantity of Rice in the inventory should increase by 10. If Rice
+was not previously present, a new entry would be created.
+
+=== Selling goods
+. Prerequisites:
+.. Have a good named Rice in the inventory with at least 10 quantity.
+.. Rice should be at displayed index 1 in the inventory.
+. Test case: `sell 1 q/3 p/3` +
+Expected: The quantity of rice in the inventory should decrease by 3.
 
 === Set threshold quantity for good
 
