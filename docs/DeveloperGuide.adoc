@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-F11-2/main
 
-By: `AY1920S2-CS2103T-F11-2`   Since: `Feb 2020`      Licence: `MIT`
+By: `AY1920S2-CS2103T-F11-2`   Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -92,6 +92,9 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
+
+// tag::logic[]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -112,8 +115,12 @@ Given below is the sequence diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete-c 1` Command
 image::DeleteSequenceDiagram.png[]
 
+// end::logic[]
+
 [[Design-Model]]
-=== Model component
+
+// tag::dban1[]
+=== Model component --Ng Ming Liang
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -122,15 +129,18 @@ image::ModelClassDiagram.png[]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+1. stores a `UserPref` object that represents the user's preferences
+1. stores a `ClientInView` to represent the current selected `Client` selected by the `view-c` command
+1. stores `FitBiz`
+1. stores `Client`, `Sports`, `Tag`, `Schedule` and `Exercise` packages, where `Client` utilises the latter packages as attributes
+1. exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Client` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Client` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can choose to store a `Tag` list in `FitBiz`, which `Client` can reference. This would allow `FitBiz` to only require one `Tag` object per unique `Tag`, instead of each `Client` needing their own `Tag` object. An example of how such a model may look like is given below. For simplicity, we have omitted the rest of the attributes that `Client` has. Refer back to the diagram above for more details. +
  +
 image:BetterModelClassDiagram.png[]
+
+// end::dban1[]
 
 [[Design-Storage]]
 === Storage component
@@ -391,38 +401,71 @@ Also, since we have implemented our own Trie data structure, it would also allow
 
 // end::aaron-choo[]
 
+// tag::dban1[]
+
 === Scheduling for a Client --- Ng Ming Liang
 This feature allows for a user to assign a weekly schedule to a client. Timings are represented in the 24-hour format `HHmm`. Each client can have none or multiple schedules that do not have overlapping timings. Multiple clients are allowed to have overlapping timings with each other.
 
 ==== Implementation
-This scheduling mechanism is facilitated by `ScheduleList`, which is a wrapper class for an `ArrayList` of `Schedule` objects. Each `Client` contains one `ScheduleList` attribute to keep track of all `Schedule` assigned to it. If there are no assigned `Schedule` for the `Client`, then the `ScheduleList` contains an empty `ArrayList` of `Schedule`.
+This scheduling mechanism is facilitated by `ScheduleCommand` which extends `Command`. The format of the command is given by:
+
+`schedule INDEX sch/DAY-STARTTIME-ENDTIME [sch/DAY-STARTTIME-ENDTIME] ...`
+
+When using this command, at least one valid complete schedule parameter must be specified. The user can follow up with additional optional valid schedule parameters in order to assign more schedules to the same client. The following 3 examples are all valid usages of the `schedule` command:
+
+*Example Commands*
+
+1. `schedule 1 sch/MON-1100-1300`
+2. `schedule 2 sch/MON-1100-1300 sch/TUE-1100-1300 sch/SAT-1800-2000`
+3. `schedule 3 sch/`
+
+*Elaboration on Example Commands*
+
+1. This command instance schedules `Client` with index 1 to have a schedule slot on every Monday, 11:00am to 1:00pm.
+
+2. This command instance schedules `Client` with index 2 to have schedule slots on every Monday 11:00am to 1:00pm, Tuesday 11:00am to 1:00pm, and Saturday 6:00pm to 8:00pm.
+
+3. This command instance schedules `Client` with index 3 to have no schedule slots, that is essentially clearing the schedule of `Client` with index 3. The `sch/` parameter is required when clearing the schedule.
+
+
+Do note that the schedule parameters given in the `schedule` command will entirely overwrite the client's current list of schedules.
+
+
+The list of schedules of each client are structured as a `ScheduleList`, which is a wrapper class for an `ArrayList` of `Schedule` objects. Each `Client` contains one `ScheduleList` attribute to keep track of all `Schedule` assigned to it. If there are no assigned `Schedule` for the `Client`, then the `ScheduleList` simply contains an empty `ArrayList` of `Schedule`.
 
 `Schedule` comprises three attributes:
 
-* `Day`
+1. `Day`
 
-* `StartTime`
+2. `StartTime`
 
-* `EndTime`
+3. `EndTime`
 
 `Day` wraps the enum `DayEnum.Weekday` and represents the day of the week the schedule takes place on.
-`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively. The relations between these classes are shown in the class diagram below.
+
+`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively.
+
+The relations between these classes are shown in the class diagram below.
 
 image::ScheduleClassDiagram.png[]
 
 These attributes are bounded by these characteristics:
 
-* Each `Client` can only contain unique `Schedule`, that is, there are no overlaps in timings between any two `Schedule` in the `ScheduleList`. This is ensured by `ScheduleCommandParser#checkIfOverlaps()`
+1. Each `Client` can only contain unique `Schedule`, that is, there are no overlaps in timings between any two `Schedule` in the `ScheduleList`. This is ensured by `ScheduleCommandParser#checkIfOverlaps()`
 
-* Overlapping timings between the `Schedule` of different `Client` is allowed
+2. Overlapping timings between the `Schedule` of different `Client` is allowed
 
-* The maximum timeframe between `StartTime` and `EndTime` is from `0000` to `2359`
+3. The maximum timeframe between `StartTime` and `EndTime` is from `0000` to `2359`
 
-* `StartTime` cannot be later than `EndTime`
+4. `StartTime` cannot be later than `EndTime`
 
-* `Day` can only take up the 7 values of the week (MON/TUE/WED/THU/FRI/SAT/SUN)
+5. `Day` can only take up the 7 values of the week (MON/TUE/WED/THU/FRI/SAT/SUN)
 
-In the following sequence diagram, we trace the execution for when the user decides to enter the command `schedule 1 day/mon st/1100 et/1200` into FitBiz:
+Here is an activity diagram displaying the steps taken when FitBiz receives a user input for the `schedule` command:
+
+image::ScheduleActivityDiagram.png[]
+
+In the following sequence diagram, we trace the execution for when the user decides to enter the command `schedule 1 day/mon st/1100 et/1200` into FitBiz. For simplicity, we will refer to this command input as `commandText`:
 
 image::ScheduleSequenceDiagram.png[]
 
@@ -433,18 +476,37 @@ and timing, wrapping each of these properties into their wrapper classes allowed
 Considerations also then had to be made for how to contain multiple `Schedule`. The current implementation uses the `ArrayList` data structure to hold multiple `Schedule`. Other considered alternative for `ScheduleList` was `HashSet`.
 [options='header']
 |====================
-| Data Structure | Pros and Cons
-| ArrayList |
-*Pros*: Elements can be sorted and retrieved in ascending order
+| Data Structure | Pros | Cons
+|ArrayList
+|Elements can be sorted and retrieved in ascending order
+|Does not ensure that its elements are unique
 
-*Cons*: Does not ensure that its elements are unique
-| HashSet |
-*Pros*: Does not allow duplicate values
+|HashSet
+|Ensures no duplicate values
 
-*Cons*: Does not return elements in order
+|Does not return elements in order
 |====================
 
-As the nature of the schedule panel was to display a sorted collection of `Schedule`, we chose `ArrayList` as the underlying data structure. In addition, we also harnessed the capability of the `HashSet` to ensure no overlaps between `Schedule` within each `Client`, which is implemented by `ScheduleCommandParser#checkIfOverlaps`.
+
+*Displaying the Schedule Panel*
+
+The schedules of all the clients are displayed in a time-sorted manner on the `SchedulePanel` of the main FitBiz GUI as shown in the picture below, demarcated by the red rectangle:
+
+image::SchedulePanelGUIExample.png[]
+
+The `SchedulePanel` extends `UiPart<Region>` and takes in a `ScheduleDay` class. `ScheduleDay` is similar to `ScheduleList`, the difference being:
+
+* `ScheduleDay` wraps an ArrayList of `Schedule` for a specific `Day`
+* `ScheduleList` wraps an ArrayList of `Schedule` for a specific `Client`
+
+As the nature of the `SchedulePanel` was to display a sorted collection of `Schedule`, we chose `ArrayList` as the underlying data structure, due to the ability to sort the ArrayList via a comparator that compares `Schedule` according to their `Day` and `StartTime`. The code snippet below shows how the `Schedule` are being sorted using an anonymous comparator in the constructor for `ScheduleDay`:
+
+ this.scheduleList.sort(Comparator.comparingInt(o -> o.getStartTime().getDirectTimeInt()));
+
+
+In addition, we also harnessed the capability of the `HashSet` to ensure no overlaps between `Schedule` within each `Client`, which is implemented by `ScheduleCommandParser#checkIfOverlaps`. As the ArrayList of `Schedule` is being populated in the constructor of `ScheduleDay`, we used a `HashSet` to check for any overlapping `Schedule`. The `equals` method of `Schedule` was overriden to consider overlapping timeframes between `StartTime` and `EndTime` to be equal.
+
+// end::dban1[]
 
 === Exercise Feature --- Yong Jie
 
@@ -508,7 +570,7 @@ image::ExerciseCommandActivityDiagram.png[]
 . The `FitBizParser` will create the associated exercise command parser. e.g. `AddExerciseCommandParser`
 . Using `ParserUtil`, the parser will extract attribute details from the input and create the `Command`. e.g. `AddExerciseCommand`
 . The exercise `Command` will be executed and modify the client's `UniqueExerciseList`.
-    .. Exceptions like no client being viewed and invalid input are thrown here.
+.. Exceptions like no client being viewed and invalid input are thrown here.
 . The change will be reflected in the exercise table in GUI.
 . Result box will display success message for the `Command`.
 
@@ -724,11 +786,13 @@ Moreover, to keep in line with the OOP standards, we decided that it will be bet
 
 By considering the above two factors, despite having to put in the extra effort to create a new `AxisType` class and thus requiring extra methods like getters and setters, we decided to move with the approach of creating the `AxisType` enum class and refactor to accomodate for the additional data type.
 
+// tag::filter-c-command[]
+
 === Filtering the list of clients --- Toh Ker Wei
 This feature allows users to filter the list of clients by specifying the `Tag` or `Sport` of the clients they want to view.
 
 ==== Implementation
-This filtering mechanism is facilitated by `TagAndSportContainsKeywordsPredicate`, that implements `Predicate<Client>` which is a wrapper class for a boolean. `FilterCommand` is associated with `Model` is responsible for calling `Model#updateFilteredClientList` based on `TagAndSportContainsKeywordsPredicate`. `TagAndSportContainsKeywordsPredicate` will call `test` on `Client` to check if the clients 'Tag' and `Sport` contains all the keyword. the relations between these classes are shown in the class diagram below.
+This filtering mechanism is facilitated by `TagAndSportContainsKeywordsPredicate`, that implements `Predicate<Client>` which is a wrapper class for a boolean. `FilterCommand` is associated with `Model` is responsible for calling `Model#updateFilteredClientList` based on `TagAndSportContainsKeywordsPredicate`. `TagAndSportContainsKeywordsPredicate` will call `test` on `Client` to check if the clients `Tag` and `Sport` contains all the keyword. the relations between these classes are shown in the class diagram below.
 
 image::FilterClassDiagram.png[]
 
@@ -762,6 +826,10 @@ Secondly, separating the checks for each attributes will allow us to add attribu
 
 Therefore, as we foresee us adding more attributes to be filtered increasing the need to ensure logical correctness, the first approach is the most ideal.
 
+// end::filter-c-command[]
+
+// tag::view-c-command[]
+
 === Viewing the information of a client --- Toh Ker Wei
 This feature allows users to view the information of a specific client using his `INDEX` in the clients list. Information displayed includes additional information of the client, exercises done and his personal best of exercises done.
 
@@ -791,6 +859,8 @@ Secondly, for clients with the same name, `INDEX` qill be used to specify the cl
 
 Therefore, viewing a client by his `INDEX` minimises the responsibility of the command and will not need to resolve conflicting clients and is the most ideal.
 
+// end::view-c-command[]
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -808,12 +878,12 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of gym clients and their information (clients' details and exercises)
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-* wants to book facilities easily [v2.0]
+* Has a need to manage a significant number of gym clients and their information (clients' details and exercises)
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
+* Wants to book facilities easily [v2.0]
 
 *Value proposition*: Keep track of your gym training schedule and clients' exercises faster than a typical mouse/GUI driven app
 
@@ -829,7 +899,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |coach for fitness competitors |record the exercise type and intensity my clients have done for the day |know if they are on track for their competitions
 |`* * *` |coach for fitness competitors|record the date and time of my clients’ training sessions and keep track of which day they work out|
 |`* * *` |coach with many fitness competitors |view my overall schedule for the day/week|
-|`* * *` |coach that communicates with my clients |display visualisations(graphs/charts) |convey the client's training progress better
+|`* * *` |coach that communicates with my clients |display visualisations (graphs/charts) |convey the client's training progress better
 |`* * *` |coach |add new profiles to the app to keep track of new clients|
 |`* * *` |coach |list all my clients|
 |`* * *` |coach |edit a client’s details |change and update an existing client’s details
@@ -857,8 +927,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |coach |monitor my clients caloric intake |know he is meeting his dietary requirements
 |`*` |coach |manage the payment fee/payment day of the clients |charge them accordingly
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1139,47 +1207,54 @@ Use case resumes at step 6.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 clients without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should work without the need for Internet in the program.
+.  Should work mostly without the need for the Internet.
 .  Should work reliably.
 .  Should be able to store data in a human-readable format.
 .  Should be for a single user.
 .  Should not use DBMS to store data.
 .  Should not exceed 100Mb in file size.
 
-
-_{More to be added}_
-
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Client::
+The client of the fitness coach.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others.
+Client In View::
+The client currently in view (after the `view-c` command is used).
+
+Client List::
+The GUI section which shows all client currently listed in FitBiz.
+
+Client View::
+The GUI section which shows all the information of the client in view
 
 [[exercise]] Exercise::
-A workout activity done by a client that is to be recorded.
+A workout activity done by a client that can be recorded.
 
-[[cliental-best]] Cliental Best::
-The best/highest weight that the client has reached for an exercise.
+Exercise Table::
+The GUI section which shows the list of the client in view's exercises
 
-[appendix]
-== Product Survey
+Fitness Coach::
+The targer user base of FitBiz.
 
-*Product Name*
+Graph::
+The graph of an exercise done by a client (reps/weights vs. date).
 
-Author: ...
+[[mainstream-os]] Mainstream OS::
+Any modern OS like Windows, Linux, Unix, or OS-X.
 
-Pros:
+Personal Best::
+The exercise done by the client with the highest weight (or highest rep if weight does not exist).
 
-* ...
-* ...
+Personal Best Table::
+The GUI section which shows the list of the client in view's personal best exercises
 
-Cons:
+Schedule::
+The client's training schedule per week. Note that one client cannot have overlapping schedules but other client's schedule can overlap with another client's.
 
-* ...
-* ...
+Schedule Panel::
+The GUI section which shows the list of all clients' schedules from the current client list
 
 [appendix]
 == Instructions for Manual Testing
@@ -1189,13 +1264,14 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+
 === Launch and Shutdown
 
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI without the client view populated with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1203,18 +1279,47 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Command autocomplete
+
+. Unambiguous, single command found
+
+.. Test case: type `gr` into the command box and press kbd:[Tab] +
+   Expected: command box shows completed `graph n/ a/ sd/ ed/` command, with the caret position right after `n/`. Result box shows the `graph` command usage.
+.. Test case: type `add-e` into the command box and press kbd:[Tab] +
+   Expected: command box shows completed `add-e n/ d/ reps/ ew/ sets/` command, with the caret position right after `n/`. Result box shows the `add-e` command usage.
+
+. Ambiguous, multiple commands found
+
+.. Test case: type `a` into the command box and press kbd:[Tab] +
+   Expected: command box shows longest common prefix `add-`, with the caret position at the end of the line. Result box indicates and lists that `add-e` and `add-c` commands are found.
+
+. No valid commands found
+
+.. Test case: type `Fitbiz!` into the command box and press kbd:[Tab] +
+   Expected: command box and caret positions does not change. Result box indicates that no commands were found.
+
+. Prefix traversal when commands are completed with white spaces
+
+.. Test case: type `graph n/ a/ sd/ ed/` into the command box and press kbd:[Tab] +
+   Expected: caret position travels around all the `/` with wraparound.
+.. Test case: type `///` into the command box and press kbd:[Tab] +
+   Expected: command box and caret positions does not change. Result box indicates that no commands were found. This is similar to 3, no valid commands found.
+
+. Commands with white spaces but without `/`
+
+.. Test case: type `i <3 2103` into the command box and press kbd:[Tab] +
+   Expected: command box and caret positions does not change. Result box does not change. Basically nothing happens.
 
 === Deleting a client
 
 . Deleting a client while all clients are listed
 
-.. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: At least one client in the list. List all clients using the `list-c` command.
+.. Test case: `delete-c 1` +
+   Expected: First client is deleted from the list. Details of the deleted client shown in the status message.
+.. Test case: `delete-c 0` +
+   Expected: No client is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete-c`, `delete-c x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 === Adding an exercise
@@ -1247,4 +1352,108 @@ Expected: No exercise added. An error message stating that the exercise already 
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+=== Filtering the client list
+. Filtering the client list with different `Tag` and `Sport` specified
+.. Test case: `filter-c t/normal s/hockey` +
+Expected: Client with `Tag` normal and `Sport` listed.
+
+.. Test case: `filter-c s/sumo wrestling` +
+Expected: Client with `Sport` `sumo wrestling` listed.
+
+.. Test case: `filter-c t/normal vegetarian` +
+Expected: Error stating "Tags names should be alphanumeric" shown.
+
+.. Test case: `filter-c t/normal t/vegetarian` +
+Expected: Client with `Tag` `normal` and `vegetarian` listed.
+
+=== Adding new client into FitBiz
+. Adding a new client into FitBiz with different parameters stated
+
+.. Test case: `add-c n/John Cena p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 g/Male b/26-01-1980 cw/96 tw/69 h/156 s/Sumo Wrestling t/Vegan t/healthy r/History of back injuries` +
+Expected: New client added.
+
+.. Test case: `add-c n/Micheal Jordan p/98254 e/mikeyboii@example.com a/basketball court blk 666 #02-25` +
+Expected: New client added.
+
+.. Test case: `add-c n/Simba p/98543456 e/thelionking@gmail.com` +
+Expected: Error "Invalid command format!" shown.
+
+.. Test case: `add-c n/Secret Man p/97656561 e/cantseemee@void.com a/here @ dodo coast g/ b/ cw/ tw/ h/ r/ s/ t/` +
+Expected: New client added.
+
+.. Test case: `add-c n/Rachel tan p/93214321 e/RachelTan@mail.com a/choa chu kang ave 22 blk 909` followed by `add-c n/Rachellie Tan p/98786110 e/RachelTan@mail.com a/bishan grove 45` +
+Expected: Error "This phone number and/or email already exists in FitBiz." shown.
+
+=== Scheduling clients
+
+. Scheduling a valid client from the current *Client List* to have *_1_* schedule
+
+.. Prerequisites: At least one client in the *Client List*
+.. Test Case: `schedule 1 sch/MON-1100-1200` +
+Expected: `FIRST_CLIENT_NAME` 's overall schedule has been changed to:
+MON Time: 11:00 - 12:00
+
+. Scheduling an invalid client index
+
+.. Test Case: `schedule -1 sch/MON-1100-1200` +
+Expected: Invalid command format! +
+schedule: Adds the training schedule of the client, identified by the index number used in the displayed client list. The schedule should include the first 3 letters of the day,
+start and end time in 24 hour format, in 1-minute denominations. Multiple training schedule can be added to a client.
+
+
+. Multiple scheduling
+
+.. Prerequisite: At least one client in the *Client List*
+.. Test Case: `schedule 1 sch/MON-1300-1400 sch/TUE-1700-1900` +
+Expected: Alex Yeoh's overall schedule has been changed to: +
+MON Time: 13:00 - 14:00 +
+TUE Time: 17:00 - 19:00
+
+=== Listing all clients
+
+. Using list-c
+.. Test Case: `list-c` +
+Expected: Listed all clients
+
+=== Editing a client
+
+. Editing a client's address
+.. Prerequisites: At least one client in the *Client List*
+.. Test Case: `edit-c 1 a/New Address` +
+Expected: Edited Client: `CLIENT INFORMATION`
+
+. Adding multiple sports to a client
+.. Prerequisites: At least one client in the *Client List*
+.. Test Case: `edit-c 1 s/Tennis s/Soccer` +
+Expected: Edited Client: `CLIENT INFORMATION`
+
+. Removing client's sports
+.. Prerequisites: At least one client in the *Client List*, with existing sports
+.. Test Case: `edit-c 1 s/` +
+Expected: Edited Client: `CLIENT INFORMATION`
+
+=== Viewing a client
+. Viewing a client while all clients are listed
+
+.. Prerequisites: At least one client in the list. List all clients using the `list-c` command.
+.. Test case: `view-c 1` +
+   Expected: First client is viewed from the list. Success message shows that you are currently viewing the first client.
+.. Test case: `view-c 0` +
+   Expected: No client is viewed. Error details shown in the status message.
+.. Other incorrect delete commands to try: `view-c`, `view-c x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Viewing a graph of an exercise
+. Viewing a graph of the specified exercise while a client is in view
+
+.. Prerequisities: Have a client currently in view using the `view-c` command. Have at least one exercise in the exercise table.
+.. Test case: `graph n/Push Up a/reps sd/01-01-2020 ed/01-04-2020` command format is correct and no other input issues +
+Expected: Graph is displayed and success message is shown.
+.. Test case: `graph` or any other parameters missing +
+Expected: No graph displayed, error stating "Invalid command format!" with the correct usage is shown.
+.. Test case: Correct graph command format but no exercise record within the stipulated timeframe +
+Expected: No graph displayed, error stating "Graph cannot be plotted" as there are no records of this exercise within the given timeframe.
+.. Test case: Correct graph command format and existing exercise records but no valid inputs for the given axis +
+Expected: No graph displayed, error stating "There is no graph to be plotted for this axis specified" is shown and the user is asked to pick a different axis or exericse.
+.. Test case: Correct graph command format but the start date is chronologically later than the end date +
+Expected: No graph displayed, error stating "Invalid command format!" with the correct usage is shown

@@ -31,7 +31,7 @@ public class Schedule implements Comparable<Schedule> {
     }
 
     /**
-     * @author Dban1
+     * @author @Dban1
      * @param startTime
      * @param endTime
      * @return Checks if end time is later than start time, assuming they are of valid format "hhmm". End time
@@ -93,8 +93,7 @@ public class Schedule implements Comparable<Schedule> {
     }
 
     /**
-     * @return
-     * @author Dban1
+     * @author @Dban1
      * Returns a clone of Schedule.
      */
     @Override
@@ -158,6 +157,9 @@ public class Schedule implements Comparable<Schedule> {
         return timeFrame;
     }
 
+    /**
+     * @author @Dban1
+     */
     @Override
     public int compareTo(Schedule other) {
         Schedule otherSchedule = other;

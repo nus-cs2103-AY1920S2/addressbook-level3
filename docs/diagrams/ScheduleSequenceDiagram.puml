@@ -3,70 +3,71 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":FitBizParser" as FitBizParser LOGIC_COLOR
 participant ":ScheduleCommandParser" as ScheduleCommandParser LOGIC_COLOR
 participant "s:ScheduleCommand" as ScheduleCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "c:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute\n("schedule 1 day/mon st/1100 et/1200")
+[-> LogicManager : execute(commandText)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand\n("schedule 1 day/mon st/1100 et/1200")
-activate AddressBookParser
+LogicManager -> FitBizParser : parseCommand(commandText)
+activate FitBizParser
 
 create ScheduleCommandParser
-AddressBookParser -> ScheduleCommandParser
+FitBizParser -> ScheduleCommandParser : ScheduleCommandParser()
 activate ScheduleCommandParser
 
-ScheduleCommandParser --> AddressBookParser
+ScheduleCommandParser --> FitBizParser
 deactivate ScheduleCommandParser
 
-AddressBookParser -> ScheduleCommandParser : parse("day/mon\nst/1100 et/1200")
+FitBizParser -> ScheduleCommandParser : parse(arguments)
 activate ScheduleCommandParser
 
 create ScheduleCommand
-ScheduleCommandParser -> ScheduleCommand
+ScheduleCommandParser -> ScheduleCommand : ScheduleCommand(index, scheduleList)
 activate ScheduleCommand
 
 ScheduleCommand --> ScheduleCommandParser : s
 deactivate ScheduleCommand
 
-ScheduleCommandParser --> AddressBookParser : s
+ScheduleCommandParser --> FitBizParser : s
 deactivate ScheduleCommandParser
 
-AddressBookParser --> LogicManager : s
-deactivate AddressBookParser
+FitBizParser --> LogicManager : s
+deactivate FitBizParser
 
-LogicManager -> ScheduleCommand : execute()
+LogicManager -> ScheduleCommand : execute(model)
 activate ScheduleCommand
 
-ScheduleCommand -> Model : setClient()
+ScheduleCommand -> Model : getFilteredClientList()
+activate Model
+
+Model --> ScheduleCommand : filteredClientList
+deactivate Model
+
+ScheduleCommand -> Model : setClient(clientToEdit, editedClient)
 activate Model
 
 Model --> ScheduleCommand:
 deactivate Model
 
-ScheduleCommand -> Model: updateFilteredClientList()
-activate Model
-
-Model --> ScheduleCommand
-deactivate Model
 
 create CommandResult
-ScheduleCommand -> CommandResult
+ScheduleCommand -> CommandResult : CommandResult(feedbackToUser)
 activate CommandResult
 
-CommandResult --> ScheduleCommand
+CommandResult --> ScheduleCommand : c
 deactivate CommandResult
 
-ScheduleCommand --> LogicManager : result
+ScheduleCommand --> LogicManager : c
 deactivate ScheduleCommand
 
-[<--LogicManager
+[<--LogicManager : c
 deactivate LogicManager
 @enduml
