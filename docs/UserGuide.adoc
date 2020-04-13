@@ -473,6 +473,11 @@ A `teacher` is paid by the courses that he/she teaches. (finance type ft/ct)
 An `admin` is paid by miscellaneous transactions. (finance type ft/m)
 ====
 
+[NOTE]
+====
+A
+====
+
 [TIP]
 ====
 The Gender of the Staff is shown in the form of a little icon
@@ -654,7 +659,7 @@ For Type 2 student paying for a course, the amount will be positive automaticall
 For Type 3 teacher being paid for teaching a course, the amount will be negative automatically, as it is an expense
 
 To make Payment for a teacher, it is important to check the salary value of the teacher. This value is set to 0 by default
-when adding a new staff (teacher) without specifying salary. A result of payment with amount 0 will be added if the
+when adding a new staff (teacher) if the user does not specify salary. A result of payment with amount 0 will be added if the
 salary of the teacher is 0.
 
 The positive and negative amount is important (for miscellaneous type) as it is used under "earnings" and "expenses" commands.
