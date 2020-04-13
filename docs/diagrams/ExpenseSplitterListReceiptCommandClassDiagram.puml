@@ -8,7 +8,7 @@ hide circle
 
 
 abstract class Command <E> {
-    {abstract} execute(splitterModel:SplitterModel) : CommandResult
+    {abstract} execute(model : E) : CommandResult
 }
 
 class ListReceiptCommand extends Command {
