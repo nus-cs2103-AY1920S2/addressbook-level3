@@ -483,8 +483,6 @@ To solve this issue, ensure that any new client you add does not have the same p
 
 // tag::edit-c[]
 
-=== Edit a client’s profile: `edit-c`
-
 === Edit a client’s profile: `edit-c` ---Ng Ming Liang
 
 `edit-c` allows you to edit an existing client's details from the *Client List*. There are various attributes that can be edited for the client using this command, which will be covered in this section.

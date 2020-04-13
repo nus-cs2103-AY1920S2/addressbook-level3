@@ -120,7 +120,7 @@ image::DeleteSequenceDiagram.png[]
 [[Design-Model]]
 
 // tag::dban1[]
-=== Model component --Ng Ming Liang
+=== Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -469,21 +469,22 @@ In the following sequence diagram, we trace the execution for when the user deci
 
 image::ScheduleSequenceDiagram.png[]
 
+
+
 ==== Design Considerations
-In designing this feature, we had to consider the alternative ways in which we can choose to store the information of a schedule. One option of storing the relevant information (day, start, end times) for a schedule was simply to concatenate these values into a single String, for example, `"monday-1100-1200"`. However, we found that this did not exploit the desirable principles of Object-Oriented Programming. As respective sanity checks had to be done for the day
+In designing this feature, we had to consider the alternative ways in which we can choose to store the information of a schedule. One option of storing the relevant information (day, start, end times) for a schedule was simply to concatenate these values into a single String, for example, `monday-1100-1200`. However, we found that this did not exploit the desirable principles of Object-Oriented Programming. As respective sanity checks had to be done for the day
 and timing, wrapping each of these properties into their wrapper classes allowed for better modularity and organisation of these attributes. For example, `Day#isValidDay` handles the validation of the input for day and `Time#isValidTimingFormat` handles the validation of time.
 
 Considerations also then had to be made for how to contain multiple `Schedule`. The current implementation uses the `ArrayList` data structure to hold multiple `Schedule`. Other considered alternative for `ScheduleList` was `HashSet`.
 [options='header']
 |====================
-| Data Structure | Pros | Cons
-|ArrayList
-|Elements can be sorted and retrieved in ascending order
+|  | ArrayList | HashSet
+|Ensuring no overlaps
 |Does not ensure that its elements are unique
-
-|HashSet
 |Ensures no duplicate values
 
+|Ensuring order of elements
+|Elements can be sorted and retrieved in ascending order
 |Does not return elements in order
 |====================
 

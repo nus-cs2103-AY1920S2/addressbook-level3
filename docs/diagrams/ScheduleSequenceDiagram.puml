@@ -13,59 +13,59 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute(commandText)
+[-[UI_COLOR]> LogicManager : execute(commandText)
 activate LogicManager
 
-LogicManager -> FitBizParser : parseCommand(commandText)
+LogicManager -[LOGIC_COLOR]> FitBizParser : parseCommand(commandText)
 activate FitBizParser
 
 create ScheduleCommandParser
-FitBizParser -> ScheduleCommandParser : ScheduleCommandParser()
+FitBizParser -[LOGIC_COLOR]> ScheduleCommandParser : ScheduleCommandParser()
 activate ScheduleCommandParser
 
-ScheduleCommandParser --> FitBizParser
+ScheduleCommandParser --[LOGIC_COLOR]> FitBizParser
 deactivate ScheduleCommandParser
 
-FitBizParser -> ScheduleCommandParser : parse(arguments)
+FitBizParser -[LOGIC_COLOR]> ScheduleCommandParser : parse(arguments)
 activate ScheduleCommandParser
 
 create ScheduleCommand
-ScheduleCommandParser -> ScheduleCommand : ScheduleCommand(index, scheduleList)
+ScheduleCommandParser -[LOGIC_COLOR]> ScheduleCommand : ScheduleCommand(index, scheduleList)
 activate ScheduleCommand
 
-ScheduleCommand --> ScheduleCommandParser : s
+ScheduleCommand --[LOGIC_COLOR]> ScheduleCommandParser : s
 deactivate ScheduleCommand
 
-ScheduleCommandParser --> FitBizParser : s
+ScheduleCommandParser --[LOGIC_COLOR]> FitBizParser : s
 deactivate ScheduleCommandParser
 
-FitBizParser --> LogicManager : s
+FitBizParser --[LOGIC_COLOR]> LogicManager : s
 deactivate FitBizParser
 
-LogicManager -> ScheduleCommand : execute(model)
+LogicManager -[LOGIC_COLOR]> ScheduleCommand : execute(model)
 activate ScheduleCommand
 
-ScheduleCommand -> Model : getFilteredClientList()
+ScheduleCommand -[LOGIC_COLOR]> Model : getFilteredClientList()
 activate Model
 
-Model --> ScheduleCommand : filteredClientList
+Model --[MODEL_COLOR]> ScheduleCommand : filteredClientList
 deactivate Model
 
-ScheduleCommand -> Model : setClient(clientToEdit, editedClient)
+ScheduleCommand -[LOGIC_COLOR]> Model : setClient(clientToEdit, editedClient)
 activate Model
 
-Model --> ScheduleCommand:
+Model --[MODEL_COLOR]> ScheduleCommand:
 deactivate Model
 
 
 create CommandResult
-ScheduleCommand -> CommandResult : CommandResult(feedbackToUser)
+ScheduleCommand -[LOGIC_COLOR]> CommandResult : CommandResult(feedbackToUser)
 activate CommandResult
 
-CommandResult --> ScheduleCommand : c
+CommandResult --[LOGIC_COLOR]> ScheduleCommand : c
 deactivate CommandResult
 
-ScheduleCommand --> LogicManager : c
+ScheduleCommand --[LOGIC_COLOR]> LogicManager : c
 deactivate ScheduleCommand
 
 [<--LogicManager : c
