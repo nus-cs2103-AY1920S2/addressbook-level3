@@ -780,7 +780,7 @@ Expected: A list of suggestions will be displayed, sorted based on the number of
 the note having the highest number of "hello" in its body will be put at the top of the suggestion list.
 
 === Correct command
-. Correct Command Word in user input.
+. Correct command word in user input.
 
 .. Prerequisites: There should exist a Note titled Notably.
 .. Command: 'delete [-t] Notably'
