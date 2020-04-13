@@ -15,6 +15,6 @@ public class ExitCommand extends Command<DietModel> {
 
     @Override
     public CommandResult execute(DietModel dietModel) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false);
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, true, false);
     }
 }

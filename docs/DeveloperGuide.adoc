@@ -237,7 +237,6 @@ based on their user input.
 * <<Bmi-Command, `BmiCommand`>> - Calculates the BMI.
 * <<Mode-Command, `ModeCommand`>> - Allows users to toggle between different modes of the diet tracker.
 * <<Metrics-Command, `MetricsCommand`>> - Allows users to check their health metrics, like their Height, Weight and Dieting Mode.
-* <<Help-Command, `HelpCommand`>> - Provides a help guide for users based on what commands are available.
 //end::diettrackerintro[]
 
 //tag::diettrackeractivitydiagram[]
@@ -873,7 +872,6 @@ its ItemPrice and Person(s) involved in splitting that Item.
 will be immutable.
 * <<Paid-Command, `PaidCommand`>> - Reduces the Amount a Person owes.
 * <<Clear-Receipt-Command, `ClearReceipt`>> - Clear the current Receipt to start a new Receipt.
-* <<Back-Command, `BackCommand`>> - Exits Expense Splitter portion to return to EYLAH's Main Menu.
 
 Below is the activity diagram of the entire Expense Splitter.
 //end::expensesplitterintro[]
@@ -931,6 +929,17 @@ The following activity diagram illustrates what happens when a user executes the
 
 .Add Item Command Activity Diagram
 image::ExpenseSplitterAddItemCommandActivityDiagram.png[]
+
+{nbsp}
+
+*Structure of Add Item Command*
+
+In this section, you will learn more about the relationships between objects related to the `AddItemCommand`.
+
+.Add Item Command Class Diagram
+image::ExpenseSplitterAddItemCommandClassDiagram.png[]
+The above class diagram shows the structure of the `AddItemCommand` and it's associated classes and interfaces. Some
+methods and fields have been left out because they are not of concern in the `AddItemCommand`.
 
 *Implementation of Add Item Command*
 
@@ -990,6 +999,17 @@ The following activity diagram illustrates what happens when a user executes the
 
 .Delete Item Command Activity Diagram
 image::ExpenseSplitterDeleteItemCommandActivityDiagram.png[]
+
+{nbsp}
+
+*Structure of Delete Item Command*
+
+In this section, you will learn more about the relationships between objects related to the `DeleteItemCommand`.
+
+.Delete Item Command Class Diagram
+image::ExpenseSplitterDeleteItemCommandClassDiagram.png[]
+The above class diagram shows the structure of the `DeleteItemCommand` and it's associated classes and interfaces. Some
+methods and fields have been left out because they are not of concern in the `DeleteItemCommand`.
 
 *Implementation*
 
@@ -1167,6 +1187,8 @@ The following activity diagram illustrates what happens when a user executes `do
 .Done Receipt Command Activity Diagram
 image::ExpenseSplitterDoneReceiptCommandActivityDiagram.png[]
 
+{nbsp}
+
 *Structure of Done Receipt Command* +
 
 In this section, you will learn more about the relationships between objects related to the `donereceipt` command.
@@ -1232,6 +1254,8 @@ The following activity diagram illustrates what happens when a user executes `pa
 
 .Paid Command Activity Diagram
 image::ExpenseSplitterPaidCommandActivityDiagram.png[]
+
+{nbsp}
 
 *Structure of Paid Command* +
 
@@ -1299,6 +1323,17 @@ The following activity diagram illustrates what happens when a user executes the
 .Clear Receipt Command Activity Diagram
 image::ExpenseSplitterClearReceiptCommandActivityDiagram.png[]
 
+{nbsp}
+
+*Structure of Clear Receipt Command*
+
+In this section, you will learn more about the relationships between objects related to the `ClearReceiptCommand`.
+
+.Clear Receipt Command Class Diagram
+image::ExpenseSplitterClearReceiptCommandClassDiagram.png[]
+The above class diagram shows the structure of the `ClearReceiptCommand` and it's associated classes and interfaces. Some
+methods and fields have been left out because they are not of concern in the `ClearReceiptCommand`.
+
 *Implementation of Clear Receipt Command*
 
 The following is a detailed explanation of the operations `ClearReceiptCommand` performs. +
@@ -1319,33 +1354,13 @@ The following sequence diagram summarizes what happens during the execution of t
 image::ExpenseSplitterClearReceiptCommandSequenceDiagram.png[]
 //end::expensesplitterclearreceipt[]
 
-[[Back-Command]]
-==== Back Command
-
-*Implementation*
-
-The following is a detailed explanation of the operations `BackCommand` performs. +
-
-1. The `BackCommand#execute(Model splitterModel)` method is executed.
-
-2. The `CommandResult` with the `isBack` will set to true and returns to `EYLAH`.
-
-3. The `EYLAH#runCommandLoopUntilBackCommand()` will check if `isBack` is set to true.
-
-4. If the `isBack` is true, the `EYLAH` will return the the main menu. Otherwise, the
-`Eylah` will continue running in Expense Splitter mode.
-
-The following is a sample sequence diagram of the BackCommand.
-
-image::ExpenseSplitterBackCommandSequenceDiagram.png[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* Currently log messages are output to a `.log` file.
 
 *Logging Levels*
 
@@ -1354,7 +1369,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+[[Implementation-Configuration]]
+=== Configuration
 
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -1701,7 +1719,6 @@ Use case ends.
 [discrete]
 ==== Use case: UC08 - Adding an Item
 *Actor:* User +
-*Preconditions:* User is logged in. +
 *Guarantees:* +
 Item will be added into the Receipt.
 
@@ -1736,7 +1753,7 @@ Use case ends.
 [discrete]
 ==== Use case: UC09 - Deleting an Item
 *Actor:* User +
-*Preconditions:* User is logged in and Item user wants to delete is present in the Receipt. +
+*Preconditions:* Item user wants to delete is present in the Receipt. +
 *Guarantees:* +
 Item will be deleted from Receipt.
 
@@ -1869,7 +1886,6 @@ Use case ends.
 [discrete]
 === Use case: UC13 - Clearing the Receipt
 *Actor:* User +
-*Preconditions:* User is logged in. +
 *Guarantees:* +
 Deletes all the Entries in the Receipt. It also marks the Receipt as undone.
 
@@ -1895,6 +1911,31 @@ Use case ends.
 
 *Extensions*
 //end::expensesplitterusecase[]
+
+[discrete]
+=== Use case: UC15 - Completing the receipt
+*Actor:* User +
+*Guarantees:* +
+Displays the confirmation message to user. It also marks the Receipt as done.
+
+*MSS*
+
+1.  User requests to mark the Receipt as done after he/she finish adding the items.
+2.  EYLAH marks the current Receipt as done.
+3.  EYLAH display a MESSAGE_SUCCESS informing the user that the Receipt has been marked as completed.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. EYLAH detects that the Receipt has already been marked as done.
++
+[none]
+** 2a1. EYLAH displays an error message, informing the user that current Receipt already been marked as completed.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
