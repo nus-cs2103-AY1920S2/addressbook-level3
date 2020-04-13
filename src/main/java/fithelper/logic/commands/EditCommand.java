@@ -43,14 +43,14 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed entry list. \n"
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
-            + PREFIX_INDEX + "INDEX (one-based) "
+            + PREFIX_INDEX + "INDEX "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_LOCATION + "LOCATION] "
             + "[" + PREFIX_CALORIE + "CALORIE] "
             + "[" + PREFIX_STATUS + "STATUS] "
             + "[" + PREFIX_REMARK + "REMARK]"
-            + "[" + PREFIX_DURATION + "DURATION]...\n";
+            + "[" + PREFIX_DURATION + "DURATION]\n";
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
