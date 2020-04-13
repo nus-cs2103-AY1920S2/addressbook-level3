@@ -151,6 +151,7 @@ public class EdgeManager extends BaseManager {
                         assignAssignmentToCourse(assignmentID, course.getId());
                     }
                 } catch (Exception e) {
+                    System.out.println("Deleting edges to assignments failed");
                 }
             }
 
@@ -164,6 +165,7 @@ public class EdgeManager extends BaseManager {
                         assignStudentToCourse(studentID, course.getId());
                     }
                 } catch (Exception e) {
+                    System.out.println("Deleting Edges to Student Failed");
                 }
             }
             ID teacherID = course.getAssignedStaffID();
@@ -173,6 +175,7 @@ public class EdgeManager extends BaseManager {
                 assignTeacherToCourse(teacherID, course.getId());
             }
         } catch (Exception e) {
+            System.out.println("Deleting Edges to Teacher Failed");
         }
     }
 
@@ -186,7 +189,7 @@ public class EdgeManager extends BaseManager {
                 assignAssignmentToCourse(assignment.getId(), courseID);
             }
         } catch (Exception e) {
-            String a = "1";
+            System.out.println("Deleting Edges from Assignment Failed");
         }
     }
 

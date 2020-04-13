@@ -295,6 +295,8 @@ This progress tracks whether the student has completed the
 specific assignment (Done) or not (Not Done)
 ====
 
+// tag::donecommand[]
+
 === Mark a Student's Assignment as `Done`/`Undone`
 Mark a student's assignment as `Done`. +
 Format: `done aid/ASSIGNMENTID sid/STUDENTID` +
@@ -306,17 +308,19 @@ Example: `undone aid/829 sid/21`
 
 Illustration:
 
-image::Ivan-done1.PNG[]
+image::Ivan-Done1.png[]
 Notice that George has initially not completed Assignment 44736.
 
 After `done aid/44736 sid/63865`:
 
-image::Ivan-done2.png[]
+image::Ivan-Done2.png[]
 Now observe 3 updates:
 
 . Success message as displayed in message box
 . The `status` of the Assignment has been marked as done
 . The `Number of Done Progress` has been incremented by 1
+
+// end::donecommand[]
 
 === Select a Student/Staff/Course : `select` or simply click the bar
 Selecting means to view the specified item in detail.

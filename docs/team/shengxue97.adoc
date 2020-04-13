@@ -59,7 +59,7 @@ automatically when the user performs the command, in every tabs.
 * *Minor enhancement*: added a quick navigation command that allows the user to switch between different tabs quickly (Select command and CTRL+UP/DOWN shortcuts)
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com/ShengXue97/main[Functional code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=shengxue97&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
 * *Other contributions*:
 
 ** Project management:
