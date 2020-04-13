@@ -54,12 +54,12 @@ result in a bug during the execution of the HireLah!
 == Other contributions
 
 ** Project management
-*** Reviewed Pull Requests
-*** Created several milestones on GitHub page
-*** Created issues for v1.3 and v1.4
+*** Reviewed Pull Requests https://github.com/AY1920S2-CS2103-W15-2/main/pull/224[#224]
+*** Created issues for v1.3 https://github.com/AY1920S2-CS2103-W15-2/main/issues/61[#61]
+and v1.4 https://github.com/AY1920S2-CS2103-W15-2/main/issues/104[#104]
 
 ** Enhancements to existing features:
-*** Refactored and modified existing classes, to satisfy the requirements of the application
+*** Refactored and modified existing classes, to satisfy the requirements of the application https://github.com/AY1920S2-CS2103-W15-2/main/pull/178[#178]
 
 == Contributions to the User Guide
 Listed below are sections I contributed to the User Guide, which includes the Command Summary.
