@@ -164,7 +164,7 @@ public class AutocompleteTest {
     // ============ START OF FITBIZ COMMAND TESTS
 
     @Test
-    public void execute_addCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_addCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(ADD_COMMAND, ADD_CURRENT_CARET_POSITION);
 
         assertEquals(ADD_COMMAND_TO_SET, result.getTextToSet());
@@ -173,7 +173,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_addExerciseCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_addExerciseCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(ADD_EXERCISE_COMMAND, ADD_EXERCISE_CURRENT_CARET_POSITION);
 
         assertEquals(ADD_EXERCISE_COMMAND_TO_SET, result.getTextToSet());
@@ -182,7 +182,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_clearCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_clearCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(CLEAR_COMMAND, CLEAR_CURRENT_CARET_POSITION);
 
         assertEquals(CLEAR_COMMAND_TO_SET, result.getTextToSet());
@@ -191,7 +191,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_deleteCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_deleteCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(DELETE_COMMAND, DELETE_CURRENT_CARET_POSITION);
 
         assertEquals(DELETE_COMMAND_TO_SET, result.getTextToSet());
@@ -200,7 +200,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_deleteExerciseCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_deleteExerciseCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(DELETE_EXERCISE_COMMAND,
                 DELETE_EXERCISE_CURRENT_CARET_POSITION);
 
@@ -210,7 +210,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_editCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_editCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(EDIT_COMMAND, EDIT_CURRENT_CARET_POSITION);
 
         assertEquals(EDIT_COMMAND_TO_SET, result.getTextToSet());
@@ -219,7 +219,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_editExerciseCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_editExerciseCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(EDIT_EXERCISE_COMMAND, EDIT_EXERCISE_CURRENT_CARET_POSITION);
 
         assertEquals(EDIT_EXERCISE_COMMAND_TO_SET, result.getTextToSet());
@@ -228,7 +228,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_exitCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_exitCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(EXIT_COMMAND, EXIT_CURRENT_CARET_POSITION);
 
         assertEquals(EXIT_COMMAND_TO_SET, result.getTextToSet());
@@ -237,7 +237,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_exportCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_exportCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(EXPORT_COMMAND, EXPORT_CURRENT_CARET_POSITION);
 
         assertEquals(EXPORT_COMMAND_TO_SET, result.getTextToSet());
@@ -246,7 +246,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_filterCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_filterCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(FILTER_COMMAND, FILTER_CURRENT_CARET_POSITION);
 
         assertEquals(FILTER_COMMAND_TO_SET, result.getTextToSet());
@@ -255,7 +255,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_findCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_findCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(FIND_COMMAND, FIND_CURRENT_CARET_POSITION);
 
         assertEquals(FIND_COMMAND_TO_SET, result.getTextToSet());
@@ -264,7 +264,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_graphCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_graphCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(GRAPH_COMMAND, GRAPH_CURRENT_CARET_POSITION);
 
         assertEquals(GRAPH_COMMAND_TO_SET, result.getTextToSet());
@@ -273,7 +273,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_helpCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_helpCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(HELP_COMMAND, HELP_CURRENT_CARET_POSITION);
 
         assertEquals(HELP_COMMAND_TO_SET, result.getTextToSet());
@@ -282,7 +282,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_listCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_listCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(LIST_COMMAND, LIST_CURRENT_CARET_POSITION);
 
         assertEquals(LIST_COMMAND_TO_SET, result.getTextToSet());
@@ -291,7 +291,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_scheduleCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_scheduleCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(SCHEDULE_COMMAND, SCHEDULE_CURRENT_CARET_POSITION);
 
         assertEquals(SCHEDULE_COMMAND_TO_SET, result.getTextToSet());
@@ -300,7 +300,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_viewCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_viewCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(VIEW_COMMAND, VIEW_CURRENT_CARET_POSITION);
 
         assertEquals(VIEW_COMMAND_TO_SET, result.getTextToSet());
@@ -311,7 +311,7 @@ public class AutocompleteTest {
     // ============ END OF FITBIZ COMMAND TESTS
 
     @Test
-    public void execute_ambiguousCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_ambiguousCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(AC_COMMAND, AC_CURRENT_CARET_POSITION);
 
         assertEquals(AC_COMMAND_TO_SET, result.getTextToSet());
@@ -320,7 +320,7 @@ public class AutocompleteTest {
     }
 
     @Test
-    public void execute_invalidCommand_returnsCorrectAutoCompleteResult() {
+    public void execute_invalidCommand_returnsCorrectAutocompleteResult() {
         AutocompleteResult result = autoComplete.execute(IC_COMMAND, IC_CURRENT_CARET_POSITION);
 
         assertEquals(IC_COMMAND_TO_SET, result.getTextToSet());
