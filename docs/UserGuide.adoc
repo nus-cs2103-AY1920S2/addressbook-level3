@@ -522,6 +522,9 @@ Format: `viewMonth`
 Deletes a goal that has been auto-generated through the addition or editing of a recipe from a specific recipe. +
 Format: `deleteGoal [recipe index] [goal]`
 
+Example 1: `deleteGoal 2 Bulk like the Hulk` +
+Deletes goal named Bulk like the Hulk from the 2nd recipe if it exists.
+
 [TIP]
 Ensure that the capitalisation of the goal is the same! Check out `listGoals` if unsure.
 
@@ -529,12 +532,21 @@ Ensure that the capitalisation of the goal is the same! Check out `listGoals` if
 Lists all goals tracked by HYBB. +
 Format: `listGoals`
 
+Example 1: `listGoals` +
+Displays the 4 main goals being tracked in the *Result Box*.
+
 === Track cooked meals: `cooked`
 Tracks all cooked meals and adds to the progress of their respective goals. +
 Format: `cooked [recipe index] <recipe index>...`
 
+Example 1: `cooked 2` +
+Marks the 2nd recipe as cooked.
+
 [TIP]
 You can mark multiple recipes as cooked at the same time (at least one recipe must be marked).
+
+Example 2: `deletePlan 3 4 8` +
+Marks the 3rd, 4th and 8th recipe as cooked.
 
 [WARNING]
 If you specify a recipe number that has already been cooked within the day or does not exist in the list of recipes
