@@ -211,7 +211,7 @@ Here are the steps on using the `insert` Command: +
 of the delivery orders +
 
 *Step 3 (Optional)* : Add in the Customer comment and type of item using the prefixes `[COMMENT_BY_CUSTOMER]`
-`[command_prefix, TYPE_OF_ITEM]` +
+`[TYPE_OF_ITEM]` +
 
 *Step 4* : Press `Enter` on your keyboard to see the magic!
 
