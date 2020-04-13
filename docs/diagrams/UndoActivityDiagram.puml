@@ -7,7 +7,7 @@ start
 If () then ([Command is valid format])
 
 If () then ([Recipe index exists])
-    :Marks the recipe at specified index as not attempted
+    :Marks the recipe at specified index as not attempted;
     :Returns success message;
 else ([else])
     :Returns failure message
@@ -20,6 +20,8 @@ else ([else])
     (invalid command format);
 
 endif
+
+:Results are displayed to user;
 
 stop
 @enduml

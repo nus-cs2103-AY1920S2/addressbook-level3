@@ -4,8 +4,10 @@
 start
 :User inputs view command;
 
+:Parser parses input;
+
 If () then ([Recipe index exists])
-    :Updates the GUI to display the recipe at specified index
+    :Updates the GUI to display the recipe at specified index;
     :Returns success message;
 else ([Recipe index does not exist])
     :Returns failure message

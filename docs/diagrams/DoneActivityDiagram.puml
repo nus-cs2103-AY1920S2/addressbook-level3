@@ -4,10 +4,12 @@
 start
 :User inputs done command;
 
+:Parser parses input;
+
 If () then ([Command is valid format])
 
 If () then ([Recipe index exists])
-    :Marks the recipe at specified index as attempted
+    :Marks the recipe at specified index as attempted;
     :Returns success message;
 else ([else])
     :Returns failure message
@@ -20,6 +22,8 @@ else ([else])
     (invalid command format);
 
 endif
+
+:Results are displayed to user;
 
 
 stop
