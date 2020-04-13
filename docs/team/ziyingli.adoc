@@ -37,13 +37,12 @@ FitBiz is a fitness business management application, specially made for fitness 
 *** Fixed default value of an attribute a team member created for consistency https://github.com/AY1920S2-CS2103T-F11-2/main/pull/88[#88]
 
 ** *Documentation*:
-*** Added the Personal Best Implementation, Graph Implementation, Use Cases and Manual Testing documentation to the Developer Guide https://github.com/AY1920S2-CS2103T-F11-2/main/pull/16[#16], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/203[#203], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/247[#247], 
-https://github.com/AY1920S2-CS2103T-F11-2/main/pull/276[#276]
+*** Added the Personal Best Implementation, Graph Implementation, Use Cases and Manual Testing documentation to the Developer Guide https://github.com/AY1920S2-CS2103T-F11-2/main/pull/16[#16], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/203[#203], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/247[#247], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/276[#276]
 *** Edited Quick Start and added the View Command, Delete Client Command and Graph Command to the User Guide https://github.com/AY1920S2-CS2103T-F11-2/main/pull/75[#75], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/150[#150],  https://github.com/AY1920S2-CS2103T-F11-2/main/pull/270[#270]
 
 ** *Summary*:
 *** PRs reviewed with non-trivial review comments: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/44[#44], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/83[#83], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/229[#229]
-*** Issues and bugs reported with non-trivial comments: https://github.com/AY1920S2-CS2103T-F11-2/main/issues/130[#130], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/211[#211], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/250[#250], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/257[#257] 
+*** Issues and bugs reported with non-trivial comments: https://github.com/AY1920S2-CS2103T-F11-2/main/issues/130[#130], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/211[#211], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/250[#250], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/257[#257]
 *** Issues resolved and bugs squashed with non-trivial implementations: https://github.com/AY1920S2-CS2103T-F11-2/main/issues/41[#41], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/81[#81], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/105[#105], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/124[#124], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/211[#211], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/235[#235] https://github.com/AY1920S2-CS2103T-F11-2/main/issues/250[#250], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/257[#257]
 
 == Contributions to the User Guide
