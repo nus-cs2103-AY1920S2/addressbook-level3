@@ -46,7 +46,7 @@ BBProductive is a gamified productivity app cum task manager. It provides CRUD f
 
 include::../UserGuide.adoc[tag=gui]
 
-include::../UserGuide.adoc[tag=statistics]
+include::../UserGuide.adoc[tag=statisticsug]
 
 include::../UserGuide.adoc[tag=storage]
 
