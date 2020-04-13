@@ -111,3 +111,4 @@ include::../UserGuide.adoc[tag=goalCommandUG]
 include::../DeveloperGuide.adoc[tag=reportCommandDG]
 
 include::../DeveloperGuide.adoc[tag=goalCommandDG]
+
