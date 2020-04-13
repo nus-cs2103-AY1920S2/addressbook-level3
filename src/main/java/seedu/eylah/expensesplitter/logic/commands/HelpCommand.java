@@ -55,7 +55,7 @@ public class HelpCommand extends Command<SplitterModel> {
 
     @Override
     public CommandResult execute(SplitterModel splitterModel) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false);
+        return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
     }
 
 }

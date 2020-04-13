@@ -15,7 +15,7 @@ public class BackCommand extends Command<SplitterModel> {
 
     @Override
     public CommandResult execute(SplitterModel splitterModel) {
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
+        return new CommandResult(MESSAGE_SUCCESS, false, true);
     }
 
 

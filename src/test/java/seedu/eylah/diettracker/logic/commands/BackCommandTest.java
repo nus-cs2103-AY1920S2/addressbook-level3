@@ -16,7 +16,7 @@ public class BackCommandTest {
 
     @Test
     public void execute_back_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, false, false, true);
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, false, true);
         assertCommandSuccess(new BackCommand(), splitterModel, expectedCommandResult, expectedSplitterModel);
     }
 
