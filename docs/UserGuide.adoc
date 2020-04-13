@@ -323,6 +323,8 @@ Oh my it's been a productive month, time to start on a clean slate. You may dele
 .Clear success
 image::clear_success.png[width=790]
 
+//end::TaskList[]
+
 === Pet
 anchor:pet[]
 _This section provides information about the virtual pet_
