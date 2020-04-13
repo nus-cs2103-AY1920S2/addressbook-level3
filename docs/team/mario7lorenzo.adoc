@@ -88,6 +88,7 @@ https://github.com/AY1920S2-CS2103-W15-2/main/pull/173[#173])
 ** Documentation:
 *** Cleaned up and rework the User Guide and Developer Guide (Examples: https://github.com/AY1920S2-CS2103-W15-2/main/pull/10[#10],
 https://github.com/AY1920S2-CS2103-W15-2/main/pull/27[27], https://github.com/AY1920S2-CS2103-W15-2/main/pull/84[84])
+*** Works on the Instruction for Manual Testing
 
 ** Community:
 *** Offered suggestions for other teams in the class (Examples: https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/12[12])
