@@ -106,42 +106,15 @@ https://github.com/AY1920S2-CS2103T-W12-1/main/pull/310[#310]
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-This whole section on "how to navigate user guide" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#navigate-user-guide
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../UserGuide.adoc[tag=how_to_navigate_user_guide]
 
 == Features
-This whole section on "delete" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#delete
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../UserGuide.adoc[tag=delete]
-
-This whole section on "Viewing orders located at the same area or postal sector: nearby" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#nearby
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../UserGuide.adoc[tag=nearby]
 
 == Glossary
-This whole section on "Command Prefix" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command_prefix
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../UserGuide.adoc[tag=command_prefix]
-
-This whole section on "Command Flags" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command_flags
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../UserGuide.adoc[tag=command_flags]
-
-This whole section on "Area Information of Singapore" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#area_table
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../UserGuide.adoc[tag=area_table]
 
 == Contributions to the Developer Guide
@@ -151,57 +124,21 @@ include::../UserGuide.adoc[tag=area_table]
 |===
 
 == Features
-This whole section on "Delete Feature" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#delete
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=delete]
 
-This whole section on "Nearby Feature" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#nearby
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=nearby]
 
 == Glossary
-This whole section on "Command Prefix" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=command_prefix]
-
-This whole section on "Possible Command Flags" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=command_flags]
 
 == Use Case
-This whole section on "Use case: UC03 - Delete an order" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=use_case_delete]
-
-This whole section on "Use case: UC12 - Obtain orders in a postal sector" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=use_case_nearby]
 
 // Appendix F: Product Survey
-
 include::../DeveloperGuide.adoc[tag=appendix-product-survey]
 
 == Appendix G: Instructions for Manual Testing
-This whole section on "Deleting an order" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#deleting-an-order
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=appendix-delete]
-
-This whole section on "Obtain all nearby orders based on area or postal sector" can be found at
-https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#obtain-all-nearby-orders-based-on-area-or-postal-sector
-This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=appendix-nearby]
