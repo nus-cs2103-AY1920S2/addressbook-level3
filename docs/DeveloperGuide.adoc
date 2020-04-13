@@ -375,6 +375,15 @@ corresponds to the date we are interested in.
 
 // tag::goals[]
 === Goals feature
+The main functionalities and commands associated with the entire goals feature are `add`, `addIngredient`, edit`, `editIngredient`
+and `cooked`. Goals are auto-generated and added to a recipe every time `add`, `addIngredient`, edit` or `editIngredient` is executed.
+
+The following sequence diagram shows how goals are generated through the example of `addIngredient` command execution
+
+.Add command sequence diagram
+image::AddSequenceDiagram.png[]
+image::AddRefSequenceDiagram.png[]
+
 ==== Proposed Implementation
 
 ==== Design Considerations
