@@ -43,7 +43,7 @@ public class AddCommand extends Command {
                     + PREFIX_REMINDER
                     + "15/04/21@10:30";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New task added: \n%1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
 
     private final Task toAdd;
