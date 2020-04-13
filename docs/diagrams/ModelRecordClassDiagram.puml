@@ -1,0 +1,37 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+Class HiddenOutside #FFFFFF
+
+Package Model <<Rectangle>>{
+
+Interface Model <<Interface>>
+Class Model
+Class ModelManager
+
+class CookedRecordBook
+class Date
+
+Package Record {
+    class UniqueRecordList
+    class Record
+}
+
+Package Recipe {
+    class Name
+}
+
+HiddenOutside ...> Model
+ModelManager o--> "1" CookedRecordBook
+ModelManager .up.|> Model
+ModelManager --> "1" Record : filtered list
+
+CookedRecordBook *-down->"1" UniqueRecordList
+UniqueRecordList o--> "*" Record
+Record o--> "1" Name
+Record o--> "1" Date
+
+@enduml
