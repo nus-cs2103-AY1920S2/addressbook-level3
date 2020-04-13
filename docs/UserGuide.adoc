@@ -309,6 +309,8 @@ image::demo/Suggestions4.png[]
 Variations of path with `../` (e.g. `open ../`, `open Note/../Note`, etc.) will not generate a comprehensive response text.
 Currently, typing `open ../` will generate a response text of `Open a note titled "../"` instead of `Open a parent note`.
 
+// tag::correction[]
+
 === Auto correction
 
 Notably will try its best to correct your mistypes automatically, as long as your mistyped inputs are not too far away from the understood commands. This provides you with a more fluid typing experience!
@@ -330,6 +332,8 @@ After corrections are done, a list of suggestions will be generated as if the us
 .Demo for the auto correction feature
 image::demo/Correction.png[]
 
+// end::correction[]
+
 === Response text
 Notably also displays a response text which enables you to understand the meaning of the input you type and shows
 an error message when your input is invalid.
@@ -345,6 +349,8 @@ below.
 
 .Demo for the response text feature: invalid command
 image::demo/ResponseText2.png[]
+
+// tag::markdown[]
 
 === Markdown (GitHub Flavored Markdown)
 
@@ -411,6 +417,8 @@ In our v2.0 release, we'll be supporting the following additional Markdown synta
 ----
 ~~This text will get a strikethrough treatment~~
 ----
+
+// end::markdown[]
 
 == FAQ
 
