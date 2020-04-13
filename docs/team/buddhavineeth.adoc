@@ -1,58 +1,108 @@
-= John Doe - Project Portfolio
+= Vineeth Buddha - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: Calgo
 
----
+=== Overview
 
-== Overview
+This portfolio page highlights some of my contributions to Calgo - a Software Engineering project developed in my second year of undergraduate studies in the National University of Singapore.
 
-AddressBook - Level 3 is a desktop protein book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+=== About the Team
+
+We are 5 Year 2 Computer Science undergraduates reading CS2103T: Software Engineering.
+
+==== About the Project
+
+Calgo is an all-in-one personal meal tracking assistant which seeks to encourage a healthy lifestyle among its users. It allows users to not only have a convenient nutritional record of all their favourite food entries, but also track, monitor, and plan their food consumption. Moreover, the team has come up with a plethora of user-centric features to make Calgo well-suited to provide users with both convenience and utility.
+
+My team was tasked with morphing an existing https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book Level 3 (AB3) project] into a new product via Brownfield software development.
+We were therefore required to use the existing AB3 project as Calgo's project foundation, to create a desktop application supporting the Command Line Interface. This was to target users who prefer typing but also enjoy the benefits of a Graphical User Interface.
+With all of us being food lovers and realising a greater societal need for healthy eating, Calgo was born.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: I implemented the *generation of useful statistics and key insights* via the `report` command.
+** What it does: The feature provides the user with a statistical summary of the food he/she has consumed on a given day. It also generates personalised insights on how the user
+can improve his/her eating habits and whether his/her favourite food item should continue to be part of the diet.
+** Justification: The feature improves Calgo significantly because a user can now go beyond just tracking his/her daily meal consumption. The user can now obtain insights on
+how to improve their eating habits and find out the food that contributes the most to their daily calorie count. They also no longer have to spend lots of time calculating the nutritional content they consumed in a day because
+the statistics section does that for them instantly. This makes Calgo much more than a meal tracker. It helps the user build a healthy lifestyle through eating.
+** Highlights: This enhancement requires an in-depth understanding of the Logic and Model components' architecture and a good understanding of String formatting. It also makes use of a sophisticated sorting mechanism
+to decide what the favourite food of the user is in the past week.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: I also implemented the `goal` command.
+** What it does: The feature helps the user to set a daily calorie goal. This goal is also reflected in Calgo's GUI, so that the user is always reminded of how many calories he/she is left with whenever they consume food.
+** Justification: Our target user is health-conscious and wants to build a healthy lifestyle. As that is a vague goal, it often is hard to achieve. That is why the `goal` command
+is created, to help the user set clear objectives for each day and chunk their big long-term goal of eating healthily into smaller daily goals. This allows them to see noticeable progress too and is motivating. The goal is also
+used to generate personalised insights in the abovementioned `report` command.
+** Highlights: For this enhancement, I worked on the front-end, back-end logic, storage of the goal and unit testing as well. This required a deep understanding of all aspects of the project.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: I helped in the redesigning of the GUI by adding the Goal Displays, Remaining Calorie Count Display, creating labels and helping Janice with
+the graph feature.
+
+* *Code contributed*: You can view my functional code and test code contributions to Calgo https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=buddhavineeth&tabRepo=AY1920S2-CS2103T-F11-1%2Fmain%5Bmaster%5D[here].
+
+<<<
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** As the in-charge of Deadlines and Deliverables, I ensured the team was on task and was putting in consistent effort. I also managed all releases `v1.1` - `v1.4` (4 releases) on GitHub. https://github.com/AY1920S2-CS2103T-F11-1/main/releases[1].
+*** I maintained the team's GitHub issue tracker and set up project dashboards and ensured everybody was assigned at least one user story to work on. Furthermore, the user stories were split into multiple milestones to ensure we worked incrementally. https://github.com/AY1920S2-CS2103T-F11-1/main/milestones?state=closed[2].
+*** Contributed to product ideation, brainstorming key features and ensuring that everyone has equal responsibilities.
 
-_{you can add/remove categories in the list above}_
+** Team Documentation:
+*** Wrote the sections for `clear`, `report` and `goal` commands in Calgo's User Guide.
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/161[#161],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/169[#169],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/171[#171],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/288[#288].
+*** Wrote sections for Generating statistics and insights, setting daily calorie goals for Developer Guide. https://github.com/AY1920S2-CS2103T-F11-1/main/pull/161[#161],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/292[#292],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/298[#298].
+*** Vetted through User Guide and Developer Guide. https://github.com/AY1920S2-CS2103T-F11-1/main/pull/307[#307].
+*** Refined Calgo's team pages to be more user-centric (especially README.adoc). https://github.com/AY1920S2-CS2103T-F11-1/main/pull/133[#133],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/161[#161],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/242[#242],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/277[#277],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/281[#281],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/283[#283],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/292[#292],
+https://github.com/AY1920S2-CS2103T-F11-1/main/pull/298[#298],
+
+** Beyond the team:
+*** Peer testing and bug reporting:
+https://github.com/buddhavineeth/ped/issues/1[#1],
+https://github.com/buddhavineeth/ped/issues/2[#2],
+https://github.com/buddhavineeth/ped/issues/3[#3],
+https://github.com/buddhavineeth/ped/issues/4[#4],
+https://github.com/buddhavineeth/ped/issues/5[#5],
+https://github.com/buddhavineeth/ped/issues/6[#6],
+https://github.com/buddhavineeth/ped/issues/7[#7],
+https://github.com/buddhavineeth/ped/issues/8[#8],
+https://github.com/buddhavineeth/ped/issues/9[#9],
+https://github.com/buddhavineeth/ped/issues/10[#10],
+https://github.com/buddhavineeth/ped/issues/11[#11],
+https://github.com/buddhavineeth/ped/issues/12[#12],
+https://github.com/buddhavineeth/ped/issues/13[#13],
+https://github.com/buddhavineeth/ped/issues/14[#14],
+https://github.com/buddhavineeth/ped/issues/15[#15].
+*** Providing consistent feedback to peer projects on how to enhace their features. For instance, providing advice to
+Team `F11-3` during tutorials and after the practice demo round.
+
 
 == Contributions to the User Guide
-
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=clearCommandUG]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=reportCommandUG]
+
+include::../UserGuide.adoc[tag=goalCommandUG]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +110,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=reportCommandDG]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=goalCommandDG]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

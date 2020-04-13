@@ -213,7 +213,9 @@ Never make spelling mistakes again!
 
 The following subsections will elaborate on the specific details of Calgo commands.
 
+
 <<<
+// tag::clearCommandUG[]
 === `clear` : Clearing all entries
 (by Vineeth)
 
@@ -242,6 +244,8 @@ image::ClearCommandAfter.png[]
 
 Upon entering the command, all your `Food` entries in the  `Food Record` will be deleted. This will result in an empty `Food Record`, as shown above.
 As mentioned previously, your data in the `Consumption Record` and `Graph Display` is left unchanged.
+
+// end::clearCommandUG[]
 
 <<<
 
@@ -417,6 +421,7 @@ as with Example 2, we allow for incomplete words to be used as search keywords.
 
 <<<
 
+//tag::goalCommandUG[]
 [[goal]]
 === `goal` : Setting a daily calorie target
 (by Vineeth)
@@ -458,6 +463,8 @@ image::GoalCommandAfter.png[]
 
 As you can see, the `Daily Goal Display` has updated to reflect your daily calorie goal. You can now track your meals
 and get immediate updates on the remaining amount of calories you have to consume for that day to achieve your goal.
+
+//end::goalCommandUG[]
 
 // tag::helpCommand[]
 === `help` : Displaying `help` when lost
@@ -595,7 +602,7 @@ Once you enter the command, the `Result Display` will inform you that the food h
 The `Consumption Record` panel and `Graph Display` are updated to reflect your latest consumption.
 
 <<<
-
+//tag::reportCommandUG[]
 [[report]]
 === `report` : Generating key statistics and insights
 (by Vineeth)
@@ -699,6 +706,8 @@ Over time, through Calgo's smart suggestions, you will eventually have a diet co
 image::ReportFooter.png[]
 
 The final section is the `Report Footer`, which informs you that the report has concluded. This is the part where you realise that Calgo provides you with so many key insights in such a neatly organised and compact document.
+
+//end::reportCommandUG[]
 
 <<<
 
