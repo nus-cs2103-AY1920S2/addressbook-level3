@@ -11,21 +11,29 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Mario Lorenzo
-image::mario7lorenzo.png[width="200", align="left"]
-{empty}[https://github.com/mario7lorenzo[github]] [<<mario7lorenzo#, portfolio>>]
-
-Role: Developer +
-Responsibilities:
-
-'''
-
 === Chin Synn Khee, Joash
 image::corncobs.png[width="200", align="left"]
 {empty}[http://github.com/CornCobs[github]] [<<CornCobs#, portfolio>>]
 
-Role: Developer +
-Responsibilities:
+Role: Team Lead +
+Responsibilities: +
+- Maintains the standard of the code quality +
+- Designs the feature for interview phase +
+- Extensively create tests for the app +
+- Assists in finding a solution when other members have issues
+
+'''
+
+=== Mario Lorenzo
+image::mario7lorenzo.png[width="200", align="left"]
+{empty}[https://github.com/mario7lorenzo[github]] [<<mario7lorenzo#, portfolio>>]
+
+Role: Developer (Logic and Model) +
+Responsibilities: +
+- Creates the Model as the building blocks of the app +
+- Designs commands for the normal phase, and the decision phase +
+- Reminds the others regarding deadlines of the project +
+- Ensure the documentation consistent
 
 '''
 
@@ -33,8 +41,11 @@ Responsibilities:
 image::bscrow.png[width="200", align="left"]
 {empty}[http://github.com/bscrow[github]] [<<bscrow#, portfolio>>]
 
-Role: Developer +
-Responsibilities:
+Role: Developer (UI) +
+Responsibilities: +
+- Reworks the UI of AB3 to fits the desired product. +
+- Extensively create tests for the app +
+- Contributes to the documentation of the UI
 
 '''
 
@@ -42,8 +53,11 @@ Responsibilities:
 image::agnesnatasya.png[width="200", align="left"]
 {empty}[http://github.com/agnesnatasya[github]] [<<agnesnatasya#, portfolio>>]
 
-Role: Developer +
-Responsibilities:
+Role: Developer (Logic and Model) +
+Responsibilities: +
+- Creates the parser to convert the input of the user to a command +
+- Creates tests for the normal parsers +
+- Contributes to the documentation of the Logic and Model
 
 '''
 
@@ -51,7 +65,10 @@ Responsibilities:
 image::Weiichengg.png[width="200", align="left"]
 {empty}[http://github.com/Weiichengg[github]] [<<Weiichengg#, portfolio>>]
 
-Role: Developer +
-Responsibilities:
+Role: Developer (Storage) +
+Responsibilities:  +
+- Designs the structure of the storage +
+- Reworks on the storage of AB3 +
+- Creates tests for the storage part
 
 '''
