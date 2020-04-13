@@ -663,6 +663,7 @@ Lastly, we foresee that it is improbable for the data size of both clients and e
 
 Indeed, `JsonAdaptedClient` having a list of `JsonAdaptedExercise` would violate separation of concerns. `JsonAdaptedClient` is now in charge of the client's information and the exercises. However, we felt that the benefits outweighted the costs and proceeded with the first choice.
 
+// tag::ziyingli[]
 === Personal Best --- Li Zi Ying
 
 This feature allows the users (ie. gym managers) to view the personal bests of exercises done by a client. This information is displayed in a table form, after the command `view-c INDEX` is called.
@@ -786,6 +787,7 @@ As our axis values can only be `REPS`, `WEIGHT` or `NA`, we can check for each c
 Moreover, to keep in line with the OOP standards, we decided that it will be better to abstract away data types like `AxisType` into its separate class instead of storing it as a raw type in `Axis`. This ensures the code quality of our program and reduces complexity (especially in terms of equality checking as mentioned above) by abstracting away the more complex details into classes of a lower level. The consideration of abstracting details away is also used for creating `StartDate` and `EndDate` classes as attributes of `Graph`, instead of using the Java in-built `LocalDate`.
 
 By considering the above two factors, despite having to put in the extra effort to create a new `AxisType` class and thus requiring extra methods like getters and setters, we decided to move with the approach of creating the `AxisType` enum class and refactor to accomodate for the additional data type.
+// end::ziyingli[]
 
 // tag::filter-c-command[]
 

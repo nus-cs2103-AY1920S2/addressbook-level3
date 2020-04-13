@@ -655,6 +655,8 @@ In the example above, the `EMAIL` field was faulty. This behaviour of FitBiz als
 
 // end::edit-c[]
 
+
+// tag::delete-c-command[]
 === Delete a client: `delete-c` --- Li Zi Ying
 
 You find that your client list contains a client who is no longer working with you and you would like to remove his details from your client list. `delete-c` allows you to delete the client at the specified index from your list of clients.
@@ -701,7 +703,8 @@ If you key in an `INDEX` that is out of range, that is if there are only 4 clien
 image::ug-delete-4.png[]
 
 To correct this, you have to enter a valid `INDEX` that is not more than the number of clients in the client list.
-
+// end::delete-c-command[]
+// tag::view-c-command[]
 === View a client profile: `view-c` --- Li Zi Ying
 
 You might want to view the complete information of a certain client in your client list. This complete information includes the client's full details, their exercise table and personal best table. `view-c INDEX` shows all available information of the client at the specified index.
@@ -747,9 +750,10 @@ This happens because there is no `INDEX` specified. To correct this, you have to
 ===== Index out of range
 If you key in an `INDEX` that is out of range, that is if there are only 5 clients in the list but you try to key in `view-c 10`, no client will be viewed and an error message will be shown.
 
-image::ug-delete-4.png[]
+image::ug-view-4.png[]
 
 To correct this, you have to enter a valid `INDEX` that is not more than the number of clients in the client list.
+// end::view-c-command[]
 
 === Add a client's exercise: `add-e`  --- YongJie
 `add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in the *Exercise Table*.
@@ -1200,9 +1204,9 @@ image::FilterTagCorrectCommand.png[]
 The list of successfully filter clients will then be displayed.
 
 image::FilterTagSuccess.png[]
-
 // end::filter-c-command[]
 
+// tag::graph-command[]
 === Display visualisations of training progress: `graph` --- Li Zi Ying
 
 `graph` allows you to see a graphical visualisation of a client’s exercise progress within a specified timeframe, so that you can easily track your client's progress and improvement.
@@ -1315,7 +1319,7 @@ image::ug-graph-9.png[]
 image::ug-graph-10.png[]
 
 To correct this, the start date has to be earlier or the same as the end date.
-
+// end::graph-command[]
 === View schedule for the day/week: `view-s` [Coming in v2.0]
 
 Shows the schedule for today or the time specified.

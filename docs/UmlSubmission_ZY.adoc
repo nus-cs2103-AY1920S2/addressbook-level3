@@ -1,0 +1,40 @@
+= UML Submission - Li Zi Ying
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S2-CS2103T-F11-2/main
+
+.Personal Best Class Diagram
+image::PersonalBestClassDiagram.png[width=500]
+
+The personal best class diagram helps to illustrate how the classes used in implementing the Personal Best feature relate to each other. From the diagram, `ViewCommand`, `AddExerciseCommand`, `EditExerciseCommand` and `DeleteExerciseCommand`, all know of `PersonalBestFinder` but `PersonalBestFinder` does not know of them. This ensures that `PersonalBestFinder` does not know any extra information that is not useful to it. From the diagram, `PersonalBestFinder` is the bridge between the `Logic` component and the `Model` component so that coupling between the classes is minimised. The `PersonalBestFinder` then has to know about `UniqueExerciseList`, `Client` and `PersonalBest` in order to generate and set the personal best of the client.
+
+.Personal Best Sequence Diagram
+image::PersonalBestSequenceDiagram.png[width=500]
+
+This diagram helps to better illustrate the program flow when a user keys in the `view-c` command, which will call `PersonalBestFinder#generateAndSetPersonalBest` to generate and set the client's personal best table by retrieving the exercise list from the client in view. After finding each exercise's personal best, the client's personal best is set using `Client#setPersonalBest` and updated in the GUI.
+
+.Graph Class Diagram
+image::GraphClassDiagram.png[width=300]
+
+This diagram helps to better illustrate how the classes used in implementing the Graph feature relate to each other. From the diagram, the `Graph` has four attributes `ExerciseName`, `Axis`, `StartDate` and `EndDate`, which are also the parameters of the `graph` command. `Axis` has its own unique type `AxisType` to facilitate with equality checking and maintain abstraction. The `ExerciseName` is also part of the `Exercise` model.
+
+.Graph Sequence Diagram
+image::GraphSequenceDiagram.png[width=500]
+
+This diagram helps to better illustrate the program flow when a `graph` command is entered. First, we make sure that there is a client in view and retrieve his exercise list. If there is no client in view, then the graph cannot be displayed. Next, we check if the client's exercise list contains the required exercise name within the given timeframe. If there is no exercise that matches the given exercise name within the timeframe, then the graph cannot be plotted. Finally if both checks pass, the graph list is generated and a `CommandResult` will be returned from the `execute()` method.
+
+.Grand Command Activity Diagram
+image::GraphCommandActivityDiagram.png[width=500]
+
+This diagram helps to illustrate how FitBiz should act when a user tries to use the graph command. When a user enters a graph command, FitBiz will parse the arguments accordingly and try to execute the command. A check is made to see if there is a client in view. Next, a check is made to see if there is an existing exercise record within the stipulated timeframe. If all checks pass, then the graph will be successfully displayed and feedback showing execution success will be given to the user.
