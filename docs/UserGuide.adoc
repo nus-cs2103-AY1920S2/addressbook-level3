@@ -399,10 +399,6 @@ Examples:
 Finds restaurants with the keyword `no signboard`.
 * `(rt)find l/bedok` +
 Finds restaurants in the `Bedok` area.
-* `(rt)find k/no signboard p/$$` +
-Finds restaurants with the keyword no signboard which is at a medium price point.
-* `(rt)find l/bedok p/$` +
-Finds restaurants in the bedok area at a low price point.
 
 * [COMING SOON] Ability to search by price point and operating hours.
 
@@ -515,7 +511,7 @@ end::schedule[]
 ==== Create a new social event : `(ev)add`
 
 Creates a social event. +
-Format: `(ev)add et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
+Format: `(ev)add t/EVENT_TITLE dt/EVENT_DATE d/DURATION p/PLACE`
 
 ****
 * `EVENT DATE` must be in a YYYY-MM-dd HH:mm format
@@ -529,7 +525,7 @@ Adds a new social event with title "Facebook job interview", event date 2020-05-
 ==== Edit a social event : `(ev)edit`
 
 Allows editing of a social event. +
-Format: `(ev)edit [et/EVENT_TITLE] [edt/EVENT_DATE] [ed/DURATION] [ep/LOCATION]`
+Format: `(ev)edit [t/EVENT_TITLE] [dt/EVENT_DATE] [d/DURATION] [p/PLACE]`
 
 ****
 * At least one field must be non-empty.
@@ -538,7 +534,7 @@ Format: `(ev)edit [et/EVENT_TITLE] [edt/EVENT_DATE] [ed/DURATION] [ep/LOCATION]`
 
 Examples:
 
-* `(ev)edit 2 edt/2020-04-09 22:00 ed/2` +
+* `(ev)edit 2 dt/2020-04-09 22:00 d/2` +
 Edits the 2nd event in the Event Schedule by changing the timing to 10PM on the 9th of April and the estimated duration to be 2 hours.
 
 ==== Deletes a social event : `(ev)delete`
@@ -562,8 +558,7 @@ Format: `(ev)list`
 
 === Saving the data
 
-Address book, Schoolwork Tracker, Event Book and Restaurant Book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Address book, Schoolwork Tracker, Event Book and Restaurant Book data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 === Coming in v2.0
 
@@ -582,9 +577,9 @@ There is no need to save manually.
 ** `(ab)add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [o/ORGANIZATION] [t/TAG]...`
 ** `(rt)add n/NAME l/LOCATION o/OPERATING_HOURS p/PRICE_POINT v/VISITED`
 ** `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
-** `(ev)add et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
+** `(ev)add t/EVENT_TITLE dt/EVENT_DATE d/DURATION p/PLACE`
 * *Delete* :
-** `(ab)delete INDEX [p/] [e/] [a/] [t/] [b/] [o/]`
+** `(ab)delete INDEX`
 ** `(rt)delete INDEX`
 ** `(st)delete INDEX`
 ** `(ev)delete INDEX`
@@ -595,7 +590,7 @@ There is no need to save manually.
 ** `(ev)edit INDEX [t/EVENT_TITLE] [dt/EVENT_DATE] [d/DURATION] [p/PLACE]`
 * *Find* :
 ** `(ab)find [o/ORGANIZATION] [n/NAME] [t/TAG]`
-** `(rt)find [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
+** `(rt)find [n/RESTAURANT_NAME] [l/LOCATION]`
 * *List* :
 ** `(ab)list`
 ** `(rt)list`
@@ -603,13 +598,13 @@ There is no need to save manually.
 ** `(ev)list`
 * *Add notes* :
 ** `(ab)addnote INDEX i/INFO...`
-** `(rt)addnote INDEX [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
+** `(rt)addnote INDEX [r/RECOMMENDED_FOOD]... [g/GOOD_FOOD]... [b/BAD_FOOD]...`
 * *Delete notes* :
 ** `(ab)deletenote INDEX l/LINE_NUMBER...`
 ** `(rt)deletenote INDEX [rl/RECOMMENDED_FOOD_LINE_NUMBER] [gl/GOOD_FOOD_LINE_NUMBER] [bl/BAD_FOOD_LINE_NUMBER]`
 * *Edit notes* :
 ** `(ab)editnote INDEX l/LINE_NUMBER i/INFO`
-** `(rt)editnote INDEX [rl/LINE_NUMBER_RECOMMENDED] [r/RECOMMENDED_FOOD] [gl/LINE_NUMBER_GOOD] [g/GOOD_FOOD] [bl//LINE_NUMBER_BAD] [b/BAD_FOOD]`
+** `(rt)editnote INDEX [rl/LINE_NUMBER_RECOMMENDED] [r/RECOMMENDED_FOOD] [gl/LINE_NUMBER_GOOD] [g/GOOD_FOOD] [bl/LINE_NUMBER_BAD] [b/BAD_FOOD]`
 * *Get all information about a contact* : +
 `(ab)get INDEX`
 * *Show contacts with birthdays in the next 5 days* : +
