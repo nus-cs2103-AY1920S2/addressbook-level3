@@ -169,7 +169,7 @@ public class FitHelperParser {
             return new HomeCommand();
 
         case ReminderCommand.COMMAND_WORD:
-            return new ReminderCommand();
+            return new ReminderCommandParser().parse(arguments);
 
         case UpdateCommand.COMMAND_WORD:
             return new UpdateCommandParser().parse(arguments);

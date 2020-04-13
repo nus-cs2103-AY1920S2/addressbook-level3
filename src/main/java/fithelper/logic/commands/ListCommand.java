@@ -16,7 +16,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all entries";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all entries specified by the date keyword.\n"
-            + "If not specified, all entries in chronological order are displayed.\n"
+            + "If not specified, all entries are displayed.\n"
             + "Parameters: "
             + PREFIX_DATE + "Date (optional)"
             + "Example: " + COMMAND_WORD

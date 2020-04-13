@@ -6,6 +6,7 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import fithelper.logic.diary.FindDiaryCommand;
 import fithelper.logic.parser.ArgumentMultimap;
@@ -31,6 +32,9 @@ public class FindDiaryCommandParser implements Parser<FindDiaryCommand> {
     public FindDiaryCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_KEYWORD);
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_KEYWORD)) {
+            return new FindDiaryCommand(null, null);
+        }
         if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             DiaryDate diaryDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
             return new FindDiaryCommand(null, new DiaryDatePredicate(diaryDate));
@@ -43,16 +47,15 @@ public class FindDiaryCommandParser implements Parser<FindDiaryCommand> {
         }
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindDiaryCommand(new DiaryContentContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-
+        return new FindDiaryCommand(new DiaryContentContainsKeywordsPredicate(Arrays.asList(nameKeywords)), null);
     }
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} value in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix prefix) {
-        return argumentMultimap.getValue(prefix).isPresent();
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
 

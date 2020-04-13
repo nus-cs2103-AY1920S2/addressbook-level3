@@ -26,6 +26,7 @@ public class FindDiaryCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all diaries whose names contain any of "
             + "the specified date "
             + "or the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "If neither DATE nor KEYWORD is specified, all diaries will be listed. \n"
             + "Parameters: "
             + PREFIX_DATE + "DATE (optional)"
             + PREFIX_KEYWORD + "[keyword list]"
@@ -33,17 +34,12 @@ public class FindDiaryCommand extends Command {
             + PREFIX_DATE + "2020-03-31 "
             + PREFIX_KEYWORD + "gym ";
 
-    private final DiaryContentContainsKeywordsPredicate predicate;
+    private final DiaryContentContainsKeywordsPredicate wordPredicate;
     private final DiaryDatePredicate datePredicate;
-
-    public FindDiaryCommand(DiaryContentContainsKeywordsPredicate predicate) {
-        this.datePredicate = null;
-        this.predicate = predicate;
-    }
 
     public FindDiaryCommand(DiaryContentContainsKeywordsPredicate predicate,
                             DiaryDatePredicate datePredicate) {
-        this.predicate = predicate;
+        this.wordPredicate = predicate;
         this.datePredicate = datePredicate;
     }
 
@@ -51,14 +47,14 @@ public class FindDiaryCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         String feedback = "";
-        if (this.datePredicate == null) {
-            model.updateFilteredDiaryList(predicate);
-            feedback = String.format(Messages.MESSAGE_DIARY_LISTED_OVERVIEW, model.getFilteredDiaryList().size());
+        if (this.datePredicate == null && this.wordPredicate == null) {
+            model.updateFilteredDiaryList(Model.PREDICATE_SHOW_ALL_DIARIES);
+        } else if (this.datePredicate == null) {
+            model.updateFilteredDiaryList(wordPredicate);
         } else {
             model.updateFilteredDiaryList(datePredicate);
-            feedback = String.format(Messages.MESSAGE_DIARY_LISTED_OVERVIEW, model.getFilteredDiaryList().size());
-
         }
+        feedback = String.format(Messages.MESSAGE_DIARY_LISTED_OVERVIEW, model.getFilteredDiaryList().size());
         return new CommandResult(feedback, DIARY, false);
     }
 
@@ -66,6 +62,6 @@ public class FindDiaryCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindDiaryCommand // instanceof handles nulls
-                && predicate.equals(((FindDiaryCommand) other).predicate)); // state check
+                && wordPredicate.equals(((FindDiaryCommand) other).wordPredicate)); // state check
     }
 }
