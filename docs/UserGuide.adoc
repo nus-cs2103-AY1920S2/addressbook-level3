@@ -443,6 +443,7 @@ Added exercise Bench Press to Arms Workout!
 
 ```
 NOTE:
+* You cannot add an empty exercise (i.e. exercise that does not contain any sets) to a workout
 * WORKOUT_ID refers to the index of the workout in `workout list`
 * EXERCISE_ID refers to the index of the exercise in `exercise list`
 ```
@@ -535,9 +536,9 @@ NOTE:
 * <workout_name> can be a partial substring of the actual workout name
 ```
 
-==== Changing a workout’s name
+==== Editing the name of a workout
 
-If you ever want to change the name of a workout, simply type this command:
+If you ever want to edit the name of a workout, simply type this command:
 
 ```
 workout edit WORKOUT_ID w/<new_workout_name>
