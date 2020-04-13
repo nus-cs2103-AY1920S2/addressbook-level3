@@ -6,9 +6,9 @@
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
 * *Email us* : You can also reach us at:
 
-** `sheexiong [at] u.nus.edu`
-** `willyseahh [at] u.nus.edu`
-** `ailanthustng [at] u.nus.edu`
-** `jarrod-bob [at] u.nus.edu`
-** `akhilvuputuri [at] u.nus.edu`
+** Chen Shee Xiong: `sheexiong [at] u.nus.edu`
+** Willy Seah: `e0310561 [at] u.nus.edu`
+** Ailanthus Tng: `ailanthustng [at] u.nus.edu`
+** Jarrod Ng: `jarrod.ng [at] u.nus.edu`
+** Akhil Vuputuri: `akhilvuputuri [at] u.nus.edu`
 

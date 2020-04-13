@@ -15,7 +15,7 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 == Summary of contributions
 
-* *Major enhancement*:
+* *Major Enhancements*:
 
 . Adding of *Height, Weight, Mode, Bmi and Self classes, and their storage components
 for the Diet Tracker* portion of EYLAH
@@ -42,6 +42,7 @@ reference issue for Height, Weight and Mode in Self.
 *** *Credits:* +
 My groupmate Akhil, who helped with the correction for some of the bugs in the implementation of the classes.
 (Akhil's resolution and refactors - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/318[#318])
+
 
 . Heavily involved with *setting up of the Commands and Parsers folders and classes for the Diet Tracker* portion of EYLAH.
 (Commands - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/157[#157])
@@ -82,104 +83,151 @@ Shee Xiong, the our Team's Integrations IC, went ahead and implemented it eventu
 (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/232[#232])
 
 
-* *Minor enhancement*:
+* *Minor Enhancements*:
 
-. Modified the `paid` command to allow a Person to pay his debt fully +
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/209[#209])
+. Modified the `bmi` command to allow a user to calculate BMI with missing input arguments of Height and Weight +
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/218[#218])
 
 *** *What it does:* +
-Expanded the `paid` command to accept empty amount field, which meant that the Person paid his debt fully. +
-Previously: `paid 1 3` meant that person at INDEX 1 paid $3. +
-Now: `paid 1` meant that person at INDEX 1 paid the full amount he owes.
+Expanded the `bmi` command to accept empty Height and Weight fields, which meant that the BmiCommand would retrieve the user's stored Height and Weight for use to
+calculate BMI instead. Also added the functionality if users wanted to only check with one input argument, either Height or Weight. +
+Previously: Command format was `bmi -h HEIGHT -w WEIGHT` +
+Now: Command format is `bmi [-h HEIGHT] [-w WEIGHT]`
 
 *** *Justification:* +
-This allows the user to conveniently clear a Person debt fully.
+This allows the user to conveniently check their personal BMI, while giving them the option to also check
+the BMI for their friends. They could use the single input format to check what weight would allow them to
+hit their target BMI category.
 
-. Performed defensive coding for `additem` command and `paid` command +
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/352[#352])
+. Performed defensive coding for `bmi`, `height`, and `weight` commands. +
+(Height and Weight - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/351[#351])
+(Bmi - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/378[#378])
 
 *** *What it does:* +
-`additem` and `paid` commands are commands in expense splitter
+`bmi`, `height` and `weight` commands are commands in Diet Tracker,
 which includes numerical digits and multiple parameters. As a result, these commands may be exploited
-when discovering bugs in EYLAH. Common issues includes passing a huge numerical number which causes Integer Overflow
-or passing a negative index which causes ArrayOutOfBounds Exceptions. Thus I handled these rouge commands by
-including try-catch statement to catch these exceptions.
+when discovering bugs in EYLAH. The most common exploits that could break the program was with Integer Overflow
+values. Especially since these huge numbers would have been parsed and stored as 'Infinity' in the JSON format,
+which completely destroyed the functionality of the bmi command. I combat these errorneous commands by either using
+try-catch blocks or by including limits on their values by checking them through BigDecimal inputs.
 
 *** *Justification:* +
-This reduces the chances of EYLAH crashing.
+Significantly reduces the chances of breaking Diet Tracker and crashing EYLAH.
 
+. Fixed the Calories bug that occurs when Calories are not in the desired range. +
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/354[#354])
 
+*** *What it does:* +
+Properly validates the user's Calories input for any of the Diet Tracker Commands which involve Calories.
 
-* *Major enhancement*: [In Process]
-** What it does:
-** Justification:
-** Highlights:
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+*** *Justification:* +
+Otherwise, the previously poor implementation would cause the application to crash.
 
-** *Adding of Height, Weight, Mode, Bmi and Self classes for the Diet Tracker portion of EYLAH*
-*** What it does:
-*** Justification:
-*** Highlights:
-*** Credits:
-
-** *Adding of HeightCommand, WeightCommand, BmiCommand, ModeCommand for the Diet Tracker portion of EYLAH*
-*** What it does: HeightCommand, WeightCommand and BmiCommand are all health metric commands that are essential for any diet tracking app to help the User. BmiCommand is a simple function to allow the user to gauge their current health status.
-*** Justification: Without this, a user would not have any realistic goal to aim for.
-*** Highlights: Height and Weight, which are taken in as Floating Point numbers, are interesting in that they can be exploited by putting a very large number like '100000000000000000000000' which would then cause permanent damage to the application as it is stored as 'Infinity'.
-In order to fix this, I set a cap on the value which could be input into the height field. I injected some fun facts so the user would feel more affection for the application.
-*** Credits: For the bug on Floating Point and Storage, I would like to thank my team mate Shee Xiong, who actually brought the bug issues to light.
-
-** *Adapted most of the beginning classes for the DietModel class from Addressbook 3*
-*** What it does: The Model and Parsers are extremely important in order to ensure a functioning pre-product.
-*** Justification:
-*** Highlights:
-*** Credits: AddressBook Level 3 "https://github.com/se-edu/addressbook-level3"
-
-** *Suggested for the renaming of same sounding class components across both DietTracker and ExpenseSplitter for EYLAH*
-*** What it does:
-*** Justification:
-*** Highlights:
-*** Credits:
-
-* *Minor enhancement*: [In Process]
-** *Fixed the Calories bug that occurs when Calories are not in the desired range.*
-*** What it does: Properly validates the user's Calories input for any of the Diet Tracker Commands which involve Calories.
-*** Justification: Otherwise, the previously poor implementation would cause the application to crash.
-*** Highlights: This was brought up during internal testing within the team and also by others during the Mock PE Testing.
+*** *Highlights* +
+ This was brought up during internal testing within the team and also by others during the Mock PE Testing.
 It was important to fix this bug. I found that the cause of this overall bug was due to a few lapses in terms of the original implementation.
 The original implementation had failed to consider a VALIDATION_REGEX for the Calories String itself, since Calories was built using a long instead of directly from a String.
 This caused problems when typing unknown characters that were not longs. Another issue was that you could exceed in the input long for Calories which would crash the program also.
 This was circumvented using BigInteger when validating the long.
 
-** *Drew Diet Tracker component of UML Class diagram*
-+
-image::diet_tracker_uml_class_diagram.png[]
-+
-** *Added tests for HeightCommand, WeightCommand, BmiCommand, ModeCommand, MetricsCommand and some of the tests for EditCommand*
-+
-** *Added tests for the FoodBookParser and Parser classes.*
+
+. Added tests for `HeightCommand`, `WeightCommand`, `BmiCommand`, `ModeCommand`, `MetricsCommand` and some of the tests for `EditCommand`
+
+. Added tests for the `FoodBookParser` and `Parser` classes.
 
 ** *Drew Activity Diagrams for various Diet Tracker functions.*
 +
-image::BmiActivityDiagram.png[]
+.Bmi Command Activity Diagram
+image::DietTrackerBmiCommandActivityDiagram.png[]
 +
-image::BmiNILSequenceDiagram.png[]
+.Delete Command Activity Diagram
+image::DietTrackerDeleteCommandActivityDiagram.png[]
++
+.Add Command Activity Diagram
+image::DietTrackerAddCommandActivityDiagram.png[]
++
+.List Command Activity Diagram
+image::DietTrackerListCommandActivityDiagram.png[]
++
+.Edit Command Activity Diagram
+image::DietTrackerEditCommandActivityDiagram.png[]
++
+.Height Command Activity Diagram
+image::DietTrackerHeightCommandActivityDiagram.png[]
++
+.Weight Command Activity Diagram
+image::DietTrackerWeightCommandActivityDiagram.png[]
++
+.Mode Command Activity Diagram
+image::DietTrackerModeCommandActivityDiagram.png[]
++
+.Metrics Command Activity Diagram
+image::DietTrackerMetricsCommandActivityDiagram.png[]
 
 ** *Drew Sequence Diagrams for various Diet Tracker functions.*
 +
-image::BmiNILSequenceDiagram.png[]
+.Bmi Command Sequence Diagram for no input arguments
+image::DietTrackerBmiCommandNILSequenceDiagram.png[]
 +
-image::BmiSequenceDiagram.png[]
+.Retrieve Height and Weight from Model for usage in BmiCommand
+.Bmi Command Activity Diagram
+image::DietTrackerBmiCommandNILSequenceDiagram2.png[]
 +
+.Bmi Command Sequence Diagram for input arguments
+image::DietTrackerBmiCommandSequenceDiagram.png[]
++
+.Create Height and Weight Objects for usage in BmiCommand
+image::DietTrackerBmiCommandSequenceDiagram2.png[]
++
+.Height Command Sequence Diagram
 image::DietTrackerHeightCommandSequenceDiagram.png[]
 +
+.Weight Command Sequence Diagram
 image::DietTrackerWeightCommandSequenceDiagram.png[]
 +
+.Mode Command Sequence Diagram
 image::DietTrackerModeCommandSequenceDiagram.png[]
++
+.Metrics Command Sequence Diagram
+image::DietTrackerMetricsCommandSequenceDiagram.png[]
++
+.Edit Command Sequence Diagram
+image::DietTrackerEditCommandSequenceDiagram.png[]
++
+.Delete Command Sequence Diagram
+image::DietTrackerDeleteCommandSequenceDiagram.png[]
++
+.Add Command Sequence Diagram
+image::DietTrackerAddCommandSequenceDiagram.png[]
++
+.List Command Sequence Diagram for `-a` and No-Flag Input
+image::DietTrackerListCommandAllSequenceDiagram.png[]
++
+.List Command Sequence Diagram for `-d`
+image::DietTrackerListCommandDaySequenceDiagram.png[]
++
+.List Command Sequence Diagram for `-t`
+image::DietTrackerListCommandTagSequenceDiagram.png[]
+
+** *Drew Class Diagrams for various Diet Tracker functions.*
++
+.Bmi Command Class Diagram
+image::DietTrackerBmiCommandClassDiagram.png[]
++
+.Height Command Class Diagram
+image::DietTrackerHeightCommandClassDiagram.png[]
++
+.Weight Command Class Diagram
+image::DietTrackerWeightCommandClassDiagram.png[]
++
+.Mode Command Class Diagram
+image::DietTrackerModeCommandClassDiagram.png[]
++
+.Metrics Command Class Diagram
+image::DietTrackerMetricsCommandClassDiagram.png[]
 
 
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jarrod-bob&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=false[Functional code and Test Code]]
 
 * *Other contributions*:
 
@@ -194,18 +242,14 @@ image::DietTrackerModeCommandSequenceDiagram.png[]
 *** Adapted the given Parser and Command Design into Diet Tracker's Design for EYLAH. https://github.com/
 
 ** Documentation:
-*** To be added
+*** Updated Developer Guide to include Bmi, Height, Weight, Mode and Metrics Command and their diagrams (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/372[#372], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/376[#376], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/401[#401], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/404[#404])
+*** Updated Developer Guide Template for Diet Tracker overall (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/252[#372])
+*** Updated User Guide to include Bmi, Height, Weight, Mode and Metrics Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/361[#361])
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-
-** Tools:
-
-==== Code contributed
-Please click the following link to see my code contributions dashboard.
-https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jarrod-bob[Code Report]
+*** PRs reviewed (with non-trivial review comments): (Pull requests: https://github.com/AY1920S2-CS2103T-W13-1/main/pull/128[#128], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/134[#134], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/135[#135], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/217[#217)],
+)
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/jarrod-bob/ped/issues)
 
 == Contributions to the User Guide
 
@@ -214,9 +258,22 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jarrod-bob[Code Repor
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=diettrackerintro]
+'''
+include::../UserGuide.adoc[tag=diettrackerbmi]
+'''
+include::../UserGuide.adoc[tag=diettrackerheight]
+'''
+include::../UserGuide.adoc[tag=diettrackerweight]
+'''
+include::../UserGuide.adoc[tag=diettrackermode]
+'''
+include::../UserGuide.adoc[tag=diettrackermetrics]
+'''
+include::../UserGuide.adoc[tag=diettrackeredit]
 
-include::../UserGuide.adoc[tag=dataencryption]
+
+
 
 == Contributions to the Developer Guide
 
@@ -224,19 +281,26 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=diettrackerintro]
+'''
+include::../DeveloperGuide.adoc[tag=diettrackeredit]
+'''
+include::../DeveloperGuide.adoc[tag=diettrackerbmi]
+'''
+include::../DeveloperGuide.adoc[tag=diettrackerheight]
+'''
+include::../DeveloperGuide.adoc[tag=diettrackerweight]
+'''
+include::../DeveloperGuide.adoc[tag=diettrackermode]
+'''
+include::../DeveloperGuide.adoc[tag=diettrackermetrics]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=testing]
 
-
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=devops]
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
-
 Questions to ask: +
-1. is BigDecimal the best way to represent currency? +
-2. under ItemPriceTest, instead of assertFalse can I assertThrows because BigDecimal
-will throw an exception? Because in AB3 everything there is assertFalse +
-3.
+1. Should users be able to use BMI without input, or even with just a single (Height/Weight) input? +
+2. What is different for Calories than other Classes that are stored as attributes? +
