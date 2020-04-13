@@ -29,6 +29,8 @@ FitHelper mainly serves as a fitness log book where users can *mark down their d
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `FitHelper.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Fitness Helper.
+Please ensure that writing or reading data inside the home folder that you choose
+does **not** require administrator permission.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -72,16 +74,26 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 // tag::command_format[]
 ====
-*Command Format*
+*General rules about command format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/running`.
-* Items in square brackets are optional e.g `n/NAME [r/REMARK]` can be used as `n/swimming r/energy consuming but fun` or as `n/running`.
+* A prefix followed by a word in `UPPER_CASE` form a parameter to be supplied by the user.
+
+Example: in `add n/NAME`, `n/NAME` is a parameter which can be `n/running`.
+
+* Parameters in square brackets are optional e.g `n/NAME [r/REMARK]`
+means both `n/swimming r/fun` and `n/swimming` are both valid user inputs.
+* Parameters not in square brackets are compulsory e.g. `x/TYPE k/KEYWORDS`
+means you must input both `TYPE` and `KEYWORDS` parameters.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[r/remark]...` can be used as `{nbsp}` (i.e. 0 times), `r/really fun`, `r/really fun r/helps me lose weight` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME t/2020-04-10-08:00`, `t/2020-04-10-18:00 n/NAME` is also acceptable.
-* The field `TYPE` or `x/` in this document refers to type of entries: food/sport, it can also be write in short form: f/s.
-* The field `TIME` needs to be in the format of yyyyy-mm-dd-hh:MM, e.g. `t/2020-04-10-03:00`
-* The field `DATE` should be entered in the fixed format of `yyyy-mm-dd` in order to trace the corresponding daily file.
-* The field `DURATION` should be a postive double number, representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
+* Parameters can be in any order e.g. if a command format is `add n/NAME t/TIME`, then
+ `add n/Bob t/2020-04-10-08:00` and `add t/2020-04-10-18:00 n/Bob` are both acceptable.
+* The field `TYPE` in this document refers to type of entries.
+The only valid values are food OR sports, or in acronym f OR s.
+* The field `TIME` needs to be in the format of yyyyy-mm-dd-hh:MM, e.g. `2020-04-10-03:00`
+* The field `DATE` should be entered in the format of `yyyy-mm-dd`, e.g. `2020-02-02`.
+* The field `INDEX` should be a positive integer representing a one-based index of an entry in an list.
+* The field `DURATION` should be a positive double number,
+representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
 * The flag `-f` should be added *just after the command word*, e.g. `update -f`.
 ====
 //end::command_format[]
@@ -713,22 +725,22 @@ Three local database in Json format will exist after running FitHelper:
 //.
 
 * *Entry - switch to DashBoard* : `home`
-* *Entry - add an entry* `add n/NAME t/TIME l/LOCATION c/CALORIE [r/remark]...`
-* *Entry - list all entries* : `list`
-* *Entry - view reminders* : `reminder`
-* *Entry - edit an entry* : `edit INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/remark]...`
-* *Entry - find by name* : `find KEYWORD [MORE_KEYWORDS]`
-* *Entry - delete an entry* : `delete INDEX`
+* *Entry - add an entry* `add x/TYPE n/NAME t/TIME l/LOCATION c/CALORIE ...`
+* *Entry - list all entries or entries of a given date* : `list [d/DATE]`
+* *Entry - view reminders list only* : `reminder`
+* *Entry - edit an entry* : `edit x/TYPE i/INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] ...`
+* *Entry - find and list entries by keywords* : `find k/KEYWORDS`
+* *Entry - delete an entry* : `delete x/TYPE i/INDEX`
 * *Entry - sort entry list* : `sort [x/TYPE] by/SORT_BY [o/ORDER]`
-* *Entry - check calorie reference* : `check x/TYPE k/ONE_OR_MORE_KEYWORDS`
+* *Entry - check calorie reference* : `check x/TYPE k/KEYWORDS`
 
 //.
 
 * *Diary - switch to Diary Page* : `diary`
-* *Diary - add a diary* : `addDiary d/DATE dc/DIARYCONTENT`
-* *Diary - edit a diary* : `editDiary d/DATE dc/DIARYCONTENT`
+* *Diary - add a diary* : `addDiary d/DATE dc/CONTENT`
+* *Diary - edit a diary* : `editDiary d/DATE dc/CONTENT`
 * *Diary - delete a diary* : `deleteDiary d/DATE`
-* *Diary - find a diary* : `findDiary [d/DATE] [dc/DIARYCONTENT]`
+* *Diary - find a diary* : `findDiary [d/DATE] [k/KEYWORDS]`
 * *Diary - clear all diaries* : `clearDiary`
 
 //.
