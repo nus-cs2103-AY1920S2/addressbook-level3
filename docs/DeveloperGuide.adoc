@@ -2641,6 +2641,13 @@ Expected: You will see an error message that this module already exists.
 === Adding a group to a module
 
 . Adding a group to a module.
+.. Test Case: `group add g/G07 m/CS1101S t/tutorial` +
+Expected: A group with group code `G07` of type `tutorial` will be added to the module `CS1101S`.
+If you were on a different tab, you are automatically switched to *Student View*.
+
+.. Test Case: `group add g/G08 m/CS1101S t/lab` +
+Expected: A group with group code `G08` of type `lab` will be added to the module `CS1101S`.
+If you were on a different tab, you are automatically switched to *Student View*.
 
 .. Test Case: `group add g/G07 m/CS3243 t/lab` +
 Expected: A group with group code `G07` of type `lab` will be added to the module `CS3243`.
