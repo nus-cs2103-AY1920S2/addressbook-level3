@@ -5,6 +5,7 @@ import static fithelper.logic.commands.CommandResult.DisplayedPage.HOME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SORT_BY;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SORT_ORDER;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
+import static fithelper.model.entry.Type.FOOD;
 import static java.util.Objects.requireNonNull;
 
 import fithelper.commons.core.Messages;
@@ -58,7 +59,7 @@ public class SortCommand extends Command {
             model.sortFilteredEntryList(sortBy, isAscendingSort);
             feedback = Messages.MESSAGE_BOTH_ENTRY_LIST_SORTED + BY + sortBy.getValue();
         } else {
-            if ("food".equalsIgnoreCase(sortType.getValue())) {
+            if (FOOD.equalsIgnoreCase(sortType.getValue())) {
                 model.sortFilteredFoodEntryList(sortBy, isAscendingSort);
                 feedback = Messages.MESSAGE_FOOD_ENTRY_LIST_SORTED + BY + sortBy.getValue();
             } else {

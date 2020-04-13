@@ -1,6 +1,8 @@
 package fithelper.model;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import static fithelper.model.entry.Type.FOOD;
+import static fithelper.model.entry.Type.SPORTS;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
@@ -369,7 +371,7 @@ public class ModelManager implements Model {
      * @return a set of {@code CalorieDatum} with matching keyword
      */
     public Set<CalorieDatum> searchFoodCalorieTable(String keywords) {
-        return fitHelper.addCalorieData("f", keywords);
+        return fitHelper.addCalorieData(FOOD, keywords);
     }
 
     /**
@@ -380,7 +382,7 @@ public class ModelManager implements Model {
      * @return a list of {@code CalorieDatum} with matching keywords
      */
     public Set<CalorieDatum> searchSportsCalorieTable(String keywords) {
-        return fitHelper.addCalorieData("s", keywords);
+        return fitHelper.addCalorieData(SPORTS, keywords);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class CheckCommandParser implements Parser<CheckCommand> {
 
         Type checkType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
         String keyword = argMultimap.getValue(PREFIX_KEYWORD).get();
-        if ("".equals(keyword)) {
+        if (keyword.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE));
         }
         return new CheckCommand(checkType, keyword);
