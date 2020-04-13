@@ -1278,7 +1278,7 @@ Grocery list window is opened then minimised. If required, open the window first
 then minimise that window.
 .. Test case: `groceryList` +
    Expected: Window with updated grocery list appears.
-   
+
 === Cooking recipes
 . Mark a recipe as cooked
 ..  Prerequisites: Recipes are present. If required, add recipes by using the `add` command.
@@ -1289,12 +1289,12 @@ then minimise that window.
 .. Prerequisites: Records list contains records cooked within the day.
 .. Test case: `cooked 1` +
    Expected: The result box below informs the user that the recipe is a duplicated and cannot be added in.
-   
+
 . Cooking multiple recipes
 .. Prerequisites: Recipes are present. If required, add recipes by using the `add` command.
 .. Test case: `cooked 1 2 3` +
    Expected: The result box below informs the user that the recipes have been cooked.
-   
+
 
 === Adding quotes
 . Quote displays while quotelist is not empty.
