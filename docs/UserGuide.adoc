@@ -330,7 +330,6 @@ After corrections are done, a list of suggestions will be generated as if the us
 .Demo for the auto correction feature
 image::demo/Correction.png[]
 
-<<<<<<< HEAD
 === Response text
 Notably also displays a response text which enables you to understand the meaning of the input you type and shows
 an error message when your input is invalid.
@@ -412,7 +411,6 @@ In our v2.0 release, we'll be supporting the following additional Markdown synta
 ----
 ~~This text will get a strikethrough treatment~~
 ----
->>>>>>> master
 
 == FAQ
 
