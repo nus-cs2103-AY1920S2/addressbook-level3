@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
 import seedu.address.model.Model;
 import seedu.address.model.restaurant.LocationContainsKeywordsPredicate;
@@ -20,9 +21,9 @@ public class FindRestaurantCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all restaurants whose names contain "
             + "any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: " + COMMAND_WORD
-            + " [r/RESTAURANT_NAME] "
+            + " [" + PREFIX_RESTAURANT + "RESTAURANT NAME] "
             + " [" + PREFIX_LOCATION + "LOCATION] \n"
-            + "Example: " + COMMAND_WORD + " r/McDonalds ";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_RESTAURANT + "McDonalds ";
 
     private final RNameContainsKeywordsPredicate rNamePredicate;
     private final LocationContainsKeywordsPredicate locationPredicate;

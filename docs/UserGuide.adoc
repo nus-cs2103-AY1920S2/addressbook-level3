@@ -227,6 +227,7 @@ Format: `(ab)list`
 * If you want to search for a particular contact, see `(ab)find`
 * If you want more information about a particular contact, see `(ab)get`
 
+tag::findCommand[]
 ==== Finding contacts : `(ab)find`
 
 Lists out all your contacts in the address book which match a certain criteria. Each contact will have a displayed index. Only the contact's name, phone number and tags (if present) will be listed +
@@ -241,6 +242,8 @@ Examples:
 
 * `(ab)find o/NUS n/Lim` +
 Finds and lists all contacts that is in organization “NUS” and have the word “Lim” in his name
+
+end::findCommand[]
 
 ==== List everything about a contact in field : `(ab)get`
 
@@ -378,6 +381,7 @@ Examples:
 * `(rt)list` +
 Lists all restaurants.
 
+tag::findRestaurantCommand[]
 ==== Find restaurants : `(rt)find`
 
 Finds restaurants based on a number of criteria. +
@@ -395,12 +399,9 @@ Examples:
 Finds restaurants with the keyword `no signboard`.
 * `(rt)find l/bedok` +
 Finds restaurants in the `Bedok` area.
-* `(rt)find k/no signboard p/$$` +
-Finds restaurants with the keyword no signboard which is at a medium price point.
-* `(rt)find l/bedok p/$` +
-Finds restaurants in the bedok area at a low price point.
 
 * [COMING SOON] Ability to search by price point and operating hours.
+end::findRestaurantCommand[]
 
 tag::schoolworkTracker[]
 === Schoolwork Tracker commands
@@ -504,12 +505,13 @@ Displays 5 days of your generated schedule.
 
 end::schedule[]
 
+tag::eventSchedule[]
 === Event Schedule commands
 
 ==== Create a new social event : `(ev)add`
 
 Creates a social event. +
-Format: `(ev)add et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
+Format: `(ev)add t/EVENT_TITLE dt/EVENT_DATE d/DURATION p/PLACE`
 
 ****
 * `EVENT DATE` must be in a YYYY-MM-dd HH:mm format
@@ -518,21 +520,22 @@ Format: `(ev)add et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
 Examples:
 
 * `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
-Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and location at "Facebook APAC HQ".
+Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and place of event at "Facebook APAC HQ".
 
 ==== Edit a social event : `(ev)edit`
 
 Allows editing of a social event. +
-Format: `(ev)edit [et/EVENT_TITLE] [edt/EVENT_DATE] [ed/DURATION] [ep/LOCATION]`
+Format: `(ev)edit INDEX [t/EVENT_TITLE] [dt/EVENT_DATE] [d/DURATION] [p/LOCATION]`
 
 ****
+* INDEX must be a positive integer. It corresponds to the INDEX of the event as shown when you list all events in the Event Schedule using the default event list function (see above).
 * At least one field must be non-empty.
 * All the non-empty fields will replace their respective previous data fields.
 ****
 
 Examples:
 
-* `(ev)edit 2 edt/2020-04-09 22:00 ed/2` +
+* `(ev)edit 2 dt/2020-04-09 22:00 d/2` +
 Edits the 2nd event in the Event Schedule by changing the timing to 10PM on the 9th of April and the estimated duration to be 2 hours.
 
 ==== Deletes a social event : `(ev)delete`
@@ -553,6 +556,8 @@ Deletes the 1st Event in the Event Schedule.
 
 Lists all social events in your Event Schedule. +
 Format: `(ev)list`
+
+end::eventSchedule[]
 
 === Saving the data
 
@@ -589,7 +594,7 @@ There is no need to save manually.
 ** `(ev)edit INDEX [t/EVENT_TITLE] [dt/EVENT_DATE] [d/DURATION] [p/PLACE]`
 * *Find* :
 ** `(ab)find [o/ORGANIZATION] [n/NAME] [t/TAG]`
-** `(rt)find [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
+** `(rt)find [n/RESTAURANT_NAME] [l/LOCATION]`
 * *List* :
 ** `(ab)list`
 ** `(rt)list`

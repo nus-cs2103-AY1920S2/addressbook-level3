@@ -409,6 +409,7 @@ image::addRestNote.png[]
 
 end::editRestNote[]
 
+tag::findContacts[]
 === Finding Contacts
 ==== Implementation
 
@@ -451,6 +452,8 @@ Current implementation of Predicates uses the `stream` and `anyMatch` commands t
 * **Alternative 2:** Have the user include the prefix before every different keyword they want to search. For instance, if they want to search using 2 different tag keywords like "friends" and "colleagues", they would have to type `(ab)find t/friends t/colleagues`. Then we can use the Argument Multimap to tokenize the arguments.
 * Pros: Easier to implement.
 * Cons: More troublesome for the user because if they want to search for multiple tags, they would have to keep typing the `/t` prefix for each keyword.
+
+end::findContacts[]
 
 === Logging
 
