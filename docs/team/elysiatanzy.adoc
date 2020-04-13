@@ -54,7 +54,7 @@
 ** Contribution to team-based tasks:
 *** Did cosmetic tweaks to existing contents of the User Guide (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/71[#71], https://github.com/AY1920S2-CS2103-W14-3/main/pull/150[#150])
 *** Maintained the issue tracker
-*** Managed releases `v1.1, v1.2.1 to v1.3.1` (4 releases) on Github
+*** Managed releases `v1.1, v1.2.1 to v1.4` (5 releases) on Github
 ** Community:
 *** Over 30 https://github.com/AY1920S2-CS2103-W14-3/main/pulls?q=is%3Apr+author%3AElysiaTanZY+[Pull Requests] on Github
 *** Over 20 https://github.com/AY1920S2-CS2103-W14-3/main/pulls?q=is%3Apr+commenter%3AElysiaTanZY+[Reviews] on Github
