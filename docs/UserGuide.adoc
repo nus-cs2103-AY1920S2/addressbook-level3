@@ -92,6 +92,15 @@ means you must input both `TYPE` and `KEYWORDS` parameters.
 The only valid values are food OR sports, or in acronym f OR s.
 * The field `TIME` needs to be in the format of yyyyy-mm-dd-hh:MM, e.g. `2020-04-10-03:00`
 * The field `DATE` should be entered in the format of `yyyy-mm-dd`, e.g. `2020-02-02`.
+* Our time parser will auto-correct some invalid date/time entered. More specifically,
+as long as the month value is valid and the day value is between 1 and 31,
+the parser will auto-correct an invalid date to the last valid date of the year-month
+specified by the user.
+
+Example: `2020-02-31-12:34` will be auto-corrected as `2020-02-29-12:34` since
+`2020-02-29` is the last valid date of Feb 2020.  `2020-22-31` and `2020-02-40`
+will not be auto-corrected since the month value is invalid or the day value is beyond 31.
+
 * The field `INDEX` should be a positive integer representing a one-based index of an entry in an list.
 * The field `DURATION` should be a positive double number,
 representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
