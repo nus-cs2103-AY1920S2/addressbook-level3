@@ -1,0 +1,15 @@
+@startuml
+(*)  --> "User executes add group command"
+If "input has correct keyword" then
+--> [Yes] "Create AddGroupParser to process input"
+--> "Create Add Group Command"
+    If "group exists in address book" then
+    --> [Yes] Add group to the address book
+    --> Show success message
+    --> (*)
+else
+--> "Show Error Message"
+Endif
+-->(*)
+@enduml
+

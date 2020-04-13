@@ -1,0 +1,117 @@
+= Cheng Lit Yaw - Project Portfolio
+:site-section: AboutUs
+:icons: font
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+== PROJECT: CoderLifeInsights
+CoderLifeInsights (CLI) is a desktop application that provides you insights and suggestions to your social life as a programmer using a CLI (Command Line Interface)
+
+---
+
+== My Role
+I am responsible to complete the import, export features as well as the suggestion and time insights feature. Besides that I am also tasked to improve the Graphical User Interface (GUI) of the application. I have also made notable contributions to the User Guide and Developer Guide.
+
+Listed in the table below are some notations that are used throughout the document.
+
+.Legend table
+[#Legend]
+[width="100%",cols="^15%,85%",options="header"]
+|===
+a| *Icon* | *Description*
+a| `command` | Command that can be executed, or a component, class or object in the architecture of the application
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be helpful in navigating the application
+a| icon:info-circle[role="icon-note blue", size="2x"] | Important information that should be noted
+a| ====
+==== | Useful information for a deeper understanding of the command
+|===
+
+As shown in <<Legend>>, these icons associated to their following descriptions, such as commands, tips, important information and useful information, enable greater clarity in understanding the document. Note that useful information will have text enclosed in its box.
+
+
+== Summary of contributions
+=== Major enhancements:
+* *Major enhancement #1*: Implemented import & export features
+** What it does: It allows the user to save his CoderLifeInsights data in an external file and modifies the data before
+importing it back into the application. It also allows the user to change between computers without a fear of
+losing his CoderLifeInsights data.
+** Justification: This feature improves the product significantly as the user may have existing data before
+starting to use the application and to export the CoderLifeInsights data if he/she would like to change between multiple
+computers.
+** Highlights: This enhancement functions well with existing commands as it adds more CoderLifeInsights into the list,
+all the other features such as groups, and events are updated as well. It required an in-depth analysis
+of design alternatives.
+** Credits: [https://github.com/FasterXML/jackson[Jackson]]
+
+* *Major enhancement #2*: Implemented suggestion features
+** What it does: It allows the user to suggest a person, place or activity from based on their existing CoderLifeInsights data.
+Suggestion of person would return one person that the user spends the least time with sorted by lexicographical order of name.
+Suggestion of place would return one place that the user visits the least in terms of frequency.
+Suggestion of activity would return one activity that the user does the least in terms of frequency.
+** Justification: This feature improves the product significantly simplifies the process when deciding a person to hangout with, a place to go to or an activity to do.
+** Highlights: This enhancement functions well with existing commands. It required an in-depth analysis of design alternatives.
+
+=== Minor enhancements:
+* *Minor enhancement #1*: Redesigned user interface
+** What it does: This enhancement allows the application to have a better-looking, more user-friendly colour
+theme as well as allows the application window size to be resizeable.
+** Justification: To better fit and light up the social life as a Coder, it would be more pleasing to view the application in a brighter color as
+compared to the dark theme provided in AddressBook - Level3.
+** Highlights: Window size is adjustable to fit all components in to the desired smaller window size. It allows the user to use the application in full screen mode or as a smaller window without disruption of coding productivity.
+
+* *Minor enhancement #2*: Added view time insights feature
+** What is does: This enhancement allows users to be able to view insights of individual time spent vs group time spent in the form of a pie chart.
+** Justification: Users are able to gain knowledge on whether they spend more time with individuals or group as a whole.
+** Highlights: This enhancement functions well with existing commands. It required an in-depth analysis of design alternatives.
+
+* *Code contributed*:[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=harrychengly&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Created all major milestones on GitHub page
+
+** Enhancements to existing features:
+*** Updated the GUI color scheme and layout (Pull requests: https://github.com/AY1920S2-CS2103-W14-4/main/pull/95[#95], https://github.com/AY1920S2-CS2103-W14-4/main/pull/69[#69])
+
+** Documentation:
+*** Added contents of the User Guide (Pull requests: https://github.com/AY1920S2-CS2103-W14-4/main/pull/12[#12], https://github.com/AY1920S2-CS2103-W14-4/main/pull/13[#13])
+*** Added contents of the Developer Guide (Pull requests: https://github.com/AY1920S2-CS2103-W14-4/main/pull/74[#74], https://github.com/AY1920S2-CS2103-W14-4/main/pull/80[#80])
+
+** Community:
+*** PRs reviewed: https://github.com/AY1920S2-CS2103-W14-4/main/pull/11[#11]
+
+** Tools:
+*** Integrated Netlify for the team repo to allow continuous deployment of documentation previews
+*** Assisted in integrating Codeacy to allow continuous deployment of code quality.
+
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=import]
+include::../UserGuide.adoc[tag=export]
+include::../UserGuide.adoc[tag=suggest]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=importexport]
+
+include::../DeveloperGuide.adoc[tag=suggest]
+

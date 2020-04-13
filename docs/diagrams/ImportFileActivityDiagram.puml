@@ -1,0 +1,15 @@
+@startuml
+title Import Command
+start
+
+if () then ([csv exist])
+    :Parse rows in CSV file;
+    :ImportCommand checks for headers of all 3 files;
+    :ImportCommand checks for duplicates
+    :Creates a valid list of persons, groups and events to be imported;
+    :Read from valid list of persons, groups and events;
+    :Add list of person to current CoderLifeInsights;
+else ([csv does not exist])
+endif
+stop
+@enduml

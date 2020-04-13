@@ -1,0 +1,101 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ImportCommandParser" as ImportCommandParser LOGIC_COLOR
+participant "i:ImportCommand" as ImportCommand LOGIC_COLOR
+participant ":ImportFile" as ImportFile LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute(import l/life.csv g/...)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(import l/life.csv ...)
+activate AddressBookParser
+
+create ImportCommandParser
+AddressBookParser->ImportCommandParser
+activate ImportCommandParser
+ImportCommandParser --> AddressBookParser
+deactivate ImportCommandParser
+
+AddressBookParser -> ImportCommandParser : parsePath(life.csv)...
+activate ImportCommandParser
+
+create Model
+create ImportCommand
+ImportCommandParser -> ImportCommand
+activate ImportCommand
+ImportCommand --> ImportCommandParser : i
+deactivate ImportCommand
+ImportCommandParser --> AddressBookParser : i
+deactivate ImportCommandParser
+AddressBookParser --> LogicManager : i
+destroy ImportCommandParser
+deactivate AddressBookParser
+LogicManager -> ImportCommand :execute()
+activate ImportCommand
+
+create ImportFile
+ImportCommand -> ImportFile
+activate ImportFile
+ImportFile --> ImportCommand
+deactivate ImportFile
+ImportCommand -> ImportFile :importCsv(life.csv)
+activate ImportFile
+ImportFile --> ImportCommand
+deactivate ImportFile
+ImportCommand -> ImportFile : importGroupCsv(group.csv)
+activate ImportFile
+ImportFile --> ImportCommand
+deactivate ImportFile
+ImportCommand -> ImportFile : importGroupCsv(event.csv)
+activate ImportFile
+ImportFile --> ImportCommand
+destroy ImportFile
+deactivate ImportFile
+
+
+ImportCommand -> Model : importCsvToAddressBook(importedPeople)
+activate Model
+Model -> Model : updateFilteredPersonList(predicate)
+activate Model
+Model --> Model
+deactivate Model
+Model --> ImportCommand
+deactivate Model
+
+ImportCommand -> Model : importCsvGroupsToAddressBook(importedGroup)
+activate Model
+Model -> Model : updateFilteredGroupList(predicate)
+activate Model
+Model --> Model
+deactivate Model
+Model --> ImportCommand
+deactivate Model
+
+ImportCommand -> Model : importCsvEventsToAddressBook(importedEvent)
+activate Model
+Model -> Model : updateFilteredEventList(predicate)
+activate Model
+Model --> Model
+deactivate Model
+Model --> ImportCommand
+deactivate Model
+
+create CommandResult
+ImportCommand -> CommandResult
+activate CommandResult
+CommandResult --> ImportCommand
+deactivate CommandResult
+ImportCommand --> LogicManager : result
+deactivate ImportCommand
+[<--LogicManager
+deactivate LogicManager
+@enduml

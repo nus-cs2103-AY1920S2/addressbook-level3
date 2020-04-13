@@ -13,6 +13,7 @@ import org.junit.jupiter.api.io.TempDir;
 import javafx.fxml.FXML;
 import seedu.address.MainApp;
 
+
 public class UiPartTest {
 
     private static final String MISSING_FILE_PATH = "UiPartTest/missingFile.fxml";
@@ -27,7 +28,8 @@ public class UiPartTest {
     @Test
     public void constructor_nullFileUrl_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((URL) null));
-        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((URL) null, new Object()));
+        assertThrows(
+                NullPointerException.class, () -> new TestUiPart<Object>((URL) null, new Object()));
     }
 
     @Test
@@ -60,19 +62,22 @@ public class UiPartTest {
     @Test
     public void constructor_nullFileName_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((String) null));
-        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((String) null, new Object()));
+        assertThrows(
+                NullPointerException.class, () -> new TestUiPart<Object>((String) null, new Object()));
     }
 
     @Test
     public void constructor_missingFileName_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH));
-        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH, new Object()));
+        assertThrows(
+                NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH, new Object()));
     }
 
     @Test
     public void constructor_invalidFileName_throwsAssertionError() {
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH));
-        assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH, new Object()));
+        assertThrows(
+                AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH, new Object()));
     }
 
     private URL getTestFileUrl(String testFilePath) {
@@ -84,7 +89,6 @@ public class UiPartTest {
 
     /**
      * UiPart used for testing.
-     * It should only be used with invalid FXML files or the valid file located at {@link VALID_FILE_PATH}.
      */
     private static class TestUiPart<T> extends UiPart<T> {
 
@@ -108,7 +112,5 @@ public class UiPartTest {
             super(fxmlFileName);
             assertEquals(VALID_FILE_ROOT, validFileRoot);
         }
-
     }
-
 }

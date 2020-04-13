@@ -1,0 +1,130 @@
+= Raivat Shah - Project Portfolio
+:site-section: AboutUs
+:icons: font
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+== PROJECT: CoderLifeInsights
+CoderLifeInsights (CLI) is a desktop application that provides you insights and suggestions to your social life as a programmer using a CLI (Command Line Interface)
+
+---
+
+== My Role
+I am responsible to complete the features related to group and overall system design. Furthermore, I've worked extensively on the storage package and
+developed the JSON implementations for group and event classes.
+I have also made notable contributions to the User Guide and Developer Guide.
+
+== Summary of contributions
+=== Major enhancements:
+* *Major enhancement #1*: Implemented group features - `add_group`, `delete_group`, `edit_group` and `list_groups`
+** What they do: They allow the user of CoderLifeInsights to add a social group, delete a social group or edit the
+group for adding/removing members or changing the name of the group. The `list_group` command lists all the groups in the app.
+It was planned and implemented in anticipation of a `find_group` command in the future that could change the group list view in the app.
+** Justification: A social group is a crucial aspect of the
+CoderLifeInsights app as it allows the users to distinguish between time spent in group interactions and individual,
+one-to-one interactions. The group features are essential to record and track data regarding social groups. The commands
+are implemented similar to `add_person`, `delete_person` and `edit_person`
+features of the addressbook3 due to the clear design and defensive programming style.
+** Highlights: This enhancement functions well with existing commands and adds a crucial ability to add social groups. It required an in-depth analysis
+of design alternatives.
+** Credits: As highlighted above, the group features take inspiration from the person features of addressbook3. Thus,
+credits go to the previous developers of addressbook3 for the system design and class structures.
+
+* *Major enhancement #2*: Implemented storage features - JSON Implementations for Event and Group
+** What it does: JSON implementations allow the app to store and retrieve data from file. This is crucial as the app is
+not expected to always run and needs to store data in the hard disk.
+** Justification: Using the JSON implementations, the app can go back to its last state when a user
+re-launches the app.
+** Highlights: This enhancement required an in-depth understanding of JSON and Java Data structures in order to convert
+between Java Classes such as `Group` and `Event` and JSON implementations which stored strings.
+
+=== Minor enhancements:
+* *Minor enhancement #1*: Implemented Unique Event List
+** What it does: Stores unique Event instances
+** Justification: Since events are crucial to social interactions, storing events is important for the purpose of tracking.
+** Highlights: This enhancement required an in-depth understanding of the JavaFX Observable class.
+
+* *Minor enhancement #2*: Implemented Time Class
+** What is does: Allows the user to store a specific time spent in terms of number of hours and minutes.
+** Justification: The constraints the in the class allow for efficient management of time format, which suites the
+customised need of the app.
+** Highlights: This enhancement functions well with all the classes that depend upon it and use it. This required a
+thorough understanding of the different use cases.
+
+* *Code contributed*:[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=raivatshah&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tP Dashboard]]
+
+* *Functional Code Contributed:*
+
+** Model: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/model/group/Group.java[Group]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/model/group/UniqueGroupList.java[UniqueGroupList]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/model/person/Time.java[Time]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/model/event/UniqueEventList.java[UniqeEventList]],
+** UI: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/ui/GroupCard.java[GroupCard]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/ui/GroupListPanel.java[GroupListPanel]]
+** Storage: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/storage/JsonAdaptedEvent.java[JsonAdaptedEvent]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/storage/JsonAdaptedGroup.java[JsonAdaptedGroup]].
+** Logic: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/logic/commands/AddGroupCommand.java[AddGroupCommand]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/logic/commands/DeleteGroupCommand.java[DeleteGroupCommand]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/logic/commands/EditGroupCommand.java[EditGroupCommand]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/logic/commands/ListGroupCommand.java[ListGroupCommand]] and their parsers.
+
+* *Test Code Contributed:*
+
+** Model: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/model/group/GroupTest.java[GroupTest]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/model/group/UniqueGroupListTest.java[UniqueGroupList]].
+** Logic: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/logic/commands/AddGroupCommandTest.java[AddCommandTest]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/logic/commands/ListGroupCommandTest.java[ListGroupCommandTest]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/logic/commands/DeleteGroupCommandTest.java[DeleteGroupCommandTest]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/logic/commands/EditGroupCommandTest.java[EditGroupCommandTest]] and parser tests.
+** TestUtil: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/testutil/GroupBuilder.java[GroupBuilder]],
+
+
+* *Other contributions:*
+
+** Project management:
+*** Initiated group meetings and set policies for Pull Requests
+*** Opened issues on Github repo to account for bugs and enhancements. Some relevant/important issues:
+https://github.com/AY1920S2-CS2103-W14-4/main/issues/162[#162],
+https://github.com/AY1920S2-CS2103-W14-4/main/issues/161[#161],
+https://github.com/AY1920S2-CS2103-W14-4/main/issues/129[#129],
+https://github.com/AY1920S2-CS2103-W14-4/main/issues/130[#130].
+
+
+** Enhancements to existing features:
+*** Updated command words for existing features in order distinguish between person and group commands.
+
+** Documentation:
+*** Added contents of the User Guide (Pull requests: https://github.com/AY1920S2-CS2103-W14-4/main/pull/96[#96], https://github.com/AY1920S2-CS2103-W14-4/main/pull/54[#54], https://github.com/AY1920S2-CS2103-W14-4/main/pull/175[#175])
+*** Added contents of the Developer Guide (Pull requests: https://github.com/AY1920S2-CS2103-W14-4/main/pull/26[#26], https://github.com/AY1920S2-CS2103-W14-4/main/pull/76[#76], https://github.com/AY1920S2-CS2103-W14-4/main/pull/167[#167], https://github.com/AY1920S2-CS2103-W14-4/main/pull/174[#174])
+
+** Community:
+*** Reviewed and Merged PRs such as: https://github.com/AY1920S2-CS2103-W14-4/main/pull/74[#74],
+https://github.com/AY1920S2-CS2103-W14-4/main/pull/95[#95],
+https://github.com/AY1920S2-CS2103-W14-4/main/pull/132[#132],
+https://github.com/AY1920S2-CS2103-W14-4/main/pull/166[#166].
+
+
+** Tools:
+*** Integrated https://www.codacy.com/[Codacy] to automate code quality checks
+*** Used Creately to create initial class diagrams to visualise the relationship between Objects (Person, Group, Event)
+and their UniqueLists. The diagram can be viewed https://app.creately.com/diagram/SaOxsebie1n/[here.]
+
+** Rough UI:
+*** To visualise the app UI before actually creating it, I used https://www.sketch.com/[Sketch App] to create a
+rough UI of the app. The team used the rough UI as a guide. The UI can be viewed https://www.raivat.dev/UI.pdf[here.]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=add_group]
+include::../UserGuide.adoc[tag=edit_group]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=add_group]
+include::../DeveloperGuide.adoc[tag=delete_group]
+include::../DeveloperGuide.adoc[tag=list_group]
+include::../DeveloperGuide.adoc[tag=edit_group]

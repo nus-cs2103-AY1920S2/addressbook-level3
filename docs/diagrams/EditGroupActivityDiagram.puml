@@ -1,0 +1,22 @@
+@startuml
+(*)  --> "check input"
+If "input is in valid format" then
+    --> [true] "create edit group command"
+    --> "check if index provided is valid"
+    If "group index is valid" then
+        [true] If "member index(es) supplied are valid or no member indexes" then
+            --> [true] "edit group at specified index"
+            --> "show success message to user"
+            -->(*)
+        else
+            --> [false] "show error message: invalid member index(es)"
+        Endif
+    else
+        --> [false] "show user error message: invalid group index"
+        -->(*)
+    Endif
+else
+    -> [false] "show format error to user"
+Endif
+-->(*)
+@enduml

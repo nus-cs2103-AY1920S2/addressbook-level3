@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="500" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TableView fx:id="eventTable" prefWidth="500">
+            <columns>
+                <TableColumn fx:id="eventId" prefWidth="100" text="EventID" />
+                <TableColumn fx:id="placeColumn" prefWidth="100" text="Place" />
+                <TableColumn fx:id="activityColumn" prefWidth="100" text="Activity" />
+                <TableColumn fx:id="timeColumn" prefWidth="100" text="Duration" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </children>
+</VBox>

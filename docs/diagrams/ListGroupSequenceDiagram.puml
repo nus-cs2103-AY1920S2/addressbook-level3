@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ListGroupCommand" as ListGroupCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute("list_groups")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("list_groups")
+activate AddressBookParser
+
+create ListGroupCommand
+AddressBookParser -> ListGroupCommand
+activate ListGroupCommand
+ListGroupCommand --> AddressBookParser : Command
+deactivate ListGroupCommand
+AddressBookParser --> LogicManager : Command
+deactivate AddressBookParser
+LogicManager -> ListGroupCommand : execute(model)
+activate ListGroupCommand
+ListGroupCommand -> Model : updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS)
+activate Model
+Model --> ListGroupCommand
+deactivate Model
+create CommandResult
+ListGroupCommand -> CommandResult : CommandResult(MESSAGE_SUCCESS, ViewType.GROUPS)
+activate CommandResult
+CommandResult --> ListGroupCommand
+deactivate CommandResult
+ListGroupCommand --> LogicManager : CommandResult
+deactivate ListGroupCommand
+ListGroupCommand -[hidden]->
+destroy ListGroupCommand
+deactivate AddressBookParser
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

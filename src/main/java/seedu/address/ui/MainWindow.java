@@ -18,8 +18,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar and space where
+ * other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -31,9 +31,16 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private PlaceListPanel placeListPanel;
+    private ActivityListPanel activityListPanel;
+    private RecentEventPanel recentEventPanel;
     private PersonListPanel personListPanel;
+    private GroupListPanel groupListPanel;
+    private SuggestListPanel suggestListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private TimePieChart timePieChart;
+    private AllEventPanel allEventPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -45,10 +52,19 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane groupListPanelPlaceholder;
+
+    @FXML
+    private StackPane frequencyListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane timePieChartPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -75,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -95,12 +112,15 @@ public class MainWindow extends UiPart<Stage> {
          * help window purposely so to support accelerators even when focus is
          * in CommandBox or ResultDisplay.
          */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
+        getRoot()
+                .addEventFilter(
+                        KeyEvent.KEY_PRESSED,
+                    event -> {
+                        if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                            menuItem.getOnAction().handle(new ActionEvent());
+                            event.consume();
+                        }
+                    });
     }
 
     /**
@@ -109,6 +129,13 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        timePieChart = new TimePieChart(logic.getTimeList(), logic.getFilteredGroupList(),
+                logic.getFilteredPersonList());
+        timePieChartPanelPlaceholder.getChildren().add(timePieChart.getRoot());
+
+        groupListPanel = new GroupListPanel(logic.getFilteredGroupList());
+        groupListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -153,15 +180,97 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+        GuiSettings guiSettings =
+                new GuiSettings(
+                        primaryStage.getWidth(),
+                        primaryStage.getHeight(),
+                        (int) primaryStage.getX(),
+                        (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
+    private void handleViewPlaces() {
+        placeListPanel = new PlaceListPanel(logic.getFrequencyList());
+        timePieChartPanelPlaceholder.getChildren().clear();
+        timePieChartPanelPlaceholder.getChildren().add(placeListPanel.getRoot());
+    }
+
+    private void handleViewActivities() {
+        activityListPanel = new ActivityListPanel(logic.getFrequencyList());
+        timePieChartPanelPlaceholder.getChildren().clear();
+        timePieChartPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
+    }
+
+    private void handleViewRecent() {
+        recentEventPanel = new RecentEventPanel(logic.getRecentList());
+        timePieChartPanelPlaceholder.getChildren().clear();
+        timePieChartPanelPlaceholder.getChildren().add(recentEventPanel.getRoot());
+    }
+
+    private void handleViewAll() {
+        allEventPanel = new AllEventPanel(logic.getRecentList());
+        timePieChartPanelPlaceholder.getChildren().clear();
+        timePieChartPanelPlaceholder.getChildren().add(allEventPanel.getRoot());
+    }
+
+    /**
+     * Displays pie chart
+     */
+    private void handleViewTime() {
+        timePieChart = new TimePieChart(logic.getTimeList(), logic.getFilteredGroupList(),
+                logic.getFilteredPersonList());
+        timePieChartPanelPlaceholder.getChildren().clear();
+        timePieChartPanelPlaceholder.getChildren().add(timePieChart.getRoot());
+    }
+
+    /**
+     * Displays suggest activity
+     */
+    private void handleSuggestActivity() {
+        suggestListPanel = new SuggestListPanel(logic.getFilteredEventList());
+        timePieChartPanelPlaceholder.getChildren().clear();
+        timePieChartPanelPlaceholder.getChildren().add(suggestListPanel.getRoot());
+    }
+
+    /**
+     * Displays suggest place
+     */
+    private void handleSuggestPlace() {
+        suggestListPanel = new SuggestListPanel(logic.getFilteredEventList());
+        timePieChartPanelPlaceholder.getChildren().clear();
+        timePieChartPanelPlaceholder.getChildren().add(suggestListPanel.getRoot());
+    }
+
+
+    /**
+     * Displays group list
+     */
+    private void handleGroup() {
+        groupListPanel = new GroupListPanel(logic.getFilteredGroupList());
+        groupListPanelPlaceholder.getChildren().clear();
+        groupListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
+        handleViewTime();
+    }
+
+    /**
+     * Displays normal display
+     */
+    private void handleNormal() {
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        groupListPanelPlaceholder.getChildren().clear();
+        groupListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
+        handleViewTime();
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public GroupListPanel getGroupListPanel() {
+        return groupListPanel;
     }
 
     /**
@@ -172,18 +281,43 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
+            switch (commandResult.getViewType()) {
+            case HELP:
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+                break;
+            case EXIT:
                 handleExit();
+                break;
+            case PLACES:
+                handleViewPlaces();
+                break;
+            case ACTIVITIES:
+                handleViewActivities();
+                break;
+            case TIME:
+                handleViewTime();
+                break;
+            case RECENT:
+                handleViewRecent();
+                break;
+            case ALL:
+                handleViewAll();
+                break;
+            case GROUPS:
+                handleGroup();
+                break;
+            case SUGGEST_ACTIVITY:
+                handleSuggestActivity();
+                break;
+            case SUGGEST_PLACE:
+                handleSuggestPlace();
+                break;
+            default:
+                handleNormal();
             }
-
             return commandResult;
+
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

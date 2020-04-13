@@ -1,0 +1,103 @@
+@startuml
+
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ViewCommandParser" as ViewCommandParser LOGIC_COLOR
+participant ":ViewCommand" as ViewCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> MainWindow : executeCommand()
+activate MainWindow
+
+MainWindow -> LogicManager : execute()
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand()
+activate AddressBookParser
+
+create ViewCommandParser
+AddressBookParser -> ViewCommandParser : new ViewCommandParser()
+activate ViewCommandParser
+
+AddressBookParser <-- ViewCommandParser : ViewCommand
+deactivate ViewCommandParser
+
+LogicManager <-- AddressBookParser : ViewCommand
+deactivate AddressBookParser
+
+LogicManager -> ViewCommand : execute()
+activate ViewCommand
+
+ViewCommand -> ModelManager : getModelList()
+activate ModelManager
+ViewCommand <-- ModelManager : List
+deactivate ModelManager
+
+ViewCommand -> ModelManager : updateModelList()
+activate ModelManager
+
+note right
+1
+end note
+
+ViewCommand <-- ModelManager
+deactivate ModelManager
+
+create CommandResult
+ViewCommand -> CommandResult : new CommandResult()
+activate CommandResult
+ViewCommand <-- CommandResult : CommandResult
+deactivate CommandResult
+
+LogicManager <-- ViewCommand : CommandResult
+deactivate ViewCommand
+
+MainWindow <-- LogicManager : CommandResult
+deactivate LogicManager
+
+MainWindow -> CommandResult : getViewType()
+activate CommandResult
+
+note right
+2
+end note
+
+MainWindow <-- CommandResult : ViewType
+deactivate CommandResult
+
+MainWindow -> MainWindow : handleViewType()
+activate MainWindow
+MainWindow -> ModelManager : getModelList()
+activate ModelManager
+
+note right
+3
+end note
+
+MainWindow <-- ModelManager : List
+deactivate ModelManager
+MainWindow -> MainWindow : updateView(List)
+
+note right
+4
+end note
+
+
+MainWindow <-- MainWindow
+deactivate MainWindow
+[<-- MainWindow : CommandResult
+deactivate MainWindow
+
+@enduml

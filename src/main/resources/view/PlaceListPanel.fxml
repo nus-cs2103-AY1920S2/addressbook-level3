@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="500" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="frequencyTable" prefWidth="300">
+        <columns>
+          <TableColumn fx:id="placeColumn" prefWidth="150" text="Places Visited" />
+          <TableColumn fx:id="frequencyColumn" prefWidth="150" text="Frequency" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

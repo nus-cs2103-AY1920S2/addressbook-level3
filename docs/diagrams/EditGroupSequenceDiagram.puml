@@ -1,0 +1,117 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EditGroupCommandParser" as EditGroupCommandParser LOGIC_COLOR
+participant "<<class>> \n :EditGroupCommand" as EditGroupCommandClass LOGIC_COLOR
+participant ":EditGroupCommand" as EditGroupCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("edit_group 1 ...")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("edit_group 1 ...")
+activate AddressBookParser
+
+create EditGroupCommandParser
+AddressBookParser -> EditGroupCommandParser : EditGroupCommandParser()
+activate EditGroupCommandParser
+EditGroupCommandParser -> AddressBookParser
+deactivate
+
+AddressBookParser -> EditGroupCommandParser : parse("1 ...")
+activate EditGroupCommandParser
+create EditGroupCommandClass
+EditGroupCommandParser -> EditGroupCommandClass : new EditGroupDescriptor()
+note left
+Input Validation
+end note
+activate EditGroupCommandClass
+EditGroupCommandClass --> EditGroupCommandParser : editGroupDescriptor
+deactivate EditGroupCommandClass
+create EditGroupCommand
+EditGroupCommandParser -> EditGroupCommand : EditGroupCommand(index, editGroupDescriptor)
+activate EditGroupCommand
+EditGroupCommand --> EditGroupCommandParser : Command
+deactivate EditGroupCommand
+return Command
+deactivate EditGroupCommandParser
+EditGroupCommandParser -[hidden]-> AddressBookParser
+destroy EditGroupCommandParser
+AddressBookParser --> LogicManager : Command
+deactivate AddressBookParser
+LogicManager -> EditGroupCommand : execute(model)
+activate EditGroupCommand
+EditGroupCommand -> Model : getFilteredPersonList()
+activate Model
+Model --> EditGroupCommand : FilteredPersonList
+deactivate Model
+
+note left
+FilteredPersonList is
+used to
+check whether
+member indexes
+supplied as arguments
+are in ModelManager
+end note
+
+
+EditGroupCommand -> EditGroupCommand : <<static>> \n createEditGroupDescriptor
+activate EditGroupCommand
+EditGroupCommand --> EditGroupCommand : Group
+deactivate EditGroupCommand
+
+
+EditGroupCommand -> Model : getFilteredGroupList()
+activate Model
+Model -> EditGroupCommand : FilteredGroupList
+deactivate Model
+
+note left
+FilteredGroupList is
+used to
+check whether
+the editted group
+is the same as before
+or already exits
+in the ModelManager
+end note
+
+
+EditGroupCommand -> Model : setGroup(groupToEdit, editedGroup)
+activate Model
+Model --> EditGroupCommand
+deactivate
+
+EditGroupCommand -> Model : updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS)
+activate Model
+Model --> EditGroupCommand
+deactivate Model
+
+note left
+update filteredGroupList to refresh view
+and show edited group
+end note
+
+create CommandResult
+EditGroupCommand -> CommandResult : CommandResult(SuccessMessage, ViewType.GROUPS)
+activate CommandResult
+return
+
+EditGroupCommand -> LogicManager : CommandResult
+deactivate
+
+
+
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

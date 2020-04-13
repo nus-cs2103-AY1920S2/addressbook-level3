@@ -9,7 +9,7 @@ public class AppUtilTest {
 
     @Test
     public void getImage_exitingImage() {
-        assertNotNull(AppUtil.getImage("/images/address_book_32.png"));
+        assertNotNull(AppUtil.getImage("/images/coderlifeinsights.png"));
     }
 
     @Test
@@ -31,6 +31,9 @@ public class AppUtilTest {
     @Test
     public void checkArgument_falseWithErrorMessage_throwsIllegalArgumentException() {
         String errorMessage = "error message";
-        assertThrows(IllegalArgumentException.class, errorMessage, () -> AppUtil.checkArgument(false, errorMessage));
+        assertThrows(
+                IllegalArgumentException.class,
+                errorMessage, (
+                ) -> AppUtil.checkArgument(false, errorMessage));
     }
 }

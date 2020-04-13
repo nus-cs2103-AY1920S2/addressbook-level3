@@ -14,7 +14,12 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.event.Event;
+import seedu.address.model.group.Group;
+import seedu.address.model.person.EventDescriptor;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.RecentEvent;
+import seedu.address.model.person.Time;
 import seedu.address.storage.Storage;
 
 /**
@@ -62,6 +67,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return model.getFilteredGroupList();
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return model.getFilteredEventList();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }
@@ -74,5 +89,20 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ObservableList<EventDescriptor> getFrequencyList() {
+        return model.getFrequencyList();
+    }
+
+    @Override
+    public ObservableList<RecentEvent> getRecentList() {
+        return model.getRecentList();
+    }
+
+    @Override
+    public ObservableList<Time> getTimeList() {
+        return model.getTimeList();
     }
 }

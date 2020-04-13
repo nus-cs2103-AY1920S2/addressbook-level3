@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeleteGroupCommandParser" as DeleteGroupCommandParser LOGIC_COLOR
+participant "d:DeleteGroupCommand" as DeleteGroupCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("delete_group 1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("delete_group 1")
+activate AddressBookParser
+
+create DeleteGroupCommandParser
+AddressBookParser -> DeleteGroupCommandParser : DeleteGroupCommandParser()
+activate DeleteGroupCommandParser
+
+DeleteGroupCommandParser --> AddressBookParser
+deactivate DeleteGroupCommandParser
+
+AddressBookParser -> DeleteGroupCommandParser : parse("1")
+activate DeleteGroupCommandParser
+
+create DeleteGroupCommand
+DeleteGroupCommandParser -> DeleteGroupCommand : DeleteGroupCommand(Index)
+activate DeleteGroupCommand
+
+DeleteGroupCommand --> DeleteGroupCommandParser : Command
+deactivate DeleteGroupCommand
+
+DeleteGroupCommandParser --> AddressBookParser : Command
+deactivate DeleteGroupCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteGroupCommandParser -[hidden]-> AddressBookParser
+destroy DeleteGroupCommandParser
+
+AddressBookParser --> LogicManager : Command
+deactivate AddressBookParser
+
+LogicManager -> DeleteGroupCommand : execute()
+activate DeleteGroupCommand
+
+DeleteGroupCommand -> Model : getFilteredGroupList()
+activate Model
+
+Model --> DeleteGroupCommand : FilteredGroupList
+deactivate Model
+
+DeleteGroupCommand -> Model : deleteGroup(groupToDelete)
+activate Model
+Model --> DeleteGroupCommand
+
+create CommandResult
+DeleteGroupCommand -> CommandResult : CommandResult(SuccessMessage)
+activate CommandResult
+
+CommandResult --> DeleteGroupCommand
+deactivate CommandResult
+
+DeleteGroupCommand --> LogicManager : result
+deactivate DeleteGroupCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

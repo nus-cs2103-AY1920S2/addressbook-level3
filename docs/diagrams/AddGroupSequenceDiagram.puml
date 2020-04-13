@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddGroupCommandParser" as AddGroupCommandParser LOGIC_COLOR
+participant ":AddGroupCommand" as AddGroupCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add_group n/group_name ...")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("add_group n/group_name ...")
+activate AddressBookParser
+
+create AddGroupCommandParser
+AddressBookParser -> AddGroupCommandParser : AddGroupCommandParser()
+activate AddGroupCommandParser
+AddGroupCommandParser -> AddressBookParser
+deactivate
+
+AddressBookParser -> AddGroupCommandParser : parse("n/group_name ...")
+activate AddGroupCommandParser
+AddGroupCommandParser -> Model : Group(name, activityList, placeList)
+note left
+Input Validation
+end note
+activate Model
+Model --> AddGroupCommandParser : Group
+deactivate Model
+create AddGroupCommand
+AddGroupCommandParser -> AddGroupCommand : AddGroupCommand(group)
+activate AddGroupCommand
+AddGroupCommand --> AddGroupCommandParser : Command
+deactivate AddGroupCommand
+return Command
+deactivate AddGroupCommandParser
+AddGroupCommandParser -[hidden]-> AddressBookParser
+destroy AddGroupCommandParser
+AddressBookParser --> LogicManager : Command
+deactivate AddressBookParser
+
+LogicManager -> AddGroupCommand : execute(model)
+activate AddGroupCommand
+AddGroupCommand -> Model : getFilteredPersonList()
+activate Model
+Model --> AddGroupCommand : FilteredPersonList
+deactivate Model
+
+note left
+FilteredPersonList is
+used to
+check whether
+member indexes
+supplied as arguments
+are in the app
+end note
+
+AddGroupCommand -> Model : addGroup(toAdd)
+activate Model
+Model --> AddGroupCommand
+deactivate
+
+create CommandResult
+AddGroupCommand -> CommandResult : CommandResult(SuccessMessage, ViewType.GROUPS)
+activate CommandResult
+return
+
+AddGroupCommand -> LogicManager : CommandResult
+deactivate
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,98 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ExportCommandParser" as ExportCommandParser LOGIC_COLOR
+participant "e:ExportCommand" as ExportCommand LOGIC_COLOR
+participant ":ExportFile" as ExportFile LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute(export l/life.csv...)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(export l/life.csv...)
+activate AddressBookParser
+
+create ExportCommandParser
+AddressBookParser -> ExportCommandParser
+activate ExportCommandParser
+ExportCommandParser --> AddressBookParser
+deactivate ExportCommandParser
+
+AddressBookParser ->  ExportCommandParser:parseExportPath(life.csv)...
+activate ExportCommandParser
+
+create ExportCommand
+ExportCommandParser -> ExportCommand
+activate ExportCommand
+ExportCommand --> ExportCommandParser :e
+deactivate ExportCommand
+ExportCommandParser --> AddressBookParser :e
+deactivate ExportCommandParser
+AddressBookParser --> LogicManager :e
+deactivate AddressBookParser
+
+LogicManager -> ExportCommand :execute()
+activate ExportCommand
+create ExportFile
+ExportCommand -> ExportFile
+activate ExportFile
+ExportFile --> ExportCommand
+deactivate ExportFile
+ExportCommand -> ExportFile
+
+activate ExportFile
+ExportFile -> Model : getAddressBookFilePath()
+activate Model
+Model --> ExportFile
+deactivate Model
+ExportFile -> ExportFile: exportCsv
+activate ExportFile
+ExportFile --> ExportFile
+deactivate ExportFile
+ExportFile --> ExportCommand
+deactivate ExportFile
+
+ExportCommand -> ExportFile
+activate ExportFile
+ExportFile -> Model : getAddressBookFilePath()
+activate Model
+Model --> ExportFile
+deactivate Model
+ExportFile -> ExportFile: exportGroupCsv
+activate ExportFile
+ExportFile --> ExportFile
+deactivate ExportFile
+ExportFile --> ExportCommand
+deactivate ExportFile
+
+ExportCommand -> ExportFile
+activate ExportFile
+ExportFile -> Model : getAddressBookFilePath()
+activate Model
+Model --> ExportFile
+deactivate Model
+ExportFile -> ExportFile: exportEventCsv
+activate ExportFile
+ExportFile --> ExportFile
+deactivate ExportFile
+ExportFile --> ExportCommand
+deactivate ExportFile
+
+create CommandResult
+ExportCommand -> CommandResult
+activate CommandResult
+CommandResult --> ExportCommand
+deactivate CommandResult
+ExportCommand --> LogicManager :result
+deactivate ExportCommand
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

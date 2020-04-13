@@ -1,0 +1,11 @@
+@startuml
+title Export Command
+start
+:User executes export command;
+
+if () then ([csv file does not exist within application file])
+    :Exports JSON data to CSV File;
+else ([csv file exist within application file])
+endif
+stop
+@enduml

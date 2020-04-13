@@ -1,0 +1,10 @@
+@startuml
+start
+:Check input;
+
+if() then ([input is incorrect])
+      : Show error message;
+else ([input is correct])
+endif
+stop
+@enduml

@@ -22,6 +22,17 @@ Class Email
 Class Name
 Class Phone
 Class UniquePersonList
+Class Time
+}
+
+Package Group {
+Class Group
+Class UniqueGroupList
+}
+
+Package Event {
+Class Event
+Class UniqueEventList
 }
 
 Package Tag {
@@ -46,6 +57,7 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> Time
 Person *--> "*" Tag
 
 Name -[hidden]right-> Phone
@@ -53,4 +65,16 @@ Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager -->"1" Person : filtered list
+
+AddressBook *--> "1" UniqueGroupList
+ModelManager -->"1" Group : filtered list
+UniqueGroupList o--> "*" Group
+Group *--> Name
+Group *--> Time
+
+AddressBook *--> "1" UniqueEventList
+ModelManager --> "1" Event : filtered list
+UniqueEventList o--> "*" Event
+Event *--> Time
+
 @enduml

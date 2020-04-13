@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= CoderLifeInsights - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,75 +12,104 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103-W14-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CoderLifeInsights`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
+`[written by Cheng Lit Yaw]`
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+CoderLifeInsights is a CLI (Command Line Interface) driven desktop application that a programmer can use to record his or her social interactions with individual friends, or group of friends. +
+CoderLifeInsights gives the programmer insights into his or her social life, and provides suggestions to liven up their social life by analysing the social events recorded in CoderLifeInsight through the CLI.
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+. Ensure you have Java `11` or above installed in your Computer.
+. Download the latest `coderlifeinsights.jar` link:{repoURL}/releases[here].
+. Copy the file to the folder you want to use as the home folder for your CoderLifeInsights.
+. Double-click the file to start the app.
+The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+. Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+. Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list_persons`* : lists all contacts
+* **`add_person n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to your Life.
+* **`delete_person 2` : deletes the 2rd contact shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+. Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
 ====
-*Command Format*
+*Command Format and Specifications*
 
+* ALL commands are case sensitive.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`,`p/PHONE_NUMBER n/NAME` is also acceptable.
+* `PERSON_INDEX` refers to the `INDEX` of a `Person` in CoderLifeInsights and similarly, `GROUP_INDEX` refers to the `INDEX` of a `Group`.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a person: `add_person`
+`[written by: Ernest Lian Qi Quan]`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a person to the CoderLifeInsights +
+Format: `add_person n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+[width="75%",cols="30%,<20%,<60%",options="header"]
+|=========================================================================
+|Example | Command | Result
+|Add a person John Doe to CoderLifeInsights|`add_person n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` | John Doe is added to CoderLifeInsights with the input information.
+|Add a person Betsy Crowe to CoderLifeInsights| `add_person n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal` | Betsy Crowe is added to CoderLifeInsights with the input information.
+|=========================================================================
 
-=== Listing all persons : `list`
+// tag::list[]
+=== Listing saved data : `list`
+`[written by: Ernest Lian Qi Quan]`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Shows a list of recorded information in CoderLifeInsights. +
+Format: `list_LIST_PARAMETER`
 
+****
+* LIST_PARAMETER include `persons`,`groups`.
+* CoderLifeInsights will display an indexed list of the saved `LIST_PARAMATER`.
+****
+
+Examples:
+
+[width="75%",cols="30%,<20%,<60%",options="header"]
+|=========================================================================
+|Example | Command | Result
+|Show all persons| `list_persons` | Returns a list of the saved persons in CoderLifeInsights.
+|Show all groups | `list_groups` | Returns a list of the saved groups in CoderLifeInsights.
+|=========================================================================
+// end::list[]
 === Editing a person : `edit`
+`[written by: Ernest Lian Qi Quan]`
 
-Edits an existing person in the address book. +
+Edits an existing person in the CoderLifeInsights. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the person at the specified `INDEX`.
+The index refers to the index number shown in the displayed person list.
+The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -89,12 +118,228 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
+[width="75%",cols="40%,<20%,<40%",options="header"]
+|=========================================================================
+|Example| Command | Result
+| Change the phone number and email address of the 1st person|`edit 1 p/91234567 e/johndoe@example.com` |
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
+|Change the name of the second person and remove tags| `edit 2 n/Betsy Crower t/` |
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+|=========================================================================
+// tag::add_group[]
+=== Adding a Group: `add_group`
+`[written by: Raivat Bhupesh Shah]`
+
+Creates an empty social group with given name. +
+Format: `add_group n/GROUP_NAME m/MEMBER_IDs ...`
+
+[TIP]
+A group can have any number of member_ids (including 0)
+
+****
+* 1 required parameter (group_name)
+* CoderLifeInsights will create a new group and show a uniquely generated Group ID for the same.
+* Member_IDs will be added to the group and displayed if supplied while creating the group.
+****
+
+Examples:
+
+[width="80%",cols="30%,<30%,<40%",options="header"]
+|=======================================================================
+| Example | Command | Result
+|Create a group| `add_group n/SoC Friends` | Creates a group named `SoC Friends` and assigns a group ID, which is shown to the user.
+|Create a group and add members into that group| `add_group n/RC Friends m/1 m/2 m/3` |
+Creates a group named `RC Friends` and assigns a group ID and the given memberIDs to the group. Both are displayed
+to the user after creation.
+|=======================================================================
+// end::add_group[]
+// tag::edit_group[]
+=== Editing a Group: `edit_group`
+`[written by: Raivat Bhupesh Shah]`
+
+Edit a group with a given group index +
+Format: `edit_group GROUP_INDEX n/GROUP_NAME m/MEMBER_IDs`
+
+****
+* CoderLifeInsights will edit the group with given index to change the name to supplied name and change the list of members to the ones supplied.
+Either a new name or new member(s) is required to edit the group.
+****
+
+Examples:
+
+[width="80%",cols="30%,<30%,<40%",options="header"]
+|=======================================================================
+| Example | Command | Result
+|Change name of 1st group|`edit_group 1 n/FOS` |Changes the name of the group with index 1 in CoderLifeInsights to `FOS` from whatever it was
+before. Name overwritten, memberIDs remain the same as before.
+|Edit the members in the 1st group| `edit_group 1 m/1 m/5` | Changes the members of the group with index 1 in CoderLifeInsights to `1 and 2` from whatever
+it was before. Member list overwritten, Name stays the same.
+|Change the name and members of the first group| `edit_group 1 n/new_name m/1` | Changes both the name and members of the group with index 1 in Coder Life Insights. Both values overwritten.
+|=======================================================================
+// end::edit_group[]
+
+// tag::addEvent[]
+=== Adding an Event: `add_event`
+`[written by: Ernest Lian Qi Quan]`
+
+Adds an event to a person or a group at the specified INDEX. +
+Format for adding to a person: `add_event ACTIVITY_NAME place/PLACE_NAME time/TIME m/INDEX` +
+Format for adding to a group: `add_event ACTIVITY_NAME place/PLACE_NAME time/TIME g/INDEX` +
+Remarks:
+
+* TIME has to be in entered in the format `HHMM`: +
+Input for a time of 1 hour and 5 minutes would be: `time/105` +
+Input for a time of 9 minutes would be: `time/09`
+* MM entered has to be between 00 and 60 (01 to 59).
+* The INDEX refers to the index number shown in the displayed person list.
+The INDEX must be a positive integer.
+* CoderLifeInsights uses 1-indexing.
+
+****
+CoderLifeInsights will store the input `ACTIVITY` and `PLACE` in the Json file so that all events added are kept even through termination of CoderLifeInsights.
+The input `TIME` will be added to the respective persons or events and the cumulative time spent with a person or a group is recorded and displayed.
+This cumulative `TIME` is also stored to the Json file.
+Insights and suggestions will be generated from the saved `PLACES`, `ACTIVITIES` and `TIME`
+****
+
+Examples:
+
+[width="80%",cols="30%,<30%,<40%",options="header"]
+|=======================================================================
+| Example | Command | Result
+
+| Adding an event with a person from the fully listed persons list | `list_persons`
+
+`add_event Date Night place/MBS time/300 m/2`| Creates an Event Date Night at MBS with a time spent of 3 hours and adds it to the second person in CoderLifeInsights.
+
+| Adding an event with a group from the fully listed groups list| `list_groups`
+
+`add_event Dancing lessons place/Changi Country Club time/130 g/1` |
+Creates an Event Dancing lessons at Changi Country Club with a time spent of 1 hour and 30 minutes and adds it to the first group in CoderLifeInsights.
+
+| Adding an event to a person after using the find function |
+`find Betsy`
+
+`add_event Date Night place/MBS time/300 m/1`|
+Creates an Event Date Night at MBS with a time spent of 3 hours and adds it to the first result returned by the `find Betsy` command in CoderLifeInsights.
+
+|=======================================================================
+// end::addEvent[]
+// tag::suggest[]
+=== Suggestions: `suggest`
+`[written by: Cheng Lit Yaw]`
+
+Suggests a person to hang out with, a place to go or an activity to do. +
+Format: `suggest SUGGESTION_PARAMETER`
+
+****
+* Suggestion parameters include `person`, `activity` or `place`
+* CoderLifeInsights will suggest:
+** A person to hangout with.
+*** Suggestion is based on time spent with a person.
+*** CoderLifeInsights will return a person which the user has spent the least time with.
+*** If there are multiple people with the same amount of time spent, CoderLifeInsights will return a person based on reverse-lexicographical order of the people with the least amount of time spent.
+** A place to go to.
+*** Suggestion is based on frequency of place visited from events added.
+*** CoderLifeInsights will return the events that happened at the suggested place which the user has visited the least in terms of frequency.
+*** If there are multiple places with the same frequency, CoderLifeInsights will return a random selection among the places with the same frequency.
+** An activity to do.
+*** Suggestion is based on frequency of activity done from events added.
+*** CoderLifeInsights will return the events that happened with the suggested activity which the user has done the least in terms of frequency.
+*** If there are multiple activities with the same frequency, CoderLifeInsights will return a random selection among the activities with the same frequency.
+****
+
+Examples:
+
+[width="80%",cols="30%,<30%,<40%",options="header"]
+|=======================================================================
+| Example | Command | Result
+|Look for a person to do something with.|`suggest person` | Returns a person to hangout with.
+| Look for a place to do something at.|`suggest place` | Returns events based on suggested place to go to.
+| Look for an activity to do.|`suggest activity` | Returns events based on suggested activity to do.
+|=======================================================================
+// end::suggest[]
+
+// tag::viewGroup[]
+// tag::view[]
+=== Insights: `view`
+`[written by: Ernest Lian Qi Quan and Mah Cai Jun, Terence]`
+
+Displays various insights about the person's, groups and events stored in Coder Life Insights.
+(You might need to enlarge the application window for the best view.)
+
+This feature encompasses a range of functions which share the following format:
+`view INSIGHT_PARAMETER [m/PERSON_INDEX] [g/GROUP_INDEX]`
+Note that the application will only accept EITHER a person index OR a group index, never both.
+Also, whether an index is required or possibly not allowed depends on the insight parameter.
+
+****
+* The available insight parameters are: `places`, `activities`, `recent`, `all`, and `time`.
+** `Places` (must enter an index)
+*** This function lists all the places that the user has visited with the target person or target group, and their frequencies, in descending order of frequency.
+
+.View Places example
+[#ViewPlacesExample, align="center"]
+image::viewplacesexample.png[][pdfwidth="50%",width="50%"]
+
+** `Activities` (must enter an index)
+*** This function lists all the activities that the user has done with the target person or target group, and their frequencies, in descending order of frequency.
+
+.View Activities example
+[#ViewActivitiesExample, align="center"]
+image::viewactivitiesexample.png[][pdfwidth="50%",width="50%"]
+
+** `Recent` (can have an index or no index)
+*** If an index is entered, this function lists the user's last 5 events with the target person or target group, in reverse chronological order.
+*** If no index is entered, this function lists the user's last 5 events overall, in reverse chronological order.
+*** The event display features each event's place, activity, duration, and serial number.
+
+.View Recent example
+[#ViewRecentExample, align="center"]
+image::viewrecentexample.png[][pdfwidth="50%",width="50%"]
+
+** 'All' (cannot have an index)
+*** This function lists all events that the user has added, in chronological order.
+*** The event display features each event's place, activity, duration, and serial number.
+
+.View All example
+[#ViewAllExample, align="center"]
+image::viewallexample.png[][pdfwidth="50%",width="50%"]
+
+** `Time` (cannot have an index)
+*** This function compares the user's total time spent with individuals against his/her total time spent with groups, in the form of a pie chart.
+
+.View Time example
+[#ViewTimeExample, align="center"]
+image::viewtimeexample.png[][pdfwidth="50%",width="50%"]
+
+
+Take note that Places and Activities are case-sensitive:
+* `Swimming Pool` and `swimming pool` are considered different places
+* `SWIMMING` and `swimming` are considered different activities
+
+
+The examples below provide an exhaustive list of permissible command formats:
+
+[width="80%",cols="30%,<70%",options="header"]
+|=======================================================================
+| Command | Result
+|`view places m/1`|View places visited with person 1 from the active person list.
+|`view places g/1`|View places visited with group 1 from the active group list.
+|`view activities m/1`|View activities done with person 1 from the active person list.
+|`view activities g/1`|View activities done with group 1 from the active group list.
+|`view recent`|View the last 5 events overall.
+|`view recent m/1`|View the last 5 events with person 1 from the active person list.
+|`view recent g/1`|View the last 5 events with group 1 from the active group list.
+|`view all`|View all events the user has added to Coder Life Insights.
+|`view time`|View a pie chart displaying the proportion of individual time vs group time spent.
+|=======================================================================
+****
+// end::view[]
+// end::viewGroup[]
 
 === Locating persons by name: `find`
+`[written by: Ernest Lian Qi Quan]`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -109,36 +354,211 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+[width="75%",cols="40%,<20%,<40%",options="header"]
+|=========================================================================
+| Example | Command | Result
+| Find all persons whose name contains John| `find John` | Returns `john` and `John Doe`
+| Find all persons whose name contains 'Betsy', 'Tim' or 'John'| `find Betsy Tim John` |Returns all persons having names `Betsy`, `Tim`, or `John`
+|=========================================================================
 
-// tag::delete[]
-=== Deleting a person : `delete`
+// tag::import[]
+=== Import Life CSV: `import`
+`[written by: Cheng Lit Yaw]`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Imports your existing Life CSV into the application +
+Format: `import l/LIFE_FILE_PATH g/GROUP_FILE_PATH e/EVENT_FILE_PATH`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Imports your existing Life contacts into the application.
+* An existing CSV file exported from CoderLifeInsights must exist before import.
+* LIFE_FILE_PATH, GROUP_FILE_PATH and EVENT_FILE_PATH must match your existing file path.
+* ALL three parameters must be specified for successful import.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+[width="75%",cols="40%,<20%,<40%",options="header"]
+|=========================================================================
+| Example | Command | Result
+| Import Life from file "life.csv", group data from "groups.csv" and event data from "events.csv"
+| `import l/life.csv +
+g/groups.csv +
+e/events.csv` |
+Imports your Life from `life.csv` , group data from `groups.csv` and event data from `events.csv`
 
-// end::delete[]
+| Import Life from file "life.csv", "groups.csv" and "events.csv" at specific file path |
+`import l/C:\Users\User\Documents\life.csv +
+g/C:\Users\User\Documents\groups.csv +
+e/C:\Users\User\Documents\events.csv` |
+Imports your Life from `C:\Users\Harry\Desktop\Documents\life.csv` +
+, your Group from `C:\Users\User\Documents\groups.csv` +
+and your Events from `C:\Users\User\Documents\events.csv`.
+|Import Life from file "life.csv", "groups.csv" and "events.csv"  at specific file path
+| `import l/./Desktop/life.csv +
+g/./Desktop/groups.csv +
+e/./Desktop/events.csv` |
+Imports your Life from `./Desktop/life.csv` +
+, your Group from `./Desktop/groups.csv` +
+and your Events from `./Desktop/events.csv`.
+|=========================================================================
+
+==== Retrieving File Path
+
+For Windows:
+
+* Navigate to the file where you saved CoderLifeInsights data files.
+* Click on the address bar of File Explorer window.
+* Refer to the diagram below for reference.
+
+.File path finding in Windows
+[#RetrievingFilePathWindows, align="center"]
+image::windowsPathFinding.png[]
+
+[pdfwidth="50%",width="50%"]
+For Mac:
+* Navigate to the file where you saved CoderLifeInsights data files.
+* Right-click on the CSV File and select `Get info`.
+* Refer to the diagram below for reference.
+
+.File path finding in MacOS
+[#RetrievingFilePathMac, align="center"]
+image::macPathFinding.png[pdfwidth="50%",width="50%"]
+
+==== CSV File Constraints
+
+For `Life.csv`:
+
+Before using the `import` command with `Life.csv`, please ensure the following headers are present.
+
+* `name`
+* `phone`
+* `email`
+* `address`
+* `tagged`
+* `time`
+* `places`
+* `activities`
+
+Refer to image below for reference:
+
+.Example Life.csv format
+[#CSVFileConstraintsLife, align="center"]
+image::lifeCSVFormat.png[pdfwidth="70%",width="70%"]
+
+====
+`Tags`, `Places` and `Activities` should be separated by a semi-colon.
+
+Example:
+
+* `friends;school-mate`
+* `Orchard;NUS`
+* `Gym;Rock-Climbing`
+====
+
+For `Groups.csv`:
+
+Before using the `import` command with `Groups.csv`, please ensure the following headers are present.
+
+* `name`
+* `groupId`
+* `timeSpent`
+* `memberIDs`
+* `eventIDs`
+* `places`
+* `activities`
+
+.Example Groups.csv format
+[#CSVFileConstraintsGroups, align="center"]
+image::eventCSVFormat.png[pdfwidth="70%",width="70%"]
+
+====
+`memberIDs`, `eventIDs` should be separated by a semi-colon.
+
+Example:
+
+* `1;2;3`
+* `5;6`
+====
+
+For `Events.csv`:
+
+Before using the `import` command with `Events.csv`, please ensure the following headers are present.
+
+* `eventId`
+* `activity`
+* `place`
+* `withPerson`
+* `withGroup`
+* `time`
+
+.Example Events.csv format
+[#CSVFileConstraintsEvents, align="center"]
+image::eventCSVFormat.png[pdfwidth="70%",width="70%"]
+// end::import[]
+
+
+// tag::export[]
+=== Export Life CSV: `export`
+`[written by: Cheng Lit Yaw]`
+
+Exports your existing Life into a CSV file. +
+Format: `export l/LIFE_FILE_NAME g/GROUP_FILE_NAME e/EVENT_FILE_NAME`
+
+****
+* Exports your existing Life contacts, group data and event data into 3 CSV files respectively.
+* Specify the file name you want to export for life, group and event data.
+* ALL three parameters must be specified for successful export.
+****
+
+Remarks:
+
+* On the very first run of CoderLifeInsights, this command is invalid as there is no saved data and CoderLifeInsights is using a sample data file to display sample contacts.
+Please proceed to add events, groups or persons before trying to export the information to the respective CSV files.
+
+Examples:
+
+[width="80%",cols="30%,<30%,<40%",options="header"]
+|=======================================================================
+| Example | Command | Result
+| Export current life, group and event data | `export l/life.csv g/groups.csv e/events.csv` |
+Exports your Life to `life.csv` +
+Exports your group data to `groups.csv` +
+Exports your event data to `events.csv`
+|=======================================================================
+// end::export[]
+
+// tag::delete[]
+=== Deleting a Person or a Group : `delete`
+`[written by: Raivat Bhupesh Shah]`
+
+Deletes an entity, such as a Person or Group from the CoderLifeInsights +
+Format: `delete_person PERSON_INDEX` (for person) +
+`delete_group GROUP_INDEX` (for group)
+
+
+****
+* Deletes the person at the specified `INDEX`.
+The index refers to the index number shown in the displayed person list.
+The index *must be a positive integer* 1, 2, 3, ...
+Remarks: CoderLifeInsights uses 1-indexing.
+****
+
+Examples:
+
+[width="75%",cols="30%,<30%,<40%",options="header"]
+|=========================================================================
+|Example| Command | Result
+|Delete the 2nd person in the fully listed persons list|`list_persons` +
+`delete_person 2` | Deletes the 2nd person in CoderLifeInsights.
+|Delete the 2nd group in the fully listed groups list| `list_groups` +
+`delete_group 2` | Deletes the 2nd group in CoderLifeInsights.
+|Find a person and delete the person from the list returned|`find Betsy` +
+`delete_person 1` | Deletes the 1st person in the results of the `find` command.
+|=========================================================================
+//end::delete[]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the CoderLifeInsights. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -148,30 +568,132 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+CoderLifeInsights data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Getting a random person: `random` `[coming in v2.0]`
+`[written by: Ernest Lian Qi Quan]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Finds a random person from contacts saved in CoderLifeInsights. +
+Format: `random`
+
+****
+* No additional parameters required.
+* CoderLifeInsights will return the name of a random contact that is saved in CoderLifeInsights.
+* Selection of contact is completely random with no parameters used for selection.
+****
+
+Example:
+
+* `random` +
+Returns the name of a random person saved in CoderLifeInsights.
+
+=== Deleting an event: `delete_event` `[coming in v2.0]`
+`[written by: Ernest Lian Qi Quan]`
+
+Deletes an event from a person or group saved in CoderLifeInsights. +
+Format: `delete_event EVENTID m/INDEX` or `delete_event EVENTID g/INDEX`
+
+=== Editing an event: `edit_event` `[coming in v2.0]`
+`[written by: Ernest Lian Qi Quan]`
+
+Edit the information of an event with a person or group saved in CoderLifeInsights. +
+Format: `edit_event EVENTID m/INDEX [activity/ACTIVITY] [place/PLACE] [time/TIME]` or `edit_event EVENTID g/INDEX [activity/ACTIVITY] [place/PLACE] [time/TIME]` +
+Edits the event's respective details to the one specified in the command.
+
+=== Toggle command shortcuts : `toggle shortcuts` `[coming in v2.0]`
+`[written by: Cheng Lit Yaw]`
+
+Enable toggle command shortcuts to have commands shortened.
+Instead of `add_group`, `ag` would suffice when adding groups to CoderLifeInsights +
+
+Format `toggle shortcuts`
+
+=== Find group command : `find_group` `[coming in v2.0]`
+`[written by: Raivat Bhupesh Shah]`
+
+Enable searching for groups with specified keyword. The feature would match the given keyword with group indexes and then update
+This feature will be useful when there are at least a certain number of groups. +
+Format: `find_group keyword`.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CoderLifeInsights folder.
 
 == Command Summary
+`[written by: Cheng Lit Yaw]`
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+[width="90%",cols="30%,<30%,<40%",options="header"]
+|=======================================================================
+| Feature | Usage | Example |
+*Add Person* | `add_person n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` |
+`add_person n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` |
+*List* | `list_LIST_PARAMETER` | `list_persons`, `list_groups`|
+*Edit* | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`|
+`edit 1 p/91234567 e/johndoe@example.com`|
+*Add Group*| `add_group n/GROUP_NAME m/MEMBER_INDEX`| `add_group n/SoC Friends` +
+
+`add_group n/RC Friends m/1 m/2 m/3`|
+
+*Edit Group* | `edit_group GROUP_INDEX n/GROUP_NAME m/MEMBER_INDEXs` |
+`edit_group 1 n/FOS` +
+
+`edit_group 1 m/1 m/5` +
+
+`edit_group 1 n/new_name m/1` |
+*Add Event* |`add_event ACTIVITY_NAME place/PLACE_NAME time/TIME m/INDEX` +
+
+or +
+
+`add_event ACTIVITY_NAME place/PLACE_NAME time/TIME g/INDEX`|
+`list_persons` +
+
+`add_event Date Night place/MBS time/300 m/2` +
+
+or +
+
+`list_groups` +
+
+`add_event Dancing lessons place/Changi Country Club time/130 g/1` |
+*Suggest* | `suggest SUGGESTION_PARAMETER` |  `suggest person` +
+
+`suggest place` +
+
+`suggest activity`|
+
+
+*View* | `view INSIGHT_PARAMETER [m/PERSON_INDEX] [g/GROUP_INDEX]` | `view places m/1` +
+
+`view activity g/1` +
+
+`view time` +
+
+`view recent` +
+
+`view all`|
+*Find* | `find KEYWORD [MORE_KEYWORDS]` |  `find John` |
+*Import* | `import l/LIFE_FILE_PATH g/GROUP_FILE_PATH e/EVENT_FILE_PATH` |
+`import l/life.csv
+ g/groups.csv
+ e/events.csv`|
+*Export* | `export l/LIFE_FILE_NAME g/GROUP_FILE_NAME e/EVENT_FILE_NAME` |
+`export l/life.csv g/groups.csv e/events.csv` |
+*Delete* | `delete_person PERSON_INDEX`
+
+or +
+
+`delete_group GROUP_INDEX`| `list_persons` +
+
+`delete_person 2` +
+
+or +
+
+`list_groups` +
+
+`delete_group 2`|
+
+*Clear* | `clear`||
+*Exit* | `exit`||
+
+****

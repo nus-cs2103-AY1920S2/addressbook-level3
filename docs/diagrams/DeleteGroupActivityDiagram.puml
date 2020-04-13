@@ -1,0 +1,18 @@
+@startuml
+(*)  --> "check input"
+If "input is in valid format" then
+    --> "create delete group command"
+    --> "check if index provided is valid"
+    If "index is valid" then
+        --> "delete group at specified index"
+        --> "show success message to user"
+        -->(*)
+    else
+        --> "show user error message: invalid group index"
+        -->(*)
+    Endif
+else
+    -> "show format error to user"
+Endif
+-->(*)
+@enduml

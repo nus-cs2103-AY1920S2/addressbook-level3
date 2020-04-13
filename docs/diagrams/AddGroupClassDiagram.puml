@@ -1,0 +1,53 @@
+@startuml
+left to right direction
+
+package Model <<Folder>> {
+    class AddressBook {
+           + addGroup(group: Group)
+           {method} ...
+    }
+
+    class UniqueGroupList {
+            - internalList : ObservableList<Group>
+            - internalUnmodifiableList : ObservableList<Group>
+            + addGroup(toAdd: Group)
+            + contains(toCheck: Group) : boolean
+            {method} ...
+    }
+
+    class Group {
+        - name: Name[1]
+        - timeSpent: Time[1]
+        - membersIDs: ArrayList<Integer>[1]
+        - eventIDs: ArrayList<Integer>[1]
+        - activityList: ActivityList
+        - placeList: PlaceList
+        ...
+        + Group(name: Name, placeList: PlaceList, activityList: ActivityList)
+        {method} ...
+    }
+}
+
+package Logic <<Folder>> {
+    class AddGroupCommand {
+        {static} + COMMAND_WORD : String
+        - toAdd : Group
+        ...
+
+        + AddGroupCommand(group: Group)
+        + execute(model: Model) : CommandResult
+        ...
+    }
+
+    class AddGroupCommandParser {
+        + parse(args: String) : AddGroupCommand
+        {static} - arePrefixesPresent(argMultimap: ArgumentMultiMap, prefixes..: Prefix): boolean
+    }
+}
+
+
+AddressBook - UniqueGroupList : contains >
+UniqueGroupList - Group : contains >
+AddGroupCommandParser - AddGroupCommand
+AddGroupCommandParser - Group
+@enduml

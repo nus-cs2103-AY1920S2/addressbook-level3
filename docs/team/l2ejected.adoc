@@ -1,0 +1,125 @@
+= Ernest Lian (l2ejected) - Project Portfolio
+:site-section: AboutUs
+:icons: font
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+== PROJECT: CoderLifeInsights
+CoderLifeInsights is a CLI (Command Line Interface) driven desktop application that a programmer can use to record his or her social interactions with individual friends, or group of friends. +
+CoderLifeInsights gives the programmer insights into his or her social life, and provides suggestions to liven up their social life by analysing the social events recorded in CoderLifeInsight through the CLI.
+
+== My Role
+I was tasked to implement the AddEventCommand with its relevant classes, namely the Time, PlaceList and ActivityList classes. I also made the inputs from the aforementioned command savable to the hard disk.
+This command and its implementation is the backbone of all our relevant features.
+I also made minor changes to the GUI displays, as well as contributions to the Developers' Guide and User Guide.
+
+Listed in the table below are some notations that are used throughout the document.
+
+.Legend table
+[#Legend]
+[width="100%",cols="^15%,85%",options="header"]
+|===
+a| *Icon* | *Description*
+a| `command` | Command that can be executed, or a component, class or object in the architecture of the application
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be helpful in navigating the application
+a| icon:info-circle[role="icon-note blue", size="2x"] | Important information that should be noted
+a| ====
+==== | Useful information for a deeper understanding of the command
+|===
+
+As shown in <<Legend>>, these icons associated to their following descriptions, such as commands, tips, important information and useful information, enable greater clarity in understanding the document. Note that useful information will have text enclosed in its box.
+
+
+== Summary of contributions
+=== Major enhancements:
+* *Major enhancement #1*: Implemented Add Event feature for a Person
+
+** What it does: It allows the user to add an event with a person. An event consists of an activity, a place, and a time.
+These relevant fields and information, namely the [ACTIVITY], [PLACE], and [TIME], are added to the person the event is created with and are saved to the hard disk.
+** Justification: This feature improves the product significantly as the user may add events with persons in CoderLifeInsights.
+The relevant information from the events added are used in other features.
+The information being saved to the hard disk allows the user to make use of features through different uses.
+** Highlights: This enhancement functions well with existing commands as it updates each Person with a Time, PlaceList and ActivityList variable that represents the time the user has spent with that person, the activities done with that person, and the places been to with that person respectively, in CoderLifeInsights which is displayed in each person's details.
+It also saves the added information to the hard disk. Many improvements and features such as Insights and Suggest stem from the data recorded by this command in the Person and Group objects.
+It required an in-depth analysis of design alternatives. +
+This major enhancement took much effort as it required the implementation of 3 new classes.
+These 3 classes were used in the two entities, Person and Group.
+Also, the attributes added to the Person and Group class were also implemented in a way such that it would be saved to the Json file, as well as work with the import and exporting features.
+Significant architectural analysis was required to ensure these classes worked they way they were intended and did not break existing features of AB3 as they were integrated into the Person object.
+Furthermore, the data stored in these attributes were the backbone of a majority of all other features, which generated output through analysis of the data stored.
+
+=== Minor enhancements:
+* *Minor enhancement #1*: Integrated the Add Event feature with the Import and Export feature.
+** What it does: This enhancement made the Add Event feature work with the Import and Export features, allowing the information added and saved by this command to be imported and exported.
+** Justification: This feature allows the user to not lose information from events added when switching computers.
+** Highlights: This enhancement functions well with existing commands. It required an in-depth analysis of design alternatives. +
+This allowed the Time, PlaceList and ActivityList of each person saved in the Json file to be converted successfully to the CSV file.
+
+* *Minor enhancement #2*: Made the Add Event feature function properly with groups.
+** What it does: This enhancement made the Add Event feature work with a Group object, and made information keyed in by users with the AddEventCommand function savable to the hard disk
+** Justification: This feature allows the user to add events with groups, on top of persons. The relevant information saved to the hard disk is required for other functions to generate their output.
+** Highlights: This enhancement functions well with existing commands. It required an in-depth analysis of design alternatives.
+
+* *Minor enhancement #3*: Implementation of Insights feature for groups `view_groups` [Refactored into the view command by @terencemah in PR: https://github.com/AY1920S2-CS2103-W14-4/main/pull/173[#173]]
+** What it does: This enhancement allows the user to view the places visited and the activities done with a particular group. It also lists the number of times been to each place and number of times each activity is carried out with the group.
+** Justification: This feature gives the user insights on the favourite places and activities of each group of friends in CoderLifeInsights.
+** Highlights: This enhancement functions well with existing commands. It required an in-depth analysis of design alternatives.
+
+* *Minor enhancement #4*: Integration of the PlaceList and ActivityList classes with the Group entity
+** What it does: This enhancement integrated the PlaceList and ActivityList into the Group object. +
+It allowed relevant information to be added to a Group object, as well as ensured that the relevant data was stored to the Group object and Json file as well.
+** Highlights: This enhancement functions well with existing commands and features. It required an in-depth analysis of design alternatives.
+
+* *Code contributed*:[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=l2ejected&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Tasked to ensure deliverables were submitted and deadlines were met by all members of the group.
+*** Tasked to test and discover potential bugs in the software.
+*** Tasked to ensure documentation for all code is written, as well as ensuring that the User Guide is understandable and not confusing.
+
+** Enhancements to existing features:
+*** Created the interim Event container class
+*** Implemented the AddEventCommand which adds an Event( which consists of an Activity, a Place and a Time) to a Person
+*** Created a Time variable and made it savable for each Person object through updates via the AddEventCommand
+*** Created a PlaceList variable and made it savable for each Person object through updates via the AddEventCommand
+*** Created an ActivityList variable and made it savable for each Person object through updates via the AddEventCommand
+*** Added the PlaceList and ActivityList variables to groups and made them savable for each Group object through updates via the AddEventCommand
+
+** Documentation:
+*** Added and revised contents of the User Guide (Pull requests: https://github.com/AY1920S2-CS2103-W14-4/main/pull/53[#53], https://github.com/AY1920S2-CS2103-W14-4/main/pull/94[#94], https://github.com/AY1920S2-CS2103-W14-4/main/pull/128[#128], https://github.com/AY1920S2-CS2103-W14-4/main/pull/160[#160], https://github.com/AY1920S2-CS2103-W14-4/main/pull/172[#172])
+*** Added contents of the Developer Guide (Pull requests: https://github.com/AY1920S2-CS2103-W14-4/main/pull/79[#79], https://github.com/AY1920S2-CS2103-W14-4/main/pull/160[#160], https://github.com/AY1920S2-CS2103-W14-4/main/pull/172[#172])
+
+** Community:
+*** PRs reviewed: (Pull requests: https://github.com/AY1920S2-CS2103-W14-4/main/pull/86[#86], https://github.com/AY1920S2-CS2103-W14-4/main/pull/131[#131], https://github.com/AY1920S2-CS2103-W14-4/main/pull/136[#136])
+
+** Tools:
+
+
+== Contributions to the User Guide
+
+|===
+|_Shown below are the sections I contributed to in the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=list]
+include::../UserGuide.adoc[tag=addEvent]
+include::../UserGuide.adoc[tag=viewGroup]
+
+== Contributions to the Developer Guide
+
+|===
+|_Shown below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=addEvent]
+include::../DeveloperGuide.adoc[tag=useCaseAddEvent]

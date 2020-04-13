@@ -18,6 +18,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -26,6 +27,9 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_PATH = "testing123.csv";
+    private static final String INVALID_SUGGEST = "invalid parameter";
+    private static final String INVALID_PLACES = "ORCHARD";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +37,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_PATH = "README.adoc";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -43,8 +48,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(
+                ParseException.class,
+                MESSAGE_INVALID_INDEX, (
+                ) -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -178,7 +185,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
+        assertThrows(
+                ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
     }
 
     @Test
@@ -189,8 +197,90 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Set<Tag> expectedTagSet =
+                new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parsePath_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePath((String) null));
+    }
+
+    @Test
+    public void parsePath_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePath(INVALID_PATH));
+    }
+
+    @Test
+    public void parsePath_validValueWithoutWhitespace_returnsPath() throws Exception {
+        String expectedPath = VALID_PATH;
+        assertEquals(expectedPath, ParserUtil.parsePath(VALID_PATH));
+    }
+
+    @Test
+    public void parsePath_validValueWithWhitespace_returnsTrimmedPath() throws Exception {
+        String pathWithWhitespace = WHITESPACE + VALID_PATH + WHITESPACE;
+        String expectedPath = VALID_PATH;
+        assertEquals(expectedPath, ParserUtil.parsePath(pathWithWhitespace));
+    }
+
+    @Test
+    public void parseTime_emptyString_success() throws Exception {
+        String input = "0h 0m";
+        Time expectedTime = new Time(0, 0);
+        assertEquals(expectedTime, ParserUtil.parseTime(input));
+    }
+
+    @Test
+    public void parseSuggest_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSuggest(null));
+    }
+
+    @Test
+    public void parseSuggest_emptyString_throwsNullPointerException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSuggest(""));
+    }
+
+    @Test
+    public void parseSuggest_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSuggest(INVALID_SUGGEST));
+    }
+
+    @Test
+    public void parseSuggest_validValueWithoutWhitespace_returnsPerson() throws Exception {
+        assertEquals("person", ParserUtil.parseSuggest("person"));
+    }
+
+    @Test
+    public void parseSuggest_validValueWithWhitespace_returnsTrimmedPathPerson() throws Exception {
+        String suggestWithWhitespace = WHITESPACE + "person" + WHITESPACE;
+        String expectedSuggest = "person";
+        assertEquals(expectedSuggest, ParserUtil.parseSuggest(suggestWithWhitespace));
+    }
+
+    @Test
+    public void parseSuggest_validValueWithoutWhitespace_returnsPlace() throws Exception {
+        assertEquals("place", ParserUtil.parseSuggest("place"));
+    }
+
+    @Test
+    public void parseSuggest_validValueWithWhitespace_returnsTrimmedPathPlace() throws Exception {
+        String suggestWithWhitespace = WHITESPACE + "place" + WHITESPACE;
+        String expectedSuggest = "place";
+        assertEquals(expectedSuggest, ParserUtil.parseSuggest(suggestWithWhitespace));
+    }
+
+    @Test
+    public void parseSuggest_validValueWithoutWhitespace_returnsActivity() throws Exception {
+        assertEquals("activity", ParserUtil.parseSuggest("activity"));
+    }
+
+    @Test
+    public void parseSuggest_validValueWithWhitespace_returnsTrimmedPathActivity() throws Exception {
+        String suggestWithWhitespace = WHITESPACE + "activity" + WHITESPACE;
+        String expectedSuggest = "activity";
+        assertEquals(expectedSuggest, ParserUtil.parseSuggest(suggestWithWhitespace));
     }
 }

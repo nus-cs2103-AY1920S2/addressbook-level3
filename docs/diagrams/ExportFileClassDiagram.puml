@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+Package ExportFile {
+class ExportFile
+}
+
+Package Model {
+class Model
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> ExportFile
+ExportFile *--> Model
+
+@enduml

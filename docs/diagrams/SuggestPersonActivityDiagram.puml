@@ -1,0 +1,14 @@
+@startuml
+title Sugggest Command
+start
+
+:SuggestCommand checks for keyword "person";
+if() then([keyword person entered])
+    :Calls `Model#suggestPerson`;
+    :Gets ObservableList of filteredPersons;
+    :Iterate through list to get suggested person based on time spent;
+    :Updates filteredPersonList to return in GUI;
+else([invalid keyword entered])
+endif
+stop
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+
+package Ui <<Folder>> {
+    class MainWindow {
+        - logic: Logic
+        - executeCommand(String)
+    }
+}
+
+package Logic <<Folder>> {
+    interface Logic {
+        + execute(String)
+    }
+    class LogicManager {
+        - model: Model
+        + execute(String)
+    }
+}
+
+package Model <<Folder>> {
+    interface Model {
+        + getFrequencyList()
+        + getRecentList()
+    }
+    class ModelManager {
+        - frequencyList: ObservableList
+        - recentEventList: ObservableList
+        + getFrequencyList()
+        + getRecentList()
+    }
+}
+
+Model <|-right- ModelManager
+Logic <|-right- LogicManager
+MainWindow *-left-> LogicManager
+LogicManager *-down-> ModelManager
+
+@enduml

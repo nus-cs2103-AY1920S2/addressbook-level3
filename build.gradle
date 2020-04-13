@@ -60,6 +60,7 @@ dependencies {
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-csv', version: '2.7.0'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
@@ -67,7 +68,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'CoderLifeInsights.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -100,7 +101,7 @@ tasks.coveralls {
 test {
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
-
+        exceptionFormat "full"
         // Prints the currently running test's name in the CI's build log,
         // so that we can check if tests are being silently skipped or
         // stalling the build.
@@ -133,8 +134,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'CoderLifeInsights',
+        'site-githuburl': 'https://github.com/AY1920S2-CS2103-W14-4/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
