@@ -1,0 +1,115 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CookingPapaParser" as CookingPapaParser LOGIC_COLOR
+participant ":CartCommandParser" as CartCommandParser LOGIC_COLOR
+participant ":CartAddCommandParser" as CartAddCommandParser LOGIC_COLOR
+participant ":CartAddRecipeIngredientParser" as CartAddRecipeIngredientParser  LOGIC_COLOR
+participant "c:CartAddRecipeIngredientCommand" as CartAddRecipeIngredientCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("cart add recipe 1")
+activate LogicManager
+
+create CookingPapaParser
+LogicManager -> CookingPapaParser
+activate CookingPapaParser
+
+CookingPapaParser --> LogicManager
+deactivate CookingPapaParser
+
+LogicManager -> CookingPapaParser : parseCommand("cart add recipe 1")
+activate CookingPapaParser
+
+create CartCommandParser
+CookingPapaParser -> CartCommandParser
+activate CartCommandParser
+
+CartCommandParser --> CookingPapaParser
+deactivate CartCommandParser
+
+CookingPapaParser -> CartCommandParser : parse(" add recipe 1")
+activate CartCommandParser
+
+create CartAddCommandParser
+CartCommandParser -> CartAddCommandParser
+activate CartAddCommandParser
+
+CartAddCommandParser --> CartCommandParser
+deactivate CartAddCommandParser
+
+CartCommandParser -> CartAddCommandParser : parse(" recipe 1")
+activate CartAddCommandParser
+
+create CartAddRecipeIngredientParser
+CartAddCommandParser -> CartAddRecipeIngredientParser
+activate CartAddRecipeIngredientParser
+
+CartAddRecipeIngredientParser --> CartAddCommandParser
+deactivate CartAddRecipeIngredientParser
+
+CartAddCommandParser -> CartAddRecipeIngredientParser : parse(" 1")
+activate CartAddRecipeIngredientParser
+
+create CartAddRecipeIngredientCommand
+CartAddRecipeIngredientParser -> CartAddRecipeIngredientCommand
+activate CartAddRecipeIngredientCommand
+
+CartAddRecipeIngredientCommand --> CartAddRecipeIngredientParser : command
+deactivate CartAddRecipeIngredientCommand
+
+CartAddRecipeIngredientParser --> CartAddCommandParser : command
+deactivate CartAddRecipeIngredientParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CartAddRecipeIngredientParser -[hidden]-> CookingPapaParser
+destroy CartAddRecipeIngredientParser
+
+CartAddCommandParser--> CartCommandParser : command
+deactivate CartAddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CartAddCommandParser -[hidden]-> CookingPapaParser
+destroy CartAddCommandParser
+
+CartCommandParser  --> CookingPapaParser : command
+deactivate CartCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CartCommandParser -[hidden]-> CookingPapaParser
+destroy CartCommandParser
+
+CookingPapaParser --> LogicManager : command
+deactivate CookingPapaParser
+
+LogicManager -> CartAddRecipeIngredientCommand : execute()
+activate CartAddRecipeIngredientCommand
+
+loop until end of Recipe's ingredient list
+    CartAddRecipeIngredientCommand -> Model : addCartIngredient()
+    activate Model
+
+    Model --> CartAddRecipeIngredientCommand
+    deactivate Model
+end loop
+
+create CommandResult
+CartAddRecipeIngredientCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CartAddRecipeIngredientCommand : result
+deactivate CommandResult
+
+CartAddRecipeIngredientCommand--> LogicManager : result
+deactivate CartAddRecipeIngredientCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CartAddRecipeIngredientCommand -[hidden]-> LogicManager
+destroy CartAddRecipeIngredientCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

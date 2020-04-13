@@ -11,6 +11,8 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getAddressBookFilePath();
+    Path getCookbookFilePath();
+    Path getInventoryFilePath();
+    Path getCartFilePath();
 
 }

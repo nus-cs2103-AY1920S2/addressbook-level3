@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Interface Comparator <<Interface>>
+Class RecipeInventoryIngredientsSimilarityComparator
+Interface ReadOnlyInventory <<Interface>>
+Class Inventory
+Class SortedIngredientList
+Class CompatibleIngredientList
+Class UniqueIngredientList
+Class Recipe
+Class Ingredient
+
+RecipeInventoryIngredientsSimilarityComparator .up.|> Comparator
+RecipeInventoryIngredientsSimilarityComparator -down-> Recipe
+RecipeInventoryIngredientsSimilarityComparator *-right-> "1" ReadOnlyInventory
+
+Inventory .up.|> ReadOnlyInventory
+Inventory --|> SortedIngredientList
+SortedIngredientList *--> "1" CompatibleIngredientList
+CompatibleIngredientList -left-|> UniqueIngredientList
+UniqueIngredientList *--> "*" Ingredient
+Recipe *---> "1" UniqueIngredientList
+@enduml

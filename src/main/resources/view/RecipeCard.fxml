@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Button?>
+
+<!-- @@author teo-jun-xiong -->
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+        </columnConstraints>
+        <VBox minHeight="60" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15"/>
+            </padding>
+
+            <BorderPane>
+                <padding>
+                    <Insets bottom="8"/>
+                </padding>
+
+                <left>
+                    <Label fx:id="id" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" styleClass="cell_big_label">
+                    </Label>
+                </left>
+
+                <center>
+                    <VBox>
+                        <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                        <VBox>
+                            <padding>
+                                <Insets left="8"/>
+                            </padding>
+                            <Label fx:id="description" text="\$second" wrapText="true"
+                                   styleClass="cell_small_label"/>
+                        </VBox>
+                        <Label/>
+                        <FlowPane fx:id="tags"/>
+                    </VBox>
+                </center>
+
+                <right>
+                    <HBox minHeight="60" alignment="CENTER">
+                        <Button fx:id="button" onAction="#handleViewButtonAction" alignment="CENTER"
+                                maxWidth="25" maxHeight="25">
+                        </Button>
+                    </HBox>
+                </right>
+            </BorderPane>
+        </VBox>
+    </GridPane>
+</HBox>

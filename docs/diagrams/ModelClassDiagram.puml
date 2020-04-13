@@ -5,23 +5,42 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyCookbook <<Interface>>
+Interface ReadOnlyInventory <<Interface>>
+Interface ReadOnlyCart <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Cookbook
+Class ReadOnlyCookbook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class Inventory
+Class ReadOnlyInventory
+Class Cart
+Class ReadOnlyCart
+Class SortedIngredientList
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Recipe {
+Class Recipe
+Class RecipeDescription
+Class RecipeName
+Class UniqueRecipeList
+Class UniqueIngredientList
+Class UniqueStepList
+}
+
+Package Ingredient {
+Class CompatibleIngredientList
+Class Ingredient
+Class IngredientName
+Class IngredientQuantity
+}
+
+Package Step {
+Class Step
 }
 
 Package Tag {
@@ -32,25 +51,47 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Cookbook .up.|> ReadOnlyCookbook
+Inventory .up.|> ReadOnlyInventory
+Cart .up.|> ReadOnlyCart
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
+ModelManager -down-> "1" Cookbook
+ModelManager -left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
+ModelManager -down-> "1" Inventory
+ModelManager -down-> "1" Cart
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Cookbook -[hidden]up-> UserPrefs
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Cookbook *--> "1" UniqueRecipeList
+UniqueRecipeList --> "*" Recipe
+Recipe *--> "1" RecipeName
+Recipe *--> "1" RecipeDescription
+Recipe *--> "1" UniqueIngredientList
+Recipe *--> "1" UniqueStepList
+Recipe *--> "*" Tag
 
-ModelManager -->"1" Person : filtered list
+RecipeName -[hidden]right-> RecipeDescription
+RecipeDescription -[hidden]right-> UniqueStepList
+UniqueStepList -[hidden]right-> UniqueIngredientList
+
+Tag -[hidden]right-> RecipeName
+RecipeName -[hidden]right-> RecipeDescription
+RecipeDescription -[hidden]right-> UniqueStepList
+UniqueStepList -[hidden]right-> UniqueIngredientList
+
+Inventory --|> SortedIngredientList
+Cart --|> SortedIngredientList
+SortedIngredientList *-down-> "1" CompatibleIngredientList
+CompatibleIngredientList -left-|> UniqueIngredientList
+CompatibleIngredientList -[hidden]down-|> Ingredient
+UniqueIngredientList -down-> "*" Ingredient
+Ingredient *-down-> "1" IngredientName
+Ingredient *-down-> "1" IngredientQuantity
+
+UniqueStepList *--> "*" Step
+
+ModelManager -->"1" Recipe : filtered list
 @enduml

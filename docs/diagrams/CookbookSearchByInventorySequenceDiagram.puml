@@ -1,0 +1,102 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CookingPapaParser" as CookingPapaParser LOGIC_COLOR
+participant ":CookbookCommandParser" as CookbookCommandParser LOGIC_COLOR
+participant ":CookbookSearchCommandParser" as CookbookSearchCommandParser LOGIC_COLOR
+participant "c:CookbookSearchByInventoryCommand" as CookbookSearchByInventoryCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("cookbook search inventory")
+activate LogicManager
+
+create CookingPapaParser
+LogicManager -> CookingPapaParser
+activate CookingPapaParser
+
+CookingPapaParser --> LogicManager
+deactivate CookingPapaParser
+
+LogicManager -> CookingPapaParser : parseCommand("cookbook search inventory")
+activate CookingPapaParser
+
+create CookbookCommandParser
+CookingPapaParser -> CookbookCommandParser
+activate CookbookCommandParser
+
+CookbookCommandParser --> CookingPapaParser
+deactivate CookbookCommandParser
+
+CookingPapaParser -> CookbookCommandParser : parse(" search inventory")
+activate CookbookCommandParser
+
+create CookbookSearchCommandParser
+CookbookCommandParser -> CookbookSearchCommandParser
+activate CookbookSearchCommandParser
+
+CookbookSearchCommandParser --> CookbookCommandParser
+deactivate CookbookSearchCommandParser
+
+CookbookCommandParser -> CookbookSearchCommandParser : parse("inventory")
+activate CookbookSearchCommandParser
+
+create CookbookSearchByInventoryCommand
+CookbookSearchCommandParser -> CookbookSearchByInventoryCommand
+activate CookbookSearchByInventoryCommand
+
+CookbookSearchByInventoryCommand --> CookbookSearchCommandParser : c
+deactivate CookbookSearchByInventoryCommand
+
+CookbookSearchCommandParser --> CookbookCommandParser : c
+deactivate CookbookSearchCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CookbookSearchCommandParser -[hidden]-> CookingPapaParser
+destroy CookbookSearchCommandParser
+
+CookbookCommandParser --> CookingPapaParser : c
+deactivate CookbookCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CookbookCommandParser -[hidden]-> CookingPapaParser
+destroy CookbookCommandParser
+
+CookingPapaParser --> LogicManager : c
+deactivate CookingPapaParser
+
+LogicManager -> CookbookSearchByInventoryCommand : execute()
+activate CookbookSearchByInventoryCommand
+
+CookbookSearchByInventoryCommand -> Model : sortCookbook()
+activate Model
+
+Model --> CookbookSearchByInventoryCommand
+deactivate Model
+
+CookbookSearchByInventoryCommand -> Model : updateFilteredCookbookRecipeList()
+activate Model
+
+Model --> CookbookSearchByInventoryCommand
+deactivate Model
+
+create CommandResult
+CookbookSearchByInventoryCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CookbookSearchByInventoryCommand : result
+deactivate CommandResult
+
+CookbookSearchByInventoryCommand --> LogicManager : result
+deactivate CookbookSearchByInventoryCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CookbookSearchByInventoryCommand -[hidden]-> LogicManager
+destroy CookbookSearchByInventoryCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

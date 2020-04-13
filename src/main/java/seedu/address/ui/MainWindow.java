@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -31,7 +32,9 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private CookbookPanel recipeListPanel;
+    private InventoryPanel inventoryIngredientListPanel;
+    private CartPanel cartIngredientListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -42,7 +45,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane recipeListPanelPlaceholder;
+
+    @FXML
+    private StackPane inventoryIngredientListPanelPlaceHolder;
+
+    @FXML
+    private StackPane cartIngredientListPanelPlaceHolder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -75,6 +84,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -107,13 +117,19 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        recipeListPanel = new CookbookPanel(logic.getFilteredCookbookRecipeList());
+        recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
+
+        inventoryIngredientListPanel = new InventoryPanel(logic.getFilteredInventoryIngredientList());
+        inventoryIngredientListPanelPlaceHolder.getChildren().add(inventoryIngredientListPanel.getRoot());
+
+        cartIngredientListPanel = new CartPanel(logic.getFilteredCartIngredientList());
+        cartIngredientListPanelPlaceHolder.getChildren().add(cartIngredientListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCookbookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -160,8 +176,23 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    @FXML
+    private void handleViewRecipe(Index recipeIndex) {
+        recipeListPanel = new CookbookPanel(logic.getFilteredCookbookRecipeList());
+        recipeListPanel.handleViewRecipe(recipeIndex);
+        recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
+    }
+
+    public CookbookPanel getRecipeListPanel() {
+        return recipeListPanel;
+    }
+
+    public InventoryPanel getInventoryIngredientListPanel() {
+        return inventoryIngredientListPanel;
+    }
+
+    public CartPanel getCartIngredientListPanel1() {
+        return cartIngredientListPanel;
     }
 
     /**
@@ -179,12 +210,16 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
+            if (commandResult.isViewRecipe()) {
+                handleViewRecipe(commandResult.getRecipeIndex());
+            }
+
             if (commandResult.isExit()) {
                 handleExit();
             }
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (Exception e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

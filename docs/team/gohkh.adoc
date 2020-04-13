@@ -1,0 +1,92 @@
+= Goh Ka Hui - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Cooking Papa
+
+---
+
+== Overview
+
+Cooking Papa is a desktop cookbook application used to manage recipes and ingredients for cooking.
+It consists of a Cookbook containing recipes, an Inventory containing a users ingredients, and a Cart containing ingredients that a user needs to buy.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to search for recipes based on the ingredients in the inventory*
+** What it does: allows the user to find recipes that match the inventory ingredients best, sorted by the similarity to the inventory ingredients.
+** Justification: This feature improves the product significantly because a user may not know what to cook with their ingredients, and the app should provide a convenient way to find the most suitable recipes to cook with the available ingredients.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. The implementation too was challenging as it required a robust way of handling ingredient quantities.
+** Credits: https://commons.apache.org/proper/commons-math/[Apache Commons Math] (The `Fraction` class was used in implementing ingredient quantities)
+
+* *Other enhancements*:
+** Contributed to basic features involving ingredients, including adding and removing ingredients from recipes, and the inventory and cart
+** Contributed to a feature that added the ability to add ingredients from a recipe to the cart when a user wants get ingredients for a new recipe
+** Contributed to a feature that added the ability to move ingredients from the cart to the inventory after a user has finished shopping
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gohkh[Link]
+
+* *Other contributions*:
+
+** Project management:
+*** Helped the team to set up and maintain the forking workflow in this project
+*** Managed the milestones `v1.2` and `v1.3` on Github
+
+** Enhancements to existing features:
+*** Handled arithmetic of ingredient quantities to allow adding and removing ingredients with the same units
+(Pull request https://github.com/AY1920S2-CS2103T-F11-4/main/pull/60[#60])
+*** Set up the structure of the new commands and parsers
+(Pull request https://github.com/AY1920S2-CS2103T-F11-4/main/pull/82[#82])
+*** Integrated new classes to the architecture components of the app (Pull requests
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/96[#96],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/114[#114])
+*** Wrote tests for the `Inventory` and `Cart`, as well as `Ingredient`-related code in the Model(Pull requests
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/78[#60],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/78[#78],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/230[#230])
+*** Fixed a major GUI bug that caused Linux users not to be able to see the components of the app window properly
+(Pull request https://github.com/AY1920S2-CS2103T-F11-4/main/pull/234[#234])
+
+** Documentation:
+*** Wrote the Recipe Commands section and the Edit Recipe Commands section of the user guide
+*** Updated UML class diagrams of the `Logic`, `Model` and `Storage` components from the Address Book Level 3 diagrams in the developer guide
+*** Added manual testing instructions for adding and removing ingredients in a recipe
+*** Added user stories
+
+** Community:
+*** PRs reviewed (with non-trivial comments):
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/18[#18],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/57[#57],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/61[#61],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/90[#90],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/92[#92],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/99[#99],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/113[#113],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/122[#122],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/131[#131],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/139[#139],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/160[#160],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/208[#208],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/245[#245]
+
+** Tools:
+*** Integrated a third-party library, https://commons.apache.org/proper/commons-math/[Apache Commons Math], to the project (https://github.com/AY1920S2-CS2103T-F11-4/main/pull/60[#60])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=gohkh]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=gohkh]

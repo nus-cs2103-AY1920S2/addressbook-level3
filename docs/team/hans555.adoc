@@ -1,0 +1,81 @@
+= Ong Han Sheng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Cooking Papa
+
+---
+
+== Overview
+
+Cooking Papa is a desktop cookbook application used to manage recipes and ingredients for cooking. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the ability to cook a recipe using inventory ingredients
+** What it does: Allows the user to remove the ingredients in the inventory after cooking a specific recipe inside CookingPapa.
+** Justification: This feature improves the product significantly because it allows the user to remove recipe's ingredients effectively without
+having the user to remove the each ingredient separately.
+** Highlights: This enhancement will be one of the most used feature as this application is mainly to aid cooking experience.
+This enhancement helps to integrate the `Cookbook` and `Inventory` systems together to provide a all-in-one application
+which make this enhancement challenging also.
+** Credits: The implementation of the `Inventory` and `Cookbook` classes was a team effort which is vital to the successful
+implementation of this feature.
+
+* *Minor enhancement*:
+** Contributed to basic structure of `Step` and `Tag` classes in recipe.
+** Contributed to basic `Recipe` command classes such as managing tag and steps in a recipe.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=hans555&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[by @hans555]]
+
+* *Other contributions*:
+
+** Project management:
+*** Kept track of deadlines of project milestones
+*** Managed bug features for v1.2 (Issue https://github.com/AY1920S2-CS2103T-F11-4/main/issues/118[#118])
+
+** Enhancements to existing features:
+*** Added several tests for existing features
+(Pull Requests
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/57[#57],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/142[142],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/237[#237])
+*** Updated basic parser format to improve clarity
+(Pull Requests
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/133[#133],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/142[#142])
+
+** Documentation:
+*** Updated the existing user guide:
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/22[#22]
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/132[#132]
+
+*** Updated the existing development guide:
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/43[#43]
+
+** Community:
+*** Reviewed PRs of team members before merging
+*** Reported bugs and provided suggestions for other teams in the class (example: https://github.com/hans555/ped/issues[1])
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=hansheng]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=hansheng]
+
+
+

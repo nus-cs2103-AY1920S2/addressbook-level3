@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CookingPapaParser" as CookingPapaParser LOGIC_COLOR
+participant ":InventoryCommandParser" as InventoryCommandParser LOGIC_COLOR
+participant ":InventoryCookCommandParser" as InventoryCookCommandParser LOGIC_COLOR
+participant "r:InventoryCookCommand" as InventoryCookCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("inventory cook recipe 1")
+activate LogicManager
+
+LogicManager -> CookingPapaParser : parseCommand("inventory cook recipe 1")
+activate CookingPapaParser
+
+create InventoryCommandParser
+CookingPapaParser -> InventoryCommandParser
+activate InventoryCommandParser
+
+InventoryCommandParser -> CookingPapaParser
+deactivate InventoryCommandParser
+
+CookingPapaParser -> InventoryCommandParser : parse("cook recipe 1")
+activate InventoryCommandParser
+
+create InventoryCookCommandParser
+InventoryCommandParser -> InventoryCookCommandParser
+activate InventoryCookCommandParser
+
+InventoryCookCommandParser -> InventoryCommandParser
+deactivate InventoryCookCommandParser
+
+InventoryCommandParser -> InventoryCookCommandParser : parse("1")
+activate InventoryCookCommandParser
+
+create InventoryCookCommand
+InventoryCookCommandParser -> InventoryCookCommand
+activate InventoryCookCommand
+
+InventoryCookCommand -> InventoryCookCommandParser : r
+deactivate InventoryCookCommand
+
+InventoryCookCommandParser -> InventoryCommandParser : r
+deactivate InventoryCookCommandParser
+InventoryCookCommandParser -[hidden]-> InventoryCommandParser
+destroy InventoryCookCommandParser
+
+InventoryCommandParser -> CookingPapaParser : r
+deactivate InventoryCommandParser
+InventoryCommandParser -[hidden]-> CookingPapaParser
+destroy InventoryCommandParser
+
+CookingPapaParser -> LogicManager : r
+deactivate CookingPapaParser
+
+LogicManager -> InventoryCookCommand : execute()
+activate InventoryCookCommand
+
+InventoryCookCommand -> Model : removeInventoryIngredient()
+activate Model
+
+Model --> InventoryCookCommand
+deactivate Model
+
+create CommandResult
+InventoryCookCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> InventoryCookCommand
+deactivate CommandResult
+
+
+InventoryCookCommand --> LogicManager : result
+deactivate InventoryCookCommand
+InventoryCookCommand -[hidden]-> LogicManager
+destroy InventoryCookCommand
+
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

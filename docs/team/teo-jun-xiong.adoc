@@ -1,0 +1,166 @@
+= Teo Jun Xiong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Cooking Papa
+
+'''
+
+== Overview
+
+Cooking Papa is a desktop cookbook application used to manage recipes and ingredients for cooking. The user interacts
+with it using a CLI (Command Line Input), and it has a GUI (Graphical User Interface) created with JavaFX. It is written
+in
+Java, and has about
+15 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: implemented and developed Cooking Papa's GUI
+** What it does: developed Cooking Papa's GUI to better reflect its casual usage and more cheerful nature, rather than
+the base
+AB3's dark
+theme.
+** Justification: This feature improves the product significantly because the color scheme is more in line with
+Cooking Papa's use, with the bright yet muted colors complementing the fun font styles, giving off a casual vibe, and
+invites users to use Cooking Papa.
+** Highlights: This enhancement required a lot of understanding of the interactions between various JavaFX objects,
+as well as the base CSS stylesheets provided by AB3, and integrating them together, which took many hours of
+trial-and-error,
+as well
+as
+Googling.
++
+While constraints meant that Cooking Papa would be tested from the command line, a well-designed GUI was imperative
+to convey the application's casual nature.
+Coordinating various colors proved to be a challenge, and the color scheme went through three rounds of reiterations,
+before settling on the current one. Moving away from the rigid sharp edges of AB3 was also a challenge, and required
+various UI elements and color choices to "soften" the overall aesthetics of Cooking Papa.
+** Credits: _JavaFX 11_ as well as _SceneBuilder_ helped immensely in the development of the GUI.
+
+* *Major enhancement*: integrated `cookbook view recipe` command into the GUI
+** Justification: This feature improves the product significantly because it integrated the GUI seamlessly with the
+command.
+** Highlights: This enhancement arose due to the lack of connection between the existing `cookbook view recipe`
+command, which shows users the details of a recipe, and the GUI. It was initially displayed as a plain text result in
+the result display box of the GUI, and this causes command results (errors, success messages, usage messages), to
+appear in the same UI component as the recipe details, which meant that the component had two uses.
++
+The idea to make `cookbook view recipe` a button on the GUI that could be toggled surfaced to improve user experience.
+Developing a button that
+could toggle the details shown was trivial, however, limiting the command to just a button on the GUI meant that it
+would not be testable on the command line. Therefore, the challenge was to connect the GUI to the Logic component,
+and typing `cookbook view recipe` on the command line (or in the command box of the GUI) would trigger the button.
+The result was a GUI much more interactive and functional, but it was still testable on
+the command line.
+** Credits: _JavaFX 11_ as well as _SceneBuilder_ helped immensely in the development of the `cookbook view recipe`
+button.
+
+* *Minor enhancement*: added an command which allowed users to export the ingredients in their cart to a PDF file,
+which allows them bring along with them to the supermarkets. This feature solved the constraint of the application
+being desktop-only, and with it, Cooking Papa can _still_ help users when they are away from their computers.
++
+Credits: _Apache PDFbox_ and user  _mkl_ on
+https://stackoverflow.com/questions/19635275/how-to-generate-multiple-lines-in-pdf-using-apache-pdfbox[StackOverflow]
+for a great example on using `PDFbox`.
+
+* *Minor enhancement*: regularly reviewed source code, and carried out testing and bug fixing. This includes the
+standardisation of coding style and messages shown to the user (
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/122[#122],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/228[#228],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/242[#242]).
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=f11&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=teo-jun-xiong&tabRepo=AY1920S2-CS2103T-F11-4%2Fmain%5Bmaster%5D[Source code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2.1`, `v1.3`, and `v1.4` (3 releases) out of 5 releases(`v1.1`, `v1.2`, `v.1.2.1`, `v1.3`, `v1
+                                                                                                                .4`) on
+GitHub
+*** Managed features development under Project on GitHub
+(https://github.com/AY1920S2-CS2103T-F11-4/main/projects/1[features])
+
+** Enhancements to existing features:
+*** Updated the GUI color scheme and designed GUI layout:
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/137[#137]
+*** Wrote additional tests for existing features to increase coverage from 56% to 77%:
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/131[#131]
+*** Integrated button with `cookbook view recipe` command:
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/208[#208]
+*** Implemented core features:
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/115[#115],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/139[#139],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/254[#254]
+
+
+** Documentation:
+*** Removed instances of AB3 in user guide:
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/13[#13]
+*** Added UML diagrams and document implementation of core features:
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/121[#121]
+*** Reviewed user and developer guide and enforced standardisation:
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/228[#228]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/22[#22],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/44[#44],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/57[#57],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/61[#61],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/131[#131],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/220[#220],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/221[#221],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/222[#222]
+
+*** Contributed to forum discussions:
+https://github.com/nus-cs2103-AY1920S2/forum/issues/15[15]
+https://github.com/nus-cs2103-AY1920S2/forum/issues/65[65]
+
+** Tools:
+*** Integrated a third party library (Apache PDFbox) to the project
+(https://github.com/AY1920S2-CS2103T-F11-4/main/pull/212[#212])
+
+*** Integrated new Github plugins to the team repo: TravisCI, AppVeyor, Coveralls, Codacy
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=help]
+include::../UserGuide.adoc[tag=exit]
+include::../UserGuide.adoc[tag=calendar]
+include::../UserGuide.adoc[tag=faq]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Cooking Papa UI component
+
+include::../DeveloperGuide.adoc[tag=ui]
+=== Implementation of a core feature: `cookbook add recipe`
+
+include::../DeveloperGuide.adoc[tag=addrecipe]
+
+=== UML Diagrams for `cookbook add recipe`
+include::../DeveloperGuide.adoc[tag=addrecipesequence]
+
+=== Design Considerations for `cookbook add recipe`
+include::../DeveloperGuide.adoc[tag=addrecipedesign]
+
+=== Implementation of a core feature: `cart export`
+include::../DeveloperGuide.adoc[tag=cartexport]
+
+=== UML Diagrams for `cart export`
+include::../DeveloperGuide.adoc[tag=cartexportsequence]
+
+=== Implementation of a core feature: `cookbook view recipe`
+include::../DeveloperGuide.adoc[tag=viewrecipe]
+
+=== UML Sequence Diagrams for `cookbook view recipe`
+include::../DeveloperGuide.adoc[tag=viewrecipesequence]

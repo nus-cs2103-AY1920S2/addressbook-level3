@@ -1,0 +1,265 @@
+= Chan Shun Jie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Cooking Papa
+
+---
+
+== Overview
+
+Cooking Papa is a desktop cookbook application used to manage recipes and ingredients for cooking. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 15 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Implemented `inventory cook recipe` command
+** What it does: Allows the user to remove all ingredients of a specified recipe from their inventory after cooking it.
+** Justification: This feature improves the usability of the application significantly as users need to
+remove the used ingredients from their inventory after preparing a recipe. The application should thus provide
+a convenient command to assist the user in accomplishing this task.
+** Highlights: This feature will be frequently used as it allows users to update their inventory after preparing a recipe.
+** Credits: The implementation and testing of the `Ingredient`, `IngredientList`, `Inventory` and `Cookbook` classes was a team effort which is vital to the successful
+implementation of this feature.
+
+* *Minor enhancement*: Implemented commands under `cookbook` category
+** Implemented the add, remove and view commands and their parsers
+** Implemented skeleton classes for the search commands and their parsers
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=shanecsj&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shanecsj&tabRepo=AY1920S2-CS2103T-F11-4%2Fmain%5Bmaster%5D[Code contributed by @shanecsj]]
+
+* *Other contributions*:
+
+** Project management:
+*** Kept track of deadlines and requirements for milestone submissions
+*** Managed bugs for v1.4 [Issue https://github.com/AY1920S2-CS2103T-F11-4/main/issues/241[#241]]
+** Enhancements to existing features:
+*** Fixed discrepancies in some commands
+(Pull request https://github.com/AY1920S2-CS2103T-F11-4/main/pull/243[#243])
+*** Wrote additional tests for existing features to increase coverage
+(Pull request https://github.com/AY1920S2-CS2103T-F11-4/main/pull/138[#138])
+** Documentation:
+*** Updated existing contents of the User Guide: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/31[#31], https://github.com/AY1920S2-CS2103T-F11-4/main/pull/245[#245]
+*** Updated existing contents of the Developer Guide: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/146[#146], https://github.com/AY1920S2-CS2103T-F11-4/main/pull/253[#253]
+** Community:
+*** Reviewed team members' PR before merging
+*** Reported Developer Guide suggestions for other teams (Example: https://github.com/AY1920S2-CS2103T-W13-4/main/issues/84[1])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== Cookbook Commands
+Cookbook commands are commands that allow users to add and remove recipes from the cookbook,
+as well as view recipes stored in the cookbook. More commands can be done with recipes, and
+are covered in <<Recipe>>.
+
+==== View a recipe from the cookbook
+This command allows you to view a recipe, the ingredients required, and the steps to cook it.
+
+- Format: `cookbook view recipe INDEX`
+- Example:
+|===
+| Command | Result
+
+|`cookbook view recipe 1`
+a|
+image::CookbookViewExample2.png[width="790"]
+
+Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to show you
+the details of the recipe.
+|===
+
+A recipe's details can also be viewed by pressing the "eye" icon, without the need to type in the command above:
+
+image::CookbookViewExample1.png[width="790"]
+
+==== Add a new recipe to the cookbook
+This command allows you to add (and store) a new recipe with the provided recipe details to the cookbook.
+
+- Format: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [s/STEP]... [t/TAG]...`
+- Examples:
+|===
+|Command | Result
+
+|`cookbook add recipe n/Bacon Carbonara d/Best cream pasta made in Italy`
+a| Adds a recipe with only its name and description specified. +
+----
+New recipe added: Bacon Carbonara
+Description: Best cream pasta made in Italy
+Ingredients:
+Preparation Steps:
+Tags:
+----
+
+|`cookbook add recipe n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
+i/Chicken Ham q/1 slice i/White Bread q/2 slices s/Toast the bread s/Grill the ham.
+t/sandwich t/easy`
+a|
+
+Adds a recipe with its name, description, ingredients, steps, and tags specified.
+----
+New recipe (index 1) added: Chicken Ham Sandwich
+----
+|===
+
+Note: the number of ingredient names provided must be the same as the number of ingredient quantities provided,
+otherwise Cooking Papa will not be able to add the recipe.
+
+==== Remove a recipe from the cookbook
+This command allows you to remove a recipe of the specified index from the cookbook.
+
+- Format: `cookbook remove recipe INDEX`
+- Example:
+|===
+| Command | Result
+
+|`cookbook remove recipe 1`
+a|
+----
+Removed recipe: Bacon Carbonara from the cookbook
+----
+
+Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to remove the recipe.
+
+|===
+
+Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to remove the recipe.
+
+==== Search recipes by keyword
+This command allows you to search for recipes by keywords, returning a list of recipes.
+
+Note: Adding more keywords will not narrow the search results, but will expand the search results to return any recipe
+that contains any of the given keywords.
+
+- Format: `cookbook search recipe k/KEYWORD...`
+- Example:
+|===
+| Command | Result
+
+|`cookbook search recipe k/Carbonara`
+|Searches the cookbook for recipes with names matching the keyword 'Carbonara'.
+
+|`cookbook search recipe k/Carbonara k/Simple k/Cheesy`
+|Searches the cookbook for recipes with names matching the keywords 'Carbonara', or `Simple`, or `Cheesy`.
+|===
+
+==== Search recipes by tag
+This command allows you to search for recipes by tags, returning a list of recipes.
+
+Note: Adding more tags will not narrow the search results, but will expand the search results to return any
+recipe that contains any of the given tags.
+
+- Format: `cookbook search tag t/TAG…`
+- Examples:
+|===
+| Command | Result
+|`cookbook search tag t/Easy`
+|Searches the cookbook for recipes wisth tags matching 'Easy'.
+|`cookbook search tag t/Pasta t/Cream t/Easy`
+|Searches the cookbook for recipes with tags matching 'Pasta', or 'Cream', or 'Easy'.
+|===
+==== Search recipes by ingredients owned
+This command allows you to see search for recipes you can cook with your current inventory of ingredients.
+
+- Format: `cookbook search inventory`
+- Example:
+|===
+| Command | Result
+
+|`cookbook search inventory`
+|Searches the cookbook for recipes whose ingredients are available in the inventory.
+|===
+==== List all recipes in the cookbook
+This commands allows you to view the whole collection of recipes in the cookbook. Additionally, it can be used after
+using the search commands to view all the recipes.
+
+- Format: `cookbook list`
+- Example:
+|===
+| Command | Result
+
+|`cookbook list`
+|Lists all recipes in the cookbook
+|===
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Remove ingredients of a recipe from the inventory
+
+==== Implementation
+The mechanism is facilitated by `InventoryCookCommand`, which extends the `Command` abstract class. The format of the command is as follows: `inventory cook recipe INDEX`.
+
+This command was implemented to allow users to remove multiple ingredients and their quantities found in a recipe from their inventory.
+If the inventory contains an ingredient that has a higher quantity than specified in the selected recipe, its quantity will be subtracted accordingly.
+If the ingredient has a lower quantity than specified in the selected recipe or if there is a missing ingredient in the inventory, the feature will not be executed and an error will be thrown.
+Without this command, users can only remove ingredients through the `inventory remove ingredient` command one at a time.
+Moreover, they have to constantly cross-check the ingredient quantities in the recipe for accuracy.
+Therefore, this command provides convenience after users have prepared a recipe and wish to update their inventory ingredients through a single step.
+
+Below is a step-by-step sequence of what happens when a user enters this command:
+
+. The user enters an inventory cook command `inventory cook recipe INDEX` using the command line input.
+. `InventoryCookCommandParser` parses the input to check and verify the input provided by the user. If the input provided is invalid, a `ParseException` will be thrown.
+. The valid index is then passed to `InventoryCookCommand` as an `Index` object.
+. `LogicManager` calls `InventoryCookCommand#execute()` and checks if the `Index` provided is within bounds and if the specified `Recipe` contains ingredients.
+Otherwise, a `CommandException` is thrown.
+. Subsequently, two checks are performed to check if the inventory contains all of the ingredients specified and whether those quantities are sufficient to be subtracted.
+. If all the checks passed, `model#removeInventoryIngredient` is called through a `stream()` to remove the ingredients of a selected recipe from the inventory.
++
+[source,java]
+----
+selectedRecipe.getIngredients().stream().forEach(model::removeInventoryIngredient);
+----
+. A `CommandResult` with a success message is returned to `LogicManager` and passed back to `MainWindow` which displays the text to the user through the GUI.
+
+The following sequence diagram shows how the command `inventory cook recipe 1` works:
+
+.Sequence Diagram for InventoryCookCommand
+image::InventoryCookRecipeSequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect: Allowing users to execute the `inventory cook recipe` command when there are missing or insufficient ingredients in the inventory.
+
+.Design considerations for the `inventory cook recipe` command
+[cols="12%,44%,44%"]
+|===
+||Design A: Allow the execution of `inventory cook recipe` command regardless of missing or insufficient ingredients in the inventory  | Design B (Current choice): Do not allow execution of `inventory cook recipe` command when there are missing or insufficient ingredients in the inventory
+
+|Description
+|Allow the users to execute the command regardless of missing or insufficient ingredients in the inventory. Missing ingredients will be ignored and ingredients with insufficient quantities will be entirely removed.
+|When there are missing or insufficient ingredients in the inventory, the execution of the command will throw an error to warn users whether they have missing ingredients or insufficient ingredients in their inventory.
+
+|Pros
+|Straightforward for users to use the command as they do not have to check whether they have all the ingredients in sufficient quantities.
+|Enhances user experience. The application can notify users that they have missing or insufficient ingredients when they attempt to prepare a recipe through this command.
+
+|Cons
+|Reduces code readability as more methods and steps are needed to check and isolate a list of missing and insufficient ingredients. This list of ingredients are also to be treated differently from the other ingredients when removing from the inventory.
+|A potential hassle for users as they have to ensure that all ingredients are present and are sufficient in their inventory to use the command.
+|===
+
+== Miscellaneous
+
+=== UML Diagrams
+
+==== Sequence Diagram
+.Sequence diagram for InventoryCookCommand
+image::InventoryCookRecipeSequenceDiagram.png[]
+
+==== Activity Diagram
+.Activity diagram when user enters `inventory cook recipe` command
+image::InventoryCookRecipeActivityDiagram.png[]
+
+==== Class Diagram
+.Class diagram for `Cookbook` class
+image::CookbookClassDiagram.png[]
+

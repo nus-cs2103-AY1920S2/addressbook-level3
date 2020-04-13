@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Cooking Papa - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,809 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-F11-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F11-4`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Cooking Papa is an all-in-one, easy-to-use application that acts as a personalised cookbook, with *your* favourite
+recipes!
 
-== Quick Start
+Cooking Papa aims to help university students who live alone. It aim to make learning how to cook more convenient,
+contributing to the variety of meals of these university students. With Cooking Papa, users can easily edit recipes, keep track of ingredients
+they currently have at home and have a shopping list that assists them in their grocery shopping process.
+
+CookingPapa consists of 3 main features:
+
+* *Cookbook*: Stores all your recipes, including the ingredients and steps for each recipe. +
+Cookbook commands can be seen here: <<Cookbook>> +
+Cookbook is supplemented with recipe commands, which can be seen here: <<Recipe>>
+* *Inventory*: Keeps stock of all the ingredients you currently have. +
+Inventory commands can be seen here: <<Inventory>>
+* *Cart*: Acts as a shopping list for ingredients you may wish to purchase. +
+Cart commands can be seen here: <<Cart>>
+
+Do away with thick, confusing, and expensive cookbooks, and start cooking with Cooking Papa today!
+
+== Quick Start and Use of Application
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `cookingpapa.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Cooking Papa.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.CookingPapa User Interface
+image::Ui.png[width="600"]
+
+. CookingPapa uses the *command box* for all of its commands. You can see a comprehensive view of all
+the commands given in <<Features>>.
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.Cooking Papa User Interface; marked: command box
+image::Example1.png[width="600"]
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+. Whenever a command is entered, feedback will be given in the *result display*, and the message displayed varies with the type of
+command given by the user.
++
+.Cooking Papa User Interface; marked: result display
+image::Example2.png[width="600"]
 
-.  Refer to <<Features>> for details of each command.
+. Here are the components of Cooking Papa's user interface:
+
++
+.The UI components of Cooking Papa
+image::Example3.png[width="790"]
 
 [[Features]]
 == Features
 
-====
+Cooking Papa accepts the following command formats for its application. It is important to follow these guidelines
+for smooth usage of the application.
+
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+(e.g. in `inventory add ingredient i/INGREDIENT`, `INGREDIENT`
+is a parameter which can be used as `inventory add ingredient i/Bacon q/10`).
+* Words in square brackets are optional. +
+ (e.g in `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [s/STEP]... [t/TAG]...` can be
+used as
+`cookbook add recipe n/Cheesecake d/Delicious New York cheesecake t/Dessert`
+or as `cookbook add recipe n/Cheesecake d/Delicious New York cheesecake` as tags are optional).
+* Words with `…`​ after them can be included multiple times. +
+(e.g. `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [s/STEP]... [t/TAG]...` can be used
+to add multiple ingredients and its respective quantities in the same command: `cookbook add recipe n/Sandwich
+d/Delicious Sandwich i/Bread q/2 pieces i/Ham q/3 slices i/Cheese q/2 slices`).
+* Parameters can be in any order. +
+(e.g. if the command specifies `i/INGREDIENT q/QUANTITY`, `q/QUANTITY i/INGREDIENT` is a valid command).
 
-=== Viewing help : `help`
+* Command and delimiter (eg. i/, q/) formats given in the lowercase are *case-sensitive*. (eg `cookbook` is given as
+all lowercase. `Cookbook` or `COOKBOOK` or `cOoKbOoK` are not valid.)
 
-Format: `help`
+Additionally, parameters also cannot start with spaces. *Please follow the format given carefully for a seamless
+experience.*
 
-=== Adding a person: `add`
+A table of parameters and their associated constraints:
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+|===
+| Parameter type | Constraint
 
-[TIP]
-A person can have any number of tags (including 0)
+|`INDEX`, `STEP_INDEX`
+|Must be a whole number.
 
-Examples:
+|`NAME`,`DESCRIPTION`, `STEP`, `INGREDIENT`, `KEYWORD`
+|Can contain alphabet letters, numbers, and spaces, as well as the symbols `'`, `-`, and `%`.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+|`QUANTITY`
+|Must start with a numerical value, which can contain decimal points or slashes to represent a fraction.
 
-=== Listing all persons : `list`
+The value can be followed by an optional unit that only consists of alphabet letters, which may be separated by spaces.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+A quarter cup of milk can be represented in a command as: `i/Milk q/1/4 cup`.
 
-=== Editing a person : `edit`
+|`TAG`
+|Can only contain alphabet letters and numbers. *No spaces are permitted*.
+|===
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+[[Cookbook]]
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+=== Cookbook Commands https://github.com/shanecsj[(by Chan Shun Jie)]
+//tag::shanecsj[]
 
-Examples:
+Cookbook commands are commands that allow users to add and remove recipes from the cookbook,
+as well as view recipes stored in the cookbook. More commands can be done with recipes, and
+are covered in <<Recipe>>.
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+==== View a recipe from the cookbook
+This command allows you to view a recipe, the ingredients required, and the steps to cook it.
 
-=== Locating persons by name: `find`
+- Format: `cookbook view recipe INDEX`
+- Example:
+|===
+| Command | Result
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+|`cookbook view recipe 1`
+a|
+image::CookbookViewExample2.png[width="790"]
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to show you
+the details of the recipe.
+|===
 
-Examples:
+A recipe's details can also be viewed by pressing the "eye" icon, without the need to type in the command above:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+image::CookbookViewExample1.png[width="500"]
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Add a new recipe to the cookbook
+This command allows you to add (and store) a new recipe with the provided recipe details to the cookbook.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+- Format: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [s/STEP]... [t/TAG]...`
+- Examples:
+|===
+|Command | Result
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+|`cookbook add recipe n/Bacon Carbonara d/Best cream pasta made in Italy`
+a| Adds a recipe with only its name and description specified. +
+----
+New recipe added: Bacon Carbonara
+Description: Best cream pasta made in Italy
+Ingredients:
+Preparation Steps:
+Tags:
+----
 
-Examples:
+|`cookbook add recipe n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
+i/Chicken Ham q/1 slice i/White Bread q/2 slices s/Toast the bread s/Grill the ham.
+t/sandwich t/easy`
+a|
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Adds a recipe with its name, description, ingredients, steps, and tags specified.
+----
+New recipe (index 1) added: Chicken Ham Sandwich
+----
+|===
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Note: the number of ingredient names provided must be the same as the number of ingredient quantities provided,
+otherwise Cooking Papa will not be able to add the recipe.
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Remove a recipe from the cookbook
+This command allows you to remove a recipe of the specified index from the cookbook.
 
-=== Exiting the program : `exit`
+- Format: `cookbook remove recipe INDEX`
+- Example:
+|===
+| Command | Result
 
-Exits the program. +
-Format: `exit`
+|`cookbook remove recipe 1`
+a|
+----
+Removed recipe: Bacon Carbonara from the cookbook
+----
 
-=== Saving the data
+Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to remove the recipe.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+|===
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to remove the recipe.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Search recipes by keyword
+This command allows you to search for recipes by keywords, returning a list of recipes.
 
-== FAQ
+Note: Adding more keywords will not narrow the search results, but will expand the search results to return any recipe
+that contains any of the given keywords. Moreover, only full words will be searched, for example, if there is a
+recipe named "ABCD" in the cookbook, searching with the parameter `k/AB` will *not* return the mentioned recipe as a
+result.
+
+- Format: `cookbook search recipe k/KEYWORD...`
+- Example:
+|===
+| Command | Result
+
+|`cookbook search recipe k/Carbonara`
+|Searches the cookbook for recipes with names matching the keyword 'Carbonara'.
+
+|`cookbook search recipe k/Carbonara k/Simple k/Cheesy`
+|Searches the cookbook for recipes with names matching the keywords 'Carbonara', or `Simple`, or `Cheesy`.
+|===
+
+==== Search recipes by tag
+This command allows you to search for recipes by tags, returning a list of recipes.
+
+Note: Adding more tags will not narrow the search results, but will expand the search results to return any
+recipe that contains any of the given tags.
+
+- Format: `cookbook search tag t/TAG…`
+- Examples:
+|===
+| Command | Result
+|`cookbook search tag t/Easy`
+|Searches the cookbook for recipes wisth tags matching 'Easy'.
+|`cookbook search tag t/Pasta t/Cream t/Easy`
+|Searches the cookbook for recipes with tags matching 'Pasta', or 'Cream', or 'Easy'.
+|===
+==== Search recipes by ingredients owned
+This command allows you to see search for recipes you can cook with your current inventory of ingredients.
+
+- Format: `cookbook search inventory`
+- Example:
+|===
+| Command | Result
+
+|`cookbook search inventory`
+|Searches the cookbook for recipes which ingredients are available in the inventory.
+
+|===
+==== List all recipes in the cookbook
+This commands allows you to view the whole collection of recipes in the cookbook. Additionally, it can be used after
+using the search commands to view all the recipes.
+
+- Format: `cookbook list`
+- Example:
+|===
+| Command | Result
+
+|`cookbook list`
+|Lists all recipes in the cookbook
+|===
+//end::shanecsj[]
+
+//tag::gohkh[]
+[[Recipe]]
+=== Recipe Commands https://github.com/gohkh[(by Goh Ka Hui)]
+Recipe commands are commands that change an existing recipe in the cookbook, which can be indicated using the index of
+the recipe. You can use these commands to to add and remove ingredients or steps from a recipe in the cookbook. You may
+also tag your recipes to make it easier for you to find them.
+
+==== Add an ingredient to a recipe
+This command allows you to add ingredients to an existing recipe in the cookbook.
+
+You can increase the quantity of an ingredient that is already in the recipe, as long as you provide a quantity with
+the same unit. Otherwise, Cooking Papa will not add the ingredient.
+
+Ingredient quantities are case-sensitive, but ingredient names are not, when you adding to an existing ingredient in a
+recipe. If you indicate multiple ingredient names or quantities, Cooking Papa will only add an ingredient with the last
+name and quantity indicated in your command.
+
+- Format: `recipe INDEX add ingredient i/INGREDIENT q/QUANTITY`
+- Examples:
+|===
+| Command | Result
+
+|`recipe 1 add ingredient i/Garlic q/3 cloves`
+|Adds 3 cloves of garlic to the first recipe's list of ingredients. +
+Sample command feedback: +
+`New ingredient added for Aglio olio: 2 cloves Garlic`
+
+|`recipe 2 add ingredient i/Eggs q/2`
+|Adds 2 eggs to the second recipe's list of ingredients. +
+Sample command feedback: +
+`New ingredient added for Carbonara: 2 Eggs`
+|===
+
+==== Remove an ingredient from a recipe
+This command allows you to remove ingredients from an existing recipe in the cookbook.
+
+If you wish to remove an ingredient from the recipe entirely, do not indicate any quantity.
+Cooking Papa will then remove all of the specified ingredient from the recipe.
+
+If you want to reduce the quantity of an ingredient that is already in the recipe, provide a quantity with the same unit
+as in the recipe. The value must be less than that of the corresponding ingredient in the recipe. Otherwise, Cooking Papa
+will not remove the ingredient.
+
+- Format: `recipe INDEX remove ingredient i/INGREDIENT [q/QUANTITY]`
+- Examples:
+|===
+| Command | Result
+
+| `recipe 1 remove ingredient i/Eggs`
+|Removes all eggs from the list of ingredients in recipe 1. +
+Sample command feedback: +
+`All Eggs removed from recipe 1`
+|`recipe 2 remove ingredient i/Milk q/200 ml`
+|Removes 200 ml of milk from the list of ingredients in recipe 2, provided that the original quantity of milk in the recipe is greater than 200 ml. +
+Sample command feedback: +
+`200 ml milk removed from recipe 2`
+|===
+
+==== Add a preparation step to a recipe
+
+This command allows you to add a step to an existing recipe in the cookbook.
+
+For this command, you have to specify the index of the step that you wish to add,
+which must be positive, and at most 1 more than the current number of steps currently in your chosen recipe.
+For example, if there are currently 5 steps in the recipe you are trying to add to,
+you can only choose an index from 1 to 6.
+
+This command pushes back the original step at your specified step index and any subsequent steps, if any.
+
+You can use `next` as a substitute for the largest possible step index, to add a step to the end of the selected recipe's list of steps.
+
+- Format: `recipe INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION`
+- Example:
+|===
+| Command | Result
+
+| `recipe 1 add step x/1 s/Bring the water to boil.`
+|Adds "Bring water to boil." to recipe 1 as the first step. +
+Sample command feedback: +
+`New step added for Aglio olio: Bring the water to boil.`
+
+| `recipe 1 add step x/next s/Serve the pasta topped with the remaining cheese.`
+|Adds "Serve the pasta topped with the remaining cheese." to recipe 1 as the last step. +
+Sample command feedback: +
+`New step added for Aglio olio: Serve the pasta topped with the remaining cheese.`
+|===
+
+==== Remove a preparation step from a recipe
+
+This command allows you to remove a step to an existing recipe in the cookbook.
+
+Similar to the previous command, you have to specify the index of the step that you wish to add,
+which must be positive, and at most 1 more than the current number of steps currently in your chosen recipe.
+
+In this case, you cannot use `next` as a substitute for the largest step index.
+
+- Format: `recipe INDEX remove step x/STEP_INDEX`
+- Example:
+|===
+| Command | Result
+
+|`recipe 1 remove step x/1`
+|Removes step 1 in recipe 1. +
+Sample command feedback: +
+`Step deleted for Aglio olio: Bring water to boil.`
+|===
+
+==== Add a tag to a recipe
+
+This command allows you to add a tag to an existing recipe in the cookbook.
+Only one tag is accepted at a time. If you provide multiple steps, Cooking Papa
+will only add the last tag in your command.
+
+- Format: `recipe INDEX add tag t/TAG`
+- Example:
+|===
+| Command | Result
+
+|`recipe 1 add tag t/Pasta`
+|Adds a tag "Pasta" to the recipe 1.
+|===
+
+==== Remove a tag from a recipe
+
+This command allows you to remove a tag from an existing recipe in the cookbook.
+Only one tag is accepted at a time. If you provide multiple steps, Cooking Papa
+will only remove the last tag in your command.
+
+- Format: `recipe INDEX remove tag t/TAG`
+- Example:
+|===
+| Command | Result
+
+|`recipe 1 remove tag t/Spicy`
+|Removes the tag "Spicy" from the recipe 1.
+|===
+
+---
+
+*Example Scenario*
+
+With all these recipe commands, you are equipped to modify any recipe in the cookbook to your liking!
+Below outlines a scenario where you might find these commands useful.
+Imagine that you have just added a new recipe for instant ramen via the `cookbook add recipe` command, which now has the
+index 3.
+
+.Cooking Papa with the recipe for instant ramen at index 3.
+image::RecipeCommand0.png[width=750]
+
+You have provided the name and description for the recipe, but have yet to add ingredients and steps to the recipe.
+Here are the steps you can follow to modify the recipe:
+
+Step 1: To add an ingredient to the instant ramen recipe, type `recipe 3 add ingredient i/Instant ramen q/1 packet` into the command box and press kbd:[Enter] on the keyboard.
+Cooking Papa indicates that cucumber has been added to the recipe.
+
+image::RecipeCommand1.png[width=350]
+
+image::RecipeCommand2.png[width=350]
+
+Step 2: Repeat step 1 for all the ingredients you need for the instant ramen.
+
+Step 3: To add the first step the instant ramen recipe, type `recipe 3 add step x/next s/Add the oil, garlic, and ginger to a small sauce pot and saute over medium for about one minute.` into the command box and press kbd:[Enter] on the keyboard.
+Cooking Papa indicates that the new step has been added to the recipe.
+
+image::RecipeCommand3.png[width=350]
+
+image::RecipeCommand4.png[width=350]
+
+Step 4: Repeat step 3 for all the steps, following chronological order.
+
+Step 5: After adding the ingredients and steps, you can also add tags to the recipe so that you can search for it easily in future.
+Type `recipe 3 add tag t/Easy t/Healthy` to add the tags "Easy" and "Healthy" to the recipe. Upon pressing kbd:[Enter],
+Cooking Papa indicates that the tags have been added.
+
+image::RecipeCommand5.png[width=350]
+
+image::RecipeCommand6.png[width=350]
+
+Step 6: The recipe is finally ready for use. Type `cookbook view recipe 3` into the command box to view the recipe and and press kbd:[Enter].
+Cooking Papa shows the full recipe for instant ramen, and you can now use it to prepare your meal.
+
+image::RecipeCommand7.png[width=350]
+
+Step 7: After trying the recipe, if you find that there was too much of ginger for your liking,
+type `recipe 3 remove ingredient i/Grated ginger q/1/2 tsp` into the command box and press kbd:[Enter] to remove half a teaspoon of grated ginger from the recipe.
+Cooking Papa indicates that half a teaspoon of grated ginger has been removed from the recipe.
+
+image::RecipeCommand8.png[width=350]
+
+image::RecipeCommand9.png[width=350]
+//end::gohkh[]
+
+//tag::hansheng[]
+[[Inventory]]
+=== Inventory Commands https://github.com/hans555[(by Ong Han Sheng)]
+Inventory commands are commands that update the user's very own inventory at home.
+These commands include adding, remove and viewing the current inventory database.
+
+==== Add an ingredient to the inventory
+This commands allows you to add ingredients to your inventory. Ingredient names added are case-insensitive.
+Ingredient names such as 'Bacon' and 'bacon' will be recognised by CookingPapa as 'Bacon'.
+
+- Format: `inventory add ingredient i/INGREDIENT q/QUANTITY`
+- Examples:
+|===
+| Command | Result
+
+|`inventory add ingredient i/Eggs q/10`
+|Adds 10 eggs into your inventory.
+
+|`inventory add ingredient i/Butter q/200g`
+|Adds 200g of butter into your inventory.
+|===
+
+==== Remove an ingredient from the inventory
+
+This command allows you to remove ingredients from the inventory.
+You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
+ingredient's quantity.
+Please ensure that the unit of the quantity matches the ingredient's unit in the inventory.
+
+Note: If you do not indicate any quantity, all entries in the inventory that have the specified ingredient name will be
+removed regardless of the unit.
+
+- Format: `inventory remove ingredient i/INGREDIENT [q/QUANTITY]`
+- Examples:
+|===
+| Command | Result
+
+|`inventory remove ingredient i/Bacon`
+|Removes all bacon from your inventory.
+
+|`inventory remove ingredient i/Butter q/200g`
+|Removes 200g of butter from your inventory.
+_(If your inventory had 500 g of butter, it will be subtracted and updated to 300 g of butter)_
+|===
+
+==== Remove all ingredients from the inventory.
+This command allows you to remove all ingredients from the inventory.
+
+- Format: `inventory clear`
+- Example:
+|===
+| Command | Result
+
+|`inventory clear`
+|Removes all ingredients from the inventory
+|===
+
+==== Cook a recipe using the ingredients in the inventory
+This command allows you to remove the selected's recipe ingredients from the inventory after
+cooking a delicious meal.
+
+- Format: `inventory cook recipe INDEX`
+- Example:
+|===
+| Parameters | Result
+
+|`inventory cook recipe 3`
+|Removes all ingredients required to cook recipe 3 from the inventory
+|===
+//end::hansheng[]
+
+[[Cart]]
+=== Cart Commands http://github.com/tzihiang[(by Tay Zi Hiang Willis)]
+Cart commands are commands that allow you to easily add ingredients needed for a recipe
+into a shopping cart. This provides convenience for your grocery shopping needs.
+
+==== Add ingredients in a recipe to the cart
+This command allows you to add all the ingredients in a recipe to the cart.
+
+- Format: `cart add recipe INDEX`
+- Example:
+|===
+| Command | Result
+
+|`cart add recipe 1`
+|Adds all the ingredients required of recipe 1 to the cart.
+|===
+
+==== Add ingredients to the cart
+This command allows you to add ingredients to the cart.
+
+- Format: `cart add ingredient i/INGREDIENT q/QUANTITY`
+- Example:
+|===
+| Command | Result
+
+|`cart add ingredient i/Eggs q/5`
+|Adds 5 eggs to the cart.
+|===
+
+
+==== Remove ingredients from the cart
+This command allows you to remove ingredients from the cart.
+You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
+ingredient's quantity.
+Please ensure that the unit of the quantity matches the ingredient's unit in the cart.
+
+Note: If you do not indicate any quantity, all entries in the cart that have the specified ingredient name will be removed
+regardless of the unit.
+
+- Format: `cart remove ingredient i/INGREDIENT [q/QUANTITY]`
+- Example:
+|===
+| Command | Result
+|`cart remove ingredient i/Eggs`
+|Removes all eggs from the cart
+|`cart remove ingredient i/Milk q/200ml`
+|Removes 200ml of milk from the cart.
+_(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml of milk)_
+|===
+
+==== Clear all the items in the cart
+This command allows you to clear all the items in the cart. It can be used to discard an unwanted cart,
+or to clear the cart after completing the purchase.
+
+- Format: `cart clear`
+- Example:
+|===
+| Command | Result
+
+|`cart clear`
+|Clears the cart of all items.
+|===
+
+
+==== Move all ingredients currently in the cart to inventory
+This command allows you to move all the ingredients from the cart into your inventory. This command also
+empties your cart. This is helpful after the user has finished shopping and wish to conveniently move all
+the ingredients to the inventory.
+
+- Format: `cart move`
+- Example:
+|===
+| Command | Result
+
+|`cart move`
+|Moves all ingredients from the cart into the inventory. Also clears the cart of all items.
+|===
+
+==== Export ingredients in cart to PDF file
+This command allows you to export all the ingredients in the cart to a PDF file. The PDF file will be located in the
+same folder as Cooking Papa.
+
+Note: if a previous version of the PDF file, `cart.pdf` is open in another program (Internet browser, Adobe PDF),
+Cooking Papa will not be able to export the cart.
+
+- Format: `cart export`
+|===
+| Command | Result
+| `cart export`
+a|image::CookbookExportExample1.png[width="790"]
+_The exported PDF file will be in the same folder where Cooking Papa is located._
+
+image::CookbookExportExample2.png[width="790"]
+_An example of the PDF file exported from the sample cart in Cooking Papa._
+|===
+
+//tag::help[]
+=== Help Command https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
+This command shows a popup window with a URL to Cooking Papa's user guide (what you are reading now). This is for access
+should you need some help executing a certain action in Cooking Papa.
+
+There are 2 ways a user can access the help window:
+
+- Type `help`.
+- Click on the `Help` button on the top left corner of Cooking Papa, and then click on the `Help` button in the
+dropdown menu. You can then click the `Copy URL` button which can then be pasted into a web browser to access Cooking
+Papa's user guide.
+
+.Cooking Papa 'Help' button to access the Help window
+image::CookbookHelpExample.png[width="80"]
+
+.Cooking Papa Help window and 'Copy URL' button
+image::CookbookHelpExample2.png[width="400"]
+//end::help[]
+
+//tag::exit[]
+=== Exit Command https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
+There are 3 ways a user can exit Cooking Papa:
+
+- Type `exit`.
+- Click on the `x` button on the top right corner of the Cooking Papa.
+- Click on the `File` button on the top left corner of Cooking Papa, and then click on the `Exit` button in the dropdown menu.
+
+.Cooking Papa 'X' button to exit the application.
+image::ExitExample.png[width="600"]
+//end::exit[]
+
+== Version 2.0 Features
+These features are not implemented yet, but we plan to do so moving forward with the application.
+
+// tag::gohkh[]
+=== Edit Recipe Commands [v2.0] https://github.com/gohkh?tab=repositories[(by Goh Ka Hui)]
+The following commands allow you to edit the details of the recipes that are currently in the cookbook.
+
+==== Edit an ingredient in a recipe
+This command allows you to edit an ingredient in an existing recipe in the cookbook.
+It replaces the original quantity of the ingredient with the new quantity that you specify in the command.
+
+- Format: `recipe INDEX edit i/INGREDIENT q/QUANTITY`
+- Examples:
+|===
+| Command | Result
+
+| `recipe 1 edit i/Eggs q/2`
+|Changes the quantity of eggs to 2 in the first recipe's list of ingredients.
+
+|`recipe 2 edit i/Milk q/100 ml`
+|Changes the quantity of milk to 100 ml in the second recipe's list of ingredients.
+|===
+
+==== Edit a preparation step in a recipe
+This command allows you to edit a step in an existing recipe in the cookbook.
+
+- Format: `recipe INDEX edit step x/STEP_INDEX s/STEP_DESCRIPTION`
+- Example:
+|===
+| Command | Result
+
+|`recipe 1 edit step x/2 s/Fry the eggs`
+|Changes preparation step 2 to 'Fry the eggs' in recipe 1
+|===
+// end::gohkh[]
+
+//tag::calendar[]
+=== Calendar commands [v2.0] https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
+Calendar commands are commands that allow you to set date-related commands, such as reminders and
+recipe of the day
+
+==== Add a recipe to cook on a certain day
+Reminds the user to cook a certain recipe on a certain day.
+
+- Format: ``calendar set DD-MM-YYYY cook recipe INDEX``
+- Example:
+|===
+| Command | Result
+
+| `calendar set 10-10-2020 cook recipe 1`
+|Adds recipe 1 to your calendar for cooking on 10th October 2020.
+|===
+
+==== View recipes to cook on a certain day
+User can view the recipes they were supposed to cook on a certain day. The date input can
+be replaced with 'today' for the current date, or 'tomorrow' for the next day.
+
+- Format: ``calendar view recipes DD-MM-YYYY``
+- Example:
+|===
+| Command | Result
+
+| `calendar view recipes 10-10-2020`
+|Shows the recipes scheduled for cooking on 10th October 2020.
+| `calendar view recipes today`
+|Shows the recipes scheduled for cooking on the current day.
+| `calendar view recipes tomorrow`
+| Shows the recipes scheduled for cooking on the day after the current day.
+|===
+//end::calendar[]
+
+//tag::hansheng[]
+=== Recipe of the day generator [v2.0] https://github.com/hans555[(by Ong Han Sheng)]
+This command allows CookingPapa to recommend a recipe to cook based on the recipes currently in the cookbook.
+
+- Format: ``generate recipe of the day``
+- Example:
+|===
+| Command | Result
+
+| `generate recipe of the day`
+|Displays the recipe of the day
+|===
+//end::hansheng[]
+
+//tag::faq[]
+== Frequently Asked Questions https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CookingPapa folder.
 
-== Command Summary
+*Q*: Where can I install the latest version of CookingPapa? +
+*A*: You can find the latest release https://github.com/AY1920S2-CS2103T-F11-4/main/releases[here]. Please download
+the latest version of CookingPapa.jar to enjoy the most udpated features.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+*Q*: Do I need to be connected to the internet to access this application? +
+*A*: All information is stored locally in your own computer. No internet connection is required.
+
+*Q*: Something is not working as expected. Who can I contact? +
+*A*: You may report your bugs here https://github.com/AY1920S2-CS2103T-F11-4/main/issues[here]. Bug reports are highly
+appreciated!
+
+*Q*: Is this application free? +
+*A*: Yes! This application is open-source under the MIT license. You may feel free to modify, contribute and share
+this application with the community!
+//end::faq[]
+
+== Command Summary https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
+
+[cols="2,3,5a", options="header"]
+|===
+| Category | Addtional Parameters | Result
+.8+|``cookbook``
+|``view recipe INDEX``
+|Shows recipe at given INDEX.
+|``add recipe n/NAME d/DESCRIPTION``
+|Adds a new empty recipe with the given NAME and DESCRIPTION.
+|``add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [s/STEP_DESCRIPTION] [t/TAG]``
+|Adds a new recipe with the given NAME and DESCRIPTION.
+INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be added according to input from user.
+|``remove recipe INDEX``
+|Removes recipe at given INDEX.
+|``search recipe k/KEYWORD``
+|Searches for recipes by a keyword.
+|``search recipe t/TAG``
+|Searches for recipes by tags.
+|``search inventory``
+|Searches for recipes whose ingredients are available in the inventory.
+|``list``
+|Views the whole collection of recipes in the cookbook.
+
+
+.6+|``recipe``
+|``INDEX add ingredient i/INGREDIENT q/QUANTITY``
+|Adds ingredients to a recipe at given INDEX.
+|``INDEX remove ingredient i/INGREDIENT q/QUANTITY``
+|Removes the ingredient and the specified quantity from recipe at given INDEX.
+|``INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION``
+|Adds a step at STEP_INDEX with STEP_DESCRIPTION to the recipe at given INDEX.
+|``INDEX remove step x/STEP_INDEX``
+|Removes a step at STEP_INDEX from the recipe at given INDEX.
+|``INDEX add tag t/TAG``
+|Adds a tag 'TAG' to the recipe at given INDEX.
+|``INDEX remove tag t/TAG``
+|Removes a tag 'TAG' to the recipe at given INDEX.
+
+.4+|``inventory``
+|``add ingredient  i/INGREDIENT q/QUANTITY``
+|Adds QUANTITY of INGREDIENTS into your inventory.
+|``remove ingredient i/INGREDIENT q/QUANTITY``
+|Removes QUANTITY of INGREDIENTS from your inventory.
+|``clear``
+|Removes all ingredients from the inventory.
+|``cook recipe INDEX``
+|Removes the ingredients and its' corresponding quantities of recipe INDEX from the inventory.
+
+.6+|``cart``
+|``add recipe INDEX``
+|Adds all ingredients required of recipe at given INDEX to the cart.
+|``add ingredient i/INGREDIENT q/QUANTITY``
+|Adds QUANTITY of INGREDIENTS into your cart.
+|``remove ingredient i/INGREDIENT q/QUANTITY``
+|Removes QUANTITY of INGREDIENTS from your cart.
+|``clear``
+|Clears the cart of all ingredients.
+|``move``
+|Moves all the ingredients from the cart to the inventory, clearing the cart in the process.
+|``export``
+|Exports current cart into a PDF.
+|===

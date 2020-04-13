@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.commons.core.index.Index;
+
+
 /**
  * Represents the result of a command execution.
  */
@@ -18,12 +21,31 @@ public class CommandResult {
     private final boolean exit;
 
     /**
+     * The application should expand the view for a recipe.
+     */
+    private final boolean view;
+
+    /**
+     * The index of the recipe to view;
+     */
+    private final Index recipeIndex;
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.view = false;
+        this.recipeIndex = null;
+    }
+
+    public CommandResult(String feedbackToUser, boolean view, Index recipeIndex) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.view = view;
+        this.recipeIndex = recipeIndex;
     }
 
     /**
@@ -44,6 +66,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isViewRecipe() {
+        return view;
+    }
+
+    public Index getRecipeIndex() {
+        return recipeIndex;
     }
 
     @Override

@@ -1,0 +1,68 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":ResultDisplay" as ResultDisplay UI_COLOR
+participant ":CookbookPanel" as CookbookPanel UI_COLOR
+participant ":RecipeCard" as RecipeCard UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+[-> MainWindow : executeCommand("cart view recipe 1")
+activate MainWindow
+
+MainWindow -> Logic : execute("cart view recipe 1")
+activate Logic
+
+Logic --> MainWindow : commandResult
+deactivate Logic
+
+MainWindow -> ResultDisplay :  resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser())
+activate ResultDisplay
+
+ResultDisplay --> MainWindow
+deactivate ResultDisplay
+
+MainWindow -> Logic : getFilteredCookbookRecipeList()
+activate Logic
+
+Logic --> MainWindow : recipes
+deactivate Logic
+
+create CookbookPanel
+MainWindow -> CookbookPanel : new CookbookPanel(recipes)
+activate CookbookPanel
+
+CookbookPanel --> MainWindow
+deactivate CookbookPanel
+
+MainWindow -> CookbookPanel : handleViewRecipe(1)
+activate CookbookPanel
+
+create RecipeCard
+
+loop until all recipes in are processed
+
+    alt index == 1
+    CookbookPanel -> RecipeCard : new RecipeCard(recipe, 1, true)
+    activate RecipeCard
+
+    RecipeCard --> CookbookPanel
+    deactivate RecipeCard
+
+    else index != 1
+    CookbookPanel -> RecipeCard : new RecipeCard(recipe, index)
+    activate RecipeCard
+
+    RecipeCard --> CookbookPanel
+    deactivate RecipeCard
+    end
+end
+
+CookbookPanel --> MainWindow
+
+@enduml

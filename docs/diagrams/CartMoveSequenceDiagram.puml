@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CookingPapaParser" as CookingPapaParser LOGIC_COLOR
+participant ":CartCommandParser" as CartCommandParser LOGIC_COLOR
+participant ":CartMoveCommandParser" as CartMoveCommandParser LOGIC_COLOR
+participant "r:CartMoveCommand" as CartMoveCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("cart move")
+activate LogicManager
+
+LogicManager -> CookingPapaParser : execute("cart move")
+activate CookingPapaParser
+
+create CartCommandParser
+CookingPapaParser -> CartCommandParser
+activate CartCommandParser
+
+CartCommandParser --> CookingPapaParser
+deactivate CartCommandParser
+
+CookingPapaParser -> CartCommandParser : parse()
+activate CartCommandParser
+
+create CartMoveCommandParser
+CartCommandParser -> CartMoveCommandParser
+activate CartMoveCommandParser
+
+CartMoveCommandParser --> CartCommandParser
+deactivate CartMoveCommandParser
+
+CartCommandParser -> CartMoveCommandParser : parse()
+activate CartMoveCommandParser
+
+create CartMoveCommand
+CartMoveCommandParser -> CartMoveCommand
+activate CartMoveCommand
+
+CartMoveCommand --> CartMoveCommandParser : command
+deactivate CartMoveCommand
+
+CartMoveCommandParser --> CartCommandParser : command
+destroy CartMoveCommandParser
+
+CartCommandParser --> CookingPapaParser : command
+destroy CartCommandParser
+
+CookingPapaParser --> LogicManager : command
+deactivate CookingPapaParser
+
+LogicManager -> CartMoveCommand : execute()
+activate CartMoveCommand
+
+CartMoveCommand -> Model : execute()
+activate Model
+
+Model --> CartMoveCommand
+deactivate Model
+
+create CommandResult
+CartMoveCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CartMoveCommand
+deactivate CommandResult
+
+CartMoveCommand --> LogicManager : result
+destroy CartMoveCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

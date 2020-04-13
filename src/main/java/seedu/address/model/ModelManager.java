@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,38 +12,50 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
+import seedu.address.model.recipe.Recipe;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of CookingPapa's data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final Cookbook cookbook;
+    private final Inventory inventory;
+    private final Cart cart;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Recipe> filteredCookbookRecipes;
+    private final FilteredList<Ingredient> filteredInventoryIngredients;
+    private final FilteredList<Ingredient> filteredCartIngredients;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given cookbook, inventory, cart, and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyCookbook cookbook, ReadOnlyInventory inventory,
+            ReadOnlyCart cart, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(cookbook, inventory, cart, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with cookbook: " + cookbook + ", inventory: " + inventory + ", cart: " + cart
+                + ", and user prefs: " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.cookbook = new Cookbook(cookbook);
+        this.inventory = new Inventory(inventory);
+        this.cart = new Cart(cart);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredCookbookRecipes = new FilteredList<>(this.cookbook.getRecipeList());
+        filteredInventoryIngredients = new FilteredList<>(this.inventory.getIngredientList());
+        filteredCartIngredients = new FilteredList<>(this.cart.getIngredientList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Cookbook(), new Inventory(), new Cart(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
 
+    // User prefs methods
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
@@ -65,68 +78,200 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    // File path methods
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getCookbookFilePath() {
+        return userPrefs.getCookbookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setCookbookFilePath(Path cookbookFilePath) {
+        requireNonNull(cookbookFilePath);
+        userPrefs.setCookbookFilePath(cookbookFilePath);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public Path getInventoryFilePath() {
+        return userPrefs.getInventoryFilePath();
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public void setInventoryFilePath(Path inventoryFilePath) {
+        requireNonNull(inventoryFilePath);
+        userPrefs.setInventoryFilePath(inventoryFilePath);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public Path getCartFilePath() {
+        return userPrefs.getCartFilePath();
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void setCartFilePath(Path cartFilePath) {
+        requireNonNull(cartFilePath);
+        userPrefs.setCartFilePath(cartFilePath);
+    }
+
+    // Cookbook methods
+    @Override
+    public void setCookbook(ReadOnlyCookbook cookbook) {
+        this.cookbook.resetData(cookbook);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+    public ReadOnlyCookbook getCookbook() {
+        return cookbook;
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public boolean hasCookbookRecipe(Recipe recipe) {
+        requireNonNull(recipe);
+        return cookbook.hasRecipe(recipe);
+    }
+
+    @Override
+    public void removeCookbookRecipe(Recipe target) {
+        cookbook.removeRecipe(target);
+    }
+
+    @Override
+    public void addCookbookRecipe(Recipe recipe) {
+        cookbook.addRecipe(recipe);
+        updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+    }
+
+    @Override
+    public void setCookbookRecipe(Recipe target, Recipe editedRecipe) {
+        requireAllNonNull(target, editedRecipe);
+        cookbook.setRecipe(target, editedRecipe);
+    }
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Recipe} backed by the internal list of
+     * {@code versionedCookbook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Recipe> getFilteredCookbookRecipeList() {
+        return filteredCookbookRecipes;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredCookbookRecipeList(Predicate<Recipe> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredCookbookRecipes.setPredicate(predicate);
+    }
+
+    // Inventory methods
+    @Override
+    public void setInventory(ReadOnlyInventory inventory) {
+        this.inventory.resetData(inventory);
+    }
+
+    @Override
+    public ReadOnlyInventory getInventory() {
+        return inventory;
+    }
+
+    @Override
+    public boolean hasInventoryIngredient(Ingredient ingredient) {
+        requireNonNull(ingredient);
+        return inventory.hasIngredient(ingredient);
+    }
+
+    @Override
+    public void removeInventoryIngredient(Ingredient target) {
+        inventory.removeIngredient(target);
+    }
+
+    @Override
+    public void removeInventoryIngredient(IngredientName target) {
+        inventory.removeIngredient(target);
+    }
+
+    @Override
+    public void addInventoryIngredient(Ingredient ingredient) {
+        inventory.addIngredient(ingredient);
+        updateFilteredInventoryIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
+    }
+
+    @Override
+    public void setInventoryIngredient(Ingredient target, Ingredient editedIngredient) {
+        requireAllNonNull(target, editedIngredient);
+        inventory.setIngredient(target, editedIngredient);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Ingredient} backed by the internal list of
+     * {@code versionedInventory}
+     */
+    @Override
+    public ObservableList<Ingredient> getFilteredInventoryIngredientList() {
+        return filteredInventoryIngredients;
+    }
+
+    @Override
+    public void updateFilteredInventoryIngredientList(Predicate<Ingredient> predicate) {
+        requireNonNull(predicate);
+        filteredInventoryIngredients.setPredicate(predicate);
+    }
+
+    // Cart methods
+    @Override
+    public void setCart(ReadOnlyCart cart) {
+        this.cart.resetData(cart);
+    }
+
+    @Override
+    public ReadOnlyCart getCart() {
+        return cart;
+    }
+
+    @Override
+    public boolean hasCartIngredient(Ingredient ingredient) {
+        requireNonNull(ingredient);
+        return cart.hasIngredient(ingredient);
+    }
+
+    @Override
+    public void removeCartIngredient(Ingredient target) {
+        cart.removeIngredient(target);
+    }
+
+    @Override
+    public void removeCartIngredient(IngredientName target) {
+        cart.removeIngredient(target);
+    }
+
+    @Override
+    public void addCartIngredient(Ingredient ingredient) {
+        cart.addIngredient(ingredient);
+        updateFilteredCartIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
+    }
+
+    @Override
+    public void setCartIngredient(Ingredient target, Ingredient editedIngredient) {
+        requireAllNonNull(target, editedIngredient);
+        cart.setIngredient(target, editedIngredient);
+    }
+
+    @Override
+    public void sortCookbook(Comparator<? super Recipe> comparator) {
+        this.cookbook.sort(comparator);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Ingredient} backed by the internal list of
+     * {@code versionedCart}
+     */
+    @Override
+    public ObservableList<Ingredient> getFilteredCartIngredientList() {
+        return filteredCartIngredients;
+    }
+
+    @Override
+    public void updateFilteredCartIngredientList(Predicate<Ingredient> predicate) {
+        requireNonNull(predicate);
+        filteredCartIngredients.setPredicate(predicate);
     }
 
     @Override
@@ -143,9 +288,12 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+        return cookbook.equals(other.cookbook)
+            && userPrefs.equals(other.userPrefs)
+            && inventory.equals(other.inventory)
+            && cart.equals(other.cart)
+            && filteredCartIngredients.equals(other.filteredCartIngredients)
+            && filteredCookbookRecipes.equals(other.filteredCookbookRecipes)
+            && filteredInventoryIngredients.equals(other.filteredInventoryIngredients);
     }
-
 }

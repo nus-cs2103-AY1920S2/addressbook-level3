@@ -1,9 +1,10 @@
-= AddressBook Level 3 - Developer Guide
+= Cooking Papa - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:experimental:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -12,9 +13,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-F11-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-F11-4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -25,14 +26,10 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Architecture diagram
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -46,8 +43,8 @@ The following class plays an important role at the architecture level:
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Ui,*`UI`*>>: Controls the user interface of the App.
+* <<Design-Logic,*`Logic`*>>: Executes the commands of the App.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
@@ -58,28 +55,32 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+.Class diagram of the Logic component
 image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `cookbook remove recipe 2`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `cookbook remove recipe 2` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI component https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 
+//tag::ui[]
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of several UI parts: `CommandBox`, `ResultDisplay`,
+`CookbookPanel`,
+`RecipeCard`, `InventoryPanel`, `CartPanel`, `IngredientCard`,
+`StatusBarFooter`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,34 +88,34 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+//end::ui[]
 
+// tag::gohkh[]
 [[Design-Logic]]
-=== Logic component
+=== Logic component https://github.com/gohkh[(by Goh Ka Hui)]
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Structure of the Logic component
 image::LogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `CookingPapaParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a recipe).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("cookbook remove recipe 2")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+.Interactions inside the Logic component for the `cookbook remove recipe 2` command
+image::CookbookRemoveRecipeSequenceDiagram.png[]
 
 [[Design-Model]]
-=== Model component
+=== Model component https://github.com/gohkh[(by Goh Ka Hui)]
 
-.Structure of the Model Component
+.Structure of the Model component
 image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -122,19 +123,21 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Cookbook data.
+* exposes an unmodifiable `ObservableList<Recipe>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Inventory and Cart data.
+* exposes an unmodifiable `ObservableList<Recipe>` each for both Inventory and Cart, that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Cookbook`, which `Recipe` can reference. This would allow `Cookbook` to only require one `Tag` object per unique `Tag`, instead of each `Recipe` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
-=== Storage component
+=== Storage component https://github.com/gohkh[(by Goh Ka Hui)]
 
-.Structure of the Storage Component
+.Structure of the Storage component
 image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
@@ -142,7 +145,10 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `Cookbook` data in json format and read it back.
+* can save `Inventory` data in json format and read it back.
+* can save `Cart` data in json format and read it back.
+// end::gohkh[]
 
 [[Design-Commons]]
 === Common classes
@@ -153,109 +159,772 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Add recipe to the cookbook https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The recipe addition mechanism is facilitated by `CookbookAddCommand`, which extends the `Command` abstract class. The
+format of the command is as follows: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [t/TAG]...`.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, steps, tags) -
+only the recipe name and recipe description are mandatory fields. This way, a user does not have input all the fields
+that they may not have at the moment to create a recipe. After creating the skeleton of the recipe, the user can then
+use the other `Cookbook` commands to add ingredients and steps to the recipe. However, one key point is that should
+ingredient names be provided, the same number of ingredient quantities have to be provided as well.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+// tag::addrecipe[]
+Below is a step by step sequence of what happens when a user enters this command:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+. The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION
+[i/INGREDIENT]... [q/QUANTITY]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
+. `CookingPapaParser` parses the user input and checks if it is valid. If it is invalid, i.e. an unknown command
+category, a `ParseException` will be thrown. If the input is valid, with the command category `cookbook`, a new
+`CookbookCommandParser` is created.
+. `CookbookCommandParser` then parses `add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]...
+[s/STEP_DESCRIPTION]... [t/TAG]...`. If it is invalid, i.e. an unknown command word, a `ParseException` will be
+thrown. If the input is valid, with the command word `add`, a new `CookbookAddCommandParser` is created.
+.  `CookbookAddCommandParser` parses `recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]...
+[s/STEP_DESCRIPTION]... [t/TAG]...` and checks if `n/NAME` and `d/DESCRIPTION` are provided. If either are not
+provided, then a `ParseException` will be thrown.
++
+It then
+parses the input into the following fields: recipe name, recipe description, ingredients, steps, and tags.
++
+Note that
+the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown:
++
+[source,java]
+----
+if (names.size() != quantities.size()) {
+    throw new ParseException(
+        String.format(MESSAGE_DIFFERENT_NUMBER_OF_INPUTS, names.size(), quantities.size()));
+}
+----
+{blank}
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+. These fields are then passed as parameters for `Recipe`, which is then passed as the parameter for
+`CookbookAddCommand` and returned to `LogicManager`.
+. `LogicManager` calls `CookbookAddCommand#execute()` which checks if the cookbook already contains the same recipe with the same name, description, ingredient names, ingredient quantities, and tags using `Model#hasCookbookRecipe()`.
++
+If there is a duplicate, a `CommandException` is thrown, stating that the user is attempting to add a duplicate recipe:
++
+[source,java]
+----
+if (model.hasCookbookRecipe(toAdd)) {
+    throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
+}
+----
+. If `CommandException` is not thrown, `Model#addCookbookRecipe` will be executed, with the recipe to be added as a parameter.
+. `Model#addCookbookRecipe()` then executes `Cookbook#addRecipe()`, which adds the recipe to the cookbook, and the
+`FilteredList<Recipe>` representing the recipes in the cookbook are updated with `Model#updateFilteredCookbookRecipeList()`:
++
+[source,java]
+----
+updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES)
+----
+where `PREDICATE_SHOW_ALL_RECIPES = unused -> true`.
+. A `CommandResult` with the text to display to the user is then returned to `LogicManager`, which can passed back to
+`MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
+their addition was successful.
+// end::addrecipe[]
 
-image::UndoRedoState0.png[]
+The following `Recipe` object diagram is an overview of the attributes of a `Recipe` object:
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+.UML object diagram of Recipe providing an overview on how the various objects interact
+image::RecipeObjectDiagram.png[]
 
-image::UndoRedoState1.png[]
+// tag::addrecipesequence[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+The following sequence diagram shows how the recipe adding function works (full command [`cookbook add recipe
+                                                                                          n/Recipe name d/Recipe
+                                                                                          description i/Ingredient 1
+                                                                                          q/1 piece i/Ingredient 2
+                                                                                          q/20 ml s/Do step 1 s/Do
+                                                                                          step 2 t/This t/Is t/A
+                                                                                          t/Tag`]  omitted from diagram
+for brevity):
 
-image::UndoRedoState2.png[]
+.Sequence diagram for CookbookAddCommand
+image::CookbookAddRecipeSequenceDiagram.png[]
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+The following activity diagram shows a possible flow of events for a user using this feature:
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+.Activity diagram for CookbookAddCommand
+image::CookbookAddActivityDiagram.png[]
 
-image::UndoRedoState3.png[]
+// end::addrecipesequence[]
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+==== Design considerations
 
-The following sequence diagram shows how the undo operation works:
+// tag::addrecipedesign[]
+===== Aspect 1: How to parse optional parameters
+.Design considerations for parsing optional parameters
+[cols="16%,42%,42%"]
+|===
+||Design A (current choice): Parse each category separately  | Design B: Parse all the categories together
+|Description
+|Each category (ingredient name, ingredient quantity, step description, tag) are parsed separately and returned as
+`List`. If the returned `List` is empty, then it means that that field was not provided in the input, and will be set
+to an empty `List` in the recipe e.g., no ingredients were provided in the command.
+|Each category will be parsed together in one function in `CookbookAddCommandParser`
+|Pros
+a|
+- Provides more flexibility for the user and does not make it mandatory to input fields that they may not necessarily
+have.
+- No need to deal with null values, can simply check if list is empty.
+a|
+- Straightforward
+- No need to create and call multiple methods from other classes
+|Cons
+a|
+- More methods have to be executed which may increase time and NPath complexity.
+- Debugging and tracing becomes more confusing due to the method being defined in the lowest level of abstraction.
+a|
+- Have to deal with null values and include null checks (`ifPresent()` etc.)
+- Method will be very long and decreases readability
+|===
 
-image::UndoSequenceDiagram.png[]
+Design A was chosen because it was more user-friendly, and removed the restriction of having to include ingredients,
+steps, and tags at the stage of recipe creation, some of which the user may not have at the moment, i.e.
+experimenting with different ingredients. Additionally, design A allowed us to be more modular while coding.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+.Design considerations for results to show users
+===== Aspect 2: Result to show user
+[cols="16%,42%,42%"]
+|===
+||Design A (current choice): Show a short result on the success of the command | Design B: Show all the details back to
+the user
+|Description|Show a message to a usage which notifies them that the command was successful in adding the recipe to
+the cookbook. | Shows a message similar to design choice A, and also show all the details of the added recipe.
+|Pros
+a|
+- Short and succinct message, tells the user what they need to know
+- User interface is cleaner and more intuitive, and does not overload users with unnecessary information
+a|
+- Easier to implement
+|Cons
+a|
+- Requires the graphical user interface to be able to toggle and show recipes, without the need for a command,
+implemented here:
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+image::CookbookAddRecipe3.png[]
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+a|
+- Overloads the user with unnecessary information
+- Requires result display to take up more space than required, to reduce the need for users to scroll down the result
+display.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+|===
 
-image::UndoRedoState4.png[]
+Design A was chosen because it did not reuse the same component for multiple uses. Additionally, it allows us to
+reduce the size of result display, as most of the time, it displays only a short message displaying the success of a
+command.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+//end::addrecipedesign[]
 
-image::UndoRedoState5.png[]
+=== View recipe in the cookbook https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
+The user may use this command to view a recipe in the cookbook. This command is integrated into the Graphical User
+Interface
+(GUI) through a button.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+==== Implementation
+The recipe viewing mechanism (via the command line input) is facilitated by `CookbookViewCommand`, which extends the
+`Command` abstract class. The format is as follows: `cookbook view recipe INDEX`, which index has to be a valid
+integer that is not out of bounds.
 
-image::CommitActivityDiagram.png[]
+The recipe viewing mechanism (via the GUI) is facilitated by `RecipeCard`, which extends the `UiPart` abstract class.
+It is triggered upon clicking the "view" icon in the recipe panel:
+
+image::CookbookAddRecipe3.png[width="500"]
+
+Implementing this function, `cookbook view recipe` through a button in the GUI allows user to view the details of a
+recipe with a click of a button, greatly increasing convenience and user experience. The button also had to be
+"activated" without the
+button,
+as
+the command still had
+to be testable through the command line.
+
+//tag::viewrecipe[]
+Below is a step by step sequence of what happens when a user enters this command:
+
+. The user enters a view recipe command using the command line input `cookbook view recipe INDEX`.
+. `CookingPapaParser` parses the user input and checks if it is valid. If it is invalid, i.e. an unknown command
+category, a `ParseException` will be thrown. If the input is valid, with the command category `cookbook`, a new
+`CookbookCommandParser` is created.
+. `CookbookCommandParser` then parses `view recipe INDEX`. If it is invalid, i.e. an unknown command word, a
+                                       `ParseException` will be
+thrown. If the input is valid, with the command category `view`, a new `CookbookViewCommandParser` is created.
+. `CookbookViewCommandParser` then parses `recipe INDEX` and checks if the `String` contains "recipe", and an index.
+If either are absent, a `ParseException` will be thrown. If the `String` is valid, a `CookbookView` is created.
+. `CookbookViewCommandParser` then returns a `CookbookViewCommand` to `LogicManager`.
+. `LogicManager` calls `CookbookViewCommand#execute()` which checks if the provided `Index` is within the bounds of
+the `FilteredCookbookRecipeList()` in `Cookbook`, i.e. `index.getZeroBased() >= list.size()`. If it is not, a
+`CommandException` will be thrown. If it is valid, a `CommandResult` is created with a boolean value `true`.
+. A `CommandResult` with the text to display to the user will be returned to `LogicManager`. The `CommandResult` is
+then passed back to `MainWindow`. The boolean value stated in step 6 determines whether a successfully parsed command
+is a `cookbook view recipe INDEX` command.
+. `MainWindow#handleViewRecipe` is then executed, which creates a new `CookbookPanel` with the same set of data,
+calling `CookbookPanel#handleViewRecipe`, which creates new `RecipeCard` s for `Cookbook`, and for the `RecipeCard`
+that has an index equal to the index processed from the user's input, it will create a `RecipeCard` that toggles open
+the recipe details. More on how the `RecipeCard` manages this will be discussed in the following section on how
+clicking on a button in the GUI has the same effect as the `cookbook view recipe INDEX` command.
+. Lastly, the user then is shown a `CookbookPanel` with the selected recipe toggled open, which displays the full
+details
+of that recipe:
++
+image::CookbookViewExample2.png[]
+
+Below is a step by step sequence of what happens when a user clicks the button on the GUI:
+
+. When the button is pressed, the onAction method, `RecipeCard#handleViewButtonAction()` is executed. A `RecipeCard`
+has a variable `isFullyDisplayed`, which indicates whether it is displaying an overview of the recipe, or
+fully displaying details of the recipe.
+. If `isFullyDisplayed` is false, i.e. the `RecipeCard` is currently displaying an overview of the recipe,
+`RecipeCard#displayRecipeComplete()` is executed, which replaces the text displayed by the FXML object, `Label`, with
+the full details of the recipe.
+. If `isFullyDisplayed` is true, i.e. the `RecipeCard` is currently fully displaying the details of the recipe,
+`RecipeCard#displayRecipeOverview()` is executed, which replaces the text displayed by the FXML object, `Label` with
+the overview of the recipe.
+. Both methods executed in step 3 and 4 will flip the boolean value of `isFullyDisplayed`, and this means that the
+next time the button for the same recipe is clicked, it toggles back. For example, if a recipe with its overview
+shown has its view button clicked, it will show the full details of the recipe. If the button is clicked again, it
+toggles, and shows the overview of the recipe.
++
+This feature is not reflected with `cookbook view recipe INDEX` when it is entered again in the command line, because
+the function of the command is to view a recipe, not to "un-view" it.
+//end::viewrecipe[]
+
+//tag::viewrecipesequence[]
+The following sequence diagram shows how the recipe viewing function interacts between the classes in `Logic`:
+
+image::CookbookViewSequenceDiagram.png[]
+
+The following sequence diagram shows how the recipe viewing function interacts between the classes in `Ui`:
+
+image::CookbookViewSequenceDiagram2.png[]
+//end::viewrecipesequence[]
+
+==== Design considerations
+Aspect: what UI component to display the toggled content
+
+.Design considerations for the UI component to display the toggled content
+
+[cols="16%,42%,42%"]
+|===
+||Design A (current choice): toggles the content in the recipe panel|Design B: add a new UI component that pops up, i
+.e. overlay
+|Description|The content in the recipe panel can freely switch from overview to full details of a recipe.|A UI
+component appears as a small overlay, displaying the details of a recipe. The overlay can then be "exited" by clicking
+on
+an area within the application that is outside of the overlay.
+|Pros
+a|
+- Intuitive that clicking the button once more should return to the previous state
+- Increases functionality of the GUI, rather than just a "skin"
+| No need to interact between various UI components, as much as design A
+|Cons|There is a need to keep track of the state of a `RecipeCard`, which means more constructors and conditional
+statements to implement.
+|Difficult to implement as it includes creating an entirely new component (overlay) with different features than the
+existing one. The effort estimated did not seem to be worth, as the use is limited to just this command.
+|===
+
+Design A was chosen because it made the GUI more functional, and less complicated to implement in terms of connecting
+the various `UiPart` s.
+
+// tag::gohkh[]
+=== Search for recipes based on ingredients in the inventory https://github.com/gohkh[(by Goh Ka Hui)]
+The user may use this command to search for recipes that they can cook using the ingredients available in their
+inventory. This feature was implemented to address users' need of easily finding a recipe based on the ingredients they have.
+With this feature, users can whip up a meal without having to go grocery shopping if they are short of time. This feature sorts
+recipes by how much the inventory fulfils their ingredient requirements, and filters out recipes whose ingredient
+requirements are not met at all. Users can immediately see at the top of the cookbook the recipes that their ingredients
+are most suitable for preparing. A user can use this feature by typing the command: `cookbook search inventory`.
+
+==== Implementation
+The comparison between the ingredients a recipe requires and the ingredients in the inventory is facilitated by the
+`RecipeInventoryIngredientsSimilarityComparator`. It extends `Comparator<Recipe>` and stores the inventory being used
+for ingredient comparison. Additionally, it implements the method `calculateSimilarity()`, which accepts a `Recipe` and
+a `ReadOnlyInventory` as parameters, and returns a double value between 0 and 1 (both inclusive) that represents the
+proportion of the recipe's ingredient requirements that are fulfilled.
+
+The following class diagram summarizes how the `RecipeInventoryIngredientsSimilarityComparator` interacts with `Recipe`
+and `Inventory`:
+
+.Class diagram for RecipeInventoryIngredientsSimilarityComparator
+image::CookbookSearchByInventoryClassDiagram.png[]
+
+The `calculateSimilarity()` method first calculates the proportion of ingredient quantity fulfilled by the inventory
+for each ingredient that the recipe requires. For example, if one of the ingredients required by a recipe is `4 eggs`
+and the inventory contains `2 eggs`, the proportion fulfilled for this particular ingredient is `0.5`. This is done for
+all the ingredients in the recipe. If the units of an ingredient in the recipe does not match that of the same
+ingredient in the inventory, the proportion will be set at `0.5` by default. An example is when the recipe requires
+`1 cup flour` and the inventory contains `200 g flour`.
+
+When the proportion fulfilled has been calculated for each ingredient, the values for each ingredient are summed up and
+divided by the number of ingredients to obtain the average. In the case where the recipe does not have any ingredients
+added to it yet, the `calculateSimilarity()` method will return `0`, indicating no similarity to the inventory
+ingredients. This is because it is likely that recipes with no ingredients have just been added by the user, and the
+ingredients have not been added yet. If the user is using this feature to search for a recipe to cook, they would
+probably not be interested in seeing a recipe that they have not added ingredients for yet. This is implemented via
+a guard clause as shown in the following code snippet:
+
+[source,java]
+----
+if (recipe.getIngredients().size() == NO_INGREDIENTS) {
+    return ZERO_SIMILARITY;
+}
+----
+
+The following activity diagram shows a possible flow of events for a user using this feature:
+
+.Activity diagram for the `cookbook search inventory` command
+image::CookbookSearchByInventoryActivityDiagram.png[]
+
+The following sequence diagram summarizes how objects interact when a user executes the command,
+with more focus on how the command is parsed in the `Logic`component:
+
+.Sequence diagram for CookbookSearchByInventoryCommand
+
+image::CookbookSearchByInventorySequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect 1: Weighting of each ingredient
+
+.Design considerations for weighing of each ingredient
+[cols="12%,44%,44%"]
+|===
+| |Design A (Current choice): Every ingredient is weighted equally | Design B: More important ingredients are given a larger weigting
+
+| Description
+| The similarity of a recipe's ingredients to an inventory's ingredients is calculated by taking the mean of the proportions calculated for each ingredient,
+with equal weighting given to all ingredients.
+|The similarity of a recipe's ingredients to an inventory's ingredients is calculated by taking the weighted mean of the proportions calculated for each ingredient,
+with larger weightings given to more important ingredients ingredients.
+
+| Pros
+| Gives a good rough estimate of the proportion of ingredient requirements fulfilled for a recipe, and straightforward to implement.
+| May give a better gauge of the proportion of ingredient requirements fulfilled for a recipe, by accounting for the importance of the ingredient.
+For example, beef would be an important ingredient for a steak recipe, but garnishes might be considered less important as they can be substituted more easily.
+
+| Cons
+| Does not account for the importance of the ingredient in the recipe
+| Difficult to judge the importance of the ingredient, and complicated to implement categorisation of the types ingredients and their relative importance.
+|===
+
+Design A was chosen as it provided a fair estimate of the similarity between the recipe and inventory ingredients, with a simple implementation.
+The cons for Design B were deemed to outweigh the pros, especially since the importance of an ingredient in a recipe could be rather subjective.
+
+===== Aspect 2: Handling ingredients with different units
+
+.Design consideration for handling ingredients with different units
+[cols="12%,44%,44%"]
+|===
+| |Design A (Current choice): Use a default similarity value of `0.5` | Design B: Convert the units
+
+| Description
+| The similarity value of an ingredient with different units in the recipe and the inventory is treated as `0.5`.
+| The similarity value of an ingredient with different units in the recipe and the inventory is calculated by converting the units,
+such that the proportion of the recipe ingredient in the inventory can be determined.
+
+| Pros
+| Simple to implement.
+| Able to calculate the proportion of the recipe ingredient fulfilled by the inventory, even when dealing with different units.
+
+| Cons
+| Unable to calculate the proportion of the recipe ingredient fulfilled by the inventory when dealing with different units, and can only give a fixed default value of `0.5`.
+| More complicated to implement as it requires CookingPapa to recognise the units in both the recipe and inventory and be able to convert between them.
+Some units such as `cup` may also not have a standard conversion factor.
+|===
+
+Design A was chosen due to time constraints, as handling the conversion between different units would take time away from developing other parts of the application.
+Given more time, Design B will be implemented to handle conversion for standard units, such as between `g` and `kg`, but Design A would still have to be used for units with non-standard conversion factors.
+// end::gohkh[]
+
+=== Add ingredients to inventory and cart https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
+
+The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
+respectively, which extends the `Command` abstract class. Since `CartAddCommand` and `InventoryAddCommand` both serve the
+same purpose in different contexts of `Cart` and `Inventory` respectively, they will be mentioned together in tandem. +
+
+This command was implemented to allow the user know to add an ingredient to the cart or inventory respectively.
+An ingredient only has two main components - its name and quantity. We allow the user to use their own measurement up to their own
+preferences and do not force any fixed unit of measurement. Although similar, `Cart` and `Ingredients` differ in certain functions
+from a user's point of view. For a user to immediately sort where they wish to sort the ingredient they are adding, `Cart` and
+
+
+==== Implementation
+
+Below is a step-by-step sequence of what happens when the command `cart add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY` is added.
+
+. The user adds a ingredient to the cart by entering the command `cart  add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY` in the command line input.
+. `CartAddCommandParser` parsers the input to check and verify that the input provided for `i/INGREDIENT_NAME` amd `q/INGREDIENT_QUANTITY`
+are correct. Otherwise a `ParseException` will be thrown.
+. The fields are then passed to `CartAddIngredientCommand` as an `Ingredient` object and is returned to `LogicManager`.
+. `LogicManager` calls `CartAddIngredientCommand#execute()` and checks if the `Ingredient` object given has the same `INGREDIENT_NAME` and
+`INGREDIENT_QUANTITY` unit. If that `Ingredient` exists, it will simply add on to the quantity of that ingredient. Otherwise,
+a new instance of that `Ingredient` will be added to the Cart.
+. If `CommandException` is not thrown, `Model#addCartIngredient` will be executed, with the given `Ingredient` as the parameter
+. `Model#addCartIngredient` then executes, adding the `Ingredient` to the local cart storage and updates with
+`Model#updateFilteredCartIngredientList()`.
+. A `CommandResult` with the successful text message is returned to `LogicManager` and will be displayed to the user via the GUI to feedback to the
+user that the `Ingredient` has been successfully added.
+
+The above implementation is the same for `Inventory` with the command `inventory  add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
+
+The following sequence diagram shows how the function of adding ingredients to cart work (full command omitted for brevity):
+
+.Sequence diagram for CartAddIngredientCommand
+image::CartAddIngredientSequenceDiagram.png[]
 
 ==== Design Considerations
+===== Aspect: The need for many parsers for this command
 
-===== Aspect: How undo & redo executes
+.Design considerations for the need for many parsers for this command
+[cols="16%,42%,42%"]
+|===
+| |Design A (Current choice): Create parsers for every individual action | Design B: Create parsers for each specific action
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+|Description
+|The command will go through the parsers in the following order: `CookingPapaParser` -> `CartCommandParser` -> `CartAddCommandParser`
+-> `CartAddIngredientParser` before finally returning `CartAddIngredientCommand`. We eventually went with this as we wanted the add
+functionality to be expanded, namely to be able to add all the ingredients of cookbook recipes into the cart.
+| `CartAddCommand` will not be created to facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
 
-===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+|Pros
+|More organised and can do more with `cart add` as the prefix.
+|The classes can be more specific and atomic in their actions.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+|Cons
+|Many parser classes to make and keep track of.
+|Might lead to disorganisation during troubleshooting with so many classes to keep track.
+|===
 
-_{Explain here how the data encryption feature will be implemented}_
 
-// end::dataencryption[]
+//tag::inventorycookrecipe[]
+=== Remove ingredients of a recipe from the inventory https://github.com/shanecsj[(by Chan Shun Jie)]
 
-=== Logging
+==== Implementation
+The mechanism is facilitated by `InventoryCookCommand`, which extends the `Command` abstract class. The format of the command is as follows: `inventory cook recipe INDEX`.
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+This command was implemented to allow users to remove multiple ingredients and their quantities found in a recipe from their inventory.
+If the inventory contains an ingredient that has a higher quantity than specified in the selected recipe, its quantity will be subtracted accordingly.
+If the ingredient has a lower quantity than specified in the selected recipe or if there is a missing ingredient in the inventory, the feature will not be executed and an error will be thrown.
+Without this command, users can only remove ingredients through the `inventory remove ingredient` command one at a time.
+Moreover, they have to constantly cross-check the ingredient quantities in the recipe for accuracy.
+Therefore, this command provides convenience after users have prepared a recipe and wish to update their inventory ingredients through a single step.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+Below is a step-by-step sequence of what happens when a user enters this command:
 
-*Logging Levels*
+. The user enters an inventory cook command `inventory cook recipe INDEX` using the command line input.
+. `InventoryCookCommandParser` parses the input to check and verify the input provided by the user. If the input provided is invalid, a `ParseException` will be thrown.
+. The valid index is then passed to `InventoryCookCommand` as an `Index` object.
+. `LogicManager` calls `InventoryCookCommand#execute()` and checks if the `Index` provided is within bounds and if the specified `Recipe` contains ingredients.
+Otherwise, a `CommandException` is thrown.
+. Subsequently, two checks are performed to check if the inventory contains all of the ingredients specified and whether those quantities are sufficient to be subtracted.
+. If all the checks passed, `model#removeInventoryIngredient` is called through a `stream()` to remove the ingredients of a selected recipe from the inventory.
++
+[source,java]
+----
+selectedRecipe.getIngredients().stream().forEach(model::removeInventoryIngredient);
+----
+. A `CommandResult` with a success message is returned to `LogicManager` and passed back to `MainWindow` which displays the text to the user through the GUI.
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+The following sequence diagram shows how the command `inventory cook recipe 1` works:
+
+.Sequence Diagram for InventoryCookCommand
+image::InventoryCookRecipeSequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect: Allowing users to execute the `inventory cook recipe` command when there are missing or insufficient ingredients in the inventory.
+
+.Design considerations for the `inventory cook recipe` command
+[cols="12%,44%,44%"]
+|===
+||Design A: Allow the execution of `inventory cook recipe` command regardless of missing or insufficient ingredients in the inventory  | Design B (Current choice): Do not allow execution of `inventory cook recipe` command when there are missing or insufficient ingredients in the inventory
+
+|Description
+|Allow the users to execute the command regardless of missing or insufficient ingredients in the inventory. Missing ingredients will be ignored and ingredients with insufficient quantities will be entirely removed.
+|When there are missing or insufficient ingredients in the inventory, the execution of the command will throw an error to warn users whether they have missing ingredients or insufficient ingredients in their inventory.
+
+|Pros
+|Straightforward for users to use the command as they do not have to check whether they have all the ingredients in sufficient quantities.
+|Enhances user experience. The application can notify users that they have missing or insufficient ingredients when they attempt to prepare a recipe through this command.
+
+|Cons
+|Reduces code readability as more methods and steps are needed to check and isolate a list of missing and insufficient ingredients. This list of ingredients are also to be treated differently from the other ingredients when removing from the inventory.
+|A potential hassle for users as they have to ensure that all ingredients are present and are sufficient in their inventory to use the command.
+|===
+
+//end::inventorycookrecipe[]
+
+=== Move ingredients from cart to inventory https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
+The user may use this command after their shopping trip. With this one command, all ingredients will be shifted from the cart to the inventory.
+
+This command is implemented to ease the process of having the user adding every single ingredient to their inventory after they have bought ingredients from their cart
+and eventually deleting the cart after that tedious process. These gives a convenience to users that frequently use our application and we forsee
+that such an action will be used very often by these users. As this command only performs an atomic action, no extra
+arguments are needed to further supplement the use of this command.
+
+==== Implementation
+This command is facilitated by `CartMoveCommand`, which extends the `Command` class. The format of the command is as follows:
+`cart move`.
+
+Below is a step by step sequence of what happens when the user executes this command.
+
+. The user enters the command `cart move` in to the command line input.
+. `CartMoveCommandParser` then ensures that the user does not enter any other commands after `cart clear`.
+. `CartMoveCommandParser` then returns a `CartMoveCommand` and returns it to `LogicManager`
+. `LogicManager` calls `CartMoveCommand#execute()`. If there are other commands after `cart clear`, a `CommandException`
+will be thrown.
+. If `CommandException` is not thrown, `Model#cartMoveIngredients()` will be executed.
+. `Model#cartMoveIngredients()` will move every ingredient from the `cart` and add it into the `inventory`
+. A `CommandResult` with the success message text will be returned to `LogicManager`, which will then be passed to `MainWindow`
+and will then feedback to the user.
+
+
+The following sequence diagram shows how this function works (full command omitted for brevity):
+
+.Sequence Diagram for CartMoveCommand
+image::CartMoveSequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect: Allowing users to move some or all ingredients from cart to inventory
+
+.Design considerations for allowing users to move some or all ingredients from cart to inventory
+[cols="16%,42%,42%"]
+|===
+| |Design A (Current choice): Move all ingredients | Design B: Allow users to move individually or exclude some ingredients when moving
+
+|Description
+|There was a consideration to allow the user to move the ingredients by individual ingredients. Eventually the options was
+not given as we know that typical users will want to move all the ingredients except for individual ingredients.
+| The use cases of such an action happening is very little and the user can simply manually remove the few
+ingredients they do not wish to add to the inventory after using the `cart move` command. The user can also manually
+add back the ingredients to the cart after it is cleared if they wish to.
+
+|Pros
+|Straightforward to implement
+|Lesser implementations, more time to focus on other parts of the project
+
+|Cons
+|Lesser functionality to users that really want to only move certain ingredients
+|Poorer user experience for users that do not want to move all ingredients from the cart to inventory on a regular basis,
+|===
+
+
+//tag::hansheng[]
+=== Add a Recipe's Ingredients to Cart https://github.com/hans555[(by Ong Han Sheng)]
+
+The user may want to buy the required ingredients to cook a certain recipe in the cookbook. This feature allows the user
+to add a certain recipe's required ingredients into the cart.
+
+==== Implementation
+
+The action of adding a recipe's ingredients to cart mechanism is facilitated by `CartAddRecipeIngredientCommand`, which
+extends the `CartAddCommand` abstract class. The format is as follows: `cart add recipe INDEX`.
+
+This command is implemented to ease the tedious process of having the user adding every single ingredient
+to their cart when they want to purchase ingredients to cook a certain recipe. This provides convenience to users
+that frequently use our application and such process like shopping for a certain recipe's ingredient is
+intuitive to users. Furthermore, this command creates interaction between the `Cookbook` and `Cart` which
+helps to further integrate the application as an all-in-one application.
+
+Below is a step by step sequence of what happens when a user enters this command:
+
+. The user enters the command `cart add recipe INDEX`  in the command line  input.
+. `CartAddRecipeIngredientParser` parses the user input and checks if the index provided is an integer.
+Note that the parser will throw a `ParseException` if the given index is not an integer.
+[source,java]
+try {
+    recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
+} catch (ParseException pe) {
+    throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX, CartAddCommand.MESSAGE_USAGE), pe);
+}
+
+. The index is passed as a parameter for `CartAddRecipeIngredientCommand` which is returned to `LogicManager`.
+. `LogicManager` calls `CartAddRecipeIngredientCommand#execute()` which checks if the given index is
+a valid index of a recipe. Note that the command will throw a `CommandException` if the given index is not valid.
+[source, java]
+if (recipeIndex.getZeroBased() >= model.getCookbook().getRecipeList().size()) {
+    throw new CommandException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX, MESSAGE_USAGE));
+}
+
+. If the index is valid, the selected recipe's ingredients will be added accordingly. This is done through calling
+`Model#addCartIngredient()`, with each ingredient as the parameter.
+. `Model#addCartIngredient` calls `Cart#addIngredident()` which then adds the ingredient to the cart.
+If a certain ingredient exists in the cart, adding a ingredient to a cart will increase the
+quantity instead. Otherwise, a new instance of that ingredient will be added to the cart.
+After adding an ingredient, the cart will be updated with `Model#updateFilteredCartIngredientList()`.
+. A `CommandResult` with the successful text message is returned to `LogicManager`
+and will be displayed to the user via the GUI to feedback to the user that
+the selected recipe's ingredients has been successfully added to the cart.
+
+The following activity diagram shows a possible flow of events for a user using this feature:
+
+.Activity diagram for CartAddRecipeIngredientCommand
+image::CartAddRecipeIngredientActivityDiagram.png[]
+
+The following sequence diagram shows how the function of adding recipe's ingredients to cart works:
+
+.Sequence diagram for CartAddRecipeIngredientCommand
+image::CartAddRecipeIngredientSequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect: Allowing users to add all or some recipe's ingredients
+.Design considerations for allowing users to add only recipe's ingredients that are not present in the inventory to the cart
+[cols="12%,44%,44%"]
+|===
+||Design A (current choice): Adding all recipe's ingredients to the cart|Design B: Adding only recipe's ingredients
+that are missing in the inventory to the cart
+|Description
+| Allows user to add a recipe's ingredients to the cart for shopping. This design is currently chosen due to ease of
+implementation and it works for all situations.
+| Allows user to add a recipe's ingredients base on the inventory status. However, there are some situations where
+this design not does work. One example would be like planning to cook at outside where the inventory status is unknown.
+|Pros
+a|
+- Easier to implement as it does not need to check if the ingredients are already present in the inventory
+- Works for all situations as it ensures that the user is able to cook this recipe after buying the ingredients in the cart
+a|
+- Provide a more intuitive experience of the application as user only need to buy ingredients that are missing in the inventory
+|Cons
+a|
+- Less flexible as users have to manually remove some of the recipe's ingredients that they do not want to buy
+a|
+- Harder to implement as additional checking is required to filter a recipe's ingredients that are missing in the inventory
+- Users have to manually add some of the recipe's ingredients that they want to buy although it is present in the inventory
+
+|===
+//end::hansheng[]
+
+
+=== Export ingredients in cart to PDF file https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
+The user may use this command to export the ingredients in their cart to a <<PDF, PDF>> file, which they can then
+use as their shopping list at the supermarkets.
+
+==== Implementation
+The cart exporting mechanism is facilitated by `CookbookExportCommand`, which extends the `Command` abstract class.
+The format is as follows: `cart export`.
+
+This command was implemented to bridge the (current, v1.4) inadequacy of Cooking Papa, which is that it is not
+portable (yet). It was still not convenient _enough_ to be able to organize cart ingredients. Evenutally, users had
+to go outside to the supermarket, and Cooking Papa is a desktop-only application. By allowing users to export the
+ingredients in their cart to a PDF file, they can then print it out, or transfer it to their mobile devices, and
+bring them along as shopping lists. Additionally, the layout and content of the generated PDF file is simple,
+informational, and easy for users to extend, allowing them to add (handwritten or  annotated) remarks.
+
+// tag::cartexport[]
+Below is a step by step sequence of what happens when a user enters this command:
+
+. The user enters a cart export command using the command line input `cart export`.
+. `CookingPapaParser` parses the user input and checks if it is valid. If it is invalid, i.e. an unknown command
+category, a `ParseException` will be thrown. If the input is valid, with the command category `cart`, a new
+`CartCommandParser` is created.
+. `CartCommandParser` then parses `export`. If it is invalid, i.e. an unknown command word, a `ParseException` will be
+thrown. If the input is valid, with the command category `export`, a new `CookbookExportCommandParser` is created.
+. `CartExportCommandParser` parses the user input and checks if the argument passed to it is an empty String, as the
+command takes in no extra parameters.
++
+Note that if the String is not empty, a `ParseException` will be thrown:
++
+[source,java]
+----
+if (userInput.isEmpty()) {
+    return new CartExportCommand();
+} else {
+    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CartExportCommand.MESSAGE_USAGE));
+}
+----
++
+This means that `cart export ingredient` will not work.
+. `CartExportCommandParser` then returns a `CartExportCommand` to `LogicManager`.
+. `LogicManager` calls `CartExportCommand#execute()` calls the static method of `PdfExporter`,
+`PdfExporter#exportCart()`, which takes in the `ObservableList<Ingredient>` stored in `Cart`
+. Step 4 is executed within a try-catch block. If a previously generated pdf (saved as `cart.pdf` by default) is
+opened in another program, or there is an issue writing to the PDF file, a `CommandResult` with an error
+message will returned to `LogicManager` (skipping step 7 and 8):
++
+[source,java]
+----
+try {
+    PdfExporter.exportCart(model.getCart().getIngredientList());
+} catch (IOException e) {
+    return new CommandResult(MESSAGE_FILE_NOT_FOUND);
+}
+----
+. The ingredients in the `Cart` is passed to the static method `PdfExporter#exportCart()`, which then makes use of
+the library, `PDFbox`, to parse the data.
+. Within `PdfExporter`, `PdfExporter#getTextFromCart` parse the data and splits them manually, in order to wrap the
+text (this has to be done due to the inadequacy of `PDFbox`). The method returns a `List<String>`, where each string
+represents a new line on the PDF file.
+. Subsequently, `PdfExporter` checks if the number of `String` s in the list in step 7 is greater than the number of
+lines a single page of the PDF can accomodate. If it is, it adds a new page, and adds lines to the PDF until the
+limit is hit. This repeats until all the lines are added to the PDF.
+. A `CommandResult` with the text to display to the user will be returned to `LogicManager`. The
+`CommandResult` is then passed back to `MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay
+.setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
+their addition was successful.
+//end::cartexport[]
+
+// tag::cartexportsequence[]
+The following sequence diagram shows how the function of exporting ingredients in the cart to a PDF file works:
+
+.Sequence diagram for CartExportCommand
+image::CartExportCommandSequenceDiagram.png[]
+
+The following activity diagram shows a possible flow of events for a user using this command:
+.Activity diagram for CartExportCommand
+image::CartExportActivityDiagram.png[]
+
+// end::cartexportsequence[]
+
+==== Design considerations
+===== Aspect 1: File format to export ingredients in cart to
+[cols="16%,42%,42%"]
+|===
+||Design A (current choice): .pdf|Design B: .txt
+|Description|Exports it to a flexible pdf file|Exports it to a txt file
+|Pros
+a|
+- Easier to format with `Apache PDFbox` 's vast library and API
+- More versatile in that images can be added if the function was to be extended to include images of the ingredients
+a|
+- Simple to implement
+|Cons
+a|
+- More formatting code required
+- May take slightly longer to export as compared to design B
+a|
+- Lack of design/formatting flexibility
+|===
+===== Aspect 2: What information to export
+[cols="16%,42%,42%"]
+|===
+||Design A (current choice): Export the ingredient names and quantities in the cart|Design B: Export the entirety of
+Cooking Papa
+(cookbook, inventory, cart)
+|Description|Allow exporting of just the cart|Allow exporting of the cart, inventory, and cookbook
+|Pros
+a|
+- Easier to implement as there will be less information to parse
+- Keeps the exported PDF short and sweet
+- Ingredients in the inventory and recipes in the cookbook generally correlates (and are consequential of) with the
+ingredients in the cart, so exporting the inventory as well as the cookbook is likely to be redundant.
+
+.A sample shopping list generated by the command
+image::CookbookExportExample2.png[]
+a|
+- Provides users an all-in-one file containing all the information they entered into Cooking Papa
+- Allows user to reproduce hard-copy recipe books using Cooking Papa
+|Cons
+a|
+- Certain information may be needed and not exportable by the user, i.e. recipes
+a|
+- Slightly more difficult to implement
+- May be providing users with unnecessary information
+|===
+
 
 [[Implementation-Configuration]]
 === Configuration
@@ -279,78 +948,149 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* has a need to manage a significant number of recipes
+* has a need to manage food resources efficiently
+* prefer desktop apps over other types of apps
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage recipes and food resources faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="75%",cols="<15%,<25%,<30%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a ... |I want to ... |So that ...
+|`* * *` |beginner cook |find new recipes easily |I don't waste time searching though recipes from different sources
 
-|`* * *` |user |add a new person |
+|`* * *` |regular cook |record my own recipes |I can refer to them easily in future
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |forgetful person |add ingredients for my planned meals to a grocery list easily |I know what I need to get when shopping
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |disorganized person |keep track of the ingredients I have at home |I can plan my meals better
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |busy student |cook a meal with the ingredients I already have |I don't waste time on grocery shopping
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |low-income individual |cook a meal with the ingredients I already have |I can save money
+
+|`* * *` |person with food allergies |cook meals that I am not allergic to |I do not have an allergic reaction
+
+|`* *` |regular cook |edit recipes |I can tweak a recipe to my liking
+
+|`* *` |regular cook |set a timer during meal preparation |I can control the quality of my meal
+
+|`* *` |CS student |cook a quick meal |I can spend more doing CS2103T
+
+|`* *` |vegetarian |find recipes that don't contain meat |I can keep to my diet constraints
+
+|`* *` |picky eater |choose recipes that only contain the food I like |I can enjoy the meals I cook
+
+|`* *` |working adult |plan meals for the next week |I can buy all the ingredients I need in one trip
+
+|`* *` |person with health issues |record the meals I eat |I can share the information with my doctor easily
+
+|`*` |health-conscious person |keep track of the nutritional value of the food I eat |I can meet my nutritional goals
+
+|`*` |regular gym-goer |keep track of my dietary intake |I can meet my fitness goals
+
+|`*` |obesity fighter |keep track of my calorie and fat intake |I can lose weight
+
+|`*` |stay-at-home parent |plan a variety of meals for the week |I can make sure that my family eats healthily
+
+|`*` |kiasu parent |know how much ingredients I need for 2 weeks |ensure my family never runs out of food
+
+|`*` |party host |scale recipe ingredients by the number of servings |I can prepare meals for large groups
+
+|`*` |cafe manager |keep track of the expiry dates of my ingredients |I know what ingredients I need to stock up on
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Cooking Papa` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
+----
+Use case: UC01 - Create a recipe
 
-*MSS*
-
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
+MSS:
+1. User chooses to create a recipe.
+2. Cooking Papa requests for details of the recipe.
+3. User enters the requested details.
+4. Cooking Papa creates the recipe and stores it in the cookbook, and displays the newly created recipe.
 Use case ends.
 
-*Extensions*
+Extensions:
+    3a. Cooking Papa detects an error in the entered data.
+        3a1. Cooking Papa shows an error message.
+        3a2. Cooking Papa requests for the correct data.
+        3a3. User enters new data.
+        Steps 3a1 to 3a3 are repeated until the data entered is correct.
+        Use case resumes from step 4.
 
-[none]
-* 2a. The list is empty.
-+
+    *a. At any time, User chooses to end the creation of a recipe.
+        *a1. Cooking Papa cancels creation of a recipe.
+
+----
+
+----
+Use Case: UC02 - Search for recipes
+
+MSS:
+1. User chooses to search recipes.
+2. Cooking Papa requests for the tag to be searched.
+3. User enters the tag.
+4. Cooking Papa displays recipes with the corresponding tag.
+Use case ends.
+----
+
+----
+Use Case: UC03 - View a recipe
+
+MSS:
+1. User chooses to view recipes.
+2. Cooking Papa requests for the index of the recipe.
+3. User enters the requested index.
+4. Cooking Papa displays the entire recipe with the corresponding index.
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+Extensions:
+    3a. The given index is invalid.
+        3a1. Cooking Papa shows an error message.
+        3a2. Cooking Papa requests for the correct index.
+        3a3. User enters the new index.
+        Steps 3a1-3a3 are repeated until the index entered is valid.
+        Use case resumes from step 4.
+----
 
-_{More to be added}_
+----
+Use case: UC04 - Add a recipe's ingredients to the cart
+
+MSS:
+1. User chooses to add a recipe's ingredients to the cart.
+2. Cooking Papa requests for the index of the recipe.
+3. User enters the requested index.
+4. Cooking Papa add the ingredients to the cart.
+Use case ends.
+
+Extensions:
+    3a. The given index is invalid.
+        3a1. Cooking Papa shows an error message.
+        3a2. Cooking Papa requests for the correct index.
+        3a3. User enters the new index.
+        Steps 3a1-3a3 are repeated until the index entered is valid.
+        Use case resumes from step 4.
+----
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 500 recipes without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -358,25 +1098,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[PDF]] PDF::
+A file format for capturing and sending electronic documents in exactly the intended format.
 
 [appendix]
 == Instructions for Manual Testing
@@ -384,7 +1107,12 @@ Cons:
 Given below are instructions to test the app manually.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+These instructions only provide a starting point for testers to work on, and are in no way exhaustive.
+
+Below are some test inputs for manual testing, please note that these test inputs are *only* valid for the sample
+cookbook, cart, and inventory data, i.e. the data that is present when Cooking Papa is opened for the first time. If
+the data has been modified prior to using these commands, please delete the `.json` files in `/data` (`cookbook
+                                                                                                       .json`, `inventory.json`, `cart.json`).
 
 === Launch and Shutdown
 
@@ -392,34 +1120,133 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample cookbook, inventory, and cart.
 
-. Saving window preferences
+=== Adding a recipe to the cookbook
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+Please note that these cases are to be tested individually, i.e. should test case
+a be executed, executing test case e will not be valid as there is already an existing recipe with the recipe name
+"Name". In such cases, please remove the existing recipe in the cookbook using `cookbook remove recipe INDEX`.
 
-_{ more test cases ... }_
+.. Prerequisites: List all recipes in the cookbook using the `cookbook list` command, and *using the sample cookbook*.
+.. Test case: `cookbook add recipe n/Name d/Description i/Ingredient q/1 s/Step 1 t/Tag` +
+   Expected: a new recipe is added to the cookbook, and displayed as the index 3 (one-based index) in the cookbook
+panel.
+.. Test case: `cookbook add recipe n/Name d/Description i/Ingredient q/1 s/Step 1 t/Tag` (a duplicate recipe) +
+   Expected: no recipe will be added, and an error message indicating that there is already an existing recipe with
+the same name in the cookbook will
+be displayed.
+.. Test case: `cookbook add recipe n/Name d/Description i/Ingredient q/1 s/Step 1 s/Step 1 t/Tag` (a recipe with
+duplicated
+steps) +
+   Expected: no recipe will be added, and an error message indicating that there is a duplicate step  in the command
+will
+be displayed.
+.. Test case: `cookbook add recipe n/Name d/Description i/Ingredient q/1 i/Ingredient q/1 s/Step 1t/Tag` (a recipe with
+duplicated
+ingredients) +
+   Expected: a new recipe is added to the cookbook, with the duplicate ingredients being added to one another. The
+new recipe will be displayed as the index 3 (one-based index) in the cookbook panel.
 
-=== Deleting a person
+=== Remove a recipe from the cookbook
+Please note that these test cases are to be tested individually, i.e. should test case a be executed, executing test
+case a again will remove a different recipe from the cookbook. In this case, after executing test case a once, to
+execute it again, please add back the removed recipe using `cookbook add recipe ...` or by deleting the `.json` files.
 
-. Deleting a person while all persons are listed
+.. Prerequisites: List all recipes in the cookbook using the `cookbook list` command, and *using the sample
+cookbook*.
+.. Test case: `cookbook remove recipe 1` +
+    Expected: a recipe (Aglio Olio) will be removed from the cookbook.
+.. Test case: `cookbook remove recipe 0` and `cookbook remove recipe 5` +
+    Expected: since the indices in the recipe panel are one-based, i.e. starting from 1, the former command is
+out-of-bounds; the latter command is out-of-bounds because there are only 4 recipes in the cookbook. Both commands
+will show an error message reflecting the invalid recipe indices provided.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+=== Search for recipes by tags
+Please note for this search command, with more tags being included, the number of results returned will be greater, i
+.e. if
+there are three tags included, the recipes returned do not have to be tagged with all three tags.
 
-_{ more test cases ... }_
+.. Prerequisites: List all recipes in the cookbook using the `cookbook list` command, and *using the sample cookbook*.
+.. Test case: `cookbook search tag t/Simple` +
+    Expected: the recipe panel will be updated to show only two recipes, both which are tagged with "Simple".
+.. Test case: `cookbook search tag t/Simple t/Celebrity`
+    Expected: the recipe panel will be updated to show only three recipes, of these three recipes, they are either
+tagged with "Simple" or "Celebrity".
 
-=== Saving data
+=== Add an ingredient to a recipe
 
-. Dealing with missing/corrupted data files
+Please note that the results of these test cases are based on the sample cookbook. The tests can be performed in any order.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: List all recipes in the cookbook with the `cookbook list` command, and view all the ingredients in recipe 1 with the `cookbook view recipe INDEX` command, *using the sample cookbook*.
+.. Test case: `recipe 1 add ingredient i/Olive Oil q/1 tbsp` +
+   Expected: 1 tbsp of olive oil is added to the recipe, and the ingredient quantity of olive oil is changed from 1 to 2 tbsp.
+.. Test case: `recipe 1 add ingredient i/Olive Oil q/1 tsp` (an ingredient with incompatible units) +
+   Expected: the specified ingredient will not be added, and an error message indicating that the existing ingredient in the recipe has a different unit will be displayed.
+.. Test case: `recipe 1 add ingredient i/Ingredient q/1` (a new ingredient) +
+   Expected: the specified ingredient is added to the recipe.
 
-_{ more test cases ... }_
+=== Removing an ingredient from a recipe
+
+Please note that the results of these test cases are based on the sample cookbook. The tests can be performed in any order.
+
+.. Prerequisites: List all recipes in the cookbook with the `cookbook list` command, and view all the ingredients in recipe 1 with the `cookbook view recipe INDEX` command, *using the sample cookbook*.
+.. Test case: `recipe 1 remove ingredient i/Olive Oil q/1/2 tbsp` +
+   Expected: 1/2 tbsp of olive oil is removed from the recipe, and the ingredient quantity of olive oil is changed from 1 to 1/2 tbsp.
+.. Test case: `recipe 1 remove ingredient i/Olive Oil q/1 tsp` (an ingredient with incompatible units) +
+   Expected: the specified ingredient will not be removed, and an error message is shown indicating that the existing ingredient in the recipe has a different unit will be displayed.
+.. Test case: `recipe 1 remove ingredient i/Ingredient q/1` (an ingredient that is not in the recipe) +
+   Expected: the ingredient is not removed, and an error message is shown indicating that the ingredient is not in the recipe
+.. Test case: `recipe 1 remove ingredient i/Olive Oil q/10 tbsp` (ingredient quantity too high) +
+   Expected: the ingredient is not removed, and an error message is shown indicating that the specified quantity is greater than that in the recipe
+.. Test case: `recipe 1 remove ingredient i/Cheese` (no quantity specified) +
+   Expected: cheese is removed from the recipe entirely, and the recipe no longer contains any cheese
+
+=== Export the cart to a PDF file
+Please note that for the export command, the result is based on the sample cart.
+a. Prerequisite: have the sample cart data in `cart.json`, if the file has been modified, please exit Cooking Papa,
+and delete it in `/data`, and run Cooking Papa again.
+
+.. Test case: `cart export`
+    Expected: a PDF file will be created in the same folder as Cooking Papa, and the content should look like:
++
+.Content of cart.pdf created from sample cart data
+image::CookbookExportExample2.png[]
+
+.. Test case: `cart export`, with a previously created `cart.pdf` open in a program
+    Expected: an error will be thrown, as `PdfExporter` is unable to modify a file that is currently open in another
+program. Closing the file and executing the command will return the same result (assuming the cart data is the same
+as the sample cart data)
+as test case a.
+
+[appendix]
+== Effort
+[cols="25%,65%,10%"]
+|===
+|Achievements/ challenges|Effort required|Difficulty level (out of `\***` )
+|Greater number of entities than AB3|As AB3 only had one overarching entity (`Person`), it was a challenge to extract
+the implementation for `Person` and apply it to three overarching entities (`Cart`, `Cookbook`, `Inventory`). Much
+time was spent refactoring to our needs, but was not too tough given the great documentation and clarity in AB3's
+code.|`**`
+|Development of the GUI | As the team had not much experience with regards to CSS and JavaFX, it took awhile to get
+rolling and adapt the aesthetics to Cooking Papa's needs. Moreover, one challenge faced was ensuring that the GUI ran
+as expected on Windows, MacOS, and Linux.
+
+Additionally, the use of SceneBuilder was encouraged, however, it led to many unintended changes and extra variables
+which made troubleshooting a lot more complex (especially to a novice).
+|`**`
+|Integrating `cookbook view command` with a button on the GUI|We wanted to make the command more of a toggle instead
+of something users *had* to type, as it was not intuitive. While implementing the button was rather trivial, one
+requirement of the app was that it had to be testable via the command line. Connecting the command from the command
+line (`Logic`) to the `UI` was a big challenge, especially while trying to maintain the abstraction between the
+two.
+
+In hindsight, perhaps greater experience with GUIs would have made this process easier, but our team were
+all novices in that aspect, and being able to pull this off, especially when we could have simply left it as the
+status quo, is a huge achievement.|`\***`
+|Refactoring `cart export` code|As the original PDF library used (iTextPDF) has not permitted due to its license, the
+whole code had to be refactored to use the current PDF library (Apache PDFbox). The challenge was the lack of
+features in PDFbox, i.e. tables were not a feature, and had to be drawn using lines. This was a huge hinder in
+achieving the intended output PDF file. Eventually, it was decided to simply create a list in the PDF instead of a
+table due to the lack of time, and the payoff for tinkering with PDFbox was not worth the effort.|`**`
+|===

@@ -1,0 +1,30 @@
+@startuml
+start
+
+:User views a recipe to cook;
+
+if () then ([sufficient ingredients in inventory])
+
+else ([else])
+
+    :User executes the "cookbook search
+    inventory" command to find a recipe
+    to use up the remaining ingredients;
+    if () then ([User finds a suitable recipe])
+
+    else ([else])
+
+        :User goes grocery shopping;
+        :User adds ingredients
+                to inventory;
+        :User views new recipe;
+
+    endif
+
+endif
+
+:User follows the recipe
+   to prepare a meal;
+
+stop
+@enduml

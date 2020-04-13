@@ -1,21 +1,22 @@
 @startuml
 !include style.puml
+
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+Cookbook *-right-> "1" UniqueRecipeList
+Cookbook *-right-> "1" UniqueTagList
+UniqueTagList -[hidden]down- UniqueRecipeList
+UniqueTagList -[hidden]down- UniqueRecipeList
 
 UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+UniqueRecipeList o-right-> Recipe
 
-Person o-up-> "*" Tag
+Recipe o-up-> "*" Tag
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Recipe *--> RecipeName
+Recipe *--> RecipeDescription
+Recipe *--> UniqueIngredientList
+Recipe *--> UniqueStepList
 @enduml

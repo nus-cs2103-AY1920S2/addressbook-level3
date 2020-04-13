@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CookingPapaParser" as CookingPapaParser LOGIC_COLOR
+participant ":CookbookCommandParser" as CookbookCommandParser LOGIC_COLOR
+participant ":CookbookViewCommandParser" as CookbookViewCommandParser LOGIC_COLOR
+participant ":CookbookViewCommand" as CookbookViewCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("cart view recipe 1")
+activate LogicManager
+
+LogicManager -> CookingPapaParser : parseCommand("cart view recipe 1")
+activate CookingPapaParser
+
+create CookbookCommandParser
+CookingPapaParser -> CookbookCommandParser : new CookbookViewCommand()
+activate CookbookCommandParser
+
+CookbookCommandParser -> CookingPapaParser  : CookbookCommandParser
+deactivate CookbookCommandParser
+
+CookingPapaParser -> CookbookCommandParser : CookbookCommandParser.parse(" view recipe 1")
+activate CookbookCommandParser
+
+create CookbookViewCommandParser
+CookbookCommandParser -> CookbookViewCommandParser : new CookbookViewCommandParser()
+activate CookbookViewCommandParser
+
+CookbookViewCommandParser -> CookbookCommandParser : CookbookViewCommandParser
+deactivate CookbookViewCommandParser
+
+CookbookCommandParser -> CookbookViewCommandParser : CookbookViewCommandParser.parse("recipe 1")
+activate CookbookViewCommandParser
+
+create CookbookViewCommand
+CookbookViewCommandParser -> CookbookViewCommand : new CookbookViewCommand()
+activate CookbookViewCommand
+
+CookbookViewCommand -> CookbookViewCommandParser : command
+deactivate CookbookViewCommand
+
+CookbookViewCommandParser -> CookbookCommandParser : command
+deactivate CookbookViewCommandParser
+
+CookbookCommandParser -> CookingPapaParser : command
+deactivate CookbookCommandParser
+
+CookingPapaParser -> LogicManager : command
+deactivate CookingPapaParser
+
+LogicManager -> CookbookViewCommand : command.execute(model)
+activate CookbookViewCommand
+
+CookbookViewCommand -> Model : model.getCart().getIngredientList()
+activate Model
+
+Model --> CookbookViewCommand
+deactivate Model
+
+create CommandResult
+CookbookViewCommand -> CommandResult : new CommandResult("Viewing recipe 1: Aglio Olio")
+activate CommandResult
+
+CommandResult --> CookbookViewCommand : commandResult
+deactivate CommandResult
+
+CookbookViewCommand --> LogicManager : commandResult
+deactivate CookbookViewCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

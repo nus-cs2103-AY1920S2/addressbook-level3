@@ -1,0 +1,25 @@
+{
+  "_comment": "Inventory save file which contains the same Ingredient values as in TypicalIngredients#getTypicalInventory()",
+  "ingredients": [ {
+    "name": "Apples",
+    "quantity": "5"
+  }, {
+      "name": "Butter",
+      "quantity": "200 g"
+  }, {
+      "name": "Chicken",
+      "quantity": "600 g"
+  }, {
+      "name": "Duck",
+      "quantity": "800 g"
+  }, {
+      "name": "Eggs",
+      "quantity": "12"
+  }, {
+      "name": "Flour",
+      "quantity": "500 g"
+  }, {
+      "name": "Garlic",
+      "quantity": "3 cloves"
+  } ]
+}

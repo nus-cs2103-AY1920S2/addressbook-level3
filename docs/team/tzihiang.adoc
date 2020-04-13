@@ -1,0 +1,343 @@
+= Tay Zi Hiang Willis - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Cooking Papa
+
+'''
+
+== Overview
+
+CookingPapa acts is an application targeted towards university students that want to learn how to cook by themselves. Users will interact with the application with a CLI, integrated with a GUI created with JavaFX. It acts as storage for recipes, keeps track of an inventory of your current ingredients and also has a shopping list to remind users what to buy on their next trip to the supermarket.
+
+== Summary of contributions
+
+* *Major enhancement*: Cart move to inventory
+** What it does: With one command, the user is able to migrate all the ingredients from the cart to the inventory. From there, the inventory will
+be updated with the added ingredients and the cart will be empty.
+** Justification: This enhancement will allow the user to skip the need to update their own inventory after their shopping trip. Instead of having
+to keep track what ingredients they have to add from cart to the inventory and eventually delete everything in the cart, this command will do it all in
+one line.
+** Highlights: This command will be frequently used, since cart serves as a convenient shopping list for our users. After shopping, it is common to
+update your inventory of ingredients and this feature can accomplish this need easily.
+** Credits: Ingredient checks and tests are a group effort. The whole team contributed in allowing the `Ingredient` class to be built well, which
+is a key part of our project.
+
+
+* *Minor enhancement*: Adding an ingredient to the cart
+** What it does: Allows the user to add an ingredient with a specified quantity into the cart. If the ingredient name already exists, it
+adds on to the quantity of the ingredient in the cart (Provided that the unit given in the quantity is the same).
+** Justification: This feature allows the user to add ingredients to the cart so that they can be reminded of what to but at their next trip to the
+supermarket.
+** Highlights: This enhancement allows users to choose the number of ingredients they would actually need to complete their recipe. For example.
+if the recipe calls for 3 eggs while the user only has 1 in their inventory, they can simply add 2 more manually into the cart.
+** Credits: Ingredient checks and tests are a group effort. The whole team contributed in allowing the `Ingredient` class to be built well, which
+is a key part of our project.
+
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=tzihiang&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tzihiang's contribution to CookingPapa on *Github*]
+
+* *Other contributions*:
+
+** Project management:
+*** Kept track of deadlines to meet for the team
+*** Brainstormed together with team the application, what it does and its main features.
+
+** Enhancements to existing features:
+**** Added to several test cases for added features: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/215[#215]
+
+** Documentation:
+*** Added on to the UG and created a summary table for all commands: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/221[#221]
+*** Added on to the DG, with updated UML tables: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/227[#227]
+
+** Community:
+*** Reviewed PRs before merging
+*** Asked questions and answered questions regarding project with team mates.
+*** Contributed to bug reports during PE Dry Run using CATcher.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Contributions to the User Guide
+
+
+[[Cart]]
+=== Cart Commands http://github.com/tzihiang[(by Tay Zi Hiang Willis)]
+Cart commands are commands that allow you to easily add ingredients needed for a recipe
+into a shopping cart. This provides convenience for your grocery shopping needs.
+
+==== Add ingredients in a recipe to the cart
+This command allows you to add all the ingredients in a recipe to the cart.
+
+- Format: `cart add recipe INDEX`
+- Example:
+|===
+| Command | Result
+
+|`cart add recipe 1`
+|Adds all the ingredients required of recipe 1 to the cart.
+|===
+
+==== Add ingredients to the cart
+This command allows you to add ingredients to the cart.
+
+- Format: `cart add ingredient i/INGREDIENT q/QUANTITY`
+- Example:
+|===
+| Command | Result
+
+|`cart add ingredient i/Eggs q/5`
+|Adds 5 eggs to the cart.
+|===
+
+
+==== Remove ingredients from the cart
+This command allows you to remove ingredients from the cart.
+You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
+ingredient's quantity.
+Please ensure that the unit of the quantity matches the ingredient's unit in the cart.
+
+Note: If you do not indicate any quantity, all entries in the cart that have the specified ingredient name will be removed
+regardless of the unit.
+
+- Format: `cart remove ingredient i/INGREDIENT [q/QUANTITY]`
+- Example:
+|===
+| Command | Result
+|`cart remove ingredient i/Eggs`
+|Removes all eggs from the cart
+|`cart remove ingredient i/Milk q/200ml`
+|Removes 200ml of milk from the cart.
+_(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml of milk)_
+|===
+
+==== Clear all the items in the cart
+This command allows you to clear all the items in the cart. It can be used to discard an unwanted cart,
+or to clear the cart after completing the purchase.
+
+- Format: `cart clear`
+- Example:
+|===
+| Command | Result
+
+|`cart clear`
+|Clears the cart of all items.
+|===
+
+
+==== Move all ingredients currently in the cart to inventory
+This command allows you to move all the ingredients from the cart into your inventory. This command also
+empties your cart. This is helpful after the user has finished shopping and wish to conveniently move all
+the ingredients to the inventory.
+
+- Format: `cart move`
+- Example:
+|===
+| Command | Result
+
+|`cart move`
+|Moves all ingredients from the cart into the inventory. Also clears the cart of all items.
+|===
+
+==== Export ingredients in cart to PDF file
+This command allows you to export all the ingredients in the cart to a PDF file. The PDF file will be located in the
+same folder as Cooking Papa.
+
+Note: if a previous version of the PDF file, `cart.pdf` is open in another program (Internet browser, Adobe PDF),
+Cooking Papa will not be able to export the cart.
+
+- Format: `cart export`
+|===
+| Command | Result
+| `cart export`
+a|image::CookbookExportExample1.png[width="790"]
+_The exported PDF file will be in the same folder where Cooking Papa is located._
+
+image::CookbookExportExample2.png[width="790"]
+_An example of the PDF file exported from the sample cart in Cooking Papa._
+|===
+== Command Summary https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
+
+[cols="2,3,5a", options="header"]
+|===
+| Category | Addtional Parameters | Result
+.8+|``cookbook``
+|``view recipe INDEX``
+|Shows recipe at given INDEX.
+|``add recipe n/NAME d/DESCRIPTION``
+|Adds a new empty recipe with the given NAME and DESCRIPTION.
+|``add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [s/STEP] [t/TAG]``
+|Adds a new recipe with the given NAME and DESCRIPTION.
+INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be added according to input from user.
+|``remove recipe INDEX``
+|Remove recipe at given INDEX.
+|``search recipe k/KEYWORD``
+|Search for recipes by a keyword.
+|``search recipe t/TAG``
+|Search for recipes by tags.
+|``search inventory``
+|Search for recipes whose ingredients are available in the inventory.
+|``list``
+|Views the whole collection of recipes in the cookbook.
+
+
+.6+|``recipe``
+|``INDEX add ingredient i/INGREDIENT q/QUANTITY``
+|Add ingredients to a recipe at given INDEX.
+|``INDEX remove ingredient i/INGREDIENT q/QUANTITY``
+|Removes the ingredient and the specified quantity from recipe at given INDEX.
+|``INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION``
+|Adds a step at STEP_INDEX with STEP_DESCRIPTION to the recipe at given INDEX.
+|``INDEX remove step x/STEP_INDEX``
+|Remove a step at STEP_INDEX from the recipe at given INDEX.
+|``INDEX add tag t/TAG``
+|Adds a tag 'TAG' to the recipe at given INDEX.
+|``INDEX remove tag t/TAG``
+|Removes a tag 'TAG' to the recipe at given INDEX.
+
+.4+|``inventory``
+|``add ingredient  i/INGREDIENT q/QUANTITY``
+|Adds QUANTITY of INGREDIENTS into your inventory.
+|``remove ingredient i/INGREDIENT q/QUANTITY``
+|Removes QUANTITY of INGREDIENTS from your inventory.
+|``clear``
+|Removes all ingredients from the inventory.
+|``cook recipe INDEX``
+|Removes the ingredients and its' corresponding quantities of recipe INDEX from the inventory.
+
+.6+|``cart``
+|``add recipe INDEX``
+|Adds all ingredients required of recipe at given INDEX to the cart.
+|``add ingredient i/INGREDIENT q/QUANTITY``
+|Adds QUANTITY of INGREDIENTS into your cart.
+|``remove ingredient i/INGREDIENT q/QUANTITY``
+|Removes QUANTITY of INGREDIENTS from your cart.
+|``clear``
+|Clears the cart of all ingredients.
+|``move``
+|Moves all the ingredients from the cart to the inventory, clearing the cart in the process.
+|``export``
+|Exports current cart into a PDF.
+|===
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Adding ingredients to inventory and cart
+The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
+respectively, which extends the `Command` abstract class. Since `CartAddCommand` and `InventoryAddCommand` both serve the
+same purpose in different contexts of `Cart` and `Inventory` respectively, they will be mentioned together in tandem. +
+
+This command was implemented to allow the user know to add an ingredient to the cart or inventory respectively.
+An ingredient only has two main components - its name and quantity. We allow the user to use their own measurement up to their own
+preferences and do not force any fixed unit of measurement. Although similar, `Cart` and `Ingredients` differ in certain functions
+from a user's point of view. For a user to immediately sort where they wish to sort the ingredient they are adding, `Cart` and
+
+
+==== Implementation
+
+Below is a step-by-step sequence of what happens when the command `cart add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY` is added.
+
+. The user adds a ingredient to the cart by entering the command `cart  add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY` in the command line input.
+. `CartAddCommandParser` parsers the input to check and verify that the input provided for `i/INGREDIENT_NAME` amd `q/INGREDIENT_QUANTITY`
+are correct. Otherwise a `ParseException` will be thrown.
+. The fields are then passed to `CartAddIngredientCommand` as an `Ingredient` object and is returned to `LogicManager`.
+. `LogicManager` calls `CartAddIngredientCommand#execute()` and checks if the `Ingredient` object given has the same `INGREDIENT_NAME` and
+`INGREDIENT_QUANTITY` unit. If that `Ingredient` exists, it will simply add on to the quantity of that ingredient. Otherwise,
+a new instance of that `Ingredient` will be added to the Cart.
+. If `CommandException` is not thrown, `Model#addCartIngredient` will be executed, with the given `Ingredient` as the parameter
+. `Model#addCartIngredient` then executes, adding the `Ingredient` to the local cart storage and updates with
+`Model#updateFilteredCartIngredientList()`.
+. A `CommandResult` with the successful text message is returned to `LogicManager` and will be displayed to the user via the GUI to feedback to the
+user that the `Ingredient` has been successfully added.
+
+The above implementation is the same for `Inventory` with the command `inventory  add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
+
+The following sequence diagram shows how the function of adding ingredients to cart work (full command omitted for brevity):
+
+.Sequence diagram for CartAddIngredientCommand
+image::CartAddIngredientSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: The need for many parsers for this command
+
+.Design considerations for the need for many parsers for this command
+[cols="12%,44%,44%"]
+|===
+| |Design A (Current choice): Create parsers for every individual action | Design B: Create parsers for each specific action
+
+|Description
+|The command will go through the parsers in the following order: `CookingPapaParser` -> `CartCommandParser` -> `CartAddCommandParser`
+-> `CartAddIngredientParser` before finally returning `CartAddIngredientCommand`. We eventually went with this as we wanted the add
+functionality to be expanded, namely to be able to add all the ingredients of cookbook recipes into the cart.
+| `CartAddCommand` will not be created to facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
+
+
+|Pros
+|More organised and can do more with `cart add` as the prefix.
+|The classes can be more specific and atomic in their actions.
+
+|Cons
+|Many parser classes to make and keep track of.
+|Might lead to disorganisation during troubleshooting with so many classes to keep track.
+|===
+
+=== Moving ingredients from cart to inventory
+The user may use this command after their shopping trip. With this one command, all ingredients will be shifted from the cart to the inventory.
+
+This command is implemented to ease the process of having the user adding every single ingredient to their inventory after they have bought ingredients from their cart
+and eventually deleting the cart after that tedious process. These gives a convenience to users that frequently use our application and we forsee
+that such an action will be used very often by these users. As this command only performs an atomic action, no extra
+arguments are needed to further supplement the use of this command.
+
+==== Implementation
+This command is facilitated by `CartMoveCommand`, which extends the `Command` class. The format of the command is as follows:
+`cart move`.
+
+Below is a step by step sequence of what happens when the user executes this command.
+
+. The user enters the command `cart move` in to the command line input.
+. `CartMoveCommandParser` then ensures that the user does not enter any other commands after `cart clear`.
+. `CartMoveCommandParser` then returns a `CartMoveCommand` and returns it to `LogicManager`
+. `LogicManager` calls `CartMoveCommand#execute()`. If there are other commands after `cart clear`, a `CommandException`
+will be thrown.
+. If `CommandException` is not thrown, `Model#cartMoveIngredients()` will be executed.
+. `Model#cartMoveIngredients()` will move every ingredient from the `cart` and add it into the `inventory`
+. A `CommandResult` with the success message text will be returned to `LogicManager`, which will then be passed to `MainWindow`
+and will then feedback to the user.
+
+
+The following sequence diagram shows how this function works (full command omitted for brevity):
+
+.Sequence Diagram for CartMoveCommand
+image::CartMoveSequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect: Allowing users to move some or all ingredients from cart to inventory
+
+.Design considerations for allowing users to move some or all ingredients from cart to inventory
+[cols="12%,44%,44%"]
+|===
+| |Design A (Current choice): Move all ingredients | Design B: Allow users to move individually or exclude some ingredients when moving
+
+|Description
+|There was a consideration to allow the user to move the ingredients by individual ingredients. Eventually the options was
+not given as we know that typical users will want to move all the ingredients except for individual ingredients.
+| The use cases of such an action happening is very little and the user can simply manually remove the few
+ingredients they do not wish to add to the inventory after using the `cart move` command. The user can also manually
+add back the ingredients to the cart after it is cleared if they wish to.
+
+|Pros
+|Straightforward to implement
+|Lesser implementations, more time to focus on other parts of the project
+
+|Cons
+|Lesser functionality to users that really want to only move certain ingredients
+|Poorer user experience for users that do not want to move all ingredients from the cart to inventory on a regular basis,
+|===

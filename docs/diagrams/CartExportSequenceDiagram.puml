@@ -1,0 +1,88 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CookingPapaParser" as CookingPapaParser LOGIC_COLOR
+participant ":CartCommandParser" as CartCommandParser LOGIC_COLOR
+participant ":CartExportCommandParser" as CartExportCommandParser LOGIC_COLOR
+participant ":CartExportCommand" as CartExportCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":PdfExporter" as PdfExporter MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("cart export")
+activate LogicManager
+
+LogicManager -> CookingPapaParser : parseCommand("cart export")
+activate CookingPapaParser
+
+create CartCommandParser
+CookingPapaParser -> CartCommandParser : new CartExportCommand()
+activate CartCommandParser
+
+CartCommandParser -> CookingPapaParser  : CartCommandParser
+deactivate CartCommandParser
+
+CookingPapaParser -> CartCommandParser : cartCommandParser.parse(" export")
+activate CartCommandParser
+
+create CartExportCommandParser
+CartCommandParser -> CartExportCommandParser : new CartExportCommandParser()
+activate CartExportCommandParser
+
+CartExportCommandParser -> CartCommandParser : cartExportCommandParser
+deactivate CartExportCommandParser
+
+CartCommandParser -> CartExportCommandParser : cartExportCommandParser.parse("")
+activate CartExportCommandParser
+
+create CartExportCommand
+CartExportCommandParser -> CartExportCommand : new CartExportCommand()
+activate CartExportCommand
+
+CartExportCommand -> CartExportCommandParser : command
+deactivate CartExportCommand
+
+CartExportCommandParser -> CartCommandParser : command
+deactivate CartExportCommandParser
+
+CartCommandParser -> CookingPapaParser : command
+deactivate CartCommandParser
+
+CookingPapaParser -> LogicManager : command
+deactivate CookingPapaParser
+
+LogicManager -> CartExportCommand : command.execute(model)
+activate CartExportCommand
+
+CartExportCommand -> PdfExporter : PdfExporter.exportCart(model.getCart().getIngredientList())
+activate PdfExporter
+
+PdfExporter -> Model : model.getCart().getIngredientList()
+activate Model
+
+Model --> PdfExporter : ingredients
+deactivate Model
+
+PdfExporter --> CartExportCommand
+deactivate PdfExporter
+
+create CommandResult
+CartExportCommand -> CommandResult : new CommandResult("All cart ingredients have been exported to a pdf file!")
+activate CommandResult
+
+CommandResult --> CartExportCommand : commandResult
+deactivate CommandResult
+
+CartExportCommand --> LogicManager : commandResult
+deactivate CartExportCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

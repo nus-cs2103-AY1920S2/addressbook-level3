@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CookingPapaParser" as CookingPapaParser LOGIC_COLOR
+participant ":CookbookCommandParser" as CookbookCommandParser LOGIC_COLOR
+participant ":CookbookAddCommandParser" as CookbookAddCommandParser LOGIC_COLOR
+participant ":CookbookAddCommand" as CookbookAddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("cookbook add recipe ...")
+activate LogicManager
+
+LogicManager -> CookingPapaParser : parseCommand("cookbook add recipe ...")
+activate CookingPapaParser
+
+create CookbookCommandParser
+CookingPapaParser -> CookbookCommandParser : new CookbookAddCommand()
+activate CookbookCommandParser
+
+CookbookCommandParser -> CookingPapaParser  : cookbookCommandParser
+deactivate CookbookCommandParser
+
+CookingPapaParser -> CookbookCommandParser : cookbookCommandParser.parse(" add recipe ...")
+activate CookbookCommandParser
+
+create CookbookAddCommandParser
+CookbookCommandParser -> CookbookAddCommandParser : new CookbookAddCommandParser()
+activate CookbookAddCommandParser
+
+CookbookAddCommandParser -> CookbookCommandParser : cookbookAddCommandParser
+deactivate CookbookAddCommandParser
+
+CookbookCommandParser -> CookbookAddCommandParser : cookbookAddCommandParser.parse(" recipe ...")
+activate CookbookAddCommandParser
+
+create CookbookAddCommand
+CookbookAddCommandParser -> CookbookAddCommand : new CookbookAddCommand(recipe)
+activate CookbookAddCommand
+
+CookbookAddCommand -> CookbookAddCommandParser : command
+deactivate CookbookAddCommand
+
+CookbookAddCommandParser -> CookbookCommandParser : command
+deactivate CookbookAddCommandParser
+
+CookbookCommandParser -> CookingPapaParser : command
+deactivate CookbookCommandParser
+
+CookingPapaParser -> LogicManager : command
+deactivate CookingPapaParser
+
+LogicManager -> CookbookAddCommand : command.execute(model)
+activate CookbookAddCommand
+
+CookbookAddCommand -> Model : model.addCookbookRecipe(recipe);
+activate Model
+
+Model --> CookbookAddCommand
+deactivate Model
+
+create CommandResult
+CookbookAddCommand -> CommandResult : new CommandResult("New recipe (index 1) added: Recipe name")
+activate CommandResult
+
+CommandResult --> CookbookAddCommand : commandResult
+deactivate CommandResult
+
+CookbookAddCommand --> LogicManager : commandResult
+deactivate CookbookAddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
