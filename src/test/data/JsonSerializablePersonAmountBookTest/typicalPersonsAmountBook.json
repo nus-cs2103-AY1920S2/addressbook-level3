@@ -1,24 +1,24 @@
 {
   "persons" : [ {
-    "name" : "Alice Seah",
+    "name" : "alice seah",
     "amount" : 3.50
   }, {
-    "name" : "Bob Tan",
+    "name" : "bob tan",
     "amount" : 4.50
   }, {
-    "name" : "Carl Lim",
+    "name" : "carl lim",
     "amount" : 5.50
   }, {
-    "name" : "Daniel Lee",
+    "name" : "daniel lee",
     "amount" : 6.50
   }, {
-    "name" : "Elle Seah",
+    "name" : "elle seah",
     "amount" : 7.50
   }, {
-    "name" : "Fiona Kwok",
+    "name" : "fiona kwok",
     "amount" : 8.50
   }, {
-    "name" : "George Peet",
+    "name" : "george peet",
     "amount" : 9.50
   } ]
 }
