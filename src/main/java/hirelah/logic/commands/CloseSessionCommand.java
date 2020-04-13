@@ -15,7 +15,7 @@ public class CloseSessionCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
-        Path session = model.closeSession();
+        Path session = model.closeSession().getFileName();
         return new ToggleCommandResult(String.format(MESSAGE_SUCCESS, session), ToggleView.SESSION);
     }
 
