@@ -2730,17 +2730,17 @@ Expected: You will see an error message saying that provided group type was not 
 
 . Adding a student to a group.
 
-.. Test Case: `student add id/A0123456X g/G06 m/CS3243 n/Jane Doe` +
-Expected: A student named `Jane Doe` with matriculation number `A0123456X` is added
+.. Test Case: `student add id/A0184721X g/G06 m/CS3243 n/Jane Doe` +
+Expected: A student named `Jane Doe` with matriculation number `0184721X` is added
 to the group `G06` of the module `CS3243` with a default rating of `3`.
 
-.. Test Case: `student add id/A9876543K g/G06 m/CS3243 n/John Doe r/5` +
-Expected: A student named `John Doe` with matriculation number `A9876543K` is added
+.. Test Case: `student add id/A0184121E g/G06 m/CS3243 n/John Doe r/5` +
+Expected: A student named `John Doe` with matriculation number `A0184121E` is added
 to the group `G06` of the module `CS3243` with a rating of `5`.
 
-.. Test Case: `student add id/A9876543K g/G06 m/CS3243 n/Donald Trump r/5` +
+.. Test Case: `student add id/A0184121E g/G06 m/CS3243 n/Donald Trump r/5` +
 Expected: You will see an error message saying that this student already exists in the group.
-(Assuming you added a student with matriculation number `A9876543K`
+(Assuming you added a student with matriculation number `A0184121E`
 into the group `G06`, which in turn is inside the module `CS3243`)
 
 [discrete]
