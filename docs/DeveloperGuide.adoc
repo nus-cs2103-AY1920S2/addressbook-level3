@@ -168,28 +168,55 @@ This implementation means that a local cache of the added modules will be availa
 
 
 
-=== Module Planning
+=== Profile (Module Book) feature
 
-==== Adds NUS modules
-- This module planning feature enables users to store any module they have taken or are taking now in NUS.
-* Implementation: Modules are created with `moduleAdd` command, followed by the module code and grade (if applicable)
-Our program will check if the module code is valid by using the search feature above.
-* The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user want to add a module in our program.
+This profile feature allows users to manage the modules they have taken before or is taking now in NUS.
+In details, users are able to store their module taken into the program with the grades for each module stated if applicable and
+can also store tasks which are related to each module.
 
+==== Implementation
+- This feature is implemented using a panel on the main screen of profile tab with a list of modules that is updated with every command that
+may affect module list (such as add, delete or grade).
+
+- The module book (profile) currently supports following features.
+
+. Adds in or deletes modules and display the list of modules in profile tab.
+. Updates user's grades for each module and get CAP calculated immediately.
+. Manage the tasks related to each module (module tasks) through CLI.
+. Any modification to module tasks will be updated in the Calendar tab and also show messages on the result display above CLI.
+
+.Class diagram of structure and relations of NusModule, ModuleBook and relevant classes.
+image::NusModuleClassDiagram.png[width="790"]
+
+- As shown in the class diagram above, modules are created by a class called `NusModule`. Every instance of `NusModule` contains a `ModuleCode` object, a
+`Grade` object (optional) and a list of `ModuleTask` objects.
+
+- All possible actions mentioned above such as creating modules, deleting modules and adding tasks to modules are implemented through
+the `ModuleBook` class.
+
+- The program will automatically save any modification to module book after each command is executed by calling the `saveModuleBook` method
+in `Storage`.
+
+- For example, modules are created with `moduleAdd` command, followed by the module code and grade. (if applicable) +
+Our program will check if the module code is valid by using the search feature above and whether the module has already been added in our module book.
+And then call method `addModule` in `ModuleBook` to create the module as required. Finally, it will automatically save the module added just now.
+
+- The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user want to add a module in our program.
+
+.Sequence diagram when moduleAdd command is executed
 image::ModuleAddSequenceDiagram.png[width="790"]
 
-==== Update your grades
-- For modules that you have taken, users can store their grade in our application.
-* Implementation: if user didn't state their grade for any module when they first add in the module or they need to change their grade,
-Users can use `grade` command, followed by the module code and the grade in order to update their grade for that module.
+.Relation between ModuleBook and Task
+image::PartOfModelClassDiagramForProfile.png[width="790"]
 
-==== CAP calculation
-- Based on the grades users have stored, users can get their current CAP immediately.
-* Implementation: check current CAP using `cap` command
 
-==== [proposed] Module Tasks
-- Users can view the tasks related to each module separately.
-* Implementation:
+- The program will synchronize the modification to module tasks in `ModuleBook` with that shown in Calendar tab through `ModelManager` as shown above.
+i.e. Any modification in module tasks will be updated in `Task` which is the main class Calendar feature depends on. (see more details in Calendar feature)
+
+==== Example Use Scenario
+
+==== Design Considerations
+
 
 === Calendar Feature
 
