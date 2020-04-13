@@ -637,9 +637,15 @@ In addition, we made use of Observable classes to reduce the number of times an 
 ==== Description
 The `Interviewee` class contains various fields, one of the more troublesome fields to save is the `Transcript`
 of the `Interviewee` as it contains the `RemarkList` and a `Hashmap` of `Attribute` to score, which is stored as
-`Double`. Additionally, `Interviewee `can only have `Transcript` once they have been interviewed and when the model is finalised.
+`Double`. Additionally, `Interviewee` can only have `Transcript` once they have been interviewed and when the model is finalised.
 Hence, our group decided to split the saving of the `Transcript` from other fields of the the Interviewee such as the
 name of the `Interviewee`.
+
+Furthermore, since each interviewee contains their own Transcript, which contains a list of remarks which may potentially
+become very long (if an interview lasts for an hour, there could be hundreds or thousands of remarks), it would harm performance
+if every change to the interviewee list required saving of each interviewee and their entire transcript.
+
+Note that this is also unnecessary since the only time a transcript is saved
 
 // end::storage[]
 === Updating UI elements after user commands
