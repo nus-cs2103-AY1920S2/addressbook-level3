@@ -16,7 +16,7 @@ endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103-W14-1/main
 :toclevels: 3
 
-By: `Team CS2103-AY1920S2-CS2103-W14`      Since: `Jan 2020`      Licence: `MIT`
+By: `Team CS2103-AY1920S2-W14-1`      Since: `Jan 2020`      Licence: `MIT`
 
 // tag::intro[]
 == Welcome to CodeCampX
