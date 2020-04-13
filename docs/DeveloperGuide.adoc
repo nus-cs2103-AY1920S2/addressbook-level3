@@ -977,7 +977,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_'items' refers to a resume field of type personal details, project, education, skills, internship, and achievement._
+_'items' refers to a resume field of type `project`, `skill`, `internship`, `note` and `resume`._
 
 // end::user-stories[]
 
