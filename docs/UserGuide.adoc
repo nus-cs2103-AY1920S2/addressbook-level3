@@ -417,9 +417,15 @@ For example: `add n/Buy Milk r/11/11/20@23:59` as shown below.
 .Input for adding a task with reminder.
 image::reminder_add.png[width=395]
 
-This results in a task with the reminder's date in the task card.
+This results in a task with the reminder's date in the task card as well as result display giving feedback.
 
-.Success for adding a task with reminder.
+.Success for adding a task with reminder on result display(top).
+image::AddTaskReminderUp.png[width=395]
+
+.Success for adding a task with reminder on result display(scroll to bottom).
+image::AddTaskReminderDown.png[width=395]
+
+.Success for adding a task with reminder(top).
 image::reminder_add_success.png[width=790]
 
 [IMPORTANT]
@@ -437,7 +443,13 @@ For example: `edit 1 r/01/11/20@11:59` as shown below.
 .Input for editing task to have reminder or edit reminder itself.
 image::reminder_edit.png[width=395]
 
-Results in a task with the reminder's date in the task card.
+Results in a task with the reminder's date in the task card as well as result display giving feedback.
+
+.Success for editing a task with reminder on result display(top).
+image::EditTaskReminderUp.png[width=395]
+
+.Success for editing a task with reminder on result display(scroll to bottom).
+image::EditTaskReminderDown.png[width=395]
 
 .Success for editing task's reminder.
 image::reminder_edit_success.png[width=790]
@@ -464,8 +476,11 @@ image::recurring_add.png[width=395]
 
 Results in a task with the recurring attribute in the task card as well as result display giving feedback.
 
-.Success for adding recurring attribute shown on result display.
-image::recurring_add_success_resultDisplay.png[width=396]
+.Success for adding a task with recurring attribute on result display(top).
+image::AddTaskRecurringUp.png[width=395]
+
+.Success for adding a task with recurring attribute on result display(scroll to bottom).
+image::AddTaskRecurringDown.png[width=395]
 
 .Success for adding recurring attribute to task card.
 image::recurring_add_success.png[width=790]
@@ -478,15 +493,18 @@ The format for recurring is strictly `rec/d` or `rec/w` as there is only daily a
 ===== Edit Task with recurring
 Edit a task to include a recurring with the following command `edit <index> rec/d` or `edit <index> rec/w`. You can also include the other flags such as `t/`, `des/` and more.
 
-For example: `edit 1 rec/d` as shown below.
+For example: `edit 1 rec/w` as shown below.
 
 .Input for editing recurring attribute to task.
 image::recurring_edit.png[width=395]
 
 Results in a task with the reminder's date in the specific task card.
 
-.Success for editing recurring attribute to task.
-image::recurring_edit_success.png[width=790]
+.Success for editing a task with recurring attribute on result display(top).
+image::EditTaskRecurringUp.png[width=395]
+
+.Success for editing a task with recurring attribute on result display(scroll to bottom).
+image::EditTaskRecurringDown.png[width=395]
 
 === Recurring behaviour when task is marked as done
 Mark a task as done as you would normally using the command `done <index>`. For a recurring task, after the stipulated amount of time(either daily or weekly), the task will be reset as undone.
@@ -507,13 +525,16 @@ Add a reminder as you would normally using the command `edit <index> r/DD/MM/YY@
 
 For example: `done 1`. After a day's worth of time, the task will be set from done to undone.
 
-.Task initially has a reminder for 13th April 2020 at 12:41PM.
+.Task initially has a reminder for 13th April 2020 at 9:32PM.
 image::recurring_behaviour_reminder.png[width=790]
 
-.Task has been reset shown on result display with updated reminder time of 14th April 2020 at 12:41PM.
-image::recurring_behaviour_new_reminder_resultDisplay.png[width=395]
+.Task has been reset shown on result display with updated reminder time of 14th April 2020 at 9:32PM(top).
+image::recurring_behaviour_new_reminder_resultDisplay(Top).png[width=395]
 
-.Task has been reset shown on task card with updated reminder time of 14th April 2020 at 12:41PM..
+.Task has been reset shown on result display with updated reminder time of 14th April 2020 at 9:32PM(scroll to bottom).
+image::recurring_behaviour_new_reminder_resultDisplay(Bottom).png[width=395]
+
+.Task has been reset shown on task card with updated reminder time of 14th April 2020 at 9:32PM.
 image::recurring_behaviour_new_reminder.png[width=790]
 
 // end::recurring[]
