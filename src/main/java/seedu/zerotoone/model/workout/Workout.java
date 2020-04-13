@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.model.exercise.Exercise;
 
 /**
@@ -19,20 +21,25 @@ public class Workout {
     private final WorkoutName workoutName;
     private final List<Exercise> workoutExercises = new ArrayList<>();
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     /**
      * Every field must be present and not null.
      */
     public Workout(WorkoutName workoutName, List<Exercise> workoutExercises) {
+        logger.info(String.format("Creating new Workout called %s", workoutName.fullName));
         requireAllNonNull(workoutName, workoutExercises);
         this.workoutName = workoutName;
         this.workoutExercises.addAll(workoutExercises);
     }
 
     public WorkoutName getWorkoutName() {
+        logger.info("Getting workout name");
         return workoutName;
     }
 
     public List<Exercise> getWorkoutExercises() {
+        logger.info("Getting workout exercises");
         return Collections.unmodifiableList(workoutExercises);
     }
 
@@ -62,6 +69,7 @@ public class Workout {
      * Replace an exercise in the workout with another exercise.
      */
     public void setExercise(Exercise target, Exercise editedExercise) {
+        logger.info("Setting exercise");
         int index = workoutExercises.indexOf(target);
         if (index != -1) {
             workoutExercises.set(index, editedExercise);
@@ -73,6 +81,7 @@ public class Workout {
      * @param exercise The exercise to be deleted.
      */
     public void deleteExercise(Exercise exercise) {
+        logger.info("Deleting exercise");
         while (workoutExercises.contains(exercise)) {
             workoutExercises.remove(exercise);
         }
