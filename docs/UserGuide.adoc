@@ -71,7 +71,10 @@ Pay attention to the warnings before you execute the command, or else things may
 ==== Viewing help : `help`
 
 Format: `help`
+View the user guide page in a pop-out window.
 // end::help[]
+
+image::Help.png[align="center"]
 
 // tag::receivenotif[]
 ==== Receiving notification while a certain product is running low.
