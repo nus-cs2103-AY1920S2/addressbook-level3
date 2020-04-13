@@ -1,0 +1,115 @@
+@startuml
+/' @author @jarrod-bob'/
+/' Got inspiration and adapted
+from https://github.com/AY1920S2-CS2103T-W12-1/main/blob/master/docs/images/DeliveredClassDiagram.png '/
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+class BmiCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : BmiCommand
+}
+
+interface Parser<T extends Command> <<Interface>> {
+    parse(userInput : String) : Command
+}
+
+abstract class Command {
+    {abstract} execute(dietModel:DietModel) : CommandResult
+}
+
+class BmiCommand extends Command {
+    /' Fields '/
+    + COMMAND_WORD : String = "bmi"
+    + MESSAGE_USAGE : String
+    + MESSAGE_CALCULATE_BMI_SUCCESS : String
+
+    - bmi : Bmi
+    - height : Height
+    - weight : Weight
+
+    /' Methods '/
+    + execute(dietModel : DietModel) : CommandResult
+    + equals(other : Object) : boolean
+
+}
+
+interface DietModel <<Interface>> {
+    + PREDICATE_SHOW_ALL_FOODS : Predicate<Food>
+
+    + setUserPrefs(userPrefs : ReadOnlyUserPrefs) : void
+    + getUserPrefs() : ReadOnlyUserPrefs
+    + getMyselfFilePath() : Path
+    + setMyselfFilePath(myselfFilePath : Path) : void
+    + setMyself(myself : ReadOnlyMyself) : void
+    + getMyself() : ReadOnlyMyself
+    + setHeight(height : Height) : void
+    + setWeight(weight : Weight) : void
+    + getHeight() : Height
+    + getWeight() : Weight
+    + setMode(mode : Mode) : void
+    + printMetrics() : String
+    + getMode() : Mode
+    + getFoodBookFilePath() : Path
+    + setFoodBookFilePath(foodBookFilePath : Path) : void
+    + setFoodBook(foodBook : ReadOnlyFoodBook) : void
+    + getFoodBook() : ReadOnlyFoodBook
+    + hasFood(food : Food) : boolean
+    + deleteFood(target : Food) : void
+    + addFood(food : Food) : void
+    + setFood(target : Food, editedFood : Food) : void
+    + getFilteredFoodList() : ObservableList<Food>
+    + listFoods(mode : String) : String
+    + updateFilteredFoodList(predicate : Predicate<Food>) : void
+}
+
+
+class Bmi {
+    /' Fields '/
+    + height : Float
+    + weight : Float
+    + bmi : String
+    + bmiFloat : Float
+    + category : String
+
+    /' Methods '/
+    + isValidHeight(test : String) : boolean
+    + isValidWeight(test : String) : boolean
+    + calcBmi() : Float
+}
+
+class Height {
+    /' Fields '/
+    - heightString : String
+    - heightFloat : Float
+
+    /' Methods '/
+    + isValidHeight(test : String) : boolean
+    + isZero() : boolean
+    + isNotZero() : boolean
+}
+
+class Weight {
+    /' Fields '/
+    - weightString : String
+    - weightFloat : Float
+
+    /' Methods '/
+    + isValidWeight(test : String) : boolean
+    + isZero() : boolean
+    + isNotZero() : boolean
+}
+
+
+BmiCommand ..> DietModel
+BmiCommandParser ..> BmiCommand
+BmiCommandParser ..> Height
+BmiCommandParser ..> Weight
+BmiCommand --> Height
+BmiCommand --> Weight
+BmiCommand --> Bmi
+
+
+@enduml

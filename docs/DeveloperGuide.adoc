@@ -221,11 +221,11 @@ Classes used by multiple components are in the `seedu.eylah.commons` package.
 
 This section describes some noteworthy details on how the features in EYLAH are implemented.
 
-// tag::undoredo[]
+// tag::diettrackerintro[]
 === DietTracker feature
 
 The Diet Tracker feature is designed to aid our users in maintaining a healthy lifestyle. The feature comprises
-of 9 Commands.
+of 10 Commands.
 
 * <<Add-Command, `AddCommand`>> - Creates a new Food object with its attributes (Name, Calories) and adds it to the FoodBook Storage.
 * <<Delete-Command, `DeleteCommand`>> - Deletes the Food specified by the input index from FoodBook Storage.
@@ -237,13 +237,13 @@ based on their user input.
 * <<Bmi-Command, `BmiCommand`>> - Calculates the BMI.
 * <<Mode-Command, `ModeCommand`>> - Allows users to toggle between different modes of the diet tracker.
 * <<Metrics-Command, `MetricsCommand`>> - Allows users to check their health metrics, like their Height, Weight and Dieting Mode.
+//end::diettrackerintro[]
 
-Below are some diagrams to explain how our team implemented this portion.
-
-
+//tag::diettrackeractivitydiagram[]
 *Activity Diagram* of Diet Tracker: +
 
 image::DietTrackerActivityDiagram.png[]
+//end::diettrackeractivitydiagram[]
 
 [[Add-Command]]
 ==== Add Command
@@ -300,7 +300,6 @@ image::DietTrackerAddCommandSequenceDiagram.png[]
 
 [[Delete-Command]]
 ==== Delete Command
-
 
 In this section, we will learn more about how the `delete` command is implemented.
 
@@ -466,9 +465,9 @@ The following sequence diagram summarizes what happens during the execution of `
 .Edit Command Sequence Diagram
 image::DietTrackerEditCommandSequenceDiagram.png[]
 
+//tag::diettrackerbmi[]
 [[Bmi-Command]]
 ==== Bmi Command
-
 
 In this section, we will learn more about how the `bmi` command is implemented.
 
@@ -495,6 +494,16 @@ The following activity diagram illustrates what happens when a user executes the
 
 .Bmi Command Activity Diagram
 image::DietTrackerBmiCommandActivityDiagram.png[]
+
+*Structure of Bmi Command* +
+
+In this section, you will learn more about the relationships between objects related to the `bmi` command.
+
+.Bmi Command Class Diagram
+image::DietTrackerBmiCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `BmiCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `BmiCommand`
 
 *Implementation of Bmi Command*
 
@@ -576,8 +585,10 @@ Aspect: Storage of BMI
 * Alternative 2: Storage of BMI value in Self class in Model.
 ** Pros: Users have access to it anytime.
 ** Cons: Coding complexity.
+//end::diettrackerbmi[]
 
 
+//tag::diettrackerheight[]
 [[Height-Command]]
 ==== Height Command
 
@@ -605,6 +616,16 @@ The following activity diagram illustrates what happens when a user executes the
 .Height Command Activity Diagram
 image::DietTrackerHeightCommandActivityDiagram.png[]
 
+*Structure of Height Command* +
+
+In this section, you will learn more about the relationships between objects related to the `height` command.
+
+.Height Command Class Diagram
+image::DietTrackerHeightCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `HeightCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `HeightCommand`
+
 *Implementation of Height Command*
 
 The following is a detailed explanation of the operations `HeightCommand` performs. +
@@ -624,8 +645,10 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .Height Command Sequence Diagram
 image::DietTrackerHeightCommandSequenceDiagram.png[]
+//end::diettrackerheight[]
 
 
+//tag::diettrackerweight[]
 [[Weight-Command]]
 ==== Weight Command
 
@@ -653,7 +676,17 @@ The following activity diagram illustrates what happens when a user executes the
 .Weight Command Activity Diagram
 image::DietTrackerWeightCommandActivityDiagram.png[]
 
-*Implementation of weight Command*
+*Structure of Weight Command* +
+
+In this section, you will learn more about the relationships between objects related to the `weight` command.
+
+.Weight Command Class Diagram
+image::DietTrackerWeightCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `WeightCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `WeightCommand`
+
+*Implementation of Weight Command*
 
 The following is a detailed explanation of the operations `WeightCommand` performs. +
 
@@ -672,7 +705,10 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .Weight Command Sequence Diagram
 image::DietTrackerWeightCommandSequenceDiagram.png[]
+//end::diettrackerweight[]
 
+
+//tag::diettrackermode[]
 [[Mode-Command]]
 ==== Mode Command
 
@@ -698,6 +734,16 @@ The following activity diagram illustrates what happens when a user executes the
 .Mode Command Activity Diagram
 image::DietTrackerModeCommandActivityDiagram.png[]
 
+*Structure of Mode Command* +
+
+In this section, you will learn more about the relationships between objects related to the `mode` command.
+
+.Mode Command Class Diagram
+image::DietTrackerModeCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `ModeCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `ModeCommand`
+
 *Implementation of Mode Command*
 
 The following is a detailed explanation of the operations ModeCommand performs. +
@@ -717,7 +763,10 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .Mode Command Sequence Diagram
 image::DietTrackerModeCommandSequenceDiagram.png[]
+//end::diettrackermode[]
 
+
+//tag::diettrackermetrics[]
 [[Metrics-Command]]
 ==== Metrics Command
 
@@ -738,6 +787,16 @@ The following activity diagram illustrates what happens when a user executes the
 .Metrics Command Activity Diagram
 image::DietTrackerMetricsCommandActivityDiagram.png[]
 
+*Structure of Metrics Command* +
+
+In this section, you will learn more about the relationships between objects related to the `metrics` command.
+
+.Metrics Command Class Diagram
+image::DietTrackerMetricsCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `MetricsCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `MetricsCommand`
+
 *Implementation of Metrics Command*
 
 The following is a detailed explanation of the operations MetricsCommand performs. +
@@ -755,6 +814,7 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .Metrics Command Sequence Diagram
 image::DietTrackerMetricsCommandSequenceDiagram.png[]
+//end::diettrackermetrics[]
 
 === Expense Splitter feature
 //tag::expensesplitterintro[]
@@ -944,6 +1004,15 @@ The following activity diagram illustrates what happens when a user executes `li
 .List Receipt Activity Diagram
 image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
 
+*Structure of List Receipt Command* +
+
+In this section, you will learn more about the relationships between objects related to the `listreceipt` command.
+
+.List Receipt Command Class Diagram
+image::ExpenseSplitterListReceiptCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `ListReceiptCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `ListReceiptCommand`
 
 *Implementation of List Receipt Command*
 

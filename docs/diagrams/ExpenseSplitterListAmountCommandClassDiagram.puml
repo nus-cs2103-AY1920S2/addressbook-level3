@@ -37,13 +37,29 @@ interface SplitterModel <<Interface>> {
     + updateFilteredPersonList(predicate : Predicate<Person>) : void
     + getFilteredPersonList() : ObservableList<Person>
 
+}
 
+class SplitterModelManager implements SplitterModel {
+    /' Fields '/
+    - PersonAmountBook : personAmountBook
+
+    /' Methods '/
+    + listAmount() : String
+}
+
+class PersonAmountBook {
+    /' Fields '/
+    - UniquePersonList : persons
+
+    /' Methods '/
+    + toString() : String
 }
 
 
 
 
 ListAmountCommand ..> SplitterModel
+SplitterModelManager *-right->"1" PersonAmountBook
 
 
 @enduml
