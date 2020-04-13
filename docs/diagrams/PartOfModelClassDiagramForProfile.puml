@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>> {
+Interface Model <<Interface>>
+Class ModelManager
+Class ModuleBook
+Class Task
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+ModelManager .up.|> Model
+ModelManager o--> "1" ModuleBook
+ModelManager ..> Task
+
+@enduml

@@ -74,9 +74,9 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-ModuleBook o--> "*" NusModule
-NusModule o--> "1" Grade
-NusModule o--> "1" ModuleCode
+ModuleBook *--> "*" NusModule
+NusModule *--> "1" Grade
+NusModule *--> "1" ModuleCode
 ModuleCode -[hidden]right-> Grade
 
 ModelManager -->"1" Person : filtered list
