@@ -514,22 +514,30 @@ of a good’s name and a selling price. Good-price pairs are stored as an offer 
 ==== Edit Supplier Feature
 Users could edit and update the information of registered supplier should there be any changes in InventoryManager by
 using the EditSupplierCommand.
-The edit supplier command format: edit-s INDEX (must be a positive integer) [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] [gp/GOOD_PRICE_PAIR]…
+The edit supplier command format: `edit-s INDEX (must be a positive integer) [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] [gp/GOOD_PRICE_PAIR]…`
 
 ===== Implementation
 
-The following sequence diagram shows how the information of existing suppliers could be updated by the EditSupplierCommand.
+The following sequence diagram shows how the information of existing suppliers (`supplierToEdit`) could be updated by the `EditSupplierCommand`.
+`EditSupplierCommandParser` creates a `EditSupplierDescriptor` object to store all the information that needs to be updated to a supplier.
+Then both `index` of the supplier that aims to be edited and the `EditSupplierDescriptor` object are passed to the `EditSupplierCommand` where
+a new supplier object (`editedSupplier`) will be created by combining the information of the `supplierToEdit`, which has gotten by searching through the address book by using `index`,
+and the new information stored in the `EditSupplierDescriptor` object. The original supplier (`supplierToEdit`) is replaced by the newly created supplier object (`editedSupplier`) by using the `model.setSupplier`.
 
 .Sequence diagram of Edit Supplier Feature
 image::SequentialDiagramEditSupplier.png[]
 
 [NOTE]
-The sequence diagram is generated using Powerpoint. There may be some formatting issue but the information of the diagram is accurate.
+The sequence diagram is generated using PowerPoint. There may be some formatting issues and drawings may not be to scale.
 
-The activity diagram of editing a supplier is shown below.
+
+The detailed activity diagram of editing a supplier is shown below.
 
 .Activity Diagram of Edit Supplier Feature
 image::ActivityDiagramEditSupplier.jpg[]
+
+[NOTE]
+The activity diagram is generated using PowerPoint. There may be some formatting issues and drawings may not be to scale.
 
 
 ===== Design Considerations
