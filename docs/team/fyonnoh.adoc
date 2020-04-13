@@ -59,8 +59,8 @@ include::../UserGuide.adoc[tag=about]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=pet]
-include::../DeveloperGuide.adoc[tag=setcommands]
-include::../DeveloperGuide.adoc[tag=DoneAndDelete]
+include::../DeveloperGuide.adoc[tag=DGpet]
+include::../DeveloperGuide.adoc[tag=DGsetcommands]
+include::../DeveloperGuide.adoc[tag=DGDoneAndDelete]
 
 
