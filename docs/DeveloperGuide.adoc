@@ -1558,59 +1558,29 @@ code, or barcode) (coming in in v2.0)
 [appendix]
 == Glossary
 
-[red]# Terms that are italicised inline code (e.g `_operating system_`) can be
-found with definitions here. #
-
-. **Apple** - American technology company well known for lifestyle devices like
-iPhone and iPad, which are manufactured exclusively by exploited minimum wage
-workers in China and Taiwan.
-. **coding** - the process of writing code that represents a computer program,
-or using a programming language to get a computer to behave how you want it to.
-. **Coupon Stash** - the program that makes handling your coupons easier, and
+* **Coupon Stash** - the program that makes handling your coupons easier, and
 also the subject matter of this Developer Guide.
-. **common operating system** - refers to the most widely seen `_operating
-systems_` within the top 3 most common `_desktop_` `_operating system
-families_`, namely `_Microsoft Windows_`, `_Apple_` Mac OS X and `_GNU
-Project_` Linux as of February 2020 (and within these families, Windows 10,
-macOS Catalina, no data for Linux).
-. **desktop** - a computer meant for use at an ordinary desk, usually one with
-a screen, as well as devices that allow people to interact with the computing
-system with physical controls such as a moveable hand-held device typically
-with large buttons and a wheel called a mouse, as well as a panel of buttons
-with printed alphanumeric characters known as a keyboard.
-. **GNU Project** - a label used for certain open-source software applications
-that are developed completely without expectation of remuneration, the acronym
-GNU in this case does not refer to any significant terms and can instead be
-taken just as a distinctive name.
-. **Java 11** - the 11th version of the highly popular Java platform and
+* **common operating system** - refers to the most widely seen operating
+systems for desktop computers.
+* **Java 11** - the 11th version of the highly popular Java platform and
 programming language, on which many software applications are built upon.
-. **lag** - the phenomenon where some arbitrary user input takes a noticeable
+* **lag** - the phenomenon where some arbitrary user input takes a noticeable
 and vexatious amount of time to effect a change in the application state.
-. **Microsoft** - American technology company well known for the Windows
-operating system, as well as the highly popular productivity software
-collection `_Microsoft_` Office, amongst various other products which comprise
-mostly of competing offerings to more well-established products, that fail to
-gain as much market share as the precedent.
-. **monetary amounts** - any currency amount (for example, 10.55 may represent
+* **monetary amount** - any currency amount (for example, 10.55 may represent
 10 dollars and 55 cents, or 10 pounds and 55 pence, or 10 pesos and 55
 centavos).
-. **operating system** - a fundamental software application that runs on a
+* **operating system** - a fundamental software application that runs on a
 computer, supporting basic functions such as ability to manage computer memory,
 to allow users to use the device without concern for such technical details.
-. **operating system family** - a group of `_operating systems_` that are
-developed by the same company or organisation, usually with the same branding
-as each other, having visually similar UIs and behaviour.
-. **OS (Operating System)** - see operating system.
-. **promo code** - short for promotional code, usually refer to an unique
+* **OS (Operating System)** - see operating system.
+* **promo code** - short for promotional code, usually refer to an unique
 string of letters and numbers that can be entered in some mobile application to
 redeem certain benefits.
-. **SoC (School of Computing)** - the School of Computing at the National
+* **SoC (School of Computing)** - the School of Computing at the National
 University of Singapore.
-. **source code** - a set of instructions, written in a programming language
+* **source code** - a set of instructions, written in a programming language
 that determine the final application’s internal and external behaviour.
-. **Stash** - a group of something valuable that the user would like to keep
-securely, ideally using our `_Coupon Stash_` application.
-. **UI (User Interface)** - a catch-all term referring to how a computer system
+* **UI (User Interface)** - a catch-all term referring to how a computer system
 and a coupon interacts, usually referring to specific elements displayed on the
 computer screen that the user may interact with such as buttons or text boxes,
 as well as areas where the computer application displays certain outputs to the
