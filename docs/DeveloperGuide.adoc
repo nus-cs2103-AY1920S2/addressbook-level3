@@ -392,6 +392,8 @@ Also, since we have implemented our own Trie data structure, it would also allow
 
 // end::aaron-choo[]
 
+// tag::dban1[]
+
 === Scheduling for a Client --- Ng Ming Liang
 This feature allows for a user to assign a weekly schedule to a client. Timings are represented in the 24-hour format `HHmm`. Each client can have none or multiple schedules that do not have overlapping timings. Multiple clients are allowed to have overlapping timings with each other.
 
@@ -495,7 +497,7 @@ As the nature of the `SchedulePanel` was to display a sorted collection of `Sche
 
 In addition, we also harnessed the capability of the `HashSet` to ensure no overlaps between `Schedule` within each `Client`, which is implemented by `ScheduleCommandParser#checkIfOverlaps`. As the ArrayList of `Schedule` is being populated in the constructor of `ScheduleDay`, we used a `HashSet` to check for any overlapping `Schedule`. The `equals` method of `Schedule` was overriden to consider overlapping timeframes between `StartTime` and `EndTime` to be equal.
 
-
+// end::dban1[]
 
 === Exercise Feature --- Yong Jie
 

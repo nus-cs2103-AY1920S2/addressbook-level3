@@ -39,10 +39,33 @@ Users will be able to clear, or overwrite multiple schedules to the specified cl
 ** Enhancements to existing features:
 *** Wrote test code for schedule classes and commands, and birthday tests to improve test coverage:
 https://github.com/AY1920S2-CS2103T-F11-2/main/pull/142[142], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/44[44]
+*** Helped to add sanity check for ExerciseDate:
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/225[225]
 ** Documentation:
-*** Wrote the implementation of exercise classes and commands in Developer Guide:
-*** Wrote the command guide for `list-c`, `add-e` and `edit-e` in User Guide:
+*** Wrote the implementation of scheulde command in Developer Guide:
+*** Wrote the command guide for `list-c`, `edit-c` and `schedule` in User Guide:
 *** Changed `UI` and `Storage` diagrams of Developer Guide:
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
 *** Reported bugs and suggestions for other teams in the class (examples:)
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=edit-c]
+
+include::../UserGuide.adoc[tag=schedule]
+
+include::../UserGuide.adoc[tag=list-c]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=dban1]

@@ -152,6 +152,7 @@ This section introduces the syntax and the usages of the commands available in F
 
 Entering `help` into FitBiz will bring you right here! 😬
 
+// tag::list-c[]
 === List all clients: `list-c` ---Ng Ming Liang
 
 You can list all clients on the *Client List*. This is useful when your *Client List* has been filtered by the `filter-c` command, and you want to view all clients again. When using `list-c`, there will be no difference to the *Client List* if it is already showing all clients.
@@ -187,6 +188,8 @@ image::UGListCDiagram4.png[]
 You may be greeted with the following scene. This means that there are no clients in your FitBiz. You can begin adding clients by using the `add-c` command. Do refer to the `add-c` section in this document for help regarding `add-c`.
 
 image::UGListCDiagram1.png[]
+
+// end::list-c[]
 
 === Find clients by name: `find-c` --- Yong Jie
 `find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire *Client List* might be troublesome and difficult. `find-c` is the command for you.
@@ -414,6 +417,8 @@ image::AddSameEmailError.png[]
 
 To solve this issue, ensure that any new client you add does not have the same phone number or email as existing client.
 
+// tag::edit-c[]
+
 === Edit a client’s profile: `edit-c` ---Ng Ming Liang
 
 `edit-c` allows you to edit an existing client's details from the *Client List*. There are various attributes that can be edited for the client using this command, which will be covered in this section.
@@ -429,7 +434,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 |====================
 | Parameters | Important points to note
 | INDEX |
-* Substitute `INDEX` with the index of the desired client to add the schedule to. +
+* Substitute `INDEX` with the index of the desired client to edit. +
 
 * `INDEX` is compulsory and you have to specify it. +
 
@@ -585,6 +590,8 @@ image::UGEditCDiagram4.png[]
 As seen above, the `EMAIL` is of the wrong format as it does not include the `@` symbol and not of the `xxx@yyy` format.
 
 In the example above, the `EMAIL` field was faulty. This behaviour of FitBiz also applies to other faulty parameters for the `edit-c` command, where FitBiz will display information relevant to the faulty parameter, to help you troubleshoot and correct your input.
+
+// end::edit-c[]
 
 
 === Delete a client: `delete-c` --- Li Zi Ying
@@ -923,6 +930,7 @@ If you find that you are unable to execute this command successfully, there are 
 
 // end::delete-e-command[]
 
+// tag::schedule[]
 === Schedule trainings for a client: `schedule` ---Ng Ming Liang
 
 `Schedule` allows you to assign weekly schedule timings to a client. The schedule will be displayed on the right panel of FitBiz, with the timings as well as the client's name. You can assign multiple schedules to a client at once, by adding more arguments following the command. All of the schedules from the current *Client List* will be displayed on the *Schedule Panel*.
@@ -1020,6 +1028,7 @@ Overlapping schedules are not allowed between schedules within the same client. 
 You might encounter the error message from the *Result Box* specifying the format that you should be using for the `schedule` command. This means that there are one or more errors in the format of your input for the `schedule` command. In the example input shown below, `schedule 2 sch/TUESDAY-800-1:00`, there are multiple errors. First, the `DAY` should be three letters. Next, the `STARTTIME` and `ENDTIME` should follow the HHmm format. The correct input for this should be `schedule 2 sch/TUE-0800-1300`.
 
 image::UGScheduleDiagram8.png[]
+// end::schedule[]
 
 // tag::export-command[]
 [[export-command]]
