@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_MODULE;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.AddCommand.MESSAGE_ADD_SUCCESS;
 import static seedu.address.logic.commands.AddCommand.MESSAGE_DEADLINE_INVALID_SEMESTER;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_MODULE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODCODE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_AMY;
@@ -114,7 +114,7 @@ public class AddCommandTest {
         ArrayList<Deadline> deadlines = new ArrayList<>();
         AddCommand addCommandModule = new AddCommand(
                 Collections.singletonList(moduleCode), semester, null, deadlines);
-        assertThrows(CommandException.class, MESSAGE_DUPLICATE_MODULE, () ->
+        assertThrows(CommandException.class, String.format(MESSAGE_DUPLICATE_MODULE, "CS1101S"), () ->
                 addCommandModule.execute(
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
     }
