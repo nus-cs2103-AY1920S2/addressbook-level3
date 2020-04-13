@@ -74,7 +74,7 @@ https://github.com/AY1920S2-CS2103T-F11-2/main/pull/232[232],
 ==== Parameters
 This section acts as a summary of the important things to note when using `find-c` including their parameters.
 
-Format: `find-c NAME`
+Format: `find-c NAME...`
 
 [options='header']
 [cols="15%,85%"]
