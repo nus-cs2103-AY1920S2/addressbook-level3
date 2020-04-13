@@ -534,11 +534,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |student |search my notes by their content | I won’t have to remember the exact titles I had given my notes.
 
-|`* * *` |impatient student |alias a path to a folder | do not have to memorise and type out the entire file structure when accessing a nested note
+|`* * *` |student |reliably type search commands(not error-prone) | focus on searching my notes rather than ensuring my commands are exact
 
 |`* *` |student |can view the relevant search results| so that I don’t need to worry about remembering the exact location and title of notes
 
-|`* *` |student |reliably type search commands(not error-prone) | focus on searching my notes rather than ensuring my commands are exact
+|`*` |impatient student |alias a path to a folder | do not have to memorise and type out the entire file structure when accessing a nested note
 
 |`*` |student |export my notes into PDF documents | share/print my notes effortlessly.
 
