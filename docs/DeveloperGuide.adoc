@@ -475,6 +475,8 @@ date in the `CouponListPanel`
 Decided on alternative 1, for the calendar to update with the list in the `CouponListPanel`. This is because this
 follows the Observer Pattern Design Principle. Furthermore, this will not confuse the user when the user sees a
 highlighted date on the Calendar when there is no coupon expiring on that date in the `CouponListPanel`.
+// end::calendar[]
+
 
 // tag::archiving[]
 [[Implementation-Coupon-Archiving]]
