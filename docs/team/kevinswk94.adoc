@@ -14,13 +14,13 @@ It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: Morphed addressbook-level3 into a basic version of *CookBuddy*.
+* *Major enhancement*: Morphed addressbook-level3 into a basic version of *CookBuddy*. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/75[#75]
 ** What it does: allows my teammates to start working on features to extend *CookBuddy*.
 ** Justification: *CookBuddy* does not make use of the Person class or its fields like _Email_ & _Address_.
 ** Highlights: This enhancement affects the commands *CookBuddy* can respond to. For instance, *CookBuddy* responds to `new` instead of `add`.
 
-* *Major enhancement*: Created the test framework for *CookBuddy*.
-** What is does: It sets the foundation for my teammates to create test classes for *CookBuddy*.
+* *Major enhancement*: Created the test framework for *CookBuddy*. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/120[#120]
+** What is does: It creates the test framework for my teammates to create test classes for *CookBuddy*.
 ** Justification: This enhancement makes it a bit easier for my teammates to write test classes for *CookBuddy*.
 ** Highlights: The test framework has some sample recipes with initialised attributes to make creating test recipes a bit easier.
 
@@ -32,16 +32,21 @@ https://github.com/AY1920S2-CS2103T-W12-4/main/pull/289[#289]
 * *Other contributions*:
 
 ** Project management:
-*** Reviewed pull requests opened by teammates for code quality and bugs (ex1, ex2)
+*** Reviewed pull requests opened by teammates for code quality and bugs (https://github.com/AY1920S2-CS2103T-W12-4/main/pull/133[#133],
+https://github.com/AY1920S2-CS2103T-W12-4/main/pull/127[#127], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/257[#257])
 
 ** Enhancements to existing features:
 *** Refactored the _AddCommand_ command into _NewCommand_. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/77[#77]
 *** Added a command history to the _Command Box_ so that users can reuse previously entered commands. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/289[#289]
+*** Updated tag parsing from multiple t/ prefixes to a single t/ prefix with comma delimited tags. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/255[#255]
 
 ** Documentation:
-*** Updated the instructions for the `new` and `modify` commands. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/170[#170]
+*** Updated the instructions for the `new` and `modify` commands in the User Guide. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/170[#170]
+*** Updated the instructions for the `find` command in the User Guide. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/314[#314],
+    https://github.com/AY1920S2-CS2103T-W12-4/main/pull/164[#164]
 *** Added instructions on how to use the `find` command in the User Guide. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/164/[#164]
-*** Added an explanation of how the `find` command works into the Developer Guide.
+*** Added an explanation of how the `find` command works to the Developer Guide. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/323[#323]
+*** Added Instructions for Manual Testing to the Developer Guide. https://github.com/AY1920S2-CS2103T-W12-4/main/pull/302[#302]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
