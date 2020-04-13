@@ -12,6 +12,7 @@ participant ":Usage" as Usage MODEL_COLOR
 participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
+-> LogicManager : execute()
 activate LogicManager
 
 LogicManager -> UsedCommand : execute()
@@ -61,5 +62,7 @@ deactivate ModelManager
 
 UsedCommand --> LogicManager : commandResult
 deactivate UsedCommand
+
+[<-- LogicManager : commandResult
 
 @enduml
