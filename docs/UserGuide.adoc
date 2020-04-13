@@ -232,7 +232,7 @@ Oh my after sorting, you still have so many tasks! You can perform a search for 
 image::find_success.png[width=790]
 
 ==== Tag Command
-===== Command :`tag`
+===== Command : `tag`
 
 Hmmm, I wonder what types of tasks I have! You can view all existing tags in BB Productive by entering the Tag command!
 
