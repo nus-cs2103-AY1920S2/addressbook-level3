@@ -183,9 +183,9 @@ image::demo/New3.png[]
 
 === Open an existing note: `open`
 
-You can open an existing note by specifying its title (and optionally with its absolute or relative <<paths, path>>). +
+You can open an existing note by specifying its absolute or relative <<paths, path>>). +
 
-*Format:* `open [-t] [RelativePath/AbsolutePath]TITLE` +
+*Format:* `open [-t] AbsolutePath/Relativepath` +
 
 [TIP]
 ====
@@ -226,9 +226,9 @@ image::demo/Edit.png[]
 === Delete a note: `delete`
 
 If you no longer need a note, or you accidentally created a wrong note, don't worry! You can always delete that
-note (and optionally by specifying its absolute or relative <<paths, path>>). +
+note by specifying its absolute or relative <<paths, path>>). +
 
-*Format:* `delete [-t] [RelativePath/AbsolutePath]TITLE`
+*Format:* `delete [-t] AbsolutePath/Relativepath`
 
 [WARNING]
 ====
@@ -304,8 +304,8 @@ image::demo/Correction.png[]
 * *View help*: `help`
 * *Exit the program*: `exit`
 * *Create a new note*: `new -t TITLE [-o]`
-* *Open an existing note*: `open [-t] [RelativePath/AbsolutePath]TITLE`
+* *Open an existing note*: `open [-t] AbsolutePath/Relativepath`
 * *Opens an editing window to edit the currently opened note*: `edit`
-* *Delete a note*: `delete [-t] [RelativePath/AbsolutePath]TITLE`
+* *Delete a note*: `delete [-t] AbsolutePath/Relativepath`
 * *Find a note based on certain keywords*: `search [-s] KEYWORD`
 
