@@ -196,6 +196,7 @@ The `Model`,
 ** stores the state of the current block's `edit` modal being open, through BlockEditFlagModel
 * stores `UserPref` data that represents the user's preferences, through UserPrefModel
 
+[[Design-BlockModel]]
 ==== BlockModel component
 .Structure of the Model Component
 image::BlockModelClassDiagram.png[]
@@ -438,16 +439,21 @@ While this can be done with a linear data structure (a simple list), a linear li
 
 On top of that, observability must be ensured so that the UI can update with any changes that happen on the tree (and its nodes) and also the data within each node.
 
+.Tree Data Structure Design Example
+image::TreeDataStructureDesign.png[]
+
 ==== Current Implementation
-A custom tree data structure that supports observability has been implemented. The tree (referred to as `BlockTree`) is made up of tree nodes (referred to as `BlockTreeItem`). The tree is observable such that if any change occurs on any of the tree's nodes, the change event will bubble upwards to the root node. Hence, the root node serves as the entry point for the `BlockTree`.
+A custom tree data structure that supports observability has been implemented. As seen <<Design-BlockTree, here>>, the `BlockModel` is the entry of point of manipulating the data tree. The tree (referred to as `BlockTree`) is made up of tree nodes (referred to as `BlockTreeItem`). The tree is observable such that if any change occurs on any of the tree's nodes, the change event will bubble upwards to the root node. Hence, the root node serves as the entry point for the `BlockTree`.
 
-Each BlockTreeItem contains 3 primary components:
+To achieve this design, a `BlockTreeItem` needs to contain 3 primary components:
 
-* a reference to its parent
+* an Observable reference to its parent
 * an ObservableList of its children
 * User's note data (referred to as `Block` data) consisting of:
 ** `Title` of the note
 ** `Body` content of the note (optional)
+
+After multiple designs, the current implementation now has `BlockTreeItem` using an underlying `TreeItem<Block>` to handle the general behaviour of a tree node.
 
 When manipulating the `BlockTree`, the execution of any operation is always split in this order:
 
@@ -456,17 +462,45 @@ When manipulating the `BlockTree`, the execution of any operation is always spli
 3. Execute the operation on the block that is currently open
 
 ==== Design Considerations
+===== Aspect: Using JavaFX's `TreeItem<T>` vs implementing a `BlockTreeItem` from scratch
+
+Current choice: Using JavaFX's `TreeItem<T>`
+
+Pros:
+
+* seamless integration with JavaFX's `TreeView` which is used in Notably's sidebar to show the notes in a traditional file-browser-like manner
+
+* `TreeItem<T>` has the requirements of `BlockTreeItem's` design already implemented to a usable extent
+
+* conveniently handles underlying event handling required for `BlockTree` to be observable
+
+Cons:
+
+* Implementation still requires wrapping and unwrapping of underlying `TreeItem<T>` to work with `TreeView`
+
+
 ===== Aspect: `BlockTreeItem` vs Folders to represent path structure
+
 Current choice: `BlockTreeItem`
-Pros: No need for an additional class. Having a separate `folder` object would also require a separate UI View since folders should not contain any block data.
-Cons: Somewhat unconventional design. User might be unfamiliar with the intention on first use, without proper explanation
+
+Pros:
+
+* No need for an additional class. Having a separate `folder` object would also require a separate UI View since folders should not contain any block data.
+
+Cons:
+
+* Somewhat unconventional design. User might be unfamiliar with the intention on first use, without proper explanation
 
 ===== Aspect: Root should also be a `BlockTreeItem`
-Pros: Seamless transition to JSON storage
-Cons: Need to add constraint  to ensure that the root `BlockTreeItem` does not contain any `Body` and is also unmodifiable
+Pros:
 
-.Tree Data Structure Design Example
-image::TreeDataStructureDesign.png[]
+* Seamless transition to JSON storage
+
+Cons:
+
+* Need to add constraint to ensure that the root `BlockTreeItem` does not contain any `Body` and is also unmodifiable
+
+
 //end::datastructure[]
 
 [[Implementation-Compiler]]
