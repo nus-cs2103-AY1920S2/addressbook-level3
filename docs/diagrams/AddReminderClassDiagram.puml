@@ -31,7 +31,7 @@ package Model {
         + removeReminder(index)
         + editReminder(index)
     }
-Reminder "*" -up-o "1" ActiveReminderList : Contains 0 - Many
-Activity "1" --* "1" Reminder : Contains only 1
+Reminder "*" <--o "1" ActiveReminderList : Contains 0 - Many
+Activity "1" <-- "1" Reminder : Contains only 1
 }
 @enduml
