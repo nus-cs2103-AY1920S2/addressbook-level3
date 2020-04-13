@@ -1,7 +1,6 @@
 = Chen Shee Xiong - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
-:imagesDir: ../images/expense-splitter
 :stylesDir: ../stylesheets
 
 == PROJECT: EYLAH
@@ -25,9 +24,7 @@ https://github.com/AY1920S2-CS2103T-W13-1/main/pull/367[#367])
 *** *What it does:* +
 Ensure both of the features integrated in the main application.
 *** *Justification:* +
-There are a lot of duplicate code in both features due to the initial plan of splitting team into 2 different group and each group work on their own features.
-Both group follow existing `AddressBook Level-3` code and thus create a lot of duplicate class with exact same code.
-The integration process will help to generalise the duplicate code to common code which can reduce the duplicate code in the whole application.
+The integration can help to reduce the duplicate code in the `EYLAH` which cased by the features done by different sub group.
 *** *Highlights:* +
 During the implementation, I faced a lot of difficulty as we working on the existing `AddressBook Level-3`, the code base given does not show how to integrate 2 different features.
 I have decided to modify some common use class to generic version in order can be implemented by both features.
@@ -50,41 +47,6 @@ item and person involved.
 *** *Credits:* +
 N.A.
 
-. Create main entry class of the application `Elyah.java`, which use to initialise the required components and handle the overall operations of the application.
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/232[#232], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/357[#357])
-*** *What it does:* +
-This is the main entry of whole application. It handle the overall operations of the application and
-also initialise the required components such as storage, model, logic and config of the application.
-*** *Justification:* +
-Due to our team decide to create a pure CLI application instead of JavaFX GUI application, I cannot just simply follow the `AddressBook Level-3` code
-structure to create the main entry of the application. The `Eylah.java` is used to replace `Main.java` in `AddressBook Level-3` as the main entry to the application.
-This class also handling all the initialisation of storage, model and logic component.
-*** *Highlights:* +
-The modification from the existing `AddressBook Level-3` code to the new entry point `Eylah.java` required a lot of effort.
-The existing `AddressBook Level-3` code using multiple class to handle the initialisation and operations flow of the application.
-The migration of initialisation code from existing code cost me a lot of effort to handle the dependency issue regarding to GUI component.
-The new operations flow using in the current implementation partially refers to the `AddressBook Level-2` operations flow structure.
-*** *Credits:* +
-Operation flows reference:
-https://github.com/se-edu/addressbook-level2
-
-
-. Create new UI component for the application
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/140[#140], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380])
-
-*** *What it does:* +
-This is the UI component of the application. It used to handle the getting input and display result to user.
-*** *Justification:* +
-Due to the removing GUI component from existing code, I am required to create a new UI component to handle the user interaction.
-This UI component will handle the every printing statement and input operation of the application.
-*** *Highlights:* +
-The UI component interact with Logic component by handle the `CommandResult`. It will use the `CommandResult#getFeedbackToUser` to get the
-result string and print it to console for user.
-*** *Credits:* +
-N.A.
-
-
-
 * *Minor enhancement*:
 . Create `ExitCommand` and `BackCommand` for the application
 (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/357[#357])
@@ -100,26 +62,12 @@ The `ExitCommand` in the main menu handle differently as it directly handle by `
 *** *Credits:* +
 N.A.
 
-. Create `HelpCommand` for main menu and Expense Splitter.
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/254[#254], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380])
-
-*** *What it does:* +
-Allows user to get the available commands when they forget or unsure how to use certain function.
-*** *Justification:* +
-This can help user to clarify the usage of the application. The `HelpCommand` in Diet Tracker has been implemented by my teammate, Jarrod-Bob.
-*** *Highlights:* +
-The `HelpCommand` in different features and main menu will display different information.
-*** *Credits:* +
-N.A.
-
-
 * *Code contributed*:[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=sheexiong&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test Code]]
 
 * *Other contributions*:
 
 ** Project management:
 *** In charge of project repository management and ensure the weekly task achievement.
-*** Setup auto repository check for repository such as travis, appveyor, coveralls and netlify.
 *** Participated in planning the project timeline for EYLAH.
 
 ** Enhancements to existing features:
@@ -128,10 +76,7 @@ N.A.
 ** Documentation:
 *** Updated Developer Guide for Done Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/388[#388])
 *** Updated Developer Guide for whole Design Section (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/369[#369], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380])
-*** Updated User Guide for Help Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386])
-*** Updated User Guide for Back Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386])
-*** Updated User Guide for Exit Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/394[#394])
-*** Updated User Guide for Done Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386])
+*** Updated User Guide for Back, Exit, Help and Done Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/394[#394])
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): (Pull requests: https://github.com/AY1920S2-CS2103T-W13-1/main/pull/306[#306], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/176[#176], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/177[#177])

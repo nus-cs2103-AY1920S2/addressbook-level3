@@ -69,7 +69,7 @@ Seedu Addressbook Level 3, for providing a basis by which we could adapt their s
 (https://github.com/AY1920S2-CS2103T-W13-1/main/pull/135#discussion_r393328371[#Github Discussion])
 
 *** *What it does:* +
-Allows the integration of the both Diet Tracker and Expense Splitter seamlessly in the unified EYLAH class.
+_Allows_ the integration of the both Diet Tracker and Expense Splitter seamlessly in the unified EYLAH class.
 
 *** *Justification:* +
 Otherwise, the name usages in the code would be lengthy and hard to read also. Class names in the unified EYLAH files would include the entire path name of the Class file.
