@@ -11,6 +11,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-4/main/
 
@@ -545,6 +546,36 @@ You can exit from *CookBuddy* using the `exit` command.
 Format: `exit`
 
 Example: You can type `exit` and *CookBuddy* will terminate.
+
+== Configuration and Recipe Data [Sharadh]
+=== Configuration
+CookBuddy may be easily configured, by editing the key-value pairs in `preferences.json`, which is automatically created at the same folder where the CookBuddy `jar` file is. The key-value pairs are detailed in <<configoptions>>.
+
+[[configoptions]]
+[options="header",width=700]
+.`preferences.json` key-value pairs
+|===
+|Key|Default value|Valid values
+|`windowWidth`|740.0|Any positive floating-point (decimal) number
+|`windowHeight`|600.0|Any positive floating-point (decimal) number
+|`windowCoordinates: x`|398|Any positive integer
+|`windowCoordinates: y`|88|Any positive integer
+| `dataFilePath`|`data/recipebook.json` on *nix, `\data\\recipebook.json` on Windows | Any valid file path appropriate to the OS
+|"recipeImagePath" | `data/images` on *nix, `data\\images` on Windows | Any valid file path appropriate to the OS
+|===
+
+=== Recipe data
+The recipe data is stored in the specified path above, as _another_ `.json` file, with key-value pairs.
+
+[WARNING]
+====
+Do *_not_* edit the `recipebook.json` file by hand, nor delete any lines from the file. CookBuddy may fail to read the file and may crash, or worse, overwrite the file with placeholder data.
+
+The file may be copied out elsewhere for editing, but adhere strictly to the format as written out by CookBuddy.
+====
+
+=== Image data
+Each recipe's image is stored as a `.png` file in the pecified folder, with the recipe name, and a unique identifier (UID). If a given recipe does not have an image, CookBuddy will automatically use a placeholder instead, and denote so in `recipebook.json`.
 
 
 == FAQ [Done by Zain Alam]
