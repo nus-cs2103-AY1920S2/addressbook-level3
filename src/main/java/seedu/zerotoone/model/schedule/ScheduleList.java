@@ -95,7 +95,6 @@ public class ScheduleList {
     @Override
     public String toString() {
         return getScheduleList().size() + " schedules";
-        // TODO: refine later
     }
 
     public List<Schedule> getScheduleList() {

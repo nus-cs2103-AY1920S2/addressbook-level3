@@ -104,7 +104,6 @@ public class ExerciseList implements ReadOnlyExerciseList {
     @Override
     public String toString() {
         return exercises.asUnmodifiableObservableList().size() + " exercises";
-        // TODO: refine later
     }
 
     @Override
