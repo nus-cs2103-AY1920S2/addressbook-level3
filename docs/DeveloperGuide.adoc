@@ -214,18 +214,24 @@ Since all user inputs, be it valid or invalid commands, should be stored, and si
 .Class Diagram for Command History
 image::CommandHistoryClassDiagram.png[]
 
-In the following sequence diagram, we trace the execution of the classes involved in the class diagram given above for when the user decides to enter the command `list-c` into FitBiz:
+[NOTE]
+`CommandHistory` depends on `FileUtil` only because it uses the static method `FileUtil#writeToFile`.
+
+In the following sequence diagram, we trace the execution of the classes involved in storing the user command into the command history. For this example, we assume the user is entering the command `list-c`:
 
 .Sequence Diagram for Saving a User Entered Command
 image::CommandHistorySequenceDiagram.png[]
 
-`CommandBox` simply passes the user input text to `CommandHistory`, which adds this text to the internal list within `CommandHistoryState`, retrieves the full internal list, converts it to a text-based format, and finally asks `FileUtil` to save the text to storage.
+When the `CommandBox#handleCommandEntered` method is called, `CommandBox` simply gets and passes the user input text from `TextField` to `CommandHistory`. `CommandHistory` then adds this text to the internal list within `CommandHistoryState`, retrieves the full internal list, converts it to a text-based format, and finally requests `FileUtil` to save the text-based command history to storage.
 
 ===== How the Command History is persisted on storage
 
-Each command that the user enters is essentially just a line of text. We simply use the utility class `FileUtil` to write these lines of text (where each command represents a new line of text) to a text-based file `command.txt`.
+Each command that the user enters is essentially just a normal string. We simply use the utility class `FileUtil` to write these lines of text to a text-based file `command.txt`. Note that each new line of text in `command.txt` represents one single command.
 
 Whenever FitBiz first launches, we will then try to open and read from this same `command.txt` file. If no such file exists, an empty new file will be created for use in the future.
+
+[NOTE]
+Even if the storage component somehow fails to work, the command history will still be guaranteed to work, albeit without the storage features. In other words, the `CommandHistoryState` model will continue to function since it is not dependent nor have any association with the utility class `FileUtil`. This ensure that the command history for the current usage can at least be used.
 
 ==== Design Considerations
 
@@ -352,6 +358,9 @@ Similar to <<Command History --- Aaron Choo, Command History>>, this feature als
 .Simplified Class Diagram for Autocomplete
 image::CommandAutocompleteClassDiagram.png[]
 
+[NOTE]
+`Autocomplete` returns an object of type `AutocompleteResult` to `CommandBox` when the `Autocomplete#execute` is called. As such, both `Autocomplete` and `CommandBox` depend on, but are not directly associated with, `AutocompleteResult`. The same reasoning applies for `SimilarWordsResult` which have been explained in the earlier section.
+
 In the following sequence diagram, we follow the execution for when the user tries to autocomplete his partially entered command `gra` (which, in the current application, is an unambiguous command, and will result in the full completion of the `graph` command as well as its prefixes):
 
 .Simplified Sequence Diagram for Command Autocomplete
@@ -370,7 +379,7 @@ Lastly, in order to explain the key decisions that this feature does at each ste
 .Activity Diagram for the Autocomplete Logic
 image::CommandAutocompleteActivityDiagram.png[]
 
-This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to allow users to press kbd:[Tab] to get to the next prefix (<<command-history-behaviour-4, behaviour 4>>): by simply checking for the presence of white spaces from the trimmed user input.
+This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to allow users to press kbd:[Tab] to get to the next prefix (<<command-history-behaviour-4, behaviour 4>>): by simply checking for the presence of white spaces from the trimmed user input (like shown in the activity diagram).
 
 ==== Design Considerations
 
