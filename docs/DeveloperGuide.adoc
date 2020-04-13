@@ -1258,30 +1258,20 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Scheduling clients
 
-. Scheduling a valid client from the current *Client List* to have *_1_* schedule
+=== Launch and Shutdown
 
-.. Prerequisites: At least one client in the *Client List*
-.. Test Case: `schedule 1 sch/MON-1100-1200` +
-Expected: `FIRST_CLIENT_NAME` 's overall schedule has been changed to: 
-MON Time: 11:00 - 12:00
+. Initial launch
 
-. Scheduling an invalid client index
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI without the client view populated with a set of sample contacts. The window size may not be optimum.
 
-.. Test Case: `schedule -1 sch/MON-1100-1200` +
-Expected: Invalid command format! + 
-schedule: Adds the training schedule of the client, identified by the index number used in the displayed client list. The schedule should include the first 3 letters of the day, 
-start and end time in 24 hour format, in 1-minute denominations. Multiple training schedule can be added to a client.
+. Saving window preferences
 
-
-. Multiple scheduling
-
-.. Prerequisite: At least one client in the *Client List*
-.. Test Case: `schedule 1 sch/MON-1300-1400 sch/TUE-1700-1900` +
-Expected: Alex Yeoh's overall schedule has been changed to: + 
-MON Time: 13:00 - 14:00 +
-TUE Time: 17:00 - 19:00
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
 
 === Command autocomplete
 
@@ -1314,23 +1304,9 @@ TUE Time: 17:00 - 19:00
 .. Test case: type `i <3 2103` into the command box and press kbd:[Tab] +
    Expected: command box and caret positions does not change. Result box does not change. Basically nothing happens.
 
+=== Deleting a client
 
-=== Editing a client
-
-. Editing a client's address
-.. Prerequisites: At least one client in the *Client List*
-.. Test Case: `edit-c 1 a/New Address` +
-Expected: Edited Client: `CLIENT INFORMATION`
-
-. Adding multiple sports to a client
-.. Prerequisites: At least one client in the *Client List*
-.. Test Case: `edit-c 1 s/Tennis s/Soccer` +
-Expected: Edited Client: `CLIENT INFORMATION`
-
-. Removing client's sports
-.. Prerequisites: At least one client in the *Client List*, with existing sports
-.. Test Case: `edit-c 1 s/` +
-Expected: Edited Client: `CLIENT INFORMATION`
+. Deleting a client while all clients are listed
 
 .. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
 .. Test case: `delete 1` +
@@ -1342,11 +1318,9 @@ Expected: Edited Client: `CLIENT INFORMATION`
 
 === Saving data
 
-=== Listing all clients
+. Dealing with missing/corrupted data files
 
-. Using list-c
-.. Test Case: `list-c` +
-Expected: Listed all clients
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 === Filtering the client list
 . Filtering the client list with different `Tag` and `Sport` specified
@@ -1379,3 +1353,59 @@ Expected: New client added.
 
 .. Test case: `add-c n/Rachel tan p/93214321 e/RachelTan@mail.com a/choa chu kang ave 22 blk 909` followed by `add-c n/Rachellie Tan p/98786110 e/RachelTan@mail.com a/bishan grove 45`+
 Expected: Error "This phone number and/or email already exists in FitBiz." shown.
+
+=== Scheduling clients
+
+. Scheduling a valid client from the current *Client List* to have *_1_* schedule
+
+.. Prerequisites: At least one client in the *Client List*
+.. Test Case: `schedule 1 sch/MON-1100-1200` +
+Expected: `FIRST_CLIENT_NAME` 's overall schedule has been changed to: 
+MON Time: 11:00 - 12:00
+
+. Scheduling an invalid client index
+
+.. Test Case: `schedule -1 sch/MON-1100-1200` +
+Expected: Invalid command format! + 
+schedule: Adds the training schedule of the client, identified by the index number used in the displayed client list. The schedule should include the first 3 letters of the day, 
+start and end time in 24 hour format, in 1-minute denominations. Multiple training schedule can be added to a client.
+
+
+. Multiple scheduling
+
+.. Prerequisite: At least one client in the *Client List*
+.. Test Case: `schedule 1 sch/MON-1300-1400 sch/TUE-1700-1900` +
+Expected: Alex Yeoh's overall schedule has been changed to: + 
+MON Time: 13:00 - 14:00 +
+TUE Time: 17:00 - 19:00
+
+=== Listing all clients
+
+. Using list-c
+.. Test Case: `list-c` +
+Expected: Listed all clients
+
+=== Editing a client
+
+. Editing a client's address
+.. Prerequisites: At least one client in the *Client List*
+.. Test Case: `edit-c 1 a/New Address` +
+Expected: Edited Client: `CLIENT INFORMATION`
+
+. Adding multiple sports to a client
+.. Prerequisites: At least one client in the *Client List*
+.. Test Case: `edit-c 1 s/Tennis s/Soccer` +
+Expected: Edited Client: `CLIENT INFORMATION`
+
+. Removing client's sports
+.. Prerequisites: At least one client in the *Client List*, with existing sports
+.. Test Case: `edit-c 1 s/` +
+Expected: Edited Client: `CLIENT INFORMATION`
+
+.. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+.. Test case: `delete 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+   Expected: Similar to previous.
