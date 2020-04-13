@@ -236,6 +236,30 @@ image::user-guide/view-before.png[width="600"]
 .2) After using the `view` command, the recipe will be displayed to you
 image::user-guide/view-after.png[width="600"]
 
+=== Assigning a time to a recipe — `time` [Done by: Adarsh Chugani]
+You can assign a time to an existing recipe from *CookBuddy* using the `time` command.
+
+Format: `time INDEX TIMING`
+
+[NOTE]
+====
+* `INDEX` must be a positive integer value, within range of the number of recipes in *CookBuddy*.
+* The timing specified must be in the format hh:MM:ss
+* for the timing, it is optional to include minutes and seconds. If they are omitted, they will be set to 0.
+====
+
+Example: You can type `time 1 00:10:00` and *CookBuddy* will assign the recipe at index 1 a timing of 10 minutes.
+
+*Expected Outcome*
+
+[caption=]
+.1) You want to assign the first `recipe` in CookBuddy a timing of 10 minutes.
+image::user-guide/timecommand-before.png[width="600"]
+
+[caption=]
+.2) After typing in `time 1 00:10:00` command, the recipe time will be updated accordingly
+image::user-guide/timecommand-after.png[width="600"]
+
 
 === Deleting a recipe — `delete`
 You can delete an existing recipe from *CookBuddy* using the `delete` command.
@@ -354,7 +378,7 @@ image::user-guide/modifyremovetag-after.png[width="600"]
 
 // end::ModifyRecipe[]
 
-=== Favouriting a recipe — `fav`
+=== Favouriting a recipe — `fav` [Done by: Adarsh Chugani]
 You can favourite an existing recipe from *CookBuddy* using the `fav` command.
 
 Format: `fav INDEX`
@@ -378,7 +402,7 @@ Example: You can type `fav 1` and *CookBuddy* will favourite the recipe at index
 //image::user-guide/modifytag-after.png[width="600"]
 
 
-=== Un-Favouriting a recipe — `unfav`
+=== Un-Favouriting a recipe — `unfav` [Done by: Adarsh Chugani]
 You can un-favourite an existing recipe from *CookBuddy* using the `unfav` command.
 
 Format: `unfav INDEX`
@@ -388,7 +412,7 @@ Format: `unfav INDEX`
 * `INDEX` must be a positive integer value, within range of the number of recipes in your CookBuddy.
 * Recipes are not favourited by default.
 * This command is only useful if you wish to un-favourite a recipe that is already favourited.
-A non-favourited recipe is indicated by a heart with a read outline and no fill.
+* A non-favourited recipe is indicated by a heart with a read outline and no fill.
 ====
 
 //*Expected Outcome*
@@ -402,7 +426,7 @@ A non-favourited recipe is indicated by a heart with a read outline and no fill.
 //image::user-guide/modifytag-after.png[width="600"]
 
 
-=== Marking a recipe as done — `done`
+=== Marking a recipe as done — `done` [Done by: Adarsh Chugani]
 You can mark an existing recipe from *CookBuddy* as being done using the `done` command. This indicates that the recipe
 has been attempted.
 
@@ -410,7 +434,8 @@ Format: `done INDEX`
 
 [NOTE]
 ====
-`INDEX` must be a positive integer value, within the range of the number of recipes in your CookBuddy.
+* `INDEX` must be a positive integer value, within the range of the number of recipes in your CookBuddy.
+
 ====
 
 Example: You can type `done 1` and *CookBuddy* will mark the recipe at index 1 as being done, indicating that it has
@@ -427,7 +452,7 @@ been attempted.
 //image::user-guide/modifytag-after.png[width="600"]
 
 
-=== Un-Marking a recipe as done — `undo`
+=== Un-Marking a recipe as done — `undo` [Done by: Adarsh Chugani]
 You can un-mark an existing recipe from *CookBuddy* as being done, using the`undo` command. This indicates that the
 recipe has not been attempted.
 
@@ -437,7 +462,7 @@ Format: `undo INDEX`
 ====
 * `INDEX` must be a positive integer value, within range of the number of recipes in your CookBuddy.
 * Recipes are marked as not attempted by default.
-This command is only useful if you wish to un-mark recipe that is already marked as done.
+* This command is only useful if you wish to un-mark recipe that is already marked as done.
 ====
 
 Example: You can type `undo 1` and *CookBuddy* will un-mark the recipe at index 1 as done, indicating that it has not
@@ -606,6 +631,134 @@ The file may be copied out elsewhere for editing, but adhere strictly to the for
 
 === Image data
 Each recipe's image is stored as a `.png` file in the pecified folder, with the recipe name, and a unique identifier (UID). If a given recipe does not have an image, CookBuddy will automatically use a placeholder instead, and denote so in `recipebook.json`.
+
+
+== Coming in v2.0 [Done by: Adarsh Chugani]
+
+Look forward to these features coming up in version 2.0 of CookBuddy!
+
+
+=== Adding price *(coming in v2.0)*: `price`
+
+Adds the price attribute to recipes.
+With this, to can assign every recipe a specific price.
+
+Format: `price INDEX PRICE`
+
+Inputs from user:
+
+* INDEX: the index of the recipe you wish to assign a price to
+
+* PRICE: the price that you wish to assign to the recipe (accepts both integer and decimal values)
+
+Example: `price 1 10.50`
+
+This would assign the recipe at index a price of $10.50
+
+
+=== Viewing statistics *(coming in v2.0)*: `stats`
+
+Format: `stats`
+
+Displays your statistics: such as percentage of recipes attempted, difficulty breakdown of attempted recipes, amongst many others.
+With this feature, you will be able to analyse your cooking preferences!
+
+
+=== Suggestions *(coming in v2.0)*: `suggest`
+
+Format: `suggest`
+
+This feature suggests a recipe from your CookBuddy application for you to attempt.
+You will be suggested a recipe based on your statistics, namely the difficulty and ratings of the recipes you have attempted.
+The suggested recipe is more likely to be a recipe that you have not attempted, as we do not want you to constantly cook the same recipes.
+Additionally, the suggested recipe is more likely to have a difficulty similar to, or slightly higher than the recipes you have attempted, as we want you to grow as a budding cook!
+
+==== Scale the recipe *(coming in v2.0)*: `scale`
+This feature scales a recipe to your intended size.
+The quantities of the ingredients used, as well as the prep time required will be adjusted for your use.
+
+Format: `scale INDEX SIZE`
+
+Inputs from user:
+
+* INDEX: The index of the recipe you wish to scale
+
+* SIZE: The size that you wish to scale the recipe to
+
+
+Example: scale 1 3
+
+This would scale the recipe at index 1 to be able to serve 3 people.
+
+
+
+=== Import and export *(coming in v2.0)*: `import`, `export`
+
+==== Import a file: `import`
+
+Imports recipes from the file at the given path.
+
+Format: `import PATH`
+
+Inputs from user:
+
+* PATH: the file path at which the desired file is
+
+Example: import "/docs/recipebook.json"
+
+This would import the "recipebook" JSON file from the docs folder.
+
+==== Export transactions: `export`
+
+Exports all transactions to the given path.
+
+Format: `export PATH`
+
+Inputs from user:
+
+* PATH: the file path at which the desired file is
+
+Exports the recipes from cookbuddy into the given path
+
+Example: export "/docs/"
+
+This would export the recipes from CookBuddy into a file in the docs folder.
+
+
+
+
+=== Printing *(coming in v2.0)*: `print`
+
+Prints out the recipe.
+
+Format: `print INDEX`
+
+Key-Words:
+* INDEX: the index of the recipe you wish to print.
+
+Example: `print 1`
+
+This would print out the recipe at index 1.
+
+
+=== Sharing Recipes *(coming in v2.0)*: `share`
+
+Prints out the recipe.
+
+Format: `share INDEX SITE`
+
+Key-Words:
+* INDEX: the index of the recipe you wish to share.
+
+* SITE: the website you wish to share the recipe to
+
+Example: `share 1 facebook`
+
+This would share the recipe at index 1 on the user's facebook account.
+
+
+
+
 
 
 == FAQ [Done by Zain Alam]
