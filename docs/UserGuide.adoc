@@ -151,13 +151,41 @@ Examples:
 * `help add-c`
 ** Shows a detailed explanation of the `add-c` command
 
-=== List all clients: `list-c`
+=== List all clients: `list-c` ---Ng Ming Liang
 
-Shows all clients currently entered in this program.
+You can list all clients on the *Client List*. This is useful when your *Client List* has been filtered by the `filter-c` command, and you want to view all clients again. When using `list-c`, there will be no difference to the *Client List* if it is already showing all clients.
 
-* Note that this is the default view when you first launch FitBiz
+==== Parameters
 
 Format: `list-c`
+
+The command is simply `list-c`, and has no additional parameters.
+
+==== Example
+
+Let's say you start off with the full *Client List* as shown below.
+
+image::UGListCDiagram0.png[]
+
+Now, let's say you use the command `filter-c` to filter the clients with the `Paleo` tag as such:
+
+image::UGListCDiagram2.png[]
+
+Your *Client List* will now display only the clients that have the `Paleo` tag. In this example, the only client that fit this requirement is `Alex Yeoh`.
+
+image::UGListCDiagram3.png[]
+
+Let's say you are done with the filter, and want to list all your clients on the *Client List* again. Simply enter `list-c`into the *Command Box* and you should be able to see the following:
+
+image::UGListCDiagram4.png[]
+
+==== Common errors / problems
+
+*No clients shown on the Client List*
+
+You may be greeted with the following scene. This means that there are no clients in your FitBiz. You can begin adding clients by using the `add-c` command. Do refer to the `add-c` section in this document for help regarding `add-c`.
+
+image::UGListCDiagram1.png[]
 
 === Find clients by name: `find-c` --- Yong Jie
 `find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire *Client List* might be troublesome and difficult. `find-c` is the command for you.
@@ -713,7 +741,7 @@ If you find that you are unable to execute this command successfully, there are 
 
 === Schedule trainings for a client: `schedule` ---Ng Ming Liang
 
-`Schedule` allows you to assign weekly schedule timings to a client. The schedule will be displayed on the right panel of FitBiz, with the timings as well as the client's name. You can assign multiple schedules to a client at once, by adding more arguments following the command.
+`Schedule` allows you to assign weekly schedule timings to a client. The schedule will be displayed on the right panel of FitBiz, with the timings as well as the client's name. You can assign multiple schedules to a client at once, by adding more arguments following the command. All of the schedules from the current *Client List* will be displayed on the *Schedule Panel*.
 
 [NOTE]
 The `schedule` command overwrites the client's existing schedule with the new schedules given in the command.
