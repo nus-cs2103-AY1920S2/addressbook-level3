@@ -1,0 +1,62 @@
+@startuml
+
+Class ModuleBook {
+    - modules: List<NusModule>
+    + addModule(:NusModule)
+    + getModule(:ModuleCode) : NusModule
+    + gradeModule(:ModuleCode, :Grade)
+    + addModuleTask(:ModuleTask)
+}
+Package NusModule {
+    Class NusModule {
+        - tasks: List<ModuleTask>
+    }
+    Class ModuleCode {
+            isValidModuleCode() : boolean
+    }
+    enum Grade {
+        APLUS
+        A
+        AMINUS
+        BPLUS
+        B
+        BMINUS
+        CPLUS
+        C
+        DPLUS
+        F
+        S
+        U
+    }
+    enum Priority {
+        VERYHIGH
+        HIGH
+        MEDIAN
+        LOW
+        VERYLOW
+    }
+    Class Capulator {
+        - modules: List<NusModule>
+        + calculateCap() : double
+    }
+
+    Class ModuleTask {
+        - timing: String
+        - priority: Priority
+        + getPriority() : Priority
+        + getDate() : String
+    }
+}
+
+
+ModuleBook "1" *-left-> "*" NusModule :manages >
+NusModule *--> "0..1" Grade
+NusModule "1" *--> "1" ModuleCode
+NusModule "1" *--> "*" ModuleTask
+ModuleTask *-- "1" Priority
+Capulator o--> "*" NusModule
+ModuleBook ..> Grade
+ModuleBook ..> ModuleCode
+ModuleBook ..> ModuleTask
+
+@enduml
