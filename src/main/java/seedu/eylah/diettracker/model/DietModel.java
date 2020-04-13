@@ -126,12 +126,6 @@ public interface DietModel extends Model {
     void addFood(Food food);
 
     /**
-     * Edits the given food.
-     * {@code food} must already exist in the food book.
-     */
-    //void editFood(Food food);
-
-    /**
      * Replaces the given food {@code target} with {@code editedFood}.
      * {@code target} must exist in the food book.
      * The food identity of {@code editedFood} must not be the same as another existing food in the food book.

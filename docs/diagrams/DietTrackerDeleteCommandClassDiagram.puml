@@ -1,0 +1,48 @@
+@startuml
+/' @author @akhilvuputuri'/
+/' Got inspiration and adapted
+from https://github.com/AY1920S2-CS2103T-W12-1/main/blob/master/docs/images/DeliveredClassDiagram.png '/
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+
+class DeleteCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : DeleteCommand
+}
+
+interface Parser<T extends Command> {
+    parse(userInput : String) : DeleteCommand
+}
+
+abstract class Command {
+    {abstract} execute(dietModel:Model) : CommandResult
+}
+
+class DeleteCommand extends Command {
+    /' Fields '/
+
+    /' Methods '/
+    + execute(dietModel : DietModel) : CommandResult
+
+}
+
+interface DietModel <<Interface>> {
+    + deleteFood(food : Food) : void
+    + getFilteredFoodList() : ObservableList<Food>
+}
+
+class Index {
+    + getZeroBased()
+    + getOneBased()
+}
+
+
+DeleteCommandParser ..> DeleteCommand
+DeleteCommand ..> DietModel
+DeleteCommandParser ..> Index
+DeleteCommand --> Index
+
+@enduml
