@@ -38,9 +38,18 @@ public class PetManagerTest {
         petManager.setPet(pet);
         petManager.updateLastDoneTaskWhenDone();
         String lastDoneTaskTime = pet.getLastDoneTaskTime();
-        LocalDateTime lastDoneTaskTimeWithoutMili = LocalDateTime.parse(lastDoneTaskTime).withNano(0);
-        assertTrue(LocalDateTime.now().withNano(0).toString().equals(lastDoneTaskTimeWithoutMili.toString()));
-        assertTrue(petManager.getTimeForHangry().withNano(0).equals(LocalDateTime.now().withNano(0).plusMinutes(1)));
+        LocalDateTime lastDoneTaskTimeWithoutMili =
+                LocalDateTime.parse(lastDoneTaskTime).withNano(0);
+        assertTrue(
+                LocalDateTime.now()
+                        .withNano(0)
+                        .toString()
+                        .equals(lastDoneTaskTimeWithoutMili.toString()));
+        assertTrue(
+                petManager
+                        .getTimeForHangry()
+                        .withNano(0)
+                        .equals(LocalDateTime.now().withNano(0).plusMinutes(1)));
     }
 
     @Test

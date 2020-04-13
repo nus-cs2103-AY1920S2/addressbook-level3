@@ -484,24 +484,28 @@ public class MainWindow extends UiPart<Stage> {
      * @return index of tab to switch to.
      */
     private int getTabIndexFromCommand(CommandResult commandResult) {
-        int tabToSwitchIndex = TASKS_TAB_INDEX; // default: switch to tasks tab for tasks related commands
+        int tabToSwitchIndex =
+                TASKS_TAB_INDEX; // default: switch to tasks tab for tasks related commands
         if (commandResult instanceof SwitchTabCommandResult) {
-                SwitchTabCommandResult switchTabCommandResult = (SwitchTabCommandResult) commandResult;
-                tabToSwitchIndex = switchTabCommandResult.getTabToSwitchIndex(); // switch to tab in SwitchTabCommandResult
+            SwitchTabCommandResult switchTabCommandResult = (SwitchTabCommandResult) commandResult;
+            tabToSwitchIndex =
+                    switchTabCommandResult
+                            .getTabToSwitchIndex(); // switch to tab in SwitchTabCommandResult
         } else if (commandResult instanceof SetCommandResult) {
-            tabToSwitchIndex = SETTINGS_TAB_INDEX; // switch to settings tab for settings related commands.
+            tabToSwitchIndex =
+                    SETTINGS_TAB_INDEX; // switch to settings tab for settings related commands.
         }
         return tabToSwitchIndex;
     }
-    
+
     /**
-    * Triggers reminder to display as a pop up after time delay based on the reminder given in
-    * argument.
-    *
-    * @param reminder
-    * @param name
-    * @param description
-    */
+     * Triggers reminder to display as a pop up after time delay based on the reminder given in
+     * argument.
+     *
+     * @param reminder
+     * @param name
+     * @param description
+     */
     @FXML
     public static void triggerReminder(Reminder reminder, String name, String description) {
         long delay = reminder.getDelay();
