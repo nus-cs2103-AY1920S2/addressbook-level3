@@ -14,16 +14,17 @@ class PaidCommandParser implements Parser {
 
 interface Parser<T extends Command> <<Interface>> {
     parse(userInput : String) : PaidCommand
+
 }
 
-abstract class Command {
-    {abstract} execute(splitterModel:SplitterModel) : CommandResult
+abstract class Command <E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class PaidCommand extends Command {
     /' Fields '/
-    - Index : indexOfPersonPaid
-    - String : amountPaid
+    - indexOfPersonPaid : Index
+    - amountPaid : String
 
     /' Methods '/
     + execute(splitterModel : SplitterModel) : CommandResult
@@ -50,8 +51,8 @@ interface SplitterModel <<Interface>> {
 }
 
 class Index {
-    + getZeroBased()
-    + getOneBased()
+    + getZeroBased() : int
+    + getOneBased() : int
 }
 
 
