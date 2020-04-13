@@ -1,11 +1,12 @@
 = Gabriel Yeo - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: ../images/
 :stylesDir: ../stylesheets
 
 == PROJECT: ZeroToOne
 
----
+.Screenshot
+image::user-guide/UgStartWorkout.png[]
 
 == Overview
 
