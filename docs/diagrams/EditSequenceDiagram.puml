@@ -1,0 +1,100 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "e:EditCommand" as EditCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "n:Name" as Name MODEL_COLOR
+participant "edited:Recipe" as Recipe MODEL_COLOR
+end box
+
+[-> LogicManager : execute("edit 3 n/Chicken rice")
+activate LogicManager
+
+LogicManager -> RecipeBookParser : parseCommand("edit 3 n/Chicken rice")
+activate RecipeBookParser
+
+create EditCommandParser
+RecipeBookParser -> EditCommandParser
+activate EditCommandParser
+
+EditCommandParser --> RecipeBookParser
+deactivate EditCommandParser
+
+RecipeBookParser -> EditCommandParser : parse("3 n/Chicken rice")
+activate EditCommandParser
+
+EditCommandParser --> ParserUtil : parseName("Chicken rice")
+activate ParserUtil
+
+create Name
+ParserUtil -> Name
+activate Name
+
+Name --> ParserUtil : n
+deactivate Name
+
+ParserUtil --> EditCommandParser : n
+deactivate ParserUtil
+
+create EditCommand
+EditCommandParser -> EditCommand
+activate EditCommand
+
+EditCommand --> EditCommandParser : e
+deactivate EditCommand
+
+EditCommandParser --> RecipeBookParser : e
+deactivate EditCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditCommandParser -[hidden]-> RecipeBookParser
+destroy EditCommandParser
+
+RecipeBookParser --> LogicManager : e
+deactivate RecipeBookParser
+
+LogicManager -> EditCommand : execute()
+activate EditCommand
+
+EditCommand -> Model : getFilteredRecipeList()
+activate Model
+Model --> EditCommand : recipeList
+deactivate Model
+
+EditCommand -> EditCommand : createEditedRecipe()
+activate EditCommand
+
+create Recipe
+EditCommand -> Recipe
+activate Recipe
+Recipe -> EditCommand : edited
+deactivate Recipe
+EditCommand --> EditCommand : edited
+deactivate EditCommand
+
+EditCommand -> Model : setRecipe(target, edited)
+activate Model
+Model -> EditCommand
+deactivate Model
+
+create CommandResult
+EditCommand -> CommandResult
+activate CommandResult
+CommandResult --> EditCommand : cr
+deactivate CommandResult
+
+EditCommand --> LogicManager : cr
+deactivate EditCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
