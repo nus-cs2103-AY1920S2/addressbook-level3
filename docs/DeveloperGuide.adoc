@@ -1141,26 +1141,8 @@ Use case resumes at step 6.
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Any modern OS like Windows, Linux, Unix, or OS-X.
-
-Fitness Coach::
-The targer user base of FitBiz.
-
 Client::
 The client of the fitness coach.
-
-[[exercise]] Exercise::
-A workout activity done by a client that can be recorded.
-
-Personal Best::
-The exercise done by the client with the highest weight (or highest rep if weight does not exist).
-
-Schedule::
-The client's training schedule per week. Note that one client cannot have overlapping schedules but other client's schedule can overlap with another client's.
-
-Graph::
-The graph of an exercise done by a client (reps/weights vs. date).
 
 Client In View::
 The client currently in view (after the `view-c` command is used).
@@ -1171,14 +1153,32 @@ The GUI section which shows all client currently listed in FitBiz.
 Client View::
 The GUI section which shows all the information of the client in view
 
-Schedule Panel::
-The GUI section which shows the list of all clients' schedules from the current client list
+[[exercise]] Exercise::
+A workout activity done by a client that can be recorded.
 
 Exercise Table::
 The GUI section which shows the list of the client in view's exercises
 
+Fitness Coach::
+The targer user base of FitBiz.
+
+Graph::
+The graph of an exercise done by a client (reps/weights vs. date).
+
+[[mainstream-os]] Mainstream OS::
+Any modern OS like Windows, Linux, Unix, or OS-X.
+
+Personal Best::
+The exercise done by the client with the highest weight (or highest rep if weight does not exist).
+
 Personal Best Table::
 The GUI section which shows the list of the client in view's personal best exercises
+
+Schedule::
+The client's training schedule per week. Note that one client cannot have overlapping schedules but other client's schedule can overlap with another client's.
+
+Schedule Panel::
+The GUI section which shows the list of all clients' schedules from the current client list
 
 [appendix]
 == Instructions for Manual Testing
