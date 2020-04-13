@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.util.DateUtil.getPrettyDateTimeString;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
@@ -21,7 +23,11 @@ public class DeleteCommand extends LogCommand {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = "Usage: " + Commands.LOG_DELETE;
     public static final String MESSAGE_DELETE_LOG_SUCCESS = "Successfully deleted log: %1$s on %2$s";
+
+    private static final Logger logger = LogsCenter.getLogger(DeleteCommand.class);
     private final Index logId;
+
+
 
     public DeleteCommand(Index targetIndex) {
         requireNonNull(targetIndex);
@@ -31,6 +37,9 @@ public class DeleteCommand extends LogCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        logger.info("Executing log delete command.");
+
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);
         }

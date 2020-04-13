@@ -42,7 +42,7 @@ public class CompletedExerciseCard extends UiPart<Region> {
         for (int i = 0; i < exerciseSetsList.size(); i++) {
             CompletedSet completedSet = exerciseSetsList.get(i);
             CompletedSetCard completedSetCard =
-                new CompletedSetCard(i, completedSet.getNumReps().value, completedSet.getWeight().value,
+                new CompletedSetCard(completedSet.getNumReps().value, completedSet.getWeight().value,
                     completedSet.isFinished());
             this.exerciseSets.getChildren().add(completedSetCard.getRoot());
         }
