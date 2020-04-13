@@ -18,14 +18,38 @@ By: `Team Notably`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-Notably is for those who *prefer to use a desktop app for managing notes*. More importantly, Notably is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
+Notably is for those who *prefer to use a desktop app for managing notes*. More importantly, Notably is *optimized
+for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User
+Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
 
 === An Introduction to Notably
-The image shown below highlights the different sections of Notably's user interface:
+The following 3 diagrams (<<Legends1, Figure 1>>, <<Legends2, Figure 2>>, <<Legends3, Figure 3>>) highlight key
+sections of Notably's user interface. Refer to the description below each diagram for more information.
 
 [[LegendsOpened]]
+[[Legends1]]
 .Notably GUI legends
-image::Legends.png[width="900"]
+image::Legends1.png[width="800"]
+
+. As shown in the top-left hand corner of the diagram above, Notably's Sidebar allows you to systematically organise your notes
+in a hierarchical manner.
+. As shown in the centre of the diagram above, Notably allows you to view the content of your notes in a structured way.
+. As shown in the top-centre of the diagram above, you can interact with Notably by typing certain commands.
+
+[[Legends2]]
+.Notably GUI legends (continued)
+image::Legends2.png[width="800"]
+
+. As highlighted in diagram above, Notably's response text provides you with constant feedback and guidance with
+every keystroke.
+. Notably helps you to find what you're looking for by intelligently providing you with a list of suggestions.
+
+[[Legends3]]
+.Notably GUI legends (continued)
+image::Legends3.png[width="800"]
+
+. As shown in the diagram above, Notably allows you to edit and customise your notes in a fuss free manner.
+
 [[LegendsClosed]]
 
 === Symbols used in this guide
@@ -61,7 +85,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * `Paths` are used to specify the location of a note you want the `Command` to be pointed at.
 * There are 2 types of  `Path` namely:
-- AbsolutePath (which takes reference from the root)
+- AbsolutePath (which takes reference from the root, as shown in <<PathExample1, Figure 2>> below)
 - RelativePath (which takes reference from the current note)
 
 [NOTE]
@@ -89,9 +113,9 @@ Listed below are the notations used to define a `RelativePath`.
 
 The picture below helps to illustrate the use of `RelativePath` and `AbsolutePath`
 
-.DataStructure example to illustrate Path
+.Example to illustrate Path
+[[PathExample1]]
 image::UGPathDiagram.png[width="790"]
-
 
 The `AbsolutePath` `/Workspace/CS2101` is equivalent to `RelativePath` `../CS2101`
 
@@ -100,20 +124,37 @@ Thus `open /Workspace/CS2101` and `open ../CS2101` would yield the same result.
 [NOTE]
 Paths are used by the `open` and `delete` command
 
+[NOTE]
+The Root simply serves as a way for Notably to hierarchically organise your notes. It will not be
+visible to you while you are using the application.
+
 [WARNING]
-We cannot open or delete the parent of the root note because it does not exist.
-Taking example from Figure 2 above, `Delete ../..` will result in an error.
+You cannot open or delete the root note. e.g `Delete /../` is invalid. An error message will be displayed to
+remind you of this.
 // end::paths[]
 ====
 
 === View help : `help`
 
-If you can't remember the commands or you are unsure about what a particular command does, type `help` and hit kbd:[Enter]. Notably will show you a link to the list of the commands it has and what they do. +
+If you can't remember the commands or you are unsure about what a particular command does, type `help` and hit kbd:[Enter].
+Figure 5 below shows you what this will look like on your screen.
 
 *Format:* `help`
 
 .Demo for the `help` command
-image::demo/Help.png[]
+image::demo/Help1.png[]
+
+
+You will then see a Help window on your screen, as seen in Figure 4 below, which will include a summary of the commands and a link to Notably's User Guide. +
+
+.Demo for the `help` command (continued)
+image::demo/Help2.png[]
+
+[TIP]
+====
+* While the help window is open, you can hold the kbd:[Up] and kbd:[Down] keys to scroll through it's contents. This is
+a more efficient solution than using your mouse!
+====
 
 === Exit the program: `exit`
 
@@ -178,7 +219,7 @@ image::demo/PathDuplicates3.png[]
 . Due to the `-o` flag, the currently open note is now `Notably` (as seen in the sidebar). Let's add a new note to the currently opened note, <<New2, (Step 2)>> with a `TITLE` as follows: +
 
     new -t CS2103T
-+
+
 [NOTE]
 ====
 * Observe that the (Absolute) Path to the currently open note is now changed from `/Workspace` in <<New1, step 1>> to `/WorkspaceNotably` in  <<New2, step 2>>.
@@ -207,9 +248,9 @@ image::demo/New3.png[]
 
 === Open an existing note: `open`
 
-You can open an existing note by specifying its title (and optionally with its absolute or relative <<paths, path>>). +
+You can open an existing note by specifying its absolute or relative <<paths, path>>). +
 
-*Format:* `open [-t] [PATH/TO/]TITLE` +
+*Format:* `open [-t] AbsolutePath/Relativepath` +
 
 [TIP]
 ====
@@ -232,20 +273,40 @@ image::demo/Open.png[]
 === Edit an existing note: `edit`
 
 If you want to change the `BODY` content of the currently opened note, use the `edit` command. This command *opens* an editing window where you can update the existing `BODY` of the note.
+
 *Format:* `edit`
 
-[WARNING]
-====
-* You are not allowed to `edit` the root note, i.e the currently opened path is ``"/"``
-====
-
 ==== Example: Editing the currently opened note
-. Let's update the `BODY` content of the currently opened note `Workspace` with the command: +
+. As shown in <<EditStep1, Step 1>>, let's update the `BODY` content of the currently opened note `Workspace` with the command: +
 
     edit
 
-.Demo for the `edit` command
-image::demo/Edit.png[]
+. An Edit modal will appear on your screen, as shown in <<EditStep2, Step 2>>. You will now be able to edit the
+content of the currently open note.
+
+. Once done, press kbd:[Esc] to close the modal. Any changes made to the content
+of the note are automatically saved when you do so.
+
+[[EditStep1]]
+.Step 1 - Demo for the `edit` command (Typing the edit command)
+image::demo/Edit1.png[]
+
+[[EditStep2]]
+.Step 2 - Demo for the `edit` command (Interacting with the Edit modal)
+image::demo/Edit2.png[]
+
+[TIP]
+====
+* Instead of editing a note in plain text, leverage Notably's <<Markdown, Markdown>> feature to better organise
+the text in your note!
+* You can copy and paste text in the edit modal, as per the conventional keyboard shortcuts kbd:[CMD/CTRL] + kbd:[c] and
+kbd:[CMD/CTRL] + kbd:[v] respectively.
+====
+
+[WARNING]
+====
+* You are not allowed to `edit` the root note, i.e is the currently opened path is ``"/"``
+====
 
 //tag:delete[]
 === Delete a note: `delete`
@@ -430,6 +491,7 @@ below.
 .Demo for the response text feature: invalid command
 image::demo/ResponseText2.png[]
 
+[[Markdown]]
 === Markdown (GitHub Flavored Markdown)
 
 [NOTE]
@@ -455,8 +517,8 @@ Currently, only unordered lists are supported. In addition, only the hyphen `-` 
 ----
 - List item
 - Another list item
-  - A nested list item
-    - A deeper nested list item
+- A nested list item
+- A deeper nested list item
 - Last list item
 ----
 * https://github.github.com/gfm/#paragraph[Paragraphs] +
@@ -528,8 +590,7 @@ image::demo/Sidebar2.png[]
 * *View help*: `help`
 * *Exit the program*: `exit`
 * *Create a new note*: `new -t TITLE [-o]`
-* *Open an existing note*: `open [-t] [PATH/TO/]TITLE`
+* *Open an existing note*: `open [-t] AbsolutePath/Relativepath`
 * *Opens an editing window to edit the currently opened note*: `edit`
-* *Delete a note*: `delete [-t] [PATH/TO/]TITLE`
+* *Delete a note*: `delete [-t] AbsolutePath/Relativepath`
 * *Find a note based on certain keywords*: `search [-s] KEYWORD`
-
