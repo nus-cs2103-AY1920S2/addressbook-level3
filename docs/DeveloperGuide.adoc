@@ -186,7 +186,7 @@ may affect module list (such as add, delete or grade).
 . Adds in or deletes modules and display the list of modules in profile tab.
 . Updates user's grades for each module and get CAP calculated immediately.
 . Manage the tasks related to each module (module tasks) through CLI.
-. Any modification to module tasks will be updated in the Calendar tab and also show messages on the result display above CLI.
+. Any modification to module tasks will be updated in the Calendar tab and also show messages on the result display panel.
 
 .Class diagram of structure and relations of NusModule, ModuleBook and relevant classes.
 image::NusModuleClassDiagram.png[width="790"]
@@ -601,6 +601,15 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[NUS]]NUS::
+National University of Singapore
+
+[[CAP]]CAP::
+The Cumulative Average Point is the weighted average grade point of the letter grades of all the modules taken by the students, according to NUS's grading system.
+
+[[CLI]]CLI::
+Command Line Interface
 
 [appendix]
 == Product Survey
