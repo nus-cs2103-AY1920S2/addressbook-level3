@@ -1,0 +1,74 @@
+@startuml FindSequenceDiagram
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
+participant ":DuplicateCommandParser" as DuplicateCommandParser LOGIC_COLOR
+participant ":DuplicateCommand" as DuplicateCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":ModifyCommand" as ModifyCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T2
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Storage MODEL_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("duplicate 1")
+activate LogicManager
+
+LogicManager -> RecipeBookParser : parseCommand("duplicate")
+activate RecipeBookParser
+
+create DuplicateCommandParser
+RecipeBookParser -> DuplicateCommandParser : parse("1")
+activate DuplicateCommandParser
+
+DuplicateCommandParser --> RecipeBookParser : Command
+deactivate DuplicateCommandParser
+[<-[hidden]-DuplicateCommandParser
+destroy DuplicateCommandParser
+
+RecipeBookParser --> LogicManager : Command
+deactivate RecipeBookParser
+
+create DuplicateCommand
+LogicManager -> DuplicateCommand : execute()
+activate DuplicateCommand
+
+DuplicateCommand -> Model : updateFilteredRecipeList()
+activate Model
+
+Model --> DuplicateCommand
+deactivate Model
+
+DuplicateCommand -> ModifyCommand : EditRecipeDescriptor()
+activate ModifyCommand
+
+ModifyCommand --> DuplicateCommand
+deactivate ModifyCommand
+
+create CommandResult
+DuplicateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DuplicateCommand : result
+deactivate CommandResult
+
+DuplicateCommand --> LogicManager : result
+deactivate DuplicateCommand
+[<-[hidden]-DuplicateCommand
+destroy DuplicateCommand
+
+LogicManager -> Storage : saveRecipeBook(recipeBook)
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+
+[<--LogicManager : result
+@enduml
