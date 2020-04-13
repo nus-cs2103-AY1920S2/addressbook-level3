@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import seedu.recipe.logic.commands.CommandType;
-import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.ui.tab.Tab;
 
 /**
  * Maintains different versions (states) of RecipeBooks, PlannedBooks, and CookedRecordBooks in a list.
  */
-public class MultipleBookStateManager extends RecipeBook {
+public class MultipleBookStateManager {
 
     private final ArrayList<ReadOnlyRecipeBook> recipeBookStateList = new ArrayList<>();
     private final ArrayList<ReadOnlyPlannedBook> plannedBookStateList = new ArrayList<>();
