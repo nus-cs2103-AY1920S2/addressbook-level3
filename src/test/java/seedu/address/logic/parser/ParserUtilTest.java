@@ -14,7 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
+import seedu.address.model.notes.Notes;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -23,19 +23,83 @@ import seedu.address.model.tag.Tag;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_PATH_TYPE = "asdasdqw";
+    private static final String INVALID_FILE_TYPE = "Not a file";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_PATH_TYPE = "abs";
+    private static final String VALID_PATH = "/Desktop/";
+    private static final String VALID_FILE_TYPE = "file";
+
 
     private static final String WHITESPACE = " \t\r\n";
 
+    // =========================== Notes ================================================
+    @Test
+    public void parseNotesListOperation_validInput_success() throws Exception {
+        Notes expectedNotes = new Notes(VALID_PATH, VALID_PATH_TYPE);
+        assertEquals(expectedNotes, ParserUtil.parseNotesListOperation(VALID_PATH, VALID_PATH_TYPE));
+    }
+
+    @Test
+    public void parseNotesCreateOperation_validInput_success() throws Exception {
+        Notes expectedNotes = new Notes(VALID_PATH, VALID_FILE_TYPE, VALID_PATH_TYPE);
+        assertEquals(expectedNotes, ParserUtil.parseNotesCreateOperation(VALID_PATH, VALID_FILE_TYPE, VALID_PATH_TYPE));
+    }
+
+    @Test
+    public void parseNotesOpenOperation_validInput_success() throws Exception {
+        Notes expectedNotes = new Notes(VALID_PATH, VALID_PATH_TYPE);
+        assertEquals(expectedNotes, ParserUtil.parseNotesOpenOperation(VALID_PATH, VALID_PATH_TYPE));
+    }
+
+    @Test
+    public void parseNotesDeleteOperation_validInput_success() throws Exception {
+        Notes expectedNotes = new Notes(VALID_PATH, VALID_PATH_TYPE);
+        assertEquals(expectedNotes, ParserUtil.parseNotesDeleteOperation(VALID_PATH, VALID_PATH_TYPE));
+    }
+
+    @Test
+    public void parseNotesListOperation_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNotesListOperation(VALID_PATH, INVALID_PATH_TYPE));
+    }
+
+    @Test
+    public void parseNotesCreateOperation_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () ->
+                ParserUtil.parseNotesCreateOperation(VALID_PATH, INVALID_FILE_TYPE, INVALID_PATH_TYPE));
+    }
+
+    @Test
+    public void parseNotesOpenOperation_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNotesOpenOperation(VALID_PATH, INVALID_PATH_TYPE));
+    }
+
+    @Test
+    public void parseNotesDeleteOperation_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNotesDeleteOperation(VALID_PATH, INVALID_PATH_TYPE));
+    }
+
+    @Test
+    public void parseNotesList_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                ParserUtil.parseNotesListOperation((String) null, VALID_PATH_TYPE));
+    }
+
+    @Test
+    public void parseNotesCreate_nullFile_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                ParserUtil.parseNotesCreateOperation(VALID_PATH, (String) null, VALID_PATH_TYPE));
+    }
+
+
+    // =========================== Address Book  ================================================
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseIndex("10 a"));
@@ -43,8 +107,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, () ->
+                ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -100,29 +164,6 @@ public class ParserUtilTest {
         String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
         Phone expectedPhone = new Phone(VALID_PHONE);
         assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
-    }
-
-    @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
-    }
-
-    @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
-    }
-
-    @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
-    }
-
-    @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
     }
 
     @Test

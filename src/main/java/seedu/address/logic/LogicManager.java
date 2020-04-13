@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -14,8 +15,15 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.calender.Task;
+import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
+import seedu.address.model.studentprofile.Profile;
 import seedu.address.storage.Storage;
+
+
 
 /**
  * The main LogicManager of the app.
@@ -44,6 +52,8 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveModuleBook(model.getModuleBook());
+            storage.saveCalendar(model.getDeadlineTaskList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -62,8 +72,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<DiaryEntry> getDiaryList() {
+        return model.getDiaryList();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public Path getDiaryBookFilePath() {
+        return model.getDiaryBookFilePath();
     }
 
     @Override
@@ -74,5 +94,35 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ObservableList<Notes> getFilesInFolderList() {
+        return model.getFilesInFolderList();
+    }
+
+    @Override
+    public ObservableList<Task> getDeadlineTaskList() {
+        return model.getDeadlineTaskList();
+    }
+
+    @Override
+    public ObservableList<NusModule> getModulesListTaken() {
+        return model.getModulesListTaken();
+    }
+
+    @Override
+    public ObservableValue<String> getMajor() {
+        return model.getMajor();
+    }
+
+    @Override
+    public Profile getProfile() {
+        return model.getProfile();
+    }
+
+    @Override
+    public Path getModuleBookFilePath() {
+        return model.getModuleBookFilePath();
     }
 }

@@ -1,0 +1,43 @@
+= Ng Xuan Xin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NUSProductivity
+
+---
+
+== Overview
+
+NUSProductivity is a desktop application for NUS students. The user interacts with it using a CLI, and it has a GUI creasted with JavaFX. The application is intended to help NUS students solve their productivity issues and ease student’s daily task in NUS.
+
+== Summary of contributions
+
+* *Major enhancement 1*: assisted with Deadline scheduling
+** What it does: allows the user to schedule, delete, filter deadlines, and even mark them as done
+** Justification: This feature forms the backbone of the calendar and allows the product to fit the target scope of increasing productivity for NUS students (users). By scheduling deadlines, users can effectively manage their schoolwork in a more organized manner.
+** Highlights: As said above, the feature is a major enhancement to the calendar UI.
+
+* *Major enhancement 2* (Proposed): add commands and functions for Events [https://github.com/AY1920S2-CS2103T-W16-4/main/pull/204/files?file-filters%5B%5D=.java#diff-79323191b012a60de2bc047468653627[Proposed Code]]
+** What it does: allows the user to add, delete, and mark events that are scheduled on the calendar as done
+** Justification: Since the product is deisgned to be user-friendly for NUS students, this feature allows users to schedule school-wide events they do not want to miss, which is a huge enhancement alongside implementations for scheduling deadlines (complementary features).
+** Highlights: This enhancement is complementary with the deadline scheduling feature, and further supports the calendar component. The iplementation was challenging as components had to be linked together and a slight overlook would crash the program.
+
+* *Minor contributions*:
+** Checkstyle fixing
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=xuanxinng&sort=groupTitle&sortWithin=title&since=2020-0214&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=xuanxinng&tabRepo=AY1920S2-CS2103T-W16-4%2Fmain%5Bmaster%5D[Functional code]] [https://github.com/AY1920S2-CS2103T-W16-4/main/pull/204/files?file-filters%5B%5D=.java#diff-79323191b012a60de2bc047468653627[Proposed Code]]
+
+* *Other contributions*:
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide
+*** Created additional user stories and use cases for the Developer Guide
+*** Updated product scope and non functional requirements as well
+
+** Reviewing/mentoring contribution
+*** Reviewed pull requests with non-trivial comments at least twice (for other teams in the class)
+
+** Community:
+*** Reported at least twelve bugs and suggestions for other teams in the class (example: [https://github.com/xuanxinng/ped/issues/1[#1]])
+

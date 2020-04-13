@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <StackPane fx:id="placeholder" prefHeight="110.0" prefWidth="1031.0">
+      <children>
+         <Label fx:id="currentDirectory" style="-fx-font-family: Noteworthy; -fx-text-fill: #cd7474; -fx-font-size: 28;" text="Label" textFill="#cd7474">
+            <font>
+               <Font name="Noteworthy Light" size="28.0" />
+            </font>
+         </Label>
+      </children>
+   </StackPane>
+  <ListView fx:id="notesListView" prefHeight="400.0" prefWidth="795.0" VBox.vgrow="ALWAYS" />
+</VBox>

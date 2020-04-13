@@ -7,12 +7,15 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="NUSProductivity" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -23,7 +26,7 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox>
+      <VBox prefHeight="259.0" prefWidth="395.0">
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -32,28 +35,77 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
+            <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="200.0" stylesheets="@DarkTheme.css" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                  <Tab fx:id="calenderTab" text="Calendar">
+                     <content>
+                        <SplitPane fx:id="calenderSplitPane" dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
+                          <items>
+                            <AnchorPane fx:id="deadlinePanelPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="79.0" />
+                            <AnchorPane fx:id="calenderPanelPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="288.0" />
+                          </items>
+                        </SplitPane>
+                     </content></Tab>
+                <Tab id="diaryTab" fx:id="diaryTab" text="Diary">
+                     <content>
+                        <SplitPane fx:id="diarySplitPane" dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
+                          <items>
+                            <AnchorPane fx:id="diaryListPanelPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                            <AnchorPane fx:id="diaryFullViewPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                          </items>
+                        </SplitPane>
+                     </content></Tab>
+                <Tab fx:id="modPlanTab" text="Mod plan">
+                     <content>
+                        <SplitPane fx:id="modPlanSplitPane" dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
+                          <items>
+                            <AnchorPane fx:id="modulesTakenBefore" minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="132.0" />
+                            <AnchorPane fx:id="modulesYetTakenplaceholder" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                          </items>
+                        </SplitPane>
+                     </content></Tab>
+                  <Tab fx:id="addBookTab" text="Add Book">
+                     <content>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+                       <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                     </content>
+                  </Tab>
+                  <Tab fx:id="notesTab" text="Notes">
+                     <content>
+                        <StackPane fx:id="notesListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                     </content></Tab>
+                  <Tab fx:id="profileTab" text="Profile">
+                     <content>
+                        <SplitPane fx:id="profileSplitPane" dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
+                          <items>
+                            <AnchorPane fx:id="modulesTaken" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                            <AnchorPane fx:id="profile" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <SplitPane fx:id="profilePlaceholder" dividerPositions="0.6212121212121212" layoutX="-3.0" orientation="VERTICAL" prefHeight="166.0" prefWidth="277.0">
+                                      <items>
+                                        <AnchorPane fx:id="profileMainScreenplaceholder" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                        <AnchorPane fx:id="taskLists" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                      </items>
+                                    </SplitPane>
+                                 </children></AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </content></Tab>
+              </tabs>
+            </TabPane>
+            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" styleClass="pane-with-border">
+               <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+               </padding>
+            </StackPane>
+
+                                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+        <StackPane fx:id="statusbarPlaceholder" maxHeight="10" styleClass="pane-with-border" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>

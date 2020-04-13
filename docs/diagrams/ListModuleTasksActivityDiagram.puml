@@ -1,0 +1,10 @@
+@startuml
+start
+:User executes listModuleTasks command;
+
+if () then ([module code inputted is valid])
+    :Show the list of tasks on result display;
+else ([else])
+endif
+stop
+@enduml

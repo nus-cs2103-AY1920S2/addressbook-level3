@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="31.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="calenderDate" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="28.0" text="Date" translateX="50.0" translateY="-10.0" />
+      <Circle fx:id="circle" fill="#ff1f6b" radius="5.0" stroke="BLACK" strokeType="INSIDE" translateX="10.0" translateY="10.0" />
+   </children>
+</StackPane>

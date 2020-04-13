@@ -1,0 +1,72 @@
+= Zhou Xinwei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NUSProductivity
+
+---
+
+== Overview
+
+NUSProductivity is a desktop application for NUS students. The user interacts with it using a CLI, and it has a GUI creasted with JavaFX. The application is intended to help NUS students solve their productivity issues and ease student's daily task in NUS.
+
+== Summary of contributions
+
+* *Major enhancement*: Added all UI functionality to the system
+** What it does: Allows all commands entered to display on the User interface
+** Justification: This feature improves the product significantly because a user will be able to see all changes made to the user display.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Major enhancement 2*: Notes Feature
+** What it does: This feature allow users to create, open, delete and list all files in a directory that the user specified
+** Justification: This feature improves the product significantly because a user will be able to access their desktop through the use of the app to create documents.
+** Highlights: This enhancement requires it to be compatible with any operating system, mainly Windows, Mac and Linux. The implementation with the pathing was one of the harder one to grasp especially with different pathing system used by different operating system.
+
+* *Major enhancement 3*: Calendar Feature
+** What it does: This feature allow users to track deadlines and tasks related to modules. It allows user to see what tasks is due on a day, what task is currently ongoing/done and the ability to find task and sort task in the User Interface.
+** Justification: This feature improves the product significantly because a user will be able to write down different task that needs to be completed by a certain date.
+** Highlights: This enhancement affects existing commands, particularly the storage functions. It required an in-depth analysis of design alternatives. The implementation was challenging as well since I had to modify various aspect of the storage system.
+
+
+* *Minor enhancement*: Added all functionality to the user interface.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=zhouxinwei97&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Reviewing/mentoring contribution:
+*** Gave feedbacks and reviewed on code pull requests https://github.com/AY1920S2-CS2103T-W16-4/main/pull/86[#86], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/73[#73]
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/30/files/27956787443359559bd0e052afc52dd38c6dee7a[#30])
+** Tools:
+*** Integrated AppVeyor to the project for CI (https://github.com/AY1920S2-CS2103T-W16-4/main/pull/10[#10])
+*** Integrated Travis to the project for CI (https://github.com/AY1920S2-CS2103T-W16-4/main/pull/3[#3])
+*** Integrated Coderalls to the project for CI (https://github.com/AY1920S2-CS2103T-W16-4/main/pull/10[#10])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=Calendar]
+
+include::../UserGuide.adoc[tag=Notes]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=UIDiagram]
+
+include::../DeveloperGuide.adoc[tag=Xinwei]
+

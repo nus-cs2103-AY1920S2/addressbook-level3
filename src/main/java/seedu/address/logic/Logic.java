@@ -2,13 +2,20 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.calender.Task;
+import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
+import seedu.address.model.studentprofile.Profile;
+
 
 /**
  * API of the Logic component
@@ -39,6 +46,14 @@ public interface Logic {
     Path getAddressBookFilePath();
 
     /**
+     * Returns the user prefs' diary book file path.
+     */
+    Path getDiaryBookFilePath();
+
+    /** Returns an unmodifiable view of list of diaries */
+    ObservableList<DiaryEntry> getDiaryList();
+
+    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
@@ -47,4 +62,30 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    //=========== Notes Module ==================================================================================
+    /**
+     * Returns an list of String that contains what is currently in the folder
+     * */
+    ObservableList<Notes> getFilesInFolderList();
+
+
+    //=========== Calender Module ==================================================================================
+
+    /**
+     *
+     * Returns a list of deadline Tasks
+     */
+    ObservableList<Task> getDeadlineTaskList();
+
+
+    //=========== Profile Module ==================================================================================
+    ObservableList<NusModule> getModulesListTaken();
+
+    ObservableValue<String> getMajor();
+
+    Profile getProfile();
+
+    Path getModuleBookFilePath();
+
 }

@@ -22,9 +22,16 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
 
     private Path filePath;
+    private Path calendarEntriesFilePath;
+
+    public JsonAddressBookStorage(Path filePath, Path calendarEntriesFilePath) {
+        this.filePath = filePath;
+        this.calendarEntriesFilePath = calendarEntriesFilePath;
+    }
 
     public JsonAddressBookStorage(Path filePath) {
         this.filePath = filePath;
+        this.calendarEntriesFilePath = null;
     }
 
     public Path getAddressBookFilePath() {

@@ -9,7 +9,15 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
+
+import seedu.address.model.calender.Deadline;
+import seedu.address.model.calender.Task;
+import seedu.address.model.calender.ToDo;
+import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.Grade;
+import seedu.address.model.nusmodule.Major;
+import seedu.address.model.nusmodule.ModuleCode;
+import seedu.address.model.nusmodule.Priority;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -66,21 +74,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -121,4 +114,189 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesListoperation} is invalid.
+     */
+    public static Notes parseNotesListOperation(String path, String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+        return new Notes(trimmedPath, trimmedPathType);
+    }
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesListoperation} is invalid.
+     */
+    public static Notes parseNotesCreateOperation(String path, String type, String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        requireNonNull(type);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        String trimmedType = type.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+        if (!Notes.isValidType(trimmedType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_TYPE);
+        }
+        return new Notes(trimmedPath, trimmedType, trimmedPathType);
+    }
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesOpenoperation} is invalid.
+     */
+    public static Notes parseNotesOpenOperation(String path, String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+
+        return new Notes(trimmedPath, trimmedPathType);
+    }
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesOpenoperation} is invalid.
+     */
+    public static Notes parseNotesDeleteOperation(String path, String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+
+        return new Notes(trimmedPath, trimmedPathType);
+    }
+
+    /**
+     * Parses a {@code String moduleCode} into an {@code ModuleCode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code moduleCode} is invalid.
+     */
+    public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        String trimmedModuleCode = moduleCode.trim().toUpperCase();
+        if (!ModuleCode.isValidModuleCode(trimmedModuleCode)) {
+            throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
+        }
+        return new ModuleCode(trimmedModuleCode);
+    }
+
+    /**
+     * Parses a {@code String grade} into an {@code Grade}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code grade} is invalid.
+     */
+    public static Grade parseGrade(String grade) throws ParseException {
+        requireNonNull(grade);
+        String trimmedGrade = grade.trim().toUpperCase();
+        if (!Grade.isValidGrade(trimmedGrade)) {
+            throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
+        }
+        return Grade.getGrade(trimmedGrade);
+    }
+
+    /**
+     * Parses a {@code String priority} into an {@code Priority}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code priority} is invalid.
+     */
+    public static Priority parsePriority(String priority) throws ParseException {
+        requireNonNull(priority);
+        String trimmedPriority = priority.trim().toUpperCase();
+        if (!Priority.isValidPriority(trimmedPriority)) {
+            throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
+        }
+        return Priority.getPriority(trimmedPriority);
+    }
+
+    /**
+     * Parses a {@code String major} into an {@code Major}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Major} is invalid.
+     */
+    public static Major parseMajor(String major) throws ParseException {
+        requireNonNull(major);
+        String trimmedMajor = major.trim();
+        if (!Major.isValidMajor(trimmedMajor)) {
+            throw new ParseException(Major.MESSAGE_CONSTRAINTS);
+        }
+        return new Major(trimmedMajor);
+    }
+
+    /**
+     * Parses a {@code String description, @code String date} into an {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Task parseDeadline(String description, String date, String category) throws ParseException {
+        requireNonNull(description, date);
+        String trimmedDescription = description.trim();
+        String trimmedDate = date.trim();
+        String trimmedCategory = category.trim();
+        if (!Deadline.isValidDate(trimmedDate)) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        return new Deadline(trimmedDescription, trimmedDate, trimmedCategory, "add");
+    }
+
+    /**
+     * Parses a {@code String description, @code String date} into an {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Task parseRemoveDeadline(String index) throws ParseException {
+        requireNonNull(index);
+        int indexInt = Integer.parseInt(index.trim());
+        return new Deadline(indexInt, "delete");
+    }
+
+    /**
+     * Parses a {@code String Description} into an {@code Todo}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static Task parseTodo(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        return new ToDo(trimmedDescription);
+    }
+
+
+
+
 }

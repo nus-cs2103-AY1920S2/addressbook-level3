@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= NUSProductivity - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W16-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W16-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -59,27 +59,31 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[width="790"]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `moduleAdd m/CS2103T`.
 
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+// tag::UIDiagram[]
+.Component interactions for `moduleAdd m/CS2103T` command
+image::ArchitectureSequenceDiagram.png[width="790"]
 
 The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
 
+
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[width="790"]
+// end::UIDiagram[]
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CalendarListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -93,7 +97,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[width="790"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -107,15 +111,15 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::DeleteSequenceDiagram.png[width="790"]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
+.Part of the Model Component
+image::ModelClassDiagram.png[width="790"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -135,7 +139,7 @@ image:BetterModelClassDiagram.png[]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[width="790"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -153,94 +157,344 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Module Search
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+image::SearchCommandUMLDiagram.png[width="790"]
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+*API* :
+link:{repoURL}/src/main/java/seedu/address/searcher/Search.java[`Search.java`]
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Module Search function returns `module` object that contains useful information for each module for the rest of the application to use.
+The function first checks if the information is available in local cache, and if it isnt, pulls it from NUSmods API.
+The JSON object pulled from the web is then parsed into a `module` object.
+This implementation means that a local cache of the added modules will be available even if the user is offline.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+// tag::ModuleBook[]
+=== Profile (Module Book) feature (Wangkai)
 
-image::UndoRedoState0.png[]
+This profile feature allows users to manage the modules they have taken before or is taking now in NUS.
+In details, users are able to store their module taken into the program with the grades for each module stated if applicable and
+can also store tasks which are related to each module.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+==== Implementation
+- This feature is implemented using a panel on the main screen of profile tab with a list of modules that is updated with every command that
+may affect module list (such as add, delete or grade).
 
-image::UndoRedoState1.png[]
+- The module book (profile) currently supports following features.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+. Adds in or deletes modules and display the list of modules in profile tab.
+. Updates user's grades for each module and get CAP calculated immediately.
+. Manage the tasks related to each module (module tasks) through CLI.
+. Any modification to module tasks will be updated in the Calendar tab and also show messages on the result display panel.
 
-image::UndoRedoState2.png[]
+.Class diagram of structure and relations of NusModule, ModuleBook and relevant classes.
+image::NusModuleClassDiagram.png[width="790"]
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+- As shown in the class diagram above, modules are created by a class called `NusModule`. Every instance of `NusModule` contains a `ModuleCode` object, a
+`Grade` object (optional) and a list of `ModuleTask` objects.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+- `Grade` and `Priority` are enumerations. `Grade` contains all possible grades student can get in NUS. Every `ModuleTask` instance has a `Priority` attribute which indicates how important it is.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+The module book only accept modules that are provided in NUS and will check the module code the user want to add is valid or not by using the search feature mentioned above.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+- All possible actions mentioned above such as creating modules, deleting modules and adding tasks to modules are implemented through
+the `ModuleBook` class by calling corresponding methods of it such as `addModule`, `getModule`.
 
-image::UndoRedoState4.png[]
+- The program will automatically save any modification to module book after each command is executed by calling the `saveModuleBook` method
+in `Storage`.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+- For example, modules are created with `moduleAdd` command, followed by the module code and grade. (if applicable) +
+Our program will check if the module code is valid by using the search feature above and whether the module has already been added in our module book.
+And then call method `addModule` in `ModuleBook` to create the module as required. Finally, it will automatically save the module added just now.
 
-image::UndoRedoState5.png[]
+- The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user want to add a module in our program.
 
-The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+.Sequence diagram when moduleAdd command is executed
+image::ModuleAddSequenceDiagram.png[width="950"]
+
+.Relation between ModuleBook and Task
+image::PartOfModelClassDiagramForProfile.png[width="400"]
+
+- The program will synchronize the modification to module tasks in `ModuleBook` with that shown in Calendar tab through `ModelManager` as shown above.
+i.e. Any modification in module tasks will be updated in `Task` which is the main class Calendar feature depends on. (see more details in Calendar feature)
+
+==== Example Use Scenario
+
+Given below are example usages scenario and how the Module Book feature behaves at each step.
+
+[TIP]
+User can manage their tasks in different ways.
+
+*Example 1*: +
+
+. The user execute `listModuleTasks` command.
+. The program check whether the module code provided has been recorded or not.
+. Display the list of tasks.
+
+Below is an activity diagram describing the events that will happen:
+
+.Activity diagram for list module tasks command
+image::ListModuleTasksActivityDiagram.png[width="790"]
+
+*Example 2*: +
+
+. The user execute `done` command.
+. The program check whether the input is valid or not.
+. The task specified will be deleted accordingly.
+. Synchronize between module book and calendar.
+
+Below is an activity diagram describing the events that will happen:
+
+.Activity diagram for done command
+image::DoneCommandActivityDiagram.png[width="850"]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+*Aspect 1*: How the user add in a module into module book for future management ?
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+- *Current solution*: Only need to provide the module code to add module and it will fetch the information about the module using Module Search feature automatically.
+* *Pros*: Users don't need to provide any other information (such as modular credit of the module) for other functionality such as calculating the CAP.
+* *Pros*: The module information will be cached locally after you add the module once and this can used for future development.
+* *Cons*: Need Internet connection when you add in certain module for the first time.
+* *Cons*: Highly depends on the Module Search feature.
 
-===== Aspect: Data structure to support the undo/redo commands
+- *Alternative Solution*: Let the user enter all information required for each module when they add it in. (such as modular credit)
+* *Pros*: More flexible, not depends on other features.
+* *Cons*: Very tedious for users to add in lots of modules.
+* *Cons*: Need to ask user to provide new information when more new functionality is added in the future.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+*Reason for chosen implementation*: +
+The current implementation is much more user friendly and have more potential for future development. The implement can become
+very ideal if the Module Search feature works properly.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+*Aspect 2*: How the user manage their tasks for each module?
 
-_{Explain here how the data encryption feature will be implemented}_
+- *Current solution*: For each module added, it contains a list of `ModuleTask`. Also update the calendar when add task in.
+* *Pros*: Users can either view their tasks for each module separately or view all the tasks shown in Calendar tab.
+* *Pros*: More nice-looking that the user can view all the deadlines on calendar.
+* *Cons*: Prone to bugs during the synchronization of module book and calendar.
 
-// end::dataencryption[]
+- *Alternative solution*: Only store the list of `ModuleTask` in module book and do not update in Calendar tab.
+* *Pros*: Easier to implement and can avoid some synchronization bugs.
+* *Cons*: Users can not gain a view of the whole pictures with all tasks shown on calendar.
+
+*Reason for chosen implementation*: +
+The current implementation updates the module tasks added in onto the calender and provides the users different ways
+to manage their tasks. (as a whole or separately for each module)
+// end::ModuleBook[]
+
+// tag::Xinwei[]
+=== Calendar Feature (Xinwei)
+NUSProductivity consist of a calendar feature that provides an overarching view of all tasks, allowing user to view their uncompleted tasks and whether there is a task present on the date itself.
+
+The calendar feature allows users to add either a `deadline` or a `Module Task` to the calendar, which inherits from a super class `Task`
+
+
+==== Implementation
+
+
+The implementation of the main Calender tab is facilitated a `SplitPane` in the MainWindow class consisting of 2 main classes, `CalenderListPanel` and `CalenderPanel`
+
+The `CalenderListPanel` on the right contains a list of `Task` added to the calendar will the `CalenderPanel` shows the actual calender view for the current month.
+
+The diagram below describes the class structure of the calendar class structure.
+
+.Calender UI Class Diagram
+image::CalenderUIClassDiagram.png[]
+
+Upon initialisation of CalenderPanel, the CalenderPanel would call its 2 methods of `setMonth()` and `setDate()` to create `CalenderDate` instances starting from the first day of the current month.
+
+Then, upon initialisation of CalenderListPanel, it will create instances of `CalenderDeadline` by getting the `ObservableList<Task>` from `getDeadlineTaskList`.
+
+This will call upon the inner class in `CalenderListPanel`, `DeadlineListViewCell updateItem` method which allows the program to check whether there is any deadline due on any on the date in `calenderDatesArrayList`.
+
+If a `deadline` or a `Module Task` is found, `setPriorityColour()` and `setStatusColour()` will be invoked to update the Calendar display to change the colour of the dots based on the priority levels mentioned in the User Guide.
+
+Every time a `Task` is modified, the `DeadlineListViewCell updateItem` method will be invoked to update any changes to the display.
+
+==== Implementation logic
+
+* Implementation: both deadline and module Task are inherits from the super class Task. A task is created when the `moduleTask` or `deadlineAdd` command is invoked.
+
+* The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user wants to add a task to the program.
+
+.Add task sequence diagram
+image::AddTaskSequenceDiagram.png[]
+
+The `addDeadlineTask` method will modify the `ObservableList<Task>` supplied to the `CalenderListPanel`, invoking the `updateItem` method, causing a change in the user display.
+
+All other calendar functions works similarly to `addDeadlineTask` as shown in the Activity diagram below.
+
+.Calendar Activity Diagram
+image::CalendarActivityDiagram.png[]
+
+==== Design Considerations:
+
+Aspect 1: Method of displaying the dot indicator
+
+* *Current solution*: Currently, the dot is being shown by getting the `static HashMap` from `Task` as this `HashMap` stores a key-pair value of date - Tasks.
+* By making changes to the `deadlineTaskList`, we also edited the `HashMap`. This allows everytime a `updateItem` method call to check whether a task is present, and if so the priority of the task.
+
+* *Alternative 1*: Store all tasks of the current date in `CalendarDate`.
+** Pros: Allows for tasks to be accessed locally and not through a static variable from the main class `Task`.
+** Cons: Implementation may be more complex as more parameters have to be passed to `CalenderDate` and also ensuring that the list of task passed in `CalendarDate` is up to date.
+
+
+**Reason for chosen implementation:**
+The current solution is easier to implement as everything is done in the relevant functions such as `deadlineAdd` or `taskDelete`. The only thing that the program needs to check is whether a date in the `HashMap` contains a task and if so, the priority of the task. With the alternative implementation, we will need to pass in a `List` for each of the 31 dates which may be very troublesome to keep track of especially when we are editing the main task list. This ease of implementation is the deciding factor when choosing which method to implement.
+
+
+
+
+=== Notes Feature (Xinwei)
+
+==== Implementation
+
+The notes feature allow users to access their desktop files and folders with commands.
+
+This feature is implemented using a panel on the main window, listing out a list of documents and folders that are in the specified directory.
+
+Notes features includes `notesOpen`, `notesCreate`, `notesDelete` and `notesList`.
+
+The diagram below shows the sequence diagram of a `notesOpen` command with the other methods working similarly to the stated method.
+
+.Notes Open Sequence Diagram
+image::notesOpenSequenceDiagram.png[width="600"]
+
+
+
+.Notes List Activity Diagram
+image::NotesList.png[width="600"]
+
+.Notes Open Activity Diagram
+image::NotesCreation.png[width="600"]
+
+notesCreate and notesDelete activity diagram works similar to notesOpen.
+
+
+==== Pathing
+Our program allows the user to specify different pathing system, namely:
+
+   1. AbsolutePath
+   2. RelativePath
+
+.Notes Pathing Diagram
+image::absVSrel.png[width="600"]
+
+AbsolutePath will take the path given from `usr/`.
+
+RelativePath will take reference from the path that the current system has opened, in this case, `usr/Desktop/NUS Y2S2`.
+The user is given the freedom to provide any of the 2 forms when using the `notesOpen`, `notesCreate`, `notesDelete` and `notesList` commands.
+
+**AbsolutePath**:
+
+*Benefits*:
+
+This allows for more flexibility as the user do not need to keep note of its current directory and will be able to access any folder/document that is on their system
+
+*cons*:
+
+Will require much more input from the user, for example, referring to the above figure,
+Accessing the CS2103T file requires the user to input `loc/Desktop/NUS Y2S2/CS2103T` as opposed to `loc/CS2103T` if the user is using absolute over relative pathing
+
+**RelativePath**:
+
+*Benefits*:
+
+Easier for the user to navigate through the current folder and not key in the whole folder path
+
+*Cons*:
+
+Not as flexible. Referring to the above diagram,
+Accessing the *Documents* folder will require the user to input `loc/../../Documents`, this may not be as intuitive to people with no programming background.
+Using `loc/Documents abs/abs` will allow the user to access any folder from anywhere.
+
+// end::Xinwei[]
+
+=== Diary feature (Jiangwei)
+The diary feature is just like a real life diary book. It allows you jot down any thoughts, be it for your personal life or for school work. You can also note down a concept you don't understand or your reflection for each day in case you want to revisit them in the future.
+In details, users can add and delete a diary entry, display a particular diary entry and tag each entry with mood or the weather on that day.
+
+==== Implementation
+- This feature is implemented using a panel on the main screen of diary tab. The list of diary entries will update upon executing diary commands that may affect Diary Book. (such as diaryAdd, diaryDelete or diaryMood) The GUI aspect is not fully implemented yet (coming in v2.0), so the current implementation's response is in CLI style.
+- The Diary Book currently supports the following features:
+. Adding a diary entry
+. Deleting a diary entry
+. Showing the log of recorded entries
+. Display a particular diary entry with specified entry ID
+. Finds the list of diary entries the match a given date
+. tagging a entry with mood or weather
+
+.Class diagram of structure and relations of DiaryBook, DiaryEntry and relevant classes.
+image::DiaryClass.png[width="790"]
+
+- As shown in the class diagram above, diary entries are created by `DiaryEntry` class. Every instance of `DiaryEntry` contains a `LocalDate`, a `Mood` object (optional) and a `Weather` object (optional).
+- Different types of `Mood` such as `CalmMood`, `HappyMood` extends from the abstract class `Mood`. Similar subtype relation holds for different types of weather and the abstract class `Weather`.
+- List of diary entries are managed by the `DiaryBook` class. All relevant actions such as adding, deleting as described above are implemented inside `DiaryBook`. This can be seen from the methods of `DiaryBook` in the class diagram above.
+
+==== Example Use Case
+Given below are example usages scenario and how the Module Book feature behaves at each step.
+
+- *Example*: deleting the diary entry with entry ID 1
+The sequence diagram below shows how the `diaryDelete id/1` command is executed
+
+.Sequence Diagram for executing `diaryDelete id/1`
+image::DiarySequence.png[width="790"]
+
+==== Design Considerations
+How does the user edit a diary entry?
+- Current solution: `Mood` and `Weather` can be updated easily with the `diaryMood` and `diaryWeather` command. However, We have not include a edit feature for the entry content. The users can first delete the entry and re-add the entry with updated diary entry.
+** *Pros*: May deter users from changing past diary content as diary is meant to record what have happened and editing the past experience may not be encouraged.
+** *Cons*: The users may need to retype the whole entry content which is a time consuming process.
+
+- Alternative solution: include a feature that replaces a certain keyword with a new keyword.
+** *Pros*: Requires less typing and less time consuming.
+** *Cons*: May cause some unintended changes to the entry content because of entry content containing substrings of the replaced keyword.
+
+*Reason for chosen implementation:*
+We want to adhere to the fact that past diary entries should not be changed but still allows editing, only that it will require more effort. The alternative solution is certainly feasible, to avoid the downsides of the alternative solution we can incorporate regular expressions to ensure more accurate replacing. However, this may require the users to have some prior knowledge which is not desired.
+
+=== Event Feature (Proposed) (Xuan Xin)
+
+This feature (in the works already) is meant to be an enhancement towards the Calendar feature.
+
+==== Implementation
+
+* The event feature would support the following features:
+** Adds and deletes events onto the calendar
+** Sort events by date (default)
+** Consolidate and list all events
+
+The sequence diagram below shows how components interact with each other when user inputs `eventAdd` to add an event onto the calendar.
+
+.Add Event Sequence Diagram
+image::AddEventSequenceDiagram.png[]
+
+The `eventAdd` method works similar to the `addDeadlineTask` above and will modify the `ObservableList<Task>` supplied to the `CalenderListPanel`, invoking the `updateItem` method, causing a change in the user display.
+
+==== Example Use Scenario
+
+*Example 1*: +
+
+. The user execute `listEvent` command.
+. The program checks if input is valid.
+. The list of events will be displayed.
+
+Below then shows an example of an activity diagram for the `listEvent` command.
+
+.List Event Activity Diagram
+image::ListEventActivityDiagram.png[]
+
+==== Further Developments
+ * The event feature will aim to link contacts from the addressbook to the calendar.
+
+For now, the full activity diagram for `Event`, which has a similar implementation to `Deadline`, is shown below:
+
+.Event Activity Diagram
+image::EventActivityDiagram.png[]
 
 === Logging
 
@@ -280,10 +534,15 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * has a need to manage a significant number of contacts
+* has a need to manage deadlines and tasks
+* has a need to manage module planning
 * prefer desktop apps over other types
-* can type fast
 * prefers typing over mouse input
+* prefers to have everything in one app
+* can type fast
 * is reasonably comfortable using CLI apps
+* is studying in NUS
+
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
@@ -292,7 +551,7 @@ Refer to the guide <<DevOps#, here>>.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
@@ -303,9 +562,43 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user who wants to improve time management |add deadlines |know when to complete tasks in todo list
+
+|`* * *` |user |add event |know when and where is the event and who will going to participate in the event
+
+|`* * *` |NUS student|add module to module plan |see modules I need to take to fulfill degree requirements
+
+|`* * *` |NUS student|show module plan |see list of modules I need to take/have taken
+
+|`* * *` |NUS student|write and save notes for each module I have taken/am taking |
+
+|`* * *` |NUS student|write diaries for each day's summary |refer back to what I have done in the future
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
+|`* *` |user |delete diary entry |
+
+|`* *` |user |show diary entry list |
+
+|`* *` |user |delete module from module plan |know which modules I have taken
+
+|`* *` |NUS student|fetch module information |
+
+|`* *` |NUS student|know current CAP |
+
+|`* *` |user who wants to improve grades |calculate target CAP |know what grades to aim for to achieve my target CAP
+
+|`* *` |user |sort deadlines |prioritize which tasks to finish first
+
+|`* *` |user who has a short memory span |receive reminders about the deadlines |don't miss out any important tasks
+
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |create group chats |communicate with peers in the same module
+
+|`*` |user |tag my diary with that day's weather |
+
+|`*` |user |tag my diary with that day's emotion |I can filter my diaries with specific mood
 |=======================================================================
 
 _{More to be added}_
@@ -341,14 +634,39 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Delete module
+
+*MSS*
+
+1. User requests to show module plan
+2. AddressBook shows module plan
+3. User requests to delete a module taken
+4. AddressBook deletes module
+5. AddressBook updates module plan
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. The given module code is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse (e.g. fetch module information)
+.  Should respond within 2 seconds with exception of 5s for some commands due to network availability (`moduleSearch`, `moduleAdd`)
+.  Should be easy to use for users who are novice at using technology
+.  User should be a current student in NUS
+
 
 _{More to be added}_
 
@@ -361,22 +679,16 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
+[[NUS]]NUS::
+National University of Singapore
 
-*Product Name*
+[[CAP]]CAP::
+The Cumulative Average Point is the weighted average grade point of the letter grades of all the modules taken by the students, according to NUS's grading system.
 
-Author: ...
+[[CLI]]CLI::
+Command Line Interface
 
-Pros:
 
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -414,12 +726,98 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
-=== Saving data
+=== Calendar
 
-. Dealing with missing/corrupted data files
+.. Test case: `deadlineAdd desc/Test deadline date/30-04-2020 cat/Work` +
+Expected: A deadline task is added to the list, details of the task is shown on th left hand side of the calendar tab. A green dot will appear on 30-04-2020 to show that there is a task on that day
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: `deadlineAdd desc/Test deadline2 date/28-04-2020 cat/Work` +
+Expected: A deadline task is added to the list, details of the task is shown on th left hand side of the calendar tab. The task list on the left should show list sorted by dates, i.e. this deadline to be above the test case in a.
 
-_{ more test cases ... }_
+.. Test case: `moduleTask m/CS2103T desc/CS2103T Test by/04-04-2020 pri/5` +
+Expected: An error message shown that no such module is present (if you haven't add CS2103T to the program), else, a task will be added to the list, the task list on the left will be sorted by date and a red dot (priority = 5) will be shown on the calendar
+
+.. Test case: `taskDelete index/1` +
+Expected: First task on the task list is deleted.
+
+.. Test case: `taskDelete index/0` +
+Expected: No task will be deleted. Error details shown in the status message. Status bar remains the same.
+
+.. Test case: `sortTask by/priority` +
+Expected: Task on the left is sorted by priority.
+
+.. Test case: `sortTask by/asiqowe` +
+Expected: No sorting will be parsed and error message will be shown. Status bar remains the same.
+
+.. Test case: `findTask date/30-04-2020` +
+Expected: All task that have a deadline of 30-04-2020 will be shown on the left panel, calendar dots for other dates will NOT be removed.
+
+.. Test case: `listTask` +
+Expected: List all task after a findTask to show all available Tasks.
+
+
+=== Notes
+
+.. Test case: `notesList loc/Desktop pt/abs` +
+Expected: All files on your desktop will be listed in the display
+
+.. Test case: `notesList loc/Desktop/Desktop by/abs` +
+Expected: Error message will be shown
+
+.. Test case: `notesOpen loc/Desktop name/Test.doc pt/abs` +
+Precondition: Needs to have a file called Test.doc on the desktop, else an error will be thrown +
+Expected: File is opened, notes user interface current directory changed to usr/Desktop
+
+.. Test case: `notesCreate loc/Desktop name/test type/folder pt/abs` +
+Precondition: No folder on the desktop is named test +
+Expected: folder is created, notes user interface current directory changed to usr/Desktop/test
+
+.. Test case: `notesDelete loc/Desktop name/Test.doc pt/abs` +
+Precondition: Needs to have a file called Test.doc on the desktop, else an error will be thrown +
+Expected: File is deleted, notes user interface current directory changed to usr/Desktop
+
+
+=== Module
+
+.. Test case: `moduleAdd m/CS2103T g/A+` +
+Expected: A module of CS2103T with its grade will be added to the profile tab list
+
+.. Test case: `moduleAdd m/CS2103123123T g/A+` +
+Expected: Error message will be thrown with no such module.
+
+.. Test case: `moduleAdd m/CS2101` +
+Expected: Module of CS2101 will be added to the profile tab, without a grade.
+
+.. Test case: `moduleDel m/CS2103T` +
+Expected: CS2103T module will be deleted
+
+.. Test case: `grade m/CS2101 g/A+` +
+Expected: CS2101 grade will be updated to A+
+
+.. Test case: `cap` +
+Expected: Calculates your current cap with the modules inputted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

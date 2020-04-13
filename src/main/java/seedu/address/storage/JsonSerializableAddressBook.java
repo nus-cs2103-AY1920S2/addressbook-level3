@@ -23,12 +23,20 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
+    private final List<JsonAdaptedDiary> diary = new ArrayList<>();
+
+    private final List<JsonAdaptedCalendar> calendar = new ArrayList<>();
+
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("diary") List<JsonAdaptedDiary> diary) {
         this.persons.addAll(persons);
+        if (diary != null) {
+            this.diary.addAll(diary);
+        }
     }
 
     /**
@@ -54,6 +62,7 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+
         return addressBook;
     }
 

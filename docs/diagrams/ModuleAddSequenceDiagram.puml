@@ -1,0 +1,104 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddModuleCommandParser" as AddModuleCommandParser LOGIC_COLOR
+participant "a:AddModuleCommand" as AddModuleCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModuleCode" as ModuleCode <<class>>   MODEL_COLOR
+participant ":Search" as Search <<class>>   MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":ModuleBook" as ModelBook MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":StorageManager" as StorageManager  STORAGE_COLOR
+
+[-> LogicManager : execute("moduleAdd m/CS2103")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(moduleAdd)
+activate AddressBookParser
+
+create AddModuleCommandParser
+AddressBookParser -> AddModuleCommandParser
+activate AddModuleCommandParser
+
+AddModuleCommandParser --> AddressBookParser
+deactivate AddModuleCommandParser
+
+AddressBookParser --> AddModuleCommandParser : parse(m/CS2103)
+activate AddModuleCommandParser
+
+AddModuleCommandParser --> ModuleCode : isValidModuleCode(CS2103)
+activate ModuleCode
+
+ModuleCode --> Search : findModule(CS2103)
+activate Search
+
+Search --> ModuleCode : true
+deactivate Search
+
+ModuleCode --> AddModuleCommandParser : true
+deactivate ModuleCode
+
+create AddModuleCommand
+AddModuleCommandParser --> AddModuleCommand
+activate AddModuleCommand
+
+AddModuleCommand --> AddModuleCommandParser : a
+deactivate AddModuleCommand
+
+AddModuleCommandParser --> AddressBookParser : a
+deactivate AddModuleCommandParser
+
+AddModuleCommandParser -[hidden]-> AddressBookParser
+destroy AddModuleCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> AddModuleCommand : execute()
+activate AddModuleCommand
+
+AddModuleCommand -> Model : hasModule()
+activate Model
+
+Model -> ModelBook : hasModule()
+activate ModelBook
+
+ModelBook -> Model
+deactivate ModelBook
+
+Model --> AddModuleCommand
+deactivate Model
+
+AddModuleCommand -> Model : addModule()
+activate Model
+
+Model -> ModelBook : addModule()
+activate ModelBook
+
+ModelBook -> Model
+deactivate ModelBook
+
+Model --> AddModuleCommand
+deactivate Model
+
+AddModuleCommand --> LogicManager : result
+deactivate AddModuleCommand
+AddModuleCommand -[hidden]-> LogicManager : result
+
+LogicManager --> StorageManager : saveModuleBook()
+activate StorageManager
+
+StorageManager --> LogicManager
+deactivate StorageManager
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
