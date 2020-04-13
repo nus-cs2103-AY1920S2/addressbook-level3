@@ -375,6 +375,7 @@ The sidebar is where you can see your notes in a neatly organised way, reminisce
 *** its parent note
 *** its children notes
 ** This will be demonstrated in the following diagrams, with `Workspace` as the level 1 note
+*** There is no level 0 note (root) that is displayed in the sidebar
 
 ====
 
