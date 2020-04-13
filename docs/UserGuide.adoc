@@ -113,7 +113,7 @@ image::settings_tab.png[width=395]
 image::tasks.png[width=790]
 
 ==== Task Fields
-Use `add` and `edit <<index, INDEX>>` attached with any combination of the following task field prefixes to perform them. These prefixes can be in any order. 
+Use `add` and `edit <<index, INDEX>>` attached with any combination of the following task field prefixes to perform them. These prefixes can be in any order.
 
 [NOTE]
 ====
@@ -222,7 +222,7 @@ image::sort_success.png[width=790]
 ===== Command: `find PHRASE`
 ===== Command: `find t/TAG t/TAG...`
 ===== Command: `find PHRASE t/TAG...`
-Oh my after sorting, you still have so many tasks! You can perform a search for tasks by name or tag to find the tasks most important to you. 
+Oh my after sorting, you still have so many tasks! You can perform a search for tasks by name or tag to find the tasks most important to you.
 
 * You can choose to search by both name and tag, just name or just tag.
 * For phrase searching, it is slightly typo tolerant and will show tasks that differ from the `PHRASE` by a little.

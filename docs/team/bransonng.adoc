@@ -34,7 +34,7 @@ BBProductive is built upon a brown field project titled AddressBook. It was done
 
 * *Major Enhancement*: Modified find command
 ** What it does: Rather than the original exact fit matching, we’ve decided to expand it to be more flexible. Now Tasks names whose start matches the search term or that has some typos will be recognized by the find command. Also we've added searching by tags.
-** Justification:Typing often leads to typos, so we’ve decided to enhance the finding command so that users will be able to find tasks they want to look for with some error boundary. We’ve also allowed the find command to show tasks that have names who's start matches the keywords. 
+** Justification:Typing often leads to typos, so we’ve decided to enhance the finding command so that users will be able to find tasks they want to look for with some error boundary. We’ve also allowed the find command to show tasks that have names who's start matches the keywords.
 *** i.e. `find tuto` => a task with name `tutorial 1 CS2106` will be shown
 ** Highlights: We used a popular Dynamic programming approach that implements the Levenshtein distance algorithm to achieve a faster run time for scalability purposes.
 Code contributed for this:

@@ -238,7 +238,7 @@ As seen from the activity diagram above:
 ... `CompletorResult` is returned
 .. Any input is deleted (invalid index or sort field)
 ... `CompletorDeletionResult` is returned
-. Unknown Command UI is displayed when: 
+. Unknown Command UI is displayed when:
 .. Command word provided is not recognized
 ... CompletorException` is raised
 
@@ -816,7 +816,7 @@ Use case ends.
 [appendix]
 //tag::glossary[]
 == Glossary
-[%header,cols="2,6"] 
+[%header,cols="2,6"]
 |===
 
 |Term
