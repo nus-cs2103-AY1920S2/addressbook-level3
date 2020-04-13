@@ -802,12 +802,12 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of gym clients and their information (clients' details and exercises)
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-* wants to book facilities easily [v2.0]
+* Has a need to manage a significant number of gym clients and their information (clients' details and exercises)
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
+* Wants to book facilities easily [v2.0]
 
 *Value proposition*: Keep track of your gym training schedule and clients' exercises faster than a typical mouse/GUI driven app
 
@@ -823,7 +823,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |coach for fitness competitors |record the exercise type and intensity my clients have done for the day |know if they are on track for their competitions
 |`* * *` |coach for fitness competitors|record the date and time of my clients’ training sessions and keep track of which day they work out|
 |`* * *` |coach with many fitness competitors |view my overall schedule for the day/week|
-|`* * *` |coach that communicates with my clients |display visualisations(graphs/charts) |convey the client's training progress better
+|`* * *` |coach that communicates with my clients |display visualisations (graphs/charts) |convey the client's training progress better
 |`* * *` |coach |add new profiles to the app to keep track of new clients|
 |`* * *` |coach |list all my clients|
 |`* * *` |coach |edit a client’s details |change and update an existing client’s details
@@ -851,8 +851,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |coach |monitor my clients caloric intake |know he is meeting his dietary requirements
 |`*` |coach |manage the payment fee/payment day of the clients |charge them accordingly
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1133,47 +1131,54 @@ Use case resumes at step 6.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 clients without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should work without the need for Internet in the program.
+.  Should work mostly without the need for the Internet.
 .  Should work reliably.
 .  Should be able to store data in a human-readable format.
 .  Should be for a single user.
 .  Should not use DBMS to store data.
 .  Should not exceed 100Mb in file size.
 
-
-_{More to be added}_
-
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Any modern OS like Windows, Linux, Unix, or OS-X.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others.
+Fitness Coach::
+The targer user base of FitBiz.
+
+Client::
+The client of the fitness coach.
 
 [[exercise]] Exercise::
-A workout activity done by a client that is to be recorded.
+A workout activity done by a client that can be recorded.
 
-[[cliental-best]] Cliental Best::
-The best/highest weight that the client has reached for an exercise.
+Personal Best::
+The exercise done by the client with the highest weight (or highest rep if weight does not exist).
 
-[appendix]
-== Product Survey
+Schedule::
+The client's training schedule per week. Note that one client cannot have overlapping schedules but other client's schedule can overlap with another client's.
 
-*Product Name*
+Graph::
+The graph of an exercise done by a client (reps/weights vs. date).
 
-Author: ...
+Client In View::
+The client currently in view (after the `view-c` command is used).
 
-Pros:
+Client List::
+The GUI section which shows all client currently listed in FitBiz.
 
-* ...
-* ...
+Client View::
+The GUI section which shows all the information of the client in view
 
-Cons:
+Schedule Panel::
+The GUI section which shows the list of all clients' schedules from the current client list
 
-* ...
-* ...
+Exercise Table::
+The GUI section which shows the list of the client in view's exercises
+
+Personal Best Table::
+The GUI section which shows the list of the client in view's personal best exercises
 
 [appendix]
 == Instructions for Manual Testing
@@ -1189,7 +1194,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI without the client view populated with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1197,7 +1202,36 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Command autocomplete
+
+. Unambiguous, single command found
+
+.. Test case: type `gr` into the command box and press kbd:[Tab] +
+   Expected: command box shows completed `graph n/ a/ sd/ ed/` command, with the caret position right after `n/`. Result box shows the `graph` command usage.
+.. Test case: type `add-e` into the command box and press kbd:[Tab] +
+   Expected: command box shows completed `add-e n/ d/ reps/ ew/ sets/` command, with the caret position right after `n/`. Result box shows the `add-e` command usage.
+
+. Ambiguous, multiple commands found
+
+.. Test case: type `a` into the command box and press kbd:[Tab] +
+   Expected: command box shows longest common prefix `add-`, with the caret position at the end of the line. Result box indicates and lists that `add-e` and `add-c` commands are found.
+
+. No valid commands found
+
+.. Test case: type `Fitbiz!` into the command box and press kbd:[Tab] +
+   Expected: command box and caret positions does not change. Result box indicates that no commands were found.
+
+. Prefix traversal when commands are completed with white spaces
+
+.. Test case: type `graph n/ a/ sd/ ed/` into the command box and press kbd:[Tab] +
+   Expected: caret position travels around all the `/` with wraparound.
+.. Test case: type `///` into the command box and press kbd:[Tab] +
+   Expected: command box and caret positions does not change. Result box indicates that no commands were found. This is similar to 3, no valid commands found.
+
+. Commands with white spaces but without `/`
+
+.. Test case: type `i <3 2103` into the command box and press kbd:[Tab] +
+   Expected: command box and caret positions does not change. Result box does not change. Basically nothing happens.
 
 === Deleting a client
 
@@ -1208,15 +1242,11 @@ _{ more test cases ... }_
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

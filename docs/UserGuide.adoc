@@ -94,7 +94,7 @@ If you are not currently browsing the history, you can press the kbd:[&darr;] ke
 
 Again, similar to most modern CLIs, users of FitBiz can press the kbd:[Tab] key to autocomplete commands that they have partially typed. If the partially typed letters uniquely identifies a valid command in FitBiz (see <<Commands>>), the complete command will automatically appear in the *Command Box*. Otherwise, a list of all commands similar to the ambiguous letters will appear in the *Result Box*.
 
-Also, we understand that some of FitBiz's commands may be particularly long and diffcult to remember. In order to remedy this, we have also provided *autocompletion of parameter prefixes* for some commands, as well as the *use of kbd:[Tab] to easily get to the next prefix*.
+Also, we understand that some of FitBiz's commands may be particularly long and diffcult to remember. In order to remedy this, we have also provided *autocompletion of parameter prefixes* for some commands, as well as the *use of kbd:[Tab] to easily get to the next prefix*. When autocompleting commands, the caret position will also be automatically set to the most optimal position corresponding to the completed command.
 
 To see this feature in action, type `add-c` into the *Command Box* and press kbd:[Tab]:
 
@@ -113,6 +113,9 @@ Note however, that there are some similar commands in FitBiz that have the same 
 image::autocomplete-2.png[]
 
 To autocomplete the parameter prefixes like in the first example above, you would just have to complete the command and press kbd:[Tab] once more.
+
+[TIP]
+Commands and their parameters in FitBiz are always separated by white spaces (ie. ``schedule 1 sch/``). As such, the kbd:[Tab] key will only try to autocomplete your command if your current input in the *Command Box* is a single word. In other words, if your input is made up of more than one word separated by white spaces, FitBiz will ignore your use of kbd:[Tab]. Do not be surprised when you try to autocomplete more than a single word like `add some thing`, and yet receive no response from FitBiz.
 
 [NOTE]
 The autocompletion of the parameter prefixes are only for these commands: `add-c`, `add-e`, `filter-c`, `graph`, and `schedule`. Autocompletion of prefixes for edit commands are not included as we understand that most likely than not, users would only choose to edit one field at a time.
