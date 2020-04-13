@@ -542,7 +542,7 @@ expenses.
 The design consideration mentioned earlier hence facilitates this proposed extension, reducing the difficulty of such a
 future implementation.
 
-=== Chart Analytics (Choi Min Suk + Pang Kim Jin)
+=== Chart Analytics (toggleview Command and Bar Graphs by Choi Min Suk + Pie Chart by Pang Kim Jin)
 
 The *toggleview* command allows the user to switch between viewing the list of 'Transactions' and viewing an analysis of
 his expenditure.
