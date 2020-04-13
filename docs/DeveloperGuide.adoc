@@ -273,11 +273,11 @@ The input is pass through the `LogicManager` so that we can get TaskList details
 .. Will cause `MainWindow` to call setWarning on `ResultDisplay`
 . `CompletorException`
 .. Will cause `CommandBox` to setFailure on `CommandTextField`
-[#criteria]
 
 ==== Auto Complete Overview
 .Activity diagram of auto complete
 image::ACActivityDiagram.png[width=790]
+[#criteria]
 [IMPORTANT]
 =====
 Auto completion of a word happens when either:
