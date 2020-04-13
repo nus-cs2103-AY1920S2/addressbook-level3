@@ -393,15 +393,15 @@ to load attributes and questions from other session. Therefore, there is no extr
 *Command*
 
 ....
-load attribute <session>
-load question <session>
+load attributes <session>
+load questions <session>
 ....
 
 *Example*
 
 ....
-> load attribute ceo
-> load question janitor
+> load attributes ceo
+> load questions janitor
 ....
 
 _Output:_
@@ -415,6 +415,7 @@ Loaded questions from janitor
 image::Screenshots/Load.png[]
 {empty} +
 // end::load[]
+
 ==== Switching views
 
 When working on the attributes, questions and metrics (more about metrics in <<Metrics>>),
@@ -522,11 +523,10 @@ image::Screenshots/Interview.png[]
 *Example*
 
 ....
-> :resume Jane Doe
+> :resume
 ....
 
-_Action:_ Opens the resume of Jane Doe. It is not necessary to only open Jane Doe's resume during the interview.
-You can also open other interviewees' resume!
+_Action:_ Opens the resume of Jane Doe, if there is any.
 
 _Output:_
 
@@ -677,11 +677,11 @@ image::Screenshots/EndInterview.png[]
 After interviewing a candidate, you can view the interview transcript any
 time by doing an open command. To close the report, you can use a close command.
 
-*Command*
+*Command
 ....
 
 open <interviewee>
-close <interviewee>
+close report
 ....
 
 *Example*
