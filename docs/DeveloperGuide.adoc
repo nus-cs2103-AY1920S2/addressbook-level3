@@ -754,6 +754,17 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Keeping track of birthdays
+
+*MSS*
+
+1. User requests to list out all upcoming birthdays.
+2. Naggy Joel displays a list of birthdays within the next 5 days (including current day), with the name, date and remarks.
+3. User views the remarks of the contact to decide on a suitable gift.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
