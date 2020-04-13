@@ -226,7 +226,9 @@ image::demo/Delete2.png[]
 
 === Find a note based on certain keywords: `search`
 
-If you need to look for a note that contains a specific keyword in its *content*, use the `search` command and Notably will show you the search results sorted by the number of matches in the note.  +
+If you need to look for a note that contains a specific keyword in its *content*, use the `search` command and Notably
+will show you the search results sorted by the number of matches in the note. The note with the highest number of match will be
+at the top of the list, so that you can access it faster. +
 *Format:* `search [-s] KEYWORD`
 
 [NOTE]
@@ -238,12 +240,21 @@ you can just type `search lect` and Notably will still show you a list of notes 
 ====
 
 ==== Example: Searching for the keyword "Computer science"
-. Let's look through all the notes that we have saved, for the keyword "Computer science" +
+Let's look for the keyword "Computer science" if it exists in any of the notes that you have saved in Notably. +
 
 `search -s Computer science`
 
+If the word "Computer science" exists, a list of suggestions will be generated. This list will be sorted in descending order
+of the number of matches, i.e. the note with the highest number of matches will be at the top of the list, as seen in the figure below.
+
 .Demo for the `search` command: keyword found
 image::demo/Search.png[]
+
+Let's say the first option `/Workspace/Notably/CS2103/Project` is the note you are looking for. You may press kdb:[↓] and kdb:[Enter]
+to open the note. The figure below illustrates how the note chosen will be opened and the command line box is cleared.
+
+.Demo for the `search` command: open a note with the searched keyword
+image::demo/Search1.png[]
 
 If the keyword you are looking for does not exist in any of your notes, no suggestions will be generated, as seen in the figure below.
 
