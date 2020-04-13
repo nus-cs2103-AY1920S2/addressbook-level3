@@ -6,14 +6,16 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
-participant "e:EditCommand" as EditCommand LOGIC_COLOR
+participant "editDescriptor:EditRecipeDescriptor" as EditRecipeDescriptor LOGIC_COLOR
+participant "edit:EditCommand" as EditCommand LOGIC_COLOR
 participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant "n:Name" as Name MODEL_COLOR
-participant "edited:Recipe" as Recipe MODEL_COLOR
+participant "name:Name" as Name MODEL_COLOR
+participant "editedR:Recipe" as Recipe MODEL_COLOR
 end box
 
 [-> LogicManager : execute("edit 3 n/Chicken rice")
@@ -32,6 +34,13 @@ deactivate EditCommandParser
 RecipeBookParser -> EditCommandParser : parse("3 n/Chicken rice")
 activate EditCommandParser
 
+create EditRecipeDescriptor
+EditCommandParser -> EditRecipeDescriptor
+activate EditRecipeDescriptor
+
+EditRecipeDescriptor --> EditCommandParser : editDescriptor
+deactivate EditRecipeDescriptor
+
 EditCommandParser --> ParserUtil : parseName("Chicken rice")
 activate ParserUtil
 
@@ -39,26 +48,26 @@ create Name
 ParserUtil -> Name
 activate Name
 
-Name --> ParserUtil : n
+Name --> ParserUtil : name
 deactivate Name
 
-ParserUtil --> EditCommandParser : n
+ParserUtil --> EditCommandParser : name
 deactivate ParserUtil
 
 create EditCommand
 EditCommandParser -> EditCommand
 activate EditCommand
 
-EditCommand --> EditCommandParser : e
+EditCommand --> EditCommandParser : edit
 deactivate EditCommand
 
-EditCommandParser --> RecipeBookParser : e
+EditCommandParser --> RecipeBookParser : edit
 deactivate EditCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 EditCommandParser -[hidden]-> RecipeBookParser
 destroy EditCommandParser
 
-RecipeBookParser --> LogicManager : e
+RecipeBookParser --> LogicManager : edit
 deactivate RecipeBookParser
 
 LogicManager -> EditCommand : execute()
@@ -75,12 +84,12 @@ activate EditCommand
 create Recipe
 EditCommand -> Recipe
 activate Recipe
-Recipe -> EditCommand : edited
+Recipe -> EditCommand : editedR
 deactivate Recipe
-EditCommand --> EditCommand : edited
+EditCommand --> EditCommand : editedR
 deactivate EditCommand
 
-EditCommand -> Model : setRecipe(target, edited)
+EditCommand -> Model : setRecipe(target, editedR)
 activate Model
 Model -> EditCommand
 deactivate Model

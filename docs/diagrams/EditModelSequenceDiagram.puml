@@ -11,13 +11,13 @@ participant ":UniquePlannedList" as UniquePlannedList MODEL_COLOR
 participant "newPlan:Plan" as Plan MODEL_COLOR
 end box
 
-[-> ModelManager : setRecipe(target, edited)
+[-> ModelManager : setRecipe(target, editedR)
 activate ModelManager
 
-ModelManager -> RecipeBook : setRecipe(target, edited)
+ModelManager -> RecipeBook : setRecipe(target, editedR)
 activate RecipeBook
 
-RecipeBook -> UniqueRecipeList : setRecipe(target, edited)
+RecipeBook -> UniqueRecipeList : setRecipe(target, editedR)
 activate UniqueRecipeList
 
 UniqueRecipeList --> RecipeBook
@@ -26,7 +26,7 @@ deactivate UniqueRecipeList
 RecipeBook --> ModelManager
 deactivate RecipeBook
 
-ModelManager -> PlannedBook : setRecipe(target, edited)
+ModelManager -> PlannedBook : setRecipe(target, editedR)
 activate PlannedBook
 
 PlannedBook -> PlannedRecipeMap : getPlans(target)
@@ -38,7 +38,7 @@ deactivate PlannedRecipeMap
 alt oldPlans exist
     loop for all oldPlan that uses target recipe
 
-        PlannedBook -> Plan : setRecipe(edited)
+        PlannedBook -> Plan : setRecipe(editedR)
         activate Plan
 
         Plan --> PlannedBook : newPlan
@@ -51,7 +51,7 @@ alt oldPlans exist
         deactivate UniquePlannedList
     end
 
-    PlannedBook -> PlannedRecipeMap : setRecipe(target, edited, newPlans)
+    PlannedBook -> PlannedRecipeMap : setRecipe(target, editedR, newPlans)
     activate PlannedRecipeMap
 
     PlannedRecipeMap --> PlannedBook
