@@ -11,7 +11,7 @@
 <fx:root resizable="true" title="Edit Note Body" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11"
          xmlns:fx="http://javafx.com/fxml/1" onCloseRequest="#handleClose">
     <icons>
-        <Image url="@/images/notably_logo_48.png"/>
+        <Image url="@/images/notably_logo_48.png" />
     </icons>
     <scene>
         <Scene>
@@ -19,11 +19,11 @@
                 <URL value="@/view/NotablyTheme.css" />
                 <URL value="@/view/Extensions.css" />
             </stylesheets>
-            <VBox alignment="CENTER" styleClass="block-edit-modal" >
+            <VBox alignment="CENTER" styleClass="block-edit-modal">
                 <children>
                     <TextArea fx:id="blockContentTextArea" editable="true" wrapText="true" VBox.vgrow="ALWAYS">
                         <VBox.margin>
-                            <Insets right="5.0" left="5.0"/>
+                            <Insets right="5.0" left="5.0" />
                         </VBox.margin>
                     </TextArea>
                 </children>

@@ -188,20 +188,20 @@
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #e8e7e4;
+    -fx-background-color: #e0e8f9;
     -fx-font-family: "Roboto Regular";
     -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
+    -fx-text-fill: #19216c;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: #bed0f7;
 }
 
 .button:pressed,
 .button:default:hover:pressed {
-    -fx-background-color: white;
+    -fx-background-color: #bed0f7;
     -fx-text-fill: #e8e7e4;
 }
 
@@ -240,7 +240,7 @@
 .dialog-pane > *.label.content {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .dialog-pane:header *.header-panel {
@@ -251,7 +251,7 @@
     -fx-font-size: 18px;
     -fx-font-style: italic;
     -fx-fill: white;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .scroll-bar {
@@ -310,7 +310,7 @@
     -fx-border-width: 2px;
     -fx-border-radius: 8px;
     -fx-font-family: "Roboto Regular";
-    -fx-font-size: 13px;
+    -fx-font-size: 15px;
     -fx-text-fill: black;
     -fx-padding: 6 8 6 8;
 }
@@ -405,4 +405,12 @@
 
 #searchFrequencyLabel {
     -fx-font-family: "Roboto Medium";
+}
+
+.helpWindow {
+    -fx-background-color: white;
+}
+
+.helpLabel {
+    -fx-text-fill: black;
 }
