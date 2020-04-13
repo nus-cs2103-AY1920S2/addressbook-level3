@@ -1,24 +1,22 @@
 @startuml
 !include style.puml
 skinparam arrowThickness 1.1
-skinparam arrowColor STORAGE_COLOR
-skinparam classBackgroundColor STORAGE_COLOR
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
 
-Interface Storage <<Interface>>
-Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
 
-Class StorageManager
-Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+Class ModelManager
+Class TaskList
+Class UniqueTaskList
+Class FilteredTaskList
+Class SortedList
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+ModelManager o-> TaskList
+ModelManager o-> FilteredTaskList
+FilteredTaskList ..> SortedList
+TaskList o-> UniqueTaskList
+TaskList o-> SortedList
+SortedList ..> UniqueTaskList
+
 @enduml
