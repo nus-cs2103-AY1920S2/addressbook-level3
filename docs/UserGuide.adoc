@@ -416,9 +416,9 @@ Format: `delete-c INDEX`
 |====================
 | Parameters | Important points to note
 | INDEX |
-* `INDEX` refers to the index number shown in the displayed client list +
-* `INDEX` must be a positive integer (ie. 1, 2, 3, ...)
+`INDEX` refers to the index number shown in the displayed client list +
 
+`INDEX` must be a positive integer (ie. 1, 2, 3, ...) +
 |====================
 
 ==== Examples
@@ -462,8 +462,9 @@ Format: `view-c INDEX`
 |====================
 | Parameters | Important points to note
 | INDEX |
-* `INDEX` refers to the index number shown in the displayed client list +
-* `INDEX` must be a positive integer (ie. 1, 2, 3, ...)
+`INDEX` refers to the index number shown in the displayed client list +
+
+`INDEX` must be a positive integer (ie. 1, 2, 3, ...) +
 
 |====================
 
@@ -855,21 +856,78 @@ The list of successfully filter clients will then be displayed.
 
 image::FilterTagSuccess.png[]
 
-=== Display visualisations of training progress: `graph` [Coming in v1.4]
+=== Display visualisations of training progress: `graph` --- Li Zi Ying
 
-Shows visualisations of a client’s exercise progress.
+`graph` allows you to see a graphical visualisation of a client’s exercise progress within a specified timeframe, so that you can easily track your client's progress and improvement.
 
-Format: `graph e/EXERCISE_NAME [s/START] [e/END]`
+==== Parameters
 
-* Generates a graphical representation of the client’s progress
-* If `START` or `END` is not specified, it will default to the current month
-* Date format of `[s/START]`, `[e/END]` is `DD-MM-YYYY`
-* This command can only be used while viewing a client (ie. right after `view-c` is used)
+This section acts as a summary of important things to note when using `graph` including their parameters.
 
-Examples:
+Format: `n/EXERCISE_NAME a/Y_AXIS sd/START_DATE ed/END_DATE`
 
-* `graph e/Push Ups`
-** Shows a graph of Ming Liang’s Push Ups progress over the current month
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| n/EXERCISE_NAME |
+Substitute `EXERCISE_NAME` with the name of the exercise. +
+
+`n/EXERCISE_NAME` is compulsory and you have to specify it. +
+
+`n/EXERCISE_NAME` is case sensitive. +
+e.g. An exercise `pushup` will be considered to be different from the exercise `Pushup`.
+
+| a/Y_AXIS |
+Substitute `Y_AXIS` with the y-axis of your choice. +
+
+`Y_AXIS` is compulsory and you have to specify it. +
+
+`Y_AXIS` must either be `reps` or `weight` (case insensitive), allowing you to specify the exercise attribute you wish to focus on +
+e.g. `Reps`, `weigHt` and `WEIGHT` will be valid inputs for `Y_AXIS`. +
+
+| sd/START_DATE |
+Substitute `START_DATE` with the start date of your graph. +
+
+`sd/START_DATE` is compulsory and you have to specify it. +
+
+`START_DATE` must be of the form `DD-MM-YYYY` (ie. 02-07-2020 for 2nd July 2020) +
+
+The range of `START_DATE` is from one year before the current date to the current date (inclusive). +
+
+`START_DATE` cannot be chronologically after `END_DATE` +
+
+| ed/END_DATE |
+Substitute `END_DATE` with the end date of your graph +
+
+`ed/END_DATE` is compulsory and you have to specify it. +
+
+`END_DATE` must be of the form `DD-MM-YYYY` (ie. 02-07-2020 for 2nd July 2020) +
+
+The range of `END_DATE` is from one year before the current date to the current date (inclusive). +
+
+`END_DATE` cannot be chronologically before `START_DATE` +
+|====================
+
+==== Example
+
+Let's say that you wish to view the exercise graph of `Alex Yeoh` for the exercise `Sumo Deadlift` from the date `01-01-2020` to `13-04-2020` and you want to focus on the `weight` he lifted during the exercise.
+
+You can use the `graph` command to view the graph of the exercise following the steps as shown:
+
+. First view the client that you want to view the exercise graph of. For information on how to view the client, you can refer to the `view-c` section. For this example, we will view the graph of `Alex Yeoh`, who is the first client in the client list. After entering `view-c 1`, you will see the full detailed information and a table of recorded exercises of client `Alex Yeoh`.
++
+image::ug-graph-1.png[]
+. Next, simply type the graph command `graph n/Sumo Deadlift a/weight sd/01-01-2020 ed/13-04-2020` into the Command Box.
++
+image::ug-graph-2.png[]
+. The graph will appear separately in a window.
++
+image::ug-graph-3.png[]
+. You will see the Result Box informing you of the current graph displayed. Note that any changes made using `add-e, edit-e, delete-e` will not be reflected in the graph.
++
+image::ug-graph-4.png[]
+
 
 === View schedule for the day/week: `view-s` [Coming in v2.0]
 
