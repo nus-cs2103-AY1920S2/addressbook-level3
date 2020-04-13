@@ -997,7 +997,7 @@ image::DoneSessionSequenceDiagram.png[]
 [horizontal]
 * The lifeline for `SessionCommandParser` and `DoneSessionCommandParser` should end at the
 destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
-===
+====
 
 1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
@@ -1144,7 +1144,7 @@ image::FilterStudentSequenceDiagram.png[]
 [horizontal]
 * The lifeline for `StudentCommandParser` and `FilterStudentCommandParser` should end at the
 destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
-===
+====
 
 Given below is an example scenario where the user enters a command to filter students.
 
