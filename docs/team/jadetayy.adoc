@@ -73,8 +73,7 @@ include::../UserGuide.adoc[tag=help]
 
 include::../UserGuide.adoc[tag=home]
 
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=cap]
 
 == Contributions to the Developer Guide
 

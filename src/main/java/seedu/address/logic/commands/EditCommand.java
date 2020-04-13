@@ -163,6 +163,9 @@ public class EditCommand extends Command {
                 profileToEdit.addModule(editSemester, existingModule);
                 updateStatus(profileToEdit);
                 profileManager.setDisplayedView(profileToEdit);
+
+                profileManager.clearDeadlineList();
+                profileManager.setNewDeadlineList(profileToEdit);
                 showCommand = true;
             }
 
@@ -212,14 +215,7 @@ public class EditCommand extends Command {
                 }
 
             }
-            if (updatedSemester != 0) {
-                profileToEdit.setCurrentSemester(updatedSemester);
-                updateStatus(profileToEdit);
-                profileManager.clearDeadlineList();
-                profileManager.setNewDeadlineList(profileToEdit);
 
-
-            }
             if (focusAreaString != null) {
                 CourseName courseName = profileToEdit.getCourseName();
                 try {
@@ -228,6 +224,13 @@ public class EditCommand extends Command {
                     throw new CommandException(MESSAGE_INVALID_COURSE_FOCUS_AREA);
                 }
                 profileToEdit.setFocusArea(focusArea);
+            }
+
+            if (updatedSemester != 0) {
+                profileToEdit.setCurrentSemester(updatedSemester);
+                updateStatus(profileToEdit);
+                profileManager.clearDeadlineList();
+                profileManager.setNewDeadlineList(profileToEdit);
             }
 
             Profile editedPerson = createEditedPerson(profileToEdit);

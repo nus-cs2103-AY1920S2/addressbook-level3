@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_AMY;
@@ -98,15 +99,15 @@ public class DeleteCommandTest {
     // Invalid module code, user inputs "delete m/123abc"
     // Check in the DeleteCommandParser
 
-    //@Test
-    //public void execute_invalidModuleCode_throwsCommandException() {
-    //    ModuleCode moduleCode = new ModuleCode("123abc");
-    //    DeleteCommand deleteCommandModule = new DeleteCommand(moduleCode);
+    /*@Test
+    public void execute_invalidModuleCode_throwsCommandException() {
+        ModuleCode moduleCode = new ModuleCode("CS1111");
+        DeleteCommand deleteCommandModule = new DeleteCommand(Collections.singletonList(moduleCode));
 
-    //    assertThrows(CommandException.class, MESSAGE_INVALID_MODULE, () ->
-    //            deleteCommandModule.execute(
-    //                    new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
-    //}
+        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE, () ->
+                deleteCommandModule.execute(
+                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+    }*/
 
 
     // Module has not been added to profile before

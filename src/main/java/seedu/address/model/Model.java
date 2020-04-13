@@ -124,4 +124,5 @@ public interface Model {
 
     void setNewDeadlineList(Profile editedProfile);
 
+    void deleteModuleFromDeadlineList(ModuleCode moduleCode);
 }

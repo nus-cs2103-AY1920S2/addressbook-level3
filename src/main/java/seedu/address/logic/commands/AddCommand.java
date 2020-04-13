@@ -57,7 +57,7 @@ public class AddCommand extends Command {
             + "If you're adding module(s), check that the module(s) are not currently in the profile.";
     public static final String MESSAGE_MODULE_NOT_ADDED = "Error: Please add this module to a semester first.";
     public static final String MESSAGE_UNFULFILLED_PREREQS = "NOTE: You may not have fulfilled the prerequisites of "
-            + "%1$s before semester %2$s";
+            + "%1$s before year %2$s semester %3$s";
     public static final String PREREQ_STRING = "\nPrerequisites of %1$s: %2$s";
 
     private final List<ModuleCode> toAdd;
@@ -128,8 +128,10 @@ public class AddCommand extends Command {
             }
             // Modules with unfulfilled prerequisites are being added
             if (modsUnfulfilledPrereqs.size() > 0) {
+                int year = (addSemester + 1) / 2;
+                int sem = 2 - (addSemester % 2);
                 return new CommandResult(
-                        String.format(MESSAGE_UNFULFILLED_PREREQS, modsUnfulfilledPrereqs, addSemester) + prereqMsg,
+                        String.format(MESSAGE_UNFULFILLED_PREREQS, modsUnfulfilledPrereqs, year, sem) + prereqMsg,
                         true);
             }
             // All prerequisites of modules are fulfilled
@@ -223,7 +225,9 @@ public class AddCommand extends Command {
             // Check if prerequisites of the module have been fulfilled
             if (moduleToAdd.getPrereqTreeNode() != null && !moduleToAdd.getPrereqTreeNode()
                     .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
-                messageShown = String.format(MESSAGE_UNFULFILLED_PREREQS, moduleCodeToAdd, addSemester)
+                int year = (addSemester + 1) / 2;
+                int sem = 2 - (addSemester % 2);
+                messageShown = String.format(MESSAGE_UNFULFILLED_PREREQS, moduleCodeToAdd, year, sem)
                         + String.format(PREREQ_STRING, moduleCodeToAdd, moduleToAdd.getPrereqs());
             } else {
                 messageShown = MESSAGE_ADD_SUCCESS;

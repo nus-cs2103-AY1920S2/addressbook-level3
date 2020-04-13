@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -137,12 +138,18 @@ public class DeleteCommand extends Command {
 
             Profile profile = profileManager.getFirstProfile(); // To edit when dealing with multiple profiles
 
-            // If some modules are not in the user profile, raise error
-            // If deleting grade and some modules have no grade, raise error
+            // 1. If some module codes are invalid, raise error
+            // 2. If all module codes are valid but some modules are not in the user profile, raise error
+            // 3. If deleting grade and all module codes are valid and in the user profile but some modules
+            //    have no grade, raise error
+            List<ModuleCode> modsInvalid = new ArrayList<>();
             List<ModuleCode> modsNotTaking = new ArrayList<>();
             List<ModuleCode> modsNoGrade = new ArrayList<>();
             for (ModuleCode moduleCode: deleteModuleCodes) {
                 try {
+                    if (!moduleManager.hasModule(moduleCode)) {
+                        modsInvalid.add(moduleCode);
+                    }
                     Module mod = profile.getModule(moduleCode);
                     if (deleteGrade != null && !mod.hasGrade()) {
                         modsNoGrade.add(moduleCode);
@@ -150,6 +157,9 @@ public class DeleteCommand extends Command {
                 } catch (ModuleNotFoundException e) {
                     modsNotTaking.add(moduleCode);
                 }
+            }
+            if (!modsInvalid.isEmpty()) {
+                throw new CommandException(String.format(MESSAGE_INVALID_MODULE, modsInvalid));
             }
             if (!modsNotTaking.isEmpty()) {
                 throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, modsNotTaking));
