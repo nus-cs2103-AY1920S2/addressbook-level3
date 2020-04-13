@@ -1258,3 +1258,53 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+[appendix]
+== Effort
+
+In this section, we highlight the amount of effort taken for us to develop ExpenseLa, the challenges faced in this development and our eventual achievement.
+
+=== Effort by team
+
+Our application, ExpenseLa, is considerably different from what Address Book 3 (AB3) had implemented. We wanted to take some address book features
+that were available in AB3, but wanted to build an expense tracker for our project. As such, to build ExpenseLa, we took and modified some features previously
+available in AB3, but had to create many of our own models and implementations for the new features.
+
+In short, AB3 stores details related to multiple people known to the user. ExpenseLa stores data related to multiple transactions by
+the user and so much more. ExpenseLa uses that data to track the monthly expenditure, income as well as budget, analyses their expenditure
+by graphing it out, and provide many other features like filtering transactions as well as new ways of adding transactions to make the application
+easier to use.
+
+While building ExpenseLa, we spent a considerable amount of time not just implementing our features, but also making sure that new features were linked
+to ExpenseLa and could cohesively work with other features to make sure the application provided and smooth and consistent user experience. All these discussions
+were held at least once a week with a minimum 2 hours each round to provide feedback for each other's implementations and that our implementations could work together.
+
+=== Challenges faced
+
+The team encountered some challenges while developing ExpenseLa. The most notable ones are:
+
+- *Initial brainstorming of ideas* +
+At the start of the project, we wanted to do a meeting scheduler for NUS computing students. However after multiple discussions, we deemed it unfit to implement
+as there were too many components to think about and difficult to implement given our limited time to complete the application. Thus we decided to make an expense
+tracker instead. We had many different ideas for our expense tracker and ways to implement them. We needed a few meetings to discuss and iron out our direction for
+the project to ensure everyone was on the same page before starting the development process.
+
+- *Storage* +
+We needed a way to store our data so when the application starts we can load previously stored transactions and other data. We decided to adopt and modify slightly AB3's
+storage system and implement it in ExpenseLa.
+
+- *Commands* +
+An expense tracker requires many different commands to carry out many different actions, especially since it uses command line interface. We adapted AB3's parser. For
+similar commands to AB3 like add, we had to change the command to accept different predicates, thus parsing it differently. We also had to think about how to parse new commands.
+
+- *Global data* +
+We had to implement a global data which consisted of Monthly Data. It had to be independent of
+
+- *User interface* +
+We decided to keep a ExpenseLa's UI generally similar to AB3, but with addition of new UI features. We created a new placeholder for `Monthly Data` for easy constant viewing by
+the user. We created a chart analysis for the expenditures, which was in the form of a bar chart and pie chart. The charts took up a considerable amount of space, and putting a separate
+placeholder for it would be unfeasible for small screens. Thus we implemented a `toggleview` command which allows the user to toggle between viewing the list of transactions and the chart analytics.
+This required us to learn both the chart libraries as well as think about how we were going to change the views, while updating the charts when new commands were added.
+
+*Conclusion* +
+From planning to documentation to coding of the project, the team believes that every member has put in equal and huge amount of effort on all parts of the project. We believe that
+our product is significantly different from AB3, with many new features which were carefully planned in implementation, and we are proud of ExpenseLa we have built.
