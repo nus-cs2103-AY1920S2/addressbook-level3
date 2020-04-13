@@ -134,9 +134,9 @@ Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTH
 ****
 
 [TIP]
-Multiple tags can be specified and all will be added, if it is not a duplicate.
+Multiple `TO_BE_ADDED` tags can be specified and all will be added, if it is not a duplicate.
 [TIP]
-Multiple tags can be specified and all will be deleted, if they exist.
+Multiple `TO_BE_DELETED` tags can be specified and all will be deleted, if they exist.
 [TIP]
 To delete all tags, specify the tag-deletion prefix `-t/` without any parameters.
 
@@ -459,7 +459,7 @@ Format: `(st)list [-d] [-e]`
 * If no optional field is specified, assignments will be sorted in alphabetical order.
 * Completed assignments will always be shown at the bottom of the list.
 * [-d] : Assignments will be sorted in ascending order by deadline.
-* [-e] : Assignments will be sorted in ascending order based on the estimated completion time.
+* [-e] : Assignments will be sorted in descending order based on the estimated completion time.
 ****
 
 Examples:
@@ -467,7 +467,7 @@ Examples:
 * `(st)list -d` +
 Assignments will be shown in chronological order, with respect to the deadline, with all completed assignments at the bottom of the list.
 * `(st)list -e` +
-Assignments will be sorted in order of increasing estimated work hours, with all completed assignments shown at the bottom of the list.
+Assignments will be sorted in order of decreasing estimated work hours, with all completed assignments shown at the bottom of the list.
 
 ==== Generate upcoming schedule : `(st)schedule`
 
