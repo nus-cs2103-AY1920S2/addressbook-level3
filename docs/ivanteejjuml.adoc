@@ -1,0 +1,17 @@
+= Tee Jun Jie Ivan - UML Diagrams
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+image::Ivan-ModelClassDiagram.png[scaledwidth=50%]
+This is a class diagram to show how the model has changed since AB-3. Notice that AddressBookGeneric holds anything that extends
+from ModelObject.
+
+image::Ivan-AssignmentClassDiagram.png[scaledwidth=50%]
+This is an example to show 1 type of modelObject which AddressBookGeneric can hold.
+
+image::Ivan-PreprocessAssignActivityDiagram.png[scaledwidth=50%]
+This is an activity diagram to show the necessary steps taken when we pre-process an unassign command.
+
+image::Ivan-ProgressManagerAssignStudentToCourse.png[scaledwidth=50%]
+This is a sequence diagram used to show
