@@ -159,10 +159,10 @@ If you want to add a new note to the current working directory (currently opened
 Observe that the note `CS2103T` was not opened immediately
 ====
 [[New1]]
-.Step 1 - Demo for the `new` command (with all parameters and `open` flag)
+.Step 1 - Demo for the `new` command (with the `open` flag)
 image::demo/New1.png[Demo]
 [[New2]]
-.Step 2 - Demo for the `new` command (with only title parameter)
+.Step 2 - Demo for the `new` command (without the `open` flag)
 image::demo/New2.png[]
 [[New3]]
 .Step 3 - Demo for the `new` command (after creating both notes)
