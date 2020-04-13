@@ -52,7 +52,7 @@ image::Legends3.png[width="800"]
 . As shown in the diagram above, Notably allows you to edit and customise your notes in a fuss free manner.
 
 [[LegendsClosed]]
-// end::introduction[]
+//end::introduction[]
 
 === Symbols used in this guide
 [NOTE]
