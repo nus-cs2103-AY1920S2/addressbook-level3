@@ -28,6 +28,7 @@ import nasa.logic.commands.RepeatEventCommand;
 import nasa.logic.commands.SortCommand;
 import nasa.logic.commands.StatisticsCommand;
 import nasa.logic.commands.UndoCommand;
+import nasa.logic.commands.ViewCommand;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.commands.addcommands.AddEventCommand;
 import nasa.logic.commands.module.AddModuleCommand;
@@ -113,6 +114,9 @@ public class NasaBookParser {
         case ExportQrCommand.COMMAND_WORD:
             return new ExportQrCommand();
 
+        case ExportCalendarCommand.COMMAND_WORD:
+            return new ExportCalendarCommandParser().parse(arguments);
+
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
@@ -143,8 +147,8 @@ public class NasaBookParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
-        case ExportCalendarCommand.COMMAND_WORD:
-            return new ExportCalendarCommandParser().parse(arguments);
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

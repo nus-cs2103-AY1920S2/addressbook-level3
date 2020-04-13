@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
@@ -32,8 +33,6 @@ public class CommandBox extends UiPart<Region> {
     private final List<String> commandHistory;
     private ListIterator<String> commandHistoryIterator;
 
-    private boolean preferenceShowHint = true;
-
     private String matchedCommand = "";
     private MainWindow main;
 
@@ -50,6 +49,9 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
 
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
+            if (key.isControlDown() && key.getCode() == KeyCode.V) {
+                return;
+            }
             switch (key.getCode()) {
             case LEFT:
                 commandTextField.backward();
@@ -68,9 +70,6 @@ public class CommandBox extends UiPart<Region> {
                 }
                 break;
             default:
-                if (matchedCommand.equals(commandTextField.getText().trim().toLowerCase())) {
-                    break;
-                }
                 if (isValidCommand()) {
                     main.getHint(commandList.get(matchedCommand));
                     commandTextField.requestFocus();
@@ -88,7 +87,6 @@ public class CommandBox extends UiPart<Region> {
      */
     public boolean isValidCommand() {
         boolean isCommand = false;
-        // We match the longest command
         for (String command : commandList.keySet()) {
             if (commandTextField.getText().trim().toLowerCase().startsWith(command)) {
                 isCommand = true;
@@ -98,8 +96,6 @@ public class CommandBox extends UiPart<Region> {
         }
         return isCommand;
     }
-
-
 
 
     /**
@@ -116,7 +112,10 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         } finally {
-            main.hideHint();
+            matchedCommand = "";
+            if (main.isHintShowing()) {
+                main.hideHint();
+            }
         }
     }
 

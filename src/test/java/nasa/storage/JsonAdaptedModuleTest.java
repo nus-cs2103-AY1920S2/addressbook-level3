@@ -17,7 +17,6 @@ import nasa.model.module.ModuleName;
 public class JsonAdaptedModuleTest {
     private static final String INVALID_CODE = "CS@";
     private static final String INVALID_NAME = "#name";
-    //private static final String INVALID_ACTIVITY = "#friend";
 
     private static final String VALID_CODE = "CS2103T";
     private static final String VALID_NAME = CS2103T.getModuleCode().toString();
@@ -67,16 +66,5 @@ public class JsonAdaptedModuleTest {
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleName.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
-
-    /*
-    @Test
-    public void toModelType_invalidActivities_throwsIllegalValueException() {
-        List<JsonAdaptedActivity> invalidActivities = new ArrayList<>(VALID_ACTIVITIES);
-        invalidActivities.add(new JsonAdaptedActivity(INVALID_ACTIVITY));
-        JsonAdaptedModule Module =
-                new JsonAdaptedModule(VALID_CODE, VALID_NAME, invalidActivities);
-        assertThrows(IllegalValueException.class, Module::toModelType);
-    }
-     */
 
 }
