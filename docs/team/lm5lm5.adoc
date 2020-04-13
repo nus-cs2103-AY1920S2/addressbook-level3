@@ -12,7 +12,7 @@
 FitHelper is a desktop diet-and-exercise-recording application. It is built based on AddressBook (Level 3),
 a desktop address book application used for teaching Software Engineering principles.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has about 18 kLoC.
+It is written in Java, and has about 21 kLoC.
 
 == Summary of contributions
 
@@ -22,24 +22,29 @@ based on time/name/calorie value in ascending or descending order. The user can 
 Note that the entries in the reminder list will also be sorted in the same manner.
 ** Justification: This feature allows the user to view entries in a particular order.
 It also helps the user to view entry that he/she may deem more important first
-(for example entry with a higher calorie value, as it has a larger impact on the user's fitness).
-** Highlights:
+(for example entry with a higher calorie value, as it has a larger impact on the user's fitness),
+which facilitates editing.
+** Highlights: 
 
 * *Major enhancement 2*: added *the ability to search for calorie data of common food/sports*
 ** What it does: allows the user to search for calorie intake/consumption of food/sports by keywords.
 ** Justification: This feature makes it easier for the user to estimate how much calorie he/she will gain/burn
 by eating/exercising, so that he/she can create food/sports entry without the need to search online for relevant information.
-** Highlights: The search will
+** Highlights: The application will perform up to 3 rounds of search, each round with different criteria,
+to find matching data. This ensures that more relevant data are found and added first, and at the same time
+loosely-matching data can be shown when strictly-matching data are not found.
 ** Credits: The calorie data are collected from the following websites: https://www.calories.info/ and https://www.nutristrategy.com/caloriesburned.htm
 
-* *Minor enhancement*: added and updated the Help Page, which shows the list of valid user commands and their usage, and the link to the user guide.
+* *Minor enhancement*: added and updated the Help Page,
+which shows the list of valid user commands and their usage,
+and the link to the user guide.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=lm5lm5[Functional and Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.2.1` (1 release) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
@@ -50,11 +55,6 @@ by eating/exercising, so that he/she can create food/sports entry without the ne
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 

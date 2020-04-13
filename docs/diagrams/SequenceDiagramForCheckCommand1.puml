@@ -49,7 +49,7 @@ deactivate
 
 LogicManager -> CheckCommand : execute(model)
 activate CheckCommand
-CheckCommand -> ModelManager : searchTable(checkType, keyword)
+CheckCommand -> ModelManager : searchTable(type, keyword)
 activate ModelManager
 'ModelManager -> FitHelper : addCalorieData(type, keyword)
 'activate FitHelper
@@ -77,9 +77,9 @@ activate ModelManager
 '
 'FitHelper --> ModelManager : List<CalorieDatum>
 'deactivate FitHelper
-ModelManager --> CheckCommand : List<CalorieDatum>
+ModelManager --> CheckCommand : Set<CalorieDatum>
 deactivate ModelManager
-CheckCommand -> CheckCommand : convertListToString()
+CheckCommand -> CheckCommand : convertSetToString()
 activate CheckCommand
 CheckCommand --> CheckCommand : feedbackToUser
 deactivate
