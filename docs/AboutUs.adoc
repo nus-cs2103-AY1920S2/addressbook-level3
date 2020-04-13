@@ -51,6 +51,6 @@ image::firzanarmani.png[width="150", align="left"]
 {empty}[http://github.com/firzanarmani[GitHub]] [<<firzanarmani#, Portfolio>>]
 
 Role: Developer +
-Responsibilities: Parser + Commands + Storage
+Responsibilities: Tree Data Model + Storage
 
 '''
