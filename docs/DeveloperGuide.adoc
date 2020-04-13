@@ -1086,6 +1086,107 @@ by the user is a valid integer. If it is, the `SetRateCommandParser` creates a
 //end::claimsview[]
 //tag::syntaxhighlighting[]
 
+//tag::filter[]
+
+[[Implementation-Filter]]
+=== Filter Command
+(Contributed by Chua Yi Jing)
+
+==== Description
+
+Different view has its own designated filter command.
+
+====
+* *Student View*, has the `student filter`
+* *Session View*, has the `session filter`
+* *Claims View*, has the `claims filter`
+====
+
+==== Implementation
+This section describes the implementation of the `filter` command.
+
+The _Activity Diagram_ below summarises what happens when the user executes a `filter` command:
+
+._Activity Diagram_ of the Filter Command
+image::FilterCommandActivityDiagram.png[,1100]
+
+The filter feature consists of three main steps:
+
+1. *Validating and parsing* user input
+
+2. Creating a *filtering predicate* from user's input
+
+3. *Updating the filtered* list with the *filtering predicate*
+
+===== Filter under Student View
+
+Students are filtered based on the module code and/or
+group code given by the user.
+
+Module code is a compulsory parameter for the user.
+
+The following _Sequence Diagram_ shows the sequence of commands that take place between
+the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
+`student filter m\CS2103T g\G06`. This command will return students from module code `CS2103T`, under group `G06`.
+
+._Sequence Diagram_ for Filter Student Command
+image::FilterStudentSequenceDiagram.png[]
+
+Given below is an example scenario where the user enters a command to filter students.
+
+. The user command is passed through the `LogicManager` to `TaTrackerParser`.
+`TaTrackerParser` checks the input arguments and identify the String keywords.
+
+. The `TaTrackerParser` sees that the command is a type of Student and passes the command
+to the `StudentCommandParser`.
+
+. The `StudentCommandParser` sees that the command is a type of filter and passes the
+arguments to the `FilterStudentCommandParser`.
+
+. The `FilterStudentCommandParser` creates a `FilterStudentCommand` object
+with the relevant keywords.
+
+. `LogicManager` calls `FilterStudentCommand` 's execute method.
+
+. The `FilterStudentCommand` object checks whether any of the keywords given by the user matches the existing
+module and/or group.
+.. If it doesn't, a `CommandException` is thrown saying that no such students exists.
+.. If it does, the `FilterStudentCommand` returns a `CommandResult` with a success message.
+
+===== Filter under Session View
+
+Sessions can be filtered with the following parameters:
+
+* `d/DATE`
+* `m/MODULE CODE`
+* `t/SESSION_TYPE`
+
+These parameters can be used alone or together.
+
+The command used to filter sessions has been implemented in a similar way. The main
+difference is that the `FilterSessionCommandParser` creates a `SessionPredicate` object.
+The `SessionPredicate` object updates the filtered session list by keywords in Model.
+The filtered list will then be displayed.
+
+When the user specifies a keyword, sessions that contain the keywords will be filtered and shown to the user.
+If none of the keywords supplied by the user appears in any sessions, a `CommandException`
+will be shown.
+
+The following _Class Diagram_ shows how different classes are related in the functioning of
+the `SessionFilter` Command.
+
+.Class Diagram for Filter Session Command
+image::FindCommandClassDiagram.png[]
+
+===== Filter under Claims View
+
+The user can only filter the *Claims View* by module code.
+When the user enters the command `claims filter m/MODULE_CODE`, claims that contain the module code
+will be filtered.
+
+The command used to filter claims is implemented the same way as `SessionFilterCommand`.
+//end::filter[]
+
 [[Syntax]]
 === Syntax Highlighting
 (Contributed by Gabriel)
@@ -1465,106 +1566,7 @@ Then, the `CommandBox` will have _boolean flags_ to toggle the syntax highlighti
 before the each of the three steps explained in the <<Impl-Syntax, Implementation of the Syntax Highlighting>>.
 ====
 //end::syntaxhighlighting[]
-//tag::filter[]
 
-[[Implementation-Filter]]
-=== Filter Command
-(Contributed by Chua Yi Jing)
-
-==== Description
-
-Different view has its own designated filter command.
-
-====
-* *Student View*, has the `student filter`
-* *Session View*, has the `session filter`
-* *Claims View*, has the `claims filter`
-====
-
-==== Implementation
-This section describes the implementation of the `filter` command.
-
-The _Activity Diagram_ below summarises what happens when the user executes a `filter` command:
-
-._Activity Diagram_ of the Filter Command
-image::FilterCommandActivityDiagram.png[,1100]
-
-The filter feature consists of three main steps:
-
-1. *Validating and parsing* user input
-
-2. Creating a *filtering predicate* from user's input
-
-3. *Updating the filtered* list with the *filtering predicate*
-
-===== Filter under Student View
-
-Students are filtered based on the module code and/or
-group code given by the user.
-
-Module code is a compulsory parameter for the user.
-
-The following _Sequence Diagram_ shows the sequence of commands that take place between
-the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
-`student filter m\CS2103T g\G06`. This command will return students from module code `CS2103T`, under group `G06`.
-
-._Sequence Diagram_ for Filter Student Command
-image::FilterStudentSequenceDiagram.png[]
-
-Given below is an example scenario where the user enters a command to filter students.
-
-. The user command is passed through the `LogicManager` to `TaTrackerParser`.
-`TaTrackerParser` checks the input arguments and identify the String keywords.
-
-. The `TaTrackerParser` sees that the command is a type of Student and passes the command
-to the `StudentCommandParser`.
-
-. The `StudentCommandParser` sees that the command is a type of filter and passes the
-arguments to the `FilterStudentCommandParser`.
-
-. The `FilterStudentCommandParser` creates a `FilterStudentCommand` object
-with the relevant keywords.
-
-. `LogicManager` calls `FilterStudentCommand` 's execute method.
-
-. The `FilterStudentCommand` object checks whether any of the keywords given by the user matches the existing
-module and/or group.
-.. If it doesn't, a `CommandException` is thrown saying that no such students exists.
-.. If it does, the `FilterStudentCommand` returns a `CommandResult` with a success message.
-
-===== Filter under Session View
-
-Sessions can be filtered with the following parameters:
-
-* `d/DATE`
-* `m/MODULE CODE`
-* `t/SESSION_TYPE`
-
-These parameters can be used alone or together.
-
-The command used to filter sessions has been implemented in a similar way. The main
-difference is that the `FilterSessionCommandParser` creates a `SessionPredicate` object.
-The `SessionPredicate` object updates the filtered session list by keywords in Model.
-The filtered list will then be displayed.
-
-When the user specifies a keyword, sessions that contain the keywords will be filtered and shown to the user.
-If none of the keywords supplied by the user appears in any sessions, a `CommandException`
-will be shown.
-
-The following _Class Diagram_ shows how different classes are related in the functioning of
-the `SessionFilter` Command.
-
-.Class Diagram for Filter Session Command
-image::FindCommandClassDiagram.png[]
-
-===== Filter under Claims View
-
-The user can only filter the *Claims View* by module code.
-When the user enters the command `claims filter m/MODULE_CODE`, claims that contain the module code
-will be filtered.
-
-The command used to filter claims is implemented the same way as `SessionFilterCommand`.
-//end::filter[]
 //tag::statistic[]
 
 === Statistic Report Generation
