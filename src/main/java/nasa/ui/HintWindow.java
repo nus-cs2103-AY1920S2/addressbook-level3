@@ -33,6 +33,8 @@ public class HintWindow extends UiPart<Region> {
     @FXML
     private Label exampleMessage;
     @FXML
+    private Label copyMessage;
+    @FXML
     private Button copyExample;
 
     public HintWindow() {
@@ -57,7 +59,7 @@ public class HintWindow extends UiPart<Region> {
      * @param stage Stage
      */
     public void show(Stage stage) {
-        popup.setWidth(stage.getWidth() * 3 / 4);
+        popUp.setMaxWidth(stage.getWidth() * 3 / 4);
         popup.show(stage);
         popup.setAnchorX(stage.getX());
         popup.setAnchorY(stage.getHeight() - 125 - popup.getHeight());
