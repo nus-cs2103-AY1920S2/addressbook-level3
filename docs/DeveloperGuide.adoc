@@ -1027,8 +1027,8 @@ Use case ends.
 
 1.  User lists all suppliers (UC1).
 2.  User requests to delete a good from a supplier's list and give the good's name.
-2.  InventoryManager confirms the deletion.
-3.  InventoryManager deletes the good from the supplier's good list.
+3.  InventoryManager confirms the deletion.
+4.  InventoryManager deletes the good from the supplier's good list.
 +
 Use case ends.
 
