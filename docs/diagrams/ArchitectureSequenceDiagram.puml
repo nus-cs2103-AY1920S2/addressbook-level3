@@ -32,7 +32,11 @@ splitterStorage -[STORAGE_COLOR]> splitterStorage : Save to file
 activate splitterStorage STORAGE_COLOR_T1
 deactivate splitterStorage
 
+splitterStorage --[STORAGE_COLOR]> logic
+deactivate splitterStorage
+
 logic -[LOGIC_COLOR]> splitterStorage : saveReceiptBook(receiptBook)
+activate splitterStorage STORAGE_COLOR
 
 splitterStorage -[STORAGE_COLOR]> splitterStorage : Save to file
 activate splitterStorage STORAGE_COLOR_T1
