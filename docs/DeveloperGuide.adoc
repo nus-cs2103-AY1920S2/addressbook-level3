@@ -240,7 +240,7 @@ The following activity diagram summarizes what happens when the user executes `c
 
 :figure-caption: Figure
 .Activity diagram of executing the `count`command.
-image::count-command/CountActivityDiagram.svg[,650]
+image::count-command/CountActivityDiagram.svg[align="center",650]
 
 
 // tag::undoredo[]
