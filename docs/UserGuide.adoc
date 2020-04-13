@@ -324,7 +324,7 @@ This command edits the content of the diary log on the date `2020-03-31` with th
 ==== Find a diary: `findDiary`
 * `findDiary [d/DATE] [k/ONE OR MORE KEYWORDS]` +
 finds diaries either on the specified `DATE` or contains the specified `KEYWORDS`. +
-
+Both `DATE` and `KEYWORDS` fields are optional. If neither appear, FitHelper will display all diaries. +
 If there is no diary under the specified `DATE`, this command will be discarded with the reminder of
 `DIARY_NOT_FOUND`.
 
@@ -335,11 +335,7 @@ the diary under that date will be displayed. If the specified `DATE` contains no
 no diary will be listed.
 * If the field `DATE` is left empty, only the `KEYWORDS` field is considered in the search,
 similar to the case of `find` command for food/sport entries.
-* The search is case insensitive. e.g `apples` will match `Apples`
-* The order of the keywords does not matter. e.g. `Apple Pie` will match `Pie Apple`
-* Only the name is searched.
-* Only full words will be matched e.g. `Straw` will not match `Strawberries`
-* Entries matching at least one keyword will be returned (i.e. `OR` search). e.g. `Apple Banana` will return `Apple Pie`, `Banana Milkshake`
+* The keyword searching rules are the same as in `Section 4.2.5 Locating entries by name : *find*`.
 ****
 
 Examples:
