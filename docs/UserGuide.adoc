@@ -33,6 +33,7 @@ Please ensure that writing or reading data inside the home folder that you choos
 does **not** require administrator permission.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+.A snapshot of the app
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -91,6 +92,15 @@ means you must input both `TYPE` and `KEYWORDS` parameters.
 The only valid values are food OR sports, or in acronym f OR s.
 * The field `TIME` needs to be in the format of yyyyy-mm-dd-hh:MM, e.g. `2020-04-10-03:00`
 * The field `DATE` should be entered in the format of `yyyy-mm-dd`, e.g. `2020-02-02`.
+* Our time parser will auto-correct some invalid date/time entered. More specifically,
+as long as the month value is valid and the day value is between 1 and 31,
+the parser will auto-correct an invalid date to the last valid date of the year-month
+specified by the user.
+
+Example: `2020-02-31-12:34` will be auto-corrected as `2020-02-29-12:34` since
+`2020-02-29` is the last valid date of Feb 2020.  `2020-22-31` and `2020-02-40`
+will not be auto-corrected since the month value is invalid or the day value is beyond 31.
+
 * The field `INDEX` should be a positive integer representing a one-based index of an entry in an list.
 * The field `DURATION` should be a positive double number,
 representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
@@ -120,6 +130,7 @@ can directly access the Guide by pasting the url into the browser.
 
 Format: `help`
 
+.Help page
 image::Help.png[width="790"]
 //end::help[]
 
@@ -151,7 +162,7 @@ page by clicking the `DashBoard` button, the Dashboard page will still only show
 list. But is you input `home` command, entries in all three lists will be shown.
 
 .Dashboard page in default display setting
-image::Dashboard.png[][width="790"]
+image::Dashboard.png[]
 
 ==== Adding an entry: `add`
 
@@ -302,6 +313,9 @@ i.e. the older entry comes first)
 * `sort by/c` (sort both food and sports entry list, as well as reminders list,
 in descending order of calorie value, i.e. entry with higher calorie intake/consumption comes first)
 
+.Dashboard page after all 3 lists are sorted by time in descending order (later entry comes at top)
+image::Sort.png[width="790"]
+
 ==== Check calorie intake/consumption of common food/sports: `check`
 
 Searches through the pre-set database for calorie intake/consumption information
@@ -310,13 +324,17 @@ Note that due to space constraint, at most 3 matching data will be shown
 at the left-bottom corner of the application. Each datum shows the name of
 the food/sports and its calorie intake/consumption information: for food, it will be
 in cal per serving (weight per serving in gram will also be shown); for sports, it will
-be in cal per hour. The searching works as follows:
+be in cal per hour for a 70kg person.
+Please note after the command is executed, the application will
+automatically go to Dashboard page *without resetting the display status*.
+
+The searching works as follows:
 
 * Retrieves food/sports data based on check type specified by the user.
 * Checks and adds food/sports datum whose name **equals one of the keywords**.
-* If fewer than 3 food/sports data are added so far, checks and adds food/sports datum
+If fewer than 3 food/sports data are added so far, checks and adds food/sports datum
 whose name **contains the keywords as a whole**.
-* If still fewer than 3 food/sports data are added so far, checks and adds food/sports datum
+If still fewer than 3 food/sports data are added so far, checks and adds food/sports datum
 whose name **contains one of the keywords**.
 * If no datum is added after all the steps, replies user that search failed.
 Otherwise, shows user the data.
@@ -328,6 +346,11 @@ Examples:
 * `check x/food k/apple` (searches for calorie intake of food
 whose name match/contain keyword "apple")
 
+.Check command result (matching data found)
+image::Check.png[width="790"]
+
+//.Check command result (no matching data)
+//image::Check2.png[width="790"]
 //tag::diary[]
 === Keep Diaries
 

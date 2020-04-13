@@ -33,9 +33,11 @@ public class ListCommandParser implements Parser<ListCommand> {
             return new ListCommand(null);
         }
         String dateStr = argMultimap.getValue(PREFIX_DATE).get().trim();
-        if (dateStr.isEmpty() || !isValidDate(dateStr)) {
+        if (dateStr.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        } else if (!isValidDate(dateStr)) {
+            throw new ParseException("Invalid date.");
         }
 
         return new ListCommand(dateStr);
