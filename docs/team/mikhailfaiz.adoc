@@ -36,6 +36,7 @@ sorted each time a new entry is added.
 ** Justification: Since the journal entries are not given titles, we chose not to implement a find command. However, to
 make searching for a specific entry easier, the sort command arranges the entries is a logical manner such that the user
 can easily locate a specific entry.
+** Additional details: I chose to
 
 * *Other Contributions*
 ** JUnit testing for Journal commands and functionality.

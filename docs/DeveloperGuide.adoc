@@ -710,7 +710,7 @@ Use case ends
 Use case ends
 
 [none]
-* 1e. V is unable to detect a valid keyword
+* 1e. V is unable to detect a valid command keyword
 * 1e1. V outputs error informing user of invalid command
 +
 Use case ends
@@ -720,40 +720,39 @@ Use case ends
 
 **Precondition: **User is in the home page
 
-**Guarantee: **Information of existing trip will be changed
+**Guarantee: **Metadata of existing trip will be changed
 
 *MSS*
 
-1. User requests to edit certain detail(s) of trip at specified index
-2. V requests for details to be overwritten/edited
-3. User enters new trip details
-4. V edits trip in the trip list
+1. User inputs command to edit an existing trip
+2. V updates metadata of corresponding trip according to user input
+3. Trip list is updated and the changes are reflected for user to see
 +
 Use case ends
 
 *Extensions*
 
 [none]
-* 3c. V is unable to detect any specified fields to edit
-* 3c1. V outputs error informing user that a field to edit must be specified
+* 1a. V is unable to detect any specified fields to edit
+* 1a1. V outputs error informing user that a field to edit must be specified
 +
 Use case ends
 
 [none]
-* 3a. V detects an invalid index i.e. index out of range or negative index
-* 3a1. V outputs error informing user of invalid index specified
+* 1b. V detects an invalid index i.e. index out of range or negative index
+* 1b1. V outputs error informing user of invalid index specified
 +
 Use case ends
 
 [none]
-* 3b. V detects invalid characters for the fields
-* 3b1. V outputs error informing user of invalid command
+* 1c. V detects invalid characters for the fields
+* 1c1. V outputs error informing user of invalid command
 +
 Use case ends
 
 [none]
-* 3c. V is unable to detect a valid keyword
-* 3c1. V outputs error informing user of invalid command
+* 1d. V is unable to detect a valid command keyword
+* 1d1. V outputs error informing user of invalid command
 +
 Use case ends
 
@@ -780,7 +779,7 @@ Use case ends
 Use case ends
 
 [none]
-* 1b. V is unable to detect a valid keyword
+* 1b. V is unable to detect a valid command keyword
 * 1b1. V outputs error informing user of invalid command
 +
 Use case ends
@@ -809,7 +808,7 @@ Use case ends
 Use case ends
 
 [none]
-* 2b. V is unable to detect a valid keyword
+* 2b. V is unable to detect a valid command keyword
 * 2b1. V outputs error informing user of invalid command
 +
 Use case ends
@@ -843,15 +842,23 @@ Use case ends
 Use case ends
 
 [none]
-* 1c. V is unable to detect a valid keyword
+* 1c. V is unable to detect a valid command keyword
 * 1c1. V outputs error informing user of invalid command
 +
 Use case ends
+
+[none]
+* 1d. V detects that text field is greater 280 characters long
+* 1d1. V outputs error informing user of character limit and how many characters over the limit their input was
++
+Use case ends
+
 
 [discrete]
 === UC06 - Adding Activities into Itinerary
 
 **Precondition: **User is already in the Itinerary page of the Trip
+
 **Guarantee: **A new activity will be added to the Itinerary
 
 *MSS*
@@ -876,7 +883,166 @@ Use case ends
 Use case ends
 
 [none]
-* 1c. V is unable to detect a valid keyword
+* 1c. V is unable to detect a valid command keyword
+* 1c1. V outputs error informing user of invalid command
++
+Use case ends
+
+[discrete]
+=== UC07 - Editing Existing Journal Entry
+
+**Precondition: **User is on the Journal page and has added one or more entries already
+
+**Guarantee: **Metadata of an existing entry will be changed
+
+*MSS*
+
+1. User inputs command to edit an entry
+2. V updates metadata of corresponding entry according to user input
+3. Entry list is updated and the changes are reflected for user to see
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. V is unable to detect any specified fields to edit
+* 1a1. V outputs error informing user that a field to edit must be specified
++
+Use case ends
+
+[none]
+* 1b. V detects incorrect date or time format
+* 1b1. V outputs error informing user that the acceptable format for date and time input
++
+Use case ends
+
+[none]
+* 1c. V detects an invalid index i.e. index out of range or negative index
+* 1c1. V outputs error informing user of invalid index specified
++
+Use case ends
+
+[none]
+* 1d. V detects invalid characters for the fields
+* 1d1. V outputs error informing user of invalid command
++
+Use case ends
+
+[none]
+* 1e. V is unable to detect a valid command keyword
+* 1e1. V outputs error informing user of invalid command
++
+Use case ends
+
+[discrete]
+=== UC08 - Editing Existing Activity
+**Precondition: **User is on the Itinerary page and has added one or more activities already
+
+**Guarantee: **Metadata of an existing activity will be changed
+
+*MSS*
+
+1. User inputs command to edit an activity.
+2. V updates metadata of corresponding activity according to user input
+3. Activity list is updated and the changes are reflected for user to see
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. V is unable to detect any specified fields to edit
+* 1a1. V outputs error informing user that a field to edit must be specified
++
+Use case ends
+
+[none]
+* 1b. V detects incorrect date or time format
+* 1b1. V outputs error informing user that the acceptable format for date and time input
++
+Use case ends
+
+[none]
+* 1c. V detects an invalid index i.e. index out of range or negative index
+* 1c1. V outputs error informing user of invalid index specified
++
+Use case ends
+
+[none]
+* 1d. V detects invalid characters for the fields
+* 1d1. V outputs error informing user of invalid command
++
+Use case ends
+
+[none]
+* 1e. V is unable to detect a valid command keyword
+* 1e1. V outputs error informing user of invalid command
++
+Use case ends
+
+[discrete]
+=== UC09 - Sorting Journal Entries
+**Precondition: **User is on the Journal page and has added one or more entries already
+
+**Guarantee: **Entry list will be sorted
+
+*MSS*
+
+1. User inputs sort command
+2. V sorts the entry list according to user's input
+3. Entry list is updated and the sorted list is displayed to the user
++
+Use case ends
+
+Extensions
+[none]
+* 1a. V does not detect an argument for sort type in user's input
+* 1a1. V outputs error message informing user to include a sort type
++
+Use case ends
+
+[none]
+* 1b. V detects invalid characters for the sort type input
+* 1b1. V outputs error informing user of invalid sort type
++
+Use case ends
+
+[none]
+* 1c. V is unable to detect a valid command keyword
+* 1c1. V outputs error informing user of invalid command
++
+Use case ends
+
+[discrete]
+=== UC10 - Finding Itinerary Activities
+**Precondition: **User is on the Itinerary page and has added one or more activities already
+
+**Guarantee: **Activity list containing matching search terms is displayed
+
+*MSS*
+
+1. User inputs find command
+2. V checks the activity list for activities with metadata that matches the given search term(s)
+3. V outputs an activity list containing all the activities matching the given search term(s)
++
+Use case ends
+
+Extensions
+[none]
+* 1a. V does not find any activities that match the given search term(s)
+* 1a1. V outputs message informing user that no matching activities were found
++
+Use case ends
+
+[none]
+* 1b. V detects invalid characters for the given search term(s)
+* 1b1. V outputs error informing user of invalid command
++
+Use case ends
+
+[none]
+* 1c. V is unable to detect a valid command keyword
 * 1c1. V outputs error informing user of invalid command
 +
 Use case ends
@@ -894,8 +1060,6 @@ Use case ends
 .  Input by the user should only be in English.
 .  Volant source code should be covered by tests as much as possible.
 .  Volant should work for a single user only.
-
-_{More to be added in future development}_
 
 [appendix]
 == Glossary
@@ -959,15 +1123,17 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding
 
-=== Adding a `TRIP`
+. Adding a `TRIP` to an empty or populated trip list
 
-. Adding a `TRIP` to an empty trip list
+.. Prerequisites: NA
+.. Test case: `add n/Bali 2020 l/Bali d/02-01-2020 to 02-05-2020`
+.. Expected: `TRIP` with corresponding details is added to trip list.
+.. Test case: `add n/Bali 2020 l/Bali d/2020-01-02 to 2020-05-02`
+.. Expected: No `TRIP` added. Error details shown in status message.
 
-.. Prerequisites:
-
-=== Deleting a `TRIP`
+=== Deleting
 
 . Deleting a `TRIP` while all `TRIPS` are listed
 
@@ -979,7 +1145,27 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)  +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Deleting an `activity` in the `ITINERARY`
+
+.. Prerequisites: A `TRIP` has already been created.
+.. Test case: `delete 1` +
+Expected: First `activity` is deleted from the `activity` list of the `ITINERARY` of the current `TRIP`. Current `activity` list is updated.
+.. Test case: `delete 0` +
+Expected: No `activity` is deleted. Error details shown in the status message.
+.. Test case: `delete a` +
+Expected: No `activity` is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the itinerary size) +
+Expected: Similar to previous.
+
+. Deleting an `entry` in the `JOURNAL`
+
+.. Prerequisites: A `TRIP` has already been created.
+.. Test case: `delete 1` +
+Expected: First `entry` is deleted from the `JOURNAL` of the current `TRIP`. Current `entry` list is updated.
+.. Test case: `delete 0` +
+Expected: No `entry` is deleted. Error details shown in the status message
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the journal size) +
+Expected: Similar to previous.
 
 === Saving data
 
@@ -987,34 +1173,3 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
-
-=== Deleting an `activity`
-
-. Deleting an `activity` in the `ITINERARY`
-
-.. Prerequisites: A `TRIP` has already been created.
-.. Test case: `delete 1` +
-   Expected: First `activity` is deleted from the `activity` list of the `ITINERARY` of the current `TRIP`. Current `activity` list is updated.
-.. Test case: `delete 0` +
-   Expected: No `activity` is deleted. Error details shown in the status message.
-.. Test case: `delete a` +
-   Expected: No `activity` is deleted. Error details shown in the status message.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the itinerary size) +
-   Expected: Similar to previous.
-
-_{more test cases ...}_
-
-=== Deleting an `entry`
-
-. Deleting an `entry` in the `JOURNAL`
-
-.. Prerequisites: A `TRIP` has already been created.
-.. Test case: `delete 1` +
-   Expected: First `entry` is deleted from the `JOURNAL` of the current `TRIP`. Current `entry` list is updated.
-.. Test case: `delete 0` +
-   Expected: No `entry` is deleted. Error details shown in the status message
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the journal size) +
-   Expected: Similar to previous.
-
-_{more test cases ...}_
