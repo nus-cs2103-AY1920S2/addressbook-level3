@@ -41,7 +41,7 @@ and job application woes.
 *ResuMe* allows the management of five different item types:
 
 [source,sh]
-[cols="^.^10%,^.^10%,^.^20%,.^60%",options="header",]
+[cols="^.^10%,^.^20%,^.^10%,.^60%",options="header",]
 |=======================================================================
 |No. |Item type |Alias |Attributes
 |1 |Internship |int |name, role, from, to, description, tag
@@ -140,11 +140,11 @@ image::Ui.png[width="790"]
 e.g. typing *`help start`* and pressing kbd:[Enter] will open the help window for getting started.
 .  Try out these example commands:
 
-* **`list`**`i/ res` : lists all `resume` items.
-* **`add`**`i/ res n/ Software Engineering Resume #/ SE #/ frontend`: adds a `resume` named `Software Engineering Resume`
+* `list i/ res` : lists all `resume` items.
+* `add i/ res n/ Software Engineering Resume #/ SE #/ frontend`: adds a `resume` named `Software Engineering Resume`
 with `tags` _"SE"_ and _"frontend"_.
-* **`delete`**`1 i/ res` : deletes the 1st `resume` shown in the resume list.
-* *`exit`* : exits the app.
+* `delete 1 i/ res` : deletes the 1st `resume` shown in the resume list.
+* `exit` : exits the app.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -657,7 +657,7 @@ Modifies the content of a `resume` to contain the items specified in the command
 ====
 
 [TIP]
-If you find it a hassle to manually enter items into the `resume`, you can consider using <<Pulling tagged items into the resume: `tagpull`, tagpull>>!
+If you find it a hassle to manually enter items into the `resume`, you can consider using <<Pulling tagged items into a resume: `tagpull`, tagpull>>!
 
 * For each `TYPE`, existing items will be updated to the input items.
 * You can add multiple items of a certain type to a `resume` by chaining
@@ -743,7 +743,7 @@ So by leaving out one of the prefixes (`TYPE/ ITEM_INDEX...`) from the command, 
 { start of `tagpull` section written by: Christian James Welly }
 
 // tag::tagpull[]
-=== Pulling tagged items into the resume: `tagpull`
+=== Pulling tagged items into a resume: `tagpull`
 
 Pulls all the `internship`, `project` and `skill` items with the specified tag(s) into a `resume`.
 
