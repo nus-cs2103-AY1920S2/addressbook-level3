@@ -43,12 +43,12 @@ search inputs, produce fast responses and suggestions.
 * *Performance:* Enjoy a smooth and fast workflow, powered by a combination of a robust
 Command Line Interface (CLI) and an objectively clear Graphical User Interface (GUI). +
 
-As you can see, Calgo's features are optimised for you to build healthy eating habits and learn how to keep track of your diets.
+As you can see, Calgo's features are optimised for you to build healthy eating habits and learn how to keep track of your diet.
 
 <<<
 == Additional Information
 
-Before continuing, it may be helpful to familiarize yourself with a few symbols that you will encounter in this User Guide:
+Before continuing, it may be helpful to familiarise yourself with a few symbols that you will encounter in this User Guide:
 
 [NOTE]
 This provides you with additional information that should be taken note of.
@@ -58,6 +58,15 @@ This informs you of useful tips about Calgo.
 
 Also, as you may be wondering from the previous section, any words that are marked up in this format: `This is an example` refer to technical terms related to Calgo's implementation.
 
+Check out the list below on how to use this User Guide.
+
+* If you are a first-time user, start from <<Quick Start, *here*>> for instructions for downloading and setting up Calgo.
+* If you are unsure of the GUI of Calgo, start from <<GUI, *here*>> to learn what each component of the App is.
+* If you are interested to learn about the various features Calgo has, check out the Commands section <<Commands, *here*>>.
+* If you are already familiar with Calgo, but need a slight refresher, check out the Command Summary section <<CommandSummary, *here*>>.
+
+
+<<<
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -89,9 +98,13 @@ Start experimenting with the commands yourself and experience the convenience Ca
 - Learn specific details about the various commands Calgo offers by referring to <<Commands, this section>>.
 - If you need a complete summary of all commands, refer to <<Command Summary, this table>>.
 
+<<<
 //tag::interpretGUI[]
 [[GUI]]
-== Interpreting Calgo's Graphical User Interface
+== Interpreting Calgo's Graphical User Interface +
+
+(by Janice) +
+
 //placeholder unlabelled image
 .A labelled illustration of Calgo on startup
 [reftext="Figure 4.1"]
@@ -101,7 +114,7 @@ image::UiLabelled.png[]
 Calgo's GUI is designed to be sleek and compact, allowing you to use and view all of Calgo's features on a single window.
 However, that might be a little overwhelming at the start. Hence,
 this section aims to give a rundown on the GUI's various parts and ease you into using the App, starting from the
-top of the GUI.
+top of the GUI shown in the above diagram.
 
 These sections are labelled from 1 to 8, in the following order:
 
@@ -116,6 +129,7 @@ These sections are labelled from 1 to 8, in the following order:
 
 There is  a ninth part, the `Help Window`, that is a separate pop up - only appearing when required for your convenience.
 
+<<<
 === `Menu Bar`
 The bar has two buttons, `File` and `Help`. The buttons allow
 you to exit the App by clicking the exit option under `File`, and to access the command guide by clicking the
@@ -150,6 +164,7 @@ It has three subsections:
 . The number of portions of the `Food` you consumed that day.
 . The average rating as set by you, color-coded from red to green for low to high rating.
 
+<<<
 === `Graph Display`
 This section contains a graph that shows a summary of your past seven day's total calorie consumption. It displays data
 starting from the date of the current `Consumption Record`.
@@ -166,6 +181,7 @@ can easily tell one entry apart from its neighbours.
 This bar shows where Calgo reads system data from. You should not delete or modify these files.
 //end::interpretGUI[]
 
+<<<
 [[Commands]]
 == Commands
 
@@ -197,6 +213,7 @@ Never make spelling mistakes again!
 
 The following subsections will elaborate on the specific details of Calgo commands.
 
+<<<
 === `clear` : Clearing all entries
 (by Vineeth)
 
@@ -225,6 +242,8 @@ image::ClearCommandAfter.png[]
 
 Upon entering the command, all your `Food` entries in the  `Food Record` will be deleted. This will result in an empty `Food Record`, as shown above.
 As mentioned previously, your data in the `Consumption Record` and `Graph Display` is left unchanged.
+
+<<<
 
 // tag::deletecommand[]
 
@@ -267,6 +286,7 @@ exiting Calgo.
 
 Format: `exit`
 
+<<<
 // tag::exportfoodrecord[]
 === `export` : Exporting the current `Food Record` into a reference sheet
 (by Eugene) +
@@ -298,6 +318,7 @@ Individual entries will also appear on separate lines.
 Format: `export` +
 (any parameters entered are ignored)
 
+<<<
 Example: +
 
 Let's suppose you wish to export the current `Food Record` so that you can print a copy for reference while cooking. Here's how you can do it:
@@ -361,6 +382,8 @@ image::FindCommandCalorieAfter.png[]
 Once the command has been entered, the `Result Display` shows the results of your command and the `Food Record`
 displays the relevant entries with 150 calories.
 
+<<<
+
 Example 2: Say you wish to find entries which contain the keyword `Cheese` in their name, but your hand slipped and
 the keyboard only typed `Chees`. This is what happens: +
 
@@ -374,6 +397,8 @@ Once the command has been entered, the `Result Display` shows the results of you
 the relevant entries which contain `Chees` in their name. This is not too bad, as you still obtain entries that will
 be largely relevant to `Cheese`. This shows that the `find` command can search for `Food` entries
 with incomplete keywords.
+
+<<<
 
 Example 3: Say you are lazy but wish to find entries containing the keyword `sweet` in their tag. Here is how you can do it: +
 
@@ -389,6 +414,8 @@ their tags. As you can search using incomplete keywords, the intended search for
 Please note that the search is case-insensitive, an example being the resulting `Sweet` tag of `Bandung`. Moreover,
 as with Example 2, we allow for incomplete words to be used as search keywords.
 // end::findcommand[]
+
+<<<
 
 [[goal]]
 === `goal` : Setting a daily calorie target
@@ -413,15 +440,19 @@ Acceptable values are positive integers, ranging from 1 to 99999.
 
 Format: `goal GOAL`
 
+<<<
+
 Example:
 
 Let's suppose you are a young adult who is trying to lose weight because your favourite jeans have become too tight.
 You search online for the ideal number of calorie you should consume daily to lose weight. A credible online source states
 it should be 1900 calories. Now, you want to reflect that daily calorie goal in Calgo. You can do that by following this simple step:
 
-image::GoalCommandBefore.png]
+image::GoalCommandBefore.png[]
 
 Type in `goal 1900` and press kbd:[enter], as shown above. +
+
+<<<
 
 image::GoalCommandAfter.png[]
 
@@ -446,6 +477,8 @@ Here are some key pointers:
 
 Format: `help [COMMAND_WORD]`
 
+<<<
+
 Example:
 
 Let's say you've forgotten how to add `Food` entries to your `Consumption Record`. You know there is a command called `nom`,
@@ -467,6 +500,8 @@ As you can see, the `Help Window` popup now only shows the command guide for `no
 image::HelpCommandWithNomPopup.png[]
 // end::helpCommand[]
 
+<<<
+
 // tag::listcommand[]
 [[ListCommand]]
 === `list` : Listing all `Food` in current `Food Record`
@@ -484,12 +519,14 @@ just as the `Food Record` previously appeared:
 ****
 
 [TIP]
-You can think of this as the reverse of a `find` command.
+You can think of this as the reverse of a <<FindCommand, `find`>> command.
 After a `find` command, you are advised to complete your intended actions first, before using the `list` command to
 reset the display. This allows for a smoother workflow as you will now avoid the need to perform the same `find` command again.
 
 Format: `list` +
 (any parameters entered are ignored)
+
+<<<
 
 Example:
 
@@ -504,6 +541,7 @@ image::ListCommandAfter.png[]
 The `Result Display` will then indicate the result of your command, and the `Food Record` will now show all `Food` entries once again.
 // end::listcommand[]
 
+<<<
 
 === `nom` : Adding `Food` to `Consumption Record`
 (by Ruicong)
@@ -539,6 +577,8 @@ with a date that comes after today.
 
 Format: `nom n/NAME [d/DATE] [portion/PORTION][r/RATING]`
 
+<<<
+
 Example:
 
 Suppose you want to have a Cheeseburger today and have already stored its nutritional content
@@ -554,8 +594,10 @@ image::NomCommandAfter.png[]
 Once you enter the command, the `Result Display` will inform you that the food has been consumed.
 The `Consumption Record` panel and `Graph Display` are updated to reflect your latest consumption.
 
+<<<
+
 [[report]]
-=== `report` : Generating insights
+=== `report` : Generating key statistics and insights
 (by Vineeth)
 
 Why stop at keeping track of your meals? Go a step further and use your past consumption patterns
@@ -586,11 +628,15 @@ Refer to the list below for the various types of insights that you can easily ob
 * Insights on what your favourite `Food` is and whether it should continue to be in your diet.
 ****
 
+<<<
+
 Format: `report d/DATE`
 
 [NOTE]
 When entering the `report` command, do note there is a default behaviour for the `DATE` prefix. If you do not provide the date, or if its `Prefix` does not have a value,
 Calgo will by default take it that you intend to generate a report based on today's date.
+
+
 
 Example:
 
@@ -601,10 +647,14 @@ image::ReportCommandBefore.png[]
 
 First, type `report d/2020-04-27` and press kbd:[enter], as shown above.
 
+<<<
+
 image::SampleReport.png[]
 
 Second, go to the `data/reports` folder and open 2020-04-27_report.txt. You will
 see a report that looks similar to the one in the above screenshot.
+
+<<<
 
 The following steps breakdown what information is included in each section of the report.
 
@@ -623,6 +673,8 @@ The third section is `Food-wise Statistics`. As the name suggests, this section 
 In this case, you can see a variety of `Food` entries that you have tracked from your buffet experience. For each `Food` entry, the report displays the name of the `Food`, the total number of portions you consumed and the total amount of calories from that `Food`.
 You can use this information to realise what `Food` you may be over-consuming.
 
+<<<
+
 image::ReportAggregateStatistics.png[]
 
 The fourth section is `Aggregate Statistics`, which shows you the total amount of calories, protein, carbohydrates and fat that you have consumed on the given day.
@@ -634,7 +686,11 @@ The fifth section is called `Insights for You`. In this section, Calgo uses your
 For you to continually improve your eating habits, Calgo, like any other friend, pushes you with motivating messages and congratulates you if you achieved the goal.
 In this case, as you exceeded the daily calorie goal by 959 calories, Calgo provides you with some reassurance that you can do better the next day to ensure that you do not give up.
 
+<<<
+
 image::ReportSuggestions.png[]
+
+
 
 The penultimate section is `Suggestions for You`. In this section, Calgo analyses your `Consumption Record` of the past week from the given date to find out what you can do to improve your eating habits.
 Calgo does this by using a mix of your ratings and quantity consumed of each `Food` to intelligently infer what your favourite `Food` is. It then analyses if you can continue to keep your favourite `Food` in the past week in your diet based on your daily calorie goal.
@@ -643,6 +699,8 @@ Over time, through Calgo's smart suggestions, you will eventually have a diet co
 image::ReportFooter.png[]
 
 The final section is the `Report Footer`, which informs you that the report has concluded. This is the part where you realise that Calgo provides you with so many key insights in such a neatly organised and compact document.
+
+<<<
 
 === `stomach` : Showing all `Food` consumed on a particular day
 (by Ruicong)
@@ -665,6 +723,8 @@ Here are some key pointers:
 
 Format: `stomach [d/DATE]`
 
+<<<
+
 Example: If you want to see what you have consumed on 12 April 2020, here's how you can do it:
 
 image::StomachCommandBefore.png[]
@@ -677,7 +737,9 @@ The `Consumption Record` will display all the `Food` you have consumed on 12 Apr
 You can also see that `Daily Goal Display` has updated to show the amount of calories you have consumed on 12 April 2020,
 relative to your daily goal.
 
-// tag::updatecommand[]
+<<<
+
+// tag::updatecommand[
 
 === `update` : Updating Calgo's `Food Record`
 (by Zhang Xian)
@@ -701,6 +763,8 @@ Instead of naming your `Food` "Chocolate", perhaps "White Chocolate" or "Dark Ch
 
 Format: `update n/NAME cal/CALORIES p/PROTEINS c/CARBOHYDRATES f/FATS [t/TAGS]`
 
+<<<
+
 Examples:
 
 Example 1: Suppose you want to create a `Food` entry for Mee Goreng in Calgo. After searching online for the
@@ -710,6 +774,8 @@ Here's how you update your new `Food`, Mee Goreng, into your `Food Record`:
 image::UpdateCommandNewBefore.png[]
 
 You should type `update n/Mee Goreng cal/418 p/8 c/58 f/17` and press kbd:[enter].
+
+<<<
 
 image::UpdateCommandNewAfter.png[]
 
@@ -721,6 +787,8 @@ You wish to `update` the protein value for Mee Goreng to a new value of 10g. Thi
 image::UpdateCommandExistingFoodBefore.png[]
 
 Type `update n/Mee Goreng cal/418 p/10 c/58 f/17` as input and press kbd:[enter].
+
+<<<
 
 image::UpdateCommandExistingFoodAfter.png[]
 
@@ -735,6 +803,8 @@ image::UpdateCommandCapitaliseBefore.png[]
 
 You can then type `update n/char KUay TeoW cal/200 p/20 c/22 f/30 t/greasy` and press kbd:[enter].
 
+<<<
+
 image::UpdateCommandCapitaliseAfter.png[]
 
 Calgo automatically formats the name of your `Food` for you to proper case. Hence, you
@@ -742,6 +812,8 @@ see that instead of a hideous "char KUay TeoW"
 being updated into the `Food Record`, your new `Food` item is updated as "Char Kuay Teow".
 
 // end::updatecommand[]
+
+<<<
 
 === `vomit` : Removing portions of `Food` from `Consumption Record`
 (by Ruicong)
@@ -771,6 +843,8 @@ which will be available from version 2.0 onwards.
 
 Format: `vomit num/INDEX [d/DATE] [portion/PORTION]`
 
+<<<
+
 Example: Let's say you ordered a glass of Bandung and previously used `nom` with `PORTION` set to 1.
 However, because the drink was too sweet, you only finished half a glass, you can use `vomit` to adjust your
 `Consumption Record`. Here's how you can do this:
@@ -797,6 +871,8 @@ remove the json files in the `data` folder. These are system files.
 
 *Q*: How can I save the data I keyed into Calgo? +
 *A*: Calgo’s data is automatically saved into the computer after any command that changes the data. Manual saving isn't needed.
+
+<<<
 
 == Glossary
 
@@ -837,6 +913,9 @@ It can also contain optional tags.
 
 *Proper Case*: A format where words have all their first letters capitalised. (This Is An Example Of Proper Case).
 
+<<<
+
+[[CommandSummary]]
 == Command Summary
 
 [width="100%",cols="17%,<18%,<20%,<25%,<20%",options="header",]
@@ -875,6 +954,7 @@ It can also contain optional tags.
 .4+|Generate Document|Report|Generates consumption report for a given date.|`report d/DATE`|`report d/2020-04-20`
 |Export|Generates a neat and editable file containing the current `Food` entries.|`export`|-
 |=======================================================================
+
 Please note the following: +
 
 * For the `clear`, `export`, and `list` commands, any parameters entered will be ignored. +
