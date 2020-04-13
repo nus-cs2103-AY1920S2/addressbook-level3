@@ -134,7 +134,7 @@ public class Event extends Activity {
 
     @Override
     public void setSchedule(int type) {
-        getSchedule().setType(type, endDate);
+        getSchedule().setType(type, startDate);
     }
 
     @Override
