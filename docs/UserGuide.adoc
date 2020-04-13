@@ -512,9 +512,13 @@ On the bottom right corner, calorie status for existing entries will be displaye
 
 Format for switching to list mode: `calendar m/ls [d/DATE]`
 
-.Calendar list mode
-image::calendarls.png[]
+//end::calendar[]
 
+.Calendar list mode
+//tag::calendar[]
+//end::calendar[]
+image::calendarls.png[]
+//tag::calendar[]
 ==== Calendar timetable mode: `calendar m/tb [d/DATE]`
 
 * *Weekly View* +
