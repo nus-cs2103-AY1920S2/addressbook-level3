@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.transaction;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
@@ -50,6 +51,11 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
                     FindTransactionCommand.MESSAGE_USAGE));
         }
 
+        if (anyPrefixesDuplicate(argMultimap, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME, PREFIX_MONEY)) {
+            throw new ParseException(String.format(MESSAGE_MULTIPLE_SAME_PREFIX,
+                    FindTransactionCommand.MESSAGE_USAGE));
+        }
+
         addToPredicates(argMultimap);
 
         return new FindTransactionCommand(new JointTransactionPredicate(predicates));
@@ -62,12 +68,12 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
      */
     private void addToPredicates(ArgumentMultimap argMultimap) throws ParseException {
         if (anyPrefixesPresent(argMultimap, PREFIX_CUSTOMER)) {
-            String customerArgs = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_CUSTOMER).get()).trim();
+            String customerArgs = ParserUtil.parseName(argMultimap.getValue(PREFIX_CUSTOMER).get()).toString();
             String[] customerKeywords = customerArgs.split("\\s+");
             predicates.add(new CustomerContainsKeywordPredicate(Arrays.asList(customerKeywords)));
         }
         if (anyPrefixesPresent(argMultimap, PREFIX_PRODUCT)) {
-            String productArgs = ParserUtil.parseProduct(argMultimap.getValue(PREFIX_PRODUCT).get()).trim();
+            String productArgs = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_PRODUCT).get()).toString();
             String[] productKeywords = productArgs.split("\\s+");
             predicates.add(new ProductContainsKeywordPredicate(Arrays.asList(productKeywords)));
         }
@@ -86,13 +92,15 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
      * {@code ArgumentMultimap}.
      */
     private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> {
-            try {
-                return argumentMultimap.getValue(prefix).isPresent();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return true;
-        });
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean anyPrefixesDuplicate(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.hasDuplicateValues(prefix));
+    }
+
 }

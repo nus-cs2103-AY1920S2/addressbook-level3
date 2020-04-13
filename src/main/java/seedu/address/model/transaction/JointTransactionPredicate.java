@@ -22,7 +22,7 @@ public class JointTransactionPredicate implements Predicate<Transaction> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DateTimeEqualsPredicate // instanceof handles nulls
+                || (other instanceof JointTransactionPredicate // instanceof handles nulls
                 && predicates.equals(((JointTransactionPredicate) other).predicates)); // state check
     }
 }

@@ -2,11 +2,14 @@ package seedu.address.logic.parser.product;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALES;
+
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.product.EditProductCommand;
@@ -15,6 +18,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -33,6 +37,19 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_COSTPRICE, PREFIX_PRICE,
                         PREFIX_QUANTITY, PREFIX_SALES);
 
+        if (!anyPrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_COSTPRICE, PREFIX_PRICE,
+                PREFIX_QUANTITY, PREFIX_SALES)
+                || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditProductCommand.MESSAGE_USAGE));
+        }
+
+        if (anyPrefixesDuplicate(argMultimap, PREFIX_DESCRIPTION, PREFIX_COSTPRICE, PREFIX_PRICE,
+                PREFIX_QUANTITY, PREFIX_SALES)) {
+            throw new ParseException(String.format(MESSAGE_MULTIPLE_SAME_PREFIX,
+                    EditProductCommand.MESSAGE_USAGE));
+        }
+
         Index index;
 
         try {
@@ -43,10 +60,6 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
         }
 
         EditProductDescriptor editProductDescriptor = getEditProductDescriptor(argMultimap);
-
-        if (!editProductDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditProductCommand.MESSAGE_NOT_EDITED);
-        }
 
         return new EditProductCommand(index, editProductDescriptor);
     }
@@ -79,5 +92,21 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
             editProductDescriptor.setSales(ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SALES).get()));
         }
         return editProductDescriptor;
+    }
+
+    /**
+     * Returns true if any of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean anyPrefixesDuplicate(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.hasDuplicateValues(prefix));
     }
 }

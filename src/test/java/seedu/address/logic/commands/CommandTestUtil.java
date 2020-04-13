@@ -4,11 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -64,6 +68,18 @@ public class CommandTestUtil {
     public static final String VALID_THRESHOLD_WATCH = "20";
     public static final String VALID_THRESHOLD_BAG = "12";
 
+    public static final String VALID_CUSTOMER_INDEX_AMY = "1";
+    public static final String VALID_PRODUCT_INDEX_BAG = "1";
+    public static final String VALID_DATETIME_AMY_BAG = "2020-03-01 10:00";
+    public static final String VALID_QUANTITY_AMY_BAG = "1";
+    public static final String VALID_MONEY_AMY_BAG = "30";
+    public static final String VALID_DESCRIPTION_AMY_BAG = "under discount";
+
+    public static final String INVALID_CUSTOMER_INDEX_AMY = "-1";
+    public static final String INVALID_PRODUCT_INDEX_BAG = "0";
+    public static final String INVALID_DATETIME_AMY_BAG = "2020-03-0110:00";
+    public static final String INVALID_MONEY_AMY_BAG = "-30";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -88,6 +104,16 @@ public class CommandTestUtil {
     public static final String THRESHOLD_DESC_BAG = " " + PREFIX_THRESHOLD + VALID_THRESHOLD_BAG;
     public static final String THRESHOLD_DESC_WATCH = " " + PREFIX_THRESHOLD + VALID_THRESHOLD_WATCH;
 
+    public static final String CUSTOMER_INDEX_DESC_AMY_BAG = " " + PREFIX_CUSTOMER + VALID_CUSTOMER_INDEX_AMY;
+    public static final String PRODUCT_INDEX_DESC_AMY_BAG = " " + PREFIX_PRODUCT + VALID_PRODUCT_INDEX_BAG;
+    public static final String DATETIME_DESC_AMY_BAG = " " + PREFIX_DATETIME + VALID_DATETIME_AMY_BAG;
+    public static final String QUANTITY_DESC_AMY_BAG = " " + PREFIX_QUANTITY + VALID_QUANTITY_AMY_BAG;
+    public static final String MONEY_DESC_AMY_BAG = " " + PREFIX_MONEY + VALID_MONEY_AMY_BAG;
+    public static final String DESCRIPTION_DESC_AMY_BAG = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMY_BAG;
+
+    public static final String CUSTOMER_NAME_DESC_AMY = " " + PREFIX_CUSTOMER + VALID_NAME_AMY;
+    public static final String PRODUCT_DESCRIPTION_DESC_BAG = " " + PREFIX_PRODUCT + VALID_DESCRIPTION_BAG;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -98,6 +124,14 @@ public class CommandTestUtil {
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a";
     public static final String INVALID_QUANTITY_DESC = " " + PREFIX_QUANTITY + "bob!yahoo";
     public static final String INVALID_SALES_DESC = " " + PREFIX_SALES;
+
+    public static final String INVALID_CUSTOMER_INDEX_DESC = " " + PREFIX_CUSTOMER + INVALID_CUSTOMER_INDEX_AMY;
+    public static final String INVALID_PRODUCT_INDEX_DESC = " " + PREFIX_PRODUCT + INVALID_PRODUCT_INDEX_BAG;
+    public static final String INVALID_DATETIME_DESC = " " + PREFIX_DATETIME + INVALID_DATETIME_AMY_BAG;
+    public static final String INVALID_MONEY_DESC = " " + PREFIX_MONEY + INVALID_MONEY_AMY_BAG;
+
+    public static final String INVALID_CUSTOMER_NAME_DESC = " " + PREFIX_CUSTOMER + "James&";
+    public static final String INVALID_PRODUCT_DESCRIPTION_DESC = " " + PREFIX_PRODUCT + "";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

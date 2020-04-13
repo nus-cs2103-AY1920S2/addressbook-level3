@@ -92,19 +92,23 @@ public class AddCustomerCommandParserTest {
     public void parse_multipleSameFieldValue_failure() {
         // multiple names - shows error message
         assertParseFailure(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, AddCustomerCommand.MESSAGE_USAGE));
 
         // multiple phones - shows error message
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, AddCustomerCommand.MESSAGE_USAGE));
 
         // multiple emails - shows error message
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, AddCustomerCommand.MESSAGE_USAGE));
 
         // multiple addresses - shows error message
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, MESSAGE_MULTIPLE_SAME_PREFIX);
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, AddCustomerCommand.MESSAGE_USAGE));
     }
 
     @Test

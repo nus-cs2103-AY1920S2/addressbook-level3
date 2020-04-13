@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,12 +36,17 @@ public class ArgumentMultimap {
     /**
      * Returns the last value of {@code prefix}.
      */
-    public Optional<String> getValue(Prefix prefix) throws ParseException {
+    public Optional<String> getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
-        if (values.size() > 1) {
-            throw new ParseException(MESSAGE_MULTIPLE_SAME_PREFIX);
-        }
         return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+    }
+
+    /**
+     * Returns true if a prefix occurs more than one time.
+     */
+    public boolean hasDuplicateValues(Prefix prefix) {
+        List<String> values = getAllValues(prefix);
+        return values.size() > 1;
     }
 
     /**

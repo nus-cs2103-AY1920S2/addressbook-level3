@@ -50,7 +50,8 @@ public class EditProductCommandParserTest {
         assertParseFailure(parser, VALID_DESCRIPTION_BAG, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditProductCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditProductCommand.MESSAGE_USAGE));
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -85,7 +86,8 @@ public class EditProductCommandParserTest {
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PRICE_DESC_WATCH + INVALID_PRICE_DESC, MESSAGE_MULTIPLE_SAME_PREFIX);
+        assertParseFailure(parser, "1" + PRICE_DESC_WATCH + INVALID_PRICE_DESC,
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, EditProductCommand.MESSAGE_USAGE));
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC
@@ -154,7 +156,8 @@ public class EditProductCommandParserTest {
         String userInput = targetIndex.getOneBased() + PRICE_DESC_BAG + SALES_DESC_BAG + QUANTITY_DESC_BAG
                 + PRICE_DESC_BAG + SALES_DESC_BAG + QUANTITY_DESC_BAG
                 + PRICE_DESC_WATCH + SALES_DESC_WATCH + QUANTITY_DESC_WATCH;
-        assertParseFailure(parser, userInput, MESSAGE_MULTIPLE_SAME_PREFIX);
+        assertParseFailure(parser, userInput,
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, EditProductCommand.MESSAGE_USAGE));
     }
 
     @Test

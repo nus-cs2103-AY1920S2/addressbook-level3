@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.statistics;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
@@ -34,6 +35,11 @@ public class RevenueCommandParser implements Parser<RevenueCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RevenueCommand.MESSAGE_USAGE));
         }
 
+        if (anyPrefixesDuplicate(argMultimap, PREFIX_START_DATE, PREFIX_END_DATE)) {
+            throw new ParseException(String.format(MESSAGE_MULTIPLE_SAME_PREFIX,
+                    RevenueCommand.MESSAGE_USAGE));
+        }
+
         DateTime startDateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATE).get());
         DateTime endDateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATE).get());
 
@@ -45,14 +51,14 @@ public class RevenueCommandParser implements Parser<RevenueCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> {
-            try {
-                return argumentMultimap.getValue(prefix).isPresent();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return true;
-        });
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean anyPrefixesDuplicate(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.hasDuplicateValues(prefix));
+    }
 }
