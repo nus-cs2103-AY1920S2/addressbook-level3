@@ -657,6 +657,7 @@ This results in the *correct* `Progress` objects, which may or may not be `Done`
 You can also notice that this is a faster implementation since we do not need to re-create a `CompositeID` and the actual
 `Progress` object itself when we are just adding back the UndoProgresses.
 
+// tag::oppositeAddDelete[]
 
 // end::undoassigncmd[]
 
@@ -693,6 +694,8 @@ delete-command. All the entities links are restored.
 
 .Sequence Diagram of Delete Staff (teacher)
 image::SeqDiagramDeleteStaff.png[]
+
+// end::oppositeAddDelete[]
 
 === View Switching [HIEU]
 To see sub-view details of each section we can issue a select command.
