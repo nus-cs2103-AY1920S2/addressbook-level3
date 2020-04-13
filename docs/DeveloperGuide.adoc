@@ -1046,13 +1046,16 @@ Use case resumes at step 2.
 _{More to be added}_
 
 [appendix]
-== Non Functional Requirements
+== Non Functional Requirements (Pang Kim Jin)
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 2000 transactions(expenses and incomes) without any apparent slowdown for normal usage.
+.  The software should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  The software should be able to hold up to 2000 transactions(expenses and incomes).
+.  The software should be able to respond within 5 seconds.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The software should be able to run irrespective of internet connection.
+.  The software should support both manual and automated testing.
+.  The source code should be open-source
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1078,7 +1081,7 @@ Cons:
 * ...
 
 [appendix]
-== Instructions for Manual Testing
+== Instructions for Manual Testing (Pang Kim Jin)
 
 Given below are instructions to test the app manually.
 
@@ -1099,27 +1102,156 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Setting a monthly budget
 
-=== Deleting a person
+. Setting a monthly budget to a user decided amount
 
-. Deleting a person while all persons are listed
+.. Test Case: `budget b/1000` +
+    Expected: The monthly budget for the current month is set to $1000
+.. Test Case: `budget` +
+    Expected: The monthly budget is not updated. Error is shown in the status message
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+=== Resetting total balance
+
+. Reset `Balance` value to the total from the amount of all transactions stored
+
+.. Test Case: `resetBalance` +
+    Expected: The `Balance` is reset
+
+=== Adding a transaction
+
+. Add either an expense or income transaction
+
+.. Test Case: `add a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+Expected: A new expense transaction is added to the transaction list. Depending on the current filter applied
+this change may or may not be visible. Details of the added transaction is visible in the Command Result
+
+.. Test Case: `add a/ 16.00 n/ Pizza r/ Lunch c/ FOOD` +
+Expected: A new expense transaction is added to the transaction list, with the transaction date set to the
+current date. Details of the added transaction is visible in the Command Result
+
+.. Test Case: `add i/ a/ 200.00 n/ pocket money c/INCOME rc/` +
+Expected: A recurring income transaction is added to the transaction list, with the transaction date set to the
+current date. Details of the added transaction is visible in the Command Result
+
+.. Test Case: `add i/ n/ allowance c/INCOME rc/` +
+Expected: No transaction is added. Error details are shown in the Command Result
+
+=== Filtering transactions
+
+. Filtering transactions listed by category, month, or both.
+
+.. Test Case: `filter m/2020-04` +
+Expected: A month filter for April 2020 is applied to the transaction list, relevant transactions are listed.
+Details of the number of transactions found is visible in the Command Result
+
+.. Test Case: `filter c/TRANSPORT` +
+Expected: A category filter for "TRANSPORT" is applied to the transaction list, relevant transactions are listed.
+Details of the number of transactions found is visible in the Command Result
+
+.. Test Case: `filter c/FOOD m/2020-02` +
+Expected: A category filter for "FOOD" and month filter for February 2020 is applied to the transaction list,
+relevant transactions are listed. Details of the number of transactions found is visible in the Command Result
+
+.. Test Case: `filter` +
+Expected: No filter is applied and no transactions listed. Error details are shown in the Command Result.
+
+=== Deleting a transaction
+
+. Deleting a transaction from the transactions listed
+
+.. Prerequisites: At least one transaction in the list using either `list` or `filter` command.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+   Expected: No transaction is deleted. Error details shown in the status message. 
+.. Test Case: `delete` +
+Expected: No transaction is deleted. Error details are shown in the Command Result.
 
-_{ more test cases ... }_
+=== Editing a transaction
+
+. Editing a transaction from the transactions listed
+
+.. Prerequisites: At least one transaction in the list using either `list` or `filter` command.
+.. Test case: `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+Expected: First contact is edited from the list. Details of the edited contact shown in the status message.
+.. Test case: `edit 0 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+Expected: No transaction is edited. Error details shown in the status message.
+.. Test Case: `edit a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+Expected: No transaction is edited. Error details are shown in the Command Result.
+
+
+=== Analysis of transactions
+
+. Toggle between viewing list of transactions and analytics with bar graph and pie chart to show expense trend.
+
+.. Test case: `toggleview` +
+Expected: Transaction view is toggled to analytics view or vice versa.
+.. Test case: `toggle` +
+Expected: No toggling happens. Error details shown in the status message.
+
+
+=== Finding transactions
+
+. Finding transactions that match any of the supplied keywords in its name field.
+
+.. Test case: `find Airpods` +
+Expected: Transactions with the word "Airpods" in its name will be displayed in the transaction list.
+.. Test case: `find Airpods Allowance Electricity` +
+Expected: Transactions with the word "Airpods" "Allowance" or "Electricity" in its name will be displayed in the
+transaction list.
+.. Test case: `find` +
+Expected: No transactions found. Error details shown in the status message.
+
+=== Listing all transactions
+
+. Listing all transactions and resetting all filters to "ALL".
+
+.. Test case: `list` +
+Expected: All transactions will be displayed in the transaction list. Filter for Category and Month are now
+"ALL".
+
+=== Clearing all recurring transactions
+
+. Clearing all recurring transactions stored.
+
+.. Test case: `clearrecurring` +
+Expected: All recurring transactions in the transaction list will be cleared.
+
+=== Exporting transaction data to csv
+
+. Exporting the filtered transaction list to a csv file.
+
+.. Prerequisite: There must be at least one transaction in the transaction list
+.. Test case: `export` +
+Expected: All transactions in the transaction list after applying filters will be exported.
+
+=== Importing transaction data from csv
+
+. Importing the filtered transaction list to a csv file.
+
+.. Prerequisite: There must be at least one transaction in the csv file
+.. Test case: `import` +
+Expected: All transactions that are in the correct format and not duplicated entries in the csv file
+will be imported.
+
+=== Clearing all data
+
+. Clearing all data in ExpenseLa including monthly data and global data
+
+.. Test case: `clear` +
+Expected: All transactions are deleted, balance is set to 0 and monthly data is also set to 0.
+All recurring data such as budget and transactions are also cleared.
+
+=== Showing help window
+
+. View the help window for help with commands
+
+.. Test Case: `help` +
+    Expected: A popup with a link to the User Guide pops up.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Delete the data files at `.\data\expenseLa.json` and `.\data\globalData.json`
 
