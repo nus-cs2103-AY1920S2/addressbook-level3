@@ -209,28 +209,34 @@ image::developer-guide/session/SessionModel.png[]
 
 The above class diagram briefly depicts how the session related models (in `OngoingWorkout`) interact with surrounding classes.
 
+The `OngoingWorkout` class has a dependency on `Workout`, which has been abstracted for clarity.
+
+In turn, `CompletedWorkout` class has a dependency on `OngoingWorkout`.
+
+`OngoingWorkout` objects are created at the start of a workout session, and can be thought of as 'converted' to `CompletedWorkout` objects at the end of a workout session. `Workout` and `CompletedWorkout` objects are immutable, hence the design choice for using an intermediary, stateuful, `OngoingWorkout` class.
+
 ---
 
-The inner workings of the feature are briefly expounded below through example usage.
+The inner workings of the feature are briefly expounded below through a simple simulation.
 `Arms Day` is a `Workout` with ID = `2` and consists of 2 sets of one exercise called `Bench Press`.
 
 
 .Example Workout Session
 image::developer-guide/session/sessionExample.png[]
 
-Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a completedExercise with `start 2`.
+Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a session with `start 2`.
 
-* `Logic` and `Parser` redirects control to `StartCommand#execute()` where an instance of `OngoingSession` is created with
-`Arms Day`. The upcoming set of the next exercise is displayed for the user.
+* `Logic` and `Parser` redirect control to `StartCommand#execute()` where an instance of `OngoingWorkout` is created with
+the `Arms Day` object. The upcoming set of the next exercise is displayed for the user.
 
-* The timer starts counting. This acts as a visual cue for the user that notifies the start of the workout and is essentially superfluous, since it's main purpose is to time rest between sets.
+* The timer starts counting. This acts as a visual cue for the user that notifies the start of the workout and is essentially a once-off, superfluous action, since it's main purpose is to time rest between sets.
 
 Step 2. The user completes the first set and types `done`.
 
-* `DoneCommand#execute()` is invoked, which in turn calls `OngoingSession#done()` to obtain the next set and statefully
+* `DoneCommand#execute()` is invoked, which in turn calls `Model#done()` to obtain the last `CompletedSet` object to display on the UI, and statefully
 updates the instance of `OngoingWorkout`.
 
-* The rest timer resets and starts counting from 00:00.
+* The rest timer resets to 00:00 and starts counting.
 
 .DoneCommand sequence diagram
 image::developer-guide/session/DoneCommandSequenceDiagram.png[]
@@ -250,19 +256,19 @@ is saved and passed on for use by the `Log` feature.
 
 * The workout session can be viewed in the `Log` tab.
 
-[Note] In the usual flow, the `stop` command is not used, and is reserved only for a premature (incomplete) ending of a
-workout session.
+[Note] In the usual flow, the `stop` command is not used, and is reserved only for a premature ending of a
+workout session, where all remaining sets are marked as incomplete.
 
 ==== Design Considerations
 ===== Aspect: Seamless user-first experience
-* **Current Implementation:** Minimal commands and typing during an ongoing session.
+* **Current Implementation:** Minimal commands and typing during an ongoing session. Timer functionality is completely automatic.
 ** Pros: Less interruption during actual exercising to enter commands.
 ** Cons: More experienced users are not able to have a more customizable workout.
 
 
-===== Aspect: Beginner-friendly automatic set-ordering
+===== Aspect: Beginner-friendly set order
 * **Current Implementation:** Exercises and sets have fixed ordering based on their creation.
-** Pros: Easier for new user to follow a workout session, less typing required during a workout session.
+** Pros: Easier for new user to follow a workout session, less typing required during a workout session. Session has simple and predictable behaviour.
 ** Cons: Experienced users are not able to have an ad-hoc, customizable workout without creating a new workout with the specific order they want.
 
 // end::session[]
