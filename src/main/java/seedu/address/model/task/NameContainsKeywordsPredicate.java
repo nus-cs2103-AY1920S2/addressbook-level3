@@ -15,24 +15,21 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
     private final Set<Tag> tags;
     private final int threshold = 1;
 
-    public NameContainsKeywordsPredicate(
-            List<String> keywords, Set<Tag> tags) { // if second list is available
+    public NameContainsKeywordsPredicate(List<String> keywords, Set<Tag> tags) {
         this.keywords = keywords;
         this.tags = tags;
     }
 
-    public NameContainsKeywordsPredicate(List<String> keywords) { // if second list is available
+    public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
         this.tags = new HashSet();
     }
 
     /**
-     * Score always starts of as threshold + 1 as anything above the threshold is not shown. We then
-     * decrement the score whenever a name match occurs/edit distance < 2 or tag match is found.
-     * This ensures that any task with tag matching or name matching will be displayed. The score
-     * will then also provide a relevance order.
-     *
-     * <p>This is how the score is calculated: name score - total tag match count
+     * Predicate has been enhanced to return true if the final score < 2.
+     * final score is calculated by nameScore - tagCount
+     * nameScore is given by getEditDistacne
+     * tagCount is given by countTag function
      */
     @Override
     public boolean test(Task task) { // change test to return an int value as the edit distance
@@ -47,6 +44,9 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
         return score <= threshold || hasTag;
     }
 
+    /**
+     * returns a comparator by getting the score of a task. Comaprator sorts tasks in ascending order of task score.
+     */
     public Comparator<Task> getSearchOrderComparator() {
         return new Comparator<>() {
             @Override
@@ -61,6 +61,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
         };
     }
 
+    /** Counts the number of tags in the task that match a tag given by the user in the find parameters */
     private int countTag(Task task) {
         int count = 0;
         for (Tag t : tags) {
@@ -72,16 +73,16 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
     }
 
     /**
-     * Predicate has been enhanced to return true if the final score < 2. A chunk is a subsequence
-     * of the taskname that has as many words as in the search phrase. we go through all chunks of
-     * the task name and calculate a score for each chunk and take the minimum of all scores. This
-     * minimum is defined as the name score of a task.
-     *
-     * <p>Score is calculated by: 1. A partial name match where input matches start of chunk => 1 2.
-     * A match where chunk and input have edit distance < 2 => 1 3. A full chunk match => 0
-     *
-     * <p>The edit distance threshold is set at 2 so that phrases that are too dissimilar will not
-     * show up.
+     * A chunk is a subsequence of the taskname that has as many words as in the search phrase.
+     * We go through all chunks of the task name and calculate a score for each chunk. 
+     * The minimum of all chunk scores is then taken as the name score
+     * 
+     * <p>Chunk score is calculated by: 1. A partial name match where input matches start of chunk => score set to 1 
+     * 2. A match where chunk and input have edit distance < 2 => score set to 1 
+     * 3. A full chunk between input and task name => score set to 0
+     * <p>
+     * 
+     * The edit distance threshold is set at 2 so that phrases that are too dissimilar will not show up.
      */
     private int getEditDistance(Task task) {
         if (keywords.size() == 0) {
