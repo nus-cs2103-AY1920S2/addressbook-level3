@@ -201,7 +201,7 @@ image::UGListCDiagram1.png[]
 === Find clients by name: `find-c` --- Yong Jie
 `find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire *Client List* might be troublesome and difficult. `find-c` is the command for you.
 
-*Format*: `find-c NAME`
+*Format*: `find-c NAME...`
 
 ==== Parameters
 This section acts as a summary of the important things to note when using `find-c` including their parameters.
