@@ -235,7 +235,8 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::completedExercise[]
+// tag::session[]
+
 === Session (Home)
 ==== Implementation
 The Session feature resides on the Home page and is comprised of `Start`, `Stop`, `Done`, and `Skip` commands.
@@ -317,6 +318,7 @@ workout session.
 * **Current Implementation:** Exercises and sets have fixed ordering based on their creation.
 ** Pros: Easier for new user to follow a workout session, less typing required during a workout session.
 ** Cons: Experienced users are not able to have an ad-hoc, customizable workout without creating a new workout with the specific order they want.
+
 // end::session[]
 
 // tag::exercise[]
