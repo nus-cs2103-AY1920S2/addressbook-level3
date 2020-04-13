@@ -180,7 +180,7 @@ functionality of storing and getting data.
 
 Below is a sequence diagram for undo feature.
 
-image::undoSequenceDiagramV2.png[]
+image::undoSequenceDiagramV3.png[]
 
 ==== Design Considerations
 
@@ -276,7 +276,7 @@ Once the command line is entered, our application will react in the following st
 . Once identified, it will change the type of schedule to `weekly`.
 . A success message `Successfully added a repeat! for CS3233 0 1` will be given.
 
-image::sequenceDiagramAutomationV2.png[]
+image::sequenceDiagramAutomationV3.png[]
 
 However, above is for the initialisation of schedule.
 What happen if the activity has expired when NasaBook is not in use? Not to worry, because when
