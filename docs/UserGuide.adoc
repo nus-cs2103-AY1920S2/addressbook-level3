@@ -148,7 +148,7 @@ After invoking the command, the deadline will be added to the calendar as shown 
 
 Deadline tasks are defaulty tagged with the lowest priority.
 
-==== Module Tasks
+==== Module Tasks （Wangkai)
 
 ==== Adding a module task : `moduleTask`
 
@@ -441,7 +441,7 @@ A person can have any number of tags (including 0)
 - Format: `clear`
 
 // tag::ProfilePart1[]
-=== Profile / Module Book (Part 1: Manage your modules)
+=== Profile / Module Book (Part 1: Manage your modules) （Wangkai)
 
 - This feature allows individuals to see their own profile, their current cap and the all modules that the individual have taken and all the grades gotten.
 
@@ -539,7 +539,7 @@ image::Cap.png[width="790"]
 // end::ProfilePart1[]
 
 // tag::ProfilePart2[]
-=== Profile / Module Book (Part 2: Manage your tasks separately for each module)
+=== Profile / Module Book (Part 2: Manage your tasks separately for each module) (Wangkai)
 
 Most of the functionality here has been integrate into the Calendar feature but these commands left here still can be used.
 You can give it a try if you want.
