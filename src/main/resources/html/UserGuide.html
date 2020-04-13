@@ -695,13 +695,13 @@ The history is deleted after application closes.
 <div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-122">
 <h4 id="_keeping_track_of_products_that_are_running_low_on_stock">4.1.6. Keeping track of products that are running low on stock</h4>
 <div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-124">
-<p>The product list updates and sorts by the progress bar indicator automatically.<br>
+<p>The product list updates and sorts by the progress bar indicator when user uses the <code>listp</code> command.<br>
 Products are ordered by the level of progress bar indicator. (E.g. the lower the bar, the higher it is in the list).
 This is to help the user easier to know which products are running low on stock.</p>
 </div>
 <div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-128">
 <div class="content">
-<img src="../images/ProductCard.png" alt="ProductCard">
+<img src="../images/ProductCard.png" alt="ProductCard" width="600">
 </div>
 </div>
 <div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-130">
@@ -742,7 +742,7 @@ Red: 0.2
 <h4 id="_adding_a_customer_addc">4.2.1. Adding a customer: <code>addc</code></h4>
 <div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-149">
 <p>Adds a customer to the customer list<br>
-Format: <code>addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…</code></p>
+Format: <code>addc n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…</code></p>
 </div>
 <div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-152">
 <div class="content">
@@ -770,115 +770,128 @@ Format: <code>addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…</code></p>
 </div>
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-161">
+<div class="admonitionblock tip has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-162">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+The email field [e/] is optional, and will be recorded as N/A if left empty.<br>
+The address field [a/] is optional, and will be recorded as N/A if left empty.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-165">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-163">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-167">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-163">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-167">
 <p><code>addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-164">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-168">
 <p><code>addc n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-168">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-172">
 <h4 id="_listing_all_customers_listc">4.2.2. Listing all customers: <code>listc</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-170">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-174">
 <p>Shows a list of all customers in the customer list.<br>
 Format: <code>listc</code></p>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-175">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-179">
 <h4 id="_editing_a_customer_editc">4.2.3. Editing a customer: <code>editc</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-177">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-181">
 <p>Edits an existing customer in the customer list.<br>
 Format: <code>editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-180">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-184">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-181">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-185">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-181">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-185">
 <p>Edits the customer at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed customer list. The index must be a positive integer 1, 2, 3, …​</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-182">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-186">
 <p>At least one of the optional fields must be provided.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-183">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-187">
 <p>Existing values will be updated to the input values.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-184">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-188">
 <p>When editing tags, the existing tags of the customer will be removed i.e adding of tags is not cumulative.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-185">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-189">
 <p>You can remove all the customer’s tags by typing t/ without specifying any tags after it.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-188">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-192">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-190">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-194">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-190">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-194">
 <p><code>editc 1 p/91234567 e/johndoe@example.com</code><br>
 Edits the phone number and email address of the 1st customer to be 91234567 and <a href="mailto:johndoe@example.com">johndoe@example.com</a> respectively.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-192">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-196">
 <p><code>editc 2 n/Betsy Crower t/</code><br>
 Edits the name of the 2nd customer to be Betsy Crower and clears all existing tags.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-197">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-201">
 <h4 id="_finding_customers_findc">4.2.4. Finding customers: <code>findc</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-199">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-203">
 <p>Finds customers whose attributes match the given attributes.<br>
 Format: <code>findc [n/NAME [NAME]&#8230;&#8203;] [p/PHONE] [e/EMAIL] [a/ADDRESS [ADDRESS]&#8230;&#8203;]</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-202">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-206">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-203">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-207">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-203">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-207">
 <p>The search is case insensitive. e.g hans will match Hans</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-204">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-208">
 <p>At least one of the optional fields must be provided.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-205">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-209">
 <p>Only full words will be matched for keywords e.g. Han will not match Hans</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-206">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-210">
 <p>The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, n/Bob a/31 will match a/31 n/Bob</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-207">
-<p>Only customers matching all attributes will be returned (i.e. AND search) e.g. <code>findc n/Jane a/31</code> will return customers with 'jane' in their names and 31 in their addresses</p>
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-211">
+<p>Only customers matching all attributes will be returned (i.e. AND search) e.g. <code>findc n/Jane a/31</code> will return customers with 'jane' in their names and '31' in their addresses</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-208">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-212">
 <p>Customers matching any keywords in an attribute (for name and address only) will be returned (i.e. OR search) e.g. <code>findc a/clementi ave</code> will return customers with 'clementi' or 'ave' in their addresses</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-211">
+<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-215">
 <div class="content">
 <img src="../images/FindCustomerByAddress.png" alt="FindCustomerByAddress" width="790">
 </div>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-212">
+<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-216">
 <div class="content">
 <img src="../images/FindCustomerByAddress2.png" alt="FindCustomerByAddress2" width="790">
 </div>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-215">
+<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-219">
 <table>
 <tr>
 <td class="icon">
@@ -890,50 +903,50 @@ Only name and address support multiple keywords
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-217">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-221">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-219">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-223">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-219">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-223">
 <p><code>findc n/John</code><br>
 Returns all customers with names John from the customer list.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-221">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-225">
 <p><code>findc n/Betsy Tim John</code><br>
 Returns any customer having names Betsy, Tim, <strong>OR</strong> John in the customer list.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-223">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-227">
 <p><code>findc a/serangoon n/Bob</code><br>
 Returns all customers with addresses in Serangoon <strong>AND</strong> Bob in their names.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-228">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-232">
 <h4 id="_deleting_a_customer_deletec">4.2.5. Deleting a customer: <code>deletec</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-230">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-234">
 <p>Deletes the specified customer from the customer list that is currently being displayed.<br>
 Format: <code>deletec INDEX</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-233">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-237">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-234">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-238">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-234">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-238">
 <p>Deletes the customer at the specified <code>INDEX</code>.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-235">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-239">
 <p>The index refers to the index number shown in the displayed customer list.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-236">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-240">
 <p>The index must be a positive integer 1, 2, 3, …​</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-240">
+<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-244">
 <table>
 <tr>
 <td class="icon">
@@ -945,17 +958,17 @@ Deletes transactions that are associated with this particular customer as well.
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-242">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-246">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-244">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-248">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-244">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-248">
 <p><code>listc</code><br>
 <code>deletec 2</code><br>
 Deletes the 2nd customer in the customer list.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-247">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-251">
 <p><code>findc n/Betsy</code><br>
 <code>deletec 1</code><br>
 Deletes the 1st customer in the results of the find command.</p>
@@ -963,13 +976,13 @@ Deletes the 1st customer in the results of the find command.</p>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-253">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-257">
 <h4 id="_clearing_all_customers_clearc">4.2.6. Clearing all customers: <code>clearc</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-255">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-259">
 <p>Clears all entries from the customer list.<br>
 Format: <code>clearc</code></p>
 </div>
-<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-259">
+<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-263">
 <table>
 <tr>
 <td class="icon">
@@ -984,32 +997,32 @@ Deletes all transactions as well.
 </div>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-263">
+<div class="sect2 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-267">
 <h3 id="_product">4.3. Product</h3>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-266">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-270">
 <h4 id="_adding_a_product_addp">4.3.1. Adding a product: <code>addp</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-268">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-272">
 <p>Adds a product to the product list.<br>
 Format: <code>addp d/DESCRIPTION pr/PRICE q/QUANTITY cp/COSTPRICE [s/SALES]</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-271">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-275">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-272">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-276">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-272">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-276">
 <p>Duplicate products (with the same description, cost price, price) are not allowed.<br></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-273">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-277">
 <p>The price, cost price, quantity and sales can take integers up to 1000000.<br></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-274">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-278">
 <p>The price and cost price must be at least $1.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-278">
+<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-282">
 <table>
 <tr>
 <td class="icon">
@@ -1021,7 +1034,7 @@ The default threshold value is 20% of quantity of product.
 </tr>
 </table>
 </div>
-<div class="admonitionblock tip has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-281">
+<div class="admonitionblock tip has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-285">
 <table>
 <tr>
 <td class="icon">
@@ -1033,160 +1046,160 @@ A product created without providing values for sales (in SGD) will be created wi
 </tr>
 </table>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-283">
+<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-287">
 <div class="content">
 <img src="../images/AddProduct.png" alt="AddProduct" width="790">
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-285">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-289">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-287">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-291">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-287">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-291">
 <p><code>addp d/iphone x pr/1000 q/10 cp/300</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-288">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-292">
 <p><code>addp d/camera pr/2000 q/90 s/100 cp/1000</code></p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-292">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-296">
 <h4 id="_listing_all_products_listp">4.3.2. Listing all products : <code>listp</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-294">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-298">
 <p>Show all products in the product list.<br>
 Format: <code>listp</code></p>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-298">
+<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-302">
 <table>
 <tr>
 <td class="icon">
 <div class="title">Note</div>
 </td>
 <td class="content">
-The product is automatically sorted by the product quantity, represented by the bar indicator beside the product name.
+Sorts all of the product by the product quantity, represented by the bar indicator beside the product name.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-302">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-306">
 <h4 id="_editing_a_product_editp">4.3.3. Editing a product : <code>editp</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-304">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-308">
 <p>Edits an existing product in the displayed product list.<br>
 Format: <code>editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [cp/COSTPRICE] [s/SALES]</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-307">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-311">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-308">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-312">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-308">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-312">
 <p>Edits the product at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed product list. The index must be a positive integer 1, 2, 3, …​</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-309">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-313">
 <p>At least one of the optional fields must be provided.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-310">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-314">
 <p>Existing values will be updated to the input values.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-313">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-317">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-315">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-319">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-315">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-319">
 <p><code>editp 1 pr/1150 q/80</code><br>
 Edits the price and quantity of the 1st product in the list to be $1150 and 80 respectively.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-317">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-321">
 <p><code>editp 2 s/1000</code><br>
 Edits the sales of the 2nd product in the list to be $1000.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-322">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-326">
 <h4 id="_finding_products_findp">4.3.4. Finding products : <code>findp</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-324">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-328">
 <p>Finds products whose description contains a certain keyword<br>
-Format: <code>findp [KEYWORD]</code></p>
+Format: <code>findp KEYWORD [KEYWORD]&#8230;&#8203;</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-327">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-331">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-328">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-332">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-328">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-332">
 <p>The search is case insensitive. e.g blue will match Blue</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-329">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-333">
 <p>At least one of the option fields must be provided.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-330">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-334">
 <p>Only full words will be matched for keywords e.g. blu will not match blue</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-331">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-335">
 <p>The keyword will be searched only in the product’s description.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-332">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-336">
 <p>The order of the keywords does not matter. e.g. blue shoes will match shoes blue</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-333">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-337">
 <p>Products matching at least one keyword will be returned (i.e. OR search). e.g. blue shoes will return blue slippers, red shoes</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-336">
+<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-340">
 <div class="content">
 <img src="../images/FindProduct.png" alt="FindProduct" width="790">
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-338">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-342">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-340">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-344">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-340">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-344">
 <p><code>findp camera</code><br>
 Returns all product with description <code>camera</code> in it.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-342">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-346">
 <p><code>findp iphone</code><br>
 Returns all product with description <code>iPhone</code> in it.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-347">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-351">
 <h4 id="_deleting_a_product_deletep">4.3.5. Deleting a product : <code>deletep</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-349">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-353">
 <p>Deletes the specified product from the system.<br>
 Format: <code>deletep INDEX</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-352">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-356">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-353">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-357">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-353">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-357">
 <p>Deletes the product at the specified <code>INDEX</code>.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-354">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-358">
 <p>The index refers to the index number shown in the displayed product list.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-355">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-359">
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-359">
+<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-363">
 <table>
 <tr>
 <td class="icon">
@@ -1198,17 +1211,17 @@ Deletes transactions that are associated with this particular product as well.
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-361">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-365">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-363">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-367">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-363">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-367">
 <p><code>listp</code><br>
 <code>deletep 2</code><br>
 Deletes the 2nd product in the product list.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-366">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-370">
 <p><code>findp camera</code><br>
 <code>deletep 1</code><br>
 Deletes the 1st product in the results of the find command.</p>
@@ -1216,13 +1229,13 @@ Deletes the 1st product in the results of the find command.</p>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-372">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-376">
 <h4 id="_clearing_all_products_clearp">4.3.6. Clearing all products : <code>clearp</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-374">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-378">
 <p>Clears all entries from the product list.<br>
 Format: <code>clearp</code></p>
 </div>
-<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-378">
+<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-382">
 <table>
 <tr>
 <td class="icon">
@@ -1237,40 +1250,40 @@ Deletes all transactions as well.
 </div>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-382">
+<div class="sect2 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-386">
 <h3 id="_transaction">4.4. Transaction</h3>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-384">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-388">
 <p>User can navigate to the transaction panel by clicking on the transactions tab.</p>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-386">
+<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-390">
 <div class="content">
-<img src="../images/TransactionTab.png" alt="TransactionTab">
+<img src="../images/TransactionTab.png" alt="TransactionTab" width="200">
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-389">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-393">
 <h4 id="_adding_a_transaction_addt">4.4.1. Adding a transaction : <code>addt</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-391">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-395">
 <p>Adds a specified transaction to the system.<br>
 Format: <code>addt p/PRODUCT_ID c/CUSTOMER_ID q/QUANTITY [dt/DATETIME] [m/MONEY] [d/DESCRIPTION]</code><br></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-394">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-398">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-395">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-399">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-395">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-399">
 <p>Duplicate transactions (with the same customer, product, datetime) are not allowed.<br></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-396">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-400">
 <p>The quantity and money fields can take integers up to 1000000.<br></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-397">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-401">
 <p>The quantity must be at least 1.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="admonitionblock tip has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-401">
+<div class="admonitionblock tip has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-405">
 <table>
 <tr>
 <td class="icon">
@@ -1286,118 +1299,118 @@ Only need to enter if user wants to add notes to the transaction.
 </tr>
 </table>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-407">
+<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-411">
 <div class="content">
 <img src="../images/AddTransaction.png" alt="AddTransaction" width="790">
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-408">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-412">
 <p>After adding transactions, the transaction list can be viewed under the transaction tab.</p>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-410">
+<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-414">
 <div class="content">
 <img src="../images/AddTransaction2.png" alt="AddTransaction2" width="790">
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-412">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-416">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-414">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-418">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-414">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-418">
 <p><code>addt p/1 c/10 dt/2020-02-19 19:00 q/10 m/20</code><br>
 Adds a transaction, where the 10th customer bought 10 of the 1st product for $20 at 2020-02-19 19:00.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-416">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-420">
 <p><code>addt p/20 c/2 dt/2020-02-20 10:00 q/10 m/30 d/under discount</code><br>
 Adds a transaction, where the 2nd customer bought 10 of the 20th product for $30 at 2020-02-20 10:00 at an discount.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-421">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-425">
 <h4 id="_listing_all_transactions_listt">4.4.2. Listing all transactions : <code>listt</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-423">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-427">
 <p>Lists all the transactions.<br>
 Format: <code>listt</code></p>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-428">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-432">
 <h4 id="_editing_a_transaction_editt">4.4.3. Editing a transaction : <code>editt</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-430">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-434">
 <p>Edits a transaction in the system. It allows the user to edit wrong transction
  with correct information.<br>
 Format: <code>editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-434">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-438">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-435">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-439">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-435">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-439">
 <p>Edits the transaction at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed transaction list. The index must be a positive integer 1, 2, 3, …​</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-436">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-440">
 <p>At least one of the optional fields must be provided.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-437">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-441">
 <p>Existing values will be updated to the input values.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-440">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-444">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-442">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-446">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-442">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-446">
 <p><code>editt 1 p/101 c/123</code><br>
 Edits the product id and customer id of the 1st transaction to be 101 and 123 respectively.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-447">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-451">
 <h4 id="_finding_transactions_findt">4.4.4. Finding transactions : <code>findt</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-449">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-453">
 <p>Finds transactions whose attributes match the given attributes.<br>
 Format: <code>findt [p/PRODUCT_NAME [PRODUCT_NAME]&#8230;&#8203;] [c/CUSTOMER_NAME [CUSTOMER_NAME]&#8230;&#8203;] [dt/DATE_TIME] [m/MONEY]</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-452">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-456">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-453">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-457">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-453">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-457">
 <p>The search is case insensitive. e.g blue will match Blue</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-454">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-458">
 <p>At least one of the option fields must be provided.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-455">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-459">
 <p>The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, c/Bob m/31 will match m/31 c/Bob</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-456">
-<p>Only transactions matching all attributes will be returned (i.e. AND search). e.g. <code>findt c/Jane p/bag</code> will return transactions with 'jane' in their customer names and bag in their product names</p>
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-460">
+<p>Only transactions matching all attributes will be returned (i.e. AND search). e.g. <code>findt c/Jane p/bag</code> will return transactions with 'jane' in their customer names and 'bag' in their product names</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-457">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-461">
 <p>Transactions matching any keywords in an attribute (for product or customer name only) will be returned (i.e. OR search) e.g. <code>findt c/jane avery</code> will return transactions with 'jane' or 'avery' in their customer names</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-460">
+<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-464">
 <div class="content">
 <img src="../images/FindTransactionByProduct.png" alt="FindTransactionByProduct" width="790">
 </div>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-461">
+<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-465">
 <div class="content">
 <img src="../images/FindTransactionByCustomer.png" alt="FindTransactionByCustomer" width="790">
 </div>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-464">
+<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-468">
 <table>
 <tr>
 <td class="icon">
@@ -1409,59 +1422,59 @@ Only product name and customer name support multiple keywords
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-466">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-470">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-468">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-472">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-468">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-472">
 <p><code>findt p/iphone</code><br>
 Returns all transactions that involve the product <code>iphone</code>.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-470">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-474">
 <p><code>findt c/bob angie</code><br>
 Returns all transactions that involve a customer named Bob <strong>OR</strong> a customer named Angie.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-472">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-476">
 <p><code>findt dt/2020-02-07 16:00</code><br>
 Returns all transactions made on 7th February 2020 4pm.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-474">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-478">
 <p><code>findt m/100</code><br>
-Returns all transactions that have a selling price of 100 dollars.</p>
+Returns all transactions that have an amount of 100 dollars.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-476">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-480">
 <p><code>findt c/bob dt/2020-02-07 16:00</code><br>
 Returns all transactions that Bob made on the 7th February 2020 4pm.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-481">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-485">
 <h4 id="_undo_a_transaction_undot">4.4.5. Undo a transaction : <code>undot</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-483">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-487">
 <p>Undo the specified transaction from the system. It allows the user to remove a transaction in case he/she keyed inaccurate
 information.<br>
 Format: <code>undot INDEX</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-487">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-491">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-488">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-492">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-488">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-492">
 <p>Undos the transaction at the specified <code>INDEX</code>.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-489">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-493">
 <p>The index refers to the index number shown in the displayed transaction list.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-490">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-494">
 <p>The index must be a positive integer 1, 2, 3, …​</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-494">
+<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-498">
 <table>
 <tr>
 <td class="icon">
@@ -1473,7 +1486,7 @@ Why undot instead of deletet? Deletet implies that transaction is only deleted b
 </tr>
 </table>
 </div>
-<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-497">
+<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-501">
 <table>
 <tr>
 <td class="icon">
@@ -1485,17 +1498,17 @@ Adds the quantity in the transaction back to the product and reduces the sales o
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-499">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-503">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-501">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-505">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-501">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-505">
 <p><code>listt</code><br>
 <code>undot 2</code><br>
 Undo the 2nd transaction in the displayed list.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-504">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-508">
 <p><code>findt dt/2020-01-03 16:00</code><br>
 <code>undot 1</code><br>
 Undo the 1st transaction in the results of the find command.</p>
@@ -1503,13 +1516,13 @@ Undo the 1st transaction in the results of the find command.</p>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-510">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-514">
 <h4 id="_clearing_all_transactions_cleart">4.4.6. Clearing all transactions : <code>cleart</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-512">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-516">
 <p>Clears all transactions from the list of transactions.<br>
 Format: <code>cleart</code></p>
 </div>
-<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-516">
+<div class="admonitionblock warning has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-520">
 <table>
 <tr>
 <td class="icon">
@@ -1523,22 +1536,22 @@ Permanently deletes all the stored transaction data in the application.
 </div>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-519">
+<div class="sect2 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-523">
 <h3 id="_statistics">4.5. Statistics</h3>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-521">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-525">
 <p>User can navigate to the statistics panel by clicking on the statistics tab.</p>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-523">
+<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-527">
 <div class="content">
-<img src="../images/StatisticsTab.png" alt="StatisticsTab">
+<img src="../images/StatisticsTab.png" alt="StatisticsTab" width="200">
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-526">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-530">
 <h4 id="_viewing_the_top_selling_and_worst_selling_products">4.5.1. Viewing the top-selling and worst-selling products.</h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-528">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-532">
 <p>Displays and updates the top-selling and worst-selling products (sorted by profit) as transactions are made.<br></p>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-531">
+<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-535">
 <table>
 <tr>
 <td class="icon">
@@ -1550,21 +1563,21 @@ This is a passive feature.
 </tr>
 </table>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-534">
+<div class="imageblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-538">
 <div class="content">
-<img src="../images/TopSellingProducts.png" alt="TopSellingProducts">
+<img src="../images/TopSellingProducts.png" alt="TopSellingProducts" width="650">
 </div>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-537">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-541">
 <h4 id="_viewing_the_product_sales_and_quantity_histogram">4.5.2. Viewing the product sales and quantity histogram.</h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-539">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-543">
 <p>Displays and updates the histogram of product sales and quantity.<br>
 Plots 2 graphs:<br>
 1. Number of products against quantity of products<br>
 2. Number of products against sales of products</p>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-545">
+<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-549">
 <table>
 <tr>
 <td class="icon">
@@ -1576,106 +1589,106 @@ This is a passive feature.
 </tr>
 </table>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-547">
+<div class="imageblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-551">
 <div class="content">
-<img src="../images/ViewInventory2.png" alt="ViewInventory2">
+<img src="../images/ViewInventory2.png" alt="ViewInventory2" width="600">
 </div>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-551">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-555">
 <h4 id="_getting_the_revenue_made_in_a_certain_period_revenue">4.5.3. Getting the revenue made in a certain period : <code>revenue</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-553">
-<p>Gets the revenue made in a selected period.<br>
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-557">
+<p>Gets the revenue made in a selected period. (start date to end date, both inclusive)<br>
 Format: <code>revenue [sd/START_DATE] [ed/END_DATE]</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-556">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-560">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-557">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-561">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-557">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-561">
 <p>The start date and end date must follow a format of <code>yyyy-mm-dd hh:mm</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-558">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-562">
 <p>The start date must be before or equal to end date</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-559">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-563">
 <p>At least one product must be present</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-562">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-566">
 <p>Example:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-564">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-568">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-564">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-568">
 <p><code>revenue sd/2020-01-01 10:00 ed/2020-12-31 10:01</code><br>
 Returns the revenue from Jan 1 2020 10am to Dec 31 2020 10:01am</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-569">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-573">
 <h4 id="_getting_the_profit_made_in_a_certain_period_profit">4.5.4. Getting the profit made in a certain period : <code>profit</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-571">
-<p>Gets the profit made in a selected period.<br>
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-575">
+<p>Gets the profit made in a selected period (start date to end date, both inclusive).<br>
 Format: <code>profit [sd/START_DATE] [ed/END_DATE]</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-574">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-578">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-575">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-579">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-575">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-579">
 <p>The start date and end date must follow a format of <code>yyyy-mm-dd hh:mm</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-576">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-580">
 <p>The start date must be before or equal to end date</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-577">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-581">
 <p>At least one product must be present</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-580">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-584">
 <p>Example:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-582">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-586">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-582">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-586">
 <p><code>profit sd/2020-01-01 10:00 ed/2020-12-31 10:01</code><br>
 Returns the profit from Jan 1 2020 10am to Dec 31 2020 10:01am</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-587">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-591">
 <h4 id="_setting_the_low_inventory_threshold_lowlimit">4.5.5. Setting the low-inventory threshold : <code>lowlimit</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-589">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-593">
 <p>Sets the notification threshold for individual product and updates the bar indicator of the product.<br>
 Format: <code>lowlimit p/PRODUCT_ID t/THRESHOLD</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-592">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-596">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-593">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-597">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-593">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-597">
 <p><code>THRESHOLD</code> must be non-negative integers, i.e. 1, 2, 3, &#8230;&#8203;</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-594">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-598">
 <p><code>PRODUCT_ID</code> refers to the index number shown in the displayed products list.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-595">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-599">
 <p>The index must be a positive integer 1, 2, 3, …​</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-599">
+<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-603">
 <table>
 <tr>
 <td class="icon">
@@ -1688,25 +1701,25 @@ The quantity threshold can take integers up to 1000000.
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-602">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-606">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-604">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-608">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-604">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-608">
 <p><code>lowlimit p/1 t/20</code><br>
 Sets the low inventory threshold for the 1st product as 20.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-609">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-613">
 <h4 id="_predicting_the_sales_for_the_next_month_predict">4.5.6. Predicting the sales for the next month : <code>predict</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-611">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-615">
 <p>Predicts sales for the next month based on sales in the previous three months<br>
 Format: <code>predict</code></p>
 </div>
-<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-615">
+<div class="admonitionblock note has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-619">
 <table>
 <tr>
 <td class="icon">
@@ -1719,30 +1732,30 @@ The average of the profits made in the past three months is the predicted sales 
 </table>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-619">
-<h4 id="_plotting_sales_plotsales">4.5.7. Plotting sales: <code>plotsales</code></h4>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-621">
+<div class="sect3 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-623">
+<h4 id="_plotting_sales_of_a_product_plotsales">4.5.7. Plotting sales of a product: <code>plotsales</code></h4>
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-625">
 <p>Plots a graph with the sales of the selected product in a given time period.<br>
 Format: <code>plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]</code></p>
 </div>
-<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-624">
+<div class="sidebarblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-628">
 <div class="content">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-625">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-629">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-625">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-629">
 <p>The start date and end date must follow a format of <code>yyyy-mm-dd hh:mm</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-626">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-630">
 <p>The start date must be before or equal to end date</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-627">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-631">
 <p>At least one product must be present</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="admonitionblock tip has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-631">
+<div class="admonitionblock tip has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-635">
 <table>
 <tr>
 <td class="icon">
@@ -1755,140 +1768,140 @@ will plot the last 7 days by default.
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-634">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-638">
 <p>Examples:</p>
 </div>
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-636">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-640">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-636">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-640">
 <p><code>plotsales 1 sd/2020-02-20 10:00 ed/2020-02-28 10:01</code><br>
 Plots a graph with the sales of the selected product between 20th Feb 10am and 28th Feb 10:01am in 2020.</p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-639">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-643">
 <p><code>plotsales 1</code><br>
 Plots a graph with the sales of the selected product in the past week.</p>
 </li>
 </ul>
 </div>
-<div class="imageblock text-center has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-642">
+<div class="imageblock has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-646">
 <div class="content">
-<img src="../images/SalesPlot.png" alt="SalesPlot">
+<img src="../images/SalesPlot.png" alt="SalesPlot" width="500">
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-645">
+<div class="sect1 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-649">
 <h2 id="_faq">5. FAQ</h2>
 <div class="sectionbody">
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-647">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-651">
 <p><strong>Q</strong>: How to delete a product?<br>
 <strong>A</strong>: First, display a list of product, e.g. <code>listp</code>. Then type <code>deletep INDEX</code> where the index refers to the index displayed in the list. Refer to <a href="#_deleting_a_product_deletep">Section 4.3.5, &#8220;Deleting a product : <code>deletep</code>&#8221;</a>.</p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-650">
+<div class="paragraph has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-654">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
 <strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Inventory System folder.</p>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-653">
+<div class="sect1 has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-657">
 <h2 id="_command_summary">6. Command Summary</h2>
 <div class="sectionbody">
-<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-655">
+<div class="ulist has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-659">
 <ul>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-655">
-<p><strong>Adding customer</strong> : <code>addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…</code><br>
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-659">
+<p><strong>Adding customer</strong> : <code>addc n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…</code><br>
 e.g. <code>addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-657">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-661">
 <p><strong>Listing all customers</strong> : <code>listc</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-658">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-662">
 <p><strong>Editing customer information</strong> : <code>editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​</code><br>
 e.g. <code>editc 1 p/91234567 e/johndoe@example.com</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-660">
-<p><strong>Finding customers</strong> : <code>findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code><br>
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-664">
+<p><strong>Finding customers</strong> : <code>findc [n/NAME [NAME]&#8230;&#8203;] [p/PHONE] [e/EMAIL] [a/ADDRESS [ADDRESS]&#8230;&#8203;]</code><br>
 e.g. <code>findc n/John</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-662">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-666">
 <p><strong>Deleting a customer</strong> : <code>deletec INDEX</code><br>
 e.g. <code>findc n/Betsy</code><br>
 <code>deletec 1</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-665">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-669">
 <p><strong>Clearing all customers</strong> : <code>clearc</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-666">
-<p><strong>Adding a product</strong> : <code>addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]</code><br>
-e.g. <code>addp d/iphone x pr/1000 q/10</code></p>
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-670">
+<p><strong>Adding a product</strong> : <code>addp d/DESCRIPTION pr/PRICE q/QUANTITY cp/COSTPRICE [s/SALES]</code><br>
+e.g. <code>addp d/iphone x pr/1000 cp/800 q/10</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-668">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-672">
 <p><strong>Listing all products</strong> : <code>listp</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-669">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-673">
 <p><strong>Editing a product</strong> : <code>editp INDEX [d/DESCRIPTION] [pr/PRICE] [cp/COSTPRICE] [q/QUANTITY] [s/SALES]</code><br>
 e.g. <code>editp 1 pr/1150 q/80</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-671">
-<p><strong>Finding products</strong> : <code>findp KEYWORD</code><br>
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-675">
+<p><strong>Finding products</strong> : <code>findp KEYWORD [KEYWORD]&#8230;&#8203;</code><br>
 e.g. <code>findp black</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-673">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-677">
 <p><strong>Deleting a product</strong> : <code>deletep INDEX</code><br>
 e.g. <code>listp</code><br>
 <code>deletep 2</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-676">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-680">
 <p><strong>Clearing all products</strong> : <code>clearp</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-677">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-681">
 <p><strong>Adding a transaction</strong> : <code>addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY q/QUANTITY [d/DESCRIPTION]</code><br>
 e.g. <code>addt p/20 c/2 dt/2020-02-20 10:00 m/30 q/10 d/under discount</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-679">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-683">
 <p><strong>Listing all transactions</strong> : <code>listt</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-680">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-684">
 <p><strong>Editing a transaction</strong> : <code>editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]</code><br>
 e.g. <code>editt 1 p/101 c/123</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-682">
-<p><strong>Finding transactions</strong> : <code>findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]</code><br>
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-686">
+<p><strong>Finding transactions</strong> : <code>findt [p/PRODUCT_NAME [PRODUCT_NAME]&#8230;&#8203;] [c/CUSTOMER_NAME [CUSTOMER_NAME]&#8230;&#8203;] [dt/DATE_TIME] [m/MONEY]</code><br>
 e.g. <code>findt c/bob dt/2020-02-07 10:00</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-684">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-688">
 <p><strong>Undo a transaction</strong> : <code>undot INDEX</code><br>
 e.g. <code>findt dt/2020-01-03 10:00</code><br>
 <code>undot 1</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-687">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-691">
 <p><strong>Clearing all transactions</strong> : <code>cleart</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-688">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-692">
 <p><strong>Get the revenue made in a certain period</strong> : <code>revenue sd/START_DATE ed/END_DATE</code><br>
 e.g. <code>revenue sd/2020-01-01 10:00 ed/2020-12-12 10:01</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-690">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-694">
 <p><strong>Get the profit made in a certain period</strong> : <code>profit sd/START_DATE ed/END_DATE</code><br>
 e.g. <code>profit sd/2020-01-01 10:00 ed/2020-12-12 10:01</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-692">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-696">
 <p><strong>Setting the low-inventory threshold</strong> : <code>lowlimit p/PRODUCT_ID t/THRESHOLD</code><br>
 e.g. <code>lowlimit p/1 t/20</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-694">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-698">
 <p><strong>Predicting the sales for the next month</strong> : <code>predict</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-695">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-699">
 <p><strong>Plotting sales</strong> : <code>plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]</code><br>
 e.g. <code>plotsales 1 sd/2020-03-20 10:00 ed/2020-03-30 10:00</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-697">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-701">
 <p><strong>Exiting from the program</strong> : <code>exit</code></p>
 </li>
-<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-698">
+<li class="has-source-line data-line-/Users/tjh246/Desktop/CS2103/main/docs/UserGuide.adoc-702">
 <p><strong>Get help</strong> : <code>help</code></p>
 </li>
 </ul>
@@ -1898,7 +1911,7 @@ e.g. <code>plotsales 1 sd/2020-03-20 10:00 ed/2020-03-30 10:00</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-11 14:30:00 +0800
+Last updated 2020-04-13 10:54:45 +0800
 </div>
 </div>
 </body>
