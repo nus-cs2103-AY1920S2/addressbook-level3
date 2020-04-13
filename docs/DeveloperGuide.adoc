@@ -156,7 +156,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Sorting
+//tag::branson[]
+=== Sort
 ==== Implementation
 *API* : link:{repoURL}/src/main/java/seedu/address/logic/commands/SortCommand.java[`SortCommand.java`]
 
@@ -200,7 +201,6 @@ The input is pass through the LogicManager so that we can get TaskList details f
 .. Will cause CommandBox to setFailure on CommandTextField
 
 ==== Auto Complete Overview
-// TODO maybe reduce the size of these activity diagrams
 .Activity diagram of auto complete
 image::ACActivityDiagram.png[width=790]
 [IMPORTANT]
@@ -313,6 +313,7 @@ The combination of name and tag score is then used as a Task's final score in de
 ==== Other Considerations
 * We chose to not use edit distance for search terms of string length less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
 * We also chose to display task names who's start matches the search term for ease of usage even though the edit distance could be significant.
+//end::branson[]
 
 //tag::pomodoro[]
 [[Pomodoro]]
@@ -813,6 +814,7 @@ Use case ends.
 .  Commands should be user-friendly.
 
 [appendix]
+//tag::glossary[]
 == Glossary
 [%header,cols="2,6"] 
 |===
@@ -880,6 +882,7 @@ Use case ends.
 |Edit distance
 |Integer calculated with the levenshtein distance that represents the number of changes to get from one string to another
 |===
+//end::glossary[]
 
 [appendix]
 == Product Survey

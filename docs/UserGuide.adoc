@@ -108,6 +108,7 @@ image::settings_tab.png[width=395]
 [[Features]]
 == Features
 
+//tag::TaskList[]
 === TaskList
 image::tasks.png[width=790]
 
@@ -252,6 +253,8 @@ Oh my it's been a productive month, time to start on a clean slate. You may dele
 .Clear success
 image::clear_success.png[width=790]
 
+//end::TaskList[]
+
 === Pet (Fyonn)
 Write pet
 
@@ -345,27 +348,34 @@ You can customise the duration you aim to achieve on a daily basis by using the 
 ==== Productivity Chart
 The Productivity Chart tracks the number of tasks done and duration you ran the Pomodoro per day for the past 7 days. You can thus track your productivity over time. With this information. you can make proper adjustments to your schedule to improve your productivity. If you start noticing the orange bars getting shorter, realise that it is time to buckle up and work harder, or else you may lose your productivity momentum!
 
+//tag::AutoComplete[]
 === AutoComplete
-As much as you enjoy typing, we've added some extra grease to make you type even faster. You can trigger our very intelligent auto complete function by pressing `tab` on the keyboard.
+As much as you enjoy typing, we've added some extra grease to help you type even faster. You can trigger our very intelligent auto complete function by pressing `tab` on the keyboard.
 
 You can expect: +
 
 * Auto completion of command words: `del -> delete`
+
+.Command word auto complete
+image::AC_command.png[]
 * Addition of prefixes for common values: `20/10/20@10:30 -> r/20/10/20@10:30`
-** Figure 14
-* Auto completion of sort fields `sort pri` -> `sort priority`
-** Figure 15
 
 .Prefix auto complete
 image::prefix_complete.png[]
+* Auto completion of sort fields `sort pri` -> `sort priority`
+
 .Sort auto complete
 image::sort_complete.png[]
+* Removal of indexes that are invalid [not a positive integer or out of the tasklist's size]
 
-If we can't find a valid command, you will observe feedback like below:
+.Done index removal
+image::AC_removal_success.png[]
+* If we can't find a valid command, you will observe feedback like below:
 
 .Auto complete not found
 image::complete_fail.png[]
 
+//end::AutoComplete[]
 
 === Reminders
 
@@ -436,7 +446,6 @@ Results in a task with the reminder's date in the specific task card.
 
 .Success for editing recurring attribute to task.
 image::recurring_edit_success.png[width=790]
-
 
 [[Navigation]]
 === Navigation
