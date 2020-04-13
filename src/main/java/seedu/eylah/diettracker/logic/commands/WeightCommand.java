@@ -36,16 +36,6 @@ public class WeightCommand extends Command<DietModel> {
     public CommandResult execute(DietModel model) throws CommandException {
         requireNonNull(model);
 
-        if (weight.getWeightFloat() <= 0) {
-            throw new CommandException("Please enter a weight value >0 and <1000.");
-        }
-
-        if (weight.getWeightFloat() > 1000) {
-            throw new CommandException("Please enter a weight value >0 and <1000. Fun fact: The heaviest person in the "
-                    + "world is Jon Brower Minnoch at 635kg. However, we at EYLAH believe people can grow till "
-                    + "1000kg!");
-        }
-
         model.setWeight(weight);
 
         return new CommandResult(String.format(MESSAGE_ADD_WEIGHT_SUCCESS, weight.toString()));

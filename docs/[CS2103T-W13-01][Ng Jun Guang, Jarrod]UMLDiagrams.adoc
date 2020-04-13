@@ -1,0 +1,80 @@
+:imagesDir: images
+:stylesDir: stylesheets
+
+== Ng Jun Guang, Jarrod UML Diagrams
+
+* *Add Command Activity & Sequence Diagram*
+
+image::DietTrackerAddCommandActivityDiagram.png[]
+
+image::DietTrackerAddCommandSequenceDiagram.png[]
+
+* *Delete Command Activity & Sequence Diagram*
+
+image::DietTrackerDeleteCommandActivityDiagram.png[]
+
+image::DietTrackerDeleteCommandSequenceDiagram.png[]
+
+* *Edit Command Activity & Sequence Diagram*
+
+image::DietTrackerEditCommandActivityDiagram.png[]
+
+image::DietTrackerEditCommandSequenceDiagram.png[]
+
+* *List Command Activity & Sequence Diagrams*
+
+image::DietTrackerListCommandActivityDiagram.png[]
+
+image::DietTrackerListCommandAllSequenceDiagram.png[]
+
+image::DietTrackerListCommandDaySequenceDiagram.png[]
+
+image::DietTrackerListCommandTagSequenceDiagram.png[]
+
+* *Bmi Command UML Diagrams*
+
+image::DietTrackerBmiCommandActivityDiagram.png[]
+
+image::DietTrackerBmiCommandClassDiagram.png[]
+
+image::DietTrackerBmiCommandNILSequenceDiagram.png[]
+
+image::DietTrackerBmiCommandNILSequenceDiagram2.png[]
+
+image::DietTrackerBmiCommandSequenceDiagram.png[]
+
+image::DietTrackerBmiCommandSequenceDiagram2.png[]
+
+* *Height Command UML Diagrams*
+
+image::DietTrackerHeightCommandActivityDiagram.png[]
+
+image::DietTrackerHeightCommandClassDiagram.png[]
+
+image::DietTrackerHeightCommandSequenceDiagram.png[]
+
+* *Weight Command UML Diagrams*
+
+image::DietTrackerWeightCommandActivityDiagram.png[]
+
+image::DietTrackerWeightCommandClassDiagram.png[]
+
+image::DietTrackerWeightCommandSequenceDiagram.png[]
+
+* *Mode Command UML Diagrams*
+
+image::DietTrackerModeCommandActivityDiagram.png[]
+
+image::DietTrackerModeCommandClassDiagram.png[]
+
+image::DietTrackerModeCommandSequenceDiagram.png[]
+
+* *Metric Command UML Diagrams*
+
+image::DietTrackerMetricsCommandActivityDiagram.png[]
+
+image::DietTrackerMetricsCommandClassDiagram.png[]
+
+image::DietTrackerMetricsCommandSequenceDiagram.png[]
+
+
