@@ -461,11 +461,11 @@ The `RestaurantBook` helps users keep track of `Restaurants`, so that users can 
 [.text-justify]
 From *Fig 1* below, each `Assignment` has four components: `Title`, `Deadline`, `Status` and `Workload`. `Workload` refers to the expected amount of time required to finish the `Assignment`. These components will be used for schedule generation when `(st)schedule n/NUM_DAYS` is executed (explained below).
 
-image::rtClassDiagram.png[align="center"]
+image::rtClassDiagram.PNG[align="center"]
 
 Bla bla bla
 
-image::rtActivityDiagram.png[align="center"]
+image::rtActivityDiagram.PNG[align="center"]
 
 Example with (rt)add
 
