@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
@@ -25,6 +27,7 @@ public class StartCommand extends Command {
     public static final String MESSAGE_EMPTY_WORKOUT = "Unable to start an empty workout!";
     public static final String MESSAGE_EMPTY_EXERCISE = "Some exercises in this workout are invalid!";
     public static final FormatStyle FORMAT_STYLE = FormatStyle.MEDIUM;
+    private static final Logger logger = LogsCenter.getLogger(StartCommand.class);
     private final Index workoutId;
 
     public StartCommand(Index targetIndex) {
@@ -39,6 +42,7 @@ public class StartCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        logger.info("Executing start command.");
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);
         }
