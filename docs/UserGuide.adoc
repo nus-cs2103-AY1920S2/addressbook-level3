@@ -464,7 +464,7 @@ workout exercise edit 1 2 3
 This command allows you to edit an exercise in a workout, by replacing the exercise corresponding to `EXERCISE_ID` with the exercise corresponding to `NEW_EXERCISE_ID`. Hence, the order of exercises within the workout is retained. ZeroToOne will automatically update the exercise in the workout on your result display. If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Edited Bench Press in Arms Workout to become Bicep Curl
+Successfully edited Bench Press in Arms Workout to become Bicep Curl
 ```
 
 ```
@@ -552,7 +552,7 @@ workout edit 1 w/Arms Training
 ZeroToOne will update its display to show you the new workout name.  If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Successfully edited workout name from Arms Workout to Arms Training
+Successfully edited name from Arms Workout to Arms Training
 ```
 
 ```
