@@ -227,8 +227,9 @@ Lists all contacts stored in the address book, only displaying the name, phone n
 Format: `(ab)list`
 
 [TIP]
-* If you want to search for a particular contact, see `(ab)find`
-* If you want more information about a particular contact, see `(ab)get`
+If you want to search for a particular contact, see `(ab)find`
+[TIP]
+If you want more information about a particular contact, see `(ab)get`
 
 ==== Finding contacts : `(ab)find`
 
