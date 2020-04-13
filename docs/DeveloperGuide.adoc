@@ -421,6 +421,45 @@ Using `loc/Documents abs/abs` will allow the user to access any folder from anyw
 * Weather
 * Mood
 
+=== Event Feature (Proposed) (Xuan Xin)
+
+This feature (in the works already) is meant to be an enhancement towards the Calendar feature.
+
+==== Implementation
+
+* The event feature would support the following features:
+** Adds and deletes events onto the calendar
+** Sort events by date (default)
+** Consolidate and list all events
+
+The sequence diagram below shows how components interact with each other when user inputs `eventAdd` to add an event onto the calendar.
+
+.Add Event Sequence Diagram
+image::AddEventSequenceDiagram.png[]
+
+The `eventAdd` method works similar to the `addDeadlineTask` above and will modify the `ObservableList<Task>` supplied to the `CalenderListPanel`, invoking the `updateItem` method, causing a change in the user display.
+
+==== Example Use Scenario
+
+*Example 1*: +
+
+. The user execute `listEvent` command.
+. The program checks if input is valid.
+. The list of events will be displayed.
+
+Below then shows an example of an activity diagram for the `listEvent` command.
+
+.List Event Activity Diagram
+image::ListEventActivityDiagram.png[]
+
+==== Further Developments
+ * The event feature will aim to link contacts from the addressbook to the calendar.
+ 
+For now, the full activity diagram for `Event`, which has a similar implementation to `Deadline`, is shown below:
+ 
+.Event Activity Diagram
+image::EventActivityDiagram.png[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
