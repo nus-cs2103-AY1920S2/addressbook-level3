@@ -209,6 +209,8 @@ When inserting a new Expense/Income, the `AddCommandParser` will determine which
 
 NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
 
+NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GROCERIES, HEALTH, RECREATION, MISC, UTILITIES, INCOME.
+
 The following sequence diagram shows how the add transaction operation works:
 
 image::add-command/AddCommandSequenceDiagram.png[]
@@ -225,7 +227,8 @@ Figure 9. Sequence diagram of how adding a new `Transaction` is processed depend
 [NOTE]
 Incorrect user input will display `ParseException` message.
 
-We will demonstrate how a `Transaction` is added into `ExpenseLa`:
+
+*We will demonstrate how a `Transaction` is added into `ExpenseLa` below:*
 
 Step 1. The user executes the command **add n/Pizza a/20.5 d/2020-02-02** to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
 
@@ -237,8 +240,6 @@ image::add-command/AddTransactionToList1.png[]
 
 Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income rc/ ** to indicate his monthly pay, to insert a positive `**Transaction**`.
 
-NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GROCERIES, HEALTH, RECREATION, MISC, UTILITIES, INCOME.
-
 NOTE: "rc/" CLI Syntax will set the transaction to be a recurring transaction.
 
 Again, since the input is valid, the positive `Transaction` is successfully added into the transaction list. The transaction list
@@ -248,7 +249,7 @@ image::add-command/AddTransactionToList2.png[]
 
 The following activity diagram summarizes what happens when the user executes a command to add a new `Transaction`:
 
-:figure-caption: Figure 10
+:figure-caption: Figure
 .Activity diagram of adding a `Transaction` into the transaction list.
 image::add-command/AddTransactionActivityDiagram.png[,650]
 
@@ -305,8 +306,8 @@ existing `**TransactionList**`.
 Command example: **edit 1 n/[NAME] a/[AMOUNT] r/[REMARK]** will edit the name, amount and remark of transaction of index 1 with
 the respective inputs.
 
-Below is an example usage scenario for editing a transaction and explanation of how the **edit** mechanism
-behaves at each step:
+*Below is an example usage scenario for editing a transaction and explanation of how the edit mechanism
+behaves at each step:*
 
 Step 1. The user starts up the application with an initial list loaded from a sample transaction list.
 
@@ -1192,25 +1193,52 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+[horizontal]
+[[expensela]] ExpenseLa::
+Stands for the application that this developer guide is written for.
+
+[[api]] API::
+Stands for "Application Programming Interface" which simplifies programming by abstracting the underlying implementation and only exposing objects or actions the developer needs.
+
+[[puml]] PlantUML::
+Stands for a software tool that we use to render the diagrams used in this document.
+
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X
+
+[[system-administration]] System Administration::
+Stands for the field of work in which someone manages one or more systems, be they software, hardware, servers or workstations
+with the goal of ensuring the systems are running efficiently and effectively.
+
+[[MSS]] MSS::
+Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong.
+
+[[CLI-syntax]] CLI Syntax::
+Stands for the Command Line Interface Syntax such as "a/" and "c/" that preceeds input values which act as indicators for the system to detect those values.
+
+[[Ui]] UI::
+Stands for the user interface which is the display which interacts with the user.
+
+[appendix]
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*ExpenseLa*
 
-Author: ...
+Author: Team Halim
 
 Pros:
 
-* ...
-* ...
+* Very easy and quick tracking for people that prefer command line interfaces.
+* Analytics serve as a quick bird's eye view on monthly spending.
+* Analytics breakdown of spending per category helps me gain insights on the categories which I have spent too much money on.
+* Well made prompts to warn me when I am going to exceed my monthly budget. Helps to better my budgeting practices.
 
 Cons:
 
-* ...
-* ...
+* Takes quite a bit of time to learn all the commands.
+* It can get quite tedious to input every single transaction at any time. Could possibly automate some inputs.
 
 [appendix]
 == Instructions for Manual Testing
