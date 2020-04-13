@@ -14,7 +14,7 @@ image::huberthalim.png[width="150", align="left"]
 {empty}[https://github.com/HubertHalim[github]] [<<huberthalim#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Travis integration, git issuing, version tracking and data management. Also inspects the quality of member's code.
 
 '''
 
@@ -22,8 +22,8 @@ Responsibilities: Dev Ops + Threading
 image::benfheng.png[width="150", align="left"]
 {empty}[http://github.com/BenFheng[github]] [<<benfheng#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Backend + UI
+Role: Backend Integration and UI/UX +
+Responsibilities: Ensures quality of documents and keeps track of project deliverables. Also responsible for the testing of application functionalities.
 
 '''
 
@@ -31,8 +31,8 @@ Responsibilities: Backend + UI
 image::chlalstjr.png[width="150", align="left"]
 {empty}[http://github.com/chlalstjr[github]] [<<chlalstjr#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Analytics + Backend
+Role: Analytics and Backend Management +
+Responsibilities: Software integration and testing of member's code.
 
 '''
 
@@ -40,7 +40,7 @@ Responsibilities: Analytics + Backend
 image::pangkimjin.png[width="150", align="left"]
 {empty}[http://github.com/PangKimJin[github]] [<<kimjin#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI + Algorithm management
+Role: Algorithm Management and UI/UX +
+Responsibilities: Ensures that all code adheres to the coding standard and the quality of project documents.
 
 '''
