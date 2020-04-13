@@ -298,9 +298,13 @@ public class AddCommandTest {
         AddCommand addCommandTasks = new AddCommand(
                 Collections.singletonList(moduleCode), semester, null, deadlines);
 
+        String updateMessage = String.format(MESSAGE_EDIT_SUCCESS, moduleCode);
+        String addSuccess = String.format("These task(s) have been added: %1$s; %2$s; ", taskA, taskB);
+        updateMessage += "\n" + addSuccess;
+
         try {
             assertEquals(addCommandTasks.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser(), String.format(MESSAGE_EDIT_SUCCESS, moduleCode));
+                    new ModuleManagerStubCs()).getFeedbackToUser(), updateMessage);
         } catch (CommandException e) {
             fail();
         }
@@ -308,7 +312,7 @@ public class AddCommandTest {
 
     // Duplicate tasks added
     @Test
-    public void execute_duplicateTask_throwsCommandException() {
+    public void execute_duplicateTask_Error() {
         ModuleCode moduleCode = new ModuleCode("CS1101S");
         int semester = new Year("1.1").getSemester();
         String task = VALID_TASK_AMY;
@@ -320,9 +324,16 @@ public class AddCommandTest {
         AddCommand addCommandTask = new AddCommand(
                 Collections.singletonList(moduleCode), semester, null, deadlines);
 
-        assertThrows(CommandException.class, MESSAGE_DUPLICATE_TASK, () ->
-                addCommandTask.execute(
-                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+        String updateMessage = String.format(MESSAGE_EDIT_SUCCESS, moduleCode);
+        String addError = String.format("Failed to add these duplicate task(s): %1$s; ", task);
+        updateMessage += "\n" + addError;
+
+        try {
+            assertEquals(addCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                    new ModuleManagerStubCs()).getFeedbackToUser(), updateMessage);
+        } catch (CommandException e) {
+            fail();
+        }
     }
 
     @Test
