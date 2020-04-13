@@ -71,7 +71,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
-
+// end::ui[]
 [[Design-Ui]]
 === UI component
 
@@ -89,7 +89,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
-
+// end::ui[]
 [[Design-Logic]]
 === Logic component
 
@@ -118,7 +118,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::classDiagramModel.png[]
+image::modelDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/nasa/model/Model.java[`Model.java`]
 
@@ -148,6 +148,8 @@ From the diagram above, the Activity package consists of the following:
 image::ModelActivityClassDiagram.png[,600,]
 
 // end::modelid[]
+
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -160,6 +162,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save NASA data in json format and read it back.
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -244,8 +247,6 @@ image::AddDeadlineLogicSequenceDiagram.png[]
 
 image::AddDeadlineModelSequenceDiagram.png[]
 
-// end::deadlines[]
-
 ==== Design Considerations
 
 The design considerations for the classes are shown below:
@@ -259,7 +260,6 @@ The design considerations for the classes are shown below:
 |=======================================================================
 
 ** Choice of design was option 3 as it made all objects separate from one another and allows easy debugging. At the same time, it follows SRP design principle.
-
 
 // tag::automation[]
 === Automation
@@ -357,41 +357,28 @@ Aspect: Persistence of sort order for CRUD operations.
 ** Cons: Performance is hindered as every CRUD operation will require enforcement of sort order on the underlying list data structure, which is computationally expensive. Persistent storage of the user-defined sort order is required, which is harder to implement.
 // end::sort[]
 
-=== Statistics Feature (To be implemented)
+// tag::hint[]
+=== Hint Feature
+`Contributed by: CharmaineKoh`
 
-Statistics on the status of activities based on a specific criteria such as time period is shown. By default, the
-overall statistics for all activities are shown.
+Hint for command popups shown as user types in command box.
 
-The list of criteria to be sorted are as follows:
-
-. Overall
-
-. Module
-
-. Activity type
-
-. Time (Weekly/Monthly/Yearly)
-
-Refer to the user guide for the specific commands. Generating statistics is facilitated by
-ModelManager#calculateStatistics.
 
 ==== Implementation
-To generate statistics for activities, the command will use the keyword `statistics` followed by a specific criteria.
+Event listener is added to command box and detects changes key presses. For each key press, NASA checks if the ctext
+starts with a valid command and updates the popup accordingly.
 
-==== Internal workings for the statistics command
+==== Internal workings for the popup
 
-Below is an example of a user requesting for statistics by for the week and how the underlying system works.
+Below is an example of a user typing in the command "deadline" by for the week and how the underlying system works.
 
-. The user enters the command `statistics t/week`
-
-. The LogicManager will create NasaBookParser to parse the user input.
-
-. NasaBookParser will create an StatisticsCommandParser which parses the input and returns an StatisticsCommand.
-
-. LogicManager will execute the StatisticsCommand. StatisticsCommand will calculate the number of tasks and their
-current status for each module over the past week.
-
-. The view is switched to the statistics tab to display the overalls statistics for the week.
+. The user starts to type in `deadline' into command box
+. NASA checks as each character is typed if the string forms a valid command
+. Once the command `deadline` is fully typed in, CommandBox calls the MainWindow.
+. MainWindow sends command to be displayed to HintWindow.
+. HintWindow retrieves hint from CommandHint to be displayed on hint window.
+. HintWindow displays to show user parameters of deadline and its example.
+// end::hint[]
 
 // tag::calendar[]
 
@@ -447,27 +434,6 @@ The design considerations for the classes are shown below:
 
 ** Option 3 was chosen as having different classes allowed us to pinpoint the exact error when the ics file was not working as intended. And any extensions or upgrades to iCalendar format can be easily extended from the current code without refactoring a lot. However, drawback is that some calendars do not support `VTODO`.
 
-
-=== Chat bot Feature (To be implemented)
-
-The CLI implementation is done through a chat bot like interface through a redesign of the user interface.
-
-==== Implementation
-The user interface is split into 2 sections where commands will be keyed into the chat box on the left side. Feedback
-from the programme on the result of the command will be displayed directly by the chat bot where the command history
-can be viewed. Changes made to the model will be updated in the user interface on the right side
-
-==== Internal workings for the chat bot
-
-Below is an example of a user requesting for statistics by for the week and how the underlying system works.
-
-. The user enters a command `statistics`
-
-. The NASA application will process the command. (Refer to section 3.8 for details)
-
-. Command result generated by the logic manager is returned and displayed in the chat bot.
-
-. User interface switches tabs to the statistics tab where the overall statistics are displayed.
 
 // tag::quote[]
 === Motivational Quotes
