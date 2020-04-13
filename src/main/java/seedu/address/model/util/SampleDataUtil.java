@@ -33,10 +33,6 @@ public class SampleDataUtil {
 
     public static final ArrayList<Remark> EMPTY_REMARK = new ArrayList<>();
     public static final ArrayList<Remark> SOME_REMARK = new ArrayList<>();
-    public static final ArrayList<seedu.address.model.restaurant.Remark> SOMEMORE_REMARK = new ArrayList<>();
-    public static final ArrayList<Note> EMPTY_RECOMMENDED_NOTE = new ArrayList<>();
-    public static final ArrayList<Note> EMPTY_GOOD_NOTE = new ArrayList<>();
-    public static final ArrayList<Note> EMPTY_BAD_NOTE = new ArrayList<>();
     public static final ArrayList<Note> SOME_RECOMMENDED_NOTE = new ArrayList<>();
     public static final ArrayList<Note> SOME_GOOD_NOTE = new ArrayList<>();
     public static final ArrayList<Note> SOME_BAD_NOTE = new ArrayList<>();
@@ -70,7 +66,6 @@ public class SampleDataUtil {
     }
 
     public static Restaurant[] getSampleRestaurants() {
-        SOMEMORE_REMARK.add(new seedu.address.model.restaurant.Remark("Place is clean"));
         SOME_RECOMMENDED_NOTE.add(new Note("Mcspicy"));
         SOME_GOOD_NOTE.add(new Note("Fries"));
         SOME_BAD_NOTE.add(new Note("Salad"));
@@ -80,7 +75,6 @@ public class SampleDataUtil {
                     new Hours("0000:0000"),
                     new Price("$"),
                     new Cuisine("Fast Food"),
-                    SOMEMORE_REMARK,
                     new Visit("Yes"),
                     SOME_RECOMMENDED_NOTE,
                     SOME_GOOD_NOTE,

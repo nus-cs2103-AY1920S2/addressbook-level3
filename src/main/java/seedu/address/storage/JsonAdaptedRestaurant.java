@@ -13,7 +13,6 @@ import seedu.address.model.restaurant.Location;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Note;
 import seedu.address.model.restaurant.Price;
-import seedu.address.model.restaurant.Remark;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Visit;
 
@@ -28,7 +27,6 @@ class JsonAdaptedRestaurant {
     private final String location;
     private final String hours;
     private final String price;
-    private final ArrayList<JsonAdaptedRemarkR> remark = new ArrayList<>();
     private final String cuisine;
     private final String visit;
     private final ArrayList<JsonAdaptedNote> recommendedNote = new ArrayList<>();
@@ -41,7 +39,6 @@ class JsonAdaptedRestaurant {
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("location") String location,
                                  @JsonProperty("hours") String hours, @JsonProperty("price") String price,
-                                 @JsonProperty("remark") ArrayList<JsonAdaptedRemarkR> remark,
                                  @JsonProperty("cuisine") String cuisine,
                                  @JsonProperty("visit") String visit,
                                  @JsonProperty("recommendedNotes") ArrayList<JsonAdaptedNote> recommendedNotes,
@@ -52,9 +49,7 @@ class JsonAdaptedRestaurant {
         this.hours = hours;
         this.price = price;
         this.cuisine = cuisine;
-        if (remark != null) {
-            this.remark.addAll(remark);
-        }
+
         this.visit = visit;
         if (recommendedNotes != null) {
             this.recommendedNote.addAll(recommendedNotes);
@@ -76,9 +71,6 @@ class JsonAdaptedRestaurant {
         hours = source.getHours().hours;
         price = source.getPrice().price;
         cuisine = source.getCuisine().cuisine;
-        remark.addAll(source.getRemark().stream()
-                .map(JsonAdaptedRemarkR::new)
-                .collect(Collectors.toList()));
         visit = source.getVisit().visit;
         recommendedNote.addAll(source.getRecommendedFood().stream()
                 .map(JsonAdaptedNote::new)
@@ -137,10 +129,7 @@ class JsonAdaptedRestaurant {
             throw new IllegalValueException(Cuisine.MESSAGE_CONSTRAINTS);
         }
         final Cuisine modelCuisine = new Cuisine(cuisine);
-        final ArrayList<Remark> modelRemark = new ArrayList<>();
-        for (JsonAdaptedRemarkR r : remark) {
-            modelRemark.add(r.toModelType());
-        }
+
         if (visit == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Visit.class.getSimpleName()));
         }
@@ -160,7 +149,7 @@ class JsonAdaptedRestaurant {
         for (JsonAdaptedNote bnote : badNote) {
             modelBadNote.add(bnote.toModelType());
         }
-        return new Restaurant(modelName, modelLocation, modelHours, modelPrice, modelCuisine, modelRemark, modelVisit,
+        return new Restaurant(modelName, modelLocation, modelHours, modelPrice, modelCuisine, modelVisit,
                 modelRecommendedNote, modelGoodNote, modelBadNote);
     }
 }
