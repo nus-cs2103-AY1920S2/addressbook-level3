@@ -18,10 +18,10 @@ public class Recurring {
     private final LocalDateTime referenceDateTime;
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Recurring should be in the format d or w, for eg: rec/d";
+            "Recurring should be in the format d or w or t, for eg: rec/d";
     public static final String MESSAGE_RECURRING_TASK_SUCCESS = "Recurring task has been reset:\n";
 
-    public static final String VALIDATION_REGEX = "[dw]";
+    public static final String VALIDATION_REGEX = "[dwt]";
     public static final DateTimeFormatter stringFormatter =
             DateTimeFormatter.ofPattern("dd/MM/yy@HH:mm");
 
@@ -54,6 +54,8 @@ public class Recurring {
             return RecurType.DAILY;
         } else if (recurringString.equals("w")) {
             return RecurType.WEEKLY;
+        } else if (recurringString.equals("t")) {
+            return RecurType.TEST;
         } else {
             throw new ParseException(Recurring.MESSAGE_CONSTRAINTS);
         }
@@ -105,12 +107,14 @@ public class Recurring {
      * testing the delay is set as 60 seconds.
      */
     public long getDelayToFirstTrigger() {
-        // long delay = Duration.between(
-        //                 LocalDateTime.now(),
-        //                 referenceDateTime.plusDays(type.getDayInterval()))
-        //         .getSeconds();
-        // return delay >= 0 ? delay * 1000 : 0;
-        return 60000l; // for testing
+        if (type == RecurType.TEST) {
+            return 60000l;
+        }
+        long delay = Duration.between(
+                        LocalDateTime.now(),
+                        referenceDateTime.plusDays(type.getDayInterval()))
+                .getSeconds();
+        return delay >= 0 ? delay * 1000 : 0;
     }
 
     /** Gets the time interval in milliseconds based on the recurring type. */

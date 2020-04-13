@@ -87,5 +87,5 @@ include::../UserGuide.adoc[tag=AutoComplete]
 |===
 
 include::../DeveloperGuide.adoc[tag=branson]
-include::../DeveloperGuide.adoc[tag=Glossary]
+include::../DeveloperGuide.adoc[tag=glossary]
 
