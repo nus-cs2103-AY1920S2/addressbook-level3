@@ -210,7 +210,7 @@ observableMap, which in turn will automatically update the corresponding `Detail
 === Model component [Tee Jun Jie Ivan]
 
 .Structure of the Model Component
-image::Ivan-ModelClassDiagram.png[width="1000"]
+image::Ivan-ModelClassDiagram.png[scaledWidth="75%"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -258,7 +258,6 @@ Benefits::
 // end::modelcomponent[]
 
 // tag::xue3[]
->>>>>>> 69350fd5e8cd187ef5d8ad99d57e2bbbf69ce9e3
 [[Design-Storage]]
 === Storage component [Sim Sheng Xue]
 
