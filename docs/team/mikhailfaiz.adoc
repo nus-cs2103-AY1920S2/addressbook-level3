@@ -22,7 +22,7 @@ it is primarily based off of the Address Book 3 application developed by the CS2
 
 === Summary of Contributions
 You can view my code contributions to this project
-https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=mikhailfaiz&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2020-04-09[on RepoSense].
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=mikhailfaiz[on RepoSense].
 
 * *Major Enhancement:* Implemented Journal page of application (with Grant)
 ** What it does: Allow users to view and manipulate the list of journal entries in the application.
@@ -36,22 +36,27 @@ sorted each time a new entry is added.
 ** Justification: Since the journal entries are not given titles, we chose not to implement a find command. However, to
 make searching for a specific entry easier, the sort command arranges the entries is a logical manner such that the user
 can easily locate a specific entry.
-** Additional details: I chose to
+** Additional details: I chose to give users the ability to input either the whole word for their chosen sort type, or
+just the first letter. This decision was made in line with the target audience of "fast typers".
 
 * *Other Contributions*
-** JUnit testing for Journal commands and functionality.
+** JUnit https://ay1920s2-cs2103t-f09-4.github.io/main/Testing.html[testing] for Journal commands and functionality.
 ** Discussed and reviewed Volant logo design with Ranice (who created the designs).
 
 === Contributions to User Guide
 ==== Sections Written
-* GUI
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#understanding-volant-s-gui-mikhail[GUI]
 ** Introduced the major components of Volant's GUI and the purpose of each of these components.
-* Pages
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#pages-in-volant-mikhail[Pages]
 ** Introduced the four pages that Volant offers and a brief overview of what each page is for.
-* Trip Commands
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#commands-for-the-trip-page-mikhail[Trip Commands]
 ** Explained what commands are available on the trip page and examples of usage of the commands.
 
 === Contributions to Developer Guide
 ==== Sections Written
-* Activity Diagrams
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#implementation-4[Activity diagram for adding trip]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#implementation-5[Activity diagram for sort entries]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#use-cases[Use cases]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#instructions-for-manual-testing[Instructions for
+manual testing]
 
