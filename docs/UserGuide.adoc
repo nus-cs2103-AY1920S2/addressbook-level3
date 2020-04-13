@@ -180,7 +180,7 @@ with Coupon Stash's <<Features, features>>! +
 Once you are ready, use the <<Clearing all entries: `clear`, `clear`>> command to clear them and start your couponing
 journey with Coupon Stash!
 
-
+[[UserInterface]]
 == User Interface
 
 In this section, we look at the key features of Coupon Stash's
@@ -373,13 +373,14 @@ Some date cells are highlighted. The following are the meanings of the various h
 .Elements in the Calendar
 image::Calendar_Elements.png[]
 
-=== Command input box
+[[CommandInputBox]]
+=== Command Input Box
 
 The command input box is the main way you will interact
-with Coupon Stash.
+with Coupon Stash. Simply type in your commands and hit kbd:[enter]!
 
 [[CommandResultBox]]
-=== Command result box
+=== Command Result Box
 
 The command result box shows you messages depending on
 whether your command was successful or not.
@@ -422,6 +423,8 @@ times)
 ****
 ====
 
+
+// tag::add[]
 === Adding a coupon: `add`
 
 Adds a coupon. Some fields like `name`, `expiry date` and `savings` are
@@ -466,7 +469,9 @@ image:ug_grabfood.png[]
 [TIP]
 If your coupon allows for unlimited usage, set the limit of the coupon to a
 number less than 1! E.g. `l/0`
+// end::add[]
 
+// tag::edit[]
 === Editing a coupon: `edit`
 
 Edits an existing coupon in the coupon book.
@@ -501,7 +506,9 @@ Edits the savings of the first coupon in the coupon list to be 50% off.
 * `edit 2 n/The Deck Nasi Ayam Hainan t/` +
 Edits the name of the second coupon in the coupon list to be The Deck Nasi Ayam Hainan and
 clears all existing tags.
+// end::edit[]
 
+// tag::delete[]
 === Deleting a coupon: `delete`
 
 Deletes the specified coupon from the Coupon Stash.
@@ -520,9 +527,9 @@ Deletes the second coupon in the coupon list.
 * `find rice` +
 `delete 1` +
 Deletes the first coupon in the resulting coupon list of the find command.
-
 // end::delete[]
 
+// tag::list[]
 === Listing coupons: `list`
 
 Shows a list of coupons in the Coupon Stash. +
@@ -560,6 +567,7 @@ Shows a list of all *archived* coupons in Coupon Stash.
 
 * `list u/` +
 Shows a list of all *used* coupons in Coupon Stash.
+// end::list[]
 
 // tag::used[]
 === Using a coupon: `used`
@@ -675,6 +683,7 @@ To keep your coupons more organized, Coupon Stash will automatically archive
 your coupons once their usage limit has been reached, or when they have expired.
 // end::archive[]
 
+// tag::unarchive[]
 === Unarchiving a coupon: `unarchive`
 Unarchive a coupon, thus bringing it back to your active coupons list.
 
@@ -694,7 +703,9 @@ Examples:
 
 * `unarchive 1` +
 Unarchive the first coupon in the coupon list.
+// end::unarchive[]
 
+// tag::find[]
 === Finding coupons by name: `find`
 
 Find coupon(s) whose names contain any of the given keywords.
@@ -728,6 +739,9 @@ in the <<Archiving a coupon: `archive`, `archive`>> are displayed **below** the
 non-archived matches.
 // Insert GIF/image
 
+// end::find[]
+
+// tag::expiring[]
 === Listing all expiring coupons: `expiring`
 
 Shows a list of all your coupons expiring on a date or during a
@@ -763,7 +777,9 @@ The `expiring` command will include <<_archiving_a_coupon_archive, archived>>
 coupons in its results too. Coupons that are expiring in the archives are
 displayed **below** the non-archived matches.
 // Insert GIF/image
+// end::expiring[]
 
+// tag::sort[]
 === Sorting coupons: `sort`
 
 Sorts the coupons in Coupon Stash in **ascending** order. It is possible to sort
@@ -799,7 +815,9 @@ Sorts the Coupon Stash by expiry date from earliest to latest.
 * `sort r/` +
 Sorts the Coupon Stash by reminder date from earliest to latest.
 
+// end::sort[]
 
+// tag::copy[]
 === Copying a coupon: `copy`
 Copies a coupon as an <<Adding a coupon: `add`, `add`>> command to your
 clipboard so that you can easily share it with your friends/family!
@@ -836,7 +854,9 @@ your clipboard.
 Copies the first coupon in the resulting coupon list of the
 <<Finding coupons by name: `find`, `find`>> command to an <<Adding a coupon: `add`, `add`>> command
 and copies it to your clipboard.
+// end::copy[]
 
+// tag::share[]
 === Sharing a coupon: `share`
 Shares a coupon as a `.png` image file (portable network graphic).
 Now you can post your coupons on your social media platforms like Instagram!
@@ -867,8 +887,9 @@ it as a `.png` file.
 Shares the first coupon in the resulting coupon list of the
 <<Finding coupons by name: `find`, `find`>> command and save it as a `.png`
 file.
+// end::share[]
 
-
+// tag::undo[]
 === Undoing the previous command: `undo`
 Undo the most recent operation on the Coupon Stash. Only operations that change
 the coupons in the Coupon Stash can be undone.
@@ -907,7 +928,9 @@ previous value.
 * `delete 1` +
   `undo` +
 Revert the <<Deleting a coupon: `delete`, `delete`>> that was performed. Deleted coupon is restored.
+// end::undo[]
 
+// tag::redo[]
 === Redoing the undone command: `redo`
 Redo the previously undone operation. This is akin to undoing an
 <<Undoing the previous command: `undo`, `undo`>>.
@@ -928,7 +951,9 @@ list is edited.
   `redo` +
 //TODO LINK
 Un-undo the `delete` command. First coupon that was in the resulting coupon list is deleted.
+// end::redo[]
 
+// tag::goto[]
 === Going to a month-year on the calendar: `goto`
 Goes to the specified month and year on the <<calendar, calendar>> by changing the month year on display. +
 
@@ -938,7 +963,9 @@ Example:
 
 * `goto my/12-2020` +
 Goes to December 2020 on the <<calendar, calendar>> by changing the month year on display to December 2020.
+// end::goto[]
 
+// tag::expand[]
 === Expanding a coupon: `expand`
 Displays a coupon in its own window, giving you a
 complete expanded view of it.
@@ -956,6 +983,7 @@ Opens the first coupon in the coupon list in a new window.
 
 .Example of an expanded coupon window
 image::expand_example.png[]
+// end::expand[]
 
 // tag::setcurrency[]
 [[setcurrency]]
@@ -981,6 +1009,7 @@ display coupons' savings, to € (Euro). The changes will
 be visible immediately.
 // end::setcurrency[]
 
+// tag::help[]
 === Viewing help: `help`
 Open a browser window that accesses an offline copy of this user guide.
 
@@ -989,7 +1018,9 @@ First run of this command may take some time as the
 program needs to extract an offline copy of the document.
 
 Format: `help`
+// end::help[]
 
+// tag::clear[]
 === Clearing all entries: `clear`
 
 Deletes every single coupon in Coupon Stash. This
@@ -1001,7 +1032,9 @@ If you clear your Coupon Stash on accident, you can
 use <<Undoing the previous command: `undo`, `undo`>> to restore
 your Coupons! Just make sure you don't close the application
 immediately after you cleared your Coupons.
+// end::clear[]
 
+// tag::exit[]
 === Exiting the program: `exit`
 
 This command immediately exits the program when entered.
