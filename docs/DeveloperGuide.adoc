@@ -410,6 +410,7 @@ image::addRestNote.png[]
 end::editRestNote[]
 
 tag::findContacts[]
+
 === Finding Contacts
 ==== Implementation
 
