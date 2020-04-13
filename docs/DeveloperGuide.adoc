@@ -2828,6 +2828,11 @@ Expected: A session starting at `14:00` and ending at `16:00` on `2020-06-20`, w
 set to recur every two weeks, will be added to the sessions list. It will be associated
 with the module `CS2103T` and be a `consultation` with Alice and Bob.
 
+.. Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
+ t/consultation n/with Alice and Bob` +
+Expected: A duplicate session will be added to the session list
+(Assuming you have entered the same command previously)
+
 [discrete]
 === Marking a session as done
 

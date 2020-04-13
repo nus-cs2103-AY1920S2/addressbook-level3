@@ -1422,6 +1422,8 @@ and timing will be added to *Session View* when it is marked as done.
 . You will find the recurring period `[w/WEEKS]` field handy for tasks that happen once every few weeks
 such as your weekly lab sessions or fortnightly assignment grading.
 
+. You can add sessions with time clashes so that you can quickly plan a session
+and correct the details later.
 ====
 
 ====
