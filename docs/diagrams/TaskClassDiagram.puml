@@ -111,7 +111,7 @@ class Reminder {
     __
     - setDelay()
     + setHasFired()
-    + static isValidReminder() 
+    + static isValidReminder()
     + static calculateDelay()
     + displayReminder()
     + toString()

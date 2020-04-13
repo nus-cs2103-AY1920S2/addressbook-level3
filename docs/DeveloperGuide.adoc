@@ -307,7 +307,7 @@ image::ReminderSequenceDiagram.png[width=790]
 
 
 === Recurring
-The user's recurring tasks functionality is twofold. Resetting the task to be unfinished after the stipulated time interval and resetting the task's reminder date according to the stipulated time interval. The behaviour for this recurring feature is mainly represented in the activity diagram below. 
+The user's recurring tasks functionality is twofold. Resetting the task to be unfinished after the stipulated time interval and resetting the task's reminder date according to the stipulated time interval. The behaviour for this recurring feature is mainly represented in the activity diagram below.
 
 .Recurring Activity Diagram
 image::RecurringActivityDiagram.png[width=790]
@@ -315,7 +315,7 @@ image::RecurringActivityDiagram.png[width=790]
 ==== Implementation
 The logic is mainly implemented in the `Recurring` class and `ModelManager` class in `seedu.address.model`, which interacts with the app’s storage system especially with respect to task storage. This `Recurring` instance is stored in `Task` as an optional field.
 
-In the `Recurring` class, whenever a task is added or edited, the recurring type is then parsed to be either daily or weekly. Afterward, based on the time the recurring attribute is added, a reference LocalDateTime is noted in the `Recurring` instance itself. This ensures that the first recurring behaviour will trigger in the given interval with respect to that referenceDateTime and following the same interval afterwards. 
+In the `Recurring` class, whenever a task is added or edited, the recurring type is then parsed to be either daily or weekly. Afterward, based on the time the recurring attribute is added, a reference LocalDateTime is noted in the `Recurring` instance itself. This ensures that the first recurring behaviour will trigger in the given interval with respect to that referenceDateTime and following the same interval afterwards.
 
 The recurring behaviour is orchestrated in `ModelManager` whenever a task is added or edited, a `setTask` method is called that will generate a `Timer` and `TimerTask`. A `TimerTask` is the logic run to update the task, namely resetting the done and the reminder accordingly. The `Timer` schedules `TimerTasks` at a fixed rate based on the the time interval chosen, if it is daily it will be every 24 hours (but for testing purposes it will be every 60 seconds) and if it is weekly it will be every 7 days. There is only 1 `Timer` for the `ModelManager` that handles the scheduling of each `TimerTask` that corresponds to every task that has a recurring behaviour. On boot the `Timer` is canceled and replaced with a new instance, subsequently all the tasks are iterated through. Every task with a recurring attribute will have a `TimerTask` generated and scheduled accordingly.
 
