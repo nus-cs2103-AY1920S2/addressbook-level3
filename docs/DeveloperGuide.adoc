@@ -961,7 +961,7 @@ Persons.
 4. If the person does not already exist, the method `SplitterModel#addPerson(Person person)` would be called to add the
 person, together with the amount, into the `PersonAmountBook#persons`.
 
-5. If the Person exists, thePerson would be retrieved from the `PersonAmountBook#persons` using the
+5. If the Person exists, the Person would be retrieved from the `PersonAmountBook#persons` using the
 `SplitterModel#getPerson(Person person)` method, and then the amount would be added to that person using the
 `SplitterModel#addAmount(Person person, Amount amount)` method.
 
