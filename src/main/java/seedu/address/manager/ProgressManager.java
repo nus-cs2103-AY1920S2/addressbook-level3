@@ -65,7 +65,7 @@ public class ProgressManager extends BaseManager {
         Set<ID> setOfAssignmentIDs = selectedCourse.getAssignedAssignmentsID();
 
         for (ID assignmentID : setOfAssignmentIDs) {
-            Progress curr = get(assignmentID, studentID);
+            Progress curr = model.getProgress(assignmentID, studentID);
             allProgressOfOneStudentInOneCourse.add(curr);
         }
 
@@ -162,18 +162,14 @@ public class ProgressManager extends BaseManager {
     }
 
     public static void markDoneOneProgressOfOneStudent(ID assignmentID, ID studentID) throws CommandException {
-        Progress targetProgress = ProgressManager.get(assignmentID, studentID);
+        Progress targetProgress = model.getProgress(assignmentID, studentID);
         targetProgress.done();
         model.set(targetProgress, targetProgress);
     }
 
     public static void markUndoneOneProgressOfOneStudent(ID assignmentID, ID studentID) throws CommandException {
-        Progress targetProgress = ProgressManager.get(assignmentID, studentID);
+        Progress targetProgress = model.getProgress(assignmentID, studentID);
         targetProgress.undone();
         model.set(targetProgress, targetProgress);
-    }
-
-    private static Progress get(ID assignmentID, ID studentID) throws CommandException {
-        return model.getProgress(assignmentID, studentID);
     }
 }
