@@ -154,7 +154,6 @@ public class ProfileManagerTest {
         assertThrows(NullPointerException.class, () -> profileManager.deleteDeadline(null));
     }
 
-
     @Test
     public void replaceDeadline_nullDeadline_throwsNullPointerException() {
         Deadline deadline = new Deadline("CS1101S", "Dummy description");
