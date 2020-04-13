@@ -637,12 +637,28 @@ In addition, we made use of Observable classes to reduce the number of times an 
 ==== Description
 The `Interviewee` class contains various fields, one of the more troublesome fields to save is the `Transcript`
 of the `Interviewee` as it contains the `RemarkList` and a `Hashmap` of `Attribute` to score, which is stored as
-`Double`. Additionally, `Interviewee `can only have `Transcript` once they have been interviewed and when the model is finalised.
+`Double`. Additionally, `Interviewee` can only have `Transcript` once they have been interviewed and when the model is finalised.
 Hence, our group decided to split the saving of the `Transcript` from other fields of the the Interviewee such as the
 name of the `Interviewee`.
 
+Furthermore, since each interviewee contains their own Transcript, which contains a list of remarks which may potentially
+become very long (if an interview lasts for an hour, there could be hundreds or thousands of remarks), it would harm performance
+if every change to the interviewee list required saving of each interviewee and their entire transcript.
+
+Note that this is also unnecessary since the only time a transcript is changed and thus saved is during an interview.
+The saving of the transcript can thus be effectively decoupled from the interviewee class.
+
+==== Implementation
+
+To achieve this, we make use of the proxy class `JsonAdaptedInterviewee` which acts as a data carrier between
+the interviewee stored in json and the actual Interviewee class. This class can be constructed from an Interviewee,
+and has a `toModelType` method which converts it back to a Interviewee.
+
+`JsonAdaptedInterviewee` does not store the transcript object. Instead it contains a boolean flag "transcript", which
+indicates if a interviewee has a transcript. This allows toModelType to load said transcript if present from a different file,
+thus restoring the orignal Interviewee, without having to save the interviewee together with the transcript.
+
 // end::storage[]
-=== Updating UI elements after user commands
 
 === Logging
 
@@ -1486,7 +1502,7 @@ Use case ends.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 interviewees without a noticeable sluggishness in performance for typical usage.
+.  Should be able to load a session containing up to 1000 interviewees and their interview transcripts within 3 seconds.
 .  Each command should be intuitively named so the interviewer can get productive with the app without constantly referencing the User Guide.
 .  The application should be easy to use even for interviewers who have never used command-line programs before.
 .  The UI design of the application should be intuitive to interviewers to navigate between the different phases of the application.
