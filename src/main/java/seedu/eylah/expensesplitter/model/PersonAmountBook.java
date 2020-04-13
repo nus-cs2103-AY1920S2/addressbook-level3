@@ -128,6 +128,10 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
         }
     }
 
+    /**
+     * This method removes all the Entries from the Receipt, as well as removes the Amount owed by each Person
+     * @param receipt
+     */
     public void deleteAllEntries(Receipt receipt) {
         requireNonNull(receipt);
         for (Entry entry : receipt.getReceipt()) {
