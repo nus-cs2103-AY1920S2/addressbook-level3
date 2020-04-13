@@ -89,23 +89,6 @@ Paths are used by the `open` and `delete` command
 We cannot open or delete the parent of the root note because it does not exist. e.g `Delete /../` will result in an error.
 // end::paths[]
 ====
-[[Markdown]]
-====
-*Markdown*
-
-* Notably supports basic GitHub Flavored Markdown (GFM) in the `BODY` content of a note
-* Currently supported syntax of GitHub Flavored Markdown in Notably consists of:
-** https://github.github.com/gfm/#atx-heading[ATX headings]
-** https://github.github.com/gfm/#paragraph[Paragraphs]
-** (Ordered list coming in v2.0) https://github.github.com/gfm/#list[Lists] and https://github.github.com/gfm/#list-items[List items]
-** (Coming in v2.0) https://github.github.com/gfm/#emphasis-and-strong-emphasis[Emphasis and strong emphasis (Simplified)]
-** (Coming in v2.0) https://github.github.com/gfm/#strikethrough-extension-[Strikethrough]
-* Specifications for GFM are specified https://github.github.com/gfm/[here]
-
-[NOTE]
-The term `Markdown` as used in this document will be a shorthand for GitHub Flavored Markdown. However, it is worth noting that by definition, they are not the same.
-
-====
 
 === View help : `help`
 
@@ -283,6 +266,54 @@ Even if you mistype, Notably tries its best to correct the typo automatically, a
 
 .Demo for the auto-correction feature
 image::demo/Correction.png[]
+
+=== Markdown (GitHub Flavored Markdown)
+
+[NOTE]
+We use the term Markdown and GitHub Flavored Markdown interchangably in this document.
+
+Notably supports basic https://guides.github.com/features/mastering-markdown/[GitHub Flavored Markdown (GFM)] as the `BODY` content of a note. By supporting Markdown, we hope to enhance your typing experience even further!
+
+Currently supported syntax of GitHub Flavored Markdown in Notably consists of:
+
+* https://github.github.com/gfm/#atx-heading[ATX headings] +
+----
+# Level 1 header
+## Level 2 header
+### Level 3 header
+#### Level 4 header
+##### Level 5 header
+###### Level 6 header
+----
+* https://github.github.com/gfm/#list[Lists] and https://github.github.com/gfm/#list-items[List items] +
+[IMPORTANT]
+Currently, only unordered lists are supported. In addition, only the hyphen `-` symbol is supported to be used as the list bullets. +
+----
+- List item
+- Another list item
+  - A nested list item
+    - A deeper nested list item
+- Last list item
+----
+* https://github.github.com/gfm/#paragraph[Paragraphs] +
+----
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Proin dictum accumsan nunc sed feugiat.
+----
+
+==== (Coming in v2.0) More complete support of Markdown syntax
+
+In our v2.0 release, we'll be supporting the following additional Markdown syntax:
+
+* https://github.github.com/gfm/#emphasis-and-strong-emphasis[Emphasis and strong emphasis] +
+----
+*This text will get italicised*
+**This text will get bold**
+----
+* https://github.github.com/gfm/#strikethrough-extension-[Strikethrough] +
+----
+~~This text will get a strikethrough treatment~~
+----
 
 == FAQ
 
