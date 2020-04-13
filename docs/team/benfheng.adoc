@@ -66,6 +66,8 @@ ExpenseLa is for money-conscious NUS students who wish to track their spending, 
 **	Contributions beyond project team:
 ***	Bug reports for other teams during mock practical assessment [https://github.com/BenFheng/ped/issues[PED issue tracker]]
 
+== Contributions to the User Guide
+
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
