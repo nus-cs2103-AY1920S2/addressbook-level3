@@ -2,7 +2,6 @@ package seedu.zerotoone.logic;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -67,7 +66,7 @@ public class Statistics {
         }
 
         // Round to nearest second
-        return totalWorkoutDuration.dividedBy(numberOfDays).truncatedTo(ChronoUnit.SECONDS);
+        return totalWorkoutDuration.dividedBy(numberOfDays);
     }
 
     /**

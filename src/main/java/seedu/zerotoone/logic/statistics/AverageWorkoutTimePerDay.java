@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import seedu.zerotoone.model.session.CompletedWorkout;
@@ -55,7 +54,7 @@ public class AverageWorkoutTimePerDay extends DataPoint {
      */
     private Duration calculateAverageTimePerSession(Duration totalWorkoutDuration, long numberOfDays) {
         // Round to nearest second
-        return totalWorkoutDuration.dividedBy(numberOfDays).truncatedTo(ChronoUnit.SECONDS);
+        return totalWorkoutDuration.dividedBy(numberOfDays);
     }
 
     /**
