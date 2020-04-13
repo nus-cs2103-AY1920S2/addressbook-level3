@@ -306,6 +306,7 @@ _Fig 10. Sequence Diagram showing how the generated schedule is retrieved_
 end::schedule[]
 
 tag::get[]
+
 === Detailed Contact Viewer
 ==== Implementation
 
@@ -334,9 +335,11 @@ image::getCommand.png[]
 * **Alternative 2:** Display selective information on the AddressBook list and the full information under get command.
 ** Pros: AddressBook list is less cluttered.
 ** Cons: Omits certain information.
+
 end::get[]
 
 tag::sortAssgn[]
+
 === Sorting of Assignments
 ==== Implementation
 
@@ -370,9 +373,11 @@ image::listAssgnCommand.png[]
 * **Alternative 2:** Ascending order
 ** Pros: User can clear more assignments faster, by completing those that takes a shorter amount of time first.
 ** Cons: User may delay starting on assignments that take longer and risk having uncompleted assignments at the deadline.
+
 end::sortAssgn[]
 
 tag::editRestNote[]
+
 === Editing of Restaurant Notes
 ==== Implementation
 
@@ -402,6 +407,7 @@ image::addRestNote.png[]
 * **Alternative 2:** Have 3 separate edit commands, one for each restaurant's note.
 ** Pros: Easier to implement.
 ** Cons: Not user-friendly since different notes cannot be edited in a single command.
+
 end::editRestNote[]
 
 === Finding Contacts
@@ -834,7 +840,7 @@ _{ more test cases ... }_
 .. Test case: `(ab)find o/NUS n/Lim` +
    Expected: If person(s) with the organization "NUS" and have the word "Lim" in the name, person(s) will be listed. The number of person listed shown in the status message.
 
-=== Retrieves a specific contact and view in full details
+=== Retrieving a specific contact and view in full details
 
 . Retrieves a person contact while all persons listed
 
@@ -886,6 +892,8 @@ Expected: All restaurants added should be displayed.
 .. Test case: `(rt)delete x` (where x is larger than the size of the restaurant list) +
    Expected: No restaurant is deleted. Error details shown in the status message.
 
+tag::manual1[]
+
 === Adding food note(s) to a restaurant
 
 . Add food note(s) to a restaurant while all restaurants are listed
@@ -914,6 +922,8 @@ Expected: All restaurants added should be displayed.
 .. Test case `(rt)deletenote 1 rl/1 gl/x bl/aaa` (where x is larger than the size of good food notes, and non-integer line number for bad food notes) +
    Expected: No restaurant's bad notes is edited. Error details shown in the status message.
 
+end::manual1[]
+
 === Search for restaurants based on a number of criteria
 
 . `(rt)find l/Clementi` +
@@ -926,6 +936,8 @@ Expected: All restaurants added should be displayed.
 .. Test case: `(st)add t/CS2105 lab d/DATETIME e/5` (where DATETIME is after the current date and time) +
    Expected: No assignment is added. Error details shown in the status message.
 
+tag::manual[]
+
 === List current assignments
 
 . Test case: `(st)list -d` +
@@ -934,6 +946,8 @@ Expected: All restaurants added should be displayed.
   Expected: Assignments will be shown according to the estimated completed time in descending order with all completed assignments at the bottom of the list.
 . Test case: `(st)list -d -e` +
   Expected: Assignments will not be sorted. Error details shown in the status message.
+
+end::manual[]
 
 === Deleting an assignment
 
