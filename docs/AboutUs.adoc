@@ -62,8 +62,8 @@ Responsibilities:
 '''
 
 === HUANG HAOYI
-image::eclmist.png[width="150", align="left"]
-{empty}[https://github.com/Eclmist[github]] [<<johndoe#, portfolio>>]
+image::eclmist.jpg[width="150", align="left"]
+{empty}[https://github.com/Eclmist[github]] [<<eclmist#, portfolio>>]
 
 Role: Developer +
 Responsibilities:
