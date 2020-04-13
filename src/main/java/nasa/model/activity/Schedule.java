@@ -87,6 +87,14 @@ public class Schedule {
     }
 
     /**
+     * Setting the type.
+     * @param type int
+     */
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    /**
      * Stop scheduling.
      */
     public void cancel() {
@@ -147,7 +155,7 @@ public class Schedule {
         } else if (type == 1) {
             return "WEEKLY";
         } else if (type == 2) {
-            return "TWICE WEEKLY";
+            return "FORTNIGHTLY";
         } else if (type == 3) {
             return "MONTHLY";
         } else {
@@ -186,7 +194,7 @@ public class Schedule {
 
     public Schedule getDeepCopy() {
         Schedule temp = new Schedule();
-        temp.setType(type, dateToRepeat);
+        temp.setType(type);
         temp.setDefaultDate(defaultDate);
         temp.setRepeatDate(dateToRepeat);
         return temp;

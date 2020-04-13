@@ -48,6 +48,10 @@ public class RepeatEventCommandParser implements Parser<RepeatEventCommand> {
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
         Index type = ParserUtil.parseZeroIndex(argMultimap.getValue(PREFIX_REPEAT).get());
 
+        if (type.getZeroBased() > 3 || type.getZeroBased() < 0) {
+            throw new ParseException("Index out of bounds, please indicate [r/0 r/1 r/2 r/3]");
+        }
+
         return new RepeatEventCommand(moduleCode, index, type);
     }
 }
