@@ -10,9 +10,6 @@ import java.util.Objects;
 public class CommandResult {
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
-
     /** The application should exit. */
     private final boolean exit;
 
@@ -22,9 +19,8 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean back) {
+    public CommandResult(String feedbackToUser, boolean exit, boolean back) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
         this.exit = exit;
         this.back = back;
     }
@@ -34,15 +30,11 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
-    }
-
-    public boolean isShowHelp() {
-        return showHelp;
     }
 
     public boolean isExit() {
@@ -66,14 +58,13 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && back == otherCommandResult.back;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, back);
+        return Objects.hash(feedbackToUser, exit, back);
     }
 
 }

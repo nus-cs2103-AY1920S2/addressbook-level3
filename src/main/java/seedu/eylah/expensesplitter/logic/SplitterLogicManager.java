@@ -13,7 +13,7 @@ import seedu.eylah.expensesplitter.model.SplitterModel;
 import seedu.eylah.expensesplitter.storage.SplitterStorage;
 
 /**
- * Logic Manager for ExpenseSpliter.
+ * Logic Manager for ExpenseSplitter.
  */
 public class SplitterLogicManager implements SplitterLogic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file";

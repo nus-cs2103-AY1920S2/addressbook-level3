@@ -15,6 +15,6 @@ public class BackCommand extends Command<DietModel> {
 
     @Override
     public CommandResult execute(DietModel dietModel) {
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
+        return new CommandResult(MESSAGE_SUCCESS, false, true);
     }
 }

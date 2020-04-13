@@ -59,6 +59,6 @@ public class HelpCommand extends Command<DietModel> {
 
     @Override
     public CommandResult execute(DietModel model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false);
+        return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
     }
 }
