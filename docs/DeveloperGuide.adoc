@@ -457,7 +457,7 @@ image::CommitActivityDiagram.png[][height = "50"]
 The following sequence diagram shows how the update operation works to change calendar page:
 
 .CalendarCommand Sequence Diagram
-image::CalendarSequenceDiagram.png[]
+image::CalendarSequenceDiagram.png[width=200%]
 
 .CalendarCommand Class Diagram
 image::CalendarClassDiagram.png[]
