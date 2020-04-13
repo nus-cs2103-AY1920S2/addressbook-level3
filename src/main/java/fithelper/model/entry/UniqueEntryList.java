@@ -154,6 +154,7 @@ public class UniqueEntryList implements Iterable<Entry> {
      * @throws IllegalValueException if sort type specified is not valid
      */
     public void sortAscending(SortBy sortBy) throws IllegalValueException {
+        requireNonNull(sortBy);
         Comparator<Entry> newComparator;
         switch (sortBy.getValue()) {
         case CALORIE:

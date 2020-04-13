@@ -534,7 +534,7 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     /**
-     * Sorts food entry list by a given criterion (calorie value or time) in either ascending or descending order.
+     * Sorts food entry list by a given criterion in either ascending or descending order.
      *
      * @param sortBy sort criterion
      * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
@@ -551,7 +551,7 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     /**
-     * Sorts sports entry list by a given criterion (calorie value or time) in either ascending or descending order.
+     * Sorts sports entry list by a given criterion in either ascending or descending order.
      *
      * @param sortBy sort criterion
      * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
