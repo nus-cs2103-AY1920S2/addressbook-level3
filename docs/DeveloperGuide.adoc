@@ -483,7 +483,7 @@ The following class diagram shows the overview of the `Scheduler`:
 .Scheduler Class Diagram
 image::developer-guide/schedule/ModelScheduleClassDiagram.png[]
 
-As seen in the diagram above, The `Scheduler` consists two lists, `ScheduleList` and `ScheduledWorkoutList`.
+As seen in the diagram above, the `Scheduler` consists two lists, `ScheduleList` and `ScheduledWorkoutList`.
 
 The `ScheduleList` contains a number of `Schedule` that the user has created, while the `ScheduledWorkoutList` is essentially a chronologically sorted list of `ScheduledWorkout` that allows JavaFX listeners to track changes when they occur.
 

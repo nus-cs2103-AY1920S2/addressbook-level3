@@ -15,11 +15,12 @@ import java.time.format.ResolverStyle;
 public class DateTime implements Comparable<DateTime> {
 
     public static final String DATE_TIME_PATTERN = "uuuu-MM-dd HH:mm";
+    public static final String DATE_TIME_PATTERN_FOR_MESSAGE = "yyyy-MM-dd HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_TIME_PATTERN).withResolverStyle(ResolverStyle.STRICT);
 
     public static final String MESSAGE_CONSTRAINTS =
-            String.format("Datetime must be valid and in the format %1$s.", DATE_TIME_PATTERN);
+            String.format("Datetime must be valid and in the format %1$s.", DATE_TIME_PATTERN_FOR_MESSAGE);
 
     private final LocalDateTime localDateTime;
 

@@ -663,7 +663,7 @@ schedule list
 ```
 
 .Display of schedule in chronological order
-image::user-guide/schedule/UgListSchedule.png[]
+image::user-guide/UgListSchedule.png[]
 
 ZeroToOne displays an intuitive chronological view, showing your upcoming schedule! From this view, you can see what workout sessions are coming up, which workout sessions are outdated, as well as their corresponding schedule IDs.
 
@@ -916,8 +916,6 @@ workout find w/<workout_name>
 workout delete WORKOUT_ID
 workout list
 workout edit WORKOUT_ID w/<workout_name>
-workout export WORKOUT_ID p/<file_path>
-workout import p/<file_path>
 ```
 
 *Schedule: schedule <command> <arguments>*
@@ -926,7 +924,6 @@ schedule create WORKOUT_ID d/<datetime>
 schedule edit SCHEDULED_WORKOUT_ID d/<datetime>
 schedule delete SCHEDULED_WORKOUT_ID
 schedule list
-schedule recurring create WORKOUT_ID d/<datetime> f/<frequency>
 ```
 
 *Log: log <command> <arguments>*
