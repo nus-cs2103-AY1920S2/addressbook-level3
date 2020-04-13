@@ -63,6 +63,14 @@ public class MainWindow extends UiPart<Stage> {
 
         this.logic = logic;
 
+        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            tabPanel.updateModuleList();
+        });
+
+        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            tabPanel.updateModuleList();
+        });
+
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -124,7 +132,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        tabPanel = new TabPanel(logic);
+        tabPanel = new TabPanel(logic, this);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
