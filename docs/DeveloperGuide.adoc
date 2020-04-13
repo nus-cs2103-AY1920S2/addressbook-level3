@@ -869,7 +869,7 @@ Use case ends.
 
 
 [appendix]
-== Non Functional Requirements [Done by Zain Alam & ]
+== Non Functional Requirements [Done by Zain Alam]
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 recipes without noticeable sluggishness in performance for typical usage.
