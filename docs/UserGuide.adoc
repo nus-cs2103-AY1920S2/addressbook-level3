@@ -20,7 +20,7 @@ By: `Naggy Joel`      Since: `Jan 2020`      Licence: `MIT`
 
 Does the name Naggy Joel sound like a very boring application? Fret not, it is actually the exact opposite! It helps you
 maximise your time to get as much fun as you can amidst your hectic work schedule. In fact, it aims to help you be the
-best friend that you can ever be!
+best friend and best student that you can ever be!
 
 Naggy Joel is for those who *prefer to use a desktop app for managing their social life*. It is an application that
 allows you to manage all aspects of your social life, ranging from your different social circles and contacts,
