@@ -160,7 +160,7 @@ There are *two* ways you can use the `add` command: +
 Format: `add m/moduleCode y/year.semester [g/grade]` +
 
 TIP: You can add multiple modules at the same time but only to the *same* year and semester. +
-To add multiple modules, just append the `m/moduleCode` tags right after another, e.g. `add m/CS1231 m/IS1130 m/MA1521 y/1.1`.
+To add multiple modules, just append the `m/moduleCode` tags right after another, e.g. `add m/CS1231 m/IS1103 m/MA1521 y/1.1`.
 
 NOTE: However, you cannot add grades when adding multiple modules.
 
@@ -185,7 +185,7 @@ NOTE: You can add up to a maximum of 10 modules per semester in *MODdy*.
 If you have not met the prerequisites of a module, you will receive a warning message as shown in Figure 6 below. You can ignore the message if you have already taken the preclusion of that prerequisite module.
 ****
 
-.Warning message shown when adding CS2030 to Year 1 Semester 1
+.Warning message shown when adding CS2030 to Year 2 Semester 2
 image::PreReq.png[width="790"]
 
 
@@ -203,6 +203,11 @@ For the tasks with no deadlines, the tag can just be `d/`, e.g. `add m/IS1103 t/
 * `d/deadline` is optional if you are only adding one task and your task has no deadline. If your task has a `Date` due but no `Time` due, just enter `d/YYYY-MM-DD` and we will set the `Time` to default (23:59).
 * You can delete a completed task using the delete feature mentioned in <<Delete, Section 4.6>>.
 ****
+
+TIP: You can add multiple tasks at once but only to the *same module*, e.g. `add m/CS1231 t/tutorial d/2020-04-20 18:00 t/assignment d/2020-04-25 23:59`. +
+
+NOTE: However, for multiple tasks, as long as one task has a deadline, all `t/task` tags have to be appended with `d/deadline` tags. +
+For the tasks with no deadlines, the tag can just be `d/`, e.g. `add m/IS1103 t/project d/2020-05-01 23:59 t/reflection d/`.
 
 Example: `add m/CS2105 t/Assignment d/2020-04-20 23:59` adds a task named "Assignment"
 with the deadline "20 April 2020 23:59" to the already-existing module CS2105, as shown in Figure 7 below.
@@ -256,11 +261,11 @@ Format: `edit m/moduleCode [y/year.semester] [g/grade]`
 
 Example: `edit m/CS2103T g/A+` edits your grade of the module CS2103T to A+, as shown in Figure 9 below.
 
-.Module detail of CS2103T edited
+.Module grade of CS2103T edited
 image::EditModule.png[width="760"]
 
 TIP: `edit m/CS2103T y/2.1 g/A+` +
-You can edit the grade of module CS2103T to A+ and change the semester module is taken in to Year 2 Semester 1 concurrently.
+You can edit the grade of module CS2103T to A+ and change the semester which the module is taken in to Year 2 Semester 1 concurrently.
 
 NOTE: If you edit a module in your current semester to another semester, all tasks associated to this module will be removed
 from the deadline panel. To bring it back, edit the module's semester back to your current semester.
@@ -272,7 +277,7 @@ Format: `edit m/moduleCode t/task [nt/newTask] [d/deadline]`
 * Fields in brackets [] are optional, but at least one of these fields should be present to be edited.
 * `t/task` represents the description of the existing task you want to edit.
 * `nt/newTask` represents the new description of the existing task.
-* `d/deadline` represents to new deadline of the existing task.
+* `d/deadline` represents the new deadline of the existing task.
 ****
 
 Example: `edit m/CS2103T t/tP Submission nt/UG and DG Submission` edits an existing CS2103T task "tP Submission" to new task name "UG and DG Submission", as shown in Figure 10 below.
@@ -370,7 +375,7 @@ If you have decided not to take a module you were planning to take, or to drop a
 
 Format: `delete m/moduleCode`
 
-You can also delete multiple modules at the same time. To delete multiple modules, just append the `m/moduleCode` tags one after another, e.g. `delete m/CS1231 m/IS1130 m/MA1521`.
+You can also delete multiple modules at the same time. To delete multiple modules, just append the `m/moduleCode` tags one after another, e.g. `delete m/CS1231 m/IS1103 m/MA1521`.
 
 Example: `delete m/CS2103T` deletes CS2103T from Year 2 Semester 2 and also removes all tasks related to CS2103T from the deadline panel, as
 shown in Figure 17 below.
