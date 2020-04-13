@@ -52,7 +52,7 @@ Given below is a quick overview of each component.
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+The `.puml` files used to create diagrams in this document can be found in the https://github.com/AY1920S2-CS2103-W14-4/main/tree/master/docs/diagrams[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 `Main` has two classes called link:https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/main/java/seedu/address/Main.java[`Main`]
