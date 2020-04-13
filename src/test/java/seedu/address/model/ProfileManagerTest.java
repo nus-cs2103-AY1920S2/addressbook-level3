@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.profile.course.module.personal.Deadline;
-import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
 //@@author gyant6
 

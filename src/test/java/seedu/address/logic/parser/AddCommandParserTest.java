@@ -146,8 +146,8 @@ public class AddCommandParserTest {
     public void parse_deadlineFieldMissing_failure() {
         String expectedMessage = "Please provide a deadline for each task!";
         // For multiple tasks
-        assertParseFailure(parser, MODCODE_DESC_AMY + TASK_DESC_AMY + DEADLINE_DESC_AMY +
-                TASK_DESC_BOB, expectedMessage);
+        assertParseFailure(parser, MODCODE_DESC_AMY + TASK_DESC_AMY + DEADLINE_DESC_AMY
+                + TASK_DESC_BOB, expectedMessage);
     }
 
 

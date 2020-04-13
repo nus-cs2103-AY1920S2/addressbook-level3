@@ -7,9 +7,21 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import static seedu.address.logic.commands.AddCommand.MESSAGE_EDIT_SUCCESS;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.commands.DeleteCommand.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_BOB;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_DEADLINE_SUCCESS;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_GRADE_FAILURE;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_GRADE_SUCCESS;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PROFILE_FAILURE;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_NOT_TAKING_MODULE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
@@ -248,7 +260,8 @@ public class DeleteCommandTest {
                 new DeleteCommand(Collections.singletonList(new ModuleCode(moduleCode)), tasks);
 
         String updateMessage = String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, moduleCode);
-        String deleteSuccess = String.format("These task(s) have been deleted: %1$s; %2$s; ", VALID_TASK_AMY, VALID_TASK_BOB);
+        String deleteSuccess = String.format("These task(s) have been deleted: %1$s; %2$s; ",
+                VALID_TASK_AMY, VALID_TASK_BOB);
         updateMessage += "\n" + deleteSuccess;
 
         try {
@@ -281,7 +294,7 @@ public class DeleteCommandTest {
         List<ModuleCode> modulesNoGrades = new ArrayList<>();
         ModuleCode moduleCodeA = new ModuleCode(VALID_MODCODE_AMY);
         String grade = "";
-        ModuleCode  moduleCodeCs = new ModuleCode("CS1101S");
+        ModuleCode moduleCodeCs = new ModuleCode("CS1101S");
         moduleCodes.add(moduleCodeA);
         moduleCodes.add(moduleCodeCs);
         modulesNoGrades.add(moduleCodeCs);

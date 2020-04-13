@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -139,7 +138,8 @@ public class AddCommandTest {
         AddCommand addCommandModules = new AddCommand(moduleCodes, semester, null, deadlines);
 
         assertThrows(CommandException.class, String.format(MESSAGE_DUPLICATE_MODULE, duplicate), () ->
-                addCommandModules.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+                addCommandModules.execute(
+                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
 
     }
 
@@ -185,7 +185,8 @@ public class AddCommandTest {
         AddCommand addCommandModules = new AddCommand(moduleCodes, semester, null, deadlines);
 
         assertThrows(CommandException.class, String.format(MESSAGE_INVALID_MODULE, invalidCodes), () ->
-                addCommandModules.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+                addCommandModules.execute(
+                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
 
     }
 
@@ -201,7 +202,8 @@ public class AddCommandTest {
         AddCommand addCommandModules = new AddCommand(moduleCodes, semester, null, deadlines);
 
         assertThrows(CommandException.class, String.format(MESSAGE_INVALID_MODULE, moduleCodes), () ->
-                addCommandModules.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+                addCommandModules.execute(
+                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
 
     }
 
@@ -312,7 +314,7 @@ public class AddCommandTest {
 
     // Duplicate tasks added
     @Test
-    public void execute_duplicateTask_Error() {
+    public void execute_duplicateTask_error() {
         ModuleCode moduleCode = new ModuleCode("CS1101S");
         int semester = new Year("1.1").getSemester();
         String task = VALID_TASK_AMY;
@@ -415,7 +417,8 @@ public class AddCommandTest {
                     new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
                     new PrereqTreeNode());
 
-            Deadline deadline = new Deadline("CS1101S", "homework", LocalDate.parse("2020-04-25"), LocalTime.parse("23:59"));
+            Deadline deadline = new Deadline("CS1101S",
+                    "homework", LocalDate.parse("2020-04-25"), LocalTime.parse("23:59"));
             ArrayList<Deadline> deadlines = new ArrayList<>();
             deadlines.add(deadline);
 
