@@ -1,7 +1,6 @@
 = Willy Seah Wee Hung - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
-:imagesDir: ../images/expense-splitter
 :stylesDir: ../stylesheets
 
 == PROJECT: EYLAH
@@ -138,9 +137,10 @@ This reduces the chances of EYLAH crashing.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=listamount]
 
 include::../UserGuide.adoc[tag=listreceipt]
+
+include::../UserGuide.adoc[tag=listamount]
 
 include::../UserGuide.adoc[tag=paid]
 
@@ -154,17 +154,22 @@ include::../UserGuide.adoc[tag=commandsummaryforexpensesplitter]
 |===
 
 
-include::../DeveloperGuide.adoc[tag=expensesplitterintro]
 
 include::../DeveloperGuide.adoc[tag=expensesplitteractivitydiagram]
 
-include::../DeveloperGuide.adoc[tag=expensesplitterlistamountcommand]
-
 include::../DeveloperGuide.adoc[tag=expensesplitterlistreceiptcommand]
+
+include::../DeveloperGuide.adoc[tag=expensesplitterlistamountcommand]
 
 include::../DeveloperGuide.adoc[tag=expensesplitterpaidcommand]
 
 include::../DeveloperGuide.adoc[tag=willyusecase]
+
+include::../DeveloperGuide.adoc[tag=willylistreceiptappendixg]
+
+include::../DeveloperGuide.adoc[tag=willylistamountappendixg]
+
+include::../DeveloperGuide.adoc[tag=willypaidappendixg]
 
 
 
