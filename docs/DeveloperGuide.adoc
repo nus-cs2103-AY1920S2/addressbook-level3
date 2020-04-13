@@ -113,6 +113,8 @@ Given below is the sequence diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 [[Design-Model]]
+
+// tag::dban1[]
 === Model component --Ng Ming Liang
 
 .Structure of the Model Component
@@ -132,6 +134,8 @@ The `Model`,
 As a more OOP model, we can choose to store a `Tag` list in `FitBiz`, which `Client` can reference. This would allow `FitBiz` to only require one `Tag` object per unique `Tag`, instead of each `Client` needing their own `Tag` object. An example of how such a model may look like is given below. For simplicity, we have omitted the rest of the attributes that `Client` has. Refer back to the diagram above for more details. +
  +
 image:BetterModelClassDiagram.png[]
+
+// end::dban1[]
 
 [[Design-Storage]]
 === Storage component
