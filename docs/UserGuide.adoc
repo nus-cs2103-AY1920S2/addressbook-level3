@@ -56,6 +56,7 @@ image::Ui-annotated.png[]
 [TIP]
 If this is your first time using FitBiz and you have just started up the application, you may realise that the *Client View* section is missing. This is because you are currently not viewing a client. Refer to <<view-c-command>> for more information about what you need to do.
 
+// tag::understanding-the-cli[]
 === Understanding the Command Line Interface (CLI) --- Aaron Choo
 
 Even though FitBiz comes with a GUI, it is mainly used to display data. Most of the user interaction occurs via the CLI, which in FitBiz is comprised of the *Command Box* and *Result Box*. We understand that CLIs have higher barriers of entry and may scare some inexperienced users away. As such, we have provided some features common to most modern CLIs to make your user experience with FitBiz much better. In this section, we shall look at the **Command History** and the **Command Autocomplete** feature, and learn how to effectively utilise them.
@@ -109,6 +110,8 @@ To autocomplete the parameter prefixes like in the first example above, you woul
 
 [NOTE]
 The autocompletion of the parameter prefixes are only for these commands: `add-c`, `add-e`, `filter-c`, `graph`, and `schedule`. Autocompletion of prefixes for edit commands are not included as we understand that most likely than not, users would only choose to edit one field at a time.
+
+// end::understanding-the-cli[]
 
 == Quick Start
 
@@ -689,6 +692,8 @@ Format: `schedule INDEX day/DAY st/STARTTIME et/ENDTIME`
 ** SUN
 * `DAY` is not case-sensitive
 
+// tag::export-command[]
+
 === Export as CSV: `export`
 
 `export` allows you to export your client's recorded exercises into a spreadsheet format which you can then easily save or share with your clients. Note that this will create a CSV file, which you can then view and open in other programmes like Microsoft Excel, or Google Sheets (as shown in the example later).
@@ -718,13 +723,14 @@ image::export-3.png[]
 +
 image::export-4.png[]
 
-
 ==== Common errors/problems
 
 If you find that you are unable to execute this command successfully, there are a few things you can check:
 
 . Ensure that you are currently viewing a client using the `view-c` command. If you are indeed viewing a client, the *Client View* should not be empty.
 . Ensure that you actually do have exercises recorded for the client currently in view using the `add-e` command. If the client does indeed have recorded exercises, the *Exercise List* should not be empty.
+
+// end::export-command[]
 
 === Filter clients based on attribute: `filter-c` --- Toh Ker Wei
 
