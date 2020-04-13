@@ -23,8 +23,8 @@ This feature is curated for our target users (NUS tech-savvy students) who often
 may find difficulty traversing all of their notes to get to a particular note. This is where `SuggestionEngine` comes in
 by giving a list of suggestions of the notes that the users want to open or delete, just by typing the first few characters of their intended note.
 ** Highlights:
-*** The `SuggestionEngine` also provides a command input line auto-fill feature. When the user presses the kbd:[↓] button to select a suggestion, followed by
-kbd:[Enter], the command input line will be auto-filled with the suggestion.
+*** The `SuggestionEngine` also provides a command input line auto-fill feature. When the user presses the `↓` button to select a suggestion, followed by
+`Enter`, the command input line will be auto-filled with the suggestion.
 *** It displays response text and suggestions (if any) for all available valid commands in Notably. The implementation was
 quite challenging as different commands require different implementation.
 
@@ -41,8 +41,8 @@ If the number of occurrences is the same, the suggestions listing will based on 
 hence giving the relevant suggestions to the user even before the user has finished typing. For instance,
 if the user types `search lect` while actually intending to find the word "lecture", Notably will still display the list of notes which
 contain the word "lecture".
-*** When the user presses the kbd:[↓] button to select the suggestion followed by kbd:[Enter], the note chosen will immediately be opened.
-The command line input is also cleared after the user pressed kbd:[Enter] in order to not clutter the UI.
+*** When the user presses the `↓` button to select the suggestion followed by `Enter`, the note chosen will immediately be opened.
+The command line input is also cleared after the user pressed `Enter` in order to not clutter the UI.
 
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=johannagwan&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
@@ -62,6 +62,7 @@ https://github.com/AY1920S2-CS2103T-W17-2/main/pull/470[#470]
 *** Updated the Search and Auto-Suggestions feature in UG: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/461[#461],
 https://github.com/AY1920S2-CS2103T-W17-2/main/pull/493[#493]
 *** Updated the `SuggestionEngine` components in DG: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/484[#484]
+*** Updated the Appendix-F for Manual Testing in DG: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/509[#509]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
