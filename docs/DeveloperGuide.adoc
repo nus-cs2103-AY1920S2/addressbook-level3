@@ -346,7 +346,7 @@ by using the `goto` command.
 
 Each `DateCell` represents each date of the month that is currently on display. Each `DateCell` uses the
 `ObservableList<Coupon>` to keep a list of the coupon(s) that expires on each date. A `DateCell` with coupon(s) expiring
-on the date are highlighted in red and a `Datecell` that represents today's date is highlighted blue.
+on the date are highlighted in red and a `Datecell` that represents the `system's date` is highlighted blue.
 
 The `ObservableList<Coupon>` is the list of filtered coupons that are currently on display in the `CouponListPanel`.
 They are obtained by calling the `Logic#getFilteredCouponList()` method. The list can be filtered to view all active,
@@ -361,8 +361,10 @@ image::CalendarClassDiagram.png[]
 
 The sequence diagrams below show how the Calendar works:
 
-.Seqeunce diagram for calendar.
+.Sequence diagram representation of the Calendar on the start up of Coupon Stash
 image::CalendarSequenceDiagram.png[]
+
+.Sequence diagram representation of the Set details of DateCell ref frame of Calendar
 image::CalendarSequenceDiagram_Ref_SetDetailsOfDateCell.png[]
 
 The two scenarios below are examples of how the Calendar mechanism behaves at
@@ -392,6 +394,7 @@ observable coupon list will not be altered and the calendar will not be altered.
 
 The following sequence diagram shows how the Calendar updates with the observable coupon list:
 
+.Sequence diagram representation of the Calendar for the "find chicken" Command
 image::CalendarFindCommandSeqDiagram.png[]
 
 ===== Updating the Calendar with a Different Month View
@@ -402,7 +405,7 @@ implemented.
 Step 1. The user launches the application for the first time.
 
 The Calendar displayed will render the saved coupon data, triggered by the initiation of the UiManager. The default
-calendar display will be set to today's month year.
+calendar display will be set to the `system's month year`.
 
 Step 2. The user executes a command that alters the `ObservableMonthView` (any command listed above).
 
@@ -421,7 +424,7 @@ month year with the command.
 year on display to September 2020.
 
 * `list` command
-** For the `list` command, the Calendar will be updated to today's month year.
+** For the `list` command, the Calendar will be updated to the `system's month year`.
 [NOTE]
 If a command fails its execution, it will not call the `ObservableMonthView#setValue(String)` method. Hence, the
 observable month view will not be altered and the calendar will not be altered.
@@ -472,34 +475,6 @@ date in the `CouponListPanel`
 Decided on alternative 1, for the calendar to update with the list in the `CouponListPanel`. This is because this
 follows the Observer Pattern Design Principle. Furthermore, this will not confuse the user when the user sees a
 highlighted date on the Calendar when there is no coupon expiring on that date in the `CouponListPanel`.
-
-=== Logging
-
-We are using `java.util.logging` package for logging.
-The `LogsCenter` class is used to manage the logging levels and logging
-destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the
-configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)`
-which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination
-of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in
-debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file
-location, logging level) through the configuration file (default:
-`config.json`).
 
 // tag::archiving[]
 [[Implementation-Coupon-Archiving]]
@@ -847,9 +822,9 @@ or
 input X amount of days before the expiry date.
 
 The following activity diagram depicts what happens when the user runs a
-`remind` command.
+`edit` command to edit the `remind date`.
 
-image::RemindActivityDiagram.png[]
+image::EditRemindActivityDiagram.png[]
 
 ==== Implementation of reminder pop up
 
@@ -1129,6 +1104,34 @@ object, rather than handle multiple different scenarios
 depending on which fields it has.
 
 // end::savings[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging.
+The `LogsCenter` class is used to manage the logging levels and logging
+destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the
+configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)`
+which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination
+of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in
+debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file
+location, logging level) through the configuration file (default:
+`config.json`).
 
 == Documentation
 
@@ -1642,7 +1645,7 @@ location. Close the window.
 
 .. Test case: `add n/Popular Bookstore e/31-12-2020 s/10%` +
 Expected: Coupon Popular Bookstore is added to the list. `Start Date` is set to
-today's date, while the Remind Date is set to 3 days before the specified
+the `system's date`, while the Remind Date is set to 3 days before the specified
 `Expiry Date`. In this case, it would be 28-12-2020.
 
 === Deleting a coupon
