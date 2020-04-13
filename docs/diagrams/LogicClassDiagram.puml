@@ -62,6 +62,8 @@ XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
 note bottom of XYZCommand : XYZCommand = AddAttributeCommand, \nFinalizeCommand, etc
+note right of CommandResult : CommandResult \nhas multiple subclasses, \neg. ToggleCommandResult, \nNavigationCommandResult, \nHelpCommandResult, \nExitCommandResult
+
 
 Command .up.> CommandResult : returns >
 Command .right.> Model : accesses and modifies >

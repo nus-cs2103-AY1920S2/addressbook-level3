@@ -155,7 +155,7 @@ link:{repoURL}/blob/master/src/main/java/hirelah/logic/Logic.java[`Logic.java`]
 .  The command execution may also call the storage to save the Model if the command modified the Model.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  The `CommandResult` object then instructs the `Ui` to perform certain actions, such as displaying the
-list of the current attribute.
+list of the current attribute. `CommandResult` is subclassed to provide polymorphism on the UI actions performed.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add attribute leadership")` API call.
 

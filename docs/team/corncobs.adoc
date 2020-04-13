@@ -67,13 +67,7 @@ include::../UserGuide.adoc[tag=FeaturesIntro]
 
 include::../UserGuide.adoc[tag=session]
 
-include::../UserGuide.adoc[tag=view]
-
 include::../UserGuide.adoc[tag=finalise]
-
-include::../UserGuide.adoc[tag=interviewPhase]
-
-include::../UserGuide.adoc[tag=prefix]
 
 == Contributions to the Developer Guide
 
