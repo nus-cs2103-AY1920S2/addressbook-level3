@@ -13,33 +13,29 @@ Sharkie is a desktop expense tracker application. The user interacts with it usi
 
 == Summary of contributions
 
-* *Major enhancement*: implemented the model layer for Wallet.
+* *Major enhancement*: implemented the model layer for Wallet https://github.com/AY1920S2-CS2103T-W12-3/main/pull/41[#41]
 ** What it does: creates the in-memory objects that are required for monetary tracking.
-// ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-// ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* *Major enhancement*: implemented the storage layer for Wallet.
+* *Major enhancement*: implemented the storage layer for Wallet https://github.com/AY1920S2-CS2103T-W12-3/main/pull/111[#111], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/154[#154]
 ** What it does: allows saving of monetary-related data.
 ** Credits: adapted from existing AddressBook code.
 
-* *Major enhancement*: implemented commands to record transactions.
+* *Major enhancement*: implemented commands to record transactions https://github.com/AY1920S2-CS2103T-W12-3/main/pull/100[#100]
 ** What it does: allows user input of monetary-related data.
 
-* *Minor enhancement*: converted money representation from double to long.
+* *Minor enhancement*: converted money representation from double to long https://github.com/AY1920S2-CS2103T-W12-3/main/pull/161[#161]
 ** This was done for accuracy in calculations, preventing floating-point errors.
 
-// * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=joel-lim[Functional & Test code]]
 
 * *Other contributions*:
 
-// ** Project management:
-// *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-// ** Enhancements to existing features:
-// *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-// *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-// ** Documentation:
-// *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-// ** Community:
+** Documentation:
+*** Updated the project README https://github.com/AY1920S2-CS2103T-W12-3/main/pull/57[#57]
+*** Updated the UG introduction, features and commands https://github.com/AY1920S2-CS2103T-W12-3/main/pull/69[#69]
+*** Added product surveys to the DG https://github.com/AY1920S2-CS2103T-W12-3/main/pull/72[#72]
+
+** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W12-3/main/pull/40[#40],
 https://github.com/AY1920S2-CS2103T-W12-3/main/pull/71[#71],
 https://github.com/AY1920S2-CS2103T-W12-3/main/pull/92[#92],
@@ -50,15 +46,7 @@ https://github.com/AY1920S2-CS2103T-W12-3/main/pull/117[#117],
 https://github.com/AY1920S2-CS2103T-W12-3/main/pull/118[#118],
 https://github.com/AY1920S2-CS2103T-W12-3/main/pull/128[#128]
 
-
-// *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-// *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-// *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-// ** Tools:
-// *** Integrated a third party library (Natty) to the project (https://github.com[#42])
-// *** Integrated a new Github plugin (CircleCI) to the team repo
-
-// _{you can add/remove categories in the list above}_
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/joel-lim/ped/issues[#1-12])
 
 == Contributions to the User Guide
 
