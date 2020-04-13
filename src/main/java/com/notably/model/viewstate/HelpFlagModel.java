@@ -19,16 +19,16 @@ public interface HelpFlagModel {
     BooleanProperty helpOpenProperty();
 
     /**
-     * Gets the flag representing whether the Help Modal should be displayed or not.
+     * Gets the flag representing whether the Help Window should be displayed or not.
      *
-     * @return A Boolean. true if the Help Model should be displayed, false otherwise.
+     * @return A Boolean. true if the Help Window should be displayed, false otherwise.
      */
     Boolean isHelpOpen();
 
     /**
-     * Sets the value for the boolean flag representing whether the Help Modal should be displayed or not.
+     * Sets the value for the boolean flag representing whether the Help Window should be displayed or not.
      *
-     * @param bool true if the Help Modal is to be displayed, false otherwise.
+     * @param bool true if the Help Window is to be displayed, false otherwise.
      */
     void setHelpOpen(Boolean bool);
 }

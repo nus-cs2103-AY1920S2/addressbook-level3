@@ -20,12 +20,12 @@ import javafx.stage.Stage;
 /**
  * Controller for a help page
  */
-public class HelpModalView extends ViewPart<Stage> {
+public class HelpWindow extends ViewPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-2.github.io/main/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
-    private static final Logger logger = LogsCenter.getLogger(HelpModalView.class);
+    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     private static Stage stage;
@@ -44,7 +44,7 @@ public class HelpModalView extends ViewPart<Stage> {
      *
      * @param root Stage to use as the root of the help modal.
      */
-    public HelpModalView(Stage root) {
+    public HelpWindow(Stage root) {
         super(FXML, root);
 
         requireAllNonNull(root);
@@ -57,7 +57,7 @@ public class HelpModalView extends ViewPart<Stage> {
     /**
      * Creates a new help modal.
      */
-    public HelpModalView() {
+    public HelpWindow() {
         this(new Stage());
     }
 

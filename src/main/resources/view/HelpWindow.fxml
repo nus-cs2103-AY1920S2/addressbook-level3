@@ -23,11 +23,11 @@
                 <URL value="@NotablyTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
-            <VBox styleClass="helpModal">
-                <HBox alignment="CENTER" styleClass="helpModal">
+            <VBox styleClass="helpWindow">
+                <HBox alignment="CENTER" styleClass="helpWindow">
                     <WebView fx:id="commandSummary" maxHeight="200" maxWidth="650" />
                 </HBox>
-                <HBox alignment="CENTER" styleClass="helpModal">
+                <HBox alignment="CENTER" styleClass="helpWindow">
                     <children>
                         <Label fx:id="helpMessage" text="Label" styleClass="helpLabel">
                             <HBox.margin>
