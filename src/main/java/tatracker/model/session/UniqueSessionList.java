@@ -40,7 +40,7 @@ public class UniqueSessionList implements Iterable<Session> {
      */
     public boolean contains(Session toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::hasTimingClash);
+        return internalList.stream().anyMatch(toCheck::isSameSession);
     }
 
     /**
