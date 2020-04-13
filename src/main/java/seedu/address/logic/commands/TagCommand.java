@@ -15,11 +15,7 @@ public class TagCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        Set<Tag> tagSet = model.getTagSet();
-        StringBuilder sb = new StringBuilder();
-        for (Tag t : tagSet) {
-            sb.append(t.toString() + "\n");
-        }
-        return new CommandResult(MESSAGE_SUCCESS + sb.toString());
+        String[] tagNames = model.getTagNames();
+        return new CommandResult(MESSAGE_SUCCESS + String.join("\n", tagNames));
     }
 }

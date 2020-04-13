@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 import seedu.address.model.tag.Tag;
@@ -57,6 +59,14 @@ public class TagSet {
                         return count - 1;
                     });
         }
+    }
+
+    public String[] getTagNames() {
+        ArrayList<String> tagNames = new ArrayList<>();
+        for (Tag t: tagCount.keySet().toArray(new Tag[0])) {
+            tagNames.add(t.toString());
+        }
+        return tagNames.toArray(new String[0]);
     }
 
     @Override

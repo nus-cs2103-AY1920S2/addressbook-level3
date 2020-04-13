@@ -61,8 +61,8 @@ public interface Model {
     /** Adds the given task. {@code task} must not already exist in the task list. */
     void addTask(Task task);
 
-    Set<Tag> getTagSet();
-
+    public String[] getTagNames();
+    
     boolean hasTag(Tag t);
 
     /**

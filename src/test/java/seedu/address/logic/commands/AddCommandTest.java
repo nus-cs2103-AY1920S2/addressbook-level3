@@ -122,7 +122,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Set<Tag> getTagSet() {
+        public String[] getTagNames() {
             throw new AssertionError("This method should not be called.");
         }
 

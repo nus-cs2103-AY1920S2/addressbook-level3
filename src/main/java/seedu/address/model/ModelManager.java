@@ -183,8 +183,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Set<Tag> getTagSet() {
-        return this.tagSet.getTags();
+    public String[] getTagNames() {
+        return this.tagSet.getTagNames();
     }
 
     @Override
