@@ -62,9 +62,7 @@ public class AchievementCard extends UiPart<Region> {
     public AchievementCard(ObservableList<Quote> quotes, ObservableList<Record> records) throws IOException {
         super(FXML);
         Date today = Date.today();
-        //System.out.println(quote.getContent());
         Random rand = new Random();
-        //System.out.print(quotes.size());
         int randomInt = rand.nextInt(quotes.size());
         this.quote = quotes.get(randomInt);
         Streak streak = new Streak(records, today);
@@ -73,7 +71,6 @@ public class AchievementCard extends UiPart<Region> {
 
         dayHeader.setText(today.getDayOfWeek() + ": " + today.toString());
         dayHeader.setStyle(weekStyleHeader);
-        System.out.println(records.size());
 
         BorderPane border = new BorderPane();
         scoreTitle.setText("Streak:");

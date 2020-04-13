@@ -291,6 +291,7 @@ when the `Recipe` is edited.
 
 .Edit sequence diagram focusing on Model
 image::EditModelSequenceDiagram.png[]
+
 ===== Design Considerations
 
 ====== Aspect: How recipes are edited
@@ -361,7 +362,7 @@ a user specified recipe index is out of bounds.
 5. Finally, we display the names of the recipes that have been newly made favourites, and the names of the recipes that
 were already favourites.
 
-Here is a sample sequence diagram that shows what happens when the user inputs `favourite 2 3`:
+Here is a sample sequence diagram that shows what happens when the user inputs `favourite 3`:
 
 .Favourite command sequence diagram
 image::FavouriteCommandSequenceDiagram.png[]
@@ -452,6 +453,10 @@ and/or 2) if the magnitude of a single commit is large (ie. the book being commi
 ** Cons: Tedious to ensure the correctness of the implementation of each individual command. Furthermore, some commands
 affect multiple books, making book-keeping even more complicated (and hence, susceptible to error).
 
+===== Future plans
+Currently, the undo and redo command is not compatible with the `quote` command and the QuoteBook. This will be a
+feature that we plan to work on beyond v1.4 so that users will be able to undo and redo the action of adding a quote!
+
 ==== Clear command
 
 
@@ -463,15 +468,33 @@ affect multiple books, making book-keeping even more complicated (and hence, sus
 // tag::recipecustomisation[]
 === Recipe customisation commands (Brian)
 The following commands: `addingredient`, `editingredient`, `deleteingredient`, `addstep`, `editstep`, and `deletestep`
-were implemented to overcome the limitations of the `edit` command. These recipe customisation commands allow the user to make targeted changes to the ingredient or step fields instead of having to rewrite the
-entire field using `edit`.
+were implemented to overcome the limitations of the `edit` command. These recipe customisation commands allow the user
+to make targeted changes to the ingredient or step fields instead of having to rewrite the entire field using `edit`.
 
 ==== Implementation
+1. The commands listed above make use of `EditRecipeDescriptor` (ERD) to add, edit, or delete ingredients or steps.
+This is done by comparing the contents of the ERD to the contents of the field to be edited and making the necessary
+changes described below (note that at this point of time, the ERD is already populated with the user's input):
 
+* If the command is `addingredient` or `addstep`, the existing ingredients or steps from the recipe will be added to
+the ERD.
 
-===== Design Considerations
-====== Aspect: TODO
-TODO
+* If the command is `editingredient` or `editstep`, the ERD will be checked against the recipe to see if the
+ingredients or step exists in the recipe. If it exists, the remaining ingredients or steps that were not changed
+will be added to the ERD. Otherwise, an exception is thrown.
+
+* If the command is `deleteingredient` or `deletestep`, the ERD will be checked against the recipe to see if the
+ingredients or step exists in the recipe. If it exists, the ERD will be re-populated with the existing ingredients or
+steps from the recipe, less the ones that were specified by the user. Otherwise, an exception is thrown.
+
+2. With the ERD fields set, the specified recipe is edited by `EditCommand#createEditedRecipe` using the ERD.
+
+3. Finally, `Model#setRecipe` will replace the old version of the recipe in RecipeBook with the newly edited one.
+`Model#commitBook` will commit the new state of the RecipeBook to the `MultipleBookStateManager` so that the user will
+be able to undo this command if he wishes to.
+
+.General activity diagram for recipe customisation commands
+image::RecipeCustomisationCommandsActivityDiagram.png[]
 
 // end::recipecustomisation[]
 
@@ -485,7 +508,7 @@ user to find recipes by their name.
 This section explains how the `filter` command is implemented.
 
 1. User specified keywords are directed to `FilterCommandParser#parse` where `ArgumentTokenizer` and
-`ArgumentMultimap` are used to parse the user input. An error will be thrown if no keywords are specified at all.
+`ArgumentMultimap` are used to parse the user input. An exception will be thrown if no keywords are specified at all.
 
 2. The parsed user input is then fed into `RecipeMatchesKeywordPredicate` where a `Predicate`, p, is created. This
 predicate will subsequently be used as the filter to get all recipes that meet the user specified criteria.
@@ -701,7 +724,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |unmotivated user |track my streak of healthy meals |motivated to keep eating healthy
 
-|`* * *` |defeatist user |look at daily quotes to remind myself |remember why I wanted to continue to be healthy
+|`* * *` |user who loses motivation easily |look at daily quotes to remind myself |remember why I wanted to continue to be healthy
 
 |`* *` |user who dislikes food wastage |see what ingredients I need to buy when I grocery shop |only buy ingredients that I will use
 

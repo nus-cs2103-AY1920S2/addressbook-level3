@@ -265,7 +265,7 @@ Deletes recipe 1, 3, and 4 from the recipe book.
 [TIP]
 You can *delete, favourite, or unfavourite* multiple recipes at the same time (at least one recipe must be selected).
 
-[tip]
+[TIP]
 If you specify a recipe number that does not exist in the list of recipes _that you are currently viewing_, none of your
 selected recipes will be deleted, favourited, or unfavourited.
 
@@ -298,6 +298,10 @@ Undoes all previous actions.
 
 [TIP]
 For both undo and redo, the number of actions that you specify (if any) has to be a non-zero unsigned integer!
+
+[TIP]
+The undo and redo command is currently not compatible with the `quote` command. This means that adding a quote is an
+irreversible action!
 
 === Redo a previous undo: `redo` (Brian)
 Restores actions that have been previously undone using `undo`.
@@ -348,6 +352,9 @@ Adds 50g of Bread and 5g of Butter to recipe 2.
 [TIP]
 You can add multiple ingredients at a time (at least one ingredient must be added).
 
+[TIP]
+If you add an ingredient that already exists in the recipe, that existing ingredient will be replaced with the new one.
+
 === Edit Ingredient Quantity in a Recipe: `editIngredient` (Brian)
 Edits the quantity of an ingredient in an existing recipe. +
 Format: `editIngredient [recipe index] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>… <io/other>...]`
@@ -373,6 +380,10 @@ You can delete multiple ingredients at a time (at least one ingredient must be d
 
 [TIP]
 There is no need to specify quantity here. Just the ingredient name will do!
+
+[TIP]
+If you type an ingredient prefix (e.g. "ig/") but don't specify any ingredients, all ingredients of that type will be
+deleted.
 
 === Add Steps to a Recipe: `addStep` (Brian)
 Adds more steps to an existing recipe. +
