@@ -728,8 +728,12 @@ To query that, after executing `select sid/ student_id`, the user needs to run
 `select sid/ student_id cid/ course-id` as well
 
 
+
 === Managing Staff Feature [Dat]
 ==== Implementation
+
+//tag::Staff[]
+
 This feature is implemented with the main classes - `Staff`, with a permission level specifying `Teacher` and `Admin`.
 
 [source,java]
