@@ -10,12 +10,12 @@ import javafx.scene.layout.VBox;
 /**
  * View of the currently open block's content.
  */
-public class BlockContent {
+public class BlockContentView {
 
     private final BlockContentDisplayView blockContentDisplayView;
     private final BlockContentEditView blockContentEditView;
 
-    public BlockContent(VBox blockContentPlaceholder, Logic logic, Model model) {
+    public BlockContentView(VBox blockContentPlaceholder, Logic logic, Model model) {
         requireAllNonNull(blockContentPlaceholder, model, logic);
 
         blockContentDisplayView = new BlockContentDisplayView(model);
