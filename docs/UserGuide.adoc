@@ -186,12 +186,11 @@ If you want to add a new note to the current working directory (currently opened
 ==== Example: Creating new notes
 . Let's first create a note (with a `TITLE`), and open it immediately after. <<New1, (Step 1)>> Type this command: +
 
-new -t Notably -o
-
+    new -t Notably -o
 
 . Now the currently open note is `Notably`. Let's add create a note to the currently opened note, <<New2, (Step 2)>> with a `TITLE` only as follows: +
 
-new -t CS2103T
+    new -t CS2103T
 
 . The new note `CS2103T` has been created successfully! <<New3, (Step 3)>> +
 
@@ -224,7 +223,7 @@ You can open an existing note by specifying its absolute or relative <<paths, pa
 ==== Example: Opening a note
 . Let's open the note `Notably` that exists in the currently opened note `Workspace` <<Open, (Step 1)>> with the command: +
 
-open -t Notably
+    open -t Notably
 
 [NOTE]
 ====
