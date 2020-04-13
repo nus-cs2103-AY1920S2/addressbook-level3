@@ -1250,7 +1250,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a client while all clients are listed
 
-.. Prerequisites: List all clients using the `list-c` command. Multiple clients in the list.
+.. Prerequisites: At least one client in the list. List all clients using the `list-c` command.
 .. Test case: `delete-c 1` +
    Expected: First client is deleted from the list. Details of the deleted client shown in the status message.
 .. Test case: `delete-c 0` +
@@ -1299,7 +1299,7 @@ Expected: Error "This phone number and/or email already exists in FitBiz." shown
 === Viewing a client
 . Viewing a client while all clients are listed
 
-.. Prerequisites: List all clients using the `list-c` command. Multiple clients in the list.
+.. Prerequisites: At least one client in the list. List all clients using the `list-c` command.
 .. Test case: `view-c 1` +
    Expected: First client is viewed from the list. Success message shows that you are currently viewing the first client.
 .. Test case: `view-c 0` +
@@ -1311,7 +1311,7 @@ Expected: Error "This phone number and/or email already exists in FitBiz." shown
 . Viewing a graph of the specified exercise while a client is in view
 
 .. Prerequisities: Have a client currently in view using the `view-c` command. Have at least one exercise in the exercise table.
-.. Test case: `graph n/Push Up a/reps sd/01-01-2020 ed/01-04-2020` +
+.. Test case: `graph n/Push Up a/reps sd/01-01-2020 ed/01-04-2020` command format is correct and no other input issues +
 Expected: Graph is displayed and success message is shown.
 .. Test case: `graph` or any other parameters missing +
 Expected: No graph displayed, error stating "Invalid command format!" with the correct usage is shown.
