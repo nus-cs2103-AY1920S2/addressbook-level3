@@ -220,7 +220,7 @@ Classes used by multiple components are in the `com.notably.commons` package.
 image::CompilerClassDiagram.png[]
 
 The `Compiler` component's primary usage is to compile Markdown to HTML.
-Our `Compiler` component's design is based off https://github.github.com/gfm[GitHub's GFM Specification].
+Our `Compiler` component's design is based off https://github.github.com/gfm/#appendix-a-parsing-strategy[the parsing strategy] explained in https://github.github.com/gfm[GitHub's GFM Specification]
 
 Mainly, the `Compiler` component consists of the following classes:
 
