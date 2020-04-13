@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Acknowledgements: Based on the AddressBook-Level3 project created by https://se-education.org[SE-EDU initiative]. +
+TA-Tracker has been created for NUS Teaching Assistants, by NUS Teaching Assistants.
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -72,3 +72,5 @@ Responsibilities:
 * Report Window Creator
 
 '''
+
+Acknowledgements: This project was based on the AddressBook-Level3 project created by https://se-education.org[SE-EDU initiative]. +
