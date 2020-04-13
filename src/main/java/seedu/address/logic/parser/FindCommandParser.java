@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_BLANK_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
@@ -110,6 +111,12 @@ public class FindCommandParser implements Parser<FindCommand> {
                 }
                 break;
             }
+        }
+
+        // if they wrote in the prefix but did not supply keywords
+        if (organizationKeywords.size() == 0 || nameKeywords.size() == 0 || tagKeywords.size() == 0) {
+            throw new ParseException(
+                    String.format(MESSAGE_BLANK_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
 
