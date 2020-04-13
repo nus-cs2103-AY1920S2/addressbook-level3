@@ -11,7 +11,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 /**
- * UI component for quote panel.
+ * UI component for hint window.
  */
 public class HintWindow extends UiPart<Region> {
 
@@ -63,7 +63,11 @@ public class HintWindow extends UiPart<Region> {
         popUp.setMaxWidth(stage.getWidth() * 3 / 4);
         popup.show(stage);
         popup.setAnchorX(stage.getX());
-        popup.setAnchorY(stage.getHeight() - 125 - popup.getHeight());
+        if (stage.isFullScreen()) {
+            popup.setAnchorY(stage.getHeight() - 125 - popup.getHeight());
+        } else {
+            popup.setAnchorY(stage.getHeight() - 100 - popup.getHeight());
+        }
     }
 
     public void hide() {

@@ -7,7 +7,7 @@ import nasa.model.View;
 
 /* @@author CharmaineKoh */
 /**
- * Lists all modules and their activity lists to the user.
+ * Switches view to specified tabPane.
  */
 public class ViewCommand extends Command {
 
@@ -36,9 +36,9 @@ public class ViewCommand extends Command {
         } else if (tabName == View.CALENDAR) {
             return new CommandResult(message,
                     false, false, false, true, false, false, CommandResult.EMPTY_BYTE_ARRAY_DATA);
-        } else{
+        } else {
             return new CommandResult(message,
-                    false, false, false,false, true, false, CommandResult.EMPTY_BYTE_ARRAY_DATA);
+                    false, false, false, false, true, false, CommandResult.EMPTY_BYTE_ARRAY_DATA);
         }
 
     }

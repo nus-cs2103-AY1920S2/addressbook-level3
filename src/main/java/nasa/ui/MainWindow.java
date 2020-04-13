@@ -35,7 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private final HintWindow hintWindow;
+    private HintWindow hintWindow;
     private QuotePanel quotePanel;
     private TabPanel tabPanel;
     private ExportQrWindow exportQrWindow;
@@ -70,7 +70,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        hintWindow = new HintWindow();
         exportQrWindow = new ExportQrWindow();
         quotePanel = new QuotePanel();
 
@@ -123,6 +122,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        hintWindow = new HintWindow();
+
         tabPanel = new TabPanel(logic);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 

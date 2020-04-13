@@ -2,8 +2,8 @@ package nasa.model;
 
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS2030;
 import static nasa.testutil.Assert.assertThrows;
-import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
-import static nasa.testutil.TypicalActivities.DEADLINE;
+import static nasa.testutil.TypicalDeadlines.CS2103T_DEADLINE;
+import static nasa.testutil.TypicalEvents.CORRECT_EVENT;
 import static nasa.testutil.TypicalModules.CS2103T;
 import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.getTypicalNasaBook;
@@ -16,10 +16,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Test;
 
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
@@ -106,24 +105,25 @@ class NasaBookTest {
     @Test
     void addDeadline() {
         nasaBook.addModule(CS2103T);
-        nasaBook.addDeadline(CS2103T.getModuleCode(), (Deadline) DEADLINE);
-        assertTrue(nasaBook.hasActivity(CS2103T.getModuleCode(), DEADLINE));
+        nasaBook.addDeadline(CS2103T.getModuleCode(), CS2103T_DEADLINE);
+        assertTrue(nasaBook.hasActivity(CS2103T.getModuleCode(), CS2103T_DEADLINE));
     }
 
     @Test
     void removeDeadline() {
         nasaBook.addModule(CS2103T);
-        nasaBook.addDeadline(CS2103T.getModuleCode(), (Deadline) DEADLINE);
-        nasaBook.removeDeadline(CS2103T.getModuleCode(), (Deadline) DEADLINE);
-        assertFalse(nasaBook.hasActivity(CS2103T.getModuleCode(), DEADLINE));
+        nasaBook.addDeadline(CS2103T.getModuleCode(), CS2103T_DEADLINE);
+
+        nasaBook.removeDeadline(CS2103T.getModuleCode(), CS2103T_DEADLINE);
+        assertFalse(nasaBook.hasActivity(CS2103T.getModuleCode(), CS2103T_DEADLINE));
     }
 
     @Test
     void removeEvent() {
         NasaBook book = new NasaBook();
         book.addModule(CS2106);
-        book.addEvent(CS2106.getModuleCode(), (Event) CORRECT_EVENT);
-        book.removeEvent(CS2106.getModuleCode(), (Event) CORRECT_EVENT);
+        book.addEvent(CS2106.getModuleCode(), CORRECT_EVENT);
+        book.removeEvent(CS2106.getModuleCode(),  CORRECT_EVENT);
         assertFalse(book.hasActivity(CS2106.getModuleCode(), CORRECT_EVENT));
     }
 

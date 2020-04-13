@@ -111,6 +111,13 @@ public class ParserUtil {
         return new Priority(priorityTrimmed);
     }
 
+    /**
+     * Parses {@code String view} into a {@code View}
+     * Checks if the String view is a valid view.
+     * @param view requested to be shown
+     * @return View to be shown
+     * @throws ParseException
+     */
     public static View parseView(String view) throws ParseException {
         requireNonNull(view);
         String viewTrimmed = view.trim();

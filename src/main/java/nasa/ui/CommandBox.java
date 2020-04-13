@@ -68,9 +68,6 @@ public class CommandBox extends UiPart<Region> {
                 }
                 break;
             default:
-                if (matchedCommand.equals(commandTextField.getText().trim().toLowerCase())) {
-                    break;
-                }
                 if (isValidCommand()) {
                     main.getHint(commandList.get(matchedCommand));
                     commandTextField.requestFocus();
@@ -88,7 +85,6 @@ public class CommandBox extends UiPart<Region> {
      */
     public boolean isValidCommand() {
         boolean isCommand = false;
-        // We match the longest command
         for (String command : commandList.keySet()) {
             if (commandTextField.getText().trim().toLowerCase().startsWith(command)) {
                 isCommand = true;
@@ -98,8 +94,6 @@ public class CommandBox extends UiPart<Region> {
         }
         return isCommand;
     }
-
-
 
 
     /**
@@ -117,7 +111,9 @@ public class CommandBox extends UiPart<Region> {
             setStyleToIndicateCommandFailure();
         } finally {
             matchedCommand = "";
-            main.hideHint();
+            if (main.isHintShowing()) {
+                main.hideHint();
+            }
         }
     }
 
