@@ -1,0 +1,78 @@
+= Lua Jia Zheng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Notably
+
+---
+
+== Overview
+
+Notably is for those who *prefer to use a desktop app for managing contacts*. More importantly, Notably is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
+
+== Summary of contributions
+
+* *Major enhancement*: Added Parser and Command of the system.
+** What it does: Integrate the features implemented by my team mate to one system and make sense of the user input.
+** Justification: This enhancement improve the user experience and is crucial to detect and prevent any unintended changes.
+** Highlights: This enhancement allow the user experience to be more intuitive and is designed similar to the terminal
+that we are familiar with. It required an in-depth analysis of the existing design alternatives.
+The implementation too was challenging as it required multiple new predicate and utility classes.
+
+* *Major enhancement*: Path data structure.
+** What it does: Allow the user different form of traversal methods (Either relative to the current directory or to the root).
+** Justification: This feature boosts the productivity of the user significantly because user can type less to traverse into a block.
+For example, the user can type `o cs2103T/tutorials/tutorial2` to open 3 nested blocks rather than typing 3 commands .
+** Highlights: This enhancement allow the user experience to be more intuitive and is designed similar to the terminal
+that we are familiar with. It required an in-depth analysis of the existing design alternatives.
+
+
+* *Minor enhancement*:
+** Add optional Prefix to enhance user experience.
+** Tested the integrated features implemented by my group members.
+** Add Logger to parser and Command to help future development.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=ljiazh3ng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ljiazh3ng&tabRepo=AY1920S2-CS2103T-W17-2%2Fmain%5Bmaster%5D[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Release Notably `v1.4` on GitHub
+** Enhancements to existing features:
+*** Rewrote complex test cases to improve test coverage significantly https://github.com/AY1920S2-CS2103T-W17-2/main/pull/291[#291]
+*** Added commonly used methods to Parser's utility class. https://github.com/AY1920S2-CS2103T-W17-2/main/pull/181[#181]
+** Documentation:
+*** Help setup the draft for User Guide https://github.com/AY1920S2-CS2103T-W17-2/main/pull/11[#11]
+*** Updated User Guide and Developer Guide
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S2-CS2103T-F09-4/main/issues/210[#210], https://github.com/AY1920S2-CS2103T-F09-4/main/issues/212[#212], https://github.com/AY1920S2-CS2103T-F09-4/main/issues/207[#07] )
+*** Some parts of the Path feature I added was adopted by several other class mates https://github.com/AY1920S2-CS2103T-W16-4/main/pull/65[#65]
+
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=paths]
+
+include::../UserGuide.adoc[tag=open]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=parser]
+
+include::../DeveloperGuide.adoc[tag=paths]
+
+include::../DeveloperGuide.adoc[tag=ScopeUser]
+
+include::../DeveloperGuide.adoc[tag=ManualTesting]
+
+
