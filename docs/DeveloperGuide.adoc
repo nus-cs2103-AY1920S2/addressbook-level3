@@ -597,7 +597,7 @@ The check function is achieved by calling the `FitHelper` inside the `ModelManag
 through either `FoodCalorieTable` or `SportsCalorieTable` for `CalorieDatum` that contain the
 keywords specified by the user.
 
-.A class diagram showing the interaction between CheckCommand, a concrete subclass of Command, and ModelManager, a concrete class implementing Model interface.
+.Class diagram showing the interaction between CheckCommand, a concrete subclass of Command, and ModelManager, a concrete class implementing Model interface.
 image::ClassDiagramForCheckCommand.png[test, 50%]
 
 Given below are example usage scenario:
