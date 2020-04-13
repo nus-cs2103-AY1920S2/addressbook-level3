@@ -637,6 +637,78 @@ up to `999,999` quantity, and there will be 1 `Date` for each good stored.
 
 //end::autoexpiry[]
 
+// tag::findtransaction[]
+
+=== Find transaction
+
+Inventory Manager has a find transaction feature which allows the user to filter transactions, so that it
+saves time for the user to look for specific transactions among the transaction history.
+
+User can provide 3 different types of filter, or combination of filters to filter the transaction list.
+These 3 types of filter are `TransactionType`, `Name` and `GoodName`.
+
+To extract out these filter specifications, `ArgumentMultimap` is needed.
+`TransactionType` will be stored in the `preamble`, `Name` will stored in the value under prefix `n/`
+and `GoodName` will be stored in the value under prefix `g/`.
+
+`FindTransactionCommandParser` will called `ArgumentMultimap` to parse the user input into respective values.
+These values will then set up filters in the `Predicate` for the model to filter the transaction list.
+
+If the user did not specify a particular type of filter, that particular type of filter will not be activated.
+The feature requires at least one filter to be able to functional.
+
+For the `Name` and `GoodName` filters, these filters can take in multiple `Name` and `GoodName` respectively.
+This means that there can be multiple `Name` keywords in the `Name` filter, and the transaction only need to match
+any of the `Name` to pass the filter. Same goes for the `GoodName` filter.
+
+NOTE: The transaction has to fulfill all active filters to be added into the filtered list.
+
+Here is a sample activity diagram that shows the general flow:
+
+image::FindTransactionActivityDiagram.png[]
+
+This feature mainly involves within `Logic`, but also require interaction with `Model` to update the filter list.
+
+Here is a sample activity diagram that shows the flow when user inputs: `find-t buy n/alice g/apple`:
+
+image::FindTransactionSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Multiple filters
+* **Alternative 1 (current choice):** Enables multiple filters to filter the transaction list
+** Pros: Enable easier and flexible search.
+** Cons: More complex to implement, need to take care of multiple cases.
+* **Alternative 2:** Decompose search function into multiple functions, each consist of single filter
+** Pros: Easier to implement, less complexity
+** Cons: More code need to be written, and the code will have high degree of duplication. Less flexible search.
+
+// end::findtransaction[]
+
+// tag::setthreshold[]
+
+=== Set threshold for good
+
+Inventory Manager has a set threshold feature which allows the user to set the threshold quantity for `goods` in `Inventory`,
+so that it can alert the user when a particular good fall below its threshold quantity.
+
+The alert mechanism is to resort the goods in the inventory such that those fall below their their threshold will be display first,
+and their current quantity will be display with red background.
+
+Every command that changes the quantity of good or set new threshold for the good in the inventory will trigger a check and update the filtered list accordingly.
+
+NOTE: By default, any newly added good in the inventory will be set with threshold quantity of zero.
+
+Here is a sample activity diagram that shows the flow when user inputs: `warn 5 q/100`:
+
+image::SetThresholdSequenceDiagram.png[]
+
+image::SetThresholdSequenceDiagram2.png[]
+
+// end::setthreshold[]
+
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

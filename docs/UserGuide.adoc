@@ -223,6 +223,10 @@ The good entry at displayed index 3 will be removed, provided there is an entry 
 Displays all the suppliers selling the specified goods, sorted in increasing price. +
 Format: `source g/GOOD_NAME`
 
+
+
+
+// tag::setthreshold[]
 === Setting minimum quantity for goods: `warn`
 
 Sets the minimum quantity threshold for a certain good.
@@ -244,6 +248,10 @@ image::UG/warn.png[width="790"]
 
 [NOTE]
 When a new good is added into the inventory, its minimum quantity threshold is set at 0.
+
+// end::setthreshold[]
+
+// tag::findtransaction[]
 
 === Locating transactions by search criteria:
 
@@ -308,6 +316,10 @@ image::UG/combination.png[width="790"]
 NOTE: The transaction related to `Noodle` is no longer shown as compare to search only by
 `Good Name`, as that transaction is a sell transaction and does not fulfill the transaction type.
 
+// end::findtransaction[]
+
+// tag::listtransaction[]
+
 === Listing all transactions : `list-t`
 Shows the list of transaction history in the inventory manager. +
 
@@ -315,6 +327,8 @@ Format: `list-t`
 
 .Demo for `list-t` command
 image::UG/list-t.png[width="790"]
+
+// end::listtransaction[]
 
 === Undoing a recently executed command: `undo`
 
