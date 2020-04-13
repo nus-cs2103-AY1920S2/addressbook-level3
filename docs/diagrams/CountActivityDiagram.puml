@@ -4,10 +4,10 @@
 start
 :User inputs Count command;
 
-If () then ([Correct command format])
+If () then ([command is valid format])
     :Count all the recipes;
     :Returns success message;
-else ([Syntax error])
+else ([else])
     :Returns failure message
     (Invalid Command);
 endif
