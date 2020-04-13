@@ -117,11 +117,13 @@ image::user-guide/UgHelp.png[]
 The about tab contains a list of all available commands that you can try.
 
 === Closing ZeroToOne
-After you have finished using the application, you can exit the application by simply entering the following command into the command box:
+After you have finished using the application, you can exit the application by closing the window or simply entering the following command into the command box:
 
-`exit`
+```
+exit
+```
 
-The application will close gracefully, and all data in the current usage completedExercise will be saved in the data directory. If the command is executed successfully, you should see the following message before the application closes:
+The application will close gracefully, and all data will be saved in the data directory. If the command is executed successfully, you should see the following message before the application closes:
 
 ```
 Thank you for using ZeroToOne! Your data has been saved successfully. Hope to see you soon for your next workout!
@@ -150,7 +152,7 @@ The User Interface will automatically switch to the “Home” tab. ZeroToOne wi
 ```
 NOTE:
 * This command assumes that you have already created a workout in the application. If you have not, refer to the section on "Managing your workouts" to create a new workout.
-* WORKOUT_ID cannot be null and should be a value from the command `workout list`.
+* WORKOUT_ID cannot be null and should be a value of a workout from the workout tab.
 ```
 
 === Completing a Set
@@ -195,7 +197,7 @@ ZeroToOne will stop the workout that is currently in progress, and save the sess
 
 
 ```
-Stopped session: Bench Press at 1 Apr 2020, 10:32:10 AM
+Stopped workout session: Push Day at 13 Apr 2020, 3:36:17 PM
 ```
 
 //end::session[]
@@ -212,7 +214,7 @@ exercise create e/<exercise_name>
 
 ```
 Example use:
-exercise create e/Bench Press
+exercise create e/squat
 ```
 
 .Created Exercise
@@ -223,7 +225,7 @@ The newly created exercise will be automatically added to the bottom of the exer
 
 ```
 NOTE:
-<exercise_name> has to be a String, consisting of only Alphanumeric characters
+<exercise_name> has to be a string, consisting of only alphanumeric characters
 ```
 
 ==== Adding a set to an exercise
@@ -312,7 +314,7 @@ exercise list
 .Exercise List
 image::user-guide/UgExerciseList.png[]
 
-The User Interface will automatically switch to the “Exercise” tab, and the result display will automatically update with the list of exercises (Figure 6).
+The User Interface will automatically switch to the “Exercise” tab, and the result display will automatically update with the list of exercises.
 
 ==== Finding an exercise by name
 
@@ -500,7 +502,7 @@ image::user-guide/UgWorkoutList.png[]
 
 ZeroToOne will show you a list of all the workouts you have created! From this list, you can see the names of all your workouts, as well as their corresponding workout IDs.
 
-==== Finding a workout by name (In Progress)
+==== Finding a workout by name
 
 You may find that you need to know a workout’s ID for some commands, or that you need to retrieve the details of a specific workout. Fret not! Simply type the following command:
 
@@ -510,10 +512,10 @@ workout find w/<workout_name>
 
 ```
 Example use:
-workout find w/Strength Training
+workout find w/Push Day
 ```
 
-.Find Workout
+//.Find Workout
 image::user-guide/UgFindWorkout.png[]
 
 ZeroToOne will return a list of all the workouts whose name matches the workout name you have typed into the command. From this command, you can find out the workout ID number of the workout you are looking for, as well as see the details of each exercise in the workout.
@@ -625,11 +627,11 @@ schedule create WORKOUT_ID d/<datetime>
 
 ```
 Example use:
-schedule create 1 d/2020-05-06 18:00
+schedule create 1 d/2020-10-06 18:00
 ```
 
 .Scheduling a workout session
-image::user-guide/schedule/UgScheduleSession.png[]
+image::user-guide/UgScheduleSession.png[]
 
 ```
 NOTE:
@@ -736,7 +738,7 @@ To view a list of all your logged completed workout sessions, simply type the fo
 log list
 ```
 
-.List of logged workout completedExercises
+.List of logged workout sessions
 image::user-guide/UgLogList.png[]
 
 ZeroToOne will display a list of all the logged workout completedExercises you have carried out. Here, you can see all the logged completedExercises as well as their corresponding log ID number.
