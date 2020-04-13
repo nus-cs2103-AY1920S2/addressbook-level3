@@ -75,6 +75,7 @@ At this stage, you should have successfully started ZeroToOne and will be able s
 
 // tag::ui[]
 == User Interface Basics
+Chi Shan
 
 Before we delve into the commands that you can use, let us first explain the components of the User Interface, and how we can navigate through them.
 
@@ -114,6 +115,8 @@ For ZeroToOne commands, every user-fillable parameter is identified by a flag pr
 
 // tag::about[]
 === Viewing App Information
+Chi Shan
+
 Can’t remember the commands off the top of your head? Fret not. ZeroToOne provides you with a convenient way to view a list of all available commands that you can try. Simply enter the following command into the command box:
 
 ```
@@ -142,6 +145,7 @@ Thank you for using ZeroToOne! Your data has been saved successfully. Hope to se
 //tag::session[]
 
 === Starting A Workout Session
+Gabriel Yeo
 
 Are you ready to start working out now? To begin a new workout session, simply enter the following command into the command box:
 
@@ -214,6 +218,8 @@ Stopped workout session: Push Day at 13 Apr 2020, 3:36:17 PM
 
 // tag::exercise[]
 === Managing Your Exercises
+Aloysius Chan
+
 The commands in this section allows you to manage your customised exercises in ZeroToOne. These exercises will eventually be the building blocks of a workout.
 
 ==== Creating a new exercise
@@ -395,6 +401,7 @@ Deleted Exercise: Deadlift
 
 // tag::workout[]
 === Managing Your Workouts
+Chi Shan
 
 After creating and modifying your exercises however you desire, it’s time to use those exercises to create workouts! In this section, we will walk you through how to manage all your workouts.
 
@@ -620,6 +627,7 @@ Successfully imported /data/myFriendsWorkout.txt as a new workout: My Friend's W
 
 // tag::schedule[]
 === Managing Your Scheduled Sessions
+Guofeng Tang
 
 You are now an expert in managing your workouts, and can start a workout any time! However, wouldn’t you like to have the ability to schedule your workout sessions? In this section, we will guide you to learn how ZeroToOne can help you in this aspect!
 
