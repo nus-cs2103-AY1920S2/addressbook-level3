@@ -330,7 +330,6 @@ footprint in such a context. Finally, the real world performance impact of
 copying all coupons vs copying one is not very huge. Thus, the more
 extensible and simpler alternative 1 was chosen.
 
-// address pros and cons
 // end::undoredo[]
 
 // tag::calendar[]
