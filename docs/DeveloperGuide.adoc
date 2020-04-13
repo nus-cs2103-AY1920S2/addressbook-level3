@@ -401,13 +401,13 @@ This operation favourites recipe 2 and 3.
 // tag::undoredo[]
 ==== Undo and Redo commands (Brian)
 The implementation of undo and redo was adapted from AB3. However, HYBB requires more book-keeping because on top
-of the `RecipeBook`, we have a `PlannedBook` and a `CookedRecordBook` to keep track of as well.
+of the `RecipeBook`, we have a `PlannedBook`, a `CookedRecordBook`, and a `QuoteBook` to keep track of as well.
 
 For brevity, we will only talk about the `undo` command. Note that the `redo` command is implemented in the same way.
 
 ===== Implementation (before undo is called)
-1. Whenever a command that changes the state of any of the books (RecipeBook, PlannedBook, or CookedRecordBook) is
-called, `Model#commitBook` is called as well.
+1. Whenever a command that changes the state of any of the books (RecipeBook, PlannedBook, CookedRecordBook, or
+QuoteBook) is called, `Model#commitBook` is called as well.
 
 2. `Model#commitBook` will first purge all redundant states in `MultipleBookStateManager` (ie. if the user called undo
 before and is now committing a new book, he will not be able to redo the actions of those undos anymore). This is the
@@ -419,7 +419,7 @@ behavior that most modern desktop applications like Microsoft Word adopt.
 Note #1: `CommandType` tells you which book(s) the command affects, while `Tab` tells you which tab should be
 displayed upon execution of the command.
 
-Note #2: All 3 ArrayLists of the 3 book types have a "current pointer" each, which points to the respective states of
+Note #2: All 4 ArrayLists of the 4 book types have a "current pointer" each, which points to the respective states of
 the books that the `Model` is currently using (ie. what the user is seeing).
 
 The following diagram summarizes what happens when the user executes a command that changes the state of any book:
@@ -432,7 +432,7 @@ image::CommitActivityDiagram.png[]
 insufficient actions to be undone.
 
 2. If able to undo, `Model#undoBook` is called. The `CommandType` stack is popped to know which book(s) need undoing.
-At the same time, the "current pointer" of the corresponding book ArrayList(s) is/are shifted backwards. All 3 books
+At the same time, the "current pointer" of the corresponding book ArrayList(s) is/are shifted backwards. All 4 books
 in `Model` are then set to the version of the book that each "current pointer" is pointing to.
 
 This class diagram shows the components of `MultipleBookStateManager`:
