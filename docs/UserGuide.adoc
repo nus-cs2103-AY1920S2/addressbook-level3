@@ -293,7 +293,7 @@ When a new good is added into the inventory, its minimum quantity threshold is s
 
 // tag::findtransaction[]
 
-=== Locating transactions by search criteria:
+=== Locating transactions by search criteria: `find-t`
 
 Display list of transactions that fulfills the given search criteria.
 

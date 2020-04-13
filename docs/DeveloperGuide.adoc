@@ -177,7 +177,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `cs2103_w14_2.inventory.commons` package.
 
 == Implementation
 
@@ -719,7 +719,7 @@ up to `999,999` quantity, and there will be 1 `Date` for each good stored.
 
 // tag::findtransaction[]
 
-=== Find transaction
+=== Find transaction (Fang Shao Hua)
 
 Inventory Manager has a find transaction feature which allows the user to filter transactions, so that it
 saves time for the user to look for specific transactions among the transaction history.
@@ -767,7 +767,7 @@ image::FindTransactionSequenceDiagram.png[]
 
 // tag::setthreshold[]
 
-=== Set threshold for good
+=== Set threshold for good (Fang Shao Hua)
 
 Inventory Manager has a set threshold feature which allows the user to set the threshold quantity for `goods` in `Inventory`,
 so that it can alert the user when a particular good fall below its threshold quantity.
