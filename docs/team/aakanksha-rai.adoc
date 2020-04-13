@@ -69,7 +69,7 @@ of a pre-existing group.
 
 I created all the classes required to test the *Student View* such as `GroupBuilder`,
 `ModuleBuilder`, `TypicalGroups`, `TypicalModules`, etc. I also wrote the tests
-for all my enhancements and have an average coverage of over 85% for my sections in the
+for all my enhancements and have an average coverage over 85% for my sections in the
 codebase. (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/232[#232],
 https://github.com/AY1920S2-CS2103T-W17-4/main/pull/345[#345],)
 
@@ -89,7 +89,7 @@ tweaks to existing contents (such as adding a table for the common parameters)
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/215[#215])
 *** Updated the User Guide and Developer Guide with details for the Student View
 and the commands used in the Student View.
-*** Added screenshots of the UI to the User Guide for all the commands
+*** Added screenshots of the UI with annotations to the User Guide for all commands
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/371[#371])
 
 ** Community:
