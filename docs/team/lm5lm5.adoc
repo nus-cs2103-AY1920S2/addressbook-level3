@@ -16,6 +16,8 @@ It is written in Java, and has about 21 kLoC.
 == Summary of contributions
 
 * *Major enhancement 1*: added the ability to *search for calorie data of common food/sports*
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/216[#216]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/249[#249]
 ** What it does: allows the user to search for calorie intake/consumption of food/sports by keywords.
 ** Justification: This feature makes it easier for the user to estimate how much calorie he/she will gain/burn
 by eating/exercising, so that he/she can create food/sports entry without the need to search online for relevant information.
@@ -27,6 +29,8 @@ loosely-matching data can be shown when strictly-matching data are not found.
 https://www.calories.info/ and https://www.nutristrategy.com/caloriesburned.htm
 
 * *Major enhancement 2*: added the ability to *sort entry and reminder list*
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/261[#261]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/306[#306]
 ** What it does: allows the application to sort and display the entries in food and/or sports entry list
 based on time/name/calorie value in ascending or descending order. The user can specify sort order and criterion.
 Note that the entries in the reminders list will also be sorted in the same manner.
@@ -38,7 +42,8 @@ which facilitates editing.
 
 * *Minor enhancement*: added and updated the Help Page,
 which shows the list of valid user commands and their usage,
-and the link to the user guide.
+and the link to the user guide https://github.com/AY1920S2-CS2103-T09-4/main/pull/181[#181]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/338[#338].
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=lm5lm5[Functional and Test code]]
 
@@ -49,14 +54,27 @@ and the link to the user guide.
 ** Team-Based tasks:
 *** Frequently performed manual testing of the application,
 and gave feedback about bugs/feature flaws to team members promptly.
+*** Review and comment team members' PR https://github.com/AY1920S2-CS2103-T09-4/main/pull/91[#91].
 ** Testing:
-*** Added test cases (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/323[#323],
-https://github.com/AY1920S2-CS2103-T09-4/main/pull/332[#332]).
+*** Added test cases https://github.com/AY1920S2-CS2103-T09-4/main/pull/323[#323]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/332[#332].
 ** Documentation:
-*** Reviewed and edited sections of the User Guide according to the change in application design and functionality
-(refer to **Contributions to the User Guide** for details)
+*** Contributed to the User Guide and Developer Guide
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/224[#224]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/262[#262]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/344[#344]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/355[#355]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/356[#356]
+*** Reviewed and edited sections of the User Guide and Developer Guide
+according to the change in application design and functionality
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/338[#338]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/339[#339]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/342[#342]
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/349[#349].
+
 ** Community:
 *** Contributed to forum discussion https://github.com/nus-cs2103-AY1920S2/forum/issues/118[#118].
+*** Reported bugs and flaws in other team's product https://github.com/lm5lm5/ped/issues[PED].
 
 == Contributions to the User Guide
 
