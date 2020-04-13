@@ -884,68 +884,78 @@ by customers), Coupon Stash automatically tracks the
 user's savings as they use their coupons that are
 handled in the application.
 
-To achieve this, Coupons have to store two different
+To achieve this, ``Coupon``s have to store two different
 fields: +
 1. Amount of savings each use of a coupon provides +
 2. Total amount of savings accumulated
 from using a certain coupon
 
-==== Class structure of Savings
+==== Class structure of `Savings`
 
 Just for reference, the image below shows the class diagram
-for the Savings class. It is compulsory for each Coupon to
-contain an Savings object, that represents what the user
+for the `Savings` class. It is compulsory for each Coupon to
+contain an `Savings` object, that represents what the user
 would gain from 1 use of that Coupon.
 
+.Class diagram describing the structure of `Savings`.
 image::SavingsClassDiagram.png[]
 
-A Savings object can hold a PercentageAmount, MonetaryAmount or
-Saveables, which represents discounts like "$5 off", "10% off"
+A Savings object can hold a `PercentageAmount`, `MonetaryAmount` or
+``Saveable``s, which represents discounts like "$5 off", "10% off"
 and "free door gift" respectively.
 
 The table below shows which are valid Savings objects, and
 which are not.
 
+.A list of different Savings objects, which could be valid or invalid.
 [cols="2"]
 |=========================================
 |Object Diagram | Comments
 a|
+.Savings with percentage amount.
 image:s1valid.png[] | Valid
 a|
+.Savings with monetary amount.
 image:s2valid.png[] | Valid
 a|
+.Savings with saveable items.
 image:s3valid.png[] | Valid
 a|
-image:s4invalid.png[] | Invalid: Savings must have at
+.Savings without any fields present.
+image:s4invalid.png[] | Invalid: `Savings` must have at
 least one field
 a|
-image:s5valid.png[] | Valid: Savings can have both a
+.Savings with percentage amount and a saveable item.
+image:s5valid.png[] | Valid: `Savings` can have both a
 percentage amount and saveables
 a|
-image:s6valid.png[] | Valid: Savings can hold more
-than one Saveable
+.Savings with monetary amount and multiple saveable items.
+image:s6valid.png[] | Valid: `Savings` can hold more
+than one `Saveable`
 a|
+.Savings with monetary amount and percentage amount.
 image:s7invalid.png[] | Invalid: Savings cannot have both a
-MonetaryAmount and PercentageAmount
+`MonetaryAmount` and `PercentageAmount`
 |=========================================
 
-As can be seen from the table, Savings cannot be completely
-empty, and Savings cannot have both a MonetaryAmount and
-PercentageAmount (it does not make much sense to have
+As can be seen from the table, `Savings` cannot be completely
+empty, and `Savings` cannot have both a `MonetaryAmount` and
+`PercentageAmount` (it does not make much sense to have
 a voucher that says "10% and $5 off").
 
-==== PureMonetarySavings and DateSavingsSumMap
+==== `PureMonetarySavings` and `DateSavingsSumMap`
 
-In order to calculate the total amount saved, Coupons also
+In order to calculate the total amount saved, ``Coupon``s also
 store information about how much the user saves, and storage
 is done at the moment the user uses the coupon. This
-information is stored in the form of PureMonetarySavings,
-which is a subclass of Savings that never holds
-PercentageAmounts. The class diagram below illustrates this.
+information is stored in the form of `PureMonetarySavings`,
+which is a subclass of `Savings` that never holds
+``PercentageAmount``s. The class diagram below illustrates this.
 
+.Class diagram describing the structure of `PureMonetarySavings`.
 image:PureMonetarySavingsClassDiagram.png[]
 
-The reason why PercentageAmounts are not allowed in
+The reason why ``PercentageAmount``s are not allowed in
 accumulated savings is because a percentage
 discount is a relative value that depends on the
 original price of the product, and cannot be easily
@@ -953,14 +963,15 @@ added up in a way that allows users to accurately
 measure how much they have saved from their coupons.
 
 [[dssm]]
-PureMonetarySavings are stored in
-a DateSavingsSumMap, which is a hash table that
-links the current date (LocalDate) to the savings
-earned (PureMonetarySavings) on that date.
-Each Coupon holds a DateSavingsSumMap. The
+`PureMonetarySavings` are stored in
+a `DateSavingsSumMap`, which is a hash table that
+links the current date (`LocalDate`) to the savings
+earned (`PureMonetarySavings`) on that date.
+Each `Coupon` holds a `DateSavingsSumMap`. The
 next image shows the class diagram of the
-DateSavingsSumMap.
+`DateSavingsSumMap`.
 
+.Class diagram describing the structure of `DateSavingsSumMap`.
 image::DateSavingsSumMapClassDiagram.png[]
 
 
@@ -975,6 +986,7 @@ Stash change depending on whether the Coupon's Savings stores
 a MonetaryAmount of PercentageAmount. The following activity diagram
 shows what happens when the user runs a used command.
 
+.Activity diagram showing the execution of a used command.
 image::UsedCommandActivityDiagram.png[]
 
 In terms of the implementation, the next two images
@@ -991,6 +1003,7 @@ set in the user preferences would be `$`, which
 makes this command a valid one that will execute
 successfully.
 
+.Sequence diagram showing how a `UsedCommand` is executed.
 image::UsedCommandSeqDiagram.png[]
 
 The money symbol set in the user preferences is
@@ -1005,6 +1018,7 @@ savings earned. The next sequence diagram shows
 how a successful `UsedCommand#execute()` method produces the new total savings
 value for the new `Coupon`.
 
+.Sequence diagram showing how `UsedCommand` updates the total savings.
 image::UsedExecutionSeqDiagram.png[]
 
 In the end, the total savings value of the `Coupon`
@@ -1018,22 +1032,23 @@ the `UsedCommand#execute()` method.
 
 ==== Implementation of saved command
 
-Now that we have seen how the used command works,
-we can look at how the saved command works. While
+Now that we have seen how the `used` command works,
+we can look at how the `saved` command works. While
 `used` stores the amount of savings that the user
 has earned on a particular day, `saved` retrieves
 the amount of savings earned as recorded by Coupon
 Stash, given a particular time period.
 
 The saved command works similarly to the used command,
-where a SavedCommandParser will be created by Logic
-to split up the raw String into its arguments,
-creating a SavedCommand. Let's look at how a SavedCommand
+where a `SavedCommandParser` will be created by `Logic`
+to split up the raw `String` into its arguments,
+creating a `SavedCommand`. Let's look at how a `SavedCommand`
 would be executed.
 
+.Sequence diagram showing the execution of a `SavedCommand`.
 image::SavedExecutionSeqDiagram.png[]
 
-Hence the SavedCommand loops through all Coupons to add
+Hence the `SavedCommand` loops through all ``Coupon``s to add
 up the savings earned from a particular time period,
 or from all dates if no time period is specified.
 
@@ -1049,12 +1064,12 @@ implementation.
 
 Alternatives:
 
-* Restrict each Savings to a concrete monetary value
+* Restrict each `Savings` to a concrete monetary value
 
-This would make the implementation of Savings much
+This would make the implementation of `Savings` much
 simpler, as there would not be a need for separate
-classes like PercentageAmount, MonetaryAmount and
-Saveables. However, this might burden the user with
+classes like `PercentageAmount`, `MonetaryAmount` and
+``Saveable``s. However, this might burden the user with
 calculating how much they would save in terms of
 dollars and cents, when many coupons and discounts
 come in the form of certain percentage reductions
@@ -1063,33 +1078,33 @@ benefits that cannot be translatable to a concrete
 monetary amount.
 
 Hence, it was decided to rely on a few different
-representations of Savings that can be earned from
-using a Coupon, as well as a Savings class that
+representations of `Savings` that can be earned from
+using a `Coupon`, as well as a `Savings` class that
 could refer to any of these representations, or
 even a logical combination of these representations.
 
-* Each Coupon stores a MonetaryAmount, PercentageAmount
-and Saveables directly
+* Each `Coupon` stores a `MonetaryAmount`, `PercentageAmount`
+and `Saveables` directly
 
 This would eliminate the need for the intermediary
-Savings class and reduce complication in the program
+`Savings` class and reduce complication in the program
 code slightly. But, it would be difficult to ensure
-that at least one such field exists in the Coupon,
-or guarantee that the Coupon would have one such field.
+that at least one such field exists in the `Coupon`,
+or guarantee that the `Coupon` would have one such field.
 
-The Coupon class would have to hold the logic for
+The `Coupon` class would have to hold the logic for
 determining whether it had a valid combination of
-MonetaryAmount, PercentageAmount and Saveables,
+`MonetaryAmount`, `PercentageAmount` and ``Saveable``s,
 which does violate Single Responsibility Principle
-as the Coupon class now has another reason to change
-(if we would want to allow both MonetaryAmount and
-PercentageAmount on a Coupon for instance).
+as the `Coupon` class now has another reason to change
+(if we would want to allow both `MonetaryAmount` and
+`PercentageAmount` on a `Coupon` for instance).
 
-Hence the Savings class was decided to handle this
+Hence the `Savings` class was decided to handle this
 responsibility, as well as abstract away the
 implementation details of the multiple possible
 values and combinations of these values. This allows
-the Coupon to think in terms of an entire Savings
+the `Coupon` to think in terms of an entire `Savings`
 object, rather than handle multiple different scenarios
 depending on which fields it has.
 
