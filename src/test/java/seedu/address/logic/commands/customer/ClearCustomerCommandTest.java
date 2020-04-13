@@ -13,7 +13,7 @@ import seedu.address.model.UserPrefs;
 public class ClearCustomerCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyInventorySystem_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -21,7 +21,7 @@ public class ClearCustomerCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyInventorySystem_success() {
         Model model = new ModelManager(getTypicalInventorySystem(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalInventorySystem(), new UserPrefs());
         expectedModel.setInventorySystem(new InventorySystem(), ClearCustomerCommand.COMMAND_WORD);
