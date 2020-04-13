@@ -266,7 +266,7 @@ Explain rationale behind using IDs
 Consideration 1
 
 Consideration 2
-
+[[entity-linking]]
 === Entity Linking - Assigning/Un-Assigning an Entity to/from a Course [Tee Jun Jie Ivan]
 
 In order to allow the tracking of the students/assignments/teachers that are assigned to a course and vice versa, this required us to implement a structure which allowed us to obtain information from the aforementioned objects, without causing any circular referencing errors.
@@ -436,10 +436,57 @@ Instead, we are looking to remove Progress objects rather than adding them back 
 ==== Marking Progress as `Done`/`Undone`
 ====== +++<u>Rationale</u>+++
 When a `Student` finishes an `Assignment` that is allocated to him, you want to be able to mark his work
-as `Done`. Similarly, if an `Assignment` has been mistakenly marked as done or
+as `Done`.
 
+Similarly, if an `Assignment` has been mistakenly marked as `Done` or is actually `Undone`, you want to be able
+to mark the `Assignment` as `Undone`.
 
+====== +++<u>Current Implementation</u>+++
+.Sequence Diagram for Progress Manager's Handling of Done Command
+image::Ivan-SequenceDiagramDoneCommand.png[]
 
+The implementation of `Done` command is very straight-forward. Only 2 parameter is needed - assignmentID (aid) and studentID (sid).
+
+. Create the CompositeID of `Progress` objects using the aid and sid
+. Obtain using this newly created compositeID, call modelManager#get(ID id, entity.type)
+.. This returns a `copy` of the `Progress` object - P'.
+. Execute `P'#done()`
+.. If `P'` is already done, an exception will be thrown
+.. Else, `P'` will be set its internal boolean isDone to be true.
+. Save the edited `Progress` object to model
+. Save the edited `Progress` object to storage
+
+With this, the implementation of `Undone` command is about the same, we just have to call `P'#undone()` instead.
+
+====== +++<u>Design Consideration</u>+++
+There were two main considerations when implementing `Progress` objects.
+
+1. Is there a need to separate `Assignment` and `Progress`?
+
+. Implementation 1 - Have `Assignment` hold 1 `StudentID` and a 1 `isDone` boolean
+Pros::
+.. Simple to implement
+Cons::
+.. Memory-intensive since every student can have up to N number of `Assignments`
+.. Suppose that a field in the `Assignment` needs to be updated, the program needs to loop through every single `Assignment` object
+to update that particular field, resulting in high computational costs.
+.. With an additional link from `Assignment` to `Student`, it will be require more work to maintain the correctness of the linking.
+... In <<entity-linking,`Section 2.3`>>, the decided implementation was to *centralize all links around `Course`*.
+... Hence, if another type of link was to be introduced, another `manager` will need to be implemented.
+
+. Implementation 2 (Current Implementation) - Separate the logic of `Assignment` and `Progress`.
+`Assignments` just need to hold its ID, name and deadline while `Progress` will handle whether a `Student` has completed that `Assignment` or not.
+
+Pros::
+.. Intuitive and simple to understand
+... In-line with Object Oriented Programming since it can be modelled as a real world object.
+... As most people have been through school, they can understand that when given a homework/assignment in school,
+there is actually only *1* `Assignment` that *every* `Student` has to complete. This idea is basically what we have implemented.
+.. Solves the first disadvantage of Implementation 1. Any time the details of the `Assignment` is changed,
+the details will be automatically changed for all `Progress` objects.
+.. Works well with current implementation of AddressBookGeneric which has `getters` and `setters` via `ID` since every `Progress` object will have its own `ID`
+Cons::
+.. Also very memory intensive
 
 === Undo/Redo [Hieu]
 
@@ -516,16 +563,15 @@ When `undo` and `redo` commands are executed, the process is carried out as desc
 ==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
 Generating of opposite commands for assign and un-assign commands is very intuitive. The opposite of assign is un-assign and vice versa.
 
-The *tricky* part comes after you un-assign a Student/Assignment from a Course and remove the affected `Progress` objects.
-When you want to undo the un-assign command, you need to add back those `Progress` objects which were just removed instead of adding new `*undone* Progress objects`.
+The *tricky* part comes after you un-assign a Student/Assignment from a Course and have removed the affected `Progress` objects.
+When you want to undo the un-assign command, you need to add back those particular `Progress` objects which were just removed instead of adding new `*undone* Progress objects`.
 This is because those removed `Progress` objects may or may not be `done`.
 
 This is achieved by 3 simple, additional steps.
 
 . When pre-processing an un-assign command as per <<Preprocess-entity, `*Step 1 of Section 2.2.2*`>>,
-you'll need to assign all `Progress` objects that are about to be removed to a variable
-. When `GenerateOppositeCommand` is called, as mentioned, the opposite command will be an `Assign` Command.
-Instead, this time you will need to instantiate a new `Assign` using the `Progress` objects that you have saved via an overloaded constructor:
+you'll need to assign all `Progress` objects that are about to be removed to a variable.
+. When `GenerateOppositeCommand` is called, via an overloaded constructor,  you will need to instantiate a new `Assign` using the `Progress` objects that you have saved:
 [source, java]
 public AssignAssignmentToCourseCommand(AssignDescriptor assignDescriptor, Set<Progress> undoProgresses)
 
