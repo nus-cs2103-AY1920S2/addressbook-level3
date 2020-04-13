@@ -86,7 +86,7 @@ Shee Xiong, the our Team's Integrations IC, went ahead and implemented it eventu
 * *Minor Enhancements*:
 
 . Modified the `bmi` command to allow a user to calculate BMI with missing input arguments of Height and Weight +
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/209[#INSERT PRS])
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/218[#218])
 
 *** *What it does:* +
 Expanded the `bmi` command to accept empty Height and Weight fields, which meant that the BmiCommand would retrieve the user's stored Height and Weight for use to
@@ -100,7 +100,8 @@ the BMI for their friends. They could use the single input format to check what 
 hit their target BMI category.
 
 . Performed defensive coding for `bmi`, `height`, and `weight` commands. +
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/352[#INSERT PR HERE])
+(Height and Weight - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/351[#351])
+(Bmi - Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/378[#378])
 
 *** *What it does:* +
 `bmi`, `height` and `weight` commands are commands in Diet Tracker,
@@ -114,7 +115,7 @@ try-catch blocks or by including limits on their values by checking them through
 Significantly reduces the chances of breaking Diet Tracker and crashing EYLAH.
 
 . Fixed the Calories bug that occurs when Calories are not in the desired range. +
-(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/352[#INSERT PR HERE])
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/354[#354])
 
 *** *What it does:* +
 Properly validates the user's Calories input for any of the Diet Tracker Commands which involve Calories.
@@ -241,24 +242,14 @@ image::DietTrackerMetricsCommandClassDiagram.png[]
 *** Adapted the given Parser and Command Design into Diet Tracker's Design for EYLAH. https://github.com/
 
 ** Documentation:
-*** Updated Developer Guide to include Bmi Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/352[#Change])
-*** Updated Developer Guide to include Height Amount Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/355[#change])
-*** Updated Developer Guide to include Weight Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/355[#change])
-*** Updated Developer Guide to include Mode Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/355[#change])
-*** Updated Developer Guide to include Metrics Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/355[#change])
-*** Updated Developer Guide Template for Diet Tracker overall (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/252[#change])
-*** Updated User Guide to include Bmi, Height, Weight, Bmi Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/349[#change])
+*** Updated Developer Guide to include Bmi, Height, Weight, Mode and Metrics Command and their diagrams (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/372[#372], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/376[#376], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/401[#401], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/404[#404])
+*** Updated Developer Guide Template for Diet Tracker overall (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/252[#372])
+*** Updated User Guide to include Bmi, Height, Weight, Mode and Metrics Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/361[#361])
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): (Pull requests: https://github.com/AY1920S2-CS2103T-W13-1/main/pull/128[#128], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/134[#134], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/135[#135], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/217[#217)],
 )
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/jarrod-bob/ped/issues)
-
-** Tools:
-
-==== Code contributed
-Please click the following link to see my code contributions dashboard.
-https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jarrod-bob[Code Report]
 
 == Contributions to the User Guide
 
@@ -308,13 +299,8 @@ include::../DeveloperGuide.adoc[tag=testing]
 
 include::../DeveloperGuide.adoc[tag=devops]
 
-== PROJECT: PowerPointLabs
-
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_
 
 Questions to ask: +
 1. Should users be able to use BMI without input, or even with just a single (Height/Weight) input? +
-2.
-3.
+2. What is different for Calories than other Classes that are stored as attributes? +
