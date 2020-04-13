@@ -1,0 +1,38 @@
+@startuml
+(*)  --> "check input"
+If "input is verbose" then
+--> [Yes] "turn on verbosity"
+--> "run command"
+else
+--> "run command"
+Endif
+-->(*)
+@enduml
+
+@startuml
+start
+:User enters "cooked 1";
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Model does not\n have recipe with the\n given recipe index])
+    :Throw exception
+    for no such recipe;
+elseif () then ([Recipe has already\n been cooked])
+    :Throw exception
+    for recipe already
+    cooked within the day;
+else ([else])
+    :Recipe successfully
+    marked as cooked;
+
+    -Recipe appears in \nhistory list of cooked\nmeals
+    if () then ([Recipe cooked \ncontains goals])
+    :Pie chart updates to \nshow new goal distribution;
+
+endif
+endif
+
+stop
+@enduml

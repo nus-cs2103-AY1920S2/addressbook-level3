@@ -24,14 +24,23 @@ Package Recipe {
     class Name
 }
 
-HiddenOutside ...> Model
-ModelManager o--> "1" CookedRecordBook
-ModelManager .up.|> Model
-ModelManager --> "1" Record : filtered list
+Package Goal {
+    class Goal
+    class GoalCount
+}
 
-CookedRecordBook *-down->"1" UniqueRecordList
-UniqueRecordList o--> "*" Record
-Record o--> "1" Name
-Record o--> "1" Date
+HiddenOutside ...> Model
+ModelManager o-- "1" CookedRecordBook
+ModelManager .up.|> Model
+ModelManager --> "1" Record : filteredRecordList
+
+CookedRecordBook *-down-"1" UniqueRecordList
+UniqueRecordList o-- "*" Record
+Record o-- "1" Name
+Record *-- "1" Date
+Record o-up- "0..4" Goal
+
+UniqueRecordList o-- "4" GoalCount
+ModelManager --> "1" GoalCount : filteredGoalsTally
 
 @enduml

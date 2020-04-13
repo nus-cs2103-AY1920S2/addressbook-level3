@@ -227,6 +227,32 @@ This section describes some noteworthy details on how certain features are imple
 
 
 ==== Switch command
+The `switch` command is facilitated by the `MainWindow`, `MainTabPanel`, `SwitchCommandParser` and `SwitchCommandParser`.
+
+The following lists in sequential order the process of how `switch` behaves with user input.
+
+*The user launches HYBB and the default start tab is set to the recipes tab.
+
+*The user now executes `switch planning` to view the planning tab.
+
+*`LogicManager` uses `RecipeBookParser#parseCommand()` to parse the input from the user upon execution of the `switch` command.
+
+*`RecipeBookParser` determines which command is being used and creates `SwitchCommandParser` to parse the input
+from the user to obtain the arguments.
+
+*`SwitchCommandParser` parses the argument and checks its validity. If it is invalid,
+`SwitchCommandParser` throws an exception and terminates. Else, it returns a `SwitchCommand` that contains a `Tab`.
+
+* `LogicManager` uses `SwitchCommand#execute()` to switch to the planning tab.
+
+* `SwitchCommand` returns a `CommandResult` to the `LogicManager` with the `Tab`. `LogicManager` then
+returns the `CommandResult` to `MainWindow`.
+
+* `MainWindow` checks if there is a change in state for `Tab` and if switching is needed. If there is, `MainWindow` uses
+`MainWindow#handleSwitchTab()` to switch tab. Else, `MainWindow` does nothing.
+
+The following activity diagram shows the flow of activites from when the `switch` command is executed.
+
 
 image::SwitchActivityDiagram.png[]
 
@@ -567,6 +593,17 @@ The immutability of each object is supported to ensure the correctness of undo a
 
 ==== Details of Implementation (Statistics of cooked recipes)
 
+.Activity diagram when a cooked command is entered
+image::CookedActivityDiagram.png[]
+
+After `CookedCommand#execute(model)` is called, the series of checks shown in the above diagram is done to determine
+if the recipe can be marked as cooked. With multiple recipes inputted (eg "`cooked` 1 2 3", the series of checks will
+loop through for for each recipe. The checks ensure that all the recipes inputted are valid, else the  `CookedCommand`
+throws an exception and terminates. If successful, a new  `Record` containing the `Name`, current `Date` and set of `Goals`
+associated with the recipe is created and `Model#addRecord(record)` would then update `CookedRecordBook` in storage.
+
+With reference to the structure of the CookedRecords Model (<<Structure of the Record Model>>),
+
 
 
 ==== Design Considerations
@@ -589,7 +626,7 @@ The immutability of each object is supported to ensure the correctness of undo a
 
 * **Alternative 2 :** Check by variety
 ** Pros: Easy to implement.
-** Cons: Not as accurate as one grain of rice would still be counted as variety.
+** Cons: Not as accurate as one grain of rice or 1 grape would still be counted as variety despite the small portion.
 // end::goals[]
 
 === Logging
