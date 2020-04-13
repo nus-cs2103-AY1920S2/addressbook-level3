@@ -267,6 +267,7 @@ The input is pass through the `LogicManager` so that we can get TaskList details
 .. Will cause `MainWindow` to call setWarning on `ResultDisplay`
 . `CompletorException`
 .. Will cause `CommandBox` to setFailure on `CommandTextField`
+[#criteria]
 
 ==== Auto Complete Overview
 .Activity diagram of auto complete
@@ -278,7 +279,6 @@ Auto completion of a word happens when either:
 . the input matches the start of a target word
 . the edit distance between the input and the target < 2.
 =====
-[#criteria]
 
 The above diagram provides a big picture overview of decisions `CommandCompletor` goes through when processing user input.
 
@@ -313,7 +313,7 @@ As seen from the activity diagram above:
 ==== Known Command UI
 
 .AutoComplete Success UI
-image::ACSuccess.png[width=600]
+image::ACsuccess.png[width=600]
 
 * `CommandTextField` is set to green
 * `CommandTextField` text is replaced by the suggested command
@@ -323,7 +323,7 @@ image::ACSuccess.png[width=600]
 ==== Unknown Command UI
 
 .AutoComplete Failure UI
-image::ACFailure.png[width=500]
+image::ACfailure.png[width=500]
 
 * `CommandTextField` is set to red
 * `CommandTextField` text is unchanged
