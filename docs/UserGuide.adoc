@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images/user-guide
+:imagesDir: images/
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
@@ -69,7 +69,7 @@ To start your ZeroToOne journey, you will have to:
 . Double-click the executable file to start the application.
 
 .ZeroToOne Main Page
-image::UgMainPage.png[]
+image::user-guide/UgMainPage.png[]
 
 At this stage, you should have successfully started ZeroToOne and will be able see the main page as described in Figure 1. If the application did not start, please refer to <<Troubleshooting>> for more information to resolve the issue. Otherwise, the next step is to begin your ZeroToOne journey, by customising your favourite workout programmes!
 
@@ -78,7 +78,7 @@ At this stage, you should have successfully started ZeroToOne and will be able s
 Before we delve into the commands that you can use, let us first explain the components of the User Interface, and how we can navigate through them.
 
 .Components of the User Interface
-image::UgUiComponents.png[]
+image::user-guide/UgUiComponents.png[]
 
 === Navigation Tabs
 The navigation tabs allow you to easily access different parts of our application. Simply click on each tab to bring you to your desired feature! The coloured underline indicates which tab is currently activated and hence which feature you are currently accessing.
@@ -116,7 +116,7 @@ help
 ```
 
 .Help Window
-image::UgHelp.png[]
+image::user-guide/UgHelp.png[]
 
 A pop-up window will appear, showing you a list of all available commands that you can try.
 
@@ -146,7 +146,7 @@ start 1
 ```
 
 .Started Workout
-image::UgStartWorkout.png[]
+image::user-guide/UgStartWorkout.png[]
 
 The User Interface will automatically switch to the “Home” tab. ZeroToOne will start displaying every exercise set in your workout, guiding you through set by set in your workout.
 
@@ -164,7 +164,7 @@ done
 ```
 
 .Done Set
-image::UgDoneSet.png[]
+image::user-guide/UgDoneSet.png[]
 
 The background color of the completed set will turn green in a few seconds, indicating that the set is successfully completed. ZeroToOne will then progress your workout forward, by starting on the next set. If you are already on your last set, ZeroToOne will automatically stop the workout completedExercise after this command is executed.
 
@@ -176,7 +176,7 @@ skip
 ```
 
 .Skipped Set
-image::UgSkippedSet.png[]
+image::user-guide/UgSkippedSet.png[]
 
 The background color of the completed set will turn red for a few seconds, indicating that the set is incomplete. ZeroToOne will then progress your workout forward, by starting on the next set. If you are already on your last set, ZeroToOne will automatically stop the workout completedExercise after this command is executed.
 
@@ -210,7 +210,7 @@ exercise create e/Bench Press
 ```
 
 .Created Exercise
-image::UgCreatedExercise.png[]
+image::user-guide/UgCreatedExercise.png[]
 
 The newly created exercise will be automatically added to the bottom of the exercise list. This exercise will not contain any sets at this point.
 
@@ -233,7 +233,7 @@ exercise set add 2 r/2 m/30
 ```
 
 .Added Exercise Set
-image::UgAddedExerciseSet.png[]
+image::user-guide/UgAddedExerciseSet.png[]
 
 The exercise set will be automatically appended to the current list of sets in the exercise. The user interface will be updated to show the edited exercise.
 
@@ -304,7 +304,7 @@ exercise list
 ```
 
 .Exercise List
-image::UgExerciseList.png[]
+image::user-guide/UgExerciseList.png[]
 
 The User Interface will automatically switch to the “Exercise” tab, and the result display will automatically update with the list of exercises (Figure 6).
 
@@ -324,7 +324,7 @@ exercise find e/Bench Press
 The Result Display will automatically update to only show exercises that match the search keyword.
 
 .Find Exercise
-image::UgFindExercise.png[]
+image::user-guide/UgFindExercise.png[]
 
 ```
 NOTE:
@@ -401,7 +401,7 @@ workout create w/Abs Workout
 ```
 
 .Creating A Workout
-image::UgCreateWorkout.png[]
+image::user-guide/UgCreateWorkout.png[]
 
 The feedback display will let you know if the creation of your workout was successful. The application view will also update to display your new workout!
 
@@ -490,7 +490,7 @@ workout list
 ```
 
 .Workout List
-image::UgWorkoutList.png[]
+image::user-guide/UgWorkoutList.png[]
 
 ZeroToOne will show you a list of all the workouts you have created! From this list, you can see the names of all your workouts, as well as their corresponding workout IDs.
 
@@ -508,7 +508,7 @@ workout find w/Strength Training
 ```
 
 .Find Workout
-image::UgFindWorkout.png[]
+image::user-guide/UgFindWorkout.png[]
 
 ZeroToOne will return a list of all the workouts whose name matches the workout name you have typed into the command. From this command, you can find out the workout ID number of the workout you are looking for, as well as see the details of each exercise in the workout.
 
@@ -623,7 +623,7 @@ schedule create 1 d/2020-05-06 18:00
 ```
 
 .Scheduling a workout session
-image::schedule/UgScheduleSession.png[]
+image::user-guide/schedule/UgScheduleSession.png[]
 
 ```
 NOTE:
@@ -640,7 +640,7 @@ schedule list
 ```
 
 .Display of schedule in chronological order
-image::schedule/UgListSchedule.png[]
+image::user-guide/schedule/UgListSchedule.png[]
 
 ZeroToOne displays an intuitive chronological view, showing your upcoming schedule! From this view, you can see what workout sessions are coming up, which workout sessions are outdated, as well as their corresponding schedule IDs.
 
@@ -731,7 +731,7 @@ log list
 ```
 
 .List of logged workout completedExercises
-image::UgLogList.png[]
+image::user-guide/UgLogList.png[]
 
 ZeroToOne will display a list of all the logged workout completedExercises you have carried out. Here, you can see all the logged completedExercises as well as their corresponding log ID number.
 
@@ -807,7 +807,7 @@ NOTE:
 ```
 
 .Graphical view of logs
-image::UgGraphicalLogs.png[]
+image::user-guide/UgGraphicalLogs.png[]
 
 ZeroToOne will display a graphical line chart that depicts your overall progress. This means you can quickly see at a glance how successful you have been in completing your completedExercises. This can help motivate you to work harder to improve, or continue maintaining your progress.
 
