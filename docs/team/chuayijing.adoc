@@ -89,7 +89,7 @@ https://github.com/AY1920S2-CS2103T-W17-4/main/pull/328[#328],)
 == Contributions to the User Guide
 We wrote a User Guide targeted at the users of TA-Tracker.
 The User Guide contains instructions on how to use the various commands
-of the application. The following is an excerpt from our TA-Tracker User Guide,
+of the application. The following is an excerpt from our User Guide,
 showing additions that I have made for `filter` and `Session` features.
 
 include::../UserGuide.adoc[tag=sessionview]

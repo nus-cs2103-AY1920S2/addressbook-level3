@@ -10,6 +10,12 @@ endif::[]
 
 === Chua Yi Jing - UML Diagrams
 
+Some sections from the explanations have been removed from this document in order
+to fit the page requirement. Please read the Developer Guide for more detailed
+explanations.
+
+---
+
 The following _Sequence Diagram_ shows the sequence of commands that take place between
 the `Logic` and `Model` components of the TA-Tracker
 when the user enters the command
@@ -45,9 +51,7 @@ b. If it does not have a recurring period, it will move on to *Step 6*.
 The _Activity Diagram_ below summarises what happens when the user executes a `filter` command:
 
 ._Activity Diagram_ of the Filter Command
-image::FilterCommandActivityDiagram.png[,1100]
-
----
+image::FilterCommandActivityDiagram.png[,650]
 
 ---
 
@@ -58,33 +62,18 @@ the `Logic` and `Model` components of the Ta-Tracker when the user enters the co
 ._Sequence Diagram_ for Filter Student Command
 image::FilterStudentSequenceDiagram.png[]
 
-Given below is an example scenario where the user enters a command to filter students.
-
-. The user command is passed through the `LogicManager` to `TaTrackerParser`.
-`TaTrackerParser` checks the input arguments and identify the String keywords.
-
-. The `TaTrackerParser` sees that the command is a type of Student and passes the command
-to the `StudentCommandParser`.
-
-. The `StudentCommandParser` sees that the command is a type of filter and passes the
-arguments to the `FilterStudentCommandParser`.
-
-. The `FilterStudentCommandParser` creates a `FilterStudentCommand` object
-with the relevant keywords.
-
-. `LogicManager` calls `FilterStudentCommand#execute()`.
-
-. The `FilterStudentCommand` object checks whether any of the keywords given by the user matches the existing
-module and/or group.
-.. If it doesn't, a `CommandException` is thrown saying that no such students exists.
-.. If it does, the `FilterStudentCommand` returns a `CommandResult` with a success message.
-
 ---
 
 The following _Class Diagram_ shows how different classes are related in the functioning of
 the `SessionFilter` Command.
 
 .Class Diagram for Filter Session Command
-image::FindCommandClassDiagram.png[]
+image::FindCommandClassDiagram.png[,400]
 
 ---
+
+[NOTE]
+====
+* The lifeline of a class in a Sequence Diagram should end at the destroy marker(X).
+However, due to a limitation of *PlantUML*, the lifeline reaches the end of the diagram.
+====
