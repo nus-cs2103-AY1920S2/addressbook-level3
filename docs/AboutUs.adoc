@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Sarah Chua
 image::nidorinas.png[width="150", align="left"]
-{empty}[http://github.com/nidorinas[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/nidorinas[github]] [<<nidorinas#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Documentation
@@ -21,7 +21,7 @@ Responsibilities: Documentation
 
 === Joel Lim
 image::hhjoel.png[width="150", align="left"]
-{empty}[http://github.com/hhjoel[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/hhjoel[github]] [<<joellimhh#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI, Intellij expert, Sourcetree expert
@@ -30,7 +30,7 @@ Responsibilities: UI, Intellij expert, Sourcetree expert
 
 === Elysia Tan
 image::elysiatanzy.png[width="150", align="left"]
-{empty}[http://github.com/ElysiaTanZY[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ElysiaTanZY[github]] [<<elysiatanzy#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Deliverables & deadlines, testing
@@ -39,7 +39,7 @@ Responsibilities: Deliverables & deadlines, testing
 
 === Kwan Xin Jie
 image::vanessa1098.png[width="150", align="left"]
-{empty}[http://github.com/Vanessa1098[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Vanessa1098[github]] [<<vanessa1098#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code quality, scheduling & tracking
