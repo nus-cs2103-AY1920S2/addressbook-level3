@@ -507,10 +507,12 @@ public class ModelManager implements Model {
      * @return the command type that represents which database is changed
      */
     public String undo() {
-        String commandType = undoStates.peek().getCommandType();
         ModelState popped = undoStates.pop();
-        redoStates.push(popped);
         currentModel = undoStates.peek();
+        String commandType = popped.getCommandType();
+        //String commandType = undoStates.peek().getCommandType();
+        //ModelState popped = undoStates.pop();
+        redoStates.push(popped);
         update();
 
         return commandType;
