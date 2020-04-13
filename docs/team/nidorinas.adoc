@@ -51,7 +51,9 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 |===
 
 include::../UserGuide.adoc[tag=eventSchedule]
+
 include::../UserGuide.adoc[tag=findCommand]
+
 include::../UserGuide.adoc[tag=findRestaurantCommand]
 
 == Contributions to the Developer Guide
