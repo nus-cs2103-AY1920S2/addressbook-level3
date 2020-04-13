@@ -1637,6 +1637,63 @@ by creating a `Statistic` object that retrieves data necessary for generating th
 //end::statistic[]
 //tag::logging[]
 
+=== System Notification - Ready for Use
+(Contributed by Haoyi)
+
+==== Overview
+
+TA-Tracker supports a cross-platform OS-level notification system. Notifications can be triggered from anywhere within TA-Tracker's code base. This feature can be used to implement time-based features in V2.0.
+
+==== Usage
+
+Notifications can be triggered via the `Notification` class. For example:
+
+```java
+Notification.sendNotification("TA Tracker", "You have a consultation scheduled in 15 minutes!", TrayIcon.MessageType.INFO);
+```
+On MacOS, the following notification will be triggered.
+
+.An Example TA-Tracker Notification on MacOS
+image::MacOSNotification.png[,500]
+
+==== Implementation
+
+Notifications are implemented with Java's `SystemTray`. A `SystemTray` object will be created when
+`Notification.sendNotification` is invoked for the first time. In order to guarantee that only one
+instance of `SystemTray` is ever created, Notifications are implemented using the defensive _Singleton_ pattern.
+
+The following _Activity Diagram_ shows an example of how a notification can be triggered.
+
+.Activity Diagram for Notification Singleton
+image::NotificationSingletonActivityDiagram.png[,400]
+
+The following is an example scenario when a seperate system requests for two seperate notifications from within TA-Tracker.
+
+.Sequence Diagram for Notification Singleton
+image::NotificationSingletonSequenceDiagram.png[,800]
+
+
+. The static `Notification.sendNotification(...)` method is invoked for the very first time.
+
+. The `Notification` class calls its own `getInstance()` function to try to locate an existing instance
+of the notification singleton object.
+
+. Since this is the first time a notification has been requested, `getInstance()` constructs the first notification
+singleton object.
+
+. A notification in then requested from the singleton.
+
+. The singleton creates and triggers an OS-level notification.
+
+. Some time later, `Notification.sendNotification(...)` is invoked again.
+
+. The `Notification` class calls its own `getInstance()` function to try to locate an existing instance
+of the notification singleton object.
+
+. Since the singleton already exists, a notification is requested directly from the existing singleton.
+
+. The singleton creates and triggers the second OS-level notification.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
