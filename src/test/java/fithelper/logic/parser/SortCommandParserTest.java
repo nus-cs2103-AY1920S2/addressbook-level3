@@ -118,7 +118,7 @@ public class SortCommandParserTest {
         assertParseSuccess(parser, WHITE_SPACE + PREFIX_TYPE + SPORTS
                         + WHITE_SPACE + PREFIX_SORT_BY + NAME
                         + WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING
-                        + WHITE_SPACE + PREFIX_TYPE + FOOD_ACRONYM 
+                        + WHITE_SPACE + PREFIX_TYPE + FOOD_ACRONYM
                         + WHITE_SPACE + PREFIX_TYPE + SPORTS_ACRONYM,
                 new SortCommand(new Type(SPORTS), new SortBy(NAME), true));
     }
