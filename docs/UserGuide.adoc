@@ -57,36 +57,50 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Paths*
 
-* `Paths` are used to specify the directory you want `Commands` to be executed.
+* `Paths` are used to specify the location of a note you want the `Command` to be pointed at.
 * There are 2 types of  `Path` namely:
 - AbsolutePath (which takes reference from the root)
-- RelativePath (which takes reference from the current directory)
-
-The Relative Path operates similarly to the command line input that you may be familiar with.
-Listed below are the notations used to define a relative path.
-
-* `..` (Move to parent note)
-* `exampleNote` (Move to child node titled "exampleNote")
+- RelativePath (which takes reference from the current note)
 
 [NOTE]
-The title of a Note can take in alphanumeric variables, symbols (except ` and -) and spaces.
+`/` represents a root note
+
+The `RelativePath` operates similarly to the command line input that you may be familiar with.
+Listed below are the notations used to define a `RelativePath`.
+
+* `.` (Point to current note)
+* `..` (Point to parent note)
+* `exampleNote` (Point to child node)
+
+**Validity of Paths**
+
+- AbsolutePath
+** Must start with the root note.
+** After every `/` you can provide a `Title` <<TitleValidity, (Valid Title)>>.
+** `/Workspace/2103T` is a valid `AbsolutePath`, `Workspace/2103T` is not.
+
+- Relative Path
+** Starts with `.` or `..` or a Title <<TitleValidity, (Valid Title)>>.
+** `./CS2103T/../CS2101`  is a valid `RelativePath`.
 
 **Example**
 
 The picture below helps to illustrate the use of `RelativePath` and `AbsolutePath`
 
 .DataStructure example to illustrate Path
-image::PathExample1.png[width="790"]
+image::UGPathDiagram.png[width="790"]
 
-The `AbsolutePath` `/CS2101` is equivalent to `RelativePath` `../CS2101`
 
-Thus `open /CS2101` and `open ../CS2101` would yield the same result.
+The `AbsolutePath` `/Workspace/CS2101` is equivalent to `RelativePath` `../CS2101`
+
+Thus `open /Workspace/CS2101` and `open ../CS2101` would yield the same result.
 
 [NOTE]
 Paths are used by the `open` and `delete` command
 
 [WARNING]
-We cannot open or delete the parent of the root note because it does not exist. e.g `Delete /../` will result in an error.
+We cannot open or delete the parent of the root note because it does not exist.
+Taking example from Figure 2 above, `Delete ../..` will result in an error.
 // end::paths[]
 ====
 
@@ -115,6 +129,7 @@ If you want to add a new note to the current working directory (currently opened
 
 *Format:* `new -t TITLE [-o]`
 
+[[TitleValidity]]
 [IMPORTANT]
 ====
 * The `TITLE` for the note MUST be specified.
