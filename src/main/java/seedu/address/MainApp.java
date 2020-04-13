@@ -17,6 +17,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.StatisticsManager;
+import seedu.address.model.InvalidPetException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Pet;
@@ -109,9 +110,9 @@ public class MainApp extends Application {
 
         model.setStatisticsManager(statisticsManager);
 
-        model.addObserver(logic);
-
         ui = new UiManager(logic, pomodoroManager, petManager, statisticsManager);
+
+        model.addObserver(ui);
     }
 
     /**
@@ -161,6 +162,9 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning(
                     "Problem while reading from the file. Will be starting with an empty Pet");
+            initialPet = new Pet();
+        } catch (InvalidPetException e) {
+            logger.warning(String.format("%s. Will be starting with an empty Pet", e.toString()));
             initialPet = new Pet();
         }
 

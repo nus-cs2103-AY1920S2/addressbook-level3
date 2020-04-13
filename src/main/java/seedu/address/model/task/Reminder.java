@@ -71,11 +71,15 @@ public class Reminder implements Comparable {
         this.hasFired = true;
     }
 
+    /** Gets the hasFired boolean attribute */
+    public boolean getHasFired() {
+        return hasFired;
+    }
+
     /**
      * Boolean check valid reminder when parsing the string input from the user.
      *
      * @param dateTimeString
-     * @return
      */
     public static boolean isValidReminder(String dateTimeString) {
         try {
