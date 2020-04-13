@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CompletorException;
@@ -18,7 +18,7 @@ import seedu.address.logic.parser.SortCommandParser;
  * users.
  */
 public class CommandCompletor {
-    private Set<String> commands = new HashSet<>();
+    private List<String> commands = new ArrayList<>();
 
     /** Add all available commands */
     public CommandCompletor() {
@@ -33,16 +33,20 @@ public class CommandCompletor {
         this.commands.add(HelpCommand.COMMAND_WORD);
         this.commands.add(ExitCommand.COMMAND_WORD);
         this.commands.add(SortCommand.COMMAND_WORD);
+        this.commands.add(TagCommand.COMMAND_WORD);
+        this.commands.add(SetCommand.COMMAND_WORD);
         this.commands.add(SwitchTabCommand.STATS_COMMAND_WORD);
         this.commands.add(SwitchTabCommand.TASKS_COMMAND_WORD);
         this.commands.add(SwitchTabCommand.SETTINGS_COMMAND_WORD);
     }
 
     /**
-     * Provides auto complete for all partial command words
+     * Provides auto complete for all partial command words: Auto completion happens when: 1. Edit
+     * distance between target and input < 2 2. input matches the head of the target
      *
      * <p>For done, delete commands: remove indices that are out of range For add and edit commands:
-     * Adds prefixes for priority and reminder For pom command: adds timer prefix
+     * Adds prefixes for priority and reminder For pom command: adds timer prefix For sort command:
+     * auto completes recognized sort fields else removes other fields
      *
      * @param input raw user input
      * @return CompletorResult which contains both the completed message and feedback to display
@@ -57,10 +61,10 @@ public class CommandCompletor {
             throw new CompletorException(String.format(Messages.COMPLETE_UNFOUND_FAILURE, ""));
         }
 
+        // Gets auto completed command based on the two criteria above
         Optional<String> suggestedCommandWord =
                 StringUtil.getCompletedWord(splitInput[0], this.commands.toArray(new String[0]));
 
-        // Handles auto completion of command and error throwing for invalid command.
         if (suggestedCommandWord.isPresent()) {
             splitInput[0] = suggestedCommandWord.get();
         } else {

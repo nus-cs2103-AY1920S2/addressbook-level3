@@ -201,9 +201,7 @@ public class Task {
             return true;
         }
 
-        return otherTask != null
-                && otherTask.getName().equals(getName())
-                && (otherTask.getPriority().equals(getPriority()));
+        return otherTask != null && otherTask.getName().equals(getName());
     }
 
     /**
@@ -236,20 +234,21 @@ public class Task {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(", Priority: ")
+        builder.append("Name: ")
+                .append(getName())
+                .append(",\nPriority: ")
                 .append(getPriority())
-                .append(", Description: ")
+                .append(",\nDescription: ")
                 .append(getDescription())
-                .append(", Tags: ");
+                .append(",\nTags: ");
         getTags().forEach(builder::append);
         if (optionalReminder.isPresent()) {
             String reminderString = optionalReminder.get().displayReminder();
-            builder.append(", Reminder: ").append(reminderString);
+            builder.append(",\nReminder: ").append(reminderString);
         }
         if (optionalRecurring.isPresent()) {
             String recurrString = optionalRecurring.get().displayRecurring();
-            builder.append(", Recurring: ").append(recurrString);
+            builder.append(",\nRecurring: ").append(recurrString);
         }
         return builder.toString();
     }

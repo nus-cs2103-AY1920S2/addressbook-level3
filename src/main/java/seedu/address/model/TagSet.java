@@ -1,15 +1,16 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 
 /**
- * Wraps all data at the address-book level Duplicates are not allowed (by .isSameTask comparison)
+ * HashMap that maps tag to tag frequency Tags are considered to be equivalent when names match,
+ * ignoring case
  */
 public class TagSet {
-
     private final HashMap<Tag, Integer> tagCount = new HashMap<>();
 
     public TagSet(ReadOnlyTaskList taskList) {
@@ -17,6 +18,7 @@ public class TagSet {
         populateTag(taskList);
     }
 
+    /** creates frequency map from Tag to Tag count */
     public void populateTag(ReadOnlyTaskList taskList) {
         tagCount.clear();
         for (Task t : taskList.getTaskList()) {
@@ -32,6 +34,7 @@ public class TagSet {
         return tagCount.keySet();
     }
 
+    /** Adds new entry initialized to a count of 1 if task is not already in TagSet */
     public void addTask(Task task) {
         Set<Tag> tags = task.getTags();
         for (Tag t : tags) {
@@ -44,6 +47,7 @@ public class TagSet {
         }
     }
 
+    /** Decrements count of tag by 1 and removes tag from TagSet if count is 0 */
     public void removeTask(Task task) {
         Set<Tag> tags = task.getTags();
         for (Tag t : tags) {
@@ -57,6 +61,15 @@ public class TagSet {
                         return count - 1;
                     });
         }
+    }
+
+    /** Array of tag names */
+    public String[] getTagNames() {
+        ArrayList<String> tagNames = new ArrayList<>();
+        for (Tag t : tagCount.keySet().toArray(new Tag[0])) {
+            tagNames.add(t.tagName);
+        }
+        return tagNames.toArray(new String[0]);
     }
 
     @Override
