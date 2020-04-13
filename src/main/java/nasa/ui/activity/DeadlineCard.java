@@ -39,12 +39,11 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private Label priority;
     @FXML
-    private Group type;
-    @FXML
     private Label dateToRepeat;
 
     public DeadlineCard(Deadline deadline, int displayedIndex) {
         super(FXML);
+
         this.deadline = deadline;
         name.setText(displayedIndex + ". " + deadline.getName().toString());
         date.setText("Due by: " + deadline.getDueDate().toString());
