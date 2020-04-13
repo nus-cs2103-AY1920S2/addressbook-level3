@@ -11,7 +11,7 @@ Class UiManager
 Class MainWindow
 Class CommandBox
 Class ResultDisplay
-Class Pages
+Class XYZPage
 }
 
 package Model <<Rectangle>> {
@@ -22,9 +22,6 @@ package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 }
 
-note "XYZCard & Pages refer to the\nindividual components of FitHelper GUI." as N1
-note "Pages represents a several GUI page classes\n located at the `PagePane` placeholder in MainWindow." as N2
-note "XYZCard corresponds to the GUI elements in Pages." as N3
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
@@ -33,15 +30,15 @@ UiManager -down-> MainWindow
 
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> Pages
+MainWindow *-down-> XYZPage
 
-Pages -down-> XYZCard
+XYZPage -down-> XYZCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-Pages --|> UiPart
+XYZPage --|> UiPart
 XYZCard --|> UiPart
 
 XYZCard ..> Model
@@ -49,10 +46,10 @@ UiManager -right-> Logic
 MainWindow -left-> Logic
 
 CommandBox -[hidden]left- ResultDisplay
+note "XYZPage represents a several GUI page classes\n located at the `PagePane` placeholder in MainWindow." as N2
+note "XYZCard corresponds to the GUI elements in XYZPage." as N3
 
-Pages .. N1
-XYZCard .. N1
-Pages .. N2
+XYZPage .. N2
 XYZCard .. N3
 MainWindow -[hidden]-|> UiPart
 @enduml
