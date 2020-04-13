@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -12,10 +14,27 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.consults.ListConsultCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.mods.ListModCommand;
+import seedu.address.logic.commands.mods.ViewModInfoCommand;
+import seedu.address.logic.commands.students.FindStudentCommand;
+import seedu.address.logic.commands.students.FindStudentMatricNumberCommand;
+import seedu.address.logic.commands.students.ListStudentCommand;
+import seedu.address.logic.commands.tutorials.ListTutorialCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.tutorial.Tutorial;
+import seedu.address.ui.calendar.CalendarWindow;
+import seedu.address.ui.consult.ConsultListPanel;
+import seedu.address.ui.mod.ModInfoPanel;
+import seedu.address.ui.mod.ModListPanel;
+import seedu.address.ui.reminder.ReminderListPanel;
+import seedu.address.ui.student.StudentListPanel;
+import seedu.address.ui.tutorial.AttendanceListPanel;
+import seedu.address.ui.tutorial.TutorialListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,9 +50,16 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private StudentListPanel studentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CalendarWindow calendarWindow;
+    private TutorialListPanel tutorialListPanel;
+    private AttendanceListPanel attendanceListPanel;
+    private ConsultListPanel consultListPanel;
+    private ModListPanel modListPanel;
+    private ModInfoPanel modInfoPanel;
+    private ReminderListPanel reminderListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,13 +68,40 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane studentListPanelPlaceholder;
+
+    @FXML
+    private StackPane tutorialListPanelPlaceholder;
+
+    @FXML
+    private StackPane attendanceListPanelPlaceholder;
+
+    @FXML
+    private StackPane consultListPanelPlaceholder;
+
+    @FXML
+    private StackPane modListPanelPlaceholder;
+
+    @FXML
+    private StackPane modInfoPanelPlaceholder;
+
+    @FXML
+    private StackPane reminderListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private SplitPane splitPanePlaceholder;
+
+    @FXML
+    private TabPane firstTabPanePlaceholder;
+
+    @FXML
+    private TabPane secondTabPanePlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -63,6 +116,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        calendarWindow = new CalendarWindow(logic.getFilteredConsultList(),
+                logic.getFilteredTutorialList(), logic.getUnFilteredReminderList());
     }
 
     public Stage getPrimaryStage() {
@@ -107,8 +162,26 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        studentListPanel = new StudentListPanel(logic.getFilteredStudentList(), logic.getFilteredTutorialList());
+        studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+
+        tutorialListPanel = new TutorialListPanel(logic.getFilteredTutorialList());
+        tutorialListPanelPlaceholder.getChildren().add(tutorialListPanel.getRoot());
+
+        attendanceListPanel = new AttendanceListPanel();
+        attendanceListPanelPlaceholder.getChildren().add(attendanceListPanel.getRoot());
+
+        consultListPanel = new ConsultListPanel(logic.getFilteredConsultList());
+        consultListPanelPlaceholder.getChildren().add(consultListPanel.getRoot());
+
+        modListPanel = new ModListPanel(logic.getFilteredModList());
+        modListPanelPlaceholder.getChildren().add(modListPanel.getRoot());
+
+        modInfoPanel = new ModInfoPanel(logic.getViewedMod());
+        modInfoPanelPlaceholder.getChildren().add(modInfoPanel.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getFilteredReminderList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -120,16 +193,24 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    void setSplitPane() {
+        splitPanePlaceholder.lookupAll(".split-pane-divider")
+                .forEach(div -> div.setMouseTransparent(true));
+    }
+
     /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
+        primaryStage.setMinHeight(guiSettings.getWindowHeight());
+        primaryStage.setMinWidth(guiSettings.getWindowWidth());
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+        primaryStage.setResizable(false);
     }
 
     /**
@@ -144,9 +225,93 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Selects the corresponding command's tab based on {@code commandText}
+     */
+    @FXML
+    public void handleList(String commandText) {
+        switch(commandText.split(" ", 2)[0]) {
+
+        case ListStudentCommand.COMMAND_WORD:
+        case FindStudentCommand.COMMAND_WORD:
+        case FindStudentMatricNumberCommand.COMMAND_WORD:
+            firstTabPanePlaceholder.getSelectionModel().select(0);
+            break;
+
+        case ListTutorialCommand.COMMAND_WORD:
+            firstTabPanePlaceholder.getSelectionModel().select(1);
+            break;
+
+        case ListModCommand.COMMAND_WORD:
+            firstTabPanePlaceholder.getSelectionModel().select(2);
+            break;
+
+        case ListConsultCommand.COMMAND_WORD:
+            secondTabPanePlaceholder.getSelectionModel().select(0);
+            break;
+
+        case ViewModInfoCommand.COMMAND_WORD:
+            secondTabPanePlaceholder.getSelectionModel().select(2);
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    /**
+     * Opens the Calendar window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleCalendar() {
+        if (!calendarWindow.isShowing()) {
+            calendarWindow.show();
+        } else {
+            calendarWindow.focus();
+        }
+    }
+
+    /**
+     * Closes the Calendar window if it's already opened.
+     */
+    @FXML
+    public void closeCalendar() throws CommandException {
+        if (calendarWindow.isShowing()) {
+            calendarWindow.close();
+        } else {
+            throw new CommandException(Messages.NO_CALENDAR_OPEN_MESSAGE);
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
+
+    /**
+     * Loads AttendanceListPanel in the GUI with the appropriate data.
+     */
+    @FXML
+    private void handleAttendance(Tutorial tutorialToShow, int weekZeroBased) {
+        attendanceListPanel = new AttendanceListPanel(tutorialToShow, weekZeroBased);
+        attendanceListPanelPlaceholder.getChildren().clear();
+        attendanceListPanelPlaceholder.getChildren().add(attendanceListPanel.getRoot());
+        secondTabPanePlaceholder.getSelectionModel().select(1);
+    }
+
+    /**
+     * Loads AttendanceListPanel in the GUI with the default label.
+     * Updates Student panel with new tutorial tags.
+     */
+    @FXML
+    private void handleRefreshTutorial() {
+        attendanceListPanel = new AttendanceListPanel();
+        attendanceListPanelPlaceholder.getChildren().clear();
+        attendanceListPanelPlaceholder.getChildren().add(attendanceListPanel.getRoot());
+        studentListPanel = new StudentListPanel(logic.getFilteredStudentList(), logic.getFilteredTutorialList());
+        studentListPanelPlaceholder.getChildren().clear();
+        studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+    }
+
 
     /**
      * Closes the application.
@@ -160,8 +325,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public StudentListPanel getStudentListPanel() {
+        return studentListPanel;
     }
 
     /**
@@ -177,6 +342,25 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowCalendar()) {
+                handleCalendar();
+            }
+
+            if (commandResult.isCloseCalendar()) {
+                closeCalendar();
+            }
+            if (commandResult.isShowList()) {
+                handleList(commandText);
+            }
+
+            if (commandResult.isShowAttendance()) {
+                handleAttendance(commandResult.getTutorialToShow(), commandResult.getWeekZeroBased());
+            }
+
+            if (commandResult.isRefreshTutorial()) {
+                handleRefreshTutorial();
             }
 
             if (commandResult.isExit()) {

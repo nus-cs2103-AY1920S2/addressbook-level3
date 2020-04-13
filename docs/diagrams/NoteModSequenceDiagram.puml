@@ -1,0 +1,83 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as lm LOGIC_COLOR
+participant ":TAbleParser" as tp LOGIC_COLOR
+participant ":NoteModCommandParser" as nmcp LOGIC_COLOR
+participant "nmc:NoteModCommand" as nmc LOGIC_COLOR
+participant ":CommandResult" as cr LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "m:Mod" as Mod MODEL_COLOR
+end box
+
+[-> lm : execute("noteMod modCode/CS2103\nmodNote/Introduce PlantUML")
+activate lm
+
+lm -> tp : parseCommand\n("noteMod ...")
+activate tp
+
+create nmcp
+tp -> nmcp
+activate nmcp
+
+nmcp --> tp
+deactivate nmcp
+
+tp -> nmcp : parse("CS2103",\n"Introduce PlantUML")
+activate nmcp
+
+create nmc
+nmcp -> nmc
+activate nmc
+
+nmc --> nmcp : nmc
+deactivate nmc
+
+nmcp --> tp : nmc
+deactivate nmcp
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+nmcp -[hidden]-> tp
+destroy nmcp
+
+tp --> lm : nmc
+deactivate tp
+
+lm -> nmc : execute()
+activate nmc
+
+nmc -> Model : findMod(CS2103)
+activate Model
+
+Model --> nmc : optionalModToEdit
+deactivate Model
+
+create Mod
+nmc --> Mod : new Mod(modToEdit, note)
+activate Mod
+
+Mod --> nmc : m
+deactivate Mod
+
+nmc --> Model : setMod(modToEdit, m)
+activate Model
+
+Model --> nmc
+deactivate Model
+
+create cr
+nmc -> cr
+activate cr
+
+cr --> nmc
+deactivate cr
+
+nmc --> lm : result
+deactivate nmc
+
+[<--lm
+deactivate lm
+@enduml

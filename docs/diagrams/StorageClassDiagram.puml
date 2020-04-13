@@ -6,19 +6,48 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface StudentStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonStudentStorage
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+Package Consults {
+Interface ConsultStorage <<Interface>>
+Class JsonAdaptedConsult
+Class JsonConsultStorage
+Class JsonSerializableConsults
+}
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+Package Mods {
+Interface ModStorage <<Interface>>
+}
+
+Package Reminders {
+Interface ReminderStorage <<Interface>>
+}
+
+Package Tutorials {
+Interface TutorialStorage <<Interface>>
+}
+
+StorageManager .up.|> Storage
+StorageManager o-up-> UserPrefsStorage
+StorageManager o-right-> StudentStorage
+StorageManager o--> ConsultStorage
+StorageManager o--> ModStorage
+StorageManager o--> ReminderStorage
+StorageManager o--> TutorialStorage
+
+JsonUserPrefsStorage ..|> UserPrefsStorage
+
+JsonStudentStorage ..|> StudentStorage
+JsonStudentStorage ..> JsonSerializableStudentStorage
+JsonSerializableStudentStorage ..> JsonAdaptedStudent
+JsonAdaptedStudent ..> JsonAdaptedTag
+
+JsonConsultStorage ..|> ConsultStorage
+JsonConsultStorage ..> JsonSerializableConsults
+JsonSerializableConsults ..> JsonAdaptedConsult
+
 @enduml

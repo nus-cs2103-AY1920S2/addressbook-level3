@@ -2,17 +2,20 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+<fx:root maxHeight="584.0" onCloseRequest="#handleExit" title="TAble" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -33,27 +36,108 @@
           </Menu>
         </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="130" minHeight="130" prefHeight="130" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
+            <SplitPane fx:id="splitPanePlaceholder" dividerPositions="0.3, 0.5">
+              <items>
+                <AnchorPane>
+                     <children>
+                        <TabPane fx:id="firstTabPanePlaceholder" tabClosingPolicy="UNAVAILABLE">
+                            <stylesheets>
+                            <URL value="@FirstTabPane.css" />
+                            </stylesheets>
+                          <tabs>
+                            <Tab text="Students">
+                                 <content>
+                                    <VBox>
+                                       <children>
+                                          <StackPane fx:id="studentListPanelPlaceholder" maxHeight="300.0" maxWidth="300.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" />
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                            <Tab text="Tutorials">
+                                 <content>
+                                    <VBox>
+                                       <children>
+                                           <StackPane fx:id="tutorialListPanelPlaceholder" maxHeight="300.0" maxWidth="300.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" />
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                              <Tab text="Modules">
+                                 <content>
+                                    <VBox>
+                                       <children>
+                                          <StackPane fx:id="modListPanelPlaceholder" layoutX="10.0" layoutY="10.0" maxHeight="300.0" maxWidth="300.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" />
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane>
+                     <children>
+                        <TabPane fx:id="secondTabPanePlaceholder" tabClosingPolicy="UNAVAILABLE">
+                            <stylesheets>
+                                <URL value="@SecondTabPane.css" />
+                            </stylesheets>
+                          <tabs>
+                              <Tab text="Consultations">
+                                 <content>
+                                    <VBox>
+                                       <children>
+                                           <StackPane fx:id="consultListPanelPlaceholder" maxHeight="300.0" maxWidth="350.0" minHeight="300.0" minWidth="350.0" prefHeight="300.0" prefWidth="350.0" />
+                                       </children></VBox>
+                                 </content>
+                              </Tab>
+                            <Tab text="Attendance">
+                                 <content>
+                                    <VBox>
+                                       <children>
+                                          <StackPane fx:id="attendanceListPanelPlaceholder" minHeight="300.0" minWidth="350.0" prefHeight="300.0" prefWidth="350.0" maxHeight="300.0"/>
+                                       </children></VBox>
+                                 </content>
+                              </Tab>
+                            <Tab text="Module Info">
+                                 <content>
+                                    <VBox>
+                                       <children>
+                                          <StackPane fx:id="modInfoPanelPlaceholder" maxHeight="300.0" minHeight="300.0" minWidth="350.0" prefHeight="300.0" prefWidth="350.0" />
+                                       </children></VBox>
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane>
+                      <VBox>
+                          <children>
+                              <Label style="-fx-text-fill: white; -fx-font-style: italic; -fx-font-weight: bold; -fx-font-size: 16;" text="Your Reminders">
+                              <VBox.margin>
+                                  <Insets bottom="5.0" />
+                              </VBox.margin>
+                              </Label>
+                              <StackPane fx:id="reminderListPanelPlaceholder" maxHeight="300.0" maxWidth="314.0" minHeight="300.0" minWidth="314.0" prefHeight="300.0" prefWidth="314.0" />
+                          </children>
+                      </VBox>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+        <StackPane fx:id="statusbarPlaceholder" minHeight="20.0" prefHeight="20.0" VBox.vgrow="ALWAYS" />
       </VBox>
     </Scene>
   </scene>

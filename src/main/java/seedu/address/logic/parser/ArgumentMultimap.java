@@ -32,6 +32,14 @@ public class ArgumentMultimap {
     }
 
     /**
+     * Returns whether more than one of the same {@code prefix} occurs.
+     */
+    public Boolean isRepeated(Prefix prefix) {
+        List<String> values = getAllValues(prefix);
+        return values.size() > 1;
+    }
+
+    /**
      * Returns the last value of {@code prefix}.
      */
     public Optional<String> getValue(Prefix prefix) {

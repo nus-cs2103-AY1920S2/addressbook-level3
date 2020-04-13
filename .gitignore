@@ -8,14 +8,20 @@ src/main/resources/docs/
 /out/
 /*.iml
 
+# Test sandbox files
+src/test/data/sandbox/
+
 # Storage/log files
 /data/
 /config.json
 /preferences.json
+/attendance.csv
 /*.log.*
-
-# Test sandbox files
-src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+
+# PDF generated files
+/docs/team/nigelnnk.pdf
+/docs/Nigel_UML.adoc
+/docs/Nigel_UML.pdf

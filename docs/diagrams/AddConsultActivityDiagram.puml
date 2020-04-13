@@ -1,0 +1,41 @@
+@startuml
+start
+:User enters addConsultCommand;
+
+if () then ([all prefixes present and no
+multiple of the same prefix])
+    :Parse prefixes;
+    if () then ([all prefixes
+    formatted correctly])
+        :Check if Student provided
+        is within list of index;
+        if () then ([index within list boundary])
+            :Check if time and location
+            formats are correct;
+            if() then ([formats are correct])
+                :Check if timing of consult
+                clashes with other existing consults;
+                if() then ([timing does not clash])
+                    :Add new Consult to TAble;
+                 else ([else])
+                    :Display error message that consult
+                    timing clashes with existing consults;
+                endif
+            else ([else])
+                : Display error message that time
+                and/or location format is wrong;
+            endif
+        else ([else])
+            :Display error message that
+            Student index cannot be found;
+        endif
+    else ([else])
+        :Display error message on
+        invalid prefix format;
+    endif
+else ([else])
+    :Display error message
+    and show command format;
+endif
+stop
+@enduml

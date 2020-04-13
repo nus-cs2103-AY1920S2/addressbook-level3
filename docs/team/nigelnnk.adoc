@@ -1,0 +1,62 @@
+= Nigel Neo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TAble
+
+== Overview
+
+TAble is your handy desktop app, optimized for TAs who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)! Mark attendance, arrange consults, add module notes, and more with TAble! It has a GUI created with JavaFX and written in Java, and has about 20 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to *insert Module description/links/time*
+** What it does: Represents module information critical to a Teaching Assistant's role in their work, from notes of the module to handling module links.
+** Justification: Teaching Assistants need to view general module information and associate Tutorials with modules. This helps consolidate general information about the module (through its notes and module links).
+** Highlights: Module links can be stored in TAble and shared easily with the command to copy links into the user's clipboard. Additionally, note of the module can also be updated to store important information like grade breakdown.
+
+* _Minor enhancement_: Add command to export tutorial attendance to CSV file
+** What it does: Tutorial attendance of students as stored in TAble will be exported into a CSV file to a path defined by the user, showcasing the students' names, matriculation number, emails and attendance for the weeks of the tutorial.
+** Justification: After TAs mark attendance for their students in TAble, TAs will usually need to update the attendance into another document. This command allows TAs to easily copy the data over into another spreadsheet where necessary.
+** Highlights: The generated CSV file should follow the same format as what is given when exporting student data on LumiNUS.
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=nigelnnk&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=nigelnnk&tabRepo=AY1920S2-CS2103-W15-3%2Fmain%5Bmaster%5D[As seen on RepoSense]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed Graphical User Interface for the Main Window of the application https://github.com/AY1920S2-CS2103-W15-3/main/pull/30[#30] https://github.com/AY1920S2-CS2103-W15-3/main/pull/85[#85]
+*** Managed Graphical User Interface for ModInfoPanel of the application https://github.com/AY1920S2-CS2103-W15-3/main/pull/119[#119]
+** Enhancements to existing features:
+*** Created the exportTutorialAttendanceCommand: https://github.com/AY1920S2-CS2103-W15-3/main/pull/133[#133]
+** Documentation:
+*** Updated graphics for Developer's Guide, for PlantUML diagrams: https://github.com/AY1920S2-CS2103-W15-3/main/pull/97[#97]
+** Community:
+*** Fixed minor errors prior to DG dry run https://github.com/AY1920S2-CS2103-W15-3/main/pull/135[#135]
+** Tools:
+*** Fix and Maintain Product Website https://github.com/AY1920S2-CS2103-W15-3/main/pull/29[#29]
+*** Maintain Travis and Coveralls Integration https://github.com/AY1920S2-CS2103-W15-3/main/pull/95[#95]
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=Module]
+
+'''
+
+=== Tutorial Feature
+include::../UserGuide.adoc[tag=ExportTutorialAttendance]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=module]

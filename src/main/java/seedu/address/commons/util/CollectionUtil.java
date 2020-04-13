@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -31,5 +32,12 @@ public class CollectionUtil {
      */
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
+    }
+
+    /**
+     * Returns true if {@code items} contains only unique item.
+     */
+    public static boolean isUnique(Collection<?> items) {
+        return items.stream().allMatch(new HashSet<>()::add);
     }
 }

@@ -1,0 +1,12 @@
+{
+  "students": [ {
+    "name": "Alice Pauline",
+    "matricNumber": "A0169853D",
+    "email": "alice@example.com",
+    "tagged": [ "friends" ]
+  }, {
+    "name": "Alice Pauline",
+    "matricNumber": "A0169853D",
+    "email": "alice@example.com"
+  } ]
+}

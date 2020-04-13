@@ -1,0 +1,45 @@
+@startuml
+start
+:User executes snoozeReminderCommand;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([all prefixes present and unique])
+    :Parse prefixes;
+    if () then ([all prefixes formatted correctly])
+        :Check if duration provided
+              is a positive integer;
+        if () then ([duration is a positive integer])
+            :Check if index provided
+                   is out of bound;
+                if () then ([index within list boundary])
+                :Check if reminder is done;
+                    if () then ([reminder is not done])
+                    :  Create a new copy of the
+                    reminder with snoozed date;
+                    :Replace reminder in Model
+                        with snoozed reminder;
+                    else ([else])
+                        :Display error message that
+                          reminder is already done;
+                    endif
+                else ([else])
+                    :Display error message that
+                       index provided is invalid;
+                endif
+        else ([else])
+            :Display error message that
+                duration to be snoozed
+                   by must be positive;
+        endif
+    else ([else])
+        :Display error message on
+               invalid prefix format;
+    endif
+else ([else])
+    :    Display error message
+    and show command format;
+endif
+stop
+@enduml

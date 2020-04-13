@@ -10,11 +10,16 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.TAbleParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.event.consult.Consult;
+import seedu.address.model.event.tutorial.Tutorial;
+import seedu.address.model.mod.Mod;
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.student.ReadOnlyStudent;
+import seedu.address.model.student.Student;
+import seedu.address.model.util.CommandHistory;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,12 +31,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final TAbleParser tableParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        tableParser = new TAbleParser();
     }
 
     @Override
@@ -39,26 +44,61 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = tableParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveStudentTAble(model.getStudentTAble());
+            storage.saveConsults(model.getConsultTAble());
+            storage.saveMods(model.getModTAble());
+            storage.saveTutorials(model.getTutorialTAble());
+            storage.saveReminders(model.getReminderTAble());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        CommandHistory.addInput(commandText);
         return commandResult;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyStudent getAddressBook() {
+        return model.getStudentTAble();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Student> getFilteredStudentList() {
+        return model.getFilteredStudentList();
+    }
+
+    @Override
+    public ObservableList<Tutorial> getFilteredTutorialList() {
+        return model.getFilteredTutorialList();
+    }
+
+    @Override
+    public ObservableList<Consult> getFilteredConsultList() {
+        return model.getFilteredConsultList();
+    }
+
+    @Override
+    public ObservableList<Mod> getFilteredModList() {
+        return model.getFilteredModList();
+    }
+
+    @Override
+    public ObservableList<Mod> getViewedMod() {
+        return model.getViewedMod();
+    }
+
+    @Override
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return model.getFilteredReminderList();
+    }
+
+    @Override
+    public ObservableList<Reminder> getUnFilteredReminderList() {
+        return model.getUnFilteredReminderList();
     }
 
     @Override

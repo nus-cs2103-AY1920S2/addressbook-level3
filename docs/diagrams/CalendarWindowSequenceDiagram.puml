@@ -1,0 +1,67 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T2
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":CalendarWindow" as CalendarWindow UI_COLOR
+participant ":CalendarDay" as CalendarDay UI_COLOR
+end box
+
+[-> MainWindow : new MainWindow(primaryStage, logic)
+activate MainWindow
+
+MainWindow -> CalendarWindow : new CalendarWindow(logic.getFilteredConsultList(), \nlogic.getFilteredTutorialList, logic.getFilteredReminderList)
+activate CalendarWindow
+
+CalendarWindow -> CalendarWindow : createUi()
+activate CalendarWindow
+
+loop MAX_WEEK_OF_MONTH * WEEKDAYS
+create CalendarDay
+CalendarWindow -> CalendarDay :new CalendarDay()
+activate CalendarDay
+CalendarDay --> CalendarWindow
+deactivate CalendarDay
+end
+
+CalendarWindow --> CalendarWindow
+deactivate CalendarWindow
+
+CalendarWindow -> CalendarWindow : fillDays()
+activate CalendarWindow
+
+loop MAX_WEEK_OF_MONTH * WEEKDAYS
+create CalendarDay
+CalendarWindow -> CalendarDay : setDate(date)
+activate CalendarDay
+CalendarDay --> CalendarWindow
+deactivate CalendarDay
+
+loop size of consults/tutorials/reminders list
+CalendarWindow -> CalendarDay : addConsults/addTutorials/\n addReminders(x)
+activate CalendarDay
+CalendarDay --> CalendarWindow
+deactivate CalendarDay
+
+end
+CalendarWindow -> CalendarDay: updateNumConsults/Tutorials/Reminders()
+activate CalendarDay
+CalendarDay --> CalendarWindow
+deactivate CalendarDay
+end
+
+CalendarWindow -> CalendarWindow : fillTitle()
+activate CalendarWindow
+CalendarWindow --> CalendarWindow
+deactivate CalendarWindow
+
+CalendarWindow --> CalendarWindow
+deactivate CalendarWindow
+
+CalendarWindow --> MainWindow
+deactivate CalendarWindow
+
+[<-- MainWindow
+deactivate MainWindow
+
+@enduml

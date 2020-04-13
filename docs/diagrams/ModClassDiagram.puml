@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR_T2
+skinparam classFontColor #white
+skinparam classAttributeFontColor #white
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+package seedu.address.model.mod {
+
+class Mod MODEL_COLOR_T2 {
+-ModCode modcode
+-String modName
+-String description
+-List<ModLinkPair> links
+}
+class ModCode MODEL_COLOR_T2
+class ModLinkPair MODEL_COLOR_T2
+class ModTAble MODEL_COLOR_T2 {
+-UniqueModList mods
+-ObservableList<Mod> viewedModSingletonList
+}
+class ModLink MODEL_COLOR_T2
+
+}
+
+Mod *-up- "1" ModCode MODEL_COLOR_T2
+Mod .up.> "*" ModLinkPair MODEL_COLOR_T2
+ModLink "1" -right-* ModLinkPair MODEL_COLOR_T2
+Mod "*" --  ModTAble MODEL_COLOR_T2
+ModCode -[hidden]right-> ModLinkPair
+
+Package seedu.address.logic <<Rectangle>>{
+
+    class XYZCommands
+
+    Class XYZCommandParsers
+
+    together big {
+        Abstract Class "{abstract}\nCommand" as Command
+        Interface Parser <<interface>>
+    }
+}
+
+
+note bottom of XYZCommandParsers: XYZCommandParsers are\nthe corresponding Parser\nclass of XYZCommand
+note bottom of XYZCommands: XYZCommands are the\nvarious commands used\nto interact with Mod
+Command <|- XYZCommands
+Parser <|.. XYZCommandParsers
+
+Parser .left. Command
+
+XYZCommandParsers <. XYZCommands
+
+XYZCommands ..> Mod
+XYZCommands ..> ModCode
+XYZCommands ..> ModLink : addModLink\nclearModLink\ncopyModLink
+
+
+show Mod fields
+show ModTAble fields
+
+@enduml

@@ -1,0 +1,49 @@
+= Sarah Lim - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TAble
+
+== Overview
+
+TAble is your handy desktop app, optimized for TAs who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)! Mark attendance, arrange consults, add module notes, and more with TAble! It has a GUI created with JavaFX and written in Java, and has about 20 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Implemented the feature to *insert Tutorials, including students enrolled and their attendance*. This included implementing the attendance panel in the GUI to display attendance of students in a tutorial.
+** What it does: Tutorial in TAble represents a tutorial that the user, a Teaching Assistant, is assigned to. With Tutorial features, he is able to manage the enrolled students in his tutorial, as well as keep track of their attendance for convenient reference.
+The Tutorial feature also includes a command to allow users to directly copy all emails of students in a tutorial to the user's clipboard, useful in aiding teaching assistants when they have to mass email their tutorial group.
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=suwoons&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[As seen on RepoSense]
+
+* *Other contributions*:
+
+** Project Management
+*** Contributed to creating relevant issues in team repo, to organise and keep track of our progress throughout the various milestones
+** Enhancements to existing features:
+*** `Tutorial` is not simply a CRUD feature, but integrates other components in the project such as `Student` and attendance to increase functionality of the feature.
+*** Viewing of attendance in the GUI is made more intuitive for the user by having different coloured backgrounds depending on whether a student in a given tutorial is present or not.
+*** Copying of students' emails to user's clipboard
+*** Responsible for implementing error handling methods in the relevant command parsers for when multiple of the same prefix is included in an input command, which should not be allowed
+** Documentation:
+*** Updated User Guide and Developer Guide for Tutorial features, including adding relevant PlantUML diagrams in the Developer Guide to enhance comprehensibility of the codebase and the structure of the feature.
+** Summary of contributions:
+*** Created over [https://github.com/AY1920S2-CS2103-W15-3/main/pulls?q=is%3Apr+author%3Asuwoons[25 pull requests]] on GitHub
+*** Reviewed over [https://github.com/AY1920S2-CS2103-W15-3/main/pulls?q=is%3Apr+reviewed-by%3Asuwoons[20 pull requests]]on GitHub
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=Tutorial]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=tutorial]

@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+skinparam classAttributeIconSize 0
+skinparam arrowThickness 1.1
+skinparam arrowColor REMINDER_COLOUR
+skinparam classBackgroundColor REMINDER_COLOUR
+skinparam classFontColor #white
+skinparam classAttributeFontColor #white
+
+
+package Model <<Rectangle>> {
+interface Model
+class ModelManager
+class UniqueReminderList
+class ReminderTAble
+class Reminder {
+-description
+-date
+-time
+-done
+}
+}
+package Logic <<Rectangle>> {
+interface Parser
+class XYZReminderCommandParser
+abstract class Command
+class XYZReminderCommand
+}
+
+Model <|.. ModelManager
+ModelManager o-- "1" ReminderTAble
+ReminderTAble  *-- "1" UniqueReminderList
+UniqueReminderList o--> "*" Reminder
+Command <|-right- XYZReminderCommand
+XYZReminderCommandParser ..> XYZReminderCommand : creates >
+XYZReminderCommandParser .left.> Reminder : creates >
+Parser <|-- XYZReminderCommandParser
+note left of XYZReminderCommand: XYZReminderCommand = AddReminderCommand etc
+
+
+show Reminder fields
+@enduml

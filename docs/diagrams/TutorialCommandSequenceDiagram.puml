@@ -1,0 +1,78 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TAbleParser" as TAbleParser LOGIC_COLOR
+participant ":AddTutorialCommandParser" as AddTutorialCommandParser LOGIC_COLOR
+participant "a:AddTutorialCommand" as AddTutorialCommand LOGIC_COLOR
+participant "t:Tutorial" as Tutorial LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("AddTutorial modCode/CS2103 \ntutorialName/T02 day/3 beginTime/12:00\n endTime/13:00 place/SR3")
+activate LogicManager
+
+LogicManager -> TAbleParser : parseCommand("AddTutorial modCode/CS2103 \ntutorialName/T02 day/3 beginTime/12:00\n endTime/13:00 place/SR3")
+activate TAbleParser
+
+create AddTutorialCommandParser
+TAbleParser -> AddTutorialCommandParser
+activate AddTutorialCommandParser
+
+AddTutorialCommandParser --> TAbleParser
+deactivate AddTutorialCommandParser
+
+TAbleParser -> AddTutorialCommandParser : parse("CS2103", "T02", "3", \n"12:00", "13:00", "SR3")
+activate AddTutorialCommandParser
+
+create Tutorial
+AddTutorialCommandParser -> Tutorial
+activate Tutorial
+
+Tutorial --> AddTutorialCommandParser : t
+deactivate Tutorial
+
+create AddTutorialCommand
+AddTutorialCommandParser -> AddTutorialCommand : AddTutorialCommand(t)
+activate AddTutorialCommand
+
+AddTutorialCommand --> AddTutorialCommandParser : a
+deactivate AddTutorialCommand
+
+AddTutorialCommandParser --> TAbleParser : a
+deactivate AddTutorialCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddTutorialCommandParser -[hidden]-> TAbleParser
+destroy AddTutorialCommandParser
+
+TAbleParser --> LogicManager : a
+deactivate TAbleParser
+
+LogicManager -> AddTutorialCommand : execute()
+activate AddTutorialCommand
+
+AddTutorialCommand -> Model : addTutorial(t)
+activate Model
+
+Model --> AddTutorialCommand
+deactivate Model
+
+create CommandResult
+AddTutorialCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTutorialCommand
+deactivate CommandResult
+
+AddTutorialCommand --> LogicManager : result
+deactivate AddTutorialCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

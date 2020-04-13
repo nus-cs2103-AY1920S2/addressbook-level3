@@ -1,0 +1,11 @@
+{
+  "students": [ {
+    "name": "Valid Person",
+    "matricNumber": "A0176953T",
+    "email": "hans@example.com"
+  }, {
+    "name": "Person With Invalid Matric Number Field",
+    "matricNumber": "948asdf2424",
+    "email": "hans@example.com"
+  } ]
+}

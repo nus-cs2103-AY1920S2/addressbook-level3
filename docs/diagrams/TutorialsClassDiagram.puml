@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+skinparam classAttributeIconSize 0
+skinparam arrowThickness 1.1
+skinparam arrowColor TUTORIAL_COLOUR
+skinparam classBackgroundColor TUTORIAL_COLOUR
+skinparam classFontColor #white
+skinparam classAttributeFontColor #white
+
+
+package Model <<Rectangle>> {
+interface Model
+class ModelManager
+class UniqueTutorialList
+class TutorialTAble
+class Tutorial {
+-modCode
+-tutorialName
+-weekday
+-beginTime
+-endTime
+-Location
+-enrolledStudents
+-studentAttendance
+}
+}
+package Logic <<Rectangle>> {
+interface Parser
+class XYZTutorialCommandParser
+abstract class Command
+class XYZTutorialCommand
+}
+
+Model <|.. ModelManager
+ModelManager o-- "1" TutorialTAble
+TutorialTAble  *-- "1" UniqueTutorialList
+UniqueTutorialList o--> "*" Tutorial
+Command <|-right- XYZTutorialCommand
+XYZTutorialCommandParser ..> XYZTutorialCommand : creates >
+XYZTutorialCommandParser .left.> Tutorial : creates >
+Parser <|-- XYZTutorialCommandParser
+note left of XYZTutorialCommand: XYZTutorialCommand = AddTutorialCommand etc
+
+
+show Tutorial fields
+@enduml

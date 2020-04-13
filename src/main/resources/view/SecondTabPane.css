@@ -1,0 +1,9 @@
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-pref-width: 98.0;
+    -fx-alignment: CENTER;
+    -fx-text-overrun: CLIP;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+}

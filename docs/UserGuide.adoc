@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= TAble - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,20 +12,21 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL:  https://github.com/AY1920-CS2103-W15-3/main/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920-CS2103-W15-3`      Since: `Apr 2020`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Have you ever had trouble keeping track of your tutorials and students as a TA in NUS? TAble is your handy desktop app, optimized for TAs who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)! Mark attendance, arrange consults, add module notes, set reminders and more with TAble!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `TAble.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your TAble.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+
 +
 image::Ui.png[width="790"]
 +
@@ -33,12 +34,30 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`listStudent`* : lists all students
+* **`deleteStudent`**`3` : deletes the 3rd student shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+. Example of the Tutorial and Consult panels.
+[NOTE]
+The consults that are overdue will appear in red to highlight that these consults are ready to be deleted!
+
++
+image::TutConsult.png[width="750"]
++
+
+. Example of the Module and ModInfo panels.
+
++
+image::Mods.png[width="750"]
++
+
+. Example of the Calendar window.
+
++
+image::CalendarWindow.png[width="750"]
 
 [[Features]]
 == Features
@@ -46,100 +65,754 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addStudent name/NAME`, `NAME` is a parameter which can be used as `addStudent name/John Doe`.
+* Items in square brackets are optional e.g `name/NAME [tag/TAG]` can be used as `name/John Doe tag/friend` or as `name/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/friend tag/family` etc.
+* Parameters can be in any order e.g. if the command specifies `name/NAME email/EMAIL`, `email/EMAIL name/NAME` is also acceptable.
+
+*Command History*
+
+* Navigate through the past command history by pressing the up and down arrow keys on the keyboard.
+[NOTE]
+Only successfully executed commands will be added to list of command history.
+
+*Autocompletion*
+
+* TAble will suggest the available commands and prefixes based on your current input.
+* Press kbd:[Tab] or kbd:[Enter] to accept the suggestion.
+* Press kbd:[Esc] to cancel and close the suggestion pop-up.
+
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+* A window containing the link to our User Guide will appear. Click on the Copy Link button to copy the link to our User Guide.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+// tag::Student[]
+===  Students Feature (Written by Chiang Shun De)
+==== Adding a student: `addStudent`
+
+Adds a student to TAble +
+Format: `addStudent name/NAME matric/MATRIC_NUMBER email/EMAIL [tag/TAG]...`
+
+[NOTE]
+====
+* Students name have a maximum length of 70 characters as it is the standard length for database fields.
+* In TAble there can be duplicate names, but not duplicate emails and matric numbers as they are unique to each student.
+* Tags are sorted alphabetically for easier referencing.
+====
 
 [TIP]
-A person can have any number of tags (including 0)
+A student can have any number of tags (including 0), but each tag is limited to a length of 40 characters.
+****
+* The students name will be automatically formatted such that it follows a standard format of
+the first letter of each word being uppercase and the rest lowercase, and a maximum of one space between each word. This
+is done to follow proper naming convention, making it more presentable and readable,
+and remedies any errors which may have happened when extracting the list of student names.
+The removal of excess spaces is also done for tags.
+** For example: `addStudent name/john      doe matric/A0123456X email/johnd@example.com`
+adds a student with the name "John Doe" into the list.
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addStudent name/John Tan matric/A0123456X email/johnt@example.com`
 
-=== Listing all persons : `list`
+Output:
+....
+New student added: John Tan Matric Number: A0123456X Email: johnt@example.com Tags:
+....
+* `addStudent name/Betsy Daphne Anne Lim matric/A1234567X tag/good student email/betsydaphneannelim@example.com tag/CS2103`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Output:
+....
+New student added: Betsy Daphne Anne Lim Matric Number: A1234567X Email: betsydaphneannelim@example.com Tags: [CS2103][good student]
+....
+==== Listing all students : `listStudent`
 
-=== Editing a person : `edit`
+Shows a list of all students in TAble. +
+Format: `listStudent`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+==== Clears the list of students : `clearStudent`
+
+Clears the list of all students in TAble. +
+Format: `clearStudent`
+
+==== Editing a student : `editStudent`
+
+Edits an existing student in TAble. +
+Format: `editStudent INDEX [name/NAME] [matric/MATRIC_NUMBER] [email/EMAIL] [tag/TAG]...`
+
+[NOTE]
+====
+* The edited student will be reflected on all consults with them or any tutorials they are enrolled in.
+* When editing students, do note that there can be duplicate names in TAble, but not duplicate emails and matric numbers as they are unique to each student.
+====
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the student will be removed i.e adding of tags is not cumulative.
+* You can remove all the student's tags by typing `tag/` without specifying any tags after it.
 ****
+
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `editStudent 1 email/johntan@example.com` +
+Edits the email address of the 1st student to be `johndoe@example.com`.
+* `editStudent 2 name/Betsy Lim tag/` +
+Edits the name of the 2nd student to be `Betsy Lim` and clears all existing tags associated with the 2nd student.
+* `editStudent 3 matric/A0123456Z tag/good student` +
+Edits the matric number of the 3rd student to be `A0123456Z` and adds a 'good student' tag
 
-=== Locating persons by name: `find`
+==== Locating students by name: `findStudent`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds students whose names contain any of the given keywords. +
+Format: `findStudent KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The order of the keywords does not matter. e.g. `Hans Lim` will match `Lim Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Students matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Lim` will return `Hans Tan`, `Lim Yang`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `findStudent John` +
+Returns students `John Ang` and `John Tan`
+Example output:
+....
+2 students listed!
+....
+* `findStudent Betsy Tim John` +
+Returns any student having names `Betsy`, `Tim`, or `John`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Locating students by matric number: `findStudentMatricNumber`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Finds students whose matric number matches the given matric number. +
+Format: `findStudentMatricNumber matric/MATRIC_NUMBER`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The search is case insensitive. e.g `a0123456a` will match `A0123456A`
+* Only the matric number is searched.
+* Only full matric number will be matched e.g. `A01234` will not match `A0123456A`, conversely
+ `A0123456A` will only return the student with matric number 'A0123456A'
+* The student with matric number matching the given matric number will be returned.
+****
+
+Examples:
+
+* `findStudentMatricNumber matric/A0111111X` +
+Returns the student with matric number "A0111111X"
+
+==== Deleting a student : `deleteStudent`
+
+Deletes the specified student from TAble. +
+This removes the student from all enrolled tutorials as well. +
+Format: `deleteStudent INDEX`
+
+[NOTE]
+Deleting a student using the deleteStudent command will remove any consultations associated with
+the deleted student and removes the student from any tutorials they were enrolled in.
+
+****
+* Deletes the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list. By default the student list will be the list
+displayed by the `listStudent` command.
+* You can search for students using the `findStudent` or `findStudentMatricNumber` command and then using the `deleteStudent` command
+with the index based on the generated list by the `findStudent` or `findStudentMatricNumber` command.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `listStudent` +
+`deleteStudent 2` +
+Deletes the 2nd student in TAble.
+* `findStudent Betsy` +
+`deleteStudent 1` +
+Deletes the 1st student in the list resulting from the `findStudent` command.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Sort students alphabetically by name: `sortStudentName`
+Sorts the current list of students according to their name in alphabetical order. If there
+are two students with the same name they will be sorted by matric number, meaning the
+student with the lower matric number will be higher on the list.
+Format: `sortStudentName`
 
-Clears all entries from the address book. +
-Format: `clear`
+//end::Student[]
+
+//tag::Module[]
+=== Module Feature (Written by Nigel Neo)
+==== Add Module into database: `addMod`
+Adds a module into TAble.
+
+[NOTE]
+Due to naming restrictions in java, all code references to modules are named Mod instead of Module.
+
+Format: `addMod modCode/MODULE_CODE modName/MODULE_NAME`
+
+****
+* The module code provided is case insensitive, e.g. `Cs2103` is equivalent to `CS2103`. +
+Module codes consist of three parts: Department Code, Number, then Subcode. They should adhere to the following constraints:
+1. The department code should only contain either two or three capital letters.
+2. This is followed by 4 numbers, with the first not being zero.
+3. The Subcode cannot be more than 2 capital letters long.
+
+* The module name provided should be any valid string.
+
+****
+
+Example:
+
+* `addMod modCode/CS1010S modName/Programming Methodology`
+
+==== Delete Module from database: `deleteMod`
+Deletes a module from TAble. +
+Format: `deleteMod modCode/MODULE_CODE`
+
+****
+* The module code provided is case insensitive, e.g. `Cs2103` is equivalent to `CS2103`. It should be prefixed by at most three characters, then four numbers, and finally no more than two characters as suffix.
+* The module code should correspond to an existing module in the database.
+* Modules cannot be deleted if there are tutorials associated with it in TAble (i.e. User cannot delete CS2103 if there are still tutorials with module code CS2103).
+****
+
+Example:
+
+* `addModule modCode/CS1010S modName/Programming Methodology`
+
+==== Edit Module note: `noteMod`
+Edits corresponding note of module. +
+Format: `noteMod modCode/MODULE_CODE modNote/NOTE`
+
+****
+* The module code should correspond to an existing module in the database.
+* The note provided should be any valid string, and replaces the current note of the module.
+****
+
+Example:
+
+* `noteModule modCode/CS1010S modNote/How cool is that?` +
+When viewing the module info for CS1010S, the note will be updated to show "How cool is that?".
+
+==== Add link to module with appropriate name: `addModLink`
+Edit module to include links to appropriate websites (e.g. Google Drive Folder, Module Website etc.) +
+Format: `addModLink modCode/MODULE_CODE modLink/LINK modLinkName/NAME`
+
+****
+* The module code should correspond to an existing module in the database.
+* The module link should correspond to a valid URL format as specified by Java.
+* The tag provided should be any valid string.
+****
+
+Example:
+
+* `addModLink modCode/CS1231 modLink/https://comp.nus.edu.sg/~cs1231 modLinkName/Module Website` +
+When viewing the module page for CS1231, there will be an additional label with "Module Website" and points to https://comp.nus.edu.sg/~cs1231.
+
+
+==== Clear all module links from module in database: `clearModLink`
+Removes all module links from a module in TAble. +
+Format: `clearModLink modCode/MODULE_CODE`
+
+****
+* The module code should correspond to an existing module in the database.
+****
+
+Example:
+
+* `clearModLink modCode/CS1231` +
+When viewing the module page for CS1231, there will not be any module links shown.
+
+==== Copy Module Link into Clipboard: `copyModLink`
+Copies a module link from the links currently associated with a module. Index corresponding to module link can be seen when viewing the module info using `viewModInfo`.
+
+Format: `copyModLink INDEX modCode/MODULE_CODE`
+
+****
+* The module code should correspond to an existing module in the database.
+* The index should correspond to a valid index in the module links.
+****
+
+Example:
+
+* `copyModLink 1 modCode/CS1231` +
+The first module link for CS1231 is copied into the user's clipboard.
+
+==== View Module: `viewModInfo`
+Opens the view for the selected module to view module description, links and (coming in v2.0) lecture timeslots.
+
+Format: `viewModInfo modCode/MODULE_CODE`
+
+****
+* The module code should correspond to an existing module in the database.
+****
+
+==== Add lecture timeslot: `addModLecture` [coming in v2.0]
+Adds lecture timeslot to module. This is to be integrated with the future calendar display feature. +
+Format: `addModLecture modCode/MODULE_CODE d/DAY from/TIME to/TIME p/LOCATION`
+
+Example:
+
+* `addModLecture modCode/CS1010S d/WED from/1400 to/1600 p/LT27`
+
+==== Clear all lecture timeslots: `clearModLecture` [coming in v2.0]
+Clears all lectures associated with a certain module. +
+Format: `clearModLecture modCode/MODULE_CODE`
+
+Example:
+
+* `clearModLecture modCode/CS1010S`
+
+//end::Module[]
+
+// tag::Tutorial[]
+=== Tutorials Feature (Written by Sarah Lim)
+
+==== Switch GUI Display to Tutorial List View: `listTutorial`
+
+Focuses the display in the GUI to the Tutorials list view, without requiring the user to click on the tab.
+Format: `listTutorial`
+
+==== Add a tutorial slot: `addTutorial`
+
+Add a tutorial slot for a particular module at the given time, day and place. +
+Format: `addTutorial modCode/MODULE_CODE tutorialName/TUTORIAL_NAME day/WEEKDAY_VALUE beginTime/START_TIME endTime/END_TIME place/PLACE`
+
+[TIP]
+A tutorial is distinguished by its module and name. Only one session is allowed per tutorial.
+If you wish to have a tutorial with multiple slots per week, you may use unique tutorial names (eg. T02A and T02B).
+
+[TIP]
+The module for `addTutorial` MODULE_CODE should already exist in TAble before adding the desired `Tutorial`
+****
+* The tutorial name provided is capped at 8 alphanumeric characters.
+* The time provided must be in HH:MM format, i.e: 24-hour format
+* The day provided is the value of the weekday (ie. MONDAY = 1, TUESDAY = 2, ... SUNDAY = 7)
+* The module code provided is case insensitive, e.g. `Cs2103` is equivalent to `CS2103`
+* The module with the referenced module code should already be present in TAble
+* The place provided can be any valid string
+* Note that you are not allowed to add tutorials with clashing times (ie. periods overlap)
+****
+
+Example:
+
+* `addTutorial modCode/CS2103 tutorialName/T02 day/3 beginTime/12:00 endTime/13:00 place/SR3`
+* `addTutorial modCode/CS1101S tutorialName/T11 day/4 beginTime/12:00 endTime/13:00 place/SR3`
+
+image::addTutorial.png[]
+
+==== Delete a tutorial slot: `deleteTutorial`
+
+Delete a tutorial slot for a particular module. +
+Format: `deleteTutorial INDEX`
+
+****
+* Deletes the tutorial at the specified `INDEX`.
+* The index refers to the index number shown in the displayed tutorial list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `listTutorial` +
+ `deleteTutorial 2`
+
+image::deleteTutorial.png[]
+
+==== Add student to tutorial: `addTutorialStudent`
+
+Enroll an existing student to an existing tutorial.
+Format: `addTutorialStudent tutorialIndex/INDEX student/STUDENT_INDEX`
+
+****
+* The index refers to the index number shown in the displayed tutorial list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The `STUDENT_INDEX` should be referred to by index as referred to in the student list.
+* The student should already exist in TAble.
+* The tutorial should already exist in TAble.
+* Note that `listAttendance` (see Section 3.4.9) has to be called after adding a student to view the updated list
+****
+
+Example:
+
+* `addTutorialStudent tutorialIndex/3 student/12`
+
+==== Marks students as present: `markPresent`
+
+Takes attendance of students in a tutorial class by marking them as present for a particular week. Present students will be marked by a *green* background in the respective attendance list. +
+Format: `markPresent tutorialIndex/INDEX week/WEEK student/STUDENT_INDEX`
+
+****
+* Updates the tutorial at the specified `INDEX`.
+* The index refers to the index number shown in the displayed tutorial list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The `STUDENT_INDEX` may either be an integer index *or* `all` to select all students in the specified tutorial.
+* The `STUDENT_INDEX`, if an integer, should be referred to by the index as referred to in the student list *relative to the specified tutorial*.
+* The week should be in numerical format, and accepts only numbers in the range 1 to 13 (inclusive)
+****
+
+Example:
+
+* `markPresent tutorialIndex/3 week/7 student/2` +
+Marks only student at index 2 (for tutorial at index 3) as present in week 7 for tutorial at index 3
+* `markPresent tutorialIndex/2 week/7 student/all` +
+Marks all students as present in week 7 in tutorial at index 2
+
+.Only mark the student at index 2 of the tutorial as present
+image::markPresent_indiv.png[]
+
+.Mark all students present
+image::markPresent_all.png[]
+
+==== Marks students as absent: `markAbsent`
+
+Takes attendance of students in a tutorial class by marking them as absent for a particular week. Absent students will be marked by a *red* background in the respective attendance list. +
+Format: `markPresent tutorialIndex/INDEX week/WEEK student/STUDENT_INDEX`
+
+****
+* Updates the tutorial at the specified `INDEX`.
+* The index refers to the index number shown in the displayed tutorial list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The `STUDENT_INDEX` may either be an integer index *or* `all` to select all students in the specified tutorial.
+* The `STUDENT_INDEX`, if an integer, should be referred to by the index as referred to in the student list *relative to the specified tutorial*.
+* The week should be in numerical format, and accepts only numbers in the range 1 to 13 (inclusive)
+****
+
+Example:
+
+* `markAbsent tutorialIndex/3 week/7 student/2` +
+Marks only student at index 2 (for tutorial at index 3) as absent in week 7 for tutorial at index 3
+* `markAbsent tutorialIndex/3 week/7 student/all` +
+Marks all students in week 7 as absent in tutorial at index 3 (oh no!)
+
+.Only mark the student at index 3 of the tutorial as absent
+image::markAbsent_indiv.png[]
+
+.Mark all students absent
+image::markAbsent_all.png[]
+
+==== Remove student from tutorial: `deleteTutorialStudent`
+
+Remove an existing student from an existing tutorial.
+Format: `deleteTutorialStudent tutorialIndex/INDEX student/STUDENT_INDEX`
+
+****
+* The index refers to the index number shown in the displayed tutorial list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The `STUDENT_INDEX` should be referred to by the index as referred to in the student list *relative to the specified tutorial*.
+* The student should already exist in TAble *and* exist in the tutorial being deleted from.
+* The tutorial should already exist in TAble.
+* Note that deleting the student from the tutorial does _not_ delete the student from the TAble database.
+* Note that `listAttendance` (see Section 3.4.9) has to be called after deleting a student to view the updated list
+****
+
+Example:
+
+* `deleteTutorialStudent tutorialIndex/3 student/12`
+
+==== Copy tutorial students' emails to user clipboard: `copyTutorialEmails`
+
+Copies all student emails in the given tutorial to the user clipboard, for easy mass-emailing purposes.
+Format: `copyTutorialEmails tutorialIndex/INDEX`
+
+****
+* The index refers to the index number shown in the displayed tutorial list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The tutorial should already exist in TAble.
+* The emails will be delimited by a semicolon (eg. \hello@email.com; \bye@email.com)
+****
+
+Example:
+
+* `copyTutorialEmails tutorialIndex/3`
+
+==== Display students and attendance of a tutorial: `listAttendance`
+
+Displays the list of students in a tutorial and their corresponding attendance for a particular week in the GUI.
+Format: `listAttendance tutorialIndex/INDEX week/INDEX`
+
+****
+* Shows the attendance for tutorial at the specified `INDEX`.
+* The index refers to the index number shown in the displayed tutorial list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The tutorial should already exist in TAble.
+* The week should be in numerical format, and accepts only numbers in the range 1 to 13 (inclusive)
+****
+
+Example:
+
+* `listAttendance tutorialIndex/2 week/10`
+
+//end::Tutorial[]
+
+//tag::ExportTutorialAttendance[]
+==== Export tutorial attendance to csv file: `exportAttendance` (Written by Nigel Neo)
+
+Exports the attendance data of all enrolled students in a tutorial group to a csv file, where the filepath is specified by the user.
+Format: `exportAttendance tutorialIndex/INDEX csvFilePath/FILEPATH`
+
+****
+* The index refers to the index number shown in the displayed tutorial list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The tutorial should already exist in TAble.
+* TAble must be able to write to the file specified.
+* The filepath must end in ".csv" as it is a csv file.
+* Attendance data from all weeks are exported into a csv file, where a 0 indicates absence and 1 indicates presence.
+****
+
+Example:
+
+* `exportAttendance tutorialIndex/1 csvFilePath/./data/attendance.csv`
+//end::ExportTutorialAttendance[]
+
+// tag::Consult[]
+=== Consults Feature (Written by Han Ching)
+[NOTE]
+The consults that are overdue will appear in red to highlight that these consults are ready to be deleted!
+
+==== Adding a consult: `addConsult`
+
+Add a consultation slot at the given time, date and place. +
+Format: `addConsult student/STUDENT_INDEX beginDateTime/BEGIN_DATE_TIME endDateTime/END_DATE_TIME place/PLACE`
+
+
+[TIP]
+Consults will be automatically sorted according to their date and time, with the earliest at the top of the list.
+
+****
+* The 'STUDENT_INDEX' should be referred to by the index as referred to in the student list
+* The begin and end date time provided must be in the yyyy-MM-dd HH:mm format
+* The location provided should be any valid string i.e, must be alphanumeric
+* The consult must be held within the same day, thus the begin and end DateTime objects should have the same date.
+* Consults also cannot be added in the past, and must be a consult that will occur in the future.
+****
+
+Example:
+
+* `addConsult student/1 beginDateTime/2020-03-03 10:00 endDateTime/2020-03-03 12:00 place/Deck`
+
+==== Editing a consult: `editConsult`
+
+Edit the time, date or place of an existing consultation slot. +
+Format: `editConsult INDEX [beginDateTime/BEGINDATETIME] [endDateTime/ENDDATETIME] [place/PLACE]`
+
+****
+* Edits the consult at the specified `INDEX`. The index refers to the index number shown in the displayed consultation list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Note that one cannot edit the student involved in the consult, as it is unlikely that the TA will need to change the student at that consult timing.
+****
+
+Example:
+
+* `editConsult 1 beginDateTime/2020-03-03 15:00` +
+Edits the beginning time of the 1st consult to be at 2020-03-03, 15:00 hours i.e 3.00 p.m.
+* `editConsult 2 place/SR3` +
+Edits the place of the 2nd consult to be at SR3.
+
+==== Listing all consults : `listConsult`
+
+Shows a list of all consultations in TAble. +
+Format: `listConsult`
+
+==== Deleting a consult: `deleteConsult`
+
+Removes an existing consultation slot. +
+Format: `deleteConsult INDEX`
+
+****
+* Deletes the consultation at the specified `INDEX`.
+* The index refers to the index number shown in the displayed consultation list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `listConsult` +
+`deleteConsult 2` +
+Deletes the 2nd consultation in TAble.
+
+==== Clearing all consults : `clearConsults`
+
+Clears all consultations slots in TAble. +
+Format: `clearConsults`
+
+==== Locating consultations by date or place: `findConsult` [coming in v2.0]
+
+Finds consultations whose date or place match any of the given keywords. +
+Format: `findConsult [DATE] [PLACE]`
+
+****
+* At least one of the optional fields must be provided
+* If both optional fields are provided, only consults that meet both criterion will be returned
+* The search is case insensitive. e.g `SR1` will match `sr1`
+* The order of the keywords matters. e.g. `find SR1 03-03-2020` will throw an error
+****
+
+Examples:
+
+* `findConsult 03-03-2020` +
+Returns all consults on 03-03-2020
+* `findConsult SR3` +
+Returns any consults that are held at SR3
+// end::Consult[]
+
+
+// tag::Reminder[]
+=== Reminder Feature (Written by Cranston Yeo)
+==== Adding a reminder: `addReminder`
+
+Adds a reminder to the reminder list. +
+Format: `addReminder desc/DESCRIPTION date/DATE time/TIME`
+
+[TIP]
+Reminders will be automatically sorted according to their date and time, with the earliest at the top of the list.
+
+****
+* The description provided should be any valid string that is not blank or exceeds 80 characters.
+* The date provided must be in YYYY-MM-DD format.
+* The time provided must be in HH:MM format, i.e: 24-hour format.
+* The reminder must be in the future.
+****
+
+Examples:
+
+* `addReminder desc/Mark midterms papers date/2020-10-05 time/14:00`
+
+==== Editing a reminder: `editReminder`
+
+Edits an existing reminder in the reminder list. +
+Format: `editReminder INDEX [desc/DESCRIPTION] [date/DATE] [time/TIME]`
+
+****
+* Edits the reminder at the specified `INDEX`. The index refers to the index number shown in the displayed reminder list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `editReminder 1 desc/Return midterms papers` +
+Edits the description of the 1st reminder to "Return midterms paper".
+
+* `editReminder 3 date/2020-05-20 time/18:00` +
+Edits the date of the 3rd reminder to 20th May 2020 18:00 hours i.e. 6.00 p.m.
+
+==== Finding reminders by their descriptions or date: `findReminder`
+Finds reminders matching with the given descriptions or date.
+Format: `findReminder [desc/DESCRIPTION] [MORE_DESCRIPTIONS] [date/DATE]`
+
+****
+* The search is case insensitive. e.g `Mark` will match `mark`.
+* The order of the descriptions does not matter. e.g. `Mark papers` will match `Papers mark`
+* Only full words will be matched e.g. `Mar` will not match `Mark`
+* Reminders matching at least one description will be returned (i.e. `OR` search). e.g. `Mark midterms` will return `Mark papers`, `Midterms exam`
+* At least one of the optional fields must be provided.
+* If both optional fields are provided, only reminders matching both criteria will be displayed.
+****
+
+Examples:
+
+* `findReminder desc/mark` +
+Returns reminders containing the keyword 'mark'.
+* `findReminder date/2020-05-05` +
+Returns all reminders on 05 May 2020.
+
+==== List all reminders: `listReminder`
+
+Lists all the reminders that the TA have added on TAble. +
+Format: `listReminder`
+
+==== Marking a reminder as done: `doneReminder`
+
+Marks the reminder from the reminder list as done. +
+Format: `doneReminder INDEX`
+
+[TIP]
+Reminders marked as done will automatically be sorted to the bottom of the list and will no longer appears in the calendar.
+
+****
+* Marks the reminder at the specified `INDEX` as done.
+* The index refers to the index number shown in the displayed reminder list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `listReminder` +
+`doneReminder 3` +
+Mark the 3rd reminder in TAble as done.
+
+==== Deleting a reminder: `deleteReminder`
+
+Deletes the specified reminder from the reminder list. +
+Format: `deleteReminder INDEX`
+
+****
+* Deletes the reminder at the specified `INDEX`.
+* The index refers to the index number shown in the displayed reminder list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `listReminder` +
+`deleteReminder 3` +
+Deletes the 3rd reminder in TAble.
+
+==== Snoozing a reminder: `snoozeReminder`
+
+Snoozes a reminder in the reminder list. +
+Format: `snoozeReminder INDEX [day/DAY] [hour/HOUR] [minute/MINUTE]`
+
+****
+* Snooze the reminder at the specified `INDEX`. The index refers to the index number shown in the displayed reminder list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Number of days, hours or minutes provided must be a positive whole number.
+* Reminder to be snoozed must not be done.
+****
+
+Examples:
+
+* `snoozeReminder 2 day/3 hour/2` +
+Postpone the second reminder to 3 days and 2 hours later.
+* `snoozeReminder 4 minute/30` +
+Postpone the fourth reminder to 30 minutes later.
+//end::Reminder[]
+
+// tag::Calendar[]
+=== Calendar Feature (Written by Han Ching)
+==== Display the calendar window: `viewCalendar`
+
+Brings up the calendar window.
+Format: `viewCalendar`
+
+****
+* The calendar will be brought up, displaying the current month and year.
+* For each month, the number of tutorials, consults and reminders for each day will be displayed in the calendar.
+* Click on the left/right arrows in the calendar window or press kbd:[←] / kbd:[→] buttons to change the month displayed.
+****
+
+==== Close the calendar window: `closeCalendar`
+
+Closes the calendar window.
+Format: `closeCalendar`
+
+****
+* The calendar will be closed, if a current calendar window is displayed.
+* Alternatively, clicking the cross can also close the calendar window.
+****
+
+==== View consults and tutorials on a particular day [Coming in v2.0]
+
+// end::Calendar[]
 
 === Exiting the program : `exit`
 
@@ -148,30 +821,98 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TAble folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+=== Student
+* *Add* : `addStudent name/NAME matric/MATRIC_NUMBER email/EMAIL [tag/TAG]...` +
+e.g. `addStudent name/James Tan matric/A0123456X email/jamesho@example.com tag/good student tag/hardworking`
+* *Clear* : `clearStudent`
+e.g. `clearStudent`
+* *Delete* : `deleteStudent INDEX` +
+e.g. `deleteStudent 3`
+* *Edit* : `editStudent INDEX [name/NAME] [matric/MATRIC_NUMBER] [email/EMAIL] [tag/TAG]...` +
+e.g. `editStudent 2 name/James Lee email/jameslee@example.com`
+* *Find* : `findStudent KEYWORD [MORE_KEYWORDS]` +
+e.g. `findStudent James Jake`
+* *Find Student with a certain matric number* : `findStudentMatricNumber matric/matric_number` +
+e.g. `findStudentMatricNumber matric/A0123456A`
+* *List* : `listStudent`
+* *Sorts the list of students in alphabetical order* : `sortStudent`
+
+
+
+=== Module
+* *Add* : `addMod modCode/MODULE_CODE modName/MODULE_NAME` +
+e.g. `addMod modCode/CS2103 modName/Software Engineering`
+* *Delete* : `deleteMod modCode/MODULE_CODE` +
+e.g. `deleteMod modCode/CS2103`
+* *Edit module Note* : `noteMod modCode/MODULE_CODE modNote/MODULE_NOTE` +
+e.g. `noteMod modCode/CS2103 modNote/SWE is fun!`
+* *Add module website link* : `addModLink modCode/MODULE_CODE modLink/MODULE_LINK modLinkName/MODULE_LINK_NAME` +
+e.g. `addModLink modCode/CS2103 modLink/http://comp.nus.edu.sg/~cs2103 modLinkName/Module Website`
+* *Clear all module links* : `clearModLink modCode/MODULE_CODE`
+* *View module info* : `viewModInfo modCode/MODULE_CODE`
+* *Copy module link into clipboard* : `copyModLink INDEX modCode/MODULE_CODE` +
+e.g. `copyModLink 1 modCode/CS2013`
+* *List Mods* : `listMod`
+
+=== Tutorial
+* *Add* : `addTutorial modCode/MODULE_CODE tutorialName/TUTORIAL_NAME day/WEEKDAY_VALUE beginTime/START_TIME endTime/END_TIME place/PLACE` +
+e.g. `addTutorial modCode/CS2103 tutorialName/T02 day/3 beginTime/12:00 endTime/13:00 place/SR3`
+* *Delete* : `deleteTutorial INDEX` +
+e.g. `deleteTutorial 2`
+* *Add Tutorial Student* : `addTutorialStudent tutorialIndex/INDEX student/STUDENT_INDEX` +
+e.g. `addTutorialStudent tutorialIndex/1 student/3`
+* *Mark Present* : `markPresent tutorialIndex/INDEX week/WEEK student/STUDENT_INDEX` +
+e.g. `markPresent tutorialIndex/3 week/7 student/2`
+* *Mark Absent* : `markPresent tutorialIndex/INDEX week/WEEK student/STUDENT_INDEX` +
+e.g. `markAbsent tutorialIndex/3 week/7 student/2`
+* *Delete Tutorial Student* : `deleteTutorialStudent tutorialIndex/INDEX student/STUDENT_INDEX` +
+e.g. `deleteTutorialStudent tutorialIndex/3 student/12`
+* *List Tutorial* : `listTutorial`
+* *List Attendance* : `listAttendance tutorialIndex/INDEX week/INDEX` +
+e.g. `listAttendance tutorialIndex/2 week/10`
+* *Copy Tutorial Students' Emails* : `copyTutorialEmails tutorialIndex/INDEX` +
+e.g. `copyTutorialEmails tutorialIndex/3`
+* *Export attendance to CSV file* : `exportAttendance tutorialIndex/INDEX csvFilePath/CSV_FILEPATH` +
+e.g. `exportAttendance tutorialIndex/1 csvFilePath/./data/attendance.csv`
+
+=== Consult
+* *Add* : `addConsult student/STUDENT_INDEX beginDateTime/BEGIN_DATE_TIME endDateTime/END_DATE_TIME place/PLACE` +
+e.g. `addConsult student/1 beginDateTime/2020-03-03 10:00 endDateTime/2020-03-03 12:00 place/Deck`
+* *Clear* : `clearConsult`
+* *Delete* : `deleteConsult INDEX` +
+e.g. `deleteConsult 3`
+* *Edit* : `editConsult INDEX [beginDateTime/BEGINDATETIME] [endDateTime/ENDDATETIME] [place/PLACE]` +
+e.g `editConsult 3 place/The Deck`
+* *List* : `listConsult`
+
+=== Reminder
+* *Add* : `addReminder desc/DESCRIPTION date/DATE time/TIME` +
+e.g. `addReminder desc/Upload week 11 tutorial answers date/2020-10-31 time/15:00`
+* *Edit* : `editReminder INDEX [desc/DESCRIPTION] [date/DATE] [time/TIME]` +
+e.g `editReminder 3 date/2020-10-05`
+* *Find* : `findReminder [desc/DESCRIPTION] [MORE_DESCRIPTIONS] [date/DATE]` +
+e.g `findReminder desc/midterms paper date/2020-10-15`
+* *List* : `listReminder`
+* *Done* : `doneReminder INDEX` +
+e.g. `doneReminder 2`
+* *Delete* : `deleteReminder INDEX` +
+e.g. `deleteReminder 2`
+* *Snooze* : `snoozeReminder INDEX [day/DAY] [hour/HOUR] [minute/MINUTE]` +
+e.g `snoozeReminder 4 hour/2 minute/30`
+
+=== Calendar
+* *View Calendar* : `viewCalendar`
+* *Close Calendar*: `closeCalendar`
+
 * *Help* : `help`
