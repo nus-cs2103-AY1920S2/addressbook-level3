@@ -4,6 +4,7 @@
 box UI UI_COLOR_T1
 participant ":MainWindow" as MainWindow UI_COLOR
 participant ":PetDisplay" as PetDisplay UI_COLOR
+participant ":PomodoroDisplay" as PomodoroDisplay UI_COLOR
 end box
 
 box Logic LOGIC_COLOR_T1
@@ -27,11 +28,17 @@ ref over MainWindow, PetDisplay, PetManager
 update PetDisplay
 end ref
 
-MainWindow -> PomodoroManager
+MainWindow -> PomodoroManager : setDefaultStartTime(30.0)
 activate PomodoroManager
 
 PomodoroManager --> MainWindow 
 deactivate PomodoroManager
+
+MainWindow -> PomodoroDisplay : setTimerText(30.0)
+activate PomodoroDisplay
+
+PomodoroDisplay --> MainWindow
+deactivate PomodoroDisplay
 
 MainWindow -> StatisticsManager
 activate StatisticsManager

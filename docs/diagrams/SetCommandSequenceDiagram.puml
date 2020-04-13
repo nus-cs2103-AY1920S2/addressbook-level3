@@ -4,7 +4,7 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":CommandParser" as SetCommandParser LOGIC_COLOR
+participant ":SetCommandParser" as SetCommandParser LOGIC_COLOR
 participant ":SetCommand" as SetCommand LOGIC_COLOR
 participant ":SetCommandResult" as SetCommandResult LOGIC_COLOR
 end box
@@ -67,12 +67,6 @@ activate Pomodoro
 
 Pomodoro -> Model
 deactivate Pomodoro
-
-Model -> SetCommand
-deactivate Model
-
-SetCommand -> Model : setPomodoroDefaultTim(Float)
-activate Model
 
 Model -> SetCommand
 deactivate Model
