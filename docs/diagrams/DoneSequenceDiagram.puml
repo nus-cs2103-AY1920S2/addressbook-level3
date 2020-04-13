@@ -1,11 +1,11 @@
-@startuml ViewSequenceDiagram
+@startuml DoneSequenceDiagram
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
-participant ":ViewCommandParser" as ViewCommandParser LOGIC_COLOR
-participant "d:ViewCommand" as ViewCommand LOGIC_COLOR
+participant ":DoneCommandParser" as DoneCommandParser LOGIC_COLOR
+participant "d:DoneCommand" as DoneCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,66 +13,58 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-box Ui UI_COLOR_T1
-participant ":Ui" as Ui UI_COLOR
-end box
 
-[-> LogicManager : execute("view 1")
+[-> LogicManager : execute("done 1")
 activate LogicManager
 
-LogicManager -> RecipeBookParser : parseCommand("view 1")
+LogicManager -> RecipeBookParser : parseCommand("done 1")
 activate RecipeBookParser
 
-create ViewCommandParser
-RecipeBookParser -> ViewCommandParser
-activate ViewCommandParser
+create DoneCommandParser
+RecipeBookParser -> DoneCommandParser
+activate DoneCommandParser
 
-ViewCommandParser --> RecipeBookParser
-deactivate ViewCommandParser
+DoneCommandParser --> RecipeBookParser
+deactivate DoneCommandParser
 
-RecipeBookParser -> ViewCommandParser : parse("1")
-activate ViewCommandParser
+RecipeBookParser -> DoneCommandParser : parse("1")
+activate DoneCommandParser
 
-create ViewCommand
-ViewCommandParser -> ViewCommand
-activate ViewCommand
+create DoneCommand
+DoneCommandParser -> DoneCommand
+activate DoneCommand
 
-ViewCommand --> ViewCommandParser : d
-ViewCommand -> Ui: changeRecipe(1)
-activate Ui
+DoneCommand --> DoneCommandParser : d
 
+deactivate DoneCommand
 
-Ui --> ViewCommand
-deactivate ViewCommand
-deactivate Ui
-
-ViewCommandParser --> RecipeBookParser : d
-deactivate ViewCommandParser
+DoneCommandParser --> RecipeBookParser : d
+deactivate DoneCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-ViewCommandParser -[hidden]-> RecipeBookParser
-destroy ViewCommandParser
+DoneCommandParser -[hidden]-> RecipeBookParser
+destroy DoneCommandParser
 
 RecipeBookParser --> LogicManager : d
 deactivate RecipeBookParser
 
-LogicManager -> ViewCommand : execute()
-activate ViewCommand
+LogicManager -> DoneCommand : execute()
+activate DoneCommand
 
-ViewCommand -> Model : viewRecipe(1)
+DoneCommand -> Model : attemptRecipe(1)
 activate Model
 
-Model --> ViewCommand
+Model --> DoneCommand
 deactivate Model
 
 create CommandResult
-ViewCommand -> CommandResult
+DoneCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> ViewCommand
+CommandResult --> DoneCommand
 deactivate CommandResult
 
-ViewCommand --> LogicManager : result
-deactivate ViewCommand
+DoneCommand --> LogicManager : result
+deactivate DoneCommand
 
 [<--LogicManager
 deactivate LogicManager
