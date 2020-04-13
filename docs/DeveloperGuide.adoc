@@ -190,7 +190,24 @@ The `Model`,
 * stores the current state of the `View`, through ViewStateModel
 ** stores the command input given by the user, through CommandInputModel
 ** stores the state of the `help` modal being open, through HelpFlagModel
+** stores the state of the current block's `edit` modal being open, through BlockEditFlagModel
 * stores `UserPref` data that represents the user's preferences, through UserPrefModel
+
+==== BlockModel component
+.Structure of the Model Component
+image::BlockModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/com/notably/model/Model.java[`BlockModel.java`]
+
+The `BlockModel`
+
+* stores and directly manipulates the `BlockTree`
+** contains a single `BlockTreeItem` as the `root`; the tree is built by adding chilren `BlockTreeItems` to the `root`
+*** each `BlockTreeItem` stores the reference to its parent and children `BlockTreeItems`, and its own content, through `TreeItem<Block>`
+**** stores its content, through `Block`
+***** contains the `Title` and `Body` content
+
+
 //end::design-model[]
 
 //tag::design-storage[]
@@ -205,7 +222,8 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in JSON format and read it back.
-* can save the Block data in JSON format and read it back.
+* can save Notably's `BlockModel` data in JSON format and read it back.
+** stores the `BlockTree` and also the path of the last opened `Block`
 //end::design-storage[]
 
 [[Design-Commons]]

@@ -6,27 +6,26 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
 Interface Model <<Interface>>
-Interface BlockModel <<Interface>>
 Interface SuggestionModel <<Interface>>
+Interface SuggestionItem <<Interface>>
 Interface ViewStateModel <<Interface>>
+Interface ReadOnlyUserPrefModel <<Interface>>
 Interface UserPrefModel <<Interface>>
 Interface CommandInputModel <<Interface>>
 Interface HelpFlagModel <<Interface>>
+Interface BlockEditFlagModel <<Interface>>
 Class ModelManager
+Class SuggestionModelImpl
+Class UserPrefModelImpl
 
-Package Block {
-Interface ObservableList <<Interface>>
-Class BlockTree
-Class BlockTreeItem
-Class Block
-Class Title
-Class Body
+Package BlockModel {
+Interface BlockModel <<Interface>>
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-ModelManager .up.|> Model
+ModelManager .left.|> Model
 
 ModelManager o-down-> BlockModel
 ModelManager o-down-> SuggestionModel
@@ -34,13 +33,10 @@ ModelManager o-down-> ViewStateModel
 ModelManager o-down-> UserPrefModel
 ViewStateModel o-down-> CommandInputModel
 ViewStateModel o-down-> HelpFlagModel
-
-BlockModel o-down-> "1" BlockTree
-
-BlockTree *--> "*" BlockTreeItem
-BlockTreeItem *--> Block
-BlockTreeItem .right.> ObservableList
-Block *-->  Title
-Block *-->  Body
+ViewStateModel o-down-> BlockEditFlagModel
+UserPrefModel o-left-> ReadOnlyUserPrefModel
+UserPrefModelImpl .up.|> UserPrefModel
+SuggestionModelImpl .up.|> SuggestionModel
+SuggestionModelImpl .down.> "*" SuggestionItem
 
 @enduml
