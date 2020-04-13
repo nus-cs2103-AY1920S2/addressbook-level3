@@ -465,8 +465,7 @@ our application and it is not recommendable to build it on top of something that
 This feature intends to serve a single user of the application to sets and updates his/her user profile. The profile
 is then reflected in the user's profile panel.
 
-==== `me`: Edit User Profile
-===== Implementation
+==== Implementation
 
 `me` is supported by the `EditUserCommand`, where it allows the main user to modify and update user information that
 includes `display picture`, `name`, `description`, `phone`, `email`, `github`, `university`, `major`, `from`, `to`, `cap`.
@@ -504,38 +503,54 @@ The following sequence diagram shows how the `me` feature allows user to edit hi
 .Sequence Diagram for EditUserCommand
 image::MeSequenceDiagram.png[]
 
-===== Design Considerations
+==== Design Considerations
 
-*Aspect: Whether `EditUserCommand` should extend `EditCommand`*
+===== Aspect: Whether `ResumeEditCommand` should extend `EditCommand`
 
-* ** Alternative 1 (current choice):** `EditUserCommand` does not extend `EditCommand`, but extends `Command`.
+**Alternative 1 (current choice):** `EditUserCommand` does not extend `EditCommand`, but extends `Command`.
 
 This design is chosen because while `EditCommand` takes into account the item index as all items are stored in a list in Model, `EditUserCommand`
 only concerns with a single `Person` who is the main user.
 
-** Pros: Reduces unnecessary overhead for `EditUserCommand`.
-** Cons: Unable to exploit polymorphism if there is similarity with the `EditCommand`.
+** Pros: Since user is a `Person` which is not an `Item`, it would be better to have a separate `EditUserCommand` as this is in line with the Liskov Substitution Principle
+where all `EditItemCommand` already extends `EditCommand` in order to handle the according `Item` without knowing it. So this does not force
+`EditCommand` to handle a `Person` as well.
+** Cons: Unable to exploit polymorphism even though there is similarity between `EditUserCommand` and `EditCommand`.
 
-* **Alternative 2: `EditUserCommand` extends `EditCommand`**
+**Alternative 2:** `EditUserCommand` extends `EditCommand`
 
-** Pros: Better utilise polymorphism and perhaps can be more intuitive as it is also a command to edit.
+** Pros: If we intend to have multiple `Person` then perhaps we can extend `EditCommand` due to the presence of `Index` attribute.
+In this case, even though `Person` is not an `Item`, there are many shared similarity between the two edit commands.
 
-** Cons: Does not treat it as an entirely separate command with a distinct keyword `me` which is more intuitive for the user.
+** Cons: In terms of design, this is not a good practice as `Person` is not intended to be an `Item` with separate attributes
+and is not part of a `Resume`.
 
-*Aspect: Whether to have both `AddUserCommand` and `EditUserCommand`*
+****
+*Conclusion:* The first design is chosen because `EditUserCommand` is sufficiently different from any `EditItemCommand`.
+An `EditUserCommand` command is solely concerned with changing the details of a `Person` while `EditCommand` is intended to
+to `edit` any `Item` in their respective list.
+****
 
-* *Alternative 1 (current choice):* A default user data is initialized and displayed at first start-up. User can update it afterwards.
-This design is chosen because `EditUserCommand` only concerns with a single `Person` object in the Model as the sole user. Hence
-there is no need for `AddUserCommand` as `EditUserCommand` when executed always creates a new `Person` object to replace the
-existing one and update the Model and Ui accordingly.
+==== Aspect: Whether to have both `AddUserCommand` and `EditUserCommand`
 
-** Pros: Reduces unnecessary code duplication with AddUserCommand is present.
+*Alternative 1 (current choice):* A default user data is initialized and displayed at first start-up. User can update it afterwards.
+
+The main concern initially was how to automatically updating user profile after each changes is made. As such, we thought of
+storing the `Person` in an `ObservableList` so that `Ui` can be updated by adding and removing the `Person`. However, we now
+use `Javafx Observable` to create an `ObservablePerson` class that can observe changes to the `Person` so that related Ui components
+can be automatically reloaded after every command.
+
+** Pros: This design is chosen because `EditUserCommand` only concerns with a single `Person` object in the Model as the sole user.
+There is no need for `AddUserCommand` as `EditUserCommand` when executed will always create a new `Person` object to replace the
+existing one and update the Model and Ui accordingly with the use of `Observable`.
+
 ** Cons: User may expect to have `add` command intuitively.
 
-* Alternative 2: Have both `AddUserCommand` and `EditUserCommand`
+*Alternative 2:* Have both `AddUserCommand` and `EditUserCommand`
 
 ** Pros: User can intuitively treat `add` as adding in a new `user` and `edit` as just modifying an existing `user`.
-** Cons: There will be code duplication and the one single user logic is not fully utilised to reduce code.
+** Cons: There will be code duplication and the one single user logic is not fully utilised to reduce code, especially given
+the use of `Observable`.
 
 ****
 *Conclusion:* We went with our current design because it only concerns with a single target user whose usage of the application can
@@ -624,8 +639,8 @@ As such, by extending `Item`, `Note` can inherit attributes such as `Index` and 
 `UniqueItemList` in `Model`.
 
 ** Pros: Reduce code duplication in achieving the same functionality between `Note` commands and other `Item` commands. `Note` can also inherit
-important attributes such as `index` and `tags` which it intends to have.
-** Cons: Right now other subclasses of `Item` are `Internship`, `Project`, `Skill`, `Person` and `Resume` which are all relevant
+important attributes such as `index` and `tag` which it intends to have.
+** Cons: Right now other subclasses of `Item` are `Internship`, `Project`, `Skill` and `Resume` which are all relevant
 to building a `Resume`. Details from these items will be included in the actual resume PDF generated. As such, `Note` as a subclass of
 `Item` can add confusion because it is not part of a resume.
 
@@ -1014,13 +1029,13 @@ _'items' refers to a resume field of type `project`, `skill`, `internship`, `not
 (For all use cases below, the *System* is the `ResumeBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Edit an item
+=== Use case: Edit an `item`
 
 *MSS*
 
 1.  User requests to list all items or only items of a specific `TYPE`
 2.  ResuMe shows a list of corresponding items
-3.  User checks for the `ID` of a specific item in the list to edit
+3.  User checks for the `index` of a specific item in the list to edit
 4.  User requests to edit a specific item in the list
 5.  ResuMe updates that item and displays edited item to user
 +
@@ -1029,7 +1044,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 3a. The `ID` given by user does not match any item of type
+* 3a. The `index` given by user does not match any item of type
 +
 [none]
 ** 3a1. ResuMe shows an error message
@@ -1042,7 +1057,7 @@ Use case ends.
 
 1.  User enters `find KEYWORD` without specifying a `TYPE`
 2.  ResuMe displays all items whose names contain the `KEYWORD`
-3.  If user enters `find -TYPE KEYWORD`
+3.  If user enters `find KEYWORD i/TYPE`
 4.  ResuMe displays only items of the `TYPE` whose names contain the `KEYWORD`
 +
 Use case ends.
@@ -1063,7 +1078,7 @@ Use case ends.
 
 1.  User requests to list all items or only items of a specific `TYPE`
 2.  ResuMe shows a list of corresponding items
-3.  User checks for the `ID` of a specific item in the list to delete
+3.  User checks for the `index` of a specific item in the list to delete
 4.  User requests to edit a specific item in the list
 5.  ResuMe deletes that item from the list and displays deleted item to user
 +
@@ -1076,7 +1091,7 @@ Use case ends.
 [none]
 ** Use case ends.
 +
-* 3a. The given `ID` is invalid.
+* 3a. The given `index` is invalid.
 ** 3a1. ResuMe shows an error message.
 [none]
 ** Use case resumes at step 2.
