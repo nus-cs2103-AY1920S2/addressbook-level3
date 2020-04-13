@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.util.Optional;
-
 import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
 

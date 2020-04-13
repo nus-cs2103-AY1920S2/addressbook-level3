@@ -180,8 +180,7 @@ public class Task {
             return true;
         }
 
-        return otherTask != null
-                && otherTask.getName().equals(getName());
+        return otherTask != null && otherTask.getName().equals(getName());
     }
 
     /**
@@ -203,7 +202,6 @@ public class Task {
                 && otherTask.getPriority().equals(getPriority())
                 && otherTask.getDescription().equals(getDescription())
                 && otherTask.getTags().equals(getTags());
-
     }
 
     @Override

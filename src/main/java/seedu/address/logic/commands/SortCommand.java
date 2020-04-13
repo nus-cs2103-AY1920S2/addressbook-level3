@@ -65,7 +65,7 @@ public class SortCommand extends Command {
                     break;
             }
         }
-        
+
         Comparator<Task> aggregateComparator = comparatorList.get(0);
         for (int i = 1; i < comparatorList.size(); i++) {
             aggregateComparator = aggregateComparator.thenComparing(comparatorList.get(i));

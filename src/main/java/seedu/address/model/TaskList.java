@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.model.task.Task;
@@ -44,7 +43,7 @@ public class TaskList implements ReadOnlyTaskList {
     public void setComparator(Comparator<Task> comparator) {
         this.sortedTaskList.setComparator(comparator);
     }
-    
+
     public void setSortOrder(String sortOrder) {
         this.sortOrder = Optional.of(sortOrder);
         if (sortOrder.length() == 0) {

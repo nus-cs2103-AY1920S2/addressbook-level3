@@ -6,9 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Set;
 import java.util.HashMap;
-import java.util.Optional;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Predicate;
@@ -283,7 +282,7 @@ public class ModelManager implements Model {
         this.taskList.setComparator(comparator);
         this.taskList.setSortOrder(sortOrder);
     }
-    
+
     /** Used when a predicate is applied to show the more relevant serach results */
     @Override
     public void setSearchResultOrder(Comparator<Task> comparator) {

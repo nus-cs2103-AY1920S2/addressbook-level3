@@ -38,7 +38,7 @@ public class TaskListPanel extends UiPart<Region> {
             this.tasksHeader.setText("Tasks");
         }
     }
-    
+
     public void removeSortOrder() {
         this.tasksHeader.setText("Tasks");
     }

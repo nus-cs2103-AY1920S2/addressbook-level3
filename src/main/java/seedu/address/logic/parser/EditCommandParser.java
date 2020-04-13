@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.TASK_PREFIXES;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -17,6 +18,7 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.CompletorDeletionResult;
 import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
@@ -101,24 +103,23 @@ public class EditCommandParser implements Parser<EditCommand> {
      *     list range
      */
     public CompletorResult completeCommand(String input, int listSize) throws CompletorException {
+        String[] trimmedInputs = input.split("\\s+");
+
+        if (trimmedInputs.length > 1) {
+            if (StringUtil.isNonZeroUnsignedInteger(trimmedInputs[1])) {
+                int editIndex = Integer.parseInt(trimmedInputs[1]);
+                if (editIndex > listSize) {
+                    throw new CompletorException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                }
+            } else {
+                throw new CompletorException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+        }
+
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(input, TASK_PREFIXES);
         boolean hasReminder = ParserUtil.arePrefixesPresent(argMultimap, PREFIX_REMINDER);
         boolean hasPriority = ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRIORITY);
-
         StringBuilder prefixesBuilder = new StringBuilder();
-
-        String[] trimmedInputs = input.split("\\s+");
-
-        if (trimmedInputs.length > 1 && StringUtil.isNonZeroUnsignedInteger(trimmedInputs[1])) {
-            int editIndex = Integer.parseInt(trimmedInputs[1]);
-            if (editIndex > listSize) {
-                String errorMessage =
-                        String.format(
-                                Messages.COMPLETE_INDEX_OUT_OF_RANGE_FAILURE,
-                                trimmedInputs[1].toString());
-                throw new CompletorException(errorMessage);
-            }
-        }
 
         for (int i = trimmedInputs.length - 1; i > 1; i--) {
             String currentArgument = trimmedInputs[i];
@@ -134,6 +135,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 prefixesBuilder.append(" ");
             }
         }
+
         String newCommand = String.join(" ", trimmedInputs);
         String prefixesAdded = prefixesBuilder.length() == 0 ? "nil" : prefixesBuilder.toString();
         String feedbackToUser = String.format(Messages.COMPLETE_PREFIX_SUCCESS, prefixesAdded);

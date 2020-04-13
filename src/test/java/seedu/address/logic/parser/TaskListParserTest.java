@@ -82,7 +82,8 @@ public class TaskListParserTest {
                 (FindCommand)
                         parser.parseCommand(
                                 FindCommand.COMMAND_WORD
-                                        + " " + keywords.stream().collect(Collectors.joining(" ")));
+                                        + " "
+                                        + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
