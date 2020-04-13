@@ -80,6 +80,8 @@ Format: `help h/INDEX`
 * Shows the command usage of the command at the specified `INDEX`. The index refers to the index number shown in the displayed help list. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+tag::clear[]
+
 ==== Undo and redo commands: `undo/redo`
 
 Undoes and redoes the last command. +
@@ -89,6 +91,8 @@ Format: `undo/redo`
 
 Clears all entries from the address book, schoolwork tracker, events book and restaurant book. +
 Format: `clear`
+
+end::clear[]
 
 ==== Exiting the program : `exit`
 
@@ -272,13 +276,15 @@ Format: `(ab)birthday`
 
 === Restaurant Book commands
 
+tag::res[]
+
 ==== Adds a new restaurant : `(rt)add`
 
 Adds a new restaurant +
 Format: `(rt)add n/NAME l/LOCATION v/VISITED [o/OPERATING_HOURS] [p/PRICE_POINT] [c/CUISINE]`
 
 ****
-* VISITED can only be Yes or No
+* VISITED can only be "Yes" or "No"
 * OPERATING_HOURS must be written in HHmm:HHmm format
 * PRICE_POINT contains only dollar signs
 ** There are 3 price points, each one distinguished according to the number of dollar signs
@@ -300,12 +306,16 @@ Format: `(rt)edit INDEX [n/RESTAURANT] [l/LOCATION] [v/VISITED] [o/OPERATING_HOU
 ****
 * INDEX must be a positive integer. It corresponds to the INDEX of the restaurant as shown when you list all restaurants in the Restaurant Book using the list function.
 * At least one optional field needs to be specified.
+* Specify nothing after the prefix to delete the field (RESTAURANT, LOCATION, VISITED cannot be deleted)
 ****
 
 Example:
 
 * `(rt)edit 1 o/0700:2200` +
 Edits the 1st restaurant's operating hours to "0700:2200" in the restaurant book.
+
+* `(rt)edit 3 p/ ` +
+Removes the 3rd restaurant's price point.
 
 ==== Deletes a restaurant: `(rt)delete`
 
@@ -316,6 +326,8 @@ Example:
 
 * `(rt)delete 1` +
 Deletes the 1st restaurant in the restaurant book.
+
+end::res[]
 
 tag::rtnotetaker[]
 

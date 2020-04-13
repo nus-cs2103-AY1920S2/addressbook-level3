@@ -461,6 +461,8 @@ Current implementation of Predicates uses the `stream` and `anyMatch` commands t
 * Cons: More troublesome for the user because if they want to search for multiple tags, they would have to keep typing the `/t` prefix for each keyword.
 end::findContacts[]
 
+tag::rtundoredo[]
+
 (Joel Lim Hee Heng: 3.7, 3.8)
 
 === Restaurant Book
@@ -562,6 +564,8 @@ For alternative 3, the current implementation seems to store the entire applicat
 ** *Alternative 3 (current choice)*: Partially stores the entire application
 *** Pros: Easy to implement
 *** Cons: Require significant amount of memory, but less than alternative 1
+
+end::rtundoredo[]
 
 === Logging
 
