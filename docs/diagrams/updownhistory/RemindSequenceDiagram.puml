@@ -3,61 +3,94 @@
 
 skinparam ParticipantPadding 0
 
+actor User
+
 box Application #999999
 participant ":MainApp" as MainApp #333333
 end box
 
-box Ui UI_MODEL_COLOR_T1
-participant ":MainApp" as MainApp UI_MODEL_COLOR
+box Ui UI_COLOR_T1
+participant ":UiManager" as UiManager UI_COLOR
+participant ":RemindWindow" as RemindWindow UI_COLOR
 end box
 
-box "<color:black>Model</color>" MODEL_COLOR_T1
-participant ":ModelManager" as ModelManager MODEL_COLOR
-participant ":CouponStash" as CouponStash MODEL_COLOR
-participant ":FilteredList" as FilteredList MODEL_COLOR
+box Model MODEL_COLOR_T1
 participant ":Coupon" as Coupon MODEL_COLOR
+participant ":RemindDate" as RemindDate MODEL_COLOR
 end box
 
+User -> MainApp: Opens Coupon Stash
 activate MainApp
+create UiManager
+MainApp->UiManager: UiManager()
+activate UiManager
 
-create ModelManager
-activate ModelManager
+UiManager-->MainApp: ui
 
-MainApp -> ModelManager: new ModelManager()
+deactivate UiManager
 
-create CouponStash
-ModelManager -> CouponStash: new CouponStash(couponStash)
-activate CouponStash
-CouponStash --> ModelManager: couponStash
-deactivate CouponStash
+MainApp->UiManager: start()
+activate UiManager
 
-ModelManager -> CouponStash: archiveExpiredCoupons()
-activate CouponStash
+create RemindWindow
+UiManager->RemindWindow: RemindWindow()
+activate RemindWindow
 
-loop for each coupon
-    CouponStash -> Coupon: getExpiryDate()
+RemindWindow->RemindWindow: filterRemindCoupons()
+
+loop for each coupon in stash
+    activate RemindWindow
+
+
+    RemindWindow->Coupon:getRemindDate()
     activate Coupon
-    Coupon --> CouponStash : expiryDate
+    Coupon-->RemindWindow:remindDate
     deactivate Coupon
 
-    opt has expired
-        CouponStash -> Coupon: archive()
-        activate Coupon
-        Coupon --> CouponStash: archivedCoupon
-        deactivate Coupon
+    RemindWindow->RemindDate:remindDate.isToday()
+    activate RemindDate
+    RemindDate-->RemindWindow:isToday
+    deactivate RemindDate
+
+    alt coupon remind date is today
+    RemindWindow->RemindWindow:add coupon to couponsToRemind
+    activate RemindWindow
+    RemindWindow-->RemindWindow
+    deactivate RemindWindow
     end
+
+end
+RemindWindow-->RemindWindow: couponsToRemind
+deactivate RemindWindow
+
+
+RemindWindow-->UiManager: remindWindow
+
+deactivate RemindWindow
+
+UiManager->RemindWindow: showIfAny()
+alt at least one coupon to remind
+    activate RemindWindow
+
+    RemindWindow->RemindWindow: constructRemindCoupons()
+    activate RemindWindow
+
+    loop for each coupon to remind
+        RemindWindow->RemindWindow: concatenate coupon information
+        activate RemindWindow
+        RemindWindow-->RemindWindow
+        deactivate RemindWindow
+
+    end
+
+    RemindWindow->RemindWindow: remindMessage
+    deactivate RemindWindow
 end
 
-CouponStash --> ModelManager: updatedCouponStash
-deactivate CouponStash
+RemindWindow-->UiManager
 
-create FilteredList
-ModelManager -> FilteredList: new FilteredList<>(sortedCoupons, PREDICATE_SHOW_ALL_ACTIVE_COUPONS)
-activate FilteredList
-FilteredList --> ModelManager: filteredCoupons
-deactivate FilteredList
+UiManager-->MainApp
 
-MainApp <-- ModelManager : modelManager
-deactivate ModelManager
+MainApp-->User:Show reminder window
 
 @enduml

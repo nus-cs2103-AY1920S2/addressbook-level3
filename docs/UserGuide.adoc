@@ -52,29 +52,29 @@ a|
 a|
 *Features*
 
-   . Adding a coupon: add
-   . Editing a coupon: edit
-   . Deleting a coupon: delete
-   . Listing all coupons: list
-   . Using a coupon: used
-   . Viewing savings: saved
-   . Archiving a coupon: archive
-   . Unarchiving a coupon: unarchive
-   . Finding coupons by name: find
-   . Listing all expiring coupons: expiring
-   . Sorting coupons: sort
-   . Copying a coupon: copy
-   . Sharing a coupon: share
-   . Undoing the previous command: undo
-   . Redoing the undone command: redo
-   . Displaying a month-year on the calendar: goto
-   . Expanding a coupon: expand
-   . Setting currency symbol: setcurrency
-   . Viewing help: help
-   . Clearing all entries: clear
-   . Exiting the program: exit
-   . Reminding of coupon expiry
-   . Saving the data
+. Adding a coupon: add
+. Editing a coupon: edit
+. Deleting a coupon: delete
+. Listing all coupons: list
+. Using a coupon: used
+. Viewing savings: saved
+. Archiving a coupon: archive
+. Unarchiving a coupon: unarchive
+. Finding coupons by name: find
+. Listing all expiring coupons: expiring
+. Sorting coupons: sort
+. Copying a coupon: copy
+. Sharing a coupon: share
+. Undoing the previous command: undo
+. Redoing the undone command: redo
+. Displaying a month-year on the calendar: goto
+. Expanding a coupon: expand
+. Setting currency symbol: setcurrency
+. Viewing help: help
+. Clearing all entries: clear
+. Exiting the program: exit
+. Reminding of coupon expiry
+. Saving the data
  |5
 
 a|
@@ -353,7 +353,7 @@ The calendar title indicates the current month year on display in the calendar .
 
 [[calendar-arrows]]
 ==== Previous & Next Arrows
-The left and right arrows enables you to change the month year on display on the calendar.
+The left and right arrows enable you to change the month year on display on the calendar.
 A click on the left and right arrows displays the previous month and the next month respectively.
 
 [TIP]
@@ -362,9 +362,9 @@ command!
 
 [[calendar-date]]
 ==== Dates
-The numbers on the calendar represents each date in the current month year on display in the calendar.
+The numbers on the calendar represent each date in the current month year on display in the calendar.
 
-Some date cells are highlighted. The following are the meanings of the various hightlights:
+Some date cells are highlighted. The following are the meanings of the various highlights:
 
 * Blue highlight: Indicates the system's date (usually today's date)
 * Red highlight: Indicates expiring coupon(s) on that date
@@ -570,7 +570,7 @@ Shows a list of all *used* coupons in Coupon Stash.
 
 // tag::used[]
 === Using a coupon: `used`
-Uses a coupon if its usage has yet to reached its limit.
+Use a coupon if its usage has yet to reach its limit.
 Requires an original amount of purchase if the coupon has savings in a
 percentage value. +
 
@@ -713,11 +713,11 @@ Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g mALa will match Mala.
-* The order of the keywords does not matter. e.g. Rice Chicken will match
+* The order of the keywords does not matter. e.g. Rice Chicken will match
 Chicken Rice.
-* Only full words will be matched e.g. Chicken will not match Chickens.
+* Only full words will be matched e.g. Chicken will not match Chickens.
 * Coupons matching at least one keyword will be returned.
-e.g. Chicken Rice will return Duck Rice, Chicken Chop.
+e.g. Chicken Rice will return Duck Rice, Chicken Chop.
 ****
 
 [TIP]
@@ -872,6 +872,10 @@ Below is a sample of how a shared coupon image looks like:
 .Example of a shared coupon
 image::example_shared_coupon.png[]
 
+[WARNING]
+Do not try entering this command with `MAX_INT` value as <<index, INDEX>>.
+This may lead to a bug.
+
 Examples:
 
 * `list` +
@@ -916,13 +920,13 @@ the application, your undo history will be lost!
 Examples:
 
 * `edit 1 r/ 25-12-2020` +
-  `undo` +
+`undo` +
 Undo the <<Editing a coupon: `edit`, `edit`>> command. Remind date of first coupon in the coupon list reverts back to its
 previous value.
 
 
 * `delete 1` +
-  `undo` +
+`undo` +
 Revert the <<Deleting a coupon: `delete`, `delete`>> that was performed. Deleted coupon is restored.
 // end::undo[]
 
@@ -936,8 +940,8 @@ Format: `redo`
 Examples:
 
 * `edit 1 r/ 25-12-2020` +
-  `undo` +
-  `redo` +
+`undo` +
+`redo` +
 Un-undo the <<Editing a coupon: `edit`, `edit`>> command. Remind date of first coupon that was in the resulting coupon
 list is edited.
 
@@ -1165,7 +1169,7 @@ be added in version 2.0.0 +
 
 *A* :  Whenever a coupon is marked as used, Coupon Stash will automatically
 calculate the values saved based on the details of the coupon. You
-can used the <<saved, saved command>> to view amount saved.
+can use the <<saved, saved command>> to view the amount saved.
 {empty} +
 
 *Q* : What animal is Stasher?
@@ -1186,45 +1190,45 @@ This section has a summary of all the commands.
 |*Add*
 | `add n/NAME e/EXPIRY_DATE s/SAVINGS [u/USAGE] [l/USAGE_LIMIT] [p/PROMO_CODE]
 [sd/START_DATE] [r/REMIND_DATE] [c/CONDITION] [s/SAVINGS]... [t/TAG]…`​ +
-e.g. `add n/The Deck Chicken Rice s/20% sd/2-3-2020 e/30-8-2020 t/friend
+e.g. `add n/The Deck Chicken Rice s/20% sd/2-3-2020 e/30-8-2020 t/friend
 t/value`
 |*Edit*
 |`edit INDEX [n/name] [e/EXPIRY_DATE] [l/USAGE_LIMIT] [p/PROMO_CODE]
 [sd/START_DATE] [r/REMIND_DATE] [c/CONDITION] [s/SAVINGS]... [t/TAG]...` +
-e.g. `edit 2 n/Chicken Up s/50%`
+e.g. `edit 2 n/Chicken Up s/50%`
 |*Delete*
 |`delete INDEX` +
-e.g. `delete 3`
+e.g. `delete 3`
 |*List*
 |`list [PREFIX]`
 e.g. `list`
 |*Find*
 |`find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find western chick`
+e.g. `find western chick`
 |*Sort*
 |`sort PREFIX` +
-e.g. `sort n/`
+e.g. `sort n/`
 |*Expiring*
 |`expiring e/EXPIRY_DATE` or `expiring my/MONTH_YEAR` +
-e.g. `expiring e/30-9-2020` or `expiring my/9-2020`
+e.g. `expiring e/30-9-2020` or `expiring my/9-2020`
 |*Used*
 |`used INDEX` or `used INDEX MONETARY_SYMBOL + ORIGINAL_AMOUNT` +
-e.g. `used 1` or `used 1 $10`
+e.g. `used 1` or `used 1 $10`
 |*Saved*
 |saved d/DATE_TO_TRACK_FROM +
 e.g. `saved d/ 1-5-2020`
 |*Archive*
 |`archive INDEX` +
-e.g. `archive 1`
+e.g. `archive 1`
 |*Unarchive*
 |`unarchive INDEX` +
-e.g. `unarchive 1`
+e.g. `unarchive 1`
 |*Copy*
 |`copy INDEX` +
-e.g. `copy 1`
+e.g. `copy 1`
 |*Share*
 |`share INDEX` +
-e.g. `share 1`
+e.g. `share 1`
 |*Undo*
 |`undo`
 |*Redo*
@@ -1234,7 +1238,7 @@ e.g. `share 1`
 e.g.`goto 9-2020`
 |*Expand*
 |`expand INDEX` +
-e.g. `expand 1`
+e.g. `expand 1`
 |*SetCurrency*
 |`setcurrency [ms/NEW_MONEY_SYMBOL]` +
 e.g. setcurrency ms/€
