@@ -70,7 +70,6 @@ image::UG/help.png[width="790"]
 Shows a list of all suppliers in the inventory manager. +
 Format: `list-s`
 
-// end::delete[]
 === Clearing all supplier entries : `clear-s` (By Liu Chao)
 
 Clears all supplier entries from the address book. +
