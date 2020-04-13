@@ -26,7 +26,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the given module and group";
 
     public static final String MESSAGE_INVALID_SESSION_DISPLAYED_INDEX = "There is no session at the given list index";
-    public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists";
+    public static final String MESSAGE_DUPLICATE_SESSION = "This session has a time clash with an existing session";
     public static final String MESSAGE_INVALID_SESSION_TIMES = "You cannot have a session start after it ends!";
 
     public static String getUnknownCommandWithHelpMessage() {

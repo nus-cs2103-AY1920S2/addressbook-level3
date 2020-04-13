@@ -81,7 +81,10 @@ public class EditSessionCommand extends Command {
         Session sessionToEdit = lastShownList.get(index.getZeroBased());
         Session editedSession = createEditedSession(sessionToEdit, editSessionDescriptor);
 
-        if (sessionToEdit.isSameSession(editedSession)) {
+        boolean hasSameStartTime = sessionToEdit.getStartDateTime().isEqual(editedSession.getStartDateTime());
+        boolean hasSameEndTime = sessionToEdit.getEndDateTime().isEqual(editedSession.getEndDateTime());
+
+        if (!hasSameStartTime || !hasSameEndTime) {
             throw new CommandException(MESSAGE_DUPLICATE_SESSION);
         }
 
@@ -223,7 +226,7 @@ public class EditSessionCommand extends Command {
         }
 
         public Optional<Integer> getRecurring() {
-            if (hasRecurring()) {
+            if (!hasRecurring()) {
                 return Optional.empty();
             } else {
                 return Optional.of(newRecurring);
