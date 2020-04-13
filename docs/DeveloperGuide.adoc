@@ -438,7 +438,7 @@ invoked to update `Credits` of `CourseInfo`, however we have not described how i
 As from our previous xref:anchor-tag-g[discussion], we note that `creditsFulfilled` and
 `creditsRequired` is computed through summing up the `creditsFulfilled` and `creditsRequired`
 for the individual `Requirements`.
-    
+
 More formally, the interactions between the various classes, for the computation to be
 performed are as such:
 
