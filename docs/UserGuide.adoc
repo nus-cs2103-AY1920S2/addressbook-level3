@@ -42,6 +42,7 @@ BB Productive is for those who looking for motivation in their work. This app se
 Indexes refer to the current tasklist on display, it does not refer to the indices of the entire task list. Note also that indexes start from 1 and not 0.
 ====
 
+// tag::quickStart[]
 == Quick Start
 - This section provides a quick guide on firing up BB Productive. Follow the steps below to install and launch BB Productive:
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -61,6 +62,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+// end::quickStart[]
 
 [[Terminology]]
 == Terminology
@@ -339,7 +342,7 @@ If we can't find a valid command, you will observe feedback like below:
 .Auto complete not found
 image::complete_fail.png[]
 
-
+// tag::reminder[]
 === Reminders
 
 ==== What's a reminder?
@@ -382,6 +385,9 @@ Results in a task with the reminder's date in the task card.
 .Success for editing task's reminder.
 image::reminder_edit_success.png[width=790]
 
+// end::reminder[]
+
+// tag::recurring[]
 === Recurring
 
 ==== What's Recurring?
@@ -452,6 +458,8 @@ image::recurring_behaviour_new_reminder_resultDisplay.png[width=395]
 
 .Task has been reset shown on task card with updated reminder time of 14th April 2020 at 12:41PM..
 image::recurring_behaviour_new_reminder.png[width=790]
+
+// end::recurring[]
 
 [[Navigation]]
 === Navigation
