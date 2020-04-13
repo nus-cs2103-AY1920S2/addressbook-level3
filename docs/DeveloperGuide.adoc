@@ -216,7 +216,7 @@ is thrown instead and the user will be notified of the proper command usage. If 
 
 image::scheduleCommandGeneration.png[align="center"]
 [.text-center]
-_Fig 5. Sequence Diagram depicting generation of ScheduleCommand object_
+_Fig 5. Sequence Diagram depicting the creation of ScheduleCommand object_
 
 [.text-justify]
 

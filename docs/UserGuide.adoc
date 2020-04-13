@@ -119,6 +119,8 @@ Adds a contact named Joel HH with email address joel@yahoo.com.sg, phone number 
 * `(ab)add n/Aisyle Nat e/aisyle@gmail.com p/87654321 o/NUS b/02-12` +
 Adds a contact named Aisyle Nat with email address aisyle@gmail.com, phone number 87654321, birthday 12 February and organization NUS.
 
+tag::editPerson[]
+
 ==== Editing a person : `(ab)edit`
 
 Edits an existing person in the address book. +
@@ -149,6 +151,8 @@ Changes the 37th person’s address to 2 Cactus Road, S903281.
 Changes the 2nd person’s name to Elysia Tan, and organization to Comp Club.
 * `(ab)edit 2 t/best friend -t/good friend` +
 Removes the tag good friend from the 2nd person and adds the tag best friend to him/her.
+
+end::editPerson[]
 
 ==== Deleting a person : `(ab)delete`
 
@@ -398,6 +402,7 @@ Finds restaurants in the bedok area at a low price point.
 
 * [COMING SOON] Ability to search by price point and operating hours.
 
+tag::schoolworkTracker[]
 === Schoolwork Tracker commands
 ==== Adding an assignment : `(st)add`
 
@@ -439,7 +444,7 @@ Changes the deadline of the second assignment to 9 November 2020 11:59 PM.
 ===== Marking an assignment as done : `(st)edit INDEX s/Completed`
 ===== Marking an assignment as uncompleted : `(st)edit INDEX s/Uncompleted`
 
-==== Deleting assignment : `(st)delete`
+==== Deleting an assignment : `(st)delete`
 
 Deletes an assignment. +
 Format: `(st)delete INDEX`
@@ -452,6 +457,8 @@ Example:
 
 * `(st)delete 1` +
 Deletes the 1st assignment in the Schoolwork Tracker.
+
+end::schoolworkTracker[]
 
 ==== Listing assignments : `(st)list`
 
@@ -473,6 +480,7 @@ Assignments will be shown in chronological order, with respect to the deadline, 
 * `(st)list -e` +
 Assignments will be sorted in order of decreasing estimated work hours, with all completed assignments shown at the bottom of the list.
 
+tag::schedule[]
 ==== Generate upcoming schedule : `(st)schedule`
 
 Looks through the list of saved assignments to generate your upcoming schedule.
@@ -493,6 +501,8 @@ Example:
 
 * `(st)schedule n/5` +
 Displays 5 days of your generated schedule.
+
+end::schedule[]
 
 === Event Schedule commands
 
