@@ -13,9 +13,9 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
-participant ":FitHelper" as FitHelper MODEL_COLOR
+'participant ":FitHelper" as FitHelper MODEL_COLOR
 'participant "list:List<CalorieEntry>" as list MODEL_COLOR
-participant ":CalorieTable" as CalorieTable MODEL_COLOR
+'participant ":CalorieTable" as CalorieTable MODEL_COLOR
 end box
 
  -> LogicManager : execute("check ...")
@@ -49,36 +49,40 @@ deactivate
 
 LogicManager -> CheckCommand : execute(model)
 activate CheckCommand
-CheckCommand -> ModelManager : searchTable(type, keyword)
+CheckCommand -> ModelManager : searchTable(checkType, keyword)
 activate ModelManager
-ModelManager -> FitHelper : addCalorieData(type, keyword)
-activate FitHelper
-FitHelper -> CalorieTable : getData(type)
-activate CalorieTable
-FitHelper <-- CalorieTable : data
-deactivate
-
-FitHelper -> FitHelper : searchEachWordCompleteMatch(keywordsByWord)
-activate FitHelper
-FitHelper --> FitHelper : count
-deactivate
-opt fewer than 3 entries are added so far, i.e. count < 3
-FitHelper -> FitHelper : searchWholeWordPartialMatch(keywords)
-activate FitHelper
-FitHelper --> FitHelper : count
-deactivate
-end
-opt fewer than 3 entries are added so far, i.e. count < 3
-FitHelper -> FitHelper : searchEachWordPartialMatch(keywordsByWord)
-activate FitHelper
-FitHelper --> FitHelper :
-deactivate
-end
-
-FitHelper --> ModelManager : List<CalorieDatum>
-deactivate FitHelper
+'ModelManager -> FitHelper : addCalorieData(type, keyword)
+'activate FitHelper
+'FitHelper -> CalorieTable : getData(type)
+'activate CalorieTable
+'FitHelper <-- CalorieTable : data
+'deactivate
+'
+'FitHelper -> FitHelper : searchEachWordCompleteMatch(keywordsByWord)
+'activate FitHelper
+'FitHelper --> FitHelper : count
+'deactivate
+'opt fewer than 3 entries are added so far, i.e. count < 3
+'FitHelper -> FitHelper : searchWholeWordPartialMatch(keywords)
+'activate FitHelper
+'FitHelper --> FitHelper : count
+'deactivate
+'end
+'opt fewer than 3 entries are added so far, i.e. count < 3
+'FitHelper -> FitHelper : searchEachWordPartialMatch(keywordsByWord)
+'activate FitHelper
+'FitHelper --> FitHelper :
+'deactivate
+'end
+'
+'FitHelper --> ModelManager : List<CalorieDatum>
+'deactivate FitHelper
 ModelManager --> CheckCommand : List<CalorieDatum>
 deactivate ModelManager
+CheckCommand -> CheckCommand : convertListToString()
+activate CheckCommand
+CheckCommand --> CheckCommand : feedbackToUser
+deactivate
 create Result
 CheckCommand -> Result
 activate Result
