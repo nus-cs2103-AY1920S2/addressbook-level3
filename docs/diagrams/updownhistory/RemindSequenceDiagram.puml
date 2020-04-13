@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+
+skinparam ParticipantPadding 0
+
+box Application #999999
+participant ":MainApp" as MainApp #333333
+end box
+
+box Ui UI_MODEL_COLOR_T1
+participant ":MainApp" as MainApp UI_MODEL_COLOR
+end box
+
+box "<color:black>Model</color>" MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":CouponStash" as CouponStash MODEL_COLOR
+participant ":FilteredList" as FilteredList MODEL_COLOR
+participant ":Coupon" as Coupon MODEL_COLOR
+end box
+
+activate MainApp
+
+create ModelManager
+activate ModelManager
+
+MainApp -> ModelManager: new ModelManager()
+
+create CouponStash
+ModelManager -> CouponStash: new CouponStash(couponStash)
+activate CouponStash
+CouponStash --> ModelManager: couponStash
+deactivate CouponStash
+
+ModelManager -> CouponStash: archiveExpiredCoupons()
+activate CouponStash
+
+loop for each coupon
+    CouponStash -> Coupon: getExpiryDate()
+    activate Coupon
+    Coupon --> CouponStash : expiryDate
+    deactivate Coupon
+
+    opt has expired
+        CouponStash -> Coupon: archive()
+        activate Coupon
+        Coupon --> CouponStash: archivedCoupon
+        deactivate Coupon
+    end
+end
+
+CouponStash --> ModelManager: updatedCouponStash
+deactivate CouponStash
+
+create FilteredList
+ModelManager -> FilteredList: new FilteredList<>(sortedCoupons, PREDICATE_SHOW_ALL_ACTIVE_COUPONS)
+activate FilteredList
+FilteredList --> ModelManager: filteredCoupons
+deactivate FilteredList
+
+MainApp <-- ModelManager : modelManager
+deactivate ModelManager
+
+@enduml
