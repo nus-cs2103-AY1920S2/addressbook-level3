@@ -1004,6 +1004,8 @@ image::developer-guide/RequirementAddActivityDiagram.png[]
 
 ==== Requirement Assign
 
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
+
 ===== Overview
 
 This feature allows `Module(s)` to be assigned or mapped under a `Requirement`.
