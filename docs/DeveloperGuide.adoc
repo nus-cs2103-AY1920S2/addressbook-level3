@@ -180,14 +180,48 @@ image::StorageClassDiagram.png[]
 // tag::storage[]
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Model data in json format and read it back.
-** Save IntervieweeList to interviewee.json
-** Save AttributeList to attribute.json
-** Save QuestionList to question.json
-** Save MetricList to metric.json
-** Save Transcripts of individual interviewees to separate json files in /transcript
- - for example an interviewee with id = 1 has his/her transcript saved to transcript/1.json
+* contains the various classes of *Storages* to support the following features.
+** `UserPrefsStorage` saves `UserPref` objects in json format and read it back.
+** `ModelStorage` saves the `Model` data in json format and read it back.
+** `IntervieweeStorage` saves `IntervieweeList` to interviewee.json and read it back.
+** `AttributeStorage` saves `AttributeList` to attribute.json and read it back.
+** `QuestionStorage` saves `QuestionList` to question.json and read it back.
+** `MetricStorage` saves `MetricList` to metric.json and read it back.
+** `TranscriptStorage` saves `Transcripts` of individual interviewees to separate json files in /transcript
+- for example an interviewee with id = 1 has his/her transcript saved to transcript/1.json
+
+
+.Structure of the IntervieweeStorage Component
+image::IntervieweeStorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/hirelah/storage/Storage.java[`IntervieweeStorage.java`]
+
+The `IntervieweeStorage` component,
+is responsible for saving an `IntervieweeList`.
+An `Interviewee` contains a `Transcript` which holds contain the `RemarkList` and a `Hashmap` of `Attribute` to score.
+
+During the interview, the interviewee will rate certain desirable `Attribute` with a certain score, this is stored in
+the `Hashmap`.`RemarkList` contains all the `Remarks` for the `Interviewee` during the interview.
+
+The interviewer may give a particular `Remark` based on certain `Question`, hence the `RemarkList` would depend on the
+`QuestionList` to check for its validity.
+
+There is also a need to check for the validity of `Hashmap` by checking the `Attribute` given in the `Hashmap` against the
+`AttributeList`, which result in the dependency between `JsonSerializableTranscript` and `AttributeList`.
+
+
+.Structure of the AttributeStorage Component
+image::AttributeStorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/hirelah/storage/Storage.java[`AttributeStorage.java`]
+
+
+All the `Attribute` are being stored as a list which is saved in a json file. When converting the json file back
+their `Attribute` Object, the `JsonSerializableAttributes` and `JsonAdaptedAttributes` classes are being deployed.
+
+The other types of storages contains the identical structure similar to  `AttributeStorage` , they
+are being omitted.
+
 
 [[Design-Commons]]
 === Common classes
