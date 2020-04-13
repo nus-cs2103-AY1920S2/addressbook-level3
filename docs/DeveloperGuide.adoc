@@ -710,7 +710,12 @@ By considering the above two factors, despite having to put in the extra effort 
 This feature allows users to filter the list of clients by specifying the `Tag` or `Sport` of the clients they want to view.
 
 ==== Implementation
-This filtering mechanism is facilitated by `TagAndSportContainsKeywordsPredicate`, that implements `Predicate<Client>` which is a wrapper class for a boolean. `TagAndSportContainsKeywordsPredicate` contains 2 booleans:
+This filtering mechanism is facilitated by `TagAndSportContainsKeywordsPredicate`, that implements `Predicate<Client>` which is a wrapper class for a boolean. `FilterCommand` is associated with `Model` is responsible for calling `Model#updateFilteredClientList` based on `TagAndSportContainsKeywordsPredicate`. `TagAndSportContainsKeywordsPredicate` will call `test` on `Client` to check if the clients 'Tag' and `Sport` contains all the keyword. the relations between these classes are shown in the class diagram below.
+
+image::FilterClassDiagram.png[]
+
+To further elaborate,
+`TagAndSportContainsKeywordsPredicate` contains 2 booleans:
 
 1. `hasTag`: evaluates if the client has all the `Tag` specified
 2. `hasSport`: evaluates if the client has all the `Sport` specified
@@ -723,23 +728,17 @@ image::FilterSequenceDiagram.png[]
 
 ==== Design Considerations
 [options='header']
+.Table of Design Considerations
 |====================
-| Considerations | Pros and Cons
-|Check if a client contains `Tag` and `Sport` keywords seperately before combining the results|
-*Pros*: Code will be neater for debugging and adding more parameters to filter will be easier
-
-*Cons*: Parts of the code will be duplicated
-
-|Combine all keywords and check if all keywords exist in the combined list of `Tag` and `Sport` |
-*Pros*: Lesser duplicated codes and simpler logic
-
-*Cons*: Harder to fix errors or add new attributes to filter
+| |Using separate booleans to check for `Tag` and `Sport` keywords  (Chosen) | Using one boolean to check for all keywords
+| Ease of Implementation | Checks for client's `Tags` and `Sports` containing keywords can be done separately ensuring that individual results are correct before combining them |Simpler logic but errors are more difficult to pinpoint to either `TAG` or `SPORT`
+| Ease of Expanding Feature | Easier to add new parameters to filter since a separate check will be done before combining with the result of previous checks | Boolean conditions can get very complex and logical error will be prone to occur
 
 |====================
 
 We decided to use the first approach of checking if the client contains `Tag` specified and `Sport` specified separately.
 
-Firstly, by separating the checks for each attributes, a correct implementation of checking `Tag` against the keywords will allow us to easily duplicate the check to be done for `Sport`. This makes the code easier to debug as we can simply check the hasAttribute boolean to see if it gives the correct value.
+Firstly, by separating the checks for each attributes, a correct implementation of checking `Tag` against the keywords will allow us to easily duplicate the logic to be done for `Sport`. This makes the code easier to debug as we can simply check the hasAttribute boolean to see if it gives the correct value.
 
 Secondly, separating the checks for each attributes will allow us to add attributes of different types stored in different data structure easier. We could simply add another check on the attribute against the keyword specified then do a logical addition of the result against the others.
 
@@ -759,24 +758,18 @@ image::ViewSequenceDiagram.png[]
 
 [options='header']
 |====================
-| Considerations | Pros and Cons
-|View client using client's `INDEX`|
-*Pros*: Every client has a specific `INDEX`
-
-*Cons*: User has to look through the list for client's `INDEX` to view his information
-
-|View client using client's name|
-*Pros*: User can view information by knowing the name
-
-*Cons*: Clients could have same names and thus user will have to use their `INDEX` or other information to specify whcih client to view
+| | Choose client to view based on `INDEX` (Chosen)| Choose client to view based on `NAME`
+| Adhering to Single Responsibilities Principle| `view-c` only has to retrieve and display the client based on `INDEX` entered
+| `view-c` has to retrieve clients with the same name and use `INDEX` to specify the client to view
+|Ease of Implementation | Easier to implement as `MODEL` only needs to be accessed once | Harder to implement as `view-c` needs to return a list of clients with the same name before using `INDEX` to specify the client
 
 |====================
 
 We decided to use the first approach of using the client's `INDEX` to view his information.
 
-Firstly, as the client's `INDEX` is unique, there will not be conflicts as to which client's information should be displayed, making `view-c` less complex and only responsible for retrieving and displaying the client's information.
+Firstly, as the client's `INDEX` is unique, `view-c` will only be responsible for retrieving and displaying the client's information and will not need to resolve clients with the same names.
 
-Secondly, in cases where users manage many clients and some with same names, there are functions like find and filter which allow users to scope the clients list and easily find the desired client's `INDEX`.
+Secondly, for clients with the same name, `INDEX` qill be used to specify the client to be view. This causes extra work for the implementation. Furthermore, in cases where users manage many clients and some with same names, there are functions like find and filter which allow users to scope the clients list and easily find the desired client's `INDEX`.
 
 Therefore, viewing a client by his `INDEX` minimises the responsibility of the command and will not need to resolve conflicting clients and is the most ideal.
 
