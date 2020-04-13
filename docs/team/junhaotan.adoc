@@ -94,3 +94,5 @@ include::../UserGuide.adoc[tag=reuseinputs]
 include::../DeveloperGuide.adoc[tag=lowlimitfeature]
 
 include::../DeveloperGuide.adoc[tag=notificationWindow]
+
+include::../DeveloperGuide.adoc[tag=sortProductList]
