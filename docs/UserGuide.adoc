@@ -1016,7 +1016,7 @@ example.
 
 If you would like to know more about a specific command, simply click on the provided links in the table below and you
 will be brought to the respective command.
-
+//tag::commandsummaryfordiettracker[]
 === For Diet Tracker
 |===
 |Command |Format |Example
@@ -1092,7 +1092,7 @@ or
 |`exit`
 
 |===
-
+//end::commandsummaryfordiettracker[]
 //tag::commandsummaryforexpensesplitter[]
 === For Expense Splitter
 |===
