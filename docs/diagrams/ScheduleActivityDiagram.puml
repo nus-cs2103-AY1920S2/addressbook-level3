@@ -1,0 +1,21 @@
+@startuml
+start
+:User executes ScheduleCommand;
+:parse input from user;
+:create new ScheduleList with empty ArrayList of Schedule;
+if () then ([number of valid schedule parameters >= 1])
+    :populate ScheduleList with all Schedule from parsed input;
+    :set feedback message to "schedule successfully overwritten";
+
+else ([else])
+    :create new ScheduleCommand with\nschedule cleared message;
+    :set feedback message to "schedule successfully cleared";
+endif
+:create new ScheduleCommand with\nfeedback message and ScheduleList;
+:ScheduleCommand sends feedback message to Ui;
+:MainWindow triggers call to LogicManager;
+:LogicManager updates ModelManager;
+:display updated SchedulePanel;
+
+stop
+@enduml

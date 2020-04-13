@@ -118,7 +118,9 @@ image::DeleteSequenceDiagram.png[]
 // end::logic[]
 
 [[Design-Model]]
-=== Model component
+
+// tag::dban1[]
+=== Model component --Ng Ming Liang
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -127,15 +129,18 @@ image::ModelClassDiagram.png[]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+1. stores a `UserPref` object that represents the user's preferences
+1. stores a `ClientInView` to represent the current selected `Client` selected by the `view-c` command
+1. stores `FitBiz`
+1. stores `Client`, `Sports`, `Tag`, `Schedule` and `Exercise` packages, where `Client` utilises the latter packages as attributes
+1. exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Client` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Client` needing their own `Tag` object. An example of how such a model may look like is given below. +
-+
+As a more OOP model, we can choose to store a `Tag` list in `FitBiz`, which `Client` can reference. This would allow `FitBiz` to only require one `Tag` object per unique `Tag`, instead of each `Client` needing their own `Tag` object. An example of how such a model may look like is given below. For simplicity, we have omitted the rest of the attributes that `Client` has. Refer back to the diagram above for more details. +
+ +
 image:BetterModelClassDiagram.png[]
+
+// end::dban1[]
 
 [[Design-Storage]]
 === Storage component
@@ -396,38 +401,71 @@ Also, since we have implemented our own Trie data structure, it would also allow
 
 // end::aaron-choo[]
 
+// tag::dban1[]
+
 === Scheduling for a Client --- Ng Ming Liang
 This feature allows for a user to assign a weekly schedule to a client. Timings are represented in the 24-hour format `HHmm`. Each client can have none or multiple schedules that do not have overlapping timings. Multiple clients are allowed to have overlapping timings with each other.
 
 ==== Implementation
-This scheduling mechanism is facilitated by `ScheduleList`, which is a wrapper class for an `ArrayList` of `Schedule` objects. Each `Client` contains one `ScheduleList` attribute to keep track of all `Schedule` assigned to it. If there are no assigned `Schedule` for the `Client`, then the `ScheduleList` contains an empty `ArrayList` of `Schedule`.
+This scheduling mechanism is facilitated by `ScheduleCommand` which extends `Command`. The format of the command is given by:
+
+`schedule INDEX sch/DAY-STARTTIME-ENDTIME [sch/DAY-STARTTIME-ENDTIME] ...`
+
+When using this command, at least one valid complete schedule parameter must be specified. The user can follow up with additional optional valid schedule parameters in order to assign more schedules to the same client. The following 3 examples are all valid usages of the `schedule` command:
+
+*Example Commands*
+
+1. `schedule 1 sch/MON-1100-1300`
+2. `schedule 2 sch/MON-1100-1300 sch/TUE-1100-1300 sch/SAT-1800-2000`
+3. `schedule 3 sch/`
+
+*Elaboration on Example Commands*
+
+1. This command instance schedules `Client` with index 1 to have a schedule slot on every Monday, 11:00am to 1:00pm.
+
+2. This command instance schedules `Client` with index 2 to have schedule slots on every Monday 11:00am to 1:00pm, Tuesday 11:00am to 1:00pm, and Saturday 6:00pm to 8:00pm.
+
+3. This command instance schedules `Client` with index 3 to have no schedule slots, that is essentially clearing the schedule of `Client` with index 3. The `sch/` parameter is required when clearing the schedule.
+
+
+Do note that the schedule parameters given in the `schedule` command will entirely overwrite the client's current list of schedules.
+
+
+The list of schedules of each client are structured as a `ScheduleList`, which is a wrapper class for an `ArrayList` of `Schedule` objects. Each `Client` contains one `ScheduleList` attribute to keep track of all `Schedule` assigned to it. If there are no assigned `Schedule` for the `Client`, then the `ScheduleList` simply contains an empty `ArrayList` of `Schedule`.
 
 `Schedule` comprises three attributes:
 
-* `Day`
+1. `Day`
 
-* `StartTime`
+2. `StartTime`
 
-* `EndTime`
+3. `EndTime`
 
 `Day` wraps the enum `DayEnum.Weekday` and represents the day of the week the schedule takes place on.
-`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively. The relations between these classes are shown in the class diagram below.
+
+`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively.
+
+The relations between these classes are shown in the class diagram below.
 
 image::ScheduleClassDiagram.png[]
 
 These attributes are bounded by these characteristics:
 
-* Each `Client` can only contain unique `Schedule`, that is, there are no overlaps in timings between any two `Schedule` in the `ScheduleList`. This is ensured by `ScheduleCommandParser#checkIfOverlaps()`
+1. Each `Client` can only contain unique `Schedule`, that is, there are no overlaps in timings between any two `Schedule` in the `ScheduleList`. This is ensured by `ScheduleCommandParser#checkIfOverlaps()`
 
-* Overlapping timings between the `Schedule` of different `Client` is allowed
+2. Overlapping timings between the `Schedule` of different `Client` is allowed
 
-* The maximum timeframe between `StartTime` and `EndTime` is from `0000` to `2359`
+3. The maximum timeframe between `StartTime` and `EndTime` is from `0000` to `2359`
 
-* `StartTime` cannot be later than `EndTime`
+4. `StartTime` cannot be later than `EndTime`
 
-* `Day` can only take up the 7 values of the week (MON/TUE/WED/THU/FRI/SAT/SUN)
+5. `Day` can only take up the 7 values of the week (MON/TUE/WED/THU/FRI/SAT/SUN)
 
-In the following sequence diagram, we trace the execution for when the user decides to enter the command `schedule 1 day/mon st/1100 et/1200` into FitBiz:
+Here is an activity diagram displaying the steps taken when FitBiz receives a user input for the `schedule` command:
+
+image::ScheduleActivityDiagram.png[]
+
+In the following sequence diagram, we trace the execution for when the user decides to enter the command `schedule 1 day/mon st/1100 et/1200` into FitBiz. For simplicity, we will refer to this command input as `commandText`:
 
 image::ScheduleSequenceDiagram.png[]
 
@@ -438,18 +476,37 @@ and timing, wrapping each of these properties into their wrapper classes allowed
 Considerations also then had to be made for how to contain multiple `Schedule`. The current implementation uses the `ArrayList` data structure to hold multiple `Schedule`. Other considered alternative for `ScheduleList` was `HashSet`.
 [options='header']
 |====================
-| Data Structure | Pros and Cons
-| ArrayList |
-*Pros*: Elements can be sorted and retrieved in ascending order
+| Data Structure | Pros | Cons
+|ArrayList
+|Elements can be sorted and retrieved in ascending order
+|Does not ensure that its elements are unique
 
-*Cons*: Does not ensure that its elements are unique
-| HashSet |
-*Pros*: Does not allow duplicate values
+|HashSet
+|Ensures no duplicate values
 
-*Cons*: Does not return elements in order
+|Does not return elements in order
 |====================
 
-As the nature of the schedule panel was to display a sorted collection of `Schedule`, we chose `ArrayList` as the underlying data structure. In addition, we also harnessed the capability of the `HashSet` to ensure no overlaps between `Schedule` within each `Client`, which is implemented by `ScheduleCommandParser#checkIfOverlaps`.
+
+*Displaying the Schedule Panel*
+
+The schedules of all the clients are displayed in a time-sorted manner on the `SchedulePanel` of the main FitBiz GUI as shown in the picture below, demarcated by the red rectangle:
+
+image::SchedulePanelGUIExample.png[]
+
+The `SchedulePanel` extends `UiPart<Region>` and takes in a `ScheduleDay` class. `ScheduleDay` is similar to `ScheduleList`, the difference being:
+
+* `ScheduleDay` wraps an ArrayList of `Schedule` for a specific `Day`
+* `ScheduleList` wraps an ArrayList of `Schedule` for a specific `Client`
+
+As the nature of the `SchedulePanel` was to display a sorted collection of `Schedule`, we chose `ArrayList` as the underlying data structure, due to the ability to sort the ArrayList via a comparator that compares `Schedule` according to their `Day` and `StartTime`. The code snippet below shows how the `Schedule` are being sorted using an anonymous comparator in the constructor for `ScheduleDay`:
+
+ this.scheduleList.sort(Comparator.comparingInt(o -> o.getStartTime().getDirectTimeInt()));
+
+
+In addition, we also harnessed the capability of the `HashSet` to ensure no overlaps between `Schedule` within each `Client`, which is implemented by `ScheduleCommandParser#checkIfOverlaps`. As the ArrayList of `Schedule` is being populated in the constructor of `ScheduleDay`, we used a `HashSet` to check for any overlapping `Schedule`. The `equals` method of `Schedule` was overriden to consider overlapping timeframes between `StartTime` and `EndTime` to be equal.
+
+// end::dban1[]
 
 === Exercise Feature --- Yong Jie
 
@@ -1201,6 +1258,7 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+
 === Launch and Shutdown
 
 . Initial launch
@@ -1295,6 +1353,54 @@ Expected: New client added.
 
 .. Test case: `add-c n/Rachel tan p/93214321 e/RachelTan@mail.com a/choa chu kang ave 22 blk 909` followed by `add-c n/Rachellie Tan p/98786110 e/RachelTan@mail.com a/bishan grove 45` +
 Expected: Error "This phone number and/or email already exists in FitBiz." shown.
+
+=== Scheduling clients
+
+. Scheduling a valid client from the current *Client List* to have *_1_* schedule
+
+.. Prerequisites: At least one client in the *Client List*
+.. Test Case: `schedule 1 sch/MON-1100-1200` +
+Expected: `FIRST_CLIENT_NAME` 's overall schedule has been changed to:
+MON Time: 11:00 - 12:00
+
+. Scheduling an invalid client index
+
+.. Test Case: `schedule -1 sch/MON-1100-1200` +
+Expected: Invalid command format! +
+schedule: Adds the training schedule of the client, identified by the index number used in the displayed client list. The schedule should include the first 3 letters of the day,
+start and end time in 24 hour format, in 1-minute denominations. Multiple training schedule can be added to a client.
+
+
+. Multiple scheduling
+
+.. Prerequisite: At least one client in the *Client List*
+.. Test Case: `schedule 1 sch/MON-1300-1400 sch/TUE-1700-1900` +
+Expected: Alex Yeoh's overall schedule has been changed to: +
+MON Time: 13:00 - 14:00 +
+TUE Time: 17:00 - 19:00
+
+=== Listing all clients
+
+. Using list-c
+.. Test Case: `list-c` +
+Expected: Listed all clients
+
+=== Editing a client
+
+. Editing a client's address
+.. Prerequisites: At least one client in the *Client List*
+.. Test Case: `edit-c 1 a/New Address` +
+Expected: Edited Client: `CLIENT INFORMATION`
+
+. Adding multiple sports to a client
+.. Prerequisites: At least one client in the *Client List*
+.. Test Case: `edit-c 1 s/Tennis s/Soccer` +
+Expected: Edited Client: `CLIENT INFORMATION`
+
+. Removing client's sports
+.. Prerequisites: At least one client in the *Client List*, with existing sports
+.. Test Case: `edit-c 1 s/` +
+Expected: Edited Client: `CLIENT INFORMATION`
 
 === Viewing a client
 . Viewing a client while all clients are listed

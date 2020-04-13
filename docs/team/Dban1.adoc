@@ -1,0 +1,87 @@
+= Ng Ming Liang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FitBiz
+
+== Overview
+
+FitBiz is a desktop fitness business management application. It keeps track of the user's schedule. It can record the user's client information such as basic data like their names, phone numbers, addresses etc. On top of that, it also records data useful to gym coaches, such as the clients' exercise logs, personal bests. FitBiz also features graph visualisation for gym coaches to obtain a visual progress indicator for the client's exercises, and is customisable to some extent by the user. The user interacts with FitBiz via a Command Line Interface(CLI).
+
+== Summary of contributions
+
+* *Major enhancement*: added *Schedule feature and its commands*
+** What it does: allows the user to add weekly training schedules to their clients. All schedules are consolidated from across all the clients and represented into a sorted weekly Schedule Panel on the right of the main GUI for easy reference. The command for Schedule is:
+- `schedule INDEX sch/DAY-STARTTIME-ENDTIME`
++
+Users will be able to clear, or overwrite multiple schedules to the specified client.
+
+** Justification: This feature improves the product significantly because enabling a scheduling system is an integral functionality for gym coaches to manage multiple clients, each with varying time slots and schedules.
+** Highlights: The schedule feature is an important building block to be built upon for future releases. Future features such as training results prediction would require analysis of the schedule to perform calculations on a Client's predicted performance by the end of say, 6 months down the road, which ties in deeply with the other features of FitBiz such as the Exercise component. Furthermore, it can also potentially be paired with the Graph feature to visually display predicted trainings.
+* *Major enhancement*: implemented the SchedulePanel in the MainWindow of the GUI to represent the weekly schedule
+** What it does: Schedules are shown neatly and in a sorted manner for the week.
+** Justification: For FitBiz to be more intuitive and convenient for the user, the main GUI displays the weekly schedule on the right to provide easy access for the user to view his clients' schedules, instead of having to rely on text outputs for schedule without a GUI.
+
+** Highlights: This enhancement requires knowledge of working with JavaFX. Furthermore, with SchedulePanel being a part of a larger GUI, I learnt to work under the constraints of the environment, as well as integrate my GUI feature as part of a larger project.
+- The Schedule Panel models a weekly schedule, thus there would be seven days of the week to represent. To achieve this, I implemented a `SchedulePanel` class that constructs seven `ScheduleCell`, each `ScheduleCell` representing a day of the week
+- Each `ScheduleCell` takes in a sorted `ObservableList` of `Schedule` which it uses to display the schedules for the day within the cell. I chose `ObservableList` to make use of the Observer Pattern taught in CS2103, where `SchedulePanel` would be subscribed to changes in the `ObservableList`, so that I can ensure information shown in `SchedulePanel` correctly reflects the updated schedules, whether schedules have changed or even if Clients with schedules have been removed.
+- As each day could contain vastly different amounts of schedules, having a fixed `ScheduleCell` size for each day would be inflexible and potentially buggy, unless I choose to truncate Schedules, which would defeat the purpose of the Schedule Panel. Hence, I implemented `ScheduleCell` to expand its cell size vertically downwards dynamically according to the amount of schedules on that day. This way, days without schedule can have their respective `ScheduleCell` kept minimal, whilst even days with many schedules (over 100+ schedules tested) can well display the schedules.
+
+* *Minor enhancement*: refactored `Person` from AddressBook to `Client` to fit the requirements of FitBiz
+
+* *Minor enhancement*: added `Birthday` attribute to `Client`, making use of LocalDate and also sanity checks to ensure that the client does not enter a birthday too old, i.e. 120 years. According to Wikipedia as of this PPP, the oldest living person in the world today is 117.
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=dban1&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Dban1&tabRepo=AY1920S2-CS2103T-F11-2%2Fmain%5Bmaster%5D[RepoSense]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Wrote test code for schedule classes and commands, and birthday tests to improve test coverage:
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/142[142], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/44[44]
+*** Helped to add sanity check for ExerciseDate:
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/225[225]
+** Documentation:
+*** Wrote the implementation of schedule command in Developer Guide:
+*** Wrote the command guide for `list-c`, `edit-c` and `schedule` in User Guide:
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/259[259],
+*** Changed `Model` and `Storage` diagrams of Developer Guide:
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/259[259],
+** Community:
+*** PRs reviewed:
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/283[283],
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/223[223],
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/136[136]
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/AY1920S2-CS2103T-F09-1/main/issues/245[245],
+https://github.com/AY1920S2-CS2103T-F09-1/main/issues/244[244],
+https://github.com/AY1920S2-CS2103T-F09-1/main/issues/243[243],
+https://github.com/AY1920S2-CS2103T-F09-1/main/issues/242[242],
+https://github.com/AY1920S2-CS2103T-F09-1/main/issues/241[241],
+https://github.com/AY1920S2-CS2103T-F09-1/main/issues/240[240]
+*** Discussed and squashed bugs with non-trivial implementations:
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/236[236],
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/207[207],
+
+
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=edit-c]
+
+include::../UserGuide.adoc[tag=schedule]
+
+include::../UserGuide.adoc[tag=list-c]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=dban1]

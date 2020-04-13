@@ -1,6 +1,7 @@
 package seedu.address.model.schedule;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,8 +17,7 @@ public class ScheduleDay {
 
     public ScheduleDay(ArrayList<Schedule> scheduleList, String dayName) {
         this.scheduleList = scheduleList;
-        this.scheduleList.sort((o1, o2) ->
-                o1.getStartTime().getDirectTimeInt() - o2.getStartTime().getDirectTimeInt());
+        this.scheduleList.sort(Comparator.comparingInt(o -> o.getStartTime().getDirectTimeInt()));
         this.dayName = dayName;
     }
 
