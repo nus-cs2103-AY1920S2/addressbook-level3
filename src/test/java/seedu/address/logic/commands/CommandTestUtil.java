@@ -75,6 +75,13 @@ public class CommandTestUtil {
     public static final String VALID_MONEY_AMY_BAG = "30";
     public static final String VALID_DESCRIPTION_AMY_BAG = "under discount";
 
+    public static final String INVALID_CUSTOMER_INDEX_AMY = "-1";
+    public static final String INVALID_PRODUCT_INDEX_BAG = "0";
+    public static final String INVALID_DATETIME_AMY_BAG = "2020-03-0110:00";
+    public static final String INVALID_QUANTITY_AMY_BAG = "0";
+    public static final String INVALID_MONEY_AMY_BAG = "-30";
+    public static final String INVALID_DESCRIPTION_AMY_BAG = "";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -116,6 +123,11 @@ public class CommandTestUtil {
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a";
     public static final String INVALID_QUANTITY_DESC = " " + PREFIX_QUANTITY + "bob!yahoo";
     public static final String INVALID_SALES_DESC = " " + PREFIX_SALES;
+
+    public static final String INVALID_CUSTOMER_INDEX_DESC = " " + PREFIX_CUSTOMER + INVALID_CUSTOMER_INDEX_AMY;
+    public static final String INVALID_PRODUCT_INDEX_DESC = " " + PREFIX_PRODUCT + INVALID_PRODUCT_INDEX_BAG;
+    public static final String INVALID_DATETIME_DESC = " " + PREFIX_DATETIME + INVALID_DATETIME_AMY_BAG;
+    public static final String INVALID_MONEY_DESC = " " + PREFIX_MONEY + INVALID_MONEY_AMY_BAG;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

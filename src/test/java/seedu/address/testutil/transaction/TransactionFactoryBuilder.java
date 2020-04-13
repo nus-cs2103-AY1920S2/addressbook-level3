@@ -98,6 +98,14 @@ public class TransactionFactoryBuilder {
     }
 
     /**
+     * Sets the {@code Description} of the {@code Transaction} to N/A.
+     */
+    public TransactionFactoryBuilder withDescription() {
+        description = new Description(Description.DEFAULT_VALUE);
+        return this;
+    }
+
+    /**
      * Returns a transaction with the given attributes.
      */
     public TransactionFactory build() {
