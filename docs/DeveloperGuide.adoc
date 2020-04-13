@@ -1285,10 +1285,16 @@ then minimise that window.
 .. Test case: `cooked 1` +
    Expected: The result box below informs the user that the recipe has been cooked.
 
-. Adding a recipe that has already been cooked.
+. Cooking a recipe that has already been cooked.
 .. Prerequisites: Records list contains records cooked within the day.
 .. Test case: `cooked 1` +
    Expected: The result box below informs the user that the recipe is a duplicated and cannot be added in.
+   
+. Cooking multiple recipes
+.. Prerequisites: Recipes are present. If required, add recipes by using the `add` command.
+.. Test case: `cooked 1 2 3` +
+   Expected: The result box below informs the user that the recipes have been cooked.
+   
 
 === Adding quotes
 . Quote displays while quotelist is not empty.
