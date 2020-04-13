@@ -32,7 +32,7 @@ public class ModelManager implements Model {
 
     private AddressBook addressBook;
     private RestaurantBook restaurantBook;
-    private SchoolworkTracker assignmentSchedule;
+    private SchoolworkTracker schoolworkTracker;
     private EventSchedule eventSchedule;
     private Schedule schedule;
     private UserPrefs userPrefs;
@@ -156,19 +156,19 @@ public class ModelManager implements Model {
 
     @Override
     public void setSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker) {
-        this.assignmentSchedule.resetData(schoolworkTracker);
+        this.schoolworkTracker.resetData(schoolworkTracker);
     }
 
     @Override
     public void addAssignment(Assignment assignment) {
         createNewState("ASSIGNMENTS");
-        assignmentSchedule.addAssignment(assignment);
+        schoolworkTracker.addAssignment(assignment);
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
     @Override
     public void sortAssignment(Comparator<Assignment> comparator) {
-        assignmentSchedule.sortAssignment(comparator);
+        schoolworkTracker.sortAssignment(comparator);
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
@@ -176,18 +176,18 @@ public class ModelManager implements Model {
     public void setAssignment(Assignment target, Assignment markedAssignment) {
         requireAllNonNull(target, markedAssignment);
         createNewState("ASSIGNMENTS");
-        assignmentSchedule.setAssignment(target, markedAssignment);
+        schoolworkTracker.setAssignment(target, markedAssignment);
     }
 
     @Override
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
-        return assignmentSchedule.hasAssignment(assignment);
+        return schoolworkTracker.hasAssignment(assignment);
     }
 
     @Override
     public ReadOnlySchoolworkTracker getSchoolworkTracker() {
-        return assignmentSchedule;
+        return schoolworkTracker;
     }
 
     @Override
@@ -198,7 +198,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteAssignment(Assignment target) {
         createNewState("ASSIGNMENTS");
-        assignmentSchedule.removeAssignment(target);
+        schoolworkTracker.removeAssignment(target);
     }
 
     //=========== Event Schedule ================================================================================
@@ -365,7 +365,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && restaurantBook.equals(other.restaurantBook)
-                && assignmentSchedule.equals(other.assignmentSchedule)
+                && schoolworkTracker.equals(other.schoolworkTracker)
                 && eventSchedule.equals(other.eventSchedule)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
@@ -478,7 +478,7 @@ public class ModelManager implements Model {
         filteredPersons = this.currentModel.getFilteredPersons();
         filteredPersonsResult = this.currentModel.getFilteredPersonsResult();
         this.restaurantBook = this.currentModel.getRestaurantBook();
-        this.assignmentSchedule = this.currentModel.getAssignmentSchedule();
+        this.schoolworkTracker = this.currentModel.getSchoolworkTracker();
         this.eventSchedule = this.currentModel.getEventSchedule();
         filteredRestaurants = this.currentModel.getFilteredRestaurants();
         filteredAssignments = this.currentModel.getFilteredAssignments();

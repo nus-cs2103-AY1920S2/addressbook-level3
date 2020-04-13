@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
 import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
-import seedu.address.model.day.Day;
 
 /**
  * A list of assignments that enforces uniqueness between its elements and does not allow nulls.
@@ -25,7 +24,6 @@ public class AssignmentList {
     private final ObservableList<Assignment> internalList = FXCollections.observableArrayList();
     private final ObservableList<Assignment> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-    private final ObservableList<Day> scheduleVisual = FXCollections.observableArrayList();
 
     public void setAssignments(AssignmentList replacement) {
         requireNonNull(replacement);

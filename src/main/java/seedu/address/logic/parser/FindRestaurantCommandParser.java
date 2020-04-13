@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindRestaurantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.LocationContainsKeywordsPredicate;
@@ -51,12 +50,12 @@ public class FindRestaurantCommandParser implements Parser<FindRestaurantCommand
         if ((hasRName == false) && (hasLocation == false)) {
             // then they did not provide any keywords to search for!
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindRestaurantCommand.MESSAGE_USAGE));
         }
 
 
         for (int i = 0; i < keywords.length; i++) {
-            if (keywords[i].contains("n/")) {
+            if (keywords[i].contains("r/")) {
                 keywords[i] = keywords[i].substring(2);
                 while (!keywords[i].contains("l/") && i != keywords.length) {
                     rNameKeywords.add(keywords[i]);
@@ -72,7 +71,7 @@ public class FindRestaurantCommandParser implements Parser<FindRestaurantCommand
         for (int i = 0; i < keywords.length; i++) {
             if (keywords[i].contains("l/")) {
                 keywords[i] = keywords[i].substring(2);
-                while (!keywords[i].contains("n/") && i != keywords.length) {
+                while (!keywords[i].contains("r/") && i != keywords.length) {
                     locationKeywords.add(keywords[i]);
                     i++;
                     if (i == keywords.length) {
