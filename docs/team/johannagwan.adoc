@@ -116,3 +116,5 @@ include::../DeveloperGuide.adoc[tag=usecasesearch]
 
 include::../DeveloperGuide.adoc[tag=usecaseopendelete]
 
+include::../DeveloperGuide.adoc[tag=ManualTesting]
+
