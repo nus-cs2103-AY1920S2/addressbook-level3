@@ -217,7 +217,7 @@ This package defines utility classes for certain operations, like file I/O, argu
 
 
 
-== Implementation details and possible enchancements
+== Implementation details and Possible Enhancements
 
 This section describes some noteworthy details on how certain features are implemented.
 Some possible future components are briefly covered, and these may be released in `v2.0`.
@@ -319,7 +319,7 @@ As it is, image processing spans _several_ classes: `FileUtil`, `ImageUtil`, `Ph
 
 
 // tag::FindCommandImpl[]
-=== Finding recipes [Kevin]
+=== Finding recipes [Done by Kevin]
 
 The following section describes how the `find` command is implemented as well as design considerations that were taken into account during its implementation.
 Some possible future improvements are also suggested to improve the functionality of the `find` command.
@@ -644,7 +644,7 @@ Cons:
 
 [appendix]
 // tag::ManualTesting[]
-== Instructions for Manual Testing [Kevin]
+== Instructions for Manual Testing [Done by Kevin]
 
 Given below are instructions to test the app manually.
 
@@ -696,8 +696,9 @@ Expected: *CookBuddy* will shut down.
 
 === Modifying a recipe
 
-Prerequisites: *CookBuddy* should contain at least one recipe.
-If no recipe exists, delete the `data` folder and re-launch *CookBuddy*.
+[NOTE]
+*CookBuddy* should contain at least one recipe.
+If no recipe exists, delete the _data_ folder and re-launch *CookBuddy*.
 The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
 
 [TIP]
@@ -797,7 +798,8 @@ For example, `modify 1 n/Rice cal/250` updates both recipe 1's name and calories
 
 === Marking a recipe as done / not done
 
-Prerequisites: *CookBuddy* should contain at least one recipe.
+[NOTE]
+*CookBuddy* should contain at least one recipe.
 If no recipe exists, delete the `data` folder and re-launch *CookBuddy*.
 The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
 
@@ -820,12 +822,48 @@ The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
    Expected: An error message is shown in the result pane prompting the user to enter a valid integer.
 
 
-=== Marking a recipe as a favourite / not favourite
+=== Marking a recipe as a favourite / not a favourite
 
+[NOTE]
+*CookBuddy* should contain at least one recipe.
+If no recipe exists, delete the `data` folder and re-launch *CookBuddy*.
+The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
 
+. Marking a recipe as a favourite
+
+.. Test Case: `fav 1` +
+   Expected: The first recipe should be marked as favourite, indicated by the filled heart symbol.
+.. Test Case: `fav n` (where n is larger than the list size) +
+   Expected: An error message is shown in the result pane prompting the user to enter a valid list index number.
+.. Test Case: `fav abc` +
+   Expected: An error message is shown in the result pane prompting the user to enter a valid integer.
+
+. Un-marking a recipe as a favourite
+
+.. Test Case: `unfav 1` +
+   Expected: The first recipe should be un-marked as favourite, indicated by the un-filled heart symbol.
+.. Test Case: `unfav n` (where n is larger than the list size) +
+   Expected: An error message is shown in the result pane prompting the user to enter a valid list index number.
+.. Test Case: `unfav abc` +
+   Expected: An error message is shown in the result pane prompting the user to enter a valid integer.
 
 === Adding a prep time to a recipe
 
+[NOTE]
+*CookBuddy* should contain at least one recipe.
+If no recipe exists, delete the `data` folder and re-launch *CookBuddy*.
+The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
+
+. Adding a prep time
+
+.. Test Case: `time 1 00:15` +
+   Expected: The first recipe's prep time should be updated to _15 minutes_.
+.. Test Case: `time 1 00:15:30` +
+   Expected: The first recipe's prep time should be updated to _15 minutes and 30 seconds_.
+.. Test Case: `time 1 00:63` +
+   Expected: An error message is shown in the result pane prompting the user to enter a _minutes_ value which is < 60.
+.. Test Case: `time 1 00:15:65` +
+   Expected: Expected: An error message is shown in the result pane prompting the user to enter a _seconds_ value which is < 60.
 
 === Deleting a recipe
 
@@ -843,7 +881,6 @@ The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
 .. Test case: `delete abc` +
    Expected: No recipe is deleted. An error message prompting the user to provide a valid integer is shown in the result pane.
 
-_{ more test cases ... }_
 
 === Saving data
 
@@ -854,7 +891,7 @@ _{ more test cases ... }_
 
 . Dealing with missing/corrupted data in *CookBuddy's* save file
 
-.. Edit _recipebook.json_ and delete the _difficulty_ parameter and re-launch *CookBuddy*.
+.. Edit _recipebook.json_ and delete any recipe's _difficulty_ parameter and re-launch *CookBuddy*.
 .. The recipe whose _difficulty_ was deleted will have defaulted back to 0 difficulty.
 
 // end::ManualTesting[]
