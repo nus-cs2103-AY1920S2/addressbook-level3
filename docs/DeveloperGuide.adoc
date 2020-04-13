@@ -875,11 +875,12 @@ its ItemPrice and Person(s) involved in splitting that Item.
 will be immutable.
 * <<Paid-Command, `PaidCommand`>> - Reduces the Amount a Person owes.
 * <<Clear-Receipt-Command, `ClearReceipt`>> - Clear the current Receipt to start a new Receipt.
-
-Below is the activity diagram of the entire Expense Splitter.
 //end::expensesplitterintro[]
 
 //tag::expensesplitteractivitydiagram[]
+Below is the activity diagram of the entire Expense Splitter.
+
+
 *Activity Diagram of Expense Splitter:* +
 
 .ExpenseSplitterActivityDiagram
@@ -1077,7 +1078,6 @@ In this section, you will learn more about the relationships between objects rel
 
 .List Receipt Command Class Diagram
 image::ExpenseSplitterListReceiptCommandClassDiagram.png[]
-
 
 
 The above class diagram shows the structure of the `ListReceiptCommand` and its associated classes and
