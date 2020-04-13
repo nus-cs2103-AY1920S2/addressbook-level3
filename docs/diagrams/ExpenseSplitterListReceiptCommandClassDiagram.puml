@@ -42,8 +42,8 @@ interface SplitterModel <<Interface>> {
     + getPerson(person : Person) : Person
     + addAmount(person : Person, amount : Amount) : void
     + removeAmount(person : Person, amount : Amount) : void
-    + updateFilteredPersonList(predicate : Predicate<Person>) : void
-    + getFilteredPersonList() : ObservableList<Person>
+    + isReceiptDone() : boolean
+    + getReceiptBook() : ReadOnlyReceiptBook
 
 
 }

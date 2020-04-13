@@ -1026,12 +1026,16 @@ The following activity diagram illustrates what happens when a user executes `li
 .List Receipt Activity Diagram
 image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
 
+{nbsp}
+
 *Structure of List Receipt Command* +
 
-In this section, you will learn more about the relationships between objects related to the `listreceipt` command.
+In this section, you will learn more about the relationships between objects related to the `ListReceiptCommand`.
 
 .List Receipt Command Class Diagram
 image::ExpenseSplitterListReceiptCommandClassDiagram.png[]
+
+
 
 The above class diagram shows the structure of the `ListReceiptCommand` and its associated classes and
 interfaces. Some methods and fields are left out because they are not of concern in `ListReceiptCommand`
@@ -1081,14 +1085,16 @@ The `listamount` command has the following input format:
 * A person is deleted after they have completely paid the amount they owe.
 ====
 
-The following activity diagram illustrates what happens when a user executes `listamount` command:
+The following activity diagram illustrates what happens when a user executes `listamount` command.
 
 .List Amount Activity Diagram +
 image::ExpenseSplitterListAmountCommandActivityDiagram.png[]
 
+{nbsp}
+
 *Structure of List Amount Command* +
 
-In this section, you will learn more about the relationships between objects related to the `listamount` command.
+In this section, you will learn more about the relationships between objects related to the `ListAmountCommand`.
 
 .List Amount Command Class Diagram
 image::ExpenseSplitterListAmountCommandClassDiagram.png[]
@@ -1219,7 +1225,7 @@ image::ExpenseSplitterPaidCommandActivityDiagram.png[]
 
 *Structure of Paid Command* +
 
-In this section, you will learn more about the relationships between objects related to the `paid` command.
+In this section, you will learn more about the relationships between objects related to the `PaidCommand`.
 
 .Paid Command Class Diagram
 image::ExpenseSplitterPaidCommandClassDiagram.png[]
