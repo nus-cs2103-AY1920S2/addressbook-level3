@@ -59,7 +59,7 @@ deactivate ModdyParser
 LogicManager -> NewCommand : execute()
 activate NewCommand
 
-NewCommand -> Model : addPerson()
+NewCommand -> Model : addProfile()
 activate Model
 
 Model --> NewCommand

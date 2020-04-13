@@ -376,6 +376,11 @@ The tags are:
 
 `ShowCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `ShowCommand` is parsed using `ShowCommandParser` to split the user input into relevant fields.
 
+The following sequence diagram shows how the `show` command works: `show n/John`
+
+.Interactions between UI, Logic and Model components for `show n/John` command
+image::ShowSequenceDiagram.png[]
+
 The following activity diagram shows how the `show` operation works with input: `show c/Computer Science`
 
 .Activity Diagram for a Show Command input
@@ -423,6 +428,8 @@ The following sequence diagram shows how the `delete` operation works with input
 
 .Interactions between UI, Logic and Model components for the `delete m/CS2101 t/work` command.
 image::DeleteDeadlineSequenceDiagram.png[]
+
+The following activity diagram shows how the `show` command decides what to show (profile, module details, semester, course, module or focus area):
 
 .Activity Diagram for a Delete Command input
 image::DeleteCommandActivityDiagram.png[]

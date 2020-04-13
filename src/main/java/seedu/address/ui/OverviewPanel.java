@@ -78,8 +78,28 @@ public class OverviewPanel extends UiPart<Region> {
                     yearSem = "Year 3 Semester 2";
                 } else if (i == 7) {
                     yearSem = "Year 4 Semester 1";
-                } else {
+                } else if (i == 8) {
                     yearSem = "Year 4 Semester 2";
+                } else if (i == 9) {
+                    yearSem = "Year 5 Semester 1";
+                } else if (i == 10) {
+                    yearSem = "Year 5 Semester 2";
+                } else if (i == 11) {
+                    yearSem = "Year 6 Semester 1";
+                } else if (i == 12) {
+                    yearSem = "Year 6 Semester 2";
+                } else if (i == 13) {
+                    yearSem = "Year 7 Semester 1";
+                } else if (i == 14) {
+                    yearSem = "Year 7 Semester 2";
+                } else if (i == 15) {
+                    yearSem = "Year 8 Semester 1";
+                } else if (i == 16) {
+                    yearSem = "Year 8 Semester 2";
+                } else if (i == 17) {
+                    yearSem = "Year 9 Semester 1";
+                } else {
+                    yearSem = "Year 9 Semester 2";
                 }
                 Label listTitle = new Label(yearSem.toUpperCase());
 
