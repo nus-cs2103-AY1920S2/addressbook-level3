@@ -119,47 +119,67 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== View/UI component [NEED TO UPDATE]
+=== View/UI component [Sim Sheng Xue]
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::ViewUI.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter` etc.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework.
 The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
-For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the `ViewController` component.
+* Listens for changes to `ViewModel` data so that the UI can be updated with the modified data.
+`ListPanel` objects store a list of `Card` objects. +
+`DetailedPanel` objects store a list of `VeryDetailedCard` objects.
+For example, for the Student Tab:  +
 
+The `StudentListPanel` is the top left panel. This stores a list of `StudentCard`,
+which only displays the basic information about the Student. +
+
+The `StudentDetailedCard` is the top right panel. This is viewed when a specific
+Student is selected using a command. This will show the detailed information about
+the Student, such as the courses assigned to this Student. +
+
+The `StudentDetailedPanel` is the bottom
+right panel. This stores a list of `CourseVeryDetailedCard`.
+Each `CourseVeryDetailedCard` displays the list of assignments assigned
+to the Course of this Student. +
+
+Only the Student and Course tabs contain `DetailedPanel`(bottom right panel). All tabs
+contain the `ListPanel` (top left panel) and `DetailedCard`(top right panel).
+This is because `ListPanel` is needed to show the basic information of each
+item, while `DetailedCard` is needed to show the detailed information of each
+selected item. `DetailedPanel` is only needed for Student to show list of Courses for a Student,
+and for Course to show list of Student for a Course.
 [[Design-Logic]]
-=== ViewController/Logic component [NEED TO UPDATE]
+=== ViewController/Logic component [Sim Sheng Xue]
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[]
+.Structure of the View Controller Component
+image::ViewController.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-. `Logic` uses the `AddressBookParser` class to parse the user command.
+. `ViewController` uses the `AddressBookParser` class to parse the user command.
 . This results in a `Command` object which is executed by the `LogicManager`.
-. The command execution can affect the `Model` (e.g. adding a person).
-. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+. The command execution can affect the `Model` (e.g. adding a student).
+. The `LogicManager` will invoke the relevant class located inside `Model`.
+For Entity CRUD commands, the `ModelManager` will be invoked.
+For Link CRUD commands, the `EdgeManager` will be invoked.
+For Progress CRUD commands, the `ProgressManager` will be invoked.
+. The Managers will post events to the `EventsCenterSingleton`. The subscribing
+managers `DetailManager` and `StorageManager` will listen to new publish events in the event bus.
+The `View` also subscribes to `DetailManager`. This allows for the commands executed by
+the `LogicManager` to moify both the View and Storage.
+. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `View`.
+. In addition, the `CommandResult` object can also instruct the `View` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-ViewController]]
 === ViewModel component [Hieu]
