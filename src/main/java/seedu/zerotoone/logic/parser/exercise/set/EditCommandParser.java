@@ -5,6 +5,9 @@ import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
+import java.util.logging.Logger;
+
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exercise.set.EditCommand;
 import seedu.zerotoone.logic.parser.Parser;
@@ -18,6 +21,7 @@ import seedu.zerotoone.model.exercise.Weight;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -25,6 +29,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
+        logger.info("Parsing: " + args);
+
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
         if (!ArgumentTokenizer.isOnlyPrefixesPresent(argMultimap, PREFIX_NUM_OF_REPS, PREFIX_WEIGHT)
