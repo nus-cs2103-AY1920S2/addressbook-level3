@@ -99,6 +99,7 @@ include::../UserGuide.adoc[tag=command_format]
 |===
 
 include::../DeveloperGuide.adoc[tag=check]
+
 include::../DeveloperGuide.adoc[tag=store(proposed)]
 
 |===
@@ -106,4 +107,5 @@ include::../DeveloperGuide.adoc[tag=store(proposed)]
 |===
 
 include::../DeveloperGuide.adoc[tag=userStories]
+
 include::../DeveloperGuide.adoc[tag=manual_test]
