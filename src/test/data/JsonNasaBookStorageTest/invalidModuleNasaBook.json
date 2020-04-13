@@ -1,0 +1,8 @@
+{
+  "modules" : [ {
+    "moduleCode": "This module code is too long.",
+    "moduleName" : "Software Engineering",
+    "deadlineList" : [ ],
+    "eventList" : [ ]
+  } ]
+}

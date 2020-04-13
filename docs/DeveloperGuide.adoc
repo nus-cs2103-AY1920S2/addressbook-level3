@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Nice & Amazing Student Guide (NASA) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-T10-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T10-4`      Since: `Feb 2020`      Licence: `NUS`
 
 == Setting up
 
@@ -34,7 +34,8 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/nasa/Main.java[`Main`] and
+link:{repoURL}/src/main/java/nasa/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,11 +78,12 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/nasa/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`ChatBox`, `ModuleListPanel`,
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/nasa/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,11 +98,11 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/nasa/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `NasaBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a module).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -111,136 +113,430 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::modelDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/nasa/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* consist of two components which are the `NasaBook` and `HistoryManager`.
+* `NasaBook` contains all the user current stored modules and activities.
+* `HistoryManager` contains all the user previous state for each of it actions.
+* `NasaBook` contain a set of module list stored in `UniqueModuleList`.
+* each `Module` consists of several `Activity`.
+* an `Activity` can be either a `Deadline` or `Event`.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+//end::model[]
 
+//tag::modelid[]
+
+.Structure of the Activity package of the Model Component
+image::ModelActivityDiagram.png[,500,]
+
+From the diagram above, the Activity package consists of the following:
+
+* `ActivityContainsKeyWordsPredicate`: implemented for the `find` command logic.
+* The abstract class `UniqueActivityList` is extended by `UniqueDeadlineList` and `UniqueEventList` respectively.
+* The abstract class `Activity` is extended by `Deadline` and `Event` respectively. An `Activity` consists of a `Name`, `Date`, `Note`, and `Schedule` (see Figure below).
+
+.Class diagram for Activity
+image::ModelActivityClassDiagram.png[,600,]
+
+// end::modelid[]
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/nasa/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save NASA data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `nasa.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+`Contributed by:EdmondOng`
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+==== Implementation
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+For the undo/redo features, we aim to synchronize how the UI will look like and the data that is stored.
+Hence, we created two Json files to store the internal data list and the filtered modules and activity list.
+We uses Stack as the data structure for undo and redo features as it allows a Last In First Out effects, that suits
+functionality of storing and getting data.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Below is a sequence diagram for undo feature.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::undoSequenceDiagramV3.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire NASA book and state of UI.
 ** Pros: Easy to implement.
+** Pros: Less repetition of opposite commands.
 ** Cons: May have performance issues in terms of memory usage.
+** Cons: Maintain the actual looks for UI based on the filtered list.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the module being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Storing of the state of UI is still required.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a stack to store the history of NASA book states and UI state based on filtered list.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Nasa internal list`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+// tag::deadlines[]
+=== Add Deadlines feature
 
-// end::dataencryption[]
+`Contributed by: kester-ng`
+
+Users can add in deadlines into a specific module, the following subsections explains the implementation and design considerations for the feature.
+
+==== Implementation
+
+The following activity diagram shows how a deadline (example) can be added.
+
+image::AddDeadlineActivityDiagram.png[]
+
+==== Internal workings for the add activity command
+
+Below is an example of a user adding a deadline and how the underlying system works.
+
+. The user enters the command `deadline m/CS2030 a/Lab 2 d/12-12-2020 23:59`
+
+. The LogicManager will create NasaBookParser to parse the user input.
+
+. NasaBookParser will create an AddDeadlineCommandParser which parses the input and returns an AddDeadlineCommand.
+
+. LogicManager will execute the AddDeadlineCommand. AddDeadlineCommand will attempt to add the deadline to the specified module. If the module does not exist or the activity already exist in the list, then an error message will be thrown to the user. Else, add it to the module activity list.
+
+. If the module's activity list is modified, the model will be updated and the view will be changed according to the new model.
+
+The figure below shows the sequence diagram on what happens with the simple execution of the aforementioned command. First image shows the logic component while the second image shows the logic and model component (mainly model).
+
+image::AddDeadlineLogicSequenceDiagram.png[]
+
+image::AddDeadlineModelSequenceDiagram.png[]
+
+// end::deadlines[]
+
+==== Design Considerations
+
+The design considerations for the classes are shown below:
+
+[width="59%",cols="22%,<100%,<100%",options="header",]
+|=======================================================================
+|Choice| Pros:|Cons:
+|1.Placing all events and deadlines into one class called Activity|Easy and fast to implement. Very efficient and less dependencies|Bad design, and one class handles the different logic.
+|2.Having an abstract Activity class, and events and deadlines all inherit that abstract class|Somewhat easy to implement, polymorphism allows changing of one class without affecting the others.|Attributes can vary for different tasks. Hence additional code may be needed and even duplicated code due to similar logic.
+|3.Same as 2, but now each attribute for activity has a separate class [chosen] |Tedious to implement.|Without the classes for attributes, validating whether the attributes are legal needs to be done in the activity class which violates SRP design principle. But now each attribute has its own class with its own validation methods
+|=======================================================================
+
+** Choice of design was option 3 as it made all objects separate from one another and allows easy debugging. At the same time, it follows SRP design principle.
+
+
+// tag::automation[]
+=== Automation
+`Contributed by:EdmondOng`
+
+Every time a user stores an activity, start date for event will be recorded for `event` and due date for `deadline`.
+Based on user input to repeat the task either weekly, fortnightly or monthly, our application will check whether today's date has passed
+`due date` or `end date of event`. Once it passed,
+the newly set date will be updated.
+
+==== Implementation
+By default there will not be any scheduling for any activities. Therefore, user has to enter `repeat-d` or `repeat-e` followed by
+`INDEX` of the activity in the module list, followed by `module code`
+,and set the activity to `0-Cancel, 1-Weekly-, 2-Fortnightly, 3-Monthly`.
+
+* An example of command line `repeat-d 1 m/CS3233 r/1`.
+
+Once the command line is entered, our application will react in the following steps :
+
+. NasaBook will search ModelManager for the module code `CS3233`.
+. If present, it will search for the activity in the list with index `1`.
+. Once identified, it will change the type of schedule to `weekly`.
+. A success message `Successfully added a repeat! for CS3233 0 1` will be given.
+
+image::sequenceDiagramAutomationV3.png[]
+
+However, above is for the initialisation of schedule.
+What happen if the activity has expired when NasaBook is not in use? Not to worry, because when
+the user initialise the program again, the system will automatically reset the expired date.
+
+This is how it goes :
+
+. MainApp will execute initialisation which will fetch data through NasaBookStorage.
+. NasaBook will load every module in the module list and update each activity in the module.
+. If dateline of the activity has passed, it will check if it has a schedule
+.. If scheduler sees `0` nothing will be done.
+.. If scheduler sees `1`,`2` or `3` it will update to the new date.
+
+image::activityDiagramAutomationV2.png[]
+// end::automation[]
+
+// tag::sort[]
+=== Sort Feature
+
+Activities (ie. Deadlines and Events) are sorted by a specific criteria, such as name or date.
+
+The list of sort criteria are as follows:
+
+. Date
+
+. Lexicographical order
+
+. Priority
+
+
+Refer to the user guide for the specific commands. Sorting of activities is facilitated by
+ModelManager#sortAtivityList.
+
+==== Implementation
+To sort activities, the command will use the keyword `sort` followed by the sort criteria.
+
+The following diagram shows how sorting activities is being done.
+
+image::SortActivityDiagram.png[]
+
+==== Internal workings for the sort command
+
+Below is an example of a user sorting activities by name and how the underlying system works.
+
+. The user enters the command `sort name`
+
+. The LogicManager will create NasaBookParser to parse the user input.
+
+. NasaBookParser will create an SortCommandParser which parses the input and return a SortCommand.
+
+. LogicManager will execute the SortCommand. SortCommand will sort all deadlines and events in their respective modules by the criteria specified.
+
+. The underlying model's deadline and event lists is updated.
+
+. The view is updated to the new model.
+
+The figure below shows the sequence diagram on what happens with the execution of the aforementioned command.
+
+image::SortLogicSequenceDiagram.png[]
+
+==== Design Considerations
+
+Aspect: Persistence of sort order for CRUD operations.
+
+* Alternative 1 (current choice): Sort order enforced only on demand. (ie. when user invokes `sort` command)
+** Pros: Lightweight as sorting is independent of CRUD operations. Performance and responsiveness is not compromised by commonly used CRUD operations.
+** Cons: User has to invoke sort command after CRUD operations.
+* Alternative 2: Sort order maintained regardless of subsequent CRUD operation on activities.
+** Pros: Consistency of list ordering is maintained, as sort order is preserved after CRUD operatons.
+** Cons: Performance is hindered as every CRUD operation will require enforcement of sort order on the underlying list data structure, which is computationally expensive. Persistent storage of the user-defined sort order is required, which is harder to implement.
+// end::sort[]
+
+=== Statistics Feature (To be implemented)
+
+Statistics on the status of activities based on a specific criteria such as time period is shown. By default, the
+overall statistics for all activities are shown.
+
+The list of criteria to be sorted are as follows:
+
+. Overall
+
+. Module
+
+. Activity type
+
+. Time (Weekly/Monthly/Yearly)
+
+Refer to the user guide for the specific commands. Generating statistics is facilitated by
+ModelManager#calculateStatistics.
+
+==== Implementation
+To generate statistics for activities, the command will use the keyword `statistics` followed by a specific criteria.
+
+==== Internal workings for the statistics command
+
+Below is an example of a user requesting for statistics by for the week and how the underlying system works.
+
+. The user enters the command `statistics t/week`
+
+. The LogicManager will create NasaBookParser to parse the user input.
+
+. NasaBookParser will create an StatisticsCommandParser which parses the input and returns an StatisticsCommand.
+
+. LogicManager will execute the StatisticsCommand. StatisticsCommand will calculate the number of tasks and their
+current status for each module over the past week.
+
+. The view is switched to the statistics tab to display the overalls statistics for the week.
+
+// tag::calendar[]
+
+=== Calendar Export Feature
+This feature allows the current calendar view to be exported as a ics file for other calendars to import.
+Users can choose to either export it to the default ./data filepath or specify their own filepath for the file to be exported to.
+
+==== Internal Workings for the Calendar Export Feature
+
+`Contributed by: kester-ng`
+
+Below is an example of a user requesting an export calendar command.
+
+. The user enters the command `calendar f/User/documents/calendar`
+
+. The LogicManager will create NasaBookParser to parse the user input.
+
+. NasaBookParser will create ExportCalendarCommandParser which parses the input and creates a ExportCalendarCommand.
+
+. ExportCalendarCommand will then execute. In the first step, all the deadlines and events are retrieved from the model.
+
+. Next, each deadline or event are being used to create new IcsDeadline or IcsEvent respectively. These new objects are the representation of their respective activities in ics format (using getIcsFormat() method).
+
+. Deadlines are represented by `VTODO` objects in ics file and events are represented by `VEVENT` objects.
+
+. While creating IcsDeadline or IcsEvent, IcsSchedules are created if the deadline or event has a auto-generation indicator (ie generate every week). The IcsSchedule object is appended to the IcsDeadline/IcsEvent object to allow it to auto-generate in calendars.
+
+. Once all IcsDeadlines and IcsEvents are created, the command will then write all the ics Formatted activities to the file called `nasa.ics` at the filepath.
+
+The image below indicates the activity diagram giving a brief flow of events occurring.
+
+image::ExportCalendarActivityDiagram.png[]
+
+The images below show the sequence diagram of the export calendar command feature. The first image mainly illustrates the flow for parsing and creating the command whereas the second mainly illustrates the flow for executing the command and returning the result.
+
+image::ExportCalendarLogicSequenceDiagram.png[]
+
+image::ExportCalendarModelSequenceDiagram.png[]
+
+// end::calendar[]
+
+==== Design Considerations
+
+The design considerations for the classes are shown below:
+
+[width="59%",cols="22%,<100%,<100%",options="header",]
+|=======================================================================
+|Choice| Pros:|Cons:
+| Having a single class that encapsulates the whole logic of writing to ICS format | Easy and fast to implement. | Code will be very messy and if there are updates to iCalendar formats, it may cause a huge refactoring of code
+| Instead of exporting ics file, can export the image of calendar | Easier to implement and fast and with no issues relating to certain calendars not supporting VTODO. | However, it is not very convenient. Images can only show one month at a time.
+| [Currently implemented] Have different classes for representing different activities with helper classes to assist in generating ics rules | Harder to implement and makes it very tedious. | Easy to debug and change when there are updates to the .ics format
+|=======================================================================
+
+** Option 3 was chosen as having different classes allowed us to pinpoint the exact error when the ics file was not working as intended. And any extensions or upgrades to iCalendar format can be easily extended from the current code without refactoring a lot. However, drawback is that some calendars do not support `VTODO`.
+
+
+=== Chat bot Feature (To be implemented)
+
+The CLI implementation is done through a chat bot like interface through a redesign of the user interface.
+
+==== Implementation
+The user interface is split into 2 sections where commands will be keyed into the chat box on the left side. Feedback
+from the programme on the result of the command will be displayed directly by the chat bot where the command history
+can be viewed. Changes made to the model will be updated in the user interface on the right side
+
+==== Internal workings for the chat bot
+
+Below is an example of a user requesting for statistics by for the week and how the underlying system works.
+
+. The user enters a command `statistics`
+
+. The NASA application will process the command. (Refer to section 3.8 for details)
+
+. Command result generated by the logic manager is returned and displayed in the chat bot.
+
+. User interface switches tabs to the statistics tab where the overall statistics are displayed.
+
+// tag::quote[]
+=== Motivational Quotes
+`Contributed by: EdmondOng`
+Given our hectic education lifestyle, we tend to neglect the emotional aspect of what makes life purposeful other than academic works.
+This features randomly select a quote and displayed to user on start-up of application. It aims to lighten the mood of the user.
+
+==== Implementation
+On the first start-up of application, Nasa will store all the quotes inside a text file in the data folder. If the quotes file is
+already present, it will carry on with selecting one of the quote to be displayed to the user. At any point of time, if you wish to see
+another motivation quote, you can type `quote`.
+
+==== Internal workings for the motivation quote.
+
+. User enters a command `quote`.
+. NASA will generate a random number and select a quote in quotes.txt file.
+. Command result generated will be displayed to the user.
+// end::quote[]
+
+// tag::reminder[]
+
+=== Add Reminder Feature (Coming in `v2.0`)
+
+Reminders can be added to activities so that the user can be notified when the activity is going to occur soon.
+
+Below is an example of how users can add reminders:
+
+. The user enters the reminder command: `reminder 2 m/CS2030 d/12-12-2020 14:50`
+
+. The LogicManager will create NasaBookParser to parse the user input.
+
+. NasaBookParser will create AddReminderCommandParser that parses the input and returns a AddReminderCommand.
+
+. LogicManager will then execute AddReminderCommand which will create a Reminder item that contains the Activity and the date to be reminded.
+
+. The Reminder item will be added into the `ActiveRemindersList`. In addition, the reminders are sorted based on chronological order.
+
+. The reminder list view will be updated to show the current `ActiveRemindersList`.
+
+. If the time for any reminder has reached, there will be a pop-up or notification to alert the user for about 1min. And within 5 minutes, the reminder will automatically be removed from `ActiveRemindersList` and stored in the `PastRemindersList`.
+
+For more information regarding the procedure, please refer to the Activity Diagram shown below.
+
+image::AddReminderActivityDiagram.png[]
+
+For more information regarding the structure of the feature, refer to the class diagram below:
+
+image::AddReminderClassDiagram.png[]
+
+//end::reminder[]
+
+=== Snooze Reminder Feature (Coming in `v2.0`)
+
+Users can also snooze reminders so that they can get the same reminder at a different time.
+
+Below is an example of how users can snooze reminders:
+
+. The user enters the snooze reminder command: `snooze 2 d/12-12-2020 15:30`.
+
+. The LogicManager will create NasaBookParser to parse the user input.
+
+. NasaBookParser will create SnoozeReminderCommandParser to parse the input and return SnoozeReminderCommand
+
+. LogicManager will execute the command and the Reminder that has just passed with the associated index on the `ActiveRemindersList` will have its due time updated. If time not specified, default is 5 minutes.
+
+For more information regarding the procedure, please refer to the Activity Diagram below:
+
+image::SnoozeReminderActivityDiagram.png[]
+
 
 === Logging
 
@@ -279,13 +575,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a information on different modules
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage modules faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,17 +591,67 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |busy student doing a lot of modules | be able to edit my tasks |have updated information from the professors
+of that module.
 
-|`* * *` |user |add a new person |
+|`* * *` |hardworking and busy student |mark my tasks as done |know what else to do
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |busy and clumsy student |delete tasks that were wrongly inputted |remove erroneous tasks
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |lazy student |have a user interface that is intuitive |spend less time navigating
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |student |know that deadline of homework, projects and assignments |finish them by a certain date
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |busy student |undo and redo actions |save time
+
+|`* * *` |forgetful student |have reminders and alerts sent to me |act on my pre-set reminders at the desired time
+
+|`* * *` |busy student |search for relevant tasks |see if I have done them or not
+
+|`* * *` |busy student |see my group meetings |know when they are
+
+|`* * *` |busy student |filter my tasks based on certain criteria |view them easily
+
+|`* * *` |new user |have quick access to information on how to use the product |learn to use the product
+
+|`* * *` |student |check on the tasks due by a certain date |plan my time accordingly
+
+|`* * *` |extremely anxious student |advance notification on deadlines and upcoming examinations |prepare in advance
+
+|`* * *` |student |view all my tasks |gauge how much work I have left.
+
+|`* *` |busy and hardworking student with limited time |have suggestions on the next deadline assignment homework to do
+ |save time on checking what task to complete
+
+|`* *` |lazy student |automate my homework schedule |avoid keying in recurring tasks
+
+|`* *` |anxious and stressed student |provide daily motivational quotes or jokes or coding challenges  |lighten up my
+mood for the day
+
+|`* *` |student who values privacy |add password protection  |prevent others from viewing my tasks
+
+|`* *` |busy student |export all my tasks  |view them easily
+
+|`* *` |student |add in my personal timetable  |detect clashes between my personal and school timetable
+
+|`* *` |busy student |jot down notes during lecture  |refer to them in the future
+
+|`* *` |university student |add my timetable  |know the time and venue of my classes
+
+|`* *` |objective student |view my academic results  |keep track on the percentage of points that I need in order to
+achieve a result
+
+|`* *` |student |allocate a specific time for each task  |manage my time more efficiently
+
+|`* *` |student |keep track on the amount of tasks finished |analyse whether I am staying on track
+
+|`* *` |student |share information with my friends |allow them to have the same schedule and asks to do
+
+|`* *` |busy student |customise my own shortcuts  |save time when typing in commands
+
+|`*` |stressed-out student |play a chill game |relax my mind
+
+|`*` |student with ex-co positions |find the next free timing for other meetings and responsibilities |can save time
 |=======================================================================
 
 _{More to be added}_
@@ -313,44 +659,282 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `NASA` application and the *Actor* is the `user`, unless specified
+otherwise)
 
 [discrete]
-=== Use case: Delete person
-
+=== Use case: Initialisation
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  NASA prompt user to key in modules taken during the semester on start-up.
+2.  User enters modules taken one by one as per the following eg.
+`add m/CS2103T n/Software engineering`,
+ `add m/CS2106 n/Operating System`, `add m/CS2101 n/Effective Communication for Computing Professionals`.
+3.  NASA confirms and display the modules entered.
+4.  User can start to use the command line.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. Catch errors for prefixes not provided eg, `add CS2106 Software engineering`, `m/` and `n/` is not provided.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: Add Deadlines
+
+*MSS*
+
+1.  User requests to add a deadline for a particular module.
+`deadline m/CS2103T d/01-03-2019 23:59 a/Homework [n/This is the notes.]`
+2.  NASA will provide an acknowledgement message.
+3.  NASA will display an updated list of all deadlines and events.
 +
+Use case ends.
+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a. No such modules.
+* 1b. Prompt user to add the modules not listed.
+* 1c. Due date has already passed.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+Use case resumes at step 1.
 
+[discrete]
+=== Use case: Add Event
+
+*MSS*
+
+1.  User requests to add an event for a particular module. +
+`event m/CS2103T d/01-03-2019 23:59 a/Project Work [n/This are the notes.]`
+2.  NASA will provide an acknowledgement message.
+3.  NASA will display an updated list of all deadlines and events.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such modules.
+* 1b. Prompt user to add the modules not listed.
+* 1c. Due date has already passed.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: List
+
+*MSS*
+
+1.  User requests to list all activities +
+`list`
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display an updated list of all deadlines and events.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit deadline
+
+*MSS*
+
+1.  User requests to change the date and time to `01-04-2019 23:00` and set priority to `5` for deadline index 2 under the module CS2103T. +
+`edit 2 m/CS2103T d/01-04-2019 23:00 p/5`
+2.  NASA will provide an acknowledgement message.
+3.  NASA will display an updated list of all deadlines and events.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such module code exists in NASA.
+* 1b. Prompt user to re-enter the correct module code.
+* 1c. Index out of bounds when choosing the activity to edit.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete module
+
+*MSS*
+
+1.  User requests to delete module CS2103T and CS2106. +
+`del CS2103T CS2106`
+2.  NASA will provide an acknowledgement message.
+3.  NASA will display an updated list of all modules.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such module code exists in NASA.
+* 1b. Prompt user to re-enter the correct module code.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: find
+
+*MSS*
+
+1.  User requests to find all task that contains KEYWORD "homework". +
+`find homework`
+2.  NASA will provide an acknowledgement message.
+3.  NASA will display all events and deadlines that has the keyword "homework".
++
+Use case ends.
+
+[discrete]
+=== Use case: repeat
+
+*MSS*
+
+1.  User requests to repeat a task under CS2103T every week. +
+`repeat-d 1 m/CS2103T r/1`
+2.  NASA will provide an acknowledgement message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Nothing to repeat.
+* 1b. Prompt user no such modules.
+* 1c. Index out of bounds when choosing activity not in the list to edit.
+* 1d. Index out of bounds when choosing repeat type that is < 0 and more than 3.
+`eg. repeat-d -1 m/CS2103T r/4`
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: export QR code text
+
+*MSS*
+
+1.  User requests to export all activities via QR code. +
+`export`
+2.  NASA will provide an acknowledgement message.
+3.  Pop-up window will open, displaying QR code for user to scan.
++
+Use case ends.
+
+[discrete]
+=== Use case: export calendar
+
+*MSS*
+
+1.  User requests to export all activities to calendar. +
+`calendar`
+2.  NASA will provide an acknowledgement message.
+3.  Calendar ics file will be created in filepath `data/nasa.ics`.
++
+Use case ends.
+
+[discrete]
+=== Use case: Clear
+
+*MSS*
+
+1.  User requests to clear all tasks and checklist. +
+`clear`
+2.  NASA will provide an acknowledgement message.
+3.  All modules will be emptied unless specified.
++
+Use case ends.
+
+[discrete]
+=== Use case: Quote
+
+*MSS*
+
+1.  User requests for a motivation quote +
+`quote`
+2.  NASA will display a pop-up with a quote in the middle of the screen.
++
+Use case ends.
+
+[discrete]
+=== Use case: Statistics
+
+*MSS*
+
+1.  User requests for statistics. +
+`statistics`
+2.  NASA will toggle to the statistics tab to display overall statistics.
+
+
+=== Use case: Exit
+
+*MSS*
+
+1.  User requests to exit the program. +
+`exit`
+2.  NASA will provide an acknowledgement message.
+3.  User-interface will close.
++
+Use case ends.
+
+// tag::nfr[]
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+Accessibility
 
-_{More to be added}_
+1. App should be colourblind-friendly.
+2. Colourblind users should be able to discern all text and information on the GUI to the same extent as
+non-colourblind individuals.
+
+Extensibility
+
+1. App should be able to support feature increments without breaking existing features.
+
+Interoperability
+
+1. App should work on any mainstream OS as long as it has Java 11 or above installed.
+2. App should be able to read saved data files transferred between computers.
+
+Maintainability
+
+1. App’s codebase should be easily understandable to a Software Developer with one year experience in Java.
+2. App’s codebase should be accessible and available for contribution via feedback and suggestions from
+external developers.
+
+Performance
+
+1. App should be able to hold up to 100 activities without a noticeable sluggishness in performance for typical usage.
+2. App should be able to process user input and return a response within 3 seconds.
+
+Reliability
+
+1. App should return an appropriate error or exception response and not crash when a user enters an invalid
+input command.
+2. App should return an appropriate error and not crash when it fails to process a user input command.
+3. App should inform the user in the event of an unexpected crash and potential loss of data.
+4. App should exhibit behaviour consistent with the User Guide’s specifications.
+
+Usability
+
+1. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
+able to accomplish most of the tasks faster using commands than using the mouse.
+2. App first time startup process should have sufficient guidance for first time users to get started using the app
+with basic CRUD function.
+3. App should be usable without requiring internet connection (apart from downloading the file online).
+
+
+// end::nfr[]
 
 [appendix]
 == Glossary
@@ -358,25 +942,10 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[task]] Tasks::
+** Activities consist of deadlines and events
+** Deadlines are essentially assignments, homework or whatever that needs to be done by a specific due date
+** Events are academic activities such as tutorial classes, tests, competitions and remedial
 
 [appendix]
 == Instructions for Manual Testing
@@ -392,7 +961,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample modules such as CS2101, CS2105 and GEH1001. The window size may not be optimum.
+.. If you wish to start a new NasaBook, type `clear`
 
 . Saving window preferences
 
@@ -400,26 +970,255 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a module
 
-=== Deleting a person
+. Adding a new module
 
-. Deleting a person while all persons are listed
+.. Test case: `add m/CS2030 n/Programming Methodology II` +
+Expected: The module `CS2030` will be created and displayed on the screen.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Adding a module that already exists
 
-_{ more test cases ... }_
+.. Test case: `add m/CS2030 n/Programming Methodology II` +
+Expected: Assuming the mod is added from the previous test case, a duplicate module error will be shown.
+
+. Providing wrong format for module parameters
+
+.. Test case: `add m/@c2231 n/Computer Science is fun` +
+Expected: Format error is displayed along with an example of a correct format.
+
+.. Test case: `add m/cs2030 n/" +
+Expected: Format error is displayed along with an example of a correct format.
+
+=== Editing a module
+
+. Editing a module
+
+.. Test case: `edit m/CS2030 m/CS1231 n/Discrete Structures in Mathematics` +
+Expected: Module CS2030 will be changed to CS1231 with the name Discrete Structures in Mathematics.
+
+. Editing a module that does not exist
+
+.. Test case: `edit m/AX1107 m/CS1231 n/Discrete Structures in Mathematics` +
+Expected: Module does not exist error will be displayed.
+
+. Editing a module with the same name and module code
+
+.. Test case: `edit m/CS2030 m/CS2030 n/Programming Methodology II` +
+Expected: No new field is being edited error will be shown.
+
+. Editing a module with a different name but same module code
+
+.. Test case: `edit m/CS2030 m/CS2030 n/Java OOP Class` +
+Expected: Module CS2030 will be changed to the name Java OOP Class.
+
+=== Deleting a module
+
+. Deleting a module that exists
+
+.. Test case: `del m/CS2101` (default module preset) +
+Expected: The module `CS2101` should be deleted.
+
+. Trying to delete a module that does not exist
+
+.. Test case: `del m/AX1103` +
+Expected: Unless the user adds in the module above, there should be an error message displayed.
+
+. Passing in a wrong format for module
+
+.. Test case: `del m/1@00` +
+Expected: Error message with wrong format for module will be shown.
+
+. Deleting a module while all modules are listed
+.. Prerequisites: List all modules using the `list` command. Multiple modules in the list.
+.. Test case: `del m/CS2030` +
+Expected: CS2030 module will be deleted from the list. Details of the modules will be disappeared from the screen.
+.. Test case: `del ` +
+Expected: No module is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete m/cs2030` (delete instead of del) +
+Expected: Similar to previous.
+
+=== Adding an activity
+
+. Adding a new activity
+
+.. Test case: `deadline m/CS2030 a/Lab 2 d/12-12-2020 23:59 p/1` +
+Expected: A new deadline activity with the above description is displayed within the CS2030 module activity list.
+
+.. Test case: `event m/CS2030 a/Recitation sd/12-12-2020 12:00 ed/12-12-2020 14:00` +
+Expected: A new event activity with the above description is displayed within the CS2030 module activity list.
+
+. Adding a duplicate activity
+
+.. Test case: `deadline m/CS2030 a/Lab 2 d/12-12-2020 23:59 p/1` +
+Expected: If this activity has not been added already, enter this command twice. A duplicated activity error message will be displayed.
+
+. Adding an activity to a module that does not exist
+
+.. Test case: `deadline m/MA1101R a/Lab 2 d/12-12-2020 23:59 p/1` +
+Expected: Assuming this module does not exist (not displayed), then a module not found error will be thrown.
+
+=== Deleting an activity
+
+. Deleting an activity that exists
+
+.. Test case: `del-d 1 m/CS2030` +
+Expected: The first activity in the CS2030 activity list will be deleted.
+
+. Deleting an activity that does not exist
+
+.. Test case: `del-d 10 m/CS2030` +
+Expected: An error message saying deadline indicated does not exist will be displayed.
+
+.. Test case: `del-d 200 m/CS2101` +
+Expected: An error message saying deadline indicated does not exist will be displayed.
+
+. Deleting an activity from a module that does not exist
+
+.. Test case: `del-d 1 m/AX1107` +
+Expected: An error message will be displayed.
+
+=== Done
+. Once an activity is done, it will be displayed differently.
+. Initialise this data
+`add m/CS2030 n/Programming Methodology`
+`deadline m/CS2030 a/Homework d/20-06-2020 00:00`
+
+.. Test case: `done 1 m/CS2030`
+Expected: Activity "Homework" will have a tick icon displayed in the checkbox.
+
+=== Continue
+. Undone an activity, when you think that you have not finished the activity.
+. Initialise this data
+`add m/CS2030 n/Programming Methodology`
+`deadline m/CS2030 a/Homework d/20-06-2020 00:00`
+`done 1 m/CS2030`
+
+.. Test case: `continue 1 m/CS2030`
+Expected: The checkbox will be un-tick.
+
+=== Find
+. Find an activity using `find activity name`
+. Initialise this data
+`add m/CS2030 n/Programming Methodology`
+`deadline m/CS2030 a/Homework d/20-06-2020 00:00`
+`deadline m/CS2030 a/Lab d/20-06-2020 00:00`
+`deadline m/CS2030 a/Project d/20-06-2020 00:00`
+`deadline m/CS2030 a/Tutorial d/20-06-2020 00:00`
+
+.. Test case: `find Homework`
+Expected: All except Homework will be hide from the screen.
+
+.. Test case: `find `
+Expected: Expected an input, an error message invalid command format will be displayed.
+
+.. Test case: `find No Such Activity`
+Expected: All activity will be hide, as there is no such activity with the name.
+
+=== Editing an Activity
+
+. Editing an activity
+. Initialise the following data. +
+`add m/CS2030 n/Programming Methodology` +
+`deadline m/CS2030 a/Lab d/20-08-2020 00:00` +
+`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 02:01 a/CP contest`
+
+. `edit-d` to edit a deadline and `edit-e` to edit an event.
+.. Test case: `edit-d 1 m/CS2030 n/Remember to do checkstyle testing` +
+Expected: The first activity notes will be updated to the following.
+
+.. Test case: `edit-e 1 m/CS2030 n/Computing event`
+
+. Editing an activity that does not exist
+
+.. Test case: `edit-d 100 m/CS2030 n/Remember to do checkstyle testing` +
+Expected: An error showing activity cannot be found will be displayed.
+
+. Editing an activity from a module that does not exist
+
+.. Test case: `edit-d 1 m/AX1107 .....` +
+Expected: Module not found error will be displayed.
+
+. Editing an activity with the exact same new values
+
+.. Test case: `edit-d 1 m/CS2030 [SAME PARAMETERS]` +
+Expected: No new field is edited error will be shown.
+
+=== Repeat an activity
+. Repeat an activity by weekly `r/1`, fortnightly `r/2` or monthly `r/3`. To cancel `r/0`.
+. Initialise the following data. +
+`add m/CS2030 n/Programming Methodology` +
+`deadline m/CS2030 a/Lab d/20-05-2020 00:00` +
+`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
+
+CAUTION:  You may choose to use a different start date and end date that is relevant to you
+at that point of time during your testing. It is important to choose a short-time difference, eg. 1min to see the effects immediately.
+
+.. Test case: `repeat-d 1 m/CS2030 r/1`
+Expected: Activity will display a "Repeat Weekly" in the module card.
+
+.. Test case: `repeat-d 2 m/CS2030 r/2`
+Expected: Activity will display a "Repeat Fortnightly" in the module card.
+
+.. Test case: `repeat-d 1 m/CS2030 r/0`
+Expected: Activity will cancel the repeat function and text "Repeat" will disappear.
+
+.. Test case: `repeat-e 1 m/CS2030 r/3`
+Expected: Activity will display a "Repeat Monthly" in the module card.
+
+.. Test case: `repeat-f 1 m/CS2030 r/3`
+Expected: No such command, take note that `repeat-d` and `repeat-e`
+
+.. Test case: `repeat-e 1 m/CS2030 r/4`
+Expected: Index out of bounds, take note that only r/0, r/1, r/2, r/3
+
+=== Undo/Redo
+
+CAUTION: Follow the steps closely, to get the expected result.
+
+. Allows user to undo when an error is made or redo when undo is inappropriate.
+. Initialise the following data. +
+`clear`
+`add m/CS2030 n/Programming Methodology` +
+`deadline m/CS2030 a/Lab d/20-05-2020 00:00` +
+`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
+
+.. Test case: `undo`
+Expected: event will be deleted from the list.
+
+.. Test case: `undo`
+Expected: deadline will be deleted from the list.
+
+.. Test case: `redo`, `redo`
+Expected: event and deadline will be displayed.
+
+.. Test case: `undo`, `undo`, `undo`
+Expected: an empty Nasa with no modules.
+
+=== Sort
+. Allows user to sort base on priority.
+. Initialise the following data. +
+`add m/CS2030 n/Programming Methodology` +
+`deadline m/CS2030 a/A d/20-05-2020 00:00 p/2` +
+`deadline m/CS2030 a/B d/20-04-2020 00:00 p/3` +
+`deadline m/CS2030 a/C d/20-03-2020 00:00 p/1` +
+`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
+
+.. Test case: `sort priority`
+Expected: B,A,C will be displayed in this sequence.
+
+.. Test case: `sort date`
+Expected: C,B,A will be displayed in this sequence.
+
+.. Test case: `sort name`
+Expected: A,B,C will be displayed in this sequence.
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Checking that NASA saves data properly
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Copy `NASA.jar` to a new directory and open it. This is to simulate the scenario where the user has no data at all (ie no data file). Type in some commands and notice that the data file will be created for you. Verify that is it correct.
 
-_{ more test cases ... }_
+. Handling corrupted data
+
+.. Edit the relevant `.json` files. Type in anything you want. And then close the NASA application. Restart it, the application will notice the corrupted data and will overwrite the data with a brand new one.

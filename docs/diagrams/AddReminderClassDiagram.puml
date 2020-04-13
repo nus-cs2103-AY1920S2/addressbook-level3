@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ClassAttributeFontColor WHITE
+
+show attributes
+show methods
+hide empty members
+
+package Model {
+    class Reminder {
+         - LocalDateTime : dueDate
+         - Activity activity
+         - boolean hasPassed
+         + Reminder(activity, dueDate)
+         - validateDueDate(dueDate) : boolean
+         + getDueDate() : LocalDateTime
+         + getActivity() : Activity
+         + reminderPassed() : boolean
+         + setDueDate(LocalDateTime)
+    }
+    class Activity
+    class ActiveReminderList {
+        - remindersList : List<Reminder>
+        + getSize() : integer
+        + addReminder(Reminder)
+        + updateList()
+        + removeReminder(index)
+        + editReminder(index)
+    }
+Reminder "*" <--o "1" ActiveReminderList : Contains 0 - Many
+Activity "1" -- "1" Reminder : Contains only 1
+}
+@enduml

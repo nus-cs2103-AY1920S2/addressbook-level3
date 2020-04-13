@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.layout.HBox?>
+<HBox alignment="CENTER" spacing="50" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <PieChart fx:id="pieChart" layoutX="50.0" title="Percentage of activities by module"
+              id="pieChart"/>
+    <StackedBarChart fx:id="stackedBarChart" id="barChart" title="Number of activities per module"
+                     legendVisible="true"
+                     verticalGridLinesVisible="false" horizontalGridLinesVisible="false">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis" side="BOTTOM" label="Modules"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" side="LEFT" label="Deadlines" upperBound="2" tickUnit="3"/>
+        </yAxis>
+    </StackedBarChart>
+</HBox>
+

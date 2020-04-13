@@ -1,0 +1,18 @@
+@startuml
+start
+:User enters sort command;
+
+:Parser parses command;
+
+if () then ([invalid format])
+    :Command returns invalid command result;
+
+else ([else])
+    :Parser returns sort command;
+    :Logic executes command and updates model;
+    :Command returns success command result;
+
+endif
+:Return Command Result to UI;
+stop
+@enduml
