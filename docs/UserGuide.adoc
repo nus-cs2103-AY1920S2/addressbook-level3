@@ -174,15 +174,42 @@ This progress tracks whether the student has completed the
 specific assignment (Done) or not (Not Done)
 ====
 
+In Student Tab, Under Selected Student and Assigned Courses Panel, after assigning student to course, it can be seen that
+the progresses have been added for every assignment in the course. The Student's progresses can be tracked by specific
+assignment status Done/ Not done. Total done progresses can be viewed under "Number of progress done" field.
+
+.Selected Student and Assigned Courses Panel. Shows ID and details of assigned Courses and Assignments.
+image::StudentViewAssignToCourse.png[width="500"]
+
+Student's details and Assigned Assignments for this courses can also be viewed under Course Tab.
+
+.Selected Course and Assigned Students Panel. Shows ID and details of assigned Students and their Assignments.
+image::CourseViewAssignToStudent.png[width="500"]
+
 ===== A Teacher to a Course : `assign` or `unassign` respectively
 
 Adds the Teacher ID to the Course ID specified. +
 Format: `assign cid/COURSEID tid/TEACHERID` +
 Example: `assign cid/829 tid/21`
 
+When a teacher is assigned to a course, the teacher's ID is added to course and course's ID is added to teacher. In
+Selected Staff Tab, it can be seen that a course ID is added under "Assigned Courses" and the course can be viewed in
+Assigned Courses Tab.
+
+.Selected Staff and Assigned Courses Panel. Shows ID and details of assigned Courses.
+image::StaffViewAssignToCourse.png[width="500"]
+
+In Selected Course Tab, it can be seen that a staff ID is added under "Assigned Staff".
+
+.Selected Staff and Assigned Courses Panel. Shows ID and details of assigned Courses.
+image::CourseViewAssignToStaff.png[width="500"]
+
 Removes the Teacher ID from the Course ID specified. +
 Format: `unassign cid/COURSEID tid/TEACHERID` +
 Example: `unassign cid/829 tid/21`
+
+When a teacher is unassigned to a course, the teacher's ID is removed from course and course's ID is removed from teacher.
+In Selected Staff Tab, after unassign Command, the course's ID and details no longer appears.
 
 ===== An Assignment to a Course : `assign` or 'unassign' respectively
 
