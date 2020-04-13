@@ -46,7 +46,7 @@ Interested? Jump to <<Getting Started>> to get started. Let's go!
 Hope you have a pleasant experience using EYLAH!
 
 .Launch screen of EYLAH
-image::Ui.png[width="790"]
+image::Ui.png[width="890"]
 //end::intro[]
 
 === Purpose
@@ -95,9 +95,9 @@ website.
 Need help setting up EYLAH? Simply follow the steps below to get started in no time!
 
 .  Ensure you have `Java 11` or above installed in your Computer.
-.  Download the latest `eylah.jar` link:{repoURL}/releases[here].
+.  Download the latest `EYLAH.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for EYLAH.
-.  Navigate to the folder in terminal and to run the jar file type `java -jar eylah.jar`.
+.  Navigate to the folder in terminal and to run the jar file type `java -jar EYLAH.jar`.
 +
 
 +
@@ -195,15 +195,18 @@ Valid Example: +
 
 *Main Menu:*
 
-image::main_help.png[width="890", height="200"]
+.Main Menu Help
+image::main_help.png[width="890"]
 
 *Diet Tracker Mode:*
 
-image::diethelp.png[width="890", height="200"]
+.Diet Tracker Help
+image::diethelp.png[width="890"]
 
 *Expense Splitter Mode:*
 
-image::splithelp.png[width="890", height="200"]
+.Expense Splitter Help
+image::splithelp.png[width="890"]
 
 *Additional notes and tips* +
 
@@ -262,7 +265,8 @@ You must only input *EXACTLY ONE* mode per mode command.
 [[modeexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerModeCommandSuccessPhoto.png[width="890", height="200"]
+.Diet Tracker Mode Command
+image::dietTrackerModeCommandSuccessPhoto.png[width="890"]
 
 *Additional notes and tips* +
 
@@ -303,7 +307,8 @@ Valid Example: +
 [[heightexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerHeightCommandSuccessPhoto.png[width="890", height="200"]
+.Diet Tracker Height Command
+image::dietTrackerHeightCommandSuccessPhoto.png[width="890"]
 
 *Additional notes and tips* +
 
@@ -342,7 +347,8 @@ Valid Example: +
 [[weightexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+.Diet Tracker Weight Command
+image::dietTrackerWeightCommandSuccessPhoto.png[width="890"]
 
 *Additional notes and tips* +
 
@@ -388,7 +394,8 @@ Valid Example: +
 [[metricsexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerMetricsCommandSuccessPhoto.png[width="890", height="200"]
+.Diet Tracker Metrics Command
+image::dietTrackerMetricsCommandSuccessPhoto.png[width="890"]
 
 *Additional notes and tips* +
 
@@ -453,7 +460,8 @@ Calculate BMI based on the input height and weight values.
 [[bmiexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerBmiCommandSuccessPhoto.png[width="890", height="200"]
+.Diet Tracker Bmi Command
+image::dietTrackerBmiCommandSuccessPhoto.png[width="890"]
 
 *Additional tips* +
 
@@ -488,7 +496,8 @@ Valid Example: +
 [[addexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerAddCommandSuccessPhoto.png[width="890", height="200"]
+.Diet Tracker Add Command
+image::dietTrackerAddCommandSuccessPhoto.png[width="890"]
 
 *Additional notes* +
 
@@ -538,7 +547,8 @@ Valid Examples: +
 [[listexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerListCommandSuccessPhoto.png[width="890", height="200"]
+.Diet Tracker List Command
+image::dietTrackerListCommandSuccessPhoto.png[width="890"]
 
 *Additional notes* +
 
@@ -586,7 +596,8 @@ correct index of the item.
 [[deleteexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerDeleteCommandSuccessPhoto.png[width="890", height="200"]
+.Diet Tracker Delete Command
+image::dietTrackerDeleteCommandSuccessPhoto.png[width="890"]
 
 *Additional notes and tips* +
 
@@ -634,7 +645,8 @@ correct index of the item.
 [[editexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerEditCommandSuccessPhoto.png[width="890", height="200"]
+.Diet Tracker Edit Command
+image::dietTrackerEditCommandSuccessPhoto.png[width="890"]
 
 *Additional notes and tips* +
 [TIP]
@@ -667,7 +679,8 @@ Valid Example: +
 [[dietbackexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerBackCommandSuccessPhoto.png[]
+.Diet Tracker Back Command
+image::dietTrackerBackCommandSuccessPhoto.png[width="890"]
 //end::diettrackerback[]
 
 '''
@@ -717,7 +730,8 @@ Valid Example: +
 [[additemexpectedoutcome]]
 *Expected outcome:*
 
-image::expensesplitteradditemexpectedoutcome.png[][width="890", height="200"]
+.Expense Splitter Add Item Command
+image::expensesplitteradditemexpectedoutcome.png[width="890"]
 
 [NOTE]
 ====
@@ -751,7 +765,8 @@ Valid Example: +
 [[deleteitemexpectedoutcome]]
 *Expected outcome:*
 
-image::expensesplitterdeleteitemexpectedoutcome.png[][width="890", height="200"]
+.Expense Splitter Delete Item Command
+image::expensesplitterdeleteitemexpectedoutcome.png[width="890"]
 
 [TIP]
 Use `listreceipt` to view your item indices before deletion.
@@ -780,7 +795,8 @@ Valid Example: +
 [[listreceiptexpectedoutcome]]
 *Expected outcome:*
 
-image::listreceipt.png[width="890", height="200"]
+.Expense Splitter List Receipt Command
+image::listreceipt.png[width="890"]
 
 *Additional notes and tips* +
 
@@ -818,7 +834,8 @@ Valid example: +
 [[listamountexpectedoutcome]]
 *Expected outcome:*
 
-image::listamount.png[width="890", height="200"]
+.Expense Splitter List Amount Command
+image::listamount.png[width="890"]
 
 *Additional notes and tips* +
 
@@ -857,7 +874,8 @@ Example: +
 [[donereceiptexpectedoutcome]]
 *Expected outcome:*
 
-image::donereceipt.png[width="890", height="200"]
+.Expense Splitter Done Receipt Command
+image::donereceipt.png[width="890"]
 
 [NOTE]
 ====
@@ -907,7 +925,8 @@ Valid examples: +
 [[paidcommandexpectedoutcome]]
 *Expected outcome:*
 
-image::paid.png[width="890", height="200"]
+.Expense Splitter Paid Command
+image::paid.png[width="890"]
 
 *Additional notes and tips*
 
@@ -945,7 +964,8 @@ Valid Example: +
 [[clearreceiptexpectedoutcome]]
 *Expected outcome:*
 
-image::expensesplitterclearreceiptexpectedoutcome.png[][width="890", height="200"]
+.Expense Splitter Clear Receipt Command
+image::expensesplitterclearreceiptexpectedoutcome.png[width="890"]
 
 [WARNING]
 ====
@@ -985,7 +1005,8 @@ Valid Example: +
 [[splitbackexpectedoutcome]]
 *Expected outcome:*
 
-image::expenseback.png[width="890", height="200"]
+.Expense Splitter Back Command
+image::expenseback.png[width="890"]
 //end::splitback[]
 
 '''
@@ -1012,7 +1033,8 @@ Valid Example: +
 [[exitexpectedoutcome]]
 *Expected outcome:*
 
-image::exit.png[width="890", height="200"]
+.Exit Command
+image::exit.png[width="890"]
 //end::exit[]
 
 '''
@@ -1036,7 +1058,9 @@ example.
 If you would like to know more about a specific command, simply click on the provided links in the table below and you
 will be brought to the respective command.
 //tag::commandsummaryfordiettracker[]
+
 === For Diet Tracker
+.Summary of Command for Diet Tracker
 |===
 |Command |Format |Example
 
@@ -1114,6 +1138,8 @@ or
 //end::commandsummaryfordiettracker[]
 //tag::commandsummaryforexpensesplitter[]
 === For Expense Splitter
+
+.Summary of Command for Expense Splitter
 |===
 |Command |Format |Example
 
@@ -1170,6 +1196,8 @@ or +
 
 [[glossary]]
 == Glossary
+
+.Glossary
 [width="%",cols="<20%,<40,<40,options="header",]
 |=======================================================================
 |Term | Explanation | Examples
@@ -1201,14 +1229,14 @@ The fully blackened circle at the top represents the start point while the circl
 at the bottom represents the end point.
 
 .Expense Splitter Activity Diagram
-image::ExpenseSplitterActivityDiagramV2.png[width="790"]
+image::ExpenseSplitterActivityDiagramV2.png[width="890"]
 
 *Simplified Add Item Activity Diagram*  +
 
 This diagram below is used in conjunction with the diagram directly above this.
 
 .Simplified Add Item Activity Diagram
-image::ExpenseSplitterActivityDiagram.png[width="790"]
+image::ExpenseSplitterActivityDiagram.png[width="890"]
 
 
 

@@ -39,7 +39,7 @@ My groupmate Akhil, who helped with the correction for some of the bugs in the i
 (https://github.com/AY1920S2-CS2103T-W13-1/main/pull/135#discussion_r393328371[#Github Discussion])
 
 *** *What it does:* +
-Allows the integration of the both Diet Tracker and Expense Splitter seamlessly in the unified EYLAH class.
+_Allows_ the integration of the both Diet Tracker and Expense Splitter seamlessly in the unified EYLAH class.
 
 *** *Highlights:* +
 I noticed this in my review of my team mate, Shee Xiong's, initial reorganisation of the code to allow for unification of both components. Upon further research, Java does not support **class name aliasing**.
