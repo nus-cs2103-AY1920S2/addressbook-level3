@@ -41,7 +41,7 @@ public class HelpCommand extends Command {
             + "Finds all Food items whose names contain any of the keyword(s)\n"
             + "Alternatively, Food items can also be found by entering a specific value of its attributes,\n"
             + "i.e. Calories, Proteins, Carbohydrates, or Fats.\n"
-            + "Format: find [n/NAME] [cal/CALORIES] [p/PROTEINS] [c/CARBS] [f/FATS] (choose only 1 parameter)\n"
+            + "Format: find [n/NAME] [cal/CALORIE] [p/PROTEIN] [c/CARBOHYDRATE] [f/FAT] (choose only 1 parameter)\n"
             + "Alt format: find KEYWORD [MORE_KEYWORDS]\n\n";
     public static final String HELP_GOAL_MESSAGE = "goal:\n"
             + "Sets a numerical goal for the desired number of calories to be consumed in a day.\n"
@@ -61,8 +61,8 @@ public class HelpCommand extends Command {
             + "Format: nom n/NAME [d/DATE] [portion/PORTION]\n\n";
     public static final String HELP_REPORT_MESSAGE = "report:\n"
             + "Given a date, the command generates a text document that contains the following:\n"
-            + "\t - Your goal information"
-            + "\t - Your calorie consumption on the given date"
+            + "\t - Your goal information\n"
+            + "\t - Your calorie consumption on the given date\n"
             + "\t - Motivation and tips on how to better reach your goal.\n"
             + "Format: report d/yyyy-MM-dd\n\n";
     public static final String HELP_STOMACH_MESSAGE = "stomach: \n"
@@ -71,10 +71,10 @@ public class HelpCommand extends Command {
             + "Format: stomach [d/DATE]\n\n";
     public static final String HELP_UPDATE_MESSAGE = "update:\n"
             + "Updates a Food Item in the Food Record, or creates a new Food Item if one isn't already present.\n"
-            + "Format: update n/NAME cal/CALORIES p/PROTEINS c/CARBS f/FATS\n\n";
+            + "Format: update n/NAME cal/CALORIE p/PROTEIN c/CARBOHYDRATE f/FAT\n\n";
     public static final String HELP_VOMIT_MESSAGE = "vomit:\n"
             + "Deletes a food item that a user has previously added to the log tracking consumption on that day.\n"
-            + "Format: vomit num/INDEX_OF_FOOD [d/DATE] [portion/PORTION]\n\n";
+            + "Format: vomit num/INDEX [d/DATE] [portion/PORTION]\n\n";
 
     public static final String DEFAULT_HELP_MESSAGE = HELP_CLEAR_MESSAGE
             + HELP_DELETE_MESSAGE
