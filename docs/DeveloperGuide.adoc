@@ -203,7 +203,7 @@ As seen from *Fig 4* below, after the user enters the schedule command, the comm
 
 image::scheduleActivityDiagram.png[align="center"]
 [.text-center]
-_Fig 4. Activity Diagram summarizing what happens when the schedule command is executed_
+_Fig 4. Activity Diagram summarizing what happens when the schedule command is entered_
 
 [.text-justify]
 The specific workings of the schedule command will be explained in the paragraphs below.
@@ -289,7 +289,7 @@ _Fig 10. Sequence Diagram showing how the generated schedule is retrieved_
 ** Cons: Complicated algorithm is more prone to errors.
 
 [.text-justify]
-* **Alternative:** For each day, cumulatively add `Workload/Days to deadline` for all assignments
+* **Alternative:** For each day, cumulatively add `Workload divide by Number of days to deadline` for all assignments
 ** Pros: Easier to implement.
 ** Cons: Some days may have impossibly high workload, deadlines are not handled properly.
 
@@ -409,6 +409,7 @@ image::addRestNote.png[]
 
 end::editRestNote[]
 
+tag::findContacts[]
 === Finding Contacts
 ==== Implementation
 
@@ -451,6 +452,8 @@ Current implementation of Predicates uses the `stream` and `anyMatch` commands t
 * **Alternative 2:** Have the user include the prefix before every different keyword they want to search. For instance, if they want to search using 2 different tag keywords like "friends" and "colleagues", they would have to type `(ab)find t/friends t/colleagues`. Then we can use the Argument Multimap to tokenize the arguments.
 * Pros: Easier to implement.
 * Cons: More troublesome for the user because if they want to search for multiple tags, they would have to keep typing the `/t` prefix for each keyword.
+
+end::findContacts[]
 
 === Logging
 
@@ -673,8 +676,6 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -694,31 +695,13 @@ _{More to be added}_
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 
-
-_{More to be added}_
-
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, OS-X
 
-[appendix]
-== Product Survey
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -742,8 +725,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 tag::manual[]
 
 === Adding a person
@@ -760,13 +741,13 @@ tag::manual[]
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 .. Test case: `(ab)delete 0` +
    Expected: No person is deleted. Error details shown in the status message.
-.. Other incorrect delete commands to try: `(ab)delete`, `(ab)delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `(ab)delete`, `(ab)delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 . Deleting a person while finding contacts that meet certain criteria
 
 .. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
-.. Test case: `(ab)delete x` (where x exists in the full contact list but not in the filtered list) +
+.. Test case: `(ab)delete x` (where x is larger than the filtered list size but smaller than the size of the full contact list) +
    Expected: No person is deleted. Error details shown in the status message.
 
 === Editing a person
@@ -775,12 +756,12 @@ tag::manual[]
 
 .. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
 .. Test case: `(ab)edit 2 t/BFF -t/Friends` +
-   Expected: Second contact in the list is edited, with tag "Friends" deleted, and tag "BFF" added. Details  of the edited contact shown in the status message.
+   Expected: Second contact in the list is edited, with tag "Friends" deleted, and tag "BFF" added. Details of the edited contact shown in the status message.
 
 . Editing a person while finding contacts that meet certain criteria
 
 .. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
-.. Test case: `(ab)edit x b/06-22` (where x exists in the full contact list but not in the filtered list) +
+.. Test case: `(ab)edit x b/06-22` (where x is larger than the filtered list size but smaller than the size of the full contact list) +
    Expected: No person is edited. Error details shown in the status message.
 
 === Adding additional information to a person
@@ -791,15 +772,15 @@ tag::manual[]
 .. Test case: `(ab)addnote 2 i/Likes red i/Lives in Jurong i/Cycles` +
    Expected: Second contact in the list has 3 new notes, "Likes red", "Lives in Jurong" and "Cycles", added. Details of the edited contact shown in the status message.
 
-. Editing a person while finding contacts that meet certain criteria
+. Add note(s) to a person while finding contacts that meet certain criteria
 
 .. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
-.. Test case: `(ab)addnote x i/Can't take spicy` (where x exists in the full contact list but not in the filtered list) +
+.. Test case: `(ab)addnote x i/Can't take spicy` (where x is larger than the filtered list size but smaller than the size of the full contact list) +
    Expected: No new note is added to a person. Error details shown in the status message.
 
 === Editing additional information for a person
 
-. Edits an existing note of person while all persons listed
+. Editing an existing note of person while all persons listed
 
 .. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
 .. Test case: `(ab)editnote 2 l/2 i/Likes matcha` +
@@ -812,7 +793,7 @@ tag::manual[]
 . Editing an existing note of a person while finding contacts that meet certain criteria
 
 .. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
-.. Test case: `(ab)editnote x l/3 i/Can't take spicy` (where x exists in the full contact list but not in the filtered list) +
+.. Test case: `(ab)editnote x l/3 i/Can't take spicy` (where x is larger than the filtered list size but smaller than the size of the full contact list) +
    Expected: No note is edited for a person. Error details shown in the status message.
 
 === Deleting additional information of a person
@@ -830,14 +811,13 @@ tag::manual[]
 . Editing a person while finding contacts that meet certain criteria
 
 .. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
-.. Test case: `(ab)deletenote x l/2` (where x exists in the full contact list but not in the filtered list) +
+.. Test case: `(ab)deletenote x l/2` (where x is larger than the filtered list size but smaller than the size of the full contact list) +
    Expected: No note is deleted for a person. Error details shown in the status message.
 
 === Finding a specific contact/specific set of contacts
 
 . Finding person(s) by organization, name or tag.
 
-.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
 .. Test case: `(ab)find o/NUS n/Lim` +
    Expected: If person(s) with the organization "NUS" and have the word "Lim" in the name, person(s) will be listed. The number of person listed shown in the status message.
 
@@ -854,14 +834,13 @@ tag::manual[]
 . Retrieves a person contact while finding contacts that meet certain criteria
 
 .. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
-.. Test case: `(ab)get x` (where x exists in the full contact list but not in the filtered list) +
+.. Test case: `(ab)get x` (where x is larger than the filtered list size but smaller than the size of the full contact list) +
 Expected: No detailed view of contact is displayed. Error details shown in the status message.
 
 === List contacts with upcoming birthdays
 
 . All persons are listed
 
-.. Prerequisite: List all persons using the `(ab)list` command. Multiple persons in the list.
 .. `(ab)birthday` +
    Expected: All contacts with birthdays in the next 5 days (current day included) should be listed.
 
@@ -877,11 +856,17 @@ Expected: All restaurants added should be displayed.
 
 === Editing a restaurant
 
-. Edits a restaurant while all restaurants are listed
+. Editing a restaurant while all restaurants are listed
 
 .. Prerequisites: List all restaurants using the `(rt)list` command. Multiple restaurants in the list.
 .. Test case: `(rt)edit 1 v/Yes o/0900:2200` +
    Expected: Edits the first restaurant visited status to "Yes" and operating hours to "0900:2200".
+
+. Editing a restaurant while finding restaurants that meet certain criteria
+
+.. Prerequisites: List subset of restaurants using the `(rt)find` command. Restaurants that meet the criteria are listed.
+.. Test case: `(rt)edit x` (where x is larger than the filtered list size but smaller than the size of the full restaurant list) +
+Expected: No restaurant edited. Error details shown in the status message.
 
 === Deleting a restaurant
 
@@ -892,6 +877,12 @@ Expected: All restaurants added should be displayed.
    Expected: Deletes the second restaurant in the restaurant list. Details of the deleted restaurant shown in the status message.
 .. Test case: `(rt)delete x` (where x is larger than the size of the restaurant list) +
    Expected: No restaurant is deleted. Error details shown in the status message.
+
+. Deleting a restaurant while finding restaurants that meet certain criteria
+
+.. Prerequisites: List subset of restaurants using the `(rt)find` command. Restaurants that meet the criteria are listed.
+.. Test case: `(rt)delete x` (where x is larger than the filtered list size but smaller than the size of the full restaurant list) +
+Expected: No restaurant deleted. Error details shown in the status message.
 
 === Adding food note(s) to a restaurant
 
@@ -929,8 +920,8 @@ Expected: All restaurants added should be displayed.
 === Adding an assignment
 
 . Test case: `(st)add t/CS2103 post lecture quiz d/2020-11-11 23:59 e/2` +
-  Expected: Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-11-2020 23:59 PM and which takes an estimated two hours to complete. Details of the added assignment shown in the status message.
-.. Test case: `(st)add t/CS2105 lab d/DATETIME e/5` (where DATETIME is after the current date and time) +
+  Expected: Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11 Nov 2020 23:59 PM and which takes an estimated two hours to complete. Details of the added assignment shown in the status message.
+.. Test case: `(st)add t/CS2105 lab d/DEADLINE e/5` (where `DEADLINE` is before the current date and time) +
    Expected: No assignment is added. Error details shown in the status message.
 
 === List current assignments
@@ -963,16 +954,27 @@ Expected: All restaurants added should be displayed.
    Expected: Marks the first assignment in the Schoolwork Tracker as completed. Details of the edited assignment shown in the status message.
 .. Test case: `(st)edit 1 s/Uncompleted` +
    Expected: Marks the first assignment in the Schoolwork Tracker as uncompleted. Details of the edited assignment shown in the status message.
-.. Test case: `(st)edit d/y` (where y is after the current date and time) +
+.. Test case: `(st)edit d/DEADLINE` (where `DEADLINE` is before the current date and time) +
    Expected: No assignment is edited. Error details shown in the status message.
 .. Other incorrect commands to try: `(st)edit x` (where x is larger than the size of Schoolwork Tracker) +
    Expected: Same as above
 
+=== Generating schedule
+. Generates the user's schedule
+
+.. Prerequisites: There are assignments added to the SchoolworkTracker
+.. Test case: `(st)schedule n/5` +
+   Expected: The user's schedule for the next 5 days is displayed. For the query date, the total allocated hours should not exceed the amount of time remaining on query date.
+   For each assignment, the amount of time allocated to the day it is due should not exceed the amount of time the user has on that day before the time of submission.
+   For each assignment, the total amount of time scheduled and unscheduled should equals the estimated workload of that assignment.
+.. Test case: `(st)schedule n/-1` +
+   Expected: No schedule is displayed. Error details shown in the status message.
+
 === Adding a social event
 
-. Test case: `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
+. Test case: `(ev)add t/Facebook job interview d/2020-05-18 10:00 h/3 p/Facebook APAC HQ` +
 Expected: Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and location at "Facebook APAC HQ".
-.. Test case: `(ev)add t/Birthday party dt/DATETIME d/3 p/Clementi` (where DATETIME is after the current date and time) +
+.. Test case: `(ev)add t/Birthday party d/DATETIME h/3 p/Clementi` (where DATETIME is after the current date and time) +
    Expected: No social event is added. Error details shown in the status message.
 
 === Listing all events
@@ -985,9 +987,9 @@ Expected: List all added social events in the Event Schedule.
 . Edits a social event while all social events are listed
 
 .. Prerequisites: List all social events using the `(ev)list` command. Multiple social events in the list.
-.. Test case: `(ev)edit 1 edt/2020-04-09 11:00 ed/2` +
+.. Test case: `(ev)edit 1 d/2020-04-09 11:00 h/2` +
    Expected: Edits the first event in the Event Schedule by changing the timing to 11AM on the 9th of April and the estimated duration to be 2 hours.
-.. Test case: `(ev)edit dt/DATETIME` (where DATETIME is after the current date and time) +
+.. Test case: `(ev)edit d/DATETIME` (where DATETIME is after the current date and time) +
    Expected: No social event is edited. Error details shown in the status message.
 
 === Deleting a social event
@@ -1001,11 +1003,3 @@ Expected: List all added social events in the Event Schedule.
    Expected: No social event is deleted. Error details shown in the status message.
 
 end::manual[]
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

@@ -18,8 +18,6 @@
             a.nav-link href='https://se-edu.github.io/collate' Collate
           li.nav-item
             a.nav-link href='https://se-edu.github.io/se-book' Book
-          li.nav-item
-            a.nav-link href='https://se-edu.github.io/learningresources' Resources
 
 - if !(attr? 'no-site-header')
   #site-header
@@ -32,9 +30,6 @@
             =nav_link('UserGuide', 'UserGuide.html', 'User Guide')
           li.nav-item
             =nav_link('DeveloperGuide', 'DeveloperGuide.html', 'Developer Guide')
-          - if attr? 'site-seedu'
-            li.nav-item
-              =nav_link('LearningOutcomes', 'LearningOutcomes.html', 'LOs')
           li.nav-item
             =nav_link('AboutUs', 'AboutUs.html', 'About Us')
           li.nav-item
