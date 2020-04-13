@@ -25,7 +25,7 @@ FlashSpeed enhances the revision process by implementing a <<smart-review-system
 The main features of FlashSpeed allows users to:
 
 * create their own <<deck, decks>> of <<card, cards>> (flashcards)
-* choose a deck to <<play, play>> (review) which uses the SRS design mentioned above.
+* choose a deck to <<play, play>> (review) which uses the smart review design mentioned above.
 
 [[Purpose]]
 === Purpose
