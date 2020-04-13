@@ -250,7 +250,7 @@ of the number of matches, i.e. the note with the highest number of matches will 
 .Demo for the `search` command: keyword found
 image::demo/Search.png[]
 
-Let's say the first option `/Workspace/Notably/CS2103/Project` is the note you are looking for. You may press kdb:[↓] and kdb:[Enter]
+Let's say the first option `/Workspace/Notably/CS2103/Project` is the note you are looking for. You may press kbd:[↓] and kbd:[Enter]
 to open the note. The figure below illustrates how the note chosen will be opened and the command line box is cleared.
 
 .Demo for the `search` command: open a note with the searched keyword
