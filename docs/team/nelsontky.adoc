@@ -123,6 +123,12 @@ include::../UserGuide.adoc[tag=undo]
 
 include::../UserGuide.adoc[tag=redo]
 
+include::../UserGuide.adoc[tag=expand]
+
+include::../UserGuide.adoc[tag=reminding]
+
+include::../UserGuide.adoc[tag=KeyboardShortcuts]
+
 == Contributions to the Developer Guide
 
 |===
