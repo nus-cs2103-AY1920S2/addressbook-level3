@@ -57,4 +57,6 @@ just the first letter. This decision was made in line with the target audience o
 * https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#implementation-4[Activity diagram for adding trip]
 * https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#implementation-5[Activity diagram for sort entries]
 * https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#use-cases[Use cases]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#instructions-for-manual-testing[Instructions for
+manual testing]
 
