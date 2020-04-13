@@ -177,13 +177,15 @@ a|
 ==== Add Command
 ===== Command: `add n/This is a new task p/3 des/We have alot of work to do today! t/This t/Is t/Fun`
 
-You only need the `n/` prefix when adding a new task as only the name field is compulsory.
+Alright, time to start your productivity journey! You only need the `n/` prefix when adding a new task as only the name field is compulsory. Let's add our very first task!
 
 .Add success
 image::add_success.png[width=790]
 
 ==== Edit Command
 ===== Command: `edit n/Look edited the task des/BB Productive is the best app I've every used t/NewTag`
+Oh, looks like you've made a mistake, don't worry you can edit your tasks. But first a few things to take note of:
+
 * You can edit all fields except the done field.
 * Please indicate an `<<index, INDEX>>` so that BB Productive knows which task to edit.
 
@@ -192,21 +194,21 @@ image::edit_success.png[width=790]
 
 ==== Done Command
 ===== Command: `done <<index, INDEX>> INDEX...`
-You can also mark multiple tasks as done by using space separated indexes.
+After some hardwork, you've finished a task, so now let's mark it as done. You can also mark multiple tasks as done by using space to separate those <<index, indexes>>.
 
 .Done success
 image::done_success.png[width=790]
 
 ==== Sort Command
 ===== Command: `sort FIELD FIELD...`
-You can choose to change the current ordering of your task list to something more suitable by sorting it one or more of these task fields:
+Oh boy, after a couple of hours, you have filled your day with so many activities! You can choose to change the current ordering of your task list to something more suitable by sorting it by one or more of these task fields:
 
 _All fields with r- prepended refers to a reverse of the original._
 
 . priority -> Shows task of highest priority first.
 . r-priority -> Shows task of lowest priority first.
-. done -> Shows task of undone first.
-. r-done -> Shows task of done first.
+. done -> Shows undone tasks first.
+. r-done -> Shows done tasks first.
 . date -> Shows tasks with reminders closer to today first then tasks without reminders.
 . r-date -> Shows tasks with no remidners first then tasks with reminders further from today.
 . name -> Shows tasks in alphanumeric order.
@@ -219,7 +221,7 @@ image::sort_success.png[width=790]
 ===== Command: `find PHRASE`
 ===== Command: `find t/TAG t/TAG...`
 ===== Command: `find PHRASE t/TAG...`
-You can perform a search for tasks by name or tag to find the tasks most important to you. 
+Oh my after sorting, you still have so many tasks! You can perform a search for tasks by name or tag to find the tasks most important to you. 
 
 * You can choose to search by both name and tag, just name or just tag.
 * For phrase searching, it is slightly typo tolerant and will show tasks that differ from the `PHRASE` by a little.
@@ -231,21 +233,21 @@ image::find_success.png[width=790]
 ==== Tag Command
 ===== Command :`tag`
 
-You can view all existing tags in BB Productive by entering the Tag command!
+Hmmm, I wonder what types of tasks I have! You can view all existing tags in BB Productive by entering the Tag command!
 
 .Tags success
 image::tag_success.png[width=790]
 
 ==== Delete Command
 ===== Command: `delete <<index, INDEX>> INDEX...`
-You can delete multiple tasks.
+Oh my, my task list is getting overcrowded... Luckily, you can use the delete command to delete one or more tasks.
 
 .Delete success
 image::delete_success.png[width=790]
 
 ==== Clear Command
 ===== Command: `clear`
-You may delete all tasks from your list by issuing a clear command.
+Oh my it's been a productive month, time to start on a clean slate. You may delete all tasks from your list by issuing a clear command.
 
 .Clear success
 image::clear_success.png[width=790]
