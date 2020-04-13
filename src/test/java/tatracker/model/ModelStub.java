@@ -64,91 +64,109 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrClaimFilter(String module) {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrClaimFilter() {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionFilter(String params) {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionFilter() {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionDateFilter(String params) {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionDateFilter() {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionModuleFilter(String params) {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionModuleFilter() {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionTypeFilter(String params) {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionTypeFilter() {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrStudentFilter(String params) {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrStudentFilter() {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public boolean hasSession(Session session) {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public void addSession(Session session) {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public void deleteSession(Session target) {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public void setSession(Session target, Session editedSession) {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public ObservableList<Session> getFilteredSessionList() {
         throw new AssertionError("This method should not be called.");
     }
 
+    //@@author Chuayijing
     @Override
     public void updateFilteredSessionList(Predicate<Session> predicate) {
         throw new AssertionError("This method should not be called.");
@@ -430,6 +448,7 @@ public class ModelStub implements Model {
         }
     }
 
+    //@@author Chuayijing
     /**
      * A Model stub that always accept the session being added.
      */
@@ -467,6 +486,7 @@ public class ModelStub implements Model {
         }
     }
 
+    //@@author
     /**
      * A Model stub that always accept the student being added.
      */

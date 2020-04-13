@@ -1,3 +1,4 @@
+//@@author Chuayijing
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
@@ -23,6 +24,7 @@ import tatracker.model.Model;
  */
 public class FilterStudentCommand extends Command {
 
+    //@@author PotatoCombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
             CommandWords.FILTER_MODEL,
