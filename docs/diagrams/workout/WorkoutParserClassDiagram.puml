@@ -1,0 +1,35 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+Package "Workout Parser" <<Rectangle>> {
+    Class WorkoutCommandParser
+    Class CreateCommandParser
+    Class EditCommandParser
+    Class DeleteCommandParser
+    Class FindCommandParser
+
+    Package "Workout Exercise Parser" <<Rectangle>> {
+        Class WorkoutExerciseCommandParser
+        Class AddCommandParser
+        Class "EditCommandParser" as ExerciseEditCommandParser
+        Class "DeleteCommandParser" as ExerciseDeleteCommandParser
+    }
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> WorkoutCommandParser
+
+WorkoutCommandParser .down.> CreateCommandParser : creates >
+WorkoutCommandParser .down.> EditCommandParser : creates >
+WorkoutCommandParser .down.> DeleteCommandParser : creates >
+WorkoutCommandParser .down.> FindCommandParser : creates >
+WorkoutCommandParser .down.> WorkoutExerciseCommandParser : creates >
+
+WorkoutExerciseCommandParser .down.> AddCommandParser : creates >
+WorkoutExerciseCommandParser .down.> ExerciseEditCommandParser : creates >
+WorkoutExerciseCommandParser .down.> ExerciseDeleteCommandParser : creates >
+
+@enduml

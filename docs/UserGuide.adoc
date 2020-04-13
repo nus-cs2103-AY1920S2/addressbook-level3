@@ -73,6 +73,7 @@ image::user-guide/UgMainPage.png[]
 
 At this stage, you should have successfully started ZeroToOne and will be able see the main page as described in Figure 1. If the application did not start, please refer to <<Troubleshooting>> for more information to resolve the issue. Otherwise, the next step is to begin your ZeroToOne journey, by customising your favourite workout programmes!
 
+// tag::ui[]
 == User Interface Basics
 
 Before we delve into the commands that you can use, let us first explain the components of the User Interface, and how we can navigate through them.
@@ -91,6 +92,7 @@ Whenever you enter a command into the Command Box, the application will output a
 
 === Command Box
 You type all of your commands in here. To execute the command, simply press the "Enter" button on your keyboard.
+// end::ui[]
 
 == Using ZeroToOne
 
@@ -108,16 +110,22 @@ For ZeroToOne commands, every user-fillable parameter is identified by a flag pr
 * `f/` - frequency of schedule
 * `p/` - file path
 
-=== Getting Help
-Can’t remember the commands off the top of your head? Fret not. ZeroToOne provides you with a convenient way to view a list of all available commands that you can try. Simply click on the `About` tab:
+// tag::about[]
+=== Viewing App Information
+Can’t remember the commands off the top of your head? Fret not. ZeroToOne provides you with a convenient way to view a list of all available commands that you can try. Simply enter the following command into the command box:
 
+```
+about
+```
 .About Tab
 image::user-guide/UgHelp.png[]
 
-The about tab contains a list of all available commands that you can try.
+The app view will switch tabs to show the About tab.
+
+// end::about[]
 
 === Closing ZeroToOne
-After you have finished using the application, you can exit the application by closing the window or simply entering the following command into the command box:
+After you have finished using the application, you can exit the application by simply entering the following command into the command box:
 
 ```
 exit
@@ -126,7 +134,7 @@ exit
 The application will close gracefully, and all data will be saved in the data directory. If the command is executed successfully, you should see the following message before the application closes:
 
 ```
-Thank you for using ZeroToOne! Your data has been saved successfully. Hope to see you soon for your next workout!
+Thank you for using ZeroToOne! Your data has been saved successfully. Hope to see you again soon!
 ```
 
 //tag::session[]
@@ -390,6 +398,7 @@ NOTE:
 * EXERCISE_ID refers to the index of the exercise in `exercise list`
 ```
 
+// tag::workout[]
 === Managing Your Workouts
 
 After creating and modifying your exercises however you desire, it’s time to use those exercises to create workouts! In this section, we will walk you through how to manage all your workouts.
@@ -611,6 +620,7 @@ If this is successful, the following message will be displayed in the feedback d
 ```
 Successfully imported /data/myFriendsWorkout.txt into ZeroToOne!
 ```
+// end::workout[]
 
 // tag::schedule[]
 === Managing Your Scheduled Sessions

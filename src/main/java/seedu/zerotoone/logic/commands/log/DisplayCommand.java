@@ -4,7 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
+import seedu.zerotoone.logic.Statistics;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
@@ -18,6 +21,8 @@ public class DisplayCommand extends LogCommand {
     public static final String MESSAGE_SUCCESS = "Displaying statistics!";
     public static final String MESSAGE_USAGE =
         "Usage: log display [st/start_time] [et/end_time]";
+
+    private static final Logger logger = LogsCenter.getLogger(Statistics.class);
 
     private final Optional<LocalDateTime> startRange;
     private final Optional<LocalDateTime> endRage;

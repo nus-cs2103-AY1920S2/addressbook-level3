@@ -114,6 +114,8 @@ public class DateViewUtil {
      * @return the pretty duration
      */
     public static String getPrettyDuration(Duration duration) {
+        duration = duration.truncatedTo(ChronoUnit.SECONDS);
+
         return duration.toString()
             .substring(2)
             .replaceAll("(\\d[HMS])(?!$)", "$1 ")

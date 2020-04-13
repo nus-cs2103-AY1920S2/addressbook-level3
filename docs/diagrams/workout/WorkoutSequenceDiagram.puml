@@ -10,8 +10,6 @@ participant ":ParserManager" as ParserManager LOGIC_COLOR
 participant ":WorkoutCommandParser" as WorkoutCommandParser WORKOUT_COLOR_T1
 participant ":FindCommandParser" as FindCommandParser WORKOUT_COLOR_T1
 participant "f:FindCommand" as FindCommand WORKOUT_COLOR_T1
-participant "wn:WorkoutName" as WorkoutName WORKOUT_COLOR_T1
-participant "p:PredicateFilterWorkoutName" as PredicateFilterWorkoutName WORKOUT_COLOR_T1
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -38,23 +36,9 @@ deactivate FindCommandParser
 WorkoutCommandParser -> FindCommandParser : parse("w/Arms Workout")
 activate FindCommandParser
 
-create WorkoutName
-FindCommandParser --> WorkoutName : WorkoutName("Arms Workout")
-activate WorkoutName
-
-WorkoutName --> FindCommandParser : wn
-deactivate WorkoutName
-
 create FindCommand
-FindCommandParser -> FindCommand : FindCommand(wn)
+FindCommandParser -> FindCommand : FindCommand(workoutName)
 activate FindCommand
-
-create PredicateFilterWorkoutName
-FindCommand --> PredicateFilterWorkoutName : PredicateFilterWorkoutName(wn)
-activate PredicateFilterWorkoutName
-
-PredicateFilterWorkoutName --> FindCommand : p
-deactivate PredicateFilterWorkoutName
 
 FindCommand --> FindCommandParser : f
 deactivate FindCommand
@@ -76,7 +60,7 @@ deactivate ParserManager
 LogicManager -> FindCommand : execute()
 activate FindCommand
 
-FindCommand -> Model : updateFilteredWorkoutList("Arms Workout")
+FindCommand -> Model : updateFilteredWorkoutList(predicate)
 activate Model
 
 Model --> FindCommand
