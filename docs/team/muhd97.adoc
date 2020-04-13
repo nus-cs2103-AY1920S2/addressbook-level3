@@ -19,7 +19,7 @@ the application to an online version as well as for different platforms.
 * *Major enhancement*:
 . added a count command that allows the user to count the total number of recipes stored in CookBuddy.
 ** What it does: It gives the user an ability to keep track of total number of recipes stored in CookBuddy.
-** Justification: This feature improves the product significantly because a user can know the number of recipes he/ she has. When a user have highly differentiated tastes and needs, knowing how many he/ she has can let him/ her satisfy his/ her own particular wants.
+** Justification: This feature improves the product significantly because a user can know the number of recipes he/ she has. When a user have highly differentiated tastes and needs, knowing how many recipes he/ she has can let him/ her satisfy his/ her own particular wants.
 ** Highlights: The user is able to view the number of recipes he/ she has. This enhancement also affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
 * *Minor enhancement*:
@@ -30,16 +30,17 @@ the application to an online version as well as for different platforms.
 * *Other contributions*:
 
 ** Project management:
-*** Helped in managing the team's repository and pull requests.
+*** Helped in managing the team's repository and pull requests.  Commented on other's PR if there are any improvements or suggestions to make.
 *** Helped teammates with testing errors.
+*** Helped in the documentations of the overall code.
 *** Explained to teammates the flow of AB3 to better help them understand the code and therefore aiding them in implementing their own features.
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103T-W12-4/main/pull/301[#301], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/306[#306])
+*** Major refactoring of certain commands and packaging (Pull requests https://github.com/AY1920S2-CS2103T-W12-4/main/pull/17[#17], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/74[#74], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/147[#147], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/154[#154])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S2-CS2103T-W12-4/main/pull/295[#295], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/309[#309]
-*** Updated User Guide to include Product Information and Understanding CookBuddy GUI
-*** Updated User Guide with FAQs, Command Summary and the Glossary
-*** Updated Developer Guide to include Introduction, About this Document, Overview of Features, Value Proposition, Appendix D, Glossary and Product Survey
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S2-CS2103T-W12-4/main/pull/295[#295]
+*** Updated User Guide to include Product Information, Understanding CookBuddy's GUI, FAQs, Command Summary and the Glossary (Pull requests https://github.com/AY1920S2-CS2103T-W12-4/main/pull/171[#171], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/279[#279], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/295[#295], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/298[#298])
+*** Updated Developer Guide to include Introduction, About this Document, Overview of Features, Implementation details of Count feature, Value Proposition, Appendix D, Glossary and Product Survey  (Pull requests https://github.com/AY1920S2-CS2103T-W12-4/main/pull/297[#297], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/305[#305], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/313[#313])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W12-4/main/pull/113[#113], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/114[#114], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/125[#125], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/170[#170]
 *** Reported bugs and suggestions for other teams (examples: https://github.com/muhd97/ped[Practical Exam Dry Run]
@@ -51,9 +52,11 @@ the application to an online version as well as for different platforms.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=productinformation]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=understandingcookBuddysgui]
+
+include::../UserGuide.adoc[tag=faqcmdsummaryglossary]
 
 == Contributions to the Developer Guide
 
@@ -61,6 +64,12 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=introductionabouththisdocumentoverviewoffeatures]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=countfeature]
+
+include::../DeveloperGuide.adoc[tag=productscope]
+
+include::../DeveloperGuide.adoc[tag=nonfuncreqglossarypdtsurvey]
+
+
