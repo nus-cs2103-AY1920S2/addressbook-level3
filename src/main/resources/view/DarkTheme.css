@@ -179,6 +179,13 @@
     -fx-padding: 0px;
 }
 
+#cardPane {
+    -fx-background-color: #211463;
+    -fx-border-width: 5px;
+    -fx-border-color: black;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 30px;
+}
 
 .activity_big_label {
     -fx-font-family: "Verdana";
@@ -444,13 +451,13 @@
 #activityListView {
     -fx-background-color: transparent;
     -fx-border-width: 0;
-    -fx-background-radius: 15;
+    -fx-background-radius: 10;
 }
 
 #activityListView .list-cell{
     -fx-background-color: transparent;
     -fx-border-width: 0;
-    -fx-background-radius: 15;
+    -fx-background-radius: 10;
 }
 
 
@@ -463,6 +470,9 @@
     -fx-padding: 10px;
 }
 
+.red {
+    -fx-background-color: red;
+}
 
 .default-color0.chart-bar { -fx-pie-color: #FF9AA2; }
 .default-color2.chart-bar { -fx-pie-color: #FFDAC1; }

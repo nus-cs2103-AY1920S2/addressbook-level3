@@ -25,7 +25,7 @@ public class ExportCalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "calendar";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports calendar to .ics format"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports calendar to .ics format\n"
         + "Parameters: FILEPATH\n"
         + "Example: " + COMMAND_WORD + " f/./Data";
 

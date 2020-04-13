@@ -19,7 +19,7 @@ public class ExportQrCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the deadlines and events to QR code.\n"
-            + "Example: " + COMMAND_WORD;
+            + "Parameters: none\n Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "QR code generated.";
 

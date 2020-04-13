@@ -46,6 +46,8 @@ public class CommandBox extends UiPart<Region> {
         commandHistory = new LinkedList<>();
         commandHistoryIterator = commandHistory.listIterator();
 
+        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
 
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
             switch (key.getCode()) {
@@ -65,7 +67,11 @@ public class CommandBox extends UiPart<Region> {
                     handleCommandEntered();
                 }
                 break;
+
             default:
+                if (matchedCommand.equals(commandTextField.getText().trim().toLowerCase())) {
+                    break;
+                }
                 if (isValidCommand()) {
                     main.getHint(commandList.get(matchedCommand));
                     commandTextField.requestFocus();
@@ -89,9 +95,11 @@ public class CommandBox extends UiPart<Region> {
             if (commandTextField.getText().trim().toLowerCase().startsWith(command)) {
                 isCommand = true;
                 matchedCommand = command;
+
             }
         }
         return isCommand;
+
     }
 
 

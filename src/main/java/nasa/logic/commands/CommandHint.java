@@ -18,7 +18,7 @@ public class CommandHint {
             put(AddModuleCommand.COMMAND_WORD, AddModuleCommand.MESSAGE_USAGE);
             put(DeleteModuleCommand.COMMAND_WORD, DeleteModuleCommand.MESSAGE_USAGE);
             put(EditModuleCommand.COMMAND_WORD, EditModuleCommand.MESSAGE_USAGE);
-            put(ClearCommand.COMMAND_WORD, "Clears NASA book");
+            put(ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_USAGE);
             put(ContinueCommand.COMMAND_WORD, ContinueCommand.MESSAGE_USAGE);
             put(DeleteDeadlineCommand.COMMAND_WORD, DeleteDeadlineCommand.MESSAGE_USAGE);
             put(DeleteEventCommand.COMMAND_WORD, DeleteEventCommand.MESSAGE_USAGE);

@@ -23,13 +23,11 @@ public class TabPanel extends UiPart<Region> {
     private CalendarView calendarView;
 
     @FXML
-    private StackPane moduleListPanelPlaceholder;
+    private HBox moduleListPanelPlaceholder;
     @FXML
     private StackPane statisticsPanelPlaceholder;
     @FXML
     private StackPane calendarPlaceholder;
-    @FXML
-    private HBox moduleList;
     @FXML
     private TabPane tabPane;
     @FXML
