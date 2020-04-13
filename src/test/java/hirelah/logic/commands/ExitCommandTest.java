@@ -1,15 +1,15 @@
 package hirelah.logic.commands;
 
+import static hirelah.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import hirelah.commons.exceptions.IllegalValueException;
 import hirelah.logic.commands.exceptions.CommandException;
 import hirelah.model.Model;
 import hirelah.model.ModelManager;
-import hirelah.model.hirelah.Interviewee;
-import org.junit.jupiter.api.Test;
 
-import static hirelah.logic.commands.CloseReportCommand.MESSAGE_SUCCESS;
-import static hirelah.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ExitCommandTest {
 
@@ -25,7 +25,7 @@ class ExitCommandTest {
     }
 
     @Test
-    void test_Equals_success() {
+    void test_equals_success() {
         assertEquals(new ExitCommand(), command);
     }
 }

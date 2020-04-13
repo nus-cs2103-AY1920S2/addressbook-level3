@@ -1,15 +1,14 @@
 package hirelah.logic.commands;
 
+import static hirelah.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static hirelah.logic.commands.FinaliseCommand.MESSAGE_SUCCESS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import hirelah.commons.exceptions.IllegalValueException;
 import hirelah.model.Model;
 import hirelah.model.ModelManager;
-import hirelah.model.hirelah.AttributeList;
-import org.junit.jupiter.api.Test;
-
-import static hirelah.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static hirelah.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_INTEGRITY;
-import static hirelah.logic.commands.FinaliseCommand.MESSAGE_SUCCESS;
-import static org.junit.jupiter.api.Assertions.*;
 
 class FinaliseCommandTest {
 
@@ -30,7 +29,7 @@ class FinaliseCommandTest {
     }
 
     @Test
-    void testEquals() {
+    void test_equals_success() {
         assertEquals(new FinaliseCommand(), command);
     }
 }

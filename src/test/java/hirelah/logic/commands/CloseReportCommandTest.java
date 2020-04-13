@@ -1,25 +1,23 @@
 package hirelah.logic.commands;
 
-import hirelah.commons.exceptions.IllegalValueException;
-import hirelah.logic.commands.exceptions.CommandException;
-import hirelah.logic.parser.AddCommandParser;
-import hirelah.model.Model;
-import hirelah.model.ModelManager;
-import hirelah.model.hirelah.AttributeList;
-import hirelah.model.hirelah.Interviewee;
+import static hirelah.logic.commands.CloseReportCommand.MESSAGE_SUCCESS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static hirelah.logic.commands.CloseReportCommand.MESSAGE_SUCCESS;
-import static hirelah.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static hirelah.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_INTEGRITY;
-import static org.junit.jupiter.api.Assertions.*;
+import hirelah.commons.exceptions.IllegalValueException;
+import hirelah.logic.commands.exceptions.CommandException;
+import hirelah.model.Model;
+import hirelah.model.ModelManager;
+import hirelah.model.hirelah.Interviewee;
 
 class CloseReportCommandTest {
 
     private CloseReportCommand command = new CloseReportCommand();
 
     @Test
-    void execute_validClose_success() throws CommandException, IllegalValueException {
+    void execute_validCloseReport_success() throws CommandException, IllegalValueException {
         StorageStub storage = new StorageStub();
         Model actualModel = new ModelManager();
         actualModel.setCurrentInterviewee(new Interviewee("Jane Doe", 1));
@@ -37,7 +35,7 @@ class CloseReportCommandTest {
     }
 
     @Test
-    void test_Equals_Success() {
+    void test_equals_success() {
         assertEquals(new CloseReportCommand(), command);
     }
 }
