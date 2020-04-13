@@ -18,7 +18,7 @@ public class FindProductCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all products whose descriptions contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: KEYWORD [KEYWORD]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final DescriptionContainsKeywordsPredicate predicate;

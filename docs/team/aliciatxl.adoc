@@ -48,9 +48,9 @@ iTrack Pro is for the grocery shop owners to keep track of the products, custome
 ** Documentation:
 *** Edited ArchitectureSequenceDiagram, BetterModelClassDiagram, DeleteSequenceDiagram, LogicClassDiagram to reflect current app structure (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/184[#184])
 *** Replaced ModelClassDiagram, UiClassDiagram and StorageClassDiagram with created diagrams to reflect current class structure (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/184[#184], https://github.com/AY1920S2-CS2103-T09-2/main/pull/187[#187])
-*** Added implementation, sequence and activity diagrams for product features (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/100[#100], https://github.com/AY1920S2-CS2103-T09-2/main/pull/103[#103])
-*** Added implementation, sequence and activity diagrams for revenue/profit features (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/184[#184])
-*** Modified glossary and design sections, add target audience and use cases to developer guide (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/19[#19], https://github.com/AY1920S2-CS2103-T09-2/main/pull/194[#194])
+*** Added implementation section, and sequence and activity diagrams for product features (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/100[#100], https://github.com/AY1920S2-CS2103-T09-2/main/pull/103[#103])
+*** Added implementation section, and sequence and activity diagrams for revenue/profit features (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/184[#184])
+*** Modified glossary and design sections, add target audience, manual testing, effort and use cases to developer guide (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/19[#19], https://github.com/AY1920S2-CS2103-T09-2/main/pull/194[#194], https://github.com/AY1920S2-CS2103-T09-2/main/pull/202[#202])
 *** Add product features and statistics (revenue, predict, profit) features to user guide (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/24[#24])
 ** Community:
 *** Reported bugs and suggestions for other teams in the class: https://github.com/AY1920S2-CS2103-T09-1/main[T09-1]
