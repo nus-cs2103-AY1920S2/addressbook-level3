@@ -78,15 +78,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Components]]
 == Components
-*CodeCampX* consists of five core components: Students, Teachers, Courses, Finances, Assignments
+*CodeCampX* consists of five core components: Students, Staffs, Courses, Finances, Assignments
 
 === Students
 You can manage the students by assigning them to courses, and ensuring that they have paid for their courses.
 
-=== Teachers
-You can manage the teachers by providing information such as the phone number and email address.
-This is critical as teachers are the main point of contact during an emergency. You can keep track
-of which teachers you have paid for teaching a course.
+=== Staffs
+You can manage the staffs by providing information such as the phone number and email address.
+This is critical as staffs are the main point of contact during an emergency. You can keep track
+of which teacher staffs you have paid for teaching a course by checking via Finances.
 
 === Courses
 You can keep track of the ongoing courses in your Coding Camp. Each course will have an assigned teacher,
@@ -214,8 +214,12 @@ This `redo` also fails because the most recent command is not `undo` or `redo`
 
 Format: `undo` or `redo`
 
-=== Assigning/Unassigning -TYPE- to a Course : `assign` or `unassign` respectively
-==== `assign`/`unassign` Student to/from a Course
+
+// tag::AssignUnassign[]
+
+==== Assigning/Unassigning -TYPE- to a Course : `assign` or `unassign` respectively
+===== A Student to a Course : `assign` or `unassign` respectively
+
 Adds the Student ID to the Course ID specified. +
 Format: `assign cid/COURSEID sid/STUDENTID` +
 Example: `assign cid/829 sid/33`
@@ -269,7 +273,10 @@ Example: `unassign cid/829 tid/21`
 When a teacher is unassigned to a course, the teacher's ID is removed from course and course's ID is removed from teacher.
 In Selected Staff Tab, after unassign Command, the course's ID and details no longer appears.
 
-==== `assign`/`unassign` Assignment to/from a Course
+
+// end::AssignUnassign[]
+
+==== Add An Assignment to a Course : `assign` or `unassign` respectively
 
 Adds the Assignment ID to the Course ID specified. +
 Format: `assign cid/COURSEID aid/ASSIGNMENTID` +
@@ -317,7 +324,7 @@ Now observe 3 updates:
 === Select a Student/Staff/Course : `select` or simply click the bar
 Selecting means to view the specified item in detail.
 As mentioned in the previous section, a course may be assigned
-student/s, a teacher, or assignment/s. When you select a course
+student/s, a teacher staff, or assignment/s. When you select a course
 for example, you can view the list of students assigned in
 the list on the right.
 
@@ -391,6 +398,8 @@ to navigate through your command history
 Coding Camp book data are saved in the hard disk automatically after any command that changes the data. No manual
 saving is required.
 
+// tag::clearAll[]
+
 === Clearing all the data
 
 Coding Camp book data can be cleared by `clear-all` command. This action will *CLEAR* all the entire address book and
@@ -399,6 +408,8 @@ this action can not undone.
 ====
 This will irrevocably clear the entire address book and you cannot undo it! Be very careful with this command.
 ====
+
+// end::clearAll[]
 
 // tag::studentmanagement[]
 
@@ -481,6 +492,7 @@ Example:
 
 // tag::teachermanagement[]
 
+
 === Staff
 .List of Staffs. Shows details and list of courses of selected staff
 image::teacherTab.png[width="1000"]
@@ -500,11 +512,6 @@ A `teacher` is paid by the courses that he/she teaches. (finance type ft/ct)
 An `admin` is paid by miscellaneous transactions. (finance type ft/m)
 ====
 
-[NOTE]
-====
-A
-====
-
 [TIP]
 ====
 The Gender of the Staff is shown in the form of a little icon
@@ -513,7 +520,7 @@ Try it!
 ====
 
 ==== Remove a staff: `delete-staff`
-Remove a staff from the list of teachers +
+Remove a staff from the list of staffs +
 Format: `delete-staff ID` +
 Example:
 
@@ -528,9 +535,9 @@ Be reminded that when you delete a staff that is of staff type: Teacher, the tea
 For example, a course that was assigned teacher *Bob* will change to *None* if teacher *Bob* is deleted. +
 ====
 
-==== Locating items by name: `find-teacher`
+==== Locating items by name: `find-staff`
 
-Finds teacher whose names contain any of the given keywords. +
+Finds staff whose names contain any of the given keywords. +
 Format: `find-staff KEYWORD [MORE_KEYWORDS]...`
 
 ****
@@ -547,9 +554,9 @@ Examples:
 * `find-staff Ned` +
 Returns `ned` and `Ned Stark`
 * `find-staff Lannister Targaryen Stark` +
-Returns any teacher having names `Lannister`, `Targaryen`, or `Stark`
+Returns any staffs having names `Lannister`, `Targaryen`, or `Stark`
 
-==== List all teachers: `list-staff`
+==== List all staffs: `list-staff`
 Shows a list of all staffs
 Format: `list-staff`
 
@@ -567,6 +574,15 @@ Example:
 * When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
 * You can remove all the staff's tags by typing `t/` without specifying any tags after it
 ****
+
+[NOTE]
+====
+You only can edit Name, Gender, Phone, Email, Salary, Address and Tags of a Staff.
+
+If you edit a salary of a Teacher Staff, all the Finance associated with him still *remain the same*. This is because
+a Finance is added based on the salary of a Teacher at that moment and it records the transaction made. If a Teacher Staff's salary
+is edited (for example: increased), it means this Teacher's salary base is increased and it has nothing to do with the Finances that has been made.
+====
 
 // end::teachermanagement[]
 
@@ -918,12 +934,12 @@ contains the data of your previous *CodeCampX* folder.
 |*Find Student* | `find-student KEYWORD [MORE_KEYWORDS]...` | `find-student Lannister Targaryen Stark`
 |*List Student* | `list-student` | `list-student`
 | *Edit Student* | `edit-student ID [n/NAME] [t/TAG]…` | `edit-student 16100 n/Aegon Targaryen t/knownothing`
-.5+|Teacher Commands
-|*Add Teacher* |`add-staff n/NAME [t/TAG]…` |`add-staff n/Jon Snow t/Hardworking`
-|*Delete Teacher* | `delete-staff ID` | `delete-staff 16100`
-|*Find Teacher* | `find-staff KEYWORD [MORE_KEYWORDS]...` | `find-staff Lannister Targaryen Stark`
-|*List Teacher* | `list-staff` | `list-staff`
-| *Edit Teacher* | `edit-staff ID [n/NAME] [t/TAG]…` | `edit-staff 16100 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
+.5+|Staff Commands
+|*Add Staff* |`add-staff n/NAME [t/TAG]…` |`add-staff n/Jon Snow t/Hardworking`
+|*Delete Staff* | `delete-staff ID` | `delete-staff 16100`
+|*Find Staff* | `find-staff KEYWORD [MORE_KEYWORDS]...` | `find-staff Lannister Targaryen Stark`
+|*List Staff* | `list-staff` | `list-staff`
+| *Edit Staff* | `edit-staff ID [n/NAME] [t/TAG]…` | `edit-staff 16100 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
 .5+|Course Commands
 |*Add Course* |`add-course n/NAME a/AMOUNT [t/TAG]…` | `add-course n/Cozmo Programming a/2000 t/Fun t/Robot`
 |*Delete Course* | `delete-course ID` | `delete-course 16100`

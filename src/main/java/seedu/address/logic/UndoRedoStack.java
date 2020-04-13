@@ -28,6 +28,11 @@ public class UndoRedoStack {
         undoStack.add((UndoableCommand) command);
     }
 
+    public void clear() {
+        redoStack.clear();
+        undoStack.clear();
+    }
+
     public UndoableCommand popUndo() {
         UndoableCommand toUndo = undoStack.pop();
         redoStack.push(toUndo);
