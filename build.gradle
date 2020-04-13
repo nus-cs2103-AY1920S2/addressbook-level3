@@ -68,7 +68,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = '[CS2103T-W12-01][Delino].jar'
+    archiveName = '[CS2103T-W12-1][Delino].jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

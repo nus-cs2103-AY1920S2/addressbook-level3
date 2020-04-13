@@ -1,6 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat|Open+Sans);
 @import "asciidoctor.css"; /* Default asciidoc style framework - important */
 
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}
+
 /* Custom block: details */
 
 @media print {
@@ -216,5 +222,15 @@ table.tableblock > .title,
 
     #site-header {
         display: none;
+    }
+
+    a[href]:after {
+        content: none !important;
+    }
+}
+
+@media print {
+    a[href]:after {
+        content: none !important;
     }
 }
