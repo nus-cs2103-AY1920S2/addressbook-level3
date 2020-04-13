@@ -260,6 +260,10 @@ Benefits::
 // tag::xue3[]
 
 
+<<<<<<< HEAD
+=======
+// tag::xue3[]
+>>>>>>> 69350fd5e8cd187ef5d8ad99d57e2bbbf69ce9e3
 [[Design-Storage]]
 === Storage component [Sim Sheng Xue]
 
@@ -315,7 +319,10 @@ information located in the Finance objects.
 // end::xue4[]
 
 // tag::entitylinking[]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 69350fd5e8cd187ef5d8ad99d57e2bbbf69ce9e3
 [[entity-linking]]
 === Entity Linking - Assigning/Un-Assigning an Entity to/from a Course [Tee Jun Jie Ivan]
 
