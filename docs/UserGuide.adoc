@@ -939,9 +939,10 @@ image::placeholder.png[]
 
 [NOTE]
 ====
-* After you use this command, you will be able to add new items using the `additem` command
-and delete items using the `deleteitem` command.
+* After you use this command, you will be able to add new items using the `additem` command and delete items using the
+`deleteitem` command.
 * However, you will be unable to use the `paid` command.
+* The existing list of people who owe you money will still be accessible by using the `listamount` command.
 ====
 //end::clearreceipt[]
 '''
