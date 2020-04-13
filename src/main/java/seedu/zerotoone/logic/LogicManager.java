@@ -45,16 +45,36 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
+        logger.info("Parsing User Command: [" + commandText + "]");
         Command command = parser.parse(commandText);
-        commandResult = command.execute(model);
+        logger.info("Parsed User Command: " + command.toString());
+
+        logger.info("Executing Command: " + command.toString());
+        CommandResult commandResult = command.execute(model);
+        logger.info("Executed Command: " + commandResult.toString());
+        logger.info("Feedback to user: " + commandResult.getFeedbackToUser());
+        logger.info("Is Show About: " + commandResult.isShowAbout());
+        logger.info("Is Show Report: " + commandResult.isShowReport());
+        logger.info("Is Exit: " + commandResult.isExit());
 
         try {
+            logger.info("Saving Exercise List");
             storage.saveExerciseList(model.getExerciseList());
+            logger.info("Saved Exercise List");
+
+            logger.info("Saving Workout List");
             storage.saveWorkoutList(model.getWorkoutList());
+            logger.info("Saved Workout List");
+
+            logger.info("Saving Schedule List");
             storage.saveScheduleList(model.getScheduleList());
+            logger.info("Saved Schedule List");
+
+            logger.info("Saving Log List");
             storage.saveLogList(model.getLogList());
+            logger.info("Saved Log List");
         } catch (IOException ioe) {
+            logger.severe("Exception: " + ioe.getMessage());
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
@@ -63,6 +83,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ViewType getViewType(String commandText) throws ParseException {
+        logger.info("Getting View Type: " + commandText);
         return parser.parseViewType(commandText);
     }
 
