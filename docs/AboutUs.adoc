@@ -5,8 +5,6 @@
 :stylesDir: stylesheets
 
 NusProductivity - developed by team W-16-4 +
-_{Work in progress}_ +
-{empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -15,7 +13,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::zhouxinwei97.png[width="150", align="left"]
 {empty} [https://github.com/zhouxinwei97[github]] [<<zhouxinwei97#, portfolio>>]
 
-Role: # To be updated
+Role: Team lead
+
+Responsibilities: Integration, features development and UI
 
 '''
 
@@ -39,7 +39,7 @@ Role: # To be updated
 image::kangwkk.png[width="150", align="left"]
 {empty}[http://github.com/kangwkk[github]] [<<kangwkk#, portfolio>>]
 
-Role: # To be updated
+Role: Testing, Documentation and implementation.
 
 '''
 

@@ -627,9 +627,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse (e.g. fetch module information)
-.  Should respond within 2 seconds
+.  Should respond within 2 seconds with exception of 5s for some commands due to network availability (`moduleSearch`, `moduleAdd`)
 .  Should be easy to use for users who are novice at using technology
 .  User should be a current student in NUS
 
@@ -654,22 +653,7 @@ The Cumulative Average Point is the weighted average grade point of the letter g
 [[CLI]]CLI::
 Command Line Interface
 
-[appendix]
-== Product Survey
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -707,12 +691,98 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
-=== Saving data
+=== Calendar
 
-. Dealing with missing/corrupted data files
+.. Test case: `deadlineAdd desc/Test deadline date/30-04-2020 cat/Work` +
+Expected: A deadline task is added to the list, details of the task is shown on th left hand side of the calendar tab. A green dot will appear on 30-04-2020 to show that there is a task on that day
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: `deadlineAdd desc/Test deadline2 date/28-04-2020 cat/Work` +
+Expected: A deadline task is added to the list, details of the task is shown on th left hand side of the calendar tab. The task list on the left should show list sorted by dates, i.e. this deadline to be above the test case in a.
 
-_{ more test cases ... }_
+.. Test case: `moduleTask m/CS2103T desc/CS2103T Test by/04-04-2020 pri/5` +
+Expected: An error message shown that no such module is present (if you haven't add CS2103T to the program), else, a task will be added to the list, the task list on the left will be sorted by date and a red dot (priority = 5) will be shown on the calendar
+
+.. Test case: `taskDelete index/1` +
+Expected: First task on the task list is deleted.
+
+.. Test case: `taskDelete index/0` +
+Expected: No task will be deleted. Error details shown in the status message. Status bar remains the same.
+
+.. Test case: `sortTask by/priority` +
+Expected: Task on the left is sorted by priority.
+
+.. Test case: `sortTask by/asiqowe` +
+Expected: No sorting will be parsed and error message will be shown. Status bar remains the same.
+
+.. Test case: `findTask date/30-04-2020` +
+Expected: All task that have a deadline of 30-04-2020 will be shown on the left panel, calendar dots for other dates will NOT be removed.
+
+.. Test case: `listTask` +
+Expected: List all task after a findTask to show all available Tasks.
+
+
+=== Notes
+
+.. Test case: `notesList loc/Desktop pt/abs` +
+Expected: All files on your desktop will be listed in the display
+
+.. Test case: `notesList loc/Desktop/Desktop by/abs` +
+Expected: Error message will be shown
+
+.. Test case: `notesOpen loc/Desktop name/Test.doc pt/abs` +
+Precondition: Needs to have a file called Test.doc on the desktop, else an error will be thrown +
+Expected: File is opened, notes user interface current directory changed to usr/Desktop
+
+.. Test case: `notesCreate loc/Desktop name/test type/folder pt/abs` +
+Precondition: No folder on the desktop is named test +
+Expected: folder is created, notes user interface current directory changed to usr/Desktop/test
+
+.. Test case: `notesDelete loc/Desktop name/Test.doc pt/abs` +
+Precondition: Needs to have a file called Test.doc on the desktop, else an error will be thrown +
+Expected: File is deleted, notes user interface current directory changed to usr/Desktop
+
+
+=== Module
+
+.. Test case: `moduleAdd m/CS2103T g/A+` +
+Expected: A module of CS2103T with its grade will be added to the profile tab list
+
+.. Test case: `moduleAdd m/CS2103123123T g/A+` +
+Expected: Error message will be thrown with no such module.
+
+.. Test case: `moduleAdd m/CS2101` +
+Expected: Module of CS2101 will be added to the profile tab, without a grade.
+
+.. Test case: `moduleDel m/CS2103T` +
+Expected: CS2103T module will be deleted
+
+.. Test case: `grade m/CS2101 g/A+` +
+Expected: CS2101 grade will be updated to A+
+
+.. Test case: `cap` +
+Expected: Calculates your current cap with the modules inputted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
