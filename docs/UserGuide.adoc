@@ -208,7 +208,7 @@ This section acts as a summary of the important things to note when using `find-
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| `n/NAME` + |
+| `NAME` + |
 * Substitute `NAME` with keywords you want to search with +
 
 * You can use multiple keywords for `NAME`. +
@@ -297,13 +297,6 @@ This section summarises the format and important information to note while using
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| `INDEX` + |
-* Substitute `INDEX` with the index of the desired client to edit. +
-
-* `INDEX` is compulsory and you have to specify it. +
-
-* `INDEX` must be a positive number, and must be a valid index number for a client as displayed from the list of clients. +
-
 | `n/NAME` + |
 * Substitute `NAME` with the name of the client.
 
@@ -339,7 +332,7 @@ This section summarises the format and important information to note while using
 
 * `ADDRESS` is compulsory.
 
-| `g/GENDER` + |
+| `[g/GENDER]` + |
 
 * Substitue `GENDER` with the gender of the client.
 
@@ -349,7 +342,7 @@ This section summarises the format and important information to note while using
 
 * `GENDER` is optional.
 
-| `b/BIRTHDAY` + |
+| `[b/BIRTHDAY]` + |
 
 * Substitue `BIRTHDAY` with the birthday of the client.
 
@@ -360,7 +353,7 @@ This section summarises the format and important information to note while using
 * `BIRTHDAY` cannot be earlier than 120 years from the current year.
 
 * `BIRTHDAY` is optional.
-| `cw/CURRENT_WEIGHT` + |
+| `[cw/CURRENT_WEIGHT]` + |
 
 * Substitute `CURRENT_WEIGHT` with the current weight of the client.
 
@@ -369,7 +362,7 @@ This section summarises the format and important information to note while using
 * `CURRENT_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
 
 * `CURRENT_WEIGHT` is optional.
-| `tw/TARGET_WEIGHT` + |
+| `[tw/TARGET_WEIGHT]` + |
 
 * Substitute `TARGET_WEIGHT` with the target weight for the client.
 
@@ -378,7 +371,7 @@ This section summarises the format and important information to note while using
 * `TARGET_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
 
 * `TARGET_WEIGHT` is optional.
-| `h/HEIGHT` + |
+| `[h/HEIGHT]` + |
 
 * Substitue `HEIGHT` with the height of the client.
 
@@ -387,7 +380,7 @@ This section summarises the format and important information to note while using
 * `HEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
 
 * `HEIGHT` is optional.
-| `s/SPORT` + |
+| `[s/SPORT]` + |
 
 * Substitute `SPORT` with the sports of the client.
 
@@ -396,7 +389,7 @@ This section summarises the format and important information to note while using
 * Sports given in this command will overwrite all of the client's existing sports.
 
 * `SPORT` is optional.
-| `t/TAG` + |
+| `[t/TAG]` + |
 
 * Substitue `TAG` with a tag for the client.
 
@@ -408,7 +401,7 @@ This section summarises the format and important information to note while using
 
 * `TAG` is optional.
 
-| `r/REMARK` + |
+| `[r/REMARK]` + |
 
 * Substitute `REMARK` with remarks for the client.
 
@@ -505,14 +498,14 @@ This section acts as a summary of the important things to note when using `edit-
 
 * `INDEX` must be a positive number, and must be a valid index number for a client as displayed from the list of clients. +
 
-| `n/NAME` + |
+| `[n/NAME]` + |
 * Substitute `NAME` with the name of the client.
 
 * `NAME` should only contain alphanumeric characters, spaces and commas, and it should not be blank.
 
 * `NAME` is optional.
 
-| `p/PHONE` + |
+| `[p/PHONE]` + |
 * Substitute `PHONE` with the phone number of the client. +
 
 * `PHONE` should only contain numbers. +
@@ -521,7 +514,7 @@ This section acts as a summary of the important things to note when using `edit-
 
 * `PHONE` is optional.
 
-| `e/EMAIL` + |
+| `[e/EMAIL]` + |
 * Substitute `EMAIL` with the email of the client. +
 
 * `EMAIL` should be of the format `xxx@yyy`, where: +
@@ -532,7 +525,7 @@ This section acts as a summary of the important things to note when using `edit-
 
 * `EMAIL` is optional.
 
-| `a/ADDRESS` + |
+| `[a/ADDRESS]` + |
 
 * Substitute `ADDRESS` as the address of the client.
 
@@ -540,7 +533,7 @@ This section acts as a summary of the important things to note when using `edit-
 
 * `ADDRESS` is optional.
 
-| `g/GENDER` + |
+| `[g/GENDER]` + |
 
 * Substitue `GENDER` with the gender of the client.
 
@@ -550,7 +543,7 @@ This section acts as a summary of the important things to note when using `edit-
 
 * `GENDER` is optional.
 
-| `b/BIRTHDAY` + |
+| `[b/BIRTHDAY]` + |
 
 * Substitue `BIRTHDAY` with the birthday of the client.
 
@@ -561,7 +554,7 @@ This section acts as a summary of the important things to note when using `edit-
 * `BIRTHDAY` cannot be earlier than 120 years from the current year.
 
 * `BIRTHDAY` is optional.
-| `cw/CURRENT_WEIGHT` + |
+| `[cw/CURRENT_WEIGHT]` + |
 
 * Substitute `CURRENT_WEIGHT` with the current weight of the client.
 
@@ -570,7 +563,7 @@ This section acts as a summary of the important things to note when using `edit-
 * `CURRENT_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
 
 * `CURRENT_WEIGHT` is optional.
-| `tw/TARGET_WEIGHT` + |
+| `[tw/TARGET_WEIGHT]` + |
 
 * Substitute `TARGET_WEIGHT` with the target weight for the client.
 
@@ -579,7 +572,7 @@ This section acts as a summary of the important things to note when using `edit-
 * `TARGET_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
 
 * `TARGET_WEIGHT` is optional.
-| `h/HEIGHT` + |
+| `[h/HEIGHT]` + |
 
 * Substitue `HEIGHT` with the height of the client.
 
@@ -588,7 +581,7 @@ This section acts as a summary of the important things to note when using `edit-
 * `HEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
 
 * `HEIGHT` is optional.
-| `s/SPORT` + |
+| `[s/SPORT]` + |
 
 * Substitute `SPORT` with the sports of the client.
 
@@ -597,7 +590,7 @@ This section acts as a summary of the important things to note when using `edit-
 * Sports given in this command will overwrite all of the client's existing sports.
 
 * `SPORT` is optional.
-| `t/TAG` + |
+| `[t/TAG]` + |
 
 * Substitue `TAG` with a tag for the client.
 
@@ -609,7 +602,7 @@ This section acts as a summary of the important things to note when using `edit-
 
 * `TAG` is optional.
 
-| `r/REMARK` + |
+| `[r/REMARK]` + |
 
 * Substitute `REMARK` with remarks for the client.
 
@@ -875,7 +868,7 @@ This section acts as a summary of the important things to note when using `edit-
 
 * `INDEX` is compulsory and you have to specify it. +
 
-| `n/NAME` + |
+| `[n/NAME]` + |
 * Substitute `NAME` with the name of the exercise. +
 
 * `n/NAME` is optional. +
@@ -883,7 +876,7 @@ This section acts as a summary of the important things to note when using `edit-
 * `n/NAME` is case sensitive. +
 e.g. An exercise named `pushup` will be considered to have a different name as an exercise named `Pushup`.
 
-|`d/DATE` + |
+|`[d/DATE]` + |
 * Substitute `DATE` with the date of the exercise. +
 
 * `d/DATE` is optional. +
@@ -1154,7 +1147,7 @@ When you have many clients and want to filter the list of clients to view a spec
 [cols= "15%,85%"]
 |===
 |Parameter | Important notes
-| `t/TAG` + | `TAG` is the tag of the clients you want to match and list. +
+| `[t/TAG]` + | `TAG` is the tag of the clients you want to match and list. +
 
 `TAG` is case-insensitive. +
 e.g. `healthy` will match `Healthy`
@@ -1162,7 +1155,7 @@ e.g. `healthy` will match `Healthy`
 `TAG` should only contain letters or numbers. +
 e.g. `monday` or `obese200kg`
 
-|`s/SPORT` + | `SPORT` is the sport of the clients you want to match and list. +
+|`[s/SPORT]` + | `SPORT` is the sport of the clients you want to match and list. +
 
 `SPORT` is case-insensitive. +
 e.g.  `track and field` returns the same result as `Track And Field`
