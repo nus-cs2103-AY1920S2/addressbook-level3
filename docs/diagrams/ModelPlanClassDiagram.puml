@@ -22,14 +22,17 @@ Package Plan {
 class Date
 
 Package Recipe {
+
     class Recipe
+    class Hidden #FFFFFF
 }
 HiddenOutside ...> Model
 ModelManager o-- "1" PlannedBook
 ModelManager .up.|> Model
 ModelManager --> "1" Plan : filtered list
 
-PlannedBook *-down-"1" UniquePlannedList
+Recipe -up[hidden]- Hidden
+PlannedBook *-down-"         1" UniquePlannedList
 PlannedBook *-down-"1" PlannedRecipeMap
 UniquePlannedList o-- "*" Plan
 PlannedRecipeMap o-- "*" Plan

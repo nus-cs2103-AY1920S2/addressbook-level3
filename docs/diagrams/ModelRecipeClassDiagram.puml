@@ -43,11 +43,11 @@ ModelManager .up.|> Model
 ModelManager --> "1" Recipe : filtered list
 
 RecipeBook *-- "1" UniqueRecipeList
-UniqueRecipeList o-- "*" Recipe
+UniqueRecipeList o-- "                  *" Recipe
 Recipe *-- "1" Name
 Recipe *-- "1" Time
-Recipe *-- "*" Step
-Recipe *-- "1..*" Ingredient
+Recipe *-- "             *" Step
+Recipe *-- "1..*   " Ingredient
 
 HiddenOne -down- Grain
 HiddenTwo -down- Vegetable
