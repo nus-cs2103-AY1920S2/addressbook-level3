@@ -29,10 +29,14 @@ class JsonSerializableTaTracker {
     public static final String MESSAGE_DUPLICATE_SESSIONS = "Session list contains duplicate session(s).";
     public static final String MESSAGE_DUPLICATE_DONE_SESSIONS = "Done session list contains duplicate session(s).";
     public static final String MESSAGE_DUPLICATE_MODULES = "Module list contains duplicate module(s).";
+    public static final String MESSAGE_INVALID_RATE =
+            "Rate must be an integer greater than 0 representing the dollars paid per hour.";
 
     private final List<JsonAdaptedSession> sessions = new ArrayList<>();
     private final List<JsonAdaptedSession> doneSessions = new ArrayList<>();
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
+
+    private final int rate;
 
     /**
      * Constructs a {@code JsonSerializableTaTracker} with the given lists.
@@ -40,10 +44,13 @@ class JsonSerializableTaTracker {
     @JsonCreator
     public JsonSerializableTaTracker(@JsonProperty("sessions") List<JsonAdaptedSession> sessions,
                                      @JsonProperty("doneSessions") List<JsonAdaptedSession> doneSessions,
-                                     @JsonProperty("modules") List<JsonAdaptedModule> modules) {
+                                     @JsonProperty("modules") List<JsonAdaptedModule> modules,
+                                     @JsonProperty("rate") int rate) {
         this.sessions.addAll(sessions);
         this.doneSessions.addAll(doneSessions);
         this.modules.addAll(modules);
+
+        this.rate = rate;
     }
 
     /**
@@ -66,6 +73,8 @@ class JsonSerializableTaTracker {
                 .stream()
                 .map(JsonAdaptedModule::new)
                 .collect(Collectors.toList()));
+
+        rate = source.getRate();
     }
 
     /**
@@ -104,11 +113,17 @@ class JsonSerializableTaTracker {
             modelModules.put(module.getIdentifier(), module);
         }
 
+        if (rate <= 0) {
+            throw new IllegalValueException(MESSAGE_INVALID_RATE);
+        }
+
         // ==== Build ====
         TaTracker taTracker = new TaTracker();
         modelSessions.forEach(taTracker::addSession);
         modelDoneSessions.forEach(taTracker::addDoneSession);
         modelModules.values().forEach(taTracker::addModule);
+
+        taTracker.setRate(rate);
 
         return taTracker;
     }

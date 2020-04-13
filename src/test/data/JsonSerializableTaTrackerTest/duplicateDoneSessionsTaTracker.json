@@ -17,5 +17,6 @@
     "startDateTime" : "2020-04-30T13:00",
     "endDateTime" : "2020-04-30T14:30"
   } ],
-  "modules" : [ ]
+  "modules" : [ ],
+  "rate" : 40
 }
