@@ -436,7 +436,7 @@ image::CommitActivityDiagram.png[][height = "50"]
 
 
 // tag::calendar[]
-=== Calendar
+=== Calendar Feature
 
 ==== Implementation
 . The user enters a view command in the `calendar d/2020-04-13`.
@@ -457,7 +457,7 @@ image::CommitActivityDiagram.png[][height = "50"]
 The following sequence diagram shows how the update operation works to change calendar page:
 
 .CalendarCommand Sequence Diagram
-image::CalendarSequenceDiagram.png[width=200%]
+image::CalendarSequenceDiagram.png[]
 
 .CalendarCommand Class Diagram
 image::CalendarClassDiagram.png[]
