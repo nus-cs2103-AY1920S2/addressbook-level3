@@ -609,19 +609,6 @@ Successfully imported /data/myFriendsWorkout.txt into ZeroToOne!
 
 You are now an expert in managing your workouts, and can start a workout any time! However, wouldn’t you like to have the ability to schedule your workout sessions? In this section, we will guide you to learn how ZeroToOne can help you in this aspect!
 
-==== Listing all scheduled sessions
-
-To view all of your schedule sessions, type the following command:
-
-```
-schedule list
-```
-
-.Display of schedule in chronological order
-image::schedule/UgListSchedule.png[]
-
-ZeroToOne displays an intuitive chronological view, showing your upcoming schedule! From this view, you can see what workout sessions are coming up, which workout sessions are outdated, as well as their corresponding schedule IDs.
-
 ==== Scheduling a new workout session
 
 To schedule a new workout session, simply type in this command:
@@ -643,6 +630,19 @@ NOTE:
 * WORKOUT_ID refers to the index of the workout in `workout list`
 * <datetime> must not be outdated and follow the format {yyyy}-{mm}-{dd} {HH:mm}
 ```
+
+==== Listing all scheduled sessions
+
+To view all of your schedule sessions, type the following command:
+
+```
+schedule list
+```
+
+.Display of schedule in chronological order
+image::schedule/UgListSchedule.png[]
+
+ZeroToOne displays an intuitive chronological view, showing your upcoming schedule! From this view, you can see what workout sessions are coming up, which workout sessions are outdated, as well as their corresponding schedule IDs.
 
 ==== Changing a scheduled session to another date
 
