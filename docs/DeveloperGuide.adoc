@@ -1902,8 +1902,9 @@ Use case ends.
 
 //tag::ailanclearreceiptusecase[]
 [discrete]
-=== Use case: UC13 - Clearing the Receipt
+=== Use case: UC13 - Clearing the Receipt when Receipt is done
 *Actor:* User +
+*Preconditions:* Receipt is marked as done. +
 *Guarantees:* +
 Deletes all the Entries in the Receipt. It also marks the Receipt as undone.
 
@@ -1915,10 +1916,25 @@ Deletes all the Entries in the Receipt. It also marks the Receipt as undone.
 4.  EYLAH display a MESSAGE_SUCCESS informing the user that the Receipt has been successfully cleared.
 +
 Use case ends.
+
+=== Use case: UC14 - Clearing the Receipt when Receipt is undone
+*Actor:* User +
+*Preconditions:* Receipt is marked as undone. +
+*Guarantees:* +
+Deletes all the Entries in the Receipt. It also marks the Receipt as undone.
+
+*MSS*
+
+1.  User requests to clear the receipt after he/she decides to start a clean Receipt.
+2.  EYLAH removes Amount owed per Person from the PersonAmountBook.
+3.  EYLAH removes all the Entries from the Receipt.
+4.  EYLAH display a MESSAGE_SUCCESS informing the user that the Receipt has been successfully cleared.
++
+Use case ends.
 //end::ailanclearreceiptusecase[]
 
 [discrete]
-=== Use case: UC14 - Back to Main Menu
+=== Use case: UC15 - Back to Main Menu
 
 *MSS*
 
@@ -1931,7 +1947,7 @@ Use case ends.
 //end::expensesplitterusecase[]
 
 [discrete]
-=== Use case: UC15 - Completing the receipt
+=== Use case: UC16 - Completing the receipt
 *Actor:* User +
 *Guarantees:* +
 Displays the confirmation message to user. It also marks the Receipt as done.
