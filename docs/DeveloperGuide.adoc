@@ -222,7 +222,7 @@ Classes used by multiple components are in the `seedu.eylah.commons` package.
 This section describes some noteworthy details on how the features in EYLAH are implemented.
 
 // tag::diettrackerintro[]
-=== DietTracker feature
+=== Diet Tracker feature
 
 The Diet Tracker feature is designed to aid our users in maintaining a healthy lifestyle. The feature comprises
 of 10 Commands.
@@ -410,6 +410,7 @@ image::DietTrackerListCommandDaySequenceDiagram.png[]
 .List Sequence Diagram for `-t`
 image::DietTrackerListCommandTagSequenceDiagram.png[]
 
+//tag::diettrackeredit[]
 [[Edit-Command]]
 ==== Edit Command
 
@@ -465,6 +466,8 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .Edit Command Sequence Diagram
 image::DietTrackerEditCommandSequenceDiagram.png[]
+//end::diettrackeredit[]
+
 
 //tag::diettrackerbmi[]
 [[Bmi-Command]]
@@ -1320,13 +1323,17 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Refer to the guide <<Documentation#, here>>.
 
+//tag::testing[]
 == Testing
 
 Refer to the guide <<Testing#, here>>.
+//end::testing[]
 
+//tag::devops[]
 == Dev Ops
 
 Refer to the guide <<DevOps#, here>>.
+//end::devops[]
 
 [appendix]
 == Product Scope
