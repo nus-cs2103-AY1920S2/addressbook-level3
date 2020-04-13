@@ -832,6 +832,8 @@ The following activity diagram illustrates what happens when a user executes the
 .Add Item Command Activity Diagram
 image::ExpenseSplitterAddItemCommandActivityDiagram.png[]
 
+{nbsp}
+
 *Structure of Add Item Command*
 
 In this section, you will learn more about the relationships between objects related to the `AddItemCommand`.
@@ -899,6 +901,8 @@ The following activity diagram illustrates what happens when a user executes the
 
 .Delete Item Command Activity Diagram
 image::ExpenseSplitterDeleteItemCommandActivityDiagram.png[]
+
+{nbsp}
 
 *Structure of Delete Item Command*
 
@@ -1216,6 +1220,8 @@ The following activity diagram illustrates what happens when a user executes the
 
 .Clear Receipt Command Activity Diagram
 image::ExpenseSplitterClearReceiptCommandActivityDiagram.png[]
+
+{nbsp}
 
 *Structure of Clear Receipt Command*
 
