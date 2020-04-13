@@ -717,7 +717,7 @@ Valid Example: +
 [[additemexpectedoutcome]]
 *Expected outcome:*
 
-image::placeholder.png[]
+image::expensesplitteradditemexpectedoutcome.png[]
 
 [NOTE]
 ====
@@ -751,7 +751,7 @@ Valid Example: +
 [[deleteitemexpectedoutcome]]
 *Expected outcome:*
 
-image::placeholder.png[]
+image::expensesplitterdeleteitemexpectedoutcome.png[]
 
 [TIP]
 Use `listreceipt` to view your item indices before deletion.
@@ -945,7 +945,7 @@ Valid Example: +
 [[clearreceiptexpectedoutcome]]
 *Expected outcome:*
 
-image::placeholder.png[]
+image::expensesplitterclearreceiptexpectedoutcome.png[]
 
 [WARNING]
 ====
