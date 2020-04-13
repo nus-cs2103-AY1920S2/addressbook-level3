@@ -33,7 +33,7 @@ public class TabPanel extends UiPart<Region> {
     @FXML
     private HBox statisticsList;
 
-    public TabPanel(Logic logic, MainWindow mainWindow) {
+    public TabPanel(Logic logic) {
         super(FXML);
 
         calendarView = new CalendarView(logic.getFilteredModuleList());
@@ -42,6 +42,7 @@ public class TabPanel extends UiPart<Region> {
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+
         statisticsPanel = new StatisticsPanel(logic.getFilteredModuleList());
         statisticsPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
 
@@ -54,6 +55,15 @@ public class TabPanel extends UiPart<Region> {
     public void updateModuleList() {
         moduleListPanel.setModuleListView();
     }
+
+    public void getModules() {
+        tabPane.getSelectionModel().select(0);
+    }
+
+    public void getCalendar() {
+        tabPane.getSelectionModel().select(1);
+    }
+
     public void getStatistics() {
         tabPane.getSelectionModel().select(2);
     }

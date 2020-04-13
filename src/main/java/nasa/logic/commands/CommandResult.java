@@ -24,6 +24,12 @@ public class CommandResult {
     private final boolean exit;
 
     /** The application should show statistics. */
+    private final boolean modules;
+
+    /** The application should show statistics. */
+    private final boolean calendar;
+
+    /** The application should show statistics. */
     private final boolean statistics;
 
     /** Qr code should be shown to the user. */
@@ -43,11 +49,14 @@ public class CommandResult {
      * @param showHelp boolean
      * @param exit boolean
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistics, boolean showQr,
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean modules, boolean calendar, boolean statistics, boolean showQr,
                          byte[] qrData) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.modules = modules;
+        this.calendar = calendar;
         this.statistics = statistics;
         this.quote = false;
         this.showQr = showQr;
@@ -60,7 +69,7 @@ public class CommandResult {
      * @param feedbackToUser String
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, EMPTY_BYTE_ARRAY_DATA);
+        this(feedbackToUser, false, false, false, false, false, false, EMPTY_BYTE_ARRAY_DATA);
     }
 
     public String getFeedbackToUser() {
@@ -77,6 +86,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isModules() {
+        return modules;
+    }
+
+    public boolean isCalendar() {
+        return calendar;
     }
 
     public boolean isStatistics() {

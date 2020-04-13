@@ -79,7 +79,7 @@ public class ExportQrCommand extends Command {
             }
             sb.append('\n');
         }
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true,
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, false, true,
                 StringUtil.toQr(sb.toString(), 500));
     }
 

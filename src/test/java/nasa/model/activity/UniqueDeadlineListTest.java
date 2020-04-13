@@ -1,6 +1,6 @@
 package nasa.model.activity;
 
-import static nasa.testutil.TypicalActivities.DEADLINE;
+import static nasa.testutil.TypicalDeadlines.DEADLINE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,23 +33,23 @@ public class UniqueDeadlineListTest {
 
     @Test
     public void remove_test() {
-        uniqueDeadlineList.add((Deadline) DEADLINE);
-        uniqueDeadlineList.remove((Deadline) DEADLINE);
-        assertFalse(uniqueDeadlineList.contains((Deadline) DEADLINE));
+        uniqueDeadlineList.add(DEADLINE);
+        uniqueDeadlineList.remove(DEADLINE);
+        assertFalse(uniqueDeadlineList.contains(DEADLINE));
     }
 
     @Test
     public void checkUnmodifiableList_test() {
-        uniqueDeadlineList.add((Deadline) DEADLINE);
-        uniqueDeadlineList.add((Deadline) DEADLINE);
+        uniqueDeadlineList.add(DEADLINE);
+        uniqueDeadlineList.add(DEADLINE);
         assertTrue(uniqueDeadlineList.asUnmodifiableObservableList().size() == 2);
     }
 
     @Test
     public void modifyUnmodifiableList_test() {
-        uniqueDeadlineList.add((Deadline) DEADLINE);
+        uniqueDeadlineList.add(DEADLINE);
         ObservableList<Deadline> temp = uniqueDeadlineList.asUnmodifiableObservableList();
-        assertThrows(UnsupportedOperationException.class, () -> temp.add((Deadline) DEADLINE));
+        assertThrows(UnsupportedOperationException.class, () -> temp.add(DEADLINE));
     }
 
 }

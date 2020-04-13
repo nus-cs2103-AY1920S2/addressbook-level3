@@ -39,16 +39,15 @@ public class ModuleListPanel extends UiPart<Region> {
             noModules.setManaged(false);
         }
 
-        setModuleListView();
-
         moduleObservableList.addListener(new ListChangeListener<Module>() {
             @Override
             public void onChanged(Change<? extends Module> c) {
                 setModuleListView();
             }
         });
-
+        setModuleListView();
     }
+
 
     public void setModuleListView() {
         moduleListView.getChildren().clear();

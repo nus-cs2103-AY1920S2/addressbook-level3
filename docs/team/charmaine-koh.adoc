@@ -14,46 +14,78 @@ assignments, lessons, exams and consultations etc.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: Conceptualised and implemented unique GUI for NASA.
+** What it does: Allows users to view NASA data in an organized manner by displaying modules in columns.
+** Justification: This feature allows users easily view all of their activities which allows them to get a better
+gauge the number of activities.
+** Highlights: GUI is unique and differs greatly from traditional todo applications.
+There are many challenges involved in this enhancement:
+*** Configuring the layout and display of the module tab alone required much planning due to the in depth nature of
+our data and display.
+*** As our data was layered in that both modules and activities can be updated, it was a challenge to produce a
+responsive UI which could be updated along with data.
+*** Additionally, typical GUI requirements such as resizing along with the window size and positioning had to be
+taken into consideration.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major enhancement*: added *hint popup for commands with ability to copy example*
+** What it does: detects which command the user wishes to use and provides a hint to show command usage.
+Additionally, a copy example message is provided so users can quickly utilise example messages and edit them as
+required.
+** Justification: This feature improves user experience as they do not have to repeatedly refer to the user guide to
+check what parameters to include. Through the pop up, the users are informed of what to include in the command,
+reducing the change of error and thus reducing the frustration of wrong input and error messages. Furthermore,
+allowing the user to copy the example reduces the need to check for the right prefixes included.
+** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation too
+was challenging as it required configuring the GUI.
+
+* *Minor enhancement*: increase CLI-friendliness by adding keyboard shortcuts for user to navigate NASA more easily.
+Users can look for previous commands using up/down keys similar to the functionality in bash. In addition, they can
+easily navigate from tab to tab either using tab (in one key) or using the view command.
+
+* *Minor enhancement*: added "statistics display" to provide users with visualisation on the proportion of deadlines
+for all modules and the total tasks completed and not completed for each.
+
+* *Minor enhancement*: responsible for storage of data.
+
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=CharmaineKoh&tabRepo=AY1920S2-CS2103T-T10-4%2Fmain%5Bmaster%5D[RepoSense]]
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34]
+*** Suggested refactoring the whole code base. (Pull Requests https://github
+.com/AY1920S2-CS2103T-T10-4/main/pull/246[#246], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/90[#90])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added table for better organisation of commands in User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
+
 
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=keyboard]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=tabs]
+
+include::../UserGuide.adoc[tag=commands]
+
+include::../UserGuide.adoc[tag=command_summary]
+
 
 == Contributions to the Developer Guide
 
