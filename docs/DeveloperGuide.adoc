@@ -1294,15 +1294,14 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum. Mac OS users may need to
+   give permission to open JAR files initially.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Deleting a supplier
 
@@ -1316,12 +1315,30 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Undo and Redo
 
-=== Saving data
+. Undo at initial state
+.. Prerequisites: The application is newly opened i.e. no undoable commands has been done
+.. Test case: `undo` +
+   Expected: An error is shown, indicating that undo cannot be done from initial state.
+.. Test case: Add a valid supplier followed by `undo` +
+   Expected: The supplier is removed
+.. Test case: `list-g` followed by `undo` +
+   Expected: An error is shown, indicating that undo cannot be done from initial state.
+   This is because `list-g` is not an undoable command
 
-. Dealing with missing/corrupted data files
+. Redo from latest state
+.. Prerequisites: One undoable command e.g. `add-s` has been successfully executed as the latest command
+.. Test case: `redo` +
+   An error is shown, indicating that redo cannot be done from latest state.
+.. Test case: `undo` followed by `redo` +
+   The changes done by the latest undoable command is removed, then reinstated.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Overwriting history
+.. Prerequisites: None
+.. Test case: Add a valid supplier, `undo`, add a different valid supplier, and finally `redo` +
+   An error is shown, indicating that redo cannot be done from latest state.
 
-_{ more test cases ... }_
+
+
+
