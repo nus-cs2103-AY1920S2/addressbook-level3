@@ -1,0 +1,116 @@
+= Nathanael Seen Zhong Qi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: iGrad
+---
+image::../images/Ui.png[]
+
+== Overview
+
+iGrad is a desktop module management and graduation tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX, FXML and CSS.
+
+== Summary of contributions
+
+* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=nathanaelseen[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=nathanaelseen[Project Code Dashboard]]
+
+* *Major enhancement*: Added *course management* feature.
+** _What it does_: Allows the user to create/edit/delete a course, through which various modules,
+and requirements (degree requirements) are 'housed'. Also allows users to track overall
+degree progress information, such as overal MCs completed for the course, and current CAP.
+** _Justification_: Without a course, it does not make sense to
+have modules and degree requirements (by which those modules are mapped under), as standalone
+features. In fact, this feature could be said to be the most important feature.
+** _Credits_: The original AB3 codebase which provided the necessary 'backing'
+
+* *Major enhancement*: Integrate *course management*, *requirement management*, and *module management*
+feature together, by implementing the `module done`,  `requirement assign`, and `requirement unassign`,
+commands.
+** _What it does_:
+
+*** `module done`: allows the user to record down the grade she has obtained for a particular
+module she has completed
+
+*** `requirement assign`: allows the user to assign certain modules under a requirement
+
+*** `requirement unassign`: opposite of requirement assign
+
+** _Justification_: Again this feature is particularly important, in helping one track her graduation
+requirements and overall degree progress.
+
+** _Highlights_: This three commands function helps to 'glue' the three components of the app altogether.
+
+*** For instance, in the `module done` command, when a module is marked as 'done', the
+_module manager_ is involved to update that module.
+Also, _requirement manager_ helps to update all requirements which contains
+this module.
+Finally, the _course manager_ helps to update information such as the total overal MCs fulfilled,
+and CAP.
+** _Credits_: Here, I would like to credit the rest of my teamates for implementing the module
+management and requirement management feature, without which this feature would not have
+been able to make sense.
+
+* *Minor enhancement*: remodularise some UI logic (avatar, Progress Side Panel, etc),
+https://github.com/waynewee[Wayne], has initially written.
+
+* *Contribution to Team Based Tasks*:
+** In-charge of merging any PRs request, this involves critically reviewing the code,
+and fixing it if necessary.
+
+*** Things I checked/helped my teamates fix when merging PRs were;
+violating checkstyle, obvious logic bug errors, design/implementation considerations and concerns,
+remodularising of code.
+
+*** Also, helped resolve merge conflicts;
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/320[#320],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/307[#307], and
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/295[#295].
+
+** Set-up Reposense, and Nelify for my team, for tracking code contributions and easy reviewing of
+UG/DG docs.
+
+** Managed the issue tracker for the first-half of this project.
+
+** Designed the initial application UI prototype for the first draft UG submission.
+
+* *Review/Mentoring Contributions*:
+** Assisted https://github.com/teriaiw[Teri], in her initial difficulties understanding and
+adapting to such a large code-base, by creating stubs for her implementation. She feedbacked that
+she liked my way of mentoring and found it to be really helpful.
+
+** Provided PR code reviews to my team members on code aspects I felt could be be improved, as I
+was merging their PRs
+(https://github.com/AY1920S2-CS2103T-F09-3/main/pull/313[#313],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/295[#295],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/281[#281],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/276[#276],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/269[#269],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/188[#188],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/193[#193],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/177[#177],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/89[#89],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/80[#80], and many more!)
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability in
+written communication, in the form of documentation, with possibly non-technical end-users._
+|===
+
+include::../UserGuide.adoc[tag=nat-ug]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Sections contributed to DG_
+|===
+
+include::../DeveloperGuide.adoc[tag=course-feature-dg]
+include::../DeveloperGuide.adoc[tag=course-compute-credits-cap-dg]
+'''
+include::../DeveloperGuide.adoc[tag=module-done-dg]
+'''
+include::../DeveloperGuide.adoc[tag=requirement-assign-dg]

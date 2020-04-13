@@ -1,0 +1,69 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CourseBookParser" as CourseBookParser LOGIC_COLOR
+participant ":RequirementAddCommandParser" as RequirementAddCommandParser LOGIC_COLOR
+participant "r:RequirementAddCommand" as RequirementAddCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CourseBook" as CourseBook MODEL_COLOR
+end box
+
+[-> LogicManager : execute(add requirement)
+activate LogicManager
+
+LogicManager -> CourseBookParser : parseCommand(add requirement)
+activate CourseBookParser
+
+create RequirementAddCommandParser
+CourseBookParser -> RequirementAddCommandParser
+activate RequirementAddCommandParser
+
+create RequirementAddCommand
+RequirementAddCommandParser -> RequirementAddCommand
+activate RequirementAddCommand
+
+RequirementAddCommand --> RequirementAddCommandParser
+deactivate RequirementAddCommand
+RequirementAddCommandParser --> CourseBookParser : r
+deactivate RequirementAddCommandParser
+destroy RequirementAddCommandParser
+
+CourseBookParser --> LogicManager : r
+deactivate CourseBookParser
+
+LogicManager -> RequirementAddCommand : execute()
+activate RequirementAddCommand
+
+RequirementAddCommand -> RequirementAddCommand : generateRequirementCode()
+activate RequirementAddCommand
+RequirementAddCommand -> Model : getRequirementList()
+activate Model
+Model -> RequirementAddCommand
+deactivate Model
+RequirementAddCommand -> RequirementAddCommand : requirementCode
+deactivate RequirementAddCommand
+
+RequirementAddCommand -> Model : addRequirement()
+activate Model
+
+Model -> CourseBook : addRequirement()
+activate CourseBook
+
+CourseBook --> Model
+deactivate CourseBook
+
+Model --> RequirementAddCommand
+deactivate Model
+
+RequirementAddCommand --> LogicManager : result
+deactivate RequirementAddCommand
+destroy RequirementAddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -5,52 +5,74 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyCourseBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class CourseBook
+Class ReadOnlyCourseBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class CourseInfo
+Class "Name" as n2
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Requirement {
+Class Requirement
+Class "Name" as n1
+Class "Credits" as c1
+Class UniqueRequirementList
 }
 
-Package Tag {
-Class Tag
+Package Module {
+Class Module
+Class "Credits" as c2
+Class Grade
+Class ModuleCode
+Class Semester
+Class Title
+Class UniqueModuleList
 }
-}
+
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+CourseBook .up.|> ReadOnlyCourseBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o-down-> "1" CourseBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+CourseBook ---> "1" UniqueRequirementList
+CourseBook ---> "1" UniqueModuleList
+CourseBook ---> "1" CourseInfo
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+UniqueRequirementList o--> "*" Requirement
+Requirement *--> "1" n1
+Requirement *--> "1" c1
+Requirement *--> "1" UniqueModuleList
 
-ModelManager -->"1" Person : filtered list
+UniqueModuleList o--> "*" Module
+Module *--> "1" Title
+Module *--> "1" ModuleCode
+Module *--> "1" c2
+Module o--> "1" Semester
+Module o--> "1" Grade
+
+CourseInfo o--> "1" n2
+CourseInfo o--> "1" Cap
+CourseInfo o--> "1" Credits
+CourseInfo o--> "1" Semesters
+
+
+Title -[hidden]right-> ModuleCode
+ModuleCode -[hidden]right-> c2
+Semester -[hidden]right-> Grade
+
+
+ModelManager -->"1" Module : filtered list
+ModelManager -->"1" Requirement : filtered list
 @enduml

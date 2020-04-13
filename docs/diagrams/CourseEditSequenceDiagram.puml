@@ -1,0 +1,68 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CourseBookParser" as CourseBookParser LOGIC_COLOR
+participant ":CourseEdit\nCommandParser" as CourseEditCommandParser LOGIC_COLOR
+participant "n:CourseEdit\nCommand" as CourseEditCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CourseBook" as CourseBook MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\ncourse edit)
+activate LogicManager
+
+LogicManager -> CourseBookParser : parseCommand(\ncourse edit)
+activate CourseBookParser
+
+create CourseEditCommandParser
+CourseBookParser -> CourseEditCommandParser : new CourseEditCommandParser(\nname, semesters)
+activate CourseEditCommandParser
+
+create CourseEditCommand
+CourseEditCommandParser -> CourseEditCommand : new CourseEditCommand(\nname, semesters)
+activate CourseEditCommand
+
+CourseEditCommand --> CourseEditCommandParser
+deactivate CourseEditCommand
+
+CourseEditCommandParser --> CourseBookParser : n
+deactivate CourseEditCommandParser
+
+CourseBookParser --> LogicManager : n
+deactivate CourseBookParser
+
+LogicManager -> CourseEditCommand : execute()
+activate CourseEditCommand
+
+CourseEditCommand -> Model : setCourseInfo()
+activate Model
+
+Model -> CourseBook : setCourseInfo()
+activate CourseBook
+
+CourseBook --> Model
+deactivate CourseBook
+
+Model --> CourseEditCommand
+deactivate Model
+
+create CommandResult
+CourseEditCommand --> CommandResult
+activate CommandResult
+CommandResult --> CourseEditCommand
+deactivate CommandResult
+
+CourseEditCommand --> LogicManager : result
+deactivate CourseEditCommand
+CourseEditCommand -[hidden]-> LogicManager : result
+destroy CourseEditCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

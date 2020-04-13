@@ -1,8 +1,9 @@
-= AddressBook Level 3 - User Guide
+= iGrad - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -11,167 +12,1350 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+:icons: :font:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-F09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team-iGrad`      Since: `Feb 2020`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome! Thanks for choosing to use iGrad. This official iGrad User Guide will help guide you as you explore the ways you can
+track your graduation!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+*Follow the steps below to get started with iGrad:*
+
+1. Ensure that you have Java 11 installed on your computer. Java 11 is bundled together with the Java Development Kit and can be found link:https://www.oracle.com/java/technologies/javase-jdk11-downloads.html[here]
+
+2. Download our latest link:https://github.com/AY1920S2-CS2103T-F09-3/main/releases[release]!
+
+3. Copy or move the downloaded file into an *empty* folder.
 +
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+IMPORTANT: Ensure that the folder is empty! Doing otherwise might result in unexpected errors.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+4. Simply double-click on the file to begin! We hope we make tracking your graduation a breeze!
 
-.  Refer to <<Features>> for details of each command.
 
-[[Features]]
+== How to use this guide
+
+You may proceed to <<Command List>> if you would like to learn how to use each of the commands, and <<Cheat Sheet>>
+if you would just like a list of all the commands for easy reference.
+
+The figure below explains the symbols used throughout the user guide.
+
+WARNING: Specifies the constraints of the command or situation.
+
+NOTE: Specifies expected command outcomes.
+
+TIP: Specifies extra tips you can use when navigating through our app.
+
+IMPORTANT: Specifies important things to take note of
+
+// tag::nat-ug[]
 == Features
 
-====
-*Command Format*
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+This segment highlights three key features iGrad offers to NUS students, namely;
+a Course Planner, an MCs Tracker, and a CAP Tracker.
 
-=== Viewing help : `help`
+If you would like a more in-depth overview of the actual components of our application, please
+refer to the next section; <<Components>>, for more details.
 
-Format: `help`
+==== Course Planner
+_iGrad_ was built with every NUS student in mind. Our flexible course planner allows you to plan
+a course of your own dreams, be it those of you doing a single degree programme,
+a double degree programme, and even a concurrent degree programme.
 
-=== Adding a person: `add`
+With our course planner, you would be able to enter your current course details such as your
+*modules* and the various degree *requirements* by which those modules are mapped.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+(For instance, the _Computer Science_ course has the various
+*modules*, highlighted in [blue]#blue#, and degree *requirements*, boxed in [red]#red#):
+
+anchor:figure-a-anchor[]
+
+.Computer science degree requirements
+image::../images/user-guide/components/graduation_degree_requirements.png[]
+
+==== MCs Tracker
+
+We are sick of counting our MCs at the beginning of every semester; be it counting the
+total course MCs left before you can graduate, or tracking the number of MCs left
+for those invidual degree requirements (boxed in [green]#green#,
+in xref:figure-a-anchor[_Figure 1_]).
+
+With our MCs feature, you would be able to easily keep track of how close you are to
+graduation, as all this information is automatically updated and recomputed, each time you have
+completed a certain module.
+
+==== CAP Tracker
+No more googling for CAP calculators. iGrad's CAP tracker helps you keeps track of your current CAP at
+every step of your journey in your course. In addition, it even offers predictive features so you know how
+well you have to do in order to achieve your dream CAP.
+
+==== Everything Integrated into One Application
+But the best part is that these features are all integrated into our application; _iGrad_.
+And with all these important pieces of information in one place, you would never go amiss keeping
+track of all your graduation requirements.
+
+== Components
+This segment details the various components of _iGrad_. As shown in _Figure 2_ below,
+these components follow a hierachical structure, exactly like how an NUS course is structured.
+
+anchor:figure-b-anchor[]
+
+.Hierachical overview of iGrad components
+image::../images/user-guide/components/hierachical_structure.png[]
+
+Here is how our application looks like (on a typical usage):
+
+.iGrad application screenshot
+image::../images/user-guide/components/app_screenshot_ui.png[]
+
+The following is the same screenshot of our application, but with the various components
+of our application highlighted:
+
+.iGrad components screenshot
+image::../images/user-guide/components/app_screenshot_ui_components_highlighted.png[]
+
+As per the screenshot above (in _figure 4_):
+
+* xref:Course[Course] is indicated in [blue]#blue#,
+* xref:Degree Requirements[Degree Requirements] is indicated in [red]#red#, and
+* xref:Modules[Modules] is indicated in [yellow]#yellow#
+
+You may refer to xref:figure-b-anchor[_Figure 2_], if you would like a quick recap on the
+hierarchical structuring of these components.
+
+==== Course
+
+A course is simply a group of degree requirements.
+
+It contains important information such as your current CAP, total number of MCs
+you have completed thus far, and semesters left before you can graduate.
+
+In short, it helps you keep track of your overall degree progress.
+
+==== Degree Requirements
+
+Under a course are the various degree requirements, such as the ones shown in
+xref:figure-b-anchor[_Figure 2_] above; _Computer Science Foundation_,
+_Mathematics and Sciences_, and _Unrestricted Electives_.
+
+Each requirement comprises of the modules you need to complete in order to fulfill that particular
+requirement.
+
+Additionally, each requirement consists of important information such as
+the number of MCs you have already fulfilled.
+
+==== Modules
+
+Finally, modules are the basic building block of all the other components.
+
+These could be modules you have taken, modules you are currently taking and modules that
+you plan to take.
+
+Each module allows recording of other optional information, such as indicating the grade you
+have obtained for those modules.
+
+//end::nat-ug[]
+
+//tag::walkthrough[]
+== Walkthrough
+
+Section by: https://github.com/dargohzy[Daryl] & https://github.com/teriaiw[Teri]
+
+This segment details a simple tutorial on how to use the application. It provides a step-by-step guide on how to
+utilise the main components of the application, and covers the following:
+
+* Choosing an `Avatar`
+* Adding a `Course`
+* Adding a course `Requirement`
+* Adding a `Module`
+* Assigning a `Module` to a `Requirement`
+* Adding additional details to a `Module`
+* Marking as `Module` as done and assigning a `Grade` to it
+* Tracking your academic progress: `MCs` and `CAP`
+* Exporting your data
+
+Here is a 10-step guide on how to use `iGrad`.
+
+=== Start up the application
+
+Section by: https://github.com/dargohzy[Daryl]
+
+- Open up the application by opening the `iGrad.jar` file.
+- Select an avatar by typing its name before pressing enter.
+- The avatar will act as your guide for the application.
++
+image::../images/user-guide/walkthrough1.png[]
+
+=== Enter your course details
+
+Section by: https://github.com/dargohzy[Daryl]
+
+- Course refers to the name of the course you are currently enrolled in.
+- Enter the name of your course in the format: `course add n/COURSE_NAME s/TOTAL_SEMESTERS`
+- E.g. `course add n/Computer Science s/2`
++
+image::../images/user-guide/walkthrough2.1.png[]
++
+image::../images/user-guide/walkthrough2.2.png[]
+
+=== Key in your graduation requirements
+
+Section by: https://github.com/dargohzy[Daryl]
+
+- Requirements refer to degree requirements needed in the entered course.
+- Enter your course graduation requirements in the format: `requirement add t/REQUIREMENT_TITLE u/MCS_REQUIRED`
+- E.g. `requirement add n/General Education u/20`
++
+image::../images/user-guide/walkthrough3.1.png[]
++
+image::../images/user-guide/walkthrough3.2.png[]
+
+=== Add modules to the tracker
+
+Section by: https://github.com/dargohzy[Daryl]
+
+- Modules refer to modules that you have taken or are planning to take.
+- Enter modules into the system in the format: `module add n/MODULE_CODE t/MODULE_TITLE u/MCs`
+- E.g. `module add n/GER1000 t/Quantitative Reasoning u/4`
++
+image::../images/user-guide/walkthrough4.1.png[]
++
+image::../images/user-guide/walkthrough4.2.png[]
+
+=== Assign your modules
+
+Section by: https://github.com/dargohzy[Daryl]
+
+- Assign modules under their respective requirements.
+- Enter assign in the format: `requirement assign REQUIREMENT_CODE n/MODULE_CODE`
+- Note: Requirement codes are generated by the system.
+- E.g. `requirement assign GE0 n/GER1000`
++
+image::../images/user-guide/walkthrough5.1.png[]
++
+image::../images/user-guide/walkthrough5.2.png[]
+
+=== Key in additional details for your modules
+
+Section by: https://github.com/teriaiw[Teri]
+
+- Edit modules with additional information such as Semester. Other information that has already be input can be
+  edited as well.
+- Enter edit to be done to the module in the format: `module edit MODULE_CODE s/SEMESTER`
+- Note: For Semester, it has to follow the format of `Y_S_`
+- E.g. `module edit GER1000 s/Y1S1`
++
+image::../images/user-guide/walkthrough6.1.png[]
++
+image::../images/user-guide/walkthrough6.2.png[]
+
+=== Mark a module as done and assign a grade to it
+
+Section by: https://github.com/teriaiw[Teri]
+
+- A module is considered as done when a grade is assigned to it.
+- Enter grade for the module in the format: `module done MODULE_CODE g/GRADE`
+- E.g. `module done GER1000 g/A+`
++
+image::../images/user-guide/walkthrough7.1.png[]
++
+image::../images/user-guide/walkthrough7.2.png[]
+
+=== Track your MCs
+
+Section by: https://github.com/teriaiw[Teri]
+
+- MCs refer to Module Credits.
+- MCs are automatically tracked and updated.
+- Total MCs count is the total of all requirement MCs.
+- MCs are fulfilled when modules that are within a requirement are marked done.
++
+image::../images/user-guide/walkthrough8.png[]
+
+=== View your CAP
+
+Section by: https://github.com/teriaiw[Teri]
+
+- CAP refers to Cumulative Average Points and is out of 5 (max).
+- CAP is automatically tracked and updated.
+- CAP is updated whenever a module within a requirement is marked done with a grade.
++
+image::../images/user-guide/walkthrough9.png[]
+
+
+=== Export your data
+
+Section by: https://github.com/teriaiw[Teri]
+
+- Data of your entire study plan can to exported to a comma-separated values (.csv) file.
+- Export your data in the format: `export`
+- Note: Data file can be found in the same folder as this application.
++
+image::../images/user-guide/walkthrough10.1.png[]
++
+image::../images/user-guide/walkthrough10.2.png[]
++
+image::../images/user-guide/walkthrough10.3.png[]
+//end::walkthrough[]
+
+== Command List
+Section by: https://github.com/yjskrs[Yijie]
+
+This section provides a detailed breakdown of the various commands you may use in iGrad.
+Please read <<Command Format>> to understand how our commands work!
+
+//tag::command-yijie[]
+=== Command Format
+Section by: https://github.com/yjskrs[Yijie]
+
+This section explains the syntax for the commands in iGrad. You may move onto xref:helpSection[] if you are already
+familiar with our syntax which involves the command word(s), prefixes, parameters, specifiers and flags.
+
+The table below summarises the components of our syntax, using `module` commands as example.
+
+[#tableCommandFormatComponents]
+.Command Format Components
+|===
+|Component |Description |Example
+
+|Command Word(s) |Command words tell iGrad what command you are trying to perform. |E.g. `module add`.
+|Prefix |Prefixes tell iGrad what kind of information you are trying to key in.
+A prefix consists of an alphabet followed by a forward slash (i.e. `/`).
+|E.g. `t/` is the prefix for `TITLE`.
+|Parameter |Parameters tell iGrad the information you want to key in. Parameters are specified in *uppercase*.
+Parameters come directly after a prefix, and you can chain prefix-parameters pairs.
+|E.g. In `t/TITLE`, `TITLE` is the parameter where you can key in your desired title.
+|Specifier |Specifiers inform iGrad of the item you want to edit or delete. To differentiate them from the
+properties of the item you are trying to modify, they do not come with prefixes.
+|E.g. In the `module edit CS2103T t/Hardware Engineering` command, `CS2103T` is the module we are trying to edit,
+and `Hardware Engineering` is what we want to set as the new module title.
+|Flag |Flags tell iGrad to use a different version of the command.
+Flags consist of a dash (i.e. `-`) followed by an alphabet.
+Flags can only be indicated at the end of the command.
+|E.g. `module add n/CS2101 -a` adds a module by pulling its data from NUSMods.
+|===
+
+We have also listed all the parameters and their corresponding prefixes in the table below.
+If square brackets (i.e. `[` `]`) are specified around a parameter-prefix pair, this means
+that the parameter-prefix pair is optional. However, do note that if all parameter-prefix pairs
+are indicated with square brackets, this means that at least one of them must be provided. Parameter-prefix
+pairs which can be entered multiple times in a single command are also indicated by ellipses
+(i.e. `...`) behind the parameter.
+
+[#tableParameterPrefixPairs]
+.Parameter Prefix Pairs
+|===
+|Parameter | Prefix
+
+|`NAME` or `CODE`|`n/`
+|`TITLE`|`t/`
+|`CREDITS`|`u/`
+|`SEMESTER`|`s/`
+|`GRADE`|`g/`
+|`CAP`|`c/`
+|===
+
+The two flags used in iGrad are listed in the table below.
+
+[#tableFlags]
+.Flags
+|===
+|Flag | Purpose
+|`-a`| Informs iGrad to use automated module adding by pulling data of modules from NUSMods. Only used in the xref:ModuleAutoAddCommand[ModuleAutoAdd] command.
+|`-o`| Informs iGrad to use the or option when filtering modules. Only used in the xref:ModuleFilterCommand[ModuleFilter] command.
+|===
+
+//end::command-yijie[]
+
+[#helpSection]
+=== Help
+Section by: https://github.com/yjskrs[Yijie]
+
+This command opens up a help window for easy reference on the list of commands that can be used in iGrad.
+A link is also provided to direct users to the user guide for more detailed explanations.
+
+[#tableHelpQuickReference]
+.Help Quick Reference
+|===
+|Purpose | Opens a help window with a list of commands
+|Syntax| `help`
+|Example | `help`
+
+|===
+
+[#courseSection]
+=== Course
+Section by: https://github.com/yjskrs[Yijie]
+
+This section details each command used in manipulating the course. All course commands begin with the identifier
+`course`, followed by the action, e.g. `set`.
+
+All course commands use the same parameters, as listed in the table below:
+[#tableCourseParameters]
+.Course Parameters
+|===
+|Name| Description | Example | Restrictions
+
+|`COURSE_NAME`| The course name | Computer Science |-
+|`SEMESTER`| The total number of semesters you will be spending in NUS | 8 |Must be a number less than 100.
+|===
+
+If the parameter restrictions are not strictly adhered to when issuing a course command, or if
+iGrad cannot find what you're looking for, you might come across a common error.
+The following error is generic and may be encountered when dealing with any course command:
+
+[#tableCourseParametersErrorReference]
+.Course Parameters Error Reference
+|===
+|Parameter |Error Name
+
+|`COURSE_CREDITS`| Invalid Course Credits
+|===
+
+This error can be resolved by adhering to the restriction detailed in <<tableCourseParameters>>
+
+==== Course Set
+
+This command sets the course.
+
+[#CourseSetQuickReference]
+.Course Set Quick Reference
+|===
+|Purpose | Sets the course
+|Syntax| `course set n/COURSE_NAME s/SEMESTERS`
+|Example | `course set n/Computer Science s/8`
+|===
+
+*How it Works*
+
+When you type in this command, we take the values given for the `COURSE_NAME` and `SEMESTERS`
+and fill in those fields for your course. We do not check if the given course refers
+to actual courses in NUS. However, restrictions stated in the xref:tableRequirementParameters[Requirement Parameters]
+table still apply.
+
+<<CourseSetErrorReference>> lists errors you might encounter after issuing this command:
+
+[#CourseSetErrorReference]
+.Course Set Error Reference
+|===
+|Name | Message| Explanation| Solution
+
+|Parameters Not Provided Error |All fields to be filled, course set n/COURSE_NAME s/SEMESTERS
+|Not all parameters needed to set the course have been provided
+|Provide all parameters prepended with their prefixes
+|===
+
+*Tutorial*
+
+Follow these steps to get a clearer idea of how this command works.
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo changes made from this tutorial by using the appropriate command.
+
+1. Ensure that you do not have a course yet. You may do so by deleting the existing course
+with the `course delete` command.
+
+2. Type the following into the command box:
+`course set n/Computer Science s/8`, and press enter.
+
+3. The message in the response box should change and you should see the course name and semesters
+updated in the top left corner panel.
+
+==== Course Edit
+
+This command edits the editable fields in a course which include the `COURSE_NAME` and `SEMESTERS`.
+
+IMPORTANT: Course name does not need to be specified.
+
+[#CourseEditQuickReference]
+.Course Edit Quick Reference
+|===
+|Purpose | Edits the course
+|Syntax| `course edit [n/COURSE_NAME] [s/SEMESTERS]`
+|Example | `course edit n/Engineering s/8`
+|===
+
+*How it Works*
+
+When you issue the command, we replace the fields provided with the given values. You are able to
+change the values as you wish as long as they follow the restrictions as listed in the parameters table.
+
+<<CourseEditErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#CourseEditErrorReference]
+.Course Edit Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Parameters Not Provided Or Not Modified |At least one field to edit must be provided
+|Parameters needed to edit the course are not provided
+|Try specifying either the name or the credits, or provide a value that is different from the existing one
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo or delete objects created from this tutorial by using the appropriate commands.
+
+1. Ensure that you have a course set.
+
+2. Type the following into the command box:
+`course edit n/Computer Science s/8`, and press enter.
+
+3. The message in the response box should change and you should see the course name and semesters
+updated in the top left corner panel.
+
+==== Course Delete
+
+This command *deletes the course as well as all other information stored* in iGrad. Please use with caution!
+
+IMPORTANT: Course name does not need to be specified.
+
+[#CourseDeleteQuickReference]
+.Course Delete Quick Reference
+|===
+|Purpose | Deletes the course
+|Syntax| `course delete`
+|Example | `course delete`
+|===
+
+*Tutorial*
+
+[NOTE]
+You may undo changes made from this tutorial by using the appropriate command.
+
+1. Ensure that you have a course set.
+
+2. Type the following into the command box:
+`course delete`, and press enter.
+
+3. The message in the response box should change and you should see the course name and semesters
+disappear, as well as all other information in iGrad.
+
+//tag::requirement-yijie[]
+[#requirementSection]
+=== Requirement
+Section by: https://github.com/yjskrs[Yijie]
+
+This section details each command used in manipulating requirements. All requirement commands begin with the identifier
+`requirement`, followed by the action, e.g. `add`.
+
+All requirement commands use the same parameters, as listed in the table below:
+
+[#tableRequirementParameters]
+.Requirement Parameters
+|===
+|Name| Description | Example | Restrictions
+
+|`REQUIREMENT_CODE`| A requirement's unique identifier, automagically generated by iGrad based on the requirement title | CSF0 |-
+|`REQUIREMENT_TITLE`| A requirement's title | Computer Science Foundation |Must contain at least one alphabet
+|`REQUIREMENT_CREDITS`| The number of http://www.nus.edu.sg/registrar/academic-information-policies/graduate/modular-system[modular credits] needed to fulfill the requirement | 32 | Must be a positive number less than or equal to 10,000
+|`MODULE_CODE`| A module's module code, used when assigning or unassigning modules to and from a requirement | CS2103T | Detailed restrictions are specified xref:tableModuleParameters[here], but the requirement-specific restriction is that the module must already be added to iGrad.
+|===
+
+If the parameter restrictions are not strictly adhered to when issuing a requirement command, or if
+iGrad cannot find what you're looking for, you might come across some common errors.
+The following errors are generic and may be encountered when dealing with any requirement command:
+
+[#tableRequirementParametersErrorReference]
+.Requirement Parameters Error Reference
+|===
+|Parameter |Error Name
+
+|`REQUIREMENT_CODE`| Invalid Requirement Code
+|`REQUIREMENT_TITLE`| Invalid Requirement Title
+|`REQUIREMENT_CREDITS`| Invalid Requirement Credits
+|===
+
+These errors can all be resolved by adhering to the restrictions detailed in <<tableRequirementParameters>>
+
+==== Requirement Add
+
+This command adds a requirement to the requirement list.
+
+[#RequirementAddQuickReference]
+.Requirement Add Quick Reference
+|===
+|Purpose | Adds a requirement
+|Syntax| `requirement add t/REQUIREMENT_TITLE u/REQUIREMENT_CREDITS`
+|Example | `requirement add t/Computer Science Foundation u/32`
+|===
+
+*How it Works*
+
+When you type in this command, we take the values given for the `REQUIREMENT_TITLE` and `REQUIREMENT_CREDITS`
+and fill in those fields for your requirement. We do not check if the given requirement title or credits refer
+to actual requirements as stated on NUS websites. However, restrictions stated in the
+xref:tableRequirementParameters[Requirement Parameters] table still apply.
+
+<<RequirementAddErrorReference>> lists errors you might encounter after issuing this command:
+
+[#RequirementAddErrorReference]
+.Requirement Add Error Reference
+|===
+|Name | Message| Explanation| Solution
+
+|Parameters Not Provided Error |Added requirement must be provided with arguments t/TITLE u/CREDITS
+|Not all parameters needed to add a requirement are provided |Provide all parameters prepended with their prefixes
+|===
+
+*Tutorial*
+
+Follow these steps to get a clearer idea of how this command works.
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo changes made from this tutorial by using the appropriate command.
+
+1. Type the following into the command box:
+`requirement add t/Computer Science Foundation u/32`, and press enter
+
+2. The message in the response box should change and you should see the following in the requirement panel:
+
++
+.Requirement "Computer Science Foundation" successfully added
+image::../images/user-guide/requirementCommand/requirementAddSuccess.png[]
+
+==== Requirement Edit
+
+This command edits the editable fields in a requirement which include the `REQUIREMENT_TITLE` and `REQUIREMENT_CREDITS`.
+The `REQUIREMENT_CODE` is not editable as it is a unique identifier assigned by iGrad.
+
+[#RequirementEditQuickReference]
+.Requirement Edit Quick Reference
+|===
+|Purpose | Edits a requirement
+|Syntax| `requirement edit REQUIREMENT_CODE [t/REQUIREMENT_TITLE] [u/REQUIREMENT_CREDITS]`
+|Example | `requirement edit CSF0 t/Engineering Foundation u/40`
+|===
+
+*How it Works*
+
+IMPORTANT: Please type the requirement code in uppercase.
+
+When you issue the command, we replace the fields provided with the given values. You are able to
+change the values as you wish as long as they follow the restrictions as listed in the parameters table.
+
+<<RequirementEditErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#RequirementEditErrorReference]
+.Requirement Edit Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Requirement Not Found Error |The requirement code provided is invalid
+|The requirement you are attempting to edit does not exist
+|Try changing the requirement code to one that you can find in the list, or add a new one instead
+|Parameters Not Provided Or Not Modified |At least one field to edit must be provided
+|Parameters needed to edit the requirement are not provided
+|Try specifying either the title or the credits, or provide a value that is different from the existing one
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo or delete objects created from this tutorial by using the appropriate commands.
+
+1. Ensure that you have the requirement "Computer Science Foundation", coded CSF0, in the list.
+
+2. Type the following into the command box: `requirement edit CSF0 t/Engineering Foundation u/40`, and press enter.
+
+3. The message in the response box should change and you should see the following updated in the list:
+
++
+.Requirement "Computer Science Foundation" successfully edited
+image::../images/user-guide/requirementCommand/requirementEditSuccess.png[]
+
+==== Requirement Delete
+
+This command deletes a requirement from the list.
+
+[#RequirementDeleteQuickReference]
+.Requirement Delete Quick Reference
+|===
+|Purpose | Deletes a requirement
+|Syntax| `requirement delete REQUIREMENT_CODE`
+|Example | `module delete CSF0`
+|===
+
+*How it Works*
+
+The requirement that you wish to delete is completely removed from the list.
+[WARNING]
+Restoring the requirement is only possible using the `undo` command which would only work if `delete` was the last issued command.
+
+<<RequirementDeleteErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#RequirementDeleteErrorReference]
+.Requirement Delete Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Requirement Not Found Error |The requirement code provided is invalid
+| The requirement you are attempting to delete does not exist in the list
+| Your problem is your solution!
+|===
+
+*Tutorial*
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo objects deleted from this tutorial by using the appropriate command.
+
+1. Ensure that you have the requirement with requirement code "CSF0" in the list.
+
+2. Type the following into the command box: `requirement delete CSF0`, and hit enter.
+
+2. The message in the response box should change and you should see that the requirement CSF0
+disappears from the list.
+//end::requirement-yijie[]
+
+==== Requirement Assign
+
+This command assigns one or more than one module to a requirement.
+
+[#RequirementAssignQuickReference]
+.Requirement Assign Quick Reference
+|===
+|Purpose | Assigns module(s) to a requirement
+|Syntax| `requirement assign REQUIREMENT_CODE n/MODULE_CODE ...`
+|Example | `requirement assign CSF0 n/CS2103T n/CS2101`
+|===
+
+*How it Works*
+
+IMPORTANT: The module must already be added in iGrad for this command to work!
+Refer to <<ModuleAddCommand>> to find out how to add a module.
+
+<<RequirementAssignErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#RequirementAssignErrorReference]
+.Requirement Assign Error Reference
+|===
+|Name |Message| Explanation |Solution
+
+|Requirement Not Found Error |The requirement code provided is invalid
+|The requirement you are attempting to assign to does not exist
+|Try changing the requirement code to one that you can find in the list
+|Module Not Found Error |The module does not exit in system
+|The module you are attempting to assign does not exist
+|You need to first add the module!
+|Module Already Assigned Error |The module is already assigned under the requirement
+|The module has been assigned to the requirement
+|Try assigning a different module instead
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo changes made from this tutorial by using the appropriate command.
+
+1. Ensure that you have the requirement "Computer Science Foundation", coded CSF0, in the list.
+
+2. Type the following into the command box: `requirement assign CSF0 n/CS2103T n/CS2101`, and press enter.
+
+3. The message in the response box should change and you should see the following updated in the list:
+
++
+.Modules successfully assigned to requirement "Computer Science Foundation"
+image::../images/user-guide/requirementCommand/requirementAssignSuccess.png[]
+
+==== Requirement Unassign
+
+This command unassigns one or more than one module from a requirement.
+
+[#RequirementUnassignQuickReference]
+.Requirement Unassign Quick Reference
+|===
+|Purpose | Unassign module(s) from a requirement
+|Syntax| `requirement unassign REQUIREMENT_CODE n/MODULE_CODE ...`
+|Example | `requirement unassign CSF0 n/CS2103T n/CS2101`
+|===
+
+*How it Works*
+
+IMPORTANT: The module must already be assigned to the requirement for this command to work!
+
+<<RequirementUnassignErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#RequirementUnassignErrorReference]
+.Requirement Unassign Error Reference
+|===
+|Name |Message| Explanation |Solution
+
+|Requirement Not Found Error |The requirement code provided is invalid
+|The requirement you are attempting to unassign from does not exist
+|Try changing the requirement code to one that you can find in the list
+|Module Not Found Error |The module does not exit in system
+|The module you are attempting to unassign does not exist
+|You can add the module if you want
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo changes made from this tutorial by using the appropriate command.
+
+1. Ensure that you have the requirement "Computer Science Foundation", coded CSF0, in the list, with modules CS2103T and CS2101 assigned to it.
+
+2. Type the following into the command box: `requirement unassign CSF0 n/CS2103T n/CS2101`, and press enter.
+
+3. The message in the response box should change and you should see the modules disappear from the requirement.
+
+// tag::module[]
+
+=== Module
+Section by: https://github.com/waynewee[Wayne]
+
+This section details each command used to manipulate modules. All module commands begin with the identifier
+`module` followed by the action e.g. `add`.
+
+All module commands use the same parameters, listed in the table below:
+
+[#tableModuleParameters]
+.Module Parameters
+|===
+|Name| Description | Example | Restrictions
+
+|`MODULE_CODE` | A module's unique identifier | CS2103T | Must have two letters in the front, four numbers in the middle with an optional letter at the back
+|`MODULE_TITLE`| A module's title | Software Engineering |-
+|`MODULE_CREDITS`| The number of http://www.nus.edu.sg/registrar/academic-information-policies/graduate/modular-system[modular credits] a module is worth | 4 | Must be a number
+|`SEMESTER`| An academic semester. There are two semesters in a year | Y1S1 | Must be in the format Y?S* where ? represents a digit from 0 - 4 and * represents a digit from 1 -2
+|`GRADE` | A module's grade | A+ | Must be one of the following:  A+, A, A-, B+, B-, C+, C, D, D+, F, S, U |
+|===
+
+If, when issuing a command, the parameter restrictions are not strictly adhered to,
+you might come across some common errors.
+The following errors are generic and may be encountered when dealing with any module command:
+
+[#tableModuleParametersErrorReference]
+.Module Parameters Error Reference
+|===
+|Parameter|Error Message
+
+|`MODULE_CODE`| The Module Code provided for the module is invalid!
+|`MODULE_CREDITS`| The Module Credits provided for the module is invalid!
+|`SEMESTER`| The Semester provided for the module is invalid!
+|`GRADE`| The Grade provided for the module is invalid!
+|===
+
+These errors can all be resolved by adhering to the restrictions detailed in <<tableModuleParameters>>
+
+[#ModuleAddCommand]
+==== Module Add
+Section by: https://github.com/waynewee[Wayne]
+
+This command adds a module to the module list.
+
+[#ModuleAddQuickReference]
+.Module Add Quick Reference
+|===
+|Purpose | Adds a module
+|Syntax| `module add n/MODULE_CODE t/MODULE_TITLE u/MODULE_CREDITS [s/SEMESTER]`
+|Example | `module add n/CS2103T t/Software Engineering u/4 s/Y1S1`
+|===
+
+*How it Works*
+
+When you type in this command, we take the given values for the `MODULE_CODE`, `MODULE_TITLE`, `MODULE_CREDITS` and optionally, the `SEMESTER`,
+and fill in those fields. We do not check if the given `MODULE_CODE` or `MODULE_TITLE` refer to actual modules offered by NUS. However, the restrictions stated in the module parameters table still apply.
+
+<<ModuleAddErrorReference>> lists errors you might encounter after issuing this command:
+
+[#ModuleAddErrorReference]
+.Module Add Error Reference
+|===
+|Name | Message| Explanation| Solution
+
+|Duplicate Module Error |Sorry, this module already exists in the course book. | The module you are attempting to add already exists in the module list| Delete the existing module in the list and try again|
+|===
+
+
+*Tutorial*
+
+Follow these steps to get a clearer idea of how this command works
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
+
+
+1. Check that you do not have the modules with `MODULE_CODE` CS2103T and CS2101 in your list of modules
+
+2. Type the following into the command box
+`module add n/CS2103T u/4 t/Software Engineering` and press enter
+
+3.  Type the following into the command box
+`module add n/CS2101 u/4 t/Effective Communication for Computing Professionals` and press enter
+
+4. The message in the response box should change and you should see the following in the module panel:
+
++
+.Modules CS2103T and CS2101 successfully added
+image::../images/user-guide\moduleAutoAddCommand\two_modules.png[]
+
+//tag::wayne-ug[]
+[#ModuleAutoAddCommand]
+==== Module Auto Add
+Section by: https://github.com/waynewee[Wayne]
+
+This command adds a module to the module list. The module information is taken
+from the https://api.nusmods.com/[NUSMods API] and includes the `MODULE_CODE`, `MODULE_TITLE`
+and `MODULE_CREDITS`.
+
+[#ModuleAutoAddQuickReference]
+.Module Auto Add Quick Reference
+|===
+|Purpose | Adds a module from NUSMods
+|Syntax| `module add n/MODULE_CODE_A n/MODULE_CODE_B -a`
+|Example | `module add n/CS2103T n/CS2101 -a`
+|===
+
+*How it Works*
+
+IMPORTANT: Do not miss out the `-a` flag
+
+When you type in this command, a request is made to https://api.nusmods.com/[NUSMods API]. More specifically, we visit the
+module page and ask for the information provided there. An example page can be found https://api.nusmods.com/2018-2019/modules/CS2103T/[here].
+
+[NOTE]
+We try to get the module information from the current academic year. However,
+this might not always be possible as NUS might not have released
+the module details. As a contingency, we retrieve the module information from the
+previous academic year.
+
+In general, using this command speeds up the process of module addition greatly. However, as we have to make
+a request to an external webpage, the time taken to process the request might be considerably longer.
+
+[WARNING]
+After issuing the command, the app might seem to freeze. Not to worry! It is merely processing your request. Please be patient when executing this command, especially when attempting to add a large number of modules.
+
+This command also supports _batch processing_ and you can add multiple modules, with the necessary information all
+filled in, by issuing a single command. In the case where adding a single module in a batch of modules raises an error,
+we skip that module and let you know what went wrong.
 
 [TIP]
-A person can have any number of tags (including 0)
+You can add up to 10 modules at once! Try this: `module add n/CS1101 n/CS1231 n/CS2030 n/CS2040 n/CS2100 n/CS2103T n/CS2105 n/CS2106 n/CS3230 n/CS3219 -a`
 
-Examples:
+<<ModuleAutoAddErrorReference>> lists the errors you might encounter after issuing this command:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+[#ModuleAutoAddErrorReference]
+.Module Auto Add Error Reference
+|===
+|Name| Message| Explanation |Solution
 
-=== Listing all persons : `list`
+|Duplicate Module Error | Duplicate Detected| Sorry, this module already exists in the course book.| Delete the existing module in the list and try again
+|Module Not Found Error| Module Not Found| Sorry, I was unable to find this module. Is your internet down? |  Use the command <<ModuleAddCommand>> instead
+|Module Overload Error | Module Overload Error| Please do not attempt to add more then 10 modules. | Divide the list of modules into smaller batches of size less than 10 and try again
+|Connection Error| Connection Error| Sorry, I was unable to find this module. Is your internet down? | Whilst all other commands work offline. You need an internet connection to issue this command. Go online before trying again
+|===
 
-Shows a list of all persons in the address book. +
-Format: `list`
+*Tutorial*
 
-=== Editing a person : `edit`
+Follow these steps to get a clearer idea of how this command works
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+1. Check that you do not have the modules with `MODULE_CODE` CS2103T and CS2101 in your list of modules
 
-Examples:
+2. Type the following into the command box
+`module add n/CS2103T n/CS2101 -a` and press enter
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+3. Wait for up to 5 seconds
 
-=== Locating persons by name: `find`
+4. The message in the response box should change and you should see the following in the module panel
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
++
+.Modules CS2103T and CS2101 successfully added from NUSMods
+image::../images/user-guide\moduleAutoAddCommand\two_modules.png[]
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+*Additional Information*
 
-Examples:
+We are also able to retrieve information pertaining to a module's prerequisites and preclusions. However, as our app can function as a module planner
+in addition to tracking your graduation requirements, we do not prevent you from adding modules that have unfulfilled prerequisites but instead, simply show a warning.
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+WARNING: As the prerequisites and preclusions from NUSMods do not follow any standard formatting, the warning messages shown might not
+always be accurate. This is due to a difficulty of interpreting
+the data given by NUSMods. This remains a BETA feature and we hope to upgrade it in time.
+// end::wayne-ug[]
+==== Module Done
+Section by: https://github.com/waynewee[Wayne]
 
-// tag::delete[]
-=== Deleting a person : `delete`
+This command marks a module as done by giving it a grade and optionally, a semester.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+.Module Done Quick Reference
+|===
+|Purpose | Marks a module as done
+|Syntax| `module done MODULE_CODE g/GRADE [s/SEMESTER]`
+|Example | `module done CS2103T g/A s/Y1S1`
+|===
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+*How it Works*
 
-Examples:
+When you issue the command, we give your module the grade, and optionally the semester, that you provided. This helps us keep track of both your CAP and the number
+of semesters you have left before graduating.
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+In order to calculate your CAP, we use a known algorithm which is guaranteed to be accurate. To see what semester you are currently at, we
+take the latest semester given to a module which has been marked as done. From that, we are able to tell you how many semesters you have left.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+[NOTE]
+We do not currently allow the input of special terms. As a workaround, for modules taken
+during special term, you could input the most recent semester instead
 
-Clears all entries from the address book. +
-Format: `clear`
+<<ModuleDoneErrorReference>> lists the errors you might encounter after issuing this command:
 
-=== Exiting the program : `exit`
+[#ModuleDoneErrorReference]
+.Module Done Error Reference
+|===
+|Name| Message| Explanation |Solution
 
-Exits the program. +
-Format: `exit`
+|Module Not Found Error | Sorry, I was unable to find this module. | The module you are attempting to mark as done does not exist in the module list| Add the module you wish to mark as done and try again
+|===
 
-=== Saving the data
+*Tutorial*
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Ensure that you have the module CS2103T in the module list
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+1. Type the following into the command box `module done CS2103T g/A s/Y4S1`
 
-== FAQ
+2. The message in the response box should change and you should see the following
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
++
+.Modules CS2103T successfully given a grade and a semester
+image::../images/user-guide\moduleAutoAddCommand\one_module.png[]
 
-== Command Summary
+==== Module Edit
+Section by: https://github.com/waynewee[Wayne]
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+This command edits the editable fields in a module which include the `MODULE_TITLE`, `MODULE_CREDITS`, `SEMESTER`.
+Although it is possible to edit the fields as listed, it is unadvisable unless you made a mistake while keying
+in the values.
+
+.Module Edit Quick Reference
+|===
+|Purpose | Edits a module
+|Syntax| `module edit MODULE_CODE [t/MODULE_TITLE] [u/MODULE_CREDITS] [s/SEMESTER]`
+|Example | `module edit CS2103T t/Hardware Engineering u/8 s/Y1S2`
+|===
+
+*How it Works*
+
+When you issue the command, we replace the fields provided with the given values. You are able to
+change the values as you wish as long as they follow the restrictions as listed in the parameters table.
+
+<<ModuleEditErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#ModuleEditErrorReference]
+.Module Edit Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Module Not Found Error | Sorry, I was unable to find this module | The module you are attempting to edit does not exist in the module list| Instead of editing a module that does not exist, try adding a new one!
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
+
+Ensure that you have the module CS2103T in the module list
+
+1. Type the following into the command box `module edit CS2103T t/Hardware Engineering s/Y1S1 u/8`
+
+2. The message in the response box should change and you should see the following
+
++
+.Modules CS2103T successfully given a grade and a semester
+image::../images/user-guide\moduleAutoAddCommand\module_edit.png[]
+
+==== Module Delete
+Section by: https://github.com/waynewee[Wayne]
+
+This command deletes a module from the module list.
+
+.Delete Quick Reference
+|===
+|Purpose | Deletes a module
+|Syntax| `module delete MODULE_CODE`https://xxx[]
+|Example | `module delete CS2103T`
+|===
+
+*How it Works*
+
+The module that you wish to delete is completely removed from the module list.
+[WARNING]
+Restoring the module is only possible using the `undo` command which would only work if `delete` was the last issued command.
+
+<<ModuleDeleteErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#ModuleDeleteErrorReference]
+.Module Delete Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Module Not Found Error | Sorry, I was unable to find this module| The module you are attempting to delete does not exist in the module list| Your problem is your solution!
+|===
+
+*Tutorial*
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
+
+Ensure that you have the module CS2103T in the module list
+
+1. Type the following into the command box `module delete CS2103T`
+
+2. The message in the response box should change and you should see that the module CS2103T disappears from the module list
+
+[#ModuleFilterCommand]
+==== Module Filter
+Section by: https://github.com/waynewee[Wayne]
+
+This command allows you to find your modules by various parameters. You can filter the
+complete module list by `SEMESTER`, `MODULE_CREDITS` and `GRADE`.
+
+.Filter Quick Reference
+|===
+|Purpose | Displays a module list filtered based on the given parameters
+|Syntax| `module filter [s/SEMESTER] [u/MODULE_CREDITS] [g/GRADE] [-o]`
+|Example | `module filter s/Y1S1 u/4 g/A -o`
+|===
+
+*How it Works*
+
+Two options are provided for you:
+
+[Option 1] Displays modules that match all provided parameters
+
+or
+
+[Option 2] Displays modules that match at least one of the provided parameters.
+
+If the flag `-o` is included at the end of the command, Option 2 will be chosen. Otherwise, the default option is Option 1.
+
+IMPORTANT: In order to display all modules once again, simply type `module filter`. This will display an unfiltered module list containing all modules.
+
+There are no notable errors to list. If wrong parameters are given, the app will simply
+display the unfiltered module list. However, you should always take note of what filters are currently in place. If you
+are unable to find some modules after using this command, please reset the display by typing in `module filter`.
+
+WARNING: If you
+are unable to find some modules after using this command, please reset the display by typing in `module filter`.
+
+*Tutorial*
+
+Ensure that the following modules are in the module list:
+|===
+|Module Code| Credits|Semester| Grade
+
+|CS2103T|4|Y1S1|A
+|CS2101|4|Y1S2|B
+|CS2040|6|Y2S1|C
+|===
+
+ .. Retrieving modules which have 4 `CREDITS`
+ . Type `module filter u/4` into the command box
+ . The message in the response box should change and you should see the modules CS2103T and CS2101 in the module panel
+
+ .. Retrieving modules which have either `SEMESTER` Y1S2 or `GRADE` C
+. Type `module filter s/Y1S1 g/B -o`
+. The message in the response box should change and you should see the modules CS2101 and CS2040 in the module panel
+
+
+*Additional Information*
+
+[NOTE]
+This section contains information which requires prior knowledge of discrete mathematics or more specifically, logical operators
+
+The flag `-o`, is present, sets the logical operator used in concatenating the parameters as _"or"_. The default logical operator used is _"and"_.
+
+'''
+
+=== Export
+Section by: https://github.com/waynewee[Wayne]
+
+This command exports your data to a comma-separated values (.csv) file. This file can then be submitted to the relevant
+administration for processing of Leave of Absence (LOA), exchange programmes or internship applications.
+
+.Export Quick Reference
+|===
+|Purpose | Exports your data to a .csv file
+|Syntax| `export`
+|Example | `export`
+|===
+
+*How it Works*
+
+We write your data to a .csv file _study_plan.csv_ using the modules you have added and include the fields `MODULE_CODE`, `MODULE_TITLE`, `SEMESTER` and `CREDITS`.
+
+.Study Plan Example CSV
+image::../images/user-guide\exportCommand\export_csv_example.png[]
+
+NOTE: Modules that have not been tagged with a semester will not be written
+
+After issuing the command, you will be able to find the file in the same folder as the app's executable.
+
+NOTE: For example, if the app is stored in your Desktop folder, the file _study_plan.csv_ will be created in the Desktop folder as well
+
+<<ExportErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#ExportErrorReference]
+.Export Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Write Error | Unable to write to file| Sorry, I was unable to export data to CSV file. Please ensure that you do not have the file 'study_plan.csv' open | Close the file and try again
+|Data Not Found Error |Sorry, I couldn't find any modules that are tagged to a semester! I can only export modules that are tagged with a semester. | You do not have any modules tagged with a semester | Tag at least one module with a semester and try again
+|===
+
+'''
+
+=== Exit
+Section by: https://github.com/waynewee[Wayne]
+
+This command assists you in exiting the program.
+
+.Exit Quick Reference
+|===
+|Purpose | Exits the program
+|Syntax| `exit`
+|Example | `exit`
+|===
+
+*Additional Information*
+
+You can also exit the program by clicking the close icon on the top right hand corner of the application's window.
+
+## Version 2.0
+Section by: https://github.com/waynewee[Wayne]
+
+This sections details features that would be packaged with the next release
+
+=== Module Suggester
+Section by: https://github.com/waynewee[Wayne]
+
+Using tried and tested recommendation algorithms such as https://en.wikipedia.org/wiki/Collaborative_filtering[collborative filtering], we would be able to automatically suggest
+to you what modules to take next.
+
+.Suggest Quick Reference
+|===
+|Purpose | Suggests modules to take
+|Syntax| `suggest NUMBER_OF_MODULES`
+|Example | `suggest 4`
+|===
+
+=== Integration with NUSMods
+Section by: https://github.com/waynewee[Wayne]
+
+We plan to integrate with popular timetabling application NUSMods so that you can manage all aspects of your academics
+in one place.
+
+## FAQs
+
+
+
+_I'm not an NUS student. Can I still use iGrad?_
+
+As long as your university follows a similar <<fig-2,hierachical structure>>!
+However, we will be unable to provide features such as validation from NUSMods.
+
+_Do I require an online connection to use iGrad?_
+
+Nope! iGrad may be used offline. However, our validation feature which utilises NUSMods would be unavailable,
+and you'll have to key in your module details manually.
+
+_Where can I get the icons for the avatars?_
+
+The avatar icons were obtained from https://www.freepik.com/free-vector/hand-drawn-kawaii-characters-collection_4098554.htm#page=1&query=cute%20animals&position=2[Freepik].
+All credits go to the original creator.
+
+//tag::cheatsheet[]
+== Cheat Sheet
+
+Section by: https://github.com/dargohzy[Daryl]
+
+This segment contains a consolidated view of all the commands utilised in `iGrad`. Commands are split into the following
+categories:
+
+* Essential Commands
+* Course Commands
+* Requirement Commands
+* Module Commands
+
+
+=== Essential Commands
+.Essential Commands
+|===
+|Description | Command
+
+|Open the help window | `help`
+|Undo last command | `undo`
+|Export data | `export`
+|Exit the application | `exit`
+|===
+
+=== Course Commands
+.Course Commands
+|===
+|Description | Command
+
+|Add a `Course` |  `course set n/COURSE_NAME s/TOTAL_SEMESTERS`
+|Edit the `Course`|  `course edit n/COURSE_NAME s/TOTAL_SEMESTERS`
+|Delete the `Course` |  `course delete`
+|Find out `CAP` required per semester for desired `CAP` | `course achieve c/DESIRED_CAP s/SEMESTERS_LEFT`
+
+|===
+
+=== Requirement Commands
+.Requirement Commands
+|===
+|Description | Command
+
+|Add a `Requirement` | `requirement add t/REQUIREMENT_TITLE u/MCS_REQUIRED`
+|Edit a `Requirement` | `requirement edit REQUIREMENT_CODE u/MCS_REQUIRED`
+|Delete a `Requirement` | `requirement delete REQUIREMENT_CODE`
+|Assigns the `Module`(s) under the requirement. |`requirement assign REQUIREMENT_CODE [n/MODULE_CODE...]`
+
+|===
+
+=== Module Commands
+.Module Commands
+|===
+|Description | Command
+
+| Add a `Module` | `module add n/MODULE_CODE t/MODULE_TITLE u/MCs [n/DESCRIPTION] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
+| Edit a `Module`| `module edit MODULE_CODE [n/MODULE_CODE] [t/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE]`
+| Delete a `Module` | `module delete MODULE_CODE`
+| Mark a `Module` as done. Counts the modular credits towards academic progress. |  `module done MODULE_CODE [g/GRADE] [s/SEMESTER]`
+
+//end::cheatsheet[]
+
+|===
+
+## Glossary
+
+|===
+|Terms |Definition
+
+|Course |A course is the entire programme of studies required to complete a university degree
+|Graduation requirement |Requirements specified by the university in order for a student to graduate
+|Module |Each module of study has a unique module code consisting of a two- or three-letter prefix that generally denotes the discipline, and four digits, the first of which indicates the level of the module
+|Cumulative Average Point (CAP) |The Cumulative Average Point (CAP) is the weighted average grade point of the letter grades of all the modules taken by the students.
+|Semester |A semester is a part of the academic year. Each semester typically lasts 13 weeks in NUS.
+|Modular Credits (MCs) |A modular credit (MC) is a unit of the effort, stated in terms of time, expected of a typical student in managing his/her workload.
+|NUSMods |A timetabling application built for NUS students, by NUS students. Much like this iGrad!
+
+|===

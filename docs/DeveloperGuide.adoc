@@ -1,9 +1,10 @@
-= AddressBook Level 3 - Developer Guide
+= iGrad - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
-:sectnums:
+:toclevels: 3
+:sectnums: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -14,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-F09-3`      Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -26,15 +27,17 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::developer-guide/ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/igrad/Main.java[`Main`] and link:{repoURL}/src/main/java/igrad/MainApp.java[`MainApp`].
+It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -44,198 +47,1106 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of five components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Services,*`Services`*>>: Interacts with an external Application Programming Interface (API) to obtain data for the App.
 
-Each of the four components
+Each of the first four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::developer-guide/LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `module delete CS1010` command
+image::developer-guide/ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+//tag::ui[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::developer-guide/UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/igrad/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+Section by: https://github.com/dargohzy[Daryl]
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ModuleListPanel`, `StatusBar` etc.
+All these, including the `MainWindow` (excluding `AvatarImage`), inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/igrad/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+==== MainWindow
+
+The `MainWindow` class serves as the hub for all the UI components, and contains the following UI classes:
+
+* `AvatarSelectionPanel` - Avatar selection screen on first-time startup.
+* `CommandBox` - Command box for user input.
+* `CommandReceivedPanel` - Displays the last command entered.
+* `ResultDisplay` - Displays the resultant message of the command entered. Also contains the avatar image.
+* `ModuleListPanel` - Panel displaying the modules input into the system.
+* `RequirementListPanel` - Panel displaying the requirements input into the system.
+* `ProgressSidePanel` - Panel displaying the user's academic progress and fundamental details (Eg. CAP).
+
+The `MainWindow` coordinates the development between the backend and frontend components to induce a visible change to the interface.
+
+This is done through the `executeCommand(String commandText, Model model)` method. Upon user input, the `logic` class
+executes the command in `commandText`, and the model is updated to reflect the changes. Subsequently, after the model
+has been updated, the following UI classes `ResultDisplay` and `ProgressSidePanel` are refreshed as a result.
+
+==== AvatarSelectionPanel
+
+The `AvatarSelectionPanel` class displays the avatar selection screen upon first-time startup. Users will choose an
+that will act as a guide throughout their usage of the application.
+
+==== CommandBox
+
+The `CommandBox` class contains an editable `TextArea` JavaFX component which allows the user to enter input commands.
+
+==== CommandReceivedPanel
+The `CommandReceivedPanel` class contains a panel that shows the last command entered into the system.
+
+Here is an example of how the `CommandReceivedPanel` works:
+[[fig-CommandReceivedPanelSequenceDiagram]]
+.CommandReceivedPanel Updating from Received Command
+
+image::developer-guide/CommandReceivedSetCommand.png[]
+
+. Command executed on `MainWindow`.
+. `MainWindow` calls the method `refreshCommandReceivedPanel`, which refreshes the `CommandReceivedPanel`.
+. `CommandReceivedPanel` updates its JavaFX `Label` with the `String` of the command given.
+. `CommandReceivedPanel` displays visible change on the interface.
+. `refreshCommandReceivedPanel` ends execution.
+
+==== ResultDisplay
+The `ResultDisplay` class shows the resultant message generated from the user's input.
+The avatar will also showcase a different expression according to the success of the command given.
+
+Here is an example of how the `ResultDisplay` works:
+[[fig-ResultDisplaySequenceDiagram]]
+.ResultDisplay Updating from Received Command
+
+image::developer-guide/ResultDisplayHandleCommand.png[]
+
+. Command executed on `MainWindow`.
+. `MainWindow` calls the method `refreshResultDisplayAvatar`, which refreshes the `Avatar` in `ResultDisplay`.
+. `ResultDisplay` updates its JavaFX `ImageView` according to the `Avatar` of the command given. In this case, when no
+exception is thrown, the `Avatar` displays that of a positive expression.
+. `refreshResultDisplayAvatar` ends execution.
+. `ResultDisplay` displays visible change on the interface.
+. `MainWindow` calls the method `refreshResultDisplay`, which refreshes the resultant message displayed in `ResultDisplay`.
+. `ResultDisplay` updates its JavaFX `TextArea` according to the `CommandResult` of the command given. In this case, the
+TextArea will display the 'success' message generated as a result of the command.
+. `ResultDisplay` displays visible change on the interface.
+. `refreshResultDisplay` ends execution.
+
+==== ModuleListPanel
+The `ModuleListPanel` class contains the `ObservableList<Module>`  JavaFX component allowing for a list view of the
+components inside it, in this case, a list of `ModuleCard` objects.
+
+The contents of the list are dependent on the `modules` that the user has input into the system. Each module will be
+displayed as a `ModuleCard` object.
+
+==== RequirementListPanel
+The `RequirementListPanel` class contains the `ObservableList<Requirement` JavaFX component allowing for a list view of
+the components inside it, in this case, a list of `RequirementCard` objects.
+
+The contents of the list are dependent on the `requirements` that the user has input into the system. Each requirement
+will be displayed as a `RequirementCard` object.
+
+==== ProgressSidePanel
+The `ProgressSidePanel` class contains the user's academic progress, as well as essential information. The following
+information is displayed on the `ProgressSidePanel`:
+
+* `Course` name
+* Inspiring quote from `QuoteGenerator`
+* Modular Credits Progress Indicator
+* `Semesters` left
+* Current Cumulative Average Point (C.A.P)
+
+Here is an example of how the `ProgressSidePanel` works:
+
+[[fig-ProgressPanelUpdateProgress]]
+.ProgressSidePanel Updating from Received Command
+
+image::developer-guide/ProgressPanelUpdateProgress.png[]
+
+. Command executed on `MainWindow`.
+. `Model` is updated.
+. `MainWindow` calls the method `refreshProgressPanel`, which refreshes the `ProgressSidePanel`.
+. `ProgressSidePanel` uses `Model` to obtain the corresponding `CourseInfo` information:
+.. `Name`
+.. `Credits`
+.. `Cap`
+.. `Semesters`
+. `ProgressSidePanel` executes corresponding JavaFX methods to update displayed information.
+. `ProgressSidePanel` shows visible change on the interface.
+. `refreshProgressPanel` ends execution.
+
+==== Other Components
+In addition to the main UI components grouped in the `MainWindow` class, these are the other UI components that are
+relevant to the interface:
+
+* `AvatarImage` - Contains the image of the avatar.
+* `ModuleCard` - Individual card containing the relevant information of the module. List of `ModuleCard` contained in the `ModuleListPanel`.
+* `RequirementCard` - Individual card containing the relevant information of the requirement. List of `RequirementCards`  contained in the `RequirementListPanel`.
+* `HelpWindow` - Pop-up window containing the link the User Guide, as well as a list of all the commands in the application.
+
+//end::ui[]
+
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::developer-guide/LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/igrad/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+. `Logic` uses the `CourseBookParser` class to parse the user command.
+. This results in a `Command` object which is executed by the `LogicManager`.
+. The command execution can affect the `Model` (e.g. adding a module).
+. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::developer-guide/DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `ModuleDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
+anchor:anchor-tag-a[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+.Structure of the Model Component
+image::developer-guide/ModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/igrad/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Course Book data.
+* exposes an unmodifiable `ObservableList<Requirement>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Module>` that can be 'observed'.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Course Book`, which `Module` can reference.
+This would allow `Course Book` to only require one `Tag` object per unique `Tag`, instead of each `Module` needing their own `Tag` object.
+An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:developer-guide/BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::developer-guide/StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/igrad/memo/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Course Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `iGrad.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+//tag::course-feature-dg[]
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+=== Course Feature
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+As per the Model diagram xref:anchor-tag-a[above], there is only one `CourseBook` in the system.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+A `CourseBook` represents all information related to helping a user track her graduation
+requirements, including the following:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+** One `UniqueModuleList`, consisting of all xref:anchor-tag-b[`Modules`] in the system,
+which may or may not be mapped to any (degree) xref:anchor-tag-c[`Requirement(s)`]
+** One `UniqueRequirementList`, consisting of all (degree) xref:anchor-tag-c[`Requirements`]
+** One `CourseInfo`, representing important information related to a degree course, which
+would be detailed more in this section
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+==== Implementation
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
 
-image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+In the implementation of the course feature which 'houses' the various xref:anchor-tag-c[`Requirements`]
+and the xref:anchor-tag-b[`Modules`] mapped under those requirements, a `CourseInfo` class is
+necessary in order to represent overall course information, such as the name of the course, the
+current cap of the student (or user), the total credits (MCs) fulfilled/required, and
+semesters left before she could graduate.
 
-image::UndoRedoState1.png[]
+These important information are encapsulated in the `CourseInfo` class which should only
+have one `Name`, one `Cap`, one `Credits` and one `Semesters` object(s), at any one time:
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+.Structure of CourseInfo Class
+image::developer-guide/CourseInfoClassDiagram.png[]
 
-image::UndoRedoState2.png[]
+Also, as per the diagram above, we note that these fields (in a `CourseInfo`) are optional,
+because a user might not even have a course set in the first place. This occurs when the
+application is started out in a 'blank' state, with no initial or sample data.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Now, to describe more of this `CourseInfo` class, its fields, the following two sub-sections would
+detail the `Credits` and `Semesters` classes and their design.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Thereafter, the next two sub-sections would attempt to explain the mechanics of the two crucial static
+methods `computeCredits(...)` and `computeCap(...)`, which is used
+throughout the application.
 
-image::UndoRedoState3.png[]
+Finally, the last two sections would be dedicated to elaborating how the various
+course commands; `course edit` and `course achieve` works.
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+===== Credits
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
 
-The following sequence diagram shows how the undo operation works:
+.Course Credits Class Diagram
+image::developer-guide/CourseCreditsClassDiagram.png[]
 
-image::UndoSequenceDiagram.png[]
+The `Credits` class maintains 2 integers; `creditsRequired` and `creditsFulfilled`, for
+storing both the total number of course credits (MCs) required for graduation,
+and also the number credits the user has fulfilled thus far, respectively.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+Also, it some `public` validation methods (`isValidCreditsFulfilled()` and `isValidCreditsFulfilled()`)
+which is used in the constructor for constructing a 'valid' `Credits` object.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The following constraints defines a 'valid' `Credits` object:
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+* `creditsRequired` > 0
+* `creditsFulfilled` >= 0
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Note that `creditsFulfilled` can be *more than or equals* to `creditsRequired`, as it is
+possible that a student 'over-fulfills' the graduation requirements in her course.
 
-image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+The following are some noteworthy details on the `Credits` class/object:
 
-image::UndoRedoState5.png[]
+anchor:anchor-tag-f[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+* `Credits` is recomputed through the xref:anchor-tag-d[`computeCredits(...)`] method in
+`CourseInfo` (whenever there is a possible change). This newly recomputed `Credits` object would be
+subsequently updated in the `CourseInfo`
 
-image::CommitActivityDiagram.png[]
+anchor:anchor-tag-g[]
+
+* `creditsRequired` is recomputed by summing all the `creditsRequired` of the
+individual `Requirements` in the `UniqueRequirementList`
+
+* `creditsFulfilled` is recomputed in the same way as `creditsFulfilled`
+
+* In the `CourseInfo` class, `Credits` is first initialized (to some non-empty value) only when the
+following conditions have been met:
+
+** The user has already set a course, through the `course set` command.
+
+** There is at least one `Requirement` in the `UniqueRequirementList`,` by which `creditsRequired`
+and `creditsFulfilled` could be re/computed.
+
+//end::course-feature-dg[]
+
+===== Semesters
+
+//tag::semesters[]
+
+Section by: https://github.com/teriaiw[Teri]
+
+.Course Semesters Class Diagram
+image::developer-guide/CourseSemestersClassDiagram.png[]
+
+`Semesters` stores the total semesters and remaining semesters that a user has in the course.
+
+The following are some noteworthy details on the `Semesters` class/object:
+
+* `Semesters` is first initialized when user does command `course set`. `totalSemesters` will be equal to
+`remainingSemesters` as user has not entered any other data to indicate completion of semesters.
+* `Semesters` is updated through method `computeSemesters` in `CourseInfo`.
+* `totalSemesters` is changed by user through the command `course edit`.
+* `remainingSemesters` is computed by method `computeRemainingSemesters`. This method uses the `moduleList`
+to check for `module` that has `Semester` and `Grade`. The `module` which fulfils the mentioned and has the latest
+`Semester` will be taken as the latest completed semester.
+
+//end::semesters[]
+
+//tag::course-compute-credits-cap-dg[]
+
+anchor:anchor-tag-d[]
+
+===== Compute Credits
+
+In this section, we describe how `computeCredits(requirement: Requirement[])` works to recompute
+the latest `Credits`.
+
+As previously xref:anchor-tag-f[mentioned], this method is invoked everytime there is a
+possible change in the total course `Credits`.
+
+This might be caused through the following commands:
+
+* `module done` where a `Module` is attributed a grade and marked done. Resultantly, all
+`Requirements` in the `UniqueRequirementList`, consisting of that `Module` would have to be updated.
+Also, but most importantly, the `creditsFulfilled` attribute of those `Requirements` would
+have to be updated, causing an eventual change in the total course `creditsFulfilled` of `Credits`
+(in `CourseInfo`).
+
+* `requirement un/assign` where `Module(s)` are assigned to that particular requirement, where
+some `Modules` might have already been marked as done and given a grade, hence falling back
+to the first scenario, where `creditsFulfilled` of a course would have to be updated.
+
+* `requirement edit` where the `creditsRequired` attribute of that requirement might be
+updated, resulting in the need to update the overall course `creditsRequired` as well
+
+* And many others such as; `requirement add`, `requirement delete`, `module edit`, `module delete`
+
+Now, we have specified the possible scenarios where `computeCredits(...)` might have to be
+invoked to update `Credits` of `CourseInfo`, however we have not described how it actually works.
+
+As from our previous xref:anchor-tag-g[discussion], we note that `creditsFulfilled` and
+`creditsRequired` is computed through summing up the `creditsFulfilled` and `creditsRequired`
+for the individual `Requirements`.
+
+More formally, the interactions between the various classes, for the computation to be
+performed are as such:
+
+.Sequence Diagram for computing updated credits
+image::developer-guide/ComputeCreditsSequenceDiagram.png[]
+
+===== Compute Cap
+
+Similar to <<Compute Credits>>, `Cap` has to be updated frequently, each time module information
+in `coursebook` changes, and the `computeCap(...)` method facilitates the recomputation of the
+updated `Cap`.
+
+The diagram below describes the interactions between the various classes, as the computation
+is performed:
+
+.Sequence Diagram for computing updated cap
+image::developer-guide/ComputeCapSequenceDiagram.png[]
+
+We note that from above, `CourseInfo` does most of the interfacing with other classes,
+and the rest of the classes don't interact with each another.
+
+In summary, the following steps are performed as `computeCap(...)` is invoked:
+
+(For each `Module` in the `moduleList`):
+
+. `CourseInfo` first iterates through `reqList` to determine if a `Module` belongs to any `Requirement`
+. If it does, `CourseInfo` again interfaces with `Module` to extract its `Grade`.
+. Finally, `CourseInfo` interacts with `Grade` to determine if the `Grade` is a non-SU grade.
+. If the `Grade` is non-SU, the `Module` is factored into Cap computation.
+
+//end::course-compute-credits-cap-dg[]
+
+//tag::courseedit[]
+==== Course Edit
+Section by: https://github.com/teriaiw[Teri]
+
+===== Overview
+Users can edit their course info, which are `Name` and `Semesters` by using the `course edit` command.
+
+===== Implementation
+Here is how the courseInfo class updates when name and semesters of course is edited.
+
+.Sequence Diagram when editing course name and course semesters.
+image::developer-guide/CourseEditSequenceDiagram.png[]
+
+When a user edits a course, the user has to specify the prefix `n/` for `Name` or `s/` prefix
+for `Semesters`.
+
+Then the application proceeds to do the following steps:
+
+. The `CourseEditCommandParser` is called to parse the `CourseEditCommand` with the `n/` and `s/` prefix.
+. The `CourseEditCommand` is executed and calls `setCourseInfo` to `Model`.
+. `Model` calls the same method `setCourseInfo` to `CourseBook`.
+. The new course `Name` and course `Semesters` is set in the `CourseBook`.
+
+//end::courseedit[]
+
+//tag::courseachieve[]
+==== Course Achieve
+Section by: https://github.com/teriaiw[Teri]
+
+===== Overview
+Users can get an automatic calculation of their desired C.A.P. by using the `course achieve` command and
+entering their desired `Cap`.
+
+===== Implementation
+The computation of C.A.P. is done through `computeEstimatedCap` in `courseInfo` which uses `Semesters`
+and `Cap` of `courseInfo`.
+
+.Course Achieve Logic Sequence Diagram
+image::developer-guide/CourseAchieveSequenceDiagram.png[]
+When a user wants to calculate achievable C.A.P., the user has to specify the prefix `c/` for `Cap`.
+Then the application proceeds to do the following steps:
+
+. The `CourseAchieveCommandParser` is called to parse the `CourseAchieveCommand` with the `c/` prefix.
+. The `CourseAchieveCommand` is executed and it calls method `getCourseInfo` in `Model` to get `CourseInfo`.
+. The `CourseAchieveCommand` then proceeds to call method `computeEstimatedCap` in `CourseInfo`.
+. The `CourseAchieveCommand` then passes the computed result to `CommandResult`
+
+The below is a detailed description of what happens inside the `Model`:
+
+.Course Achieve Model Sequence Diagram
+image::developer-guide/CourseAchieveSequenceDiagram2.png[]
+
+. After the execute call, the `CourseAchieveCommand` calls method `getCourseInfo` in `Model`.
+. `Model` then calls the same method `getCourseInfo` to `CourseBook` to retrieve `CourseInfo`.
+. With the `CourseInfo` and `Cap`, `CourseAchieveCommand` calls method `computeEstimatedCap` in `CourseInfo`.
+. `CourseInfo` calls method `getSemesters` and `getCap` to itself to get the following information:
+... `Semesters`
+... `Cap`
+. `computeEstimmatedCap` computes and returns estimate `Cap`.
+. The result is passed back to `CourseAchieveCommand`, which passes to `CommandResult` and eventually returns to
+the user.
+
+===== Design Considerations
+
+*Invalid and Unachievable C.A.P.*
+
+It is possible that a calculated `Cap` to achieve is not a valid `Cap`. In such situations, an exception is
+thrown within the `computeEstimatedCap` command and it is caught in the `CourseAchieveCommand`. User will be
+given feedback that the desired C.A.P. is not achievable.
+
+The figure below illustrates this:
+
+.Course Achieve Activity Diagram
+image::developer-guide/CourseAchieveActivityDiagram.png[]
+
+Therefore, there are three types of result displayed to User:
+
+. When User enters invalid Cap to achieve
+. When computed Cap is invalid
+. When computed Cap is valid
+//end::courseachieve[]
+
+'''
+
+anchor:anchor-tag-b[]
+
+//tag::module[]
+
+=== Module Feature
+Section by: https://github.com/waynewee[Wayne]
+
+==== Module Component
+
+The `Module` component is the building block of all other components in the system.
+In order to track the number of `credits` left to fulfill
+for each `requirement`, each `module` is stored in a `UniqueModuleList` and the `credits` tied to each
+`module` is then tabulated.
+
+Besides being necessary in tracking the amount of credits left for a `requirement`, `modules` are also
+used to decide which `semester` the user is currently in. When a `semester` is tagged to a `module`, either when
+a new `module` is added or an existing `module` is edited, the latest `semester` of all `modules` in the `filteredList` of modules is taken
+to be the current semester.
+
+A module must have the following non-optional values:
+
+|===
+|Value Type|Class Name|Example
+
+|String|Title|Software Engineering
+|String|ModuleCode| CS2103T
+|String| Credits| 4
+|List|ModulePrerequisites| CS2030, CS2040
+|List|ModulePreclusions| CS2103, CS2103T, CS2113T, CS2113
+|===
+
+A module may also have the following optional values:
+
+|===
+|Value Type|Class Name|Example
+
+|String|Semester|Y3S1
+|String|Grade| A+
+|===
+
+<<moduleClassDiagram>> illustrates the relation between the various classes:
+
+[#moduleClassDiagram]
+.Module Class Diagram
+image::developer-guide/ModuleClassDiagram.png[]
+
+//tag::wayne-ug[]
+==== Module Add Auto
+Section by: https://github.com/waynewee[Wayne]
+
+===== Overview
+
+The "automatic" addition of `modules` allows users to add up to 10 `modules` at once with all non-optional values filled in.
+This is done by making a HTTP GET request to the https://api.nusmods.com/[NUSMods API] and fetching the module data
+given in a JSON format.
+
+===== Implementation
+
+The automatic filling in of `module` details on addition of a new `module` is facilitated by `NusModsRequester`.
+It creates a new instance of `GetRequestManager` which it relies on to make a request to the https://api.nusmods.com/[NUSMods API].
+Upon receiving a response, it creates an instance of JsonParsedModule.
+
+`JsonParsedModule` parses the JSON object given in the response of the initial request and stores the following values:
+
+[#JsonParsedModuleTableOfValues]
+.JsonParsedModule Table of Values
+|===
+|Value Type|Name|Example
+
+|String|title|Software Engineering
+|String|moduleCode|CS2103T
+|String|credits|4
+|String|prerequisite| CS2040C or (CS2030 and (CS2040 or its equivalent))
+|String|preclusion| CS2103, CS2103T, (CS2113T for CS2113), (CS2113 for CS2113T)
+|===
+
+NOTE: <<JsonParsedModuleTableOfValues>> illustrates the difficulty in parsing `prerequisites` and `preclusions` as
+the data provided is not in a standard format
+
+The created `JsonParsedModule` object is then converted into a `Module` object, which is subsequently added
+to the `courseBook` via the method `addModule` of the `ModelManager`.
+
+<<moduleAddAutoSequenceDiagram>> illustrates this:
+
+[#moduleAddAutoSequenceDiagram]
+.Module Add Auto Sequence Diagram
+image::developer-guide/ModuleAddAutoSequenceDiagram.png[]
+
+===== Design Considerations
+
+Most of the design considerations arose as a result of having to make a network request.
+
+*A _secondary_ module addition feature*
+
+As with all network requests, this feature might not work as intended in certain circumstances. Possible cases are:
+
+1. High Network Congestion
+
+2. Poor Network Connection
+
+3. NUSMods Offline
+
+In such situations, it becomes difficult or impossible to carry out the addition of `modules` using this command.
+Therefore, this feature was built on top of the primary `module add` feature, ensuring that the user
+could still manage to add `modules` even when faced with the issues as listed above.
+
+The use case for this situation is as follows:
+
+'''
+System: iGrad
+
+Use case: UCM1 - Add module via NUSMods
+
+Actor: User, NUSMods
+
+MSS:
+
+1. User wants to add a module.
+
+2. iGrad requires user to specify the module codes.
+
+3. User enters the module codes corresponding to the modules
+he wishes to add.
+
+4. iGrad sends a request to NUSMods.
+
+5. NUSMods responds with the requested data.
+
+6. iGrad adds the module to the module list.
+
+7. User views the module in the module list.
+
+Use case ends.
+
+Extensions:
+
+5a. NUSMods does not respond with the requested data.
+
+5a1. User adds module manually
+
+[#moduleAutoAddUseCaseDiagram]
+.Module Auto Add Use Case Diagram
+image::developer-guide/ModuleAutoAddUseCaseDiagram.png[]
+
+//end::wayne-ug[]
+'''
+*Messages for individual modules*
+
+As this feature allows a user to add `modules` by batches, it is possible that one or more `modules` in
+the batch are invalid or require warning messages. In order to facilitate this, the processing of the list of `modules` and the
+generation of error and warning messages were done in parallel. This was because if the list of `modules` was processed first,
+`modules` with issues would be filtered out without notice, leading to a confusing user experience.
+
+[#moduleAddAutoBatchProcessing]
+.Module Add Auto Batch Processing
+image::developer-guide/ModuleAddAutoBatchActivityDiagram.png[]
+
+*Improving the user experience [PROPOSED]*
+
+Due to network latency - the Round Trip Time taken from when a request is made to when a response is
+received - the user might experience a situation where it appears that the application has stopped working.
+
+For a large batch of `modules`, the application might also display a _not responding_ label in the toolbar.
+In order to improve the user experience, it is ideal that a loader be displayed when waiting for the response from the server.
+However, due to time constraints, this was not implemented.
+
+*Getting the latest data [DEPRECATED]*
+
+Past iterations of this feature made a maximum of two requests for one `module`. The first request would
+attempt to get the `module` for the current academic year, whilst the second request attempted to get
+the `module` for the previous academic year, in the event the module for the current academic year was not available.
+
+This process is illustrated in <<previousImplementationOfModuleAddAuto>>. However, it was decided
+that the benefits of making a maximum of one request outweighed that of getting the latest module information and thus,
+currently only one request is made.
+
+[#previousImplementationOfModuleAddAuto]
+.Previous implementation of Module Add Auto
+image::developer-guide/ModuleAddAutoActivityDiagram.png[]
+
+
+==== Module Filter
+
+===== Overview
+
+The average number of `modules` a student has for a 4 year program in NUS is 40. The application window, however, can display
+a maximum of 9 `modules` for a 17" screen and considerably less for smaller displays. As a result, it is imperative that users have
+a way to filter `modules` so that only what is required is displayed.
+
+===== Implementation
+
+The filtering of modules is done by calling the `execute` function of `ModuleFilterCommand`.`ModuleFilterCommand` takes in
+optional parameters `Semester`, `Credits`, `Grade` and an operator, which could be `AND` or `OR`. The `ModuleFilterCommand` then
+calls `updateFilteredModuleList` on the `Model` such that the `Model` updates the `filteredList` based on the predicates provided.
+The `ModuleFilterCommand` then calls `getFilteredModuleList()` to check if the filter was applied successfully.
+
+The matching is done by the functions `checkSemesterMatch(Module m)`, `checkCreditsMatch(Module m)` and `checkGradeMatch(Module m)`. Unlike
+the other two functions, `checkCreditsMatch(Module m)` does not check if the actual `credits` for a module is present since the
+`credits` field in a module is compulsory.
+
+The `AND` operator specifies that the provided parameters be chained with the logical _and_ operator.
+
+The `OR` operator specifies that provided parameters be chained with the logical _or_ operator.
+
+When the filter command is issued, the `Model` updates the module list based on the predicate given. <<moduleFilterSequenceDiagram>>
+illustrates this sequence of events:
+[#moduleFilterSequenceDiagram]
+.Module Filter Sequence Diagram
+image::developer-guide/ModuleFilterSequenceDiagram.png[]
+
+===== Design Considerations
+
+*Resetting the state*
+
+When this command is issued, the modules that do not match the predicate given will disappear from the module list.
+It is thus necessary to allow the user to issue a new command in order to view all the modules again.
+
+Whilst creating a new command such as `module reset` was proposed, it was decided that a new command would only serve to
+make the user experience more complicated than it should be.
+
+Therefore, an allowance was made for `module filter` to reset the state when receiving no parameters, a divergence from
+the way other functions handled the situation of empty parameters.
+
+<<moduleFilterActivityDiagram>> illustrates this clearly:
+
+[#moduleFilterActivityDiagram]
+.Module Filter Activity Diagram
+image::developer-guide/ModuleFilterActivityDiagram.png[]
+
+The `filteredList` of `modules` therefore takes three general states (see <<moduleFilterStateDiagram>>):
+
+1. Initial State
++
+The `module` list is unfiltered. All `modules` are displayed.
+
+2. Filtered by `AND` State
++
+The `module` list is filtered by a predicate composed of the provided parameters
+chained together with the logical _and_ operator
+
+3. Filtered by `OR` State
++
+The `module` list is filtered by a predicate composed of the provided parameters
+chained together with the logical _or_ operator
+
+[#moduleFilterStateDiagram]
+.Module Filter State Diagram
+image::developer-guide/ModuleFilterStateDiagram.png[]
+
+*Displaying Filter State [PROPOSED]*
+
+An issue with the filtering of modules is that when the current state is not obvious, the
+user might lose track of what the module list is filtering on. To solve this problem,
+it would be an improvement to display the current state prominently to the user.
+
+//tag::module-done-dg[]
+
+==== Module Done
+
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
+
+===== Overview
+
+This feature enables students to mark a module which they have completed with a certain grade.
+Once a module is marked 'done', it would be counted to graduation requirements.
+
+===== Implementation
+
+Trivial as it might seem, there are actually quite a number of `coursebook` data which needs to
+be updated when a module is marked 'done'.
+
+This includes the `Module` itself, the various `Requirements` in the `UniqueRequirementList`,
+and the `CourseInfo`.
+
+The following diagram illustrates this:
+
+.Module Done Sequence Diagram
+image::developer-guide/ModuleDoneActivityDiagram.png[]
+
+As from the above, there are two possible scenarios; either a `Module` belongs to at least one
+`Requirement` or that it does not belong to any `Requirement`.
+
+In the latter case, calls to methods which update `CourseInfo` would be immediately invoked,
+bypassing the updating of the `Requirement(s)`.
+
+//end::module-done-dg[]
+
+'''
+
+anchor:anchor-tag-c[]
+
+//end::requirement-yijie[]
+=== Requirement Feature
+Section by: https://github.com/yjskrs[Yijie]
+
+The `Requirement` feature bridges the connection between a `Module` and a `Course`. A `Requirement` represents
+a category with a set amount of modular credits needed to be fulfilled in order to graduate. By
+adding modules to a `Requirement`, these modules are tracked under the modular credits needed to fulfill
+the `Requirement`, as well as the total modular credits needed to fulfill the `Course`.
+
+Multiple requirements can exist in a `Course`. When all requirements have been fulfilled,
+we indicate that the `Course` has been completed.
+
+//tag::RequirementImplementation[]
+==== Implementation
+Section by: https://github.com/yjskrs[Yijie]
+
+The `Requirement` component contains 4 sub-components: `RequirementCode`, `Title`, `Credits` and `UniqueModuleList`.
+All four sub-components are compulsory and must always be specified in a `Requirement`. The properties of these four
+sub-components are specified in the table below:
+
+[#tableRequirementComponentProperties]
+.Requirement Component Properties.
+|===
+|Class Name |Properties |Example
+
+|`RequirementCode` |The *unique* identifier of a requirement.
+
+Implemented to allow users to easily specify the requirement they want to modify or remove. See xref:requirementCodeDesignConsiderations[Requirement Code Design Considerations].
+
+|CSF0
+
+|`Title` |The title of a requirement.
+
+Does not have to be unique.
+
+|Computer Science Foundation
+
+|`Credits` |The credits of a requirement, |40
+|`UniqueModuleList` |The list of modules assigned to a requirement. |List containing modules CS1101S, CS2101, CS2103T
+|===
+
+When a `Module` is added to a `Requirement`, the `UniqueModuleList` is updated with the new `Module`.
+At the same time, the `creditsAssigned` property of the `Credits` class also updates accordingly. If
+the `Module` is completed, the `creditsFulfilled` property of `Credits` also updates to add the
+credits of the `Module`. For example, if a module with 4 modular credits was marked as done and assigned
+to a `Requirement`, `creditsAssigned` and `creditsFulfilled` would both increase by 4.
+
+The class diagram below illustrates the relationship between `Requirement` components.
+
+[#requirementClassDiagram]
+.Structure of the Requirement class.
+image::developer-guide/RequirementClassDiagram.png[]
+
+`Requirement` commands that are available are:
+
+* `requirement add` - adds a new requirement to the course book
+* `requirement edit` - edits an existing requirement in the course book
+* `requirement delete` - deletes an existing requirement from the course book
+* `requirement assign` - assigns module(s) to the requirement
+
+//tag::RequirementAdd[]
+==== Requirement Add
+Section by: https://github.com/yjskrs[Yijie]
+
+===== Overview
+The `requirement add` command adds a `Requirement` to the `Course`. The `Credits` information held by the `Course`
+is updated to reflect the total modular credits required to complete the course.
+
+===== Implementation
+When a user enters a `requirement add` command, the parameters specified by the user, i.e. the requirement title
+and the requirement credits required to fulfill the `Requirement`, are passed to the `LogicManager`,
+`CourseBookParser` and subsequently into the `RequirementAddCommandParser` where the parameters are extracted
+and parsed into `Title` and `Credits` objects.
+
+The `RequirementCode` is generated at this stage by using the first letter of every word in the
+title parameter passed in, upper-cased. For example, if the title provided is "Computer Science Foundation",
+the `RequirementCode` generated would be `CSF`. Similarly, if the title provided is "3Computer Science 4Foundation",
+the `RequirementCode` generated would still be `CSF` because non-alphabets in the title are ignored.
+
+The parsed `Title`, `Credits` and the generated `RequirementCode` are used to create a `RequirementAddCommand` object,
+which is later executed by the `LogicManager`, as shown in the
+xref:requirementAddSequenceDiagram[Requirement Add Sequence Diagram] below.
+
+When the command is executed by the `LogicManager`, the new `Requirement` is created and
+stored in the `CourseBook` through the `Model`.
+
+[#requirementAddSequenceDiagram]
+.Sequence Diagram when adding a requirement.
+image::developer-guide/RequirementAddSequenceDiagram.png[]
+
+===== Design Considerations
+
+[#requirementCodeDesignConsiderations]
+====== Requirement Code
+
+Originally, we chose to use the requirement `Title` as the *unique* identifier for requirements, which means that
+specifying a `Requirement` to be modified or deleted would be handled by entering the `Title`. However, we realised
+that that was a big deterrent in users staying on our application in the long run. The reason is because requirement
+titles are generally long, and often require more than one word to be expressed. For example, typing "Computer
+Science Foundation" or "Computer Science Breadth and Depth" every time a module was to be assigned to a requirement
+would require a relatively long time, and would violate our xref:nonFunctionalRequirements[Non-Functional Requirement]
+of providing users with an application which can be navigated quickly through typing.
+
+Hence, we chose the design of providing users with a `RequirementCode`, the *unique* identifier which allows
+users to quickly access the `Requirement` they want to modify or delete.
+
+In order to make the `RequirementCode` strictly *unique*, further parsing is performed on the `RequirementCode`
+generated by the `RequirementAddCommandParser`. When the `RequirementAddCommand` is executed by the `LogicManager`,
+a new `RequirementCode` is generated, as shown in the
+xref:requirementAddSequenceDiagram[Requirement Add Sequence Diagram], by appending an integer to the back of
+the original `RequirementCode`. This is necessary as multiple requirements with the same starting alphabets
+may exist, so we need to allow users to differentiate amongst such requirements. Furthermore, users are also
+allowed to add requirements with the same `Title` to enhance the flexibility of adding requirements, so the
+`RequirementCode` also allows users to differentiate amongst these requirements.
+
+The use case for adding a requirement is as follows:
+
+System: iGrad
+
+Use case: UCR1 - Add requirement
+
+Actor: User
+
+MSS:
+
+1. User requests to add a requirement.
+
+2. iGrad requires user to enter a requirement title and credits.
+
+3. User enters the title and credits.
+
+4. iGrad creates the requirement.
+
+5. Use case ends.
+
+Extensions:
+
+3a. The requirement title is not provided.
+
+3a1. iGrad prompts user for requirement title.
+
+3a2. User enters a requirement title.
+
+Steps 3a1-3a2 are repeated until a valid requirement title is provided.
+
+Use case resumes at step 4.
+
+Below displays the activity diagram for adding a requirement.
+
+.Activity Diagram when adding a requirement.
+image::developer-guide/RequirementAddActivityDiagram.png[]
+
+//end::requirement-yijie[]
+
+//tag::requirement-assign-dg[]
+
+==== Requirement Assign
+
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
+
+===== Overview
+
+This feature allows `Module(s)` to be assigned or mapped under a `Requirement`.
+
+===== Implementation
+
+We note that as like the `module done` command, a few pieces of information in the
+`coursebook` would have to be updated.
+
+The command-parsing-execute mechanism is largely similar to `requirement add` the above, however,
+we would like to focus more on the activities (such as validations, etc) that happens
+at the `Model` side.
+
+The following diagram details this:
+
+.Activity Diagram when assigning modules under a requirement.
+image::developer-guide/RequirementAssignActivityDiagram.png[]
+
+Hence as per the diagram, we observe that modules are assigned to a `Requirement`
+on the following two conditions:
+
+. All `Modules` to assign are existent in the `coursebook` (more specifically, the `UniqueModuleList`)
+. `Modules` have not already been previously assigned to that `Requirement`
+
+//end::requirement-assign-dg[]
+
+'''
+
+=== Export Feature
+Section by: https://github.com/waynewee[Wayne]
+
+==== Overview
+
+The export feature allows the user to export their data into a .csv file.
+
+==== Implementation
+
+The export feature is facilitated by the `CsvWriter`. The `ExportCommand` calls `exportModuleList()` on `ModelManager`,
+which then performs a filter on the `filteredList` of modules in order to filter out all modules where the `Optional<Semester>` object
+`isEmpty()`.
+
+The `ModelManager` allows for `write()` to be called on `CsvWriter` only if the `filteredList` has at least one module.
+
+<<exportSequenceDiagram>> shows the process of exporting modules with semesters:
+
+[#exportSequenceDiagram]
+.Export Sequence Diagram
+image::developer-guide/ExportSequenceDiagram.png[]
+
+Once the `CsvWriter` returns from `write()`, a file titled _study_plan.csv_ will be created in the top-level directory.
+
+The top-level directory has two states concerning the generated file (see <<exportStateDiagram>>):
+
+1. Empty State
++
+- does not contain the file study_plan.csv
+
+2. Non-empty State
++
+- contains the file study_plan.csv
+
+[#exportStateDiagram]
+.Export State Diagram
+image::developer-guide/ExportStateDiagram.png[]
+
+As seen in the figure, it is only possible to revert the state i.e. from Non-empty State to Empty State, by externally
+deleting the file.
+
+Additionally, if `export` is issued when there is an existing _study_plan.csv_, the current file will be overwritten.
+
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+*Writing and Reading Issues*
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+It is possible that the user has the _study_plan.csv_ file open while attempting to export data. The only known solution is
+for the user to close the file and issuing the command again.
+
+'''
+
+=== Undo Feature
+Section by: https://github.com/waynewee[Wayne]
+
+==== Overview
+
+The undo feature allows for the prior state of a `courseBook` to be saved and loaded from when needed.
+
+==== Implementation
+
+The undo mechanism is facilitated by the `ModelManager` and the `LogicManager`.
+
+The function `saveCourseBook()`, which composes the `storage` object, is used to save the previous state of the `coursebook`
+in the file _backup_coursebook.json_ when a new command is executed.
+
+The function `undoCourseBook()`, implemented by the `ModelManager`, reads from the file _backup_coursebook.json_ and restores
+the data by calling `setCourseBook()`
+
+Given below is an example usage scenario and how the undo mechanism behaves at each step:
+
+Step 1. The user starts up the application.
+
+image::developer-guide/UndoState0.png[]
+
+Step 2. The user issues the command `module delete CS2103T`. The previous state of the course book is stored into the file
+at `backup_coursebook.json` by `saveCourseBook()`. This state still contains the module CS2103T.
+
+image::developer-guide/UndoState1.png[]
+
+NOTE: When the `undo` command is executed, the state of the `courseBook` is not saved.
+
+Step 3. The user issues the command `undo`. The file at `backup_coursebook.json` is read from and loaded as the main `courseBook`
+to be read from.
+
+image::developer-guide/UndoState2.png[]
+
+Step 4. The `backupCourseBook` becomes the main `courseBook` and another instance of `courseBook` will be created as its
+backup if another command is issued.
+
+image::developer-guide/UndoState3.png[]
+
+The following sequence diagram shows how the undo operation works:
+
+image::developer-guide/UndoSequenceDiagram.png[]
+
+==== Design Considerations
+
+*How undo executes*
+
+* Option 1 (current choice): Saves the entire course book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+* Option 2: Individual command knows how to undo/]] by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the module being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+NOTE: While it is recognised that Option 1 may have performance issues in terms of memory, the actual implementation
+of the feature is unlikely to cause any memory issues. This is due to the fact that modules, requirements and other data
+users would require are limited to a degree which will not require large memory allocation.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+'''
 
-// tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -244,7 +1155,8 @@ _{Explain here how the data encryption feature will be implemented}_
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging.
+The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
@@ -279,104 +1191,191 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* is a NUS undergraduate
+* prefers desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: convenient course requirements tracker for NUS undergraduates
 
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+*Priorities*:
+
+* High (must have) - `* * *`
+* Medium (nice to have) - `* *`
+* Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a ... |I want to ... |So that I can ...
+|`* * *` |first-time user |create a course |
 
-|`* * *` |user |add a new person |
+|`* * *` |student |create a graduation requirement |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |student |input modules under a graduation requirement |keep track of when a graduation requirement is fulfilled
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |careless user |change the graduation requirements which I assigned to a course |amend any mistakes made when entering data
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |fickle user |change the modules which I assigned to a graduation requirement |change my study plan
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |fickle user |have the option to defer adding modules to a graduation requirement |delay making up my mind on which modules I wish to take
+
+|`* * *` |basic user |see information regarding the course I created, including graduation requirements, modules and gaps (e.g. modules that are unassigned) that need to be filled |
+
+|`* * *` |user |see the latest updated information about any module |make informed decisions
+
+|`* * *` |basic user |mark when a module is completed |
+
+|`* * *` |basic user |input the grades of a module |
+
+|`* *` |basic user |retrieve my CAP of any semester at a command |stay updated about my results
+
+|`* *` |user |input my desired CAP and have the program calculate what grades I need to achieve |find out how well I need to do in following semesters
+
+|`* *` |user |group modules by graduation requirement |view by requirement
+
+|`* *` |user |group modules by semester |view by semester
+
+|`*` |user who wants to take notes |record notes for each module |record why I took it
+
+|`*` |picky user |customize display settings |customize to my needs
+
+|`*` |advanced command line user |use familiar linux commands |navigate more easily
+
+|`*` |advanced command line user |I want certain keys to do the same things as they would in the terminal (e.g. arrowUp cycles through command history)
 |=======================================================================
 
-_{More to be added}_
+_{All user stories can be viewed from our wiki page and from our issues tracker.}_
 
 [appendix]
 == Use Cases
+Section by: https://github.com/yjskrs[Yijie]
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `iGrad` and the *Actor* is the `user`, unless specified otherwise.)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: U01 - Create Course
 
-*MSS*
+*MSS*:
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. iGrad starts up.
+2. User requests to create a course.
+3. iGrad creates the course.
 +
 Use case ends.
 
-*Extensions*
+*Extensions*:
 
 [none]
-* 2a. The list is empty.
+* 2a.
+The course name is not provided.
+** 2a1. iGrad prompts user for course name.
+** 2a2. User enters a course name.
++
+Steps 2a1-2a2 are repeated until the a non-empty course name is provided.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: U02 - Create Requirement
+
+*MSS*:
+
+1. User requests to create a course.
+2. iGrad creates course (UC01).
+3. User requests to create a requirement.
+4. iGrad creates the requirement.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Extensions*:
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 3a.
+The requirement title is not provided.
+** 3a1. iGrad prompts user for requirement title.
+** 3a2. User enters a requirement title.
++
+Steps 3a1-3a2 are repeated until the a non-empty requirement title is provided.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: U03 - Create Module
+
+*MSS*:
+
+1. User requests to create a module by providing a module code.
+2. iGrad creates the module with its data pulled from NUSMods.
++
+Use case ends.
+
+*Extensions*:
+
+[none]
+* 1a.
+Module data fails to get pulled due to network error.
+** 1a1. iGrad takes from its local module data copy.
++
+Use case ends.
+
+[none]
+* 1b.
+Module data does not exist on NUSMods.
+** 1b1. iGrad creates a empty module with only the module code.
++
+Use case ends.
+
+[discrete]
+=== Use case: U04 - Assign Module to Requirement
+
+*MSS*:
+
+1. User requests to assign a module to a requirement by specifying its module code.
+2. iGrad assigns module to requirement.
++
+Use case ends.
+
+*Extensions*:
+
+[none]
+* 1a.
+Module does not exist in system.
+** 1a1. iGrad creates the module (UC03).
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[none]
+* 1b.
+Module has already been assigned to the requirement.
+** 1b1. iGrad generates a warning and stops the assignment.
++
+Use case ends.
 
 [appendix]
+[#nonFunctionalRequirements]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+. Should be able to hold up to 100 modules without a noticeable sluggishness in performance (i.e. should take less than 1 second to load)
+. A user with above 70 wpm typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. The interface should be intuitive enough such that a user who has never seen the user guide is able to use the basic features.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
+[[mainstream-os]]
+Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
+[[private-contact-detail]]
+Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -393,33 +1392,31 @@ These instructions only provide a starting point for testers to work on; testers
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a module
 
-. Deleting a person while all persons are listed
+. Deleting a module while all modules are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all modules using the `list` command. Multiple modules in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First module is deleted from the list.
+Details of the deleted module shown in the status message.
+Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No module is deleted.
+Error details shown in the status message.
+Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

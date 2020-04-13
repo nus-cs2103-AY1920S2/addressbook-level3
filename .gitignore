@@ -2,11 +2,13 @@
 /.gradle/
 /build/
 src/main/resources/docs/
+src/main/main.iml
 
 # IDEA files
 /.idea/
 /out/
 /*.iml
+*.swp
 
 # Storage/log files
 /data/
@@ -19,3 +21,8 @@ src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+
+# files for testing
+study_plan.csv
+backup.json
+
