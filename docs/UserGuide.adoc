@@ -71,7 +71,7 @@ e.g. Entering *`help`* will open the help window.
 * **`list`** : lists all recipes
 * **`delete 3`** : deletes the 3rd recipe shown in the current list
 * **`undo`** : undoes the previous action
-* *`exit`* : exits the app
+* **`exit`** : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
