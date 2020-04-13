@@ -86,6 +86,67 @@ all add, edit, delete, assign, unassign, find, list, switch, clear-all commands
 user guide. Due to the page limit, I will only show the command summary table.* They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=commandsummary]
+== Command Summary
+
+.Summary of command formats
+[%autowidth]
+|=====
+| *Section* | *Command* |*Format* | *Example*
+
+.1+|Help
+|*Help* |`help` |`help`
+.2+|Undo/Redo
+|*Undo an undoable command* |`undo` |`undo`
+|*Redo a redoable command* |`redo` |`redo`
+.5+|Select item
+|*Select a Student* | `select sid/STUDENTID` |`select sid/1`
+|*Select a Staff* | `select tid/STAFFID` | `select tid/31`
+|*Select a Course* | `select cid/COURSEID` | `select cid/1`
+|*Select Assignment belonging to the Course of a Student:* | `select sid/STUDENTID cid/COURSEID` | `select sid/11 cid/1`
+|*Select Assignment belonging to the Student of a Course:* | `select cid/COURSEID sid/STUDENTID` | `select cid/1 sid/11`
+.6+|Switch tab
+|*Switch to Summary Tab* | `m` or `summary`  | `m` or `summary`
+|*Switch to Student Tab* | `s` or `student`  | `s` or `student`
+|*Switch to Staff Tab* | `t` or `staff`  | `t` or `staff`
+|*Switch to Course Tab* | `c` or `course`  | `c` or `course`
+|*Switch to Finance Tab* | `f` or `finance`  | `f` or `finance`
+|*Switch to Assignment Tab* | `a` or `assignment`  | `a` or `assignment`
+.6+|Assigning to Course
+|*Assign Student to a Course* | `assign cid/COURSEID sid/STUDENTID`  |`assign cid/829 sid/33`
+|*Assign Teacher to a Course* | `assign cid/COURSEID tid/TEACHERID`  | `assign cid/829 tid/21`
+|*Assign Assignment to a Course* | `assign cid/COURSEID aid/ASSIGNMENTID`  | `assign cid/829 aid/21`
+|*Unassign Student from a Course* | `unassign cid/COURSEID sid/STUDENTID`  |`unassign cid/829 sid/33`
+|*Unassign Teacher from a Course* | `unassign cid/COURSEID tid/TEACHERID`  | `unassign cid/829 tid/21`
+|*Unassign Assignment from a Course* | `unassign cid/COURSEID aid/ASSIGNMENTID`  | `unassign cid/829 aid/21`
+.5+|Student Commands
+|*Add Student* |`add-student n/NAME [t/TAG]…` | `add-student n/Jon Snow t/Hardworking`
+|*Delete Student* | `delete-student ID` | `delete-student 16100`
+|*Find Student* | `find-student KEYWORD [MORE_KEYWORDS]...` | `find-student Lannister Targaryen Stark`
+|*List Student* | `list-student` | `list-student`
+| *Edit Student* | `edit-student ID [n/NAME] [t/TAG]…` | `edit-student 16100 n/Aegon Targaryen t/knownothing`
+.5+|Teacher Commands
+|*Add Teacher* |`add-staff n/NAME [t/TAG]…` |`add-staff n/Jon Snow t/Hardworking`
+|*Delete Teacher* | `delete-staff ID` | `delete-staff 16100`
+|*Find Teacher* | `find-staff KEYWORD [MORE_KEYWORDS]...` | `find-staff Lannister Targaryen Stark`
+|*List Teacher* | `list-staff` | `list-staff`
+| *Edit Teacher* | `edit-staff ID [n/NAME] [t/TAG]…` | `edit-staff 16100 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
+.5+|Course Commands
+|*Add Course* |`add-course n/NAME a/AMOUNT [t/TAG]…` | `add-course n/Cozmo Programming a/2000 t/Fun t/Robot`
+|*Delete Course* | `delete-course ID` | `delete-course 16100`
+|*Find Course* | `find-course KEYWORD [MORE_KEYWORDS]...` | `find-course Java Python C`
+|*List Course* | `list-course` | `list-course`
+| *Edit Course* | `edit-course ID [n/NAME] [a/AMOUNT] [t/TAG]…` | `edit-course 16100 n/Java Programming a/2000`
+.8+|Finance Commands
+|*Add Finance Type 1 (ft/m)* |`add-finance ft/FINANCETYPE d/DATE n/NAME a/AMOUNT [t/TAG]...` |`add-finance ft/m d/2020-12-09 n/Paid NTU a/1200 t/Partnership t/Monthly`
+|*Add Finance Type 2 (ft/cs)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID sid/STUDENTID [t/TAG]...` |`add-finance ft/cs d/2020-12-09 cid/829 sid/33 t/Late`
+|*Add Finance Type 3 (ft/ct)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID tid/TEACHERID [t/TAG]...` |`add-finance ft/ct d/2020-12-09 cid/829 tid/21 t/Early`
+|*Delete Finance* | `delete-finance ID` | `delete-finance 16100`
+|*Find Finance* | `find-finance KEYWORD [MORE_KEYWORDS]...` | `find-finance Lannister Targaryen Stark`
+|*List Finance* | `list-finance` | `list-finance`
+|*Calculate Earnings* | `earnings` | `earnings`
+|*Calculate Expenses* | `expenses` | `expenses`
+// end::commandsummary[]
+|=======================================================================
+
 
 
