@@ -49,13 +49,19 @@ The relevant information from the events added are used in other features.
 The information being saved to the hard disk allows the user to make use of features through different uses.
 ** Highlights: This enhancement functions well with existing commands as it updates each Person with a Time, PlaceList and ActivityList variable that represents the time the user has spent with that person, the activities done with that person, and the places been to with that person respectively, in CoderLifeInsights which is displayed in each person's details.
 It also saves the added information to the hard disk. Many improvements and features such as Insights and Suggest stem from the data recorded by this command in the Person and Group objects.
-It required an in-depth analysis of design alternatives.
+It required an in-depth analysis of design alternatives. +
+This major enhancement took much effort as it required the implementation of 3 new classes.
+These 3 classes were used in the two entities, Person and Group.
+Also, the attributes added to the Person and Group class were also implemented in a way such that it would be saved to the Json file, as well as work with the import and exporting features.
+Significant architectural analysis was required to ensure these classes worked they way they were intended and did not break existing features of AB3 as they were integrated into the Person object.
+Furthermore, the data stored in these attributes were the backbone of a majority of all other features, which generated output through analysis of the data stored.
 
 === Minor enhancements:
 * *Minor enhancement #1*: Integrated the Add Event feature with the Import and Export feature.
 ** What it does: This enhancement made the Add Event feature work with the Import and Export features, allowing the information added and saved by this command to be imported and exported.
 ** Justification: This feature allows the user to not lose information from events added when switching computers.
-** Highlights: This enhancement functions well with existing commands. It required an in-depth analysis of design alternatives.
+** Highlights: This enhancement functions well with existing commands. It required an in-depth analysis of design alternatives. +
+This allowed the Time, PlaceList and ActivityList of each person saved in the Json file to be converted successfully to the CSV file.
 
 * *Minor enhancement #2*: Made the Add Event feature function properly with groups.
 ** What it does: This enhancement made the Add Event feature work with a Group object, and made information keyed in by users with the AddEventCommand function savable to the hard disk
@@ -66,6 +72,11 @@ It required an in-depth analysis of design alternatives.
 ** What it does: This enhancement allows the user to view the places visited and the activities done with a particular group. It also lists the number of times been to each place and number of times each activity is carried out with the group.
 ** Justification: This feature gives the user insights on the favourite places and activities of each group of friends in CoderLifeInsights.
 ** Highlights: This enhancement functions well with existing commands. It required an in-depth analysis of design alternatives.
+
+* *Minor enhancement #4*: Integration of the PlaceList and ActivityList classes with the Group entity
+** What it does: This enhancement integrated the PlaceList and ActivityList into the Group object. +
+It allowed relevant information to be added to a Group object, as well as ensured that the relevant data was stored to the Group object and Json file as well.
+** Highlights: This enhancement functions well with existing commands and features. It required an in-depth analysis of design alternatives.
 
 * *Code contributed*:[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=l2ejected&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
 
