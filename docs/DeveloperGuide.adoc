@@ -230,7 +230,7 @@ As seen from *Fig 6* below, the necessary preparations will be made before the s
 
 image::scheduleCommandExecution.png[align="center"]
 [.text-center]
-_Fig 6. Sequence Diagram showing the execution of the Schedule Command_
+_Fig 6. Sequence Diagram showing the execution of the ScheduleCommand_
 
 [.text-justify]
 The schedule generation process will be explained next and begins with Fig 7.
