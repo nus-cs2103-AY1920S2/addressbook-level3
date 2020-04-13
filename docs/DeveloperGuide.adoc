@@ -673,8 +673,6 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -694,16 +692,13 @@ _{More to be added}_
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 
-
-_{More to be added}_
-
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, OS-X
 
-[appendix]
+
 
 [appendix]
 == Instructions for Manual Testing
@@ -961,6 +956,17 @@ Expected: No restaurant deleted. Error details shown in the status message.
 .. Other incorrect commands to try: `(st)edit x` (where x is larger than the size of Schoolwork Tracker) +
    Expected: Same as above
 
+=== Generating schedule
+. Generates the user's schedule
+
+.. Prerequisites: There are assignments added to the SchoolworkTracker
+.. Test case: `(st)schedule n/5` +
+   Expected: The user's schedule for the next 5 days is displayed. For the query date, the total allocated hours should not exceed the amount of time remaining on query date.
+   For each assignment, the amount of time allocated to the day it is due should not exceed the amount of time the user has on that day before the time of submission.
+   For each assignment, the total amount of time scheduled and unscheduled should equals the estimated workload of that assignment.
+.. Test case: `(st)schedule n/-1` +
+   Expected: No schedule is displayed. Error details shown in the status message.
+
 === Adding a social event
 
 . Test case: `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
@@ -994,11 +1000,3 @@ Expected: List all added social events in the Event Schedule.
    Expected: No social event is deleted. Error details shown in the status message.
 
 end::manual[]
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
