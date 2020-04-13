@@ -35,7 +35,7 @@ public class ModuleListPanel extends UiPart<Region> {
 
 
         if (!moduleObservableList.isEmpty()) {
-            noModules.setVisible(false);
+            noModules.setManaged(false);
         }
 
         for (Module module :moduleObservableList) {

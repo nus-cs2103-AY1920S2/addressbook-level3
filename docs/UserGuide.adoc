@@ -89,7 +89,7 @@ Navigate around NASA using the following keyboard shortcuts.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MODULE_CODE]...` means m/CS2103T CS2101 .....
 * Parameters can be in any order.
 * For items without `...`, should multiple values for the same field be provided e.g `m/CS2101 m/CS2103T`, only the last value will be used, unless stated otherwise.
-* Commands are **non case-sensitive**, unless stated otherwise.
+* Commands are **case-insensitive**, unless stated otherwise.
 ====
 
 === Viewing help : `help`
@@ -109,7 +109,8 @@ Examples:
 [NOTE]
 ====
 ** Module name must not be empty and should only contain alphanumeric characters.
-** Module code must not have any spaces eg: `CS 2030` will not be accepted.
+** Module name with consecutive multiple whitespaces will be trimmed to a single whitespace.
+** Module code must contain 1-10 alphanumeric characters and not have any spaces. eg: `CS 2030` will not be accepted.
 ====
 
 === Adding a type of  activity into a module respective activity-list:
@@ -185,11 +186,10 @@ Format: `list [m/MODULE_CODE]`
 Edits an existing module in the NASA application. +
 Format: `edit m/MODULE_CODE [m/MODULE_CODE] [n/MODULE_NAME]`
 
-[NOTE]
 ====
-** Edits an existing module in the application.
-** At least one of the optional fields must be provided.
-** First `MODULE_CODE` is the module code of the target module to be edited. Second `MODULE_CODE` is the new module code to edit to.
+* Edits an existing module in the application.
+* At least one of the optional fields must be provided.
+* First `MODULE_CODE` is the module code of the target module to be edited. Second `MODULE_CODE` is the new module code to edit to.
 ====
 
 Examples:
@@ -200,7 +200,10 @@ Edits the CS2030 module to CS2030S along with its new module name.
 [NOTE]
 ====
 * If module code is edited, the new module code CANNOT have the same module code as any non-target module that already exist in NASA.
-* To edit module code, EXACTLY TWO module codes must be entered.
+* To edit module code, *EXACTLY TWO* module codes must be entered.
+* Module name must not be empty and should only contain alphanumeric characters.
+* Module name with consecutive multiple whitespaces will be trimmed to a single whitespace.
+* Module code must contain 1-10 alphanumeric characters and not have any spaces. eg: `CS 2030` will not be accepted.
 ====
 
 === Editing a deadline : `edit-d`
@@ -209,7 +212,7 @@ Edits an existing deadline in the module's deadline list. +
 Format: `edit-d INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [d/DUE DATE] [p/PRIORITY] [n/NOTES]`
 
 ****
-* Edits the deadline at the specified `INDEX` in the specified `MODULE_CODE` deadline-list. The index refers to the index number shown in the module's corresponding deadline-list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the deadline at the specified `INDEX` in the specified `MODULE_CODE` deadline-list. The index refers to the index number shown in the module's corresponding deadline-list.
 * At least one of the optional fields must be provided.
 ****
 
@@ -217,8 +220,14 @@ Examples:
 
 * `edit-d 2 m/CS2103T d/12-12-2020 23:59` +
 Edits the 2nd deadline in CS2013T deadline-list date to be `12-12-2020 23:59`.
-* `edit-d 3 m/CS2030 n/Finish LAB level 3 with Generics p/2` +
-Edits the notes and priority of the 3rd deadline in CS2030 deadline-list to `Finish LAB level 3 with Generics` and `2` respectively.
+* `edit-d 3 m/CS2030 n/Finish LAB level 3 p/2` +
+Edits the notes and priority of the 3rd deadline in CS2030 deadline-list to `Finish LAB level 3` and `2` respectively.
+
+[NOTE]
+====
+* If the due date is edited, the new due date *CANNOT* be a date that has passed.
+* `INDEX` must be specified immediately after the command word `edit-d` for this command! Eg: `edit-d m/MODULE_CODE INDEX` is not allowed.
+====
 
 === Editing an event : `edit-e`
 `Contributed by: don-tay` +
@@ -226,7 +235,7 @@ Edits an existing event in the module's event list. +
 Format: `edit-e INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [sd/START DATE] [ed/END DATE] [n/NOTES]`
 
 ****
-* Edits the event at the specified `INDEX` in the specified `MODULE_CODE` event-list. The index refers to the index number shown in the module event-list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the event at the specified `INDEX` in the specified `MODULE_CODE` event-list. The index refers to the index number shown in the module's corresponding event-list.
 * At least one of the optional fields must be provided.
 ****
 
@@ -236,7 +245,51 @@ Examples:
 Edits the 2nd event in CS2103T event-list end date to be `12-12-2020 23:59`.
 * `edit-e 3 m/CS2030 n/Practical exam sd/20-05-2020` +
 Edits the notes and start date of the 3rd event in CS2030 event-list to `Practical exam` and `20-05-2020 23:59` respectively.
+
+[NOTE]
+====
+* If the end date is edited, the new end date *CANNOT* be a date that has passed.
+* `INDEX` must be specified immediately after the command word `edit-e` for this command! Eg: `edit-e m/MODULE_CODE INDEX` is not allowed.
+====
 // end::edit[]
+
+=== Setting a deadline to done: `done`
+`Contributed by kester-ng` +
+Sets a deadline to be done (or completed) +
+Format: `done INDEX m/MODULE_CODE`
+
+====
+** Sets the deadline associated with the index in the module's deadline-list to done or completed.
+** If the deadline is already set to done, error message is thrown
+====
+
+[NOTE]
+====
+** Only deadlines can be set to done. Events are not able to do as events are activities that occurs from start to end.
+** Users are not able to edit the status (done or ongoing) of the deadline via the edit command.
+** INDEX must appear first in the command. `done m/MODULE_CODE INDEX` is not allowed.
+====
+
+Examples:
+* `done 1 m/CS2030` +
+Sets the 1st deadline in CS2030 deadline-list to done.
+
+=== Setting a deadline to ongoing: `continue`:
+`Contributed by kester-ng`
+Sets a deadline to ongoing +
+Format `continue INDEX m/MODULE_CODE`
+
+====
+** Sets the deadline associated with the index in the module's deadline-list to ongoing.
+** If the deadline's status is ongoing, error message is thrown.
+====
+
+[NOTE]
+====
+** Only deadlines can be set to ongoing. See explanation above.
+** Users are not able to edit the status (done or ongoing) of the deadline via the edit command.
+** INDEX must appear first in the command. `continue m/MODULE_CODE INDEX` is not allowed.
+====
 
 === Locating activities by name: `find`
 `Contributed by: kester-ng` +
@@ -450,10 +503,12 @@ exports the current calendar into nasa.ics file that is located at `./nasa` dire
 ====
 
 // tag::sort[]
-=== Sort deadlines `sort`
+=== Sort deadline and event: `sort`
 `Contributed by: don-tay` +
-Sorts all deadlines in their respective modules by a specified criteria. +
+Sorts all deadlines and events in their respective modules by a specified criteria. +
 Format: `sort SORT_METHOD`
+
+* All sort method will sort both deadline and event, unless stated otherwise (eg. Priority)
 
 The list of sort methods is given below: +
 
@@ -461,7 +516,7 @@ The list of sort methods is given below: +
 |*Sort Method* |*Format* |*Sort order (top to bottom)*
 |Lexicographical order (case-insensitive) |`sort name` | A to Z
 |Due date |`sort date` | Earliest to latest
-|Priority |`sort priority`| Highest (5) to lowest (1)
+|Priority *(for deadline only)*|`sort priority`| Highest (5) to lowest (1)
 |===
 // end::sort[]
 
@@ -476,6 +531,13 @@ Format: `clear`
 Exports all deadlines and events in NasaBook as a QR-code text, compatible with QR code enabled scanners and smartphones. +
 Format: `export`
 // end::export[]
+
+// tag::refresh[]
+=== Refresh current NasaBook: `refresh`
+`Contributed by: kester-ng` +
+Refreshes the NasaBook to reflect correct statuses for activities. +
+Format: `refresh`
+// end::refresh[]
 
 === Adding Reminders: `Coming in v2.0`
 `Contributed by: kester-ng` +
@@ -548,9 +610,9 @@ the data of your previous NASA folder.
 *A*: Both are describe the type of activity in a module. They are displayed in different parts of the NASA UI (ie. Deadline and Event panel, respectively)
 
 *Q*: How many modules can I add into NASA? +
-*A*: NASA is optimised to display up to 10 modules at once - More than enough modules that a university student will typically take in a semester. Should you exceed 10 modules, please delete existing modules before adding new modules.
+*A*: NASA is optimised to display up to 8 modules at once - More than enough modules for a university student in a semester. Should you exceed 10 modules, please delete existing modules before adding new modules.
 
-*Q*: How many activities can I add into each module? +
+*Q*: How many deadlines and events can I add into a module? +
 *A*: There is no limit, so add away!
 
 *Q*: Since every deadline is different how automation helps to keep track of my new deadline? +
