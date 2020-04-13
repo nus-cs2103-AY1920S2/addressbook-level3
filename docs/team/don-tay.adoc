@@ -35,7 +35,7 @@ traditional GUI applications.
 ** Enhancements to existing features:
 *** Updated the GUI display for deadline priority (Pull request https://github.com/AY1920S2-CS2103T-T10-4/main/pull/185[#185])
 *** Wrote all edit command and logic for modules, activities, deadlines, and events (Pull requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/113[#113] https://github.com/AY1920S2-CS2103T-T10-4/main/pull/260[#260])
-*** Wrote additional tests for existing features to increase coverage from 62.3% to 69.4% (Pull requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/113[#113], https://github.com[#38])
+*** Wrote additional tests for existing features to increase coverage from 62.3% to 69.4% (Pull requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/113[#113])
 *** Add regeneration helper class for teammate's repeat feature (Pull request https://github.com/AY1920S2-CS2103T-T10-4/main/pull/103[#103])
 *** Added scrollable grid UI for calendar (Pull request https://github.com/AY1920S2-CS2103T-T10-4/main/pull/280[#280])
 ** Documentation:
@@ -50,7 +50,7 @@ https://github.com/AY1920S2-CS2103T-T10-4/main/pull/126[#126],
 https://github.com/AY1920S2-CS2103T-T10-4/main/pull/155[#155]
 *** Reported bugs and suggestions for other teams in the class (example:  https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/36#pullrequestreview-381674310[#36])
 ** Tools:
-*** Integrated a third party library (ZXing) to the project (https://github.com[#42])
+*** Integrated a third party library (ZXing) to the project (https://github.com/AY1920S2-CS2103T-T10-4/main/pull/263[#263])
 
 == Contributions to the User Guide
 
