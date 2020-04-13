@@ -84,7 +84,7 @@ coverage from 58% to 61%
 ** I fixed bugs reported by test users of the application.
 (Pull requests: https://github.com/AY1920S2-CS2103T-W17-4/main/pull/339[#339],
 https://github.com/AY1920S2-CS2103T-W17-4/main/pull/325[#325],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/328[#328],)
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/328[#328])
 
 == Contributions to the User Guide
 We wrote a User Guide targeted at the users of TA-Tracker.
