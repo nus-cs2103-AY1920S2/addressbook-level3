@@ -1,0 +1,79 @@
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
+
+=== Chua Yi Jing - UML Diagrams
+
+Some sections from the explanations have been removed from this document in order
+to fit the page requirement. Please read the Developer Guide for more detailed
+explanations.
+
+---
+
+The following _Sequence Diagram_ shows the sequence of commands that take place between
+the `Logic` and `Model` components of the TA-Tracker
+when the user enters the command
+`session done 1`.
+
+._Sequence Diagram_ for Done Session
+image::DoneSessionSequenceDiagram.png[]
+
+1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
+
+2. The `TaTrackerParser` sees that the command is a `Session` command and passes the command
+to the `SessionCommandParser`.
+
+3. The `SessionCommandParser` sees that the command is a `DoneSessionCommand` and passes the
+arguments to the `DoneSessionCommandParser`.
+
+4. The `DoneSessionCommandParser` creates a `DoneSessionCommand` with the given index.
+
+5. `LogicManager` calls `DoneSessionCommand#execute()` method.
+
+6. The `DoneSessionCommand`
+checks whether the current session called by the user has a recurring period.
+
+a. If it does, a new session with the updated date will be added to `Model#UniqueSessionList()`.
+b. If it does not have a recurring period, it will move on to *Step 6*.
+
+7. The current session is marked as done and will be removed from `Model#UniqueSessionList`.
+
+8. The updated session list will be displayed to the user.
+
+---
+
+The _Activity Diagram_ below summarises what happens when the user executes a `filter` command:
+
+._Activity Diagram_ of the Filter Command
+image::FilterCommandActivityDiagram.png[,650]
+
+---
+
+The following _Sequence Diagram_ shows the sequence of commands that take place between
+the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
+`student filter m\CS2103T g\G06`. This command will return students from module code `CS2103T`, under group `G06`.
+
+._Sequence Diagram_ for Filter Student Command
+image::FilterStudentSequenceDiagram.png[]
+
+---
+
+The following _Class Diagram_ shows how different classes are related in the functioning of
+the `SessionFilter` Command.
+
+.Class Diagram for Filter Session Command
+image::FindCommandClassDiagram.png[,400]
+
+---
+
+[NOTE]
+====
+* The lifeline of a class in a Sequence Diagram should end at the destroy marker(X).
+However, due to a limitation of *PlantUML*, the lifeline reaches the end of the diagram.
+====
