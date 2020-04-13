@@ -13,7 +13,7 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
--[LOGIC_COLOR]> LogicManager : excute("view-c 3)
+-[LOGIC_COLOR]> LogicManager : execute("view-c 3")
 activate LogicManager LOGIC_COLOR
 
 LogicManager -[LOGIC_COLOR]> FitBizParser : parseCommand("view-c 3")
