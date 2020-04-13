@@ -589,6 +589,106 @@ The immutability of each object is supported to ensure the correctness of undo a
 ** Cons: Not as accurate as one grain of rice would still be counted as variety.
 // end::goals[]
 
+=== Quote Command (Yue Tong)
+The quote command feature uses the `quote` command for users to input their own quotes to add on to the existing set of
+quotes that is already in the database. This allows the users to add in customised quotes that would suit their preferance
+more if the current list of quotes is not to their liking.
+
+The following sequence diagram illustrates how the `QuoteCommand` is used.
+
+.Quote command sequence diagram
+image::QuoteSequenceDiagram.png[]
+[NOTE]
+The lifeline for EditCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+
+[Note]
+`Undo` button currently does not work for adding of quotes as there is no remove function currently implemented for quote
+==== Implementation
+
+This section explains how the `quote` command is implemented.
+
+1. User specified arguments are passed to the `QuoteCommandParser#parse` which will then parse the user input to verify if the
+quote field is empty. An error is thrown if the user had keyed in an empty field for quote.
+
+2. A new `QuoteCommand` object will be created with a `Content` field to store the quote and returned to the `LogicManager`
+
+3. The `QuoteCommand#execute` method is executed and `Model#addQuote` is called. This attempts to add the quote to the
+database and verify if any duplicate quote exists in the database via `Model#hasQuote`. If a duplicate quote is detected
+in the database, an error will be thrown to indicate that the quote already exists in the database.
+
+4. Once the quote has been successfully updated to the database, the result window informs the user that the quote has
+been successfully added.
+
+The following activity diagram further illustrates how the `QuoteCommand` is used.
+
+.Quote command activity diagram
+image::QuoteActivityDiagram.png[]
+
+==== Design Considerations
+====== Aspect: How quote command executes
+
+* **Alternative 1 (current choice):** The `QuoteCommand` only accepts adding of quotes
+
+** Pros: Maintaining the database for quotes is easier
+** Cons: Users will not be able to remove a quote if it is not to their liking and undo function does not work for quote command
+
+* **Alternative 2:** The `QuoteCommand` accepts both adding and removal of quotes
+** Pros: Users can customize whicher quotes they want to be displayed
+** Cons: If they user deletes the quote that is on display for Quote of the Day in the Achievement tab, this could cause
+display problems and as `UniqueQuotesList` is a hidden list, users will have to type out the quote completely similar in order to locate it
+
+=== Streak feature(Yue Tong)
+
+The Streak feature mainly deals with keeping track of the cooked meals that the user has logged into the system. The command
+that Streak is associated with is `CookedCommand` as every user input of `cooked` will result in the streak log  to be reflected when `cooked` is executed. The changes are reflected in two main attributes, Current streak and
+High streak.
+
+The following sequence diagram illustrates how the `QuoteCommand` is used.
+
+.Quote command sequence diagram
+image::StreakActivityDiagram.png[]
+
+==== Implementation
+
+The streak feature uses data from the `UniqueRecordList` to parse through the recipes that the user has already cooked
+and extract the dates from these recipes to determine the current streak for the user and the highest streak score the
+user has attained as of yet.
+
+The `UniqueRecordList` provides Streak with an observableList so that a listener could be added to it to make sure that
+the streak always auto-updates whenever a new `CookedRecord` is added in to the database. Via the addListener, whenever
+a new record is detected, the streaks are calculated again through parsing of the `CookedRecords` list and updated in
+real time in the achievement tab.
+
+==== Design Considerations
+====== Aspect: How streak is stored
+
+* **Alternative 1 (current choice):** Streak is calculated and updated via access to `UniqueRecordList`
+
+** Pros: Easier to access `CookedRecord` list when there is direct access to `UniqueRecordList` and to update in real time
+** Cons: There is more co-dependency among classes and there may be performance issues if `UniqueRecordList` is too large
+
+* **Alternative 2:** Streak has its own database and json file to keep track of streaks
+** Pros: Lesser time is required to re-calculate streaks every time a cookedRecord is updated as streak can just be
+added and subtracted from its recorded data in the database
+** Cons: A database section will be dedicated to just storing one number and without access to the `UniqueRecordsList`
+it is harder for Streak to be updated realtime when cookedRecord is updated.
+
+====== Aspect: How streak is calculated
+
+* **Alternative 1 (current choice):** Accumulative streaks is calculated based on whether there is a 1-day difference
+between 2 consecutive cooked recipes
+
+** Pros: Easier to compute compared to implementing via a midnight deadline basis to calculate accumulative streaks
+** Cons: Streaks are not necessarily accounted for within a 24-hour period
+
+* **Alternative 2:** Accumulative streaks is calculated based on a stricter within 24-hour new logged cooked recipes
+** Pros: The accountability is higher for users to actually accomplish their streaks by having to cook recipes within a
+24-hour period and not be able to go for more than a day without cooking new recipes without having their streaks
+jeopardised.
+** Cons: It is easier for users to lose their streaks and more difficult for users to ascertain when is the deadline to
+maintain their streaks
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
