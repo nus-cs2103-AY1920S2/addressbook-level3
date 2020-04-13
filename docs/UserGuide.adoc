@@ -23,8 +23,10 @@ Notably is for those who *prefer to use a desktop app for managing notes*. More 
 === An Introduction to Notably
 The image shown below highlights the different sections of Notably's user interface:
 
+[[LegendsOpened]]
 .Notably GUI legends
 image::Legends.png[width="900"]
+[[LegendsClosed]]
 
 === Symbols used in this guide
 [NOTE]
@@ -123,48 +125,83 @@ If you're done with taking notes, use `exit` to close Notably straight from the 
 image::demo/Exit.png[]
 
 //tag::new[]
+[#create]
 === Create a new note: `new`
 
-If you want to add a new note to the current working directory (currently opened note), use the `new` command and specify the `TITLE` of the note. +
+If you want to add a new note (to the path of the currently open note), use the `new` command and specify the `TITLE` of the note. +
 
 *Format:* `new -t TITLE [-o]`
 
 [[TitleValidity]]
-[IMPORTANT]
+[WARNING]
 ====
+* Don't forget the `-t` flag!
 * The `TITLE` for the note MUST be specified.
-* The `TITLE` for the note can only contain alphabets, numbers, symbols (except ` and -) and whitespaces.
+* The `TITLE` for the note can only contain alphabets, numbers, symbols (except / and -) and whitespaces.
+* The `TITLE` for the note cannot begin with whitespaces or the period `.` characer.
+* Duplicate notes are not allowed under the same note.
+** This is explained <<duplicateNotes, here>>
 ====
 
 [TIP]
 ====
 * Use the optional `-o` flag to immediately open the note after creating it.
+* Leaving out the `-o` open flag can be useful if you want to create multiple notes quickly for future use, but you don't need to edit them right away!
+* Want to save some time? Use the `n` shorthand instead of `new`
+** `n -t TITLE [-o]`
 ====
 
+[#duplicateNotes]
+==== Creating duplicate notes
+Creating duplicate notes are not allowed as mentioned <<create, 3.3>>. What are considered duplicate notes? +
+
+* Two notes are considered duplicates IF their `TITLEs` are the same while ignore their case. For example:
+** `Hello`, `hello`, `HELLO` and `HeLLo` are considered duplicates
+** `hello world!`, `helloworld!` and `helloworld@` are **not** considered duplicates, because whitespaces and allowed symbols are not ignored
+* Two notes are considered duplicate IF they have the same `TITLE` under the **same note**. This can be seen in the following diagrams below:
++
+[[Duplicate1]]
+.INVALID as there are duplicate notes under `/Workspace/CS2103`
+image::demo/PathDuplicates1.png[]
+[[Duplicate2]]
+.VALID as they are not both directly under `/Workspace/CS2103`
+image::demo/PathDuplicates2.png[]
+[[Duplicate3]]
+.VALID as one exists in `/Workspace/CS2103` and the other in `/Workspace/CS2101`
+image::demo/PathDuplicates3.png[]
+
 ==== Example: Creating new notes
-. Let's first create a note (with a `TITLE`), and open it immediately after. <<New1, (Step 1)>> Type this command: +
+. Let's first create a note (with a `TITLE`), and open it immediately after. Type this command: +
 
     new -t Notably -o
 
-
-. Now the currently open note is `Notably`. Let's add create a note to the currently opened note, <<New2, (Step 2)>> with a `TITLE` only as follows: +
+. Due to the `-o` flag, the currently open note is now `Notably` (as seen in the sidebar). Let's add a new note to the currently opened note, <<New2, (Step 2)>> with a `TITLE` as follows: +
 
     new -t CS2103T
-
-. The new note `CS2103T` has been created successfully! <<New3, (Step 3)>> +
-
++
 [NOTE]
 ====
-Observe that the note `CS2103T` was not opened immediately
+* Observe that the (Absolute) Path to the currently open note is now changed from `/Workspace` in <<New1, step 1>> to `/WorkspaceNotably` in  <<New2, step 2>>.
+** Not sure where to see this path? Check it out <<LegendsClosed, here>>
+** Not sure what Absolute Paths are or why the new note is created in this way? Check it out <<paths, here>>
 ====
+
+. The new note `CS2103T` has been created successfully!
++
+[NOTE]
+====
+* Observe that the note `CS2103T` was not opened immediately as seen in <<New3, step 3>>
+** This is because the `-o` open flag was not specified, so the note `CS2103T` was created without opening it immediately.
+====
+
 [[New1]]
-.Step 1 - Demo for the `new` command (with the `open` flag)
-image::demo/New1.png[Demo]
+.Step 1 - Create a new note with the title "Notably" (with the `-o` open flag)
+image::demo/New1.png[]
 [[New2]]
-.Step 2 - Demo for the `new` command (without the `open` flag)
+.Step 2 - Create a new note with the title "CS2103T" (without the `-o` open flag)
 image::demo/New2.png[]
 [[New3]]
-.Step 3 - Demo for the `new` command (after creating both notes)
+.Step 3 - Final state after creating both notes
 image::demo/New3.png[]
 //end:new[]
 
@@ -213,29 +250,75 @@ image::demo/Edit.png[]
 //tag:delete[]
 === Delete a note: `delete`
 
-If you no longer need a note, or you accidentally created a wrong note, don't worry! You can always delete That note. A slash `/` character can be used to denote a filesystem-like hierarchy. +
+If you no longer need a note, or if you have accidentally created a wrong note, don't worry! You can always delete that note. +
 
-*Format:* `delete [-t] [PATH/TO/]TITLE`
+*Format:* `delete [-t] AbsolutePath/RelativePath`
+[NOTE]
+====
+* Requires prior understanding of `AbsolutePath` and `RelativePath`. You can refer <<paths, here>> for an explanation
+====
 
 [WARNING]
 ====
 * Deleting a note will also delete its child notes. Be very careful! You can refer to the example below for an illustration
+* Deleting the root note (i.e. `delete /`) is prohibited.
 ====
 
-==== Example: Deleting an existing note
+[TIP]
+====
+* You can delete the currently open note using the command `delete .`
+** Refer to <<deleteCurrent, example 3.6.2>>
+* Want to save some time? Drop the optional `-t` flag and use the `d` shorthand instead of `delete`
+** `d AbsolutePath/RelativePath`
+====
+
+==== Example: Deleting a note under the currently open note
 . Let's delete the `Notably` note using this command:
 
     delete -t Notably
-
++
 [NOTE]
 ====
-* `Another Note`, `CS2103` and `ST2334` are immediately deleted as well since they are child notes of `Notably`
+* The currently open note is `Workspace`
 * The above example uses `RelativePath`. You can achieve the same result as above by using an `AbsolutePath` instead by executing `delete -t /Workspace/Notably`.
+** Not sure about `AbsolutePath` and `RelativePath`? You can refer <<paths, here>> for a clearer explanation
 ====
-.Demo for the `delete` command
-image::demo/Delete1.png[]
 
-.Demo for the `delete` command (after deletion)
+. The note with the title `Notably` is deleted successfully since it exists!
++
+[WARNING]
+====
+* `Another Note`, `CS2103` and `ST2334` are immediately deleted as well since they are notes under `Notably`
+====
++
+.Step 1 - Key in the example command
+image::demo/Delete1.png[]
++
+.Final state after deletion
+image::demo/Delete2.png[]
+
+[#deleteCurrent]
+==== Deleting the currently open note
+. In this example, `Notably` is the currently open note. Let's delete it using the command:
+
+    delete .
++
+[NOTE]
+====
+* The `.` in the command is a `RelativePath` that points to the path of the currently open note
+====
++
+. `Notably` note is deleted and the currently open note is now `Workspace`
++
+[NOTE]
+====
+* This will change the currently open note to the deleted note's parent note
+====
++
+.Step 1 - Key in the example command
+image::demo/Delete3.png[]
++
+.Final state after deletion
 image::demo/Delete2.png[]
 //end::delete[]
 
@@ -278,8 +361,9 @@ image::demo/Suggestions4.png[]
 
 === Save the data
 
-Notes data are saved in the hard disk automatically after any command that changes the data. +
-There is no need for you to save manually.
+Your notes are saved in the hard disk automatically after any command that changes the data. There is no need for you to save manually! +
+
+Also, your currently opened note and window size (of Notably) is also saved every time it changes so that you can continue where you left off the next time you start Notably!
 
 === Auto suggestions
 
@@ -411,6 +495,28 @@ In our v2.0 release, we'll be supporting the following additional Markdown synta
 ----
 ~~This text will get a strikethrough treatment~~
 ----
+
+
+=== Sidebar
+The sidebar is where you can see your notes in a neatly organised way, reminiscent of a file browser in an Operating System. +
+
+[NOTE]
+====
+* The sidebar only shows up to 3 levels of notes at a single time.
+** The 3 levels will compromise of the:
+*** currently open note and its siblings
+*** its parent note
+*** its children notes
+** This will be demonstrated in the following diagrams, with `Workspace` as the level 1 note
+*** There is no level 0 note (root) that is displayed in the sidebar
+
+====
+
+.Before and after opening a level 2 note
+image::demo/Sidebar.png[]
+
+.Before and after opening a level 3 note
+image::demo/Sidebar2.png[]
 
 == FAQ
 
