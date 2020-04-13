@@ -49,7 +49,7 @@ ScheduleCommand -[LOGIC_COLOR]> Model : getFilteredClientList()
 activate Model MODEL_COLOR
 
 Model --[MODEL_COLOR]> ScheduleCommand : filteredClientList
-deactivate Model 
+deactivate Model
 
 ScheduleCommand -[LOGIC_COLOR]> Model : setClient(clientToEdit, editedClient)
 activate Model MODEL_COLOR
