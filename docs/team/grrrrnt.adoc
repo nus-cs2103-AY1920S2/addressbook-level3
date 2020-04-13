@@ -20,9 +20,12 @@ their travels. The user interacts with it using a CLI, and it has a GUI created 
 it is primarily based off of the Address Book 3 application developed by the CS2103T teaching team.
 
 === Summary of Contributions
+
+==== Code Contributed
 You can view my code contributions to this project on
 https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=grrrrnt[RepoSense].
 
+=== Enhancements Implemented
 * *Major Enhancement:* Designed the class structure of the base code
 ** Highlights: The class structure had to be adapted from the Address Book 3 code to support multiple views. By
 carefully designing the new class structure, it was easier for all developers in Team Volant to understand the project
@@ -37,14 +40,15 @@ page.
 ** Justification: This feature allows users to navigate more quickly from the Trip page to the subsequent feature pages.
 This is especially useful since the words "itinerary" and "journal" may be long or commonly misspelled.
 
-* *Other Contributions*
-** Source code
-*** Implemented colour-changing enter button as an Easter egg
+* *Minor Enhancement:* Implemented colour-changing enter button as an Easter egg
+** What it does: The GUI Enter button changes between the colours of the rainbow as you click.
 
 === Contributions to User Guide
 ==== Sections Written
-* https://github.com/AY1920S2-CS2103T-F09-4/main/blob/master/docs/UserGuide.adoc#journal-1[Section 4.7. Journal]
-* https://github.com/AY1920S2-CS2103T-F09-4/main/blob/master/docs/UserGuide.adoc#faq[Section 5. FAQ]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#commands-for-the-journal-page-grant[Section 4.7. Commands for the Journal Page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#faq-grant[Section 5. FAQ]
+
+==== Miscellaneous Contributions
 * Updated format of User Guide (with Ranice)
 * Reviewed all sections of User Guide for mid-v1.3 submission
 * Reviewed all sections of User Guide for v1.3 submission
@@ -55,7 +59,15 @@ This is especially useful since the words "itinerary" and "journal" may be long 
 
 === Contributions to Developer Guide
 ==== Sections Written
-* UML diagram for Logic component in Journal
-* UML diagram for Model component in Journal
-* Implementation of data storage section
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#data-storage[Section 4.11. Data Storage]
+
+==== Diagrams
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#views-in-volant[Figure 2. Class Diagram of the Journal Logic Component]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Logic[Figure 6. Structure of the Logic Component]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Model[Figure 9. Structure of the Model Component in Journal]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#data-storage-implementation-editing-a-trip[Figure 25. Activity diagram for editing a trip]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#data-storage-implementation-deleting-a-journal-entry-itinerary-activity[Figure 26. Activity diagram for deleting a journal entry/itinerary activity]
+
+==== Miscellaneous Contributions
+* Proof-reading and standardising of language use in Developer Guide for v1.4 submission
 * PDF formatting of Developer Guide for v1.4 submission

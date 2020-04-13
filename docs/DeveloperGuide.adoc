@@ -16,6 +16,8 @@ endif::[]
 
 By: `AY1920S2-CS2103T-F09-4`      Since: `Jan 2020`      Licence: `MIT`
 
+<<<
+
 == Introduction
 
 This document is a Developer Guide written for developers who wish to contribute to or extend our project.
@@ -41,6 +43,9 @@ image::dg-diagram-legend.png[]
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
+
+<<<
+
 
 == Design
 
@@ -114,6 +119,9 @@ image::gotoCommandSequenceDiagram.png[align="center"]
 
 The sections below give more details about each component.
 
+<<<
+
+
 [[Design-Ui]]
 === UI component
 
@@ -171,6 +179,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteItinerary.png[align="center"]
 
+<<<
+
+
 [[Design-Model]]
 === Model component
 
@@ -201,6 +212,9 @@ The `Model` for `ITINERARY`,
 * does not depend on any of the other three components.
 
 
+<<<
+
+
 [[Design-Storage]]
 === Storage component
 
@@ -218,6 +232,9 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `seedu.volant.commons` package.
+
+<<<
+
 
 == Implementation
 
@@ -249,10 +266,15 @@ In the view switching process, the `MainWindow` will do the following: +
 . Switch the current storage of the program to the storage component of the next page
 . Load the GUI components for the next page
 
+<<<
+
 For example, for the `back` command, the `MainWindow`:
 
 .Activity diagram for view switching process in `MainWindow` for `back` command
 image::back-activity-diagram.png[]
+
+<<<
+
 
 ==== Design Considerations
 Pros: +
@@ -292,7 +314,7 @@ cannot remember without having to refer to the User Guide.
 the window to reach the section that details commands for the page that they are on.
 
 
-
+<<<
 
 === Adding a trip in Home Page
 ==== Implementation
@@ -413,7 +435,7 @@ image::FindItinerary.png[align="center"]]
 ==== Design Considerations
 
 ===== Aspect: Syntax of the find command
-* **Alternative 1 (current choice):** Users are allowed to find according to specific fields. This is done by adding the prefixes(t/ for `title`, l/ for `location`, d/ for `date`, and t/ for `time`) before the keyword to be found
+* **Alternative 1 (current choice):** Users are allowed to find according to specific fields. This is done by adding the prefixes(`t/` for `title`, `l/` for `location`, `d/` for `date`, and `t/` for `time`) before the keyword to be found
 ** Pros: Allows users to be very specific in the find command. This means that users can find activities with the keywords in the specific field that they want. This implementation also allows users to append one find command with multiple fields to narrow down the search in less steps.
 ** Cons: Cannot find the same keyword for multiple fields. The current implementation can also cause the CLI by the users to be longer as there is a need to specify the fields to find. Furthermore, this implementation is more troublesome to implement.
 * **Alternative 2:** Users can find with one or a few keywords without the need to specify the fields.
@@ -545,6 +567,9 @@ image::rfActivityDiagram.png[align="center"]]
 ===== Aspect: How to get the list to repopulate the data with
 After sorting or finding a list, the user needed a way to view the original data. The construction of each model includes a list that contains the relevant data in storage. Using that list, the view can be repopulated with the original data.
 
+<<<
+
+
 === Data Storage
 All data (trip details, journal entry details and itinerary details) is saved in the `main.data` directory.
 
@@ -572,6 +597,9 @@ location, date and time.
 a list of JSON objects, each representing a journal entry, with key-value pairs identifying the entry content, date,
 time, location, feeling and weather.
 
+<<<
+
+
 ==== Design Considerations
 Pros:
 
@@ -594,6 +622,9 @@ Given below is an example usage scenario where a user adds a new trip:
 7. A new `JsonSerializableTripList` object is created with the `JsonAdaptedTrip` objects.
 8. The new `JsonSerializableTripList` object is saved to the `volant.json` data file.
 9. The program log displays a success message.
+
+<<<
+
 
 The following activity diagram summarises what happens when a user adds a new trip:
 
@@ -661,17 +692,21 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+Refer to the guide https://ay1920s2-cs2103t-f09-4.github.io/main/Documentation.html[here].
 
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+Refer to the guide https://ay1920s2-cs2103t-f09-4.github.io/main/Testing.html[here].
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+Refer to the guide https://ay1920s2-cs2103t-f09-4.github.io/main/DevOps.html[here].
+
+<<<
+
 
 [appendix]
 == Product Scope
@@ -685,6 +720,9 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: convenient travel assistant to for solo travelers who are always on their feet.
+
+<<<
+
 
 [appendix]
 == User Stories
@@ -737,6 +775,9 @@ Refer to the guide <<DevOps#, here>>.
 |=======================================================================
 
 _{All user stories can be viewed in our issue tracker.}_
+
+<<<
+
 
 [appendix]
 == Use Cases
@@ -1122,6 +1163,9 @@ Use case ends
 Use case ends
 
 
+<<<
+
+
 [appendix]
 == Non Functional Requirements
 
@@ -1134,6 +1178,9 @@ Use case ends
 .  Input by the user should only be in English.
 .  Volant source code should be covered by tests as much as possible.
 .  Volant should work for a single user only.
+
+<<<
+
 
 [appendix]
 == Glossary
@@ -1156,6 +1203,9 @@ The first page the shows up when Volant is opened. By default, this is the `HOME
 [[one-shot-c]] One-shot Commands::
 Commands that are executed using only a single line of user input.
 
+<<<
+
+
 [appendix]
 == Product Survey
 
@@ -1174,6 +1224,9 @@ Cons::
 * The fremium model proposed can be a bit expensive.
 * A dark mode can be included. Some users prefer a GUI with dark mode.
 * More features can be integrated. These features can be included in version 2.0.
+
+<<<
+
 
 [appendix]
 == Instructions for Manual Testing
@@ -1240,10 +1293,4 @@ Expected: First `entry` is deleted from the `JOURNAL` of the current `TRIP`. Cur
 Expected: No `entry` is deleted. Error details shown in the status message
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the journal size) +
 Expected: Similar to previous.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
+Still
