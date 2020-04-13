@@ -1,0 +1,21 @@
+@startuml
+scale 1.2
+start
+:User enters cal view command;
+:Parser parses the command;
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([else])
+    :Logic executes the command;
+    :Model updates calendar;
+    if () then ([week equals "this"])
+        :Ui shows calendar for this week;
+    else ([else])
+        :Ui shows calendar for next week;
+    endif;
+else ([argument for week is not specified or invalid])
+    :Ui shows error message;
+endif
+stop
+@enduml

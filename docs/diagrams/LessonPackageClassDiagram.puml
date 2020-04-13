@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ArrowFontSize 15
+
+Package Lesson <<Rectangle>> {
+Class Lesson
+Class DayAndTime
+Enum LessonType <<enumeration>>
+Class LessonList
+}
+
+Package Module <<Rectangle>> {
+Class ModuleCode
+}
+
+LessonList *-> "*" Lesson
+Lesson *-> "1" DayAndTime
+Lesson *--> "1" LessonType
+Lesson *-> "1" ModuleCode
+
+
+@enduml

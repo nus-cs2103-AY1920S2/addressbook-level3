@@ -1,0 +1,118 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":ModuleCommandParser" as ModuleCommandParser LOGIC_COLOR
+participant ":ModuleViewCommandParser" as ModuleViewCommandParser LOGIC_COLOR
+participant "v:ModuleViewCommand" as ModuleViewCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":UniqueModuleList" as UniqueModuleList MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\n"mod view CS2103T")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand(\n"mod view CS2103T")
+activate ModManagerParser
+
+create ModuleCommandParser
+ModManagerParser -> ModuleCommandParser
+activate ModuleCommandParser
+
+ModuleCommandParser --> ModManagerParser
+deactivate ModuleCommandParser
+
+ModManagerParser -> ModuleCommandParser : parse("view CS2103T")
+activate ModuleCommandParser
+
+create ModuleViewCommandParser
+ModuleCommandParser -> ModuleViewCommandParser
+activate ModuleViewCommandParser
+
+ModuleViewCommandParser --> ModuleCommandParser
+deactivate ModuleViewCommandParser
+
+ModuleCommandParser -> ModuleViewCommandParser : parse("CS2103T")
+activate ModuleViewCommandParser
+
+create ModuleViewCommand
+ModuleViewCommandParser -> ModuleViewCommand : ModuleViewCommand(\nCS2103T)
+activate ModuleViewCommand
+
+ModuleViewCommand --> ModuleViewCommandParser : v
+deactivate ModuleViewCommand
+
+ModuleViewCommandParser --> ModuleCommandParser : v
+deactivate ModuleViewCommandParser
+ModuleViewCommandParser -[hidden]-> ModuleCommandParser
+destroy ModuleViewCommandParser
+
+ModuleCommandParser --> ModManagerParser : v
+deactivate ModuleCommandParser
+ModuleCommandParser -[hidden]-> ModManagerParser
+destroy ModuleCommandParser
+
+ModManagerParser --> LogicManager : v
+deactivate ModManagerParser
+
+LogicManager -> ModuleViewCommand : execute()
+activate ModuleViewCommand
+
+ModuleViewCommand -> ModelManager : findModule(CS2103T)
+activate ModelManager
+
+ModelManager -> ModManager : findModule(\nCS2103T)
+activate ModManager
+
+ModManager -> UniqueModuleList : find(CS2103T)
+activate UniqueModuleList
+
+UniqueModuleList --> ModManager : m
+deactivate UniqueModuleList
+
+ModManager --> ModelManager : m
+deactivate ModManager
+
+ModelManager --> ModuleViewCommand : m
+deactivate ModelManager
+
+ModuleViewCommand -> ModelManager : updateModule(m)
+activate ModelManager
+
+ModelManager --> ModuleViewCommand
+deactivate ModelManager
+
+ModuleViewCommand -> ModelManager : updateFacilitatorListForModule(fp)
+activate ModelManager
+
+ModelManager --> ModuleViewCommand
+deactivate ModelManager
+
+ModuleViewCommand -> ModelManager : updateTaskListForModule(tp)
+activate ModelManager
+
+ModelManager --> ModuleViewCommand
+deactivate ModelManager
+
+create CommandResult
+ModuleViewCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ModuleViewCommand
+deactivate CommandResult
+
+ModuleViewCommand --> LogicManager : result
+deactivate ModuleViewCommand
+ModuleViewCommand -[hidden]-> LogicManager
+destroy ModuleViewCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+start
+:User executes module add command;
+if () then ([module code is present])
+    :Parser parses module code and description;
+    if () then ([arguments are valid])
+        :Logic executes command;
+        if () then ([ModManager does not contain module])
+            :Model adds module to UniqueModuleList
+                              in ModManager;
+            :Logic saves ModManager to Storage;
+            :Ui shows the updated module list;
+        else ([else])
+            :Ui shows error message;
+        endif
+    else ([else])
+        :Ui shows error message;
+    endif
+else([else])
+    :Ui shows error message;
+endif
+stop
+@enduml

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane fx:id="cardPane" minHeight="-Infinity" maxHeight="Infinity" alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="card" style="-fx-background-color: #215360; -fx-background-radius: 15; -fx-background-insets: 3px, 0px; -fx-padding: 10px" StackPane.alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <Label fx:id="description" styleClass="cell_small_label" textOverrun="CLIP" wrapText="true"/>
+            <Label fx:id="time" styleClass="cell_small_label" textOverrun="CLIP" wrapText="true" />
+            <StackPane.margin>
+                <Insets bottom="2.0" top="2.0" />
+            </StackPane.margin>
+        </VBox>
+    </children>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+</StackPane>

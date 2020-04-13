@@ -1,0 +1,25 @@
+@startuml
+start
+:User executes task add command;
+if () then ([module code and description are present])
+    if () then ([a time does not exist without a date])
+        :Parser parses module code, description, possible date and time;
+        if () then ([arguments are valid])
+            :Logic executes command;
+                if () then ([ModManager does not contain task])
+                    :Model adds task to UniqueTaskList;
+                    :Logic saves ModManager to Storage;
+                else ([else])
+                    :Ui shows error message;
+                endif
+        else ([else])
+            :Ui shows error message;
+        endif
+    else ([else])
+        :Ui shows error message;
+    endif
+else([else])
+    :Ui shows error message;
+endif
+stop
+@enduml

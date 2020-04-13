@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ArrowFontSize 15
+
+Package Action {
+Interface DoableAction <<Interface>>
+Class DoableActionList
+enum DoableActionType <<Enumeration>> {
+        ADD, EDIT, DELETE
+    }
+Class FacilAction
+Class LessonAction
+Class ModuleAction
+Class TaskAction
+}
+
+Class Module
+Class Task
+Class Facilitator
+Class Lesson
+
+DoableActionList *--> "*" DoableAction
+FacilAction .up.|> DoableAction
+LessonAction .up.|> DoableAction
+ModuleAction .up.|> DoableAction
+TaskAction .up.|> DoableAction
+
+FacilAction *-down-> "1..2" Facilitator
+LessonAction *-down-> "1..2" Lesson
+ModuleAction *-down-> "1..2" Module
+TaskAction *-down-> "1..2" Task
+
+FacilAction *-up---> DoableActionType
+LessonAction *-up---> DoableActionType
+ModuleAction *-up---> DoableActionType
+TaskAction *-up---> DoableActionType
+
+@enduml

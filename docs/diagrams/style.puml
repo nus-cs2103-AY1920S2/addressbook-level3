@@ -20,7 +20,7 @@
 !define LOGIC_COLOR_T4 #101086
 
 !define MODEL_COLOR #9D0012
-!define MODEL_COLOR_T1 #F97181
+!define MODEL_COLOR_T1 #FFCFDC
 !define MODEL_COLOR_T2 #E41F36
 !define MODEL_COLOR_T3 #7B000E
 !define MODEL_COLOR_T4 #51000A
@@ -30,6 +30,8 @@
 !define STORAGE_COLOR_T2 #EDC520
 !define STORAGE_COLOR_T3 #806600
 !define STORAGE_COLOR_T2 #544400
+
+!define ARROW_COLOR_WHITE #FFFFFFF
 
 !define USER_COLOR #000000
 
@@ -53,7 +55,7 @@ skinparam Actor {
 
 skinparam Sequence {
     MessageAlign center
-    BoxFontSize 15
+    BoxFontSize 50
     BoxPadding 0
     BoxFontColor #FFFFFF
     FontName Arial
@@ -62,8 +64,10 @@ skinparam Sequence {
 skinparam Participant {
     FontColor #FFFFFFF
     Padding 20
+    FontSize 50
 }
 
+skinparam ArrowFontSize 40
 skinparam MinClassWidth 50
 skinparam ParticipantPadding 10
 skinparam Shadowing false

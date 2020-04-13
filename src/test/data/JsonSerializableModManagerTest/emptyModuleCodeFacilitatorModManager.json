@@ -1,0 +1,14 @@
+{
+  "modules" : [ {
+    "moduleCode" : "CS2103T",
+    "description" : "Software Engineering"
+  } ],
+  "facilitators": [ {
+    "name": "Alice Pauline",
+    "phone": "94351253",
+    "email": "alice@example.com",
+    "office": "COM2-08-111"
+  } ],
+  "tasks": [ ],
+  "lessons": [ ]
+}

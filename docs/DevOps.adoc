@@ -1,4 +1,5 @@
-= AddressBook Level 3 - Dev Ops
+//tag:DevOps[]
+= Mod Manager - Dev Ops
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +13,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-F10-4/main/tree/master
 
 == Build Automation
 
@@ -46,3 +47,4 @@ A project often depends on third-party libraries. For example, Address Book depe
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
+

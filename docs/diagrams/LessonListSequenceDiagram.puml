@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":LessonCommandParser" as LessonCommandParser LOGIC_COLOR
+participant "l:LessonListCommand" as LessonListCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("class list")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand("class list")
+activate ModManagerParser
+
+create LessonCommandParser
+ModManagerParser -> LessonCommandParser
+activate LessonCommandParser
+
+LessonCommandParser --> ModManagerParser
+deactivate LessonCommandParser
+
+ModManagerParser -> LessonCommandParser : parse("list")
+activate LessonCommandParser
+
+create LessonListCommand
+LessonCommandParser -> LessonListCommand
+activate LessonListCommand
+
+LessonListCommand --> LessonCommandParser : l
+deactivate LessonListCommand
+
+LessonCommandParser --> ModManagerParser : l
+deactivate LessonCommandParser
+LessonCommandParser -[hidden]-> ModManagerParser
+destroy LessonCommandParser
+
+ModManagerParser --> LogicManager : l
+deactivate ModManagerParser
+
+LogicManager -> LessonListCommand : execute()
+activate LessonListCommand
+
+LessonListCommand -> ModelManager : getLessons()
+activate ModelManager
+
+ModelManager --> LessonListCommand : list
+deactivate ModelManager
+
+create CommandResult
+LessonListCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> LessonListCommand
+deactivate CommandResult
+
+LessonListCommand --> LogicManager : result
+deactivate LessonListCommand
+LessonListCommand -[hidden]-> LogicManager
+destroy LessonListCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

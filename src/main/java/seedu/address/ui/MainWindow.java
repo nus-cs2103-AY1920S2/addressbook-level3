@@ -1,10 +1,13 @@
 package seedu.address.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -16,6 +19,17 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.calendar.Calendar;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.ui.calendarui.CalendarView;
+import seedu.address.ui.facilitatorui.FacilitatorListPanel;
+import seedu.address.ui.facilitatorui.FacilitatorPanel;
+import seedu.address.ui.lessonui.LessonPanel;
+import seedu.address.ui.moduleui.ModuleDetailsPanel;
+import seedu.address.ui.moduleui.ModuleListPanel;
+import seedu.address.ui.taskui.TaskListPanel;
+import seedu.address.ui.taskui.TaskPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,9 +45,17 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ModuleListPanel moduleListPanel;
+    private FacilitatorListPanel facilitatorListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ModuleDetailsPanel moduleDetailsPanel;
+    private LessonPanel lessonPanel;
+    private TaskPanel taskPanel;
+    private FacilitatorPanel facilitatorPanel;
+    private CalendarView calendarView;
+    private TaskListPanel taskListPanel;
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,13 +64,49 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane moduleListPanelPlaceholder;
+
+    @FXML
+    private StackPane facilitatorListPanelPlaceholder;
+
+    @FXML
+    private StackPane calendarViewPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private TabPane mainTabPane;
+
+    @FXML
+    private Tab module;
+
+    @FXML
+    private Tab facilitator;
+
+    @FXML
+    private Tab calendar;
+
+    @FXML
+    private Tab task;
+
+    @FXML
+    private StackPane moduleDetailsPlaceholder;
+
+    @FXML
+    private StackPane lessonPanelPlaceholder;
+
+    @FXML
+    private StackPane taskPanelPlaceholder;
+
+    @FXML
+    private StackPane facilitatorPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -63,6 +121,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        // Set the minimum width that user can make it smaller to
+        primaryStage.setMinWidth(1132);
     }
 
     public Stage getPrimaryStage() {
@@ -107,16 +168,42 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
+        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+
+        facilitatorListPanel = new FacilitatorListPanel(logic.getFilteredFacilitatorList());
+        facilitatorListPanelPlaceholder.getChildren().add(facilitatorListPanel.getRoot());
+
+        calendarView = new CalendarView(logic.getCalendar(), logic.getFilteredTaskList(), logic.getLessons());
+        calendarViewPlaceholder.getChildren().add(calendarView.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getModManagerFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        moduleDetailsPanel = new ModuleDetailsPanel();
+        moduleDetailsPlaceholder.getChildren().add(moduleDetailsPanel.getRoot());
+        moduleDetailsPlaceholder.setStyle("-fx-background-insets: 3px, 0px;  -fx-background-radius: 15px; "
+                + "-fx-border-color: transparent;");
+
+        lessonPanel = new LessonPanel();
+        lessonPanelPlaceholder.getChildren().add(lessonPanel.getRoot());
+        lessonPanelPlaceholder.setStyle("-fx-border-color: transparent; -fx-effect: null;");
+
+        taskPanel = new TaskPanel(logic.getTaskListForModule());
+        taskPanelPlaceholder.getChildren().add(taskPanel.getRoot());
+        taskPanelPlaceholder.setStyle("-fx-border-color: transparent; -fx-effect: null;");
+
+        facilitatorPanel = new FacilitatorPanel(logic.getFacilitatorListForModule());
+        facilitatorPanelPlaceholder.getChildren().add(facilitatorPanel.getRoot());
+        facilitatorPanelPlaceholder.setStyle("-fx-border-color: transparent; -fx-effect: null;");
+
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -160,8 +247,73 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Switches to module view
+     */
+    public void handleSwitchToModule() {
+        mainTabPane.getSelectionModel().select(module);
+        moduleDetailsPanel.changeDisplayModule(logic.getModule());
+    }
+
+    /**
+     * Switches to facilitator view
+     */
+    public void handleSwitchToFacilitator() {
+        mainTabPane.getSelectionModel().select(facilitator);
+    }
+
+    /**
+     * Switches to calendar view
+     */
+    public void handleSwitchToCalendar() {
+        mainTabPane.getSelectionModel().select(calendar);
+    }
+
+    /**
+     * Switches to task view
+     */
+    public void handleSwitchToTask() {
+        mainTabPane.getSelectionModel().select(task);
+    }
+
+    /**
+     * Changes the calendar view to the specified week.
+     *
+     * @param week The week to be viewed
+     */
+    public void viewCalendar(Calendar week) {
+        calendarView = new CalendarView(week, logic.getFilteredTaskList(), logic.getLessons());
+        calendarViewPlaceholder.getChildren().clear();
+        calendarViewPlaceholder.getChildren().add(calendarView.getRoot());
+    }
+
+    /**
+     * Changes the module view to the specified module.
+     * @param module The module to be viewed.
+     */
+    public void refreshModuleTab(Optional<Module> module) {
+        if (module.isEmpty()) {
+            lessonPanel = new LessonPanel();
+            lessonPanelPlaceholder.getChildren().clear();
+            lessonPanelPlaceholder.getChildren().add(lessonPanel.getRoot());
+            return;
+        }
+        ModuleCode moduleCode = module.get().getModuleCode();
+        lessonPanel = new LessonPanel(logic.getLessonListForModule(moduleCode));
+        lessonPanelPlaceholder.getChildren().clear();
+        lessonPanelPlaceholder.getChildren().add(lessonPanel.getRoot());
+    }
+
+    public ModuleListPanel getModuleListPanel() {
+        return moduleListPanel;
+    }
+
+    public FacilitatorListPanel getFacilitatorListPanel() {
+        return facilitatorListPanel;
+    }
+
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
     }
 
     /**
@@ -174,13 +326,37 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
+            viewCalendar(logic.getCalendar());
+            switch (commandResult.getType()) {
+            case CLEAR:
+            case MODULE:
+            case LESSON:
+                handleSwitchToModule();
+                refreshModuleTab(logic.getModule());
+                break;
+            case TASK:
+                handleSwitchToTask();
+                break;
+            case FACILITATOR:
+                handleSwitchToFacilitator();
+                break;
+            case CALENDAR:
+                handleSwitchToCalendar();
+                viewCalendar(logic.getCalendar());
+                break;
+            case HELP:
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+                break;
+            case EXIT:
                 handleExit();
+                break;
+            case UNDO:
+            case REDO:
+                moduleDetailsPanel.changeDisplayModule(logic.getModule());
+                refreshModuleTab(logic.getModule());
+                break;
+            default:
+                break;
             }
 
             return commandResult;

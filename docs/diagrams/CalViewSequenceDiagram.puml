@@ -1,0 +1,113 @@
+@startuml
+scale 0.6
+!include style.puml
+skinparam ArrowFontSize 55
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":CalCommandParser" as CalCommandParser LOGIC_COLOR
+participant ":CalViewCommandParser" as CalViewCommandParser LOGIC_COLOR
+participant ParserUtil <<class>> LOGIC_COLOR
+participant "v:CalViewCommand" as CalViewCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant Calendar <<class>> MODEL_COLOR
+participant "c:Calendar" as CalendarObj MODEL_COLOR
+end box
+
+[-> LogicManager : execute("cal view /week this")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand("cal view /week this")
+activate ModManagerParser
+
+create CalCommandParser
+ModManagerParser -> CalCommandParser
+activate CalCommandParser
+
+CalCommandParser --> ModManagerParser
+deactivate CalCommandParser
+
+ModManagerParser -> CalCommandParser : parse("view /week this")
+activate CalCommandParser
+
+create CalViewCommandParser
+CalCommandParser -> CalViewCommandParser
+activate CalViewCommandParser
+
+CalViewCommandParser --> CalCommandParser
+deactivate CalViewCommandParser
+
+CalCommandParser -> CalViewCommandParser : parse("/week this")
+activate CalViewCommandParser
+
+CalViewCommandParser -> ParserUtil : parseWeek("this")
+activate ParserUtil
+
+ParserUtil -> Calendar : getNowCalendar()
+activate Calendar
+
+create CalendarObj
+Calendar -> CalendarObj : Calendar(LocalTime.now())
+activate CalendarObj
+
+CalendarObj --> Calendar : c
+deactivate CalendarObj
+
+Calendar --> ParserUtil : c
+deactivate Calendar
+
+ParserUtil --> CalViewCommandParser : c
+deactivate ParserUtil
+
+create CalViewCommand
+CalViewCommandParser -> CalViewCommand : CalViewCommand(c)
+activate CalViewCommand
+
+CalViewCommand --> CalViewCommandParser : v
+deactivate CalViewCommand
+
+CalViewCommandParser --> CalCommandParser : v
+deactivate CalViewCommandParser
+
+CalViewCommandParser -[hidden]-> CalCommandParser
+destroy CalViewCommandParser
+
+CalCommandParser --> ModManagerParser : v
+deactivate CalCommandParser
+
+CalCommandParser -[hidden]-> ModManagerParser
+destroy CalCommandParser
+
+ModManagerParser --> LogicManager : v
+deactivate ModManagerParser
+
+LogicManager -> CalViewCommand : execute()
+activate CalViewCommand
+
+CalViewCommand -> ModelManager : updateCalendar(c)
+activate ModelManager
+
+ModelManager --> CalViewCommand
+deactivate ModelManager
+
+create CommandResult
+CalViewCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CalViewCommand
+deactivate CommandResult
+
+CalViewCommand --> LogicManager
+deactivate CalViewCommand
+
+CalViewCommand -[hidden]-> LogicManager
+destroy CalViewCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

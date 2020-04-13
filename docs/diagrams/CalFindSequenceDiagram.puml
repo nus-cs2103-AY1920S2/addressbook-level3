@@ -1,0 +1,103 @@
+@startuml
+!include style.puml
+skinparam ArrowFontSize 50
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":CalCommandParser" as CalCommandParser LOGIC_COLOR
+participant ":CalFindCommandParser" as CalFindCommandParser LOGIC_COLOR
+participant "v:CalFindCommand" as CalFindCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant Calendar <<class>> MODEL_COLOR
+end box
+
+[-> LogicManager : execute\n("cal find empty")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand\n("cal find empty")
+activate ModManagerParser
+
+create CalCommandParser
+ModManagerParser -> CalCommandParser
+activate CalCommandParser
+
+CalCommandParser --> ModManagerParser
+deactivate CalCommandParser
+
+ModManagerParser -> CalCommandParser : parse\n("find empty")
+activate CalCommandParser
+
+create CalFindCommandParser
+CalCommandParser -> CalFindCommandParser
+activate CalFindCommandParser
+
+CalFindCommandParser --> CalCommandParser
+deactivate CalFindCommandParser
+
+CalCommandParser -> CalFindCommandParser : parse\n("empty")
+activate CalFindCommandParser
+
+create CalFindCommand
+CalFindCommandParser -> CalFindCommand : CalFindCommand()
+activate CalFindCommand
+
+CalFindCommand --> CalFindCommandParser : v
+deactivate CalFindCommand
+
+CalFindCommandParser --> CalCommandParser : v
+deactivate CalFindCommandParser
+
+CalFindCommandParser -[hidden]-> CalCommandParser
+destroy CalFindCommandParser
+
+CalCommandParser --> ModManagerParser : v
+deactivate CalCommandParser
+
+CalCommandParser -[hidden]-> ModManagerParser
+destroy CalCommandParser
+
+ModManagerParser --> LogicManager : v
+deactivate ModManagerParser
+
+LogicManager -> CalFindCommand : execute()
+activate CalFindCommand
+
+CalFindCommand -> Calendar : getNowCalendar()
+activate Calendar
+
+Calendar --> CalFindCommand
+deactivate Calendar
+
+CalFindCommand -> ModelManager : getFilteredTaskList()
+activate ModelManager
+
+ModelManager --> CalFindCommand
+deactivate ModelManager
+
+CalFindCommand -> ModelManager : getLessons()
+activate ModelManager
+
+ModelManager --> CalFindCommand
+deactivate ModelManager
+
+create CommandResult
+CalFindCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CalFindCommand
+deactivate CommandResult
+
+CalFindCommand --> LogicManager
+deactivate CalFindCommand
+
+CalFindCommand -[hidden]-> LogicManager
+destroy CalFindCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,121 @@
+@startuml
+scale 1
+!include style.puml
+skinparam ArrowFontSize 60
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":TaskCommandParser" as TaskCommandParser LOGIC_COLOR
+participant ":TaskMarkAsDoneCommandParser" as TaskMarkAsDoneCommandParser LOGIC_COLOR
+participant "cmd:TaskMarkAsDoneCommand" as TaskMarkAsDoneCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant "list:ObservableList" as ObservableList MODEL_COLOR
+participant "task:Task" as Task MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":UniqueTaskList" as UniqueTaskList MODEL_COLOR
+end box
+
+[-> LogicManager : execute("task \n done \n /module \n CS2103T \n /id \n 986")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand("task \n done \n /module \n CS2103T \n /id \n 986")
+
+activate ModManagerParser
+
+create TaskCommandParser
+ModManagerParser -> TaskCommandParser
+activate TaskCommandParser
+
+TaskCommandParser --> ModManagerParser
+deactivate TaskCommandParser
+
+ModManagerParser -> TaskCommandParser : parse("done \n /module \n CS2103T \n /id \n 986")
+activate TaskCommandParser
+
+create TaskMarkAsDoneCommandParser
+TaskCommandParser -> TaskMarkAsDoneCommandParser
+activate TaskMarkAsDoneCommandParser
+
+TaskMarkAsDoneCommandParser --> TaskCommandParser
+deactivate TaskMarkAsDoneCommandParser
+
+TaskCommandParser -> TaskMarkAsDoneCommandParser : parse("/module \n CS2103T \n /id \n 986")
+activate TaskMarkAsDoneCommandParser
+
+create TaskMarkAsDoneCommand
+TaskMarkAsDoneCommandParser -> TaskMarkAsDoneCommand : TaskMarkAsDoneCommand(\n"CS2103T",\n "986")
+activate TaskMarkAsDoneCommand
+
+TaskMarkAsDoneCommand --> TaskMarkAsDoneCommandParser : cmd
+deactivate TaskMarkAsDoneCommand
+
+TaskMarkAsDoneCommandParser --> TaskCommandParser : cmd
+deactivate TaskMarkAsDoneCommandParser
+TaskMarkAsDoneCommandParser -[hidden]-> TaskCommandParser
+destroy TaskMarkAsDoneCommandParser
+
+TaskCommandParser --> ModManagerParser : cmd
+deactivate TaskCommandParser
+TaskCommandParser -[hidden]-> ModManagerParser
+destroy TaskCommandParser
+
+ModManagerParser --> LogicManager : cmd
+deactivate ModManagerParser
+
+LogicManager -> TaskMarkAsDoneCommand : execute()
+activate TaskMarkAsDoneCommand
+
+TaskMarkAsDoneCommand -> ModelManager : getFilteredTaskList()
+activate ModelManager
+
+ModelManager --> TaskMarkAsDoneCommand :
+deactivate ModelManager
+
+TaskMarkAsDoneCommand -> ObservableList : getMatchingTask()
+activate ObservableList
+
+ObservableList --> TaskMarkAsDoneCommand : task
+deactivate ObservableList
+
+create Task
+TaskMarkAsDoneCommand -> Task: markAsDone()
+activate Task
+
+Task --> TaskMarkAsDoneCommand : doneTask
+deactivate Task
+
+
+TaskMarkAsDoneCommand -> UniqueTaskList : setTask(task, doneTask)
+activate ModelManager
+
+UniqueTaskList --> TaskMarkAsDoneCommand
+deactivate UniqueTaskList
+
+
+
+ModelManager --> TaskMarkAsDoneCommand
+
+TaskMarkAsDoneCommand -> ModelManager : updateFilteredTaskList(\nPREDICATE_SHOW_ALL_TASKS)
+ModelManager --> TaskMarkAsDoneCommand
+deactivate ModelManager
+
+create CommandResult
+TaskMarkAsDoneCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> TaskMarkAsDoneCommand
+deactivate CommandResult
+
+TaskMarkAsDoneCommand --> LogicManager : result
+deactivate TaskMarkAsDoneCommand
+TaskMarkAsDoneCommand -[hidden]-> LogicManager
+destroy TaskMarkAsDoneCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

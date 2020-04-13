@@ -1,0 +1,32 @@
+@startuml
+start
+:User executes class edit command;
+if () then ([index and target module code are present])
+    :Parser parses index and target module code;
+    if () then ([index and target module code are both valid])
+        :Parser parses fields to edit;
+        if () then ([arguments are valid])
+            :Logic executes command;
+            if () then ([index is not out of bounds and target module exists])
+                :Command creates edited lesson;
+                if () then ([ModManager does not contain edited lesson and time slot is free])
+                    :Model edits lesson in LessonList;
+                    :Logic saves LessonList to Storage;
+                    :Ui shows the list of lessons for the edited lesson's module;
+                else ([else])
+                    :Ui shows error message;
+                endif
+            else ([else])
+                :Ui shows error message;
+            endif
+        else ([else])
+            :Ui shows error message;
+        endif
+    else ([else])
+        :Ui shows error message;
+    endif
+else([else])
+    :Ui shows error message;
+endif
+stop
+@enduml

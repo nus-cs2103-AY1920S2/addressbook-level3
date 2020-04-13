@@ -1,0 +1,201 @@
+@startuml
+scale 0.6
+!include style.puml
+
+skinparam ArrowFontSize 60
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":ModuleCommandParser" as ModuleCommandParser LOGIC_COLOR
+participant ":ModuleDeleteCommandParser" as ModuleDeleteCommandParser LOGIC_COLOR
+participant "d:ModuleDeleteCommand" as ModuleDeleteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant "l:ObservableList" as ObservableList MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":UniqueModuleList" as UniqueModuleList MODEL_COLOR
+participant "m:Module" as Module MODEL_COLOR
+participant ":UniqueFacilitatorList" as UniqueFacilitatorList MODEL_COLOR
+participant ":UniqueTaskList" as UniqueTaskList MODEL_COLOR
+participant ":LessonList" as LessonList MODEL_COLOR
+participant "ma:ModuleAction" as ModuleAction MODEL_COLOR
+participant ":DoableActionList" as DoableActionList MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\n"mod delete 1")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand(\n"mod delete 1")
+activate ModManagerParser
+
+create ModuleCommandParser
+ModManagerParser -> ModuleCommandParser
+activate ModuleCommandParser
+
+ModuleCommandParser --> ModManagerParser
+deactivate ModuleCommandParser
+
+ModManagerParser -> ModuleCommandParser : parse("delete 1")
+activate ModuleCommandParser
+
+create ModuleDeleteCommandParser
+ModuleCommandParser -> ModuleDeleteCommandParser
+activate ModuleDeleteCommandParser
+
+ModuleDeleteCommandParser --> ModuleCommandParser
+deactivate ModuleDeleteCommandParser
+
+ModuleCommandParser -> ModuleDeleteCommandParser : parse("1")
+activate ModuleDeleteCommandParser
+
+create ModuleDeleteCommand
+ModuleDeleteCommandParser -> ModuleDeleteCommand : ModuleDelete\nCommand(1)
+activate ModuleDeleteCommand
+
+ModuleDeleteCommand --> ModuleDeleteCommandParser : d
+deactivate ModuleDeleteCommand
+
+ModuleDeleteCommandParser --> ModuleCommandParser : d
+deactivate ModuleDeleteCommandParser
+ModuleDeleteCommandParser -[hidden]-> ModuleCommandParser
+destroy ModuleDeleteCommandParser
+
+ModuleCommandParser --> ModManagerParser : d
+deactivate ModuleCommandParser
+ModuleCommandParser -[hidden]-> ModManagerParser
+destroy ModuleCommandParser
+
+ModManagerParser --> LogicManager : d
+deactivate ModManagerParser
+
+LogicManager -> ModuleDeleteCommand : execute()
+activate ModuleDeleteCommand
+
+ModuleDeleteCommand -> ModelManager : getFilteredModuleList()
+activate ModelManager
+
+ModelManager --> ModuleDeleteCommand : l
+deactivate ModelManager
+
+ModuleDeleteCommand -> ObservableList : get(0)
+activate ObservableList
+
+ObservableList --> ModuleDeleteCommand : m
+deactivate ObservableList
+
+ModuleDeleteCommand -> ModelManager : deleteModule(m)
+activate ModelManager
+
+ModelManager -> ModManager : removeModule(m)
+activate ModManager
+
+ModManager -> UniqueModuleList : remove(m)
+activate UniqueModuleList
+
+UniqueModuleList --> ModManager
+deactivate UniqueModuleList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager --> ModuleDeleteCommand
+deactivate ModelManager
+
+ModuleDeleteCommand -> Module : getModuleCode()
+activate Module
+
+Module --> ModuleDeleteCommand : c
+deactivate Module
+
+ModuleDeleteCommand -> ModelManager : deleteModuleCode\nFromFacilitatorList(c)
+activate ModelManager
+
+ModelManager -> ModManager : removeModuleCode\nFromFacilitatorList(c)
+activate ModManager
+
+ModManager -> UniqueFacilitatorList : removeModuleCode(c)
+activate UniqueFacilitatorList
+
+UniqueFacilitatorList --> ModManager
+deactivate UniqueFacilitatorList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager --> ModuleDeleteCommand
+deactivate ModelManager
+
+ModuleDeleteCommand -> ModelManager : deleteTasks\nWithModuleCode(c)
+activate ModelManager
+
+ModelManager -> ModManager : removeTasks\nWithModuleCode(c)
+activate ModManager
+
+ModManager -> UniqueTaskList : removeWithModuleCode(c)
+activate UniqueTaskList
+
+UniqueTaskList --> ModManager
+deactivate UniqueTaskList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager --> ModuleDeleteCommand
+deactivate ModelManager
+
+ModuleDeleteCommand -> ModelManager : removeLesson\nFromModule(c)
+activate ModelManager
+
+ModelManager -> ModManager : removeLesson\nFromModule(c)
+activate ModManager
+
+ModManager -> LessonList : deleteLessonFromModule(c)
+activate LessonList
+
+LessonList --> ModManager
+deactivate LessonList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager --> ModuleDeleteCommand
+deactivate ModelManager
+
+create ModuleAction
+ModuleDeleteCommand -> ModuleAction : ModuleAction(m, l, t, f, DELETE)
+activate ModuleAction
+
+ModuleAction --> ModuleDeleteCommand : ma
+deactivate ModuleAction
+
+ModuleDeleteCommand -> ModelManager : addAction(ma)
+activate ModelManager
+
+ModelManager -> DoableActionList : addAction(ma)
+activate DoableActionList
+
+DoableActionList --> ModelManager
+deactivate DoableActionList
+
+ModelManager --> ModuleDeleteCommand
+deactivate ModelManager
+
+create CommandResult
+ModuleDeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ModuleDeleteCommand
+deactivate CommandResult
+
+ModuleDeleteCommand --> LogicManager : result
+deactivate ModuleDeleteCommand
+ModuleDeleteCommand -[hidden]-> LogicManager
+destroy ModuleDeleteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

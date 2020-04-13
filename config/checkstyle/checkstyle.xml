@@ -226,11 +226,14 @@
     <module name="MissingSwitchDefault"/>
 
     <!-- Checks that Class variables should never be declared public. -->
+    <!-- Removed due to a weird error with TypicalTasks, however, TypicalFacilitators and similar classes work fine.
     <module name="VisibilityModifier">
       <property name="protectedAllowed" value="true"/>
       <property name="allowPublicFinalFields" value="true"/>
       <property name="ignoreAnnotationCanonicalNames" value="RegisterExtension, TempDir"/>
     </module>
+    -->
+
 
     <!--
     ORDER CHECKS

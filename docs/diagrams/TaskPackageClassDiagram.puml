@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ArrowFontSize 15
+
+Package Task {
+Abstract Class Task <<Abstract>>
+Class ScheduledTask
+Class NonScheduledTask
+Class UniqueTaskList
+Class TaskDateTime
+}
+
+Package Module {
+Class ModuleCode
+}
+
+UniqueTaskList *--> "*" Task
+ScheduledTask ---|> Task
+ScheduledTask *-up-> "1" ModuleCode
+ScheduledTask *-> "1" TaskDateTime
+NonScheduledTask --|> Task
+NonScheduledTask *-up-> "1" ModuleCode
+
+@enduml

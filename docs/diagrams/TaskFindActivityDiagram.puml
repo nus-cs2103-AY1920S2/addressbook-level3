@@ -1,0 +1,13 @@
+@startuml
+start
+:User executes task find command;
+:Parser parses keywords;
+if () then ([keyword is not empty])
+    :Logic executes command;
+    :Model updates filtered task list;
+    :Ui shows the updated task list;
+else ([else])
+    :Ui shows error message;
+endif
+stop
+@enduml

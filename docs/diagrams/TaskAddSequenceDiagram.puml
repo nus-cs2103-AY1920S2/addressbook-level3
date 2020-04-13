@@ -1,0 +1,127 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":TaskCommandParser" as TaskCommandParser LOGIC_COLOR
+participant ":TaskAddCommandParser" as TaskAddCommandParser LOGIC_COLOR
+participant "a:TaskAddCommand" as TaskAddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "task:Task" as Task MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant "moduleCode:ModuleCode" as ModuleCode MODEL_COLOR
+participant "tdt:TaskDateTime" as TaskDateTime MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":UniqueTaskList" as UniqueTaskList MODEL_COLOR
+end box
+
+[-> LogicManager : execute("task add \n/code CS2103T /desc Update DG \n/on 26/03/2020 /at 08:00")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand("task add \n/code CS2103T /desc Update DG \n/on 26/03/2020 /at 08:00")
+activate ModManagerParser
+
+create TaskCommandParser
+ModManagerParser -> TaskCommandParser
+activate TaskCommandParser
+
+TaskCommandParser --> ModManagerParser
+deactivate TaskCommandParser
+
+ModManagerParser -> TaskCommandParser : parse("add /code CS2103T \n/desc Update DG \n/on 26/03/2020 /at 08:00")
+activate TaskCommandParser
+
+create TaskAddCommandParser
+TaskCommandParser -> TaskAddCommandParser
+activate TaskAddCommandParser
+
+TaskAddCommandParser --> TaskCommandParser
+deactivate TaskAddCommandParser
+
+TaskCommandParser -> TaskAddCommandParser : parse("/code CS2103T \n/desc Update DG \n/on 26/03/2020 /at 08:00")
+activate TaskAddCommandParser
+
+create ModuleCode
+TaskAddCommandParser -> ModuleCode : ModuleCode("CS2103T")
+activate ModuleCode
+
+ModuleCode --> TaskAddCommandParser : moduleCode
+deactivate ModuleCode
+
+create TaskDateTime
+TaskAddCommandParser -> TaskDateTime : TaskDateTime("26/03/2020", "08:00")
+activate TaskDateTime
+
+TaskDateTime --> TaskAddCommandParser : tdt
+deactivate TaskDateTime
+
+create Task
+TaskAddCommandParser -> Task : Task.makeScheduledTask("Update DG", tdt, moduleCode])
+activate Task
+
+Task --> TaskAddCommandParser : task
+deactivate Task
+
+create TaskAddCommand
+TaskAddCommandParser -> TaskAddCommand : TaskAddCommand(task)
+activate TaskAddCommand
+
+TaskAddCommand --> TaskAddCommandParser : a
+deactivate TaskAddCommand
+
+TaskAddCommandParser --> TaskCommandParser : a
+deactivate TaskAddCommandParser
+TaskAddCommandParser -[hidden]-> TaskCommandParser
+destroy TaskAddCommandParser
+
+TaskCommandParser --> ModManagerParser : a
+deactivate TaskCommandParser
+TaskCommandParser -[hidden]-> ModManagerParser
+destroy TaskCommandParser
+
+ModManagerParser --> LogicManager : a
+deactivate ModManagerParser
+
+LogicManager -> TaskAddCommand : execute()
+activate TaskAddCommand
+
+TaskAddCommand -> ModelManager : addTask(task)
+activate ModelManager
+
+ModelManager -> ModManager : addTask(task)
+activate ModManager
+
+ModManager -> UniqueTaskList : add(task)
+activate UniqueTaskList
+
+UniqueTaskList --> ModManager
+deactivate UniqueTaskList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager -> ModelManager ++ : UpdateFilteredTaskList(\nPREDICATE_SHOW_ALL_TASKS)
+ModelManager --> ModelManager --
+
+ModelManager --> TaskAddCommand
+deactivate ModelManager
+
+create CommandResult
+TaskAddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> TaskAddCommand
+deactivate CommandResult
+
+TaskAddCommand --> LogicManager : result
+deactivate TaskAddCommand
+TaskAddCommand -[hidden]-> LogicManager
+destroy TaskAddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

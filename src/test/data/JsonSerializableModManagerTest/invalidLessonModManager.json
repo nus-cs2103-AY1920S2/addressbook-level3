@@ -1,0 +1,14 @@
+{
+  "modules" : [ {
+    "moduleCode" : "CS2103T",
+    "description" : "Software Engineering"
+  } ],
+  "facilitators": [ ],
+  "tasks" : [ ],
+  "lessons" : [ {
+    "moduleCode" : "CS2103T",
+    "type" : "LEC",
+    "dayAndTime" : "fri 14:00 16:00",
+    "venue" : "i3-Aud"
+  } ]
+}

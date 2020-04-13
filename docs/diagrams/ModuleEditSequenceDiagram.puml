@@ -1,0 +1,163 @@
+@startuml
+scale 0.6
+!include style.puml
+skinparam ArrowFontSize 60
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":ModuleCommandParser" as ModuleCommandParser LOGIC_COLOR
+participant ":ModuleEditCommandParser" as ModuleEditCommandParser LOGIC_COLOR
+participant "d:EditModuleDescriptor" as EditModuleDescriptor LOGIC_COLOR
+participant "e:ModuleEditCommand" as ModuleEditCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant "l:ObservableList" as ObservableList MODEL_COLOR
+participant "n:Module" as Module MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":UniqueModuleList" as UniqueModuleList MODEL_COLOR
+participant "ma:ModuleAction" as ModuleAction MODEL_COLOR
+participant ":DoableActionList" as DoableActionList MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\n"mod edit 1 \n/desc SE")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand(\n"mod edit 1 \n/desc SE")
+activate ModManagerParser
+
+create ModuleCommandParser
+ModManagerParser -> ModuleCommandParser
+activate ModuleCommandParser
+
+ModuleCommandParser --> ModManagerParser
+deactivate ModuleCommandParser
+
+ModManagerParser -> ModuleCommandParser : parse("edit 1 \n/desc SE")
+activate ModuleCommandParser
+
+create ModuleEditCommandParser
+ModuleCommandParser -> ModuleEditCommandParser
+activate ModuleEditCommandParser
+
+ModuleEditCommandParser --> ModuleCommandParser
+deactivate ModuleEditCommandParser
+
+ModuleCommandParser -> ModuleEditCommandParser : parse("1 \n/desc SE")
+activate ModuleEditCommandParser
+
+create EditModuleDescriptor
+ModuleEditCommandParser -> EditModuleDescriptor
+activate EditModuleDescriptor
+
+EditModuleDescriptor --> ModuleEditCommandParser : d
+deactivate EditModuleDescriptor
+
+ModuleEditCommandParser -> EditModuleDescriptor : setDescription(\nSE)
+activate EditModuleDescriptor
+
+EditModuleDescriptor --> ModuleEditCommandParser
+deactivate EditModuleDescriptor
+
+create ModuleEditCommand
+ModuleEditCommandParser -> ModuleEditCommand : ModuleEditCommand(1, d)
+activate ModuleEditCommand
+
+ModuleEditCommand --> ModuleEditCommandParser : e
+deactivate ModuleEditCommand
+
+ModuleEditCommandParser --> ModuleCommandParser : e
+deactivate ModuleEditCommandParser
+ModuleEditCommandParser -[hidden]-> ModuleCommandParser
+destroy ModuleEditCommandParser
+
+ModuleCommandParser --> ModManagerParser : e
+deactivate ModuleCommandParser
+ModuleCommandParser -[hidden]-> ModManagerParser
+destroy ModuleCommandParser
+
+ModManagerParser --> LogicManager : e
+deactivate ModManagerParser
+
+LogicManager -> ModuleEditCommand : execute()
+activate ModuleEditCommand
+
+ModuleEditCommand -> ModelManager : getFilteredModuleList()
+activate ModelManager
+
+ModelManager --> ModuleEditCommand : l
+deactivate ModelManager
+
+ModuleEditCommand -> ObservableList : get(0)
+activate ObservableList
+
+ObservableList --> ModuleEditCommand : m
+deactivate ObservableList
+
+ModuleEditCommand -> ModuleEditCommand ++ : createEditedModule(m, d)
+destroy EditModuleDescriptor
+
+create Module
+ModuleEditCommand -> Module
+activate Module
+
+Module --> ModuleEditCommand : n
+deactivate Module
+
+ModuleEditCommand --> ModuleEditCommand --: n
+
+ModuleEditCommand -> ModelManager : setModule(m, n)
+activate ModelManager
+
+ModelManager -> ModManager : setModule(m, n)
+activate ModManager
+
+ModManager -> UniqueModuleList : setModule(\nm, n)
+activate UniqueModuleList
+
+UniqueModuleList --> ModManager
+deactivate UniqueModuleList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager --> ModuleEditCommand
+deactivate ModelManager
+
+create ModuleAction
+ModuleEditCommand -> ModuleAction : ModuleAction(m, n, EDIT)
+activate ModuleAction
+
+ModuleAction --> ModuleEditCommand : ma
+deactivate ModuleAction
+
+ModuleEditCommand -> ModelManager : addAction(ma)
+activate ModelManager
+
+ModelManager -> DoableActionList : addAction(ma)
+activate DoableActionList
+
+DoableActionList --> ModelManager
+deactivate DoableActionList
+
+ModelManager --> ModuleEditCommand
+deactivate ModelManager
+
+create CommandResult
+ModuleEditCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ModuleEditCommand
+deactivate CommandResult
+
+ModuleEditCommand --> LogicManager : result
+deactivate ModuleEditCommand
+ModuleEditCommand -[hidden]-> LogicManager
+destroy ModuleEditCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

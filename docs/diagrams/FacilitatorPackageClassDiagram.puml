@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ArrowFontSize 15
+
+Package Facilitator <<Rectangle>> {
+Class Facilitator
+Class Email
+Class Name
+Class Office
+Class UniqueFacilitatorList
+}
+
+Package Module <<Rectangle>> {
+Class ModuleCode
+}
+
+UniqueFacilitatorList *-> "*" Facilitator
+Facilitator *--> "1" Name
+Facilitator *--> "1" Email
+Facilitator *--> "1" Office
+Facilitator *--> "1..*" ModuleCode
+
+@enduml

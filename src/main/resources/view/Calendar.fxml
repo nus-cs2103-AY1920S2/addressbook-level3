@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="calendarBase" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane>
+            <children>
+                <Label fx:id="calendarTitle" alignment="TOP_CENTER" contentDisplay="TOP" style="-fx-text-fill: white; -fx-font-family: Arial;" text="Calendar"> >
+                    <StackPane.margin>
+                        <Insets top="8.0" />
+                    </StackPane.margin>
+                </Label>
+            </children>
+        </StackPane>
+        <ScrollPane fx:id="calendarScrollPane" fitToHeight="true" fitToWidth="true" pannable="true" style="-fx-background-color: #383838;">
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+         <content>
+            <GridPane fx:id="calendarGrid" alignment="TOP_CENTER" style="-fx-background-color: #383838;">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="TOP" />
+                  <RowConstraints valignment="TOP" vgrow="ALWAYS" prefHeight="500" maxHeight="Infinity"/>
+              </rowConstraints>
+            </GridPane>
+         </content>
+        </ScrollPane>
+    </children>
+</VBox>

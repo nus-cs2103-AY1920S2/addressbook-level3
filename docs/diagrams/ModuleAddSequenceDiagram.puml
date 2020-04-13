@@ -1,0 +1,131 @@
+@startuml
+scale 0.65
+!include style.puml
+skinparam ArrowFontSize 50
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":ModuleCommandParser" as ModuleCommandParser LOGIC_COLOR
+participant ":ModuleAddCommandParser" as ModuleAddCommandParser LOGIC_COLOR
+participant "a:ModuleAddCommand" as ModuleAddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Module" as Module MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":UniqueModuleList" as UniqueModuleList MODEL_COLOR
+participant "ma:ModuleAction" as ModuleAction MODEL_COLOR
+participant ":DoableActionList" as DoableActionList MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\n"mod add\n /code CS2103T")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand(\n"mod add\n /code CS2103T")
+activate ModManagerParser
+
+create ModuleCommandParser
+ModManagerParser -> ModuleCommandParser
+activate ModuleCommandParser
+
+ModuleCommandParser --> ModManagerParser
+deactivate ModuleCommandParser
+
+ModManagerParser -> ModuleCommandParser : parse("add\n /code CS2103T")
+activate ModuleCommandParser
+
+create ModuleAddCommandParser
+ModuleCommandParser -> ModuleAddCommandParser
+activate ModuleAddCommandParser
+
+ModuleAddCommandParser --> ModuleCommandParser
+deactivate ModuleAddCommandParser
+
+ModuleCommandParser -> ModuleAddCommandParser : parse("/code CS2103T")
+activate ModuleAddCommandParser
+
+create Module
+ModuleAddCommandParser -> Module : Module(CS2103T, null)
+activate Module
+
+Module --> ModuleAddCommandParser : m
+deactivate Module
+
+create ModuleAddCommand
+ModuleAddCommandParser -> ModuleAddCommand : ModuleAddCommand(m)
+activate ModuleAddCommand
+
+ModuleAddCommand --> ModuleAddCommandParser : a
+deactivate ModuleAddCommand
+
+ModuleAddCommandParser --> ModuleCommandParser : a
+deactivate ModuleAddCommandParser
+ModuleAddCommandParser -[hidden]-> ModuleCommandParser
+destroy ModuleAddCommandParser
+
+ModuleCommandParser --> ModManagerParser : a
+deactivate ModuleCommandParser
+ModuleCommandParser -[hidden]-> ModManagerParser
+destroy ModuleCommandParser
+
+ModManagerParser --> LogicManager : a
+deactivate ModManagerParser
+
+LogicManager -> ModuleAddCommand : execute()
+activate ModuleAddCommand
+
+ModuleAddCommand -> ModelManager : addModule(m)
+activate ModelManager
+
+ModelManager -> ModManager : addModule(m)
+activate ModManager
+
+ModManager -> UniqueModuleList : add(m)
+activate UniqueModuleList
+
+UniqueModuleList --> ModManager
+deactivate UniqueModuleList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager --> ModuleAddCommand
+deactivate ModelManager
+
+create ModuleAction
+ModuleAddCommand -> ModuleAction : ModuleAction(m, ADD)
+activate ModuleAction
+
+ModuleAction --> ModuleAddCommand : ma
+deactivate ModuleAction
+
+ModuleAddCommand -> ModelManager : addAction(ma)
+activate ModelManager
+
+ModelManager -> DoableActionList : addAction(ma)
+activate DoableActionList
+
+DoableActionList --> ModelManager
+deactivate DoableActionList
+
+ModelManager --> ModuleAddCommand
+deactivate ModelManager
+
+create CommandResult
+ModuleAddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ModuleAddCommand
+deactivate CommandResult
+
+ModuleAddCommand --> LogicManager : result
+deactivate ModuleAddCommand
+ModuleAddCommand -[hidden]-> LogicManager
+destroy ModuleAddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

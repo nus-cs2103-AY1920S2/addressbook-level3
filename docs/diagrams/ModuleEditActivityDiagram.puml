@@ -1,0 +1,59 @@
+@startuml
+start
+:User executes module edit command;
+if () then ([index or module code is provided])
+    if () then ([index is provided])
+        :Parser parses index;
+        if () then ([index is valid])
+            :Parser parses fields to edit;
+            if () then ([arguments are valid])
+                :Logic executes command;
+                if () then ([index is not out of bounds])
+                    :Command creates edited module;
+                    if () then ([ModManager does not contain edited module])
+                        :Model edits module in UniqueModuleList
+                                          in ModManager;
+                        :Logic saves ModManager to Storage;
+                        :Ui shows the updated module list;
+                    else ([else])
+                        :Ui shows error message;
+                    endif
+                else ([else])
+                    :Ui shows error message;
+                endif
+            else ([else])
+                :Ui shows error message;
+            endif
+        else ([else])
+            :Ui shows error message;
+        endif
+    else ([module code is provided])
+        :Parser parses module code;
+        if () then ([module code is valid])
+            :Parser parses fields to edit;
+            if () then ([arguments are valid])
+                :Logic executes command;
+                if () then ([module exists in ModManager])
+                    :Command creates edited module;
+                    if () then ([ModManager does not contain edited module])
+                        :Model edits module in UniqueModuleList;
+                        :Logic saves ModManager to Storage;
+                        :Ui shows the updated module list;
+                    else ([else])
+                        :Ui shows error message;
+                    endif
+                else ([else])
+                    :Ui shows error message;
+                endif
+            else ([else])
+                :Ui shows error message;
+            endif
+        else ([else])
+            :Ui shows error message;
+        endif
+    endif
+else ([else])
+    :Ui shows error message;
+endif
+stop
+@enduml

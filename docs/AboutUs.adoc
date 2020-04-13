@@ -4,53 +4,67 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+Mod Manager was developed by the https://github.com/AY1920S2-CS2103T-F10-4[AY1920S2-CS2103T-F10-4] team.
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
+////
+Choose the roles and responsibilities here:
+
+Team lead: Responsible for overall project coordination.
+Documentation (short for ‘in charge of documentation’): Responsible for the quality of various project documents.
+Testing: Ensures the testing of the project is done properly and on time.
+Code quality: Looks after code quality, ensures adherence to coding standards, etc.
+Deliverables and deadlines: Ensure project deliverables are done on time and in the right format.
+Integration: In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
+Scheduling and tracking: In charge of defining, assigning, and tracking project tasks.
+[Tool ABC] expert: e.g. Intellij expert, Git expert, etc. Helps other team member with matters related to the specific tool.
+In charge of[Component XYZ]: e.g. In charge of Model, UI, Storage, etc. If you are in charge of a component, you are expected to know that component well, and review changes done to that component in v1.3-v1.4.
+////
+
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Nguyen Dang Phuc Nhat
+image::nnpanpan.png[width="150", align="left"]
+{empty}[https://github.com/NNpanpan[github]] [<<nnpanpan#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer, Project Lead +
+Responsibilities: Cmd Component, Undo/Redo Commands
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Dinh Nho Bao
+image::dinhnhobao.png[width="150", align="left"]
+{empty}[http://github.com/dinhnhobao[github]] [<<dinhnhobao#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer, Deliverables and Deadlines +
+Responsibilities: Task Component
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Ang Lu Shing
+image::alushingg.png[width="150", align="left"]
+{empty}[http://github.com/alushingg[github]] [<<alushingg#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer, Integration +
+Responsibilities: Calendar Component
+
+'''
+
+=== Ng Zi Xin
+image::zixinn.png[width="150", align="left"]
+{empty}[http://github.com/zixinn[github]] [<<zixinn#, portfolio>>]
+
+Role: Developer, Code Quality +
+Responsibilities: Module Component
+
+'''
+
+=== Chan Heidi
+image::heidicrq.png[width="150", align="left"]
+{empty}[http://github.com/heidicrq[github]] [<<heidicrq#, portfolio>>]
+
+Role: Developer, Documentation +
+Responsibilities: Class Component
 
 '''

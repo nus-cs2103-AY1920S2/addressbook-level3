@@ -1,4 +1,5 @@
-= AddressBook Level 3 - Documentation
+//tag:Documentation[]
+= Mod Manager - Documentation
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +13,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-F10-4/main/tree/master
 
 == Introduction
 
@@ -121,3 +122,4 @@ Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] 
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
+//tag:Documentation[]

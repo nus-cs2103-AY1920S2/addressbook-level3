@@ -1,0 +1,11 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ArrowFontSize 15
+
+Task "*" o-right-> "1" ModuleCode
+Module "1" *-up-> "1" ModuleCode
+
+@enduml

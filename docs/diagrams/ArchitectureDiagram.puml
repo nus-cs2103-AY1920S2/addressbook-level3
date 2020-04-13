@@ -16,11 +16,9 @@ Package " "<<Rectangle>>{
     Class HiddenUI #FFFFFF
     Class HiddenModel #FFFFFF
 
-
 }
 Class "<$user>" as User MODEL_COLOR_T2
 Class "<$documents>" as File UI_COLOR_T1
-
 
 HiddenUI -up[hidden]-> UI
 HiddenModel -left[hidden]-> Model

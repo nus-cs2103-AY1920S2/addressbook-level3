@@ -1,0 +1,16 @@
+@startuml
+scale 1.2
+start
+:User enters cal find command;
+:Parser parses the command;
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([else])
+    :Logic executes the command;
+    :Ui displays a list of empty slots in calendar to user;
+else ([argument is not specified or invalid])
+    :Ui shows error message;
+endif
+stop
+@enduml

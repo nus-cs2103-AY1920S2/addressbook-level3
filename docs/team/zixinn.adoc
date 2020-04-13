@@ -1,0 +1,130 @@
+= Ng Zi Xin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:experimental:
+
+== PROJECT: Mod Manager
+
+== Overview
+
+This document documents my contributions to Mod Manager.
+
+Mod Manager is a desktop application that assists students in managing tasks, schedules and contacts for their modules. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 25 kLoC.
+
+Mod Manager is morphed from existing desktop Java application https://github.com/nus-cs2103-AY1920S2/addressbook-level3[Address Book (Level 3)] over a period of 8 weeks by my team of 5 software engineering students.
+
+== Summary of Contributions
+
+Given below is a summary of my contributions to Mod Manager.
+
+*Major enhancement*:
+
+* Implemented the module management feature.
+** What it does: This feature allows users to add, view, edit and delete modules.
+** Justification: This feature improves the product as it enables users to manage modules easily. It gathers all the information for each module and displays them to the user.
+** Highlights: This enhancement required integration of the other features. It required an in-depth analysis of design alternatives. The implementation was challenging as it required updating the classes, tasks and facilitators when a module is edited or deleted.
+
+*Minor enhancement*:
+
+* Refactored person in Address Book to facilitator in Mod Manager.
+* Implemented the ability to bring users to the relevant tabs when commands are executed.
+
+*Code contributed*:
+
+* [https://github.com/AY1920S2-CS2103T-F10-4/main/pulls?q=is%3Apr+is%3Aclosed+author%3Azixinn[Functional code]] [https://github.com/AY1920S2-CS2103T-F10-4/main/pulls?q=is%3Apr+is%3Aclosed+author%3Azixinn+test[Test code]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=zixinn&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Reposense]]
+
+*Other contributions*:
+
+* Project management:
+** Managed issue tracker and milestones for team repo and merged pull requests
+* Enhancements to existing features:
+** Wrote additional tests to increase coverage from 60% to 66%: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/121[#121]
+** Updated sample data: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/183[#183]
+* Documentation:
+** Updated introduction, about and upcoming section of User Guide: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/24[#24], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/126[#126]
+** Added module and facilitator feature of User Guide: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/10[#10], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/174[#174]
+** Updated storage component, non functional requirements and testing of general features of Developer Guide: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/24[#24], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/103[#103], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/121[#121], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/180[#180]
+** Added implementation, use cases and testing of module and facilitator management feature of Developer Guide: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/24[#24], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/103[#103], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/121[#121], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/126[#126], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/176[#176], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/180[#180]
+* Community:
+** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-F10-4/main/pull/81[#81], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/98[#98], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/128[#128], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/139[#139]
+* Tools:
+** Integrated Travis, AppVeyor, Coveralls and Codacy to the team repo
+
+== Contributions to the User Guide
+
+Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+
+//=== Introduction
+
+//include::../UserGuide.adoc[tag=introduction]
+
+=== About
+
+include::../UserGuide.adoc[tag=about]
+
+=== Module Feature : `*mod*`
+
+//include::../UserGuide.adoc[tag=module]
+
+include::../UserGuide.adoc[tag=mod]
+
+include::../UserGuide.adoc[tag=mod-view]
+
+//=== Facilitator Feature : `*facil*`
+
+//include::../UserGuide.adoc[tag=facilitator]
+
+//=== Upcoming Features `[coming in v2.0]`
+
+//include::../UserGuide.adoc[tag=upcoming]
+
+== Contributions to the Developer Guide
+
+Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+
+=== Storage Component
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+=== Module Management Feature
+
+//include::../DeveloperGuide.adoc[tag=module]
+
+include::../DeveloperGuide.adoc[tag=mod]
+
+include::../DeveloperGuide.adoc[tag=mod-add]
+
+=== Facilitator Management Feature
+
+//include::../DeveloperGuide.adoc[tag=facilitator]
+
+include::../DeveloperGuide.adoc[tag=design-consideration-facilitator]
+
+=== Appendix C: Use Cases
+
+//include::../DeveloperGuide.adoc[tag=use-case-module]
+
+include::../DeveloperGuide.adoc[tag=use-case-mod-edit-delete]
+
+//include::../DeveloperGuide.adoc[tag=use-case-facilitator]
+
+=== Appendix D: Non Functional Requirements
+
+include::../DeveloperGuide.adoc[tag=nfr]
+
+=== Appendix F: Instructions for Manual Testing
+
+=== Testing of General Features
+
+include::../DeveloperGuide.adoc[tag=testing-general]
+
+=== Testing of Module Feature
+
+//include::../DeveloperGuide.adoc[tag=testing-module]
+
+include::../DeveloperGuide.adoc[tag=testing-mod-edit]
+
+//=== Testing of Facilitator Feature
+
+//include::../DeveloperGuide.adoc[tag=testing-facilitator]

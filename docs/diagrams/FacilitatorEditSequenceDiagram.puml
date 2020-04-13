@@ -1,0 +1,169 @@
+@startuml
+scale 0.6
+!include style.puml
+skinparam ArrowFontSize 60
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":FacilCommandParser" as FacilCommandParser LOGIC_COLOR
+participant ":FacilEditCommandParser" as FacilEditCommandParser LOGIC_COLOR
+participant "d:EditFacilitatorDescriptor" as EditFacilitatorDescriptor LOGIC_COLOR
+participant "e:FacilEditCommand" as FacilEditCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant "l:ObservableList" as ObservableList MODEL_COLOR
+participant "n:Facilitator" as Facilitator MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":UniqueFacilitatorList" as UniqueFacilitatorList MODEL_COLOR
+participant "fa:FacilAction" as FacilAction MODEL_COLOR
+participant ":DoableActionList" as DoableActionList MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\n"facil edit 1 \n/phone\n 87654321")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand(\n"facil edit 1 \n/phone 87654321")
+activate ModManagerParser
+
+create FacilCommandParser
+ModManagerParser -> FacilCommandParser
+activate FacilCommandParser
+
+FacilCommandParser --> ModManagerParser
+deactivate FacilCommandParser
+
+ModManagerParser -> FacilCommandParser : parse("edit 1 \n/phone 87654321")
+activate FacilCommandParser
+
+create FacilEditCommandParser
+FacilCommandParser -> FacilEditCommandParser
+activate FacilEditCommandParser
+
+FacilEditCommandParser --> FacilCommandParser
+deactivate FacilEditCommandParser
+
+FacilCommandParser -> FacilEditCommandParser : parse("1 \n/phone 87654321")
+activate FacilEditCommandParser
+
+create EditFacilitatorDescriptor
+FacilEditCommandParser -> EditFacilitatorDescriptor
+activate EditFacilitatorDescriptor
+
+EditFacilitatorDescriptor --> FacilEditCommandParser : d
+deactivate EditFacilitatorDescriptor
+
+FacilEditCommandParser -> EditFacilitatorDescriptor : setPhone(\n87654321)
+activate EditFacilitatorDescriptor
+
+EditFacilitatorDescriptor --> FacilEditCommandParser
+deactivate EditFacilitatorDescriptor
+
+create FacilEditCommand
+FacilEditCommandParser -> FacilEditCommand : FacilEditCommand(1, d)
+activate FacilEditCommand
+
+FacilEditCommand --> FacilEditCommandParser : e
+deactivate FacilEditCommand
+
+FacilEditCommandParser --> FacilCommandParser : e
+deactivate FacilEditCommandParser
+FacilEditCommandParser -[hidden]-> FacilCommandParser
+destroy FacilEditCommandParser
+
+FacilCommandParser --> ModManagerParser : e
+deactivate FacilCommandParser
+FacilCommandParser -[hidden]-> ModManagerParser
+destroy FacilCommandParser
+
+ModManagerParser --> LogicManager : e
+deactivate ModManagerParser
+
+LogicManager -> FacilEditCommand : execute()
+activate FacilEditCommand
+
+FacilEditCommand -> ModelManager : getFilteredFacilitatorList()
+activate ModelManager
+
+ModelManager --> FacilEditCommand : l
+deactivate ModelManager
+
+FacilEditCommand -> ObservableList : get(0)
+activate ObservableList
+
+ObservableList --> FacilEditCommand : f
+deactivate ObservableList
+
+FacilEditCommand -> FacilEditCommand ++ : createEditedFacilitator(f, d)
+destroy EditFacilitatorDescriptor
+
+create Facilitator
+FacilEditCommand -> Facilitator
+activate Facilitator
+
+Facilitator --> FacilEditCommand : n
+deactivate Facilitator
+
+FacilEditCommand --> FacilEditCommand --: n
+
+FacilEditCommand -> ModelManager : setFacilitator(f, n)
+activate ModelManager
+
+ModelManager -> ModManager : setFacilitator(f, n)
+activate ModManager
+
+ModManager -> UniqueFacilitatorList : setFacilitator(\nf, n)
+activate UniqueFacilitatorList
+
+UniqueFacilitatorList --> ModManager
+deactivate UniqueFacilitatorList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager --> FacilEditCommand
+deactivate ModelManager
+
+FacilEditCommand -> ModelManager : updateFilteredFacilitatorList(\nPREDICATE_SHOW_ALL_FACILITATORS)
+activate ModelManager
+
+ModelManager --> FacilEditCommand
+deactivate ModelManager
+
+create FacilAction
+FacilEditCommand -> FacilAction : FacilAction(f, n, EDIT)
+activate FacilAction
+
+FacilAction --> FacilEditCommand : fa
+deactivate FacilAction
+
+FacilEditCommand -> ModelManager
+activate ModelManager
+
+ModelManager -> DoableActionList : addAction(fa)
+activate DoableActionList
+
+DoableActionList --> ModelManager
+deactivate DoableActionList
+
+ModelManager --> FacilEditCommand
+deactivate ModelManager
+
+create CommandResult
+FacilEditCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FacilEditCommand
+deactivate CommandResult
+
+FacilEditCommand --> LogicManager : result
+deactivate FacilEditCommand
+FacilEditCommand -[hidden]-> LogicManager
+destroy FacilEditCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

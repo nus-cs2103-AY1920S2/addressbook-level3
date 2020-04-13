@@ -1,0 +1,11 @@
+{
+  "modules" : [ {
+    "moduleCode" : "CS2103T",
+    "description" : "Software Engineering"
+  }, {
+    "moduleCode" : "CS 2101",
+    "description" : "Effective Communication for Computing Professionals"
+  } ],
+  "facilitators": [ ]
+
+}

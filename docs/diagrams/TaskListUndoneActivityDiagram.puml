@@ -1,0 +1,8 @@
+@startuml
+start
+:User executes task undone command;
+:Logic executes command;
+:Model updates task list with only undone tasks;
+:Ui shows the task list;
+stop
+@enduml

@@ -1,0 +1,135 @@
+@startuml
+scale 0.6
+!include style.puml
+
+skinparam ArrowFontSize 55
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":FacilCommandParser" as FacilCommandParser LOGIC_COLOR
+participant ":FacilAddCommandParser" as FacilAddCommandParser LOGIC_COLOR
+participant "a:FacilAddCommand" as FacilAddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "f:Facilitator" as Facilitator MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":UniqueFacilitatorList" as UniqueFacilitatorList MODEL_COLOR
+participant "fa:FacilAction" as FacilAction MODEL_COLOR
+participant ":DoableActionList" as DoableActionList MODEL_COLOR
+end box
+
+[-> LogicManager : execute("facil add \n/name Akshay \n/phone 98765432 \n/code CS2103T")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand(\n"facil add \n/name Akshay \n/phone 98765432 \n/code CS2103T")
+activate ModManagerParser
+
+create FacilCommandParser
+ModManagerParser -> FacilCommandParser
+activate FacilCommandParser
+
+FacilCommandParser --> ModManagerParser
+deactivate FacilCommandParser
+
+ModManagerParser -> FacilCommandParser : parse("add \n/name Akshay \n/phone 98765432 \n/code CS2103T")
+activate FacilCommandParser
+
+create FacilAddCommandParser
+FacilCommandParser -> FacilAddCommandParser
+activate FacilAddCommandParser
+
+FacilAddCommandParser --> FacilCommandParser
+deactivate FacilAddCommandParser
+
+FacilCommandParser -> FacilAddCommandParser : parse("/name Akshay \n/phone 98765432 \n/code CS2103T")
+activate FacilAddCommandParser
+
+create Facilitator
+FacilAddCommandParser -> Facilitator : Facilitator(Akshay, 98765432,\n null, null, [CS2103T])
+activate Facilitator
+
+Facilitator --> FacilAddCommandParser : f
+deactivate Facilitator
+
+create FacilAddCommand
+FacilAddCommandParser -> FacilAddCommand : FacilAddCommand(f)
+activate FacilAddCommand
+
+FacilAddCommand --> FacilAddCommandParser : a
+deactivate FacilAddCommand
+
+FacilAddCommandParser --> FacilCommandParser : a
+deactivate FacilAddCommandParser
+FacilAddCommandParser -[hidden]-> FacilCommandParser
+destroy FacilAddCommandParser
+
+FacilCommandParser --> ModManagerParser : a
+deactivate FacilCommandParser
+FacilCommandParser -[hidden]-> ModManagerParser
+destroy FacilCommandParser
+
+ModManagerParser --> LogicManager : a
+deactivate ModManagerParser
+
+LogicManager -> FacilAddCommand : execute()
+activate FacilAddCommand
+
+FacilAddCommand -> ModelManager : addFacilitator(f)
+activate ModelManager
+
+ModelManager -> ModManager : addFacilitator(f)
+activate ModManager
+
+ModManager -> UniqueFacilitatorList : add(f)
+activate UniqueFacilitatorList
+
+UniqueFacilitatorList --> ModManager
+deactivate UniqueFacilitatorList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager -> ModelManager ++ : UpdateFilteredFacilitatorList(\nPREDICATE_SHOW_ALL_FACILITATORS)
+ModelManager --> ModelManager --
+
+ModelManager --> FacilAddCommand
+deactivate ModelManager
+
+create FacilAction
+FacilAddCommand -> FacilAction : FacilAction(f, ADD)
+activate FacilAction
+
+FacilAction --> FacilAddCommand : fa
+deactivate FacilAction
+
+FacilAddCommand -> ModelManager : addAction(fa)
+activate ModelManager
+
+ModelManager -> DoableActionList : addAction(fa)
+activate DoableActionList
+
+DoableActionList --> ModelManager
+deactivate DoableActionList
+
+ModelManager --> FacilAddCommand
+deactivate ModelManager
+
+create CommandResult
+FacilAddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FacilAddCommand
+deactivate CommandResult
+
+FacilAddCommand --> LogicManager : result
+deactivate FacilAddCommand
+FacilAddCommand -[hidden]-> LogicManager
+destroy FacilAddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ListView?>
+<VBox alignment="CENTER" styleClass="lesson-panel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+    <Label fx:id="title" wrapText="true" style="-fx-text-fill: white; -fx-font-family: Arial; -fx-font-size: 12pt;" text="Classes">
+        <padding>
+            <Insets top="5" right="5" bottom="5" left="20"/>
+        </padding>
+    </Label>
+
+    <ListView fx:id="lessons" VBox.vgrow="ALWAYS" />
+</VBox >
+

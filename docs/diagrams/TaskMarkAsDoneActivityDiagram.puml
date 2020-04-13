@@ -1,0 +1,20 @@
+@startuml
+start
+:User executes task mark as done command;
+if () then ([module code and task ID is provided])
+    :Parser parses module code and task ID;
+    :Logic executes command;
+    if () then ([module code and task ID is valid])
+        :Command retrieves the matching task from ModManager;
+        :Command creates new task, marked as done;
+        :Model edits task in UniqueTaskList;
+        :Logic saves TaskList to Storage;
+        :Ui shows the updated task list;
+    else ([else])
+        :Ui shows error message;
+    endif
+else ([else])
+    :Ui shows error message;
+endif
+stop
+@enduml

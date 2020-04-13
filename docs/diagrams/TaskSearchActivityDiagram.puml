@@ -1,0 +1,16 @@
+@startuml
+scale 1.2
+start
+:User executes task search command;
+:Parser parses keywords;
+if () then ([the provided date, month, and year is valid])
+    :Logic executes command;
+    :Model updates filtered task list;
+    :Ui displays a list of tasks occurring on
+    the specified date, month, or year;
+else ([else])
+    :Ui shows error message;
+endif
+stop
+@enduml
+

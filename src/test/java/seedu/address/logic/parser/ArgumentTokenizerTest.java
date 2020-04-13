@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ public class ArgumentTokenizerTest {
     private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues) {
 
         // Verify the last value is returned
-        assertEquals(expectedValues[expectedValues.length - 1], argMultimap.getValue(prefix).get());
+        assertEquals(expectedValues[expectedValues.length - 1], argMultimap.getValue(prefix));
 
         // Verify the number of values returned is as expected
         assertEquals(expectedValues.length, argMultimap.getAllValues(prefix).size());
@@ -50,7 +50,7 @@ public class ArgumentTokenizerTest {
     }
 
     private void assertArgumentAbsent(ArgumentMultimap argMultimap, Prefix prefix) {
-        assertFalse(argMultimap.getValue(prefix).isPresent());
+        assertNull(argMultimap.getValue(prefix));
     }
 
     @Test

@@ -1,0 +1,11 @@
+{
+  "modules" : [ ],
+  "facilitators": [ {
+    "name": "Hans Muster",
+    "phone": "9482424",
+    "email": "invalid@email!3e",
+    "office": "COM1-01-03"
+  } ],
+  "tasks": [ ],
+  "lessons": [ ]
+}

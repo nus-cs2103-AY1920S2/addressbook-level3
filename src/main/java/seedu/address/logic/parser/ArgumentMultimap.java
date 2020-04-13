@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -34,9 +33,9 @@ public class ArgumentMultimap {
     /**
      * Returns the last value of {@code prefix}.
      */
-    public Optional<String> getValue(Prefix prefix) {
+    public String getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
-        return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+        return values.isEmpty() ? null : values.get(values.size() - 1);
     }
 
     /**
@@ -52,9 +51,20 @@ public class ArgumentMultimap {
     }
 
     /**
+     * Returns number of values for {@code prefix}
+     */
+    public int numOfValuesPresent(Prefix prefix) {
+        return getAllValues(prefix).size();
+    }
+
+    /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
     public String getPreamble() {
-        return getValue(new Prefix("")).orElse("");
+        if (getValue(new Prefix("")) == null) {
+            return "";
+        } else {
+            return getValue(new Prefix(""));
+        }
     }
 }

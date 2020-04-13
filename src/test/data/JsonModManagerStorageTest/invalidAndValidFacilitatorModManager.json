@@ -1,0 +1,19 @@
+{
+  "modules" : [ {
+    "moduleCode" : "CS2103T",
+    "description" : "Software Engineering"
+  } ],
+  "facilitators": [ {
+    "name": "Valid Facilitator",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "office": "COM1-01-03",
+    "moduleCode" : [ "CS2103T" ]
+  }, {
+    "name": "Facilitator With Invalid Phone Field",
+    "phone": "948asdf2424",
+    "email": "hans@example.com",
+    "office": "COM1-01-03",
+    "moduleCode" : [ "CS2103T" ]
+  } ]
+}

@@ -3,10 +3,13 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.util.UserInputHistory;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -15,6 +18,7 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
+    private String cached = "";
 
     private final CommandExecutor commandExecutor;
 
@@ -25,6 +29,17 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        commandTextField.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.UP) {
+                String toSet = UserInputHistory.goUp();
+                commandTextField.setText(toSet);
+                commandTextField.positionCaret(toSet.length());
+            } else if (keyEvent.getCode() == KeyCode.DOWN) {
+                String toSet = UserInputHistory.goDown();
+                commandTextField.setText(toSet);
+                commandTextField.positionCaret(toSet.length());
+            }
+        });
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
@@ -34,9 +49,16 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandTextField.getText());
-            commandTextField.setText("");
+            CommandResult cmdRes = commandExecutor.execute(commandTextField.getText());
+            if (cmdRes.getType() != CommandType.PROMPTING) {
+                commandTextField.setText("");
+            }
         } catch (CommandException | ParseException e) {
+            String txt = commandTextField.getText();
+            if (txt.equals(cached)) {
+                commandTextField.setText("");
+            }
+            cached = txt;
             setStyleToIndicateCommandFailure();
         }
     }

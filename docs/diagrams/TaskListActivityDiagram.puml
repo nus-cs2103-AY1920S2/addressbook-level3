@@ -1,0 +1,8 @@
+@startuml
+start
+:User executes task list command;
+:Logic executes command;
+:Model updates filtered task list;
+:Ui shows the task list;
+stop
+@enduml

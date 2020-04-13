@@ -1,0 +1,76 @@
+= Chan Heidi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Mod Manager
+== Overview
+
+For this software engineering project, my team and I were tasked with morphing https://github.com/nus-cs2103-AY1920S2/addressbook-level3[Address Book Level 3 (AB3)] application into a better and different product. We decided to make ModManager, which aims to help students in managing module related information such as modules, classes, tasks and facilitators. Mod Manager is made for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). It is written in Java and has about 25kLoC.
+
+Below is an example of what ModManager looks like:
+
+image::Ui.png[width="800"]
+
+
+== Summary of contributions
+This section summarizes my contribution to ModManager.
+
+*Major enhancement*:
+
+* Implemented the class management feature
+** What it does: allows the user to add, view, edit and delete classes.
+** Justification: This feature improves the product because a user can manage their classes and find upcoming class, which allow the user to better prioritize their time and prepare for their classes.
+** Highlights: There is some dependency between this feature and other features. It required an in-depth analysis of design alternatives. The implementation was tough due to parsing. Since there were various arguments and command formats considered, parsing was tougher than usual.
+
+*Minor enhancement*:
+
+* Sorted the classes by time.
+* Enhanced the aesthetics of the GUI.
+
+*Code contributed*:
+
+* [https://github.com/AY1920S2-CS2103T-F10-4/main/pulls?q=is%3Apr+is%3Aclosed+author%3Aheidicrq[Functional code]] [https://github.com/AY1920S2-CS2103T-F10-4/main/pulls?q=is%3Apr+is%3Aclosed+author%3Aheidicrq+test[Test code]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=heidicrq&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Reposense]]
+
+*Other contributions*:
+
+** Project management:
+*** Merged pull requests
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S2-CS2103T-F10-4/main/pull/117[#117])
+*** Wrote additional tests for existing features to increase coverage from 50% to 62% (Pull requests https://github.com/AY1920S2-CS2103T-F10-4/main/pull/115[#115])
+** Documentation:
+*** Updated contact us, about us and readme file : https://github.com/AY1920S2-CS2103T-F10-4/main/pull/5[#5], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/22[#22]
+*** Updated introduction, user profile, value proposition and user stories of Developer Guide : https://github.com/AY1920S2-CS2103T-F10-4/main/pull/22[#22]
+*** Added class feature of User Guide: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/12[#12], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/181[#181]
+*** Added implementation and use cases of class management feature of Developer Guide: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/22[#22], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/124[#124]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments) : https://github.com/AY1920S2-CS2103T-F10-4/main/pull/95[#95]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=class]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Class Management Feature
+
+include::../DeveloperGuide.adoc[tag=class]
+
+=== Appendix B: User Stories
+
+include::../DeveloperGuide.adoc[tag=user-stories]
+
+=== Appendix C: Use Cases
+
+include::../DeveloperGuide.adoc[tag=use-case-class]

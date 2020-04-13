@@ -1,0 +1,122 @@
+@startuml
+scale 0.6
+!include style.puml
+skinparam ArrowFontSize 60
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":LessonCommandParser" as LessonCommandParser LOGIC_COLOR
+participant ":LessonAddCommandParser" as LessonAddCommandParser LOGIC_COLOR
+participant "a:LessonAddCommand" as LessonAddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "l:lesson" as Lesson MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":LessonList" as LessonList MODEL_COLOR
+end box
+
+[-> LogicManager : execute\n("class add \n/code CS9000 \n/type LEC \n/at MONDAY \n16:00 18:00")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand("class add \n/code CS9000 \n/type LEC \n/at MONDAY \n16:00 18:00")
+activate ModManagerParser
+
+create LessonCommandParser
+ModManagerParser -> LessonCommandParser
+activate LessonCommandParser
+
+LessonCommandParser --> ModManagerParser
+deactivate LessonCommandParser
+
+ModManagerParser -> LessonCommandParser : parse\n("add \n/code CS9000 \n/type LEC \n/at MONDAY \n16:00 18:00")
+activate LessonCommandParser
+
+create LessonAddCommandParser
+LessonCommandParser -> LessonAddCommandParser
+activate LessonAddCommandParser
+
+LessonAddCommandParser --> LessonCommandParser
+deactivate LessonAddCommandParser
+
+LessonCommandParser -> LessonAddCommandParser : parse\n("/code CS9000 \n/type LEC \n/at MONDAY \n16:00 18:00")
+activate LessonAddCommandParser
+
+create Lesson
+LessonAddCommandParser -> Lesson : Lesson(CS9000, LEC, MONDAY 16:00 18:00, null)
+activate Lesson
+
+Lesson --> LessonAddCommandParser : l
+deactivate Lesson
+
+create LessonAddCommand
+LessonAddCommandParser -> LessonAddCommand : LessonAddCommand(l)
+activate LessonAddCommand
+
+LessonAddCommand --> LessonAddCommandParser : a
+deactivate LessonAddCommand
+
+LessonAddCommandParser --> LessonCommandParser : a
+deactivate LessonAddCommandParser
+LessonAddCommandParser -[hidden]-> LessonCommandParser
+destroy LessonAddCommandParser
+
+LessonCommandParser --> ModManagerParser : a
+deactivate LessonCommandParser
+LessonCommandParser -[hidden]-> ModManagerParser
+destroy LessonCommandParser
+
+ModManagerParser --> LogicManager : a
+deactivate ModManagerParser
+
+LogicManager -> LessonAddCommand : execute()
+activate LessonAddCommand
+
+LessonAddCommand -> LessonAddCommand : updateList()
+activate LessonAddCommand
+
+LessonAddCommand --> LessonAddCommand
+deactivate LessonAddCommand
+
+LessonAddCommand -> ModelManager : addLesson(l)
+activate ModelManager
+
+ModelManager -> ModManager : addLesson(l)
+activate ModManager
+
+ModManager -> LessonList : addLesson(l)
+activate LessonList
+
+LessonList --> ModManager
+deactivate LessonList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager --> LessonAddCommand
+deactivate ModelManager
+
+LessonAddCommand -> LessonAddCommand : updateActions()
+activate LessonAddCommand
+
+LessonAddCommand --> LessonAddCommand
+deactivate LessonAddCommand
+
+create CommandResult
+LessonAddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> LessonAddCommand
+deactivate CommandResult
+
+LessonAddCommand --> LogicManager : result
+deactivate LessonAddCommand
+LessonAddCommand -[hidden]-> LogicManager
+destroy LessonAddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

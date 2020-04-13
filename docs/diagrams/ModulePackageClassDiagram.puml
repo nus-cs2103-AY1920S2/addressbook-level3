@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ArrowFontSize 15
+
+Package Module <<Rectangle>> {
+Class Module
+Class ModuleCode
+Class UniqueModuleList
+}
+
+Package Util <<Rectangle>> {
+Class Description
+}
+
+UniqueModuleList *-> "*" Module
+Module *-> "1" ModuleCode
+Module *-> "1" Description
+
+@enduml

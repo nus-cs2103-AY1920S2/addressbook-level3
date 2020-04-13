@@ -1,0 +1,13 @@
+@startuml
+start
+:User executes find tasks by module command;
+:Parser parses the module keyword;
+if () then ([module exists in Mod Manager])
+    :Logic executes command;
+    :Model updates filtered task list;
+    :Ui shows the updated task list;
+else ([else])
+    :Ui shows error message;
+endif
+stop
+@enduml

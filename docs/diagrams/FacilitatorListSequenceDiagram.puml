@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":FacilCommandParser" as FacilCommandParser LOGIC_COLOR
+participant "l:FacilListCommand" as FacilListCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("facil list")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand("facil list")
+activate ModManagerParser
+
+create FacilCommandParser
+ModManagerParser -> FacilCommandParser
+activate FacilCommandParser
+
+FacilCommandParser --> ModManagerParser
+deactivate FacilCommandParser
+
+ModManagerParser -> FacilCommandParser : parse("list")
+activate FacilCommandParser
+
+create FacilListCommand
+FacilCommandParser -> FacilListCommand
+activate FacilListCommand
+
+FacilListCommand --> FacilCommandParser : l
+deactivate FacilListCommand
+
+FacilCommandParser --> ModManagerParser : l
+deactivate FacilCommandParser
+FacilCommandParser -[hidden]-> ModManagerParser
+destroy FacilCommandParser
+
+ModManagerParser --> LogicManager : l
+deactivate ModManagerParser
+
+LogicManager -> FacilListCommand : execute()
+activate FacilListCommand
+
+FacilListCommand -> ModelManager : updateFilteredFacilitatorList(\nPREDICATE_SHOW_ALL_FACILITATORS)
+activate ModelManager
+
+ModelManager --> FacilListCommand
+deactivate ModelManager
+
+create CommandResult
+FacilListCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FacilListCommand
+deactivate CommandResult
+
+FacilListCommand --> LogicManager : result
+deactivate FacilListCommand
+FacilListCommand -[hidden]-> LogicManager
+destroy FacilListCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

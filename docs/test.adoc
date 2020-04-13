@@ -1,0 +1,5 @@
+:imagesDir: images
+.Sequence Diagram for `task done /code CS2103T /id 986` Command
+image::TaskMarkAsDoneSequenceDiagram.png[]
+ddd
+

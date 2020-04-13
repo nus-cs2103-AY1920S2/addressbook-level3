@@ -1,0 +1,137 @@
+@startuml
+scale 0.6
+!include style.puml
+
+skinparam ArrowFontSize 60
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":FacilCommandParser" as FacilCommandParser LOGIC_COLOR
+participant ":FacilDeleteCommandParser" as FacilDeleteCommandParser LOGIC_COLOR
+participant "d:FacilDeleteCommand" as FacilDeleteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant "l:ObservableList" as ObservableList MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":UniqueFacilitatorList" as UniqueFacilitatorList MODEL_COLOR
+participant "fa:FacilAction" as FacilAction MODEL_COLOR
+participant ":DoableActionList" as DoableActionList MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\n"facil delete 1")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand(\n"facil delete 1")
+activate ModManagerParser
+
+create FacilCommandParser
+ModManagerParser -> FacilCommandParser
+activate FacilCommandParser
+
+FacilCommandParser --> ModManagerParser
+deactivate FacilCommandParser
+
+ModManagerParser -> FacilCommandParser : parse("delete 1")
+activate FacilCommandParser
+
+create FacilDeleteCommandParser
+FacilCommandParser -> FacilDeleteCommandParser
+activate FacilDeleteCommandParser
+
+FacilDeleteCommandParser --> FacilCommandParser
+deactivate FacilDeleteCommandParser
+
+FacilCommandParser -> FacilDeleteCommandParser : parse("1")
+activate FacilDeleteCommandParser
+
+create FacilDeleteCommand
+FacilDeleteCommandParser -> FacilDeleteCommand : FacilDeleteCommand(1)
+activate FacilDeleteCommand
+
+FacilDeleteCommand --> FacilDeleteCommandParser : d
+deactivate FacilDeleteCommand
+
+FacilDeleteCommandParser --> FacilCommandParser : d
+deactivate FacilDeleteCommandParser
+FacilDeleteCommandParser -[hidden]-> FacilCommandParser
+destroy FacilDeleteCommandParser
+
+FacilCommandParser --> ModManagerParser : d
+deactivate FacilCommandParser
+FacilCommandParser -[hidden]-> ModManagerParser
+destroy FacilCommandParser
+
+ModManagerParser --> LogicManager : d
+deactivate ModManagerParser
+
+LogicManager -> FacilDeleteCommand : execute()
+activate FacilDeleteCommand
+
+FacilDeleteCommand -> ModelManager : getFilteredFacilitatorList()
+activate ModelManager
+
+ModelManager --> FacilDeleteCommand : l
+deactivate ModelManager
+
+FacilDeleteCommand -> ObservableList : get(0)
+activate ObservableList
+
+ObservableList --> FacilDeleteCommand : f
+deactivate ObservableList
+
+FacilDeleteCommand -> ModelManager : deleteFacilitator(f)
+activate ModelManager
+
+ModelManager -> ModManager : removeFacilitator(f)
+activate ModManager
+
+ModManager -> UniqueFacilitatorList : remove(f)
+activate UniqueFacilitatorList
+
+UniqueFacilitatorList --> ModManager
+deactivate UniqueFacilitatorList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager --> FacilDeleteCommand
+deactivate ModelManager
+
+create FacilAction
+FacilDeleteCommand -> FacilAction : FacilAction(f, DELETE)
+activate FacilAction
+
+FacilAction --> FacilDeleteCommand : fa
+deactivate FacilAction
+
+FacilDeleteCommand -> ModelManager : addAction(fa)
+activate ModelManager
+
+ModelManager -> DoableActionList : addAction(fa)
+activate DoableActionList
+
+DoableActionList --> ModelManager
+deactivate DoableActionList
+
+ModelManager --> FacilDeleteCommand
+deactivate ModelManager
+
+create CommandResult
+FacilDeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FacilDeleteCommand
+deactivate CommandResult
+
+FacilDeleteCommand --> LogicManager : result
+deactivate FacilDeleteCommand
+FacilDeleteCommand -[hidden]-> LogicManager
+destroy FacilDeleteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

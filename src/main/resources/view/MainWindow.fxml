@@ -6,13 +6,18 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Mod Manager" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -21,6 +26,7 @@
       <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
+        <URL value="@TabTheme.css" />
       </stylesheets>
 
       <VBox>
@@ -32,26 +38,82 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
+            <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                <Tab fx:id="module" text="Module">
+                  <content>
+                    <HBox>
+                      <VBox fx:id="moduleList" minWidth="300" prefWidth="300" maxHeight="Infinity" prefHeight="500" styleClass="pane-with-border" GridPane.columnIndex="0" VBox.vgrow="ALWAYS">
+                        <padding>
+                          <Insets bottom="10" left="10" right="10" top="10" />
+                        </padding>
+                        <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                      </VBox>
+                      <VBox fx:id="moduleDetails" minWidth="340" prefWidth="340" styleClass="pane-with-border" GridPane.columnIndex="1" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="10" left="10" right="10" top="10" />
+                        </padding>
+                        <StackPane fx:id="moduleDetailsPlaceholder" maxHeight="25" style="-fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: rgba(232, 236, 241, .05);" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+                        <GridPane fx:id="modbase">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                          </columnConstraints>
+                          <StackPane fx:id="lessonPanelPlaceholder" maxHeight="Infinity" prefHeight="500" style="-fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: rgba(232, 236, 241, .05);" styleClass="pane-with-border" GridPane.columnIndex="0" VBox.vgrow="ALWAYS" />
+                          <StackPane fx:id="taskPanelPlaceholder" maxHeight="Infinity" prefHeight="500" style="-fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: rgba(232, 236, 241, .05);" styleClass="pane-with-border" GridPane.columnIndex="1" VBox.vgrow="ALWAYS" />
+                          <StackPane fx:id="facilitatorPanelPlaceholder" maxHeight="Infinity" prefHeight="500" style="-fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: rgba(232, 236, 241, .05);" styleClass="pane-with-border" GridPane.columnIndex="2" VBox.vgrow="ALWAYS" />
+                                <rowConstraints>
+                                   <RowConstraints />
+                                </rowConstraints>
+                        </GridPane>
+                        <padding>
+                          <Insets bottom="10" left="10" right="10" top="10" />
+                        </padding>
+                      </VBox>
+                    </HBox>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+                  </content>
+                </Tab>
+                <Tab fx:id="facilitator" text="Facilitators">
+                  <content>
+                    <VBox fx:id="facilitatorList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                      <padding>
+                        <Insets bottom="10" left="10" right="10" top="10" />
+                      </padding>
+                      <StackPane fx:id="facilitatorListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    </VBox>
+                  </content>
+                </Tab>
+              <Tab fx:id="task" text="Tasks">
+                <content>
+                  <VBox fx:id="taskList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                    <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  </VBox>
+                </content>
+              </Tab>
+                <Tab fx:id="calendar" text="Calendar">
+                  <content>
+                    <StackPane fx:id="calendarViewPlaceholder" alignment="BOTTOM_LEFT" GridPane.halignment="LEFT" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                      <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                      </padding>
+                    </StackPane>
+                  </content>
+                </Tab>
+            </TabPane>
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

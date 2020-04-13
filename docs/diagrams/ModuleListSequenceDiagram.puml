@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":ModuleCommandParser" as ModuleCommandParser LOGIC_COLOR
+participant "l:ModuleListCommand" as ModuleListCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("mod list")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand("mod list")
+activate ModManagerParser
+
+create ModuleCommandParser
+ModManagerParser -> ModuleCommandParser
+activate ModuleCommandParser
+
+ModuleCommandParser --> ModManagerParser
+deactivate ModuleCommandParser
+
+ModManagerParser -> ModuleCommandParser : parse("list")
+activate ModuleCommandParser
+
+create ModuleListCommand
+ModuleCommandParser -> ModuleListCommand
+activate ModuleListCommand
+
+ModuleListCommand --> ModuleCommandParser : l
+deactivate ModuleListCommand
+
+ModuleCommandParser --> ModManagerParser : l
+deactivate ModuleCommandParser
+ModuleCommandParser -[hidden]-> ModManagerParser
+destroy ModuleCommandParser
+
+ModManagerParser --> LogicManager : l
+deactivate ModManagerParser
+
+LogicManager -> ModuleListCommand : execute()
+activate ModuleListCommand
+
+ModuleListCommand -> ModelManager : updateFilteredModuleList(\nPREDICATE_SHOW_ALL_MODULES)
+activate ModelManager
+
+ModelManager --> ModuleListCommand
+deactivate ModelManager
+
+create CommandResult
+ModuleListCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ModuleListCommand
+deactivate CommandResult
+
+ModuleListCommand --> LogicManager : result
+deactivate ModuleListCommand
+ModuleListCommand -[hidden]-> LogicManager
+destroy ModuleListCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

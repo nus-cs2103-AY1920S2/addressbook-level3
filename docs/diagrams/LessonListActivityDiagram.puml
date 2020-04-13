@@ -1,0 +1,6 @@
+@startuml
+start
+:User executes class list command;
+:Logic executes command;
+stop
+@enduml

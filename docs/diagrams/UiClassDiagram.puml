@@ -11,10 +11,15 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
 Class StatusBarFooter
 Class CommandBox
+
+package CalendarUI {}
+package FacilitatorUI {}
+package LessonUI {}
+package ModuleUI {}
+package TaskUI {}
+
 }
 
 package Model <<Rectangle>> {
@@ -28,30 +33,39 @@ Class HiddenLogic #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
-UiManager .left.|> Ui
-UiManager -down-> MainWindow
+UiManager .up.|> Ui
+UiManager -right-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
 MainWindow *-down-> StatusBarFooter
-
-PersonListPanel -down-> PersonCard
+MainWindow *-right-> CalendarUI
+MainWindow *-right-> FacilitatorUI
+MainWindow *-right-> LessonUI
+MainWindow *-right-> ModuleUI
+MainWindow *-right-> TaskUI
 
 MainWindow -left-|> UiPart
 
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+ResultDisplay -down--|> UiPart
+CommandBox -down--|> UiPart
+StatusBarFooter -down--|> UiPart
+HelpWindow -down---|> UiPart
+CalendarUI -down---|> UiPart
+FacilitatorUI -down---|> UiPart
+LessonUI -down---|> UiPart
+ModuleUI -down---|> UiPart
+TaskUI -down---|> UiPart
 
-PersonCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
+UiManager --up-> Logic
+MainWindow --up-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+CalendarUI ...> Model
+FacilitatorUI ...> Model
+LessonUI ...> Model
+ModuleUI ...> Model
+TaskUI ...> Model
+
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

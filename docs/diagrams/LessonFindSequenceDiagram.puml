@@ -1,0 +1,132 @@
+@startuml
+scale 0.6
+!include style.puml
+skinparam ArrowFontSize 60
+skinparam sequenceGroupFontSize 42
+skinparam sequenceGroupHeaderFontSize 40
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":LessonCommandParser" as LessonCommandParser LOGIC_COLOR
+participant ":LessonFindCommandParser" as LessonFindCommandParser LOGIC_COLOR
+participant "a:LessonFindCommand" as LessonFindCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":LessonList" as LessonList MODEL_COLOR
+end box
+
+[-> LogicManager : execute\n("class find /next")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand("class find /next")
+activate ModManagerParser
+
+create LessonCommandParser
+ModManagerParser -> LessonCommandParser
+activate LessonCommandParser
+
+LessonCommandParser --> ModManagerParser
+deactivate LessonCommandParser
+
+ModManagerParser -> LessonCommandParser : parse\n("find /next")
+activate LessonCommandParser
+
+create LessonFindCommandParser
+LessonCommandParser -> LessonFindCommandParser
+activate LessonFindCommandParser
+
+LessonFindCommandParser --> LessonCommandParser
+deactivate LessonFindCommandParser
+
+LessonCommandParser -> LessonFindCommandParser : parse\n("/next")
+activate LessonFindCommandParser
+
+create LessonFindCommand
+LessonFindCommandParser -> LessonFindCommand : LessonFindCommand(null)
+activate LessonFindCommand
+
+LessonFindCommand --> LessonFindCommandParser : f
+deactivate LessonFindCommand
+
+LessonFindCommandParser --> LessonCommandParser : f
+deactivate LessonFindCommandParser
+LessonFindCommandParser -[hidden]-> LessonCommandParser
+destroy LessonFindCommandParser
+
+LessonCommandParser --> ModManagerParser : f
+deactivate LessonCommandParser
+LessonCommandParser -[hidden]-> ModManagerParser
+destroy LessonCommandParser
+
+ModManagerParser --> LogicManager : f
+deactivate ModManagerParser
+
+LogicManager -> LessonFindCommand : execute()
+activate LessonFindCommand
+
+alt day == null
+LessonFindCommand -> ModelManager : findNextLesson()
+activate ModelManager
+
+ModelManager -> ModManager : findNextLesson()
+activate ModManager
+
+ModManager -> LessonList : findNextLesson()
+activate LessonList
+
+LessonList --> ModManager : l
+deactivate LessonList
+
+ModManager --> ModelManager : l
+deactivate ModManager
+
+ModelManager --> LessonFindCommand : l
+deactivate ModelManager
+
+opt l != null
+    LessonFindCommand -> LessonFindCommand : updateList()
+    activate LessonFindCommand
+    LessonFindCommand --> LessonFindCommand
+    deactivate LessonFindCommand
+end
+else day != null
+LessonFindCommand -> ModelManager : findLessonsByDay(day)
+activate ModelManager
+
+ModelManager -> ModManager : findLessonsByDay(day)
+activate ModManager
+
+ModManager -> LessonList : findLessonsByDay(day)
+activate LessonList
+
+LessonList --> ModManager : l
+deactivate LessonList
+
+ModManager --> ModelManager : l
+deactivate ModManager
+
+ModelManager --> LessonFindCommand : l
+deactivate ModelManager
+
+end
+
+create CommandResult
+LessonFindCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> LessonFindCommand
+deactivate CommandResult
+
+LessonFindCommand --> LogicManager : result
+deactivate LessonFindCommand
+LessonFindCommand -[hidden]-> LogicManager
+destroy LessonFindCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

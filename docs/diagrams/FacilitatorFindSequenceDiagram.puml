@@ -1,0 +1,100 @@
+@startuml
+scale 0.6
+!include style.puml
+
+skinparam ArrowFontSize 60
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":FacilCommandParser" as FacilCommandParser LOGIC_COLOR
+participant ":FacilFindCommandParser" as FacilFindCommandParser LOGIC_COLOR
+participant "d:FacilFindCommand" as FacilFindCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "p:NameContainsKeywordsPredicate" as NameContainsKeywordsPredicate MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\n"facil find Akshay")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand(\n"facil find Akshay")
+activate ModManagerParser
+
+create FacilCommandParser
+ModManagerParser -> FacilCommandParser
+activate FacilCommandParser
+
+FacilCommandParser --> ModManagerParser
+deactivate FacilCommandParser
+
+ModManagerParser -> FacilCommandParser : parse("find Akshay")
+activate FacilCommandParser
+
+create FacilFindCommandParser
+FacilCommandParser -> FacilFindCommandParser
+activate FacilFindCommandParser
+
+FacilFindCommandParser --> FacilCommandParser
+deactivate FacilFindCommandParser
+
+FacilCommandParser -> FacilFindCommandParser : parse("Akshay")
+activate FacilFindCommandParser
+
+create NameContainsKeywordsPredicate
+FacilFindCommandParser -> NameContainsKeywordsPredicate : NameContainsKeywordsPredicate(["Akshay"])
+activate NameContainsKeywordsPredicate
+
+NameContainsKeywordsPredicate --> FacilFindCommandParser : p
+deactivate NameContainsKeywordsPredicate
+
+create FacilFindCommand
+FacilFindCommandParser -> FacilFindCommand : FacilFindCommand(p)
+activate FacilFindCommand
+
+FacilFindCommand --> FacilFindCommandParser : f
+deactivate FacilFindCommand
+
+FacilFindCommandParser --> FacilCommandParser : f
+deactivate FacilFindCommandParser
+FacilFindCommandParser -[hidden]-> FacilCommandParser
+destroy FacilFindCommandParser
+
+FacilCommandParser --> ModManagerParser : f
+deactivate FacilCommandParser
+FacilCommandParser -[hidden]-> ModManagerParser
+destroy FacilCommandParser
+
+ModManagerParser --> LogicManager : f
+deactivate ModManagerParser
+
+LogicManager -> FacilFindCommand : execute()
+activate FacilFindCommand
+
+FacilFindCommand -> ModelManager : updateFilteredFacilitatorList(p)
+activate ModelManager
+
+ModelManager --> FacilFindCommand
+deactivate ModelManager
+
+NameContainsKeywordsPredicate -[hidden]-> ModelManager
+destroy NameContainsKeywordsPredicate
+
+create CommandResult
+FacilFindCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FacilFindCommand
+deactivate CommandResult
+
+FacilFindCommand --> LogicManager : result
+deactivate FacilFindCommand
+FacilFindCommand -[hidden]-> LogicManager
+destroy FacilFindCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,88 @@
+= Ang Lu Shing - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Mod Manager
+
+== Overview
+This portfolio documents my contribution to Mod Manager, a software engineering project that my team of 4 and I have built under the module, CS2103T Software Engineering. Over the span of 8 weeks, Mod Manager is morphed from https://github.com/nus-cs2103-AY1920S2/addressbook-level3[Address Book Level 3 (AB3)] and it aims to assist students in managing schedules and facilitators' contact details for their modules in a semester. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 25 kLoC.
+
+Below are some relevant contributions I have made to the development of Mod Manager.
+
+== Summary of Contributions
+This section shows a summary of my contributions to Mod Manager.
+
+*Major enhancement*:
+
+* Implemented the calendar feature
+** What it does:
+*** Allows users to view their schedules for the current week and upcoming week.
+*** Allows users to find time periods where the user will be free.
+** Justification: This feature improves the product because users may need a better visualisation of the many tasks and classes they have in each day in a week and know the time periods where they are free. This then allows users to better plan their schedules.
+** Highlights: This enhancement has some dependency on other features. It required an in-depth analysis of design alternatives. The implementation is hard because the calendar has to be updated whenever classes and tasks are updated due to other commands.
+
+*Minor enhancement*:
+
+* Sorted the facilitators in facilitators list by their name in alphabetical order.
+* Design and implement the Ui for module tab.
+
+*Code contributed*:
+
+* [https://github.com/AY1920S2-CS2103T-F10-4/main/pulls?q=is%3Apr+author%3Aalushingg+is%3Aclosed[Functional code]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=alushingg&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&zA=undefined&zR=undefined&zACS=undefined&zS=undefined&zU=undefined&zMG=false&zFTF=undefined&zFGS=undefined&zSO=undefined&zSWO=undefined&zSD=false&zSWD=false[Reposense]]
+
+*Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` on GitHub
+*** Merged pull requests
+** Documentation:
+*** Updated exit and clear command of User Guide: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/133[#133], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/190[#190]
+*** Added calendar feature of User Guide: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/9[#9], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/110[#110]
+*** Added implementation, use cases and testing of calendar feature of Developer Guide: https://github.com/AY1920S2-CS2103T-F10-4/main/pull/23[#23], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/105[#105], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/182[#182]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-F10-4/main/pull/81[#81], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/98[#98], https://github.com/AY1920S2-CS2103T-F10-4/main/pull/128[#128]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+
+include::../UserGuide.adoc[tag=calendar]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Model Component
+include::../DeveloperGuide.adoc[tag=mod-package]
+
+include::../DeveloperGuide.adoc[tag=calendar]
+
+==== Design Considerations
+
+===== Aspect: Calendar appearance
+.New Design for Calendar Appearance (Alternative 1)
+image::NewCalendar.png[width="400"]
+
+.Old Design for Calendar Appearance (Alternative 2)
+image::OldCalendar.png[width="400"]
+
+include::../DeveloperGuide.adoc[tag=cal-design]
+
+=== Appendix C: Use Cases
+
+include::../DeveloperGuide.adoc[tag=use-case-calendar]
+
+=== Appendix E: Glossary
+
+include::../DeveloperGuide.adoc[tag=glos]
+
+=== Appendix F: Instructions for Manual Testing
+
+include::../DeveloperGuide.adoc[tag=testing-cal]
+

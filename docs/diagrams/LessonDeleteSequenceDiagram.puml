@@ -1,0 +1,127 @@
+@startuml
+scale 0.6
+!include style.puml
+
+skinparam ArrowFontSize 60
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModManagerParser" as ModManagerParser LOGIC_COLOR
+participant ":LessonCommandParser" as LessonCommandParser LOGIC_COLOR
+participant ":LessonDeleteCommandParser" as LessonDeleteCommandParser LOGIC_COLOR
+participant "d:LessonDeleteCommand" as LessonDeleteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant "l:ObservableList" as ObservableList MODEL_COLOR
+participant ":ModManager" as ModManager MODEL_COLOR
+participant ":LessonList" as ObservableList MODEL_COLOR
+participant ":ArrayList" as ArrayList MODEL_COLOR
+end box
+
+[-> LogicManager : execute("class delete 1\n/code CS2103T")
+activate LogicManager
+
+LogicManager -> ModManagerParser : parseCommand("class delete 1\n/code CS2103T")
+activate ModManagerParser
+
+create LessonCommandParser
+ModManagerParser -> LessonCommandParser
+activate LessonCommandParser
+
+LessonCommandParser --> ModManagerParser
+deactivate LessonCommandParser
+
+ModManagerParser -> LessonCommandParser : parse("delete 1\n/code CS2103T")
+activate LessonCommandParser
+
+create LessonDeleteCommandParser
+LessonCommandParser -> LessonDeleteCommandParser
+activate LessonDeleteCommandParser
+
+LessonDeleteCommandParser --> LessonCommandParser
+deactivate LessonDeleteCommandParser
+
+LessonCommandParser -> LessonDeleteCommandParser : parse("1\n/code CS2103T")
+activate LessonDeleteCommandParser
+
+create LessonDeleteCommand
+LessonDeleteCommandParser -> LessonDeleteCommand : LessonDeleteCommand(1,\nCS2103T)
+activate LessonDeleteCommand
+
+LessonDeleteCommand --> LessonDeleteCommandParser : d
+deactivate LessonDeleteCommand
+
+LessonDeleteCommandParser --> LessonCommandParser : d
+deactivate LessonDeleteCommandParser
+LessonDeleteCommandParser -[hidden]-> LessonCommandParser
+destroy LessonDeleteCommandParser
+
+LessonCommandParser --> ModManagerParser : d
+deactivate LessonCommandParser
+LessonCommandParser -[hidden]-> ModManagerParser
+destroy LessonCommandParser
+
+ModManagerParser --> LogicManager : d
+deactivate ModManagerParser
+
+LogicManager -> LessonDeleteCommand : execute()
+activate LessonDeleteCommand
+
+LessonDeleteCommand -> ModelManager : getLessonListForModule(CS2103T)
+activate ModelManager
+
+ModelManager --> LessonDeleteCommand : l
+
+LessonDeleteCommand -> ObservableList : get(0)
+activate ObservableList
+
+ObservableList --> LessonDeleteCommand : f
+deactivate ObservableList
+
+LessonDeleteCommand -> LessonDeleteCommand : updateList()
+activate LessonDeleteCommand
+
+LessonDeleteCommand --> LessonDeleteCommand
+deactivate LessonDeleteCommand
+
+LessonDeleteCommand -> ModelManager : removeLesson(f)
+
+ModelManager -> ModManager : removeLesson(f)
+activate ModManager
+
+ModManager -> ArrayList : deleteLesson(f)
+activate ArrayList
+
+ArrayList --> ModManager
+deactivate ArrayList
+
+ModManager --> ModelManager
+deactivate ModManager
+
+ModelManager --> LessonDeleteCommand
+deactivate ModelManager
+
+LessonDeleteCommand -> LessonDeleteCommand : updateActions()
+activate LessonDeleteCommand
+
+LessonDeleteCommand --> LessonDeleteCommand
+deactivate LessonDeleteCommand
+
+create CommandResult
+LessonDeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> LessonDeleteCommand
+deactivate CommandResult
+
+LessonDeleteCommand --> LogicManager : result
+deactivate LessonDeleteCommand
+LessonDeleteCommand -[hidden]-> LogicManager
+destroy LessonDeleteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
