@@ -52,7 +52,7 @@ ViewCommand <-- CommandResult : CommandResult
 deactivate CommandResult
 
 LogicManager <-- ViewCommand : CommandResult
-deactivate CommandResult
+deactivate ViewCommand
 
 MainWindow <-- LogicManager : CommandResult
 deactivate LogicManager
