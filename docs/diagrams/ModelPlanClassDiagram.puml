@@ -25,16 +25,16 @@ Package Recipe {
     class Recipe
 }
 HiddenOutside ...> Model
-ModelManager o--> "1" PlannedBook
+ModelManager o-- "1" PlannedBook
 ModelManager .up.|> Model
 ModelManager --> "1" Plan : filtered list
 
-PlannedBook *-down->"1" UniquePlannedList
-PlannedBook *-down->"1" PlannedRecipeMap
-UniquePlannedList o--> "*" Plan
-PlannedRecipeMap o--> "*" Plan
-PlannedRecipeMap o--> "*" Recipe
-Plan o--> "1" Recipe
-Plan o--> "1" Date
+PlannedBook *-down-"1" UniquePlannedList
+PlannedBook *-down-"1" PlannedRecipeMap
+UniquePlannedList o-- "*" Plan
+PlannedRecipeMap o-- "*" Plan
+PlannedRecipeMap o-- "*" Recipe
+Plan o-- "1" Recipe
+Plan *-- "1" Date
 
 @enduml

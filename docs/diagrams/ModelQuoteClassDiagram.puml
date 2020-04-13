@@ -21,12 +21,12 @@ Package Quote {
     class Content
 }
 HiddenOutside ...> Model
-ModelManager o--> "1" QuoteBook
+ModelManager o-- "1" QuoteBook
 ModelManager .up.|> Model
 ModelManager --> "1" Quote : filtered list
 
-QuoteBook *-down->"1" UniqueQuoteList
-UniqueQuoteList o--> "*" Quote
-Quote o--> "1" Content
+QuoteBook *-down-"1" UniqueQuoteList
+UniqueQuoteList o-- "*" Quote
+Quote o-- "1" Content
 
 @enduml
