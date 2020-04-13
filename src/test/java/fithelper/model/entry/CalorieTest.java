@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 public class CalorieTest {
 
     @Test
-    public void constructornullthrowsNullPointerException() {
+    public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Calorie(null));
     }
 
     @Test
-    public void constructorinvalidCaloriethrowsIllegalArgumentException() {
+    public void constructor_invalidCalorie_throwsIllegalArgumentException() {
         String invalidCalorie = "";
         assertThrows(IllegalArgumentException.class, () -> new Calorie(invalidCalorie));
     }

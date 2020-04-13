@@ -25,27 +25,27 @@ public class UiPartTest {
     public Path testFolder;
 
     @Test
-    public void constructornullFileUrlthrowsNullPointerException() {
+    public void constructor_nullFileUrl_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((URL) null));
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((URL) null, new Object()));
     }
 
     @Test
-    public void constructormissingFileUrlthrowsAssertionError() throws Exception {
+    public void constructor_missingFileUrl_throwsAssertionError() throws Exception {
         URL missingFileUrl = new URL(testFolder.toUri().toURL(), MISSING_FILE_PATH);
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(missingFileUrl));
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(missingFileUrl, new Object()));
     }
 
     @Test
-    public void constructorinvalidFileUrlthrowsAssertionError() {
+    public void constructor_invalidFileUrl_throwsAssertionError() {
         URL invalidFileUrl = getTestFileUrl(INVALID_FILE_PATH);
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(invalidFileUrl));
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(invalidFileUrl, new Object()));
     }
 
     @Test
-    public void constructorvalidFileUrlloadsFile() {
+    public void constructor_validFileUrl_loadsFile() {
         URL validFileUrl = getTestFileUrl(VALID_FILE_PATH);
         assertEquals(VALID_FILE_ROOT, new TestUiPart<TestFxmlObject>(validFileUrl).getRoot());
     }
@@ -58,19 +58,19 @@ public class UiPartTest {
     }
 
     @Test
-    public void constructornullFileNamethrowsNullPointerException() {
+    public void constructor_nullFileName_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((String) null));
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((String) null, new Object()));
     }
 
     @Test
-    public void constructormissingFileNamethrowsNullPointerException() {
+    public void constructor_missingFileName_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH));
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH, new Object()));
     }
 
     @Test
-    public void constructorinvalidFileNamethrowsAssertionError() {
+    public void constructor_invalidFileName_throwsAssertionError() {
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH));
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH, new Object()));
     }

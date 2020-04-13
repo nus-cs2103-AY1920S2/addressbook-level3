@@ -22,12 +22,12 @@ public class ConfigUtilTest {
     public Path tempDir;
 
     @Test
-    public void readnullthrowsNullPointerException() {
+    public void read_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> read(null));
     }
 
     @Test
-    public void readmissingFileemptyResult() throws DataConversionException {
+    public void read_missingFile_emptyResult() throws DataConversionException {
         assertFalse(read("NonExistentFile.json").isPresent());
     }
 
@@ -37,12 +37,12 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void savenullConfigthrowsNullPointerException() {
+    public void save_nullConfig_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> save(null, "SomeFile.json"));
     }
 
     @Test
-    public void savenullFilethrowsNullPointerException() {
+    public void save_nullFile_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> save(new Config(), null));
     }
 

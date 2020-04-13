@@ -24,12 +24,12 @@ public class UniqueEntryListTest {
     private final UniqueEntryList uniqueEntryList = new UniqueEntryList();
 
     @Test
-    public void containsnullEntrythrowsNullPointerException() {
+    public void contains_null_EntrythrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueEntryList.contains(null));
     }
 
     @Test
-    public void containsentryNotInListreturnsFalse() {
+    public void contains_entry_NotInListreturnsFalse() {
         assertFalse(uniqueEntryList.contains(FOOD));
     }
 

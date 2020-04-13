@@ -26,7 +26,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void executenewEntrysuccess() {
+    public void execute_newEntry_success() {
         Entry validEntry = new EntryBuilder().build();
 
         Model expectedModel = new ModelManager(model.getFitHelper(), model.getUserProfile(), model.getWeightRecords());
@@ -37,7 +37,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void executeduplicateEntrythrowsCommandException() {
+    public void execute_duplicateEntry_throwsCommandException() {
         assertCommandFailure(new AddCommand(model.getFitHelper().getFoodList().get(0)), model,
                 AddCommand.MESSAGE_DUPLICATE_ENTRY);
     }

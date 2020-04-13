@@ -31,12 +31,12 @@ public class FitHelperTest {
     }
 
     @Test
-    public void resetDatanullthrowsNullPointerException() {
+    public void resetData_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> fitHelper.resetData(null));
     }
 
     @Test
-    public void resetDatawithValidReadOnlyFitHelperreplacesData() {
+    public void resetData_withValidReadOnlyFitHelper_replacesData() {
         FitHelper newData = getTypicalFitHelper();
         fitHelper.resetData(newData);
         assertEquals(newData, fitHelper);
@@ -48,18 +48,18 @@ public class FitHelperTest {
     }
 
     @Test
-    public void hasEntryentryNotInFitHelperreturnsFalse() {
+    public void hasEntry_entryNotInFitHelper_returnsFalse() {
         assertFalse(fitHelper.hasEntry(FOOD));
     }
 
     @Test
-    public void hasEntryentryInFitHelperreturnsTrue() {
+    public void hasEntry_entryInFitHelper_returnsTrue() {
         fitHelper.addEntry(FOOD);
         assertTrue(fitHelper.hasEntry(FOOD));
     }
 
     @Test
-    public void getEntryListmodifyListthrowsUnsupportedOperationException() {
+    public void getEntryList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> fitHelper.getFoodList().remove(0));
     }
 

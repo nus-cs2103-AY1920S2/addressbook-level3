@@ -31,7 +31,7 @@ public class VersionTest {
     }
 
     @Test
-    public void versionToStringvalidVersioncorrectStringRepresentation() {
+    public void versionToString_validVersion_correctStringRepresentation() {
         // boundary at 0
         Version version = new Version(0, 0, 0, true);
         assertEquals("V0.0.0ea", version.toString());
@@ -46,7 +46,7 @@ public class VersionTest {
     }
 
     @Test
-    public void versionComparablevalidVersioncompareToIsCorrect() {
+    public void versionComparable_validVersion_compareToIsCorrect() {
         Version one;
         Version another;
 
@@ -115,7 +115,7 @@ public class VersionTest {
     }
 
     @Test
-    public void versionComparablevalidVersionequalIsCorrect() {
+    public void versionComparable_validVersion_equalIsCorrect() {
         Version one;
         Version another;
 
