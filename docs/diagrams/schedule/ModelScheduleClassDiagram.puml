@@ -22,6 +22,10 @@ Package Scheduler {
     }
 }
 
+Package Workout {
+    Class WorkoutName
+}
+
 ModelManager *-down-> "1" Scheduler
 
 ' Scheduler
