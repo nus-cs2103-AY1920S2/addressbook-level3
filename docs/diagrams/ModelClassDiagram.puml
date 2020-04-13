@@ -45,6 +45,7 @@ ModelManager o--> "1" CookedRecordBook
 ModelManager o--> "1" RecipeBook
 ModelManager o--> "1" QuoteBook
 ModelManager o--> "1" PlannedBook
+ModelManager o--> "1" MultipleBookStateManager
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 CookedRecordBook -[hidden]right-> RecipeBook

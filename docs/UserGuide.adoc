@@ -36,7 +36,7 @@ Get motivated through our eye-catching goals and achievements.
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-== Overview
+== Overview (Harshita)
 The main features of HYBB are as follows:
 
 === Filter
@@ -83,7 +83,7 @@ You can store the following information in a recipe: +
 *Steps* - Steps taken to cook the meal +
 *Goals* - Goal that the recipe falls under +
 
-=== Goals
+=== Goals (Harshita)
 HYBB supports the following goals that model the Healthy Eating Plate. Goals are automatically added to a recipe you add or edit if they meet the recommended nutritional quantity specified for their respective food group.
 |===
 |Goal |Food Group represented by Goal
@@ -94,7 +94,7 @@ HYBB supports the following goals that model the Healthy Eating Plate. Goals are
 |Wholesome Wholemeals | Whole Grains
 |===
 
-=== Ingredients
+=== Ingredients (Beatrice)
 You can use the following units to measure how much of each ingredient is needed in the recipe.
 
 |===
@@ -107,7 +107,7 @@ You can use the following units to measure how much of each ingredient is needed
 |cup |Cups
 |===
 
-== HealthyBaby's User Interface
+== HealthyBaby's User Interface (Beatrice)
 Upon opening *HYBB*, you will see our Graphical User Interface.
 
 .HealthyBaby's User Interface
@@ -168,11 +168,11 @@ Also, commands are case-insensitive, but tags are case-sensitive.
 Gives you a short summary of all the available commands. +
 Format: `help`
 
-=== Switch the current tab: `switch`
+=== Switch the current tab: `switch` (Harshita)
 Switches the current tab you are in and changes the display. +
 Format: `switch` [tab name]
 
-Example usage: `switch planning` +
+Example: `switch planning` +
 Switches the current tab to the planning tab.
 
 [TIP]
@@ -518,7 +518,7 @@ Format: `viewMonth`
 
 == Goals Command (Harshita)
 
-=== Remove goal: `deleteGoal`
+=== Remove goal: `deleteGoal` (Harshita)
 Deletes a goal that has been auto-generated through the addition or editing of a recipe from a specific recipe. +
 Format: `deleteGoal [recipe index] [goal]`
 
@@ -528,14 +528,14 @@ Deletes goal named Bulk like the Hulk from the 2nd recipe if it exists.
 [TIP]
 Ensure that the capitalisation of the goal is the same! Check out `listGoals` if unsure.
 
-=== List goals being tracked: `listGoals`
+=== List goals being tracked: `listGoals` (Harshita)
 Lists all goals tracked by HYBB. +
 Format: `listGoals`
 
 Example 1: `listGoals` +
 Displays the 4 main goals being tracked in the *Result Box*.
 
-=== Track cooked meals: `cooked`
+=== Track cooked meals: `cooked` (Harshita)
 Tracks all cooked meals and adds to the progress of their respective goals. +
 Format: `cooked [recipe index] <recipe index>...`
 
@@ -582,7 +582,7 @@ Format: `quote`
 Adds an image uploaded by the user to the image gallery +
 Format: `addImage [i/image]`
 
-== FAQ
+== FAQ (Harshita)
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
@@ -597,7 +597,7 @@ data of your previous HYBB folder.
 *Q*: Why are there no safeguards for adding ingredients? +
 *A*: Currently, HYBB is designed to help you manage your customized recipe list. Hence, the addition of ingredients and under which tag(ip/ iv/ ig/ if/ io/) they fall would be solely based on your judgement! For future releases, we will ensure more safeguards to prevent invalid inputs based on common knowledge.
 
-== Glossary
+== Glossary (Harshita)
 |===
 |Term |Definition
 
