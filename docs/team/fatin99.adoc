@@ -129,7 +129,6 @@ and `Student` as well as its relevant `fields`.
 * Removed the requirement for compulsory `Phone` and `Email` fields in `StudentAddCommand` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/146[#146]
 )
 * Managed the project by commenting on critical pull requests (various)
-** Managed release `v1.2` on GitHub
 
 * Handled release of `Ver 1.2`
 
