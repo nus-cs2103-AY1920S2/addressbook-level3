@@ -72,7 +72,9 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::UI[]
 [[Design-Ui]]
+
 === UI component
 
 .Structure of the UI Component
@@ -90,6 +92,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+// end::UI[]
 
 [[Design-Logic]]
 
@@ -509,6 +512,7 @@ In addition, we also harnessed the capability of the `HashSet` to ensure no over
 
 // end::dban1[]
 
+// tag::exercise[]
 === Exercise Feature --- Yong Jie
 
 This feature allows users to record the exercises done by a client. The exercises are displayed in a table form, after the `view-c` command is called.
@@ -662,6 +666,7 @@ Moreover, storing the exercise data from client data does not provide any perfor
 Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients. The application is meant to be used by a single user and not an organisation. Even though each client might have many exercises, the information of each exercise is relatively small. For now, collectively, the client and exercise data is unlikely to exceed the JSON size limit. We might consider to have multiple JSON files if the data size gets too big in future versions.
 
 Indeed, `JsonAdaptedClient` having a list of `JsonAdaptedExercise` would violate separation of concerns. `JsonAdaptedClient` is now in charge of the client's information and the exercises. However, we felt that the benefits outweighted the costs and proceeded with the first choice.
+// end::exercise[]
 
 // tag::ziyingli[]
 === Personal Best --- Li Zi Ying
