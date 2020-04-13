@@ -1,7 +1,5 @@
 package seedu.zerotoone.ui.views.log;
 
-import static seedu.zerotoone.ui.util.DateViewUtil.getPrettyTimeDifference;
-
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -49,8 +47,7 @@ public class CompletedExerciseCard extends UiPart<Region> {
     }
 
     private String formatTitle(CompletedExercise completedExercise, int displayIndex) {
-        return String.format("Exercise #%d: %s (%s)", displayIndex, completedExercise.getExerciseName().fullName,
-            getPrettyTimeDifference(completedExercise.getStartTime(), completedExercise.getEndTime()));
+        return String.format("Exercise #%d: %s", displayIndex, completedExercise.getExerciseName().fullName);
     }
 
     @Override

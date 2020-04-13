@@ -52,7 +52,6 @@ public class ScheduledWorkoutList implements ReadOnlyScheduledWorkoutList {
     @Override
     public String toString() {
         return scheduledWorkouts.asUnmodifiableObservableList().size() + " scheduled workouts";
-        // TODO: refine later
     }
 
     @Override

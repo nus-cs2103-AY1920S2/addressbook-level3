@@ -78,7 +78,7 @@ public class StatisticsWindow extends UiPart<Stage> {
                 DateViewUtil.getPrettyDateTime(statisticsData.getEndRange())));
 
 
-        dataPoints.getChildren().removeAll();
+        dataPoints.getChildren().removeAll(dataPoints.getChildren());
         dataPoints.getChildren().addAll(statisticsData.getDataPoints()
             .stream().map(point -> (new DataPointView(point).getRoot())).collect(Collectors.toList()));
 
