@@ -169,7 +169,7 @@ Shown below is a high level overview of task class and related classes. This is 
 image::TaskClassDiagram.png[width=790]
 
 
-// tag::editTaskList[]
+//tag::editTaskList[]
 
 //tag::add[]
 ==== Add
@@ -219,7 +219,7 @@ The edit command is done in 2 parts. `EditCommandParser` as well as `EditCommand
 
 .Sequence of executing an edit command
 image::EditSequenceDiagram.png[]
-// tag::editTaskList[]
+//tag::editTaskList[]
 
 ==== Done and Delete (Fyon)
 
@@ -466,7 +466,7 @@ The following sequence diagram shows how the SwitchTabCommand updates the tab in
 .Sequence Diagram of SwitchTabCommand
 image::SwitchTabSequenceDiagram.png[]
 
-// tag::reminder[]
+//tag::reminder[]
 === Reminders
 The user's reminder functionality is achieved by calculating the time delay from the current time and the time from the user input. This time delay as well as the Task name and description is passed to the MainWindow for the reminder to be triggered as a pop up at the right time.
 
@@ -478,9 +478,9 @@ Reminder is stored as a string in the `JsonAdaptedTask`. This string contains th
 .Reminder Sequence Diagram
 image::ReminderSequenceDiagram.png[width=790]
 
-// end::reminder[]
+//end::reminder[]
 
-// tag::recurring[]
+//tag::recurring[]
 === Recurring
 The user's recurring tasks functionality is twofold. Resetting the task to be unfinished after the stipulated time interval and resetting the task's reminder date according to the stipulated time interval. The behaviour for this recurring feature is mainly represented in the activity diagram below.
 
@@ -500,7 +500,7 @@ Additionally, a flag has been made to check if the task needs to be changed, if 
 
 Recurring is stored as a string in the `JsonAdaptedTask`. This string contains the LocalDateTime information for the reference date as well as the type of interval itself. A special constructor for this string is used to reconstruct the recurring attribute when reading from storage.
 
-// end::recurring[]
+//end::recurring[]
 
 //tag::statistics[]
 
@@ -638,7 +638,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: We integrate a Pomodoro-Pet environment into a full fledged task manager. The pet system serves to gamify the act of doing tasks, thereby motivating users, and the Pomodoro helps users get into a regular work/rest cycle. This integrationcovers all aspects of productivity in line platform. It covers motivation, organising of tasks and also how to go about doing them. This all in one solution is seldom found in other applications which implement maybe 1 or 2 of these features.
 
-// tag::userStories[]
+//tag::userStories[]
 [appendix]
 == User Stories
 
@@ -695,7 +695,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 
 |=======================================================================
-// end::userStories[]
+//end::userStories[]
 
 [appendix]
 
@@ -1102,7 +1102,7 @@ Cons:
 * ...
 * ...
 
-// tag::manualTesting[]
+//tag::manualTesting[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -1219,4 +1219,4 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-// end::manualTesting[]
+//end::manualTesting[]
