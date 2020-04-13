@@ -28,6 +28,7 @@ import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;
+import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.testutil.ModelStub;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
@@ -134,7 +135,13 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setExerciseInWorkouts(Exercise target, Exercise editedExercise) {}
+
+        @Override
         public void updateFilteredExerciseList(Predicate<Exercise> predicate) {}
+
+        @Override
+        public void updateFilteredWorkoutList(Predicate<Workout> predicate) {}
 
         @Override
         public ObservableList<Exercise> getFilteredExerciseList() {

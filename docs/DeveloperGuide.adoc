@@ -733,11 +733,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |User who likes to schedule single workout sessions, but will occasionally do recurring ones |Keep track of the two types of workouts |Manage different types of workouts simultaneously
 
-|`* * *` |User who wants to track live progress while exercising |Have a timer for each part of my workout |Stay on schedule for each workout completedExercise I do
+|`* * *` |User who wants to track live progress while exercising |Have a timer for each part of my workout |Stay on schedule for each workout session I do
 
 |`* *` |User who enjoys social activities |Share my workout routines with my friends |Help each other out by sharing new exercise regimes
 
-|`* *` |User who has a regular workout schedule, but likes to schedule one-off completedExercises |Some way to keep track of both regular and one-off workouts |Differentiate between the workouts and manage them both simultaneously
+|`* *` |User who has a regular workout schedule, but likes to schedule one-off sessions |Some way to keep track of both regular and one-off workouts |Differentiate between the workouts and manage them both simultaneously
 
 |`* *` |User who loses motivation over a long period of time |Something to help me stay motivated |Keep going and not give up halfway
 
@@ -867,6 +867,7 @@ A workout that has been planned to be carried out on a specific date or dates.
 [[workout]]Workout::
 A set of exercises to be done together, in a certain order and time frame.
 
+//tag::gb3h[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -881,7 +882,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of exercises and workouts. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -889,31 +890,31 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Starting a workout session
 
-=== Deleting a exercise
+. Starting a workout session with a `WORKOUT_ID`
 
-. Deleting a exercise while all exercises are listed
-
-.. Prerequisites: List all exercises using the `list` command. Multiple exercises in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No exercise is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: At least 1 workout containing valid exercises and sets must exist.
+.. Test case: `start 1` +
+   Expected: Workout session started with the index of the workout shown in the status message. Timer starts counting from 00:00.
+.. Test case: `start 0` +
+   Expected: No workout session is started. Error details shown in the status message. Status bar remains the same. Timer remains at 00:00.
+.. Other incorrect delete commands to try: `start`, `start x` (where x is larger than the list size), `start y` (where y is the ID of an invalid workout) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Saving a workout session
 
-=== Saving data
+. Workout sessions are saved automatically at the end of a workout session.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: A workout session must be ongoing.
+.. Test case: `stop` +
+   Expected: Workout session stops and displays in the status message. Timer resets to 00:00. The workout session should appear in the `Log` tab.
+.. Test case: `skip`, `done` +
+   Expected: Same as above, if `skip` or `done` is given on the last set.
+.. Other incorrect delete commands to try: `save`, `stop 1`, `skip`/`done` (when there are more sets remaining) +
+   Expected: Error message displayed in the status bar.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
-
+//end::gb3h[]
 
 //tag::session[]
 [appendix]
@@ -954,7 +955,6 @@ Thus, we took more time than usual at the beginning of the project to plan our r
 This meant we were later to start coding and making PRs than other teams (as seen on reposense), which we felt was a more-than-fair trade-off for our team dynamic.
 
 We hope you have enjoyed this journey and learnt as much as we have!
-
 - The ZeroToOne Team
 
 //end::session[]
