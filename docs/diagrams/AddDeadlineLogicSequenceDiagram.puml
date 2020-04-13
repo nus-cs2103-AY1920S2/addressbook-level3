@@ -6,8 +6,8 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":NasaBookParser" as NasaBookParser LOGIC_COLOR
 participant ":AddDeadlineCommandParser" as AddDeadlineCommandParser LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
-participant ":Deadline" as Deadline LOGIC_COLOR
-participant ":AddDeadlineCommand" as AddDeadlineCommand LOGIC_COLOR
+participant "d:Deadline" as Deadline LOGIC_COLOR
+participant "a:AddDeadlineCommand" as AddDeadlineCommand LOGIC_COLOR
 end box
 
 [-> LogicManager : execute(command)
@@ -48,7 +48,7 @@ create Deadline
 AddDeadlineCommandParser -> Deadline : new Deadline(....)
 
 activate Deadline
-Deadline --> AddDeadlineCommandParser
+Deadline --> AddDeadlineCommandParser : d
 deactivate Deadline
 
 create AddDeadlineCommand
@@ -60,6 +60,7 @@ deactivate AddDeadlineCommand
 
 AddDeadlineCommandParser --> NasaBookParser : a
 deactivate AddDeadlineCommandParser
+
 AddDeadlineCommandParser -[hidden]-> NasaBookParser
 destroy AddDeadlineCommandParser
 

@@ -30,11 +30,13 @@ public class ModuleCodeTest {
         assertFalse(ModuleCode.isValidModuleCode("^")); // only non-alphanumeric characters
         assertFalse(ModuleCode.isValidModuleCode("run*")); // contains non-alphanumeric characters
         assertFalse(ModuleCode.isValidModuleCode("cs2103 finals")); // module code with whitespace
+        assertFalse(ModuleCode.isValidModuleCode("stringchars")); // 11 characters
 
         // valid moduleCode
         assertTrue(ModuleCode.isValidModuleCode("tutorial")); // alphabets only
         assertTrue(ModuleCode.isValidModuleCode("12345")); // numbers only
-        assertTrue(ModuleCode.isValidModuleCode("CS2103T")); // alphanumeric characters
+        assertTrue(ModuleCode.isValidModuleCode("t")); // 1 alphanumeric letter
+        assertTrue(ModuleCode.isValidModuleCode("CS2103TCS2")); // 10 alphanumeric characters
         assertTrue(ModuleCode.isValidModuleCode("tP")); // with capital letters
     }
 }

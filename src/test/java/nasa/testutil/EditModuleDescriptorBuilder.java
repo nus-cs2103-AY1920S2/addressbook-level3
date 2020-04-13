@@ -1,6 +1,6 @@
 package nasa.testutil;
 
-import nasa.logic.commands.EditModuleCommand.EditModuleDescriptor;
+import nasa.logic.commands.module.EditModuleCommand.EditModuleDescriptor;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;

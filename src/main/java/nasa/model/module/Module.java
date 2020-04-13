@@ -5,13 +5,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
-import nasa.model.activity.Name;
-import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
+import nasa.model.activity.UniqueDeadlineList;
+import nasa.model.activity.UniqueEventList;
 
 /**
  * Abstract class to specify fields with getter and setters for modules.
@@ -19,8 +22,10 @@ import nasa.model.activity.UniqueActivityList;
 public class Module {
 
     private ModuleCode moduleCode;
-    private UniqueActivityList activityList;
-    private FilteredList<Activity> filteredActivity;
+    private UniqueEventList eventList;
+    private FilteredList<Event> filteredEvent;
+    private UniqueDeadlineList deadlineList;
+    private FilteredList<Deadline> filteredDeadline;
     private ModuleName moduleName;
 
     /**
@@ -30,8 +35,10 @@ public class Module {
      */
     public Module(ModuleCode moduleCode, ModuleName moduleName) {
         this.moduleCode = moduleCode;
-        this.activityList = new UniqueActivityList();
-        this.filteredActivity = new FilteredList<>(activityList.getActivityList());
+        this.eventList = new UniqueEventList();
+        this.deadlineList = new UniqueDeadlineList();
+        this.filteredEvent = new FilteredList<>(eventList.getActivityList());
+        this.filteredDeadline = new FilteredList<>(deadlineList.getActivityList());
         this.moduleName = moduleName;
     }
 
@@ -52,115 +59,139 @@ public class Module {
         this.moduleCode = moduleCode;
     }
 
-    public boolean contains(Activity activity) {
-        return activityList.contains(activity);
+    public void addDeadline(Deadline deadline) {
+        deadlineList.add(deadline);
     }
 
-    public void add(Activity toAdd) {
-        activityList.add(toAdd);
-    }
-
-    public void setActivity(Activity target, Activity editedActivity) {
-        activityList.setActivity(target, editedActivity);
+    public void addEvent(Event event) {
+        eventList.add(event);
     }
 
     public ModuleName getModuleName() {
         return moduleName;
     }
 
-    public void remove(Activity toRemove) {
-        activityList.remove(toRemove);
+    public void removeDeadline(Deadline toRemove) {
+        deadlineList.remove(toRemove);
     }
 
-    public void removeActivityByIndex(Index index) {
-        activityList.removeByIndex(index);
+    public void removeEvent(Event toRemove) {
+        eventList.remove(toRemove);
     }
 
-    public UniqueActivityList getActivities() {
-        return activityList;
+    public UniqueDeadlineList getDeadlineList() {
+        return deadlineList;
     }
 
-    public boolean hasActivity(Name name) {
-        return activityList.hasActivity(name);
+    public UniqueEventList getEventList() {
+        return eventList;
     }
 
-    public void setActivities(UniqueActivityList replacement) {
-        activityList.setActivities(replacement);
+    public void setDeadlines(UniqueDeadlineList replacement) {
+        deadlineList.setActivities(replacement);
     }
 
-    /**
-     * Replaces the contents of this list with {@code activities}
-     * {@code activities} must not contain duplicate activities.
-     * @param activities List
-     */
-    public void setActivities(List<Activity> activities) {
-        activityList.setActivities(activities);
+    public void setDeadlines(List<Deadline> deadlines) {
+        deadlineList.setActivities(deadlines);
     }
 
-    public Activity getActivityByIndex(Index index) {
-        return activityList.getActivityByIndex(index);
+    public void setEvents(UniqueEventList replacement) {
+        eventList.setActivities(replacement);
     }
 
-    public Activity getActivityByName(Name name) {
-        return activityList.getActivityByName(name);
+    public void setEvents(List<Event> events) {
+        eventList.setActivities(events);
     }
 
-    public ObservableList<Activity> getFilteredActivityList() {
-        return filteredActivity;
+    public void setDeadlineSchedule(Index index, Index type) {
+        deadlineList.setSchedule(index, type);
     }
 
-    public ObservableList<Activity> getDeepCopyList() {
-        return activityList.getDeepCopyList();
+    public void setEventSchedule(Index index, Index type) {
+        eventList.setSchedule(index, type);
+    }
+
+    public ObservableList<Deadline> getFilteredDeadlineList() {
+        return filteredDeadline;
+    }
+
+    public ObservableList<Event> getFilteredEventList() {
+        return filteredEvent;
+    }
+
+    public ObservableList<Activity> getDeepCopyDeadlineList() {
+        return deadlineList.getDeepCopyList();
+    }
+
+    public ObservableList<Deadline> getModifiableDeadlineList() {
+        return deadlineList.getActivityList();
+    }
+
+    public ObservableList<Activity> getDeepCopyEventList() {
+        return eventList.getDeepCopyList();
+    }
+
+    public ObservableList<Event> getModifiableEventList() {
+        return eventList.getActivityList();
     }
 
     public Module getDeepCopyModule() {
         Module newModule = new Module(getModuleCode(), getModuleName());
-        newModule.setActivities(activityList.getDeepCopyList());
+        ObservableList<Activity> deadlines = deadlineList.getDeepCopyList();
+        ObservableList<Deadline> deadlinesCopy = FXCollections.observableArrayList();
+        for (Activity activity : deadlines) {
+            deadlinesCopy.add((Deadline) activity);
+        }
+        newModule.setDeadlines(deadlinesCopy);
+        ObservableList<Activity> events = eventList.getDeepCopyList();
+        ObservableList<Event> eventsCopy = FXCollections.observableArrayList();
+        for (Activity activity : events) {
+            eventsCopy.add((Event) activity);
+        }
+        newModule.setEvents(eventsCopy);
         return newModule;
     }
 
-    public void setActivityByIndex(Index index, Activity activity) {
-        activityList.setActivityByIndex(index, activity);
+    public Iterator<Deadline> deadlineIterator() {
+        return deadlineList.iterator();
     }
 
-    public void editActivityByIndex(Index index, Object... args) {
-        activityList.editActivityByIndex(index, args);
+    public Iterator<Event>eventIterator() {
+        return eventList.iterator();
     }
 
-    public Iterator<Activity> iterator() {
-        return activityList.iterator();
-    }
-
+    /**
+     * Updates module's underlying filtered activity lists
+     * @param predicate Predicate
+     */
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
-        filteredActivity.setPredicate(predicate);
+        filteredDeadline.setPredicate(predicate);
+        filteredEvent.setPredicate(predicate);
     }
 
+    /* @@author don-tay */
     /**
-     * Sorts module's activity list by the specified {@code sortMethod}.
-     * @param sortMethod Method of sorting the activities in the module activity list.
+     * Sorts module's deadline list by the specified {@code sortMethod}.
+     * @param sortMethod Method of sorting in the module deadline list.
      */
-    public void sortActivityList(SortMethod sortMethod) {
-        Comparator<Activity> comparator = sortMethod.getComparator();
-        this.activityList.getActivityList().sort(comparator);
+    public void sortDeadlineList(SortMethod sortMethod) {
+        Comparator<Deadline> comparator = sortMethod.getDeadlineComparator();
+        getModifiableDeadlineList().sort(comparator);
     }
 
     /**
-     * Returns true if both modules of the same module code.
-     * @param otherModule the module to be compared to
-     * @return true if both modules are the same instance, or both have the same module code, otherwise, false
+     * Sorts module's event list by the specified {@code sortMethod}.
+     * @param sortMethod Method of sorting in the module event list.
      */
-    public boolean isSameModule(Module otherModule) {
-        if (otherModule == this) {
-            return true;
-        }
-
-        return otherModule != null
-                && otherModule.getModuleCode().equals(getModuleCode());
+    public void sortEventList(SortMethod sortMethod) {
+        Comparator<Event> comparator = sortMethod.getEventComparator();
+        getModifiableEventList().sort(comparator);
     }
+    /* @@author */
 
     /**
-     * Returns true if both are the same module.
-     * This defines a stronger notion of equality between two activities.
+     * Returns true if both are the same module with same module name and module code.
+     * This defines a stronger notion of equality between two modules.
      */
     @Override
     public boolean equals(Object other) {
@@ -173,11 +204,53 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
-        return otherModule.getModuleCode().equals(getModuleCode());
+        return otherModule.getModuleCode().equals(getModuleCode())
+                && otherModule.getModuleName().equals(getModuleName());
     }
 
     @Override
     public String toString() {
         return String.format("%s %s", moduleCode, moduleName);
+    }
+
+    /**
+     * Returns true if deadline is found in the module's {@code UniqueDeadlineList}.
+     * @param deadline
+     * @return true if deadline is present in the module's deadline list
+     */
+    public boolean hasDeadline(Deadline deadline) {
+        for (Deadline currentDeadline : deadlineList.getActivityList()) {
+            if (currentDeadline.isSameDeadline(deadline)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if event is found in the module's {@code UniqueEventList}.
+     * @param event
+     * @return true if event is present in the module's event list
+     */
+    public boolean hasEvent(Event event) {
+        for (Event currentEvent : eventList.getActivityList()) {
+            if (currentEvent.isSameEvent(event)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if activity is found in the module.
+     * @param activity
+     * @return true if activity is present in the module
+     */
+    public boolean hasActivity(Activity activity) {
+        if (activity instanceof Deadline) {
+            return hasDeadline((Deadline) activity);
+        } else {
+            return hasEvent((Event) activity);
+        }
     }
 }

@@ -60,7 +60,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         NasaBookStorage nasaBookStorage = new JsonNasaBookStorage(userPrefs.getNasaBookFilePath(),
-                userPrefs.getHistoryBookFilePath());
+                userPrefs.getHistoryBookFilePath(), userPrefs.getUiHistoryBookFilePath());
         storage = new StorageManager(nasaBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -80,11 +80,16 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyNasaBook> nasaBookOptional;
         Optional<ReadOnlyHistory> historyBookOptional;
+        Optional<ReadOnlyHistory> uiHistoryBookOptional;
         ReadOnlyNasaBook initialNasaBook;
         ReadOnlyHistory initialHistoryBook;
+        ReadOnlyHistory initialUiHistoryBook;
+
         try {
             nasaBookOptional = storage.readNasaBook();
             historyBookOptional = storage.readHistoryBook();
+            uiHistoryBookOptional = storage.readUiHistoryBook();
+
             if (!nasaBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample NasaBook");
             }
@@ -92,19 +97,28 @@ public class MainApp extends Application {
             if (!historyBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample HistoryBook");
             }
+
+            if (!uiHistoryBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample UiHistoryBook");
+            }
             initialNasaBook = nasaBookOptional.orElseGet(SampleDataUtil::getSampleNasaBook);
             initialHistoryBook = historyBookOptional.orElseGet(SampleDataUtil::getSampleHistoryBook);
+            initialUiHistoryBook = uiHistoryBookOptional.orElseGet(SampleDataUtil::getSampleUiHistoryBook);
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty NasaBook");
             initialNasaBook = new NasaBook();
             initialHistoryBook = new HistoryBook();
+            initialUiHistoryBook = new HistoryBook();
+
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty NasaBook");
             initialNasaBook = new NasaBook();
             initialHistoryBook = new HistoryBook();
+            initialUiHistoryBook = new HistoryBook();
         }
 
-        return new ModelManager(initialNasaBook, initialHistoryBook, userPrefs);
+        return new ModelManager(initialNasaBook, initialHistoryBook, initialUiHistoryBook, userPrefs);
     }
 
     private void initLogging(Config config) {

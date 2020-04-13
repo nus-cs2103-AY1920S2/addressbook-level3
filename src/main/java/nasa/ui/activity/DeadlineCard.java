@@ -1,13 +1,11 @@
 package nasa.ui.activity;
 
 import javafx.fxml.FXML;
-import javafx.scene.Group;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
 
-import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.ui.UiPart;
 
@@ -26,9 +24,11 @@ public class DeadlineCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Activity activity;
+    public final Deadline deadline;
     @FXML
-    private GridPane deadlinePane;
+    private HBox deadlinePane;
+    @FXML
+    private CheckBox isDone;
     @FXML
     private Label name;
     @FXML
@@ -36,25 +36,67 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private Label note;
     @FXML
-    private Label status;
-    @FXML
     private Label priority;
     @FXML
-    private Group type;
-    @FXML
-    private Label labelForCircle;
-    @FXML
-    private Circle circle;
+    private Label dateToRepeat;
 
-    public DeadlineCard(Deadline activity, int displayedIndex) {
+    public DeadlineCard(Deadline deadline, int displayedIndex) {
         super(FXML);
-        this.activity = activity;
-        name.setText(activity.getName().toString());
-        date.setText("Due by: " + activity.getDueDate().toString());
-        note.setText(activity.getNote().toString());
-        status.setText(activity.getStatus().toString());
-        priority.setText("Priority: " + activity.getPriority().toString());
+
+        this.deadline = deadline;
+        name.setText(displayedIndex + ". " + deadline.getName().toString());
+        date.setText("Due by: " + deadline.getDueDate().toString());
+        note.setText(deadline.getNote().toString());
+        dateToRepeat.setText("");
+        if (deadline.getSchedule().getType() != 0) {
+            dateToRepeat.setText("Repeat: " + deadline.getSchedule().typeInString());
+        }
+        isDone.setSelected(deadline.isDone());
+        isDone.setMouseTransparent(true);
+        isDone.setOnAction(e -> {
+            deadline.setDone(!deadline.isDone());
+            //mainWindow.handleDeadlineClick(displayedIndex);
+            if (!deadline.isOverdue()) {
+                deadlinePane.getParent().setStyle("-fx-background-color: #C7CEEA;");
+            } else {
+                deadlinePane.getParent().setStyle("-fx-background-color: darkred;");
+            }
+            isDone.setSelected(deadline.isDone());
+        });
+        setPriority();
     }
+
+    /**
+     * Returns a Ui representation of the priority.
+     */
+    public void setPriority() {
+        switch (deadline.getPriority().getPriorityLevel()) {
+        case 1:
+            priority.setText("!");
+            priority.setStyle("-fx-text-fill:#00bc6b;");
+            break;
+        case 2:
+            priority.setText("!!");
+            priority.setStyle("-fx-text-fill:#85ba00;");
+            break;
+        case 3:
+            priority.setText("!!!");
+            priority.setStyle("-fx-text-fill:#d0d000;");
+            break;
+        case 4:
+            priority.setText("!!!!");
+            priority.setStyle("-fx-text-fill:#e1b400;");
+            break;
+        case 5:
+            priority.setText("!!!!!");
+            priority.setStyle("-fx-text-fill:#e80303;");
+            break;
+        default:
+            priority.setStyle("");
+            break;
+        }
+    }
+
 
     @Override
     public boolean equals(Object other) {

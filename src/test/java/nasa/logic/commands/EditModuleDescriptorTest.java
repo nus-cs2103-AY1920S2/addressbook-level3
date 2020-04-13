@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import nasa.logic.commands.EditModuleCommand.EditModuleDescriptor;
+import nasa.logic.commands.module.EditModuleCommand.EditModuleDescriptor;
 import nasa.testutil.EditModuleDescriptorBuilder;
 
 public class EditModuleDescriptorTest {

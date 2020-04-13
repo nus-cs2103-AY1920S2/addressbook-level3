@@ -2,18 +2,15 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox id="modulePane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <HBox spacing="5" alignment="CENTER">
-        <Label fx:id="code" styleClass="cell_big_label" text="\$code">
-            <minWidth>
-                <!-- Ensures that the label text is never truncated -->
-                <Region fx:constant="USE_PREF_SIZE"/>
-            </minWidth>
+<?import javafx.geometry.Insets?>
+<VBox fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <Label fx:id="code" styleClass="cell_big_label" text="\$code" wrapText="true">
         </Label>
-    </HBox>
-    <StackPane fx:id="activityListPanelPlaceholder" VBox.vgrow="ALWAYS"
-               HBox.hgrow="ALWAYS"/>
+    <VBox fx:id="activityListPanelPlaceholder" VBox.vgrow="ALWAYS"
+               HBox.hgrow="ALWAYS">
+    </VBox>
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10" />
+    </padding>
 </VBox>

@@ -3,9 +3,9 @@ package nasa.testutil;
 import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.GEH1001;
 
-import nasa.commons.core.index.Index;
 import nasa.model.NasaBook;
 import nasa.model.module.Module;
+import nasa.model.module.ModuleCode;
 import nasa.model.module.UniqueModuleList;
 
 /**
@@ -47,21 +47,11 @@ public class NasaBookBuilder {
 
     /**
      * Delete the module from Nasabook.
-     * @param module module
+     * @param moduleCode module
      * @return NasaBookBuilder
      */
-    public NasaBookBuilder deleteModule(Module module) {
-        moduleList.remove(module);
-        return this;
-    }
-
-    /**
-     * Delete the module from Nasabook.
-     * @param index index
-     * @return NasaBookBuilder
-     */
-    public NasaBookBuilder deleteModule(Index index) {
-        moduleList.removeByIndex(index);
+    public NasaBookBuilder deleteModule(ModuleCode moduleCode) {
+        moduleList.remove(moduleCode);
         return this;
     }
 

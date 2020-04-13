@@ -8,12 +8,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import nasa.commons.exceptions.IllegalValueException;
-import nasa.model.activity.Activity;
-import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
+import nasa.model.activity.UniqueDeadlineList;
+import nasa.model.activity.UniqueEventList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
-
 
 /**
  * Jackson-friendly version of {@link Module}.
@@ -24,7 +25,8 @@ class JsonAdaptedModule {
 
     private final String moduleCode;
     private final String moduleName;
-    private final List<JsonAdaptedActivity> activityList = new ArrayList<>();
+    private final List<JsonAdaptedDeadline> deadlineList = new ArrayList<>();
+    private final List<JsonAdaptedEvent> eventList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
@@ -32,11 +34,15 @@ class JsonAdaptedModule {
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode,
                              @JsonProperty("moduleName") String moduleName,
-                             @JsonProperty("activities") List<JsonAdaptedActivity> activities) {
+                             @JsonProperty("deadlines") List<JsonAdaptedDeadline> deadlines,
+                             @JsonProperty("events") List<JsonAdaptedEvent> events) {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
-        if (activities != null) {
-            this.activityList.addAll(activities);
+        if (deadlines != null) {
+            this.deadlineList.addAll(deadlines);
+        }
+        if (events != null) {
+            this.eventList.addAll(events);
         }
     }
 
@@ -46,8 +52,11 @@ class JsonAdaptedModule {
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode().moduleCode;
         moduleName = source.getModuleName().toString();
-        activityList.addAll(source.getActivities().asUnmodifiableObservableList().stream()
-                .map(JsonAdaptedActivity::new)
+        deadlineList.addAll(source.getDeadlineList().asUnmodifiableObservableList().stream()
+                .map(JsonAdaptedDeadline::new)
+                .collect(Collectors.toList()));
+        eventList.addAll(source.getEventList().asUnmodifiableObservableList().stream()
+                .map(JsonAdaptedEvent::new)
                 .collect(Collectors.toList()));
     }
 
@@ -57,11 +66,6 @@ class JsonAdaptedModule {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Module toModelType() throws IllegalValueException {
-        final List<Activity> moduleActivities = new ArrayList<>();
-        for (JsonAdaptedActivity activity : activityList) {
-            moduleActivities.add(activity.toModelType());
-        }
-
         if (moduleCode == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ModuleCode.class.getSimpleName()));
@@ -80,11 +84,25 @@ class JsonAdaptedModule {
         }
         final ModuleName modelModuleName = new ModuleName(moduleName);
 
-        final UniqueActivityList uniqueActivityList = new UniqueActivityList();
-        uniqueActivityList.setActivities(moduleActivities);
+        final List<Deadline> moduleDeadlines = new ArrayList<>();
+        for (JsonAdaptedDeadline deadline : deadlineList) {
+            moduleDeadlines.add(deadline.toModelType());
+        }
+
+        final UniqueDeadlineList uniqueDeadlineList = new UniqueDeadlineList();
+        uniqueDeadlineList.setActivities(moduleDeadlines);
+
+        final List<Event> moduleEvents = new ArrayList<>();
+        for (JsonAdaptedEvent event : eventList) {
+            moduleEvents.add(event.toModelType());
+        }
+
+        final UniqueEventList uniqueEventList = new UniqueEventList();
+        uniqueEventList.setActivities(moduleEvents);
 
         final Module module = new Module(modelModuleCode, modelModuleName);
-        module.setActivities(uniqueActivityList);
+        module.setDeadlines(uniqueDeadlineList);
+        module.setEvents(uniqueEventList);
         return module;
     }
 

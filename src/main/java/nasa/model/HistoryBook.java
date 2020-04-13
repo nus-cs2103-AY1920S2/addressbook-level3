@@ -59,12 +59,12 @@ public class HistoryBook<T> implements ReadOnlyHistory<T> {
      * @return true if there is history
      */
     public boolean undo() {
-        boolean checkStack = !moduleListHistory.isEmpty();
-        if (checkStack) {
+        boolean hasHistory = !moduleListHistory.isEmpty();
+        if (hasHistory) {
             moduleListHistoryCollector.pushDirectly(moduleListHistory.getPop());
             moduleListHistory.pop();
         }
-        return checkStack;
+        return hasHistory;
     }
 
     /**

@@ -4,29 +4,37 @@ import nasa.model.activity.Date;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
+import nasa.model.activity.Priority;
+import nasa.model.activity.Schedule;
 
 /**
  * Class to help build example deadlines.
  */
 public class DeadlineBuilder {
     public static final String DEFAULT_NAME = "Homework";
-    public static final String DEFAULT_DATE = "19-10-2020 03:00";
     public static final String DEFAULT_NOTE = "Take note of qns2";
     public static final String DEFAULT_DUE_DATE = "13-11-2020 03:00";
 
     private Name name;
-    private Date date;
     private Note note;
     private Date dueDate;
+    private Date dateCreated;
+    private Priority priority;
+    private Schedule schedule;
+    private boolean isDone;
+
 
     /**
      * Initialise default name, date and note for an activity to test.
      */
     public DeadlineBuilder() {
         name = new Name(DEFAULT_NAME);
-        date = new Date(DEFAULT_DATE);
         note = new Note(DEFAULT_NOTE);
         dueDate = new Date(DEFAULT_DUE_DATE);
+        dateCreated = Date.now();
+        priority = new Priority();
+        schedule = new Schedule();
+        isDone = false;
     }
 
     /**
@@ -35,9 +43,12 @@ public class DeadlineBuilder {
     public DeadlineBuilder(Object activityToCopy) {
         Deadline activity = (Deadline) activityToCopy;
         name = activity.getName();
-        date = activity.getDate();
+        dateCreated = activity.getDateCreated();
         note = activity.getNote();
         dueDate = activity.getDueDate();
+        priority = activity.getPriority();
+        schedule = activity.getSchedule();
+        isDone = activity.isDone();
     }
 
     /**
@@ -51,8 +62,8 @@ public class DeadlineBuilder {
     /**
      * Sets the {@code Date} of the {@code Activity} that we are building.
      */
-    public DeadlineBuilder withDate(String date) {
-        this.date = new Date(date);
+    public DeadlineBuilder withDateCreated(String date) {
+        this.dateCreated = new Date(date);
         return this;
     }
 
@@ -73,10 +84,36 @@ public class DeadlineBuilder {
     }
 
     /**
+     * Sets the {@code Note} of the {@code Activity} that we are building.
+     */
+    public DeadlineBuilder withPriority(String priority) {
+        this.priority = new Priority(priority);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Note} of the {@code Activity} that we are building.
+     */
+    public DeadlineBuilder withSchedule(String schedule) {
+        this.schedule = new Schedule(schedule);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Note} of the {@code Activity} that we are building.
+     */
+    public DeadlineBuilder withIsDone(String isDone) {
+        this.isDone = Boolean.parseBoolean(isDone);
+        return this;
+    }
+
+    /**
      * Build an activity accordingly.
      */
     public Deadline build() {
-        return new Deadline(name, dueDate, note);
+        Deadline deadline = new Deadline(name, dueDate);
+        deadline.setNote(note);
+        return deadline;
     }
 
 }

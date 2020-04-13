@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,32 +16,36 @@ import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
-import nasa.model.activity.Name;
+import nasa.model.activity.ActivityContainsKeyWordsPredicate;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
-import nasa.model.module.ModuleName;
+import nasa.model.module.NameContainsKeywordsPredicate;
 import nasa.model.module.SortMethod;
 import nasa.model.module.UniqueModuleList;
 import nasa.model.quote.Quote;
 
 /**
- * Represents the in-memory model of the NASA data.
+ * Represents the in-memory module manager.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final NasaBook nasaBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Module> filteredModules;
+    private FilteredList<Module> filteredModules;
     private final HistoryManager<UniqueModuleList> historyManager;
 
     /**
      * Initializes a ModelManager with the given NasaBook and userPrefs.
-     * @param nasaBook ReadOnlyNasaBook
+     *
+     * @param nasaBook    ReadOnlyNasaBook
      * @param historyBook ReadOnlyHistory
-     * @param userPrefs ReadOnlyUserPrefs
+     * @param userPrefs   ReadOnlyUserPrefs
      */
     public ModelManager(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
+                        ReadOnlyHistory<String> uiHistoryBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(nasaBook, userPrefs);
@@ -49,12 +55,12 @@ public class ModelManager implements Model {
         this.nasaBook = new NasaBook(nasaBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
-        this.historyManager = new HistoryManager<>(historyBook);
+        this.historyManager = new HistoryManager<>(historyBook, uiHistoryBook);
         initialisation();
     }
 
     public ModelManager() {
-        this(new NasaBook(), new HistoryBook<>(), new UserPrefs());
+        this(new NasaBook(), new HistoryBook<>(), new HistoryBook<>(), new UserPrefs());
     }
 
     public HistoryManager<UniqueModuleList> getHistoryManager() {
@@ -66,45 +72,97 @@ public class ModelManager implements Model {
      */
     public void initialisation() {
         updateSchedule();
-        //updateHistory();
-        //Quote.readFile();
+        updateHistory("null");
+        Quote.readFile();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-    }
-
-    /**
-     * Update the history manager list every time there is a change.
-     */
-    public void updateHistory() {
-        final UniqueModuleList temp = new UniqueModuleList();
-        temp.setModules(nasaBook.getDeepCopyList());
-        historyManager.add(temp);
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
     /**
      * Update the schedule for each activity.
      */
+    @Override
     public void updateSchedule() {
         nasaBook.scheduleAll();
-        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
-        updateHistory();
+    }
+
+    /**
+     * Update the history manager list every time there is a change.
+     */
+    public void updateHistory(String type) {
+        final UniqueModuleList temp = new UniqueModuleList();
+        temp.setModules(nasaBook.getDeepCopyList());
+        historyManager.add(temp, type);
+    }
+
+
+    /**
+     * Update the history manager list every time there is a change.
+     */
+    public void updateHistory(List<String> input, String type) {
+        final UniqueModuleList temp = new UniqueModuleList();
+        temp.setModules(nasaBook.getDeepCopyList());
+
+        StringBuilder output = new StringBuilder();
+        output.append(type);
+        input.forEach(x -> {
+            output.append(" ");
+            output.append(x);
+        });
+        historyManager.add(temp, output.toString());
+    }
+
+    /**
+     * Refresh filter settings.
+     */
+    public void refreshUi() {
+        String temp = historyManager.getUiItem();
+        List<String> test = Arrays.asList(temp.trim().split("\\s+"));
+        System.out.println(test.toString());
+        String type = test.get(0);
+
+        if (!type.equals("null")) {
+            if (test.get(1).equals("activity")) {
+                test = test.subList(2, test.size());
+                if (!test.get(0).equals("null")) {
+                    if (type.equals("list") || type.equals("find")) {
+                        updateFilteredModuleList(x->true);
+                        updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
+                    }
+                } else {
+                    updateFilteredModuleList(x->true);
+                }
+            } else if (test.get(1).equals("module")) {
+                List<String> listTemp = test.subList(2, 3);
+                updateFilteredModuleList(new NameContainsKeywordsPredicate(listTemp));
+                List<String> activityCurrentlyDisplayed = test.subList(4, test.size());
+                updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(activityCurrentlyDisplayed));
+            }
+        }
+
+        if (type.equals("null")) {
+            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+            updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+        }
     }
 
     @Override
     public void undoHistory() {
-        if (historyManager.undo()) {
-            nasaBook.setModuleList(historyManager.getItem());
-            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        boolean hasUndoHistory = historyManager.undo();
+        if (hasUndoHistory) {
+            nasaBook.setModuleList(historyManager.getItem().getDeepCopyList());
+            refreshUi();
         }
     }
 
     @Override
     public boolean redoHistory() {
-        boolean hasRedo = historyManager.redo();
-        if (hasRedo) {
-            nasaBook.setModuleList(historyManager.getItem());
-            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        boolean hasRedoHistory = historyManager.redo();
+        if (hasRedoHistory) {
+            nasaBook.setModuleList(historyManager.getItem().getDeepCopyList());
+            refreshUi();
         }
-        return hasRedo;
+        return hasRedoHistory;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -146,6 +204,7 @@ public class ModelManager implements Model {
     @Override
     public void setNasaBook(ReadOnlyNasaBook nasaBook) {
         this.nasaBook.resetData(nasaBook);
+        updateHistory("null");
     }
 
     @Override
@@ -159,9 +218,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasModule(Module module) {
-        requireNonNull(module);
-        return nasaBook.hasModule(module);
+    public ReadOnlyHistory<String> getUiHistoryBook() {
+        return historyManager.getUiHistoryBook();
     }
 
     @Override
@@ -171,158 +229,186 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteModule(Module target) {
-        nasaBook.removeModule(target);
+    public Module getModule(ModuleCode moduleCode) {
+        UniqueModuleList uniqueModuleList = nasaBook.getUniqueModuleList();
+        return uniqueModuleList.getModule(moduleCode);
     }
 
     @Override
     public void deleteModule(ModuleCode target) {
         nasaBook.removeModule(target);
-        updateHistory();
-    }
-
-    @Override
-    public void removeModuleByIndex(Index index) {
-        nasaBook.removeModuleByIndex(index);
-        updateHistory();
+        updateHistory("delete" + currentUiLocation());
     }
 
     @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
-        updateHistory();
-        //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        updateHistory("add" + currentUiLocation() + " " + module.getModuleCode().toString());
     }
 
     @Override
-    public void addModule(ModuleCode moduleCode, ModuleName moduleName) {
-        nasaBook.addModule(moduleCode, moduleName);
-        updateHistory();
-        //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    public void addDeadline(ModuleCode target, Deadline deadline) {
+        nasaBook.addDeadline(target, deadline);
+        updateHistory("deadline" + currentUiLocation() + " " + deadline.getName().name);
     }
 
     @Override
-    public void setModule(Module target, Module editedModule) {
-        requireAllNonNull(target, editedModule);
-
-        nasaBook.setModule(target, editedModule);
-        updateHistory();
+    public void addEvent(ModuleCode target, Event event) {
+        nasaBook.addEvent(target, event);
+        updateHistory("event" + currentUiLocation() + " " + event.getName().name);
     }
 
+    @Override
+    public void removeDeadline(ModuleCode target, Deadline deadline) {
+        nasaBook.removeDeadline(target, deadline);
+        updateHistory("deadline" + currentUiLocation());
+    }
+
+    @Override
+    public void removeEvent(ModuleCode target, Event event) {
+        nasaBook.removeEvent(target, event);
+        updateHistory("event" + currentUiLocation());
+    }
+
+    /* @@author don-tay */
     @Override
     public void setModule(ModuleCode target, Module editedModule) {
         requireAllNonNull(target, editedModule);
 
         nasaBook.setModule(target, editedModule);
-        updateHistory();
+        updateHistory("module" + currentUiLocation());
     }
 
     @Override
-    public void addActivity(Module target, Activity activity) {
-        nasaBook.addActivity(target, activity);
-        updateHistory();
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    public void setDeadline(ModuleCode moduleCode, Deadline target, Deadline editedDeadline) {
+        requireAllNonNull(target, editedDeadline);
+
+        nasaBook.setDeadline(moduleCode, target, editedDeadline);
+        updateHistory("deadline" + currentUiLocation());
     }
 
     @Override
-    public void addActivity(ModuleCode target, Activity activity) {
-        nasaBook.addActivity(target, activity);
-        updateHistory();
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    public void setEvent(ModuleCode moduleCode, Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
+
+        nasaBook.setEvent(moduleCode, target, editedEvent);
+        updateHistory("event" + currentUiLocation());
     }
 
-    @Override
-    public void setActivityByIndex(Module module, Index index, Activity activity) {
-        nasaBook.setActivityByIndex(module, index, activity);
-        updateHistory();
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-    }
-
-    @Override
-    public void setActivityByIndex(ModuleCode module, Index index, Activity activity) {
-        nasaBook.setActivityByIndex(module, index, activity);
-        updateHistory();
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-    }
-
-    @Override
-    public void editActivityByIndex(Module module, Index index, Object... args) {
-        nasaBook.editActivityByIndex(module, index, args);
-        updateHistory();
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-    }
-
-    @Override
-    public void editActivityByIndex(ModuleCode module, Index index, Object... args) {
-        nasaBook.editActivityByIndex(module, index, args);
-        updateHistory();
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-    }
-
-    @Override
-    public void removeActivity(Module target, Activity activity) {
-        nasaBook.removeActivity(target, activity);
-        updateHistory();
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-    }
-
-    @Override
-    public void removeActivity(ModuleCode target, Activity activity) {
-        nasaBook.removeActivity(target, activity);
-        updateHistory();
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-    }
-
-    @Override
-    public void removeActivityByIndex(Module target, Index index) {
-        nasaBook.removeActivityByIndex(target, index);
-        updateHistory();
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-    }
-
-    @Override
-    public void removeActivityByIndex(ModuleCode target, Index index) {
-        nasaBook.removeActivityByIndex(target, index);
-        updateHistory();
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-    }
-    /*
-        @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        nasaBook.setPerson(target, editedPerson);
-    }
+    /**
+     * Find out current UI filter property.
+     * @return String
      */
+    public String currentUiLocation() {
+        StringBuilder location = new StringBuilder();
+        if (getFilteredModuleList().size() > 1) {
+            //not in Find
+            location.append(" activity");
+            int i = 0;
+            boolean test = false;
+            while (i < getFilteredModuleList().size()) {
+                if (getFilteredModuleList().get(i).getFilteredDeadlineList().size() == 0) {
+                    i++;
+                    continue;
+                } else {
+                    getFilteredModuleList().get(i).getFilteredDeadlineList()
+                            .forEach(x-> {
+                                location.append(" ");
+                                location.append(x.getName().name);
+                            });
+                    test = true;
+                }
+                i++;
+            }
 
-    @Override
-    public boolean hasActivity(ModuleCode target, Activity activity) {
-        requireAllNonNull(target, activity);
-        return nasaBook.hasActivity(target, activity);
+            i = 0;
+            while (i < getFilteredModuleList().size()) {
+                if (getFilteredModuleList().get(i).getFilteredEventList().size() == 0) {
+                    i++;
+                    continue;
+                } else {
+                    getFilteredModuleList().get(i).getFilteredEventList()
+                            .forEach(x-> {
+                                location.append(" ");
+                                location.append(x.getName().name);
+                            });
+                    test = true;
+                }
+                i++;
+            }
+            System.out.println(location.toString());
+            if (!test) {
+                location.append(" null");
+            }
+        } else if (getFilteredModuleList().size() == 1) {
+            location.append(" module ");
+            location.append(getFilteredModuleList().get(0).getModuleCode().moduleCode);
+
+            location.append(" activity");
+            int i = 0;
+            boolean test = false;
+            while (i < getFilteredModuleList().size()) {
+                if (getFilteredModuleList().get(i).getFilteredDeadlineList().size() == 0) {
+                    i++;
+                    continue;
+                } else {
+                    getFilteredModuleList().get(i).getFilteredDeadlineList()
+                            .forEach(x-> {
+                                location.append(" ");
+                                location.append(x.getName().name);
+                            });
+                    test = true;
+                }
+                i++;
+            }
+
+            i = 0;
+            while (i < getFilteredModuleList().size()) {
+                if (getFilteredModuleList().get(i).getFilteredEventList().size() == 0) {
+                    i++;
+                    continue;
+                } else {
+                    getFilteredModuleList().get(i).getFilteredEventList()
+                            .forEach(x-> {
+                                location.append(" ");
+                                location.append(x.getName().name);
+                            });
+                    test = true;
+                }
+                i++;
+            }
+            System.out.println(location.toString());
+            if (!test) {
+                location.append(" null");
+            }
+        } else {
+            return " null";
+        }
+        return location.toString();
+    }
+    /* @@author */
+
+    public boolean setDeadlineSchedule(ModuleCode module, Index index, Index type) {
+        requireAllNonNull(module, index, type);
+        boolean hasExecuted = nasaBook.setDeadlineSchedule(module, index, type);
+        updateHistory("schedule" + currentUiLocation());
+        return hasExecuted;
     }
 
-    @Override
-    public boolean hasActivity(ModuleCode target, Name activity) {
-        requireAllNonNull(target, activity);
-        return nasaBook.hasActivity(target, activity);
-    }
-
-    @Override
-    public boolean setSchedule(ModuleCode module, Name activity, Index type) {
-        requireAllNonNull(module, activity, type);
-        boolean hasExecuted = nasaBook.setSchedule(module, activity, type);
-        updateHistory();
+    public boolean setEventSchedule(ModuleCode module, Index index, Index type) {
+        requireAllNonNull(module, index, type);
+        boolean hasExecuted = nasaBook.setEventSchedule(module, index, type);
+        updateHistory("schedule" + currentUiLocation());
         return hasExecuted;
     }
 
     //=========== Filtered Module List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
-     * {@code versionedNasaBook}
-     */
+    @Override
+    public boolean hasActivity(ModuleCode moduleCode, Activity activity) {
+        return nasaBook.hasActivity(moduleCode, activity);
+    }
+
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
@@ -334,28 +420,33 @@ public class ModelManager implements Model {
         filteredModules.setPredicate(predicate);
     }
 
+    /* @@author don-tay */
     @Override
-    public ObservableList<Activity> getFilteredActivityList(Index index) {
-        Module module = filteredModules.get(index.getZeroBased());
-        return module.getDeepCopyList();
+    public ObservableList<Event> getFilteredEventList(ModuleCode moduleCode) {
+        Module module = nasaBook.getModule(moduleCode);
+        return module.getFilteredEventList();
     }
 
     @Override
-    public ObservableList<Activity> getFilteredActivityList(ModuleCode moduleCode) {
-        updateFilteredModuleList(x -> x.getModuleCode().equals(moduleCode));
-        Module module = filteredModules.get(0);
-        return module.getDeepCopyList();
+    public ObservableList<Deadline> getFilteredDeadlineList(ModuleCode moduleCode) {
+        Module module = nasaBook.getModule(moduleCode);
+        return module.getFilteredDeadlineList();
     }
 
     @Override
-    public void updateFilteredActivityList(Index index, Predicate<Activity> predicate) {
-        Module module = filteredModules.get(index.getZeroBased());
-        module.updateFilteredActivityList(predicate);
+    public void sortActivityList(SortMethod sortMethod) {
+        requireNonNull(sortMethod);
+        for (Module module : filteredModules) {
+            module.sortDeadlineList(sortMethod);
+            module.sortEventList(sortMethod);
+        }
+        updateHistory("sort" + currentUiLocation());
     }
+    /* @@author */
 
     @Override
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
-        for (Module module : filteredModules) {
+        for (Module module : getFilteredModuleList()) {
             module.updateFilteredActivityList(predicate);
         }
     }
@@ -363,17 +454,6 @@ public class ModelManager implements Model {
     @Override
     public String quote() {
         return Quote.getQuote();
-    }
-
-    /**
-     * Sort activity according to sort method.
-     * @param sortMethod The method of sorting.
-     */
-    public void sortActivityList(SortMethod sortMethod) {
-        requireNonNull(sortMethod);
-        for (Module module : filteredModules) {
-            module.sortActivityList(sortMethod);
-        }
     }
 
     @Override
@@ -391,13 +471,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return nasaBook.equals(other.nasaBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredModules.equals(other.filteredModules);
-    }
-
-    @Override
-    public Module getModule(ModuleCode moduleCode) {
-        UniqueModuleList uniqueModuleList = nasaBook.getUniqueModuleList();
-        return uniqueModuleList.getModule(moduleCode);
+            && userPrefs.equals(other.userPrefs)
+            && filteredModules.equals(other.filteredModules);
     }
 }

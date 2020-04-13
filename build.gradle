@@ -43,6 +43,9 @@ test {
 
 dependencies {
     compile 'com.google.code.gson:gson:2.8.6'
+    compile 'com.google.zxing:core:3.4.0'
+    compile 'com.google.zxing:javase:3.4.0'
+
     String jUnitVersion = '5.4.0'
     String javaFxVersion = '11.0.1'
 

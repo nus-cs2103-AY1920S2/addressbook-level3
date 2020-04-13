@@ -2,216 +2,96 @@ package nasa.model.activity;
 
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Objects;
-
-import nasa.model.Regenerable;
-
 /**
  * Abstract class to specify fields with getter and setters for activities.
  */
-public abstract class Activity implements Regenerable<Activity> {
+public abstract class Activity {
 
-    protected Status status;
+    public static final String EMPTY_NOTE_STRING = "-";
+
     private Name name;
-    private Date date;
     private Note note;
-    private Priority priority;
+    private Date dateCreated;
     private Schedule schedule;
 
     /**
-     * Constructs a {@code activity} with default note, status and priority.
-     * @param name name of activity
+     * Constructor to create an activity.
+     * @param name Name of the activity
      */
     public Activity(Name name) {
         requireAllNonNull(name);
         this.name = name;
-        this.note = new Note("-");
-        this.date = Date.now();
-        this.status = Status.ONGOING;
-        this.priority = new Priority("1");
-        this.schedule = new Schedule(date);
+        dateCreated = Date.now();
+        note = new Note(EMPTY_NOTE_STRING);
+        schedule = new Schedule(dateCreated);
     }
 
+
     /**
-     * Constructs a {@code activity} with default status and priority.
-     * @param name name of activity
-     * @param note note of activity
+     * Constructor to create an activity.
+     * @param name Name of the activity
      */
-    public Activity(Name name, Note note) {
+    public Activity(Name name, Date dateCreated, Note note) {
         requireAllNonNull(name);
         this.name = name;
+        this.dateCreated = dateCreated;
         this.note = note;
-        this.date = Date.now();
-        this.status = Status.ONGOING;
-        this.priority = new Priority("1");
-        this.schedule = new Schedule(date);
+        schedule = new Schedule(dateCreated);
     }
 
     /**
-     * Constructs a {@code activity} with priority.
-     * @param name name of activity
-     * @param note note of activity
-     * @param priority priority of activity
+     * Method to set the note of the activity.
+     * @param note
      */
-    public Activity(Name name, Note note, Priority priority) {
-        requireAllNonNull(name);
-        this.name = name;
+    public void setNote(Note note) {
+        requireAllNonNull(note);
         this.note = note;
-        this.date = Date.now();
-        this.priority = priority;
-        this.status = Status.ONGOING;
-        this.schedule = new Schedule(date);
     }
 
     /**
-     * Constructs a {@code activity}
-     * @param name name of activity
-     * @param date date of the activity
-     * @param note note of the activity
-     * @param status status of the activity
-     * @param priority priority of the activity
+     * Method to get the note of the activity.
+     * @return Note
      */
-    public Activity(Name name, Date date, Note note, Status status, Priority priority) {
-        requireAllNonNull(name, date, note, status, priority);
-        this.name = name;
-        this.date = date;
-        this.note = note;
-        this.status = status;
-        this.priority = priority;
-        this.schedule = new Schedule(date);
+    public Note getNote() {
+        return this.note;
     }
 
     /**
-     * Retrieve the name of the activity.
-     * @return String name
+     * Method to get the name of the activity.
+     * @return Name
      */
     public Name getName() {
         return name;
     }
 
     /**
-     * Sets the activity name to a new name.
-     * Used for editing activities.
-     * @param name of the activity
+     * Method to the set the name of the activity.
+     * @param name
      */
     public void setName(Name name) {
+        requireAllNonNull(name);
         this.name = name;
     }
 
     /**
-     * Retrieve the date of the activity.
-     * @return Date object representing when it is going to occur
+     * Method to get the dateCreated of the activity.
+     * @return dateCreated
      */
-    public Date getDate() {
-        return date;
+    public Date getDateCreated() {
+        return this.dateCreated;
     }
 
     /**
-     * Sets the date of the activity to a new date.
-     * Used for editing activities.
-     * @param date of the activity
+     * Method to the set the dateCreated of the activity.
+     * @param dateCreated
      */
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateCreated(Date dateCreated) {
+        requireAllNonNull(dateCreated);
+        this.dateCreated = dateCreated;
     }
 
-    /**
-     * Retrieve the note object of the activity.
-     * @return Note of the activity
-     */
-    public Note getNote() {
-        return note;
-    }
-
-    /**
-     * Sets the note of the activity to a new one.
-     * Used for editing activities.
-     * @param note of the activity
-     */
-    public void setNote(Note note) {
-        this.note = note;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    /**
-     * Returns true if both activities of the same name, note and date.
-     * @param otherActivity Activity
-     * @return boolean
-     */
-    public boolean isSameActivity(Activity otherActivity) {
-        if (otherActivity == this) {
-            return true;
-        }
-
-        return otherActivity != null
-                && otherActivity.getName().equals(getName());
-    }
-
-    /**
-     * Returns true if both activities have the same identity and data fields.
-     * This defines a stronger notion of equality between two activities.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Activity)) {
-            return false;
-        }
-        Activity otherActivity = (Activity) other;
-
-        return otherActivity.getName().equals(getName());
-    }
-
-    /**
-     * Retrieve the status object of the activity.
-     * @return Status of the activity
-     */
-    public Status getStatus() {
-        return status;
-    }
-
-    /**
-     * Retrieve the late status of the activity.
-     * @return boolean, true means late, false means not
-     */
-    public boolean isLate() {
-        return status == Status.LATE;
-    }
-
-    /**
-     * Sets the task to done.
-     */
-    public void setDone() {
-        status = Status.DONE;
-    }
-
-    /**
-     * Sets the task to undone.
-     */
-    public void setUndone() {
-        status = Status.ONGOING;
-    }
-
-    /**
-     * Retrieve the done status of the activity.
-     * @return boolean, true means done, false means not
-     */
-    public boolean isDone() {
-        return status == Status.DONE;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
+    public Date getScheduleDate() {
+        return schedule.getRepeatDate();
     }
 
     public Schedule getSchedule() {
@@ -219,7 +99,7 @@ public abstract class Activity implements Regenerable<Activity> {
     }
 
     public void setSchedule(int type) {
-        schedule.setType(type);
+        schedule.setType(type, dateCreated);
     }
 
     public void setSchedule(Schedule schedule) {
@@ -227,33 +107,13 @@ public abstract class Activity implements Regenerable<Activity> {
     }
 
     /**
-     * Regenerate activity based on set rules and logic.
-     * @return new instance of the activity, with its attributes possibly modified
+     * Method to check if the activity occurs in that month.
+     * @param month Month currently in
+     * @return true if occurs else false
      */
-    public abstract Activity regenerate();
-
-    public void updateStatus() {}
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, note, date, status, priority);
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Note: ")
-                .append(getNote())
-                .append(" Date: ")
-                .append(getDate())
-                .append(" Status: ")
-                .append(getStatus())
-                .append(" Priority: ")
-                .append(getPriority());
-        return builder.toString();
-    }
-
     public abstract boolean occurInMonth(int month);
+
+    public abstract Activity deepCopy();
+
+    public abstract void regenerate();
 }

@@ -11,7 +11,8 @@ import javafx.collections.ObservableList;
 
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
-import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
 import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.model.module.exceptions.ModuleNotFoundException;
 
@@ -33,17 +34,8 @@ public class UniqueModuleList implements Iterable<Module> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent Module as the given argument.
-     * @param toCheck Module
-     * @return boolean
-     */
-    public boolean contains(Module toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
-    }
-
-    /**
      * Returns true if the list contains an equivalent ModuleCode as the given argument.
+     * Note: Underlying implementation of equality check on ModuleCode is case-insensitive.
      * @param toCheck ModuleCode
      * @return boolean
      */
@@ -59,44 +51,10 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public void add(Module toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
+        if (contains(toAdd.getModuleCode())) {
             throw new DuplicateModuleException();
         }
         internalList.add(toAdd);
-    }
-
-    /**
-     * Adds a ModuleCode to the list.
-     * The ModuleCode must not already exist in the list.
-     * @param toAddCode ModuleCode
-     * @param toAddName ModuleName
-     */
-    public void add(ModuleCode toAddCode, ModuleName toAddName) {
-        requireAllNonNull(toAddCode, toAddName);
-        if (contains(toAddCode)) {
-            throw new DuplicateModuleException();
-        }
-        internalList.add(new Module(toAddCode, toAddName));
-    }
-
-    /**
-     * Replaces the Module {@code target} in the list with {@code editedModule}.
-     * {@code target} must exist in the list.
-     * The Module identity of {@code editedModule} must not be the same as another existing Module in the list.
-     * @param target Module
-     * @param editedModule Module
-     */
-    public void setModule(Module target, Module editedModule) {
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new ModuleNotFoundException();
-        }
-
-        if (!target.equals(editedModule) && contains(editedModule)) {
-            throw new DuplicateModuleException();
-        }
-
-        internalList.set(index, editedModule);
     }
 
     /**
@@ -107,28 +65,19 @@ public class UniqueModuleList implements Iterable<Module> {
      * @param editedModule Module
      */
     public void setModule(ModuleCode target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+        ModuleCode editedModuleCode = editedModule.getModuleCode();
         int index = internalList.indexOf(getModule(target));
         if (index == -1) {
             throw new ModuleNotFoundException();
         }
 
-        if (!target.equals(editedModule) && contains(editedModule)) {
+        // case when editedModule is a non-target module that already exists in { @code UniqueModuleList }
+        if (!target.equals(editedModuleCode) && contains(editedModuleCode)) {
             throw new DuplicateModuleException();
         }
 
         internalList.set(index, editedModule);
-    }
-
-    /**
-     * Removes the equivalent Module from the list.
-     * The Module must exist in the list.
-     * @param toRemove Module
-     */
-    public void remove(Module toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new ModuleNotFoundException();
-        }
     }
 
     /**
@@ -143,18 +92,9 @@ public class UniqueModuleList implements Iterable<Module> {
         }
     }
 
-    /**
-     * Removes the Module based on index.
-     * @param index Index
-     */
-    public void removeByIndex(Index index) {
-        internalList.remove(index.getZeroBased());
-    }
-
-    public UniqueModuleList setModules(UniqueModuleList replacement) {
+    public void setModules(UniqueModuleList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
-        return this;
     }
 
     /**
@@ -171,69 +111,6 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.setAll(modules);
     }
 
-    public void setActivityByIndex(Module module, Index index, Activity activity) {
-        requireNonNull(activity);
-
-        Module moduleSelected = getModule(module);
-        moduleSelected.setActivityByIndex(index, activity);
-    }
-
-    public void setActivityByIndex(ModuleCode moduleCode, Index index, Activity activity) {
-        requireNonNull(activity);
-
-        Module moduleSelected = getModule(moduleCode);
-        moduleSelected.setActivityByIndex(index, activity);
-    }
-
-    /**
-     * Edits activity based on index and module.
-     * @param module Module of the activity
-     * @param index index of the activity in list
-     * @param args parameters to be edited
-     */
-    public void editActivityByIndex(Module module, Index index, Object... args) {
-        requireNonNull(args);
-
-        Module moduleSelected = getModule(module);
-        moduleSelected.editActivityByIndex(index, args);
-    }
-
-    /**
-     * Edits activity based on index and moduleCode.
-     * @param moduleCode ModuleCode of activity
-     * @param index index of the activity in list
-     * @param args parameters to be edited
-     */
-    public void editActivityByIndex(ModuleCode moduleCode, Index index, Object... args) {
-        requireNonNull(args);
-
-        Module moduleSelected = getModule(moduleCode);
-        moduleSelected.editActivityByIndex(index, args);
-    }
-
-    public UniqueActivityList getActivities(Module module) {
-        requireAllNonNull(module);
-        return getModule(module).getActivities();
-    }
-
-    public UniqueActivityList getActivities(ModuleCode moduleCode) {
-        requireAllNonNull(moduleCode);
-        return getModule(moduleCode).getActivities();
-    }
-
-    /**
-     * get a particular module from the list
-     * @param module Module
-     * @return Module
-     */
-    public Module getModule(Module module) {
-        requireAllNonNull(module);
-        return internalList.parallelStream()
-                .filter(x -> x.equals(module))
-                .findFirst()
-                .get();
-    }
-
     /**
      * get a particular module from the list
      * @param moduleCode ModuleCode
@@ -241,17 +118,40 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public Module getModule(ModuleCode moduleCode) {
         requireAllNonNull(moduleCode);
-        return internalList.parallelStream()
+        return internalList.stream()
                 .filter(x -> x.getModuleCode().equals(moduleCode))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void setDeadlineSchedule(ModuleCode moduleCode, Index index, Index type) {
+        Module moduleSelected = getModule(moduleCode);
+        moduleSelected.setDeadlineSchedule(index, type);
+        moduleSelected.updateFilteredActivityList(x -> true);
+    }
+
+    public void setEventSchedule(ModuleCode moduleCode, Index index, Index type) {
+        Module moduleSelected = getModule(moduleCode);
+        moduleSelected.setEventSchedule(index, type);
+        moduleSelected.updateFilteredActivityList(x -> true);
     }
 
     public ObservableList<Module> getDeepCopyList() {
         ObservableList<Module> deepCopyList = FXCollections.observableArrayList();
         for (Module mods : internalUnmodifiableList) {
             Module moduleTemp = new Module(mods.getModuleCode(), mods.getModuleName());
-            moduleTemp.setActivities(mods.getActivities().getDeepCopyList());
+            ObservableList<Deadline> deadlinesCopy = FXCollections.observableArrayList();
+            ObservableList<Activity> deadlines = mods.getDeepCopyDeadlineList();
+            for (Activity activity : deadlines) {
+                deadlinesCopy.add((Deadline) activity);
+            }
+            moduleTemp.setDeadlines(deadlinesCopy);
+            ObservableList<Event> eventsCopy = FXCollections.observableArrayList();
+            ObservableList<Activity> events = mods.getDeepCopyEventList();
+            for (Activity activity : events) {
+                eventsCopy.add((Event) activity);
+            }
+            moduleTemp.setEvents(eventsCopy);
             deepCopyList.add(moduleTemp);
         }
         return deepCopyList;

@@ -2,12 +2,12 @@ package nasa.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import nasa.model.module.Module;
-import nasa.ui.activity.ActivityListPanel;
+import nasa.ui.activity.DeadlineListPanel;
+import nasa.ui.activity.EventListPanel;
 
 /**
  * An UI component that displays information of a {@code Module}.
@@ -25,23 +25,28 @@ public class ModuleCard extends UiPart<Region> {
      */
 
     public final Module module;
-    public final int id;
-    private ActivityListPanel activityListPanel;
+    private DeadlineListPanel deadlineListPanel;
+    private EventListPanel eventListPanel;
 
     @FXML
-    private Pane cardPane;
+    private VBox cardPane;
     @FXML
     private Label code;
     @FXML
-    private StackPane activityListPanelPlaceholder;
+    private VBox activityListPanelPlaceholder;
 
-    public ModuleCard(Module module, int displayedIndex) {
+    public ModuleCard(Module module, int width) {
         super(FXML);
         this.module = module;
-        this.id = displayedIndex;
-        code.setText(module.getModuleCode().toString());
-        activityListPanel = new ActivityListPanel(module.getFilteredActivityList());
-        activityListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
+        cardPane.setMinWidth(width);
+        cardPane.setMaxWidth(width);
+        cardPane.setMaxHeight(Double.MAX_VALUE);
+
+        code.setText(module.getModuleCode().toString() + " " + module.getModuleName().toString());
+        deadlineListPanel = new DeadlineListPanel(module.getFilteredDeadlineList());
+        eventListPanel = new EventListPanel(module.getFilteredEventList());
+        activityListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+        activityListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
     }
 
     @Override
@@ -58,7 +63,6 @@ public class ModuleCard extends UiPart<Region> {
 
         // state check
         ModuleCard card = (ModuleCard) other;
-        return id == card.id
-                && module.equals(card.module);
+        return module.equals(card.module);
     }
 }

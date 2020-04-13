@@ -2,8 +2,6 @@ package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
-import static nasa.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
-import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import java.util.function.Predicate;
 
@@ -11,9 +9,7 @@ import javafx.collections.ObservableList;
 
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.activity.ActivityContainsKeyWordsPredicate;
 import nasa.model.module.Module;
-import nasa.model.module.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all activities in NASA whose name contains any of the argument keywords.
@@ -44,25 +40,17 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO add the necessary implementation once model is done
-        if (predicate instanceof NameContainsKeywordsPredicate) {
-            model.updateFilteredModuleList(predicate);
-            return new CommandResult("Module listed.");
-        } else if (predicate instanceof ActivityContainsKeyWordsPredicate) {
-            model.updateFilteredActivityList(predicate);
-            return new CommandResult(String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW,
-                    getNumberOfFilteredActivities(model.getFilteredModuleList())));
-        } else {
-            model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-            model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
-            return new CommandResult(MESSAGE_REFRESH);
-        }
+        model.updateFilteredActivityList(predicate);
+        model.updateHistory("find" + model.currentUiLocation());
+        return new CommandResult(String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW,
+            getNumberOfFilteredActivities(model.getFilteredModuleList())));
     }
 
     private int getNumberOfFilteredActivities(ObservableList<Module> moduleList) {
         int numberOfActivities = 0;
         for (Module module : moduleList) {
-            numberOfActivities += module.getFilteredActivityList().size();
+            numberOfActivities += module.getFilteredDeadlineList().size();
+            numberOfActivities += module.getFilteredEventList().size();
         }
         return numberOfActivities;
     }

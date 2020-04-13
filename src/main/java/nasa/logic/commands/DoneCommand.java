@@ -2,13 +2,11 @@ package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
-import static nasa.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
-import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.activity.Activity;
+import nasa.model.activity.Deadline;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
@@ -20,18 +18,18 @@ public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Sets index of activity in module to being done or completed.\n"
+        + ": Sets index of deadline in module to being done or completed.\n"
         + "Parameters: " + "INDEX " + PREFIX_MODULE + "MODULE CODE\n"
         + "Example " + COMMAND_WORD + " 2 " + PREFIX_MODULE + "CS2030";
 
-    public static final String MESSAGE_SUCCESS = "Activity set to done!";
+    public static final String MESSAGE_SUCCESS = "Deadline set to done!";
 
     public static final String MESSAGE_ACTIVITY_NOT_FOUND =
         "Activity not found in module";
 
     public static final String MESSAGE_MODULE_NOT_FOUND = "Module not found!";
 
-    public static final String MESSAGE_ACTIVITY_ALREADY_DONE = "Activity already set to done!";
+    public static final String MESSAGE_ACTIVITY_ALREADY_DONE = "Deadline already set to done!";
 
     private Index index;
     private ModuleCode moduleCode;
@@ -51,20 +49,22 @@ public class DoneCommand extends Command {
         } else {
             // get module and check if the activity index exist
             Module module = model.getModule(moduleCode);
-            if (index.getZeroBased() > module.getActivities().getActivityList().size()) {
+            if (index.getZeroBased() > module.getDeadlineList().getActivityList().size()) {
                 throw new CommandException(MESSAGE_ACTIVITY_NOT_FOUND);
             }
 
             // check if activity already done
-            Activity activity = module.getActivityByIndex(index);
-            if (activity.isDone()) {
+            Deadline deadline = module.getFilteredDeadlineList().get(index.getZeroBased());
+            model.updateHistory("done" + model.currentUiLocation());
+            model.updateSchedule();
+            if (deadline.isDone()) {
                 throw new CommandException(MESSAGE_ACTIVITY_ALREADY_DONE);
             } else {
-                activity.setDone();
-                model.setActivityByIndex(moduleCode, index, activity);
-                model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-                model.updateFilteredActivityList(index, PREDICATE_SHOW_ALL_ACTIVITIES);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, activity));
+                Deadline deadlineCopy = new Deadline(deadline.getName(), deadline.getDateCreated(),
+                    deadline.getNote(), deadline.getPriority(), deadline.getDueDate(), true);
+                deadlineCopy.setSchedule(deadline.getSchedule());
+                model.setDeadline(moduleCode, deadline, deadlineCopy);
+                return new CommandResult(String.format(MESSAGE_SUCCESS, deadline));
             }
         }
     }

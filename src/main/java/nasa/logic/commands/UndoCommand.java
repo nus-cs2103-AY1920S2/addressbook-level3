@@ -8,8 +8,8 @@ import nasa.model.Model;
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": reset data by a single step.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo latest action.\n"
+            + "Parameters: None \nExample: " + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Undo last action.";
 

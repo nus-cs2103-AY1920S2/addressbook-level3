@@ -2,7 +2,7 @@ package nasa.ui.activity;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 import nasa.model.activity.Event;
@@ -24,33 +24,22 @@ public class EventCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Event activity;
+    public final Event event;
     @FXML
-    private GridPane eventPane;
+    private HBox eventPane;
     @FXML
     private Label name;
     @FXML
-    private Label startDate;
-    @FXML
-    private Label endDate;
+    private Label date;
     @FXML
     private Label note;
-    @FXML
-    private Label status;
-    @FXML
-    private Label priority;
 
-
-
-    public EventCard(Event activity, int displayedIndex) {
+    public EventCard(Event event, int displayedIndex) {
         super(FXML);
-        this.activity = activity;
-        name.setText(activity.getName().toString());
-        startDate.setText("From " + activity.getDateFrom().toString());
-        endDate.setText("To " + activity.getDateTo().toString());
-        note.setText(activity.getNote().toString());
-        status.setText(activity.getStatus().toString());
-        priority.setText("Priority: " + activity.getPriority().toString());
+        this.event = event;
+        name.setText(displayedIndex + ". " + event.getName().toString());
+        date.setText("From " + event.getStartDate().toString() + " to " + event.getEndDate().toString());
+        note.setText(event.getNote().toString());
     }
 
     @Override

@@ -2,9 +2,13 @@ package nasa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import nasa.commons.core.index.Index;
 import nasa.commons.util.StringUtil;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.model.View;
 import nasa.model.activity.Date;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
@@ -108,6 +112,23 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String view} into a {@code View}
+     * Checks if the String view is a valid view.
+     * @param view requested to be shown
+     * @return View to be shown
+     * @throws ParseException
+     */
+    public static View parseView(String view) throws ParseException {
+        requireNonNull(view);
+        String viewTrimmed = view.trim();
+
+        if (!View.isValidView(viewTrimmed.toUpperCase())) {
+            throw new ParseException(View.MESSAGE_CONSTRAINTS);
+        }
+        return View.valueOf(view.toUpperCase());
+    }
+
+    /**
      * Parses {@code String moduleCode} into a {@code moduleCode}
      * Checks if String moduleCode is correct.
      * @param moduleCode of the module
@@ -162,9 +183,27 @@ public class ParserUtil {
     public static SortMethod parseSortMethod(String sortMethod) throws ParseException {
         requireNonNull(sortMethod);
         String sortMethodTrimmed = sortMethod.trim();
+
         if (!SortMethod.isValidSortMethod(sortMethodTrimmed)) {
             throw new ParseException(SortMethod.MESSAGE_CONSTRAINTS);
         }
         return new SortMethod(sortMethodTrimmed);
+    }
+
+    /**
+     * Parses {@code String filepath} into a {@code Path}
+     * Checks if string of filepath is correct.
+     * @param filepath
+     * @return
+     * @throws ParseException
+     */
+    public static Path parseFilePath(String filepath) throws ParseException {
+        try {
+            requireNonNull(filepath);
+            String filepathTrimmed = filepath.trim();
+            return Paths.get(filepathTrimmed);
+        } catch (Exception e) {
+            throw new ParseException("File path is of a incorrect format");
+        }
     }
 }

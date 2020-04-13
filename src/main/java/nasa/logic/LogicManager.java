@@ -35,7 +35,8 @@ public class LogicManager implements Logic {
         this.storage = storage;
         nasaBookParser = new NasaBookParser();
         try {
-            storage.saveUltimate(model.getNasaBook(), model.getHistoryManager().getHistoryBook());
+            storage.saveUltimate(model.getNasaBook(), model.getHistoryManager().getHistoryBook(),
+                    model.getHistoryManager().getUiHistoryBook());
         } catch (IOException ioe) {
             logger.info("-------------------Error while setting up logic manager");
         }
@@ -50,7 +51,8 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveUltimate(model.getNasaBook(), model.getHistoryManager().getHistoryBook());
+            storage.saveUltimate(model.getNasaBook(), model.getHistoryManager().getHistoryBook(),
+                    model.getHistoryManager().getUiHistoryBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

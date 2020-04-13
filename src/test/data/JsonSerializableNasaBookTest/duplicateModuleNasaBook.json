@@ -1,10 +1,13 @@
 {
-  "modules": [ {
-    "moduleCode": "CS2103T",
-    "moduleName": "Software Engineering",
-    "tagged": [ "friends" ]
+  "modules" : [ {
+    "moduleCode" : "CS2103T",
+    "moduleName" : "Software Engineering",
+    "deadlineList" : [ ],
+    "eventList" : [ ]
   }, {
-    "moduleCode": "CS2103T",
-    "moduleName": "Software Engineering"
+    "moduleCode" : "CS2103T",
+    "moduleName" : "Software Engineering",
+    "deadlineList" : [ ],
+    "eventList" : [ ]
   } ]
 }

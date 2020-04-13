@@ -10,13 +10,14 @@ import static nasa.commons.util.AppUtil.checkArgument;
 public class ModuleCode {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Module codes should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Module codes contain 1 to 10 alphanumeric characters and have no whitespace.";
 
     /**
      * Module code should not contain any whitespace, and all values must be alphanumeric.
      */
     public static final String ALPHA_NUMERIC_VALIDATION_REGEX = "[a-zA-Z0-9]*";
     public static final String NON_EMPTY_STRING_VALIDATION_REGEX = "^(?=\\s*\\S).*$";
+    public static final String MAX_10_CHAR_REGEX = "\\b\\w{1,10}\\b";
 
     public final String moduleCode;
 
@@ -37,7 +38,8 @@ public class ModuleCode {
      * @return boolean
      */
     public static boolean isValidModuleCode(String test) {
-        return test.matches(ALPHA_NUMERIC_VALIDATION_REGEX) && test.matches(NON_EMPTY_STRING_VALIDATION_REGEX);
+        return test.matches(ALPHA_NUMERIC_VALIDATION_REGEX) && test.matches(NON_EMPTY_STRING_VALIDATION_REGEX)
+            && test.matches(MAX_10_CHAR_REGEX);
     }
 
 
@@ -46,6 +48,9 @@ public class ModuleCode {
         return moduleCode;
     }
 
+    /**
+     * Equality check for ModuleCode, which is case-insensitive.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

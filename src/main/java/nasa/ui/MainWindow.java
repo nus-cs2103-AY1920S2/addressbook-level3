@@ -35,7 +35,10 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private HintWindow hintWindow;
+    private QuotePanel quotePanel;
     private TabPanel tabPanel;
+    private ExportQrWindow exportQrWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -57,7 +60,9 @@ public class MainWindow extends UiPart<Stage> {
 
         // Set dependencies
         this.primaryStage = primaryStage;
+
         this.logic = logic;
+
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -65,16 +70,11 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        exportQrWindow = new ExportQrWindow();
+        quotePanel = new QuotePanel();
+
         primaryStage.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
-            //Overriding default redo
-            if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
-                event.consume();
-                handleRedo();
-                //Overriding default undo
-            } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
-                event.consume();
-                handleUndo();
-            } else if (event.getCode() == KeyCode.TAB) {
+            if (event.getCode() == KeyCode.TAB) {
                 tabPanel.next();
             }
         });
@@ -122,13 +122,18 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        hintWindow = new HintWindow();
 
-        /*
-        TODO: Implement Activity list panel to display activity of the respective module
-        Can use {@code logic.getFilteredActivityList()}
-         */
         tabPanel = new TabPanel(logic);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
+
+        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            tabPanel.updateModuleList();
+        });
+
+        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            tabPanel.updateModuleList();
+        });
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -136,7 +141,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getNasaBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -152,6 +157,21 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+
+    public void hideHint() {
+        hintWindow.hide();
+    }
+
+    public boolean isHintShowing() {
+        return hintWindow.isShowing();
+    }
+
+
+    public void getQuote(String input) {
+        quotePanel.setText(input);
+        quotePanel.show(getPrimaryStage());
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -163,6 +183,7 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
+
 
     /**
      * Handles undo.
@@ -188,6 +209,25 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    public void getHint(String input) {
+        hintWindow.setInput(input);
+        hintWindow.show(getPrimaryStage());
+    }
+
+    /**
+     * Handles export qr code.
+     */
+    @FXML
+    public void handleExportQr(byte[] qrData) {
+        exportQrWindow.update(qrData);
+
+        if (!exportQrWindow.isShowing()) {
+            exportQrWindow.show();
+        } else {
+            exportQrWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -201,6 +241,7 @@ public class MainWindow extends UiPart<Stage> {
             (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        exportQrWindow.hide();
         primaryStage.hide();
     }
 
@@ -215,6 +256,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -223,8 +265,24 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isModules()) {
+                tabPanel.getModules();
+            }
+
+            if (commandResult.isCalendar()) {
+                tabPanel.getCalendar();
+            }
+
             if (commandResult.isStatistics()) {
                 tabPanel.getStatistics();
+            }
+
+            if (commandResult.isQuote()) {
+                getQuote(commandResult.getFeedbackToUser());
+            }
+
+            if (commandResult.isShowQr()) {
+                handleExportQr(commandResult.getQrData());
             }
 
             return commandResult;
