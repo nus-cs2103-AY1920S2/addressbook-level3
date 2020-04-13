@@ -3,6 +3,19 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+:toc:
+:toclevels: 3
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-1/main
+
 == PROJECT: FlashSpeed
 
 ---

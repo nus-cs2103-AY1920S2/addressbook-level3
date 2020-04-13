@@ -39,7 +39,7 @@ Responsibilities: Developer Guide, Agenda/Issue tracker, Game Algorithm
 
 === LIAO LIXIN
 image::olixino.png[width="150", align="left"]
-{empty}[http://github.com/oLiXino[github]] [<<oLiXino#, portfolio>>]
+{empty}[http://github.com/oLiXino[github]] [<<olixino#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Play View, Model, Game Component
