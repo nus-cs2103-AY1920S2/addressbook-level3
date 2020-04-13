@@ -10,8 +10,8 @@ import static seedu.recipe.commons.util.AppUtil.checkArgument;
 public class Content {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters, spaces, or special characters from "
-                    + "this set {&, %, (, ), -, /, ', ,}. The name should also not be blank.";
+            "Invalid quote ! Quote should only contain alphanumeric characters, spaces, or special characters from "
+                    + "this set {&, %, (, ), -, /, ', , !,}. The name should also not be blank.";
 
     //TODO need to activate validation to accept exclamation mark
     public static final String VALIDATION_REGEX = "^[\\sA-Za-z0-9\\()!&%/',-]+$+";
