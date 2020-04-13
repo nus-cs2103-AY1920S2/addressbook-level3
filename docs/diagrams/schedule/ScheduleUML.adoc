@@ -1,0 +1,50 @@
+= UML Diagrams
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: ../../images/
+:stylesDir: ../../stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S2-CS2103T-W16-2/main
+:codeURL: {repoURL}/tree/master/
+
+`CS2103T-W16-2` Tang Guofeng
+
+
+
+
+The following activity diagram depicts flow of program when user tries to create a new schedule. First, the user will try to find workout to schedule, and if their desired workout cannot be found, the user will create one and schedule them on a specified date.
+
+.Activity Diagram for Creating a Schedule
+image::developer-guide/schedule/ScheduleActivityDiagram.png[]
+
+
+
+
+The following class diagram shows the structure of `Scheduler`. The `Scheduler` consists two lists, `ScheduleList` and `ScheduledWorkoutList`. The `ScheduleList` contains a number of `Schedule` that the user has created, while the `ScheduledWorkoutList` is essentially a chronologically sorted list of `ScheduledWorkout` that allows JavaFX listeners to track changes when they occur.
+
+.Scheduler Class Diagram
+image::developer-guide/schedule/ModelScheduleClassDiagram.png[]
+
+
+
+
+The following sequence diagram depicts flow of the program when the command `schedule create 1 d/2020-04-01 14:00` is run.
+
+.Sequence Diagram for Creating a Schedule
+image::developer-guide/schedule/ScheduleCreateSequenceDiagram.png[]
+
+
+
+
+The following sequence diagram shows how the `ScheduledWorkoutList` is populated after the method `Model#addSchedule(schedule)` is called:
+
+.Sequence Diagram for Populating `SortedScheduledWorkoutList`
+image::developer-guide/schedule/PopulateSortedScheduledWorkoutList.png[]
