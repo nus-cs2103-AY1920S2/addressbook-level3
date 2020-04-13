@@ -54,6 +54,8 @@ iTrack Pro is for the grocery shop owners to keep track of the products, custome
 *** Combined customer and product common features for Developer Guide (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/110[#110])
 *** Updated User Guide to reflect latest application Ui and features (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/127[#127], https://github.com/AY1920S2-CS2103-T09-2/main/pull/138[#138], https://github.com/AY1920S2-CS2103-T09-2/main/pull/189[#189])
 *** Updated Developer Guide with implemented feature (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/196[#196])
+** Community:
+*** Reviewed PRs and documentations for other teams: https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/104[F09-2], https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/42[F10-2], https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/19[T09-1]
 
 <<<
 
@@ -94,3 +96,5 @@ include::../UserGuide.adoc[tag=reuseinputs]
 include::../DeveloperGuide.adoc[tag=lowlimitfeature]
 
 include::../DeveloperGuide.adoc[tag=notificationWindow]
+
+include::../DeveloperGuide.adoc[tag=sortProductList]

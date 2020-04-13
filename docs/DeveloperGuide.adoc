@@ -63,7 +63,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deletep 1`.
 
 .Component interactions for `deletep 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[width="700"]
 
 The sections below give more details of each component.
 
@@ -127,13 +127,13 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Inventory System`, which `Customer` can reference. This would allow `Inventory System` to only require one `Tag` object per unique `Tag`, instead of each `Customer` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagram.png[width="600"]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -333,8 +333,8 @@ image:LowLimitCommandSequenceDiagram.png[]
 
 //tag::notificationWindow[]
 === Notification window for products
-The notification window appears whenever an product's quantity reaches the threshold that was set. +
-The notification comes with information such as the product's description and remaining quantity left.
+The notification window appears whenever an product's quantity reaches the threshold that was set.
+It comes with information such as the product's description and remaining quantity left.
 
 The following activity diagram shows how the operation works:
 
@@ -351,6 +351,31 @@ image:NotificationWindowActivityDiagram.png[]
 ** Pros: Speeds up the process of stocking up.
 ** Cons: Hard to do testing for GUI, and project scope was on command line application.
 //end::notificationWindow[]
+
+//tag::sortProductList[]
+=== Sorting of Product List
+The product list sorts by the progress bar indicator beside each product's description whenever user enters `listp` command. +
+
+An example is shown below:
+
+image:SortingExample.png[]
+
+The following activity diagram shows how the operation works:
+
+image:SortProductListActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: When to sort the product list
+
+* **Alternative 1 (current choice):** Sorts only when user uses `listp` function.
+** Pros: More intuitive and user friendly.
+** Cons: Might be hard to track products' remaining balance without listing all the products.
+* **Alternative 2:** Sorts whenever the product list is updated.
+** Pros: Easy to track products' remaining balance.
+** Cons: Might be confusing for user as the indexes for product will change as the product list is sorted automatically,
+resulting in user to recheck products' index before entering in commands.
+//end::sortProductList[]
 
 === Logging
 
@@ -733,7 +758,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `addc n/John p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` +
 Expected: Customer with given attributes is added to list. Details of the added customer shown in the status message.
 .. Prerequisites: the following command already has been executed once already +
-Test case: `addc n/John p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` +
+Test case: `addc n/John p/98765432` +
 Expected: No customer is added as duplicate customers are not allowed. Error details shown in the status message.
 .. Test case: `addc n/Jane p/98765432 e/jane@example.com a/31 michigan t/friends t/owesMoney t/iphone t/comingThurs t/regular t/giveDiscount` +
 Expected: No customer is added as number of tags should be at most five. Error details shown in the status message.
@@ -996,20 +1021,20 @@ Expected: Similar to previous.
 [appendix]
 == Effort
 
-Throughout this journey, we have overcame many challenges and gain much more experience in software engineering.
+Throughout this journey, we have overcame many challenges and gained much more experience in software engineering.
 Our project was ambitious as it consisted of multiple entities. In addition to the original address book with the persons entity, we also included products and transactions to the system.
 Since the structure was quite complex, we had to brainstorm about the best way to incorporate products and transactions into the app.
 
 The person class had to be refactored to fit our user profile of customers.
 The commands for products were similar to the original commands for person, however there were also some differences since the requirements for products and persons varied.
-For example, the attributes required for products are vastly different for customers, and new restrictions will need to be applied too.
+For example, the attributes required for products were vastly different for customers, and new restrictions needed to be applied.
 The commands for transactions were quite different from both customers and products, since transaction is an association class between customer and product.
-For example, the add transaction command affects the product quantity and sales, so it will have to update the product too, whereas for customer and product there is no need to modify other classes.
+For example, the add transaction command affected the product quantity and sales, so it had to update the product too, whereas for customer and product there was no need to modify other classes.
 We also needed to consider the proper way to keep track of customers and products to ensure that there were no duplicates. Initially we tried keeping track using only the attributes however there were bugs so we added customer and product ids.
 
-With multiple entities, a lot of thought process went into figuring out how to display all the data.
-Throughout the process, we revamped the ui such that all the information would be presented clearly. Ultimately, our design differed quite a lot from the original as we settled on a tab design.
-Initially, there were different windows showing different information too. In the end, we combined most of the information into a single window, and split the information shown according to categories which are listed as tabs.
+With multiple entities, a lot of thought went into figuring out how to display all the data.
+Throughout the process, we revamped the ui such that all the information would be presented clearly. Ultimately, our design differed from the original as we settled on a tab design.
+Initially, there were different windows showing different information too. In the end, we combined most of the information into a single window, and split the information shown according to categories which were listed as tabs.
 Besides the layout of the ui, the design also took time to finalise as we wanted to make our app look professional and modern.
 
 Lastly, the statistics were quite challenging to implement. This is especially so as we used various bars and graphs, which were new to us and we had to learn independently.

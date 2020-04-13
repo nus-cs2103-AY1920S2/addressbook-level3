@@ -75,7 +75,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'itrackpro.jar'
+    archiveName = '[CS2103-T09-2][iTrack Pro].jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
