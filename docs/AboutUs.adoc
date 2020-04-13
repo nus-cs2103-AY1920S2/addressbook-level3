@@ -32,7 +32,7 @@ Responsibilities: Expense Splitter Lead
 image::sheexiong.png[width="150", align="left"]
 {empty}[http://github.com/sheexiong[github]] [<<sheexiong#, portfolio>>]
 
-Role: Developer +
+Role: Developer & Integration +
 Responsibilities: Project Repository Management, Code Integration, Expense Splitter, UI
 
 '''

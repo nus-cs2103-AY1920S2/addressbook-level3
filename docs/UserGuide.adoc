@@ -170,6 +170,7 @@ e.g: `additem -i pizza -p 19.90 -n charlotte`.
 (i.e. 0 times), `-n Charlotte`, `-n Alice -n Bob` etc.
 ====
 
+//tag::help[]
 [[help]]
 === Display the available commands : `help`
 
@@ -210,6 +211,8 @@ image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
 ====
 Help in main menu and different mode will give different help information.
 ====
+
+//end::help[]
 
 '''
 
@@ -642,6 +645,7 @@ You can list based on time period or tags to find the item that you want to edit
 
 '''
 
+
 //tag::diettrackerback[]
 [[dietback]]
 ==== Exiting Diet Tracker to go back to main menu `back`
@@ -831,6 +835,7 @@ such as `paid`.
 
 '''
 
+//tag::donereceipt[]
 [[donereceipt]]
 ==== Mark receipt as done `donereceipt`
 
@@ -861,7 +866,7 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 or delete any items using the `deleteitem` command.
 * However, you are now able to use the `paid` command.
 ====
-
+//end::donereceipt[]
 '''
 //tag::paid[]
 [[paid]]
@@ -959,6 +964,7 @@ each person will still be present and will be accessible via the `listamount` co
 //end::clearreceipt[]
 '''
 
+//tag::splitback[]
 [[splitback]]
 ==== Exiting Expense Splitter to go back to main menu `back`
 In this section, you will learn more about the `back` command, <<howtousesplitbackcommand,how to use it>>
@@ -980,10 +986,11 @@ Valid Example: +
 *Expected outcome:*
 
 image::placeholder.png[]
-
+//end::splitback[]
 
 '''
 
+//tag::exit[]
 [[exit]]
 === Exiting the Application : `exit`
 
@@ -1006,7 +1013,7 @@ Valid Example: +
 *Expected outcome:*
 
 image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
-
+//end::exit[]
 
 '''
 

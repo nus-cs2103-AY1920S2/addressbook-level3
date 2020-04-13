@@ -63,6 +63,7 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+//tag::design-architecture[]
 [[Design-Architecture]]
 === Architecture
 
@@ -72,7 +73,7 @@ image::ArchitectureDiagram.png[]
 The *_Architecture Diagram_* given above explains the high-level design of the application. Given below is a quick overview of each component.
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/tree/master/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 link:{repoURL}/blob/master/src/main/java/seedu/eylah/Eylah.java[`EYLAH`] contains the main class for the application. It is responsible for,
@@ -217,6 +218,8 @@ The `MODEStorage` component,
 === Common classes
 
 Classes used by multiple components are in the `seedu.eylah.commons` package.
+//end::design-architecture[]
+
 
 == Implementation
 
@@ -1172,6 +1175,7 @@ image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
 //end::expensesplitterlistamountcommand[]
 
+//tag::expensesplitterdonereceiptcommand[]
 [[Done-Receipt-Command]]
 ==== Done Receipt Command
 
@@ -1230,7 +1234,7 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .Done Receipt Command Sequence Diagram
 image::ExpenseSplitterDoneReceiptCommandSequenceDiagram.png[]
-
+//end::expensesplitterdonereceiptcommand[]
 
 
 //tag::expensesplitterpaidcommand[]

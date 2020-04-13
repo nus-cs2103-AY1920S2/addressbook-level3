@@ -16,79 +16,143 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 == Summary of contributions
 
-* *Major enhancement*: Integrating 2 main features of EYLAH. [In Process]
-** What it does: Ensure both of the features integrated with proper Object-Oriented Programing concept.
-** Justification: This is to ensure the code quality of the project and remove the duplicate part in both features.
-** Highlights: During the implementation, I faced a lot of difficulty as we working on the existing `addressbook level-3`, the code base given does not give any hints of how to integrate 2 different features.
-** Credits: -
+* *Major enhancement*:
 
-** *Adding Amount field of the Person object for the Expense Splitter portion of EYLAH*
-*** What it does: Person's amount is used for both price per person for each item and total price for each person.
-*** Justification: Each person in the EYLAH will required to have a price associate with them, so the amount is use to fulfil this purpose.
-*** Highlights: This amount is using the BigDecimal to store the decimal value, this way was recommended by my teammate, Willy. After he doing the research about the ItemPrice, he decide to go with BigDecimal to store the price.
-*** Credits: Online links where I researched on: "https://stackoverflow.com/questions/1359817/using-bigdecimal-to-work-with-currencies"
+. *Integrating* 2 main features of EYLAH by common generic class.
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/140[#140], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/232[#232], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/357[#357]
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/367[#367])
 
-** *Adding Storage for the receipt portion into Expense Splitter portion of EYLAH*
-*** What it does: This storage is used to store the receipt details into the local files.
-*** Justification: The reason of storing the receipt is for the user able to still viewing the receipt details even they accidentally close the application or the application crashing.
-*** Highlights: The structure of the receipt storage is much more complicated from the original `AddressBook Level-3` storage. So when I implementing this storage, I am required to understand how the Json file store the value and how to modify the current code to achieve the storage purpose.
-*** Credits:
+*** *What it does:* +
+Ensure both of the features integrated in the main application.
+*** *Justification:* +
+There are a lot of duplicate code in both features due to the initial plan of splitting team into 2 different group and each group work on their own features.
+Both group follow existing `AddressBook Level-3` code and thus create a lot of duplicate class with exact same code.
+The integration process will help to generalise the duplicate code to common code which can reduce the duplicate code in the whole application.
+*** *Highlights:* +
+During the implementation, I faced a lot of difficulty as we working on the existing `AddressBook Level-3`, the code base given does not show how to integrate 2 different features.
+I have decided to modify some common use class to generic version in order can be implemented by both features.
+*** *Credits:* +
+N.A.
+
+. Added the expense splitter storage component to allowed the application to automatically save the *Receipt* in local file.
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/197[#197])
+*** *What it does:* +
+Allow EYLAH to save the receipt details into a local files after execution of each command.
+*** *Justification:* +
+This will allow the user to be able to view the receipt details even they accidentally close the application
+or the application crashing. The receipt details will store in the local file after each command to ensure the updated data
+in the local storage.
+*** *Highlights:* +
+The structure of the receipt storage is much more complicated from the original `AddressBook Level-3` storage.
+So when I implementing this storage, I am required to understand how the Json file store the value. The receipt storage has much
+more complicated structure compare to other storage structure. It contains nested json structure to store the different entry of
+item and person involved.
+*** *Credits:* +
+N.A.
+
+. Create main entry class of the application `Elyah.java`, which use to initialise the required components and handle the overall operations of the application.
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/232[#232], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/357[#357])
+*** *What it does:* +
+This is the main entry of whole application. It handle the overall operations of the application and
+also initialise the required components such as storage, model, logic and config of the application.
+*** *Justification:* +
+Due to our team decide to create a pure CLI application instead of JavaFX GUI application, I cannot just simply follow the `AddressBook Level-3` code
+structure to create the main entry of the application. The `Eylah.java` is used to replace `Main.java` in `AddressBook Level-3` as the main entry to the application.
+This class also handling all the initialisation of storage, model and logic component.
+*** *Highlights:* +
+The modification from the existing `AddressBook Level-3` code to the new entry point `Eylah.java` required a lot of effort.
+The existing `AddressBook Level-3` code using multiple class to handle the initialisation and operations flow of the application.
+The migration of initialisation code from existing code cost me a lot of effort to handle the dependency issue regarding to GUI component.
+The new operations flow using in the current implementation partially refers to the `AddressBook Level-2` operations flow structure.
+*** *Credits:* +
+Operation flows reference:
+https://github.com/se-edu/addressbook-level2
+
+
+. Create new UI component for the application
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/140[#140], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380])
+
+*** *What it does:* +
+This is the UI component of the application. It used to handle the getting input and display result to user.
+*** *Justification:* +
+Due to the removing GUI component from existing code, I am required to create a new UI component to handle the user interaction.
+This UI component will handle the every printing statement and input operation of the application.
+*** *Highlights:* +
+The UI component interact with Logic component by handle the `CommandResult`. It will use the `CommandResult#getFeedbackToUser` to get the
+result string and print it to console for user.
+*** *Credits:* +
+N.A.
 
 
 
-* *Minor enhancement*: [In Process]
-** *Drew UML Class diagram for the overall EYLAH project*
-+
-image::expense_splitter_uml_class_diagram.png[]
-(Excluding the Height Class)
-+
-** *Added tests for Person related class*
+* *Minor enhancement*:
+. Create `ExitCommand` and `BackCommand` for the application
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/357[#357])
 
-** *Assisted in downscaling of AddressBook3 by removing Email object*
+*** *What it does:* +
+Allows user to go back to main menu when in either one of the feature mode and exit the application at any point of time.
+*** *Justification:* +
+The user now have the option to go back main menu if want to use another feature. They also able to exit the application through the command
+instead of close the app through the mouse curser to click the exit button.
+*** *Highlights:* +
+The `ExitCommand` in the main menu handle differently as it directly handle by `Eylah.java` instead of going through the
+`ModelManager#execute()` to create the `ExitCommand` object.
+*** *Credits:* +
+N.A.
 
-** *Drew Activity Diagram for Expense Spliter portion of EYLAH*
-+
-image::activityDiagram_for_expensesplitter.png[]
+. Create `HelpCommand` for main menu and Expense Splitter.
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/254[#254], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380])
+
+*** *What it does:* +
+Allows user to get the available commands when they forget or unsure how to use certain function.
+*** *Justification:* +
+This can help user to clarify the usage of the application. The `HelpCommand` in Diet Tracker has been implemented by my teammate, Jarrod-Bob.
+*** *Highlights:* +
+The `HelpCommand` in different features and main menu will display different information.
+*** *Credits:* +
+N.A.
 
 
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=sheexiong&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test Code]]
 
 * *Other contributions*:
 
-
 ** Project management:
 *** In charge of project repository management and ensure the weekly task achievement.
+*** Setup auto repository check for repository such as travis, appveyor, coveralls and netlify.
 *** Participated in planning the project timeline for EYLAH.
 
-
 ** Enhancements to existing features:
-*** Adapted the given Address Book UI into EYLAH's first draft UI. https://github.com/
+*** Adapted the given Address Book Storage into EYLAH's Storage.
 
 ** Documentation:
-*** To be added
+*** Updated Developer Guide for Done Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/388[#388])
+*** Updated Developer Guide for whole Design Section (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/369[#369], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380])
+*** Updated User Guide for Help Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386])
+*** Updated User Guide for Back Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386])
+*** Updated User Guide for Exit Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/394[#394])
+*** Updated User Guide for Done Receipt Command (Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/380[#380], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/386[#386])
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** PRs reviewed (with non-trivial review comments): (Pull requests: https://github.com/AY1920S2-CS2103T-W13-1/main/pull/306[#306], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/176[#176], https://github.com/AY1920S2-CS2103T-W13-1/main/pull/177[#177])
+*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1920S2/forum/issues/48[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/69[2])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/sheexiong/ped/issues)
 
-** Tools:
-
-==== Code contributed
-Please click the following link to see my code contributions dashboard. +
-https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=sheexiong
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=help]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=donereceipt]
+
+include::../UserGuide.adoc[tag=splitback]
+
+include::../UserGuide.adoc[tag=exit]
+
 
 == Contributions to the Developer Guide
 
@@ -96,19 +160,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=design-architecture]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
-
-Questions to ask: +
-1. is BigDecimal the best way to represent currency? +
-2. under ItemPriceTest, instead of assertFalse can I assertThrows because BigDecimal
-will throw an exception? Because in AB3 everything there is assertFalse +
-3.
+include::../DeveloperGuide.adoc[tag=expensesplitterdonereceiptcommand]
