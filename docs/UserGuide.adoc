@@ -1644,7 +1644,7 @@ students, for discussion of a subject that is being studied.
 (Contributed by Fatin)
 
 *Q*: How can I transfer my data to another Computer? +
-*A*: You can do so by first installing TA-Tracker in another computer. You can then replace
+*A*: You can do so by first installing TA-Tracker on another computer. You can then replace
 the empty data file it creates with the data file of your previous TA-Tracker folder.
 
 *Q*: Is my data secure? +
@@ -1653,18 +1653,18 @@ the only possible way for there to be a security breach is to have someone acces
 device, so do keep your belongings safe! You can be assured that cyber-attacks are not possible with
 the way TA-Tracker is designed.
 
-*Q*: How can I reset all of my data at once?
-*A*: You can do so by entering `clear` into TA-Tracker or by deleting `TA-Tracker.json`. Do take note
+*Q*: How can I reset all of my data at once? +
+*A*: You can do so by entering `clear` into TA-Tracker or by deleting `tatracker.json` in the data folder. Do take note
 that there is no way for you to restore your data once it has been deleted.
 
-*Q*: How can I uninstall TA-Tracker from my device?
-*A*: Simple delete the folder where you have placed TA-Tracker in.
+*Q*: How can I uninstall TA-Tracker from my device? +
+*A*: Simply delete the folder where you have placed TA-Tracker in.
 
-*Q*: Is there any hidden payment involved in TA-Tracker?
+*Q*: Is there any hidden payment involved in TA-Tracker? +
 *A*: No, TA-Tracker is completely free to use! You can support us by contributing to our code-base https://github.com/AY1920S2-CS2103T-W17-4/main[here].
 
-*Q*: Can I create multiple instances of the app that store different data simultaneously?
-*A*: Yes you can. Simple copy the `.jar` file into a different folder and run the app there. You will then be able
+*Q*: Can I create multiple instances of the app that store different data simultaneously? +
+*A*: Yes, you can. Simply copy the `.jar` file into a different folder and run the app there. You will then be able
 to use multiple different TA-Trackers at the same time
 //end::faq[]
 //tag::summary[]
