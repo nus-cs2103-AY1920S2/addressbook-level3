@@ -1,0 +1,77 @@
+= Nguyen Tien Dat - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CodeCampX
+
+== Overview
+CodeCampX is a personal manager application for Coding BootCamp manager. The user interacts with it via
+a Command Line Interface (CLI) along with a Graphical User Interface (GUI) created with JavaFX.
+The application is written in Java.
+
+== Summary of contributions
+
+* *Major enhancement*: Implement *Staff* of CodeCampX
+
+** What it does: Staff is one of the major classes in CodeCampX. It represents all the Staffs or employees in CodeCampX.
+There are two type of Staff differentiated by permission Level: teacher and admin. Only a Teacher Staff can teach a course.
+Moreover, making a payment for Teacher Staff for teaching a course is supported.
+
+** Justification: Name and details of the payment is auto recorded based on information of the salary and the course that
+teacher staff is teaching (implemented by ShengXue). Teacher can be assign and unassigned to a course (implemented by Ivan).
+For internal employee management purpose, it is more desirable to make Staff class holds many identity and data fields (more than student).
+However, for user's convenience, it is not always the case that user has all the information about a Staff when adding him, so it is optional
+for the user to specify these information. These information are viewable in Staff Tab.
+
+** Highlights: With permission level, it is very easy to implement Teacher and Admin, which seems to be two different classes, with just one
+time implementation for Staff class. This also simplifies work for AddressBook Storage and Managers when they only have to work with one class
+instead of two.
+
+* *Major enhancement*: Extended *Refer Object by ID* of CodeCampX
+** What it does: Let user select and refer an Object in CodeCampX by ID instead of Index for selecting and tracking
+information of the object.
+
+** Justification: This implementation is essential for the user to refer, select, modify objects and manage their entities links among themselves.
+Whenever the user delete an object, he/she would want to track all the entities link connections associated with this
+object and delete them.
+Referring by ID can help track and manage entities link easily since many classes have 1-to-1 relationship with each other.
+If the user want to delete a student, he or she can key in student's ID. All the objects storing this student's ID will remove it; thus,
+all the entities connection are broken. This ensure consistency of all the objects whenever user use a CRUD command.
+Teachers can now easily see which students have not submitted and chase them for their work without having to count one by one to find the missing submission.
+Furthermore, being able to refer by ID can help user identify correctly and keep track of each object. In AB3, each person is selected by its index.
+However, CodeCampX is much more complicating with multiple classes and relationships. Whenever a CRUD operation execute, indexes of objects are subjected to change.
+Referring by index cannot support well in this scenario.
+
+** Highlights: Getting object from model now becomes extremely easy when we just need to specify ID number and Entity Type of the object. Similarly for finding and setting objects.
+
+* *Minor enhancement*: Extended *UndoableCommand* for Add, Delete and Edit command
+** What it does: Follow up UndoableCommand implementation of Developer Le Trung Hieu, extends the functionality of UndoableCommand to Add, Delete and Edit Command.
+Add, Delete and Edit command can be undo and redo sequentially.
+
+** Justification: Refactoring AddCommand, DeleteCommand and EditCommand from extending Command to extending from UndoableCommand. In each command, override preprocessUndoableCommand() method
+and generateOppositeCommand() method corresponding to characteristic and functionality in each of these commands. For AddCommand, opposite command is DeleteCommand and vice verse. For Edit
+Command, opposite command is still Edit Command but edited Object is the original object itself.
+
+** Highlights: This enhancement improved CodeCampX interaction and convenience a lot since user can undo and redo most of the commands.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=tiendat161&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&zA=tiendat161&zR=AY1920S2-CS2103-W14-1%2Fmain%5Bmaster%5D&zACS=350.7003424657534&zS=2020-02-14&zU=2020-04-13&zMG=false&zFTF=commit&zFGS=groupByRepos&zSO=undefined&zSWO=undefined&zSD=false&zSWD=false[Tracked by RepoSense]]
+
+* *Other contributions*:
+
+*** Refactor code to improve code quality, improve code usability and extendability.
+*** Do the documentation of code and ensures that it is corrected and understandable.
+*** Refactor commands and create check condition to minimize bugs.
+
+== Contributions to the User Guide
+
+
+|===
+|__User Guide Contribution__
+|===
+
+== Contributions to the Developer Guide
+
+|===
+|_Developer Guide Contribution_
+|===
