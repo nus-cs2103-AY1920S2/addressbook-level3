@@ -946,6 +946,15 @@ The following activity diagram illustrates what happens when a user executes `li
 .List Receipt Activity Diagram
 image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
 
+*Structure of List Receipt Command* +
+
+In this section, you will learn more about the relationships between objects related to the `listreceipt` command.
+
+.List Receipt Command Class Diagram
+image::ExpenseSplitterListReceiptCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `ListReceiptCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `ListReceiptCommand`
 
 *Implementation of List Receipt Command*
 
