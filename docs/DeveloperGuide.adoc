@@ -728,6 +728,8 @@ To pay for `admin`, user has to do it manually using miscellaneous `FinanceType`
 
 Certain approaches have some certain pros and cons. It depends on how the user want to keep track of payment and method to pay to `teacher` and `admin`.
 
+// end::Staff[]
+
 // tag::xue5[]
 === Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings [Sim Sheng Xue]
 ==== Implementation
