@@ -154,7 +154,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredTasks.setPredicate(
                 predicate); // predicate should now be applied and evaluate to true for certain
-        // threshold
+                            // threshold
         if (predicate instanceof NameContainsKeywordsPredicate) {
             System.out.println("list called??");
             NameContainsKeywordsPredicate namePredicate = (NameContainsKeywordsPredicate) predicate;
