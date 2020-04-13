@@ -179,7 +179,7 @@ public class Recipe {
         builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
             " Instructions: ").append(getInstructions()).append(" Path: ").append(getPhotograph()).append(
             " Calories: ").append(getCalorie()).append(" Serving size: ").append(getServing().serving).append(
-            " Rating: ").append(getRating()).append(" Difficulty ").append(getDifficulty().difficulty).append(
+            " Rating: ").append(getRating().rating).append(" Difficulty ").append(getDifficulty().difficulty).append(
             " Tags" + ": ");
         getTags().forEach(builder::append);
         return builder.toString();
