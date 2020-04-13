@@ -483,7 +483,7 @@ Format: `findt [p/PRODUCT_NAME [PRODUCT_NAME]...] [c/CUSTOMER_NAME [CUSTOMER_NAM
 * The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, c/Bob m/31 will match m/31 c/Bob.
 * Only transactions matching all attributes will be returned (i.e. AND search). e.g. `findt c/Jane p/bag` will return transactions with 'jane' in their customer names and 'bag' in their product names.
 * Transactions matching any keywords in an attribute (for product or customer name only) will be returned (i.e. OR search) e.g. `findt c/jane avery` will return transactions with 'jane' or 'avery' in their customer names.
-* Duplicate fields are not allowed. E.g. keying in the quantity field for more
+* Duplicate fields are not allowed. E.g. keying in the `DATE_TIME` field for more
 than one time.
 ****
 
