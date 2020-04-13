@@ -5,7 +5,6 @@
 
 == PROJECT: CookBuddy
 
----
 
 == Overview
 
@@ -15,35 +14,39 @@ It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: major enhancement 1
-** What it does: explain major enhancement 1
+* *Major enhancement*: Morphed addressbook-level3 into a basic version of *CookBuddy*.
+** What it does: allows my teammates to start working on features to extend *CookBuddy*.
 ** Justification: justify major enhancement 1
 ** Highlights: Highlight 1
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using the page up/ page down keys.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kevinswk94&tabRepo=AY1920S2-CS2103T-W12-4%2Fmain%5Bmaster%5D[Code Contributed]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Reviewed pull requests opened by teammates for code quality and bugs (ex1, ex2)
+
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams during the PE dry-run (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+
 ** Tools:
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
 
-== Contributions to the User Guide
 
+== Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -59,6 +62,6 @@ include::../UserGuide.adoc[tag=find]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=FindCommandImpl]
 
-
----
+include::../DeveloperGuide.adoc[tag=ManualTesting]
