@@ -294,6 +294,8 @@ This progress tracks whether the student has completed the
 specific assignment (Done) or not (Not Done)
 ====
 
+// tag::donecommand[]
+
 === Mark a Student's Assignment as `Done`/`Undone`
 Mark a student's assignment as `Done`. +
 Format: `done aid/ASSIGNMENTID sid/STUDENTID` +
@@ -316,6 +318,8 @@ Now observe 3 updates:
 . Success message as displayed in message box
 . The `status` of the Assignment has been marked as done
 . The `Number of Done Progress` has been incremented by 1
+
+// end::donecommand[]
 
 === Select a Student/Staff/Course : `select` or simply click the bar
 Selecting means to view the specified item in detail.

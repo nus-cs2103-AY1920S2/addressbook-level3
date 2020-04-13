@@ -204,11 +204,13 @@ The `ViewModel`,
 * the `ViewModel` will then query the managers from `Model` layer to update its
 observableMap, which in turn will automatically update the corresponding `DetailPanel` view.
 
+// tag::modelcomponent[]
+
 [[Design-Model]]
 === Model component [Tee Jun Jie Ivan]
 
 .Structure of the Model Component
-image::Ivan-ModelClassDiagram.png[]
+image::Ivan-ModelClassDiagram.png[scaledwidth="75%"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -229,7 +231,7 @@ The 6 types are namely
 Below is an example of the different types of RelevantFields that can be tied to an Assignment.
 
 .Class Diagram of Assignment
-image::Ivan-AssignmentClassDiagram.png[]
+image::Ivan-AssignmentClassDiagram.png[%autowidth]
 
 [NOTE]
 The AddressBookGeneric in the diagram above is actually an AddressBookGeneric<Assignment>.
@@ -252,6 +254,8 @@ Future features that involve creating new AddressBooks can be developed very qui
 Benefits::
 .. Easier implementation since lower level implementations can be abstracted away
 .. More decoupling which will lead to be better testability and easier debugging
+
+// end::modelcomponent[]
 
 // tag::xue3[]
 [[Design-Storage]]
@@ -307,6 +311,8 @@ Hence, this means that if the ID is not unique among deleted objects, there may 
 information located in the Finance objects.
 
 // end::xue4[]
+
+// tag::entitylinking[]
 [[entity-linking]]
 === Entity Linking - Assigning/Un-Assigning an Entity to/from a Course [Tee Jun Jie Ivan]
 
@@ -340,7 +346,7 @@ For the actual execution of an assign/un-assign command, 2 main steps are perfor
 
 ===== Step 1: Preprocess Entities
 
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 
 Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command to ensure
 that all entity links are in correct state before command execution.
@@ -351,7 +357,7 @@ This means that either
 
 There should be no instance where Course has an Assignment/Student/Staff's ID but they do not have the Course's ID or vice versa.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 
 Below is an activity diagram showing the pre-processing performed for assign commands.
 The diagram can be generalized for un-assign commands by checking if the course contains X and vice versa in the second stage instead.
@@ -371,11 +377,11 @@ Notice that there are 2 main exit points in the activity diagram.
 
 ===== Step 2: Assign IDs via EdgeManager
 
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 
 After the necessary checks have been performed, respective IDs need to be added to the targeted course and targeted object in order to ensure correct and consistent assigning of objects.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 
 Below is a sequence diagram of how EdgeManager adds the IDs to the two objects involved.
 
@@ -400,7 +406,7 @@ NOTE: This sequence diagram can be generalized for `un-assign command` as well.
 Instead of adding IDs, un-assign will remove each other's ID from the respective objects.
 
 [[Design-Assign-Copy]]
-====== +++<u>Design Considerations</u>+++
+====== +++Design Considerations+++
 
 . Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObjectTags`.
 Pros::
@@ -428,6 +434,11 @@ The table below shows the method calls made to `EdgeManager` during an `Assign`/
 .Table Summary of EdgeManager's involvement during Assign/Un-assign Commands
 image::Ivan-AssignSummary.png[]
 ---
+
+// end::entitylinking[]
+
+// tag::progressmgmt[]
+
 [[progress-management]]
 === Student Progress Management [Tee Jun Jie Ivan]
 The `Progress` of students is managed exclusively by the `ProgressManager` class.
@@ -435,7 +446,7 @@ The `Progress` of students is managed exclusively by the `ProgressManager` class
 *API* : link:{repoURL}/src/main/java/seedu/address/manager/ProgressManager.java[`ProgressManager.java`]
 
 ==== Student Progress Creation/Removal
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 
 New `Progress` objects must be created in 2 main scenarios.
 
@@ -445,7 +456,7 @@ New `Progress` objects must be created in 2 main scenarios.
 The rationale is similar when un-assigning either `Student` or `Assignment` from a `Course`.
 `Progress` objects need to be removed instead.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 
 Below is a sequence diagram illustrating how the ProgressManager adds Progress objects into the ProgressAddressBook when a `AssignStudentToCourse` command is run.
 
@@ -480,14 +491,14 @@ The table below shows the summary of method calls from `ProgressManager` for eac
 image::Ivan-ProgressSummary.png[]
 
 ==== Marking Progress as `Done`/`Undone`
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 When a `Student` finishes an `Assignment` that is allocated to him, you want to be able to mark his work
 as `Done`.
 
 Similarly, if an `Assignment` has been mistakenly marked as `Done` or is actually `Undone`, you want to be able
 to mark the `Assignment` as `Undone`.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 .Sequence Diagram for Progress Manager's Handling of Done Command
 image::Ivan-SequenceDiagramDoneCommand.png[]
 
@@ -504,7 +515,7 @@ The implementation of `Done` command is very straight-forward. Only 2 parameter 
 
 With this, the implementation of `Undone` command is about the same, we just have to call `P'#undone()` instead.
 
-====== +++<u>Design Consideration</u>+++
+====== +++Design Consideration+++
 There is 1 main considerations when implementing `Progress` objects.
 
 1. Is there a need to separate `Assignment` and `Progress`?
@@ -533,6 +544,8 @@ the details will be automatically changed for all `Progress` objects.
 .. Works well with current implementation of AddressBookGeneric which has `getters` and `setters` via `ID` since every `Progress` object will have its own `ID`
 Cons::
 .. Also very memory intensive
+
+// end::progressmgmt[]
 
 === Undo/Redo [Hieu]
 
@@ -607,7 +620,9 @@ is opposite to this EditCommand) with editing information of the original toEdit
 
 When `undo` and `redo` commands are executed, the process is carried out as described above.
 
+
 // end::OppositeCommandForEdit[]
+// tag::undoassigncmd[]
 
 [[undo-assign-command]]
 ==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
@@ -638,6 +653,9 @@ This results in the *correct* `Progress` objects, which may or may not be `Done`
 
 You can also notice that this is a faster implementation since we do not need to re-create a `CompositeID` and the actual
 `Progress` object itself when we are just adding back the UndoProgresses.
+
+
+// end::undoassigncmd[]
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities)
 
@@ -703,7 +721,6 @@ that the students have without the progresses of this course that the student cu
 To query that, after executing `select sid/ student_id`, the user needs to run
 `select sid/ student_id cid/ course-id` as well
 
-// tag::Staff[]
 
 === Managing Staff Feature [Dat]
 ==== Implementation
@@ -1040,7 +1057,7 @@ Use case ends.
 
 1. User requests to see assignment using UC2
 2. CCX outputs the whole list of assignment
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to assign a assignment to a course using their respective IDs
 5. CCX adds the assignmentID into the course's list of assignment
 6. CCX outputs a success message with the successful addition of assignment
@@ -1072,7 +1089,7 @@ Use case ends.
 
 1. User requests to see assignment using UC2
 2. CCX outputs the whole list of assignment
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to assign a list of assignment to a course using their respective IDs
 5. CCX adds the list of assignmentID into the course's list of assignment
 6. CCX outputs a success message with the successful addition of assignment
@@ -1103,9 +1120,9 @@ Use case ends.
 
 *MSS*
 
-1. User requests to see all students using *UC??*
+1. User requests to see all students using *UC21*
 2. CCX outputs the whole list of students
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to signup a student to a course using their respective IDs
 5. CCX finds all assignment assigned to the course
 6. CCX creates a Progress object for each assignment and ties it to the student ID
@@ -1137,9 +1154,9 @@ Use case ends.
 
 *MSS*
 
-1. User requests to see all students using *UC??*
+1. User requests to see all students using *UC21*
 2. CCX outputs the whole list of students
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to view the progress for a student, for a course using their respective IDs
 5. CCX finds all Progress objects using the courseID and studentID
 6. CCX outputs all the respective Progress objects
@@ -1177,7 +1194,7 @@ Use case ends.
 
 *MSS*
 
-1. User requests to see all courses using *UC??*
+1. User requests to see all courses using *UC20*
 2. User requests to view the progress for all students for a course using their respective IDs using UC9
 3. CCX finds all Progress objects using the courseID and studentID
 4. CCX outputs all the respective Progress objects

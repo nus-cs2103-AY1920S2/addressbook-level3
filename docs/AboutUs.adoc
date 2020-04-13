@@ -24,10 +24,10 @@ Responsibilities: UI + Testing + Code quality
 === Ivan Tee
 
 image::ivanteejj.png[width="150",align="left"]
-{empty}[https://github.com/ivanteejj[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ivanteejj[github]] [<<ivanteejj#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Deliverables and deadlines, Scheduling and tracking
+Responsibilities: Deliverable and deadlines, Scheduling and tracking
 
 '''
 
