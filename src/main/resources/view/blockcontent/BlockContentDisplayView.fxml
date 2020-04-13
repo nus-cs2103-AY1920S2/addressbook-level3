@@ -10,9 +10,9 @@
 <VBox fx:id="blockContentDisplay" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <HBox fx:id="blockTitlePathContainer" VBox.vgrow="NEVER" alignment="CENTER_LEFT" minWidth="0"
           prefWidth="1" focusTraversable="false">
-        <Label fx:id="blockTitleDisplay" HBox.hgrow="ALWAYS"></Label>
-        <Pane fx:id="separator" HBox.hgrow="SOMETIMES"></Pane>
-        <Label fx:id="blockPathDisplay" HBox.hgrow="SOMETIMES" textAlignment="RIGHT"></Label>
+        <Label fx:id="blockTitleDisplay" HBox.hgrow="ALWAYS" />
+        <Pane fx:id="separator" HBox.hgrow="SOMETIMES" />
+        <Label fx:id="blockPathDisplay" HBox.hgrow="SOMETIMES" textAlignment="RIGHT" />
         <padding>
             <Insets top="12" right="0" bottom="12" left="0" />
         </padding>

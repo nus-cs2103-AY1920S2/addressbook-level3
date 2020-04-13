@@ -13,12 +13,14 @@ public interface ViewStateModel extends CommandInputModel, HelpFlagModel, BlockE
      * Shows user the meaning of their input, e.g. "Create a new note".
      * When input cannot get corrected in SuggestionEngine and/ or Parser, the "error" message will be shown
      * in responseTextProperty.
+     *
      * @return The meaning of the user input.
      */
     Property<Optional<String>> responseTextProperty();
 
     /**
      * Updates the responseTextProperty.
+     *
      * @param responseTextStr A response text to the user, which could be an explanation of the typed command
      * or an error message.
      */

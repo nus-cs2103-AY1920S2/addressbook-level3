@@ -1,5 +1,7 @@
 package com.notably.view;
 
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.view.suggestion.SuggestionsWindowView;
@@ -31,13 +33,17 @@ public class CommandBox extends ViewPart<Region> {
 
     public CommandBox(CommandExecutor commandExecutor, StringProperty stringProperty) {
         super(FXML);
+
+        requireAllNonNull(commandExecutor, stringProperty);
         this.commandExecutor = commandExecutor;
+
         Platform.runLater(() -> commandTextField.requestFocus());
         initializeListeners(stringProperty);
     }
 
     /**
      * Sets up weak and strong listeners for view-state management.
+     *
      * @param stringProperty A property that, upon method execution, reflects the data that
      * the user types in the model, and also reflects changes in the model to the text field.
      */
