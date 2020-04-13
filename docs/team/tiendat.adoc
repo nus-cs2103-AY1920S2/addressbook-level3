@@ -82,4 +82,3 @@ include::../UserGuide.adoc[tag=teachermanagement]
 
 include::../DeveloperGuide.adoc[tag=OppositeCommandForEdit]
 include::../DeveloperGuide.adoc[tag=Staff]
-include::../DeveloperGuide.adoc[tag=TrackingPayment]
