@@ -447,14 +447,38 @@ corresponds to the date we are interested in.
 
 // tag::goals[]
 === Goals feature
-The main functionalities and commands associated with the entire goals feature are `add`, `addIngredient`, edit`, `editIngredient`
-and `cooked`. Goals are auto-generated and added to a recipe every time `add`, `addIngredient`, edit` or `editIngredient` is executed.
+The main functionalities and commands associated with the entire goals feature are `add`, `addIngredient`, `edit`, `editIngredient`,
+ `cooked`, `listGoals` and 'removeGoals'. Goals are auto-generated and added to a recipe every time `add`, `addIngredient`, `edit` or `editIngredient` is executed.
 
 The following sequence diagram shows how goals are generated through the example of `addIngredient` command execution
 
 .Add command sequence diagram
 image::AddSequenceDiagram.png[]
 image::AddRefSequenceDiagram.png[]
+
+A recipe is initially created with an empty goals set from parser and `calculateGoals()` is then called in the `AddCommand`.
+
+Each ingredient type that is associated with a goal (`Vegetable`, `Protein`, `Fruit`, `Grain`) is listed as an enum type
+in MainIngredientType. This ensures that invalid goals are not created and simplifies the mapping between `MainIngredientType`
+and `Goal`.
+
+The calculation of goals then occurs through looping through each ingredient type and executing the method call to
+`Recipe#calculateIngredientQuantity()`.
+This would obtain the total quantity for each ingredient, firstly by calling `Ingredient#getMainIngredientType()`
+to ensure the validity of ingredients beings calculated (e.g. any instance of 'Other' ingredient would throw an `InvalidStateException`).
+Secondly, by obtaining the quantity in grams through the method calls to `Ingredient#getQuantity()' and 'Quantity#convertToGram()`.
+
+After the calculation for each main ingredient type is completed, an instance of `MainIngredientTypeMagnitude' is created.
+It acts as a container to store the quantities and conduct the checks for whether these quantities meet the minimum quantity
+requirement for their respective food group. This calculation and checks are done through the method call to
+`MainIngredientTypeMagnitude#getMainTypes() which would then return a set of `MainIngredientType` that successfully met the
+minimum requirement.
+
+Lastly, after looping through this set and creating each goal with the mapping from `MainIngredientType` to `Goal` done
+(e.g. MainIngredientType.FRUIT leads to the creation of goal with goal name generated as "Fruity Fiesta"), the goals will
+be updated in the particular instance of `Recipe r` and `Model#addRecipe(r)` would then update `RecipeBook` in storage.
+
+The immutability of each object is supported to ensure the correctness of undo and redo functionality.
 
 ==== Proposed Implementation
 
