@@ -71,13 +71,6 @@ public class NotificationWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides the notification window.
-     */
-    public void hide() {
-        getRoot().hide();
-    }
-
-    /**
      * Focuses on the notification window.
      */
     public void focus() {
