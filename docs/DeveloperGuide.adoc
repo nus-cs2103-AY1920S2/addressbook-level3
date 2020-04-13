@@ -592,9 +592,9 @@ Pros: Reduce a lot of memory issue.
 
 Cons: Harder to implement
 
-// tag::OppositeCommandForEdit[]
-
 ==== Opposite Command for edit [Dat]
+
+// tag::OppositeCommandForEdit[]
 In EditCommand class, method `preprocessUndoableCommand` to get the toEdit Object and edited Object.
 
 .Activity Diagram of Pre-processing for Edit commands
@@ -1561,29 +1561,60 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a student
 
-. Deleting a person while all persons are listed
+. Deleting a student while all students are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list.
-Details of the deleted contact shown in the status message.
-Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted.
+.. Prerequisites: List all students using the `list` command. Multiple students in the list.
+.. Test case: (example) `delete-student 16100` +
+   Expected: Student with ID 16100 is deleted from the list.
+Details of the deleted student shown in the status message.
+Status bar is updated.
+Related information, such as course student 16100 was taking, updated accordingly.
+.. Test case: `delete-student 0` +
+   Expected: No student is deleted.
 Error details shown in the status message.
 Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete-students`, `delete-student x` (where x is a number not matching any student IDs) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Assign a student to a course
 
-. Dealing with missing/corrupted data files
+. Assign a student to a course that has several assignments
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: List all courses using the `list-course` command. Select to view a course, multiple assignments are assigned to that course.
+.. Test case: (example) `assign sid/16100 cid/55160` +
+    Expected Student with ID 16100 is assigned to course 55160.
+Details of the student will be added to the course. The student is assigned all the assignments in the course (the progresses are created).
+Status bar is updated accordingly.
+.. Test case: (example) `assign sid/16100 cid/49273` +
+    Expected: Error message throws saying no course ID matches with this course (Assumed this course ID does not exist).
+Error details shown in the status message.
+Status bar remains the same.
+.. Other incorrect delete commands to try: `assign sid/16100 cid/55160`, (where student 16100 is already assigned to course 55160) _{give more}_ +
+    Expected: Similar to previous, but error message throws saying this student is already assigned to this course.
+
+_{ more test cases ... }_
+
+=== Undo deleting a student
+
+. Undo a command deleting a student that in several courses and having several progresses.
+
+.. Prerequisites: List all courses using the `list-course` command. Select to view the course that have student intended to be deleted.
+.. Test case: (example) `delete-student 16100` + `undo` +
+    Expected Student with ID is deleted and then added back to courses that he enrolled before.
+Details of the student will be added back to the course. The student is assigned all the assignments in the course.
+(All of the progresses of the student are restored).
+Status bar is updated accordingly.
+.. Test case: `delete-student 0` + `undu` +
+    Expected: No student is added back.
+Error details shown in the status message.
+Status bar remains the same.
+.. Other incorrect undo/redo commands to try: `undo`, `redo` (try these commands immediately after turn on the application) _{give more}_ +
+   Expected: Error throws saying no commands that are redo/undoable. (No CRUD commands used before to undo/redo)
+
 _{ more test cases ... }_
 
 [appendix]

@@ -217,8 +217,9 @@ Format: `undo` or `redo`
 
 // tag::AssignUnassign[]
 
-==== Assigning/Unassigning -TYPE- to a Course : `assign` or `unassign` respectively
-===== A Student to a Course : `assign` or `unassign` respectively
+=== Assigning/Unassigning -TYPE- to a Course : `assign` or `unassign` respectively
+
+==== Assign a Student to a Course : `assign` or `unassign` respectively
 
 Adds the Student ID to the Course ID specified. +
 Format: `assign cid/COURSEID sid/STUDENTID` +
@@ -586,14 +587,15 @@ is edited (for example: increased), it means this Teacher's salary base is incre
 // tag::coursemanagement[]
 
 === Course
+
 .List of Courses. Shows details and list of students of selected Course. The list of Assignments is also shown for the selected Student
 image::courseTab.png[width="1000"]
+
 ==== Add a course: `add-course`
 
 Add a new course to the list of course +
 Format: `add course n/NAME a/AMOUNT [t/TAG]…` +
-Example:
-* `add course n/Cozmo Programming a/2000 t/Fun t/Robot`
+Example: `add course n/Cozmo Programming a/2000 t/Fun t/Robot`
 
 ==== Remove a course: `delete-course`
 Remove a course from the list of courses +
