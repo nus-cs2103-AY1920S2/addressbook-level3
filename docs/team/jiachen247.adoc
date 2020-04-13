@@ -61,7 +61,7 @@ https://github.com/AY1920S2-CS2103T-W16-2/main/pull/248[#248]
 https://github.com/AY1920S2-CS2103T-W16-2/main/pull/222[#222]
 
 ** *Community*:
-*** PRs reviewed: https://github.com/AY1920S2-CS2103T-W16-2/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Ajiachen247[24 reviews]
+*** PRs reviewed: https://github.com/AY1920S2-CS2103T-W16-2/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Ajiachen247[24+ reviews]
 
 *** Contributed to forum discussions: https://github.com/nus-cs2103-AY1920S2/forum/issues/101[#101]
 

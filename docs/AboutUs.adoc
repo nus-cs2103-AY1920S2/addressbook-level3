@@ -18,7 +18,7 @@ Role: Full-Stack Developer / QA Tester
 
 '''
 
-=== Gabriel Yeo
+=== Gabriel Yeo Fang Yan
 image::gb3h.png[width="150", align="left"]
 {empty}[http://github.com/gb3h[github]] [<<gb3h#, portfolio>>]
 
@@ -26,7 +26,7 @@ Role: Full-Stack Developer / DevOps Engineer
 
 '''
 
-=== Guofeng Tang
+=== Tang Guofeng
 image::Guofeng-Tang.png[width="150", align="left"]
 {empty}[http://github.com/Guofeng-Tang[github]] [<<Guofeng-Tang#, portfolio>>]
 
@@ -42,7 +42,7 @@ Role: Full-Stack Developer / UI Designer
 
 '''
 
-=== Aloysius Chan
+=== Chan Tze Yang, Aloysius
 image::alloystory.png[width="150", align="left"]
 {empty}[https://www.aloysiuschan.co[homepage]] [http://github.com/alloystory[github]] [<<alloystory#, portfolio>>]
 
