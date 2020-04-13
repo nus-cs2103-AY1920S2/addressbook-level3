@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103-W14-1/main/tree/master
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -289,11 +289,10 @@ Consideration 2
 
 ==== Execution of Assign/Un-assign Command [Tee Jun Jie Ivan]
 
-For the actual execution of an assign/un-assign command, 3 main steps are performed.
+For the actual execution of an assign/un-assign command, 2 main steps are performed.
 
 . Pre-process the targeted entities to ensure consistent state - Via `PreprocessUndoCommand` method call
 . Add both object's ID into each other - Handled by `EdgeManager`
-. Create/remove Progress objects when assignments/students are involved - Handled by `Progress Manager`
 
 ===== Step 1: Preprocess Entities
 
@@ -370,8 +369,21 @@ Also, requires all ModelObject classes to implement a clone() method.
 Overall, the second option was chosen since the program is very dependent on maintaining a `consistent state`, where either 2 modelObjects have each other's ID or they do not.
 Some performance can be sacrificed in order to ensure that the links between objects cannot be modified by mistake.
 
-===== Step 3: Add Progress objects via ProgressManager
+===== Summary of Entity Linking
 
+Overall, in order to ensure successful entity linking, all 3 managers involved must be involved.
+The table below shows the involvement of 3 managers with regards to each variant of the `Assign`/`Un-assign` commands.
+
+.Table Summary of Manager's involvement during Assign/Un-assign Commands
+image::Ivan-AssignSummaryTable.png[]
+---
+
+=== Student Progress Management [Tee Jun Jie Ivan]
+The `Progress` of students is managed exclusively by the `ProgressManager` class.
+
+*API* : link:{repoURL}/src/main/java/seedu/address/manager/ProgressManager.java[`ProgressManager.java`]
+
+==== Student Progress Creation/Removal
 ====== +++<u>Rationale</u>+++
 
 New `Progress` objects must be created in 2 main scenarios.
@@ -394,7 +406,7 @@ The flow of adding Progress objects in a AssignStudentToCourse is as follows
 
 . If there are `Progress` objects that were previously in ProgressAddressBook but were removed due to an `Un-assign/Delete` command, add those `Progress` objects back in.
 .. This only occurs when undo-ing an `Un-assign/Delete` command.
-Refer to `Section 3.2.2` for more information.
+Refer to <<undo-assign-command>> for more information.
 . Else, i.e. if this is an entirely new AssignStudentToCourse command,
 .. Obtain *C'*, a copy of the targeted `Course`
 .. From *C'*, obtain all assignmentIDs that are assigned to it.
@@ -402,7 +414,7 @@ Refer to `Section 3.2.2` for more information.
 .. Create a `Progress` object using each of the `CompositeID`
 .. Finally, add these `Progress` objects into the `ProgressAddressBook`.
 
-Notes:
+Notes
 
 - The flow is largely the same for AssignAssignmentToCourse!
 Instead, we want every `Student` that is currently studying in course *C'* to complete the particular `Assignment`.
@@ -411,14 +423,13 @@ Hence, rather than obtain all assignmentIDs, we will need to obtain all
 - The flow is also largely the same for UnassignCommands!
 Instead, we are looking to remove Progress objects rather than adding them back in.
 
-===== Summary of Entity Linking
+==== Marking Progress as `Done`/`Undone`
+====== +++<u>Rationale</u>+++
+When a `Student` finishes an `Assignment` that is allocated to him, you want to be able to mark his work
+as `Done`.
 
-Overall, in order to ensure successful entity linking, all 3 managers involved must be involved.
-The table below shows the involvement of 3 managers with regards to each variant of the `Assign`/`Un-assign` commands.
 
-.Table Summary of Manager's involvement during Assign/Un-assign Commands
-image::Ivan-AssignSummaryTable.png[]
----
+
 
 === Undo/Redo [Hieu]
 
@@ -491,6 +502,7 @@ is opposite to this EditCommand) with editing information of the original toEdit
 
 When `undo` and `redo` commands are executed, the process is carried out as described above.
 
+[[undo-assign-command]]
 ==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
 Generating of opposite commands for assign and un-assign commands is very intuitive. The opposite of assign is un-assign and vice versa.
 
