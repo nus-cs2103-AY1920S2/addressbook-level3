@@ -7,7 +7,7 @@ skinparam classBackgroundColor LOGIC_COLOR
 package Logic {
 
 package Parser {
-Class "{abstract}\nCommonParser" as CommonParser
+Interface CommonParser <<Interface>>
 Class Prefix
 Class ArgumentMultimap
 Class ArgumentTokenizer
@@ -33,7 +33,7 @@ MODELogic -up-|> Logic
 MODELogicManager .up.|> MODELogic
 MODELogicManager -->"1" CommonParser
 
-MODEParser -right-|> CommonParser
+MODEParser .right.|> CommonParser
 MODEParser .left.> XYZCommandParser: creates >
 XYZCommandParser ..|> Parser
 XYZCommandParser ..> MODECliSyntax
