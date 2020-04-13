@@ -341,7 +341,7 @@ The `select` command allows user to view the Card content of a Deck.
 
 Accepted syntax: `select INDEX`
 
-This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on `CardListPanel` via a `TableView`.
+This functionality is implemented by getting the Deck based on the index provided. Subsequently, the selected Deck will be highlighted on `DeckListPanel` and the Card(s) that belongs to it will be displayed on `CardListPanel` via a `TableView`.
 
 The validation of the arguments in the `select` command is performed in `SelectDeckCommandParser#parse()`. It ensures that the user has entered a valid index (valid data type and range). This is also used for separation of parsing
 logic and model management logic.
@@ -350,10 +350,10 @@ In `SelectDeckCommandParser#parse()`, the `INDEX` of the selected Deck is extrac
 from the arguments in the `select` command. The `INDEX` is converted to an Index object. An `SelectCardCommand`
 object is then constructed with the Index as its parameter.
 
-When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content on `CardListPanel`. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI by highlighting the selected Deck on `DeckListPanel` and displaying its content on `CardListPanel`. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
 ==== Design Considerations
-The UI will have to be constantly updated when we select to view a deck, and other decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected deck.
+The UI will have to be constantly updated when we select to view a Deck, and other Decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected Deck.
 
 .Interactions inside Model, Logic and UI components to reflect UI changes when selecting a deck
 image::SelectDeckSequenceDiagram.png[]
