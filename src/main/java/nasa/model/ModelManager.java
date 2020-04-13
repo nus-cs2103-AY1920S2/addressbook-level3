@@ -135,16 +135,7 @@ public class ModelManager implements Model {
                 List<String> listTemp = test.subList(2, 3);
                 updateFilteredModuleList(new NameContainsKeywordsPredicate(listTemp));
                 List<String> activityCurrentlyDisplayed = test.subList(4, test.size());
-                if (activityCurrentlyDisplayed.subList(0, 1).get(0).equals("null")) {
-                    System.out.println("TRUE");
-                    updateFilteredActivityList(x -> true);
-                } else if (activityCurrentlyDisplayed.size() == getFilteredDeadlineList(
-                        new ModuleCode(listTemp.get(0))).size()) {
-                    updateFilteredActivityList(x -> true);
-                } else if (activityCurrentlyDisplayed.size() > 2) {
-                    List<String> help = test.subList(4, test.size());
-                    updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(help));
-                }
+                updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(activityCurrentlyDisplayed));
             }
         }
 
