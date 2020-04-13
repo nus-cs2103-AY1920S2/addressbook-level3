@@ -55,23 +55,31 @@ Command, opposite command is still Edit Command but edited Object is the origina
 
 ** Highlights: This enhancement improved CodeCampX interaction and convenience a lot since user can undo and redo most of the commands.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=tiendat161&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&zA=tiendat161&zR=AY1920S2-CS2103-W14-1%2Fmain%5Bmaster%5D&zACS=350.7003424657534&zS=2020-02-14&zU=2020-04-13&zMG=false&zFTF=commit&zFGS=groupByRepos&zSO=undefined&zSWO=undefined&zSD=false&zSWD=false[Tracked by RepoSense]]
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=tiendat161&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[Functional and Test Code]]
 
 * *Other contributions*:
 
-*** Refactor code to improve code quality, improve code usability and extendability.
-*** Do the documentation of code and ensures that it is corrected and understandable.
-*** Refactor commands and create check condition to minimize bugs.
+*** Refactor code to improve code quality, improve code usability and extendability. (https://github.com/AY1920S2-CS2103-W14-1/main/pull/182[#182], https://github.com/AY1920S2-CS2103-W14-1/main/pull/184[#184], https://github.com/AY1920S2-CS2103-W14-1/main/pull/188[#188])
+*** Do the documentation of code and ensures that it is corrected and understandable. (https://github.com/AY1920S2-CS2103-W14-1/main/pull/211[#211])
+*** Refactor commands and create check condition to minimize bugs. (https://github.com/AY1920S2-CS2103-W14-1/main/pull/209[#209])
+*** Add JUnit tests for Student and Staff classes. (https://github.com/AY1920S2-CS2103-W14-1/main/pull/214[#214], https://github.com/AY1920S2-CS2103-W14-1/main/pull/215[215])
 
 == Contributions to the User Guide
-
 
 |===
 |__User Guide Contribution__
 |===
+
+include::../UserGuide.adoc[tag=AssignUnassign]
+include::../UserGuide.adoc[tag=clearAll]
+include::../UserGuide.adoc[tag=teachermanagement]
 
 == Contributions to the Developer Guide
 
 |===
 |_Developer Guide Contribution_
 |===
+
+include::../DeveloperGuide.adoc[tag=OppositeCommandForEdit]
+include::../DeveloperGuide.adoc[tag=Staff]
+include::../DeveloperGuide.adoc[tag=TrackingPayment]

@@ -499,6 +499,8 @@ Pros: Reduce a lot of memory issue.
 
 Cons: Harder to implement
 
+// tag::OppositeCommandForEdit[]
+
 ==== Opposite Command for edit [Dat]
 In EditCommand class, method `preprocessUndoableCommand` to get the toEdit Object and edited Object.
 
@@ -511,6 +513,8 @@ Method `generateOppositeCommand()` will generate another `EditCommand` (which
 is opposite to this EditCommand) with editing information of the original toEdit Object and push it to undoStack.
 
 When `undo` and `redo` commands are executed, the process is carried out as described above.
+
+// end::OppositeCommandForEdit[]
 
 [[undo-assign-command]]
 ==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
@@ -607,6 +611,7 @@ that the students have without the progresses of this course that the student cu
 To query that, after executing `select sid/ student_id`, the user needs to run
 `select sid/ student_id cid/ course-id` as well
 
+// tag::Staff[]
 
 === Managing Staff Feature [Dat]
 ==== Implementation
@@ -631,17 +636,29 @@ To pay for `admin`, user has to do it manually using miscellaneous `FinanceType`
 
 Certain approaches have some certain pros and cons. It depends on how the user want to keep track of payment and method to pay to `teacher` and `admin`.
 
+// end::Staff[]
+
+// tag::TrackingPayment[]
+
 === Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings [Dat]
 ==== Implementation
 
-Miscellaneous transactions can either be payments or earnings, such as purchases of stationary or advertisement revenue. Teacher payments are tracked by courses, where the teacher is paid for each course taught. Student earnings are also tracked by courses, where the student pays for each course taken.
+Miscellaneous transactions can either be payments or earnings, such as purchases of stationary or advertisement revenue.
+Teacher payments are tracked by courses, where the teacher is paid for each course taught.
+Student earnings are also tracked by courses, where the student pays for each course taken.
 
-.Class diagram of CourseStudent and CourseTeacher
-image::FinanceDiagram.png[]
+Finance type `Miscellaneous` or `m` add command will add a `Finance` with a given Name (description) from the user.
+The amount is sign sensitive, meaning miscellaneous can take in a positive amount or a negative amount corresponding to
+earning or expense depending on the user.
 
 Finance type `CourseStudent` or `cs` add command will access `CourseAddressBook` and `StudentAddressBook` to ensure `Course` and
 `Student` exist and make sure this student is taking this course. The `Amount` is set to the amount of the `Course`
 (student fee).
+
+Finance type `CourseTeacher` or `ct` add command will access `StaffAddressBook` and `CourseAddressBook` to ensure `Staff` and
+`Course` exist and make sure this staff is teaching this course. The `Amount` is set to the amount salary of the `Staff`.
+
+// end::TrackingPayment[]
 
 === Logging
 
