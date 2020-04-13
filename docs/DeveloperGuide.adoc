@@ -727,8 +727,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== the
-
 === Add a new Note
 . Adding a new Note to Notably without immediately opening that Note.
 
