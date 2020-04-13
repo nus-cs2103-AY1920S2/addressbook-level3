@@ -1,0 +1,85 @@
+= Liao Li Xin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:experimental:
+
+
+== PROJECT: FlashSpeed
+
+---
+
+== Overview
+FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language.
+FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly.
+
+If you are currently learning a new language or interested to do so, FlashSpeed will be yor best companion and helper along
+the learning journey.
+
+== Summary of contributions
+
+* *Major enhancement 1*: added the *play view* of the app.
+** What it does: allows users to start a new game session to test their memory of the vocabulary.
+** Justification: This feature is one of the essence of the app and it improves the product significantly in terms of functionality
+because users not only can store and memorize vocabulary, but also can test their memory by playing a game.
+** Highlights: This enhancement affects other commands in different view since some commands can only be executed in one view.
+It requires more validations to be introduced to other commands as well as changes to the Model component to ensure isolation
+in different views.
+
+* *Major enhancement 2*: implemented the *model manager* class of the app.
+*** What it does: enables the Model component to handle all possible commands to be made by the users.
+*** Justification: This enhancement allows every operation to be executed at the Model level and increases the maintainability and
+scalability of the code since all operations are handled at one same place.
+*** Highlight: This enhancement requires an in-depth understanding of the overall architecture of the product and changes to be made to other related classes.
+
+* *Minor enhancement*: added create/remove/rename deck command and add/delete card commands as the core functionality of the app.
+
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=olixino&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=oLiXino&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional and Test code]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** added stop command to allow users to end the game session halfway (Pull request https://github.com/AY1920S2-CS2103T-W17-1/main/pull/173[#173])
+*** fixed bugs during testing (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/198[#198],
+https://github.com/AY1920S2-CS2103T-W17-1/main/pull/276[#276], https://github.com/AY1920S2-CS2103T-W17-1/main/pull/286[#286])
+** Documentation:
+*** Refine Play View section of User Guide to be more user friendly. (Pull request https://github.com/AY1920S2-CS2103T-W17-1/main/pull/225[#255])
+** Community:
+*** Reported bugs and provided suggestions for other teams in the class (examples:
+https://github.com/oLiXino/ped/issues/1[#1] https://github.com/oLiXino/ped/issues/2[#2] https://github.com/oLiXino/ped/issues/3[#3])
+
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=play-view-language]
+
+---
+
+include::../UserGuide.adoc[tag=flip-language]
+
+---
+
+include::../UserGuide.adoc[tag=answer-language]
+
+---
+
+include::../UserGuide.adoc[tag=stop-language]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=model]
+
+---
+
+include::../DeveloperGuide.adoc[tag=play]
+

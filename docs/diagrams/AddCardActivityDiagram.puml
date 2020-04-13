@@ -1,0 +1,18 @@
+@startuml
+(*) --> "enter valid Add Card command     "
+If "" then
+-> [has valid both front value] "create new Card with new front and back"
+--> "replace Card to be edited with new Card"
+else
+-> [else] If "" then
+--> [has front value only] "retrieve old back"
+--> "create new Card with old back and new front"
+--> "replace Card to be edited with new Card"
+else
+-> [has back value only] "retrieve old front"
+--> "create new Card with old front and new back"
+Endif
+Endif
+--> "replace Card to be edited with new Card"
+--> (*)
+@enduml

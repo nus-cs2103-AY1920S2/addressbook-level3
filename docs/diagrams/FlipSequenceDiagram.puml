@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MasterParser" as MasterParser LOGIC_COLOR
+participant "e:FlipCommand" as FLipCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":GameManager" as GameManager MODEL_COLOR
+participant ":UniqueCardList" as UniqueCardList MODEL_COLOR
+participant ":Card" as Card MODEL_COLOR
+end box
+[-> LogicManager : execute("flip")
+activate LogicManager
+
+LogicManager -> MasterParser : parseCommand("flip")
+activate MasterParser
+
+create FLipCommand
+MasterParser -> FLipCommand
+activate FLipCommand
+
+FLipCommand --> MasterParser : e
+deactivate FLipCommand
+
+MasterParser --> LogicManager : e
+deactivate MasterParser
+
+LogicManager -> FLipCommand : execute()
+activate FLipCommand
+
+FLipCommand -> Model : flip()
+activate Model
+
+Model -> GameManager : flip()
+activate GameManager
+
+GameManager -> UniqueCardList : get(counter)
+activate UniqueCardList
+
+UniqueCardList -> Card : getBackFace()
+activate Card
+
+Card -> UniqueCardList : backFace
+deactivate Card
+
+UniqueCardList -> GameManager : backFace
+deactivate UniqueCardList
+
+GameManager -> Model : backFace
+deactivate GameManager
+
+Model -> FLipCommand : backFace
+deactivate Model
+
+FLipCommand --> LogicManager : commandResult
+deactivate FLipCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

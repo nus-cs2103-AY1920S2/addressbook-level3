@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MasterParser" as MasterParser LOGIC_COLOR
+participant "e:AnswerNoCommand" as AnswerNoCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":GameManager" as GameManager MODEL_COLOR
+participant ":UniqueCardList" as UniqueCardList MODEL_COLOR
+end box
+[-> LogicManager : execute("no")
+activate LogicManager
+LogicManager -> MasterParser : parseCommand("no")
+activate MasterParser
+create AnswerNoCommand
+MasterParser -> AnswerNoCommand
+activate AnswerNoCommand
+AnswerNoCommand --> MasterParser : e
+deactivate AnswerNoCommand
+MasterParser --> LogicManager : e
+deactivate MasterParser
+LogicManager -> AnswerNoCommand : execute()
+activate AnswerNoCommand
+AnswerNoCommand -> Model : answerNo()
+activate Model
+Model -> GameManager : answerNo()
+activate GameManager
+GameManager -> UniqueCardList : get(counter)
+activate UniqueCardList
+UniqueCardList -> GameManager : card
+deactivate UniqueCardList
+GameManager -> Model : card
+deactivate GameManager
+Model -> AnswerNoCommand : card
+deactivate Model
+AnswerNoCommand --> LogicManager : commandResult
+deactivate AnswerNoCommand
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

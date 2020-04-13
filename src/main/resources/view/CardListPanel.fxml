@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.scene.control.Label?>
+
+<?import javafx.collections.FXCollections?>
+<StackPane  xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+
+   <AnchorPane  />
+   <TableView fx:id="itemTbl" >
+      <placeholder><Label fx:id="defaultText" text="No deck selected" style="-fx-text-fill:white" /></placeholder>
+   </TableView>
+
+</StackPane>

@@ -4,6 +4,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
+
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
@@ -11,10 +12,13 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class DeckListPanel
+Class DeckCard
 Class StatusBarFooter
 Class CommandBox
+Class CardListPanel
+Class PlayPanel
+Class StatisticsPopUp
 }
 
 package Model <<Rectangle>> {
@@ -30,31 +34,39 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
+MainWindow -up-> HelpWindow
+MainWindow -up-> StatisticsPopUp
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow -down-> CardListPanel
+MainWindow -down-> PlayPanel
+MainWindow *-down-> DeckListPanel
 MainWindow *-down-> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+DeckListPanel -down-> DeckCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+CardListPanel --|> UiPart
+PlayPanel --|> UiPart
+DeckListPanel --|> UiPart
+DeckCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+StatisticsPopUp -down-|> UiPart
 
-PersonCard ..> Model
+DeckCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
+DeckListPanel -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+ResultDisplay -[hidden]left- CardListPanel
+CardListPanel -[hidden]left- PlayPanel
+PlayPanel -[hidden]left- StatusBarFooter
+StatisticsPopUp -[hidden]left- HelpWindow
 
 MainWindow -[hidden]-|> UiPart
 @enduml

@@ -1,0 +1,57 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MasterParser" as MasterParser LOGIC_COLOR
+participant "e:AnswerYesCommand" as AnswerYesCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":GameManager" as GameManager MODEL_COLOR
+participant ":UniqueCardList" as UniqueCardList MODEL_COLOR
+end box
+[-> LogicManager : execute("yes")
+activate LogicManager
+
+LogicManager -> MasterParser : parseCommand("yes")
+activate MasterParser
+
+create AnswerYesCommand
+MasterParser -> AnswerYesCommand
+activate AnswerYesCommand
+
+AnswerYesCommand --> MasterParser : e
+deactivate AnswerYesCommand
+
+MasterParser --> LogicManager : e
+deactivate MasterParser
+
+LogicManager -> AnswerYesCommand : execute()
+activate AnswerYesCommand
+
+AnswerYesCommand -> Model : answerYes()
+activate Model
+
+Model -> GameManager : answerYes()
+activate GameManager
+
+GameManager -> UniqueCardList : get(counter)
+activate UniqueCardList
+
+UniqueCardList -> GameManager : card
+deactivate UniqueCardList
+
+GameManager -> Model : card
+deactivate GameManager
+
+Model -> AnswerYesCommand : card
+deactivate Model
+
+AnswerYesCommand --> LogicManager : commandResult
+deactivate AnswerYesCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

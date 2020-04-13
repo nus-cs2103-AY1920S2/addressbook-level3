@@ -8,17 +8,13 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
+Class MasterParser
+Class *CommandParser
 Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
 }
 
 package Command {
-Class XYZCommand
+Class *Command
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 }
@@ -35,25 +31,18 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" MasterParser
+MasterParser .left.> "*CommandParser": creates >
 
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
+"*CommandParser" ..> "*Command" : creates >
+"*CommandParser" ..|> Parser
+"*CommandParser" ..> ParserUtil
+"*Command" -up-|> Command
 LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note right of "*Command": ~*Command: AddCardCommand, \nRemoveDeckCommand, etc.
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

@@ -4,39 +4,40 @@
 !include <office/Users/user>
 !include style.puml
 
-Package " "<<Rectangle>>{
+Package "Core"<<Rectangle>>{
+    Class Hidden #FFFFFF
     Class UI UI_COLOR
     Class Logic LOGIC_COLOR
     Class Storage STORAGE_COLOR
     Class Model MODEL_COLOR
-    Class Main MODEL_COLOR_T1
-    Class Commons LOGIC_COLOR_T2
-    Class "Log Center" as Logs UI_COLOR_T2
-    Class Hidden #FFFFFF
-    Class HiddenUI #FFFFFF
-    Class HiddenModel #FFFFFF
-
-
 }
+
+scale 600 width
+
 Class "<$user>" as User MODEL_COLOR_T2
 Class "<$documents>" as File UI_COLOR_T1
+Class Main MODEL_COLOR_T1
 
+Class Commons LOGIC_COLOR_T2
+Class "LogsCenter" as Logs UI_COLOR_T2
+Class Index UI_COLOR_T2
+Class Messages UI_COLOR_T2
+Class Exceptions UI_COLOR_T2
 
-HiddenUI -up[hidden]-> UI
-HiddenModel -left[hidden]-> Model
-Main -up-> HiddenUI
-Main -left-> HiddenModel
+Main -right-> Core
+
 UI -> Logic
 UI -right-> Model
 Logic -> Storage
 Logic -down-> Model
 
-Logs -right- Commons
-Hidden .down.> Commons
-Hidden .down.> Commons
-Hidden .down.> Commons
-
 Storage .right.>File
 User --> UI
-Main --> Hidden
+
+Storage ..down[hidden]> Hidden
+Commons -right-> Logs
+Commons -down-> Index
+Commons -down-> Messages
+Commons -down-> Exceptions
+Hidden .down.> Commons
 @enduml

@@ -5,52 +5,47 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyLibrary <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Library
+Class ReadOnlyLibrary
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class GameManager
+Class Mode
+Class View
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
-}
+Class Deck
+Class UniqueDeckList
+Class UniqueCardList
+Class Card
 
-Package Tag {
-Class Tag
-}
-}
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+
+Library .up.|> ReadOnlyLibrary
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Library
+ModelManager o--> "0..1" GameManager
+ModelManager o--> "0..1" Deck
+ModelManager o--> "0..1" Card
+ModelManager o--> "1" Mode
+ModelManager o--> "1" View
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Library *--> "1" UniqueDeckList
+GameManager *--> "1" UniqueCardList
+UniqueDeckList o--> "*" Deck
+Deck *--> "1" UniqueCardList
+UniqueCardList o--> "*" Card
 
-ModelManager -->"1" Person : filtered list
+
 @enduml

@@ -1,0 +1,27 @@
+{
+  "decks" : [ {
+    "name" : "",
+    "cards" : [ {
+      "frontFace" : "Hello",
+      "backFace" : " こんにちは"
+    }, {
+      "frontFace" : "Goodbye",
+      "backFace" : " さよなら"
+    }, {
+      "frontFace" : "Thank you",
+      "backFace" : " ありがとう"
+    } ]
+  }, {
+    "name" : "Malay",
+    "cards" : [ {
+      "frontFace" : "I",
+      "backFace" : "Saya"
+    }, {
+      "frontFace" : "You",
+      "backFace" : "Awak"
+    }, {
+      "frontFace" : "Thank you",
+      "backFace" : "Terima Kasih"
+    } ]
+  } ]
+}

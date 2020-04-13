@@ -1,0 +1,92 @@
+= Pham Tran Tuan Linh - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FlashSpeed
+image::flashspeed_logo.png[width="100", align="left"]
+---
+
+== Overview
+
+FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language. University students often have hectic schedules. With this in mind, FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly. With a single command, you can start a quick study session on FlashSpeed whenever!
+
+Keeping, flipping, and tracking physical flashcards can be a pain. FlashSpeed enhances the studying process by having virtual flashcards and a smarter review system. Users will be tested more frequently on flashcards that they had trouble memorizing previously.
+
+By using FlashSpeed, you will learn faster and remember for longer!
+
+== Summary of contributions
+
+* *Major enhancement 1*: Develop everything related to User Interface (UI) and User Experience (UX): colour scheme, displaying contents, placement of contents.
+** What it does: Allows the user to view and interact with the application
+** Justification: This component is crucial to the application because it visualises the whole application in order for it to function.
+** Highlights: This component requires a lot of research, planning and in-depth analysis of the behaviours of all existing and future features. E.g: When and how the scenes should be switched?; JavaFX and FXML research; When the user updates a content, how to show the updated content immediately?
+
+
+
+* *Major enhancement 2*: Modify `LogicManager` and `ModelManager` classes and integrate them with GUI.
+** What it does: `LogicManager` and `ModelManager` facilitate the logic behind every command made by the user and reflect the changes on GUI.
+** Justification: These components act as the brain cells of FlashSpeed to process every operation.
+** Highlights: These components require in-depth understanding on the behaviours and the logic behind all features.
+
+
+
+* *Minor enhancement*:
+** Contribute to the logic behind *Play view* commands and `select` command.
+** Design the application logo
+
+.Draft version (left) and Final version (right) of FlashSpeed logo
+image::logos.jpg[width="300", align="center"]
+
+
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=lacedaemon98&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lacedaemon98&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional & Test code]]
+
+
+
+* *Other contributions*:
+
+** Project management:
+*** Actively initiate discussions and generate ideas outside meetings.
+** Enhancements to existing features:
+*** Display help without Internet connection needed by showing the User Guide directly when using `help` instead of just showing the link: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/194[#194] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/195[#195]
+*** Spot and fix bugs in other members' features such as `reset`, `stop`, `exit`, etc.: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/271[#271] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/175[#175] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/193[#193]
+** Community:
+*** PRs reviewed: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/222[#222] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/335[#335]
+*** Reported bugs and provided suggestions for other teams: https://github.com/lacedaemon98/ped/issues/1[#1] https://github.com/lacedaemon98/ped/issues/2[#2] https://github.com/lacedaemon98/ped/issues/3[#3] https://github.com/lacedaemon98/ped/issues/4[#4] https://github.com/lacedaemon98/ped/issues/5[#5] https://github.com/lacedaemon98/ped/issues/6[#6] https://github.com/lacedaemon98/ped/issues/7[#7] https://github.com/lacedaemon98/ped/issues/8[#8]
+
+** Documentation:
+*** Write multiple sections (shown below)
+*** Provide all the product screenshots in the User Guide and Developer Guide and update them when there are changes to the current application
+
+{empty} +
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=views]
+
+{empty} +
+
+include::../UserGuide.adoc[tag=faq]
+
+{empty} +
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+include::../DeveloperGuide.adoc[tag=UI-component]
+
+{empty} +
+
+include::../DeveloperGuide.adoc[tag=selectdeck]
+{empty} +
+
+include::../DeveloperGuide.adoc[tag=views]
+
+
+

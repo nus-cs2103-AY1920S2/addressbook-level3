@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.scene.control.Label?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.ProgressBar?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<StackPane style="-fx-background-color: #ffffff"  xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+         <GridPane >
+
+            <rowConstraints>
+               <RowConstraints vgrow="NEVER"  percentHeight="12.0" />
+               <RowConstraints vgrow="NEVER"  percentHeight="12.0" />
+               <RowConstraints vgrow="NEVER"  percentHeight="40.0" />
+               <RowConstraints vgrow="NEVER" percentHeight="40.0" />
+            </rowConstraints>
+
+             <columnConstraints>
+                <ColumnConstraints percentWidth="100" />
+             </columnConstraints>
+
+         <StackPane GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-background-color: #f4b184; -fx-border-width: 1 1 0 1;-fx-border-color: black; -fx-padding: 0 0 0 0 ;" >
+           <VBox fx:id="progressRoot" alignment="CENTER">
+            <children>
+               <ProgressBar style="-fx-padding: 20 0 0 0 ;" fx:id="progressBar" minWidth="800" ></ProgressBar>
+            </children>
+           </VBox>
+
+             <HBox alignment="TOP_LEFT">
+                <Region prefWidth="20"></Region>
+               <Label  text="Cards attempted: " style="-fx-text-fill: black; -fx-font-size: 15;" />
+               <Label  fx:id="noAttempted" text="0" style="-fx-text-fill: black; -fx-font-size: 15;" />
+            </HBox><HBox alignment="TOP_RIGHT">
+               <Label fx:id="stats2" text="Cards remaining: " style="-fx-text-fill: black; -fx-font-size: 15;" />
+               <Label  fx:id="noRemaining" text="0" style="-fx-text-fill: black; -fx-font-size: 15;" />
+               <Region prefWidth="20"></Region>
+            </HBox>
+            <Label alignment="CENTER" fx:id="progressPercent"  style="-fx-text-fill: black; -fx-font-size: 15; -fx-padding: 20 0 0 0 ;" />
+
+         </StackPane>
+         <StackPane GridPane.rowIndex="1" style="-fx-background-color: #f4b184; -fx-border-width: 0 1 1 1;-fx-border-color: black; "  >
+            <Label alignment="CENTER" fx:id="instruction" style="-fx-text-fill: black; -fx-font-size: 18;" />
+         </StackPane>
+
+         <StackPane  GridPane.rowIndex="2" style="-fx-background-color: #4473c5; -fx-border-width: 0 1 1 1;-fx-border-color: black; "  >
+         <Label alignment="CENTER" fx:id="front" style="-fx-text-fill: white; -fx-font-size: 50;" />
+         </StackPane>
+
+         <StackPane GridPane.rowIndex="3" style="-fx-background-color: #ff5722; -fx-border-width: 0 1 1 1; -fx-border-color: black"  >
+                  <Label alignment="CENTER" fx:id="back" style="-fx-text-fill: white; -fx-font-size: 50;"/>
+         </StackPane>
+
+         </GridPane>
+</StackPane>
+
+
+

@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MasterParser" as MasterParser LOGIC_COLOR
+participant ":EditCardCommandParser" as EditCardCommandParser LOGIC_COLOR
+participant "e:EditCardCommand" as EditCardCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Deck" as Deck MODEL_COLOR
+participant ":UniqueCardList" as UniqueCardList MODEL_COLOR
+end box
+[-> LogicManager : execute("edit 1 fr:bk")
+activate LogicManager
+
+LogicManager -> MasterParser : parseCommand("edit 1 fr:bk")
+activate MasterParser
+
+create EditCardCommandParser
+MasterParser -> EditCardCommandParser
+activate EditCardCommandParser
+
+EditCardCommandParser --> MasterParser
+deactivate EditCardCommandParser
+
+MasterParser -> EditCardCommandParser : parse("1 fr:bk")
+activate EditCardCommandParser
+
+create EditCardCommand
+EditCardCommandParser -> EditCardCommand
+activate EditCardCommand
+
+EditCardCommand --> EditCardCommandParser : e
+deactivate EditCardCommand
+
+EditCardCommandParser --> MasterParser : e
+deactivate EditCardCommandParser
+
+MasterParser --> LogicManager : e
+deactivate MasterParser
+
+LogicManager -> EditCardCommand : execute()
+activate EditCardCommand
+
+EditCardCommand -> Model : replaceCard(old, new)
+activate Model
+
+Model -> Deck : replace(old, new)
+activate Deck
+
+Deck -> UniqueCardList: replace(old, new)
+activate UniqueCardList
+
+UniqueCardList --> Deck :
+deactivate UniqueCardList
+
+Deck --> Model
+deactivate Deck
+
+Model --> EditCardCommand
+deactivate Model
+
+EditCardCommand --> LogicManager : commandResult
+deactivate EditCardCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Deck <<Rectangle>>{
+Class Deck
+Class Name
+Class UniqueDeckList
+Package Card {
+Class UniqueCardList
+Class Card
+Class FrontFace
+class BackFace
+}
+}
+
+
+
+Class HiddenOutside #FFFFFF
+HiddenOutside --> UniqueDeckList
+
+UniqueDeckList o--> "*" Deck
+Deck *--> Name
+Deck *--> "1" UniqueCardList
+UniqueCardList o--> "*" Card
+Card *--> FrontFace
+Card *--> BackFace
+
+@enduml

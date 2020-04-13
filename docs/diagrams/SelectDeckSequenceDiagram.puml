@@ -1,0 +1,108 @@
+@startuml
+!include style.puml
+
+actor User as user
+
+box UI UI_COLOR_T1
+participant ":DeckListPanel" as DeckListPanel UI_COLOR
+participant ":CardListPanel" as CardListPanel UI_COLOR
+participant ":ResultDisplay" as ResultDisplay UI_COLOR
+participant ":CommandBox" as CommandBox UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MasterParser" as MasterParser LOGIC_COLOR
+participant ":SelectDeckCommandParser" as SelectDeckCommandParser LOGIC_COLOR
+participant "e:SelectDeckCommand" as SelectDeckCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Library" as Library MODEL_COLOR
+participant ":UniqueDeckList" as UniqueDeckList MODEL_COLOR
+
+end box
+
+user -> CommandBox : type: "select 1"
+activate CommandBox
+
+CommandBox -> LogicManager : execute("select 1")
+deactivate CommandBox
+activate LogicManager
+
+
+LogicManager -> MasterParser : parseCommand("select 1")
+activate MasterParser
+
+create SelectDeckCommandParser
+MasterParser -> SelectDeckCommandParser
+activate SelectDeckCommandParser
+
+SelectDeckCommandParser --> MasterParser
+deactivate SelectDeckCommandParser
+
+MasterParser -> SelectDeckCommandParser : parse("1")
+activate SelectDeckCommandParser
+
+create SelectDeckCommand
+SelectDeckCommandParser -> SelectDeckCommand
+activate SelectDeckCommand
+
+SelectDeckCommand --> SelectDeckCommandParser : e
+deactivate SelectDeckCommand
+
+SelectDeckCommandParser --> MasterParser : e
+deactivate SelectDeckCommandParser
+
+MasterParser --> LogicManager : e
+deactivate MasterParser
+
+LogicManager -> SelectDeckCommand : execute()
+activate SelectDeckCommand
+
+
+SelectDeckCommand -> Model : selectDeck(targetIdx)
+activate Model
+
+Model -> Library : getDeck(targetIdx)
+activate Library
+
+Library -> UniqueDeckList: get(targetIdx)
+activate UniqueDeckList
+
+
+UniqueDeckList --> Library : deck
+deactivate UniqueDeckList
+
+Library --> Model : deck
+deactivate Library
+
+Model --> LogicManager: setSelectedDeck(deck)
+
+Model --> SelectDeckCommand
+deactivate Model
+
+SelectDeckCommand --> LogicManager : commandResult
+deactivate SelectDeckCommand
+
+LogicManager --> DeckListPanel : setSelectedDeck(deck)
+activate DeckListPanel
+
+LogicManager --> CardListPanel : setSelectedDeck(deck)
+activate CardListPanel
+
+LogicManager --> ResultDisplay: commandResult
+deactivate LogicManager
+activate ResultDisplay
+
+DeckListPanel --> user: clearAndSelect(deck)
+deactivate DeckListPanel
+
+CardListPanel --> user: showCardList(deck)
+deactivate CardListPanel
+
+ResultDisplay --> user: setFeedbackToUser(commandResult)
+deactivate ResultDisplay
+
+@enduml

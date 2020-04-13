@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MasterParser" as MasterParser LOGIC_COLOR
+participant ":PlayCommandParser" as PlayCommandParser LOGIC_COLOR
+participant "e:PlayCommand" as PlayCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Library" as Library MODEL_COLOR
+participant ":GameManager" as GameManager MODEL_COLOR
+participant ":Deck" as Deck MODEL_COLOR
+end box
+[-> LogicManager : execute("play 1")
+activate LogicManager
+
+LogicManager -> MasterParser : parseCommand("play 1")
+activate MasterParser
+
+create PlayCommandParser
+MasterParser -> PlayCommandParser
+activate PlayCommandParser
+
+PlayCommandParser --> MasterParser
+deactivate PlayCommandParser
+
+MasterParser -> PlayCommandParser : parse("1")
+activate PlayCommandParser
+
+create PlayCommand
+PlayCommandParser -> PlayCommand
+activate PlayCommand
+
+PlayCommand --> PlayCommandParser : e
+deactivate PlayCommand
+
+PlayCommandParser --> MasterParser : e
+deactivate PlayCommandParser
+
+MasterParser --> LogicManager : e
+deactivate MasterParser
+
+LogicManager -> PlayCommand : execute()
+activate PlayCommand
+
+PlayCommand -> Model : play(1)
+activate Model
+
+Model -> Library : getDeck(1)
+activate Library
+
+Library -> Model : deck
+deactivate Library
+
+create GameManager
+Model -> GameManager : deck
+activate GameManager
+
+GameManager -> Deck : asUnmodifiableObservableList()
+activate Deck
+
+Deck -> GameManager : cards
+deactivate Deck
+
+GameManager -> Model : e
+deactivate GameManager
+
+Model --> PlayCommand
+deactivate Model
+
+PlayCommand --> LogicManager : commandResult
+deactivate PlayCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

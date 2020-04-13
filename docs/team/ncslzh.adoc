@@ -1,0 +1,125 @@
+= Nicholas Leong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-1/main/tree/master
+
+== PROJECT: FlashSpeed
+---
+== Overview
+FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language.
+Users are able to categorize virtually created flashcards into their own decks and launch review sessions within those decks. +
+
+== Summary of contributions
+
+My roles in this project include being in charge of the weekly agenda, minutes taker and in-charge of the Developer Guide.
+Being in charge of the weekly agenda meant that I briefed team members of the upcoming tasks to be discussed every meeting.
+I also took down any important discussion points needed to complete to agenda items. I also established deadlines for weekly tasks.
+
+* *Major enhancement*: Added the *game algorithm for the game mode.*
+** What it does:
+. In a game, the next card is always randomly chosen.
+. If the card is answered incorrectly, the user will have to answer that card another time.
+.. However, the user only needs to answer correctly 2 times in a row to clear that card.
+   For example, if the user gets the same card wrong 10 times in a row, he only needs to answer that card 2 times
+   to clear it.
+.. If the user answers the card correctly one time and wrong after that. The user will still need to answer the card correctly
+twice in a row.
+. If the card is answered correctly on the first try, that card is cleared and the user no longer has to answer it.
+
+** Justification: This feature improves the product significantly because it helps the user memorize words more effectively as well
+as making the app more challenging and fun to use. Users can memorize words more effectively when the ones they get wrong are shown more often.
+
+** Highlights: This algorithm affected existing features, such as the Statistics at the end of the game as well as the progress bar of the game.
+It required the team to decide how we should re-implement the existing affected features to accommodate this enhancement.
+
+
+* *Other major enhancement*: Added *the Card and its relevant classes.*
+** What it does: Just like a traditional flashcard, a Card allows users to enter content for the front and back faces of a Card.
+** Justification: This feature is essential to FlashSpeed. Without it, there is no flashcard representation in our app.
+** Highlights: This enhancement required very in-depth analysis of design alternatives, such as where should we implement it, how should
+   it interact with upper classes (Model, UI, Storage, Deck). It required a few hours of discussion and debate before we finally settled on the final design.
+** Credits: AB3 Person Class - The skeleton of the Card class was derived from that Class.
+
+* Minor enhancement: Re-implemented how some parsers handled user input by using Java Regex.
+This was implemented to simplify how we got parameters especially for the shortcut formats that we wanted to implement for EditCardCommand.
+
+* Minor enhancement: Re-implemented the Help Window to display the entire User Guide instead of just the link.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ncslzh&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ncslzh&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Test code]]
+** > 5000 LoC
+** *Note:* Although there is a huge difference in LOC shown on tP Dashboard, my team contributed very evenly to functional code.
+
+* *Other contributions:*
+** Project management:
+*** Setting up Github and Travis
+*** Setting up and maintaining the Milestone Tracker
+*** Maintaining most of the issues on issue tracker
+
+** *Enhancements to existing features:*
+*** Merged two general parsers into one big master parser https://github.com/AY1920S2-CS2103T-W17-1/main/pull/97[#97]
+*** Add validation checks for commands to prevent some commands from being used in certain modes  https://github.com/AY1920S2-CS2103T-W17-1/main/pull/145[#145]
+
+** *Documentation contributed:*
+*** Developer Guide:
+**** In-charge of document quality
+**** Reformatted the structure and layout for ease of readability and navigability (e.g. topic headings, section spacing, etc.)
+**** Wrote introduction
+**** Wrote the entire Appendix A-G
+
+
+*** Others:
+**** Updated AB3 naming found in any documents into FlashSpeed https://github.com/AY1920S2-CS2103T-W17-1/main/pull/159[#159]
+**** Removed unwanted documents https://github.com/AY1920S2-CS2103T-W17-1/main/pull/189[#189]
+**** Changed website header https://github.com/AY1920S2-CS2103T-W17-1/main/pull/190[#190]
+
+*** Review/mentoring contributions:
+**** PRs reviewed: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/75[#75] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/84[#84] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/295[#295]  https://github.com/AY1920S2-CS2103T-W17-1/main/pull/348[#348]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=renameAndPlay]
+
+<<<
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=introduction]
+
+---
+
+include::../DeveloperGuide.adoc[tag=design-logic]
+
+---
+
+include::../DeveloperGuide.adoc[tag=create-deck-consideration]
+
+---
+
+include::../DeveloperGuide.adoc[tag=design-consideration-play]
+
+---
+
+include::../DeveloperGuide.adoc[tag=appendixC]
+
+{more at Appendix C in DG}
+
+---
+
+include::../DeveloperGuide.adoc[tag=appendixE]
+
+{Appendix naming is not correct here, more at Appendix E in DG}
+
+---
+
+include::../DeveloperGuide.adoc[tag=appendixG]
+
+{more at Appendix G in DG}
+

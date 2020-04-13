@@ -1,0 +1,95 @@
+= Amirul Ardy - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FlashSpeed
+
+== Overview
+
+FlashSpeed is a text-based flashcard application which enables users to store virtual flashcards, categorize them within
+decks, and launch review sessions of cards within those decks. It is designed for university students who are learning a
+foreign language or reading a language module.
+
+It was developed as a team project for the CS2103T Software Engineering module in the National University of Singapore
+(NUS). FlashSpeed was built on top of the AddressBook-Level3 project created by the https://se-education.org[SE-EDU initiative].
+FlashSpeed is written in Java and has a GUI created using JavaFX. Users interact with FlashSpeed mainly using textual commands.
+
+== Summary of contributions
+
+My roles in this project include being the technical leader and in-charge of the User Guide.
+As technical leader my responsibilities include ensuring the establishment of the week's tasks, adherence to the proper development workflow, and quality checks on pull requests.
+
+* *Major enhancement*: Added the *ability to edit cards and edit using shortened commands.*
+** What it does: Allows the user to perform the editing of card values using any one of three different command formats, where two of the formats are shortened forms (i.e. edit INDEX FRONT:BACK, edit INDEX :BACK, edit INDEX FRONT:).
+** Justification: This feature improves the product significantly because a user will be able to perform the editing of only the values they want to change, rather than having to retype the same value. This provides convenience and overall efficiency to the user. This functionality had the possibility to require a change in the entire logical chain but I decided that a reuse of existing functionality (e.g. add, delete, etc. to perform a Card replacement) would both reduce the possibility of logical bugs and code rewrite.
+** Highlights: This is the only command in the application which can take in multiple formats. The implementation of this feature required design considerations across the entire model of the application (e.g. overwrite values in the Card or do a full replacement with a new Card, where should the new Card interface with the Deck to retrieve the unchanged values if any, etc.) The edit functionality fulfilled its extended goals while being able to be treated as another standard command by the user and other developers.
+
+* *Minor enhancement*: Added the implementations for the functional units of the application, i.e. Cards, Decks, and its UniqueCardLists.
+** Highlights: These are the abstractions of data which makes FlashSpeed a flashcard application. They are built in such a way that developers of the higher level logic and model management can treat them as total black boxes. These are also the items which users will be interacting with mostly.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=amrl&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=amrl&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Test code]]
+** > 1.2k LoC
+** > 40 Pull Requests: https://github.com/AY1920S2-CS2103T-W17-1/main/pulls?q=author%3Aamrl[PRs]
+
+* *Documentation contributed*:
+** User Guide:
+*** In-charge of document
+*** Wrote or edited all sections either fully or partially
+*** Reformatted the structure and layout for ease of readability and navigability (e.g. topic headings, section spacing, etc.)
+*** Maintenance of document to be up-to-date with current application version
+*** Added all tips and notes, command summary table, etc.
+
+** Developer Guide:
+*** Wrote the `Design: Architecture` section and `Implementation: Editing a Card` section in the Developer Guide
+*** UML diagrams:
+https://github.com/AY1920S2-CS2103T-W17-1/main/blob/master/docs/images/ArchitectureDiagram.png[Architecture],
+https://github.com/AY1920S2-CS2103T-W17-1/main/blob/master/docs/images/LogicClassDiagram.png[Logic Class],
+https://github.com/AY1920S2-CS2103T-W17-1/main/blob/master/docs/images/ArchitectureSequenceDiagram.png[Architecture Sequence],
+https://github.com/AY1920S2-CS2103T-W17-1/main/blob/master/docs/images/DeleteSequenceDiagram.png[Remove Sequence],
+https://github.com/AY1920S2-CS2103T-W17-1/main/blob/master/docs/images/EditCardActivityDiagram.png[Edit Card Activity],
+https://github.com/AY1920S2-CS2103T-W17-1/main/blob/master/docs/images/EditSequenceDiagram.png[Edit Sequence]
+
+** Others:
+*** Wrote the content in the README and site home page which includes our product description, marketing blurb, and target users
+
+* *Other contributions*:
+
+** Project management:
+*** Managed all releases `v1.1` - `v1.4` (6 releases) on GitHub
+** Enhancements to existing features:
+*** Added functionality and methods in ModelManager which uses our Cards and Decks as functional units
+** Review/mentoring contributions:
+*** PRs reviewed: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/81[#81] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/84[#84] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/95[#95] etc.
+*** Bug fixes in team members' sections: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/116[#116] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/129[#129] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/131[#131] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/139[#139] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/222[#222] etc.
+** Changes:
+*** Morphed product site to be in line with our FlashSpeed product and branding
+*** Morphed codebase to remove and replace all AddressBook-Level3 references to become FlashSpeed
+** Tools:
+*** Set-up of Netlify
+*** Set-up and maintenance of GitHub issue tracker
+*** Maintenance of Travis according to project workflow
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=intro]
+---
+include::../UserGuide.adoc[tag=library-view]
+---
+include::../UserGuide.adoc[tag=select-deck]
+---
+include::../UserGuide.adoc[tag=command-table]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=design-arch]
+---
+include::../DeveloperGuide.adoc[tag=editcard]

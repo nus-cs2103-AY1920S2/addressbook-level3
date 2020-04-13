@@ -1,6 +1,7 @@
-= AddressBook Level 3 - User Guide
+= FlashSpeed - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -12,166 +13,610 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `FlashSpeed Foundation`      Since: `Feb 2020`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language. University students often have hectic schedules. With this in mind, FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly. With a single command, you can start a quick study session on FlashSpeed whenever!
 
+Keeping, flipping, and tracking physical flashcards can be a pain. FlashSpeed enhances the studying process by having virtual flashcards and a smarter review system. Users will be tested more frequently on flashcards that they had trouble memorizing previously. By using FlashSpeed, you will learn faster and remember for longer!
+
+This guide will walk you through the many exciting features of FlashSpeed as well as give step-by-step instructions on how to use them. Helpful tips and notes are also provided! +
+
+We hope you enjoy using our app. Happy FlashSpeeding!
+
+== Language Support
+
+FlashSpeed can support almost every popular language and their associated script. You can even use emojis in your cards! 😍 +
+
+You can use FlashSpeed to study: +
+
+- Japanese
+- Korean
+- French
+- Spanish
+- German
+- Hindi
+- Russian
+- ...and many more!
+
+[NOTE]
+The display of the characters may be limited to your own operating systems's language support. Please refer to
+your operating system's manual or user guide to find out the languages and scripts supported.
+
+[NOTE]
+Technical info: FlashSpeed, which is built with Java, supports the Unicode standard with UTF-16 character encoding for
+textual representation.
+
+// end::intro[]
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+Getting FlashSpeed up and running is fast and easy. Follow these simple steps to get started!
+
+.  Ensure you have Java `11` installed in your computer.
+.  Download the latest `flashspeed.jar` file link:https://github.com/AY1920S2-CS2103T-W17-1/main/releases[here]. This is the entire FlashSpeed app in one convenient package.
+.  Copy `flashspeed.jar` to a folder of your choice. This will be FlashSpeed's home folder. All files created by FlashSpeed will be automatically stored here.
+.  Double-click `flashspeed.jar` to start it. FlashSpeed will appear in a few seconds.
+.  Type a command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the Help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`create`**`Japanese 1` : creates a deck named `Japanese 1` in the library
+* **`remove`**`3` : removes the 3rd deck shown in the decks list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for details of each command or <<Command Summary>> for a condensed view of all commands.
 
 [[Features]]
 == Features
 
 ====
-*Command Format*
+*Command Format and Input*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `<>` are the command parameters to be supplied by you, +
+e.g. for the command format of `create <deck>`, `<deck>` is a parameter of your choice, such as `create Japanese 1`.
+* All *parameters* will have any leading and trailing whitespace removed before being processed, +
+e.g. `<deck>` is equal to `&#32;<deck>&#32;`.
 ====
 
-=== Viewing help : `help`
+//tag::views[]
+====
+*Different Views*
+
+A view is simply the state or mode of FlashSpeed you are in now.
+You will be able to identify the view you are in from what you are currently seeing in FlashSpeed.
+
+[NOTE]
+Some commands only work in certain views. Don't worry, this guide will tell you all you need to know!
+
+FlashSpeed can be in one of 3 different views, namely:
+
+* *Library view:* when no deck is selected and no cards are shown
+
+.In Library view. No deck is selected.
+image::library.png[]
+
+{empty} +
+
+* *Deck view:* when a deck is selected and its cards are shown
+
+.In Deck view. A deck has been selected.
+image::Ui.png[]
+
+{empty} +
+
+* *Play view:* when in a study session of a deck
+
+.In Play view. A deck is being studied.
+image::Ui2.png[]
+
+====
+
+//end::views[]
+
+{empty} +
+
+=== General
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+You can view this user guide in a new popup window by
+typing `help` in the input box and pressing kbd:[Enter]. +
 
 [TIP]
-A person can have any number of tags (including 0)
+You can close the help window either by clicking on the close button
+or pressing kbd:[Alt]+kbd:[F4] while the help window is in focus.
 
-Examples:
+{empty} +
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+==== Exiting the program : `exit`
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
 Format: `exit`
 
-=== Saving the data
+You can exit FlashSpeed by typing `exit` in the input box
+and pressing kbd:[Enter]. Bye! +
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+{empty} +
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Resetting the library : `reset`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Format: `reset`
 
+If you want to delete everything in the library to start fresh, you can choose to reset the library.
+Simply type `reset` in the input box and press kbd:[Enter]. +
+
+[NOTE]
+You cannot reset the library while in Play view.
+
+.After resetting. A new start!
+image::reset.png[]
+
+{empty} +
+
+// tag::library-view[]
+=== Library view
+
+****
+[NOTE]
+**Even though the commands in this section are mainly library based, you can use them in both the Library view and Deck view!**
+
+.No deck selected. You're now in Library view.
+image::library.png[]
+****
+
+// end::library-view[]
+
+{empty} +
+
+// tag::createdeck[]
+
+==== Creating a deck : `create`
+
+Format: `create <deck>`
+****
+* *Formal definition*: Creates a deck with the deck name specified by the user. The deck name cannot be empty.
+****
+
+After downloading and setting up FlashSpeed, you're all set to go!
+But before anything else, you will have to first *create a deck*.
+The process of creating a deck in FlashSpeed is easy.
+
+Let's say you want to create a deck to revise some Japanese verbs
+to prepare for your upcoming test.
+To do so:
+
+. Firstly, type `create` followed by the deck name into the input box.
+
+* e.g. `create Japanese Verbs`
++
+.Typing the command to create the Japanese Verbs deck.
+image::create1.png[]
+. Press kbd:[Enter].
+. Voila!
++
+.After creating the Japanese Verbs deck.
+image::create2.png[]
+
+{empty} +
+// end::createdeck[]
+
+// tag::select-deck[]
+
+[[selectDeck]]
+==== Selecting a deck : `select`
+
+Format: `select <index>`
+****
+* *Formal definition*:
+Selects and shows all cards in the deck at the specified `index`.
+The `index` refers to the index number shown in the displayed decks list. The `index` *must be a positive integer* 1, 2, 3, ...
+****
+
+If you want to view the cards in a particular deck, you can use `select` followed by the deck's index number.
+The index number is the number to the left of its name.
+After selecting a deck, FlashSpeed will enter the Deck view and
+show all the cards in that deck. +
+
+In the Deck view, you can use any of the Deck mode commands listed in <<deckViewAnchor, 3.3. Deck view>>.
+
+Example:
+
+* `select 1` +
+Selects and shows all cards in the 1st deck.
+
+.Selecting a deck and showing its cards.
+image::Ui.png[]
+
+// end::select-deck[]
+{empty} +
+
+==== Removing a deck : `remove`
+
+Format: `remove <index>`
+****
+* *Formal definition*: Removes the deck in the library at the specified `index`.
+The `index` refers to the index number shown in the displayed decks list.
+The `index` *must be a positive integer* 1, 2, 3, ...
+****
+
+Similarly, you can remove a deck in the library using `remove` followed by the index number of that deck. Bye bye, deck!
+
+Examples:
+
+* `remove 2` +
+Removes the 2nd deck from the library.
+
+.After removing the Japanese Verbs deck. It's gone.
+image::remove.png[]
+
+{empty} +
+
+// tag::renameAndPlay[]
+==== Renaming a deck : `rename`
+
+Format: `rename <index> <deck>`
+****
+* *Formal definition*: Renames the deck in the library at the specified `index`. The `index` refers to the index number shown in the displayed decks list. The `index` *must be a positive integer* 1, 2, 3, ...
+****
+
+You can rename a deck in the library using `rename` followed by the index number of the deck and the new name of the deck. +
+
+[NOTE]
+The deck name cannot by empty.
+
+Examples:
+
+* `rename 2 Japanese Verbs` +
+Renames the 2nd deck in the library to "Japanese Verbs".
+
+.After renaming a deck from "Korean" to "Japanese Verbs". Wow, what a change.
+image::rename.png[]
+
+{empty} +
+
+[[playDeck]]
+==== Playing a deck : `play`
+
+Format: `play <index>`
+****
+* *Formal definition*: Starts a study session with the deck in the library at the specified `index`. The `index` refers to the index number shown in the displayed decks list. The `index` *must be a positive integer* 1, 2, 3, ...
+****
+
+Alright, this is what you've been waiting for! In order to start a study session with a certain deck,
+type `play` followed by the deck's index number and press kbd:[Enter]. Good luck on your learning journey.
+FYI: we "play" a deck because learning is fun! +
+
+Example:
+
+* `play 1` +
+Starts a study session with the 1st deck in the library.
+
+.Studying/Playing the Japanese deck.
+image::Ui2.png[]
+
+// end::renameAndPlay[]
+
+{empty} +
+
+[[deckViewAnchor]]
+=== Deck view
+
+****
+[NOTE]
+**Important: All commands in this section can only be used in Deck view.**
+**To enter Deck view, you must <<selectDeck, select a deck>>.**
+
+.After selecting a deck. You're now in Deck view.
+image::Ui.png[]
+****
+
+{empty} +
+
+// tag::addcard[]
+
+[#_adding_a_card_add]
+==== Adding a card : `add`
+
+Format: `add <front>:<back>`
+****
+* *Formal definition*: Creates a card and adds it to a deck,
+with the `front` and `back` values of the card specified by the user.
+Both the `front` and `back` values cannot be empty.
+****
+****
+* *One and only one* colon (":") can be used in this command.
+Since a colon is used as the separator, there should not be any colons in the `front` or `back` values.
+****
+
+Alright, after creating a new deck and giving it a great name, what's next?
+*Adding cards* into the deck, of course!
+
+Once again, the process is easy:
+
+. Select the deck to which you want to add cards, with the `select` command.
++
+e.g. `select 1`
+
+. Inside the input box, type:
+* `add`, followed by
+*  the word/sentence that you want as the `front` of the card, then
+*  a colon ":" right after, and finally
+*  the word/sentence that you want as the `back` of the card.
++
+e.g. `add ありがとう:thanks`
+
+. Press kbd:[Enter].
+. Voila!
++
+.Adding a new card into the Japanese deck.
+image::add.png[]
+
+{empty} +
+
+// end::addcard[]
+
+==== Editing a card : `edit`
+
+Format 1: `edit <index> <front>:<back>` +
+Format 2: `edit <index> :<back>` +
+Format 3: `edit <index> <front>:`
+****
+* *Formal definition*: Edits the card in the current deck at the specified `index`. The `index` refers to the index number shown in the displayed cards list. The `index` *must be a positive integer* 1, 2, 3, ...
+* Existing values will be updated to the given values.
+* Empty values for the `front` or `back` will leave the original `front` or `back` intact.
+****
+****
+* *One and only one* colon (":") can be used in this command.
+Since a colon is used as the separator, there should not be any colons in the `front` or `back` values.
+****
+
+You can edit the front and/or back values of any card in the current deck.
+The way to do so is similar to the <<_adding_a_card_add, `add`>> command as shown before. +
+
+Type `edit`, followed by the index number of the card to be edited, then the new `front` value, then a colon (":"), and finally the new `back` value. +
+
+[TIP]
+You don't have to supply both the `front` and `back` values of a card if you only want to change one of them,
+i.e. if you only wish to change the `back` of a card, `front` can be left blank, and vice versa.
+
+Examples:
+
+* `edit 2 ありがとう:thanks` +
+Edits the front and back values of the 2nd card in the deck to be `ありがとう` and `thanks` respectively.
+* `edit 2 :thanks` +
+Edits the back value of the 2nd card in the deck to be `thanks`.
+* `edit 2 ありがとう:` +
+Edits the front value of the 2nd card in the deck to be `ありがとう`.
+
+.Editing the 2nd card's back value from "thank you" to "thanks".
+image::edit.png[]
+
+{empty} +
+
+==== Deleting a card : `delete`
+
+Format: `delete <index>`
+****
+* *Formal definition*: Deletes the card in the current deck at the specified `index`. The `index` refers to the index number shown in the displayed cards list. The `index` *must be a positive integer* 1, 2, 3, ...
+****
+
+You can delete a card from the selected deck by using `delete` followed by the index number of that card. +
+
+Examples:
+
+* `delete 3` +
+Deletes the 3rd card in the current deck.
+
+.After deleting the 3rd card in the current deck. It's not there anymore.
+image::delete.png[]
+
+{empty} +
+
+==== Returning to the library : `return`
+
+Format: `return`
+
+Once you're done viewing or modifying the selected deck,
+you can return to the Library view with `return`, i.e. no deck will be selected. +
+
+.Returned to the Library view. No deck selected!
+image::library.png[]
+
+{empty} +
+
+
+=== Play view
+
+Format: `play <index>`
+
+****
+[NOTE]
+**Important: All commands in this section can only be used in Play view.**
+**To enter Play view, you must <<playDeck,play a deck>>.**
+
+// tag::play-view-language[]
+
+This is what you will see when you test yourself.
+Strengthen your memory by frequently reviewing your cards!
+When playing a deck, each card will initially only show its front face to allow you to recall its associated back face.
+
+// end::play-view-language[]
+
+.Playing the Japanese deck. がんばってください。 Ganbatte kudasai!
+image::Ui2.png[]
+****
+
+{empty} +
+
+// tag::flip-language[]
+==== Flipping a card : `flip`
+
+Format: `flip`
+
+Are you ready to reveal the back face of the card?
+Let's flip it to check if your memory is spot on.
+To flip a card, simply type `flip` into the input box and press kbd:[Enter]. +
+
+// end::flip-language[]
+.Flipping to reveal the back face of the card. Did you get it right?
+image::flip.png[]
+
+{empty} +
+
+// tag::answer-language[]
+==== Answering : `yes`/`no`
+
+Format: `yes` or `no`
+
+Were you able to recall the correct back value? +
+If you could, type `yes` into the input box and press kbd:[Enter]. Congratulations! +
+If you could not or your guess was incorrect, type `no` into the input box and press kbd:[Enter]. Don't give up! +
+
+// end::answer-language[]
+[NOTE]
+You can only answer after flipping the card.
+
+[NOTE]
+If you answered `no` for a card, you will have an opportunity to see it again later in the same session.
+FlashSpeed optimizes for cards you find difficult.
+
+.The next card (if any) will be immediately shown after answering.
+image::yes.png[]
+
+{empty} +
+
+// tag::stop-language[]
+==== Stopping a session: `stop`
+
+Format: `stop`
+
+A play session will end automatically when there are no more cards to review.
+However, you can also stop an ongoing session immediately by typing `stop` into the input box and pressing kbd:[Enter].
+But of course, try your best and don't use this too often!
+
+// end::stop-language[]
+[NOTE]
+The session statistics will be shown either after completing a session or after manually stopping.
+
+[TIP]
+You can close the statistics window either by clicking on the close button
+or pressing kbd:[Alt]+kbd:[F4] while the statistics window is in focus.
+
+.Statistics shown after manually stopping the session. You will also see it if you complete a session.
+image::stop.png[]
+
+{empty} +
+
+=== Save data
+
+All data in FlashSpeed (e.g. decks, cards) is saved automatically. It is all neatly placed in the folder you put FlashSpeed in. +
+You don't have to worry about saving your precious flashcards manually!
+
+//tag::faq[]
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: Does this application require an Internet connection? +
+*A*: No, FlashSpeed does not require an Internet connection to use.
 
+*Q*: What is the maximum length of text I can enter into a flashcard? +
+*A*: The flashcard method of studying benefits from succinct and concise flashcards.
+Even though FlashSpeed does not limit the maximum length of text that can be entered and stored,
+it will only show the text up to the size of the available display space.
+Therefore, we recommend keeping any text *under 60 characters*.
+
+*Q*: How do I save my data? +
+*A*: FlashSpeed automatically saves your data whenever you make a change. There is no need to save manually.
+
+*Q*: Will my data be sent anywhere else or shared with third parties? +
+*A*: Your data is stored locally on your own computer.
+FlashSpeed does not use any Internet connection so no data can be sent to any online servers.
+
+*Q*: How do I transfer my data to another computer? +
+*A*: Simply copy the `data` folder in FlashSpeed's home folder over to the home folder in the other computer.
+
+*Q*: How do I update FlashSpeed to the latest version when there is an update? +
+*A*: You can check for any updates to FlashSpeed link:https://github.com/AY1920S2-CS2103T-W17-1/main/releases[here].
+You can then follow the same instructions as found in <<Quick Start>>.
+
+*Q*: I am not able to run this application. What can I do? +
+*A*: Refer to <<Quick Start>> for the installation guide. Ensure that your computer has Java 11 installed. FlashSpeed may not be able to run on other versions of Java.
+Alternatively, you can contact us https://ay1920s2-cs2103t-w17-1.github.io/main/ContactUs.html[here] for any further help.
+
+//end::faq[]
+
+[[commandSummary]]
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
+* *Help* : `help` +
+* *Exit* : `exit` +
+* *Reset* : `reset`
+
+* *Select* : `select <index>` +
+e.g. `select 2`
+* *Create* : `create <deck>` +
+e.g. `create Japanese 1`
+* *Remove* : `remove <index>` +
+e.g. `remove 2`
+* *Rename* : `rename <index> <deck>` +
+e.g. `rename 2 Japanese Verbs`
+* *Play* : `play <index>` +
+e.g. `play 2`
+
+* *Add* `add <front>:<back>` +
+e.g. `add ありがとう:thanks`
+* *Edit* : `edit <index> <front>:<back>` or `edit <index> :<back>` or `edit <index> <front>:` +
+e.g. `edit 1 ありがとう:thanks` or `edit 1 :thanks` or `edit 1 ありがとう:`
+* *Delete* : `delete <index>` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Return* : `return`
+
+* *Flip* : `flip`
+* *Yes* : `yes`
+* *No* : `no`
+* *Stop* : `stop`
+
+// tag::command-table[]
+[width="60%",cols="30%,10%,10%,10%",options="header",]
+|=======================================================================
+|       3+|View
+|Command  |Library |Deck |Play
+|`help`   |√      |√    |√
+
+|`exit`   |√       |√    |√
+
+|`reset`  |√       |√    |
+
+|`select` |√       |√    |
+
+|`create` |√       |√    |
+
+|`remove` |√       |√    |
+
+|`rename` |√       |√    |
+
+|`play`   |√       |√    |
+
+|`add`    |        |√    |
+
+|`edit`   |        |√    |
+
+|`delete` |        |√    |
+
+|`return` |        |√    |
+
+|`flip`   |        |     |√
+
+|`yes`    |        |     |√
+
+|`no`     |        |     |√
+
+|`stop`   |        |     |√
+
+|=======================================================================
+
+// end::command-table[]

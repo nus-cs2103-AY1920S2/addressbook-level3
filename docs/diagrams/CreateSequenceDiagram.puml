@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager  " as LogicManager LOGIC_COLOR
+participant ":MasterParser  " as MasterParser LOGIC_COLOR
+participant ":CreateDeckCommandParser    " as CreateDeckCommandParser LOGIC_COLOR
+participant "r:CreateDeckCommand   " as CreateDeckCommand LOGIC_COLOR
+participant ":CommandResult    " as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Library " as Library MODEL_COLOR
+end box
+
+[-> LogicManager : execute("create Japanese")
+activate LogicManager
+
+LogicManager -> MasterParser : parseCommand("create Japanese")
+activate MasterParser
+
+create CreateDeckCommandParser
+MasterParser -> CreateDeckCommandParser
+activate CreateDeckCommandParser
+
+CreateDeckCommandParser --> MasterParser
+deactivate CreateDeckCommandParser
+
+MasterParser -> CreateDeckCommandParser : parse("Japanese")
+activate CreateDeckCommandParser
+
+create CreateDeckCommand
+CreateDeckCommandParser -> CreateDeckCommand
+activate CreateDeckCommand
+
+CreateDeckCommand --> CreateDeckCommandParser : r
+deactivate CreateDeckCommand
+
+CreateDeckCommandParser --> MasterParser : r
+deactivate CreateDeckCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CreateDeckCommandParser -[hidden]-> MasterParser
+destroy CreateDeckCommandParser
+
+MasterParser --> LogicManager : r
+deactivate MasterParser
+
+LogicManager -> CreateDeckCommand : execute()
+activate CreateDeckCommand
+
+CreateDeckCommand -> Model : createDeck("Japanese")
+activate Model
+
+Model -> Library : createDeck("Japanese")
+activate Library
+
+Library -> Model
+deactivate Library
+
+Model --> CreateDeckCommand
+deactivate Model
+
+create CommandResult
+CreateDeckCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CreateDeckCommand
+deactivate CommandResult
+
+CreateDeckCommand --> LogicManager : result
+deactivate CreateDeckCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
