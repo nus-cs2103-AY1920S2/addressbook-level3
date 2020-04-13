@@ -18,11 +18,10 @@ end box
 
 User -> MainApp: Opens Coupon Stash
 activate MainApp
-
-activate ModelManager
 create ModelManager
 
 MainApp -> ModelManager: ModelManager()
+activate ModelManager
 
 create CouponStash
 ModelManager -> CouponStash: CouponStash(couponStash)
