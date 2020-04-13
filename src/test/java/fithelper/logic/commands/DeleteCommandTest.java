@@ -29,7 +29,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(getTypicalFitHelper(), new UserProfile(), new WeightRecords());
 
     @Test
-    public void execute_validIndex_unfilteredFoodList_success() {
+    public void execute_validIndexUnfilteredFoodList_success() {
         Entry foodEntryToDelete = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(new Type("food"), INDEX_FIRST_ENTRY);
 
