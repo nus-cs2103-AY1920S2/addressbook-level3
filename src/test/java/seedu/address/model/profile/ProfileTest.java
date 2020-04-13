@@ -3,6 +3,7 @@ package seedu.address.model.profile;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FOCUS_AREA_AMY;
@@ -32,6 +33,7 @@ import seedu.address.model.profile.course.module.Prereqs;
 import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
 import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
+import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author joycelynteo
 
@@ -75,7 +77,11 @@ public class ProfileTest {
         Module moduleAmy = new Module(moduleCodeAmy, new Title(""), new Prereqs(""),
                 new Preclusions(""), new ModularCredits("4"), new Description(""),
                 new SemesterData(new ArrayList<>()), new PrereqTreeNode());
-        amy.addModule(2, moduleAmy);
+        try {
+            amy.addModule(2, moduleAmy);
+        } catch (MaxModsException e) {
+            fail();
+        }
 
         // has module -> return true
         assertTrue(amy.hasModule(moduleCodeAmy));

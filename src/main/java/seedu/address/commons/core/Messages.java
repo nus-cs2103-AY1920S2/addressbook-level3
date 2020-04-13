@@ -16,6 +16,7 @@ public class Messages {
     public static final String MESSAGE_EMPTY_PROFILE_LIST = "Error: No profile has been created.";
     public static final String MESSAGE_EMPTY_MODULE_DATA = "No module data has been added to any semesters.";
 
+    public static final String MESSAGE_MAX_MODS = "Error: You cannot add more than 10 modules in one semester";
     public static final String MESSAGE_MISSING_COURSE = "Error: Please input a course name";
     public static final String MESSAGE_MISSING_COURSE_FOCUS_AREA = "Error: Please input a focus area";
     public static final String MESSAGE_MISSING_MODULE = "Error: Please input a module code";

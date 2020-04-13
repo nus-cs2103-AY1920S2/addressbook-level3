@@ -60,6 +60,7 @@ import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Personal;
+import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author wanxuanong
 
@@ -385,9 +386,14 @@ public class DeleteCommandTest {
             Profile profile = new Profile(new Name("JOHN"), new CourseName(
                     AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
                     new FocusArea(AcceptedFocusArea.COMPUTER_SECURITY.getName()));
-            profile.addModule(1, moduleA);
-            profile.addModule(1, moduleCs);
-            profile.addModule(1, moduleIs);
+
+            try {
+                profile.addModule(1, moduleA);
+                profile.addModule(1, moduleCs);
+                profile.addModule(1, moduleIs);
+            } catch (MaxModsException e) {
+                fail();
+            }
 
             Personal personalA = new Personal();
             moduleA.setPersonal(personalA);
@@ -398,7 +404,6 @@ public class DeleteCommandTest {
             Personal personalIs = new Personal();
             moduleIs.setPersonal(personalIs);
             personalIs.setGrade(gradeIs);
-
             profileList.add(profile);
             this.profileList = profileList;
             filteredProfiles = new FilteredList<>(this.profileList);

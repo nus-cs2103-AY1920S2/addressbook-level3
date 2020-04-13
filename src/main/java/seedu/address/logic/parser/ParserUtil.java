@@ -39,7 +39,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_SEMESTER = "Please enter the year in the form Y.S, where Y is the year "
-            + "(positive integer less than 10) and S is the semester (1 or 2).";
+            + "(1 to 8) and S is the semester (1 or 2).";
 
 
     /**

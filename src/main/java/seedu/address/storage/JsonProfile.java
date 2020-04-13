@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.commons.core.Messages.MESSAGE_MAX_MODS;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +26,7 @@ import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
 import seedu.address.model.profile.course.module.personal.Personal;
 import seedu.address.model.profile.course.module.personal.Status;
+import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author chanckben
 /**
@@ -103,7 +106,11 @@ class JsonProfile {
             int semester = Integer.parseInt(record.getSemester());
             for (JsonPersonalModule module : record.getModules()) {
                 Module mod = module.toModelType();
-                profile.addModule(semester, mod);
+                try {
+                    profile.addModule(semester, mod);
+                } catch (MaxModsException e) {
+                    throw new IllegalValueException(MESSAGE_MAX_MODS);
+                }
             }
         }
 

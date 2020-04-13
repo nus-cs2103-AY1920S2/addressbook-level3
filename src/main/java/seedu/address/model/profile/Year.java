@@ -8,9 +8,9 @@ package seedu.address.model.profile;
 public class Year {
 
     public static final String MESSAGE_CONSTRAINTS = "Please enter the year in the form Y.S, where Y is the year "
-            + "(positive integer less than 10) and S is the semester (1 or 2).";
+            + "(1 to 8) and S is the semester (1 or 2).";
 
-    public static final String VALIDATION_REGEXES = "[1-9][.][1-2]";
+    public static final String VALIDATION_REGEXES = "[1-8][.][1-2]";
 
     public final String year;
     public final int semester;
