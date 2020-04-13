@@ -3,16 +3,16 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Naggy Joel
+=== PROJECT: Naggy Joel
 
 ---
 
-== Overview
+=== Overview
 
 *Naggy Joel* is a desktop social life manager application for University students to manage their social life and studies. The user interacts with it using a Command Line Interface (CLI), and it has a GUI created with JavaFX. It is written in Java, and has about 15k Loc. *Naggy Joel* allows users to keep track of contacts, restaurants, school deadlines, and events - 4 different but closely related aspects of a University student's life. It aims to help the user live life to the fullest!
 
-== Summary of contributions
-=== Major Enhancements
+=== Summary of contributions
+==== Major Enhancements
 * *Added the feature to allow users to `add/edit/delete` restaurants*
 ** What it does: Allows the user to `add/edit/delete` a restaurant with the specified name, location, visited status, type of cuisine, price point, and operating hours
 ** Justification: This set of features improves the application significantly, because other then keeping contacts, students might want to take note of goods restaurants that they visited, restaurants that they wish to try but did not yet have the opportunity to try, and most importantly, restaurants that open at odd hours (when they need food studying late) and these features allow the student to do that
@@ -27,7 +27,7 @@
 ** Highlights 2: The implementation was also challenging as it required a manual inspection and changing of the 20 commands that changes the state of the model (for example, adding an item into an ArrayList had to be done by first creating a new ArrayList and copying all existing items instead of simply adding the new item into the ArrayList, etc)
 ** Highlights 3: This enhancement also had to consider what was shown on the GUI, on top of reversing the database, as an indication/confirmation to the user that the command was indeed undone/redone
 
-=== Minor Enhancements
+==== Minor Enhancements
 * *Edited the `edit/addnote/editnote/deletenote` command for AddressBook*
 ** What it does: Shows the details of the contact edited upon successful command execution
 ** Justification: The list of contact shows only the name, tags, and phone number; showing the user the details of these contacts when the user edits the user provides visual confirmation of the successful execution of the commands
@@ -38,9 +38,9 @@
 ** Justification: `clear` as intuitively understood should be to clear the entire application and not just one portion (AddressBook) of the application
 ** Highlights: As the only command that does more than modifies more than 1 area of the model (clears AddressBook, RestaurantBook, SchoolworkTracker, EventTracker), it had to be implemented properly to trigger only 1 state change, and not 4 for `undo/redo` to work properly
 
-=== Code Contributed: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=hhjoel[Code]]
+Code Contributed: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=hhjoel[Code]]
 
-=== Other Contributions
+==== Other Contributions
 * Enhancements to existing features
 ** Wrote additional tests for existing features to increase coverage (PR https://github.com/AY1920S2-CS2103-W14-3/main/pull/192[PR #192])
 ** Re-organised layout of the `help` command to group similar commands (PR https://github.com/AY1920S2-CS2103-W14-3/main/pull/77[#77], https://github.com/AY1920S2-CS2103-W14-3/main/pull/181[#181])
@@ -54,8 +54,7 @@
 * Community
 ** Contributed to forum discussions (Example: https://github.com/nus-cs2103-AY1920S2/forum/issues/116[#116])
 ** Reported bugs and suggestions for other teams in the class (Repository https://github.com/hhjoel/ped/issues[PED])
-** Reviewed and merged PRs by team members
-** Helped team members debug gave suggestions on features enhancement
+** Reviewed, merged PRs, helped team debug & gave suggestions on features enhancement
 
 == Contributions to the User Guide
 
