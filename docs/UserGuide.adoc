@@ -457,6 +457,11 @@ A pop up window will display all entries from the chosen date.
 
 Format for showing entries of a particular date: `calendar sh/DATE`
 
+==== Set calendar referenced date: `calendar d/DATE`
+Sets the referenced date of the current calendar page.
+
+Format for showing entries of a particular date: `calendar d/DATE`
+
 Examples:
 
 * `calendar d/2020-04-15`

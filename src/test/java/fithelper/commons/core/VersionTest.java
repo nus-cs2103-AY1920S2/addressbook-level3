@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 public class VersionTest {
 
     @Test
-    public void versionParsingacceptableVersionStringparsedVersionCorrectly() {
+    public void versionParsing_acceptableVersionString_parsedVersionCorrectly() {
         verifyVersionParsedCorrectly("V0.0.0ea", 0, 0, 0, true);
         verifyVersionParsedCorrectly("V3.10.2", 3, 10, 2, false);
         verifyVersionParsedCorrectly("V100.100.100ea", 100, 100, 100, true);
     }
 
     @Test
-    public void versionParsingwrongVersionStringthrowIllegalArgumentException() {
+    public void versionParsing_wrongVersionString_throwIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> Version.fromString("This is not a version string"));
     }
 
     @Test
-    public void versionConstructorcorrectParametervalueAsExpected() {
+    public void versionConstructor_correctParameter_valueAsExpected() {
         Version version = new Version(19, 10, 20, true);
 
         assertEquals(19, version.getMajor());
