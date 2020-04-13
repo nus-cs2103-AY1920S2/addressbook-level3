@@ -748,7 +748,7 @@ Examples:
 
 * `delete-role r/999`
 
-// tag::v2.0[]
+// end::v2.0[]
 
 == Frequently Asked Questions (FAQ)
 
@@ -759,6 +759,7 @@ contains the data of your previous *CodeCampX* folder.
 *Q: Where do I find the latest release of the application?* +
 *A*: You can find all releases link:https://github.com/AY1920S2-CS2103-W14-1/main/releases[here].
 
+// tag::commandsummary[]
 == Command Summary
 
 .Summary of command formats
@@ -818,7 +819,7 @@ contains the data of your previous *CodeCampX* folder.
 |*List Finance* | `list-finance` | `list-finance`
 |*Calculate Earnings* | `earnings` | `earnings`
 |*Calculate Expenses* | `expenses` | `expenses`
-
+// end::commandsummary[]
 |=======================================================================
 
 [appendix]
@@ -828,5 +829,3 @@ contains the data of your previous *CodeCampX* folder.
 *Graphical User Interface* allows the use of icons or other visual indicators to interact with electronic devices,
 rather than using only text via the command line.
 
-// tag::salesglossary[]
-// end::salesglossary[]

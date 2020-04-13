@@ -16,6 +16,7 @@ In the document below, the *four main features* refers to Student, Staff, Course
 == Summary of contributions
 
 * *Major enhancement*: added initial code base for the *four main features*
+** Pull requests https://github.com/AY1920S2-CS2103-W14-1/main/pull/46[#46]
 ** What it does: implemented the major functionality needed for each of the *four main features*.
 This includes the fields needed for each features such as ID and course fee amount, Add, Delete, Edit, Clear, Find, List.
 ** Justification: This feature improves the product significantly because the initial code base allows us to work on each of our
@@ -25,52 +26,51 @@ code base needed for future features to be built upon. This implementation is es
 because alternative design implementations need to be considered, and numerous commands are added to the application.
 
 * *Major enhancement*: added *the GUI alone* over *three* iterations
+** Pull requests https://github.com/AY1920S2-CS2103-W14-1/main/pull/45[#45](First iteration), https://github.com/AY1920S2-CS2103-W14-1/main/pull/73/commits[#73](Second iteration),
+https://github.com/AY1920S2-CS2103-W14-1/main/pull/117[#117](Third iteration)
 ** First iteration: added four different *tabs* to the GUI, displaying Student, Staff, Course and Finance
 ** Second iteration: updated the GUI to look like our initial mock-up. Changed color schemes and added Summary Panel
 ** Third iteration: revamped the GUI by improving the color schemes further. Added sub-panels in each tab.
-For example, the Student tab now has an additional selected Student panel, along with a panel showing the list of courses assigned to the student
-T
+For example, the Student tab now has an additional selected Student panel, along with a panel showing the list of courses assigned to the student.
+
 ** Justification: This feature improves the product significantly because a user can see clearly the effects of the changes made in the GUI
 This implementation is especially challenging, because of the amount of effort taken to plan how the GUI should look like,
 and ensuring that the GUI is suitable for every member of the team.
 ** Highlights: This enhancement also supports the clicking of the GUI. For example, the Student bar can be clicked to show the list of course assigned to the student. Every GUI interaction can be be replicated using a CLI command.
 
+* *Major enhancement*: added assigning commands (which forms the crux of designing our application) for the *four main features*
+** Pull requests https://github.com/AY1920S2-CS2103-W14-1/main/pull/81[#81], https://github.com/AY1920S2-CS2103-W14-1/main/pull/91[#91]
+** What it does: allows the assigning of students/teachers/assignments to courses
+This includes the GUI support mentioned in the previous section. For example, as students can be assigned to a course,
+each course will have a list of students. This must be supported by the GUI as well, where the course tab
+will display the list of students assigned to the selected course.
+** Justification: This feature improves the product significantly because assigning of the various items
+is the most important part of our application. This implementation is especially challenging, as the design implementation
+needs to be considered carefully due to the large amount of potential one-to-one relationships. After the discussion
+with the team about the code structure, I implemented the assigning commands.
+** Highlights: This enhancement is tedious, due to the potential of bugs appearing. The design
+implementation must be considered carefully. For example, when the user deletes an assignment, the assignment
+should be removed from every course that the assignment is assigned to. Also, the assignment
+must be removed from every student that is taking a course with this assignment. As can be seen,
+the user commands will cuase significant changes to the relationships among the *four main features*,
+which have to each to notified of the changes made. The GUI must also be updated
+automatically when the user performs the command, in every tabs.
 * *Minor enhancement*: added the support of a summary panel which displays the overall statistics of the coding camp
 * *Minor enhancement*: added a quick navigation command that allows the user to switch between different tabs quickly (Select command and CTRL+UP/DOWN shortcuts)
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
+* *Code contributed*: [https://github.com/ShengXue97/main[Functional code]]
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
-
-== Contributions to the User Guide
-
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+*** Managed releases `v1.1`, `v1.3` (2 releases) on GitHub
+** Documentation: Claim-Did around 90% of the User Guide.
+Pull requests https://github.com/AY1920S2-CS2103-W14-1/main/pull/59[#59], https://github.com/AY1920S2-CS2103-W14-1/main/pull/66[#66],
+https://github.com/AY1920S2-CS2103-W14-1/main/pull/117/commits/4e2cc99944858ae13a109980d659170907a57b09[#117],
+https://github.com/AY1920S2-CS2103-W14-1/main/pull/119[#119], https://github.com/AY1920S2-CS2103-W14-1/main/pull/221[#221]
+** Bug Fix/Bug Finding. Pull request https://github.com/AY1920S2-CS2103-W14-1/main/pull/117[#117], https://github.com/AY1920S2-CS2103-W14-1/main/pull/207[#207]
+List of commands tested by me(Checked that it actually saved, undo/redo works for these commands, and whether GUI auto-updates):
+all add, edit, delete, assign, unassign, find, list, switch, clear-all commands
 
 == Contributions to the Developer Guide
 
@@ -80,11 +80,14 @@ include::../UserGuide.adoc[tag=dataencryption]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+== Contributions to the User Guide
 
 
-== PROJECT: PowerPointLabs
+|===
+|_Given below are sections I contributed to the User Guide. *Claim: I did around 90% of the entire
+user guide. Due to the page limit, I will only show the command summary table.* They showcase my ability to write documentation targeting end-users._
+|===
 
----
+include::../UserGuide.adoc[tag=commandsummary]
 
-_{Optionally, you may include other projects in your portfolio.}_
+
