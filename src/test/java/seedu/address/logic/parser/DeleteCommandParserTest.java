@@ -1,18 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_GRADE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODCODE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.MODCODE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -20,6 +9,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -51,21 +41,30 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_allModuleFieldsPresent_success() {
-        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        List<ModuleCode> moduleCodes = new ArrayList<>();
+        ModuleCode moduleCodeA = new ModuleCode(VALID_MODCODE_AMY);
+        ModuleCode moduleCodeB = new ModuleCode(VALID_MODCODE_BOB);
+        moduleCodes.add(moduleCodeA);
+        moduleCodes.add(moduleCodeB);
         ArrayList<Deadline> tasks = new ArrayList<>();
-        tasks.add(new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY));
+        Deadline taskA = new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY);
+        tasks.add(taskA);
+        tasks.add(new Deadline(VALID_MODCODE_AMY, VALID_TASK_BOB));
         String grade = VALID_GRADE_AMY;
 
         // Only Module field present
-        assertParseSuccess(parser, MODCODE_DESC_AMY, new DeleteCommand(Collections.singletonList(moduleCode)));
+        assertParseSuccess(parser, MODCODE_DESC_AMY, new DeleteCommand(Collections.singletonList(moduleCodeA)));
 
-        // Module and Task field present
-        assertParseSuccess(parser, MODCODE_DESC_AMY + TASK_DESC_AMY,
-                new DeleteCommand(Collections.singletonList(moduleCode), tasks));
+        // Multiple Modules
+        assertParseSuccess(parser, MODCODE_DESC_AMY + MODCODE_DESC_BOB, new DeleteCommand(moduleCodes));
 
         // Module and Grade field present
         assertParseSuccess(parser, MODCODE_DESC_AMY + GRADE_DESC_AMY,
-                new DeleteCommand(Collections.singletonList(moduleCode), grade));
+                new DeleteCommand(Collections.singletonList(moduleCodeA), grade));
+
+        // Multiple tasks for one module
+        assertParseSuccess(parser, MODCODE_DESC_AMY + TASK_DESC_AMY + TASK_DESC_BOB,
+                new DeleteCommand(Collections.singletonList(moduleCodeA), tasks));
 
     }
 

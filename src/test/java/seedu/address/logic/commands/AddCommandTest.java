@@ -414,9 +414,11 @@ public class AddCommandTest {
             Module moduleIs = new Module(new ModuleCode("IS1103"), new Title(""), new Prereqs(""), new Preclusions(""),
                     new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
                     new PrereqTreeNode());
+
             Deadline deadline = new Deadline("CS1101S", "homework", LocalDate.parse("2020-04-25"), LocalTime.parse("23:59"));
             ArrayList<Deadline> deadlines = new ArrayList<>();
             deadlines.add(deadline);
+
             ObservableList<Profile> profileList = FXCollections.observableArrayList();
             Profile profile = new Profile(new Name("John"), new CourseName(
                     AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,

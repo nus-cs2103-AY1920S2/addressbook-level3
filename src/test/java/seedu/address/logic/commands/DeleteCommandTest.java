@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import static seedu.address.logic.commands.AddCommand.MESSAGE_EDIT_SUCCESS;
 import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.logic.commands.DeleteCommand.*;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -89,7 +90,7 @@ public class DeleteCommandTest {
     }
 
     // Module has not been added to profile before
-    /*
+
     @Test
     public void execute_moduleNotAdded_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
@@ -99,7 +100,7 @@ public class DeleteCommandTest {
                 deleteCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                         new ModuleManagerStubCs()));
     }
-    */
+
 
     // Valid module code, different capitalizations
     @Test
@@ -211,7 +212,7 @@ public class DeleteCommandTest {
     }
 
     // Task to be deleted does not exist
-    /*
+
     @Test
     public void execute_taskDoesNotExist_throwsCommandException() {
         String moduleCode = VALID_MODCODE_AMY;
@@ -222,9 +223,16 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommandTask =
                 new DeleteCommand(Collections.singletonList(new ModuleCode(moduleCode)), tasks);
 
-        assertThrows(CommandException.class, String.format(MESSAGE_DELETE_DEADLINE_FAILURE, tasks.toString()), () ->
-                deleteCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                        new ModuleManagerStubCs()));
+        String updateMessage = String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, moduleCode);
+        String deleteError = String.format("Failed to delete these task(s) as they were not added: %1$s; ", tasks);
+        updateMessage += "\n" + deleteError;
+
+        try {
+            assertEquals(deleteCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                            new ModuleManagerStubCs()).getFeedbackToUser(), updateMessage);
+        } catch (CommandException e) {
+            fail();
+        }
     }
 
     // Multiple tasks deleted
@@ -246,8 +254,6 @@ public class DeleteCommandTest {
 
     }
 
-
-     */
 
     // No grade to be deleted
     @Test
@@ -346,10 +352,16 @@ public class DeleteCommandTest {
             Module moduleIs = new Module(new ModuleCode("IS1103"), new Title(""), new Prereqs(""), new Preclusions(""),
                     new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
                     new PrereqTreeNode());
+
             Deadline deadlineA = new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY);
             Deadline deadlineB = new Deadline(VALID_MODCODE_AMY, VALID_TASK_BOB);
+            ArrayList<Deadline> deadlines = new ArrayList<>();
+            deadlines.add(deadlineA);
+            deadlines.add(deadlineB);
+
             String gradeA = VALID_GRADE_AMY;
             String gradeIs = VALID_GRADE_BOB;
+
             ObservableList<Profile> profileList = FXCollections.observableArrayList();
             Profile profile = new Profile(new Name("JOHN"), new CourseName(
                     AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
