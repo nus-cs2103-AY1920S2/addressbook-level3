@@ -136,7 +136,7 @@ public class EditRestaurantNoteCommand extends Command {
 
         Restaurant editedRestaurant = new Restaurant(restaurantToEdit.getName(), restaurantToEdit.getLocation(),
                 restaurantToEdit.getHours(), restaurantToEdit.getPrice(), restaurantToEdit.getCuisine(),
-                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), updatedRecFood,
+                restaurantToEdit.getVisit(), updatedRecFood,
                 updatedGoodFood, updatedBadFood);
 
         model.setRestaurant(restaurantToEdit, editedRestaurant);
