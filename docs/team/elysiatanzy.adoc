@@ -67,6 +67,10 @@
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=editPerson]
+include::../UserGuide.adoc[tag=schoolworkTracker]
+include::../UserGuide.adoc[tag=schedule]
+
 == Contributions to the Developer Guide
 
 |===
