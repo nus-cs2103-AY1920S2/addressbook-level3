@@ -17,5 +17,6 @@
     "endDateTime" : "2020-04-30T14:30"
   } ],
   "doneSessions" : [ ],
-  "modules" : [ ]
+  "modules" : [ ],
+  "rate" : 40
 }

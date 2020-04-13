@@ -25,8 +25,8 @@ public class DateTimeUtil {
             .ofPattern(PATTERN_TIME)
             .withResolverStyle(ResolverStyle.STRICT);
 
-    public static final String CONSTRAINTS_DATE = "Dates should be in yyyy-MM-dd format";
-    public static final String CONSTRAINTS_TIME = String.format("Times should be in %s format", PATTERN_TIME);
+    public static final String CONSTRAINTS_DATE = "Dates must be valid and in yyyy-MM-dd format";
+    public static final String CONSTRAINTS_TIME = String.format("Times must be valid and in %s format", PATTERN_TIME);
 
     /**
      * Returns true if {@code String date} represents a {@code LocalDate}

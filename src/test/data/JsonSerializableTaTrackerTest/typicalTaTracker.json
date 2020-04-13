@@ -179,5 +179,6 @@
         "tagged" : [ "neighbours" ]
       } ]
     } ]
-  } ]
+  } ],
+  "rate" : 40
 }

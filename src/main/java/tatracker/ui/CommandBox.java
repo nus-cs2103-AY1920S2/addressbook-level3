@@ -35,7 +35,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
     static {
-        logger.setLevel(Level.INFO);
+        logger.setLevel(Level.WARNING);
     }
 
     private CommandDetails commandDetails = null;

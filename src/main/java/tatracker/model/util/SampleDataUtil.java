@@ -229,12 +229,12 @@ public class SampleDataUtil {
             sampleAb.addStudent(module2Group1Students()[i],
                     getSampleGroupsString()[2], getSampleModulesString()[1]);
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < getSampleSessions().length; i++) {
             sampleAb.addSession(getSampleSessions()[i]);
         }
-        for (int i = 5; i < getSampleSessions().length; i++) {
-            sampleAb.addDoneSession(getSampleSessions()[i]);
-        }
+        // for (int i = 5; i < getSampleSessions().length; i++) {
+        //     sampleAb.addDoneSession(getSampleSessions()[i]);
+        // }
         return sampleAb;
     }
 
