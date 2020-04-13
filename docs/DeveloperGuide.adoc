@@ -748,6 +748,7 @@ base is smaller, storage would not be an issue. Records need to be iterated thro
 the association between GoalCount and Record makes the tally process more efficient.
 end::goals[]
 
+// tag::quote[]
 === Quote Command (Yue Tong)
 The quote command feature uses the `quote` command for users to input their own quotes to add on to the existing set of
 quotes that is already in the database. This allows the users to add in customised quotes that would suit their preferance
@@ -796,7 +797,9 @@ image::QuoteActivityDiagram.png[]
 ** Pros: Users can customize whicher quotes they want to be displayed
 ** Cons: If they user deletes the quote that is on display for Quote of the Day in the Achievement tab, this could cause
 display problems and as `UniqueQuotesList` is a hidden list, users will have to type out the quote completely similar in order to locate it
+//end::quote[]
 
+// tag::streak[]
 === Streak feature(Yue Tong)
 
 The Streak feature mainly deals with keeping track of the cooked meals that the user has logged into the system. The command
@@ -847,6 +850,7 @@ between 2 consecutive cooked recipes
 jeopardised.
 ** Cons: It is easier for users to lose their streaks and more difficult for users to ascertain when is the deadline to
 maintain their streaks
+//end::streak[]
 
 === Logging
 
@@ -1238,6 +1242,16 @@ then minimise that window.
 .. Test case: `groceryList` +
    Expected: Window with updated grocery list appears.
 
+=== Adding quotes
+. Quote displays while quotelist is not empty.
+..  Prerequisites: Quotes are present. If required, add quotes by using the `quote` command.
+.. Test case: `quote Today is a good day` +
+   Expected: The result box below informs the user that the quote has been added.
+
+. Adding a quote while it already exists in the list
+.. Prerequisites: Quotes list contains quote. If required, add the same quote by using the `quote` command.
+.. Test case: `quote Skip the diet, just eat healthy!` +
+   Expected: The result box below informs the user that the quote is a duplicated and cannot be added in.
 
 _{ more test cases ... }_
 
@@ -1259,7 +1273,7 @@ _{ more test cases ... }_
 .. Double-click the jar file. +
    Expected: Adding corrupted data into the files would result in these corresponding results:
 ... Recipebook: An empty recipe list in 'Recipes' as well as an empty plan list in 'Planning'
-... Quotebook: Default quotes in 'Achievements'
+... Quotebook: An empty quote list in 'Quotes' and default quote in 'Achievements'
 ... Plannedbook: An empty plan list in 'Planning'
 ... Cookedrecords: An empty cooked meals list with no pie chard in 'Goals'
 
