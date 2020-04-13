@@ -29,7 +29,7 @@ public class YearTest {
 
         // valid year
         assertTrue(Year.isValidCode("1.1")); // lower boundary of yea
-        assertTrue(Year.isValidCode("9.1")); // upper boundary of year
+        assertTrue(Year.isValidCode("8.1")); // upper boundary of year
         assertTrue(Year.isValidCode("5.1")); // lower boundary of semester
         assertTrue(Year.isValidCode("5.2")); // upper boundary of semester
     }

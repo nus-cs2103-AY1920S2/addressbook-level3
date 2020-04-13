@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_DEADLINE_DOES_NOT_EXIS
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_MODULE_DATA;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
+import static seedu.address.commons.core.Messages.MESSAGE_MAX_MODS;
 import static seedu.address.commons.core.Messages.MESSAGE_MODULE_NOT_ADDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
@@ -33,6 +34,7 @@ import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author joycelynteo
 
@@ -160,7 +162,11 @@ public class EditCommand extends Command {
                     throw new CommandException("Error deleting existing module.");
                 }
 
-                profileToEdit.addModule(editSemester, existingModule);
+                try {
+                    profileToEdit.addModule(editSemester, existingModule);
+                } catch (MaxModsException e) {
+                    throw new CommandException(MESSAGE_MAX_MODS);
+                }
                 updateStatus(profileToEdit);
                 profileManager.setDisplayedView(profileToEdit);
 

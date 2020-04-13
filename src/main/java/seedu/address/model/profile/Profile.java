@@ -19,6 +19,7 @@ import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author chanckben
 /**
@@ -55,8 +56,11 @@ public class Profile {
     /**
      * Adds a module to the hashmap with the key being the semester
      */
-    public void addModule(Integer semester, Module module) {
+    public void addModule(Integer semester, Module module) throws MaxModsException {
         if (!semModHashMap.isEmpty() && semModHashMap.containsKey(semester)) {
+            if (semModHashMap.get(semester).size() == 10) {
+                throw new MaxModsException();
+            }
             semModHashMap.get(semester).addModule(module);
         } else {
             ModuleList moduleList = new ModuleList();

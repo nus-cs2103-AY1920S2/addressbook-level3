@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_MAX_MODS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
@@ -24,6 +25,7 @@ import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Personal;
+import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author joycelynteo
 
@@ -192,8 +194,12 @@ public class AddCommand extends Command {
             }
 
             if (!hasModule) {
-                profile.addModule(addSemester, moduleToAdd);
-                hasModule = true;
+                try {
+                    profile.addModule(addSemester, moduleToAdd);
+                    hasModule = true;
+                } catch (MaxModsException e) {
+                    throw new CommandException(MESSAGE_MAX_MODS);
+                }
             }
 
             String addDeadlinesSuccessAppendMsg = "";
@@ -234,7 +240,11 @@ public class AddCommand extends Command {
 
         String messageShown;
         if (!hasModule) {
-            profile.addModule(addSemester, moduleToAdd);
+            try {
+                profile.addModule(addSemester, moduleToAdd);
+            } catch (MaxModsException e) {
+                throw new CommandException(MESSAGE_MAX_MODS);
+            }
             // Check if prerequisites of the module have been fulfilled
             if (moduleToAdd.getPrereqTreeNode() != null && !moduleToAdd.getPrereqTreeNode()
                     .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {

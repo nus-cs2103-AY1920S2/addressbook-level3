@@ -60,6 +60,7 @@ import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Personal;
+import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author joycelynteo
 
@@ -288,8 +289,12 @@ public class EditCommandTest {
             Profile profile = new Profile(new Name("John"), new CourseName(
                     AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
                     new FocusArea(AcceptedFocusArea.COMPUTER_SECURITY.getName()));
-            profile.addModule(1, moduleBob);
-            profile.addModule(2, moduleAmy);
+            try {
+                profile.addModule(1, moduleBob);
+                profile.addModule(2, moduleAmy);
+            } catch (MaxModsException e) {
+                fail();
+            }
             profileList.add(profile);
             addDeadline(deadline);
             this.profileList = profileList;
