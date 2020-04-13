@@ -73,7 +73,7 @@ This feature requires a thorough understanding of the existing code of AB3 such 
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W12-1/main/pull/81[#81], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/116[#116], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/121[#121], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/171[#171], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/181[#181], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/194[#194], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/309[#309], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/318[#318]
-*** Contributed to forum discussions by asking a few help questions https://github.com/nus-cs2103-AY1920S2/forum/issues/32[#32], https://github.com/nus-cs2103-AY1920S2/forum/issues/35[#35], https://github.com/nus-cs2103-AY1920S2/forum/issues/89[#89].
+*** Contributed to forum discussions by asking a few help questions https://github.com/nus-cs2103-AY1920S2/forum/issues/32[#32], https://github.com/nus-cs2103-AY1920S2/forum/issues/35[#35], https://github.com/nus-cs2103-AY1920S2/forum/issues/89[#89], https://github.com/nus-cs2103-AY1920S2/forum/issues/108[#108].
 *** Reported bugs and suggestions for other teams in the class https://github.com/khsc96/ped/issues/1[#1], https://github.com/khsc96/ped/issues/2[#2], https://github.com/khsc96/ped/issues/3[#3], https://github.com/khsc96/ped/issues/4[#4], https://github.com/khsc96/ped/issues/5[#5], https://github.com/khsc96/ped/issues/6[#6], https://github.com/khsc96/ped/issues/7[#7], https://github.com/khsc96/ped/issues/8[#8].
 
 ** Tools:
