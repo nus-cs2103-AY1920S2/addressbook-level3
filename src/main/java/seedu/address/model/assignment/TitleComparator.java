@@ -17,7 +17,7 @@ public class TitleComparator implements Comparator<Assignment> {
         } else {
             if (a1.getTitle().title.toLowerCase().compareTo(a2.getTitle().title.toLowerCase()) < 0) {
                 return -1;
-            } else if(a1.getTitle().title.toLowerCase().compareTo(a2.getTitle().title.toLowerCase()) > 0) {
+            } else if (a1.getTitle().title.toLowerCase().compareTo(a2.getTitle().title.toLowerCase()) > 0) {
                 return 1;
             } else {
                 return 0;

@@ -10,7 +10,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Workload {
     public static final String MESSAGE_CONSTRAINTS = "Estimated workload cannot be left empty, "
             + "if no estimates can be made enter '0'. Round off estimates to the nearest half an hour.";
-    public static final String VALIDATION_REGEX = "^\\d+\\.?(\\d{0,1}[5])?";
+    public static final String VALIDATION_REGEX = "^\\d+\\.?(\\d{0,1}[0,5])?";
 
     // Instance fields
     public final String estHours;

@@ -23,9 +23,8 @@ maximise your time to get as much fun as you can amidst your hectic work schedul
 best friend that you can ever be!
 
 Naggy Joel is for those who *prefer to use a desktop app for managing their social life*. It is an application that
-allows you to manage all aspects of their social life, ranging from your different social circles and contacts,
-to your events, as well as, places to hang out and potential practical gifts that will be very much
-appreciated by your recipients all without compromising on your academic life.
+allows you to manage all aspects of your social life, ranging from your different social circles and contacts,
+to your events all without compromising on your academic life.
 More importantly, Naggy Joel is *optimized for those who prefer to work with a Command
 Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Naggy
 Joel can get social life managed faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started.
@@ -44,14 +43,14 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`(ab)list`** : Lists all contacts
-* **`(ab)add`**` n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
-* **`(ab)delete`** `3` : Deletes the 3rd contact shown in the current list
-* **`(st)list`** : Lists all assignments
-* **`(st)add`** t/CS2103 tP d/2020-11-11 23:59 e/10 : Adds an assignment titled `CS2103 tP` with deadline on 11 November 2020 11:59 PM and an estimated completion time of 10 hours.
-* **`(rt)list`** : Lists all restaurants
-* **`(rt)add`** n/McDonalds l/NUS o/0900:2300 p/$ v/Yes :  Adds a new visited restaurant named McDonalds located in NUS with operating hours 9:00 AM to 11:00 PM with the lowest price point.
-* *`exit`* : exits the app
+* `(ab)list`: Lists all contacts
+* `(ab)add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` with phone `98765432`, email address `johnd@example.com` and address `John street, block 123, #01-01` to the Address Book.
+* `(ab)delete 3` : Deletes the 3rd contact shown in the current persons list.
+* `(st)list` : Lists all assignments.
+* `(st)add t/CS2103 tP d/2020-11-11 23:59 e/10` : Adds an assignment titled `CS2103 tP` with deadline on `11 November 2020 11:59 PM` and an estimated completion time of `10 hours`.
+* `(rt)list` : Lists all restaurants
+* `(rt)add n/McDonalds l/NUS o/0900:2300 p/$ v/Yes` :  Adds a new visited restaurant named `McDonalds` located in `NUS` with operating hours `9:00 AM to 11:00 PM` with the `lowest price point`.
+* `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -70,8 +69,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === General Commands
 
 ==== Viewing help : `help`
-
+Show program usage instructions +
 Format: `help`
+
+Show command usage in detail +
+Format: `help h/INDEX`
+
+****
+* Shows the command usage of the command at the specified `INDEX`. The index refers to the index number shown in the displayed help list. The index *must be a positive integer* 1, 2, 3, ...
+****
 
 ==== Undo and redo commands: `undo/redo`
 
@@ -101,16 +107,17 @@ A person can have any number of tags (including 0)
 ****
 * BIRTHDAY must be written in a MM-dd format.
 * Fields inside square brackets are optional.
+* You will not be allowed to add 2 persons with the same name (case sensitive) and phone number.
 ****
 
 Examples:
 
 * `(ab)add n/Akshay o/NUS p/56789012` +
-Adds a contact named Akshay with phone number 56789012 with an organization NUS.
+Adds a contact named Akshay with phone number 56789012 and organization NUS.
 * `(ab)add n/Joel HH e/joel@yahoo.com.sg p/12345678 o/NUS a/Pasir Ris St. 71, Blk 123, #01-79` +
-Adds a contact named Joel HH with email address joel@yahoo.com.sg, phone number 12345678 and address Pasir Ris St. 71, Blk 123, #01-79 into the organization NUS.
+Adds a contact named Joel HH with email address joel@yahoo.com.sg, phone number 12345678, address Pasir Ris St. 71, Blk 123, #01-79 and organization NUS.
 * `(ab)add n/Aisyle Nat e/aisyle@gmail.com p/87654321 o/NUS b/02-12` +
-Adds a contact named Aisyle Nat with email address aisyle@gmail.com, phone number 87654321 and birthday 12 February into the organization NUS.
+Adds a contact named Aisyle Nat with email address aisyle@gmail.com, phone number 87654321, birthday 12 February and organization NUS.
 
 ==== Editing a person : `(ab)edit`
 
@@ -120,14 +127,19 @@ Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTH
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
-* If a field is specified but the parameter is left empty, the entire field will be deleted.
-* Existing values will be updated to the input values except tags.
+* If a field is specified but the parameter is left empty, the entire field will be deleted (except for the `TAG_TO_BE_ADDED`, `NAME` and `PHONE_NUMBER` prefixes).
+* Existing values will be updated to the input values (except tags).
+* Tags will be appended or deleted according to the prefix specified.
 * Remarks cannot be edited using this command.
 ****
 
 [TIP]
-* Multiple tags can be specified and all will be added, if it is not a duplicate.
-* Multiple tags can be specified and all will be deleted, if they exist.
+Multiple `TO_BE_ADDED` tags can be specified and all will be added, if it is not a duplicate.
+[TIP]
+Multiple `TO_BE_DELETED` tags can be specified and all will be deleted, if they exist.
+[TIP]
+To delete all tags, specify the tag-deletion prefix `-t/` without any parameters.
+
 
 Examples:
 
@@ -144,23 +156,23 @@ Deletes the contact at index INDEX +
 Format: `(ab)delete INDEX`
 
 ****
-* INDEX must be a positive integer. It refers to the index of the respective contact as shown in the displayed person list.
+* INDEX *must be a positive integer*. It refers to the index of the respective contact as shown in the displayed person list.
 ****
 
 Examples:
 
 * `(ab)delete 2` +
-Deletes the 2nd person in the address book. +
+Deletes the 2nd person in the address book
 
 tag::notetaker[]
 
 ==== Store additional information about contacts using the Note Taker: `(ab)addnote`
 
 Store additional information about contacts using the Note Taker +
-Format: `(ab)addnote INDEX i/INFO1...`
+Format: `(ab)addnote INDEX i/INFO...`
 
 ****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function.
+* INDEX *must be a positive integer*. It refers to the index of the respective contact as shown in the displayed person list.
 * There should be at least one i/INFO specified.
 ****
 
@@ -211,7 +223,7 @@ Format: `(ab)list`
 * If you want to search for a particular contact, see `(ab)find`
 * If you want more information about a particular contact, see `(ab)get`
 
-==== Finding a specific contact/a specific set of contacts : `(ab)find`
+==== Finding contacts : `(ab)find`
 
 Lists out all your contacts in the address book which match a certain criteria. Each contact will have a displayed index. Only the contact's name, phone number and tags (if present) will be listed +
 Format: `(ab)find [o/ORGANIZATION] [n/NAME] [t/TAG]`
@@ -232,7 +244,7 @@ Displays all information about the queried contact +
 Format: `(ab)get INDEX`
 
 ****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
+* INDEX must be a positive integer. It refers to the index of the respective contact in the displayed persons list.
 * Displays all information relating to a contact at index INDEX
 ****
 
@@ -293,6 +305,8 @@ Example:
 * `(rt)delete 1` +
 Deletes the 1st restaurant in the restaurant book.
 
+tag::rtnotetaker[]
+
 ==== Add notes to a restaurant : `(rt)addnote`
 
 Adds a new note to a restaurant +
@@ -348,6 +362,8 @@ Delete notes to the restaurant at index 1, at line number 2 of recommended food 
 * `(rt)deletenote 2 gl/1 gl/2` +
 Deletes a note to the restaurant at index 2, at line numbers 1 and 2 of good food notes.
 
+end::rtnotetaker[]
+
 ==== List all restaurants : `(rt)list`
 
 Lists all restaurants +
@@ -358,9 +374,9 @@ Examples:
 * `(rt)list` +
 Lists all restaurants.
 
-==== Search : `(rt)find`
+==== Find restaurants : `(rt)find`
 
-Searches for restaurants based on a number of criteria. +
+Finds restaurants based on a number of criteria. +
 Format: `(rt)find [n/RESTAURANT_NAME] [l/LOCATION]`
 
 ****
@@ -372,9 +388,9 @@ Format: `(rt)find [n/RESTAURANT_NAME] [l/LOCATION]`
 Examples:
 
 * `(rt)find n/no signboard` +
-Searches for restaurants with the keyword `no signboard`.
+Finds restaurants with the keyword `no signboard`.
 * `(rt)find l/bedok` +
-Searches for restaurants in the `Bedok` area.
+Finds restaurants in the `Bedok` area.
 * `(rt)find k/no signboard p/$$` +
 Finds restaurants with the keyword no signboard which is at a medium price point.
 * `(rt)find l/bedok p/$` +
@@ -383,46 +399,47 @@ Finds restaurants in the bedok area at a low price point.
 * [COMING SOON] Ability to search by price point and operating hours.
 
 === Schoolwork Tracker commands
+==== Adding an assignment : `(st)add`
 
-==== Add new assignment to the Schoolwork Tracker : `(st)add`
-
-Adds a new assignment to your list of assignments and projects. +
+Adds a new assignment to your list of assignments. +
 Format: `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 
 ****
 * DEADLINE must be entered in a yyyy-MM-dd HH:mm format and cannot be one that has already passed.
-* ESTIMATED_COMPLETION_TIME is the number of hours expected to finish the assignment, rounded off to the nearest half an hour.
-* You will not be able to add two assignments with both the same name and deadline.
+* ESTIMATED_COMPLETION_TIME is the number of hours you expect to take to finish the assignment, rounded off to the nearest half an hour (1 decimal point). If no estimates can be made, type 0.
+* You will not be able to add two assignments with both the same name (case sensitive) and deadline.
 * The status of the assignment is set to 'Uncompleted' by default.
 ****
 
-Examples:
+Example:
 
 * `(st)add t/CS2103 post lecture quiz d/2020-11-11 23:59 e/1` +
-Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-11-2020 23:59 PM and which takes an estimated one hour to complete.
+Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-11-2020 23:59 PM and which takes an estimated one hour to complete. Status of this assignment is 'Uncompleted' by default.
 
-==== Edits an assignment: `(st)edit`
+==== Editing an assignment: `(st)edit`
 
-Marks an assignment as completed. +
+Edits an assignment in the Schoolwork Tracker. +
 Format: `(st)edit INDEX [t/TITLE] [e/ESTIMATED_COMPLETION_TIME] [d/DEADLINE] [s/STATUS]`
 
 ****
 * INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the list function.
 * DEADLINE must be entered in a yyyy-MM-dd HH:mm format and cannot be one that has already passed.
-* ESTIMATED_COMPLETION_TIME is the number of hours expected to finish the assignment, rounded off to the nearest half an hour.
-* STATUS can only be `Completed` or `Uncompleted`.
+* ESTIMATED_COMPLETION_TIME is the number of hours that you expect to take to finish the assignment, rounded off to the nearest half an hour (1 decimal point). If no estimates can be made, type 0.
+* STATUS can only be `Completed` or `Uncompleted` (both are case insensitive).
 * At least one optional field needs to be specified.
 ****
 
-Example:
+Examples:
 
 * `(st)edit 1 t/CS2103 Quiz e/1` +
 Changes the title of the first assignment to 'CS2103 Quiz' and estimated completion time to 1 hour.
+* `(st)edit 2 d/2020-11-09 23:59` +
+Changes the deadline of the second assignment to 9 November 2020 11:59 PM.
 
 ===== Marking an assignment as done : `(st)edit INDEX s/Completed`
 ===== Marking an assignment as uncompleted : `(st)edit INDEX s/Uncompleted`
 
-==== Delete assignment : `(st)delete`
+==== Deleting assignment : `(st)delete`
 
 Deletes an assignment. +
 Format: `(st)delete INDEX`
@@ -431,12 +448,12 @@ Format: `(st)delete INDEX`
 * INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the list function.
 ****
 
-Examples:
+Example:
 
 * `(st)delete 1` +
 Deletes the 1st assignment in the Schoolwork Tracker.
 
-==== List current assignments : `(st)list`
+==== Listing assignments : `(st)list`
 
 Sorts the user’s list of assignments and displays them. This helps the user choose which assignment to do first. +
 Format: `(st)list [-d] [-e]`
@@ -446,25 +463,36 @@ Format: `(st)list [-d] [-e]`
 * If no optional field is specified, assignments will be sorted in alphabetical order.
 * Completed assignments will always be shown at the bottom of the list.
 * [-d] : Assignments will be sorted in ascending order by deadline.
-* [-e] : Assignments will be sorted in ascending order based on the estimated completion time.
+* [-e] : Assignments will be sorted in descending order based on the estimated completion time.
+****
+
+Examples:
+
+* `(st)list -d` +
+Assignments will be shown in chronological order, with respect to the deadline, with all completed assignments at the bottom of the list.
+* `(st)list -e` +
+Assignments will be sorted in order of decreasing estimated work hours, with all completed assignments shown at the bottom of the list.
+
+==== Generate upcoming schedule : `(st)schedule`
+
+Looks through the list of saved assignments to generate your upcoming schedule.
+The schedule is generated by distributing the estimated work hours of uncompleted and not overdue assignments across several days, ranging from
+query date to date and time that it is due. The schedule generated is based on the assumption that there is 24 hours each day to work with for days between
+query date and deadline (both exclusive) and remaining time available on query date. +
+Format: `(st)schedule n/NUM_DAYS`
+
+****
+* NUM_DAYS: Has to be a *positive integer* and is the number of days you would like to display.
+* Each day will be colour-coded.
+** Red: You either have an assignment due (only for query date) or the expected work hours for the day is more than 10 hours.
+** Orange: The expected work hours for the day is between 5 (exclusive) and 10 hours (inclusive).
+** Green: The expected work hours for the day is less than or equals to 5 hours.
 ****
 
 Example:
 
-* `(st)list -d` +
-Assignments will be shown in chronological order, with respect to the deadline, with all completed assignments at the bottom of the list.
-
-==== Visualise the intensity of your upcoming schedule : `(st)schedule`
-
-Looks through the list of current uncompleted assignments to calculate the estimated work hours per day to complete all assignments by their deadlines. The schedule generated is based on the assumption that there is 24 hours each day to work with. +
-Format: `(st)schedule n/NUM_DAYS`
-
-****
-* NUM_DAYS: Has to be a positive integer digit and is the number of days you would like to display
-* Red: User either has an assignment due the next day (from query date) or the expected work hours for the day is more than 10 hours
-* Orange: The expected work hours for the day is between 5 and 10 hours
-* Green: The expected work hours for the day is less than or equals to 5 hours
-****
+* `(st)schedule n/5` +
+Displays 5 days of your generated schedule.
 
 === Event Schedule commands
 
@@ -523,11 +551,9 @@ There is no need to save manually.
 
 === Coming in v2.0
 
+==== Auto-deletion of completed assignments whose deadline have passed from the the Schoolwork Tracker
 ==== Obtain gift suggestions for a particular contact
-
 ==== Encrypting data files
-
-_{explain how the user can enable/disable data encryption}_
 
 == FAQ
 
@@ -574,8 +600,8 @@ _{explain how the user can enable/disable data encryption}_
 `(ab)birthday`
 * *Shows the user's upcoming schedule* : +
 `(st)schedule n/NUM_DAYS`
-* *Undo commands* : `undo`
-* *Redo commands* : `redo`
+* *Undo command* : `undo`
+* *Redo command* : `redo`
 * *Clear* : `clear`
 * *Help* : `help`
 * *exit* : `exit`

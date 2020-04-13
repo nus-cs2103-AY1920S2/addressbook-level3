@@ -41,7 +41,7 @@
 ** *Justification:* The original command only allows users to replace all existing tags with the new ones which is not very user-friendly as often times we want to add/delete individual tags rather than replace everything.
 ** *Highlights:* Multiple tags can be added/deleted in the same command. Only distinct tags will be added if they do not already exist and all stated tags will be deleted if they exist.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=elysiatanzy&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ElysiaTanZY&tabRepo=AY1920S2-CS2103-W14-3%2Fmain%5Bmaster%5D[Functional Code]][https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=elysiatanzy&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ElysiaTanZY&tabRepo=AY1920S2-CS2103-W14-3%2Fmain%5Bmaster%5D[Test Code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=elysiatanzy&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ElysiaTanZY&tabRepo=AY1920S2-CS2103-W14-3%2Fmain%5Bmaster%5D[Summary of code contributions]]
 
 * *Other contributions*:
 
