@@ -21,7 +21,7 @@ By: `AY1920S2-CS2103T-W12-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction [Done by Zain Alam]
 
-CookBuddy helps users familiar with the command-line and are fast typists, to easily manage their recipes. Features include adding, editing, and deleting recipes, as well as adding recipe images, tags, and setting various recipe attributes like serving size, cooking time, and personal management like ratings and favourites.
+Welcome to CookBuddy!
 
 For more information about using CookBuddy, consult the <<UserGuide#, CookBuddy User Guide>>.
 
@@ -105,7 +105,6 @@ Each of the four components
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-[[bleep]]
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.svg[align="center"]
 
@@ -402,9 +401,15 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*: [Done by Sharadh Rajaraman]
 
 * cooks for oneself on a nearly daily basis, and hence:
-   - needs to manage multiple recipes
-   - needs to have a clean interface to view and read dishes
-   _ experiments with dishes
+   - needs to manage many recipes
+   - needs to have a clean interface to view and read recipes
+   - experiments with dishes
+
+* prefers desktop apps over other types
+
+* can type fast
+
+* prefers typing over mouse input
 
 * is reasonably familiar with the command-line
 
@@ -421,8 +426,7 @@ Refer to the guide <<DevOps#, here>>.
 
    - present a straightforward interface to edit, duplicate and combine recipes into meals
 
-* Export recipes to a printable, human-readable and consistent format
-
+* Overall increase in productivity.
 
 
 [appendix]
@@ -573,14 +577,25 @@ Use case ends.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 recipes without noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Commands should be <<one-shot-c,one-shot>> commands as opposed to <<multi-level-c, multi-level commands>>.
+.  CookBuddy should be able to function without internet access.
+.  A user should be able to familiarise herself with less than 30 minutes of usage.
 
-_{More to be added}_
 
 [appendix]
 == Glossary [Done by Zain Alam]
 
+[[attributes]] Attributes::
+The information of a recipe. For example, calories, ingredients or instructions etc.
+
 [[mainstream-os]] Mainstream OS::
 Windows, macOS, Linux, UNIX
+
+[[multi-level-c]] Multi-level Commands::
+Commands that require multiple lines of user input for execution.
+
+[[one-shot-c]] One-shot Commands::
+Commands that are executed using only a single line of user input.
 
 [[recipe]] Recipe::
 A list of ingredients followed by a list of instructions, detailing how to prepare a dish.
@@ -588,23 +603,6 @@ A list of ingredients followed by a list of instructions, detailing how to prepa
 [[tag]] Tag::
 A (possibly custom) text marker that users can use to organise their recipes; examples include `vegetarian`, `spicy`, `Indian`. Tags can themselves be organised into groups, such as `cuisines`, `diet`, `ingredients`, `mealtime`, etc.
 
-//[appendix]
-//== Product Survey
-//
-//*Product Name*
-//
-//Author: ...
-//
-//Pros:
-//
-//* ...
-//* ...
-//
-//Cons:
-//
-//* ...
-//* ...
-//
 [appendix]
 == Product Survey [Done by Zain Alam]
 
