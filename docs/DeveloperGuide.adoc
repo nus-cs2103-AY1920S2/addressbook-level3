@@ -812,3 +812,49 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+
+
+//tag::session[]
+[appendix]
+== Effort
+
+
+[width="59%",cols="22%,<23%,<25%,options="header",]
+|=======================================================================
+|Feature |AB3 |ZeroToOne
+
+|LoC |~10k |~26k
+|Difficulty |10 |15
+|Effort |10 |15
+|=======================================================================
+
+The idea of an exercise app alone itself is not particularly challenging.
+However, the ZeroToOne team believes that taking a user-experience-first philosophy toward designing an exercise app requires a conscientious design-approach, one that _is_ a challenge.
+
+This is something that we have endeavoured to achieve in this project.
+
+We think that despite the constraints of the CS2103T project, we have managed to demonstrate this to a larger degree.
+
+AB3 deals primarily in the domain of data storage and retrieval. ZeroToOne has taken this one step further, with the ability to:
+
+1. Statefully update new models during a workout session
+2. Apply useful statistics across an entire collection of stored data
+3. Extend AB3's models to be more functional
+
+Furthermore, on top of the ~16k LoC added to the project, the ZeroToOne team has managed to:
+
+1. Maintain > 70% test coverage
+2. Apply SOLID design principles
+3. Maintain a consistent quality of the codebase through stringent PR reviews and hooks.
+
+The largest challenge we faced as a team was communication.
+Being fast-moving and driven individuals, taking the initiative sometimes meant being able to make decisions for the team as an individual. This meant that it was vital that we were on the same page with our goals and expectations from the project.
+Thus, we took more time than usual at the beginning of the project to plan our road-map moving forward, delegating work and defining our expectations clearly.
+This meant we were later to start coding and making PRs than other teams (as seen on reposense), which we felt was a more-than-fair trade-off for our team dynamic.
+
+We hope you have enjoyed this journey and learnt as much as we have!
+
+- The ZeroToOne Team
+
+//end::session[]
