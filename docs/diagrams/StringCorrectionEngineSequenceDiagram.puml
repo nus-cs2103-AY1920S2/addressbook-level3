@@ -12,10 +12,10 @@ activate StringCorrectionEngine
 loop all possible correct strings
 StringCorrectionEngine -> EditDistanceCalculator : calculateDistance("uncorrected", possibleCorrectString)
 activate EditDistanceCalculator
-EditDistanceCalculator -> StringCorrectionEngine : distance
+EditDistanceCalculator --> StringCorrectionEngine : distance
 deactivate EditDistanceCalculator
 end
 
-[<-- StringCorrectionEngine
+[<-- StringCorrectionEngine : correction result
 deactivate StringCorrectionEngine
 @enduml
