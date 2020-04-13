@@ -113,6 +113,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -129,6 +130,8 @@ The `Model`,
 * `NasaBook` contain a set of module list stored in `UniqueModuleList`.
 * each `Module` consists of several `Activity`.
 * an `Activity` can be either a `Deadline` or `Event`.
+
+//end::model[]
 
 //tag::modelid[]
 
