@@ -366,7 +366,7 @@ libraries gives the risk of running into bugs in the future if the the dependenc
 
 ==== Delete command
 
-
+// tag::favouriteunfavourite[]
 ==== Favourite and Unfavourite commands (Brian)
 ===== Implementation
 For brevity, we will only talk about the `favourite` command. Note that the `unfavourite` command is implemented in the
@@ -397,7 +397,9 @@ Here is a sample sequence diagram that shows what happens when the user inputs `
 image::FavouriteCommandSequenceDiagram.png[]
 
 This operation favourites recipe 2 and 3.
+// end::favouriteunfavourite[]
 
+// tag::undoredo[]
 ==== Undo and Redo commands (Brian)
 The implementation of undo and redo was adapted from AB3. However, HYBB requires more book-keeping because on top
 of the `RecipeBook`, we have a `PlannedBook` and a `CookedRecordBook` to keep track of as well.
@@ -438,6 +440,7 @@ This class diagram shows the components of `MultipleBookStateManager`:
 
 .Class diagram for MultipleBookStateManager
 image::MultipleBookStateManagerClassDiagram.png[]
+
 
 The following diagrams show what happens after the execution of various commands:
 
@@ -485,6 +488,7 @@ affect multiple books, making book-keeping even more complicated (and hence, sus
 ===== Future plans
 Currently, the undo and redo command is not compatible with the `quote` command and the QuoteBook. This will be a
 feature that we plan to work on beyond v1.4 so that users will be able to undo and redo the action of adding a quote!
+// end::undoredo[]
 
 ==== Clear command
 
@@ -524,8 +528,7 @@ be able to undo this command if he wishes to.
 
 .General activity diagram for recipe customisation commands
 image::RecipeCustomisationCommandsActivityDiagram.png[]
-
-// end::recipecustomisation[]
+//end::recipecustomisation[]
 
 // tag::advancedfilter[]
 === Filter command (Brian)
@@ -554,6 +557,7 @@ Here is a sample sequence diagram that shows what happens when the user inputs `
 
 .Advanced filter sequence diagram
 image::AdvancedFilterSequenceDiagram.png[]
+
 
 This operation displays all recipes that 1) are marked as favourites, 2) take 20 minutes or less to prepare,
 and 3) contains pasta as an ingredient.

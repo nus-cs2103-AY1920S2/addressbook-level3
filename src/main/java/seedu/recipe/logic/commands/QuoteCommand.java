@@ -22,20 +22,24 @@ public class QuoteCommand extends Command {
     public static final String MESSAGE_DUPLICATE_RECORD = "This quote has already been added!";
     public static final String MESSAGE_SUCCESS = "Added your new quote!";
 
-    private Quote quote;
+    private String quote;
 
     public QuoteCommand(String quote) {
-        this.quote = new Quote(new Content(quote));
+        this.quote = quote;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasQuote(quote)) {
+        if (!Content.isValidContent(this.quote)) {
+            throw new CommandException(Content.MESSAGE_CONSTRAINTS);
+        }
+        Quote newQuote = new Quote(new Content(quote));
+        if (model.hasQuote(newQuote)) {
             throw new CommandException(MESSAGE_DUPLICATE_RECORD);
         }
         //add record to internal list and update goals tally for each record added
-        model.addQuote(quote);
+        model.addQuote(newQuote);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
