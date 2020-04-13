@@ -5,15 +5,13 @@
 
 == PROJECT: TA-Tracker
 
----
-
 == OverView
 
 This portfolio seeks to document my contributions to our team's project, TA-Tracker.
 Ta-Tracker is a productivity tool designed for NUS School of Computing
 Teaching Assistants (TAs).
-TAs cam track and manage all their claimable hours and the students
-they are teaching under one place.
+TAs can track and manage all their claimable hours and the students
+they are teaching in one place.
 
 == About this portfolio
 This project portfolio details my individual contributions to the TA-Tracker project.
@@ -33,31 +31,33 @@ under the different views.
 ** Under the Session View, there is `FilterSessionCommand` to filter the sessions.
 ** Under the Claims View, there is `FilterClaimCommand` to filter the claims.
 
-* *Justification*: This is a necessary feature for a system that intends to manage
-a lot of data. Sometimes, users only need to view a specific information, and
-that is when the `filter` command is handy.
+* *Justification*: This is a necessary feature for a system that manages
+a lot of data. Sometimes, users only need to view specific information.
+That is when the `filter` command is handy.
 
 * *Highlights*: This enhancement affects existing commands and has to support future commands.
 Since the filtering works differently under the different views,
-the implementation of each filter command is different also. The implementation was
+the implementation of each filter command is different. The implementation was
 challenging as it required a lot of changes to the existing find command in AB3.
-Furthermore, there is a need to ensure that certain restrictions are met
-before doing the filtering. This is so that our codebase is consistent.
+Furthermore, there was a need to ensure that certain restrictions are met
+before doing the filtering to ensure that our codebase is consistent.
 
 ==== Major Enhancement: Recurring Sessions.
 
-* *What it does*: TAs are allowed to state that a session is recurring.
-When the TA mark a session as done, a new session with the updated date
-will be added into the list of sessions.
+* *What it does*:
+Recurring sessions allows TAs to mark a session as recurring so they don't have to enter
+it again and again.
+When the TA marks a recurring session as done, a new session with the updated date
+will be added to the list of sessions.
 
-* *Justification*: This feature improves the product as TA's often have
-classes to teach weekly. This feature makes TA-Tracker more user-friendly as
-TA does not have to key in the same detail for a session every week manually.
+* *Justification*: Certain tasks that TAs have are weekly, such as weekly tutorials.
+ This feature makes TA-Tracker more user-friendly as the
+user does not have to key in the same details for a session every week manually.
 
-* *Highlights*: This feature was difficult to implement as there were considerations to be
+* *Highlights*: This feature was difficult to implement as there were several considerations to be
 taken care of. Furthermore, it had been implemented in a different way. We initially
 assumed that recurring lessons would be on a weekly basis. However, we realised that we
-should not make that assumption. Significant changes were made in order for TAs to indicate
+should not make that assumption. Significant changes were made in order to allow TAs to indicate
 the number of recurring weeks that they want.
 
 ==== Other Minor Enhancements : Session related commands.
@@ -67,40 +67,37 @@ are essential for TAs to manipulate data in Session View.
 
 * *Highlights*: While they are minor enhancements, implementation of these commands have
 to be thorough. This is because there are many small details to take note of.
-One example is the sorting of sessions when TA adds a session.
-Sessions shown to TA have to be sorted based on date, start and end timing of sessions.
+One example is the sorting of sessions when TA adds a new session.
+Sessions shown to TA have to be sorted based on date, start time and end time of sessions.
 
 == Code Contributed
-
-https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chuayijing&tabRepo=AY1920S2-CS2103T-W17-4%2Fmain%5Bmaster%5D[[via RepoSense]]
+The code I contributed can be found https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=chuayijing[here].
 
 == Other Contributions:
 
 * Enhancements to existing features:
 
 **  I wrote additional tests for existing features to increase
-coverage from % to %
+coverage from 58% to 61%
 (Pull request: https://github.com/AY1920S2-CS2103T-W17-4/main/pull/343[#343])
 
 ** I fixed bugs reported by test users of the application.
 (Pull requests: https://github.com/AY1920S2-CS2103T-W17-4/main/pull/339[#339],
 https://github.com/AY1920S2-CS2103T-W17-4/main/pull/325[#325],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/328[#328],)
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/328[#328])
 
 == Contributions to the User Guide
 We wrote a User Guide targeted at the users of TA-Tracker.
 The User Guide contains instructions on how to use the various commands
-of the application. The following is an excerpt from our TA-Tracker User Guide,
+of the application. The following is an excerpt from our User Guide,
 showing additions that I have made for `filter` and `Session` features.
 
 include::../UserGuide.adoc[tag=sessionview]
-include::../UserGuide.adoc[tag=list]
 include::../UserGuide.adoc[tag=addsession]
 include::../UserGuide.adoc[tag=deletesession]
 include::../UserGuide.adoc[tag=donesession]
 include::../UserGuide.adoc[tag=filtersession]
 include::../UserGuide.adoc[tag=filterclaims]
-include::../UserGuide.adoc[tag=summary]
 
 
 == Contributions to the Developer Guide
@@ -115,7 +112,4 @@ include::../DeveloperGuide.adoc[tag=sessionmodel]
 include::../DeveloperGuide.adoc[tag=sessiondone]
 include::../DeveloperGuide.adoc[tag=sessioncommands]
 include::../DeveloperGuide.adoc[tag=filter]
-include::../DeveloperGuide.adoc[tag=productscope]
-include::../DeveloperGuide.adoc[tag=usecases]
-include::../DeveloperGuide.adoc[tag=testing]
 

@@ -60,7 +60,12 @@ This section gives you a step-by-step explanation on how you can download and op
 the application.
 
 .  Ensure that you have Java `11` or above installed in your Computer.
-.  Download the latest `tatracker.jar` link:{repoURL}/releases[here].
+.  Download the latest `TaTracker.jar` link:{repoURL}/releases[here].
++
+image::JarExample.png[width="790"]
+This image shows how you can identify what the latest release is and what file
+you should download.
++
 .  Copy the file to the folder you want to use as the home folder for your TA tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
@@ -257,15 +262,14 @@ Refers to the new group code of a group when you edit a group.
 |
 Refers to the group type.
 |
-*lab*, *tutorial*, *recitation* or *other*
+*lab*, *tutorial* or *other*
 
 |
 `NEW_GROUP_TYPE`
 |
 Refers to the new group type you want a group to be.
 |
-*lab*, *tutorial*,
-*recitation* or *other*
+*lab*, *tutorial* or *other*
 
 |
 `MATRIC_NUMBER`
@@ -549,7 +553,7 @@ This is an example of what the Student View looks like.
 Under the `session tab`, the *Session View* contains a list of the upcoming sessions
 that you haven't done yet.
 
-The sessions are automatically sorted by date.
+The sessions are *automatically sorted by date*.
 
 The purpose of the *Session View* is to help you keep track a of your upcoming teaching.
 duties. It will show you information such as:
@@ -573,7 +577,7 @@ This is an example of what the Session View looks like.
 Under the `claims tab`, the *Claims View* contains a list of all the claimable teaching
 duties you have completed so far.
 
-The purpose of this view is to allow a you to keep track of all your claims so
+The purpose of this view is to *allow you to keep track of all your claims* so
 you can easily enter it into the TSS claims form at the end of the semester.
 
 The *Claims View* has been
@@ -597,7 +601,7 @@ This section describes how you can interact with *TA-Tracker*.
 //tag::keyboard[]
 === Keyboard Shortcuts
 
-You can navigate everything in *TA-Tracker* with just a *keyboard*!
+You can navigate through everything in *TA-Tracker* with just a *keyboard*!
 
 Here are some keyboard shortcuts that you can use:
 
@@ -783,11 +787,11 @@ Format: `exit`
 ==== Listing all sessions : `list`
 (Contributed by Chua Yi Jing)
 
-`list` command shows you all the sessions under Session View and Claims View.
+`list` command shows you *all the sessions under Session View and Claims View*.
 
 [TIP]
 ====
-* You can use this command to display all your sessions after using the `session filter`
+* You can use this command to *display all your sessions* after using the `session filter`
 or `claims filter` command.
 ====
 //end::list[]
@@ -932,7 +936,7 @@ You can use this command to *add a group* to a module in the TA-Tracker.
 When a new group is created, the *Student View* will show the groups of the module
 this new group belongs to and students of the new group.
 
-You may notice that the list of students is empty. This is because you haven't added any
+You may notice that the *list of students is empty*. This is because you haven't added any
 students to the group yet.
 
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
@@ -951,7 +955,7 @@ Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 * You *can't* add multiple groups with the same group code into the same module.
 
-* You can give a group your own custom GROUP_CODE (ex: 10AMGROUP) if you find it easier
+* You can give a group your own custom `GROUP_CODE` (ex: 10AMGROUP) if you find it easier
 to remember. However,  we recommend you use the official
 group code for it.
 ====
@@ -987,7 +991,7 @@ Format: `group delete g/GROUP_CODE m/MOD_CODE`
 ====
 [horizontal]
 
-* `MOD_CODE` here refers to the module code of the module that contains the group that
+* `MOD_CODE` here refers to the module code of the module that contains the group
 you want to delete.
 
 * You *can't* delete a group from a module that doesn't exist.
@@ -1017,8 +1021,8 @@ You can use this command to *edit a group* in the TA-Tracker.
 This command can be used to change the *group code and the group type* of the group.
 The students inside the group will remain intact.
 
-When a group is edited, the *Student View* will show the groups in the module that
-the edited group belongs to, as well as the students that belong to the edited group.
+When a group is edited, the *Student View* will show the *groups in the module that
+the edited group belongs to, as well as the students that belong to the edited group*.
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]`
@@ -1033,7 +1037,7 @@ you want to edit.
 
 * You *can't* edit a group that doesn't exist.
 
-* If you are changing the group code, the module shouldn't contain a group that has the
+* If you are changing the group code, the module *shouldn't* contain a group that has the
 same group code as the new group code.
 
 * While the `nt/` and `ng/` prefixes are optional, at least one of them must be mentioned.
@@ -1067,13 +1071,13 @@ Format: `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
 [NOTE]
 ====
 [horizontal]
-* You cannot add a student to a module that does not exist in the TA-Tracker.
+* You *cannot* add a student to a *module that does not exist* in the TA-Tracker.
 
-* You cannot add a student to a group that does not exist inside the given module.
+* You *cannot* add a student to a *group that does not exist* inside the given module.
 
-* You cannot add multiple students with the same matric number inside the same module group.
+* You *cannot add multiple students with the same matric number* inside the same module group.
 
-* Student names are auto-capitalized. However, if the name includes a hyphen (-) with no
+* Student names are *auto-capitalized*. However, if the name includes a hyphen (-) with no
 space after the hyphen, the second half of the name will not be capitalised.
 ====
 
@@ -1090,14 +1094,14 @@ inside group `G03` of the module `CS2100`.
 [TIP]
 ====
 [horizontal]
-* * You can't edit the `MATRIC_NUMBER` once the student has been created, so do take
+* * You *can't* edit the `MATRIC_NUMBER` once the student has been created, so do take
 care to ensure that the number is correct.
-* You can use the rating feature to give your students participation marks.
-* A student is given a default rating of 3/5 (average) if you do not specify a rating.
+* You can use the *rating feature* to give your students *participation marks*.
+* A student is given a *default rating of 3/5 (average)* if you do not specify a rating.
 * You can either specify a rating in the add student
 command or,
-* you can edit their rating later by using the `student edit` command (details given below
-in 5.2.9.)
+* you can edit their rating later by using the `student edit` command (details given later in
+this guide).
 ====
 //tag::endstudent[]
 //tag::deletestudent[]
@@ -1118,11 +1122,11 @@ Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 [NOTE]
 ====
 [horizontal]
-* You cannot remove a student from a module that does not exist in the TA-Tracker.
+* You *cannot* remove a student from a *module that does not exist* in the TA-Tracker.
 
-* You cannot remove a student from a group that does not exist inside the given module.
+* You *cannot* remove a student from a *group that does not exist* inside the given module.
 
-* You cannot remove a student that does not exist inside the given module group.
+* You *cannot* remove a student that does not exist inside the given module group.
 ====
 ====
 Examples:
@@ -1152,20 +1156,20 @@ Format: `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE
 [NOTE]
 ====
 [horizontal]
-* You cannot edit a student in a module that does not exist in the TA-Tracker.
+* You *cannot* edit a student in a *module that does not exist* in the TA-Tracker.
 
-* You cannot edit a student in a group that does not exist inside the given module.
+* You *cannot* edit a student in a *group that does not exist* inside the given module.
 
-* You cannot edit a student that does not exist inside the given module group.
+* You *cannot* edit a student that *does not exist inside the given module group*.
 
-* You cannot edit a student's matriculation number
+* You *cannot* edit a student's *matriculation number*.
 
-* You must edit the student with at least one of the optional fields.
+* You *must* edit the student with at least one of the optional fields.
 ====
 [TIP]
 ====
 [horizontal]
-* If you edit the tags of a student, the new tags will replace the old tags.
+* If you edit the tags of a student, the *new tags will replace the old tags*.
 
 * You can remove all tags from a student with an empty tag +
 (i.e. typing `t/` without specifying any tags after it).
@@ -1243,9 +1247,9 @@ Sorts the student inside `G06` of module `CS2100` by rating in ascending order.
 You can use this command to *sort your students in a specific module*.
 The students will be sorted according to the `SORT_TYPE` you specify.
 
-The *Student View* will show you the students inside the first group of the module
-that you have sorted. If you want to see the other groups, you can use the `student filter`
-command (details are given later in this guide).
+The *Student View* will show you the students inside the *first group of the module
+that you have sorted*. If you want to see the other groups, you can use the `student filter`
+command (details given later in this guide).
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort module m/MOD_CODE t/SORT_TYPE`
@@ -1286,8 +1290,8 @@ Sorts all students inside all groups inside the module `CS2103T` `alphabetically
 You can use this command to *sort all your students*.
 The students will be sorted according to the `SORT_TYPE` you specify.
 
-The *Student View* will show you the students inside the first group of the  first module
-in the TA-Tracker. If you want to see the other groups or modules, you can use the `student filter`
+The *Student View* will show you the students inside the *first group of the  first module
+in the TA-Tracker*. If you want to see the other groups or modules, you can use the `student filter`
 command (details are given later in this guide).
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
@@ -1323,8 +1327,8 @@ Sorts all students in all groups inside all modules by rating, in descending ord
 ==== Filter : `student filter`
 (Contributed by Chua Yi Jing)
 
-You can use this command to see the students in a particular group
-and module.
+You can use this command to see the students in a *particular group
+and module*.
 
 You can filter the students in *Student View* in the following ways:
 
@@ -1342,7 +1346,7 @@ Format: `student filter m/MOD_CODE [g/GROUP_CODE]`
 [NOTE]
 ====
 [horizontal]
-* Using both module code and group code will show you the students
+* Using both *module code and group code* will show you the students
 inside the group with the given group code.
 
 * The group must belong to the module specified
@@ -1359,12 +1363,12 @@ This will show you all students in module `CS2100`, under group `G03`.
 
 If you use just the module code, you will see:
 
-* The first group of the module specified by the given module code highlighted in orange
+* The *first group* of the module specified by the given module code highlighted in orange.
 
-* All the students belonging to that group
+* All the students belonging to that *group*.
 
-* You can use this command when you want to see all the groups belonging to a
-particular module.
+* You can use this command when you want to see *all the groups belonging to a
+particular module*.
 
 Format: `student filter m/MOD_CODE`
 
@@ -1394,7 +1398,7 @@ This section explains the different commands that can be used in the *Session Vi
 ==== Adding a Session : `session add`
 (Contributed by Chua Yi Jing)
 
-You can use this command to add a new session.
+You can use this command to *add a new session*.
 
 The new session will be shown in the *Session View*, and will automatically
 be marked as `not done`.
@@ -1444,7 +1448,7 @@ be created with `DATE d/2020-07-04` (2 weeks later from the date of the original
 ==== Deleting a Session : `session delete`
 (Contributed by Chua Yi Jing)
 
-You can use this command to delete a session at a specific `index`.
+You can use this command to *delete a session* at a specific `index`.
 
 If you were on a different `tab`, you will automatically be switched to the `session tab`.
 
@@ -1470,7 +1474,7 @@ This command deletes the first session in the *Session View*.
 ==== Editing a Session : `session edit`
 (Contributed by Chua Yi Jing)
 
-You can use this command to edit a session in the TA-Tracker.
+You can use this command to *edit a session* in the TA-Tracker.
 
 If you were on a different `tab`, you will automatically be switched to the `session tab`.
 
@@ -1481,7 +1485,7 @@ Format: `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR]
 ====
 [horizontal]
 
-* You must edit the session with at least one of the optional fields.
+* You must edit the session with *at least one of the optional fields*.
 ====
 ====
 Examples:
@@ -1504,7 +1508,7 @@ Edits the session at index 1 to have:
 
 (Contributed by Fatin and Chua Yi Jing)
 
-You can use this command to mark a session as done.
+You can use this command to *mark a session as done*.
 
 The session marked as done will be removed from the *Session View* and
 will automatically appear as a new claim in the *Claims View*.
@@ -1535,17 +1539,20 @@ You can use this command to filter the sessions in the *Session View*.
 
 You can filter the sessions in the following ways:
 
-* `MOD_CODE` - filtering by module code will show you only the sessions affiliated
-with that module.
+* `MOD_CODE` - filtering by module code will show you *only the sessions affiliated
+with that module*.
 
-* `SESSION_TYPE` - filtering by session type will show you only the sessions with the specified type
+* `SESSION_TYPE` - filtering by session type will show you only the
+sessions with the *specified type*.
 
 * `DATE` - filtering by a date will show you only the sessions on that date.
 
-The keyword is case-insensitive.
+When you use multiple filters, the filters will have an *or* relationship. For example,
+for the command `session filter m/CS3243 t/grading` you will be shown sessions that
+either belong to the module `CS3243` or are of type `grading`.
 
-When you execute a new filter command, any previous filters applied on the sessions will
-be removed and only the filters from the latest command will be applied on the sessions
+When you execute a new filter command, *any previous filters applied on the sessions will
+be removed and only the filters from the latest command will be applied* on the sessions
 list. The filters that are currently being applied are shown at the top of the *Session View*
 
 If you were on a different `tab`, you will automatically be switched to the `session tab`.
@@ -1560,21 +1567,17 @@ Example:
 image::SessionFilter.png[width="790"]
 All sessions in the *Session View* with module code `CS3243` are displayed.
 
-* `session filter m/CS3243 t/tutorial`
-+
-All sessions in the *Session View* with module code `CS2103T`,
-*or* session type `Tutorial` will be shown.
-
-* `session filter m/CS3243`
+* `session filter m/CS3243 t/grading`
 +
 image::SessionFilterMultiple.png[width="790"]
-All sessions in the *Session View* with module code  `CS2103T`
-will be shown.
+All sessions in the *Session View* with module code `CS3243`,
+*or* session type `Grading` will be shown.
 ====
 
 [NOTE]
 ====
-As long as a session contains one of the keyword given by the user, the session will be shown to the user.
+As long as a session contains *any one of the keywords* given by the user,
+the session will be shown to the user.
 ====
 //end::filtersession[]
 
@@ -1585,7 +1588,7 @@ As long as a session contains one of the keyword given by the user, the session 
 
 (Contributed by Chua Yi Jing)
 
-You can use this command to filters sessions in the *Claims View* by the module code.
+You can use this command to *filter sessions in the Claims View* by the module code.
 
 You will see the module with the specified `MOD_CODE` highlighted in orange in the list.
 
@@ -1609,14 +1612,14 @@ All sessions in the *Claims View* with module code `CS3243` are displayed.
 
 (Contributed by Fatin)
 
-Sets the hourly rate for the total income and claim computation.
+Sets the *hourly rate for the total income and claim computation*.
 
 Format: `setrate RATE`
 
 [NOTE]
 ====
-* If you don't specify a rate, it is set at $40 by default (the rate at which most SOC TAs are being paid per hour).
-* `RATE` is the amount you want to change the hourly rate to, this value will be used to calulate the
+* If you don't specify a rate, it is *set at $40 by default* (the rate at which most SOC TAs are being paid per hour).
+* `RATE` is the amount you want to change the hourly rate to, this value will be used to calculate the
 `Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
 * The `RATE` must be a positive integer.
 ====
@@ -1635,13 +1638,14 @@ Sets the current hourly rate to $25.
 ==== Generate Statistic Report : `report`
 (Contributed by Haoyi)
 
-You can use this command to generate a report to display information such as:
+You can use this command to *generate a report to display information* such as:
 
 * A breakdown and summary of completed sessions
 * The number of hours of each type of completed sessions
 * A breakdown of your student's ratings
 
-Optionally, you can specify a module code. If a module code is specified, the report generated will only include data from the specified module.
+Optionally, you can specify a *module code*. If a module code is specified,
+the report generated will only include data from the *specified module*.
 
 Pressing the `esc` key on your keyboard will close the statistics window.
 
@@ -1666,6 +1670,113 @@ image::CS2103Statistics.png[,1000]
 Generate and display a report of sessions and students from the module CS3243.
 //end::statistics[]
 //tag::glossary[]
+
+=== Timed Sessions - Coming in V2.0
+(Contributed by Haoyi)
+
+In V2.0, you will be able to *add timed sessions*. Timed sessions will allow you
+to set sessions that will *notify
+and remind* you as the sessions' start time approaches.
+Timed sessions will also allow you to *start and stop sessions
+as they happen*, such that you will no longer need to specify their start/end times explicitly.
+
+
+//tag::reminders[]
+[[Reminders]]
+==== Set Reminders : `reminder`
+(Contributed by Haoyi)
+
+You can use this command to *set a reminder*.
+
+Format: `reminder set s/START [e/END] [m/MOD_CODE] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
+
+
+[TIP]
+====
+. Reminders are very similar to Sessions. See <<#AddSession>>.
+
+====
+
+====
+Examples:
+
+* `reminder set m/CS3243 s/14:00 e/16:00 d/2020-06-20 w/2 t/consultation`
++
+Adds a new reminder with:
+
+** `START_TIME` at 14:00 in `24hr` format
+** `END_TIME` at 16:00 in `24hr` format
+** `DATE` on 2020-06-20 in `yyyy-MM-dd` format
+** `WEEK` recurring period of 2 weeks: Once this reminder has been marked as done, a new reminder will
+be created with `DATE d/2020-07-04` (2 weeks later from the date of the original reminder)
+** `MOD_CODE` of CS3243
+** `TYPE` consultation
+
+At 13:45, a system notification will remind you that a consultation is scheduled in 15 minutes.
+
+.An Example TA-Tracker Notification on MacOS
+image::MacOSNotification.png[]
+====
+//end::reminders[]
+
+//tag::sessionstart[]
+[[SessionStart]]
+==== Start Sessions : `session start`
+(Contributed by Haoyi)
+
+You can use this command to start a *session at the current time*. A session will be created at
+your current system time.
+
+Format: `session start [m/MOD_CODE] [t/SESSION_TYPE] [n/NOTES]`
+
+
+[TIP]
+====
+. Once you have started a session, they will go on indefinitely. *You should stop a session manually* after
+you have completed it. See <<#SessionStop>>.
+. If you start a new session before stopping the previous session, the previous, currently in-progress
+session will be stopped automatically.
+
+====
+
+====
+Examples:
+
+* `session start m/CS3243 t/consultation`
++
+Creates a new session with:
+
+** `START_TIME` at the current system time.
+** `MOD_CODE` of CS3243
+** `TYPE` consultation
+====
+//end::sessionstart[]
+
+//tag::sessionstop[]
+[[SessionStop]]
+==== Stop Sessions : `session stop`
+(Contributed by Haoyi)
+
+You will need to stop any sessions that you start. To do this, simply enter the command `session stop`. This
+will stop sessions that are currently in-progress.
+
+[TIP]
+====
+. If there are no in-progress sessions, `session stop` will display an error. See <<#SessionStart>> to first start a session.
+. Sessions that are stopped will automatically be marked as done.
+====
+
+====
+Examples:
+
+* `session stop`
++
+Stops the currently in-progress session. The end time of the stopped session will be set to the system time,
+and the session will be marked as done.
+
+====
+//end::sessionstop[]
+
 
 == Glossary
 
@@ -1695,7 +1806,7 @@ Index of 1 refers to the first item in a list.
 | Matric Number | This refers to a student's matriculation number. For example: A0123456X
 
 | Group | The is the general term given to a group of students a TA teaches. For example:
-lab , tutorial , recitation
+lab , tutorial
 
 | TAT | This is the short form of TA-Tracker.
 
@@ -1794,4 +1905,10 @@ mark their assignments. You will see this feature in our next release.
 
 === Statistics
 * *Generate Statistics Report:* `report [MOD_CODE]`
+
+=== Timed Sessions - Coming in V2.0
+* *Set Reminders:* `reminder set s/START [e/END] [m/MOD_CODE] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
+* *Start Sessions:* `session start [m/MOD_CODE] [t/SESSION_TYPE] [n/NOTES]`
+* *Stop Sessions:* `session stop`
+
 //end::summary[]
