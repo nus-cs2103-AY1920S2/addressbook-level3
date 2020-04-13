@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <BorderPane fx:id="borderPane">
+        <top>
+            <VBox spacing = "5">
+                <Label fx:id="dayHeader" styleClass="cell_big_label"/>
+                <Label fx:id="scoreTitle" />
+                <Label fx:id="currScore" />
+                <Label fx:id="highScore" />
+                <Label fx:id="contentTitle" />
+                <Label fx:id="content" />
+            </VBox>
+        </top>
+    </BorderPane>
+</HBox>
+

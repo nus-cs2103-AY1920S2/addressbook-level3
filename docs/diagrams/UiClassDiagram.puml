@@ -5,17 +5,26 @@ skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
-Interface Ui <<Interface>>
-Class "{abstract}\nUiPart" as UiPart
-Class UiManager
-Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
-Class StatusBarFooter
-Class CommandBox
-}
+ Interface Ui <<Interface>>
+ Class "{abstract}\nUiPart" as UiPart
+ Class UiManager
+ Class MainWindow
+ Class HelpWindow
+ Class GroceryListWindow
+ Class ResultDisplay
+ Class StatusBarFooter
+ Class CommandBox
+ Class MainTabPanel
+ package {
+ Class RecipeListPanel
+ Class RecipeCard
+ Class PlanningListPanel
+ Class PlanningCard
+ Class CookedListPanel
+ Class CookedCard
+ Class AchievementCard
+ }
+ }
 
 package Model <<Rectangle>> {
 Class HiddenModel #FFFFFF
@@ -29,32 +38,50 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
-UiManager -down-> MainWindow
+UiManager -down- MainWindow
 MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow --> GroceryListWindow
+MainWindow *-down- CommandBox
+MainWindow *-down- ResultDisplay
+MainWindow *-down- StatusBarFooter
+MainWindow *-down- MainTabPanel
 
-PersonListPanel -down-> PersonCard
+MainTabPanel *-down- RecipeListPanel
+RecipeListPanel -down- RecipeCard
+MainTabPanel *-down- PlanningListPanel
+PlanningListPanel -down- PlanningCard
+MainTabPanel *-down- CookedListPanel
+CookedListPanel -down- CookedCard
+MainTabPanel *-down- AchievementCard
+
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+GroceryListWindow --|> UiPart
+RecipeListPanel --|> UiPart
+PlanningListPanel --|> UiPart
+CookedListPanel  --|> UiPart
+AchievementCard  --|> UiPart
+RecipeCard  --|> UiPart
+PlanningCard  --|> UiPart
+CookedCard  --|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+HelpWindow --|> UiPart
 
-PersonCard ..> Model
+RecipeCard .down.> Model
+PlanningCard .down.> Model
+CookedCard .down.> Model
+AchievementCard .down.> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+RecipeListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+GroceryListWindow -[hidden]left- StatusBarFooter
 
 MainWindow -[hidden]-|> UiPart
 @enduml

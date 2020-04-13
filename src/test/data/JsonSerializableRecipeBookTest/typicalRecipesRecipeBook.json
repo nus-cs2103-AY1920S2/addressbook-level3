@@ -1,0 +1,81 @@
+{
+  "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalRecipeBook()",
+  "recipes" : [ {
+    "name" : "Caesar Salad",
+    "time" : "10",
+    "isFavourite": false,
+    "grains": ["200g, Bread" ],
+    "vegetables" : [ "300g, Lettuce" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : ["Cut tomatoes", "Remove honeydew skin"],
+    "goals" : [ "Herbivore", "Wholesome Wholemeal" ]
+  }, {
+    "name" : "Grilled Sandwich",
+    "time" : "10",
+    "isFavourite": false,
+    "grains": [ "150g, Bread" ],
+    "vegetables" : [ ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ "50g, Cheese"],
+    "steps" : ["Spread butter on bread", "Heat pan to medium heat"],
+    "goals" : [ "Wholesome Wholemeal" ]
+  }, {
+    "name" : "Boiled Chicken",
+    "time" : "10",
+    "isFavourite": false,
+    "grains": [ ],
+    "vegetables" : [ ],
+    "proteins" : [ "300g, Chicken" ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : ["Dice chicken"],
+    "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "Chocolate Cake",
+    "time" : "120",
+    "isFavourite": false,
+    "grains": [ ],
+    "vegetables" : [ ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ "100g, Sugar" ],
+    "steps" : ["Caramelize sugar"],
+    "goals" : [ ]
+  }, {
+    "name" : "Omelet",
+    "time" : "15",
+    "isFavourite": false,
+    "grains": [ ],
+    "vegetables" : [ ],
+    "proteins" : [ "50g, Egg" ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : ["Crack and beat eggs"],
+    "goals" : [ ]
+  }, {
+    "name" : "Steamed Egg",
+    "time" : "15",
+    "isFavourite": false,
+    "grains": [ ],
+    "vegetables" : [ ],
+    "proteins" : [ "50g, Egg" ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : ["Pour water into steamer and bring to a boil"],
+    "goals" : [ ]
+  }, {
+    "name" : "Tuna Bread",
+    "time" : "60",
+    "isFavourite": false,
+    "grains": [ "200g, Bread" ],
+    "vegetables" : [ ],
+    "proteins" : [ "300g, Tuna" ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : ["Slice tuna"],
+    "goals" : [ "Bulk like the Hulk", "Wholesome Wholemeal" ]
+  } ]
+}

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= HealthyBaby - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -10,168 +10,689 @@
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
+:warning-caption: :warning:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-T10-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team HYBB`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*HealthyBaby* (HYBB) is a desktop application that provides you with a database of quick, easy, and healthy recipes.
+Are you a *university student* staying on campus and are tired of purchasing the same few unhealthy meals? Looking for
+healthier options but searching for and planning recipes are a hassle for you? HYBB is just the app for you!
+HYBB helps alleviate the challenges faced while maintaining healthy eating habits, easing the transition from eating
+out everyday to cooking healthy meals regularly.
+
+*Value proposition*: Focuses on healthy, simple recipes with short cooking time with ingredients filter to
+minimise food wastage.
+
+HYBB is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of
+a Graphical User Interface (GUI).
+Through our convenient filters, searching and planning for new healthy recipes will be a breeze.
+
+Get motivated through our eye-catching goals and achievements.
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+== Overview (Harshita)
+The main features of HYBB are as follows:
+
+=== Filter
+HYBB enables filtering by specific components in the recipes such as goals, favourites, and ingredients in order to
+reduce the time needed to find recipes that suit your needs.
+
+=== Planning
+This feature enables students to plan their meals in advance and provides an easy grocery list for your shopping needs.
+
+=== Goals
+This feature enables students to monitor their healthy eating progress, HYBB provides a history of all cooked meals along with
+statistics based on 4 main goals: “Wholesome Wholemeals”, “Bulk like a Hulk”, “Herbivore” and "Fruity Fiesta".
+
+=== Achievements
+This feature aims to encourage students to continue their healthy eating by showing visual evidence of their progress
+through streaks and daily motivational quotes.
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Ensure you have `Java 11` or above installed in your Computer.
+.  Download the latest `healthybaby.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your HealthyBaby application.
+.  Double-click the file to start the app. The Graphical User Interface should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Enter a command in the command box to execute it. The result of the command will appear in the result box directly below the command box.
++
+e.g. Entering *`help`* will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* **`list`** : lists all recipes
+* **`delete 3`** : deletes the 3rd recipe shown in the current list
+* **`undo`** : undoes the previous action
+* **`exit`** : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
-[[Features]]
-== Features
+== The Anatomy of a Recipe
+You can store the following information in a recipe: +
+*Name* - Name of the recipe +
+*Time* - Time taken for the recipe to be cooked, measured in minutes +
+*Ingredients* - Ingredients used in the recipe, broken down into five categories (Grains, Vegetables, Proteins, Fruits, Others) +
+*Steps* - Steps taken to cook the meal +
+*Goals* - Goal that the recipe falls under +
 
-====
-*Command Format*
+=== Goals (Harshita)
+HYBB supports the following goals that model the Healthy Eating Plate. Goals are automatically added to a recipe you add or edit if they meet the recommended nutritional quantity specified for their respective food group.
+|===
+|Goal |Food Group represented by Goal
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+|Herbivore | Vegetables
+|Fruity Fiesta | Fruits
+|Bulk like the Hulk | Healthy Proteins
+|Wholesome Wholemeals | Whole Grains
+|===
 
-=== Viewing help : `help`
+=== Ingredients (Beatrice)
+You can use the following units to measure how much of each ingredient is needed in the recipe.
 
-Format: `help`
+|===
+|Unit |Description
 
-=== Adding a person: `add`
+|g |Grams
+|ml |Milliliters
+|tbsp |Tablespoon
+|tsp |Teaspoon
+|cup |Cups
+|===
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+// tag::GUI[]
+== HealthyBaby's User Interface (Beatrice)
+Upon opening *HYBB*, you will see our Graphical User Interface.
+
+.HealthyBaby's User Interface
+image::AnnotatedUserInterface.png[]
+
+The *Command Box* is where you can enter commands to tell HYBB what to do. +
+The *Result Box* is where you can see whether the command you have given was successful or unsuccessful. +
+The *Tab Panel* can be clicked to switch between tabs. +
+Alternatively, if you wish to switch between tabs by typing instead of clicking, you can type `switch [tab name]`
+into the Command Box instead. +
+For more information, please refer to <<Switch the current tab: `switch`>>. +
+The *Display Panel* displays the information for the current tab you are on.
+// end::GUI[]
+
+== Notations Used
+=== List of Tags
+You can use the following tags to converse with HYBB.
+
+|===
+|Tag |Description
+
+|n/ |Name of recipe
+|t/ |Time taken to prepare and cook recipe, measured in minutes
+|ig/ |Grain ingredient (e.g. rice, bread, spaghetti)
+|iv/ |Vegetable ingredient (e.g. spinach, cabbage, carrot)
+|ip/ |Protein ingredient (e.g. chicken, salmon, tofu)
+|if/ |Fruit ingredient (e.g. grapes, honeydew, watermelon)
+|io/ |Other ingredient, for any other ingredient that do not belong in the above 4 categories (e.g. oyster sauce,
+pepper, sesame oil)
+|s/ |Steps of the recipe
+|===
+
+=== Legend
+From sections 6 to 11, the following notations may be used.
+
+[cols="1a,1"]
+|===
+|Notation |Meaning
+
+|[ ] |Necessary field
+|< > |Optional field. e.g. `n/name <s/step>` can be used as `n/Spicy Chicken s/Step 1` or just `n/Spicy Chicken`
+|[ < > ] |At least one of the optional fields is necessary
+|… | One or more of this same field can be added. +
+e.g. if the command specifies `<ip/protein>...`, you may either leave
+the field empty, or you may specify one or more protein ingredients. +
+e.g. if the command specifies `[recipe index]...`, you may specify one or more recipe indexes.
+|💡 | Tips for usage and things to take note of
+|===
+
 
 [TIP]
-A person can have any number of tags (including 0)
+Parameters can be in any order e.g. if the command specifies `n/name t/time`, `t/time n/name` is also acceptable. +
+Also, commands are case-insensitive, but tags are case-sensitive.
 
-Examples:
+[[Features]]
+== Basic Commands
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+=== Viewing help : `help`
+Gives you a short summary of all the available commands. +
+Format: `help`
 
-=== Listing all persons : `list`
+=== Switch the current tab: `switch` (Harshita)
+Switches the current tab you are in and changes the display. +
+Format: `switch` [tab name]
 
-Shows a list of all persons in the address book. +
+Example: `switch planning` +
+Switches the current tab to the planning tab.
+
+[TIP]
+Tabs available: recipes, planning, goals, achievements.
+
+=== List all recipes: `list`
+Lists all the recipes present in the database. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Find a recipe: `find` (Brian)
+Searches for existing recipes by their names using the keyword(s) that you have specified. +
+Format: `find </strict> [keyword] <keyword>...`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Example 1: `find /strict Avocado Chicken` +
+Finds recipes that contain the words "Avocado" *or* "Chicken" in their names (ie. only one of them has to be present).
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+[TIP]
+Using `/strict` will treat all subsequent keywords as *separate keywords* (separated by the space),
+as seen in Example 1. +
+{nbsp} +
+It will also search for an *exact match* of each specified keyword (e.g. If you are searching for a recipe that
+has "Avocado" in its name, `find /strict Avo` _will not_ be able to find it. Instead, use `find /strict Avocado` or
+see Example 2)
 
-Examples:
+Example 2: `find Avocado Chicken` +
+Finds recipes that contain the single keyword "Avocado Chicken".
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+[TIP]
+Without `/strict`, all the keywords will be taken as a *single keyword* and it *does not* require an exact match for a
+recipe to be found (e.g. `find Avo` will be able to find recipes that has "Avocado" in its name)
 
-=== Locating persons by name: `find`
+=== Add a recipe: `add`
+Adds a recipe to the recipe book +
+Format: `add [n/name] [t/time] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>...]
+<s/step>...`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Example: `add n/Chicken Rice t/30 ip/300g, Chicken Thigh ig/300g, Rice s/Boil chicken
+          s/While chicken is cooking, add sesame oil and crushed ginger into rice and cook it
+          s/When chicken is done, dip it into iced water
+          s/Serve while rice is hot` +
+Adds a new recipe entry that contains the following description: +
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+.Expected output
+image::AddExample.png[]
 
-Examples:
+[TIP]
+Multiple steps and multiple ingredients for a recipe can be added in this one command. +
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+[TIP]
+The compulsory fields needed in a recipe are the *name, time and at least one of the ingredient fields.*
+You can add these fields first, then edit the recipe as needed using the various edit commands available
+(Refer to section 6.6 and 7). +
 
-// tag::delete[]
-=== Deleting a person : `delete`
+[TIP]
+Name and time fields that require one input. If more than one name or more than one time is given,
+HYBB will take the later input. +
+For example, `add n/Chicken Rice n/Chicken with Rice t/30, ip/300g, Chicken Thigh`
+would create a new recipe with the name Chicken with Rice.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+=== Edit a recipe : `edit`
+Edits an existing recipe. This is the command used for editing entire fields at a time. +
+Format: `edit [recipe index] [<n/name> <t/time> <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>...
+<io/other>... <s/step>...]`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Example: `edit 4 n/Chicken Rice t/20` +
+Renames the 4th recipe to Chicken Rice, and sets the preparation time to 20 minutes (from whatever amount it was before).
 
-Examples:
+[TIP]
+Using this command to edit a field that might have multiple entities like ‘vegetable ingredients’ or 'steps' will
+overwrite the entire field.
+For example, if the 4th recipe currently has a list of 5 vegetable ingredients, running `edit 4 iv/50g, Lettuce` will
+replace the *entire* list of vegetable ingredients with only 50g of Lettuce. +
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+[TIP]
+To make changes to a single entity in a field without having to rewrite everything, please refer to
+<<Recipe Customisation Commands (Brian)>>. +
 
-// end::delete[]
-=== Clearing all entries : `clear`
+[TIP]
+For fields that can only contain one entry like name and time, if more than one name or more than one time is given,
+HYBB will take the later input. +
+For example, `edit 4 t/10 t/20`
+would change the time taken to 20 minutes for the recipe at index 4.
 
-Clears all entries from the address book. +
+=== Delete a recipe : `delete` (Brian)
+Deletes the recipe(s) that you have specified. +
+Format: `delete [recipe index] <recipe index>...`
+
+Example: `delete 1 3 4` +
+Deletes recipe 1, 3, and 4 from the recipe book.
+
+[TIP]
+You can *delete, favourite, or unfavourite* multiple recipes at the same time (at least one recipe must be selected).
+
+[TIP]
+If you specify a recipe number that does not exist in the list of recipes _that you are currently viewing_, none of your
+selected recipes will be deleted, favourited, or unfavourited.
+
+=== Favourite a recipe: `favourite` (Brian)
+Favourites the recipe(s) that you have specified. +
+Format: `favourite [recipe index] <recipe index>...`
+
+Example: `favourite 1 3 4` +
+Favourites recipes 1, 3, and 4.
+
+=== Unfavourite a recipe: `unfavourite` (Brian)
+Unfavourites the recipe(s) that you have specified. +
+Format: `unfavourite [recipe index] <recipe index>...`
+
+Example: `unfavourite 1 3 4` +
+Unfavourites recipes 1, 3, and 4.
+
+// tag::undoredo[]
+=== Undo a previous action: `undo` (Brian)
+Undoes a previous action. +
+Format: `undo <number of actions> or <all>`
+
+Example 1: `undo` +
+Undoes only the previous action.
+
+Example 2: `undo 3` +
+Undoes the 3 previous actions. If there are less than 3 actions to undo, you will not be allowed to undo.
+
+Example 3: `undo all` +
+Undoes all previous actions.
+
+[TIP]
+For both undo and redo, the number of actions that you specify (if any) has to be a non-zero unsigned integer!
+
+=== Redo a previous undo: `redo` (Brian)
+Restores actions that have been previously undone using `undo`.
+Format: `redo <number of actions> or <all>`
+
+Example 1: `redo` +
+Restores the actions that have been undone by the previous undo.
+
+Example 2: `redo 3` +
+Restores the actions that have been undone by the previous 3 undo-s. If there are less than 3 actions to restore, you
+not be allowed to redo.
+
+Example 3: `redo all` +
+Restores the actions that have been undone by all previous undo-s.
+// end::undoredo[]
+
+=== Clear the recipe book : `clear`
+Clears the recipe book. After entering this command, the recipe book will be empty and all planned recipes
+will be removed. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+[WARNING]
+All recipes and plans, including default ones, will be removed.
 
-Exits the program. +
+[TIP]
+You can `undo` this command if it was performed by accident.
+
+=== Exit the program : `exit`
+Saves HYBB and exits the program. +
 Format: `exit`
 
 === Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+HYBB's data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::recipecustomisation[]
+== Recipe Customisation Commands (Brian)
+As we see from the `edit` command in section 6.6, if you want to add, edit, or delete a single ingredient or step,
+you would have to rewrite the whole field that you wish to edit. This would be troublesome if the field contains
+multiple ingredients or steps that you may not necessarily want to edit. Therefore, the following commands are used in
+occasions like these!
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Add Ingredients to a Recipe: `addIngredient` (Brian)
+Adds more ingredients to an existing recipe. +
+Format: `addIngredient [recipe index] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>...]`
 
-== FAQ
+Example: `addIngredient 2 ig/50g, Bread io/5g, Butter` +
+Adds 50g of Bread and 5g of Butter to recipe 2.
+
+[TIP]
+You can add multiple ingredients at a time (at least one ingredient must be added).
+
+[TIP]
+If you add an ingredient that already exists in the recipe, that existing ingredient will be replaced with the new one.
+
+=== Edit Ingredient Quantity in a Recipe: `editIngredient` (Brian)
+Edits the quantity of an ingredient in an existing recipe. +
+Format: `editIngredient [recipe index] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>… <io/other>...]`
+
+Example: `editIngredient 3 ig/50g, Bread` +
+Searches for Bread in recipe 3 and changes its quantity to 50g. An error message will appear if Bread does not exist in
+recipe 3's ingredients set.
+
+[TIP]
+You can edit multiple ingredients at a time (at least one ingredient must be edited).
+
+=== Delete Ingredients in a Recipe: `deleteIngredient` (Brian)
+Deletes the specified ingredient(s) from an existing recipe. +
+Format: `deleteIngredient [recipe index] [<ig/grain name>... <iv/vegetable name>... <ip/protein name>...
+<if/fruit name>... <io/other name>...]`
+
+Example: `deleteIngredient 3 ig/Rice iv/Kailan` +
+Searches for Rice and Kailan in recipe 3 and deletes them. An error message will appear if Rice and/or Kailan does not
+exist in recipe 3's ingredients set.
+
+[TIP]
+You can delete multiple ingredients at a time (at least one ingredient must be deleted).
+
+[TIP]
+There is no need to specify quantity here. Just the ingredient name will do!
+
+[TIP]
+If you type an ingredient prefix (e.g. "ig/") but don't specify any ingredients, all ingredients of that type will be
+deleted.
+
+=== Add Steps to a Recipe: `addStep` (Brian)
+Adds more steps to an existing recipe. +
+Format: `addStep [recipe index] [s/step] <s/next step>...`
+
+Example: `addStep 1 s/New step s/Another new step` +
+Adds 2 new steps to recipe 1.
+
+[TIP]
+You can add multiple steps at a time (at least one step must be added).
+
+=== Edit a Step in a Recipe: `editStep` (Brian)
+Edits the specified step in an existing recipe. +
+Format: `editStep [recipe index] [step index] [s/new step]`
+
+Example: `editStep 3 4 s/Edited new step` +
+Replaces step 4 of recipe 3 with “Edited new step”. If you specify more than one step, only the first one will be used
+to replace the old step.
+
+=== Delete Steps in a Recipe: `deleteStep` (Brian)
+Deletes the specified step(s) from an existing recipe. +
+Format: `deleteStep [recipe index] [step index] <step index>...`
+
+Example: `deleteStep 3 2 3 5` +
+Deletes steps 2, 3, and 5 of recipe 3.
+
+[TIP]
+You can delete multiple steps at a time (at least one step must be deleted).
+// end::recipecustomisation[]
+
+// tag::advancedfilter[]
+== Filter Command (Brian)
+This command is not to be confused with the `Find` command, which only searches for recipes by their names. The
+`Filter` command is a more robust search command that allows you to search for recipes using _various criteria_.
+
+[TIP]
+You can combine the input of the next few subsections to filter the recipes by multiple criteria!
+
+=== Filter by ingredients (Brian)
+Finds recipes that contains the specified ingredients. +
+Format: `filter <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>...`
+
+Example 1: `filter ig/Rice iv/Cabbage` +
+Finds recipes that contains Rice and Cabbage.
+
+Example 2: `filter ig/exclude Pasta ip/Chicken` +
+Finds recipes that *does not* contain Pasta and contains Chicken.
+
+[TIP]
+Notice the use of the keyword "exclude" in Example 2? Use this to exclude ingredients that you do not want!
+
+=== Filter by goals (Brian)
+Finds recipes that are tagged with the specified goal. +
+Format: `filter [g/goal] <g/goal>...`
+
+Example: `filter g/Herbivore` +
+Finds recipes that are tagged with the `Herbivore` goal.
+
+=== Filter by favourites (Brian)
+Finds recipes that are tagged as favourites. +
+Format: `filter favourites`
+
+=== Filter by preparation time (Brian)
+Finds recipes that have preparation time less than or equals to the specified time (in minutes). +
+Format: `filter [t/time] or [t/time range]`
+
+Example 1: `filter t/15` +
+Finds recipes that have 15 minutes or less of preparation time.
+
+Example 2: `filter t/20-30` +
+Finds recipes that have 20 to 30 minutes (inclusive) of preparation time.
+// end::advancedfilter[]
+
+
+// tag::planning[]
+== Planning Command (Beatrice)
+Most of the planning commands take place in the planning tab. +
+Switch to the planning tab by typing `switch planning` or by clicking on Planning from the *Tab Panel*. +
+
+You should get the following interface:
+
+.Planning Tab
+image::PlanTab.png[]
+The *Display Panel* for the planing tab lists all the plans that you have made. +
+
+You can the see the details of each plan from the list of plans.
+
+.Details of each plan
+image::PlanTab_Plan.png[]
+
+=== Plan a recipe: `plan` (Beatrice)
+Plans a recipe that you would like to cook on a certain day in the future. +
+Format: `plan [recipe index] [d/yyyy-mm-dd]`
+
+Example 1: `plan 1 d/2020-05-27` +
+Plans the recipe at _recipe index_ 1 on 27 May 2020 and adds this plan into the plan list. +
+
+Example 2: `plan 1 2 3 d/2020-05-27` +
+Plans the recipes at _recipe indexes_ 1, 2 and 3 on 27 May 2020 and adds these three plans into
+the plan list.
+
+[TIP]
+As long as at least one index is specified, you can plan as many recipes as you want in one go. For example, we can
+plan for five recipes in one command. `plan 1 2 3 4 5 d/2020-05-27` will plan for the recipes at _recipe indexes_
+1, 2, 3, 4 and 5 on 27 May 2020.
+
+[WARNING]
+Valid indexes are integer numbers ranging from 1 to the current plan list size. If one of the indexes given was
+invalid, the command will not be successful.
+
+[WARNING]
+Valid dates start from the today's date and are in the format yyyy-mm-dd.
+This means that we cannot make a plan on yesterday's date.
+
+=== Delete a plan: `deletePlan` (Beatrice)
+Deletes a plan. +
+Format: `deletePlan [plan index]...`
+
+Example 1: `deletePlan 3` +
+Deletes the 3rd plan.
+
+Example 2: `deletePlan 3 5 8` +
+Deletes the 3rd, 5th and 8th plan.
+
+[TIP]
+As long as at least one index is specified, you can delete as many plans as you want in one go. For example, we can
+delete five plans in one command. `deletePlan 1 2 3 4 5` will delete all plans at plan indexes 1, 2, 3, 4 and 5.
+
+[WARNING]
+Valid indexes are integer numbers ranging from 1 to the current plan list size. If one of the indexes given was
+invalid, the command will not be successful.
+
+[TIP]
+Using the `cooked` command in <<Track cooked meals: `cooked` (Harshita)>> will automatically delete today's plan for
+the recipe that is cooked.
+
+
+=== Clear all planned recipes: `clearPlan` (Beatrice)
+Clears all the plans you have made. +
+Format: `clearPlan`
+
+[WARNING]
+All plans will be removed.
+
+[TIP]
+You can `undo` this command if it was performed by accident.
+
+=== Obtain ingredients for planned recipes: `groceryList` (Beatrice)
+Lists the ingredients needed for all recipes that have been planned. +
+Click on 'Copy' to copy all the ingredients into your clipboard. +
+Simplify your next grocery shopping experience by pasting this list into your preferred social networking
+application (like Telegram or Whatsapp) and sending it to yourself for an easy reference from your
+mobile phone. +
+Alternatively, you can paste the list into a word document and print it out.
+
+You can print this list out by pasting the text into a word document  to
+Format: `groceryList`
+
+[WARNING]
+If no plans have been made, the grocery list will not be generated.
+
+=== View this week's planned recipes: `viewWeek` [Coming in v2.0]
+View all the plans for the week. +
+Format: `viewWeek`
+
+=== View this month's planned recipes: `viewMonth` [Coming in v2.0]
+View all the plans for the month. +
+Format: `viewMonth`
+// end::planning[]
+
+== Goals Command (Harshita)
+
+=== Remove goal: `deleteGoal` (Harshita)
+Deletes a goal that has been auto-generated through the addition or editing of a recipe from a specific recipe. +
+Format: `deleteGoal [recipe index] [goal]`
+
+Example 1: `deleteGoal 2 Bulk like the Hulk` +
+Deletes goal named Bulk like the Hulk from the 2nd recipe if it exists.
+
+[TIP]
+Ensure that the capitalisation of the goal is the same! Check out `listGoals` if unsure.
+
+=== List goals being tracked: `listGoals` (Harshita)
+Lists all goals tracked by HYBB. +
+Format: `listGoals`
+
+Example 1: `listGoals` +
+Displays the 4 main goals being tracked in the *Result Box*.
+
+=== Track cooked meals: `cooked` (Harshita)
+Tracks all cooked meals and adds to the progress of their respective goals. +
+Format: `cooked [recipe index] <recipe index>...`
+
+Example 1: `cooked 2` +
+Marks the 2nd recipe as cooked.
+
+[TIP]
+You can mark multiple recipes as cooked at the same time (at least one recipe must be marked).
+
+Example 2: `cooked 3 4 8` +
+Marks the 3rd, 4th and 8th recipe as cooked.
+
+[WARNING]
+If you specify a recipe number that has already been cooked within the day or does not exist in the list of recipes
+_under the recipes tab_, none of your selected recipes will be marked as cooked.
+
+[WARNING]
+If a plan for the recipe being cooked exists today, using `cooked` will automatically delete these plans.
+
+[TIP]
+A history of all cooked meals, along with a pie chart based on your meals cooked, can be found under the goals tab.
+
+.Goal tab
+image::goalsTab.png[width="790"]
+
+[TIP]
+The pie chart represents the goals tally according to your cooked meal history and models the Healthy Eating Plate!
+
+=== Show progress of goals: `chart` [Coming in v2.0]
+Shows weekly progress of respective goal through graph. +
+Format: `chart [g/goal]`
+
+=== Analyse images added: `analyse` [Coming in v2.0]
+Auto-generates goals and statistics through the use of Artificial Intelligence. +
+
+== Achievement Command (Yue Tong)
+
+=== Add motivational quote : `quote`
+Adds a quote by the user to the quote database to store for future(randomised) display of quote in Achievement tab.
+Format: `quote` [quote]
+
+Example 1: `quote Today was yesterday's tomorrow` +
+Adds quote "Today was yesterday's tomorrow" to quote database.
+
+// tag::achievement[]
+.Achievement tab
+image::QuotesTab.png[width="790"]
+
+=== Display streak: `streak` [Coming in v2.0]
+Displays line chart of all logged streaks by user
+Format: `streak`
+
+=== Remove quote: `remove quote` [Coming in v2.0]
+Removes quote indicated by user +
+Format: `remove quote` [quote]
+
+=== Remove quote: `change quote` [Coming in v2.0]
+Changes currently displayed quote to a new randomised one +
+Format: `change quote`
+//end::achievement[]
+
+== FAQ (Harshita)
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous HYBB folder.
+
+*Q*: How does the auto-generation of goals work? +
+*A*: HYBB analyses the ingredients added or edited in a recipe and auto-generates goals for you. The recipe being tagged by a goal suggests that the minimum requirement per meal for the respective food group, as recommended by the National Institute of Health, has been met.
+
+*Q*: Why is there a deleteGoal command and no addGoal command? +
+*A*: As this is the beta version of HYBB, the auto-generation of goals is designed to either accurately calculate quantity or err on the side of overestimation. This would allow you to remove any goal you deem inaccurate based on your own judgement. You can look forward to future releases which will integrate artificial intelligence into HYBB to auto-generate goals more accurately!
+
+*Q*: Why are there no safeguards for adding ingredients? +
+*A*: Currently, HYBB is designed to help you manage your customized recipe list. Hence, the addition of ingredients and under which tag(ip/ iv/ ig/ if/ io/) they fall would be solely based on your judgement! For future releases, we will ensure more safeguards to prevent invalid inputs based on common knowledge.
+
+*Q*: What are recipe indexes and plan indexes? +
+*A*: Recipe indexes are the numbers beside each recipe in the 'Recipes' tab.
+On the other hand, plan indexes are the numbers beside each plan in the 'Planning' tab.
+
+== Glossary (Harshita)
+|===
+|Term |Definition
+
+|Command Line Interface | Text-based interface used for entering commands.
+|Healthy Eating Plate | Refers to My Healthy Plate designed for Singaporeans by the Health Promotion Board. It is a visual guide that shows you what to eat in the right amounts for each meal, so that you can plan your portions accordingly.
+|===
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+|===
+|Command |Action
+
+|`help` |View help
+|`switch` |Switch to the desired tab
+|`list` |List all recipes
+|`find` |Find recipes by name
+|`add` |Add a recipe
+|`edit` |Edit a recipe
+|`delete` |Delete recipes
+|`favourite` |Favourite recipes
+|`unfavourite` |Unfavourite recipes
+|`clear` |Clear the recipe book
+|`exit` |Exit the programme
+|`addIngredient` |Add ingredients to a recipe
+|`editIngredient` |Edit ingredients’ quantities in a recipe
+|`deleteIngredient` |Delete ingredients in a recipe
+|`addStep` |Add steps to a recipe
+|`editStep` |Edit a step in a recipe
+|`deleteStep` |Delete steps in a recipe
+|`filter` |Search for recipes by (multiple) criteria
+|`plan` |Plan recipes
+|`deletePlan` |Delete plans
+|`clearPlan` |Clear all plans
+|`groceryList` |List all ingredients used in the planned recipes
+|`deleteGoal` |Deletes specified goal from a recipe
+|`listGoals` |Lists all available goals
+|`cooked` |Records a recipe as cooked
+|`quote` |Adds a new quote
+|===

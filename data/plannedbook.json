@@ -1,0 +1,45 @@
+{
+  "plannedRecipes" : [ {
+    "recipe" : {
+      "name" : "Asian BBQ Chicken",
+      "time" : "30",
+      "isFavourite" : false,
+      "grains" : [ ],
+      "vegetables" : [ "1.0tbsp,  Garlic & ginger (finely chopped)" ],
+      "proteins" : [ "100.0g,  Chicken breast" ],
+      "fruits" : [ ],
+      "others" : [ "2.0tbsp,  Char siew sauce", "1.0tsp,  Honey", "1.0tbsp,  Rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  Sesame oil" ],
+      "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "Serve with rice." ],
+      "goals" : [ "Bulk like the Hulk" ]
+    },
+    "date" : "2020-04-20"
+  }, {
+    "recipe" : {
+      "name" : "Asian BBQ Chicken",
+      "time" : "30",
+      "isFavourite" : false,
+      "grains" : [ ],
+      "vegetables" : [ "1.0tbsp,  Garlic & ginger (finely chopped)" ],
+      "proteins" : [ "100.0g,  Chicken breast" ],
+      "fruits" : [ ],
+      "others" : [ "2.0tbsp,  Char siew sauce", "1.0tsp,  Honey", "1.0tbsp,  Rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  Sesame oil" ],
+      "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "Serve with rice." ],
+      "goals" : [ "Bulk like the Hulk" ]
+    },
+    "date" : "2020-05-12"
+  }, {
+    "recipe" : {
+      "name" : "Sweet and Sour Chicken",
+      "time" : "20",
+      "isFavourite" : false,
+      "grains" : [ ],
+      "vegetables" : [ "1.0cup,  Bell peppers", "1.0cup,  Carrots (diced)", "1.0cup,  Chinese cabbage (diced)", "10.0g,  Garlic cloves", "10.0g,  Knob ginger", "1.0cup,  Onions (diced)" ],
+      "proteins" : [ "300.0g,  Chicken", "50.0g,  Egg" ],
+      "fruits" : [ "1.0cup,  Pineapple (diced)", "1.0tbsp,  Tomato juice" ],
+      "others" : [ "10.0g,  Coriander (optional)", "1.5tsp,  Corn flour", "1.0tsp,  Light soya sauce", "1.0tbsp,  Vegetable oil" ],
+      "steps" : [ "Pound garlic and ginger into a paste. Marinade chicken in the paste, along with corn flour, soy sauce, and salt.", "In a wok, take some oil, saute the carrots, cabbage, onions, and bell peppers. Add tomato juice and bring to a slight boil.", "Fry the chicken and add to the wok along with some stock and set to simmer.", "Garnish with coriander and serve with rice." ],
+      "goals" : [ "Bulk like the Hulk", "Herbivore", "Fruity Fiesta" ]
+    },
+    "date" : "2020-05-12"
+  } ]
+}

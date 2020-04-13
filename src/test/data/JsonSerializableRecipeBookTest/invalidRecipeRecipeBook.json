@@ -1,0 +1,13 @@
+{
+  "recipes": [ {
+    "name": "!@#$Hans Muster",
+    "time": "",
+    "isFavourite": false,
+    "grains" : [  ],
+    "vegetables" : [  ],
+    "proteins" : [  ],
+    "fruits" : [  ],
+    "others" : [  ],
+    "steps": [""]
+  } ]
+}

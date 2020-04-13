@@ -1,0 +1,96 @@
+= Tiyari Harshita - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: HealthyBaby
+
+---
+
+== Overview
+
+*HealthyBaby* (HYBB) is a desktop application targeted towards university students that provides users with a database of quick, easy, and healthy recipes.
+HYBB helps alleviate the challenges faced while maintaining healthy eating habits, easing the transition from eating
+out everyday to cooking healthy meals regularly. The user interacts with HYBB using a Command Line Interface, and it has a Graphical User Interface created with JavaFX.
+
+This portfolio serves to demonstrate my proficiency in the various aspects of software engineering such as
+coding, project management and technical writing skills in crafting documentation that fits the target user.
+My role was to design and implement the code for the goals feature and switch feature which will be further elaborated in the
+following sections. Also included are the details of the relevant documentation I have written in the user and
+developer guide to assist users and other developers to understand these features.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the goals feature*
+I implemented the commands and functionality related to the goals feature.
+** What it does: Auto generated goals for a recipe every time a recipe's ingredients are added or edited. Based on these goals,
+when recipe is marked as cooked, an archive of past cooked meals can be seen as well as a pie chart representing the goals distribution
+can be seen under the goals tab.
+** Justification: This feature improves the product significantly because a user using a healthy recipe database would want to see
+their history of cooked meals as well as statistics of their food distribution (represented by the goals distribution).
+** Highlights: This enhancement affects existing add and edit commands and commands to be added in future such as planning.
+It required an in-depth analysis of design alternatives so as to achieve the most accurate results.
+The implementation too was challenging as it required changes to existing commands as well as working on all parts of the code such as
+creating a new json file to store records, working with ui and fxml and listeners with pie charts. A great deal of designing and
+abstraction was needed where code had to be continually changed and rewritten to be optimised and make proper use of inheritance
+of ingredients for efficiency in calculating quantity.
+
+* *Minor enhancement*: added *the ability to switch between tabs*
+I implemented the switch command that allows for switching between tabs. A great deal of planning and understanding
+of the front-end code was needed in order to integrate the switch command. I designed and abstracted out the front end into
+4 main tabs.
+
+* * https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=tharshita[Functional code and test code]
+* * https://github.com/AY1920S2-CS2103T-T10-1/main/pull/107[example code]
+
+
+* *Other contributions*:
+
+** Project management:
+*** Managed the https://github.com/AY1920S2-CS2103T-T10-1/main/issues?q=is%3Aissue+author%3Atharshita+is%3Aclosed[issues]
+covered for each milestone. Added each feature as issue and assigned it to teammates.
+*** Initiated testing of the product before v1.4 and reported bugs and assigned them to person in charge. https://github.com/AY1920S2-CS2103T-T10-1/main/issues?q=is%3Aissue+label%3Atype.Bug+is%3Aclosed[bugs]
+*** Did the major refactoring of code from addressbook to recipebook, adding classes and fields such as goal class, time class and steps class and
+deleting unecessary fields https://github.com/AY1920S2-CS2103T-T10-1/main/pull/22[22]
+** Enhancements to existing features:
+*** Updated the GUI color scheme and changed logo of HYBB(Pull requests https://github.com/AY1920S2-CS2103T-T10-1/main/pull/69[#69])
+*** Created all 4 tabs and guided teammates on how to fill these tabs with their respective data. https://github.com/AY1920S2-CS2103T-T10-1/main/pull/118[#118]
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103T-T10-1/main/pull/173[#173], https://github.com[#38])
+** Documentation:
+*** Wrote the overview, FAQs and updated command summary, help command, introduction, switch and goals commands
+*** wrote NFR, use cases and user stories https://github.com/AY1920S2-CS2103T-T10-1/main/commit/865a04f919fc36b4ffa6ac9a7de1b8439f80e1a5[PR]
+*** Updated the UI and storage models in Developer's guide and wrote manual testing.
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-T10-1/main/pull/115[#115], https://github.com/AY1920S2-CS2103T-T10-1/main/pull/172[#172], https://github.com/AY1920S2-CS2103T-T10-1/main/pulls?q=is%3Apr+reviewed-by%3A%40me+is%3Aclosed[all],
+*** Reviewed other team: https://github.com/AY1920S2-CS2103T-T10-2/main/pull/89[#89]
+*** Reported bugs and suggestions for other teams in the class during tutorials and peer testing
+
+
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=overview]
+include::../UserGuide.adoc[tag=switch]
+include::../UserGuide.adoc[tag=goalintro]
+include::../UserGuide.adoc[tag=goals]
+include::../UserGuide.adoc[tag=faq]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+include::../DeveloperGuide.adoc[tag=ui]
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=switch]
+
+include::../DeveloperGuide.adoc[tag=goals]
+
+include::../DeveloperGuide.adoc[tag=nfr]

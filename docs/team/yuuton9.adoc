@@ -1,0 +1,84 @@
+= Lee Yue Tong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: HealthyBaby
+
+---
+
+== Overview
+
+*HealthyBaby* (HYBB) is a desktop application targeted towards university students that provides users with a database of quick, easy, and healthy recipes.
+HYBB helps alleviate the challenges faced while maintaining healthy eating habits, easing the transition from eating
+out everyday to cooking healthy meals regularly.
+
+The user interacts with HYBB using a Command Line Interface, and it has a Graphical User Interface created with JavaFX.
+
+It is written in Java, and has about 18 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to add quotes*
+** What it does: allows the user to input their own customised quotes as long as it abides by the message constraints so that
+they can choose to display quotes to their own liking at the quotes section in the achievement tab.
+** Justification: This feature improves the product significantly because it provides motivation for the user to continue
+their healthy diets as users tend to lose their motivations for keeping their diets consistently. By allowing users to input
+their own quotes it does not restrict the users to the predetermined few default quotes.
+** Highlights: This enhancement affected the current data structure used to contain the quotes and required a modifiable
+file to allow users to input their own quotes. The implementation was more challenging as there has to be checks conducted
+to ensure that duplicate quotes are rejected and quotes do not violate the stated format.
+** Credits: _{}_
+
+* *Major enhancement*: added *the ability to display streaks*
+** What it does: allows the user to keep track of whether they're cooking the recipes consistently and to also check what
+were their highest streaks.
+** Justification: This feature improves the product significantly because it provides a visual and statistical view of the user's progress and
+it is updated real time as the user logs in cooked recipes. As both current and high streaks are displayed, it provides visual motivation for the users to not break their streaks.
+** Highlights: This enhancement requires data from CookedRecord, another part of the program that is largely unaffiliated wit streaks which made it challenging to link their data together.
+The algorithm for calculating both the current streak and highest streak from the CookedRecord list provided was also more challenging as the history of cooked recipes had to be take into consideration highest streak.
+** Credits: _{}_
+
+* *Minor enhancement*: contributed to the help command that allows the user to view the commands available.
+
+* *Minor enhancement*: Created SampleDataUtil(and recipes json) file containing the default recipe.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Checked Checkstyles
+** Enhancements to existing features:
+*** Updated GUI for achievement tab (Pull requests https://github.com/AY1920S2-CS2103T-T10-1/main/pulls?page=1&q=is%3Apr+is%3Aclosed[#200]),
+*** Added highest streak function (Pull requests https://github.com/AY1920S2-CS2103T-T10-1/main/pulls?page=1&q=is%3Apr+is%3Aclosed[#203])
+** Documentation:
+*** Did tweaks to existing contents of the User Guide: https://github.com/AY1920S2-CS2103T-T10-1/main/blob/master/docs/UserGuide.adoc[#12])
+** Community:
+*** Contributed to forum discussions (question:  https://github.com/nus-cs2103-AY1920S2/forum/issues/99[99]),
+** Tools: -
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=achievement]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=quote]
+
+include::../DeveloperGuide.adoc[tag=streak]
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

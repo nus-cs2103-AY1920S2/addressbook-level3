@@ -1,0 +1,32 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+Class HiddenOutside #FFFFFF
+
+Package Model <<Rectangle>>{
+
+Interface Model <<Interface>>
+Class Model
+Class ModelManager
+class QuoteBook
+
+Package Quote {
+    class UniqueQuoteList
+    class Quote
+    class Content
+}
+HiddenOutside ...> Model
+ModelManager o-- "1" QuoteBook
+ModelManager .up.|> Model
+ModelManager --> "1" Quote : filtered list
+
+QuoteBook *-down-"1" UniqueQuoteList
+UniqueQuoteList o-- "*" Quote
+Quote o-- "1" Content
+
+@enduml

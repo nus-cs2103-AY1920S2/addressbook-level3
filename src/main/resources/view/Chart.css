@@ -1,0 +1,38 @@
+/* Chart background */
+.chart {
+    -fx-padding: 10px;
+    -fx-start-angle:30;
+    -fx-legend-side: right;
+}
+
+.chart-content {
+    -fx-padding: 30px;
+}
+
+/* Title*/
+.chart-title {
+  -fx-text-fill:  #F5E1FD;
+  -fx-font-size: 2.0em;
+}
+
+/* Colors of JavaFX pie chart slices. */
+.data0.chart-pie { -fx-pie-color: #00fa9a; }
+.data1.chart-pie { -fx-pie-color: #820000; }
+.data2.chart-pie { -fx-pie-color: cornflowerblue; }
+.data3.chart-pie { -fx-pie-color: sienna; }
+
+
+/* Pie Chart legend background color and stroke. */
+.chart-legend {
+    -fx-background-color: #F5E1FD;
+}
+
+.chart-legend-item{
+    -fx-text-fill: #191970;
+    -fx-font-size: 16px;
+}
+
+.chart-legend-item-symbol
+{
+	-fx-shape: "M0 -3.5 v7 l 4 -3.5z";
+}

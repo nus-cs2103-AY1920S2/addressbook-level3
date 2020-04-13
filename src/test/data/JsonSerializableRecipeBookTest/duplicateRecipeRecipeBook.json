@@ -1,0 +1,25 @@
+{
+  "recipes": [ {
+    "name": "Same recipe name",
+    "time": "50",
+    "isFavourite": false,
+    "grains" : [ "150g, Rice" ],
+    "vegetables" : [  ],
+    "proteins" : [  ],
+    "fruits" : [  ],
+    "others" : [  ],
+    "steps": [ "Step 1" , "Step 2" ],
+    "goals": [ "Wholesome Wholemeal" ]
+  }, {
+    "name": "Same recipe name",
+    "time": "50",
+    "grains" : [ "150g, Rice" ],
+    "vegetables" : [  ],
+    "proteins" : [  ],
+    "fruits" : [  ],
+    "others" : [  ],
+    "isFavourite": false,
+    "steps": [ "Step 1" , "Step 2" ],
+    "goals": [ "Wholesome Wholemeal" ]
+  } ]
+}

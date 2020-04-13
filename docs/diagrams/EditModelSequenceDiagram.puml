@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":RecipeBook" as RecipeBook MODEL_COLOR
+participant ":UniqueRecipeList" as UniqueRecipeList MODEL_COLOR
+participant ":PlannedBook" as PlannedBook MODEL_COLOR
+participant ":PlannedRecipeMap" as PlannedRecipeMap MODEL_COLOR
+participant ":UniquePlannedList" as UniquePlannedList MODEL_COLOR
+participant ":Plan" as OldPlan MODEL_COLOR
+participant "newPlan:Plan" as NewPlan MODEL_COLOR
+end box
+
+[-> ModelManager : setRecipe(target, editedR)
+activate ModelManager
+
+ModelManager -> RecipeBook : setRecipe(target, editedR)
+activate RecipeBook
+
+RecipeBook -> UniqueRecipeList : setRecipe(target, editedR)
+activate UniqueRecipeList
+
+UniqueRecipeList --> RecipeBook
+deactivate UniqueRecipeList
+
+RecipeBook --> ModelManager
+deactivate RecipeBook
+
+ModelManager -> PlannedBook : setRecipe(target, editedR)
+activate PlannedBook
+
+PlannedBook -> PlannedRecipeMap : getPlans(target)
+activate PlannedRecipeMap
+
+PlannedRecipeMap --> PlannedBook
+deactivate PlannedRecipeMap
+
+alt oldPlans exist
+    loop for all oldPlan that uses target recipe
+
+        PlannedBook -> OldPlan : setRecipe(editedR)
+        activate OldPlan
+
+        create NewPlan
+        OldPlan -> NewPlan
+        activate NewPlan
+
+        NewPlan --> OldPlan : newPlan
+        deactivate NewPlan
+
+        OldPlan --> PlannedBook : newPlan
+        deactivate OldPlan
+
+        PlannedBook -> UniquePlannedList : setPlan(oldPlan, newPlan)
+        activate UniquePlannedList
+
+        UniquePlannedList --> PlannedBook
+        deactivate UniquePlannedList
+    end
+
+    PlannedBook -> PlannedRecipeMap : setRecipe(target, editedR, newPlans)
+    activate PlannedRecipeMap
+
+    PlannedRecipeMap --> PlannedBook
+    deactivate PlannedRecipeMap
+
+end
+
+PlannedBook --> ModelManager
+deactivate PlannedBook
+
+
+[<-- ModelManager
+deactivate ModelManager
+
+@enduml

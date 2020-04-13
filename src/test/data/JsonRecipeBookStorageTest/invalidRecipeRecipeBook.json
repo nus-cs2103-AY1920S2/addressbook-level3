@@ -1,0 +1,7 @@
+{
+  "recipes": [ {
+    "name": "Recipe with invalid name field: Ha!ns Mu@ster",
+    "time": "9482424",
+    "steps": [""]
+  } ]
+}

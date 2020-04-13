@@ -1,0 +1,14 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+MultipleBookStateManager o-down-> "1..*" ReadOnlyRecipeBook
+MultipleBookStateManager o-down-> "1..*" ReadOnlyPlannedBook
+MultipleBookStateManager o-down-> "                    1..*" ReadOnlyCookedRecordBook
+MultipleBookStateManager o-down-> "          1..*" ReadOnlyQuoteBook
+MultipleBookStateManager o-up-> "*" CommandType
+MultipleBookStateManager o-up-> "*" Tab
+
+@enduml

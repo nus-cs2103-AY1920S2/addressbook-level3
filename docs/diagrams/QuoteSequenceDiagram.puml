@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
+participant ":QuoteCommandParser" as QuoteCommandParser LOGIC_COLOR
+participant "q:QuoteCommand" as QuoteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("quote q")
+activate LogicManager
+
+LogicManager -> RecipeBookParser : parseCommand("quote q")
+activate RecipeBookParser
+
+create QuoteCommandParser
+RecipeBookParser -> QuoteCommandParser
+activate QuoteCommandParser
+
+QuoteCommandParser --> RecipeBookParser
+deactivate QuoteCommandParser
+
+RecipeBookParser -> QuoteCommandParser : parse("q")
+activate QuoteCommandParser
+
+create QuoteCommand
+QuoteCommandParser -> QuoteCommand
+activate QuoteCommand
+
+QuoteCommand --> QuoteCommandParser : q
+deactivate QuoteCommand
+
+QuoteCommandParser --> RecipeBookParser : q
+deactivate QuoteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+QuoteCommandParser -[hidden]-> RecipeBookParser
+destroy QuoteCommandParser
+
+RecipeBookParser --> LogicManager : d
+deactivate RecipeBookParser
+
+LogicManager -> QuoteCommand : execute()
+activate QuoteCommand
+
+QuoteCommand -> Model : addQuote(q)
+activate Model
+
+Model --> QuoteCommand
+deactivate Model
+
+create CommandResult
+QuoteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> QuoteCommand
+deactivate CommandResult
+
+QuoteCommand --> LogicManager : result
+deactivate QuoteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

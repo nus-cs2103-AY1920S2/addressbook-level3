@@ -1,0 +1,16 @@
+@startuml
+start
+:User enters valid cooked command;
+:Recalculates streak;
+
+if () then ([Increment in streak])
+    :Updates current streak;
+    if () then ([Streak high score changes])
+        :Updates Streak high score;
+    else ([else])
+    endif
+else ([else])
+    endif
+:Updates Streak in achievement tab;
+stop
+@enduml

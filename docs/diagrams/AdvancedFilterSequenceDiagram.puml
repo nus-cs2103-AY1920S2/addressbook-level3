@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
+participant ":FilterCommandParser" as FilterCommandParser LOGIC_COLOR
+participant "p:RecipeMatchesKeywordsPredicate" as RecipeMatchesKeywordsPredicate LOGIC_COLOR
+participant "f:FilterCommand" as FilterCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+-> LogicManager: execute("filter favourites t/20 ig/Pasta")
+activate LogicManager
+
+LogicManager -> RecipeBookParser: parseCommand("filter favourites t/20 ig/Pasta")
+activate RecipeBookParser
+
+create FilterCommandParser
+RecipeBookParser -> FilterCommandParser: parse("favourites t/20 ig/Pasta")
+activate FilterCommandParser
+
+create RecipeMatchesKeywordsPredicate
+FilterCommandParser -> RecipeMatchesKeywordsPredicate
+activate RecipeMatchesKeywordsPredicate
+
+RecipeMatchesKeywordsPredicate --> FilterCommandParser: p
+deactivate RecipeMatchesKeywordsPredicate
+
+create FilterCommand
+FilterCommandParser -> FilterCommand
+activate FilterCommand
+
+FilterCommand --> FilterCommandParser: f
+deactivate FilterCommand
+
+FilterCommandParser --> RecipeBookParser: f
+deactivate FilterCommandParser
+
+RecipeBookParser --> LogicManager: f
+deactivate RecipeBookParser
+destroy FilterCommandParser
+
+LogicManager -> FilterCommand: execute()
+activate FilterCommand
+
+FilterCommand -> Model: updateFilteredRecipeList(p)
+activate Model
+
+Model --> FilterCommand
+deactivate Model
+
+create CommandResult
+FilterCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FilterCommand: result
+deactivate CommandResult
+
+FilterCommand --> LogicManager: result
+deactivate FilterCommand
+
+<-- LogicManager: result
+deactivate LogicManager
+
+@enduml

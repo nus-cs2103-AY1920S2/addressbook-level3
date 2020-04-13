@@ -1,0 +1,11 @@
+{
+  "recipes": [ {
+    "name": "Valid Recipe",
+    "time": "20",
+    "steps": ["fry eggs"]
+  }, {
+    "name": "Recipe With Invalid Time Field",
+    "time": "948asdf2424",
+    "steps": ["a"]
+  } ]
+}

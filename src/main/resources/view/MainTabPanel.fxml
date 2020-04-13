@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <TabPane fx:id="mainTabPanel" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Recipes">
+                <content>
+                    <VBox fx:id="recipeList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <StackPane fx:id="recipeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="Planning">
+                <content>
+                    <VBox fx:id="planningList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <StackPane fx:id="planningListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="Goals">
+                <content>
+                    <VBox fx:id="cookedList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <StackPane fx:id="cookedListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="Achievements">
+                <content>
+                    <VBox fx:id="achievementList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <StackPane fx:id="achievementsListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>

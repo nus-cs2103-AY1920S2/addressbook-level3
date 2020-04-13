@@ -1,0 +1,135 @@
+{
+  "recipes" : [ {
+    "name" : "Asian BBQ Chicken",
+    "time" : "30",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "1.0tbsp,  Garlic & ginger (finely chopped)" ],
+    "proteins" : [ "100.0g,  Chicken breast" ],
+    "fruits" : [ ],
+    "others" : [ "2.0tbsp,  Char siew sauce", "1.0tsp,  Honey", "1.0tbsp,  Rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  Sesame oil" ],
+    "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "Serve with rice." ],
+    "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "Sweet and Sour Chicken",
+    "time" : "20",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "1.0cup,  Bell peppers", "1.0cup,  Carrots (diced)", "1.0cup,  Chinese cabbage (diced)", "10.0g,  Garlic cloves", "10.0g,  Knob ginger", "1.0cup,  Onions (diced)" ],
+    "proteins" : [ "300.0g,  Chicken", "50.0g,  Egg" ],
+    "fruits" : [ "1.0cup,  Pineapple (diced)", "1.0tbsp,  Tomato juice" ],
+    "others" : [ "10.0g,  Coriander (optional)", "1.5tsp,  Corn flour", "1.0tsp,  Light soya sauce", "1.0tbsp,  Vegetable oil" ],
+    "steps" : [ "Pound garlic and ginger into a paste. Marinade chicken in the paste, along with corn flour, soy sauce, and salt.", "In a wok, take some oil, saute the carrots, cabbage, onions, and bell peppers. Add tomato juice and bring to a slight boil.", "Fry the chicken and add to the wok along with some stock and set to simmer.", "Garnish with coriander and serve with rice." ],
+    "goals" : [ "Bulk like the Hulk", "Herbivore", "Fruity Fiesta" ]
+  }, {
+    "name" : "Quick Carrot Daikon Stir-fry",
+    "time" : "25",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "120.0g,  Carrot (julienned)", "50.0g,  Daikon radish (peeled and julienned)", "30.0g,  Garlic (smashed and chopped)", "30.0g,  Ginger (julienned)", "30.0g,  Scallions" ],
+    "proteins" : [ "50.0g,  Egg" ],
+    "fruits" : [ ],
+    "others" : [ "1.5tbsp,  Oyster sauce", "0.5tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tbsp,  Shaoxing wine", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
+    "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When daikon is translucent and tender, the dish is done." ],
+    "goals" : [ "Herbivore" ]
+  }, {
+    "name" : "Chinese Tomato Egg Stir-fry",
+    "time" : "10",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "10.0g,  Scallion", "30.0g,  Tomatoes" ],
+    "proteins" : [ "50.0g,  Egg" ],
+    "fruits" : [ ],
+    "others" : [ "0.8tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tsp,  Shaoxing wine", "2.0tsp,  Sugar", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
+    "steps" : [ "Cut tomatoes into small wedges and finely chop scallion", "Crack eggs into bowl and season with ¼ tsp salt, white pepper", "sesame oil, and shaoxing wine. Beat the eggs.", "Preheat wok over medium heat until it starts to smoke. Add 2 tbsp of oil and immediately add eggs. Scramble the eggs and remove from wok immediately. Set aside.", "Add the remaining tbsp of oil to the wok, turn up heat to high, add tomatoes and scallions. Stir-fry for 1min, then add sugar, 0.5 tsp salt, and water. If water cooks off too quickly, add a little more water. Add the cooked eggs.", "Mix everything together, cover the wok, cook for 1-2mins until the tomatoes are completely softened.", "Uncover, continue to stir-fry over high heat until sauce thickens to your liking. Serve!" ],
+    "goals" : [ ]
+  }, {
+    "name" : "5 Ingredient Spelt Spaghetti",
+    "time" : "25",
+    "isFavourite" : false,
+    "grains" : [ "80.0g,  Spelt spaghetti" ],
+    "vegetables" : [ "2.0cup,  Arugula (salad rockets)", "50.0g,  Leek", "300.0g,  Tomatoes", "300.0g,  Zucchini" ],
+    "proteins" : [ "50.0g,  Egg" ],
+    "fruits" : [ ],
+    "others" : [ "1.0tbsp,  Fresh basil", "2.0tbsp,  Italian herbs", "0.5tbsp,  Olive oil", "1.0tbsp,  Pepper", "2.0tbsp,  Salt", "2.0tbsp,  Xucker ketchup" ],
+    "steps" : [ "Thinly slice Tomatoes and Leek and shred your Zucchini.", "Heat up Oil in a large Pan on a medium-high Level and roast Leek until golden.", "Now add Zucchini.", "When the Zucchini´s roasted, stir in Tomatoes and turn down Heat to a lower Level.", "Let cook for 5-7 Minutes until it turn into a Sauce.", "Meanwhile, prepare Spaghetti according to the Directions stated on the Package.", "Then, add Ketchup, Basil, Italian Herbs and Salt, Pepper as desired.", "Finally, stir in Arugula and cooked Noodles and serve on a Plate with Poached Egg, Parmesan and more fresh Basil." ],
+    "goals" : [ "Wholesome Wholemeal", "Herbivore" ]
+  }, {
+    "name" : "Bacon, Spinach Caramelized Onion Pasta",
+    "time" : "25",
+    "isFavourite" : false,
+    "grains" : [ "170.0g,  Whole wheat penne pasta" ],
+    "vegetables" : [ "10.0g,  Large yellow onion diced", "1.0cup,  Spinach" ],
+    "proteins" : [ "120.0g,  Chopped bacon" ],
+    "fruits" : [ ],
+    "others" : [ "1.0tbsp,  Brown sugar", "2.0tbsp,  Butter", "1.0tbsp,  Garlic powder", "0.5cup,  Parmesan cheese sprinkles", "1.0tbsp,  Pepper", "1.0tbsp,  Salt" ],
+    "steps" : [ "In a large skillet, add your bacon and cook for 1-2 mins until bacon is halfway done", "In that same pan, and some butter, sugar, spices, and onion; sautee until the onion becomes tender, and bacon starts to crisp up.", "Boil pasta in salted water until al dente", "Once the pasta is done, drain it loosely, but leave a tiny amount of water and add it to the skillet with the bacon, and onion mixture.", "Mix in the spinach and stir until tender", "Sprinkle with Parmesan before serving." ],
+    "goals" : [ "Wholesome Wholemeal", "Bulk like the Hulk", "Herbivore" ]
+  }, {
+    "name" : "Healthy Chicken Salad Sandwich",
+    "time" : "10",
+    "isFavourite" : false,
+    "grains" : [ "80.0g,  Whole wheat pita (toasted)" ],
+    "vegetables" : [ "55.0g,  Butter lettuce (chopped)", "120.0g,  Celery (chopped small)" ],
+    "proteins" : [ "200.0g,  Chicken breasts (large, cooked)", "350.0g,  Greek yogurt (non-fat)", "30.0g,  Mixed nuts (chopped)" ],
+    "fruits" : [ ],
+    "others" : [ "1.0tbsp,  Dijon mustard (whole grain dijon)", "1.0tbsp,  Garlic salt", "3.0tbsp,  Mayonnaise" ],
+    "steps" : [ "Toast one pita.", "Prep ingredients by cooking, and then shredding or chopping 1/2 large chicken breast, chop 1-2 stalks celery to get 1/4 c chopped celery, quarter a handful of grapes to get 1/4 cup quartered grapes, prepare lettuce by washing/chopping it if needed. Also prepare nuts by chopping them if needed, making 1 tbsp chopped nuts.", "Make chicken salad by adding shredded/chopped chicken to a small mixing bowl, then add 1/4 c Greek yogurt, 1/4 c mayo, 1/4 tsp garlic salt, 1 tsp Dijon mustard.", "Mix together well. Once all incorporated, add in 1/4 c chopped celery, 1/4 c quartered red grapes, and 1 T chopped mixed nuts. Stir together.", "Fill pita with chicken salad mixture and lettuce. Enjoy. Store chicken salad in airtight container for up to 5 days" ],
+    "goals" : [ "Wholesome Wholemeal", "Bulk like the Hulk" ]
+  }, {
+    "name" : "All Veggie Sandwich",
+    "time" : "10",
+    "isFavourite" : false,
+    "grains" : [ "300.0g,  Whole-wheat bread" ],
+    "vegetables" : [ "1.0cup,  Baby spinach leaves", "1.0cup,  Fresh pea shoots or your favorite fresh sprouts", "20.0g,  Red bell pepper(seeded and sliced))", "50.0g,  Ripe avocados", "40.0g,  Thinly sliced cucumber" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ "1.0tbsp,  Cilantro leaves", "2.0tbsp,  Kosher salt and fresh black pepper", "4.0tbsp,  Plain hummus" ],
+    "steps" : [ "Spread 1 tablespoon of hummus on each slice of bread.", "Then add the avocado pulp of 1/2 avocado per slice and lightly mash with a fork.", "Depending on the size of your bread slices you may need to use little less avocado. I used about 1 avocado per sandwich.", "Layer on spinach leaves, cucumber slices, red pepper, pea shoots, and cilantro leaves. Generously season with salt and pepper. Top with other slice of bread and enjoy." ],
+    "goals" : [ "Wholesome Wholemeal", "Herbivore" ]
+  }, {
+    "name" : "Summer Asian Slaw",
+    "time" : "25",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "15.0g,  Fresh basil (thai basil, and/or mint)", "10.0g,  Pepitas (with or without sesame seeds)", "20.0g,  Poblano", "30.0g,  Red bell", "10.0g,  Scallions", "200.0g,  Shredded red and/or green cabbage", "15.0g,  Thai chiles (dice)" ],
+    "proteins" : [ "3.0tbsp,  Cashew or peanut butter", "20.0g,  Toasted peanuts" ],
+    "fruits" : [ "0.5tbsp,  Lime juice", "50.0g,  Ripe peach (thinly sliced)" ],
+    "others" : [ "15.0g,  Chopped cilantro (including stems)", "1.0tbsp,  Sea salt", "0.3tbsp,  Sesame oil", "1.0tbsp,  Water", "0.5tbsp,  White miso paste" ],
+    "steps" : [ "Make the dressing: In a small bowl, whisk together the cashew butter, miso paste, lime juice, sesame oil, and ginger. Whisk in enough water to create a drizzable consistency. Set aside.", "In a dry cast-iron skillet over medium heat, char the peppers whole, rotating until the edges have a little char, about 2 minutes per side. Remove. When cool to the touch, slice in half lengthwise, remove the stem, ribbing, and seeds and slice horizontally into thin strips.", "In a large bowl, combine the cabbage, peppers, scallions, cilantro, basil, chiles, and ¾ of the dressing. Toss until combined. Add the remaining dressing, if desired, and season to taste with a few pinches of sea salt. Serve topped with the toasted nuts, seeds, and sliced peaches." ],
+    "goals" : [ "Herbivore" ]
+  }, {
+    "name" : "Avocado Couscous Grapefruit salad with honey lime dressing",
+    "time" : "35",
+    "isFavourite" : false,
+    "grains" : [ "0.8cup,  Uncooked whole wheat couscous", "100.0g,  White beans" ],
+    "vegetables" : [ ],
+    "proteins" : [ ],
+    "fruits" : [ "3.0tbsp,  Freshly squeezed lime juice (for dressing)", "300.0g,  Large avocados", "200.0g,  Large ruby red grapefruit" ],
+    "others" : [ "3.0tbsp,  Chopped fresh mint", "0.5cup,  Crumbled feta cheese", "2.0tbsp,  Extra virgin olive oil", "3.0tbsp,  Finely chopped fresh cilantro", "2.0tbsp,  Honey", "0.3tbsp,  Kosher salt", "0.8cup,  Low sodium stock" ],
+    "steps" : [ "In a small saucepan, bring the stock to a boil. Remove from the heat, stir in the couscous, then cover at let sit 5 minutes. Fluff with fork and set aside.", "In a small bowl or large measuring cup,whisk together the dressing ingredients: lime juice, honey, olive oil, and salt, or shake all of the ingredients together in a mason jar with a tight-fitting lid.", "In a large bowl, combine beans and couscous. Pour dressing over top and stir to combine. Add the avocados, grapefruit, feta, mint, and cilantro. Toss gently. Serve chilled or at room temperature." ],
+    "goals" : [ "Wholesome Wholemeal", "Fruity Fiesta" ]
+  }, {
+    "name" : "Teriyaki chicken noodle bowl",
+    "time" : "35",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "50.0g,  Cloves garlic(minced)", "0.3tbsp,  Freshly grated ginger", "20.0g,  Green onion (thinly sliced)" ],
+    "proteins" : [ "100.0g,  Boneless and skinless chicken thighs(cut into 1-inch chunks)" ],
+    "fruits" : [ ],
+    "others" : [ "3.0tsp,  Brown sugar(packed)", "4.0tbsp,  Cornstarch", "0.5tbsp,  Honey", "0.3tbsp,  Olive oil", "4.0tsp,  Reduced sodium soy sauce", "150.0g,  Refrigerated yaki-soba, seasoning sauce packets discarded", "0.3tbsp,  Sesame seeds" ],
+    "steps" : [ "In a large pot of boiling water, add Yaki-Soba until loosened, about 1-2 minutes; drain well.", "In a small bowl, whisk together cornstarch and 1/4 cup water; set aside.", "In a small saucepan over medium heat, add soy sauce, brown sugar, garlic, ginger, honey and 1 cup water; bring to a simmer. Stir in cornstarch mixture until thickened enough to coat the back of a spoon, about 2 minutes; let cool to room temperature. Reserve 1/4 cup and set aside.", "In a gallon size Ziploc bag or large bowl, combine soy sauce mixture and chicken; marinate for at least 30 minutes to overnight, turning the bag occasionally. Drain the chicken from the marinade.", "Heat olive oil in a large skillet over medium heat. Add chicken and cook until golden brown and cooked through, about 3-4 minutes; set aside.", "Stir in Yaki-Soba and 1/4 cup reserved soy sauce mixture until well combined, about 2 minutes.", "Serve immediately, garnished with sesame seeds and green onion, if desired." ],
+    "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "Overnight Oatmeal",
+    "time" : "10",
+    "isFavourite" : false,
+    "grains" : [ "1.0cup,  Steel cut oats" ],
+    "vegetables" : [ ],
+    "proteins" : [ ],
+    "fruits" : [ "1.0cup,  Dried cranberries", "1.0cup,  Dried figs" ],
+    "others" : [ "0.5cup,  Milk", "4.0cup,  Water" ],
+    "steps" : [ "In a slow cooker, combine all ingredients and set to low heat. Cover and let cook for 8 to 9 hours.", "Stir and remove to serving bowls. This method works best if started before you go to bed." ],
+    "goals" : [ "Wholesome Wholemeal", "Fruity Fiesta" ]
+  } ]
+}

@@ -1,0 +1,78 @@
+@startuml
+!include style.puml
+
+skinparam sequenceGroup {
+    borderColor black
+    borderThickness 1
+    FontName Arial
+    FontStyle normal
+    HeaderFontStyle normal
+    BodyBackgroundColor azure
+}
+
+box Logic LOGIC_COLOR_T1
+participant "a:AddCommand" as AddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "r:Recipe" as Recipe MODEL_COLOR
+participant ":MainIngredientTypeMagnitude" as MainIngredientTypeMagnitude MODEL_COLOR
+participant ":Goal" as Goal MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+
+end box
+
+[-> AddCommand : execute()
+activate AddCommand
+
+AddCommand -> Recipe : calculateGoals()
+activate Recipe
+
+loop each ingredientType in MainIngredientType
+Recipe -> Recipe : calculateIngredientQuantity()
+activate Recipe
+
+ref over Recipe : get total quantity for each ingredientType
+
+Recipe --> Recipe : totalMagnitude
+deactivate Recipe
+end
+create MainIngredientTypeMagnitude
+Recipe -> MainIngredientTypeMagnitude : new MainIngredientTypeMagnitude()
+activate MainIngredientTypeMagnitude
+MainIngredientTypeMagnitude --> Recipe
+deactivate MainIngredientTypeMagnitude
+
+Recipe -> MainIngredientTypeMagnitude : getMainTypes()
+activate MainIngredientTypeMagnitude
+MainIngredientTypeMagnitude --> Recipe : set of MainIngredientType
+deactivate MainIngredientTypeMagnitude
+
+loop each mainIngredientType in set of MainIngredientType
+create Goal
+Recipe -> Goal : new Goal(mainIngredientType)
+activate Goal
+Goal --> Recipe
+deactivate Goal
+end
+
+Recipe -> Recipe: updateGoals()
+Recipe --> AddCommand
+deactivate Recipe
+
+AddCommand -> Model : addRecipe(r)
+activate Model
+Model --> AddCommand
+deactivate Model
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+CommandResult --> AddCommand
+deactivate CommandResult
+
+[<--AddCommand : result
+deactivate AddCommand
+
+@enduml

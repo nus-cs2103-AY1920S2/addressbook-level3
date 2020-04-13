@@ -1,0 +1,87 @@
+= Beatrice Tay - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: HealthyBaby
+
+---
+
+== Overview
+
+*HealthyBaby* (HYBB) is a desktop application targeted towards university students that provides users with a database of quick, easy, and healthy recipes.
+HYBB helps alleviate the challenges faced while maintaining healthy eating habits, easing the transition from eating
+out everyday to cooking healthy meals regularly.
+
+The user interacts with HYBB using a Command Line Interface, and it has a Graphical User Interface created with JavaFX.
+
+It is written in Java, and has about 18 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the *Planning feature*
+** What it does: Allows the user to plan and remove the plans for a recipe on a certain date. The user is also able to
+obtain all ingredients required for the planned recipes on a simple grocery list.
+** Justification: Assists users in making healthy cooking easier as the user
+can plan for recipes containing Goals for the nutritional food group that they want to focus on.
+Users can save money and reduce food wastage by planning for recipes with similar ingredients and purchasing only
+items that they need using the grocery list command.
+** Highlights: This enhancement is affected by recipes being modified, as the plans of the modified recipe needs to be
+updated as well. Ensuring that each plan is deleted or updated after each modification was challenging as HYBB supports
+many recipe customisation methods (9 in total).
+
+* *Minor enhancement*: Added Ingredient and Quantity classes to allow HYBB to estimate the portion of each food
+group in the recipes.
+
+* *Code contributed*:
+ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=beatricetay&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2.1` - `v1.3.1` (3 releases) on GitHub
+
+** Enhancements to existing features:
+*** Did cosmetic tweaks to the GUI: (Pull requests
+https://github.com/AY1920S2-CS2103T-T10-1/main/pull/192[#192],
+https://github.com/AY1920S2-CS2103T-T10-1/main/pull/195[#195])
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/3[#3],
+https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/26[#26],
+https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/33[#33]
+
+*** Reported bugs and suggestions for other teams in the class (example:
+https://github.com/beatricetay/ped/issues[1])
+
+** Tools:
+*** Integrated AppVeyor and CoverAll to the repo (https://github.com/AY1920S2-CS2103T-T10-1/main/pull/23[#23])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=GUI]
+
+
+include::../UserGuide.adoc[tag=planning]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=editcommand]
+
+include::../DeveloperGuide.adoc[tag=planning]
+
+---
+

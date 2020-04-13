@@ -1,0 +1,16 @@
+@startuml
+start
+:User enters quote command;
+
+if () then ([user enters valid string])
+    :Enters new Quote;
+    if () then ([quote is unique])
+        :Adds new quote;
+    else ([else])
+        :Display duplicate quote error message;
+    endif
+else ([else])
+    :Display invalid field error message;
+    endif
+stop
+@enduml

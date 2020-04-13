@@ -1,0 +1,128 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
+participant ":PlanCommandParser" as PlanCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "planCom:PlanCommand" as PlanCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "plan:Plan" as Plan MODEL_COLOR
+participant ":PlannedBook" as PlannedBook MODEL_COLOR
+participant ":UniquePlannedList" as UniquePlannedList MODEL_COLOR
+participant ":PlannedRecipeMap" as PlannedRecipeMap MODEL_COLOR
+end box
+
+[-> LogicManager : execute("plan 2 3 d/2020-05-27")
+activate LogicManager
+
+LogicManager -> RecipeBookParser : parseCommand("plan 2 3 d/2020-05-27")
+activate RecipeBookParser
+
+create PlanCommandParser
+RecipeBookParser -> PlanCommandParser
+activate PlanCommandParser
+
+PlanCommandParser --> RecipeBookParser
+deactivate PlanCommandParser
+
+RecipeBookParser -> PlanCommandParser : parse("2 3 d/2020-05-27")
+activate PlanCommandParser
+
+PlanCommandParser -> ParserUtil : parseDate("2020-05-27")
+activate ParserUtil
+
+ParserUtil --> PlanCommandParser : date
+deactivate ParserUtil
+
+PlanCommandParser -> ParserUtil : parseMultipleIndex("2 3")
+activate ParserUtil
+
+ParserUtil --> PlanCommandParser : indexes
+deactivate ParserUtil
+
+create PlanCommand
+PlanCommandParser -> PlanCommand
+activate PlanCommand
+
+PlanCommand --> PlanCommandParser : planCom
+deactivate PlanCommand
+
+PlanCommandParser --> RecipeBookParser : planCom
+deactivate PlanCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+PlanCommandParser -[hidden]-> RecipeBookParser
+destroy PlanCommandParser
+
+RecipeBookParser --> LogicManager : planCom
+deactivate RecipeBookParser
+
+LogicManager -> PlanCommand : execute()
+activate PlanCommand
+
+PlanCommand -> Model : getFilteredRecipeList()
+activate Model
+
+Model --> PlanCommand : recipeList
+deactivate Model
+
+loop for all indexes
+    create Plan
+    PlanCommand -> Plan
+    activate Plan
+
+    Plan --> PlanCommand : plan
+    deactivate Plan
+
+    PlanCommand -> Model : addPlan(recipe, plan)
+    activate Model
+
+    Model -> PlannedBook : addPlan(recipe, plan)
+    activate PlannedBook
+
+    PlannedBook -> UniquePlannedList : addPlan(plan)
+    activate UniquePlannedList
+
+    UniquePlannedList --> PlannedBook
+    deactivate UniquePlannedList
+
+    PlannedBook -> PlannedRecipeMap : addPlan(recipe, plan)
+    activate PlannedRecipeMap
+
+    PlannedRecipeMap --> PlannedBook
+    deactivate PlannedRecipeMap
+
+    PlannedBook --> Model
+    deactivate PlannedBook
+
+    Model --> PlanCommand
+    deactivate Model
+
+end loop
+
+PlanCommand -> Model : commitBook()
+activate Model
+
+Model --> PlanCommand
+deactivate Model
+
+create CommandResult
+PlanCommand -> CommandResult
+activate CommandResult
+CommandResult --> PlanCommand : cr
+deactivate CommandResult
+
+PlanCommand --> LogicManager : cr
+deactivate PlanCommand
+
+
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
