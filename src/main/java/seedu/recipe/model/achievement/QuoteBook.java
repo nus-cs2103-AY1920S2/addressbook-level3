@@ -46,7 +46,6 @@ public class QuoteBook implements ReadOnlyQuoteBook {
 
     /**
      * Resets the existing data of this {@code QuoteBook} with {@code newData}.
-     * @param newData
      */
     public void resetData(ReadOnlyQuoteBook newData) {
         requireNonNull(newData);

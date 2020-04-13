@@ -379,13 +379,13 @@ This operation favourites recipe 2 and 3.
 // tag::undoredo[]
 ==== Undo and Redo commands (Brian)
 The implementation of undo and redo was adapted from AB3. However, HYBB requires more book-keeping because on top
-of the `RecipeBook`, we have a `PlannedBook` and a `CookedRecordBook` to keep track of as well.
+of the `RecipeBook`, we have a `PlannedBook`, a `CookedRecordBook`, and a `QuoteBook` to keep track of as well.
 
 For brevity, we will only talk about the `undo` command. Note that the `redo` command is implemented in the same way.
 
 ===== Implementation (before undo is called)
-1. Whenever a command that changes the state of any of the books (RecipeBook, PlannedBook, or CookedRecordBook) is
-called, `Model#commitBook` is called as well.
+1. Whenever a command that changes the state of any of the books (RecipeBook, PlannedBook, CookedRecordBook, or
+QuoteBook) is called, `Model#commitBook` is called as well.
 
 2. `Model#commitBook` will first purge all redundant states in `MultipleBookStateManager` (ie. if the user called undo
 before and is now committing a new book, he will not be able to redo the actions of those undos anymore). This is the
@@ -397,7 +397,7 @@ behavior that most modern desktop applications like Microsoft Word adopt.
 Note #1: `CommandType` tells you which book(s) the command affects, while `Tab` tells you which tab should be
 displayed upon execution of the command.
 
-Note #2: All 3 ArrayLists of the 3 book types have a "current pointer" each, which points to the respective states of
+Note #2: All 4 ArrayLists of the 4 book types have a "current pointer" each, which points to the respective states of
 the books that the `Model` is currently using (ie. what the user is seeing).
 
 The following diagram summarizes what happens when the user executes a command that changes the state of any book:
@@ -410,7 +410,7 @@ image::CommitActivityDiagram.png[]
 insufficient actions to be undone.
 
 2. If able to undo, `Model#undoBook` is called. The `CommandType` stack is popped to know which book(s) need undoing.
-At the same time, the "current pointer" of the corresponding book ArrayList(s) is/are shifted backwards. All 3 books
+At the same time, the "current pointer" of the corresponding book ArrayList(s) is/are shifted backwards. All 4 books
 in `Model` are then set to the version of the book that each "current pointer" is pointing to.
 
 This class diagram shows the components of `MultipleBookStateManager`:
@@ -461,10 +461,6 @@ and/or 2) if the magnitude of a single commit is large (ie. the book being commi
 ** Pros: Will use less memory.
 ** Cons: Tedious to ensure the correctness of the implementation of each individual command. Furthermore, some commands
 affect multiple books, making book-keeping even more complicated (and hence, susceptible to error).
-
-===== Future plans
-Currently, the undo and redo command is not compatible with the `quote` command and the QuoteBook. This will be a
-feature that we plan to work on beyond v1.4 so that users will be able to undo and redo the action of adding a quote!
 // end::undoredo[]
 
 // end::basic[]
@@ -744,6 +740,7 @@ base is smaller, storage would not be an issue. Records need to be iterated thro
 the association between GoalCount and Record makes the tally process more efficient.
 end::goals[]
 
+// tag::quote[]
 === Quote Command (Yue Tong)
 The quote command feature uses the `quote` command for users to input their own quotes to add on to the existing set of
 quotes that is already in the database. This allows the users to add in customised quotes that would suit their preferance
@@ -757,7 +754,7 @@ image::QuoteSequenceDiagram.png[]
 The lifeline for EditCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML,
 the lifeline reaches the end of diagram.
 
-[Note]
+[NOTE]
 `Undo` button currently does not work for adding of quotes as there is no remove function currently implemented for quote
 ==== Implementation
 
@@ -781,7 +778,7 @@ The following activity diagram further illustrates how the `QuoteCommand` is use
 image::QuoteActivityDiagram.png[]
 
 ==== Design Considerations
-====== Aspect: How quote command executes
+===== Aspect: How quote command executes
 
 * **Alternative 1 (current choice):** The `QuoteCommand` only accepts adding of quotes
 
@@ -792,7 +789,9 @@ image::QuoteActivityDiagram.png[]
 ** Pros: Users can customize whicher quotes they want to be displayed
 ** Cons: If they user deletes the quote that is on display for Quote of the Day in the Achievement tab, this could cause
 display problems and as `UniqueQuotesList` is a hidden list, users will have to type out the quote completely similar in order to locate it
+//end::quote[]
 
+// tag::streak[]
 === Streak feature(Yue Tong)
 
 The Streak feature mainly deals with keeping track of the cooked meals that the user has logged into the system. The command
@@ -816,7 +815,7 @@ a new record is detected, the streaks are calculated again through parsing of th
 real time in the achievement tab.
 
 ==== Design Considerations
-====== Aspect: How streak is stored
+===== Aspect: How streak is stored
 
 * **Alternative 1 (current choice):** Streak is calculated and updated via access to `UniqueRecordList`
 
@@ -829,7 +828,7 @@ added and subtracted from its recorded data in the database
 ** Cons: A database section will be dedicated to just storing one number and without access to the `UniqueRecordsList`
 it is harder for Streak to be updated realtime when cookedRecord is updated.
 
-====== Aspect: How streak is calculated
+===== Aspect: How streak is calculated
 
 * **Alternative 1 (current choice):** Accumulative streaks is calculated based on whether there is a 1-day difference
 between 2 consecutive cooked recipes
@@ -843,6 +842,7 @@ between 2 consecutive cooked recipes
 jeopardised.
 ** Cons: It is easier for users to lose their streaks and more difficult for users to ascertain when is the deadline to
 maintain their streaks
+//end::streak[]
 
 === Logging
 
@@ -1234,6 +1234,16 @@ then minimise that window.
 .. Test case: `groceryList` +
    Expected: Window with updated grocery list appears.
 
+=== Adding quotes
+. Quote displays while quotelist is not empty.
+..  Prerequisites: Quotes are present. If required, add quotes by using the `quote` command.
+.. Test case: `quote Today is a good day` +
+   Expected: The result box below informs the user that the quote has been added.
+
+. Adding a quote while it already exists in the list
+.. Prerequisites: Quotes list contains quote. If required, add the same quote by using the `quote` command.
+.. Test case: `quote Skip the diet, just eat healthy!` +
+   Expected: The result box below informs the user that the quote is a duplicated and cannot be added in.
 
 _{ more test cases ... }_
 
@@ -1255,7 +1265,7 @@ _{ more test cases ... }_
 .. Double-click the jar file. +
    Expected: Adding corrupted data into the files would result in these corresponding results:
 ... Recipebook: An empty recipe list in 'Recipes' as well as an empty plan list in 'Planning'
-... Quotebook: Default quotes in 'Achievements'
+... Quotebook: An empty quote list in 'Quotes' and default quote in 'Achievements'
 ... Plannedbook: An empty plan list in 'Planning'
 ... Cookedrecords: An empty cooked meals list with no pie chard in 'Goals'
 

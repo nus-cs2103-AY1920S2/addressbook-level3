@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.recipe.model.Date;
+import seedu.recipe.model.achievement.Content;
 import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.achievement.Streak;
 import seedu.recipe.model.cooked.Record;
@@ -63,8 +64,13 @@ public class AchievementCard extends UiPart<Region> {
         super(FXML);
         Date today = Date.today();
         Random rand = new Random();
-        int randomInt = rand.nextInt(quotes.size());
-        this.quote = quotes.get(randomInt);
+        //System.out.print(quotes.size());
+        if (quotes.size() > 0) {
+            int randomInt = rand.nextInt(quotes.size());
+            this.quote = quotes.get(randomInt);
+        } else {
+            this.quote = new Quote(new Content("And thus starts our first day")); //forced default if data is corrupted
+        }
         Streak streak = new Streak(records, today);
         this.streak = streak;
         this.streak.updateStreak();
