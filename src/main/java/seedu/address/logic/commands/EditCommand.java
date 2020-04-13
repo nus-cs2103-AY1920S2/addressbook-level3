@@ -15,7 +15,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -111,10 +110,9 @@ public class EditCommand extends Command {
         requireNonNull(courseManager);
         requireNonNull(moduleManager);
 
-        List<Profile> lastShownList = profileManager.getFilteredPersonList();
         Profile profileToEdit;
         try {
-            profileToEdit = lastShownList.get(0); //accessing only first profile in list
+            profileToEdit = profileManager.getFirstProfile(); //accessing only first profile in list
         } catch (Exception e) {
             throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
         }
@@ -156,6 +154,10 @@ public class EditCommand extends Command {
             }
 
             if (oldSemester != 0 && editSemester != 0) {
+                if (profileToEdit.getSemModTreeMap().containsKey(editSemester)
+                        && profileToEdit.getSemModTreeMap().get(editSemester).size() >= 10) {
+                    throw new CommandException("Target semester is full!");
+                }
                 try {
                     treeMap.get(oldSemester).removeModuleWithModuleCode(moduleCode);
                 } catch (ModuleNotFoundException e) { // Will not happen
