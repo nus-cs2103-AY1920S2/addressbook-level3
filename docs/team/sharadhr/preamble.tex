@@ -1,0 +1,182 @@
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{inconsolata}
+\usepackage{MnSymbol}
+\usepackage[
+	minionint,
+	lf,
+	mathtabular,
+	loosequotes,
+	swash,
+	opticals]{MinionPro}
+\usepackage{amsmath}%, amsfonts, amssymb}
+% \usepackage{wasysym}
+\usepackage[useregional,calc]{datetime2}
+\usepackage[super]{nth}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\pdfminorversion=7
+
+\usepackage[
+	arc-separator = \,,
+	retain-explicit-plus,
+	detect-weight=true,
+	detect-family=true,
+	separate-uncertainty=true,
+	multi-part-units=brackets]{siunitx}
+\usepackage[version=4]{mhchem}
+\usepackage[ISO]{diffcoeff}
+\usepackage{bm}
+\usepackage{esvect}
+
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{bigfoot}
+
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+%\usepackage{listings}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{pgfplots,pgfplotstable}
+%\usepackage[skins,theorems]{tcolorbox}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage[labelfont={small,bf},font={small}]{caption}
+\usepackage{subcaption}
+\usepackage{float}
+%\tcbset{shield externalize,highlight math style={enhanced,
+%  colframe=red,colback=white,arc=0pt,boxrule=1pt}}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{
+	shapes,shapes.misc,
+	arrows,arrows.meta,
+	calc,positioning,
+	decorations.pathreplacing,decorations.markings,
+	decorations.text,calligraphy,
+	pgfplots.dateplot,
+	optics,external,
+	circuits.ee.IEC
+}
+\tikzset{
+	on each segment/.style={
+		decorate,
+		decoration={
+			show path construction,
+			moveto code={},
+			lineto code={
+				\path [#1]
+				(\tikzinputsegmentfirst) -- (\tikzinputsegmentlast);
+			},
+			curveto code={
+				\path [#1] (\tikzinputsegmentfirst)
+				.. controls
+				(\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb)
+				..
+				(\tikzinputsegmentlast);
+			},
+			closepath code={
+				\path [#1]
+				(\tikzinputsegmentfirst) -- (\tikzinputsegmentlast);
+			},
+		},
+	},
+	mid arrow/.style={postaction={decorate,decoration={
+				markings,
+				mark=at position .5 with {\arrow[#1]{Stealth}}
+	}}},
+	>=Stealth
+}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{%
+		\node[shape=circle, draw, minimum size=1.25em, inner sep=0pt, thick] (char) {#1};}}
+\tikzexternalize[prefix=figures/]
+\captionsetup{width=0.6\textwidth}
+
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage[
+	backend=biber,
+	language=british,
+    backref=true,
+	style=verbose-ieee,
+    bibstyle=numeric,
+    citestyle=numeric,
+    sorting=none
+]{biblatex}
+
+%\addbibresource{'hall_effect_report.bib'}
+
+\DefineBibliographyStrings{english}{%
+    backrefpage = {page},% originally "cited on page"
+    backrefpages = {pages},% originally "cited on pages"
+}
+\DeclareCiteCommand{\supercite}[\mkbibsuperscript]
+{\iffieldundef{prenote}
+    {}
+    {\BibliographyWarning{Ignoring prenote argument}}%
+    \iffieldundef{postnote}
+    {}
+    {\BibliographyWarning{Ignoring postnote argument}}}
+{\usebibmacro{citeindex}%
+    \bibopenbracket\usebibmacro{cite}\bibclosebracket}
+{\supercitedelim}
+{}
+\let\cite=\supercite
+
+\usepackage{hyperref}
+\usepackage[capitalise,noabbrev,nameinlink]{cleveref}
+\crefdefaultlabelformat{#2\textbf{#1}#3}
+\creflabelformat{equation}{#2\textbf{(#1)}#3}
+\crefname{equation}{\textbf{Equation}}{\textbf{Equations}}
+\Crefname{equation}{\textbf{Equation}}{\textbf{Equations}}
+\crefname{figure}{\textbf{Figure}}{\textbf{Figures}}
+\Crefname{figure}{\textbf{Figure}}{\textbf{Figures}}
+\crefname{table}{\textbf{Table}}{\textbf{Tables}}
+\Crefname{table}{\textbf{Table}}{\textbf{Tables}}
+\crefname{appendix}{\textbf{Appendix}}{\textbf{Appendices}}
+\Crefname{appendix}{\textbf{Appendix}}{\textbf{Appendices}}
+\crefname{section}{\textbf{\S}}{\textbf{\S}}
+\Crefname{section}{\textbf{\S}}{\textbf{\S}}
+\crefname{algorithm}{\textbf{Algorithm}}{\textbf{Algorithms}}
+\Crefname{algorithm}{\textbf{Algorithm}}{\textbf{Algorithms}}
+
+\hypersetup{
+	unicode 	 = true,
+	colorlinks   = true,           %Colours links instead of ugly boxes
+	urlcolor     = blue,           %Colour for external hyperlinks
+	linkcolor    = magenta,        %Colour of internal links
+	citecolor    = cyan,   %Colour of citations
+	linktocpage  = true
+}
+
+\DTMlangsetup*{ord=raise}
+
+\DeclareMathOperator{\sinc}{sinc}
+
+\setlength{\jot}{10pt}
+
+\setlist[itemize]{left=0pt}
+\setlist[enumerate,1]{left=0pt}
+
+%\lstdefinestyle{code}{
+%	backgroundcolor=\color{backcolour},
+%	commentstyle=\color{codegreen},
+%	keywordstyle=\color{magenta},
+%	numberstyle=\tiny\color{codegray},
+%	stringstyle=\color{codepurple},
+%	basicstyle=\ttfamily\footnotesize,
+%	breakatwhitespace=false,
+%	breaklines=true,
+%	captionpos=b,
+%	keepspaces=true,
+%	numbers=left,
+%	numbersep=5pt,
+%	showspaces=false,
+%	showstringspaces=false,
+%	showtabs=false,
+%	tabsize=2
+%}
+
+%\lstset{style=code}
