@@ -624,26 +624,43 @@ When you type a command into the `command box`, your input will be *highlighted*
 
 Here is a table explaining the meaning of each colour:
 
-[width="%",cols="<10%a,<90a",options="header"]
+[width="%",cols="<10%a,<25%a,<65%a",options="header"]
 |=======================================================================
 |
 Colour
 |
 Meaning
+|
+Examples
 
 |
-*green*
+green
 |
-*Valid* input.
+A *valid* user input
+|
+* The full name of a valid command +
+eg. `help`, `student add`, `module delete`
+
+* A valid value for the command parameters +
+eg. `id/A1234567J`, `d/2020-03-20`, `n/This is a valid description`
 
 |
-*red*
+red
 |
-*Invalid* input.
+An *invalid* user input
 |
-*white*
+* An unknown command +
+eg. `unknown`, `student`, `student done`
+
+* A invalid value for the command parameters +
+eg. `id/B1234X`, `d/4 March 2020`, `s/4pm`
+
 |
-The *default* font colour.
+white
+|
+The *default* font colour
+|
+
 
 |=======================================================================
 
