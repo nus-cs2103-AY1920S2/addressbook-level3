@@ -151,9 +151,9 @@ creation of `XYZSuggestionGenerator` object (except for `new` command) which imp
 6. The UI will then be able to retrieve the `responseText` and list of `SuggestionItem` from the `Model` to be displayed
 to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` and `Suggestion` component for the `execute("open /")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` and `Suggestion` component for the `execute("open /a")` API call.
 
-.Interactions Inside the Logic and Suggestion Component for the `open /` Command
+.Interactions Inside the Logic and Suggestion Component for the input `open /a`
 image::SuggestionSequenceDiagram.png[]
 
 NOTE: The lifeline for `OpenSuggestionArgHandler` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
