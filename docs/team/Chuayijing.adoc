@@ -78,14 +78,13 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=totalCommits%20
 
 * Enhancements to existing features:
 
-**  I wrote additional tests for existing features to increase
-coverage from % to %
+**  I wrote additional tests for existing features.
 (Pull request: https://github.com/AY1920S2-CS2103T-W17-4/main/pull/343[#343])
 
 ** I fixed bugs reported by test users of the application.
 (Pull requests: https://github.com/AY1920S2-CS2103T-W17-4/main/pull/339[#339],
 https://github.com/AY1920S2-CS2103T-W17-4/main/pull/325[#325],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/328[#328],)
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/328[#328])
 
 == Contributions to the User Guide
 We wrote a User Guide targeted at the users of TA-Tracker.
