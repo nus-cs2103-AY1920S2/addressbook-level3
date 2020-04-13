@@ -52,9 +52,9 @@ The sections of code that I contributed can be found [https://nus-cs2103-ay1920s
 
 * Performed large-scale refactoring in order to integrate the features of all team members +
 (eg. https://github.com/AY1920S2-CS2103T-W17-4/main/pull/178[PR #178],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/178[PR #179],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/178[PR #180],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/178[PR #183])
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/179[PR #179],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/180[PR #180],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/183[PR #183])
 
 * Coordinated face-to-face meetings with team members to keep track of the team's progress
 
