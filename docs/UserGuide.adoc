@@ -59,54 +59,51 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Paths*
 
-* `Paths` are used to specify the directory you want `Commands` to be executed.
+* `Paths` are used to specify the location of a note you want the `Command` to be pointed at.
 * There are 2 types of  `Path` namely:
 - AbsolutePath (which takes reference from the root)
-- RelativePath (which takes reference from the current directory)
-
-The Relative Path operates similarly to the command line input that you may be familiar with.
-Listed below are the notations used to define a relative path.
-
-* `..` (Move to parent note)
-* `exampleNote` (Move to child node titled "exampleNote")
+- RelativePath (which takes reference from the current note)
 
 [NOTE]
-The title of a Note can take in alphanumeric variables, symbols (except ` and -) and spaces.
+`/` represents a root note
+
+The `RelativePath` operates similarly to the command line input that you may be familiar with.
+Listed below are the notations used to define a `RelativePath`.
+
+* `.` (Point to current note)
+* `..` (Point to parent note)
+* `exampleNote` (Point to child node)
+
+**Validity of Paths**
+
+- AbsolutePath
+** Must start with the root note.
+** After every `/` you can provide a `Title` <<TitleValidity, (Valid Title)>>.
+** `/Workspace/2103T` is a valid `AbsolutePath`, `Workspace/2103T` is not.
+
+- Relative Path
+** Starts with `.` or `..` or a Title <<TitleValidity, (Valid Title)>>.
+** `./CS2103T/../CS2101`  is a valid `RelativePath`.
 
 **Example**
 
 The picture below helps to illustrate the use of `RelativePath` and `AbsolutePath`
 
 .DataStructure example to illustrate Path
-image::PathExample1.png[width="790"]
+image::UGPathDiagram.png[width="790"]
 
-The `AbsolutePath` `/CS2101` is equivalent to `RelativePath` `../CS2101`
 
-Thus `open /CS2101` and `open ../CS2101` would yield the same result.
+The `AbsolutePath` `/Workspace/CS2101` is equivalent to `RelativePath` `../CS2101`
+
+Thus `open /Workspace/CS2101` and `open ../CS2101` would yield the same result.
 
 [NOTE]
 Paths are used by the `open` and `delete` command
 
 [WARNING]
-We cannot open or delete the parent of the root note because it does not exist. e.g `Delete /../` will result in an error.
+We cannot open or delete the parent of the root note because it does not exist.
+Taking example from Figure 2 above, `Delete ../..` will result in an error.
 // end::paths[]
-====
-[[Markdown]]
-====
-*Markdown*
-
-* Notably supports basic GitHub Flavored Markdown (GFM) in the `BODY` content of a note
-* Currently supported syntax of GitHub Flavored Markdown in Notably consists of:
-** https://github.github.com/gfm/#atx-heading[ATX headings]
-** https://github.github.com/gfm/#paragraph[Paragraphs]
-** (Ordered list coming in v2.0) https://github.github.com/gfm/#list[Lists] and https://github.github.com/gfm/#list-items[List items]
-** (Coming in v2.0) https://github.github.com/gfm/#emphasis-and-strong-emphasis[Emphasis and strong emphasis (Simplified)]
-** (Coming in v2.0) https://github.github.com/gfm/#strikethrough-extension-[Strikethrough]
-* Specifications for GFM are specified https://github.github.com/gfm/[here]
-
-[NOTE]
-The term `Markdown` as used in this document will be a shorthand for GitHub Flavored Markdown. However, it is worth noting that by definition, they are not the same.
-
 ====
 
 === View help : `help`
@@ -127,6 +124,7 @@ If you're done with taking notes, use `exit` to close Notably straight from the 
 .Demo for the `exit` command
 image::demo/Exit.png[]
 
+//tag::new[]
 [#create]
 === Create a new note: `new`
 
@@ -134,6 +132,7 @@ If you want to add a new note (to the path of the currently open note), use the 
 
 *Format:* `new -t TITLE [-o]`
 
+[[TitleValidity]]
 [WARNING]
 ====
 * Don't forget the `-t` flag!
@@ -204,6 +203,7 @@ image::demo/New2.png[]
 [[New3]]
 .Step 3 - Final state after creating both notes
 image::demo/New3.png[]
+//end:new[]
 
 === Open an existing note: `open`
 
@@ -247,6 +247,7 @@ If you want to change the `BODY` content of the currently opened note, use the `
 .Demo for the `edit` command
 image::demo/Edit.png[]
 
+//tag:delete[]
 === Delete a note: `delete`
 
 If you no longer need a note, or if you have accidentally created a wrong note, don't worry! You can always delete that note. +
@@ -319,6 +320,7 @@ image::demo/Delete3.png[]
 +
 .Final state after deletion
 image::demo/Delete2.png[]
+//end::delete[]
 
 === Find a note based on certain keywords: `search`
 
@@ -363,6 +365,55 @@ Even if you mistype, Notably tries its best to correct the typo automatically, a
 
 .Demo for the auto-correction feature
 image::demo/Correction.png[]
+
+=== Markdown (GitHub Flavored Markdown)
+
+[NOTE]
+We use the term Markdown and GitHub Flavored Markdown interchangably in this document.
+
+Notably supports basic https://guides.github.com/features/mastering-markdown/[GitHub Flavored Markdown (GFM)] as the `BODY` content of a note. By supporting Markdown, we hope to enhance your typing experience even further!
+
+Currently supported syntax of GitHub Flavored Markdown in Notably consists of:
+
+* https://github.github.com/gfm/#atx-heading[ATX headings] +
+----
+# Level 1 header
+## Level 2 header
+### Level 3 header
+#### Level 4 header
+##### Level 5 header
+###### Level 6 header
+----
+* https://github.github.com/gfm/#list[Lists] and https://github.github.com/gfm/#list-items[List items] +
+[IMPORTANT]
+Currently, only unordered lists are supported. In addition, only the hyphen `-` symbol is supported to be used as the list bullets. +
+----
+- List item
+- Another list item
+  - A nested list item
+    - A deeper nested list item
+- Last list item
+----
+* https://github.github.com/gfm/#paragraph[Paragraphs] +
+----
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Proin dictum accumsan nunc sed feugiat.
+----
+
+==== (Coming in v2.0) More complete support of Markdown syntax
+
+In our v2.0 release, we'll be supporting the following additional Markdown syntax:
+
+* https://github.github.com/gfm/#emphasis-and-strong-emphasis[Emphasis and strong emphasis] +
+----
+*This text will get italicised*
+**This text will get bold**
+----
+* https://github.github.com/gfm/#strikethrough-extension-[Strikethrough] +
+----
+~~This text will get a strikethrough treatment~~
+----
+
 
 === Sidebar
 The sidebar is where you can see your notes in a neatly organised way, reminiscent of a file browser in an Operating System. +
