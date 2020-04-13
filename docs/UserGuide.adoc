@@ -196,10 +196,12 @@ image::UGListCDiagram1.png[]
 
 // end::list-c[]
 
+// tag::find-c[]
+
 === Find clients by name: `find-c` --- Yong Jie
 `find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire *Client List* might be troublesome and difficult. `find-c` is the command for you.
 
-*Format*: `find-c NAME`
+*Format*: `find-c NAME...`
 
 ==== Parameters
 This section acts as a summary of the important things to note when using `find-c` including their parameters.
@@ -280,6 +282,8 @@ You will obtain clients which have `bryan` in their name or `low` in the name. I
 image::ug-findcMultiplePart2.png[]
 
 You can try to enter keywords for `NAME` that are more specific to the client you are looking for. This will help to keep your search more scoped.
+
+// end::find-c[]
 
 // tag::add-c-command[]
 
@@ -750,6 +754,7 @@ image::ug-view-4.png[]
 To correct this, you have to enter a valid `INDEX` that is not more than the number of clients in the client list.
 // end::view-c-command[]
 
+// tag::add-e[]
 === Add a client's exercise: `add-e`  --- YongJie
 `add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in the *Exercise Table*.
 
@@ -850,7 +855,9 @@ image::ug-addeDuplicatePart2.png[]
 image::ug-addeDuplicatePart3.png[]
 
 To solve this, we suggest incrementing the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact. For information on using `edit-e`, you may want to refer to the next section `Edit a client's exercise: edit-e`.
+// end::add-e[]
 
+// tag::edit-e[]
 === Edit a client's exercise: `edit-e` --- YongJie
 `edits-e` allows edit an existing exercise done by the client that you are currently viewing. You will be able to see the updated exercise in *Exercise Table*.
 
@@ -944,6 +951,7 @@ image::ug-editeDuplicatePart2.png[]
 image::ug-editeDuplicatePart3.png[]
 
 To solve this, we suggest you delete the exercise you want to edit and increment the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact.
+// end::edit-e[]
 
 // tag::delete-e-command[]
 
@@ -1335,6 +1343,7 @@ Examples:
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous FitBiz folder.
 
+// tag::commands[]
 == Command Summary
 
 === General Commands
@@ -1372,3 +1381,4 @@ Examples:
 |`edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/WEIGHT] [reps/REPS] [sets/SETS]`| Edits the exercise details of the client being viewed.
 |`graph n/NAME a/AXIS sd/STARTDATE ed/ENDDATE`| Shows a graph of the exercise progress done by a client between the indicated dates.
 |=======================================================================
+// end::commands[]

@@ -73,6 +73,7 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
+
 === UI component
 
 .Structure of the UI Component
@@ -214,18 +215,24 @@ Since all user inputs, be it valid or invalid commands, should be stored, and si
 .Class Diagram for Command History
 image::CommandHistoryClassDiagram.png[]
 
-In the following sequence diagram, we trace the execution of the classes involved in the class diagram given above for when the user decides to enter the command `list-c` into FitBiz:
+[NOTE]
+`CommandHistory` depends on `FileUtil` only because it uses the static method `FileUtil#writeToFile`.
+
+In the following sequence diagram, we trace the execution of the classes involved in storing the user command into the command history. For this example, we assume the user is entering the command `list-c`:
 
 .Sequence Diagram for Saving a User Entered Command
 image::CommandHistorySequenceDiagram.png[]
 
-`CommandBox` simply passes the user input text to `CommandHistory`, which adds this text to the internal list within `CommandHistoryState`, retrieves the full internal list, converts it to a text-based format, and finally asks `FileUtil` to save the text to storage.
+When the `CommandBox#handleCommandEntered` method is called, `CommandBox` simply gets and passes the user input text from `TextField` to `CommandHistory`. `CommandHistory` then adds this text to the internal list within `CommandHistoryState`, retrieves the full internal list, converts it to a text-based format, and finally requests `FileUtil` to save the text-based command history to storage.
 
 ===== How the Command History is persisted on storage
 
-Each command that the user enters is essentially just a line of text. We simply use the utility class `FileUtil` to write these lines of text (where each command represents a new line of text) to a text-based file `command.txt`.
+Each command that the user enters is essentially just a normal string. We simply use the utility class `FileUtil` to write these lines of text to a text-based file `command.txt`. Note that each new line of text in `command.txt` represents one single command.
 
 Whenever FitBiz first launches, we will then try to open and read from this same `command.txt` file. If no such file exists, an empty new file will be created for use in the future.
+
+[NOTE]
+Even if the storage component somehow fails to work, the command history will still be guaranteed to work, albeit without the storage features. In other words, the `CommandHistoryState` model will continue to function since it is not dependent nor have any association with the utility class `FileUtil`. This ensure that the command history for the current usage can at least be used.
 
 ==== Design Considerations
 
@@ -352,6 +359,9 @@ Similar to <<Command History --- Aaron Choo, Command History>>, this feature als
 .Simplified Class Diagram for Autocomplete
 image::CommandAutocompleteClassDiagram.png[]
 
+[NOTE]
+`Autocomplete` returns an object of type `AutocompleteResult` to `CommandBox` when the `Autocomplete#execute` is called. As such, both `Autocomplete` and `CommandBox` depend on, but are not directly associated with, `AutocompleteResult`. The same reasoning applies for `SimilarWordsResult` which have been explained in the earlier section.
+
 In the following sequence diagram, we follow the execution for when the user tries to autocomplete his partially entered command `gra` (which, in the current application, is an unambiguous command, and will result in the full completion of the `graph` command as well as its prefixes):
 
 .Simplified Sequence Diagram for Command Autocomplete
@@ -370,7 +380,7 @@ Lastly, in order to explain the key decisions that this feature does at each ste
 .Activity Diagram for the Autocomplete Logic
 image::CommandAutocompleteActivityDiagram.png[]
 
-This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to allow users to press kbd:[Tab] to get to the next prefix (<<command-history-behaviour-4, behaviour 4>>): by simply checking for the presence of white spaces from the trimmed user input.
+This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to allow users to press kbd:[Tab] to get to the next prefix (<<command-history-behaviour-4, behaviour 4>>): by simply checking for the presence of white spaces from the trimmed user input (like shown in the activity diagram).
 
 ==== Design Considerations
 
@@ -509,6 +519,7 @@ In addition, we also harnessed the capability of the `HashSet` to ensure no over
 
 // end::dban1[]
 
+// tag::exercise[]
 === Exercise Feature --- Yong Jie
 
 This feature allows users to record the exercises done by a client. The exercises are displayed in a table form, after the `view-c` command is called.
@@ -551,7 +562,7 @@ The two `Exercise` only have different values in `ExerciseSets` but equal values
 . `ExerciseReps`
 . `ExerciseWeight`
 
-This implementation is chosen as we felt that the user should increment the value in `ExerciseSets` in the existing `Exercise`. We followed the same idea as in the real life context. Exercises with the same reps and weight can be grouped together as sets.
+This implementation is chosen as we felt that the user should increment the value in `ExerciseSets` in the existing `Exercise`. We followed the same idea as in the real life context and want to combine the sets of exercises with the same name, date, reps and weight.
 
 We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. In the future, when adding a same `Exercise`, we can implement it such that the sets value of the exising `Exercise` gets incremented automatically instead of showing an error. For now, this implementation keeps the exercise table neat and compact for the user.
 
@@ -586,7 +597,7 @@ We will use an example of a `add-e` command to illustrate the execution of `addT
 .Sequence Diagram for AddExerciseCommand
 image::AddExerciseCommandSequenceDiagram.png[]
 
-`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of `addToSorted(Exercise)` to obtain details of the `Exercise` being added and exising `Exercise` in `UniqueExerciseList`.
+`AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of `addToSorted(Exercise)` to obtain details of the `Exercise` being added and the existing `Exercise` in `UniqueExerciseList`. `AddCommand` will then check if there is an exercise that we consider as the same in the `UniqueExerciseList`.
 
 .Sequence Diagram for the addToSorted Method
 image::AddExerciseCommandSequenceDiagramPart2.png[]
@@ -662,6 +673,7 @@ Moreover, storing the exercise data from client data does not provide any perfor
 Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients. The application is meant to be used by a single user and not an organisation. Even though each client might have many exercises, the information of each exercise is relatively small. For now, collectively, the client and exercise data is unlikely to exceed the JSON size limit. We might consider to have multiple JSON files if the data size gets too big in future versions.
 
 Indeed, `JsonAdaptedClient` having a list of `JsonAdaptedExercise` would violate separation of concerns. `JsonAdaptedClient` is now in charge of the client's information and the exercises. However, we felt that the benefits outweighted the costs and proceeded with the first choice.
+// end::exercise[]
 
 // tag::ziyingli[]
 === Personal Best --- Li Zi Ying

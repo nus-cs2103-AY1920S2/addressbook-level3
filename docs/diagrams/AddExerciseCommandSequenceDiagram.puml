@@ -44,7 +44,7 @@ AddExerciseCommand -[LOGIC_COLOR]> model : addExerciseToClient(toAdd)
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]> model : getClientInView()
-activate model MODEL_COLOR
+activate model MODEL_COLOR_T2
 model --[MODEL_COLOR]> model : clientToEdit
 deactivate model
 model -[MODEL_COLOR]> client : getExerciseList()
