@@ -5,7 +5,6 @@
 
 == PROJECT: FitHelper
 
----
 
 == Overview
 
@@ -16,17 +15,7 @@ It is written in Java, and has about 21 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement 1*: added *the ability to sort entry and reminder list*
-** What it does: allows the application to sort and display the entries in food and/or sports entry list
-based on time/name/calorie value in ascending or descending order. The user can specify sort order and criterion.
-Note that the entries in the reminder list will also be sorted in the same manner.
-** Justification: This feature allows the user to view entries in a particular order.
-It also helps the user to view entry that he/she may deem more important first
-(for example entry with a higher calorie value, as it has a larger impact on the user's fitness),
-which facilitates editing.
-** Highlights: the user can specify which list to sort and in what order.
-
-* *Major enhancement 2*: added *the ability to search for calorie data of common food/sports*
+* *Major enhancement 1*: added the ability to *search for calorie data of common food/sports*
 ** What it does: allows the user to search for calorie intake/consumption of food/sports by keywords.
 ** Justification: This feature makes it easier for the user to estimate how much calorie he/she will gain/burn
 by eating/exercising, so that he/she can create food/sports entry without the need to search online for relevant information.
@@ -34,7 +23,18 @@ by eating/exercising, so that he/she can create food/sports entry without the ne
 (from most strict matching to less strict matching),
 to find matching data. This ensures that more relevant data are found and added first, and at the same time
 loosely-matching data can be shown when strictly-matching data are not found.
-** Credits: The calorie data are collected from the following websites: https://www.calories.info/ and https://www.nutristrategy.com/caloriesburned.htm
+** Credits: The calorie data are collected from the following websites: +
+https://www.calories.info/ and https://www.nutristrategy.com/caloriesburned.htm
+
+* *Major enhancement 2*: added the ability to *sort entry and reminder list*
+** What it does: allows the application to sort and display the entries in food and/or sports entry list
+based on time/name/calorie value in ascending or descending order. The user can specify sort order and criterion.
+Note that the entries in the reminders list will also be sorted in the same manner.
+** Justification: This feature allows the user to view entries in a particular order.
+It also helps the user to view entry that he/she may deem more important first
+(for example entry with a higher calorie value, as it has a larger impact on the user's fitness),
+which facilitates editing.
+** Highlights: the user can specify which list to sort and in what order.
 
 * *Minor enhancement*: added and updated the Help Page,
 which shows the list of valid user commands and their usage,
@@ -47,16 +47,18 @@ and the link to the user guide.
 ** Project management:
 *** Managed release `v1.2.1` on GitHub
 ** Team-Based tasks:
-*** Frequently perform manual testing of the application, and report bugs/feature flaws promptly to other team members.
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Frequently performed manual testing of the application,
+and gave feedback about bugs/feature flaws to team members promptly.
+** Testing:
+*** Added test cases (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/323[#323],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/332[#332]).
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Reviewed and edited sections of the User Guide according to the change in application design and functionality
+(refer to **Contributions to the User Guide** for details)
 ** Community:
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Contributed to forum discussion https://github.com/nus-cs2103-AY1920S2/forum/issues/118[#118].
 
 == Contributions to the User Guide
-
 
 |===
 |Given below are sections I wrote in the User Guide.
