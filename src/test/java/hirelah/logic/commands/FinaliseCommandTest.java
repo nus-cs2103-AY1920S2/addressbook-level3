@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FinaliseCommandTest {
 
-    FinaliseCommand command = new FinaliseCommand();
+    private FinaliseCommand command = new FinaliseCommand();
 
     @Test
     void execute_validFinalise_success() throws IllegalValueException {

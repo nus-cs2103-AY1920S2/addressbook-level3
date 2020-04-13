@@ -26,7 +26,7 @@ class CloseReportCommandTest {
         CommandResult expectedCommandResult = new ToggleCommandResult(String.format(MESSAGE_SUCCESS, "Jane Doe"),
                 ToggleView.CLOSE_TRANSCRIPT);
         CommandResult actualCommandResult = command.execute(actualModel, storage);
-        assertEquals(expectedCommandResult, actualCommandResult);
+        assertEquals(actualCommandResult, expectedCommandResult);
     }
 
     @Test
