@@ -11,7 +11,7 @@
 
 *Naggy Joel* is a desktop social life manager application for university students who wants to enjoy life but not at the expense of their studies. It has a GUI created with JavaFX and is optimized to allow users to interact with it through the Command Line Interface (CLI).
 
-*Naggy Joel* allows users to keep track of various aspects of their lives, ranging from their different social circles and contacts, to their events and deadlines. It aims to help the user be the best friend and best student that they can ever be.
+*Naggy Joel* helps users keep track of various aspects of their lives, from their social circles, to their events and deadlines. It aims to help the user be the best friend and student that they can ever be!
 
 == Summary of contributions
 === Major Enhancements:
@@ -22,12 +22,13 @@
 *** Each day is colour-coded based on the estimated work hours for the day.
 *** There were many cases to consider to ensure a balanced distribution of work hours to each day while ensuring that the user can still meet all deadlines and not go against the concept of time (i.e. a maximum of 24 hours a day and we cannot rewind time).
 
-=== Minor Enhancements:
 * *Added the model for Assignment and the necessary basic commands*
-** *What it does:* The model forms the backbone of most commands which require Assignment and the basic commands allow the adding, deleting and editing an assignment
+** *What it does:* The model forms the backbone of most commands which require Assignment and the basic commands allow adding, deleting and editing an assignment
 ** *Justification:* Naggy Joel is designed to enable students to keep track of their assignments so that they can make the most out of their university life. As such, this addition is crucial as it would later be involved in some of the future enhancements.
-** *Highlights:* This enhancement requires an understanding of what a typical assignment should consist of so that it does not violate the law of demeter.
+** *Highlights:* This enhancement requires an understanding of what a typical assignment should consist of so that it does not violate the law of demeter and learning of RegEx.
+** *Credits:* _Referenced the original AddressBook and Person Model_
 
+=== Minor Enhancements:
 * *Added the ability to visualise contacts with upcoming birthdays*
 ** *What it does:* Displays all contacts with birthdays in the next 5 days (current day included).
 ** *Justification:* As a university student with a busy life and many things to remember, often times we may unintentionally forget the birthdays of our friends and family. As such, this feature will help to serve as a reminder for users.
