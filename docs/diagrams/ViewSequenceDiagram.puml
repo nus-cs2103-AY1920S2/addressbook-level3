@@ -49,7 +49,7 @@ activate Model MODEL_COLOR
 Model --> ViewCommand
 deactivate Model
 
-ViewCommand -[LOGIC_COLOR]> CommandResult **
+ViewCommand -[LOGIC_COLOR]> CommandResult ** : CommandResult()
 activate CommandResult  LOGIC_COLOR
 
 CommandResult --[LOGIC_COLOR]> ViewCommand : result

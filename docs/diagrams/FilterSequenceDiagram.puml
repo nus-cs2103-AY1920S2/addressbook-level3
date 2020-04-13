@@ -33,7 +33,7 @@ FitBizParser -[LOGIC_COLOR]> FilterCommandParser : parse("t/obese s/swim")
 activate FilterCommandParser LOGIC_COLOR LOGIC_COLOR
 
 create FilterCommand
-FilterCommandParser -[LOGIC_COLOR]> FilterCommand
+FilterCommandParser -[LOGIC_COLOR]> FilterCommand : FilterCommand()
 activate FilterCommand LOGIC_COLOR
 
 
@@ -70,10 +70,10 @@ Model --[MODEL_COLOR]> FilterCommand
 deactivate Model
 
 create CommandResult
-FilterCommand -[LOGIC_COLOR]> CommandResult
+FilterCommand -[LOGIC_COLOR]> CommandResult : CommandResult()
 activate CommandResult LOGIC_COLOR
 
-CommandResult --[LOGIC_COLOR]> FilterCommand
+CommandResult --[LOGIC_COLOR]> FilterCommand : result
 deactivate CommandResult
 
 FilterCommand --[LOGIC_COLOR]> LogicManager : result
