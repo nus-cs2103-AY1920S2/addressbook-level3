@@ -453,6 +453,7 @@ How does the user edit a diary entry?
 
 *Reason for chosen implementation:*
 We want to adhere to the fact that past diary entries should not be changed but still allows editing, only that it will require more effort. The alternative solution is certainly feasible, to avoid the downsides of the alternative solution we can incorporate regular expressions to ensure more accurate replacing. However, this may require the users to have some prior knowledge which is not desired.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
