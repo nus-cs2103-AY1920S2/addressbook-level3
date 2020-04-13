@@ -1,0 +1,64 @@
+= Chen Jiangwei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NUSProductivity
+
+---
+
+== Overview
+
+NUSProductivity is a desktop application for NUS students. The user interacts with it using a CLI, and it has a GUI creasted with JavaFX. The application is intended to help NUS students solve their productivity issues and ease student's daily task in NUS.
+
+== Summary of contributions
+
+* *Major enhancement 1*: Add diary package
+** What it does: Models a real life diary book and abstracts all relevant traits of a diary into classes.
+** Justification: The abstraction makes it easier for the team to work with diary-related functionalities such as implementing the GUI for diary tab. It also facilitates future enhancement such as incorporating calendar with diary.
+** Highlights: This package lays the cornerstone for all diary features. It is the foundation for diary commands such as `diaryAdd` and `diaryWeather`.
+
+* *Major enhancement 2*: Implement diary features
+** What it does: Allows users to manage their diary entries. Functionalities includes adding and deleting a diary entry, recording weather or mood for a entry, displaying a diary entry, finding all entries with a specified date.
+** Justification: This feature facilitates users' everyday life by keeping a record of what happened in their lives. It offers something for users to reflect upon in the future. Furthermore, finding entries with a specified date provides users the opportunity to relive certain joyful moments.
+** Highlights: This enhancement makes it easier for users to keep a diary in a command line interface (CLI). It requires a comprehensive understanding of the original application's logic as it makes use of the MVC model in the original implementation. Integrating all the features into the application is challenging as other aspects of the application also need to be considered.
+
+* *Minor enhancement 1*: Remove address attribute from the original address book.
+** What it does: The person in our application does not have an address field.
+** Justification: The address field in not necessary as we are targeting the NUS students and only contact number, email and related modules are relevant information.
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=watsheldon&tabRepo=AY1920S2-CS2103T-W16-4%2Fmain%5Bmaster%5D[Functional Code]
+* *Other contributions*:
+
+
+** Project management:
+*** Created issues and assigning to relevant teammates.
+
+** Documentation:
+*** Added contents for user guide: https://github.com/AY1920S2-CS2103T-W16-4/main/pull/210[#210]
+*** Added contents for developer guide: https://github.com/AY1920S2-CS2103T-W16-4/main/pull/210[#210]
+*** Fixed user guide format: https://github.com/AY1920S2-CS2103T-W16-4/main/commit/0bce7f9091d637d1f64c11448543718b831ac90a[fix format]
+
+** Reviewing/mentoring contribution:
+*** Reivewed and gave feedback for pull requests: https://github.com/AY1920S2-CS2103T-W16-4/main/pull/172[#172]
+** Community:
+*** Reported bugs and reviewed developer guide for other teams in the class.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=Diary]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=Diary]
+
