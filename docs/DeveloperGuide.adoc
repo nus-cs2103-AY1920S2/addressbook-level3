@@ -241,6 +241,8 @@ image::AddDeadlineLogicSequenceDiagram.png[]
 
 image::AddDeadlineModelSequenceDiagram.png[]
 
+// end::deadlines[]
+
 ==== Design Considerations
 
 The design considerations for the classes are shown below:
@@ -255,7 +257,6 @@ The design considerations for the classes are shown below:
 
 ** Choice of design was option 3 as it made all objects separate from one another and allows easy debugging. At the same time, it follows SRP design principle.
 
-// end::deadlines[]
 
 // tag::automation[]
 === Automation
@@ -427,6 +428,8 @@ image::ExportCalendarLogicSequenceDiagram.png[]
 
 image::ExportCalendarModelSequenceDiagram.png[]
 
+// end::calendar[]
+
 ==== Design Considerations
 
 The design considerations for the classes are shown below:
@@ -441,7 +444,6 @@ The design considerations for the classes are shown below:
 
 ** Option 3 was chosen as having different classes allowed us to pinpoint the exact error when the ics file was not working as intended. And any extensions or upgrades to iCalendar format can be easily extended from the current code without refactoring a lot. However, drawback is that some calendars do not support `VTODO`.
 
-// end::calendar[]
 
 === Chat bot Feature (To be implemented)
 
@@ -512,6 +514,8 @@ For more information regarding the structure of the feature, refer to the class 
 
 image::AddReminderClassDiagram.png[]
 
+//end::reminder[]
+
 === Snooze Reminder Feature (Coming in `v2.0`)
 
 Users can also snooze reminders so that they can get the same reminder at a different time.
@@ -530,7 +534,6 @@ For more information regarding the procedure, please refer to the Activity Diagr
 
 image::SnoozeReminderActivityDiagram.png[]
 
-//end::reminder[]
 
 === Logging
 
