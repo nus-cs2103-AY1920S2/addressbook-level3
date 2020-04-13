@@ -14,20 +14,15 @@ class ModeCommandParser implements Parser {
 }
 
 interface Parser<T extends Command> <<Interface>> {
-    parse(userInput : String) : Command
+    parse(userInput : String) : ModeCommand
 }
 
-abstract class Command {
-    {abstract} execute(dietModel:DietModel) : CommandResult
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class ModeCommand extends Command {
     /' Fields '/
-    + COMMAND_WORD : String = "mode"
-    + MESSAGE_USAGE : String
-    + MESSAGE_ADD_MODE_SUCCESS : String = "Added Weight: %1$s"
-    + MESSAGE_FLAG_NOT_PROVIDED : String = "Please provide a flag [-g]/[-m]/[-l]!";
-
     - mode : Mode
 
     /' Methods '/
@@ -87,7 +82,7 @@ ModeCommand ..> DietModel
 ModeCommandParser ..> ModeCommand
 ModeCommandParser ..> Mode
 ModeCommandParser ..> ParserUtil
-ModeCommand --> Mode
+ModeCommand *--> "1" Mode
 
 
 

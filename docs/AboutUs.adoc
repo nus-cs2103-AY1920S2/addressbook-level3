@@ -24,7 +24,7 @@ image::ailanthustng.png[width="150", align="left"]
 {empty}[http://github.com/ailanthustng[github]] [<<ailanthustng#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Expense Splitter
+Responsibilities: Expense Splitter Lead
 
 '''
 
@@ -42,7 +42,7 @@ image::akhilvuputuri.png[width="150", align="left"]
 {empty}[http://github.com/akhilvuputuri[github]] [<<akhilvuputuri#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Diet Tracker Storage, Overall Coordinator for Components
 
 '''
 
@@ -51,6 +51,6 @@ image::jarrod-bob.png[width="150", align="left"]
 {empty}[http://github.com/Jarrod-Bob[github]] [<<Jarrod-Bob#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Diet Tracker Parsers and Command, Main Diagrams for Diet Tracker Commands
 
 '''

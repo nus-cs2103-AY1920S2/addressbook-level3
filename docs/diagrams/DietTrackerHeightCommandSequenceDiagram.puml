@@ -18,7 +18,7 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
-participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
+participant ":DietStorage" as FoodBookStorage STORAGE_COLOR
 end box
 
 [-> LogicManager : execute("height 170.2")
@@ -60,9 +60,6 @@ deactivate HeightCommand
 
 HeightCommandParser --> FoodBookParser : h
 deactivate HeightCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-HeightCommandParser -[hidden]-> FoodBookParser
-destroy HeightCommandParser
 
 FoodBookParser --> LogicManager : h
 deactivate FoodBookParser
@@ -89,8 +86,15 @@ deactivate HeightCommand
 HeightCommand -[hidden]-> LogicManager
 destroy HeightCommand
 destroy HeightHeight
+destroy HeightCommandParser
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+LogicManager -> FoodBookStorage : saveMyself(myself)
 activate FoodBookStorage
 
 FoodBookStorage --> LogicManager

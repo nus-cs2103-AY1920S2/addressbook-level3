@@ -18,7 +18,7 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
-participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
+participant ":DietStorage" as FoodBookStorage STORAGE_COLOR
 end box
 
 [-> LogicManager : execute("weight 65.7")
@@ -60,9 +60,6 @@ deactivate WeightCommand
 
 WeightCommandParser --> FoodBookParser : w
 deactivate WeightCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-WeightCommandParser -[hidden]-> FoodBookParser
-destroy WeightCommandParser
 
 FoodBookParser --> LogicManager : w
 deactivate FoodBookParser
@@ -80,7 +77,7 @@ create CommandResult
 WeightCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> WeightCommand
+CommandResult --> WeightCommand : result
 deactivate CommandResult
 
 WeightCommand --> LogicManager : result
@@ -89,6 +86,7 @@ deactivate WeightCommand
 WeightCommand -[hidden]-> LogicManager
 destroy WeightCommand
 destroy WeightWeight
+destroy WeightCommandParser
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
 activate FoodBookStorage
@@ -96,6 +94,12 @@ activate FoodBookStorage
 FoodBookStorage --> LogicManager
 deactivate FoodBookStorage
 
-[<--LogicManager
+LogicManager -> FoodBookStorage : saveMyself(myself)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+[<--LogicManager : result
 deactivate LogicManager
 @enduml

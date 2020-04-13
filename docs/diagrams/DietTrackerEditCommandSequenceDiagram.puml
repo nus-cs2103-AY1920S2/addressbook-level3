@@ -1,5 +1,6 @@
 @startuml
 /' @author @jarrod-bob'/
+/' @author @akhilvuputuri'/
 
 !include style.puml
 
@@ -9,7 +10,7 @@ participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
 participant "efd:EditFoodDescriptor" as EditFoodDescriptor LOGIC_COLOR
 participant "e:EditCommand" as EditCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -19,7 +20,7 @@ participant "editedFood:Food" as EditedFood MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
-participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
+participant ":DietStorage" as FoodBookStorage STORAGE_COLOR
 end box
 
 [-> LogicManager : execute("edit -i 1 -n Pasta -c 1200")
@@ -54,9 +55,6 @@ deactivate EditCommand
 
 EditCommandParser --> FoodBookParser : e
 deactivate EditCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-EditCommandParser -[hidden]-> FoodBookParser
-destroy EditCommandParser
 
 FoodBookParser --> LogicManager : e
 deactivate FoodBookParser
@@ -88,16 +86,17 @@ create CommandResult
 EditCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> EditCommand
+CommandResult --> EditCommand : result
 deactivate CommandResult
 
-EditCommand --> LogicManager : commandResult
+EditCommand --> LogicManager : result
 deactivate EditCommand
 
 EditCommand -[hidden]-> LogicManager
 destroy EditCommand
 destroy FoodToEdit
 destroy EditedFood
+destroy EditCommandParser
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
 activate FoodBookStorage
@@ -105,6 +104,12 @@ activate FoodBookStorage
 FoodBookStorage --> LogicManager
 deactivate FoodBookStorage
 
-[<--LogicManager
+LogicManager -> FoodBookStorage : saveMyself(myself)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+[<--LogicManager : result
 deactivate LogicManager
 @enduml
