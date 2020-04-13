@@ -64,7 +64,7 @@ public class TagSet {
     public String[] getTagNames() {
         ArrayList<String> tagNames = new ArrayList<>();
         for (Tag t: tagCount.keySet().toArray(new Tag[0])) {
-            tagNames.add(t.toString());
+            tagNames.add(t.tagName);
         }
         return tagNames.toArray(new String[0]);
     }
