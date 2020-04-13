@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103-W14-1/main/tree/master
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -21,10 +21,11 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 Refer to the guide <<SettingUp#, here>>.
 
 [[Design-Architecture]]
-=== Architecture
+=== Architecture [Hieu]
 
 .Architecture Diagram
 image::ArchitectureNewDiagram.png[]
+---
 
 The *_Architecture Diagram_* given above explains the high-level design of the App.
 Given below is a quick overview of each component.
@@ -70,6 +71,7 @@ Here is an example of how a command to delete student with ID 1 will invoke diff
 
 .Sequence Diagram for Events Flow
 image::EventsFlowDiagram.png[]
+---
 
 . ViewController(i.e LogicManager) will invoke ModelManager.delete method (Note that ModelManager extends from BaseManager, and has the Publisher capacity)
 . ModelManager will invoke publishing of events to EventsCenterSingleton (which holds an EventBus), in this case postDataStorageChangeEvent and postDeleteEntitySyncEvent will be invoked.
@@ -103,6 +105,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
+---
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -111,6 +114,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
+---
 
 The sections below give more details of each component.
 
@@ -158,8 +162,10 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-ViewController]]
-=== ViewModel component (HIEU)
+=== ViewModel component [Hieu]
 image::ViewModelDiagram.png[]
+---
+
 *API*: link:{repoURL}/src/main/java/seedu/address/viewmodel/ViewModel.java[`ViewModel.java`]
 
 The `ViewModel`,
@@ -170,7 +176,7 @@ The `ViewModel`,
 observableMap, which in turn will automatically update the corresponding `DetailPanel` view.
 
 [[Design-Model]]
-=== Model component [Ivan Tee Jun Jie]
+=== Model component [Tee Jun Jie Ivan]
 
 .Structure of the Model Component
 image::Ivan-ModelClassDiagram.png[]
@@ -199,10 +205,9 @@ image::Ivan-AssignmentClassDiagram.png[]
 [NOTE]
 The AddressBookGeneric in the diagram above is actually an AddressBookGeneric<Assignment>.
 The AddressBookGeneric has been made to accept any class that extends ModelObject.
-This cannot be shown due to limitations in PUML.
+This cannot be shown due to limitations in PlantUML.
 
 ==== Notable Implementations in Model
-
 . By making use of `Generics` and `Polymorphism`, the group has made it such that `AddressBookGeneric<K extends ModelObject>` can hold any class that extends from ModelObject
 Benefits::
 .. Allows for code optimization by having reusable code.
@@ -213,11 +218,18 @@ Future features that involve creating new AddressBooks can be developed very qui
 . All `ModelObjects` implement `Cloneable` so as to allow for Defensive Programming more easily.
 .. Please refer to <<Design-Assign-Copy, `Step 2 of Section 2.2.2`>> for the team's rationale behind having ModelObject implement Cloneable.
 
+. All Non-Crud Commands such as `Assign`/`Un-assign`/`Done` are handled in `DiffTypesOfManagers` such as `EdgeManager` or
+`ProgressManager` instead of having all implementations being done in `ModelManager`
+Benefits::
+.. Easier implementation since lower level implementations can be abstracted away
+.. More decoupling which will lead to be better testability and easier debugging
+
 [[Design-Storage]]
 === Storage component [NEED TO UPDATE]
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
+---
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -235,34 +247,16 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Command Handling by Managers
+=== Command Handling by Managers [Sheng Xue]
 
 ==== CRUD Commands Handled by ModelManager
 
     Explain the flow of a CRUD command from LogicManager -> ModelManager -> publish events -> StorageManager captures the events
 
-=== Entity Linking - Assigning/Un-Assigning an Entity to/from a Course [Tee Jun Jie Ivan]
-
-In order to allow the tracking of the students/assignments/teachers that are assigned to a course and vice versa, this required us to implement a structure which allowed us to obtain information from the aforementioned objects, without causing any circular referencing errors.
-
-.Relationship between Entities
-image::Ivan-OODMForEntityRS.png[]
-
-
-The group came up with the structure above where we centralize most links around the `Course` object so as for easier management of entity links.
-Every non-directed association between 2 objects ensures that both objects have each other's ID.
-
-[NOTE]
-The only exception is `Progress` objects which are created via a composite ID of `studentID` and `assignmentID`.
-
-There are 3 crucial managers involved in order to ensure that the links are successfully maintained during each any command which involves manipulation of entity links.
-The three managers are:
-
+=== Unique Identification of Entities [Sheng Xue]
 . `UUID Manager` - Ensures ID of all entities are unique, allowing each object to be uniquely identifiable
-. `Edge Manager` - Ensures that links are maintained/removed properly during assign, un-assign, delete commands
-. `Progress Manager` - Ensures that Progress objects are successfully created/deleted during assign, un-assign, delete commands
 
-==== UUID Manager [Sim Sheng Xue]
+==== UUID Manager
 
 1. All ModelObjects have their own ID which is generated by UUID manager
 2. For Progress objects, the ID is a composite ID of assignmentID and studentID
@@ -272,22 +266,51 @@ Explain rationale behind using IDs
 Consideration 1
 
 Consideration 2
+[[entity-linking]]
+=== Entity Linking - Assigning/Un-Assigning an Entity to/from a Course [Tee Jun Jie Ivan]
+
+In order to allow the tracking of the students/assignments/teachers that are assigned to a course and vice versa, this required us to implement a structure which allowed us to obtain information from the aforementioned objects, without causing any circular referencing errors.
+
+.Relationship between Entities
+image::Ivan-OODMForEntityRS.png[]
+---
+
+The group came up with the structure above where we centralize most links around the `Course` object so as for easier management of entity links.
+
+[IMPORTANT]
+Notice that `Student` does *not* hold a `Course`, but a set of `CourseIDs`. Hence, there should be an association between `Student` and `ID` instead of `Student` and `Course`.
+However, the group found it much more *intuitive* to think of the associations to be from 2 modelObjects rather than to and from IDs.
+Every non-directed association between 2 objects ensures that both objects have each other's ID.
+
+The only exception is `Progress` objects which are created via a composite ID of `studentID` and `assignmentID`.
+A more detailed explanation of Progress Management is explained in <<progress-management>>.
+
+Entity Linking is managed exclusively by `Edge Manager`
+
+* Ensures that links are maintained/removed properly during assign, un-assign, delete commands
+*API* : link:{repoURL}/src/main/java/seedu/address/manager/EdgeManager.java[`EdgeManager.java`]
 
 ==== Execution of Assign/Un-assign Command [Tee Jun Jie Ivan]
 
-For the actual execution of an assign/un-assign command, 3 main steps are performed.
+For the actual execution of an assign/un-assign command, 2 main steps are performed.
 
 . Pre-process the targeted entities to ensure consistent state - Via `PreprocessUndoCommand` method call
-. Add both object's ID into each other - Handled by `EdgeManager`
-. Create/remove Progress objects when assignments/students are involved - Handled by `Progress Manager`
+. Add/Remove both object's ID into/from each other - Handled by `EdgeManager`
 
 ===== Step 1: Preprocess Entities
 
-====== Rationale
+====== +++<u>Rationale</u>+++
 
-Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command to ensure that all entity links are in correct state before command execution.
+Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command to ensure
+that all entity links are in correct state before command execution.
+This means that either
 
-====== Current Implementation
+. Both targeted objects have each other's IDs or
+. They do not
+
+There should be no instance where Course has an Assignment/Student/Staff's ID but they do not have the Course's ID or vice versa.
+
+====== +++<u>Current Implementation</u>+++
 
 Below is an activity diagram showing the pre-processing performed for assign commands.
 The diagram can be generalized for un-assign commands by checking if the course contains X and vice versa in the second stage instead.
@@ -356,8 +379,21 @@ Also, requires all ModelObject classes to implement a clone() method.
 Overall, the second option was chosen since the program is very dependent on maintaining a `consistent state`, where either 2 modelObjects have each other's ID or they do not.
 Some performance can be sacrificed in order to ensure that the links between objects cannot be modified by mistake.
 
-===== Step 3: Add Progress objects via ProgressManager
+===== Summary of Entity Linking
 
+Overall, in order to ensure successful entity linking, the role that `EdgeManager` plays is crucial.
+The table below shows the method calls made to `EdgeManager` during an `Assign`/`Un-assign` command.
+
+.Table Summary of EdgeManager's involvement during Assign/Un-assign Commands
+image::Ivan-AssignSummary.png[]
+---
+[[progress-management]]
+=== Student Progress Management [Tee Jun Jie Ivan]
+The `Progress` of students is managed exclusively by the `ProgressManager` class.
+
+*API* : link:{repoURL}/src/main/java/seedu/address/manager/ProgressManager.java[`ProgressManager.java`]
+
+==== Student Progress Creation/Removal
 ====== +++<u>Rationale</u>+++
 
 New `Progress` objects must be created in 2 main scenarios.
@@ -380,7 +416,7 @@ The flow of adding Progress objects in a AssignStudentToCourse is as follows
 
 . If there are `Progress` objects that were previously in ProgressAddressBook but were removed due to an `Un-assign/Delete` command, add those `Progress` objects back in.
 .. This only occurs when undo-ing an `Un-assign/Delete` command.
-Refer to `Section 3.2.2` for more information.
+Refer to <<undo-assign-command>> for more information.
 . Else, i.e. if this is an entirely new AssignStudentToCourse command,
 .. Obtain *C'*, a copy of the targeted `Course`
 .. From *C'*, obtain all assignmentIDs that are assigned to it.
@@ -388,7 +424,7 @@ Refer to `Section 3.2.2` for more information.
 .. Create a `Progress` object using each of the `CompositeID`
 .. Finally, add these `Progress` objects into the `ProgressAddressBook`.
 
-Notes:
+Notes
 
 - The flow is largely the same for AssignAssignmentToCourse!
 Instead, we want every `Student` that is currently studying in course *C'* to complete the particular `Assignment`.
@@ -397,13 +433,65 @@ Hence, rather than obtain all assignmentIDs, we will need to obtain all
 - The flow is also largely the same for UnassignCommands!
 Instead, we are looking to remove Progress objects rather than adding them back in.
 
-===== Summary of Entity Linking
+The table below shows the summary of method calls from `ProgressManager` for each variant of `Assign`/`Un-assign` command.
 
-Overall, in order to ensure successful entity linking, all 3 managers involved must be involved.
-The table below shows the involvement of 3 managers with regards to each variant of the `Assign`/`Un-assign` commands.
+.Table Summary of ProgressManager method calls() for Assign/Un-assign Commands
+image::Ivan-ProgressSummary.png[]
 
-.Table Summary of Manager's involvement during Assign/Un-assign Commands
-image::Ivan-AssignSummaryTable.png[]
+==== Marking Progress as `Done`/`Undone`
+====== +++<u>Rationale</u>+++
+When a `Student` finishes an `Assignment` that is allocated to him, you want to be able to mark his work
+as `Done`.
+
+Similarly, if an `Assignment` has been mistakenly marked as `Done` or is actually `Undone`, you want to be able
+to mark the `Assignment` as `Undone`.
+
+====== +++<u>Current Implementation</u>+++
+.Sequence Diagram for Progress Manager's Handling of Done Command
+image::Ivan-SequenceDiagramDoneCommand.png[]
+
+The implementation of `Done` command is very straight-forward. Only 2 parameter is needed - assignmentID (aid) and studentID (sid).
+
+. Create the CompositeID of `Progress` objects using the aid and sid
+. Using this newly created compositeID, call modelManager#get(ID id, entity.type)
+.. This returns a `copy` of the `Progress` object - P'.
+. Execute `P'#done()`
+.. If `P'` is already done, an exception will be thrown
+.. Else, `P'` will be set its internal boolean isDone to be true.
+. Save the edited `Progress` object to model
+. Save the edited `Progress` object to storage
+
+With this, the implementation of `Undone` command is about the same, we just have to call `P'#undone()` instead.
+
+====== +++<u>Design Consideration</u>+++
+There is 1 main considerations when implementing `Progress` objects.
+
+1. Is there a need to separate `Assignment` and `Progress`?
+
+. Implementation 1 - Have `Assignment` hold 1 `StudentID` and a 1 `isDone` boolean
+Pros::
+.. Simple to implement
+Cons::
+.. Memory-intensive since every student can have up to N number of `Assignments`
+.. Suppose that a field in the `Assignment` needs to be updated, the program needs to loop through every single `Assignment` object
+to update that particular field, resulting in high computational costs.
+.. With an additional link from `Assignment` to `Student`, it will be require more work to maintain the correctness of the linking.
+... In <<entity-linking,`Section 2.3`>>, the decided implementation was to *centralize all links around `Course`*.
+... Hence, if another type of link was to be introduced, another `manager` will need to be implemented.
+
+. Implementation 2 (Current Implementation) - Separate the logic of `Assignment` and `Progress`.
+`Assignments` just need to hold its ID, name and deadline while `Progress` will handle whether a `Student` has completed that `Assignment` or not.
+
+Pros::
+.. Intuitive and simple to understand
+... In-line with Object Oriented Programming since it can be modelled as a real world object.
+... As most people have been through school, they can understand that when given a homework/assignment in school,
+there is actually only *1* `Assignment` that *every* `Student` has to complete. This idea is basically what we have implemented.
+.. Solves the first disadvantage of Implementation 1. Any time the details of the `Assignment` is changed,
+the details will be automatically changed for all `Progress` objects.
+.. Works well with current implementation of AddressBookGeneric which has `getters` and `setters` via `ID` since every `Progress` object will have its own `ID`
+Cons::
+.. Also very memory intensive
 
 === Undo/Redo [Hieu]
 
@@ -450,6 +538,7 @@ Then the oppositeCommand of it will be excecuted (in this case AddStudentCommand
 Then the originalCommand will be executed (again) (in this case it will be DeleteStudentCommand again).
 
 image::UndoRedoStack.png[]
+---
 
 * Design Considerations:
 1/ How Undo and Redo works:
@@ -463,17 +552,88 @@ Pros: Reduce a lot of memory issue.
 Cons: Harder to implement
 
 ==== Opposite Command for edit [Dat]
+In EditCommand class, method `preprocessUndoableCommand` to get the toEdit Object and edited Object.
 
+.Activity Diagram of Pre-processing for Edit commands
+image::ActivityDiagramEditCommand.png[]
+
+Method `executeUndoableCommand` will set the toEdit Object in the ObjectAddressBook to the edited Object.
+
+Method `generateOppositeCommand()` will generate another `EditCommand` (which
+is opposite to this EditCommand) with editing information of the original toEdit Object and push it to undoStack.
+
+When `undo` and `redo` commands are executed, the process is carried out as described above.
+
+[[undo-assign-command]]
 ==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
+Generating of opposite commands for assign and un-assign commands is very intuitive. The opposite of assign is un-assign and vice versa.
 
-==== Opposite command for add/ delete (and maintain the corresponding links between entities) [Dat]
+The *tricky* part comes after you un-assign a Student/Assignment from a Course and have removed the affected `Progress` objects.
+When you want to undo the un-assign command, you need to add back those particular `Progress` objects which were just removed instead of adding new `*undone* Progress objects`.
+This is because those removed `Progress` objects may or may not be `done`.
+
+This is achieved by 3 simple, additional steps.
+
+. When pre-processing an un-assign command as per <<Preprocess-entity, `*Step 1 of Section 2.2.2*`>>,
+you'll need to assign all `Progress` objects that are about to be removed to a variable.
+. When `GenerateOppositeCommand` is called, via an overloaded constructor,  you will need to instantiate a new `Assign` using the `Progress` objects that you have saved:
+[source, java]
+public AssignAssignmentToCourseCommand(AssignDescriptor assignDescriptor, Set<Progress> undoProgresses)
+
+.. This allows the opposite command to add back the removed `Progress` objects
+. Finally, when `executeUndoableCommand` is executed, seeing that the undoProgresses is not null,
+the `Assign` Command will add those `Progress` objects back. Please see the activity diagram below for a better understanding of when the
+Undo Progress will be added back in.
+
+.Activity Diagram of executing executeUndoableCommand of Assign Commands
+image::Ivan-ActivityDiagramAssignUndo.png[]
+---
+
+This results in the *correct* `Progress` objects, which may or may not be `Done`, to be added back in instead of completely new `Progress` objects that are all `Undone`.
+
+You can also notice that this is a faster implementation since we do not need to re-create a `CompositeID` and the actual
+`Progress` object itself when we are just adding back the UndoProgresses.
+
+==== Opposite command for add/ delete (and maintain the corresponding links between entities)
+
+`AddCommand` and `DeleteCommand` extends from abstract class UndoableCommand. Thus, user can undo/ redo this command.
+
+In `AddCommand` class, method `preprocessUndoableCommand` get the toAdd Object and an index (if available).
+
+Method `executeUndoableCommand` will add the toAdd Object to the ObjectAddressBook.
+
+Method `generateOppositeCommand()` will generate a `DeleteCommand` (which
+is opposite to this AddCommand) with toDelete Object is a clone of toAdd Object and push it to undoStack.
+
+In `DeleteCommand` class, method `preprocessUndoableCommand` get the toDelete Object and its index.
+
+Method `executeUndoableCommand` will delete this toDelete Object from the ObjectAddressBook.
+
+Method `generateOppositeCommand()` will generate an `AddCommand` (which
+is opposite to this DeleteCommand) with toAdd Object is a clone of toDelete Object and push it to undoStack.
+
+When `undo` and `redo` commands are executed, the process is carried out as described above.
+
+For `DeleteCommand`, it is important to ensure that entity links are removed properly.
+For `AddCommand` generated by `generateOppositeCommand()`, it is important to restore all the entity links properly.
+Therefore, in order to ensure undo/redo successfully, all 3 managers must be involved to manage all entity links.
+
+When an object is deleted (Student/Teacher/Course/Assignment), `EdgeManager` will invoke a `DeleteEntitySyncEvent`
+signal and a `DataStorageChangeEvent` signal to be handled by `StorageManager`. `generateOppositeCommand()` will
+generate an add-command with a clone object of deleted object and stacked into undoStack.When an `undo` command is
+executed, this `add-command` is pop out from the stack and executed, adding the cloned object with all the
+information of the deleted object. The flow after add-command called now can be generalized as the previous
+delete-command. All the entities links are restored.
+
+.Sequence Diagram of Delete Staff (teacher)
+image::SeqDiagramDeleteStaff.png[]
 
 === View Switching [HIEU]
 To see sub-view details of each section we can issue a select command.
-
 Let's see an example of how selecting sub-view data of a student 1 works.
 
 image::ViewSwitchFlowDiagram.png[]
+---
 
 . `select sid/ 1` command is issued to `ViewController`
 . `ViewController`  will call `ViewModel` method `updateStudentDetailsMap`
@@ -493,10 +653,46 @@ an event of `DataStorageChangeEvent` or `DeleteEntitySyncEvent` happens, it will
 which `observableMap` (which corresponds to different `DetailedView`) is active then
 do the query again.
 
-. 2/ Lazy loading: For example, when seeing details of the students, we only want to show the courses
+. Lazy loading: For example, when seeing details of the students, we only want to show the courses
 that the students have without the progresses of this course that the student currently have.
 To query that, after executing `select sid/ student_id`, the user needs to run
 `select sid/ student_id cid/ course-id` as well
+
+
+=== Managing Staff Feature [Dat]
+==== Implementation
+This feature is implemented with the main classes - `Staff`, with a permission level specifying `Teacher` and `Admin`.
+
+[source,java]
+----
+public class Staff extends ModelObject {
+    public enum Level {
+        TEACHER,
+        ADMIN
+    }
+    //...
+}
+----
+One of the features is to display all the `courses` that a `teacher` is teaching.
+
+Another feature is to keep track of salary payment for `teacher`. A `teacher` is paid by teaching a course and the amount
+is taken from the salary of the teacher. The payment will automatically have records of respective course and teacher ID.
+
+To pay for `admin`, user has to do it manually using miscellaneous `FinanceType`.
+
+Certain approaches have some certain pros and cons. It depends on how the user want to keep track of payment and method to pay to `teacher` and `admin`.
+
+=== Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings [Dat]
+==== Implementation
+
+Miscellaneous transactions can either be payments or earnings, such as purchases of stationary or advertisement revenue. Teacher payments are tracked by courses, where the teacher is paid for each course taught. Student earnings are also tracked by courses, where the student pays for each course taken.
+
+.Class diagram of CourseStudent and CourseTeacher
+image::FinanceDiagram.png[]
+
+Finance type `CourseStudent` or `cs` add command will access `CourseAddressBook` and `StudentAddressBook` to ensure `Course` and
+`Student` exist and make sure this student is taking this course. The `Amount` is set to the amount of the `Course`
+(student fee).
 
 === Logging
 
@@ -541,7 +737,7 @@ Refer to the guide <<DevOps#, here>>.
 * assign students to suitable schedules
 * keep track of the courses available
 * keep track of the student's progress and assignments
-* manage course earnings and staff spendings
+* manage course earnings and staff spending
 * ---
 * prefer desktop apps over other types
 * can type fast
@@ -1310,6 +1506,7 @@ The diagram below shows a simplified flow
 
 .Structure of Commands and Parser
 image::AssignCommandImplementation.png[]
+---
 
 === Design considerations:
 

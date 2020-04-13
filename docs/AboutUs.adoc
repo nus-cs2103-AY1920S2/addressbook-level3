@@ -34,7 +34,7 @@ Responsibilities: Deliverables and deadlines, Scheduling and tracking
 === Le Trung Hieu
 
 image::lth08091998.png[width="150",align="left"]
-{empty}[https://github.com/lth08091998[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/lth08091998[github]] [<<trunghieu#, portfolio>>]
 
 Role: Developer, Database expert +
 Responsibilities: Integration, In charge of Model and storage

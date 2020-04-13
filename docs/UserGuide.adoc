@@ -152,7 +152,65 @@ Format: `help`
 Exits the program. +
 Format: `exit`
 
-==== Undo an undoable command : `undo`/Redo a redoable command : `redo`
+
+==== Undo Command: `undo`
+
+Set the app state back to the most recent undoableCommand.
+
+[NOTE]
+======
+See the full list of undoable commands: all edit/add/delete/assign/unassign commands.
+======
+
+Examples:
+
+* `find-student hieu` +
+`undo`
+
+This will fail because `find-student` is not an undoableCommand.
+
+* `delete-student 35853` +
+`undo`
+
+Undo the delete command of student and add the student back at the previous relative ordering too.
+
+Illustration:
+
+image::undo_1.PNG[]
+
+After `delete-student 35853`
+
+image::undo_2.PNG[]
+
+After `undo`:
+
+image::undo_3.png[]
+
+==== Redo Command: `redo`
+
+Reverses the most recent `undo` command, but will fail if the most recent command was not the `undo` command or `redo`
+command
+
+Examples:
+
+* `delete-student 35853` +
+`undo` +
+`redo`
+
+Successfully delete the student, then add the student back with `undo`, then delete student again with `redo`
+
+* `find-student hieu` +
+`redo`
+
+`redo` fails because no `undo` command previously
+
+* `delete-student 35853` +
+`undo` +
+`find-student hieu` +
+`redo`
+
+This `redo` also fails because the most recent command is not `undo` or `redo`
+
 
 Format: `undo` or `redo`
 
@@ -174,15 +232,42 @@ This progress tracks whether the student has completed the
 specific assignment (Done) or not (Not Done)
 ====
 
+In Student Tab, Under Selected Student and Assigned Courses Panel, after assigning student to course, it can be seen that
+the progresses have been added for every assignment in the course. The Student's progresses can be tracked by specific
+assignment status Done/ Not done. Total done progresses can be viewed under "Number of progress done" field.
+
+.Selected Student and Assigned Courses Panel. Shows ID and details of assigned Courses and Assignments.
+image::StudentViewAssignToCourse.png[width="500"]
+
+Student's details and Assigned Assignments for this courses can also be viewed under Course Tab.
+
+.Selected Course and Assigned Students Panel. Shows ID and details of assigned Students and their Assignments.
+image::CourseViewAssignToStudent.png[width="500"]
+
 ===== A Teacher to a Course : `assign` or `unassign` respectively
 
 Adds the Teacher ID to the Course ID specified. +
 Format: `assign cid/COURSEID tid/TEACHERID` +
 Example: `assign cid/829 tid/21`
 
+When a teacher is assigned to a course, the teacher's ID is added to course and course's ID is added to teacher. In
+Selected Staff Tab, it can be seen that a course ID is added under "Assigned Courses" and the course can be viewed in
+Assigned Courses Tab.
+
+.Selected Staff and Assigned Courses Panel. Shows ID and details of assigned Courses.
+image::StaffViewAssignToCourse.png[width="500"]
+
+In Selected Course Tab, it can be seen that a staff ID is added under "Assigned Staff".
+
+.Selected Staff and Assigned Courses Panel. Shows ID and details of assigned Courses.
+image::CourseViewAssignToStaff.png[width="500"]
+
 Removes the Teacher ID from the Course ID specified. +
 Format: `unassign cid/COURSEID tid/TEACHERID` +
 Example: `unassign cid/829 tid/21`
+
+When a teacher is unassigned to a course, the teacher's ID is removed from course and course's ID is removed from teacher.
+In Selected Staff Tab, after unassign Command, the course's ID and details no longer appears.
 
 ===== An Assignment to a Course : `assign` or 'unassign' respectively
 
@@ -388,6 +473,11 @@ A `teacher` is paid by the courses that he/she teaches. (finance type ft/ct)
 An `admin` is paid by miscellaneous transactions. (finance type ft/m)
 ====
 
+[NOTE]
+====
+A
+====
+
 [TIP]
 ====
 The Gender of the Staff is shown in the form of a little icon
@@ -569,7 +659,7 @@ For Type 2 student paying for a course, the amount will be positive automaticall
 For Type 3 teacher being paid for teaching a course, the amount will be negative automatically, as it is an expense
 
 To make Payment for a teacher, it is important to check the salary value of the teacher. This value is set to 0 by default
-when adding a new staff (teacher) without specifying salary. A result of payment with amount 0 will be added if the
+when adding a new staff (teacher) if the user does not specify salary. A result of payment with amount 0 will be added if the
 salary of the teacher is 0.
 
 The positive and negative amount is important (for miscellaneous type) as it is used under "earnings" and "expenses" commands.
@@ -710,6 +800,7 @@ Returns `java` and `Java Assignment`
 // tag::v2.0[]
 === Upcoming Features
 [[Register-Improvement]]
+
 ==== Add registration `[coming in v2.0]`
 Add a `register` command by including role (i.e. privilege system).
 
