@@ -31,7 +31,7 @@ deactivate ExpenseLaParser
 LogicManager -> ClearCommand : execute()
 activate ClearCommand
 
-ClearCommand -> Model : setExepenseLa(new ExpenseLa())
+ClearCommand -> Model : setExpenseLa(new ExpenseLa())
 activate Model
 
 Model --> ClearCommand

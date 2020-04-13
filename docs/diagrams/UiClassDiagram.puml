@@ -45,9 +45,9 @@ MainWindow *-down-> "1" FilterPanel
 MainWindow *-down-> "1" MonthlyDataPanel
 
 TransactionListPanel *-down-> "*" TransactionCard
-TransactionCard -down-> CategoryLabelMaker
-FilterPanel -down-> CategoryLabelMaker
-FilterPanel -down-> DateLabelMaker
+TransactionCard ..> CategoryLabelMaker
+FilterPanel .down.> CategoryLabelMaker
+FilterPanel .down.> DateLabelMaker
 
 
 MainWindow ---|> UiPart

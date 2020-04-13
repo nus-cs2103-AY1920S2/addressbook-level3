@@ -1,0 +1,35 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+
+package Model {
+class ExpenseLa MODEL_COLOR
+}
+
+package Logic {
+class LogicManager LOGIC_COLOR
+}
+
+package Keystore {
+class KeystoreManager #FF4400
+}
+
+package Storage {
+interface Storage <<Interface>> STORAGE_COLOR
+class StorageManager STORAGE_COLOR
+interface ExpenseLaStorage <<Interface>> STORAGE_COLOR
+interface UserPrefsStorage <<Interface>> STORAGE_COLOR
+interface GlobalDataStorage <<Interface>> STORAGE_COLOR
+}
+
+LogicManager --- KeystoreManager LOGIC_COLOR
+LogicManager --- ExpenseLa
+
+KeystoreManager --- StorageManager #FF4400
+
+StorageManager ..|> Storage STORAGE_COLOR
+StorageManager o--> ExpenseLaStorage STORAGE_COLOR
+StorageManager o--> UserPrefsStorage STORAGE_COLOR
+StorageManager o--> GlobalDataStorage STORAGE_COLOR
+
+@enduml
