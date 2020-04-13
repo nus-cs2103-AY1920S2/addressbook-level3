@@ -56,7 +56,9 @@ public class RestaurantCard extends UiPart<Region> {
         this.restaurant = restaurant;
         id.setText(displayedIndex + ". ");
         name.setText(restaurant.getName().fullName);
+        name.setWrapText(true);
         locationR.setText(restaurant.getLocation().fullLocation);
+        locationR.setWrapText(true);
         hours.setText(restaurant.getHours().hours);
         price.setText(restaurant.getPrice().price);
         cuisine.setText(restaurant.getCuisine().cuisine);
@@ -84,6 +86,7 @@ public class RestaurantCard extends UiPart<Region> {
             i++;
         }
         recommendedFood.setText(recommended);
+        recommendedFood.setWrapText(true);
         String good = "Good food: ";
         i = 0;
         while (i < restaurant.getGoodFood().size()) {
@@ -94,6 +97,7 @@ public class RestaurantCard extends UiPart<Region> {
             i++;
         }
         goodFood.setText(good);
+        goodFood.setWrapText(true);
         String bad = "Bad food: ";
         i = 0;
         while (i < restaurant.getBadFood().size()) {
@@ -104,6 +108,7 @@ public class RestaurantCard extends UiPart<Region> {
             i++;
         }
         badFood.setText(bad);
+        badFood.setWrapText(true);
     }
 
     @Override
