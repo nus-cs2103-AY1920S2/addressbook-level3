@@ -13,14 +13,15 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileList;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
@@ -51,10 +52,10 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_GRADE_SUCCESS = "Deleted grade of module %1$s";
     public static final String MESSAGE_DELETE_DEADLINE_FAILURE = "Unable to delete task: %1$s";
     public static final String MESSAGE_DELETE_PROFILE_FAILURE = "Profile with name %1$s does not exist!";
-    public static final String MESSAGE_DELETE_GRADE_FAILURE = "Module with module code %1$s has no grade";
+    public static final String MESSAGE_DELETE_GRADE_FAILURE = "Module(s) %1$s has no grade";
 
     public static final String MESSAGE_NOT_TAKING_MODULE =
-            "User is currently not taking a module with module code %1$s";
+            "User is currently not taking the module(s): %1$s";
 
     private final Name deleteName;
     private final List<ModuleCode> deleteModuleCodes;
@@ -134,6 +135,29 @@ public class DeleteCommand extends Command {
                 throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
             }
 
+            Profile profile = profileManager.getFirstProfile(); // To edit when dealing with multiple profiles
+
+            // If some modules are not in the user profile, raise error
+            // If deleting grade and some modules have no grade, raise error
+            List<ModuleCode> modsNotTaking = new ArrayList<>();
+            List<ModuleCode> modsNoGrade = new ArrayList<>();
+            for (ModuleCode moduleCode: deleteModuleCodes) {
+                try {
+                    Module mod = profile.getModule(moduleCode);
+                    if (deleteGrade != null && !mod.hasGrade()) {
+                        modsNoGrade.add(moduleCode);
+                    }
+                } catch (ModuleNotFoundException e) {
+                    modsNotTaking.add(moduleCode);
+                }
+            }
+            if (!modsNotTaking.isEmpty()) {
+                throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, modsNotTaking));
+            }
+            if (!modsNoGrade.isEmpty()) {
+                throw new CommandException(String.format(MESSAGE_DELETE_GRADE_FAILURE, modsNoGrade));
+            }
+
             // Case of multiple module codes: Execute DeleteCommand multiple times
             if (deleteModuleCodes.size() > 1) {
                 String message = "";
@@ -152,10 +176,6 @@ public class DeleteCommand extends Command {
             }
 
             ModuleCode deleteModuleCode = deleteModuleCodes.iterator().next();
-            Profile profile = profileManager.getFirstProfile(); // To edit when dealing with multiple profiles
-            if (!profile.hasModule(deleteModuleCode)) {
-                throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
-            }
 
             // Deleting a deadline/task
             if (deleteDeadlines != null) {
@@ -172,7 +192,7 @@ public class DeleteCommand extends Command {
                         profileManager.deleteDeadline(deadline); //delete from observablelist
                     }
 
-                } catch (ParseException e) {
+                } catch (ModuleNotFoundException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 } catch (DeadlineNotFoundException e) {
                     throw new CommandException(String.format(MESSAGE_DELETE_DEADLINE_FAILURE, deleteDeadlines));
@@ -186,7 +206,7 @@ public class DeleteCommand extends Command {
                     profile.getModule(deleteModuleCode).deleteGrade();
                     profileManager.setDisplayedView(profile);
                     profile.updateCap();
-                } catch (ParseException e) {
+                } catch (ModuleNotFoundException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 } catch (NoSuchElementException e) {
                     throw new CommandException(String.format(MESSAGE_DELETE_GRADE_FAILURE, deleteModuleCode));
@@ -201,7 +221,7 @@ public class DeleteCommand extends Command {
                 profile.updateCap();
                 profileManager.setDisplayedView(profile);
 
-            } catch (ParseException e) {
+            } catch (ModuleNotFoundException e) {
                 throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
             }
             return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, deleteModuleCode), true);

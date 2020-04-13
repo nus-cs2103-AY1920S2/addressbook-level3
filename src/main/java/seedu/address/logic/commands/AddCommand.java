@@ -52,8 +52,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_EDIT_SUCCESS = "Existing module updated: %1$s";
     public static final String MESSAGE_DEADLINE_INVALID_SEMESTER = "Error: You can only add tasks to modules that "
             + "are already added in the current semester";
-    public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module already exists as %1$s, "
-            + "please specify specify task name and deadline if you would like to add a task";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module(s) already in profile: %1$s\n"
+            + "If you're adding task(s), please specify specify task name and/or deadline.\n"
+            + "If you're adding module(s), check that the module(s) are not currently in the profile.";
     public static final String MESSAGE_UNFULFILLED_PREREQS = "NOTE: You may not have fulfilled the prerequisites of "
             + "%1$s before semester %2$s";
     public static final String PREREQ_STRING = "\nPrerequisites of %1$s: %2$s";
@@ -91,14 +92,22 @@ public class AddCommand extends Command {
         Profile profile = profileManager.getFirstProfile();
 
         // If some module codes are invalid, raise error
+        // If there are multiple modules and some modules currently exist, raise error
         List<ModuleCode> invalidMods = new ArrayList<>();
+        List<ModuleCode> existingMods = new ArrayList<>();
         for (ModuleCode moduleCode: toAdd) {
             if (!moduleManager.hasModule(moduleCode)) {
                 invalidMods.add(moduleCode);
             }
+            if (profile.hasModule(moduleCode)) {
+                existingMods.add(moduleCode);
+            }
         }
-        if (invalidMods.size() > 0) {
+        if (!invalidMods.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_INVALID_MODULE, invalidMods));
+        }
+        if (toAdd.size() > 1 && !existingMods.isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, existingMods));
         }
 
         // Case of multiple module codes: Execute AddCommand multiple times
@@ -147,8 +156,7 @@ public class AddCommand extends Command {
         if (hasModule) { // Module already added to semester
             personal = moduleToAdd.getPersonal();
             if (addGrade == null && addDeadlines == null) {
-                throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE,
-                        personal.getStatus()));
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, moduleCodeToAdd));
             }
         } else { // Module does not exist
             if (addSemester == 0) {

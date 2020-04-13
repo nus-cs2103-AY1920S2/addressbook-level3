@@ -21,6 +21,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -114,7 +115,7 @@ public class DeleteCommandTest {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
         DeleteCommand deleteCommand = new DeleteCommand(Collections.singletonList(moduleCode));
 
-        assertThrows(CommandException.class, String.format(MESSAGE_NOT_TAKING_MODULE, moduleCode), () ->
+        assertThrows(CommandException.class, String.format(MESSAGE_NOT_TAKING_MODULE, Arrays.asList(moduleCode)), () ->
                 deleteCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                         new ModuleManagerStubCs()));
     }
@@ -181,9 +182,10 @@ public class DeleteCommandTest {
         String grade = VALID_GRADE_AMY;
         DeleteCommand deleteCommandGrade = new DeleteCommand(Collections.singletonList(moduleCode), grade);
 
-        assertThrows(CommandException.class, String.format(MESSAGE_DELETE_GRADE_FAILURE, moduleCode), () ->
-                deleteCommandGrade.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                        new ModuleManagerStubCs()));
+        assertThrows(CommandException.class,
+                String.format(MESSAGE_DELETE_GRADE_FAILURE, Arrays.asList(moduleCode)), () ->
+                        deleteCommandGrade.execute(new ProfileManagerWithNonEmptyProfile(),
+                                new CourseManagerStub(), new ModuleManagerStubCs()));
     }
 
 

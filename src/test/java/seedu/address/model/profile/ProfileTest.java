@@ -31,6 +31,7 @@ import seedu.address.model.profile.course.module.PrereqTreeNode;
 import seedu.address.model.profile.course.module.Prereqs;
 import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
+import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
 
 //@@author joycelynteo
 
@@ -63,9 +64,9 @@ public class ProfileTest {
     }
 
     @Test
-    public void getModule_moduleNotPresent_throwsParseException() {
+    public void getModule_moduleNotPresent_throwsModuleNotFoundException() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
-        assertThrows(ParseException.class, () -> amy.getModule(moduleCode));
+        assertThrows(ModuleNotFoundException.class, () -> amy.getModule(moduleCode));
     }
 
     @Test
@@ -85,9 +86,9 @@ public class ProfileTest {
     }
 
     @Test
-    public void deleteModule_moduleNotPresent_throwsParseException() {
+    public void deleteModule_moduleNotPresent_throwsModuleNotFoundException() {
         ModuleCode moduleCodeAmy = new ModuleCode(VALID_MODCODE_AMY);
-        assertThrows(ParseException.class, () -> amy.deleteModule(moduleCodeAmy));
+        assertThrows(ModuleNotFoundException.class, () -> amy.deleteModule(moduleCodeAmy));
     }
 
     @Test
