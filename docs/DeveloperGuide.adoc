@@ -1277,7 +1277,7 @@ _{ more test cases ... }_
 ... Recipebook: Default recipes in 'Recipes'
 ... Quotebook: Default quotes in 'Achievements'
 ... Plannedbook: An empty plan list in 'Planning'
-... Cookedrecords: An empty cooked meals list with no pie chard in 'Goals'
+... Cookedrecords: An empty cooked meals list with no pie chart in 'Goals'
 
 . Dealing with corrupted data files.
 .. Close the jar file.
