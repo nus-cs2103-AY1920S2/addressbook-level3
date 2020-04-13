@@ -338,11 +338,11 @@ image::SuggestPersonActivityDiagram.png[][pdfwidth="40%",width="40%"]
 
 The Add Group feature is implemented to allow users to track social activities with a group of people
 (instead of just one person). A `Group` represents a social group containing
-1 or more `Person`. To avoid dependencies, a `Group` class stores the index of `Person` instead of the `Person` object
-itself. A `Group` can be created with or without `Person` as member(s), but have a `Name`.
+1 or more `Person`. To avoid dependencies, a `Group` class stores the index of a `Person` instead of the `Person` object
+itself. A `Group` can be created with or without `Person` as member(s), but must have a `Name`.
 
 This feature creates a new `Group` instance, which is then stored in an instance of `UniqueGroupList`,
-which in turn is stored in the `AddressBook`.These classes are part of the `model` package.
+which in turn is stored in the `AddressBook`. These classes are part of the `model` package.
 
 The feature is supported by the `AddGroupCommand` class, which extends the abstract
 class `Command` and `AddGroupCommandParser`, which implements the `Parser` interface. These classes are part of the
@@ -356,22 +356,21 @@ image::AddGroupClassDiagram.png[][pdfwidth="50%",width="50%"]
 
 Here below is an example usage scenario and how the `add_group` feature works at each step:
 
-1. User adds a group called `group_name` by typing `add_group n/group_name`
-2. The request is handled by the `Logic Manager`, which then directs it to the `AddressBookParser`
-for parsing.
-3. `AddressBookParser` detects the `Command Word` *add_group* and creates an `AddGroupCommandParser` to parse inputs
+1. User enters `add_group n/group_name` or `add_group n/group_name m/index ...` into the app.
+2. The request is handled by the `LogicManager#execute(String)`, which then calls and passes the input to the `AddressBookParser#parseCommand(String)`
+method.
+3. `AddressBookParser` detects the command word `add_group` in the input string and creates an `AddGroupCommandParser` to parse inputs
 according to the format specified for `AddGroupCommand`.
 4. `AddGroupCommandParser` parses the input and also performs input validation to check for correct types
-(eg alphanumeric characters for `Name` and `Integer` for memberIDs).
-5. If the inputs are valid,`AddressBookParser` calls the constructor of `Group` and creates a new `Group` instance with
-the inputs from the user. It creates a new `AddGroupCommand` and passes to it the newly created `Group`
+(eg alphanumeric characters for `Name` and `Integer` for memberIDs) using the `AddGroupCommandParser#parse(String)` method.
+5. `AddressBookParser#parse(String)` calls the constructor of `Group` and creates a new `Group` instance with
+the inputs from the user. It creates a new `AddGroupCommand` and passes the newly created `Group` to it.
 6. `AddressBookParser` returns the new `Command` object to the `AddressBookParser`, which in turn returns it to
 `LogicManager`.
-7. `LogicManager` calls the `execute` method with the `AddGroupCommand`.
-8. The `AddGroupCommand` instance obtains a copy of the `filteredPersonList` from `Model` using the `getFilteredList()`
-method. Using the list, the command verifies if the member indexes in the `Group` instance exist in the `Person` list.
-9. If the indexes are valid, the `AddGroupCommand` adds the group to the app by calling the `addGroup` method of
-`Model`.
+7. `LogicManager` calls the `AddGroupCommand#execute(model)` method
+8. The `AddGroupCommand#execute(model)` method obtains a copy of the `FilteredPersonList` from `Model` using the `Model#getFilteredList()`
+method. Using the list, the method verifies if the member indexes in the `Group` instance exist in the `Person` list.
+9. the `AddGroupCommand` adds the group to the app by calling the `Model#addGroup(Group)` method.
 10. As a last step, the `AddGroupCommand` creates a `CommandResult` with `SuccessMessage` and `ViewType` and returns it
 to `LogicManager`.
 
