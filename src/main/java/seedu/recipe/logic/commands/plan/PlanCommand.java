@@ -85,7 +85,6 @@ public class PlanCommand extends Command {
             }
         }
 
-        model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType, planTab);
         return new CommandResult(formatSuccessMessage(successfulPlansMessage, duplicatePlansMessage, date),
                 false, false, planTab, false);

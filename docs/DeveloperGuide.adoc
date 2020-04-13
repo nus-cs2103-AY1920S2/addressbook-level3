@@ -227,7 +227,6 @@ This section describes some noteworthy details on how certain features are imple
 // tag::basic[]
 === Basic commands
 
-
 ==== Switch command (Harshita)
 The `switch` command is facilitated by the `MainWindow`, `MainTabPanel`, `SwitchCommandParser` and `SwitchCommandParser`.
 
@@ -258,8 +257,6 @@ The following activity diagram shows the flow of activites from when the `switch
 
 image::SwitchActivityDiagram.png[]
 
-==== Add command
-
 // tag::editcommand[]
 ==== Edit command (Beatrice)
 The edit feature allows users to edit the properties of a Recipe with ease using the `edit` command. +
@@ -274,7 +271,7 @@ image::EditActivityDiagram.png[]
 ===== Implementation
 This section explains how the `edit` command is implemented.
 
-1. User specified arguments are passed to the `EditCommandParser` and passed into `ArgumentTokenizer` and
+1. User specified arguments are passed to the `EditCommandParser` and the arguments are broken up by the `ArgumentTokenizer` and
 `ArgumentMultimap`.
 
 2. The arguments will then be parsed by `ParserUtil` and passed into `EditRecipeDescriptor`.
@@ -288,6 +285,8 @@ being edited.
 5. This `Recipe` is passed into `EditCommand#createEditedRecipe()` which creates a new `Recipe` with the edited properties.
 
 6. `Model#setRecipe()` will then replace the `Recipe` being edited with the new `Recipe` and update the list of recipes and plans.
+
+7. The success message will be returned to the user by the `CommandResult`.
 
 The following sequence diagram summarizes the steps taken so far:
 
@@ -339,32 +338,10 @@ We decided to stick with alternative 1, which is the implementation inherited by
 to edit multiple fields in one go provides much more versatility and convenience to the user. Additionally, although
 there are many properties to test, it is still a finite number and testing can be done with adequate time.
 
-====== Aspect: Data structure to support the recipes and plans
+====== Aspect: Data structure to support plans
+Please refer to <<Aspect: Data structure to support plans>> for the design considerations for plans.
 
-* **Alternative 1 (current choice):** The recipes and plans are maintained in an `ObservableList` by the
-`UniqueRecipeList` and `UniquePlannedList` class respectively. The lists are unmodifiable outside of these classes.
-`PlannedRecipeMap` maintains the mapping from `Recipe` to all plans that use this `Recipe`.
-** Pros: The `ObservableList` allows the UI to 'listen' in and be updated when the lists change. +
-The unmodifiable property also safeguards the data in the lists from being corrupted. +
-The `PlannedRecipeMap` eases the cost of iterating through the entire list of plans in the `UniquePlannedList` and
-checking whether each plan uses the `Recipe` being edited.
-** Cons: Performance might not be optimised by using a List instead of other data structures like a LinkedList or
-HashMap for the `UniqueRecipeList` and `UniquePlannedList`.
-
-* **Alternative 2:** Maintain the recipes and plans in an `ObservableMap` instead.
-** Pros: Performance will be better by using a Map than a List.
-** Cons: There are no official javafx classes that supports an sorted `ObservableMap` or a filtered `ObservableMap`.
-We will have to write and maintain our own implementation or import from pre-existing libraries.
-
-We decided to use alternative 1, as the cons of alternative 2 are too heavy. Many aspects of our program require
-filtering and sorting to be supported. For example, plans need to be sorted in chronological order, and the advanced
-recipe list needs to be filtered for our filter feature. +
-Additionally, we would not have enough time in the scope of this project to write our own implementation, and importing from pre-existing
-libraries gives the risk of running into bugs in the future if the the dependencies were not maintained.
 // end::editcommand[]
-
-
-==== Delete command
 
 // tag::favouriteunfavourite[]
 ==== Favourite and Unfavourite commands (Brian)
@@ -490,12 +467,6 @@ Currently, the undo and redo command is not compatible with the `quote` command 
 feature that we plan to work on beyond v1.4 so that users will be able to undo and redo the action of adding a quote!
 // end::undoredo[]
 
-==== Clear command
-
-
-==== Exit command
-
-
 // end::basic[]
 
 // tag::recipecustomisation[]
@@ -583,41 +554,55 @@ on top of the existing prefixes. This is double work for the user.
 // end::advancedfilter[]
 
 // tag::planning[]
-=== Add plan command (Beatrice)
+=== Plan command (Beatrice)
+The plan feature allows users to plan for recipes that they wish to cook at a certain date. +
+This feature is facilitated by the `PlanCommand` class.
+
+
 ==== Implementation
-The planning feature uses the `UniquePlannedList` to store and display all plans and the `PlannedRecipeMap` to
-navigate between recipes and plans.
+This section explains how the `plan` command is implemented.
 
-The `UniquePlannedList` provides the UI with an unmodifiable observable list that can be 'observed' and displayed.
-Meanwhile, the `PlannedRecipeMap` maintains a mapping from `Recipe` to `Plan` so that a `Plan` can be easily
-updated when a `Recipe` is changed.
+1. User specified arguments are passed to the `PlanCommandParser` which uses `ArgumentTokenizer` and
+`ArgumentMultimap` to break up the user input.
 
-Given below is a sequence diagram on how a `Plan` is updated when a `Recipe` is changed.
+2. The arguments are parsed by `ParserUtil` and if no invalid inputs were found, a `PlanCommand` object will be created.
 
-image::abc.png[]
+3. `PlanCommand#execute()` gets the latest list of recipes from `Model`.
+
+4. For every `Index`, a new `Plan` object is created and added into the `Model`. This is done by passing the `Plan`
+and the `Recipe` that is being planned into the `UniquePlannedList` and `PlannedRecipeMap`.
+
+5. The `Plan` is added to the `UniquePlannedList` and the `Plan` is added to the list of plans at the `Recipe` key
+ in the `PlannedRecipeMap`.
+
+6. The success message will be returned to the user by the `CommandResult`.
+
+.Plan sequence diagram
+image::PlanningSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How recipes are scheduled
+===== Aspect: Data structure to support plans
 
-* **Alternative 1 (current choice):** Scheduled recipes are saved in a separate data structure.
-** Pros: Scheduled recipes can be easily obtained and sorted.
-** Cons: May have performance issues in terms of memory usage if a large number of recipes are scheduled.
+* **Alternative 1 (current choice):** Use a `UniquePlannedList` with an `ObservableList` to display the list of plans,
+and an internal `PlannedRecipeMap` that maintains the mapping between a `Recipe` and all plans that were
+made for the recipe.
+** Pros: The `UniquePlannedList` provides the list of plans and updates the UI for every change in plan. In the
+background, the `PlannedRecipeMap` is maintained and used to ease the cost of iterating through an entire list of
+plans to search for all the plans that uses a specific `Recipe`.
+** Cons: Performance might not be optimised as `UniqueRecipeList` still uses a list.
 
-* **Alternative 2:** Store the date that the scheduled recipe is scheduled on as another attribute to the Recipe class.
-** Pros: Easy to implement, no additional data structure added.
-** Cons: All scheduled recipes can not be easily seen and sorted.
+* **Alternative 2:** Maintain the recipes and plans in one `ObservableMap` instead.
+** Pros: Performance will be better by using a Map than a List.
+** Cons: There are no official javafx classes that supports an sorted `ObservableMap` or a filtered `ObservableMap`.
+We will have to write and maintain our own implementation or import from other libraries.
 
-===== Aspect: Data structure to support the scheduled recipes
-
-* **Alternative 1 (current choice):** Use a tree map to store the scheduled recipes in a <Date, List<Recipe>> key-value pair.
-** Pros: Allows us to easily and intuitively access the list of recipes scheduled on a certain day.
-** Cons: Obtaining all the recipes scheduled across a period of time will not be very efficient.
-
-* **Alternative 2:** Use a List sorted by increasing time.
-** Pros: Easy to implement, uncomplicated data structure.
-** Cons: Hard to obtain the scheduled recipes on a certain date, as we do not know which index
-corresponds to the date we are interested in.
+We decided to use alternative 1, as the cons of alternative 2 are too heavy. The plans need to be sorted
+in a chronological order, and future implementations of the `viewWeek` and `viewMonth` command will require the plans
+to be filtered as well. +
+Additionally, we would not have enough time in the scope of this project to write a fully functional
+implementation, and importing from other libraries introduces the risk of running into bugs if the the dependencies
+were not maintained in the future.
 // end::planning[]
 
 // tag::goals[]
