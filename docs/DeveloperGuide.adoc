@@ -204,11 +204,13 @@ The `ViewModel`,
 * the `ViewModel` will then query the managers from `Model` layer to update its
 observableMap, which in turn will automatically update the corresponding `DetailPanel` view.
 
+// tag::modelcomponent[]
+
 [[Design-Model]]
 === Model component [Tee Jun Jie Ivan]
 
 .Structure of the Model Component
-image::Ivan-ModelClassDiagram.png[]
+image::Ivan-ModelClassDiagram.png[scaledwidth="75%"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -229,7 +231,7 @@ The 6 types are namely
 Below is an example of the different types of RelevantFields that can be tied to an Assignment.
 
 .Class Diagram of Assignment
-image::Ivan-AssignmentClassDiagram.png[]
+image::Ivan-AssignmentClassDiagram.png[%autowidth]
 
 [NOTE]
 The AddressBookGeneric in the diagram above is actually an AddressBookGeneric<Assignment>.
@@ -252,6 +254,8 @@ Future features that involve creating new AddressBooks can be developed very qui
 Benefits::
 .. Easier implementation since lower level implementations can be abstracted away
 .. More decoupling which will lead to be better testability and easier debugging
+
+// end::modelcomponent[]
 
 // tag::xue3[]
 [[Design-Storage]]
@@ -307,13 +311,15 @@ Hence, this means that if the ID is not unique among deleted objects, there may 
 information located in the Finance objects.
 
 // end::xue4[]
+
+// tag::entitylinking[]
 [[entity-linking]]
 === Entity Linking - Assigning/Un-Assigning an Entity to/from a Course [Tee Jun Jie Ivan]
 
 In order to allow the tracking of the students/assignments/teachers that are assigned to a course and vice versa, this required us to implement a structure which allowed us to obtain information from the aforementioned objects, without causing any circular referencing errors.
 
 .Relationship between Entities
-image::Ivan-OODMForEntityRS.png[]
+image::Ivan-OODMEntityRS.png[]
 ---
 
 The group came up with the structure above where we centralize most links around the `Course` object so as for easier management of entity links.
@@ -340,7 +346,7 @@ For the actual execution of an assign/un-assign command, 2 main steps are perfor
 
 ===== Step 1: Preprocess Entities
 
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 
 Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command to ensure
 that all entity links are in correct state before command execution.
@@ -351,7 +357,7 @@ This means that either
 
 There should be no instance where Course has an Assignment/Student/Staff's ID but they do not have the Course's ID or vice versa.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 
 Below is an activity diagram showing the pre-processing performed for assign commands.
 The diagram can be generalized for un-assign commands by checking if the course contains X and vice versa in the second stage instead.
@@ -371,11 +377,11 @@ Notice that there are 2 main exit points in the activity diagram.
 
 ===== Step 2: Assign IDs via EdgeManager
 
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 
 After the necessary checks have been performed, respective IDs need to be added to the targeted course and targeted object in order to ensure correct and consistent assigning of objects.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 
 Below is a sequence diagram of how EdgeManager adds the IDs to the two objects involved.
 
@@ -400,7 +406,7 @@ NOTE: This sequence diagram can be generalized for `un-assign command` as well.
 Instead of adding IDs, un-assign will remove each other's ID from the respective objects.
 
 [[Design-Assign-Copy]]
-====== +++<u>Design Considerations</u>+++
+====== +++Design Considerations+++
 
 . Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObjectTags`.
 Pros::
@@ -428,6 +434,11 @@ The table below shows the method calls made to `EdgeManager` during an `Assign`/
 .Table Summary of EdgeManager's involvement during Assign/Un-assign Commands
 image::Ivan-AssignSummary.png[]
 ---
+
+// end::entitylinking[]
+
+// tag::progressmgmt[]
+
 [[progress-management]]
 === Student Progress Management [Tee Jun Jie Ivan]
 The `Progress` of students is managed exclusively by the `ProgressManager` class.
@@ -435,7 +446,7 @@ The `Progress` of students is managed exclusively by the `ProgressManager` class
 *API* : link:{repoURL}/src/main/java/seedu/address/manager/ProgressManager.java[`ProgressManager.java`]
 
 ==== Student Progress Creation/Removal
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 
 New `Progress` objects must be created in 2 main scenarios.
 
@@ -445,7 +456,7 @@ New `Progress` objects must be created in 2 main scenarios.
 The rationale is similar when un-assigning either `Student` or `Assignment` from a `Course`.
 `Progress` objects need to be removed instead.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 
 Below is a sequence diagram illustrating how the ProgressManager adds Progress objects into the ProgressAddressBook when a `AssignStudentToCourse` command is run.
 
@@ -474,20 +485,23 @@ Hence, rather than obtain all assignmentIDs, we will need to obtain all
 - The flow is also largely the same for UnassignCommands!
 Instead, we are looking to remove Progress objects rather than adding them back in.
 
+- Notice that we have hidden all access to `Progress` objects behind `ProgressManager`. Hence, the user cannot, and should not,
+be able to create their own `Progress` objects.
+
 The table below shows the summary of method calls from `ProgressManager` for each variant of `Assign`/`Un-assign` command.
 
 .Table Summary of ProgressManager method calls() for Assign/Un-assign Commands
 image::Ivan-ProgressSummary.png[]
 
 ==== Marking Progress as `Done`/`Undone`
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 When a `Student` finishes an `Assignment` that is allocated to him, you want to be able to mark his work
 as `Done`.
 
 Similarly, if an `Assignment` has been mistakenly marked as `Done` or is actually `Undone`, you want to be able
 to mark the `Assignment` as `Undone`.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 .Sequence Diagram for Progress Manager's Handling of Done Command
 image::Ivan-SequenceDiagramDoneCommand.png[]
 
@@ -504,7 +518,7 @@ The implementation of `Done` command is very straight-forward. Only 2 parameter 
 
 With this, the implementation of `Undone` command is about the same, we just have to call `P'#undone()` instead.
 
-====== +++<u>Design Consideration</u>+++
+====== +++Design Consideration+++
 There is 1 main considerations when implementing `Progress` objects.
 
 1. Is there a need to separate `Assignment` and `Progress`?
@@ -533,6 +547,8 @@ the details will be automatically changed for all `Progress` objects.
 .. Works well with current implementation of AddressBookGeneric which has `getters` and `setters` via `ID` since every `Progress` object will have its own `ID`
 Cons::
 .. Also very memory intensive
+
+// end::progressmgmt[]
 
 === Undo/Redo [Hieu]
 
@@ -607,7 +623,9 @@ is opposite to this EditCommand) with editing information of the original toEdit
 
 When `undo` and `redo` commands are executed, the process is carried out as described above.
 
+
 // end::OppositeCommandForEdit[]
+// tag::undoassigncmd[]
 
 [[undo-assign-command]]
 ==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
@@ -639,9 +657,11 @@ This results in the *correct* `Progress` objects, which may or may not be `Done`
 You can also notice that this is a faster implementation since we do not need to re-create a `CompositeID` and the actual
 `Progress` object itself when we are just adding back the UndoProgresses.
 
-// tag::oppositeAddDelete[]
+// end::undoassigncmd[]
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities)
+
+//tag::oppositeAddDelete[]
 
 `AddCommand` and `DeleteCommand` extends from abstract class UndoableCommand. Thus, user can undo/ redo this command.
 
@@ -707,7 +727,6 @@ that the students have without the progresses of this course that the student cu
 To query that, after executing `select sid/ student_id`, the user needs to run
 `select sid/ student_id cid/ course-id` as well
 
-// tag::Staff[]
 
 === Managing Staff Feature [Dat]
 ==== Implementation
@@ -977,7 +996,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 4: Finding a assignment by assignmentID
+=== Use Case 4: Finding an assignment by assignmentID
 
 *MSS*
 
@@ -1044,7 +1063,7 @@ Use case ends.
 
 1. User requests to see assignment using UC2
 2. CCX outputs the whole list of assignment
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to assign a assignment to a course using their respective IDs
 5. CCX adds the assignmentID into the course's list of assignment
 6. CCX outputs a success message with the successful addition of assignment
@@ -1076,7 +1095,7 @@ Use case ends.
 
 1. User requests to see assignment using UC2
 2. CCX outputs the whole list of assignment
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to assign a list of assignment to a course using their respective IDs
 5. CCX adds the list of assignmentID into the course's list of assignment
 6. CCX outputs a success message with the successful addition of assignment
@@ -1107,9 +1126,9 @@ Use case ends.
 
 *MSS*
 
-1. User requests to see all students using *UC??*
+1. User requests to see all students using *UC21*
 2. CCX outputs the whole list of students
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to signup a student to a course using their respective IDs
 5. CCX finds all assignment assigned to the course
 6. CCX creates a Progress object for each assignment and ties it to the student ID
@@ -1141,9 +1160,9 @@ Use case ends.
 
 *MSS*
 
-1. User requests to see all students using *UC??*
+1. User requests to see all students using *UC21*
 2. CCX outputs the whole list of students
-3. User requests to see all courses using *UC??*
+3. User requests to see all courses using *UC20*
 4. User requests to view the progress for a student, for a course using their respective IDs
 5. CCX finds all Progress objects using the courseID and studentID
 6. CCX outputs all the respective Progress objects
@@ -1181,7 +1200,7 @@ Use case ends.
 
 *MSS*
 
-1. User requests to see all courses using *UC??*
+1. User requests to see all courses using *UC20*
 2. User requests to view the progress for all students for a course using their respective IDs using UC9
 3. CCX finds all Progress objects using the courseID and studentID
 4. CCX outputs all the respective Progress objects
@@ -1619,26 +1638,64 @@ Status bar remains the same.
 .. Other incorrect undo/redo commands to try: `undo`, `redo` (try these commands immediately after turn on the application) _{give more}_ +
    Expected: Error throws saying no commands that are redo/undoable. (No CRUD commands used before to undo/redo)
 
+=== Assign a staff to a course
+
+. Assign a staff to teach a course.
+
+.. Prerequisites: List all course using the `list-course` command. Select to view the course that is supposed to be assigned a Staff.
+.. Test Case: (Example) `assign tid/16100 cid/55160` +
+    Expected ID 16100 of Staff is added into Assigned Staff field of the course and the course ID 55160 is added into Assigned Course field of Staff.
+Status bar is updated accordingly.
+.. Test case: `assign tid/17100 cid/55160` (Staff ID 17100 level is Admin) +
+    Expected no Staff is assigned to teach the course.
+Error details show in the status message saying admin Staff cannot teach a course.
+Status bar remains the same.
+.. Other incorrect commands to try: `assign` a Teacher Staff to a course that already have another teacher assigned _{give more}_ +
+   Expected: no Staff is assigned to teach this course.
+Error details show in the status message saying a course can only have 1 Staff assigned.
+Status bar remains the same.
+
+_{ more test cases ... }_
+
+=== UnAssign a student from a course
+
+. Unassign a student from a course.
+
+.. Prerequisites: List all course using the `list-course` command. Select to view the course that is supposed to be assigned a Staff.
+.. Test Case: (Example) `unassign sid/16100 cid/55160` +
+    Expected ID 16100 of Student is removed from Assigned Students in Course and ID 55160 of Course is removed from Assigned Course in Student.
+Moreover, all the assignments (progresses) assigned to Student 16100 that belongs to Course 55160 are also removed.
+Status bar is updated accordingly.
+.. Test case: `unassign sid/17100 cid/55160`  (Student 17100 is not enrolled in course 55160) +
+    Expected no student is unassigned from a course.
+Error details show in the status message saying no such student is assigned to this course.
+Status bar remains the same.
+.. Other incorrect commands to try: `unassign` a student from a course that does not exist.
+Error details show in the status message saying cannot find a course with such ID.
+Status bar remains the same.
+
 _{ more test cases ... }_
 
 [appendix]
-== Implementation
+== Effort
+Overall, the level of effort required by this project is high due to many factors which I will point out.
 
-[discrete]
-=== Assigning/ linking 2 entities
+The first and most obvious is that, AB3 only deals with one entity type, however, our program deals with 6 entity types. While this is not
+that impressive by itself since the code base can be copy and pasted to form 6 different yet very, very similar addressbooks,
+we have refactored AddressBook into AddressBookGeneric<K extends ModelObject> and made it such that AddressBookGeneric can take in any entity which extends from modelObject,
+thereby saving on a lot of unnecessary work and repeated code. This also makes it immensely simpler for extension of code in the future
+should we decide to implement other entities.
 
-All assign command variants (i.e `AssignTeacherToCourseCommand`, `AssignStudentToCourseCommand` extends from `AssignCommandBase`
-instead of the abstract `Command` class.
+Secondly, with the increase in the number of AddressBooks, the amount of work for the UI has also increased drastically.
+Almost every entity except for Progress has it's own Tab in the UI. Not only that, each page is broken up to 3 different sections, each showing
+different levels of details which we think is more intuitive for the user. Moreover, we have made it such that for certain commands
+such as find and list that the UI will automatically change to the Tab that is affected. Furthermore, we have made it such that the
+user is able to switch between tabs very easily and can even specify certain sections in the tabs that they want to specifically view.
+A huge portion of work is put into not only beautifying the UI, but also make it work seamlessly with the program while making it intuitive
+enough for the user to use.
 
-The diagram below shows a simplified flow
-
-.Structure of Commands and Parser
-image::AssignCommandImplementation.png[]
----
-
-=== Design considerations:
-
-- Since all assign commands are just linking between two entities, where each of them is distinguised based on its ID and its entity name (e.g course, student, teacher, etc).
-So we have AssignDescriptor which stores this information.
-
-- A factory design pattern to select which assign command based on the AssignDescriptor content.
+Thirdly, the entity linking aspect is a very tedious and tricky part of the program that the group has put numerous hours
+into perfecting. In AB3, there is only 1 entity - person. However, in our program, we have up to 6 different entities, 5 of which has relationships to one another.
+We needed to think of a way to allow different entities to hold references to each other while making sure that there was no circular referencing errors.
+Hence, we decided to implement an ID to every different entity, except Progress which can be identified by a CompositeID of assignmentID and studentID.
+This also meant that we needed to implement methods in ModelManager such that we are able to get and set entities via the ID instead of index.
