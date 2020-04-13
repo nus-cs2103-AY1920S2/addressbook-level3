@@ -483,10 +483,6 @@ and/or 2) if the magnitude of a single commit is large (ie. the book being commi
 ** Pros: Will use less memory.
 ** Cons: Tedious to ensure the correctness of the implementation of each individual command. Furthermore, some commands
 affect multiple books, making book-keeping even more complicated (and hence, susceptible to error).
-
-===== Future plans
-Currently, the undo and redo command is not compatible with the `quote` command and the QuoteBook. This will be a
-feature that we plan to work on beyond v1.4 so that users will be able to undo and redo the action of adding a quote!
 // end::undoredo[]
 
 ==== Clear command
