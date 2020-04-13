@@ -766,7 +766,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |keep track of my expenses
 
 |`* * *`
-|someone who earns income
+|employed user
 |add a new income entry
 |keep track of my income
 
@@ -776,12 +776,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |make decisions on where my most lucrative source of income is
 
 |`* * *`
-|low-income user
+|low-income user (like student)
 |set budget for current month
 |limit my expenditure for the month
 
 |`* * *`
-|low-income user
+|low-income user (like student)
 |be notified by the application if i am spending too much money
 |be wary of overshooting my budget
 
@@ -791,7 +791,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |have no need to constant;y set my unchanging budget
 
 |`* * *`
-|user with varying income
+|part-time worker with varying income
 |be flexible with my budgets
 |spend more or less on certain months depending on my financial situation
 
@@ -821,12 +821,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |keep track of my income
 
 |`* * *`
-|user trying to save money
+|couple/student trying to save up
 |filter expense based on date or time period
 |see how much money I have spent in that time period and make better decisions
 
 |`* * *`
-|user trying to save money
+|couple/student trying to save up
 |view amount of budget left to spend
 |adjust spending habit for the rest of the month
 
