@@ -6,10 +6,13 @@ import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.person.UniquePersonList;
+import seedu.eylah.expensesplitter.model.receipt.Entry;
+import seedu.eylah.expensesplitter.model.receipt.Receipt;
 
 /**
  * Wraps all data at the expense splitter level
@@ -125,6 +128,21 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
         }
     }
 
+    /**
+     * This method removes all the Entries from the Receipt, as well as removes the Amount owed by each Person
+     * @param receipt
+     */
+    public void deleteAllEntries(Receipt receipt) {
+        requireNonNull(receipt);
+        for (Entry entry : receipt.getReceipt()) {
+            Item currItem = entry.getItem();
+            Amount amountPerPerson = currItem.getAmountPerPerson();
+            for (Person person : entry.getPersonsList()) {
+                removeAmount(person, amountPerPerson);
+            }
+        }
+    }
+
     //// util methods
 
     @Override
@@ -167,5 +185,4 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
         requireNonNull(indexOfPerson);
         return persons.getPersonUsingIndex(indexOfPerson);
     }
-
 }

@@ -84,6 +84,7 @@ public interface SplitterModel extends Model {
     Person getPerson(Person person);
     void addAmount(Person person, Amount amount);
     void removeAmount(Person person, Amount amount);
+    void deleteAllEntries();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

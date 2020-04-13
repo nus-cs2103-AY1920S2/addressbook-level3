@@ -10,9 +10,9 @@
 
 == Overview
 
-EYLAH is a desktop application specifically programmed for university students staying on NUS Campus. It aims to ease their lives
-at halls/residential colleges by providing them with an application to split bills easily and help
-them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
+EYLAH is a desktop application programmed specifically for students staying in Temasek Hall at the National University
+of Singapore. It aims to ease their lives in hall by providing them with an application that split bills easily and help
+them keep track of their diet. The user interacts with the application using a CLI and it is programmed using `Java 11`.
 
 == Summary of contributions
 
@@ -108,6 +108,8 @@ This is to facilitate quicker use of the application as users would not be requi
 Internally, this is also to prevent duplicate Person objects with the same name (but in different case sensitivity)
 from being created, i.e Bob vs bob or aLiCe vs alice.
 
+
+
 . *Fixed the rounding issue with regards to using BigDecimal as currency in our application*
 
 ** *What it does:* +
@@ -143,18 +145,30 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=ailanthustng&sort=gro
 
 ** Enhancements to existing features:
 *** Enhanced ParserUtil to be able to handle more inputted texts and output the required Objects.
+*** Adapted the given Address Book 3 code into EYLAH.
 
 
 ** Documentation:
-*** To be added
+*** Updated the Developer Guide to include AddItemCommand and DeleteItemCommand
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/164[#164],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/171[#171],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/353[#353],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/409[#409])
+*** Updated the Developer Guide to include ClearReceiptCommand
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/359[#359],
+https://github.com/AY1920S2-CS2103T-W13-1/main/pull/409[#409])
+*** Updated the User Guide to include DoneReceiptCommand and ClearReceipt Command
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/241[#241])
+*** Updated the User Guide to include Appendix H: Effort
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/384[#384])
+*** Updated the User Guide with minor changes with regards to the use of English and to maintain consistency throughout
+the document
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/pull/411[#411])
 
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-
-** Tools:
+*** PRs reviewed (with non-trivial review comments): Pull requests https://github.com/AY1920S2-CS2103T-W13-1/main/pull/397[#397]
+*** Reported bugs and suggestions for other teams in the class: https://github.com/ailanthustng/ped/issues[ped]
 
 ==== Code contributed
 Please click the following link to see my code contributions dashboard.
@@ -162,14 +176,17 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=ailanthustng&sort=gro
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=additem]
 
-include::../UserGuide.adoc[tag=dataencryption]
+'''
+include::../UserGuide.adoc[tag=deleteitem]
+
+'''
+include::../UserGuide.adoc[tag=clearreceipt]
 
 == Contributions to the Developer Guide
 
@@ -177,14 +194,19 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=expensesplitteradditem]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+'''
+include::../DeveloperGuide.adoc[tag=expensesplitterdeleteitem]
 
+'''
+include::../DeveloperGuide.adoc[tag=expensesplitterclearreceipt]
 
-== PROJECT: PowerPointLabs
+'''
+include::../DeveloperGuide.adoc[tag=ailanadditemusecase]
 
----
+'''
+include::../DeveloperGuide.adoc[tag=ailandeleteitemusecase]
 
-_{Optionally, you may include other projects in your portfolio.}_
-
+'''
+include::../DeveloperGuide.adoc[tag=ailanclearreceiptusecase]
