@@ -30,6 +30,9 @@ show all XYZ without having to check what Item type is passed into it.
 ==== Set up the foundation for tests
 Created typical classes, item builders, assert command success and failure to aid the team in the setting up of tests.
 
+==== Manage releases
+managed releases for release v1.3 and v1.4.
+
 === Enhancements implemented:
 ==== Preview a resume: `rpreview`
 * What it does: Allows users to preview their fleshed out resume in the application before generating it.
@@ -117,15 +120,8 @@ include::../DeveloperGuide.adoc[tag=command-classes]
 
 {End of extract 2: Implementation of Command Classes} +
 
-{Start of extract 3: User Stories}
+=== More contributions (not rendered for brevity):
 
-include::../DeveloperGuide.adoc[tag=user-stories]
+* User Stories
 
-{End of extract 3: User Stories}
-
-{Start of extract 3: User Stories} +
-
-include::../DeveloperGuide.adoc[tag=manual-testing]
-
-{End of extract 3: User Stories}
-
+* Manual Testing

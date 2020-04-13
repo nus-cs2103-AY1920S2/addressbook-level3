@@ -302,17 +302,17 @@ you have filtered the list.
 * `list i/ res`: Lists all `resume` items.
 +
 .List of all resume items
-image::ListAllResumes.png[width = "450"]
+image::ListAllResumes.png[width = "390"]
 
 * `list i/ int`: Lists all `internship` items.
 +
 .List of all internship items
-image::ListAllInternships.png[width = "450"]
+image::ListAllInternships.png[width = "390"]
 
 * `list i/ note`: Lists all `note` items.
 +
 .List of all note items
-image::ListAllNotes.png[width = "450"]
+image::ListAllNotes.png[width = "390"]
 
 // end::list[]
 
@@ -917,15 +917,15 @@ full sentences marked by a full stop.
 . The first command lists out all `resume` items. Assuming that you want to preview the second `resume` in the list box.
 +
 .List of all resume items
-image::ListResumeRPreview.png[width="790"]
+image::ListResumeRPreview.png[width="600"]
 
 . The second command will preview the `resume` at index 2 named "Software Engineering". A pop-up window will be opened,
 featuring a text-based view of the content of "Software Engineering". The screenshots of the results are as shown below:
 +
 .Application view after rpreview is executed
-image::RPreview.png[width = "790"]
+image::RPreview.png[width = "600"]
 .Preview pop-up window
-image::RPreviewIndexTwo.png[width = "790"]
+image::RPreviewIndexTwo.png[width = "600"]
 
 // end::rpreview[]
 
@@ -1104,7 +1104,7 @@ These are commands that have consistent format regardless of item type.
 These are commands whose format varies depending on item type.
 
 [source,sh]
-[cols="5%,15%,80%",options="header"]
+[cols="15%,15%,70%",options="header"]
 |=======================================================================
 
 | Command | Type | Format
