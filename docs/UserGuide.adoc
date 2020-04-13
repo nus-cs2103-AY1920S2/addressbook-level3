@@ -350,7 +350,7 @@ below.
 
 .Demo for the response text feature: invalid command
 image::demo/ResponseText2.png[]
-//tag::responsetext[]
+//end::responsetext[]
 
 === Markdown (GitHub Flavored Markdown)
 

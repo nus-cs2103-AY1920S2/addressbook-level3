@@ -18,11 +18,14 @@ to get their notes taken down *faster than using traditional GUI apps*.
 * *Major enhancement*: *Suggestion Engine*
 ** What it does: `SuggestionEngine` actively gives users an updated list of suggestions of notes as the users key in their input.
 Furthermore, it displays a response text to enable users to understand the meaning behind their inputted command.
-** Justification: `SuggestionEngine` plays a pivotal role in providing a seamless user experience of managing the user's notes.
+** Justification: `SuggestionEngine` plays a pivotal role in providing a seamless user experience.
 This feature is curated for our target users (NUS tech-savvy students) who often have a large number of notes and thus
 may find difficulty traversing all of their notes to get to a particular note. This is where `SuggestionEngine` comes in
-by giving a list of suggestions of the notes that the users want to open/ delete, just by typing the first few characters of their input.
-** Highlights: It displays response text and suggestions (if any) for all available valid commands in Notably. The implementation was
+by giving a list of suggestions of the notes that the users want to open or delete, just by typing the first few characters of their intended note.
+** Highlights:
+*** The `SuggestionEngine` also provides a command input line auto-fill feature. When the user presses the `↓` button to select a suggestion, followed by
+`Enter`, the command input line will be auto-filled with the suggestion.
+*** It displays response text and suggestions (if any) for all available valid commands in Notably. The implementation was
 quite challenging as different commands require different implementation.
 
 * *Major enhancement*: *Search feature*
@@ -33,8 +36,13 @@ search result at the top of the list.
 ** Justification: Students often remember a certain keyword from their note but can't precisely remember where it is located.
 The Search feature thus gives the users convenience to find the relevant note, as suggestions are sorted based on the keyword's highest number of occurrences.
 If the number of occurrences is the same, the suggestions listing will based on their respective positions in the hierarchical notes arrangement.
-** Highlights: The feature is complete as it traverses through all of the notes and can even search for incomplete words,
-hence giving the relevant suggestions to the user even before the user has finished typing.
+** Highlights:
+*** The feature is complete as it traverses through all of the notes and can even search for incomplete words,
+hence giving the relevant suggestions to the user even before the user has finished typing. For instance,
+if the user types `search lect` while actually intending to find the word "lecture", Notably will still display the list of notes which
+contain the word "lecture".
+*** When the user presses the `↓` button to select the suggestion followed by `Enter`, the note chosen will immediately be opened.
+The command line input is also cleared after the user pressed `Enter` in order to not clutter the UI.
 
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=johannagwan&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
@@ -42,7 +50,6 @@ hence giving the relevant suggestions to the user even before the user has finis
 * *Other contributions*:
 
 ** Project management:
-*** Wrote most parts of the README: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/51[#51]
 *** Maintained the https://github.com/AY1920S2-CS2103T-W17-2/main/issues[issue tracker]
 
 ** Enhancements to existing features:
@@ -51,7 +58,10 @@ https://github.com/AY1920S2-CS2103T-W17-2/main/pull/428[#428],
 https://github.com/AY1920S2-CS2103T-W17-2/main/pull/470[#470]
 
 ** Documentation:
-*** Updated the Search and Auto-Suggestions feature in UG: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/461[#461]
+*** Wrote most parts of the README: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/51[#51]
+*** Updated the Search and Auto-Suggestions feature in UG: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/461[#461],
+https://github.com/AY1920S2-CS2103T-W17-2/main/pull/493[#493]
+*** Updated the `SuggestionEngine` components in DG: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/484[#484]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
