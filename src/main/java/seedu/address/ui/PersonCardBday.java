@@ -72,6 +72,7 @@ public class PersonCardBday extends UiPart<Region> {
             i++;
         }
         remark.setText("Remarks: " + remarkValue);
+        remark.setWrapText(true);
     }
 
     @Override
