@@ -940,12 +940,19 @@ Valid Example: +
 
 image::placeholder.png[]
 
+[WARNING]
+====
+* If you use this command before marking the receipt as done via the `donereceipt` command, you will be removing all the
+previously inputting items, as well as the amount owed by each person.
+* However, if you use this command after marking the receipt as done via the `donereceipt` command, the amount owed by
+each person will still be present and will be accessible via the `listamount` command.
+====
+
 [NOTE]
 ====
 * After you use this command, you will be able to add new items using the `additem` command and delete items using the
 `deleteitem` command.
 * However, you will be unable to use the `paid` command.
-* The existing list of people who owe you money will still be accessible by using the `listamount` command.
 ====
 //end::clearreceipt[]
 '''
