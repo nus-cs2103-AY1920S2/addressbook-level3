@@ -1297,7 +1297,10 @@ An expense tracker requires many different commands to carry out many different 
 similar commands to AB3 like add, we had to change the command to accept different predicates, thus parsing it differently. We also had to think about how to parse new commands.
 
 - *Global data* +
-We had to implement a global data which consisted of Monthly Data. It had to be independent of
+We set ExpenseLa to be timeframe specific, with Monthly Data such as budget, income and expenditure for the month to reset at the beginning of every month.
+However we also had some data that were not timeframe specific, such as transactions and budget that were set to be recurring every month. We could not store
+and reference it the same way as how the normal transactions were referenced from the json data. After discussion, we decided to create a GlobalData class
+and store it in a separate json file and referenced separately.
 
 - *User interface* +
 We decided to keep a ExpenseLa's UI generally similar to AB3, but with addition of new UI features. We created a new placeholder for `Monthly Data` for easy constant viewing by
