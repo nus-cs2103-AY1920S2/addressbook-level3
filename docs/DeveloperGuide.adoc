@@ -225,6 +225,12 @@ image::EditSequenceDiagram.png[]
 
 //tag::branson[]
 === Sort
+
+[NOTE]
+=====
+The sort order is not maintained after the application closes
+=====
+
 ==== Implementation
 *API* : link:{repoURL}/src/main/java/seedu/address/logic/commands/SortCommand.java[`SortCommand.java`]
 
@@ -344,6 +350,11 @@ Sort field completion is done by iterating through all arguments word by word an
 
 === Enhanced Find
 We've built upon the existing find function in AB-3 to filter tasks based on phrases (with some degree of typing errors) and based on task tags.
+
+[NOTE]
+=====
+The filtered list is not maintained after the application closes
+=====
 
 ==== Implementation
 *API* : link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand.java`]
@@ -1186,7 +1197,6 @@ Prerequisite: Take note of the current time plus 1 minute and date in the format
 .. Edit the task with `edit <index> r/DD/MM/YY@HH:mm` +
 Expected: The task displays the reminder date in the task card. When the time comes, a pop up with a title `editReminderTest` and description `test` appears.
 
-
 === Adding a recurring attribute to a task
 . Adding a task with a recurring attribute. +
 .. Run the command `add n/recurTest rec/d`
@@ -1208,6 +1218,54 @@ Prerequisite: Take note of the current time plus 1 minute and date in the format
 .. Run the done command `done <index>` +
 Expected: After 60 seconds, the done is set back to unfinished, with the tick being removed from the task card. After the reminder appears, the date displayed changes to the next day, for example `15 March at 15:48` changes to `16 March at 15:48`.
 
+=== Sorting the task list
+. Add a bunch of tasks with different priorities, reminder dates and done values
+. Next perform sorts of various permutations of {(r-)priority, (r-)name, (r-)done, (r-)date} with spaces in between
+.. sort fields that appear first are of higher priority than those that appear less
+.. Expect the sort order of the tasklist to change, please reference our user guide for the specific changes to the tasklist if unsure
+.. also expect the UI to change to display the most recent sort order
+.. e.g. sort name priority -> UI shows Tasks by name
+... Note that sort order is not maintained after application closes
+
+=== Finding a task
+. Add a bunch of tasks with names with phrases that overlap and tags as well
+. Next you can perform one of the three permutations
+.. `find phrase`
+.. `find phrase [t/TAG]...`
+.. `find t/TAG [t/TAG]...`
+. Expected order of search results: [those mentioned first should appear first]
+.. tasks that have multiple tag matches
+.. tasks that have full name match and tag match
+.. tasks that have full name match or 2 tag matches
+.. tasks that match a tag or phrase is partially matched
+. tasks that don't meet any of the above won't be shown
+
+=== Auto complete
+. UI changes
+.. Any known command words will have command text field set to green
+.. Any unknown command words will have command text field set to red
+.. Any input deletion or invalid indexes will have the result display set to orange
+. Test the command words
+.. try partial start matches: `fi` -> `find`
+.. try typo matches: `fand` -> `find`
+... All command word partial matches should work
+.. `asdf` -> `asdf` 
+... [command text field set to red]
+.. try misspelled words by 1 character: `fand` -> `find`
+. Test prefix completion
+.. Add: `add 20/10/20@10:30 3` -> `add r/20/10/20@10:30 p/3`
+.. Edit: `edit 2 20/10/20@10:30 1` -> `edit 2 r/20/10/20@10:30 p/1`
+... Ensure that the date values are valid
+.. Pom: `pom 2 2.5` -> `pom 2 tm/2.5`
+. Test index checking
+.. Edit: `edit -2` -> `edit -2` 
+... [result display shown to user and turned orange]
+... any non positive integer or integers outside of the displayed task list's size will trigger the same deletion and feedback
+.. delete/done: `done -2 a 1999 2` -> `done 2` 
+... [result display also set to orange]
+. Sort field completion
+.. sort: `sort na prioruty blabla` -> `sort name priority`
+... result display set to orange if input has been deleted
 
 _{ more test cases ... }_
 === Saving data

@@ -236,7 +236,8 @@ _All fields with r- prepended refers to a reverse of the original._
 [NOTE]
 ====
 Sort order is removed after any find command is applied. +
-It however remains when any other task commands are applied - add, edit, done, delete, etc.
+It however remains when any other task commands are applied - add, edit, done, delete, etc. +
+Also sort orders are not retained after closing the application
 ====
 
 .Sort success
