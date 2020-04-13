@@ -34,25 +34,25 @@ Class JsonCourseFocusArea #grey
 }
 
 StorageManager .right.|> Storage
-StorageManager o-left-> UserPrefsStorage
-StorageManager o--> ProfileListStorage
+StorageManager o-left- UserPrefsStorage
+StorageManager o-- ProfileListStorage
 
 JsonUserPrefsStorage .right.|> UserPrefsStorage
 JsonProfileListStorage .up.|> ProfileListStorage
 JsonProfileListStorage .down.> JsonSerializableProfileList
 JsonSerializableProfileList .down.> JsonProfile
-JsonProfile *-down-> JsonSemesterRecord
-JsonSemesterRecord *-down-> JsonPersonalModule
-JsonPersonalModule *-down-> JsonDeadline
+JsonProfile *-down- JsonSemesterRecord
+JsonSemesterRecord *-down- JsonPersonalModule
+JsonPersonalModule *-down- JsonDeadline
 JsonPersonalModule -left-|> JsonModule
 
 JsonModuleListStorage .down.> JsonSerializableModuleList
 JsonSerializableModuleList .down.> JsonModule
-JsonModule *-down-> JsonSemesterData
-JsonModule *-down-> JsonPrereqTreeNode
+JsonModule *-down- JsonSemesterData
+JsonModule *-down- JsonPrereqTreeNode
 
 JsonCourseListStorage .down.> JsonSerializableCourseList
 JsonSerializableCourseList .down.> JsonCourse
-JsonCourse *-down-> JsonCourseRequirement
-JsonCourse *-down-> JsonCourseFocusArea
+JsonCourse *-down- JsonCourseRequirement
+JsonCourse *-down- JsonCourseFocusArea
 @enduml
