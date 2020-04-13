@@ -50,14 +50,12 @@ public class SampleLogDataUtil {
         List<CompletedExercise> completedExercises = new ArrayList<>();
         workoutStart = workoutStart.plusMinutes(5);
 
-        for (int i = 0; i < exercises.size(); i++) {
-            Exercise curr = exercises.get(i);
-
+        for (Exercise curr : exercises) {
             List<CompletedSet> completedSets = new LinkedList<>();
 
             for (int j = 0; j < curr.getExerciseSets().size(); j++) {
                 ExerciseSet set = curr.getExerciseSets().get(j);
-                CompletedSet completedSet = new CompletedSet(set.weight, set.numReps, j % 3 == 0);
+                CompletedSet completedSet = new CompletedSet(set.weight, set.numReps, (j % 3) != 0);
                 completedSets.add(completedSet);
             }
 
