@@ -214,7 +214,19 @@ This package defines exceptions thrown by CookBuddy when it encounters an error 
 
 ==== `util`
 This package defines utility classes for certain operations, like file I/O, argument validation, and image processing.
-=== Count feature [Done by Zain Alam]
+
+
+
+
+// tag::undoredo[]
+
+
+== Implementation Details, and Future Work
+
+This section right nowdescribes some noteworthy details on how certain features are implemented, as well as alternatives. Some possible future components are briefly covered, and these may be released in `v2.0`.
+
+
+=== Counting recipes [Done by Zain Alam]
 
 We allow users to count the total number of recipes stored in CookBuddy. This section shows how we handle this request from the user.
 
@@ -258,17 +270,7 @@ The following activity diagram summarizes what happens when the user executes `c
 .Activity diagram of executing the `count`command.
 image::count-command/CountActivityDiagram.svg[align="center",650]
 
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-
-== Implementation Details, and Future Work
-
-This section describes some noteworthy details on how certain features are implemented, as well as alternatives. Some possible future components are briefly covered, and these may be released in `v2.0`.
-
-=== Image Management
+=== Image Management [Done by Sharadh Rajaraman]
 CookBuddy allows users to add images to their recipes, which are then saved into the `data/images` folder created by CookBuddy (at least, using the default settings). This section elaborates on implementation.
 
 The two key classes allowing image and photo management are `ImageUtil` and `Photograph`; the former is a utility class written in the https://en.wikipedia.org/wiki/Singleton_pattern[singleton pattern]; the latter is the attribute that each `Recipe` directly contains, as <<attrib-package>> details.
@@ -284,7 +286,7 @@ The above sequence diagram details how a user-entered command is translated to a
 The steps taken are also described step-by-step in the activity diagram below:
 
 .Activity diagram of <<img-seq>>
-image::PhotoActivityDiagram.svg[align="center"]
+image::PhotoReadActivityDiagram.svg[align="center"]
 
 ==== Saving Images Into the Data Folder
 When saving images, there were a few considerations that needed to be taken into account:

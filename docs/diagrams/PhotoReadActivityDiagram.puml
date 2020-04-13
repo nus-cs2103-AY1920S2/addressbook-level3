@@ -1,4 +1,4 @@
-@startuml PhotoActivityDiagram
+@startuml PhotoReadActivityDiagram
 
 !include style.puml
 
