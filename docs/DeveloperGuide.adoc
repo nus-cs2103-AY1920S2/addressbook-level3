@@ -112,7 +112,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic`
 component for the `execute("buy 1 g/Apple q/50")` API call.
 
-.Interactions Inside the Logic Component for the `buy g/Apple q/50` Command
+.Interactions Inside the Logic Component for the `buy 1 g/Apple q/50` Command
 //tag::buysequencediagram[]
 image::BuySequenceDiagram.png[]
 //end::buysequencediagram[]
