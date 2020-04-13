@@ -333,8 +333,8 @@ image:LowLimitCommandSequenceDiagram.png[]
 
 //tag::notificationWindow[]
 === Notification window for products
-The notification window appears whenever an product's quantity reaches the threshold that was set. +
-The notification comes with information such as the product's description and remaining quantity left.
+The notification window appears whenever an product's quantity reaches the threshold that was set.
+It comes with information such as the product's description and remaining quantity left.
 
 The following activity diagram shows how the operation works:
 
@@ -351,6 +351,31 @@ image:NotificationWindowActivityDiagram.png[]
 ** Pros: Speeds up the process of stocking up.
 ** Cons: Hard to do testing for GUI, and project scope was on command line application.
 //end::notificationWindow[]
+
+//tag::sortProductList[]
+=== Sorting of Product List
+The product list sorts by the progress bar indicator beside each product's description whenever user enters `listp` command. +
+
+An example is shown below:
+
+image:SortingExample.png[]
+
+The following activity diagram shows how the operation works:
+
+image:SortProductListActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: When to sort the product list
+
+* **Alternative 1 (current choice):** Sorts only when user uses `listp` function.
+** Pros: More intuitive and user friendly.
+** Cons: Might be hard to track products' remaining balance without listing all the products.
+* **Alternative 2:** Sorts whenever the product list is updated.
+** Pros: Easy to track products' remaining balance.
+** Cons: Might be confusing for user as the indexes for product will change as the product list is sorted automatically,
+resulting in user to recheck products' index before entering in commands.
+//end::sortProductList[]
 
 === Logging
 
