@@ -65,6 +65,10 @@ An url link will be shown that linked to this page.
 .Demo for `help` command
 image::UG/help.png[width="790"]
 
+=== Listing all suppliers : `list-s` (Liu Chao)
+
+Shows a list of all suppliers in the inventory manager. +
+Format: `list-s`
 
 === Adding a supplier: `add`
 
@@ -119,6 +123,11 @@ Format: `find-s KEYWORD [MORE_KEYWORDS]`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
+[TIP]
+* You can find multiple suppliers by input multiple goods' names.
+* You could use keywords instead of full goods' names.
+* You could source for suppliers selling different goods by using different keywords at one time.
+
 Examples:
 
 * `find-s John` +
@@ -155,14 +164,13 @@ Deletes the good price pair of good 'banana' in the good list of the first suppl
 Clears all supplier entries from the address book. +
 Format: `clear-s`
 
-
 //tag::buycommand[]
 === Buying goods from supplier: `buy`
 
 Buys a batch of goods from a supplier in the contact list who stocks that product. The inventory manager cannot buy products in the following cases:
 
 . The supplier has not been entered in the supplier list
-. The supplier does not sell the good, as indicated by the "offers" section of each supplier
+. The supplier has not been registered to the good, as indicated by the "offers" section of each supplier
 
 Format: `buy SUPPLIER_DISPLAY_INDEX g/GOOD_NAME q/QUANTITY`
 
@@ -177,7 +185,6 @@ If the good does not exist in the inventory, a new entry for that good will be c
 [CAUTION]
 The maximum quantity of any good in the inventory is 999,999. Users are not allowed to buy quantities of goods that would cause that limit to be exceeded.
 //end::buycommand[]
-
 
 //tag::sellcommand[]
 === Selling goods: `sell`
@@ -206,6 +213,7 @@ This entry can be deleted using the `delete-g` command.
 
 
 //tag::deletegood[]
+
 === Delete good entry in inventory: `delete-g`
 Deletes an entry for a good in the inventory.
 The good to be deleted is at the displayed index shown in the middle inventory panel.
@@ -344,10 +352,41 @@ image::UG/list-t.png[width="790"]
 Removes changes from a recently executed command. Commands that only affect display e.g. find and list, and undo commands, will be ignored and the next command in line will be undone. +
 Format: `undo`
 
+Examples (assuming all other commands are valid):
+
+* `clear-s` +
+  `list-g` +
+  `undo` (ignores `list-g` and reverses `clear-s`)
+
+* `clear-s` +
+  `delete-g 1` +
+  `undo` (reverses `delete-g 1`) +
+  `undo` (reverses `clear-s`)
+
 === Redoing a previously undone command: `redo`
 
 Redoes changes undone by the most recent undo command. +
 Format: `redo`
+
+Examples (assuming all other commands are valid):
+
+* `clear-s` +
+  `list-g` +
+  `undo` (ignores `list-g` and reverses `clear-s`) +
+  `redo` (repeats `clear-s`)
+
+* `clear-s` +
+  `delete-g 1` +
+  `undo` (reverses `delete-g 1`) +
+  `undo` (reverses `clear-s`) +
+  `redo` (repeats `clear-s`) +
+  `redo` (repeats `delete-g 1`) +
+
+* `clear-s` +
+  `undo` (ignores `list-g` and reverses `clear-s`) +
+  `delete-g 1` +
+  `redo` +
+  The `redo` fails as `delete-g 1` will remove the undone states.
 
 === Exiting the program : `exit`
 
@@ -371,6 +410,22 @@ For security concerns, all data will be encrypted by default.
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous InventoryManager folder.
 
 == Command Summary
+(Liu Chao start)
+
+* *Adding a supplier* `add-s n/NAME c/PHONE e/EMAIL a/ADDRESS [gp/GOOD PRICE]…` +
+e.g. `add-s n/NTUC Fairprice Macpherson Mall c/6352 1728 e/MacphersonMall@NTUC Fairprice.com a/401, #02-22 MacPherson Rd, Macpherson Mall, 368125 gp/banana 5 gp/tissue paper 0.55`
+* *Listing all suppliers* : `list-s`
+* *Clearing all supplier entries* : `clear-s`
+* *Deleting a supplier* : `delete-s INDEX (must be a positive integer)` +
+e.g. `delete-s 1`
+* *Deleting an entry or entries of good-price pair(s) in the supplier’s list* : `delete-gp INDEX (must be a positive integer) g/GOOD_NAME [g/MORE_GOOD_NAME]...` +
+e.g. `delete-gp 1 g/apple g/orange (to delete two different goods)`
+* *Editing a supplier* : `edit-s INDEX (must be a positive integer) [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] [gp/GOOD_PRICE_PAIR]…` +
+e.g. `edit-s 1 c/63865586 gp/Watermelon 10`
+* *Locating suppliers by name* : `find-s KEYWORD [MORE_KEYWORD]…` +
+e.g. `Find-s NTUC ColdStorage`
+* *Source supplier(s) for good(s)*: `Source g/GOOD_NAME [g/MORE_GOOD_NAME]...` +
+e.g. `/source banana apple`
 
 * *Add supplier* `add n/NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...` +
 e.g. `add n/James Ho c/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 gp/pen 1.00`
@@ -383,10 +438,10 @@ e.g. `edit-s 2 n/James Lee e/jameslee@example.com` gp/apple 10
 * *Find supplier* : `find-s KEYWORD [MORE_KEYWORDS]` +
 e.g. `find-s James Jake`
 * *List supplier for a goods*: `source`
-* *Buy goods*: `buy SUPPLIER_DISPLAYED_INDEX g/GOOD_NAME q/QUANTITY +
-e.g. `buy 1 g/Apple q/4`
-* *Sell goods*: `sell GOOD_DISPLAYED_INDEX q/QUANTITY p/PRICE +
-e.g. `sell 1 q/4 p/3.0`
+* *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE` +
+e.g. `buy n/Dave g/apple q/4`
+* *Sell goods*: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE` +
+e.g. `sell g/apple q/4`
 * *Set minimum threshold quantity for goods*: `warn INDEX q/MIN_QUANTITY`
 * *List expiring goods*: `list-e`
 * *List transaction history*: `list-t`
