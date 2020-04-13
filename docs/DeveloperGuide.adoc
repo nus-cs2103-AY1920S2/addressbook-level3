@@ -504,9 +504,23 @@ After multiple designs, the current implementation now has `BlockTreeItem` using
 
 When manipulating the `BlockTree`, the execution of any operation is always split in this order:
 
-1. Navigate to the specfied path
-2. Open the block at the specified path
-3. Execute the operation on the block that is currently open
+1. Get the `currentlyOpenPath` from the BlockModel
+2. BlockModel carries out the command required based on that `currentlyOpenPath`
+
+An example of an operation is `new -t CS2103T`. To execute this, the following sequence occurs:
+
+1. `NewCommandParser` creates the `Block` that has the title 'CS2103T' and a default empty body.
+  * The `Title` and `Body` objects are created as well
+2. `NewCommand` then calls the Model and in turn, the BlockModel to add this `Block` to the BlockTree
+3. `BlockModel` first obtains the `currentlyOpenPath` to execute the operation on, i.e in this case, to add the new `Block` on the path
+4. `BlockModel` calls `BlockTree` to add the `Block` to the `AbsolutePath` obtained from `BlockModel`
+5. `BlockTree` creates a `BlockTreeItem` using the `Block` parsed earlier.
+6. Subsequently, the underlying `TreeItem<Block>` is created and the `BlockTreeItem` is then added to the BlockTree.
+
+Below is a sequence diagram that demonstrates this example
+
+.Tree Data Structure SequenceDiagram
+image::TreeDataStructureSequenceDiagram.png[]
 
 ==== Design Considerations
 ===== Aspect: Using JavaFX's `TreeItem<T>` vs implementing a `BlockTreeItem` from scratch
