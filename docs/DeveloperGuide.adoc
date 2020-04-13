@@ -319,7 +319,7 @@ As it is, image processing spans _several_ classes: `FileUtil`, `ImageUtil`, `Ph
 
 
 // tag::FindCommandImpl[]
-=== Finding recipes [Kevin]
+=== Finding recipes [Done by Kevin]
 
 The following section describes how the `find` command is implemented as well as design considerations that were taken into account during its implementation.
 Some possible future improvements are also suggested to improve the functionality of the `find` command.
@@ -644,7 +644,7 @@ Cons:
 
 [appendix]
 // tag::ManualTesting[]
-== Instructions for Manual Testing [Kevin]
+== Instructions for Manual Testing [Done by Kevin]
 
 Given below are instructions to test the app manually.
 
