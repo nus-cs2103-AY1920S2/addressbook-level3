@@ -359,8 +359,6 @@ Step 2. The user executes the following commands to add new assignments.
 
 Step 3. The user executes the `(st)list -d` command to sort the assignments by deadline.
 
-image::sortAssignment.png[]
-
 The following sequence diagram shows how the list assignment operation works within the `Logic` component:
 
 image::listAssgnCommand.png[]
