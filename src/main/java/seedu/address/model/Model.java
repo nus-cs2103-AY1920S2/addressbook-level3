@@ -5,24 +5,28 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.client.Client;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.schedule.ScheduleDay;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
+     * {@code Predicate} that always evaluate to true
      */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+    Predicate<Client> PREDICATE_SHOW_ALL_CLIENTS = unused -> true;
 
     /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -35,53 +39,120 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' FitBiz file path.
      */
-    Path getAddressBookFilePath();
+    Path getFitBizFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' FitBiz file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setFitBizFilePath(Path fitBizFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Returns the FitBiz
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyFitBiz getFitBiz();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Replaces FitBiz data with the data in {@code fitBiz}.
      */
-    boolean hasPerson(Person person);
+    void setFitBiz(ReadOnlyFitBiz fitBiz);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Returns true if a client with the same identity as {@code client} exists in the FitBiz.
      */
-    void deletePerson(Person target);
+    boolean hasClient(Client client);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Deletes the given client.
+     * The client must exist in the FitBiz.
      */
-    void addPerson(Person person);
+    void deleteClient(Client target);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Adds the given client.
+     * {@code client} must not already exist in the FitBiz.
      */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    void addClient(Client client);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Replaces the given client {@code target} with {@code editedClient}.
+     * {@code target} must exist in the FitBiz.
+     * The client identity of {@code editedClient} must not be the same as another existing client in the FitBiz.
+     */
+    void setClient(Client target, Client editedClient);
+
+    /**
+     * Returns an unmodifiable view of the filtered client list
+     */
+    ObservableList<Client> getFilteredClientList();
+
+    /**
+     * Updates the filter of the filtered client list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredClientList(Predicate<Client> predicate);
+
+    /**
+     * Returns the client in {@code clientInView}.
+     *
+     * @author @yonggie
+     */
+    Client getClientInView();
+
+    /**
+     * Updates the client in {@code clientInView}.
+     *
+     * @author @yonggie
+     */
+    void setClientInView(Client client);
+
+    /**
+     * Clears the client in {@code clientInView}.
+     *
+     * @author @yonggie
+     */
+    void clearClientInView();
+
+    /**
+     * Returns true if a client with the same identity as {@code client} exists in
+     * the FitBiz.
+     *
+     * @author @yonggie
+     */
+    boolean hasClientInView();
+
+    /**
+     * Updates client in ClientInView in the case of an EditCommand. Before updating, checks if
+     * {@code editedClient} is the same client as client in ClientInView.
+     *
+     * @author @yonggiee
+     */
+    void updateClientViewIfApplicable(Client clientToEdit, Client editedClient);
+
+    /**
+     * @author @Dban1
+     * Returns a view of the schedule list from across all clients.
+     */
+    ObservableList<ScheduleDay> getScheduleDayList();
+
+    /*
+     * Adds the given exercise to the clientInView exercise list. There must be
+     * client in clientInView.
+     */
+    Client addExerciseToClient(Exercise exercise);
+
+    /**
+     * Replaces the {@code target} in clientInView exercise list with {@code editedExercise}.
+     * There must be client in clientInView.
+     */
+    void editExercise (Exercise target, Exercise editedExercise);
+
+    /**
+     * Deletes the given exercise in clientInView exercise list.
+     * There must be client in clientInView.
+     */
+    void deleteExercise(Exercise exercise);
+
 }

@@ -1,0 +1,78 @@
+@startuml AddExerciseCommandSequenceDiagramPart2
+!include style.puml
+
+box Model MODEL_COLOR_T1
+    Participant "clientToEditExerciseList:UniqueExerciseList" as exerciseList MODEL_COLOR
+    Participant "toAdd:Exercise" as toAddExercise MODEL_COLOR
+    Participant "exerciseDate:ExerciseDate" as toAddExerciseDate MODEL_COLOR
+    Participant "exerciseName:ExerciseName" as toAddExerciseName MODEL_COLOR
+    Participant "curr:Exercise" as currExercise MODEL_COLOR
+    Participant "exerciseDate:ExerciseDate" as currExerciseDate MODEL_COLOR
+    Participant "exerciseName:ExerciseName" as currExerciseName MODEL_COLOR
+end box
+
+group addToSorted
+    [-> exerciseList: addToSorted(toAdd)
+    activate exerciseList MODEL_COLOR
+
+        exerciseList -[MODEL_COLOR]> toAddExercise : getExerciseDate()
+        activate toAddExercise MODEL_COLOR
+
+        toAddExercise -[MODEL_COLOR]> toAddExerciseDate : getValue()
+        activate toAddExerciseDate MODEL_COLOR
+
+        toAddExerciseDate --[MODEL_COLOR]> toAddExercise : toAddDate
+        deactivate toAddExerciseDate
+
+        toAddExercise --[MODEL_COLOR]> exerciseList : toAddDate
+        deactivate toAddExercise
+
+        exerciseList -[MODEL_COLOR]> toAddExercise : getExerciseName()
+        activate toAddExercise MODEL_COLOR
+
+        toAddExercise -[MODEL_COLOR]> toAddExerciseName : getValue()
+        activate toAddExerciseName MODEL_COLOR
+
+        toAddExerciseName --[MODEL_COLOR]> toAddExercise : toAddName
+        deactivate toAddExerciseName
+
+        toAddExercise --[MODEL_COLOR]> exerciseList : toAddName
+        deactivate toAddExercise
+
+    loop for all exercises in internalList
+
+        exerciseList -[MODEL_COLOR]> currExercise : getExerciseDate()
+        activate currExercise MODEL_COLOR
+
+        currExercise -[MODEL_COLOR]> currExerciseDate : getValue()
+        activate currExerciseDate MODEL_COLOR
+
+        currExerciseDate --[MODEL_COLOR]> currExercise : toAddDate
+        deactivate currExerciseDate
+
+        currExercise --[MODEL_COLOR]> exerciseList : toAddDate
+        deactivate currExercise
+
+        exerciseList -[MODEL_COLOR]> currExercise : getExerciseName()
+        activate currExercise MODEL_COLOR
+
+        currExercise -[MODEL_COLOR]> currExerciseName : getValue()
+        activate currExerciseName MODEL_COLOR
+
+        currExerciseName --[MODEL_COLOR]> currExercise : toAddName
+        deactivate currExerciseName
+
+        currExercise --[MODEL_COLOR]> exerciseList : toAddName
+        deactivate currExercise
+
+        ref over exerciseList
+            conditional checks
+        end ref
+
+    end
+
+    [<-- exerciseList:
+    deactivate exerciseList
+
+end
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+
+Class CommandBox UI_COLOR
+Class TextField UI_COLOR
+Class ResultDisplay UI_COLOR
+Class Autocomplete LOGIC_COLOR
+Class Trie LOGIC_COLOR
+Class Node LOGIC_COLOR
+Class SimilarWordsResult LOGIC_COLOR
+Class AutocompleteResult LOGIC_COLOR
+
+CommandBox "1" *-down-> "1" TextField
+CommandBox -up-> "1" ResultDisplay
+CommandBox -right-> "1" Autocomplete
+Trie ..> SimilarWordsResult
+Autocomplete ..> SimilarWordsResult
+Autocomplete ..>  AutocompleteResult
+CommandBox ..> AutocompleteResult
+Autocomplete "1" *-right-> "1" Trie
+Trie "1" *-up-> "1" Node
+Node "0..1" *-- "*" Node
+
+@enduml

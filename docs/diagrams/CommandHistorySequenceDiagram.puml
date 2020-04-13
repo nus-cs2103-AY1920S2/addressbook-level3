@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+Participant ":CommandBox" as commandBox UI_COLOR
+Participant ":TextField" as textField UI_COLOR
+end box
+box Logic LOGIC_COLOR_T1
+Participant ":CommandHistory" as commandHistory LOGIC_COLOR
+end box
+box Model MODEL_COLOR_T1
+Participant ":CommandHistoryState" as commandHistoryState MODEL_COLOR
+end box
+box Util STORAGE_COLOR_T1
+Participant "<<static>>\n:FileUtil" as fileUtil STORAGE_COLOR
+end box
+
+-[UI_COLOR]> commandBox : handleCommandEntered()
+activate commandBox UI_COLOR
+
+commandBox -[UI_COLOR]> textField : getText()
+activate textField UI_COLOR
+
+textField -[UI_COLOR]-> commandBox : "list-c"
+deactivate textField
+
+commandBox -[UI_COLOR]> commandHistory : addToHistory("list-c")
+activate commandHistory LOGIC_COLOR
+
+commandHistory -[LOGIC_COLOR]> commandHistoryState : add("list-c")
+activate commandHistoryState MODEL_COLOR
+
+commandHistoryState -[MODEL_COLOR]-> commandHistory
+deactivate commandHistoryState
+
+commandHistory -[LOGIC_COLOR]> commandHistoryState : getCurrentState()
+activate commandHistoryState MODEL_COLOR
+
+commandHistoryState -[MODEL_COLOR]-> commandHistory : List<String> history
+deactivate commandHistoryState
+
+commandHistory -[LOGIC_COLOR]> commandHistory : stateListToStorageString(history)
+activate commandHistory LOGIC_COLOR_T2
+commandHistory -[LOGIC_COLOR]-> commandHistory : lines
+deactivate commandHistory
+
+commandHistory -[LOGIC_COLOR]> fileUtil : writeToFile(filePath, lines)
+activate fileUtil STORAGE_COLOR
+
+fileUtil -[STORAGE_COLOR]> fileUtil : Overwrites existing file
+activate fileUtil STORAGE_COLOR_T2
+deactivate fileUtil
+
+fileUtil -[STORAGE_COLOR]-> commandHistory
+deactivate fileUtil
+
+commandHistory -[LOGIC_COLOR]-> commandBox
+deactivate commandHistory
+
+[<[UI_COLOR]-- commandBox
+
+@enduml

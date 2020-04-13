@@ -13,9 +13,17 @@ src/main/resources/docs/
 /config.json
 /preferences.json
 /*.log.*
+/exports
 
 # Test sandbox files
 src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+
+# VSC files
+.classpath
+.project
+.settings
+.vscode
+/bin

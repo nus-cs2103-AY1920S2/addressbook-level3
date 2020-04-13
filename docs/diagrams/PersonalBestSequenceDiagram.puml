@@ -1,0 +1,38 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+    Participant ":ViewCommand" as ViewCommand LOGIC_COLOR
+    Participant ":PersonalBestFinder" as PersonalBestFinder LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+    Participant ":Client" as Client MODEL_COLOR
+    Participant ":PersonalBest" as PersonalBest MODEL_COLOR
+endbox
+
+[-[LOGIC_COLOR]> ViewCommand : execute(model)
+
+activate ViewCommand LOGIC_COLOR
+ViewCommand -[LOGIC_COLOR]> PersonalBestFinder : generateAndSetPersonalBest(client)
+
+activate PersonalBestFinder LOGIC_COLOR
+PersonalBestFinder -[LOGIC_COLOR]> Client : getExerciseList()
+
+activate Client MODEL_COLOR
+PersonalBestFinder <[MODEL_COLOR]-- Client : exerciseList
+deactivate Client
+
+PersonalBestFinder -[LOGIC_COLOR]> PersonalBest : setPersonalBest(values)
+activate PersonalBest MODEL_COLOR
+PersonalBestFinder <[MODEL_COLOR]-- PersonalBest
+deactivate PersonalBest
+
+ViewCommand <[LOGIC_COLOR]-- PersonalBestFinder
+deactivate PersonalBestFinder
+
+<[LOGIC_COLOR]-- ViewCommand : CommandResult
+
+deactivate ViewCommand
+
+@enduml

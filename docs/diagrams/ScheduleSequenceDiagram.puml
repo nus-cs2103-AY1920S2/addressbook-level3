@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FitBizParser" as FitBizParser LOGIC_COLOR
+participant ":ScheduleCommandParser" as ScheduleCommandParser LOGIC_COLOR
+participant "s:ScheduleCommand" as ScheduleCommand LOGIC_COLOR
+participant "c:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-[UI_COLOR]> LogicManager : execute(commandText)
+activate LogicManager LOGIC_COLOR
+
+LogicManager -[LOGIC_COLOR]> FitBizParser : parseCommand(commandText)
+activate FitBizParser LOGIC_COLOR
+
+create ScheduleCommandParser
+FitBizParser -[LOGIC_COLOR]> ScheduleCommandParser : ScheduleCommandParser()
+activate ScheduleCommandParser LOGIC_COLOR
+
+ScheduleCommandParser --[LOGIC_COLOR]> FitBizParser
+deactivate ScheduleCommandParser
+
+FitBizParser -[LOGIC_COLOR]> ScheduleCommandParser : parse(arguments)
+activate ScheduleCommandParser LOGIC_COLOR
+
+create ScheduleCommand
+ScheduleCommandParser -[LOGIC_COLOR]> ScheduleCommand : ScheduleCommand(index, scheduleList)
+activate ScheduleCommand LOGIC_COLOR
+
+ScheduleCommand --[LOGIC_COLOR]> ScheduleCommandParser : s
+deactivate ScheduleCommand
+
+ScheduleCommandParser --[LOGIC_COLOR]> FitBizParser : s
+deactivate ScheduleCommandParser
+
+FitBizParser --[LOGIC_COLOR]> LogicManager : s
+deactivate FitBizParser
+
+LogicManager -[LOGIC_COLOR]> ScheduleCommand : execute(model)
+activate ScheduleCommand LOGIC_COLOR
+
+ScheduleCommand -[LOGIC_COLOR]> Model : getFilteredClientList()
+activate Model MODEL_COLOR
+
+Model --[MODEL_COLOR]> ScheduleCommand : filteredClientList
+deactivate Model
+
+ScheduleCommand -[LOGIC_COLOR]> Model : setClient(clientToEdit, editedClient)
+activate Model MODEL_COLOR
+
+Model --[MODEL_COLOR]> ScheduleCommand:
+deactivate Model
+
+
+create CommandResult
+ScheduleCommand -[LOGIC_COLOR]> CommandResult : CommandResult(feedbackToUser)
+activate CommandResult LOGIC_COLOR
+
+CommandResult --[LOGIC_COLOR]> ScheduleCommand : c
+deactivate CommandResult
+
+ScheduleCommand --[LOGIC_COLOR]> LogicManager : c
+deactivate ScheduleCommand
+
+[<--LogicManager : c
+deactivate LogicManager
+@enduml

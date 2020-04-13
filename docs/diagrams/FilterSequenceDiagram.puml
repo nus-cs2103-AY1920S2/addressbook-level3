@@ -1,0 +1,84 @@
+@startuml
+!include style.puml
+skinparam ParticipantPadding 36
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FitBizParser" as FitBizParser LOGIC_COLOR
+participant ":FilterCommandParser" as FilterCommandParser LOGIC_COLOR
+participant "fc:FilterCommand" as FilterCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "p:TagAndNameContainsKeyWordsPredicate" as TagAndNameContainsKeyWordsPredicate MODEL_COLOR
+participant ":Client" as Client MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+-[LOGIC_COLOR]> LogicManager : execute("filter-c t/obese s/swim")
+activate LogicManager LOGIC_COLOR
+
+LogicManager -[LOGIC_COLOR]> FitBizParser : parseCommand\n("filter-c t/obese s/swim")
+activate FitBizParser LOGIC_COLOR
+
+create FilterCommandParser
+FitBizParser -[LOGIC_COLOR]> FilterCommandParser : FilterCommandParser()
+activate FilterCommandParser LOGIC_COLOR
+
+FilterCommandParser --[LOGIC_COLOR]> FitBizParser
+deactivate FilterCommandParser
+
+FitBizParser -[LOGIC_COLOR]> FilterCommandParser : parse("t/obese s/swim")
+activate FilterCommandParser LOGIC_COLOR LOGIC_COLOR
+
+create FilterCommand
+FilterCommandParser -[LOGIC_COLOR]> FilterCommand : FilterCommand()
+activate FilterCommand LOGIC_COLOR
+
+
+FilterCommand --[LOGIC_COLOR]> FilterCommandParser : fc
+deactivate FilterCommand
+
+FilterCommandParser --[LOGIC_COLOR]> FitBizParser : fc
+deactivate FilterCommandParser
+
+FitBizParser --[LOGIC_COLOR]> LogicManager : fc
+deactivate FitBizParser
+
+LogicManager -[LOGIC_COLOR]> FilterCommand : execute()
+activate FilterCommand  LOGIC_COLOR
+
+create TagAndNameContainsKeyWordsPredicate
+FilterCommand -[LOGIC_COLOR]> TagAndNameContainsKeyWordsPredicate : TagAndNameContainsKeyWordsPredicate()
+activate TagAndNameContainsKeyWordsPredicate MODEL_COLOR
+
+create Client
+TagAndNameContainsKeyWordsPredicate -[MODEL_COLOR]> Client : test()
+activate Client MODEL_COLOR
+
+Client --[MODEL_COLOR]> TagAndNameContainsKeyWordsPredicate : boolean
+deactivate Client
+
+TagAndNameContainsKeyWordsPredicate --[MODEL_COLOR]> FilterCommand : p
+deactivate TagAndNameContainsKeyWordsPredicate
+
+FilterCommand -[LOGIC_COLOR]> Model: updateFilteredClientList(p)
+activate Model MODEL_COLOR
+
+Model --[MODEL_COLOR]> FilterCommand
+deactivate Model
+
+create CommandResult
+FilterCommand -[LOGIC_COLOR]> CommandResult : CommandResult()
+activate CommandResult LOGIC_COLOR
+
+CommandResult --[LOGIC_COLOR]> FilterCommand : result
+deactivate CommandResult
+
+FilterCommand --[LOGIC_COLOR]> LogicManager : result
+deactivate FilterCommand
+
+<[LOGIC_COLOR]-- LogicManager : result
+deactivate LogicManager
+@enduml

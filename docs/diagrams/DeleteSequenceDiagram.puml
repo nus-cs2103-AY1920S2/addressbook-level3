@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":FitBizParser" as FitBizParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -13,57 +13,54 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
-activate LogicManager
+[-[LOGIC_COLOR]> LogicManager : execute("delete-c 1")
+activate LogicManager LOGIC_COLOR
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -[LOGIC_COLOR]> FitBizParser : parseCommand("delete-c 1")
+activate FitBizParser LOGIC_COLOR
 
 create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+FitBizParser -[LOGIC_COLOR]> DeleteCommandParser : DeleteCommandParser()
+activate DeleteCommandParser LOGIC_COLOR
 
-DeleteCommandParser --> AddressBookParser
+DeleteCommandParser --[LOGIC_COLOR]> FitBizParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+FitBizParser -[LOGIC_COLOR]> DeleteCommandParser : parse("1")
+activate DeleteCommandParser LOGIC_COLOR
 
 create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+DeleteCommandParser -[LOGIC_COLOR]> DeleteCommand : DeleteCommand()
+activate DeleteCommand LOGIC_COLOR
 
-DeleteCommand --> DeleteCommandParser : d
+DeleteCommand --[LOGIC_COLOR]> DeleteCommandParser : d
 deactivate DeleteCommand
 
-DeleteCommandParser --> AddressBookParser : d
+DeleteCommandParser --[LOGIC_COLOR]> FitBizParser : d
 deactivate DeleteCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+FitBizParser --[LOGIC_COLOR]> LogicManager : d
+deactivate FitBizParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -[LOGIC_COLOR]> DeleteCommand : execute()
+activate DeleteCommand LOGIC_COLOR
 
-DeleteCommand -> Model : deletePerson(1)
-activate Model
+DeleteCommand -[LOGIC_COLOR]> Model : deleteClient(1)
+activate Model MODEL_COLOR
 
-Model --> DeleteCommand
+Model --[MODEL_COLOR]> DeleteCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
-activate CommandResult
+DeleteCommand -[LOGIC_COLOR]> CommandResult : CommandResult()
+activate CommandResult LOGIC_COLOR
 
-CommandResult --> DeleteCommand
+CommandResult --[LOGIC_COLOR]> DeleteCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
+DeleteCommand --[LOGIC_COLOR]> LogicManager : result
 deactivate DeleteCommand
 
-[<--LogicManager
+[<[LOGIC_COLOR]--LogicManager : result
 deactivate LogicManager
 @enduml

@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+Participant ":Autocomplete" as autoComplete LOGIC_COLOR
+Participant ":Trie" as trie LOGIC_COLOR
+Participant "node:Node" as node LOGIC_COLOR
+Participant "swResult:SimilarWordsResult" as similarWordsResult LOGIC_COLOR
+Participant "acResult:AutocompleteResult" as autoCompleteResult LOGIC_COLOR
+end box
+
+group get autocomplete result
+
+-[UI_COLOR]> autoComplete : execute("gra", 3)
+activate autoComplete LOGIC_COLOR
+
+autoComplete -[LOGIC_COLOR]> trie : listAllSimilarWords("gra")
+activate trie LOGIC_COLOR
+
+trie -[LOGIC_COLOR]> trie : getLongestPrefixNode("gra")
+activate trie LOGIC_COLOR_T1
+trie -[LOGIC_COLOR]-> trie : node
+deactivate trie
+
+trie -[LOGIC_COLOR]> node : constructWord()
+activate node LOGIC_COLOR
+
+node -[LOGIC_COLOR]-> trie : "graph"
+deactivate node
+
+trie -[LOGIC_COLOR]> node : isWordEnd()
+activate node LOGIC_COLOR
+
+node -[LOGIC_COLOR]-> trie : true
+deactivate node
+
+create similarWordsResult
+trie -[LOGIC_COLOR]> similarWordsResult : SimilarWordsResult("graph", ["graph"])
+activate similarWordsResult LOGIC_COLOR
+
+similarWordsResult -[LOGIC_COLOR]-> trie : swResult
+deactivate similarWordsResult
+
+trie -[LOGIC_COLOR]-> autoComplete : swResult
+deactivate trie LOGIC_COLOR
+
+autoComplete -[LOGIC_COLOR]> similarWordsResult : hasOnlyOneWord()
+activate similarWordsResult LOGIC_COLOR
+
+similarWordsResult -[LOGIC_COLOR]-> autoComplete : true
+deactivate similarWordsResult
+
+autoComplete -[LOGIC_COLOR]> similarWordsResult : getSingleWord()
+activate similarWordsResult LOGIC_COLOR
+
+similarWordsResult -[LOGIC_COLOR]-> autoComplete : "graph"
+deactivate similarWordsResult
+
+autoComplete -[LOGIC_COLOR]> autoComplete : singleCommandHandler("graph")
+activate autoComplete LOGIC_COLOR_T1
+
+autoComplete -[LOGIC_COLOR]> autoComplete : generatePrefixesString(GraphCommand.PREFIXES)
+activate autoComplete LOGIC_COLOR_T1
+autoComplete -[LOGIC_COLOR]-> autoComplete : "graph n/ a/ sd/ ed/"
+deactivate autoComplete
+
+create autoCompleteResult
+autoComplete -[LOGIC_COLOR]> autoCompleteResult : AutocompleteResult("graph n/ a/ sd/ ed/", GraphCommand.MESSAGE_USAGE, 8)
+activate autoCompleteResult LOGIC_COLOR
+
+autoCompleteResult -[LOGIC_COLOR]-> autoComplete : acResult
+deactivate autoCompleteResult
+autoComplete -[LOGIC_COLOR]-> autoComplete : acResult
+deactivate autoComplete
+
+[<[LOGIC_COLOR]-- autoComplete : acResult
+
+end
+
+@enduml

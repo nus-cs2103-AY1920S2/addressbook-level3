@@ -20,6 +20,10 @@ mainClassName = 'seedu.address.Main'
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
+application {
+    applicationDefaultJvmArgs = ['-Dglass.gtk.uiScale=1.5']
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
@@ -39,6 +43,8 @@ jacocoTestReport {
 
 test {
     useJUnitPlatform()
+    // uncomment this to enable printing to stdout in tests
+    // testLogging.showStandardStreams = true
 }
 
 dependencies {
@@ -67,7 +73,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'FitBiz.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -77,8 +83,8 @@ task coverage(type: JacocoReport) {
     classDirectories.from files(sourceSets.main.output)
     executionData.from files(jacocoTestReport.executionData)
     afterEvaluate {
-        classDirectories.from files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/*.jar'])
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['seedu/address/ui', 'seedu/address/model/util'])
         })
     }
     reports {
@@ -133,8 +139,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'FitBiz',
+        'site-githuburl': 'https://github.com/AY1920S2-CS2103T-F11-2/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 

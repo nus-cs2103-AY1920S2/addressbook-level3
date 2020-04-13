@@ -5,52 +5,113 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyFitBiz <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class FitBiz
+Class ReadOnlyFitBiz
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class ClientInView
 
-Package Person {
-Class Person
+Package Client {
+Class Client
 Class Address
 Class Email
 Class Name
 Class Phone
-Class UniquePersonList
+Class UniqueClientList
+Class Gender
+Class Birthday
+Class CurrentWeight
+Class TargetWeight
+Class Height
+Class Remark
+Class PersonalBest
 }
 
 Package Tag {
 Class Tag
+}
+
+Package Sports {
+Class Sports
+}
+
+Package Schedule {
+Class ScheduleList
+Class Schedule
+Class Day
+Class DayEnum
+Class EndTime
+Class StartTime
+Class Time
+}
+
+Package Exercise {
+Class Exercise
+Class ExerciseDate
+Class ExerciseName
+Class ExerciseReps
+Class ExerciseSets
+Class ExerciseWeight
+Class UniqueExerciseList
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+FitBiz .up.|> ReadOnlyFitBiz
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
+ModelManager --> "1" FitBiz
+ModelManager -left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+FitBiz --> "1" UniqueClientList
+UniqueClientList --> "*" Client
+Client "1" *--> "1" Name
+Client "1" *---> "1" Gender
+Client "1" *---> "1" Phone
+Client "1" *--> "1" Email
+Client "1" *--> "1" Address
+Client "1" *---> "*" Tag
+Client "1" *--> "1" Birthday
+Client "1" *---> "1" ScheduleList
+Client "1" *--> "*" Sports
+Client "1" *---> "1" CurrentWeight
+Client "1" *--> "1" TargetWeight
+Client "1" *---> "1" Height
+Client "1" *--> "1" Remark
+Client "1" *---> "1" PersonalBest
+Client "1" *--> "1" UniqueExerciseList
+
+ClientInView --> "1" Client
+
+UniqueExerciseList --> "*"Exercise
+Exercise "1" *--> "1" ExerciseDate
+Exercise "1" *--> "1" ExerciseName
+Exercise "1" *--> "1" ExerciseReps
+Exercise "1" *--> "1" ExerciseSets
+Exercise "1" *--> "1" ExerciseWeight
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-ModelManager -->"1" Person : filtered list
+ScheduleList --> "*" Schedule
+Schedule "1" *--> "1" Day
+Schedule "1" *--> "1" StartTime
+Schedule "1" *--> "1" EndTime
+StartTime --|> Time
+EndTime --|> Time
+Day *--> "1" DayEnum
+
+
+ModelManager -->"*" Client : filtered list
+ModelManager *-->"1" ClientInView
 @enduml

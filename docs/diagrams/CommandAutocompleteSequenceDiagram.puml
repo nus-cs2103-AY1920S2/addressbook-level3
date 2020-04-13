@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+Participant ":CommandBox" as commandBox UI_COLOR
+Participant ":TextField" as textField UI_COLOR
+Participant ":ResultDisplay" as resultDisplay UI_COLOR
+end box
+box Logic LOGIC_COLOR_T1
+Participant ":Autocomplete" as autoComplete LOGIC_COLOR
+Participant "acResult:AutocompleteResult" as autoCompleteResult LOGIC_COLOR
+end box
+
+-[UI_COLOR]> commandBox : handleTabKey()
+activate commandBox UI_COLOR
+
+commandBox -[UI_COLOR]> textField : getText()
+activate textField UI_COLOR
+
+textField -[UI_COLOR]-> commandBox : "gra"
+deactivate textField
+
+commandBox -[UI_COLOR]> textField : getCaretPosition()
+activate textField UI_COLOR
+
+textField -[UI_COLOR]-> commandBox : 3
+deactivate textField
+
+commandBox -[UI_COLOR]> autoComplete : execute("gra", 3)
+activate autoComplete LOGIC_COLOR
+
+ref over autoComplete, autoCompleteResult : get autocomplete result
+note right
+note that the acResult object is
+actually created within this ref
+end note
+
+autoComplete -[LOGIC_COLOR]-> commandBox : acResult
+deactivate autoComplete
+
+commandBox -[UI_COLOR]> autoCompleteResult : getTextToSet()
+activate autoCompleteResult LOGIC_COLOR
+
+autoCompleteResult -[LOGIC_COLOR]-> commandBox : "graph n/ a/ sd/ ed/"
+deactivate autoCompleteResult
+
+commandBox -[UI_COLOR]> autoCompleteResult : getTextToFeedback()
+activate autoCompleteResult LOGIC_COLOR
+
+autoCompleteResult -[LOGIC_COLOR]-> commandBox : GraphCommand.MESSAGE_USAGE
+deactivate autoCompleteResult
+
+commandBox -[UI_COLOR]> autoCompleteResult : getCaretPositionToSet
+activate autoCompleteResult LOGIC_COLOR
+
+autoCompleteResult -[LOGIC_COLOR]-> commandBox : 8
+deactivate autoCompleteResult
+
+commandBox -[UI_COLOR]> textField : setText("graph n/ a/ sd/ ed/")
+activate textField UI_COLOR
+
+textField -[UI_COLOR]-> commandBox
+deactivate textField
+
+commandBox -[UI_COLOR]> textField : positionCaret(8)
+activate textField UI_COLOR
+
+textField -[UI_COLOR]-> commandBox
+deactivate textField
+
+commandBox -[UI_COLOR]> resultDisplay : setFeedbackToUser(GraphCommand.MESSAGE_USAGE)
+activate resultDisplay UI_COLOR
+
+resultDisplay -[UI_COLOR]-> commandBox
+deactivate resultDisplay
+
+[<[UI_COLOR]-- commandBox
+
+@enduml

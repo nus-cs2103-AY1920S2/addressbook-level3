@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+show DayEnum attributes
+skinparam ClassAttributeFontColor #FFFFFF
+
+
+enum DayEnum <<enumeration>> {
+    MON
+    TUE
+    WED
+    THU
+    FRI
+    SAT
+    SUN
+}
+
+ScheduleList --> "*" Schedule
+
+Schedule "1" *--> "1" Day
+Schedule "1" *--> "1" StartTime
+Schedule "1" *--> "1" EndTime
+
+Day "1" *--> "1" DayEnum
+
+StartTime --|> Time
+EndTime --|> Time
+@enduml

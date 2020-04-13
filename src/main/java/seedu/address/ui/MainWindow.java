@@ -1,9 +1,13 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+import static seedu.address.logic.commands.HelpCommand.USER_GUIDE_URL;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -18,12 +22,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String GOOGLE_FONT_URL =
+            "https://fonts.googleapis.com/css2?family=Open+Sans:"
+        + "wght@300;400;600;700;800&family=Ubuntu+Mono&display=swap";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -31,9 +38,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ClientListPanel clientListPanel;
+    private ClientViewDisplay clientViewDisplay;
+    private SchedulePanel schedulePanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +50,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane clientListPanelPlaceholder;
+
+    @FXML
+    private StackPane clientViewPanelPlaceholder;
+
+    @FXML
+    private StackPane personalBestTablePlaceholder;
+
+    @FXML
+    private StackPane exerciseListTablePlaceholder;
+
+    @FXML
+    private StackPane schedulePanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -62,7 +82,9 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();
+        // set the font
+        setFont(primaryStage);
+
     }
 
     public Stage getPrimaryStage() {
@@ -73,8 +95,15 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
+    private void setFont(Stage stage) {
+        Scene scene = primaryStage.getScene();
+
+        scene.getStylesheets().add(GOOGLE_FONT_URL);
+    }
+
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -82,18 +111,18 @@ public class MainWindow extends UiPart<Stage> {
 
         /*
          * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
+         * https://bugs.openjdk.java.net/browse/JDK-8131666 is fixed in later version of
+         * SDK.
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
          * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will not
+         * work when the focus is in them because the key event is consumed by the
+         * TextInputControl(s).
          *
          * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
+         * help window purposely so to support accelerators even when focus is in
+         * CommandBox or ResultDisplay.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
@@ -107,16 +136,22 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        clientListPanel = new ClientListPanel(logic.getFilteredClientList());
+        clientListPanelPlaceholder.getChildren().add(clientListPanel.getRoot());
+
+        clientViewDisplay = new ClientViewDisplay();
+
+        schedulePanel = new SchedulePanel(logic.getScheduleDayList());
+        schedulePanelPlaceholder.getChildren().add(schedulePanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFitBizFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, resultDisplay,
+                logic.getCommandHistory(), logic.getAutocomplete());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -133,15 +168,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the help window or focuses on it if it's already opened.
+     * Opens FitBiz user guide in the user's default web browser.
      */
-    @FXML
     public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
+        logic.openUrlInDefaultWebBrowser(USER_GUIDE_URL);
+        resultDisplay.setFeedbackToUser(SHOWING_HELP_MESSAGE);
+    }
+
+    /**
+     * Opens a graph with the requested information from {@code CommandResult}.
+     */
+    public void handleGraph(CommandResult commandResult) {
+        String clientName = clientViewDisplay.getClientInViewName();
+        GraphWindow graphWindow = GraphWindow.createNewGraph(commandResult.getGraphList(),
+            commandResult.getAxisType(), clientName);
+        graphWindow.show();
     }
 
     void show() {
@@ -156,12 +197,61 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Removes UI elements from panels regarding {@code ClientInView}.
+     *
+     * @author @yonggiee
+     */
+    private void clearClientInViewDisplay() {
+        clientViewPanelPlaceholder.getChildren().clear();
+        exerciseListTablePlaceholder.getChildren().clear();
+        personalBestTablePlaceholder.getChildren().clear();
+    }
+
+    /**
+     * Adds UI elements to panels regarding {@code ClientInView}.
+     *
+     * @author @yonggiee
+     */
+    private void addClientInViewDisplay() {
+        ClientView clientView = clientViewDisplay.getClientView();
+        clientViewPanelPlaceholder.getChildren().add(clientView.getRoot());
+
+        ExerciseListTable exerciseListTable = clientViewDisplay.getExerciseListTable();
+        exerciseListTablePlaceholder.getChildren().add(exerciseListTable.getRoot());
+
+        PersonalBestTable personalBestTable = clientViewDisplay.getPersonalBestTable();
+        personalBestTablePlaceholder.getChildren().add(personalBestTable.getRoot());
+    }
+
+    /**
+     * Updates {@code clientInView}.
+     *
+     * @author @yonggiee
+     */
+    private void refreshClientInViewDisplay() {
+        clearClientInViewDisplay();
+
+        if (logic.hasClientInView()) {
+            clientViewDisplay.update(logic.getClientInView());
+            addClientInViewDisplay();
+        }
+    }
+
+    /**
+     * Updates the SchedulePanel.
+     *
+     * @author @Dban1
+     */
+    private void refreshSchedulePanel() {
+        schedulePanel = new SchedulePanel(logic.getScheduleDayList());
+
+        schedulePanelPlaceholder.getChildren().clear();
+        schedulePanelPlaceholder.getChildren().add(schedulePanel.getRoot());
+
     }
 
     /**
@@ -175,13 +265,21 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            refreshClientInViewDisplay();
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isOpenGraph()) {
+                handleGraph(commandResult);
             }
 
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            refreshSchedulePanel();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

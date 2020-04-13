@@ -4,53 +4,48 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+FitBiz is developed by 5 passionate software engineering students who aim to help fitness coaches manage their clients in a dynamic and innovative way.
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Choo Qi Le Aaron
+image::aaroncql.png[width="200", align="left"]
+{empty}[https://github.com/AaronCQL[GitHub]] [<<aaroncql#, Project Portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Team Leader + Developer
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Fong Yong Jie
+image::yonggiee.png[width="200", align="left"]
+{empty}[https://github.com/Yonggiee[GitHub]] [<<yonggiee#, Project Portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Li Zi Ying
+image::ziyingli.png[width="200", align="left"]
+{empty}[https://github.com/ziyingli[GitHub]] [<<ziyingli#, Project Portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer
+
+'''
+
+=== Ng Ming Liang
+image::dban1.png[width="200", align="left"]
+{empty}[https://github.com/Dban1[GitHub]] [<<dban1#, Project Portfolio>>]
+
+Role: Developer
+
+'''
+
+=== Toh Ker Wei
+image::tohkerwei.png[width="200", align="left"]
+{empty}[https://github.com/tohkerwei[GitHub]] [<<tohkerwei#, Project Portfolio>>]
+
+Role: Developer
 
 '''

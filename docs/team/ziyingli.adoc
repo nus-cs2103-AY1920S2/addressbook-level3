@@ -1,0 +1,67 @@
+= Li Zi Ying - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:experimental:
+
+== PROJECT: FitBiz
+
+== Overview
+
+FitBiz is a fitness business management application, specially made for fitness coaches to manage their clients. It is primarily a desktop application where the user interacts via the Command Line Interface (CLI), and views data via the Graphical User Interface (GUI). This project is written in Java 11, packaged using Gradle, and uses JavaFX for the GUI.
+
+== Summary of Contributions
+
+* *Major enhancement*: developed the graph feature, which allows users to conveniently plot and display the progress made by a client for a certain exercise over time. Users can immediately see if the client has improved for that exercise over the months.
+** *What it does*: allows users to plot and display the graph of the specified exercise and specified y-axis from the stipulated start to end dates. Users have a choice of y-axis so that they can focus on one of the different attributes of an exercise, like the reps done or the weights lifted.
+** *Justification*: visualisation is always better than looking through a long list of exercises to check if a client has improved for an exercise. It is also much faster and easier to look at a graph to check for progress. The flexibility in axis type and dates also allows users to customise their graph to their needs.
+** *Highlights*: developed a `Graph` model that has an axis type, exercise name, start and end dates. Checks are also in place to make sure that there are data points to be plotted, else there will be an error message. Sanity checks like the check that the start date cannot be later then the end date are also implemented.
+
+* *Major enhancement*: developed the personal best feature, which allows users to view the personal best records of their exercises immediately after keying in an exercise session.
+** *What it does*: allows users to efficiently and conveniently access their clients' personal best while updating the personal best table whenever changes to the exercise table is made.
+** *Justification*: instead of having to manually look through the entire exercise table to find a client's personal best, the personal best will be immediately displayed when the user views a certain client. Changes made to the client's exercise list will also be updated and displayed immediately.
+** *Highlights*: this feature was made to provide convenience to the user so that they do not have to go through extra commands or look through the entire exercise list to find their client's personal best. This feature is also related to the graph feature as users will be able to see the progress of how a client achieves a personal best from the graph.
+
+* *Minor enhancement*: hooked the `view-c` command to FitBiz and added relevant tests to FitBiz.
+
+* *Minor enhancement*: added the height attribute to the `Client` class.
+
+* *Overall contributions*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=ziyingli&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[1.5K+ LOC] | https://github.com/AY1920S2-CS2103T-F11-2/main/graphs/contributors[90+ commits] | https://github.com/AY1920S2-CS2103T-F11-2/main/pulls?q=is%3Apr+is%3Amerged+author%3Aziyingli[18 PRs merged] | https://github.com/AY1920S2-CS2103T-F11-2/main/pulls?q=is%3Apr+reviewed-by%3Aziyingli[50+ PRs reviewed]
+
+* *Other contributions*:
+
+** *Project management*:
+*** Managed labels and issues on the GitHub issue tracker
+** *Enhancements to existing/teammates' features*:
+*** Fixed command parameters and error messages of general features after the practical dry run https://github.com/AY1920S2-CS2103T-F11-2/main/pull/204[#204]
+*** Fixed default value of an attribute a team member created for consistency https://github.com/AY1920S2-CS2103T-F11-2/main/pull/88[#88]
+
+** *Documentation*:
+*** Added the Personal Best Implementation, Graph Implementation, Use Cases and Manual Testing documentation to the Developer Guide https://github.com/AY1920S2-CS2103T-F11-2/main/pull/16[#16], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/203[#203], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/247[#247], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/276[#276], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/284[#284]
+*** Edited Quick Start and added the View Command, Delete Client Command and Graph Command to the User Guide https://github.com/AY1920S2-CS2103T-F11-2/main/pull/75[#75], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/150[#150],  https://github.com/AY1920S2-CS2103T-F11-2/main/pull/270[#270]
+
+** *Summary*:
+*** PRs reviewed with non-trivial review comments: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/44[#44], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/83[#83], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/229[#229]
+*** Issues and bugs reported with non-trivial comments: https://github.com/AY1920S2-CS2103T-F11-2/main/issues/130[#130], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/211[#211], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/250[#250], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/257[#257]
+*** Issues resolved and bugs squashed with non-trivial implementations: https://github.com/AY1920S2-CS2103T-F11-2/main/issues/41[#41], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/81[#81], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/105[#105], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/124[#124], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/211[#211], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/235[#235] https://github.com/AY1920S2-CS2103T-F11-2/main/issues/250[#250], https://github.com/AY1920S2-CS2103T-F11-2/main/issues/257[#257]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete-c-command]
+
+include::../UserGuide.adoc[tag=view-c-command]
+
+include::../UserGuide.adoc[tag=graph-command]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=ziyingli]

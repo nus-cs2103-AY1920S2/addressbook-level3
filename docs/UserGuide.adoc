@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= FitBiz - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,1376 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-F11-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-F11-2` Since: `Feb 2020` Licence: `MIT`
 
-== Introduction
+[[overview]]
+== Overview
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+=== About FitBiz
+
+FitBiz is a fitness business management tool tailor made for fitness coaches to manage their clients. From managing your client's profile to planning your schedules, FitBiz will surely ease the pain and monotony of managing a small to medium client portfolio.
+
+This program is primarily a desktop application and is very optimised for those who prefer to work with a Command Line Interface (CLI). If you can type fast, and have clients to train and manage, FitBiz is definitely for you!
+
+=== About this User Guide
+
+This User Guide explains how to use FitBiz, as well as provides an understanding of the features and commands and some common use cases of this application.
+
+In this guide, we cover:
+
+* How to navigate the Graphical User Interface (GUI)
+* How to use the Command Line Interface (CLI)
+* Syntax of the commands available in FitBiz
+* Common use cases for each command
+* Common problems encountered by users
+
+[[understanding-the-gui]]
+=== Understanding the Graphical User Interface (GUI)
+
+When you first launch FitBiz, you will be greeted by the GUI. In this section, we shall learn about what each section of this GUI is responsible for.
+
+// diagram for hello world command box
+.FitBiz GUI Layout
+image::Ui-annotated.png[]
+
+* **Command Box**: this is where you enter your commands
+** Note that the border will glow green if your command is successfully executed, and red otherwise
+* **Result Box**: this displays feedback and other useful information about your commands that you have just entered
+* **Client List**: this displays all your clients currently recorded in FitBiz
+* **Schedule Panel**: this displays all your schedules of your clients
+* **Client View**: this displays all the important details about the client you are currently viewing (which we refer to as _client in view_). In here, we have 3 further sections:
+** **Client Details**: this displays other information about your client that is otherwise not found in **Client List**
+** **Exercise Table**: this displays all the exercises recorded for the current _client in view_
+** **Personal Best Table**: this displays the personal bests of the exercises done by the current _client in view_
+
+[TIP]
+If this is your first time using FitBiz and you have just started up the application, you may realise that the *Client View* section is missing. This is because you are currently not viewing a client. Refer to <<view-c-command>> for more information about what you need to do.
+
+// tag::understanding-the-cli[]
+[[understanding-the-cli]]
+=== Understanding the Command Line Interface (CLI) --- Aaron Choo
+
+Even though FitBiz comes with a GUI, it is mainly used to display data. Most of the user interaction occurs via the CLI, which in FitBiz, is comprised of the *Command Box* and the *Result Box*. We understand that CLIs have higher barriers to entry and may scare some inexperienced users away. As such, we have provided some features common to most modern CLIs to make your user experience with FitBiz much better. In this section, we shall look at the **Command History** and the **Command Autocomplete** feature, and learn how to effectively utilise them.
+
+[[command-history]]
+==== Command History
+
+Similar to most modern CLIs, users of FitBiz can press the kbd:[&uarr;] and kbd:[&darr;] arrow keys to cycle through their previously entered commands. If you have prior experience in using a CLI, feel free to skip this section as this should be second nature to you. If not, here is a quick tutorial on how to use this time saving feature.
+
+First, start by typing anything into the *Command Box*. It _need not_ have to be a valid command (like those shown in <<Commands>>). In our example, we chose to type `Hello World`:
+
+// diagram for hello world command box
+image::command-history-hello-world.png[]
+
+Next, hit the kbd:[Enter] key to enter the command into FitBiz. Notice that whatever you have typed in the *Command Box* should have disappeared. If you did not enter a valid command (like `Hello World`), the border of the *Command Box* would have turned red, and you would have been prompted by a message saying `Unknown command` in the *Result Box* like shown:
+
+// diagram for invalid command
+image::command-history-unknown-command.png[]
+
+Next, continue entering different commands into the *Command Box*. You can safely ignore all the `Unknown command` prompts for now.
+
+Once you feel like you have entered enough commands into FitBiz, try hitting the kbd:[&uarr;] key several times. You should start to see the history of your entered commands displaying in the *Command Box* in reverse chronological order. If you press the kbd:[&uarr;] key enough times (or simply hold down the key), you would realise that the command in the *Command Box* no longer changes. In our case, it displays `Hello World`, our first ever entered command.
+
+Likewise, you can also see your more recent commands by pressing the kbd:[&darr;] key. Again, if you press it enough times, you would realise that the text from the *Command Box* disappeares (right after displaying your most recent command). This means that you have reached the end of your command history.
+
+[TIP]
+If you are not currently browsing the history, you can press the kbd:[&darr;] key to immediately clear what you are currently typing in the *Command Box*.
+
+[[command-autocomplete]]
+==== Command Autocomplete
+
+Again, similar to most modern CLIs, users of FitBiz can press the kbd:[Tab] key to autocomplete commands that they have partially typed. If the partially typed letters uniquely identifies a valid command in FitBiz (see <<Commands>>), the complete command will automatically appear in the *Command Box*. Otherwise, a list of all commands similar to the ambiguous letters will appear in the *Result Box*.
+
+Also, we understand that some of FitBiz's commands may be particularly long and diffcult to remember. In order to remedy this, we have also provided *autocompletion of parameter prefixes* for some commands, as well as the *use of kbd:[Tab] to easily get to the next prefix*. When autocompleting commands, the caret position will also be automatically set to the most optimal position corresponding to the completed command.
+
+To see this feature in action, type `add-c` into the *Command Box* and press kbd:[Tab]:
+
+image::autocomplete-1.png[]
+
+Immediately, you should have noticed three things:
+
+. All the parameter prefixes pertaining to the `add-c` command have been automatically completed for you
+. Your caret is placed right after the `n/` for you to type your parameter
+. The **Result Box** shows you the usage of the `add-c` command
+
+Now, you can also press the kbd:[Tab] key repeatedly to go to the next parameter prefix, instead of wasting time using your mouse.
+
+Note however, that there are some similar commands in FitBiz that have the same few starting letters. For example: both `add-c` and `add-e` starts with the letter "a". As such, hitting kbd:[Tab] when you have only typed `a` in the *Command Box* will not autocomplete either command (unfortunately, FitBiz cannot read your mind). However, you will find that the command will be completed up till `add-`, the point where `add-e` and `add-c` differs. The **Result Box** will also prompt you with the list of all similar commands found:
+
+image::autocomplete-2.png[]
+
+To autocomplete the parameter prefixes like in the first example above, you would just have to complete the command and press kbd:[Tab] once more.
+
+[TIP]
+Commands and their parameters in FitBiz are always separated by white spaces (ie. ``schedule 1 sch/``). As such, the kbd:[Tab] key will only try to autocomplete your command if your current input in the *Command Box* is a single word. In other words, if your input is made up of more than one word separated by white spaces, FitBiz will ignore your use of kbd:[Tab]. Do not be surprised when you try to autocomplete more than a single word like `add some thing`, and yet receive no response from FitBiz.
+
+[NOTE]
+The autocompletion of the parameter prefixes are only for these commands: `add-c`, `add-e`, `filter-c`, `graph`, and `schedule`. Autocompletion of prefixes for edit commands are not included as we understand that most likely than not, users would only choose to edit one field at a time.
+
+// end::understanding-the-cli[]
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+. Ensure you have Java 11 or above installed in your Computer
+. Download the latest `FitBiz.jar` link:{repoURL}/releases[here]
+. Move the `FitBiz.jar` file to the folder you want to use as the home folder of this application (to reduce clutter, an empty folder is recommended as files will be generated)
+. Double-click the file to start the app. The following GUI should appear in a few seconds:
 +
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
-
-[[Features]]
-== Features
+image::Ui.png[]
+. Type the command in the *Command Box* and press kbd:[Enter] to execute it
+** For example, executing the `help` command will lead you to this page
 
 ====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Refer to the <<understanding-the-gui, GUI>> and <<understanding-the-cli, CLI>> guides if you need help navigating this application
+* Refer to <<Commands>> for the details and syntax of each command
 ====
 
-=== Viewing help : `help`
+== Commands
 
-Format: `help`
+====
+This section introduces the syntax and the usages of the commands available in FitBiz. In explaining the syntax, we will adhere to the following format:
 
-=== Adding a person: `add`
+* Words in `UPPER_SNAKE_CASE` are the parameters to be supplied by the user
+** e.g. in `add-c n/NAME`, `NAME` is a parameter which can be used as `add-c n/John Doe`
+* Items in square brackets are optional
+** e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`
+* Items with `…` after them can be used multiple times including zero times
+** e.g. `[t/TAG]…` can be used as (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order
+** e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable
+====
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== View help: `help`
 
-[TIP]
-A person can have any number of tags (including 0)
+Entering `help` into FitBiz will bring you right here! 😬
+
+// tag::list-c[]
+=== List all clients: `list-c` ---Ng Ming Liang
+
+You can list all clients on the *Client List*. This is useful when your *Client List* has been filtered by the `filter-c` command, and you want to view all clients again. When using `list-c`, there will be no difference to the *Client List* if it is already showing all clients.
+
+*Format*: `list-c`
+
+==== Parameters
+
+The command is simply `list-c`, and has no additional parameters.
+
+==== Example
+
+Let's say you start off with the full *Client List* as shown below.
+
+image::UGListCDiagram0.png[]
+
+Now, let's say you use the command `filter-c` to filter the clients with the `Paleo` tag as such:
+
+image::UGListCDiagram2.png[]
+
+Your *Client List* will now display only the clients that have the `Paleo` tag. In this example, the only client that fit this requirement is `Alex Yeoh`.
+
+image::UGListCDiagram3.png[]
+
+Let's say you are done with the filter, and want to list all your clients on the *Client List* again. Simply enter `list-c`into the *Command Box* and you should be able to see the following:
+
+image::UGListCDiagram4.png[]
+
+==== Common errors / problems
+
+*No clients shown on the Client List*
+
+You may be greeted with the following scene. This means that there are no clients in your FitBiz. You can begin adding clients by using the `add-c` command. Do refer to the `add-c` section in this document for help regarding `add-c`.
+
+image::UGListCDiagram5.png[]
+
+// end::list-c[]
+
+// tag::find-c[]
+
+=== Find clients by name: `find-c` --- Yong Jie
+`find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire *Client List* might be troublesome and difficult. `find-c` is the command for you.
+
+*Format*: `find-c KEYWORD [KEYWORD]...`
+
+==== Parameters
+This section acts as a summary of the important things to note when using `find-c` including their parameters.
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| `KEYWORD` |
+
+* At least one `KEYWORD` must be entered.
+
+* Substitute `KEYWORD` with the names you want to search with +
+
+* You can use multiple `KEYWORD`. +
+e.g. You can enter `find-c bryan low`.
+
+* `KEYWORD` are case insensitive. +
+e.g. Typing `find-c hans` will show clients even with the name `Hans`. +
+For a better understanding, you can refer to the example section .
+
+* The words used for `KEYWORD` have to match at least one word in the name of the clients. +
+e.g. Typing `find-c Bry` will not show clients with the name `Bryan`. +
+For a detailed explanation, you can refer to the commons errors / problems section.
+
+* Clients matching at least one `KEYWORD` will be returned and does not require all the words in their name to match. +
+e.g. Typing `find-c Hans Bo` will show clients `Hans Gruber` and `Bo Yang` and not necessarily just client `Hans Bo`. +
+For a detailed explanation, you can refer to the commons errors / problems section.
+|====================
+
+==== Example
+
+Let's say that you want to find a client named "Bryan Low" in *Client List*. You can simply use the `find-c` command as shown.
+
+. Type `find-c bryan` into *Command Box*, and press `Enter` to execute it.
++
+image::ug-findcExamplePart1.png[]
+
+. *Result Box* will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
++
+image::ug-findcExamplePart2.png[]
+
+. You can now see the clients with "bryan" in their names. As you can see, the name you use to search does not need to be case-senstive. The client that we are looking for "Bryan Low" is in *Client List*.
++
+image::ug-findcExamplePart3.png[]
+
+==== Common errors / problems
+You might face some errors or difficulties when you `find-c`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the result box when using `find-c`.
+
+===== Using incomplete KEYWORD
+You might wonder why `find-c` do not show the clients even though the client is clearly in your client list records. It might be possible that you have entered an incomplete name and does not match any word in the name of that client. The example below might help you understand better.
+
+Example:
+You want to find the client named "Bryan Low" in *Client List*. Below shows that "Bryan Low" indeed exists and is recorded.
+
+image::ug-findcIncompleteNamePart1.png[]
+
+Type `find-c bry` into *Command Box*, and press `Enter` to execute it.
+
+image::ug-findcIncompleteNamePart2.png[]
+
+You will obtain "0 clients listed!" in *Result Box*.
+
+image::ug-findcIncompleteNamePart3.png[]
+
+This is because the name that you have entered is incomplete and does not match any word in the name of any of the clients. To correct this, you have to enter `find-c bryan` as seen in the example.
+
+===== Using multiple KEYWORD
+
+You might wonder why the application shows more clients than you intended. It might be possible that you have misunderstood how the `KEYWORD` parameter gets the client you are finding. The application will show clients as long as one of the words of the client match a keyword you use for name. The example below might help you understand better.
+
+Example:
+You want to find the client named "Bryan Low" in *Client List*.
+
+Type `find-c bryan low` in to *Command Box*, and press `Enter` to execute it.
+
+image::ug-findcMultiplePart1.png[]
+
+You will obtain clients which have `bryan` in their name or `low` in the name. In the case below, there are 3 clients. `Bryan Low`, `Bryan Tan` and `Alice Low`.
+
+image::ug-findcMultiplePart2.png[]
+
+You can try to enter keywords for `NAME` that are more specific to the client you are looking for. This will help to keep your search more scoped.
+
+// end::find-c[]
+
+// tag::add-c-command[]
+
+=== Add a new client profile: `add-c` --- Toh Ker Wei
+
+After setting up the program, the first thing you might want to do is to add your client to FitBiz. You can do so by using the `add-c` command, followed by the details of your client.
+
+*Format*: `add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [g/GENDER] [b/BIRTHDAY] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]…`
+
+==== Parameters
+
+This section summarises the format and important information to note while using the `add-c` command.
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| `n/NAME` + |
+* Substitute `NAME` with the name of the client.
+
+* `NAME` should only contain alphanumeric characters, spaces and commas, and it should not be blank.
+
+* `NAME` is compulsory.
+
+| `p/PHONE` + |
+* Substitute `PHONE` with the phone number of the client. +
+
+* `PHONE` should only contain numbers. +
+
+* `PHONE` should be at least 3 digits long.
+
+* `PHONE` is compulsory.
+
+| `e/EMAIL` + |
+* Substitute `EMAIL` with the email of the client. +
+
+* `EMAIL` should be of the format `xxx@yyy`, where: +
+
+* `xxx` should only contain alphanumeric characters and the set of special characters* shown below this table
+
+* `yyy` must be at least 2 characters long, start and end with alphanumeric characters, and consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+
+* `EMAIL` is compulsory.
+
+| `a/ADDRESS` + |
+
+* Substitute `ADDRESS` as the address of the client.
+
+* `ADDRESS` can take any value, but it should not be blank, or start with a whitespace.
+
+* `ADDRESS` is compulsory.
+
+| `[g/GENDER]` + |
+
+* Substitue `GENDER` with the gender of the client.
+
+* `GENDER` is case insensitive
+
+* `GENDER` can only be `male` or `m`, `female` or `f`, or `others` or `o`.
+
+* `GENDER` is optional.
+
+| `[b/BIRTHDAY]` + |
+
+* Substitue `BIRTHDAY` with the birthday of the client.
+
+* `BIRTHDAY` should be in the format DD-MM-YYYY
+
+* `BIRTHDAY` cannot exceed the current date.
+
+* `BIRTHDAY` cannot be earlier than 120 years from the current year.
+
+* `BIRTHDAY` is optional.
+| `[cw/CURRENT_WEIGHT]` + |
+
+* Substitute `CURRENT_WEIGHT` with the current weight of the client.
+
+* `CURRENT_WEIGHT` must take the value of a whole or decimal number(eg. 65 or 86.22)
+
+* `CURRENT_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
+
+* `CURRENT_WEIGHT` is optional.
+| `[tw/TARGET_WEIGHT]` + |
+
+* Substitute `TARGET_WEIGHT` with the target weight for the client.
+
+* `TARGET_WEIGHT` must take the value of a whole or decimal number(eg. 65 or 86.22)
+
+* `TARGET_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
+
+* `TARGET_WEIGHT` is optional.
+| `[h/HEIGHT]` + |
+
+* Substitue `HEIGHT` with the height of the client.
+
+* `HEIGHT` must either be a whole or decimal number.
+
+* `HEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
+
+* `HEIGHT` is optional.
+| `[s/SPORT]` + |
+
+* Substitute `SPORT` with the sports of the client.
+
+* `SPORT` should only contain alphanumeric characters and spaces.
+
+* Sports given in this command will overwrite all of the client's existing sports.
+
+* `SPORT` is optional.
+| `[t/TAG]` + |
+
+* Substitue `TAG` with a tag for the client.
+
+* `TAG` should only contain alphanumeric characters.
+
+* Tags given in the command will overwrite the Client's existing tags
+
+* You can remove all of the client's tags by typing `t/` without specifying any `TAG`
+
+* `TAG` is optional.
+
+| `[r/REMARK]` + |
+
+* Substitute `REMARK` with remarks for the client.
+
+* `REMARK` should be alphanumeric.
+
+* Any whitespace at the start of `REMARK` will be removed.
+
+* `REMARK` is optional.
+
+|====================
+\*The set of special characters are `!#$%&'*+/=?`{|}~^.-`
+
+==== Example
+Lets say you want to add a new client with the following details: +
+Name: Amanda Low +
+Phone number: 95436543 +
+Email: AmandaLow@dmail.com +
+Address: West Coast Grove 69 +
+Birthday: 5 April 1990 +
+Sport: Swimmer +
+Tag: Vegetarian
+
+. Type the command below into the command box.
++
+* `add-c n/Amanda Low p/95436543 e/AmandaLow@dmail.com a/West Coast Grove 69 s/Swimmer t/Vegetarian`
++
+image::AddExampleCommand.png[]
++
+. Press enter to execute.
++
+. After Amanda has been successfully added to the clients list, the result will be displayed as shown.
+
+image::AddExampleSuccess.png[]
+
+==== Common errors/ problems:
+If you are facing errors or difficulty adding a client, you can refer to the common errors and problems listed below and resolve your error using the solution given.
+
+. *Compulsory fields missing*
++
+If you are adding a client and miss out any of the compulsory parameters. You will not be able to add the client.
++
+For example, when you want to add a `Rachel Tan` into FitBiz but did not include the compulsory field `a/ADDRESS`
++
+image::AddNoAddress.png[]
++
+After pressing enter, the following error message will be shown.
++
+image::AddNoAddressError.png[]
++
+To solve this error, ensure that all compulsory parameters are included when adding a client. The compulsory parameters include: `n/NAME`, `p/PHONE`, `e/EMAIl` and `a/ADDRESS`. To continue with the same example, the command will now include Rachel's address.
++
+image::AddWithAddressCommand.png[]
++
+The result of successfully adding Rachel will show the following
++
+image::AddAddressSuccess.png[]
++
+. *Adding clients with the same phone number or email*
+
+In FitBiz, you cannot add 2 clients with the either same phone number or email.
+
+For example, you have client with the email `RachelTan@dmail.com` and you want to add another client with the same email.
+
+image::AddSameEmailCommand.png[]
+
+The following error message will be shown.
+
+image::AddSameEmailError.png[]
+
+To solve this issue, ensure that any new client you add does not have the same phone number or email as existing client.
+
+// end::add-c-command[]
+
+// tag::edit-c[]
+
+=== Edit a client’s profile: `edit-c` ---Ng Ming Liang
+
+`edit-c` allows you to edit an existing client's details from the *Client List*. There are various attributes that can be edited for the client using this command, which will be covered in this section.
+
+*Format*: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIRTHDAY] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [h/HEIGHT] [s/SPORT]... [t/TAG]... [r/REMARK]`
+
+==== Parameters
+
+This section acts as a summary of the important things to note when using `edit-c` and its parameters. The square bracket shows that it is optional and your command will still execute even if you do not enter them. However, at least one of them have to be specified. The ellipsis after a parameter `...` means that there can be multiple of that same type of parameter.
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| `INDEX` + |
+* Substitute `INDEX` with the index of the desired client to edit. +
+
+* `INDEX` is compulsory and you have to specify it. +
+
+* `INDEX` must be a positive number, and must be a valid index number for a client as displayed from the list of clients. +
+
+| `[n/NAME]` + |
+* Substitute `NAME` with the name of the client.
+
+* `NAME` should only contain alphanumeric characters, spaces and commas, and it should not be blank.
+
+* `NAME` is optional.
+
+| `[p/PHONE]` + |
+* Substitute `PHONE` with the phone number of the client. +
+
+* `PHONE` should only contain numbers. +
+
+* `PHONE` should be at least 3 digits long.
+
+* `PHONE` is optional.
+
+| `[e/EMAIL]` + |
+* Substitute `EMAIL` with the email of the client. +
+
+* `EMAIL` should be of the format `xxx@yyy`, where: +
+
+* `xxx` should only contain alphanumeric characters and the set of special characters* shown below this table
+
+* `yyy` must be at least 2 characters long, start and end with alphanumeric characters, and consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+
+* `EMAIL` is optional.
+
+| `[a/ADDRESS]` + |
+
+* Substitute `ADDRESS` as the address of the client.
+
+* `ADDRESS` can take any value, but it should not be blank, or start with a whitespace.
+
+* `ADDRESS` is optional.
+
+| `[g/GENDER]` + |
+
+* Substitue `GENDER` with the gender of the client.
+
+* `GENDER` is case insensitive
+
+* `GENDER` can only be `male` or `m`, `female` or `f`, or `others` or `o`.
+
+* `GENDER` is optional.
+
+| `[b/BIRTHDAY]` + |
+
+* Substitue `BIRTHDAY` with the birthday of the client.
+
+* `BIRTHDAY` should be in the format DD-MM-YYYY
+
+* `BIRTHDAY` cannot exceed the current date.
+
+* `BIRTHDAY` cannot be earlier than 120 years from the current year.
+
+* `BIRTHDAY` is optional.
+| `[cw/CURRENT_WEIGHT]` + |
+
+* Substitute `CURRENT_WEIGHT` with the current weight of the client.
+
+* `CURRENT_WEIGHT` must take the value of a whole or decimal number(eg. 65 or 86.22)
+
+* `CURRENT_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
+
+* `CURRENT_WEIGHT` is optional.
+| `[tw/TARGET_WEIGHT]` + |
+
+* Substitute `TARGET_WEIGHT` with the target weight for the client.
+
+* `TARGET_WEIGHT` must take the value of a whole or decimal number(eg. 65 or 86.22)
+
+* `TARGET_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
+
+* `TARGET_WEIGHT` is optional.
+| `[h/HEIGHT]` + |
+
+* Substitue `HEIGHT` with the height of the client.
+
+* `HEIGHT` must either be a whole or decimal number.
+
+* `HEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
+
+* `HEIGHT` is optional.
+| `[s/SPORT]` + |
+
+* Substitute `SPORT` with the sports of the client.
+
+* `SPORT` should only contain alphanumeric characters and spaces.
+
+* Sports given in this command will overwrite all of the client's existing sports.
+
+* `SPORT` is optional.
+| `[t/TAG]` + |
+
+* Substitue `TAG` with a tag for the client.
+
+* `TAG` should only contain alphanumeric characters.
+
+* Tags given in the command will overwrite the Client's existing tags
+
+* You can remove all of the client's tags by typing `t/` without specifying any `TAG`
+
+* `TAG` is optional.
+
+| `[r/REMARK]` + |
+
+* Substitute `REMARK` with remarks for the client.
+
+* `REMARK` should be alphanumeric.
+
+* Any whitespace at the start of `REMARK` will be removed.
+
+* `REMARK` is optional.
+
+|====================
+\*The set of special characters are `!#$%&'*+/=?`{|}~^.-`
+[NOTE]
+ At least one of the optional fields must be provided.
+
+==== Example
+
+Let's say you want to edit the address and assign 3 sports (Tennis, Hockey, Badminton) to client `Irfan Ibrahim`. From the `Client List`, you can see that his client `INDEX` is 3.
+
+image::UGEditCDiagram1.png[]
+
+Next, you can enter the command `edit-c 3 a/New Address #123456 s/Tennis s/Hockey s/Badminton` in the *Command Box*.
+
+image::UGEditCDiagram2.png[]
+
+Enter the command, and you should see that the *Result Box* displays the edited client's information, and that the *Client List* has updated `Irfan Ibrahim` to show the new changes.
+
+image::UGEditCDiagram3.png[]
+
+==== Common Errors/Problems
+
+You might face some errors or difficulties when you use edit-e. In this section, you will be able to understand these errors and resolve them.
+
+*Result box not displaying updated client's information*
+
+When you use `edit-c`, instead of seeing the updated client's information in the *Result Box*, you might sometimes encounter an error message informing you about the specifications for the format of the command. This error message varies according to the mistake detected in the parameters given. For simplicity, let's look at one example scenario.
+
+Let's say you attempt to edit the email of `Irfan Ibrahim` and happen to give an incorrect format of the email that does not follow the rules given in the parameters table above for `EMAIL`. Consider the following command: `edit-c 3 e/invalidEmail`.
+
+image::UGEditCDiagram4.png[]
+
+As seen above, the `EMAIL` is of the wrong format as it does not include the `@` symbol and not of the `xxx@yyy` format.
+
+In the example above, the `EMAIL` field was faulty. This behaviour of FitBiz also applies to other faulty parameters for the `edit-c` command, where FitBiz will display information relevant to the faulty parameter, to help you troubleshoot and correct your input.
+
+// end::edit-c[]
+
+
+// tag::delete-c-command[]
+=== Delete a client: `delete-c` --- Li Zi Ying
+
+You find that your client list contains a client who is no longer working with you and you would like to remove his details from your client list. `delete-c` allows you to delete the client at the specified index from your list of clients.
+
+*Format*: `delete-c INDEX`
+
+==== Parameters
+
+This section acts as a summary of the important things to note when using `delete-c` including their parameters.
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| `INDEX` + |
+`INDEX` refers to the index number shown in the displayed client list +
+
+`INDEX` must be a positive integer (ie. 1, 2, 3, ...) +
+|====================
+
+==== Examples
+Let’s say that you want to delete the client named "Alex Yeoh" in client list. You can simply use the `delete-c` command as shown.
+
+. Type `delete-c 1` into the Command Box and press `Enter` to execute it.
++
+image::ug-delete-1.png[]
+. Result Box will display the message of the details of the deleted client. You can now see that the Client List no longer contains the deleted client.
++
+image::ug-delete-2.png[]
+
+==== Common errors/problems
+You might face some errors or difficulties when you use `delete-c`. In this section, you will be able to understand these errors and resolve them.
+
+===== No index specified
+If you type in `delete-c` without specifying the `INDEX`, no client will be deleted and an error message will be shown.
+
+image::ug-delete-3.png[]
+
+This happens because there is no `INDEX` specified. To correct this, you have to enter a valid `INDEX` after `delete-c`.
+
+===== Index out of range
+If you key in an `INDEX` that is out of range, that is if there are only 4 clients in the list but you try to key in `delete-c 5`, no client will be deleted and an error message will be shown.
+
+image::ug-delete-4.png[]
+
+To correct this, you have to enter a valid `INDEX` that is not more than the number of clients in the client list.
+// end::delete-c-command[]
+// tag::view-c-command[]
+
+=== View a client profile: `view-c` --- Li Zi Ying
+
+You might want to view the complete information of a certain client in your client list. This complete information includes the client's full details, their exercise table and personal best table. `view-c INDEX` shows all available information of the client at the specified index.
+
+*Format*: `view-c INDEX`
+
+==== Parameters
+This section acts as a summary of the important things to note when using `view-c` including their parameters.
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| `INDEX` + |
+`INDEX` refers to the index number shown in the displayed client list +
+
+`INDEX` must be a positive integer (ie. 1, 2, 3, ...) +
+
+|====================
+
+==== Examples
+
+Let’s say that you want to view the details of the client named "Alex Yeoh" in client list. You can simply use the `view-c` command as shown.
+
+. Type `view-c 1` into the Command Box and press `Enter` to execute it.
++
+image::ug-view-1.png[]
++
+. Result Box will display the message telling you the client currently in view. You can now see that the Client View is now populated with the client's details, the exercise table and the personal best table.
++
+image::ug-view-2.png[]
+
+==== Common errors/problems
+You might face some errors or difficulties when you use `view-c`. In this section, you will be able to understand these errors and resolve them.
+
+===== No index specified
+If you type in `view-c` without specifying the `INDEX`, no client will be viewed and an error message will be shown.
+
+image::ug-view-3.png[]
+
+This happens because there is no `INDEX` specified. To correct this, you have to enter a valid `INDEX` after `view-c`.
+
+===== Index out of range
+If you key in an `INDEX` that is out of range, that is if there are only 5 clients in the list but you try to key in `view-c 10`, no client will be viewed and an error message will be shown.
+
+image::ug-view-4.png[]
+
+To correct this, you have to enter a valid `INDEX` that is not more than the number of clients in the client list.
+// end::view-c-command[]
+
+// tag::add-e[]
+=== Add a client's exercise: `add-e`  --- YongJie
+`add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in the *Exercise Table*.
+
+*Format*: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
+
+==== Parameters
+This section acts as a summary of the important things to note when using `add-e` including their parameters. The square bracket shows that it is optional and your command will still execute even if you do not enter them.
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| `n/NAME` + |
+* Substitute `NAME` with the name of the exercise. +
+
+* `n/NAME` is compulsory and you have to specify it. +
+
+* `n/NAME` is case sensitive. +
+e.g. An exercise named `pushup` will be considered to have a different name as an exercise named `Pushup`.
+
+| `d/DATE` + |
+* Substitute `DATE` with the date of the exercise. +
+
+* `d/DATE` is compulsory and you have to specify it. +
+
+* `DATE` must be of the form `DD-MM-YYYY` (ie. 02-07-2020 for 2nd July 2020)
+
+* The range of `DATE` is from one year before the current date to the current date (inclusive).
+
+| `[reps/REPS]` + |
+* Substitute `REPS` with the reps of the exercise. +
+
+* `reps/REPS` is optional.
+
+* Range for `REPS` is 1-9999. +
+
+| `[sets/SETS]` + |
+* Substitute `SETS` with the sets of the exercise. +
+
+* `sets/SETS` is optional.
+
+* Range for `SETS` is 1-9999. +
+
+| `[ew/WEIGHT]` + |
+* Substitute `Weight` with the weight of the exercise. +
+
+* `ew/WEIGHT` is optional.
+
+* Range for `WEIGHT` is 1-9999. +
+|====================
+
+==== Example
+Let's say that you want to add an exercise with the following details: +
+[width="50%"]
+|============
+Name: Bench Press +
+Date: 12-02-2020 +
+Reps: 4 +
+Weight: 100 +
+Sets: 4 +
+|============
+You can use the `add-e` command to add the exercise as shown.
+
+. View the client that you want to add the exercise to. For information on how to view the client, you can refer to the `view-c` section. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
++
+image::ug-addeExamplePart1.png[]
+. Now type the information of the exercise, matching each detail of the exercise to the parameter. In this case, you will have to type `add-e n/Bench press d/12-02-2020 reps/4 ew/100 sets/4` into *Command Box*. Press enter to execute it. To recap,
++
+[width="50%"]
+|============
+The name of the exercise after `n/` +
+The date of the exercise after `d/` +
+The reps of the exercise after `reps/` +
+The weight of the exercise after `ew/` +
+The sets of the exercise after `sets/` +
+|============
+image::ug-addeExamplePart2.png[]
+. After it has been successfully entered, *Result Box* will display the recorded exercise. You will also be able to see the recorded exercise in the *Exercise Table*.
++
+image::ug-addeExamplePart3.png[]
+
+==== Common errors / problems
+You might face some errors or difficulties when you use `add-e`. In this section, you will be able to understand these errors and resolve them.
+
+===== Duplicate exercises
+You might wonder why the application shows you a duplicate exercise error when the details of the exercises you entered are different. It is likely that only the sets differ between the two exercises. The example below might help you understand better.
+
+You might have the following exercise in *Exercise Table*.
+
+image::ug-addeDuplicatePart1.png[]
+
+If you were to enter `add-e n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into *Command Box*, the only information that is different is the number of sets.
+
+image::ug-addeDuplicatePart2.png[]
+
+*Result Box* will show that you have a duplicate exercise.
+
+image::ug-addeDuplicatePart3.png[]
+
+To solve this, we suggest incrementing the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact. For information on using `edit-e`, you may want to refer to the next section `Edit a client's exercise: edit-e`.
+// end::add-e[]
+
+// tag::edit-e[]
+=== Edit a client's exercise: `edit-e` --- YongJie
+`edits-e` allows edit an existing exercise done by the client that you are currently viewing. You will be able to see the updated exercise in *Exercise Table*.
+
+*Format*: `edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
+
+==== Parameters
+This section acts as a summary of the important things to note when using `edit-e` including their parameters. The square bracket shows that it is optional and your command will still execute even if you do not enter them. However, at least one of them have to be specified.
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| `INDEX` + |
+* Substitute `INDEX` with the index of the exercise shown on the table. +
+
+* `INDEX` is compulsory and you have to specify it. +
+
+| `[n/NAME]` + |
+* Substitute `NAME` with the name of the exercise. +
+
+* `n/NAME` is optional. +
+
+* `n/NAME` is case sensitive. +
+e.g. An exercise named `pushup` will be considered to have a different name as an exercise named `Pushup`.
+
+|`[d/DATE]` + |
+* Substitute `DATE` with the date of the exercise. +
+
+* `d/DATE` is optional. +
+
+* `DATE` must be of the form `DD-MM-YYYY` (ie. 02-07-2020 for 2nd July 2020) +
+
+* The range of `DATE` is from one year before the current date to the current date (inclusive).
+
+| `[reps/REPS]` + |
+* Substitute `REPS` with the reps of the exercise. +
+
+* `reps/REPS` is optional.
+
+* Range for `REPS` is 1-9999. +
+
+| `[sets/SETS]` + |
+* Substitute `SETS` with the sets of the exercise. +
+
+* `sets/SETS` is optional.
+
+* Range for `SETS` is 1-9999. +
+
+| `[ew/WEIGHT]` + |
+* Substitute `Weight` with the weight of the exercise. +
+
+* `ew/WEIGHT` is optional.
+
+* Range for `WEIGHT` is 1-9999. +
+|====================
+==== Example
+Let's say that you want to edit an exercise done by the client you are currently viewing. The exercise that you want to edit is the one highlighted in the photo below.
+
+image::ug-editeExamplePart1.png[]
+
+The exercise, "Bench Press", currently is 4 reps and weight of 100. However, they might be entered wrongly and you want to change the values. You can use the `edit-e` command to edit the exercise as shown.
+
+. Identify the index of the exercise in *Exercise Table*. From the photo above, the index is 2. Type `edit-e 2 reps/8 ew/50` into *Command Box*. Press enter to execute it. To recap,
++
+[width="50%"]
+|============
+The reps of the exercise after `reps/` +
+The weight of the exercise after `ew/` +
+|============
+image::ug-editeExamplePart2.png[]
+. After it has been successfully entered, *Result Box* will display a success message that the exercise has been edited. You will also be able to see the edited exercise in *Exercise Table*.
++
+image::ug-editeExamplePart3.png[]
+
+==== Common errors / problems
+You might face some errors or difficulties when you use `edit-e`. In this section, you will be able to understand these errors and resolve them.
+
+===== Duplicate exercises
+You might wonder why the application shows you a duplicate exercise error when you do not have a duplicate of the edited exercise. It is likely that only the sets differ between the two exercises. The example below might help you understand better.
+
+You might have the following exercise in *Exercise Table*.
+
+image::ug-editeDuplicatePart1.png[]
+
+If you were to enter `edit-e 2 n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into *Command Box*, the only information that is different is the number of sets.
+
+image::ug-editeDuplicatePart2.png[]
+
+*Result Box* will show that you have a duplicate exercise.
+
+image::ug-editeDuplicatePart3.png[]
+
+To solve this, we suggest you delete the exercise you want to edit and increment the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact.
+// end::edit-e[]
+
+// tag::delete-e-command[]
+
+=== Delete a client's exercise: `delete-e` --- Aaron Choo
+
+`delete-e` allows you to delete a previously recorded exercise of the client currently in view.
+
+*Format*: `delete-e INDEX`
+
+[NOTE]
+This command can only be used when you have a client in view; make sure you know how to view a client first. Refer to <<view-c-command>> for more information.
+
+[WARNING]
+Deleting an exercise from FitBiz is permanent and *cannot be undone*.
+
+==== Parameters
+
+[options='header']
+[cols="15%,85%"]
+|===
+| Parameters | Important points to note
+| `INDEX` + | Substitute `INDEX` with the actual index of the exercise shown on the *Exercise Table*
+
+Must be a positive integer (eg. 1, 2, 3, ...)
+|===
+
+==== Example
+
+. First, ensure that you are currently viewing a client by using the `view-c` command:
++
+image::delete-e-1.png[]
+. Say for example that you want to delete the fifth exercise found on the **Exercise Table** (the one named "Bench Press" done on "07-04-2020"), simply enter `delete-e 5`:
++
+image::delete-e-2.png[]
+. After the command has been successfully executed, the specified exercise should have been deleted. Notice also, in the *Personal Best Table* that the personal best for "Bench Press" has also been automatically updated to reflect this change:
++
+image::delete-e-3.png[]
+
+==== Common errors/problems
+
+If you find that you are unable to execute this command successfully, there are a few things you can check:
+
+. Ensure that you are currently viewing a client using the `view-c` command. If you are indeed viewing a client, the *Client View* should not be empty.
+. Ensure that you actually have exercises to delete and that the `INDEX` specified is correct. If the client does indeed have recorded exercises, the *Exercise Table* should not be empty.
+
+// end::delete-e-command[]
+
+// tag::schedule[]
+=== Schedule trainings for a client: `schedule` ---Ng Ming Liang
+
+`Schedule` allows you to assign weekly schedule timings to a client. The schedule will be displayed on the right panel of FitBiz, with the timings as well as the client's name. You can assign multiple schedules to a client at once, by adding more arguments following the command. All of the schedules from the current *Client List* will be displayed on the *Schedule Panel*.
+
+*Format*: `schedule INDEX sch/DAY-STARTTIME-ENDTIME [sch/DAY-STARTTIME-ENDTIME]...`
+
+[NOTE]
+The `schedule` command overwrites the client's existing schedule with the new schedules given in the command.
+
+==== Parameters
+
+This section acts as a summary of the important things to note when using `schedule`. The square bracket shows that it is optional and your command will still execute even if you do not enter them.
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| `INDEX` + |
+* Substitute `INDEX` with the index of the desired client to add the schedule to. +
+
+* `INDEX` is compulsory and you have to specify it. +
+
+* `INDEX` must be a positive number, and must be a valid index number for a client as displayed from the list of clients. +
+
+| `DAY` + |
+* Substitute `DAY` with the first three letters of the day. +
+eg. MON / TUE / WED / THU / FRI / SAT / SUN
+
+* `DAY` is compulsory and you have to specify it. +
+
+* `DAY` can only be one of the above seven values. +
+
+* `DAY` is not case sensitive.
+
+| `STARTTIME` + |
+* Substitute `STARTTIME` with the starting time of the schedule slot. +
+
+* `STARTTIME` is compulsory.
+
+* Range for `STARTTIME` is 0000-2359. +
+
+* `STARTTIME` must always be earlier than or equal to `ENDTIME`.
+
+| `ENDTIME` + |
+* Substitute `ENDTIME` with the ending time of the schedule slot. +
+
+* `ENDTIME` is compulsory.
+
+* Range for `ENDTIME` is 0000-2359. +
+
+* `ENDTIME` must always be equal to or later than `STARTTIME`.
+|====================
+
+==== Example
+
+Let's say you want to schedule a weekly Monday 11:00am to 12:00pm slot for your client Alex Yeoh. Alex Yeoh is the first client on your *Client List*.
+
+image::UGScheduleDiagram1.png[]
+
+You can see that Alex Yeoh's client index is `1`. Therefore, you can proceed to type the `schedule` command in the *Command Box* to assign a schedule slot to him.
+
+image::UGScheduleDiagram2.png[]
+
+After you enter the command, you can see that the *Result Box* has notified you of the new overwritten schedule, and that Alex Yeoh's schedule slot has appeared on the *Schedule Panel* on Monday.
+
+image::UGScheduleDiagram3.png[]
+
+Now let's say you want to add multiple schedules to Bernice Yu: Monday 8:00am to 10:00pm and Tuesday 4:00pm to 6:00pm. You can do that by adding both of these timings into the `schedule` command following the same format as above.
+
+image::UGScheduleDiagram4.png[]
+
+Now enter the command, and you'll see that Bernice's schedules also show up on the *Schedule Panel*.
+
+image::UGScheduleDiagram5.png[]
+
+Finally, let's say Alex no longer has any schedule slots, and you want to clear it. Simply type in `schedule 1 sch/` in the *Command Box* to clear his schedule, and you should see this.
+
+image::UGScheduleDiagram6.png[]
+
+==== Common Errors/Problems
+
+You might face some errors or difficulties when you use `schedule`. In this section, you will be able to understand these errors and resolve them.
+
+*Overlapping schedules*
+
+You might encounter the message that "One or more of your input schedules have overlapping time periods. Please check again." This means that there is a overlapping time period between at least two of your input schedules. In this case as shown below, the first schedule `sch/MON-1100-1200` conflicts with the second schedule `sch/MON-1200-1300` because the end time of the first schedule overlaps with the start time of the second schedule.
+
+image::UGScheduleDiagram7.png[]
+
+[NOTE]
+Overlapping schedules are not allowed between schedules within the same client. However, *different clients* can have overlapping schedules with each other as it is a possible scenario that you as a gym coach can coach multiple clients at once, and that additional clients can join/leave the session as other sessions are ongoing.
+
+*Invalid command format*
+
+You might encounter the error message from the *Result Box* specifying the format that you should be using for the `schedule` command. This means that there are one or more errors in the format of your input for the `schedule` command. In the example input shown below, `schedule 2 sch/TUESDAY-800-1:00`, there are multiple errors. First, the `DAY` should be three letters. Next, the `STARTTIME` and `ENDTIME` should follow the HHmm format. The correct input for this should be `schedule 2 sch/TUE-0800-1300`.
+
+image::UGScheduleDiagram8.png[]
+// end::schedule[]
+
+// tag::export-command[]
+[[export-command]]
+=== Export a client's exercises to CSV format: `export` --- Aaron Choo
+
+`export` allows you to export your client's recorded exercises into a spreadsheet format which you can then easily save or share with your clients. Note that this will create a CSV file, which you can view and open in other applications like Microsoft Excel, or Google Sheets (as shown in the example later).
+
+*format*: `export`
+
+[NOTE]
+This command can only be used when you have a client in view; make sure you know how to view a client first. Refer to <<view-c-command>> for more information.
+
+==== Quick summary
+
+* Only the exercises of the current client in view will be exported
+* Exported files will be saved in the `/exports` directory
+* The name of the exported file will be the client's name followed by the `.csv` file extension (eg. `Alex Yeoh.csv`)
+
+==== Example
+
+. First, ensure that you are currently viewing a client by using the `view-c` command:
++
+image::export-1.png[]
+. Now, if the client you are viewing currently has recorded exercises in the *Exercise Table*, simply execute the `export` command
+. The exercises should have been successfully exported, if the following success message is shown:
++
+image::export-2.png[]
+. Now, simply use your favourite file explorer to locate the `exports` folder, which should be created in the same directory as `FitBiz.jar`. In the `exports` folder, you will then find your exported CSV file:
++
+image::export-3.png[]
+. If you have a spreadsheet software (like Microsoft Excel) installed on your computer, you can easily view the CSV file by launching it. In our example, we have https://support.google.com/docs/answer/40608?co=GENIE.Platform%3DDesktop&hl=en[imported it into Google Sheets] instead:
++
+image::export-4.png[]
+
+==== Common errors/problems
+
+If you find that you are unable to execute this command successfully, there are a few things you can check:
+
+. Ensure that you are currently viewing a client using the `view-c` command. If you are indeed viewing a client, the *Client View* should not be empty.
+. Ensure that you actually do have exercises recorded for the client currently in view using the `add-e` command. If the client does indeed have recorded exercises, the *Exercise Table* should not be empty.
+
+// end::export-command[]
+
+// tag::filter-c-command[]
+[[]]
+=== Filter clients based on attribute: `filter-c` --- Toh Ker Wei
+
+When you have many clients and want to filter the list of clients to view a specific group, you can use the command `filter-c` to filter clients based on their tags or their sports.
+
+*Format*: `filter-c [t/TAG]... [s/SPORT]...`
+
+==== Parameters
+
+[options='header']
+[cols= "15%,85%"]
+|===
+|Parameter | Important notes
+| `[t/TAG]` + | `TAG` is the tag of the clients you want to match and list. +
+
+`TAG` is case-insensitive. +
+e.g. `healthy` will match `Healthy`
+
+`TAG` should only contain letters or numbers. +
+e.g. `monday` or `obese200kg`
+
+|`[s/SPORT]` + | `SPORT` is the sport of the clients you want to match and list. +
+
+`SPORT` is case-insensitive. +
+e.g.  `track and field` returns the same result as `Track And Field`
+
+`SPORT` should only contain letters, numbers or spaces.
+e.g. `sumo wrestling` or `100m sprint`
+
+Order of words in `SPORT` does not matter
+e.g. `track and field` returns the same result as `field and track`
+|===
+
+==== Example
+
+Let's say you want to filter through your list of clients and only display those with the tag `healthy` and play the sport `badminton`.
+
+. Type the command `filter-c t/healthy s/badminton` into the command box.
++
+image::FilterExampleCommand.png[]
++
+. Press enter to execute.
++
+. The clients with the matching tag and sport will be displayed as shown.
+
+image::FilterExampleSuccess.png[]
+
+==== Common error/ problem
+*Tags with spaces*
+
+When you want to filter the clients list with multiple tags like `healthy` and `sporty`, you might enter the command shown below.
+
+image::FilterTagCommand.png[]
+
+You will then encounter the error `Tags names should be alphanumeric`.
+
+image::FilterTagError.png[]
+
+This error occurs because `TAG` only accepts letters and numbers but not spaces. To solve the problem, add an additional delimiter for each tag you want to specify. Note that sports does not require multiple delimiter.
+
+image::FilterTagCorrectCommand.png[]
+
+The list of successfully filter clients will then be displayed.
+
+image::FilterTagSuccess.png[]
+// end::filter-c-command[]
+
+// tag::graph-command[]
+=== Display visualisations of training progress: `graph` --- Li Zi Ying
+
+`graph` allows you to see a graphical visualisation of a client’s exercise progress within a specified timeframe, so that you can easily track your client's progress and improvement.
+
+*Format*: `n/EXERCISE_NAME a/Y_AXIS sd/START_DATE ed/END_DATE`
+
+==== Parameters
+
+This section acts as a summary of important things to note when using `graph` including their parameters.
+
+[options='header']
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| `n/EXERCISE_NAME` + |
+Substitute `EXERCISE_NAME` with the name of the exercise. +
+
+`n/EXERCISE_NAME` is compulsory and you have to specify it. +
+
+`n/EXERCISE_NAME` is case sensitive. +
+e.g. An exercise `pushup` will be considered to be different from the exercise `Pushup`.
+
+| `a/Y_AXIS` + |
+Substitute `Y_AXIS` with the y-axis of your choice. +
+
+`Y_AXIS` is compulsory and you have to specify it. +
+
+`Y_AXIS` must either be `reps` or `weight` (case insensitive), allowing you to specify the exercise attribute you wish to focus on +
+e.g. `Reps`, `weigHt` and `WEIGHT` will be valid inputs for `Y_AXIS`. +
+
+| `sd/START_DATE` + |
+Substitute `START_DATE` with the start date of your graph. +
+
+`sd/START_DATE` is compulsory and you have to specify it. +
+
+`START_DATE` must be of the form `DD-MM-YYYY` (ie. 02-07-2020 for 2nd July 2020) +
+
+The range of `START_DATE` is from one year before the current date to the current date (inclusive). +
+
+`START_DATE` cannot be chronologically after `END_DATE` +
+
+| `ed/END_DATE` + |
+Substitute `END_DATE` with the end date of your graph +
+
+`ed/END_DATE` is compulsory and you have to specify it. +
+
+`END_DATE` must be of the form `DD-MM-YYYY` (ie. 02-07-2020 for 2nd July 2020) +
+
+The range of `END_DATE` is from one year before the current date to the current date (inclusive). +
+
+`END_DATE` cannot be chronologically before `START_DATE` +
+|====================
+
+==== Example
+
+Let's say that you wish to view the exercise graph of `Alex Yeoh` for the exercise `Sumo Deadlift` from the date `01-01-2020` to `13-04-2020` and you want to focus on the `weight` he lifted during the exercise.
+
+You can use the `graph` command to view the graph of the exercise following the steps as shown:
+
+. First view the client that you want to view the exercise graph of. For information on how to view the client, you can refer to the `view-c` section. For this example, we will view the graph of `Alex Yeoh`, who is the first client in the client list. After entering `view-c 1`, you will see the full detailed information and a table of recorded exercises of client `Alex Yeoh`.
++
+image::ug-graph-1.png[]
+. Next, simply type the graph command `graph n/Sumo Deadlift a/weight sd/01-01-2020 ed/13-04-2020` into the Command Box.
++
+image::ug-graph-2.png[]
+. The graph will appear separately in a window.
++
+image::ug-graph-3.png[]
+. You will see the Result Box informing you of the current graph displayed. Note that any changes made using `add-e, edit-e, delete-e` will not be reflected in the graph.
++
+image::ug-graph-4.png[]
+
+==== Common errors/problems
+You might face some errors or difficulties when you use `graph`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the Result Box when using `graph`.
+
+===== No exercise within stipulated timeframe
+If you have keyed in the `graph` command in the correct format but the graph is not appearing, you might want to check the start and end dates in your command. In the example below, the exercise clearly exists in the exercise list, but not within the stipuated timeframe. Therefore the graph will not be displayed.
+
+. The exercise `Sumo Deadlift` clearly exists in the exercise list. However, there are no records of `Sumo Deadlifts` from `01-01-2020` to `01-02-2020`.
++
+image::ug-graph-5.png[]
+. The graph will not appear and an error message will be shown.
++
+image::ug-graph-6.png[]
+
+To correct this, change the timeframe to one where there is at least one existing record of the specified exercise in the current exercise list.
+
+===== No exercise for stipulated axis
+
+If you have keyed in the `graph` command in the correct format but the graph is not appearing, you might want to check the y-axis in your command. In the example below, the exercise clearly exists in the exercise list, but there are no inputs for the stipulated y-axis. Therefore the graph will not be displayed.
+
+. The exercise `Push Up` clearly exists in the given timeframe. However, there are no inputs for weight as seen in the exercise table.
++
+image::ug-graph-7.png[]
+. The graph will not appear and an error message will be shown.
++
+image::ug-graph-8.png[]
+
+To correct this, change the axis to one where there is at least one non-empty input of the  exercise in the current exercise list. You could also choose to view another exercise's graph instead.
+
+===== Invalid time frame
+
+If you have keyed in the `graph` command in the command box but the graph is not appearing, you might want to check the start and end dates. In the example below, the command format looks correct but the start date is later than the end date. This is not allowed and therefore the graph will not be displayed.
+
+. The start date `01-04-2020` is chronologically later than the end date `01-02-2020`.
++
+image::ug-graph-9.png[]
+. The graph will not appear and an error message will be shown.
++
+image::ug-graph-10.png[]
+
+To correct this, the start date has to be earlier or the same as the end date.
+// end::graph-command[]
+=== View schedule for the day/week: `view-s` [Coming in v2.0]
+
+Shows the schedule for today or the time specified.
+
+Format: `view-s TYPE`
+
+* `TYPE` must be either `today`, `week` or `month`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* `view schedule today`
+** Shows the schedule for today
+* `view schedule week`
+** Shows the schedule of the current week
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous FitBiz folder.
 
+// tag::commands[]
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+=== General Commands
+
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`export INDEX`| Exports client's training record to a CSV file.
+|`help`| Shows all available commands and their description.
+|`view-s TYPE` [v2.0]| Shows schedule for today or time specified.
+|=======================================================================
+
+=== Client Commands
+
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`add-c n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]…`| Adds a new client into FitBiz.
+|`delete-c INDEX`| Deletes a client and its associated exercises.
+|`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​`| Edits an existing client.
+|`filter-c [t/TAG]... [s/Sport]...`| Filters the list of clients based on specified tags or sports.
+|`find-c KEYWORD [KEYWORD]...`| Filters the list of clients based on specified name.
+|`list-c`| Displays the list of clients in FitBiz.
+|`schedule INDEX sch/DAY-STARTTIME-ENDTIME`| Assigns a schedule to a client.
+|`view-c INDEX`| Shows detailed information of a client.
+|=======================================================================
+
+=== Exercise Commands
+
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`add-e n/EXERCISE_NAME d/DATE ew/WEIGHT reps/REPS sets/SETS`| Adds a new exercise to the client being viewed.
+|`delete-e INDEX`| Deletes an exercise in the exercise list of the client being viewed.
+|`edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/WEIGHT] [reps/REPS] [sets/SETS]`| Edits the exercise details of the client being viewed.
+|`graph n/NAME a/AXIS sd/STARTDATE ed/ENDDATE`| Shows a graph of the exercise progress done by a client between the indicated dates.
+|=======================================================================
+// end::commands[]

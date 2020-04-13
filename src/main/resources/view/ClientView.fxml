@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<?import javafx.geometry.Insets ?>
+<?import javafx.scene.control.Label ?>
+<?import javafx.scene.control.ScrollPane ?>
+<?import javafx.scene.layout.ColumnConstraints ?>
+<?import javafx.scene.layout.FlowPane ?>
+<?import javafx.scene.layout.GridPane ?>
+<?import javafx.scene.layout.HBox ?>
+<?import javafx.scene.layout.RowConstraints ?>
+<?import javafx.scene.layout.VBox ?>
+
+
+<ScrollPane id="clientView" fx:id="scrollPane" fitToWidth="true" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+   <content>
+      <GridPane>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+         </columnConstraints>
+         <children>
+            <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0" GridPane.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="5" left="15" right="5" top="5" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5">
+                     <children>
+                        <Label fx:id="name" styleClass="view-name-label" text="\$first" wrapText="true" />
+                     </children>
+                  </HBox>
+                  <FlowPane fx:id="tags" />
+                  <Label fx:id="gender" styleClass="view-attributes-label" text="\$gender" wrapText="true" />
+                  <Label fx:id="birthday" styleClass="view-attributes-label" text="\$birthday" wrapText="true" />
+                  <Label fx:id="height" styleClass="view-attributes-label" text="\$height" wrapText="true" />
+                  <Label fx:id="currentWeight" styleClass="view-attributes-label" text="\$currentWeight" wrapText="true" />
+                  <Label fx:id="targetWeight" styleClass="view-attributes-label" text="\$targetWeight" wrapText="true" />
+                  <Label fx:id="remark" styleClass="view-attributes-label" text="\$remark" wrapText="true" />
+                  <FlowPane fx:id="sports" />
+               </children>
+            </VBox>
+         </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+   </content>
+
+</ScrollPane>

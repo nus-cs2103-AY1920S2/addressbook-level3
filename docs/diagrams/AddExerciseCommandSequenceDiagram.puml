@@ -1,0 +1,83 @@
+@startuml AddExerciseCommandSequenceDiagram
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+    Participant ":AddExerciseCommand" as AddExerciseCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+    Participant ":Model" as model MODEL_COLOR
+    Participant "clientToEdit:Client" as client MODEL_COLOR
+    Participant "clientToEditExerciseList:UniqueExerciseList" as UniqueExerciseList MODEL_COLOR
+    Participant "editedClient:Client" as client2 MODEL_COLOR
+end box
+
+[-[LOGIC_COLOR]> AddExerciseCommand : execute(model)
+
+activate AddExerciseCommand LOGIC_COLOR
+AddExerciseCommand -[LOGIC_COLOR]> model : hasClientInView()
+
+activate model MODEL_COLOR
+model --[MODEL_COLOR]> AddExerciseCommand : True
+deactivate model
+note left
+Exceptions thrown
+are omitted
+end note
+
+AddExerciseCommand -[LOGIC_COLOR]> model : getClientInView()
+activate model MODEL_COLOR
+AddExerciseCommand <[MODEL_COLOR]-- model : clientToEdit
+deactivate model
+
+AddExerciseCommand -[LOGIC_COLOR]> client : getExerciseList()
+activate client MODEL_COLOR
+AddExerciseCommand <[MODEL_COLOR]-- client : clientToEditExerciseList
+deactivate client
+
+AddExerciseCommand -[LOGIC_COLOR]> UniqueExerciseList : contains(toAdd)
+activate UniqueExerciseList MODEL_COLOR
+AddExerciseCommand <[MODEL_COLOR]-- UniqueExerciseList : false
+deactivate UniqueExerciseList
+
+AddExerciseCommand -[LOGIC_COLOR]> model : addExerciseToClient(toAdd)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]> model : getClientInView()
+activate model MODEL_COLOR_T2
+model --[MODEL_COLOR]> model : clientToEdit
+deactivate model
+model -[MODEL_COLOR]> client : getExerciseList()
+activate client MODEL_COLOR
+model <[MODEL_COLOR]-- client : clientToEditExerciseList
+deactivate client
+
+ref over model, UniqueExerciseList
+    addToSorted
+end ref
+
+model -[MODEL_COLOR]> client2 ** : Client(...)
+note left
+The parameters used
+in the constructor is
+simplified to "..."
+end note
+activate client2 MODEL_COLOR
+
+client2 --[MODEL_COLOR]> model : editedClient
+deactivate client2
+
+model -[MODEL_COLOR]-> AddExerciseCommand : editedClient
+deactivate model
+
+note over AddExerciseCommand
+Personal Best sequence
+is omitted and
+shown in Personal Best
+Section
+end note
+
+[<[LOGIC_COLOR]-- AddExerciseCommand : CommandResult
+deactivate AddExerciseCommand
+
+@enduml
