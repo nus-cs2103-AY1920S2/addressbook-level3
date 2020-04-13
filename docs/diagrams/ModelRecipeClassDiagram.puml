@@ -5,6 +5,14 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Class HiddenOutside #FFFFFF
+
+Package Model <<Rectangle>>{
+
+Interface Model <<Interface>>
+Class Model
+Class ModelManager
+
 Package Recipe {
 Class Recipe
 Class Name
@@ -23,6 +31,10 @@ Class Quantity
 Enum Unit <<enumeration>>
 }
 }
+
+HiddenOutside ...> Model
+ModelManager o--> "1" RecipeBook
+ModelManager .up.|> Model
 
 RecipeBook *--> "1" UniqueRecipeList
 UniqueRecipeList o--> "*" Recipe

@@ -5,6 +5,13 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Class HiddenOutside #FFFFFF
+
+Package Model <<Rectangle>>{
+
+Interface Model <<Interface>>
+Class Model
+Class ModelManager
 class PlannedBook
 
 Package Plan {
@@ -13,7 +20,14 @@ Package Plan {
     class PlannedRecipeMap
 }
 class Date
-class Recipe
+
+Package Recipe {
+    class Recipe
+}
+HiddenOutside ...> Model
+ModelManager o--> "1" PlannedBook
+ModelManager .up.|> Model
+
 
 PlannedBook *-down->"1" UniquePlannedList
 PlannedBook *-down->"1" PlannedRecipeMap

@@ -5,6 +5,14 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+
+Class HiddenOutside #FFFFFF
+
+Package Model <<Rectangle>>{
+
+Interface Model <<Interface>>
+Class Model
+Class ModelManager
 class QuoteBook
 
 Package Quote {
@@ -12,7 +20,9 @@ Package Quote {
     class Quote
     class Content
 }
-
+HiddenOutside ...> Model
+ModelManager o--> "1" QuoteBook
+ModelManager .up.|> Model
 
 QuoteBook *-down->"1" UniqueQuoteList
 UniqueQuoteList o--> "*" Quote
