@@ -343,11 +343,11 @@ The Add Group feature is implemented to allow users to track social activities w
 itself. A `Group` can be created with or without `Person` as member(s), but must have a `Name`.
 
 This feature creates a new `Group` instance, which is then stored in an instance of `UniqueGroupList`,
-which in turn is stored in the `AddressBook`. These classes are part of the `model` package.
+which in turn is stored in the `AddressBook`. These classes are part of the `model` component.
 
 The feature is supported by the `AddGroupCommand` class, which extends the abstract
 class `Command` and `AddGroupCommandParser`, which implements the `Parser` interface. These classes are part of the
-`logic` package.
+`logic` component.
 
 The following class diagram showcases the relationship between the main classes that support this command and
 key attributes and methods:
@@ -484,7 +484,7 @@ The Edit Group Feature allows the user to edit an existing `Group` in the app.
 
 The Edit Group Feature is facilitated by the `EditGroupCommand`, which extends the abstract class `Command`, and
 the `EditGroupCommandParser`, which implements the `Parser` interface. Both of these classes are part of the `Logic`
-package. Additionally, a private and static `EditGroupDescriptor` class is present in `EditGroupCommand` as a container
+component. Additionally, a private and static `EditGroupDescriptor` class is present in `EditGroupCommand` as a container
 class to encapsulate attributes to be edited for a `Group`.
 
 he following operations are implemented and used for accomplishing this feature:
