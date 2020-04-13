@@ -1,0 +1,48 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":NasaBookParser" as NasaBookParser LOGIC_COLOR
+participant ":ExportCalendarCommandParser" as ExportCalendarCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant ":ExportCalendarCommand" as ExportCalendarCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute(command)
+activate LogicManager
+
+LogicManager -> NasaBookParser : parseCommand(command)
+activate NasaBookParser
+
+create ExportCalendarCommandParser
+NasaBookParser -> ExportCalendarCommandParser
+
+activate ExportCalendarCommandParser
+ExportCalendarCommandParser --> NasaBookParser
+deactivate ExportCalendarCommandParser
+
+NasaBookParser -> ExportCalendarCommandParser : parse(input)
+activate ExportCalendarCommandParser
+
+ExportCalendarCommandParser -> ParserUtil : parseFilePath(filepath)
+activate ParserUtil
+
+ParserUtil --> ExportCalendarCommandParser : Path object
+deactivate ParserUtil
+
+create ExportCalendarCommand
+ExportCalendarCommandParser -> ExportCalendarCommand : new ExportCalendarCommand(Path)
+activate ExportCalendarCommand
+
+ExportCalendarCommand --> ExportCalendarCommandParser : ExportCalendarCommand(Path)
+deactivate ExportCalendarCommand
+
+ExportCalendarCommandParser --> NasaBookParser : ExportCalendarCommand(Path)
+deactivate ExportCalendarCommandParser
+
+ExportCalendarCommandParser -[hidden]-> NasaBookParser
+destroy ExportCalendarCommandParser
+
+NasaBookParser --> LogicManager : ExportCalendarCommand(path)
+@enduml

@@ -86,8 +86,8 @@ public class CalendarView extends UiPart<Region> {
             @Override
             public void onChanged(Change<? extends Module> c) {
                 resetCalendar();
-                loadActivities(moduleObservableList);
                 updateCalendar(moduleObservableList);
+                loadActivities(moduleObservableList);
             }
         });
         updateCalendar(moduleObservableList);
@@ -314,7 +314,7 @@ public class CalendarView extends UiPart<Region> {
         for (Node cell : calendarCells) {
             if (GridPane.getRowIndex(cell) != null
                 && GridPane.getRowIndex(cell) != 0) {
-                ObservableList<Node> nodes = ((VBox) cell).getChildren();
+                ObservableList<Node> nodes = ((VBox) ((ScrollPane) cell).getContent()).getChildren();
                 if (nodes.size() > 1) {
                     nodes.remove(1, nodes.size());
                 }

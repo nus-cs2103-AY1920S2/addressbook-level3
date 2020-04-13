@@ -1,7 +1,6 @@
 package nasa.ui.activity;
 
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;

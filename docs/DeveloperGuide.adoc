@@ -192,15 +192,15 @@ image::undoSequenceDiagramV2.png[]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== Add Deadlines and Events Feature
+=== Add Deadlines feature
 
-Deadlines, lessons and events are to be added with their own commands. Refer to the user guide for the specific commands. Adding of activities is facilitated by ModelManager#addActivity.
-In general, while they have their own commands, the internal workings are very similar.
+`Contributed by: kester-ng`
+
+Users can add in deadlines into a specific module, the following subsections explains the implementation and design considerations for the feature.
 
 ==== Implementation
-For any adding of activities, the command used will be the name of the activity. For instance, to add deadline, the command will be `deadline [paramters...]`.
 
-The following activity diagram shows how a deadline (example) can be added. Lessons and events follow the same flow.
+The following activity diagram shows how a deadline (example) can be added.
 
 image::AddDeadlineActivityDiagram.png[]
 
@@ -233,54 +233,10 @@ The design considerations for the classes are shown below:
 |Choice| Pros:|Cons:
 |1.Placing all events, deadlines and lessons into one class called Activity|Easy and fast to implement. Very efficient and less dependencies|Bad design, and one class handles all three different logics.
 |2.Having an abstract Activity class, and events, deadlines and lessons all inherit that abstract class|Somewhat easy to implement, polymorphism allows changing of one class without affecting the others.|Attributes can vary for different tasks. Hence additional code may be needed and even duplicated code due to similar logic.
-|3.Same as 2, but now each attribute for activity has a separate class|Tedious to implement.|Without the classes for attributes, validating whether the attributes are legal needs to be done in the activity class which violates SRP design principle. But now each attribute has its own class with its own validation methods
+|3.Same as 2, but now each attribute for activity has a separate class [chosen] |Tedious to implement.|Without the classes for attributes, validating whether the attributes are legal needs to be done in the activity class which violates SRP design principle. But now each attribute has its own class with its own validation methods
 |=======================================================================
 
-=== Add Reminder Feature
-
-Reminders can be added to activities so that the user can be notified when the activity is going to occur soon.
-
-Below is an example of how users can add reminders:
-
-. The user enters the reminder command: `reminder 2 m/CS2030 d/12-12-2020 14:50`
-
-. The LogicManager will create NasaBookParser to parse the user input.
-
-. NasaBookParser will create AddReminderCommandParser that parses the input and returns a AddReminderCommand.
-
-. LogicManager will then execute AddReminderCommand which will create a Reminder item that contains the Activity and the date to be reminded.
-
-. The Reminder item will be added into the `ActiveRemindersList`. In addition, the reminders are sorted based on chronological order.
-
-. The reminder list view will be updated to show the current `ActiveRemindersList`.
-
-. If the time for any reminder has reached, there will be a pop-up or notification to alert the user for about 1min. And within 5 minutes, the reminder will automatically be removed from `ActiveRemindersList` and stored in the `PastRemindersList`.
-
-For more information regarding the procedure, please refer to the Activity Diagram shown below.
-
-image::AddReminderActivityDiagram.png[]
-
-For more information regarding the structure of the feature, refer to the class diagram below:
-
-image::AddReminderClassDiagram.png[]
-
-=== Snooze Reminder Feature
-
-Users can also snooze reminders so that they can get the same reminder at a different time.
-
-Below is an example of how users can snooze reminders:
-
-. The user enters the snooze reminder command: `snooze 2 d/12-12-2020 15:30`.
-
-. The LogicManager will create NasaBookParser to parse the user input.
-
-. NasaBookParser will create SnoozeReminderCommandParser to parse the input and return SnoozeReminderCommand
-
-. LogicManager will execute the command and the Reminder that has just passed with the associated index on the `ActiveRemindersList` will have its due time updated. If time not specified, default is 5 minutes.
-
-For more information regarding the procedure, please refer to the Activity Diagram below:
-
-image::SnoozeReminderActivityDiagram.png[]
+** Choice of design was option 3 as it made all objects separate from one another and allows easy debugging. At the same time, it follows SRP design principle.
 
 // tag::automation[]
 === Automation
@@ -427,6 +383,8 @@ Users can choose to either export it to the default ./data filepath or specify t
 
 ==== Internal Workings for the Calendar Export Feature
 
+`Contributed by: kester-ng`
+
 Below is an example of a user requesting an export calendar command.
 
 . The user enters the command `calendar f/User/documents/calendar`
@@ -448,6 +406,26 @@ Below is an example of a user requesting an export calendar command.
 The image below indicates the activity diagram giving a brief flow of events occurring.
 
 image::ExportCalendarActivityDiagram.png[]
+
+The images below show the sequence diagram of the export calendar command feature. The first image mainly illustrates the flow for parsing and creating the command whereas the second mainly illustrates the flow for executing the command and returning the result.
+
+image::ExportCalendarLogicSequenceDiagram.png[]
+
+image::ExportCalendarModelSequenceDiagram.png[]
+
+==== Design Considerations
+
+The design considerations for the classes are shown below:
+
+[width="59%",cols="22%,<100%,<100%",options="header",]
+|=======================================================================
+|Choice| Pros:|Cons:
+| Having a single class that encapsulates the whole logic of writing to ICS format | Easy and fast to implement. | Code will be very messy and if there are updates to iCalendar formats, it may cause a huge refactoring of code
+| Instead of exporting ics file, can export the image of calendar | Easier to implement and fast and with no issues relating to certain calendars not supporting VTODO. | However, it is not very convenient. Images can only show one month at a time.
+| [Currently implemented] Have different classes for representing different activities with helper classes to assist in generating ics rules | Harder to implement and makes it very tedious. | Easy to debug and change when there are updates to the .ics format
+|=======================================================================
+
+** Option 3 was chosen as having different classes allowed us to pinpoint the exact error when the ics file was not working as intended. And any extensions or upgrades to iCalendar format can be easily extended from the current code without refactoring a lot. However, drawback is that some calendars do not support `VTODO`.
 
 === Chat bot Feature (To be implemented)
 
@@ -487,6 +465,52 @@ another motivation quote, you can type `quote`.
 . NASA will generate a random number and select a quote in quotes.txt file.
 . Command result generated will be displayed to the user.
 // end::quote[]
+
+=== Add Reminder Feature (Coming in `v2.0`)
+
+Reminders can be added to activities so that the user can be notified when the activity is going to occur soon.
+
+Below is an example of how users can add reminders:
+
+. The user enters the reminder command: `reminder 2 m/CS2030 d/12-12-2020 14:50`
+
+. The LogicManager will create NasaBookParser to parse the user input.
+
+. NasaBookParser will create AddReminderCommandParser that parses the input and returns a AddReminderCommand.
+
+. LogicManager will then execute AddReminderCommand which will create a Reminder item that contains the Activity and the date to be reminded.
+
+. The Reminder item will be added into the `ActiveRemindersList`. In addition, the reminders are sorted based on chronological order.
+
+. The reminder list view will be updated to show the current `ActiveRemindersList`.
+
+. If the time for any reminder has reached, there will be a pop-up or notification to alert the user for about 1min. And within 5 minutes, the reminder will automatically be removed from `ActiveRemindersList` and stored in the `PastRemindersList`.
+
+For more information regarding the procedure, please refer to the Activity Diagram shown below.
+
+image::AddReminderActivityDiagram.png[]
+
+For more information regarding the structure of the feature, refer to the class diagram below:
+
+image::AddReminderClassDiagram.png[]
+
+=== Snooze Reminder Feature (Coming in `v2.0`)
+
+Users can also snooze reminders so that they can get the same reminder at a different time.
+
+Below is an example of how users can snooze reminders:
+
+. The user enters the snooze reminder command: `snooze 2 d/12-12-2020 15:30`.
+
+. The LogicManager will create NasaBookParser to parse the user input.
+
+. NasaBookParser will create SnoozeReminderCommandParser to parse the input and return SnoozeReminderCommand
+
+. LogicManager will execute the command and the Reminder that has just passed with the associated index on the `ActiveRemindersList` will have its due time updated. If time not specified, default is 5 minutes.
+
+For more information regarding the procedure, please refer to the Activity Diagram below:
+
+image::SnoozeReminderActivityDiagram.png[]
 
 === Logging
 
