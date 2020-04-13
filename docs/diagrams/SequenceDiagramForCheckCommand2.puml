@@ -71,11 +71,11 @@ FitHelper --> FitHelper :
 deactivate
 end
 
-FitHelper --> ModelManager : List<CalorieDatum>
+FitHelper --> ModelManager : Set<CalorieDatum>
 deactivate FitHelper
-ModelManager --> CheckCommand : List<CalorieDatum>
+ModelManager --> CheckCommand : Set<CalorieDatum>
 deactivate ModelManager
-CheckCommand -> CheckCommand : convertListToString()
+CheckCommand -> CheckCommand : convertSetToString()
 activate CheckCommand
 CheckCommand --> CheckCommand : feedbackToUser
 deactivate

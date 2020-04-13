@@ -1,18 +1,18 @@
 @startuml
 
 start
-:creates an empty list;
+:creates an empty set;
 :retrieves data from CalorieTable;
-:adds datum whose name **equals one of the keywords**;
-if () then (number of data in the list < 3)
-    :adds datum whose name **contains the keywords as a whole**;
-    if () then (number of data in the list < 3)
-        :adds datum whose name **contains one of the keywords**;
-    else (number of data in the list >= 3)
+:adds datum whose name **equals one of the keywords** into the set;
+if () then (number of data in the set < 3)
+    :adds datum whose name **contains the keywords as a whole** into the set;
+    if () then (number of data in the set < 3)
+        :adds datum whose name **contains one of the keywords** into the set;
+    else (number of data in the set >= 3)
     endif
-else (number of data in the list >= 3)
+else (number of data in the set >= 3)
 endif
-:returns the list;
+:returns the set;
 stop
 
 @enduml

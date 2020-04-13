@@ -24,7 +24,7 @@ Table -> Data : getData()
 activate Data
 Table <-- Data : data
 deactivate
-Table -> Table : convertDataToList()
+Table -> Table : convertDataToSet()
 activate Table
 Table --> Table :
 deactivate

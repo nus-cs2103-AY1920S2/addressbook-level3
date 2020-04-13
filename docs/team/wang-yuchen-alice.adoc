@@ -9,7 +9,13 @@
 
 == Overview
 
-FitHelper is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+*FitHelper* is a desktop diet-and-exercise-recording application made for Users who want to keep fit.
+It enables users to record their basic profile data, weight records, daily food intake and sports.
+Rather than just keeping the raw data, *FitHelper* also provided useful analysis and other customized services, such as calendar view and reminders.
+
+The application is mainly written in *Java* and built by a considerable *19k Lines of Code*.
+The codebase is well-maintained by reasonable amount of tests.
+A detailed and comprehensive set of guides are also provided for both application developers and users.
 
 == Summary of contributions
 
@@ -40,6 +46,8 @@ FitHelper is a desktop address book application used for teaching Software Engin
 *** DashBoard - entry master list [https://github.com/AY1920S2-CS2103-T09-4/main/pull/174[#174]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/177[#177]]
 *** Today Page - daily schedule and performance assessment [https://github.com/AY1920S2-CS2103-T09-4/main/pull/201[#201]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/236[#236]]
 *** Diary Page - add/edit/append/delete diaries [https://github.com/AY1920S2-CS2103-T09-4/main/pull/209[#209]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/211[#211]]
+** Test
+*** Wrote additional tests for existing features to increase coverage to 29% [https://github.com/AY1920S2-CS2103-T09-4/main/pull/319[#319]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/320[#320]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/321[#321]]
 ** Documentation
 *** UG Draft1 [https://github.com/AY1920S2-CS2103-T09-4/main/pull/90[#90]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/91[#91]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/95[#95]]
 *** DG Use Cases [https://github.com/AY1920S2-CS2103-T09-4/main/pull/97[#97]][https://github.com/AY1920S2-CS2103-T09-4/main/pull/99[#99]]
@@ -55,36 +63,42 @@ FitHelper is a desktop address book application used for teaching Software Engin
 
 == Contributions to the User Guide
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Sections I contributed to the User Guide include *4.2 Keep Food and Sports Entries*: `add`, `list`, `reminder`, `edit`, `find`, `delete`;
+*4.3 Keep Diaries*, *4.5 Undo*, *4.6 Redo*, *4.8 Daily Summary*,  *4.9 Weekly Summary*, *4.12 Exit*. +
+They showcase my ability to write documentation targeting end-users._
 |===
 
 |===
 |[NOTE]
-|_Due to page limit, only selected sections are included. Refer to User Guide for more sections._
+|_Due to page limit, only selected sections are included below. Please refer to User Guide for more sections._
 |===
 
 //include::../UserGuide.adoc[tag=add]
+//include::../UserGuide.adoc[tag=list]
+//include::../UserGuide.adoc[tag=reminder]
+
 include::../UserGuide.adoc[tag=edit]
 
-include::../UserGuide.adoc[tag=find]
+//include::../UserGuide.adoc[tag=find]
 
 //include::../UserGuide.adoc[tag=delete]
 //include::../UserGuide.adoc[tag=clear]
 //include::../UserGuide.adoc[tag=exit]
-=== Keep a diary
 
-include::../UserGuide.adoc[tag=edit_findDiary]
-
-include::../UserGuide.adoc[tag=undo]
-
-//include::../UserGuide.adoc[tag=redo]
 //include::../UserGuide.adoc[tag=diary]
 //include::../UserGuide.adoc[tag=addDiary]
 //include::../UserGuide.adoc[tag=appendDiary]
 //include::../UserGuide.adoc[tag=deleteDiary]
 //include::../UserGuide.adoc[tag=clearDiary]
+//include::../UserGuide.adoc[tag=editDiary]
+include::../UserGuide.adoc[tag=findDiary]
+
+include::../UserGuide.adoc[tag=undo]
+
+//include::../UserGuide.adoc[tag=redo]
+
 include::../UserGuide.adoc[tag=today]
-//include::../UserGuide.adoc[tag=dataencryption]
+
 
 == Contributions to the Developer Guide
 
@@ -97,6 +111,8 @@ include::../UserGuide.adoc[tag=today]
 |===
 
 include::../DeveloperGuide.adoc[tag=today]
+
 include::../DeveloperGuide.adoc[tag=diary]
+
 include::../DeveloperGuide.adoc[tag=undoredo]
 //test
