@@ -619,7 +619,7 @@ Inputs from user:
 
 * PATH: the file path at which the desired file is
 
-Example: import "/docs/recipebook.json" 
+Example: import "/docs/recipebook.json"
 
 This would import the "recipebook" JSON file from the docs folder.
 
