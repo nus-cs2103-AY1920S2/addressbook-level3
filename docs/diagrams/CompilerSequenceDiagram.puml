@@ -13,19 +13,22 @@ activate Compiler
 Compiler -> Parser
 activate Parser
 
+create DocumentBlock
+Parser -> DocumentBlock : new
+
 loop each line of text in markdown
 Parser -> DocumentBlock : next(line)
 activate DocumentBlock
-DocumentBlock -> Parser
+DocumentBlock --> Parser
 deactivate DocumentBlock
 end
 
-Parser -> Compiler : d
-destroy Parser
+Parser --> Compiler : d
+deactivate Parser
 
 Compiler -> DocumentBlock : toHtml()
 activate DocumentBlock
-DocumentBlock -> Compiler : compiled HTML
+DocumentBlock --> Compiler : compiled HTML
 destroy DocumentBlock
 
 [<-- Compiler : compiled HTML
