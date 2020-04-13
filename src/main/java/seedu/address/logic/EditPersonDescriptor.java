@@ -192,12 +192,13 @@ public class EditPersonDescriptor {
         Organization updatedOrganization = getOrganization().orElse(personToEdit.getOrganization());
 
         Set<Tag> updatedTags = new HashSet<>(personToEdit.getTags());
-        updatedTags.addAll(getTags().orElse(new HashSet<>()));
-        updatedTags.removeAll(getTagsToBeDeleted().orElse(new HashSet<>()));
 
         if (getEmptyTagSet() != null) {
             updatedTags.clear();
         }
+
+        updatedTags.addAll(getTags().orElse(new HashSet<>()));
+        updatedTags.removeAll(getTagsToBeDeleted().orElse(new HashSet<>()));
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark,
                 updatedBirthday, updatedOrganization, updatedTags);
