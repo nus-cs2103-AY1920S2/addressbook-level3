@@ -16,12 +16,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
-import nasa.model.activity.Deadline;
-import nasa.model.activity.Event;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import nasa.model.module.Module;
 import nasa.model.module.UniqueModuleList;
 import nasa.model.module.exceptions.DuplicateModuleException;
@@ -123,7 +122,7 @@ class NasaBookTest {
         NasaBook book = new NasaBook();
         book.addModule(CS2106);
         book.addEvent(CS2106.getModuleCode(), CORRECT_EVENT);
-        book.removeEvent(CS2106.getModuleCode(),  CORRECT_EVENT);
+        book.removeEvent(CS2106.getModuleCode(), CORRECT_EVENT);
         assertFalse(book.hasActivity(CS2106.getModuleCode(), CORRECT_EVENT));
     }
 

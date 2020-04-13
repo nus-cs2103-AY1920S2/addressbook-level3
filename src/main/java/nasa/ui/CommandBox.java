@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
@@ -32,8 +33,6 @@ public class CommandBox extends UiPart<Region> {
     private final List<String> commandHistory;
     private ListIterator<String> commandHistoryIterator;
 
-    private boolean preferenceShowHint = true;
-
     private String matchedCommand = "";
     private MainWindow main;
 
@@ -50,6 +49,9 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
 
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
+            if (key.isControlDown() && key.getCode() == KeyCode.V) {
+                return;
+            }
             switch (key.getCode()) {
             case LEFT:
                 commandTextField.backward();

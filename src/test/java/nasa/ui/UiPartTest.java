@@ -1,15 +1,17 @@
 package nasa.ui;
 
 import static nasa.testutil.Assert.assertThrows;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.net.URL;
 import java.nio.file.Path;
 
-import javafx.fxml.FXML;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
+import javafx.fxml.FXML;
 
 import nasa.MainApp;
 

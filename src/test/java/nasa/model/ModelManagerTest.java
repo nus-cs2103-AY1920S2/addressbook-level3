@@ -13,6 +13,7 @@ import static nasa.testutil.TypicalModules.CS2103T;
 import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.GEH1001;
 import static nasa.testutil.TypicalNasaBook.NASABOOK_TYPE_1;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,8 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
 
 import nasa.commons.core.GuiSettings;
 import nasa.model.activity.Deadline;
