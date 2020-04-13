@@ -1,35 +1,13 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "modules" : [ {
     "moduleCode" : "CS2103T",
-    "moduleName" : "Competitive Programming",
-    "activityList" : [ {
-      "type" : "deadline",
-      "name" : "SEA Group Programming Assignment",
-      "date" : "25-03-2020 06:38",
-      "note" : "Focus on computational geometry and DP.",
-      "status" : "ONGOING",
-      "priority" : "1",
-      "dueDate" : "20-03-2020 02:30",
-      "startDate" : "",
-      "endDate" : "",
-      "schedule" : "0,29-03-2020 15:25,29-03-2020 15:25"
-    } ]
+    "moduleName" : "Software Engineering",
+    "deadlineList" : [ ],
+    "eventList" : [ ]
   }, {
-    "moduleCode" : "CS2106",
-    "moduleName" : "Operating System",
-    "activityList" : [ {
-      "type" : "deadline",
-      "name" : "SEA Group Programming Assignment",
-      "date" : "25-03-2020 07:04",
-      "note" : "Focus on computational geometry and DP.",
-      "status" : "ONGOING",
-      "priority" : "1",
-      "dueDate" : "20-03-2020 02:30",
-      "startDate" : "",
-      "endDate" : "",
-      "schedule" : "0,29-03-2020 15:25,29-03-2020 15:25"
-    } ]
-  }]
+    "moduleCode" : "CS2103T",
+    "moduleName" : "Software Engineering",
+    "deadlineList" : [ ],
+    "eventList" : [ ]
+  } ]
 }
-

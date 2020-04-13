@@ -41,7 +41,6 @@
 
           <StackPane fx:id="tabPanelPlaceholder" AnchorPane.topAnchor="25.0" AnchorPane.leftAnchor="0.0"
                      AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="125" />
-
           <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                      AnchorPane.bottomAnchor="80.0"
                      minHeight="50" prefHeight="50" maxHeight="50">

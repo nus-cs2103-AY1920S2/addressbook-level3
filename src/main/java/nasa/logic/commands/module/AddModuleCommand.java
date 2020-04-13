@@ -18,7 +18,7 @@ public class AddModuleCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to NASA. "
-            + "Parameters: "
+            + "\nParameters: "
             + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_MODULE_NAME + "MODULE NAME\n"
             + "Example: " + COMMAND_WORD + " "

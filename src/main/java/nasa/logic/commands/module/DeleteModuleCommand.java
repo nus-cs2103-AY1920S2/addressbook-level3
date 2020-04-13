@@ -20,7 +20,7 @@ public class DeleteModuleCommand extends Command {
             + ": Deletes the module specified by the code in NASA.\n"
             + "Parameters: "
             + PREFIX_MODULE
-            + ".....\n"
+            + "[MODULE_CODE]\n"
             + "Example: "
             + COMMAND_WORD
             + " "
