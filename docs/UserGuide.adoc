@@ -23,8 +23,10 @@ Notably is for those who *prefer to use a desktop app for managing notes*. More 
 === An Introduction to Notably
 The image shown below highlights the different sections of Notably's user interface:
 
+[[LegendsOpened]]
 .Notably GUI legends
 image::Legends.png[width="900"]
+[[LegendsClosed]]
 
 === Symbols used in this guide
 [NOTE]
@@ -125,47 +127,80 @@ If you're done with taking notes, use `exit` to close Notably straight from the 
 .Demo for the `exit` command
 image::demo/Exit.png[]
 
+[#create]
 === Create a new note: `new`
 
-If you want to add a new note to the current working directory (currently opened note), use the `new` command and specify the `TITLE` of the note. +
+If you want to add a new note (to the path of the currently open note), use the `new` command and specify the `TITLE` of the note. +
 
 *Format:* `new -t TITLE [-o]`
 
-[IMPORTANT]
+[WARNING]
 ====
+* Don't forget the `-t` flag!
 * The `TITLE` for the note MUST be specified.
-* The `TITLE` for the note can only contain alphabets, numbers, symbols (except ` and -) and whitespaces.
+* The `TITLE` for the note can only contain alphabets, numbers, symbols (except / and -) and whitespaces.
+* The `TITLE` for the note cannot begin with whitespaces or the period `.` characer.
+* Duplicate notes are not allowed under the same note.
+** This is explained <<duplicateNotes, here>>
 ====
 
 [TIP]
 ====
 * Use the optional `-o` flag to immediately open the note after creating it.
+* Leaving out the `-o` open flag can be useful if you want to create multiple notes quickly for future use, but you don't need to edit them right away!
 ====
 
+[#duplicateNotes]
+==== Creating duplicate notes
+Creating duplicate notes are not allowed as mentioned <<create, 3.3>>. What are considered duplicate notes? +
+
+* Two notes are considered duplicates IF their `TITLEs` are the same while ignore their case. For example:
+** `Hello`, `hello`, `HELLO` and `HeLLo` are considered duplicates
+** `hello world!`, `helloworld!` and `helloworld@` are **not** considered duplicates, because whitespaces and allowed symbols are not ignored
+* Two notes are considered duplicate IF they have the same `TITLE` under the **same note**. This can be seen in the following diagrams below:
++
+[[Duplicate1]]
+.INVALID as there are duplicate notes under `/Workspace/CS2103`
+image::demo/PathDuplicates1.png[]
+[[Duplicate2]]
+.VALID as they are not both directly under `/Workspace/CS2103`
+image::demo/PathDuplicates2.png[]
+[[Duplicate3]]
+.VALID as one exists in `/Workspace/CS2103` and the other in `/Workspace/CS2101`
+image::demo/PathDuplicates3.png[]
+
 ==== Example: Creating new notes
-. Let's first create a note (with a `TITLE`), and open it immediately after. <<New1, (Step 1)>> Type this command: +
+. Let's first create a note (with a `TITLE`), and open it immediately after. Type this command: +
 
     new -t Notably -o
 
-
-. Now the currently open note is `Notably`. Let's add create a note to the currently opened note, <<New2, (Step 2)>> with a `TITLE` only as follows: +
+. Due to the `-o` flag, the currently open note is now `Notably` (as seen in the sidebar). Let's add a new note to the currently opened note, <<New2, (Step 2)>> with a `TITLE` as follows: +
 
     new -t CS2103T
-
-. The new note `CS2103T` has been created successfully! <<New3, (Step 3)>> +
-
++
 [NOTE]
 ====
-Observe that the note `CS2103T` was not opened immediately
+* Observe that the (Absolute) Path to the currently open note is now changed from `/Workspace` in <<New1, step 1>> to `/WorkspaceNotably` in  <<New2, step 2>>.
+** Not sure where to see this path? Check it out <<LegendsClosed, here>>
+** Not sure what Absolute Paths are or why the new note is created in this way? Check it out <<paths, here>>
 ====
+
+. The new note `CS2103T` has been created successfully!
++
+[NOTE]
+====
+* Observe that the note `CS2103T` was not opened immediately as seen in <<New3, step 3>>
+** This is because the `-o` open flag was not specified, so the note `CS2103T` was created without opening it immediately.
+====
+
 [[New1]]
-.Step 1 - Demo for the `new` command (with the `open` flag)
-image::demo/New1.png[Demo]
+.Step 1 - Create a new note with the title "Notably" (with the `-o` open flag)
+image::demo/New1.png[]
 [[New2]]
-.Step 2 - Demo for the `new` command (without the `open` flag)
+.Step 2 - Create a new note with the title "CS2103T" (without the `-o` open flag)
 image::demo/New2.png[]
 [[New3]]
-.Step 3 - Demo for the `new` command (after creating both notes)
+.Step 3 - Final state after creating both notes
 image::demo/New3.png[]
 
 === Open an existing note: `open`
