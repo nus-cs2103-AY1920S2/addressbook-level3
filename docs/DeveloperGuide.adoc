@@ -113,7 +113,8 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 // tag::parser[]
 [[Design-NotablyParser]]
-==== NotabyParser
+
+==== NotablyParser component
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -123,9 +124,9 @@ image::LogicClassDiagram.png[]
 .  The command execution can affect the `Model` (e.g. adding a Note).
 .  The updated model/data structure will automatically be reflected on to the `View`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete cs2103")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delte -t cs2103")` API call.
 
-.Interactions Inside the Logic Component for the `delete -t cs2103` Command
+.Interactions Inside the Logic Component for the `delte -t cs2103` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -443,13 +444,13 @@ Two concrete implementations of the link:{repoURL}/src/main/java/com/notably/log
 Given below is the implementation detail of the Path feature and some alternative design considerations.
 
 ==== Current Implementation
-The `Path` interface represents the directory of a `Block` in our data structure. A path can exist in 2 forms namely :
+The `Path` interface represents the location of a `Block` in our data structure. A path can exist in 2 forms namely :
 
 . AbsolutePath
 . RelativePath
 
-An AbsolutePath is a path that takes its reference from the root `/` block. +
-While a RelativePath takes it reference from the current directory that is opened.
+An `AbsolutePath` is a path that takes its reference from the root `/` block. +
+While a `RelativePath` takes it reference from the current note that is opened.
 
 Currently the user is given the freedom to provide any of the 2 forms when using the `open`, `delete` command. +
 Given the following DataStructure below. +
@@ -457,7 +458,7 @@ Given the following DataStructure below. +
 .DataStructure example to illustrate Path
 image::PathExample1.png[]
 
-Using `AbsolutePath` `open /CS2101` and using `RelativePath` `open ../CS2101` would yield the same result Design Consideration.
+Using `AbsolutePath` `open /CS2101` and using `RelativePath` `open ../CS2101` would yield the same result.
 
 ==== Design Consideration
 
@@ -470,8 +471,8 @@ its a Relative or Absolute path.
 
 *Aspect: Logical equivalence of `RelativePath`* :
 
-*   Alternative 1(Current choice): Relative path `CS2103/../note1` would be equivalent to `note1`. This was deem to be
-**  Pros: More readable and OOP, each class can have their individual validity REGEX.
+*   Alternative 1(Current choice): Relative path `CS2103/../note1` would be equivalent to `note1`.
+**  Pros: More intuitive for the user and developer, making it easier to integrate paths with other features.
 *   Alternative 2: Relative path `CS2103/../note1` would not be logically equivalent to `note1`.
 
 // end::paths[]
@@ -615,8 +616,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |student |can view the relevant search results| so that I don’t need to worry about remembering the exact location and title of notes
 
 |`* *` |student |reliably type search commands(not error-prone) | focus on searching my notes rather than ensuring my commands are exact
-
-|`*` |student |export my notes into PDF documents | share/print my notes effortlessly.
 
 |=======================================================================
 
