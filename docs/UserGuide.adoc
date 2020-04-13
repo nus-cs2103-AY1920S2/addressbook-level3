@@ -302,6 +302,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Proin dictum accumsan nunc sed feugiat.
 ----
 
+==== Example: Writing your note in Markdown
+
 For example, you might write your note as follows:
 
 ----
