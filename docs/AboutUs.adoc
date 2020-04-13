@@ -21,7 +21,7 @@ Responsibilities: Integration, features development and UI
 
 === Ng Xuan Xin
 image::xuanxinng.png[width="150", align="left"]
-{empty}[http://github.com/xuanxinng[github]] [<<xuanxinng#, portfolio>>]
+{empty}[http://github.com/xuanxinng[github]] [https://github.com/AY1920S2-CS2103T-W16-4/main/blob/master/docs/team/NgXuanXin.adoc[portfolio]]
 
 Role: Documentation, Developer
 
