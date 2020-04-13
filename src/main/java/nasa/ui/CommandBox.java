@@ -46,9 +46,17 @@ public class CommandBox extends UiPart<Region> {
         commandHistory = new LinkedList<>();
         commandHistoryIterator = commandHistory.listIterator();
 
+        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
 
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
             switch (key.getCode()) {
+            case LEFT:
+                commandTextField.backward();
+                break;
+            case RIGHT:
+                commandTextField.forward();
+                break;
             case UP:
                 if (commandHistoryIterator.hasPrevious()) {
                     commandTextField.setText(commandHistoryIterator.previous());
@@ -59,13 +67,10 @@ public class CommandBox extends UiPart<Region> {
                     commandTextField.setText(commandHistoryIterator.next());
                 }
                 break;
-            case H:
-                if (key.isControlDown()) {
-                    commandTextField.setText("help");
-                    handleCommandEntered();
+            default:
+                if (matchedCommand.equals(commandTextField.getText().trim().toLowerCase())) {
+                    break;
                 }
-                break;
-            case SPACE:
                 if (isValidCommand()) {
                     main.getHint(commandList.get(matchedCommand));
                     commandTextField.requestFocus();
@@ -89,9 +94,11 @@ public class CommandBox extends UiPart<Region> {
             if (commandTextField.getText().trim().toLowerCase().startsWith(command)) {
                 isCommand = true;
                 matchedCommand = command;
+
             }
         }
         return isCommand;
+
     }
 
 
@@ -108,6 +115,8 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
+        } finally {
+            main.hideHint();
         }
     }
 

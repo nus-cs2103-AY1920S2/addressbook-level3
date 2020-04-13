@@ -18,7 +18,8 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all modules";
-    public static final String MESSAGE_USAGE = "List modules.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all modules.\n"
+            + "Parameters: none\n Example: " + COMMAND_WORD;
 
     private final ModuleCode moduleCode;
 

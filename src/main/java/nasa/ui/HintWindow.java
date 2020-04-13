@@ -1,7 +1,11 @@
 package nasa.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -15,43 +19,48 @@ public class HintWindow extends UiPart<Region> {
 
     private Popup popup;
     @FXML
-    private Label label;
+    private GridPane popUp;
+    @FXML
+    private Label description;
+    @FXML
+    private Label parameters;
+    @FXML
+    private Label example;
+    @FXML
+    private Label commandMessage;
+    @FXML
+    private Label parametersMessage;
+    @FXML
+    private Label exampleMessage;
+    @FXML
+    private Button copyExample;
 
-    /**
-     * Create a quote message.
-     */
     public HintWindow() {
         super(FXML);
-        label.setText("");
-        label.setWrapText(true);
     }
 
     /**
-     * Creates a Popup to store quote messages in a label.
-     * @return Popup
+     * Updates the input of the hint window
      */
-    public Popup getInput(String input) {
+    public void setInput(String input) {
         popup = new Popup();
+        popup.setHideOnEscape(true);
         popup.setAutoFix(true);
-        label.setText(input);
-        label.setWrapText(true);
-        popup.getContent().add(label);
-        return popup;
+        commandMessage.setText(input.split("\n")[0].split(" ", 2)[1]);
+        parametersMessage.setText(input.split("\n")[1].split(" ", 2)[1]);
+        exampleMessage.setText(input.split("\n")[2].split(" ", 2)[1]);
+        popup.getContent().add(popUp);
     }
 
     /**
-     * Show quote message.
+     * Displays the hint panel to the user.
      * @param stage Stage
      */
     public void show(Stage stage) {
-        popup.setWidth(stage.getWidth());
-        label.setMaxWidth(stage.getWidth());
+        popup.setWidth(stage.getWidth() * 3 / 4);
         popup.show(stage);
-        if (!stage.isFullScreen()) {
-            popup.show(stage, stage.getX() + 10, stage.getHeight() - 80 - popup.getHeight());
-        } else {
-            popup.show(stage, stage.getX() + 10, stage.getHeight() - 130 - popup.getHeight());
-        }
+        popup.setAnchorX(stage.getX());
+        popup.setAnchorY(stage.getHeight() - 125 - popup.getHeight());
     }
 
     public void hide() {
@@ -60,5 +69,16 @@ public class HintWindow extends UiPart<Region> {
 
     public boolean isShowing() {
         return popup != null && popup.isShowing();
+    }
+
+    /**
+     * Copies the URL to the user guide to the clipboard.
+     */
+    @FXML
+    private void copyExample() {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent example = new ClipboardContent();
+        example.putString(exampleMessage.getText());
+        clipboard.setContent(example);
     }
 }
