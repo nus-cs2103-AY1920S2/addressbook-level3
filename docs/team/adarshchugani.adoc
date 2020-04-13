@@ -19,33 +19,39 @@ It is written in Java, and has about 10 kLoC.
 ** What it does: allows the user to favourite or un-favourite a recipe. A recipe is marked as not favourited by
 default, but the user can change this using the `fav` command. If a user wants to un-favourite a recipe, they may do
 so using the `unfav` command.
-** Justification: This feature improves the product significantly because it provides the user with an easy way to
-identify the recipes they like.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement #2*: implemented the `view` command
+** What it does: allows users to view any recipe on the GUI. Before this feature was implemented, the displayed
+recipe would always be the first recipe added in the application.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=AdarshChugani&tabRepo=AY1920S2-CS2103T-W12-4%2Fmain%5Bmaster%5D[Summary of code contributed]]
+* *Minor enhancement*: Added the `done` and `undo` features, which behave similarly to the `fav` and `unfav` commands.
+They are used to mark recipes as attempted and not attempted, respoectively.
+
+* *Minor enhancement #2*: implemented the `time` command
+** What it does: allows users to assign a time to a recipe. Users may exclude hours and seconds when inputting the
+time, and these fields will be set to 0 if they are omitted.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=AdarshChugani&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Contribution]]
+
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#3], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 27% to 51% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme (https://github.com/AY1920S2-CS2103T-W12-4/main/issues/71[Pull Request #71])
+*** Wrote additional tests for existing features to increase coverage from 27% to 51% (Pull requests https://github.com/AY1920S2-CS2103T-W12-4/main/issues/299[#299], https://github.com/AY1920S2-CS2103T-W12-4/main/issues/300[#300])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did many changes to the User Guide and Developer Guide: Pull Requests
+https://github.com/AY1920S2-CS2103T-W12-4/main/pull/20[#20], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/22[#22],
+https://github.com/AY1920S2-CS2103T-W12-4/main/pull/89[#89], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/193[#193], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/327[#327] as well as many more.
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Approved many team-members PRs, often providing feedback if it did not meet standards.
+*** Contributed to forum discussions
+*** Created the vast majority of the issues on the Issue Tracker
+https://github.com/AY1920S2-CS2103T-W12-4/main/issues/[here]
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated Codacy as well as Coveralls.
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -57,9 +63,6 @@ _{you can add/remove categories in the list above}_
 
 include::../UserGuide.adoc[tag=TimeCommand]
 include::../UserGuide.adoc[tag=FavCommand]
-include::../UserGuide.adoc[tag=UnFavCommand]
-include::../UserGuide.adoc[tag=DoneCommand]
-include::../UserGuide.adoc[tag=UndoCommand]
 include::../UserGuide.adoc[tag=FutureStuff]
 
 == Contributions to the Developer Guide
@@ -70,9 +73,6 @@ include::../UserGuide.adoc[tag=FutureStuff]
 
 
 include::../DeveloperGuide.adoc[tag=FavCommandImpl]
-include::../DeveloperGuide.adoc[tag=UnfavCommandImpl]
-include::../DeveloperGuide.adoc[tag=DoneCommandImpl]
-include::../DeveloperGuide.adoc[tag=UndoCommandImpl]
 include::../DeveloperGuide.adoc[tag=TimeCommandImpl]
 include::../DeveloperGuide.adoc[tag=ViewCommandImpl]
 include::../DeveloperGuide.adoc[tag=UserStories]
@@ -80,6 +80,3 @@ include::../DeveloperGuide.adoc[tag=UserStories]
 
 == PROJECT: PowerPointLabs
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_
