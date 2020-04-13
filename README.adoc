@@ -5,12 +5,12 @@ https://travis-ci.org/AY1920S2-CS2103-T09-2/main[image:https://travis-ci.org/AY1
 https://app.netlify.com/sites/eager-kirch-5d6bd2/deploys[image:https://api.netlify.com/api/v1/badges/8179f1a7-7a48-48a7-98ac-85784b47997d/deploy-status[Netlify Status]]
 https://coveralls.io/github/AY1920S2-CS2103-T09-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103-T09-2/main/badge.svg?branch=master[Coverage Status]]
 
-ifdef::env-browser[]
-image::images/Ui.png[width="600" align="center"]
+ifdef::env-github[]
+image::docs/images/Ui.png[width="600" align="center"]
 endif::[]
 
-ifndef::env-browser[]
-image::docs/images/Ui.png[width="600" align="center"]
+ifndef::env-github[]
+image::images/Ui.png[width="600" align="center"]
 endif::[]
 
 * iTrack Pro is for the shop owners to keep track of the products, customers, and transactions of the shop and have a better understanding of the business by viewing the performance of products and behaviors of customers.
