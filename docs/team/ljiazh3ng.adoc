@@ -71,7 +71,7 @@ include::../DeveloperGuide.adoc[tag=parser]
 
 include::../DeveloperGuide.adoc[tag=paths]
 
-include::../DeveloperGuide.adoc[tag=Scope&User]
+include::../DeveloperGuide.adoc[tag=ScopeUser]
 
 include::../DeveloperGuide.adoc[tag=ManualTesting]
 
