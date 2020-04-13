@@ -216,7 +216,13 @@ Classes used by multiple components are in the `com.notably.commons` package.
 [[Design-Compiler]]
 === Compiler
 
+.Class Diagram of the Compiler Component
+image::CompilerClassDiagram.png[]
+
 Our `Compiler` design is based off https://github.github.com/gfm[GitHub's GFM Specification].
+
+.Interactions inside the Compiler component for the `compile(markdown)` call
+image::CompilerSequenceDiagram.png[]
 
 === Logging
 
