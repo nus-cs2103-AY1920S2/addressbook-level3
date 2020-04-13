@@ -44,6 +44,8 @@ the graph feature.
 
 * *Code contributed*: You can view my functional code and test code contributions to Calgo https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=buddhavineeth&tabRepo=AY1920S2-CS2103T-F11-1%2Fmain%5Bmaster%5D[here].
 
+<<<
+
 * *Other contributions*:
 
 ** Project management:
