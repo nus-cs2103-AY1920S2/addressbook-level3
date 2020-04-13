@@ -47,7 +47,6 @@ interface SplitterModel <<Interface>> {
     + updateFilteredPersonList(predicate : Predicate<Person>) : void
     + getFilteredPersonList() : ObservableList<Person>
 
-
 }
 
 class Index {
@@ -56,9 +55,31 @@ class Index {
 }
 
 
+
+class SplitterModelManager implements SplitterModel {
+    /' Fields '/
+    - PersonAmountBook : personAmountBook
+
+    /' Methods '/
+    + listAmount() : String
+}
+
+interface ReadOnlyPersonAmountBook <<Interface>> {
+
+        + getPersonList() : ObservableList<Person>
+        + getPersonByIndex(indexOfPerson : int) : Person
+
+
+}
+
+
+
+
 PaidCommandParser ..> PaidCommand
 PaidCommand ..> SplitterModel
 PaidCommandParser ..> Index
 PaidCommand --> Index
+SplitterModel --> ReadOnlyPersonAmountBook
+
 
 @enduml
