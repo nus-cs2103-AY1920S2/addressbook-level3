@@ -19,6 +19,7 @@ import seedu.address.model.ProfileList;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.profile.course.module.personal.Deadline;
@@ -142,7 +143,8 @@ public class DeleteCommand extends Command {
             List<ModuleCode> modsNoGrade = new ArrayList<>();
             for (ModuleCode moduleCode: deleteModuleCodes) {
                 try {
-                    if (deleteGrade != null && !profile.getModule(moduleCode).hasGrade()) {
+                    Module mod = profile.getModule(moduleCode);
+                    if (deleteGrade != null && !mod.hasGrade()) {
                         modsNoGrade.add(moduleCode);
                     }
                 } catch (ModuleNotFoundException e) {
