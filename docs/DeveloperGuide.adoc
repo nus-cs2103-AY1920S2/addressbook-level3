@@ -381,11 +381,11 @@ Some performance can be sacrificed in order to ensure that the links between obj
 
 ===== Summary of Entity Linking
 
-Overall, in order to ensure successful entity linking, all 3 managers involved must be involved.
-The table below shows the involvement of 3 managers with regards to each variant of the `Assign`/`Un-assign` commands.
+Overall, in order to ensure successful entity linking, the role that `EdgeManager` plays is crucial.
+The table below shows the method calls made to `EdgeManager` during an `Assign`/`Un-assign` command.
 
-.Table Summary of Manager's involvement during Assign/Un-assign Commands
-image::Ivan-AssignSummaryTable.png[]
+.Table Summary of EdgeManager's involvement during Assign/Un-assign Commands
+image::Ivan-AssignSummary.png[]
 ---
 [[progress-management]]
 === Student Progress Management [Tee Jun Jie Ivan]
@@ -432,6 +432,11 @@ Hence, rather than obtain all assignmentIDs, we will need to obtain all
 `studentIDs` that are studying *C'*, and create a `Progress` object so that we can track whether those students have completed the assignment.
 - The flow is also largely the same for UnassignCommands!
 Instead, we are looking to remove Progress objects rather than adding them back in.
+
+The table below shows the summary of method calls from `ProgressManager` for each variant of `Assign`/`Un-assign` command.
+
+.Table Summary of ProgressManager method calls() for Assign/Un-assign Commands
+image::Ivan-ProgressSummary.png[]
 
 ==== Marking Progress as `Done`/`Undone`
 ====== +++<u>Rationale</u>+++
