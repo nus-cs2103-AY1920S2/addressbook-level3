@@ -385,7 +385,20 @@ image::FavSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
-Think of smth
+===== Aspect: How many indexes should be taken in?
+
+* Alternative 1 (Chosen): Only 1 index to be specified per use of the command
+
+** Pros: Less error-prone
+** Cons: Less efficient
+
+* Alternative 2: Multiple indexes can be specified per use of the command
+
+** Pros: More efficient
+** Cons: More error prone
+
+
+
 
 ==== Possible improvements
 
@@ -422,7 +435,17 @@ image::UnfavSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
-Think of smth
+===== Aspect: How many indexes should be taken in?
+
+* Alternative 1 (Chosen): Only 1 index to be specified per use of the command
+
+** Pros: Less error-prone
+** Cons: Less efficient
+
+* Alternative 2: Multiple indexes can be specified per use of the command
+
+** Pros: More efficient
+** Cons: More error prone
 
 ==== Possible improvements
 
@@ -459,7 +482,17 @@ image::DoneSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
-Think of smth
+===== Aspect: How many indexes should be taken in?
+
+* Alternative 1 (Chosen): Only 1 index to be specified per use of the command
+
+** Pros: Less error-prone
+** Cons: Less efficient
+
+* Alternative 2: Multiple indexes can be specified per use of the command
+
+** Pros: More efficient
+** Cons: More error prone
 
 ==== Possible improvements
 
@@ -496,7 +529,17 @@ image::UndoSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
-Think of smth
+===== Aspect: How many indexes should be taken in?
+
+* Alternative 1 (Chosen): Only 1 index to be specified per use of the command
+
+** Pros: Less error-prone
+** Cons: Less efficient
+
+* Alternative 2: Multiple indexes can be specified per use of the command
+
+** Pros: More efficient
+** Cons: More error prone
 
 ==== Possible improvements
 
@@ -533,11 +576,23 @@ image::ViewSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
-Think of smth
+===== Aspect: How should the user specify the recipe they want to view
+
+* Alternative 1 (Chosen): Using the index of the recipe
+
+** Pros: Easily identified from the GUI
+** Cons: -
+
+* Alternative 2: Using the name of the recipe
+
+** Pros: Users may know the name of the recipe better than the index
+** Cons: Less efficient
 
 ==== Possible improvements
 
-In the current implementation, 
+In the current implementation, the `view` command only takes in the index of the recipe.
+A possible improvement would be to allow users to input the recipe name they want viewed.
+That way, users can input either the recipe name or index.
 
 // end::ViewCommandImpl[]
 
@@ -568,7 +623,17 @@ image::TimeSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
-Think of smth
+===== Aspect: Should the minutes and seconds be mandatory inputs
+
+* Alternative 1 (Chosen): No, they can be optional inputs
+
+** Pros: More efficient
+** Cons: -
+
+* Alternative 2: Yes, they should be mandatory inputs
+
+** Pros: -
+** Cons: Much less efficient
 
 ==== Possible improvements
 
