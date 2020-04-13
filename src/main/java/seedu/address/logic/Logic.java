@@ -1,14 +1,18 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ProfileList;
+import seedu.address.model.ProfileManager;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
  * API of the Logic component
@@ -21,22 +25,27 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText) throws CommandException, ParseException, DateTimeException;
 
     /**
      * Returns the AddressBook.
      *
      * @see seedu.address.model.Model#getAddressBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ProfileList getProfileList();
+    //ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Profile> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Deadline> getFilteredDeadlineList();
 
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getProfileListFilePath();
+    //Path getAddressBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -47,4 +56,9 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    Optional<Object> getDisplayedView();
+
+    ProfileManager getProfileManager();
+
 }

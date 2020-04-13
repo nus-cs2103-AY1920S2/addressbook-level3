@@ -1,226 +1,412 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.commons.core.Messages.MESSAGE_DEADLINE_DOES_NOT_EXIST;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_MODULE_DATA;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
+import static seedu.address.commons.core.Messages.MESSAGE_MAX_MODS;
+import static seedu.address.commons.core.Messages.MESSAGE_MODULE_NOT_ADDED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.Map;
+import java.util.TreeMap;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.logic.parser.CliSyntax;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.CourseManager;
+import seedu.address.model.ModuleList;
+import seedu.address.model.ModuleManager;
+import seedu.address.model.ProfileManager;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
+import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
+import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.exceptions.MaxModsException;
+
+//@@author joycelynteo
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits Profile or Module specified by user.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Edits a profile or module specified by user.\n"
+            + "Parameters to edit a profile: "
+            + PREFIX_NAME + "NAME "
+            + "(" + PREFIX_COURSE_NAME + "COURSE) "
+            + "(" + CliSyntax.PREFIX_YEAR + "CURRENT_SEMESTER) "
+            + "(" + PREFIX_FOCUS_AREA + "FOCUS_AREA) "
+            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "John "
+            + "(" + PREFIX_COURSE_NAME + "Computer Science) "
+            + "(" + CliSyntax.PREFIX_YEAR + "4) "
+            + "(" + PREFIX_FOCUS_AREA + "Algorithms & Theory) "
+            + "\nParameters to edit a module: "
+            + PREFIX_MODULE + "MODULE "
+            + "(" + PREFIX_YEAR + "SEMESTER) "
+            + "(" + PREFIX_GRADE + "GRADE) "
+            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_MODULE + "CS2103 "
+            + "(" + PREFIX_YEAR + "4) "
+            + "(" + PREFIX_GRADE + "A+) ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_EDIT_PROFILE_SUCCESS = "Edited Profile: %1$s";
+    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
 
-    private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private boolean toEditProfile = false;
+    private Name profileName = null;
+    private CourseName courseName = null;
+    private int updatedSemester = 0;
+    private String focusAreaString = null;
+    private FocusArea focusArea = null;
 
-    /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
-     */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+    private boolean editModule = false;
+    private ModuleCode moduleCode;
+    private int editSemester = 0;
+    private String grade = null;
+    private String oldTask = null;
+    private String newTask = null;
+    private String newDeadlineString = null;
+    private int inSemester = 0;
 
-        this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+    public EditCommand(Name name, CourseName courseName, int updatedSemester, String focusAreaString) {
+        toEditProfile = true;
+        this.profileName = name;
+        this.courseName = courseName;
+        this.updatedSemester = updatedSemester;
+        this.focusAreaString = focusAreaString;
+    }
+
+    public EditCommand(ModuleCode moduleCode, int editSemester, String grade, String oldTask, String newTask,
+                       String newDeadline) {
+        editModule = true;
+        this.moduleCode = moduleCode;
+        this.editSemester = editSemester;
+        this.grade = grade;
+        this.oldTask = oldTask;
+        this.newTask = newTask;
+        this.newDeadlineString = newDeadline;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+    public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
+                                 ModuleManager moduleManager) throws CommandException {
+        requireNonNull(profileManager);
+        requireNonNull(courseManager);
+        requireNonNull(moduleManager);
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Profile profileToEdit;
+        try {
+            profileToEdit = profileManager.getFirstProfile(); //accessing only first profile in list
+        } catch (Exception e) {
+            throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        boolean showCommand = false;
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (editModule) {
+
+            TreeMap<Integer, ModuleList> treeMap = profileToEdit.getSemModTreeMap();
+            if (treeMap.isEmpty()) { // No modules have been added to any semester at all
+                throw new CommandException(MESSAGE_EMPTY_MODULE_DATA);
+            }
+
+            // Checks if module has been added to any semesters before
+            Module module = moduleManager.getModule(moduleCode);
+            Module existingModule = null;
+            int oldSemester = 0;
+
+            for (ModuleList moduleList: treeMap.values()) {
+                for (Module moduleItr: moduleList) {
+                    if (module.isSameModule(moduleItr)) {
+                        existingModule = moduleItr;
+                        oldSemester = getKey(treeMap, moduleList);
+                    }
+                }
+            }
+
+            if (existingModule == null) {
+                throw new CommandException(MESSAGE_MODULE_NOT_ADDED);
+            }
+
+            if (grade != null) {
+                int currentUserSemester = profileToEdit.getOverallSemester();
+                existingModule.getPersonal().setGrade(grade);
+                profileManager.setDisplayedView(profileToEdit);
+                profileToEdit.updateCap();
+                showCommand = true;
+
+            }
+
+            if (oldSemester != 0 && editSemester != 0) {
+                if (profileToEdit.getSemModTreeMap().containsKey(editSemester)
+                        && profileToEdit.getSemModTreeMap().get(editSemester).size() >= 10) {
+                    throw new CommandException("Target semester is full!");
+                }
+                try {
+                    treeMap.get(oldSemester).removeModuleWithModuleCode(moduleCode);
+                } catch (ModuleNotFoundException e) { // Will not happen
+                    throw new CommandException("Error deleting existing module.");
+                }
+
+                try {
+                    profileToEdit.addModule(editSemester, existingModule);
+                } catch (MaxModsException e) {
+                    throw new CommandException(MESSAGE_MAX_MODS);
+                }
+                updateStatus(profileToEdit);
+                profileManager.setDisplayedView(profileToEdit);
+
+                profileManager.clearDeadlineList();
+                profileManager.setNewDeadlineList(profileToEdit);
+                showCommand = true;
+            }
+
+            Deadline oldDeadline = null;
+            Deadline newDeadline = null;
+            if (newTask != null) {
+                try {
+                    newDeadline = existingModule.getDeadlineList().getTask(oldTask);
+                    oldDeadline = newDeadline;
+                    newDeadline.setDescription(newTask);
+                    profileManager.replaceDeadline(oldDeadline, newDeadline);
+                    oldTask = newTask;
+                } catch (Exception e) {
+                    throw new CommandException(MESSAGE_DEADLINE_DOES_NOT_EXIST);
+                }
+            }
+            if (newDeadlineString != null) {
+                try {
+                    newDeadline = existingModule.getDeadlineList().getTask(oldTask);
+                    oldDeadline = newDeadline;
+                    String date = newDeadlineString.split(" ")[0];
+                    String time = newDeadlineString.split(" ")[1];
+                    newDeadline.setDateTime(date, time);
+                    newDeadline.addTag();
+                    profileManager.replaceDeadline(oldDeadline, newDeadline);
+                } catch (Exception e) {
+                    throw new CommandException(MESSAGE_DEADLINE_DOES_NOT_EXIST);
+                }
+            }
+
+            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCode), showCommand);
+
+        } else if (toEditProfile) {
+
+            if (profileName != null) {
+                profileToEdit.setName(profileName);
+            }
+            if (courseName != null) {
+                profileToEdit.setCourse(courseName);
+
+                // If focusArea is not edited, make sure old focusArea is valid for the new course
+                if (focusAreaString == null) {
+                    FocusArea oldFocusArea = profileToEdit.getFocusArea();
+                    if (!oldFocusArea.isValid(courseName, oldFocusArea.toString())) {
+                        focusAreaString = "UNDECIDED";
+                    }
+                }
+
+            }
+
+            if (focusAreaString != null) {
+                CourseName courseName = profileToEdit.getCourseName();
+                try {
+                    focusArea = ParserUtil.parseFocusArea(courseName, focusAreaString);
+                } catch (Exception e) {
+                    throw new CommandException(MESSAGE_INVALID_COURSE_FOCUS_AREA);
+                }
+                profileToEdit.setFocusArea(focusArea);
+            }
+
+            if (updatedSemester != 0) {
+                profileToEdit.setCurrentSemester(updatedSemester);
+                updateStatus(profileToEdit);
+                profileManager.clearDeadlineList();
+                profileManager.setNewDeadlineList(profileToEdit);
+            }
+
+            Profile editedPerson = createEditedPerson(profileToEdit);
+
+            profileManager.setProfile(profileToEdit, editedPerson);
+            profileManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, editedPerson.getName()), false);
+        } else {
+            throw new CommandException("Error: Edit Command cannot be executed");
         }
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Profile createEditedPerson(Profile person) {
+        assert person != null;
+        return person;
+    }
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+    /**
+     * Returns key of the given value
+     */
+    public <K, V> K getKey(Map<K, V> map, V value) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+    /**
+     * Updates statuses of all modules in the Profile
+     */
+    private void updateStatus(Profile profileToEdit) {
+        int currentSemester = profileToEdit.getOverallSemester();
+        TreeMap<Integer, ModuleList> treeMap = profileToEdit.getSemModTreeMap();
+        for (ModuleList list: treeMap.values()) {
+            int semester = getKey(treeMap, list);
+            for (Module moduleItr: list) {
+                if (semester < currentSemester) {
+                    moduleItr.getPersonal().setStatus("completed");
+                } else if (semester == currentSemester) {
+                    moduleItr.getPersonal().setStatus("in progress");
+                } else {
+                    moduleItr.getPersonal().setStatus("not taken");
+                }
+            }
+        }
     }
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
+        boolean isSameProfile = false;
+        boolean isSameModule = false;
+        if (toEditProfile == true) {
+            if (isProfileNameEqual(other)
+                    && isCourseNameEqual(other)
+                    && (updatedSemester == ((EditCommand) other).updatedSemester)
+                    && isFocusAreaEqual(other)) {
+                isSameProfile = true;
+            }
+        } else if (editModule == true) {
+            if (moduleCode.equals(((EditCommand) other).moduleCode)
+                    && (editSemester == ((EditCommand) other).editSemester)
+                    && isGradeEqual(other)
+                    && isOldTaskEqual(other)
+                    && isNewTaskEqual(other)
+                    && isNewDeadLineEqual(other)) {
+                isSameModule = true;
+            }
         }
-
-        // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
-            return false;
-        }
-
-        // state check
-        EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+        return other == this // short circuit if same object
+                || (other instanceof EditCommand // instanceof handles nulls
+                && (isSameProfile || isSameModule));
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Returns true if profileName is the same, including null cases
      */
-    public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
-
-        public EditPersonDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setTags(toCopy.tags);
+    public boolean isProfileNameEqual(Object other) {
+        boolean isEqual = false;
+        if ((profileName == null) && (((EditCommand) other).profileName == null)) {
+            isEqual = true;
+        } else if (profileName.equals(((EditCommand) other).profileName)) {
+            isEqual = true;
         }
+        return isEqual;
+    }
 
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+    /**
+     * Returns true if courseName is the same, including null cases
+     */
+    public boolean isCourseNameEqual(Object other) {
+        boolean isEqual = false;
+        if ((courseName == null) && (((EditCommand) other).courseName == null)) {
+            isEqual = true;
+        } else if (courseName.equals(((EditCommand) other).courseName)) {
+            isEqual = true;
         }
+        return isEqual;
+    }
 
-        public void setName(Name name) {
-            this.name = name;
+    /**
+     * Returns true if focus area is the same, including null cases
+     */
+    public boolean isFocusAreaEqual(Object other) {
+        boolean isEqual = false;
+        if ((focusAreaString == null) && (((EditCommand) other).focusAreaString == null)) {
+            isEqual = true;
+        } else if (focusAreaString.equals(((EditCommand) other).focusAreaString)) {
+            isEqual = true;
         }
+        return isEqual;
+    }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+    /**
+     * Returns true if grade is the same, including null cases
+     */
+    public boolean isGradeEqual(Object other) {
+        boolean isEqual = false;
+        if ((grade == null) && (((EditCommand) other).grade == null)) {
+            isEqual = true;
+        } else if (grade.equals(((EditCommand) other).grade)) {
+            isEqual = true;
         }
+        return isEqual;
+    }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+    /**
+     * Returns true if old task is the same, including null cases
+     */
+    public boolean isOldTaskEqual(Object other) {
+        boolean isEqual = false;
+        if ((oldTask == null) && (((EditCommand) other).oldTask == null)) {
+            isEqual = true;
+        } else if (oldTask.equals(((EditCommand) other).oldTask)) {
+            isEqual = true;
         }
+        return isEqual;
+    }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+    /**
+     * Returns true if new task is the same, including null cases
+     */
+    public boolean isNewTaskEqual(Object other) {
+        boolean isEqual = false;
+        if ((newTask == null) && (((EditCommand) other).newTask == null)) {
+            isEqual = true;
+        } else if (newTask.equals(((EditCommand) other).newTask)) {
+            isEqual = true;
         }
+        return isEqual;
+    }
 
-        public void setEmail(Email email) {
-            this.email = email;
+    /**
+     * Returns true if new deadline is the same, including null cases
+     */
+    public boolean isNewDeadLineEqual(Object other) {
+        boolean isEqual = false;
+        if ((newDeadlineString == null) && (((EditCommand) other).newDeadlineString == null)) {
+            isEqual = true;
+        } else if (newDeadlineString.equals(((EditCommand) other).newDeadlineString)) {
+            isEqual = true;
         }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
-
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
-        }
+        return isEqual;
     }
 }

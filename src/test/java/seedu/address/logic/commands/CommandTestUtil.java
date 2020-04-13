@@ -2,24 +2,25 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TASK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.model.CourseManager;
+import seedu.address.model.ModuleManager;
+import seedu.address.model.ProfileManager;
+import seedu.address.model.profile.NameContainsKeywordsPredicate;
+import seedu.address.model.profile.Profile;
 
 /**
  * Contains helper methods for testing commands.
@@ -27,102 +28,109 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
+    public static final String VALID_MODCODE_AMY = "CS1231";
+    public static final String VALID_SEMESTER_AMY = "2.1";
+    public static final String VALID_GRADE_AMY = "A-";
+    public static final String VALID_TASK_AMY = "homework";
+    public static final String VALID_NEW_TASK_AMY = "new homework";
+    public static final String VALID_COURSE_AMY = "Computer Science";
+    public static final String VALID_FOCUS_AREA_AMY = "Software Engineering";
+    public static final String VALID_DEADLINE_DATE_AMY = "2020-05-23";
+    public static final String VALID_DEADLINE_TIME_AMY = "23:59";
+    public static final String VALID_DEADLINE_AMY = "2020-05-23 23:59";
+
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_MODCODE_BOB = "MA1521";
+    public static final String VALID_SEMESTER_BOB = "1.1";
+    public static final String VALID_GRADE_BOB = "C+";
+    public static final String VALID_TASK_BOB = "assignment";
+    public static final String VALID_NEW_TASK_BOB = "new assignment";
+    public static final String VALID_COURSE_BOB = "Business Analytics";
+    public static final String VALID_FOCUS_AREA_BOB = "Financial Analytics";
+    public static final String VALID_DEADLINE_DATE_BOB = "2020-05-05";
+    public static final String VALID_DEADLINE_TIME_BOB = "12:35";
+    public static final String VALID_DEADLINE_BOB = "2020-05-05 12:35";
+
+    public static final String VALID_COURSE_CS = "Computer Science";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
+    public static final String MODCODE_DESC_AMY = " " + PREFIX_MODULE + VALID_MODCODE_AMY;
+    public static final String SEMESTER_DESC_AMY = " " + PREFIX_YEAR + VALID_SEMESTER_AMY;
+    public static final String GRADE_DESC_AMY = " " + PREFIX_GRADE + VALID_GRADE_AMY;
+    public static final String TASK_DESC_AMY = " " + PREFIX_TASK + VALID_TASK_AMY;
+    public static final String NEW_TASK_DESC_AMY = " " + PREFIX_NEW_TASK + VALID_NEW_TASK_AMY;
+    public static final String DEADLINE_DESC_AMY = "  " + PREFIX_DEADLINE + VALID_DEADLINE_AMY;
+    public static final String COURSE_DESC_AMY = " " + PREFIX_COURSE_NAME + VALID_COURSE_AMY;
+    public static final String FOCUS_AREA_DESC_AMY = " " + PREFIX_FOCUS_AREA + VALID_FOCUS_AREA_AMY;
+
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String MODCODE_DESC_BOB = " " + PREFIX_MODULE + VALID_MODCODE_BOB;
+    public static final String SEMESTER_DESC_BOB = " " + PREFIX_YEAR + VALID_SEMESTER_BOB;
+    public static final String GRADE_DESC_BOB = " " + PREFIX_GRADE + VALID_GRADE_BOB;
+    public static final String TASK_DESC_BOB = " " + PREFIX_TASK + VALID_TASK_BOB;
+    public static final String NEW_TASK_DESC_BOB = " " + PREFIX_NEW_TASK + VALID_NEW_TASK_BOB;
+    public static final String DEADLINE_DESC_BOB = " " + PREFIX_DEADLINE + VALID_DEADLINE_BOB;
+    public static final String COURSE_DESC_BOB = " " + PREFIX_COURSE_NAME + VALID_COURSE_BOB;
+    public static final String FOCUS_AREA_DESC_BOB = " " + PREFIX_FOCUS_AREA + VALID_FOCUS_AREA_BOB;
+
+    public static final String INVALID_COURSE = "Random Course";
+    public static final String INVALID_FOCUS_AREA = "Random Focus Area";
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_MODCODE_DESC = " " + PREFIX_MODULE + "123ABC";
+    public static final String INVALID_SEMESTER_DESC = " " + PREFIX_YEAR + "a";
+    public static final String INVALID_GRADE_DESC = " " + PREFIX_GRADE + "1";
+    public static final String INVALID_DEADLINE_DESC = " " + PREFIX_DEADLINE + "2021-15-30 23:59";
+    public static final String INVALID_COURSE_DESC = " " + PREFIX_COURSE_NAME + "Random Course";
+    public static final String INVALID_FOCUS_AREA_DESC = " " + PREFIX_FOCUS_AREA + "Random Focus Area";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-
-    static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+    public static void assertCommandSuccess(Command command, ProfileManager actualProfileManager,
+                                            CourseManager actualCourseManager, ModuleManager actualModuleManager,
+                                            CommandResult expectedCommandResult, ProfileManager expectedProfileManager,
+                                            CourseManager expectedCourseManager, ModuleManager expectedModuleManager) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualProfileManager, actualCourseManager, actualModuleManager);
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedProfileManager, actualProfileManager);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, ProfileManager, CourseManager, ModuleManager,
+     * CommandResult, ProfileManager, CourseManager, ModuleManager)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    public static void assertCommandSuccess(Command command, ProfileManager actualProfileManager,
+                                            CourseManager actualCourseManager, ModuleManager actualModuleManager,
+                                            String expectedMessage, ProfileManager expectedProfileManager,
+                                            CourseManager expectedCourseManager, ModuleManager expectedModuleManager) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false);
+        assertCommandSuccess(command, actualProfileManager, actualCourseManager, actualModuleManager,
+                expectedCommandResult, expectedProfileManager, expectedCourseManager, expectedModuleManager);
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br>
-     * - a {@code CommandException} is thrown <br>
-     * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
-     */
-    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
-        // we are unable to defensively copy the model for comparison later, so we can
-        // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-    }
-    /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the profile at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+    public static void showPersonAtIndex(ProfileManager profileManager, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < profileManager.getFilteredPersonList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Profile profile = profileManager.getFilteredPersonList().get(targetIndex.getZeroBased());
+        final String[] splitName = profile.getName().fullName.split("\\s+");
+        profileManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, profileManager.getFilteredPersonList().size());
     }
 
 }

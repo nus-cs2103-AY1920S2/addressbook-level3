@@ -11,10 +11,23 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class ProfileListPanel
+Class ProfileCard
 Class StatusBarFooter
 Class CommandBox
+Class DeadlineListPanel
+Class DeadlineCard
+Class FocusAreaPanel
+Class CourseFocusAreaCard
+Class CoursePanel
+Class CourseRequirementCard
+Class IndividualModulePanel
+Class ModuleListPanel
+Class ModuleCard
+Class OverviewPanel
+Class OverviewModuleCard
+Class WelcomeViewPanel
+
 }
 
 package Model <<Rectangle>> {
@@ -31,30 +44,63 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow *-down- CommandBox
+MainWindow *-down- ResultDisplay
+MainWindow *-down- ProfileListPanel
+MainWindow *-down- StatusBarFooter
+MainWindow *-down- DeadlineListPanel
+MainWindow *-down- FocusAreaPanel
+MainWindow *-down- CoursePanel
+MainWindow *-down- OverviewPanel
+MainWindow *-down- ModuleListPanel
+MainWindow *-down- IndividualModulePanel
+MainWindow *-down- WelcomeViewPanel
 
-PersonListPanel -down-> PersonCard
+
+
+ProfileListPanel -down-> ProfileCard
+DeadlineListPanel -down-> DeadlineCard
+OverviewPanel -down-> ProfileCard
+OverviewPanel -down-> OverviewModuleCard
+FocusAreaPanel -down-> ModuleCard
+CoursePanel -down-> CourseFocusAreaCard
+CoursePanel -down-> CourseRequirementCard
+ModuleListPanel -down-> ModuleCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+ProfileListPanel --|> UiPart
+ProfileCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+DeadlineListPanel --|> UiPart
+FocusAreaPanel --|> UiPart
+CoursePanel --|> UiPart
+OverviewPanel --|> UiPart
+ModuleListPanel --|> UiPart
+IndividualModulePanel --|> UiPart
+WelcomeViewPanel --|> UiPart
 
-PersonCard ..> Model
+
+ProfileCard ..> Model
+DeadlineCard ..> Model
+OverviewModuleCard ..> Model
+ModuleCard ..> Model
+CourseRequirementCard ..> Model
+CourseFocusAreaCard ..> Model
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+ProfileListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+DeadlineListPanel -[hidden]left- HelpWindow
+IndividualModulePanel -[hidden]left- HelpWindow
+WelcomeViewPanel -[hidden]left- HelpWindow
 
 MainWindow -[hidden]-|> UiPart
 @enduml

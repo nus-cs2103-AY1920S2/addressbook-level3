@@ -1,0 +1,11 @@
+{
+  "profiles": [
+    {
+      "name" : "John&",
+      "courseName" : "COMPUTER SCIENCE",
+      "specialisation" : "UNDECIDED",
+      "currentSemester" : "4",
+      "records" : []
+    }
+  ]
+}

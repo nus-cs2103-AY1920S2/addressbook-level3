@@ -1,0 +1,100 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModdyParser" as ModdyParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "a:AddCommand" as AddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Profile" as Profile MODEL_COLOR
+participant ":Module" as Module MODEL_COLOR
+end box
+
+[-> CommandBox : "add m/CS2105 y/2.2"
+activate CommandBox
+
+CommandBox -> MainWindow : executeCommand("add m/CS2105 \ny/2.2")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("add m/CS2105 \ny/2.2")
+activate LogicManager
+
+LogicManager -> ModdyParser : parseCommand("add m/CS2105 \ny/2.2")
+activate ModdyParser
+
+create AddCommandParser
+ModdyParser -> AddCommandParser
+activate AddCommandParser
+
+AddCommandParser --> ModdyParser
+deactivate AddCommandParser
+
+ModdyParser -> AddCommandParser : parse("m/CS2105 y/2.2")
+activate AddCommandParser
+
+create AddCommand
+AddCommandParser -> AddCommand
+activate AddCommand
+
+AddCommand --> AddCommandParser : a
+deactivate AddCommand
+
+AddCommandParser --> ModdyParser : a
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> ModdyParser
+destroy AddCommandParser
+
+ModdyParser --> LogicManager : a
+deactivate ModdyParser
+
+LogicManager -> AddCommand : execute()
+activate AddCommand
+
+AddCommand -> Model : getFirstProfile()
+activate Model
+
+Model -> Profile
+activate Profile
+
+Profile -> Module : addModule()
+activate Module
+
+Module -> Profile
+deactivate Module
+
+Profile -> Model
+deactivate Profile
+
+Model --> AddCommand
+deactivate Model
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddCommand
+deactivate CommandResult
+
+AddCommand --> LogicManager : result
+deactivate AddCommand
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow --> CommandBox
+deactivate MainWindow
+
+[<--CommandBox
+deactivate CommandBox
+@enduml

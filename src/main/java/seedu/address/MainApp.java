@@ -15,19 +15,24 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
+import seedu.address.model.CourseList;
+import seedu.address.model.CourseManager;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ModuleList;
+import seedu.address.model.ModuleManager;
+import seedu.address.model.ProfileList;
+import seedu.address.model.ProfileManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCourseListStorage;
+import seedu.address.storage.JsonModuleListStorage;
+import seedu.address.storage.JsonProfileListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.ProfileListStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -36,7 +41,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -45,10 +50,13 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected CourseManager courseManager;
+    protected ModuleManager moduleManager;
+    protected ProfileManager profileManager;
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing MODdy ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,41 +64,94 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ProfileListStorage profiles = new JsonProfileListStorage(userPrefs.getProfileListFilePath());
+        storage = new StorageManager(profiles, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        profileManager = initProfileManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        courseManager = initCourseManager(userPrefs);
+        moduleManager = initModuleManager(userPrefs);
+
+        logic = new LogicManager(profileManager, storage, courseManager, moduleManager);
 
         ui = new UiManager(logic);
+
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code CourseManager} with the data from {@code userPrefs}. <br>
+     * An empty course list will be used instead if a course list is not found at
+     * {@code userPrefs.getModuleListFilePath()} or errors occur when reading the module list at that location.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+    private ModuleManager initModuleManager(UserPrefs userPrefs) {
+        JsonModuleListStorage modules = new JsonModuleListStorage(userPrefs.getModuleListFilePath());
+        ModuleManager moduleManager;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            Optional<ModuleList> moduleListOptional = modules.readModuleList();
+            if (!moduleListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty ModuleList");
+                moduleManager = new ModuleManager();
+            } else {
+                ModuleList moduleList = moduleListOptional.get();
+                moduleManager = new ModuleManager(moduleList);
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty ModuleList");
+            moduleManager = new ModuleManager();
         }
+        return moduleManager;
+    }
 
-        return new ModelManager(initialData, userPrefs);
+    /**
+     * Returns a {@code ModuleManager} with the data from {@code userPrefs}. <br>
+     * An empty module list will be used instead if a module list is not found at
+     * {@code userPrefs.getModuleListFilePath()} or errors occur when reading the module list at that location.
+     */
+    private CourseManager initCourseManager(UserPrefs userPrefs) {
+        JsonCourseListStorage modules = new JsonCourseListStorage(userPrefs.getCourseListFilePath());
+        CourseManager courseManager;
+        try {
+            Optional<CourseList> courseListOptional = modules.readCourseList();
+            if (!courseListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty CourseList");
+                courseManager = new CourseManager();
+            } else {
+                CourseList courseList = courseListOptional.get();
+                courseManager = new CourseManager(courseList);
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty CourseList");
+            courseManager = new CourseManager();
+        }
+        return courseManager;
+    }
+
+    /**
+     * Returns a {@code ProfileManager} with the data from {@code userPrefs}. <br>
+     * An empty profile list will be used instead if a profile list is not found at
+     * {@code userPrefs.getProfileListFilePath()} or errors occur when reading the profile list at that location.
+     */
+    private ProfileManager initProfileManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        Optional<ProfileList> profileListOptional;
+        ProfileList initialData;
+        try {
+            profileListOptional = storage.readProfileList();
+            if (!profileListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty ProfileList");
+                initialData = new ProfileList();
+            } else {
+                initialData = profileListOptional.get();
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ProfileList");
+            initialData = new ProfileList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ProfileList");
+            initialData = new ProfileList();
+        }
+        return new ProfileManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -151,7 +212,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Using default user prefs");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,15 +228,15 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting MODdy " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping MODdy ] =============================");
         try {
-            storage.saveUserPrefs(model.getUserPrefs());
+            storage.saveUserPrefs(profileManager.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

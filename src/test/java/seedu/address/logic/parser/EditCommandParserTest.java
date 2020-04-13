@@ -1,211 +1,235 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_NEW_TASK_OR_DEADLINE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_OLD_TASK;
+import static seedu.address.logic.commands.CommandTestUtil.COURSE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.COURSE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.FOCUS_AREA_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.FOCUS_AREA_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COURSE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DEADLINE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GRADE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODCODE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_SEMESTER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MODCODE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MODCODE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NEW_TASK_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NEW_TASK_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.SEMESTER_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.SEMESTER_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FOCUS_AREA_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NEW_TASK_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.Year;
+import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
+import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.course.module.personal.Grade;
 
+//@@author joycelynteo
 public class EditCommandParserTest {
-
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
-
-    private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
-    public void parse_missingParts_failure() {
-        // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+    public void parse_allProfileFieldsPresent_success() {
+        Name name = new Name(VALID_NAME_AMY);
+        CourseName courseName = new CourseName(VALID_COURSE_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
 
-        // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
-
-        // no index and no field specified
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+        // All profile fields present
+        assertParseSuccess(parser, NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_AMY + FOCUS_AREA_DESC_AMY,
+                new EditCommand(name, courseName, semester, VALID_FOCUS_AREA_AMY));
     }
 
     @Test
-    public void parse_invalidPreamble_failure() {
-        // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+    public void parse_multipleProfileFieldsPresent_failure() {
+        Name name = new Name(VALID_NAME_AMY);
+        CourseName courseName = new CourseName(VALID_COURSE_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
 
-        // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        // Multiple names
+        assertParseFailure(parser, NAME_DESC_BOB + NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_AMY
+                + FOCUS_AREA_DESC_AMY, "Error: you can only specify one name!");
 
-        // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+        // Multiple courses
+        assertParseFailure(parser, NAME_DESC_AMY + COURSE_DESC_BOB + COURSE_DESC_AMY + SEMESTER_DESC_AMY
+                + FOCUS_AREA_DESC_AMY, "Error: you can only specify one course!");
 
-        // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        // Multiple semesters
+        assertParseFailure(parser, NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_BOB + SEMESTER_DESC_AMY
+                + FOCUS_AREA_DESC_AMY, "Error: you can only specify one semester!");
+
+        // Multiple focus areas
+        assertParseFailure(parser, NAME_DESC_AMY + COURSE_DESC_AMY + SEMESTER_DESC_AMY + FOCUS_AREA_DESC_BOB
+                + FOCUS_AREA_DESC_AMY, "Error: you can only specify one focus area!");
     }
 
     @Test
-    public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+    public void parse_allModuleFieldsPresent_success() {
+        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
 
-        // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
-
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
-
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
-        // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-
-        // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
-                Name.MESSAGE_CONSTRAINTS);
+        // All module fields present
+        assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_AMY
+                + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY, new EditCommand(moduleCode, semester, VALID_GRADE_AMY,
+                VALID_TASK_AMY, VALID_NEW_TASK_AMY, VALID_DEADLINE_AMY));
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+    public void parse_multipleModuleFieldsPresent_failure() {
+        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        // Multiple module codes
+        assertParseFailure(parser, MODCODE_DESC_BOB + MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY
+                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                "Error: you can only edit one module at a time!");
 
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // Multiple semesters
+        assertParseFailure(parser, MODCODE_DESC_AMY + SEMESTER_DESC_BOB + SEMESTER_DESC_AMY + GRADE_DESC_AMY
+                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                "Error: you can only specify one semester!");
+
+        // Multiple grades
+        assertParseFailure(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_BOB + GRADE_DESC_AMY
+                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                "Error: you can only specify one grade for each module!");
+
+        // Multiple old tasks
+        assertParseFailure(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_BOB
+                + TASK_DESC_AMY + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                "Error: you can only edit one task at a time!");
+
+        // Multiple new tasks
+        assertParseFailure(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_AMY
+                + NEW_TASK_DESC_BOB + NEW_TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                "Error: you can only specify one description for each task!");
+
+        // Multiple new deadlines
+        assertParseFailure(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY + TASK_DESC_AMY
+                + NEW_TASK_DESC_AMY + DEADLINE_DESC_BOB + DEADLINE_DESC_AMY,
+                "Error: you can only specify one deadline for each task!");
     }
 
     @Test
-    public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
+    public void parse_optionalProfileFieldMissing_success() {
+        Name name = new Name(VALID_NAME_AMY);
+        CourseName courseName = new CourseName(VALID_COURSE_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
+        FocusArea focusArea = new FocusArea(VALID_FOCUS_AREA_AMY);
+        Profile profile = new Profile(name, courseName, semester, focusArea);
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        // Only name field present
+        assertParseSuccess(parser, NAME_DESC_AMY,
+                new EditCommand(name, null, 0, null));
 
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // Only course field present
+        assertParseSuccess(parser, COURSE_DESC_AMY,
+                new EditCommand(null, courseName, 0, null));
+
+        // Only semester field present
+        assertParseSuccess(parser, SEMESTER_DESC_AMY,
+                new EditCommand(null, null, semester, null));
+
+        // Only focus area field present
+        assertParseSuccess(parser, FOCUS_AREA_DESC_AMY,
+                new EditCommand(null, null, 0, VALID_FOCUS_AREA_AMY));
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() {
-        // name
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+    public void parse_optionalModuleFieldMissing_success() {
+        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
 
-        // phone
-        userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // Only ModuleCode and semester present
+        assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY,
+                new EditCommand(moduleCode, semester, null, null, null, null));
 
-        // email
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // Only ModuleCode and Grade present
+        assertParseSuccess(parser, MODCODE_DESC_AMY + GRADE_DESC_AMY,
+                new EditCommand(moduleCode, 0, VALID_GRADE_AMY, null, null, null));
 
-        // address
-        userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // Only ModuleCode, OldTask and NewTask Present
+        assertParseSuccess(parser, MODCODE_DESC_AMY + TASK_DESC_AMY + NEW_TASK_DESC_AMY,
+                new EditCommand(moduleCode, 0, null, VALID_TASK_AMY, VALID_NEW_TASK_AMY, null));
 
-        // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // Only ModuleCode, OldTask and NewDeadline Present
+        assertParseSuccess(parser, MODCODE_DESC_AMY + TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                new EditCommand(moduleCode, 0, null, VALID_TASK_AMY, null, VALID_DEADLINE_AMY));
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
-                + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
-                + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
+    public void parse_compulsoryFieldMissing_failure() {
+        // No fields present
+        assertParseFailure(parser, "",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        // Only ModuleCode present
+        assertParseFailure(parser, MODCODE_DESC_AMY,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // Only ModuleCode and old task Present
+        assertParseFailure(parser, MODCODE_DESC_AMY + TASK_DESC_AMY, MESSAGE_MISSING_NEW_TASK_OR_DEADLINE);
+
+        // Only ModuleCode and new task Present
+        assertParseFailure(parser, MODCODE_DESC_AMY + NEW_TASK_DESC_AMY, MESSAGE_MISSING_OLD_TASK);
+
+        // Only ModuleCode and new deadline Present
+        assertParseFailure(parser, MODCODE_DESC_AMY + DEADLINE_DESC_AMY, MESSAGE_MISSING_OLD_TASK);
     }
 
     @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
-        // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+    public void parse_invalidProfileValue_failure() {
+        // Invalid name
+        assertParseFailure(parser, INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
 
-        // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
-                + PHONE_DESC_BOB;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // Invalid course
+        assertParseFailure(parser, INVALID_COURSE_DESC, MESSAGE_INVALID_COURSE);
+
+        // Invalid current semester
+        assertParseFailure(parser, INVALID_SEMESTER_DESC, Year.MESSAGE_CONSTRAINTS);
     }
 
     @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+    public void parse_invalidModuleValue_failure() {
+        // Invalid module code
+        assertParseFailure(parser, INVALID_MODCODE_DESC, ModuleCode.MESSAGE_CONSTRAINTS);
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        // Invalid module semester
+        assertParseFailure(parser, MODCODE_DESC_AMY + INVALID_SEMESTER_DESC, Year.MESSAGE_CONSTRAINTS);
 
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // Invalid grade
+        assertParseFailure(parser, MODCODE_DESC_AMY + INVALID_GRADE_DESC, Grade.MESSAGE_CONSTRAINTS);
+
+        // Invalid deadline
+        assertParseFailure(parser, MODCODE_DESC_AMY + TASK_DESC_AMY + INVALID_DEADLINE_DESC,
+                Deadline.MESSAGE_CONSTRAINTS);
     }
 }

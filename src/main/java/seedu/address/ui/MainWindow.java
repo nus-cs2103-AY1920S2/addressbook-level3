@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +19,13 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
+import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+
+//@@author jadetayy
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,9 +41,19 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ProfileListPanel profileListPanel;
+    private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    // Ui parts in the main panel (dynamic)
+    private WelcomeView welcomeViewPanel;
+    private ModuleListPanel moduleListPanel;
+    private OverviewPanel overviewPanel;
+    private IndividualModulePanel individualModulePanel;
+    private CoursePanel coursePanel;
+    private FocusAreaPanel focusAreaPanel;
+    private WelcomeView homePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,13 +62,20 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane profileListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane deadlineListPanelPlaceholder;
+
+    @FXML
+    private StackPane mainPanelPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -107,13 +134,20 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        welcomeViewPanel = new WelcomeView();
+        mainPanelPlaceholder.getChildren().add(welcomeViewPanel.getRoot());
+
+        profileListPanel = new ProfileListPanel(logic.getFilteredPersonList());
+        profileListPanelPlaceholder.getChildren().add(profileListPanel.getRoot());
+
+        deadlineListPanel = new DeadlineListPanel(logic.getFilteredDeadlineList(), logic.getProfileManager());
+        deadlineListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getProfileListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -160,19 +194,57 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Handles show command by updating Main Panel.
+     */
+    @FXML
+    @SuppressWarnings("unchecked")
+    private void handleShowCommand() throws ParseException {
+        Optional<Object> displayedView = logic.getDisplayedView();
+
+        // Removes the current displayed view
+        if (displayedView != null) {
+            mainPanelPlaceholder.getChildren().remove(displayedView);
+        }
+
+        WelcomeView home = new WelcomeView();
+
+        //return to home page
+        if (displayedView.isEmpty()) {
+            mainPanelPlaceholder.getChildren().add(home.getRoot());
+        } else if (displayedView.get() instanceof FilteredList) {
+            moduleListPanel = new ModuleListPanel((ObservableList<Module>) displayedView.get());
+            mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        } else if (displayedView.get() instanceof Profile) {
+            overviewPanel = new OverviewPanel(logic.getProfileList().getProfileList());
+            mainPanelPlaceholder.getChildren().add(overviewPanel.getRoot());
+        } else if (displayedView.get() instanceof Module) {
+            individualModulePanel = new IndividualModulePanel((Module) displayedView.get());
+            mainPanelPlaceholder.getChildren().addAll(individualModulePanel.getRoot());
+        } else if (displayedView.get() instanceof Course) {
+            coursePanel = new CoursePanel((Course) displayedView.get());
+            mainPanelPlaceholder.getChildren().addAll(coursePanel.getRoot());
+        } else if (displayedView.get() instanceof CourseFocusArea) {
+            focusAreaPanel = new FocusAreaPanel((CourseFocusArea) displayedView.get());
+            mainPanelPlaceholder.getChildren().addAll(focusAreaPanel.getRoot());
+        }
+
     }
+
 
     /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
+            DateTimeException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+
+            //prints onto console
             logger.info("Result: " + commandResult.getFeedbackToUser());
+            //prints on result display on ui
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
@@ -181,6 +253,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowCommand()) {
+                handleShowCommand();
             }
 
             return commandResult;

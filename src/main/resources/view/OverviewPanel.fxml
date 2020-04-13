@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author jadetayy -->
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.control.ListView?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+    <SplitPane minHeight="150" maxHeight="150" dividerPositions="0.5">
+        <ListView fx:id="profile" VBox.vgrow="ALWAYS" styleClass="pane-with-border" minHeight="120" maxHeight="120">
+            <padding>
+                <Insets top="5" bottom="3" left="5" right="0"/>
+            </padding>
+        </ListView>
+
+
+<!--        cap panel-->
+        <VBox styleClass="pane-with-border" minWidth="200" maxWidth="200" minHeight="100" alignment="TOP_LEFT">
+            <padding>
+                <Insets top="3" bottom="3" left="5" right="0"/>
+            </padding>
+            <Label fx:id="cap" alignment="TOP_LEFT" styleClass="module_others"/>
+        </VBox>
+
+        <padding>
+            <Insets top="7" right="0" bottom="10" left="0" />
+        </padding>
+
+    </SplitPane>
+
+    <ScrollPane fx:id="modulesPanel" VBox.vgrow="ALWAYS" prefHeight="600"
+                vmax="0" vbarPolicy="NEVER" styleClass="pane-with-border">
+
+    </ScrollPane>
+</VBox>

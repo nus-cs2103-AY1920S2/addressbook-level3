@@ -1,0 +1,26 @@
+@startuml
+start
+:User executes edit command;
+:MODdy parses command for tags;
+if () then ([user input contains module tag])
+  if () then ([user input contains a new semester or grade])
+    :Edit semester and/or grade;
+  else ([else])
+  endif
+  if () then ([user input contains a new task or deadline])
+    if () then ([user specifies old task])
+      :Edit deadline task;
+    else ([else])
+      :Display error message;
+    endif
+  else ([else])
+  endif
+else ([else])
+  if () then ([user input contains a profile tag])
+    :Edit profile;
+  else ([else])
+    :Display error message;
+  endif
+endif
+stop
+@enduml

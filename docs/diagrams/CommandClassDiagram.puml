@@ -1,0 +1,43 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Command {
+Class "{abstract}\nCommand" as Command
+Class AddCommand
+Class ShowCommand
+Class EditCommand
+Class DeleteCommand
+Class ClearCommand
+Class ExitCommand
+Class HelpCommand
+Class HomeCommand
+Class NewCommand
+Class CommandResult
+}
+
+Class LogicManager
+LogicManager ..> CommandResult
+LogicManager -> Parser
+LogicManager .left.> Command : executes >
+
+
+Command .up.> CommandResult
+AddCommand -up-|> Command
+ShowCommand -up-|> Command
+EditCommand -up-|> Command
+DeleteCommand -up-|> Command
+ClearCommand -up-|> Command
+ExitCommand -up-|> Command
+HelpCommand -up-|> Command
+HomeCommand -up-|> Command
+NewCommand -up-|> Command
+
+
+package Parser {
+Class HiddenParser #FFFFFF
+}
+
+@enduml

@@ -1,0 +1,66 @@
+= Chan Choon Kong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MODdy
+
+---
+
+== Overview
+
+MODdy is a desktop application used by NUS Computing students to track their course progression, manage modules and manage deadlines. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to delete profiles, modules and tasks*
+** What it does: Allows the user to delete his user profile, delete a module he has added previously, and delete a task which has been added to a module taken in the current semester.
+** Justification: This feature improves the product significantly because a user can remove a task after he has completed it, or remove a module if he decides to not take or drop the module, or remove his profile to reset MODdy.
+** Highlights: This enhancement is complementary to the feature of adding a new user profiles, modules and deadlines. There were many design considerations involved, such as the types of user inputs to accept, as well as whether to allow the user to delete multiple modules and tasks at once.
+
+* *Major enhancement*: implemented backend *to enable MODdy to read data from and save data to relevant json files*
+** What it does: Allows MODdy to parse module and user profile data from a json file into Java objects. Provides programmers with helpful classes to use the data stored in these objects. For user profile data, this enhancement also allows saving from Java object to json.
+** Justification: This feature improves the product significantly because modules and user profiles do not have to be manually added every time the application is loaded. The module and user profile data are stored in persistent storage. This reduces the risk of data loss for the user in the event of a system crash or power loss.
+** Highlights: This enhancement required pulling data from NUSMods using their API and cleaning up the data. The main challenge was deciding which fields of the data to keep or omit by thinking about their relevance to the users.
+** Credits: The ideas in the backend code of Address Book were reused and adapted to fit the code in this project.
+
+* *Minor enhancement*: added the ability to check if the user has fulfilled the prerequisites of a module prior to the semester the module is being added to.
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=chanckben[Functional and test code]
+
+* *Other contributions*:
+
+** Project management:
+*** Set up the GitHub organisation and team repo
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from 27% to 42% (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/269[#269], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/275[#275])
+** Community:
+*** PRs reviewed: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/74[#74], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/95[#95]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S2-CS2103-W14-3/main/issues/91[1], https://github.com/AY1920S2-CS2103-W14-3/main/issues/97[2], https://github.com/AY1920S2-CS2103-W14-3/main/issues/90[3])
+** Tools:
+*** Integrated a new Github plugin (TravisCI) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=delete]
+
+include::../DeveloperGuide.adoc[tag=userStories]
+
+=== Instructions for Manual Testing
+
+(Content omitted for brevity)

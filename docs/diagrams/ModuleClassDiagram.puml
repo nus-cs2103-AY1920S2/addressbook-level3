@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class ModuleList
+
+ModuleList .down.> Module
+
+package Module {
+    Class Module
+    Class ModuleCode
+    Class Title
+    Class PreReqs
+    Class Preclusions
+    Class ModularCredits
+    Class Description
+    Class SemesterData
+    Class PrereqTreeNode
+
+    package Personal {
+        Class Personal
+        Class Grade
+        Class Status
+        Class DeadlineList
+        Class Deadline
+        Enum ModuleGrade
+        Enum ModuleStatus
+    }
+}
+
+Module *-down---- Personal
+Module *-left- ModuleCode
+Module *-right- Title
+Module *-down- PreReqs
+Module *-down-- Preclusions
+Module *-down-- ModularCredits
+Module *-down--- Description
+Module *-down-- SemesterData
+Module *-down- PrereqTreeNode
+Personal *-- Grade
+Personal *-- Status
+Personal *-- DeadlineList
+Personal *-- ModuleGrade
+Personal *-- ModuleStatus
+DeadlineList o-- Deadline
+
+@enduml

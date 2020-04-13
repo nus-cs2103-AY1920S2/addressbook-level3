@@ -1,0 +1,69 @@
+= Tang Guang Yan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MODdy
+
+---
+
+== Overview
+
+MODdy is a desktop application used by NUS Computing students to track their course progression, manage modules and manage deadlines. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Refactored *all commands to take in Manager objects*
+** What it does: Allows developers and commands to have non-static access to Manager objects
+** Justification: Previous usage of Manager object attributes were accessed using public static methods that did not align with good coding practices
+** Highlights: This enhancement prevents other classes from illegal and unintended access of Manager objects. It required a good understanding of what every command was doing and being able to change static variables to non-static ones.
+
+* *Minor enhancements*:
+** Added a show command that allows the user to display further details of course-related information in MODdy
+** Added the ability to store course information in JSON format that can be used by all users of MODdy
+** Added the feature to add deadlines to and delete deadlines from a module (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/321[#321] https://github.com/AY1920S2-CS2103T-W13-3/main/pull/327[#327])
+*** Credits: With reference to https://github.com/chanckben[@chanckben]'s https://github.com/AY1920S2-CS2103T-W13-3/main/blob/master/src/main/java/seedu/address/storage/JsonModule.java[JsonModule] class
+** Added Cumulative Average Point (CAP) calculator for users to keep track of their grades
+** Ensured features were working as intended for each commit and version release. Raised and also solved multiple issues (https://github.com/AY1920S2-CS2103T-W13-3/main/issues?q=is%3Aissue+author%3Agyant6[Issues raised])
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gyant6[RepoSense report]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed the production of MODdy by leading the discussion of its initial implementation
+*** Managed the overall progress of MODdy by directing weekly team meetings
+** Enhancements to existing features:
+*** Implemented Show command (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/115[#115])
+*** Implemented Module class (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/29[#29])
+*** Implemented CourseManager class and its JSON storage (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/94[#94] https://github.com/AY1920S2-CS2103T-W13-3/main/pull/119[#119])
+*** Created CAP calculator (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/155[#155])
+*** Refactored commands to non-static access of Manager objects (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/151[#151])
+*** Addressed and closed numerous issues raised by other users in dry Practical Exam (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/259[#259])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/280[#280]
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/gyant6/ped/issues[1])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=show]
+
+include::../UserGuide.adoc[tag=appendix]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=model]
+
+include::../DeveloperGuide.adoc[tag=show]
+
+include::../DeveloperGuide.adoc[tag=appendixEffort]

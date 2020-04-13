@@ -1,18 +1,25 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
+import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Profile> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,51 +44,85 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getProfileListFilePath();
+    //Path getAddressBookFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setProfileListFilePath(Path profileListFilePath);
+    //void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setProfileList(ProfileList profileList);
+    //void setAddressBook(ReadOnlyAddressBook addressBook);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ProfileList getProfileList();
+    //ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Deletes the given profile.
+     * The profile must exist in the address book.
      */
-    boolean hasPerson(Person person);
+    void deleteProfile(Profile target);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Adds the given profile.
+     * {@code profile} must not already exist in the address book.
      */
-    void deletePerson(Person target);
+    void addProfile(Profile profile);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given profile {@code target} with {@code editedProfile}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The profile identity of {@code editedProfile} must not be the same as another existing profile
+     * in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setProfile(Profile target, Profile editedProfile);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered profile list */
+    ObservableList<Profile> getFilteredPersonList();
+
+    ObservableList<Deadline> getSortedDeadlineList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered profile list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Predicate<Profile> predicate);
+
+    boolean hasProfile(Name name);
+
+    Profile getProfile(Name name);
+
+    Profile getFirstProfile();
+
+    void addDeadline(Deadline deadline);
+
+    void deleteDeadline(Deadline deadline);
+
+    void clearDeadlineList();
+
+    void loadDeadlines();
+
+    void deleteModuleDeadlines(ModuleCode mc);
+
+    Optional<Object> getDisplayedView();
+
+    void setDisplayedView(ObservableList<Module> toDisplay);
+
+    void setDisplayedView(Profile toDisplay);
+
+    void setDisplayedView(Module toDisplay);
+
+    void setDisplayedView(Course toDisplay);
+
+    void setDisplayedView(CourseFocusArea toDisplay);
+
+    void setNewDeadlineList(Profile editedProfile);
+
+    void deleteModuleFromDeadlineList(ModuleCode moduleCode);
 }

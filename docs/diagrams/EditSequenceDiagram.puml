@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModdyParser" as ModdyParser LOGIC_COLOR
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant "e:EditCommand" as EditCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "Profile" as Profile MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> CommandBox : "edit n/John"
+activate CommandBox
+
+CommandBox --> MainWindow : executeCommand("edit n/John")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("edit n/John")
+activate LogicManager
+
+LogicManager -> ModdyParser : parseCommand("edit n/John")
+activate ModdyParser
+
+create EditCommandParser
+ModdyParser -> EditCommandParser : parse("n/John")
+activate EditCommandParser
+
+EditCommandParser --> ModdyParser
+deactivate EditCommandParser
+
+ModdyParser --> EditCommandParser : parse("n/John")
+activate EditCommandParser
+
+create EditCommand
+EditCommandParser --> EditCommand
+activate EditCommand
+
+EditCommand --> EditCommandParser : e
+deactivate EditCommand
+
+EditCommandParser --> ModdyParser : e
+destroy EditCommandParser
+
+ModdyParser --> LogicManager : e
+deactivate ModdyParser
+
+
+LogicManager --> EditCommand : execute()
+activate EditCommand
+
+EditCommand --> Model : getFilteredPersonList().get(0)
+activate Model
+
+Model --> EditCommand
+deactivate Model
+
+EditCommand --> Profile : setName("John")
+activate Profile
+
+Profile --> EditCommand
+deactivate Profile
+
+create CommandResult
+EditCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditCommand
+deactivate CommandResult
+
+EditCommand --> LogicManager : result
+deactivate EditCommand
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow --> CommandBox
+
+[<-- CommandBox
+deactivate LogicManager
+@enduml

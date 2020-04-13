@@ -1,0 +1,60 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModdyParser" as ModdyParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("delete\n m/CS2101 t/work")
+activate LogicManager
+
+LogicManager -> ModdyParser : parseCommand("delete\n m/CS2101 t/work")
+activate ModdyParser
+
+create DeleteCommandParser
+ModdyParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> ModdyParser
+deactivate DeleteCommandParser
+
+ModdyParser -> DeleteCommandParser : parse("m/CS2101 t/work")
+activate DeleteCommandParser
+
+create DeleteCommand
+DeleteCommandParser -> DeleteCommand
+activate DeleteCommand
+
+DeleteCommand --> DeleteCommandParser : d
+deactivate DeleteCommand
+
+DeleteCommandParser --> ModdyParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> ModdyParser
+destroy DeleteCommandParser
+
+ModdyParser --> LogicManager : d
+deactivate ModdyParser
+
+LogicManager -> DeleteCommand : execute()
+activate DeleteCommand
+
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteCommand
+deactivate CommandResult
+
+DeleteCommand --> LogicManager : result
+deactivate DeleteCommand
+
+[<-- LogicManager
+deactivate LogicManager
+
+@enduml

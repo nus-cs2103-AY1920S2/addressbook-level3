@@ -1,19 +1,36 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE_FOCUS_AREA;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_NAME;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_SEMESTER;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Year;
+import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
+import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.course.module.personal.Grade;
+
+//@@author joycelynteo
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -21,10 +38,14 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_SEMESTER = "Please enter the year in the form Y.S, where Y is the year "
+            + "(1 to 8) and S is the semester (1 or 2).";
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -43,82 +64,176 @@ public class ParserUtil {
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        String formattedName = name.trim().toLowerCase();
+        if (name.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_NAME);
+        }
+        if (!Name.isValidName(formattedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Name(formattedName);
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String moduleCode} into a {@code ModuleCode}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code moduleCode} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        String formattedModuleCode = moduleCode.trim().toUpperCase();
+        if (formattedModuleCode.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_MODULE);
         }
-        return new Phone(trimmedPhone);
+        if (!ModuleCode.isValidCode(formattedModuleCode)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_MODULE, formattedModuleCode));
+        }
+        return new ModuleCode(formattedModuleCode);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses {@code Collection<String> moduleCodes} into a {@code Set<ModuleCode>}.
+     */
+    public static List<ModuleCode> parseModuleCodes(Collection<String> moduleCodes) throws ParseException {
+        requireNonNull(moduleCodes);
+        final List<ModuleCode> moduleCodeList = new ArrayList<>();
+        for (String moduleCode : moduleCodes) {
+            moduleCodeList.add(parseModuleCode(moduleCode));
+        }
+        return moduleCodeList;
+    }
+
+    /**
+     * Checks that input is an integer
+     */
+    public static boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Parses a {@code String year}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code year} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Year parseYear(String year) throws ParseException {
+        String trimmedYear = year.trim();
+        if (year.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_SEMESTER);
         }
-        return new Address(trimmedAddress);
+        if (!Year.isValidCode(year)) {
+            throw new ParseException(Year.MESSAGE_CONSTRAINTS);
+        }
+        return new Year(trimmedYear);
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String grade}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code grade} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static String parseGrade(String grade) throws ParseException {
+        String trimmedGrade = grade.trim().toUpperCase();
+        if (!Grade.isValidGrade(trimmedGrade)) {
+            throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return trimmedGrade;
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String deadline}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code deadline} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static String[] parseDeadline(String deadline) throws ParseException {
+        String trimmedDeadline = deadline.trim();
+        if (!trimmedDeadline.contains(" ")) {
+            if (!isValidDate(trimmedDeadline)) {
+                throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+            }
+            String[] datetime = {trimmedDeadline, "23:59"};
+            return datetime;
+        } else {
+            String[] dateTime = trimmedDeadline.split(" ");
+            if (dateTime.length < 2 || !isValidDeadline(dateTime)) {
+                throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+            }
+            return dateTime;
         }
-        return new Tag(trimmedTag);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code String courseName} into a {@code CourseName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code courseName} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static CourseName parseCourseName(String courseName) throws ParseException {
+        requireNonNull(courseName);
+        String trimmedCourseName = courseName.trim().toUpperCase();
+        if (trimmedCourseName.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_COURSE);
         }
-        return tagSet;
+        if (!CourseName.isValid(trimmedCourseName)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COURSE, NewCommand.MESSAGE_USAGE));
+        }
+        return new CourseName(trimmedCourseName);
+    }
+
+    /**
+     * Parses a {@code String focusArea}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code focusArea} is invalid.
+     */
+    public static FocusArea parseFocusArea(CourseName courseName, String focusArea) throws ParseException {
+        requireNonNull(focusArea);
+        String trimmedFocusArea = focusArea.trim().toUpperCase();
+        if (trimmedFocusArea.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_COURSE_FOCUS_AREA);
+        }
+        if (!FocusArea.isValid(courseName, trimmedFocusArea)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COURSE_FOCUS_AREA, NewCommand.MESSAGE_USAGE));
+        }
+        return new FocusArea(trimmedFocusArea);
+    }
+
+    /**
+     * Returns true if the given deadline is valid.
+     */
+    public static boolean isValidDeadline(String[] dateTime) {
+        return isValidDate(dateTime[0]) && isValidTime(dateTime[1]);
+    }
+
+    /**
+     * Returns true if the given date is valid.
+     */
+    public static boolean isValidDate(String date) {
+        try {
+            LocalDate.parse(date);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if the given time is valid.
+     */
+    public static boolean isValidTime(String time) {
+        try {
+            LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }

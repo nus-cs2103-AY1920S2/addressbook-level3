@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Interface Course <<Interface>>
+
+Class Faculty
+Class CourseManager
+Class CourseList
+Class Major
+Class MajorList
+Class Minor
+Class MinorList
+Class SpecList
+
+Faculty -r-> CourseManager
+CourseManager -r-> CourseList
+CourseList -d-> Course
+Course .d.> MajorList
+Course .d.> MinorList
+Course .d.> SpecList
+
+MajorList -d-> Major
+MinorList -d-> Minor
+SpecList -d-> Spec
+
+Major -d-> ModuleManager
+Minor -d-> ModuleManager
+Spec -d-> ModuleManager
+
+ModuleManager -r-> DegreeProgManager
+ModuleManager -d-> ModuleSet
+
+ModuleSet *-d-> Module
+
+DegreeProgManager *-d-> SemList
+SemList o-d-> Semester
+
+@enduml

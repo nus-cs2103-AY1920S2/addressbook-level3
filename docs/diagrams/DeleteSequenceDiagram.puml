@@ -1,6 +1,11 @@
 @startuml
 !include style.puml
 
+box Ui UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
@@ -11,12 +16,24 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant ":Profile" as Profile MODEL_COLOR
+participant ":Module" as Module MODEL_COLOR
+participant ":Deadline" as Deadline MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> MainWindow
+activate MainWindow
+
+create CommandBox
+MainWindow -> CommandBox
+activate CommandBox
+
+CommandBox -> MainWindow : executeCommand("delete m/CS2101 t/work")
+
+MainWindow -> LogicManager : execute("delete m/CS2101 t/work")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
+LogicManager -> AddressBookParser : parseCommand("delete m/CS2101 t/work")
 activate AddressBookParser
 
 create DeleteCommandParser
@@ -26,7 +43,7 @@ activate DeleteCommandParser
 DeleteCommandParser --> AddressBookParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
+AddressBookParser -> DeleteCommandParser : parse("m/CS2101 t/work")
 activate DeleteCommandParser
 
 create DeleteCommand
@@ -48,11 +65,24 @@ deactivate AddressBookParser
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteCommand -> Model : getFirstProfile()
 activate Model
 
 Model --> DeleteCommand
 deactivate Model
+
+DeleteCommand -> Profile : getModule()
+activate Profile
+
+Profile -> Module
+activate Module
+
+Module -> Deadline
+activate Deadline
+
+
+Module --> Profile : module
+deactivate Module
 
 create CommandResult
 DeleteCommand -> CommandResult

@@ -4,53 +4,52 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+MODdy was developed by the https://github.com/AY1920S2-CS2103T-W13-3 team. +
+{empty} +
+MODdy is a way for NUS students to manage the modules that they have taken, are taking or plan to take during
+the course of their education. MODdy handles module management as well as keeping track of the student's grades
+for each of the modules. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Chan Choon Kong
+image::chanckben.png[width="150", align="left"]
+{empty}[https://github.com/chanckben[github]] [<<chanckben#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Team Lead
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Ong Wan Xuan
+image::wanxuanong.png[width="150", align="left"]
+{empty}[https://github.com/wanxuanong[github]] [<<wanxuanong#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tang Guang Yan
+image::gyant6.png[width="150", align="left"]
+{empty}[https://github.com/gyant6[github]] [<<gyant6#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer
+
+'''
+
+=== Jade Tay
+image::jadetayy.png[width="150", align="left"]
+{empty}[https://github.com/jadetayy[github]] [<<jadetayy#, portfolio>>]
+
+Role: Developer
+
+'''
+
+=== Joycelyn Teo
+image::joycelynteo.png[width="150", align="left"]
+{empty}[https://github.com/joycelynteo[github]] [<<joycelynteo#, portfolio>>]
+
+Role: Developer
 
 '''

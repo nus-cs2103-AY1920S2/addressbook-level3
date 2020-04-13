@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author jadetayy -->
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.geometry.Insets?>
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox styleClass="pane-with-border">
+        <TextFlow>
+            <Label text="Welcome to " styleClass="welcomeTitle" alignment="TOP_LEFT"></Label>
+            <Label text="MODdy!" styleClass="fancyTitle"></Label>
+        </TextFlow>
+        <Label text=" Quick start:" styleClass="quickStart"></Label>
+        <TextFlow>
+            <Label text=" 1. No profile? Create using " styleClass="quickStart" ></Label>
+            <Label text="`new`" styleClass="command"></Label>
+        </TextFlow>
+        <Label text="format: new n/John c/Computer Science y/2.2 [f/Software Engineering]" styleClass="command"></Label>
+        <Label text="    " styleClass="quickStart"></Label>
+
+        <TextFlow>
+            <Label text=" 2. Add modules using " styleClass="quickStart" ></Label>
+            <Label text="`add`" styleClass="command"></Label>
+        </TextFlow>
+        <Label text="format: add m/CS2103T y/2.2 [g/A+]" styleClass="command"></Label>
+        <Label text="    " styleClass="quickStart"></Label>
+        <TextFlow>
+            <Label text=" 3. Add deadlines using " styleClass="quickStart" ></Label>
+            <Label text="`add`" styleClass="command"></Label>
+        </TextFlow>
+        <Label text="format: add m/CS2103T y/2.2 t/tP milestone d/2020-04-17 23:59" styleClass="command"></Label>
+
+        <padding>
+            <Insets top="5" bottom="5" right="5" left="8"/>
+        </padding>
+    </VBox>
+
+</StackPane>

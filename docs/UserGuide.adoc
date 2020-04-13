@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= MODdy - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,558 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W13-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
+<<<
+// tag::introduction[]
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to *MODdy*!
 
+.Overview of the main features of *MODdy*
+image::Main.png[width="790"]
+
+*MODdy* is a one-stop application for all your academic needs!
+
+It keeps you organized and well-planned throughout your course of study.
+It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+This user guide aims to give you a clearer understanding on how to use *MODdy* as well as a summary of its features.
+
+Currently, *MODdy* targets student from *School of Computing (SoC)* in the National University of Singapore (NUS).
+If you are from SoC and is looking for an application to manage all your modules and tasks throughout your degree progression, what are you waiting for?
+Jump to <<Quick Start, Quick Start>> to get started. Hope you enjoy the company of *MODdy* on your SoC journey!
+// end::introduction[]
+
+<<<
+// tag::about[]
+== About the User Guide
+This user guide aims to provide you with essential information on how to use MODdy.
+
+With the following features of *MODdy* listed below, we hope to provide you a seamless academic management experience in NUS.
+
+- Viewing help
+- Creating new user profile
+- Adding module or task
+- Editing profile, module or task
+- Showing profile, module, semester, course or focus area
+- Deleting profile, module, task or grade
+- Calculating Cumulative Average Point (CAP)
+- Returning to homepage
+- Resetting *MODdy*
+- Exiting *MODdy*
+
+You can refer to <<Features>> for details of each feature mentioned above.
+
+Please note the following which may serve as points of interests:
+
+kbd:[Enter] : This grey highlight with white outline indicates a keyboard's key.
+
+`word` : This grey highlight indicates commands that you can type into *MODdy's* command box.
+
+NOTE: This symbol indicates information that you may wish to note.
+
+TIP: This symbol indicates tips provided by us.
+// end::about[]
+
+<<<
+// tag::quickstart[]
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+This section provides you with steps on how you can install *MODdy* on your computer and how to get started with *MODdy*.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+.  Ensure you have Java *11* or above installed in your Computer.
+.  Download the latest *MODdy.jar* link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your personalised *MODdy*.
+.  Double-click the file to start the app. The GUI, as shown in Figure 2 below, should appear in a few seconds.
++
+.Homepage of *MODdy*
+image::QuickStart.png[width="700"]
++
+.  Type the command in the command box as shown in Figure 2 and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+. Create your own profile by entering your details in the command box using these parameters: `new n/name c/course y/year.semester`.
+.  Some other example commands you can try:
+
+* `add m/CS1231 y/1.1` : Adds CS1231 into your list of modules under Year 1 Semester 1.
+* `delete n/name` : Deletes your entire profile and its data.
+* *`exit`* : Closes the GUI and exits *MODdy*.
 
 .  Refer to <<Features>> for details of each command.
+// end::quickstart[]
 
+<<<
 [[Features]]
 == Features
+The following 11 sections provides you a deeper understanding on how to use the features you can perform in *MODdy* and how the features work.
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Alphabets preceding the `/` sign are the prefix tags you need to provide.
+* Words succeeding the `/` sign are the parameters supplied by you, e.g. in `add m/moduleCode`, `moduleCode` is a parameter given by you.
+* Parameters can be entered in any format and are case-insensitive, unless stated otherwise.
+* Items in square brackets are optional e.g `m/moduleCode [g/grade]` can be used as `m/CS2103 g/A+` or as `m/CS2103`.
 ====
 
+// tag::help[]
+[[Help]]
 === Viewing help : `help`
+
+If you are unsure about the commands and want to seek help, this command opens up a pop-up help window where there are examples for basic command formats.
+For more detailed help, you can visit the link provided in the window, as shown in Figure 3 below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
 
 Format: `help`
 
-=== Adding a person: `add`
+.Help window of *MODdy*
+image::Help.png[width="790"]
+// end::help[]
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+// tag::new[]
+[[New]]
+=== Creating new user profile : `new`
 
-[TIP]
-A person can have any number of tags (including 0)
+If you want to get started on using *MODdy*, you will have to create a new profile. By using this command, it creates a profile for you as shown in the figure below. You will have to provide your details as parameters.
 
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `new n/name c/course y/year.semester [f/focusArea]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* `c/course` and `f/focusArea` is case-insensitive but has to be its *full name*. If you are unsure of what is allowed, you can refer to the <<Appendix, Appendix>> for the list of courses and focus areas supported by *MODdy*.
+* If you have yet to decide on a focus area, you can choose to add it to your profile later using the edit feature mentioned in <<Edit, Section 4.4>>. Other profile fields can be changed using the edit feature as well.
+* `y/year.semester` must be entered as an integer. You should only enter the year and semester that you are *currently* in. If you are now a Year 2 Semester 1 student, enter `y/2.1`.
+* You can only have one profile! If you wish to create a new profile, you can remove it with the delete feature mentioned in <<Delete, Section 4.6>>.
 ****
 
-Examples:
+Example: `new n/John c/Computer Science y/2.2` creates a new profile with the name "John", currently majoring in "Computer Science" and is a Year 2 Semester 2 student, as shown in Figure 4 below.
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+.New profile created is displayed in the Profile Panel
+image::New.png[width="760"]
 
-=== Locating persons by name: `find`
+TIP: `new n/John c/Computer Science y/2.2 f/Software Engineering` +
+If you know your focus area, using this command will add focus area "Software Engineering" to your new profile alongside other details.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+NOTE: The maximum Year and Semester you can go up to is Year 8 Semester 2.
+
+// end::new[]
+
+
+// tag::add[]
+[[Add]]
+=== Adding module or task: `add`
+
+If you want to add modules to each of your semesters or add tasks to each of your modules in the current semester, this command is the right one for you!
+
+There are *two* ways you can use the `add` command: +
+
+==== Adding a module to *MODdy* +
+Format: `add m/moduleCode y/year.semester [g/grade]` +
+
+TIP: You can add multiple modules at the same time but only to the *same* year and semester. +
+To add multiple modules, just append the `m/moduleCode` tags right after another, e.g. `add m/CS1231 m/IS1103 m/MA1521 y/1.1`.
+
+NOTE: However, you cannot add grades when adding multiple modules.
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* `y/year.semester` must be entered as an integer. You should enter the year and semester that you *took the module* in. If you took the module in Year 2 Semester 1, enter `y/2.1`.
+* As you have already specified the current semester you are currently in when creating your profile, *MODdy* will indicate modules added to prior semesters, current semester and future semesters as *"COMPLETED"*, *"IN_PROGRESS"* and *"PLANNING"* respectively.
+* `g/grade` is optional. If you have yet to obtain a grade for the module, don't worry, you can always add it to the module later using the edit feature mentioned in <<Edit, Section 4.4>>.
 ****
 
-Examples:
+Example: `add m/CS2103T y/2.2` adds CS2103T to Year 2 Semester 2, as shown in Figure 5 below.
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+.CS2103T is added as a module under Year 2 Semester 2
+image::AddModule.png[width="760"]
+
+TIP: `add m/CS2105 y/2.1 g/A+` +
+You can add CS2105 with its resulting grade, A+, concurrently to the list of modules under Year 2 Semester 1.
+
+NOTE: You can add up to a maximum of 10 modules per semester in *MODdy*.
+
+****
+*Checking of Prerequisites:* +
+If you have not met the prerequisites of a module, you will receive a warning message as shown in Figure 6 below. You can ignore the message if you have already taken the preclusion of that prerequisite module.
+****
+
+.Warning message shown when adding CS2030 to Year 2 Semester 2
+image::PreReq.png[width="790"]
+
+
+==== Adding a task with a deadline to a module in *MODdy* +
+Format: `add m/moduleCode t/task [d/deadline]` +
+
+TIP: You can add multiple tasks at once but only to the *same module*, e.g. `add m/CS1231 t/tutorial d/2020-04-20 18:00 t/assignment d/2020-04-25 23:59`. +
+
+NOTE: However, for multiple tasks, as long as one task has a deadline, all `t/task` tags have to be appended with `d/deadline` tags. +
+For the tasks with no deadlines, the tag can just be `d/`, e.g. `add m/IS1103 t/project d/2020-05-01 23:59 t/reflection d/`.
+
+****
+* You can only add a task to the module if the module has been added to your current semester in *MODdy* previously.
+* `d/deadline` must be entered in the format `d/YYYY-MM-DD HH:mm`, e.g. `d/2020-03-31 23:59`.
+* `d/deadline` is optional if you are only adding one task and your task has no deadline. If your task has a `Date` due but no `Time` due, just enter `d/YYYY-MM-DD` and we will set the `Time` to default (23:59).
+* You can delete a completed task using the delete feature mentioned in <<Delete, Section 4.6>>.
+****
+
+
+Example: `add m/CS2105 t/Assignment d/2020-04-20 23:59` adds a task named "Assignment"
+with the deadline "20 April 2020 23:59" to the already-existing module CS2105, as shown in Figure 7 below.
+
+
+.CS2105 task is added into and displayed on the Deadline Panel
+image::DeadlinePanel.png[width="760"]
+
+NOTE: Dates are highlighted and sorted according to the number of days remaining as shown in Figure 7 above. +
+Red: 0 - 5 days +
+Orange: 6 - 10 days +
+Green: ≥ 11 days
+// end::add[]
+
+// tag::edit[]
+[[Edit]]
+=== Editing profile, module or task: `edit`
+
+If you want to edit any of the attributes you have previously added to *MODdy*, you can do so by using the `edit` command to edit your profile, module details or deadline tasks.
+You don't have to worry about adding any wrong information as you can edit them at any time! +
+
+There are *three* ways you can use the `edit` command: +
+
+==== Editing your profile +
+Format: `edit [n/name] [c/course] [y/year.semester] [f/focusArea]` +
+
+****
+* Fields in brackets [] are optional, but at least one of these fields should be present to be edited.
+* If you did not specify your focus area when you created your profile, `edit f/focusArea` adds the focus area to your profile.
+* If you've moved on to a new semester, `edit y/year.semester` changes your current semester in your MODdy profile for you.
+* If you edit just your course, your focus area will revert back to UNDECIDED.
+****
+
+Example: `edit n/Brad c/Information Systems` edits your profile name to "Brad" and your course to "Information Systems",
+as shown in Figure 8 below.
+
+.Profile Panel is updated with new details
+image::EditProfile.png[width="760"]
+
+
+TIP: `edit n/Brad c/Information Systems f/Electronic Commerce` +
+Alongside your name and course, you can edit your focus area to match your current course using this command.
+
+==== Editing a module's details in *MODdy* +
+Format: `edit m/moduleCode [y/year.semester] [g/grade]`
+
+****
+* Fields in brackets [] are optional, but at least one of these fields should be present to be edited.
+* You are allowed to add a grade to a module you are planning to take in future, if you wish to predict your Cumulative Average Point (CAP). You can delete grades anytime using the `delete` command.
+****
+
+Example: `edit m/CS2103T g/A+` edits your grade of the module CS2103T to A+, as shown in Figure 9 below.
+
+.Module grade of CS2103T edited
+image::EditModule.png[width="760"]
+
+TIP: `edit m/CS2103T y/2.1 g/A+` +
+You can edit the grade of module CS2103T to A+ and change the semester which the module is taken in to Year 2 Semester 1 concurrently.
+
+NOTE: If you edit a module in your current semester to another semester, all tasks associated to this module will be removed
+from the deadline panel. To bring it back, edit the module's semester back to your current semester.
+
+==== Editing a task's description or deadline +
+Format: `edit m/moduleCode t/task [nt/newTask] [d/deadline]`
+
+****
+* Fields in brackets [] are optional, but at least one of these fields should be present to be edited.
+* `t/task` represents the description of the existing task you want to edit.
+* `nt/newTask` represents the new description of the existing task.
+* `d/deadline` represents the new deadline of the existing task.
+****
+
+Example: `edit m/CS2103T t/tP Submission nt/UG and DG Submission` edits an existing CS2103T task "tP Submission" to new task name "UG and DG Submission", as shown in Figure 10 below.
+
+.Deadline for CS2103T is edited from "tP Submission" to "UG and DG Submission"
+image::EditDeadline.png[width="790"]
+
+TIP: `edit m/CS2105 t/Assignment d/2020-12-12 12:00` +
+You can use this command to edit the deadline of Assignment, under module CS2105, to 12 December 2020 12:00.
+// end::edit[]
+
+// tag::show[]
+[[Show]]
+=== Showing profile, module, semester, course or focus area: `show`
+Not all information can be seen at once. To see this information you have added previously, use the `show` command to switch your current *MODdy* display. +
+
+There are *five* ways you can use the `show` command:
+
+==== Showing your profile +
+Format: `show n/name`
+
+Example: `show n/Brad` shows the profile overview of user "Brad", as shown in Figure 11 below.
+
+.Profile overview of "Brad" is shown in the Overview Panel
+image::ShowProfile.png[width="760"]
+
+NOTE: All the modules under every semester, their grades, as well as your current CAP will be displayed.
+
+==== Showing details of a module +
+Format: `show m/moduleCode`
+
+Example: `show m/CS2103T` show all the module details of CS2103T, as shown in Figure 12 below.
+
+.Details of the module CS2103T shown in the Main Panel
+image::ShowModule.png[width="760"]
+
+NOTE: The module name, prerequisites, modular credits, description and semesters the module is offered in will be displayed.
+
+NOTE: If you request for MODdy to show multiple information at one time, such as course information on Computer Science and module information on CS1101S, using the command `show c/Computer Science m/CS1101S`, no objects will be displayed. +
+MODdy will remind you that you can only display one object at a time.
+
+==== Showing modules in the specified semester +
+Format: `show y/year.semester`
+
+Example: `show y/1.1` shows all modules taken in Year 1 Semester 1, as shown in Figure 13 below. If grades for these modules
+are available, it will be displayed as well.
+
+.Modules added to Year 1 Semester 1 are shown in Main Panel
+image::ShowSemester.png[width="760"]
+
+[[showCourse]]
+==== Showing the course's requirements +
+Format: `show c/course`
+
+Example: `show c/Computer Science` shows the course requirements and focus areas of "Computer Science", as shown in Figure 14 below.
+
+.Course requirements and focus areas of Computer Science are shown in the Main Panel
+image::ShowCourse.png[width="790"]
+
+NOTE: You need to enter the course name in full!
+
+==== Showing modules under the specified focus area +
+Format: `show f/focusArea`
+
+Example: `show f/Software Engineering` shows the Primaries and Electives of focus area "Software Engineering",
+as shown in Figure 15 below.
+
+.Modules under Software Engineering, which is a focus area of Computer Science, are shown in the Main Panel
+image::ShowFocusArea.png[width="760"]
+
+TIP: You can retrieve the list of focus areas under a course using the <<showCourse, `show c/course`>> command. This list can also be found in the <<Appendix, Appendix>> of this guide.
+// end::show[]
 
 // tag::delete[]
-=== Deleting a person : `delete`
+[[Delete]]
+=== Deleting profile, module, task or grade: `delete`
+To remove a profile, module, task or grade from *MODdy*, use the `delete` command.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+There are *four* ways you can use the `delete` command:
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+==== Deleting your profile +
+If you wish to remove your profile, you can do so with the command below. The effect of using this command is also shown in the figure below.
 
-Examples:
+Format: `delete n/name`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Example: `delete n/Brad` deletes "Brad" from the profile panel as well as all other data, as shown in Figure 16 below.
 
+.Entire profile deleted from *MODdy*
+image::DeleteProfile.png[width="760"]
+
+NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from *MODdy*
+
+==== Deleting a module +
+If you have decided not to take a module you were planning to take, or to drop a module which you are currently taking, you can delete it with the command below. The effect of using this command is shown in the figure below.
+
+Format: `delete m/moduleCode`
+
+You can also delete multiple modules at the same time. To delete multiple modules, just append the `m/moduleCode` tags one after another, e.g. `delete m/CS1231 m/IS1103 m/MA1521`.
+
+Example: `delete m/CS2103T` deletes CS2103T from Year 2 Semester 2 and also removes all tasks related to CS2103T from the deadline panel, as
+shown in Figure 17 below.
+
+.CS2103T and its tasks are deleted from *MODdy*
+image::DeleteModule.png[width="760"]
+
+NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from *MODdy*.
+
+==== Deleting a task +
+Once you have completed a task, you can delete it using the command below. The effect of using this command is shown in the figure below.
+
+Format: `delete m/moduleCode t/task`
+
+TIP: You can delete multiple tasks at the same time but only from the *same* module. To delete multiple tasks, just append the `t/task` tags one after another, e.g. `delete m/CS1231 t/quiz t/exam`.
+
+Example: `delete m/CS2103T t/Quiz` deletes the task "Quiz" of module CS2103T from the Deadline Panel, as shown in Figure 18 below.
+
+."Quiz" for CS2103T deleted from the Deadline Panel
+image::DeleteTask.png[width="760"]
+
+NOTE: The specified task and its deadline will be deleted from the specified module.
+
+==== Deleting a grade +
+If you have been using *MODdy* to simulate your grades or you have entered a grade for the wrong module, you can delete the grade using the command below. The effect of using this command is shown in the figure below.
+
+Format: `delete m/moduleCode g/`
+
+Example: `delete m/CS2103T g/` deletes the grade of module CS2103T, as shown in Figure 19 below.
+
+.Grade of CS2103T is deleted
+image::DeleteGrade.png[width="790"]
+
+NOTE: Any input after the `g/` tag will be ignored.
 // end::delete[]
-=== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+// tag::cap[]
+[[CAPCalculator]]
+=== Calculating Cumulative Average Point (CAP)
+
+Tired of calculating your CAP on your own? Fret not! *MODdy* has an in-built CAP calculator feature which automatically updates your CAP when you input
+your module grades.
+
+Example: If you are currently in Year 2 Semester 2, and all the modules taken in previous semesters are added with their grades, your current CAP will be calculated for you.
+This example is highlighted in Figure 20 below.
+
+.Current CAP is being calculated and reflected in the CAP Panel
+image::CAPCalculator.png[width="760"]
+
+TIP: If you want to simulate your future CAP, you can add grades into modules in your future semesters.
+// end::cap[]
+
+// tag::home[]
+[[Home]]
+=== Returning to Homepage : `home`
+
+If you want to return to *MODdy*'s Homepage, use this command, as shown in the Figure 21 below.
+
+Format: `home`
+
+.Homepage of *MODdy* shown in Main Panel
+image::Home.png[width="760"]
+
+// end::home[]
+
+[[Clear]]
+=== Resetting *MODdy*: `clear`
+
+Want a new profile? If you want to clear your profile and data from *MODdy*, use this command. It clears all entries from *MODdy*, as shown in the figure below.
+
 Format: `clear`
 
-=== Exiting the program : `exit`
+.All entries from *MODdy* cleared
+image::Clear.png[width="760"]
 
-Exits the program. +
+
+[[Exit]]
+=== Exiting *MODdy*: `exit`
+
+Done with managing your modules and tasks for the day? If you want to close the GUI and exit *MODdy*, use this command.
+
 Format: `exit`
 
-=== Saving the data
+// tag::save[]
+=== Saving your data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+If your *MODdy* application closes unexpectedly or if your computer suddenly shuts down by itself, do not worry! +
+Your *MODdy*'s data is saved in the hard disk automatically after any command that changes the data. There is no need for you to save manually and worry that you will lose any unsaved data.
+// end::sav[]
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
+<<<
+// tag::faq[]
 == FAQ
+This section provides you with some commonly asked questions you might have when using *MODdy*. +
+Here are our answers to those questions!
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q1*: How do I transfer my data to another Computer? +
+*A1*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous *MODdy* folder.
 
+*Q2*: Can I have two profiles? +
+*A2*: Download and install *MODdy* in two different folders on your computer so that you will have two different data files in separate locations. You can have as many profiles as you want using this method!
+
+*Q3*: How do I prevent others from seeing my grades when using my computer? +
+*A3*: We are currently working on an improved version of *MODdy* where there will be log in features to encrypt your data. Do keep a look out for future updates!
+// end::faq[]
+
+<<<
+// tag:summary[]
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+This section provides you with a summary of the basic commands you can perform in *MODdy*.
+
+* <<Help, *Help*>> :
+** `help`
+* <<New, *New*>> :
+** `new n/name c/course y/year.semester [f/focusArea]` +
+e.g. `new n/John c/Computer Science y/2.2`
+
+* <<Add, *Add*>> :
+** `add m/moduleCode y/year.semester [g/grade]` +
+e.g. `add m/CS2105 y/2.1 g/A+` +
+
+** `add m/moduleCode t/task [d/deadline]` +
+e.g. `add m/CS2105 t/Assignment d/2020-03-31 23:59`
+
+* <<Edit, *Edit*>> :
+** `edit [n/name] [c/course] [y/year.semester] [f/focusArea]` +
+e.g. `edit n/Brad c/Computer Science s/Software Engineering` +
+
+** `edit m/moduleCode [y/year.semester] [g/grade]` +
+e.g. `edit m/CS2103 g/A+` +
+
+** `edit m/moduleCode t/task [nt/newTask] [d/deadline]` +
+e.g. `edit m/CS2105 t/Assignment nt/Project`
+
+
+* <<Show, *Show*>> :
+** `show [y/year.semester] [c/course] [f/focusArea] [m/moduleCode]` +
+e.g. `show y/4`, `show c/information systems`, `show f/electronic commerce`, `show m/CS3230`
+
+* <<Delete, *Delete*>> :
+** `delete n/name` +
+e.g. `delete n/Brad` +
+
+** `delete m/moduleCode [t/task] [g/]` +
+e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`, `delete m/CS2105 g/` +
+
+* <<Home, *Home*>> :
+** `home`
+
+* <<Clear, *Clear*>> :
+** `clear`
+
+* <<Exit, *Exit*>> :
+** `exit`
+// end::summary[]
+
+<<<
+// tag::appendix[]
+== Appendix
+
+. List of courses and focus areas (if applicable) under each course currently supported by *MODdy*
+
+.. Business Analytics
+... Financial Analytics
+... Marketing Analytics
+
+.. Computer Engineering
+... Communications and Networking
+... Embedded Computing
+... Intelligent Systems
+... Interactive Digital Media
+... Large-Scale Computing
+... System-On-A-Chip Design
+
+.. Computer Science
+... Algorithms and Theory
+... Artificial Intelligence
+... Computer Graphics and Games
+... Computer Security
+... Database Systems
+... Multimedia Information Retrieval
+... Networking and Distributed Systems
+... Parallel Computing
+... Programming Languages
+... Software Engineering
+
+.. Information Security
+
+.. Information Systems
+... Digital Innovation
+... Electronic Commerce
+... Financial Technology
+
+// end::appendix[]

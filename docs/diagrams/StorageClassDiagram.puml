@@ -1,24 +1,58 @@
-@startuml
+ @startuml
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
+Package Storage <<Rectangle>> {
+
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface ProfileListStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonProfileListStorage
+Class JsonSerializableProfileList
+Class JsonProfile
+Class JsonSemesterRecord
+Class JsonPersonalModule
+Class JsonDeadline
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+Class JsonModuleListStorage #darkorange
+Class JsonSerializableModuleList #darkorange
+Class JsonModule #darkorange
+Class JsonSemesterData #darkorange
+Class JsonPrereqTreeNode #darkorange
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+Class JsonCourseListStorage #grey
+Class JsonSerializableCourseList #grey
+Class JsonCourse #grey
+Class JsonCourseRequirement #grey
+Class JsonCourseFocusArea #grey
+
+}
+
+StorageManager .right.|> Storage
+StorageManager o-left- UserPrefsStorage
+StorageManager o-- ProfileListStorage
+
+JsonUserPrefsStorage .right.|> UserPrefsStorage
+JsonProfileListStorage .up.|> ProfileListStorage
+JsonProfileListStorage .down.> JsonSerializableProfileList
+JsonSerializableProfileList .down.> JsonProfile
+JsonProfile *-down- JsonSemesterRecord
+JsonSemesterRecord *-down- JsonPersonalModule
+JsonPersonalModule *-down- JsonDeadline
+JsonPersonalModule -left-|> JsonModule
+
+JsonModuleListStorage .down.> JsonSerializableModuleList
+JsonSerializableModuleList .down.> JsonModule
+JsonModule *-down- JsonSemesterData
+JsonModule *-down- JsonPrereqTreeNode
+
+JsonCourseListStorage .down.> JsonSerializableCourseList
+JsonSerializableCourseList .down.> JsonCourse
+JsonCourse *-down- JsonCourseRequirement
+JsonCourse *-down- JsonCourseFocusArea
 @enduml
