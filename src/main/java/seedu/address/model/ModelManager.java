@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Predicate;
@@ -131,11 +130,16 @@ public class ModelManager implements Model {
     // =========== TaskList
     // ================================================================================
 
+    /** Sets the task saver for saving task to storage when setTask is called. */
     @Override
     public void setTaskSaver(TaskSaver taskSaver) {
         this.taskSaver = taskSaver;
     }
 
+    /**
+     * Sets the timers required for recurring behaviour in all tasks and schedules the task in the
+     * stipulated time delay. Ensures that any existing timer is canceled first.
+     */
     private void setRecurringTimers() {
         this.recurringTimer.cancel();
         this.recurringTimer = new Timer();
@@ -152,6 +156,12 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Generates the timer task for the recurring behaviour, namely updating the task.
+     *
+     * @param t
+     * @return Timer task for timer to run.
+     */
     private TimerTask generateTimerTask(Task t) {
         return new TimerTask() {
             @Override
@@ -170,12 +180,23 @@ public class ModelManager implements Model {
         };
     }
 
+    /**
+     * Cancels timer task for the task given.
+     *
+     * @param t
+     */
     private void cancelTimerTask(Task t) {
         if (this.recurringTimerTasks.containsKey(t)) {
             this.recurringTimerTasks.get(t).cancel();
         }
     }
 
+    /**
+     * Sets a timer and schedules recurring behaviour whenever task is added or saved in the model
+     * if there is recurring attribute in task.
+     *
+     * @param t
+     */
     private void setTimer(Task t) {
         if (t.getOptionalRecurring().isPresent()) {
             TimerTask tt = this.generateTimerTask(t);
@@ -185,6 +206,10 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Sets recurring timers and thus recurring behaviour for tasks with recurring whenever taskList
+     * is set in the model.
+     */
     @Override
     public void setTaskList(ReadOnlyTaskList taskList) {
         this.tagSet.populateTag(taskList);
@@ -213,12 +238,14 @@ public class ModelManager implements Model {
         return taskList.hasTask(task);
     }
 
+    /** Deletes task from model and cancels corresponding timer task. */
     @Override
     public void deleteTask(Task target) {
         this.tagSet.removeTask(target);
         taskList.removeTask(target);
     }
 
+    /** Ensures that recurring behaviour is triggered for a task when task is added to model. */
     @Override
     public void addTask(Task task) {
         taskList.addTask(task);

@@ -484,16 +484,28 @@ public class MainWindow extends UiPart<Stage> {
      * @return index of tab to switch to.
      */
     private int getTabIndexFromCommand(CommandResult commandResult) {
-        int tabToSwitchIndex = TASKS_TAB_INDEX; // default: switch to tasks tab for tasks related commands
+        int tabToSwitchIndex =
+                TASKS_TAB_INDEX; // default: switch to tasks tab for tasks related commands
         if (commandResult instanceof SwitchTabCommandResult) {
-                SwitchTabCommandResult switchTabCommandResult = (SwitchTabCommandResult) commandResult;
-                tabToSwitchIndex = switchTabCommandResult.getTabToSwitchIndex(); // switch to tab in SwitchTabCommandResult
+            SwitchTabCommandResult switchTabCommandResult = (SwitchTabCommandResult) commandResult;
+            tabToSwitchIndex =
+                    switchTabCommandResult
+                            .getTabToSwitchIndex(); // switch to tab in SwitchTabCommandResult
         } else if (commandResult instanceof SetCommandResult) {
-            tabToSwitchIndex = SETTINGS_TAB_INDEX; // switch to settings tab for settings related commands.
+            tabToSwitchIndex =
+                    SETTINGS_TAB_INDEX; // switch to settings tab for settings related commands.
         }
         return tabToSwitchIndex;
     }
 
+    /**
+     * Triggers reminder to display as a pop up after time delay based on the reminder given in
+     * argument.
+     *
+     * @param reminder
+     * @param name
+     * @param description
+     */
     @FXML
     public static void triggerReminder(Reminder reminder, String name, String description) {
         long delay = reminder.getDelay();
@@ -509,10 +521,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    /**
-     * Is triggered at the delayed time in Duke itself.
-     * https://thecodinginterface.com/blog/javafx-alerts-and-dialogs/#informational-alert
-     */
+    /** Displays the reminder's name and description as a javaFX alert. */
     public static void showReminder(String name, String description) {
         var alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Reminder");

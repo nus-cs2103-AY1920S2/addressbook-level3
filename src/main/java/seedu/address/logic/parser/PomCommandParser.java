@@ -65,8 +65,8 @@ public class PomCommandParser implements Parser<PomCommand> {
     /**
      * Uses argMultimap to detect existing prefixes used so that it won't add double prefixes. Adds
      * timer prefix
-     * 
-     * Only attempts to add a prefix to the 3rd word in the command
+     *
+     * <p>Only attempts to add a prefix to the 3rd word in the command
      *
      * @param input input that has been trimmed
      * @return CompletorResult with suggested command and feedback to display
