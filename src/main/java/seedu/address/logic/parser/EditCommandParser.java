@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.TASK_PREFIXES;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -18,7 +17,6 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.CompletorDeletionResult;
 import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
@@ -106,13 +104,15 @@ public class EditCommandParser implements Parser<EditCommand> {
         String[] trimmedInputs = input.split("\\s+");
 
         if (trimmedInputs.length > 1) {
+            String errorMessage =
+                    String.format(Messages.COMPLETE_INDEX_OUT_OF_RANGE_FAILURE, trimmedInputs[1]);
             if (StringUtil.isNonZeroUnsignedInteger(trimmedInputs[1])) {
                 int editIndex = Integer.parseInt(trimmedInputs[1]);
                 if (editIndex > listSize) {
-                    throw new CompletorException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                    throw new CompletorException(errorMessage);
                 }
             } else {
-                throw new CompletorException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                throw new CompletorException(errorMessage);
             }
         }
 
