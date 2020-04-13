@@ -303,7 +303,7 @@ Therefore, a hashcode is appended to each image file name, and the resulting dat
 This entire process is also demonstrated in the activity diagram below:
 
 .Activity diagram representing image save process
-image::PhotoSaveActivityDiagram.svg[align="center",400]
+image::PhotoSaveActivityDiagram.svg[align="center"]
 
 [[Img-considerations]]
 ==== Design Considerations
