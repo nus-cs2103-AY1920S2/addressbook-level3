@@ -1129,6 +1129,19 @@ image::Screenshots/QnASeeMetricScore.png[]
 // tag::summary[]
 == Command Summary
 
+*Utility commands*
+
+* Open User Guide: `help`
+* Exit app: `exit`
+
+*Sessions*
+
+* Start new session: `new <session name>` +
+e.g. `new ceo interview`
+* Open existing session: `open <session name>` +
+e.g. `open ceo interview`
+* Delete existing session: `delete <session name>` +
+e.g. `delete ceo interview`
 
 *Initialization Phase*
 
@@ -1176,19 +1189,18 @@ e.g. `:set Agility 10`
 
 * Open an interviewee report: `open <interviewee>` +
 e.g. `open Jane Doe`
-* Close an interviewee report: `close <interviewee>` +
-e.g. `close Jane Doe`
+* Close an interviewee report: `close report`
 * Export interview report of an interviewee: `export <interviewee>`
-* Navigate to answer of interviewee: `q<question number>` +
+* Navigate to answer of interviewee: `goto q<question number>` +
 e.g. `goto q4`
-* Navigate to a time of interviewee: `at <time>` +
+* Navigate to a time of interviewee: `goto <time>` +
 e.g. `goto 30.00`
 * Create a new metric: `add metric <name> -a <attribute> -w <weight> [-a <attribute> -w <weight>]...` +
 e.g. `add metric -a ambition -w 0.9 -a leadership -w 0.1`
 * List metrics: `metrics`
-* Find the Best N candidates based on average attribute: `interviewee -best <no_of_candidates>`
-* Find the Best N candidates based on a particular attribute: `interviewee -best <no_of_candidates> -a <attribute>` +
-e.g. `best 3 -a strength`
-* Find the Best N candidates based on a metric: `interviewee -best <no_of_candidates> -m <metric>` +
-e.g. `best 5 -m extremeDictatorship`
+* Find the Best N candidates based on average attribute: `interviewees -best <no_of_candidates>`
+* Find the Best N candidates based on a particular attribute: `interviewees -best <no_of_candidates> -a <attribute>` +
+e.g. `interviewees -best 3 -a strength`
+* Find the Best N candidates based on a metric: `interviewees -best <no_of_candidates> -m <metric>` +
+e.g. `interviewees -best 5 -m extremeDictatorship`
 //end::summary[]
