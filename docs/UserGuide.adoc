@@ -928,6 +928,46 @@ image::ug-graph-3.png[]
 +
 image::ug-graph-4.png[]
 
+==== Common errors/problems
+You might face some errors or difficulties when you `graph`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the Result Box when using `graph`.
+
+===== No exercise within stipulated timeframe
+If you have keyed in the `graph` command in the correct format but the graph is not appearing, you might want to check the start and end dates in your command. In the example below, the exercise clearly exists in the exercise list, but not within the stipuated timeframe. Therefore the graph will not be displayed.
+
+. The exercise `Sumo Deadlift` clearly exists in the exercise list. However, there are no records of `Sumo Deadlifts` from `01-01-2020` to `01-02-2020`.
++
+image::ug-graph-5.png[]
+. The graph will not appear and an error message will be shown.
++
+image::ug-graph-6.png[]
+
+To correct this, change the timeframe to one where there is at least one existing record of the specified exercise in the current exercise list.
+
+===== No exercise for stipulated axis
+
+If you have keyed in the `graph` command in the correct format but the graph is not appearing, you might want to check the y-axis in your command. In the example below, the exercise clearly exists in the exercise list, but there are no inputs for the stipulated y-axis. Therefore the graph will not be displayed.
+
+. The exercise `Push Up` clearly exists in the given timeframe. However, there are no inputs for weight as seen in the exercise table.
++
+image::ug-graph-7.png[]
+. The graph will not appear and an error message will be shown.
++
+image::ug-graph-8.png[]
+
+To correct this, change the axis to one where there is at least one non-empty input of the  exercise in the current exercise list. You could also choose to view another exercise's graph instead.
+
+===== Invalid time frame
+
+If you have keyed in the `graph` command in the command box but the graph is not appearing, you might want to check the timeframe. In the example below, the command format looks correct but the start date is later than the end date, this is not allowed and therefore the graph will not be displayed.
+
+. The start date `01-04-2020` is chronologically later than the end date `01-02-2020`.
++
+image::ug-graph-9.png[]
+. The graph will not appear and an error message will be shown.
++
+image::ug-graph-10.png[]
+
+To correct this, the start date has to be earlier or the same as the end date.
 
 === View schedule for the day/week: `view-s` [Coming in v2.0]
 
