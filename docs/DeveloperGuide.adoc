@@ -181,6 +181,8 @@ This section describes some noteworthy details on how each features are implemen
 The Session feature resides on the Home page and is comprised of `Start`, `Stop`, `Done`, and `Skip` commands.
 `OngoingWorkout`, `OngoingSession`, `OngoingSet`, and `OngoingSetList` are models that are vital components of the feature.
 
+The Session feature also seamlessly incorporates a functional timer. Timer functionality is found embedded in the session related functions in `ModelManager`.
+
 The activity diagram below demonstrates the actions of a user with this feature.
 
 .Session Feature Activity Diagram
