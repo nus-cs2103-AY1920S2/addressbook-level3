@@ -167,7 +167,7 @@ If you're done with taking notes, use `exit` to close Notably straight from the 
 .Demo for the `exit` command
 image::demo/Exit.png[]
 
-//tag::new[]
+// tag::new[]
 [#create]
 === Create a new note: `new`
 
@@ -248,9 +248,9 @@ image::demo/New2.png[]
 [[New3]]
 .Step 3 - Final state after creating both notes
 image::demo/New3.png[]
-//end:new[]
+//end::new[]
 
-//tag::editing[]
+//tag::open[]
 === Open an existing note: `open`
 
 You can open an existing note by specifying its absolute or relative <<paths, path>>). +
@@ -275,6 +275,8 @@ You can open an existing note by specifying its absolute or relative <<paths, pa
 .Step 1 - Demo for the `open` command (with suggestions)
 image::demo/Open.png[]
 
+//end::open[]
+//tag::editing[]
 === Edit an existing note: `edit`
 
 If you want to change the `BODY` content of the currently opened note, use the `edit` command. This command *opens* an editing window where you can update the existing `BODY` of the note.
@@ -314,7 +316,7 @@ kbd:[CMD/CTRL] + kbd:[v] respectively.
 ====
 //end:editing[]
 
-//tag:delete[]
+//tag::delete[]
 === Delete a note: `delete`
 
 If you no longer need a note, or if you have accidentally created a wrong note, don't worry! You can always delete that note. +

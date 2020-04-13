@@ -42,7 +42,7 @@ image::ljiazh3ng.png[width="150", align="left"]
 {empty}[http://github.com/ljiazh3ng[GitHub]] [<<ljiazh3ng#, Portfolio>>]
 
 Role: Developer +
-Responsibilities: Parser + Commands + Storage
+Responsibilities: Parser + Commands + Paths
 
 '''
 

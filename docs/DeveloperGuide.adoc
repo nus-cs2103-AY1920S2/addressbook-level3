@@ -599,7 +599,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
-// tag::Scope&User[]
+// tag::ScopeUser[]
 [appendix]
 == Product Scope
 
@@ -634,7 +634,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-// end::Scope&User[]
+// end::ScopeUser[]
 
 [appendix]
 == Use Cases
