@@ -1,5 +1,7 @@
 package igrad.logic.commands.course;
 
+//@@author teriaiw
+
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static java.util.Objects.requireNonNull;
@@ -7,6 +9,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.CommandUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.Cap;
@@ -15,7 +18,6 @@ import igrad.model.course.Credits;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
 
-//@@author nathanaelseen
 
 /**
  * Edits the details of an existing module in the course book.
@@ -92,9 +94,15 @@ public class CourseEditCommand extends CourseCommand {
             throw new CommandException(MESSAGE_COURSE_NOT_EDITED);
         }
 
-        model.setCourseInfo(editedCourseInfo);
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
+        CourseInfo finalEditedCourseInfo = CommandUtil.createEditedCourseInfo(editedCourseInfo, model);
 
-        return new CommandResult(String.format(MESSAGE_COURSE_EDIT_SUCCESS, editedCourseInfo));
+        model.setCourseInfo(finalEditedCourseInfo);
+
+        return new CommandResult(String.format(MESSAGE_COURSE_EDIT_SUCCESS, finalEditedCourseInfo));
     }
 
     @Override
