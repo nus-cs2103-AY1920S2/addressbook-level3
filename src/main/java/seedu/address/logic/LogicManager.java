@@ -10,9 +10,11 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.autocomplete.Autocomplete;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.history.CommandHistory;
 import seedu.address.logic.parser.FitBizParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -31,11 +33,15 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final FitBizParser fitBizParser;
+    private final CommandHistory commandHistory;
+    private final Autocomplete autoComplete;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         fitBizParser = new FitBizParser();
+        commandHistory = new CommandHistory();
+        autoComplete = new Autocomplete();
     }
 
     @Override
@@ -98,6 +104,7 @@ public class LogicManager implements Logic {
     @Override
     public void openUrlInDefaultWebBrowser(String url) {
         String os = System.getProperty("os.name").toLowerCase().substring(0, 3);
+        logger.info("External URL : redirecting user to " + url);
 
         switch (os) {
         case "win": // windows
@@ -119,7 +126,18 @@ public class LogicManager implements Logic {
             }
             break;
         default:
+            logger.warning("External URL : failed to redirect user to " + url);
             break;
         }
+    }
+
+    @Override
+    public CommandHistory getCommandHistory() {
+        return commandHistory;
+    }
+
+    @Override
+    public Autocomplete getAutocomplete() {
+        return autoComplete;
     }
 }

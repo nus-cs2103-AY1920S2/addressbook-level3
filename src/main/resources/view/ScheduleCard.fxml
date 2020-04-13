@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.HBox?>
 
 <HBox id="cardPane" fx:id="cardPane" minWidth="-Infinity" prefHeight="107.0" prefWidth="200.0"
-   xmlns="http://javafx.com/javafx/11.0.1"
-   xmlns:fx="http://javafx.com/fxml/1">
+   xmlns="http://javafx.com/javafx"
+   xmlns:fx="http://javafx.com/fxml">
    <AnchorPane prefHeight="85.0" prefWidth="140.0">
       <children>
          <Label fx:id="name" maxHeight="30.0" prefHeight="20.0" prefWidth="64.0" styleClass="list-name-label" text="\$first" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="0.0">

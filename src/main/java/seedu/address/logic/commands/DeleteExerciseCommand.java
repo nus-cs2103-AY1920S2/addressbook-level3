@@ -12,7 +12,7 @@ import seedu.address.model.exercise.Exercise;
 import seedu.address.model.exercise.UniqueExerciseList;
 
 /**
- * Deletes an {@code Exercise} identified using it's displayed index from the exercise list.
+ * Deletes an {@code Exercise} identified using it's displayed index from the exercise table(GUI).
  *
  * @author @yonggiee
  */
@@ -21,7 +21,7 @@ public class DeleteExerciseCommand extends Command {
     public static final String COMMAND_WORD = "delete-e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Deletes the exercise identified by the index number used in the displayed exercise list.\n"
+        + ": Deletes the exercise identified by the index number used in the displayed Exercise Table.\n"
         + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Deleted Exercise:\n%1$s";

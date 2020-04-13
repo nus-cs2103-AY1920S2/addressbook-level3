@@ -52,9 +52,9 @@ public class UniqueExerciseList implements Iterable<Exercise> {
     public boolean containsNameWithinDate(ExerciseName toCheck, StartDate startDate, EndDate endDate) {
         requireNonNull(toCheck);
         return internalList.stream()
-                .filter(exercise -> (exercise.getExerciseDate().value.compareTo(startDate.value) >= 0))
-                .filter(exercise -> (exercise.getExerciseDate().value.compareTo(endDate.value) <= 0))
-                .anyMatch(exercise -> exercise.getExerciseName().value.equals(toCheck.value));
+                .filter(exercise -> (exercise.getExerciseDate().getValue().compareTo(startDate.value) >= 0))
+                .filter(exercise -> (exercise.getExerciseDate().getValue().compareTo(endDate.value) <= 0))
+                .anyMatch(exercise -> exercise.getExerciseName().getValue().equals(toCheck.getValue()));
     }
 
     /**
@@ -95,15 +95,17 @@ public class UniqueExerciseList implements Iterable<Exercise> {
         }
 
         int idx = 0;
-        LocalDate toAddDate = toAdd.getExerciseDate().value;
-        String toAddName = toAdd.getExerciseName().value.toLowerCase();
+        LocalDate toAddDate = toAdd.getExerciseDate().getValue();
+        String toAddName = toAdd.getExerciseName().getValue().toLowerCase();
         for (Exercise curr : internalList) {
-            LocalDate currDate = curr.getExerciseDate().value;
-            String currName = curr.getExerciseName().value.toLowerCase();
-            if (toAddDate.compareTo(currDate) > 0) {
+            LocalDate currDate = curr.getExerciseDate().getValue();
+            String currName = curr.getExerciseName().getValue().toLowerCase();
+
+            int dateComparision = toAddDate.compareTo(currDate);
+            if (dateComparision > 0) {
                 // already at correct position
                 break;
-            } else if (toAddDate.compareTo(currDate) == 0) {
+            } else if (dateComparision == 0) {
                 // sort by name
                 if (toAddName.compareTo(currName) <= 0) {
                     break;
@@ -147,10 +149,10 @@ public class UniqueExerciseList implements Iterable<Exercise> {
      */
     public void sortByExerciseDateAndName() {
         Comparator<Exercise> byExerciseDate = (Exercise e1, Exercise e2) -> {
-            LocalDate e1Date = e1.getExerciseDate().value;
-            LocalDate e2Date = e2.getExerciseDate().value;
-            String e1Name = e1.getExerciseName().value.toUpperCase();
-            String e2Name = e2.getExerciseName().value.toUpperCase();
+            LocalDate e1Date = e1.getExerciseDate().getValue();
+            LocalDate e2Date = e2.getExerciseDate().getValue();
+            String e1Name = e1.getExerciseName().getValue().toUpperCase();
+            String e2Name = e2.getExerciseName().getValue().toUpperCase();
             if (e2Date.compareTo(e1Date) == 0) {
                 return e1Name.compareTo(e2Name);
             }
