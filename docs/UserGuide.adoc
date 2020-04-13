@@ -531,7 +531,7 @@ You can also open other interviewees' resume!
 _Output:_
 
 ....
-Opening resume..
+Resume of Jane Doe opened.
 ....
 {empty} +
 
@@ -672,7 +672,7 @@ image::Screenshots/EndInterview.png[]
 === Decision Phase
 
 
-// tag::report[]
+// tag::open[]
 ==== Viewing Interviewee Reports
 After interviewing a candidate, you can view the interview transcript any
 time by doing an open command. To close the report, you can use a close command.
@@ -701,7 +701,7 @@ Successfully opened Interviewee report: Jane Doe
 
 image::Screenshots/Report.png[]
 {empty} +
-// end::report[]
+// end::open[]
 
 [[Metrics]]
 // tag::metrics[]
