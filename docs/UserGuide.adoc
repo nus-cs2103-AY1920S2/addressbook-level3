@@ -222,6 +222,30 @@ image::user-guide/view-before.png[width="600"]
 .2) After using the `view` command, the recipe will be displayed to you
 image::user-guide/view-after.png[width="300"]
 
+=== Assigning a time to a recipe — `time` [Done by: Adarsh Chugani]
+You can assign a time to an existing recipe from *CookBuddy* using the `time` command.
+
+Format: `time INDEX TIMING`
+
+[NOTE]
+====
+* `INDEX` must be a positive integer value, within range of the number of recipes in *CookBuddy*.
+* The timing specified must be in the format hh:MM:ss
+* for the timing, it is optional to include minutes and seconds. If they are omitted, they will be set to 0.
+====
+
+Example: You can type `time 1 00:10:00` and *CookBuddy* will assign the recipe at index 1 a timing of 10 minutes.
+
+*Expected Outcome*
+
+[caption=]
+.1) You want to assign the first `recipe` in CookBuddy a timing of 10 minutes.
+image::user-guide/timecommand-before.png[width="600"]
+
+[caption=]
+.2) After typing in `time 1 00:10:00` command, the recipe time will be updated accordingly
+image::user-guide/timecommand-after.png[width="600"]
+
 
 === Deleting a recipe — `delete`
 You can delete an existing recipe from *CookBuddy* using the `delete` command.
