@@ -236,6 +236,7 @@ image::user-guide/view-before.png[width="600"]
 .2) After using the `view` command, the recipe will be displayed to you
 image::user-guide/view-after.png[width="600"]
 
+// tag::TimeCommand[]
 === Assigning a time to a recipe — `time` [Done by: Adarsh Chugani]
 You can assign a time to an existing recipe from *CookBuddy* using the `time` command.
 
@@ -259,7 +260,7 @@ image::user-guide/timecommand-before.png[width="600"]
 [caption=]
 .2) After typing in `time 1 00:10:00` command, the recipe time will be updated accordingly
 image::user-guide/timecommand-after.png[width="600"]
-
+// end::TimeCommand[]
 
 === Deleting a recipe — `delete`
 You can delete an existing recipe from *CookBuddy* using the `delete` command.
@@ -378,6 +379,7 @@ image::user-guide/modifyremovetag-after.png[width="600"]
 
 // end::ModifyRecipe[]
 
+// tag::FavCommand[]
 === Favouriting a recipe — `fav` [Done by: Adarsh Chugani]
 You can favourite an existing recipe from *CookBuddy* using the `fav` command.
 
@@ -400,8 +402,9 @@ Example: You can type `fav 1` and *CookBuddy* will favourite the recipe at index
 //[caption=]
 //.2) After using the `modify` command, the `recipe tags` will be changed accordingly
 //image::user-guide/modifytag-after.png[width="600"]
+// end::FavCommand[]
 
-
+// tag::UnFavCommand[]
 === Un-Favouriting a recipe — `unfav` [Done by: Adarsh Chugani]
 You can un-favourite an existing recipe from *CookBuddy* using the `unfav` command.
 
@@ -425,7 +428,10 @@ Format: `unfav INDEX`
 //.2) After using the `modify` command, the `recipe tags` will be changed accordingly
 //image::user-guide/modifytag-after.png[width="600"]
 
+// end::UnFavCommand[]
 
+
+// tag::DoneCommand[]
 === Marking a recipe as done — `done` [Done by: Adarsh Chugani]
 You can mark an existing recipe from *CookBuddy* as being done using the `done` command. This indicates that the recipe
 has been attempted.
@@ -450,8 +456,10 @@ been attempted.
 //[caption=]
 //.2) After using the `modify` command, the `recipe tags` will be changed accordingly
 //image::user-guide/modifytag-after.png[width="600"]
+// end::DoneCommand[]
 
 
+// tag::UndoCommand[]
 === Un-Marking a recipe as done — `undo` [Done by: Adarsh Chugani]
 You can un-mark an existing recipe from *CookBuddy* as being done, using the`undo` command. This indicates that the
 recipe has not been attempted.
@@ -477,7 +485,7 @@ been attempted.
 //[caption=]
 //.2) After using the `modify` command, the `recipe tags` will be changed accordingly
 //image::user-guide/modifytag-after.png[width="600"]
-
+// end::UndoCommand[]
 
 === Listing recipes — `list`
 You can list all the existing recipes from *CookBuddy* using the `list` command. This command also helps to refresh
@@ -633,6 +641,8 @@ The file may be copied out elsewhere for editing, but adhere strictly to the for
 Each recipe's image is stored as a `.png` file in the pecified folder, with the recipe name, and a unique identifier (UID). If a given recipe does not have an image, CookBuddy will automatically use a placeholder instead, and denote so in `recipebook.json`.
 
 
+
+// tag::FutureStuff[]
 == Coming in v2.0 [Done by: Adarsh Chugani]
 
 Look forward to these features coming up in version 2.0 of CookBuddy!
@@ -755,7 +765,7 @@ Key-Words:
 Example: `share 1 facebook`
 
 This would share the recipe at index 1 on the user's facebook account.
-
+// end::FutureStuff[]
 
 
 
