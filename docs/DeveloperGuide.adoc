@@ -852,8 +852,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |coach |manage the payment fee/payment day of the clients |charge them accordingly
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
