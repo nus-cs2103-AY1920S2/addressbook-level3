@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+box Compiler COMMONS_COLOR_T1
+participant ":Compiler" as Compiler COMMONS_COLOR
+participant ":Parser" as Parser COMMONS_COLOR
+participant "d:DocumentBlock" as DocumentBlock COMMONS_COLOR
+end box
+
+[-> Compiler : compile(markdown)
+activate Compiler
+
+Compiler -> Parser
+activate Parser
+
+loop each line of text in markdown
+Parser -> DocumentBlock : next(line)
+activate DocumentBlock
+DocumentBlock -> Parser
+deactivate DocumentBlock
+end
+
+Parser -> Compiler : d
+destroy Parser
+
+Compiler -> DocumentBlock : toHtml()
+activate DocumentBlock
+DocumentBlock -> Compiler : compiled HTML
+destroy DocumentBlock
+
+[<-- Compiler : compiled HTML
+deactivate Compiler
+@enduml
