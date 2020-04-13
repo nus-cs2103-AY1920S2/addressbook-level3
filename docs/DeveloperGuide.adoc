@@ -588,6 +588,11 @@ image:AddWeightSequenceDiagram.png[]
 //tag::check[]
 === Check calorie intake/consumption of some common food/sports
 
+This function allows the user to search for calorie intake/consumption of food/sports by keywords.
+It helps the user better estimate how much calorie he/she will gain/burn
+by eating/exercising, so that he/she can add food/sports entry into the application
+without the need to search online for relevant information.
+
 ==== Implementation
 The check function is achieved by calling the `FitHelper` inside the `ModelManager` to search
 through either `FoodCalorieTable` or `SportsCalorieTable` for `CalorieDatum` that contain the
@@ -639,6 +644,26 @@ regardless of how many entries are in the HashMap.
 
 //end::check[]
 
+//tag::store(proposed)[]
+
+=== Store calorie data input by the user [proposed in v2.0]
+
+This proposed function allows the user to create his/her own calorie data and store them
+into the application database. These data can be later searched by and shown to the user
+via the existing `check` command. This function helps the user to record calorie data of
+food/sports not included in the pre-set database (or data more accurate than the ones
+stored in the pre-set database), so that he/she do not need to remember these data
+or search them online when he/she need to add same food/sports entry into the application
+in the future.
+
+==== proposed implementation
+
+
+
+.Additional Storage Class responsible for storing user data (existing storage classes omitted)
+image::AdditionalStorage.png[test, 30%]
+
+//end::store(proposed)[]
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
