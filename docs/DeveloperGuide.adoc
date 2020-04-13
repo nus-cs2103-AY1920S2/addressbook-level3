@@ -1125,6 +1125,8 @@ The following activity diagram illustrates what happens when a user executes `do
 .Done Receipt Command Activity Diagram
 image::ExpenseSplitterDoneReceiptCommandActivityDiagram.png[]
 
+{nbsp}
+
 *Structure of Done Receipt Command* +
 
 In this section, you will learn more about the relationships between objects related to the `donereceipt` command.
@@ -1190,6 +1192,8 @@ The following activity diagram illustrates what happens when a user executes `pa
 
 .Paid Command Activity Diagram
 image::ExpenseSplitterPaidCommandActivityDiagram.png[]
+
+{nbsp}
 
 *Structure of Paid Command* +
 
