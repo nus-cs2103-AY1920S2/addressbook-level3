@@ -1,0 +1,18 @@
+@startuml
+
+start
+:creates an empty list;
+:retrieves data from CalorieTable;
+:adds datum whose name **equals one of the keywords**;
+if () then (number of data in the list < 3)
+    :adds datum whose name **contains the keywords as a whole**;
+    if () then (number of data in the list < 3)
+        :adds datum whose name **contains one of the keywords**;
+    else (number of data in the list >= 3)
+    endif
+else (number of data in the list >= 3)
+endif
+:returns the list;
+stop
+
+@enduml
