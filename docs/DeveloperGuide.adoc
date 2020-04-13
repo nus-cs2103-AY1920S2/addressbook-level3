@@ -442,8 +442,7 @@ our application and it is not recommendable to build it on top of something that
 This feature intends to serve a single user of the application to sets and updates his/her user profile. The profile
 is then reflected in the user's profile panel.
 
-==== `me`: Edit User Profile
-===== Implementation
+==== Implementation
 
 `me` is supported by the `EditUserCommand`, where it allows the main user to modify and update user information that
 includes `display picture`, `name`, `description`, `phone`, `email`, `github`, `university`, `major`, `from`, `to`, `cap`.
@@ -481,23 +480,27 @@ The following sequence diagram shows how the `me` feature allows user to edit hi
 .Sequence Diagram for EditUserCommand
 image::MeSequenceDiagram.png[]
 
-===== Design Considerations
+==== Design Considerations
 
-*Aspect: Whether `EditUserCommand` should extend `EditCommand`*
+===== Aspect: Whether `ResumeEditCommand` should extend `EditCommand`
 
-* ** Alternative 1 (current choice):** `EditUserCommand` does not extend `EditCommand`, but extends `Command`.
+**Alternative 1 (current choice):** `EditUserCommand` does not extend `EditCommand`, but extends `Command`.
 
 This design is chosen because while `EditCommand` takes into account the item index as all items are stored in a list in Model, `EditUserCommand`
 only concerns with a single `Person` who is the main user.
 
-** Pros: Reduces unnecessary overhead for `EditUserCommand`.
+** Pros: Since user is not an `Item`, it would be better to have a separate `EditUserCommand` as the .
 ** Cons: Unable to exploit polymorphism if there is similarity with the `EditCommand`.
 
-* **Alternative 2: `EditUserCommand` extends `EditCommand`**
+**Alternative 2:** `EditUserCommand` extends `EditCommand`
 
 ** Pros: Better utilise polymorphism and perhaps can be more intuitive as it is also a command to edit.
 
 ** Cons: Does not treat it as an entirely separate command with a distinct keyword `me` which is more intuitive for the user.
+
+****
+*Conclusion:* The first design is chosen because `redit` is sufficiently different from `edit`. An `edit` command is intended to change the details of the `Resume`, such as its name, while `redit` is supposed to change the content items that the `Resume` holds.
+
 
 *Aspect: Whether to have both `AddUserCommand` and `EditUserCommand`*
 
@@ -602,7 +605,7 @@ As such, by extending `Item`, `Note` can inherit attributes such as `Index` and 
 
 ** Pros: Reduce code duplication in achieving the same functionality between `Note` commands and other `Item` commands. `Note` can also inherit
 important attributes such as `index` and `tags` which it intends to have.
-** Cons: Right now other subclasses of `Item` are `Internship`, `Project`, `Skill`, `Person` and `Resume` which are all relevant
+** Cons: Right now other subclasses of `Item` are `Internship`, `Project`, `Skill` and `Resume` which are all relevant
 to building a `Resume`. Details from these items will be included in the actual resume PDF generated. As such, `Note` as a subclass of
 `Item` can add confusion because it is not part of a resume.
 
