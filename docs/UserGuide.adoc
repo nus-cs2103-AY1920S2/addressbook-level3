@@ -226,6 +226,39 @@ The dots on the calendar will not disappear and will show that there is still ta
 .Listing all tasks
 image::listTask.png[width="790"]
 
+==== Event (coming in v2.0)
+
+===== Adding Event: `eventAdd`
+
+- Schedules event to the calendar
+
+- Format: `eventAdd` desc/DESCRIPTION on/DD-MM-YYYY
+
+===== Deleting Event: `eventDelete`
+
+- Deletes event from list with the given index
+
+- Format: `eventDelete` index/INDEX
+
+===== Marking Event as done: `done`
+
+[NOTE]
+This is meant to be an extension of the done command above, hence its implementation will follow said format.
+
+- Format: done index/INDEX
+
+===== Sorting Events: `sortEventList`
+
+- Sorts events by date (default)
+
+- Format: `sortEventList`
+
+===== List Events: `listEvent`
+
+- Lists scheduled events
+
+- Format: `listEvent`
+
 // end::Calendar[]
 
 
