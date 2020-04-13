@@ -171,7 +171,7 @@ TIP: `add m/CS2105 y/2.1 g/A+` +
 You can add CS2105 with its resulting grade, A+, concurrently to the list of modules under year 2 semester 1.
 
 ****
-*Checking of Prerequisites* +
+*Checking of Prerequisites:* +
 If you have not met the prerequisites of a module, you will receive a warning message as shown in Figure 6 below. You can ignore the message if you have already taken the preclusion of that prerequisite module.
 ****
 
@@ -182,6 +182,10 @@ image::PreReq.png[width="790"]
 ==== Adding a task with a deadline to a module in *MODdy* +
 Format: `add m/moduleCode t/task [d/deadline]` +
 
+TIP: You can add multiple tasks at once but only to the *same module*, e.g. `add m/CS1231 t/tutorial d/2020-04-20 18:00 t/assignment d/2020-04-25 23:59`. +
+
+NOTE: However, for multiple tasks, as long as one task has a deadline, all `t/task` tags have to be appended with `d/deadline` tags. +
+For the tasks with no deadlines, the tag can just be `d/`, e.g. `add m/IS1103 t/project d/2020-05-01 23:59 t/reflection d/`.
 
 ****
 * You can only add a task to the module if the module has been added to a semester in *MODdy* previously.
@@ -196,10 +200,6 @@ with the deadline "25 April 2020 17:00" to the already-existing module CS2101, a
 .CS2101 task is added into and displayed on the sorted Deadline Panel
 image::DeadlinePanel.png[width="790"]
 
-TIP: You can add multiple tasks at once but only to the *same module*, e.g. `add m/CS1231 t/tutorial d/2020-04-20 18:00 t/assignment d/2020-04-25 23:59`. +
-
-NOTE: However, for multiple tasks, as long as one task has a deadline, all `t/task` tags have to be appended with `d/deadline` tags. +
-For the tasks with no deadlines, the tag can just be `d/`, e.g. `add m/IS1103 t/project d/2020-05-01 23:59 t/reflection d/`.
 
 NOTE: Dates are highlighted and sorted according to the number of days remaining as shown in Figure 7 above. +
 Red: 0 - 5 days +
@@ -273,7 +273,7 @@ You can use this command to edit the deadline of Assignment, under module CS2105
 [[Show]]
 === Showing profile, module, semester, course or focus area: `show`
 
-Not all information can be seen all at once. To see this information you have added previously, use the `show` command to switch your current *MODdy* display. +
+Not all information can be seen all at once. To see the information you have added previously, use the `show` command to switch your current *MODdy* display. +
 
 There are *five* ways you can use the `show` command:
 
@@ -356,7 +356,7 @@ If you have decided not to take a module you were planning to take or to drop a 
 
 Format: `delete m/moduleCode`
 
-You can delete multiple modules at the same time. To delete multiple modules, just append the `m/moduleCode` tags one after another, e.g. `delete m/CS1231 m/IS1130 m/MA1521`.
+TIP: You can delete multiple modules at the same time. To delete multiple modules, just append the `m/moduleCode` tags one after another, e.g. `delete m/CS1231 m/IS1130 m/MA1521`.
 
 Example: `delete m/CS2103T` deletes CS2103T from Year 2 Semester 2 and also removes all tasks related to CS2103T from the deadline panel, as
 shown in Figure 17 below.
@@ -371,7 +371,7 @@ Once you have completed a task, you can delete it using the command below. The e
 
 Format: `delete m/moduleCode t/task`
 
-You can delete multiple tasks at the same time but only from the *same* module. To delete multiple tasks, just append the `t/task` tags one after another, e.g. `delete m/CS1231 t/quiz t/exam`.
+TIP: You can delete multiple tasks at the same time but only from the *same* module. To delete multiple tasks, just append the `t/task` tags one after another, e.g. `delete m/CS1231 t/quiz t/exam`.
 
 Example: `delete m/CS2103T t/Quiz` deletes the task "Quiz" of module CS2103T from the Deadline Panel, as shown in Figure 18 below.
 
