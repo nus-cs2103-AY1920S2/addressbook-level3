@@ -110,6 +110,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 In this section you will be able to learn about the various features of Delino.
 
+[width=50%]
 |===
 |Current Features
 | <<clear, clear>>
@@ -204,20 +205,23 @@ Here are the steps on using the `insert` Command: +
 
 *Step 1* : Type in the keyword `insert` +
 
-*Step 2* : Add in the prefixes `<<command_prefix, TRANSACTION_ID>>` `<<command_prefix, CUSTOMER_NAME>>`
-`<<command_prefix, ADDRESS>>` `<<command_prefix, PHONE_NUMBER>>` `<<command_prefix, EMAIL>>`
-`<<command_prefix, ORDER_TIMESTAMP>>` `<<command_prefix, WAREHOUSE_LOCATION>>` `<<command_prefix, CASH_ON_DELIVERY>>`
+*Step 2* : Add in the prefixes `TRANSACTION_ID` `CUSTOMER_NAME`
+`ADDRESS` `PHONE_NUMBER` `EMAIL`
+`DELIVERY_DATE_AND_TIME` `WAREHOUSE_LOCATION` `CASH_ON_DELIVERY`
 of the delivery orders +
 
-*Step 3 (Optional)* : Add in the Customer comment and type of item using the prefixes `[<<command_prefix, COMMENT_BY_CUSTOMER>>]`
-`[<<command_prefix, TYPE_OF_ITEM>>]` +
+*Step 3 (Optional)* : Add in the Customer comment and type of item using the prefixes `[COMMENT_BY_CUSTOMER]`
+`[TYPE_OF_ITEM]` +
 
 *Step 4* : Press `Enter` on your keyboard to see the magic!
 
 [[insert-examples]]
 ==== What constitutes a valid Insert command
 Here is the syntax of the `insert` Command : +
-`insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+`insert` `tid/<<command_prefix, TRANSACTION_ID>>` `n/<<command_prefix, CUSTOMER_NAME>>` `a/<<command_prefix, ADDRESS>>`
+`p/<<command_prefix, PHONE_NUMBER>>` `e/<<command_prefix, EMAIL>>` `dts/<<command_prefix, DELIVERY_DATE_AND_TIME>>`
+`w/<<command_prefix, WAREHOUSE_LOCATION>>` `cod/<<command_prefix, CASH_ON_DELIVERY>>` `[<<command_prefix, COMMENT_BY_CUSTOMER>>]`
+`[<<command_prefix, TYPE_OF_ITEM>>]`
 
 [NOTE]
 ====
@@ -231,7 +235,7 @@ Here is the syntax of the `insert` Command : +
 * The `CASH_ON_DELIVERY` refers to the money earned from delivering the particular order.
 * The `[COMMENTS_BY_CUSTOMER]` refers to the comment made by the recipient to the courier.
 * The `[TYPE_OF_ITEM]` refers to the type of item that the courier is delivering.
-* The prefixes `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` are compulsory.
+* The prefixes `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_AND_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` are compulsory.
 * The prefixes `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` are optional.
 * Any compulsory prefixes that is absent will result in the App displaying an error message.
 * There should be a spacing in between every prefixes. For example, `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` is allowed
@@ -249,8 +253,8 @@ to add decimal places, you can only add two.
 * *Do not add any commas in the value of `CASH_ON_DELIVERY`*
 * To add the Delivery Date and Time, first type in the date in this format : YYYY-MM-DD. Followed by adding the time
 in 24 hour format.
-* The value for `DELIVERY_DATE_&_TIME` must be a time in the future. For example, if the date and time now is 2020-04-03 1200,
-you are not allowed to add 2020-04-03 1159 as the `DELIVERY_DATE_&_TIME`.
+* The value for `DELIVERY_DATE_AND_TIME` must be a time in the future. For example, if the date and time now is 2020-04-03 1200,
+you are not allowed to add 2020-04-03 1159 as the `DELIVERY_DATE_AND_TIME`.
 * `TYPE_OF_ITEM` must consist of only alphabets (No numbers or special characters allowed).
 * `CUSTOMER_NAME` must consist of only alphabets (No numbers or special characters allowed).
 * `PHONE_NUMBER` should not have a spacing in between. `n/90011009` is allowed, +
@@ -300,10 +304,11 @@ Here is how you can convert an order into a return order or create a new return 
 
 *Step 1* : Type in the keyword `return`. +
 *Step 2a* : If you would like to convert an existing order into a return order,
-provide the <<command_prefix, `TRANSACTION_ID`>> and the <<command_prefix, `RETURN_TIMESTAMP`>> to the order to be converted. +
-*Step 2b*: If you would like to create a new return order in the return order list, provide the <<command_prefix, `TRANSACTION_ID`>>
-<<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>> <<command_prefix, `RETURN_TIMESTAMP`>>
-<<command_prefix, `WAREHOUSE_LOCATION`>> <<command_prefix, `EMAIL`>> <<command_prefix, `[COMMENTS_BY_CUSTOMER]`>> <<command_prefix, `[TYPE_OF_ITEM]`>> of the parcel. +
+provide the `TRANSACTION_ID` and the `RETURN_DATE_AND_TIME` to the order to be converted. +
+*Step 2b*: If you would like to create a new return order in the return order list, provide the
+`TRANSACTION_ID` `CUSTOMER_NAME` `ADDRESS`
+`PHONE_NUMBER` `RETURN_DATE_AND_TIME` `WAREHOUSE_LOCATION`
+`EMAIL` `[COMMENTS_BY_CUSTOMER]` `[TYPE_OF_ITEM]` of the parcel. +
 *Step 3* : Press `Enter` on your keyboard to see the magic!
 
 [NOTE]
@@ -320,8 +325,11 @@ i.e. `return` `tid/123abcd` `rts/2020-05-05 1500` +
 
 The syntax for a valid `return` command can be seen below!
 
-* `return` `TRANSACTION_ID` `RETURN_TIMESTAMP` or `return` `TRANSACTION_ID` `CUSTOMER_NAME` `ADDRESS` `CUSTOMER_EMAIL`
-`WAREHOUSE_LOCATION` `PHONE_NUMBER` `RETURN_TIMESTAMP` `[COMMENTS_BY_CUSTOMER]` `[TYPE_OF_ITEM]`
+* `return` `tid/<<command_prefix, TRANSACTION_ID>>` `rts/<<command_prefix, RETURN_DATE_AND_TIME>>` or
+`return` `tid/<<command_prefix, TRANSACTION_ID>>` `n/<<command_prefix, CUSTOMER_NAME>>`
+`a/<<command_prefix, ADDRESS>>` `e/<<command_prefix, EMAIL>>`
+`w/<<command_prefix, WAREHOUSE_LOCATION>>` `p/<<command_prefix, PHONE_NUMBER>>`
+`rts/<<command_prefix, RETURN_DATE_AND_TIME>>` `c/[<<command_prefix, COMMENTS_BY_CUSTOMER>>]` `type/[<<command_prefix, TYPE_OF_ITEM>>]`
 
 [NOTE]
 ====
@@ -396,9 +404,9 @@ Why will you want to use the `edit` command? If you wish to edit any field of a 
 Here is how you can edit the details of any parcel by following the steps below: +
 
 *Step 1* : Type in the keyword `edit` +
-*Step 2* : Provide the `<<command_flags, FLAG>>` corresponding to the parcel order type you want to edit +
+*Step 2* : Provide the `FLAG` corresponding to the parcel order type you want to edit +
 *Step 3* : Provide the `INDEX` of the parcel displayed on the screen that you wish to edit +
-*Step 4* : Provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the new value you want to change to. +
+*Step 4* : Provide the `ORDER_ATTRIBUTE_PREFIX` coupled with a front slash `/` and the new value you want to change to. +
 *Step 5* : Press `Enter` on your keyboard to see the magic!
 
 [NOTE]
@@ -412,7 +420,7 @@ Here is how you can edit the details of any parcel by following the steps below:
 
 The syntax for a valid `edit` command can be seen below:
 
-* `edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/NEW_VALUE` `[ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]...`
+* `edit` `<<command_flags, FLAG>>` `INDEX` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE]...`
 
 [NOTE]
 ====
@@ -451,7 +459,7 @@ These are the possible combinations of the `edit` command:
 * The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
 * The `INDEX` *must be in range* of the number of displayed orders
 * Only can be used when there is at least an order displayed.
-* The `FLAG` can only be either `-o` or `-r`, please refer to <<command_flags, here>> for more information.
+* The `FLAG` can only be either `-o` or `-r`.
 ====
 //end::edit[]
 
@@ -497,7 +505,7 @@ The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
 In this section, you will learn more about the syntax of the `delete` command +
 
 The syntax for a valid `delete` command is the following: +
-`delete` `FLAG` `INDEX` +
+`delete` `<<command_flags, FLAG>>` `INDEX` +
 
 [[usage_scenario_delete_command]]
 ==== Delete command usage scenarios
@@ -563,7 +571,7 @@ In this section, you will learn about the syntax for a valid `clear` command and
 
 The syntax for a valid `clear` command can be seen below:
 
-* `clear` `[FLAG]`
+* `clear` `[<<command_flags, FLAG>>]`
 
 [NOTE]
 ====
@@ -716,7 +724,7 @@ Here is how you can search for any parcel containing the keywords given by the f
 ====
 If no flag is given in this step, `search` command will be performed on both the order and return order list.
 ====
-*Step 3 (optional)* : If you wish to only specifically search for keywords in a field, you should provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the keyword you want to search for. +
+*Step 3 (optional)* : If you wish to only specifically search for keywords in a field, you should provide the `ORDER_ATTRIBUTE_PREFIX` coupled with a front slash `/` and the keyword you want to search for. +
 *Step 4* : Provide any number of alphanumeric words you wish to search for in the parcel. +
 *Step 5* : Press `Enter` on your keyboard to see the magic!
 
@@ -798,7 +806,7 @@ In this section, you learn more about the exact inputs required to use the `near
 Here are the steps you should follow to obtain all orders using the `nearby` command: +
 *Step 1* : Type in the keyword `nearby` +
 
-*Step 2 (optional)* : Provide an optional `<<command_flags, FLAG>>` that indicates which order list to
+*Step 2 (optional)* : Provide an optional `FLAG` that indicates which order list to
 search (order list or return order list). +
 [NOTE]
 ====
@@ -807,7 +815,7 @@ A `-r` flag indicates searching of the nearby orders using the return order list
 ====
 By default, if no `FLAG` is provided, both order list and return order list will be searched. +
 
-*Step 3* : Provide either a `<<postal_sector, POSTAL SECTOR>>` or an `<<area, AREA>>` +
+*Step 3* : Provide either a `POSTAL SECTOR` or an `AREA` +
 [NOTE]
 ====
 A `POSTAL_SECTOR` refers to the first *two* digits of a six digit Singapore postal code. +
@@ -837,8 +845,8 @@ https://keylocation.sg/singapore/districts-map[this website]
 In this section, you will learn more about the syntax of the `nearby` command +
 
 The syntax for a valid `nearby` command can be one of the following: +
-1. `nearby` `[FLAG]` `POSTAL_SECTOR` +
-2. `nearby` `[FLAG]` `AREA`
+1. `nearby` `[<<command_flags, FLAG>>]` `<<postal_sector, POSTAL_SECTOR>>` +
+2. `nearby` `[<<command_flags, FLAG>>]` `<<area, AREA>>`
 
 [NOTE]
 ====
@@ -1010,22 +1018,22 @@ This section will explain the steps needed to use the `delivered` command. +
 Here is how you can mark the details of any order or return order by following the steps below: +
 
 *Step 1* : Type in the keyword `delivered` +
-*Step 2* : Provide the `<<command_flags, FLAG>>` corresponding to the parcel order type you want to mark as delivered +
+*Step 2* : Provide the `FLAG` corresponding to the parcel order type you want to mark as delivered +
 *Step 3* : Provide the `INDEX` of the parcel displayed on the screen that you wish to mark as delivered +
 *Step 4* : Press `Enter` on your keyboard to see the magic!
 
 [NOTE]
 ====
 * Please include a whitespace in between the keyword, command flag and index. i.e. `delivered -o 1`
-* If you can't see any orders use the <<list, `list`>> command to view existing parcel!
-If nothing is showing up, it means you got to <<insert, `insert`>> or <<return, `return`>> some parcel and start doing work!
+* If you can't see any orders use the `<<list, list>>` command to view existing parcel!
+If nothing is showing up, it means you got to `<<insert, insert>>` or `<<return, return>>` some parcel and start doing work!
 ====
 
 [[delivered-examples]]
 ==== What constitutes a valid Delivered command
 The syntax for a valid `delivered` command can be seen below!
 
-* `delivered` `FLAG` `INDEX`
+* `delivered` `<<command_flags, FLAG>>` `INDEX`
 
 These are the possible combinations of the `delivered` command:
 
@@ -1055,7 +1063,7 @@ These are the possible combinations of the `delivered` command:
 * The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
 * The `INDEX` *must be in range* of the number of displayed orders.
 * Only can be used when there is at least an order or return order displayed.
-* The `FLAG` can only be either `-o` or `-r`, please refer to <<command_flags, here>> for more information.
+* The `FLAG` can only be either `-o` or `-r`.
 ====
 //end::delivered[]
 
