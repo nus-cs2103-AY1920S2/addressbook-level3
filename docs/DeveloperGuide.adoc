@@ -659,7 +659,7 @@ The immutability of each object is supported to ensure the correctness of undo a
 image::CookedActivityDiagram.png[]
 
 After `CookedCommand#execute(model)` is called, the series of checks shown in the above diagram is done to determine
-if the recipe can be marked as cooked. With multiple recipes inputted (eg "`cooked` 1 2 3", the series of checks will
+if the recipe can be marked as cooked. With multiple recipes inputted (eg `cooked` 1 2 3, the series of checks will
 loop through for for each recipe.
 
 The checks ensure that all the recipes inputted are valid, else the  `CookedCommand`
@@ -670,6 +670,7 @@ Furthermore, if the recipe marked as cooked was included in the Planned Recipes 
 it will be removed from the planned list.
 
 With reference to the structure of the CookedRecords Model,
+
 .Class diagram of Record
 image::ModelRecordClassDiagram.png[]
 
@@ -1241,6 +1242,17 @@ Grocery list window is opened then minimised. If required, open the window first
 then minimise that window.
 .. Test case: `groceryList` +
    Expected: Window with updated grocery list appears.
+   
+=== Cooking recipes
+. Mark a recipe as cooked
+..  Prerequisites: Recipes are present. If required, add recipes by using the `add` command.
+.. Test case: `cooked 1` +
+   Expected: The result box below informs the user that the recipe has been cooked.
+
+. Adding a recipe that has already been cooked.
+.. Prerequisites: Records list contains records cooked within the day.
+.. Test case: `cooked 1` +
+   Expected: The result box below informs the user that the recipe is a duplicated and cannot be added in.
 
 === Adding quotes
 . Quote displays while quotelist is not empty.
