@@ -220,7 +220,7 @@ The edit command is done in 2 parts. `EditCommandParser` as well as `EditCommand
 image::EditSequenceDiagram.png[]
 //end::editTaskList[]
 
-//tag::DoneAndDelete
+//tag::DGDoneAndDelete
 ==== Done and Delete (Fyon)
 
 //tag::branson[]
@@ -603,7 +603,7 @@ image::StatisticsUiSequenceDiagram.png[]
 
 //end::statistics[]
 
-//tag::pet
+//tag::DGpet
 === Pet
 ==== Implementation
 The pet feature aims to provide a virtual pet for the app in order to motivate the user. The pet has three main components: the XP points, the evolution and the mood. To facilitate this function, a Pet class is created to represent the pet. A PetManager class is created to manage the pet via communications from MainWindow. Lastly, a PetDisplay class is created to handle the UI of the pet.
@@ -633,7 +633,7 @@ image::UpdatePetDisplaySequenceDiagram.png[]
 
 ==== Design Consideration
 
-//tag::setcommands
+//tag::DGsetcommands
 === Set Commands
 
 .Set command class diagram
