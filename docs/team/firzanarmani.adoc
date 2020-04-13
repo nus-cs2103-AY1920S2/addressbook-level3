@@ -1,0 +1,63 @@
+= Firzan Armani - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Notably
+
+---
+
+== Overview
+
+Notably is for those who prefer to use a desktop app for managing notes. More importantly, Notably is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
+
+== Summary of contributions
+
+* *Major enhancement*: added a *tree data structure*
+** What it does: allows the user to store their notes in a hierarchical form, similar to that of a file-folder structure in an Operating System
+** Justification: This feature allows for a more organised storage and access of notes. The design is based on the practice of users organising their physical notes in sections and divisions for clarity. A note (or referred to internally as a `Block`) also doubles as a folder, allowing for a recursive data structure using only notes. As a result, this design has an added advantage of allowing for efficient navigation with the use of `Paths`.
+** Highlights: This enhancement is a complete rewrite of the data model while maintaining some design considerations from the previous iteration AB3. It required a lot of careful consideration about its design since it is the core feature of Notably. Also, the data structure would have to be observable to work seamlessly with the UI's sidebar TreeView. It was time consuming to experiment with a few design options before settling on wrapping JavaFX's TreeItem objects.
+** Credits:
+
+* *Minor enhancement*:
+** Refactored and created `Block` class with `Title` and `Body` classes
+** Updated the `Storage` to store and access JSON data which supports nested `Blocks` as a result of the new Tree data structure
+** Create sample Block data in the form of a first-time user tutorial walkthrough
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=firzanarmani&tabRepo=AY1920S2-CS2103T-W17-2%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=firzanarmani&tabRepo=AY1920S2-CS2103T-W17-2%2Fmain%5Bmaster%5D[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Set up GitHub repository
+*** Managed tags `v1.1` and `v1.3` (2 tags) on GitHub
+** Enhancements to existing features:
+*** Updated `UserPrefs`
+** Documentation:
+*** Improvements to UG command information: https://github.com/AY1920S2-CS2103T-W17-2/main/pull/306[306]
+*** Added section on tree data structure implementation and other improvements in DG
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W17-2/main/pull/175[#175], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/429[#429], https://github.com/AY1920S2-CS2103T-W17-2/main/pull/443[#443]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S2-CS2103T-F10-2/main/issues/188[1], https://github.com/AY1920S2-CS2103T-F10-2/main/issues/187[2])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=new]
+
+include::../UserGuide.adoc[tag=delete]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=design-model]
+
+include::../DeveloperGuide.adoc[tag=design-storage]
+
+include::../DeveloperGuide.adoc[tag=datastructure]

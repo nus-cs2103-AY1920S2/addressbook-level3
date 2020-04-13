@@ -180,6 +180,7 @@ Given below is the Sequence Diagram for interactions within the `StringCorrectio
 .Interactions inside the StringCorrectionEngine component for the `correct("uncorrected")` call
 image::StringCorrectionEngineSequenceDiagram.png[]
 
+//tag::design-model[]
 [[Design-Model]]
 === Model component
 
@@ -196,8 +197,9 @@ The `Model`,
 ** stores the command input given by the user, through CommandInputModel
 ** stores the state of the `help` modal being open, through HelpFlagModel
 * stores `UserPref` data that represents the user's preferences, through UserPrefModel
+//end::design-model[]
 
-
+//tag::design-storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -210,6 +212,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in JSON format and read it back.
 * can save the Block data in JSON format and read it back.
+//end::design-storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -358,6 +361,7 @@ its a Relative or Absolute path.
 *   Alternative 2: Relative path `CS2103/../note1` would not be logically equivalent to `note1`.
 
 // end::paths[]
+//tag::datastructure[]
 [[Implementation-DataStructure]]
 === Tree Data Structure
 Notably aims to provide end user a neat and well-organized workspace to store their notes. This is done by creating a tree structure; allowing users to create folder-like paths to organize their notes and group them into categories to their own liking.
@@ -396,7 +400,7 @@ Cons: Need to add constraint  to ensure that the root `BlockTreeItem` does not c
 
 .Tree Data Structure Design Example
 image::TreeDataStructureDesign.png[]
-
+//end::datastructure[]
 
 == Documentation
 
