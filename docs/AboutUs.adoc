@@ -24,7 +24,7 @@ image::ailanthustng.png[width="150", align="left"]
 {empty}[http://github.com/ailanthustng[github]] [<<ailanthustng#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Expense Splitter
+Responsibilities: Expense Splitter Lead
 
 '''
 
