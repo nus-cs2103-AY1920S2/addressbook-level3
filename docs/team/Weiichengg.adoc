@@ -26,12 +26,12 @@ interviewee.
 == Summary of contributions
 This section shows a summary of my contributions to the team project.
 
-* *Major enhancement #1*: Designed and implemented the saving of the Transcript of Interviewee!
-** What it does: Everytime there is an update on the Interviewee, the TranscriptStorage will provide to save and update
+* *Major enhancement #1*: Designed and implemented the saving of the Transcript of Interviewee
+** What it does: everytime there is an update on the Interviewee, the TranscriptStorage will provide to save and update
 corresponding transcript file of the interviewee. This will capture all remarks given by the interviewee during the
 interview and the score that that the interviewee obtained for each of the
 
-** Justification: This feature ensure that all the informations and evaluation given by the interviewer to the interviewee
+** Justification: This feature ensure that all the information and evaluation given by the interviewer to the interviewee
 is always saved.
 ** Highlights: This feature depends on the implementation of Logic and Model. As I need to know what are the features of
 are changed after the particular execution of a command, so that I will only save the relevant component. This would
