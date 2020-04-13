@@ -1494,6 +1494,8 @@ emergency
 
 [discrete]
 ==== Use case: UC01 Update User Profile
+*Actor:* User +
+User's Height, Weight and Mode will be updated in Self.
 
 *MSS*
 
@@ -1545,6 +1547,8 @@ Use case ends.
 
 [discrete]
 ==== Use case: UC02 Add Food Item
+*Actor:* User +
+Food will be added into FoodBook.
 
 *MSS*
 
@@ -1568,6 +1572,8 @@ Use case ends.
 
 [discrete]
 ==== Use case: UC03 Delete Food Item
+*Actor:* User +
+Food will be deleted from FoodBook.
 
 *MSS*
 
@@ -1600,6 +1606,8 @@ Use case ends.
 
 [discrete]
 ==== Use case: UC04 Edit Food Item
+*Actor:* User +
+Food in FoodBook will be edited.
 
 *MSS*
 
@@ -1637,6 +1645,8 @@ Use case ends.
 
 [discrete]
 ==== Use case: UC05 List Food Items
+*Actor:* User +
+List food in FoodBook filtered by tags.
 
 *MSS*
 
@@ -1660,6 +1670,8 @@ Use case ends.
 
 [discrete]
 ==== Use case: UC06 Track Daily Calories
+*Actor:* User +
+Show user daily food and calorie intake.
 
 *MSS*
 
@@ -1681,6 +1693,8 @@ Use case ends.
 
 [discrete]
 ==== Use case: UC07 Calculate BMI
+*Actor:* User +
+Calculate BMI for user.
 
 *MSS*
 
@@ -2002,9 +2016,10 @@ _Table 1. Diet Tracker Command Prefix_ +
 | -i | Index | <<Edit-Command,*Edit*>>
 | -g | Gain | <<Mode-Command,*Mode*>>
 | -m | Maintain | <<Mode-Command,*Mode*>>
-| -f | Foods | <<List-Command,*List*>>
-| -d | Day | <<List-Command,*List*>>
-| -t | Track | <<List-Command,*List*>>
+| -l | Lose | <<Mode-Command,*Mode*>>
+| -a | All | <<List-Command,*List*>>
+| -d | By Past Num of Days | <<List-Command,*List*>>
+| -t | By Tag | <<List-Command,*List*>>
 | -h | Height | <<Bmi-Command,*Bmi*>>
 | -w | Weight | <<Bmi-Command,*Bmi*>>
 |=======================================================================
