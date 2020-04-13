@@ -73,14 +73,15 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
 
+=== UI component
+//tag::UI[]
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/fithelper/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `EntryListPanel`, `ReminderList` etc.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PagePane`, `ButtonList`, `CurrentPageTitle` etc.
 Moreover, it reserves a place for different pages that can be filled and displayed.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -90,16 +91,19 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+//end::UI[]
 
 [[Design-Logic]]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
+
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/fithelper/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `FitHelperParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -390,22 +394,22 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedFitHelper` will be initialized with the initial FitHelper state, and the `currentStatePointer` pointing to that single FitHelper state.
 
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[width = 35%]
 
 Step 2. The user executes `delete x/f i/5` command to delete the 5th food entry in the FitHelper. The `delete` command calls `Model#commit()`, causing the modified state of the FitHelper after the `delete x/f i/5` command executes to be saved in the `fitHelperStateList`, and the `currentStatePointer` is shifted to the newly inserted FitHelper state.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[width = 35%]
 
 Step 3. The user executes `add x/f n/apple ...` to add a new food entry. The `add` command also calls `Model#commit()`, causing another modified FitHelper state to be saved into the `fitHelperStateList`.
 
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[width = 35%]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commit()`, so the FitHelper state will not be saved into the `fitHelperStateList`.
 
 Step 4. The user now decides that adding the food entry was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous FitHelper state, and restores the FitHelper to that state.
 
-image::UndoRedoState3.png[]
+image::UndoRedoState3.png[width = 35%]
 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial FitHelper state, then there are no previous FitHelper states to restore. The `undo` command uses `Model#canundo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
@@ -423,16 +427,18 @@ If the `currentStatePointer` is at index `fitHelperStateList.size() - 1`, pointi
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the FitHelper, such as `list`, will usually not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `fitHelperStateList` remains unchanged.
 
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[width = 35%]
 
 Step 6. The user executes `clear`, which calls `Model#commit()`. Since the `currentStatePointer` is not pointing at the end of the `fitHelperStateList`, all FitHelper states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoState5.png[]
-// end::undoredo[]
+image::UndoRedoState5.png[width = 35%]
+
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[][height = "50"]
+image::CommitActivityDiagram.png[width = 30%]
+
+// end::undoredo[]
 
 
 // tag::calendar[]
