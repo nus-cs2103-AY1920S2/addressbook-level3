@@ -976,8 +976,8 @@ image::PdfFile.PNG[width="790"]
 
 // tag::done[]
 
-=== Mark a note as done: `done`
-Mark a `Note` at a specific index from the current note list as `done`.
+=== Marking a note as done: `done`
+Marks a `Note` at a specific index from the current note list as `done`.
 
 ====
 *Format:* `done INDEX`
