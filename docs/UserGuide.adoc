@@ -308,12 +308,12 @@ Example: `undone aid/829 sid/21`
 
 Illustration:
 
-image::Ivan-done1.PNG[]
+image::Ivan-Done1.png[]
 Notice that George has initially not completed Assignment 44736.
 
 After `done aid/44736 sid/63865`:
 
-image::Ivan-done2.png[]
+image::Ivan-Done2.png[]
 Now observe 3 updates:
 
 . Success message as displayed in message box
