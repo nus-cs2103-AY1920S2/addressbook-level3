@@ -168,7 +168,7 @@ This implementation means that a local cache of the added modules will be availa
 
 
 
-=== Profile (Module Book) feature
+=== Profile (Module Book) feature (Wangkai)
 
 This profile feature allows users to manage the modules they have taken before or is taking now in NUS.
 In details, users are able to store their module taken into the program with the grades for each module stated if applicable and
@@ -217,7 +217,33 @@ i.e. Any modification in module tasks will be updated in `Task` which is the mai
 
 ==== Example Use Scenario
 
+Given below are example usages scenario and how the Module Book feature behaves at each step.
 
+[TIP]
+User can manage their tasks in different ways.
+
+*Example 1*: +
+
+. The user execute `listModuleTasks` command.
+. The program check whether the module code provided has been recorded or not.
+. Display the list of tasks.
+
+Below is an activity diagram describing the events that will happen:
+
+.Activity diagram for list module tasks command
+image::ListModuleTasksActivityDiagram.png[width="790"]
+
+*Example 2*: +
+
+. The user execute `done` command.
+. The program check whether the input is valid or not.
+. The task specified will be deleted accordingly.
+. Synchronize between module book and calendar.
+
+Below is an activity diagram describing the events that will happen:
+
+.Activity diagram for done command
+image::DoneCommandActivityDiagram.png[width="850"]
 
 ==== Design Considerations
 
