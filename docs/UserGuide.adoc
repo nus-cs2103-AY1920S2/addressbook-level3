@@ -215,18 +215,37 @@ If you want to change the `BODY` content of the currently opened note, use the `
 
 *Format:* `edit`
 
-[WARNING]
-====
-* You are not allowed to `edit` the root note, i.e the currently opened path is ``"/"``
-====
-
 ==== Example: Editing the currently opened note
-. Let's update the `BODY` content of the currently opened note `Workspace` with the command: +
+. As shown in <<EditStep1, Step 1>>, let's update the `BODY` content of the currently opened note `Workspace` with the command: +
 
     edit
 
-.Demo for the `edit` command
-image::demo/Edit.png[]
+. An Edit modal will appear on your screen, as shown in <<EditStep2, Step 2>>. You will now be able to edit the
+content of the currently open note.
+
+. Once done, press kbd:[Esc] to close the modal. Any changes made to the content
+of the note are automatically saved when you do so.
+
+[[EditStep1]]
+.Step 1 - Demo for the `edit` command (Typing the edit command)
+image::demo/Edit1.png[]
+
+[[EditStep2]]
+.Step 2 - Demo for the `edit` command (Interacting with the Edit modal)
+image::demo/Edit2.png[]
+
+[TIP]
+====
+* Instead of editing a note in plain text, leverage Notably's <<Markdown, Markdown>> feature to better organise
+the text in your note!
+* You can copy and paste text in the edit modal, as per the conventional keyboard shortcuts kbd:[CMD/CTRL] + kbd:[c] and
+kbd:[CMD/CTRL] + kbd:[v] respectively.
+====
+
+[WARNING]
+====
+* You are not allowed to `edit` the root note, i.e is the currently opened path is ``"/"``
+====
 
 //tag:delete[]
 === Delete a note: `delete`
@@ -301,6 +320,7 @@ Even if you mistype, Notably tries its best to correct the typo automatically, a
 .Demo for the auto-correction feature
 image::demo/Correction.png[]
 
+[[Markdown]]
 === Markdown (GitHub Flavored Markdown)
 
 [NOTE]
