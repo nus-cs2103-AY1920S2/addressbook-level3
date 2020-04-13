@@ -136,7 +136,7 @@ remind you of this.
 === View help : `help`
 
 If you can't remember the commands or you are unsure about what a particular command does, type `help` and hit kbd:[Enter].
-Figure 3 below shows you what this will look like on your screen.
+Figure 5 below shows you what this will look like on your screen.
 
 *Format:* `help`
 
@@ -243,7 +243,7 @@ If you want to change the `BODY` content of the currently opened note, use the `
 ==== Example: Editing the currently opened note
 . As shown in <<EditStep1, Step 1>>, let's update the `BODY` content of the currently opened note `Workspace` with the command: +
 
-edit
+    edit
 
 . An Edit modal will appear on your screen, as shown in <<EditStep2, Step 2>>. You will now be able to edit the
 content of the currently open note.
