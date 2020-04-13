@@ -24,7 +24,7 @@ interface SplitterModel <<Interface>> {
 
 class SplitterModelManager implements SplitterModel {
     /' Fields '/
-    - Receipt : receipt
+    - receipt : Receipt
 
     /' Methods '/
     + listReceipt() : void
@@ -33,7 +33,7 @@ class SplitterModelManager implements SplitterModel {
 
 class Receipt {
     /' Fields '/
-    - boolean : isDone
+    - isDone : boolean
 
     /' Methods '/
     + markDone() : void

@@ -33,8 +33,8 @@ Responsibilities: Expense Splitter
 image::sheexiong.png[width="150", align="left"]
 {empty}[http://github.com/sheexiong[github]] [<<sheexiong#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Developer & Integration +
+Responsibilities: Project Repository Management, Code Integration, Expense Splitter, UI
 
 '''
 
