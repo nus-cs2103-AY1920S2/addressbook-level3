@@ -562,7 +562,7 @@ Cons:
 
 [appendix]
 // tag::ManualTesting[]
-== Instructions for Manual Testing
+== Instructions for Manual Testing [Kevin]
 
 Given below are instructions to test the app manually.
 
@@ -601,12 +601,12 @@ Expected: *CookBuddy* will shut down.
                put eggs on toasted bread; serve` +
    Expected: The _Eggs on Toast_ recipe is added to the recipe list. Details of the newly added recipe is shown in the result pane.
 
-. Add a recipe with one mandatory field missing.
+. Add a recipe with one mandatory field missing, Instructions in this case.
 
 .. Test case: `new n/Eggs on Toast ing/bread, 2 slices; egg, 1` +
    Expected: No recipe is added. An _"Invalid command format"_ error message is shown in the result pane.
 
-. Add a recipe with a missing ingredient quantity
+. Add a recipe with a missing ingredient quantity (egg is missing its quantity)
 
 .. Test Case: `new n/Eggs on Toast ing/bread, 2 slices; egg ins/toast the 2 slices of bread; scramble the eggs;
                put eggs on toasted bread; serve` +
@@ -618,45 +618,75 @@ Prerequisites: *CookBuddy* should contain at least one recipe.
 If no recipe exists, delete the `data` folder and re-launch *CookBuddy*.
 The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
 
+[TIP]
+The Modify command allows changing multiple attributes in one command.
+For example, `modify 1 n/Rice cal/250` updates both recipe 1's name and calories.
+
 . Modifying a recipe's name
 
 .. Test Case: `modify 1 n/Chicken Rice` +
    Expected: The first recipe's name is updated to _Chicken Rice_.
+.. Test Case: `modify 1 n/` +
+   Expected: The first recipe's name is not updated. Error details are shown in in result pane.
+.. Test Case: `modify 1 n/!@#abc` +
+   Expected: The first recipe's name is not updated. Error details are shown in in result pane.
 
 . Modifying a recipe's ingredients
 
 .. Test Case: `modify 1 ing/ing1, qty1; ing2, qty2` +
    Expected: The first recipe's original ingredients should be overwritten with ing1 & ing2.
+.. Test Case: `modify 1 ing/ing1, ; ing2, qty2` +
+   Expected: The first recipe's ingredients are not updated due to ing1 missing its quantity.
+.. Test Case: `modify 1 ing/, qty1; ing2, qty2` +
+   Expected: The first recipe's ingredients are not updated due to ing1 missing its name.
 
 . Modifying a recipe's instructions
 
 .. Test Case: `modify 1 ins/ins1; ins2` +
    Expected: The first recipe's original instructions should be overwritten with ins1 & ins2.
+.. Test Case: `modify 1 ins/` +
+   Expected: The first recipe's instructions should not be updated. Error details are shown in in result pane.
 
 . Modifying a recipe's calories
 
 .. Test Case: `modify 1 cal/2000` +
-   Expected: The first recipe's original calories should be updated to 2000 kCal.
+   Expected: The first recipe's calories should be updated to 2000 kCal.
 .. Test Case: `modify 1 cal/abc` +
    Expected: The first recipe's calories is not updated. Error details are shown in in result pane.
 
 . Modifying a recipe's serving size
 
-.. Test Case: `` +
-   Expected:
-
+.. Test Case: `modify 1 s/3` +
+   Expected: The first recipe's serving size should be updated to 3.
+.. Test Case: `modify 1 s/abc` +
+   Expected: The first recipe's serving size is not updated. Error details are shown in in result pane.
 
 . Modifying a recipe's difficulty
 
-.. Test Case: `` +
-   Expected:
+.. Test Case: `modify 1 d/4` +
+   Expected: The first recipe's difficulty should be updated to 4 on a scale of 1 to 5.
+.. Test Case: `modify 1 d/6` +
+   Expected: The first recipe's difficulty is not updated. Error details are shown in in result pane.
+.. Test Case: `modify 1 d/abc` +
+   Expected: The first recipe's difficulty is not updated. Error details are shown in in result pane.
 
 . Modifying a recipe's rating
 
-.. Test Case: `` +
-   Expected:
+.. Test Case: `modify 1 r/5` +
+   Expected: The first recipe's rating should be updated to 5 stars.
+.. Test Case: `modify 1 r/8` +
+   Expected: The first recipe's rating is not updated. Error details are shown in in result pane.
+.. Test Case: `modify 1 r/abc` +
+   Expected: The first recipe's rating is not updated. Error details are shown in in result pane.
 
-// enter rating < 0 or > 5
+. Modifying a recipe's tags
+
+.. Test Case: `modify 1 t/breakfast` +
+   Expected: The first recipe's tags should be updated to contain *one* tag, _breakfast_.
+.. Test Case: `modify 1 t/breakfast, lunch` +
+   Expected: The first recipe's tags should be updated to contain *two* tags, _breakfast_ & _lunch_.
+.. Test Case: `modify 1 t/` +
+   Expected: The first recipe's tags should be updated to contain *zero* tags.
 
 === Finding a recipe
 
@@ -665,14 +695,22 @@ The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
 .. Prerequisite: *CookBuddy* contains a recipe with _Ham_ in its name. +
    Test Case: `find n/Ham` +
    Expected: Recipes with the word _Ham_ in their name are listed.
+.. Prerequisite: *CookBuddy* contains _Ham Sandwich_ and _Idiot Sandwich_. +
+   Test Case: `find n/Ham Sandwich` +
+   Expected: Recipes whose name contains _Ham_ or _Sandwich_ are listed.
+   So both _Ham Sandwich_ and _Idiot Sandwich_ are listed.
 
 . Finding recipes by ingredient
 
 .. Prerequisite: *CookBuddy* contains a recipe with _bread_ in its ingredients. +
    Test Case: `find ing/bread` +
-   Expected: Recipes with the word _bread_ in their ingredients are listed.
+   Expected: Recipes whose ingredient names contain _bread_ are listed.
 
-// finding a recipe by instruction
+. Finding recipes by instruction
+
+.. Prerequisite: *CookBuddy* contains a recipe with _ham_ in its instructions. +
+   Test Case: `find ins/bread` +
+   Expected: Recipes whose instructions contain _ham_ are listed.
 
 
 === Marking a recipe as done / not done
@@ -681,9 +719,30 @@ Prerequisites: *CookBuddy* should contain at least one recipe.
 If no recipe exists, delete the `data` folder and re-launch *CookBuddy*.
 The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
 
+. Marking a recipe as done
+
+.. Test Case: `done 1` +
+   Expected: The first recipe should be marked as done.
+.. Test Case: `done n` (where n is larger than the list size) +
+   Expected: An error message is shown in the result pane prompting the user to enter a valid list index number.
+.. Test Case: `done abc` +
+   Expected: An error message is shown in the result pane prompting the user to enter a valid integer.
+
+. Marking a recipe as not done
+
+.. Test Case: `undo 1` +
+   Expected: The first recipe should be marked as not done.
+.. Test Case: `undo n` (where n is larger than the list size) +
+   Expected: An error message is shown in the result pane prompting the user to enter a valid list index number.
+.. Test Case: `undo abc` +
+   Expected: An error message is shown in the result pane prompting the user to enter a valid integer.
 
 
-=== Marking / un-marking a recipe as a favourite
+=== Marking a recipe as a favourite / not favourite
+
+
+
+=== Adding a prep time to a recipe
 
 
 === Deleting a recipe
@@ -699,16 +758,20 @@ The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
    Expected: Similar to previous.
 .. Test case: `delete` +
    Expected: No recipe is deleted. An error message prompting the user to provide an index is shown in the result pane.
-.. Test case: `delete y` (where y is not an integer) +
+.. Test case: `delete abc` +
    Expected: No recipe is deleted. An error message prompting the user to provide a valid integer is shown in the result pane.
 
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Saving *CookBuddy's* recipe book to the save file.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Enter any valid command that modifies data in the recipe book.
+.. A file named _recipebook.json_ should be created in the _data/_ folder.
 
-_{ more test cases ... }_
+. Dealing with missing/corrupted data in *CookBuddy's* save file
+
+.. Edit _recipebook.json_ and delete the _difficulty_ parameter and re-launch *CookBuddy*.
+.. The recipe whose _difficulty_ was deleted will have defaulted back to 0 difficulty.
 
 // end::ManualTesting[]
