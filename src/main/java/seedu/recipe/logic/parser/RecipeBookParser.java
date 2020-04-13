@@ -12,7 +12,6 @@ import seedu.recipe.logic.commands.FilterCommand;
 import seedu.recipe.logic.commands.ListGoalsCommand;
 import seedu.recipe.logic.commands.QuoteCommand;
 import seedu.recipe.logic.commands.RedoCommand;
-import seedu.recipe.logic.commands.StreakCommand;
 import seedu.recipe.logic.commands.UndoCommand;
 import seedu.recipe.logic.commands.common.ExitCommand;
 import seedu.recipe.logic.commands.common.HelpCommand;
@@ -149,10 +148,7 @@ public class RecipeBookParser {
             return new SwitchCommandParser().parse(arguments);
 
         case QuoteCommand.COMMAND_WORD:
-            return new QuoteCommand();
-
-        case StreakCommand.COMMAND_WORD:
-            return new StreakCommand();
+            return new QuoteCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

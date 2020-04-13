@@ -176,7 +176,7 @@ Example usage: `switch planning` +
 Switches the current tab to the planning tab.
 
 [TIP]
-Tabs available: recipes, planning, goals, achievements. +
+Tabs available: recipes, planning, goals, achievements.
 
 === List all recipes: `list`
 Lists all the recipes present in the database. +
@@ -255,7 +255,7 @@ HYBB will take the later input. +
 For example, `edit 4 t/10 t/20`
 would change the time taken to 20 minutes for the recipe at index 4.
 
-=== Delete a recipe : `delete`
+=== Delete a recipe : `delete` (Brian)
 Deletes the recipe(s) that you have specified. +
 Format: `delete [recipe index] <recipe index>...`
 
@@ -269,19 +269,49 @@ You can *delete, favourite, or unfavourite* multiple recipes at the same time (a
 If you specify a recipe number that does not exist in the list of recipes _that you are currently viewing_, none of your
 selected recipes will be deleted, favourited, or unfavourited.
 
-=== Favourite a recipe: `favourite`
+=== Favourite a recipe: `favourite` (Brian)
 Favourites the recipe(s) that you have specified. +
 Format: `favourite [recipe index] <recipe index>...`
 
 Example: `favourite 1 3 4` +
 Favourites recipes 1, 3, and 4.
 
-=== Unfavourite a recipe: `unfavourite`
+=== Unfavourite a recipe: `unfavourite` (Brian)
 Unfavourites the recipe(s) that you have specified. +
 Format: `unfavourite [recipe index] <recipe index>...`
 
 Example: `unfavourite 1 3 4` +
 Unfavourites recipes 1, 3, and 4.
+
+=== Undo a previous action: `undo` (Brian)
+Undoes a previous action. +
+Format: `undo <number of actions> or <all>`
+
+Example 1: `undo` +
+Undoes only the previous action.
+
+Example 2: `undo 3` +
+Undoes the 3 previous actions. If there are less than 3 actions to undo, you will not be allowed to undo.
+
+Example 3: `undo all` +
+Undoes all previous actions.
+
+[TIP]
+For both undo and redo, the number of actions that you specify (if any) has to be a non-zero unsigned integer!
+
+=== Redo a previous undo: `redo` (Brian)
+Restores actions that have been previously undone using `undo`.
+Format: `redo <number of actions> or <all>`
+
+Example 1: `redo` +
+Restores the actions that have been undone by the previous undo.
+
+Example 2: `redo 3` +
+Restores the actions that have been undone by the previous 3 undo-s. If there are less than 3 actions to restore, you
+not be allowed to redo.
+
+Example 3: `redo all` +
+Restores the actions that have been undone by all previous undo-s.
 
 === Clear the recipe book : `clear`
 Clears the recipe book. After entering this command, the recipe book will be empty and all planned recipes
@@ -302,8 +332,13 @@ Format: `exit`
 HYBB's data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-== Recipe Customisation Commands
-=== Add Ingredients to a Recipe: `addIngredient`
+== Recipe Customisation Commands (Brian)
+As we see from the `edit` command in section 6.6, if you want to add, edit, or delete a single ingredient or step,
+you would have to rewrite the whole field that you wish to edit. This would be troublesome if the field contains
+multiple ingredients or steps that you may not necessarily want to edit. Therefore, the following commands are used in
+occasions like these!
+
+=== Add Ingredients to a Recipe: `addIngredient` (Brian)
 Adds more ingredients to an existing recipe. +
 Format: `addIngredient [recipe index] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>...]`
 
@@ -313,7 +348,7 @@ Adds 50g of Bread and 5g of Butter to recipe 2.
 [TIP]
 You can add multiple ingredients at a time (at least one ingredient must be added).
 
-=== Edit Ingredient Quantity in a Recipe: `editIngredient`
+=== Edit Ingredient Quantity in a Recipe: `editIngredient` (Brian)
 Edits the quantity of an ingredient in an existing recipe. +
 Format: `editIngredient [recipe index] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>… <io/other>...]`
 
@@ -324,7 +359,7 @@ recipe 3's ingredients set.
 [TIP]
 You can edit multiple ingredients at a time (at least one ingredient must be edited).
 
-=== Delete Ingredients in a Recipe: `deleteIngredient`
+=== Delete Ingredients in a Recipe: `deleteIngredient` (Brian)
 Deletes the specified ingredient(s) from an existing recipe. +
 Format: `deleteIngredient [recipe index] [<ig/grain name>... <iv/vegetable name>... <ip/protein name>...
 <if/fruit name>... <io/other name>...]`
@@ -339,8 +374,7 @@ You can delete multiple ingredients at a time (at least one ingredient must be d
 [TIP]
 There is no need to specify quantity here. Just the ingredient name will do!
 
-
-=== Add Steps to a Recipe: `addStep`
+=== Add Steps to a Recipe: `addStep` (Brian)
 Adds more steps to an existing recipe. +
 Format: `addStep [recipe index] [s/step] <s/next step>...`
 
@@ -350,7 +384,7 @@ Adds 2 new steps to recipe 1.
 [TIP]
 You can add multiple steps at a time (at least one step must be added).
 
-=== Edit a Step in a Recipe: `editStep`
+=== Edit a Step in a Recipe: `editStep` (Brian)
 Edits the specified step in an existing recipe. +
 Format: `editStep [recipe index] [step index] [s/new step]`
 
@@ -358,7 +392,7 @@ Example: `editStep 3 4 s/Edited new step` +
 Replaces step 4 of recipe 3 with “Edited new step”. If you specify more than one step, only the first one will be used
 to replace the old step.
 
-=== Delete Steps in a Recipe: `deleteStep`
+=== Delete Steps in a Recipe: `deleteStep` (Brian)
 Deletes the specified step(s) from an existing recipe. +
 Format: `deleteStep [recipe index] [step index] <step index>...`
 
@@ -368,14 +402,14 @@ Deletes steps 2, 3, and 5 of recipe 3.
 [TIP]
 You can delete multiple steps at a time (at least one step must be deleted).
 
-== Filter Command
+== Filter Command (Brian)
 This command is not to be confused with the `Find` command, which only searches for recipes by their names. The
 `Filter` command is a more robust search command that allows you to search for recipes using _various criteria_.
 
 [TIP]
 You can combine the input of the next few subsections to filter the recipes by multiple criteria!
 
-=== Filter by ingredients
+=== Filter by ingredients (Brian)
 Finds recipes that contains the specified ingredients. +
 Format: `filter <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>...`
 
@@ -388,18 +422,18 @@ Finds recipes that *does not* contain Pasta and contains Chicken.
 [TIP]
 Notice the use of the keyword "exclude" in Example 2? Use this to exclude ingredients that you do not want!
 
-=== Filter by goals
+=== Filter by goals (Brian)
 Finds recipes that are tagged with the specified goal. +
 Format: `filter [g/goal] <g/goal>...`
 
 Example: `filter g/Herbivore` +
 Finds recipes that are tagged with the `Herbivore` goal.
 
-=== Filter by favourites
+=== Filter by favourites (Brian)
 Finds recipes that are tagged as favourites. +
 Format: `filter favourites`
 
-=== Filter by preparation time
+=== Filter by preparation time (Brian)
 Finds recipes that have preparation time less than or equals to the specified time (in minutes). +
 Format: `filter [t/time] or [t/time range]`
 
@@ -482,7 +516,7 @@ Format: `viewWeek`
 View all the plans for the month. +
 Format: `viewMonth`
 
-== Goal Feature
+== Goals Command (Harshita)
 
 === Remove goal: `deleteGoal`
 Deletes a goal that has been auto-generated through the addition or editing of a recipe from a specific recipe. +
@@ -502,7 +536,7 @@ Format: `cooked [recipe index] <recipe index>...`
 [TIP]
 You can mark multiple recipes as cooked at the same time (at least one recipe must be marked).
 
-[TIP]
+[WARNING]
 If you specify a recipe number that has already been cooked within the day or does not exist in the list of recipes
 _under the recipes tab_, none of your selected recipes will be marked as cooked.
 
@@ -519,10 +553,10 @@ The pie chart represents the goals tally according to your cooked meal history a
 Shows weekly progress of respective goal through graph. +
 Format: `chart [g/goal]`
 
-=== Analyse images added to generate goals [Coming in v2.0]
-Auto-generates goals through the use of Artificial Intelligence. +
+=== Analyse images added: `analyse` [Coming in v2.0]
+Auto-generates goals and statistics through the use of Artificial Intelligence. +
 
-== Achievement
+== Achievement (Yue Tong)
 
 === Display streak: `streak` [Coming in v1.4]
 Displays number of consecutive days user has cooked a meal from the app +
@@ -564,29 +598,29 @@ data of your previous HYBB folder.
 |===
 |Command |Action
 
-|help |View help
-|switch |Switch to the desired tab
-|list |List all recipes
-|find |Find recipes by name
-|add |Add a recipe
-|edit |Edit a recipe
-|delete |Delete recipes
-|favourite |Favourite recipes
-|unfavourite |Unfavourite recipes
-|clear |Clear the recipe book
-|exit |Exit the programme
-|addIngredient |Add ingredients to a recipe
-|editIngredient |Edit ingredients’ quantities in a recipe
-|deleteIngredient |Delete ingredients in a recipe
-|addStep |Add steps to a recipe
-|editStep |Edit a step in a recipe
-|deleteStep |Delete steps in a recipe
-|filter |Search for recipes by (multiple) criteria
-|plan |Plan recipes
-|deletePlan |Delete plans
-|clearPlan |Clear all plans
-|groceryList |List all ingredients used in the planned recipes
-|deleteGoal |Deletes specified goal from a recipe
-|listGoals |Lists all available goals
-|cooked |Records a recipe as cooked
+|`help` |View help
+|`switch` |Switch to the desired tab
+|`list` |List all recipes
+|`find` |Find recipes by name
+|`add` |Add a recipe
+|`edit` |Edit a recipe
+|`delete` |Delete recipes
+|`favourite` |Favourite recipes
+|`unfavourite` |Unfavourite recipes
+|`clear` |Clear the recipe book
+|`exit` |Exit the programme
+|`addIngredient` |Add ingredients to a recipe
+|`editIngredient` |Edit ingredients’ quantities in a recipe
+|`deleteIngredient` |Delete ingredients in a recipe
+|`addStep` |Add steps to a recipe
+|`editStep` |Edit a step in a recipe
+|`deleteStep` |Delete steps in a recipe
+|`filter` |Search for recipes by (multiple) criteria
+|`plan` |Plan recipes
+|`deletePlan` |Delete plans
+|`clearPlan` |Clear all plans
+|`groceryList` |List all ingredients used in the planned recipes
+|`deleteGoal` |Deletes specified goal from a recipe
+|`listGoals` |Lists all available goals
+|`cooked` |Records a recipe as cooked
 |===

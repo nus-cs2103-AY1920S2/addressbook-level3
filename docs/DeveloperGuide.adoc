@@ -159,10 +159,17 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/recipe/storage/Storage.java[`Storage.java`]
 
+In the figure above, we can see that we are maintaining 5 different storages. These storages aim to keep the memory of:
+* `UserPrefs`
+* `RecipeBook`
+* `PlannedBook`
+* `CookedRecords`
+* `QuoteBook`
+
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Recipe Book data in json format and read it back.
+* can save the HYBB data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -295,16 +302,63 @@ libraries gives the risk of running into bugs in the future if the the dependenc
 ==== Delete command
 
 
-==== Favourite and Unfavourite commands
-
-
-==== Undo and Redo commands
+==== Favourite and Unfavourite commands (Brian)
 Description: TODO
 
 ===== Implementation
-This section explains how the undo and redo commands are implemented.
+For brevity, we will only be talking about the `favourite` command here. Note that the `unfavourite` command is
+implemented in the same way.
 
-1. TODO
+1. The user input received by `FavouriteCommandParser#parse` will pass on the user input to
+`ParserUtil#parseMultipleIndex` to verify if the indexes keyed in are non-zero, unsigned integers. An error is thrown
+if any of the indexes do not meet this requirement.
++
+On top of verifying the validity of the indexes, `ParserUtil#parseMultipleIndex` will remove any duplicate indexes
+and sort them. It returns a sorted array of one-based indexes.
+
+2. A new `FavouriteCommand` object will be created with the array of indexes and returned to the `LogicManager`.
+
+3. The `FavouriteCommand#execute` method is executed. First, the array of indexes will be checked against the
+_currently displayed recipe list_ to ensure that there exists a corresponding recipe index. An error will be thrown if
+a user specified recipe index is out of bounds.
+
+4. Next, we check if the specified recipe(s) is already a favourite. If it is not a favourite yet, we use an
+`EditRecipeDescriptor` to set the recipe's `isFavourite` to true.
+
+5. Finally, we display the names of the recipes that have been newly made favourites, and the names of the recipes that
+were already favourites.
+
+Here is a sample sequence diagram that shows what happens when the user inputs `favourite 2 3`:
+
+.Favourite command sequence diagram
+image::FavouriteCommandSequenceDiagram.png[]
+
+This operation favourites recipe 2 and 3.
+
+==== Undo and Redo commands (Brian)
+The implementation of `undo` and `redo` was adapted from AB3. However, HYBB requires more book-keeping because on top
+of the `RecipeBook`, we have a `PlannedBook` and a `CookedRecordBook` to keep track of as well.
+
+For brevity, we will only be talking about the `undo` command here. Note that the `redo` command is implemented in the
+same way.
+
+===== Implementation (before `undo` is called)
+1. Whenever a command that changes the state of any of the books is called, `Model#commitBook` is
+called as well.
++
+`Model#commitBook` will save the `CommandType` and `Tab` of the command in 2 separate stacks in
+`MultipleBookStateManager`. It will also save the current state of the affected book(s) in an ArrayList of that book
+type. All redundant states, regardless of which book it belongs to, will be purged before any saving occurs.
++
+Note: `CommandType` tells you which book(s) the command affects, while `Tab` tells you which tab should be
+displayed upon execution of the command.
+
+===== Implementation (when `undo` is called)
+1. `Model#canUndo` is called to check if there are sufficient actions to be undone. An error is thrown if there are
+insufficient actions to be undone.
+
+2. If able to undo, `Model#undoBook` is called. The `CommandType` stack is popped to know which book(s) need undoing.
+The corresponding books in `Model` are then set to the previous version.
 
 The following sequence diagram shows what happens when the user calls an undo operation:
 
@@ -319,12 +373,13 @@ Challenges faced: TODO
 
 * **Alternative 1 (current choice):** Saves the entire recipe book.
 ** Pros: Easy to implement.
-** Cons: May use up a lot of memory space within a single session 1) if there is a large volume of recipe book commits
+** Cons: May use up a lot of memory space within a single session 1) if there is a large number of recipe book commits
 and/or 2) if the magnitude of a single commit is large (ie. the database is huge, containing many recipes).
 
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory.
-** Cons: Tedious to ensure the correctness of the implementation of each individual command.
+** Cons: Tedious to ensure the correctness of the implementation of each individual command. Furthermore, some commands
+affect multiple books, making book-keeping even more complicated (and hence, susceptible to error).
 
 ==== Clear command
 
@@ -335,26 +390,19 @@ and/or 2) if the magnitude of a single commit is large (ie. the database is huge
 // end::basic[]
 
 // tag::recipecustomisation[]
-=== Recipe customisation commands
-==== Add ingredient command
+=== Recipe customisation commands (Brian)
+The following commands: `addingredient`, `editingredient`, `deleteingredient`, `addstep`, `editstep`, and `deletestep`
+were implemented to overcome the limitations of the `edit` command. These recipe customisation commands allow the user to make targeted changes to the ingredient or step fields instead of having to rewrite the
+entire field using `edit`.
 
+==== Implementation
+TODO
 
-==== Edit ingredient command
-
-
-==== Delete ingredient command
-
-
-==== Add step command
-
-
-==== Edit step command
-
-
-==== Delete step command
+===== Design Considerations
+====== Aspect: TODO
+TODO
 
 // end::recipecustomisation[]
-
 
 // tag::advancedfilter[]
 === Filter command (Brian)
@@ -365,15 +413,15 @@ user to find recipes by their name.
 ==== Implementation
 This section explains how the `filter` command is implemented.
 
-1. User specified keywords are directed to the `FilterCommandParser` where `ArgumentTokenizer` and `ArgumentMultimap`
-are used to parse the user input. An error will be thrown if no keywords are specified at all.
+1. User specified keywords are directed to `FilterCommandParser#parse` where `ArgumentTokenizer` and
+`ArgumentMultimap` are used to parse the user input. An error will be thrown if no keywords are specified at all.
 
 2. The parsed user input is then fed into `RecipeMatchesKeywordPredicate` where a `Predicate`, p, is created. This
 predicate will subsequently be used as the filter to get all recipes that meet the user specified criteria.
 
 3. A new `FilterCommand` object will be created with the predicate and returned to the `LogicManager`.
 
-4. The `FilterCommand#execute(model)` method is executed and `Model#updateFilteredRecipeList(p)` is called. This tests
+4. The `FilterCommand#execute` method is executed and `Model#updateFilteredRecipeList` is called. This tests
 every recipe in the database against the predicate, p, and updates the filtered recipe list with recipes that meet the
 user specified criteria.
 
@@ -393,7 +441,7 @@ One concern we had while implementing this feature was the sheer number of comma
 Eventually, the current implementation was chosen because we didn't want to define a new format for `filter`
 keywords which might potentially confuse our users.
 
-* **Alternative 1 (current choice):** Uses the existing prefixes and format in the user input.
+* **Alternative 1 (current choice):** Use the existing prefixes and format in the user input.
 ** Pros: The existing `ArgumentTokenizer` and `ArgumentMultimap` classes already have capabilities to parse user input
 that is in a certain format. Thus, using the same format saves us time and effort in implementing our own parser. It
 also spares the user from having to remember multiple formats / keywords.

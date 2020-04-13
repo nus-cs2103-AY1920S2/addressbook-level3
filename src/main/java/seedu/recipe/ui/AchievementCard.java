@@ -31,14 +31,18 @@ public class AchievementCard extends UiPart<Region> {
      */
     private final Streak streak;
     private final Quote quote;
+    private final String textStyle = "-fx-font-family: \"Candara\";\n"
+            + "-fx-text-fill: #FFA07A;\n"
+            + "-fx-font-weight: bold;"
+            + "-fx-font-size: 14pt;\n";;
     private final String styleHeader = "-fx-font-family: \"Segoe UI\";\n"
             + "-fx-text-fill: #FFFFFF;\n"
             + "-fx-font-weight: bold;";
-    private final String weekStyleHeader = styleHeader + "-fx-font-size: 15pt;\n";
+    private final String weekStyleHeader = styleHeader + "-fx-font-size: 20pt;\n";
     private final String styleScoreHeader = "-fx-font-family: \"Arial\";\n"
             + "-fx-text-fill: #7FFF00;\n"
             + "-fx-font-weight: bold;"
-            + "-fx-font-size: 14pt;\n";
+            + "-fx-font-size: 18pt;\n";
 
     @FXML
     private HBox cardPane;
@@ -47,7 +51,9 @@ public class AchievementCard extends UiPart<Region> {
     @FXML
     private Label scoreTitle;
     @FXML
-    private Label score;
+    private Label highScore;
+    @FXML
+    private Label currScore;
     @FXML
     private Label contentTitle;
     @FXML
@@ -64,11 +70,7 @@ public class AchievementCard extends UiPart<Region> {
         Streak streak = new Streak(records, today);
         this.streak = streak;
         this.streak.updateStreak();
-        records.addListener((ListChangeListener<Record>) record -> {
-            while (record.next()) {
-                this.streak.updateStreak();
-            }
-        });
+
         dayHeader.setText(today.getDayOfWeek() + ": " + today.toString());
         dayHeader.setStyle(weekStyleHeader);
         System.out.println(records.size());
@@ -76,15 +78,24 @@ public class AchievementCard extends UiPart<Region> {
         BorderPane border = new BorderPane();
         scoreTitle.setText("Streak:");
         scoreTitle.setStyle(styleScoreHeader);
-        score.setWrapText(true);
-        score.setText(Integer.toString(streak.getCurrStreak()));
-        score.setStyle(styleHeader);
-        score.setWrapText(true);
+        records.addListener((ListChangeListener<Record>) record -> {
+            while (record.next()) {
+                this.streak.updateStreak();
+                highScore.setText("Highest Streak: " + this.streak.getHighStreak());
+                currScore.setText("Current Streak: " + this.streak.getCurrStreak());
+            }
+        });
+        currScore.setText("Current Streak: " + this.streak.getCurrStreak());
+        currScore.setStyle(styleHeader);
+        currScore.setWrapText(true);
+        highScore.setText("Highest Streak: " + this.streak.getHighStreak());
+        highScore.setStyle(styleHeader);
+        highScore.setWrapText(true);
 
         contentTitle.setText("Quote of the Day:");
         contentTitle.setStyle(styleScoreHeader);
         content.setText(quote.getContent());
-        content.setStyle(styleHeader);
+        content.setStyle(textStyle);
         content.setWrapText(true);
 
     }

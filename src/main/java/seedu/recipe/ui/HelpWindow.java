@@ -40,6 +40,7 @@ public class HelpWindow extends UiPart<Stage> {
             + "\n listGoals - list the four main goals"
             + "\n deleteGoal - removes specified goal from specified recipe"
             + "\n cooked - mark a specific recipe as cooked"
+            + "\n quote - to add your own quote"
             + "\n exit - to leave HYBB"
             + "\n For more information, please refer to our User Guide: \n " + USERGUIDE_URL;
 

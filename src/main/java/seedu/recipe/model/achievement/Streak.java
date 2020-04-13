@@ -29,24 +29,50 @@ public class Streak {
      * Updates Streak every time App is opened
      */
     public void updateStreak() {
-        if (records.size() == 0) {
+        if (records.size() == 0) { //make sure both gets updated during redo as well
             currStreak = 0;
+            highStreak = 0;
         } else {
+            int currStreakTemp = 0; //temp value to cal currSteak
+            int currHighScore = 0; //current high score of each iteration
+            int finalHigh = 0; //logs max score so far
             boolean stillStreak = true;
             int index = records.size() - 1;
-            Date currDate = this.date;
-            while (stillStreak && index >= 0) {
-                long days = date.noOfDaysBetween(records.get(index).getDate(), currDate);
-                if (days <= 1) {
+            Date currDate = this.date; //currStreak
+            while (index >= 0) {
+                if (stillStreak) {
+                    long days = date.noOfDaysBetween(records.get(index).getDate(), currDate);
+                    if (days == 1 || currStreakTemp == 0) { // 1 day or not updated yet; increase streak
+                        currStreakTemp++;
+                    } else if (days > 1) { //end iteration of current streak
+                        stillStreak = false;
+                        currHighScore = 1; //start new streak
+                    } //if day <0 continue streak without streak increase
+                    finalHigh = currStreakTemp;
                     currDate = records.get(index).getDate();
                     index--;
-                    if (days == 1 || currStreak == 0) { //day more than one or streak has not been updated for the day
-                        currStreak++;
+                } else { // cal for high streak
+                    long days = date.noOfDaysBetween(records.get(index).getDate(), currDate);
+                    if (days <= 1) { //curr streak continues
+                        if (days == 1) {
+                            currHighScore++;
+                        } else {
+                            if (currHighScore == 0) { //score not updated for the day yet
+                                currHighScore++;
+                            }
+                        }
+                    } else { //days > 1
+                        currHighScore = 0; //reset currentHighScore
                     }
-                } else {
-                    stillStreak = false;
+                    if (currHighScore > finalHigh) { //replace high score
+                        finalHigh = currHighScore;
+                    }
+                    currDate = records.get(index).getDate();
+                    index--;
                 }
             }
+            currStreak = currStreakTemp;
+            highStreak = finalHigh;
         }
     }
 

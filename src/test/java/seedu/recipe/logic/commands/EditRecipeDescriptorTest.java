@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.recipe.logic.commands.CommandTestUtil.DESC_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.DESC_TURKEY_SANDWICH;
-import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_NAME_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_STEP_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_TIME_FISH;
@@ -46,10 +45,6 @@ public class EditRecipeDescriptorTest {
 
         // different step -> returns false
         editedAmy = new EditRecipeDescriptorBuilder(DESC_TURKEY_SANDWICH).withSteps(VALID_STEP_FISH).build();
-        assertFalse(DESC_TURKEY_SANDWICH.equals(editedAmy));
-
-        // different goals -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(DESC_TURKEY_SANDWICH).withGoals(VALID_GOAL_PROTEIN).build();
         assertFalse(DESC_TURKEY_SANDWICH.equals(editedAmy));
     }
 }
