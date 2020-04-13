@@ -79,22 +79,22 @@ public class SortCommandTest {
         new FindCommandParser().parse(" Reminder").execute(modelStub);
         CommandResult commandResult = new SortCommand(prioritySort).execute(modelStub);
         TaskList stubList = new TaskList();
-        ModelStub tempModelStub = new ModelStub();
+        ModelStub expectedModl = new ModelStub();
         stubList.addTask(taskDate3);
         stubList.addTask(taskDate1);
         stubList.addTask(taskDate2);
-        tempModelStub.setTaskList(stubList);
+        expectedModl.setTaskList(stubList);
         assertEquals(
                 String.format(SortCommand.MESSAGE_SUCCESS, prioritySort[0]),
                 commandResult.getFeedbackToUser());
-        assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
+        assertEquals(expectedModl.getFilteredTaskList(), modelStub.getFilteredTaskList());
         Index[] doneIndices = {Index.fromZeroBased(0)};
         new DoneCommand(doneIndices);
         stubList = new TaskList();
         stubList.addTask(taskDateDone3);
         stubList.addTask(taskDate1);
         stubList.addTask(taskDate2);
-        assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
+        assertEquals(expectedModl.getFilteredTaskList(), modelStub.getFilteredTaskList());
     }
 
     @Test
@@ -103,18 +103,18 @@ public class SortCommandTest {
 
         CommandResult commandResult = new SortCommand(prioritySort).execute(modelStub);
         TaskList stubList = new TaskList();
-        ModelStub tempModelStub = new ModelStub();
+        ModelStub expectedModl = new ModelStub();
         stubList.addTask(taskDate3);
         stubList.addTask(taskPriority3);
         stubList.addTask(taskDate1);
         stubList.addTask(taskPriority2);
         stubList.addTask(taskDate2);
         stubList.addTask(taskPriority1);
-        tempModelStub.setTaskList(stubList);
+        expectedModl.setTaskList(stubList);
         assertEquals(
                 String.format(SortCommand.MESSAGE_SUCCESS, String.join(" ", prioritySort)),
                 commandResult.getFeedbackToUser());
-        assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
+        assertEquals(expectedModl.getFilteredTaskList(), modelStub.getFilteredTaskList());
     }
 
     @Test
@@ -123,18 +123,18 @@ public class SortCommandTest {
 
         CommandResult commandResult = new SortCommand(nameSort).execute(modelStub);
         TaskList stubList = new TaskList();
-        ModelStub tempModelStub = new ModelStub();
+        ModelStub expectedModl = new ModelStub();
         stubList.addTask(taskDate1);
         stubList.addTask(taskDate2);
         stubList.addTask(taskDate3);
         stubList.addTask(taskPriority1);
         stubList.addTask(taskPriority2);
         stubList.addTask(taskPriority3);
-        tempModelStub.setTaskList(stubList);
+        expectedModl.setTaskList(stubList);
         assertEquals(
                 String.format(SortCommand.MESSAGE_SUCCESS, nameSort[0]),
                 commandResult.getFeedbackToUser());
-        assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
+        assertEquals(expectedModl.getFilteredTaskList(), modelStub.getFilteredTaskList());
     }
 
     @Test
@@ -143,18 +143,18 @@ public class SortCommandTest {
 
         CommandResult commandResult = new SortCommand(dateSort).execute(modelStub);
         TaskList stubList = new TaskList();
-        ModelStub tempModelStub = new ModelStub();
+        ModelStub expectedModl = new ModelStub();
         stubList.addTask(taskDate3);
         stubList.addTask(taskDate2);
         stubList.addTask(taskDate1);
         stubList.addTask(taskPriority1);
         stubList.addTask(taskPriority2);
         stubList.addTask(taskPriority3);
-        tempModelStub.setTaskList(stubList);
+        expectedModl.setTaskList(stubList);
         assertEquals(
                 String.format(SortCommand.MESSAGE_SUCCESS, dateSort[0]),
                 commandResult.getFeedbackToUser());
-        assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
+        assertEquals(expectedModl.getFilteredTaskList(), modelStub.getFilteredTaskList());
     }
 
     /** A default model stub that have all of the methods failing. */
