@@ -1071,7 +1071,7 @@ image::DeleteActivityDiagram.png[]
 
 [[Implementation-RealTimeSuggestion]]
 
-=== Real-time Suggestions for Existing `Food` in `FoodRecord`
+=== Real-time Suggestions for existing `Food` in `FoodRecord`
 
 (By Zhang Xian)
 
