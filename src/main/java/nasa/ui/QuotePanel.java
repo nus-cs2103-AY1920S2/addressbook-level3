@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -20,6 +21,9 @@ public class QuotePanel extends UiPart<Region> {
     private Popup popup;
 
     @FXML
+    private AnchorPane pane;
+
+    @FXML
     private Label label;
 
     /**
@@ -28,10 +32,13 @@ public class QuotePanel extends UiPart<Region> {
     public QuotePanel() {
         super(FXML);
         popup = new Popup();
-        label.setPrefWidth(400);
+        label.setMaxWidth(400);
         label.setWrapText(true);
+        pane.prefWidthProperty().bind(label.prefWidthProperty());
+        pane.prefHeightProperty().bind(label.prefHeightProperty());
         popup.setAutoFix(true);
-        popup.getContent().add(label);
+        popup.setAutoHide(true);
+        popup.getContent().add(pane);
     }
 
     public void setText(String input) {
@@ -44,12 +51,11 @@ public class QuotePanel extends UiPart<Region> {
      */
     public void show(Stage stage) {
         if (popup.isShowing()) {
-            popup.setOnCloseRequest(x ->
-                    new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play());
-        } else {
-            popup.centerOnScreen();
-            popup.show(stage);
             new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play();
         }
+        popup.centerOnScreen();
+
+        new Timeline(new KeyFrame(Duration.millis(time), runtime -> popup.hide())).play();
+        popup.show(stage);
     }
 }
