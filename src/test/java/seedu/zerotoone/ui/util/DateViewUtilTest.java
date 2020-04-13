@@ -1,6 +1,7 @@
 package seedu.zerotoone.ui.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -56,5 +57,12 @@ class DateViewUtilTest {
         Long actualMinutes = DateViewUtil.getDurationInMinutes(mockTime,
             mockTime.plusHours(1).plusMinutes(23).plusSeconds(2));
         assertEquals(83L, actualMinutes);
+    }
+
+    // Regression Test
+    // See: https://github.com/AY1920S2-CS2103T-W16-2/main/issues/230
+    @Test
+    void getPrettyDuration_withSubSeconds_success() {
+        assertFalse(DateViewUtil.getPrettyDuration(Duration.ofHours(2).plusNanos(123).plusMillis(123)).contains("."));
     }
 }

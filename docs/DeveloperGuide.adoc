@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images/developer-guide
+:imagesDir: images/
 :stylesDir: stylesheets
 :xrefstyle: full
 ifdef::env-github[]
@@ -27,7 +27,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::common/ArchitectureDiagram.png[]
+image::developer-guide/common/ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -56,7 +56,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::common/LogicClassDiagram.png[]
+image::developer-guide/common/LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -64,14 +64,14 @@ image::common/LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `exercise delete 1`.
 
 .Component interactions for `exercise delete 1` command
-image::common/ArchitectureSequenceDiagram.png[]
+image::developer-guide/common/ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
 [[Design-Main]]
 === Main Component
 .Structure of the Main Component
-image::common/MainClassDiagram.png[]
+image::developer-guide/common/MainClassDiagram.png[]
 
 *API* : link:{codeURL}/src/main/java/seedu/zerotoone/Main.java[`Main.java`]
 
@@ -85,7 +85,7 @@ During the GUI start up process, the `SplashScreen` will first load on a `Thread
 === UI Component
 
 .Structure of the UI Component
-image::common/UiClassDiagram.png[]
+image::developer-guide/common/UiClassDiagram.png[]
 
 *API* : link:{codeURL}/src/main/java/seedu/zerotoone/ui/Ui.java[`Ui.java`]
 
@@ -102,7 +102,7 @@ For more information about each component, check out the 'Implementation' sectio
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::common/LogicClassDiagram.png[]
+image::developer-guide/common/LogicClassDiagram.png[]
 
 *API* :
 link:{codeURL}/src/main/java/seedu/zerotoone/logic/Logic.java[`Logic.java`]
@@ -119,7 +119,7 @@ Inside the `Logic` package, there are some utility classes such as the `Argument
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::common/DeleteSequenceDiagram.png[]
+image::developer-guide/common/DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `ExerciseCommandParser` and `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -129,7 +129,7 @@ For more information about each component, check out the 'Implementation' sectio
 === Model Component
 
 .Structure of the Model Component
-image::common/ModelClassDiagram.png[]
+image::developer-guide/common/ModelClassDiagram.png[]
 
 *API* : link:{codeURL}/src/main/java/seedu/zerotoone/model/Model.java[`Model.java`]
 
@@ -149,7 +149,7 @@ For more information about each component, check out the 'Implementation' sectio
 === Storage Component
 
 .Structure of the Storage Component
-image::common/StorageClassDiagram.png[]
+image::developer-guide/common/StorageClassDiagram.png[]
 
 *API* : link:{codeURL}/src/main/java/seedu/zerotoone/storage/Storage.java[`Storage.java`]
 
@@ -181,7 +181,7 @@ The Session feature resides on the Home page and is comprised of `Start`, `Stop`
 The activity diagram below demonstrates the actions of a user with this feature.
 
 .Session Feature Activity Diagram
-image::session/StartStopActivityDiagram.png[]
+image::developer-guide/session/StartStopActivityDiagram.png[]
 
 Start depicts the start of a valid (non-zero sets remaining) Workout Session.
 Upon depletion of all remaining sets, the `OngoingWorkout` automatically stops and produces a `CompletedWorkout` which is saved.
@@ -206,7 +206,7 @@ The inner workings of the feature are briefly expounded below through example us
 
 
 .Example Workout Session
-image::session/sessionExample.png[]
+image::developer-guide/session/sessionExample.png[]
 
 Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a completedExercise with `start 2`.
 
@@ -223,7 +223,7 @@ updates the instance of `OngoingWorkout`.
 * The rest timer resets and starts counting from 00:00.
 
 .DoneCommand sequence diagram
-image::session/DoneCommandSequenceDiagram.png[]
+image::developer-guide/session/DoneCommandSequenceDiagram.png[]
 
 * The sequence diagram above demonstrates the interaction between the Logic and Model of ZeroToOne.
 For brevity, some inner details between `OngoingWorkout.done()` and the return of `cs` are omitted.
@@ -266,7 +266,7 @@ The following portion will explain in-detail each component of the Exercise feat
 
 ===== Model
 .Exercise Model Structure
-image::exercise/ExerciseModelClassDiagram.png[]
+image::developer-guide/exercise/ExerciseModelClassDiagram.png[]
 
 The figure above depicts the Model of the Exercise feature. Starting from the most primitive type:
 
@@ -283,7 +283,7 @@ Do note that some of the `Exercise` objects in the `ExerciseList` are also refer
 
 ===== Storage
 .Exercise Storage Structure
-image::exercise/ExerciseStorageClassDiagram.png[]
+image::developer-guide/exercise/ExerciseStorageClassDiagram.png[]
 
 The Storage component provides the functionalities that enable the persistent storage of the model. Starting from the most primitive type:
 
@@ -294,7 +294,7 @@ The Storage component provides the functionalities that enable the persistent st
 
 ===== Logic - Commands
 .Exercise Commands Structure
-image::exercise/ExerciseCommandClassDiagram.png[]
+image::developer-guide/exercise/ExerciseCommandClassDiagram.png[]
 
 The Exercise Commands package stores the business logic of the exercise feature. The commands are organised in a hierarchical fashion, in the order of precedence in a valid input. For example, `SetCommand` inherits from `ExerciseCommand` as the `set` comes after `exercise` in the input `exercise set`.
 
@@ -302,7 +302,7 @@ Each command contains a `COMMAND_WORD` which is a single word that is unique to 
 
 ===== Logic - Parsers
 .Exercise Parser Structure
-image::exercise/ExerciseParserClassDiagram.png[]
+image::developer-guide/exercise/ExerciseParserClassDiagram.png[]
 
 The parsers are responsible for parsing a user input into a `Command` object. For the Exercise component, there are parsers for every command that accepts user arguments. For example, since `exercise list` does not take in any argument, there is no parser for the `ListCommand`. After parsing the user input, the parser will return `Command` object to the caller, which will execute the command via the `execute` method.
 
@@ -310,7 +310,7 @@ The parsers are responsible for parsing a user input into a `Command` object. Fo
 This section will illustrate an example of an exercise command execution using the input `exercise create e/Bench Press`.
 
 .Exercise's CreateCommand Sequence Diagram
-image::exercise/CreateCommandSequenceDiagram.png[]
+image::developer-guide/exercise/CreateCommandSequenceDiagram.png[]
 
 In this portion, we will trace the sequence diagram of the `exercise create` command to better understand the internals of the Exercise feature.
 
@@ -331,7 +331,7 @@ In this portion, we will trace the sequence diagram of the `exercise create` com
 
 ===== Summary
 .Editing Exercise Set Activity Diagram
-image::exercise/EditSetActivityDiagram.png[]
+image::developer-guide/exercise/EditSetActivityDiagram.png[]
 
 At this point, you should have gather enough information to start developing the Exercise feature. As a summary, this is a sample Activity Diagram that depicts a user flow when they want to edit an exercise set.
 
@@ -360,7 +360,7 @@ Each workout consists of a `WorkoutId`, a `WorkoutName` and finally, an `Workout
 The following class diagram shows the overview of the Workout Manager:
 
 .Workout Class Diagram
-image::workout/WorkoutClassDiagram.png[]
+image::developer-guide/workout/WorkoutClassDiagram.png[]
 
 ==== Workout Model
 ZeroToOne's `Model` extends the `WorkoutModel`. Here are all the functions to carry out workout-related activities:
@@ -383,10 +383,10 @@ To illustrate an example of a command from the Workout Manager, the following se
 depicts flow of the program when the command `workout find w/Arms Workout` is run.
 
 .Sequence Diagram for Finding a Workout
-image::workout/WorkoutSequenceDiagram.png[]
+image::developer-guide/workout/WorkoutSequenceDiagram.png[]
 
 . When the user runs the command `workout find w/Arms Workout`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
-. The `ParserManager` then has to `parse("workout find w/Arms Workout"`.
+. The `ParserManager` then has to `parse("workout find w/Arms Workout")`.
 . Next, the `WorkoutCommandParser` has to `parse("find w/Arms Workout")` for the command.
 . Once the command has been parsed as a `FindCommand`, it will be passed on to the `FindCommandParser`, which will then create a new `WorkoutName`.
 . The `FindCommandParser` can then create a `FindCommand`, which in turn creates a `PredicateFilterWorkoutName`.
@@ -411,30 +411,111 @@ is redundant and unnecessary, when there is no functional difference between an 
 other than the context that they are referenced in. In addition, this would make the deletion of any instance of a particular Exercise from a Workout easier, when an Exercise is deleted from the ExerciseList. Hence, to simplify matters, using the existing Exercise class to construct workouts was better.
 // end::workout[]
 
+
+
 // tag::schedule[]
 === Schedule
-==== Implementation
-The following sequence diagram shows how the `schedule create` operation works:
-
-image::schedule/ScheduleCreateSequenceDiagram.png[]
 
 
-The following sequence diagram shows how the `scheduledWorkout` are populated to user view:
+==== Overview
+The schedule feature in ZeroToOne allows users to plan their workouts! Users will be able to create a schedule on a specific date and time in the future, edit the date and time, as well as delete the schedule.
 
-image::schedule/PopulateSortedScheduledWorkoutList.png[]
 
-==== Design Considerations
+==== Components
+The following class diagram shows the overview of the `Scheduler`:
+
+.Scheduler Class Diagram
+image::developer-guide/schedule/ModelScheduleClassDiagram.png[]
+
+As seen in the diagram above, The `Scheduler` consists two lists, `ScheduleList` and `ScheduledWorkoutList`.
+
+The `ScheduleList` contains a number of `Schedule` that the user has created, while the `ScheduledWorkoutList` is essentially a chronologically sorted list of `ScheduledWorkout` that allows JavaFX listeners to track changes when they occur.
+
+NOTE: The decision to have both `ScheduleList` and `ScheduledWorkoutList` may seem bizarre at first glance, but it is implemented this way after careful consideration, to better support operations on 'RecurringSchedule'(Proposed). Refer to <<Model Design Considerations>> for more information.
+
+
+==== Schedule Model
+ZeroToOne’s `Model` extends the `SchedulerModel`. Here are all the functions to carry out schedule-related activities:
+
+* `Model#hasSchedule(Schedule schedule)` - Returns true if a schedule exists in the schedule list
+
+* `Model#addSchedule(Schedule schedule)` - Adds a new schedule to the schedule list
+
+* `Model#setSchedule(Schedule scheduleToEdit, Schedule editedSchedule)` - Replaces a particular schedule with an edited schedule
+
+* `Model#populateSortedScheduledWorkoutList()` - Clear and populate `SortedScheduledWorkoutList` by querying every `Schedule` in `SchedueList` through method `Schedule#getScheduledWorkout()`
+
+* `Model#getSortedScheduledWorkoutList()` - Returns an unmodifiable view of `ObservableList<ScheduledWorkout>`
+
+* `Model#deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete)` - Deletes the `Schedule` that generated the specified `ScheduledWorkout` from the schedule list, then re-populates `SortedScheduledWorkoutList`
+
+* `Model#deleteWorkoutNameFromSchedule(WorkoutName workoutNameToDelete)` - Deletes all instances of schedules that are associated with the specified workout name
+
+* `Model#editWorkoutNameInSchedule(WorkoutName workoutNameToEdit, WorkoutName editedWorkoutName)` - Updates all instances of schedules that are associated with the specified workout name to the new workout name
+
+* `Model#getScheduleList()` - Returns an unmodifiable `ReadOnlyScheduleList`
+
+
+==== Command Execution
+
+===== Creating a Schedule
+To illustrate an example of a command from the `Scheduler`, the following sequence diagram depicts flow of the program when the command `schedule create 1 d/2020-04-01 14:00` is run.
+
+.Sequence Diagram for Creating a Schedule
+image::developer-guide/schedule/ScheduleCreateSequenceDiagram.png[]
+
+. When the user runs the command `schedule create 1 d/2020-04-01 14:00`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
+. The `ParserManager` then has to `parse("schedule create 1 d/2020-04-01 14:00")`.
+. Next, the `ScheduleCommandParser` has to `parse("create 1 d/2020-04-01 14:00")` for the command.
+. Once the command has been parsed as a `CreateCommand`, it will be passed on to the `CreateCommandParser`, which will then parse the index using `ParserUtil`, and parse the date and time using `ScheduleParserUtil`.
+. The `CreateCommandParser` can then create a `CreateCommand`, which is then passed back to `LogicManager` to execute.
+. When `LogicManager` executes the `CreateCommand`, it creates a new `Schedule`, and checks whether the model already contains this `Schedule`.
+. If the model does not contain this `Schedule`, the `LogicalManager` will then add it to the model by calling `Model#addSchedule(schedule)`.
+. Finally, the resulting output message will be returned as the `CommandResult`.
+
+NOTE: Date and time must not be outdated and follow the format {yyyy}-{mm}-{dd} {HH:mm}
+
+===== Populating the SortedScheduledWorkoutList
+
+And the following sequence diagram shows how the `ScheduledWorkoutList` is populated after the method `Model#addSchedule(schedule)` is called:
+
+.Sequence Diagram for Populating `SortedScheduledWorkoutList`
+image::developer-guide/schedule/PopulateSortedScheduledWorkoutList.png[]
+
+. After the `LogicManager` calls the method `Model#addSchedule(schedule)`, `ModelManager` calls `Scheduler#addSchedule(schedule)`, which in turns calls `ScheduleList#addSchedule(schedule)` and adds the `Schedule` in the `ScheduleList`.
+. The `Scheduler` will then populate the `ScheduledWorkoutList` by calling the method `populateSortedScheduledWorkoutList()`.
+. First, `Scheduler` gets the current date and time by calling `DateTime#now()`.
+. Then, `Scheduler` iterates through every `Schedule` in `ScheduleList`, and requests to get `ScheduledWorkout` by calling `Schedule#getScheduledWorkout(now)` on each of them.
+. Finally, `Scheduler` resets the `SortedScheduledWorkoutList` with the latest `ScheduledWorkout` by calling `ScheduledWorkoutList#setScheduledWorkouts(scheduledWorkouts)`, and user's view of `ScheduledWorkout` is refreshed.
+. And in the end, the resulting output message will be passed back to `LogicManager` and display to user.
+
+NOTE: `Scheduler#populateSortedScheduledWorkoutList()` is called whenever the schedules in `ScheduleList` have been changed.
+
+
+==== Model Design Considerations
 
 ===== Aspect: How to handle editing and deletion of recurring schedules
 
-* **Alternative 1:** Saves `scheduledWorkout` objects.
-** Pros: Easy to implement.
-** Cons: Hard to maintain when it comes to `edit` or `delete` of recurring scheduled workouts.
-* **Alternative 2 (current choice):** Saves `schedule` objects that can be used to produce `scheduledWorkout` when
-requested.
-** Pros: Changes to recurring schedules can populated to `scheduledWorkout` more easily.
-** Cons: Much more complicated model.
+* **Option 1:** `Model` stores only `ScheduledWorkout` objects.
+** Pros: Easier to implement.
+** Cons: Harder to maintain when it comes to `edit` or `delete` of recurring scheduled workouts.
+* **Option 2 (current choice):** Saves `Schedule` objects that can be used to produce `ScheduledWorkout` when requested.
+** Pros: Changes can be made to recurring schedules instead, and in turn reflect in all related `ScheduledWorkout`.
+** Cons: Makes model much more complicated.
+
+In the end, I decided to go with option 2 as it is easier to maintain, more extensible and less computationally expensive.
+
+When the system has a number of recurring schedules that do not have an end date, it introduces a few problems:
+
+* How many scheduled workouts to create/store for each recurring schedule
+* How to efficiently retrieve and update all related scheduled workouts when a recurring schedule is edited or deleted
+
+Implementing option 1 would mean that we will have to impose an additional constraint onto the system, which is either how many scheduled workouts to display for each recurring schedule or what is the longest time frame of scheduled workouts to display to user, as we simply can't generate indefinite number of scheduled workouts for technically everlasting recurring schedules. Additionally, when the number of high frequency recurring schedules in the system increases, it will be extremly computationally expensive to edit or delete recurring schedules, as the system will have to iterate through every ScheduledWorkout objects and update accordingly.
+
+On the other hand, implementing option 2 makes it easier to handle these problems by storing changes to the Schedule objects instead, which can be used to generate ScheduleWorkout objects when requested. Moreover, it is more extensible because if we are going to introduce a calendar view in the future, where user can view a specific time frame of scheduled workouts, the system only needs to generate for that time frame only, which can be done much more efficiently!
 // end::schedule[]
+
+
 
 // tag::log[]
 === Log
@@ -442,7 +523,7 @@ For logging, we propose saving the completedExercise data in the following class
 
 ==== Implementation
 
-image::log/WorkoutSessionDiagram.png[]
+image::developer-guide/log/WorkoutSessionDiagram.png[]
 
 ==== Design Considerations
 Immutability was a huge consideration for us and hence we came up with the `ReadOnly` interface.

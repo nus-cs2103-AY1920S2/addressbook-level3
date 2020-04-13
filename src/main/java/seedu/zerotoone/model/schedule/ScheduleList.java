@@ -5,7 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Wraps all data at the schedule list level
+ * Duplicates are not allowed (by .isSameSchedule comparison)
  */
 public class ScheduleList {
 

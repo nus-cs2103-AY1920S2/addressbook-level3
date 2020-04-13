@@ -46,6 +46,9 @@ public class LogListStorageManager implements LogListStorage {
      */
     public Optional<ReadOnlyLogList> readLogList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
+
+        logger.fine(String.format("Attempting to read log list from file at %s.", filePath.toString()));
+
         Optional<JacksonLogList> jacksonSessionList = JsonUtil.readJsonFile(filePath, JacksonLogList.class);
         if (jacksonSessionList.isEmpty()) {
             return Optional.empty();
@@ -61,6 +64,7 @@ public class LogListStorageManager implements LogListStorage {
 
     @Override
     public void saveLogList(ReadOnlyLogList sessionList) throws IOException {
+        logger.info(String.format("Attempting to save log list to file in %s.", filePath.toString()));
         saveLogList(sessionList, filePath);
     }
 

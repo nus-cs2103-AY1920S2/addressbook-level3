@@ -17,7 +17,7 @@ import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Adds an workout to the schedule list.
  */
 public class CreateCommand extends ScheduleCommand {
     public static final String COMMAND_WORD = "create";
@@ -30,7 +30,7 @@ public class CreateCommand extends ScheduleCommand {
     private final DateTime dateTime;
 
     /**
-     * STEPH_TODO_JAVADOC
+     * Creates a CreateCommand to add the specified {@code Schedule}
      */
     public CreateCommand(Index workoutId, DateTime dateTIme) {
         requireNonNull(workoutId);

@@ -16,18 +16,21 @@ import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Parses user input.
  */
 public class ScheduleCommandParser implements Parser<ScheduleCommand> {
 
+    /**
+     * Used for initial separation of command word and args.
+     */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * STEPH_TODO_JAVADOC
+     * Parses user input into command for execution.
      *
-     * @param input STEPH_TODO_JAVADOC
-     * @return STEPH_TODO_JAVADOC
-     * @throws ParseException STEPH_TODO_JAVADOC
+     * @param input full user input string
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
      */
     public ScheduleCommand parse(String input) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());

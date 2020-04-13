@@ -5,7 +5,8 @@ import java.util.Comparator;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Represents a scheduled workout in the scheduled workout list.
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class ScheduledWorkout {
 
@@ -50,16 +51,9 @@ public class ScheduledWorkout {
     }
 
     /**
-     * STEPH_TODO: may not even need this
+     * Calls {@code equals} method.
      */
     public boolean isSameScheduledWorkout(ScheduledWorkout otherScheduledWorkout) {
-        // if (otherScheduledWorkout == this) {
-        //     return true;
-        // }
-        //
-        // return otherScheduledWorkout != null
-        //         && otherScheduledWorkout.getScheduledWorkoutName().equals(getScheduledWorkoutName());
-
         return equals(otherScheduledWorkout);
     }
 
