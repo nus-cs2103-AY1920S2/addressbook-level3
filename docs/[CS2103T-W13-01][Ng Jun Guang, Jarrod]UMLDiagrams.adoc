@@ -3,78 +3,29 @@
 
 == Ng Jun Guang, Jarrod UML Diagrams
 
-* *Add Command Activity & Sequence Diagram*
+.This diagram shows the Sequence Diagram for the List Command for the Diet Tracker portion of EYLAH.
+image::DietTrackerListCommandDaySequenceDiagram.png[width="450"]
 
-image::DietTrackerAddCommandActivityDiagram.png[]
+.This diagram shows the Sequence Diagram for the Mode Command for the Diet Tracker portion of EYLAH.
+image::DietTrackerModeCommandSequenceDiagram.png[width="450"]
 
-image::DietTrackerAddCommandSequenceDiagram.png[]
+.This diagram shows the Activity Diagram for the Bmi Command for the Diet Tracker portion of EYLAH.
+image::DietTrackerBmiCommandActivityDiagram.png[width="420"]
 
-* *Delete Command Activity & Sequence Diagram*
+.This diagram shows the Class Diagram for the Bmi Command for the Diet Tracker portion of EYLAH.
+image::DietTrackerBmiCommandClassDiagram.png[width="420"]
 
-image::DietTrackerDeleteCommandActivityDiagram.png[]
+.This diagram shows the Sequence Diagram for the Bmi Command with no input arguments.
+image::DietTrackerBmiCommandNILSequenceDiagram.png[width="420"]
 
-image::DietTrackerDeleteCommandSequenceDiagram.png[]
+.This diagram shows the Sequence Diagram for the Bmi Command with no input arguments.
+image::DietTrackerBmiCommandNILSequenceDiagram2.png[width="400"]
 
-* *Edit Command Activity & Sequence Diagram*
+.This diagram shows the Sequence Diagram for the Bmi Command with input arguments.
+image::DietTrackerBmiCommandSequenceDiagram.png[width="400"]
 
-image::DietTrackerEditCommandActivityDiagram.png[]
+.This diagram shows the in-depth Sequence Diagram for the Bmi Command with input arguments.
+image::DietTrackerBmiCommandSequenceDiagram2.png[width="400"]
 
-image::DietTrackerEditCommandSequenceDiagram.png[]
-
-* *List Command Activity & Sequence Diagrams*
-
-image::DietTrackerListCommandActivityDiagram.png[]
-
-image::DietTrackerListCommandAllSequenceDiagram.png[]
-
-image::DietTrackerListCommandDaySequenceDiagram.png[]
-
-image::DietTrackerListCommandTagSequenceDiagram.png[]
-
-* *Bmi Command UML Diagrams*
-
-image::DietTrackerBmiCommandActivityDiagram.png[]
-
-image::DietTrackerBmiCommandClassDiagram.png[]
-
-image::DietTrackerBmiCommandNILSequenceDiagram.png[]
-
-image::DietTrackerBmiCommandNILSequenceDiagram2.png[]
-
-image::DietTrackerBmiCommandSequenceDiagram.png[]
-
-image::DietTrackerBmiCommandSequenceDiagram2.png[]
-
-* *Height Command UML Diagrams*
-
-image::DietTrackerHeightCommandActivityDiagram.png[]
-
-image::DietTrackerHeightCommandClassDiagram.png[]
-
-image::DietTrackerHeightCommandSequenceDiagram.png[]
-
-* *Weight Command UML Diagrams*
-
-image::DietTrackerWeightCommandActivityDiagram.png[]
-
-image::DietTrackerWeightCommandClassDiagram.png[]
-
-image::DietTrackerWeightCommandSequenceDiagram.png[]
-
-* *Mode Command UML Diagrams*
-
-image::DietTrackerModeCommandActivityDiagram.png[]
-
-image::DietTrackerModeCommandClassDiagram.png[]
-
-image::DietTrackerModeCommandSequenceDiagram.png[]
-
-* *Metric Command UML Diagrams*
-
-image::DietTrackerMetricsCommandActivityDiagram.png[]
-
-image::DietTrackerMetricsCommandClassDiagram.png[]
-
-image::DietTrackerMetricsCommandSequenceDiagram.png[]
 
 
