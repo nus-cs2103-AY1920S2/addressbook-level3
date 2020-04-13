@@ -4,18 +4,13 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniqueClientList
-AddressBook *-right-> "1" UniqueTagList
+FitBiz -right-> "1" UniqueClientList
+FitBiz -right-> "1" UniqueTagList
 UniqueTagList -[hidden]down- UniqueClientList
 UniqueTagList -[hidden]down- UniqueClientList
 
-UniqueTagList *-right-> "*" Tag
-UniqueClientList o-right-> Client
+UniqueTagList -right-> "*" Tag
+UniqueClientList -right-> "*" Client
 
-Client o-up-> "*" Tag
-
-Client *--> Name
-Client *--> Phone
-Client *--> Email
-Client *--> Address
+Client -up-> "*" Tag
 @enduml

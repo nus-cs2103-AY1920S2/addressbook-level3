@@ -11,7 +11,6 @@ Interface FitBizStorage <<Interface>>
 Class StorageManager
 Class JsonUserPrefsStorage
 Class JsonFitBizStorage
-Class StorageReaderWriter
 
 StorageManager .left.|> Storage
 StorageManager -right-> UserPrefsStorage
