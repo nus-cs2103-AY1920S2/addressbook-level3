@@ -204,10 +204,6 @@ For the tasks with no deadlines, the tag can just be `d/`, e.g. `add m/IS1103 t/
 * You can delete a completed task using the delete feature mentioned in <<Delete, Section 4.6>>.
 ****
 
-TIP: You can add multiple tasks at once but only to the *same module*, e.g. `add m/CS1231 t/tutorial d/2020-04-20 18:00 t/assignment d/2020-04-25 23:59`. +
-
-NOTE: However, for multiple tasks, as long as one task has a deadline, all `t/task` tags have to be appended with `d/deadline` tags. +
-For the tasks with no deadlines, the tag can just be `d/`, e.g. `add m/IS1103 t/project d/2020-05-01 23:59 t/reflection d/`.
 
 Example: `add m/CS2105 t/Assignment d/2020-04-20 23:59` adds a task named "Assignment"
 with the deadline "20 April 2020 23:59" to the already-existing module CS2105, as shown in Figure 7 below.
