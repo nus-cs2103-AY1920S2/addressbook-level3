@@ -34,4 +34,4 @@ Looking for insights in your social life as a programmer?Look no further!
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
-== Licence : link:LICENSE[MIT]
+== Licence : https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/LICENSE[MIT]
