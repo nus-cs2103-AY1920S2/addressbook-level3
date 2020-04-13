@@ -1,0 +1,34 @@
+@startuml
+!include ../style.puml
+
+start
+
+:PetTrackerParser matches command ""findslots"";
+
+:Initialize new FindSlotCommandParser;
+
+if () then ([both name prefix\n and dateTime\n prefix are empty]\n)
+    :throw new parse exception;
+    stop
+else ([else])
+
+endif
+
+:check for names in argMultimap;
+if () then ([name prefix is present])
+    :add new SlotPetNamePredicate to list of predicates;
+else ([else])
+
+endif
+
+:check for dateTime in argMultimap;
+if () then ([dateTime prefix is present])
+    :add new SlotDatePredicate to list of predicates;
+else ([else])
+
+endif
+
+:reduce list of predicates with Predicate::and;
+:return new ""FindSlotCommand"";
+stop
+@enduml

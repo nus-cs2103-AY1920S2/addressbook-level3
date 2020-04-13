@@ -1,0 +1,70 @@
+@startuml UiClassDiagram
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Interface Ui <<Interface>>
+Class "{abstract}\nUiPart" as UiPart
+Class UiManager
+Class MainWindow
+Class ResizeHelper
+
+Class StatusBarFooter
+Class FeedbackDisplay
+Class CommandBox
+Class HelpWindow
+
+Class OverallStats
+
+package Calendar <<Rectangle>> {
+Class HiddenCalendar #FFFFFF
+}
+
+package DisplayList <<Rectangle>> {
+Class HiddenDisplayList #FFFFFF
+}
+
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Ui
+
+UiManager .up.|> Ui
+UiManager .up.> ResizeHelper
+UiManager -down-> MainWindow
+
+UiManager --> Logic
+MainWindow -down-> Logic
+
+MainWindow *-up-> "1" StatusBarFooter
+MainWindow *-up-> "1" FeedbackDisplay
+MainWindow *-up-> "1" CommandBox
+MainWindow *-up-> "1" HelpWindow
+
+MainWindow -up-|> UiPart
+StatusBarFooter -up-|> UiPart
+FeedbackDisplay -up-|> UiPart
+CommandBox -up-|> UiPart
+HelpWindow -up-|> UiPart
+
+
+MainWindow *--> "1   " OverallStats
+OverallStats .down.> Model
+OverallStats -up-|> UiPart
+
+MainWindow "1 " *--> DisplayList
+DisplayList ..> Model
+
+MainWindow *--> "1\n\n\n\n" Calendar
+Calendar ..> Model
+@enduml

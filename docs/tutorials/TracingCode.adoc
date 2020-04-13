@@ -21,12 +21,12 @@ Before we jump into the code, it is useful to get an idea of the overall structu
 application. This is provided in the 'Architecture' section of the developer guide. In particular, the
 architecture diagram (reproduced below), tells us that the App consists of several components.
 
-image::../ArchitectureDiagram.png[]
+image::../dev-guide/ArchitectureDiagram.png[]
 
 It also has a sequence diagram (reproduced below) that tells us how a command propagates through the App.
 
 .Architecture sequence diagram from the developer guide
-image::../ArchitectureSequenceDiagram.png[]
+image::../dev-guide/ArchitectureSequenceDiagram.png[]
 
 Note how the diagram shows only how the execution flows _between_ the main components. That is, it does not show details of
 the execution path _inside_ each component. By hiding those details, the diagram succeeds in informing the reader
@@ -49,7 +49,7 @@ However, the execution path through a GUI is often somewhat obscure due to vario
 used by GUI frameworks, which happens to be the case here too. Therefore, let us put the breakpoint where the UI transfers
 control to the Logic component. According to the sequence diagram, the UI component yields control to the Logic component
 through a method named `execute`. Searching through the code base for `execute()` yields a promising candidate in
-`seedu.address.ui.CommandBox.CommandExecutor`.
+`clzzz.helper.ui.CommandBox.CommandExecutor`.
 
 .Using the `Search for target by name` feature. `Navigate` > `Symbol`.
 image::Execute.png[]
