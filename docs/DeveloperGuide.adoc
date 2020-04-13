@@ -459,7 +459,7 @@ The implementation of `Done` command is very straight-forward. Only 2 parameter 
 With this, the implementation of `Undone` command is about the same, we just have to call `P'#undone()` instead.
 
 ====== +++<u>Design Consideration</u>+++
-There were two main considerations when implementing `Progress` objects.
+There is 1 main considerations when implementing `Progress` objects.
 
 1. Is there a need to separate `Assignment` and `Progress`?
 
