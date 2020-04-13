@@ -117,4 +117,3 @@ include::../DeveloperGuide.adoc[tag=diary]
 include::../DeveloperGuide.adoc[tag=undoredo]
 //test
 
-

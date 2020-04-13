@@ -598,7 +598,7 @@ through either `FoodCalorieTable` or `SportsCalorieTable` for `CalorieDatum` tha
 keywords specified by the user.
 
 .Class diagram showing the interaction between CheckCommand, a concrete subclass of Command, and ModelManager, a concrete class implementing Model interface.
-image::ClassDiagramForCheckCommand.png[test, 70%]
+image::ClassDiagramForCheckCommand.png[test, 100%]
 
 
 Given below are example usage scenario:
@@ -607,7 +607,7 @@ Initialization: when the application is launched, `ModelManager` will initialize
 will in turn initialize both `FoodCalorieTable` and `SportsCalorieTable` to contain pre-set data
 which is a LinkedHashSet of one type of `CalorieDatum` (either `FoodCalorieDatum` or `SportsCalorieDatum`).
 
-image::InitializationOfCalorieTables.png[test, 70%]
+image::InitializationOfCalorieTables.png[test, 80%]
 
 Case 1: when the user enter the command `check x/sports k/swim`, the `LogicManager` will create
 a `CheckCommand`, which asks `ModelManager` to let `FitHelper` to search through `SportsCalorieTable`
