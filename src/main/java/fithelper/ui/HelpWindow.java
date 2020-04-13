@@ -44,7 +44,7 @@ public class HelpWindow extends UiPart<AnchorPane> {
             //+ "table x/TYPE YYYY-MM-DD\n"
             //+ "  - show calorie table of a specified date.\n"
             + "findDiary [d/YYYY-MM-DD] [k/KEYWORDS]\n"
-            + "  - list all diaries, diary of a given date or those containing the keywords.\n"
+            + "  - list all diaries, diary of a given date and/or those containing the keywords.\n"
             + "calendar [d/YYYY-MM-DD] [m/ls OR tb] [sh/YYYY-MM-DD]\n"
             + "  - show calendar of a specified time period, mode can be switched to list or timetable,\n"
             + "    or shows entries of a particular date.\n"

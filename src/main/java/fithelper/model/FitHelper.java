@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.calorietable.CalorieDatum;
 import fithelper.model.calorietable.FoodCalorieTable;
@@ -28,6 +30,8 @@ import javafx.collections.ObservableList;
  * Duplicates are not allowed (by .isSameEntry comparison)
  */
 public class FitHelper implements ReadOnlyFitHelper {
+
+    private static final Logger logger = LogsCenter.getLogger(FitHelper.class);
 
     private final UniqueDiaryList diaries = new UniqueDiaryList();
     private final UniqueEntryList foodEntries = new UniqueEntryList();
@@ -432,9 +436,11 @@ public class FitHelper implements ReadOnlyFitHelper {
         int count = 0;
         count = searchEachWordCompleteMatch(keywordsByWord, result, data, count);
         if (count < 3) {
+            logger.info("continue searching.");
             count = searchWholeWordPartialMatch(keywords, result, data, count);
         }
         if (count < 3 && keywordsByWord.length > 1) {
+            logger.info("continue searching.");
             searchEachWordPartialMatch(keywordsByWord, result, data, count);
         }
         return result;
@@ -456,6 +462,7 @@ public class FitHelper implements ReadOnlyFitHelper {
         for (CalorieDatum entry : entries) {
             String name = entry.getName();
             if (currentCount == 3) {
+                logger.info("3 matching results were found, terminate searching.");
                 break;
             }
             for (String keyword : keywordsByWord) {
@@ -486,6 +493,7 @@ public class FitHelper implements ReadOnlyFitHelper {
         for (CalorieDatum entry : entries) {
             String name = entry.getName();
             if (currentCount == 3) {
+                logger.info("3 matching results were found, terminate searching.");
                 break;
             }
             if (name.toLowerCase().contains(keywords)) {
@@ -512,6 +520,7 @@ public class FitHelper implements ReadOnlyFitHelper {
         for (CalorieDatum entry : entries) {
             String name = entry.getName();
             if (currentCount == 3) {
+                logger.info("3 matching results were found, terminate searching.");
                 break;
             }
             for (String keyword : keywordsByWord) {
