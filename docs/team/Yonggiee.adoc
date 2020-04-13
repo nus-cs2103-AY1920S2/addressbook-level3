@@ -7,7 +7,7 @@
 
 == Overview
 
-FitBiz is a desktop fitness business management application. It keeps track of the user's schedule. He can record client's information and the exercises they did with the personal bests automatically generated. Graphical visualisations of his client's progress can also be displayed. The user interacts with it using a Command Line Interface, and it has a Graphical User Interface created with JavaFX. It is written in Java version 11.
+FitBiz is a desktop fitness business management application. It keeps track of the user's schedule. He can record client's information and the exercises they did with the personal bests automatically generated. Graphical visualisations of his client's progress can also be displayed. The user interacts with it using a Command Line Interface(CLI), and it has a Graphical User Interface(GUI) created with JavaFX. It is written in Java version 11.
 
 == Summary of contributions
 
@@ -22,7 +22,7 @@ Users will be able to delete existing exercises.
 ** Justification: This feature improves the product significantly because recording the exercises of clients is one of the main features of the application. Many other features like showing the client's personal bests and drawing their clients' progression graph rely on having the exercises recorded.
 ** Highlights: Many of the future features will require the exercise classes. Therefore, it is essential to have thorough considerations on how the classes are implemented. I also wrote a substantial amount of code to test the classes while practising good test case designs like boundary value analysis. This will help reduce further bugs when expanding the application.
 
-* *Major enhancement*: hooked many features from Logic to Graphical User Interface
+* *Major enhancement*: hooked many features from Logic to GUI
 ** What it does: features are shown in GUI instead of being shown in text format.
 ** Justification: In order for the application to be appealing and user-friendly, the features have to be properly displayed in the GUI. The features include:
 - The exercise progession graph +
