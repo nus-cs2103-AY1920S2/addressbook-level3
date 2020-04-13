@@ -12,10 +12,14 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === GABRIEL BENEDICT TEO JIAN CHENG
 image::potatocombat.png[flip = "90", width = "150", align = "left"]
-{empty} [https://github.com/PotatoCombat[github]] [<<johndoe#, portfolio>>]
+{empty} [https://github.com/PotatoCombat[github]] [<<potatocombat#, portfolio>>]
 
 Role: Project Lead +
-Responsibilities: Scheduling and tracking
+Responsibilities:
+
+* Scheduling and Tracking
+* Technical Support
+* Logic Designer
 
 '''
 
@@ -24,7 +28,11 @@ image::aakanksha-rai.png[width="150", align="left"]
 {empty}[https://github.com/aakanksha-rai[github]] [<<aakanksha-rai#, portfolio>>]
 
 Role: Developer +
-Responsibilities: In charge of Student View, PlantUML Expert, Deliverables and deadlines
+Responsibilities:
+
+* Deliverables and Deadlines
+* PlantUML Expert
+* Student View Creator
 
 '''
 
@@ -33,7 +41,10 @@ image::chuayijing.png[width="150", align="left"]
 {empty}[https://github.com/chuayijing[github]] [<<Chuayijing#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Testing
+Responsibilities:
+
+* Session View Creator
+* Testing
 
 '''
 
@@ -42,7 +53,11 @@ image::fatin99.png[width="150", align="left]
 {empty}[https://github.com/fatin99[github]] [<<fatin99#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation and Code Quality
+Responsibilities:
+
+* UI Designer
+* Documentation and Code Quality
+* Claims View Creator
 
 '''
 
@@ -51,6 +66,9 @@ image::eclmist.png[width="150", align="left"]
 {empty}[https://github.com/Eclmist[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration
+Responsibilities:
+
+* Integration
+* Report Window Creator
 
 '''

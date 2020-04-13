@@ -199,6 +199,7 @@ The `Logic` component of `TA-Tracker`:
 * Executes `Command` objects to interact with the `Model` component.
 * Saves data by interacting with the `Storage` component.
 
+//tag::logicStructure[]
 ==== Logic Structure
 The following _Class Diagram_ shows a simplified view of the structure of the `Logic` component.
 
@@ -217,6 +218,9 @@ In the `Logic` component,
 * The logic of TA-Tracker is organised into *commands* and *parsers*
 * `TaTrackerParser` is the *main parser*
 * A `Command` can interact with classes in the `Model` component
+
+//end::logicStructure[]
+//tag::logicOrganization[]
 
 ==== Logic Organization
 
@@ -265,6 +269,9 @@ These command parsers will immediately create the respective `Command`,
 *skipping the second layer* of parsers.
 ====
 
+//end::logicOrganization[]
+//tag::logicCommands[]
+
 ==== Overview of Commands
 
 Within the *Commands* package, all commands have been grouped into *smaller packages*.
@@ -283,6 +290,9 @@ For example, the *Module* package contains the following classes that inherit fr
 * `AddModuleCommand`
 * `DeleteModuleCommand`
 * `EditModuleCommand`
+
+//end::logicCommands[]
+//tag::logicParsers[]
 
 ==== Overview of Parsers
 
@@ -303,6 +313,9 @@ For example, the *Module* package contains the following classes that implement 
 * `DeleteModuleCommandParser`
 * `EditModuleCommandParser`
 
+//end::logicParsers[]
+//tag::logicSequence[]
+
 ==== Example Logic Sequence
 
 (Contributed by Aakanksha)
@@ -322,6 +335,7 @@ destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches 
 * Since the purpose of this diagram is to show the interactions within the `Logic` component,
 irrelevant interactions with the `Model` component have been omitted.
 ====
+//end::logicSequence[]
 //end::logic[]
 
 //tag::model[]
@@ -443,7 +457,8 @@ The `PrefixDetails` of every `Prefix` are stored in a `PrefixDictionary`.
 
 The following sections will describe the implementation of these two dictionaries.
 
-==== Implementation of the `CommandDictionary`
+//tag::commandDictionary[]
+==== Implementation of the CommandDictionary
 
 The following _Class Diagram_ shows how a `CommandDictionary` stores all the
 details of every `Command` in TA-Tracker.
@@ -458,7 +473,10 @@ image::CommandsPackageDiagram2.png[,400]
 . For their `commandWord` and `sub word`, commands may use constants in `CommandWords` to avoid repetition +
 (e.g. "add", "delete", "edit").
 
-==== Implementation of the `PrefixDictionary`
+//end::commandDictionary[]
+//tag::prefixDictionary[]
+
+==== Implementation of the PrefixDictionary
 
 The following _Class Diagram_ shows how a `PrefixDictionary` stores all the
 details of every `Prefix` in TA-Tracker.
@@ -490,6 +508,7 @@ They only need to use different `Prefix` objects in order to parse user inputs.
 `PrefixDetails` adds more information to a `Prefix` object instead of extending it.
 Therefore, it can be detached from the *parsers* without changing the `Prefix` constants in `Prefixes`.
 ====
+//end::prefixDictionary[]
 //end::logicDesign[]
 
 //tag::goto[]
@@ -1218,10 +1237,9 @@ Example
 |
 `[empty input]`
 |
-When there is no input,
-the `ResultDisplay` will not show anything.
+When there is no input, no action occurs.
 |
-.An empty `ResultDisplay`
+.An empty `CommandBox`
 image::syntax-highlighting/empty-input.png[]
 {fbl}
 
@@ -1995,14 +2013,14 @@ the list of existing groups in the *Student View*.
 +
 Use case ends.
 
-*Extensions*
+*Extensions* (Contributed by Fatin and Gabriel)
 
-* 3a. The input required (for example, Matric Number) to add a student is invalid.
+* 3a. User provides invalid student details (for example, an invalid matric number).
 +
 [none]
 ** 3a1. TA-Tracker shows an error message.
 +
-Use case resumes at step 1.
+Use case resumes at step 3.
 
 * 3b. The given module doesn't exist.
 +
@@ -2015,6 +2033,13 @@ Use case resumes at step 3.
 +
 [none]
 ** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. A student with the same matric number already exists inside the group.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
@@ -2031,24 +2056,45 @@ the list of existing students in the *Student View*.
 +
 Use case ends.
 
-*Extensions*
+*Extensions* (Contributed by Fatin and Gabriel)
 
 [none]
 * 2a. The list is empty.
 +
 Use case ends.
 
-* 3a. The given matric number is invalid.
+* 3a. User provides an invalid matric number.
 +
 [none]
 ** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
-* 3a. The given new input for the parameter(s) are invalid.
+* 3b. User edits the student with invalid details (for example, an invalid phone number).
 +
 [none]
-** 3a1. TA-Tracker shows an error message.
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given module doesn't exist.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. The given group doesn't exist in the module.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3e. The given student doesn't exist in the group.
++
+[none]
+** 3e1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
@@ -2065,17 +2111,38 @@ the list of existing students in the *Student View*.
 +
 Use case ends.
 
-*Extensions*
+*Extensions* (Contributed by Fatin and Gabriel)
 
 [none]
 * 2a. The list is empty.
 +
 Use case ends.
 
-* 3a. The given matric number is invalid.
+* 3a. User provides an invalid matric number.
 +
 [none]
 ** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given module doesn't exist.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given group doesn't exist in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. The given student doesn't exist in the group.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
@@ -2581,18 +2648,20 @@ The test cases after this assume that your TA-Tracker has a group with group cod
 
 .. Test Case: `student add id/A0123456X g/G06 m/CS1101S n/Jane Doe` +
 Expected: A student named `Jane Doe` with matriculation number `A0123456X` is added
-to the group `G06` of the module `CS1101S` with a default rating of 3.
+to the group `G06` of the module `CS1101S` with a default rating of `3`.
+
 .. Test Case: `student add id/A0123457X g/G06 m/CS1101S n/John Doe r/5` +
 Expected: A student named `John Doe` with matriculation number `A0123457X` is added
-to the group `G06` of the module `CS1101S` with a rating of 5.
+to the group `G06` of the module `CS1101S` with a rating of `5`.
 
 [discrete]
-=== Editing a student
+=== Editing a module's name
 
-. Editing a student in a group.
+. Edits the name of a module.
 
-.. Test Case: `student edit g/G06 m/CS1101S id/A0123456X r/4` +
-Expected: Changes the rating of the student with matric number `A123456X` to 4.
+.. Test Case: `module edit m/CS1101S n/New Name`
+Expected: The name of the module with module code `CS1101S` will change to `New Name`
+but the groups and students inside it will remain intact.
 
 [discrete]
 === Editing a group
@@ -2605,13 +2674,44 @@ Expected: The group with group code `G06` will be changed to type `tutorial` fro
 tab, you are automatically switched to *Student View*.
 
 [discrete]
-=== Editing a module's name
+=== Editing a student
 
-. Edits the name of a module.
+. Editing a student in a group.
 
-.. Test Case: `module edit m/CS1101S n/New Name`
-Expected: The name of the module with module code `CS1101S` will change to `New Name`
-but the groups and students inside it will remain intact.
+.. Test Case: `student edit g/G06 m/CS1101S id/A0123456X r/4` +
+Expected: Changes the rating of the student with matric number `A123456X` to `4`.
+
+[discrete]
+=== Deleting a module
+
+. Deleting a module.
+
+.. Test Case: `module delete m/CS1101S` +
+Expected: Assuming you already had a module with module code m/CS1101S in your TA-Tracker,
+this would delete the module with module code m/CS1101S. This would also delete all
+groups, students and sessions related to this module.
+.. Test Case: `module delete m/CS1101S` +
+Expected: Assuming you already deleted the module with module code m/CS1101S from your TA-Tracker,
+this would show you an error message.
+
+[discrete]
+=== Deleting a group
+
+. Deleting a group from a module.
+
+.. Test Case: `group delete g/G06 m/CS1101S` +
+Expected: The group with group code `G06`` will be deleted from the module
+`CS1101S`. The students inside the group will be deleted. If you were on a different
+tab, you are automatically switched to *Student View*.
+
+[discrete]
+=== Deleting a student
+
+. Deleting a student from a group
+
+.. Test Case: `student delete g/G06 m/CS1101S id/A0123456X` +
+Expected: Deletes the student with matric number `A123456X` from the group `G06`
+of the module `m/CS1101S`.
 
 [discrete]
 === Viewing a specific module
@@ -2657,25 +2757,6 @@ You will see the students in the group at index 1 of the group list of  the modu
 Expected: Sorts all the students in all the groups of all modules alphabetically.
 You will see the students in the group at index 1 of the group list of the module
 at index 1 of the module list.
-
-[discrete]
-=== Deleting a student
-
-. Deleting a student from a group
-
-.. Test Case: `student delete g/G06 m/CS1101S id/A0123456X` +
-Expected: Deletes the student with matric number `A123456X` from the group `G06`
-of the module `m/CS1101S`.
-
-[discrete]
-=== Deleting a group
-
-. Deleting a group from a module.
-
-.. Test Case: `group delete g/G06 m/CS1101S` +
-Expected: The group with group code `G06`` will be deleted from the module
-`CS1101S`. The students inside the group will be deleted. If you were on a different
-tab, you are automatically switched to *Student View*.
 
 [discrete]
 === Adding a session
@@ -2730,7 +2811,7 @@ Expected: Shows all sessions that contains *date* `2020-03-20`, *session type* `
 and *module code* `CS1101S`.
 
 [discrete]
-=== Filtering Claims
+=== Filtering claims
 
 . Filtering claims by module code.
 
@@ -2756,7 +2837,7 @@ Expected: Sets the rate of the claims to be 25$ per hour. Money computation is
 changed accordingly.
 
 [discrete]
-=== Viewing Statistics
+=== Viewing statistics
 
 . Displays the statistics window.
 
@@ -2766,17 +2847,41 @@ Expected: Displays the statistics report showing statistics of all modules.
 Expected: Displays the statistics report of the module `CS1101S`.
 
 [discrete]
-=== Deleting a module
+=== Applying syntax highlighting on the user input
+(Contributed by Gabriel)
 
-. Deleting a module.
+. Highlighting the `full command word`.
 
-.. Test Case: `module delete m/CS1101S` +
-Expected: Assuming you already had a module with module code m/CS1101S in your TA-Tracker,
-this would delete the module with module code m/CS1101S. This would also delete all
-groups, students and sessions related to this module.
-.. Test Case: `module delete m/CS1101S` +
-Expected: Assuming you already deleted the module with module code m/CS1101S from your TA-Tracker,
-this would show you an error message.
+.. Test Case: `module delete` +
+Expected: The input is highlighted in green, and the _command usage_ is displayed.
+.. Test Case: `module d` +
+Expected: The input is highlighted in red, and an _unknown command message_ is displayed.
+
+. Showing the command usage after every two whitespaces.
+
+.. Test Case: `module delete m/CS3243  ` +
+Expected: The input is not highlighted, and the _command usage_ is displayed.
+
+. Showing the usage of each `argument`.
+
+.. Test Case: `student add id/A1234J` +
+Expected: The input is highlighted in red, and the _constraint for matric numbers_ is displayed.
+
+.. Test Case: `student add id/A1234567J` +
+Expected: The input is highlighted in green, and the _constraint for matric numbers_ is displayed.
+
+.. Test Case: `student add id/A123J m/CS3243 id/A1234567J` +
+Expected: The input is highlighted in red, and the _constraint for matric numbers_ is displayed.
+This is because the syntax highlighting detects invalid parameters in the user input, even though
+the command can be executed.
+
+.. Test Case: `student add w/5` +
+Expected: The input is highlighted in red, and the _command usage_ is displayed.
+
+. Showing the usage of `preambles`.
+
+.. Test Case: `session edit m/CS3243` +
+Expected: The input is highlighted in red, and the _constraint for index numbers_ is displayed.
 
 [discrete]
 === Exiting the program
