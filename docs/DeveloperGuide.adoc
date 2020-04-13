@@ -83,8 +83,18 @@ image::UiClassDiagram.png[]
 *API* : link:{repoURL}/src/main/java/csdev/couponstash/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of three main parts -
-`CommandBox`, `CalendarResultDisplayPanel` and  `CouponListPanel`.
+`CommandBox`, `CalendarResultDisplayPanel` and  a `TabsPanel`.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The TabsPanel can be further divided into three tabs - `HelpPane`, `SummaryPane`
+and the `CouponListPanel`. The `CouponListPanel` contains the `CouponCard` that
+represents the `Coupon` s themselves.
+
+The `CalendarResultsDisplayPanel` is split into two UI components - the
+`CalendarPane` and the `ResultDisplay`. As the name suggests, the `CalendarPane`
+holds the calendar that allows easy visualization of expiry dates. The
+`ResultDisplay` provides feedback from Coupon Stash to the user after he runs a
+command.
 
 The `UI` component uses JavaFx UI framework.
 The layout of these UI parts are defined in matching `.fxml` files that are in
@@ -126,7 +136,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker
 (X) but due to a limitation of PlantUML, the lifeline reaches the end of
-diagram.
+diagram. This limitation affects all of the sequence diagrams in this document.
 
 [[Design-Model]]
 === Model component
@@ -141,16 +151,18 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Coupon Stash data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g.
+** some examples of preferences that can be set are the money symbol, or
+window sizes.
+* exposes an unmodifiable `ObservableList<Coupon>` that can be 'observed' e.g.
 the UI can be bound to this list so that the UI automatically updates when the
 data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Coupon Stash`, which
-`Person` can reference.
-This would allow `Coupon Stash` to only require one `Tag` object per unique
-`Tag`, instead of each `Person` needing their own `Tag` object.
+As a more OOP model, we can store a `Tag` list in Coupon Stash, which a
+`Coupon` can reference.
+This would allow Coupon Stash to only require one `Tag` object per unique
+tag, instead of each `Coupon` needing their own `Tag` object.
 An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
@@ -162,8 +174,7 @@ image:BetterModelClassDiagram.png[]
 image::StorageClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/csdev/couponstash/storage/Storage.java[`Storage.jav
-a`]
+link:{repoURL}/src/main/java/csdev/couponstash/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -205,6 +216,7 @@ Step 1. The user launches the application for the first time.
 The `CouponStash` will be initialized with the initial coupon stash state, and
 the `currStateIndex` pointing to that single coupon stash state.
 
+.CouponStash will be initialized with the initial coupon stash state.
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th coupon in the
@@ -250,9 +262,6 @@ the undo.
 The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but
-due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The `redo` command does the opposite -- it calls `Model#redoCouponStash()`,
 which shifts the `currStateIndex` once to the right, pointing to the previously
@@ -304,6 +313,8 @@ unwanted mutations.
 deleted).
 ** Cons: We must ensure that the implementation of each individual command is
 correct.
+
+// address pros and cons
 // end::undoredo[]
 
 // tag::calendar[]
@@ -332,7 +343,6 @@ The class diagram below shows the interaction between classes that affects the C
 
 image::CalendarClassDiagram.png[]
 
-
 The sequence diagrams below show how the Calendar works:
 
 .Sequence diagram representation of the Calendar on the start up of Coupon Stash
@@ -353,7 +363,7 @@ Step 1. The user launches the application for the first time.
 
 The Calendar displayed will render the saved coupon data, triggered by the initiation of the UiManager.
 
-Step 2. The user executes a command that alters the ObservableList<Coupon> (any command listed above).
+Step 2. The user executes a command that alters the `ObservableList<Coupon>` (any command listed above).
 
 When a command alters the observable coupon list, the listener of the observable list detects the change and the
 Calendar will be updated accordingly to the list by calling the `CalendarPane#fillUpCalendar()` method.
@@ -407,9 +417,10 @@ The following sequence diagram shows how the Calendar updates with the observabl
 
 image::CalendarExpiringCommandSeqDiagram.png[]
 
-OR
+Or alternatively, instead of step 2,
 
-Step 2. The user clicks on the arrows at the sides of the calendar title to change the month year displayed.
+Step 3. The user clicks on the arrows at the sides of the calendar title to
+change the month year displayed.
 
 When a click alters the observable month view, the listener of the observable month view detects the change and the
 month view display of the calendar will be updated according by calling the `CalendarPane#updateCalendarWithYearMonth`
@@ -483,34 +494,41 @@ location, logging level) through the configuration file (default:
 
 When physical coupons are expired or exhausted, they would usually be thrown away,
 or kept in the archive. Coupon Stash simulates this archive, storing these coupons
-in the app so that the user can still keep track of it, and the savings it generated.
+in the app so that the user can still keep track of it, and the savings they
+generated.
 
 ==== Current Implementation
 
 The archiving of coupons is facilitated by the `Archived` attribute of a
 coupon. The following methods in the `CouponStash`,
-`Coupon`, `Usage` class and the `Model` interface facilitates this feature:
+`Coupon`, `Usage`, `UsedCommand` class and the `Model` interface facilitates this feature:
 
 * `CouponStash#archiveExpiredCoupons()` -- Archives any coupon in the
 `CouponStash` that has expired, and returns a new updated `CouponStash`.
 * `Coupon#increaseUsageByOne()` - Increases the usage of a coupon by one.
 * `Usage#isAtLimit` - Returns true if the current usage is at its limit
 (abstracted by the `Limit` field).
+* `UsedCommand#execute()` - Executes the `used` command input by the user.
 * `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS` - A `Predicate` function that filters
 out archived coupons from a given `CouponStash`.
 
 [#img-archiving]
-.Overview class diagram representation of the the coupon archiving implementation
+.Overview class diagram representation of the the coupon archiving implementation.
 image::ArchivingClassDiagram.png[ArchivingClassDiagram]
 
 Given below is two example usage scenarios and how the archiving mechanism
-behaves at each step of each scenario.
+behaves at each step of each scenario. An activity diagram is provided first to
+describe the general events that will lead to an automatic archiving of coupons
+by Coupon Stash.
+
+[#img-automaticarchiving]
+.Activity diagram representation of the general flow of archiving of coupons in Coupon Stash
+image::ArchivingActivityDiagram.png[]
 
 **Archiving of Expired Coupons**
 
 Expired coupons are automatically archived by Coupon Stash upon start up of the
-application. The following steps describe
-how this behaviour is implemented.
+application. The following steps describe how this behaviour is implemented.
 
 Step 1. The user launches the application for the first time. The initiation of
 `ModelManager` will also trigger the
@@ -520,6 +538,7 @@ Step 2. The method `CouponStash#archiveExpiredCoupons` will be called from the
 newly initiated `CouponStash`, and have its
 `UniqueCouponList` mapped to a function that archive coupons that has expired
 before the date of opening the application, and returns a new updated `CouponStash`.
+This mapping function is facilitated by `Coupon#hasExpired()` and `Coupon#archive()`.
 
 Step 3. The `ModelManager` will proceed to filter out the archived coupons from
 the newly updated `CouponStash`, and return
@@ -539,7 +558,8 @@ this behaviour is implemented.
 
 Step 1. The user uses a `Coupon` in the current observable `CouponStash` with the
 command `used 1`.
-The particular `Coupon` will then have its `Usage` increased by one.
+`UsedCommand` is created with the parsed arguments, and executed. The particular `Coupon`
+will then have its `Usage` increased by one by calling `Coupon#increaseUsageByOne()`.
 
 Step 2. The `Coupon` will then be checked if its `Usage` has reached its `Limit`, using
 the `Usage#isAtLimit()` method. For the purpose of this explanation, we assume that
@@ -547,7 +567,7 @@ the coupon being used has a usage `Limit` of 1 and a previous `Usage` value of 0
 with savings in `MonetaryAmount`.
 
 Step 3. The `Coupon` will have a new `Archived` value, which will be set to
-`true` if the `Usage` has indeed reached its `Limit`.
+`true` if the `Usage` has indeed reached its `Limit`. This is facilitated by `Coupon#archive()`.
 
 Step 4. The `CouponStash` will be updated with this used `Coupon` with the
 `ModelManager#setCoupon()` method. Under the hood of
