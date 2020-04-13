@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+
+start
+:User inputs View command;
+
+If () then ([Recipe index exists])
+    :Displays the recipe at specified index
+    :Returns success message;
+else ([Recipe index does not exist])
+    :Returns failure message
+    (Invalid index);
+endif
+:LogicManager prints message to user;
+
+stop
+@enduml
