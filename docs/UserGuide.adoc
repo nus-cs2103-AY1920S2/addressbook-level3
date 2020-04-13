@@ -94,7 +94,7 @@ If you are not currently browsing the history, you can press the kbd:[&darr;] ke
 
 Again, similar to most modern CLIs, users of FitBiz can press the kbd:[Tab] key to autocomplete commands that they have partially typed. If the partially typed letters uniquely identifies a valid command in FitBiz (see <<Commands>>), the complete command will automatically appear in the *Command Box*. Otherwise, a list of all commands similar to the ambiguous letters will appear in the *Result Box*.
 
-Also, we understand that some of FitBiz's commands may be particularly long and diffcult to remember. In order to remedy this, we have also provided *autocompletion of parameter prefixes* for some commands, as well as the *use of kbd:[Tab] to easily get to the next prefix*.
+Also, we understand that some of FitBiz's commands may be particularly long and diffcult to remember. In order to remedy this, we have also provided *autocompletion of parameter prefixes* for some commands, as well as the *use of kbd:[Tab] to easily get to the next prefix*. When autocompleting commands, the caret position will also be automatically set to the most optimal position corresponding to the completed command.
 
 To see this feature in action, type `add-c` into the *Command Box* and press kbd:[Tab]:
 
@@ -114,6 +114,9 @@ image::autocomplete-2.png[]
 
 To autocomplete the parameter prefixes like in the first example above, you would just have to complete the command and press kbd:[Tab] once more.
 
+[TIP]
+Commands and their parameters in FitBiz are always separated by white spaces (ie. ``schedule 1 sch/``). As such, the kbd:[Tab] key will only try to autocomplete your command if your current input in the *Command Box* is a single word. In other words, if your input is made up of more than one word separated by white spaces, FitBiz will ignore your use of kbd:[Tab]. Do not be surprised when you try to autocomplete more than a single word like `add some thing`, and yet receive no response from FitBiz.
+
 [NOTE]
 The autocompletion of the parameter prefixes are only for these commands: `add-c`, `add-e`, `filter-c`, `graph`, and `schedule`. Autocompletion of prefixes for edit commands are not included as we understand that most likely than not, users would only choose to edit one field at a time.
 
@@ -128,7 +131,7 @@ The autocompletion of the parameter prefixes are only for these commands: `add-c
 +
 image::Ui.png[]
 . Type the command in the *Command Box* and press kbd:[Enter] to execute it
-** For example, executing the `help` command will lead you to this page
+** For example, executing the `help` command will lead you to this page
 
 ====
 * Refer to the <<understanding-the-gui, GUI>> and <<understanding-the-cli, CLI>> guides if you need help navigating this application
@@ -140,13 +143,13 @@ image::Ui.png[]
 This section introduces the syntax and the usages of the commands available in FitBiz. In explaining the syntax, we will adhere to the following format:
 
 * Words in `UPPER_SNAKE_CASE` are the parameters to be supplied by the user
-** e.g. in `add-c n/NAME`, `NAME` is a parameter which can be used as `add-c n/John Doe`
+** e.g. in `add-c n/NAME`, `NAME` is a parameter which can be used as `add-c n/John Doe`
 * Items in square brackets are optional
 ** e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`
 * Items with `…` after them can be used multiple times including zero times
-** e.g. `[t/TAG]…` can be used as (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+** e.g. `[t/TAG]…` can be used as (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order
-** e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable
+** e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable
 
 === View help: `help`
 
@@ -274,6 +277,8 @@ You will obtain clients which have `bryan` in their name or `low` in the name. I
 image::ug-findcMultiplePart2.png[]
 
 You can try to enter keywords for `NAME` that are more specific to the client you are looking for. This will help to keep your search more scoped.
+
+// tag::add-c-command[]
 
 === Add a new client profile: `add-c` --- Toh Ker Wei
 After setting up the program, the first thing you might want to do is to add your client to FitBiz. You can do so by using the `add-c` command, followed by the details of your client.
@@ -417,7 +422,11 @@ image::AddSameEmailError.png[]
 
 To solve this issue, ensure that any new client you add does not have the same phone number or email as existing client.
 
+// end::add-c-command[]
+
 // tag::edit-c[]
+
+=== Edit a client’s profile: `edit-c`
 
 === Edit a client’s profile: `edit-c` ---Ng Ming Liang
 
@@ -1070,6 +1079,8 @@ If you find that you are unable to execute this command successfully, there are 
 
 // end::export-command[]
 
+// tag::filter-c-command[]
+[[]]
 === Filter clients based on attribute: `filter-c` --- Toh Ker Wei
 
 When you have many clients and want to filter the list of clients to view a specific group, you can use the command `filter-c` to filter clients based on their tags or their sports.
@@ -1115,8 +1126,6 @@ image::FilterExampleCommand.png[]
 
 image::FilterExampleSuccess.png[]
 
-/ photo of listed clients
-
 ==== Common error/ problem
 *Tags with spaces*
 
@@ -1135,6 +1144,8 @@ image::FilterTagCorrectCommand.png[]
 The list of successfully filter clients will then be displayed.
 
 image::FilterTagSuccess.png[]
+
+// end::filter-c-command[]
 
 === Display visualisations of training progress: `graph` --- Li Zi Ying
 

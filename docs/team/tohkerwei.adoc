@@ -1,0 +1,59 @@
+= Toh Ker Wei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: FitBiz
+
+---
+
+== Overview
+
+FitBiz is a fitness business management application, specially created for fitness coaches to manage their clients. It is a platform where coaches can store his clients' information, exercises done and weekly training schedule. FitBiz is primarily a desktop application where the user interacts with the program via the Command Line Interface (CLI), and views data via the Graphical User Interface (GUI). This project is written in Java 11, packaged using Gradle, and uses JavaFX for the GUI.
+
+== Summary of contributions
+
+* *Major enhancement*: added the *filter* feature which allows user to filter and display the clients list using client's `Tag` and `Sport`
+** What it does: Allows user to filter through his list of clients using `Tag` or `Sport` keywords and return clients that have `Tag` or `Sport` matching all of the keywords specified.
+** Justification: Allows user to group and view clients based on their `Tag` or the `Sport` they play, which is a convenient way of looking at similar groups of client when planning exercises or scheduling clients with similar needs to train as a group. This increases the efficiency of viewing clients from a long list based on their attributes and to find clients' `INDEX` to view their information.
+** Highlights: Provides a simple yet important way of grouping and viewing clients from the list. The implementation was done in such a way that makes it easy to expand to filter all attributes of clients allowing user to make training plans more robust. Future expansion plan includes the abilities to filter clients by ranges of their current and target weight to group those with similar needs and filter by address to allow user to schedule clients living near each other on the same day.
+
+* *Major enhancement*: helped to build the foundation of *schedule* feature
+** What it does: Allows user to add and view the training schedule of clients
+** Justification: Users will be able to add, store and view clients schedule and therefore eliminating the need to use another application for the same purpose. This increases the efficiency of users while planning for clients' trainings as the schedule, exercise history and information can all be viewed in the same page.
+** Highlights: We have essentially created a mini version of a calendar app that is simple yet maintain the important functionalities to add training schedules and display them in a weekly view. Many real life conditions for the training schedule added such as overlapping training time, whether to allow backlogging of training dates and clients having same training time have been resolved through multiple trials and discussions.
+
+* *Minor enhancement*: added `Sport` attribute to `Client`
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=tohkerwei&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=tohkerwei&tabRepo=AY1920S2-CS2103T-F11-2%2Fmain%5Bmaster%5D[RepoSense]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Wrote test code for classes regarding filter to improve test coverage (Pull request https://github.com/AY1920S2-CS2103T-F11-2/main/pull/231[#231])
+*** Wrote test codes for `Sport` attribute and part of `Schedule` classes to improve test coverage (Pull request https://github.com/AY1920S2-CS2103T-F11-2/main/pull/46[#46], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/62[#62], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/141[#141])
+** Documentation:
+*** Wrote the command guide for `add-c` and `filter-c` in User Guide (Pull request  https://github.com/AY1920S2-CS2103T-F11-2/main/pull/260[#260], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/273[#273])
+*** Wrote the implementation of `filter-c` and `view-c` in Developer Guide (Pull request https://github.com/AY1920S2-CS2103T-F11-2/main/pull/248[#248], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/272[#272])
+*** Edited `Logic` to reflect the implementation of FitBiz in Developer Guide (Pull request https://github.com/AY1920S2-CS2103T-F11-2/main/pull/248[#248])
+** Community:
+*** Reported bugs and suggestions for other teams in the class that were resolved or implemented (https://github.com/AY1920S2-CS2103T-W16-2/main/issues/133[1], https://github.com/AY1920S2-CS2103T-W16-2/main/issues/129[2], https://github.com/AY1920S2-CS2103T-W16-2/main/issues/130[3])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=add-c-command]
+include::../UserGuide.adoc[tag=filter-c-command]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=logic]
+include::../DeveloperGuide.adoc[tag=filter-c-command]
+include::../DeveloperGuide.adoc[tag=view-c-command]
