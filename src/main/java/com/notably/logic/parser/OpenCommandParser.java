@@ -29,7 +29,6 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
     private static final String ERROR_ROOT_PATH = "Opening the root path is forbidden. "
             + "Please provide a valid Path";
     private static final Logger logger = LogsCenter.getLogger(OpenCommandParser.class);
-    private static final AbsolutePath ROOT = AbsolutePath.fromString("/");
     private Model notablyModel;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
@@ -69,10 +68,6 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         }
 
         AbsolutePath correctedPath = correctionResult.getCorrectedItems().get(0);
-        if (correctedPath.equals(ROOT)) {
-            logger.warning("Root path detected");
-            throw new ParseException(ERROR_ROOT_PATH);
-        }
         logger.info(String.format("OpenCommand with the path '%s' is created", correctedPath));
         return List.of(new OpenCommand(correctedPath));
     }
