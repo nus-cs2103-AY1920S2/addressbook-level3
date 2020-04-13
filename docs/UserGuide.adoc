@@ -112,36 +112,6 @@ Adds a contact named Joel HH with email address joel@yahoo.com.sg, phone number 
 * `(ab)add n/Aisyle Nat e/aisyle@gmail.com p/87654321 o/NUS b/02-12` +
 Adds a contact named Aisyle Nat with email address aisyle@gmail.com, phone number 87654321 and birthday 12 February into the organization NUS.
 
-==== Deleting a person : `(ab)delete`
-
-Deletes the contact at index INDEX +
-Format: `(ab)delete INDEX [t/] [e/] [a/] [o/] [b/]`
-
-****
-* INDEX must be a positive integer. It refers to the index of the respective contact as shown in the displayed person list.
-* Fields inside square brackets are optional.
-* Specifying any of the optional fields will delete the existing values.
-* If none of the optional fields are specified, the entire contact will be deleted.
-****
-
-Examples:
-
-* `(ab)delete 2` +
-Deletes the 2nd person in the address book. +
-Format: `(ab)delete INDEX [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [o/ORGANIZATION] [t/TAG]...`
-* `(ab)delete 3 a/` +
-Deletes the third person's address.
-* `(ab)delete 20 e/ b/ i/
-Deletes the 20th person's email, birthday, and all remarks.
-
-****
-* Deletes the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided and cannot be left empty.
-* Name and phone of the contact cannot be deleted.
-* Existing values will be deleted if the field is specified.
-* All tags and remarks will be deleted if indicated.
-****
-
 ==== Editing a person : `(ab)edit`
 
 Edits an existing person in the address book. +
@@ -149,7 +119,8 @@ Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTH
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided and parameter cannot be left empty.
+* At least one of the optional fields must be provided.
+* If a field is specified but the parameter is left empty, the entire field will be deleted.
 * Existing values will be updated to the input values except tags.
 * Remarks cannot be edited using this command.
 ****
@@ -166,6 +137,22 @@ Changes the 37th person’s address to 2 Cactus Road, S903281.
 Changes the 2nd person’s name to Elysia Tan, and organization to Comp Club.
 * `(ab)edit 2 t/best friend -t/good friend` +
 Removes the tag good friend from the 2nd person and adds the tag best friend to him/her.
+
+==== Deleting a person : `(ab)delete`
+
+Deletes the contact at index INDEX +
+Format: `(ab)delete INDEX`
+
+****
+* INDEX must be a positive integer. It refers to the index of the respective contact as shown in the displayed person list.
+****
+
+Examples:
+
+* `(ab)delete 2` +
+Deletes the 2nd person in the address book. +
+
+tag::notetaker[]
 
 ==== Store additional information about contacts using the Note Taker: `(ab)addnote`
 
@@ -213,6 +200,17 @@ Example:
 * `(ab)deletenote 1 l/4 l/5` +
 Deletes the 4th and 5th note from the first person.
 
+end::notetaker[]
+
+==== Lists all contacts: `(ab)list`
+
+Lists all contacts stored in the address book, only displaying the name, phone number and tags (if any) +
+Format: `(ab)list`
+
+[TIP]
+* If you want to search for a particular contact, see `(ab)find`
+* If you want more information about a particular contact, see `(ab)get`
+
 ==== Finding a specific contact/a specific set of contacts : `(ab)find`
 
 Lists out all your contacts in the address book which match a certain criteria. Each contact will have a displayed index. Only the contact's name, phone number and tags (if present) will be listed +
@@ -227,15 +225,6 @@ Examples:
 
 * `(ab)find o/NUS n/Lim` +
 Finds and lists all contacts that is in organization “NUS” and have the word “Lim” in his name
-
-==== Lists all contacts: `(ab)list`
-
-Lists all contacts stored in the address book, only displaying the name, phone number and tags (if any) +
-Format: `(ab)list`
-
-[TIP]
-* If you want to search for a particular contact, see `(ab)find`
-* If you want more information about a particular contact, see `(ab)get`
 
 ==== List everything about a contact in field : `(ab)get`
 
@@ -252,7 +241,7 @@ Example:
 * `(ab)get 1` +
 Displays all information about the 1st person.
 
-==== List contacts with birthdays with upcoming birthdays : `(ab)birthday`
+==== List contacts with upcoming birthdays : `(ab)birthday`
 
 Lists all contacts with birthdays in the next 5 days (current day included) +
 Format: `(ab)birthday`
@@ -277,7 +266,22 @@ Format: `(rt)add n/NAME l/LOCATION v/VISITED [o/OPERATING_HOURS] [p/PRICE_POINT]
 Examples:
 
 * `(rt)add n/rubbish l/bedok o/0900:2300 p/$$ v/No` +
-Adds a new restaurant called rubbish at bedok with 2 dollar signs price point and opens from 9am to 11pm.
+Adds a new restaurant called rubbish at bedok with 2 dollar signs price point and opens from 9am to 11pm, and has yet to be visited.
+
+==== Edits a restaurant: `(rt)edit`
+
+Edits a restaurant from the list +
+Format: `(rt)edit INDEX [n/RESTAURANT] [l/LOCATION] [v/VISITED] [o/OPERATING_HOURS] [p/PRICE] [c/CUISINE]`
+
+****
+* INDEX must be a positive integer. It corresponds to the INDEX of the restaurant as shown when you list all restaurants in the Restaurant Book using the list function.
+* At least one optional field needs to be specified.
+****
+
+Example:
+
+* `(rt)edit 1 o/0700:2200` +
+Edits the 1st restaurant's operating hours to "0700:2200" in the restaurant book.
 
 ==== Deletes a restaurant: `(rt)delete`
 
@@ -303,9 +307,9 @@ Examples:
 
 * `(rt)addnote 5 r/chicken chop g/truffle fries b/risotto` +
 Add notes to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
-* `(rt)addnote 2 g/Cheese baked rice`
+* `(rt)addnote 2 g/Cheese baked rice` +
 Adds a note to the restaurant at index 2 with good food Cheese baked rice.
-* `(rt)addnote 1 b/Fried rice b/Latte`
+* `(rt)addnote 1 b/Fried rice b/Latte` +
 Add notes to the restaurant at index 1 with bad food Fried rice and Latte.
 
 ==== Edit notes to a restaurant : `(rt)editnote`
@@ -341,18 +345,8 @@ Examples:
 
 * `(rt)deletenote 1 rl/2 gl/1 bl/3` +
 Delete notes to the restaurant at index 1, at line number 2 of recommended food notes, at line number 1 of good food notes, at line number 3 of bad food notes.
-* `(rt)editnote 2 gl/1 gl/2` +
-Edits a note to the restaurant at index 2, at line numbers 1 and 2 of good food notes.
-
-==== Change visited status of restaurant : `(rt)visited`
-
-Updates visited status of restaurant to visited +
-Format: `(rt)visited INDEX`
-
-Examples:
-
-* `(rt)visited 3` +
-Updated visited status of restaurant at index 3 to visited.
+* `(rt)deletenote 2 gl/1 gl/2` +
+Deletes a note to the restaurant at index 2, at line numbers 1 and 2 of good food notes.
 
 ==== List all restaurants : `(rt)list`
 
@@ -407,20 +401,6 @@ Examples:
 * `(st)add t/CS2103 post lecture quiz d/2020-11-11 23:59 e/1` +
 Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-11-2020 23:59 PM and which takes an estimated one hour to complete.
 
-==== Delete assignment : `(st)delete`
-
-Deletes an assignment. +
-Format: `(st)delete INDEX`
-
-****
-* INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the list function.
-****
-
-Examples:
-
-* `(st)delete 1` +
-Deletes the 1st assignment in the Schoolwork Tracker.
-
 ==== Edits an assignment: `(st)edit`
 
 Marks an assignment as completed. +
@@ -439,26 +419,40 @@ Example:
 * `(st)edit 1 t/CS2103 Quiz e/1` +
 Changes the title of the first assignment to 'CS2103 Quiz' and estimated completion time to 1 hour.
 
-===== Marking an assignment as done : `(st)edit s/Completed`
-===== Marking an assignment as uncompleted : `(st)edit s/Uncompleted`
+===== Marking an assignment as done : `(st)edit INDEX s/Completed`
+===== Marking an assignment as uncompleted : `(st)edit INDEX s/Uncompleted`
+
+==== Delete assignment : `(st)delete`
+
+Deletes an assignment. +
+Format: `(st)delete INDEX`
+
+****
+* INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the list function.
+****
+
+Examples:
+
+* `(st)delete 1` +
+Deletes the 1st assignment in the Schoolwork Tracker.
 
 ==== List current assignments : `(st)list`
 
 Sorts the user’s list of assignments and displays them. This helps the user choose which assignment to do first. +
-Format: `(st)list [-d/] [-e/]`
+Format: `(st)list [-d] [-e]`
 
 ****
 * At most 1 optional field can be specified at each time
 * If no optional field is specified, assignments will be sorted in alphabetical order.
 * Completed assignments will always be shown at the bottom of the list.
-* [-d/] : Assignments will be sorted in ascending order by deadline.
-* [-e/] : Assignments will be sorted in ascending order based on the estimated completion time.
+* [-d] : Assignments will be sorted in ascending order by deadline.
+* [-e] : Assignments will be sorted in ascending order based on the estimated completion time.
 ****
 
 Example:
 
-* `(st)list -d/` +
-Assignments will be shown in ascending order by deadline with all completed assignments at the bottom of the list.
+* `(st)list -d` +
+Assignments will be shown in chronological order, with respect to the deadline, with all completed assignments at the bottom of the list.
 
 ==== Visualise the intensity of your upcoming schedule : `(st)schedule`
 
@@ -483,10 +477,10 @@ Format: `(ev)add et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
 * `EVENT DATE` must be in a YYYY-MM-dd HH:mm format
 ****
 
-==== Listing all events : `(ev)list`
+Examples:
 
-Lists all social events in your Event Book. +
-Format: `(ev)list`
+* `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
+Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and location at "Facebook APAC HQ".
 
 ==== Edit a social event : `(ev)edit`
 
@@ -517,6 +511,11 @@ Examples:
 * `(ev)delete 1` +
 Deletes the 1st Event in the Event Schedule.
 
+==== Listing all events : `(ev)list`
+
+Lists all social events in your Event Schedule. +
+Format: `(ev)list`
+
 === Saving the data
 
 Address book, Schoolwork Tracker, Event Book and Restaurant Book data are saved in the hard disk automatically after any command that changes the data. +
@@ -546,10 +545,12 @@ _{explain how the user can enable/disable data encryption}_
 ** `(ab)delete INDEX [p/] [e/] [a/] [t/] [b/] [o/]`
 ** `(rt)delete INDEX`
 ** `(st)delete INDEX`
+** `(ev)delete INDEX`
 * *Edit* :
 ** `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [o/ORGANIZATION] [t/TAG_TO_BE_ADDED]... [-t/TAG_TO_BE_DELETED]...` +
-** `(rt)edit INDEX`
+** `(rt)edit INDEX [n/RESTAURANT] [l/LOCATION] [v/VISITED] [o/OPERATING_HOURS] [p/PRICE] [c/CUISINE]`
 ** `(st)edit INDEX [t/TITLE] [d/DEADLINE] [e/ESTIMATED_COMPLETION_TIME] [s/STATUS]`
+** `(ev)edit INDEX [t/EVENT_TITLE] [dt/EVENT_DATE] [d/DURATION] [p/PLACE]`
 * *Find* :
 ** `(ab)find [o/ORGANIZATION] [n/NAME] [t/TAG]`
 ** `(rt)find [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
@@ -563,6 +564,7 @@ _{explain how the user can enable/disable data encryption}_
 ** `(rt)addnote INDEX [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
 * *Delete notes* :
 ** `(ab)deletenote INDEX l/LINE_NUMBER...`
+** `(rt)deletenote INDEX [rl/RECOMMENDED_FOOD_LINE_NUMBER] [gl/GOOD_FOOD_LINE_NUMBER] [bl/BAD_FOOD_LINE_NUMBER]`
 * *Edit notes* :
 ** `(ab)editnote INDEX l/LINE_NUMBER i/INFO`
 ** `(rt)editnote INDEX [rl/LINE_NUMBER_RECOMMENDED] [r/RECOMMENDED_FOOD] [gl/LINE_NUMBER_GOOD] [g/GOOD_FOOD] [bl//LINE_NUMBER_BAD] [b/BAD_FOOD]`
@@ -570,8 +572,6 @@ _{explain how the user can enable/disable data encryption}_
 `(ab)get INDEX`
 * *Show contacts with birthdays in the next 5 days* : +
 `(ab)birthday`
-* *Mark a restaurant as visited* : +
-`(rt)visited INDEX`
 * *Shows the user's upcoming schedule* : +
 `(st)schedule n/NUM_DAYS`
 * *Undo commands* : `undo`

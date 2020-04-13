@@ -11,7 +11,7 @@
 
 Naggy Joel is a desktop application used by University students to manage social life. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
 
-It is an application that allows users to manage all aspects of their social life, ranging from your different social circles and contacts, to events, as well as, places to hang out and potential practical gifts that will be very much appreciated by the recipients, all without compromising on academic life.
+It is an application that allows users to manage all aspects of their social life, ranging from your different social circles and contacts, to events, all without compromising on academic life.
 
 == Summary of contributions
 
@@ -24,8 +24,10 @@ It is an application that allows users to manage all aspects of their social lif
 
 * *Added the ability to add/edit/delete note commands for each restaurant*
 ** What it does: allows the user to add multiple notes, edit the added notes, or delete the added notes.
-** Justification: This feature improves the product significantly because a user can add in additional information to a restaurant in order to keep track of the dishes' reviews.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Justification: This feature improves the product significantly because a user can add additional information to a restaurant in order to keep track of the dishes' reviews.
+** Highlights:
+*** This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+*** Each restaurant has 3 food notes that can be added, edited, or deleted. Multiple addition/deletion of notes require a detailed checking of inputs that are dependent on other inputs.
 ** Credits: _{referenced from RemarkCommand}_
 
 === Minor enhancement:
@@ -43,11 +45,6 @@ It is an application that allows users to manage all aspects of their social lif
 ** What it does: This allows the user to indicate if they have visited a restaurant.
 ** Justification: As there might be a handful of restaurants stored in the Restaurant Book, this feature allows the user to keep track of which restaurants they have visited.
 
-* *Edited the existing delete command for Address Book*
-** What it does: This allows the user to delete particular fields of the contact.
-** Justification: There might be some fields in a contact that a user no longer needs, thus this helps to tidy up the contact information.
-** Highlights: Users can still delete the entire contact, or they may choose to delete particular fields of the contact.
-
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=vanessa1098[Summary of code contributions]]
 
 * *Other contributions*:
@@ -55,27 +52,32 @@ It is an application that allows users to manage all aspects of their social lif
 ** Project management:
 ** Enhancements to existing features:
 *** Edited the help command to display all commands on the user interface.
-*** Edited the GUI of the application (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/53[#53], https://github.com/AY1920S2-CS2103-W14-3/main/pull/142[#142])
+*** Edited the GUI of the application (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/53[#53], https://github.com/AY1920S2-CS2103-W14-3/main/pull/142[#142], https://github.com/AY1920S2-CS2103-W14-3/main/pull/175[#175])
 *** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/46[#46])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152])
+*** Did cosmetic tweaks to existing contents of the User Guide (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/140[#140], https://github.com/AY1920S2-CS2103-W14-3/main/pull/146[#146], https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152], https://github.com/AY1920S2-CS2103-W14-3/main/pull/158[#158], https://github.com/AY1920S2-CS2103-W14-3/main/pull/161[#161])
+*** Contributed to the Developer Guide of this project
 ** Community:
-*** Reviewed PRs and provided suggestions for my teammates
 *** Reported bugs and suggestions for other teams in the module
+** Team-based Contributions:
+*** Reviewed PRs, provided suggestions for my teammates and comments to improve/clarify (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/150[#150], https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152], https://github.com/AY1920S2-CS2103-W14-3/main/pull/153[#153], https://github.com/AY1920S2-CS2103-W14-3/main/pull/155[#155], https://github.com/AY1920S2-CS2103-W14-3/main/pull/158[#158], https://github.com/AY1920S2-CS2103-W14-3/main/pull/160[#160], https://github.com/AY1920S2-CS2103-W14-3/main/pull/187[#187], https://github.com/AY1920S2-CS2103-W14-3/main/pull/188[#188])
 
 == Contributions to the User Guide
-
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-== Contributions to the Developer Guide
+include::../UserGuide.adoc[tag=notetaker]
 
+== Contributions to the Developer Guide
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=get]
+
+include::../DeveloperGuide.adoc[tag=sortAssgn]
+
+include::../DeveloperGuide.adoc[tag=editRestNote]
 
 ---

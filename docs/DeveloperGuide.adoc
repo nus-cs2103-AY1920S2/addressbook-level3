@@ -203,7 +203,7 @@ image::stScheduleResult.png[]
 
 // end::schedule[]
 
-// tag::get[]
+tag::get[]
 === Detailed Contact Viewer
 ==== Implementation
 
@@ -232,7 +232,9 @@ image::getCommand.png[]
 * **Alternative 2:** Display selective information on the AddressBook list and the full information under get command.
 ** Pros: AddressBook list is less cluttered.
 ** Cons: Omits certain information.
+end::get[]
 
+tag::sortAssgn[]
 === Sorting of Assignments
 ==== Implementation
 
@@ -243,6 +245,7 @@ Given below is an example usage scenario and how the sort mechanism behaves at e
 Step 1. The user launches the application for the first time. The 'AssignmentList' will be initialized with the initial state, which is an empty list.
 
 Step 2. The user executes the following commands to add new assignments.
+
 * 1. `(st)add t/CS2103 Project d/2020-04-18 23:59 e/180`
 * 2. `(st)add t/DBA3702 Project d/2020-04-19 19:00 e/150`
 * 3. `(st)add t/CS2106 Lab d/2020-04-11 20:00 e/20`
@@ -258,13 +261,16 @@ image::listAssgnCommand.png[]
 ==== Design Considerations
 
 ===== Aspect: How to sort assignment by estimated completion time
+
 * **Alternative 1 (Current choice):** Descending order
 ** Pros: User can prioritise by doing the assignment which takes the longer first.
 ** Cons: User may spend too much time on assignments that take much longer.
 * **Alternative 2:** Ascending order
 ** Pros: User can clear more assignments faster, by completing those that takes a shorter amount of time first.
 ** Cons: User may delay starting on assignments that take longer and risk having uncompleted assignments at the deadline.
+end::sortAssgn[]
 
+tag::editRestNote[]
 === Editing of Restaurant Notes
 ==== Implementation
 
@@ -275,7 +281,8 @@ Given below is an example usage scenario and how the editing of note mechanism b
 Step 1: The user launches the application for the first time. The `RestaurantBook` will be initialized with the initial state, which is an empty list.
 
 Step 2: The user executes the following commands to add notes to a restaurant.
-* 1. `(rt)add n/Ameens l/Clementi v/No o/09:2300 p/$ c/Indian`
+
+* 1. `(rt)add n/Ameens l/Clementi v/No o/0900:2300 p/$ c/Indian`
 * 2. `(rt)addnote r/Cheese fries`
 
 Step 3: The user executes the `(rt)editnote 1 rl/1 r/Butter chicken` command to edit the first recommended food of the restaurant at index 1, to Butter chicken.
@@ -291,8 +298,9 @@ image::addRestNote.png[]
 ** Pros: Easy for user to use, without switching between different commands.
 ** Cons: As line number of the relevant note needs to be indicated, many levels of checking of the user input is required, and is thus more prone to errors.
 * **Alternative 2:** Have 3 separate edit commands, one for each restaurant's note.
-* Pros: Easier to implement.
-* Cons: Not user-friendly since different notes cannot be edited in a single command.
+** Pros: Easier to implement.
+** Cons: Not user-friendly since different notes cannot be edited in a single command.
+end::editRestNote[]
 
 === Finding Contacts
 ==== Implementation
@@ -455,7 +463,7 @@ _{More to be added}_
 
 *MSS*
 
-1. User adds an assignment by typing the "add" command and includes description of the assignment, deadline, and number of estimated hours to complete the work.
+1. User adds an assignment by typing the "(st)add" command and includes description of the assignment, deadline, and number of estimated hours to complete the work.
 2. Naggy Joel adds the assignment to the list of assignments.
 +
 Use case ends.
@@ -629,19 +637,259 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Adding a person
+
+. Test case: `(ab)add n/John p/12345 o/NUS n/05-20`
+  Expected: A new contact with the name John, phone number 12345, and birthday 20 May is added to the list. Details of the added contact shown in the status message.
+
 === Deleting a person
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)delete 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+.. Test case: `(ab)delete 0` +
+   Expected: No person is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `(ab)delete`, `(ab)delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Deleting a person while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)delete x` (where x exists in the full contact list but not in the filtered list) +
+   Expected: No person is deleted. Error details shown in the status message.
+
+=== Editing a person
+
+. Editing a person while all persons listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)edit 2 t/BFF -t/Friends` +
+   Expected: Second contact in the list is edited, with tag "Friends" deleted, and tag "BFF" added. Details  of the edited contact shown in the status message.
+
+. Editing a person while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)edit x b/06-22` (where x exists in the full contact list but not in the filtered list) +
+   Expected: No person is edited. Error details shown in the status message.
+
+=== Adding additional information to a person
+
+. Adds note(s) to a person while all persons listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)addnote 2 i/Likes red i/Lives in Jurong i/Cycles` +
+   Expected: Second contact in the list has 3 new notes, "Likes red", "Lives in Jurong" and "Cycles", added. Details of the edited contact shown in the status message.
+
+. Editing a person while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)addnote x i/Can't take spicy` (where x exists in the full contact list but not in the filtered list) +
+   Expected: No new note is added to a person. Error details shown in the status message.
+
+=== Editing additional information for a person
+
+. Edits an existing note of person while all persons listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)editnote 2 l/2 i/Likes matcha` +
+   Expected: Edits the second note of the second contact in the list to "Likes matcha". Details of the edited contact shown in the status message.
+.. Test case: `(ab)editnote x i/Likes red` (where x is larger than the number of existing notes of a person) +
+   Expected: No note is edited for the person. Error details shown in the status message.
+.. Other incorrect commands to try: `(ab)editnote 2 l/aaa i/Likes cats` (where line number is not an integer) +
+   Expected: Similar to previous
+
+. Editing an existing note of a person while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)editnote x l/3 i/Can't take spicy` (where x exists in the full contact list but not in the filtered list) +
+   Expected: No note is edited for a person. Error details shown in the status message.
+
+=== Deleting additional information of a person
+
+. Delete note(s) of a person while all persons listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)deletenote 2 l/1 l/3` +
+   Expected: Deletes the first and third note of the second contact in the list. Details of the edited contact shown in the status message.
+.. Test case: `(ab)deletenote 2 l/x` (where x is larger than the number of existing notes of a person) +
+   Expected: No note is deleted for the person. Error details shown in the status message.
+.. Other incorrect commands to try: `(ab)deletenote 2 l/2 l/aaa` (where line number is not an integer) +
+   Expected: Similar to previous
+
+. Editing a person while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)deletenote x l/2` (where x exists in the full contact list but not in the filtered list) +
+   Expected: No note is deleted for a person. Error details shown in the status message.
+
+=== Finding a specific contact/specific set of contacts
+
+. Finding person(s) by organization, name or tag.
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)find o/NUS n/Lim` +
+   Expected: If person(s) with the organization "NUS" and have the word "Lim" in the name, person(s) will be listed. The number of person listed shown in the status message.
+
+=== Retrieves a specific contact and view in full details
+
+. Retrieves a person contact while all persons listed
+
+.. Prerequisites: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. Test case: `(ab)get 2` +
+   Expected: Display the second person in the full contact list. The number of person listed shown in the status message.
+.. Test case: `(ab)get x` (where x is larger than the number of contacts in the list) +
+   Expected: No detailed view of contact is displayed. Error details shown in the status message.
+
+. Retrieves a person contact while finding contacts that meet certain criteria
+
+.. Prerequisites: List subset of contacts using the `(ab)find` command. Persons who meet the criteria are listed.
+.. Test case: `(ab)get x` (where x exists in the full contact list but not in the filtered list) +
+Expected: No detailed view of contact is displayed. Error details shown in the status message.
+
+=== List contacts with upcoming birthdays
+
+. All persons are listed
+
+.. Prerequisite: List all persons using the `(ab)list` command. Multiple persons in the list.
+.. `(ab)birthday` +
+   Expected: All contacts with birthdays in the next 5 days (current day included) should be listed.
+
+=== Adding a restaurant
+
+. Test case: `(rt)add n/Ameens l/Clementi v/No o/0900:2300 p/$ c/Indian` +
+  Expected: Adds a new restaurant called Ameens at Clementi with 1 dollar sign price point, opens from 9am to 11pm, with cuisine Indian and has yet to be visited.
+
+=== List all restaurants saved
+
+. `(rt)list` +
+Expected: All restaurants added should be displayed.
+
+=== Editing a restaurant
+
+. Edits a restaurant while all restaurants are listed
+
+.. Prerequisites: List all restaurants using the `(rt)list` command. Multiple restaurants in the list.
+.. Test case: `(rt)edit 1 v/Yes o/0900:2200` +
+   Expected: Edits the first restaurant visited status to "Yes" and operating hours to "0900:2200".
+
+=== Deleting a restaurant
+
+. Deletes a restaurant while all restaurants are listed
+
+.. Prerequisites: List all restaurants using the `(rt)list` command. Multiple restaurants in the list.
+.. Test case: `(rt)delete 2` +
+   Expected: Deletes the second restaurant in the restaurant list. Details of the deleted restaurant shown in the status message.
+.. Test case: `(rt)delete x` (where x is larger than the size of the restaurant list) +
+   Expected: No restaurant is deleted. Error details shown in the status message.
+
+=== Adding food note(s) to a restaurant
+
+. Add food note(s) to a restaurant while all restaurants are listed
+
+.. Prerequisites: List all restaurants using the `(rt)list` command. Multiple restaurants in the list.
+.. Test case: `(rt)addnote 1 r/Chicken Chop g/Truffle Fries b/Risotto b/Lobster Pasta` +
+   Expected: Add notes to the restaurant at index 1 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto and Lobster Pasta. Details of the edited restaurant shown in the status message.
+
+=== Editing food note(s) of a restaurant
+
+. Edit food note(s) to a restaurant while all restaurants are listed
+
+.. Prerequisites: List all restaurants using the `(rt)list` command. Multiple restaurants in the list.
+.. Test case: `(rt)editnote 1 rl/1 r/Fish and Chip gl/1 g/Mushroom soup bl/2 b/Salad` +
+   Expected: Edit notes to the restaurant at index 3 with recommend food Fish and Chip at line number 1, good food Mushroom soup at line number 1, and bad food Salad at line number 2. Details of the edited restaurant shown in the status message.
+.. Test case: `(rt)editnote 2 rl/aaa r/Fried Rice gl/1 g/Tomato soup` (Non-integer line number for recommended food notes) +
+   Expected: No restaurant's food notes is edited. Error details shown in the status message.
+
+=== Deleting food note(s) of a restaurant
+
+. Delete food note(s) to a restaurant while all restaurants are listed
+
+.. Prerequisites: List all restaurants using the `(rt)list` command. Multiple restaurants in the list.
+.. Test case: `(rt)deletenote 1 rl/1 gl/1 bl/2` +
+   Expected: Delete notes to the restaurant at index 1, at line number 1 of recommended food notes, at line number 1 of good food notes, at line number 2 of bad food notes.
+.. Test case `(rt)deletenote 1 rl/1 gl/x bl/aaa` (where x is larger than the size of good food notes, and non-integer line number for bad food notes) +
+   Expected: No restaurant's bad notes is edited. Error details shown in the status message.
+
+=== Search for restaurants based on a number of criteria
+
+. `(rt)find l/Clementi` +
+  Expected: Searches and display restaurants in the Clementi area. Number of restaurants displayed shown in the status message.
+
+=== Adding an assignment
+
+. Test case: `(st)add t/CS2103 post lecture quiz d/2020-11-11 23:59 e/2` +
+  Expected: Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-11-2020 23:59 PM and which takes an estimated two hours to complete. Details of the added assignment shown in the status message.
+.. Test case: `(st)add t/CS2105 lab d/DATETIME e/5` (where DATETIME is after the current date and time) +
+   Expected: No assignment is added. Error details shown in the status message.
+
+=== List current assignments
+
+. Test case: `(st)list -d` +
+  Expected: Assignments will be shown in chronological order, with respect to the deadline, with all completed assignments at the bottom of the list.
+. Test case: `(st)list -e` +
+  Expected: Assignments will be shown according to the estimated completed time in descending order with all completed assignments at the bottom of the list.
+. Test case: `(st)list -d -e` +
+  Expected: Assignments will not be sorted. Error details shown in the status message.
+
+=== Deleting an assignment
+
+. Deletes an assignment while all assignments are listed
+
+.. Prerequisites: List all assignments using the `(st)list` command. Multiple assignments in the list.
+.. Test case: `(st)delete 1` +
+   Expected: Deletes the first assignment in the Schoolwork Tracker. Details of the deleted assignment shown in the status message.
+.. Test case: `(st)delete x` (where x is larger than the size of Schoolwork Tracker) +
+   Expected: No assignment is deleted. Error details shown in the status message.
+
+=== Editing an assignment
+
+. Edits an assignment while all assignments are listed
+
+.. Prerequisites: List all assignments using the `(st)list` command. Multiple assignments in the list.
+.. Test case: `(st)edit 1 t/CS2103 Quiz e/1` +
+   Expected: Changes the title of the first assignment to 'CS2103 Quiz' and estimated completion time to 1 hour. Details of the edited assignment shown in the status message.
+.. Test case: `(st)edit 1 s/Completed` +
+   Expected: Marks the first assignment in the Schoolwork Tracker as completed. Details of the edited assignment shown in the status message.
+.. Test case: `(st)edit 1 s/Uncompleted` +
+   Expected: Marks the first assignment in the Schoolwork Tracker as uncompleted. Details of the edited assignment shown in the status message.
+.. Test case: `(st)edit d/y` (where y is after the current date and time) +
+   Expected: No assignment is edited. Error details shown in the status message.
+.. Other incorrect commands to try: `(st)edit x` (where x is larger than the size of Schoolwork Tracker) +
+   Expected: Same as above
+
+=== Adding a social event
+
+. Test case: `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
+Expected: Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and location at "Facebook APAC HQ".
+.. Test case: `(ev)add t/Birthday party dt/DATETIME d/3 p/Clementi` (where DATETIME is after the current date and time) +
+   Expected: No social event is added. Error details shown in the status message.
+
+=== Listing all events
+
+. `(ev)list` +
+Expected: List all added social events in the Event Schedule.
+
+=== Editing a social event
+
+. Edits a social event while all social events are listed
+
+.. Prerequisites: List all social events using the `(ev)list` command. Multiple social events in the list.
+.. Test case: `(ev)edit 1 edt/2020-04-09 11:00 ed/2` +
+   Expected: Edits the first event in the Event Schedule by changing the timing to 11AM on the 9th of April and the estimated duration to be 2 hours.
+.. Test case: `(ev)edit dt/DATETIME` (where DATETIME is after the current date and time) +
+   Expected: No social event is edited. Error details shown in the status message.
+
+=== Deleting a social event
+
+. Deletes a social event while all social events are listed
+
+.. Prerequisites: List all social events using the `(ev)list` command. Multiple social events in the list.
+.. Test case: `(ev)delete 1` +
+   Expected: Deletes the first social event in the Event Schedule.
+.. Test case: `(ev)delete x` (where x is larger than the size of Event Schedule) +
+   Expected: No social event is deleted. Error details shown in the status message.
 
 === Saving data
 

@@ -39,7 +39,6 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ShowBirthdayCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.VisitedRestaurantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -81,9 +80,6 @@ public class AddressBookParser {
 
         case FindRestaurantCommand.COMMAND_WORD:
             return new FindRestaurantCommandParser().parse(arguments);
-
-        case VisitedRestaurantCommand.COMMAND_WORD:
-            return new VisitedRestaurantCommandParser().parse(arguments);
 
         case AddRestaurantNoteCommand.COMMAND_WORD:
             return new AddRestaurantNoteCommandParser().parse(arguments);
