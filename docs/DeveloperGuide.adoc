@@ -209,6 +209,8 @@ When inserting a new Expense/Income, the `AddCommandParser` will determine which
 
 NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
 
+NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GROCERIES, HEALTH, RECREATION, MISC, UTILITIES, INCOME.
+
 The following sequence diagram shows how the add transaction operation works:
 
 image::add-command/AddCommandSequenceDiagram.png[]
@@ -225,7 +227,8 @@ Figure 9. Sequence diagram of how adding a new `Transaction` is processed depend
 [NOTE]
 Incorrect user input will display `ParseException` message.
 
-We will demonstrate how a `Transaction` is added into `ExpenseLa`:
+
+*We will demonstrate how a `Transaction` is added into `ExpenseLa` below:*
 
 Step 1. The user executes the command **add n/Pizza a/20.5 d/2020-02-02** to insert a negative transaction with its `Name` set to "Pizza", its `Amount` set to "20.50" and the `Date` set to 02 Feb 2020. The input is now checked and an attempt to parse each parameter occurs:
 
@@ -237,8 +240,6 @@ image::add-command/AddTransactionToList1.png[]
 
 Step 2. The user executes **add i/ n/Salary a/3000 d/2020-02-03 r/Monthly Salary c/income rc/ ** to indicate his monthly pay, to insert a positive `**Transaction**`.
 
-NOTE: `**Category**` has a set enum list of values FOOD, SHOPPING, TRANSPORT, GROCERIES, HEALTH, RECREATION, MISC, UTILITIES, INCOME.
-
 NOTE: "rc/" CLI Syntax will set the transaction to be a recurring transaction.
 
 Again, since the input is valid, the positive `Transaction` is successfully added into the transaction list. The transaction list
@@ -248,7 +249,7 @@ image::add-command/AddTransactionToList2.png[]
 
 The following activity diagram summarizes what happens when the user executes a command to add a new `Transaction`:
 
-:figure-caption: Figure 10
+:figure-caption: Figure
 .Activity diagram of adding a `Transaction` into the transaction list.
 image::add-command/AddTransactionActivityDiagram.png[,650]
 
@@ -305,8 +306,8 @@ existing `**TransactionList**`.
 Command example: **edit 1 n/[NAME] a/[AMOUNT] r/[REMARK]** will edit the name, amount and remark of transaction of index 1 with
 the respective inputs.
 
-Below is an example usage scenario for editing a transaction and explanation of how the **edit** mechanism
-behaves at each step:
+*Below is an example usage scenario for editing a transaction and explanation of how the edit mechanism
+behaves at each step:*
 
 Step 1. The user starts up the application with an initial list loaded from a sample transaction list.
 
@@ -988,7 +989,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 
 [appendix]
-== Use Cases
+== Use Cases (Hubert Halim)
 
 (For all use cases below, the *System* is the `ExpenseLa` and the *Actor* is the `user`, unless specified otherwise)
 
@@ -997,10 +998,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User requests to list expenses
-2.  System shows a list of expenses
-3.  User requests to delete a specific expense in the list
-4.  System deletes the expense
+1.  User requests to list all transactions
+2.  System removes all filters and show all expenses
+3.  User requests to delete a specific transaction in the list
+4.  System deletes the transaction
 +
 Use case ends.
 
@@ -1018,13 +1019,14 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
 === Use case: filter transactions by category
 
 *MSS*
 
-1.  User requests to list filtered expenses
-2.  System queries list of expenses
-3.  Add all expenses in given category to filtered list
+1.  User requests to list filtered transactions
+2.  System queries list of transactions
+3.  Apply filter predicate to update list of filtered  transactions
 4.  System shows filtered list
 +
 Use case ends.
@@ -1043,7 +1045,141 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Set recurring monthly budget
+1. User requests to set a recurring budget of a specified amount.
+2. `**ExpenseLa**` processes the request and sets the specified amount as the budget for the current month.
+3. `**ExpenseLa**` then update the value of recurringBudget variable in GlobalData to  the specified amount.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The parameters specified by the user are not valid.
++
+[none]
+** 1a1. `**ExpenseLa**` displays an invalid parameter error to the user and the monthly budget is not updated.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Add an expense
+*MSS*
+
+1. User requests to add a new expense into their expensela.
+2. The system processes the request and adds the expense transaction into the transactions list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The parameters specified by the user are not valid.
++
+[none]
+** 1a1. The system displays an invalid parameter error to the user and the transactions list is not updated.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Add a recurring income
+*MSS*
+
+1. User requests to add a new recurring income into their expensela.
+2. The system processes the request and adds the income transaction into the transactions list.
+3. The system then add the income transaction to RecurringTransactionList in GlobalData.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The parameters specified by the user are not valid.
++
+[none]
+** 1a1. The system displays an invalid parameter error to the user and the transactions list is not updated.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Show chart analytics view
+*MSS*
+
+1. User requests to toggle to chart analytics view.
+2. The system switches the view to charts view.
+** 2a. The filter for month is set to all, bar chart displays data of the last 2 years by month.
+** 2b. The filter for month is set to a specific month, bar chart displays data by day of the week.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Clear transaction list
+MSS*
+
+1. User requests to clear all transactions.
+2. The system clears transaction list in ExpenseLa.
+3. The system resets MonthlyData and GlobalData
++
+Use case ends.
+
+[discrete]
+=== Use Case: Export to CSV file
+*MSS*
+
+1. User requests to export current list being viewed to a CSV file.
+2. The system saves the transactions to that csv file named `transactions.csv` by the system.
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The file does not exists.
++
+[none]
+** 1a1. The system creates a file with the name `transactions.csv`.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use Case: Import from CSV file
+*MSS*
+
+1. User requests to import transaction data from a CSV file.
+2. Import the transactions data from the file specified by the user ignoring duplicate and invalid transactions
++
+Use case ends.
+
+[none]
+* 1a. The file specified by user does not exists.
++
+[none]
+** 1a1. The system shows an error message prompting user to rectify their command.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Find transactions whose name contains certain words
+*MSS*
+
+1. User requests to list transactions whose name contains certain words.
+2. The system queries all transactions
+3. The system applies predicate to filter only transactions that contain the words specified by user
++
+Use case ends.
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
++
+[none]
+* 3a. The list is empty.
++
+Use case ends.
++
+
 
 [appendix]
 == Non Functional Requirements (Pang Kim Jin)
@@ -1060,25 +1196,52 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+[horizontal]
+[[expensela]] ExpenseLa::
+Stands for the application that this developer guide is written for.
+
+[[api]] API::
+Stands for "Application Programming Interface" which simplifies programming by abstracting the underlying implementation and only exposing objects or actions the developer needs.
+
+[[puml]] PlantUML::
+Stands for a software tool that we use to render the diagrams used in this document.
+
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X
+
+[[system-administration]] System Administration::
+Stands for the field of work in which someone manages one or more systems, be they software, hardware, servers or workstations
+with the goal of ensuring the systems are running efficiently and effectively.
+
+[[MSS]] MSS::
+Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong.
+
+[[CLI-syntax]] CLI Syntax::
+Stands for the Command Line Interface Syntax such as "a/" and "c/" that preceeds input values which act as indicators for the system to detect those values.
+
+[[Ui]] UI::
+Stands for the user interface which is the display which interacts with the user.
+
+[appendix]
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*ExpenseLa*
 
-Author: ...
+Author: Team Halim
 
 Pros:
 
-* ...
-* ...
+* Very easy and quick tracking for people that prefer command line interfaces.
+* Analytics serve as a quick bird's eye view on monthly spending.
+* Analytics breakdown of spending per category helps me gain insights on the categories which I have spent too much money on.
+* Well made prompts to warn me when I am going to exceed my monthly budget. Helps to better my budgeting practices.
 
 Cons:
 
-* ...
-* ...
+* Takes quite a bit of time to learn all the commands.
+* It can get quite tedious to input every single transaction at any time. Could possibly automate some inputs.
 
 [appendix]
 == Instructions for Manual Testing (Pang Kim Jin)

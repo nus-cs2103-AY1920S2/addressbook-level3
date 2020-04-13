@@ -4,7 +4,7 @@ start
 
 
 if () then ([Valid Input])
-    :Update respective component values of the transaction in Model;
+    :Creates a new Transaction with edited values;
     :Model displays the new edited Transaction;
     :Display CommandResult message;
 else([Invalid Input])

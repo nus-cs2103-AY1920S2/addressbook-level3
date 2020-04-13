@@ -26,7 +26,7 @@ ExpenseLaParser -> AddCommandParser
 activate AddCommandParser
 
 
-AddCommandParser --> ExpenseLaParser
+AddCommandParser --> ExpenseLaParser : d
 deactivate AddCommandParser
 
 deactivate AddCommandParser
@@ -43,6 +43,8 @@ activate AddCommand
 
 AddCommand -> Model : addTransaction(transaction)
 activate Model
+
+Model --> AddCommand
 deactivate Model
 
 opt transaction is recurring
@@ -51,15 +53,18 @@ opt transaction is recurring
 
 AddCommand -[hidden]> GlobalData
 AddCommand -> Model : addTransactionToGlobalData(transaction)
+
 activate Model
 
 Model -> GlobalData : addTransaction(transaction)
 
+
 activate GlobalData
+GlobalData --> Model
 
 deactivate GlobalData
 
-
+Model --> AddCommand
 
 
 deactivate Model
