@@ -1,0 +1,49 @@
+= Mah Cai Jun, Terence - Project Portfolio Page
+:site-section: AboutUs
+:icons: font
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+== PROJECT: CoderLifeInsights
+Coder Life Insights is a social application that helps users keep track of their friends and the time spent with them.
+Optimized for users who prefer using the command line interface, the main intended beneficiaries of this app
+are computing professionals and students, who could use regular reminders to take some time away from the screen
+to share with their friends.
+
+== My Role
+In this project, I was assigned the implementation of Coder Life Insights’ eponymous Insights function,
+which allows users to view various kinds of insights about the persons, groups and events that they have added
+and stored on the application. While it is one independent feature, it is made up of several sub-features,
+each having their own keywords and functions. With these functions, users can see a list of places they have visited
+or activities they have done with selected persons or groups, ranked by their frequencies. Users can also view
+their 5 most recently added events, whether with a particular person or group, or overall.
+
+Having implemented this function, I was mainly responsible for the documentation of this feature,
+and updated the corresponding sections of the User Guide and Developer Guide accordingly.
+To illustrate its implementation, I designed the following three UML diagrams:
+•	View Command Generic Sequence Diagram
+•	View Command Condensed Generic Sequence Diagram
+•	View Command Class Diagram
+
+On top of my own features, I also contributed to common sections of the Developer Guide,
+updating the original architecture diagram for the app’s UI component to reflect its new features, as well as its explanation.
+
+Implementation-wise, being responsible for the ‘view’ function, I helped my team to build the foundations for the UI implementation,
+by coming up with the design of having the MainWindow UI controller switch between different view panels based on
+a ViewType variable input from the CommandResult. Correspondingly, I also got us started with the first few GUI display panels (.fxml files).
+
+I have also been diligent in analyzing the team’s code for bugs and deficiencies in system design to ensure that we continue
+to have a clear code base to build off. Nonetheless, I must acknowledge that I have not had enough consistent time to put
+into this project, and my teammates have definitely contributed more than me to the shared components of this project,
+and its overall direction.
+
+* *Code contributed*: [https://tinyurl.com/vhcyq52]
+
