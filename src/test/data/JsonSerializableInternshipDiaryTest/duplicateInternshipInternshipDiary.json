@@ -1,0 +1,27 @@
+{
+  "internships": [ {
+    "company": "Alice Inc",
+    "role": "Fun officer",
+    "address": "4th street",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "applicationDate": "11 11 2020",
+    "priority": "1",
+    "status": "APPLIED",
+    "interviews": [],
+    "isArchived": "false",
+    "lastStage": "WISHLIST"
+  }, {
+    "company": "Alice Inc",
+    "role": "Fun officer",
+    "address": "4th street",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "applicationDate": "11 11 2020",
+    "priority": "2",
+    "status": "REJECTED",
+    "interviews": [],
+    "isArchived": "false",
+    "lastStage": "APPLIED"
+  } ]
+}

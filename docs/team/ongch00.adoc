@@ -1,0 +1,79 @@
+= Ong Choon Han - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:prURL: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/
+
+== PROJECT: Internship Diary
+
+---
+
+== Overview
+
+Internship Diary is a desktop internship tracking application written in Java, and has about
+15 kLoC. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+
+== Summary of contributions
+
+* *Major enhancement*: Revamp the find command
+** **What it does:** This enhancement enables the general find where the keywords that the user entered will list
+any internship application that has fields that matches any of the keywords provided. This enhancement also enables
+finding by specific field(s), where the user can specify which field(s) they are interested in searching in.
+Only the internship applications that has the field(s) matching the specified field(s) keywords will be listed in this case.
+
+** **Justification:** This feature will allow the user to easily filter the list to quickly get to what is important.
+With the flexibility of general and specific find, the user can get a more specific filtered list if needed.
+
+** **Highlights:** Quite a bit of planning was involved, mainly to consider how the search should behave and how it is performed.
+It the end, the plan to use predicates was decided as it will be easy to extend the application with minimal changes in the command.
+Quite a bit of knowledge on how predicates work is also required as there was a need to find out how to combine
+many predicates cleanly so that it is readable and to ensure that it is working correctly.
+There was also a need decide on how I should allow the user to tell the system which of the two types of find command to invoke.
+It was decided in the end to use the same command word and have the type of user input be the way of telling the system
+which type of find to invoke.
+
+* *Minor enhancement*: Add visual display of upcoming application deadlines and interviews and inactive applications
+** **What it does:** This enhancement allows the user to determine which application has deadlines or interviews due in 7 days or if
+there are ghosted application by the color of the internship application in the list.
+Internship applications with upcoming deadline or interview will show green while ghosted applications will show red.
+
+** **Justification:** This enhancement will allow the user to know what is upcoming and what is ghosted/inactive at a quick glance.
+
+** **Highlights:** Figuring out where the code to update the color should go was a challenge.
+Setting it directly in CSS was not possible as I still wanted to keep the odd and even colors for the list.
+When setting it in code, I had to figure out why the style will not revert to the default CSS style, leading to visual bugs.
+The bugs were fixed after some research.
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=ongch00[RepoSense]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+
+** Enhancement to existing features:
+*** Helped with refactoring of Internship Diary from Address Book by adding the model classes and updating DG diagrams
+and text: (PRs: link:{PrURL}22[#22])
+*** Contributed to adding some test cases for various parts of the code to help maintain a coverage of around 75%:
+(PRs: link:{PrURL}30[#30] link:{PrURL}53[#53] link:{PrURL}69[#69] link:{PrURL}85[#85])
+
+** Documentation:
+*** Helped with the refactoring of the developer guide from AB3 to Internship Diary: (PRs: link:{PrURL}20[#20])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): link:{PrURL}32[#32] link:{PrURL}115[#115] link:{PrURL}118[#118]
+link:{PrURL}201[#201]
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=find]
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+include::../DeveloperGuide.adoc[tag=find]
+
+include::../DeveloperGuide.adoc[tag=productSurvey]

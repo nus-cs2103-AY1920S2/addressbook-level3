@@ -3,18 +3,37 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
+skinparam linetype ortho
+
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
-Class StatusBarFooter
 Class CommandBox
+Class EnteredCommandsHistory
+package "Internship Application List" <<Rectangle>> {
+Class InternshipApplicationListPanel
+Class InternshipApplicationCard
+}
+package "Internship Application Detail" <<Rectangle>> {
+Class InternshipApplicationDetail
+Class InternshipApplicationDetailSetter
+Class InterviewListPanel
+Class InterviewCard
+}
+package "Display Footer" <<Rectangle>> {
+Class StatisticsBarFooter
+Class ComparatorDisplayFooter
+Class PredicateDisplayFooter
+Class StatusBarFooter
+}
+package "External Windows" <<Rectangle>> {
+Class HelpWindow
+Class StatisticsWindow
+}
 }
 
 package Model <<Rectangle>> {
@@ -30,31 +49,65 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
+MainWindow -down-> StatisticsWindow
+MainWindow *-right-> ComparatorDisplayFooter
+MainWindow *-right-> StatisticsBarFooter
+MainWindow -down-> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> InternshipApplicationListPanel
+MainWindow *-right-> StatusBarFooter
+MainWindow *-right-> PredicateDisplayFooter
+MainWindow *-down-> InternshipApplicationDetail
+MainWindow *-down-> InternshipApplicationDetailSetter
 
-PersonListPanel -down-> PersonCard
+InternshipApplicationDetail -down-> InterviewListPanel
+InterviewListPanel -down-> InterviewCard
 
-MainWindow -left-|> UiPart
+InternshipApplicationListPanel -down-> InternshipApplicationCard
+
+MainWindow -down-|> UiPart
+
+CommandBox -up-> EnteredCommandsHistory
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+InternshipApplicationListPanel --|> UiPart
+InternshipApplicationCard --|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+StatisticsWindow --|> UiPart
+StatisticsBarFooter--|> UiPart
+ComparatorDisplayFooter --|> UiPart
+PredicateDisplayFooter --|> UiPart
+HelpWindow --|> UiPart
+InternshipApplicationDetail --|> UiPart
+InterviewListPanel --|> UiPart
+InterviewCard --|> UiPart
 
-PersonCard ..> Model
+InternshipApplicationDetailSetter ..> InternshipApplicationDetail
+
+StatisticsBarFooter ..> Model
+StatisticsWindow ..> Model
+PredicateDisplayFooter ..> Model
+ComparatorDisplayFooter ..> Model
+InternshipApplicationCard ..> Model
+InternshipApplicationDetail ..> Model
+InterviewCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
+
+PredicateDisplayFooter -[hidden]up- ComparatorDisplayFooter
+PredicateDisplayFooter -[hidden]left- StatisticsBarFooter
+
+StatisticsBarFooter -[hidden]up- StatisticsWindow
+StatisticsBarFooter -[hidden]left- InternshipApplicationListPanel
+InternshipApplicationListPanel -[hidden]left- ResultDisplay
+
+ResultDisplay -[hidden]up- HelpWindow
 ResultDisplay -[hidden]left- StatusBarFooter
+
+StatusBarFooter -[hidden]up- CommandBox
 
 MainWindow -[hidden]-|> UiPart
 @enduml

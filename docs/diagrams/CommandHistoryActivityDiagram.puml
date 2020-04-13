@@ -1,0 +1,20 @@
+@startuml
+start
+
+while () is ([Application running])
+    :Wait for keypress;
+
+    while () is ([other key pressed])
+    :Handle other
+    key pressed ⋔;
+    :Wait for keypress;
+    endwhile ([key ENTER pressed])
+
+  :Execute command;
+  if () then ([execution successful])
+      :Execution Cleanup ⋔;
+  else ([exception thrown])
+  endif
+endwhile ([else])
+stop
+@enduml

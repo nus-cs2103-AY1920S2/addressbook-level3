@@ -1,0 +1,93 @@
+@startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
+package Model <<Rectangle>> {
+    class InternshipDiary
+    class ModelManager
+}
+
+package UI <<Rectangle>> {
+    class StatisticsWindow
+}
+
+note "PropertyChangeSupport manages a list of listeners" as manageListeners
+PropertyChangeSupport .up[hidden]. manageListeners
+PropertyChangeSupport .up. manageListeners
+
+note "ModelManager observes (listens to)\ndisplayedInternships attribute\nof InternshipDiary" as modelManagerObserves
+modelManagerObserves .up[hidden]. ModelManager
+modelManagerObserves .up. ModelManager
+
+note "StatisticsWindow observes (listens to)\nfilteredInternshipApplications attribute\nof ModelManager" as statisticsWindowObserves
+statisticsWindowObserves .up[hidden]. StatisticsWindow
+statisticsWindowObserves .up. StatisticsWindow
+
+note "Notice that there is no coupling between the\n observables and observers" as N1
+
+
+Class InternshipDiary {
+    - displayedInternships: \nUniqueInternshipApplicationList
+'    - changes: PropertyChangeSupport
+'    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
+'    + firePropertyChange(ListenerPropertyType propertyType, \nObject newValue): void
+}
+
+Class ModelManager implements PropertyChangeListener {
+     - filteredInternshipApplications: \nFilteredList<InternshipApplication>
+'    - changes: PropertyChangeSupport
+'    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
+'    + firePropertyChange(ListenerPropertyType propertyType, Object newValue): void
+    + propertyChange(e: PropertyChangeEvent): void
+'    - refreshFilteredInternshipApplications(Object newInternshipApplications)
+'    - fireAllPropertyChanges(): void
+}
+
+Class StatisticsWindow implements PropertyChangeListener {
+    - internshipApplicationList: \nObservableList<InternshipApplication>
+    + propertyChange(e: PropertyChangeEvent): void
+}
+
+class PropertyChangeListener <<interface>> {
+    propertyChange(e: PropertyChangeEvent): void
+}
+
+class PropertyChangeSupport {
+    + addPropertyChangeListener(propertyName: String, l: PropertyChangeListener)
+    + firePropertyChange(propertyName: String, oldVal: Object, newVal: Object)
+}
+
+InternshipDiary -up-> "1" PropertyChangeSupport
+ModelManager -up-> "1" PropertyChangeSupport
+
+PropertyChangeSupport .right.> PropertyChangeListener
+
+'enum ListenerPropertyType <<enumeration>> {
+'    DISPLAYED_INTERNSHIPS
+'    FILTERED_INTERNSHIP_APPLICATIONS
+'    VIEW_TYPE
+'    COMPARATOR
+'    PREDICATE
+'    DISPLAYED_INTERNSHIP_DETAILS
+'}
+'
+'InternshipDiary ..> ListenerPropertyType
+'ModelManager ..> ListenerPropertyType
+
+'StatisticsWindow -left- ModelManager: observes\n (listens to) >
+'
+'ModelManager -left- InternshipDiary: observes\n (listens to) >
+
+'        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, internshipApplicationListPanel);
+'        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsWindow);
+'        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsBarFooter);
+'        logic.addPropertyChangeListener(COMPARATOR, comparatorDisplayFooter);
+'        logic.addPropertyChangeListener(PREDICATE, predicateDisplayFooter);
+'        logic.addPropertyChangeListener(PREDICATE, internshipApplicationDetailSetter);
+'        logic.addPropertyChangeListener(VIEW_TYPE, viewDisplayFooter);
+'        logic.addPropertyChangeListener(DISPLAYED_INTERNSHIP_DETAIL, internshipApplicationDetailSetter);
+
+
+
+@enduml

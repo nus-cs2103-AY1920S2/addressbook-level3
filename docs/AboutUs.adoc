@@ -4,53 +4,94 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+Internship Diary is developed by the https://github.com/AY1920S2-CS2103T-F10-2/main[AY1920S2-CS2103T-F10-2] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Ong Choon Han
+image::ongch00.png[width="150", align="left"]
+{empty}[https://github.com/ongch00[github]] [<<ongch00#, portfolio>>]
 
-Role: Project Advisor
+Role:
 
-'''
+* Product Management
+* Developer
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+Responsibilities:
 
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Data
+* Find Command
+* Highlight for Upcoming and Ghosted Internship Applications
+* Application Release Management
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Ong Wei Xiang
+image::wxwxwxwx9.png[width="150", align="left"]
+{empty}[http://github.com/wxwxwxwx9[github]] [<<wxwxwxwx9#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role:
+
+* Quality Assurance
+* Developer
+
+Responsibilities:
+
+* Archival System
+* Observer Pattern
+* Multi-Execution Types for Removal-Based Commands
+* Statistics / Metrics Dashboard
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Chan Ger Hean
+image::female_student_happy.png[width="150", align="left"]
+{empty}[https://gerhean.github.io/[homepage]][http://github.com/gerhean[github]] [<<gerhean#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role:
+
+* Technical Lead
+* Developer
+
+Responsibilities:
+
+* Sort Command
+* Clear Command
+* Command History
+* Sort/Find Display Footer
+
+'''
+
+=== Felicia Tay Wan Yee
+image::feliciatay.png[width="150", align="left"]
+{empty}[https://github.com/FeliciaTay[github]] [<<feliciatay#, portfolio>>]
+
+Role:
+
+* Documentation Lead
+* Developer
+
+Responsibilities:
+
+* Reminder Command
+* Display of Last Stage before Internship Application was Ghosted or Rejected
+
+'''
+
+=== Foo Chi Fa
+image::foochifa.png[width="150", align="left"]
+{empty}[http://github.com/foochifa[github]] [<<foochifa#, portfolio>>]
+
+Role:
+
+* Project Management
+* Developer
+
+Responsibilities:
+
+* Interview Classes and Interview Command
+* Internship Application Detail Panel and Select Command
+* Milestone and Issues Coordination
 
 '''

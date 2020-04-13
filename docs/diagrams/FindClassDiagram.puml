@@ -1,0 +1,56 @@
+@startuml
+
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+Class FindCommandParser {
+
+}
+
+Class FindCommand {
+
+}
+
+Class Predicate <InternshipApplication> <<interface>> {
+    + test(InternshipApplication) : boolean
+    + and(Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
+    + or(Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
+    + toString(): String
+}
+
+Class CustomToStringPredicate {
+
+}
+
+Class XYZPredicate {
+
+}
+
+note as N1
+         This Predicate interface is the default
+  java.util.function.Predicate functional interface
+end note
+
+note as N2
+                  XYZPredicate = CompanyContainsKeywordsPredicate,
+    RoleContainsKeywordsPredicate, AddressContainsKeywordsPredicate,
+     PhoneContainsNumbersPredicate, EmailContainsKeywordsPredicate,
+      ApplicationDateIsDatePredicate, PriorityContainsNumbersPredicate
+                               or StatusContainsKeywordsPredicate
+end note
+
+N1 .left. Predicate
+N2 .. XYZPredicate
+FindCommandParser .right.> XYZPredicate : creates >
+FindCommandParser ..> Predicate
+FindCommandParser .left.> FindCommand : creates >
+FindCommand ---> "*" Predicate : uses >
+FindCommand .left.> CustomToStringPredicate
+XYZPredicate ..|> Predicate
+CustomToStringPredicate ..|> Predicate
+
+CustomToStringPredicate -[hidden]right-> Predicate
+
+@enduml

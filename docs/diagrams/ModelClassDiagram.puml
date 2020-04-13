@@ -5,52 +5,69 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
-Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Interface ReadOnlyInternshipDiary <<interface>>
+Interface Model <<interface>>
+Interface ObservableList <<interface>>
+Class InternshipDiary
+Class ReadOnlyInternshipDiary
 Class Model
 Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs
+Class ReadOnlyUserPrefs <<interface>>
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Statistics {
+Class Statistics
 }
 
-Package Tag {
-Class Tag
+Package InternshipApplication {
+Class InternshipApplication
+Class Address
+Class Email
+Class Role
+Class Phone
+Class Company
+Class ApplicationDate
+Class UniqueInternshipApplicationList
+Class Priority
+Package Interview {
+Abstract Class Interview
+}
+}
+
+Package Status {
+Class Status <<enumeration>>
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+InternshipDiary .up.|> ReadOnlyInternshipDiary
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" InternshipDiary
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+InternshipDiary *--> "1" UniqueInternshipApplicationList
+UniqueInternshipApplicationList o--> "*" InternshipApplication
+InternshipApplication *--> "1" Company
+InternshipApplication *--> "1" Role
+InternshipApplication *--> "1" Address
+InternshipApplication *--> "1" Phone
+InternshipApplication *--> "1" Email
+InternshipApplication *--> "1" ApplicationDate
+InternshipApplication *--> "1" Priority
+InternshipApplication *--> "*" Interview
+InternshipApplication *-> "2" Status
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Company -[hidden]right-> Role
+Role -[hidden]right-> Address
+Address -[hidden]right-> Phone
+Phone -[hidden]right-> Email
 
-ModelManager -->"1" Person : filtered list
+
+ModelManager --> InternshipApplication
+ModelManager -right-> "1" Statistics
 @enduml

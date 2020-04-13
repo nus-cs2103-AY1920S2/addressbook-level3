@@ -1,0 +1,120 @@
+= Chan Ger Hean - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:prURL: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/
+:ugURL: https://ay1920s2-cs2103t-f10-2.github.io/main/UserGuide.html
+:dgURL: https://ay1920s2-cs2103t-f10-2.github.io/main/DeveloperGuide.html
+
+== PROJECT: Internship Diary
+
+---
+
+== Overview
+
+Internship Diary is a desktop-based internship application tracking software. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+
+The fact that the graduation requirements for Computer Science is at least 6 months of internship continuously haunts
+the minds of every Computer Science student yet to complete this requirement. In order to aid in reducing the stress
+of such students, we came up with the idea of the Internship Diary.
+
+== Summary of contributions
+
+* *Major enhancement*: Added *the ability to sort internship applications*.
+(PR link:{prURL}71[#71], link:{prURL}113[#113], link:{prURL}199[#199])
+** What it does: Sorts internship applications by field.
+** Justification: This feature improves the product significantly as users can better manage their internship application list.
+This is a basic feature which every organizer app need to have.
+** **Highlights:** This enhancement was not very hard to implement, but a lot of effort went into thinking about how
+to make it more extendable.
+** **What could be improved:** CliSyntax should have been refactored into an Enum. This would have allowed for
+a very simple switch statement implementation.
+
+* *Minor enhancement*: Added CommandBox history.
+(PR link:{prURL}101[#101])
+** What it does: Users can navigate to previous commands using up and down keys.
+** Justification: Allows users to access similar past commands.
+Also speeds up testing considerably.
+** **Highlights:** The motivation of this enhancement was originally to make manual testing much simpler. At first the command history
+was done directly on the CommandBox class, but I ended up abstracting the code into its own class. I also spent some time
+on deciding the data structure to store the command history, but i realised that a lot of my worries was over constant time
+performance differences, so I simply used the data structure (Linked List) which was already implemented in Java default libraries with
+all the functionality I needed.
+
+* *Minor enhancement*: Added display of what the current list is sorted or filtered by.
+(PR link:{prURL}114[#114]])
+** Justification: This feature is a nice visual indication as to what a list is sorted or filtered by.
+** **Highlights:** Thought very long about how to best pass the description of the comparator or predicate without
+adding too many new methods. In the end I just settled on overriding the `toString` method, directly or by using a wrapper class.
+Although it feels very crude, but it is simple and easy to extend to future commands which may involve changing the
+Comparator or Predicate.
+
+* *Minor enhancement*: Added DateTimeUtil to better parse dates.
+(PR link:{prURL}104[#104])
+** What it does: Allows application to parse date inputs formatted in different formats.
+** Justification: Gives users more freedom as to how they want to enter dates.
+
+* *Code contributed*:
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gerhean[tP Code Dashboard]
+
+* *Other contributions*:
+
+** Project management:
+*** Standardised the Intellij IDEA code formatter, in order to make the code base more uniform and to meet the checkstyle requirements (PR link:{prURL}221[#221]).
+
+** Review/mentoring contributions:
+*** Was the main technical adviser, and suggested implementation methods for several features.
+(PR link:{prURL}82[#82], link:{prURL}118[#118], link:{prURL}216[#216])
+
+** Enhancements to existing features:
+*** Prettified the help window.
+(PR link:{prURL}73[#73])
+*** Allowed certain prefixes to be optional.
+(PR link:{prURL}84[#84])
+*** Added confirmation prompt for clear command.
+(PR link:{prURL}98[#98])
+*** Implemented Enums for Listener System.
+(PR link:{prURL}125[#125])
+*** Change Implementation of DisplayInternshipDetails to Listener System.
+(PR link:{prURL}198[#198])
+
+** Helped with refactoring of Internship Diary from Address Book by updating the storage classes
+(PR link:{prURL}33[#33], link:{prURL}50[#50])
+and updating DG diagrams and text.
+
+** Community:
+*** Contributed to forum discussions (examples:
+https://github.com/nus-cs2103-AY1920S2/forum/issues/74[1]
+)
+
+** Contributions to team-based tasks :
+*** Renamed project folder from `address` to `diary`.
+*** Set up GitHub, Travis CI, Coveralls and Codacy
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+link:{ugURL}#sorting-internship-companies-by-field-code-sort-code[4.11. Sorting internship companies by field: sort]
+
+link:{ugURL}#fields[3.2. Structure of internship application]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+link:{dgURL}#sort-command[4.1. Sort command]
+
+link:{dgURL}#clear-command[4.2. Clear command]
+
+link:{dgURL}#command-history[4.3. Command History]
+
+link:{dgURL}#use-cases[Use case: UC11 - Sort Internship Application]
+
+link:{dgURL}#use-cases[Use case: UC17 - Clear Command]
+
+link:{dgURL}#sorting-the-list-of-internship-applications[G.13. Sorting the list of internship applications]
