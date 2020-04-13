@@ -63,20 +63,14 @@ Navigate around NASA using the following keyboard shortcuts.
 |Shortcut
 |Action
 
-|Ctrl + Z
-|Undo last action.
-
-|Ctrl + Shift + Z
-|Redo last action.
-
 |Tab
-|Switch between tabs.
+|Switch between tabs
 
 |Up arrow key
-|View previous command.
+|View previous command
 
 |Down arrow key
-|View next command.
+|View next command
 |===
 
 
